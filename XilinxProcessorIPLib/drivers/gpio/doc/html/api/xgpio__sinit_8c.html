@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpio__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,21 @@ $(document).ready(function(){initNavTree('xgpio__sinit_8c.html','');});
 <div class="title">xgpio_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static initialization functionality of the <a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+2.01a jvb  10/13/05 First release
+2.11a mta  03/21/07 Updated to new coding style
+4.0   sha  07/15/15 Defined macro XPAR_XGPIO_NUM_INSTANCES if not
+              defined in xparameters.h
+4.10  gm   07/11/23 Added SDT support.
+4.13  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+4.14  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xgpio__i_8h.html">xgpio_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
@@ -119,10 +133,10 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga5f931df205651784cd60091a3775fb4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_gpio___config.html">XGpio_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga5f931df205651784cd60091a3775fb4c">XGpio_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga5f931df205651784cd60091a3775fb4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__gpio__api.html#ga5f931df205651784cd60091a3775fb4c">More...</a><br/></td></tr>
+<tr class="memdesc:ga5f931df205651784cd60091a3775fb4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration by device ID or base address.  <a href="group__gpio__api.html#ga5f931df205651784cd60091a3775fb4c">More...</a><br/></td></tr>
 <tr class="separator:ga5f931df205651784cd60091a3775fb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5b6948513889f043a40494dba1904828"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga5b6948513889f043a40494dba1904828">XGpio_Initialize</a> (<a class="el" href="struct_x_gpio.html">XGpio</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga5b6948513889f043a40494dba1904828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="struct_x_gpio.html" title="The XGpio driver instance data. ">XGpio</a> instance provided by the caller based on the device ID/BaseAddress.  <a href="group__gpio__api.html#ga5b6948513889f043a40494dba1904828">More...</a><br/></td></tr>
+<tr class="memdesc:ga5b6948513889f043a40494dba1904828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a> instance by device ID or base address.  <a href="group__gpio__api.html#ga5b6948513889f043a40494dba1904828">More...</a><br/></td></tr>
 <tr class="separator:ga5b6948513889f043a40494dba1904828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

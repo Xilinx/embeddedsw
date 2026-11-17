@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1a1f297fa0ed983778047000e20bfacc2d" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="51" bodyend="-1"/>
         <referencedby refid="xv__csc_8h_1a7d1bf5c029b6abffdda8a20fb976b1a3" compoundref="xv__csc_8c" startline="44" endline="59">XV_csc_CfgInitialize</referencedby>
         <referencedby refid="xv__csc_8h_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</referencedby>
         <referencedby refid="xv__csc_8h_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</referencedby>
@@ -68,7 +68,7 @@
         <referencedby refid="xv__csc_8h_1a477a37e00231d7173258fc57d86a0a93" compoundref="xv__csc_8c" startline="524" endline="532">XV_csc_Get_HwReg_RowEnd</referencedby>
         <referencedby refid="xv__csc_8h_1a1be2750d8f4806b9f5e71af55ede8d26" compoundref="xv__csc_8c" startline="485" endline="493">XV_csc_Get_HwReg_RowStart</referencedby>
         <referencedby refid="xv__csc_8h_1ad890d086dca06e33581d16e10d0826f2" compoundref="xv__csc_8c" startline="320" endline="328">XV_csc_Get_HwReg_width</referencedby>
-        <referencedby refid="xv__csc__sinit_8c_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="136" endline="150">XV_csc_Initialize</referencedby>
+        <referencedby refid="xv__csc__sinit_8c_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="69" endline="83">XV_csc_Initialize</referencedby>
         <referencedby refid="xv__csc_8h_1aca45147d34961b4d866d6a15d4fa190c" compoundref="xv__csc_8c" startline="1507" endline="1512">XV_csc_InterruptClear</referencedby>
         <referencedby refid="xv__csc_8h_1a08c4f1066698a587c5c308423fa26627" compoundref="xv__csc_8c" startline="1489" endline="1497">XV_csc_InterruptDisable</referencedby>
         <referencedby refid="xv__csc_8h_1af54ab89dd3a75bc9b9fcd4818a98bb10" compoundref="xv__csc_8c" startline="1461" endline="1469">XV_csc_InterruptEnable</referencedby>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1a45a29ef0e53c3b32c36a1d1d84da09f7" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -142,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1ac726cfda193ab80713581e14b83b4afc" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1a94368eb966ae81f21770476282597fd3" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -168,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1ad1965338b1aaf96200264f983f4f3c73" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -181,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1a02fd99beb1c743e251415977882ac1c3" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -194,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__csc___config_1ae2f70c48ba700259030d3c1068caf169" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -207,14 +207,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains configuration information for the CSC core. </para>    </briefdescription>
     <detaileddescription>
 <para>Each core instance should have a configuration structure associated. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="49" bodyend="63"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="49" bodyend="59"/>
     <listofallmembers>
       <member refid="struct_x_v__csc___config_1a1f297fa0ed983778047000e20bfacc2d" prot="public" virt="non-virtual"><scope>XV_csc_Config</scope><name>BaseAddress</name></member>
       <member refid="struct_x_v__csc___config_1a02fd99beb1c743e251415977882ac1c3" prot="public" virt="non-virtual"><scope>XV_csc_Config</scope><name>Is420Enabled</name></member>

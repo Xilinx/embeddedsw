@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_mbox_pair_1ac666fae1aaa2f84478e38af876a6927f" prot="public" static="no" mutable="no">
         <type>MboxCoreId</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Mailbox pair for allocation order. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="60" bodyend="63"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="60" bodyend="63"/>
     <listofallmembers>
       <member refid="struct_mbox_pair_1ac666fae1aaa2f84478e38af876a6927f" prot="public" virt="non-virtual"><scope>MboxPair</scope><name>receiver</name></member>
       <member refid="struct_mbox_pair_1a1a5065f06aabdd970e9a91a6aab852a5" prot="public" virt="non-virtual"><scope>MboxPair</scope><name>sender</name></member>

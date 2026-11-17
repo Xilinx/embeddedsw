@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xusb__dma__intr__storage_8c.html','');
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_dma_intr_storage.c File Reference</div>  </div>
 </div><!--header-->
@@ -122,8 +124,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.03a bss  02/05/13 Updated the example to support Zynq
 5.6   pm   07/05/23 Removed powerpc support.
 5.6   pm   07/05/23 Added support for system device-tree flow.
+5.7   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
+                (CR-1276275).
+5.7   sm   10/01/26 Reject out-of-range SCSI READ/WRITE through
+                <a class="el" href="xusb__msc_8c.html" title="This file contains the mass-storage class helpers used by the mass-storage examples. ">xusb_msc.c</a>. Record ResponseSent only after the
+                CSW send succeeds. Clear the CSW status and
+                residue for each command.
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xusb_8h.html">xusb.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusb__storage_8h.html">xusb_storage.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xusb__msc_8h.html">xusb_msc.h</a>&quot;</code><br/>
 <code>#include &quot;xenv_standalone.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
@@ -131,6 +140,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aefa4ad5f4ff688e721810f9196df660e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#aefa4ad5f4ff688e721810f9196df660e">READ_COMMAND</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:aefa4ad5f4ff688e721810f9196df660e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read command flag indicator.  <a href="#aefa4ad5f4ff688e721810f9196df660e">More...</a><br/></td></tr>
+<tr class="separator:aefa4ad5f4ff688e721810f9196df660e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1953a1338ab589f5dd289a90a904bec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#ad1953a1338ab589f5dd289a90a904bec">WRITE_COMMAND</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ad1953a1338ab589f5dd289a90a904bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write command flag indicator.  <a href="#ad1953a1338ab589f5dd289a90a904bec">More...</a><br/></td></tr>
+<tr class="separator:ad1953a1338ab589f5dd289a90a904bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a20c10bb6c0fae679e5f4309d4f82e8a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr)</td></tr>
@@ -146,36 +164,120 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This main function starts the USB application.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a3b40155d0d9fa44133905dd9f6f02ee7">InitUsbInterface</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the USB initialization function.  <a href="#a3b40155d0d9fa44133905dd9f6f02ee7">More...</a><br/></td></tr>
+<tr class="memdesc:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the USB interface configuration and descriptors.  <a href="#a3b40155d0d9fa44133905dd9f6f02ee7">More...</a><br/></td></tr>
 <tr class="separator:a3b40155d0d9fa44133905dd9f6f02ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a8bd3ecc4e2acd07b864ea2392a0394f4">UsbIfIntrHandler</a> (void *CallBackRef, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB mass storage device application.  <a href="#a8bd3ecc4e2acd07b864ea2392a0394f4">More...</a><br/></td></tr>
+<tr class="memdesc:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB interface interrupt handler for device-level events.  <a href="#a8bd3ecc4e2acd07b864ea2392a0394f4">More...</a><br/></td></tr>
 <tr class="separator:a8bd3ecc4e2acd07b864ea2392a0394f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a243967b329b332dc3503adfc2950fceb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a243967b329b332dc3503adfc2950fceb">Ep0IntrHandler</a> (void *CallBackRef, u8 EpNum, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a243967b329b332dc3503adfc2950fceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB End point Zero events.  <a href="#a243967b329b332dc3503adfc2950fceb">More...</a><br/></td></tr>
+<tr class="memdesc:a243967b329b332dc3503adfc2950fceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB endpoint 0 interrupt handler for control transfers.  <a href="#a243967b329b332dc3503adfc2950fceb">More...</a><br/></td></tr>
 <tr class="separator:a243967b329b332dc3503adfc2950fceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a386bfc503aaebdfd92028284d6fb63f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler</a> (void *CallBackRef, u8 EpNum, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a386bfc503aaebdfd92028284d6fb63f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB End point one events.  <a href="#a386bfc503aaebdfd92028284d6fb63f0">More...</a><br/></td></tr>
+<tr class="memdesc:a386bfc503aaebdfd92028284d6fb63f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB endpoint 1 interrupt handler for bulk-in transfers.  <a href="#a386bfc503aaebdfd92028284d6fb63f0">More...</a><br/></td></tr>
 <tr class="separator:a386bfc503aaebdfd92028284d6fb63f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6030c0dc187b2ca30a157d5c12fb3101"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler</a> (void *CallBackRef, u8 EpNum, u32 IntrStatus)</td></tr>
-<tr class="memdesc:a6030c0dc187b2ca30a157d5c12fb3101"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the USB End point two events.  <a href="#a6030c0dc187b2ca30a157d5c12fb3101">More...</a><br/></td></tr>
+<tr class="memdesc:a6030c0dc187b2ca30a157d5c12fb3101"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB endpoint 2 interrupt handler for bulk-out transfers.  <a href="#a6030c0dc187b2ca30a157d5c12fb3101">More...</a><br/></td></tr>
 <tr class="separator:a6030c0dc187b2ca30a157d5c12fb3101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa4db21dc45028300278c1c09cf97719"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:aaa4db21dc45028300278c1c09cf97719"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function processes mass storage specific commands and sends the required response.  <a href="#aaa4db21dc45028300278c1c09cf97719">More...</a><br/></td></tr>
+<tr class="memdesc:aaa4db21dc45028300278c1c09cf97719"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes received SCSI commands from the host.  <a href="#aaa4db21dc45028300278c1c09cf97719">More...</a><br/></td></tr>
 <tr class="separator:aaa4db21dc45028300278c1c09cf97719"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3bc2a29a012dcb0b3c4afc5d2ed2843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)</td></tr>
-<tr class="memdesc:aa3bc2a29a012dcb0b3c4afc5d2ed2843"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the transmission of data from the device to the READ request from the USB Host.  <a href="#aa3bc2a29a012dcb0b3c4afc5d2ed2843">More...</a><br/></td></tr>
+<tr class="memitem:aa3bc2a29a012dcb0b3c4afc5d2ed2843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr, <a class="el" href="xusb__storage_8h.html#afe420019b7929797acfecce0aadb24cf">PUSBCBW</a> pCmdBlock, <a class="el" href="xusb__storage_8h.html#a2613fe2c121800feec748681c84bb46d">PUSBCSW</a> pStatusBlock)</td></tr>
+<tr class="memdesc:aa3bc2a29a012dcb0b3c4afc5d2ed2843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles SCSI READ(10) command.  <a href="#aa3bc2a29a012dcb0b3c4afc5d2ed2843">More...</a><br/></td></tr>
 <tr class="separator:aa3bc2a29a012dcb0b3c4afc5d2ed2843"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7e4e799fabb2ebbea49a1eafd6625c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#ac7e4e799fabb2ebbea49a1eafd6625c8">Write10</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)</td></tr>
-<tr class="memdesc:ac7e4e799fabb2ebbea49a1eafd6625c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the reception of data in the USB device for the write request from the USB Host.  <a href="#ac7e4e799fabb2ebbea49a1eafd6625c8">More...</a><br/></td></tr>
+<tr class="memitem:ac7e4e799fabb2ebbea49a1eafd6625c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#ac7e4e799fabb2ebbea49a1eafd6625c8">Write10</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr, <a class="el" href="xusb__storage_8h.html#afe420019b7929797acfecce0aadb24cf">PUSBCBW</a> pCmdBlock, <a class="el" href="xusb__storage_8h.html#a2613fe2c121800feec748681c84bb46d">PUSBCSW</a> pStatusBlock)</td></tr>
+<tr class="memdesc:ac7e4e799fabb2ebbea49a1eafd6625c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles SCSI WRITE(10) command.  <a href="#ac7e4e799fabb2ebbea49a1eafd6625c8">More...</a><br/></td></tr>
 <tr class="separator:ac7e4e799fabb2ebbea49a1eafd6625c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad696da140ceb6e98f34ca83a0de9b2a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#ad696da140ceb6e98f34ca83a0de9b2a6">MassStorageReset</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ad696da140ceb6e98f34ca83a0de9b2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine is called when a RESET class command is received.  <a href="#ad696da140ceb6e98f34ca83a0de9b2a6">More...</a><br/></td></tr>
+<tr class="memdesc:ad696da140ceb6e98f34ca83a0de9b2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles USB mass storage class reset request.  <a href="#ad696da140ceb6e98f34ca83a0de9b2a6">More...</a><br/></td></tr>
 <tr class="separator:ad696da140ceb6e98f34ca83a0de9b2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58677e910a98e950bd94400b386584e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a58677e910a98e950bd94400b386584e0">GetMaxLUN</a> (<a class="el" href="struct_x_usb.html">XUsb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a58677e910a98e950bd94400b386584e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine is called when a GETMAXLUN class command is received.  <a href="#a58677e910a98e950bd94400b386584e0">More...</a><br/></td></tr>
+<tr class="memdesc:a58677e910a98e950bd94400b386584e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles USB GET MAX LUN class request.  <a href="#a58677e910a98e950bd94400b386584e0">More...</a><br/></td></tr>
 <tr class="separator:a58677e910a98e950bd94400b386584e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a62cef26eb4d9076d0888c81106bf2146"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb.html">XUsb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a62cef26eb4d9076d0888c81106bf2146">UsbInstance</a></td></tr>
+<tr class="memdesc:a62cef26eb4d9076d0888c81106bf2146"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device instance.  <a href="#a62cef26eb4d9076d0888c81106bf2146">More...</a><br/></td></tr>
+<tr class="separator:a62cef26eb4d9076d0888c81106bf2146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0184f31affcf6284ad838ccaac7e67cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb___config.html">XUsb_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a0184f31affcf6284ad838ccaac7e67cb">UsbConfigPtr</a></td></tr>
+<tr class="memdesc:a0184f31affcf6284ad838ccaac7e67cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the USB configuration structure.  <a href="#a0184f31affcf6284ad838ccaac7e67cb">More...</a><br/></td></tr>
+<tr class="separator:a0184f31affcf6284ad838ccaac7e67cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bed40faee8bf08c610c37ce2d0ddee0"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a0bed40faee8bf08c610c37ce2d0ddee0">CmdFlag</a> = 0</td></tr>
+<tr class="memdesc:a0bed40faee8bf08c610c37ce2d0ddee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating a SCSI command is pending.  <a href="#a0bed40faee8bf08c610c37ce2d0ddee0">More...</a><br/></td></tr>
+<tr class="separator:a0bed40faee8bf08c610c37ce2d0ddee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea24a58e3829be235b669756b1980dcf"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#aea24a58e3829be235b669756b1980dcf">FirstPkt</a> = 0</td></tr>
+<tr class="memdesc:aea24a58e3829be235b669756b1980dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating the first packet of a read response.  <a href="#aea24a58e3829be235b669756b1980dcf">More...</a><br/></td></tr>
+<tr class="separator:aea24a58e3829be235b669756b1980dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c8f2bd88e52421cdd12d857c424eee"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a22c8f2bd88e52421cdd12d857c424eee">WrRamDiskPtr</a></td></tr>
+<tr class="memdesc:a22c8f2bd88e52421cdd12d857c424eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the write RAM disk buffer.  <a href="#a22c8f2bd88e52421cdd12d857c424eee">More...</a><br/></td></tr>
+<tr class="separator:a22c8f2bd88e52421cdd12d857c424eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f50a0732c58bca25e6b8606fab0266"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#ab2f50a0732c58bca25e6b8606fab0266">RdRamDiskPtr</a></td></tr>
+<tr class="memdesc:ab2f50a0732c58bca25e6b8606fab0266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the read RAM disk buffer.  <a href="#ab2f50a0732c58bca25e6b8606fab0266">More...</a><br/></td></tr>
+<tr class="separator:ab2f50a0732c58bca25e6b8606fab0266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9da1b8e3e706a5c1451b6fc1221d7c3f"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a9da1b8e3e706a5c1451b6fc1221d7c3f">RdIndex</a> = 0</td></tr>
+<tr class="memdesc:a9da1b8e3e706a5c1451b6fc1221d7c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current read index into the RAM disk.  <a href="#a9da1b8e3e706a5c1451b6fc1221d7c3f">More...</a><br/></td></tr>
+<tr class="separator:a9da1b8e3e706a5c1451b6fc1221d7c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b56ae8d7870abac9b69f6be89efaa48"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a7b56ae8d7870abac9b69f6be89efaa48">WrIndex</a> = 0</td></tr>
+<tr class="memdesc:a7b56ae8d7870abac9b69f6be89efaa48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current write index into the RAM disk.  <a href="#a7b56ae8d7870abac9b69f6be89efaa48">More...</a><br/></td></tr>
+<tr class="separator:a7b56ae8d7870abac9b69f6be89efaa48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fcb97d0d7dd7b88c55c611b8dab7935"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a5fcb97d0d7dd7b88c55c611b8dab7935">TxDmaTransfer</a> = FALSE</td></tr>
+<tr class="memdesc:a5fcb97d0d7dd7b88c55c611b8dab7935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating transmit DMA transfer in progress.  <a href="#a5fcb97d0d7dd7b88c55c611b8dab7935">More...</a><br/></td></tr>
+<tr class="separator:a5fcb97d0d7dd7b88c55c611b8dab7935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac34e81bb3c5473f595c79060bd4fa0b1"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#ac34e81bb3c5473f595c79060bd4fa0b1">RxDmaTransfer</a> = FALSE</td></tr>
+<tr class="memdesc:ac34e81bb3c5473f595c79060bd4fa0b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating receive DMA transfer in progress.  <a href="#ac34e81bb3c5473f595c79060bd4fa0b1">More...</a><br/></td></tr>
+<tr class="separator:ac34e81bb3c5473f595c79060bd4fa0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6160da95e92ce968d750c1d1d97faa53"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a6160da95e92ce968d750c1d1d97faa53">ResponseSent</a> = FALSE</td></tr>
+<tr class="memdesc:a6160da95e92ce968d750c1d1d97faa53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating command response sent.  <a href="#a6160da95e92ce968d750c1d1d97faa53">More...</a><br/></td></tr>
+<tr class="separator:a6160da95e92ce968d750c1d1d97faa53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dfc62201c9c9939b786c019f6dd4101"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a2dfc62201c9c9939b786c019f6dd4101">SendStatus</a> = FALSE</td></tr>
+<tr class="memdesc:a2dfc62201c9c9939b786c019f6dd4101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating send status active.  <a href="#a2dfc62201c9c9939b786c019f6dd4101">More...</a><br/></td></tr>
+<tr class="separator:a2dfc62201c9c9939b786c019f6dd4101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d1a70b8f5adc3b41f2561dc9c53128"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a61d1a70b8f5adc3b41f2561dc9c53128">RdResponseSent</a> = FALSE</td></tr>
+<tr class="memdesc:a61d1a70b8f5adc3b41f2561dc9c53128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating read response sent.  <a href="#a61d1a70b8f5adc3b41f2561dc9c53128">More...</a><br/></td></tr>
+<tr class="separator:a61d1a70b8f5adc3b41f2561dc9c53128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c1319882c5114b5c2b4c347f1a3bb21"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a6c1319882c5114b5c2b4c347f1a3bb21">WrDataPhase</a> = FALSE</td></tr>
+<tr class="memdesc:a6c1319882c5114b5c2b4c347f1a3bb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating write data phase active.  <a href="#a6c1319882c5114b5c2b4c347f1a3bb21">More...</a><br/></td></tr>
+<tr class="separator:a6c1319882c5114b5c2b4c347f1a3bb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a167caceb4d9425175bb9cf440376b7"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a7a167caceb4d9425175bb9cf440376b7">TwoRxInterrupts</a> = FALSE</td></tr>
+<tr class="memdesc:a7a167caceb4d9425175bb9cf440376b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating two RX interrupts occurred.  <a href="#a7a167caceb4d9425175bb9cf440376b7">More...</a><br/></td></tr>
+<tr class="separator:a7a167caceb4d9425175bb9cf440376b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a764ac3a474dcdc123589cd67b3f1efd9"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__dma__intr__storage_8c.html#a764ac3a474dcdc123589cd67b3f1efd9">TwoTxInterrupts</a> = FALSE</td></tr>
+<tr class="memdesc:a764ac3a474dcdc123589cd67b3f1efd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating two TX interrupts occurred.  <a href="#a764ac3a474dcdc123589cd67b3f1efd9">More...</a><br/></td></tr>
+<tr class="separator:a764ac3a474dcdc123589cd67b3f1efd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="aefa4ad5f4ff688e721810f9196df660e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define READ_COMMAND&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read command flag indicator. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, <a class="el" href="xusb__storage_8c.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>, and <a class="el" href="xusb__storage_8h.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad1953a1338ab589f5dd289a90a904bec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WRITE_COMMAND&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write command flag indicator. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>, <a class="el" href="xusb__storage__polled__mode_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="xusb__storage_8h.html#ac7e4e799fabb2ebbea49a1eafd6625c8">Write10()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="aaa76bf2e4a9d18c6362bdf783a067da6"></a>
 <div class="memitem">
@@ -204,15 +306,13 @@ Functions</h2></td></tr>
 <p>This function is the interrupt handler for the USB DMA events. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>, <a class="el" href="struct_x_usb___device_config.html#a39868eeb033b4118b6e80f11a819d79c">XUsb_DeviceConfig::Status</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>, <a class="el" href="group__usb.html#gaa04141505aefe8349756ab664507892c">XUSB_DISCONNECTED</a>, <a class="el" href="group__usb.html#gabf09f948bc604c279cb0a12bba14057b">XUsb_EpDataSend()</a>, <a class="el" href="group__usb.html#ga0af96b0d4a531a296fcad1bf5ec8c41f">XUSB_STATUS_DMA_DONE_MASK</a>, and <a class="el" href="group__usb.html#ga114887e7b719e7c16785eb0aa38ba904">XUSB_STATUS_DMA_ERROR_MASK</a>.</p>
+<p>References <a class="el" href="xusb__dma__intr__storage_8c.html#a0bed40faee8bf08c610c37ce2d0ddee0">CmdFlag</a>, <a class="el" href="xusb__storage_8h.html#a69a02290348febc327a4cc627a4cd1a3">CmdStatusBlock</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#aefa4ad5f4ff688e721810f9196df660e">READ_COMMAND</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a6160da95e92ce968d750c1d1d97faa53">ResponseSent</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#ac34e81bb3c5473f595c79060bd4fa0b1">RxDmaTransfer</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a2dfc62201c9c9939b786c019f6dd4101">SendStatus</a>, <a class="el" href="struct_x_usb___device_config.html#a39868eeb033b4118b6e80f11a819d79c">XUsb_DeviceConfig::Status</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a7a167caceb4d9425175bb9cf440376b7">TwoRxInterrupts</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a764ac3a474dcdc123589cd67b3f1efd9">TwoTxInterrupts</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a5fcb97d0d7dd7b88c55c611b8dab7935">TxDmaTransfer</a>, <a class="el" href="xusb__storage_8h.html#a4d1bc5b4f4182ff132454f7f4ab69e78">USBCSW_LENGTH</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a6c1319882c5114b5c2b4c347f1a3bb21">WrDataPhase</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#ad1953a1338ab589f5dd289a90a904bec">WRITE_COMMAND</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>, <a class="el" href="group__usb.html#gaa04141505aefe8349756ab664507892c">XUSB_DISCONNECTED</a>, <a class="el" href="group__usb.html#gabf09f948bc604c279cb0a12bba14057b">XUsb_EpDataSend()</a>, <a class="el" href="group__usb.html#ga0af96b0d4a531a296fcad1bf5ec8c41f">XUSB_STATUS_DMA_DONE_MASK</a>, and <a class="el" href="group__usb.html#ga114887e7b719e7c16785eb0aa38ba904">XUSB_STATUS_DMA_ERROR_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
@@ -248,17 +348,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the USB End point Zero events. </p>
+<p>USB endpoint 0 interrupt handler for control transfers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt. handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point zero. This parameter is useful when a single handler is used for processing all end point interrupts. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="xusb__keyboard_8c.html#a8882fbbb39100578edb3cd06a935ada6">UsbKbdExample()</a>, and <a class="el" href="xusb__mouse_8c.html#a6e79a835f2be08e5725fd210740126f0">UsbMouseExample()</a>.</p>
 
@@ -294,17 +392,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the USB End point one events. </p>
+<p>USB endpoint 1 interrupt handler for bulk-in transfers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point one. This parameter is useful when a single handler is used for processing all end point interrupts. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="xusb__keyboard_8c.html#a8882fbbb39100578edb3cd06a935ada6">UsbKbdExample()</a>, and <a class="el" href="xusb__mouse_8c.html#a6e79a835f2be08e5725fd210740126f0">UsbMouseExample()</a>.</p>
 
@@ -340,17 +436,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the USB End point two events. </p>
+<p>USB endpoint 2 interrupt handler for bulk-out transfers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the end point number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>EpNum is not used in this function as the handler is attached specific to end point two. This parameter is useful when a single handler is used for processing all end point interrupts. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
@@ -370,15 +464,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This routine is called when a GETMAXLUN class command is received. </p>
+<p>Handles USB GET MAX LUN class request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance of the controller.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__storage_8h.html#a243967b329b332dc3503adfc2950fceb">Ep0IntrHandler()</a>.</p>
 
@@ -398,21 +490,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This is the USB initialization function. </p>
-<p>This example initializes the device for Mass Storage Application. The following configuration is done.</p>
-<ul>
-<li>EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.</li>
-<li>EP1 : NON_ISOCHRONOUS, BULK_IN, packet size 512 bytes.</li>
-<li>EP2 : NON_ISOCHRONOUS, BULK_OUT, packet size 512 bytes</li>
-</ul>
+<p>Initializes the USB interface configuration and descriptors. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -431,20 +515,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This main function starts the USB application. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful.</li>
 <li>XST_FAILURE if test fails. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb___config.html#a4c3940ad84a72a33f98856da250dab3f">XUsb_Config::BaseAddress</a>, <a class="el" href="struct_x_usb___device_config.html#aa2e570d2cf6027c87adee4304b6afd79">XUsb_DeviceConfig::CurrentConfiguration</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a243967b329b332dc3503adfc2950fceb">Ep0IntrHandler()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>, <a class="el" href="xusb__cp9_8h.html#a3b40155d0d9fa44133905dd9f6f02ee7">InitUsbInterface()</a>, <a class="el" href="struct_x_usb___config.html#a49c7946b8a90eb3e6f00ead057694bce">XUsb_Config::IntrId</a>, <a class="el" href="struct_x_usb___config.html#a88f694c6cfdc5ccb605421afe3ae35a3">XUsb_Config::IntrParent</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a8bd3ecc4e2acd07b864ea2392a0394f4">UsbIfIntrHandler()</a>, <a class="el" href="group__usb.html#gaeab13bf4d5ed84b5b9e0c1c651f50aaa">XUsb_CfgInitialize()</a>, <a class="el" href="group__usb.html#ga6fbf5a1ddbca576e8c1e7d235da878ab">XUsb_DmaIntrSetHandler()</a>, <a class="el" href="group__usb.html#gae7fef0669e6d6094cc2af067195cc04d">XUsb_EpSetHandler()</a>, <a class="el" href="group__usb.html#gafcd3e91e72783087a0c6902724b8087f">XUsb_IntrEnable()</a>, <a class="el" href="group__usb.html#gacc119aa9f628ab0cc3fac2f63073e386">XUsb_IntrHandler()</a>, <a class="el" href="group__usb.html#gada7caf770f82936ab7493b67d143b9a9">XUsb_IntrSetHandler()</a>, <a class="el" href="group__usb.html#ga83ca5d56b85bf4f28c99338a05c9a856">XUsb_LookupConfig()</a>, <a class="el" href="group__usb.html#gaa2f7958d25023d2ed18cfaabfb2baa0f">XUsb_SetDeviceAddress()</a>, <a class="el" href="group__usb.html#ga4708ca8b9ca477b58d7da7db3f1be308">XUsb_Start()</a>, <a class="el" href="group__usb.html#ga10e255c9daa6899e2c231a9c839c76fe">XUSB_STATUS_DISCONNECT_MASK</a>, <a class="el" href="group__usb.html#gaf4f49b7f02066d4f04f49e7371fa851a">XUSB_STATUS_EP0_BUFF1_COMP_MASK</a>, <a class="el" href="group__usb.html#ga133213a1b921a479f9702f85e5120065">XUSB_STATUS_EP1_BUFF1_COMP_MASK</a>, <a class="el" href="group__usb.html#ga8fd881d64ceaa0b75f3e07ac891590f9">XUSB_STATUS_EP1_BUFF2_COMP_MASK</a>, <a class="el" href="group__usb.html#gaa1b33fb581374aebe866bdbcdcec97c0">XUSB_STATUS_EP2_BUFF1_COMP_MASK</a>, <a class="el" href="group__usb.html#gafe634ba137a5f8963b7364a32cd56a27">XUSB_STATUS_EP2_BUFF2_COMP_MASK</a>, <a class="el" href="group__usb.html#ga1c1388c1f5b3644140d0ced5dd7fceda">XUSB_STATUS_FIFO_BUFF_FREE_MASK</a>, <a class="el" href="group__usb.html#gadf5b97880da95d33c6d746d33ff28125">XUSB_STATUS_FIFO_BUFF_RDY_MASK</a>, <a class="el" href="group__usb.html#gaf35c023a0d3ac069b7ab105b1c0c2509">XUSB_STATUS_GLOBAL_INTR_MASK</a>, <a class="el" href="group__usb.html#gaa69331ab12d98b585ded8d8c69dad53a">XUSB_STATUS_RESET_MASK</a>, and <a class="el" href="group__usb.html#ga2b4ada8448d346e1a7460c2a02d779b6">XUSB_STATUS_SUSPEND_MASK</a>.</p>
+<p>References <a class="el" href="struct_x_usb___config.html#a4c3940ad84a72a33f98856da250dab3f">XUsb_Config::BaseAddress</a>, <a class="el" href="struct_x_usb___device_config.html#aa2e570d2cf6027c87adee4304b6afd79">XUsb_DeviceConfig::CurrentConfiguration</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a243967b329b332dc3503adfc2950fceb">Ep0IntrHandler()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>, <a class="el" href="struct_x_usb___config.html#a49c7946b8a90eb3e6f00ead057694bce">XUsb_Config::IntrId</a>, <a class="el" href="struct_x_usb___config.html#a88f694c6cfdc5ccb605421afe3ae35a3">XUsb_Config::IntrParent</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a8bd3ecc4e2acd07b864ea2392a0394f4">UsbIfIntrHandler()</a>, <a class="el" href="group__usb.html#gaeab13bf4d5ed84b5b9e0c1c651f50aaa">XUsb_CfgInitialize()</a>, <a class="el" href="group__usb.html#ga6fbf5a1ddbca576e8c1e7d235da878ab">XUsb_DmaIntrSetHandler()</a>, <a class="el" href="group__usb.html#gae7fef0669e6d6094cc2af067195cc04d">XUsb_EpSetHandler()</a>, <a class="el" href="group__usb.html#gafcd3e91e72783087a0c6902724b8087f">XUsb_IntrEnable()</a>, <a class="el" href="group__usb.html#gacc119aa9f628ab0cc3fac2f63073e386">XUsb_IntrHandler()</a>, <a class="el" href="group__usb.html#gada7caf770f82936ab7493b67d143b9a9">XUsb_IntrSetHandler()</a>, <a class="el" href="group__usb.html#ga83ca5d56b85bf4f28c99338a05c9a856">XUsb_LookupConfig()</a>, <a class="el" href="group__usb.html#gaa2f7958d25023d2ed18cfaabfb2baa0f">XUsb_SetDeviceAddress()</a>, <a class="el" href="group__usb.html#ga4708ca8b9ca477b58d7da7db3f1be308">XUsb_Start()</a>, <a class="el" href="group__usb.html#ga10e255c9daa6899e2c231a9c839c76fe">XUSB_STATUS_DISCONNECT_MASK</a>, <a class="el" href="group__usb.html#ga6d0af440667f05d15610e4fefa998336">XUSB_STATUS_DMA_EVENT_MASK</a>, <a class="el" href="group__usb.html#gaf4f49b7f02066d4f04f49e7371fa851a">XUSB_STATUS_EP0_BUFF1_COMP_MASK</a>, <a class="el" href="group__usb.html#ga133213a1b921a479f9702f85e5120065">XUSB_STATUS_EP1_BUFF1_COMP_MASK</a>, <a class="el" href="group__usb.html#ga8fd881d64ceaa0b75f3e07ac891590f9">XUSB_STATUS_EP1_BUFF2_COMP_MASK</a>, <a class="el" href="group__usb.html#gaa1b33fb581374aebe866bdbcdcec97c0">XUSB_STATUS_EP2_BUFF1_COMP_MASK</a>, <a class="el" href="group__usb.html#gafe634ba137a5f8963b7364a32cd56a27">XUSB_STATUS_EP2_BUFF2_COMP_MASK</a>, <a class="el" href="group__usb.html#ga1c1388c1f5b3644140d0ced5dd7fceda">XUSB_STATUS_FIFO_BUFF_FREE_MASK</a>, <a class="el" href="group__usb.html#gadf5b97880da95d33c6d746d33ff28125">XUSB_STATUS_FIFO_BUFF_RDY_MASK</a>, <a class="el" href="group__usb.html#gaf35c023a0d3ac069b7ab105b1c0c2509">XUSB_STATUS_GLOBAL_INTR_MASK</a>, <a class="el" href="group__usb.html#gaa69331ab12d98b585ded8d8c69dad53a">XUSB_STATUS_RESET_MASK</a>, and <a class="el" href="group__usb.html#ga2b4ada8448d346e1a7460c2a02d779b6">XUSB_STATUS_SUSPEND_MASK</a>.</p>
 
 </div>
 </div>
@@ -462,15 +539,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This routine is called when a RESET class command is received. </p>
+<p>Handles USB mass storage class reset request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance of the controller.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__storage_8h.html#a243967b329b332dc3503adfc2950fceb">Ep0IntrHandler()</a>.</p>
 
@@ -490,15 +565,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function processes mass storage specific commands and sends the required response. </p>
+<p>Processes received SCSI commands from the host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__storage_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
@@ -517,13 +590,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">PUSBCBW&#160;</td>
+          <td class="paramtype"><a class="el" href="xusb__storage_8h.html#afe420019b7929797acfecce0aadb24cf">PUSBCBW</a>&#160;</td>
           <td class="paramname"><em>pCmdBlock</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">PUSBCSW&#160;</td>
+          <td class="paramtype"><a class="el" href="xusb__storage_8h.html#a2613fe2c121800feec748681c84bb46d">PUSBCSW</a>&#160;</td>
           <td class="paramname"><em>pStatusBlock</em>&#160;</td>
         </tr>
         <tr>
@@ -534,17 +607,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function implements the transmission of data from the device to the READ request from the USB Host. </p>
+<p>Handles SCSI READ(10) command. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
-    <tr><td class="paramname">pCmdBlock</td><td>is a pointer to the Mass Storage Command Block wrapper. </td></tr>
-    <tr><td class="paramname">pStatusBlock</td><td>is a pointer to the Mass Storage Status wrapper.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmdBlock</td><td>is a pointer to the Mass Storage Command Block wrapper. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pStatusBlock</td><td>is a pointer to the Mass Storage Status wrapper. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__storage_8h.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>.</p>
 
@@ -567,14 +638,12 @@ Functions</h2></td></tr>
 <p>This function implements the reception of data in the USB device for the READ request from the USB Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb___device_config.html#a53ebfe09517736ee2ca350e4d96e996c">XUsb_DeviceConfig::CurrentSpeed</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="group__usb.html#gaf18783c0d53b254b23bee3714df0c7b4">XUSB_EP_HIGH_SPEED</a>, and <a class="el" href="group__usb.html#gabf09f948bc604c279cb0a12bba14057b">XUsb_EpDataSend()</a>.</p>
+<p>References <a class="el" href="xusb__storage_8h.html#a05b1323f8e5fa23dbe4db86752fed5c4">BlockCount</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a0bed40faee8bf08c610c37ce2d0ddee0">CmdFlag</a>, <a class="el" href="xusb__storage_8h.html#a69a02290348febc327a4cc627a4cd1a3">CmdStatusBlock</a>, <a class="el" href="struct_x_usb___device_config.html#a53ebfe09517736ee2ca350e4d96e996c">XUsb_DeviceConfig::CurrentSpeed</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#aea24a58e3829be235b669756b1980dcf">FirstPkt</a>, <a class="el" href="xusb__storage_8h.html#aa9b27d416c2ebad48cea93b20f9e6638">Lba</a>, <a class="el" href="xusb__storage_8h.html#a3fa91773d2b28c819810e9bf01c58235">RamDisk</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a9da1b8e3e706a5c1451b6fc1221d7c3f">RdIndex</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#ab2f50a0732c58bca25e6b8606fab0266">RdRamDiskPtr</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a61d1a70b8f5adc3b41f2561dc9c53128">RdResponseSent</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a5fcb97d0d7dd7b88c55c611b8dab7935">TxDmaTransfer</a>, <a class="el" href="xusb__storage_8h.html#a4d1bc5b4f4182ff132454f7f4ab69e78">USBCSW_LENGTH</a>, <a class="el" href="group__usb.html#gaf18783c0d53b254b23bee3714df0c7b4">XUSB_EP_HIGH_SPEED</a>, and <a class="el" href="group__usb.html#gabf09f948bc604c279cb0a12bba14057b">XUsb_EpDataSend()</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__storage_8h.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>.</p>
 
@@ -604,16 +673,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the USB mass storage device application. </p>
+<p>USB interface interrupt handler for device-level events. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
-    <tr><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntrStatus</td><td>is a bit mask indicating pending interrupts. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="xusb__keyboard_8c.html#a8882fbbb39100578edb3cd06a935ada6">UsbKbdExample()</a>, and <a class="el" href="xusb__mouse_8c.html#a6e79a835f2be08e5725fd210740126f0">UsbMouseExample()</a>.</p>
 
@@ -632,13 +699,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">PUSBCBW&#160;</td>
+          <td class="paramtype"><a class="el" href="xusb__storage_8h.html#afe420019b7929797acfecce0aadb24cf">PUSBCBW</a>&#160;</td>
           <td class="paramname"><em>pCmdBlock</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">PUSBCSW&#160;</td>
+          <td class="paramtype"><a class="el" href="xusb__storage_8h.html#a2613fe2c121800feec748681c84bb46d">PUSBCSW</a>&#160;</td>
           <td class="paramname"><em>pStatusBlock</em>&#160;</td>
         </tr>
         <tr>
@@ -649,17 +716,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function implements the reception of data in the USB device for the write request from the USB Host. </p>
+<p>Handles SCSI WRITE(10) command. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
-    <tr><td class="paramname">pCmdBlock</td><td>is a pointer to the Mass Storage Command Block wrapper. </td></tr>
-    <tr><td class="paramname">pStatusBlock</td><td>is a pointer to the Mass Storage Status wrapper.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pCmdBlock</td><td>is a pointer to the Mass Storage Command Block wrapper. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">pStatusBlock</td><td>is a pointer to the Mass Storage Status wrapper. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__storage_8h.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>.</p>
 
@@ -682,16 +747,267 @@ Functions</h2></td></tr>
 <p>This function implements the reception of data in the USB device for the WRITE request from the USB Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb.html" title="The XUsb driver instance data. ">XUsb</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb___device_config.html#a53ebfe09517736ee2ca350e4d96e996c">XUsb_DeviceConfig::CurrentSpeed</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="group__usb.html#gaf18783c0d53b254b23bee3714df0c7b4">XUSB_EP_HIGH_SPEED</a>, <a class="el" href="group__usb.html#ga143b99da38f8de7e4d0f5cee108fc797">XUsb_EpDataRecv()</a>, and <a class="el" href="group__usb.html#gabf09f948bc604c279cb0a12bba14057b">XUsb_EpDataSend()</a>.</p>
+<p>References <a class="el" href="struct_u_s_b_c_s_w.html#a8f078c30a68229033cf8b9012a7dd640">USBCSW::bCSWStatus</a>, <a class="el" href="xusb__storage_8h.html#a05b1323f8e5fa23dbe4db86752fed5c4">BlockCount</a>, <a class="el" href="xusb__microphone_8h.html#a4dd4f603551203aa39eb83980aefd643">CMD_PASSED</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a0bed40faee8bf08c610c37ce2d0ddee0">CmdFlag</a>, <a class="el" href="xusb__storage_8h.html#a69a02290348febc327a4cc627a4cd1a3">CmdStatusBlock</a>, <a class="el" href="struct_x_usb___device_config.html#a53ebfe09517736ee2ca350e4d96e996c">XUsb_DeviceConfig::CurrentSpeed</a>, <a class="el" href="struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267">XUsb::DeviceConfig</a>, <a class="el" href="xusb__storage_8h.html#aa9b27d416c2ebad48cea93b20f9e6638">Lba</a>, <a class="el" href="xusb__storage_8h.html#a3fa91773d2b28c819810e9bf01c58235">RamDisk</a>, <a class="el" href="struct_u_s_b_c_s_w.html#a9125cd6d88669e019ff90190495e5de0">USBCSW::Residue</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#ac34e81bb3c5473f595c79060bd4fa0b1">RxDmaTransfer</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a5fcb97d0d7dd7b88c55c611b8dab7935">TxDmaTransfer</a>, <a class="el" href="xusb__storage_8h.html#a4d1bc5b4f4182ff132454f7f4ab69e78">USBCSW_LENGTH</a>, <a class="el" href="union_u_s_b_c_s_w_1_1_residue.html#a4f7ee575a95a74a7ac3e5ec390d103bf">USBCSW::Residue::value</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a6c1319882c5114b5c2b4c347f1a3bb21">WrDataPhase</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a7b56ae8d7870abac9b69f6be89efaa48">WrIndex</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a22c8f2bd88e52421cdd12d857c424eee">WrRamDiskPtr</a>, <a class="el" href="group__usb.html#gaf18783c0d53b254b23bee3714df0c7b4">XUSB_EP_HIGH_SPEED</a>, <a class="el" href="group__usb.html#ga143b99da38f8de7e4d0f5cee108fc797">XUsb_EpDataRecv()</a>, and <a class="el" href="group__usb.html#gabf09f948bc604c279cb0a12bba14057b">XUsb_EpDataSend()</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__storage_8h.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a0bed40faee8bf08c610c37ce2d0ddee0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 CmdFlag = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating a SCSI command is pending. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>, <a class="el" href="xusb__storage__polled__mode_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, <a class="el" href="xusb__storage_8c.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>, <a class="el" href="xusb__storage_8h.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>, <a class="el" href="xusb__storage_8h.html#ac7e4e799fabb2ebbea49a1eafd6625c8">Write10()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea24a58e3829be235b669756b1980dcf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 FirstPkt = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating the first packet of a read response. </p>
+
+<p>Referenced by <a class="el" href="xusb__storage_8c.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9da1b8e3e706a5c1451b6fc1221d7c3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 RdIndex = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current read index into the RAM disk. </p>
+
+<p>Referenced by <a class="el" href="xusb__storage_8c.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab2f50a0732c58bca25e6b8606fab0266"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* RdRamDiskPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the read RAM disk buffer. </p>
+
+<p>Referenced by <a class="el" href="xusb__storage_8c.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a61d1a70b8f5adc3b41f2561dc9c53128"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 RdResponseSent = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating read response sent. </p>
+
+<p>Referenced by <a class="el" href="xusb__storage_8h.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6160da95e92ce968d750c1d1d97faa53"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 ResponseSent = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating command response sent. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__storage_8h.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac34e81bb3c5473f595c79060bd4fa0b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 RxDmaTransfer = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating receive DMA transfer in progress. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2dfc62201c9c9939b786c019f6dd4101"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 SendStatus = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating send status active. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>, <a class="el" href="xusb__storage_8h.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10()</a>, and <a class="el" href="xusb__storage_8h.html#ac7e4e799fabb2ebbea49a1eafd6625c8">Write10()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7a167caceb4d9425175bb9cf440376b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 TwoRxInterrupts = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating two RX interrupts occurred. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__storage_8h.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a764ac3a474dcdc123589cd67b3f1efd9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 TwoTxInterrupts = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating two TX interrupts occurred. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__storage_8h.html#a386bfc503aaebdfd92028284d6fb63f0">Ep1IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5fcb97d0d7dd7b88c55c611b8dab7935"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 TxDmaTransfer = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating transmit DMA transfer in progress. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, <a class="el" href="xusb__storage_8h.html#aaa4db21dc45028300278c1c09cf97719">ProcessRxCmd()</a>, <a class="el" href="xusb__storage_8h.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843">Read10()</a>, <a class="el" href="xusb__dma__intr__storage_8c.html#a20c10bb6c0fae679e5f4309d4f82e8a1">ReadTransfer()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0184f31affcf6284ad838ccaac7e67cb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_usb___config.html">XUsb_Config</a>* UsbConfigPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the USB configuration structure. </p>
+
+</div>
+</div>
+<a class="anchor" id="a62cef26eb4d9076d0888c81106bf2146"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_usb.html">XUsb</a> UsbInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device instance. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6c1319882c5114b5c2b4c347f1a3bb21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 WrDataPhase = FALSE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating write data phase active. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6">DmaIntrHandler()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7b56ae8d7870abac9b69f6be89efaa48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 WrIndex = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current write index into the RAM disk. </p>
+
+<p>Referenced by <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a22c8f2bd88e52421cdd12d857c424eee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* WrRamDiskPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the write RAM disk buffer. </p>
+
+<p>Referenced by <a class="el" href="xusb__storage__polled__mode_8c.html#a6030c0dc187b2ca30a157d5c12fb3101">Ep2IntrHandler()</a>, <a class="el" href="xusb__storage_8c.html#ac7e4e799fabb2ebbea49a1eafd6625c8">Write10()</a>, and <a class="el" href="xusb__dma__intr__storage_8c.html#a92a7e0322925656f0e14d4f57dc004c9">WriteTransfer()</a>.</p>
 
 </div>
 </div>

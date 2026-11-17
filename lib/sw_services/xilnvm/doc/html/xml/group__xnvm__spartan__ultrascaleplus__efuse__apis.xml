@@ -16,28 +16,6 @@
     <innerclass refid="struct_x_nvm___efuse_data" prot="public">XNvm_EfuseData</innerclass>
       <sectiondef kind="user-defined">
       <header>PPK Efuse programming related macros</header>
-      <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaefbf4e27b6843265081be643b58c9ea0" prot="public" static="no">
-        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_BITS</name>
-        <initializer>(256U)</initializer>
-        <briefdescription>
-<para>PPK hash length in bits. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="114" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaa815f699433837d77a20954b84c33745" prot="public" static="no">
-        <name>XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS</name>
-        <initializer>(8U)</initializer>
-        <briefdescription>
-<para>Default PPK hash size in words. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="115" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gacbad61ddff5025478c93b148bc1f5112" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES</name>
         <initializer><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga26b9d19734d58e14c8c2edf5d30f58eb" kindref="member">XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES</ref></initializer>
@@ -47,7 +25,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="116" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4c2b9f1028ff802c5d088a432131b18b" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_END</name>
@@ -58,7 +36,30 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="420" endline="467">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaefbf4e27b6843265081be643b58c9ea0" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_HASH_LEN_IN_BITS</name>
+        <initializer>((<ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gacbad61ddff5025478c93b148bc1f5112" kindref="member">XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES</ref>) * (<ref refid="group__xnvm__efuse__server__apis_1ga782be7b59f184a6e84c40983d956360f" kindref="member">XNVM_EFUSE_BITS_IN_A_BYTE</ref>))</initializer>
+        <briefdescription>
+<para>PPK hash length in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="122" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaa815f699433837d77a20954b84c33745" prot="public" static="no">
+        <name>XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS</name>
+        <initializer>((<ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gacbad61ddff5025478c93b148bc1f5112" kindref="member">XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES</ref>) / (<ref refid="group__xnvm__def__api__ids_1ga187d1e419e66b1ba10a3a73debd9904d" kindref="member">XNVM_EFUSE_WORD_LEN</ref>))</initializer>
+        <briefdescription>
+<para>PPK hash size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -72,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gae1d3494dc4d91eade62560679dcf11ed" prot="public" static="no">
         <name>XNVM_EFUSE_RD_TIMEOUT_VAL</name>
@@ -83,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="159" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -97,8 +98,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="165" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="101" endline="147">XNvm_EfuseCacheReload</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="105" endline="151">XNvm_EfuseCacheReload</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -124,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="198" bodyend="201"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="199" bodyend="202"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf1c02a37ed9053839674b9a9adf3e169" prot="public" static="no">
         <name>XNvm_EfusePpkType</name>
@@ -145,7 +146,7 @@
         <enumvalue id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169acabb8510d521f1f2c81b72a99db4ce07" prot="public">
           <name>XNVM_EFUSE_PPK2</name>
           <briefdescription>
-<para>eFuse PPK 2 </para>          </briefdescription>
+<para>eFuse PPK 2 - not a programmable PPK on SPARTANUPLUSAES1 </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -155,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="323" bodyend="327"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="324" bodyend="328"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
         <name>@0</name>
@@ -521,7 +522,7 @@
           <name>XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS</name>
           <initializer>= 0x9800</initializer>
           <briefdescription>
-<para>0x9800 - Error write PPK2 invalid1 </para>          </briefdescription>
+<para>0x9800 - Error write PUF_TEST2 disable </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -545,7 +546,7 @@
           <name>XNVM_EFUSE_ERR_WRITE_DFT_DIS_0</name>
           <initializer>= 0x9B00</initializer>
           <briefdescription>
-<para>0x9B00 - Error write DFT disable10 </para>          </briefdescription>
+<para>0x9B00 - Error write DFT disable 0 </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -553,7 +554,7 @@
           <name>XNVM_EFUSE_ERR_WRITE_DFT_DIS_1</name>
           <initializer>= 0x9C00</initializer>
           <briefdescription>
-<para>0x9C00 - Error write DFT disable1 </para>          </briefdescription>
+<para>0x9C00 - Error write DFT disable 1 </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -569,7 +570,7 @@
           <name>XNVM_EFUSE_ERR_WRITE_MCAP_DIS</name>
           <initializer>= 0x9E00</initializer>
           <briefdescription>
-<para>0x9E00 - Error write MACP disable </para>          </briefdescription>
+<para>0x9E00 - Error write MCAP disable </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -705,11 +706,9 @@
           <name>XNVM_EFUSE_ERR_WRITE_SCAN_CLEAR_EN</name>
           <initializer>= 0xAF00</initializer>
           <briefdescription>
-          </briefdescription>
+<para>0xAF00 - Error write SCAN_CLEAR_EN </para>          </briefdescription>
           <detaileddescription>
-<para><itemizedlist>
-<listitem><para>Error write SCAN_CLEAR_EN </para></listitem></itemizedlist>
-</para>          </detaileddescription>
+          </detaileddescription>
         </enumvalue>
         <enumvalue id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55baed3ddeb250ddb0334aec24ee1ed8a9ac" prot="public">
           <name>XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS</name>
@@ -845,7 +844,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="356" bodyend="444"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="357" bodyend="445"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -859,7 +858,7 @@
           <declname>EfuseData</declname>
         </param>
         <briefdescription>
-<para>This function is used to program the eFUSE of spartan ultrascale plus, based on user inputs. </para>        </briefdescription>
+<para>This function is used to program the eFUSE of Spartan UltraScale+, based on user inputs. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -876,36 +875,36 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Initialize Efuse clock settings and validate frequency</para></listitem><listitem><para>Perform temperature and voltage checks before programming</para></listitem><listitem><para>Sets up Efuse controller with validated frequency</para></listitem><listitem><para>Validate all the write requests for AesKeys, PPK hash 0/1/2, Ivs, DecOnly eFuses</para></listitem><listitem><para>Program AES keys to eFUSE if AES key data is provided</para></listitem><listitem><para>Program PPK hash to eFUSE if PPK hash data is provided</para></listitem><listitem><para>Program AES IV to eFUSE if IV data is provided</para></listitem><listitem><para>Program user fuse to eFUSE if user fuse data is provided</para></listitem><listitem><para>Program SPK revoke ID to eFUSE if SPK revoke data is provided</para></listitem><listitem><para>Program AES revoke ID to eFUSE if AES revoke data is provided</para></listitem><listitem><para>Program DEC only eFUSE bits if DEC only data is provided</para></listitem><listitem><para>Program Xilinx control eFUSE bits if Xilinx control data is provided</para></listitem><listitem><para>Program security control bits to eFUSE if security control data is provided</para></listitem><listitem><para>Reload eFUSE cache after all programming operations are complete</para></listitem><listitem><para>Reset read mode and disable programming controller regardless of programming status</para></listitem><listitem><para>Lock eFUSE controller </para></listitem></itemizedlist>
+<listitem><para>Initialize Efuse clock settings and validate frequency</para></listitem><listitem><para>If environmental monitor checks are enabled, perform temperature and voltage checks before programming</para></listitem><listitem><para>Sets up Efuse controller with validated frequency</para></listitem><listitem><para>Validate all the write requests for AesKeys, PPK hash 0/1/2, Ivs, DecOnly eFuses</para></listitem><listitem><para>Program AES keys to eFUSE if AES key data is provided</para></listitem><listitem><para>Program PPK hash to eFUSE if PPK hash data is provided</para></listitem><listitem><para>Program AES IV to eFUSE if IV data is provided</para></listitem><listitem><para>Program user fuse to eFUSE if user fuse data is provided</para></listitem><listitem><para>Program SPK revoke ID to eFUSE if SPK revoke data is provided</para></listitem><listitem><para>Program AES revoke ID to eFUSE if AES revoke data is provided</para></listitem><listitem><para>Program DEC only eFUSE bits if DEC only data is provided</para></listitem><listitem><para>Program Xilinx control eFUSE bits if Xilinx control data is provided</para></listitem><listitem><para>Program security control bits to eFUSE if security control data is provided</para></listitem><listitem><para>Reload eFUSE cache after all programming operations are complete</para></listitem><listitem><para>Reset read mode and disable programming controller regardless of programming status</para></listitem><listitem><para>Lock eFUSE controller </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="128" bodyend="299"/>
-        <references refid="struct_x_nvm___efuse_data_1a40a617dfe5718df762fe48c2c67b0826" compoundref="spartanup_2xnvm__efuse_8h" startline="334">XNvm_EfuseData::AesKeys</references>
-        <references refid="struct_x_nvm___efuse_data_1a318eb3e1b698e5c75ac5fdf8eed041a5" compoundref="spartanup_2xnvm__efuse_8h" startline="340">XNvm_EfuseData::AesRevokeId</references>
-        <references refid="struct_x_nvm___efuse_data_1aa40b3b4e453639a62a2fdf1705cd906a" compoundref="spartanup_2xnvm__efuse_8h" startline="337">XNvm_EfuseData::DecOnly</references>
-        <references refid="struct_x_nvm___efuse_data_1ae37b284ddba52c76d2dec67f41855e65" compoundref="spartanup_2xnvm__efuse_8h" startline="346">XNvm_EfuseData::EfuseClkFreq</references>
-        <references refid="struct_x_nvm___efuse_data_1a2cf1b8014de6a6140273c1c62b009901" compoundref="spartanup_2xnvm__efuse_8h" startline="336">XNvm_EfuseData::Ivs</references>
-        <references refid="struct_x_nvm___efuse_data_1abab6c07013ca54a3578ae97f8b864df2" compoundref="spartanup_2xnvm__efuse_8h" startline="335">XNvm_EfuseData::PpkHash</references>
-        <references refid="struct_x_nvm___efuse_data_1acd26a239627d2f44f5d1bdccf9ab028c" compoundref="spartanup_2xnvm__efuse_8h" startline="338">XNvm_EfuseData::SecCtrlBits</references>
-        <references refid="struct_x_nvm___efuse_data_1a80084d3505e5a98d60ce6ed6cb69ec40" compoundref="spartanup_2xnvm__efuse_8h" startline="339">XNvm_EfuseData::SpkRevokeId</references>
-        <references refid="struct_x_nvm___efuse_data_1a9a4f3c5af3102245a63c8f5f25acf4de" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8h" startline="237">XNvm_EfuseData::SysMonInstPtr</references>
-        <references refid="struct_x_nvm___efuse_data_1ae03da2572371ebdd78cd4cdd98991ca3" compoundref="spartanup_2xnvm__efuse_8h" startline="341">XNvm_EfuseData::UserFuse</references>
-        <references refid="struct_x_nvm___efuse_data_1a08a03557d95045caa9b95f72caa6cda5" compoundref="spartanup_2xnvm__efuse_8h" startline="342">XNvm_EfuseData::XilinxCtrl</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba91e4b12e40ef1fd3a78d16279d51d2d0" compoundref="spartanup_2xnvm__efuse_8h" startline="440">XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3a9a956a04c34687c49520e2646fefca" compoundref="spartanup_2xnvm__efuse_8h" startline="374">XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</references>
-        <references refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" compoundref="spartanup_2xnvm__utils_8h" startline="78">XNVM_EFUSE_MARGIN_RD</references>
-        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="70">XNVM_EFUSE_MODE_PGM</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="101" endline="147">XNvm_EfuseCacheReload</references>
-        <references refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" compoundref="spartanup_2xnvm__utils_8c" startline="170" endline="188">XNvm_EfuseDisableProgramming</references>
-        <references refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="381" endline="404">XNvm_EfuseLockController</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf0e51beac90b7d5fe2d18c9ef25bc2ea" compoundref="spartanup_2xnvm__efuse_8c" startline="345" endline="399">XNvm_EfuseReadSecCtrlBits</references>
-        <references refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" compoundref="spartanup_2xnvm__utils_8c" startline="199" endline="217">XNvm_EfuseResetReadMode</references>
-        <references refid="group__xnvm__util__apis_1ga07f1dca511ab0d8e815069634ccc305c" compoundref="spartanup_2xnvm__utils_8c" startline="264" endline="309">XNvm_EfuseSetupController</references>
-        <references refid="group__xnvm__efuse__server__apis_1gaf8c865ce6cd02be72da8d08eae8f6030" compoundref="xnvm__efuse__common_8c" startline="715" endline="853">XNvm_EfuseTempAndVoltChecks</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4751c17a98da016fea4e701d67d5154b" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1455" endline="1494">XNvm_EfuseWriteIVs</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga26145c29a3bf9f92c4cee3878a4abef2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2115" endline="2152">XNvm_EfuseWriteUserFuses</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="129" bodyend="303"/>
+        <references refid="struct_x_nvm___efuse_data_1a40a617dfe5718df762fe48c2c67b0826" compoundref="spartanup_2xnvm__efuse_8h" startline="335">XNvm_EfuseData::AesKeys</references>
+        <references refid="struct_x_nvm___efuse_data_1a318eb3e1b698e5c75ac5fdf8eed041a5" compoundref="spartanup_2xnvm__efuse_8h" startline="341">XNvm_EfuseData::AesRevokeId</references>
+        <references refid="struct_x_nvm___efuse_data_1aa40b3b4e453639a62a2fdf1705cd906a" compoundref="spartanup_2xnvm__efuse_8h" startline="338">XNvm_EfuseData::DecOnly</references>
+        <references refid="struct_x_nvm___efuse_data_1ae37b284ddba52c76d2dec67f41855e65" compoundref="spartanup_2xnvm__efuse_8h" startline="347">XNvm_EfuseData::EfuseClkFreq</references>
+        <references refid="struct_x_nvm___efuse_data_1a2cf1b8014de6a6140273c1c62b009901" compoundref="spartanup_2xnvm__efuse_8h" startline="337">XNvm_EfuseData::Ivs</references>
+        <references refid="struct_x_nvm___efuse_data_1abab6c07013ca54a3578ae97f8b864df2" compoundref="spartanup_2xnvm__efuse_8h" startline="336">XNvm_EfuseData::PpkHash</references>
+        <references refid="struct_x_nvm___efuse_data_1acd26a239627d2f44f5d1bdccf9ab028c" compoundref="spartanup_2xnvm__efuse_8h" startline="339">XNvm_EfuseData::SecCtrlBits</references>
+        <references refid="struct_x_nvm___efuse_data_1a80084d3505e5a98d60ce6ed6cb69ec40" compoundref="spartanup_2xnvm__efuse_8h" startline="340">XNvm_EfuseData::SpkRevokeId</references>
+        <references refid="struct_x_nvm___efuse_data_1acc2bbc2bb6dd9120f599d892cb701fd5" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8h" startline="237">XNvm_EfuseData::SysMonInstPtr</references>
+        <references refid="struct_x_nvm___efuse_data_1ae03da2572371ebdd78cd4cdd98991ca3" compoundref="spartanup_2xnvm__efuse_8h" startline="342">XNvm_EfuseData::UserFuse</references>
+        <references refid="struct_x_nvm___efuse_data_1a08a03557d95045caa9b95f72caa6cda5" compoundref="spartanup_2xnvm__efuse_8h" startline="343">XNvm_EfuseData::XilinxCtrl</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba91e4b12e40ef1fd3a78d16279d51d2d0" compoundref="spartanup_2xnvm__efuse_8h" startline="441">XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3a9a956a04c34687c49520e2646fefca" compoundref="spartanup_2xnvm__efuse_8h" startline="375">XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</references>
+        <references refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" compoundref="spartanup_2xnvm__utils_8h" startline="83">XNVM_EFUSE_MARGIN_RD</references>
+        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="75">XNVM_EFUSE_MODE_PGM</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="105" endline="151">XNvm_EfuseCacheReload</references>
+        <references refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" compoundref="spartanup_2xnvm__utils_8c" startline="175" endline="193">XNvm_EfuseDisableProgramming</references>
+        <references refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="386" endline="409">XNvm_EfuseLockController</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf0e51beac90b7d5fe2d18c9ef25bc2ea" compoundref="spartanup_2xnvm__efuse_8c" startline="349" endline="403">XNvm_EfuseReadSecCtrlBits</references>
+        <references refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" compoundref="spartanup_2xnvm__utils_8c" startline="204" endline="222">XNvm_EfuseResetReadMode</references>
+        <references refid="group__xnvm__util__apis_1ga07f1dca511ab0d8e815069634ccc305c" compoundref="spartanup_2xnvm__utils_8c" startline="269" endline="314">XNvm_EfuseSetupController</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga2519a72bf1afb1bcdf115532942e1fdd" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1830" endline="1879">XNvm_EfuseRevokePpk</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaf44c967bed328380a598455eb46c400d" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1453" endline="1492">XNvm_EfuseWriteIVs</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8b9e3d4fcd30cc6f89185e9118e37e8e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1899" endline="1949">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga583aeffcb015b44c8d408d14d1d8cf01" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2113" endline="2150">XNvm_EfuseWriteUserFuses</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf0e51beac90b7d5fe2d18c9ef25bc2ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -975,7 +974,7 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate output pointer before reading security control eFUSE bits</para></listitem><listitem><para>Read security control eFUSE cache register and extract individual bit fields</para></listitem><listitem><para>Read CRC enable eFUSE cache register and extract CRC, DFT, lockdown and RMA bit fields</para></listitem><listitem><para>Perform input parameter validation. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Read Directly from cache offset of security control to fill the SecCtrlBits structure. Return XST_SUCCESS if read is success.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="345" bodyend="399"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="349" bodyend="403"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1027,14 +1026,15 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate input parameters before reading PPK hash from eFUSE cache</para></listitem><listitem><para>Determine PPK start offset based on PPK type and read the hash from cache range </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="416" bodyend="458"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169a928eb461776b691d01df0067168cbeb2" compoundref="spartanup_2xnvm__efuse_8h" startline="324">XNVM_EFUSE_PPK0</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169a6e608e7e460e21c9a60f77fdc8199f01" compoundref="spartanup_2xnvm__efuse_8h" startline="325">XNVM_EFUSE_PPK1</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169acabb8510d521f1f2c81b72a99db4ce07" compoundref="spartanup_2xnvm__efuse_8h" startline="326">XNVM_EFUSE_PPK2</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga26b9d19734d58e14c8c2edf5d30f58eb" compoundref="spartanup_2xnvm__efuse_8h" startline="69">XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gac483c83be19941beb44ea39dbb8da07c" compoundref="spartanup_2xnvm__efuse_8h" startline="70">XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga187d1e419e66b1ba10a3a73debd9904d" compoundref="spartanup_2xnvm__efuse_8h" startline="66">XNVM_EFUSE_WORD_LEN</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="420" bodyend="467"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169a928eb461776b691d01df0067168cbeb2" compoundref="spartanup_2xnvm__efuse_8h" startline="325">XNVM_EFUSE_PPK0</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169a6e608e7e460e21c9a60f77fdc8199f01" compoundref="spartanup_2xnvm__efuse_8h" startline="326">XNVM_EFUSE_PPK1</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169acabb8510d521f1f2c81b72a99db4ce07" compoundref="spartanup_2xnvm__efuse_8h" startline="327">XNVM_EFUSE_PPK2</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4c2b9f1028ff802c5d088a432131b18b" compoundref="spartanup_2xnvm__efuse_8h" startline="117">XNVM_EFUSE_PPK_END</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga26b9d19734d58e14c8c2edf5d30f58eb" compoundref="spartanup_2xnvm__efuse_8h" startline="70">XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gac483c83be19941beb44ea39dbb8da07c" compoundref="spartanup_2xnvm__efuse_8h" startline="71">XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga187d1e419e66b1ba10a3a73debd9904d" compoundref="spartanup_2xnvm__efuse_8h" startline="67">XNVM_EFUSE_WORD_LEN</references>
         <references refid="group__xnvm__efuse__server__apis_1gafd870ce6c862eea492a4ec10a06e539e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="4853" endline="4871">XNvm_EfuseReadCacheRange</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga612b8fc702eadd92ca787aa5b7f38ac7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1076,10 +1076,10 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate input parameters before reading SPK revoke ID from eFUSE cache</para></listitem><listitem><para>Read SPK revoke ID from computed cache offset based on revoke row index </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="472" bodyend="493"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga07f83db6e9ea0299759d0d13913b0dc8" compoundref="spartanup_2xnvm__efuse_8h" startline="130">XNVM_EFUSE_MAX_SPK_REVOKE_ID</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga187d1e419e66b1ba10a3a73debd9904d" compoundref="spartanup_2xnvm__efuse_8h" startline="66">XNVM_EFUSE_WORD_LEN</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="481" bodyend="502"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga07f83db6e9ea0299759d0d13913b0dc8" compoundref="spartanup_2xnvm__efuse_8h" startline="131">XNVM_EFUSE_MAX_SPK_REVOKE_ID</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga187d1e419e66b1ba10a3a73debd9904d" compoundref="spartanup_2xnvm__efuse_8h" startline="67">XNVM_EFUSE_WORD_LEN</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga89aaa76225f8f50055328927a5ad821b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1109,8 +1109,8 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate input pointer before reading AES revoke ID from eFUSE cache</para></listitem><listitem><para>Read AES revoke ID value from eFUSE cache </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="506" bodyend="521"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="515" bodyend="530"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga64b5ca77f69d1a831d2888ae48f4c32d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1140,8 +1140,8 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate input pointer before reading user fuse from eFUSE cache</para></listitem><listitem><para>Read user fuse value from eFUSE cache </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="534" bodyend="549"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="543" bodyend="558"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga47d7b6aba6853677925dd61821de43e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1182,11 +1182,11 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate input parameters and select IV start offset based on IV type</para></listitem><listitem><para>Read IV data from eFUSE cache starting at the determined offset </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="563" bodyend="587"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga6615efa385d955cf1a35c58c8822bc85a09d7091709eb8d8a33347919f8c08a90" compoundref="spartanup_2xnvm__efuse_8h" startline="199">XNVM_EFUSE_AES_IV_RANGE</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4e78f3c6034a6e5221aff9794a53b031" compoundref="spartanup_2xnvm__efuse_8h" startline="74">XNVM_EFUSE_AES_IV_SIZE_IN_WORDS</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga6615efa385d955cf1a35c58c8822bc85aa24c66c0d4a7d485bfaed80f8a0bbe03" compoundref="spartanup_2xnvm__efuse_8h" startline="200">XNVM_EFUSE_BLACK_IV</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="572" bodyend="596"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga6615efa385d955cf1a35c58c8822bc85a09d7091709eb8d8a33347919f8c08a90" compoundref="spartanup_2xnvm__efuse_8h" startline="200">XNVM_EFUSE_AES_IV_RANGE</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4e78f3c6034a6e5221aff9794a53b031" compoundref="spartanup_2xnvm__efuse_8h" startline="75">XNVM_EFUSE_AES_IV_SIZE_IN_WORDS</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga6615efa385d955cf1a35c58c8822bc85aa24c66c0d4a7d485bfaed80f8a0bbe03" compoundref="spartanup_2xnvm__efuse_8h" startline="201">XNVM_EFUSE_BLACK_IV</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
         <references refid="group__xnvm__efuse__server__apis_1gafd870ce6c862eea492a4ec10a06e539e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="4853" endline="4871">XNvm_EfuseReadCacheRange</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga659394d4c6d6d24e431fb707a88031ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1217,9 +1217,9 @@ This function reads secure control bits and CRC_EN register bits from eFUSE cach
 <para><itemizedlist>
 <listitem><para>Validate input pointer before reading DNA from eFUSE cache</para></listitem><listitem><para>Read DNA data from eFUSE cache over the DNA word range </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="600" bodyend="615"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga251b427490307baca30dc23ff6506737" compoundref="spartanup_2xnvm__efuse_8h" startline="131">XNVM_EFUSE_DNA_SIZE_IN_WORDS</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="609" bodyend="624"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga251b427490307baca30dc23ff6506737" compoundref="spartanup_2xnvm__efuse_8h" startline="132">XNVM_EFUSE_DNA_SIZE_IN_WORDS</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
         <references refid="group__xnvm__efuse__server__apis_1gafd870ce6c862eea492a4ec10a06e539e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="4853" endline="4871">XNvm_EfuseReadCacheRange</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf25ea1ce6b8a6f3971b341861f66a4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1262,7 +1262,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
 <para><itemizedlist>
 <listitem><para>Validate input pointer before reading DEC only eFUSE value from cache</para></listitem><listitem><para>Read DEC only value from eFUSE cache</para></listitem><listitem><para>Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Read directly from cache offset of the DecOnly eFuse to fill the input param. Return XST_SUCCESS if read success.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="628" bodyend="643"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="637" bodyend="652"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad2d063eb2e3a1c33bb5e98fe6c28cf48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1292,13 +1292,13 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
 <para><itemizedlist>
 <listitem><para>Validate input pointer before reading Xilinx control eFUSE from cache</para></listitem><listitem><para>Read Xilinx control register from eFUSE cache and extract individual eFUSE bit fields </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="656" bodyend="688"/>
-        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a529e91d2f61fa8db0f393713e69aa0fd" compoundref="spartanup_2xnvm__efuse_8h" startline="292">XNvm_EfuseXilinxCtrl::PrgmDisSJtag</references>
-        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a5f22590046cf14ea2a558e52b031f5b8" compoundref="spartanup_2xnvm__efuse_8h" startline="293">XNvm_EfuseXilinxCtrl::PrgmOspiResetRecoveryDelayCtrl</references>
-        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1ae2e799437f8e2fa40fe44411ffa7de09" compoundref="spartanup_2xnvm__efuse_8h" startline="291">XNvm_EfuseXilinxCtrl::PrgmPufHDInvld</references>
-        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a108758706d92fd8378caf9c85ed17726" compoundref="spartanup_2xnvm__efuse_8h" startline="295">XNvm_EfuseXilinxCtrl::PrgmRomOspiCmdSeqCtrl</references>
-        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a18e48229a88b1b1da95a22abf9fc1ce4" compoundref="spartanup_2xnvm__efuse_8h" startline="294">XNvm_EfuseXilinxCtrl::PrgmRomRsvdOspiDevResetChoice</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c" bodystart="665" bodyend="697"/>
+        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a529e91d2f61fa8db0f393713e69aa0fd" compoundref="spartanup_2xnvm__efuse_8h" startline="293">XNvm_EfuseXilinxCtrl::PrgmDisSJtag</references>
+        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a5f22590046cf14ea2a558e52b031f5b8" compoundref="spartanup_2xnvm__efuse_8h" startline="294">XNvm_EfuseXilinxCtrl::PrgmOspiResetRecoveryDelayCtrl</references>
+        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1ae2e799437f8e2fa40fe44411ffa7de09" compoundref="spartanup_2xnvm__efuse_8h" startline="292">XNvm_EfuseXilinxCtrl::PrgmPufHDInvld</references>
+        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a108758706d92fd8378caf9c85ed17726" compoundref="spartanup_2xnvm__efuse_8h" startline="296">XNvm_EfuseXilinxCtrl::PrgmRomOspiCmdSeqCtrl</references>
+        <references refid="struct_x_nvm___efuse_xilinx_ctrl_1a18e48229a88b1b1da95a22abf9fc1ce4" compoundref="spartanup_2xnvm__efuse_8h" startline="295">XNvm_EfuseXilinxCtrl::PrgmRomRsvdOspiDevResetChoice</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -1311,9 +1311,11 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="66" bodyend="-1"/>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="416" endline="458">XNvm_EfuseReadPpkHash</referencedby>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga612b8fc702eadd92ca787aa5b7f38ac7" compoundref="spartanup_2xnvm__efuse_8c" startline="472" endline="493">XNvm_EfuseReadSpkRevokeId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="420" endline="467">XNvm_EfuseReadPpkHash</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga612b8fc702eadd92ca787aa5b7f38ac7" compoundref="spartanup_2xnvm__efuse_8c" startline="481" endline="502">XNvm_EfuseReadSpkRevokeId</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac3c8a8519db111050a86072af33a7f9d" compoundref="xnvm__efuse__common_8c" startline="663" endline="703">XNvm_GetSysmonSupplyRegId</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga782be7b59f184a6e84c40983d956360f" prot="public" static="no">
         <name>XNVM_EFUSE_BITS_IN_A_BYTE</name>
@@ -1324,7 +1326,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga1764219212b8bf000ddd8ae48a673aae" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS</name>
@@ -1335,7 +1337,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga26b9d19734d58e14c8c2edf5d30f58eb" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES</name>
@@ -1346,8 +1348,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="69" bodyend="-1"/>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="416" endline="458">XNvm_EfuseReadPpkHash</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="420" endline="467">XNvm_EfuseReadPpkHash</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gac483c83be19941beb44ea39dbb8da07c" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES</name>
@@ -1358,8 +1360,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="70" bodyend="-1"/>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="416" endline="458">XNvm_EfuseReadPpkHash</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" compoundref="spartanup_2xnvm__efuse_8c" startline="420" endline="467">XNvm_EfuseReadPpkHash</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gabd43dcaeab1672cba0ef312928b5e155" prot="public" static="no">
         <name>XNVM_EFUSE_AES_IV_SIZE_IN_BYTES</name>
@@ -1370,20 +1372,20 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4e78f3c6034a6e5221aff9794a53b031" prot="public" static="no">
         <name>XNVM_EFUSE_AES_IV_SIZE_IN_WORDS</name>
         <initializer>(<ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gabd43dcaeab1672cba0ef312928b5e155" kindref="member">XNVM_EFUSE_AES_IV_SIZE_IN_BYTES</ref> \
-						/ <ref refid="group__xnvm__efuse__server__apis_1ga187d1e419e66b1ba10a3a73debd9904d" kindref="member">XNVM_EFUSE_WORD_LEN</ref>)</initializer>
+						/ <ref refid="group__xnvm__def__api__ids_1ga187d1e419e66b1ba10a3a73debd9904d" kindref="member">XNVM_EFUSE_WORD_LEN</ref>)</initializer>
         <briefdescription>
 <para>AES IV size in words. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="74" bodyend="-1"/>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga47d7b6aba6853677925dd61821de43e7" compoundref="spartanup_2xnvm__efuse_8c" startline="563" endline="587">XNvm_EfuseReadIv</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga47d7b6aba6853677925dd61821de43e7" compoundref="spartanup_2xnvm__efuse_8c" startline="572" endline="596">XNvm_EfuseReadIv</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga1736ca39f000a030783f31c8d6673837" prot="public" static="no">
         <name>XNVM_EFUSE_PPK0_HASH_START_ROW</name>
@@ -1394,7 +1396,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga73073db1743dc39155dd32a968acd2ef" prot="public" static="no">
         <name>XNVM_EFUSE_PPK1_HASH_START_ROW</name>
@@ -1405,7 +1407,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga172f361dcec60913e9ef65adc85a6cb9" prot="public" static="no">
         <name>XNVM_EFUSE_PPK2_HASH_START_ROW</name>
@@ -1416,7 +1418,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gae0685258a675c402c81f0d330ac6c3b7" prot="public" static="no">
         <name>XNVM_EFUSE_PPK0_START_COL</name>
@@ -1427,7 +1429,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga94724cdeccec2a0716feeb6f892f221f" prot="public" static="no">
         <name>XNVM_EFUSE_PPK0_END_COL</name>
@@ -1438,7 +1440,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga84d0ba4ff22139b5c1cd81d30eb3d7b3" prot="public" static="no">
         <name>XNVM_EFUSE_PPK1_START_COL</name>
@@ -1449,7 +1451,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga235127d5ed8fd4803069383fd639ba0c" prot="public" static="no">
         <name>XNVM_EFUSE_PPK1_END_COL</name>
@@ -1460,7 +1462,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gadb0b60cf9a81616d93b5303db130af92" prot="public" static="no">
         <name>XNVM_EFUSE_PPK2_START_COL</name>
@@ -1471,7 +1473,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gae37c48f45f5d0bd6f2c05af71316ea3f" prot="public" static="no">
         <name>XNVM_EFUSE_PPK2_END_COL</name>
@@ -1482,7 +1484,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga9da4e187a740fc75e48259dfa5868528" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS</name>
@@ -1493,8 +1495,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="85" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1768" endline="1815">XNvm_EfuseReadPpkHash</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga0fa9515439e3294e7294d46a3936ea34" prot="public" static="no">
         <name>XNVM_EFUSE_SPK_REVOKE_ID_START_ROW</name>
@@ -1505,7 +1507,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga5a55acfc3283b5945ef77e042bc32474" prot="public" static="no">
         <name>XNVM_EFUSE_SPK_REVOKE_ID_START_COL</name>
@@ -1516,7 +1518,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga3ced4397c283598a340f6e4443d35c7a" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_START_ROW</name>
@@ -1527,7 +1529,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga15c7edd98871936a8e771303eb69a346" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_START_COL</name>
@@ -1538,7 +1540,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad5e03471b882b4bc1792525dadd5d653" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_END_COL</name>
@@ -1549,7 +1551,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4dcd647e12d8c2ff82fd602d340e0433" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_NUM_OF_ROWS</name>
@@ -1560,7 +1562,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga6b7487b41c8e65d3af87b70790aa9e2a" prot="public" static="no">
         <name>XNVM_EFUSE_AES_IV_START_ROW</name>
@@ -1571,7 +1573,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga5cd298d1bdcd78bb95a956426a07299a" prot="public" static="no">
         <name>XNVM_EFUSE_AES_IV_START_COL</name>
@@ -1582,7 +1584,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaa832a9ccd9c95431a8b42134ebe8f8c8" prot="public" static="no">
         <name>XNVM_EFUSE_AES_IV_END_COL</name>
@@ -1593,7 +1595,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gabdcb3871cb56bdf397d3d18c37e401e6" prot="public" static="no">
         <name>XNVM_EFUSE_AES_REVOKE_ID_START_ROW</name>
@@ -1604,7 +1606,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga101334fa9acff965bdabf99a23b42208" prot="public" static="no">
         <name>XNVM_EFUSE_AES_REVOKE_ID_START_COL</name>
@@ -1615,7 +1617,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga5f365b60a0747e12640716d25f6e48a8" prot="public" static="no">
         <name>XNVM_EFUSE_AES_REVOKE_ID_END_COL</name>
@@ -1626,7 +1628,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gadbe157289d31da6548cd96fab4d410cc" prot="public" static="no">
         <name>XNVM_EFUSE_AES_REVOKE_ID_NUM_OF_ROWS</name>
@@ -1637,7 +1639,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad26252928c440fffccba2258419dc4bc" prot="public" static="no">
         <name>XNVM_EFUSE_USER_FUSE_START_ROW</name>
@@ -1648,8 +1650,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="99" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga205ea0a6c23f71becd6b927e4c7645de" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2054" endline="2100">XNvm_EfuseReadUserFuses</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga205ea0a6c23f71becd6b927e4c7645de" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2052" endline="2098">XNvm_EfuseReadUserFuses</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga896fd7c4a06c0a260d426e4d86ee864b" prot="public" static="no">
         <name>XNVM_EFUSE_USER_FUSE_START_COL</name>
@@ -1660,7 +1662,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga63d6fd10f1f2c164fc65e44198eeb899" prot="public" static="no">
         <name>XNVM_EFUSE_USER_FUSE_END_COL</name>
@@ -1671,7 +1673,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga3b5b338c4163039cce5214e72a60def4" prot="public" static="no">
         <name>XNVM_EFUSE_USER_FUSE_NUM_OF_ROWS</name>
@@ -1682,7 +1684,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gab54361e06ca7c2a18f7e514fad2c726c" prot="public" static="no">
         <name>XNVM_EFUSE_DEC_ONLY_START_ROW</name>
@@ -1693,7 +1695,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga36185ae27d8e6496d48c9390f8c5e830" prot="public" static="no">
         <name>XNVM_EFUSE_DEC_ONLY_START_COL</name>
@@ -1704,7 +1706,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad96e26d1f2a0c78bf277305a020e582b" prot="public" static="no">
         <name>XNVM_EFUSE_DEC_ONLY_END_COL</name>
@@ -1715,7 +1717,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gac7ca9d477e92efd8548f12726bac342f" prot="public" static="no">
         <name>XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS</name>
@@ -1726,8 +1728,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="106" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga571eb4d3dcd0fc01fda3052637dae92d" prot="public" static="no">
         <name>XNVM_EFUSE_XILINX_CTRL_START_ROW</name>
@@ -1738,7 +1739,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga87522bc500ea5e51524f31ba48a00ab3" prot="public" static="no">
         <name>XNVM_EFUSE_AES_IV_NUM_OF_ROWS</name>
@@ -1749,7 +1750,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga1487a71d1ace14c7922971867d200600" prot="public" static="no">
         <name>XNVM_EFUSE_MAX_BITS_IN_ROW</name>
@@ -1760,9 +1761,11 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="129" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="838" endline="903">XNvm_EfuseWriteOffChipRevokeID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga14c5359ce9050192aeeef497575aad5f" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="978" endline="1081">XNvm_EfusePgmAndVerifyData</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="348" endline="365">XNvm_EfuseWriteOffChipRevokeID</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="315" endline="332">XNvm_EfuseWriteRevocationID</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8b9e3d4fcd30cc6f89185e9118e37e8e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1899" endline="1949">XNvm_EfuseWriteRevocationId</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga07f83db6e9ea0299759d0d13913b0dc8" prot="public" static="no">
         <name>XNVM_EFUSE_MAX_SPK_REVOKE_ID</name>
@@ -1773,8 +1776,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="130" bodyend="-1"/>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga612b8fc702eadd92ca787aa5b7f38ac7" compoundref="spartanup_2xnvm__efuse_8c" startline="472" endline="493">XNvm_EfuseReadSpkRevokeId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga612b8fc702eadd92ca787aa5b7f38ac7" compoundref="spartanup_2xnvm__efuse_8c" startline="481" endline="502">XNvm_EfuseReadSpkRevokeId</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga251b427490307baca30dc23ff6506737" prot="public" static="no">
         <name>XNVM_EFUSE_DNA_SIZE_IN_WORDS</name>
@@ -1785,8 +1788,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="131" bodyend="-1"/>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga659394d4c6d6d24e431fb707a88031ef" compoundref="spartanup_2xnvm__efuse_8c" startline="600" endline="615">XNvm_EfuseReadDna</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga659394d4c6d6d24e431fb707a88031ef" compoundref="spartanup_2xnvm__efuse_8c" startline="609" endline="624">XNvm_EfuseReadDna</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga796a382bfe9b1db5b6d9ac7c37d5b3cf" prot="public" static="no">
         <name>XNVM_MAX_REVOKE_ID_FUSES</name>
@@ -1798,10 +1801,11 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="132" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="838" endline="903">XNvm_EfuseWriteOffChipRevokeID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="739" endline="819">XNvm_EfuseWriteRevocationID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac15adc21769d673aa1e7f3bf371e9eb5" compoundref="next_2client_2xnvm__efuseclient_8c" startline="1490" endline="1537">XNvm_EfuseWriteOffChipRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="348" endline="365">XNvm_EfuseWriteOffChipRevokeID</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="315" endline="332">XNvm_EfuseWriteRevocationID</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8b9e3d4fcd30cc6f89185e9118e37e8e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1899" endline="1949">XNvm_EfuseWriteRevocationId</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga9a082358f66542e6dadc3c622b552870" prot="public" static="no">
         <name>XNVM_EFUSE_PROGRAM_VERIFY</name>
@@ -1812,7 +1816,10 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gae1424c7cb1b3b9ac2b53bf18a74cad58" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="933" endline="955">XNvm_EfusePgmAndVerifyBit</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf481e9aa41a43093fd5f7bb3f4d03452" prot="public" static="no">
         <name>XNVM_EFUSE_WRITE_LOCKED</name>
@@ -1823,9 +1830,9 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="137" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="563" endline="626">XNvm_EfuseCheckAesKeyCrc</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="381" endline="404">XNvm_EfuseLockController</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="568" endline="631">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="386" endline="409">XNvm_EfuseLockController</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga0c84ed3d6e4ccaf1b93d6eee4410f81a" prot="public" static="no">
         <name>XNVM_EFUSE_WRITE_UNLOCKED</name>
@@ -1836,8 +1843,8 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="138" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="417" endline="440">XNvm_EfuseUnlockController</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="422" endline="445">XNvm_EfuseUnlockController</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2bf4028ab4c55da82c37e29608c94f4e" prot="public" static="no">
         <name>XNVM_EFUSE_CFG_ENABLE_PGM</name>
@@ -1848,9 +1855,9 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="139" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" compoundref="xnvm__efuse__common_8c" startline="282" endline="299">XNvm_EfuseDisableProgramming</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="257" endline="271">XNvm_EfuseEnableProgramming</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" compoundref="xnvm__efuse__common_8c" startline="286" endline="303">XNvm_EfuseDisableProgramming</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="261" endline="275">XNvm_EfuseEnableProgramming</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaadcc8cb62717c66e3b864dfc0b3058cd" prot="public" static="no">
         <name>XNVM_EFUSE_CFG_MARGIN_RD</name>
@@ -1861,9 +1868,9 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="141" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" compoundref="xnvm__efuse__common_8c" startline="310" endline="328">XNvm_EfuseResetReadMode</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="187" endline="234">XNvm_EfuseSetReadMode</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" compoundref="xnvm__efuse__common_8c" startline="314" endline="332">XNvm_EfuseResetReadMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="191" endline="238">XNvm_EfuseSetReadMode</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2c20b4530bdba7752426f6840c1a1964" prot="public" static="no">
         <name>XNVM_EFUSE_STATUS_TBIT_0</name>
@@ -1874,8 +1881,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="143" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="458" endline="483">XNvm_EfuseCheckForTBits</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gae1d1e3bc4e12197fc8f937f7a1dae887" prot="public" static="no">
         <name>XNVM_EFUSE_ADDR_COLUMN_SHIFT</name>
@@ -1886,7 +1892,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="146" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gafbb5e638f90c0d3bc138c3ecf69b8e9c" prot="public" static="no">
         <name>XNVM_EFUSE_ADDR_ROW_SHIFT</name>
@@ -1897,7 +1903,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="146" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga51712aa28325c6dcbe83df105cdd82e7" prot="public" static="no">
         <name>XNVM_EFUSE_ISR_PGM_DONE</name>
@@ -1908,7 +1914,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="147" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="148" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2f99ff66e492691424d18ab0db86334e" prot="public" static="no">
         <name>XNVM_EFUSE_ISR_PGM_ERROR</name>
@@ -1919,7 +1925,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="148" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga5aeb8adf1ab0b419795afa766f3a0b84" prot="public" static="no">
         <name>XNVM_EFUSE_ISR_RD_DONE</name>
@@ -1930,7 +1936,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="149" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga6fdbc7d159dfd097df9156df371c6293" prot="public" static="no">
         <name>XNVM_EFUSE_ISR_CACHE_ERROR</name>
@@ -1941,9 +1947,9 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="150" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="101" endline="147">XNvm_EfuseCacheReload</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga074ef023f48a3f5164b0bf0f6d464d5c" compoundref="xnvm__validate_8c" startline="376" endline="412">XNvm_EfuseCheckZeros</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="105" endline="151">XNvm_EfuseCacheReload</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga074ef023f48a3f5164b0bf0f6d464d5c" compoundref="xnvm__validate_8c" startline="524" endline="560">XNvm_EfuseCheckZeros</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad95b95e5b0d5c59eb046a29e871eaf68" prot="public" static="no">
         <name>XNVM_EFUSE_STS_CACHE_DONE</name>
@@ -1954,7 +1960,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga88247ae52e7771b1040b0be80956e1be" prot="public" static="no">
         <name>XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK</name>
@@ -1965,9 +1971,9 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="168" bodyend="-1"/>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="474" endline="512">XNvm_EfuseValidateDecOnlyRequest</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa382c4bb1913e008f005ea239d399862" compoundref="xnvm__efuse__plat_8c" startline="397" endline="546">XNvm_EfusePlatProtectionChecks</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="622" endline="660">XNvm_EfuseValidateDecOnlyRequest</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gac098113c35ee3bd002d2ba7c1e7db74e" prot="public" static="no">
         <name>XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</name>
@@ -1978,7 +1984,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="170" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="171" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gadb30690462d9f23f008d70946038ee1d" prot="public" static="no">
         <name>XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET</name>
@@ -1989,7 +1995,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="172" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="173" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gae90a96afb82790626728eb3e7b0f8c41" prot="public" static="no">
         <name>XNVM_EFUSE_CRC_AES_ZEROS</name>
@@ -2000,9 +2006,9 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="174" bodyend="-1"/>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gaa35f9d7952af5fccaed74ba5ae579191" compoundref="xnvm__validate_8c" startline="81" endline="150">XNvm_EfuseValidateAesKeyWriteReq</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="474" endline="512">XNvm_EfuseValidateDecOnlyRequest</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gaa35f9d7952af5fccaed74ba5ae579191" compoundref="xnvm__validate_8c" startline="241" endline="292">XNvm_EfuseValidateAesKeyWriteReq</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="622" endline="660">XNvm_EfuseValidateDecOnlyRequest</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga621e696f9c110d1bdd140d61e1571956" prot="public" static="no">
         <name>XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL</name>
@@ -2013,7 +2019,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="176" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="177" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga10edf90a9e171871537fc42fc234c9ba" prot="public" static="no">
         <name>XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER</name>
@@ -2023,7 +2029,7 @@ This function reads DEC only fuses from eFUSE cache.</para><para><parameterlist 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

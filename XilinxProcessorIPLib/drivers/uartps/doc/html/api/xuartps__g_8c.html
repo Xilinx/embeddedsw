@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartps__g_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,13 +105,25 @@ $(document).ready(function(){initNavTree('xuartps__g_8c.html','');});
 <div class="title">xuartps_g.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the configuration table for <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> devices in the system. </p>
+<p>Each entry in the configuration table is a configuration structure for an <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> device in the system.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00  drg/jz 05/13/08 First Release
+2.00  hk     22/01/14 Added check for selecting uart0 instance.
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.19  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartps_8h.html">xuartps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ga371812b0c1dbfd7292ea4788b8311e39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_ps___config.html">XUartPs_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga371812b0c1dbfd7292ea4788b8311e39">XUartPs_ConfigTable</a> [XPAR_XUARTPS_NUM_INSTANCES]</td></tr>
-<tr class="memdesc:ga371812b0c1dbfd7292ea4788b8311e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each <a class="el" href="struct_x_uart_ps.html" title="The XUartPs driver instance data structure. ">XUartPs</a> device in the system has an entry in this table.  <a href="group__uartps.html#ga371812b0c1dbfd7292ea4788b8311e39">More...</a><br/></td></tr>
+<tr class="memdesc:ga371812b0c1dbfd7292ea4788b8311e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the configuration table for <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> devices.  <a href="group__uartps.html#ga371812b0c1dbfd7292ea4788b8311e39">More...</a><br/></td></tr>
 <tr class="separator:ga371812b0c1dbfd7292ea4788b8311e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

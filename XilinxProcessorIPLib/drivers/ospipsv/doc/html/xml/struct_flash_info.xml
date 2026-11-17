@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_flash_info" kind="struct" prot="public">
     <compoundname>FlashInfo</compoundname>
+    <includes local="no">xospipsv_flash_config.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -9,12 +10,12 @@
         <argsstring></argsstring>
         <name>jedec_id</name>
         <briefdescription>
-        </briefdescription>
+<para>JEDEC ID. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="141" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -22,12 +23,13 @@
         <argsstring></argsstring>
         <name>SectSize</name>
         <briefdescription>
-        </briefdescription>
+<para>Individual sector size or combined sector size in case of parallel config. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1af97490d94d6769ec426380408695d555" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -35,12 +37,15 @@
         <argsstring></argsstring>
         <name>NumSect</name>
         <briefdescription>
-        </briefdescription>
+<para>Total no. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>of sectors in one/two flash devices. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -48,12 +53,15 @@
         <argsstring></argsstring>
         <name>PageSize</name>
         <briefdescription>
-        </briefdescription>
+<para>Individual page size or combined page size in case of parallel config. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -61,12 +69,15 @@
         <argsstring></argsstring>
         <name>NumPage</name>
         <briefdescription>
-        </briefdescription>
+<para>Total no. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>of pages in one/two flash devices. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="300" endline="491">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -74,12 +85,14 @@
         <argsstring></argsstring>
         <name>FlashDeviceSize</name>
         <briefdescription>
-        </briefdescription>
+<para>Size of one flash device NOT the combination of both devices, if present. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1gae08db22955675661860c9008890b0138" compoundref="xospipsv__flash__intr__example_8c" startline="2203" endline="2217">GetRealAddr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1af9b63415d9693edada42bfb9d3ca6acc" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -87,12 +100,13 @@
         <argsstring></argsstring>
         <name>SectMask</name>
         <briefdescription>
-        </briefdescription>
+<para>Mask to get sector start address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,12 +114,13 @@
         <argsstring></argsstring>
         <name>NumDie</name>
         <briefdescription>
-        </briefdescription>
+<para>No. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>of die forming a single flash. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1288" endline="1417">DieErase</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1ae472f6c3dc1cc141a7d8943db3cd1ac5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -113,12 +128,12 @@
         <argsstring></argsstring>
         <name>ReadCmd</name>
         <briefdescription>
-        </briefdescription>
+<para>Read command used to read data from flash. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="156" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a51321949e67e35064f9b41ba58707745" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -126,12 +141,12 @@
         <argsstring></argsstring>
         <name>WriteCmd</name>
         <briefdescription>
-        </briefdescription>
+<para>Write command used to write data to flash. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="157" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a438434ff734316455e7d182f8c511b39" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -139,12 +154,12 @@
         <argsstring></argsstring>
         <name>EraseCmd</name>
         <briefdescription>
-        </briefdescription>
+<para>Erase Command. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a0c6cfb0c7d2bce5fc540cbb5e8fca42e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -152,12 +167,18 @@
         <argsstring></argsstring>
         <name>StatusCmd</name>
         <briefdescription>
-        </briefdescription>
+<para>Status Command. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="138" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1139" endline="1273">BulkErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1288" endline="1417">DieErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</referencedby>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_flash_info_1a2c7c14d7df22487355b4cb096171130a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -165,19 +186,20 @@
         <argsstring></argsstring>
         <name>DummyCycles</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of Dummy cycles for Read operation. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="139" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Holds the flash device information. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="122" bodyend="140"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="140" bodyend="161"/>
     <listofallmembers>
       <member refid="struct_flash_info_1a2c7c14d7df22487355b4cb096171130a" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>DummyCycles</name></member>
       <member refid="struct_flash_info_1a438434ff734316455e7d182f8c511b39" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>EraseCmd</name></member>

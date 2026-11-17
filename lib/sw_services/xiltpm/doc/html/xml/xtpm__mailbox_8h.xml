@@ -23,6 +23,18 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="80">
+        <label>xtpm_client.c</label>
+        <link refid="xtpm__client_8c"/>
+      </node>
+      <node id="79">
+        <label>xtpm_client.h</label>
+        <link refid="xtpm__client_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
       <node id="82">
         <label>xtpm_mailbox.c</label>
         <link refid="xtpm__mailbox_8c"/>
@@ -38,18 +50,6 @@
       <node id="81">
         <label>xiltpm_example.c</label>
         <link refid="xiltpm__example_8c"/>
-      </node>
-      <node id="80">
-        <label>xtpm_client.c</label>
-        <link refid="xtpm__client_8c"/>
-      </node>
-      <node id="79">
-        <label>xtpm_client.h</label>
-        <link refid="xtpm__client_8h"/>
-        <childnode refid="80" relation="include">
-        </childnode>
-        <childnode refid="81" relation="include">
-        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -102,7 +102,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Send IPI CDO to PLM. Return XST_FAILURE, if failure in IPI send request.</para><para>Wait for IPI response from PLM with a default timeout of 2 seconds. If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" bodystart="59" bodyend="88"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" bodystart="59" bodyend="88"/>
         <referencedby refid="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" compoundref="xtpm__client_8c" startline="254" endline="277">XTpm_GetPcrLog</referencedby>
         <referencedby refid="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" compoundref="xtpm__client_8c" startline="54" endline="78">XTpm_Init</referencedby>
         <referencedby refid="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" compoundref="xtpm__client_8c" startline="167" endline="194">XTpm_PcrEvent</referencedby>
@@ -147,7 +147,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Perform input parameter validation on InstancePtr. If not NULL initialize the InstancePtr, else return XST_FAILURE.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" bodystart="102" bodyend="116"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" bodystart="102" bodyend="116"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -244,6 +244,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XTPM_MAILBOX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.h"/>
   </compounddef>
 </doxygen>

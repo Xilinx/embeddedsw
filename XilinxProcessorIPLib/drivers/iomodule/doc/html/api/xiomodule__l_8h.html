@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xiomodule__l_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('xiomodule__l_8h.html','');});
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xiomodule_l.h File Reference</div>  </div>
@@ -146,6 +147,12 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga4eaff234e65f369a870fca3b92215df4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a value from a GPI register.  <a href="group__iomodule.html#ga4eaff234e65f369a870fca3b92215df4">More...</a><br/></td></tr>
 <tr class="separator:ga4eaff234e65f369a870fca3b92215df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gab333e5826535071fe60f13b70b6e56dd"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iomodule.html#gab333e5826535071fe60f13b70b6e56dd">XFastInterruptHandler</a> )(void)</td></tr>
+<tr class="memdesc:gab333e5826535071fe60f13b70b6e56dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast interrupt handler type for zero-latency interrupt dispatch.  <a href="group__iomodule.html#gab333e5826535071fe60f13b70b6e56dd">More...</a><br/></td></tr>
+<tr class="separator:gab333e5826535071fe60f13b70b6e56dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga6e89f42ede1324eaf70720f6db6783b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iomodule.html#ga6e89f42ede1324eaf70720f6db6783b4">XIOModule_SendByte</a> (UINTPTR BaseAddress, u8 Data)</td></tr>
@@ -160,7 +167,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9b99cc28b7c0282919f3039d8d60e168"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iomodule.html#ga9b99cc28b7c0282919f3039d8d60e168">XIOModule_SetIntrSvcOption</a> (UINTPTR BaseAddress, s32 Option)</td></tr>
 <tr class="memdesc:ga9b99cc28b7c0282919f3039d8d60e168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the interrupt service option, which can configure the driver so that it services only a single interrupt at a time when an interrupt occurs, or services all pending interrupts when an interrupt occurs.  <a href="group__iomodule.html#ga9b99cc28b7c0282919f3039d8d60e168">More...</a><br/></td></tr>
 <tr class="separator:ga9b99cc28b7c0282919f3039d8d60e168"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab55e07c2159c0c0b469503bfac8e20b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iomodule.html#gab55e07c2159c0c0b469503bfac8e20b0">XIOModule_RegisterHandler</a> (UINTPTR BaseAddress, s32 InterruptId, XInterruptHandler Handler, void *CallBackRef)</td></tr>
+<tr class="memitem:gab55e07c2159c0c0b469503bfac8e20b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iomodule.html#gab55e07c2159c0c0b469503bfac8e20b0">XIOModule_RegisterHandler</a> (UINTPTR BaseAddress, s32 InterruptId, XInterruptHandler <a class="el" href="group__iomodule.html#ga7c7eb802878944c1e915ea06e07679a2">Handler</a>, void *CallBackRef)</td></tr>
 <tr class="memdesc:gab55e07c2159c0c0b469503bfac8e20b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a handler function for a specific interrupt ID.  <a href="group__iomodule.html#gab55e07c2159c0c0b469503bfac8e20b0">More...</a><br/></td></tr>
 <tr class="separator:gab55e07c2159c0c0b469503bfac8e20b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

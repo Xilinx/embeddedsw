@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___node" kind="struct" prot="public">
+    <compoundname>XPm_Node</compoundname>
+    <includes local="no">xpm_node.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Node::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Node ID: For XilPM clock and pin APIs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Node::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address: Specify to node type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_1a88e9a0e3add56f0b490bb9cd1311a608" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_Node::LatencyMarg</definition>
+        <argsstring></argsstring>
+        <name>LatencyMarg</name>
+        <briefdescription>
+<para>lowest latency requirement - powerup latency </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_1a95a8b66fb7266ea9b0b5280f2090feb4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Node::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>Node state: Specific to node type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_1abecedab9a9915005b0a5b617516c06c7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Node::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The node class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all the power, clock, pin and reset node classes. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h" bodystart="28" bodyend="34"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_pm___node_1abecedab9a9915005b0a5b617516c06c7" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>Flags</name></member>
+      <member refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>Id</name></member>
+      <member refid="struct_x_pm___node_1a88e9a0e3add56f0b490bb9cd1311a608" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>LatencyMarg</name></member>
+      <member refid="struct_x_pm___node_1a95a8b66fb7266ea9b0b5280f2090feb4" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

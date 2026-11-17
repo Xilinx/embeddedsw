@@ -1,5 +1,9 @@
 var xiicps__polled__multi__master__example_8c =
 [
+    [ "IIC_SCLK_RATE", "xiicps__polled__multi__master__example_8c.html#a34f6b11bc914bc005cf3f302a394c026", null ],
+    [ "IIC_SLAVE_ADDR", "xiicps__polled__multi__master__example_8c.html#a709b03962769714690547d1d17268708", null ],
+    [ "TEST_BUFFER_SIZE", "xiicps__polled__multi__master__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed", null ],
+    [ "XIICPS_BASEADDRESS", "xiicps__polled__multi__master__example_8c.html#ab8a417bcd1481342d0ff31c50cf97ab6", null ],
     [ "IicPsMultiMasterPolledExample", "xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101", null ],
     [ "main", "xiicps__polled__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "Iic", "xiicps__polled__multi__master__example_8c.html#ac16e1350ea077cddfa26851a6e7ead7c", null ],

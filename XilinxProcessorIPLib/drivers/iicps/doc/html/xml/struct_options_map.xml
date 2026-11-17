@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_options_map_1a15a0d89a22cb9514acce100647e9d7e1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,14 +27,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Create the table of options which are processed to get/set the device options. </para>    </briefdescription>
+<para>Maps a driver option to its control register mask. </para>    </briefdescription>
     <detaileddescription>
-<para>These options are table driven to allow easy maintenance and expansion of the options. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="63" bodyend="66"/>
+<para>The table of options is processed to get or set the device options. These options are table driven to allow easy maintenance and expansion of the options. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="75" bodyend="78"/>
     <listofallmembers>
       <member refid="struct_options_map_1a15a0d89a22cb9514acce100647e9d7e1" prot="public" virt="non-virtual"><scope>OptionsMap</scope><name>Mask</name></member>
       <member refid="struct_options_map_1a802f63f679817760b3c4c1b8a72f229f" prot="public" virt="non-virtual"><scope>OptionsMap</scope><name>Option</name></member>

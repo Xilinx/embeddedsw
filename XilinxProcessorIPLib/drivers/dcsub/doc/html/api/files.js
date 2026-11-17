@@ -1,11 +1,13 @@
 var files =
 [
+    [ "mmi_dc_bypass_test.c", "mmi__dc__bypass__test_8c.html", "mmi__dc__bypass__test_8c" ],
+    [ "mmi_dc_bypass_test.h", "mmi__dc__bypass__test_8h.html", "mmi__dc__bypass__test_8h" ],
     [ "mmi_dc_cursor.c", "mmi__dc__cursor_8c.html", "mmi__dc__cursor_8c" ],
     [ "mmi_dc_cursor.h", "mmi__dc__cursor_8h.html", "mmi__dc__cursor_8h" ],
     [ "mmi_dc_generate_frames.c", "mmi__dc__generate__frames_8c.html", "mmi__dc__generate__frames_8c" ],
     [ "mmi_dc_generate_frames.h", "mmi__dc__generate__frames_8h.html", "mmi__dc__generate__frames_8h" ],
     [ "mmi_dc_live_test.c", "mmi__dc__live__test_8c.html", null ],
-    [ "mmi_dc_live_test.h", "mmi__dc__live__test_8h.html", null ],
+    [ "mmi_dc_live_test.h", "mmi__dc__live__test_8h.html", "mmi__dc__live__test_8h" ],
     [ "mmi_dc_mixed_test.c", "mmi__dc__mixed__test_8c.html", null ],
     [ "mmi_dc_mixed_test.h", "mmi__dc__mixed__test_8h.html", "mmi__dc__mixed__test_8h" ],
     [ "mmi_dc_nonlive_test.c", "mmi__dc__nonlive__test_8c.html", "mmi__dc__nonlive__test_8c" ],

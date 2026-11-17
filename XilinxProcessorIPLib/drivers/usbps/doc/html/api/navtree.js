@@ -1,43 +1,158 @@
 var NAVTREE =
 [
-  [ "usbps", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xusbps_ch9.c", "example.html#ex1", null ],
-      [ "xusbps_ch9.h", "example.html#ex2", null ],
-      [ "xusbps_ch9_storage.c", "example.html#ex3", null ],
-      [ "xusbps_ch9_storage.h", "example.html#ex4", null ],
-      [ "xusbps_class_storage.c", "example.html#ex5", null ],
-      [ "xusbps_class_storage.h", "example.html#ex6", null ],
-      [ "xusbps_intr_example.c", "example.html#ex7", null ],
-      [ "xusb_ch9_audio.c", "example.html#ex8", null ],
-      [ "xusbps_ch9_audio.h", "example.html#ex9", null ],
-      [ "xusbps_class_audio.c", "example.html#ex10", null ],
-      [ "xusbps_class_audio.h", "example.html#ex11", null ],
-      [ "xusbps_audio_example.c", "example.html#ex12", null ],
-      [ "xusbps_audiodata.h", "example.html#ex13", null ]
-    ] ]
-  ] ]
+  [
+    "usbps",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                "functions_dup"
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                "functions_vars"
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xusbps_ch9.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xusbps_ch9.h",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xusbps_ch9_storage.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xusbps_ch9_storage.h",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xusbps_class_storage.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xusbps_class_storage.h",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xusbps_intr_example.c",
+            "example.html#ex7",
+            null
+          ],
+          [
+            "xusb_ch9_audio.c",
+            "example.html#ex8",
+            null
+          ],
+          [
+            "xusbps_ch9_audio.h",
+            "example.html#ex9",
+            null
+          ],
+          [
+            "xusbps_class_audio.c",
+            "example.html#ex10",
+            null
+          ],
+          [
+            "xusbps_class_audio.h",
+            "example.html#ex11",
+            null
+          ],
+          [
+            "xusbps_audio_example.c",
+            "example.html#ex12",
+            null
+          ],
+          [
+            "xusbps_audiodata.h",
+            "example.html#ex13",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xusbps__endpoint_8h.html#ga5e3ba25e78a33f9f7676109281cbad59"
+"struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html",
+"xusbps__ch9__audio_8c.html#a635d3ed37a8c5bd822ba74cf39ea6c9c",
+"xusbps__hw_8h.html#ga5321ce3c50f36383f51d1d8ccea520f3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

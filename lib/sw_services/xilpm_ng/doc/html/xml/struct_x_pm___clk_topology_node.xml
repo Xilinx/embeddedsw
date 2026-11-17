@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___clk_topology_node" kind="struct" prot="public">
+    <compoundname>XPm_ClkTopologyNode</compoundname>
+    <includes local="no">xpm_clock.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a588dc6526ec956b58cd9a660571629f9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_ClkTopologyNode::Reg</definition>
+        <argsstring></argsstring>
+        <name>Reg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a96489dcb3c37937c25aaff9856e6b307" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t XPm_ClkTopologyNode::Clkflags</definition>
+        <argsstring></argsstring>
+        <name>Clkflags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a2689a3b99922cb2f09761efc26a8b4ed" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t XPm_ClkTopologyNode::Typeflags</definition>
+        <argsstring></argsstring>
+        <name>Typeflags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a6dbd758f19ef4f5c8e89537c96f14902" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopologyNode::Shift</definition>
+        <argsstring></argsstring>
+        <name>Shift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a8b299f8e564302de1c2cad768311700b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopologyNode::Mult</definition>
+        <argsstring></argsstring>
+        <name>Mult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a6899ac782c96581bb3835f6d313477a7" prot="public" static="no" mutable="no">
+        <type>union XPm_ClkTopologyNode::@1</type>
+        <definition>union XPm_ClkTopologyNode::@1 XPm_ClkTopologyNode::Param1</definition>
+        <argsstring></argsstring>
+        <name>Param1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a4f7355bfb993557b7300858962f7130d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopologyNode::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a40efdd644d8fb217b459b649ff2de2d8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopologyNode::Div</definition>
+        <argsstring></argsstring>
+        <name>Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a9aa8819d77af1312127869cc5221de7e" prot="public" static="no" mutable="no">
+        <type>union XPm_ClkTopologyNode::@2</type>
+        <definition>union XPm_ClkTopologyNode::@2 XPm_ClkTopologyNode::Param2</definition>
+        <argsstring></argsstring>
+        <name>Param2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="70" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___clk_topology_node_1a4d1d4473a59c5a604db7672d3bb68181" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ClkTopologyNode::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The topology node class. </para>    </briefdescription>
+    <detaileddescription>
+<para><verbatim>     This is the class to represent each node
+</verbatim> in clock topology. It can be mux/div/gate/fixed factor. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="65" bodyend="72"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___clk_topology_node_1a96489dcb3c37937c25aaff9856e6b307" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Clkflags</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a40efdd644d8fb217b459b649ff2de2d8" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Div</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a8b299f8e564302de1c2cad768311700b" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Mult</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a6899ac782c96581bb3835f6d313477a7" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Param1</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a9aa8819d77af1312127869cc5221de7e" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Param2</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a588dc6526ec956b58cd9a660571629f9" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Reg</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a6dbd758f19ef4f5c8e89537c96f14902" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Shift</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a4d1d4473a59c5a604db7672d3bb68181" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Type</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a2689a3b99922cb2f09761efc26a8b4ed" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Typeflags</name></member>
+      <member refid="struct_x_pm___clk_topology_node_1a4f7355bfb993557b7300858962f7130d" prot="public" virt="non-virtual"><scope>XPm_ClkTopologyNode</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

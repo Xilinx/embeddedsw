@@ -1,6 +1,25 @@
 var xusb__freertos__class__audio_8h =
 [
+    [ "audio_dev", "structaudio__dev.html", "structaudio__dev" ],
+    [ "AUDIO_CONFIG", "xusb__freertos__class__audio_8h.html#a846a20706e8de7ec305d51abc09bb6ad", null ],
+    [ "AUDIO_UNCONFIG", "xusb__freertos__class__audio_8h.html#abec9479f4a097cf73c83509de24309c6", null ],
+    [ "PLAY_START", "xusb__freertos__class__audio_8h.html#aff021684340cd326ef94a7e509e6a7a8", null ],
+    [ "PLAY_STOP", "xusb__freertos__class__audio_8h.html#adfa6a9e47040d791d57dc7fd49357f3c", null ],
+    [ "RECORD_START", "xusb__freertos__class__audio_8h.html#aed22abbdf1b0c9bc125e04fdf3aad76d", null ],
+    [ "RECORD_STOP", "xusb__freertos__class__audio_8h.html#a1fb2854ebfa867ab704b3bc469a4097c", null ],
+    [ "UAC2_CS_CONTROL_CLOCK_VALID", "xusb__freertos__class__audio_8h.html#af761a3c529272768675db42bfb39ed9b", null ],
+    [ "UAC2_CS_CONTROL_SAM_FREQ", "xusb__freertos__class__audio_8h.html#a0af347650d747729e3bd81179d135f34", null ],
+    [ "UAC2_CS_CONTROL_UNDEFINED", "xusb__freertos__class__audio_8h.html#a1662f078f25f00b88229f1ccef3f037a", null ],
+    [ "UAC2_CS_CUR", "xusb__freertos__class__audio_8h.html#a8b2a8445191e4e509153c74bb9f9dbec", null ],
+    [ "UAC2_CS_RANGE", "xusb__freertos__class__audio_8h.html#a618edb4d50d3e1d435a1421eebc050e1", null ],
+    [ "UAC2_CX_CONTROL_CLOCK_SEL", "xusb__freertos__class__audio_8h.html#a4fb3344c4fd61753a3561b760327d691", null ],
+    [ "UAC2_CX_CONTROL_UNDEFINED", "xusb__freertos__class__audio_8h.html#a9db226a634c1d5f31b1964662ebb4dcb", null ],
+    [ "UAC2_FU_CONTROL_UNDEFINED", "xusb__freertos__class__audio_8h.html#a3080151311398fc9a479a88b697de174", null ],
+    [ "UAC2_FU_MUTE_CONTROL", "xusb__freertos__class__audio_8h.html#a50195a810e6b38e7381f36d9e63a5192", null ],
+    [ "UAC2_FU_VOLUME_CONTROL", "xusb__freertos__class__audio_8h.html#af6995a9c0bcc3c0d52f9af100cabecee", null ],
     [ "prvPlayBackTask", "xusb__freertos__class__audio_8h.html#a43a401c19d0503aa6f48746b3cb11721", null ],
     [ "prvRecordTask", "xusb__freertos__class__audio_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4", null ],
-    [ "Usb_ClassReq", "xusb__freertos__class__audio_8h.html#a32b6f95139e55ff73c71303408094577", null ]
+    [ "Usb_ClassReq", "xusb__freertos__class__audio_8h.html#a32b6f95139e55ff73c71303408094577", null ],
+    [ "audio_dev", "xusb__freertos__class__audio_8h.html#ae6e48a3d7974463fc50c80db9194f448", null ],
+    [ "BufferPtrTemp", "xusb__freertos__class__audio_8h.html#a1f946c7d2b74571706ecb53626f2fa19", null ]
 ];

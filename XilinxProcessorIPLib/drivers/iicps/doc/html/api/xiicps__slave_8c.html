@@ -103,15 +103,41 @@ $(document).ready(function(){initNavTree('xiicps__slave_8c.html','');});
 <div class="title">xiicps_slave.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the slave mode transfers of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>The <a class="el" href="xiicps__slave_8c.html" title="Implements the slave mode transfers of the XIicPs driver. ">xiicps_slave.c</a> file handles slave transfers.</p>
+<pre> MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.00a jz  01/30/10 First release
+1.04a kpc 08/30/13 Avoid buffer overwrite in SlaveRecvData function
+3.00    sk      01/31/15 Modified the code according to MISRAC 2012 Compliant.
+3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+3.8   ask 08/01/18 Fix for Cppcheck and Doxygen warnings.
+3.10 sg   06/24/19 Fix for Slave send polled and interruput transfers.
+3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
+          12/23/19 Add 10 bit address support for Master/Slave
+3.11  sd  02/06/20 Added clocking support.
+3.11  rna 02/12/20 Moved static data transfer functions to <a class="el" href="xiicps__xfer_8c.html" title="Implements the internal data transfer helpers of the XIicPs driver. ">xiicps_xfer.c</a> file
+          02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+      rna 04/09/20 Added timeout as event in slave interrupt handler.
+3.16  gm  05/10/22 Updated slave mode receive API's by removing byte count
+                     dependency.
+3.24  vn  08/26/26 Fix Doxygen warnings
+3.24  tb  09/30/26 Align Doxygen comments with AMD standards
+3.24  vlt 10/02/26 Refactor <a class="el" href="group__iicps__api.html#ga5ca49d9131b13d66f58de0b5a23faea4" title="Sends a buffer in polled mode as a slave. ">XIicPs_SlaveSendPolled()</a> to reduce CCM.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps__xfer_8h.html">xiicps_xfer.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Slave functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Provides the functions for the device as slave, in <a class="el" href="xiicps__slave_8c.html" title="Implements the slave mode transfers of the XIicPs driver. ">xiicps_slave.c</a>. </p>
+</div></td></tr>
 <tr class="memitem:gad1c7ffa09df93fb59f97b0a3bf5baaa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gad1c7ffa09df93fb59f97b0a3bf5baaa7">XIicPs_SetupSlave</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u16 SlaveAddr)</td></tr>
-<tr class="memdesc:gad1c7ffa09df93fb59f97b0a3bf5baaa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for device as slave, in <a class="el" href="xiicps__slave_8c.html">xiicps_slave.c</a>.  <a href="group__iicps__api.html#gad1c7ffa09df93fb59f97b0a3bf5baaa7">More...</a><br/></td></tr>
+<tr class="memdesc:gad1c7ffa09df93fb59f97b0a3bf5baaa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the device to be a slave.  <a href="group__iicps__api.html#gad1c7ffa09df93fb59f97b0a3bf5baaa7">More...</a><br/></td></tr>
 <tr class="separator:gad1c7ffa09df93fb59f97b0a3bf5baaa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4478d1d94f349deda02c0191a7529113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga4478d1d94f349deda02c0191a7529113">XIicPs_SlaveSend</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount)</td></tr>
 <tr class="memdesc:ga4478d1d94f349deda02c0191a7529113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a slave interrupt-driven send.  <a href="group__iicps__api.html#ga4478d1d94f349deda02c0191a7529113">More...</a><br/></td></tr>
@@ -123,10 +149,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga5ca49d9131b13d66f58de0b5a23faea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a buffer in polled mode as a slave.  <a href="group__iicps__api.html#ga5ca49d9131b13d66f58de0b5a23faea4">More...</a><br/></td></tr>
 <tr class="separator:ga5ca49d9131b13d66f58de0b5a23faea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga74b0af9e4395c8de724dc377e3504d0d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga74b0af9e4395c8de724dc377e3504d0d">XIicPs_SlaveRecvPolled</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount)</td></tr>
-<tr class="memdesc:ga74b0af9e4395c8de724dc377e3504d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a buffer in polled mode as a slave.  <a href="group__iicps__api.html#ga74b0af9e4395c8de724dc377e3504d0d">More...</a><br/></td></tr>
+<tr class="memdesc:ga74b0af9e4395c8de724dc377e3504d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a buffer in polled mode as a slave.  <a href="group__iicps__api.html#ga74b0af9e4395c8de724dc377e3504d0d">More...</a><br/></td></tr>
 <tr class="separator:ga74b0af9e4395c8de724dc377e3504d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga716cdb9f63e56269824866872958dd78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga716cdb9f63e56269824866872958dd78">XIicPs_SlaveInterruptHandler</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga716cdb9f63e56269824866872958dd78"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interrupt handler for slave mode.  <a href="group__iicps__api.html#ga716cdb9f63e56269824866872958dd78">More...</a><br/></td></tr>
+<tr class="memdesc:ga716cdb9f63e56269824866872958dd78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for slave mode.  <a href="group__iicps__api.html#ga716cdb9f63e56269824866872958dd78">More...</a><br/></td></tr>
 <tr class="separator:ga716cdb9f63e56269824866872958dd78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

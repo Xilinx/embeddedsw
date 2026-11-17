@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -126,14 +127,18 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:aa448e9b41c1b225d1951926c50c80d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peer's public key object.  <a href="#aa448e9b41c1b225d1951926c50c80d72">More...</a><br/></td></tr>
 <tr class="separator:aa448e9b41c1b225d1951926c50c80d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77b25cca0a3a21a3eec0468331f5e535"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecdh_params.html#a77b25cca0a3a21a3eec0468331f5e535">SharedSecretAddr</a></td></tr>
-<tr class="memdesc:a77b25cca0a3a21a3eec0468331f5e535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address where shared secret will be written (size = PvtKey.KeyLen)  <a href="#a77b25cca0a3a21a3eec0468331f5e535">More...</a><br/></td></tr>
+<tr class="memdesc:a77b25cca0a3a21a3eec0468331f5e535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address of the client buffer that receives the shared secret; 0 to store the secret in the key vault instead.  <a href="#a77b25cca0a3a21a3eec0468331f5e535">More...</a><br/></td></tr>
 <tr class="separator:a77b25cca0a3a21a3eec0468331f5e535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59d424489b7387dcdedb2c5d3eeb9ea3"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecdh_params.html#a59d424489b7387dcdedb2c5d3eeb9ea3">SharedSecretObjIdAddr</a></td></tr>
-<tr class="memdesc:a59d424489b7387dcdedb2c5d3eeb9ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional object ID for shared secret storage.  <a href="#a59d424489b7387dcdedb2c5d3eeb9ea3">More...</a><br/></td></tr>
+<tr class="memdesc:a59d424489b7387dcdedb2c5d3eeb9ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address receiving the object ID of the stored shared secret; used only when SharedSecretAddr is 0.  <a href="#a59d424489b7387dcdedb2c5d3eeb9ea3">More...</a><br/></td></tr>
 <tr class="separator:a59d424489b7387dcdedb2c5d3eeb9ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99cc5660e701198963c8dbbc85105728"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecdh_params.html#a99cc5660e701198963c8dbbc85105728">CurveType</a></td></tr>
-<tr class="memdesc:a99cc5660e701198963c8dbbc85105728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of curve.  <a href="#a99cc5660e701198963c8dbbc85105728">More...</a><br/></td></tr>
-<tr class="separator:a99cc5660e701198963c8dbbc85105728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a211ff9c73b55d661c50e0a32394bc3ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_asu___key_manager_key_metadata.html">XAsu_KeyManagerKeyMetadata</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecdh_params.html#a211ff9c73b55d661c50e0a32394bc3ad">SharedSecretMetadata</a></td></tr>
+<tr class="memdesc:a211ff9c73b55d661c50e0a32394bc3ad"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">                  Metadata used when the shared secret is
+</pre><p> stored as a key in the vault, i.e.  <a href="#a211ff9c73b55d661c50e0a32394bc3ad">More...</a><br/></td></tr>
+<tr class="separator:a211ff9c73b55d661c50e0a32394bc3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655e5eb43df09a70f90f2161f1f9a547"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecdh_params.html#a655e5eb43df09a70f90f2161f1f9a547">SharedSecretLen</a></td></tr>
+<tr class="memdesc:a655e5eb43df09a70f90f2161f1f9a547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte length of the buffer at SharedSecretAddr.  <a href="#a655e5eb43df09a70f90f2161f1f9a547">More...</a><br/></td></tr>
+<tr class="separator:a655e5eb43df09a70f90f2161f1f9a547"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea60b613a9fc7b0e8cd17aad8c359f04"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecdh_params.html#aea60b613a9fc7b0e8cd17aad8c359f04">Reserved</a> [4]</td></tr>
 <tr class="memdesc:aea60b613a9fc7b0e8cd17aad8c359f04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit padding to ensure consistent struct size across architectures.  <a href="#aea60b613a9fc7b0e8cd17aad8c359f04">More...</a><br/></td></tr>
 <tr class="separator:aea60b613a9fc7b0e8cd17aad8c359f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,22 +146,6 @@ Data Fields</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This structure contains ECDH params info. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a99cc5660e701198963c8dbbc85105728"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XAsu_EcdhParams::CurveType</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Type of curve. </p>
-
-<p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aa448e9b41c1b225d1951926c50c80d72"></a>
 <div class="memitem">
 <div class="memproto">
@@ -213,9 +202,42 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Address where shared secret will be written (size = PvtKey.KeyLen) </p>
+<p>Address of the client buffer that receives the shared secret; 0 to store the secret in the key vault instead. </p>
+
+<p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__xasu__ecc__client__apis.html#ga479b14161470bf8787e6f265bb4d23d8">XAsu_EcdhGenSharedSecret()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a655e5eb43df09a70f90f2161f1f9a547"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XAsu_EcdhParams::SharedSecretLen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte length of the buffer at SharedSecretAddr. </p>
+<p>Required when SharedSecretAddr is non-zero; must be at least PvtKey.KeyLen (the curve shared-secret length). Unused when SharedSecretAddr is 0. </p>
 
 <p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a211ff9c73b55d661c50e0a32394bc3ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_asu___key_manager_key_metadata.html">XAsu_KeyManagerKeyMetadata</a> XAsu_EcdhParams::SharedSecretMetadata</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><pre class="fragment">                  Metadata used when the shared secret is
+</pre><p> stored as a key in the vault, i.e. </p>
+<p>when SharedSecretAddr is 0. Length is ignored, as the firmware stores the secret with the curve length </p>
 
 </div>
 </div>
@@ -229,9 +251,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Optional object ID for shared secret storage. </p>
+<p>Address receiving the object ID of the stored shared secret; used only when SharedSecretAddr is 0. </p>
 
-<p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__xasu__ecc__client__apis.html#ga479b14161470bf8787e6f265bb4d23d8">XAsu_EcdhGenSharedSecret()</a>.</p>
 
 </div>
 </div>

@@ -8,6 +8,7 @@ var struct_x_intc___config =
     [ "IntrId", "struct_x_intc___config.html#a2f0cf11a183840baccb545854d7accc9", null ],
     [ "IntrParent", "struct_x_intc___config.html#abd06397221e3c64897f994f68ef4f575", null ],
     [ "IntVectorAddr", "struct_x_intc___config.html#a3680484ddceab0bc26f7a4ac2e3b7852", null ],
+    [ "Name", "struct_x_intc___config.html#a31fd067c14b5fec386516148b1143971", null ],
     [ "NumberofIntrs", "struct_x_intc___config.html#a6e2fc4f937193eb9e665a2e66af97db2", null ],
     [ "NumberofSwIntrs", "struct_x_intc___config.html#a85d5d557aa6619757848d754ca096552", null ],
     [ "Options", "struct_x_intc___config.html#ac3efdbf93e34b88aedead2e7ca44cee1", null ],

@@ -7,14 +7,6 @@
       <node id="8">
         <label>xil_assert.h</label>
       </node>
-      <node id="9">
-        <label>xsrio_hw.h</label>
-        <link refid="xsrio__hw_8h"/>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-      </node>
       <node id="11">
         <label>xil_io.h</label>
       </node>
@@ -43,6 +35,14 @@
         <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xsrio_hw.h</label>
+        <link refid="xsrio__hw_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -96,7 +96,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="56" bodyend="82"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="56" bodyend="82"/>
         <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
         <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
         <references refid="struct_x_srio_1ace213b237a319af359f46fee4ea92b1a" compoundref="xsrio_8h" startline="186">XSrio::IsReady</references>
@@ -134,7 +134,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="100" bodyend="117"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="100" bodyend="117"/>
         <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
         <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
         <references refid="group__srio_1ga86e8b638b0295f135b4dfea25bcefce4" compoundref="xsrio_8h" startline="160">XSRIO_PORT_HAS_ERRORS</references>
@@ -175,7 +175,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="134" bodyend="151"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="134" bodyend="151"/>
         <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
         <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
         <references refid="group__srio_1ga5c084f9424ee6edbc6c9c94db2dac6f8" compoundref="xsrio_8h" startline="122">XSRIO_IS_BRIDGE</references>
@@ -239,7 +239,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="171" bodyend="224"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="171" bodyend="224"/>
         <references refid="group__srio_1ga30c7873d0765851288036067362c5b7e" compoundref="xsrio_8h" startline="163">XSRIO_DIR_TX</references>
         <references refid="group__srio_1gac0c9b8d9ebb9191a8314f93225bd59a8" compoundref="xsrio_8h" startline="151">XSRIO_OP_MODE_ATOMIC</references>
         <references refid="group__srio_1ga01882d64861c721fafb08cc63dc7e589" compoundref="xsrio_8h" startline="141">XSRIO_OP_MODE_DATA_MESSAGE</references>
@@ -317,7 +317,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="244" bodyend="278"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="244" bodyend="278"/>
         <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
         <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
         <references refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" compoundref="xsrio__hw_8h" startline="140">XSRIO_IMP_WCSR_OFFSET</references>
@@ -388,7 +388,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="297" bodyend="312"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="297" bodyend="312"/>
         <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
         <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
         <references refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" compoundref="xsrio__hw_8h" startline="140">XSRIO_IMP_WCSR_OFFSET</references>
@@ -602,6 +602,6 @@
 <codeline lineno="311"><highlight class="normal"></highlight></codeline>
 <codeline lineno="312"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c"/>
   </compounddef>
 </doxygen>

@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___asu_core" kind="struct" prot="public">
+    <compoundname>XPm_AsuCore</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___asu_core_1a9f5b1a7a70dd8d3f90b3e65100ce80e5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref></type>
+        <definition>XPm_Core XPm_AsuCore::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+<para>Processor core devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___asu_core_1a2c659bd28994079d57f95a871b834e18" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_AsuCore::AsuBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>AsuBaseAddr</name>
+        <briefdescription>
+<para>Base address of ASU module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="67">
+        <label>XPm_AsuCore</label>
+        <childnode refid="68" relation="usage">
+          <edgelabel>Core</edgelabel>
+        </childnode>
+      </node>
+      <node id="72">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="70" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="71" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="69">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="70" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="71" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="73" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="73">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="69" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="74" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="73" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="74">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="70" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="73" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="71">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="69" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="72" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="71" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="70">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="68">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="69" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.h" bodystart="21" bodyend="24"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___asu_core_1a2c659bd28994079d57f95a871b834e18" prot="public" virt="non-virtual"><scope>XPm_AsuCore</scope><name>AsuBaseAddr</name></member>
+      <member refid="struct_x_pm___asu_core_1a9f5b1a7a70dd8d3f90b3e65100ce80e5" prot="public" virt="non-virtual"><scope>XPm_AsuCore</scope><name>Core</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

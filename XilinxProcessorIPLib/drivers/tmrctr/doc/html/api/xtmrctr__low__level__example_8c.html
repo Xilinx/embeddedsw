@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmrctr__low__level__example_8c.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xtmrctr__low__level__example_8c.html',
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xtmrctr_low_level_example.c File Reference</div>  </div>
@@ -107,8 +108,6 @@ $(document).ready(function(){initNavTree('xtmrctr__low__level__example_8c.html',
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the Timer Counter (<a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a>) low level driver and hardware device in a polled mode. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who  Date         Changes
 </p>
@@ -123,11 +122,18 @@ $(document).ready(function(){initNavTree('xtmrctr__low__level__example_8c.html',
                      ensure that "Successfully ran" and "Failed" strings
                      are available in all examples. This is a fix for
                      CR-965028.
+ 4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xtmrctr__l_8h.html">xtmrctr_l.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a4e7ee109d1c0c88902031fc4c224910c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__low__level__example_8c.html#a4e7ee109d1c0c88902031fc4c224910c">TMRCTR_BASEADDR</a>&#160;&#160;&#160;XPAR_XTMRCTR_0_BASEADDR</td></tr>
+<tr class="memdesc:a4e7ee109d1c0c88902031fc4c224910c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the device.  <a href="#a4e7ee109d1c0c88902031fc4c224910c">More...</a><br/></td></tr>
+<tr class="separator:a4e7ee109d1c0c88902031fc4c224910c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a08b4e5049d6a7a3eb5aaf5cdc84de619"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample</a> (UINTPTR TmrCtrBaseAddress, u8 TmrCtrNumber)</td></tr>
@@ -137,6 +143,23 @@ Functions</h2></td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the Tmrctr low level example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a4e7ee109d1c0c88902031fc4c224910c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TMRCTR_BASEADDR&#160;&#160;&#160;XPAR_XTMRCTR_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the device. </p>
+
+<p>Referenced by <a class="el" href="xtmrctr__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -153,16 +176,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the main function of the Tmrctr low level example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure. </dd></dl>
 
-<p>References <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
+<p>References <a class="el" href="xtmrctr__low__level__example_8c.html#a4e7ee109d1c0c88902031fc4c224910c">TMRCTR_BASEADDR</a>, and <a class="el" href="xtmrctr__low__level__example_8c.html#a08b4e5049d6a7a3eb5aaf5cdc84de619">TmrCtrLowLevelExample()</a>.</p>
 
 </div>
 </div>
@@ -194,14 +210,13 @@ Functions</h2></td></tr>
 <p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> low level driver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TmrCtrBaseAddress</td><td>is the base address of the device. </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrBaseAddress</td><td>is the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This function contains a loop which waits for the value of a timer counter to change. If the hardware is not working correctly, this function may not return. </p>
+<dl class="section note"><dt>Note</dt><dd>This function contains a loop which waits for the value of a timer counter to change. If the hardware is not working correctly, this function may not return. </dd></dl>
 
 <p>References <a class="el" href="group___overview.html#gaa10a23e3e387b53bac89f97cc5adf455">XTC_CSR_LOAD_MASK</a>, <a class="el" href="group___overview.html#gae5874bbf23d48004ab15acd250a34688">XTmrCtr_Disable</a>, <a class="el" href="group___overview.html#gad1f98a1af5b68454aead939a5a727ff1">XTmrCtr_Enable</a>, <a class="el" href="group___overview.html#ga45ca70c55615831432d0a2b32e0e77af">XTmrCtr_GetControlStatusReg</a>, <a class="el" href="group___overview.html#gaa6ab051d2011676e6cc3ea8fbc4ec6da">XTmrCtr_GetTimerCounterReg</a>, <a class="el" href="group___overview.html#ga433680f98acc79f69d227a041f20ecb9">XTmrCtr_LoadTimerCounterReg</a>, <a class="el" href="group___overview.html#ga74c246c9f5ac5fb8793f0f792bc8fa0e">XTmrCtr_SetControlStatusReg</a>, and <a class="el" href="group___overview.html#ga66eee1751bc9d207eef8143492669c96">XTmrCtr_SetLoadReg</a>.</p>
 

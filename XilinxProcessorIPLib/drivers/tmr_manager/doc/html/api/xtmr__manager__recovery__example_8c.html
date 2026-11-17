@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmr__manager__recovery__example_8c.ht
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xtmr__manager__recovery__example_8c.ht
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xtmr_manager_recovery_example.c File Reference</div>  </div>
 </div><!--header-->
@@ -119,11 +121,27 @@ Ver   Who  Date  Changes
 <p>
 1.3     adk  02/23/22 First release
 1.7   adk  04/04/25 Ported example to the SDT flow.
+1.10  ml   09/24/26 Fix initialize TMR Manager before first
+                    xil_printf to prevent reset loop; initialize
+                    Error_Inject to 0 (was uninitialized).
+1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xtmr__manager_8h.html">xtmr_manager.h</a>&quot;</code><br/>
 <code>#include &quot;xtmr_inject.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3dca0d3ef7d65a2a9072f81795e02926"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a3dca0d3ef7d65a2a9072f81795e02926">TMR_MANAGER_DEVICE_ID</a>&#160;&#160;&#160;XPAR_TMR_MANAGER_0_BASEADDR</td></tr>
+<tr class="memdesc:a3dca0d3ef7d65a2a9072f81795e02926"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR Manager base address.  <a href="#a3dca0d3ef7d65a2a9072f81795e02926">More...</a><br/></td></tr>
+<tr class="separator:a3dca0d3ef7d65a2a9072f81795e02926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83931a5aef36235752852340b5ba623c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a83931a5aef36235752852340b5ba623c">TMR_INJECT_DEVICE_ID</a>&#160;&#160;&#160;XPAR_TMR_INJECT_0_BASEADDR</td></tr>
+<tr class="memdesc:a83931a5aef36235752852340b5ba623c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR Inject device ID.  <a href="#a83931a5aef36235752852340b5ba623c">More...</a><br/></td></tr>
+<tr class="separator:a83931a5aef36235752852340b5ba623c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bfedaeaf18e05a496941b3f3cfa69e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a6bfedaeaf18e05a496941b3f3cfa69e3">ERROR_INJECT_CPU_ID</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a6bfedaeaf18e05a496941b3f3cfa69e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPU ID used for error injection.  <a href="#a6bfedaeaf18e05a496941b3f3cfa69e3">More...</a><br/></td></tr>
+<tr class="separator:a6bfedaeaf18e05a496941b3f3cfa69e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6870457be2d38ba96bf040dbe6a5307b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample</a> (UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectBaseAddress)</td></tr>
@@ -132,7 +150,65 @@ Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a144d2ac8b793b788979640c2085e08e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a144d2ac8b793b788979640c2085e08e5">TMR_Manager</a></td></tr>
+<tr class="memdesc:a144d2ac8b793b788979640c2085e08e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the TMR_Manager device.  <a href="#a144d2ac8b793b788979640c2085e08e5">More...</a><br/></td></tr>
+<tr class="separator:a144d2ac8b793b788979640c2085e08e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9afbea15f655b44992234c13042759da"><td class="memItemLeft" align="right" valign="top">XTMR_Inject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__recovery__example_8c.html#a9afbea15f655b44992234c13042759da">TMR_Inject</a></td></tr>
+<tr class="memdesc:a9afbea15f655b44992234c13042759da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the TMR_Inject device.  <a href="#a9afbea15f655b44992234c13042759da">More...</a><br/></td></tr>
+<tr class="separator:a9afbea15f655b44992234c13042759da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a6bfedaeaf18e05a496941b3f3cfa69e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_INJECT_CPU_ID&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CPU ID used for error injection. </p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a83931a5aef36235752852340b5ba623c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TMR_INJECT_DEVICE_ID&#160;&#160;&#160;XPAR_TMR_INJECT_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TMR Inject device ID. </p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3dca0d3ef7d65a2a9072f81795e02926"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TMR_MANAGER_DEVICE_ID&#160;&#160;&#160;XPAR_TMR_MANAGER_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TMR Manager base address. </p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -150,16 +226,9 @@ Functions</h2></td></tr>
 
 <p>Main function to call the example. </p>
 <p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>.</p>
+<p>References <a class="el" href="xtmr__manager__recovery__example_8c.html#a83931a5aef36235752852340b5ba623c">TMR_INJECT_DEVICE_ID</a>, <a class="el" href="xtmr__manager__recovery__example_8c.html#a3dca0d3ef7d65a2a9072f81795e02926">TMR_MANAGER_DEVICE_ID</a>, <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>, <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>, and <a class="el" href="group___overview.html#ga9b07ba47bffb32613157e5ae9d8c38eb">XTMR_Manager_SetPreResetHandler()</a>.</p>
 
 </div>
 </div>
@@ -191,17 +260,51 @@ Functions</h2></td></tr>
 <p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_t_m_r___manager.html" title="The XTMR_Manager driver instance data. ">XTMR_Manager</a> component.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TMRManagerDeviceId</td><td>is the XPAR_&lt;tmr_manager_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">TMRInjectDeviceId</td><td>is the XPAR_&lt;tmr_inject_instance&gt;_DEVICE_ID value from xparameters.h.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TMRManagerBaseAddress</td><td>is the base address of the TMR_Manager device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TMRInjectBaseAddress</td><td>is the base address of the TMR_Inject device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
+<p>&lt; Fix: initialize to 0 (was uninitialized)</p>
+<p>&lt; Configure pre reset handler (re-set after re-init above)</p>
+<p>&lt; Inject the fault — Error_Inject=0 injects bit 2 of address 0x0</p>
+<p>&lt; Wait for break vector </p>
 
-<p>References <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>, <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>, <a class="el" href="group___overview.html#gad5a70c2dc4f54f69f80a13b972b6d8d3">XTMR_Manager_SelfTest()</a>, and <a class="el" href="group___overview.html#ga9b07ba47bffb32613157e5ae9d8c38eb">XTMR_Manager_SetPreResetHandler()</a>.</p>
+<p>References <a class="el" href="xtmr__manager__recovery__example_8c.html#a6bfedaeaf18e05a496941b3f3cfa69e3">ERROR_INJECT_CPU_ID</a>, <a class="el" href="struct_x_t_m_r___manager___stats.html#a14ac6c281296762e87103e4193ac4cf3">XTMR_Manager_Stats::RecoveryCount</a>, <a class="el" href="struct_x_t_m_r___manager.html#a93e610bae21b4f43b4cf6e3bc3150638">XTMR_Manager::Stats</a>, <a class="el" href="xtmr__manager__recovery__example_8c.html#a9afbea15f655b44992234c13042759da">TMR_Inject</a>, <a class="el" href="group___overview.html#gad39bb96c73a9cfee8367f01565d02b7a">XTMR_Manager_Configure_BrkDelay()</a>, <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>, <a class="el" href="group___overview.html#gad5a70c2dc4f54f69f80a13b972b6d8d3">XTMR_Manager_SelfTest()</a>, and <a class="el" href="group___overview.html#ga9b07ba47bffb32613157e5ae9d8c38eb">XTMR_Manager_SetPreResetHandler()</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a9afbea15f655b44992234c13042759da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XTMR_Inject TMR_Inject</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the TMR_Inject device. </p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__recovery__example_8c.html#a6870457be2d38ba96bf040dbe6a5307b">TMR_ManagerRecoveryExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a144d2ac8b793b788979640c2085e08e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> TMR_Manager</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the TMR_Manager device. </p>
 
 </div>
 </div>

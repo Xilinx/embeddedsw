@@ -473,8 +473,8 @@
     <member refid="xv__hdmirx1__hw_8h_1a949523423dffb540041a98a38e283cf8" kind="define"><name>XV_HdmiRx1_WriteReg</name></member>
     <member refid="xv__hdmirx1__hw_8h_1ab0b72058c3659fc9bbb2c202270bd1a2" kind="define"><name>XV_HDMIRX1_HW_H_</name></member>
     <member refid="xv__hdmirx1__hw_8h_1a859ccf6eeeb91420806daf96057e03d7" kind="define"><name>XV_HDMIRX1_VER_BASE</name></member>
-    <member refid="xv__hdmirx1__hw_8h_1a98c2ec7a077e707ff67302d576ba468f" kind="define"><name>XV_HDMIRX1_VER_ID_OFFSET</name></member>
     <member refid="xv__hdmirx1__hw_8h_1a8b63858c4f1f73528819cac7258bc730" kind="define"><name>XV_HDMIRX1_VER_VERSION_OFFSET</name></member>
+    <member refid="xv__hdmirx1__hw_8h_1a98c2ec7a077e707ff67302d576ba468f" kind="define"><name>XV_HDMIRX1_VER_ID_OFFSET</name></member>
     <member refid="xv__hdmirx1__hw_8h_1a7c9d08be5e87e6fd62df99abfd8d3a07" kind="define"><name>XV_HDMIRX1_VCKE_SYS_CNT_OFFSET</name></member>
     <member refid="xv__hdmirx1__hw_8h_1adfbfa70ecfc15e9951eed4a41333b8e1" kind="define"><name>XV_HDMIRX1_SR_SSB_ERR_CNT0_OFFSET</name></member>
     <member refid="xv__hdmirx1__hw_8h_1ae366ca39c9b39631eedf90c9df008502" kind="define"><name>XV_HDMIRX1_SR_SSB_ERR_CNT1_OFFSET</name></member>

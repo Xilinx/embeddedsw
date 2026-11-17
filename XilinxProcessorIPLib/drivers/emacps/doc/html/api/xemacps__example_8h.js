@@ -1,11 +1,25 @@
 var xemacps__example_8h =
 [
-    [ "EmacpsDelay", "xemacps__example_8h.html#a907ad3930dc1eefe5a53a0b82b715091", null ],
-    [ "EmacPsUtilErrorTrap", "xemacps__example_8h.html#a776b1bc0336021ef0b3542c13ba81e83", null ],
-    [ "EmacPsUtilFrameHdrFormatMAC", "xemacps__example_8h.html#a0bc7c575f2858a89f9496f83dc6052d4", null ],
-    [ "EmacPsUtilFrameHdrFormatType", "xemacps__example_8h.html#a6fddc02339ce2adea5260e2401572eb8", null ],
-    [ "EmacPsUtilFrameMemClear", "xemacps__example_8h.html#af60ff561f93957fc82d6625103a3ec5c", null ],
-    [ "EmacPsUtilFrameSetPayloadData", "xemacps__example_8h.html#a745c2dd310df9fc6a3067ec7c426d9b5", null ],
-    [ "EmacPsUtilFrameVerify", "xemacps__example_8h.html#a9bf345bfd8b6008fd32c436c1c8f049e", null ],
-    [ "EmacPsUtilstrncpy", "xemacps__example_8h.html#a115c0926c08893ef3e71c68f7622576a", null ]
+    [ "CSU_VERSION", "xemacps__example_8h.html#ga8d51e16fef506c934d1130594b5ac97a", null ],
+    [ "EMACPS_LOOPBACK_SPEED", "xemacps__example_8h.html#ga4b7e32dde5e321fbce28d0d6c51e6b73", null ],
+    [ "EMACPS_LOOPBACK_SPEED_10G", "xemacps__example_8h.html#ga0889e0d023727b5f4dbb221a84357bf5", null ],
+    [ "EMACPS_LOOPBACK_SPEED_1G", "xemacps__example_8h.html#ga18d025a8f60fc79db13ce0deea163081", null ],
+    [ "EMACPS_LOOPBACK_SPEED_2_5G", "xemacps__example_8h.html#ga85ee59a8e77f5393a51681eb20e58296", null ],
+    [ "EMACPS_LOOPBACK_SPEED_5G", "xemacps__example_8h.html#gad33169a742d9af5162b28135e2fdc460", null ],
+    [ "EMACPS_PHY_DELAY_SEC", "xemacps__example_8h.html#ga3ffe234ab02e95e6a573ef6814b6049d", null ],
+    [ "EMACPS_SLCR_DIV_MASK", "xemacps__example_8h.html#ga92f9abd246c63abc5d20e30ce951df1d", null ],
+    [ "PLATFORM_MASK", "xemacps__example_8h.html#ga0c6dff4b5002b24f291471c759f793d5", null ],
+    [ "PLATFORM_MASK_VERSAL", "xemacps__example_8h.html#gaca979a0fb402fce4d50d7321e25d81e3", null ],
+    [ "PLATFORM_SILICON", "xemacps__example_8h.html#ga57473bcf8cb401ff2fd5bdbdadfb0352", null ],
+    [ "PLATFORM_VERSALEMU", "xemacps__example_8h.html#ga70ac2b500a08666d9bab082ad0cf464b", null ],
+    [ "PLATFORM_VERSALSIL", "xemacps__example_8h.html#gad5bfc94552408ee3fa3ad7756b174fe2", null ],
+    [ "VERSAL_VERSION", "xemacps__example_8h.html#gaaa35230d8a0477c4744cdcdc3021294e", null ],
+    [ "EmacpsDelay", "xemacps__example_8h.html#ga907ad3930dc1eefe5a53a0b82b715091", null ],
+    [ "EmacPsUtilErrorTrap", "xemacps__example_8h.html#ga776b1bc0336021ef0b3542c13ba81e83", null ],
+    [ "EmacPsUtilFrameHdrFormatMAC", "xemacps__example_8h.html#ga0bc7c575f2858a89f9496f83dc6052d4", null ],
+    [ "EmacPsUtilFrameHdrFormatType", "xemacps__example_8h.html#ga6fddc02339ce2adea5260e2401572eb8", null ],
+    [ "EmacPsUtilFrameMemClear", "xemacps__example_8h.html#gaf60ff561f93957fc82d6625103a3ec5c", null ],
+    [ "EmacPsUtilFrameSetPayloadData", "xemacps__example_8h.html#ga745c2dd310df9fc6a3067ec7c426d9b5", null ],
+    [ "EmacPsUtilFrameVerify", "xemacps__example_8h.html#ga9bf345bfd8b6008fd32c436c1c8f049e", null ],
+    [ "EmacPsUtilstrncpy", "xemacps__example_8h.html#ga115c0926c08893ef3e71c68f7622576a", null ]
 ];

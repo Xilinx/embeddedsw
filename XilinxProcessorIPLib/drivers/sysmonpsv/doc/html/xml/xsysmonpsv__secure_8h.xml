@@ -12,25 +12,6 @@
       <node id="161">
         <label>xil_assert.h</label>
       </node>
-      <node id="160">
-        <label>xsysmonpsv_driver.h</label>
-        <link refid="xsysmonpsv__driver_8h"/>
-        <childnode refid="155" relation="include">
-        </childnode>
-        <childnode refid="161" relation="include">
-        </childnode>
-        <childnode refid="162" relation="include">
-        </childnode>
-      </node>
-      <node id="163">
-        <label>pm_api_sys.h</label>
-      </node>
-      <node id="162">
-        <label>xsysmonpsv_supplylist.h</label>
-      </node>
-      <node id="156">
-        <label>xipipsu_hw.h</label>
-      </node>
       <node id="159">
         <label>xsysmonpsv_lowlevel.h</label>
         <link refid="xsysmonpsv__lowlevel_8h"/>
@@ -38,12 +19,6 @@
         </childnode>
         <childnode refid="160" relation="include">
         </childnode>
-      </node>
-      <node id="155">
-        <label>xil_types.h</label>
-      </node>
-      <node id="157">
-        <label>xipipsu.h</label>
       </node>
       <node id="154">
         <label>xsysmonpsv_secure.h</label>
@@ -61,6 +36,31 @@
         <childnode refid="163" relation="include">
         </childnode>
       </node>
+      <node id="163">
+        <label>pm_api_sys.h</label>
+      </node>
+      <node id="162">
+        <label>xsysmonpsv_supplylist.h</label>
+      </node>
+      <node id="156">
+        <label>xipipsu_hw.h</label>
+      </node>
+      <node id="155">
+        <label>xil_types.h</label>
+      </node>
+      <node id="157">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="160">
+        <label>xsysmonpsv_driver.h</label>
+        <link refid="xsysmonpsv__driver_8h"/>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+      </node>
       <node id="158">
         <label>xscugic.h</label>
       </node>
@@ -70,34 +70,34 @@
         <name>XSYSMONPSV_SECURE_WRITE_DEFAULT</name>
         <initializer>0xFFFFFFFFU</initializer>
         <briefdescription>
-<para>Secure Write Command Payload. </para>        </briefdescription>
+<para>Secure write command payload. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__sysmonpsv__api_1ga031a6d34650b41c615732f3acdb5899b" prot="public" static="no">
         <name>XSYSMONPSV_SECURE_READ_DEFAULT</name>
         <initializer>0x0U</initializer>
         <briefdescription>
-<para>Secure Read Command Payload. </para>        </briefdescription>
+<para>Secure read command payload. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__sysmonpsv__api_1gad2ccd3648bfb4bccb4f860655cc850a7" prot="public" static="no">
         <name>XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE</name>
         <initializer>3U</initializer>
         <briefdescription>
-<para>Secure Payload Size. </para>        </briefdescription>
+<para>Secure payload size. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -119,77 +119,89 @@
           <declname>IpiInst</declname>
         </param>
         <briefdescription>
-<para>Initializes the XIL PM. </para>        </briefdescription>
+<para>Initializes XilPM. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>Instanceptr</parametername>
+<parametername direction="in">Instanceptr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the <ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>GicInst</parametername>
+<parametername direction="in">GicInst</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to XScuGic. </para></parameterdescription>
+<para>Pointer to the XScuGic instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>IpiInst</parametername>
+<parametername direction="in">IpiInst</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to XIpiPsu.</para></parameterdescription>
+<para>Pointer to the XIpiPsu instance.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code. </para></simplesect>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE, an error code, or a reason code. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="64" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h" line="70" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Declares the secure-mode register access functions for the driver. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>The <ref refid="xsysmonpsv__secure_8h" kindref="compound">xsysmonpsv_secure.h</ref> header file declares low-level driver functions used to read and write SysMon registers in secure mode.</para><para><preformatted>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+<hruler/>
+
+4.0   se     11/10/22 Secure and Non-Secure mode integration
+5.2   ak     03/10/25 Fixed doxygen warnings
+5.3   se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+                      (void) cast, sign conversion, parentheses
+5.4   vn     09/29/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>_XSYSMONPSV_SECURE_H_</highlight></codeline>
-<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_XSYSMONPSV_SECURE_H_</highlight></codeline>
-<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xipipsu_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xipipsu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsv__lowlevel_8h" kindref="compound">xsysmonpsv_lowlevel.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pm_api_sys.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46" refid="group__sysmonpsv__api_1gad3244080d5988c6a9b46e8e9bd591e66" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSYSMONPSV_SECURE_WRITE_DEFAULT<sp/>0xFFFFFFFFU<sp/></highlight></codeline>
-<codeline lineno="47" refid="group__sysmonpsv__api_1ga031a6d34650b41c615732f3acdb5899b" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_SECURE_READ_DEFAULT<sp/>0x0U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="49" refid="group__sysmonpsv__api_1gad2ccd3648bfb4bccb4f860655cc850a7" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE<sp/>3U<sp/><sp/></highlight></codeline>
-<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="64"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1gab13a8083b346eb5d071e29e851846510" kindref="member">XSysMonPsv_Xilpm_Init</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*Instanceptr,<sp/>XScuGic<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GicInst,<sp/>XIpiPsu<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>IpiInst);</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XSYSMONPSV_SECURE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_XSYSMONPSV_SECURE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_XSYSMONPSV_SECURE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xipipsu_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xipipsu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsv__lowlevel_8h" kindref="compound">xsysmonpsv_lowlevel.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pm_api_sys.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="group__sysmonpsv__api_1gad3244080d5988c6a9b46e8e9bd591e66" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_SECURE_WRITE_DEFAULT<sp/>0xFFFFFFFFU</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53" refid="group__sysmonpsv__api_1ga031a6d34650b41c615732f3acdb5899b" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_SECURE_READ_DEFAULT<sp/>0x0U</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55" refid="group__sysmonpsv__api_1gad2ccd3648bfb4bccb4f860655cc850a7" refkind="member"><highlight class="preprocessor">#define<sp/>XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE<sp/>3U</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="70"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sysmonpsv__api_1gab13a8083b346eb5d071e29e851846510" kindref="member">XSysMonPsv_Xilpm_Init</ref>(<ref refid="struct_x_sys_mon_psv" kindref="compound">XSysMonPsv</ref><sp/>*Instanceptr,<sp/>XScuGic<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GicInst,<sp/>XIpiPsu<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>IpiInst);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XSYSMONPSV_SECURE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h"/>
   </compounddef>
 </doxygen>

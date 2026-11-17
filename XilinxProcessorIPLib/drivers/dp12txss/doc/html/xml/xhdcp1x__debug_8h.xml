@@ -4,28 +4,28 @@
     <compoundname>xhdcp1x_debug.h</compoundname>
     <includedby refid="dppt_8h" local="yes">dppt.h</includedby>
     <invincdepgraph>
-      <node id="1443">
+      <node id="1454">
         <label>menus.c</label>
       </node>
-      <node id="1445">
+      <node id="1456">
         <label>xedid_print_example.c</label>
       </node>
-      <node id="1444">
+      <node id="1455">
         <label>xdptxss_kc705.c</label>
       </node>
-      <node id="1441">
-        <label>xhdcp1x_debug.h</label>
-        <link refid="xhdcp1x_debug.h"/>
-        <childnode refid="1442" relation="include">
+      <node id="1453">
+        <label>dppt.h</label>
+        <childnode refid="1454" relation="include">
+        </childnode>
+        <childnode refid="1455" relation="include">
+        </childnode>
+        <childnode refid="1456" relation="include">
         </childnode>
       </node>
-      <node id="1442">
-        <label>dppt.h</label>
-        <childnode refid="1443" relation="include">
-        </childnode>
-        <childnode refid="1444" relation="include">
-        </childnode>
-        <childnode refid="1445" relation="include">
+      <node id="1452">
+        <label>xhdcp1x_debug.h</label>
+        <link refid="xhdcp1x_debug.h"/>
+        <childnode refid="1453" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -38,7 +38,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h" line="47" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h" line="47" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -106,6 +106,6 @@
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XHDCP1X_DEBUG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/com/xhdcp1x_debug.h"/>
   </compounddef>
 </doxygen>

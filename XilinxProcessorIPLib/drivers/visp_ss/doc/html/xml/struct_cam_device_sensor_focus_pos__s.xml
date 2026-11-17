@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="269" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="269" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_sensor_focus_pos__s_1a8bbc3d4c771856fdddb64ccc6fc8559c" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="270" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="270" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>VsCamDevice sensor motor position structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="268" bodyend="271"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="268" bodyend="271"/>
     <listofallmembers>
       <member refid="struct_cam_device_sensor_focus_pos__s_1a8bbc3d4c771856fdddb64ccc6fc8559c" prot="public" virt="non-virtual"><scope>CamDeviceSensorFocusPos_s</scope><name>position</name></member>
       <member refid="struct_cam_device_sensor_focus_pos__s_1a7b5a8d401fe9b5b64222f83a92b7f6b1" prot="public" virt="non-virtual"><scope>CamDeviceSensorFocusPos_s</scope><name>posMode</name></member>

@@ -1,38 +1,129 @@
 var NAVTREE =
 [
-  [ "qspipsu", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xqspipsu_generic_flash_interrupt_example.c", "example.html#ex1", null ],
-      [ "xqspipsu_generic_flash_lqspi_example.c", "example.html#ex2", null ],
-      [ "xqspipsu_generic_flash_polled_example.c", "example.html#ex3", null ],
-      [ "xqspipsu_polldata_polltimeout_interrupt_example.c", "example.html#ex4", null ],
-      [ "xqspipsu_generic_flash_non_blocking_read_example.c", "example.html#ex5", null ],
-      [ "xqspipsu_generic_nand flash_interrupt_example.c", "example.html#ex6", null ],
-      [ "xqspipsu_generic_nand flash_polled_example.c", "example.html#ex7", null ]
-    ] ]
-  ] ]
+  [
+    "qspipsu",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xqspipsu_generic_flash_interrupt_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xqspipsu_generic_flash_lqspi_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xqspipsu_generic_flash_polled_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xqspipsu_polldata_polltimeout_interrupt_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xqspipsu_generic_flash_non_blocking_read_example.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xqspipsu_generic_nand flash_interrupt_example.c",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xqspipsu_generic_nand flash_polled_example.c",
+            "example.html#ex7",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xqspipsu__hw_8h.html#ga4884f0160746c6696598ef6dda1fc9ff"
+"xqspipsu__flash__config_8h.html#ae90b7e8c7fe9d94c5c156a07e57fc27c",
+"xqspipsu__generic__nand__flash__interrupt__example_8c.html#gad706b1598fd56efd8272150991d6404b",
+"xqspipsu__hw_8h.html#ga5c63b41003c934914f57ec8da23faf1b",
+"xqspipsu__hw_8h.html#gadae24d033fb12577e3e4eda5427a950a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

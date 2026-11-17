@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___nop_upiu.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,18 +105,43 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___nop_upiu.html','')
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XUfsPsxc_NopUpiu Struct Reference<div class="ingroups"><a class="el" href="group__ufspsxc.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>NOP IN/OUT UPIU Structure.
+<p>Holds a NOP IN or NOP OUT UPIU payload.
  <a href="struct_x_ufs_psxc___nop_upiu.html#details">More...</a></p>
 
 <p><code>#include &lt;xufspsxc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a042ff2a39f6ac4f7bcba9627e9f609f6"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___nop_upiu.html#a042ff2a39f6ac4f7bcba9627e9f609f6">Reserved</a> [20]</td></tr>
+<tr class="memdesc:a042ff2a39f6ac4f7bcba9627e9f609f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved, must be zero.  <a href="#a042ff2a39f6ac4f7bcba9627e9f609f6">More...</a><br/></td></tr>
+<tr class="separator:a042ff2a39f6ac4f7bcba9627e9f609f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>NOP IN/OUT UPIU Structure. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds a NOP IN or NOP OUT UPIU payload. </p>
+<p>NOP IN/OUT UPIU Structure </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a042ff2a39f6ac4f7bcba9627e9f609f6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XUfsPsxc_NopUpiu::Reserved[20]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reserved, must be zero. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

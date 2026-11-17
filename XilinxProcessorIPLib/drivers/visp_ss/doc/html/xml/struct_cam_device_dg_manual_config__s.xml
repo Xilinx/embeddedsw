@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_dg_manual_config__s_1a92a7f4e6704b409334ba324c1c75180e" prot="public" static="no" mutable="no">
         <type>float32_t</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_dg_manual_config__s_1ad21ad9b60b85278a5d9510cfbae2efb6" prot="public" static="no" mutable="no">
         <type>float32_t</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_dg_manual_config__s_1a86cda70c9e9440485b590a6d274411ba" prot="public" static="no" mutable="no">
         <type>float32_t</type>
@@ -54,14 +54,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>VsCamDevice DG manual configuration. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="51" bodyend="56"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dg/cam_device_dg_api.h" bodystart="51" bodyend="56"/>
     <listofallmembers>
       <member refid="struct_cam_device_dg_manual_config__s_1a09bdff9c461f88024a59b4e3d1139731" prot="public" virt="non-virtual"><scope>CamDeviceDgManualConfig_s</scope><name>digitalGainB</name></member>
       <member refid="struct_cam_device_dg_manual_config__s_1a92a7f4e6704b409334ba324c1c75180e" prot="public" virt="non-virtual"><scope>CamDeviceDgManualConfig_s</scope><name>digitalGainGb</name></member>

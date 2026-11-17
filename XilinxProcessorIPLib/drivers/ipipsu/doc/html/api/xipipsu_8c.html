@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xipipsu_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,29 +105,58 @@ $(document).ready(function(){initNavTree('xipipsu_8c.html','');});
 <div class="title">xipipsu.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interface functions of the <a class="el" href="struct_x_ipi_psu.html" title="Holds the XIpiPsu driver instance data. ">XIpiPsu</a> driver. </p>
+<p>Refer to the header file <a class="el" href="xipipsu_8h.html">xipipsu.h</a> for more detailed information.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver     Who     Date    Changes
+</p>
+<hr/>
+<p>
+1.00    mjr     03/15/15        First Release
+2.0     mjr     01/22/16        Fixed response buffer address
+                              calculation. CR# 932582.
+2.1     kvn     05/05/16        Modified code for MISRA-C:2012 Compliance
+2.2     kvn     02/17/17        Add support for updating ConfigTable at run time
+2.4     sd      07/11/18        Fix a doxygen reported warning
+2.6     sd      04/02/20        Restructured the code for more readability and modularity
+2.9   ma  02/12/21    Added IPI CRC functionality
+            sdd 02/17/21        Doxygen fixes
+      ma  03/04/21    Initialize BufferIndex during IPI config init
+      sdd 03/10/21      Fixed misrac warnings.
+                Fixed doxygen warnings.
+      ag        03/31/21        Fixed IPI poll for ack condition check.
+      sd  06/02/21      Update the crc code remove the check for max length.
+2.10    sd      07/14/21        Fix a unused label warning
+2.12    sd      03/29/22        Make the message pointer in XIpiPsu_WriteMessage constant
+2.14    ht      06/13/23        Restructured the code for more modularity
+2.17    ht      11/08/24        Update description of Msglength for XIpiPsu_ReadMessage
+                                and XIpiPsu_WriteMessage.
+2.18  an        08/07/25        Fix pointer to integer cast warning
+2.20  vn        09/10/26        Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xipipsu__hw_8h.html">xipipsu_hw.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xipipsu__buf_8h.html">xipipsu_buf.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga9fb4494480ae0079422956f2af1da357"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, <a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *CfgPtr, UINTPTR EffectiveAddress)</td></tr>
-<tr class="memdesc:ga9fb4494480ae0079422956f2af1da357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Instance pointer based on a given Config Pointer.  <a href="group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357">More...</a><br/></td></tr>
+<tr class="memdesc:ga9fb4494480ae0079422956f2af1da357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an IPI instance from a given configuration record.  <a href="group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357">More...</a><br/></td></tr>
 <tr class="separator:ga9fb4494480ae0079422956f2af1da357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9c55b8deb0e6b0a4ff355ad3a74aa2f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga9c55b8deb0e6b0a4ff355ad3a74aa2f1">XIpiPsu_Reset</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga9c55b8deb0e6b0a4ff355ad3a74aa2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the given IPI register set.  <a href="group__ipipsu__api.html#ga9c55b8deb0e6b0a4ff355ad3a74aa2f1">More...</a><br/></td></tr>
 <tr class="separator:ga9c55b8deb0e6b0a4ff355ad3a74aa2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga8aa0005ec03abef3b3c1a506cb924e6e">XIpiPsu_TriggerIpi</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask)</td></tr>
-<tr class="memdesc:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a Destination CPU.  <a href="group__ipipsu__api.html#ga8aa0005ec03abef3b3c1a506cb924e6e">More...</a><br/></td></tr>
+<tr class="memdesc:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="group__ipipsu__api.html#ga8aa0005ec03abef3b3c1a506cb924e6e">More...</a><br/></td></tr>
 <tr class="separator:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">XIpiPsu_PollForAck</a> (const <a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask, u32 TimeOutCount)</td></tr>
-<tr class="memdesc:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls for an acknowledgement using Observation Register.  <a href="group__ipipsu__api.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">More...</a><br/></td></tr>
+<tr class="memdesc:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls for an acknowledgment using the observation register.  <a href="group__ipipsu__api.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">More...</a><br/></td></tr>
 <tr class="separator:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga64113249dac23760b5cc0e9d038f8361"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga64113249dac23760b5cc0e9d038f8361">XIpiPsu_ReadMessage</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLength, u8 BufferType)</td></tr>
-<tr class="memdesc:ga64113249dac23760b5cc0e9d038f8361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Incoming Message from a Source.  <a href="group__ipipsu__api.html#ga64113249dac23760b5cc0e9d038f8361">More...</a><br/></td></tr>
+<tr class="memdesc:ga64113249dac23760b5cc0e9d038f8361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an incoming message from a source.  <a href="group__ipipsu__api.html#ga64113249dac23760b5cc0e9d038f8361">More...</a><br/></td></tr>
 <tr class="separator:ga64113249dac23760b5cc0e9d038f8361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga429d934e93e38c71d92ad98775b9cd92"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga429d934e93e38c71d92ad98775b9cd92">XIpiPsu_WriteMessage</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLength, u8 BufferType)</td></tr>
-<tr class="memdesc:ga429d934e93e38c71d92ad98775b9cd92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a Message to Destination.  <a href="group__ipipsu__api.html#ga429d934e93e38c71d92ad98775b9cd92">More...</a><br/></td></tr>
+<tr class="memdesc:ga429d934e93e38c71d92ad98775b9cd92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message to a destination.  <a href="group__ipipsu__api.html#ga429d934e93e38c71d92ad98775b9cd92">More...</a><br/></td></tr>
 <tr class="separator:ga429d934e93e38c71d92ad98775b9cd92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

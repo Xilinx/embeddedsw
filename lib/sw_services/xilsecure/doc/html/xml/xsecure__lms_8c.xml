@@ -5,38 +5,38 @@
     <includes local="yes">xil_io.h</includes>
     <includes refid="xsecure__lms_8h" local="yes">xsecure_lms.h</includes>
     <incdepgraph>
-      <node id="1933">
+      <node id="2019">
         <label>xil_io.h</label>
       </node>
-      <node id="1937">
+      <node id="2023">
         <label>xsecure_sha.h</label>
       </node>
-      <node id="1932">
+      <node id="2018">
         <label>xsecure_lms.c</label>
         <link refid="xsecure_lms.c"/>
-        <childnode refid="1933" relation="include">
+        <childnode refid="2019" relation="include">
         </childnode>
-        <childnode refid="1934" relation="include">
+        <childnode refid="2020" relation="include">
         </childnode>
       </node>
-      <node id="1934">
+      <node id="2020">
         <label>xsecure_lms.h</label>
         <link refid="xsecure__lms_8h"/>
-        <childnode refid="1935" relation="include">
+        <childnode refid="2021" relation="include">
         </childnode>
-        <childnode refid="1936" relation="include">
+        <childnode refid="2022" relation="include">
         </childnode>
       </node>
-      <node id="1936">
+      <node id="2021">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2022">
         <label>xsecure_lms_ots.h</label>
         <link refid="xsecure__lms__ots_8h"/>
-        <childnode refid="1935" relation="include">
+        <childnode refid="2021" relation="include">
         </childnode>
-        <childnode refid="1937" relation="include">
+        <childnode refid="2023" relation="include">
         </childnode>
-      </node>
-      <node id="1935">
-        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -79,9 +79,9 @@
 <para><itemizedlist>
 <listitem><para>Return the parameter for below LMS types</para></listitem><listitem><para>XSECURE_LMS_RESERVED, XSECURE_LMS_NOT_SUPPORTED, default</para></listitem><listitem><para>XSECURE_LMS_SHA256_M32_H5</para></listitem><listitem><para>XSECURE_LMS_SHA256_M32_H10</para></listitem><listitem><para>XSECURE_LMS_SHA256_M32_H15</para></listitem><listitem><para>XSECURE_LMS_SHA256_M32_H20</para></listitem><listitem><para>XSECURE_LMS_SHAKE_M32_H5</para></listitem><listitem><para>XSECURE_LMS_SHAKE_M32_H10</para></listitem><listitem><para>XSECURE_LMS_SHAKE_M32_H15</para></listitem><listitem><para>XSECURE_LMS_SHAKE_M32_H20</para></listitem><listitem><para>Redundant type for temporal check</para></listitem><listitem><para>&apos;h&apos;=25 variations and 24 bit hash outputs are not supported till date in this library</para></listitem><listitem><para>SHA-256 options</para></listitem><listitem><para>SHAKE 256 options</para></listitem><listitem><para>default, and other not supported options</para></listitem><listitem><para>Two possible glitches, replacing this condition with a NOP, we will update error and exit flipping condition, we update error and exit, so both cases it is OK.</para></listitem><listitem><para>Update register to be taken care by caller</para></listitem><listitem><para>No matter success or failure, call happened successfully </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.c" bodystart="58" bodyend="216"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.c" bodystart="58" bodyend="216"/>
         <references refid="struct_x_secure___lms_param_1a8ac67f54252e30e78f07b20bca4903b5" compoundref="xsecure__lms_8h" startline="142">XSecure_LmsParam::H</references>
-        <references refid="group__xsecure__lms__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" compoundref="xsecure__lms__ots_8h" startline="45">XSECURE_ALLFS</references>
+        <references refid="group__xsecure__lms__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" compoundref="xsecure__lms__ots_8h" startline="46">XSECURE_ALLFS</references>
         <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aa2c49e5b42557925b34b58f162bb3fc31" compoundref="xsecure__lms_8h" startline="124">XSECURE_LMS_NOT_SUPPORTED</references>
         <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aa7a414a58af9e01b3092f1f095524b300" compoundref="xsecure__lms_8h" startline="107">XSECURE_LMS_RESERVED</references>
         <references refid="group__xsecure__lms__server__apis_1gga87557e3db575e6dc9ad6ddfc596a554aafb791256faee65ba5ad4b6ca3c3363bf" compoundref="xsecure__lms_8h" startline="110">XSECURE_LMS_SHA256_M32_H10</references>
@@ -97,17 +97,17 @@
         <references refid="group__xsecure__lms__server__apis_1ggabfea850f87a3e52a4a69c40eb98b3e06ab563c4d2ad2a43e5d1037334b92855db" compoundref="xsecure__lms_8h" startline="135">XSECURE_LMS_TREE_HEIGHT_H20</references>
         <references refid="group__xsecure__lms__server__apis_1ggabfea850f87a3e52a4a69c40eb98b3e06ad6b23fbdf089df52a11fcb5d7cb566bc" compoundref="xsecure__lms_8h" startline="132">XSECURE_LMS_TREE_HEIGHT_H5</references>
         <references refid="group__xsecure__lms__server__apis_1ggabfea850f87a3e52a4a69c40eb98b3e06ad35d1368e357d6a8ac732e47b86fee9c" compoundref="xsecure__lms_8h" startline="131">XSECURE_LMS_TREE_HEIGHT_UNSUPPORTED</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da5b5ca03645d66f1e6bd95539a5928abf" compoundref="spartanup_2xsecure__error_8h" startline="114">XSECURE_LMS_TYPE_LOOKUP_GLITCH_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da5b5ca03645d66f1e6bd95539a5928abf" compoundref="spartanup_2xsecure__error_8h" startline="113">XSECURE_LMS_TYPE_LOOKUP_GLITCH_ERROR</references>
         <references refid="group__xsecure__lms__server__apis_1gaf76f88234c6663ffdf82535f7acb89ad" compoundref="xsecure__lms_8h" startline="47">XSECURE_LMS_TYPE_MAX_SUPPORTED</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa15d24504679d0c2ed1521469fa6ab66" compoundref="spartanup_2xsecure__error_8h" startline="112">XSECURE_LMS_TYPE_UNSUPPORTED_ERROR</references>
-        <references refid="group__xsecure__helper__server__apis_1ga5738537e51cc4a10f5753b092955c4b0" compoundref="spartanup_2xsecure__plat_8h" startline="171">XSECURE_SHA2_256_HASH_LEN</references>
-        <references refid="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="71">XSECURE_SHAKE_256</references>
-        <references refid="group__xsecure__helper__server__apis_1ga7af13060e1711b13d1d20bdbed3c20f5" compoundref="spartanup_2xsecure__plat_8h" startline="172">XSECURE_SHAKE_256_HASH_LEN</references>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" compoundref="xsecure__lms__core_8c" startline="1517" endline="1553">XSecure_GetLmsHashAlgo</referencedby>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
-        <referencedby refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" compoundref="xsecure__lms__core_8c" startline="1424" endline="1476">XSecure_HssSignatureVerification</referencedby>
-        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa15d24504679d0c2ed1521469fa6ab66" compoundref="spartanup_2xsecure__error_8h" startline="111">XSECURE_LMS_TYPE_UNSUPPORTED_ERROR</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5738537e51cc4a10f5753b092955c4b0" compoundref="spartanup_2xsecure__plat_8h" startline="204">XSECURE_SHA2_256_HASH_LEN</references>
+        <references refid="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" compoundref="xilsecure__spartan__ultrascale__plus__sha__server__example_8c" startline="72">XSECURE_SHAKE_256</references>
+        <references refid="group__xsecure__helper__server__apis_1ga7af13060e1711b13d1d20bdbed3c20f5" compoundref="spartanup_2xsecure__plat_8h" startline="205">XSECURE_SHAKE_256_HASH_LEN</references>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" compoundref="xsecure__lms__core_8c" startline="1581" endline="1625">XSecure_GetLmsHashAlgo</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1364" endline="1467">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="905" endline="1263">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" compoundref="xsecure__lms__core_8c" startline="1488" endline="1540">XSecure_HssSignatureVerification</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="422" endline="877">XSecure_LmsSignatureVerification</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -280,6 +280,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="216"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.c"/>
   </compounddef>
 </doxygen>

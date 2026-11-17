@@ -1286,7 +1286,7 @@
     <member refid="xv__sdirxss_8c_1aba06ae2326f72bb6cd01b722bcc434c7" kind="define"><name>XSDIRXSS_AXI4_STREAM</name></member>
     <member refid="xv__sdirxss_8c_1a512c0435619f48b44b3f2dd274f99cf9" kind="define"><name>XSDIRXSS_NATIVE_VIDEO</name></member>
     <member refid="xv__sdirxss_8c_1af20eb0298a4b777b8cc9482823de7eb1" kind="define"><name>XSDIRXSS_NATIVE_SDI</name></member>
-    <member refid="xv__sdirxss_8c_1a8848e8f69becf28012b0fd22b743cdef" kind="variable"><name>XV_SdiRxSs_SubCoreRepo</name></member>
+    <member refid="xv__sdirxss_8c_1a27cf73475bf4b5fc52d9e876253370e6" kind="variable"><name>XV_SdiRxSs_SubCoreRepo</name></member>
     <member refid="xv__sdirxss_8c_1a23e1f9430c050cfc8679afa7f1d02aa9" kind="function"><name>XV_SdiRxSs_StreamDownCallback</name></member>
     <member refid="xv__sdirxss_8c_1a31e5d53cbd65f3de41a95b6a1fb7f36b" kind="function"><name>XV_SdiRxSs_StreamUpCallback</name></member>
     <member refid="xv__sdirxss_8c_1a72ace88a57b6fee8753676072e2ddf24" kind="function"><name>XV_SdiRxSs_OverFlowCallback</name></member>

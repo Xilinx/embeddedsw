@@ -143,6 +143,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
       sk   08/25/2025 Update in-place update print for versal 2VE and 2VM Devices
       kd   09/02/2025 Added psm firmware presence check for In-Place PLM Update
 2.4   abh  10/14/2025 Fixed MISRA-C Violations
+2.5   obs  09/02/2026 Run compatibility check before optional-data parse
+      obs  09/15/2026 Clarified the registered compatibility handler ordering
+      aa   09/29/2026 restore ROM_RSVD update-disable check before compatibility
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__update_8h.html">xplmi_update.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_wdt.h&quot;</code><br/>
 <code>#include &quot;xplmi_err.h&quot;</code><br/>
@@ -175,7 +178,7 @@ Macros</h2></td></tr>
 <tr class="memitem:gaf44b6c53f2cd567b51eefe1467ff82d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gaf44b6c53f2cd567b51eefe1467ff82d8">XPLMI_UPDATE_DB_VERSION</a>&#160;&#160;&#160;(1U)</td></tr>
 <tr class="memdesc:gaf44b6c53f2cd567b51eefe1467ff82d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">DB version update.  <a href="group__xilplmi__server__apis.html#gaf44b6c53f2cd567b51eefe1467ff82d8">More...</a><br/></td></tr>
 <tr class="separator:gaf44b6c53f2cd567b51eefe1467ff82d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5e46b3b12b6b2c9c446e755f3e182c6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga5e46b3b12b6b2c9c446e755f3e182c6f">XPLMI_DS_HDR_SIZE</a>&#160;&#160;&#160;(sizeof(XPlmi_DsHdr))</td></tr>
+<tr class="memitem:ga5e46b3b12b6b2c9c446e755f3e182c6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga5e46b3b12b6b2c9c446e755f3e182c6f">XPLMI_DS_HDR_SIZE</a>&#160;&#160;&#160;(sizeof(<a class="el" href="struct_x_plmi___ds_hdr.html">XPlmi_DsHdr</a>))</td></tr>
 <tr class="memdesc:ga5e46b3b12b6b2c9c446e755f3e182c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure header size.  <a href="group__xilplmi__server__apis.html#ga5e46b3b12b6b2c9c446e755f3e182c6f">More...</a><br/></td></tr>
 <tr class="separator:ga5e46b3b12b6b2c9c446e755f3e182c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga418f33604b3b3393fdcf94007419a344"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga418f33604b3b3393fdcf94007419a344">XPLMI_DS_CNT</a>&#160;&#160;&#160;(u32)(__data_struct_end - __data_struct_start)</td></tr>
@@ -214,9 +217,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga4ddcee89792579bb44c5c1288a5c7780"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga4ddcee89792579bb44c5c1288a5c7780">EXPORT_GENERIC_DS</a> (UpdatePdiAddr, <a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a19f7ba9895092063fc0a7df390625fce">XPLMI_UPDATE_PDIADDR_DS_ID</a>, <a class="el" href="group__xilplmi__server__apis.html#gaf51b1eb5f977e38c127a49bc8424367e">XPLMI_UPDATE_PDIADDR_VER</a>, <a class="el" href="group__xilplmi__server__apis.html#gabad9be85eadceef4a1975b085fc03625">XPLMI_UPDATE_PDIADDR_LCVER</a>, sizeof(UpdatePdiAddr),(u32)(UINTPTR)&amp;UpdatePdiAddr)</td></tr>
-<tr class="memdesc:ga4ddcee89792579bb44c5c1288a5c7780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to Export Data Structures.  <a href="group__xilplmi__server__apis.html#ga4ddcee89792579bb44c5c1288a5c7780">More...</a><br/></td></tr>
-<tr class="separator:ga4ddcee89792579bb44c5c1288a5c7780"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga536288bdae9b622940b7152cbaff1eef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga536288bdae9b622940b7152cbaff1eef">XPlmi_UpdateInit</a> (XPlmi_CompatibilityCheck_t CompatibilityHandler, XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler, XPlmi_CheckPsmPresenceInOD_t CheckPsmPresenceHandler)</td></tr>
 <tr class="memdesc:ga536288bdae9b622940b7152cbaff1eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Db End Address.  <a href="group__xilplmi__server__apis.html#ga536288bdae9b622940b7152cbaff1eef">More...</a><br/></td></tr>
 <tr class="separator:ga536288bdae9b622940b7152cbaff1eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,7 +232,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gae804925f6b45d1685a010c2d1d3e842f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gae804925f6b45d1685a010c2d1d3e842f">XPlmi_DsOps</a> (u32 Op, u64 Addr, void *Data)</td></tr>
 <tr class="memdesc:gae804925f6b45d1685a010c2d1d3e842f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does operations like storing, restoring the Data Structure to Memory during PLM update.  <a href="group__xilplmi__server__apis.html#gae804925f6b45d1685a010c2d1d3e842f">More...</a><br/></td></tr>
 <tr class="separator:gae804925f6b45d1685a010c2d1d3e842f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga133542368f05623ddf052d283f4bf2d1"><td class="memItemLeft" align="right" valign="top">XPlmi_DsEntry *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga133542368f05623ddf052d283f4bf2d1">XPlmi_GetDsEntry</a> (XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *DsVer)</td></tr>
+<tr class="memitem:ga133542368f05623ddf052d283f4bf2d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga133542368f05623ddf052d283f4bf2d1">XPlmi_GetDsEntry</a> (<a class="el" href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a> *DsList, u32 DsCnt, <a class="el" href="union_x_plmi___ds_ver.html">XPlmi_DsVer</a> *DsVer)</td></tr>
 <tr class="memdesc:ga133542368f05623ddf052d283f4bf2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns DsEntry found after searching in the provided DsList.  <a href="group__xilplmi__server__apis.html#ga133542368f05623ddf052d283f4bf2d1">More...</a><br/></td></tr>
 <tr class="separator:ga133542368f05623ddf052d283f4bf2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga18c18ecfe4d08c8da4dc0bec5218cb59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga18c18ecfe4d08c8da4dc0bec5218cb59">XPlmi_RestoreDataBackup</a> (void)</td></tr>

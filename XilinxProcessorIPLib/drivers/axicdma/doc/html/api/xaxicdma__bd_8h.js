@@ -1,5 +1,9 @@
 var xaxicdma__bd_8h =
 [
+    [ "XAxiCdma_BdGetAddrLength", "xaxicdma__bd_8h.html#ga713cac46f6f9f2c0f3fe6641fb2c03d0", null ],
+    [ "XAxiCdma_BdRead", "xaxicdma__bd_8h.html#ga9e688c62021024cb07d86596c67ab3e5", null ],
+    [ "XAxiCdma_BdSetAddrLen", "xaxicdma__bd_8h.html#ga18a6e421cefe0b95d0d9fb2c9e620938", null ],
+    [ "XAxiCdma_BdWrite", "xaxicdma__bd_8h.html#ga7020d2ea9eb62249a8eac45eca64b68e", null ],
     [ "XAxiCdma_Bd", "xaxicdma__bd_8h.html#ga33f9ce1ca035334d63cd08d4cf26daea", null ],
     [ "XAxiCdma_BdClear", "xaxicdma__bd_8h.html#ga594480d7591185014d72869ac15fd490", null ],
     [ "XAxiCdma_BdClearSts", "xaxicdma__bd_8h.html#ga5ee87642c7b803ad1543c5f839872594", null ],

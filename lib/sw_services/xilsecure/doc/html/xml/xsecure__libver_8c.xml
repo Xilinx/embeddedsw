@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__libver_8c" kind="file">
+    <compoundname>xsecure_libver.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xsecure__libver_8h" local="yes">xsecure_libver.h</includes>
+    <includes refid="xsecure__ver_8h" local="yes">xsecure_ver.h</includes>
+    <includes refid="xsecure__mailbox_8h" local="yes">xsecure_mailbox.h</includes>
+    <includes refid="xsecure__generic_8h" local="yes">xsecure_generic.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <incdepgraph>
+      <node id="1991">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="1992" relation="include">
+        </childnode>
+        <childnode refid="1986" relation="include">
+        </childnode>
+        <childnode refid="1993" relation="include">
+        </childnode>
+        <childnode refid="1994" relation="include">
+        </childnode>
+        <childnode refid="1995" relation="include">
+        </childnode>
+        <childnode refid="1996" relation="include">
+        </childnode>
+      </node>
+      <node id="1994">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2000">
+        <label>xsecure_ver.h</label>
+        <link refid="xsecure__ver_8h"/>
+        <childnode refid="1994" relation="include">
+        </childnode>
+      </node>
+      <node id="2001">
+        <label>xsecure_generic.h</label>
+        <link refid="xsecure__generic_8h"/>
+        <childnode refid="1986" relation="include">
+        </childnode>
+        <childnode refid="1997" relation="include">
+        </childnode>
+      </node>
+      <node id="1993">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1987">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1996">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1998">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1990">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="1997">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="1998" relation="include">
+        </childnode>
+        <childnode refid="1999" relation="include">
+        </childnode>
+      </node>
+      <node id="1988">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1995">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1986">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1985">
+        <label>xsecure_libver.c</label>
+        <link refid="xsecure_libver.c"/>
+        <childnode refid="1986" relation="include">
+        </childnode>
+        <childnode refid="1987" relation="include">
+        </childnode>
+        <childnode refid="1988" relation="include">
+        </childnode>
+        <childnode refid="1989" relation="include">
+        </childnode>
+        <childnode refid="2000" relation="include">
+        </childnode>
+        <childnode refid="1997" relation="include">
+        </childnode>
+        <childnode refid="2001" relation="include">
+        </childnode>
+        <childnode refid="1991" relation="include">
+        </childnode>
+      </node>
+      <node id="1989">
+        <label>xsecure_libver.h</label>
+        <link refid="xsecure__libver_8h"/>
+        <childnode refid="1986" relation="include">
+        </childnode>
+        <childnode refid="1987" relation="include">
+        </childnode>
+        <childnode refid="1990" relation="include">
+        </childnode>
+        <childnode refid="1991" relation="include">
+        </childnode>
+        <childnode refid="1997" relation="include">
+        </childnode>
+      </node>
+      <node id="1999">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1992">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsecure__libver_8c_1aa9a6761ef79ab12624ea94bec52176bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_GetClientLibVersion</definition>
+        <argsstring>(u32 *Version)</argsstring>
+        <name>XSecure_GetClientLibVersion</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>Returns the client XilSecure library version, frozen at compile time. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a 32-bit word that receives the client library version packed as XIL_BUILD_VERSION(Major, Minor).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - If Version pointer is NULL </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" bodystart="61" bodyend="71"/>
+        <references refid="xsecure__ver_8h_1a9a7392c20ddba495487c8069bcdf06a9" compoundref="xsecure__ver_8h" startline="35">XSECURE_MAJOR_VERSION</references>
+        <references refid="xsecure__ver_8h_1a56a1bfac5f69b1e2a17eecde9e75f721" compoundref="xsecure__ver_8h" startline="36">XSECURE_MINOR_VERSION</references>
+      </memberdef>
+      <memberdef kind="function" id="xsecure__libver_8c_1ae22d1d0811abf08bad87a6adb01a7620" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_GetServerLibInfo</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo)</argsstring>
+        <name>XSecure_GetServerLibInfo</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>Xil_LibInfo *</type>
+          <declname>LibInfo</declname>
+        </param>
+        <briefdescription>
+<para>Queries the XilSecure server (PLM) library information - version and capability bitmaps - by issuing a Features command with an always-present crypto api-id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance (mailbox handle + SlrIndex). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LibInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a Xil_LibInfo structure that receives the server library version (LibVersion) and capability bitmap words.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - If InstancePtr or LibInfo is NULL</para></listitem><listitem><para>Error - On SMC/mailbox transport failure or if the Features command fails</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The Features command is sent with a valid crypto api-id so the server command SUCCEEDS and returns the full response buffer, in which the library version/capability are reported at fixed indices ([3]/[4]). A server too old to report capabilities leaves those words at 0, which the caller reads as &quot;no
+        capability advertised&quot; - the safe default. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" bodystart="95" bodyend="145"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" compoundref="xsecure__plat__defs_8h" startline="60">XSECURE_API_FEATURES</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="138">XSECURE_API_SHA3_OPERATION</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="64">XSECURE_API_SHA3_UPDATE</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="xsecure__libver_8h_1aff3f7706e6fd1c5df631b843beb349b2" compoundref="xsecure__libver_8c" startline="162" endline="181">XSecure_GetServerLibVersion</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsecure__libver_8c_1aff3f7706e6fd1c5df631b843beb349b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_GetServerLibVersion</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u32 *Version)</argsstring>
+        <name>XSecure_GetServerLibVersion</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>Queries the XilSecure server (PLM) library version. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance (mailbox handle + SlrIndex). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a 32-bit word that receives the server library version packed as XIL_BUILD_VERSION(Major, Minor).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - If InstancePtr or Version pointer is NULL</para></listitem><listitem><para>Error - On SMC/mailbox transport failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" bodystart="162" bodyend="181"/>
+        <references refid="xsecure__libver_8c_1ae22d1d0811abf08bad87a6adb01a7620" compoundref="xsecure__libver_8c" startline="95" endline="145">XSecure_GetServerLibInfo</references>
+        <referencedby refid="xsecure__libver_8h_1a1b04ba89fdb6a5ae7949c690240dc771" compoundref="xsecure__libver_8c" startline="203" endline="243">XSecure_VerifyLibCompatibility</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsecure__libver_8c_1a1b04ba89fdb6a5ae7949c690240dc771" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_VerifyLibCompatibility</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr)</argsstring>
+        <name>XSecure_VerifyLibCompatibility</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Verifies that the client XilSecure library is compatible with the running server (PLM) XilSecure library. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The client compile-time version (XSecure_GetLibVersion()) is compared against the
+    version reported by the server. Compatibility requires the major versions to match
+    and the client minor version to be less than or equal to the server minor version
+    (a newer server stays backward compatible with an older client).
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance (mailbox handle + SlrIndex).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Client and server library versions are compatible</para></listitem><listitem><para>XSECURE_LIB_VERSION_MAJOR_MISMATCH - Major versions differ (breaking change)</para></listitem><listitem><para>XSECURE_LIB_VERSION_MINOR_MISMATCH - Client minor is newer than the server</para></listitem><listitem><para>XST_INVALID_PARAM / Error - On transport failure while querying the server </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" bodystart="203" bodyend="243"/>
+        <references refid="xsecure__libver_8h_1a7cd8ac81ab78c32cdfa32ebb4a3f1936" compoundref="xsecure__libver_8h" startline="72">XSECURE_GET_MAJOR_VERSION</references>
+        <references refid="xsecure__libver_8h_1ad5293d6cfb823000edbd29f4184bed7a" compoundref="xsecure__libver_8h" startline="74">XSECURE_GET_MINOR_VERSION</references>
+        <references refid="xsecure__libver_8c_1aff3f7706e6fd1c5df631b843beb349b2" compoundref="xsecure__libver_8c" startline="162" endline="181">XSecure_GetServerLibVersion</references>
+        <references refid="xsecure__libver_8h_1ac9d90d6a9645d59207796fe1e8983bea" compoundref="xsecure__libver_8h" startline="65">XSECURE_LIB_VERSION_MAJOR_MISMATCH</references>
+        <references refid="xsecure__libver_8h_1a32e5281e495634032ecd890e3802e17c" compoundref="xsecure__libver_8h" startline="66">XSECURE_LIB_VERSION_MINOR_MISMATCH</references>
+      </memberdef>
+      <memberdef kind="function" id="xsecure__libver_8c_1af33df42f903b48f5e5fcca0b6e2b5870" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_IsCapabilitySupported</definition>
+        <argsstring>(const Xil_LibInfo *LibInfo, u32 CapBit)</argsstring>
+        <name>XSecure_IsCapabilitySupported</name>
+        <param>
+          <type>const Xil_LibInfo *</type>
+          <declname>LibInfo</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CapBit</declname>
+        </param>
+        <briefdescription>
+<para>Tests whether a given capability bit is advertised in a library capability word previously fetched with <ref refid="xsecure__libver_8c_1ae22d1d0811abf08bad87a6adb01a7620" kindref="member">XSecure_GetServerLibInfo()</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LibInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a populated Xil_LibInfo structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CapBit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Capability bit position (one of the XSECURE_CAP_*_BIT values).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE - The capability is compiled into the running server</para></listitem><listitem><para>FALSE - The capability is absent, or LibInfo is NULL, or CapBit is out of range </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c" bodystart="259" bodyend="272"/>
+        <references refid="group__xsecure__common__apis_1ga70b849ef6cb6f5c89b4f5d6b33702e9a" compoundref="xsecure__defs_8h" startline="351">XSECURE_LIB_CAP_BITS_PER_WORD</references>
+        <references refid="group__xsecure__common__apis_1ga73de045638494c1e271d0bf1d6025688" compoundref="xsecure__defs_8h" startline="350">XSECURE_LIB_CAP_WORDS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the client-side implementation of the XilSecure library version compatibility check. </para>    </briefdescription>
+    <detaileddescription>
+<para>It queries the server (PLM) library version over the IPI mailbox and compares it against the client&apos;s compile-time version.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.8   tus     08/11/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/******************************************<sp/>Include<sp/>Files<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__libver_8h" kindref="compound">xsecure_libver.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__ver_8h" kindref="compound">xsecure_ver.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mailbox_8h" kindref="compound">xsecure_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__generic_8h" kindref="compound">xsecure_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Constant<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Type<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Function<sp/>Prototypes<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Variable<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="xsecure__libver_8h_1aa9a6761ef79ab12624ea94bec52176bc" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsecure__libver_8c_1aa9a6761ef79ab12624ea94bec52176bc" kindref="member">XSecure_GetClientLibVersion</ref>(u32<sp/>*Version)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Version<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="xsecure__ver_8h_1a9a7392c20ddba495487c8069bcdf06a9" kindref="member">XSECURE_MAJOR_VERSION</ref>,<sp/><ref refid="xsecure__ver_8h_1a56a1bfac5f69b1e2a17eecde9e75f721" kindref="member">XSECURE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="xsecure__libver_8h_1ae22d1d0811abf08bad87a6adb01a7620" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsecure__libver_8c_1ae22d1d0811abf08bad87a6adb01a7620" kindref="member">XSecure_GetServerLibInfo</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>Xil_LibInfo<sp/>*LibInfo)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>(int)XST_FAILURE;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[RESPONSE_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>input<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(LibInfo<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Query<sp/>library<sp/>info<sp/>via<sp/>the<sp/>Features<sp/>command<sp/>using<sp/>a<sp/>valid<sp/>crypto<sp/>api-id</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(SHA3)<sp/>as<sp/>the<sp/>selector,<sp/>so<sp/>the<sp/>command<sp/>succeeds<sp/>and<sp/>the<sp/>server<sp/>returns<sp/>the</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>library<sp/>version/capability<sp/>at<sp/>fixed<sp/>indices.<sp/>SlrIndex<sp/>is<sp/>folded<sp/>into<sp/>the</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>api-id<sp/>to<sp/>reach<sp/>the<sp/>correct<sp/>SLR<sp/>on<sp/>SSIT<sp/>parts.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD1(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" kindref="member">XSECURE_API_FEATURES</ref>),<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647" kindref="member">XSECURE_API_SHA3_OPERATION</ref>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD1(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSECURE_API_FEATURES),<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>the<sp/>request<sp/>over<sp/>the<sp/>generic<sp/>transport:<sp/>SMC<sp/>for<sp/>EL1<sp/>non-secure</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>AArch64<sp/>applications,<sp/>IPI<sp/>mailbox<sp/>otherwise.<sp/>XSecure_SendRequest<sp/>returns</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>server<sp/>command<sp/>status<sp/>(so<sp/>a<sp/>Features<sp/>failure<sp/>is<sp/>not<sp/>mistaken<sp/>for</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>success)<sp/>and<sp/>strips<sp/>the<sp/>IPI<sp/>status<sp/>word,<sp/>so<sp/>the<sp/>data<sp/>starts<sp/>at<sp/>Response[0].<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" kindref="member">XSecure_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>Response,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)RESPONSE_ARG_CNT);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>status<sp/>word<sp/>is<sp/>stripped<sp/>by<sp/>XSecure_SendRequest,<sp/>so<sp/>the<sp/>data<sp/>starts<sp/>at</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Response[0]<sp/>and<sp/>matches<sp/>Xil_LibInfo.<sp/>Copy<sp/>it<sp/>in<sp/>one<sp/>shot;<sp/>the<sp/>server<sp/>does</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>not<sp/>emit<sp/>Capability[1],<sp/>so<sp/>zero<sp/>it<sp/>afterwards.<sp/>For<sp/>xilsecure<sp/>all<sp/>fields</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(including<sp/>Version/NistStatus)<sp/>are<sp/>meaningful.</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy(LibInfo,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Xil_LibInfo),<sp/>&amp;Response[0U],</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(XIL_LIBINFO_RESP_WORDS<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(u32)),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(XIL_LIBINFO_RESP_WORDS<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(u32)));</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LibInfo-&gt;Capability[1U]<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="162" refid="xsecure__libver_8h_1aff3f7706e6fd1c5df631b843beb349b2" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsecure__libver_8c_1aff3f7706e6fd1c5df631b843beb349b2" kindref="member">XSecure_GetServerLibVersion</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>*Version)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_LibInfo<sp/>LibInfo<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>input<sp/>parameter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Version<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>version<sp/>travels<sp/>in<sp/>the<sp/>same<sp/>response<sp/>as<sp/>the<sp/>capabilities<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsecure__libver_8c_1ae22d1d0811abf08bad87a6adb01a7620" kindref="member">XSecure_GetServerLibInfo</ref>(InstancePtr,<sp/>&amp;LibInfo);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>LibInfo.LibVersion;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="203" refid="xsecure__libver_8h_1a1b04ba89fdb6a5ae7949c690240dc771" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsecure__libver_8c_1a1b04ba89fdb6a5ae7949c690240dc771" kindref="member">XSecure_VerifyLibCompatibility</ref>(XSecure_ClientInstance<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ServerVersion<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClientVersion;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClientMajor;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClientMinor;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ServerMajor;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ServerMinor;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fetch<sp/>the<sp/>server<sp/>library<sp/>version<sp/>over<sp/>the<sp/>selected<sp/>transport<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsecure__libver_8c_1aff3f7706e6fd1c5df631b843beb349b2" kindref="member">XSecure_GetServerLibVersion</ref>(InstancePtr,<sp/>&amp;ServerVersion);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Client<sp/>version<sp/>is<sp/>frozen<sp/>at<sp/>compile<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientVersion<sp/>=<sp/>XSecure_GetLibVersion();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientMajor<sp/>=<sp/><ref refid="xsecure__libver_8h_1a7cd8ac81ab78c32cdfa32ebb4a3f1936" kindref="member">XSECURE_GET_MAJOR_VERSION</ref>(ClientVersion);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientMinor<sp/>=<sp/><ref refid="xsecure__libver_8h_1ad5293d6cfb823000edbd29f4184bed7a" kindref="member">XSECURE_GET_MINOR_VERSION</ref>(ClientVersion);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ServerMajor<sp/>=<sp/><ref refid="xsecure__libver_8h_1a7cd8ac81ab78c32cdfa32ebb4a3f1936" kindref="member">XSECURE_GET_MAJOR_VERSION</ref>(ServerVersion);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ServerMinor<sp/>=<sp/><ref refid="xsecure__libver_8h_1ad5293d6cfb823000edbd29f4184bed7a" kindref="member">XSECURE_GET_MINOR_VERSION</ref>(ServerVersion);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ClientMajor<sp/>!=<sp/>ServerMajor)<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>major<sp/>bump<sp/>signals<sp/>a<sp/>breaking<sp/>change<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsecure__libver_8h_1ac9d90d6a9645d59207796fe1e8983bea" kindref="member">XSECURE_LIB_VERSION_MAJOR_MISMATCH</ref>;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ClientMinor<sp/>&gt;<sp/>ServerMinor)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Client<sp/>is<sp/>newer<sp/>than<sp/>the<sp/>server<sp/>and<sp/>may<sp/>expect<sp/>features<sp/>an<sp/>older</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>server<sp/>cannot<sp/>provide.<sp/>A<sp/>client<sp/>older<sp/>than<sp/>the<sp/>server<sp/>is<sp/>acceptable</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(the<sp/>server<sp/>stays<sp/>backward<sp/>compatible<sp/>within<sp/>a<sp/>major<sp/>version).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsecure__libver_8h_1a32e5281e495634032ecd890e3802e17c" kindref="member">XSECURE_LIB_VERSION_MINOR_MISMATCH</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="259" refid="xsecure__libver_8h_1af33df42f903b48f5e5fcca0b6e2b5870" refkind="member"><highlight class="normal">u32<sp/><ref refid="xsecure__libver_8c_1af33df42f903b48f5e5fcca0b6e2b5870" kindref="member">XSecure_IsCapabilitySupported</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Xil_LibInfo<sp/>*LibInfo,<sp/>u32<sp/>CapBit)</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Supported<sp/>=<sp/>(u32)FALSE;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Word<sp/>=<sp/>CapBit<sp/>/<sp/><ref refid="group__xsecure__common__apis_1ga70b849ef6cb6f5c89b4f5d6b33702e9a" kindref="member">XSECURE_LIB_CAP_BITS_PER_WORD</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>which<sp/>capability<sp/>word<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Bit<sp/>=<sp/>CapBit<sp/>%<sp/><ref refid="group__xsecure__common__apis_1ga70b849ef6cb6f5c89b4f5d6b33702e9a" kindref="member">XSECURE_LIB_CAP_BITS_PER_WORD</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>which<sp/>bit<sp/>within<sp/>that<sp/>word<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LibInfo<sp/>!=<sp/>NULL)<sp/>&amp;&amp;<sp/>(Word<sp/>&lt;<sp/><ref refid="group__xsecure__common__apis_1ga73de045638494c1e271d0bf1d6025688" kindref="member">XSECURE_LIB_CAP_WORDS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LibInfo-&gt;Capability[Word]<sp/>&amp;<sp/>((u32)1U<sp/>&lt;&lt;<sp/>Bit))<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supported<sp/>=<sp/>(u32)TRUE;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Supported;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/xsecure_libver.c"/>
+  </compounddef>
+</doxygen>

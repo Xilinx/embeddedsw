@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('vdma__api_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,109 +100,35 @@ $(document).ready(function(){initNavTree('vdma__api_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">vdma_api.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file has high level API to configure and start the VDMA.The file assumes that: The design has VDMA with both MM2S and S2MM path enable. </p>
-<p>The API's has tested with hardware that has tow VDMA and MM2S to S2MM are back to back connected for each VDMA.</p>
-<p>MODIFICATION HISTORY:</p>
-<p>Ver Who Date Changes </p>
-<hr/>
-<p> 4.0 adk 11/26/15 First release </p>
-</div><div class="textblock"><code>#include &quot;<a class="el" href="xaxivdma_8h.html">xaxivdma.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="xaxivdma_8h.html">xaxivdma.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gac80a3592e72fd96b772ee47a7d8e0d0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gac80a3592e72fd96b772ee47a7d8e0d0a">DEBUG_MODE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gac80a3592e72fd96b772ee47a7d8e0d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables buffer fill and compare checks.  <a href="group__axivdma.html#gac80a3592e72fd96b772ee47a7d8e0d0a">More...</a><br/></td></tr>
+<tr class="separator:gac80a3592e72fd96b772ee47a7d8e0d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga31c9d074613a43f04fb29f88890455b4"><td class="memItemLeft" align="right" valign="top">typedef struct vdma_handle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga31c9d074613a43f04fb29f88890455b4">vdma_handle</a></td></tr>
+<tr class="memdesc:ga31c9d074613a43f04fb29f88890455b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds VDMA instance context for the high-level API.  <a href="group__axivdma.html#ga31c9d074613a43f04fb29f88890455b4">More...</a><br/></td></tr>
+<tr class="separator:ga31c9d074613a43f04fb29f88890455b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8f3f4f8546399efc071f59f35f17bdfa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vdma__api_8c.html#a8f3f4f8546399efc071f59f35f17bdfa">run_triple_frame_buffer</a> (<a class="el" href="struct_x_axi_vdma.html">XAxiVdma</a> *InstancePtr, int DeviceId, int hsize, int vsize, int buf_base_addr, int number_frame_count, int enable_frm_cnt_intr)</td></tr>
-<tr class="memdesc:a8f3f4f8546399efc071f59f35f17bdfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">run_triple_frame_buffer API  <a href="#a8f3f4f8546399efc071f59f35f17bdfa">More...</a><br/></td></tr>
-<tr class="separator:a8f3f4f8546399efc071f59f35f17bdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f3f4f8546399efc071f59f35f17bdfa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga8f3f4f8546399efc071f59f35f17bdfa">run_triple_frame_buffer</a> (<a class="el" href="struct_x_axi_vdma.html">XAxiVdma</a> *InstancePtr, int DeviceId, int hsize, int vsize, int buf_base_addr, int number_frame_count, int enable_frm_cnt_intr)</td></tr>
+<tr class="memdesc:ga8f3f4f8546399efc071f59f35f17bdfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the triple frame buffer API.  <a href="group__axivdma.html#ga8f3f4f8546399efc071f59f35f17bdfa">More...</a><br/></td></tr>
+<tr class="separator:ga8f3f4f8546399efc071f59f35f17bdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a8f3f4f8546399efc071f59f35f17bdfa"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int run_triple_frame_buffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_axi_vdma.html">XAxiVdma</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>DeviceId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>hsize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vsize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>buf_base_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>number_frame_count</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>enable_frm_cnt_intr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>run_triple_frame_buffer API </p>
-<p>This API is the interface between application and other API. When application will call this API with right argument, This API will call rest of the API to configure the read and write path of VDMA,based on ID. After that it will start both the read and write path of VDMA</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the handle to <a class="el" href="struct_x_axi_vdma.html" title="The XAxiVdma driver instance data. ">XAxiVdma</a> data structure. </td></tr>
-    <tr><td class="paramname">DeviceId</td><td>is the device ID of current VDMA </td></tr>
-    <tr><td class="paramname">hsize</td><td>is the horizontal size of the frame. It will be in Pixels. The actual size of frame will be calculated by multiplying this with tdata width. </td></tr>
-    <tr><td class="paramname">vsize</td><td>is the Vertical size of the frame. </td></tr>
-    <tr><td class="paramname">buf_base_addr</td><td>is the buffer address where frames will be written and read by VDMA. </td></tr>
-    <tr><td class="paramname">number_frame_count</td><td>specifies after how many frames the interrupt should come. </td></tr>
-    <tr><td class="paramname">enable_frm_cnt_intr</td><td>is for enabling frame count interrupt when set to 1. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if example finishes successfully</li>
-<li>XST_FAILURE if example fails. </li>
-</ul>
-</dd></dl>
-
-<p>References <a class="el" href="group__axivdma.html#ga76cf51d7be754a670e697e74966c68cd">XAxiVdma_Config::BaseAddress</a>, <a class="el" href="group__axivdma.html#ga569bedc89182bd0542f62580767c98d3">XAxiVdma_Config::Mm2SStreamWidth</a>, <a class="el" href="group__axivdma.html#ga03ffbe1551620b7f0f72b905006dcf88">XAxiVdma_FrameCounter::ReadDelayTimerCount</a>, <a class="el" href="group__axivdma.html#gaa60c173f1c6d7314821ae2c24e2ff7af">XAxiVdma_FrameCounter::ReadFrameCount</a>, <a class="el" href="group__axivdma.html#gad55f207b3d4bfab082a90ea7a43f044c">XAxiVdma_FrameCounter::WriteDelayTimerCount</a>, <a class="el" href="group__axivdma.html#gab43078f5f7fdd17728ac6ecfb97aea27">XAxiVdma_FrameCounter::WriteFrameCount</a>, <a class="el" href="group__axivdma.html#ga7dff0c11a9aa88a19519734702904dca">XAxiVdma_CfgInitialize()</a>, <a class="el" href="group__axivdma.html#ga4c687431dde198458fb4e42dff22c106">XAxiVdma_IntrEnable()</a>, <a class="el" href="group__axivdma.html#ga88ccc9e37f16a1b4ecffd5e09a4c8cfb">XAXIVDMA_IXR_ERROR_MASK</a>, <a class="el" href="group__axivdma.html#ga2f25fa1f54f8b95752ba1d303fc4a6b6">XAXIVDMA_IXR_FRMCNT_MASK</a>, <a class="el" href="group__axivdma.html#ga731fd42d22c597c0e045970e26f22681">XAxiVdma_LookupConfig()</a>, <a class="el" href="group__axivdma.html#ga5fa27b3ce66d947167262fe918fb5373">XAXIVDMA_READ</a>, <a class="el" href="group__axivdma.html#gaabe404c2a5c1483bc95be749c7540ba4">XAxiVdma_SetFrameCounter()</a>, and <a class="el" href="group__axivdma.html#ga525d0fa8fc04a9dde871ab55cf6b227b">XAXIVDMA_WRITE</a>.</p>
-
-<p>Referenced by <a class="el" href="vdma_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

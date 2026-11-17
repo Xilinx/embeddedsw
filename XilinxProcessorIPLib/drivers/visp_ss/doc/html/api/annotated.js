@@ -1,6 +1,7 @@
 var annotated =
 [
     [ "_osFile", "struct__os_file.html", null ],
+    [ "AvpgRunConfig", "struct_avpg_run_config.html", "struct_avpg_run_config" ],
     [ "CamDevice2DnrAutoConfig_s", "struct_cam_device2_dnr_auto_config__s.html", "struct_cam_device2_dnr_auto_config__s" ],
     [ "CamDevice2DnrConfig_s", "struct_cam_device2_dnr_config__s.html", "struct_cam_device2_dnr_config__s" ],
     [ "CamDevice2DnrCurveConfig_s", "struct_cam_device2_dnr_curve_config__s.html", "struct_cam_device2_dnr_curve_config__s" ],
@@ -221,6 +222,7 @@ var annotated =
     [ "CamDeviceWorkConfig_s", "struct_cam_device_work_config__s.html", "struct_cam_device_work_config__s" ],
     [ "FifoControl", "struct_fifo_control.html", null ],
     [ "FifoInitData", "struct_fifo_init_data.html", null ],
+    [ "FrameInfo", "struct_frame_info.html", "struct_frame_info" ],
     [ "HalI2cContext_s", "struct_hal_i2c_context__s.html", null ],
     [ "IsiCamDrvConfig_s", "struct_isi_cam_drv_config__s.html", null ],
     [ "IsiCaps_s", "struct_isi_caps__s.html", "struct_isi_caps__s" ],
@@ -241,6 +243,8 @@ var annotated =
     [ "PicBufMiSwap_u", "union_pic_buf_mi_swap__u.html", null ],
     [ "PicBufPlane_s", "struct_pic_buf_plane__s.html", null ],
     [ "response_field", "structresponse__field.html", null ],
+    [ "RunConfig", "struct_run_config.html", "struct_run_config" ],
+    [ "TimeStamp", "struct_time_stamp.html", null ],
     [ "VmixHdmiBridge_Coordinate", "struct_vmix_hdmi_bridge___coordinate.html", null ],
     [ "VmixHdmiBridge_InputBuffer", "struct_vmix_hdmi_bridge___input_buffer.html", null ],
     [ "VmixHdmiBridge_LayerPool", "struct_vmix_hdmi_bridge___layer_pool.html", "struct_vmix_hdmi_bridge___layer_pool" ],

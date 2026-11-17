@@ -551,8 +551,7 @@ Functions</h2></td></tr>
 <p>This function sets up the <a class="el" href="struct_x_v___frmbuf_rd__l2.html" title="Frame Buffer Read driver Layer 2 data. ">XV_FrmbufRd_l2</a> instance structure, zeroes its memory, and initializes the underlying <a class="el" href="struct_x_v__frmbufrd.html" title="Driver instance data. ">XV_frmbufrd</a> hardware or driver instance. Depending on the build configuration, it uses either a DeviceId or a BaseAddress to perform the initialization.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_v___frmbuf_rd__l2.html" title="Frame Buffer Read driver Layer 2 data. ">XV_FrmbufRd_l2</a> instance to be initialized. </td></tr>
-    <tr><td class="paramname">DeviceId</td><td>Device ID of the <a class="el" href="struct_x_v__frmbufrd.html" title="Driver instance data. ">XV_frmbufrd</a> hardware (used if SDT is not defined).</td></tr>
+    <tr><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_v___frmbuf_rd__l2.html" title="Frame Buffer Read driver Layer 2 data. ">XV_FrmbufRd_l2</a> instance to be initialized.</td></tr>
   </table>
   </dd>
 </dl>
@@ -675,6 +674,8 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_v___frmbuf_rd__l2.html#af5197034b172783210b2cb88547bfa87">XV_FrmbufRd_l2::CallbackDoneRef</a>, <a class="el" href="struct_x_v___frmbuf_rd__l2.html#aff68a0427bdc269ca05fde57f7cc8743">XV_FrmbufRd_l2::CallbackReadyRef</a>, <a class="el" href="struct_x_v___frmbuf_rd__l2.html#a89bc60bff119d8099d26f5e5fa6bebfa">XV_FrmbufRd_l2::FrameDoneCallback</a>, <a class="el" href="struct_x_v___frmbuf_rd__l2.html#a48f7a71fe84c44380cc6c1d253e0fa67">XV_FrmbufRd_l2::FrameReadyCallback</a>, <a class="el" href="struct_x_v___frmbuf_rd__l2.html#a0ae31af8998fd7d5456807e3397602ca">XV_FrmbufRd_l2::FrmbufRd</a>, <a class="el" href="struct_x_v__frmbufrd.html#a4eaed8d81587971809682b514a80455a">XV_frmbufrd::IsReady</a>, <a class="el" href="xv__frmbufrd_8c.html#aec9552b179c61f7d769220de8c3f4be6">XV_frmbufrd_InterruptClear()</a>, and <a class="el" href="xv__frmbufrd_8c.html#a4a3398981b9176a6eb4c96d0d6fa2b85">XV_frmbufrd_InterruptGetStatus()</a>.</p>
+
+<p>Referenced by <a class="el" href="xv__frmbufrd__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>

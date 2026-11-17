@@ -9,83 +9,90 @@
     <includes local="yes">xparameters.h</includes>
     <includes local="yes">xilocp_bsp_config.h</includes>
     <incdepgraph>
-      <node id="34">
-        <label>xocp_common.h</label>
-        <link refid="xocp__common_8h"/>
-        <childnode refid="35" relation="include">
-        </childnode>
-      </node>
-      <node id="32">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="24">
-        <label>xilocp_client_devicekey_example.c</label>
-        <link refid="xilocp_client_devicekey_example.c"/>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-      </node>
-      <node id="36">
-        <label>xil_util.h</label>
-      </node>
-      <node id="33">
-        <label>xilocp_bsp_config.h</label>
-      </node>
-      <node id="28">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="35">
-        <label>xstatus.h</label>
-      </node>
-      <node id="26">
-        <label>xil_types.h</label>
-      </node>
       <node id="27">
-        <label>xocp_mailbox.h</label>
-        <link refid="xocp__mailbox_8h"/>
+        <label>xocp_client.h</label>
+        <link refid="xocp__client_8h"/>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
-      </node>
-      <node id="29">
-        <label>xparameters.h</label>
-      </node>
-      <node id="31">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="30">
-        <label>xocp_def.h</label>
-        <link refid="xocp__def_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="29">
+        <label>xil_util.h</label>
+      </node>
+      <node id="31">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp__mailbox_8h"/>
         <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="25">
-        <label>xocp_client.h</label>
-        <link refid="xocp__client_8h"/>
-        <childnode refid="26" relation="include">
-        </childnode>
+      <node id="37">
+        <label>xilocp_bsp_config.h</label>
+      </node>
+      <node id="32">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="30">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="26">
+        <label>xilocp_client_devicekey_example.c</label>
+        <link refid="xilocp_client_devicekey_example.c"/>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xocp_common.h</label>
+        <link refid="xocp__common_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xocp_def.h</label>
+        <link refid="xocp__def_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xstatus.h</label>
+      </node>
+      <node id="28">
+        <label>xil_types.h</label>
+      </node>
+      <node id="33">
+        <label>xparameters.h</label>
+      </node>
+      <node id="35">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -98,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xocp__dev_keyexample__apis_1gac03722a2b98a2289a2f32c0cca3ca470" prot="public" static="no">
         <name>XOCP_SHA3_HASH_LEN_IN_BYTES</name>
@@ -109,7 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xocp__dev_keyexample__apis_1gaa793e608f54a259455e6c30d2f8524b1" prot="public" static="no">
         <name>XOCP_X509_CERT_BUF_SIZE</name>
@@ -120,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="92" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -135,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xocp__dev_keyexample__apis_1gaa165589ff890273a47aefe46d953c578" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -148,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xocp__dev_keyexample__apis_1gaeed8c7b8752d6e440bc0a495910f0a2e" prot="public" static="yes" mutable="no">
         <type><ref refid="struct_x_ocp___x509_cert" kindref="compound">XOcp_X509Cert</ref></type>
@@ -161,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xocp__dev_keyexample__apis_1gaee8120f5f176a163cdd5f287fdd63a10" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -174,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xocp__dev_keyexample__apis_1gac08c5f835e3b47d3af3999df0f7bdd34" prot="public" static="yes" mutable="no">
         <type><ref refid="struct_x_ocp___attest" kindref="compound">XOcp_Attest</ref></type>
@@ -187,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xocp__dev_keyexample__apis_1gaef7ef5a82ffb55a77ac7d10064d9106a" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -209,7 +216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="111" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="111" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -248,7 +255,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="372" bodyend="380"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="372" bodyend="380"/>
       </memberdef>
       <memberdef kind="function" id="group__xocp__dev_keyexample__apis_1gad0df7566afcc7a9bd23f8eaac61d8a33" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -269,7 +276,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="328" bodyend="361"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="328" bodyend="361"/>
       </memberdef>
       <memberdef kind="function" id="group__xocp__dev_keyexample__apis_1gacd1bdb908197f16c722697057977d727" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -297,7 +304,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="187" bodyend="214"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="187" bodyend="214"/>
       </memberdef>
       <memberdef kind="function" id="group__xocp__dev_keyexample__apis_1gaf51624ec7a13a1e6766388d8919faf91" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -325,7 +332,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="227" bodyend="271"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="227" bodyend="271"/>
       </memberdef>
       <memberdef kind="function" id="group__xocp__dev_keyexample__apis_1ga4719fb1b17504d5fe8b6af4b5f76ad50" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -353,7 +360,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="284" bodyend="316"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="284" bodyend="316"/>
       </memberdef>
       <memberdef kind="function" id="group__xocp__dev_keyexample__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -372,8 +379,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="130" bodyend="174"/>
-        <references refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" compoundref="xocp__client_8c" startline="65" endline="80">XOcp_ClientInit</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c" bodystart="130" bodyend="174"/>
+        <references refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" compoundref="xocp__client_8c" startline="69" endline="84">XOcp_ClientInit</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -635,6 +642,6 @@
 <codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="380"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/examples/xilocp_client_devicekey_example.c"/>
   </compounddef>
 </doxygen>

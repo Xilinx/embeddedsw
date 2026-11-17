@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmrctr__selftest__example_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,15 +100,15 @@ $(document).ready(function(){initNavTree('xtmrctr__selftest__example_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xtmrctr_selftest_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a example for using the Timer Counter hardware and driver. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
 </p>
@@ -122,19 +122,49 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
                     CR-965028.
 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
                     documentation.
+4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ac1378975479dee8e1e6c72574d911068"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__selftest__example_8c.html#ac1378975479dee8e1e6c72574d911068">XTMRCTR_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XTMRCTR_0_BASEADDR</td></tr>
+<tr class="memdesc:ac1378975479dee8e1e6c72574d911068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the device.  <a href="#ac1378975479dee8e1e6c72574d911068">More...</a><br/></td></tr>
+<tr class="separator:ac1378975479dee8e1e6c72574d911068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1fc047edeff96607cfdeb06b0d5c902f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__selftest__example_8c.html#a1fc047edeff96607cfdeb06b0d5c902f">TmrCtrSelfTestExample</a> (UINTPTR BaseAddr)</td></tr>
-<tr class="memdesc:a1fc047edeff96607cfdeb06b0d5c902f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the TmrCtr device and driver as a design example.  <a href="#a1fc047edeff96607cfdeb06b0d5c902f">More...</a><br/></td></tr>
+<tr class="memdesc:a1fc047edeff96607cfdeb06b0d5c902f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a minimal self-test on the TmrCtr device and driver.  <a href="#a1fc047edeff96607cfdeb06b0d5c902f">More...</a><br/></td></tr>
 <tr class="separator:a1fc047edeff96607cfdeb06b0d5c902f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:abf821aa6ffa7f03be3f71df5bcf99279"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmrctr__selftest__example_8c.html#abf821aa6ffa7f03be3f71df5bcf99279">TimerCounter</a></td></tr>
+<tr class="memdesc:abf821aa6ffa7f03be3f71df5bcf99279"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the timer counter.  <a href="#abf821aa6ffa7f03be3f71df5bcf99279">More...</a><br/></td></tr>
+<tr class="separator:abf821aa6ffa7f03be3f71df5bcf99279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ac1378975479dee8e1e6c72574d911068"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTMRCTR_BASEADDRESS&#160;&#160;&#160;XPAR_XTMRCTR_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the device. </p>
+
+<p>Referenced by <a class="el" href="xtmrctr__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -152,16 +182,9 @@ Functions</h2></td></tr>
 
 <p>Main function to call the example. </p>
 <p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure. </dd></dl>
 
-<p>References <a class="el" href="xtmrctr__selftest__example_8c.html#a1fc047edeff96607cfdeb06b0d5c902f">TmrCtrSelfTestExample()</a>.</p>
+<p>References <a class="el" href="xtmrctr__selftest__example_8c.html#a1fc047edeff96607cfdeb06b0d5c902f">TmrCtrSelfTestExample()</a>, and <a class="el" href="xtmrctr__selftest__example_8c.html#ac1378975479dee8e1e6c72574d911068">XTMRCTR_BASEADDRESS</a>.</p>
 
 </div>
 </div>
@@ -179,21 +202,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the TmrCtr device and driver as a design example. </p>
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> component.</p>
+<p>Performs a minimal self-test on the TmrCtr device and driver. </p>
+<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_tmr_ctr.html" title="The XTmrCtr driver instance data. ">XTmrCtr</a> component. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddr</td><td>is the base address of the device </td></tr>
-    <tr><td class="paramname">TmrCtrNumber</td><td>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddr</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="group___overview.html#ga8fbe1a132a6c742c79cb73dee233e779">XTmrCtr_Initialize()</a>, and <a class="el" href="group___overview.html#ga42b972b6d7ae5d18a9bb2ca99446b1e7">XTmrCtr_SelfTest()</a>.</p>
+<p>References <a class="el" href="xtmrctr__polled__example_8c.html#abf821aa6ffa7f03be3f71df5bcf99279">TimerCounter</a>, <a class="el" href="group___overview.html#ga8fbe1a132a6c742c79cb73dee233e779">XTmrCtr_Initialize()</a>, and <a class="el" href="group___overview.html#ga42b972b6d7ae5d18a9bb2ca99446b1e7">XTmrCtr_SelfTest()</a>.</p>
 
 <p>Referenced by <a class="el" href="xtmrctr__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="abf821aa6ffa7f03be3f71df5bcf99279"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> TimerCounter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The instance of the timer counter. </p>
 
 </div>
 </div>

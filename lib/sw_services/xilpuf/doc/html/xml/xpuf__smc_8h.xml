@@ -65,6 +65,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPUF_SMC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_smc.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_smc.h"/>
   </compounddef>
 </doxygen>

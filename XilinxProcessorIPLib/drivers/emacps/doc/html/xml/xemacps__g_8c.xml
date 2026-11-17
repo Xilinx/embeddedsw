@@ -5,29 +5,11 @@
     <includes refid="xemacps_8h" local="yes">xemacps.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
-      <node id="162">
-        <label>xemacps_g.c</label>
-        <link refid="xemacps_g.c"/>
-        <childnode refid="163" relation="include">
-        </childnode>
-        <childnode refid="172" relation="include">
-        </childnode>
-      </node>
       <node id="165">
         <label>xil_assert.h</label>
       </node>
       <node id="168">
         <label>xil_io.h</label>
-      </node>
-      <node id="169">
-        <label>xemacps_bd.h</label>
-        <link refid="xemacps__bd_8h"/>
-        <childnode refid="170" relation="include">
-        </childnode>
-        <childnode refid="164" relation="include">
-        </childnode>
-        <childnode refid="165" relation="include">
-        </childnode>
       </node>
       <node id="171">
         <label>xemacps_bdring.h</label>
@@ -49,6 +31,9 @@
       <node id="166">
         <label>xstatus.h</label>
       </node>
+      <node id="164">
+        <label>xil_types.h</label>
+      </node>
       <node id="163">
         <label>xemacps.h</label>
         <link refid="xemacps_8h"/>
@@ -65,11 +50,26 @@
         <childnode refid="171" relation="include">
         </childnode>
       </node>
-      <node id="164">
-        <label>xil_types.h</label>
+      <node id="162">
+        <label>xemacps_g.c</label>
+        <link refid="xemacps_g.c"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
       </node>
       <node id="172">
         <label>xparameters.h</label>
+      </node>
+      <node id="169">
+        <label>xemacps_bd.h</label>
+        <link refid="xemacps__bd_8h"/>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -79,12 +79,12 @@
         <argsstring>[XPAR_XEMACPS_NUM_INSTANCES]</argsstring>
         <name>XEmacPs_ConfigTable</name>
         <briefdescription>
-        </briefdescription>
+<para>Configuration table for each EMACPS instance in the system. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_g.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_g.c" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_g.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_g.c" bodystart="56" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -94,7 +94,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -117,9 +117,8 @@
 <codeline lineno="51"><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
 <codeline lineno="53"><highlight class="comment"><sp/>*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>emacps<sp/>device</highlight></codeline>
-<codeline lineno="54"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><ref refid="struct_x_emac_ps___config" kindref="compound">XEmacPs_Config</ref><sp/>XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="56" refid="group__emacps_1ga8ce32b31249ca8da3daddfaa82255d99" refkind="member"><highlight class="normal"><ref refid="struct_x_emac_ps___config" kindref="compound">XEmacPs_Config</ref><sp/><ref refid="group__emacps_1gaa61daddef11f365ecfe27c06988157b5" kindref="member">XEmacPs_ConfigTable</ref>[XPAR_XEMACPS_NUM_INSTANCES]<sp/>=<sp/>{</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XEMACPS_0_DEVICE_ID,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)XPAR_XEMACPS_0_BASEADDR,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -134,8 +133,8 @@
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XEMACPS_0_ENET_SLCR_10Mbps_DIV0,</highlight></codeline>
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)XPAR_XEMACPS_0_ENET_SLCR_10Mbps_DIV1</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XEMACPS_1_DEVICE_ID</highlight></codeline>
-<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">#ifdef<sp/>XPAR_XEMACPS_1_DEVICE_ID</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XEMACPS_1_DEVICE_ID,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)XPAR_XEMACPS_1_BASEADDR,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XEMACPS_1_IS_CACHE_COHERENT,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Cache<sp/>coherency<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -149,9 +148,9 @@
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XEMACPS_1_ENET_SLCR_10Mbps_DIV0,</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)XPAR_XEMACPS_1_ENET_SLCR_10Mbps_DIV1</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_g.c"/>
   </compounddef>
 </doxygen>

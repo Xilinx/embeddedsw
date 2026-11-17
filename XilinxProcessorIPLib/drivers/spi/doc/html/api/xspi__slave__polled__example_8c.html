@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__slave__polled__example_8c.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,17 +100,18 @@ $(document).ready(function(){initNavTree('xspi__slave__polled__example_8c.html',
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xspi_slave_polled_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the Spi driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a>) and the SPI device as a Slave, in polled mode. </p>
-<p>This example fills the Spi Tx buffer with the number of data bytes it expects to receive from the master and then Spi device waits for an external master to initiate the transfer. When the master initiates the transfer, the Spi device receives data from the master and simultaneously sends the data in Tx buffer to the master. Once the transfer is complete, this example prints the data received from the master. The number of bytes to be received by the Spi slave is defined by the constant BUFFER_SIZE in this file.</p>
-<p>The external SPI devices that are present on the Xilinx boards don't support the Master functionality. This example has been tested with an off board external SPI Master device and the Xilinx SPI device configured as a Slave. This example has been tested for byte-wide SPI transfers.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This example assumes that there is a STDIO device in the system.</p>
+<div class="textblock"><p>Implements a design example using the Spi driver (<a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a>) and the SPI device as a Slave, in polled mode. </p>
+<p>The example fills the Spi Tx buffer with the number of data bytes it expects to receive from the master and then Spi device waits for an external master to initiate the transfer. When the master initiates the transfer, the Spi device receives data from the master and simultaneously sends the data in Tx buffer to the master. Once the transfer is complete, the example prints the data received from the master. The number of bytes to be received by the Spi slave is defined by the constant BUFFER_SIZE in the file.</p>
+<p>The external SPI devices that are present on the Xilinx boards don't support the Master functionality. The example has been tested with an off board external SPI Master device and the Xilinx SPI device configured as a Slave. The example has been tested for byte-wide SPI transfers.</p>
+<dl class="section note"><dt>Note</dt><dd>The example assumes that there is a STDIO device in the system.</dd></dl>
 <pre>
   MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
 </p>
@@ -125,38 +126,37 @@ $(document).ready(function(){initNavTree('xspi__slave__polled__example_8c.html',
                       ensure that "Successfully ran" and "Failed" strings
                       are available in all examples. This is a fix for
                       CR-965028.
-  4.11  sb   07/11/23 Added support for system device-tree flow.</pre><pre>*</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+  4.11  sb   07/11/23 Added support for system device-tree flow.</pre><pre>  4.17  vn   08/26/26 Fix Doxygen warnings.
+  4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+*</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
 <code>#include &quot;stdio.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga6b20d41d6252e9871430c242cb1a56e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__slave__polled__example.html#ga6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga6b20d41d6252e9871430c242cb1a56e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the size of the buffer to be transmitted/received in this example.  <a href="group__xspi__slave__polled__example.html#ga6b20d41d6252e9871430c242cb1a56e7">More...</a><br/></td></tr>
+<tr class="separator:ga6b20d41d6252e9871430c242cb1a56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__slave__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Spi Slave example in polled mode.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__slave__polled__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Spi Slave example in polled mode.  <a href="group__xspi__slave__polled__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga6d483cc635d6d110a35d871bf4498b8d"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__slave__polled__example.html#ga6d483cc635d6d110a35d871bf4498b8d">ReadBuffer</a> [<a class="el" href="group__xspi__slave__polled__example.html#ga6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:ga6d483cc635d6d110a35d871bf4498b8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer to read from the Spi device.  <a href="group__xspi__slave__polled__example.html#ga6d483cc635d6d110a35d871bf4498b8d">More...</a><br/></td></tr>
+<tr class="separator:ga6d483cc635d6d110a35d871bf4498b8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57c3703f9a6a1c27edfd3105cc5d339e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__slave__polled__example.html#ga57c3703f9a6a1c27edfd3105cc5d339e">WriteBuffer</a> [<a class="el" href="group__xspi__slave__polled__example.html#ga6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:ga57c3703f9a6a1c27edfd3105cc5d339e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer to write to the Spi device.  <a href="group__xspi__slave__polled__example.html#ga57c3703f9a6a1c27edfd3105cc5d339e">More...</a><br/></td></tr>
+<tr class="separator:ga57c3703f9a6a1c27edfd3105cc5d339e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3bcee72bda39943b664463f1df4d211"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__slave__polled__example.html#gab3bcee72bda39943b664463f1df4d211">Test</a></td></tr>
+<tr class="memdesc:gab3bcee72bda39943b664463f1df4d211"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following variable allows a test value to be added to the values that are sent in reflection to the Master transmission such that unique values can be generated to guarantee the transfer from Slave to Master is successful.  <a href="group__xspi__slave__polled__example.html#gab3bcee72bda39943b664463f1df4d211">More...</a><br/></td></tr>
+<tr class="separator:gab3bcee72bda39943b664463f1df4d211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the Spi Slave example in polled mode. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

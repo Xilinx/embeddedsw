@@ -40,7 +40,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="56" bodyend="69"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="56" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga1355f960cd66ac2daf31388662c60f7d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -67,7 +67,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="86" bodyend="108"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="86" bodyend="112"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -116,8 +116,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="126" bodyend="136"/>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="130" bodyend="140"/>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -144,11 +144,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="159" bodyend="180"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="163" bodyend="184"/>
         <references refid="xv__scenechange__hw_8h_1ae4ee8b66b1a50ff729d12fea5512eacc" compoundref="xv__scenechange__hw_8h" startline="260">XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE</references>
-        <references refid="xv__scenechange_8c_1afc886ea4b985a433f784608a6335d1fb" compoundref="xv__scenechange_8c" startline="2658" endline="2663">XV_scenechange_InterruptClear</references>
-        <references refid="xv__scenechange_8c_1ae41caeaee72b58cdaad6d4cd8d6f8595" compoundref="xv__scenechange_8c" startline="2700" endline="2705">XV_scenechange_InterruptGetStatus</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <references refid="xv__scenechange_8c_1afc886ea4b985a433f784608a6335d1fb" compoundref="xv__scenechange_8c" startline="2662" endline="2667">XV_scenechange_InterruptClear</references>
+        <references refid="xv__scenechange_8c_1ae41caeaee72b58cdaad6d4cd8d6f8595" compoundref="xv__scenechange_8c" startline="2704" endline="2709">XV_scenechange_InterruptGetStatus</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga0b80de8d64c7a359f310cbedc61ccd63" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -197,7 +197,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="75" bodyend="85"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="75" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga6e0f9e1f69611ee101d6a0e8ef5d833d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -246,7 +246,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="101" bodyend="111"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="101" bodyend="111"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga03168815f3dbae71833c20b56394e510" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -295,7 +295,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="127" bodyend="137"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="127" bodyend="137"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga402815c5e376e35215fb4c15351da5ab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -344,7 +344,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="153" bodyend="163"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="153" bodyend="163"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga46b29460a13767baffbde288df7a84e8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -393,7 +393,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="179" bodyend="189"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="179" bodyend="189"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga5abca69cface44d23c1082c323bf35e2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -442,7 +442,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="206" bodyend="221"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="206" bodyend="221"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1gaf76cd391b0009c6573f1dd232937416c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -469,7 +469,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="319" bodyend="332"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="321" bodyend="334"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga36b5f4b60284fa3caa136fd500b02b39" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -496,7 +496,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="348" bodyend="359"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="350" bodyend="361"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga597891e75dffd6f116154b6c97984ec2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -534,10 +534,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="240" bodyend="279"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="240" bodyend="281"/>
         <references refid="xv__scenechange_8h_1a39493a9312d5533b9801042b8509576ba8eec1e38043b9efadf3286c7de1e69da" compoundref="xv__scenechange_8h" startline="90">XV_SCD_HAS_Y10</references>
         <references refid="xv__scenechange_8h_1a39493a9312d5533b9801042b8509576ba07a3095a6334436ad4ccabcafc12a294" compoundref="xv__scenechange_8h" startline="89">XV_SCD_HAS_Y8</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1gad4a9360689805652fa4e7d1949adfd4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -575,9 +575,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="296" bodyend="303"/>
-        <references refid="xv__scenechange_8c_1a1a3090ce035e6965ea92f8d9b0415fe2" compoundref="xv__scenechange_8c" startline="2520" endline="2525">XV_scenechange_Set_HwReg_stream_enable</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="298" bodyend="305"/>
+        <references refid="xv__scenechange_8c_1a1a3090ce035e6965ea92f8d9b0415fe2" compoundref="xv__scenechange_8c" startline="2524" endline="2529">XV_scenechange_Set_HwReg_stream_enable</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga23a166ec0b7c75bcee59b09d2984f6ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -604,14 +604,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="377" bodyend="404"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="379" bodyend="406"/>
         <references refid="xv__scenechange_8h_1ad734967e3ed1126c7c356ceeb56138f0" compoundref="xv__scenechange_8h" startline="60">XV_SCD_WAIT_FOR_FLUSH_DELAY</references>
         <references refid="xv__scenechange_8h_1ac9a850acef9c4fdc2c117f4d93decdc2" compoundref="xv__scenechange_8h" startline="55">XV_SCD_WAIT_FOR_FLUSH_DONE</references>
         <references refid="xv__scenechange__hw_8h_1ae4ee8b66b1a50ff729d12fea5512eacc" compoundref="xv__scenechange__hw_8h" startline="260">XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE</references>
-        <references refid="xv__scenechange_8c_1af657357994286a038e3ed8b9af09460d" compoundref="xv__scenechange_8c" startline="178" endline="183">XV_scenechange_DisableAutoRestart</references>
-        <references refid="xv__scenechange_8c_1ae66c5f672b1ace172569fdc20015c920" compoundref="xv__scenechange_8c" startline="2633" endline="2641">XV_scenechange_InterruptDisable</references>
-        <references refid="xv__scenechange_8c_1a3ccf62c1b0015afe1234fb7100704c1d" compoundref="xv__scenechange_8c" startline="2586" endline="2591">XV_scenechange_InterruptGlobalDisable</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="356" endline="416">main</referencedby>
+        <references refid="xv__scenechange_8c_1af657357994286a038e3ed8b9af09460d" compoundref="xv__scenechange_8c" startline="182" endline="187">XV_scenechange_DisableAutoRestart</references>
+        <references refid="xv__scenechange_8c_1ae66c5f672b1ace172569fdc20015c920" compoundref="xv__scenechange_8c" startline="2637" endline="2645">XV_scenechange_InterruptDisable</references>
+        <references refid="xv__scenechange_8c_1a3ccf62c1b0015afe1234fb7100704c1d" compoundref="xv__scenechange_8c" startline="2590" endline="2595">XV_scenechange_InterruptGlobalDisable</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="282" endline="342">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1gae6c86fc73f611432fe5e6a5dacf2444b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -638,10 +638,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="421" bodyend="440"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="423" bodyend="442"/>
         <references refid="xv__scenechange_8h_1a8dcb6b9ea5304587719252d88c45c0c5" compoundref="xv__scenechange_8h" startline="65">XV_SCD_IDLE_TIMEOUT</references>
-        <references refid="xv__scenechange_8c_1a01259d781dc587d1764221534c3ef4d1" compoundref="xv__scenechange_8c" startline="108" endline="116">XV_scenechange_IsIdle</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="356" endline="416">main</referencedby>
+        <references refid="xv__scenechange_8c_1a01259d781dc587d1764221534c3ef4d1" compoundref="xv__scenechange_8c" startline="112" endline="120">XV_scenechange_IsIdle</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="282" endline="342">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga61aa64def88d063b4f41fab97540c8dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -668,10 +668,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="456" bodyend="460"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_l2.c" bodystart="458" bodyend="462"/>
         <references refid="xv__scenechange__hw_8h_1ae4ee8b66b1a50ff729d12fea5512eacc" compoundref="xv__scenechange__hw_8h" startline="260">XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE</references>
-        <references refid="xv__scenechange_8c_1a15b166f7ebb3ef4488eea86dd976e6fc" compoundref="xv__scenechange_8c" startline="2608" endline="2616">XV_scenechange_InterruptEnable</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <references refid="xv__scenechange_8c_1a15b166f7ebb3ef4488eea86dd976e6fc" compoundref="xv__scenechange_8c" startline="2612" endline="2620">XV_scenechange_InterruptEnable</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

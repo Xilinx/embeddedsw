@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,20 +105,51 @@ $(document).ready(function(){initNavTree('xrfdc__sinit_8c.html','');});
 <div class="title">xrfdc_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static initialization for the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> component. </p>
+<p>The implementation of the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> component's static initialization functionality.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.0   sk     05/16/17 Initial release
+5.0   mus    08/17/18 Updated XRFdc_LookupConfig to make use of device
+                      tree instead of <a class="el" href="xrfdc__g_8c.html" title="Defines the configuration table for RFdc devices in the system. ">xrfdc_g.c</a>, to obtain
+                      <a class="el" href="struct_x_r_fdc___config.html" title="RFdc Config Structure. ">XRFdc_Config</a> for provided device id.It is being
+                      achieved through "param-list" property in RFDC
+                      device node, it has 1:1 mapping with
+                      the <a class="el" href="struct_x_r_fdc___config.html" title="RFdc Config Structure. ">XRFdc_Config</a> structure. Said changes
+                      have been done, to remove the xparameters.h
+                      dependency from RFDC Linux user space driver.
+7.0   cog    05/13/19 Formatting changes.
+      cog    07/25/19 Added new <a class="el" href="group___overview.html#ga415b909c08102db406ea819a6c744add" title="Registers and opens the device and maps RFDC to the IO region. ">XRFdc_RegisterMetal()</a> API to register
+                      RFDC with Libmetal.
+      cog    08/02/19 Formatting changes.
+8.0   cog    02/10/20 Updated addtogroup.
+8.1   cog    06/24/20 Upversion.
+9.0   cog    11/25/20 Upversion.
+10.0  cog    11/26/20 Refactor and split files.
+11.0  cog    05/31/21 Upversion.
+11.1  cog    11/16/21 Upversion.
+      cog    02/24/22 Fixed memory leak.
+12.1  cog    07/04/23 Add support for SDT.
+      cog    07/14/23 Fix issues with SDT flow.
+13.1  dc     03/08/26 Correct compiler warnings
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
 <code>#include &lt;dirent.h&gt;</code><br/>
 <code>#include &lt;arpa/inet.h&gt;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3b6aecbcc131129fb569f90b76afa28c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3b6aecbcc131129fb569f90b76afa28c">XRFdc_GetDeviceNameByDeviceId</a> (char *DevNamePtr, u16 DevId)</td></tr>
-<tr class="memdesc:ga3b6aecbcc131129fb569f90b76afa28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traverse "/sys/bus/platform/device" directory, to find RFDC device entry, corresponding to provided device id.  <a href="group___overview.html#ga3b6aecbcc131129fb569f90b76afa28c">More...</a><br/></td></tr>
+<tr class="memitem:ga3b6aecbcc131129fb569f90b76afa28c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga11ec34ef758da01f2b58048ee9f341a4">s32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3b6aecbcc131129fb569f90b76afa28c">XRFdc_GetDeviceNameByDeviceId</a> (char *DevNamePtr, <a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> DevId)</td></tr>
+<tr class="memdesc:ga3b6aecbcc131129fb569f90b76afa28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the RFDC device name for a given device ID.  <a href="group___overview.html#ga3b6aecbcc131129fb569f90b76afa28c">More...</a><br/></td></tr>
 <tr class="separator:ga3b6aecbcc131129fb569f90b76afa28c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaef734b9d6e7cb7cb2bbacfd74ed51dd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_r_fdc___config.html">XRFdc_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaef734b9d6e7cb7cb2bbacfd74ed51dd1">XRFdc_LookupConfig</a> (u16 DeviceId)</td></tr>
+<tr class="memitem:gaef734b9d6e7cb7cb2bbacfd74ed51dd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_r_fdc___config.html">XRFdc_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaef734b9d6e7cb7cb2bbacfd74ed51dd1">XRFdc_LookupConfig</a> (<a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> DeviceId)</td></tr>
 <tr class="memdesc:gaef734b9d6e7cb7cb2bbacfd74ed51dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID.  <a href="group___overview.html#gaef734b9d6e7cb7cb2bbacfd74ed51dd1">More...</a><br/></td></tr>
 <tr class="separator:gaef734b9d6e7cb7cb2bbacfd74ed51dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga415b909c08102db406ea819a6c744add"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga415b909c08102db406ea819a6c744add">XRFdc_RegisterMetal</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr)</td></tr>
-<tr class="memdesc:ga415b909c08102db406ea819a6c744add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register/open the deviceand map RFDC to the IO region.  <a href="group___overview.html#ga415b909c08102db406ea819a6c744add">More...</a><br/></td></tr>
+<tr class="memitem:ga415b909c08102db406ea819a6c744add"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga415b909c08102db406ea819a6c744add">XRFdc_RegisterMetal</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> DeviceId, struct metal_device **DevicePtr)</td></tr>
+<tr class="memdesc:ga415b909c08102db406ea819a6c744add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers and opens the device and maps RFDC to the IO region.  <a href="group___overview.html#ga415b909c08102db406ea819a6c744add">More...</a><br/></td></tr>
 <tr class="separator:ga415b909c08102db406ea819a6c744add"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

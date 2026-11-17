@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -120,13 +121,13 @@ $(document).ready(function(){initNavTree('struct_x_asu___aes_iv_object.html','')
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a68bd6f17ef103809f52e767a320faa4d"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___aes_iv_object.html#a68bd6f17ef103809f52e767a320faa4d">IvAddr</a></td></tr>
-<tr class="memdesc:a68bd6f17ef103809f52e767a320faa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES IV address.  <a href="#a68bd6f17ef103809f52e767a320faa4d">More...</a><br/></td></tr>
+<tr class="memdesc:a68bd6f17ef103809f52e767a320faa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Iv/Nonce address; 0 when the IV is taken from the key vault via IvId.  <a href="#a68bd6f17ef103809f52e767a320faa4d">More...</a><br/></td></tr>
 <tr class="separator:a68bd6f17ef103809f52e767a320faa4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4eea240487b9f4560a16fe577499e412"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___aes_iv_object.html#a4eea240487b9f4560a16fe577499e412">IvLen</a></td></tr>
-<tr class="memdesc:a4eea240487b9f4560a16fe577499e412"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES IV length.  <a href="#a4eea240487b9f4560a16fe577499e412">More...</a><br/></td></tr>
+<tr class="memdesc:a4eea240487b9f4560a16fe577499e412"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Iv/Nonce length; must be 0 when IvAddr is 0, as the firmware takes the length of a vault sourced IV from the stored metadata.  <a href="#a4eea240487b9f4560a16fe577499e412">More...</a><br/></td></tr>
 <tr class="separator:a4eea240487b9f4560a16fe577499e412"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4a556df510eb3595d6a3676c29905a4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___aes_iv_object.html#ac4a556df510eb3595d6a3676c29905a4">IvId</a></td></tr>
-<tr class="memdesc:ac4a556df510eb3595d6a3676c29905a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES IV ID.  <a href="#ac4a556df510eb3595d6a3676c29905a4">More...</a><br/></td></tr>
+<tr class="memdesc:ac4a556df510eb3595d6a3676c29905a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES IV ID, if the IV is used from ASU key vault; 0 when the IV is supplied through IvAddr.  <a href="#ac4a556df510eb3595d6a3676c29905a4">More...</a><br/></td></tr>
 <tr class="separator:ac4a556df510eb3595d6a3676c29905a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -142,7 +143,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>AES IV address. </p>
+<p>AES Iv/Nonce address; 0 when the IV is taken from the key vault via IvId. </p>
+
+<p>Referenced by <a class="el" href="group__xasu__aes__client__apis.html#ga5806e37710086106ef80cd8f9442d58a">XAsu_AesOperation()</a>, and <a class="el" href="group__xasu__plext__client__apis.html#ga81e32d59aeb3512611fd0c993a4df0ff">XAsu_PlExtOperation()</a>.</p>
 
 </div>
 </div>
@@ -156,7 +159,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>AES IV ID. </p>
+<p>AES IV ID, if the IV is used from ASU key vault; 0 when the IV is supplied through IvAddr. </p>
+
+<p>Referenced by <a class="el" href="group__xasu__aes__client__apis.html#ga5806e37710086106ef80cd8f9442d58a">XAsu_AesOperation()</a>, and <a class="el" href="group__xasu__plext__client__apis.html#ga81e32d59aeb3512611fd0c993a4df0ff">XAsu_PlExtOperation()</a>.</p>
 
 </div>
 </div>
@@ -170,7 +175,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>AES IV length. </p>
+<p>AES Iv/Nonce length; must be 0 when IvAddr is 0, as the firmware takes the length of a vault sourced IV from the stored metadata. </p>
+<p>A non-zero length with a zero address is rejected as an invalid parameter. </p>
+
+<p>Referenced by <a class="el" href="group__xasu__aes__client__apis.html#ga5806e37710086106ef80cd8f9442d58a">XAsu_AesOperation()</a>, and <a class="el" href="group__xasu__plext__client__apis.html#ga81e32d59aeb3512611fd0c993a4df0ff">XAsu_PlExtOperation()</a>.</p>
 
 </div>
 </div>

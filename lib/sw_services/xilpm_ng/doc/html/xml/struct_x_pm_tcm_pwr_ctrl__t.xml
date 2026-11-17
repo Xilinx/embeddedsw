@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_tcm_pwr_ctrl__t" kind="struct" prot="public">
+    <compoundname>XPmTcmPwrCtrl_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_tcm_pwr_ctrl__t_1a41970042efb08049f402b25eb2b665f7" prot="public" static="no" mutable="no">
+        <type>struct XPmFwMemPwrCtrl_t</type>
+        <definition>struct XPmFwMemPwrCtrl_t XPmTcmPwrCtrl_t::TcmMemPwrCtrl</definition>
+        <argsstring></argsstring>
+        <name>TcmMemPwrCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_tcm_pwr_ctrl__t_1a6a01e613f1580563df6606f7e56d0441" prot="public" static="no" mutable="no">
+        <type>enum TcmBankId</type>
+        <definition>enum TcmBankId XPmTcmPwrCtrl_t::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Id of TCM bank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_tcm_pwr_ctrl__t_1ae8b5fa73afcf48d54dba0753ca9465a2" prot="public" static="no" mutable="no">
+        <type>enum TcmPowerState</type>
+        <definition>enum TcmPowerState XPmTcmPwrCtrl_t::PowerState</definition>
+        <argsstring></argsstring>
+        <name>PowerState</name>
+        <briefdescription>
+<para>Current power state of the TCM bank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_tcm_pwr_ctrl__t_1ac27676ddcaf0fdfa36297ef634af7e5a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmTcmPwrCtrl_t::PwrDwnStatusMask</definition>
+        <argsstring></argsstring>
+        <name>PwrDwnStatusMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="100" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_tcm_pwr_ctrl__t_1a6a01e613f1580563df6606f7e56d0441" prot="public" virt="non-virtual"><scope>XPmTcmPwrCtrl_t</scope><name>Id</name></member>
+      <member refid="struct_x_pm_tcm_pwr_ctrl__t_1ae8b5fa73afcf48d54dba0753ca9465a2" prot="public" virt="non-virtual"><scope>XPmTcmPwrCtrl_t</scope><name>PowerState</name></member>
+      <member refid="struct_x_pm_tcm_pwr_ctrl__t_1ac27676ddcaf0fdfa36297ef634af7e5a" prot="public" virt="non-virtual"><scope>XPmTcmPwrCtrl_t</scope><name>PwrDwnStatusMask</name></member>
+      <member refid="struct_x_pm_tcm_pwr_ctrl__t_1a41970042efb08049f402b25eb2b665f7" prot="public" virt="non-virtual"><scope>XPmTcmPwrCtrl_t</scope><name>TcmMemPwrCtrl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

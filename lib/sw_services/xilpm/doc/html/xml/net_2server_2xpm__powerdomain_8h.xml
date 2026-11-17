@@ -1,0 +1,923 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__powerdomain_8h" kind="file">
+    <compoundname>net/server/xpm_powerdomain.h</compoundname>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includes refid="xpm__rail_8h" local="yes">xpm_rail.h</includes>
+    <includedby refid="xpm__pldevice_8h" local="yes">xpm_pldevice.h</includedby>
+    <includedby refid="xpm__bisr_8c" local="yes">xpm_bisr.c</includedby>
+    <includedby refid="xpm__mem_8c" local="yes">xpm_mem.c</includedby>
+    <includedby refid="xpm__power_8c" local="yes">xpm_power.c</includedby>
+    <includedby refid="xpm__rail_8c" local="yes">xpm_rail.c</includedby>
+    <includedby refid="xpm__reset_8c" local="yes">xpm_reset.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__pmcdomain_8h" local="yes">xpm_pmcdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__pslpdomain_8h" local="yes">xpm_pslpdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__psfpdomain_8h" local="yes">xpm_psfpdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__cpmdomain_8h" local="yes">xpm_cpmdomain.h</includedby>
+    <includedby refid="xpm__hnicxdomain_8h" local="yes">xpm_hnicxdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__npdomain_8h" local="yes">xpm_npdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__domain__iso_8c" local="yes">xpm_domain_iso.c</includedby>
+    <includedby refid="net_2server_2xpm__mem__plat_8c" local="yes">xpm_mem_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__pldomain__plat_8h" local="yes">xpm_pldomain_plat.h</includedby>
+    <includedby refid="net_2server_2xpm__power__plat_8c" local="yes">xpm_power_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__repair_8h" local="yes">xpm_repair.h</includedby>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="6947">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6955">
+        <label>xpm_rail_plat.h</label>
+      </node>
+      <node id="6942">
+        <label>xpm_node.h</label>
+        <childnode refid="6943" relation="include">
+        </childnode>
+        <childnode refid="6944" relation="include">
+        </childnode>
+        <childnode refid="6945" relation="include">
+        </childnode>
+        <childnode refid="6946" relation="include">
+        </childnode>
+      </node>
+      <node id="6949">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="6948">
+        <label>xil_util.h</label>
+      </node>
+      <node id="6950">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="6952">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="6941">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="6944">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6945">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="6939">
+        <label>xpm_powerdomain.h</label>
+        <link refid="net/server/xpm_powerdomain.h"/>
+        <childnode refid="6940" relation="include">
+        </childnode>
+        <childnode refid="6954" relation="include">
+        </childnode>
+      </node>
+      <node id="6943">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6951">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="6946">
+        <label>xpm_common.h</label>
+        <childnode refid="6944" relation="include">
+        </childnode>
+        <childnode refid="6947" relation="include">
+        </childnode>
+        <childnode refid="6948" relation="include">
+        </childnode>
+        <childnode refid="6949" relation="include">
+        </childnode>
+        <childnode refid="6950" relation="include">
+        </childnode>
+        <childnode refid="6951" relation="include">
+        </childnode>
+      </node>
+      <node id="6940">
+        <label>xpm_power.h</label>
+        <childnode refid="6941" relation="include">
+        </childnode>
+        <childnode refid="6942" relation="include">
+        </childnode>
+        <childnode refid="6952" relation="include">
+        </childnode>
+        <childnode refid="6953" relation="include">
+        </childnode>
+      </node>
+      <node id="6953">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="6954">
+        <label>xpm_rail.h</label>
+        <childnode refid="6944" relation="include">
+        </childnode>
+        <childnode refid="6955" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6961">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="6973">
+        <label>xpm_mem.c</label>
+      </node>
+      <node id="6969">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="6972">
+        <label>xpm_bisr.c</label>
+      </node>
+      <node id="6986">
+        <label>xpm_apucore_plat.c</label>
+      </node>
+      <node id="7001">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="6998">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="6965">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="6959">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="7007">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="6983">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="7006">
+        <label>xpm_repair.h</label>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="7007" relation="include">
+        </childnode>
+      </node>
+      <node id="6979">
+        <label>xpm_pslpdomain.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="6980" relation="include">
+        </childnode>
+        <childnode refid="6967" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6981" relation="include">
+        </childnode>
+        <childnode refid="6982" relation="include">
+        </childnode>
+        <childnode refid="6983" relation="include">
+        </childnode>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6960">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="6958">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="6959" relation="include">
+        </childnode>
+        <childnode refid="6960" relation="include">
+        </childnode>
+        <childnode refid="6961" relation="include">
+        </childnode>
+        <childnode refid="6962" relation="include">
+        </childnode>
+        <childnode refid="6963" relation="include">
+        </childnode>
+        <childnode refid="6964" relation="include">
+        </childnode>
+      </node>
+      <node id="7003">
+        <label>xpm_pldomain.c</label>
+      </node>
+      <node id="6997">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="6961" relation="include">
+        </childnode>
+        <childnode refid="6998" relation="include">
+        </childnode>
+        <childnode refid="6999" relation="include">
+        </childnode>
+        <childnode refid="7000" relation="include">
+        </childnode>
+        <childnode refid="7001" relation="include">
+        </childnode>
+        <childnode refid="6965" relation="include">
+        </childnode>
+        <childnode refid="7002" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="7003" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6990" relation="include">
+        </childnode>
+        <childnode refid="7004" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="7004">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="6999">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="6996">
+        <label>xpm_pldomain_plat.h</label>
+        <childnode refid="6997" relation="include">
+        </childnode>
+      </node>
+      <node id="7005">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="6970">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="6964">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="6989">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="6990">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="6988">
+        <label>xpm_cpmdomain.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="6989" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6990" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="7000">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="6968">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="6957">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="6958" relation="include">
+        </childnode>
+        <childnode refid="6961" relation="include">
+        </childnode>
+        <childnode refid="6962" relation="include">
+        </childnode>
+        <childnode refid="6964" relation="include">
+        </childnode>
+        <childnode refid="6965" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6967" relation="include">
+        </childnode>
+        <childnode refid="6968" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6970" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6992">
+        <label>xpm_hnicxdomain.c</label>
+      </node>
+      <node id="6991">
+        <label>xpm_hnicxdomain.h</label>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6992" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6987">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="6985">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="6980" relation="include">
+        </childnode>
+        <childnode refid="6967" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6986" relation="include">
+        </childnode>
+        <childnode refid="6982" relation="include">
+        </childnode>
+        <childnode refid="6987" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6962">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="6995">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="6967">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="6971">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="6982">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="6956">
+        <label>xpm_powerdomain.h</label>
+        <link refid="net/server/xpm_powerdomain.h"/>
+        <childnode refid="6957" relation="include">
+        </childnode>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="6973" relation="include">
+        </childnode>
+        <childnode refid="6974" relation="include">
+        </childnode>
+        <childnode refid="6975" relation="include">
+        </childnode>
+        <childnode refid="6976" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6977" relation="include">
+        </childnode>
+        <childnode refid="6979" relation="include">
+        </childnode>
+        <childnode refid="6985" relation="include">
+        </childnode>
+        <childnode refid="6988" relation="include">
+        </childnode>
+        <childnode refid="6991" relation="include">
+        </childnode>
+        <childnode refid="6993" relation="include">
+        </childnode>
+        <childnode refid="6994" relation="include">
+        </childnode>
+        <childnode refid="6995" relation="include">
+        </childnode>
+        <childnode refid="6996" relation="include">
+        </childnode>
+        <childnode refid="7005" relation="include">
+        </childnode>
+        <childnode refid="6982" relation="include">
+        </childnode>
+        <childnode refid="7006" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6978">
+        <label>xpm_pmcdomain.c</label>
+      </node>
+      <node id="6977">
+        <label>xpm_pmcdomain.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6978" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6980">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="6994">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="6966">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="6963">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="6984">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="7002">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="6974">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="6981">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="6993">
+        <label>xpm_npdomain.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6969" relation="include">
+        </childnode>
+        <childnode refid="6981" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+      </node>
+      <node id="6975">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="6976">
+        <label>xpm_reset.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___power_domain_ops" prot="public">XPm_PowerDomainOps</innerclass>
+    <innerclass refid="struct_x_pm___power_domain" prot="public">XPm_PowerDomain</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xpm__powerdomain_8h_1aabb855106d45ba2149fa54609ede618f" prot="public" static="no">
+        <name>XPM_POLL_TIMEOUT</name>
+        <initializer>(0X1000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__powerdomain_8h_1ac02dc4e4ff2d39ad97742e8d11f1fc43" prot="public" static="no">
+        <name>XPM_NPI_CSR_POLL_TIMEOUT</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__powerdomain_8h_1a138828f64ab6c0ed586e42bdc6fbaa08" prot="public" static="no">
+        <name>XPM_DOMAIN_INIT_STATUS_REG</name>
+        <initializer>PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xpm__powerdomain_8h_1a19a0b4fdf7b528e360305cbe644d84f1" prot="public" static="no">
+        <name>MAX_POWERDOMAINS</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="net_2server_2xpm__powerdomain_8h_1a75c7203d0037a187aa80c71a0bf14947" prot="public" static="no">
+        <type>struct XPm_PowerDomain</type>
+        <definition>typedef struct XPm_PowerDomain XPm_PowerDomain</definition>
+        <argsstring></argsstring>
+        <name>XPm_PowerDomain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1ac53fe19fc14afd89528c8f4fd8bd056b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPowerDomain_Init</definition>
+        <argsstring>(XPm_PowerDomain *PowerDomain, u32 Id, u32 BaseAddress, XPm_Power *Parent, struct XPm_PowerDomainOps const *Ops)</argsstring>
+        <name>XPmPowerDomain_Init</name>
+        <param>
+          <type>XPm_PowerDomain *</type>
+          <declname>PowerDomain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+          <declname>Parent</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref> const *</type>
+          <declname>Ops</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="72" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a6f2fd8e9d717b791b6f6fd5b7b4dcac9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPowerDomain_AddParent</definition>
+        <argsstring>(u32 Id, const u32 *ParentNodes, u32 NumParents)</argsstring>
+        <name>XPmPowerDomain_AddParent</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>ParentNodes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumParents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="98" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a41268576f5b7b9617c63e9486f41738d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerUpLPD</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPm_PowerUpLPD</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="160" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a8764ae4f972ab97169079e67173273bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerDwnLPD</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_PowerDwnLPD</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Isolate LPD &lt;-&gt; PL interface and mark the isolations pending for removal only if appropriate based on the initial boot time configuration.</para><para>Isolate LPD &lt;-&gt; PL interface and mark the isolations pending for removal only if appropriate based on the initial boot time configuration.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="182" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1ae79fdaffde4251884be91d5d107b979a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerUpFPD</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPm_PowerUpFPD</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="333" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a1f383511aced784a94c639eb7f76b133" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerDwnFPD</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPm_PowerDwnFPD</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Isolate FPD &lt;-&gt; PL interface and mark the isolations pending for removal only if appropriate based on the initial boot time configuration.</para><para>Isolate FPD &lt;-&gt; PL interface and mark the isolations pending for removal only if appropriate based on the initial boot time configuration.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="364" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1ac687a35d3538d74c135ccade4d45c865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerUpPLD</definition>
+        <argsstring>(XPm_Node *Node)</argsstring>
+        <name>XPm_PowerUpPLD</name>
+        <param>
+          <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="473" bodyend="509"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a2d4c1135687e31a6d5bab90ecaa8ef26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerDwnPLD</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPm_PowerDwnPLD</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="511" bodyend="624"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a695bc2a80b9e373e7d7a5f8306eefd94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerUpCPM5N</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPm_PowerUpCPM5N</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.c" bodystart="204" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1ac30f3abf80ab8a43da9726f3cd4e21c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerDwnCPM5N</definition>
+        <argsstring>(const XPm_Node *Node)</argsstring>
+        <name>XPm_PowerDwnCPM5N</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.c" bodystart="215" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a3c40aa2ec02a72197c5dfd3fa2524b11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerUpNoC</definition>
+        <argsstring>(XPm_Node *Node)</argsstring>
+        <name>XPm_PowerUpNoC</name>
+        <param>
+          <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="810" bodyend="850"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a12b02ffb72b325345ebba2442016c172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerDwnNoC</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_PowerDwnNoC</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="852" bodyend="937"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1a37e7c8e7a7407f3b0dab0880fb809798" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerUpHnicx</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_PowerUpHnicx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.c" bodystart="257" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1aaf7675e21d67370c15645b031dd89ed8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PowerDwnHnicx</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_PowerDwnHnicx</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.c" bodystart="247" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1adde675330af422fe6a2966328c1826a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_UpdateRailStats</definition>
+        <argsstring>(const XPm_PowerDomain *PwrDomain, u8 State)</argsstring>
+        <name>XPmPower_UpdateRailStats</name>
+        <param>
+          <type>const XPm_PowerDomain *</type>
+          <declname>PwrDomain</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="1341" bodyend="1451"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1ad36c391b5443eb4e52c8d4df24180f6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPowerDomain_InitDomain</definition>
+        <argsstring>(XPm_PowerDomain *PwrDomain, u32 Function, const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmPowerDomain_InitDomain</name>
+        <param>
+          <type>XPm_PowerDomain *</type>
+          <declname>PwrDomain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="1666" bodyend="1961"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__powerdomain_8h_1acdb3161a77dbb36d13439d17a640b700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPower_CheckPower</definition>
+        <argsstring>(const XPm_Rail *Rail, u32 VoltageRailMask)</argsstring>
+        <name>XPmPower_CheckPower</name>
+        <param>
+          <type>const XPm_Rail *</type>
+          <declname>Rail</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>VoltageRailMask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c" bodystart="1113" bodyend="1143"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserve.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_POWERDOMAIN_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_POWERDOMAIN_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_rail.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PowerDomain<sp/>XPm_PowerDomain;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_POLL_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X1000000U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_NPI_CSR_POLL_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_DOMAIN_INIT_STATUS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_POWERDOMAINS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*InitStart)(XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumOfArgs);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*InitFinish)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumOfArgs);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*TrimAms)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_PowerDomain<sp/>*PwrDomain,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumOfArgs);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_PowerDomain<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>Power;<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Parents[MAX_POWERDOMAINS];<sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Children[MAX_POWERDOMAINS];<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>InitFlag;<sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HcDisableMask;<sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SAVE_REGION()</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>struct<sp/><ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref><sp/>*DomainOps;<sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">XStatus<sp/>XPmPowerDomain_Init(XPm_PowerDomain<sp/>*PowerDomain,<sp/>u32<sp/>Id,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress,<sp/><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref><sp/>*Parent,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>struct<sp/><ref refid="struct_x_pm___power_domain_ops" kindref="compound">XPm_PowerDomainOps</ref><sp/>const<sp/>*Ops);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">XStatus<sp/>XPmPowerDomain_AddParent(u32<sp/>Id,<sp/>const<sp/>u32<sp/>*ParentNodes,<sp/>u32<sp/>NumParents);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">XStatus<sp/>XPm_PowerUpLPD(const<sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">XStatus<sp/>XPm_PowerDwnLPD(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">XStatus<sp/>XPm_PowerUpFPD(const<sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">XStatus<sp/>XPm_PowerDwnFPD(const<sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">XStatus<sp/>XPm_PowerUpPLD(<ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">XStatus<sp/>XPm_PowerDwnPLD(const<sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">XStatus<sp/>XPm_PowerUpCPM5N(const<sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">XStatus<sp/>XPm_PowerDwnCPM5N(const<sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">XStatus<sp/>XPm_PowerUpNoC(<ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>*Node);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">XStatus<sp/>XPm_PowerDwnNoC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">XStatus<sp/>XPm_PowerUpHnicx(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">XStatus<sp/>XPm_PowerDwnHnicx(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">XStatus<sp/>XPmPower_UpdateRailStats(const<sp/>XPm_PowerDomain<sp/>*PwrDomain,<sp/>u8<sp/>State);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">XStatus<sp/>XPmPowerDomain_InitDomain(XPm_PowerDomain<sp/>*PwrDomain,<sp/>u32<sp/>Function,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">XStatus<sp/>XPmPower_CheckPower(const<sp/>XPm_Rail<sp/>*Rail,<sp/>u32<sp/>VoltageRailMask);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_POWERDOMAIN_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h"/>
+  </compounddef>
+</doxygen>

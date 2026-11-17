@@ -12,76 +12,76 @@
     <includedby refid="xsem__npi__example_8c" local="yes">xsem_npi_example.c</includedby>
     <includedby refid="xsem__npi__ssit__example_8c" local="yes">xsem_npi_ssit_example.c</includedby>
     <incdepgraph>
-      <node id="132">
-        <label>xsem_gic_setup.h</label>
-        <link refid="xsem__gic__setup_8h"/>
+      <node id="130">
+        <label>xsem_ipi.h</label>
+        <link refid="xsem_ipi.h"/>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
         <childnode refid="133" relation="include">
         </childnode>
         <childnode refid="134" relation="include">
         </childnode>
       </node>
-      <node id="130">
+      <node id="132">
         <label>xipipsu_hw.h</label>
       </node>
-      <node id="129">
-        <label>xstatus.h</label>
+      <node id="134">
+        <label>xsem_gic_setup.h</label>
+        <link refid="xsem__gic__setup_8h"/>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
       </node>
       <node id="131">
-        <label>xipipsu.h</label>
-      </node>
-      <node id="128">
-        <label>xsem_ipi.h</label>
-        <link refid="xsem_ipi.h"/>
-        <childnode refid="129" relation="include">
-        </childnode>
-        <childnode refid="130" relation="include">
-        </childnode>
-        <childnode refid="131" relation="include">
-        </childnode>
-        <childnode refid="132" relation="include">
-        </childnode>
-      </node>
-      <node id="134">
-        <label>xscugic_hw.h</label>
+        <label>xstatus.h</label>
       </node>
       <node id="133">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="136">
+        <label>xscugic_hw.h</label>
+      </node>
+      <node id="135">
         <label>xscugic.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="140">
+      <node id="142">
         <label>xsem_npi_ssit_example.c</label>
         <link refid="xsem__npi__ssit__example_8c"/>
       </node>
-      <node id="136">
+      <node id="138">
         <label>xsem_cram_example.c</label>
         <link refid="xsem__cram__example_8c"/>
       </node>
-      <node id="138">
+      <node id="140">
         <label>xsem_ipi.c</label>
         <link refid="xsem__ipi_8c"/>
       </node>
-      <node id="135">
+      <node id="137">
         <label>xsem_ipi.h</label>
         <link refid="xsem_ipi.h"/>
-        <childnode refid="136" relation="include">
-        </childnode>
-        <childnode refid="137" relation="include">
-        </childnode>
         <childnode refid="138" relation="include">
         </childnode>
         <childnode refid="139" relation="include">
         </childnode>
         <childnode refid="140" relation="include">
         </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
       </node>
       <node id="139">
-        <label>xsem_npi_example.c</label>
-        <link refid="xsem__npi__example_8c"/>
-      </node>
-      <node id="137">
         <label>xsem_cram_ssit_example.c</label>
         <link refid="xsem__cram__ssit__example_8c"/>
+      </node>
+      <node id="141">
+        <label>xsem_npi_example.c</label>
+        <link refid="xsem__npi__example_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -94,7 +94,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="46" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="46" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xsem__ipi_8h_1ad57618281f2831ba2659ad714aa1adf8" prot="public" static="no">
         <name>XSEM_SSIT_MAX_SLR_CNT</name>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="50" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="50" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -147,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.c" bodystart="82" bodyend="106"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.c" bodystart="82" bodyend="106"/>
       </memberdef>
       <memberdef kind="function" id="xsem__ipi_8h_1aa267e33e9e55c8022560cec3903de4a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -168,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.c" bodystart="173" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.c" bodystart="173" bodyend="186"/>
       </memberdef>
       <memberdef kind="function" id="xsem__ipi_8h_1ad312b17820b3244e65830719a5b17f50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_cram_example.c" bodystart="553" bodyend="590"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_cram_example.c" bodystart="715" bodyend="757"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -242,6 +242,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSEM_IPI_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ipi.h"/>
   </compounddef>
 </doxygen>

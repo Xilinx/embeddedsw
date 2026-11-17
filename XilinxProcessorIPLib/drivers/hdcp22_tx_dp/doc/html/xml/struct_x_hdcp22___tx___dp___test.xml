@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="477" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="466" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___test_1adcb4c608aa5ee71d5597c98c5f985b82" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="478" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="467" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___test_1a096e0ee611614f6c937710244b180f54" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -41,14 +41,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="479" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="468" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains the HDCP22 test parameters and settings. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="476" bodyend="480"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="465" bodyend="469"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___tx___dp___test_1a096e0ee611614f6c937710244b180f54" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_Test</scope><name>CurrentDdcAddress</name></member>
       <member refid="struct_x_hdcp22___tx___dp___test_1adcb4c608aa5ee71d5597c98c5f985b82" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_Test</scope><name>TestFlags</name></member>

@@ -7,160 +7,192 @@
     <includes refid="xplmi__modules_8h" local="yes">xplmi_modules.h</includes>
     <includes local="yes">xil_assert.h</includes>
     <incdepgraph>
-      <node id="385">
+      <node id="447">
         <label>xil_assert.h</label>
       </node>
-      <node id="377">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="378" relation="include">
-        </childnode>
-        <childnode refid="379" relation="include">
-        </childnode>
-        <childnode refid="380" relation="include">
-        </childnode>
-        <childnode refid="375" relation="include">
-        </childnode>
-        <childnode refid="370" relation="include">
-        </childnode>
-      </node>
-      <node id="386">
-        <label>xil_hw.h</label>
-      </node>
-      <node id="391">
-        <label>stdlib.h</label>
-      </node>
-      <node id="374">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi__event__logging_8h"/>
-        <childnode refid="369" relation="include">
-        </childnode>
-        <childnode refid="375" relation="include">
-        </childnode>
-      </node>
-      <node id="381">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="382" relation="include">
-        </childnode>
-        <childnode refid="383" relation="include">
-        </childnode>
-        <childnode refid="369" relation="include">
-        </childnode>
-        <childnode refid="385" relation="include">
-        </childnode>
-        <childnode refid="386" relation="include">
-        </childnode>
-      </node>
-      <node id="387">
-        <label>xplmi_task.h</label>
-        <link refid="xplmi__task_8h"/>
-        <childnode refid="385" relation="include">
-        </childnode>
-        <childnode refid="388" relation="include">
-        </childnode>
-        <childnode refid="376" relation="include">
-        </childnode>
-        <childnode refid="389" relation="include">
-        </childnode>
-        <childnode refid="390" relation="include">
-        </childnode>
-      </node>
-      <node id="372">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="373" relation="include">
-        </childnode>
-        <childnode refid="371" relation="include">
-        </childnode>
-        <childnode refid="374" relation="include">
-        </childnode>
-        <childnode refid="377" relation="include">
-        </childnode>
-      </node>
-      <node id="375">
+      <node id="437">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="376" relation="include">
+        <childnode refid="438" relation="include">
         </childnode>
       </node>
-      <node id="388">
-        <label>mb_interface.h</label>
+      <node id="448">
+        <label>xil_hw.h</label>
       </node>
-      <node id="383">
+      <node id="453">
+        <label>stdlib.h</label>
+      </node>
+      <node id="445">
         <label>xplmi_modules.h</label>
         <link refid="xplmi__modules_8h"/>
-        <childnode refid="369" relation="include">
+        <childnode refid="431" relation="include">
         </childnode>
-        <childnode refid="384" relation="include">
+        <childnode refid="446" relation="include">
         </childnode>
-        <childnode refid="382" relation="include">
+        <childnode refid="444" relation="include">
         </childnode>
-        <childnode refid="376" relation="include">
+        <childnode refid="438" relation="include">
         </childnode>
       </node>
-      <node id="389">
-        <label>xstatus.h</label>
+      <node id="443">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="444" relation="include">
+        </childnode>
+        <childnode refid="445" relation="include">
+        </childnode>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="447" relation="include">
+        </childnode>
+        <childnode refid="448" relation="include">
+        </childnode>
       </node>
-      <node id="371">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="379">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="376">
-        <label>xil_types.h</label>
-      </node>
-      <node id="368">
+      <node id="430">
         <label>xplmi_cmd.c</label>
         <link refid="xplmi_cmd.c"/>
-        <childnode refid="369" relation="include">
+        <childnode refid="431" relation="include">
         </childnode>
-        <childnode refid="372" relation="include">
+        <childnode refid="434" relation="include">
         </childnode>
-        <childnode refid="383" relation="include">
+        <childnode refid="445" relation="include">
         </childnode>
-        <childnode refid="385" relation="include">
+        <childnode refid="447" relation="include">
         </childnode>
       </node>
-      <node id="369">
+      <node id="431">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="370" relation="include">
+        <childnode refid="432" relation="include">
         </childnode>
-        <childnode refid="371" relation="include">
+        <childnode refid="433" relation="include">
         </childnode>
       </node>
-      <node id="382">
+      <node id="450">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="451">
+        <label>xstatus.h</label>
+      </node>
+      <node id="452">
+        <label>list.h</label>
+        <childnode refid="453" relation="include">
+        </childnode>
+      </node>
+      <node id="433">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="449">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="447" relation="include">
+        </childnode>
+        <childnode refid="450" relation="include">
+        </childnode>
+        <childnode refid="438" relation="include">
+        </childnode>
+        <childnode refid="451" relation="include">
+        </childnode>
+        <childnode refid="452" relation="include">
+        </childnode>
+      </node>
+      <node id="441">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="439">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="440" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
+        </childnode>
+        <childnode refid="442" relation="include">
+        </childnode>
+        <childnode refid="437" relation="include">
+        </childnode>
+        <childnode refid="432" relation="include">
+        </childnode>
+      </node>
+      <node id="438">
+        <label>xil_types.h</label>
+      </node>
+      <node id="444">
         <label>xparameters.h</label>
       </node>
-      <node id="373">
+      <node id="435">
         <label>xil_printf.h</label>
       </node>
-      <node id="390">
-        <label>list.h</label>
-        <childnode refid="391" relation="include">
+      <node id="434">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="433" relation="include">
+        </childnode>
+        <childnode refid="436" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
         </childnode>
       </node>
-      <node id="380">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="381" relation="include">
-        </childnode>
-        <childnode refid="387" relation="include">
-        </childnode>
-      </node>
-      <node id="378">
+      <node id="440">
         <label>xiomodule.h</label>
       </node>
-      <node id="384">
+      <node id="446">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="370">
+      <node id="432">
         <label>xplmi_status.h</label>
+      </node>
+      <node id="442">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+        <childnode refid="449" relation="include">
+        </childnode>
+      </node>
+      <node id="436">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="431" relation="include">
+        </childnode>
+        <childnode refid="437" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPlmi_GetCdoErr</definition>
+        <argsstring>(u32 CmdId)</argsstring>
+        <name>XPlmi_GetCdoErr</name>
+        <param>
+          <type>u32</type>
+          <declname>CmdId</declname>
+        </param>
+        <briefdescription>
+<para>Determine the Cdo error type based on the command Id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CmdId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Command ID</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CDO Error Type in<itemizedlist>
+<listitem><para>0x2xyz format for CDO Error</para></listitem><listitem><para>0x3xyz format for User Module CDO Error </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" bodystart="77" bodyend="87"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728" compoundref="2vp_2server_2xplmi__status_8h" startline="624">XPLMI_ERR_CDO_CMD</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ad4c9af74245250681fd515020433c822" compoundref="2vp_2server_2xplmi__status_8h" startline="628">XPLMI_ERR_USER_MODULE_CDO_CMD</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga2a3723fdc064e5a4d8086bea79bd3a28" compoundref="xplmi__cmd_8c" startline="105" endline="161">XPlmi_CmdExecute</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaa11661885e3bac1064946e813eb22172" compoundref="xplmi__cmd_8c" startline="175" endline="194">XPlmi_CmdResume</referencedby>
+      </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga2a3723fdc064e5a4d8086bea79bd3a28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int XPlmi_CmdExecute</definition>
@@ -189,13 +221,14 @@
 <para><itemizedlist>
 <listitem><para>Validate Module registration.</para></listitem><listitem><para>Validate if API is registered.</para></listitem><listitem><para>Validate the module handler.</para></listitem><listitem><para>Execute the API.</para></listitem><listitem><para>Increment the processed length and it can be used during resume</para></listitem><listitem><para>Assign the same handler for Resume </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" bodystart="81" bodyend="137"/>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205" compoundref="2vp_2server_2xplmi__status_8h" startline="184">XPLMI_CMD_IN_PROGRESS</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b" compoundref="2vp_2server_2xplmi__status_8h" startline="95">XPLMI_ERR_CMD_APIID</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9" compoundref="2vp_2server_2xplmi__status_8h" startline="97">XPLMI_ERR_CMD_HANDLER_NULL</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a8711e11440c971c157281d74fc66d8d1" compoundref="2vp_2server_2xplmi__status_8h" startline="178">XPLMI_ERR_MODULE_NOT_REGISTERED</references>
-        <references refid="group__xilplmi__server__apis_1ga11dc1ef03c9688e75596d423bb7dffd2" compoundref="xplmi__modules_8c" startline="91" endline="109">XPlmi_GetModule</references>
-        <references refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" compoundref="xplmi__err__common_8c" startline="217" endline="231">XPlmi_LogPlmErr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" bodystart="105" bodyend="161"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205" compoundref="2vp_2server_2xplmi__status_8h" startline="190">XPLMI_CMD_IN_PROGRESS</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b" compoundref="2vp_2server_2xplmi__status_8h" startline="101">XPLMI_ERR_CMD_APIID</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9" compoundref="2vp_2server_2xplmi__status_8h" startline="103">XPLMI_ERR_CMD_HANDLER_NULL</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a8711e11440c971c157281d74fc66d8d1" compoundref="2vp_2server_2xplmi__status_8h" startline="184">XPLMI_ERR_MODULE_NOT_REGISTERED</references>
+        <references refid="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" compoundref="xplmi__cmd_8c" startline="77" endline="87">XPlmi_GetCdoErr</references>
+        <references refid="group__xilplmi__server__apis_1ga11dc1ef03c9688e75596d423bb7dffd2" compoundref="xplmi__modules_8c" startline="102" endline="120">XPlmi_GetModule</references>
+        <references refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" compoundref="xplmi__err__common_8c" startline="218" endline="232">XPlmi_LogPlmErr</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gaa11661885e3bac1064946e813eb22172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -224,7 +257,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" bodystart="151" bodyend="170"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c" bodystart="175" bodyend="194"/>
+        <references refid="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" compoundref="xplmi__cmd_8c" startline="77" endline="87">XPlmi_GetCdoErr</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -248,7 +282,8 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
       mss  03/13/2024 Fix MISRA-C violation 10.3
       bs   07/15/2024 Updated Cmd Resume to return error in 0x2XXX format
       pre  03/02/2025 Modified error throwing condition after exiting from command handler
-2.4   abh  10/27/2025 Fixed MISRA-C violations</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+2.4   abh  10/27/2025 Fixed MISRA-C violations
+2.5   abh  08/24/2026 Converted XPlmi_GetCdoErr from static inline to regular function</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
 </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
@@ -258,100 +293,113 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="47"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__cmd_8h" kindref="compound">xplmi_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__modules_8h" kindref="compound">xplmi_modules.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="81" refid="group__xilplmi__server__apis_1ga2a3723fdc064e5a4d8086bea79bd3a28" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2a3723fdc064e5a4d8086bea79bd3a28" kindref="member">XPlmi_CmdExecute</ref>(XPlmi_Cmd<sp/>*CmdPtr)</highlight></codeline>
-<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ModuleId<sp/>=<sp/>(CmdPtr-&gt;CmdId<sp/>&amp;<sp/>XPLMI_CMD_MODULE_ID_MASK)<sp/>&gt;&gt;<sp/>XPLMI_CMD_MODULE_ID_SHIFT;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ApiId<sp/>=<sp/>CmdPtr-&gt;CmdId<sp/>&amp;<sp/>XPLMI_CMD_API_ID_MASK;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_Module<sp/>*Module<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_ModuleCmd<sp/>*ModuleCmd<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="48"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__cmd_8h" kindref="compound">xplmi_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__modules_8h" kindref="compound">xplmi_modules.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="77" refid="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" kindref="member">XPlmi_GetCdoErr</ref>(u32<sp/>CmdId)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CdoErrType<sp/>=<sp/>(u32)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728" kindref="member">XPLMI_ERR_CDO_CMD</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(<sp/>XPAR_MAX_USER_MODULES<sp/>&gt;<sp/>0U<sp/>)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ModuleId<sp/>=<sp/>(CmdId<sp/>&amp;<sp/>XPLMI_CMD_MODULE_ID_MASK)<sp/>&gt;&gt;<sp/>XPLMI_CMD_MODULE_ID_SHIFT;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>ModuleId<sp/>&gt;=<sp/>XPLMI_USER_MODULE_START_INDEX<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CdoErrType<sp/>=<sp/><ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ad4c9af74245250681fd515020433c822" kindref="member">XPLMI_ERR_USER_MODULE_CDO_CMD</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CdoErrType<sp/>+<sp/>(CmdId<sp/>&amp;<sp/>XPLMI_ERR_CDO_CMD_MASK));</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;CMD<sp/>Execute<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Module<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga11dc1ef03c9688e75596d423bb7dffd2" kindref="member">XPlmi_GetModule</ref>(ModuleId);</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Module<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a8711e11440c971c157281d74fc66d8d1" kindref="member">XPLMI_ERR_MODULE_NOT_REGISTERED</ref>,<sp/>0);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ApiId<sp/>&gt;=<sp/>Module-&gt;CmdCnt)<sp/>{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b" kindref="member">XPLMI_ERR_CMD_APIID</ref>,<sp/>0);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModuleCmd<sp/>=<sp/>&amp;Module-&gt;CmdAry[ApiId];</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ModuleCmd<sp/>==<sp/>NULL)<sp/>||<sp/>(ModuleCmd-&gt;Handler<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9" kindref="member">XPLMI_ERR_CMD_HANDLER_NULL</ref>,<sp/>0);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;CMD<sp/>0x%0x,<sp/>Len<sp/>0x%0x,<sp/>PayloadLen<sp/>0x%0x<sp/>\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;CmdId,<sp/>CmdPtr-&gt;Len,<sp/>CmdPtr-&gt;PayloadLen);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="105" refid="group__xilplmi__server__apis_1ga2a3723fdc064e5a4d8086bea79bd3a28" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2a3723fdc064e5a4d8086bea79bd3a28" kindref="member">XPlmi_CmdExecute</ref>(XPlmi_Cmd<sp/>*CmdPtr)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ModuleId<sp/>=<sp/>(CmdPtr-&gt;CmdId<sp/>&amp;<sp/>XPLMI_CMD_MODULE_ID_MASK)<sp/>&gt;&gt;<sp/>XPLMI_CMD_MODULE_ID_SHIFT;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ApiId<sp/>=<sp/>CmdPtr-&gt;CmdId<sp/>&amp;<sp/>XPLMI_CMD_API_ID_MASK;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_Module<sp/>*Module<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_ModuleCmd<sp/>*ModuleCmd<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>ModuleCmd-&gt;Handler(CmdPtr);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205" kindref="member">XPLMI_CMD_IN_PROGRESS</ref>))<sp/>{</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus((XPlmiStatus_t)XPlmi_GetCdoErr(CmdPtr-&gt;CmdId),<sp/>Status);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CmdPtr-&gt;DeferredError<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Deferred<sp/>Error,<sp/>log<sp/>the<sp/>error<sp/>and<sp/>continue<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Deferring<sp/>CDO<sp/>Error\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" kindref="member">XPlmi_LogPlmErr</ref>(Status);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;ProcessedLen<sp/>+=<sp/>CmdPtr-&gt;PayloadLen;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;ResumeHandler<sp/>=<sp/>ModuleCmd-&gt;Handler;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="151" refid="group__xilplmi__server__apis_1gaa11661885e3bac1064946e813eb22172" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaa11661885e3bac1064946e813eb22172" kindref="member">XPlmi_CmdResume</ref>(XPlmi_Cmd<sp/>*<sp/>CmdPtr)</highlight></codeline>
-<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;CMD<sp/>Resume<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CmdPtr-&gt;ResumeHandler<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>CmdPtr-&gt;ResumeHandler(CmdPtr);</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus((XPlmiStatus_t)XPlmi_GetCdoErr(CmdPtr-&gt;CmdId),<sp/>Status);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>the<sp/>processed<sp/>length<sp/>and<sp/>it<sp/>can<sp/>be<sp/>used<sp/>during<sp/>resume<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;ProcessedLen<sp/>+=<sp/>CmdPtr-&gt;PayloadLen;</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;CMD<sp/>Execute<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Module<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga11dc1ef03c9688e75596d423bb7dffd2" kindref="member">XPlmi_GetModule</ref>(ModuleId);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Module<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a8711e11440c971c157281d74fc66d8d1" kindref="member">XPLMI_ERR_MODULE_NOT_REGISTERED</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ApiId<sp/>&gt;=<sp/>Module-&gt;CmdCnt)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b" kindref="member">XPLMI_ERR_CMD_APIID</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModuleCmd<sp/>=<sp/>&amp;Module-&gt;CmdAry[ApiId];</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ModuleCmd<sp/>==<sp/>NULL)<sp/>||<sp/>(ModuleCmd-&gt;Handler<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9" kindref="member">XPLMI_ERR_CMD_HANDLER_NULL</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;CMD<sp/>0x%0x,<sp/>Len<sp/>0x%0x,<sp/>PayloadLen<sp/>0x%0x<sp/>\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;CmdId,<sp/>CmdPtr-&gt;Len,<sp/>CmdPtr-&gt;PayloadLen);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>ModuleCmd-&gt;Handler(CmdPtr);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205" kindref="member">XPLMI_CMD_IN_PROGRESS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus((XPlmiStatus_t)<ref refid="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" kindref="member">XPlmi_GetCdoErr</ref>(CmdPtr-&gt;CmdId),<sp/>Status);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CmdPtr-&gt;DeferredError<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Deferred<sp/>Error,<sp/>log<sp/>the<sp/>error<sp/>and<sp/>continue<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Deferring<sp/>CDO<sp/>Error\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" kindref="member">XPlmi_LogPlmErr</ref>(Status);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;ProcessedLen<sp/>+=<sp/>CmdPtr-&gt;PayloadLen;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;ResumeHandler<sp/>=<sp/>ModuleCmd-&gt;Handler;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="175" refid="group__xilplmi__server__apis_1gaa11661885e3bac1064946e813eb22172" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaa11661885e3bac1064946e813eb22172" kindref="member">XPlmi_CmdResume</ref>(XPlmi_Cmd<sp/>*<sp/>CmdPtr)</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;CMD<sp/>Resume<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CmdPtr-&gt;ResumeHandler<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>CmdPtr-&gt;ResumeHandler(CmdPtr);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus((XPlmiStatus_t)<ref refid="group__xilplmi__server__apis_1ga7f7450828ca0cc4874e1fa58347566e9" kindref="member">XPlmi_GetCdoErr</ref>(CmdPtr-&gt;CmdId),<sp/>Status);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>the<sp/>processed<sp/>length<sp/>and<sp/>it<sp/>can<sp/>be<sp/>used<sp/>during<sp/>resume<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdPtr-&gt;ProcessedLen<sp/>+=<sp/>CmdPtr-&gt;PayloadLen;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c"/>
   </compounddef>
 </doxygen>

@@ -135,6 +135,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8bdc7108615c89806dae54dd56f428d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">XSecure_RsaSignVerification</a> (XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr, const u32 Size)</td></tr>
 <tr class="memdesc:ga8bdc7108615c89806dae54dd56f428d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to Perform RSA sign verification.  <a href="#ga8bdc7108615c89806dae54dd56f428d7">More...</a><br/></td></tr>
 <tr class="separator:ga8bdc7108615c89806dae54dd56f428d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga438ec16f016a9d63be18ebbced880bef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga438ec16f016a9d63be18ebbced880bef">XSecure_RsaPssSignVerification</a> (XSecure_ClientInstance *InstancePtr, const <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html">XSecure_RsaPssSignVerifyParams</a> *Params)</td></tr>
+<tr class="memdesc:ga438ec16f016a9d63be18ebbced880bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to perform RSA-PSS sign verification (SHA3-384).  <a href="#ga438ec16f016a9d63be18ebbced880bef">More...</a><br/></td></tr>
+<tr class="separator:ga438ec16f016a9d63be18ebbced880bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example illustrates the usage of RSA APIs to encrypt or decrypt the signature.  <a href="#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,11 +242,10 @@ Functions</h2></td></tr>
 <p>This function returns the RSA crypto algorithm information. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AlgInfo</td><td>Pointer to memory for holding the crypto algorithm information</td></tr>
+    <tr><td class="paramname">AlgInfo</td><td>Pointer to memory for holding the crypto algorithm information </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 <p>References <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e">XSECURE_API_RSA_SIGN_VERIFY</a>, and <a class="el" href="xsecure__alghelper_8c.html#aaf53b255cb80926070a852e882a331c9">XSecure_GetAlgInfo()</a>.</p>
 
@@ -304,19 +306,69 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the update is successful</li>
+<li>XST_INVALID_PARAM On invalid input parameter</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</li>
+<li>Return XST_INVALID_PARAM if Size is a unsupported RSA key size</li>
 <li>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b">XSECURE_API_RSA_PRIVATE_DECRYPT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b">XSECURE_API_RSA_PRIVATE_DECRYPT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__common__apis.html#ga07736a55ec2f9d8242a46ee20fc9f7b6">XSECURE_RSA_2048_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#ga59620f1b6f6bde84528a793de12385c5">XSECURE_RSA_3072_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#ga6ff2e0197483048fcc9e7c52416750c8">XSECURE_RSA_4096_KEY_SIZE</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__apis.html#ga55d3f721f0d915165ee23ead0d021857">XSecure_RsaCore()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#gaff9e6accc6dbd6922eda1a4d2322fdf6">XSecure_RsaPrivateDecryptKat()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga438ec16f016a9d63be18ebbced880bef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XSecure_RsaPssSignVerification </td>
+          <td>(</td>
+          <td class="paramtype">XSecure_ClientInstance *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html">XSecure_RsaPssSignVerifyParams</a> *&#160;</td>
+          <td class="paramname"><em>Params</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sends IPI request to perform RSA-PSS sign verification (SHA3-384). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
+    <tr><td class="paramname">Params</td><td>Pointer to <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html" title="Structure for input parameters for RSA-PSS sign verification. ">XSecure_RsaPssSignVerifyParams</a> structure</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS If verification is successful</li>
+<li>XST_FAILURE If there is a failure or if any Params field is invalid </li>
+</ul>
+</dd></dl>
+<ul>
+<li>Perform input parameter validation on InstancePtr and Params. Return XST_FAILURE if input parameters are invalid</li>
+<li>Stage the IPI struct in mailbox shared memory, matching XSecure_RsaSignVerification / XSecure_RsaPublicEncrypt.</li>
+<li>Fill Payload</li>
+<li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
+</ul>
+
+<p>References <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html#a4e2331a9e0d1fc99b14c912446bed07d">XSecure_RsaPssSignVerifyParams::Exponent</a>, <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html#aae8774a210af20b59e5c5b3e7da2c128">XSecure_RsaPssSignVerifyParams::HashAddr</a>, <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html#a8d5d1e6c44964f083d2a6dc713d1fe7e">XSecure_RsaPssSignVerifyParams::HashBufSize</a>, <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html#aab679ad53351a9f023117cc4c4127f10">XSecure_RsaPssSignVerifyParams::KeySize</a>, <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html#a238e92cfadc2b83273ec914edac514b7">XSecure_RsaPssSignVerifyParams::ModulusAddr</a>, <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html#ab84ad4b5eebf5cd71fddc26c518c7b84">XSecure_RsaPssSignVerifyParams::SignAddr</a>, <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932">XSECURE_API_RSA_PSS_SIGN_VERIFY</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__common__apis.html#gafa21a4342991c4c6a94d6d66b56d8b58">XSECURE_RSA_PSS_2048_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#ga3e07888ea67723a44714c1a06e78cfd9">XSECURE_RSA_PSS_3072_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#ga91d7ff6c55e5dbfc20630bff84beed45">XSECURE_RSA_PSS_4096_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#gab4447fcf5f3f323048ea9cf7407404e0">XSECURE_RSA_PSS_HASH_SIZE</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -375,17 +427,19 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If encryption was successful</li>
+<li>XST_INVALID_PARAM On invalid input parameter</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</li>
+<li>Return XST_INVALID_PARAM if Size is a unsupported RSA key size</li>
 <li>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50">XSECURE_API_RSA_PUBLIC_ENCRYPT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50">XSECURE_API_RSA_PUBLIC_ENCRYPT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__common__apis.html#ga07736a55ec2f9d8242a46ee20fc9f7b6">XSECURE_RSA_2048_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#ga59620f1b6f6bde84528a793de12385c5">XSECURE_RSA_3072_KEY_SIZE</a>, <a class="el" href="group__xsecure__common__apis.html#ga6ff2e0197483048fcc9e7c52416750c8">XSECURE_RSA_4096_KEY_SIZE</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__keyunwrap__example__apis.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="group__xsecure__apis.html#ga17ffcc1179ee379019196d122403f8dc">XSecure_DataAuth()</a>, <a class="el" href="group__xsecure__apis.html#ga55d3f721f0d915165ee23ead0d021857">XSecure_RsaCore()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gac4ab51058f2ef18bcb5a1aedf95b83d8">XSecure_RsaPublicEncryptKat()</a>, and <a class="el" href="group__xsecure__apis.html#gae9ccb5dc051bf792ce88b8f3fe376122">XSecure_SpkAuthentication()</a>.</p>
 
@@ -439,17 +493,19 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If decryption was successful</li>
+<li>XST_INVALID_PARAM On invalid input parameter</li>
 <li>XST_FAILURE In case of mismatch </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</li>
+<li>Return XST_INVALID_PARAM if Size is not the supported SHA3 hash length</li>
 <li>Link shared memory of size SignParams to SignParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e">XSECURE_API_RSA_SIGN_VERIFY</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e">XSECURE_API_RSA_SIGN_VERIFY</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__common__apis.html#gae3637356df5720621bbd9924fa45a8d8">XSECURE_HASH_TYPE_SHA3</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__apis.html#ga17ffcc1179ee379019196d122403f8dc">XSecure_DataAuth()</a>, and <a class="el" href="group__xsecure__apis.html#gae9ccb5dc051bf792ce88b8f3fe376122">XSecure_SpkAuthentication()</a>.</p>
 

@@ -1,0 +1,764 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__bypass__test_8c" kind="file">
+    <compoundname>mmi_dc_bypass_test.c</compoundname>
+    <includes local="no">xil_assert.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">xvidc.h</includes>
+    <includes local="no">xparameters.h</includes>
+    <includes refid="mmi__dc__bypass__test_8h" local="yes">mmi_dc_bypass_test.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="11">
+        <label>xil_io.h</label>
+      </node>
+      <node id="10">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>mmi_dc_bypass_test.c</label>
+        <link refid="mmi_dc_bypass_test.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>mmi_dc_bypass_test.h</label>
+        <link refid="mmi__dc__bypass__test_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="5">
+        <label>xvidc.h</label>
+      </node>
+      <node id="13">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xparameters.h</label>
+      </node>
+      <node id="12">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mmi__dc__bypass__test_8c_1afd3c20510024bbc499b04b8341053af4" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 BypassStreamPpc[BYPASS_MAX_STREAMS]</definition>
+        <argsstring>[BYPASS_MAX_STREAMS]</argsstring>
+        <name>BypassStreamPpc</name>
+        <initializer>= {
+	<ref refid="mmi__dc__bypass__test_8h_1a6da3b36ea64c92e3ef01bb582d8a8ea3" kindref="member">XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE</ref>,
+	<ref refid="mmi__dc__bypass__test_8h_1a6dbed2b7fd0e381fb307396ac5818e3a" kindref="member">XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE</ref>,
+	<ref refid="mmi__dc__bypass__test_8h_1ad1167c50330179b5726a9c5db1ac2915" kindref="member">XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE</ref>,
+	<ref refid="mmi__dc__bypass__test_8h_1a1c4fcb2f96c7959730621c98774d908d" kindref="member">XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE</ref>,
+}</initializer>
+        <briefdescription>
+<para>Pixels per clock per bypass stream, from the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDpDc_BypassPpcFromXsa</definition>
+        <argsstring>(u8 StreamIdx)</argsstring>
+        <name>XDpDc_BypassPpcFromXsa</name>
+        <param>
+          <type>u8</type>
+          <declname>StreamIdx</declname>
+        </param>
+        <briefdescription>
+<para>Return per-stream PPC from xparameters.h (XSA-fixed; ignores menu). </para>        </briefdescription>
+        <detaileddescription>
+<para>Return XSA-fixed PPC (1, 2, or 4) for a bypass stream from xparameters.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>StreamIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 0-based bypass stream index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>PPC (1, 2, or 4) for that stream. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" bodystart="53" bodyend="58"/>
+        <references refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" compoundref="mmi__dc__bypass__test_8h" startline="215">BYPASS_MAX_STREAMS</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a2af7a16a1477080a2c04e72635d3d146" compoundref="mmi__dpdc__menus_8c" startline="1580" endline="1628">XDpDc_BypassConfigureStream</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="513" endline="616">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="2091" endline="2342">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a57a8c2b47b0449d74aa22ca0f5ca7145" compoundref="mmi__dp__init_8c" startline="864" endline="918">XDpDc_PrepareVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__bypass__test_8c_1a53e47599ceadded20c619af704c831e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDpDc_BypassPlStreamMax</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_BypassPlStreamMax</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Count contiguous streams with both AVPG and VTC bases present in xparameters. </para>        </briefdescription>
+        <detaileddescription>
+<para>Count contiguous PL AVPG+VTC pairs with non-zero bases (stream 0 upward).</para><para><simplesect kind="return"><para>Usable PL stream count, 0 if stream 0 has no AVPG or VTC base. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" bodystart="67" bodyend="88"/>
+        <references refid="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" compoundref="mmi__dc__bypass__test_8h" startline="146">BYPASS_AVPG_1_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" compoundref="mmi__dc__bypass__test_8h" startline="157">BYPASS_AVPG_2_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" compoundref="mmi__dc__bypass__test_8h" startline="168">BYPASS_AVPG_3_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" compoundref="mmi__dc__bypass__test_8h" startline="215">BYPASS_MAX_STREAMS</references>
+        <references refid="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" compoundref="mmi__dc__bypass__test_8h" startline="189">BYPASS_VTC_1_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" compoundref="mmi__dc__bypass__test_8h" startline="200">BYPASS_VTC_2_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" compoundref="mmi__dc__bypass__test_8h" startline="211">BYPASS_VTC_3_BASEADDR</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="2091" endline="2342">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements the DC Bypass mode test. </para>    </briefdescription>
+    <detaileddescription>
+<para>In bypass mode the DC block is bypassed and video from AVPG in PL is routed directly to DP TX.</para><para>Multi-stream bypass (MST) programs per-stream AVPG and VTC from xparameters.h for each active bypass stream (up to 4).</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ck   07/15/26  Initial release
+1.1   ck   07/29/26  Add alpha/PM bypass GPIO path from reference
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#include<sp/>&lt;xil_assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvidc.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xparameters.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__bypass__test_8h" kindref="compound">mmi_dc_bypass_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>BypassStreamPpc[<ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a6da3b36ea64c92e3ef01bb582d8a8ea3" kindref="member">XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE</ref>,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a6dbed2b7fd0e381fb307396ac5818e3a" kindref="member">XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE</ref>,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1ad1167c50330179b5726a9c5db1ac2915" kindref="member">XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE</ref>,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a1c4fcb2f96c7959730621c98774d908d" kindref="member">XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE</ref>,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53" refid="mmi__dc__bypass__test_8h_1acb69a8f744bcab7620b2b9c7fc9c19e2" refkind="member"><highlight class="normal">u8<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(u8<sp/>StreamIdx)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(StreamIdx<sp/>&lt;<sp/><ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BypassStreamPpc[StreamIdx];</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" refkind="member"><highlight class="normal">u8<sp/><ref refid="mmi__dc__bypass__test_8c_1a53e47599ceadded20c619af704c831e2" kindref="member">XDpDc_BypassPlStreamMax</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UINTPTR<sp/>AvpgBase[<ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_AVPG_0_BASEADDR,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" kindref="member">BYPASS_AVPG_1_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" kindref="member">BYPASS_AVPG_2_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" kindref="member">BYPASS_AVPG_3_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UINTPTR<sp/>VtcBase[<ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_VTC_0_BASEADDR,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" kindref="member">BYPASS_VTC_1_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" kindref="member">BYPASS_VTC_2_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" kindref="member">BYPASS_VTC_3_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Count<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Count<sp/>&lt;<sp/><ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(AvpgBase[Count]<sp/>!=<sp/>0U)<sp/>&amp;&amp;<sp/>(VtcBase[Count]<sp/>!=<sp/>0U))</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count++;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Count;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XVTC_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dpdc__platform_8h" kindref="compound">mmi_dpdc_platform.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dp__init_8h" kindref="compound">mmi_dp_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dp__intr_8h" kindref="compound">mmi_dp_intr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavpg_8h" kindref="compound">xavpg.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvtc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>BYPASS_VID_CLK_MARGIN_PCT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcSub<sp/>DcSub;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>DcDma;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDc<sp/>Dc;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XMmiDp<sp/>DpPsuPtr;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XVtc<sp/>BypassVtc[<ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Fallback<sp/>video<sp/>timing<sp/>for<sp/>1920x1080@60<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_dc___video_timing" kindref="compound">XDc_VideoTiming</ref><sp/>VidTiming_1920_1080<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.HTotal<sp/>=<sp/>2200,<sp/>.HSWidth<sp/>=<sp/>44,<sp/>.HRes<sp/>=<sp/>1920,<sp/>.HStart<sp/>=<sp/>192,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.VTotal<sp/>=<sp/>1125,<sp/>.VSWidth<sp/>=<sp/>5,<sp/>.VRes<sp/>=<sp/>1080,<sp/>.VStart<sp/>=<sp/>41</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UINTPTR<sp/>BypassAvpgBase[<ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_AVPG_0_BASEADDR,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" kindref="member">BYPASS_AVPG_1_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" kindref="member">BYPASS_AVPG_2_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" kindref="member">BYPASS_AVPG_3_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UINTPTR<sp/>BypassVtcBase[<ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_VTC_0_BASEADDR,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" kindref="member">BYPASS_VTC_1_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" kindref="member">BYPASS_VTC_2_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" kindref="member">BYPASS_VTC_3_BASEADDR</ref>,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="139"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>XDpDc_BypassAvpgPpcFlag(u8<sp/>PhysPpc)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(PhysPpc<sp/>==<sp/>4U)<sp/>?<sp/>1U<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="149"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_BypassProgramAvpg(UINTPTR<sp/>AvpgBase,<sp/><ref refid="struct_avpg_run_config" kindref="compound">AvpgRunConfig</ref><sp/>*AvpgCfg,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Width,<sp/>u32<sp/>Height,<sp/>u8<sp/>PhysPpc)</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAvpgSetConfig(AvpgBase,<sp/>AvpgCfg,<sp/>Width,<sp/>Height);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PhysPpc<sp/>==<sp/>1U)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavpg_8h_1a23a0e79c983cd432a3345ca69daa7579" kindref="member">XAvpg_WriteReg</ref>(AvpgBase,<sp/>XAV_PATGEN_HRES,<sp/>Width);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavpg_8h_1a23a0e79c983cd432a3345ca69daa7579" kindref="member">XAvpg_WriteReg</ref>(AvpgBase,<sp/>XAV_PATGEN_MODE_PATTERN,<sp/>AvpgCfg-&gt;<ref refid="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" kindref="member">pattern</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="165"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XDpDc_BypassAlphaGpioPresent(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(BYPASS_ALPHA_EN_BASEADDR<sp/>!=<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BYPASS_ALPHA_GPIO_BASEADDR<sp/>!=<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BYPASS_LV_AVTPG_PM_BASEADDR<sp/>!=<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BYPASS_LIVE_IN_GPIO_BASEADDR<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="178"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_BypassInitAlphaGpioPath(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!XDpDc_BypassAlphaGpioPresent())</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_ALPHA_EN_BASEADDR,<sp/>BYPASS_GPIO_DATA_OFFSET,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_GPIO_HOLD);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_LIVE_IN_GPIO_BASEADDR,<sp/>BYPASS_GPIO_DATA_OFFSET,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_GPIO_HOLD);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_LV_AVTPG_PM_BASEADDR,<sp/>BYPASS_GPIO_DATA_OFFSET,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_LV_AVTPG_PM_VAL);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_ALPHA_GPIO_BASEADDR,<sp/>BYPASS_GPIO_TRI_OFFSET,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_ALPHA_GPIO_TRI_VAL);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="198"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_BypassEnableAlphaGpioPath(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!XDpDc_BypassAlphaGpioPresent())</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_LIVE_IN_GPIO_BASEADDR,<sp/>BYPASS_GPIO_DATA_OFFSET,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_GPIO_RELEASE);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_ALPHA_EN_BASEADDR,<sp/>BYPASS_GPIO_TRI_OFFSET,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_ALPHA_EN_TRI_SETUP);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_ALPHA_EN_BASEADDR,<sp/>BYPASS_GPIO_TRI_OFFSET,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_ALPHA_EN_TRI_FINAL);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="227"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDpDc_BypassInitVtc(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr,<sp/>XVtc<sp/>*VtcPtr,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>VtcBase,<sp/>u8<sp/>Ppc)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Config<sp/>CfgPtr;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_SourceSelect<sp/>SourceSelect<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Timing<sp/>VideoTiming;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Signal<sp/>Signal;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_HoriOffsets<sp/>Hoff;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Polarity<sp/>ConvPolarity;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoTimingMode<sp/>*VidTimingMode;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoTiming<sp/>*VidTiming;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_CfgInitialize(VtcPtr,<sp/>&amp;CfgPtr,<sp/>VtcBase);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Reset(VtcPtr);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_DisableGenerator(VtcPtr);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Disable(VtcPtr);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>All<sp/>timing<sp/>from<sp/>generator<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.VChromaSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.VActiveSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.VBackPorchSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.VSyncSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.VFrontPorchSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.VTotalSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.HActiveSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.HBackPorchSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.HSyncSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.HFrontPorchSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceSelect.HTotalSrc<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_SetSource(VtcPtr,<sp/>&amp;SourceSelect);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidTimingMode<sp/>=<sp/>XVidC_GetVideoModeData(RunCfgPtr-&gt;<ref refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" kindref="member">VideoMode</ref>);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!VidTimingMode)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>No<sp/>video<sp/>timing<sp/>for<sp/>mode<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" kindref="member">VideoMode</ref>);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidTiming<sp/>=<sp/>&amp;VidTimingMode-&gt;Timing;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.HActiveVideo<sp/>=<sp/>VidTiming-&gt;HActive<sp/>/<sp/>Ppc;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.HFrontPorch<sp/>=<sp/>VidTiming-&gt;HFrontPorch<sp/>/<sp/>Ppc;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.HSyncWidth<sp/>=<sp/>VidTiming-&gt;HSyncWidth<sp/>/<sp/>Ppc;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.HBackPorch<sp/>=<sp/>VidTiming-&gt;HBackPorch<sp/>/<sp/>Ppc;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.HSyncPolarity<sp/>=<sp/>VidTiming-&gt;HSyncPolarity;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.VActiveVideo<sp/>=<sp/>VidTiming-&gt;VActive;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.V0FrontPorch<sp/>=<sp/>VidTiming-&gt;F0PVFrontPorch;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.V0SyncWidth<sp/>=<sp/>VidTiming-&gt;F0PVSyncWidth;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.V0BackPorch<sp/>=<sp/>VidTiming-&gt;F0PVBackPorch;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.V1FrontPorch<sp/>=<sp/>VidTiming-&gt;F1VFrontPorch;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.V1SyncWidth<sp/>=<sp/>VidTiming-&gt;F1VSyncWidth;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.V1BackPorch<sp/>=<sp/>VidTiming-&gt;F1VBackPorch;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.VSyncPolarity<sp/>=<sp/>VidTiming-&gt;VSyncPolarity;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_ConvTiming2Signal(VtcPtr,<sp/>&amp;VideoTiming,<sp/>&amp;Signal,<sp/>&amp;Hoff,<sp/>&amp;ConvPolarity);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Polarity<sp/>Polarity<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polarity.ActiveChromaPol<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polarity.ActiveVideoPol<sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polarity.VBlankPol<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polarity.VSyncPol<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polarity.HBlankPol<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Polarity.HSyncPol<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_SetPolarity(VtcPtr,<sp/>&amp;Polarity);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_SetGenerator(VtcPtr,<sp/>&amp;Signal);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_SetGeneratorHoriOffset(VtcPtr,<sp/>&amp;Hoff);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Enable(VtcPtr);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_EnableGenerator(VtcPtr);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_RegUpdateEnable(VtcPtr);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">u32<sp/>XDpDc_BypassConfigureLiveGenerator(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>StreamIdx;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumStreams<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SavedPpc;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PlMax;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Gate<sp/>on<sp/>DesignMstEn<sp/>(not<sp/>MstMode):<sp/>PL<sp/>AVPG/VTC<sp/>setup<sp/>runs<sp/>before</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>sink<sp/>discovery,<sp/>when<sp/>MstMode<sp/>is<sp/>still<sp/>0.</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kindref="member">DesignMstEn</ref>)</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumStreams<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref>;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NumStreams<sp/>==<sp/>0U)<sp/>||<sp/>(NumStreams<sp/>&gt;<sp/><ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>))</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumStreams<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PlMax<sp/>=<sp/><ref refid="mmi__dc__bypass__test_8c_1a53e47599ceadded20c619af704c831e2" kindref="member">XDpDc_BypassPlStreamMax</ref>();</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PlMax<sp/>!=<sp/>0U)<sp/>&amp;&amp;<sp/>(NumStreams<sp/>&gt;<sp/>PlMax))</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumStreams<sp/>=<sp/>PlMax;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BYPASS_LIVE_IN_GPIO_BASEADDR<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>No<sp/>live<sp/>input<sp/>GPIO<sp/>base<sp/>in<sp/>xparameters\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>all<sp/>bases<sp/>before<sp/>programming<sp/>any<sp/>stream.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(StreamIdx<sp/>=<sp/>0U;<sp/>StreamIdx<sp/>&lt;<sp/>NumStreams;<sp/>StreamIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BypassAvpgBase[StreamIdx]<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>No<sp/>AVPG<sp/>base<sp/>for<sp/>stream<sp/>%u\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BypassVtcBase[StreamIdx]<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>No<sp/>VTC<sp/>base<sp/>for<sp/>stream<sp/>%u\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hold<sp/>data<sp/>path<sp/>while<sp/>configuring<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_LIVE_IN_GPIO_BASEADDR,</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_GPIO_DATA_OFFSET,<sp/>BYPASS_GPIO_HOLD);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SavedPpc<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aeb9281a032b40152f1bc10e483bfe954" kindref="member">PPC</ref>;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(StreamIdx<sp/>=<sp/>0U;<sp/>StreamIdx<sp/>&lt;<sp/>NumStreams;<sp/>StreamIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>AvpgBase<sp/>=<sp/>BypassAvpgBase[StreamIdx];</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>VtcBase<sp/>=<sp/>BypassVtcBase[StreamIdx];</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PhysPpc<sp/>=<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(StreamIdx);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Bypass<sp/>stream<sp/>%u<sp/>source:<sp/>AVPG=0x%08X<sp/>VTC=0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx,<sp/>(u32)AvpgBase,<sp/>(u32)VtcBase);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDpDc_BypassInitVtc(RunCfgPtr,<sp/>&amp;BypassVtc[StreamIdx],</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VtcBase,<sp/>PhysPpc);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aeb9281a032b40152f1bc10e483bfe954" kindref="member">PPC</ref><sp/>=<sp/>SavedPpc;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_WriteReg(VtcBase,<sp/>0x0,<sp/>BYPASS_VTC_CTRL_ENABLE);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Bypass<sp/>AVPG[%u]:<sp/>%s<sp/>%d-bpc,<sp/>%d<sp/>PPC,<sp/>pattern<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[StreamIdx].<ref refid="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" kindref="member">pix_fmt</ref><sp/>?<sp/></highlight><highlight class="stringliteral">&quot;YCbCr422&quot;</highlight><highlight class="normal"><sp/>:</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;RGB&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[StreamIdx].<ref refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" kindref="member">bpc</ref>,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhysPpc,</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[StreamIdx].<ref refid="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" kindref="member">pattern</ref>);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[StreamIdx].<ref refid="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" kindref="member">ppc</ref><sp/>=<sp/>XDpDc_BypassAvpgPpcFlag(PhysPpc);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_BypassProgramAvpg(AvpgBase,<sp/>&amp;RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[StreamIdx],</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhysPpc);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavpg_8h_1a23a0e79c983cd432a3345ca69daa7579" kindref="member">XAvpg_WriteReg</ref>(AvpgBase,<sp/>XAV_PATGEN_EN,<sp/>0x1);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aeb9281a032b40152f1bc10e483bfe954" kindref="member">PPC</ref><sp/>=<sp/>SavedPpc;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Release<sp/>data<sp/>path<sp/>—<sp/>AVPG<sp/>data<sp/>flows<sp/>to<sp/>DP<sp/>TX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDpDc_BypassAlphaGpioPresent())</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_BypassEnableAlphaGpioPath();</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BYPASS_LIVE_IN_GPIO_BASEADDR,</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYPASS_GPIO_DATA_OFFSET,<sp/>BYPASS_GPIO_RELEASE);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="404"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="424"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__bypass__test_8h_1a46cf98bf7493a5d740b8cfb4d1466eca" kindref="member">XDpDc_BypassDisableStreamsFrom</ref>(u8<sp/>FirstStream)</highlight></codeline>
+<codeline lineno="425"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>StreamIdx;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(StreamIdx<sp/>=<sp/>FirstStream;<sp/>StreamIdx<sp/>&lt;<sp/><ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((BypassAvpgBase[StreamIdx]<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BypassVtcBase[StreamIdx]<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BypassVtc[StreamIdx].IsReady<sp/>!=<sp/>XIL_COMPONENT_IS_READY))</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavpg_8h_1a23a0e79c983cd432a3345ca69daa7579" kindref="member">XAvpg_WriteReg</ref>(BypassAvpgBase[StreamIdx],<sp/>XAV_PATGEN_EN,<sp/>0x0);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_DisableGenerator(&amp;BypassVtc[StreamIdx]);</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Disable(&amp;BypassVtc[StreamIdx]);</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Bypass<sp/>stream<sp/>%u<sp/>generators<sp/>stopped<sp/>(no<sp/>DP<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;stream)\r\n&quot;</highlight><highlight class="normal">,<sp/>StreamIdx);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="442"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="453"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_BypassSetStream0Format(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[0].<ref refid="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" kindref="member">pix_fmt</ref><sp/>==<sp/>XAVPATGEN_CS_RGB)<sp/>{</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[0].<ref refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" kindref="member">bpc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>10:<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref><sp/>=<sp/>RGB_10BPC;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>12:<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref><sp/>=<sp/>RGB_12BPC;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref><sp/>=<sp/>RGB_8BPC;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[0].<ref refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" kindref="member">bpc</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>10:<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref><sp/>=<sp/>YCbCr422_10BPC;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>12:<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref><sp/>=<sp/>YCbCr422_12BPC;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" kindref="member">Stream1Format</ref><sp/>=<sp/>YCbCr422_8BPC;<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="468"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="482"><highlight class="normal">u32<sp/>InitBypassDcSubsystem(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="483"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcSub<sp/>*DcSubPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDc<sp/>*DcPtr<sp/>=<sp/>DcSubPtr-&gt;DcPtr;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Program<sp/>clock<sp/>source<sp/>selection<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dc_1ga89c7b49b012d64ddaf9e0b8b53c780f8" kindref="member">XDc_VidClkSelect</ref>(DcPtr);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DC<sp/>Video<sp/>Frame<sp/>Switch<sp/>rate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dc_1gab4cd4993791a597d2ac0d3a7c22aebc7" kindref="member">XDc_SetVidFrameSwitch</ref>(DcPtr);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DC<sp/>Video<sp/>Interface<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mmi__dc_1ga1336d7f26ddab30fe1385686e1e0f53a" kindref="member">XDc_SetVidInterfaceMode</ref>(DcPtr);</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="498"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal">u32<sp/>InitBypassPlatform(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="501"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Configuring<sp/>clock<sp/>wizard...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="mmi__dpdc__platform_8c_1a1acaf857e04799cc985d19389fe5ea3f" kindref="member">XDpDc_InitClkWiz</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>Clock<sp/>Wizard<sp/>init<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Restore<sp/>full<sp/>pixel<sp/>clock<sp/>for<sp/>DP<sp/>MSA<sp/>/<sp/>downstream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a6dd3cf00b1ae6c5771e848baa6d63380" kindref="member">PixelClkHz</ref><sp/>*=<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(0U);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DC<sp/>subsystem<sp/>init<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Configuring<sp/>DC<sp/>subsystem<sp/>(bypass)...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>InitBypassDcSubsystem(RunCfgPtr);</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>DC<sp/>Subsystem<sp/>init<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Alpha<sp/>bypass<sp/>+<sp/>live<sp/>AVTPG<sp/>PM<sp/>GPIO<sp/>(reference<sp/>InitBypassMode)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_BypassInitAlphaGpioPath();</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>VTC<sp/>+<sp/>AVPG<sp/>setup<sp/>via<sp/>bypass-specific<sp/>generator<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDpDc_BypassConfigureLiveGenerator(RunCfgPtr);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>Bypass<sp/>live<sp/>generator<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Enabling<sp/>DisplayPort<sp/>output<sp/>(async<sp/>HPD)...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="mmi__dp__init_8c_1ad006bfc4aa600e15be560f77afbe3870" kindref="member">XDpDc_InitDpPsuSubsystem</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>DP<sp/>subsystem<sp/>init<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"></highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dpdc__platform_8c_1a2efea0d32fd034fe7ec8bd0710d0d8c3" kindref="member">XDpDc_SetupInterrupts</ref>(RunCfgPtr);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="562"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDpDc_BypassCheckModeFits(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="563"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Ppc<sp/>=<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(0U);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>VidClkHz<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a6dd3cf00b1ae6c5771e848baa6d63380" kindref="member">PixelClkHz</ref><sp/>/<sp/>Ppc;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BootHz<sp/>=<sp/><ref refid="mmi__dpdc__platform_8c_1ab8293f8e57de723eb0dac9e9a0ae37d7" kindref="member">XDpDc_GetVidClkBootHz</ref>();</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((BootHz<sp/>!=<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((VidClkHz<sp/>*<sp/>100U)<sp/>&gt;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BootHz<sp/>*<sp/>(100U<sp/>+<sp/>BYPASS_VID_CLK_MARGIN_PCT))))<sp/>{</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>%ux%u<sp/>needs<sp/>a<sp/>%llu.%03llu<sp/>MHz<sp/>video<sp/>clock<sp/>at<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%u<sp/>PPC;<sp/>this<sp/>design<sp/>is<sp/>built<sp/>for<sp/>%llu.%03llu<sp/>MHz\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidClkHz<sp/>/<sp/>1000000U,<sp/>(VidClkHz<sp/>%<sp/>1000000U)<sp/>/<sp/>1000U,</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ppc,<sp/>BootHz<sp/>/<sp/>1000000U,<sp/>(BootHz<sp/>%<sp/>1000000U)<sp/>/<sp/>1000U);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kindref="member">DesignMstEn</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="mmi__dp__init_8c_1a790255c83a7235287d2099ccdb16b716" kindref="member">XDpDc_CheckMstBandwidth</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XST_SUCCESS))</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal">u32<sp/>InitBypassRunConfig(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="589"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoTimingMode<sp/>*Vtm;</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDc<sp/>*DcPtr;</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>StreamIdx;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a975268f253882e0520fa0cfc7695f233" kindref="member">operatingmode</ref><sp/>!=<sp/><ref refid="xdcsub_8h_1aa9da509a0585433ac086053a1b260058" kindref="member">XDCSUB_OPMODE_BYPASS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;%s:<sp/>Invalid<sp/>config\r\n&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Dp<sp/>Tx<sp/>init:<sp/>honor<sp/>menu<sp/>stream<sp/>count<sp/>on<sp/>MST<sp/>designs;<sp/>SST-only<sp/>uses<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!RunCfgPtr-&gt;<ref refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kindref="member">DesignMstEn</ref>)</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PlMax<sp/>=<sp/><ref refid="mmi__dc__bypass__test_8c_1a53e47599ceadded20c619af704c831e2" kindref="member">XDpDc_BypassPlStreamMax</ref>();</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref><sp/>&gt;<sp/>BYPASS_MAX_STREAMS))</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PlMax<sp/>!=<sp/>0U)<sp/>&amp;&amp;<sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref><sp/>&gt;<sp/>PlMax))</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref><sp/>=<sp/>PlMax;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a53d5db92cc60d3e8f82b705e09f2c5df" kindref="member">livevidselect</ref><sp/>=<sp/><ref refid="xdcsub_8h_1a3facf4fc83a3470a80020f6c9d4e387f" kindref="member">XDCSUB_LIVVID_SEL_V01</ref>;</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aeb9281a032b40152f1bc10e483bfe954" kindref="member">PPC</ref><sp/>=<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(0U);</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(StreamIdx<sp/>=<sp/>0U;<sp/>StreamIdx<sp/>&lt;<sp/><ref refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kindref="member">BYPASS_MAX_STREAMS</ref>;<sp/>StreamIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Ppc<sp/>=<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(StreamIdx);</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a94defa0598e4bb9c24cab5a1556b77b7" kindref="member">avpg</ref>[StreamIdx].<ref refid="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" kindref="member">ppc</ref><sp/>=<sp/>XDpDc_BypassAvpgPpcFlag(Ppc);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_BypassSetStream0Format(RunCfgPtr);<sp/></highlight><highlight class="comment">/*<sp/>AVPG<sp/>stream<sp/>0<sp/>-&gt;<sp/>Stream1Format<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDpDc_BypassCheckModeFits(RunCfgPtr);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n========================================\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kindref="member">DesignMstEn</ref>)</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;DisplayPort<sp/>DC<sp/>Bypass<sp/>MST<sp/>Video<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;DisplayPort<sp/>DC<sp/>Bypass<sp/>SST<sp/>Video<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(StreamIdx<sp/>=<sp/>0U;<sp/>StreamIdx<sp/>&lt;<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref>;<sp/>StreamIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Stream<sp/>%u:<sp/>LIVE<sp/>(AVPG),<sp/>%dx%d,<sp/>%d<sp/>PPC\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" kindref="member">Width</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" kindref="member">Height</ref>,</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(StreamIdx));</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Stream<sp/>%u<sp/>source:<sp/>AVPG=0x%08X<sp/>VTC=0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIdx,<sp/>(u32)BypassAvpgBase[StreamIdx],</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)BypassVtcBase[StreamIdx]);</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kindref="member">DesignMstEn</ref>)</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Active<sp/>Streams:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kindref="member">byp_streams</ref>);</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;========================================\r\n\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instance<sp/>setup<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref><sp/>=<sp/>&amp;DcSub;</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DcPtr<sp/>=<sp/>&amp;Dc;</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DmaPtr<sp/>=<sp/>&amp;DcDma;</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" kindref="member">DpPsuPtr</ref><sp/>=<sp/>&amp;DpPsuPtr;</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DcPtr;</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;Config.BaseAddr<sp/>=<sp/><ref refid="mmi__dpdc__platform_8h_1a820a9ffb482433d5bf150c41fb4b0cb3" kindref="member">DC_BASEADDR</ref>;</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Resolve<sp/>video<sp/>timing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vtm<sp/>=<sp/>XVidC_GetVideoModeData(RunCfgPtr-&gt;<ref refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" kindref="member">VideoMode</ref>);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Vtm)<sp/>{</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.HTotal<sp/><sp/>=<sp/>Vtm-&gt;Timing.HTotal;</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.HSWidth<sp/>=<sp/>Vtm-&gt;Timing.HSyncWidth;</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.HRes<sp/><sp/><sp/><sp/>=<sp/>Vtm-&gt;Timing.HActive;</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.HStart<sp/><sp/>=<sp/>Vtm-&gt;Timing.HSyncWidth<sp/>+</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vtm-&gt;Timing.HBackPorch;</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.VTotal<sp/><sp/>=<sp/>Vtm-&gt;Timing.F0PVTotal;</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.VSWidth<sp/>=<sp/>Vtm-&gt;Timing.F0PVSyncWidth;</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.VRes<sp/><sp/><sp/><sp/>=<sp/>Vtm-&gt;Timing.VActive;</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming.VStart<sp/><sp/>=<sp/>Vtm-&gt;Timing.F0PVSyncWidth<sp/>+</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vtm-&gt;Timing.F0PVBackPorch;</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;WARNING:<sp/>No<sp/>timing<sp/>for<sp/>mode<sp/>%d,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;using<sp/>1920x1080\r\n&quot;</highlight><highlight class="normal">,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" kindref="member">VideoMode</ref>);</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DcPtr-&gt;VideoTiming<sp/>=<sp/>VidTiming_1920_1080;</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DC<sp/>bypass<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1a5f6d102f994ce2ff5ee91522884fac14" kindref="member">XDcSub_SetVidInterfaceMode</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>XDC_VID_BYPASS);</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1af9cfb3a645e195c5555f6ceb918ce616" kindref="member">XDcSub_VidClkSelect</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1a1be85a1e79a6c5a905c74fecec6e22f7" kindref="member">XDcSub_SetVidFrameSwitch</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>BYPASS_DC_FRAME_SWITCH_VAL);</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"></highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="683"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clock<sp/>scaling<sp/>for<sp/>bypass:</highlight></codeline>
+<codeline lineno="684"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>clk<sp/>wiz<sp/>output<sp/>drives<sp/>the<sp/>PL<sp/>video<sp/>pipeline<sp/>and</highlight></codeline>
+<codeline lineno="685"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>pl_mmi_dc_1x_clk<sp/>directly,<sp/>so<sp/>it<sp/>must<sp/>run<sp/>at<sp/>pixel_clock<sp/>/<sp/>PPC.</highlight></codeline>
+<codeline lineno="686"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a6dd3cf00b1ae6c5771e848baa6d63380" kindref="member">PixelClkHz</ref><sp/>/=<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(0U);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="690"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"></highlight></codeline>
+<codeline lineno="692"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="707"><highlight class="normal">u32<sp/>XDpDc_MmiDcBypassTest(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="708"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"></highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>bypass<sp/>application<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>InitBypassRunConfig(RunCfgPtr);</highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FAILED<sp/>to<sp/>get<sp/>test<sp/>configuration\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"></highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>InitBypassPlatform(RunCfgPtr);</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FAILED<sp/>to<sp/>Initialize<sp/>Platform\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"></highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/><sp/>Bypass<sp/>%s<sp/>mode<sp/>active.\r\n&quot;</highlight><highlight class="normal">,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kindref="member">DesignMstEn</ref><sp/>?<sp/></highlight><highlight class="stringliteral">&quot;MST&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;SST&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"></highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="727"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"></highlight></codeline>
+<codeline lineno="729"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>defined(XPAR_XVTC_NUM_INSTANCES)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c"/>
+  </compounddef>
+</doxygen>

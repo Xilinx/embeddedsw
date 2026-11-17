@@ -1,24 +1,86 @@
 var NAVTREE =
 [
-  [ "mmidp", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "mmidp",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xmmidp_8h.html#gad9754b10ec09c4a56d928cd8471c0ae8"
+"xmmidp_8h.html#ga66e70f6545ca763ce08a076b8be01263",
+"xmmidp__stream_8c.html#ga235cd874e0e11094e6090a549681e900"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

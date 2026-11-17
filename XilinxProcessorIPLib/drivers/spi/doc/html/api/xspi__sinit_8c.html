@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,22 +106,33 @@ $(document).ready(function(){initNavTree('xspi__sinit_8c.html','');});
 <div class="title">xspi_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static initialization functionality of the <a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a> component. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.01a jvb  10/13/05 First release
+1.11a wgr  03/22/07 Converted to new coding style.
+4.11  sb   07/11/23 Added support for system device-tree flow.
+4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga59c223b96bc85c1e13bf88a19af91bc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi___config.html">XSpi_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga59c223b96bc85c1e13bf88a19af91bc3">XSpi_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga59c223b96bc85c1e13bf88a19af91bc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__spi.html#ga59c223b96bc85c1e13bf88a19af91bc3">More...</a><br/></td></tr>
-<tr class="separator:ga59c223b96bc85c1e13bf88a19af91bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad6f255861fd0fe028f13c35abc55260a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#gad6f255861fd0fe028f13c35abc55260a">XSpi_Initialize</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gad6f255861fd0fe028f13c35abc55260a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a> instance such that the driver is ready to use.  <a href="group__spi.html#gad6f255861fd0fe028f13c35abc55260a">More...</a><br/></td></tr>
+<tr class="memitem:ga89a706debf1603a19b95d8e556f04f68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi___config.html">XSpi_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga89a706debf1603a19b95d8e556f04f68">XSpi_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga89a706debf1603a19b95d8e556f04f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__spi__api.html#ga89a706debf1603a19b95d8e556f04f68">More...</a><br/></td></tr>
+<tr class="separator:ga89a706debf1603a19b95d8e556f04f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6f255861fd0fe028f13c35abc55260a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#gad6f255861fd0fe028f13c35abc55260a">XSpi_Initialize</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gad6f255861fd0fe028f13c35abc55260a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a> instance such that the driver is ready to use.  <a href="group__spi__api.html#gad6f255861fd0fe028f13c35abc55260a">More...</a><br/></td></tr>
 <tr class="separator:gad6f255861fd0fe028f13c35abc55260a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga31f3cf000e45e67f36d374906154ac38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi___config.html">XSpi_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga31f3cf000e45e67f36d374906154ac38">XSpi_ConfigTable</a> []</td></tr>
-<tr class="memdesc:ga31f3cf000e45e67f36d374906154ac38"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each SPI device in the system.  <a href="group__spi.html#ga31f3cf000e45e67f36d374906154ac38">More...</a><br/></td></tr>
+<tr class="memitem:ga31f3cf000e45e67f36d374906154ac38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi___config.html">XSpi_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga31f3cf000e45e67f36d374906154ac38">XSpi_ConfigTable</a> []</td></tr>
+<tr class="memdesc:ga31f3cf000e45e67f36d374906154ac38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration information for each SPI device in the system.  <a href="group__spi__api.html#ga31f3cf000e45e67f36d374906154ac38">More...</a><br/></td></tr>
 <tr class="separator:ga31f3cf000e45e67f36d374906154ac38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

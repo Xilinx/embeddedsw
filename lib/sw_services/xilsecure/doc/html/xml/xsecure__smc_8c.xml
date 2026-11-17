@@ -4,13 +4,13 @@
     <compoundname>xsecure_smc.c</compoundname>
     <includes local="yes">bspconfig.h</includes>
     <incdepgraph>
-      <node id="4600">
+      <node id="4862">
         <label>bspconfig.h</label>
       </node>
-      <node id="4599">
+      <node id="4861">
         <label>xsecure_smc.c</label>
         <link refid="xsecure_smc.c"/>
-        <childnode refid="4600" relation="include">
+        <childnode refid="4862" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -97,8 +97,9 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="113"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/smc/xsecure_smc.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/smc/xsecure_smc.c"/>
   </compounddef>
 </doxygen>

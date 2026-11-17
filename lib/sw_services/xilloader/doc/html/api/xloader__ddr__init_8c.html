@@ -107,19 +107,29 @@ $(document).ready(function(){initNavTree('xloader__ddr__init_8c.html','');});
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This is the file which contains PMC and DDRMC5 handshake process function. </p>
 <pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date        Changes
 </p>
 <hr/>
 <p>
-1.00  ro   05/24/2023 Initial release
-1.1   ro   08/1/2023  Handle i2c handshake across CDO Chunk boundary
-      dd   08/11/2023 Updated doxygen comments
-      ng   02/14/2024 removed int typecast for errors
-      bm   11/11/2024 Move I2C Handshake feature to common code
-2.0   sk   09/29/2025 Added SDT Support
-      sk   10/16/2025 Added stub function for XLoader_MbPmcI2cHandshake
-2.1   sk   05/05/2026 Reset the i2c instance state after release request
-      pre  05/25/2026 For VersalGen2, updated I2C handshake with user defined I2C controller
+ 1.00  ro   05/24/2023 Initial release
+ 1.1   ro   08/1/2023  Handle i2c handshake across CDO Chunk boundary
+       dd   08/11/2023 Updated doxygen comments
+       ng   02/14/2024 removed int typecast for errors
+       bm   11/11/2024 Move I2C Handshake feature to common code
+ 2.0   sk   09/29/2025 Added SDT Support
+       sk   10/16/2025 Added stub function for XLoader_MbPmcI2cHandshake
+ 2.1   sk   05/05/2026 Reset the i2c instance state after release request
+       pre  05/25/2026 For VersalGen2, updated I2C handshake with user defined I2C controller
+       pre  07/14/2026 Made changes to get I2C device ID based on changed params in SDT
+       pre  08/05/2026 Enabled I2C Handshake feature for all platforms
+       obs  08/21/2026 Bounded the MicroBlaze supplied data buffer offset to
+                       the DDRMC exchange window
+       pre  09/17/2026 Reset I2C instance state after release on all platforms
+       ng   10/14/2026 Updated I2C handshake error handling
+       sd   10/08/2026 Added range bound check for NumBaseAddr
+       pre  10/23/2026 Enable I2C handshake when the DDRMC5_I2C_MASTER
+                       instance is present, or PMC I2C when that master
+                       is not set
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xplmi_cmd.h&quot;</code><br/>
@@ -132,7 +142,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga5a50858612ed6ece8fff88a67b9f30ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga5a50858612ed6ece8fff88a67b9f30ec">XLoader_MbPmcI2cHandshake</a> (XPlmi_Cmd *Cmd)</td></tr>
-<tr class="memdesc:ga5a50858612ed6ece8fff88a67b9f30ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is a stub to handle the DDR designs where i2c handshake is not required for the DIMM'S.  <a href="group__xloader__server__apis.html#ga5a50858612ed6ece8fff88a67b9f30ec">More...</a><br/></td></tr>
+<tr class="memdesc:ga5a50858612ed6ece8fff88a67b9f30ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is a stub for designs that do not enable the PMC and DDRMC I2C handshake.  <a href="group__xloader__server__apis.html#ga5a50858612ed6ece8fff88a67b9f30ec">More...</a><br/></td></tr>
 <tr class="separator:ga5a50858612ed6ece8fff88a67b9f30ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

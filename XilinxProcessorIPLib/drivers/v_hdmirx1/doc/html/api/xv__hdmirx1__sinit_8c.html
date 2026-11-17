@@ -116,7 +116,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a039cc6908b0659fd756fb84089c08e42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___hdmi_rx1___config.html">XV_HdmiRx1_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirx1__sinit_8c.html#a039cc6908b0659fd756fb84089c08e42">XV_HdmiRx1_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a039cc6908b0659fd756fb84089c08e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a reference to an <a class="el" href="struct_x_v___hdmi_rx1___config.html" title="This typedef contains configuration information for the HDMI RX core. ">XV_HdmiRx1_Config</a> structure based on the core id, <em>DeviceId</em>.  <a href="#a039cc6908b0659fd756fb84089c08e42">More...</a><br/></td></tr>
+<tr class="memdesc:a039cc6908b0659fd756fb84089c08e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a reference to an <a class="el" href="struct_x_v___hdmi_rx1___config.html" title="This typedef contains configuration information for the HDMI RX core. ">XV_HdmiRx1_Config</a> structure based on the base address, <em>BaseAddress</em>.  <a href="#a039cc6908b0659fd756fb84089c08e42">More...</a><br/></td></tr>
 <tr class="separator:a039cc6908b0659fd756fb84089c08e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -134,15 +134,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns a reference to an <a class="el" href="struct_x_v___hdmi_rx1___config.html" title="This typedef contains configuration information for the HDMI RX core. ">XV_HdmiRx1_Config</a> structure based on the core id, <em>DeviceId</em>. </p>
+<p>This function returns a reference to an <a class="el" href="struct_x_v___hdmi_rx1___config.html" title="This typedef contains configuration information for the HDMI RX core. ">XV_HdmiRx1_Config</a> structure based on the base address, <em>BaseAddress</em>. </p>
 <p>The return value will refer to an entry in the device configuration table defined in the xv_hdmirx1_g.c file.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique core ID of the HDMI RX core for the lookup operation.</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the unique base address of the HDMI RX core for the lookup operation.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XV_HdmiRx1_LookupConfig returns a reference to a config record in the configuration table (in xv_hdmirx1_g.c) corresponding to <em>DeviceId</em>, or NULL if no match is found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XV_HdmiRx1_LookupConfig returns a reference to a config record in the configuration table (in xv_hdmirx1_g.c) corresponding to <em>BaseAddress</em>, or NULL if no match is found.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>

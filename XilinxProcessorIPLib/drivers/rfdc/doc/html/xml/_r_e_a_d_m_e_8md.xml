@@ -33,6 +33,6 @@
 <codeline lineno="24"><highlight class="normal">4.<sp/>Click<sp/></highlight><highlight class="stringliteral">&apos;Next&apos;</highlight><highlight class="normal">,<sp/>select<sp/>the<sp/>Empty<sp/>Application<sp/>and<sp/>Click<sp/></highlight><highlight class="stringliteral">&apos;Finish&apos;</highlight><highlight class="normal">.</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">5.<sp/>Copy<sp/>the<sp/>test<sp/>application<sp/>in<sp/>the<sp/>src<sp/>directory<sp/>of<sp/>the<sp/>application<sp/>project<sp/>to<sp/>create<sp/>the<sp/>binary<sp/>file(.elf)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/README.md"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/README.md"/>
   </compounddef>
 </doxygen>

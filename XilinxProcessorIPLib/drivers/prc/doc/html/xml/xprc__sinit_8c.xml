@@ -7,14 +7,6 @@
       <node id="82">
         <label>xil_assert.h</label>
       </node>
-      <node id="84">
-        <label>xprc_hw.h</label>
-        <link refid="xprc__hw_8h"/>
-        <childnode refid="81" relation="include">
-        </childnode>
-        <childnode refid="85" relation="include">
-        </childnode>
-      </node>
       <node id="85">
         <label>xil_io.h</label>
       </node>
@@ -30,6 +22,14 @@
         <childnode refid="84" relation="include">
         </childnode>
         <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>xprc_hw.h</label>
+        <link refid="xprc__hw_8h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
         </childnode>
       </node>
       <node id="79">
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_sinit.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_g.c" bodystart="10" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_sinit.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_g.c" bodystart="10" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -89,7 +89,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_sinit.c" bodystart="84" bodyend="98"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_sinit.c" bodystart="84" bodyend="98"/>
         <referencedby refid="xprc__example_8c_1a27ed847b2e946decd90de3370484db51" compoundref="xprc__example_8c" startline="118" endline="298">XPrc_Example</referencedby>
         <referencedby refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" compoundref="xprc__selftest__example_8c" startline="126" endline="159">XPrc_SelfTestExample</referencedby>
       </memberdef>
@@ -163,6 +163,6 @@
 <codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_sinit.c"/>
   </compounddef>
 </doxygen>

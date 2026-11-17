@@ -4,9 +4,9 @@
     <compoundname>XDc_Cursor</compoundname>
     <includes local="no">xdc.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="struct_x_dc___cursor_1af38617db9fbebe76dac5cf8d23a1ac68" prot="public" static="no" mutable="no">
-        <type>u8</type>
-        <definition>u8 XDc_Cursor::CoordY</definition>
+      <memberdef kind="variable" id="struct_x_dc___cursor_1ac187449c686815831405ab51c14c0b42" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_Cursor::CoordY</definition>
         <argsstring></argsstring>
         <name>CoordY</name>
         <briefdescription>
@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="339" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="364" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="struct_x_dc___cursor_1aceec90011f54b1a5e974dcda512ee05b" prot="public" static="no" mutable="no">
-        <type>u8</type>
-        <definition>u8 XDc_Cursor::CoordX</definition>
+      <memberdef kind="variable" id="struct_x_dc___cursor_1afa4b157c72c2f9e6467bfb58a7aa176e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_Cursor::CoordX</definition>
         <argsstring></argsstring>
         <name>CoordX</name>
         <briefdescription>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="340" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="365" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dc___cursor_1ab6643facad4554cc05391dc04a3cea4f" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="341" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="366" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dc___cursor_1a92eab2d40b6f9e9ba372bfda24c321a1" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="342" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="367" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dc___cursor_1a9c989c47bcd227e98f273b2cfd0f5c8a" prot="public" static="no" mutable="no">
         <type>XDc_VideoAttribute *</type>
@@ -67,17 +67,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="344" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="369" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef describes the cursor blend coords. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="337" bodyend="346"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="362" bodyend="371"/>
     <listofallmembers>
-      <member refid="struct_x_dc___cursor_1aceec90011f54b1a5e974dcda512ee05b" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CoordX</name></member>
-      <member refid="struct_x_dc___cursor_1af38617db9fbebe76dac5cf8d23a1ac68" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CoordY</name></member>
+      <member refid="struct_x_dc___cursor_1afa4b157c72c2f9e6467bfb58a7aa176e" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CoordX</name></member>
+      <member refid="struct_x_dc___cursor_1ac187449c686815831405ab51c14c0b42" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CoordY</name></member>
       <member refid="struct_x_dc___cursor_1a9c989c47bcd227e98f273b2cfd0f5c8a" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CursorAttribute</name></member>
       <member refid="struct_x_dc___cursor_1a92eab2d40b6f9e9ba372bfda24c321a1" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>SizeX</name></member>
       <member refid="struct_x_dc___cursor_1ab6643facad4554cc05391dc04a3cea4f" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>SizeY</name></member>

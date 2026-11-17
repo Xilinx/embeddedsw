@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="281" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="331" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8b9e3d4fcd30cc6f89185e9118e37e8e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1899" endline="1949">XNvm_EfuseWriteRevocationId</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nvm___efuse_revoke_ids_1a65cbfd51efe91e6ef7bc6c81aa64f8c0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,15 +29,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="282" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4fa477e5473cdcf0220dad1b33ed9a39" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1901" endline="1951">XNvm_EfuseWriteRevocationId</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="332" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga8b9e3d4fcd30cc6f89185e9118e37e8e" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1899" endline="1949">XNvm_EfuseWriteRevocationId</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure for RevokeId data. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="280" bodyend="283"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="330" bodyend="333"/>
     <listofallmembers>
       <member refid="struct_x_nvm___efuse_revoke_ids_1a004d078f04aa0ff025565a16f9031d0f" prot="public" virt="non-virtual"><scope>XNvm_EfuseRevokeIds</scope><name>PrgmRevokeId</name></member>
       <member refid="struct_x_nvm___efuse_revoke_ids_1a65cbfd51efe91e6ef7bc6c81aa64f8c0" prot="public" virt="non-virtual"><scope>XNvm_EfuseRevokeIds</scope><name>RevokeId</name></member>

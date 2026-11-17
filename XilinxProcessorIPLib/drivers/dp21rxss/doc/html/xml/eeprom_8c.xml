@@ -21,6 +21,9 @@
       <node id="48">
         <label>stdint.h</label>
       </node>
+      <node id="51">
+        <label>keygen_config.h</label>
+      </node>
       <node id="40">
         <label>eeprom.c</label>
         <link refid="eeprom.c"/>
@@ -73,9 +76,6 @@
       <node id="50">
         <label>xscugic.h</label>
       </node>
-      <node id="51">
-        <label>keygen_config.h</label>
-      </node>
     </incdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="eeprom_8c_1a0e3bb0a8ecd4e217ea60c74e36c4f010" prot="public" static="no">
@@ -87,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -102,9 +102,9 @@
 <para>I2C bus for MC6000 and IDT.</para><para>8K30, 8K24, 5K, 4K120, 4K100 + Audio </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xdprxss_dp21_pt.c" bodystart="159" bodyend="-1"/>
-        <referencedby refid="xdprxss__dp21__pt_8c_1acba5d3628f36b62266d9ed64022d52dd" compoundref="xdprxss__dp21__pt_8c" startline="324" endline="376">Dp21RxSs_Pt_VideoFMC_Init</referencedby>
-        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a83b1170da398be3c53b87955c0a5b6a3" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="310" endline="359">VideoFMC_Init</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/xdprxss_dp21_pt.c" bodystart="153" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__pt_8c_1acba5d3628f36b62266d9ed64022d52dd" compoundref="xdprxss__dp21__pt_8c" startline="335" endline="395">Dp21RxSs_Pt_VideoFMC_Init</referencedby>
+        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a83b1170da398be3c53b87955c0a5b6a3" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="303" endline="348">VideoFMC_Init</referencedby>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1a4efc54d30c101394668b408a6722243b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1abcd88fa4fa9e6d1cacbaa8b94e3a334b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1a55261a92cf00056c6f862f5f3cc3775a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -143,7 +143,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1a1a3f4b3093343258a1ba7e3e3c3a673a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="27" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1ad5d010e33ec92cf1bec7ac57cad2d1c5" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="28" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1a7aa7887e7275ae0c1230bb34be10a0c4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -182,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="29" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1a628a6daf223f52f5bfb69f6ceabf7fa7" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="31" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1ab479d1b0d6f1639635c7a4c630d21427" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -208,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="eeprom_8c_1a25a6511545d39386de8af67b176193e9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -249,7 +249,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="480" bodyend="503"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="480" bodyend="503"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -287,7 +287,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="422" bodyend="427"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="422" bodyend="427"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a2dc42043eaab1d3701336fda406b9dab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -325,7 +325,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="442" bodyend="447"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="442" bodyend="447"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a5af50853b8583d2c4b84498ac406a432" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -363,7 +363,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="462" bodyend="466"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="462" bodyend="466"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a178f6cd4a20d49159eb68e86416a5767" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -376,7 +376,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="59" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="59" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a15f523f6b78a5402f1bbc903091b6d91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -393,7 +393,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="95" bodyend="98"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="95" bodyend="98"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a8c66068fe4bc27172483e0172d877b64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -406,7 +406,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="104" bodyend="132"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="104" bodyend="132"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a40d92867ead2dc8efe06207b8b0f3494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -433,7 +433,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="148" bodyend="222"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="148" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -471,7 +471,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="236" bodyend="314"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="236" bodyend="314"/>
       </memberdef>
       <memberdef kind="function" id="eeprom_8c_1a3879abe3fc3ba5bf274394c467d5be57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -496,7 +496,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="316" bodyend="406"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c" bodystart="316" bodyend="406"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -515,7 +515,7 @@
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt_8h" kindref="compound">keymgmt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keygen_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLATFORM_MB</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(PLATFORM_MB)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
 <codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
 <codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
@@ -940,6 +940,6 @@
 <codeline lineno="503"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="504"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/eeprom.c"/>
   </compounddef>
 </doxygen>

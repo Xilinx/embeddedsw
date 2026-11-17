@@ -14,8 +14,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" bodystart="60" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="563" endline="626">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="568" endline="631">XNvm_EfuseCheckAesKeyCrc</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" bodystart="68" bodyend="71"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" bodystart="73" bodyend="76"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" prot="public" static="no">
         <name>XNvm_EfuseRdMode</name>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" bodystart="76" bodyend="79"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" bodystart="81" bodyend="84"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -132,8 +132,7 @@
 <para><itemizedlist>
 <listitem><para>Process each bit of 32-bit Value</para></listitem><listitem><para>Get 5-bit from Address</para></listitem><listitem><para>Return CRC value upon success</para></listitem><listitem><para>Process each bits of 32-bit Value.</para></listitem><listitem><para>Get 5-bit from Address.</para></listitem><listitem><para>Return CRC value upon success. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="451" bodyend="496"/>
-        <references refid="group__xnvm__bbram__server__apis_1ga6ebc086461092546789c62ddbd362948" compoundref="xnvm__bbram_8c" startline="59">REVERSE_POLYNOMIAL</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="456" bodyend="501"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -157,7 +156,7 @@
           <declname>Crc</declname>
         </param>
         <briefdescription>
-<para>This function performs the CRC check of AES key/User0 key/User1 key. </para>        </briefdescription>
+<para>This function performs the CRC check of AES key. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -194,7 +193,7 @@
 <simplesect kind="note"><para>Expected CRC calculation steps:<orderedlist>
 <listitem><para>Convert the key provided at XNVM_EFUSE_AES_KEY into hexadecimal little-endian format.</para></listitem><listitem><para>Calculate the CRC on this little-endian formatted AES key using <ref refid="group__xnvm__util__apis_1ga05857cc7a1c346b57ab04e5f1fb0edb5" kindref="member">XNvm_AesCrcCalc()</ref> function.</para></listitem><listitem><para>Provide the calculated CRC as the value of expected CRC.</para></listitem></orderedlist>
 </para></simplesect>
-<parameterlist kind="param"><parameteritem>
+This function performs the CRC check of AES key.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>CrcRegOffSet</parametername>
 </parameternamelist>
@@ -230,25 +229,22 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Read the WR_LOCK_REG. Unlock the controller if read as locked</para></listitem><listitem><para>Write the crc to crcregoffset of eFuse_ctrl register</para></listitem><listitem><para>Wait for crcdone</para></listitem><listitem><para>Read efuse status register. If Crc is not done return XST_FAILURE</para></listitem><listitem><para>Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc pass and done</para></listitem><listitem><para>Lock efuse controller</para></listitem><listitem><para>Read the WR_LOCK_REG. Unlock the controller if read status is locked.</para></listitem><listitem><para>Write the 32 bit crc to crc reg offset of eFuse_ctrl register.</para></listitem><listitem><para>Wait for crc_done.</para></listitem><listitem><para>Read efuse status register. If Crc is not done return XST_FAILURE.</para></listitem></itemizedlist>
-</para><para>Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc done and pass.</para><para><itemizedlist>
-<listitem><para>Lock efuse controller. </para></listitem></itemizedlist>
-</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="563" bodyend="626"/>
+<listitem><para>Read the WR_LOCK_REG. Unlock the controller if read as locked</para></listitem><listitem><para>Write the crc to crcregoffset of eFuse_ctrl register</para></listitem><listitem><para>Wait for crcdone</para></listitem><listitem><para>Read efuse status register. If Crc is not done return XST_FAILURE</para></listitem><listitem><para>Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc pass and done</para></listitem><listitem><para>Lock efuse controller</para></listitem><listitem><para>Read the WR_LOCK_REG. Unlock the controller if read status is locked.</para></listitem><listitem><para>Write the 32 bit crc to crc reg offset of eFuse_ctrl register.</para></listitem><listitem><para>Wait for crc_done (global STATUS or per-key CRC_STATUS).</para></listitem><listitem><para>Read CRC status register. If Crc is not done return XST_FAILURE.</para></listitem></itemizedlist>
+</para><para>Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc done and pass.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="568" bodyend="631"/>
+        <references refid="xnvm__efuse__common__hw_8h_1a0a40fe1b5d28cbabf2be3027101209e8" compoundref="xnvm__efuse__common__hw_8h" startline="176">XNVM_EFUSE_CRC_STATUS_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga9afb36a9e0e49a9cac6a60b94df16a3c" compoundref="xnvm__efuse__common_8h" startline="56">XNVM_EFUSE_CTRL_WR_LOCKED</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55baf2dffe88d7ba95da4c73e9b7b113b73f" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_CRC_VERIFICATION</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a4e1c6f020db5fd4a038cbd7c705131a2" compoundref="xnvm__efuse__common__hw_8h" startline="109">XNVM_EFUSE_STATUS_REG_OFFSET</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga9afb36a9e0e49a9cac6a60b94df16a3c" compoundref="xnvm__efuse__common_8h" startline="63">XNVM_EFUSE_CTRL_WR_LOCKED</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55baf2dffe88d7ba95da4c73e9b7b113b73f" compoundref="spartanup_2xnvm__efuse_8h" startline="362">XNVM_EFUSE_ERR_CRC_VERIFICATION</references>
         <references refid="xnvm__efuse__common__hw_8h_1a620e3107f801b63ee3907852de388049" compoundref="xnvm__efuse__common__hw_8h" startline="105">XNVM_EFUSE_WR_LOCK_REG_OFFSET</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf481e9aa41a43093fd5f7bb3f4d03452" compoundref="spartanup_2xnvm__efuse_8h" startline="137">XNVM_EFUSE_WRITE_LOCKED</references>
-        <references refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="381" endline="404">XNvm_EfuseLockController</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <references refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="417" endline="440">XNvm_EfuseUnlockController</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <references refid="group__xnvm__util__apis_1ga48bffc0baf982bf3c18a18abb6551732" compoundref="spartanup_2xnvm__utils_8h" startline="60">XNVM_POLL_TIMEOUT</references>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gaa35f9d7952af5fccaed74ba5ae579191" compoundref="xnvm__validate_8c" startline="81" endline="150">XNvm_EfuseValidateAesKeyWriteReq</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="474" endline="512">XNvm_EfuseValidateDecOnlyRequest</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf481e9aa41a43093fd5f7bb3f4d03452" compoundref="spartanup_2xnvm__efuse_8h" startline="138">XNVM_EFUSE_WRITE_LOCKED</references>
+        <references refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="386" endline="409">XNvm_EfuseLockController</references>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="422" endline="445">XNvm_EfuseUnlockController</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <references refid="group__xnvm__util__apis_1ga48bffc0baf982bf3c18a18abb6551732" compoundref="spartanup_2xnvm__utils_8h" startline="65">XNVM_POLL_TIMEOUT</references>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gaa35f9d7952af5fccaed74ba5ae579191" compoundref="xnvm__validate_8c" startline="241" endline="292">XNvm_EfuseValidateAesKeyWriteReq</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="622" endline="660">XNvm_EfuseValidateDecOnlyRequest</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1gaf8e96ff615b644f9f920a0f0e94f5da0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -307,9 +303,9 @@ This function zeroizes the memory and verifies that the memory has been correctl
 <para><itemizedlist>
 <listitem><para>Clear the buffer provided.</para></listitem><listitem><para>Read it back to verify. Return success upon successful zeroization else return XST_FAILURE.</para></listitem><listitem><para>Zeroize the buffer provided.</para></listitem><listitem><para>Read it back to verify. Return success upon successful zeroization else return XST_FAILURE.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="510" bodyend="539"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaac535d6758d3eccb3407e6d30acad999" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1513" endline="1595">XNvm_EfuseReadIv</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="515" bodyend="544"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaac535d6758d3eccb3407e6d30acad999" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1511" endline="1593">XNvm_EfuseReadIv</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1609" endline="1672">XNvm_EfuseReadPuf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -362,28 +358,29 @@ This function zeroizes the memory and verifies that the memory has been correctl
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="351" bodyend="354"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="101" endline="147">XNvm_EfuseCacheReload</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="563" endline="626">XNvm_EfuseCheckAesKeyCrc</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="458" endline="483">XNvm_EfuseCheckForTBits</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga074ef023f48a3f5164b0bf0f6d464d5c" compoundref="xnvm__validate_8c" startline="376" endline="412">XNvm_EfuseCheckZeros</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" compoundref="xnvm__efuse__common_8c" startline="154" endline="174">XNvm_EfuseDisablePowerDown</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" compoundref="xnvm__efuse__common_8c" startline="282" endline="299">XNvm_EfuseDisableProgramming</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="257" endline="271">XNvm_EfuseEnableProgramming</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga51762cb7925471e499cb19ff551039d7" compoundref="xnvm__validate_8c" startline="428" endline="457">XNvm_EfuseIsPufHelperDataEmpty</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="381" endline="404">XNvm_EfuseLockController</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" compoundref="xnvm__efuse__common_8c" startline="863" endline="870">XNvm_EfuseReadProtectionBits</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" compoundref="xnvm__efuse__common_8c" startline="310" endline="328">XNvm_EfuseResetReadMode</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="187" endline="234">XNvm_EfuseSetReadMode</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="417" endline="440">XNvm_EfuseUnlockController</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gaa35f9d7952af5fccaed74ba5ae579191" compoundref="xnvm__validate_8c" startline="81" endline="150">XNvm_EfuseValidateAesKeyWriteReq</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="474" endline="512">XNvm_EfuseValidateDecOnlyRequest</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga989884994fda65f39b2f66ced494f83d" compoundref="xnvm__validate_8c" startline="528" endline="573">XNvm_EfuseValidateFipsInfo</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gacc264f1596fadaaf19db535bf527435a" compoundref="xnvm__validate_8c" startline="173" endline="249">XNvm_EfuseValidatePpkHashWriteReq</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga3e5b32d4a7ec60464f46788458b5e67f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="2066" endline="2188">XNvm_EfuseWritePuf</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
-        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga05cd2825902d18394a7ba8c56c5342b6" compoundref="xnvm__validate_8c" startline="586" endline="608">XNvm_IsDmeModeEn</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="356" bodyend="359"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="105" endline="151">XNvm_EfuseCacheReload</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="568" endline="631">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="462" endline="483">XNvm_EfuseCheckForTBits</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga074ef023f48a3f5164b0bf0f6d464d5c" compoundref="xnvm__validate_8c" startline="524" endline="560">XNvm_EfuseCheckZeros</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" compoundref="xnvm__efuse__common_8c" startline="158" endline="178">XNvm_EfuseDisablePowerDown</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" compoundref="xnvm__efuse__common_8c" startline="286" endline="303">XNvm_EfuseDisableProgramming</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="261" endline="275">XNvm_EfuseEnableProgramming</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga51762cb7925471e499cb19ff551039d7" compoundref="xnvm__validate_8c" startline="576" endline="605">XNvm_EfuseIsPufHelperDataEmpty</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="386" endline="409">XNvm_EfuseLockController</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4d4b8fa510a9a0fc773eccc863cae848" compoundref="xnvm__ops_8c" startline="555" endline="592">XNvm_EfuseOpsValidateCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gad86c042caa77fd779b4f0ac666798c51" compoundref="xnvm__ops_8c" startline="291" endline="312">XNvm_EfuseOpsValidateFieldWrLk</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga37e793bd4d5eb4aab760dbd26583ccf9" compoundref="xnvm__ops_8c" startline="448" endline="465">XNvm_EfuseOpsValidatePufHdAccess</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa382c4bb1913e008f005ea239d399862" compoundref="xnvm__efuse__plat_8c" startline="397" endline="546">XNvm_EfusePlatProtectionChecks</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" compoundref="xnvm__efuse__common_8c" startline="870" endline="877">XNvm_EfuseReadProtectionBits</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" compoundref="xnvm__efuse__common_8c" startline="314" endline="332">XNvm_EfuseResetReadMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="191" endline="238">XNvm_EfuseSetReadMode</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="422" endline="445">XNvm_EfuseUnlockController</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gaa35f9d7952af5fccaed74ba5ae579191" compoundref="xnvm__validate_8c" startline="241" endline="292">XNvm_EfuseValidateAesKeyWriteReq</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga2aca2c53d5bb8c2d003e5a5e4097b884" compoundref="xnvm__validate_8c" startline="622" endline="660">XNvm_EfuseValidateDecOnlyRequest</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga989884994fda65f39b2f66ced494f83d" compoundref="xnvm__validate_8c" startline="676" endline="721">XNvm_EfuseValidateFipsInfo</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1gacc264f1596fadaaf19db535bf527435a" compoundref="xnvm__validate_8c" startline="315" endline="397">XNvm_EfuseValidatePpkHashWriteReq</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga05cd2825902d18394a7ba8c56c5342b6" compoundref="xnvm__validate_8c" startline="734" endline="756">XNvm_IsDmeModeEn</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -451,16 +448,16 @@ This function zeroizes the memory and verifies that the memory has been correctl
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="365" bodyend="368"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="101" endline="147">XNvm_EfuseCacheReload</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="563" endline="626">XNvm_EfuseCheckAesKeyCrc</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" compoundref="xnvm__efuse__common_8c" startline="154" endline="174">XNvm_EfuseDisablePowerDown</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="257" endline="271">XNvm_EfuseEnableProgramming</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" compoundref="xnvm__efuse__common_8c" startline="335" endline="381">XNvm_EfuseInitTimers</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="381" endline="404">XNvm_EfuseLockController</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" compoundref="xnvm__efuse__common_8c" startline="241" endline="249">XNvm_EfuseSetRefClk</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="417" endline="440">XNvm_EfuseUnlockController</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="370" bodyend="373"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" compoundref="xnvm__efuse__common_8c" startline="105" endline="151">XNvm_EfuseCacheReload</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="568" endline="631">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" compoundref="xnvm__efuse__common_8c" startline="158" endline="178">XNvm_EfuseDisablePowerDown</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="261" endline="275">XNvm_EfuseEnableProgramming</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" compoundref="xnvm__efuse__common_8c" startline="339" endline="385">XNvm_EfuseInitTimers</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="spartanup_2xnvm__utils_8c" startline="386" endline="409">XNvm_EfuseLockController</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" compoundref="xnvm__efuse__common_8c" startline="245" endline="253">XNvm_EfuseSetRefClk</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="422" endline="445">XNvm_EfuseUnlockController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -481,20 +478,21 @@ This function zeroizes the memory and verifies that the memory has been correctl
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Write lock Passcode in efuse control at offset of WR_LOCK_REG</para></listitem><listitem><para>Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success</para></listitem><listitem><para>Write lock Passcode in EFUSE_CTRL_WR_LOCK_REG.</para></listitem><listitem><para>Read back EFUSE_CTRL_WR_LOCK_REG to check if write was successful. Return XNVM_EFUSE_ERR_LOCK if not success.</para></listitem></itemizedlist>
+<listitem><para>Write lock Passcode in efuse control at offset of WR_LOCK_REG</para></listitem><listitem><para>Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success</para></listitem><listitem><para>Write lock value in EFUSE_CTRL_WR_LOCK_REG.</para></listitem><listitem><para>Read back EFUSE_CTRL_WR_LOCK_REG to check if write was successful. Return XNVM_EFUSE_ERR_LOCK if not success.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="381" bodyend="404"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="386" bodyend="409"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga9afb36a9e0e49a9cac6a60b94df16a3c" compoundref="xnvm__efuse__common_8h" startline="56">XNVM_EFUSE_CTRL_WR_LOCKED</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba7a2222f3c14c0a6ae0440a002cd16bb2" compoundref="spartanup_2xnvm__efuse_8h" startline="358">XNVM_EFUSE_ERR_LOCK</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga9afb36a9e0e49a9cac6a60b94df16a3c" compoundref="xnvm__efuse__common_8h" startline="63">XNVM_EFUSE_CTRL_WR_LOCKED</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba7a2222f3c14c0a6ae0440a002cd16bb2" compoundref="spartanup_2xnvm__efuse_8h" startline="359">XNVM_EFUSE_ERR_LOCK</references>
         <references refid="xnvm__efuse__common__hw_8h_1a620e3107f801b63ee3907852de388049" compoundref="xnvm__efuse__common__hw_8h" startline="105">XNVM_EFUSE_WR_LOCK_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a27d922d261bbb270c7ea7bff131d0ec8" compoundref="xnvm__efuse__common__hw_8h" startline="176">XNVM_EFUSE_WR_UNLOCK_PASSCODE</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf481e9aa41a43093fd5f7bb3f4d03452" compoundref="spartanup_2xnvm__efuse_8h" startline="137">XNVM_EFUSE_WRITE_LOCKED</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="563" endline="626">XNvm_EfuseCheckAesKeyCrc</referencedby>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+        <references refid="xnvm__efuse__common__hw_8h_1a3d0a93e6488fe35e680f84385c6e11f3" compoundref="xnvm__efuse__common__hw_8h" startline="189">XNVM_EFUSE_WR_LOCK_VAL</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf481e9aa41a43093fd5f7bb3f4d03452" compoundref="spartanup_2xnvm__efuse_8h" startline="138">XNVM_EFUSE_WRITE_LOCKED</references>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="568" endline="631">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga33ac3a37674033fcc101cf7290b25c49" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="827" endline="843">XNvm_EfuseCloseController</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="129" endline="303">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="854" endline="1010">XNvm_EfuseWritePuf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -515,19 +513,19 @@ This function zeroizes the memory and verifies that the memory has been correctl
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Write unlock Passcode in efuse control at offset of WR_LOCK_REG</para></listitem><listitem><para>Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success</para></listitem><listitem><para>Write unlock passcode in EFUSE_CTRL_WR_LOCK_REG</para></listitem><listitem><para>Read back EFUSE_CTRL_WR_LOCK_REG register to check if write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success.</para></listitem></itemizedlist>
+<listitem><para>Write unlock Passcode in efuse control at offset of WR_LOCK_REG</para></listitem><listitem><para>Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success</para></listitem><listitem><para>Write unlock value in EFUSE_CTRL_WR_LOCK_REG</para></listitem><listitem><para>Read back EFUSE_CTRL_WR_LOCK_REG register to check if write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="417" bodyend="440"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="422" bodyend="445"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga3846194d9f254196d99b9001cc2c1297" compoundref="xnvm__efuse__common_8h" startline="57">XNVM_EFUSE_CTRL_WR_UNLOCKED</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3fa0a7b61dbaa0bd35d5fd250ee8aade" compoundref="spartanup_2xnvm__efuse_8h" startline="357">XNVM_EFUSE_ERR_UNLOCK</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga3846194d9f254196d99b9001cc2c1297" compoundref="xnvm__efuse__common_8h" startline="64">XNVM_EFUSE_CTRL_WR_UNLOCKED</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3fa0a7b61dbaa0bd35d5fd250ee8aade" compoundref="spartanup_2xnvm__efuse_8h" startline="358">XNVM_EFUSE_ERR_UNLOCK</references>
         <references refid="xnvm__efuse__common__hw_8h_1a620e3107f801b63ee3907852de388049" compoundref="xnvm__efuse__common__hw_8h" startline="105">XNVM_EFUSE_WR_LOCK_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a27d922d261bbb270c7ea7bff131d0ec8" compoundref="xnvm__efuse__common__hw_8h" startline="176">XNVM_EFUSE_WR_UNLOCK_PASSCODE</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga0c84ed3d6e4ccaf1b93d6eee4410f81a" compoundref="spartanup_2xnvm__efuse_8h" startline="138">XNVM_EFUSE_WRITE_UNLOCKED</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="563" endline="626">XNvm_EfuseCheckAesKeyCrc</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="xnvm__efuse__common__hw_8h_1a0bda8aa1bba04fc7c33209a2823c6aa9" compoundref="xnvm__efuse__common__hw_8h" startline="187">XNVM_EFUSE_WR_UNLOCK_VAL</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga0c84ed3d6e4ccaf1b93d6eee4410f81a" compoundref="spartanup_2xnvm__efuse_8h" startline="139">XNVM_EFUSE_WRITE_UNLOCKED</references>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="spartanup_2xnvm__utils_8c" startline="568" endline="631">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga07f1dca511ab0d8e815069634ccc305c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -579,40 +577,19 @@ This function zeroizes the memory and verifies that the memory has been correctl
 <para><itemizedlist>
 <listitem><para>Unlock eFuse controller by writing into WR_LOCK_REG</para></listitem><listitem><para>Set Read mode and return XST_FAILURE on failure</para></listitem><listitem><para>Initialize eFuse controller timers with validated frequency by writing into registers(tpgm, trd, tsu_h_ps, tsu_h_ps_cs, tsu_h_cs)</para></listitem><listitem><para>Enable programming of Xilinx reserved eFuse</para></listitem><listitem><para>Check for T bits enabled and return XNVM_EFUSE_ERR_PGM_TBIT_PATTERN on failure</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="264" bodyend="309"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="269" bodyend="314"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="70">XNVM_EFUSE_MODE_PGM</references>
+        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="75">XNVM_EFUSE_MODE_PGM</references>
         <references refid="xnvm__efuse__common__hw_8h_1a21fa5c8fafdcff3e64fd7903cf6f4bbb" compoundref="xnvm__efuse__common__hw_8h" startline="141">XNVM_EFUSE_TEST_CTRL_REG_OFFSET</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="458" endline="483">XNvm_EfuseCheckForTBits</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="257" endline="271">XNvm_EfuseEnableProgramming</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" compoundref="xnvm__efuse__common_8c" startline="335" endline="381">XNvm_EfuseInitTimers</references>
-        <references refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="187" endline="234">XNvm_EfuseSetReadMode</references>
-        <references refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="417" endline="440">XNvm_EfuseUnlockController</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga1180dbb45b4f670e0e34633c8f8eec65" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="2915" endline="2966">XNvm_EfuseCacheLoadNPrgmProtectionBits</referencedby>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga475005d64d5d8d97dae539743f7793b9" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="256" endline="328">XNvm_EfuseWriteAesKey</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga10e7c8ba2f592b3cbd00323d300c1314" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1737" endline="1788">XNvm_EfuseWriteDisableInplacePlmUpdate</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1611" endline="1720">XNvm_EfuseWriteDmeRevoke</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c6a62d77c7a495ffaf45390f771dc65" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1522" endline="1591">XNvm_EfuseWriteDmeUserKey</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga9b518b5753573d6f65ba1d15c94fce86" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1270" endline="1340">XNvm_EfuseWriteFipsInfo</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga99b50ea3f231e5b81fd8d3e944daa3ff" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="452" endline="525">XNvm_EfuseWriteIv</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="838" endline="903">XNvm_EfuseWriteOffChipRevokeID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga5093d8298f30653879f3f0f3023029bd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="352" endline="425">XNvm_EfuseWritePpkHash</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="2333" endline="2417">XNvm_EfuseWritePufSecCtrl</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="739" endline="819">XNvm_EfuseWriteRevocationID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+        <references refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="462" endline="483">XNvm_EfuseCheckForTBits</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="261" endline="275">XNvm_EfuseEnableProgramming</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" compoundref="xnvm__efuse__common_8c" startline="339" endline="385">XNvm_EfuseInitTimers</references>
+        <references refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="191" endline="238">XNvm_EfuseSetReadMode</references>
+        <references refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="422" endline="445">XNvm_EfuseUnlockController</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4912b083ba65dccd383b7dffa558c786" compoundref="xnvm__efuse__engine_8c" startline="79" endline="98">XNvm_EfuseEngineOpen</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="129" endline="303">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="854" endline="1010">XNvm_EfuseWritePuf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -635,7 +612,7 @@ This function zeroizes the memory and verifies that the memory has been correctl
 <para><itemizedlist>
 <listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Reset Read mode from margin read mode by writing the EFUSE_CFG_REG</para></listitem><listitem><para>Read EFUSE_CFG_REG register.</para></listitem><listitem><para>Reset read mode from margin read mode by writing the EFUSE_CFG_REG.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="199" bodyend="217"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="204" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -658,7 +635,7 @@ This function zeroizes the memory and verifies that the memory has been correctl
 <para><itemizedlist>
 <listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Disable eFuse program mode by writing EFUSE_CFG_REG register and return XST_FAILURE on failure</para></listitem><listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Disable eFuse program mode by writing EFUSE_CFG_REG register</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="170" bodyend="188"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="175" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__util__apis_1ga5045f5d1d94086673d5e9c801e863108" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -699,10 +676,7 @@ This function zeroizes the memory and verifies that the memory has been correctl
 <para><itemizedlist>
 <listitem><para>Validate the Key pointer, return XST_INVALID_PARAM if it is NULL.</para></listitem><listitem><para>Validate the key length, return XST_INVALID_PARAM if it is not supported.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_utils.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_utils.c" bodystart="188" bodyend="211"/>
-        <references refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga358c030ad147484ce163feb5216aeed8" compoundref="xilnvm__efuse__spartan__ultrascale__plus__example_8c" startline="66">XNVM_128_BITS_AES_KEY_LEN_IN_CHARS</references>
-        <references refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" compoundref="xilnvm__efuse__spartan__ultrascale__plus__example_8c" startline="62">XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</references>
-        <references refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gae4c7451093c061675e604ae3426242a3" compoundref="xilnvm__efuse__spartan__ultrascale__plus__example_8c" startline="69">XNVM_MAX_AES_KEY_LEN_IN_CHARS</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_utils.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_utils.c" bodystart="189" bodyend="213"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

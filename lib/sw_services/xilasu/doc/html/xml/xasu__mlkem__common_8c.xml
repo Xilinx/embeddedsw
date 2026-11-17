@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__mlkem__common_8c" kind="file">
+    <compoundname>xasu_mlkem_common.c</compoundname>
+    <includes refid="xasu__mlkem__common_8h" local="yes">xasu_mlkem_common.h</includes>
+    <includes refid="xasu__keymanager__common_8h" local="yes">xasu_keymanager_common.h</includes>
+    <incdepgraph>
+      <node id="1065">
+        <label>xasu_mlkeminfo.h</label>
+        <link refid="xasu__mlkeminfo_8h"/>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1066" relation="include">
+        </childnode>
+      </node>
+      <node id="1071">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1066" relation="include">
+        </childnode>
+      </node>
+      <node id="1069">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1066">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1067">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1068" relation="include">
+        </childnode>
+      </node>
+      <node id="1062">
+        <label>xasu_mlkem_common.c</label>
+        <link refid="xasu_mlkem_common.c"/>
+        <childnode refid="1063" relation="include">
+        </childnode>
+        <childnode refid="1067" relation="include">
+        </childnode>
+      </node>
+      <node id="1063">
+        <label>xasu_mlkem_common.h</label>
+        <link refid="xasu__mlkem__common_8h"/>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1065" relation="include">
+        </childnode>
+      </node>
+      <node id="1064">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1068">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1069" relation="include">
+        </childnode>
+        <childnode refid="1070" relation="include">
+        </childnode>
+        <childnode refid="1071" relation="include">
+        </childnode>
+        <childnode refid="1066" relation="include">
+        </childnode>
+      </node>
+      <node id="1070">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1069" relation="include">
+        </childnode>
+        <childnode refid="1066" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemValidateParams</definition>
+        <argsstring>(const XAsu_MlkemEncapsDecapsParams *MlkemParamsPtr)</argsstring>
+        <name>XAsu_MlkemValidateParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> *</type>
+          <declname>MlkemParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the ML-KEM encapsulation/decapsulation parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MlkemParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> structure which holds the ML-KEM encapsulation/decapsulation parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of ML-KEM parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ML-KEM params pointer.</para><para>Validate the parameter set against the FIPS 203 approved sets.</para><para>Validate ciphertext address, which is the output for encaps and the input for decaps.</para><para>Validate the shared secret address and buffer length, which is an output of both operations and is 32 bytes for every parameter set.</para><para>Validate that exactly one of KeyAddr or KeyId is provided, and that a vault sourced key carries no length.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" bodystart="56" bodyend="97"/>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" compoundref="xasu__mlkeminfo_8h" startline="107">XAsu_MlkemEncapsDecapsParams::CtAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" compoundref="xasu__mlkeminfo_8h" startline="105">XAsu_MlkemEncapsDecapsParams::KeyAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" compoundref="xasu__mlkeminfo_8h" startline="112">XAsu_MlkemEncapsDecapsParams::KeyId</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" compoundref="xasu__mlkeminfo_8h" startline="109">XAsu_MlkemEncapsDecapsParams::KeyLen</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" compoundref="xasu__mlkeminfo_8h" startline="114">XAsu_MlkemEncapsDecapsParams::ParamSet</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" compoundref="xasu__mlkeminfo_8h" startline="108">XAsu_MlkemEncapsDecapsParams::SharedSecretAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" compoundref="xasu__mlkeminfo_8h" startline="111">XAsu_MlkemEncapsDecapsParams::SharedSecretLen</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" compoundref="xasu__keymanager__common_8c" startline="598" endline="622">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" compoundref="xasu__mlkeminfo_8h" startline="91">XASU_MLKEM_1024</references>
+        <references refid="group__xasu__common__defs_1ga624cf0e1e83f263420f0bc428e61e25c" compoundref="xasu__mlkeminfo_8h" startline="62">XASU_MLKEM_SHARED_SECRET_LEN</references>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga009b4223afa377d6baad06b99a43c326" compoundref="xasu__mlkem_8c" startline="186" endline="224">XAsu_MlkemDecapsulate</referencedby>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga73b1f809f2527aeb77ed904a05321033" compoundref="xasu__mlkem_8c" startline="61" endline="99">XAsu_MlkemEncapsulate</referencedby>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemValidateEncapsDerandParams</definition>
+        <argsstring>(const XAsu_MlkemEncapsDerandParams *MlkemParamsPtr)</argsstring>
+        <name>XAsu_MlkemValidateEncapsDerandParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> *</type>
+          <declname>MlkemParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the parameters of the ML-KEM encapsulation which takes the message m from the request, an algorithm validation only service. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MlkemParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> structure which holds the ML-KEM encapsulation parameters and the message m.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of ML-KEM parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ML-KEM params pointer.</para><para>Validate the parameters this command shares with encapsulation.</para><para>The encapsulation key comes from KeyAddr only, as the key vault is not reachable from a validation command.</para><para>m must be supplied: a zero address is an error here rather than a request to draw from the TRNG.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" bodystart="112" bodyend="151"/>
+        <references refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" compoundref="xasu__mlkeminfo_8h" startline="128">XAsu_MlkemEncapsDerandParams::EncapsParams</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" compoundref="xasu__mlkeminfo_8h" startline="105">XAsu_MlkemEncapsDecapsParams::KeyAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" compoundref="xasu__mlkeminfo_8h" startline="112">XAsu_MlkemEncapsDecapsParams::KeyId</references>
+        <references refid="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" compoundref="xasu__mlkeminfo_8h" startline="130">XAsu_MlkemEncapsDerandParams::SeedAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" compoundref="xasu__mlkeminfo_8h" startline="132">XAsu_MlkemEncapsDerandParams::SeedLen</references>
+        <references refid="group__xasu__common__defs_1gaaef1d2229646653ed1a2e26cba386897" compoundref="xasu__mlkeminfo_8h" startline="66">XASU_MLKEM_ENCAPS_SEED_LEN</references>
+        <references refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</references>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga97590390a73ef98d4f689ec13904be9a" compoundref="xasu__mlkem_8c" startline="123" endline="161">XAsu_MlkemEncapsulateDerand</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ML-KEM function definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/21/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/************************************<sp/>Include<sp/>Files<sp/>**********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__mlkem__common_8h" kindref="compound">xasu_mlkem_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__keymanager__common_8h" kindref="compound">xasu_keymanager_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Constant<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Macros<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Type<sp/>Definitions<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Variable<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**********************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="56" refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" kindref="member">XAsu_MlkemValidateParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref><sp/>*MlkemParamsPtr)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MlkemParamsPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" kindref="member">ParamSet</ref><sp/>&gt;<sp/>(u8)<ref refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" kindref="member">XASU_MLKEM_1024</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" kindref="member">CtAddr</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" kindref="member">SharedSecretAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" kindref="member">SharedSecretLen</ref><sp/>&lt;<sp/><ref refid="group__xasu__common__defs_1ga624cf0e1e83f263420f0bc428e61e25c" kindref="member">XASU_MLKEM_SHARED_SECRET_LEN</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" kindref="member">XAsu_KmValidateKeyAddrNdKeyId</ref>(MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" kindref="member">KeyAddr</ref>,<sp/>MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" kindref="member">KeyLen</ref>,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" kindref="member">KeyId</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="112" refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" kindref="member">XAsu_MlkemValidateEncapsDerandParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref><sp/>*MlkemParamsPtr)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MlkemParamsPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" kindref="member">XAsu_MlkemValidateParams</ref>(&amp;MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" kindref="member">EncapsParams</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" kindref="member">EncapsParams</ref>.<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" kindref="member">KeyAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" kindref="member">EncapsParams</ref>.<ref refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" kindref="member">KeyId</ref><sp/>!=<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" kindref="member">SeedAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MlkemParamsPtr-&gt;<ref refid="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" kindref="member">SeedLen</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaaef1d2229646653ed1a2e26cba386897" kindref="member">XASU_MLKEM_ENCAPS_SEED_LEN</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c"/>
+  </compounddef>
+</doxygen>

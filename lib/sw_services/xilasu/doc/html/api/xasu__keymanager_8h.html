@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -114,6 +115,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.0   ss   11/25/25 Initial release
       yog  01/28/26 Added RSA key pair generation client API.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xasu__keymanagerinfo_8h.html">xasu_keymanagerinfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xasu__slhdsainfo_8h.html">xasu_slhdsainfo.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xasu__client_8h.html">xasu_client.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -136,6 +138,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gab7094e9eae7536f433977773199a0ded"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___key_manager_params.html">XAsu_KeyManagerParams</a> *KmSubVaultParamPtr)</td></tr>
 <tr class="memdesc:gab7094e9eae7536f433977773199a0ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to perform RSA key pair generation for the requested subsystem on the provided key size.  <a href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">More...</a><br/></td></tr>
 <tr class="separator:gab7094e9eae7536f433977773199a0ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7119eabec9b842d5ba1b2a1537fad5fe"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#ga7119eabec9b842d5ba1b2a1537fad5fe">XAsu_KmGenerateMldsaKeyPair</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html">XAsu_KeyManagerPqcKeyGenParams</a> *KmSubVaultParamPtr)</td></tr>
+<tr class="memdesc:ga7119eabec9b842d5ba1b2a1537fad5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to perform ML-DSA key pair generation for the requested subsystem.  <a href="group__xasu__keymanager__client__apis.html#ga7119eabec9b842d5ba1b2a1537fad5fe">More...</a><br/></td></tr>
+<tr class="separator:ga7119eabec9b842d5ba1b2a1537fad5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga762ad88c777a9ede2c461e5368304c37"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#ga762ad88c777a9ede2c461e5368304c37">XAsu_KmGenerateMlkemKeyPair</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html">XAsu_KeyManagerPqcKeyGenParams</a> *KmSubVaultParamPtr)</td></tr>
+<tr class="memdesc:ga762ad88c777a9ede2c461e5368304c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to perform ML-KEM key pair generation for the requested subsystem.  <a href="group__xasu__keymanager__client__apis.html#ga762ad88c777a9ede2c461e5368304c37">More...</a><br/></td></tr>
+<tr class="separator:ga762ad88c777a9ede2c461e5368304c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafec06548cd5090f8235c96b54f062e9c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#gafec06548cd5090f8235c96b54f062e9c">XAsu_KmGenerateSlhdsaKeyPair</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html">XAsu_SlhdsaKeyGenParams</a> *KeyGenParamsPtr)</td></tr>
+<tr class="memdesc:gafec06548cd5090f8235c96b54f062e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to perform SLH-DSA key pair generation for the requested subsystem.  <a href="group__xasu__keymanager__client__apis.html#gafec06548cd5090f8235c96b54f062e9c">More...</a><br/></td></tr>
+<tr class="separator:gafec06548cd5090f8235c96b54f062e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3705ea1001da546f3fc6f3b3721a2035"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#ga3705ea1001da546f3fc6f3b3721a2035">XAsu_KmGenerateEccKeyPair</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___key_manager_params.html">XAsu_KeyManagerParams</a> *KmSubVaultParamPtr)</td></tr>
 <tr class="memdesc:ga3705ea1001da546f3fc6f3b3721a2035"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to perform ECC key pair generation for the requested subsystem on the provided key size.  <a href="group__xasu__keymanager__client__apis.html#ga3705ea1001da546f3fc6f3b3721a2035">More...</a><br/></td></tr>
 <tr class="separator:ga3705ea1001da546f3fc6f3b3721a2035"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,6 +162,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6e184f6a768b418ae0ddd229bce85baa"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#ga6e184f6a768b418ae0ddd229bce85baa">XAsu_KmImportKeyVault</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___key_vault_transfer_params.html">XAsu_KeyVaultTransferParams</a> *ImportParams)</td></tr>
 <tr class="memdesc:ga6e184f6a768b418ae0ddd229bce85baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to import the key vault.  <a href="group__xasu__keymanager__client__apis.html#ga6e184f6a768b418ae0ddd229bce85baa">More...</a><br/></td></tr>
 <tr class="separator:ga6e184f6a768b418ae0ddd229bce85baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8d30b39e729d3137b4165a6ffb54da9"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#gaf8d30b39e729d3137b4165a6ffb54da9">XAsu_KmSetEpochTime</a> (XAsu_ClientParams *ClientParamPtr, u32 CurrentEpochTime)</td></tr>
+<tr class="memdesc:gaf8d30b39e729d3137b4165a6ffb54da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to set the epoch time.  <a href="group__xasu__keymanager__client__apis.html#gaf8d30b39e729d3137b4165a6ffb54da9">More...</a><br/></td></tr>
+<tr class="separator:gaf8d30b39e729d3137b4165a6ffb54da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd1ebc0c0c12895775a2073502c71e6e"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__client__apis.html#gacd1ebc0c0c12895775a2073502c71e6e">XAsu_KmXorKeys</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___km_xor_key_params.html">XAsu_KmXorKeyParams</a> *XorParamsPtr)</td></tr>
+<tr class="memdesc:gacd1ebc0c0c12895775a2073502c71e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a command to ASUFW to generate a key by combining two AES key splits using XOR and to store the combined key in the specified key vault slot, or in the first free slot when none is requested.  <a href="group__xasu__keymanager__client__apis.html#gacd1ebc0c0c12895775a2073502c71e6e">More...</a><br/></td></tr>
+<tr class="separator:gacd1ebc0c0c12895775a2073502c71e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

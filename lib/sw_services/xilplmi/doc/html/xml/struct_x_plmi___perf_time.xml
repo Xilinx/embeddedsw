@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_plmi___perf_time" kind="struct" prot="public">
     <compoundname>XPlmi_PerfTime</compoundname>
+    <includes local="no">xplmi_proc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -14,7 +15,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="660" endline="735">XPlmi_DmaXfr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="402" endline="513">XPlmi_GenericMaskPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" compoundref="xplmi__proc_8c" startline="242" endline="250">XPlmi_PrintPlmTimeStamp</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" compoundref="xplmi__proc_8c" startline="220" endline="235">XPlmi_PrintRomTime</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="202" endline="280">XPlmi_TaskDispatchLoop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -27,14 +34,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="660" endline="735">XPlmi_DmaXfr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="402" endline="513">XPlmi_GenericMaskPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" compoundref="xplmi__proc_8c" startline="242" endline="250">XPlmi_PrintPlmTimeStamp</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" compoundref="xplmi__proc_8c" startline="220" endline="235">XPlmi_PrintRomTime</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="202" endline="280">XPlmi_TaskDispatchLoop</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Performance-measurement timestamp split into integer and fractional milliseconds. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="98" bodyend="101"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="97" bodyend="100"/>
     <listofallmembers>
       <member refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" prot="public" virt="non-virtual"><scope>XPlmi_PerfTime</scope><name>TPerfMs</name></member>
       <member refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" prot="public" virt="non-virtual"><scope>XPlmi_PerfTime</scope><name>TPerfMsFrac</name></member>

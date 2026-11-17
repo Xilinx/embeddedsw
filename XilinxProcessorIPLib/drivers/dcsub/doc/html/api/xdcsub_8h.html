@@ -120,6 +120,9 @@ $(document).ready(function(){initNavTree('xdcsub_8h.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a65e6a502a143e97cc356e8fbaa027bdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdcsub_8h.html#a65e6a502a143e97cc356e8fbaa027bdb">XDCSUB_AUDIO_FREQ_MAX</a>&#160;&#160;&#160;XDC_AUD_FREQ_192K</td></tr>
+<tr class="memdesc:a65e6a502a143e97cc356e8fbaa027bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest audio sample frequency selector supported by the DC.  <a href="#a65e6a502a143e97cc356e8fbaa027bdb">More...</a><br/></td></tr>
+<tr class="separator:a65e6a502a143e97cc356e8fbaa027bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae597de7272868cb833836a0ac24d526e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdcsub_8h.html#ae597de7272868cb833836a0ac24d526e">XDCSUB_OPMODE_FUNCTIONAL</a>&#160;&#160;&#160;(0U)</td></tr>
 <tr class="memdesc:ae597de7272868cb833836a0ac24d526e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The DC Subsystem can work in functional or in bypass mode.  <a href="#ae597de7272868cb833836a0ac24d526e">More...</a><br/></td></tr>
 <tr class="separator:ae597de7272868cb833836a0ac24d526e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -309,6 +312,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8c1912d44869a6693d0b3f9ef4afd68e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdcsub_8h.html#a8c1912d44869a6693d0b3f9ef4afd68e">XDcSub_SetAudioSegmentedMode</a> (XDcSub *InstancePtr, u8 AudSegmentedMode)</td></tr>
 <tr class="memdesc:a8c1912d44869a6693d0b3f9ef4afd68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Audio Segmented Mode.  <a href="#a8c1912d44869a6693d0b3f9ef4afd68e">More...</a><br/></td></tr>
 <tr class="separator:a8c1912d44869a6693d0b3f9ef4afd68e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9902e784683b8896b6aab08d9e992b4f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdcsub_8h.html#a9902e784683b8896b6aab08d9e992b4f">XDcSub_SetAudioSampleFrequency</a> (XDcSub *InstancePtr, <a class="el" href="xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d">XDc_AudSampleFreq</a> Freq, <a class="el" href="xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1">XDc_AudChannels</a> ActiveChannels)</td></tr>
+<tr class="memdesc:a9902e784683b8896b6aab08d9e992b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the audio channel status sample frequency and the active channel count so the audio sink decodes the sample rate selected by the application.  <a href="#a9902e784683b8896b6aab08d9e992b4f">More...</a><br/></td></tr>
+<tr class="separator:a9902e784683b8896b6aab08d9e992b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a617cbef68ae080bc196437188beaf31e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdcsub_8h.html#a617cbef68ae080bc196437188beaf31e">XDcSub_EnableSdp</a> (XDcSub *InstancePtr)</td></tr>
 <tr class="memdesc:a617cbef68ae080bc196437188beaf31e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enable DC SDP.  <a href="#a617cbef68ae080bc196437188beaf31e">More...</a><br/></td></tr>
 <tr class="separator:a617cbef68ae080bc196437188beaf31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -326,6 +332,22 @@ Variables</h2></td></tr>
 <tr class="separator:af850bf1b9167e0e232110f53eac9e4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a65e6a502a143e97cc356e8fbaa027bdb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDCSUB_AUDIO_FREQ_MAX&#160;&#160;&#160;XDC_AUD_FREQ_192K</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Highest audio sample frequency selector supported by the DC. </p>
+
+<p>Referenced by <a class="el" href="mmi__dpdc__example_8h.html#a5615c1a208b9f4897040f89bcf5b4f6c">XDpDc_GetAudSampleRateHz()</a>, and <a class="el" href="mmi__dpdc__menus_8h.html#a4478f802d7e122a29e231d39d32c1147">XDpDc_MenuLoop()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6cd078ee51178b2ae54f203929324e5f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -462,7 +484,7 @@ Variables</h2></td></tr>
 
 <p>Bypass mode makes DC in pass through mode. </p>
 
-<p>Referenced by <a class="el" href="mmi__dpdc__menus_8h.html#a23e0f7f5b66aae7b68eab9d3c904657d">XDpDc_InitConfigDefaults()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a966b628e8e50ddba4369c08bdff05de2">XDpDc_ConfigureResolution()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a6ed49c1ca08ecf19af7bdd721bbaa33f">XDpDc_DisplayConfig()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#ae32df605f124dbf0d0b288667d6fd6a3">XDpDc_GetHeight()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a57a65e828a545274ec16968ad80e266d">XDpDc_GetWidth()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a23e0f7f5b66aae7b68eab9d3c904657d">XDpDc_InitConfigDefaults()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a1ed6edf16d317c1b2660d90f7211050c">XDpDc_MainHelpMenu()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a4478f802d7e122a29e231d39d32c1147">XDpDc_MenuLoop()</a>, <a class="el" href="mmi__dp__init_8h.html#a57a8c2b47b0449d74aa22ca0f5ca7145">XDpDc_PrepareVideoStream()</a>, <a class="el" href="mmi__dpdc__menus_8h.html#a718d1926b279cead6fa483e84aae6225">XDpDc_ResolutionHelpMenu()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -1293,6 +1315,53 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_FAILURE. </dd></dl>
 
 <p>References <a class="el" href="group__mmi__dc.html#ga9096a3a44b617e19831f882b6550215a">XDc_SetAudioChCtrl()</a>.</p>
+
+<p>Referenced by <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9902e784683b8896b6aab08d9e992b4f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDcSub_SetAudioSampleFrequency </td>
+          <td>(</td>
+          <td class="paramtype">XDcSub *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d">XDc_AudSampleFreq</a>&#160;</td>
+          <td class="paramname"><em>Freq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1">XDc_AudChannels</a>&#160;</td>
+          <td class="paramname"><em>ActiveChannels</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the audio channel status sample frequency and the active channel count so the audio sink decodes the sample rate selected by the application. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XDcSub instance. </td></tr>
+    <tr><td class="paramname">Freq</td><td>selects the sampling frequency. </td></tr>
+    <tr><td class="paramname">ActiveChannels</td><td>is the active audio channel count.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_INVALID_PARAM. </dd></dl>
+
+<p>References <a class="el" href="group__mmi__dc.html#ga9913649f45ee47e25f096d57fe0ee5cc">XDc_SetAudioChannelStatus()</a>.</p>
 
 <p>Referenced by <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>.</p>
 

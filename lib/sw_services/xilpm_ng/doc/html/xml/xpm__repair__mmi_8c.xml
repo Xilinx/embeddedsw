@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__repair__mmi_8c" kind="file">
+    <compoundname>xpm_repair_mmi.c</compoundname>
+    <includes refid="xpm__repair_8h" local="yes">xpm_repair.h</includes>
+    <incdepgraph>
+      <node id="3797">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3798" relation="include">
+        </childnode>
+        <childnode refid="3799" relation="include">
+        </childnode>
+      </node>
+      <node id="3809">
+        <label>xpm_device.h</label>
+        <childnode refid="3803" relation="include">
+        </childnode>
+        <childnode refid="3802" relation="include">
+        </childnode>
+        <childnode refid="3810" relation="include">
+        </childnode>
+        <childnode refid="3811" relation="include">
+        </childnode>
+      </node>
+      <node id="3793">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3788">
+        <label>xpm_repair_mmi.c</label>
+        <link refid="xpm_repair_mmi.c"/>
+        <childnode refid="3789" relation="include">
+        </childnode>
+      </node>
+      <node id="3795">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3792" relation="include">
+        </childnode>
+      </node>
+      <node id="3800">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="3801" relation="include">
+        </childnode>
+        <childnode refid="3790" relation="include">
+        </childnode>
+        <childnode refid="3807" relation="include">
+        </childnode>
+        <childnode refid="3808" relation="include">
+        </childnode>
+        <childnode refid="3804" relation="include">
+        </childnode>
+      </node>
+      <node id="3799">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3808">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="3794">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3791">
+        <label>xpm_common.h</label>
+        <childnode refid="3792" relation="include">
+        </childnode>
+        <childnode refid="3793" relation="include">
+        </childnode>
+        <childnode refid="3794" relation="include">
+        </childnode>
+        <childnode refid="3795" relation="include">
+        </childnode>
+        <childnode refid="3796" relation="include">
+        </childnode>
+        <childnode refid="3797" relation="include">
+        </childnode>
+      </node>
+      <node id="3805">
+        <label>xpm_rail.h</label>
+        <childnode refid="3792" relation="include">
+        </childnode>
+        <childnode refid="3802" relation="include">
+        </childnode>
+        <childnode refid="3806" relation="include">
+        </childnode>
+      </node>
+      <node id="3796">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3811">
+        <label>xpm_reset.h</label>
+        <childnode refid="3803" relation="include">
+        </childnode>
+        <childnode refid="3791" relation="include">
+        </childnode>
+      </node>
+      <node id="3803">
+        <label>xpm_node.h</label>
+        <childnode refid="3798" relation="include">
+        </childnode>
+        <childnode refid="3792" relation="include">
+        </childnode>
+        <childnode refid="3804" relation="include">
+        </childnode>
+        <childnode refid="3791" relation="include">
+        </childnode>
+      </node>
+      <node id="3790">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="3802">
+        <label>xpm_power.h</label>
+        <childnode refid="3797" relation="include">
+        </childnode>
+        <childnode refid="3803" relation="include">
+        </childnode>
+      </node>
+      <node id="3792">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3810">
+        <label>xpm_clock.h</label>
+        <childnode refid="3791" relation="include">
+        </childnode>
+        <childnode refid="3803" relation="include">
+        </childnode>
+        <childnode refid="3802" relation="include">
+        </childnode>
+      </node>
+      <node id="3798">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3801">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="3802" relation="include">
+        </childnode>
+        <childnode refid="3805" relation="include">
+        </childnode>
+      </node>
+      <node id="3789">
+        <label>xpm_repair.h</label>
+        <childnode refid="3790" relation="include">
+        </childnode>
+        <childnode refid="3791" relation="include">
+        </childnode>
+        <childnode refid="3800" relation="include">
+        </childnode>
+        <childnode refid="3809" relation="include">
+        </childnode>
+      </node>
+      <node id="3807">
+        <label>xcframe.h</label>
+      </node>
+      <node id="3804">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3806">
+        <label>xpm_config.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__repair__mmi_8c_1a2b4a872046d017308f1b7b75545d4bd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Mmi</definition>
+        <argsstring>(u32 *EfuseTagAddr, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Mmi</name>
+        <param>
+          <type>u32 *</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_mmi.c" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_mmi.c" bodystart="11" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__repair__mmi_8c_1ac38eaf786f85c996ba4afb7cdd8eecb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_Mmi_Gtyp</definition>
+        <argsstring>(u32 *EfuseTagAddr, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_Mmi_Gtyp</name>
+        <param>
+          <type>u32 *</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_mmi.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_mmi.c" bodystart="80" bodyend="126"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*<sp/><sp/>File<sp/>name:<sp/>xpm_repair_mmi.c</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>THIS<sp/>FILE<sp/>IS<sp/>DESIGNED<sp/>BY<sp/>GOQ<sp/>FIRMWARE<sp/>TEAM<sp/>FOR<sp/>PLM<sp/>SPECIALLY</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>It<sp/>is<sp/>used<sp/>for<sp/>mmi<sp/>and<sp/>mmi_gtyp<sp/>module<sp/>repair<sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_repair.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">XStatus<sp/>XPmRepair_Mmi(u32<sp/>*<sp/>EfuseTagAddr,<sp/>u32<sp/>*<sp/>TagDataAddr)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>*EfuseTagCursor<sp/>=<sp/>EfuseTagAddr;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagIdWd<sp/>=<sp/>*EfuseTagCursor++;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagSize<sp/>=<sp/>(TagIdWd<sp/>&amp;<sp/>PMC_EFUSE_BISR_SIZE_MASK)&gt;&gt;PMC_EFUSE_BISR_SIZE_SHIFT;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>PassMask;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>(u64)MMI_SLCR_BISR_CACHE_DATA_0;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(TagSize<sp/>&gt;<sp/>32U){<sp/></highlight><highlight class="comment">/*Sanity<sp/>check<sp/>in<sp/>case<sp/>user<sp/>enters<sp/>incorrect<sp/>data<sp/>size*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>writing<sp/>protection<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_Out32(MMI_SLCR_WPROTP,<sp/>0U);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard(EfuseTagCursor,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pulse<sp/>test<sp/>clr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(MMI_SLCR_BISR_CACHE_CTRL,<sp/>MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK,<sp/>MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(MMI_SLCR_BISR_CACHE_CTRL,<sp/>MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK,<sp/>0U);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_RMW32(MMI_SLCR_BISR_CACHE_CTRL,<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GPU_SC3_MASK</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GPU_SC2_MASK</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GPU_SC1_MASK</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GPU_SC0_MASK</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GPU_CG1_MASK</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_GPU_CG0_MASK</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_CTRL_TRIGGER_PCIE_UDH_INTWRAP_MASK</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>SET_ALLBITS_TO_ONE);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(MMI_SLCR_BISR_CACHE_STATUS,<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GPU_SC3_MASK</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GPU_SC2_MASK</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GPU_SC1_MASK</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GPU_SC0_MASK</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GPU_CG1_MASK</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_GPU_CG0_MASK</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_DONE_PCIE_UDH_INTWRAP_MASK</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>BISR<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>PassMask<sp/>=<sp/>(MMI_SLCR_BISR_CACHE_STATUS_PASS_GLOBAL_MASK</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_GPU_SC3_MASK</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_GPU_SC2_MASK</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_GPU_SC1_MASK</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_GPU_SC0_MASK</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_GPU_CG1_MASK</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_GPU_CG0_MASK</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>MMI_SLCR_BISR_CACHE_STATUS_PASS_PCIE_UDH_INTWRAP_MASK);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XPm_In32(MMI_SLCR_BISR_CACHE_STATUS);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegValue<sp/>&amp;<sp/>PassMask)<sp/>!=<sp/>PassMask)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>write<sp/>protect<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_Out32(MMI_SLCR_WPROTP,<sp/>1U);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">XStatus<sp/>XPmRepair_Mmi_Gtyp(u32<sp/>*<sp/>EfuseTagAddr,<sp/>u32<sp/>*<sp/>TagDataAddr)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>*EfuseTagCursor<sp/>=<sp/>EfuseTagAddr;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagIdWd<sp/>=<sp/>*EfuseTagCursor++;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagSize<sp/>=<sp/>(TagIdWd<sp/>&amp;<sp/>PMC_EFUSE_BISR_SIZE_MASK)&gt;&gt;PMC_EFUSE_BISR_SIZE_SHIFT;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>PassMask;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=<sp/>(u64)MMI_GTYP_CFG_BISR_CACHE_DATA_0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(TagSize<sp/>&gt;<sp/>2U){<sp/></highlight><highlight class="comment">/*Sanity<sp/>check<sp/>in<sp/>case<sp/>user<sp/>enters<sp/>incorrect<sp/>data<sp/>size*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>writing<sp/>protection<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_LOCK,<sp/>0xF9E8D7C6U);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pulse<sp/>test<sp/>clr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_MASK,<sp/>MMI_GTYP_CFG_REG_PCSR_MASK_BISR_TEST_CLR_MASK);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_CONTROL,<sp/>SET_ALLBITS_TO_ONE);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_CONTROL,<sp/>0U);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>repair<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard(EfuseTagCursor,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>BISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_MASK,<sp/>MMI_GTYP_CFG_REG_PCSR_MASK_BISR_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_CONTROL,<sp/>SET_ALLBITS_TO_ONE);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>BISR<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_PollForMask(MMI_GTYP_CFG_REG_PCSR_STATUS,<sp/>MMI_GTYP_CFG_REG_PCSR_STATUS_BISR_DONE_MASK</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>BISR<sp/>pass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>PassMask<sp/>=<sp/>(MMI_GTYP_CFG_REG_PCSR_STATUS_BISR_PASS_MASK);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>XPm_In32(MMI_GTYP_CFG_REG_PCSR_STATUS);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegValue<sp/>&amp;<sp/>PassMask)<sp/>!=<sp/>PassMask)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>write<sp/>protect<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(MMI_GTYP_CFG_REG_PCSR_LOCK,<sp/>0U);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_mmi.c"/>
+  </compounddef>
+</doxygen>

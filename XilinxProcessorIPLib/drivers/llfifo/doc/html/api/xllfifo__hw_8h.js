@@ -35,6 +35,9 @@ var xllfifo__hw_8h =
     [ "XLLF_TDFV_OFFSET", "xllfifo__hw_8h.html#gab77ae26c2fe9b0ac15ebdbf0c6c30960", null ],
     [ "XLLF_TDR_OFFSET", "xllfifo__hw_8h.html#ga5c691ac1237fb77b8e356a7d2b0b8b54", null ],
     [ "XLLF_TLF_OFFSET", "xllfifo__hw_8h.html#gac14e6d7e1116f9a43c0adfbe93422fa7", null ],
+    [ "XLlFifo_print_reg_i", "xllfifo__hw_8h.html#ga01a5e222565f9ccbd6d4d560ffac13b3", null ],
+    [ "XLlFifo_print_reg_o", "xllfifo__hw_8h.html#gaccd84dea11dd4d1e8b267efed7c17a0c", null ],
     [ "XLlFifo_ReadReg", "xllfifo__hw_8h.html#ga7526eab563fa4e0fe8b60474e96afe55", null ],
+    [ "XLlFifo_reg_name", "xllfifo__hw_8h.html#gaf61ed2e41013c8f487f5337e3731014c", null ],
     [ "XLlFifo_WriteReg", "xllfifo__hw_8h.html#gacd283ce73981f7f9eab94f8bb421bc78", null ]
 ];

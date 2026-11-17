@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___power" kind="struct" prot="public">
+    <compoundname>XPm_Power</compoundname>
+    <includes local="no">xpm_power_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_Power::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+<para>Node: Node base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a0e6ac6fbe3a0321d56e650e7bbb4acd3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref> *</type>
+        <definition>XPm_Power* XPm_Power::Parent</definition>
+        <argsstring></argsstring>
+        <name>Parent</name>
+        <briefdescription>
+<para>Parent: Parent node in the power topology. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a62c01d63c532e45e009ad1f91b869edf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Power::UseCount</definition>
+        <argsstring></argsstring>
+        <name>UseCount</name>
+        <briefdescription>
+<para>No. </para>        </briefdescription>
+        <detaileddescription>
+<para>of devices currently using this power node </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1ad614bd542afc648c3eb1ce5694773a83" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Power::WfParentUseCnt</definition>
+        <argsstring></argsstring>
+        <name>WfParentUseCnt</name>
+        <briefdescription>
+<para>Pending use count of the parent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a8a5f743ce20e1249ff4c2a20d62aef7b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_Power::PwrDnLatency</definition>
+        <argsstring></argsstring>
+        <name>PwrDnLatency</name>
+        <briefdescription>
+<para>Latency (in us) for transition to OFF state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a3223d429ee46944e8a0e44afd6684cd0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_Power::PwrUpLatency</definition>
+        <argsstring></argsstring>
+        <name>PwrUpLatency</name>
+        <briefdescription>
+<para>Latency (in us) for transition to ON state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a04ec8e071f6a9865d9537648d0d01746" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_Power::HandleEvent)(XPm_Node *Node, u32 Event)</definition>
+        <argsstring>)(XPm_Node *Node, u32 Event)</argsstring>
+        <name>HandleEvent</name>
+        <briefdescription>
+<para>HandleEvent: Pointer to event handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a45161a5fb2369e6eec2c6f4eac779ce0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Power::PwrUpEnOffset</definition>
+        <argsstring></argsstring>
+        <name>PwrUpEnOffset</name>
+        <briefdescription>
+<para>PSM request power up interrupt enable register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a19713c9afb1ca717accec78fe2660dfe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Power::PwrDwnEnOffset</definition>
+        <argsstring></argsstring>
+        <name>PwrDwnEnOffset</name>
+        <briefdescription>
+<para>PSM request power down interrupt enable register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1ae1f15235b5c87617223d5a2971dfa54d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Power::PwrUpMask</definition>
+        <argsstring></argsstring>
+        <name>PwrUpMask</name>
+        <briefdescription>
+<para>PSM request power up interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a3bcef6f782bb3c102ade375a9b421d1d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Power::PwrDwnMask</definition>
+        <argsstring></argsstring>
+        <name>PwrDwnMask</name>
+        <briefdescription>
+<para>PSM request power down interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a004784c8e3928db92646e0336b5a0a7c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Power::PwrStatOffset</definition>
+        <argsstring></argsstring>
+        <name>PwrStatOffset</name>
+        <briefdescription>
+<para>PSM power state register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_1a9bb644c9290adff9ddce3a425c20726f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Power::PwrStatMask</definition>
+        <argsstring></argsstring>
+        <name>PwrStatMask</name>
+        <briefdescription>
+<para>PSM power state mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_x_pm___power_1aa093b9886a3daa2de545828061a381eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>XPm_Power::SAVE_REGION</definition>
+        <argsstring>(u8 UseCount;u8 WfParentUseCnt;) XPm_Power *Parent</argsstring>
+        <name>SAVE_REGION</name>
+        <param>
+          <type>u8 <ref refid="struct_x_pm___power_1a62c01d63c532e45e009ad1f91b869edf" kindref="member">UseCount</ref>;u8 <ref refid="struct_x_pm___power_1ad614bd542afc648c3eb1ce5694773a83" kindref="member">WfParentUseCnt</ref>;</type>
+        </param>
+        <briefdescription>
+<para>Parent: Parent node in the power topology. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h" line="42" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The power node class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all the power island and power domain classes. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="255">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="256" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="255" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="256">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h" bodystart="36" bodyend="45"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___power_1a04ec8e071f6a9865d9537648d0d01746" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>HandleEvent</name></member>
+      <member refid="struct_x_pm___power_1a1d15cfda6ecfbd27a0c42ce629b14229" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>Node</name></member>
+      <member refid="struct_x_pm___power_1a0e6ac6fbe3a0321d56e650e7bbb4acd3" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>Parent</name></member>
+      <member refid="struct_x_pm___power_1a8a5f743ce20e1249ff4c2a20d62aef7b" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrDnLatency</name></member>
+      <member refid="struct_x_pm___power_1a19713c9afb1ca717accec78fe2660dfe" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrDwnEnOffset</name></member>
+      <member refid="struct_x_pm___power_1a3bcef6f782bb3c102ade375a9b421d1d" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrDwnMask</name></member>
+      <member refid="struct_x_pm___power_1a9bb644c9290adff9ddce3a425c20726f" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrStatMask</name></member>
+      <member refid="struct_x_pm___power_1a004784c8e3928db92646e0336b5a0a7c" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrStatOffset</name></member>
+      <member refid="struct_x_pm___power_1a45161a5fb2369e6eec2c6f4eac779ce0" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrUpEnOffset</name></member>
+      <member refid="struct_x_pm___power_1a3223d429ee46944e8a0e44afd6684cd0" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrUpLatency</name></member>
+      <member refid="struct_x_pm___power_1ae1f15235b5c87617223d5a2971dfa54d" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>PwrUpMask</name></member>
+      <member refid="struct_x_pm___power_1aa093b9886a3daa2de545828061a381eb" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>SAVE_REGION</name></member>
+      <member refid="struct_x_pm___power_1a62c01d63c532e45e009ad1f91b869edf" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>UseCount</name></member>
+      <member refid="struct_x_pm___power_1ad614bd542afc648c3eb1ce5694773a83" prot="public" virt="non-virtual"><scope>XPm_Power</scope><name>WfParentUseCnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

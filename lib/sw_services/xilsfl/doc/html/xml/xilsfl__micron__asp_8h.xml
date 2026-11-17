@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsfl__micron__asp_8h" kind="file">
+    <compoundname>xilsfl_micron_asp.h</compoundname>
+      <sectiondef kind="user-defined">
+      <header>READ / PROGRAM Sector Protection Register</header>
+      <memberdef kind="define" id="group__xilsfl_1ga1213c3a3f9b74a43acf720d5f8da461f" prot="public" static="no">
+        <name>XSFL_MICRON_PROGRAM_SECTOR_PROT_CMD</name>
+        <initializer>0x2CU</initializer>
+        <briefdescription>
+<para>Sector protection program command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gad4f006d883a9ee807fd2b06da20f34f2" prot="public" static="no">
+        <name>XSFL_MICRON_READ_SECTOR_PROT_CMD</name>
+        <initializer>0x2DU</initializer>
+        <briefdescription>
+<para>Sector protection read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Nonvolatile lock reads / writes / bulk erase</header>
+      <memberdef kind="define" id="group__xilsfl_1gac0eaab244d85a09223f60216069e1707" prot="public" static="no">
+        <name>XSFL_MICRON_READ_NV_LOCK_CMD</name>
+        <initializer>0xE2U</initializer>
+        <briefdescription>
+<para>NV lock read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gac086888c7829a6adebd964d74cdac9fa" prot="public" static="no">
+        <name>XSFL_MICRON_WRITE_NV_LOCK_CMD</name>
+        <initializer>0xE3U</initializer>
+        <briefdescription>
+<para>NV lock write command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga894fb3cd03967c0df0982358846b3e31" prot="public" static="no">
+        <name>XSFL_MICRON_ERASE_NV_LOCK_BITS_CMD</name>
+        <initializer>0xE4U</initializer>
+        <briefdescription>
+<para>NV lock bits erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>READ / WRITE / UNLOCK PASSWORD</header>
+      <memberdef kind="define" id="group__xilsfl_1gae2bb5482e311e81b4d4bce10877af7e7" prot="public" static="no">
+        <name>XSFL_MICRON_READ_PASSWORD_CMD</name>
+        <initializer>0x27U</initializer>
+        <briefdescription>
+<para>Password read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga6c40618c75254ee76bc05fc3d1d2e25d" prot="public" static="no">
+        <name>XSFL_MICRON_WRITE_PASSWORD_CMD</name>
+        <initializer>0x28U</initializer>
+        <briefdescription>
+<para>Password write command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1ga8dcc4b8bdfef48b8c25dd084c5edc5bd" prot="public" static="no">
+        <name>XSFL_MICRON_UNLOCK_PASSWORD_CMD</name>
+        <initializer>0x29U</initializer>
+        <briefdescription>
+<para>Password unlock command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilsfl_1gaadd43254a0a55e060cf65854e69048f9" prot="public" static="no">
+        <name>XSFL_MICRON_WRITE_GLOBAL_FREEZE_CMD</name>
+        <initializer>0xA6U</initializer>
+        <briefdescription>
+<para>Global freeze bit write command (WRITE GLOBAL FREEZE BIT). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gac18247ec20ce9493c3a88276c89788ff" prot="public" static="no">
+        <name>XSFL_MICRON_ASP_PASSWORD_BYTES</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>READ PASSWORD (27h) payload width on OCTAL/QUAD flash parts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gab2d7af9d4a4484b6581944685042d56d" prot="public" static="no">
+        <name>XSFL_MICRON_REG_READ_DUMMY_OCTAL</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Common dummy cycle count for all Micron OCTAL/QUAD register reads (SPR, NV lock, password), in dummy clock cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilsfl_1gafa6f917cd3479b6c3b1e510d29105401" prot="public" static="no">
+        <name>XSFL_MICRON_SPR_OTP_LOCK_BIT</name>
+        <initializer>(u16)0x0002U</initializer>
+        <briefdescription>
+<para>SPR bit 1: sector protection lock OTP bit (SPR lock bit). </para>        </briefdescription>
+        <detaileddescription>
+<para>When 0, password protection is permanently disabled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the Micron MT35 ASP vendor-private opcodes and constants. </para>    </briefdescription>
+    <detaileddescription>
+<para>Micron MT35 OCTAL/QUAD NOR Advanced Sector Protection (ASP) vendor-private opcodes and constants. These are the command opcodes, dummy cycle counts, password width, and the Sector Protection Register (SPR) one-time programmable (OTP) lock bit. Only <ref refid="xilsfl__micron__asp_8c" kindref="compound">xilsfl_micron_asp.c</ref> includes this file, and it is not part of the public xilsfl API.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.3   sb  07/20/26  Initial support for Advanced Sector Protection.
+1.4   vn  09/30/26  Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XILSFL_MICRON_ASP_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSFL_MICRON_ASP_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42" refid="group__xilsfl_1ga1213c3a3f9b74a43acf720d5f8da461f" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_PROGRAM_SECTOR_PROT_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2CU</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44" refid="group__xilsfl_1gad4f006d883a9ee807fd2b06da20f34f2" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_READ_SECTOR_PROT_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2DU</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="group__xilsfl_1gac0eaab244d85a09223f60216069e1707" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_READ_NV_LOCK_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE2U</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="group__xilsfl_1gac086888c7829a6adebd964d74cdac9fa" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_WRITE_NV_LOCK_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE3U</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="group__xilsfl_1ga894fb3cd03967c0df0982358846b3e31" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_ERASE_NV_LOCK_BITS_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE4U</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="group__xilsfl_1gaadd43254a0a55e060cf65854e69048f9" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_WRITE_GLOBAL_FREEZE_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA6U</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__xilsfl_1gae2bb5482e311e81b4d4bce10877af7e7" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_READ_PASSWORD_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x27U</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__xilsfl_1ga6c40618c75254ee76bc05fc3d1d2e25d" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_WRITE_PASSWORD_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28U</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="group__xilsfl_1ga8dcc4b8bdfef48b8c25dd084c5edc5bd" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_UNLOCK_PASSWORD_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x29U</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="group__xilsfl_1gac18247ec20ce9493c3a88276c89788ff" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_ASP_PASSWORD_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__xilsfl_1gab2d7af9d4a4484b6581944685042d56d" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_REG_READ_DUMMY_OCTAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__xilsfl_1gafa6f917cd3479b6c3b1e510d29105401" refkind="member"><highlight class="preprocessor">#define<sp/>XSFL_MICRON_SPR_OTP_LOCK_BIT<sp/><sp/><sp/><sp/>(u16)0x0002U</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSFL_MICRON_ASP_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_micron_asp.h"/>
+  </compounddef>
+</doxygen>

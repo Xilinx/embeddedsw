@@ -7,12 +7,15 @@
     <innerfile refid="core_2generic_2xsecure__cryptochk_8h">core/generic/xsecure_cryptochk.h</innerfile>
     <innerfile refid="xsecure__init_8c">xsecure_init.c</innerfile>
     <innerfile refid="xsecure__init_8h">xsecure_init.h</innerfile>
+    <innerfile refid="xsecure__mgf_8c">xsecure_mgf.c</innerfile>
+    <innerfile refid="xsecure__mgf_8h">xsecure_mgf.h</innerfile>
     <innerfile refid="xsecure__resourcehandling_8c">xsecure_resourcehandling.c</innerfile>
     <innerfile refid="xsecure__resourcehandling_8h">xsecure_resourcehandling.h</innerfile>
+    <innerfile refid="xsecure__server__libcaps_8h">xsecure_server_libcaps.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/"/>
   </compounddef>
 </doxygen>

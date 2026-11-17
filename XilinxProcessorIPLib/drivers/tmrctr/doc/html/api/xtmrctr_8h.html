@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmrctr_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,6 +101,7 @@ $(document).ready(function(){initNavTree('xtmrctr_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -126,29 +127,38 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:gafc4684a3912a1169c7516b7dad56a20a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gafc4684a3912a1169c7516b7dad56a20a">XTMRCTR_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:gafc4684a3912a1169c7516b7dad56a20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard to prevent multiple inclusions of <a class="el" href="xtmrctr_8h.html">xtmrctr.h</a>.  <a href="group___overview.html#gafc4684a3912a1169c7516b7dad56a20a">More...</a><br/></td></tr>
+<tr class="separator:gafc4684a3912a1169c7516b7dad56a20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a3efe61990e0eb158b9238143e915b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">XTC_ROUND_DIV</a>(a, b)&#160;&#160;&#160;((a + (b / 2)) / b)</td></tr>
+<tr class="memdesc:ga2a3efe61990e0eb158b9238143e915b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round integer division of a by b to nearest integer.  <a href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">More...</a><br/></td></tr>
+<tr class="separator:ga2a3efe61990e0eb158b9238143e915b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5552f8d5f7ed58263e6811f98647f8be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga5552f8d5f7ed58263e6811f98647f8be">XTC_HZ_TO_NS</a>(Hz)&#160;&#160;&#160;<a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">XTC_ROUND_DIV</a>(1000000000, Hz)</td></tr>
+<tr class="memdesc:ga5552f8d5f7ed58263e6811f98647f8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert clock frequency in Hz to period in nanoseconds.  <a href="group___overview.html#ga5552f8d5f7ed58263e6811f98647f8be">More...</a><br/></td></tr>
+<tr class="separator:ga5552f8d5f7ed58263e6811f98647f8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Configuration options</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>These options are used in <a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76" title="Enables the specified options for the specified timer counter. ">XTmrCtr_SetOptions()</a> and <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b" title="Get the options for the specified timer counter. ">XTmrCtr_GetOptions()</a> </p>
+<tr><td colspan="2"><div class="groupText"><p>These options are used in <a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76" title="Sets options for the specified timer counter. ">XTmrCtr_SetOptions()</a> and <a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b" title="Returns the options for the specified timer counter. ">XTmrCtr_GetOptions()</a> </p>
 </div></td></tr>
 <tr class="memitem:ga4fb085742ee50628791c81ff9a14bc2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4fb085742ee50628791c81ff9a14bc2c">XTC_CASCADE_MODE_OPTION</a>&#160;&#160;&#160;0x00000080UL</td></tr>
 <tr class="memdesc:ga4fb085742ee50628791c81ff9a14bc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to configure the timer counter device.  <a href="group___overview.html#ga4fb085742ee50628791c81ff9a14bc2c">More...</a><br/></td></tr>
 <tr class="separator:ga4fb085742ee50628791c81ff9a14bc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac50df31e95b1a82441de09ff360eca48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac50df31e95b1a82441de09ff360eca48"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_ENABLE_ALL_OPTION</b>&#160;&#160;&#160;0x00000040UL</td></tr>
+<tr class="memitem:gac50df31e95b1a82441de09ff360eca48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac50df31e95b1a82441de09ff360eca48">XTC_ENABLE_ALL_OPTION</a>&#160;&#160;&#160;0x00000040UL</td></tr>
+<tr class="memdesc:gac50df31e95b1a82441de09ff360eca48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag to enable all timer counters simultaneously.  <a href="group___overview.html#gac50df31e95b1a82441de09ff360eca48">More...</a><br/></td></tr>
 <tr class="separator:gac50df31e95b1a82441de09ff360eca48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga9cc7b106e2e846ec41fd983da0772dc8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_DOWN_COUNT_OPTION</b>&#160;&#160;&#160;0x00000020UL</td></tr>
+<tr class="memitem:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9cc7b106e2e846ec41fd983da0772dc8">XTC_DOWN_COUNT_OPTION</a>&#160;&#160;&#160;0x00000020UL</td></tr>
+<tr class="memdesc:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag to configure timer counter for down counting.  <a href="group___overview.html#ga9cc7b106e2e846ec41fd983da0772dc8">More...</a><br/></td></tr>
 <tr class="separator:ga9cc7b106e2e846ec41fd983da0772dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf93c62016d132546b5ee99789b4e48c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf93c62016d132546b5ee99789b4e48c1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_CAPTURE_MODE_OPTION</b>&#160;&#160;&#160;0x00000010UL</td></tr>
+<tr class="memitem:gaf93c62016d132546b5ee99789b4e48c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf93c62016d132546b5ee99789b4e48c1">XTC_CAPTURE_MODE_OPTION</a>&#160;&#160;&#160;0x00000010UL</td></tr>
+<tr class="memdesc:gaf93c62016d132546b5ee99789b4e48c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_CAPTURE_MODE_OPTION.  <a href="group___overview.html#gaf93c62016d132546b5ee99789b4e48c1">More...</a><br/></td></tr>
 <tr class="separator:gaf93c62016d132546b5ee99789b4e48c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaad72f141ec429ad4b782868c33b32c1b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaad72f141ec429ad4b782868c33b32c1b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_INT_MODE_OPTION</b>&#160;&#160;&#160;0x00000008UL</td></tr>
+<tr class="memitem:gaad72f141ec429ad4b782868c33b32c1b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaad72f141ec429ad4b782868c33b32c1b">XTC_INT_MODE_OPTION</a>&#160;&#160;&#160;0x00000008UL</td></tr>
+<tr class="memdesc:gaad72f141ec429ad4b782868c33b32c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_INT_MODE_OPTION.  <a href="group___overview.html#gaad72f141ec429ad4b782868c33b32c1b">More...</a><br/></td></tr>
 <tr class="separator:gaad72f141ec429ad4b782868c33b32c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gace3deb2a423d72960864a46eacd11fdc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gace3deb2a423d72960864a46eacd11fdc"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_AUTO_RELOAD_OPTION</b>&#160;&#160;&#160;0x00000004UL</td></tr>
+<tr class="memitem:gace3deb2a423d72960864a46eacd11fdc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gace3deb2a423d72960864a46eacd11fdc">XTC_AUTO_RELOAD_OPTION</a>&#160;&#160;&#160;0x00000004UL</td></tr>
+<tr class="memdesc:gace3deb2a423d72960864a46eacd11fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_AUTO_RELOAD_OPTION.  <a href="group___overview.html#gace3deb2a423d72960864a46eacd11fdc">More...</a><br/></td></tr>
 <tr class="separator:gace3deb2a423d72960864a46eacd11fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3d33636409ed76e99828909edcff0d4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga3d33636409ed76e99828909edcff0d4a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XTC_EXT_COMPARE_OPTION</b>&#160;&#160;&#160;0x00000002UL</td></tr>
+<tr class="memitem:ga3d33636409ed76e99828909edcff0d4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3d33636409ed76e99828909edcff0d4a">XTC_EXT_COMPARE_OPTION</a>&#160;&#160;&#160;0x00000002UL</td></tr>
+<tr class="memdesc:ga3d33636409ed76e99828909edcff0d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option flag for XTC_EXT_COMPARE_OPTION.  <a href="group___overview.html#ga3d33636409ed76e99828909edcff0d4a">More...</a><br/></td></tr>
 <tr class="separator:ga3d33636409ed76e99828909edcff0d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -202,10 +212,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga372cc1b26240b627c5a830a9d44ab9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group___overview.html#ga372cc1b26240b627c5a830a9d44ab9e1">More...</a><br/></td></tr>
 <tr class="separator:ga372cc1b26240b627c5a830a9d44ab9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76">XTmrCtr_SetOptions</a> (<a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *InstancePtr, u8 TmrCtrNumber, u32 Options)</td></tr>
-<tr class="memdesc:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the specified options for the specified timer counter.  <a href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76">More...</a><br/></td></tr>
+<tr class="memdesc:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets options for the specified timer counter.  <a href="group___overview.html#ga93d796cf55144d6adb3c51fedf6c3b76">More...</a><br/></td></tr>
 <tr class="separator:ga93d796cf55144d6adb3c51fedf6c3b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b">XTmrCtr_GetOptions</a> (<a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *InstancePtr, u8 TmrCtrNumber)</td></tr>
-<tr class="memdesc:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the options for the specified timer counter.  <a href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b">More...</a><br/></td></tr>
+<tr class="memdesc:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the options for the specified timer counter.  <a href="group___overview.html#gaaff209dc01c2946c239c6e5c1bdc1a5b">More...</a><br/></td></tr>
 <tr class="separator:gaaff209dc01c2946c239c6e5c1bdc1a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3c99744f99aef2a019616e712206f1b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3c99744f99aef2a019616e712206f1b0">XTmrCtr_GetStats</a> (<a class="el" href="struct_x_tmr_ctr.html">XTmrCtr</a> *InstancePtr, <a class="el" href="struct_x_tmr_ctr_stats.html">XTmrCtrStats</a> *StatsPtr)</td></tr>
 <tr class="memdesc:ga3c99744f99aef2a019616e712206f1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a copy of the <a class="el" href="struct_x_tmr_ctr_stats.html" title="Timer/Counter statistics. ">XTmrCtrStats</a> structure, which contains the current statistics for this driver.  <a href="group___overview.html#ga3c99744f99aef2a019616e712206f1b0">More...</a><br/></td></tr>

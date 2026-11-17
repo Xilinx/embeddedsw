@@ -21,16 +21,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="161">XSECURE_API_HMAC_OPERATION</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_HMAC_OPERATION</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__hmac__client__apis_1gae944a398b1458933f32f55017f192b0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -69,10 +68,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" bodystart="55" bodyend="74"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="161">XSECURE_API_HMAC_OPERATION</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" bodystart="55" bodyend="74"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_HMAC_OPERATION</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
         <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
       </memberdef>
       </sectiondef>

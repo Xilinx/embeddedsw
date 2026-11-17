@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -110,6 +111,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga04f710c11a465ba2bca492d9517c73d1"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__generic__apis.html#ga04f710c11a465ba2bca492d9517c73d1">XAsu_IsBufferNonZero</a> (u8 *Buffer, u32 Length)</td></tr>
 <tr class="memdesc:ga04f710c11a465ba2bca492d9517c73d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether the buffer has a non-zero value or not.  <a href="#ga04f710c11a465ba2bca492d9517c73d1">More...</a><br/></td></tr>
 <tr class="separator:ga04f710c11a465ba2bca492d9517c73d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed278deb4237e6e31cee0677b657aa12"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__generic__apis.html#gaed278deb4237e6e31cee0677b657aa12">XAsu_IsRangeOverlap</a> (u64 FirstAddr, u32 FirstLen, u64 SecondAddr, u32 SecondLen)</td></tr>
+<tr class="memdesc:gaed278deb4237e6e31cee0677b657aa12"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether two non-empty address ranges overlap or either range wraps.  <a href="#gaed278deb4237e6e31cee0677b657aa12">More...</a><br/></td></tr>
+<tr class="separator:gaed278deb4237e6e31cee0677b657aa12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga04f710c11a465ba2bca492d9517c73d1"></a>
@@ -150,7 +154,65 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Referenced by <a class="el" href="group__xasu__ocp__client__apis.html#ga3c3e8b42eab489f97dab01062de04aba">XAsu_OcpUdeChallengeReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gaecafe629489cae689c1a3c9b5e36acf5">XAsu_KmExportKeyVault()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga6e184f6a768b418ae0ddd229bce85baa">XAsu_KmImportKeyVault()</a>, and <a class="el" href="group__xasu__ocp__client__apis.html#ga3c3e8b42eab489f97dab01062de04aba">XAsu_OcpUdeChallengeReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaed278deb4237e6e31cee0677b657aa12"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XAsu_IsRangeOverlap </td>
+          <td>(</td>
+          <td class="paramtype">u64&#160;</td>
+          <td class="paramname"><em>FirstAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>FirstLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u64&#160;</td>
+          <td class="paramname"><em>SecondAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>SecondLen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function checks whether two non-empty address ranges overlap or either range wraps. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FirstAddr</td><td>Start address of the first range. </td></tr>
+    <tr><td class="paramname">FirstLen</td><td>Length of the first range. </td></tr>
+    <tr><td class="paramname">SecondAddr</td><td>Start address of the second range. </td></tr>
+    <tr><td class="paramname">SecondLen</td><td>Length of the second range.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XASU_TRUE, if either range wraps or the ranges overlap.</li>
+<li>XASU_FALSE, if either range is empty or the ranges are representable and disjoint. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="group__xasu__common__defs.html#ga4ed1b3c195cb21e5e43ab8926dbfe39e">XASU_FALSE</a>, and <a class="el" href="group__xasu__common__defs.html#ga6d1fd341a9f72c4f16e5632e790b9ab9">XASU_TRUE</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__provision__client__apis.html#ga28e96fe10ceaf00ea88f7b1822626212">XAsu_ProvisionEncodeCreateKeyVault()</a>, <a class="el" href="group__xasu__provision__client__apis.html#ga488189ed28b42d7678fc2749b111ff43">XAsu_ProvisionEncodeStoreKey()</a>, and <a class="el" href="group__xasu__provision__client__apis.html#ga1033091a0030d9d5817b633193590521">XAsu_ProvisionEncodeXorKeys()</a>.</p>
 
 </div>
 </div>

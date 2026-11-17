@@ -216,7 +216,7 @@ var searchData=
   ['xhdcp22rx_5flookupconfig',['XHdcp22Rx_LookupConfig',['../group__hdcp22__rx.html#ga419216fe5a07c13b40909a00116d1296',1,'xhdcp22_rx_sinit.c']]],
   ['xhdcp22rx_5fpoll',['XHdcp22Rx_Poll',['../group__hdcp22__rx.html#ga47b59a5f9c314a6accc90e836f198730',1,'xhdcp22_rx.c']]],
   ['xhdcp22rx_5freset',['XHdcp22Rx_Reset',['../group__hdcp22__rx.html#gab0e1f5a3406d126f288a721c2b866955',1,'xhdcp22_rx.c']]],
-  ['xhdcp22rx_5frsaesoaepdecrypt',['XHdcp22Rx_RsaesOaepDecrypt',['../group__hdcp22__rx.html#ga736d136f515b397e659377757763aed2',1,'xhdcp22_rx_crypt.c']]],
+  ['xhdcp22rx_5frsaesoaepdecrypt',['XHdcp22Rx_RsaesOaepDecrypt',['../group__hdcp22__rx.html#ga4207ff002000408dc3355e1d2f28c654',1,'xhdcp22_rx_crypt.c']]],
   ['xhdcp22rx_5frsaesoaepencrypt',['XHdcp22Rx_RsaesOaepEncrypt',['../group__hdcp22__rx.html#ga509c671d4be808b4cd66fad2bf587bed',1,'xhdcp22_rx_crypt.c']]],
   ['xhdcp22rx_5fsetcallback',['XHdcp22Rx_SetCallback',['../group__hdcp22__rx.html#ga59d922ad6c0dcdabc012fd4fbe4e84e0',1,'xhdcp22_rx.c']]],
   ['xhdcp22rx_5fsetddcerror',['XHdcp22Rx_SetDdcError',['../group__hdcp22__rx.html#ga69bb699d6fcee2a6cdab30ac68bed43f',1,'xhdcp22_rx.c']]],

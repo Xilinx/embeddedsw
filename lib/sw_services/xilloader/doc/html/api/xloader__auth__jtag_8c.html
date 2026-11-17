@@ -111,13 +111,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <p>
 2.3   har  09/26/2025 Initial release
 2.4   abh  11/20/2025 Fixed MISRA-C violations
-      tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms
+      tvp  03/05/2026 Use <a class="el" href="struct_x_loader___auth_key.html" title="Authentication Key. ">XLoader_AuthKey</a> to accommodate new algorithms
                       support
       sk   04/02/2026 Moved TAP unlock defines to Header file
       vns  04/04/2026 Added JtagUnlockedByAuth flag to XLoader_AuthJtagStatus
                       and XLoader_DisableJtagIfOpenedByAuthJtag to lock DAP
                       during PLM update
-      sri  04/24/2026 Added LMS support for authenticated JTAG message</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xloader__auth__jtag_8h.html">xloader_auth_jtag.h</a>&quot;</code><br/>
+      sri  04/24/2026 Added LMS support for authenticated JTAG message
+2.5   sri  09/22/2026 Initialize PdiPtr and stop writing AuthHdr through NULL for LMS AuthJtag
+      sri  10/07/2026 Replaced the A-HWRoT status check with a direct mismatch compare</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xloader__auth__jtag_8h.html">xloader_auth_jtag.h</a>&quot;</code><br/>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

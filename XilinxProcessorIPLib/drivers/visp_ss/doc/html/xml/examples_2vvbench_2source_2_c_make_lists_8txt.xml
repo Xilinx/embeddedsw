@@ -25,6 +25,6 @@
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
 <codeline lineno="17"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>vvpath.c)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

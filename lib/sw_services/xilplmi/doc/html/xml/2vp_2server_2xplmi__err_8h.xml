@@ -7,219 +7,218 @@
     <includes refid="xplmi__err__common_8h" local="yes">xplmi_err_common.h</includes>
     <includedby refid="2vp_2server_2xplmi__err_8c" local="yes">xplmi_err.c</includedby>
     <incdepgraph>
-      <node id="1077">
+      <node id="1158">
         <label>xil_assert.h</label>
       </node>
-      <node id="1070">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="1071" relation="include">
-        </childnode>
-        <childnode refid="1072" relation="include">
-        </childnode>
-        <childnode refid="1073" relation="include">
-        </childnode>
-        <childnode refid="1061" relation="include">
-        </childnode>
-        <childnode refid="1069" relation="include">
-        </childnode>
-      </node>
-      <node id="1060">
-        <label>xil_hw.h</label>
-      </node>
-      <node id="1059">
-        <label>xil_io.h</label>
-      </node>
-      <node id="1056">
+      <node id="1137">
         <label>xplmi_config.h</label>
         <link refid="2vp_2server_2xplmi__config_8h"/>
-        <childnode refid="1057" relation="include">
+        <childnode refid="1138" relation="include">
         </childnode>
-        <childnode refid="1058" relation="include">
-        </childnode>
-      </node>
-      <node id="1054">
-        <label>xplmi_error_node.h</label>
-      </node>
-      <node id="1082">
-        <label>stdlib.h</label>
-      </node>
-      <node id="1067">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi__event__logging_8h"/>
-        <childnode refid="1068" relation="include">
-        </childnode>
-        <childnode refid="1061" relation="include">
+        <childnode refid="1139" relation="include">
         </childnode>
       </node>
-      <node id="1074">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="1057" relation="include">
-        </childnode>
-        <childnode refid="1075" relation="include">
-        </childnode>
-        <childnode refid="1068" relation="include">
-        </childnode>
-        <childnode refid="1077" relation="include">
-        </childnode>
-        <childnode refid="1060" relation="include">
-        </childnode>
-      </node>
-      <node id="1078">
-        <label>xplmi_task.h</label>
-        <link refid="xplmi__task_8h"/>
-        <childnode refid="1077" relation="include">
-        </childnode>
-        <childnode refid="1079" relation="include">
-        </childnode>
-        <childnode refid="1062" relation="include">
-        </childnode>
-        <childnode refid="1080" relation="include">
-        </childnode>
-        <childnode refid="1081" relation="include">
-        </childnode>
-      </node>
-      <node id="1064">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="1065" relation="include">
-        </childnode>
-        <childnode refid="1066" relation="include">
-        </childnode>
-        <childnode refid="1067" relation="include">
-        </childnode>
-        <childnode refid="1070" relation="include">
-        </childnode>
-      </node>
-      <node id="1061">
+      <node id="1142">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="1062" relation="include">
+        <childnode refid="1143" relation="include">
         </childnode>
       </node>
-      <node id="1063">
-        <label>xplmi_err_common.h</label>
-        <link refid="xplmi__err__common_8h"/>
-        <childnode refid="1064" relation="include">
-        </childnode>
-        <childnode refid="1083" relation="include">
-        </childnode>
-        <childnode refid="1054" relation="include">
-        </childnode>
-        <childnode refid="1084" relation="include">
-        </childnode>
-        <childnode refid="1060" relation="include">
-        </childnode>
-        <childnode refid="1068" relation="include">
-        </childnode>
+      <node id="1141">
+        <label>xil_hw.h</label>
       </node>
-      <node id="1058">
-        <label>xplmi_bsp_config.h</label>
+      <node id="1140">
+        <label>xil_io.h</label>
       </node>
-      <node id="1079">
-        <label>mb_interface.h</label>
+      <node id="1135">
+        <label>xplmi_error_node.h</label>
       </node>
-      <node id="1075">
+      <node id="1163">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1156">
         <label>xplmi_modules.h</label>
         <link refid="xplmi__modules_8h"/>
-        <childnode refid="1068" relation="include">
+        <childnode refid="1149" relation="include">
         </childnode>
-        <childnode refid="1076" relation="include">
+        <childnode refid="1157" relation="include">
         </childnode>
-        <childnode refid="1057" relation="include">
+        <childnode refid="1138" relation="include">
         </childnode>
-        <childnode refid="1062" relation="include">
-        </childnode>
-      </node>
-      <node id="1080">
-        <label>xstatus.h</label>
-      </node>
-      <node id="1066">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="1072">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="1083">
-        <label>xil_error_node.h</label>
-      </node>
-      <node id="1062">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1053">
-        <label>xplmi_err.h</label>
-        <link refid="2vp/server/xplmi_err.h"/>
-        <childnode refid="1054" relation="include">
-        </childnode>
-        <childnode refid="1055" relation="include">
-        </childnode>
-        <childnode refid="1063" relation="include">
+        <childnode refid="1143" relation="include">
         </childnode>
       </node>
-      <node id="1055">
+      <node id="1136">
         <label>xplmi_hw.h</label>
         <link refid="2vp_2server_2xplmi__hw_8h"/>
-        <childnode refid="1056" relation="include">
+        <childnode refid="1137" relation="include">
         </childnode>
-        <childnode refid="1057" relation="include">
+        <childnode refid="1138" relation="include">
         </childnode>
-        <childnode refid="1059" relation="include">
+        <childnode refid="1140" relation="include">
         </childnode>
-        <childnode refid="1060" relation="include">
+        <childnode refid="1141" relation="include">
         </childnode>
-        <childnode refid="1061" relation="include">
+        <childnode refid="1142" relation="include">
         </childnode>
       </node>
-      <node id="1068">
+      <node id="1155">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="1138" relation="include">
+        </childnode>
+        <childnode refid="1156" relation="include">
+        </childnode>
+        <childnode refid="1149" relation="include">
+        </childnode>
+        <childnode refid="1158" relation="include">
+        </childnode>
+        <childnode refid="1141" relation="include">
+        </childnode>
+      </node>
+      <node id="1149">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="1069" relation="include">
+        <childnode refid="1150" relation="include">
         </childnode>
-        <childnode refid="1066" relation="include">
+        <childnode refid="1147" relation="include">
         </childnode>
       </node>
-      <node id="1057">
+      <node id="1139">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="1144">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="1145" relation="include">
+        </childnode>
+        <childnode refid="1164" relation="include">
+        </childnode>
+        <childnode refid="1135" relation="include">
+        </childnode>
+        <childnode refid="1165" relation="include">
+        </childnode>
+        <childnode refid="1141" relation="include">
+        </childnode>
+        <childnode refid="1149" relation="include">
+        </childnode>
+      </node>
+      <node id="1160">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="1161">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1162">
+        <label>list.h</label>
+        <childnode refid="1163" relation="include">
+        </childnode>
+      </node>
+      <node id="1147">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1159">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="1158" relation="include">
+        </childnode>
+        <childnode refid="1160" relation="include">
+        </childnode>
+        <childnode refid="1143" relation="include">
+        </childnode>
+        <childnode refid="1161" relation="include">
+        </childnode>
+        <childnode refid="1162" relation="include">
+        </childnode>
+      </node>
+      <node id="1153">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="1151">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="1152" relation="include">
+        </childnode>
+        <childnode refid="1153" relation="include">
+        </childnode>
+        <childnode refid="1154" relation="include">
+        </childnode>
+        <childnode refid="1142" relation="include">
+        </childnode>
+        <childnode refid="1150" relation="include">
+        </childnode>
+      </node>
+      <node id="1164">
+        <label>xil_error_node.h</label>
+      </node>
+      <node id="1143">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1134">
+        <label>xplmi_err.h</label>
+        <link refid="2vp/server/xplmi_err.h"/>
+        <childnode refid="1135" relation="include">
+        </childnode>
+        <childnode refid="1136" relation="include">
+        </childnode>
+        <childnode refid="1144" relation="include">
+        </childnode>
+      </node>
+      <node id="1138">
         <label>xparameters.h</label>
       </node>
-      <node id="1065">
+      <node id="1146">
         <label>xil_printf.h</label>
       </node>
-      <node id="1081">
-        <label>list.h</label>
-        <childnode refid="1082" relation="include">
+      <node id="1145">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="1146" relation="include">
+        </childnode>
+        <childnode refid="1147" relation="include">
+        </childnode>
+        <childnode refid="1148" relation="include">
+        </childnode>
+        <childnode refid="1151" relation="include">
         </childnode>
       </node>
-      <node id="1084">
+      <node id="1165">
         <label>xplmi_hw.h</label>
       </node>
-      <node id="1073">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="1074" relation="include">
-        </childnode>
-        <childnode refid="1078" relation="include">
-        </childnode>
-      </node>
-      <node id="1071">
+      <node id="1152">
         <label>xiomodule.h</label>
       </node>
-      <node id="1076">
+      <node id="1157">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="1069">
+      <node id="1150">
         <label>xplmi_status.h</label>
+      </node>
+      <node id="1154">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="1155" relation="include">
+        </childnode>
+        <childnode refid="1159" relation="include">
+        </childnode>
+      </node>
+      <node id="1148">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="1149" relation="include">
+        </childnode>
+        <childnode refid="1142" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1086">
+      <node id="1167">
         <label>xplmi_err.c</label>
-        <link refid="2vp_2server_2xplmi__err_8c"/>
       </node>
-      <node id="1085">
+      <node id="1166">
         <label>xplmi_err.h</label>
         <link refid="2vp/server/xplmi_err.h"/>
-        <childnode refid="1086" relation="include">
+        <childnode refid="1167" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -234,12 +233,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="44" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga5b1ebbf8a9a571e76eec11e8e3d7fd63" compoundref="xplmi__err__common_8c" startline="863" endline="924">XPlmi_EmDisable</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1273" endline="1369">XPlmi_EmInit</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="627" endline="713">XPlmi_ErrorTaskHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1080" endline="1160">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga5b1ebbf8a9a571e76eec11e8e3d7fd63" compoundref="xplmi__err__common_8c" startline="862" endline="923">XPlmi_EmDisable</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1272" endline="1368">XPlmi_EmInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="626" endline="712">XPlmi_ErrorTaskHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1525" endline="1605">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="2vp_2server_2xplmi__err_8h_1a0afaef409ef495c6931f84dd30ba2b6f" prot="public" static="no">
         <name>GET_PMC_ERR_ACTION_ADDR</name>
@@ -252,7 +251,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="2vp_2server_2xplmi__err_8h_1a886a5c410cc2c3d8e1c7dd4c2ee65417" prot="public" static="no">
         <name>GET_PMC_ERR_OUT_MASK</name>
@@ -264,8 +263,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="51" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="837" endline="848">XPlmi_EmDisablePmcErrors</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="836" endline="847">XPlmi_EmDisablePmcErrors</referencedby>
       </memberdef>
       <memberdef kind="define" id="2vp_2server_2xplmi__err_8h_1a58d6a8f749c7b202a027d3abf2ac092f" prot="public" static="no">
         <name>GET_PMC_POR_MASK</name>
@@ -277,8 +276,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="54" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="837" endline="848">XPlmi_EmDisablePmcErrors</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="836" endline="847">XPlmi_EmDisablePmcErrors</referencedby>
       </memberdef>
       <memberdef kind="define" id="2vp_2server_2xplmi__err_8h_1a94468a0b4b431fa985ff14ebe4a3202a" prot="public" static="no">
         <name>GET_PMC_IRQ_MASK</name>
@@ -290,11 +289,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="57" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="837" endline="848">XPlmi_EmDisablePmcErrors</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="627" endline="713">XPlmi_ErrorTaskHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1080" endline="1160">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="836" endline="847">XPlmi_EmDisablePmcErrors</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="626" endline="712">XPlmi_ErrorTaskHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1525" endline="1605">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="2vp_2server_2xplmi__err_8h_1a6a6938cf9a38375db7f8985ad06298bd" prot="public" static="no">
         <name>GET_PMC_SRST_MASK</name>
@@ -306,8 +305,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="60" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="837" endline="848">XPlmi_EmDisablePmcErrors</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga89fd2fe373a4608c6238f9b29dfad670" compoundref="xplmi__err__common_8c" startline="836" endline="847">XPlmi_EmDisablePmcErrors</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -328,7 +327,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="72" bodyend="76"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" bodystart="72" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga5318b3d7b02f3f620c32002dd295426f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XPlmi_Error_t *</type>
@@ -347,7 +346,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="412" bodyend="415"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="412" bodyend="415"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga63d49076d6d6b4d9386d82d7cd1fb0d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -363,7 +362,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="469" bodyend="477"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="469" bodyend="477"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga713bdac07b25c74467015744419d1f2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -452,7 +451,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="488" bodyend="540"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="488" bodyend="540"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga9b561130b1c156c819ca49c26b2c144c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -465,11 +464,10 @@
         <briefdescription>
 <para>This function dumps EAM Error status registers and Gic Status registers. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>None </para></simplesect>
-</para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="706" bodyend="723"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="706" bodyend="723"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gafbcb3756137ef2f51a8774b3759f676e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -506,7 +504,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="440" bodyend="462"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="440" bodyend="462"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga7707e2ec838141c955e440eee532a868" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -556,7 +554,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="733" bodyend="741"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="733" bodyend="741"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gaa2ead960523910ab6716f6b944826fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32 *</type>
@@ -575,7 +573,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="750" bodyend="755"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="750" bodyend="755"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga4f1da57b82a161d66fd9dddfa3cd1a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -679,7 +677,7 @@
 </para><para>For HBM Cattrip, only support actions are:<itemizedlist>
 <listitem><para>XPLMI_EM_ACTION_INVALID</para></listitem><listitem><para>XPLMI_EM_ACTION_POR</para></listitem><listitem><para>XPLMI_EM_ACTION_SRST</para></listitem><listitem><para>XPLMI_EM_ACTION_CUSTOM</para></listitem><listitem><para>XPLMI_EM_ACTION_ERROUT</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="768" bodyend="792"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="768" bodyend="792"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gae90cde1a7630004519a10ca06dccc2e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32 *</type>
@@ -698,7 +696,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="424" bodyend="429"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="424" bodyend="429"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga39731288ebdb48e9ad35613335d2e772" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -737,24 +735,6 @@ This function prints detailed information if the error is due to XMPU/XPPU prote
 <parametername>ErrorNodeId</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the node ID for the error event </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>RegMask</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the register mask of the error received</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><itemizedlist>
-<listitem><para>None</para></listitem></itemizedlist>
-</para></simplesect>
-This function prints detailed information if the error is due to XMPU/XPPU protection units.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>ErrorNodeId</parametername>
-</parameternamelist>
-<parameterdescription>
 <para>is the node ID for the error event. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -767,8 +747,8 @@ This function prints detailed information if the error is due to XMPU/XPPU prote
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="659" bodyend="697"/>
+<para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information</para><para>Print NodeId, Mask and Error ID information </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_err.c" bodystart="659" bodyend="697"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -845,6 +825,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_ERR_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp/server/xplmi_err.h"/>
   </compounddef>
 </doxygen>

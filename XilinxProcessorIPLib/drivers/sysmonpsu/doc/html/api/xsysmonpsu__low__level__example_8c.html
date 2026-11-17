@@ -100,16 +100,16 @@ $(document).ready(function(){initNavTree('xsysmonpsu__low__level__example_8c.htm
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xsysmonpsu_low_level_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the basic driver functions of the System Monitor driver. </p>
-<p>The example here shows using the driver/device in polled mode to check the on-chip temperature and voltages.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>The values of the on-chip temperature and the on-chip Vccaux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</p>
+<div class="textblock"><p>Demonstrates low-level polled use of the System Monitor driver. </p>
+<p>This file contains a design example using the basic driver functions of the System Monitor driver. The example here shows using the driver/device in polled mode to check the on-chip temperature and voltages.</p>
+<dl class="section note"><dt>Note</dt><dd>The values of the on-chip temperature and the on-chip Vccaux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</dd></dl>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -117,19 +117,44 @@ $(document).ready(function(){initNavTree('xsysmonpsu__low__level__example_8c.htm
 1.0   kvn    12/15/15 First release
       mn     03/08/18 Update code to run at higher frequency</pre><pre>2.6   aad    11/21/19 Removed reading of AUX channels
 2.9   cog    07/20/23 Added support for SDT flow
+3.4   vn     07/30/26 Fix Doxygen warnings
+3.4   vn     09/29/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsysmonpsu__hw_8h.html">xsysmonpsu_hw.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a60341eebd0727da107b0740a7f17d46b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__low__level__example_8c.html#a60341eebd0727da107b0740a7f17d46b">SYSMON_BASEADDR</a>&#160;&#160;&#160;0xffa50000</td></tr>
+<tr class="memdesc:a60341eebd0727da107b0740a7f17d46b"><td class="mdescLeft">&#160;</td><td class="mdescRight">System Monitor base address.  <a href="#a60341eebd0727da107b0740a7f17d46b">More...</a><br/></td></tr>
+<tr class="separator:a60341eebd0727da107b0740a7f17d46b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a9e7072b7a66ba79e4b21e515b11fa04f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__low__level__example_8c.html#a9e7072b7a66ba79e4b21e515b11fa04f">SysMonPsuLowLevelExample</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:a9e7072b7a66ba79e4b21e515b11fa04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a test on the System Monitor device using the basic driver functions.  <a href="#a9e7072b7a66ba79e4b21e515b11fa04f">More...</a><br/></td></tr>
+<tr class="memdesc:a9e7072b7a66ba79e4b21e515b11fa04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a test on the System Monitor device using the basic driver functions.  <a href="#a9e7072b7a66ba79e4b21e515b11fa04f">More...</a><br/></td></tr>
 <tr class="separator:a9e7072b7a66ba79e4b21e515b11fa04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the example given in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the example given in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a60341eebd0727da107b0740a7f17d46b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSMON_BASEADDR&#160;&#160;&#160;0xffa50000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System Monitor base address. </p>
+
+<p>Referenced by <a class="el" href="xsysmonpsu__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -145,21 +170,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the example given in this file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Invokes the example given in this file. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xsysmonpsu__low__level__example_8c.html#a9e7072b7a66ba79e4b21e515b11fa04f">SysMonPsuLowLevelExample()</a>.</p>
+<p>References <a class="el" href="xsysmonpsu__low__level__example_8c.html#a60341eebd0727da107b0740a7f17d46b">SYSMON_BASEADDR</a>, and <a class="el" href="xsysmonpsu__low__level__example_8c.html#a9e7072b7a66ba79e4b21e515b11fa04f">SysMonPsuLowLevelExample()</a>.</p>
 
 </div>
 </div>
@@ -177,7 +195,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function runs a test on the System Monitor device using the basic driver functions. </p>
+<p>Runs a test on the System Monitor device using the basic driver functions. </p>
 <p>The function does the following tasks:</p>
 <ul>
 <li>Reset the device</li>
@@ -188,14 +206,13 @@ Functions</h2></td></tr>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the XPAR_&lt;SYSMON_instance&gt;_BASEADDRESS value from xparameters.h.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>XPAR_&lt;SYSMON_instance&gt;_BASEADDRESS value from xparameters.h.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS. </dd></dl>
 
-<p>References <a class="el" href="xsysmonpsu_8h.html#a7cd77d90e7456614726390476f3636c8">XSM_AVG_16_SAMPLES</a>, <a class="el" href="xsysmonpsu_8h.html#a090e870886f3ed8d58efc57c763772f2">XSM_SEQ_MODE_CONTINPASS</a>, <a class="el" href="xsysmonpsu_8h.html#a223c74befcd8a6710ea7a7acbaf41636">XSM_SEQ_MODE_SAFE</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a64b865cb3178ee60bb6fb94c822e317d">XSYSMONPSU_ALRM_SUP3_LWR_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a3c488cd443d9720dc14a1a5381bcca8d">XSYSMONPSU_ALRM_SUP3_UPR_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a531009f056913bfecb5b591d9f91385c">XSYSMONPSU_ALRM_TEMP_UPR_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#acc78e04e37a1d847fc610a978356adc1">XSYSMONPSU_CFG_REG0_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#acd26481ffd9f4c26a41779246aa2cf8a">XSYSMONPSU_CFG_REG1_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a83ea9d678f45ad885e86555b51d308cd">XSYSMONPSU_ISR_0_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a4f60260a330cb9d25d5ff40a293442c5">XSYSMONPSU_ISR_1_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a91a2b5503e6ef8e15a007c38cf6fc7a3">XSYSMONPSU_MAX_SUP3_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#ac75f621913d7a951c4ae4bf7568b7583">XSYSMONPSU_MAX_TEMP_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#ac01bf0b36322c8a07bb391cbc95fd449">XSYSMONPSU_MIN_SUP3_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#affd36d6f86790aa558c960f033615c3b">XSYSMONPSU_MIN_TEMP_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a26a83b449c5188602bafa2bfaa24e18c">XSYSMONPSU_SEQ_AVERAGE0_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#abf302f7a79ec4d2aee5b9756441ce71d">XSYSMONPSU_SEQ_CH0_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#ae6db7e651e88b7e5057cda2ba7883aa5">XSYSMONPSU_STS_FLAG_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#aa357cac772b514b4a1e28e12fa97d12f">XSYSMONPSU_SUP3_OFFSET</a>, <a class="el" href="xsysmonpsu__hw_8h.html#a19b227d2495b41d0f2260aa8a2efe9b3">XSYSMONPSU_TEMP_OFFSET</a>, and <a class="el" href="xsysmonpsu__hw_8h.html#a69b79177a69bce2ea1055e2b969a9f57">XSYSMONPSU_VP_VN_OFFSET</a>.</p>
+<p>References <a class="el" href="group___overview.html#gaf6fd6d0e5837ed9fd05709ae0ce12266">XPS_BA_OFFSET</a>, <a class="el" href="group___overview.html#ga7cd77d90e7456614726390476f3636c8">XSM_AVG_16_SAMPLES</a>, <a class="el" href="group___overview.html#ga090e870886f3ed8d58efc57c763772f2">XSM_SEQ_MODE_CONTINPASS</a>, <a class="el" href="group___overview.html#ga223c74befcd8a6710ea7a7acbaf41636">XSM_SEQ_MODE_SAFE</a>, <a class="el" href="group___overview.html#ga64b865cb3178ee60bb6fb94c822e317d">XSYSMONPSU_ALRM_SUP3_LWR_OFFSET</a>, <a class="el" href="group___overview.html#ga3c488cd443d9720dc14a1a5381bcca8d">XSYSMONPSU_ALRM_SUP3_UPR_OFFSET</a>, <a class="el" href="group___overview.html#ga531009f056913bfecb5b591d9f91385c">XSYSMONPSU_ALRM_TEMP_UPR_OFFSET</a>, <a class="el" href="group___overview.html#ga9cb7eb31e3c105a594ae620d40917038">XSYSMONPSU_CFG_REG0_AVRGNG_MASK</a>, <a class="el" href="group___overview.html#ga8b714c6d5468265e0c859348fbf280b4">XSYSMONPSU_CFG_REG0_AVRGNG_SHIFT</a>, <a class="el" href="group___overview.html#gacc78e04e37a1d847fc610a978356adc1">XSYSMONPSU_CFG_REG0_OFFSET</a>, <a class="el" href="group___overview.html#gaa2cbd5c89d8bad7f3c30d0395d5b51df">XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK</a>, <a class="el" href="group___overview.html#gacd26481ffd9f4c26a41779246aa2cf8a">XSYSMONPSU_CFG_REG1_OFFSET</a>, <a class="el" href="group___overview.html#ga88b87c7bbe1aa8923ed940c81c869ac3">XSYSMONPSU_CFG_REG1_SEQ_MDE_MASK</a>, <a class="el" href="group___overview.html#ga3338b6b7fb6c5c315bafbc423b19941d">XSYSMONPSU_CFG_REG1_SEQ_MDE_SHIFT</a>, <a class="el" href="group___overview.html#gae8e8861c0e4798bfd65340f31c29da74">XSYSMONPSU_CFR_REG1_ALRM_SUP3_MASK</a>, <a class="el" href="group___overview.html#gafa02f3be2bef2fc0125d51ae2f3571b8">XSYSMONPSU_CFR_REG1_ALRM_TEMP_MASK</a>, <a class="el" href="group___overview.html#ga83ea9d678f45ad885e86555b51d308cd">XSYSMONPSU_ISR_0_OFFSET</a>, <a class="el" href="group___overview.html#ga29a32e558403cfe69813999f16602b83">XSYSMONPSU_ISR_1_EOS_MASK</a>, <a class="el" href="group___overview.html#ga4f60260a330cb9d25d5ff40a293442c5">XSYSMONPSU_ISR_1_OFFSET</a>, <a class="el" href="group___overview.html#ga91a2b5503e6ef8e15a007c38cf6fc7a3">XSYSMONPSU_MAX_SUP3_OFFSET</a>, <a class="el" href="group___overview.html#gac75f621913d7a951c4ae4bf7568b7583">XSYSMONPSU_MAX_TEMP_OFFSET</a>, <a class="el" href="group___overview.html#gac01bf0b36322c8a07bb391cbc95fd449">XSYSMONPSU_MIN_SUP3_OFFSET</a>, <a class="el" href="group___overview.html#gaffd36d6f86790aa558c960f033615c3b">XSYSMONPSU_MIN_TEMP_OFFSET</a>, <a class="el" href="group___overview.html#ga26a83b449c5188602bafa2bfaa24e18c">XSYSMONPSU_SEQ_AVERAGE0_OFFSET</a>, <a class="el" href="group___overview.html#gabf302f7a79ec4d2aee5b9756441ce71d">XSYSMONPSU_SEQ_CH0_OFFSET</a>, <a class="el" href="group___overview.html#ga63c38e360837bb44a1f96d102371e350">XSYSMONPSU_SEQ_CH0_SUP3_MASK</a>, <a class="el" href="group___overview.html#ga0bee8a3187ab666635690b0923de3323">XSYSMONPSU_SEQ_CH0_TEMP_MASK</a>, <a class="el" href="group___overview.html#gad4ba2639f44da1d6c68727bbff8b076f">XSYSMONPSU_STS_FLAG_ALM_2_0_SHIFT</a>, <a class="el" href="group___overview.html#ga3cd37c0286004ebf93cc1eeb831e29db">XSYSMONPSU_STS_FLAG_ALM_6_3_WIDTH</a>, <a class="el" href="group___overview.html#gae6db7e651e88b7e5057cda2ba7883aa5">XSYSMONPSU_STS_FLAG_OFFSET</a>, <a class="el" href="group___overview.html#gaa357cac772b514b4a1e28e12fa97d12f">XSYSMONPSU_SUP3_OFFSET</a>, <a class="el" href="group___overview.html#ga19b227d2495b41d0f2260aa8a2efe9b3">XSYSMONPSU_TEMP_OFFSET</a>, <a class="el" href="group___overview.html#gaafbceb0eda5cad5164a7c11e4373485a">XSYSMONPSU_VP_VN_MASK</a>, and <a class="el" href="group___overview.html#ga69b79177a69bce2ea1055e2b969a9f57">XSYSMONPSU_VP_VN_OFFSET</a>.</p>
 
 <p>Referenced by <a class="el" href="xsysmonpsu__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

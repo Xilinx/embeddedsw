@@ -7,5 +7,6 @@ var searchData=
   ['v5_5ffbinfo',['V5_FbInfo',['../struct_run_config.html#a2c838a7b798d47c62f0eb24312e3a483',1,'RunConfig']]],
   ['v6_5ffbinfo',['V6_FbInfo',['../struct_run_config.html#af6d11992c010cc0a70c030e58560126c',1,'RunConfig']]],
   ['videoformat',['VideoFormat',['../struct_frame_info.html#ad024a3bf1e432c445fdcf84e5fa1dcbb',1,'FrameInfo']]],
-  ['videomode',['VideoMode',['../struct_run_config.html#a62b08df046623c6aeb7ca70c3926fec5',1,'RunConfig']]]
+  ['videomode',['VideoMode',['../struct_run_config.html#a62b08df046623c6aeb7ca70c3926fec5',1,'RunConfig']]],
+  ['vtc_5fbaseaddr',['VTC_BASEADDR',['../mmi__dc__live__test_8h.html#a7309b63aaab0f80b2ca9b86234c6bd9b',1,'mmi_dc_live_test.h']]]
 ];

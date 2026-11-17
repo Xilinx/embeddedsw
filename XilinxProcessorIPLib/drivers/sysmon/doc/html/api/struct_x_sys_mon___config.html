@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_sys_mon___config.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,13 +113,16 @@ $(document).ready(function(){initNavTree('struct_x_sys_mon___config.html','');})
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for the System Monitor/ADC device.
+<p>Holds configuration information for the System Monitor/ADC device.
  <a href="struct_x_sys_mon___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xsysmon.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a07bdb0e6c23c9cbebbc127511e596503"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon___config.html#a07bdb0e6c23c9cbebbc127511e596503">Name</a></td></tr>
+<tr class="memdesc:a07bdb0e6c23c9cbebbc127511e596503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique name of the device.  <a href="#a07bdb0e6c23c9cbebbc127511e596503">More...</a><br/></td></tr>
+<tr class="separator:a07bdb0e6c23c9cbebbc127511e596503"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c21814e1533c922ccbb0a70bf60261f"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon___config.html#a0c21814e1533c922ccbb0a70bf60261f">BaseAddress</a></td></tr>
 <tr class="memdesc:a0c21814e1533c922ccbb0a70bf60261f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device base address.  <a href="#a0c21814e1533c922ccbb0a70bf60261f">More...</a><br/></td></tr>
 <tr class="separator:a0c21814e1533c922ccbb0a70bf60261f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,17 +130,17 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a88c6ac6136074c08c60e82a37ab7f576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supports Interrupt driven mode.  <a href="#a88c6ac6136074c08c60e82a37ab7f576">More...</a><br/></td></tr>
 <tr class="separator:a88c6ac6136074c08c60e82a37ab7f576"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6c7c6c711214fd5559ca9e7c6a8e9ac"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon___config.html#ae6c7c6c711214fd5559ca9e7c6a8e9ac">IpType</a></td></tr>
-<tr class="memdesc:ae6c7c6c711214fd5559ca9e7c6a8e9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 - System Management  <a href="#ae6c7c6c711214fd5559ca9e7c6a8e9ac">More...</a><br/></td></tr>
+<tr class="memdesc:ae6c7c6c711214fd5559ca9e7c6a8e9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP type: 1 for System Management, 0 for XADC/System Monitor.  <a href="#ae6c7c6c711214fd5559ca9e7c6a8e9ac">More...</a><br/></td></tr>
 <tr class="separator:ae6c7c6c711214fd5559ca9e7c6a8e9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0db7726d50d6d872e6a84d05b50b5954"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon___config.html#a0db7726d50d6d872e6a84d05b50b5954">IntrId</a></td></tr>
 <tr class="memdesc:a0db7726d50d6d872e6a84d05b50b5954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt ID.  <a href="#a0db7726d50d6d872e6a84d05b50b5954">More...</a><br/></td></tr>
 <tr class="separator:a0db7726d50d6d872e6a84d05b50b5954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b812572c48d437fa9349e16014d0de4"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon___config.html#a2b812572c48d437fa9349e16014d0de4">IntrParent</a></td></tr>
-<tr class="memdesc:a2b812572c48d437fa9349e16014d0de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1] Parent base address.  <a href="#a2b812572c48d437fa9349e16014d0de4">More...</a><br/></td></tr>
+<tr class="memdesc:a2b812572c48d437fa9349e16014d0de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] interrupt parent type; Bit[64/32:1] parent base address.  <a href="#a2b812572c48d437fa9349e16014d0de4">More...</a><br/></td></tr>
 <tr class="separator:a2b812572c48d437fa9349e16014d0de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for the System Monitor/ADC device. </p>
+<div class="textblock"><p>Holds configuration information for the System Monitor/ADC device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a0c21814e1533c922ccbb0a70bf60261f"></a>
 <div class="memitem">
@@ -197,7 +200,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
+<p>Bit[0] interrupt parent type; Bit[64/32:1] parent base address. </p>
 
 <p>Referenced by <a class="el" href="xsysmon__intr__example_8c.html#af50518d379f898d28dfc9072e9984140">SysMonIntrExample()</a>.</p>
 
@@ -213,8 +216,23 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>1 - System Management </p>
-<p>0 - XADC/System Monoitor </p>
+<p>IP type: 1 for System Management, 0 for XADC/System Monitor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a07bdb0e6c23c9cbebbc127511e596503"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* XSysMon_Config::Name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unique name of the device. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga54b145e1592c8df09b3041eb12cd283a">XSysMon_LookupConfig()</a>.</p>
 
 </div>
 </div>

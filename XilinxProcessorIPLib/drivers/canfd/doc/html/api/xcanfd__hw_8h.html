@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanfd__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,21 +105,42 @@ $(document).ready(function(){initNavTree('xcanfd__hw_8h.html','');});
 <div class="title">xcanfd_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines register offsets, bit masks, and low-level access macros. </p>
+<p>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the device. Other driver functions are defined in <a class="el" href="xcanfd_8h.html">xcanfd.h</a>.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
+</p>
+<hr/>
+<p>
+1.0   nsk  06/04/2015 First release
+1.0   nsk  15/05/2015 Modified XCANFD_BTR_TS1_MASK
+                (CR 861772).
+1.0     nsk  16/06/2015 Added New definitions for Register
+                bits since RTL has changed.RTL Changes,Added
+                new bits to MSR,SR,ISR,IER,ICR Registers and modified
+                TS2 bits in BTR and F_SJW bits in F_BTR Registers.
+2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
+      ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
+2.2   sn   06/11/19 Updated Mailbox RX buffer offset for CANFD2.0
+              Fixed below  incorrect mask values
+              XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
+              and CONTROL_STATUS_3.
+2.8   ht   06/19/23 Added support for system device-tree flow.
+2.12  vlt  01/27/26 Fixed codespell issues
+2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+2.13  vn   09/30/26 Update Doxygen comments to AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga47dc418eb3f5796017a1b860480ebd03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga47dc418eb3f5796017a1b860480ebd03">XCANFD_HW_H</a></td></tr>
-<tr class="memdesc:ga47dc418eb3f5796017a1b860480ebd03"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="group__canfd.html#ga47dc418eb3f5796017a1b860480ebd03">More...</a><br/></td></tr>
-<tr class="separator:ga47dc418eb3f5796017a1b860480ebd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga12b802c8f83b2a1b48d1322a7458ae34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga12b802c8f83b2a1b48d1322a7458ae34">XCanFd_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;Xil_In32((BaseAddress) + (RegOffset))</td></tr>
-<tr class="memdesc:ga12b802c8f83b2a1b48d1322a7458ae34"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the given register.  <a href="group__canfd.html#ga12b802c8f83b2a1b48d1322a7458ae34">More...</a><br/></td></tr>
+<tr class="memdesc:ga12b802c8f83b2a1b48d1322a7458ae34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given register.  <a href="group__canfd.html#ga12b802c8f83b2a1b48d1322a7458ae34">More...</a><br/></td></tr>
 <tr class="separator:ga12b802c8f83b2a1b48d1322a7458ae34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6d131863301cf6d7de97e223530acbe2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga6d131863301cf6d7de97e223530acbe2">XCanFd_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;Xil_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
-<tr class="memdesc:ga6d131863301cf6d7de97e223530acbe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro writes the given register.  <a href="group__canfd.html#ga6d131863301cf6d7de97e223530acbe2">More...</a><br/></td></tr>
+<tr class="memdesc:ga6d131863301cf6d7de97e223530acbe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given register.  <a href="group__canfd.html#ga6d131863301cf6d7de97e223530acbe2">More...</a><br/></td></tr>
 <tr class="separator:ga6d131863301cf6d7de97e223530acbe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register offsets for the CAN. Each register is 32 bits.</div></td></tr>
 <tr class="memitem:ga0282a642571a523b41e6e553a737448c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga0282a642571a523b41e6e553a737448c">XCANFD_SRR_OFFSET</a>&#160;&#160;&#160;0x000U</td></tr>
@@ -509,10 +530,10 @@ Macros</h2></td></tr>
 <tr class="separator:ga0f467f6afc99ca3ad9dd7df46e678813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Status/Enable/Clear Register</div></td></tr>
 <tr class="memitem:gaab2eac44285c0ee62e68afe0ec3cb235"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gaab2eac44285c0ee62e68afe0ec3cb235">XCANFD_IXR_RXBOFLW_BI_MASK</a>&#160;&#160;&#160;0x3F000000U</td></tr>
-<tr class="memdesc:gaab2eac44285c0ee62e68afe0ec3cb235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer index for Overflow (Mailbox Mode)  <a href="group__canfd.html#gaab2eac44285c0ee62e68afe0ec3cb235">More...</a><br/></td></tr>
+<tr class="memdesc:gaab2eac44285c0ee62e68afe0ec3cb235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer index for Overflow (Mailbox Mode).  <a href="group__canfd.html#gaab2eac44285c0ee62e68afe0ec3cb235">More...</a><br/></td></tr>
 <tr class="separator:gaab2eac44285c0ee62e68afe0ec3cb235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0478c407f5a28584a430f32bbf4095c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga0478c407f5a28584a430f32bbf4095c5">XCANFD_IXR_RXLRM_BI_MASK</a>&#160;&#160;&#160;0x00FC0000U</td></tr>
-<tr class="memdesc:ga0478c407f5a28584a430f32bbf4095c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer index for Last Received Message (Mailbox Mode)  <a href="group__canfd.html#ga0478c407f5a28584a430f32bbf4095c5">More...</a><br/></td></tr>
+<tr class="memdesc:ga0478c407f5a28584a430f32bbf4095c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer index for Last Received Message (Mailbox Mode).  <a href="group__canfd.html#ga0478c407f5a28584a430f32bbf4095c5">More...</a><br/></td></tr>
 <tr class="separator:ga0478c407f5a28584a430f32bbf4095c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac41197990b3712c19e5d03accf245fbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gac41197990b3712c19e5d03accf245fbf">XCANFD_RXLRM_BI_SHIFT</a>&#160;&#160;&#160;18U</td></tr>
 <tr class="memdesc:gac41197990b3712c19e5d03accf245fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer Index Shift Value.  <a href="group__canfd.html#gac41197990b3712c19e5d03accf245fbf">More...</a><br/></td></tr>
@@ -524,10 +545,10 @@ Macros</h2></td></tr>
 <tr class="memdesc:gab4f419c73461273aed0584742f0f120f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Match Not Finished Intr Mask.  <a href="group__canfd.html#gab4f419c73461273aed0584742f0f120f">More...</a><br/></td></tr>
 <tr class="separator:gab4f419c73461273aed0584742f0f120f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab74ba4ea81418e98746d05cc9ec11c6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gab74ba4ea81418e98746d05cc9ec11c6b">XCANFD_IXR_RXBOFLW_MASK</a>&#160;&#160;&#160;0x00010000U</td></tr>
-<tr class="memdesc:gab74ba4ea81418e98746d05cc9ec11c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer Overflow interrupt Mask (Mailbox mode)  <a href="group__canfd.html#gab74ba4ea81418e98746d05cc9ec11c6b">More...</a><br/></td></tr>
+<tr class="memdesc:gab74ba4ea81418e98746d05cc9ec11c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer Overflow interrupt Mask (Mailbox mode).  <a href="group__canfd.html#gab74ba4ea81418e98746d05cc9ec11c6b">More...</a><br/></td></tr>
 <tr class="separator:gab74ba4ea81418e98746d05cc9ec11c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57f764f6cc819e5d98539db3ede17fa0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga57f764f6cc819e5d98539db3ede17fa0">XCANFD_IXR_RXRBF_MASK</a>&#160;&#160;&#160;0x00008000U</td></tr>
-<tr class="memdesc:ga57f764f6cc819e5d98539db3ede17fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer Full Interrupt Mask (Mailbox mode)  <a href="group__canfd.html#ga57f764f6cc819e5d98539db3ede17fa0">More...</a><br/></td></tr>
+<tr class="memdesc:ga57f764f6cc819e5d98539db3ede17fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Buffer Full Interrupt Mask (Mailbox mode).  <a href="group__canfd.html#ga57f764f6cc819e5d98539db3ede17fa0">More...</a><br/></td></tr>
 <tr class="separator:ga57f764f6cc819e5d98539db3ede17fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d74772558b59933ac24e0d608b27c75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga2d74772558b59933ac24e0d608b27c75">XCANFD_IXR_TXCRS_MASK</a>&#160;&#160;&#160;0x00004000U</td></tr>
 <tr class="memdesc:ga2d74772558b59933ac24e0d608b27c75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tx Cancellation Request Served Interrupt Mask.  <a href="group__canfd.html#ga2d74772558b59933ac24e0d608b27c75">More...</a><br/></td></tr>
@@ -536,7 +557,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga43563637b709ac0b2853411b9d3a3a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tx Buffer Ready Request Served Interrupt Mask.  <a href="group__canfd.html#ga43563637b709ac0b2853411b9d3a3a00">More...</a><br/></td></tr>
 <tr class="separator:ga43563637b709ac0b2853411b9d3a3a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3feec04b7ca96b49d495f206d89fbcea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga3feec04b7ca96b49d495f206d89fbcea">XCANFD_IXR_RXFWMFLL_MASK</a>&#160;&#160;&#160;0x00001000U</td></tr>
-<tr class="memdesc:ga3feec04b7ca96b49d495f206d89fbcea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Watermark Full interrupt Mask (FIFO mode)  <a href="group__canfd.html#ga3feec04b7ca96b49d495f206d89fbcea">More...</a><br/></td></tr>
+<tr class="memdesc:ga3feec04b7ca96b49d495f206d89fbcea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Watermark Full interrupt Mask (FIFO mode).  <a href="group__canfd.html#ga3feec04b7ca96b49d495f206d89fbcea">More...</a><br/></td></tr>
 <tr class="separator:ga3feec04b7ca96b49d495f206d89fbcea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga34815f7a241e4511568c6189ab6bacc6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga34815f7a241e4511568c6189ab6bacc6">XCANFD_IXR_WKUP_MASK</a>&#160;&#160;&#160;0x00000800U</td></tr>
 <tr class="memdesc:ga34815f7a241e4511568c6189ab6bacc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wake up Interrupt Mask.  <a href="group__canfd.html#ga34815f7a241e4511568c6189ab6bacc6">More...</a><br/></td></tr>
@@ -584,7 +605,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga909694ed06e3cea4083354085f1f373c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TX Event FIFO Watermark Full Intr Mask.  <a href="group__canfd.html#ga909694ed06e3cea4083354085f1f373c">More...</a><br/></td></tr>
 <tr class="separator:ga909694ed06e3cea4083354085f1f373c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga193e653e3bd70cf22d1ddcc3cd5a66b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga193e653e3bd70cf22d1ddcc3cd5a66b0">XCANFD_IXR_ALL</a></td></tr>
-<tr class="memdesc:ga193e653e3bd70cf22d1ddcc3cd5a66b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Basic interrupts.  <a href="group__canfd.html#ga193e653e3bd70cf22d1ddcc3cd5a66b0">More...</a><br/></td></tr>
+<tr class="memdesc:ga193e653e3bd70cf22d1ddcc3cd5a66b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for basic interrupts.  <a href="group__canfd.html#ga193e653e3bd70cf22d1ddcc3cd5a66b0">More...</a><br/></td></tr>
 <tr class="separator:ga193e653e3bd70cf22d1ddcc3cd5a66b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Transmit Ready request All Mask</div></td></tr>
 <tr class="memitem:ga33cc9f1a0f94bdcb8e3f8fc2a1dcd4e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga33cc9f1a0f94bdcb8e3f8fc2a1dcd4e4">XCANFD_TRR_MASK</a>&#160;&#160;&#160;0xFFFFFFFFU</td></tr>
@@ -839,8 +860,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga98a383894c69dac95b09dd94965f476f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TxBuffer31 Ready Request Mask.  <a href="group__canfd.html#ga98a383894c69dac95b09dd94965f476f">More...</a><br/></td></tr>
 <tr class="separator:ga98a383894c69dac95b09dd94965f476f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57f1ec3d9f5a93f58ea8a36ba562085f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga57f1ec3d9f5a93f58ea8a36ba562085f">XCANFD_TXBUFFER_ALL_RDY_RQT_MASK</a>&#160;&#160;&#160;0xFFFFFFFFU</td></tr>
-<tr class="memdesc:ga57f1ec3d9f5a93f58ea8a36ba562085f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"> TxBuffer Ready
-</pre><p> Request Mask for ALL  <a href="group__canfd.html#ga57f1ec3d9f5a93f58ea8a36ba562085f">More...</a><br/></td></tr>
+<tr class="memdesc:ga57f1ec3d9f5a93f58ea8a36ba562085f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TxBuffer Ready Request Mask for ALL.  <a href="group__canfd.html#ga57f1ec3d9f5a93f58ea8a36ba562085f">More...</a><br/></td></tr>
 <tr class="separator:ga57f1ec3d9f5a93f58ea8a36ba562085f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">CAN TxBuffer Cancel Request Served Interrupt Enable Register Masks</div></td></tr>
 <tr class="memitem:ga3399d3951e1fd22ec75d9eb206a09cba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga3399d3951e1fd22ec75d9eb206a09cba">XCANFD_TXBUFFER0_CANCEL_RQT_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>

@@ -116,7 +116,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
               subsystem hash to provided address.
       rmv  08/26/25 Use callback functions instead of xilocp library functions
       rmv  09/11/25 Fix GCC warning when PLM_OCP_ASUFW_KEY_MGMT is disabled
-2.4     abh  11/30/25 Fixed MISRA-C violations</pre><pre></pre><pre>
+2.4     abh  11/30/25 Fixed MISRA-C violations
+      vm   07/14/26 Add ASUFW keep-alive task init during module init</pre><pre></pre><pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ====  ==== ======== ======================================================
 1.00  am   02/19/25 Initial release
@@ -124,6 +125,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <code>#include &quot;<a class="el" href="xplmi_8h.html">xplmi.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__debug_8h.html">xplmi_debug.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_asu_cmd.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xplmi__asufw__keepalive_8h.html">xplmi_asufw_keepalive.h</a>&quot;</code><br/>
+<code>#include &quot;xplmi_status.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>

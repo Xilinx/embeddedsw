@@ -254,8 +254,6 @@
   </compound>
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
   <compound refid="xvidc_8c" kind="file"><name>xvidc.c</name>
     <member refid="group__video__common_1ga9000d50f752d484b1cc9aadb61e5da94" kind="variable"><name>XVidC_VideoTimingModes</name></member>
     <member refid="group__video__common_1ga193a64f066a2ef8541d5b8e43f860f80" kind="variable"><name>XVidC_CustomTimingModes</name></member>
@@ -271,6 +269,8 @@
     <member refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" kind="function"><name>XVidC_GetVideoModeIdWBlanking</name></member>
     <member refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" kind="function"><name>XVidC_GetVideoModeId</name></member>
     <member refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" kind="function"><name>XVidC_GetVideoModeIdExtensive</name></member>
+    <member refid="group__video__common_1gac7887b7dc736ea343c22af7815e5c0fa" kind="function"><name>XVidC_GetVideoModeId_DeepSearch</name></member>
+    <member refid="group__video__common_1ga1960127753fe5103efc7da3f9a291d28" kind="function"><name>XVidC_GetColorFormatForBandwidth</name></member>
     <member refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" kind="function"><name>XVidC_GetVideoModeIdRb</name></member>
     <member refid="group__video__common_1ga3be40034baa818fc42e861f7f033afe8" kind="function"><name>XVidC_GetVideoModeData</name></member>
     <member refid="group__video__common_1ga536ee41269fe7c0519dc8c3838af2d93" kind="function"><name>XVidC_GetVideoModeStr</name></member>
@@ -710,6 +710,8 @@
     <member refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" kind="function"><name>XVidC_GetVideoModeIdExtensive</name></member>
     <member refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" kind="function"><name>XVidC_GetVideoModeIdRb</name></member>
     <member refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" kind="function"><name>XVidC_GetVideoModeIdWBlanking</name></member>
+    <member refid="group__video__common_1gac7887b7dc736ea343c22af7815e5c0fa" kind="function"><name>XVidC_GetVideoModeId_DeepSearch</name></member>
+    <member refid="group__video__common_1ga1960127753fe5103efc7da3f9a291d28" kind="function"><name>XVidC_GetColorFormatForBandwidth</name></member>
   </compound>
   <compound refid="xvidc__cea861_8h" kind="file"><name>xvidc_cea861.h</name>
     <member refid="xvidc__cea861_8h_1a284ca543c364b27dd67ce5775a2bbeb2" kind="define"><name>XVIDC_EDID_VERBOSITY</name></member>
@@ -1520,6 +1522,7 @@
     <member refid="xvidc__parse__edid_8c_1a4c2dd5e87f911fcbcaa946654caa616e" kind="function"><name>xvidc_parse_displayid_vendor_specific</name></member>
     <member refid="xvidc__parse__edid_8c_1a6374cbb06c87ce3f8939224cf1f48061" kind="function"><name>XV_VidC_parse_edid</name></member>
     <member refid="xvidc__parse__edid_8c_1a2ed9895de5efd93d677dd8cd345b0400" kind="function"><name>XV_VidC_handle_extension</name></member>
+    <member refid="xvidc__parse__edid_8c_1a5b5a648c9b8f8d409871992734d85acd" kind="function"><name>xvidc_store_base_edid_identity</name></member>
     <member refid="xvidc__parse__edid_8c_1a64f3ce83f54001237c5ef62b85b98be4" kind="function"><name>XV_VidC_parse_edid_extension</name></member>
   </compound>
   <compound refid="xvidc__timings__table_8c" kind="file"><name>xvidc_timings_table.c</name>
@@ -2106,6 +2109,8 @@
     <member refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" kind="function"><name>XVidC_GetVideoModeIdWBlanking</name></member>
     <member refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" kind="function"><name>XVidC_GetVideoModeId</name></member>
     <member refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" kind="function"><name>XVidC_GetVideoModeIdExtensive</name></member>
+    <member refid="group__video__common_1gac7887b7dc736ea343c22af7815e5c0fa" kind="function"><name>XVidC_GetVideoModeId_DeepSearch</name></member>
+    <member refid="group__video__common_1ga1960127753fe5103efc7da3f9a291d28" kind="function"><name>XVidC_GetColorFormatForBandwidth</name></member>
     <member refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" kind="function"><name>XVidC_GetVideoModeIdRb</name></member>
     <member refid="group__video__common_1ga3be40034baa818fc42e861f7f033afe8" kind="function"><name>XVidC_GetVideoModeData</name></member>
     <member refid="group__video__common_1ga536ee41269fe7c0519dc8c3838af2d93" kind="function"><name>XVidC_GetVideoModeStr</name></member>
@@ -2197,8 +2202,6 @@
     <member refid="group__video__common_1ga0d2a862abcedf68524b2287d46c98c25" kind="define"><name>XVidC_EdidIsDtdPtmInterlaced</name></member>
     <member refid="group__video__common_1ga5dd390549fc91a75f848c76270fca04a" kind="define"><name>XVidC_EdidGetExtBlkCount</name></member>
     <member refid="group__video__common_1gaeb53032d4e3be80ba3b9dc5e368dcffc" kind="define"><name>XVidC_EdidGetChecksum</name></member>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_1298f4e88d9c0552302bff9aac32ac75" kind="dir"><name>examples</name>
   </compound>

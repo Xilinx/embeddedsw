@@ -87,6 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_a"><span>a</span></a></li>
       <li><a href="#index_b"><span>b</span></a></li>
       <li><a href="#index_c"><span>c</span></a></li>
+      <li><a href="#index_d"><span>d</span></a></li>
       <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
@@ -96,6 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -118,7 +120,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -131,6 +133,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 &#160;
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
+<li>Addr_ext
+: <a class="el" href="struct_x_axi_dma___bd_ring.html#a6d2be6dce1f46a955b7a408b1ae7a5c0">XAxiDma_BdRing</a>
+</li>
 <li>AddrWidth
 : <a class="el" href="struct_x_axi_dma.html#a663f5757eabe6b1b8813ed5fdb0d0edb">XAxiDma</a>
 , <a class="el" href="struct_x_axi_dma___config.html#a6fc1c26fb40944182ff84e370e667eb0">XAxiDma_Config</a>
@@ -164,6 +169,13 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 </ul>
 
 
+<h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
+<li>DataWidth
+: <a class="el" href="struct_x_axi_dma___bd_ring.html#ad15134c06d259b49daa14f8ffd72fb70">XAxiDma_BdRing</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
 <li>FirstBdAddr
 : <a class="el" href="struct_x_axi_dma___bd_ring.html#a6d41078607d5a8165e67d6483e40e9ab">XAxiDma_BdRing</a>
@@ -181,24 +193,30 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 
 <h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>HasDRE
+: <a class="el" href="struct_x_axi_dma___bd_ring.html#a94a5b88b2590ff521039bf5b172052dc">XAxiDma_BdRing</a>
+</li>
 <li>HasMm2S
-: <a class="el" href="struct_x_axi_dma___config.html#a9e597a36e83962019838d61a34c416c5">XAxiDma_Config</a>
+: <a class="el" href="struct_x_axi_dma.html#a2a3255b4c923d78f96fc7b49164ecf8c">XAxiDma</a>
+, <a class="el" href="struct_x_axi_dma___config.html#a9e597a36e83962019838d61a34c416c5">XAxiDma_Config</a>
 </li>
 <li>HasMm2SDRE
 : <a class="el" href="struct_x_axi_dma___config.html#a1b1d4cd7b4bba7822017f4bea8eb279d">XAxiDma_Config</a>
 </li>
 <li>HasS2Mm
-: <a class="el" href="struct_x_axi_dma___config.html#a8cfd661a9afc2ba1be63099ca38e4a02">XAxiDma_Config</a>
+: <a class="el" href="struct_x_axi_dma.html#a75d10692e5c0d03d0e0206a8fcd1406c">XAxiDma</a>
+, <a class="el" href="struct_x_axi_dma___config.html#a8cfd661a9afc2ba1be63099ca38e4a02">XAxiDma_Config</a>
 </li>
 <li>HasS2MmDRE
 : <a class="el" href="struct_x_axi_dma___config.html#a2b89398fe9ee0d4fb0c55550f37df096">XAxiDma_Config</a>
 </li>
 <li>HasSg
-: <a class="el" href="struct_x_axi_dma___config.html#a4060f5af42c77e6616fef7d1f6042968">XAxiDma_Config</a>
+: <a class="el" href="struct_x_axi_dma.html#a3c5138c2ff12cff97f8d1444550735fd">XAxiDma</a>
+, <a class="el" href="struct_x_axi_dma___config.html#a4060f5af42c77e6616fef7d1f6042968">XAxiDma_Config</a>
 </li>
 <li>HasStsCntrlStrm
-: <a class="el" href="struct_x_axi_dma___bd_ring.html#a7d35cb00bb50fff2e24c15f7d7d8dae0">XAxiDma_BdRing</a>
-, <a class="el" href="struct_x_axi_dma___config.html#aa9fd771fe88c0e9af427021f733ff4b7">XAxiDma_Config</a>
+: <a class="el" href="struct_x_axi_dma___config.html#aa9fd771fe88c0e9af427021f733ff4b7">XAxiDma_Config</a>
+, <a class="el" href="struct_x_axi_dma___bd_ring.html#a7d35cb00bb50fff2e24c15f7d7d8dae0">XAxiDma_BdRing</a>
 </li>
 <li>HwCnt
 : <a class="el" href="struct_x_axi_dma___bd_ring.html#ab49406dd2d9ec65e3f38d1cc3c880391">XAxiDma_BdRing</a>
@@ -213,6 +231,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>Initialized
+: <a class="el" href="struct_x_axi_dma.html#a0b717775515d60e9b541ca833ef77a57">XAxiDma</a>
+</li>
 <li>IntrId
 : <a class="el" href="struct_x_axi_dma___config.html#adbe8d9edc09073242bfae10ef9c0d4c2">XAxiDma_Config</a>
 </li>
@@ -236,8 +257,12 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
+<li>MaxTransferLen
+: <a class="el" href="struct_x_axi_dma___bd_ring.html#af7d20b177c57b8466e64b74c6c959273">XAxiDma_BdRing</a>
+</li>
 <li>MicroDmaMode
-: <a class="el" href="struct_x_axi_dma___config.html#adc95679c99ad11c8804612c09389a100">XAxiDma_Config</a>
+: <a class="el" href="struct_x_axi_dma.html#a93f1a8501a700c7b7de3f2789d024016">XAxiDma</a>
+, <a class="el" href="struct_x_axi_dma___config.html#adc95679c99ad11c8804612c09389a100">XAxiDma_Config</a>
 </li>
 <li>Mm2SBurstSize
 : <a class="el" href="struct_x_axi_dma___config.html#a149852a31badf55c36bc53da3cfdf2b8">XAxiDma_Config</a>
@@ -275,11 +300,20 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>RegBase
+: <a class="el" href="struct_x_axi_dma.html#a6a5998bf39bd677a8de8398fe47adce9">XAxiDma</a>
+</li>
 <li>RingIndex
 : <a class="el" href="struct_x_axi_dma___bd_ring.html#ac14f09fcd00f1869c8194d790f73d791">XAxiDma_BdRing</a>
 </li>
 <li>RunState
 : <a class="el" href="struct_x_axi_dma___bd_ring.html#a443e5c48e677e9a1a4e85a383eefc2be">XAxiDma_BdRing</a>
+</li>
+<li>RxBdRing
+: <a class="el" href="struct_x_axi_dma.html#af94c5b7900782398fbd065318c5b0fb6">XAxiDma</a>
+</li>
+<li>RxNumChannels
+: <a class="el" href="struct_x_axi_dma.html#a7fa157e5664aea2c332fd3bc19bf5cb5">XAxiDma</a>
 </li>
 </ul>
 
@@ -299,6 +333,16 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 </li>
 <li>SgLengthWidth
 : <a class="el" href="struct_x_axi_dma___config.html#a70958aedaeb16e443b9aece2fc79b59b">XAxiDma_Config</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TxBdRing
+: <a class="el" href="struct_x_axi_dma.html#a32a5ccf48497442af66f144e3eec7fb3">XAxiDma</a>
+</li>
+<li>TxNumChannels
+: <a class="el" href="struct_x_axi_dma.html#a66a036eb577236ee764d37db526d9636">XAxiDma</a>
 </li>
 </ul>
 </div><!-- contents -->

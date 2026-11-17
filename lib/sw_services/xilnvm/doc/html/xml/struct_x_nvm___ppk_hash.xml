@@ -15,15 +15,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="84" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1768" endline="1815">XNvm_EfuseReadPpkHash</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5093d8298f30653879f3f0f3023029bd" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="177" endline="190">XNvm_EfuseWritePpkHash</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure for Hash data to be programmed to eFuses. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="83" bodyend="85"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="123" bodyend="125"/>
     <listofallmembers>
       <member refid="struct_x_nvm___ppk_hash_1afc31f7f57a17388d319089991a2aaff7" prot="public" virt="non-virtual"><scope>XNvm_PpkHash</scope><name>Hash</name></member>
     </listofallmembers>

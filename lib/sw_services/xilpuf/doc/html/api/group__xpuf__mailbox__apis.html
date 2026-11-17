@@ -107,12 +107,12 @@ $(document).ready(function(){initNavTree('group__xpuf__mailbox__apis.html','');}
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2052fd116d6e086ca703c3518eafd887"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__mailbox__apis.html#ga2052fd116d6e086ca703c3518eafd887">XPuf_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga2052fd116d6e086ca703c3518eafd887"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga2052fd116d6e086ca703c3518eafd887">More...</a><br/></td></tr>
-<tr class="separator:ga2052fd116d6e086ca703c3518eafd887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f20e5b50966261f896c0e5ea7ec6f1d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__mailbox__apis.html#ga2f20e5b50966261f896c0e5ea7ec6f1d">XPuf_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:ga2f20e5b50966261f896c0e5ea7ec6f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga2f20e5b50966261f896c0e5ea7ec6f1d">More...</a><br/></td></tr>
+<tr class="separator:ga2f20e5b50966261f896c0e5ea7ec6f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga2052fd116d6e086ca703c3518eafd887"></a>
+<a class="anchor" id="ga2f20e5b50966261f896c0e5ea7ec6f1d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -132,7 +132,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>MsgLen</em>&#160;</td>
+          <td class="paramname"><em>MsgLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>Response</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -147,17 +153,20 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">MailboxPtr</td><td>Pointer to mailbox instance </td></tr>
     <tr><td class="paramname">MsgPtr</td><td>Pointer to the payload message </td></tr>
-    <tr><td class="paramname">MsgLen</td><td>Length of the message</td></tr>
+    <tr><td class="paramname">MsgLen</td><td>Length of the message </td></tr>
+    <tr><td class="paramname">Response</td><td>Pointer to store the IPI response. When non-NULL, the buffer must hold RESPONSE_ARG_CNT words. Word 0 is the IPI status and the following words are payload data.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the IPI send and receive is successful</li>
+<li>XST_INVALID_PARAM if any input parameter is invalid</li>
 <li>XST_FAILURE if there is a failure</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Payload consists of API ID and call arguments to be written in IPI buffer. </dd></dl>
 <ul>
+<li>Validate input parameters.</li>
 <li>Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed.</li>
 <li>Wait for IPI response from PLM and return the status of the IPI response. </li>
 </ul>

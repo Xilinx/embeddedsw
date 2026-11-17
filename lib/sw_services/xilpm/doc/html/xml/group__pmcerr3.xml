@@ -1,0 +1,321 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__pmcerr3" kind="group">
+    <compoundname>pmcerr3</compoundname>
+    <title>Error Event Mask for PMC ERR3</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__pmcerr3_1gacb7c6bd4dabc8fefdc4431e4714820b0" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_IOU_CR</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC IOU correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gafae2c275e392518d63127c652ba94250" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_IOU_NCR</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC IOU uncorrectable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga77e94dc95e652a394cb71aafe981110d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DFX_UXPT_ACT</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for DFX unexpected activation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga8ca4a642151d7fa956dcbc672da86977" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DICE_CDI_PAR</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for DICE CDI SEED parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gac3088859cfe07e8163cda0d6651ca2d0" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVIK_PRIV</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Device identity private key parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga1b658fc5b6e5b3268275c0ee53da0144" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NXTSW_CDI_PAR</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for Next SW CDI SEED parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gac9464a5532527fdd7d1a203071327759" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVAK_PRIV</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Device attestation private key parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gaab7de8f2e863ed2ea32e56db86e4af28" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DME_PUB_X</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for DME public key X component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga80ca27dae2f43a274cde381b12fbca31" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DME_PUB_Y</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for DME public key Y component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gabdde0b8d79b487b997f66d0347e0eeab" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVAK_PUB_X</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVAK public key X component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga2f889fe02c9ed8c6917a7206a03ff91b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVAK_PUB_Y</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVAK public key Y component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga5e3ef79ed6f75593b6e925cc5f5c939c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVIK_PUB_X</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVIK public key X component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga8e3a33f459105b8c11736a51d07abede" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVIK_PUB_Y</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVIK public key Y component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="334" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga2321470a7aa174ed35702b0bb96f2682" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PCR_PAR</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PCR parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gacb7c6bd4dabc8fefdc4431e4714820b0" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_IOU_CR</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC IOU correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gafae2c275e392518d63127c652ba94250" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_IOU_NCR</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for PMC IOU uncorrectable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga77e94dc95e652a394cb71aafe981110d" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DFX_UXPT_ACT</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for DFX unexpected activation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga8ca4a642151d7fa956dcbc672da86977" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DICE_CDI_PAR</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for DICE CDI SEED parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gac3088859cfe07e8163cda0d6651ca2d0" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVIK_PRIV</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for Device identity private key parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga1b658fc5b6e5b3268275c0ee53da0144" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_NXTSW_CDI_PAR</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for Next SW CDI SEED parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gac9464a5532527fdd7d1a203071327759" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVAK_PRIV</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Device attestation private key parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gaab7de8f2e863ed2ea32e56db86e4af28" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DME_PUB_X</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for DME public key X component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="321" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga80ca27dae2f43a274cde381b12fbca31" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DME_PUB_Y</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for DME public key Y component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1gabdde0b8d79b487b997f66d0347e0eeab" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVAK_PUB_X</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVAK public key X component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga2f889fe02c9ed8c6917a7206a03ff91b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVAK_PUB_Y</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVAK public key Y component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="330" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga5e3ef79ed6f75593b6e925cc5f5c939c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVIK_PUB_X</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVIK public key X component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga8e3a33f459105b8c11736a51d07abede" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_DEVIK_PUB_Y</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for DEVIK public key Y component&apos;s parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="336" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmcerr3_1ga2321470a7aa174ed35702b0bb96f2682" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PCR_PAR</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PCR parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="339" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to PMC ERR3 Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

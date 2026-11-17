@@ -19,7 +19,7 @@ var xdprxss__dp21__pt_8c =
     [ "infofifo", "xdprxss__dp21__pt_8c.html#a9e2b2e80e26666d0dc540c5aea02e08f", null ],
     [ "offset_rd", "xdprxss__dp21__pt_8c.html#af8f10e0e7e55e4594d29c1cf228388ee", null ],
     [ "TmrCtr", "xdprxss__dp21__pt_8c.html#a52925150cc1fdc72079961624f475c47", null ],
+    [ "use_vsc", "xdprxss__dp21__pt_8c.html#acb030d34760c14a908fe9752f806958a", null ],
     [ "VidFrameCRC_rx", "xdprxss__dp21__pt_8c.html#a6b5bb90253da74cfe58cf15d0814931d", null ],
-    [ "VPHY_REFCLK_SEL_270", "xdprxss__dp21__pt_8c.html#a803021a1c07feb8aa2f01c00f651b471", null ],
     [ "VPhyInst", "xdprxss__dp21__pt_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7", null ]
 ];

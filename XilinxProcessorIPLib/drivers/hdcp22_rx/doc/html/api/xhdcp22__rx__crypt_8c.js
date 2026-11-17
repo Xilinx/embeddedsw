@@ -8,6 +8,6 @@ var xhdcp22__rx__crypt_8c =
     [ "XHdcp22Rx_ComputeMPrime", "xhdcp22__rx__crypt_8c.html#ga489ce6133dd84742be7437dcf059c3d0", null ],
     [ "XHdcp22Rx_ComputeVPrime", "xhdcp22__rx__crypt_8c.html#gafad5e85ac43cb633331a0b7e138a6c63", null ],
     [ "XHdcp22Rx_GenerateRandom", "xhdcp22__rx__crypt_8c.html#ga65027e431ba9aa70ab2552875638b2a9", null ],
-    [ "XHdcp22Rx_RsaesOaepDecrypt", "xhdcp22__rx__crypt_8c.html#ga736d136f515b397e659377757763aed2", null ],
+    [ "XHdcp22Rx_RsaesOaepDecrypt", "xhdcp22__rx__crypt_8c.html#ga4207ff002000408dc3355e1d2f28c654", null ],
     [ "XHdcp22Rx_RsaesOaepEncrypt", "xhdcp22__rx__crypt_8c.html#ga509c671d4be808b4cd66fad2bf587bed", null ]
 ];

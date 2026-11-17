@@ -11,22 +11,15 @@
       <node id="219">
         <label>xil_io.h</label>
       </node>
-      <node id="220">
-        <label>xstatus.h</label>
-      </node>
-      <node id="214">
-        <label>xusbps_g.c</label>
-        <link refid="xusbps_g.c"/>
-        <childnode refid="215" relation="include">
+      <node id="215">
+        <label>xusbps.h</label>
+        <link refid="xusbps_8h"/>
+        <childnode refid="216" relation="include">
         </childnode>
-        <childnode refid="221" relation="include">
+        <childnode refid="217" relation="include">
         </childnode>
-      </node>
-      <node id="217">
-        <label>xil_types.h</label>
-      </node>
-      <node id="221">
-        <label>xparameters.h</label>
+        <childnode refid="220" relation="include">
+        </childnode>
       </node>
       <node id="216">
         <label>xusbps_hw.h</label>
@@ -38,14 +31,21 @@
         <childnode refid="219" relation="include">
         </childnode>
       </node>
-      <node id="215">
-        <label>xusbps.h</label>
-        <link refid="xusbps_8h"/>
-        <childnode refid="216" relation="include">
+      <node id="220">
+        <label>xstatus.h</label>
+      </node>
+      <node id="217">
+        <label>xil_types.h</label>
+      </node>
+      <node id="221">
+        <label>xparameters.h</label>
+      </node>
+      <node id="214">
+        <label>xusbps_g.c</label>
+        <link refid="xusbps_g.c"/>
+        <childnode refid="215" relation="include">
         </childnode>
-        <childnode refid="217" relation="include">
-        </childnode>
-        <childnode refid="220" relation="include">
+        <childnode refid="221" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_g.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_g.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_g.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_g.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -113,6 +113,6 @@
 <codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_g.c"/>
   </compounddef>
 </doxygen>

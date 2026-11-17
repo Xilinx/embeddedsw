@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
   <compound refid="struct_x_scu_gic" kind="struct"><name>XScuGic</name>
-    <member refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" kind="variable"><name>Config</name></member>
-    <member refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" kind="variable"><name>IsReady</name></member>
-    <member refid="group__scugic__api_1ga1fa65e4df0e0d8da24a557e1398c9df8" kind="variable"><name>UnhandledInterrupts</name></member>
+    <member refid="struct_x_scu_gic_1a231f58b4755a1856bbe3120370e5889e" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_scu_gic_1a797e50fb56fbc19bc35f73896decaf82" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_scu_gic_1a1fa65e4df0e0d8da24a557e1398c9df8" kind="variable"><name>UnhandledInterrupts</name></member>
   </compound>
   <compound refid="struct_x_scu_gic___config" kind="struct"><name>XScuGic_Config</name>
-    <member refid="group__scugic__api_1ga003522c9b6a6db98f6e1cf9f3dc42d1b" kind="variable"><name>Name</name></member>
-    <member refid="group__scugic__api_1ga699bf6b8bb8bfbb652b647b78cfae695" kind="variable"><name>DistBaseAddress</name></member>
-    <member refid="group__scugic__api_1ga1bb3866706357e2cd84c657e0e703986" kind="variable"><name>CpuBaseAddress</name></member>
-    <member refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" kind="variable"><name>HandlerTable</name></member>
+    <member refid="struct_x_scu_gic___config_1a003522c9b6a6db98f6e1cf9f3dc42d1b" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_scu_gic___config_1a699bf6b8bb8bfbb652b647b78cfae695" kind="variable"><name>DistBaseAddress</name></member>
+    <member refid="struct_x_scu_gic___config_1a1bb3866706357e2cd84c657e0e703986" kind="variable"><name>CpuBaseAddress</name></member>
+    <member refid="struct_x_scu_gic___config_1a7ea39fc648dff09faa2a238e9a054089" kind="variable"><name>HandlerTable</name></member>
   </compound>
   <compound refid="struct_x_scu_gic___vector_table_entry" kind="struct"><name>XScuGic_VectorTableEntry</name>
-    <member refid="group__scugic__api_1ga5f67ecf54244b46e2570691626906397" kind="variable"><name>Handler</name></member>
-    <member refid="group__scugic__api_1ga6969d00688039e7e14b25fadd8227398" kind="variable"><name>CallBackRef</name></member>
+    <member refid="struct_x_scu_gic___vector_table_entry_1a5f67ecf54244b46e2570691626906397" kind="variable"><name>Handler</name></member>
+    <member refid="struct_x_scu_gic___vector_table_entry_1a6969d00688039e7e14b25fadd8227398" kind="variable"><name>CallBackRef</name></member>
   </compound>
   <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
   </compound>
@@ -22,6 +22,12 @@
   <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
   </compound>
   <compound refid="xscugic_8c" kind="file"><name>xscugic.c</name>
+    <member refid="group__scugic__api_1ga0756f011ef667460d583017366823244" kind="define"><name>DEFAULT_PRIORITY</name></member>
+    <member refid="group__scugic__api_1ga8db3cf6af859109747d0175fec00c675" kind="variable"><name>CpuId</name></member>
+    <member refid="group__scugic__api_1gafda8c0d108cc122f2137138f734e757b" kind="function"><name>StubHandler</name></member>
+    <member refid="group__scugic__api_1ga59ca03bca24accc7c9ae849af4d91941" kind="function"><name>DoDistributorInit</name></member>
+    <member refid="group__scugic__api_1ga060683a882966009339d957ff9f8a4ad" kind="function"><name>DistributorInit</name></member>
+    <member refid="group__scugic__api_1ga36e42d994c068eaff9e60243ea2481e6" kind="function"><name>CPUInitialize</name></member>
     <member refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" kind="function"><name>XScuGic_CfgInitialize</name></member>
     <member refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" kind="function"><name>XScuGic_Connect</name></member>
     <member refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" kind="function"><name>XScuGic_Disconnect</name></member>
@@ -37,12 +43,6 @@
     <member refid="group__scugic__api_1ga945e029b4356be809020c81745c4a23b" kind="function"><name>XScuGic_SetCpuID</name></member>
     <member refid="group__scugic__api_1ga6c30ba79ea9505dc29b9cac4deea3df8" kind="function"><name>XScuGic_GetCpuID</name></member>
     <member refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" kind="function"><name>XScuGic_IsInitialized</name></member>
-    <member refid="group__scugic__api_1ga0756f011ef667460d583017366823244" kind="define"><name>DEFAULT_PRIORITY</name></member>
-    <member refid="group__scugic__api_1ga8db3cf6af859109747d0175fec00c675" kind="variable"><name>CpuId</name></member>
-    <member refid="group__scugic__api_1gafda8c0d108cc122f2137138f734e757b" kind="function"><name>StubHandler</name></member>
-    <member refid="group__scugic__api_1ga59ca03bca24accc7c9ae849af4d91941" kind="function"><name>DoDistributorInit</name></member>
-    <member refid="group__scugic__api_1ga060683a882966009339d957ff9f8a4ad" kind="function"><name>DistributorInit</name></member>
-    <member refid="group__scugic__api_1ga36e42d994c068eaff9e60243ea2481e6" kind="function"><name>CPUInitialize</name></member>
   </compound>
   <compound refid="xscugic_8h" kind="file"><name>xscugic.h</name>
     <member refid="group__scugic__api_1ga07d27bd67c789603a7130283855f0c53" kind="define"><name>EFUSE_STATUS_OFFSET</name></member>
@@ -73,7 +73,6 @@
     <member refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kind="function"><name>XScuGic_LookupConfig</name></member>
     <member refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" kind="function"><name>XScuGic_InterruptHandler</name></member>
     <member refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" kind="function"><name>XScuGic_SelfTest</name></member>
-    <member refid="group__scugic__api_1ga9f2c28f54da589ba1000235cfb0929ba" kind="define"><name>XSCUGIC_H</name></member>
   </compound>
   <compound refid="xscugic__example_8c" kind="file"><name>xscugic_example.c</name>
     <member refid="xscugic__example_8c_1ad0bcc7acaad2634d17fd6c4ecb19d425" kind="define"><name>XSCUGiC_DIST_BASEADDR</name></member>
@@ -193,23 +192,22 @@
     <member refid="group__scugic__api_1ga3ea14a0a5360cd67164dc801ef1d7e3d" kind="define"><name>XSCUGIC_CPUID_MASK</name></member>
     <member refid="group__scugic__api_1gad50524a3c9f6edaac90d6fa47907ec10" kind="define"><name>XSCUGIC_EOI_INTID_MASK</name></member>
     <member refid="group__scugic__api_1ga8ac1ba33bfaefe69aacd6221b0375f1c" kind="define"><name>XSCUGIC_RUN_PRIORITY_MASK</name></member>
-    <member refid="group__scugic__api_1gac1bc762eba383937d08c41704737091c" kind="define"><name>XSCUGIC_HW_H</name></member>
+    <member refid="group__scugic__api_1ga1aea23f3bd1941b93443e441bd1e8e58" kind="define"><name>XSCUGIC_PEND_INTID_MASK</name></member>
     <member refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" kind="define"><name>XSCUGIC_MAX_NUM_INTR_INPUTS</name></member>
     <member refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" kind="define"><name>XSCUGIC_SPI_INT_ID_START</name></member>
     <member refid="group__scugic__api_1gaecd562b440bde835a8eee0c8a0e78249" kind="define"><name>XSCUGIC_MAX_INTR_PRIO_VAL</name></member>
     <member refid="group__scugic__api_1ga314e70261cb0c4c4da8019ff78c7e6f8" kind="define"><name>XSCUGIC_INTR_PRIO_MASK</name></member>
-    <member refid="group__scugic__api_1ga1aea23f3bd1941b93443e441bd1e8e58" kind="define"><name>XSCUGIC_PEND_INTID_MASK</name></member>
-    <member refid="xscugic__hw_8h_1a3921ef6af4f5fd6a35cb5089ef85a22a" kind="define"><name>XSCUGIC_INT_CFG_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1af5f397349cab91733882c9d388498d5b" kind="define"><name>XSCUGIC_PRIORITY_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1a68ccffbaf26e88803874e3fd9592bc80" kind="define"><name>XSCUGIC_IROUTER_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1aa2cf2e3acd2e8cf537c415276efa3a97" kind="define"><name>XSCUGIC_SPI_TARGET_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1a0e0bd7cf9402e0fae93afefa3c6dae90" kind="define"><name>XSCUGIC_SECURITY_TARGET_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1a53759eec986eab489c00e26a566d2b00" kind="define"><name>XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1a93135e195fabc65c81e26163c8aabcdb" kind="define"><name>XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1a37b4c6eb0a94fe5e17b6ce5ddc021f5b" kind="define"><name>XSCUGIC_EN_DIS_OFFSET_CALC</name></member>
-    <member refid="xscugic__hw_8h_1af5fb346faf5dff7820e4ce87c86f8eca" kind="define"><name>XScuGic_ReadReg</name></member>
-    <member refid="xscugic__hw_8h_1ad67ce957524b208789b863ed9a5c8b44" kind="define"><name>XScuGic_ReadReg64</name></member>
-    <member refid="xscugic__hw_8h_1a01c0f85e48858531c313ce22cbfd2dfa" kind="define"><name>XScuGic_WriteReg</name></member>
+    <member refid="group__scugic__api_1ga3921ef6af4f5fd6a35cb5089ef85a22a" kind="define"><name>XSCUGIC_INT_CFG_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1gaf5f397349cab91733882c9d388498d5b" kind="define"><name>XSCUGIC_PRIORITY_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga68ccffbaf26e88803874e3fd9592bc80" kind="define"><name>XSCUGIC_IROUTER_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1gaa2cf2e3acd2e8cf537c415276efa3a97" kind="define"><name>XSCUGIC_SPI_TARGET_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga0e0bd7cf9402e0fae93afefa3c6dae90" kind="define"><name>XSCUGIC_SECURITY_TARGET_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga53759eec986eab489c00e26a566d2b00" kind="define"><name>XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga93135e195fabc65c81e26163c8aabcdb" kind="define"><name>XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga37b4c6eb0a94fe5e17b6ce5ddc021f5b" kind="define"><name>XSCUGIC_EN_DIS_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1gaf5fb346faf5dff7820e4ce87c86f8eca" kind="define"><name>XScuGic_ReadReg</name></member>
+    <member refid="group__scugic__api_1gad67ce957524b208789b863ed9a5c8b44" kind="define"><name>XScuGic_ReadReg64</name></member>
+    <member refid="group__scugic__api_1ga01c0f85e48858531c313ce22cbfd2dfa" kind="define"><name>XScuGic_WriteReg</name></member>
     <member refid="group__scugic__api_1ga96bfe161e3b4e401f76f2b35df9fab86" kind="function"><name>XScuGic_DeviceInterruptHandler</name></member>
     <member refid="group__scugic__api_1ga9a39b7ce56a0c803c6c94b4ee147647e" kind="function"><name>XScuGic_DeviceInitialize</name></member>
     <member refid="group__scugic__api_1gac1d1444968ff82f78505eeae32a2e471" kind="function"><name>XScuGic_RegisterHandler</name></member>
@@ -240,8 +238,8 @@
     <member refid="xscugic__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xscugic__selftest_8c" kind="file"><name>xscugic_selftest.c</name>
-    <member refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" kind="function"><name>XScuGic_SelfTest</name></member>
     <member refid="group__scugic__api_1gaeb56c44f88d7770aadf2b1fdbd3c24da" kind="define"><name>XSCUGIC_PCELL_ID</name></member>
+    <member refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" kind="function"><name>XScuGic_SelfTest</name></member>
   </compound>
   <compound refid="xscugic__sinit_8c" kind="file"><name>xscugic_sinit.c</name>
     <member refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kind="function"><name>XScuGic_LookupConfig</name></member>
@@ -257,31 +255,8 @@
     <member refid="group__scugic__api_1ga07d27bd67c789603a7130283855f0c53" kind="define"><name>EFUSE_STATUS_OFFSET</name></member>
     <member refid="group__scugic__api_1gabf7f61958eba005dd02a7014a664def5" kind="define"><name>EFUSE_STATUS_CPU_MASK</name></member>
     <member refid="group__scugic__api_1ga3dde6ae31d569b01dc88903a5340d744" kind="define"><name>ARMA9</name></member>
-    <member refid="group__scugic__api_1ga3de9d984ad4026ce214e09bf796cdc49" kind="variable"><name>XScuGic_ConfigTable</name></member>
-    <member refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" kind="function"><name>XScuGic_CfgInitialize</name></member>
-    <member refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" kind="function"><name>XScuGic_Connect</name></member>
-    <member refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" kind="function"><name>XScuGic_Disconnect</name></member>
-    <member refid="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" kind="function"><name>XScuGic_Enable</name></member>
-    <member refid="group__scugic__api_1gaafd153e16238a1189c513846675e096a" kind="function"><name>XScuGic_Disable</name></member>
-    <member refid="group__scugic__api_1gaca28a576540ab5fcd75cee1f38917ae4" kind="function"><name>XScuGic_SoftwareIntr</name></member>
-    <member refid="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" kind="function"><name>XScuGic_SetPriorityTriggerType</name></member>
-    <member refid="group__scugic__api_1ga6ed162180ffb45b082c2fbe23951ba13" kind="function"><name>XScuGic_GetPriorityTriggerType</name></member>
-    <member refid="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" kind="function"><name>XScuGic_InterruptMaptoCpu</name></member>
-    <member refid="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" kind="function"><name>XScuGic_InterruptUnmapFromCpu</name></member>
-    <member refid="group__scugic__api_1ga66b2416be64a5e582e530ed9ed7f962c" kind="function"><name>XScuGic_UnmapAllInterruptsFromCpu</name></member>
-    <member refid="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" kind="function"><name>XScuGic_Stop</name></member>
-    <member refid="group__scugic__api_1ga945e029b4356be809020c81745c4a23b" kind="function"><name>XScuGic_SetCpuID</name></member>
-    <member refid="group__scugic__api_1ga6c30ba79ea9505dc29b9cac4deea3df8" kind="function"><name>XScuGic_GetCpuID</name></member>
-    <member refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" kind="function"><name>XScuGic_IsInitialized</name></member>
-    <member refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kind="function"><name>XScuGic_LookupConfig</name></member>
-    <member refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" kind="function"><name>XScuGic_InterruptHandler</name></member>
-    <member refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" kind="function"><name>XScuGic_SelfTest</name></member>
     <member refid="group__scugic__api_1ga8fe68480cb749450b3b8df5af1fb5198" kind="define"><name>XSCUGIC500_DCTLR_ARE_NS_ENABLE</name></member>
     <member refid="group__scugic__api_1ga28dd6678d0630c07191a41b8f5af0950" kind="define"><name>XSCUGIC500_DCTLR_ARE_S_ENABLE</name></member>
-    <member refid="group__scugic__api_1ga2a4ba236ff7bfeab20b5ca81082f2b13" kind="define"><name>XScuGic_CPUWriteReg</name></member>
-    <member refid="group__scugic__api_1ga2f3bba7c5247812158ef4fde7a0e7dfe" kind="define"><name>XScuGic_CPUReadReg</name></member>
-    <member refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" kind="define"><name>XScuGic_DistWriteReg</name></member>
-    <member refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" kind="define"><name>XScuGic_DistReadReg</name></member>
     <member refid="group__scugic__api_1ga94cd5e2c3a1ab5b6c282d76bead5d616" kind="define"><name>XSCUGIC_DIST_EN_OFFSET</name></member>
     <member refid="group__scugic__api_1ga80f182c20ecfcc115bca1ac7aae08889" kind="define"><name>XSCUGIC_IC_TYPE_OFFSET</name></member>
     <member refid="group__scugic__api_1gaff73afc08cc167202d5aac6661ae6a1e" kind="define"><name>XSCUGIC_DIST_IDENT_OFFSET</name></member>
@@ -367,21 +342,32 @@
     <member refid="group__scugic__api_1ga3ea14a0a5360cd67164dc801ef1d7e3d" kind="define"><name>XSCUGIC_CPUID_MASK</name></member>
     <member refid="group__scugic__api_1gad50524a3c9f6edaac90d6fa47907ec10" kind="define"><name>XSCUGIC_EOI_INTID_MASK</name></member>
     <member refid="group__scugic__api_1ga8ac1ba33bfaefe69aacd6221b0375f1c" kind="define"><name>XSCUGIC_RUN_PRIORITY_MASK</name></member>
+    <member refid="group__scugic__api_1ga1aea23f3bd1941b93443e441bd1e8e58" kind="define"><name>XSCUGIC_PEND_INTID_MASK</name></member>
     <member refid="group__scugic__api_1ga8db3cf6af859109747d0175fec00c675" kind="variable"><name>CpuId</name></member>
-    <member refid="group__scugic__api_1ga5f67ecf54244b46e2570691626906397" kind="variable"><name>Handler</name></member>
-    <member refid="group__scugic__api_1ga6969d00688039e7e14b25fadd8227398" kind="variable"><name>CallBackRef</name></member>
-    <member refid="group__scugic__api_1ga003522c9b6a6db98f6e1cf9f3dc42d1b" kind="variable"><name>Name</name></member>
-    <member refid="group__scugic__api_1ga699bf6b8bb8bfbb652b647b78cfae695" kind="variable"><name>DistBaseAddress</name></member>
-    <member refid="group__scugic__api_1ga1bb3866706357e2cd84c657e0e703986" kind="variable"><name>CpuBaseAddress</name></member>
-    <member refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" kind="variable"><name>HandlerTable</name></member>
-    <member refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" kind="variable"><name>Config</name></member>
-    <member refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" kind="variable"><name>IsReady</name></member>
-    <member refid="group__scugic__api_1ga1fa65e4df0e0d8da24a557e1398c9df8" kind="variable"><name>UnhandledInterrupts</name></member>
+    <member refid="group__scugic__api_1ga3de9d984ad4026ce214e09bf796cdc49" kind="variable"><name>XScuGic_ConfigTable</name></member>
     <member refid="group__scugic__api_1gaca56d0e0512f7fb4430977d6b6d598a9" kind="variable"><name>XScuGic_ConfigTable</name></member>
     <member refid="group__scugic__api_1gafda8c0d108cc122f2137138f734e757b" kind="function"><name>StubHandler</name></member>
     <member refid="group__scugic__api_1ga59ca03bca24accc7c9ae849af4d91941" kind="function"><name>DoDistributorInit</name></member>
     <member refid="group__scugic__api_1ga060683a882966009339d957ff9f8a4ad" kind="function"><name>DistributorInit</name></member>
     <member refid="group__scugic__api_1ga36e42d994c068eaff9e60243ea2481e6" kind="function"><name>CPUInitialize</name></member>
+    <member refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" kind="function"><name>XScuGic_CfgInitialize</name></member>
+    <member refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" kind="function"><name>XScuGic_Connect</name></member>
+    <member refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" kind="function"><name>XScuGic_Disconnect</name></member>
+    <member refid="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" kind="function"><name>XScuGic_Enable</name></member>
+    <member refid="group__scugic__api_1gaafd153e16238a1189c513846675e096a" kind="function"><name>XScuGic_Disable</name></member>
+    <member refid="group__scugic__api_1gaca28a576540ab5fcd75cee1f38917ae4" kind="function"><name>XScuGic_SoftwareIntr</name></member>
+    <member refid="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" kind="function"><name>XScuGic_SetPriorityTriggerType</name></member>
+    <member refid="group__scugic__api_1ga6ed162180ffb45b082c2fbe23951ba13" kind="function"><name>XScuGic_GetPriorityTriggerType</name></member>
+    <member refid="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" kind="function"><name>XScuGic_InterruptMaptoCpu</name></member>
+    <member refid="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" kind="function"><name>XScuGic_InterruptUnmapFromCpu</name></member>
+    <member refid="group__scugic__api_1ga66b2416be64a5e582e530ed9ed7f962c" kind="function"><name>XScuGic_UnmapAllInterruptsFromCpu</name></member>
+    <member refid="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" kind="function"><name>XScuGic_Stop</name></member>
+    <member refid="group__scugic__api_1ga945e029b4356be809020c81745c4a23b" kind="function"><name>XScuGic_SetCpuID</name></member>
+    <member refid="group__scugic__api_1ga6c30ba79ea9505dc29b9cac4deea3df8" kind="function"><name>XScuGic_GetCpuID</name></member>
+    <member refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" kind="function"><name>XScuGic_IsInitialized</name></member>
+    <member refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kind="function"><name>XScuGic_LookupConfig</name></member>
+    <member refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" kind="function"><name>XScuGic_InterruptHandler</name></member>
+    <member refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" kind="function"><name>XScuGic_SelfTest</name></member>
     <member refid="group__scugic__api_1ga32ee53640d2f3a0561e66f01e3359bd8" kind="function"><name>DistInit</name></member>
     <member refid="group__scugic__api_1ga503413e59ebe1674a597be05c03536be" kind="function"><name>CPUInit</name></member>
     <member refid="group__scugic__api_1ga77ab5c9baed31658c3f4503523d95dac" kind="function"><name>LookupConfigByBaseAddress</name></member>
@@ -396,14 +382,26 @@
     <member refid="group__scugic__api_1gadaa95193630e661a6a578f35a5e3ea1a" kind="function"><name>XScuGic_EnableIntr</name></member>
     <member refid="group__scugic__api_1ga0d183d23d05aac5d61cd640c5b39b275" kind="function"><name>XScuGic_DisableIntr</name></member>
     <member refid="group__scugic__api_1ga0756f011ef667460d583017366823244" kind="define"><name>DEFAULT_PRIORITY</name></member>
-    <member refid="group__scugic__api_1ga9f2c28f54da589ba1000235cfb0929ba" kind="define"><name>XSCUGIC_H</name></member>
+    <member refid="group__scugic__api_1ga2a4ba236ff7bfeab20b5ca81082f2b13" kind="define"><name>XScuGic_CPUWriteReg</name></member>
+    <member refid="group__scugic__api_1ga2f3bba7c5247812158ef4fde7a0e7dfe" kind="define"><name>XScuGic_CPUReadReg</name></member>
+    <member refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" kind="define"><name>XScuGic_DistWriteReg</name></member>
+    <member refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" kind="define"><name>XScuGic_DistReadReg</name></member>
     <member refid="group__scugic__api_1ga0756f011ef667460d583017366823244" kind="define"><name>DEFAULT_PRIORITY</name></member>
-    <member refid="group__scugic__api_1gac1bc762eba383937d08c41704737091c" kind="define"><name>XSCUGIC_HW_H</name></member>
     <member refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" kind="define"><name>XSCUGIC_MAX_NUM_INTR_INPUTS</name></member>
     <member refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" kind="define"><name>XSCUGIC_SPI_INT_ID_START</name></member>
     <member refid="group__scugic__api_1gaecd562b440bde835a8eee0c8a0e78249" kind="define"><name>XSCUGIC_MAX_INTR_PRIO_VAL</name></member>
     <member refid="group__scugic__api_1ga314e70261cb0c4c4da8019ff78c7e6f8" kind="define"><name>XSCUGIC_INTR_PRIO_MASK</name></member>
-    <member refid="group__scugic__api_1ga1aea23f3bd1941b93443e441bd1e8e58" kind="define"><name>XSCUGIC_PEND_INTID_MASK</name></member>
+    <member refid="group__scugic__api_1ga3921ef6af4f5fd6a35cb5089ef85a22a" kind="define"><name>XSCUGIC_INT_CFG_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1gaf5f397349cab91733882c9d388498d5b" kind="define"><name>XSCUGIC_PRIORITY_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga68ccffbaf26e88803874e3fd9592bc80" kind="define"><name>XSCUGIC_IROUTER_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1gaa2cf2e3acd2e8cf537c415276efa3a97" kind="define"><name>XSCUGIC_SPI_TARGET_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga0e0bd7cf9402e0fae93afefa3c6dae90" kind="define"><name>XSCUGIC_SECURITY_TARGET_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga53759eec986eab489c00e26a566d2b00" kind="define"><name>XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga93135e195fabc65c81e26163c8aabcdb" kind="define"><name>XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1ga37b4c6eb0a94fe5e17b6ce5ddc021f5b" kind="define"><name>XSCUGIC_EN_DIS_OFFSET_CALC</name></member>
+    <member refid="group__scugic__api_1gaf5fb346faf5dff7820e4ce87c86f8eca" kind="define"><name>XScuGic_ReadReg</name></member>
+    <member refid="group__scugic__api_1gad67ce957524b208789b863ed9a5c8b44" kind="define"><name>XScuGic_ReadReg64</name></member>
+    <member refid="group__scugic__api_1ga01c0f85e48858531c313ce22cbfd2dfa" kind="define"><name>XScuGic_WriteReg</name></member>
     <member refid="group__scugic__api_1gaeb56c44f88d7770aadf2b1fdbd3c24da" kind="define"><name>XSCUGIC_PCELL_ID</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>

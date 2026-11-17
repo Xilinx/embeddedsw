@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pmc" kind="struct" prot="public">
+    <compoundname>XPm_Pmc</compoundname>
+    <includes local="no">xpm_pmc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pmc_1a5370d4d6601cc8c1325b20608f312a4e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref></type>
+        <definition>XPm_Core XPm_Pmc::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+<para>Processor core device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pmc_1ad38226d3084f1d2aa4ee33e78955ec33" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Pmc::PmcIouSlcrBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PmcIouSlcrBaseAddr</name>
+        <briefdescription>
+<para>PMC IOU SLCR register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pmc_1a04a498f87929acb6c7dab7fefa04ce0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Pmc::PmcGlobalBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PmcGlobalBaseAddr</name>
+        <briefdescription>
+<para>PMC GLOBAL register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pmc_1a09742eb2d1ef280b11eb674c72283d04" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Pmc::PmcAnalogBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>PmcAnalogBaseAddr</name>
+        <briefdescription>
+<para>PMC Analog register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The PMC processor class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="230">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="228" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="229" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="227">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="228" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="229" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="231" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="231">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="227" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="232" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="231" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="232">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="228" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="231" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="229">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="227" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="230" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="229" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="228">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="225">
+        <label>XPm_Pmc</label>
+        <link refid="struct_x_pm___pmc"/>
+        <childnode refid="226" relation="usage">
+          <edgelabel>Core</edgelabel>
+        </childnode>
+      </node>
+      <node id="226">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="227" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h" bodystart="21" bodyend="26"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pmc_1a5370d4d6601cc8c1325b20608f312a4e" prot="public" virt="non-virtual"><scope>XPm_Pmc</scope><name>Core</name></member>
+      <member refid="struct_x_pm___pmc_1a09742eb2d1ef280b11eb674c72283d04" prot="public" virt="non-virtual"><scope>XPm_Pmc</scope><name>PmcAnalogBaseAddr</name></member>
+      <member refid="struct_x_pm___pmc_1a04a498f87929acb6c7dab7fefa04ce0c" prot="public" virt="non-virtual"><scope>XPm_Pmc</scope><name>PmcGlobalBaseAddr</name></member>
+      <member refid="struct_x_pm___pmc_1ad38226d3084f1d2aa4ee33e78955ec33" prot="public" virt="non-virtual"><scope>XPm_Pmc</scope><name>PmcIouSlcrBaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

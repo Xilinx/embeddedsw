@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___provision_user_efuse_params" kind="struct" prot="public">
+    <compoundname>XAsu_ProvisionUserEfuseParams</compoundname>
+    <includes local="no">xasu_provisioninfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1a82cbbf346807e78f7f1a36acfd54d048" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_ProvisionUserEfuseParams::KeyAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyAddr</name>
+        <briefdescription>
+<para>Address of the user supplied plaintext key buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>The buffer must be allocated for 32 bytes (256-bit key). Used only when KeySource is XASU_PROVISION_KEY_SOURCE_USER_BUFFER. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1a7f0bf8e1300307fb5c27ab64e604ffe9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ProvisionUserEfuseParams::KeyId</definition>
+        <argsstring></argsstring>
+        <name>KeyId</name>
+        <briefdescription>
+<para>Composite key identifier of the AKV key to be programmed (encodes the user-assigned vault ID in bits [31:24], key type in bits [23:16] and key index in bits [15:0]). </para>        </briefdescription>
+        <detaileddescription>
+<para>Used only when KeySource is XASU_PROVISION_KEY_SOURCE_VAULT. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1aa02a36f73576739bf9ac62db71a783c1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_ProvisionUserEfuseParams::KeyLen</definition>
+        <argsstring></argsstring>
+        <name>KeyLen</name>
+        <briefdescription>
+<para>Length of the key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Must be XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES (256-bit). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1aa4207047df329cd40219ba9643e080c5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ProvisionUserEfuseParams::EfuseKeyId</definition>
+        <argsstring></argsstring>
+        <name>EfuseKeyId</name>
+        <briefdescription>
+<para>Target USER eFUSE key to program (XASU_PROVISION_EFUSE_USER_KEY_0 or XASU_PROVISION_EFUSE_USER_KEY_1). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1ab3e45e55c87fa0aa0335cff21b6c6556" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ProvisionUserEfuseParams::KeySource</definition>
+        <argsstring></argsstring>
+        <name>KeySource</name>
+        <briefdescription>
+<para>Source of the key to be programmed (XASU_PROVISION_KEY_SOURCE_*). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1a8d2262294c8ce860f0f4089188d032cd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ProvisionUserEfuseParams::KeyForm</definition>
+        <argsstring></argsstring>
+        <name>KeyForm</name>
+        <briefdescription>
+<para>Programmed form (XASU_EFUSE_BLACK_KEY or XASU_EFUSE_RED_KEY). </para>        </briefdescription>
+        <detaileddescription>
+<para>USER_EFUSE_KEY_0 accepts black only; USER_EFUSE_KEY_1 accepts black or red. Red USER key 1 is usable by PLM and ASU; black USER key 1 is subsystem-exclusive. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___provision_user_efuse_params_1a9cca3048dba38e8b59a03f7e9b1a7a12" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ProvisionUserEfuseParams::Reserved[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the parameters for the USER eFUSE key provisioning command. </para>    </briefdescription>
+    <detaileddescription>
+<para>USER_EFUSE_KEY_0 is always programmed in black form. USER_EFUSE_KEY_1 accepts both black and red via KeyForm. Red USER key 1 is usable by PLM and ASU; black USER key 0 and black USER key 1 are subsystem-exclusive, so choose black provisioning with the end use case in mind. The key source is selected explicitly via KeySource:<itemizedlist>
+<listitem><para>XASU_PROVISION_KEY_SOURCE_ASU_GENERATED: the ASU generates the key with the TRNG; KeyId and KeyAddr must both be zero. This is the only source permitted for USER_EFUSE_KEY_0.</para></listitem><listitem><para>XASU_PROVISION_KEY_SOURCE_VAULT: KeyId selects an AKV key (KeyAddr must be zero).</para></listitem><listitem><para>XASU_PROVISION_KEY_SOURCE_USER_BUFFER: KeyAddr supplies a raw key buffer (KeyId must be zero). </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="202" bodyend="220"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___provision_user_efuse_params_1aa4207047df329cd40219ba9643e080c5" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>EfuseKeyId</name></member>
+      <member refid="struct_x_asu___provision_user_efuse_params_1a82cbbf346807e78f7f1a36acfd54d048" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>KeyAddr</name></member>
+      <member refid="struct_x_asu___provision_user_efuse_params_1a8d2262294c8ce860f0f4089188d032cd" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>KeyForm</name></member>
+      <member refid="struct_x_asu___provision_user_efuse_params_1a7f0bf8e1300307fb5c27ab64e604ffe9" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>KeyId</name></member>
+      <member refid="struct_x_asu___provision_user_efuse_params_1aa02a36f73576739bf9ac62db71a783c1" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>KeyLen</name></member>
+      <member refid="struct_x_asu___provision_user_efuse_params_1ab3e45e55c87fa0aa0335cff21b6c6556" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>KeySource</name></member>
+      <member refid="struct_x_asu___provision_user_efuse_params_1a9cca3048dba38e8b59a03f7e9b1a7a12" prot="public" virt="non-virtual"><scope>XAsu_ProvisionUserEfuseParams</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebdgoldendata0.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebdgoldendata0.c" bodystart="14" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebdgoldendata0.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebdgoldendata0.c" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -221296,6 +221296,6 @@
 <codeline lineno="221272"><highlight class="normal"><sp/><sp/><sp/>0x00000000,<sp/>0x00000000,<sp/>0x00000000,<sp/>0x00000000,</highlight></codeline>
 <codeline lineno="221273"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebdgoldendata0.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebdgoldendata0.c"/>
   </compounddef>
 </doxygen>

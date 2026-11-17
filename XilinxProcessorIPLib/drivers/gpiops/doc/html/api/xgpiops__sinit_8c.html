@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpiops__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,13 +105,26 @@ $(document).ready(function(){initNavTree('xgpiops__sinit_8c.html','');});
 <div class="title">xgpiops_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xgpiops_8h.html">xgpiops.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements static initialization functionality of the <a class="el" href="struct_x_gpio_ps.html" title="XGpioPs driver instance data. ">XGpioPs</a> driver. </p>
+<p>This file contains the implementation of the <a class="el" href="struct_x_gpio_ps.html" title="XGpioPs driver instance data. ">XGpioPs</a> driver's static initialization functionality.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a sv   01/15/10 First Release
+3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+3.12  gm   07/11/23 Added SDT support.
+3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+3.15  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                    to support 64-bit addressing.
+3.16  vn   09/10/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xgpiops_8h.html">xgpiops.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaa868b1653edcba528a6f4d5d70334a29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_gpio_ps___config.html">XGpioPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpiops.html#gaa868b1653edcba528a6f4d5d70334a29">XGpioPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gaa868b1653edcba528a6f4d5d70334a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__gpiops.html#gaa868b1653edcba528a6f4d5d70334a29">More...</a><br/></td></tr>
+<tr class="memdesc:gaa868b1653edcba528a6f4d5d70334a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration by device ID or base address.  <a href="group__gpiops.html#gaa868b1653edcba528a6f4d5d70334a29">More...</a><br/></td></tr>
 <tr class="separator:gaa868b1653edcba528a6f4d5d70334a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

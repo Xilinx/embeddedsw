@@ -1,0 +1,941 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__interface_8c" kind="file">
+    <compoundname>mbox_interface.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes refid="mbox__interface_8h" local="yes">mbox_interface.h</includes>
+    <includes refid="mbox__command_8h" local="yes">mbox_command.h</includes>
+    <includes refid="mbox__error__code_8h" local="yes">mbox_error_code.h</includes>
+    <includes refid="mbox__integrity_8h" local="yes">mbox_integrity.h</includes>
+    <includes refid="mbox__phy_8h" local="yes">mbox_phy.h</includes>
+    <includes refid="oslayer_8h" local="yes">oslayer.h</includes>
+    <includes local="yes">vlog.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="6832">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6837">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6847">
+        <label>mbox_integrity.h</label>
+        <childnode refid="6828" relation="include">
+        </childnode>
+      </node>
+      <node id="6841">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6839">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6837" relation="include">
+        </childnode>
+        <childnode refid="6840" relation="include">
+        </childnode>
+      </node>
+      <node id="6828">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6829" relation="include">
+        </childnode>
+        <childnode refid="6830" relation="include">
+        </childnode>
+        <childnode refid="6831" relation="include">
+        </childnode>
+        <childnode refid="6832" relation="include">
+        </childnode>
+        <childnode refid="6833" relation="include">
+        </childnode>
+        <childnode refid="6834" relation="include">
+        </childnode>
+        <childnode refid="6835" relation="include">
+        </childnode>
+        <childnode refid="6836" relation="include">
+        </childnode>
+        <childnode refid="6841" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+        <childnode refid="6842" relation="include">
+        </childnode>
+        <childnode refid="6843" relation="include">
+        </childnode>
+        <childnode refid="6845" relation="include">
+        </childnode>
+      </node>
+      <node id="6838">
+        <label>stdint.h</label>
+      </node>
+      <node id="6830">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6842">
+        <label>mbox_hardware.h</label>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6851">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6852" relation="include">
+        </childnode>
+        <childnode refid="6853" relation="include">
+        </childnode>
+        <childnode refid="6854" relation="include">
+        </childnode>
+      </node>
+      <node id="6833">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6854">
+        <label>stddef.h</label>
+      </node>
+      <node id="6825">
+        <label>mbox_interface.c</label>
+        <link refid="mbox_interface.c"/>
+        <childnode refid="6826" relation="include">
+        </childnode>
+        <childnode refid="6827" relation="include">
+        </childnode>
+        <childnode refid="6846" relation="include">
+        </childnode>
+        <childnode refid="6841" relation="include">
+        </childnode>
+        <childnode refid="6847" relation="include">
+        </childnode>
+        <childnode refid="6848" relation="include">
+        </childnode>
+        <childnode refid="6849" relation="include">
+        </childnode>
+        <childnode refid="6856" relation="include">
+        </childnode>
+        <childnode refid="6857" relation="include">
+        </childnode>
+      </node>
+      <node id="6853">
+        <label>limits.h</label>
+      </node>
+      <node id="6844">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="6843">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6836" relation="include">
+        </childnode>
+        <childnode refid="6844" relation="include">
+        </childnode>
+      </node>
+      <node id="6827">
+        <label>mbox_interface.h</label>
+        <childnode refid="6828" relation="include">
+        </childnode>
+      </node>
+      <node id="6852">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="6829" relation="include">
+        </childnode>
+        <childnode refid="6830" relation="include">
+        </childnode>
+      </node>
+      <node id="6831">
+        <label>sys/types.h</label>
+      </node>
+      <node id="6826">
+        <label>string.h</label>
+      </node>
+      <node id="6845">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6834">
+        <label>signal.h</label>
+      </node>
+      <node id="6836">
+        <label>mbox_api.h</label>
+        <childnode refid="6837" relation="include">
+        </childnode>
+        <childnode refid="6838" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6856">
+        <label>vlog.h</label>
+      </node>
+      <node id="6850">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="6851" relation="include">
+        </childnode>
+        <childnode refid="6826" relation="include">
+        </childnode>
+      </node>
+      <node id="6840">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6848">
+        <label>mbox_phy.h</label>
+        <childnode refid="6838" relation="include">
+        </childnode>
+        <childnode refid="6828" relation="include">
+        </childnode>
+      </node>
+      <node id="6835">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6855">
+        <label>ff.h</label>
+      </node>
+      <node id="6857">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="6849">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6855" relation="include">
+        </childnode>
+      </node>
+      <node id="6829">
+        <label>stdio.h</label>
+      </node>
+      <node id="6846">
+        <label>mbox_command.h</label>
+        <childnode refid="6828" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mbox__interface_8c_1a409768d6dd32d3ff211bfccfe4ecce45" prot="public" static="no">
+        <name>LOGTAG</name>
+        <initializer>&quot;MIFC&quot;</initializer>
+        <briefdescription>
+<para>Log tag used by the mailbox interface layer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__interface_8c_1a3cd7fa88d6780e931126f1bada825f4c" prot="public" static="no">
+        <name>ACK_TIMEOUT_US</name>
+        <initializer>180000000U</initializer>
+        <briefdescription>
+<para>Maximum time to wait for a command acknowledgment, in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mbox__interface_8c_1aa56e78aa4e731c342851c218120263ae" prot="public" static="no">
+        <name>ACK_POLL_INTERVAL_US</name>
+        <initializer>100U</initializer>
+        <briefdescription>
+<para>Polling interval while waiting for an acknowledgment, in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mbox__interface_8c_1a84221612df046e83de31efca3873c1a2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rx_msg</definition>
+        <argsstring></argsstring>
+        <name>rx_msg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__interface_8c_1a6b530941e57ca8df3c39410d1bbb53c2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rx_response</definition>
+        <argsstring></argsstring>
+        <name>rx_response</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__interface_8c_1a4f8f776359d4e686943b28c5a1560825" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* rx_command</definition>
+        <argsstring></argsstring>
+        <name>rx_command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__interface_8c_1acca77ad10c4ef0a0469d6bb6946a16c8" prot="public" static="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t mbox_outbound_cookie_next</definition>
+        <argsstring></argsstring>
+        <name>mbox_outbound_cookie_next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__interface_8c_1a5b2370c7e06b5dde3ba974397bff1d7d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t mbox_copy_size</definition>
+        <argsstring>(const MboxPostMsg *msg)</argsstring>
+        <name>mbox_copy_size</name>
+        <param>
+          <type>const <ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>Returns the used byte count of a mailbox message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to measure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Size of the message header plus the used payload, in bytes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1aadbf0bdf3d17d73cb2ecf327fddd3784" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>static int32_t mbox_interface_allocate_buffers</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_interface_allocate_buffers</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Allocates the receive buffers used by the mailbox interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>VPI_SUCCESS on success, VPI_ERR_NOMEM otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="45" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1a2ddbd67a3e217375c20c15690d0f2a31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_interface_init</definition>
+        <argsstring>(MboxCoreId current_cpu_id)</argsstring>
+        <name>mbox_interface_init</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>current_cpu_id</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the mailbox interface and its transport layer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">current_cpu_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="74" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1ab5cab37f7dc7110449960933bad5f3df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_interface_close</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_interface_close</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Closes the mailbox interface and releases its buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="100" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1a75b4f276b78043570ede4d31e0300355" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t mbox_next_cookie</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_next_cookie</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Allocate the next unique outbound mailbox cookie. </para>        </briefdescription>
+        <detaileddescription>
+<para>Advances the global counter and returns a monotonically increasing cookie, skipping the reserved values 0 and MBOX_COOKIE_NOT_USED.</para><para><simplesect kind="return"><para>Next unique, non-reserved cookie value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="131" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1a564da26b9fde6f5ffc819b2a5c72f33a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_interface_send_command</definition>
+        <argsstring>(MBCmdId_E cmd, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)</argsstring>
+        <name>mbox_interface_send_command</name>
+        <param>
+          <type>MBCmdId_E</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dest_cpu</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>src_cpu</declname>
+        </param>
+        <briefdescription>
+<para>Builds, stamps, and sends a mailbox command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command identifier to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dest_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="145" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1a989e4a2f76f63289b2aecb0242e55970" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_interface_send_response</definition>
+        <argsstring>(MBCmdId_E res, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)</argsstring>
+        <name>mbox_interface_send_response</name>
+        <param>
+          <type>MBCmdId_E</type>
+          <declname>res</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dest_cpu</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>src_cpu</declname>
+        </param>
+        <briefdescription>
+<para>Builds, stamps, and sends a mailbox response. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Response identifier to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the response payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dest_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="189" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1a336cf3462ec5c9409e62b6761fc8e0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t mbox_interface_send_raw</definition>
+        <argsstring>(uint32_t msg_id, void *data, uint32_t size, uint8_t dest_cpu, uint8_t src_cpu)</argsstring>
+        <name>mbox_interface_send_raw</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>msg_id</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dest_cpu</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>src_cpu</declname>
+        </param>
+        <briefdescription>
+<para>Sends a raw payload as a mailbox message without command framing. </para>        </briefdescription>
+        <detaileddescription>
+<para>Validates payload_size against MAX_ITEM before copying to prevent buffer overflow on the RPU-&gt;APU response path where payload_size is caller-controlled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="219" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1ad3faa4f8aec3b6a3eb6c2f1901d9bddd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t mbox_interface_wait_for_ack</definition>
+        <argsstring>(uint32_t cookie, void *data)</argsstring>
+        <name>mbox_interface_wait_for_ack</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>cookie</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Waits for the response that matches the given cookie. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cookie</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cookie identifying the awaited response. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer that receives the response payload.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Response subcode on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="253" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1ab5c2b6f738c15216182d0b3b960f6566" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mbox_interface_rx_dispatch</definition>
+        <argsstring>(uint32_t ipi_src_mask)</argsstring>
+        <name>mbox_interface_rx_dispatch</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>ipi_src_mask</declname>
+        </param>
+        <briefdescription>
+<para>Drains and dispatches all pending inbound mailbox messages. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ipi_src_mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt source mask of the triggering IPI. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="292" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__interface_8c_1a819198349caeabbe5514230468a3be9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+        <definition>MboxPostMsg* mbox_interface_get_command_msg</definition>
+        <argsstring>(void)</argsstring>
+        <name>mbox_interface_get_command_msg</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns the buffer holding the most recent inbound command. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to the stored command message. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c" bodystart="322" bodyend="325"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_interface.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_command.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_error_code.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_integrity.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_phy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="oslayer_8h" kindref="compound">oslayer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vlog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor">#define<sp/>LOGTAG<sp/>&quot;MIFC&quot;</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#define<sp/>ACK_TIMEOUT_US<sp/>180000000U</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#define<sp/>ACK_POLL_INTERVAL_US<sp/>100U</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rx_msg;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rx_response;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*rx_command;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>mbox_copy_size(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>)<sp/>-<sp/>MAX_ITEM<sp/>+<sp/>msg-&gt;payload.payload_size;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int32_t<sp/>mbox_interface_allocate_buffers(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_msg<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rx_msg<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_nomem;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_response<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rx_response<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_free_rx;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_command<sp/>=<sp/>(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref>));</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rx_command<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>err_free_resp;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">err_free_resp:</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_response);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_response<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">err_free_rx:</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_msg);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_msg<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">err_nomem:</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_NOMEM;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">int32_t<sp/>mbox_interface_init(MboxCoreId<sp/>current_cpu_id)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>status;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>mbox_interface_allocate_buffers();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/>VPI_SUCCESS)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_integrity_init();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>mbox_phy_init(current_cpu_id);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(status<sp/>!=<sp/>VPI_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_msg);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_response);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_command);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_msg<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_response<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_command<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_SUCCESS;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_interface_close(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_phy_close();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_msg);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_response);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(rx_command);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_msg<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_response<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx_command<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/>*<sp/>Outbound<sp/>cookie<sp/>allocator,<sp/>aligned<sp/>with<sp/>the<sp/>APU<sp/>Linux<sp/>driver:<sp/>every</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/>*<sp/>command<sp/>gets<sp/>a<sp/>unique,<sp/>monotonically<sp/>increasing<sp/>cookie<sp/>(skipping<sp/>0<sp/>and</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/>*<sp/>MBOX_COOKIE_NOT_USED)<sp/>so<sp/>the<sp/>RPU<sp/>integrity<sp/>layer<sp/>correlates<sp/>and<sp/>dedups</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*<sp/>baremetal-APU<sp/>commands<sp/>exactly<sp/>as<sp/>it<sp/>does<sp/>Linux-APU<sp/>ones.<sp/>A<sp/>single<sp/>global</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*<sp/>counter<sp/>suffices<sp/>because<sp/>the<sp/>baremetal<sp/>APU<sp/>issues<sp/>commands<sp/>strictly</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/>*<sp/>sequentially<sp/>(send,<sp/>then<sp/>busy-wait<sp/>for<sp/>the<sp/>ACK).</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint32_t<sp/>mbox_outbound_cookie_next;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint32_t<sp/>mbox_next_cookie(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>ck<sp/>=<sp/>mbox_outbound_cookie_next;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ck++;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(ck<sp/>==<sp/>0u<sp/>||<sp/>ck<sp/>==<sp/><ref refid="mbox__fifo_8h_1ae26d28c6e1a404ea560db5840b47d7d3" kindref="member">MBOX_COOKIE_NOT_USED</ref>);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_outbound_cookie_next<sp/>=<sp/>ck;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ck;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal">int32_t<sp/>mbox_interface_send_command(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*payload<sp/>=<sp/>(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*)data;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>tmp_msg;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>ret;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(payload<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(payload-&gt;payload_size<sp/>&gt;<sp/>MAX_ITEM)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Mbox<sp/>payload_size<sp/>%u<sp/>exceeds<sp/>MAX_ITEM<sp/>%u,<sp/>dropping\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload-&gt;payload_size,<sp/>(uint32_t)MAX_ITEM);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_GENERIC;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload-&gt;resp_field.error_subcode_t<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Stamp<sp/>the<sp/>Linux-aligned<sp/>cookie<sp/>into<sp/>the<sp/>caller&apos;s<sp/>packet<sp/>before<sp/>it<sp/>is</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>copied/sent,<sp/>so<sp/>the<sp/>subsequent<sp/>apu_wait_for_ACK(packet.cookie)<sp/>matches</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>value<sp/>the<sp/>RPU<sp/>echoes.<sp/>MBOX_COOKIE_NOT_USED<sp/>is<sp/>left<sp/>untouched.</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(payload-&gt;cookie<sp/>!=<sp/><ref refid="mbox__fifo_8h_1ae26d28c6e1a404ea560db5840b47d7d3" kindref="member">MBOX_COOKIE_NOT_USED</ref>)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload-&gt;cookie<sp/>=<sp/>mbox_next_cookie();</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)size;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;tmp_msg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(tmp_msg));</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_msg.msg_id<sp/>=<sp/>cmd;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_msg.size<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="mbox__fifo_8h_1afbb21034653fa377acc38d088c0d8704" kindref="member">Payload_packet</ref>)<sp/>-<sp/>MAX_ITEM<sp/>+<sp/>payload-&gt;payload_size;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;tmp_msg.payload,<sp/>payload,<sp/>tmp_msg.size);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_integrity_stamp_outbound(dest_cpu,<sp/>&amp;tmp_msg);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>mbox_phy_send(&amp;tmp_msg,<sp/>(MboxCoreId)dest_cpu,<sp/>(MboxCoreId)src_cpu);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ret<sp/>==<sp/>VPI_ERR_FULL)</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;VPI_ERR_FULL<sp/>while<sp/>sending<sp/>cmd=%u<sp/>to<sp/>core=%u\n&quot;</highlight><highlight class="normal">,<sp/>cmd,<sp/>dest_cpu);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal">int32_t<sp/>mbox_interface_send_response(MBCmdId_E<sp/>res,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu)</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*payload<sp/>=<sp/>(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*)data;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>tmp_msg;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(payload<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(payload-&gt;payload_size<sp/>&gt;<sp/>MAX_ITEM)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Mbox<sp/>payload_size<sp/>%u<sp/>exceeds<sp/>MAX_ITEM<sp/>%u,<sp/>dropping\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload-&gt;payload_size,<sp/>(uint32_t)MAX_ITEM);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_GENERIC;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)size;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;tmp_msg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(tmp_msg));</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_msg.msg_id<sp/>=<sp/>res;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_msg.size<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="mbox__fifo_8h_1afbb21034653fa377acc38d088c0d8704" kindref="member">Payload_packet</ref>)<sp/>-<sp/>MAX_ITEM<sp/>+<sp/>payload-&gt;payload_size;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;tmp_msg.payload,<sp/>payload,<sp/>tmp_msg.size);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_integrity_stamp_outbound(dest_cpu,<sp/>&amp;tmp_msg);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mbox_phy_send(&amp;tmp_msg,<sp/>(MboxCoreId)dest_cpu,<sp/>(MboxCoreId)src_cpu);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal">int32_t<sp/>mbox_interface_send_raw(uint32_t<sp/>msg_id,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>tmp_msg;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>payload_size;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(size<sp/>&gt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>))</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_INVALID;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(size<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload_size<sp/>=<sp/>((<ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*)data)-&gt;payload_size;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(payload_size<sp/>&gt;<sp/>MAX_ITEM)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Mbox<sp/>payload_size<sp/>%u<sp/>exceeds<sp/>MAX_ITEM<sp/>%u,<sp/>dropping\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>payload_size,<sp/>(uint32_t)MAX_ITEM);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>VPI_ERR_GENERIC;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;tmp_msg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(tmp_msg));</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_msg.msg_id<sp/>=<sp/>msg_id;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_msg.size<sp/>=<sp/>size;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;tmp_msg.payload,<sp/>data,<sp/>size);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_integrity_stamp_outbound(dest_cpu,<sp/>&amp;tmp_msg);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mbox_phy_send(&amp;tmp_msg,<sp/>(MboxCoreId)dest_cpu,<sp/>(MboxCoreId)src_cpu);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal">uint8_t<sp/>mbox_interface_wait_for_ack(uint32_t<sp/>cookie,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data)</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>*packet;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>elapsed_us<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rx_response<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(uint8_t)VPI_ERR_UNINITED;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet<sp/>=<sp/>&amp;rx_response-&gt;payload;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!mbox_command_is_ack_set()<sp/>||<sp/>cookie<sp/>!=<sp/>mbox_command_get_cookie())<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mbox__cmd_8h_1aab6f0d4bc8dc271fa7bb3c9a6fc11b4d" kindref="member">Apu_Mbox_Check_Command</ref>();</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!mbox_command_is_ack_set()<sp/>||<sp/>cookie<sp/>!=<sp/>mbox_command_get_cookie())<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(ACK_POLL_INTERVAL_US);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elapsed_us<sp/>+=<sp/>ACK_POLL_INTERVAL_US;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(elapsed_us<sp/>&gt;=<sp/>ACK_TIMEOUT_US)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;ACK<sp/>timeout<sp/>(%u<sp/>us)<sp/>for<sp/>cookie<sp/>0x%x&quot;</highlight><highlight class="normal">,<sp/>ACK_TIMEOUT_US,<sp/>cookie);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_command_set_ack(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_command_set_data_ready(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(uint8_t)VPI_ERR_TIMEOUT;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mbox_command_is_data_ready())<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>safe_size<sp/>=<sp/>packet-&gt;payload_size;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(safe_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>safe_size<sp/>=<sp/>MAX_ITEM;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(data,<sp/>packet-&gt;payload_data,<sp/>safe_size);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_command_set_ack(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mbox_command_set_data_ready(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>packet-&gt;resp_field.error_subcode_t;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mbox_interface_rx_dispatch(uint32_t<sp/>ipi_src_mask)</highlight></codeline>
+<codeline lineno="293"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>ret;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ipi_src_mask;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rx_msg<sp/>==<sp/>NULL<sp/>||<sp/>rx_response<sp/>==<sp/>NULL<sp/>||<sp/>rx_command<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(mbox_phy_has_rx())<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>mbox_phy_pop_rx(rx_msg);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ret<sp/>!=<sp/>VPI_SUCCESS)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>mbox_integrity_validate_inbound(src_cpu_id,<sp/>rx_msg);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ret<sp/>!=<sp/>VPI_SUCCESS)</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((rx_msg-&gt;msg_id<sp/>==<sp/>MB_CMD_RES_SUCCESS)<sp/>||<sp/>(rx_msg-&gt;msg_id<sp/>==<sp/>MB_CMD_GET_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(rx_response,<sp/>rx_msg,<sp/>mbox_copy_size(rx_msg));</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(rx_command,<sp/>rx_msg,<sp/>mbox_copy_size(rx_msg));</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ParseCommand(rx_msg-&gt;msg_id,<sp/>&amp;rx_msg-&gt;payload,<sp/>rx_msg-&gt;size,<sp/>src_cpu_id,<sp/>dest_cpu_id);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*mbox_interface_get_command_msg(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rx_command;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_interface.c"/>
+  </compounddef>
+</doxygen>

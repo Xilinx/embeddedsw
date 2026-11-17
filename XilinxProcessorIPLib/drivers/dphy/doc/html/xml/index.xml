@@ -32,6 +32,7 @@
     <member refid="group__dphy_1ga4e15b3ffd6c4cfca5eedda2a7c1e9d4d" kind="function"><name>XDphy_GetRegIntfcPresent</name></member>
     <member refid="group__dphy_1ga08901fa94d34b59883610d1590165919" kind="function"><name>XDphy_GetInfo</name></member>
     <member refid="group__dphy_1gaef0df18f2a9cdc07df62ba6d63347900" kind="function"><name>XDphy_Reset</name></member>
+    <member refid="group__dphy_1gaeb731e30acb3752e5a1eb783b254098a" kind="function"><name>XDphy_GetDLStatusRegOffset</name></member>
     <member refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" kind="function"><name>XDphy_ClearDataLane</name></member>
     <member refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" kind="function"><name>XDphy_GetClkLaneStatus</name></member>
     <member refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" kind="function"><name>XDphy_GetClkLaneMode</name></member>
@@ -119,6 +120,10 @@
     <member refid="group__xdphy_1ga6bb71b3acc1149468ae0d63a28c37702" kind="define"><name>XDPHY_DL1STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga86a14e2060bf5c00383ba8e36aa00723" kind="define"><name>XDPHY_DL2STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga9ecccc042a9a7f589b7bd9535470e8d9" kind="define"><name>XDPHY_DL3STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" kind="define"><name>XDPHY_DL4STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" kind="define"><name>XDPHY_DL5STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" kind="define"><name>XDPHY_DL6STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" kind="define"><name>XDPHY_DL7STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" kind="define"><name>XDPHY_HSSETTLE_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga5a463a15b499f6c6f02caba145928f60" kind="define"><name>XDPHY_IDELAY58_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" kind="define"><name>XDPHY_HSSETTLE1_REG_OFFSET</name></member>
@@ -128,10 +133,6 @@
     <member refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" kind="define"><name>XDPHY_HSSETTLE5_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" kind="define"><name>XDPHY_HSSETTLE6_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" kind="define"><name>XDPHY_HSSETTLE7_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" kind="define"><name>XDPHY_DL4STATUS_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" kind="define"><name>XDPHY_DL5STATUS_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" kind="define"><name>XDPHY_DL6STATUS_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" kind="define"><name>XDPHY_DL7STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga0fed5f106749e7c30ccf47874b18d587" kind="define"><name>XDPHY_CTRL_REG_SOFTRESET_MASK</name></member>
     <member refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" kind="define"><name>XDPHY_CTRL_REG_DPHYEN_MASK</name></member>
     <member refid="group__xdphy_1gaec36380e3c3cb04055769088e52aebce" kind="define"><name>XDPHY_CTRL_REG_SOFTRESET_OFFSET</name></member>
@@ -178,7 +179,6 @@
     <member refid="group__xdphy_1ga81d0494a47fc8373620ff052cc42ea80" kind="define"><name>XDPHY_HSSETTLE_REG_TIMEOUT_MASK</name></member>
     <member refid="group__xdphy_1gad87dd909a0ccacacd26c2622f86db919" kind="define"><name>XDPHY_HSSETTLE_REG_TIMEOUT_OFFSET</name></member>
     <member refid="group__xdphy_1ga5ea81bbe1dbd06359901050c0840bceb" kind="define"><name>XDPHY_HW_H_</name></member>
-    <member refid="group__xdphy_1ga4dab676485278ae963ba2a5c4e5d0063" kind="define"><name>DL_LANE_OFFSET</name></member>
     <member refid="group__xdphy_1ga2e2942e03e510a57c4f4290a36251a9b" kind="function"><name>XDphy_ReadReg</name></member>
     <member refid="group__xdphy_1ga1366f0ffc0f5a435ab2a79a1fd7c1a70" kind="function"><name>XDphy_WriteReg</name></member>
   </compound>
@@ -229,6 +229,7 @@
     <member refid="group__dphy_1ga4e15b3ffd6c4cfca5eedda2a7c1e9d4d" kind="function"><name>XDphy_GetRegIntfcPresent</name></member>
     <member refid="group__dphy_1ga08901fa94d34b59883610d1590165919" kind="function"><name>XDphy_GetInfo</name></member>
     <member refid="group__dphy_1gaef0df18f2a9cdc07df62ba6d63347900" kind="function"><name>XDphy_Reset</name></member>
+    <member refid="group__dphy_1gaeb731e30acb3752e5a1eb783b254098a" kind="function"><name>XDphy_GetDLStatusRegOffset</name></member>
     <member refid="group__dphy_1ga202a4113c0ace62f6858b7f37dfd0f75" kind="function"><name>XDphy_ClearDataLane</name></member>
     <member refid="group__dphy_1ga455915ec07f1de9a2c68bae01e7bc6f8" kind="function"><name>XDphy_GetClkLaneStatus</name></member>
     <member refid="group__dphy_1gad2110f5c852b9ef0b78a892625051646" kind="function"><name>XDphy_GetClkLaneMode</name></member>
@@ -258,6 +259,10 @@
     <member refid="group__xdphy_1ga6bb71b3acc1149468ae0d63a28c37702" kind="define"><name>XDPHY_DL1STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga86a14e2060bf5c00383ba8e36aa00723" kind="define"><name>XDPHY_DL2STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga9ecccc042a9a7f589b7bd9535470e8d9" kind="define"><name>XDPHY_DL3STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" kind="define"><name>XDPHY_DL4STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" kind="define"><name>XDPHY_DL5STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" kind="define"><name>XDPHY_DL6STATUS_REG_OFFSET</name></member>
+    <member refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" kind="define"><name>XDPHY_DL7STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga1bd5c4c0e969ac836007ee94e4cfe594" kind="define"><name>XDPHY_HSSETTLE_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga5a463a15b499f6c6f02caba145928f60" kind="define"><name>XDPHY_IDELAY58_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga039c208db6f74bb5f9d2a83e1520c55c" kind="define"><name>XDPHY_HSSETTLE1_REG_OFFSET</name></member>
@@ -267,10 +272,6 @@
     <member refid="group__xdphy_1ga19ae4c639dd7fc415ea80eeb3533238b" kind="define"><name>XDPHY_HSSETTLE5_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga031353be2c7ece91856add1fef2c1c3d" kind="define"><name>XDPHY_HSSETTLE6_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga3a0dc28189b01acc6b5b64c42a4df576" kind="define"><name>XDPHY_HSSETTLE7_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1gaf77abe00b365122357cdda25e22b84ab" kind="define"><name>XDPHY_DL4STATUS_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1gab815ae7bf20f2362dac0c95757d933c3" kind="define"><name>XDPHY_DL5STATUS_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1gaeaffff3a9e11b3a77773c4842fe6055f" kind="define"><name>XDPHY_DL6STATUS_REG_OFFSET</name></member>
-    <member refid="group__xdphy_1ga7d4bb50fe0e8d09d6cb2cd684c8787c6" kind="define"><name>XDPHY_DL7STATUS_REG_OFFSET</name></member>
     <member refid="group__xdphy_1ga0fed5f106749e7c30ccf47874b18d587" kind="define"><name>XDPHY_CTRL_REG_SOFTRESET_MASK</name></member>
     <member refid="group__xdphy_1gad5c2e36eac57592773bcbfcd00155b3a" kind="define"><name>XDPHY_CTRL_REG_DPHYEN_MASK</name></member>
     <member refid="group__xdphy_1gaec36380e3c3cb04055769088e52aebce" kind="define"><name>XDPHY_CTRL_REG_SOFTRESET_OFFSET</name></member>
@@ -319,7 +320,6 @@
     <member refid="group__xdphy_1ga2e2942e03e510a57c4f4290a36251a9b" kind="function"><name>XDphy_ReadReg</name></member>
     <member refid="group__xdphy_1ga1366f0ffc0f5a435ab2a79a1fd7c1a70" kind="function"><name>XDphy_WriteReg</name></member>
     <member refid="group__xdphy_1ga5ea81bbe1dbd06359901050c0840bceb" kind="define"><name>XDPHY_HW_H_</name></member>
-    <member refid="group__xdphy_1ga4dab676485278ae963ba2a5c4e5d0063" kind="define"><name>DL_LANE_OFFSET</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>

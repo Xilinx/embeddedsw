@@ -10,5 +10,6 @@ var xusb__storage_8c =
     [ "ProcessRxCmd", "xusb__storage_8c.html#aaa4db21dc45028300278c1c09cf97719", null ],
     [ "Read10", "xusb__storage_8c.html#aa3bc2a29a012dcb0b3c4afc5d2ed2843", null ],
     [ "UsbIfIntrHandler", "xusb__storage_8c.html#a8bd3ecc4e2acd07b864ea2392a0394f4", null ],
-    [ "Write10", "xusb__storage_8c.html#ac7e4e799fabb2ebbea49a1eafd6625c8", null ]
+    [ "Write10", "xusb__storage_8c.html#ac7e4e799fabb2ebbea49a1eafd6625c8", null ],
+    [ "UsbInstance", "xusb__storage_8c.html#a62cef26eb4d9076d0888c81106bf2146", null ]
 ];

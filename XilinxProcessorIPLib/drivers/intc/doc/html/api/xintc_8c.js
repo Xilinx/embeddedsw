@@ -6,6 +6,7 @@ var xintc_8c =
     [ "XIntc_Disable", "xintc_8c.html#gaea44ec361097925f2994558d402988ab", null ],
     [ "XIntc_Disconnect", "xintc_8c.html#ga8f7caaeb26b6b264fffefbd32f90f855", null ],
     [ "XIntc_Enable", "xintc_8c.html#gac7f59192d3b3ba2e2283a264677577b8", null ],
+    [ "XIntc_GetChainRoot", "xintc_8c.html#ga2126cc6ab67d2a9262564ddf40fd3357", null ],
     [ "XIntc_GetPrimaryController", "xintc_8c.html#gaa6e69276f3923a7d61d366c98269d750", null ],
     [ "XIntc_Initialize", "xintc_8c.html#gaf005b035ffd9bfd042b3e85aada2d104", null ],
     [ "XIntc_LookupConfig", "xintc_8c.html#ga29cc03aa40679a199de65e7657280dab", null ],

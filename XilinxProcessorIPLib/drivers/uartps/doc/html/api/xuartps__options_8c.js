@@ -1,5 +1,6 @@
 var xuartps__options_8c =
 [
+    [ "XUARTPS_NUM_OPTIONS", "xuartps__options_8c.html#ga2a4c8a8bee604bd4cab89c7ec8085b97", null ],
     [ "XUartPs_GetDataFormat", "xuartps__options_8c.html#ga3de8ab4e4aca0ba939bc547b5592726c", null ],
     [ "XUartPs_GetFifoThreshold", "xuartps__options_8c.html#ga61db893485f1c77f27abc6d8a4ff1ed7", null ],
     [ "XUartPs_GetFlowDelay", "xuartps__options_8c.html#ga2127a5ae7ea617f1fb1a3415e35f1387", null ],

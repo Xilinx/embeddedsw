@@ -114,7 +114,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.7   tvp  02/19/26 Initial release
       tvp  03/18/26 Add support for MLDSA signature generation and verification command
       tvp  03/20/26 Add support for SLHDSA signature verification command
-      mb   04/17/26 Update XSecure_CryptoCheck API definitions</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+      mb   04/17/26 Update XSecure_CryptoCheck API definitions
+5.8   tbk  06/17/26 Added support for getting crypto algorithm's version
+      ks   09/22/26 Removed the AES KEK decrypt IPI command
+      mb   09/24/26 Route XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler
+      ank  10/07/26 Updated TRNG algorithm version to use trngpsx driver version</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="versal__2vp__p_2xsecure__error_8h.html">xsecure_error.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_cmd.h&quot;</code><br/>
 <code>#include &quot;xplmi_generic.h&quot;</code><br/>
@@ -135,6 +139,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;<a class="el" href="xsecure__plat__aes__ipihandler_8h.html">xsecure_plat_aes_ipihandler.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__mldsa__ipihandler_8h.html">xsecure_mldsa_ipihandler.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__slhdsa__ipihandler_8h.html">xsecure_slhdsa_ipihandler.h</a>&quot;</code><br/>
+<code>#include &quot;xil_cryptoalginfo.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp__p_2xsecure__server__aesalginfo_8h.html">xsecure_server_aesalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp__p_2xsecure__server__rsaalginfo_8h.html">xsecure_server_rsaalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp__p_2xsecure__server__ellipticalginfo_8h.html">xsecure_server_ellipticalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp__p_2xsecure__server__shaalginfo_8h.html">xsecure_server_shaalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;xtrngpsx_alginfo.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xsecure__server__mldsaalginfo_8h.html">xsecure_server_mldsaalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xsecure__server__slhdsaalginfo_8h.html">xsecure_server_slhdsaalginfo.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_config.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

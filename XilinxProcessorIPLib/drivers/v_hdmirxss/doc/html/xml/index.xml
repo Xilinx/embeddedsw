@@ -1390,7 +1390,7 @@
   <compound refid="xv__hdmirxss_8c" kind="file"><name>xv_hdmirxss.c</name>
     <member refid="xv__hdmirxss_8c_1a9e4119c54f3ed3779c61f3a4a2abd265" kind="define"><name>XV_HdmiRxSs_BridgeYuv420</name></member>
     <member refid="xv__hdmirxss_8c_1adbfa2468207ba76d6902600294b60d7c" kind="define"><name>XV_HdmiRxSs_BridgePixelDrop</name></member>
-    <member refid="xv__hdmirxss_8c_1a98a52cb00d4d1fd8785ceff5f0a36558" kind="variable"><name>XV_HdmiRxSs_SubCoreRepo</name></member>
+    <member refid="xv__hdmirxss_8c_1a39a18defddd74705ecd2b99d651db86c" kind="variable"><name>XV_HdmiRxSs_SubCoreRepo</name></member>
     <member refid="xv__hdmirxss_8c_1a824e72971cc9bc9d64e204a4cebcd1bf" kind="function"><name>XV_HdmiRxSs_GetIncludedSubcores</name></member>
     <member refid="xv__hdmirxss_8c_1a2b085451f692bbe15f36f4bce41adf28" kind="function"><name>XV_HdmiRxSs_WaitUs</name></member>
     <member refid="xv__hdmirxss_8c_1a067ce9f5a77ee5cbeb2daa507e956836" kind="function"><name>XV_HdmiRxSs_RetrieveVSInfoframe</name></member>

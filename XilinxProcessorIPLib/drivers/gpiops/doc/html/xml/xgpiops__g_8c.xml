@@ -5,6 +5,9 @@
     <includes refid="xgpiops_8h" local="yes">xgpiops.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
+      <node id="36">
+        <label>xil_assert.h</label>
+      </node>
       <node id="31">
         <label>xgpiops_g.c</label>
         <link refid="xgpiops_g.c"/>
@@ -13,14 +16,8 @@
         <childnode refid="39" relation="include">
         </childnode>
       </node>
-      <node id="36">
-        <label>xil_assert.h</label>
-      </node>
       <node id="37">
         <label>xil_io.h</label>
-      </node>
-      <node id="38">
-        <label>xplatform_info.h</label>
       </node>
       <node id="34">
         <label>xgpiops_hw.h</label>
@@ -32,8 +29,17 @@
         <childnode refid="37" relation="include">
         </childnode>
       </node>
+      <node id="38">
+        <label>xplatform_info.h</label>
+      </node>
       <node id="33">
         <label>xstatus.h</label>
+      </node>
+      <node id="35">
+        <label>xil_types.h</label>
+      </node>
+      <node id="39">
+        <label>xparameters.h</label>
       </node>
       <node id="32">
         <label>xgpiops.h</label>
@@ -44,12 +50,6 @@
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
-      </node>
-      <node id="35">
-        <label>xil_types.h</label>
-      </node>
-      <node id="39">
-        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -65,49 +65,55 @@
 	}
 }</initializer>
         <briefdescription>
-<para>This table contains configuration information for each GPIO device in the system. </para>        </briefdescription>
+<para>Configuration table for GPIO devices in the system. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Holds the configuration entry for each GPIO instance. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c" bodystart="47" bodyend="-1"/>
-        <referencedby refid="group__gpiops_1gaa868b1653edcba528a6f4d5d70334a29" compoundref="xgpiops__sinit_8c" startline="87" endline="101">XGpioPs_LookupConfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaa868b1653edcba528a6f4d5d70334a29" compoundref="xgpiops__sinit_8c" startline="90" endline="104">XGpioPs_LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Provides the configuration table for GPIO PS devices in the system. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>This file contains a configuration table that specifies the configuration of GPIO devices in the system.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a sv   01/15/10 First Release
+3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+3.16  vn   09/10/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpiops_8h" kindref="compound">xgpiops.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47" refid="group__gpiops_1gadfc4a76613b301ad3af6d2014505e745" refkind="member"><highlight class="normal"><ref refid="struct_x_gpio_ps___config" kindref="compound">XGpioPs_Config</ref><sp/><ref refid="group__gpiops_1gaa25c29c5d57afe2c714f78a54a182403" kindref="member">XGpioPs_ConfigTable</ref>[XPAR_XGPIOPS_NUM_INSTANCES]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XGPIOPS_0_DEVICE_ID,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Unique<sp/>ID<sp/>of<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPAR_XGPIOPS_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Base<sp/>address<sp/>of<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpiops_8h" kindref="compound">xgpiops.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="group__gpiops_1gadfc4a76613b301ad3af6d2014505e745" refkind="member"><highlight class="normal"><ref refid="struct_x_gpio_ps___config" kindref="compound">XGpioPs_Config</ref><sp/><ref refid="group__gpiops_1gaa25c29c5d57afe2c714f78a54a182403" kindref="member">XGpioPs_ConfigTable</ref>[XPAR_XGPIOPS_NUM_INSTANCES]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)XPAR_XGPIOPS_0_DEVICE_ID,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Unique<sp/>ID<sp/>of<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPAR_XGPIOPS_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Base<sp/>address<sp/>of<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c"/>
   </compounddef>
 </doxygen>

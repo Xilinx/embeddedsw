@@ -1,5 +1,7 @@
 var xqspips_8c =
 [
+    [ "ARRAY_SIZE", "xqspips_8c.html#gabf0924766241e8f46e68e2dcbca9ac5b", null ],
+    [ "XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR", "xqspips_8c.html#gafb460ba8702f8c66334b68c62a853bac", null ],
     [ "XQspiPs_Abort", "xqspips_8c.html#gafaa01b15d795ba75e438b718d5fbe92b", null ],
     [ "XQspiPs_CfgInitialize", "xqspips_8c.html#gaf348b6ee07c1e3e7d01857a789e658d4", null ],
     [ "XQspiPs_InterruptHandler", "xqspips_8c.html#ga44c9e0841d774e9c4958e2cdd8c23220", null ],

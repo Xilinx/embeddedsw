@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="369" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="369" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -33,7 +33,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="367" bodyend="370"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="367" bodyend="370"/>
     <listofallmembers>
       <member refid="group__hdmi__common_1gac7f4c0dc7f1f00be3fcfebf493de5ec9" prot="public" virt="non-virtual"><scope>XHdmiC_FRL_CTS_N_Table_t</scope><name>CTS_NVal</name></member>
     </listofallmembers>

@@ -31,6 +31,6 @@
 <codeline lineno="22"><highlight class="stringliteral">add_library(sdps<sp/>STATIC<sp/>${_sources})</highlight></codeline>
 <codeline lineno="23"><highlight class="stringliteral">set_target_properties(sdps<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

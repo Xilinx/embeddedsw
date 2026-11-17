@@ -100,12 +100,19 @@ $(document).ready(function(){initNavTree('group__dsi2rx.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Overview</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga4fdfe872fe490e9d0980ed86e132ba52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga4fdfe872fe490e9d0980ed86e132ba52">XDSI2RX_MAX_LANES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga4fdfe872fe490e9d0980ed86e132ba52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Lanes supported by DSI2RX.  <a href="#ga4fdfe872fe490e9d0980ed86e132ba52">More...</a><br/></td></tr>
+<tr class="separator:ga4fdfe872fe490e9d0980ed86e132ba52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaadb1544327c1439ba3f228abf4804e9b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaadb1544327c1439ba3f228abf4804e9b">XDsi2Rx_CfgInitialize</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr, <a class="el" href="struct_x_dsi2_rx___config.html">XDsi2Rx_Config</a> *CfgPtr, UINTPTR EffectiveAddr)</td></tr>
@@ -126,7 +133,2157 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9633779add7d621518de100c3361bb41"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9633779add7d621518de100c3361bb41">XDsi2Rx_SelfTest</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga9633779add7d621518de100c3361bb41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="#ga9633779add7d621518de100c3361bb41">More...</a><br/></td></tr>
 <tr class="separator:ga9633779add7d621518de100c3361bb41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Device registers</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpe905567f3f1e4630e21d2f8192509576"></a>Register sets of MIPI DSI Rx </p>
+</td></tr>
+<tr class="memitem:ga414878c04061bbb96896259e36fb1334"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga414878c04061bbb96896259e36fb1334">XDSI2RX_CCR_OFFSET</a>&#160;&#160;&#160;0x00000000</td></tr>
+<tr class="memdesc:ga414878c04061bbb96896259e36fb1334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core Configuration Register Offset.  <a href="#ga414878c04061bbb96896259e36fb1334">More...</a><br/></td></tr>
+<tr class="separator:ga414878c04061bbb96896259e36fb1334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55212a0ff76d2548a051de7bd1276f6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga55212a0ff76d2548a051de7bd1276f6d">XDSI2RX_PCR_OFFSET</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:ga55212a0ff76d2548a051de7bd1276f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocol Configuration Register Offset.  <a href="#ga55212a0ff76d2548a051de7bd1276f6d">More...</a><br/></td></tr>
+<tr class="separator:ga55212a0ff76d2548a051de7bd1276f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c5b887e5239e7aef366dd7e8c2acba0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3c5b887e5239e7aef366dd7e8c2acba0">XDSI2RX_VER_OFFSET</a>&#160;&#160;&#160;0x00000008</td></tr>
+<tr class="memdesc:ga3c5b887e5239e7aef366dd7e8c2acba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version Register.  <a href="#ga3c5b887e5239e7aef366dd7e8c2acba0">More...</a><br/></td></tr>
+<tr class="separator:ga3c5b887e5239e7aef366dd7e8c2acba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb4823dc1bca449c1456390a9b845e3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gafb4823dc1bca449c1456390a9b845e3f">XDSI2RX_GIER_OFFSET</a>&#160;&#160;&#160;0x00000020</td></tr>
+<tr class="memdesc:gafb4823dc1bca449c1456390a9b845e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Interrupt Register Offset.  <a href="#gafb4823dc1bca449c1456390a9b845e3f">More...</a><br/></td></tr>
+<tr class="separator:gafb4823dc1bca449c1456390a9b845e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga184c7a9684a513f3a00d31e5f443ca25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga184c7a9684a513f3a00d31e5f443ca25">XDSI2RX_ISR_OFFSET</a>&#160;&#160;&#160;0x00000024</td></tr>
+<tr class="memdesc:ga184c7a9684a513f3a00d31e5f443ca25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Status Register.  <a href="#ga184c7a9684a513f3a00d31e5f443ca25">More...</a><br/></td></tr>
+<tr class="separator:ga184c7a9684a513f3a00d31e5f443ca25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a585ebcf96d1e33deb3d007c0d76d53"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga5a585ebcf96d1e33deb3d007c0d76d53">XDSI2RX_IER_OFFSET</a>&#160;&#160;&#160;0x00000028</td></tr>
+<tr class="memdesc:ga5a585ebcf96d1e33deb3d007c0d76d53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Enable Register.  <a href="#ga5a585ebcf96d1e33deb3d007c0d76d53">More...</a><br/></td></tr>
+<tr class="separator:ga5a585ebcf96d1e33deb3d007c0d76d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad853a581637eb442c83b22d68ec48cdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gad853a581637eb442c83b22d68ec48cdb">XDSI2RX_GSPR_OFFSET</a>&#160;&#160;&#160;0x00000030</td></tr>
+<tr class="memdesc:gad853a581637eb442c83b22d68ec48cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic Short Packet Register.  <a href="#gad853a581637eb442c83b22d68ec48cdb">More...</a><br/></td></tr>
+<tr class="separator:gad853a581637eb442c83b22d68ec48cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5af3f37be42279e87b6868008a3e8bf7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga5af3f37be42279e87b6868008a3e8bf7">XDSI2RX_DCR_OFFSET</a>&#160;&#160;&#160;0x00000034</td></tr>
+<tr class="memdesc:ga5af3f37be42279e87b6868008a3e8bf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug Counter register.  <a href="#ga5af3f37be42279e87b6868008a3e8bf7">More...</a><br/></td></tr>
+<tr class="separator:ga5af3f37be42279e87b6868008a3e8bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Core configuration register masks and shifts</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp2c77926d23b8ae3c5f5154cd6ea6d9af"></a>This register is used for the enabling/disabling and resetting the core of DSI Rx Controller </p>
+</td></tr>
+<tr class="memitem:ga4ac0cb6795213365f1a6734e71da5e8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga4ac0cb6795213365f1a6734e71da5e8b">XDSI2RX_CCR_INIT_DONE_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
+<tr class="memdesc:ga4ac0cb6795213365f1a6734e71da5e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init Done bit mask.  <a href="#ga4ac0cb6795213365f1a6734e71da5e8b">More...</a><br/></td></tr>
+<tr class="separator:ga4ac0cb6795213365f1a6734e71da5e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga075d5385c99ffa756f513112a49c5e34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga075d5385c99ffa756f513112a49c5e34">XDSI2RX_CCR_CRREADY_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:ga075d5385c99ffa756f513112a49c5e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controller Ready bit Mask.  <a href="#ga075d5385c99ffa756f513112a49c5e34">More...</a><br/></td></tr>
+<tr class="separator:ga075d5385c99ffa756f513112a49c5e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad3ab4ea50f348f204419f936f06be367"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gad3ab4ea50f348f204419f936f06be367">XDSI2RX_CCR_SOFTRESET_MASK</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:gad3ab4ea50f348f204419f936f06be367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soft Reset core bit Mask.  <a href="#gad3ab4ea50f348f204419f936f06be367">More...</a><br/></td></tr>
+<tr class="separator:gad3ab4ea50f348f204419f936f06be367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16cf3380173e61542d797f0b9c4a883a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga16cf3380173e61542d797f0b9c4a883a">XDSI2RX_CCR_COREENB_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:ga16cf3380173e61542d797f0b9c4a883a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/Disable core Mask.  <a href="#ga16cf3380173e61542d797f0b9c4a883a">More...</a><br/></td></tr>
+<tr class="separator:ga16cf3380173e61542d797f0b9c4a883a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga057e1f6a0df07c8d2564e02980a8129a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga057e1f6a0df07c8d2564e02980a8129a">XDSI2RX_CCR_INIT_DONE_SHIFT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga057e1f6a0df07c8d2564e02980a8129a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Init Done.  <a href="#ga057e1f6a0df07c8d2564e02980a8129a">More...</a><br/></td></tr>
+<tr class="separator:ga057e1f6a0df07c8d2564e02980a8129a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga466c00e191c9b6d1a37b96affce82fc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga466c00e191c9b6d1a37b96affce82fc2">XDSI2RX_CCR_CRREADY_SHIFT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga466c00e191c9b6d1a37b96affce82fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Controller Ready.  <a href="#ga466c00e191c9b6d1a37b96affce82fc2">More...</a><br/></td></tr>
+<tr class="separator:ga466c00e191c9b6d1a37b96affce82fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3747700a3b2b794227a22c35ea4c6d4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3747700a3b2b794227a22c35ea4c6d4f">XDSI2RX_CCR_SOFTRESET_SHIFT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga3747700a3b2b794227a22c35ea4c6d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Soft reset.  <a href="#ga3747700a3b2b794227a22c35ea4c6d4f">More...</a><br/></td></tr>
+<tr class="separator:ga3747700a3b2b794227a22c35ea4c6d4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1aa2477d51817223016084e383df9a27"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga1aa2477d51817223016084e383df9a27">XDSI2RX_CCR_COREENB_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga1aa2477d51817223016084e383df9a27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Core Enable.  <a href="#ga1aa2477d51817223016084e383df9a27">More...</a><br/></td></tr>
+<tr class="separator:ga1aa2477d51817223016084e383df9a27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks and shifts of Protocol control register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpb72629cf182b17cb6ed2a6a31d00ecf0"></a>for DSI RX IP.</p>
+<p>This register reports the number of lanes configured during core generation and number of lanes actively used. </p>
+</td></tr>
+<tr class="memitem:ga9870549ee3345403daeaaa997142261e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9870549ee3345403daeaaa997142261e">XDSI2RX_PCR_MAXLANES_MASK</a>&#160;&#160;&#160;0x000C0000</td></tr>
+<tr class="memdesc:ga9870549ee3345403daeaaa997142261e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAX LANES Mask.  <a href="#ga9870549ee3345403daeaaa997142261e">More...</a><br/></td></tr>
+<tr class="separator:ga9870549ee3345403daeaaa997142261e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c6e3e70b7c7524a0d2a51ae4a575f5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga7c6e3e70b7c7524a0d2a51ae4a575f5f">XDSI2RX_PCR_ERRDATA_TYPE_MASK</a>&#160;&#160;&#160;0x0003F000</td></tr>
+<tr class="memdesc:ga7c6e3e70b7c7524a0d2a51ae4a575f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ERROR DATA TYPE Mask.  <a href="#ga7c6e3e70b7c7524a0d2a51ae4a575f5f">More...</a><br/></td></tr>
+<tr class="separator:ga7c6e3e70b7c7524a0d2a51ae4a575f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6a8dd1b0f98f46dc9028ba4ccb649d00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga6a8dd1b0f98f46dc9028ba4ccb649d00">XDSI2RX_PCR_PIXELFORMAT_MASK</a>&#160;&#160;&#160;0x000007E0</td></tr>
+<tr class="memdesc:ga6a8dd1b0f98f46dc9028ba4ccb649d00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixel Format Mask.  <a href="#ga6a8dd1b0f98f46dc9028ba4ccb649d00">More...</a><br/></td></tr>
+<tr class="separator:ga6a8dd1b0f98f46dc9028ba4ccb649d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac026498cc6e7484ba08feed79b2d434e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gac026498cc6e7484ba08feed79b2d434e">XDSI2RX_PCR_PIXELMODE_MASK</a>&#160;&#160;&#160;0x0000001C</td></tr>
+<tr class="memdesc:gac026498cc6e7484ba08feed79b2d434e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Video mode Type Bit Mask.  <a href="#gac026498cc6e7484ba08feed79b2d434e">More...</a><br/></td></tr>
+<tr class="separator:gac026498cc6e7484ba08feed79b2d434e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0aa5c26e2446dc6fb317e743208fbb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gae0aa5c26e2446dc6fb317e743208fbb6">XDSI2RX_PCR_MAXLANES_SHIFT</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:gae0aa5c26e2446dc6fb317e743208fbb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift MAX LANES.  <a href="#gae0aa5c26e2446dc6fb317e743208fbb6">More...</a><br/></td></tr>
+<tr class="separator:gae0aa5c26e2446dc6fb317e743208fbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c1f2af9dfd2fe88c647809fb05d785c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga0c1f2af9dfd2fe88c647809fb05d785c">XDSI2RX_PCR_ERRDATA_TYPE_SHIFT</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:ga0c1f2af9dfd2fe88c647809fb05d785c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for ERROR DATA Type.  <a href="#ga0c1f2af9dfd2fe88c647809fb05d785c">More...</a><br/></td></tr>
+<tr class="separator:ga0c1f2af9dfd2fe88c647809fb05d785c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4b35b3c0a58a27948e4ac6e46ff9dff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa4b35b3c0a58a27948e4ac6e46ff9dff">XDSI2RX_PCR_PIXELFORMAT_SHIFT</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gaa4b35b3c0a58a27948e4ac6e46ff9dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for PIXEL FORMAT Type.  <a href="#gaa4b35b3c0a58a27948e4ac6e46ff9dff">More...</a><br/></td></tr>
+<tr class="separator:gaa4b35b3c0a58a27948e4ac6e46ff9dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga388004b3a3814f7596c94d9295d4eafe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga388004b3a3814f7596c94d9295d4eafe">XDSI2RX_PCR_PIXELMODE_SHIFT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga388004b3a3814f7596c94d9295d4eafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Pixel mode 1, 2, 4 PPC.  <a href="#ga388004b3a3814f7596c94d9295d4eafe">More...</a><br/></td></tr>
+<tr class="separator:ga388004b3a3814f7596c94d9295d4eafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks and offsets of XDSI2RX_GIER_OFFSET register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp542e639a22e85d20b1b6e9d641df6814"></a>This register contains the global interrupt enable bit. </p>
+</td></tr>
+<tr class="memitem:gabe544be1bfb393e47163d51e4bfe94de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gabe544be1bfb393e47163d51e4bfe94de">XDSI2RX_GIER_GIE_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:gabe544be1bfb393e47163d51e4bfe94de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global Interrupt Enable bit.  <a href="#gabe544be1bfb393e47163d51e4bfe94de">More...</a><br/></td></tr>
+<tr class="separator:gabe544be1bfb393e47163d51e4bfe94de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf343104c2385cabdfa7938243f006a2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaf343104c2385cabdfa7938243f006a2d">XDSI2RX_GIER_GIE_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gaf343104c2385cabdfa7938243f006a2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift bits for Global Interrupt Enable.  <a href="#gaf343104c2385cabdfa7938243f006a2d">More...</a><br/></td></tr>
+<tr class="separator:gaf343104c2385cabdfa7938243f006a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10e76ad4fa7201fda09f2d705a9d4b8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga10e76ad4fa7201fda09f2d705a9d4b8f">XDSI2RX_GIER_ENABLE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga10e76ad4fa7201fda09f2d705a9d4b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the Global Interrupts.  <a href="#ga10e76ad4fa7201fda09f2d705a9d4b8f">More...</a><br/></td></tr>
+<tr class="separator:ga10e76ad4fa7201fda09f2d705a9d4b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2ec87e155f4bb1b5d46c98bdc0343d94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga2ec87e155f4bb1b5d46c98bdc0343d94">XDSI2RX_GIER_DISABLE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga2ec87e155f4bb1b5d46c98bdc0343d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the Global Interrupts.  <a href="#ga2ec87e155f4bb1b5d46c98bdc0343d94">More...</a><br/></td></tr>
+<tr class="separator:ga2ec87e155f4bb1b5d46c98bdc0343d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks and offsets of XDSI2RX_ISR_OFFSET register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpa620b71c47a3d12e03915428433c5bca"></a>This register contains the interrupt status. </p>
+</td></tr>
+<tr class="memitem:gaedc99af62992e942ed32d16c24752d2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaedc99af62992e942ed32d16c24752d2d">XDSI2RX_ISR_FRAME_START_MASK</a>&#160;&#160;&#160;0x00200000</td></tr>
+<tr class="memdesc:gaedc99af62992e942ed32d16c24752d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">FRAME START detected.  <a href="#gaedc99af62992e942ed32d16c24752d2d">More...</a><br/></td></tr>
+<tr class="separator:gaedc99af62992e942ed32d16c24752d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d2ced20f59d573409591ccddf2c6ea3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga7d2ced20f59d573409591ccddf2c6ea3">XDSI2RX_ISR_WC_CORRUPTION_MASK</a>&#160;&#160;&#160;0x00100000</td></tr>
+<tr class="memdesc:ga7d2ced20f59d573409591ccddf2c6ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word count corruption.  <a href="#ga7d2ced20f59d573409591ccddf2c6ea3">More...</a><br/></td></tr>
+<tr class="separator:ga7d2ced20f59d573409591ccddf2c6ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6fc2d91ccc714556224eec023cd2f4ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga6fc2d91ccc714556224eec023cd2f4ef">XDSI2RX_ISR_INCORRECT_LANE_CONFIG_MASK</a>&#160;&#160;&#160;0x00080000</td></tr>
+<tr class="memdesc:ga6fc2d91ccc714556224eec023cd2f4ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incorrect lane configuration.  <a href="#ga6fc2d91ccc714556224eec023cd2f4ef">More...</a><br/></td></tr>
+<tr class="separator:ga6fc2d91ccc714556224eec023cd2f4ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga80064fc82d9a791eb0e6a65c61e4e6ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga80064fc82d9a791eb0e6a65c61e4e6ad">XDSI2RX_ISR_GSP_FIFO_FULL_ERR_MASK</a>&#160;&#160;&#160;0x00040000</td></tr>
+<tr class="memdesc:ga80064fc82d9a791eb0e6a65c61e4e6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet FIFO FULL error.  <a href="#ga80064fc82d9a791eb0e6a65c61e4e6ad">More...</a><br/></td></tr>
+<tr class="separator:ga80064fc82d9a791eb0e6a65c61e4e6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3e132ec5e3a02379298de3220618f39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gab3e132ec5e3a02379298de3220618f39">XDSI2RX_ISR_GSP_FIFO_NE_ERR_MASK</a>&#160;&#160;&#160;0x00020000</td></tr>
+<tr class="memdesc:gab3e132ec5e3a02379298de3220618f39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet not empty error.  <a href="#gab3e132ec5e3a02379298de3220618f39">More...</a><br/></td></tr>
+<tr class="separator:gab3e132ec5e3a02379298de3220618f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1aed1ae319e4b302138b80e31573d579"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga1aed1ae319e4b302138b80e31573d579">XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_MASK</a>&#160;&#160;&#160;0x00010000</td></tr>
+<tr class="memdesc:ga1aed1ae319e4b302138b80e31573d579"><td class="mdescLeft">&#160;</td><td class="mdescRight">STREAM FIFO full error.  <a href="#ga1aed1ae319e4b302138b80e31573d579">More...</a><br/></td></tr>
+<tr class="separator:ga1aed1ae319e4b302138b80e31573d579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab22cc11137a09af78925b09f2b78fc45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gab22cc11137a09af78925b09f2b78fc45">XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_MASK</a>&#160;&#160;&#160;0x00004000</td></tr>
+<tr class="memdesc:gab22cc11137a09af78925b09f2b78fc45"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM async FIFO full error.  <a href="#gab22cc11137a09af78925b09f2b78fc45">More...</a><br/></td></tr>
+<tr class="separator:gab22cc11137a09af78925b09f2b78fc45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a344bb91a5cc6631f087c289092ef83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga5a344bb91a5cc6631f087c289092ef83">XDSI2RX_ISR_STOP_STATE_MASK</a>&#160;&#160;&#160;0x00001000</td></tr>
+<tr class="memdesc:ga5a344bb91a5cc6631f087c289092ef83"><td class="mdescLeft">&#160;</td><td class="mdescRight">STOP STATE Error.  <a href="#ga5a344bb91a5cc6631f087c289092ef83">More...</a><br/></td></tr>
+<tr class="separator:ga5a344bb91a5cc6631f087c289092ef83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfedade42e00cd8a7cf483ad0e688d01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gacfedade42e00cd8a7cf483ad0e688d01">XDSI2RX_ISR_SOT_ERR_LANE4_MASK</a>&#160;&#160;&#160;0x00000800</td></tr>
+<tr class="memdesc:gacfedade42e00cd8a7cf483ad0e688d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane4.  <a href="#gacfedade42e00cd8a7cf483ad0e688d01">More...</a><br/></td></tr>
+<tr class="separator:gacfedade42e00cd8a7cf483ad0e688d01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc817519aa103b7592c3c96fcc362e4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gabc817519aa103b7592c3c96fcc362e4a">XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_MASK</a>&#160;&#160;&#160;0x00000400</td></tr>
+<tr class="memdesc:gabc817519aa103b7592c3c96fcc362e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane4.  <a href="#gabc817519aa103b7592c3c96fcc362e4a">More...</a><br/></td></tr>
+<tr class="separator:gabc817519aa103b7592c3c96fcc362e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5976e6aecc68a2d13b3fb272e27b297"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaf5976e6aecc68a2d13b3fb272e27b297">XDSI2RX_ISR_SOT_ERR_LANE3_MASK</a>&#160;&#160;&#160;0x00000200</td></tr>
+<tr class="memdesc:gaf5976e6aecc68a2d13b3fb272e27b297"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane3.  <a href="#gaf5976e6aecc68a2d13b3fb272e27b297">More...</a><br/></td></tr>
+<tr class="separator:gaf5976e6aecc68a2d13b3fb272e27b297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga397c1350e231bbdca43be2bba7d5d5c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga397c1350e231bbdca43be2bba7d5d5c3">XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_MASK</a>&#160;&#160;&#160;0x00000100</td></tr>
+<tr class="memdesc:ga397c1350e231bbdca43be2bba7d5d5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane3.  <a href="#ga397c1350e231bbdca43be2bba7d5d5c3">More...</a><br/></td></tr>
+<tr class="separator:ga397c1350e231bbdca43be2bba7d5d5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f13ff794c556b4069b4b283b0243b65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga8f13ff794c556b4069b4b283b0243b65">XDSI2RX_ISR_SOT_ERR_LANE2_MASK</a>&#160;&#160;&#160;0x00000080</td></tr>
+<tr class="memdesc:ga8f13ff794c556b4069b4b283b0243b65"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane2.  <a href="#ga8f13ff794c556b4069b4b283b0243b65">More...</a><br/></td></tr>
+<tr class="separator:ga8f13ff794c556b4069b4b283b0243b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafce1b3f9e9fb4d51cbbc616da66cbb71"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gafce1b3f9e9fb4d51cbbc616da66cbb71">XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_MASK</a>&#160;&#160;&#160;0x00000040</td></tr>
+<tr class="memdesc:gafce1b3f9e9fb4d51cbbc616da66cbb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane2.  <a href="#gafce1b3f9e9fb4d51cbbc616da66cbb71">More...</a><br/></td></tr>
+<tr class="separator:gafce1b3f9e9fb4d51cbbc616da66cbb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga970932ce2dd6145ee6724e03fdfa6119"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga970932ce2dd6145ee6724e03fdfa6119">XDSI2RX_ISR_SOT_ERR_LANE1_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
+<tr class="memdesc:ga970932ce2dd6145ee6724e03fdfa6119"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane1.  <a href="#ga970932ce2dd6145ee6724e03fdfa6119">More...</a><br/></td></tr>
+<tr class="separator:ga970932ce2dd6145ee6724e03fdfa6119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2500c4f4a2cd208ec876fa02dd40da3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga2500c4f4a2cd208ec876fa02dd40da3f">XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_MASK</a>&#160;&#160;&#160;0x00000010</td></tr>
+<tr class="memdesc:ga2500c4f4a2cd208ec876fa02dd40da3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane1.  <a href="#ga2500c4f4a2cd208ec876fa02dd40da3f">More...</a><br/></td></tr>
+<tr class="separator:ga2500c4f4a2cd208ec876fa02dd40da3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b871ae996bbbfacf11d388f3ca9d236"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga1b871ae996bbbfacf11d388f3ca9d236">XDSI2RX_ISR_ECC2_BIT_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
+<tr class="memdesc:ga1b871ae996bbbfacf11d388f3ca9d236"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC2 bit error.  <a href="#ga1b871ae996bbbfacf11d388f3ca9d236">More...</a><br/></td></tr>
+<tr class="separator:ga1b871ae996bbbfacf11d388f3ca9d236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadeb94980adf411476f5f34abba33076d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gadeb94980adf411476f5f34abba33076d">XDSI2RX_ISR_ECC1_BIT_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:gadeb94980adf411476f5f34abba33076d"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC1 bit error.  <a href="#gadeb94980adf411476f5f34abba33076d">More...</a><br/></td></tr>
+<tr class="separator:gadeb94980adf411476f5f34abba33076d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3cd6bd99df5a5bd42dd6bec777deb6a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3cd6bd99df5a5bd42dd6bec777deb6a5">XDSI2RX_ISR_CRC_ERR_MASK</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:ga3cd6bd99df5a5bd42dd6bec777deb6a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for CRC Error.  <a href="#ga3cd6bd99df5a5bd42dd6bec777deb6a5">More...</a><br/></td></tr>
+<tr class="separator:ga3cd6bd99df5a5bd42dd6bec777deb6a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e67f32c9ccefad300ee0a37a7ad0f4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga8e67f32c9ccefad300ee0a37a7ad0f4d">XDSI2RX_ISR_UN_DATA_TYPE_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:ga8e67f32c9ccefad300ee0a37a7ad0f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Unsupported Data Type.  <a href="#ga8e67f32c9ccefad300ee0a37a7ad0f4d">More...</a><br/></td></tr>
+<tr class="separator:ga8e67f32c9ccefad300ee0a37a7ad0f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1343ef412ef22cf5ccc96e0b158dcd8e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga1343ef412ef22cf5ccc96e0b158dcd8e">XDSI2RX_ISR_ALLINTR_MASK</a>&#160;&#160;&#160;0x003F5FFF</td></tr>
+<tr class="memdesc:ga1343ef412ef22cf5ccc96e0b158dcd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of all defined interrupt status bits.  <a href="#ga1343ef412ef22cf5ccc96e0b158dcd8e">More...</a><br/></td></tr>
+<tr class="separator:ga1343ef412ef22cf5ccc96e0b158dcd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbfac26df76af7938ba6f4c5a3d567b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gafbfac26df76af7938ba6f4c5a3d567b8">XDSI2RX_ISR_FRAME_START_SHIFT</a>&#160;&#160;&#160;21</td></tr>
+<tr class="memdesc:gafbfac26df76af7938ba6f4c5a3d567b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">FRAME START detected.  <a href="#gafbfac26df76af7938ba6f4c5a3d567b8">More...</a><br/></td></tr>
+<tr class="separator:gafbfac26df76af7938ba6f4c5a3d567b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4cbda551f535ecfdc1cb1b94fa28f884"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga4cbda551f535ecfdc1cb1b94fa28f884">XDSI2RX_ISR_WC_CORRUPTION_SHIFT</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga4cbda551f535ecfdc1cb1b94fa28f884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word count corruption.  <a href="#ga4cbda551f535ecfdc1cb1b94fa28f884">More...</a><br/></td></tr>
+<tr class="separator:ga4cbda551f535ecfdc1cb1b94fa28f884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa6c7b51bf9353cc4d14dccfedd091f39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa6c7b51bf9353cc4d14dccfedd091f39">XDSI2RX_ISR_INCORRECT_LANE_CONFIG_SHIFT</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:gaa6c7b51bf9353cc4d14dccfedd091f39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incorrect lane configuration.  <a href="#gaa6c7b51bf9353cc4d14dccfedd091f39">More...</a><br/></td></tr>
+<tr class="separator:gaa6c7b51bf9353cc4d14dccfedd091f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c3dbfb943f0dbd28d240c068f8c92d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3c3dbfb943f0dbd28d240c068f8c92d9">XDSI2RX_ISR_GSP_FIFO_FULL_ERR_SHIFT</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:ga3c3dbfb943f0dbd28d240c068f8c92d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet FIFO FULL error.  <a href="#ga3c3dbfb943f0dbd28d240c068f8c92d9">More...</a><br/></td></tr>
+<tr class="separator:ga3c3dbfb943f0dbd28d240c068f8c92d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac8dfda2f64fef160889330cd9a78fc65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gac8dfda2f64fef160889330cd9a78fc65">XDSI2RX_ISR_GSP_FIFO_NE_ERR_SHIFT</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:gac8dfda2f64fef160889330cd9a78fc65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet not empty error.  <a href="#gac8dfda2f64fef160889330cd9a78fc65">More...</a><br/></td></tr>
+<tr class="separator:gac8dfda2f64fef160889330cd9a78fc65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4807d33367400a742d6dbd52929fbc7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga4807d33367400a742d6dbd52929fbc7d">XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga4807d33367400a742d6dbd52929fbc7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">STREAM FIFO full error.  <a href="#ga4807d33367400a742d6dbd52929fbc7d">More...</a><br/></td></tr>
+<tr class="separator:ga4807d33367400a742d6dbd52929fbc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc35786b30c77b81e5ea8523ece1a707"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gacc35786b30c77b81e5ea8523ece1a707">XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_SHIFT</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:gacc35786b30c77b81e5ea8523ece1a707"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM FIFO full error.  <a href="#gacc35786b30c77b81e5ea8523ece1a707">More...</a><br/></td></tr>
+<tr class="separator:gacc35786b30c77b81e5ea8523ece1a707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c13d54346b33cf88ebcf59a1d2159ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga5c13d54346b33cf88ebcf59a1d2159ad">XDSI2RX_ISR_STOP_STATE_SHIFT</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:ga5c13d54346b33cf88ebcf59a1d2159ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">STOP STATE Error.  <a href="#ga5c13d54346b33cf88ebcf59a1d2159ad">More...</a><br/></td></tr>
+<tr class="separator:ga5c13d54346b33cf88ebcf59a1d2159ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6e74831d48d8cc60fdc20f53ab3fe97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gab6e74831d48d8cc60fdc20f53ab3fe97">XDSI2RX_ISR_SOT_ERR_LANE4_SHIFT</a>&#160;&#160;&#160;11</td></tr>
+<tr class="memdesc:gab6e74831d48d8cc60fdc20f53ab3fe97"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane4.  <a href="#gab6e74831d48d8cc60fdc20f53ab3fe97">More...</a><br/></td></tr>
+<tr class="separator:gab6e74831d48d8cc60fdc20f53ab3fe97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e82fb95a064b2552663f9d48a80d7aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3e82fb95a064b2552663f9d48a80d7aa">XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_SHIFT</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga3e82fb95a064b2552663f9d48a80d7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane4.  <a href="#ga3e82fb95a064b2552663f9d48a80d7aa">More...</a><br/></td></tr>
+<tr class="separator:ga3e82fb95a064b2552663f9d48a80d7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ab6411eb91a41018b3a51c7171a1bbc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga7ab6411eb91a41018b3a51c7171a1bbc">XDSI2RX_ISR_SOT_ERR_LANE3_SHIFT</a>&#160;&#160;&#160;9</td></tr>
+<tr class="memdesc:ga7ab6411eb91a41018b3a51c7171a1bbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane3.  <a href="#ga7ab6411eb91a41018b3a51c7171a1bbc">More...</a><br/></td></tr>
+<tr class="separator:ga7ab6411eb91a41018b3a51c7171a1bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga012adaf39b527975094b39f83a2b3187"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga012adaf39b527975094b39f83a2b3187">XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga012adaf39b527975094b39f83a2b3187"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane3.  <a href="#ga012adaf39b527975094b39f83a2b3187">More...</a><br/></td></tr>
+<tr class="separator:ga012adaf39b527975094b39f83a2b3187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa348099de13ea073543d5ac281e00c11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa348099de13ea073543d5ac281e00c11">XDSI2RX_ISR_SOT_ERR_LANE2_SHIFT</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:gaa348099de13ea073543d5ac281e00c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane2.  <a href="#gaa348099de13ea073543d5ac281e00c11">More...</a><br/></td></tr>
+<tr class="separator:gaa348099de13ea073543d5ac281e00c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9237dcedfe95e811199bfdb0d1a6f041"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9237dcedfe95e811199bfdb0d1a6f041">XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_SHIFT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga9237dcedfe95e811199bfdb0d1a6f041"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane2.  <a href="#ga9237dcedfe95e811199bfdb0d1a6f041">More...</a><br/></td></tr>
+<tr class="separator:ga9237dcedfe95e811199bfdb0d1a6f041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef80edefb382c0abdba5807e68ae4d1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaef80edefb382c0abdba5807e68ae4d1c">XDSI2RX_ISR_SOT_ERR_LANE1_SHIFT</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gaef80edefb382c0abdba5807e68ae4d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane1.  <a href="#gaef80edefb382c0abdba5807e68ae4d1c">More...</a><br/></td></tr>
+<tr class="separator:gaef80edefb382c0abdba5807e68ae4d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c787e36acffb2b6ee7a1503159197c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9c787e36acffb2b6ee7a1503159197c3">XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_SHIFT</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga9c787e36acffb2b6ee7a1503159197c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane1.  <a href="#ga9c787e36acffb2b6ee7a1503159197c3">More...</a><br/></td></tr>
+<tr class="separator:ga9c787e36acffb2b6ee7a1503159197c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga562e548acd4107281d6aedaad961b4f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga562e548acd4107281d6aedaad961b4f3">XDSI2RX_ISR_ECC2_BIT_SHIFT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga562e548acd4107281d6aedaad961b4f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC2 bit error.  <a href="#ga562e548acd4107281d6aedaad961b4f3">More...</a><br/></td></tr>
+<tr class="separator:ga562e548acd4107281d6aedaad961b4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga345a988c3d3f150e630db757c4e4a06a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga345a988c3d3f150e630db757c4e4a06a">XDSI2RX_ISR_ECC1_BIT_SHIFT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga345a988c3d3f150e630db757c4e4a06a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC1 bit error.  <a href="#ga345a988c3d3f150e630db757c4e4a06a">More...</a><br/></td></tr>
+<tr class="separator:ga345a988c3d3f150e630db757c4e4a06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac9fcec711343ade828df93aa1e4bc9b4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gac9fcec711343ade828df93aa1e4bc9b4">XDSI2RX_ISR_CRC_ERR_SHIFT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gac9fcec711343ade828df93aa1e4bc9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for CRC Error.  <a href="#gac9fcec711343ade828df93aa1e4bc9b4">More...</a><br/></td></tr>
+<tr class="separator:gac9fcec711343ade828df93aa1e4bc9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9472276e3bffa7cf6b0a35bad1dc8547"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9472276e3bffa7cf6b0a35bad1dc8547">XDSI2RX_ISR_UN_DATA_TYPE_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga9472276e3bffa7cf6b0a35bad1dc8547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Unsupported Data Type.  <a href="#ga9472276e3bffa7cf6b0a35bad1dc8547">More...</a><br/></td></tr>
+<tr class="separator:ga9472276e3bffa7cf6b0a35bad1dc8547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks and offsets of XDSI2RX_IER_OFFSET register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp35c8e4c2d38ec2ab42b45f2b2141536e"></a>This register contains the interrupt enable masks </p>
+</td></tr>
+<tr class="memitem:ga0d40720c2f182cac22e34e89391d0adf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga0d40720c2f182cac22e34e89391d0adf">XDSI2RX_IER_FRAME_START_MASK</a>&#160;&#160;&#160;0x00200000</td></tr>
+<tr class="memdesc:ga0d40720c2f182cac22e34e89391d0adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">FRAME START detected.  <a href="#ga0d40720c2f182cac22e34e89391d0adf">More...</a><br/></td></tr>
+<tr class="separator:ga0d40720c2f182cac22e34e89391d0adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27929ebcc8db90dbbe3b58f08a1ddbe1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga27929ebcc8db90dbbe3b58f08a1ddbe1">XDSI2RX_IER_WC_CORRUPTION_MASK</a>&#160;&#160;&#160;0x00100000</td></tr>
+<tr class="memdesc:ga27929ebcc8db90dbbe3b58f08a1ddbe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word count corruption.  <a href="#ga27929ebcc8db90dbbe3b58f08a1ddbe1">More...</a><br/></td></tr>
+<tr class="separator:ga27929ebcc8db90dbbe3b58f08a1ddbe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac5349a838fdca09c8212a247a9c39c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaac5349a838fdca09c8212a247a9c39c9">XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK</a>&#160;&#160;&#160;0x00080000</td></tr>
+<tr class="memdesc:gaac5349a838fdca09c8212a247a9c39c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incorrect lane configuration.  <a href="#gaac5349a838fdca09c8212a247a9c39c9">More...</a><br/></td></tr>
+<tr class="separator:gaac5349a838fdca09c8212a247a9c39c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga355484ed4c1eaa6be6979e280dbf997e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga355484ed4c1eaa6be6979e280dbf997e">XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK</a>&#160;&#160;&#160;0x00040000</td></tr>
+<tr class="memdesc:ga355484ed4c1eaa6be6979e280dbf997e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet FIFO FULL error.  <a href="#ga355484ed4c1eaa6be6979e280dbf997e">More...</a><br/></td></tr>
+<tr class="separator:ga355484ed4c1eaa6be6979e280dbf997e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c8556f6983ad2b68aba77e4c035642e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga8c8556f6983ad2b68aba77e4c035642e">XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK</a>&#160;&#160;&#160;0x00020000</td></tr>
+<tr class="memdesc:ga8c8556f6983ad2b68aba77e4c035642e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet not empty error.  <a href="#ga8c8556f6983ad2b68aba77e4c035642e">More...</a><br/></td></tr>
+<tr class="separator:ga8c8556f6983ad2b68aba77e4c035642e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabe767966d898c6c4527b4292d4fa3a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaabe767966d898c6c4527b4292d4fa3a5">XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK</a>&#160;&#160;&#160;0x00010000</td></tr>
+<tr class="memdesc:gaabe767966d898c6c4527b4292d4fa3a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">STREAM FIFO full error.  <a href="#gaabe767966d898c6c4527b4292d4fa3a5">More...</a><br/></td></tr>
+<tr class="separator:gaabe767966d898c6c4527b4292d4fa3a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad1ea138d5e3a76fef5ac73fda6e31d61"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gad1ea138d5e3a76fef5ac73fda6e31d61">XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK</a>&#160;&#160;&#160;0x00004000</td></tr>
+<tr class="memdesc:gad1ea138d5e3a76fef5ac73fda6e31d61"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM async FIFO full error.  <a href="#gad1ea138d5e3a76fef5ac73fda6e31d61">More...</a><br/></td></tr>
+<tr class="separator:gad1ea138d5e3a76fef5ac73fda6e31d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d3dcb5de43bc52613d5cfd7bd6f9ffc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3d3dcb5de43bc52613d5cfd7bd6f9ffc">XDSI2RX_IER_STOP_STATE_MASK</a>&#160;&#160;&#160;0x00001000</td></tr>
+<tr class="memdesc:ga3d3dcb5de43bc52613d5cfd7bd6f9ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">STOP STATE Error.  <a href="#ga3d3dcb5de43bc52613d5cfd7bd6f9ffc">More...</a><br/></td></tr>
+<tr class="separator:ga3d3dcb5de43bc52613d5cfd7bd6f9ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga62e8b52d38696cc55161cbaede8fc1c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga62e8b52d38696cc55161cbaede8fc1c4">XDSI2RX_IER_SOT_ERR_LANE4_MASK</a>&#160;&#160;&#160;0x00000800</td></tr>
+<tr class="memdesc:ga62e8b52d38696cc55161cbaede8fc1c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane4.  <a href="#ga62e8b52d38696cc55161cbaede8fc1c4">More...</a><br/></td></tr>
+<tr class="separator:ga62e8b52d38696cc55161cbaede8fc1c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f5affb2e4109fe9d72b0e38c467fed2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga2f5affb2e4109fe9d72b0e38c467fed2">XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK</a>&#160;&#160;&#160;0x00000400</td></tr>
+<tr class="memdesc:ga2f5affb2e4109fe9d72b0e38c467fed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane4.  <a href="#ga2f5affb2e4109fe9d72b0e38c467fed2">More...</a><br/></td></tr>
+<tr class="separator:ga2f5affb2e4109fe9d72b0e38c467fed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacca32dab9742b885249685de14eb3d33"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gacca32dab9742b885249685de14eb3d33">XDSI2RX_IER_SOT_ERR_LANE3_MASK</a>&#160;&#160;&#160;0x00000200</td></tr>
+<tr class="memdesc:gacca32dab9742b885249685de14eb3d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane3.  <a href="#gacca32dab9742b885249685de14eb3d33">More...</a><br/></td></tr>
+<tr class="separator:gacca32dab9742b885249685de14eb3d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga29bc9bf2b3daa916b0c5097159dd6b84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga29bc9bf2b3daa916b0c5097159dd6b84">XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK</a>&#160;&#160;&#160;0x00000100</td></tr>
+<tr class="memdesc:ga29bc9bf2b3daa916b0c5097159dd6b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane3.  <a href="#ga29bc9bf2b3daa916b0c5097159dd6b84">More...</a><br/></td></tr>
+<tr class="separator:ga29bc9bf2b3daa916b0c5097159dd6b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe4108c56b1bcabb030373000603b354"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gafe4108c56b1bcabb030373000603b354">XDSI2RX_IER_SOT_ERR_LANE2_MASK</a>&#160;&#160;&#160;0x00000080</td></tr>
+<tr class="memdesc:gafe4108c56b1bcabb030373000603b354"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane2.  <a href="#gafe4108c56b1bcabb030373000603b354">More...</a><br/></td></tr>
+<tr class="separator:gafe4108c56b1bcabb030373000603b354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a641714fd0be79108406b5f45449a39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9a641714fd0be79108406b5f45449a39">XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK</a>&#160;&#160;&#160;0x00000040</td></tr>
+<tr class="memdesc:ga9a641714fd0be79108406b5f45449a39"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane2.  <a href="#ga9a641714fd0be79108406b5f45449a39">More...</a><br/></td></tr>
+<tr class="separator:ga9a641714fd0be79108406b5f45449a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19da08b4e2af79e98193311133df77cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga19da08b4e2af79e98193311133df77cf">XDSI2RX_IER_SOT_ERR_LANE1_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
+<tr class="memdesc:ga19da08b4e2af79e98193311133df77cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane1.  <a href="#ga19da08b4e2af79e98193311133df77cf">More...</a><br/></td></tr>
+<tr class="separator:ga19da08b4e2af79e98193311133df77cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3687fc6548880588287f3f71b4e88cbf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga3687fc6548880588287f3f71b4e88cbf">XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK</a>&#160;&#160;&#160;0x00000010</td></tr>
+<tr class="memdesc:ga3687fc6548880588287f3f71b4e88cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane1.  <a href="#ga3687fc6548880588287f3f71b4e88cbf">More...</a><br/></td></tr>
+<tr class="separator:ga3687fc6548880588287f3f71b4e88cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22621de5ddd6b00f6bf2c0573feec1c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga22621de5ddd6b00f6bf2c0573feec1c3">XDSI2RX_IER_ECC2_BIT_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
+<tr class="memdesc:ga22621de5ddd6b00f6bf2c0573feec1c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC2 bit error.  <a href="#ga22621de5ddd6b00f6bf2c0573feec1c3">More...</a><br/></td></tr>
+<tr class="separator:ga22621de5ddd6b00f6bf2c0573feec1c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2aad504ea3c4d8490ecc4eeff7304223"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga2aad504ea3c4d8490ecc4eeff7304223">XDSI2RX_IER_ECC1_BIT_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:ga2aad504ea3c4d8490ecc4eeff7304223"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC1 bit error.  <a href="#ga2aad504ea3c4d8490ecc4eeff7304223">More...</a><br/></td></tr>
+<tr class="separator:ga2aad504ea3c4d8490ecc4eeff7304223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga948a8546d784b2b4ff00b898986959d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga948a8546d784b2b4ff00b898986959d7">XDSI2RX_IER_CRC_ERR_MASK</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:ga948a8546d784b2b4ff00b898986959d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for CRC Error.  <a href="#ga948a8546d784b2b4ff00b898986959d7">More...</a><br/></td></tr>
+<tr class="separator:ga948a8546d784b2b4ff00b898986959d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3ed5d37971744d0b9e56dade2692459"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaf3ed5d37971744d0b9e56dade2692459">XDSI2RX_IER_UN_DATA_TYPE_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:gaf3ed5d37971744d0b9e56dade2692459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Unsupported Data Type.  <a href="#gaf3ed5d37971744d0b9e56dade2692459">More...</a><br/></td></tr>
+<tr class="separator:gaf3ed5d37971744d0b9e56dade2692459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d5f6ca0c9340a9ad4841f67ba468c32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9d5f6ca0c9340a9ad4841f67ba468c32">XDSI2RX_IER_ALLINTR_MASK</a>&#160;&#160;&#160;0x003F5FFF</td></tr>
+<tr class="memdesc:ga9d5f6ca0c9340a9ad4841f67ba468c32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of all defined interrupt enable bits.  <a href="#ga9d5f6ca0c9340a9ad4841f67ba468c32">More...</a><br/></td></tr>
+<tr class="separator:ga9d5f6ca0c9340a9ad4841f67ba468c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45b50615f41c5b8ba4395a8554b8e225"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga45b50615f41c5b8ba4395a8554b8e225">XDSI2RX_IER_FRAME_START_SHIFT</a>&#160;&#160;&#160;21</td></tr>
+<tr class="memdesc:ga45b50615f41c5b8ba4395a8554b8e225"><td class="mdescLeft">&#160;</td><td class="mdescRight">FRAME START detected.  <a href="#ga45b50615f41c5b8ba4395a8554b8e225">More...</a><br/></td></tr>
+<tr class="separator:ga45b50615f41c5b8ba4395a8554b8e225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga45e3c57cfb7f6ad980491849f6d7bd94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga45e3c57cfb7f6ad980491849f6d7bd94">XDSI2RX_IER_WC_CORRUPTION_SHIFT</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga45e3c57cfb7f6ad980491849f6d7bd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word count corruption.  <a href="#ga45e3c57cfb7f6ad980491849f6d7bd94">More...</a><br/></td></tr>
+<tr class="separator:ga45e3c57cfb7f6ad980491849f6d7bd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08e11ab98975706fa1173103f64a8460"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga08e11ab98975706fa1173103f64a8460">XDSI2RX_IER_INCORRECT_LANE_CONFIG_SHIFT</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:ga08e11ab98975706fa1173103f64a8460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incorrect lane configuration.  <a href="#ga08e11ab98975706fa1173103f64a8460">More...</a><br/></td></tr>
+<tr class="separator:ga08e11ab98975706fa1173103f64a8460"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05d075e8795534bb45e231b6c278c546"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga05d075e8795534bb45e231b6c278c546">XDSI2RX_IER_GSP_FIFO_FULL_ERR_SHIFT</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:ga05d075e8795534bb45e231b6c278c546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet FIFO FULL error.  <a href="#ga05d075e8795534bb45e231b6c278c546">More...</a><br/></td></tr>
+<tr class="separator:ga05d075e8795534bb45e231b6c278c546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf319dd517dea09d53c2c988e63168281"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaf319dd517dea09d53c2c988e63168281">XDSI2RX_IER_GSP_FIFO_NE_ERR_SHIFT</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:gaf319dd517dea09d53c2c988e63168281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic short packet not empty error.  <a href="#gaf319dd517dea09d53c2c988e63168281">More...</a><br/></td></tr>
+<tr class="separator:gaf319dd517dea09d53c2c988e63168281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5beec902f292ccccaec38573a28a3812"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga5beec902f292ccccaec38573a28a3812">XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga5beec902f292ccccaec38573a28a3812"><td class="mdescLeft">&#160;</td><td class="mdescRight">STREAM FIFO full error.  <a href="#ga5beec902f292ccccaec38573a28a3812">More...</a><br/></td></tr>
+<tr class="separator:ga5beec902f292ccccaec38573a28a3812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa45b195e08f9c32badc4c6c4b70310d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa45b195e08f9c32badc4c6c4b70310d2">XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_SHIFT</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:gaa45b195e08f9c32badc4c6c4b70310d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM FIFO full error.  <a href="#gaa45b195e08f9c32badc4c6c4b70310d2">More...</a><br/></td></tr>
+<tr class="separator:gaa45b195e08f9c32badc4c6c4b70310d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24efb31a3bb14aaf11862c32e12c944e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga24efb31a3bb14aaf11862c32e12c944e">XDSI2RX_IER_STOP_STATE_SHIFT</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:ga24efb31a3bb14aaf11862c32e12c944e"><td class="mdescLeft">&#160;</td><td class="mdescRight">STOP STATE Error.  <a href="#ga24efb31a3bb14aaf11862c32e12c944e">More...</a><br/></td></tr>
+<tr class="separator:ga24efb31a3bb14aaf11862c32e12c944e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac7b1cbceddae4fb1dffb05c38d40ce2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gac7b1cbceddae4fb1dffb05c38d40ce2f">XDSI2RX_IER_SOT_ERR_LANE4_SHIFT</a>&#160;&#160;&#160;11</td></tr>
+<tr class="memdesc:gac7b1cbceddae4fb1dffb05c38d40ce2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane4.  <a href="#gac7b1cbceddae4fb1dffb05c38d40ce2f">More...</a><br/></td></tr>
+<tr class="separator:gac7b1cbceddae4fb1dffb05c38d40ce2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab29361462e10cb4ca25ae466d86839f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gab29361462e10cb4ca25ae466d86839f1">XDSI2RX_IER_SOT_SYNC_ERR_LANE4_SHIFT</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:gab29361462e10cb4ca25ae466d86839f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane4.  <a href="#gab29361462e10cb4ca25ae466d86839f1">More...</a><br/></td></tr>
+<tr class="separator:gab29361462e10cb4ca25ae466d86839f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4ff461f066a9117781e706b1568d02a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gab4ff461f066a9117781e706b1568d02a">XDSI2RX_IER_SOT_ERR_LANE3_SHIFT</a>&#160;&#160;&#160;9</td></tr>
+<tr class="memdesc:gab4ff461f066a9117781e706b1568d02a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane3.  <a href="#gab4ff461f066a9117781e706b1568d02a">More...</a><br/></td></tr>
+<tr class="separator:gab4ff461f066a9117781e706b1568d02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3475da8a334180a068171f212d5a330"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa3475da8a334180a068171f212d5a330">XDSI2RX_IER_SOT_SYNC_ERR_LANE3_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:gaa3475da8a334180a068171f212d5a330"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane3.  <a href="#gaa3475da8a334180a068171f212d5a330">More...</a><br/></td></tr>
+<tr class="separator:gaa3475da8a334180a068171f212d5a330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9051fe29413d0d6c2405c94436f7f83c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga9051fe29413d0d6c2405c94436f7f83c">XDSI2RX_IER_SOT_ERR_LANE2_SHIFT</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:ga9051fe29413d0d6c2405c94436f7f83c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane2.  <a href="#ga9051fe29413d0d6c2405c94436f7f83c">More...</a><br/></td></tr>
+<tr class="separator:ga9051fe29413d0d6c2405c94436f7f83c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a7c01037aa486114c2cbf8f4b8bc7f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga2a7c01037aa486114c2cbf8f4b8bc7f6">XDSI2RX_IER_SOT_SYNC_ERR_LANE2_SHIFT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga2a7c01037aa486114c2cbf8f4b8bc7f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane2.  <a href="#ga2a7c01037aa486114c2cbf8f4b8bc7f6">More...</a><br/></td></tr>
+<tr class="separator:ga2a7c01037aa486114c2cbf8f4b8bc7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga33de517703c3c30fcf7062b8e18f2fc9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga33de517703c3c30fcf7062b8e18f2fc9">XDSI2RX_IER_SOT_ERR_LANE1_SHIFT</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:ga33de517703c3c30fcf7062b8e18f2fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT error lane1.  <a href="#ga33de517703c3c30fcf7062b8e18f2fc9">More...</a><br/></td></tr>
+<tr class="separator:ga33de517703c3c30fcf7062b8e18f2fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab16488bb8b4c6357039439eb344ad19a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gab16488bb8b4c6357039439eb344ad19a">XDSI2RX_IER_SOT_SYNC_ERR_LANE1_SHIFT</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gab16488bb8b4c6357039439eb344ad19a"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOT sync error lane1.  <a href="#gab16488bb8b4c6357039439eb344ad19a">More...</a><br/></td></tr>
+<tr class="separator:gab16488bb8b4c6357039439eb344ad19a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga431849e0b63965faff63ab8df8f1c54c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga431849e0b63965faff63ab8df8f1c54c">XDSI2RX_IER_ECC2_BIT_SHIFT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga431849e0b63965faff63ab8df8f1c54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC2 bit error.  <a href="#ga431849e0b63965faff63ab8df8f1c54c">More...</a><br/></td></tr>
+<tr class="separator:ga431849e0b63965faff63ab8df8f1c54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22c976df0a782642dc57a67ee979e36b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga22c976df0a782642dc57a67ee979e36b">XDSI2RX_IER_ECC1_BIT_SHIFT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga22c976df0a782642dc57a67ee979e36b"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHIFT for ECC1 bit error.  <a href="#ga22c976df0a782642dc57a67ee979e36b">More...</a><br/></td></tr>
+<tr class="separator:ga22c976df0a782642dc57a67ee979e36b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e74f101dfbe10fdeea900142864eb6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga4e74f101dfbe10fdeea900142864eb6d">XDSI2RX_IER_CRC_ERR_SHIFT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga4e74f101dfbe10fdeea900142864eb6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for CRC Error.  <a href="#ga4e74f101dfbe10fdeea900142864eb6d">More...</a><br/></td></tr>
+<tr class="separator:ga4e74f101dfbe10fdeea900142864eb6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e228a3f2f37eaf0874d06981a2ddc86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga7e228a3f2f37eaf0874d06981a2ddc86">XDSI2RX_IER_UN_DATA_TYPE_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga7e228a3f2f37eaf0874d06981a2ddc86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Unsupported Data Type.  <a href="#ga7e228a3f2f37eaf0874d06981a2ddc86">More...</a><br/></td></tr>
+<tr class="separator:ga7e228a3f2f37eaf0874d06981a2ddc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks and offsets of XDSI2RX_GSPR_OFFSET register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpeb2682358dd02abd7043a62ef0e3c91c"></a>This register contains the generic short packet command . </p>
+</td></tr>
+<tr class="memitem:gaa5c446efcf8e59103414cfbfd098fcfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa5c446efcf8e59103414cfbfd098fcfd">XDSI2RX_GSPR_DATA_MASK</a>&#160;&#160;&#160;0x00FFFF00</td></tr>
+<tr class="memdesc:gaa5c446efcf8e59103414cfbfd098fcfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Data.  <a href="#gaa5c446efcf8e59103414cfbfd098fcfd">More...</a><br/></td></tr>
+<tr class="separator:gaa5c446efcf8e59103414cfbfd098fcfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf207cea9b036e6046012cf13eb116a55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaf207cea9b036e6046012cf13eb116a55">XDSI2RX_GSPR_VC_MASK</a>&#160;&#160;&#160;0x000000C0</td></tr>
+<tr class="memdesc:gaf207cea9b036e6046012cf13eb116a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for VC.  <a href="#gaf207cea9b036e6046012cf13eb116a55">More...</a><br/></td></tr>
+<tr class="separator:gaf207cea9b036e6046012cf13eb116a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4385808dde136ee5db4a9fd81707ceb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga4385808dde136ee5db4a9fd81707ceb1">XDSI2RX_GSPR_DATA_TYPE_MASK</a>&#160;&#160;&#160;0x0000003F</td></tr>
+<tr class="memdesc:ga4385808dde136ee5db4a9fd81707ceb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Data Type.  <a href="#ga4385808dde136ee5db4a9fd81707ceb1">More...</a><br/></td></tr>
+<tr class="separator:ga4385808dde136ee5db4a9fd81707ceb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08990918281ae1abee704ad8b0c90165"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga08990918281ae1abee704ad8b0c90165">XDSI2RX_GSPR_DATA_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga08990918281ae1abee704ad8b0c90165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Data.  <a href="#ga08990918281ae1abee704ad8b0c90165">More...</a><br/></td></tr>
+<tr class="separator:ga08990918281ae1abee704ad8b0c90165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6584c8df5dcba15a55e0856ef009e407"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga6584c8df5dcba15a55e0856ef009e407">XDSI2RX_GSPR_VC_SHIFT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga6584c8df5dcba15a55e0856ef009e407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for VC.  <a href="#ga6584c8df5dcba15a55e0856ef009e407">More...</a><br/></td></tr>
+<tr class="separator:ga6584c8df5dcba15a55e0856ef009e407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga989eaa20e2e028ce0dd18524b7349e22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga989eaa20e2e028ce0dd18524b7349e22">XDSI2RX_GSPR_DATA_TYPE_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga989eaa20e2e028ce0dd18524b7349e22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for DATA Type.  <a href="#ga989eaa20e2e028ce0dd18524b7349e22">More...</a><br/></td></tr>
+<tr class="separator:ga989eaa20e2e028ce0dd18524b7349e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Bitmasks and offsets of XDSI2RX_DCR_OFFSET register</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp6bec0e47d4e30fc57619295f361d36d8"></a>This register contains the generic short packet command . </p>
+</td></tr>
+<tr class="memitem:ga6081b12d13a7681c78592f26e826fbeb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga6081b12d13a7681c78592f26e826fbeb">XDSI2RX_DCR_FRM_RCVD_MASK</a>&#160;&#160;&#160;0xFFFF0000</td></tr>
+<tr class="memdesc:ga6081b12d13a7681c78592f26e826fbeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for frames RCVD  <a href="#ga6081b12d13a7681c78592f26e826fbeb">More...</a><br/></td></tr>
+<tr class="separator:ga6081b12d13a7681c78592f26e826fbeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a33d3379ef30a6f325b47a1965d8b84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga8a33d3379ef30a6f325b47a1965d8b84">XDSI2RX_DCR_HLINE_MASK</a>&#160;&#160;&#160;0x0000FFFF</td></tr>
+<tr class="memdesc:ga8a33d3379ef30a6f325b47a1965d8b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for H LINES  <a href="#ga8a33d3379ef30a6f325b47a1965d8b84">More...</a><br/></td></tr>
+<tr class="separator:ga8a33d3379ef30a6f325b47a1965d8b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa1a8be09751e982c055a8dcaa1ee4d11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#gaa1a8be09751e982c055a8dcaa1ee4d11">XDSI2RX_DCR_FRM_RCVD_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gaa1a8be09751e982c055a8dcaa1ee4d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift no of frames RCVD.  <a href="#gaa1a8be09751e982c055a8dcaa1ee4d11">More...</a><br/></td></tr>
+<tr class="separator:gaa1a8be09751e982c055a8dcaa1ee4d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2657804192a1924388fe56bad323651f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi2rx.html#ga2657804192a1924388fe56bad323651f">XDSI2RX_DCR_HLINE_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga2657804192a1924388fe56bad323651f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for horizontal lines.  <a href="#ga2657804192a1924388fe56bad323651f">More...</a><br/></td></tr>
+<tr class="separator:ga2657804192a1924388fe56bad323651f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga16cf3380173e61542d797f0b9c4a883a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_COREENB_MASK&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable/Disable core Mask. </p>
+
+<p>Referenced by <a class="el" href="group__dsi2rx.html#ga9633779add7d621518de100c3361bb41">XDsi2Rx_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga1aa2477d51817223016084e383df9a27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_COREENB_SHIFT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Core Enable. </p>
+
+<p>Referenced by <a class="el" href="group__dsi2rx.html#ga9633779add7d621518de100c3361bb41">XDsi2Rx_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga075d5385c99ffa756f513112a49c5e34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_CRREADY_MASK&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Controller Ready bit Mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga466c00e191c9b6d1a37b96affce82fc2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_CRREADY_SHIFT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Controller Ready. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4ac0cb6795213365f1a6734e71da5e8b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_INIT_DONE_MASK&#160;&#160;&#160;0x00000008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Init Done bit mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga057e1f6a0df07c8d2564e02980a8129a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_INIT_DONE_SHIFT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Init Done. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga414878c04061bbb96896259e36fb1334"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_OFFSET&#160;&#160;&#160;0x00000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Core Configuration Register Offset. </p>
+
+<p>Referenced by <a class="el" href="group__dsi2rx.html#ga9633779add7d621518de100c3361bb41">XDsi2Rx_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gad3ab4ea50f348f204419f936f06be367"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_SOFTRESET_MASK&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Soft Reset core bit Mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3747700a3b2b794227a22c35ea4c6d4f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_CCR_SOFTRESET_SHIFT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Soft reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6081b12d13a7681c78592f26e826fbeb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_DCR_FRM_RCVD_MASK&#160;&#160;&#160;0xFFFF0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>mask for frames RCVD </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa1a8be09751e982c055a8dcaa1ee4d11"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_DCR_FRM_RCVD_SHIFT&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift no of frames RCVD. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8a33d3379ef30a6f325b47a1965d8b84"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_DCR_HLINE_MASK&#160;&#160;&#160;0x0000FFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>mask for H LINES </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2657804192a1924388fe56bad323651f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_DCR_HLINE_SHIFT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for horizontal lines. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5af3f37be42279e87b6868008a3e8bf7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_DCR_OFFSET&#160;&#160;&#160;0x00000034</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Debug Counter register. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2ec87e155f4bb1b5d46c98bdc0343d94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GIER_DISABLE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable the Global Interrupts. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga10e76ad4fa7201fda09f2d705a9d4b8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GIER_ENABLE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable the Global Interrupts. </p>
+
+</div>
+</div>
+<a class="anchor" id="gabe544be1bfb393e47163d51e4bfe94de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GIER_GIE_MASK&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Global Interrupt Enable bit. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf343104c2385cabdfa7938243f006a2d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GIER_GIE_SHIFT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift bits for Global Interrupt Enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="gafb4823dc1bca449c1456390a9b845e3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GIER_OFFSET&#160;&#160;&#160;0x00000020</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Global Interrupt Register Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa5c446efcf8e59103414cfbfd098fcfd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_DATA_MASK&#160;&#160;&#160;0x00FFFF00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask for Data. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga08990918281ae1abee704ad8b0c90165"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_DATA_SHIFT&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Data. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4385808dde136ee5db4a9fd81707ceb1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_DATA_TYPE_MASK&#160;&#160;&#160;0x0000003F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask for Data Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga989eaa20e2e028ce0dd18524b7349e22"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_DATA_TYPE_SHIFT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for DATA Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="gad853a581637eb442c83b22d68ec48cdb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_OFFSET&#160;&#160;&#160;0x00000030</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic Short Packet Register. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf207cea9b036e6046012cf13eb116a55"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_VC_MASK&#160;&#160;&#160;0x000000C0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask for VC. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6584c8df5dcba15a55e0856ef009e407"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_GSPR_VC_SHIFT&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for VC. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9d5f6ca0c9340a9ad4841f67ba468c32"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_ALLINTR_MASK&#160;&#160;&#160;0x003F5FFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask of all defined interrupt enable bits. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga6bca141c9dba1cc9f3fa86f05d049486">XDsi2Rx_InterruptClear()</a>, <a class="el" href="group__dsi.html#ga6b1fdbb4e464f81ccdf0e823d44293ce">XDsi2Rx_InterruptDisable()</a>, and <a class="el" href="group__dsi.html#gaffaee65e23167d38fd3ae1107126a334">XDsi2Rx_InterruptEnable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga948a8546d784b2b4ff00b898986959d7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_CRC_ERR_MASK&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for CRC Error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga4e74f101dfbe10fdeea900142864eb6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_CRC_ERR_SHIFT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for CRC Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2aad504ea3c4d8490ecc4eeff7304223"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_ECC1_BIT_MASK&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC1 bit error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga22c976df0a782642dc57a67ee979e36b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_ECC1_BIT_SHIFT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC1 bit error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga22621de5ddd6b00f6bf2c0573feec1c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_ECC2_BIT_MASK&#160;&#160;&#160;0x00000008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC2 bit error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga431849e0b63965faff63ab8df8f1c54c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_ECC2_BIT_SHIFT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC2 bit error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0d40720c2f182cac22e34e89391d0adf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_FRAME_START_MASK&#160;&#160;&#160;0x00200000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FRAME START detected. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga45b50615f41c5b8ba4395a8554b8e225"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_FRAME_START_SHIFT&#160;&#160;&#160;21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FRAME START detected. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga355484ed4c1eaa6be6979e280dbf997e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK&#160;&#160;&#160;0x00040000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet FIFO FULL error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga05d075e8795534bb45e231b6c278c546"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_GSP_FIFO_FULL_ERR_SHIFT&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet FIFO FULL error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8c8556f6983ad2b68aba77e4c035642e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK&#160;&#160;&#160;0x00020000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet not empty error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf319dd517dea09d53c2c988e63168281"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_GSP_FIFO_NE_ERR_SHIFT&#160;&#160;&#160;17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet not empty error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaac5349a838fdca09c8212a247a9c39c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK&#160;&#160;&#160;0x00080000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incorrect lane configuration. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga08e11ab98975706fa1173103f64a8460"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_INCORRECT_LANE_CONFIG_SHIFT&#160;&#160;&#160;19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incorrect lane configuration. </p>
+
+</div>
+</div>
+<a class="anchor" id="gad1ea138d5e3a76fef5ac73fda6e31d61"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK&#160;&#160;&#160;0x00004000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM async FIFO full error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaa45b195e08f9c32badc4c6c4b70310d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_SHIFT&#160;&#160;&#160;14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM FIFO full error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5a585ebcf96d1e33deb3d007c0d76d53"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_OFFSET&#160;&#160;&#160;0x00000028</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt Enable Register. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga19da08b4e2af79e98193311133df77cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE1_MASK&#160;&#160;&#160;0x00000020</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane1. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga33de517703c3c30fcf7062b8e18f2fc9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE1_SHIFT&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane1. </p>
+
+</div>
+</div>
+<a class="anchor" id="gafe4108c56b1bcabb030373000603b354"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE2_MASK&#160;&#160;&#160;0x00000080</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane2. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga9051fe29413d0d6c2405c94436f7f83c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE2_SHIFT&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane2. </p>
+
+</div>
+</div>
+<a class="anchor" id="gacca32dab9742b885249685de14eb3d33"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE3_MASK&#160;&#160;&#160;0x00000200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane3. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gab4ff461f066a9117781e706b1568d02a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE3_SHIFT&#160;&#160;&#160;9</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane3. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga62e8b52d38696cc55161cbaede8fc1c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE4_MASK&#160;&#160;&#160;0x00000800</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane4. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gac7b1cbceddae4fb1dffb05c38d40ce2f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_ERR_LANE4_SHIFT&#160;&#160;&#160;11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane4. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3687fc6548880588287f3f71b4e88cbf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK&#160;&#160;&#160;0x00000010</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane1. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gab16488bb8b4c6357039439eb344ad19a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE1_SHIFT&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9a641714fd0be79108406b5f45449a39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK&#160;&#160;&#160;0x00000040</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane2. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga2a7c01037aa486114c2cbf8f4b8bc7f6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE2_SHIFT&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane2. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga29bc9bf2b3daa916b0c5097159dd6b84"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK&#160;&#160;&#160;0x00000100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane3. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaa3475da8a334180a068171f212d5a330"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE3_SHIFT&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane3. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2f5affb2e4109fe9d72b0e38c467fed2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK&#160;&#160;&#160;0x00000400</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane4. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gab29361462e10cb4ca25ae466d86839f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_SOT_SYNC_ERR_LANE4_SHIFT&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane4. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3d3dcb5de43bc52613d5cfd7bd6f9ffc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_STOP_STATE_MASK&#160;&#160;&#160;0x00001000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STOP STATE Error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga24efb31a3bb14aaf11862c32e12c944e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_STOP_STATE_SHIFT&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STOP STATE Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaabe767966d898c6c4527b4292d4fa3a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK&#160;&#160;&#160;0x00010000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STREAM FIFO full error. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga5beec902f292ccccaec38573a28a3812"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STREAM FIFO full error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf3ed5d37971744d0b9e56dade2692459"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_UN_DATA_TYPE_MASK&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Unsupported Data Type. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga7e228a3f2f37eaf0874d06981a2ddc86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_UN_DATA_TYPE_SHIFT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Unsupported Data Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga27929ebcc8db90dbbe3b58f08a1ddbe1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_WC_CORRUPTION_MASK&#160;&#160;&#160;0x00100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Word count corruption. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga45e3c57cfb7f6ad980491849f6d7bd94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_IER_WC_CORRUPTION_SHIFT&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Word count corruption. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1343ef412ef22cf5ccc96e0b158dcd8e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_ALLINTR_MASK&#160;&#160;&#160;0x003F5FFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask of all defined interrupt status bits. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3cd6bd99df5a5bd42dd6bec777deb6a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_CRC_ERR_MASK&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for CRC Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac9fcec711343ade828df93aa1e4bc9b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_CRC_ERR_SHIFT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for CRC Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gadeb94980adf411476f5f34abba33076d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_ECC1_BIT_MASK&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC1 bit error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga345a988c3d3f150e630db757c4e4a06a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_ECC1_BIT_SHIFT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC1 bit error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1b871ae996bbbfacf11d388f3ca9d236"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_ECC2_BIT_MASK&#160;&#160;&#160;0x00000008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC2 bit error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga562e548acd4107281d6aedaad961b4f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_ECC2_BIT_SHIFT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHIFT for ECC2 bit error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaedc99af62992e942ed32d16c24752d2d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_FRAME_START_MASK&#160;&#160;&#160;0x00200000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FRAME START detected. </p>
+
+</div>
+</div>
+<a class="anchor" id="gafbfac26df76af7938ba6f4c5a3d567b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_FRAME_START_SHIFT&#160;&#160;&#160;21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FRAME START detected. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga80064fc82d9a791eb0e6a65c61e4e6ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_GSP_FIFO_FULL_ERR_MASK&#160;&#160;&#160;0x00040000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet FIFO FULL error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3c3dbfb943f0dbd28d240c068f8c92d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_GSP_FIFO_FULL_ERR_SHIFT&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet FIFO FULL error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab3e132ec5e3a02379298de3220618f39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_GSP_FIFO_NE_ERR_MASK&#160;&#160;&#160;0x00020000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet not empty error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac8dfda2f64fef160889330cd9a78fc65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_GSP_FIFO_NE_ERR_SHIFT&#160;&#160;&#160;17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic short packet not empty error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6fc2d91ccc714556224eec023cd2f4ef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_INCORRECT_LANE_CONFIG_MASK&#160;&#160;&#160;0x00080000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incorrect lane configuration. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa6c7b51bf9353cc4d14dccfedd091f39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_INCORRECT_LANE_CONFIG_SHIFT&#160;&#160;&#160;19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incorrect lane configuration. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab22cc11137a09af78925b09f2b78fc45"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_MASK&#160;&#160;&#160;0x00004000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM async FIFO full error. </p>
+
+</div>
+</div>
+<a class="anchor" id="gacc35786b30c77b81e5ea8523ece1a707"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_SHIFT&#160;&#160;&#160;14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LM FIFO full error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga184c7a9684a513f3a00d31e5f443ca25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_OFFSET&#160;&#160;&#160;0x00000024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt Status Register. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga970932ce2dd6145ee6724e03fdfa6119"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE1_MASK&#160;&#160;&#160;0x00000020</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane1. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaef80edefb382c0abdba5807e68ae4d1c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE1_SHIFT&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8f13ff794c556b4069b4b283b0243b65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE2_MASK&#160;&#160;&#160;0x00000080</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane2. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa348099de13ea073543d5ac281e00c11"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE2_SHIFT&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane2. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf5976e6aecc68a2d13b3fb272e27b297"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE3_MASK&#160;&#160;&#160;0x00000200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane3. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7ab6411eb91a41018b3a51c7171a1bbc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE3_SHIFT&#160;&#160;&#160;9</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane3. </p>
+
+</div>
+</div>
+<a class="anchor" id="gacfedade42e00cd8a7cf483ad0e688d01"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE4_MASK&#160;&#160;&#160;0x00000800</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane4. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab6e74831d48d8cc60fdc20f53ab3fe97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_ERR_LANE4_SHIFT&#160;&#160;&#160;11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT error lane4. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga2500c4f4a2cd208ec876fa02dd40da3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_MASK&#160;&#160;&#160;0x00000010</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9c787e36acffb2b6ee7a1503159197c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_SHIFT&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane1. </p>
+
+</div>
+</div>
+<a class="anchor" id="gafce1b3f9e9fb4d51cbbc616da66cbb71"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_MASK&#160;&#160;&#160;0x00000040</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane2. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9237dcedfe95e811199bfdb0d1a6f041"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_SHIFT&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane2. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga397c1350e231bbdca43be2bba7d5d5c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_MASK&#160;&#160;&#160;0x00000100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane3. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga012adaf39b527975094b39f83a2b3187"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_SHIFT&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane3. </p>
+
+</div>
+</div>
+<a class="anchor" id="gabc817519aa103b7592c3c96fcc362e4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_MASK&#160;&#160;&#160;0x00000400</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane4. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3e82fb95a064b2552663f9d48a80d7aa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_SHIFT&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SOT sync error lane4. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5a344bb91a5cc6631f087c289092ef83"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_STOP_STATE_MASK&#160;&#160;&#160;0x00001000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STOP STATE Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5c13d54346b33cf88ebcf59a1d2159ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_STOP_STATE_SHIFT&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STOP STATE Error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1aed1ae319e4b302138b80e31573d579"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_MASK&#160;&#160;&#160;0x00010000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STREAM FIFO full error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4807d33367400a742d6dbd52929fbc7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STREAM FIFO full error. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8e67f32c9ccefad300ee0a37a7ad0f4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_UN_DATA_TYPE_MASK&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Unsupported Data Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9472276e3bffa7cf6b0a35bad1dc8547"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_UN_DATA_TYPE_SHIFT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Unsupported Data Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7d2ced20f59d573409591ccddf2c6ea3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_WC_CORRUPTION_MASK&#160;&#160;&#160;0x00100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Word count corruption. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4cbda551f535ecfdc1cb1b94fa28f884"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_ISR_WC_CORRUPTION_SHIFT&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Word count corruption. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4fdfe872fe490e9d0980ed86e132ba52"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_MAX_LANES&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max Lanes supported by DSI2RX. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7c6e3e70b7c7524a0d2a51ae4a575f5f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_ERRDATA_TYPE_MASK&#160;&#160;&#160;0x0003F000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ERROR DATA TYPE Mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0c1f2af9dfd2fe88c647809fb05d785c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_ERRDATA_TYPE_SHIFT&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for ERROR DATA Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9870549ee3345403daeaaa997142261e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_MAXLANES_MASK&#160;&#160;&#160;0x000C0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MAX LANES Mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="gae0aa5c26e2446dc6fb317e743208fbb6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_MAXLANES_SHIFT&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift MAX LANES. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga55212a0ff76d2548a051de7bd1276f6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_OFFSET&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Protocol Configuration Register Offset. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#gad2aafbf53090a3e04a8c1fcac80c54e2">XDsi2Rx_DefaultConfigure()</a>, and <a class="el" href="group__dsi.html#ga732edd1bd3354efe3715f684a341f873">XDsi2Rx_GetConfigParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga6a8dd1b0f98f46dc9028ba4ccb649d00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_PIXELFORMAT_MASK&#160;&#160;&#160;0x000007E0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pixel Format Mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa4b35b3c0a58a27948e4ac6e46ff9dff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_PIXELFORMAT_SHIFT&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for PIXEL FORMAT Type. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac026498cc6e7484ba08feed79b2d434e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_PIXELMODE_MASK&#160;&#160;&#160;0x0000001C</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Video mode Type Bit Mask. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#gad2aafbf53090a3e04a8c1fcac80c54e2">XDsi2Rx_DefaultConfigure()</a>, and <a class="el" href="group__dsi.html#ga732edd1bd3354efe3715f684a341f873">XDsi2Rx_GetConfigParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga388004b3a3814f7596c94d9295d4eafe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_PCR_PIXELMODE_SHIFT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for Pixel mode 1, 2, 4 PPC. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#gad2aafbf53090a3e04a8c1fcac80c54e2">XDsi2Rx_DefaultConfigure()</a>, and <a class="el" href="group__dsi.html#ga732edd1bd3354efe3715f684a341f873">XDsi2Rx_GetConfigParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga3c5b887e5239e7aef366dd7e8c2acba0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_VER_OFFSET&#160;&#160;&#160;0x00000008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Version Register. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga19af397133295c990ad132a86b515819"></a>
 <div class="memitem">
@@ -219,7 +2376,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, and <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#a6742caa96bdac8c5f1dec6f9b0d27ce4">XDsi2Rx::IncorrectLaneConfigCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>, and <a class="el" href="struct_x_dsi2_rx.html#a9a0e70ea3c19401527a9a819b963f830">XDsi2Rx::WCCorruptionCallback</a>.</p>
 
 </div>
 </div>
@@ -250,7 +2407,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, and <a class="el" href="struct_x_dsi2_rx.html#a1f65ac6290f33a82b8d943158c570aa6">XDsi2Rx::PixelMode</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#a1f65ac6290f33a82b8d943158c570aa6">XDsi2Rx::PixelMode</a>, <a class="el" href="group__dsi2rx.html#ga55212a0ff76d2548a051de7bd1276f6d">XDSI2RX_PCR_OFFSET</a>, <a class="el" href="group__dsi2rx.html#gac026498cc6e7484ba08feed79b2d434e">XDSI2RX_PCR_PIXELMODE_MASK</a>, and <a class="el" href="group__dsi2rx.html#ga388004b3a3814f7596c94d9295d4eafe">XDSI2RX_PCR_PIXELMODE_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -289,7 +2446,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>none.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>none. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ae6843da1fb5e14b90353827fecbcf8c7">XDsi2Rx_ConfigParameters::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, and <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ac6ca53bfa1d1b660c58b5709f14b81b5">XDsi2Rx_ConfigParameters::PixelMode</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ae6843da1fb5e14b90353827fecbcf8c7">XDsi2Rx_ConfigParameters::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ac6ca53bfa1d1b660c58b5709f14b81b5">XDsi2Rx_ConfigParameters::PixelMode</a>, <a class="el" href="group__dsi2rx.html#ga55212a0ff76d2548a051de7bd1276f6d">XDSI2RX_PCR_OFFSET</a>, <a class="el" href="group__dsi2rx.html#gac026498cc6e7484ba08feed79b2d434e">XDSI2RX_PCR_PIXELMODE_MASK</a>, and <a class="el" href="group__dsi2rx.html#ga388004b3a3814f7596c94d9295d4eafe">XDSI2RX_PCR_PIXELMODE_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -349,7 +2506,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, and <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="group__dsi2rx.html#ga16cf3380173e61542d797f0b9c4a883a">XDSI2RX_CCR_COREENB_MASK</a>, <a class="el" href="group__dsi2rx.html#ga1aa2477d51817223016084e383df9a27">XDSI2RX_CCR_COREENB_SHIFT</a>, and <a class="el" href="group__dsi2rx.html#ga414878c04061bbb96896259e36fb1334">XDSI2RX_CCR_OFFSET</a>.</p>
 
 </div>
 </div>

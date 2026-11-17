@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -131,6 +131,19 @@ $(document).ready(function(){initNavTree('globals.html','');});
 
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TimerCounter
+: <a class="el" href="xtmrctr__polled__example_8c.html#abf821aa6ffa7f03be3f71df5bcf99279">xtmrctr_polled_example.c</a>
+, <a class="el" href="xtmrctr__selftest__example_8c.html#abf821aa6ffa7f03be3f71df5bcf99279">xtmrctr_selftest_example.c</a>
+</li>
+<li>TimerCounterInst
+: <a class="el" href="xtmrctr__intr__64bit__example_8c.html#af8a158e87cd80ec49fdfad0ec2c8b302">xtmrctr_intr_64bit_example.c</a>
+, <a class="el" href="xtmrctr__intr__example_8c.html#af8a158e87cd80ec49fdfad0ec2c8b302">xtmrctr_intr_example.c</a>
+, <a class="el" href="xtmrctr__fast__intr__example_8c.html#af8a158e87cd80ec49fdfad0ec2c8b302">xtmrctr_fast_intr_example.c</a>
+, <a class="el" href="xtmrctr__pwm__example_8c.html#af8a158e87cd80ec49fdfad0ec2c8b302">xtmrctr_pwm_example.c</a>
+</li>
+<li>TMRCTR_BASEADDR
+: <a class="el" href="xtmrctr__low__level__example_8c.html#a4e7ee109d1c0c88902031fc4c224910c">xtmrctr_low_level_example.c</a>
+</li>
 <li>TmrCtrCascadeIntrExample()
 : <a class="el" href="xtmrctr__intr__64bit__example_8c.html#a2a0a4c94c41976b913d5f021f257bd51">xtmrctr_intr_64bit_example.c</a>
 </li>
@@ -156,6 +169,15 @@ $(document).ready(function(){initNavTree('globals.html','');});
 
 
 <h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
+<li>XPAR_XTMRCTR_NUM_INSTANCES
+: <a class="el" href="group___overview.html#gaec9424685a653e23abf84d1ebfc1c9a6">xtmrctr_sinit.c</a>
+</li>
+<li>XTC_AUTO_RELOAD_OPTION
+: <a class="el" href="group___overview.html#gace3deb2a423d72960864a46eacd11fdc">xtmrctr.h</a>
+</li>
+<li>XTC_CAPTURE_MODE_OPTION
+: <a class="el" href="group___overview.html#gaf93c62016d132546b5ee99789b4e48c1">xtmrctr.h</a>
+</li>
 <li>XTC_CASCADE_MODE_OPTION
 : <a class="el" href="group___overview.html#ga4fb085742ee50628791c81ff9a14bc2c">xtmrctr.h</a>
 </li>
@@ -198,14 +220,57 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>XTC_DEVICE_TIMER_COUNT
 : <a class="el" href="group___overview.html#gaba99b973ef1f13bf0a2716cf52ca5319">xtmrctr_l.h</a>
 </li>
+<li>XTC_DOWN_COUNT_OPTION
+: <a class="el" href="group___overview.html#ga9cc7b106e2e846ec41fd983da0772dc8">xtmrctr.h</a>
+</li>
+<li>XTC_ENABLE_ALL_OPTION
+: <a class="el" href="group___overview.html#gac50df31e95b1a82441de09ff360eca48">xtmrctr.h</a>
+</li>
+<li>XTC_EXT_COMPARE_OPTION
+: <a class="el" href="group___overview.html#ga3d33636409ed76e99828909edcff0d4a">xtmrctr.h</a>
+</li>
+<li>XTC_HZ_TO_NS
+: <a class="el" href="group___overview.html#ga5552f8d5f7ed58263e6811f98647f8be">xtmrctr.h</a>
+</li>
+<li>XTC_INT_MODE_OPTION
+: <a class="el" href="group___overview.html#gaad72f141ec429ad4b782868c33b32c1b">xtmrctr.h</a>
+</li>
+<li>XTC_MAX_LOAD_VALUE
+: <a class="el" href="group___overview.html#gaf1b5b45fe13bd14e5045077eff1d522e">xtmrctr_l.h</a>
+</li>
+<li>XTC_NUM_OPTIONS
+: <a class="el" href="group___overview.html#ga76c08a827bf7a7d6e555a6e5f2c9ed65">xtmrctr_options.c</a>
+</li>
+<li>XTC_ROUND_DIV
+: <a class="el" href="group___overview.html#ga2a3efe61990e0eb158b9238143e915b0">xtmrctr.h</a>
+</li>
 <li>XTC_TCR_OFFSET
 : <a class="el" href="group___overview.html#gad054cd3c12bc686f9be366e093c2f97a">xtmrctr_l.h</a>
 </li>
 <li>XTC_TCSR_OFFSET
 : <a class="el" href="group___overview.html#ga81c9a818cb57cf5f106cf5a3b7c3c59f">xtmrctr_l.h</a>
 </li>
+<li>XTC_TIMER_0
+: <a class="el" href="group___overview.html#gacbe3e1a524e50edb1098c1a824f0dc79">xtmrctr_l.h</a>
+</li>
+<li>XTC_TIMER_1
+: <a class="el" href="group___overview.html#ga5693165001c579683430dfc150215290">xtmrctr_l.h</a>
+</li>
+<li>XTC_TIMER_COUNTER_OFFSET
+: <a class="el" href="group___overview.html#ga22c78277a54b31ec738e72eca0662e35">xtmrctr_l.h</a>
+</li>
 <li>XTC_TLR_OFFSET
 : <a class="el" href="group___overview.html#ga38a380fdcb3114c3db51524a8182c4ad">xtmrctr_l.h</a>
+</li>
+<li>XTimerCtr_ReadReg
+: <a class="el" href="group___overview.html#ga09ca31bffdcb5d86ce0059163b24bdaf">xtmrctr_l.h</a>
+</li>
+<li>XTMRCTR_BASEADDRESS
+: <a class="el" href="xtmrctr__fast__intr__example_8c.html#ac1378975479dee8e1e6c72574d911068">xtmrctr_fast_intr_example.c</a>
+, <a class="el" href="xtmrctr__intr__64bit__example_8c.html#ac1378975479dee8e1e6c72574d911068">xtmrctr_intr_64bit_example.c</a>
+, <a class="el" href="xtmrctr__polled__example_8c.html#ac1378975479dee8e1e6c72574d911068">xtmrctr_polled_example.c</a>
+, <a class="el" href="xtmrctr__pwm__example_8c.html#ac1378975479dee8e1e6c72574d911068">xtmrctr_pwm_example.c</a>
+, <a class="el" href="xtmrctr__selftest__example_8c.html#ac1378975479dee8e1e6c72574d911068">xtmrctr_selftest_example.c</a>
 </li>
 <li>XTmrCtr_CfgInitialize()
 : <a class="el" href="group___overview.html#ga220874785f096cc5f38b3bec907a008c">xtmrctr.c</a>
@@ -250,11 +315,17 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>XTmrCtr_GetValue()
 : <a class="el" href="group___overview.html#ga325269055bb6f9f7a0c7f703bd2f2174">xtmrctr.c</a>
 </li>
+<li>XTMRCTR_H
+: <a class="el" href="group___overview.html#gafc4684a3912a1169c7516b7dad56a20a">xtmrctr.h</a>
+</li>
 <li>XTmrCtr_Handler
 : <a class="el" href="group___overview.html#ga2d96523ba7b80814a9f6c769619564cf">xtmrctr.h</a>
 </li>
 <li>XTmrCtr_HasEventOccurred
 : <a class="el" href="group___overview.html#gac6bbcadfe43a528d4d895650bee25a4e">xtmrctr_l.h</a>
+</li>
+<li>XTMRCTR_I_H
+: <a class="el" href="group___overview.html#gaffe6718acb596f90c980fcaeb149d440">xtmrctr_i.h</a>
 </li>
 <li>XTmrCtr_InitHw()
 : <a class="el" href="group___overview.html#gac3ffcfef4ba4507d5f2b9e17a08c7bf0">xtmrctr.c</a>
@@ -267,6 +338,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XTmrCtr_IsExpired()
 : <a class="el" href="group___overview.html#ga44d19561a31682753e4996c7b57d6982">xtmrctr.c</a>
+</li>
+<li>XTMRCTR_L_H
+: <a class="el" href="group___overview.html#gad575eebe2cbe61e414d82832385d63a1">xtmrctr_l.h</a>
 </li>
 <li>XTmrCtr_LoadTimerCounterReg
 : <a class="el" href="group___overview.html#ga433680f98acc79f69d227a041f20ecb9">xtmrctr_l.h</a>

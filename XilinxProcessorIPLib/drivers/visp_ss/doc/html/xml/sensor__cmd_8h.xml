@@ -20,1164 +20,1219 @@
     <includedby refid="cam__device__gc__api_8c" local="yes">cam_device_gc_api.c</includedby>
     <includedby refid="cam__device__wb__api_8c" local="yes">cam_device_wb_api.c</includedby>
     <includedby refid="oba_8c" local="yes">oba.c</includedby>
+    <includedby refid="wdt__notifier_8c" local="yes">wdt_notifier.c</includedby>
     <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
     <incdepgraph>
-      <node id="7456">
+      <node id="7879">
         <label>stdbool.h</label>
       </node>
-      <node id="7460">
+      <node id="7881">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="7879" relation="include">
+        </childnode>
+        <childnode refid="7882" relation="include">
+        </childnode>
+      </node>
+      <node id="7880">
+        <label>stdint.h</label>
+      </node>
+      <node id="7883">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="7457">
-        <label>stdint.h</label>
-      </node>
-      <node id="7454">
+      <node id="7877">
         <label>sensor_cmd.h</label>
         <link refid="sensor_cmd.h"/>
-        <childnode refid="7455" relation="include">
+        <childnode refid="7878" relation="include">
         </childnode>
-        <childnode refid="7460" relation="include">
+        <childnode refid="7883" relation="include">
         </childnode>
       </node>
-      <node id="7455">
+      <node id="7878">
         <label>mbox_api.h</label>
-        <childnode refid="7456" relation="include">
+        <childnode refid="7879" relation="include">
         </childnode>
-        <childnode refid="7457" relation="include">
+        <childnode refid="7880" relation="include">
         </childnode>
-        <childnode refid="7458" relation="include">
-        </childnode>
-      </node>
-      <node id="7458">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="7456" relation="include">
-        </childnode>
-        <childnode refid="7459" relation="include">
+        <childnode refid="7881" relation="include">
         </childnode>
       </node>
-      <node id="7459">
+      <node id="7882">
         <label>sys/_stdint.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="7513">
-        <label>vvbench_cpd_api_v1_1.c</label>
-      </node>
-      <node id="7604">
-        <label>cam_device_cpd_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7506" relation="include">
-        </childnode>
-        <childnode refid="7512" relation="include">
-        </childnode>
-      </node>
-      <node id="7490">
-        <label>vvdevice_common.h</label>
-        <childnode refid="7491" relation="include">
-        </childnode>
-        <childnode refid="7494" relation="include">
-        </childnode>
-        <childnode refid="7496" relation="include">
-        </childnode>
-        <childnode refid="7498" relation="include">
-        </childnode>
-        <childnode refid="7500" relation="include">
-        </childnode>
-        <childnode refid="7502" relation="include">
-        </childnode>
-        <childnode refid="7504" relation="include">
-        </childnode>
-        <childnode refid="7506" relation="include">
-        </childnode>
-        <childnode refid="7508" relation="include">
-        </childnode>
-        <childnode refid="7510" relation="include">
-        </childnode>
-        <childnode refid="7512" relation="include">
-        </childnode>
-        <childnode refid="7514" relation="include">
-        </childnode>
-        <childnode refid="7516" relation="include">
-        </childnode>
-        <childnode refid="7518" relation="include">
-        </childnode>
-        <childnode refid="7520" relation="include">
-        </childnode>
-        <childnode refid="7522" relation="include">
-        </childnode>
-        <childnode refid="7524" relation="include">
-        </childnode>
-        <childnode refid="7526" relation="include">
-        </childnode>
-        <childnode refid="7528" relation="include">
-        </childnode>
-        <childnode refid="7530" relation="include">
-        </childnode>
-        <childnode refid="7532" relation="include">
-        </childnode>
-        <childnode refid="7534" relation="include">
-        </childnode>
-        <childnode refid="7536" relation="include">
-        </childnode>
-        <childnode refid="7538" relation="include">
-        </childnode>
-        <childnode refid="7540" relation="include">
-        </childnode>
-        <childnode refid="7542" relation="include">
-        </childnode>
-        <childnode refid="7544" relation="include">
-        </childnode>
-        <childnode refid="7546" relation="include">
-        </childnode>
-        <childnode refid="7548" relation="include">
-        </childnode>
-        <childnode refid="7550" relation="include">
-        </childnode>
-        <childnode refid="7552" relation="include">
-        </childnode>
-        <childnode refid="7554" relation="include">
-        </childnode>
-        <childnode refid="7556" relation="include">
-        </childnode>
-        <childnode refid="7558" relation="include">
-        </childnode>
-      </node>
-      <node id="7537">
-        <label>vvbench_hdr_api_dummy.c</label>
-      </node>
-      <node id="7535">
-        <label>vvbench_gtm_api.c</label>
-      </node>
-      <node id="7620">
-        <label>cam_device_lsc_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7542" relation="include">
-        </childnode>
-      </node>
-      <node id="7596">
-        <label>cam_device_rgbir_api_v2.c</label>
-      </node>
-      <node id="7594">
-        <label>cam_device_hist64_api.c</label>
-      </node>
-      <node id="7593">
-        <label>cam_device_hist256_api.c</label>
-      </node>
-      <node id="7531">
-        <label>vvbench_gc_api_v2.c</label>
-      </node>
-      <node id="7597">
-        <label>cam_device_tpg_api.c</label>
-      </node>
-      <node id="7567">
-        <label>cam_device_module_api.h</label>
-        <childnode refid="7568" relation="include">
-        </childnode>
-      </node>
-      <node id="7463">
-        <label>apu_to_rpu_ipi.c</label>
-      </node>
-      <node id="7541">
-        <label>vvbench_hist256_api.c</label>
-      </node>
-      <node id="7607">
-        <label>cam_device_dmsc_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7518" relation="include">
-        </childnode>
-      </node>
-      <node id="7477">
-        <label>vvdevice.c</label>
-      </node>
-      <node id="7608">
-        <label>cam_device_dpcc_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7520" relation="include">
-        </childnode>
-      </node>
-      <node id="7518">
-        <label>vvbench_dmsc_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7519" relation="include">
-        </childnode>
-      </node>
-      <node id="7499">
+      <node id="7930">
         <label>vvbench_af_api_v4.c</label>
       </node>
-      <node id="7512">
-        <label>vvbench_cpd_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7513" relation="include">
-        </childnode>
-      </node>
-      <node id="7569">
-        <label>control.h</label>
-        <childnode refid="7570" relation="include">
-        </childnode>
-      </node>
-      <node id="7555">
-        <label>vvbench_wb_api_v1_1.c</label>
-      </node>
-      <node id="7538">
-        <label>vvbench_hist64_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7539" relation="include">
-        </childnode>
-      </node>
-      <node id="7621">
-        <label>cam_device_rgbir_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7506" relation="include">
-        </childnode>
-        <childnode refid="7548" relation="include">
-        </childnode>
-        <childnode refid="7554" relation="include">
-        </childnode>
-      </node>
-      <node id="7519">
-        <label>vvbench_dmsc_api_v2.c</label>
-      </node>
-      <node id="7566">
-        <label>cam_device_2dnr_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7491" relation="include">
-        </childnode>
-      </node>
-      <node id="7602">
-        <label>cam_device_bls_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7506" relation="include">
-        </childnode>
-        <childnode refid="7512" relation="include">
-        </childnode>
-        <childnode refid="7548" relation="include">
-        </childnode>
-      </node>
-      <node id="7559">
-        <label>vvMetadata.c</label>
-      </node>
-      <node id="7591">
-        <label>cam_device_ge_api.c</label>
-      </node>
-      <node id="7478">
-        <label>cam_device_api.h</label>
-        <childnode refid="7479" relation="include">
-        </childnode>
-        <childnode refid="7561" relation="include">
-        </childnode>
-        <childnode refid="7469" relation="include">
-        </childnode>
-        <childnode refid="7480" relation="include">
-        </childnode>
-        <childnode refid="7562" relation="include">
-        </childnode>
-        <childnode refid="7563" relation="include">
-        </childnode>
-        <childnode refid="7486" relation="include">
-        </childnode>
-        <childnode refid="7564" relation="include">
-        </childnode>
-        <childnode refid="7489" relation="include">
-        </childnode>
-        <childnode refid="7560" relation="include">
-        </childnode>
-      </node>
-      <node id="7599">
-        <label>cam_device_wdr_api_v5_2.c</label>
-      </node>
-      <node id="7484">
-        <label>vvpath.c</label>
-      </node>
-      <node id="7549">
-        <label>vvbench_rgbir_api_v2_1.c</label>
-      </node>
-      <node id="7577">
-        <label>cam_device_cpd_api.c</label>
-      </node>
-      <node id="7474">
-        <label>isi_control.h</label>
-        <link refid="isi__control_8h"/>
-        <childnode refid="7475" relation="include">
-        </childnode>
-      </node>
-      <node id="7623">
-        <label>cam_device_wb_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7548" relation="include">
-        </childnode>
-        <childnode refid="7554" relation="include">
-        </childnode>
-      </node>
-      <node id="7585">
-        <label>cam_device_cnr_api.c</label>
-      </node>
-      <node id="7494">
-        <label>vvbench_3dnr_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7495" relation="include">
-        </childnode>
-      </node>
-      <node id="7579">
-        <label>cam_device_dg_api.c</label>
-      </node>
-      <node id="7583">
-        <label>cam_device_af_api.c</label>
-      </node>
-      <node id="7529">
+      <node id="7960">
         <label>vvbench_fusa_api.c</label>
       </node>
-      <node id="7508">
-        <label>vvbench_ccm_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7509" relation="include">
-        </childnode>
-      </node>
-      <node id="7492">
-        <label>submodule_def.h</label>
-        <childnode refid="7489" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-      </node>
-      <node id="7461">
-        <label>sensor_cmd.h</label>
-        <link refid="sensor_cmd.h"/>
-        <childnode refid="7462" relation="include">
-        </childnode>
-        <childnode refid="7463" relation="include">
-        </childnode>
-        <childnode refid="7464" relation="include">
-        </childnode>
-        <childnode refid="7471" relation="include">
-        </childnode>
-        <childnode refid="7472" relation="include">
-        </childnode>
-        <childnode refid="7465" relation="include">
-        </childnode>
-        <childnode refid="7466" relation="include">
-        </childnode>
-        <childnode refid="7468" relation="include">
-        </childnode>
-        <childnode refid="7473" relation="include">
-        </childnode>
-        <childnode refid="7469" relation="include">
-        </childnode>
-        <childnode refid="7480" relation="include">
-        </childnode>
-        <childnode refid="7575" relation="include">
-        </childnode>
-        <childnode refid="7576" relation="include">
-        </childnode>
-        <childnode refid="7590" relation="include">
-        </childnode>
-        <childnode refid="7598" relation="include">
-        </childnode>
-        <childnode refid="7470" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-      </node>
-      <node id="7556">
-        <label>vvbench_wdr_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7557" relation="include">
-        </childnode>
-      </node>
-      <node id="7544">
-        <label>vvbench_lut3d_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7545" relation="include">
-        </childnode>
-      </node>
-      <node id="7523">
-        <label>vvbench_ee_api_v2.c</label>
-      </node>
-      <node id="7548">
-        <label>vvbench_rgbir_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7549" relation="include">
-        </childnode>
-      </node>
-      <node id="7575">
-        <label>cam_device_bls_api.c</label>
-      </node>
-      <node id="7539">
-        <label>vvbench_hist64_api.c</label>
-      </node>
-      <node id="7516">
-        <label>vvbench_dg_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7517" relation="include">
-        </childnode>
-      </node>
-      <node id="7526">
-        <label>vvbench_exp_api_v3.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7497" relation="include">
-        </childnode>
-        <childnode refid="7527" relation="include">
-        </childnode>
-      </node>
-      <node id="7616">
-        <label>cam_device_ge_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7532" relation="include">
-        </childnode>
-      </node>
-      <node id="7562">
-        <label>cam_device_sensor_api.c</label>
-      </node>
-      <node id="7479">
-        <label>cam_device_buffer_api.h</label>
-        <childnode refid="7480" relation="include">
-        </childnode>
-        <childnode refid="7481" relation="include">
-        </childnode>
-        <childnode refid="7482" relation="include">
-        </childnode>
-        <childnode refid="7486" relation="include">
-        </childnode>
-        <childnode refid="7560" relation="include">
-        </childnode>
-      </node>
-      <node id="7614">
-        <label>cam_device_fusa_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7528" relation="include">
-        </childnode>
-      </node>
-      <node id="7498">
-        <label>vvbench_af_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7499" relation="include">
-        </childnode>
-      </node>
-      <node id="7617">
-        <label>cam_device_gtm_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7534" relation="include">
-        </childnode>
-      </node>
-      <node id="7542">
-        <label>vvbench_lsc_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7543" relation="include">
-        </childnode>
-      </node>
-      <node id="7525">
-        <label>vvbench_exp_api_v2.c</label>
-      </node>
-      <node id="7625">
-        <label>vvformat.h</label>
-        <childnode refid="7626" relation="include">
-        </childnode>
-      </node>
-      <node id="7624">
-        <label>cam_device_wdr_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7556" relation="include">
-        </childnode>
-      </node>
-      <node id="7480">
-        <label>cam_device_buffer_api.c</label>
-      </node>
-      <node id="7558">
+      <node id="7989">
         <label>vvbench_gwdr_api.h</label>
-        <childnode refid="7477" relation="include">
+        <childnode refid="7908" relation="include">
         </childnode>
       </node>
-      <node id="7504">
-        <label>vvbench_awb_api.h</label>
-        <childnode refid="7492" relation="include">
+      <node id="7889">
+        <label>mbox_integrity.h</label>
+        <childnode refid="7890" relation="include">
         </childnode>
-        <childnode refid="7505" relation="include">
-        </childnode>
-      </node>
-      <node id="7489">
-        <label>vvbparser.c</label>
-      </node>
-      <node id="7586">
-        <label>cam_device_hdr_api.c</label>
-      </node>
-      <node id="7578">
-        <label>cam_device_cproc_api.c</label>
-      </node>
-      <node id="7515">
-        <label>vvbench_cproc_api.c</label>
-      </node>
-      <node id="7465">
-        <label>sensor_drv.c</label>
-        <link refid="sensor__drv_8c"/>
-      </node>
-      <node id="7472">
-        <label>hal_i2c.c</label>
-      </node>
-      <node id="7473">
-        <label>cam_device_common.h</label>
-        <childnode refid="7474" relation="include">
-        </childnode>
-        <childnode refid="7476" relation="include">
-        </childnode>
-        <childnode refid="7478" relation="include">
-        </childnode>
-        <childnode refid="7565" relation="include">
-        </childnode>
-        <childnode refid="7566" relation="include">
-        </childnode>
-        <childnode refid="7600" relation="include">
-        </childnode>
-        <childnode refid="7601" relation="include">
-        </childnode>
-        <childnode refid="7602" relation="include">
-        </childnode>
-        <childnode refid="7603" relation="include">
-        </childnode>
-        <childnode refid="7604" relation="include">
-        </childnode>
-        <childnode refid="7605" relation="include">
-        </childnode>
-        <childnode refid="7606" relation="include">
-        </childnode>
-        <childnode refid="7607" relation="include">
-        </childnode>
-        <childnode refid="7608" relation="include">
-        </childnode>
-        <childnode refid="7609" relation="include">
-        </childnode>
-        <childnode refid="7610" relation="include">
-        </childnode>
-        <childnode refid="7611" relation="include">
-        </childnode>
-        <childnode refid="7612" relation="include">
-        </childnode>
-        <childnode refid="7613" relation="include">
-        </childnode>
-        <childnode refid="7614" relation="include">
-        </childnode>
-        <childnode refid="7615" relation="include">
-        </childnode>
-        <childnode refid="7616" relation="include">
-        </childnode>
-        <childnode refid="7617" relation="include">
-        </childnode>
-        <childnode refid="7618" relation="include">
-        </childnode>
-        <childnode refid="7619" relation="include">
-        </childnode>
-        <childnode refid="7620" relation="include">
-        </childnode>
-        <childnode refid="7621" relation="include">
-        </childnode>
-        <childnode refid="7622" relation="include">
-        </childnode>
-        <childnode refid="7623" relation="include">
-        </childnode>
-        <childnode refid="7624" relation="include">
-        </childnode>
-        <childnode refid="7568" relation="include">
-        </childnode>
-        <childnode refid="7481" relation="include">
-        </childnode>
-        <childnode refid="7482" relation="include">
-        </childnode>
-        <childnode refid="7486" relation="include">
-        </childnode>
-        <childnode refid="7625" relation="include">
-        </childnode>
-        <childnode refid="7560" relation="include">
+        <childnode refid="7888" relation="include">
         </childnode>
       </node>
-      <node id="7581">
-        <label>cam_device_dpcc_api.c</label>
-      </node>
-      <node id="7584">
-        <label>cam_device_afm_api.c</label>
-      </node>
-      <node id="7610">
-        <label>cam_device_af_api.h</label>
-        <childnode refid="7567" relation="include">
+      <node id="7945">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="7923" relation="include">
         </childnode>
-        <childnode refid="7498" relation="include">
+        <childnode refid="7946" relation="include">
         </childnode>
       </node>
-      <node id="7571">
-        <label>cam_device.c</label>
+      <node id="7914">
+        <label>vmix_hdmi_bridge.c</label>
       </node>
-      <node id="7491">
-        <label>vvbench_2dnr_api.h</label>
-        <childnode refid="7492" relation="include">
+      <node id="7940">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="7933">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="7923" relation="include">
         </childnode>
-        <childnode refid="7493" relation="include">
+        <childnode refid="7930" relation="include">
+        </childnode>
+        <childnode refid="7934" relation="include">
         </childnode>
       </node>
-      <node id="7576">
-        <label>cam_device_ccm_api.c</label>
+      <node id="7913">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="7914" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+        <childnode refid="7915" relation="include">
+        </childnode>
+        <childnode refid="7916" relation="include">
+        </childnode>
       </node>
-      <node id="7574">
-        <label>cam_device_awb_api.c</label>
+      <node id="7905">
+        <label>isi_control.h</label>
+        <link refid="isi__control_8h"/>
+        <childnode refid="7906" relation="include">
+        </childnode>
       </node>
-      <node id="7527">
+      <node id="7974">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="7958">
         <label>vvbench_exp_api_v3_dummy.c</label>
       </node>
-      <node id="7514">
-        <label>vvbench_cproc_api.h</label>
-        <childnode refid="7492" relation="include">
+      <node id="7968">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="7977">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="7923" relation="include">
         </childnode>
-        <childnode refid="7515" relation="include">
+        <childnode refid="7978" relation="include">
         </childnode>
       </node>
-      <node id="7568">
-        <label>cam_device_app.h</label>
-        <childnode refid="7569" relation="include">
-        </childnode>
-        <childnode refid="7570" relation="include">
-        </childnode>
-        <childnode refid="7468" relation="include">
-        </childnode>
-        <childnode refid="7571" relation="include">
-        </childnode>
-        <childnode refid="7469" relation="include">
-        </childnode>
-        <childnode refid="7480" relation="include">
-        </childnode>
-        <childnode refid="7562" relation="include">
-        </childnode>
-        <childnode refid="7572" relation="include">
-        </childnode>
-        <childnode refid="7573" relation="include">
-        </childnode>
-        <childnode refid="7574" relation="include">
-        </childnode>
-        <childnode refid="7575" relation="include">
-        </childnode>
-        <childnode refid="7576" relation="include">
-        </childnode>
-        <childnode refid="7577" relation="include">
-        </childnode>
-        <childnode refid="7578" relation="include">
-        </childnode>
-        <childnode refid="7579" relation="include">
-        </childnode>
-        <childnode refid="7580" relation="include">
-        </childnode>
-        <childnode refid="7581" relation="include">
-        </childnode>
-        <childnode refid="7582" relation="include">
-        </childnode>
-        <childnode refid="7583" relation="include">
-        </childnode>
-        <childnode refid="7584" relation="include">
-        </childnode>
-        <childnode refid="7585" relation="include">
-        </childnode>
-        <childnode refid="7586" relation="include">
-        </childnode>
-        <childnode refid="7587" relation="include">
-        </childnode>
-        <childnode refid="7588" relation="include">
-        </childnode>
-        <childnode refid="7589" relation="include">
-        </childnode>
-        <childnode refid="7590" relation="include">
-        </childnode>
-        <childnode refid="7591" relation="include">
-        </childnode>
-        <childnode refid="7592" relation="include">
-        </childnode>
-        <childnode refid="7593" relation="include">
-        </childnode>
-        <childnode refid="7594" relation="include">
-        </childnode>
-        <childnode refid="7595" relation="include">
-        </childnode>
-        <childnode refid="7596" relation="include">
-        </childnode>
-        <childnode refid="7597" relation="include">
-        </childnode>
-        <childnode refid="7598" relation="include">
-        </childnode>
-        <childnode refid="7599" relation="include">
-        </childnode>
-        <childnode refid="7470" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-        <childnode refid="7560" relation="include">
-        </childnode>
+      <node id="8026">
+        <label>cam_device_lsc_api_v3.c</label>
       </node>
-      <node id="7570">
-        <label>control.c</label>
-      </node>
-      <node id="7528">
-        <label>vvbench_fusa_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7529" relation="include">
-        </childnode>
-      </node>
-      <node id="7565">
-        <label>cam_device_isp_system_api.h</label>
-        <childnode refid="7486" relation="include">
-        </childnode>
-      </node>
-      <node id="7495">
-        <label>vvbench_3dnr_api_dummy.c</label>
-      </node>
-      <node id="7501">
-        <label>vvbench_afm_api_dummy.c</label>
-      </node>
-      <node id="7611">
-        <label>cam_device_afm_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7500" relation="include">
-        </childnode>
-      </node>
-      <node id="7521">
-        <label>vvbench_dpcc_api.c</label>
-      </node>
-      <node id="7563">
-        <label>cam_common_calib_api.h</label>
-        <childnode refid="7477" relation="include">
-        </childnode>
-      </node>
-      <node id="7626">
-        <label>vvformat.c</label>
-      </node>
-      <node id="7524">
-        <label>vvbench_exp_api_v2.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7525" relation="include">
-        </childnode>
-      </node>
-      <node id="7561">
-        <label>cam_device_sensor_api.h</label>
-        <childnode refid="7562" relation="include">
-        </childnode>
-        <childnode refid="7486" relation="include">
-        </childnode>
-      </node>
-      <node id="7488">
-        <label>vvpath.h</label>
-        <childnode refid="7477" relation="include">
-        </childnode>
-        <childnode refid="7484" relation="include">
-        </childnode>
-      </node>
-      <node id="7615">
-        <label>cam_device_gc_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7530" relation="include">
-        </childnode>
-      </node>
-      <node id="7532">
-        <label>vvbench_ge_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7533" relation="include">
-        </childnode>
-      </node>
-      <node id="7475">
+      <node id="7906">
         <label>isi_control.c</label>
         <link refid="isi__control_8c"/>
       </node>
-      <node id="7598">
-        <label>cam_device_wb_api.c</label>
+      <node id="8007">
+        <label>cam_device_ccm_api.c</label>
       </node>
-      <node id="7520">
-        <label>vvbench_dpcc_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7521" relation="include">
-        </childnode>
+      <node id="8028">
+        <label>cam_device_tpg_api.c</label>
       </node>
-      <node id="7613">
-        <label>cam_device_exp_api_v2.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7524" relation="include">
-        </childnode>
+      <node id="7956">
+        <label>vvbench_exp_api_v2.c</label>
       </node>
-      <node id="7605">
-        <label>cam_device_cproc_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7514" relation="include">
-        </childnode>
+      <node id="7895">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
       </node>
-      <node id="7595">
-        <label>cam_device_lsc_api_v3.c</label>
+      <node id="8006">
+        <label>cam_device_bls_api.c</label>
       </node>
-      <node id="7471">
-        <label>mbox_fifo.c</label>
-      </node>
-      <node id="7522">
-        <label>vvbench_ee_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7523" relation="include">
-        </childnode>
-      </node>
-      <node id="7534">
-        <label>vvbench_gtm_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7535" relation="include">
-        </childnode>
-      </node>
-      <node id="7612">
-        <label>cam_device_ee_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7522" relation="include">
-        </childnode>
-      </node>
-      <node id="7509">
-        <label>vvbench_ccm_api_v1_1.c</label>
-      </node>
-      <node id="7530">
-        <label>vvbench_gc_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7531" relation="include">
-        </childnode>
-      </node>
-      <node id="7587">
-        <label>cam_device_ee_api_v2.c</label>
-      </node>
-      <node id="7554">
-        <label>vvbench_wb_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7555" relation="include">
-        </childnode>
-      </node>
-      <node id="7486">
-        <label>vvdevice.h</label>
-        <childnode refid="7487" relation="include">
-        </childnode>
-        <childnode refid="7490" relation="include">
-        </childnode>
-        <childnode refid="7488" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-        <childnode refid="7559" relation="include">
-        </childnode>
-        <childnode refid="7484" relation="include">
-        </childnode>
-      </node>
-      <node id="7545">
-        <label>vvbench_lut3d_api_dummy.c</label>
-      </node>
-      <node id="7552">
-        <label>vvbench_vi200_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7553" relation="include">
-        </childnode>
-      </node>
-      <node id="7502">
-        <label>vvbench_afm_api_v3.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7499" relation="include">
-        </childnode>
-        <childnode refid="7503" relation="include">
-        </childnode>
-      </node>
-      <node id="7510">
-        <label>vvbench_cnr_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7511" relation="include">
-        </childnode>
-      </node>
-      <node id="7506">
-        <label>vvbench_bls_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7507" relation="include">
-        </childnode>
-      </node>
-      <node id="7517">
-        <label>vvbench_dg_api.c</label>
-      </node>
-      <node id="7588">
-        <label>cam_device_exp_api_v2.c</label>
-      </node>
-      <node id="7622">
-        <label>cam_device_tpg_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7550" relation="include">
-        </childnode>
-      </node>
-      <node id="7609">
-        <label>cam_device_3dnr_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7494" relation="include">
-        </childnode>
-      </node>
-      <node id="7589">
-        <label>cam_device_fusa_api.c</label>
-      </node>
-      <node id="7564">
-        <label>vvbench.c</label>
-      </node>
-      <node id="7467">
-        <label>visp_common.c</label>
-      </node>
-      <node id="7550">
-        <label>vvbench_tpg_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7551" relation="include">
-        </childnode>
-      </node>
-      <node id="7466">
-        <label>visp_common.h</label>
-        <childnode refid="7467" relation="include">
-        </childnode>
-      </node>
-      <node id="7507">
-        <label>vvbench_bls_api.c</label>
-      </node>
-      <node id="7470">
-        <label>oba.c</label>
-      </node>
-      <node id="7481">
-        <label>oba.h</label>
-        <childnode refid="7470" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-      </node>
-      <node id="7469">
-        <label>cam_device_api.c</label>
-      </node>
-      <node id="7503">
-        <label>vvbench_afm_api_v3_dummy.c</label>
-      </node>
-      <node id="7500">
-        <label>vvbench_afm_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7499" relation="include">
-        </childnode>
-        <childnode refid="7501" relation="include">
-        </childnode>
-      </node>
-      <node id="7493">
-        <label>vvbench_2dnr_api_v5_2.c</label>
-      </node>
-      <node id="7590">
-        <label>cam_device_gc_api.c</label>
-      </node>
-      <node id="7557">
-        <label>vvbench_wdr_api_v5_2.c</label>
-      </node>
-      <node id="7496">
-        <label>vvbench_ae_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7497" relation="include">
-        </childnode>
-      </node>
-      <node id="7600">
+      <node id="8031">
         <label>cam_device_ae_api.h</label>
-        <childnode refid="7567" relation="include">
+        <childnode refid="7998" relation="include">
         </childnode>
-        <childnode refid="7496" relation="include">
-        </childnode>
-      </node>
-      <node id="7553">
-        <label>vvbench_vi200_api_dummy.c</label>
-      </node>
-      <node id="7536">
-        <label>vvbench_hdr_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7537" relation="include">
+        <childnode refid="7927" relation="include">
         </childnode>
       </node>
-      <node id="7483">
-        <label>vmix_hdmi_bridge.c</label>
+      <node id="7972">
+        <label>vvbench_hist256_api.c</label>
       </node>
-      <node id="7482">
-        <label>vmix_hdmi_bridge.h</label>
-        <childnode refid="7483" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-        <childnode refid="7484" relation="include">
-        </childnode>
-        <childnode refid="7485" relation="include">
-        </childnode>
-      </node>
-      <node id="7551">
-        <label>vvbench_tpg_api.c</label>
-      </node>
-      <node id="7511">
-        <label>vvbench_cnr_api_dummy.c</label>
-      </node>
-      <node id="7592">
-        <label>cam_device_gtm_api_v1.c</label>
-      </node>
-      <node id="7601">
-        <label>cam_device_awb_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7504" relation="include">
-        </childnode>
-      </node>
-      <node id="7468">
-        <label>iba.c</label>
-      </node>
-      <node id="7476">
-        <label>iba.h</label>
-        <childnode refid="7468" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
-        </childnode>
-      </node>
-      <node id="7540">
-        <label>vvbench_hist256_api.h</label>
-        <childnode refid="7492" relation="include">
-        </childnode>
-        <childnode refid="7541" relation="include">
-        </childnode>
-      </node>
-      <node id="7580">
+      <node id="8011">
         <label>cam_device_dmsc_api_v2.c</label>
       </node>
-      <node id="7606">
-        <label>cam_device_dg_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7516" relation="include">
+      <node id="7996">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="7917" relation="include">
         </childnode>
       </node>
-      <node id="7603">
-        <label>cam_device_ccm_api.h</label>
-        <childnode refid="7478" relation="include">
+      <node id="8025">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="8015">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="7970">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="7995">
+        <label>vvbench.c</label>
+      </node>
+      <node id="7992">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="7993" relation="include">
         </childnode>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7508" relation="include">
+        <childnode refid="7917" relation="include">
         </childnode>
       </node>
-      <node id="7462">
-        <label>mbox_cmd.h</label>
-        <link refid="mbox__cmd_8h"/>
-        <childnode refid="7463" relation="include">
+      <node id="8047">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="7998" relation="include">
         </childnode>
-        <childnode refid="7464" relation="include">
-        </childnode>
-        <childnode refid="7465" relation="include">
-        </childnode>
-        <childnode refid="7466" relation="include">
-        </childnode>
-        <childnode refid="7468" relation="include">
-        </childnode>
-        <childnode refid="7469" relation="include">
-        </childnode>
-        <childnode refid="7470" relation="include">
+        <childnode refid="7963" relation="include">
         </childnode>
       </node>
-      <node id="7487">
-        <label>vvbparser.h</label>
-        <childnode refid="7488" relation="include">
-        </childnode>
-        <childnode refid="7489" relation="include">
-        </childnode>
-        <childnode refid="7477" relation="include">
+      <node id="7998">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="7999" relation="include">
         </childnode>
       </node>
-      <node id="7543">
-        <label>vvbench_lsc_api_v3.c</label>
+      <node id="7894">
+        <label>apu_to_rpu_ipi.c</label>
       </node>
-      <node id="7572">
-        <label>cam_device_2dnr_api_v5_2.c</label>
-      </node>
-      <node id="7618">
-        <label>cam_device_hist256_api.h</label>
-        <childnode refid="7567" relation="include">
-        </childnode>
-        <childnode refid="7540" relation="include">
-        </childnode>
-      </node>
-      <node id="7464">
-        <label>mbox_cmd.c</label>
-      </node>
-      <node id="7547">
-        <label>vvbench_pdaf_api_dummy.c</label>
-      </node>
-      <node id="7582">
+      <node id="8013">
         <label>cam_device_3dnr_api.c</label>
       </node>
-      <node id="7533">
-        <label>vvbench_ge_api.c</label>
-      </node>
-      <node id="7619">
-        <label>cam_device_hist64_api.h</label>
-        <childnode refid="7567" relation="include">
+      <node id="7885">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="7886" relation="include">
         </childnode>
-        <childnode refid="7538" relation="include">
+        <childnode refid="7889" relation="include">
+        </childnode>
+        <childnode refid="7891" relation="include">
+        </childnode>
+        <childnode refid="7892" relation="include">
+        </childnode>
+        <childnode refid="7894" relation="include">
+        </childnode>
+        <childnode refid="7887" relation="include">
+        </childnode>
+        <childnode refid="7895" relation="include">
+        </childnode>
+        <childnode refid="7896" relation="include">
+        </childnode>
+        <childnode refid="7898" relation="include">
+        </childnode>
+        <childnode refid="7899" relation="include">
+        </childnode>
+        <childnode refid="7900" relation="include">
+        </childnode>
+        <childnode refid="7901" relation="include">
         </childnode>
       </node>
-      <node id="7497">
+      <node id="7919">
+        <label>vvpath.h</label>
+        <childnode refid="7908" relation="include">
+        </childnode>
+        <childnode refid="7915" relation="include">
+        </childnode>
+      </node>
+      <node id="7951">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7952" relation="include">
+        </childnode>
+      </node>
+      <node id="7928">
         <label>vvbench_ae_api_v4.c</label>
       </node>
-      <node id="7505">
-        <label>vvbench_awb_api_v4.c</label>
+      <node id="7966">
+        <label>vvbench_gtm_api.c</label>
       </node>
-      <node id="7546">
-        <label>vvbench_pdaf_api.h</label>
-        <childnode refid="7492" relation="include">
+      <node id="7959">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="7923" relation="include">
         </childnode>
-        <childnode refid="7547" relation="include">
+        <childnode refid="7960" relation="include">
         </childnode>
       </node>
-      <node id="7485">
+      <node id="7932">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="8022">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="7973">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7974" relation="include">
+        </childnode>
+      </node>
+      <node id="7985">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7986" relation="include">
+        </childnode>
+      </node>
+      <node id="7982">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="8037">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7947" relation="include">
+        </childnode>
+      </node>
+      <node id="7986">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="8024">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="8001">
+        <label>control.c</label>
+      </node>
+      <node id="7967">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7968" relation="include">
+        </childnode>
+      </node>
+      <node id="7924">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="7929">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7930" relation="include">
+        </childnode>
+      </node>
+      <node id="7962">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="7984">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="7955">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7956" relation="include">
+        </childnode>
+      </node>
+      <node id="7920">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="7975">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7976" relation="include">
+        </childnode>
+      </node>
+      <node id="7939">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7940" relation="include">
+        </childnode>
+      </node>
+      <node id="7944">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="7925">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7926" relation="include">
+        </childnode>
+      </node>
+      <node id="7997">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7922" relation="include">
+        </childnode>
+      </node>
+      <node id="8040">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7925" relation="include">
+        </childnode>
+      </node>
+      <node id="8035">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7937" relation="include">
+        </childnode>
+        <childnode refid="7943" relation="include">
+        </childnode>
+      </node>
+      <node id="7902">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="7888">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="7922">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7924" relation="include">
+        </childnode>
+      </node>
+      <node id="8005">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="7990">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="8051">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7973" relation="include">
+        </childnode>
+      </node>
+      <node id="8048">
+        <label>cam_device_gtm_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7965" relation="include">
+        </childnode>
+      </node>
+      <node id="7948">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="7884">
+        <label>sensor_cmd.h</label>
+        <link refid="sensor_cmd.h"/>
+        <childnode refid="7885" relation="include">
+        </childnode>
+        <childnode refid="7894" relation="include">
+        </childnode>
+        <childnode refid="7887" relation="include">
+        </childnode>
+        <childnode refid="7902" relation="include">
+        </childnode>
+        <childnode refid="7903" relation="include">
+        </childnode>
+        <childnode refid="7895" relation="include">
+        </childnode>
+        <childnode refid="7896" relation="include">
+        </childnode>
+        <childnode refid="7898" relation="include">
+        </childnode>
+        <childnode refid="7904" relation="include">
+        </childnode>
+        <childnode refid="7899" relation="include">
+        </childnode>
+        <childnode refid="7911" relation="include">
+        </childnode>
+        <childnode refid="8006" relation="include">
+        </childnode>
+        <childnode refid="8007" relation="include">
+        </childnode>
+        <childnode refid="8021" relation="include">
+        </childnode>
+        <childnode refid="8029" relation="include">
+        </childnode>
+        <childnode refid="7900" relation="include">
+        </childnode>
+        <childnode refid="7901" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+      </node>
+      <node id="8004">
+        <label>cam_device_ae_api.c</label>
+      </node>
+      <node id="7918">
+        <label>vvbparser.h</label>
+        <childnode refid="7919" relation="include">
+        </childnode>
+        <childnode refid="7920" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+      </node>
+      <node id="7891">
+        <label>mbox_interface.h</label>
+        <childnode refid="7887" relation="include">
+        </childnode>
+        <childnode refid="7888" relation="include">
+        </childnode>
+      </node>
+      <node id="7954">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="8036">
+        <label>cam_device_cproc_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7945" relation="include">
+        </childnode>
+      </node>
+      <node id="8032">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7935" relation="include">
+        </childnode>
+      </node>
+      <node id="7964">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="8041">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7929" relation="include">
+        </childnode>
+      </node>
+      <node id="8057">
+        <label>vvformat.c</label>
+      </node>
+      <node id="8050">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7969" relation="include">
+        </childnode>
+      </node>
+      <node id="8038">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7949" relation="include">
+        </childnode>
+      </node>
+      <node id="7979">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7980" relation="include">
+        </childnode>
+      </node>
+      <node id="7942">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="7937">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7938" relation="include">
+        </childnode>
+      </node>
+      <node id="7949">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7950" relation="include">
+        </childnode>
+      </node>
+      <node id="7901">
+        <label>wdt_notifier.c</label>
+      </node>
+      <node id="7980">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="8053">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7981" relation="include">
+        </childnode>
+      </node>
+      <node id="8023">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="7916">
         <label>xvisp_ss_example.c</label>
       </node>
-      <node id="7560">
+      <node id="7991">
         <label>xvisp_ss_example.h</label>
-        <childnode refid="7485" relation="include">
+        <childnode refid="7916" relation="include">
         </childnode>
       </node>
-      <node id="7573">
-        <label>cam_device_ae_api.c</label>
+      <node id="7887">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="7957">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7928" relation="include">
+        </childnode>
+        <childnode refid="7958" relation="include">
+        </childnode>
+      </node>
+      <node id="7911">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="7904">
+        <label>cam_device_common.h</label>
+        <childnode refid="7905" relation="include">
+        </childnode>
+        <childnode refid="7907" relation="include">
+        </childnode>
+        <childnode refid="7909" relation="include">
+        </childnode>
+        <childnode refid="7996" relation="include">
+        </childnode>
+        <childnode refid="7997" relation="include">
+        </childnode>
+        <childnode refid="8031" relation="include">
+        </childnode>
+        <childnode refid="8032" relation="include">
+        </childnode>
+        <childnode refid="8033" relation="include">
+        </childnode>
+        <childnode refid="8034" relation="include">
+        </childnode>
+        <childnode refid="8035" relation="include">
+        </childnode>
+        <childnode refid="8036" relation="include">
+        </childnode>
+        <childnode refid="8037" relation="include">
+        </childnode>
+        <childnode refid="8038" relation="include">
+        </childnode>
+        <childnode refid="8039" relation="include">
+        </childnode>
+        <childnode refid="8040" relation="include">
+        </childnode>
+        <childnode refid="8041" relation="include">
+        </childnode>
+        <childnode refid="8042" relation="include">
+        </childnode>
+        <childnode refid="8043" relation="include">
+        </childnode>
+        <childnode refid="8044" relation="include">
+        </childnode>
+        <childnode refid="8045" relation="include">
+        </childnode>
+        <childnode refid="8046" relation="include">
+        </childnode>
+        <childnode refid="8047" relation="include">
+        </childnode>
+        <childnode refid="8048" relation="include">
+        </childnode>
+        <childnode refid="8049" relation="include">
+        </childnode>
+        <childnode refid="8050" relation="include">
+        </childnode>
+        <childnode refid="8051" relation="include">
+        </childnode>
+        <childnode refid="8052" relation="include">
+        </childnode>
+        <childnode refid="8053" relation="include">
+        </childnode>
+        <childnode refid="8054" relation="include">
+        </childnode>
+        <childnode refid="8055" relation="include">
+        </childnode>
+        <childnode refid="7999" relation="include">
+        </childnode>
+        <childnode refid="7912" relation="include">
+        </childnode>
+        <childnode refid="7913" relation="include">
+        </childnode>
+        <childnode refid="7917" relation="include">
+        </childnode>
+        <childnode refid="8056" relation="include">
+        </childnode>
+        <childnode refid="7991" relation="include">
+        </childnode>
+      </node>
+      <node id="7965">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7966" relation="include">
+        </childnode>
+      </node>
+      <node id="7950">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="7978">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="7890">
+        <label>mbox_integrity.c</label>
+      </node>
+      <node id="7898">
+        <label>iba.c</label>
+      </node>
+      <node id="7907">
+        <label>iba.h</label>
+        <childnode refid="7898" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+      </node>
+      <node id="7952">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="7938">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="8039">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7951" relation="include">
+        </childnode>
+      </node>
+      <node id="8012">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="8052">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7937" relation="include">
+        </childnode>
+        <childnode refid="7979" relation="include">
+        </childnode>
+        <childnode refid="7985" relation="include">
+        </childnode>
+      </node>
+      <node id="8017">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="7994">
+        <label>cam_common_calib_api.h</label>
+        <childnode refid="7908" relation="include">
+        </childnode>
+      </node>
+      <node id="7900">
+        <label>oba.c</label>
+      </node>
+      <node id="7912">
+        <label>oba.h</label>
+        <childnode refid="7900" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+      </node>
+      <node id="7976">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="8009">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="8019">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="7899">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="8018">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="7971">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7972" relation="include">
+        </childnode>
+      </node>
+      <node id="8045">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7959" relation="include">
+        </childnode>
+      </node>
+      <node id="8042">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7931" relation="include">
+        </childnode>
+      </node>
+      <node id="7947">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7948" relation="include">
+        </childnode>
+      </node>
+      <node id="7893">
+        <label>mbox_phy.c</label>
+      </node>
+      <node id="8046">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+      </node>
+      <node id="7981">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+      </node>
+      <node id="8030">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7988">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7892">
+        <label>mbox_phy.h</label>
+        <childnode refid="7888" relation="include">
+        </childnode>
+        <childnode refid="7893" relation="include">
+        </childnode>
+      </node>
+      <node id="7908">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="8033">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7937" relation="include">
+        </childnode>
+        <childnode refid="7943" relation="include">
+        </childnode>
+        <childnode refid="7979" relation="include">
+        </childnode>
+      </node>
+      <node id="7999">
+        <label>cam_device_app.h</label>
+        <childnode refid="8000" relation="include">
+        </childnode>
+        <childnode refid="8001" relation="include">
+        </childnode>
+        <childnode refid="7898" relation="include">
+        </childnode>
+        <childnode refid="8002" relation="include">
+        </childnode>
+        <childnode refid="7899" relation="include">
+        </childnode>
+        <childnode refid="7911" relation="include">
+        </childnode>
+        <childnode refid="7993" relation="include">
+        </childnode>
+        <childnode refid="8003" relation="include">
+        </childnode>
+        <childnode refid="8004" relation="include">
+        </childnode>
+        <childnode refid="8005" relation="include">
+        </childnode>
+        <childnode refid="8006" relation="include">
+        </childnode>
+        <childnode refid="8007" relation="include">
+        </childnode>
+        <childnode refid="8008" relation="include">
+        </childnode>
+        <childnode refid="8009" relation="include">
+        </childnode>
+        <childnode refid="8010" relation="include">
+        </childnode>
+        <childnode refid="8011" relation="include">
+        </childnode>
+        <childnode refid="8012" relation="include">
+        </childnode>
+        <childnode refid="8013" relation="include">
+        </childnode>
+        <childnode refid="8014" relation="include">
+        </childnode>
+        <childnode refid="8015" relation="include">
+        </childnode>
+        <childnode refid="8016" relation="include">
+        </childnode>
+        <childnode refid="8017" relation="include">
+        </childnode>
+        <childnode refid="8018" relation="include">
+        </childnode>
+        <childnode refid="8019" relation="include">
+        </childnode>
+        <childnode refid="8020" relation="include">
+        </childnode>
+        <childnode refid="8021" relation="include">
+        </childnode>
+        <childnode refid="8022" relation="include">
+        </childnode>
+        <childnode refid="8023" relation="include">
+        </childnode>
+        <childnode refid="8024" relation="include">
+        </childnode>
+        <childnode refid="8025" relation="include">
+        </childnode>
+        <childnode refid="8026" relation="include">
+        </childnode>
+        <childnode refid="8027" relation="include">
+        </childnode>
+        <childnode refid="8028" relation="include">
+        </childnode>
+        <childnode refid="8029" relation="include">
+        </childnode>
+        <childnode refid="8030" relation="include">
+        </childnode>
+        <childnode refid="7900" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+        <childnode refid="7991" relation="include">
+        </childnode>
+      </node>
+      <node id="8034">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="7909" relation="include">
+        </childnode>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7939" relation="include">
+        </childnode>
+      </node>
+      <node id="7926">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="8002">
+        <label>cam_device.c</label>
+      </node>
+      <node id="8008">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="7969">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7970" relation="include">
+        </childnode>
+      </node>
+      <node id="7963">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7964" relation="include">
+        </childnode>
+      </node>
+      <node id="7993">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="7943">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7944" relation="include">
+        </childnode>
+      </node>
+      <node id="7897">
+        <label>visp_common.c</label>
+      </node>
+      <node id="7896">
+        <label>visp_common.h</label>
+        <childnode refid="7897" relation="include">
+        </childnode>
+      </node>
+      <node id="7931">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7930" relation="include">
+        </childnode>
+        <childnode refid="7932" relation="include">
+        </childnode>
+      </node>
+      <node id="7953">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7954" relation="include">
+        </childnode>
+      </node>
+      <node id="8000">
+        <label>control.h</label>
+        <childnode refid="8001" relation="include">
+        </childnode>
+      </node>
+      <node id="7915">
+        <label>vvpath.c</label>
+      </node>
+      <node id="7983">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7984" relation="include">
+        </childnode>
+      </node>
+      <node id="7917">
+        <label>vvdevice.h</label>
+        <childnode refid="7918" relation="include">
+        </childnode>
+        <childnode refid="7921" relation="include">
+        </childnode>
+        <childnode refid="7919" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+        <childnode refid="7990" relation="include">
+        </childnode>
+        <childnode refid="7915" relation="include">
+        </childnode>
+        <childnode refid="7916" relation="include">
+        </childnode>
+      </node>
+      <node id="8049">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7971" relation="include">
+        </childnode>
+      </node>
+      <node id="8021">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="7909">
+        <label>cam_device_api.h</label>
+        <childnode refid="7910" relation="include">
+        </childnode>
+        <childnode refid="7992" relation="include">
+        </childnode>
+        <childnode refid="7899" relation="include">
+        </childnode>
+        <childnode refid="7911" relation="include">
+        </childnode>
+        <childnode refid="7993" relation="include">
+        </childnode>
+        <childnode refid="7994" relation="include">
+        </childnode>
+        <childnode refid="7917" relation="include">
+        </childnode>
+        <childnode refid="7995" relation="include">
+        </childnode>
+        <childnode refid="7920" relation="include">
+        </childnode>
+        <childnode refid="7991" relation="include">
+        </childnode>
+      </node>
+      <node id="7987">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7988" relation="include">
+        </childnode>
+      </node>
+      <node id="7935">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7936" relation="include">
+        </childnode>
+      </node>
+      <node id="8014">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="7910">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="7911" relation="include">
+        </childnode>
+        <childnode refid="7912" relation="include">
+        </childnode>
+        <childnode refid="7913" relation="include">
+        </childnode>
+        <childnode refid="7917" relation="include">
+        </childnode>
+        <childnode refid="7991" relation="include">
+        </childnode>
+      </node>
+      <node id="7927">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7928" relation="include">
+        </childnode>
+      </node>
+      <node id="7934">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="7903">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="8003">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="7946">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="7936">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="8020">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="8016">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="7961">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+      </node>
+      <node id="8054">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7979" relation="include">
+        </childnode>
+        <childnode refid="7985" relation="include">
+        </childnode>
+      </node>
+      <node id="8055">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7987" relation="include">
+        </childnode>
+      </node>
+      <node id="8029">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="8043">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7953" relation="include">
+        </childnode>
+      </node>
+      <node id="7941">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="7923" relation="include">
+        </childnode>
+        <childnode refid="7942" relation="include">
+        </childnode>
+      </node>
+      <node id="8044">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="7955" relation="include">
+        </childnode>
+      </node>
+      <node id="7886">
+        <label>mbox_command.h</label>
+        <childnode refid="7887" relation="include">
+        </childnode>
+        <childnode refid="7888" relation="include">
+        </childnode>
+      </node>
+      <node id="8056">
+        <label>vvformat.h</label>
+        <childnode refid="8057" relation="include">
+        </childnode>
+      </node>
+      <node id="8010">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="8027">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="7923">
+        <label>submodule_def.h</label>
+        <childnode refid="7920" relation="include">
+        </childnode>
+        <childnode refid="7908" relation="include">
+        </childnode>
+      </node>
+      <node id="7921">
+        <label>vvdevice_common.h</label>
+        <childnode refid="7922" relation="include">
+        </childnode>
+        <childnode refid="7925" relation="include">
+        </childnode>
+        <childnode refid="7927" relation="include">
+        </childnode>
+        <childnode refid="7929" relation="include">
+        </childnode>
+        <childnode refid="7931" relation="include">
+        </childnode>
+        <childnode refid="7933" relation="include">
+        </childnode>
+        <childnode refid="7935" relation="include">
+        </childnode>
+        <childnode refid="7937" relation="include">
+        </childnode>
+        <childnode refid="7939" relation="include">
+        </childnode>
+        <childnode refid="7941" relation="include">
+        </childnode>
+        <childnode refid="7943" relation="include">
+        </childnode>
+        <childnode refid="7945" relation="include">
+        </childnode>
+        <childnode refid="7947" relation="include">
+        </childnode>
+        <childnode refid="7949" relation="include">
+        </childnode>
+        <childnode refid="7951" relation="include">
+        </childnode>
+        <childnode refid="7953" relation="include">
+        </childnode>
+        <childnode refid="7955" relation="include">
+        </childnode>
+        <childnode refid="7957" relation="include">
+        </childnode>
+        <childnode refid="7959" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+        <childnode refid="7965" relation="include">
+        </childnode>
+        <childnode refid="7967" relation="include">
+        </childnode>
+        <childnode refid="7969" relation="include">
+        </childnode>
+        <childnode refid="7971" relation="include">
+        </childnode>
+        <childnode refid="7973" relation="include">
+        </childnode>
+        <childnode refid="7975" relation="include">
+        </childnode>
+        <childnode refid="7977" relation="include">
+        </childnode>
+        <childnode refid="7979" relation="include">
+        </childnode>
+        <childnode refid="7981" relation="include">
+        </childnode>
+        <childnode refid="7983" relation="include">
+        </childnode>
+        <childnode refid="7985" relation="include">
+        </childnode>
+        <childnode refid="7987" relation="include">
+        </childnode>
+        <childnode refid="7989" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_v_mix__buff" prot="public">VMix_buff</innerclass>
@@ -3985,6 +4040,28 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="sensor__cmd_8h_1a098dbfd37f4537e9feab3f105bb45044a84f3f7146eb62f5fc85c066bf54dbec9" prot="public">
+          <name>APU_2_RPU_MB_CMD_SWITCH_TO_LLP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sensor__cmd_8h_1a098dbfd37f4537e9feab3f105bb45044a43756d02566e0fc4292badd87f0c09ee" prot="public">
+          <name>APU_2_RPU_MB_CMD_WDT_TEST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="sensor__cmd_8h_1a098dbfd37f4537e9feab3f105bb45044a2b795cc007823b1d8c45823b834db3bb" prot="public">
+          <name>APU_2_RPU_MB_CMD_SET_ISP_INPUT_SPLIT</name>
+          <initializer>= 0xA005</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="sensor__cmd_8h_1a098dbfd37f4537e9feab3f105bb45044a66709181e99ea3a3ccdaec86bd1f5b6e" prot="public">
           <name>DUMMY_MB_CMD</name>
           <initializer>= 0xdeadfeed</initializer>
@@ -3999,7 +4076,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" bodystart="14" bodyend="487"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" bodystart="14" bodyend="501"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -4014,7 +4091,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="11" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="11" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -4044,12 +4121,49 @@
           <declname>src_cpu</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Sends a mailbox command to a remote core. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command identifier to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dest_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="531" bodyend="537"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="150" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="sensor__cmd_8h_1a53f629ee9dabbab34af9d58b16f19370" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -4059,6 +4173,7 @@
         <param>
           <type>MBCmdId_E</type>
           <declname>cmd</declname>
+          <defname>res</defname>
         </param>
         <param>
           <type>void *</type>
@@ -4077,12 +4192,49 @@
           <declname>src_cpu</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Sends a mailbox response to a remote core. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Response identifier to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the response payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dest_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src_cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="539" bodyend="546"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="166" bodyend="169"/>
       </memberdef>
       <memberdef kind="function" id="sensor__cmd_8h_1ab37c814b1ea878b0570ddd7a2f3cfd58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -4098,12 +4250,28 @@
           <declname>data</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Waits for the response that matches the given cookie. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cookie</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cookie identifying the awaited response. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer that receives the response payload.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Response subcode on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="335" bodyend="364"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="197" bodyend="200"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -4595,25 +4763,39 @@
 <codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MB_CMD_RES_TIMEOUT,</highlight></codeline>
 <codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MB_CMD_END,</highlight></codeline>
 <codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MB_CMD_BUF_RET,</highlight></codeline>
-<codeline lineno="485"><highlight class="normal"></highlight></codeline>
-<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MB_CMD<sp/>=<sp/>0xdeadfeed,</highlight></codeline>
-<codeline lineno="487"><highlight class="normal">}<sp/>MBCmdId_E;</highlight></codeline>
-<codeline lineno="488"><highlight class="normal"></highlight></codeline>
-<codeline lineno="489"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Payload_type,<sp/>response_field_t,<sp/>Payload_packet,<sp/>and<sp/>MAX_ITEM<sp/>are<sp/>now<sp/>defined<sp/>in<sp/>mbox_fifo.h<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="490"><highlight class="normal"></highlight></codeline>
-<codeline lineno="491"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">resource_table<sp/>{</highlight></codeline>
-<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>rpu0_ready;</highlight></codeline>
-<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>rpu1_ready;</highlight></codeline>
-<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>apu_ready;</highlight></codeline>
-<codeline lineno="495"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="496"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Send_Command(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu);</highlight></codeline>
-<codeline lineno="497"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Send_Response(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu);</highlight></codeline>
-<codeline lineno="498"><highlight class="normal"></highlight></codeline>
-<codeline lineno="499"><highlight class="normal">uint8_t<sp/>apu_wait_for_ACK(uint32_t<sp/>cookie,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
-<codeline lineno="500"><highlight class="normal"></highlight></codeline>
-<codeline lineno="501"><highlight class="normal"></highlight></codeline>
-<codeline lineno="502"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>APU_2_RPU_MB_CMD_SWITCH_TO_LLP,</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>APU_2_RPU_MB_CMD_WDT_TEST,</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AMD:<sp/>enable/disable<sp/>2x2<sp/>split-input<sp/>(quarter-tile)<sp/>ISP<sp/>acquisition<sp/>at</highlight></codeline>
+<codeline lineno="489"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>runtime<sp/>for<sp/>splitter/stitcher<sp/>pipelines<sp/>(1<sp/>sensor<sp/>-&gt;<sp/>PL<sp/>img_split<sp/>-&gt;<sp/>4</highlight></codeline>
+<codeline lineno="490"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ISP<sp/>tiles<sp/>-&gt;<sp/>img_stitch).<sp/>This<sp/>is<sp/>a<sp/>single<sp/>global<sp/>mode<sp/>that<sp/>applies<sp/>to</highlight></codeline>
+<codeline lineno="491"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ALL<sp/>ISP<sp/>instances<sp/>at<sp/>once;<sp/>it<sp/>is<sp/>not<sp/>per-instance.</highlight></codeline>
+<codeline lineno="492"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Payload:<sp/>uint32_t<sp/>enable<sp/>(1=split<sp/>tile,<sp/>0=full<sp/>frame).</highlight></codeline>
+<codeline lineno="493"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Must<sp/>be<sp/>sent<sp/>BEFORE<sp/>APU_2_RPU_MB_CMD_CONNECT_CAMERA;<sp/>defaults<sp/>to</highlight></codeline>
+<codeline lineno="494"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>full-frame<sp/>when<sp/>never<sp/>sent.</highlight></codeline>
+<codeline lineno="495"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Explicit<sp/>value<sp/>0xA005<sp/>to<sp/>match<sp/>the<sp/>RPU<sp/>enum<sp/>byte-for-byte<sp/>on<sp/>the<sp/>wire:</highlight></codeline>
+<codeline lineno="496"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>RPU<sp/>places<sp/>this<sp/>command<sp/>right<sp/>after<sp/>its<sp/>0xA001-0xA004<sp/>mailbox</highlight></codeline>
+<codeline lineno="497"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>self-test<sp/>block<sp/>(see<sp/>mailbox_cmd.h),<sp/>which<sp/>is<sp/>absent<sp/>on<sp/>the<sp/>APU<sp/>side.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>APU_2_RPU_MB_CMD_SET_ISP_INPUT_SPLIT<sp/>=<sp/>0xA005,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MB_CMD<sp/>=<sp/>0xdeadfeed,</highlight></codeline>
+<codeline lineno="501"><highlight class="normal">}<sp/>MBCmdId_E;</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Payload_type,<sp/>response_field_t,<sp/>Payload_packet,<sp/>and<sp/>MAX_ITEM<sp/>are<sp/>now<sp/>defined<sp/>in<sp/>mbox_fifo.h<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">resource_table<sp/>{</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>rpu0_ready;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>rpu1_ready;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>apu_ready;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Send_Command(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Send_Response(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/>uint8_t<sp/>dest_cpu,<sp/>uint8_t<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal">uint8_t<sp/>apu_wait_for_ACK(uint32_t<sp/>cookie,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/sensor_cmd.h"/>
   </compounddef>
 </doxygen>

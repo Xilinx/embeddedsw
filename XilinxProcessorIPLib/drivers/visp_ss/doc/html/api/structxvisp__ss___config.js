@@ -49,5 +49,15 @@ var structxvisp__ss___config =
     [ "Oba1SpBpp", "structxvisp__ss___config.html#ae78bf00fad63ef9f43b6d17b3d746ff8", null ],
     [ "Oba1SpDataFormat", "structxvisp__ss___config.html#af35fa90bd2401bb5fb20f496f5fcb182", null ],
     [ "Oba1SpPpc", "structxvisp__ss___config.html#a14ea5cd80b92a57c22a72f2a61a26dbd", null ],
-    [ "Rpu", "structxvisp__ss___config.html#a18f895d531ede886ad73b01d15418f7b", null ]
+    [ "Rpu", "structxvisp__ss___config.html#a18f895d531ede886ad73b01d15418f7b", null ],
+    [ "SplitterStitcherDataFormat", "structxvisp__ss___config.html#a861785ec753688f4953ba097f1b9503e", null ],
+    [ "SplitterStitcherEnable", "structxvisp__ss___config.html#a4fa09f48e4007348a2feacca848e4c8e", null ],
+    [ "SplitterStitcherHres", "structxvisp__ss___config.html#ab012d8e3d2545432188e604f72094520", null ],
+    [ "SplitterStitcherRgb888", "structxvisp__ss___config.html#aa81ea2d72441508310a550cd4381d2a8", null ],
+    [ "SplitterStitcherRpu", "structxvisp__ss___config.html#a6497e4327a5c18f062b625e2ee2b68de", null ],
+    [ "SplitterStitcherVcid", "structxvisp__ss___config.html#a8c9bf7638c1fb455ed878f1349d8904f", null ],
+    [ "SplitterStitcherVres", "structxvisp__ss___config.html#ab57740e7420b9a86dc292fd76d183a52", null ],
+    [ "SplitterStitcherY", "structxvisp__ss___config.html#abb2feeda85ed21dd139d674ceb444b30", null ],
+    [ "SplitterStitcherYuv420", "structxvisp__ss___config.html#a9f08a4339ff8f36977716fba9a6b262a", null ],
+    [ "SplitterStitcherYuv422", "structxvisp__ss___config.html#af9a697f486d1749d4924a6b0b438f8a5", null ]
 ];

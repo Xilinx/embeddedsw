@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xintc__low__level__example_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xintc__low__level__example_8c.html',''
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xintc_low_level_example.c File Reference</div>  </div>
@@ -131,6 +132,7 @@ $(document).ready(function(){initNavTree('xintc__low__level__example_8c.html',''
                     appropriate typecasts
 3.21  ml   09/13/25 Updated example to run with GIC-based interrupt routing
                     under SDT
+3.23 ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xintc__l_8h.html">xintc_l.h</a>&quot;</code><br/>
@@ -139,21 +141,82 @@ $(document).ready(function(){initNavTree('xintc__low__level__example_8c.html',''
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3e410e5138c2d0157df665091834d759"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#a3e410e5138c2d0157df665091834d759">INTC_BASEADDR</a>&#160;&#160;&#160;XPAR_XINTC_0_BASEADDR</td></tr>
+<tr class="memdesc:a3e410e5138c2d0157df665091834d759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the interrupt controller.  <a href="#a3e410e5138c2d0157df665091834d759">More...</a><br/></td></tr>
+<tr class="separator:a3e410e5138c2d0157df665091834d759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9126861117c00d5cae536bd555462589"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#a9126861117c00d5cae536bd555462589">INTC_DEVICE_INTR_ID</a>&#160;&#160;&#160;0x0U</td></tr>
+<tr class="memdesc:a9126861117c00d5cae536bd555462589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt vector ID (SDT default).  <a href="#a9126861117c00d5cae536bd555462589">More...</a><br/></td></tr>
+<tr class="separator:a9126861117c00d5cae536bd555462589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af839792f8a54467c034ac6ec0df4228b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#af839792f8a54467c034ac6ec0df4228b">INTC_DEVICE_INT_MASK</a>&#160;&#160;&#160;0x1U</td></tr>
+<tr class="memdesc:af839792f8a54467c034ac6ec0df4228b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt mask bit (SDT default).  <a href="#af839792f8a54467c034ac6ec0df4228b">More...</a><br/></td></tr>
+<tr class="separator:af839792f8a54467c034ac6ec0df4228b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a83f2cbdf0d928c5fb6401e2abd071b56"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#a83f2cbdf0d928c5fb6401e2abd071b56">IntcLowLevelExample</a> (u32 IntcBaseAddress)</td></tr>
-<tr class="memdesc:a83f2cbdf0d928c5fb6401e2abd071b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is an example of how to use the interrupt controller driver component (<a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a>) and the hardware device.  <a href="#a83f2cbdf0d928c5fb6401e2abd071b56">More...</a><br/></td></tr>
+<tr class="memdesc:a83f2cbdf0d928c5fb6401e2abd071b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates use of the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> interrupt controller driver.  <a href="#a83f2cbdf0d928c5fb6401e2abd071b56">More...</a><br/></td></tr>
 <tr class="separator:a83f2cbdf0d928c5fb6401e2abd071b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0838d944ebf56cbdfce4d481eab585e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#a0838d944ebf56cbdfce4d481eab585e8">SetupInterruptSystem</a> ()</td></tr>
-<tr class="memdesc:a0838d944ebf56cbdfce4d481eab585e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function connects the interrupt handler of the interrupt controller to the processor.  <a href="#a0838d944ebf56cbdfce4d481eab585e8">More...</a><br/></td></tr>
+<tr class="memdesc:a0838d944ebf56cbdfce4d481eab585e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects the interrupt controller handler to the processor.  <a href="#a0838d944ebf56cbdfce4d481eab585e8">More...</a><br/></td></tr>
 <tr class="separator:a0838d944ebf56cbdfce4d481eab585e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d6264927eb02cdac505c92079fa9e03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#a2d6264927eb02cdac505c92079fa9e03">DeviceDriverHandler</a> (void *CallbackRef)</td></tr>
-<tr class="memdesc:a2d6264927eb02cdac505c92079fa9e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is designed to look like an interrupt handler in a device driver.  <a href="#a2d6264927eb02cdac505c92079fa9e03">More...</a><br/></td></tr>
+<tr class="memdesc:a2d6264927eb02cdac505c92079fa9e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a device driver interrupt.  <a href="#a2d6264927eb02cdac505c92079fa9e03">More...</a><br/></td></tr>
 <tr class="separator:a2d6264927eb02cdac505c92079fa9e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xintc__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the Interrupt Controller Low Level example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a3e410e5138c2d0157df665091834d759"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTC_BASEADDR&#160;&#160;&#160;XPAR_XINTC_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the interrupt controller. </p>
+
+<p>Referenced by <a class="el" href="xintc__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="xintc__low__level__example_8c.html#a0838d944ebf56cbdfce4d481eab585e8">SetupInterruptSystem()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af839792f8a54467c034ac6ec0df4228b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTC_DEVICE_INT_MASK&#160;&#160;&#160;0x1U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt mask bit (SDT default). </p>
+
+<p>Referenced by <a class="el" href="xintc__low__level__example_8c.html#a83f2cbdf0d928c5fb6401e2abd071b56">IntcLowLevelExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9126861117c00d5cae536bd555462589"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTC_DEVICE_INTR_ID&#160;&#160;&#160;0x0U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt vector ID (SDT default). </p>
+
+<p>Referenced by <a class="el" href="xintc__low__level__example_8c.html#a83f2cbdf0d928c5fb6401e2abd071b56">IntcLowLevelExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a2d6264927eb02cdac505c92079fa9e03"></a>
 <div class="memitem">
@@ -169,16 +232,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is designed to look like an interrupt handler in a device driver. </p>
-<p>This is typically a 2nd level handler that is called from the interrupt controller interrupt handler. This handler would typically perform device specific processing such as reading and writing the registers of the device to clear the interrupt condition and pass any data to an application using the device driver.</p>
+<p>Handles a device driver interrupt. </p>
+<p>This function is designed to look like an interrupt handler in a device driver. This is typically a 2nd level handler called from the interrupt controller interrupt handler. This handler would typically perform device specific processing such as reading and writing the registers of the device to clear the interrupt condition and pass any data to an application.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallbackRef</td><td>is passed back to the device driver's interrupt handler by the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> driver. It was given to the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> driver in the <a class="el" href="group__intc.html#gaee9ec5873a764994d64b4da35a110084" title="Makes the connection between the Id of the interrupt source and the associated handler that is to run...">XIntc_Connect()</a> function call. It is typically a pointer to the device driver instance variable if using the Xilinx Level 1 device drivers. In this example, we do not care about the callback reference, so we passed it a 0 when connecting the handler to the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> driver and we make no use of it here.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallbackRef</td><td>is passed back to the device driver's interrupt handler by the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> driver. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -196,19 +257,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is an example of how to use the interrupt controller driver component (<a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a>) and the hardware device. </p>
-<p>This function is designed to work without any hardware devices to cause interrupts. It may not return if the interrupt controller is not properly connected to the processor in either software or hardware.</p>
-<p>This function relies on the fact that the interrupt controller hardware has come out of the reset state such that it will allow interrupts to be simulated by the software.</p>
+<p>Demonstrates use of the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> interrupt controller driver. </p>
+<p>This function is designed to work without any hardware devices to cause interrupts. It may not return if the interrupt controller is not properly connected to the processor in either software or hardware. This function relies on the fact that the interrupt controller hardware has come out of the reset state such that it will allow interrupts to be simulated by the software. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">IntcBaseAddress</td><td>is Base Address of the the Interrupt Controller Device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IntcBaseAddress</td><td>is the base address of the Interrupt Controller. Device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xintc__example_8c.html#a2d6264927eb02cdac505c92079fa9e03">DeviceDriverHandler()</a>, <a class="el" href="group__intc.html#gaf8c9b9342d3f4190fe131c29765a1e02">LookupConfigByBaseAddress()</a>, <a class="el" href="xintc__low__level__example_8c.html#a0838d944ebf56cbdfce4d481eab585e8">SetupInterruptSystem()</a>, <a class="el" href="struct_x_intc___config.html#a630c8585f41eea348ae0d6d134b0ad8f">XIntc_Config::VectorAddrWidth</a>, <a class="el" href="group__intc.html#gad35ec3b9b658f26d989b19783954683e">XIntc_EnableIntr</a>, and <a class="el" href="group__intc.html#ga4bd1d34885340943143c8fd2f98a3963">XIntc_RegisterHandler()</a>.</p>
+<p>References <a class="el" href="xintc__example_8c.html#a2d6264927eb02cdac505c92079fa9e03">DeviceDriverHandler()</a>, <a class="el" href="xintc__low__level__example_8c.html#af839792f8a54467c034ac6ec0df4228b">INTC_DEVICE_INT_MASK</a>, <a class="el" href="xintc__low__level__example_8c.html#a9126861117c00d5cae536bd555462589">INTC_DEVICE_INTR_ID</a>, <a class="el" href="group__intc.html#gaf8c9b9342d3f4190fe131c29765a1e02">LookupConfigByBaseAddress()</a>, <a class="el" href="xintc__low__level__example_8c.html#a0838d944ebf56cbdfce4d481eab585e8">SetupInterruptSystem()</a>, <a class="el" href="struct_x_intc___config.html#a630c8585f41eea348ae0d6d134b0ad8f">XIntc_Config::VectorAddrWidth</a>, <a class="el" href="group__intc.html#gaa03735b19bf625b8868dd3633554addf">XIN_INT_MASTER_ENABLE_MASK</a>, <a class="el" href="group__intc.html#ga4c1ce88ba61c2e42054faaef40539556">XIN_ISR_OFFSET</a>, <a class="el" href="group__intc.html#gab675a4446c4ab809551ea73ad2ca962d">XIN_IVAR_OFFSET</a>, <a class="el" href="group__intc.html#ga331c817bd749ed8d875a48280c36f2b2">XIN_IVEAR_OFFSET</a>, <a class="el" href="group__intc.html#ga1286cdd3996f53dfe62703e6cd949b14">XIN_MER_OFFSET</a>, <a class="el" href="group__intc.html#gad35ec3b9b658f26d989b19783954683e">XIntc_EnableIntr</a>, <a class="el" href="group__intc.html#gac245f85f403876d4e23cf5e24439a66a">XIntc_Out32</a>, <a class="el" href="group__intc.html#gab970178f5ba9efc175efeaf4f0d0d028">XIntc_Out64</a>, <a class="el" href="group__intc.html#ga4bd1d34885340943143c8fd2f98a3963">XIntc_RegisterHandler()</a>, and <a class="el" href="group__intc.html#ga9d6cfdfe9914f029b5a88d014400188e">XINTC_STANDARD_VECTOR_ADDRESS_WIDTH</a>.</p>
 
 <p>Referenced by <a class="el" href="xintc__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -229,16 +288,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This is the main function for the Interrupt Controller Low Level example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xintc__low__level__example_8c.html#a83f2cbdf0d928c5fb6401e2abd071b56">IntcLowLevelExample()</a>.</p>
+<p>References <a class="el" href="xintc__low__level__example_8c.html#a3e410e5138c2d0157df665091834d759">INTC_BASEADDR</a>, and <a class="el" href="xintc__low__level__example_8c.html#a83f2cbdf0d928c5fb6401e2abd071b56">IntcLowLevelExample()</a>.</p>
 
 </div>
 </div>
@@ -255,18 +307,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function connects the interrupt handler of the interrupt controller to the processor. </p>
-<p>This function is separate to allow it to be customized for each application. Each processor or RTOS may require unique processing to connect the interrupt handler.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Connects the interrupt controller handler to the processor. </p>
+<p>This function is separate to allow it to be customized for each application. Each processor or RTOS may require unique processing to connect the interrupt handler. </p>
 
-<p>References <a class="el" href="struct_x_intc___config.html#a2f0cf11a183840baccb545854d7accc9">XIntc_Config::IntrId</a>, <a class="el" href="struct_x_intc___config.html#abd06397221e3c64897f994f68ef4f575">XIntc_Config::IntrParent</a>, and <a class="el" href="group__intc.html#gace91a1aeaf1a88e1b769decb4ac4a818">XIntc_DeviceInterruptHandler()</a>.</p>
+<p>References <a class="el" href="xintc__low__level__example_8c.html#a3e410e5138c2d0157df665091834d759">INTC_BASEADDR</a>, <a class="el" href="struct_x_intc___config.html#a2f0cf11a183840baccb545854d7accc9">XIntc_Config::IntrId</a>, <a class="el" href="struct_x_intc___config.html#abd06397221e3c64897f994f68ef4f575">XIntc_Config::IntrParent</a>, and <a class="el" href="group__intc.html#gace91a1aeaf1a88e1b769decb4ac4a818">XIntc_DeviceInterruptHandler()</a>.</p>
 
 <p>Referenced by <a class="el" href="xintc__low__level__example_8c.html#a83f2cbdf0d928c5fb6401e2abd071b56">IntcLowLevelExample()</a>.</p>
 

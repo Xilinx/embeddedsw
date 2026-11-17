@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xmmidp_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,8 +100,10 @@ $(document).ready(function(){initNavTree('xmmidp_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xmmidp.h File Reference</div>  </div>
 </div><!--header-->
@@ -118,15 +120,58 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___config.html">XMmiDp_Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populated from SDT / BSP-generated xmmidp_g.c (field order matches mmidp.yaml).  <a href="struct_x_mmi_dp___config.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___main_stream_attributes.html">XMmiDp_MainStreamAttributes</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the main stream attributes which determine how the video will be displayed.  <a href="struct_x_mmi_dp___main_stream_attributes.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___video_config.html">XMmiDp_VideoConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">typedef contains VideoConfig values  <a href="struct_x_mmi_dp___video_config.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___mst_stream.html">XMmiDp_MstStream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">MST stream configuration (PBN, slots and the sink it is routed to).  <a href="struct_x_mmi_dp___mst_stream.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___sb_link_address_port.html">XMmiDp_SbLinkAddressPort</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One output port from a LINK_ADDRESS reply.  <a href="struct_x_mmi_dp___sb_link_address_port.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___sb_link_address_reply.html">XMmiDp_SbLinkAddressReply</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decoded LINK_ADDRESS reply of one branch device.  <a href="struct_x_mmi_dp___sb_link_address_reply.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___mst_sink.html">XMmiDp_MstSink</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream sink found during MST topology discovery.  <a href="struct_x_mmi_dp___mst_sink.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp___mst_topology.html">XMmiDp_MstTopology</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">MST topology found by <a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d" title="Discovers the MST topology with LINK_ADDRESS, breadth first from the directly attached branch...">XMmiDp_MstDiscoverTopology()</a>.  <a href="struct_x_mmi_dp___mst_topology.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mmi_dp.html">XMmiDp</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_mmi_dp.html" title="The XMmiDp driver instance data. ">XMmiDp</a> driver instance data.  <a href="struct_x_mmi_dp.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a776787b862220e7308651fda7209a5e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#a776787b862220e7308651fda7209a5e6">XMMIDP_MST_VCP_REG_COUNT</a>&#160;&#160;&#160;8U</td></tr>
+<tr class="memdesc:a776787b862220e7308651fda7209a5e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of MST_VCP_TABLE_REGn registers (REG0..REG7).  <a href="#a776787b862220e7308651fda7209a5e6">More...</a><br/></td></tr>
+<tr class="separator:a776787b862220e7308651fda7209a5e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">MST topology discovery sizes</div></td></tr>
+<tr class="memitem:a35540ca7f268e7d28ce610273940aa8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#a35540ca7f268e7d28ce610273940aa8a">XMMIDP_MST_MAX_RAD</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:a35540ca7f268e7d28ce610273940aa8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max relative address hops.  <a href="#a35540ca7f268e7d28ce610273940aa8a">More...</a><br/></td></tr>
+<tr class="separator:a35540ca7f268e7d28ce610273940aa8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8e3ce319bf017353a3b0afaae83049e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#ae8e3ce319bf017353a3b0afaae83049e">XMMIDP_MST_MAX_PORTS</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:ae8e3ce319bf017353a3b0afaae83049e"><td class="mdescLeft">&#160;</td><td class="mdescRight">LINK_ADDRESS port count field.  <a href="#ae8e3ce319bf017353a3b0afaae83049e">More...</a><br/></td></tr>
+<tr class="separator:ae8e3ce319bf017353a3b0afaae83049e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec0ff75ff43472cdbdd3fe50adc33b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#a5ec0ff75ff43472cdbdd3fe50adc33b3">XMMIDP_MST_MAX_SINKS</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:a5ec0ff75ff43472cdbdd3fe50adc33b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sinks kept by discovery.  <a href="#a5ec0ff75ff43472cdbdd3fe50adc33b3">More...</a><br/></td></tr>
+<tr class="separator:a5ec0ff75ff43472cdbdd3fe50adc33b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f591a2ee30db4ebc89d7b4c1956040a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#a4f591a2ee30db4ebc89d7b4c1956040a">XMMIDP_MST_MAX_BRANCHES</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a4f591a2ee30db4ebc89d7b4c1956040a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branches walked by discovery.  <a href="#a4f591a2ee30db4ebc89d7b4c1956040a">More...</a><br/></td></tr>
+<tr class="separator:a4f591a2ee30db4ebc89d7b4c1956040a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea63cc3b8d5aa823cc3d452a6dcab068"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#aea63cc3b8d5aa823cc3d452a6dcab068">XMMIDP_MST_SINK_MIN_LCT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:aea63cc3b8d5aa823cc3d452a6dcab068"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCT of a sink behind a branch.  <a href="#aea63cc3b8d5aa823cc3d452a6dcab068">More...</a><br/></td></tr>
+<tr class="separator:aea63cc3b8d5aa823cc3d452a6dcab068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add85a77384e6763cd1969faae241eaeb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#add85a77384e6763cd1969faae241eaeb">XMMIDP_GUID_NBYTES</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:add85a77384e6763cd1969faae241eaeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes in a branch GUID.  <a href="#add85a77384e6763cd1969faae241eaeb">More...</a><br/></td></tr>
+<tr class="separator:add85a77384e6763cd1969faae241eaeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -415,6 +460,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2faa4352f70a9938766d8d266bb20b2a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga2faa4352f70a9938766d8d266bb20b2a">XMmiDp_RunTraining</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga2faa4352f70a9938766d8d266bb20b2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs the link training process.  <a href="group__mmi__dppsu14.html#ga2faa4352f70a9938766d8d266bb20b2a">More...</a><br/></td></tr>
 <tr class="separator:ga2faa4352f70a9938766d8d266bb20b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5774015fbf8628ffdbb3746da70b28b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gad5774015fbf8628ffdbb3746da70b28b">XMmiDp_StartFullLinkTrainingCapped</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 UserMaxLanes, u8 UserMaxLinkBW)</td></tr>
+<tr class="memdesc:gad5774015fbf8628ffdbb3746da70b28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read sink capabilities, apply optional lane/BW caps, and run full link training (CR + channel equalization).  <a href="group__mmi__dppsu14.html#gad5774015fbf8628ffdbb3746da70b28b">More...</a><br/></td></tr>
+<tr class="separator:gad5774015fbf8628ffdbb3746da70b28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0ce3540c32ce1bdcbe2b43fecb15e47d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga0ce3540c32ce1bdcbe2b43fecb15e47d">XMmiDp_WaitUs</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 MicroSeconds)</td></tr>
 <tr class="memdesc:ga0ce3540c32ce1bdcbe2b43fecb15e47d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the delay/sleep function for the <a class="el" href="struct_x_mmi_dp.html" title="The XMmiDp driver instance data. ">XMmiDp</a> driver.  <a href="group__mmi__dppsu14.html#ga0ce3540c32ce1bdcbe2b43fecb15e47d">More...</a><br/></td></tr>
 <tr class="separator:ga0ce3540c32ce1bdcbe2b43fecb15e47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -464,7 +512,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga9a34472a236811021fe3a34707b58aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets video HBlankInterval register.  <a href="group__mmi__dppsu14.html#ga9a34472a236811021fe3a34707b58aad">More...</a><br/></td></tr>
 <tr class="separator:ga9a34472a236811021fe3a34707b58aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga44bcbe8e5fec3b218113d8c959f0c791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga44bcbe8e5fec3b218113d8c959f0c791">XMmiDp_ConfigureVideoController</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream)</td></tr>
-<tr class="memdesc:ga44bcbe8e5fec3b218113d8c959f0c791"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is helper api that programs the VideoController MSA, VideoConfig registers for a specific stream.  <a href="group__mmi__dppsu14.html#ga44bcbe8e5fec3b218113d8c959f0c791">More...</a><br/></td></tr>
+<tr class="memdesc:ga44bcbe8e5fec3b218113d8c959f0c791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program VideoController MSA and VideoConfig registers for one stream.  <a href="group__mmi__dppsu14.html#ga44bcbe8e5fec3b218113d8c959f0c791">More...</a><br/></td></tr>
 <tr class="separator:ga44bcbe8e5fec3b218113d8c959f0c791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2db74c9e089470df8915747461b7ddcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga2db74c9e089470df8915747461b7ddcb">XMmiDp_ClearVideoController</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga2db74c9e089470df8915747461b7ddcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is helper api that clears the VideoController MSA, VideoConfig registers for a specific stream.  <a href="group__mmi__dppsu14.html#ga2db74c9e089470df8915747461b7ddcb">More...</a><br/></td></tr>
@@ -490,6 +538,27 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf94b814b5fe5d3155d7920dd31d86b43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaf94b814b5fe5d3155d7920dd31d86b43">XMmiDp_ComputeTuParams</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream, XVidC_ColorFormat ColorFormat)</td></tr>
 <tr class="memdesc:gaf94b814b5fe5d3155d7920dd31d86b43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes AvgBytesPerTu, AvgBytesPerTuFrac, InitThreshold, and InitThresholdHi for the VIDEO_CONFIG5 register using the stream's pixel clock, color depth, link config, and blanking parameters.  <a href="group__mmi__dppsu14.html#gaf94b814b5fe5d3155d7920dd31d86b43">More...</a><br/></td></tr>
 <tr class="separator:gaf94b814b5fe5d3155d7920dd31d86b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6bbedfa65d698a4f187a50b9b7a95528"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga6bbedfa65d698a4f187a50b9b7a95528">XMmiDp_GetLinkPbn</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga6bbedfa65d698a4f187a50b9b7a95528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns VC payload bandwidth (PBN) for one time slot per MTP for the current link configuration using DP 1.4 Table 2-138 lookup.  <a href="group__mmi__dppsu14.html#ga6bbedfa65d698a4f187a50b9b7a95528">More...</a><br/></td></tr>
+<tr class="separator:ga6bbedfa65d698a4f187a50b9b7a95528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga201c5cfe6b195d1f214a706f41c0fe22"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga201c5cfe6b195d1f214a706f41c0fe22">XMmiDp_ComputeTimeSlot</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream)</td></tr>
+<tr class="memdesc:ga201c5cfe6b195d1f214a706f41c0fe22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute stream PBN and VC payload time slot count for one MST stream.  <a href="group__mmi__dppsu14.html#ga201c5cfe6b195d1f214a706f41c0fe22">More...</a><br/></td></tr>
+<tr class="separator:ga201c5cfe6b195d1f214a706f41c0fe22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28b8a293ece904a674e3c45b2ad592ba"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga28b8a293ece904a674e3c45b2ad592ba">XMmiDp_DistributeMstPayloadSlots</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 NumStreams)</td></tr>
+<tr class="memdesc:ga28b8a293ece904a674e3c45b2ad592ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Throttles MST VC payload slots when the sum of per-stream requirements exceeds the MTP budget.  <a href="group__mmi__dppsu14.html#ga28b8a293ece904a674e3c45b2ad592ba">More...</a><br/></td></tr>
+<tr class="separator:ga28b8a293ece904a674e3c45b2ad592ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe77bc22c82563d0ff294dc96f77740b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gafe77bc22c82563d0ff294dc96f77740b">XMmiDp_SetSinkVcPayloadTable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream)</td></tr>
+<tr class="memdesc:gafe77bc22c82563d0ff294dc96f77740b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program sink VC payload allocate (DPCD) for one MST stream.  <a href="group__mmi__dppsu14.html#gafe77bc22c82563d0ff294dc96f77740b">More...</a><br/></td></tr>
+<tr class="separator:gafe77bc22c82563d0ff294dc96f77740b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeff3308ad4eedd26fe06b70c7b36e48b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaeff3308ad4eedd26fe06b70c7b36e48b">XMmiDp_AllocatePayloadStream</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream)</td></tr>
+<tr class="memdesc:gaeff3308ad4eedd26fe06b70c7b36e48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate VC payload for one MST stream on TX, the immediate branch, and the branch that owns the stream's sink port.  <a href="group__mmi__dppsu14.html#gaeff3308ad4eedd26fe06b70c7b36e48b">More...</a><br/></td></tr>
+<tr class="separator:gaeff3308ad4eedd26fe06b70c7b36e48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97463cad79c4d5c93ab9bd4f67bec87e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga97463cad79c4d5c93ab9bd4f67bec87e">XMmiDp_ClearPayloadVcIdTable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga97463cad79c4d5c93ab9bd4f67bec87e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear TX and immediate sink VC payload ID tables.  <a href="group__mmi__dppsu14.html#ga97463cad79c4d5c93ab9bd4f67bec87e">More...</a><br/></td></tr>
+<tr class="separator:ga97463cad79c4d5c93ab9bd4f67bec87e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf08de325c6163c2ebff2c9ac6c898d2f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaf08de325c6163c2ebff2c9ac6c898d2f">XMmiDp_SetTxVcPayloadTable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream)</td></tr>
+<tr class="memdesc:gaf08de325c6163c2ebff2c9ac6c898d2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program TX MST VC payload table (REG0..REG7) for streams 1 through Stream.  <a href="group__mmi__dppsu14.html#gaf08de325c6163c2ebff2c9ac6c898d2f">More...</a><br/></td></tr>
+<tr class="separator:gaf08de325c6163c2ebff2c9ac6c898d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga31759cd807ed207a746e9799c3249d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga31759cd807ed207a746e9799c3249d3f">XMmiDp_SetVidControllerUseStdVidMode</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, XVidC_VideoMode VideoMode, u8 Stream, XVidC_ColorFormat ColorFormat)</td></tr>
 <tr class="memdesc:ga31759cd807ed207a746e9799c3249d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the video controller with standard video mode timing parameters including HActive, VActive, sync widths, blanking intervals, pixel clock, and dynamically computed MSA and transfer unit parameters.  <a href="group__mmi__dppsu14.html#ga31759cd807ed207a746e9799c3249d3f">More...</a><br/></td></tr>
 <tr class="separator:ga31759cd807ed207a746e9799c3249d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -599,11 +668,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:gabd2a67461b0e2fc53ee3ffef555012f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the core controller register.  <a href="group__mmi__dppsu14.html#gabd2a67461b0e2fc53ee3ffef555012f7">More...</a><br/></td></tr>
 <tr class="separator:gabd2a67461b0e2fc53ee3ffef555012f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa9a796e9233f2d5bb9cd15ba3e1d3f91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaa9a796e9233f2d5bb9cd15ba3e1d3f91">XMmiDp_MstActSeqEnable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaa9a796e9233f2d5bb9cd15ba3e1d3f91"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables mst act seq in the core controller.  <a href="group__mmi__dppsu14.html#gaa9a796e9233f2d5bb9cd15ba3e1d3f91">More...</a><br/></td></tr>
+<tr class="memdesc:gaa9a796e9233f2d5bb9cd15ba3e1d3f91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert MST mode and initiate the MST ACT sequence in CCTL0.  <a href="group__mmi__dppsu14.html#gaa9a796e9233f2d5bb9cd15ba3e1d3f91">More...</a><br/></td></tr>
 <tr class="separator:gaa9a796e9233f2d5bb9cd15ba3e1d3f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga39b2ada01525a228afd7e382c8fac774"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga39b2ada01525a228afd7e382c8fac774">XMmiDp_MstModeEnable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga39b2ada01525a228afd7e382c8fac774"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables mst mode in the core controller.  <a href="group__mmi__dppsu14.html#ga39b2ada01525a228afd7e382c8fac774">More...</a><br/></td></tr>
-<tr class="separator:ga39b2ada01525a228afd7e382c8fac774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fc2ecad0f4c4e18d527f524ecb3e666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga4fc2ecad0f4c4e18d527f524ecb3e666">XMmiDp_MstModeEnable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Enable)</td></tr>
+<tr class="memdesc:ga4fc2ecad0f4c4e18d527f524ecb3e666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set CCTL0 ENABLE_MST_MODE for the TX core.  <a href="group__mmi__dppsu14.html#ga4fc2ecad0f4c4e18d527f524ecb3e666">More...</a><br/></td></tr>
+<tr class="separator:ga4fc2ecad0f4c4e18d527f524ecb3e666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39f784e7c9f85a391c28a8ca9886007c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga39f784e7c9f85a391c28a8ca9886007c">XMmiDp_SinkMstModeEnable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga39f784e7c9f85a391c28a8ca9886007c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable MST source mode on the sink (DPCD MSTM_CTRL) and TX MST in CCTL0.  <a href="group__mmi__dppsu14.html#ga39f784e7c9f85a391c28a8ca9886007c">More...</a><br/></td></tr>
+<tr class="separator:ga39f784e7c9f85a391c28a8ca9886007c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf8aeb8c282f9f029d38987c697bce0a6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaf8aeb8c282f9f029d38987c697bce0a6">XMmiDp_WaitPayloadTableUpdateStatus</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gaf8aeb8c282f9f029d38987c697bce0a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function waits for VC_PAYLOAD_TABLE_UPDATE status bit to be set.  <a href="group__mmi__dppsu14.html#gaf8aeb8c282f9f029d38987c697bce0a6">More...</a><br/></td></tr>
 <tr class="separator:gaf8aeb8c282f9f029d38987c697bce0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -611,12 +683,164 @@ Functions</h2></td></tr>
 <tr class="memdesc:gafb22147451b141af5abab760ef234e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function waits for ACT_Handled status bit to be set.  <a href="group__mmi__dppsu14.html#gafb22147451b141af5abab760ef234e33">More...</a><br/></td></tr>
 <tr class="separator:gafb22147451b141af5abab760ef234e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga637998cd412788fe3b1bcd33130e1902"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga637998cd412788fe3b1bcd33130e1902">XMmiDp_InitiateActSeq</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga637998cd412788fe3b1bcd33130e1902"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initiates CCTL ACT sequence between DpTx and DpRx of the immediate branch device connected.  <a href="group__mmi__dppsu14.html#ga637998cd412788fe3b1bcd33130e1902">More...</a><br/></td></tr>
+<tr class="memdesc:ga637998cd412788fe3b1bcd33130e1902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates the MST ACT sequence on the immediate branch device.  <a href="group__mmi__dppsu14.html#ga637998cd412788fe3b1bcd33130e1902">More...</a><br/></td></tr>
 <tr class="separator:ga637998cd412788fe3b1bcd33130e1902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafa8478cbb478e7f747bf349036c0a57b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gafa8478cbb478e7f747bf349036c0a57b">XMmiDp_SetMstVcpTable0</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
-<tr class="memdesc:gafa8478cbb478e7f747bf349036c0a57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the virtual channel payload allocation table.  <a href="group__mmi__dppsu14.html#gafa8478cbb478e7f747bf349036c0a57b">More...</a><br/></td></tr>
+<tr class="memdesc:gafa8478cbb478e7f747bf349036c0a57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG0 (VC payload slots 0..7).  <a href="group__mmi__dppsu14.html#gafa8478cbb478e7f747bf349036c0a57b">More...</a><br/></td></tr>
 <tr class="separator:gafa8478cbb478e7f747bf349036c0a57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab0db01fc7bfb342aeaae108aa5713cd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gab0db01fc7bfb342aeaae108aa5713cd9">XMmiDp_SetMstVcpTable1</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:gab0db01fc7bfb342aeaae108aa5713cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG1 (VC payload slots 8..15).  <a href="group__mmi__dppsu14.html#gab0db01fc7bfb342aeaae108aa5713cd9">More...</a><br/></td></tr>
+<tr class="separator:gab0db01fc7bfb342aeaae108aa5713cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf61775c748969ab49da45878a13f570c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaf61775c748969ab49da45878a13f570c">XMmiDp_SetMstVcpTable2</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:gaf61775c748969ab49da45878a13f570c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG2 (VC payload slots 16..23).  <a href="group__mmi__dppsu14.html#gaf61775c748969ab49da45878a13f570c">More...</a><br/></td></tr>
+<tr class="separator:gaf61775c748969ab49da45878a13f570c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee46023e52b329a8e2c75792b63cbe94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gaee46023e52b329a8e2c75792b63cbe94">XMmiDp_SetMstVcpTable3</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:gaee46023e52b329a8e2c75792b63cbe94"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG3 (VC payload slots 24..31).  <a href="group__mmi__dppsu14.html#gaee46023e52b329a8e2c75792b63cbe94">More...</a><br/></td></tr>
+<tr class="separator:gaee46023e52b329a8e2c75792b63cbe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab1b7f36baf43753364030a5d48f72422"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gab1b7f36baf43753364030a5d48f72422">XMmiDp_SetMstVcpTable4</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:gab1b7f36baf43753364030a5d48f72422"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG4 (VC payload slots 32..39).  <a href="group__mmi__dppsu14.html#gab1b7f36baf43753364030a5d48f72422">More...</a><br/></td></tr>
+<tr class="separator:gab1b7f36baf43753364030a5d48f72422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada5251011126752b3de698748c92babc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gada5251011126752b3de698748c92babc">XMmiDp_SetMstVcpTable5</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:gada5251011126752b3de698748c92babc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG5 (VC payload slots 40..47).  <a href="group__mmi__dppsu14.html#gada5251011126752b3de698748c92babc">More...</a><br/></td></tr>
+<tr class="separator:gada5251011126752b3de698748c92babc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76a4789509ab3fd33768a3b31ffe0bd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga76a4789509ab3fd33768a3b31ffe0bd4">XMmiDp_SetMstVcpTable6</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:ga76a4789509ab3fd33768a3b31ffe0bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG6 (VC payload slots 48..55).  <a href="group__mmi__dppsu14.html#ga76a4789509ab3fd33768a3b31ffe0bd4">More...</a><br/></td></tr>
+<tr class="separator:ga76a4789509ab3fd33768a3b31ffe0bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ace5b42b25dfcd87cd8303e721b5b02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga9ace5b42b25dfcd87cd8303e721b5b02">XMmiDp_SetMstVcpTable7</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u32 Payload)</td></tr>
+<tr class="memdesc:ga9ace5b42b25dfcd87cd8303e721b5b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets MST_VCP_TABLE_REG7 (VC payload slots 56..63).  <a href="group__mmi__dppsu14.html#ga9ace5b42b25dfcd87cd8303e721b5b02">More...</a><br/></td></tr>
+<tr class="separator:ga9ace5b42b25dfcd87cd8303e721b5b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga363ef5919ddd17bc74e8e2cbc1b49591"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga363ef5919ddd17bc74e8e2cbc1b49591">XMmiDp_SendSbMsgLinkAddress</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, <a class="el" href="struct_x_mmi_dp___sb_link_address_reply.html">XMmiDp_SbLinkAddressReply</a> *Reply)</td></tr>
+<tr class="memdesc:ga363ef5919ddd17bc74e8e2cbc1b49591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends LINK_ADDRESS to a branch device and decodes its port list.  <a href="group__mmi__dppsu14.html#ga363ef5919ddd17bc74e8e2cbc1b49591">More...</a><br/></td></tr>
+<tr class="separator:ga363ef5919ddd17bc74e8e2cbc1b49591"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadcf5f64508d79d1c4c497eed10f42464"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#gadcf5f64508d79d1c4c497eed10f42464">XMmiDp_SendSbMsgEnumPathResources</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u16 *AvailPbn, u16 *FullPbn)</td></tr>
+<tr class="memdesc:gadcf5f64508d79d1c4c497eed10f42464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends ENUM_PATH_RESOURCES for the path to a sink.  <a href="group__mmi__dppsu14.html#gadcf5f64508d79d1c4c497eed10f42464">More...</a><br/></td></tr>
+<tr class="separator:gadcf5f64508d79d1c4c497eed10f42464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga823c3b6f800ac2878984c7113f0d0999"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga823c3b6f800ac2878984c7113f0d0999">XMmiDp_SendSbMsgAllocatePayload</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 LinkCountTotal, const u8 *RelativeAddress, u8 VcId, u16 Pbn)</td></tr>
+<tr class="memdesc:ga823c3b6f800ac2878984c7113f0d0999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends ALLOCATE_PAYLOAD so the branch that owns the sink's port maps virtual channel VcId to that port with Pbn bandwidth.  <a href="group__mmi__dppsu14.html#ga823c3b6f800ac2878984c7113f0d0999">More...</a><br/></td></tr>
+<tr class="separator:ga823c3b6f800ac2878984c7113f0d0999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0fa7532d86575045a79e467e6b6d47cb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga0fa7532d86575045a79e467e6b6d47cb">XMmiDp_SendSbMsgClearPayloadIdTable</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga0fa7532d86575045a79e467e6b6d47cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Broadcasts CLEAR_PAYLOAD_ID_TABLE so every downstream branch drops its payload allocations.  <a href="group__mmi__dppsu14.html#ga0fa7532d86575045a79e467e6b6d47cb">More...</a><br/></td></tr>
+<tr class="separator:ga0fa7532d86575045a79e467e6b6d47cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15b34394423bc9f336b415da9121762d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d">XMmiDp_MstDiscoverTopology</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga15b34394423bc9f336b415da9121762d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discovers the MST topology with LINK_ADDRESS, breadth first from the directly attached branch, and records every plugged DP monitor (SST sink) in InstancePtr-&gt;MstTopology in port order.  <a href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d">More...</a><br/></td></tr>
+<tr class="separator:ga15b34394423bc9f336b415da9121762d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga025150b2b7700952c53e12927875873c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dppsu14.html#ga025150b2b7700952c53e12927875873c">XMmiDp_MstSetStreamSink</a> (<a class="el" href="struct_x_mmi_dp.html">XMmiDp</a> *InstancePtr, u8 Stream, u8 SinkIdx)</td></tr>
+<tr class="memdesc:ga025150b2b7700952c53e12927875873c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Routes a stream to a sink found by <a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d" title="Discovers the MST topology with LINK_ADDRESS, breadth first from the directly attached branch...">XMmiDp_MstDiscoverTopology()</a>; the sink address is used by <a class="el" href="group__mmi__dppsu14.html#gaeff3308ad4eedd26fe06b70c7b36e48b" title="Allocate VC payload for one MST stream on TX, the immediate branch, and the branch that owns the stre...">XMmiDp_AllocatePayloadStream()</a> for ALLOCATE_PAYLOAD.  <a href="group__mmi__dppsu14.html#ga025150b2b7700952c53e12927875873c">More...</a><br/></td></tr>
+<tr class="separator:ga025150b2b7700952c53e12927875873c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aedb5a36a9d7b4de0e1e36ce5e9291182"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_mmi_dp___config.html">XMmiDp_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmmidp_8h.html#aedb5a36a9d7b4de0e1e36ce5e9291182">XMmiDp_ConfigTable</a> []</td></tr>
+<tr class="memdesc:aedb5a36a9d7b4de0e1e36ce5e9291182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration table.  <a href="#aedb5a36a9d7b4de0e1e36ce5e9291182">More...</a><br/></td></tr>
+<tr class="separator:aedb5a36a9d7b4de0e1e36ce5e9291182"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="add85a77384e6763cd1969faae241eaeb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_GUID_NBYTES&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bytes in a branch GUID. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4f591a2ee30db4ebc89d7b4c1956040a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_MST_MAX_BRANCHES&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Branches walked by discovery. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d">XMmiDp_MstDiscoverTopology()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae8e3ce319bf017353a3b0afaae83049e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_MST_MAX_PORTS&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LINK_ADDRESS port count field. </p>
+
+</div>
+</div>
+<a class="anchor" id="a35540ca7f268e7d28ce610273940aa8a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_MST_MAX_RAD&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Max relative address hops. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d">XMmiDp_MstDiscoverTopology()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5ec0ff75ff43472cdbdd3fe50adc33b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_MST_MAX_SINKS&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sinks kept by discovery. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#ga15b34394423bc9f336b415da9121762d">XMmiDp_MstDiscoverTopology()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aea63cc3b8d5aa823cc3d452a6dcab068"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_MST_SINK_MIN_LCT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LCT of a sink behind a branch. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#gaeff3308ad4eedd26fe06b70c7b36e48b">XMmiDp_AllocatePayloadStream()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a776787b862220e7308651fda7209a5e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMMIDP_MST_VCP_REG_COUNT&#160;&#160;&#160;8U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of MST_VCP_TABLE_REGn registers (REG0..REG7). </p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a class="anchor" id="a20d9129cb07e16b8f139b4cd989a22da"></a>
 <div class="memitem">
@@ -839,6 +1063,23 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This typedef gets Video Input mapping. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="aedb5a36a9d7b4de0e1e36ce5e9291182"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_mmi_dp___config.html">XMmiDp_Config</a> XMmiDp_ConfigTable[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration table. </p>
+
+<p>Referenced by <a class="el" href="group__mmi__dppsu14.html#gac208ef2307d56ac04e68c5402b5b278e">XMmiDp_CfgInitialize()</a>.</p>
 
 </div>
 </div>

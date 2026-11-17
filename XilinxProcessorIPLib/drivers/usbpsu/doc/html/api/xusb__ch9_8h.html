@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xusb__ch9_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_ch9.h File Reference</div>  </div>
@@ -123,6 +124,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a5742e1cda811de7c524f25fb7d054747"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a5742e1cda811de7c524f25fb7d054747">attribute</a>(attr)&#160;&#160;&#160;__attribute__((__packed__)) attr</td></tr>
+<tr class="memdesc:a5742e1cda811de7c524f25fb7d054747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packed attribute macro for cross-compiler compatibility.  <a href="#a5742e1cda811de7c524f25fb7d054747">More...</a><br/></td></tr>
+<tr class="separator:a5742e1cda811de7c524f25fb7d054747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Request types</div></td></tr>
 <tr class="memitem:a8be8332e2da1e54c74c5f2a2230b0a28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a8be8332e2da1e54c74c5f2a2230b0a28">USB_REQ_TYPE_MASK</a>&#160;&#160;&#160;0x60</td></tr>
 <tr class="memdesc:a8be8332e2da1e54c74c5f2a2230b0a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for request opcode.  <a href="#a8be8332e2da1e54c74c5f2a2230b0a28">More...</a><br/></td></tr>
@@ -136,155 +140,155 @@ Macros</h2></td></tr>
 <tr class="memitem:a5bca8c6c246291af78ec61f05a4684d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a5bca8c6c246291af78ec61f05a4684d5">USB_CMD_VENDREQ</a>&#160;&#160;&#160;0x40</td></tr>
 <tr class="memdesc:a5bca8c6c246291af78ec61f05a4684d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vendor Request.  <a href="#a5bca8c6c246291af78ec61f05a4684d5">More...</a><br/></td></tr>
 <tr class="separator:a5bca8c6c246291af78ec61f05a4684d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a435416dd71e258cfd83be50a991db726"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a435416dd71e258cfd83be50a991db726"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_ENDPOINT_NUMBER_MASK</b>&#160;&#160;&#160;0x0f</td></tr>
+<tr class="memitem:a435416dd71e258cfd83be50a991db726"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a435416dd71e258cfd83be50a991db726">USB_ENDPOINT_NUMBER_MASK</a>&#160;&#160;&#160;0x0f</td></tr>
+<tr class="memdesc:a435416dd71e258cfd83be50a991db726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract endpoint number from address.  <a href="#a435416dd71e258cfd83be50a991db726">More...</a><br/></td></tr>
 <tr class="separator:a435416dd71e258cfd83be50a991db726"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93a6aa5841b4ff46167822362add046d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93a6aa5841b4ff46167822362add046d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_ENDPOINT_DIR_MASK</b>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memitem:a93a6aa5841b4ff46167822362add046d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a93a6aa5841b4ff46167822362add046d">USB_ENDPOINT_DIR_MASK</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memdesc:a93a6aa5841b4ff46167822362add046d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract endpoint direction from address.  <a href="#a93a6aa5841b4ff46167822362add046d">More...</a><br/></td></tr>
 <tr class="separator:a93a6aa5841b4ff46167822362add046d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42afa2f0f2e88219af617c036745886e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a42afa2f0f2e88219af617c036745886e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_ENDPOINT_XFERTYPE_MASK</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a42afa2f0f2e88219af617c036745886e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a42afa2f0f2e88219af617c036745886e">USB_ENDPOINT_XFERTYPE_MASK</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a42afa2f0f2e88219af617c036745886e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract endpoint transfer type.  <a href="#a42afa2f0f2e88219af617c036745886e">More...</a><br/></td></tr>
 <tr class="separator:a42afa2f0f2e88219af617c036745886e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Request Values</div></td></tr>
-<tr class="memitem:a9a493ab751c46c46ab88d558e683a323"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a493ab751c46c46ab88d558e683a323"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_GET_STATUS</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:a9a493ab751c46c46ab88d558e683a323"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a9a493ab751c46c46ab88d558e683a323">USB_REQ_GET_STATUS</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a9a493ab751c46c46ab88d558e683a323"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Get Status request code.  <a href="#a9a493ab751c46c46ab88d558e683a323">More...</a><br/></td></tr>
 <tr class="separator:a9a493ab751c46c46ab88d558e683a323"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43687a0101d3a62f05ffcd6e80cfa7ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43687a0101d3a62f05ffcd6e80cfa7ef"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_CLEAR_FEATURE</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a43687a0101d3a62f05ffcd6e80cfa7ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a43687a0101d3a62f05ffcd6e80cfa7ef">USB_REQ_CLEAR_FEATURE</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a43687a0101d3a62f05ffcd6e80cfa7ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Clear Feature request code.  <a href="#a43687a0101d3a62f05ffcd6e80cfa7ef">More...</a><br/></td></tr>
 <tr class="separator:a43687a0101d3a62f05ffcd6e80cfa7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3661e3551d3dbd0e10debfe058791045"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3661e3551d3dbd0e10debfe058791045"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_FEATURE</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a3661e3551d3dbd0e10debfe058791045"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a3661e3551d3dbd0e10debfe058791045">USB_REQ_SET_FEATURE</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a3661e3551d3dbd0e10debfe058791045"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set Feature request code.  <a href="#a3661e3551d3dbd0e10debfe058791045">More...</a><br/></td></tr>
 <tr class="separator:a3661e3551d3dbd0e10debfe058791045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaca043a771a5d020e91011f458a3d31c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaca043a771a5d020e91011f458a3d31c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_ADDRESS</b>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memitem:aaca043a771a5d020e91011f458a3d31c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#aaca043a771a5d020e91011f458a3d31c">USB_REQ_SET_ADDRESS</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:aaca043a771a5d020e91011f458a3d31c"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set Address request code.  <a href="#aaca043a771a5d020e91011f458a3d31c">More...</a><br/></td></tr>
 <tr class="separator:aaca043a771a5d020e91011f458a3d31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae10a1fd5f65d075c17536fd3f7d8472e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae10a1fd5f65d075c17536fd3f7d8472e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_GET_DESCRIPTOR</b>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memitem:ae10a1fd5f65d075c17536fd3f7d8472e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#ae10a1fd5f65d075c17536fd3f7d8472e">USB_REQ_GET_DESCRIPTOR</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:ae10a1fd5f65d075c17536fd3f7d8472e"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Get Descriptor request code.  <a href="#ae10a1fd5f65d075c17536fd3f7d8472e">More...</a><br/></td></tr>
 <tr class="separator:ae10a1fd5f65d075c17536fd3f7d8472e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae787427813c070874ed3493b57f1e5d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae787427813c070874ed3493b57f1e5d3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_DESCRIPTOR</b>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memitem:ae787427813c070874ed3493b57f1e5d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#ae787427813c070874ed3493b57f1e5d3">USB_REQ_SET_DESCRIPTOR</a>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memdesc:ae787427813c070874ed3493b57f1e5d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set Descriptor request code.  <a href="#ae787427813c070874ed3493b57f1e5d3">More...</a><br/></td></tr>
 <tr class="separator:ae787427813c070874ed3493b57f1e5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4c9a3af66b1d3203140c45af59de525"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae4c9a3af66b1d3203140c45af59de525"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_GET_CONFIGURATION</b>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memitem:ae4c9a3af66b1d3203140c45af59de525"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#ae4c9a3af66b1d3203140c45af59de525">USB_REQ_GET_CONFIGURATION</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:ae4c9a3af66b1d3203140c45af59de525"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Get Configuration request code.  <a href="#ae4c9a3af66b1d3203140c45af59de525">More...</a><br/></td></tr>
 <tr class="separator:ae4c9a3af66b1d3203140c45af59de525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74588b0ebd757cfd2b9e4533324e7ae7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74588b0ebd757cfd2b9e4533324e7ae7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_CONFIGURATION</b>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memitem:a74588b0ebd757cfd2b9e4533324e7ae7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a74588b0ebd757cfd2b9e4533324e7ae7">USB_REQ_SET_CONFIGURATION</a>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memdesc:a74588b0ebd757cfd2b9e4533324e7ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set Configuration request code.  <a href="#a74588b0ebd757cfd2b9e4533324e7ae7">More...</a><br/></td></tr>
 <tr class="separator:a74588b0ebd757cfd2b9e4533324e7ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eb3845dcaf168d3755565f7a89b3f6e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0eb3845dcaf168d3755565f7a89b3f6e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_GET_INTERFACE</b>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memitem:a0eb3845dcaf168d3755565f7a89b3f6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a0eb3845dcaf168d3755565f7a89b3f6e">USB_REQ_GET_INTERFACE</a>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memdesc:a0eb3845dcaf168d3755565f7a89b3f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Get Interface request code.  <a href="#a0eb3845dcaf168d3755565f7a89b3f6e">More...</a><br/></td></tr>
 <tr class="separator:a0eb3845dcaf168d3755565f7a89b3f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ae35a6b81c8115f19dda1ef2180e73e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ae35a6b81c8115f19dda1ef2180e73e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_INTERFACE</b>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memitem:a2ae35a6b81c8115f19dda1ef2180e73e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a2ae35a6b81c8115f19dda1ef2180e73e">USB_REQ_SET_INTERFACE</a>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memdesc:a2ae35a6b81c8115f19dda1ef2180e73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set Interface request code.  <a href="#a2ae35a6b81c8115f19dda1ef2180e73e">More...</a><br/></td></tr>
 <tr class="separator:a2ae35a6b81c8115f19dda1ef2180e73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a315ad41775c2f71af202a4f5b76f8978"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a315ad41775c2f71af202a4f5b76f8978"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SYNC_FRAME</b>&#160;&#160;&#160;0x0c</td></tr>
+<tr class="memitem:a315ad41775c2f71af202a4f5b76f8978"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a315ad41775c2f71af202a4f5b76f8978">USB_REQ_SYNC_FRAME</a>&#160;&#160;&#160;0x0c</td></tr>
+<tr class="memdesc:a315ad41775c2f71af202a4f5b76f8978"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Sync Frame request code.  <a href="#a315ad41775c2f71af202a4f5b76f8978">More...</a><br/></td></tr>
 <tr class="separator:a315ad41775c2f71af202a4f5b76f8978"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1db63ba2e17bb33b46f4409ecdf8db49"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1db63ba2e17bb33b46f4409ecdf8db49"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_SEL</b>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memitem:a1db63ba2e17bb33b46f4409ecdf8db49"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a1db63ba2e17bb33b46f4409ecdf8db49">USB_REQ_SET_SEL</a>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memdesc:a1db63ba2e17bb33b46f4409ecdf8db49"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set SEL request code.  <a href="#a1db63ba2e17bb33b46f4409ecdf8db49">More...</a><br/></td></tr>
 <tr class="separator:a1db63ba2e17bb33b46f4409ecdf8db49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18061fabde9ccfd98d744666d94b5cfb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18061fabde9ccfd98d744666d94b5cfb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_REQ_SET_ISOCH_DELAY</b>&#160;&#160;&#160;0x31</td></tr>
+<tr class="memitem:a18061fabde9ccfd98d744666d94b5cfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a18061fabde9ccfd98d744666d94b5cfb">USB_REQ_SET_ISOCH_DELAY</a>&#160;&#160;&#160;0x31</td></tr>
+<tr class="memdesc:a18061fabde9ccfd98d744666d94b5cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Set Isochronous Delay request code.  <a href="#a18061fabde9ccfd98d744666d94b5cfb">More...</a><br/></td></tr>
 <tr class="separator:a18061fabde9ccfd98d744666d94b5cfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Feature Selectors</div></td></tr>
-<tr class="memitem:a926f4719a748bfd0d9b68136468a7d0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a926f4719a748bfd0d9b68136468a7d0f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_ENDPOINT_HALT</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:a926f4719a748bfd0d9b68136468a7d0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a926f4719a748bfd0d9b68136468a7d0f">USB_ENDPOINT_HALT</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a926f4719a748bfd0d9b68136468a7d0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint halt feature selector.  <a href="#a926f4719a748bfd0d9b68136468a7d0f">More...</a><br/></td></tr>
 <tr class="separator:a926f4719a748bfd0d9b68136468a7d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cc94201b56bd028068568de7a6cf68c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6cc94201b56bd028068568de7a6cf68c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_DEVICE_REMOTE_WAKEUP</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a6cc94201b56bd028068568de7a6cf68c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a6cc94201b56bd028068568de7a6cf68c">USB_DEVICE_REMOTE_WAKEUP</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a6cc94201b56bd028068568de7a6cf68c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote wakeup feature selector.  <a href="#a6cc94201b56bd028068568de7a6cf68c">More...</a><br/></td></tr>
 <tr class="separator:a6cc94201b56bd028068568de7a6cf68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51dcf0e5889baa4c2cc68c8ecc254eb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51dcf0e5889baa4c2cc68c8ecc254eb1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TEST_MODE</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:a51dcf0e5889baa4c2cc68c8ecc254eb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a51dcf0e5889baa4c2cc68c8ecc254eb1">USB_TEST_MODE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a51dcf0e5889baa4c2cc68c8ecc254eb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test mode feature selector.  <a href="#a51dcf0e5889baa4c2cc68c8ecc254eb1">More...</a><br/></td></tr>
 <tr class="separator:a51dcf0e5889baa4c2cc68c8ecc254eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b28956b1dcf288c6d38e58de5634133"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b28956b1dcf288c6d38e58de5634133"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_U1_ENABLE</b>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memitem:a1b28956b1dcf288c6d38e58de5634133"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a1b28956b1dcf288c6d38e58de5634133">USB_U1_ENABLE</a>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memdesc:a1b28956b1dcf288c6d38e58de5634133"><td class="mdescLeft">&#160;</td><td class="mdescRight">U1 enable feature selector.  <a href="#a1b28956b1dcf288c6d38e58de5634133">More...</a><br/></td></tr>
 <tr class="separator:a1b28956b1dcf288c6d38e58de5634133"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75217f246e40e7caff58ae3c9b4b1963"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75217f246e40e7caff58ae3c9b4b1963"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_U2_ENABLE</b>&#160;&#160;&#160;0x31</td></tr>
+<tr class="memitem:a75217f246e40e7caff58ae3c9b4b1963"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a75217f246e40e7caff58ae3c9b4b1963">USB_U2_ENABLE</a>&#160;&#160;&#160;0x31</td></tr>
+<tr class="memdesc:a75217f246e40e7caff58ae3c9b4b1963"><td class="mdescLeft">&#160;</td><td class="mdescRight">U2 enable feature selector.  <a href="#a75217f246e40e7caff58ae3c9b4b1963">More...</a><br/></td></tr>
 <tr class="separator:a75217f246e40e7caff58ae3c9b4b1963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00ca513cdf2075d55fb593baca88ecc3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00ca513cdf2075d55fb593baca88ecc3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_INTRF_FUNC_SUSPEND</b>&#160;&#160;&#160;0x00	/* function suspend */</td></tr>
+<tr class="memitem:a00ca513cdf2075d55fb593baca88ecc3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a00ca513cdf2075d55fb593baca88ecc3">USB_INTRF_FUNC_SUSPEND</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a00ca513cdf2075d55fb593baca88ecc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface function suspend feature selector.  <a href="#a00ca513cdf2075d55fb593baca88ecc3">More...</a><br/></td></tr>
 <tr class="separator:a00ca513cdf2075d55fb593baca88ecc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Descriptor Types</div></td></tr>
-<tr class="memitem:a1eeee364834b9968e99bceac985efdf9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1eeee364834b9968e99bceac985efdf9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_DEVICE_DESC</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a1eeee364834b9968e99bceac985efdf9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a1eeee364834b9968e99bceac985efdf9">USB_TYPE_DEVICE_DESC</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a1eeee364834b9968e99bceac985efdf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Device Descriptor type.  <a href="#a1eeee364834b9968e99bceac985efdf9">More...</a><br/></td></tr>
 <tr class="separator:a1eeee364834b9968e99bceac985efdf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeec13d3b5ee8a7e32a936ab1cad81077"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeec13d3b5ee8a7e32a936ab1cad81077"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_CONFIG_DESC</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:aeec13d3b5ee8a7e32a936ab1cad81077"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#aeec13d3b5ee8a7e32a936ab1cad81077">USB_TYPE_CONFIG_DESC</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:aeec13d3b5ee8a7e32a936ab1cad81077"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Configuration Descriptor type.  <a href="#aeec13d3b5ee8a7e32a936ab1cad81077">More...</a><br/></td></tr>
 <tr class="separator:aeec13d3b5ee8a7e32a936ab1cad81077"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07028fdba8df065d5c64d3fc318709de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07028fdba8df065d5c64d3fc318709de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_STRING_DESC</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a07028fdba8df065d5c64d3fc318709de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a07028fdba8df065d5c64d3fc318709de">USB_TYPE_STRING_DESC</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a07028fdba8df065d5c64d3fc318709de"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB String Descriptor type.  <a href="#a07028fdba8df065d5c64d3fc318709de">More...</a><br/></td></tr>
 <tr class="separator:a07028fdba8df065d5c64d3fc318709de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83f8f52050312826f98a75457787f8a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83f8f52050312826f98a75457787f8a6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_INTERFACE_DESC</b>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memitem:a83f8f52050312826f98a75457787f8a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a83f8f52050312826f98a75457787f8a6">USB_TYPE_INTERFACE_DESC</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a83f8f52050312826f98a75457787f8a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Interface Descriptor type.  <a href="#a83f8f52050312826f98a75457787f8a6">More...</a><br/></td></tr>
 <tr class="separator:a83f8f52050312826f98a75457787f8a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a065ef0ece8a164478d33b8c588d4b338"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a065ef0ece8a164478d33b8c588d4b338"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_ENDPOINT_CFG_DESC</b>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memitem:a065ef0ece8a164478d33b8c588d4b338"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a065ef0ece8a164478d33b8c588d4b338">USB_TYPE_ENDPOINT_CFG_DESC</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:a065ef0ece8a164478d33b8c588d4b338"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Endpoint Descriptor type.  <a href="#a065ef0ece8a164478d33b8c588d4b338">More...</a><br/></td></tr>
 <tr class="separator:a065ef0ece8a164478d33b8c588d4b338"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46e91daffc4093dfaeea44128ddbe77c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46e91daffc4093dfaeea44128ddbe77c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_DEVICE_QUALIFIER</b>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memitem:a46e91daffc4093dfaeea44128ddbe77c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a46e91daffc4093dfaeea44128ddbe77c">USB_TYPE_DEVICE_QUALIFIER</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:a46e91daffc4093dfaeea44128ddbe77c"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Device Qualifier Descriptor type.  <a href="#a46e91daffc4093dfaeea44128ddbe77c">More...</a><br/></td></tr>
 <tr class="separator:a46e91daffc4093dfaeea44128ddbe77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb4c940d3eebb83062dee2d5b2b813b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fb4c940d3eebb83062dee2d5b2b813b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>OSD_TYPE_CONFIG_DESCR</b>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memitem:a1fb4c940d3eebb83062dee2d5b2b813b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a1fb4c940d3eebb83062dee2d5b2b813b">OSD_TYPE_CONFIG_DESCR</a>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memdesc:a1fb4c940d3eebb83062dee2d5b2b813b"><td class="mdescLeft">&#160;</td><td class="mdescRight">OS-specific Configuration Descriptor type.  <a href="#a1fb4c940d3eebb83062dee2d5b2b813b">More...</a><br/></td></tr>
 <tr class="separator:a1fb4c940d3eebb83062dee2d5b2b813b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2f9c438d0a1d60f3b44772d524953f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2f9c438d0a1d60f3b44772d524953f9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_INTERFACE_ASSOCIATION</b>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memitem:ae2f9c438d0a1d60f3b44772d524953f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#ae2f9c438d0a1d60f3b44772d524953f9">USB_TYPE_INTERFACE_ASSOCIATION</a>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memdesc:ae2f9c438d0a1d60f3b44772d524953f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Interface Association Descriptor type.  <a href="#ae2f9c438d0a1d60f3b44772d524953f9">More...</a><br/></td></tr>
 <tr class="separator:ae2f9c438d0a1d60f3b44772d524953f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c73097a46352acad1f2c123b5ed5ff4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c73097a46352acad1f2c123b5ed5ff4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_BOS_DESC</b>&#160;&#160;&#160;0x0F</td></tr>
+<tr class="memitem:a6c73097a46352acad1f2c123b5ed5ff4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a6c73097a46352acad1f2c123b5ed5ff4">USB_TYPE_BOS_DESC</a>&#160;&#160;&#160;0x0F</td></tr>
+<tr class="memdesc:a6c73097a46352acad1f2c123b5ed5ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB BOS Descriptor type.  <a href="#a6c73097a46352acad1f2c123b5ed5ff4">More...</a><br/></td></tr>
 <tr class="separator:a6c73097a46352acad1f2c123b5ed5ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cfd6f13aa6ecf18c4fc45aea69d2146"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cfd6f13aa6ecf18c4fc45aea69d2146"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_HID_DESC</b>&#160;&#160;&#160;0x21</td></tr>
+<tr class="memitem:a1cfd6f13aa6ecf18c4fc45aea69d2146"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a1cfd6f13aa6ecf18c4fc45aea69d2146">USB_TYPE_HID_DESC</a>&#160;&#160;&#160;0x21</td></tr>
+<tr class="memdesc:a1cfd6f13aa6ecf18c4fc45aea69d2146"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB HID Descriptor type.  <a href="#a1cfd6f13aa6ecf18c4fc45aea69d2146">More...</a><br/></td></tr>
 <tr class="separator:a1cfd6f13aa6ecf18c4fc45aea69d2146"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cd5e5f1fbd135343d99c7610f52e73b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cd5e5f1fbd135343d99c7610f52e73b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_REPORT_DESC</b>&#160;&#160;&#160;0x22</td></tr>
+<tr class="memitem:a7cd5e5f1fbd135343d99c7610f52e73b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a7cd5e5f1fbd135343d99c7610f52e73b">USB_TYPE_REPORT_DESC</a>&#160;&#160;&#160;0x22</td></tr>
+<tr class="memdesc:a7cd5e5f1fbd135343d99c7610f52e73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB HID Report Descriptor type.  <a href="#a7cd5e5f1fbd135343d99c7610f52e73b">More...</a><br/></td></tr>
 <tr class="separator:a7cd5e5f1fbd135343d99c7610f52e73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f5bc71c91c8c64e1a5b467c2cad9f05"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f5bc71c91c8c64e1a5b467c2cad9f05"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_TYPE_DFUFUNC_DESC</b>&#160;&#160;&#160;0x21    /* DFU Functional Desc */</td></tr>
+<tr class="memitem:a7f5bc71c91c8c64e1a5b467c2cad9f05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a7f5bc71c91c8c64e1a5b467c2cad9f05">USB_TYPE_DFUFUNC_DESC</a>&#160;&#160;&#160;0x21</td></tr>
+<tr class="memdesc:a7f5bc71c91c8c64e1a5b467c2cad9f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB DFU Functional Descriptor type.  <a href="#a7f5bc71c91c8c64e1a5b467c2cad9f05">More...</a><br/></td></tr>
 <tr class="separator:a7f5bc71c91c8c64e1a5b467c2cad9f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Status type</div></td></tr>
-<tr class="memitem:add9273c9db74005320b9b4d2e77323c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add9273c9db74005320b9b4d2e77323c5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_STATUS_MASK</b>&#160;&#160;&#160;0x3</td></tr>
+<tr class="memitem:add9273c9db74005320b9b4d2e77323c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#add9273c9db74005320b9b4d2e77323c5">USB_STATUS_MASK</a>&#160;&#160;&#160;0x3</td></tr>
+<tr class="memdesc:add9273c9db74005320b9b4d2e77323c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for USB status recipient type.  <a href="#add9273c9db74005320b9b4d2e77323c5">More...</a><br/></td></tr>
 <tr class="separator:add9273c9db74005320b9b4d2e77323c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64f098fc24025cd6478a436e2a8eba85"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64f098fc24025cd6478a436e2a8eba85"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_STATUS_DEVICE</b>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memitem:a64f098fc24025cd6478a436e2a8eba85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a64f098fc24025cd6478a436e2a8eba85">USB_STATUS_DEVICE</a>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memdesc:a64f098fc24025cd6478a436e2a8eba85"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB status: Device status.  <a href="#a64f098fc24025cd6478a436e2a8eba85">More...</a><br/></td></tr>
 <tr class="separator:a64f098fc24025cd6478a436e2a8eba85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75885a661e7845356536cb92dc809ee9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75885a661e7845356536cb92dc809ee9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_STATUS_INTERFACE</b>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memitem:a75885a661e7845356536cb92dc809ee9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a75885a661e7845356536cb92dc809ee9">USB_STATUS_INTERFACE</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:a75885a661e7845356536cb92dc809ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB status: Interface status.  <a href="#a75885a661e7845356536cb92dc809ee9">More...</a><br/></td></tr>
 <tr class="separator:a75885a661e7845356536cb92dc809ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8272157df84f3cb8a4b8e159088cb93"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af8272157df84f3cb8a4b8e159088cb93"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_STATUS_ENDPOINT</b>&#160;&#160;&#160;0x2</td></tr>
+<tr class="memitem:af8272157df84f3cb8a4b8e159088cb93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#af8272157df84f3cb8a4b8e159088cb93">USB_STATUS_ENDPOINT</a>&#160;&#160;&#160;0x2</td></tr>
+<tr class="memdesc:af8272157df84f3cb8a4b8e159088cb93"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB status: Endpoint status.  <a href="#af8272157df84f3cb8a4b8e159088cb93">More...</a><br/></td></tr>
 <tr class="separator:af8272157df84f3cb8a4b8e159088cb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">EP Types</div></td></tr>
-<tr class="memitem:ac0c33c0c20c57a68596e55b00a6302b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0c33c0c20c57a68596e55b00a6302b7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_CONTROL</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:ac0c33c0c20c57a68596e55b00a6302b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#ac0c33c0c20c57a68596e55b00a6302b7">USB_EP_CONTROL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ac0c33c0c20c57a68596e55b00a6302b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint type: Control.  <a href="#ac0c33c0c20c57a68596e55b00a6302b7">More...</a><br/></td></tr>
 <tr class="separator:ac0c33c0c20c57a68596e55b00a6302b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2defbb9d8ba5374954dfcd55afdc45b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2defbb9d8ba5374954dfcd55afdc45b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_ISOCHRONOUS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:aa2defbb9d8ba5374954dfcd55afdc45b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#aa2defbb9d8ba5374954dfcd55afdc45b">USB_EP_ISOCHRONOUS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:aa2defbb9d8ba5374954dfcd55afdc45b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint type: Isochronous.  <a href="#aa2defbb9d8ba5374954dfcd55afdc45b">More...</a><br/></td></tr>
 <tr class="separator:aa2defbb9d8ba5374954dfcd55afdc45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bb6534247e1a0ac44e2eeb5b3a6934f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bb6534247e1a0ac44e2eeb5b3a6934f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_BULK</b>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a4bb6534247e1a0ac44e2eeb5b3a6934f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a4bb6534247e1a0ac44e2eeb5b3a6934f">USB_EP_BULK</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a4bb6534247e1a0ac44e2eeb5b3a6934f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint type: Bulk.  <a href="#a4bb6534247e1a0ac44e2eeb5b3a6934f">More...</a><br/></td></tr>
 <tr class="separator:a4bb6534247e1a0ac44e2eeb5b3a6934f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af51a3af3807dd55e340c1ddbc3f2d352"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af51a3af3807dd55e340c1ddbc3f2d352"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_INTERRUPT</b>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:af51a3af3807dd55e340c1ddbc3f2d352"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#af51a3af3807dd55e340c1ddbc3f2d352">USB_EP_INTERRUPT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:af51a3af3807dd55e340c1ddbc3f2d352"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint type: Interrupt.  <a href="#af51a3af3807dd55e340c1ddbc3f2d352">More...</a><br/></td></tr>
 <tr class="separator:af51a3af3807dd55e340c1ddbc3f2d352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Device Classes</div></td></tr>
-<tr class="memitem:a8785f84db1be6b0b5da34cd91a1b6138"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8785f84db1be6b0b5da34cd91a1b6138"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_CLASS_AUDIO</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a8785f84db1be6b0b5da34cd91a1b6138"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a8785f84db1be6b0b5da34cd91a1b6138">USB_CLASS_AUDIO</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a8785f84db1be6b0b5da34cd91a1b6138"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB class code: Audio.  <a href="#a8785f84db1be6b0b5da34cd91a1b6138">More...</a><br/></td></tr>
 <tr class="separator:a8785f84db1be6b0b5da34cd91a1b6138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af062e949014bed74a8b5fedcf1705602"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af062e949014bed74a8b5fedcf1705602"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_CLASS_HID</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:af062e949014bed74a8b5fedcf1705602"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#af062e949014bed74a8b5fedcf1705602">USB_CLASS_HID</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:af062e949014bed74a8b5fedcf1705602"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB class code: HID.  <a href="#af062e949014bed74a8b5fedcf1705602">More...</a><br/></td></tr>
 <tr class="separator:af062e949014bed74a8b5fedcf1705602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb5fc9c9b6ca548466f0a32011098149"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb5fc9c9b6ca548466f0a32011098149"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_CLASS_STORAGE</b>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memitem:adb5fc9c9b6ca548466f0a32011098149"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#adb5fc9c9b6ca548466f0a32011098149">USB_CLASS_STORAGE</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:adb5fc9c9b6ca548466f0a32011098149"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB class code: Mass Storage.  <a href="#adb5fc9c9b6ca548466f0a32011098149">More...</a><br/></td></tr>
 <tr class="separator:adb5fc9c9b6ca548466f0a32011098149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02fb07e20ad6d1af64439f40093bc80f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02fb07e20ad6d1af64439f40093bc80f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_CLASS_MISC</b>&#160;&#160;&#160;0xEF</td></tr>
+<tr class="memitem:a02fb07e20ad6d1af64439f40093bc80f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a02fb07e20ad6d1af64439f40093bc80f">USB_CLASS_MISC</a>&#160;&#160;&#160;0xEF</td></tr>
+<tr class="memdesc:a02fb07e20ad6d1af64439f40093bc80f"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB class code: Miscellaneous.  <a href="#a02fb07e20ad6d1af64439f40093bc80f">More...</a><br/></td></tr>
 <tr class="separator:a02fb07e20ad6d1af64439f40093bc80f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cc8ab485b0707e0a207199b41b2b26f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2cc8ab485b0707e0a207199b41b2b26f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_CLASS_DFU</b>&#160;&#160;&#160;0xFE</td></tr>
+<tr class="memitem:a2cc8ab485b0707e0a207199b41b2b26f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#a2cc8ab485b0707e0a207199b41b2b26f">USB_CLASS_DFU</a>&#160;&#160;&#160;0xFE</td></tr>
+<tr class="memdesc:a2cc8ab485b0707e0a207199b41b2b26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB class code: DFU.  <a href="#a2cc8ab485b0707e0a207199b41b2b26f">More...</a><br/></td></tr>
 <tr class="separator:a2cc8ab485b0707e0a207199b41b2b26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acacc4de7981ab8e877680cd5a8c3b227"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acacc4de7981ab8e877680cd5a8c3b227"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_CLASS_VENDOR</b>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memitem:acacc4de7981ab8e877680cd5a8c3b227"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__ch9_8h.html#acacc4de7981ab8e877680cd5a8c3b227">USB_CLASS_VENDOR</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:acacc4de7981ab8e877680cd5a8c3b227"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB class code: Vendor-specific.  <a href="#acacc4de7981ab8e877680cd5a8c3b227">More...</a><br/></td></tr>
 <tr class="separator:acacc4de7981ab8e877680cd5a8c3b227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -294,6 +298,122 @@ Functions</h2></td></tr>
 <tr class="separator:a4a51f5e7948e7a27adcd66023d48876d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a5742e1cda811de7c524f25fb7d054747"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define attribute</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">attr</td><td>)</td>
+          <td>&#160;&#160;&#160;__attribute__((__packed__)) attr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Packed attribute macro for cross-compiler compatibility. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1fb4c940d3eebb83062dee2d5b2b813b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OSD_TYPE_CONFIG_DESCR&#160;&#160;&#160;0x07</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>OS-specific Configuration Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8785f84db1be6b0b5da34cd91a1b6138"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASS_AUDIO&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB class code: Audio. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2cc8ab485b0707e0a207199b41b2b26f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASS_DFU&#160;&#160;&#160;0xFE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB class code: DFU. </p>
+
+</div>
+</div>
+<a class="anchor" id="af062e949014bed74a8b5fedcf1705602"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASS_HID&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB class code: HID. </p>
+
+</div>
+</div>
+<a class="anchor" id="a02fb07e20ad6d1af64439f40093bc80f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASS_MISC&#160;&#160;&#160;0xEF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB class code: Miscellaneous. </p>
+
+</div>
+</div>
+<a class="anchor" id="adb5fc9c9b6ca548466f0a32011098149"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASS_STORAGE&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB class code: Mass Storage. </p>
+
+</div>
+</div>
+<a class="anchor" id="acacc4de7981ab8e877680cd5a8c3b227"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_CLASS_VENDOR&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB class code: Vendor-specific. </p>
+
+</div>
+</div>
 <a class="anchor" id="acd9c941e7cfb86f5b0daf5c8eaee257a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +426,7 @@ Functions</h2></td></tr>
 
 <p>Class Request. </p>
 
-<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, and <a class="el" href="xusb__freertos__class__keyboard_8c.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>.</p>
+<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, and <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>.</p>
 
 </div>
 </div>
@@ -342,6 +462,332 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a6cc94201b56bd028068568de7a6cf68c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DEVICE_REMOTE_WAKEUP&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remote wakeup feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a93a6aa5841b4ff46167822362add046d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_DIR_MASK&#160;&#160;&#160;0x80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask to extract endpoint direction from address. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a926f4719a748bfd0d9b68136468a7d0f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_HALT&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint halt feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a435416dd71e258cfd83be50a991db726"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_NUMBER_MASK&#160;&#160;&#160;0x0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask to extract endpoint number from address. </p>
+
+</div>
+</div>
+<a class="anchor" id="a42afa2f0f2e88219af617c036745886e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_XFERTYPE_MASK&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask to extract endpoint transfer type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4bb6534247e1a0ac44e2eeb5b3a6934f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_BULK&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint type: Bulk. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac0c33c0c20c57a68596e55b00a6302b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_CONTROL&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint type: Control. </p>
+
+</div>
+</div>
+<a class="anchor" id="af51a3af3807dd55e340c1ddbc3f2d352"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_INTERRUPT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint type: Interrupt. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa2defbb9d8ba5374954dfcd55afdc45b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_ISOCHRONOUS&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint type: Isochronous. </p>
+
+</div>
+</div>
+<a class="anchor" id="a00ca513cdf2075d55fb593baca88ecc3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_INTRF_FUNC_SUSPEND&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interface function suspend feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a43687a0101d3a62f05ffcd6e80cfa7ef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_CLEAR_FEATURE&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Clear Feature request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae4c9a3af66b1d3203140c45af59de525"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_GET_CONFIGURATION&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Get Configuration request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae10a1fd5f65d075c17536fd3f7d8472e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_GET_DESCRIPTOR&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Get Descriptor request code. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0eb3845dcaf168d3755565f7a89b3f6e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_GET_INTERFACE&#160;&#160;&#160;0x0a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Get Interface request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9a493ab751c46c46ab88d558e683a323"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_GET_STATUS&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Get Status request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaca043a771a5d020e91011f458a3d31c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_ADDRESS&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set Address request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a74588b0ebd757cfd2b9e4533324e7ae7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_CONFIGURATION&#160;&#160;&#160;0x09</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set Configuration request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae787427813c070874ed3493b57f1e5d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_DESCRIPTOR&#160;&#160;&#160;0x07</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set Descriptor request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3661e3551d3dbd0e10debfe058791045"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_FEATURE&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set Feature request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2ae35a6b81c8115f19dda1ef2180e73e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_INTERFACE&#160;&#160;&#160;0x0b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set Interface request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a18061fabde9ccfd98d744666d94b5cfb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_ISOCH_DELAY&#160;&#160;&#160;0x31</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set Isochronous Delay request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1db63ba2e17bb33b46f4409ecdf8db49"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SET_SEL&#160;&#160;&#160;0x30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Set SEL request code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a315ad41775c2f71af202a4f5b76f8978"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_SYNC_FRAME&#160;&#160;&#160;0x0c</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Sync Frame request code. </p>
+
+</div>
+</div>
 <a class="anchor" id="a8be8332e2da1e54c74c5f2a2230b0a28"></a>
 <div class="memitem">
 <div class="memproto">
@@ -355,6 +801,266 @@ Functions</h2></td></tr>
 <p>Mask for request opcode. </p>
 
 <p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a64f098fc24025cd6478a436e2a8eba85"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATUS_DEVICE&#160;&#160;&#160;0x0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB status: Device status. </p>
+
+</div>
+</div>
+<a class="anchor" id="af8272157df84f3cb8a4b8e159088cb93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATUS_ENDPOINT&#160;&#160;&#160;0x2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB status: Endpoint status. </p>
+
+</div>
+</div>
+<a class="anchor" id="a75885a661e7845356536cb92dc809ee9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATUS_INTERFACE&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB status: Interface status. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__freertos__ch9__keyboard_8c.html#a043075687afdf64ad9382236bd155e60">Usb_GetDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="add9273c9db74005320b9b4d2e77323c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATUS_MASK&#160;&#160;&#160;0x3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask for USB status recipient type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a51dcf0e5889baa4c2cc68c8ecc254eb1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TEST_MODE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test mode feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6c73097a46352acad1f2c123b5ed5ff4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_BOS_DESC&#160;&#160;&#160;0x0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB BOS Descriptor type. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601">Usb_Ch9SetupBosDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeec13d3b5ee8a7e32a936ab1cad81077"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_CONFIG_DESC&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Configuration Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1eeee364834b9968e99bceac985efdf9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_DEVICE_DESC&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Device Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a46e91daffc4093dfaeea44128ddbe77c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_DEVICE_QUALIFIER&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Device Qualifier Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7f5bc71c91c8c64e1a5b467c2cad9f05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_DFUFUNC_DESC&#160;&#160;&#160;0x21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB DFU Functional Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a065ef0ece8a164478d33b8c588d4b338"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_ENDPOINT_CFG_DESC&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Endpoint Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1cfd6f13aa6ecf18c4fc45aea69d2146"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_HID_DESC&#160;&#160;&#160;0x21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB HID Descriptor type. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae2f9c438d0a1d60f3b44772d524953f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_INTERFACE_ASSOCIATION&#160;&#160;&#160;0x0b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Interface Association Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a83f8f52050312826f98a75457787f8a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_INTERFACE_DESC&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Interface Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7cd5e5f1fbd135343d99c7610f52e73b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_REPORT_DESC&#160;&#160;&#160;0x22</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB HID Report Descriptor type. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1">Usb_GetDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a07028fdba8df065d5c64d3fc318709de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TYPE_STRING_DESC&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB String Descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1b28956b1dcf288c6d38e58de5634133"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_U1_ENABLE&#160;&#160;&#160;0x30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>U1 enable feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a75217f246e40e7caff58ae3c9b4b1963"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_U2_ENABLE&#160;&#160;&#160;0x31</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>U2 enable feature selector. </p>
 
 </div>
 </div>
@@ -386,15 +1092,13 @@ Functions</h2></td></tr>
 <p>This function handles a Setup Data packet from the host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the structure containing the setup request.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the structure containing the setup request. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_setup_packet.html#a4b5748b09c8ef33113a504c825244d9f">SetupPacket::bRequest</a>, <a class="el" href="struct_setup_packet.html#ab4ac3a31f3a946827610d7785f029d21">SetupPacket::bRequestType</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__ch9_8h.html#acd9c941e7cfb86f5b0daf5c8eaee257a">USB_CMD_CLASSREQ</a>, <a class="el" href="xusb__ch9_8h.html#a64404ce1fb01607a70f4dbf09b5c9ed8">USB_CMD_STDREQ</a>, <a class="el" href="xusb__ch9_8h.html#a5bca8c6c246291af78ec61f05a4684d5">USB_CMD_VENDREQ</a>, and <a class="el" href="xusb__ch9_8h.html#a8be8332e2da1e54c74c5f2a2230b0a28">USB_REQ_TYPE_MASK</a>.</p>
+<p>References <a class="el" href="struct_setup_packet.html#a4b5748b09c8ef33113a504c825244d9f">SetupPacket::bRequest</a>, <a class="el" href="struct_setup_packet.html#ab4ac3a31f3a946827610d7785f029d21">SetupPacket::bRequestType</a>, <a class="el" href="xusb__wrapper_8c.html#a71d38238db02e22f8cae78864066c940">EpSetStall()</a>, <a class="el" href="xusb__wrapper_8c.html#ad850f272d507d36f74a55bb96211b85b">Get_DrvData()</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__ch9_8h.html#acd9c941e7cfb86f5b0daf5c8eaee257a">USB_CMD_CLASSREQ</a>, <a class="el" href="xusb__ch9_8h.html#a64404ce1fb01607a70f4dbf09b5c9ed8">USB_CMD_STDREQ</a>, <a class="el" href="xusb__ch9_8h.html#a5bca8c6c246291af78ec61f05a4684d5">USB_CMD_VENDREQ</a>, <a class="el" href="xusb__wrapper_8h.html#a0510b0a04d9cef144e4d9793310abccf">USB_EP_DIR_OUT</a>, and <a class="el" href="xusb__ch9_8h.html#a8be8332e2da1e54c74c5f2a2230b0a28">USB_REQ_TYPE_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('xplmi__client_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -120,6 +121,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;<a class="el" href="xplmi__mailbox_8h.html">xplmi_mailbox.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__defs_8h.html">xplmi_defs.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___device_id_code.html">XLoader_DeviceIdCode</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device ID code information.  <a href="struct_x_loader___device_id_code.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ab1f20993bdf14a739d6c75cc390d9c92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__client_8h.html#ab1f20993bdf14a739d6c75cc390d9c92">XPLMI_SLR_INDEX_SHIFT</a>&#160;&#160;&#160;(6U)</td></tr>
@@ -140,7 +147,7 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga7e8e7117a32a2207abc17436a82cde25"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga7e8e7117a32a2207abc17436a82cde25">XPlmi_GetDeviceID</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, XLoader_DeviceIdCode *DeviceIdCode)</td></tr>
+<tr class="memitem:ga7e8e7117a32a2207abc17436a82cde25"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga7e8e7117a32a2207abc17436a82cde25">XPlmi_GetDeviceID</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, <a class="el" href="struct_x_loader___device_id_code.html">XLoader_DeviceIdCode</a> *DeviceIdCode)</td></tr>
 <tr class="memdesc:ga7e8e7117a32a2207abc17436a82cde25"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to provides Get device id.  <a href="group__xilplmi__client__apis.html#ga7e8e7117a32a2207abc17436a82cde25">More...</a><br/></td></tr>
 <tr class="separator:ga7e8e7117a32a2207abc17436a82cde25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga87c129257a8fabebacb9f764a4be628d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga87c129257a8fabebacb9f764a4be628d">XPlmi_GetBoard</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, u64 Addr, u32 Size, u32 *ResponseLength)</td></tr>
@@ -152,7 +159,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gab763892ce34e0750315c11168aafdc05"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gab763892ce34e0750315c11168aafdc05">XPlmi_EventLogging</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, u32 sub_cmd, u64 Addr, u32 Len)</td></tr>
 <tr class="memdesc:gab763892ce34e0750315c11168aafdc05"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to Event Logging.  <a href="group__xilplmi__client__apis.html#gab763892ce34e0750315c11168aafdc05">More...</a><br/></td></tr>
 <tr class="separator:gab763892ce34e0750315c11168aafdc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0055868baa98bae19b5d94d65b92189b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga0055868baa98bae19b5d94d65b92189b">XPlmi_ConfigSecureComm</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, XPlmi_SsitSecComm *SsitSecCommDataPtr)</td></tr>
+<tr class="memitem:ga0055868baa98bae19b5d94d65b92189b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga0055868baa98bae19b5d94d65b92189b">XPlmi_ConfigSecureComm</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, <a class="el" href="struct_x_plmi___ssit_sec_comm.html">XPlmi_SsitSecComm</a> *SsitSecCommDataPtr)</td></tr>
 <tr class="memdesc:ga0055868baa98bae19b5d94d65b92189b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to configure secure communication.  <a href="group__xilplmi__client__apis.html#ga0055868baa98bae19b5d94d65b92189b">More...</a><br/></td></tr>
 <tr class="separator:ga0055868baa98bae19b5d94d65b92189b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf2f52002fc35d8a8b40cb6dbc5bfc7a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gaf2f52002fc35d8a8b40cb6dbc5bfc7a3">XPlmi_GetSecureCommStatus</a> (<a class="el" href="struct_x_plmi___client_instance.html">XPlmi_ClientInstance</a> *InstancePtr, u32 SlrIndex, u32 *SecCommStatus)</td></tr>

@@ -1,0 +1,1347 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__mbox__api" kind="group">
+    <compoundname>mbox_api</compoundname>
+    <title>MBOX APIs</title>
+      <sectiondef kind="user-defined">
+      <header>Register Offset Definitions</header>
+      <description><para>Register offsets within a mbox. </para></description>
+      <memberdef kind="define" id="group__mbox__api_1ga1cfe8987e8a70162381ff6893967fbd8" prot="public" static="no">
+        <name>XMB_WRITE_REG_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Mbox write register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga3a1f7a91d465c1e6be224c7f73d8ecea" prot="public" static="no">
+        <name>XMB_READ_REG_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Mbox read register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga939d1f0b71e575a31a3689ca28cbc749" prot="public" static="no">
+        <name>XMB_STATUS_REG_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Mbox status reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga8620711a04da0032b216e3f57a80570d" compoundref="xmbox_8c" startline="666" endline="677">XMbox_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga777c199c53e918c3cbb896187ce28914" prot="public" static="no">
+        <name>XMB_ERROR_REG_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Mbox Error reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gabf6dc425ab72da28a9f30d37f803ec25" prot="public" static="no">
+        <name>XMB_SIT_REG_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Mbox send interrupt threshold register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga4fb918498d8adc676f4ea554585609d2" compoundref="xmbox_8c" startline="620" endline="630">XMbox_SetSendThreshold</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gac1a7132725b8bd47cf0ddfa5e219a63a" prot="public" static="no">
+        <name>XMB_RIT_REG_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Mbox receive interrupt threshold register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga8c05b007d0f92ca32702db58573302a9" compoundref="xmbox_8c" startline="643" endline="653">XMbox_SetReceiveThreshold</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga24776289ecaec70de8722b0d4e34db6f" prot="public" static="no">
+        <name>XMB_IS_REG_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Mbox interrupt status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gab93a50b0032e4b6202c23c4201e0591e" compoundref="xmbox_8c" startline="596" endline="606">XMbox_ClearInterrupt</referencedby>
+        <referencedby refid="group__mbox_1gaf73757d06d4cc60466e563ab185a6c07" compoundref="xmbox_8c" startline="572" endline="579">XMbox_GetInterruptStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga992a83c0e5454de142ae0110531e6116" prot="public" static="no">
+        <name>XMB_IE_REG_OFFSET</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+<para>Mbox interrupt enable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gacb96b1964aa476b4d60df4fd2440022c" compoundref="xmbox_8c" startline="548" endline="555">XMbox_GetInterruptEnable</referencedby>
+        <referencedby refid="group__mbox_1ga8e56860ea2cf7f4f1df0f1862d8c4c61" compoundref="xmbox_8c" startline="522" endline="531">XMbox_SetInterruptEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga40250159d7755332fc0e4149b46985d7" prot="public" static="no">
+        <name>XMB_IP_REG_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Mbox interrupt pending register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga12aab471e30140e408a6e9c396b44257" prot="public" static="no">
+        <name>XMB_CTRL_REG_OFFSET</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+<para>Mbox control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gacf8d6e720149452270eac0493537a233" compoundref="xmbox_8c" startline="494" endline="509">XMbox_ResetFifos</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status register bit definitions</header>
+      <description><para>These status bits are used to poll the FIFOs </para></description>
+      <memberdef kind="define" id="group__mbox__api_1gaa79d42f5c0e43f6b6679a42f119f9563" prot="public" static="no">
+        <name>XMB_STATUS_FIFO_EMPTY</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive FIFO is Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga03cf0e55c079a09632583ac77df57329" prot="public" static="no">
+        <name>XMB_STATUS_FIFO_FULL</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Send FIFO is Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga12ee4cdd2f16e453fc3acca51768fb30" prot="public" static="no">
+        <name>XMB_STATUS_STA</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Send FIFO Threshold Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga5961a437539596663a0f87843d6f04d7" prot="public" static="no">
+        <name>XMB_STATUS_RTA</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Receive FIFO Threshold Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Registers(s) bits definitions.</header>
+      <description><para>The IS, IE, and IP registers all have the same bit definition. </para></description>
+      <memberdef kind="define" id="group__mbox__api_1ga03584ed8fe52cb5f04450bec96f00e51" prot="public" static="no">
+        <name>XMB_IX_STA</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Send Threshold Active, when the number of Send FIFO entries is less than and equal to Send Interrupt Threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gac4ca917f4f31be7e899e1adaa4c503aa" prot="public" static="no">
+        <name>XMB_IX_RTA</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Receive Threshold Active, when the number of Receive FIFO entries is greater than Receive Interrupt Threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gad879d5982bf753dcf27efc6bb8cca604" prot="public" static="no">
+        <name>XMB_IX_ERR</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Mailbox Error, when read on empty or write on full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error bits definition.</header>
+      <memberdef kind="define" id="group__mbox__api_1ga1fc712eb56bcc330c46c5bfe3f3c1583" prot="public" static="no">
+        <name>XMB_ERROR_FIFO_EMPTY</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive FIFO is Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga90d8c6add066bca7fc234e0908a2ab56" prot="public" static="no">
+        <name>XMB_ERROR_FIFO_FULL</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Send FIFO is Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control register bits definition.</header>
+      <memberdef kind="define" id="group__mbox__api_1ga9d015e11c5da1e44ab58be839cdf33d3" prot="public" static="no">
+        <name>XMB_CTRL_RESET_SEND_FIFO</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Clear Send FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gacf8d6e720149452270eac0493537a233" compoundref="xmbox_8c" startline="494" endline="509">XMbox_ResetFifos</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gaf8e2e5c1013346efd30bf5ea7314ebd7" prot="public" static="no">
+        <name>XMB_CTRL_RESET_RECV_FIFO</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Clear Receive FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gacf8d6e720149452270eac0493537a233" compoundref="xmbox_8c" startline="494" endline="509">XMbox_ResetFifos</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__mbox__api_1gad28284f96fddcd9fdbd1efd18363bd43" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref></type>
+        <definition>XMbox_Config XMbox_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XMbox_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_XMBOX_0_DEVICE_ID,
+		XPAR_XMBOX_0_BASEADDR,
+		XPAR_XMBOX_0_USE_FSL,
+		XPAR_XMBOX_0_SEND_ID,
+		XPAR_XMBOX_0_RECV_ID
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_g.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_g.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__mbox__api_1gad28284f96fddcd9fdbd1efd18363bd43" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref></type>
+        <definition>XMbox_Config XMbox_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XMbox_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_sinit.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_g.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mbox__api_1ga34fbeaf8de9092cb4d5b00dfbf054426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_CfgInitialize</definition>
+        <argsstring>(XMbox *InstancePtr, XMbox_Config *ConfigPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XMbox_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific mailbox instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initializes a specific mailbox.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device configuration structure containing required HW build data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Physical address of the hardware in a Virtual Memory operating system environment. It is the Base Address in a stand alone environment.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="85" bodyend="102"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox_1ac30a078abf5bafc3b3ff0559894f333f" compoundref="xmbox_8h" startline="199">XMbox::IsReady</references>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="136" endline="239">ProdCon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gaa1f68405027d147c68aa53bcb49fbd5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_Read</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesRecvdPtr)</argsstring>
+        <name>XMbox_Read</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BytesRecvdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads requested bytes from the mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads requested bytes from the mailbox referenced by InstancePtr, into the buffer pointed to by the provided pointer. The number of bytes must be a multiple of 4 (bytes). If not, the call fails in an assert.</para><para>This function is non blocking.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to read the mailbox contents into, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes of data requested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">BytesRecvdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Memory that is updated with the number of bytes of data actually read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_NO_DATA if there was no data in the mailbox.</para></listitem></itemizedlist>
+</para></simplesect>
+On success, the number of bytes read is returned through the pointer. The call may return with fewer bytes placed in the buffer than requested (not including zero). This is not necessarily an error condition and indicates the amount of data that was currently available in the mailbox. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="131" bodyend="182"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="411">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox__api_1ga597515ed7cbc30c2bcb4409f4a463dcf" compoundref="xmbox__hw_8h" startline="380">XMbox_FSLReadMBox</references>
+        <references refid="group__mbox__api_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="246">XMbox_IsEmptyHw</references>
+        <references refid="group__mbox__api_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" compoundref="xmbox__hw_8h" startline="226">XMbox_ReadMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" compoundref="xmbox__intr__example_8c" startline="412" endline="449">MailboxExample_Receive</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gab14511b623c1d3c191cdc441b8909006" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_ReadBlocking</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</argsstring>
+        <name>XMbox_ReadBlocking</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <briefdescription>
+<para>Reads requested bytes from the mailbox, blocking until complete. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads requested bytes from the mailbox referenced by InstancePtr, into the buffer pointed to by the provided pointer. The number of bytes must be a multiple of 4 (bytes). If not, the call fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to read the mailbox contents into, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes of data requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The call blocks until the number of bytes requested are available. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="201" bodyend="246"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="411">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox__api_1ga597515ed7cbc30c2bcb4409f4a463dcf" compoundref="xmbox__hw_8h" startline="380">XMbox_FSLReadMBox</references>
+        <references refid="group__mbox__api_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="246">XMbox_IsEmptyHw</references>
+        <references refid="group__mbox__api_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" compoundref="xmbox__hw_8h" startline="226">XMbox_ReadMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" compoundref="xmbox__intr__example_8c" startline="412" endline="449">MailboxExample_Receive</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="136" endline="239">ProdCon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga254c4e5a042e34520c3669fbf9651bc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_Write</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes, u32 *BytesSentPtr)</argsstring>
+        <name>XMbox_Write</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BytesSentPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes requested bytes to the mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para>Writes the requested bytes from the buffer pointed to by the provided pointer into the mailbox referenced by InstancePtr. The number of bytes must be a multiple of 4 (bytes). If not, the call fails in an assert.</para><para>This function is non blocking.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source data buffer, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes requested to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">BytesSentPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Points to memory which is updated with the actual number of bytes written, return value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FIFO_NO_ROOM if the FIFO was full.</para></listitem></itemizedlist>
+</para></simplesect>
+On success, the number of bytes successfully written into the destination mailbox is returned in the provided pointer. The call may return with zero. This is not necessarily an error condition and indicates that the mailbox is currently full.</para><para><simplesect kind="note"><para>The provided buffer pointed to by BufferPtr must be aligned to a word boundary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="277" bodyend="332"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" compoundref="xmbox_8h" startline="177">XMbox_Config::SendID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga59470c703fb9332335643ba020898e59" compoundref="xmbox__hw_8h" startline="427">XMbox_FSLIsFull</references>
+        <references refid="group__mbox__api_1ga575df2eee6d404775c6b2e2843421a53" compoundref="xmbox__hw_8h" startline="395">XMbox_FSLWriteMBox</references>
+        <references refid="group__mbox__api_1ga686ca5f4834e7e613350a2166cd49398" compoundref="xmbox__hw_8h" startline="266">XMbox_IsFullHw</references>
+        <references refid="group__mbox__api_1ga267447e4cde5a2e0320ebba438c22a47" compoundref="xmbox__hw_8h" startline="208">XMbox_WriteMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" compoundref="xmbox__intr__example_8c" startline="364" endline="392">MailboxExample_Send</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga23ee00f97807790770f2dab9b2ea3b0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_WriteBlocking</definition>
+        <argsstring>(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes)</argsstring>
+        <name>XMbox_WriteBlocking</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestedBytes</declname>
+        </param>
+        <briefdescription>
+<para>Writes requested bytes to the mailbox, blocking until complete. </para>        </briefdescription>
+        <detaileddescription>
+<para>Writes the requested bytes from the buffer pointed to by the provided pointer into the mailbox referenced by InstancePtr. The number of bytes must be a multiple of 4 (bytes). If not, the call fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source data buffer, aligned to a word boundary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RequestedBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes requested to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The call blocks until the number of bytes requested are written. The provided buffer pointed to by BufferPtr must be aligned to a word boundary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="351" bodyend="388"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" compoundref="xmbox_8h" startline="177">XMbox_Config::SendID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga59470c703fb9332335643ba020898e59" compoundref="xmbox__hw_8h" startline="427">XMbox_FSLIsFull</references>
+        <references refid="group__mbox__api_1ga575df2eee6d404775c6b2e2843421a53" compoundref="xmbox__hw_8h" startline="395">XMbox_FSLWriteMBox</references>
+        <references refid="group__mbox__api_1ga686ca5f4834e7e613350a2166cd49398" compoundref="xmbox__hw_8h" startline="266">XMbox_IsFullHw</references>
+        <references refid="group__mbox__api_1ga267447e4cde5a2e0320ebba438c22a47" compoundref="xmbox__hw_8h" startline="208">XMbox_WriteMBox</references>
+        <referencedby refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" compoundref="xmbox__intr__example_8c" startline="364" endline="392">MailboxExample_Send</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="136" endline="239">ProdCon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gabb01fe466ffcd0da315ffee115f4cd60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_IsEmpty</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_IsEmpty</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether mailbox receive data is available. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks to see if there is data available to be read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>FALSE if there is data to be read.</para></listitem><listitem><para>TRUE if there is no data to be read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="404" bodyend="415"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="411">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox__api_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="246">XMbox_IsEmptyHw</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gaa9db05bc2935bcc2230ff023b5c9cbcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_IsFull</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_IsFull</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the mailbox write FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks to see if there is room in the write FIFO.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>FALSE if there is room in write FIFO.</para></listitem><listitem><para>TRUE if there is no room in the write FIFO. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="431" bodyend="442"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a9e08e69be2c504f49b76b7b992701e5f" compoundref="xmbox_8h" startline="177">XMbox_Config::SendID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga59470c703fb9332335643ba020898e59" compoundref="xmbox__hw_8h" startline="427">XMbox_FSLIsFull</references>
+        <references refid="group__mbox__api_1ga686ca5f4834e7e613350a2166cd49398" compoundref="xmbox__hw_8h" startline="266">XMbox_IsFullHw</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga10691489238a2a1b8515468b416d773e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMbox_Flush</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_Flush</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Flushes mailbox FIFOs by draining the read FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para>Resets the mailbox FIFOs by emptying the READ FIFO and making sure the Error Status is zero.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE if there are any outstanding errors.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Data from read FIFO is thrown away. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="461" bodyend="479"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1a609445dac27b19ef129dd295fc252453" compoundref="xmbox_8h" startline="178">XMbox_Config::RecvID</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1gaa74c9f619d2ee4f3b668743954223ea6" compoundref="xmbox__hw_8h" startline="411">XMbox_FSLIsEmpty</references>
+        <references refid="group__mbox__api_1ga597515ed7cbc30c2bcb4409f4a463dcf" compoundref="xmbox__hw_8h" startline="380">XMbox_FSLReadMBox</references>
+        <references refid="group__mbox__api_1gaa533a34a21931e86fe66cbd144659b87" compoundref="xmbox__hw_8h" startline="246">XMbox_IsEmptyHw</references>
+        <references refid="group__mbox__api_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" compoundref="xmbox__hw_8h" startline="226">XMbox_ReadMBox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gacf8d6e720149452270eac0493537a233" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_ResetFifos</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_ResetFifos</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets mailbox FIFOs through the hardware control register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the hardware control register for memory mapped IO.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Use XMbox_Flush instead for FSL based access. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="494" bodyend="509"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga12aab471e30140e408a6e9c396b44257" compoundref="xmbox__hw_8h" startline="85">XMB_CTRL_REG_OFFSET</references>
+        <references refid="group__mbox__api_1gaf8e2e5c1013346efd30bf5ea7314ebd7" compoundref="xmbox__hw_8h" startline="144">XMB_CTRL_RESET_RECV_FIFO</references>
+        <references refid="group__mbox__api_1ga9d015e11c5da1e44ab58be839cdf33d3" compoundref="xmbox__hw_8h" startline="143">XMB_CTRL_RESET_SEND_FIFO</references>
+        <references refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="190">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga8e56860ea2cf7f4f1df0f1862d8c4c61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_SetInterruptEnable</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Mask)</argsstring>
+        <name>XMbox_SetInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets the mailbox interrupt enable register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the interrupt enable register for this mailbox. This function can only be used for Non-FSL interface. If not, the function fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical OR of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="522" bodyend="531"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga992a83c0e5454de142ae0110531e6116" compoundref="xmbox__hw_8h" startline="83">XMB_IE_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="190">XMbox_WriteReg</references>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gacb96b1964aa476b4d60df4fd2440022c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_GetInterruptEnable</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_GetInterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the mailbox interrupt enable mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Retrieves the interrupt enable for the mailbox. AND the result of this function with XMB_IX_* to determine which interrupts of this mailbox are enabled. This function can only be used for Non-FSL interface. If not, the function fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Mask of interrupt bits made up of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="548" bodyend="555"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga992a83c0e5454de142ae0110531e6116" compoundref="xmbox__hw_8h" startline="83">XMB_IE_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" compoundref="xmbox__hw_8h" startline="171">XMbox_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gaf73757d06d4cc60466e563ab185a6c07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_GetInterruptStatus</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_GetInterruptStatus</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the mailbox interrupt status mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Retrieve the interrupt status for the mailbox. AND the results of this function with XMB_IX_* to determine which interrupts are currently pending to the processor. This function can only be used for Non-FSL interface. If not, the function fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Mask of interrupt bits made up of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="572" bodyend="579"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga24776289ecaec70de8722b0d4e34db6f" compoundref="xmbox__hw_8h" startline="82">XMB_IS_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" compoundref="xmbox__hw_8h" startline="171">XMbox_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gab93a50b0032e4b6202c23c4201e0591e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_ClearInterrupt</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Mask)</argsstring>
+        <name>XMbox_ClearInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears pending mailbox interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>Clears pending interrupts with the provided mask. This function should be called after the software has serviced the interrupts that are pending. This function clears the corresponding bits of the Interrupt Status Register. This function can only be used for Non-FSL interface. If not, the function fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logical OR of XMB_IX_* constants found in <ref refid="xmbox__hw_8h" kindref="compound">xmbox_hw.h</ref>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="596" bodyend="606"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga24776289ecaec70de8722b0d4e34db6f" compoundref="xmbox__hw_8h" startline="82">XMB_IS_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="190">XMbox_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga4fb918498d8adc676f4ea554585609d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_SetSendThreshold</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Value)</argsstring>
+        <name>XMbox_SetSendThreshold</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Sets the send interrupt threshold. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the Send Interrupt Threshold. This function can only be used for Non-FSL interface. If not, the function fails in an assert.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to set for the SIT. Only lower Log2(FIFO Depth) bits are used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="620" bodyend="630"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1gabf6dc425ab72da28a9f30d37f803ec25" compoundref="xmbox__hw_8h" startline="76">XMB_SIT_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="190">XMbox_WriteReg</references>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga8c05b007d0f92ca32702db58573302a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMbox_SetReceiveThreshold</definition>
+        <argsstring>(XMbox *InstancePtr, u32 Value)</argsstring>
+        <name>XMbox_SetReceiveThreshold</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Sets the receive interrupt threshold. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set the Receive Interrupt Threshold. This function can only be used for Non-FSL interface. If not, the function fails in an assert. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to set for the RIT. Only lower Log2(FIFO Depth) bits are used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="643" bodyend="653"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1gac1a7132725b8bd47cf0ddfa5e219a63a" compoundref="xmbox__hw_8h" startline="79">XMB_RIT_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" compoundref="xmbox__hw_8h" startline="190">XMbox_WriteReg</references>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1ga8620711a04da0032b216e3f57a80570d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMbox_GetStatus</definition>
+        <argsstring>(XMbox *InstancePtr)</argsstring>
+        <name>XMbox_GetStatus</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the mailbox status register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Returns Status register contents. This function can only be used for Non-FSL interface. If not, the function fails in an assert. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value returns Status Register contents. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" line="666" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox.c" bodystart="666" bodyend="677"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="struct_x_mbox_1ada3e15b402bdd502048b69a87dfd70a8" compoundref="xmbox_8h" startline="197">XMbox::Config</references>
+        <references refid="struct_x_mbox___config_1ae59a7f14795bc768c36b105863e2efc8" compoundref="xmbox_8h" startline="176">XMbox_Config::UseFSL</references>
+        <references refid="group__mbox__api_1ga939d1f0b71e575a31a3689ca28cbc749" compoundref="xmbox__hw_8h" startline="74">XMB_STATUS_REG_OFFSET</references>
+        <references refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" compoundref="xmbox__hw_8h" startline="171">XMbox_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mbox__api_1gabc2f9793e2d1b538fc041e7a82c0b53d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref> *</type>
+        <definition>XMbox_Config* XMbox_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XMbox_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up mailbox configuration by device ID or base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. The XMbox_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xmbox_8h" kindref="compound">xmbox.h</ref> for the definition of <ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_sinit.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_sinit.c" bodystart="93" bodyend="108"/>
+        <references refid="struct_x_mbox___config_1af5cfe8d147211b6d35c4dce03ad27644" compoundref="xmbox_8h" startline="173">XMbox_Config::Name</references>
+        <referencedby refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="222" endline="313">MailboxExample</referencedby>
+        <referencedby refid="xmbox__example_8c_1a29bcf620083d6150359747d6ffcb5562" compoundref="xmbox__example_8c" startline="136" endline="239">ProdCon</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" prot="public" static="no">
+        <name>XMbox_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Reads a mailbox register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Read one of the mbox registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the mbox device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the offset from the 1st register of the mbox to select the specific register of the mbox.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register, a 32 bit value.</para></simplesect>
+<simplesect kind="note"><para>C-style signature u32 <ref refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg(u32 BaseAddress, unsigned RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gacb96b1964aa476b4d60df4fd2440022c" compoundref="xmbox_8c" startline="548" endline="555">XMbox_GetInterruptEnable</referencedby>
+        <referencedby refid="group__mbox_1gaf73757d06d4cc60466e563ab185a6c07" compoundref="xmbox_8c" startline="572" endline="579">XMbox_GetInterruptStatus</referencedby>
+        <referencedby refid="group__mbox_1ga8620711a04da0032b216e3f57a80570d" compoundref="xmbox_8c" startline="666" endline="677">XMbox_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" prot="public" static="no">
+        <name>XMbox_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>ValueToWrite</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + (RegOffset)), (ValueToWrite))</initializer>
+        <briefdescription>
+<para>Writes a value to a mailbox register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Write a specified value to a register of a mbox.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the mbox device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the offset from the 1st register of the mbox to select the specific register of the mbox. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ValueToWrite</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32 bit value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature void <ref refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg(u32 BaseAddress, unsigned RegOffset, u32 ValueToWrite)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gab93a50b0032e4b6202c23c4201e0591e" compoundref="xmbox_8c" startline="596" endline="606">XMbox_ClearInterrupt</referencedby>
+        <referencedby refid="group__mbox_1gacf8d6e720149452270eac0493537a233" compoundref="xmbox_8c" startline="494" endline="509">XMbox_ResetFifos</referencedby>
+        <referencedby refid="group__mbox_1ga8e56860ea2cf7f4f1df0f1862d8c4c61" compoundref="xmbox_8c" startline="522" endline="531">XMbox_SetInterruptEnable</referencedby>
+        <referencedby refid="group__mbox_1ga8c05b007d0f92ca32702db58573302a9" compoundref="xmbox_8c" startline="643" endline="653">XMbox_SetReceiveThreshold</referencedby>
+        <referencedby refid="group__mbox_1ga4fb918498d8adc676f4ea554585609d2" compoundref="xmbox_8c" startline="620" endline="630">XMbox_SetSendThreshold</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga267447e4cde5a2e0320ebba438c22a47" prot="public" static="no">
+        <name>XMbox_WriteMBox</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>ValueToWrite</defname></param>
+        <initializer><ref refid="group__mbox__api_1ga299c2eb6c04531a5da2202b9968531c7" kindref="member">XMbox_WriteReg</ref> (BaseAddress, <ref refid="group__mbox__api_1ga1cfe8987e8a70162381ff6893967fbd8" kindref="member">XMB_WRITE_REG_OFFSET</ref>, ValueToWrite)</initializer>
+        <briefdescription>
+<para>Writes the mailbox write register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Write the mbox write register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the mbox device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ValueToWrite</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the value to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature u32 <ref refid="group__mbox__api_1ga267447e4cde5a2e0320ebba438c22a47" kindref="member">XMbox_WriteMBox(u32 BaseAddress, u32 ValueToWrite)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" compoundref="xmbox_8c" startline="277" endline="332">XMbox_Write</referencedby>
+        <referencedby refid="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" compoundref="xmbox_8c" startline="351" endline="388">XMbox_WriteBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" prot="public" static="no">
+        <name>XMbox_ReadMBox</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg</ref> (BaseAddress, <ref refid="group__mbox__api_1ga3a1f7a91d465c1e6be224c7f73d8ecea" kindref="member">XMB_READ_REG_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Reads the mailbox read FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para>Read the mbox read FIFO.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the mbox device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register, a 32 bit value.</para></simplesect>
+<simplesect kind="note"><para>C-style signature u32 <ref refid="group__mbox__api_1ga20e3d2cc2c9ecc47fc1ce4420a8b69f8" kindref="member">XMbox_ReadMBox(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga10691489238a2a1b8515468b416d773e" compoundref="xmbox_8c" startline="461" endline="479">XMbox_Flush</referencedby>
+        <referencedby refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" compoundref="xmbox_8c" startline="131" endline="182">XMbox_Read</referencedby>
+        <referencedby refid="group__mbox_1gab14511b623c1d3c191cdc441b8909006" compoundref="xmbox_8c" startline="201" endline="246">XMbox_ReadBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gaa533a34a21931e86fe66cbd144659b87" prot="public" static="no">
+        <name>XMbox_IsEmptyHw</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>((<ref refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg</ref> (BaseAddress, <ref refid="group__mbox__api_1ga939d1f0b71e575a31a3689ca28cbc749" kindref="member">XMB_STATUS_REG_OFFSET</ref>) &amp; <ref refid="group__mbox__api_1gaa79d42f5c0e43f6b6679a42f119f9563" kindref="member">XMB_STATUS_FIFO_EMPTY</ref>))</initializer>
+        <briefdescription>
+<para>Checks whether the memory-mapped read FIFO is empty. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks if the Read FIFO is Empty.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the mbox device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the FIFO is empty.</para></listitem><listitem><para>FALSE if there is data to be read from the FIFO.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature u32 <ref refid="group__mbox__api_1gaa533a34a21931e86fe66cbd144659b87" kindref="member">XMbox_IsEmptyHw(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga10691489238a2a1b8515468b416d773e" compoundref="xmbox_8c" startline="461" endline="479">XMbox_Flush</referencedby>
+        <referencedby refid="group__mbox_1gabb01fe466ffcd0da315ffee115f4cd60" compoundref="xmbox_8c" startline="404" endline="415">XMbox_IsEmpty</referencedby>
+        <referencedby refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" compoundref="xmbox_8c" startline="131" endline="182">XMbox_Read</referencedby>
+        <referencedby refid="group__mbox_1gab14511b623c1d3c191cdc441b8909006" compoundref="xmbox_8c" startline="201" endline="246">XMbox_ReadBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga686ca5f4834e7e613350a2166cd49398" prot="public" static="no">
+        <name>XMbox_IsFullHw</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>((<ref refid="group__mbox__api_1ga4f0eb6f00b1c4baf91576f2e6a32af87" kindref="member">XMbox_ReadReg</ref> (BaseAddress, <ref refid="group__mbox__api_1ga939d1f0b71e575a31a3689ca28cbc749" kindref="member">XMB_STATUS_REG_OFFSET</ref>) &amp; <ref refid="group__mbox__api_1ga03cf0e55c079a09632583ac77df57329" kindref="member">XMB_STATUS_FIFO_FULL</ref>))</initializer>
+        <briefdescription>
+<para>Checks whether the memory-mapped write FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks if there is room in the Write FIFO.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the mbox device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>FALSE if there is room in FIFO,</para></listitem><listitem><para>TRUE if there is no room in the FIFO</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature u32 <ref refid="group__mbox__api_1ga686ca5f4834e7e613350a2166cd49398" kindref="member">XMbox_IsFullHw(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gaa9db05bc2935bcc2230ff023b5c9cbcc" compoundref="xmbox_8c" startline="431" endline="442">XMbox_IsFull</referencedby>
+        <referencedby refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" compoundref="xmbox_8c" startline="277" endline="332">XMbox_Write</referencedby>
+        <referencedby refid="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" compoundref="xmbox_8c" startline="351" endline="388">XMbox_WriteBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga597515ed7cbc30c2bcb4409f4a463dcf" prot="public" static="no">
+        <name>XMbox_FSLReadMBox</name>
+        <param><defname>ID</defname></param>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Provides a stub FSL read for non-MicroBlaze platforms. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stub implementation of XMbox_FSLReadMBox for non-MicroBlaze platforms.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Always returns 0.</para></simplesect>
+<simplesect kind="note"><para>This is an empty stub to allow compilation on non-MicroBlaze platforms. FSL access is only available on MicroBlaze. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="380" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga10691489238a2a1b8515468b416d773e" compoundref="xmbox_8c" startline="461" endline="479">XMbox_Flush</referencedby>
+        <referencedby refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" compoundref="xmbox_8c" startline="131" endline="182">XMbox_Read</referencedby>
+        <referencedby refid="group__mbox_1gab14511b623c1d3c191cdc441b8909006" compoundref="xmbox_8c" startline="201" endline="246">XMbox_ReadBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga575df2eee6d404775c6b2e2843421a53" prot="public" static="no">
+        <name>XMbox_FSLWriteMBox</name>
+        <param><defname>ID</defname></param>
+        <param><defname>ValueToWrite</defname></param>
+        <briefdescription>
+<para>Provides a stub FSL write for non-MicroBlaze platforms. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stub implementation of XMbox_FSLWriteMBox for non-MicroBlaze platforms.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ValueToWrite</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This is an empty stub to allow compilation on non-MicroBlaze platforms. FSL access is only available on MicroBlaze. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="386" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" compoundref="xmbox_8c" startline="277" endline="332">XMbox_Write</referencedby>
+        <referencedby refid="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" compoundref="xmbox_8c" startline="351" endline="388">XMbox_WriteBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1gaa74c9f619d2ee4f3b668743954223ea6" prot="public" static="no">
+        <name>XMbox_FSLIsEmpty</name>
+        <param><defname>ID</defname></param>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Provides a stub FSL empty check for non-MicroBlaze platforms. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stub implementation of XMbox_FSLIsEmpty for non-MicroBlaze platforms.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Always returns 0.</para></simplesect>
+<simplesect kind="note"><para>This is an empty stub to allow compilation on non-MicroBlaze platforms. FSL access is only available on MicroBlaze. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="402" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="411" bodyend="-1"/>
+        <referencedby refid="group__mbox_1ga10691489238a2a1b8515468b416d773e" compoundref="xmbox_8c" startline="461" endline="479">XMbox_Flush</referencedby>
+        <referencedby refid="group__mbox_1gabb01fe466ffcd0da315ffee115f4cd60" compoundref="xmbox_8c" startline="404" endline="415">XMbox_IsEmpty</referencedby>
+        <referencedby refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" compoundref="xmbox_8c" startline="131" endline="182">XMbox_Read</referencedby>
+        <referencedby refid="group__mbox_1gab14511b623c1d3c191cdc441b8909006" compoundref="xmbox_8c" startline="201" endline="246">XMbox_ReadBlocking</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mbox__api_1ga59470c703fb9332335643ba020898e59" prot="public" static="no">
+        <name>XMbox_FSLIsFull</name>
+        <param><defname>ID</defname></param>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Provides a stub FSL full check for non-MicroBlaze platforms. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stub implementation of XMbox_FSLIsFull for non-MicroBlaze platforms.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unused.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Always returns 0.</para></simplesect>
+<simplesect kind="note"><para>This is an empty stub to allow compilation on non-MicroBlaze platforms. FSL access is only available on MicroBlaze. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" line="418" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mbox/src/xmbox_hw.h" bodystart="427" bodyend="-1"/>
+        <referencedby refid="group__mbox_1gaa9db05bc2935bcc2230ff023b5c9cbcc" compoundref="xmbox_8c" startline="431" endline="442">XMbox_IsFull</referencedby>
+        <referencedby refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" compoundref="xmbox_8c" startline="277" endline="332">XMbox_Write</referencedby>
+        <referencedby refid="group__mbox_1ga23ee00f97807790770f2dab9b2ea3b0e" compoundref="xmbox_8c" startline="351" endline="388">XMbox_WriteBlocking</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="44" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___d_d_r_counters_1ad68ee807f5dd25fabb2fdf9aa768c329" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="45" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___d_d_r_counters_1ac2f0ad90270f7cc5999949c23e491db6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -43,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="46" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___d_d_r_counters_1a42efe31bd40c709885dfb64810e3857c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -57,15 +57,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="47" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure to hold DDR Counters. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="43" bodyend="48"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="46" bodyend="51"/>
     <listofallmembers>
       <member refid="struct_x_loader___d_d_r_counters_1adbd31efe7b49dc75aa6ba53b0e8047bf" prot="public" virt="non-virtual"><scope>XLoader_DDRCounters</scope><name>DDRCounter0</name></member>
       <member refid="struct_x_loader___d_d_r_counters_1ad68ee807f5dd25fabb2fdf9aa768c329" prot="public" virt="non-virtual"><scope>XLoader_DDRCounters</scope><name>DDRCounter1</name></member>

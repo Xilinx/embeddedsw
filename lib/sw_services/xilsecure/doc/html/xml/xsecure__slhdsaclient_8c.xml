@@ -4,64 +4,69 @@
     <compoundname>xsecure_slhdsaclient.c</compoundname>
     <includes refid="xsecure__slhdsaclient_8h" local="yes">xsecure_slhdsaclient.h</includes>
     <incdepgraph>
-      <node id="4582">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="4583">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="4578">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="4574">
-        <label>xsecure_slhdsaclient.c</label>
-        <link refid="xsecure_slhdsaclient.c"/>
-        <childnode refid="4575" relation="include">
-        </childnode>
-      </node>
-      <node id="4575">
-        <label>xsecure_slhdsaclient.h</label>
-        <link refid="xsecure__slhdsaclient_8h"/>
-        <childnode refid="4576" relation="include">
-        </childnode>
-        <childnode refid="4577" relation="include">
-        </childnode>
-        <childnode refid="4580" relation="include">
-        </childnode>
-      </node>
-      <node id="4580">
+      <node id="4840">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="4581" relation="include">
+        <childnode refid="4841" relation="include">
         </childnode>
-        <childnode refid="4576" relation="include">
+        <childnode refid="4836" relation="include">
         </childnode>
-        <childnode refid="4582" relation="include">
+        <childnode refid="4842" relation="include">
         </childnode>
-        <childnode refid="4583" relation="include">
+        <childnode refid="4843" relation="include">
         </childnode>
-        <childnode refid="4584" relation="include">
+        <childnode refid="4844" relation="include">
+        </childnode>
+        <childnode refid="4845" relation="include">
         </childnode>
       </node>
-      <node id="4584">
-        <label>xsecure_config.h</label>
+      <node id="4843">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="4576">
-        <label>xil_types.h</label>
+      <node id="4842">
+        <label>xil_cache.h</label>
       </node>
-      <node id="4579">
-        <label>xparameters.h</label>
+      <node id="4834">
+        <label>xsecure_slhdsaclient.c</label>
+        <link refid="xsecure_slhdsaclient.c"/>
+        <childnode refid="4835" relation="include">
+        </childnode>
       </node>
-      <node id="4581">
-        <label>xil_printf.h</label>
+      <node id="4835">
+        <label>xsecure_slhdsaclient.h</label>
+        <link refid="xsecure__slhdsaclient_8h"/>
+        <childnode refid="4836" relation="include">
+        </childnode>
+        <childnode refid="4837" relation="include">
+        </childnode>
+        <childnode refid="4840" relation="include">
+        </childnode>
       </node>
-      <node id="4577">
+      <node id="4845">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="4838">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="4837">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="4578" relation="include">
+        <childnode refid="4838" relation="include">
         </childnode>
-        <childnode refid="4579" relation="include">
+        <childnode refid="4839" relation="include">
         </childnode>
+      </node>
+      <node id="4844">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="4836">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4839">
+        <label>xparameters.h</label>
+      </node>
+      <node id="4841">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -104,11 +109,11 @@
 <para><itemizedlist>
 <listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_SlhdsaVerify API and returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" bodystart="42" bodyend="69"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="126">XSECURE_API_SLHDSA_SIGN_VERIFY</references>
-        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
-        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c" bodystart="43" bodyend="70"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="133">XSECURE_API_SLHDSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" compoundref="xsecure__mailbox_8c" startline="84" endline="127">XSecure_ProcessMailbox</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
         <referencedby refid="group__xsecure__slhdsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__slhdsa__client__example_8c" startline="1992" endline="2077">main</referencedby>
       </memberdef>
       </sectiondef>
@@ -119,7 +124,8 @@
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
 <hruler/>
 
-5.7   tvp  03/20/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+5.7   tvp  03/20/26 Initial release
+5.8   tus  08/21/26 Updated XSecure_ProcessMailbox call for the added response argument</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
@@ -127,30 +133,30 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
-<codeline lineno="27"><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsaclient_8h" kindref="compound">xsecure_slhdsaclient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
-<codeline lineno="42" refid="group__xsecure__slhdsa__client__apis_1ga971403d14ffa4f9b062864a62895b2b8" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__slhdsa__client__apis_1ga971403d14ffa4f9b062864a62895b2b8" kindref="member">XSecure_SlhdsaSignVerifyClient</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>SlhdsaParamAddr)</highlight></codeline>
-<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD2(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" kindref="member">XSECURE_API_SLHDSA_SIGN_VERIFY</ref>),</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlhdsaParamAddr,</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SlhdsaParamAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" kindref="member">XSecure_ProcessMailbox</ref>(InstancePtr-&gt;MailboxPtr,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsaclient_8h" kindref="compound">xsecure_slhdsaclient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="43" refid="group__xsecure__slhdsa__client__apis_1ga971403d14ffa4f9b062864a62895b2b8" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__slhdsa__client__apis_1ga971403d14ffa4f9b062864a62895b2b8" kindref="member">XSecure_SlhdsaSignVerifyClient</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>SlhdsaParamAddr)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD2(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" kindref="member">XSECURE_API_SLHDSA_SIGN_VERIFY</ref>),</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlhdsaParamAddr,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SlhdsaParamAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" kindref="member">XSecure_ProcessMailbox</ref>(InstancePtr-&gt;MailboxPtr,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT,<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/xsecure_slhdsaclient.c"/>
   </compounddef>
 </doxygen>

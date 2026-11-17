@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,7 +103,17 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">gpio Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><pre>
+<div class="textblock"><p>The Xilinx AXI GPIO driver. This driver supports the Xilinx AXI General Purpose I/O (GPIO) device.</p>
+<p>The AXI GPIO device provides general purpose input and output access to discrete signals. The driver supports the following features:</p>
+<ul>
+<li>One or two channels of discrete inputs and outputs. Dual channel is optional and device dependent.</li>
+<li>Configurable data bus width per channel.</li>
+<li>Per-bit direction control to configure each signal as an input or an output.</li>
+<li>Reading input discretes and writing output discretes.</li>
+<li>Setting and clearing individual output discretes.</li>
+<li>Optional interrupt support for reporting input channel changes.</li>
+</ul>
+<pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
 <hr/>
@@ -149,8 +159,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.7   sne  08/28/20 Modify Makefile to support parallel make execution.
 4.8     sne  02/10/21 Fixed doxygen warnings.
 4.10  gm   07/11/23 Added SDT support.
-4.10  gm   08/28/23 Added Width member to <a class="el" href="struct_x_gpio___config.html" title="This typedef contains configuration information for the device. ">XGpio_Config</a> in SDT flow.
-4.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div></div><!-- contents -->
+4.10  gm   08/28/23 Added Width member to <a class="el" href="struct_x_gpio___config.html" title="Holds configuration information for the device. ">XGpio_Config</a> in SDT flow.
+4.13  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+4.14  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

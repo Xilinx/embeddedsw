@@ -6,53 +6,53 @@
     <includes refid="xv__scenechange__hw_8h" local="yes">xv_scenechange_hw.h</includes>
     <includes refid="xv__scenechange_8h" local="yes">xv_scenechange.h</includes>
     <incdepgraph>
-      <node id="68">
+      <node id="67">
         <label>xil_assert.h</label>
       </node>
-      <node id="70">
+      <node id="69">
         <label>xil_io.h</label>
       </node>
-      <node id="71">
+      <node id="70">
         <label>sleep.h</label>
       </node>
-      <node id="66">
+      <node id="65">
         <label>xv_scenechange.h</label>
         <link refid="xv__scenechange_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
         <childnode refid="67" relation="include">
         </childnode>
         <childnode refid="68" relation="include">
         </childnode>
         <childnode refid="69" relation="include">
         </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
         <childnode refid="70" relation="include">
         </childnode>
-        <childnode refid="65" relation="include">
-        </childnode>
-        <childnode refid="71" relation="include">
-        </childnode>
+      </node>
+      <node id="68">
+        <label>xstatus.h</label>
+      </node>
+      <node id="66">
+        <label>xil_types.h</label>
+      </node>
+      <node id="64">
+        <label>xv_scenechange_hw.h</label>
+        <link refid="xv__scenechange__hw_8h"/>
       </node>
       <node id="63">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="62">
         <label>xv_scenechange_intr.c</label>
         <link refid="xv_scenechange_intr.c"/>
+        <childnode refid="63" relation="include">
+        </childnode>
         <childnode refid="64" relation="include">
         </childnode>
         <childnode refid="65" relation="include">
         </childnode>
-        <childnode refid="66" relation="include">
-        </childnode>
-      </node>
-      <node id="69">
-        <label>xstatus.h</label>
-      </node>
-      <node id="65">
-        <label>xv_scenechange_hw.h</label>
-        <link refid="xv__scenechange__hw_8h"/>
-      </node>
-      <node id="67">
-        <label>xil_types.h</label>
-      </node>
-      <node id="64">
-        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -92,7 +92,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="56" bodyend="69"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="56" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga1355f960cd66ac2daf31388662c60f7d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -119,7 +119,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="86" bodyend="108"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="86" bodyend="112"/>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -168,8 +168,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="126" bodyend="136"/>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="130" bodyend="140"/>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -196,11 +196,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="159" bodyend="180"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c" bodystart="163" bodyend="184"/>
         <references refid="xv__scenechange__hw_8h_1ae4ee8b66b1a50ff729d12fea5512eacc" compoundref="xv__scenechange__hw_8h" startline="260">XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE</references>
-        <references refid="xv__scenechange_8c_1afc886ea4b985a433f784608a6335d1fb" compoundref="xv__scenechange_8c" startline="2658" endline="2663">XV_scenechange_InterruptClear</references>
-        <references refid="xv__scenechange_8c_1ae41caeaee72b58cdaad6d4cd8d6f8595" compoundref="xv__scenechange_8c" startline="2700" endline="2705">XV_scenechange_InterruptGetStatus</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</referencedby>
+        <references refid="xv__scenechange_8c_1afc886ea4b985a433f784608a6335d1fb" compoundref="xv__scenechange_8c" startline="2662" endline="2667">XV_scenechange_InterruptClear</references>
+        <references refid="xv__scenechange_8c_1ae41caeaee72b58cdaad6d4cd8d6f8595" compoundref="xv__scenechange_8c" startline="2704" endline="2709">XV_scenechange_InterruptGetStatus</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="167" endline="227">XV_SceneChange_init</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -254,59 +254,63 @@
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(index<sp/>=<sp/>0;<sp/>index<sp/>&lt;<sp/>ScdPtr-&gt;ScdConfig-&gt;NumStreams;<sp/>index++)<sp/>{</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>(1<sp/>&lt;&lt;<sp/>index))<sp/>{</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SAD<sp/>=<sp/>XV_scenechange_get_sad(ScdPtr,<sp/>index);</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SADTF<sp/>=<sp/>((SAD<sp/>*<sp/>ScdPtr-&gt;LayerConfig[index].SubSample)<sp/>/</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ScdPtr-&gt;LayerConfig[index].Height<sp/>*</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;LayerConfig[index].Width));</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;LayerConfig[index].SAD<sp/>=<sp/>SAD;</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SADTF<sp/>&gt;=<sp/>ScdPtr-&gt;LayerConfig[index].Threshold)<sp/>{</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;ScdLayerDetSAD<sp/>=<sp/>SAD;</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;ScdDetLayerId<sp/>=<sp/>index;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;FrameDoneCallback(ScdPtr);</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="126" refid="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" kindref="member">XV_scenechange_SetCallback</ref>(XV_scenechange<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
-<codeline lineno="128"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;FrameDoneCallback<sp/>=<sp/>(<ref refid="xv__scenechange_8h_1a7cf4f8a78175227a22f8487960367ad1" kindref="member">XVSceneChange_Callback</ref>)CallbackFunc;</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;CallbackRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
-<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ScdPtr-&gt;LayerConfig[index].Height<sp/>==<sp/>0)<sp/>||</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ScdPtr-&gt;LayerConfig[index].Width<sp/>==<sp/>0))</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SAD<sp/>=<sp/>XV_scenechange_get_sad(ScdPtr,<sp/>index);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SADTF<sp/>=<sp/>((SAD<sp/>*<sp/>ScdPtr-&gt;LayerConfig[index].SubSample)<sp/>/</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ScdPtr-&gt;LayerConfig[index].Height<sp/>*</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;LayerConfig[index].Width));</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;LayerConfig[index].SAD<sp/>=<sp/>SAD;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SADTF<sp/>&gt;=<sp/>ScdPtr-&gt;LayerConfig[index].Threshold)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;ScdLayerDetSAD<sp/>=<sp/>SAD;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;ScdDetLayerId<sp/>=<sp/>index;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr-&gt;FrameDoneCallback(ScdPtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" kindref="member">XV_scenechange_SetCallback</ref>(XV_scenechange<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="159" refid="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" kindref="member">XV_scenechange_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_scenechange<sp/>*SceneChangePtr<sp/>=<sp/>(XV_scenechange<sp/>*)InstancePtr;</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SceneChangePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SceneChangePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;FrameDoneCallback<sp/>=<sp/>(<ref refid="xv__scenechange_8h_1a7cf4f8a78175227a22f8487960367ad1" kindref="member">XVSceneChange_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;CallbackRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" kindref="member">XV_scenechange_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_scenechange<sp/>*SceneChangePtr<sp/>=<sp/>(XV_scenechange<sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>interrupt<sp/>source<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__scenechange_8c_1ae41caeaee72b58cdaad6d4cd8d6f8595" kindref="member">XV_scenechange_InterruptGetStatus</ref>(SceneChangePtr);</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Done<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>&amp;<sp/><ref refid="xv__scenechange__hw_8h_1ae4ee8b66b1a50ff729d12fea5512eacc" kindref="member">XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_scenechange_handler(SceneChangePtr);</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange_8c_1afc886ea4b985a433f784608a6335d1fb" kindref="member">XV_scenechange_InterruptClear</ref>(SceneChangePtr,</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE);</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SceneChangePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SceneChangePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>interrupt<sp/>source<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__scenechange_8c_1ae41caeaee72b58cdaad6d4cd8d6f8595" kindref="member">XV_scenechange_InterruptGetStatus</ref>(SceneChangePtr);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Done<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>&amp;<sp/><ref refid="xv__scenechange__hw_8h_1ae4ee8b66b1a50ff729d12fea5512eacc" kindref="member">XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_scenechange_handler(SceneChangePtr);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange_8c_1afc886ea4b985a433f784608a6335d1fb" kindref="member">XV_scenechange_InterruptClear</ref>(SceneChangePtr,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SCENECHANGE_CTRL_ADDR_ISR_AP_DONE);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_intr.c"/>
   </compounddef>
 </doxygen>

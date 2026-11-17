@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___ddr_pdi_info" kind="struct" prot="public">
+    <compoundname>XLoader_DdrPdiInfo</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___ddr_pdi_info_1a535b05795db3ba52a25b7b6ac6bfe9b5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_DdrPdiInfo::DdrPdiAddr</definition>
+        <argsstring></argsstring>
+        <name>DdrPdiAddr</name>
+        <briefdescription>
+<para>DDR PDI address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="521" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1955" endline="2045">XLoader_RestartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6dc6297b507b506332f4a2cb8602497a" compoundref="xloader_8c" startline="1862" endline="1885">XLoader_SetDdrPdiAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___ddr_pdi_info_1ab246f4890a2ca4adbbfb13293a0a8af8" prot="public" static="no" mutable="no">
+        <type><ref refid="xloader_8h_1a770177a68e0763f8f38ead2d6e2a7916" kindref="member">XLoader_DdrPdiAddrStatus</ref></type>
+        <definition>XLoader_DdrPdiAddrStatus XLoader_DdrPdiInfo::IsDdrAddrValid</definition>
+        <argsstring></argsstring>
+        <name>IsDdrAddrValid</name>
+        <briefdescription>
+<para>Flag to indicate if DDR PDI address is valid or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="522" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1955" endline="2045">XLoader_RestartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6dc6297b507b506332f4a2cb8602497a" compoundref="xloader_8c" startline="1862" endline="1885">XLoader_SetDdrPdiAddr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold DDR PDI address information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="520" bodyend="523"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___ddr_pdi_info_1a535b05795db3ba52a25b7b6ac6bfe9b5" prot="public" virt="non-virtual"><scope>XLoader_DdrPdiInfo</scope><name>DdrPdiAddr</name></member>
+      <member refid="struct_x_loader___ddr_pdi_info_1ab246f4890a2ca4adbbfb13293a0a8af8" prot="public" virt="non-virtual"><scope>XLoader_DdrPdiInfo</scope><name>IsDdrAddrValid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

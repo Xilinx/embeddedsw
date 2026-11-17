@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="116" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="141" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a7767b66da779692e71775cd8600c3b45" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a7e04b9b54d83b9ff692dcec5e3813233" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a3e7ee7eed92e13fb7bad860a2bb740b5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="119" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a443d850a278a97bbba5b4dfaa566fadd" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="120" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="145" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a423a792ec4ede155ebe678c8b16f0181" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="146" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a81307911c9f352bbd5f2155e2d8d0cbc" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ab6dc917391e6077892ef3ba62c96cd1f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="148" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ad9df9cd8b2fb523cdc141cfacef54d5c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ae7a0051781887804bdd4341936150b0c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a11ec3c551ff66232a184d8e9ef22873f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="151" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a416c36eae25d391cbb04793137c0bd90" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -157,7 +157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a87d799ad047d5a4e474430e019be6601" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="153" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a67bcfbfb8c0ab0610f6d5700125a5264" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -183,7 +183,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="154" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1aad5454ad4c295d9a3fb25fff64db69ca" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a3e53055492ae88866f865cb14e9ec83e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="156" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1abe6094823191d54ca32f25afab22a69b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -222,7 +222,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="157" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a35501aa5c6da19fb91ed5f050d3cf138" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -235,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a668def1b7e92c7ee2dcee1e284d337a2" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -248,7 +248,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="159" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a696392c408c6f2bab3cc2c44a7f376d1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -261,7 +261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="160" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a61722a32854b3518304869b73a29f07f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -274,7 +274,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a9e690d7a9e4c8ca28668ab2f4838c1e6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -287,7 +287,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ae4a1f72330d272b459ca084e4dfcf4a3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -300,7 +300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="138" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="163" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ad1e27854c3a50840d3ab81b8af06d479" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -313,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="139" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a35fa6a8cac4d1cd3015720372813c253" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -326,7 +326,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="165" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a1cef594231fe9b5c494a77559427c6bf" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -339,14 +339,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="141" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="166" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure to store the image header table details. </para>    </briefdescription>
     <detaileddescription>
 <para>It contains all the information of image header table in order. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="115" bodyend="142"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="140" bodyend="167"/>
     <listofallmembers>
       <member refid="struct_xil_loader___img_hdr_tbl_1aad5454ad4c295d9a3fb25fff64db69ca" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>AcOffset</name></member>
       <member refid="struct_xil_loader___img_hdr_tbl_1ad1e27854c3a50840d3ab81b8af06d479" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>ActualHBSignSize</name></member>

@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="34" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
         <name>I2C_REPEATED_START</name>
@@ -70,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="42" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="42" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -110,7 +110,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="112" bodyend="126"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="112" bodyend="126"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gaa1758966e97511050dc7e0214d3d011e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned</type>
@@ -181,7 +181,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="148" bodyend="193"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="148" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gaabca8012e8222671cbd875f363ccb889" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned</type>
@@ -252,7 +252,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="215" bodyend="252"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="215" bodyend="252"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gad23134b8cab258d7b5a8d5e80387e6ad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -296,7 +296,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="269" bodyend="315"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="269" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gac93560d659233d69757d0f2112b65e9a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -344,7 +344,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="332" bodyend="360"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="332" bodyend="360"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gacf5bc12393964d6fb4c6e5c73755a46e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -396,7 +396,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="377" bodyend="398"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="377" bodyend="398"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga96534bd64a3798a3765dda0f15497117" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -436,7 +436,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="415" bodyend="455"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="415" bodyend="455"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga2fc6bab1be5e7090337546ffa1932e3b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -484,7 +484,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="912" bodyend="940"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="912" bodyend="940"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga6eaa225ffe1889a54965c4284789179c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -532,7 +532,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="957" bodyend="985"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="957" bodyend="985"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gad2104e0e02e2dde302ad66c1f5cb7e38" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -580,7 +580,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1002" bodyend="1030"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1002" bodyend="1030"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gae8497a51c7cbb2943cb1e0dba6422763" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -624,7 +624,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1047" bodyend="1064"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1047" bodyend="1064"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga68481575dc77db1d61ede89d0d84ee46" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -668,7 +668,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1081" bodyend="1103"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1081" bodyend="1103"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gaaeb518a611bf7a9a530abe1d4b6ec592" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -716,7 +716,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1120" bodyend="1154"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1120" bodyend="1154"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga57001608da5f678c7794214cf28eee1e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -764,7 +764,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1171" bodyend="1210"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1171" bodyend="1210"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gaefa5f5f095f05e4692ef0e76965aa53d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -808,7 +808,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1227" bodyend="1264"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1227" bodyend="1264"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gab10b8562ea39e2965d50680d94fe54be" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -833,7 +833,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="458" bodyend="533"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="458" bodyend="533"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gaf47b5fc8bb6c82a48b39151842114708" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -877,7 +877,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="550" bodyend="770"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="550" bodyend="770"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1gaa0e53d200847d5057a57bccc1270c543" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -921,7 +921,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1327" bodyend="1348"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1327" bodyend="1348"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga3f3270346e69cbdd12b088e6b7262f71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -969,7 +969,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1280" bodyend="1310"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1280" bodyend="1310"/>
       </memberdef>
       <memberdef kind="function" id="xhdmi__example_2idt__8t49n24x_8c_1ga9f3f909a2c4e87d6e620a8ad4a97e71b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -990,7 +990,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1395" bodyend="1410"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c" bodystart="1395" bodyend="1410"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1065,7 +1065,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="799" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="799" bodyend="901"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="799" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="799" bodyend="901"/>
         <references refid="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" compoundref="hdcp__key__utility_2idt__8t49n24x_8h" startline="51">IDT_8T49N24X_FIN_MAX</references>
         <references refid="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" compoundref="hdcp__key__utility_2idt__8t49n24x_8h" startline="52">IDT_8T49N24X_FIN_MIN</references>
         <references refid="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" compoundref="hdcp__key__utility_2idt__8t49n24x_8h" startline="48">IDT_8T49N24X_FOUT_MAX</references>
@@ -1110,7 +1110,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1372" bodyend="1399"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1372" bodyend="1399"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga018e7060eee80071535581ec5509606b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1148,7 +1148,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1431" bodyend="1470"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1431" bodyend="1470"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gacc5465ba335d0d30c552186a903c875d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1210,10 +1210,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1780" bodyend="1813"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1780" bodyend="1813"/>
         <references refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="hdcp__key__utility_2idt__8t49n24x_8c" startline="799" endline="901">IDT_8T49N24x_SetClock</references>
         <references refid="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" compoundref="hdcp__key__utility_2idt__8t49n24x_8h" startline="43">IDT_8T49N24X_XTAL_FREQ</references>
-        <referencedby refid="xhdmi__example_8c_1a13f636ef2d93d7ee10e421e5f604a510" compoundref="xhdmi__example_8c" startline="3894" endline="3921">I2cClk</referencedby>
+        <referencedby refid="xhdmi__example_8c_1a13f636ef2d93d7ee10e421e5f604a510" compoundref="xhdmi__example_8c" startline="3698" endline="3726">I2cClk</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gadd9e95cd73396ab1e1fe6151b447ea32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1253,7 +1253,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1831" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1831" bodyend="1863"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" line="1831" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/idt_8t49n24x.c" bodystart="1831" bodyend="1863"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2684,6 +2684,6 @@
 <codeline lineno="1857"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="1858"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/idt_8t49n24x.c"/>
   </compounddef>
 </doxygen>

@@ -119,6 +119,9 @@ $(document).ready(function(){initNavTree('union_x_secure___lms_public_key__.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a164a1b7b6601519ef1bd2acc5cdd5416"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_secure___lms_public_key__.html#a164a1b7b6601519ef1bd2acc5cdd5416">Buff</a> [<a class="el" href="group__xsecure__lms__server__apis.html#ga341d86a79ae638b27351c4f88c02d7dc">XSECURE_LMS_PUB_KEY_TOTAL_SIZE</a>]</td></tr>
+<tr class="memdesc:a164a1b7b6601519ef1bd2acc5cdd5416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw buffer holding the complete public key.  <a href="#a164a1b7b6601519ef1bd2acc5cdd5416">More...</a><br/></td></tr>
+<tr class="separator:a164a1b7b6601519ef1bd2acc5cdd5416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2844318b3e2566ba08b34a308b75c5a6"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a314e7d158a64ecbc78bf434d92a9837f"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="group__xsecure__lms__server__apis.html#ga87557e3db575e6dc9ad6ddfc596a554a">XSecure_LmsType</a>&#160;&#160;&#160;<a class="el" href="union_x_secure___lms_public_key__.html#ad56336be8cec7c0ca401a5a16b19e5b3">LmsType</a></td></tr>
 <tr class="memdesc:a314e7d158a64ecbc78bf434d92a9837f"><td class="mdescLeft">&#160;</td><td class="mdescRight">LmsType XSecure_LmsType Size - 4 bytes, 0 to 3 in public key.  <a href="#a314e7d158a64ecbc78bf434d92a9837f">More...</a><br/></td></tr>
@@ -140,6 +143,22 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>LMS Public key structure to access root value. </p>
 <p>Size = 4 + 4 + 16 + H Len (32) = 56 Bytes </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a164a1b7b6601519ef1bd2acc5cdd5416"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSecure_LmsPublicKey_::Buff[<a class="el" href="group__xsecure__lms__server__apis.html#ga341d86a79ae638b27351c4f88c02d7dc">XSECURE_LMS_PUB_KEY_TOTAL_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Raw buffer holding the complete public key. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__lms__server__apis.html#ga112da8c38a140d02852bd8f93ab78e2f">XSecure_HssFinish()</a>, <a class="el" href="group__xsecure__lms__server__apis.html#ga981b22fbc50d9cd6f91c16604754f078">XSecure_HssInit()</a>, and <a class="el" href="group__xsecure__lms__server__apis.html#gaf587dc47c7f636cb574154e79ae31f0a">XSecure_HssSignatureVerification()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a2844318b3e2566ba08b34a308b75c5a6"></a>
 <div class="memitem">
 <div class="memproto">

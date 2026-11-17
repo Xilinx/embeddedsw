@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___dme_1abdf7a1ae94fa9a85c575a7b12090adbe" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___dme_1a29b0b23d9c5e103581cc704d8d41d6aa" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,14 +41,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>DME structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="104" bodyend="108"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="104" bodyend="108"/>
     <listofallmembers>
       <member refid="struct_x_ocp___dme_1a4f362c8d176cc1aa12dfd013073ae7c4" prot="public" virt="non-virtual"><scope>XOcp_Dme</scope><name>DeviceID</name></member>
       <member refid="struct_x_ocp___dme_1a29b0b23d9c5e103581cc704d8d41d6aa" prot="public" virt="non-virtual"><scope>XOcp_Dme</scope><name>Measurement</name></member>

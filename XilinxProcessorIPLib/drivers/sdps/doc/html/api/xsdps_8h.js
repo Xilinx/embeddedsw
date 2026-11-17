@@ -54,7 +54,7 @@ var xsdps_8h =
     [ "XSdPs_Get_Mmc_ExtCsd", "xsdps_8h.html#ga69e8d7cd927da4273a12d0d5fb3f36ff", null ],
     [ "XSdPs_Get_Status", "xsdps_8h.html#gaa26e9b4a046701024b01b1b0cb48ed08", null ],
     [ "XSdPs_Idle", "xsdps_8h.html#ga88cdddd905825791ef9b682eb5adfff8", null ],
-    [ "XSdPs_LookupConfig", "xsdps_8h.html#gab155865689d6bdec2c089166799a423d", null ],
+    [ "XSdPs_LookupConfig", "xsdps_8h.html#gaa7e51609acb4c0c024f5be29962f8431", null ],
     [ "XSdPs_Pullup", "xsdps_8h.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8", null ],
     [ "XSdPs_ReadPolled", "xsdps_8h.html#ga8dfe3686ed74d09a2a46a7b5cddcde47", null ],
     [ "XSdPs_Sanitize", "xsdps_8h.html#gad748650bd8ac568583551f6ef14b498a", null ],

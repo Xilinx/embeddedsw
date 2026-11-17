@@ -9,12 +9,12 @@
         <argsstring></argsstring>
         <name>OutputHz</name>
         <briefdescription>
-        </briefdescription>
+<para>Output frequency. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_tmr_cntr_setup_1a622be929ca1e76dc0eb787fe7fd88fcc" prot="public" static="no" mutable="no">
         <type><ref refid="group__ttcps_1ga53dc7ab3b92f330e5a47807febfcd26d" kindref="member">XInterval</ref></type>
@@ -22,12 +22,12 @@
         <argsstring></argsstring>
         <name>Interval</name>
         <briefdescription>
-        </briefdescription>
+<para>Interval value. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_tmr_cntr_setup_1aac7f5a23f51859871f1550cf37a1d0fc" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +35,12 @@
         <argsstring></argsstring>
         <name>Prescaler</name>
         <briefdescription>
-        </briefdescription>
+<para>Prescaler value. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_tmr_cntr_setup_1a9addfa498965797c22ddc96b1bd14d03" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -48,12 +48,12 @@
         <argsstring></argsstring>
         <name>Options</name>
         <briefdescription>
-        </briefdescription>
+<para>Option settings. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="133" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_tmr_cntr_setup_1a70e28141ddf8244ece54714a50b4b3ba" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +61,12 @@
         <argsstring></argsstring>
         <name>OutputDutyCycle</name>
         <briefdescription>
-        </briefdescription>
+<para>Duty cycle of the output wave as a percentage. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_tmr_cntr_setup_1a3cfa12ff7da5c86f3991e7b37fa0ba0a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,19 +74,19 @@
         <argsstring></argsstring>
         <name>PrescalerValue</name>
         <briefdescription>
-        </briefdescription>
+<para>Prescaler value in the Count Control register. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_low_level_example.c" bodystart="66" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="126" bodyend="131"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c" bodystart="129" bodyend="134"/>
     <listofallmembers>
       <member refid="struct_tmr_cntr_setup_1a622be929ca1e76dc0eb787fe7fd88fcc" prot="public" virt="non-virtual"><scope>TmrCntrSetup</scope><name>Interval</name></member>
       <member refid="struct_tmr_cntr_setup_1a9addfa498965797c22ddc96b1bd14d03" prot="public" virt="non-virtual"><scope>TmrCntrSetup</scope><name>Options</name></member>

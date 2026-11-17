@@ -106,20 +106,34 @@ $(document).ready(function(){initNavTree('xspips__sinit_8c.html','');});
 <div class="title">xspips_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the <a class="el" href="struct_x_spi_ps.html" title="Holds the XSpiPs driver instance data. ">XSpiPs</a> driver's static initialization functionality. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  drg/jz 01/25/10 First release
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.9   sb     07/05/23 Added support for system device-tree flow.
+3.14  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+3.14  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspips_8h.html">xspips.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga4fa549669d98870a88eba403598ee595"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi_ps___config.html">XSpiPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#ga4fa549669d98870a88eba403598ee595">XSpiPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga4fa549669d98870a88eba403598ee595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__spips.html#ga4fa549669d98870a88eba403598ee595">More...</a><br/></td></tr>
-<tr class="separator:ga4fa549669d98870a88eba403598ee595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec4120d0ba36c1bcf7b17520ea43d761"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi_ps___config.html">XSpiPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#gaec4120d0ba36c1bcf7b17520ea43d761">XSpiPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gaec4120d0ba36c1bcf7b17520ea43d761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__spips__api.html#gaec4120d0ba36c1bcf7b17520ea43d761">More...</a><br/></td></tr>
+<tr class="separator:gaec4120d0ba36c1bcf7b17520ea43d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:gaaf9da6d694ce7e51969d96deb7a7ea76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi_ps___config.html">XSpiPs_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips.html#gaaf9da6d694ce7e51969d96deb7a7ea76">XSpiPs_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gaaf9da6d694ce7e51969d96deb7a7ea76"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each SPI device in the system.  <a href="group__spips.html#gaaf9da6d694ce7e51969d96deb7a7ea76">More...</a><br/></td></tr>
+<tr class="memitem:gaaf9da6d694ce7e51969d96deb7a7ea76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_spi_ps___config.html">XSpiPs_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spips__api.html#gaaf9da6d694ce7e51969d96deb7a7ea76">XSpiPs_ConfigTable</a> []</td></tr>
+<tr class="memdesc:gaaf9da6d694ce7e51969d96deb7a7ea76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration information for each SPI device in the system.  <a href="group__spips__api.html#gaaf9da6d694ce7e51969d96deb7a7ea76">More...</a><br/></td></tr>
 <tr class="separator:gaaf9da6d694ce7e51969d96deb7a7ea76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

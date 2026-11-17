@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -121,39 +121,39 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <p>The device driver supports all the features listed above, if applicable.</p>
 <p><b>Driver Description</b></p>
-<p>The device driver enables higher layer software (e.g., an application) to communicate to the CANFD. The driver handles transmission and reception of CAN frames, as well as configuration of the controller. The driver is simply a pass-through mechanism between a protocol stack and the CANFD. A single device driver can support multiple CANFDs.</p>
-<p>Since the driver is a simple pass-through mechanism between a protocol stack and the CANFD, no assembly or disassembly of CANFD frames is done at the driver-level. This assumes that the protocol stack passes a correctly formatted CANFD frame to the driver for transmission, and that the driver does not validate the contents of an incoming frame</p>
+<p>The device driver enables higher layer software (for example, an application) to communicate to the CANFD. The driver handles transmission and reception of CAN frames, as well as configuration of the controller. The driver is simply a pass-through mechanism between a protocol stack and the CANFD. A single device driver can support multiple CANFDs.</p>
+<p>Because the driver is a simple pass-through mechanism between a protocol stack and the CANFD, it does no assembly or disassembly of CANFD frames. The driver assumes that the protocol stack passes a correctly formatted CANFD frame to it for transmission. The driver does not validate the contents of an incoming frame.</p>
 <p><b>Operation Modes</b></p>
 <p>The CANFD controller supports the following modes of operation:</p>
 <ul>
-<li><b>Configuration Mode</b>: In this mode the CAN timing parameters and Baud Rate Pre-scalar parameters can be changed. In this mode the CAN controller loses synchronization with the CAN bus and drives a constant recessive bit on the bus line. The Error Counter Register are reset. The CAN controller does not receive or transmit any messages even if there are pending transmit requests from the TX FIFO or the TX High Priority Buffer. the Storage FIFOs and the CAN configuration registers are still accessible.</li>
+<li><b>Configuration Mode</b>: In this mode the CAN timing parameters and Baud Rate Pre-scalar parameters can be changed. In this mode the CAN controller loses synchronization with the CAN bus and drives a constant recessive bit on the bus line. The Error Counter Register are reset. The CAN controller does not receive or transmit messages, even with pending transmit requests from the TX FIFO or the TX High Priority Buffer. The Storage FIFOs and the CAN configuration registers are still accessible.</li>
 <li><b>Normal Mode</b>:In Normal Mode the CAN controller participates in bus communication, by transmitting and receiving messages.</li>
-<li><b>Sleep Mode</b>: In Sleep Mode the CAN Controller does not transmit any messages. However, if any other node transmits a message, then the CAN Controller receives the transmitted message and exits from Sleep Mode. If there are new transmission requests from either the TX FIFO or the TX High Priority Buffer when the CAN Controller is in Sleep Mode, these requests are not serviced, and the CAN Controller continues to remain in Sleep Mode. Interrupts are generated when the CAN controller enters Sleep mode or Wakes up from Sleep mode.</li>
+<li><b>Sleep Mode</b>: In Sleep Mode the CAN Controller does not transmit any messages. However, if any other node transmits a message, then the CAN Controller receives the transmitted message and exits from Sleep Mode. The CAN Controller does not service new transmission requests from the TX FIFO or the TX High Priority Buffer while in Sleep Mode. The CAN Controller remains in Sleep Mode. Interrupts are generated when the CAN controller enters Sleep mode or Wakes up from Sleep mode.</li>
 <li><b>Loop Back Mode</b>: In Loop Back mode, the CAN controller transmits a recessive bit stream on to the CAN Bus. Any message that is transmitted is loop backed to the rx line and acknowledged. The CAN controller thus receives any message that it transmits. It does not participate in normal bus communication and does not receive any messages that are transmitted by other CAN nodes. This mode is used for diagnostic purposes.</li>
-<li><b>Snoop mode</b>:in Snoop Mode,The CAN controller transmits recessive bit stream on to CAN bus and does not participate in normal bus communication but receives messages that are transmitted by other CAN nodes.Received messages are stored based on receive ID match result. Error counters are disabled and cleared to 0. Reads to error counter register will return zero.</li>
+<li><b>Snoop mode</b>: In Snoop Mode, the CAN controller transmits recessive bit stream on to CAN bus. It does not participate in normal bus communication, but it receives messages that are transmitted by other CAN nodes. Received messages are stored based on receive ID match result. Error counters are disabled and cleared to 0. Reads to error counter register returns zero.</li>
 </ul>
 <p><b>Buffer Alignment</b></p>
-<p>It is important to note that frame buffers passed to the driver must be 32-bit aligned.</p>
+<p>Frame buffers passed to the driver must be 32-bit aligned.</p>
 <p><b>Receive Address Filtering</b></p>
 <p>The device can be set to accept frames whose Identifiers match any of up to 32 filters set in the Acceptance Filter Mask/ID registers.</p>
-<p>The incoming Identifier is masked with the bits in the Acceptance Filter Mask Register. This value is compared with the result of masking the bits in the Acceptance Filter ID Register with the Acceptance Filter Mask Register. If both these values are equal, the message will be stored in the RX FIFO.</p>
+<p>The incoming Identifier is masked with the bits in the Acceptance Filter Mask Register. This value is compared with the result of masking the bits in the Acceptance Filter ID Register with the Acceptance Filter Mask Register. If both these values are equal, the message is stored in the RX FIFO.</p>
 <p>Acceptance Filtering is performed by each of the defined acceptance filters. If the incoming identifier passes through any acceptance filter then the frame is stored in the RX FIFO.</p>
 <p><b>PHY Communication</b></p>
 <p>This driver does not provide any mechanism for directly programming PHY.</p>
 <p><b>Interrupts</b></p>
-<p>The driver has no dependencies on the interrupt controller. The driver provides an interrupt handler. User of this driver needs to provide callback functions. An interrupt handler example is available with the driver.</p>
+<p>The driver has no dependencies on the interrupt controller. The driver provides an interrupt handler. The application must provide callback functions. An interrupt handler example is available with the driver.</p>
 <p><b>Virtual Memory</b></p>
-<p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space and invoking function XCanFd_VmInitialize(), instead of XCanFd_Initialize(), to initialize the device at first.</p>
+<p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space. The RTOS then invokes XCanFd_VmInitialize(), instead of XCanFd_Initialize(), to initialize the device at first.</p>
 <p><b>Threads</b></p>
 <p>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</p>
 <p><b>Device Reset</b></p>
-<p>Bus Off interrupt that can occur in the device requires a device reset. The user is responsible for resetting the device and re-configuring it based on its needs (the driver does not save the current configuration). When integrating into an RTOS, these reset and re-configure obligations are taken care of by the OS adapter software if it exists for that RTOS.</p>
+<p>Bus Off interrupt that can occur in the device requires a device reset. The application is responsible for resetting the device and re-configuring it based on its needs (the driver does not save the current configuration). When integrating into an RTOS, these reset and re-configure obligations are taken care of by the OS adapter software if it exists for that RTOS.</p>
 <p><b>Device Configuration</b></p>
 <p>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the xcan_g.c files. A table is defined where each entry contains configuration information for a CAN device. This information includes such things as the base address of the memory-mapped device, and the number of acceptance filters.</p>
 <p><b>Asserts</b></p>
 <p>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</p>
 <p><b>Building the driver</b></p>
-<p>The <a class="el" href="struct_x_can_fd.html" title="The XCanFd driver instance data. ">XCanFd</a> driver is composed of several source files.This allows the user to build and link only those parts of the driver that are necessary. <br/>
+<p>The <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver is composed of several source files. This allows an application to build and link only those parts of the driver that are necessary. <br/>
 <br/>
 </p>
 <pre>
@@ -163,18 +163,18 @@ $(document).ready(function(){initNavTree('index.html','');});
 <hr/>
 <p>
   1.0   nsk  06/04/15 First release
-  1.0   nsk  15/05/15 Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> for correct AFRID and AFRMSK Registers
-                      Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and <a class="el" href="xcanfd_8h.html">xcanfd.h</a> to get configurable
-                      TxBuffers in <a class="el" href="struct_x_can_fd___config.html" title="This typedef contains configuration information for a device. ">XCanFd_Config</a> Struct and
-                      <a class="el" href="group__canfd.html#gab41b6198a5a28b106e241e7c785fbcae" title="This Routine returns the Free Buffers count out of 32 Transmit Buffers. ">XCanFd_GetFreeBuffer()</a>.
-                      Modified XCANFD_BTR_TS1_MASK in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a>.
-                      Updated <a class="el" href="xcanfd_8c.html">xcanfd.c</a> while sending data when EDL is Zero.
+  1.0   nsk  15/05/15 Updated <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a> for correct AFRID and AFRMSK Registers
+                      Updated <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a> and <a class="el" href="xcanfd_8h.html">xcanfd.h</a> to get configurable
+                      TxBuffers in <a class="el" href="struct_x_can_fd___config.html" title="Contains configuration information for a device. ">XCanFd_Config</a> Struct and
+                      <a class="el" href="group__canfd.html#gab41b6198a5a28b106e241e7c785fbcae" title="Returns the free buffer count out of 32 Transmit Buffers. ">XCanFd_GetFreeBuffer()</a>.
+                      Modified XCANFD_BTR_TS1_MASK in <a class="el" href="xcanfd__hw_8h.html" title="Defines register offsets, bit masks, and low-level access macros. ">xcanfd_hw.h</a>.
+                      Updated <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a> while sending data when EDL is Zero.
                       Updated driver tcl file to get configurable TxBuffers.
                       (CR 861772).
-  1.0   nsk  16/06/15 Updated <a class="el" href="group__canfd.html#gae93c2c9dd933e4258b9d4118c4bf6220" title="This function receives a CAN Frame in MAIL BOX Mode. ">XCanFd_Recv_Mailbox()</a>, <a class="el" href="group__canfd.html#gaaa893768ea4f0db5796f31ab3d8ca431" title="This function allows the CAN device to enter one of the following operation modes: ...">XCanFd_EnterMode()</a>
-                      <a class="el" href="group__canfd.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5" title="This routine returns current operation mode the CAN device is in. ">XCanFd_GetMode()</a> in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> and Added new definition
-                      for Register bits in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a> and updated
-                      <a class="el" href="group__canfd.html#ga9576c384b9ef2e8436298b5947010f90" title="This routine is the interrupt handler for the CAN driver. ">XCanFd_IntrHandler()</a> in <a class="el" href="xcanfd__intr_8c.html">xcanfd_intr.c</a> as per new RTL.
+  1.0   nsk  16/06/15 Updated <a class="el" href="group__canfd.html#gae93c2c9dd933e4258b9d4118c4bf6220" title="Receives a CAN Frame in Mailbox Mode. ">XCanFd_Recv_Mailbox()</a>, <a class="el" href="group__canfd.html#gaaa893768ea4f0db5796f31ab3d8ca431" title="Enters the specified CAN operation mode. ">XCanFd_EnterMode()</a>
+                      <a class="el" href="group__canfd.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5" title="Returns the current operation mode of the CAN device. ">XCanFd_GetMode()</a> in <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a> and Added new definition
+                      for Register bits in <a class="el" href="xcanfd__hw_8h.html" title="Defines register offsets, bit masks, and low-level access macros. ">xcanfd_hw.h</a> and updated
+                      <a class="el" href="group__canfd.html#ga9576c384b9ef2e8436298b5947010f90" title="Handles CAN FD driver interrupts. ">XCanFd_IntrHandler()</a> in <a class="el" href="xcanfd__intr_8c.html" title="Implements interrupt handling functions for the XCanFd driver. ">xcanfd_intr.c</a> as per new RTL.
                       Changes in RTL, Added new bits to MSR,SR,ISR,IER,ICR
                       Registers and modified TS2 bits in BTR and F_SJW bits
                       in F_BTR Registers.
@@ -198,10 +198,10 @@ $(document).ready(function(){initNavTree('index.html','');});
                                                                        XCanFd_Recv_TXEvents_Sequential
                                                                        XCanFd_GetNofMessages_Stored_TXE_FIFO
                                                                        XCanFd_GetNofMessages_Stored_Rx_Fifo
-                                                                       above apis added in <a class="el" href="xcanfd_8c.html">xcanfd.c</a> .</pre><pre>                                                                       XCanFd_SetRxIntrWatermarkFifo1
+                                                                       above apis added in <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a> .</pre><pre>                                                                       XCanFd_SetRxIntrWatermarkFifo1
                                                                        XCanFd_SetTxEventIntrWatermark
                                                                        XCanFd_SetRxFilterPartition
-                                    above apis added in <a class="el" href="xcanfd__config_8c.html">xcanfd_config.c</a>
+                                    above apis added in <a class="el" href="xcanfd__config_8c.html" title="CAN Configuration Register access related functions. ">xcanfd_config.c</a>
 </p>
 <pre class="fragment">                               XCANFD_TXEID_OFFSET
                                XCANFD_TXEDLC_OFFSET
@@ -214,7 +214,7 @@ $(document).ready(function(){initNavTree('index.html','');});
                                                 XCanFd_Send_Queue, XCanFd_Addto_Queue, XCanFd_Send,
                                                 and XCanFd_GetFreeBuffer.
                          Added an static function
-                                                XCanfd_TrrVal_Get_SetBit_Position, added in <a class="el" href="xcanfd_8c.html">xcanfd.c</a>
+                                                XCanfd_TrrVal_Get_SetBit_Position, added in <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a>
                                                 XCanFD_Check_TrrVal_Set_Bit, added in <a class="el" href="xcanfd_8h.html">xcanfd.h</a>
                          Modified apis
                                                 XCanFd_SetBitTiming
@@ -234,16 +234,16 @@ $(document).ready(function(){initNavTree('index.html','');});
                      Configuration regarding the Baud Rate and bit timing
                      for both Arbitration and Data Phase.
   2.1   nsk  01/22/19 Pass correct fifo number to XCanFd_SeqRecv_logic() in
-                      <a class="el" href="xcanfd_8c.html">xcanfd.c</a> CR# 1018379
+                      <a class="el" href="xcanfd_8c.html" title="Implements the primary functions for the XCanFd driver. ">xcanfd.c</a> CR# 1018379
   2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
-                      prescalar value properly in <a class="el" href="xcanfd__config_8c.html">xcanfd_config.c</a> CR# 1016013
-  2.1   nsk  03/09/19 Updated <a class="el" href="group__canfd.html#ga10fa6a0030a1dc8ca563745ffb5f9c95" title="This function returns Data Length Code(in Bytes),we need to pass DLC Field value in DLC Register...">XCanFd_GetDlc2len()</a>, for CAN frames, to handle
+                      prescalar value properly in <a class="el" href="xcanfd__config_8c.html" title="CAN Configuration Register access related functions. ">xcanfd_config.c</a> CR# 1016013
+  2.1   nsk  03/09/19 Updated <a class="el" href="group__canfd.html#ga10fa6a0030a1dc8ca563745ffb5f9c95" title="Returns Data Length Code in bytes. ">XCanFd_GetDlc2len()</a>, for CAN frames, to handle
                       number of data bytes greater than 8. CR# 1022045
   2.1   nsk  03/09/19 Fix for TrrMask to not to get written when using
-                      <a class="el" href="group__canfd.html#ga786ce457feaacaa6e7e076d8dd6f8931" title="This function writes the Data into specific Buffer.we have 32 TxBuffers we can Add data to each Buffe...">XCanFd_Addto_Queue()</a>. CR# 1022093
+                      <a class="el" href="group__canfd.html#ga786ce457feaacaa6e7e076d8dd6f8931" title="Writes data into a specific TX buffer. ">XCanFd_Addto_Queue()</a>. CR# 1022093
   2.1   nsk  03/09/19 Added support for PS CANFD, PL CANFD 1.0 and PL CANFD 2.0
                       CR# 1021963
-  2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in <a class="el" href="xcanfd__hw_8h.html">xcanfd_hw.h</a>
+  2.2   sn   06/11/19 Corrected below incorrect Mask values for CANFD2.0 in <a class="el" href="xcanfd__hw_8h.html" title="Defines register offsets, bit masks, and low-level access macros. ">xcanfd_hw.h</a>
                       XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
                       and CONTROL_STATUS_3.
   2.3   sne  21/11/19 Used correct macro to access RX FIFO1 buffer.
@@ -256,7 +256,7 @@ $(document).ready(function(){initNavTree('index.html','');});
   2.3   sne  03/09/20 Initialize IsPl of config structure.
   2.4   sne  08/28/20 Modify Makefile to support parallel make execution.
   2.5   sne  11/23/20 Fixed MISRAC violations.
-  2.7   sne  04/26/22 Corrected Return value of <a class="el" href="group__canfd.html#gab41b6198a5a28b106e241e7c785fbcae" title="This Routine returns the Free Buffers count out of 32 Transmit Buffers. ">XCanFd_GetFreeBuffer()</a>.
+  2.7   sne  04/26/22 Corrected Return value of <a class="el" href="group__canfd.html#gab41b6198a5a28b106e241e7c785fbcae" title="Returns the free buffer count out of 32 Transmit Buffers. ">XCanFd_GetFreeBuffer()</a>.
   2.8   ht   06/19/23 Added support for system device-tree flow.
   2.8   gm   06/22/23 Add XCanFd_stop to support release node.
   2.8   ht   07/18/23 Fixed GCC warnings.
@@ -264,6 +264,8 @@ $(document).ready(function(){initNavTree('index.html','');});
   2.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
         vlt  01/27/26 Fixed codespell issues
         ht   02/26/26 Fix TX buffer transmitted check
+  2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+  2.13  vn   09/30/26 Update Doxygen comments to AMD standards
   </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

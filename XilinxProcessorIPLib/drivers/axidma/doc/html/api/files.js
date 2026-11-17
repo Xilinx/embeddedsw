@@ -13,7 +13,7 @@ var files =
     [ "xaxidma_example_sgcyclic_intr.c", "xaxidma__example__sgcyclic__intr_8c.html", "xaxidma__example__sgcyclic__intr_8c" ],
     [ "xaxidma_example_simple_intr.c", "xaxidma__example__simple__intr_8c.html", "xaxidma__example__simple__intr_8c" ],
     [ "xaxidma_example_simple_poll.c", "xaxidma__example__simple__poll_8c.html", "xaxidma__example__simple__poll_8c" ],
-    [ "xaxidma_g.c", "xaxidma__g_8c.html", null ],
+    [ "xaxidma_g.c", "xaxidma__g_8c.html", "xaxidma__g_8c" ],
     [ "xaxidma_hw.h", "xaxidma__hw_8h.html", "xaxidma__hw_8h" ],
     [ "xaxidma_porting_guide.h", "xaxidma__porting__guide_8h.html", null ],
     [ "xaxidma_selftest.c", "xaxidma__selftest_8c.html", "xaxidma__selftest_8c" ],

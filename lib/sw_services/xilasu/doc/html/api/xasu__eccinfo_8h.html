@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -116,7 +117,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       yog  08/19/24 Added <a class="el" href="struct_x_asu___ecc_params.html" title="This structure contains ECC params info for signature operations. ">XAsu_EccParams</a> structure, module command ID's and curve type values
       ss   12/02/24 Added support for ECDH
       yog  03/25/25 Added <a class="el" href="struct_x_asu___ecc_key_params.html" title="This structure contains ECC params info for public key generation. ">XAsu_EccKeyParams</a> structure and XASU_ECC_GEN_PUBKEY_CMD_ID.
-      yog  07/11/25 Added XASU_ECC_P448_SIZE_IN_BYTES macro and updated curve type macro values.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+      yog  07/11/25 Added XASU_ECC_P448_SIZE_IN_BYTES macro and updated curve type macro values.
+      lp   10/02/26 Added SharedSecretMetadata to <a class="el" href="struct_x_asu___ecdh_params.html" title="This structure contains ECDH params info. ">XAsu_EcdhParams</a> for key vault storage of the
+                    shared secret.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xasu__keymanagerinfo_8h.html">xasu_keymanagerinfo.h</a>&quot;</code><br/>
 <code>#include &quot;xasu_bsp_config.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -208,6 +212,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga038d5d6cf5625497fad4bd0556a3a5d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga038d5d6cf5625497fad4bd0556a3a5d5">XASU_ECC_CURVE448</a>&#160;&#160;&#160;(14U)</td></tr>
 <tr class="memdesc:ga038d5d6cf5625497fad4bd0556a3a5d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Curve448 curve.  <a href="group__xasu__common__defs.html#ga038d5d6cf5625497fad4bd0556a3a5d5">More...</a><br/></td></tr>
 <tr class="separator:ga038d5d6cf5625497fad4bd0556a3a5d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga099195eefda9e3854a75e38210f7f1bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga099195eefda9e3854a75e38210f7f1bd">XASU_ECC_CURVE_TYPE_MAX</a>&#160;&#160;&#160;<a class="el" href="group__xasu__common__defs.html#ga038d5d6cf5625497fad4bd0556a3a5d5">XASU_ECC_CURVE448</a></td></tr>
+<tr class="memdesc:ga099195eefda9e3854a75e38210f7f1bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum supported curve type index.  <a href="group__xasu__common__defs.html#ga099195eefda9e3854a75e38210f7f1bd">More...</a><br/></td></tr>
+<tr class="separator:ga099195eefda9e3854a75e38210f7f1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga738898d2f2254bccc70b957aae4454ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga738898d2f2254bccc70b957aae4454ad">XASU_ECC_P192_PVT_KEY_SIZE_IN_BYTES</a>&#160;&#160;&#160;(24U)</td></tr>
 <tr class="memdesc:ga738898d2f2254bccc70b957aae4454ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of NIST P-192 private key size in bytes.  <a href="group__xasu__common__defs.html#ga738898d2f2254bccc70b957aae4454ad">More...</a><br/></td></tr>
 <tr class="separator:ga738898d2f2254bccc70b957aae4454ad"><td class="memSeparator" colspan="2">&#160;</td></tr>

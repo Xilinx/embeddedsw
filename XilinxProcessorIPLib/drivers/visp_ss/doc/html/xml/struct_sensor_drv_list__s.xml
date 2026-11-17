@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_sensor_drv_list__s_1a9282dc4b867e7c3d245c6cd4844d9159" prot="public" static="no" mutable="no">
         <type>IsiSensorMode_t *</type>
@@ -27,14 +27,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="49" bodyend="53"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="49" bodyend="53"/>
     <listofallmembers>
       <member refid="struct_sensor_drv_list__s_1a716dd9f10636e227c10ee70860bd8d8e" prot="public" virt="non-virtual"><scope>SensorDrvList_s</scope><name>name</name></member>
       <member refid="struct_sensor_drv_list__s_1a9282dc4b867e7c3d245c6cd4844d9159" prot="public" virt="non-virtual"><scope>SensorDrvList_s</scope><name>pSensorMode</name></member>

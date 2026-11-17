@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_uart_ps_buffer" kind="struct" prot="public">
     <compoundname>XUartPsBuffer</compoundname>
+    <includes local="no">xuartps.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_uart_ps_buffer_1a3f4db132461c120c7327c8aef37a1a1c" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -14,7 +15,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="301" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga371d525c4d48239a3ce77c44d0a92b05" compoundref="xuartps_8c" startline="115" endline="204">XUartPs_CfgInitialize</referencedby>
+        <referencedby refid="group__uartps_1ga183d2a2ce37a822b72dc8123c276cc39" compoundref="xuartps_8c" startline="442" endline="501">XUartPs_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartps_1gadc16932076b99cd747e702dcbecd102b" compoundref="xuartps_8c" startline="304" endline="340">XUartPs_Recv</referencedby>
+        <referencedby refid="group__uartps_1ga17b3e12a296eecf17be4a4b8583576e7" compoundref="xuartps_8c" startline="239" endline="271">XUartPs_Send</referencedby>
+        <referencedby refid="group__uartps_1ga155e8e81ea00cad7734697093376c2fe" compoundref="xuartps_8c" startline="368" endline="413">XUartPs_SendBuffer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_ps_buffer_1a4bbca311e5d38c200af1cc97369f8f64" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,7 +33,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="302" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga371d525c4d48239a3ce77c44d0a92b05" compoundref="xuartps_8c" startline="115" endline="204">XUartPs_CfgInitialize</referencedby>
+        <referencedby refid="group__uartps_1gadc16932076b99cd747e702dcbecd102b" compoundref="xuartps_8c" startline="304" endline="340">XUartPs_Recv</referencedby>
+        <referencedby refid="group__uartps_1ga17b3e12a296eecf17be4a4b8583576e7" compoundref="xuartps_8c" startline="239" endline="271">XUartPs_Send</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_ps_buffer_1a4541056d01b0c7024e35b653b8ef61fe" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -40,14 +49,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="303" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga371d525c4d48239a3ce77c44d0a92b05" compoundref="xuartps_8c" startline="115" endline="204">XUartPs_CfgInitialize</referencedby>
+        <referencedby refid="group__uartps_1ga183d2a2ce37a822b72dc8123c276cc39" compoundref="xuartps_8c" startline="442" endline="501">XUartPs_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartps_1gadc16932076b99cd747e702dcbecd102b" compoundref="xuartps_8c" startline="304" endline="340">XUartPs_Recv</referencedby>
+        <referencedby refid="group__uartps_1ga17b3e12a296eecf17be4a4b8583576e7" compoundref="xuartps_8c" startline="239" endline="271">XUartPs_Send</referencedby>
+        <referencedby refid="group__uartps_1ga155e8e81ea00cad7734697093376c2fe" compoundref="xuartps_8c" startline="368" endline="413">XUartPs_SendBuffer</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Tracks state information about a data buffer in interrupt mode. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="300" bodyend="304"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="321" bodyend="325"/>
     <listofallmembers>
       <member refid="struct_x_uart_ps_buffer_1a3f4db132461c120c7327c8aef37a1a1c" prot="public" virt="non-virtual"><scope>XUartPsBuffer</scope><name>NextBytePtr</name></member>
       <member refid="struct_x_uart_ps_buffer_1a4541056d01b0c7024e35b653b8ef61fe" prot="public" virt="non-virtual"><scope>XUartPsBuffer</scope><name>RemainingBytes</name></member>

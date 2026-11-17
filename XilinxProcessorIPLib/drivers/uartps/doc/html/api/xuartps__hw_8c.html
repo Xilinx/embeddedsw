@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartps__hw_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,21 +105,35 @@ $(document).ready(function(){initNavTree('xuartps__hw_8c.html','');});
 <div class="title">xuartps_hw.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartps__hw_8h.html">xuartps_hw.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> low-level hardware interface functions. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00    drg/jz 01/12/10 First Release
+1.05a hk     08/22/13 Added reset function
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+4.00  sd     02/02/24 Added wait for transmission done function
+3.18  vlt    01/27/26 Fixed codespell issues
+3.19  vn     08/26/26 Fix Doxygen warnings
+3.19  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartps__hw_8h.html">xuartps_hw.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga4bae0ee4df836a8c3e7748c9ae28ebee">XUartPs_SendByte</a> (u32 BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends one byte using the device.  <a href="group__uartps.html#ga4bae0ee4df836a8c3e7748c9ae28ebee">More...</a><br/></td></tr>
+<tr class="memdesc:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends one byte using the device in polled mode.  <a href="group__uartps.html#ga4bae0ee4df836a8c3e7748c9ae28ebee">More...</a><br/></td></tr>
 <tr class="separator:ga4bae0ee4df836a8c3e7748c9ae28ebee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga60240486c69f6167ab13194ced5e8bb7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga60240486c69f6167ab13194ced5e8bb7">XUartPs_RecvByte</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga60240486c69f6167ab13194ced5e8bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a byte from the device.  <a href="group__uartps.html#ga60240486c69f6167ab13194ced5e8bb7">More...</a><br/></td></tr>
+<tr class="memdesc:ga60240486c69f6167ab13194ced5e8bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a byte from the device in polled mode.  <a href="group__uartps.html#ga60240486c69f6167ab13194ced5e8bb7">More...</a><br/></td></tr>
 <tr class="separator:ga60240486c69f6167ab13194ced5e8bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga157cf5966738452bc13639746f4b8d97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga157cf5966738452bc13639746f4b8d97">XUartPs_ResetHw</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga157cf5966738452bc13639746f4b8d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets UART.  <a href="group__uartps.html#ga157cf5966738452bc13639746f4b8d97">More...</a><br/></td></tr>
+<tr class="memdesc:ga157cf5966738452bc13639746f4b8d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the UART.  <a href="group__uartps.html#ga157cf5966738452bc13639746f4b8d97">More...</a><br/></td></tr>
 <tr class="separator:ga157cf5966738452bc13639746f4b8d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf789b78ee831825f3131f9a016e15044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gaf789b78ee831825f3131f9a016e15044">XUartPs_WaitTransmitDone</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:gaf789b78ee831825f3131f9a016e15044"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function waits for transmission to complete.  <a href="group__uartps.html#gaf789b78ee831825f3131f9a016e15044">More...</a><br/></td></tr>
+<tr class="memdesc:gaf789b78ee831825f3131f9a016e15044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for transmission to complete.  <a href="group__uartps.html#gaf789b78ee831825f3131f9a016e15044">More...</a><br/></td></tr>
 <tr class="separator:gaf789b78ee831825f3131f9a016e15044"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

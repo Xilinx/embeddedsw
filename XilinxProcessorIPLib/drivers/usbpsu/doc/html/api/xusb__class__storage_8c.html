@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('xusb__class__storage_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_class_storage.c File Reference</div>  </div>
 </div><!--header-->
@@ -130,11 +131,32 @@ Functions</h2></td></tr>
 <tr class="memdesc:adabccc59f14f73295d6d3e8ab2a84ed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is class handler for Mass storage and is called when Setup packet received is for Class request(not Standard Device request)  <a href="#adabccc59f14f73295d6d3e8ab2a84ed3">More...</a><br/></td></tr>
 <tr class="separator:adabccc59f14f73295d6d3e8ab2a84ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bc2f904e6d177db430b985b347855ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#a0bc2f904e6d177db430b985b347855ef">ParseCBW</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a0bc2f904e6d177db430b985b347855ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Reduced Block Command (RBC) requests from the host.  <a href="#a0bc2f904e6d177db430b985b347855ef">More...</a><br/></td></tr>
+<tr class="memdesc:a0bc2f904e6d177db430b985b347855ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse and handle Command Block Wrapper (CBW) from USB host.  <a href="#a0bc2f904e6d177db430b985b347855ef">More...</a><br/></td></tr>
 <tr class="separator:a0bc2f904e6d177db430b985b347855ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6b3731e43cb34b4079813eb05fdff26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#af6b3731e43cb34b4079813eb05fdff26">SendCSW</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, u32 Length)</td></tr>
-<tr class="memdesc:af6b3731e43cb34b4079813eb05fdff26"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to send SCSI Command Status Wrapper to Host.  <a href="#af6b3731e43cb34b4079813eb05fdff26">More...</a><br/></td></tr>
+<tr class="memdesc:af6b3731e43cb34b4079813eb05fdff26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send Command Status Wrapper to host.  <a href="#af6b3731e43cb34b4079813eb05fdff26">More...</a><br/></td></tr>
 <tr class="separator:af6b3731e43cb34b4079813eb05fdff26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a61bd56b191638bdedbe5a24715605e43"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#a61bd56b191638bdedbe5a24715605e43">Phase</a></td></tr>
+<tr class="memdesc:a61bd56b191638bdedbe5a24715605e43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phase.  <a href="#a61bd56b191638bdedbe5a24715605e43">More...</a><br/></td></tr>
+<tr class="separator:a61bd56b191638bdedbe5a24715605e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a599cd912c03e24b67ab71e55eafcdc8a"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#a599cd912c03e24b67ab71e55eafcdc8a">VirtFlash</a> []</td></tr>
+<tr class="memdesc:a599cd912c03e24b67ab71e55eafcdc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virt Flash.  <a href="#a599cd912c03e24b67ab71e55eafcdc8a">More...</a><br/></td></tr>
+<tr class="separator:a599cd912c03e24b67ab71e55eafcdc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a086271cdf5fe6afbcc215f2ee3ab4e48"><td class="memItemLeft" align="right" valign="top">USB_CBW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#a086271cdf5fe6afbcc215f2ee3ab4e48">CBW</a></td></tr>
+<tr class="memdesc:a086271cdf5fe6afbcc215f2ee3ab4e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cbw.  <a href="#a086271cdf5fe6afbcc215f2ee3ab4e48">More...</a><br/></td></tr>
+<tr class="separator:a086271cdf5fe6afbcc215f2ee3ab4e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0f9992b68a729a041fe26e4889d950"><td class="memItemLeft" align="right" valign="top">USB_CSW&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#acb0f9992b68a729a041fe26e4889d950">CSW</a></td></tr>
+<tr class="memdesc:acb0f9992b68a729a041fe26e4889d950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Csw.  <a href="#acb0f9992b68a729a041fe26e4889d950">More...</a><br/></td></tr>
+<tr class="separator:acb0f9992b68a729a041fe26e4889d950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8a1fc36ad117be276d3d479feb9b69"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#a8d8a1fc36ad117be276d3d479feb9b69">rxBytesLeft</a></td></tr>
+<tr class="memdesc:a8d8a1fc36ad117be276d3d479feb9b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx Bytes Left.  <a href="#a8d8a1fc36ad117be276d3d479feb9b69">More...</a><br/></td></tr>
+<tr class="separator:a8d8a1fc36ad117be276d3d479feb9b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25bbc00aa8ab0d6e5913617923b04a7"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__storage_8c.html#aa25bbc00aa8ab0d6e5913617923b04a7">VirtFlashWritePointer</a></td></tr>
+<tr class="memdesc:aa25bbc00aa8ab0d6e5913617923b04a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virt Flash Write Pointer.  <a href="#aa25bbc00aa8ab0d6e5913617923b04a7">More...</a><br/></td></tr>
+<tr class="separator:aa25bbc00aa8ab0d6e5913617923b04a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="adabccc59f14f73295d6d3e8ab2a84ed3"></a>
@@ -164,13 +186,11 @@ Functions</h2></td></tr>
 <p>This function is class handler for Mass storage and is called when Setup packet received is for Class request(not Standard Device request) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is pointer to <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> received.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is pointer to <a class="el" href="struct_setup_packet.html" title="struct SetupPacket - USB Standard Control Request ">SetupPacket</a> received. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -188,17 +208,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function handles Reduced Block Command (RBC) requests from the host. </p>
+<p>Parse and handle Command Block Wrapper (CBW) from USB host. </p>
+<p>Parse Command Block Wrapper.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xusb__wrapper_8c.html#a02e8ef492f6fb18133f23f90205cc573">IsSuperSpeed()</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, and <a class="el" href="xusb__class__composite_8c.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW()</a>.</p>
+<p>References <a class="el" href="xusb__wrapper_8c.html#ab01491c228aee667027315c8d539d8c5">EpBufferRecv()</a>, <a class="el" href="xusb__wrapper_8c.html#a0bebffade70d4d3276e743f7d3db8a6b">EpBufferSend()</a>, <a class="el" href="xusb__ch9__audio__dfu_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16">htonl</a>, <a class="el" href="xusb__ch9__audio__dfu_8h.html#a51799f5ebb4c7228ef7e95c247030f42">htons</a>, <a class="el" href="xusb__wrapper_8c.html#a02e8ef492f6fb18133f23f90205cc573">IsSuperSpeed()</a>, <a class="el" href="xusb__ch9__storage_8c.html#a61bd56b191638bdedbe5a24715605e43">Phase</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__class__composite_8c.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW()</a>, <a class="el" href="xusb__class__composite_8h.html#aed1d7983bc5b354f75b39f84585db954">USB_EP_STATE_DATA_IN</a>, <a class="el" href="xusb__class__composite_8h.html#a2dae14213e2f18ebc39ee85441cddd5a">USB_EP_STATE_DATA_OUT</a>, <a class="el" href="xusb__class__composite_8h.html#afb23c3984d1eab7f6c9eda96bf4acd2e">USB_RBC_INQUIRY</a>, <a class="el" href="xusb__class__composite_8h.html#a2a02161cc295a2b736377657565d0e55">USB_RBC_MEDIUM_REMOVAL</a>, <a class="el" href="xusb__class__composite_8h.html#aea3b0e96e90d2dc212958885a0b6b6f2">USB_RBC_MODE_SELECT</a>, <a class="el" href="xusb__class__composite_8h.html#a16d0a6b6c407e9b1d244772ee99bd162">USB_RBC_MODE_SENSE</a>, <a class="el" href="xusb__class__composite_8h.html#adc195711abc29433cfd79274727fff12">USB_RBC_READ</a>, <a class="el" href="xusb__class__composite_8h.html#a8953eaa3b8dec85c5084acd3cdf54e79">USB_RBC_READ_CAP</a>, <a class="el" href="xusb__class__composite_8h.html#a191cf1e7f01d47d29963a1f0d89f86a9">USB_RBC_REQUEST_SENSE</a>, <a class="el" href="xusb__class__composite_8h.html#abe24a3069290946faa733b63c08b4001">USB_RBC_STARTSTOP_UNIT</a>, <a class="el" href="xusb__class__composite_8h.html#aaeb77857383eb0c9b78bec7208516bfc">USB_RBC_TEST_UNIT_READY</a>, <a class="el" href="xusb__class__composite_8h.html#a66b0f59a04fa488ad9be98af8827e61d">USB_RBC_VERIFY</a>, <a class="el" href="xusb__class__composite_8h.html#ae8cc5f967ddc0a55466220d616b06354">USB_RBC_WRITE</a>, <a class="el" href="xusb__class__composite_8h.html#add4d413170667a9508bc7e6064f531a5">USB_SYNC_SCSI</a>, <a class="el" href="xusb__class__composite_8h.html#ab9197267b87aaed640f3e5bff0e581cc">USB_UFI_GET_CAP_LIST</a>, <a class="el" href="xusb__class__storage_8h.html#af778b0917e01cc32e4289bab5449f930">VFLASH_BLOCK_SIZE</a>, <a class="el" href="xusb__class__storage_8h.html#a7adb1c99f00b4b2b262ff78a65a69d04">VFLASH_NUM_BLOCKS</a>, and <a class="el" href="xusb__audio__dfu__example_8c.html#ac1e6226fb63d8dfb57aec3e2edde7351">VirtFlash</a>.</p>
 
 </div>
 </div>
@@ -226,18 +245,107 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is used to send SCSI Command Status Wrapper to Host. </p>
+<p>Send Command Status Wrapper to host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Length</td><td>is the data residue.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Length</td><td>is the data residue length. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
 
-<p>References <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>.</p>
+<p>References <a class="el" href="xusb__wrapper_8c.html#a0bebffade70d4d3276e743f7d3db8a6b">EpBufferSend()</a>, <a class="el" href="xusb__ch9__storage_8c.html#a61bd56b191638bdedbe5a24715605e43">Phase</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, and <a class="el" href="xusb__class__composite_8h.html#a9428396c3d325d9305a67c7fae00382f">USB_EP_STATE_STATUS</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a086271cdf5fe6afbcc215f2ee3ab4e48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">USB_CBW CBW</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cbw. </p>
+
+</div>
+</div>
+<a class="anchor" id="acb0f9992b68a729a041fe26e4889d950"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">USB_CSW CSW</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Csw. </p>
+
+</div>
+</div>
+<a class="anchor" id="a61bd56b191638bdedbe5a24715605e43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 Phase</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Phase. </p>
+<p>Phase. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8d8a1fc36ad117be276d3d479feb9b69"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 rxBytesLeft</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rx Bytes Left. </p>
+
+<p>Referenced by <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a599cd912c03e24b67ab71e55eafcdc8a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 VirtFlash[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Virt Flash. </p>
+<p>Virt Flash. </p>
+
+<p>Referenced by <a class="el" href="xusb__class__storage_8h.html#a0bc2f904e6d177db430b985b347855ef">ParseCBW()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa25bbc00aa8ab0d6e5913617923b04a7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* VirtFlashWritePointer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Virt Flash Write Pointer. </p>
 
 </div>
 </div>

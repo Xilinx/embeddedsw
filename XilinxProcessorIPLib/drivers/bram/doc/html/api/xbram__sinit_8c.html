@@ -106,19 +106,33 @@ $(document).ready(function(){initNavTree('xbram__sinit_8c.html','');});
 <div class="title">xbram_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> static initialization. </p>
+<p>The implementation of the <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> driver's static initialization functionality.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+2.01a jvb  10/13/05 First release
+2.11a mta  03/21/07 Updated to new coding style
+4.2   ms   08/07/17 Fixed compilation warnings.
+4.9   sd   07/07/23 Added SDT support.
+4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga08f91d2ae010f1a11667b587f582b654"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram___config.html">XBram_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram.html#ga08f91d2ae010f1a11667b587f582b654">XBram_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga08f91d2ae010f1a11667b587f582b654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__bram.html#ga08f91d2ae010f1a11667b587f582b654">More...</a><br/></td></tr>
-<tr class="separator:ga08f91d2ae010f1a11667b587f582b654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab2056c1f9272b35a37e7f20ac2fd0af9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram___config.html">XBram_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram__api.html#gab2056c1f9272b35a37e7f20ac2fd0af9">XBram_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gab2056c1f9272b35a37e7f20ac2fd0af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration for a BRAM instance.  <a href="group__bram__api.html#gab2056c1f9272b35a37e7f20ac2fd0af9">More...</a><br/></td></tr>
+<tr class="separator:gab2056c1f9272b35a37e7f20ac2fd0af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:gab776609479170485eb94104fe6a94a12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram___config.html">XBram_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram.html#gab776609479170485eb94104fe6a94a12">XBram_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gab776609479170485eb94104fe6a94a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each BRAM device in the system.  <a href="group__bram.html#gab776609479170485eb94104fe6a94a12">More...</a><br/></td></tr>
+<tr class="memitem:gab776609479170485eb94104fe6a94a12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram___config.html">XBram_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram__api.html#gab776609479170485eb94104fe6a94a12">XBram_ConfigTable</a> []</td></tr>
+<tr class="memdesc:gab776609479170485eb94104fe6a94a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">This table contains configuration information for each BRAM device in the system.  <a href="group__bram__api.html#gab776609479170485eb94104fe6a94a12">More...</a><br/></td></tr>
 <tr class="separator:gab776609479170485eb94104fe6a94a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -1,0 +1,621 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspi__numonyx__flash__quad__example" kind="group">
+    <compoundname>xspi_numonyx_flash_quad_example</compoundname>
+    <title>Xspi_numonyx_flash_quad_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspi__numonyx__flash__quad__example_1ga1dc944bd1ac04c2ab436f573a526fdce" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref></type>
+        <definition>XSpi Spi</definition>
+        <argsstring></argsstring>
+        <name>Spi</name>
+        <briefdescription>
+<para>SPI driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__numonyx__flash__quad__example_1ga2dd94411694db2d8662ebacc6e880c0a" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransferInProgress</definition>
+        <argsstring></argsstring>
+        <name>TransferInProgress</name>
+        <briefdescription>
+<para>The following variables are shared between non-interrupt processing and interrupt processing such that they must be global. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__numonyx__flash__quad__example_1ga7abe7b17ce48d24409e2a49aa35d9842" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int ErrorCount</definition>
+        <argsstring></argsstring>
+        <name>ErrorCount</name>
+        <briefdescription>
+<para>The following variable tracks any errors that occur during interrupt processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__numonyx__flash__quad__example_1gae35b8e9797e49c2fbd996f25551b6996" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[PAGE_SIZE+READ_WRITE_EXTRA_BYTES+4]</definition>
+        <argsstring>[PAGE_SIZE+READ_WRITE_EXTRA_BYTES+4]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Read buffer used during read and write transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__numonyx__flash__quad__example_1gaf7fa129f5cda5be22efe892d5d3af787" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[PAGE_SIZE+READ_WRITE_EXTRA_BYTES]</definition>
+        <argsstring>[PAGE_SIZE+READ_WRITE_EXTRA_BYTES]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Write buffer used during read and write transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspi__numonyx__flash__quad__example_1ga68125f28d7f7ce52f68fbe11f5be58d3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 TestByte</definition>
+        <argsstring></argsstring>
+        <name>TestByte</name>
+        <initializer>= 0x20</initializer>
+        <briefdescription>
+<para>Byte offset value written to Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>This needs to be redefined for writing different patterns of data to the Flash device. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspi__numonyx__flash__quad__example_1ga6b78f0a7c6f5b4a95c9d8196c9e3a662" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiFlashWaitForFlashReady</definition>
+        <argsstring>(void)</argsstring>
+        <name>SpiFlashWaitForFlashReady</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Waits till the Numonyx serial Flash is ready to accept next command. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The function reads the status register of the Buffer and waits till the WIP bit of the status register becomes 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="898" bodyend="925"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__numonyx__flash__quad__example_1gaacdc7be0761bc23854d5f1b9c6dbe36a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SpiHandler</definition>
+        <argsstring>(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</argsstring>
+        <name>SpiHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Handles the status events of the SPI driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</para><para>This handler provides an example of how to handle SPI interrupts and is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event that just occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes transferred up until the event occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="188" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the quad flash example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI configuration is not found, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="239" bodyend="544"/>
+        <references refid="struct_x_spi___config_1a495ec19a4ab441ea59a0e220f0728dd9" compoundref="xspi_8h" startline="406">XSpi_Config::BaseAddress</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga9e217ac24b2e39f56d321051aa8d1a50" compoundref="xspi__numonyx__flash__quad__example_8c" startline="108">COMMAND_DUAL_IO_READ</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga3d41fe9d3bf662254ba4cce76b7fe1cb" compoundref="xspi__numonyx__flash__quad__example_8c" startline="107">COMMAND_DUAL_READ</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gabcf64bfc507150feabf100c17e7849f3" compoundref="xspi__numonyx__flash__quad__example_8c" startline="104">COMMAND_PAGE_PROGRAM</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gaafa87cce64a2c7e7fc81ff95808c4ad7" compoundref="xspi__numonyx__flash__quad__example_8c" startline="110">COMMAND_QUAD_IO_READ</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gaca89ccdb65cb92ad9c9672f6f42f2102" compoundref="xspi__numonyx__flash__quad__example_8c" startline="109">COMMAND_QUAD_READ</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga146a209c5bc4d74b187ed735504ae1da" compoundref="xspi__numonyx__flash__quad__example_8c" startline="105">COMMAND_QUAD_WRITE</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga4575cac49153c8c4fe0820a3ac85f1a1" compoundref="xspi__numonyx__flash__quad__example_8c" startline="106">COMMAND_RANDOM_READ</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gaddad241034544ea56b22b6ae1859f752" compoundref="xspi__numonyx__flash__quad__example_8c" startline="170">DUAL_IO_READ_DUMMY_BYTES</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga234340145ea729056de88d5db596a44d" compoundref="xspi__numonyx__flash__quad__example_8c" startline="167">DUAL_READ_DUMMY_BYTES</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gafbd553e6f5c17bb9e0a513858c426a73" compoundref="xspi__numonyx__flash__quad__example_8c" startline="141">FLASH_TEST_ADDRESS</references>
+        <references refid="struct_x_spi___config_1a3f6036a8c85e0a81febbc13c358335e0" compoundref="xspi_8h" startline="419">XSpi_Config::IntrId</references>
+        <references refid="struct_x_spi___config_1a8eab103efa3a50b4bbe39d6a002150b2" compoundref="xspi_8h" startline="421">XSpi_Config::IntrParent</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" compoundref="xspi__numonyx__flash__quad__example_8c" startline="136">PAGE_SIZE</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga08dd8311cce7e6d812069b9b672979c4" compoundref="xspi__numonyx__flash__quad__example_8c" startline="171">QUAD_IO_READ_DUMMY_BYTES</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga0cb4f6b7971c0e7075fb83224c1ce3f5" compoundref="xspi__numonyx__flash__quad__example_8c" startline="168">QUAD_READ_DUMMY_BYTES</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gab499519eaab61d0f334591c02a7b15f1" compoundref="xspi__numonyx__flash__quad__example_8c" startline="121">READ_WRITE_EXTRA_BYTES</references>
+        <references refid="group__xspi__atmel__flash__example_1ga40c54443c9847562f2fc4543f6169aaa" compoundref="xspi__atmel__flash__example_8c" startline="193">ReadBuffer</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga5cbfcf69bf96053dd0d07fc482d87520" compoundref="xspi__numonyx__flash__quad__example_8c" startline="99">SPI_SELECT</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</references>
+        <references refid="group__xspi__numonyx__flash__quad__example_1ga48599e715e854c930ad7682db64c5716" compoundref="xspi__numonyx__flash__quad__example_8c" startline="556" endline="594">SpiFlashWriteEnable</references>
+        <references refid="group__xspi__atmel__flash__example_1gaacdc7be0761bc23854d5f1b9c6dbe36a" compoundref="xspi__atmel__flash__example_8c" startline="592" endline="608">SpiHandler</references>
+        <references refid="group__spi_1gaeb7ff246ee212e9fa1379769aae76f47" compoundref="xspi_8h" startline="354">XSP_MANUAL_SSELECT_OPTION</references>
+        <references refid="group__spi_1gac2c043a14b04e38a61b1979ccaa8a200" compoundref="xspi_8h" startline="350">XSP_MASTER_OPTION</references>
+        <references refid="group__spi__api_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</references>
+        <references refid="group__spi__api_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1147" endline="1413">XSpi_InterruptHandler</references>
+        <references refid="group__spi_1ga89a706debf1603a19b95d8e556f04f68" compoundref="xspi__sinit_8c" startline="93" endline="107">XSpi_LookupConfig</references>
+        <references refid="group__spi_1ga67c2076b133a55b6f80343642a1ace41" compoundref="xspi__options_8c" startline="110" endline="164">XSpi_SetOptions</references>
+        <references refid="group__spi__api_1ga162523a3e9b29f063701db303ac8cf17" compoundref="xspi_8c" startline="937" endline="984">XSpi_SetSlaveSelect</references>
+        <references refid="group__spi__api_1gabc09f4d503de2a772e5079ac46fc62b6" compoundref="xspi_8c" startline="1065" endline="1074">XSpi_SetStatusHandler</references>
+        <references refid="group__spi__api_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="318" endline="370">XSpi_Start</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga5cbfcf69bf96053dd0d07fc482d87520" prot="public" static="no">
+        <name>SPI_SELECT</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>The following constant defines the slave select signal that selects the Flash device on the SPI bus, this signal is typically connected to the chip select of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gabcf64bfc507150feabf100c17e7849f3" prot="public" static="no">
+        <name>COMMAND_PAGE_PROGRAM</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Page Program command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga146a209c5bc4d74b187ed735504ae1da" prot="public" static="no">
+        <name>COMMAND_QUAD_WRITE</name>
+        <initializer>0x32</initializer>
+        <briefdescription>
+<para>Quad Input Fast Program. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga4575cac49153c8c4fe0820a3ac85f1a1" prot="public" static="no">
+        <name>COMMAND_RANDOM_READ</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Random read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga3d41fe9d3bf662254ba4cce76b7fe1cb" prot="public" static="no">
+        <name>COMMAND_DUAL_READ</name>
+        <initializer>0x3B</initializer>
+        <briefdescription>
+<para>Dual Output Fast Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga9e217ac24b2e39f56d321051aa8d1a50" prot="public" static="no">
+        <name>COMMAND_DUAL_IO_READ</name>
+        <initializer>0xBB</initializer>
+        <briefdescription>
+<para>Dual IO Fast Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gaca89ccdb65cb92ad9c9672f6f42f2102" prot="public" static="no">
+        <name>COMMAND_QUAD_READ</name>
+        <initializer>0x6B</initializer>
+        <briefdescription>
+<para>Quad Output Fast Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gaafa87cce64a2c7e7fc81ff95808c4ad7" prot="public" static="no">
+        <name>COMMAND_QUAD_IO_READ</name>
+        <initializer>0xEB</initializer>
+        <briefdescription>
+<para>Quad IO Fast Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga7e7e917c4b1751692e5afeedaeba9665" prot="public" static="no">
+        <name>COMMAND_WRITE_ENABLE</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write Enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga48599e715e854c930ad7682db64c5716" compoundref="xspi__numonyx__flash__quad__example_8c" startline="556" endline="594">SpiFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gad5316b398f7e1e117c4736ed849ed1f2" prot="public" static="no">
+        <name>COMMAND_SECTOR_ERASE</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+<para>Sector Erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga982d23de911e18500dd7f5b4f4f1f6ad" prot="public" static="no">
+        <name>COMMAND_BULK_ERASE</name>
+        <initializer>0xC7</initializer>
+        <briefdescription>
+<para>Bulk Erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga86d8ebdee181c36e305d15812df9d774" compoundref="xspi__numonyx__flash__quad__example_8c" startline="742" endline="780">SpiFlashBulkErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gabdaa697cbf5ca74f25851f3ce37b8975" prot="public" static="no">
+        <name>COMMAND_STATUSREG_READ</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Status read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga4007c2150a6cc4c1f0e890fcb784a52e" compoundref="xspi__numonyx__flash__quad__example_8c" startline="853" endline="883">SpiFlashGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gab499519eaab61d0f334591c02a7b15f1" prot="public" static="no">
+        <name>READ_WRITE_EXTRA_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>This definitions specify the EXTRA bytes in each of the command transactions. </para>        </briefdescription>
+        <detaileddescription>
+<para>This count includes Command byte, address bytes and any don&apos;t care bytes needed.Read/Write extra bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga302de17f621c2289066a9a3df52cca34" prot="public" static="no">
+        <name>WRITE_ENABLE_BYTES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Write Enable bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga48599e715e854c930ad7682db64c5716" compoundref="xspi__numonyx__flash__quad__example_8c" startline="556" endline="594">SpiFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga6574b8dd15d99c44f84789e8cfd1d780" prot="public" static="no">
+        <name>SECTOR_ERASE_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Sector erase extra bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gadeb5bb04ae73a352d8152efafb7fb246" prot="public" static="no">
+        <name>BULK_ERASE_BYTES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bulk erase extra bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga86d8ebdee181c36e305d15812df9d774" compoundref="xspi__numonyx__flash__quad__example_8c" startline="742" endline="780">SpiFlashBulkErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga68436d00d706afd24b7b54554bb7ca47" prot="public" static="no">
+        <name>STATUS_READ_BYTES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Status read bytes count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga4007c2150a6cc4c1f0e890fcb784a52e" compoundref="xspi__numonyx__flash__quad__example_8c" startline="853" endline="883">SpiFlashGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga04c34b0de30166935d4513f61ec43e37" prot="public" static="no">
+        <name>STATUS_WRITE_BYTES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Status write bytes count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga449aea76932294003e1707ac58716858" prot="public" static="no">
+        <name>FLASH_SR_IS_READY_MASK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Ready mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" prot="public" static="no">
+        <name>PAGE_SIZE</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>Number of bytes per page in the flash device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gafbd553e6f5c17bb9e0a513858c426a73" prot="public" static="no">
+        <name>FLASH_TEST_ADDRESS</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Address of the page to perform Erase, Write and Read operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga3b1468d2755101d28e3b8e7a91109d2e" prot="public" static="no">
+        <name>BYTE1</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Byte 1 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga86d8ebdee181c36e305d15812df9d774" compoundref="xspi__numonyx__flash__quad__example_8c" startline="742" endline="780">SpiFlashBulkErase</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga4007c2150a6cc4c1f0e890fcb784a52e" compoundref="xspi__numonyx__flash__quad__example_8c" startline="853" endline="883">SpiFlashGetStatus</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga48599e715e854c930ad7682db64c5716" compoundref="xspi__numonyx__flash__quad__example_8c" startline="556" endline="594">SpiFlashWriteEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga1cec78d40bc62e93813cc388997f654f" prot="public" static="no">
+        <name>BYTE2</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Byte 2 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gafce866f3fde25d9e75d531b679c00213" prot="public" static="no">
+        <name>BYTE3</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Byte 3 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga91cb164747412f1fb75f5ab9c6c91fd2" prot="public" static="no">
+        <name>BYTE4</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Byte 4 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gab9756ea6473f94b75dc9c44df1a55705" compoundref="xspi__numonyx__flash__quad__example_8c" startline="797" endline="838">SpiFlashSectorErase</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga639435b86afe1f3a18334d679371509b" compoundref="xspi__numonyx__flash__quad__example_8c" startline="610" endline="661">SpiFlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga9037d2e19fd39f4b87d7b2074050d9c1" prot="public" static="no">
+        <name>BYTE5</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Byte 5 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gadb988d4d07258b2495f8e0c6e50184aa" prot="public" static="no">
+        <name>BYTE6</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Byte 6 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga9ce5cf241074da1dbf5f42446655290c" prot="public" static="no">
+        <name>BYTE7</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Byte 7 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gab843d1663e34214d7324e14169aac8cd" prot="public" static="no">
+        <name>BYTE8</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Byte 8 position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga234340145ea729056de88d5db596a44d" prot="public" static="no">
+        <name>DUAL_READ_DUMMY_BYTES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Dual read dummy bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga0cb4f6b7971c0e7075fb83224c1ce3f5" prot="public" static="no">
+        <name>QUAD_READ_DUMMY_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Quad read dummy bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1gaddad241034544ea56b22b6ae1859f752" prot="public" static="no">
+        <name>DUAL_IO_READ_DUMMY_BYTES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Dual IO read dummy bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__numonyx__flash__quad__example_1ga08dd8311cce7e6d812069b9b672979c4" prot="public" static="no">
+        <name>QUAD_IO_READ_DUMMY_BYTES</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Quad IO read dummy bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_numonyx_flash_quad_example.c" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__numonyx__flash__quad__example_8c" startline="239" endline="544">main</referencedby>
+        <referencedby refid="group__xspi__numonyx__flash__quad__example_1gac94156992ca0662d45a6a79e77ae5469" compoundref="xspi__numonyx__flash__quad__example_8c" startline="677" endline="728">SpiFlashRead</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

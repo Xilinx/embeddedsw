@@ -6,25 +6,17 @@
     <includedby refid="xv__scenechange__memory__mode__ex_8c" local="yes">xv_scenechange_memory_mode_ex.c</includedby>
     <includedby refid="xv__scenechange__stream__mode__ex_8c" local="yes">xv_scenechange_stream_mode_ex.c</includedby>
     <incdepgraph>
+      <node id="8">
+        <label>platform_config.h</label>
+      </node>
       <node id="7">
         <label>platform.h</label>
         <link refid="platform.h"/>
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="8">
-        <label>platform_config.h</label>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="9">
-        <label>platform.h</label>
-        <link refid="platform.h"/>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-      </node>
       <node id="11">
         <label>xv_scenechange_stream_mode_ex.c</label>
         <link refid="xv__scenechange__stream__mode__ex_8c"/>
@@ -32,6 +24,14 @@
       <node id="10">
         <label>xv_scenechange_memory_mode_ex.c</label>
         <link refid="xv__scenechange__memory__mode__ex_8c"/>
+      </node>
+      <node id="9">
+        <label>platform.h</label>
+        <link refid="platform.h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -48,10 +48,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="134" bodyend="147"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="134" bodyend="147"/>
         <references refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" compoundref="platform_8c" startline="51" endline="64">enable_caches</references>
         <references refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" compoundref="platform_8c" startline="108" endline="115">init_uart</references>
-        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="356" endline="416">main</referencedby>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="282" endline="342">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -66,7 +66,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="164" bodyend="167"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="164" bodyend="167"/>
         <references refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" compoundref="platform_8c" startline="81" endline="91">disable_caches</references>
       </memberdef>
       </sectiondef>
@@ -94,6 +94,6 @@
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.h"/>
   </compounddef>
 </doxygen>

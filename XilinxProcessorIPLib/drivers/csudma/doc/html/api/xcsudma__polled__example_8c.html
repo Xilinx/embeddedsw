@@ -107,245 +107,54 @@ $(document).ready(function(){initNavTree('xcsudma__polled__example_8c.html','');
 <div class="title">xcsudma_polled_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains an example using the <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> driver in polled mode. </p>
-<p>This function works in loop back mode and tests whether transfer of data is completed properly or not.</p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
-</p>
-<hr/>
-<p>
-1.0   vnsld   22/10/14 First release
-1.4   adk     04/12/17 Added support for PMC DMA.
-1.14  adk     04/05/23 Added support for system device-tree flow.
-</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xcsudma_8h.html">xcsudma.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="xcsudma_8h.html">xcsudma.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1dac2e3409004e3277582a4066239395"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a1dac2e3409004e3277582a4066239395">CSU_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x008</td></tr>
-<tr class="memdesc:a1dac2e3409004e3277582a4066239395"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="#a1dac2e3409004e3277582a4066239395">More...</a><br/></td></tr>
-<tr class="separator:a1dac2e3409004e3277582a4066239395"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36650147b2834be4261c304cbb5acbfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a36650147b2834be4261c304cbb5acbfb">CSUDMA_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000050</td></tr>
-<tr class="memdesc:a36650147b2834be4261c304cbb5acbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro.  <a href="#a36650147b2834be4261c304cbb5acbfb">More...</a><br/></td></tr>
-<tr class="separator:a36650147b2834be4261c304cbb5acbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a7a41b6cbdc050339c46b3ad81bf9d5f0">PMC_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x500</td></tr>
-<tr class="memdesc:a7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="#a7a41b6cbdc050339c46b3ad81bf9d5f0">More...</a><br/></td></tr>
-<tr class="separator:a7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be00cc50ff004d20e27675fc9d00709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a9be00cc50ff004d20e27675fc9d00709">PMCDMA0_LOOPBACK_CFG</a>&#160;&#160;&#160;0x0000000D</td></tr>
-<tr class="memdesc:a9be00cc50ff004d20e27675fc9d00709"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA0.  <a href="#a9be00cc50ff004d20e27675fc9d00709">More...</a><br/></td></tr>
-<tr class="separator:a9be00cc50ff004d20e27675fc9d00709"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac52f2e0501f3f595e3b8e92c12142f57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#ac52f2e0501f3f595e3b8e92c12142f57">PMCDMA1_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000090</td></tr>
-<tr class="memdesc:ac52f2e0501f3f595e3b8e92c12142f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA1.  <a href="#ac52f2e0501f3f595e3b8e92c12142f57">More...</a><br/></td></tr>
-<tr class="separator:ac52f2e0501f3f595e3b8e92c12142f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ed59adcb4159ac551058053e649640"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>&#160;&#160;&#160;0x100</td></tr>
-<tr class="memdesc:a70ed59adcb4159ac551058053e649640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the data to be transferred.  <a href="#a70ed59adcb4159ac551058053e649640">More...</a><br/></td></tr>
-<tr class="separator:a70ed59adcb4159ac551058053e649640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">CSUDMA_BASEADDR</a>&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td></tr>
+<tr class="memdesc:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU DMA base address.  <a href="group__csuma__api.html#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">More...</a><br/></td></tr>
+<tr class="separator:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1dac2e3409004e3277582a4066239395"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga1dac2e3409004e3277582a4066239395">CSU_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x008</td></tr>
+<tr class="memdesc:ga1dac2e3409004e3277582a4066239395"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="group__csuma__api.html#ga1dac2e3409004e3277582a4066239395">More...</a><br/></td></tr>
+<tr class="separator:ga1dac2e3409004e3277582a4066239395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36650147b2834be4261c304cbb5acbfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga36650147b2834be4261c304cbb5acbfb">CSUDMA_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000050</td></tr>
+<tr class="memdesc:ga36650147b2834be4261c304cbb5acbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro.  <a href="group__csuma__api.html#ga36650147b2834be4261c304cbb5acbfb">More...</a><br/></td></tr>
+<tr class="separator:ga36650147b2834be4261c304cbb5acbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga7a41b6cbdc050339c46b3ad81bf9d5f0">PMC_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x500</td></tr>
+<tr class="memdesc:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="group__csuma__api.html#ga7a41b6cbdc050339c46b3ad81bf9d5f0">More...</a><br/></td></tr>
+<tr class="separator:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9be00cc50ff004d20e27675fc9d00709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga9be00cc50ff004d20e27675fc9d00709">PMCDMA0_LOOPBACK_CFG</a>&#160;&#160;&#160;0x0000000D</td></tr>
+<tr class="memdesc:ga9be00cc50ff004d20e27675fc9d00709"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA0.  <a href="group__csuma__api.html#ga9be00cc50ff004d20e27675fc9d00709">More...</a><br/></td></tr>
+<tr class="separator:ga9be00cc50ff004d20e27675fc9d00709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac52f2e0501f3f595e3b8e92c12142f57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gac52f2e0501f3f595e3b8e92c12142f57">PMCDMA1_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000090</td></tr>
+<tr class="memdesc:gac52f2e0501f3f595e3b8e92c12142f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA1.  <a href="group__csuma__api.html#gac52f2e0501f3f595e3b8e92c12142f57">More...</a><br/></td></tr>
+<tr class="separator:gac52f2e0501f3f595e3b8e92c12142f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70ed59adcb4159ac551058053e649640"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>&#160;&#160;&#160;0x100</td></tr>
+<tr class="memdesc:ga70ed59adcb4159ac551058053e649640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the data to be transferred.  <a href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">More...</a><br/></td></tr>
+<tr class="separator:ga70ed59adcb4159ac551058053e649640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a81a60cdabb01fb08aeec70021c7baa78"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a81a60cdabb01fb08aeec70021c7baa78">XCsuDma_PolledExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a81a60cdabb01fb08aeec70021c7baa78"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs data transfer in loop back mode in polled mode and verify the data.  <a href="#a81a60cdabb01fb08aeec70021c7baa78">More...</a><br/></td></tr>
-<tr class="separator:a81a60cdabb01fb08aeec70021c7baa78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81a60cdabb01fb08aeec70021c7baa78"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga81a60cdabb01fb08aeec70021c7baa78">XCsuDma_PolledExample</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga81a60cdabb01fb08aeec70021c7baa78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a data transfer in loop back mode in polled mode.  <a href="group__csuma__api.html#ga81a60cdabb01fb08aeec70021c7baa78">More...</a><br/></td></tr>
+<tr class="separator:ga81a60cdabb01fb08aeec70021c7baa78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mains function to call the example.  <a href="group__csuma__api.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:af61ae76555abcb873e18f6deee8ba5f5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#af61ae76555abcb873e18f6deee8ba5f5">SrcBuf</a> [<a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
-<tr class="memdesc:af61ae76555abcb873e18f6deee8ba5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer.  <a href="#af61ae76555abcb873e18f6deee8ba5f5">More...</a><br/></td></tr>
-<tr class="separator:af61ae76555abcb873e18f6deee8ba5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaf18b341d1af3db65737995dbdabb2f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#acaf18b341d1af3db65737995dbdabb2f">DstBuf</a> [<a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
-<tr class="memdesc:acaf18b341d1af3db65737995dbdabb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source buffer.  <a href="#acaf18b341d1af3db65737995dbdabb2f">More...</a><br/></td></tr>
-<tr class="separator:acaf18b341d1af3db65737995dbdabb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ac1478432df4951ce8f0fc753bb652d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcsudma__polled__example_8c.html#a6ac1478432df4951ce8f0fc753bb652d">CsuDma</a></td></tr>
-<tr class="memdesc:a6ac1478432df4951ce8f0fc753bb652d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the Csu_Dma Device.  <a href="#a6ac1478432df4951ce8f0fc753bb652d">More...</a><br/></td></tr>
-<tr class="separator:a6ac1478432df4951ce8f0fc753bb652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf61ae76555abcb873e18f6deee8ba5f5">SrcBuf</a> [<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
+<tr class="memdesc:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer.  <a href="group__csuma__api.html#gaf61ae76555abcb873e18f6deee8ba5f5">More...</a><br/></td></tr>
+<tr class="separator:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacaf18b341d1af3db65737995dbdabb2f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gacaf18b341d1af3db65737995dbdabb2f">DstBuf</a> [<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
+<tr class="memdesc:gacaf18b341d1af3db65737995dbdabb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source buffer.  <a href="group__csuma__api.html#gacaf18b341d1af3db65737995dbdabb2f">More...</a><br/></td></tr>
+<tr class="separator:gacaf18b341d1af3db65737995dbdabb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6ac1478432df4951ce8f0fc753bb652d">CsuDma</a></td></tr>
+<tr class="memdesc:ga6ac1478432df4951ce8f0fc753bb652d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the Csu_Dma Device.  <a href="group__csuma__api.html#ga6ac1478432df4951ce8f0fc753bb652d">More...</a><br/></td></tr>
+<tr class="separator:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a1dac2e3409004e3277582a4066239395"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CSU_SSS_CONFIG_OFFSET&#160;&#160;&#160;0x008</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>CSU SSS_CFG Offset. </p>
-
-</div>
-</div>
-<a class="anchor" id="a36650147b2834be4261c304cbb5acbfb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CSUDMA_LOOPBACK_CFG&#160;&#160;&#160;0x00000050</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LOOP BACK configuration macro. </p>
-
-</div>
-</div>
-<a class="anchor" id="a7a41b6cbdc050339c46b3ad81bf9d5f0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMC_SSS_CONFIG_OFFSET&#160;&#160;&#160;0x500</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>CSU SSS_CFG Offset. </p>
-
-</div>
-</div>
-<a class="anchor" id="a9be00cc50ff004d20e27675fc9d00709"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMCDMA0_LOOPBACK_CFG&#160;&#160;&#160;0x0000000D</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LOOP BACK configuration macro for PMCDMA0. </p>
-
-</div>
-</div>
-<a class="anchor" id="ac52f2e0501f3f595e3b8e92c12142f57"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMCDMA1_LOOPBACK_CFG&#160;&#160;&#160;0x00000090</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>LOOP BACK configuration macro for PMCDMA1. </p>
-
-</div>
-</div>
-<a class="anchor" id="a70ed59adcb4159ac551058053e649640"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SIZE&#160;&#160;&#160;0x100</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Size of the data to be transferred. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the example. </p>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if failed.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a81a60cdabb01fb08aeec70021c7baa78"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XCsuDma_PolledExample </td>
-          <td>(</td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function performs data transfer in loop back mode in polled mode and verify the data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if failed.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="a6ac1478432df4951ce8f0fc753bb652d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a> CsuDma</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Instance of the Csu_Dma Device. </p>
-
-</div>
-</div>
-<a class="anchor" id="acaf18b341d1af3db65737995dbdabb2f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 DstBuf[<a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Source buffer. </p>
-
-</div>
-</div>
-<a class="anchor" id="af61ae76555abcb873e18f6deee8ba5f5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 SrcBuf[<a class="el" href="xcsudma__polled__example_8c.html#a70ed59adcb4159ac551058053e649640">SIZE</a>]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destination buffer. </p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -34,6 +34,6 @@
 <codeline lineno="25"><highlight class="stringliteral">add_library(vprocss<sp/>STATIC<sp/>${_sources})</highlight></codeline>
 <codeline lineno="26"><highlight class="stringliteral">set_target_properties(vprocss<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

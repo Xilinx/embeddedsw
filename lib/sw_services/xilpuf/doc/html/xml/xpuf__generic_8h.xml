@@ -7,48 +7,48 @@
     <includedby refid="xpuf__client_8c" local="yes">xpuf_client.c</includedby>
     <includedby refid="xpuf__generic_8c" local="yes">xpuf_generic.c</includedby>
     <incdepgraph>
-      <node id="233">
-        <label>xpuf_mailbox.h</label>
-        <link refid="xpuf__mailbox_8h"/>
-        <childnode refid="234" relation="include">
-        </childnode>
-        <childnode refid="235" relation="include">
-        </childnode>
-      </node>
-      <node id="234">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="232">
-        <label>xil_types.h</label>
-      </node>
-      <node id="235">
-        <label>xparameters.h</label>
-      </node>
-      <node id="231">
+      <node id="259">
         <label>xpuf_generic.h</label>
         <link refid="xpuf_generic.h"/>
-        <childnode refid="232" relation="include">
+        <childnode refid="260" relation="include">
         </childnode>
-        <childnode refid="233" relation="include">
+        <childnode refid="261" relation="include">
         </childnode>
+      </node>
+      <node id="262">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="260">
+        <label>xil_types.h</label>
+      </node>
+      <node id="261">
+        <label>xpuf_mailbox.h</label>
+        <link refid="xpuf__mailbox_8h"/>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="263" relation="include">
+        </childnode>
+      </node>
+      <node id="263">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="237">
-        <label>xpuf_client.c</label>
-        <link refid="xpuf__client_8c"/>
-      </node>
-      <node id="238">
+      <node id="266">
         <label>xpuf_generic.c</label>
         <link refid="xpuf__generic_8c"/>
       </node>
-      <node id="236">
+      <node id="264">
         <label>xpuf_generic.h</label>
         <link refid="xpuf_generic.h"/>
-        <childnode refid="237" relation="include">
+        <childnode refid="265" relation="include">
         </childnode>
-        <childnode refid="238" relation="include">
+        <childnode refid="266" relation="include">
         </childnode>
+      </node>
+      <node id="265">
+        <label>xpuf_client.c</label>
+        <link refid="xpuf__client_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -106,14 +106,14 @@
 <parametername>ResponseBuf</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to store response values (can be NULL) </para></parameterdescription>
+<para>Pointer to the caller buffer that receives the response data words. When non-NULL, it must hold RESPONSE_ARG_CNT words: the IPI receive path fills the whole response frame before the status word is shifted out. May be NULL when no response data is needed. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>ResponseLen</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Length of response buffer (number of u32 elements)</para></parameterdescription>
+<para>Number of response data words the caller consumes (0..RESPONSE_ARG_CNT - 1). This is the count of returned words, not the required buffer size (see ResponseBuf).</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -123,14 +123,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Validate input parameters.</para></listitem><listitem><para>For other environments, use IPI mailbox communication.</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem><listitem><para>Note: For communication via IPI mailbox, response is not directly returned. The caller should handle response retrieval if needed.</para></listitem></itemizedlist>
+<listitem><para>A non-zero ResponseLen requires a non-NULL ResponseBuf. ResponseLen is clamped below to the reachable data words before the mailbox shift.</para></listitem><listitem><para>For other environments, use IPI mailbox communication.</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem><listitem><para>On failure, return without shifting/mutating ResponseBuf.</para></listitem><listitem><para>Cap ResponseLen: the mailbox shift below consumes Response[0], leaving RESPONSE_ARG_CNT - 1 data slots reachable via ResponseBuf[Idx + 1U].</para></listitem><listitem><para>Shift IPI response data in ResponseBuf to skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0] holds the first data word, matching the SMC path layout. <ref refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" kindref="member">XPuf_ProcessMailbox()</ref> writes RESPONSE_ARG_CNT words when ResponseBuf is non-NULL.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" bodystart="67" bodyend="105"/>
-        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="88">XPuf_ClientInstance::MailboxPtr</references>
-        <references refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" compoundref="xpuf__mailbox_8c" startline="72" endline="98">XPuf_ProcessMailbox</references>
-        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
-        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
-        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" bodystart="75" bodyend="135"/>
+        <references refid="xpuf__mailbox_8h_1aff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xpuf__mailbox_8h" startline="79">RESPONSE_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="89">XPuf_ClientInstance::MailboxPtr</references>
+        <references refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" compoundref="xpuf__mailbox_8c" startline="78" endline="114">XPuf_ProcessMailbox</references>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="113" endline="149">XPuf_Registration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="164" endline="200">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="213" endline="245">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga03926d586e353bb459b3da51ae7e4e8b" compoundref="xpuf__client_8c" startline="291" endline="344">XPuf_GetServerLibInfo</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -178,6 +180,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPUF_GENERIC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.h"/>
   </compounddef>
 </doxygen>

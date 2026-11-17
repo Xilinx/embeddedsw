@@ -14,7 +14,6 @@ var xiicps_8h =
     [ "XIICPS_EVENT_SLAVE_RDY", "xiicps_8h.html#ga71fcc8f7c4ee01454f8260667f30ed71", null ],
     [ "XIICPS_EVENT_TIME_OUT", "xiicps_8h.html#gab1ed271a1272c5c85d84f4b71b740dfb", null ],
     [ "XIICPS_EVENT_TX_OVR", "xiicps_8h.html#ga809489609a6aabd5fd53c0242a565e59", null ],
-    [ "XIICPS_H", "xiicps_8h.html#ga27348268a3738fea6e82f6ba0845a11b", null ],
     [ "XIICPS_MAX_TRANSFER_SIZE", "xiicps_8h.html#ga6f509d74539ec1fa9580312e520ce0b8", null ],
     [ "XIicPs_RecvByte", "xiicps_8h.html#ga432020341d6b2c06bba8a084df9b5075", null ],
     [ "XIICPS_REP_START_OPTION", "xiicps_8h.html#ga820f2cd7e2c7b77b9b5966e87eae2c09", null ],

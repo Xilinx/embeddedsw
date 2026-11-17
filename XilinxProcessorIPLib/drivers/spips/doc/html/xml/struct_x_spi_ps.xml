@@ -15,21 +15,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="416" bodyend="-1"/>
-        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1160" endline="1202">XSpiPs_Abort</referencedby>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="286" endline="300">XSpiPs_GetClkPrescaler</referencedby>
-        <referencedby refid="group__spips_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="386" endline="408">XSpiPs_GetDelays</referencedby>
-        <referencedby refid="group__spips_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="186" endline="212">XSpiPs_GetOptions</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="229" endline="247">XSpiPs_Reset</referencedby>
-        <referencedby refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="72" endline="144">XSpiPs_SelfTest</referencedby>
-        <referencedby refid="group__spips_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="235" endline="271">XSpiPs_SetClkPrescaler</referencedby>
-        <referencedby refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="333" endline="362">XSpiPs_SetDelays</referencedby>
-        <referencedby refid="group__spips_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="97" endline="167">XSpiPs_SetOptions</referencedby>
-        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="693" endline="740">XSpiPs_SetSlaveSelect</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="420" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="292" endline="306">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="195" endline="221">XSpiPs_GetOptions</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -42,22 +42,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="417" bodyend="-1"/>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="286" endline="300">XSpiPs_GetClkPrescaler</referencedby>
-        <referencedby refid="group__spips_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="386" endline="408">XSpiPs_GetDelays</referencedby>
-        <referencedby refid="group__spips_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="186" endline="212">XSpiPs_GetOptions</referencedby>
-        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="754" endline="790">XSpiPs_GetSlaveSelect</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="229" endline="247">XSpiPs_Reset</referencedby>
-        <referencedby refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="72" endline="144">XSpiPs_SelfTest</referencedby>
-        <referencedby refid="group__spips_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="235" endline="271">XSpiPs_SetClkPrescaler</referencedby>
-        <referencedby refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="333" endline="362">XSpiPs_SetDelays</referencedby>
-        <referencedby refid="group__spips_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="97" endline="167">XSpiPs_SetOptions</referencedby>
-        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="693" endline="740">XSpiPs_SetSlaveSelect</referencedby>
-        <referencedby refid="group__spips_1gacafc99130a16e99abb3d86e682f1de09" compoundref="xspips_8c" startline="836" endline="845">XSpiPs_SetStatusHandler</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="421" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips__api_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="292" endline="306">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="385" endline="407">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="195" endline="221">XSpiPs_GetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="796" endline="832">XSpiPs_GetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="241" endline="259">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips__api_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1gacafc99130a16e99abb3d86e682f1de09" compoundref="xspips_8c" startline="877" endline="886">XSpiPs_SetStatusHandler</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a827b441c0132c3ab87377efb81a027f2" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -70,11 +70,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="419" bodyend="-1"/>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="423" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a4c8a252eaab49a4fa19fcd688f36fea6" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -87,11 +87,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="420" bodyend="-1"/>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="424" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a85a5e324de43e019ef15666bdc0685cd" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -104,12 +104,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="421" bodyend="-1"/>
-        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1160" endline="1202">XSpiPs_Abort</referencedby>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a5b08cdc0b7c5492d46a8e170941ba257" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -122,12 +122,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="422" bodyend="-1"/>
-        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1160" endline="1202">XSpiPs_Abort</referencedby>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="426" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a27b2c7d9c85bbe889cead27c5c384979" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -140,16 +140,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="423" bodyend="-1"/>
-        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1160" endline="1202">XSpiPs_Abort</referencedby>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="235" endline="271">XSpiPs_SetClkPrescaler</referencedby>
-        <referencedby refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="333" endline="362">XSpiPs_SetDelays</referencedby>
-        <referencedby refid="group__spips_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="97" endline="167">XSpiPs_SetOptions</referencedby>
-        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="693" endline="740">XSpiPs_SetSlaveSelect</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="427" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips__api_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips__api_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="338" endline="367">XSpiPs_SetDelays</referencedby>
+        <referencedby refid="group__spips__api_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a8d79fad73f829520b891e94b6e4536e1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -162,11 +162,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="424" bodyend="-1"/>
-        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="754" endline="790">XSpiPs_GetSlaveSelect</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="693" endline="740">XSpiPs_SetSlaveSelect</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="428" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1876554128f1d1a8654d72a619fe491d" compoundref="xspips_8c" startline="796" endline="832">XSpiPs_GetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a860dddb87083c72fdc1b8de7c3ad4425" prot="public" static="no" mutable="no">
         <type><ref refid="group__spips_1ga29aca8b8f36192cba8b4984b177fea6b" kindref="member">XSpiPs_StatusHandler</ref></type>
@@ -174,12 +174,15 @@
         <argsstring></argsstring>
         <name>StatusHandler</name>
         <briefdescription>
-        </briefdescription>
+<para>Status handler callback. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="427" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1gacafc99130a16e99abb3d86e682f1de09" compoundref="xspips_8c" startline="877" endline="886">XSpiPs_SetStatusHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1a012e4128cb1e93e765a8551512d91a77" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -192,9 +195,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="428" bodyend="-1"/>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1gacafc99130a16e99abb3d86e682f1de09" compoundref="xspips_8c" startline="836" endline="845">XSpiPs_SetStatusHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="432" bodyend="-1"/>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1gacafc99130a16e99abb3d86e682f1de09" compoundref="xspips_8c" startline="877" endline="886">XSpiPs_SetStatusHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -207,12 +210,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="429" bodyend="-1"/>
-        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1160" endline="1202">XSpiPs_Abort</referencedby>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1196" endline="1240">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_spi_ps_1aacd3809d776effaef3ef67aefc2fc800" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -225,15 +228,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="430" bodyend="-1"/>
-        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
-        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
-        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
-        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="502" endline="701">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="330" endline="439">XSpiPs_Transfer</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> driver instance data. </para>    </briefdescription>
+<para>Holds the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
 <para>The user is required to allocate a variable of this type for every SPI device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
@@ -249,7 +252,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="415" bodyend="432"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="419" bodyend="436"/>
     <listofallmembers>
       <member refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" prot="public" virt="non-virtual"><scope>XSpiPs</scope><name>Config</name></member>
       <member refid="struct_x_spi_ps_1af5e8e57ef21ac901b667eeed03691bf4" prot="public" virt="non-virtual"><scope>XSpiPs</scope><name>FifoDepth</name></member>

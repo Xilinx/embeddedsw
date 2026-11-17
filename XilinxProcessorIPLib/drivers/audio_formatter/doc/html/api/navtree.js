@@ -1,24 +1,80 @@
 var NAVTREE =
 [
-  [ "audio_formatter", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ ".c", "example.html#xaudioformatter_example", null ]
-    ] ]
-  ] ]
+  [
+    "audio_formatter",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            ".c",
+            "example.html#xaudioformatter_example",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

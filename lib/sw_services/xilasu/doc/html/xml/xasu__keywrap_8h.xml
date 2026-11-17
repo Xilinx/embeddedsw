@@ -6,92 +6,101 @@
     <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
     <includes refid="xasu__keywrapinfo_8h" local="yes">xasu_keywrapinfo.h</includes>
     <includedby refid="xasu__keywrap_8c" local="yes">xasu_keywrap.c</includedby>
+    <includedby refid="xasu__keymanager__example_8c" local="yes">xasu_keymanager_example.c</includedby>
     <includedby refid="xasu__keywrap__example_8c" local="yes">xasu_keywrap_example.c</includedby>
     <incdepgraph>
-      <node id="659">
+      <node id="820">
         <label>xasu_def.h</label>
         <link refid="xasu__def_8h"/>
-        <childnode refid="652" relation="include">
+        <childnode refid="817" relation="include">
         </childnode>
       </node>
-      <node id="654">
-        <label>xasu_sharedmem.h</label>
-        <link refid="xasu__sharedmem_8h"/>
-        <childnode refid="652" relation="include">
-        </childnode>
-      </node>
-      <node id="651">
+      <node id="816">
         <label>xasu_keywrap.h</label>
         <link refid="xasu_keywrap.h"/>
-        <childnode refid="652" relation="include">
+        <childnode refid="817" relation="include">
         </childnode>
-        <childnode refid="653" relation="include">
+        <childnode refid="818" relation="include">
         </childnode>
-        <childnode refid="660" relation="include">
-        </childnode>
-      </node>
-      <node id="653">
-        <label>xasu_client.h</label>
-        <link refid="xasu__client_8h"/>
-        <childnode refid="654" relation="include">
-        </childnode>
-        <childnode refid="655" relation="include">
-        </childnode>
-        <childnode refid="656" relation="include">
-        </childnode>
-        <childnode refid="658" relation="include">
-        </childnode>
-        <childnode refid="659" relation="include">
+        <childnode refid="825" relation="include">
         </childnode>
       </node>
-      <node id="657">
+      <node id="819">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="820" relation="include">
+        </childnode>
+      </node>
+      <node id="823">
         <label>xasu_bsp_config.h</label>
       </node>
-      <node id="655">
+      <node id="818">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="819" relation="include">
+        </childnode>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="824" relation="include">
+        </childnode>
+        <childnode refid="820" relation="include">
+        </childnode>
+      </node>
+      <node id="821">
         <label>xilmailbox.h</label>
       </node>
-      <node id="656">
-        <label>xasu_perf.h</label>
-        <link refid="xasu__perf_8h"/>
-        <childnode refid="652" relation="include">
-        </childnode>
-        <childnode refid="657" relation="include">
-        </childnode>
-      </node>
-      <node id="660">
+      <node id="825">
         <label>xasu_keywrapinfo.h</label>
         <link refid="xasu__keywrapinfo_8h"/>
-        <childnode refid="652" relation="include">
+        <childnode refid="817" relation="include">
         </childnode>
-        <childnode refid="657" relation="include">
+        <childnode refid="823" relation="include">
         </childnode>
       </node>
-      <node id="652">
+      <node id="822">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+      </node>
+      <node id="817">
         <label>xil_types.h</label>
       </node>
-      <node id="658">
+      <node id="824">
         <label>xasu_status.h</label>
         <link refid="xasu__status_8h"/>
-        <childnode refid="652" relation="include">
+        <childnode refid="817" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="662">
+      <node id="827">
         <label>xasu_keywrap.c</label>
         <link refid="xasu__keywrap_8c"/>
       </node>
-      <node id="661">
+      <node id="826">
         <label>xasu_keywrap.h</label>
         <link refid="xasu_keywrap.h"/>
-        <childnode refid="662" relation="include">
+        <childnode refid="827" relation="include">
         </childnode>
-        <childnode refid="663" relation="include">
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
         </childnode>
       </node>
-      <node id="663">
+      <node id="829">
         <label>xasu_keywrap_example.c</label>
         <link refid="xasu__keywrap__example_8c"/>
+      </node>
+      <node id="828">
+        <label>xasu_keymanager_example.c</label>
+        <link refid="xasu__keymanager__example_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -132,25 +141,25 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Set the command ID based on SHA type.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" bodystart="61" bodyend="110"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" bodystart="61" bodyend="110"/>
         <references refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" compoundref="xasu__keywrapinfo_8h" startline="65">XAsu_KeyWrapParams::ActualOutputDataLenAddr</references>
         <references refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" compoundref="xasu__keywrapinfo_8h" startline="78">XAsu_KeyWrapParams::ShaType</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__keywrap__common__apis_1ga0a36595ec32a7d8031744471a14db798" compoundref="xasu__keywrap__common_8h" startline="41">XASU_KEYWRAP_AES_RSA_KWPUNWP</references>
         <references refid="group__xasu__common__defs_1gaf994407bbd31072ddf9632b6f1009bad" compoundref="xasu__keywrapinfo_8h" startline="45">XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID</references>
         <references refid="group__xasu__common__defs_1gadbb8738e0fe939de04cff2314bf4672d" compoundref="xasu__keywrapinfo_8h" startline="46">XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID</references>
         <references refid="group__xasu__common__defs_1ga45ea427515a0e7053f42a3862ea1400a" compoundref="xasu__keywrapinfo_8h" startline="52">XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES</references>
         <references refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</references>
-        <references refid="group__xasu__common__defs_1gad679deafb09ccab1e0f77afd93498c5d" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KEYWRAP_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gad679deafb09ccab1e0f77afd93498c5d" compoundref="xasu__def_8h" startline="61">XASU_MODULE_KEYWRAP_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="59">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
         <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -190,25 +199,25 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Set the command ID based on SHA type.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" bodystart="129" bodyend="178"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" bodystart="129" bodyend="178"/>
         <references refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" compoundref="xasu__keywrapinfo_8h" startline="65">XAsu_KeyWrapParams::ActualOutputDataLenAddr</references>
         <references refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" compoundref="xasu__keywrapinfo_8h" startline="78">XAsu_KeyWrapParams::ShaType</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__keywrap__common__apis_1ga0a36595ec32a7d8031744471a14db798" compoundref="xasu__keywrap__common_8h" startline="41">XASU_KEYWRAP_AES_RSA_KWPUNWP</references>
         <references refid="group__xasu__common__defs_1ga56442e1209d51b52921ba2ba20aefc1d" compoundref="xasu__keywrapinfo_8h" startline="47">XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID</references>
         <references refid="group__xasu__common__defs_1gaa4b44d2055942f4cbfc5ce755ce747e4" compoundref="xasu__keywrapinfo_8h" startline="48">XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID</references>
         <references refid="group__xasu__common__defs_1ga45ea427515a0e7053f42a3862ea1400a" compoundref="xasu__keywrapinfo_8h" startline="52">XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES</references>
         <references refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</references>
-        <references refid="group__xasu__common__defs_1gad679deafb09ccab1e0f77afd93498c5d" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KEYWRAP_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gad679deafb09ccab1e0f77afd93498c5d" compoundref="xasu__def_8h" startline="61">XASU_MODULE_KEYWRAP_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="59">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
         <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keywrap__client__apis_1gaec0ce35e1cab18b618bb1a6a11ebd2da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -237,16 +246,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" bodystart="195" bodyend="224"/>
-        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.c" bodystart="195" bodyend="224"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="52">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
         <references refid="group__xasu__common__defs_1ga5bf4170d38665f804177399b3958016f" compoundref="xasu__keywrapinfo_8h" startline="49">XASU_KEYWRAP_KAT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gad679deafb09ccab1e0f77afd93498c5d" compoundref="xasu__def_8h" startline="59">XASU_MODULE_KEYWRAP_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__common__defs_1gad679deafb09ccab1e0f77afd93498c5d" compoundref="xasu__def_8h" startline="61">XASU_MODULE_KEYWRAP_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -295,6 +304,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_KEYWRAP_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keywrap.h"/>
   </compounddef>
 </doxygen>

@@ -6,5 +6,5 @@ var searchData=
   ['cardspecdata',['CardSpecData',['../struct_x_sd_ps.html#a33a193ab2bde892a55f842b0d49856d1',1,'XSdPs']]],
   ['cardtype',['CardType',['../struct_x_sd_ps.html#ace9a2dd34b39f3100f97fcd50883f833',1,'XSdPs']]],
   ['config',['Config',['../struct_x_sd_ps.html#a9ab6ed4e7a1155a0708152ca2f27d650',1,'XSdPs']]],
-  ['csd_5fspec_5fver_5f3',['CSD_SPEC_VER_3',['../group__sdps__api.html#gabe76c4b7e5469e21fee99adcc183d663',1,'xsdps.h']]]
+  ['csd_5fspec_5fver_5f3',['CSD_SPEC_VER_3',['../group__sdps.html#gabe76c4b7e5469e21fee99adcc183d663',1,'xsdps.h']]]
 ];

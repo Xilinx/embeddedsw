@@ -20,7 +20,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
@@ -32,7 +32,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_ipi_pcap.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_ipi_pcap.c" bodystart="101" bodyend="128"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_ipi_pcap.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_ipi_pcap.c" bodystart="102" bodyend="129"/>
         <references refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" compoundref="xilfpga_8h" startline="128">XFpgatag::XFpga_GetConfigData</references>
         <references refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" compoundref="xilfpga_8h" startline="127">XFpgatag::XFpga_GetConfigReg</references>
         <references refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" compoundref="xilfpga_8h" startline="126">XFpgatag::XFpga_GetInterfaceStatus</references>
@@ -52,7 +52,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
@@ -64,7 +64,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="375" bodyend="489"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="376" bodyend="490"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga7007e94d77d4d6d6a022b3500388a563" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -80,7 +80,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
@@ -91,8 +91,8 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="504" bodyend="544"/>
+<para>&lt; Enable the PCAP clk </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="505" bodyend="545"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga672b4ebf807b7e3e943bd5d31afa1295" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -108,7 +108,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
@@ -120,7 +120,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="557" bodyend="607"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="558" bodyend="608"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1gacc2c75683f130e8e5f483cc62e0dbd3b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -136,7 +136,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
@@ -149,7 +149,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="633" bodyend="685"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="634" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="634" bodyend="686"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga5aab53fbd090ced60781bbb4f6d09604" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -165,7 +165,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>Flags</parametername>
+<parametername direction="in">Flags</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Provides information about Crypto operation needs to be performed on the given Image (or) Data.</para></parameterdescription>
@@ -176,8 +176,8 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="699" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="699" bodyend="729"/>
+<para>&lt; Take PCAP out of Reset </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="700" bodyend="730"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga0ec27305eb62945237e3b7c851ee0df1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -196,7 +196,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="740" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="740" bodyend="749"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="741" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="741" bodyend="750"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga7a7eeda571656593e0ba77a1cd2e7fcb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -216,14 +216,14 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>Size</parametername>
+<parametername direction="in">Size</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Number of bytes that the DMA should write to the PCAP interface </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BitstreamAddr</parametername>
+<parametername direction="in">BitstreamAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Linear Bitstream memory base address</para></parameterdescription>
@@ -235,7 +235,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="763" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="763" bodyend="789"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="764" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="764" bodyend="790"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1gaf8c3c38ec23944daa13bae732b3df8f1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -255,14 +255,14 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>ImageInfo</parametername>
+<parametername direction="in">ImageInfo</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to XSecure_ImageInfo structure. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Flags</parametername>
+<parametername direction="in">Flags</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Provides the information about Crypto operation needs to be performed on the given Image (or) Data.</para></parameterdescription>
@@ -274,7 +274,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="828" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="828" bodyend="881"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="827" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="827" bodyend="880"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1gab15d56d4110595a6f6a9f3b86a210cea" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -293,7 +293,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="1971" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="1971" bodyend="1997"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="1955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="1955" bodyend="1981"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga340b5a812e878ddfb1ff8a24cf8fd256" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -312,7 +312,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2008" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2008" bodyend="2029"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="1992" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="1992" bodyend="2013"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga19879797855f880204cf851de1a0a3a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -329,12 +329,11 @@
 <listitem><para>XFPGA_SUCCESS if successful</para></listitem></itemizedlist>
 </para></simplesect>
 <itemizedlist>
-<listitem><para>XFPGA_ERROR_PL_ISOLATION if unsuccessful</para></listitem></itemizedlist>
-</para><para><simplesect kind="note"><para>None. </para></simplesect>
+<listitem><para>XFPGA_ERROR_PL_ISOLATION if unsuccessful </para></listitem></itemizedlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2041" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2041" bodyend="2065"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2023" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2023" bodyend="2047"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga69657b2615c8c1cec479cdef645637e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -347,12 +346,10 @@
         <briefdescription>
 <para>This function is used to start reset of the PL from PS EMIO pins. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
-</para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2076" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2076" bodyend="2086"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2054" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2054" bodyend="2064"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1gab928e7bd987cf297d1f7c5726b83b946" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -365,12 +362,10 @@
         <briefdescription>
 <para>This function is used to release reset of the PL from PS EMIO pins. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
-</para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2097" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2097" bodyend="2107"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2071" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2071" bodyend="2081"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga4b0a375fc15efbf7fd923867d819dcbf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -387,7 +382,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2117" bodyend="2121"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2091" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2091" bodyend="2095"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga4a0017ca5086004ebd039795197f6110" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -403,17 +398,16 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>State</parametername>
+<parametername direction="in">State</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>xilfpga firmware state</para></parameterdescription>
+<para>xilfpga firmware state </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2567" bodyend="2576"/>
+<para>&lt; Set Firmware State in PMU GLOBAL GEN STORAGE1 Register </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2535" bodyend="2544"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq_1ga922c198ec7f741888a44e9cfaf083133" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -437,21 +431,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>Buf</parametername>
+<parametername direction="inout">Buf</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Linear memory image base address </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Size</parametername>
+<parametername direction="in">Size</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Size of the Bitstream Image(Number of bytes). </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Pos</parametername>
+<parametername direction="out">Pos</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Bitstream First Dummy Word position.</para></parameterdescription>
@@ -462,22 +456,129 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2607" bodyend="2676"/>
+<para>&lt; Check for Bitstream Size </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" line="2575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/xilfpga_pcap.c" bodystart="2575" bodyend="2644"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This file contains the definitions of bitstream loading functions. </para>    </briefdescription>
     <detaileddescription>
 <para>The XILFPGA library provides the interface to the application to configure the programmable logic (PL) though the PS.</para><para><preformatted>
-MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
----- ----- --------  -------------------------------------------------------
-5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services.
-5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
-5.3  Nava  06/29/20  Added asserts to validate input params.
-5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
+ ---- ----- --------  -------------------------------------------------------
+ 5.2  Nava  02/14/20  Added Bitstream loading support by using IPI services.
+ 5.3  Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ 5.3  Nava  06/29/20  Added asserts to validate input params.
+ 5.3  Nava  09/09/20  Replaced the asserts with input validations for non void
+                      API&apos;s.
+ 6.0  Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
+                      AddrPtr_Size is being used for multiple purposes.
+                      Use of the same variable for multiple purposes can
+                      make it more difficult for a person to read (or)
+                      understand the code and also it leads to a safety
+                      violation. fixes this  issue by adding a separate
+                      function arguments to read KeyAddr and
+                      Size(Bitstream size).
+ 6.0  Nava  01/20/21  Reset the status variable to fail to avoid safety
+                      violations.
+ 6.0  Nava  01/21/21  Make Status variable volatile to avoid compiler
+                      optimizations.
+ 6.0  Nava  01/21/21  The usage of XMboxInstance variable is limited only
+                      to this file. So making this variable as static.
+ 6.0  Nava  02/22/21  Fixed doxygen issues.
+ 6.2  Nava  12/13/21  Replaced library specific utility functions and standard
+                      lib functions with Xilinx maintained functions.
+ 6.3  Nava  08/05/22  Added doxygen tags.
+ 6.5 Nava   08/18/23  Resolved the doxygen issues.
+ 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+ 6.10 Arvd  02/20/26  Add support to set config regs and
+                      read frame data via PMUFW
+ 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
+ ----- ---- -------- -------------------------------------------------------
+ 1.0   Nava  06/08/16 Initial release
+ 1.1   Nava  11/16/16 Added PL power-up sequence.
+ 2.0     Nava  01/10/17 Added Encrypted bitstream loading support.
+ 2.0   Nava  02/16/17 Added Authenticated bitstream loading support.
+ 2.1     Nava  05/06/17 Correct the check logic issues in
+                        XFpga_PL_BitStream_Load()
+                        to avoid the unwanted blocking conditions.
+ 3.0   Nava  05/12/17 Added PL configuration registers readback support.
+ 4.0   Nava  02/08/18 Added Authenticated and Encrypted Bitstream
+                        loading support.
+ 4.0   Nava  03/02/18 Added the legacy bit file loading feature support
+                        from U-boot.
+                        and improve the error handling support by returning the
+                        proper ERROR value upon error conditions.
+ 4.1   Nava  03/07/18  For Secure Bitstream loading to avoid the Security
+                        violations Need to Re-validate the User Crypto flags
+                        with the Image Crypto operation by using the internal
+                        memory.To Fix this added a new API
+                        XFpga_ReValidateCryptoFlags().
+ 4.1   Nava  04/16/18 Added partial bitstream loading support.
+ 4.2   Nava  06/08/16 Refactor the xilfpga library to support
+                        different PL programming Interfaces.
+ 4.2   adk   07/11/18 Added support for readback of PL configuration data.
+ 4.2   Nava  07/22/18 Added XFpga_SelectEndianess() new API to Support
+                      programming the vivado generated .bit and .bin files.
+ 4.2   Nava  08/16/18 Modified the PL data handling Logic to support
+                      different PL programming interfaces.
+ 4.2     adk   08/23/18 Added support for unaligned bitstream programming.
+ 4.2   adk   08/28/18 Fixed misra-c required standard violations.
+ 4.2   Nava  09/15/18 Fixed global function call-backs issue.
+ 5.0     Nava  01/10/19 Improve the PS-PL resets handling.
+ 5.0   Nava  01/10/19 Improve the Image validation handling logic for
+                        bootgen created Bitstream Images.
+ 5.0     Div   01/21/19 Fixed misra-c required standard violations.
+ 5.0  Nava   02/06/19 Remove redundant API&apos;s from the interface agnostic layer
+                      and make the existing API&apos;s generic to support both
+                      ZynqMP and versal platforms.
+ 5.0  Nava  02/26/19  Fix for power-up PL issue with pmufw.
+ 5.0  Nava  02/26/19  Update the data handling logic to avoid the code
+                      duplication
+ 5.0  Nava  02/28/19  Handling all the 4 PS-PL resets irrespective of the
+                      design configuration.
+ 5.0  vns   03/12/19  Modified secure stream switch related functions.
+ 5.0  Nava  03/19/19 In the current implementation, the SecureIv variable
+                     is sharing between xilfpga and Xilsecure libraries.
+                     To avoid data sharing conflicts removed SecureIV
+                     shared variable dependency.
+ 5.0 Nava  03/21/19  Added Address alignment check. As CSUDMA expects word
+                     aligned address. In case user passes an unaligned
+                     address return error.
+ 5.0 sne   03/27/19  Fixed misra-c violations.
+ 5.0 Nava  04/23/19  Optimize the API&apos;s logic to avoid code duplication.
+ 5.1 Nava  06/27/19  Adds support to clear out the SHA3 engine.
+ 5.1 Nava  07/05/19  Zeroize the Secure data to avoid security violations.
+ 5.1 Nava  07/16/19  Begin all functions return status with failure and return
+                       to success only on successful completion of the operation
+                     of the functions.
+ 5.1 Nava  07/16/19  Improve error handling in the bitstream validation path.
+ 5.2 Nava  10/11/19  Clear the key info from DDR or Physical memory Once it
+                     preserves into the internal memory.
+ 5.2 Nava  11/01/19  Clear the Aes-key info from internal memory after
+                     completion of its usage.
+ 5.2 Nava  11/14/19  Rename the XFpga_GetPLConfigData() function name
+                     to improve the code readability.
+ 5.2 Nava  12/06/19  Removed unwanted pcap interface status check In
+                     XFpga_DecrypSecureHdr path.
+ 5.2 Nava  12/18/19  Fix for security violation in the readback path.
+ 5.2 Nava  01/02/20  Added conditional compilation support for readback feature.
+ 5.2 Nava  01/21/20  Replace event poll logic with Xil_WaitForEvent() API.
+ 5.2 Nava  02/20/20  Updated SECURE_MODE check handling logic by using conditional
+                     compilation macro to Optimize XFpga_Validate BitstreamImage
+                     function
+ 5.3 Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
+ 5.3 Nava  06/16/20  clear the AES key from the KUP register upon GCM-tag
+                     check failure.
+ 5.3 Nava  06/29/20  Added asserts to validate input params.
+ 5.3 Nava  09/09/20  Replaced the asserts with input validations for non void
                      API&apos;s.
-6.0  Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
+ 5.3 Nava  09/16/20  Added user configurable Enable/Disable Options for
+                     readback operations.
+ 6.0 Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
                      AddrPtr_Size is being used for multiple purposes.
                      Use of the same variable for multiple purposes can
                      make it more difficult for a person to read (or)
@@ -485,197 +586,93 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                      violation. fixes this  issue by adding a separate
                      function arguments to read KeyAddr and
                      Size(Bitstream size).
-6.0  Nava  01/20/21  Reset the status variable to fail to avoid safety
+ 6.0 Nava  01/07/21  Fixed misra-c required standard violations.
+ 6.0 Nava  01/20/21  Reset the status variable to fail to avoid safety
                      violations.
-6.0  Nava  01/21/21  Make Status variable volatile to avoid compiler
+ 6.0 Nava  01/21/21  Make Status variable volatile to avoid compiler
                      optimizations.
-6.0  Nava  01/21/21  The usage of XMboxInstance variable is limited only
-                     to this file. So making this variable as static.
-6.0  Nava  02/22/21  Fixed doxygen issues.
-6.2  Nava  12/13/21  Replaced library specific utility functions and standard
+ 6.0 Nava  02/22/21  Fixed doxygen issues.
+ 6.0 Nava  05/07/21  Added support to load the authenticated bitstream image
+                     as non-secure image if RSA_EN is not programmed.
+ 6.2 Nava  12/13/21  Replaced library specific utility functions and standard
                      lib functions with Xilinx maintained functions.
-6.3  Nava  08/05/22  Added doxygen tags.
-6.5 Nava   08/18/23  Resolved the doxygen issues.
-6.10 Arvd  02/11/26  Fixed Doxygen warnings.
-6.10 Arvd  02/20/26  Add support to set config regs and
+ 6.2 Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API&apos;s
+                     to provide the access to the xilfpga library to get the
+                     xilfpga version and supported feature list info.
+ 6.2 Nava  01/19/22  Added build time flag to skip eFUSE checks.
+ 6.3 Nava  06/22/22  Skip eFUSE checks to allow xilfpga to load non-secure
+                     bitstream in secure boot platform.
+ 6.3 Nava  08/05/22  Added doxygen tags.
+ 6.5 Nava  08/18/23  Resolved the doxygen issues.
+ 6.5 ml    09/14/23  Fixed by proper type casting of the operands to fix
+                     MISRA-C ciolations for Rule 10.3
+ 6.6 ml    17/01/24  Removed None parameters from description to fix doxygen
+                     warnings.
+ 6.10 Arvd 12/29/25  Skip crypto validation for signed bitstreams on unfused
+                     boards when XSecure_AuthenticationHeaders returns
+                     XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
+                     uninitialized PartitionHdr structure.
+ 6.10 Arvd 02/04/26  Fixed codespell errors
+ 6.10 Arvd 02/11/26  Fixed Doxygen warnings
+ 6.10 Arvd 02/20/26  Add support to set config regs and
                      read frame data via PMUFW
+ 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted></para><para><simplesect kind="note"><para></para></simplesect>
 <preformatted>
-MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
------ ---- -------- -------------------------------------------------------
-1.0   Nava  06/08/16 Initial release
-1.1   Nava  11/16/16 Added PL power-up sequence.
-2.0      Nava  01/10/17 Added Encrypted bitstream loading support.
-2.0   Nava  02/16/17 Added Authenticated bitstream loading support.
-2.1      Nava  05/06/17 Correct the check logic issues in
-                XFpga_PL_BitStream_Load()
-                to avoid the unwanted blocking conditions.
-3.0   Nava  05/12/17 Added PL configuration registers readback support.
-4.0   Nava  02/08/18 Added Authenticated and Encrypted Bitstream
-                loading support.
-4.0   Nava  03/02/18 Added the legacy bit file loading feature support
-                from U-boot.
-                and improve the error handling support by returning the
-                proper ERROR value upon error conditions.
-4.1   Nava  03/07/18  For Secure Bitstream loading to avoid the Security
-                violations Need to Re-validate the User Crypto flags
-                with the Image Crypto operation by using the internal
-                memory.To Fix this added a new API
-                XFpga_ReValidateCryptoFlags().
-4.1   Nava  04/16/18 Added partial bitstream loading support.
-4.2   Nava  06/08/16 Refactor the xilfpga library to support
-                different PL programming Interfaces.
-4.2   adk   07/11/18 Added support for readback of PL configuration data.
-4.2   Nava  07/22/18 Added XFpga_SelectEndianess() new API to Support
-                     programming the vivado generated .bit and .bin files.
-4.2   Nava  08/16/18 Modified the PL data handling Logic to support
-                     different PL programming interfaces.
-4.2      adk   08/23/18 Added support for unaligned bitstream programming.
-4.2   adk   08/28/18 Fixed misra-c required standard violations.
-4.2   Nava  09/15/18 Fixed global function call-backs issue.
-5.0      Nava  01/10/19 Improve the PS-PL resets handling.
-5.0   Nava  01/10/19 Improve the Image validation handling logic for
-                bootgen created Bitstream Images.
-5.0      Div   01/21/19 Fixed misra-c required standard violations.
-5.0  Nava   02/06/19 Remove redundant API&apos;s from the interface agnostic layer
-                     and make the existing API&apos;s generic to support both
-                     ZynqMP and versal platforms.
-5.0  Nava  02/26/19  Fix for power-up PL issue with pmufw.
-5.0  Nava  02/26/19  Update the data handling logic to avoid the code
-                     duplication
-5.0  Nava  02/28/19  Handling all the 4 PS-PL resets irrespective of the
-                     design configuration.
-5.0  vns   03/12/19  Modified secure stream switch related functions.
-5.0  Nava  03/19/19 In the current implementation, the SecureIv variable
-                    is sharing between xilfpga and Xilsecure libraries.
-                    To avoid data sharing conflicts removed SecureIV
-                    shared variable dependency.
-5.0 Nava  03/21/19  Added Address alignment check. As CSUDMA expects word
-                    aligned address. In case user passes an unaligned
-                    address return error.
-5.0 sne   03/27/19  Fixed misra-c violations.
-5.0 Nava  04/23/19  Optimize the API&apos;s logic to avoid code duplication.
-5.1 Nava  06/27/19  Adds support to clear out the SHA3 engine.
-5.1 Nava  07/05/19  Zeroize the Secure data to avoid security violations.
-5.1 Nava  07/16/19  Begin all functions return status with failure and return
-               to success only on successful completion of the operation
-                    of the functions.
-5.1 Nava  07/16/19  Improve error handling in the bitstream validation path.
-5.2 Nava  10/11/19  Clear the key info from DDR or Physical memory Once it
-                    preserves into the internal memory.
-5.2 Nava  11/01/19  Clear the Aes-key info from internal memory after
-                    completion of its usage.
-5.2 Nava  11/14/19  Rename the XFpga_GetPLConfigData() function name
-                    to improve the code readability.
-5.2 Nava  12/06/19  Removed unwanted pcap interface status check In
-                    XFpga_DecrypSecureHdr path.
-5.2 Nava  12/18/19  Fix for security violation in the readback path.
-5.2 Nava  01/02/20  Added conditional compilation support for readback feature.
-5.2 Nava  01/21/20  Replace event poll logic with Xil_WaitForEvent() API.
-5.2 Nava  02/20/20  Updated SECURE_MODE check handling logic by using conditional
-                    compilation macro to Optimize XFpga_Validate BitstreamImage
-                    function
-5.3 Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
-5.3 Nava  06/16/20  clear the AES key from the KUP register upon GCM-tag
-                    check failure.
-5.3 Nava  06/29/20  Added asserts to validate input params.
-5.3 Nava  09/09/20  Replaced the asserts with input validations for non void
-                    API&apos;s.
-5.3 Nava  09/16/20  Added user configurable Enable/Disable Options for
-                    readback operations.
-6.0 Nava  12/14/20  In XFpga_PL_BitStream_Load() API the argument
-                    AddrPtr_Size is being used for multiple purposes.
-                    Use of the same variable for multiple purposes can
-                    make it more difficult for a person to read (or)
-                    understand the code and also it leads to a safety
-                    violation. fixes this  issue by adding a separate
-                    function arguments to read KeyAddr and
-                    Size(Bitstream size).
-6.0 Nava  01/07/21  Fixed misra-c required standard violations.
-6.0 Nava  01/20/21  Reset the status variable to fail to avoid safety
-                    violations.
-6.0 Nava  01/21/21  Make Status variable volatile to avoid compiler
-                    optimizations.
-6.0 Nava  02/22/21  Fixed doxygen issues.
-6.0 Nava  05/07/21  Added support to load the authenticated bitstream image
-                    as non-secure image if RSA_EN is not programmed.
-6.2 Nava  12/13/21  Replaced library specific utility functions and standard
-                    lib functions with Xilinx maintained functions.
-6.2 Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API&apos;s
-                    to provide the access to the xilfpga library to get the
-                    xilfpga version and supported feature list info.
-6.2 Nava  01/19/22  Added build time flag to skip eFUSE checks.
-6.3 Nava  06/22/22  Skip eFUSE checks to allow xilfpga to load non-secure
-                    bitstream in secure boot platform.
-6.3 Nava  08/05/22  Added doxygen tags.
-6.5 Nava  08/18/23  Resolved the doxygen issues.
-6.5 ml    09/14/23  Fixed by proper type casting of the operands to fix
-                    MISRA-C ciolations for Rule 10.3
-6.6 ml    17/01/24  Removed None parameters from description to fix doxygen
-                    warnings.
-6.10 Arvd 12/29/25  Skip crypto validation for signed bitstreams on unfused
-                    boards when XSecure_AuthenticationHeaders returns
-                    XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
-                    uninitialized PartitionHdr structure.
-6.10 Arvd 02/04/26  Fixed codespell errors
-6.10 Arvd 02/11/26  Fixed Doxygen warnings
-6.10 Arvd 02/20/26  Add support to set config regs and
-                    read frame data via PMUFW
-</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
-<preformatted>
-MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date        Changes
------ ----   -------- -------------------------------------------------------
-1.0   Nava   06/08/16 Initial release
-1.1   Nava   11/16/16 Added PL power-up sequence.
-2.0   Nava   01/10/17 Added Encrypted bitstream loading support.
-2.0   Nava   02/16/17 Added Authenticated bitstream loading support.
-2.1   Nava   05/06/17 Correct the check logic issues in
-                      XFpga_PL_BitStream_Load()
-                      to avoid the unwanted blocking conditions.
-3.0   Nava   05/12/17 Added PL configuration registers readback support.
-4.0   Nava   02/08/18 Added Authenticated and Encrypted Bitstream
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who    Date        Changes
+ ----- ----   -------- -------------------------------------------------------
+ 1.0   Nava   06/08/16 Initial release
+ 1.1   Nava   11/16/16 Added PL power-up sequence.
+ 2.0   Nava   01/10/17 Added Encrypted bitstream loading support.
+ 2.0   Nava   02/16/17 Added Authenticated bitstream loading support.
+ 2.1   Nava   05/06/17 Correct the check logic issues in
+                       XFpga_PL_BitStream_Load()
+                       to avoid the unwanted blocking conditions.
+ 3.0   Nava   05/12/17 Added PL configuration registers readback support.
+ 4.0   Nava   02/08/18 Added Authenticated and Encrypted Bitstream
                  loading support.
-4.0   Nava   03/02/18 Added the legacy bit file loading feature support
-                 from U-boot.and improve the error handling support
-                 by returning the proper ERROR value upon error
-                 conditions.
-4.1   Nava   03/27/18 For Secure Bitstream loading to avoid the Security
-                 violations Need to Re-validate the User Crypto flags
-                 with the Image Crypto operation by using the internal
-                 memory.To Fix this added a new API
-                 XFpga_ReValidateCryptoFlags().
-4.1   Nava   04/16/18 Added partial bitstream loading support.
-4.2   Nava   06/08/16 Refactor the xilfpga library to support
-                      different PL programming Interfaces.
-4.2   adk    07/11/18 Added support for readback of PL configuration data.
-4.2   Nava   07/22/18 Added XFpga_SelectEndianess() new API to Support
-                      programming the vivado generated .bit and .bin files
-4.2   adk    08/03/18 Added example for partial reconfiguration.
-4.2   Nava   08/16/18 Modified the PL data handling Logic to support
-                      different PL programming interfaces.
-4.2   Nava   09/15/18 Fixed global function call-backs issue.
-5.0   Div    01/21/19 Fixed misra-c required standard violations.
-5.0   Nava   02/06/19 Remove redundant API&apos;s from the interface agnostic layer
-                      and make the existing API&apos;s generic to support both
-                      ZynqMP and versal platforms.
-5.0   Nava   02/26/19 Fix for power-up PL issue with pmufw.
-5.0   Nava   02/26/19 Update the data handling logic to avoid the code
-                      duplication
-5.0   Nava   02/28/19 Handling all the 4 PS-PL resets irrespective of the
-                      design configuration.
-5.0   Nava   03/21/19 Added Address alignment check. As CSUDMA expects word
-                 aligned address. In case user passes an unaligned
-                 address return error.
-5.0   sne    03/27/19 Fixed misra-c violations.
-5.0   Nava   04/23/19 Optimize the API&apos;s logic to avoid code duplication.
-5.2   Nava   12/18/19 Fix for security violation in the readback path.
-5.2   Nava   02/14/20 Added Bitstream loading support by using IPI services.
-5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
-6.0   Nava   01/07/21 Fixed misra-c required standard violations.
-6.0   Nava   02/22/21 Fixed doxygen issues.
-6.3   Nava   08/05/22 Added doxygen tags.
-6.10  Arvd   02/04/26 Fixed codespell errors
-6.10  Arvd   02/11/26 Fixed Doxygen warnings
+ 4.0   Nava   03/02/18 Added the legacy bit file loading feature support
+                         from U-boot.and improve the error handling support
+                         by returning the proper ERROR value upon error
+                         conditions.
+ 4.1   Nava   03/27/18 For Secure Bitstream loading to avoid the Security
+                         violations Need to Re-validate the User Crypto flags
+                         with the Image Crypto operation by using the internal
+                         memory.To Fix this added a new API
+                         XFpga_ReValidateCryptoFlags().
+ 4.1   Nava   04/16/18 Added partial bitstream loading support.
+ 4.2   Nava   06/08/16 Refactor the xilfpga library to support
+                       different PL programming Interfaces.
+ 4.2   adk    07/11/18 Added support for readback of PL configuration data.
+ 4.2   Nava   07/22/18 Added XFpga_SelectEndianess() new API to Support
+                       programming the vivado generated .bit and .bin files
+ 4.2   adk    08/03/18 Added example for partial reconfiguration.
+ 4.2   Nava   08/16/18 Modified the PL data handling Logic to support
+                       different PL programming interfaces.
+ 4.2   Nava   09/15/18 Fixed global function call-backs issue.
+ 5.0   Div    01/21/19 Fixed misra-c required standard violations.
+ 5.0   Nava   02/06/19 Remove redundant API&apos;s from the interface agnostic layer
+                       and make the existing API&apos;s generic to support both
+                       ZynqMP and versal platforms.
+ 5.0   Nava   02/26/19 Fix for power-up PL issue with pmufw.
+ 5.0   Nava   02/26/19 Update the data handling logic to avoid the code
+                       duplication
+ 5.0   Nava   02/28/19 Handling all the 4 PS-PL resets irrespective of the
+                       design configuration.
+ 5.0   Nava   03/21/19 Added Address alignment check. As CSUDMA expects word
+                         aligned address. In case user passes an unaligned
+                         address return error.
+ 5.0   sne    03/27/19 Fixed misra-c violations.
+ 5.0   Nava   04/23/19 Optimize the API&apos;s logic to avoid code duplication.
+ 5.2   Nava   12/18/19 Fix for security violation in the readback path.
+ 5.2   Nava   02/14/20 Added Bitstream loading support by using IPI services.
+ 5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
+ 6.0   Nava   01/07/21 Fixed misra-c required standard violations.
+ 6.0   Nava   02/22/21 Fixed doxygen issues.
+ 6.3   Nava   08/05/22 Added doxygen tags.
+ 6.10  Arvd   02/04/26 Fixed codespell errors
+ 6.10  Arvd   02/11/26 Fixed Doxygen warnings
+ 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted></para><para><simplesect kind="note"><para></para></simplesect>
 <itemizedlist>
 <listitem><para>Supported Features:<itemizedlist>

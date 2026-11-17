@@ -1,8 +1,16 @@
 var NAVTREE =
 [
-  [ "cpu_cortexr52", "index.html", [
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "cpu_cortexr52",
+    "index.html",
+    [
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

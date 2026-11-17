@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___g_p_i_o_cmd" kind="struct" prot="public">
+    <compoundname>XPm_GPIOCmd</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___g_p_i_o_cmd_1a5714d1fb53bf9d6da1799449fac3a0e9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_GPIOCmd::ModeNumber</definition>
+        <argsstring></argsstring>
+        <name>ModeNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___g_p_i_o_cmd_1ac37a74f9ea711020d83d935fd24f7c87" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_GPIOCmd::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+<para>Power mode number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___g_p_i_o_cmd_1a2509ab47225a3a1f789ab43690b5f0ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_GPIOCmd::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+<para>Register offset to change the state of GPIO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___g_p_i_o_cmd_1a59f1711d01532816fc2fa5ffca15caca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_GPIOCmd::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+<para>Mask used in read-modify-write to change only the targeted GPIOs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="42" bodyend="47"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___g_p_i_o_cmd_1a2509ab47225a3a1f789ab43690b5f0ca" prot="public" virt="non-virtual"><scope>XPm_GPIOCmd</scope><name>Mask</name></member>
+      <member refid="struct_x_pm___g_p_i_o_cmd_1a5714d1fb53bf9d6da1799449fac3a0e9" prot="public" virt="non-virtual"><scope>XPm_GPIOCmd</scope><name>ModeNumber</name></member>
+      <member refid="struct_x_pm___g_p_i_o_cmd_1ac37a74f9ea711020d83d935fd24f7c87" prot="public" virt="non-virtual"><scope>XPm_GPIOCmd</scope><name>Offset</name></member>
+      <member refid="struct_x_pm___g_p_i_o_cmd_1a59f1711d01532816fc2fa5ffca15caca" prot="public" virt="non-virtual"><scope>XPm_GPIOCmd</scope><name>Value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

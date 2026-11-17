@@ -15,14 +15,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" bodystart="201" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" bodystart="203" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>The HDMI menu configuration. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" bodystart="200" bodyend="203"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h" bodystart="202" bodyend="205"/>
     <listofallmembers>
       <member refid="struct_x_hdmi___menu_config_1ae49c4c4ad197c0a4a6eb00f27fdc0f40" prot="public" virt="non-virtual"><scope>XHdmi_MenuConfig</scope><name>HdcpIsSupported</name></member>
     </listofallmembers>

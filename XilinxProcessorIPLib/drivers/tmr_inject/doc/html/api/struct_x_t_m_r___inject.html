@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_t_m_r___inject.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,6 +120,12 @@ $(document).ready(function(){initNavTree('struct_x_t_m_r___inject.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:aa093f3a2db59022b5086838569a7629e"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_t_m_r___inject.html#aa093f3a2db59022b5086838569a7629e">RegBaseAddress</a></td></tr>
+<tr class="memdesc:aa093f3a2db59022b5086838569a7629e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of registers.  <a href="#aa093f3a2db59022b5086838569a7629e">More...</a><br/></td></tr>
+<tr class="separator:aa093f3a2db59022b5086838569a7629e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac449a879d5427634f4b3981634e703f6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_t_m_r___inject.html#ac449a879d5427634f4b3981634e703f6">IsReady</a></td></tr>
+<tr class="memdesc:ac449a879d5427634f4b3981634e703f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device is initialized and ready.  <a href="#ac449a879d5427634f4b3981634e703f6">More...</a><br/></td></tr>
+<tr class="separator:ac449a879d5427634f4b3981634e703f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82839ec096fef02e029775a31ea9595d"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_t_m_r___inject.html#a82839ec096fef02e029775a31ea9595d">MagicByte</a></td></tr>
 <tr class="memdesc:a82839ec096fef02e029775a31ea9595d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Magic byte parameter.  <a href="#a82839ec096fef02e029775a31ea9595d">More...</a><br/></td></tr>
 <tr class="separator:a82839ec096fef02e029775a31ea9595d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,6 +213,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac449a879d5427634f4b3981634e703f6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XTMR_Inject::IsReady</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device is initialized and ready. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga5283360c0584dfb4cd8c7be8a8fcb312">XTMR_Inject_CfgInitialize()</a>, <a class="el" href="group___overview.html#gaa8895543796c01ea108b2fe355c13d3a">XTMR_Inject_Disable()</a>, <a class="el" href="group___overview.html#ga6ee64c2bc63c5959641f76a24d56b58b">XTMR_Inject_Enable()</a>, <a class="el" href="group___overview.html#gaa8c496ccf948ca1b3ed359f6f6be485c">XTMR_Inject_InjectBit()</a>, <a class="el" href="group___overview.html#ga0459573a53d4807b01ee65ed3709b547">XTMR_Inject_InjectMask()</a>, and <a class="el" href="group___overview.html#gae03f2de24906f2660c4ab03a869e50cb">XTMR_Inject_SelfTest()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4ac160caf2b04cb7f6de36e4ec99d10a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -236,6 +258,22 @@ Data Fields</h2></td></tr>
 <p>Magic byte parameter. </p>
 
 <p>Referenced by <a class="el" href="group___overview.html#ga5283360c0584dfb4cd8c7be8a8fcb312">XTMR_Inject_CfgInitialize()</a>, and <a class="el" href="group___overview.html#ga6ee64c2bc63c5959641f76a24d56b58b">XTMR_Inject_Enable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa093f3a2db59022b5086838569a7629e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XTMR_Inject::RegBaseAddress</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of registers. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga5283360c0584dfb4cd8c7be8a8fcb312">XTMR_Inject_CfgInitialize()</a>, <a class="el" href="group___overview.html#gaa8895543796c01ea108b2fe355c13d3a">XTMR_Inject_Disable()</a>, and <a class="el" href="group___overview.html#ga6ee64c2bc63c5959641f76a24d56b58b">XTMR_Inject_Enable()</a>.</p>
 
 </div>
 </div>

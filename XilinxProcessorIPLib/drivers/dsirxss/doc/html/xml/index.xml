@@ -33,10 +33,9 @@
   <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
   </compound>
   <compound refid="xdsi2rxss_8c" kind="file"><name>xdsi2rxss.c</name>
-    <member refid="group__dsirxss_1gab7c23911df208cd83549da7c22f845f4" kind="variable"><name>Dsi2SsSubCores</name></member>
-    <member refid="group__dsirxss_1ga0a0a8802df4d2dd6521726f560335793" kind="function"><name>XDsi2RxSs_GetIncludedSubCores</name></member>
+    <member refid="group__dsirxss_1ga7f9e2496b7ce317464dd3ca770e48573" kind="variable"><name>Dsi2SsSubCores</name></member>
+    <member refid="group__dsirxss_1gaf901ed1c6c3efbb67d8a43895b7a31f2" kind="function"><name>XDsi2RxSs_GetIncludedSubCores</name></member>
     <member refid="group__dsirxss_1gafa751651854a43a94b1f20d96e7a7091" kind="function"><name>XDsi2RxSs_SubCoreInitDsi</name></member>
-    <member refid="group__dsirxss_1ga056538f5451541d2f779154556be043d" kind="function"><name>ComputeSubCoreAbsAddr</name></member>
     <member refid="group__dsirxss_1gacf02fba1186dd59ea301c448f21c6cce" kind="function"><name>XDsi2RxSs_CfgInitialize</name></member>
     <member refid="group__dsirxss_1gaa289941e9d71e4d0d890e7f8b3d51a37" kind="function"><name>XDsi2RxSs_DefaultConfigure</name></member>
     <member refid="group__dsirxss_1gaf332cc6cf666066eb9f5cad4c8e3213f" kind="function"><name>XDsi2RxSs_Activate</name></member>
@@ -55,7 +54,7 @@
     <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418a82cd9e81268d13102beafa66aa34a42e" kind="enumvalue"><name>XDSI2RXSS_PHY</name></member>
     <member refid="group__dsirxss_1ga82e139937b9632f2558d429c4ff5b82e" kind="typedef"><name>XDsi2RxSs_Callback</name></member>
     <member refid="group__dsirxss_1ga4efc5f50f88f952f7bb891a7744dcdaa" kind="function"><name>XDsi2RxSs_LookupConfig</name></member>
-    <member refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
+    <member refid="group__dsirxss_1ga28690c5facb8d33a5bea2e476eb67660" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
     <member refid="group__dsirxss_1gacf02fba1186dd59ea301c448f21c6cce" kind="function"><name>XDsi2RxSs_CfgInitialize</name></member>
     <member refid="group__dsirxss_1gaa289941e9d71e4d0d890e7f8b3d51a37" kind="function"><name>XDsi2RxSs_DefaultConfigure</name></member>
     <member refid="group__dsirxss_1gaf332cc6cf666066eb9f5cad4c8e3213f" kind="function"><name>XDsi2RxSs_Activate</name></member>
@@ -79,8 +78,6 @@
     <member refid="group__dsi2rxss_1gabe285e64009929895e388fd3745b7b3c" kind="function"><name>XDsi2RxSs_WriteReg</name></member>
   </compound>
   <compound refid="xdsi2rxss__intr_8c" kind="file"><name>xdsi2rxss_intr.c</name>
-    <member refid="group__dsirxss_1ga54b30c41e3c917badd1eba84e3644fa9" kind="function"><name>XDsi2Rx_IntrHandler</name></member>
-    <member refid="group__dsirxss_1gaa210595203e836002bc8fad6184dec92" kind="function"><name>XDsi2Rx_InterruptEnable</name></member>
     <member refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kind="function"><name>XDsi2RxSs_IntrHandler</name></member>
     <member refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" kind="function"><name>XDsi2RxSs_SetGlobalInterrupt</name></member>
     <member refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" kind="function"><name>XDsi2RxSs_InterruptEnable</name></member>
@@ -98,7 +95,7 @@
   <compound refid="xdsi2rxss__sinit_8c" kind="file"><name>xdsi2rxss_sinit.c</name>
     <member refid="group__dsirxss_1ga17d50891c43ded0efafc404b02fbf832" kind="variable"><name>XDsi2RxSs_ConfigTable</name></member>
     <member refid="group__dsirxss_1ga4efc5f50f88f952f7bb891a7744dcdaa" kind="function"><name>XDsi2RxSs_LookupConfig</name></member>
-    <member refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
+    <member refid="group__dsirxss_1ga28690c5facb8d33a5bea2e476eb67660" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
   </compound>
   <compound refid="group__dsirxss" kind="group"><name>dsirxss</name>
     <member refid="group__dsirxss_1ga0edea78461c3c71b2cbc6679d3d43d7b" kind="enum"><name>XDsi2RxSs_Selection</name></member>
@@ -108,11 +105,10 @@
     <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418ad492becf1e1ae141d871b502a1a46bcc" kind="enumvalue"><name>XDSI2RXSS_DSI</name></member>
     <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418a82cd9e81268d13102beafa66aa34a42e" kind="enumvalue"><name>XDSI2RXSS_PHY</name></member>
     <member refid="group__dsirxss_1ga82e139937b9632f2558d429c4ff5b82e" kind="typedef"><name>XDsi2RxSs_Callback</name></member>
-    <member refid="group__dsirxss_1gab7c23911df208cd83549da7c22f845f4" kind="variable"><name>Dsi2SsSubCores</name></member>
+    <member refid="group__dsirxss_1ga7f9e2496b7ce317464dd3ca770e48573" kind="variable"><name>Dsi2SsSubCores</name></member>
     <member refid="group__dsirxss_1ga17d50891c43ded0efafc404b02fbf832" kind="variable"><name>XDsi2RxSs_ConfigTable</name></member>
-    <member refid="group__dsirxss_1ga0a0a8802df4d2dd6521726f560335793" kind="function"><name>XDsi2RxSs_GetIncludedSubCores</name></member>
+    <member refid="group__dsirxss_1gaf901ed1c6c3efbb67d8a43895b7a31f2" kind="function"><name>XDsi2RxSs_GetIncludedSubCores</name></member>
     <member refid="group__dsirxss_1gafa751651854a43a94b1f20d96e7a7091" kind="function"><name>XDsi2RxSs_SubCoreInitDsi</name></member>
-    <member refid="group__dsirxss_1ga056538f5451541d2f779154556be043d" kind="function"><name>ComputeSubCoreAbsAddr</name></member>
     <member refid="group__dsirxss_1gacf02fba1186dd59ea301c448f21c6cce" kind="function"><name>XDsi2RxSs_CfgInitialize</name></member>
     <member refid="group__dsirxss_1gaa289941e9d71e4d0d890e7f8b3d51a37" kind="function"><name>XDsi2RxSs_DefaultConfigure</name></member>
     <member refid="group__dsirxss_1gaf332cc6cf666066eb9f5cad4c8e3213f" kind="function"><name>XDsi2RxSs_Activate</name></member>
@@ -122,11 +118,9 @@
     <member refid="group__dsirxss_1ga5c30eee05917e5298c3af145ef0687b1" kind="function"><name>XDsi2RxSs_IsControllerReady</name></member>
     <member refid="group__dsirxss_1ga2cf031088593839d8ea59b5a490033c4" kind="function"><name>XDsi2RxSs_GetPixelFormat</name></member>
     <member refid="group__dsirxss_1ga4efc5f50f88f952f7bb891a7744dcdaa" kind="function"><name>XDsi2RxSs_LookupConfig</name></member>
-    <member refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
+    <member refid="group__dsirxss_1ga28690c5facb8d33a5bea2e476eb67660" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
     <member refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" kind="function"><name>XDsi2RxSs_SetCallback</name></member>
     <member refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kind="function"><name>XDsi2RxSs_IntrHandler</name></member>
-    <member refid="group__dsirxss_1ga54b30c41e3c917badd1eba84e3644fa9" kind="function"><name>XDsi2Rx_IntrHandler</name></member>
-    <member refid="group__dsirxss_1gaa210595203e836002bc8fad6184dec92" kind="function"><name>XDsi2Rx_InterruptEnable</name></member>
     <member refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" kind="function"><name>XDsi2RxSs_SetGlobalInterrupt</name></member>
     <member refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" kind="function"><name>XDsi2RxSs_InterruptEnable</name></member>
   </compound>

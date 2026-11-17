@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="43" bodyend="49"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="43" bodyend="49"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -129,7 +129,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="443" bodyend="487"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="443" bodyend="487"/>
         <references refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" compoundref="xavbuf__hw_8h" startline="1400">XAVBUF_CLK_FPD_BASEADDR</references>
         <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
         <references refid="xavbuf__hw_8h_1adecb43b4a7818f901e9ea65c671981d3" compoundref="xavbuf__hw_8h" startline="1525">XAVBUF_VIDEO_REF_CTRL</references>
@@ -160,7 +160,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="502" bodyend="551"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="502" bodyend="551"/>
         <references refid="xavbuf__hw_8h_1ae00cb3dbc395858edb3b99c538abc4b1" compoundref="xavbuf__hw_8h" startline="1547">XAVBUF_AUDIO_REF_CTRL</references>
         <references refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" compoundref="xavbuf__hw_8h" startline="1400">XAVBUF_CLK_FPD_BASEADDR</references>
         <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
@@ -234,6 +234,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XAVBUF_CLK_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h"/>
   </compounddef>
 </doxygen>

@@ -18,7 +18,7 @@
     <member refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" kind="variable"><name>VideoFormat</name></member>
   </compound>
   <compound refid="struct_init_run_config" kind="struct"><name>InitRunConfig</name>
-    <member refid="struct_init_run_config_1a5565b2b3f735571d8fe97a92c228614d" kind="variable"><name>avpg</name></member>
+    <member refid="struct_init_run_config_1a4f9f7bef091967e8bd6231f8ee54ab83" kind="variable"><name>avpg</name></member>
     <member refid="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" kind="variable"><name>width</name></member>
     <member refid="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" kind="variable"><name>height</name></member>
     <member refid="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" kind="variable"><name>frame_rate</name></member>
@@ -28,6 +28,7 @@
     <member refid="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" kind="variable"><name>cursor_enable</name></member>
     <member refid="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" kind="variable"><name>audio_enable</name></member>
     <member refid="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" kind="variable"><name>audio_channels</name></member>
+    <member refid="struct_init_run_config_1a4a66957d45acc112e2290ef87fbb92d6" kind="variable"><name>audio_frequency</name></member>
     <member refid="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" kind="variable"><name>sdp_enable</name></member>
     <member refid="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" kind="variable"><name>partial_plane_blend_enable</name></member>
     <member refid="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" kind="variable"><name>ppb_stream_select</name></member>
@@ -52,9 +53,10 @@
     <member refid="struct_init_run_config_1af51351f8d981f057c756db2b0924b6cf" kind="variable"><name>livevideoalphaen</name></member>
     <member refid="struct_init_run_config_1a65a5aee25c3374792c80ea4fe0f8b22b" kind="variable"><name>livevideosdpen</name></member>
     <member refid="struct_init_run_config_1a092ce200f234044b854428da4dff7ef7" kind="variable"><name>byp_streams</name></member>
-    <member refid="struct_init_run_config_1a4f3d1589f05df9935e632295f36f805a" kind="variable"><name>byp_stream_pix_mode</name></member>
-    <member refid="struct_init_run_config_1a152ad66bc2be12c608992ed02f6cf608" kind="variable"><name>byp_stream_sdp_en</name></member>
-    <member refid="struct_init_run_config_1a53f8cb88eda902b5cb4206beadfa3068" kind="variable"><name>byp_stream_vid_mode</name></member>
+    <member refid="struct_init_run_config_1a4f8474e6ddade18370f05b181d225ec6" kind="variable"><name>byp_streams_max</name></member>
+    <member refid="struct_init_run_config_1a276f68c0d33f2d6a1e361c83cac7eb2e" kind="variable"><name>design_mst_en</name></member>
+    <member refid="struct_init_run_config_1a0e0b9bab9979b963def6e919dbd6e405" kind="variable"><name>byp_stream_sdp_en</name></member>
+    <member refid="struct_init_run_config_1add5186957e6af6acab21cf73d54aef5e" kind="variable"><name>byp_stream_vid_mode</name></member>
   </compound>
   <compound refid="struct_run_config" kind="struct"><name>RunConfig</name>
     <member refid="struct_run_config_1a155539680243341a34acb114b0333b41" kind="variable"><name>DcSubPtr</name></member>
@@ -86,6 +88,7 @@
     <member refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" kind="variable"><name>CursorEnable</name></member>
     <member refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" kind="variable"><name>AudioEnable</name></member>
     <member refid="struct_run_config_1ad7e69b12358de7a878851be16bb2aeaa" kind="variable"><name>AudioChannels</name></member>
+    <member refid="struct_run_config_1a66e7936e11ecf14e5de99f12629caec4" kind="variable"><name>AudioFrequency</name></member>
     <member refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" kind="variable"><name>SdpEnable</name></member>
     <member refid="struct_run_config_1ab574751a70f38e5b62ec97832ba85856" kind="variable"><name>Stream1PbEnable</name></member>
     <member refid="struct_run_config_1aca6772afd5918984836a43ec006d6802" kind="variable"><name>Stream2PbEnable</name></member>
@@ -107,7 +110,8 @@
     <member refid="struct_run_config_1a2724e6959beec45928b173d2b4ebe477" kind="variable"><name>livevideoalphaen</name></member>
     <member refid="struct_run_config_1ac85e7701b8fe435094a6ce3845037d71" kind="variable"><name>livevideosdpen</name></member>
     <member refid="struct_run_config_1aff52ebeac2ec54f6ebc4be06dbd9f4c7" kind="variable"><name>byp_streams</name></member>
-    <member refid="struct_run_config_1aa58560df211387b3a1831ea7cb143fc2" kind="variable"><name>byp_stream_pix_mode</name></member>
+    <member refid="struct_run_config_1a9ae24ddc2a166bd8d14610866a55dd65" kind="variable"><name>DesignMstEn</name></member>
+    <member refid="struct_run_config_1a8389dc7f16112a7de107908efabf0907" kind="variable"><name>MstMode</name></member>
     <member refid="struct_run_config_1a50cbf3aaeda34e448ac04e7099a14f71" kind="variable"><name>byp_stream_sdp_en</name></member>
     <member refid="struct_run_config_1a45a9c59b4d58dc5781cf00d0d75daf33" kind="variable"><name>byp_stream_vid_mode</name></member>
     <member refid="struct_run_config_1a6c31fb2de76478d7c5a9e545a297866d" kind="variable"><name>MaxLaneCount</name></member>
@@ -135,6 +139,8 @@
     <member refid="struct_x_dc_1ae078a253eefec6f8ed8a0dc5f66cab7b" kind="variable"><name>AudBurstLen</name></member>
     <member refid="struct_x_dc_1a8bfa490aa5d8d9bc9f9ed8b0f4069d41" kind="variable"><name>AudChannelSel</name></member>
     <member refid="struct_x_dc_1a7fd717272d509014ca8ae07f2779f429" kind="variable"><name>AudSampleRate</name></member>
+    <member refid="struct_x_dc_1a57da0e53c1bec4d0773e239729319009" kind="variable"><name>AudChStatusFreq</name></member>
+    <member refid="struct_x_dc_1ab81da84cc2db7b265a7c7897580ea455" kind="variable"><name>AudActiveChannels</name></member>
     <member refid="struct_x_dc_1a4c88668eae738d1311c779b6d7707acd" kind="variable"><name>AudioEnable</name></member>
     <member refid="struct_x_dc_1a4e8b9f31a40e779a48e687b218449b20" kind="variable"><name>AudChCtrl</name></member>
     <member refid="struct_x_dc_1ac63af1d6a92c1be69f3c24e9ad52dabf" kind="variable"><name>AudSegmentedMode</name></member>
@@ -221,8 +227,8 @@
     <member refid="struct_x_dc___config_1ad44cebc0c1ab04fd075acb4ae03e79ae" kind="variable"><name>StreamConfig</name></member>
   </compound>
   <compound refid="struct_x_dc___cursor" kind="struct"><name>XDc_Cursor</name>
-    <member refid="struct_x_dc___cursor_1af38617db9fbebe76dac5cf8d23a1ac68" kind="variable"><name>CoordY</name></member>
-    <member refid="struct_x_dc___cursor_1aceec90011f54b1a5e974dcda512ee05b" kind="variable"><name>CoordX</name></member>
+    <member refid="struct_x_dc___cursor_1ac187449c686815831405ab51c14c0b42" kind="variable"><name>CoordY</name></member>
+    <member refid="struct_x_dc___cursor_1afa4b157c72c2f9e6467bfb58a7aa176e" kind="variable"><name>CoordX</name></member>
     <member refid="struct_x_dc___cursor_1ab6643facad4554cc05391dc04a3cea4f" kind="variable"><name>SizeY</name></member>
     <member refid="struct_x_dc___cursor_1a92eab2d40b6f9e9ba372bfda24c321a1" kind="variable"><name>SizeX</name></member>
     <member refid="struct_x_dc___cursor_1a9c989c47bcd227e98f273b2cfd0f5c8a" kind="variable"><name>CursorAttribute</name></member>
@@ -371,7 +377,51 @@
     <member refid="struct_x_dc_sub___config_1aaf38451b9ddbfc297869c85ccc62669c" kind="variable"><name>DcConfig</name></member>
     <member refid="struct_x_dc_sub___config_1a0ea697fd0491ab3ea78f0bbc382aa49e" kind="variable"><name>DmaConfig</name></member>
   </compound>
+  <compound refid="struct_x_dp_dc___resolution_preset" kind="struct"><name>XDpDc_ResolutionPreset</name>
+    <member refid="struct_x_dp_dc___resolution_preset_1ab87ca337233f354982d4d1cff3191b00" kind="variable"><name>width</name></member>
+    <member refid="struct_x_dp_dc___resolution_preset_1a7b5f400f50d3ea4b93dcaff860fd20d6" kind="variable"><name>height</name></member>
+    <member refid="struct_x_dp_dc___resolution_preset_1abf0680848b4b71dfe2f87ec9038a3ce3" kind="variable"><name>label</name></member>
+  </compound>
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="mmi__dc__bypass__test_8c" kind="file"><name>mmi_dc_bypass_test.c</name>
+    <member refid="mmi__dc__bypass__test_8c_1afd3c20510024bbc499b04b8341053af4" kind="variable"><name>BypassStreamPpc</name></member>
+    <member refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kind="function"><name>XDpDc_BypassPpcFromXsa</name></member>
+    <member refid="mmi__dc__bypass__test_8c_1a53e47599ceadded20c619af704c831e2" kind="function"><name>XDpDc_BypassPlStreamMax</name></member>
+  </compound>
+  <compound refid="mmi__dc__bypass__test_8h" kind="file"><name>mmi_dc_bypass_test.h</name>
+    <member refid="mmi__dc__bypass__test_8h_1af1b10f4d6a1c748e08a74a137d76ea17" kind="define"><name>BYPASS_LIVE_IN_GPIO_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a6894ba514f70260d7e717dd8e4a5fddc" kind="define"><name>BYPASS_GPIO_DATA_OFFSET</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a0e427e24eff844afc0907e5ccce72aac" kind="define"><name>BYPASS_GPIO_TRI_OFFSET</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1ab1deda05af5b864dbe5724ea36fd4b3a" kind="define"><name>BYPASS_GPIO_HOLD</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a79ad47ff14679b41031b331753b2c353" kind="define"><name>BYPASS_GPIO_RELEASE</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1ad46ec270fdbdfa038dc874eb7d964fb0" kind="define"><name>BYPASS_ALPHA_EN_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1aede185c4f510f094700dbf44c7603dd4" kind="define"><name>BYPASS_ALPHA_GPIO_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1af8dd2f3819d9ce4b1bfd9613face9f9d" kind="define"><name>BYPASS_LV_AVTPG_PM_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1ac54ce492a13a5ae7ec8bf34af13b74ad" kind="define"><name>BYPASS_ALPHA_GPIO_TRI_VAL</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a1c468a2142165ad2816e06d4fe704a95" kind="define"><name>BYPASS_LV_AVTPG_PM_VAL</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a42a8c70d90c727997d687928481a2b60" kind="define"><name>BYPASS_ALPHA_EN_TRI_SETUP</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a22e98eb578d7956a0aede4e34d5c6c95" kind="define"><name>BYPASS_ALPHA_EN_TRI_FINAL</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a6afae58ff339c335ed1830bcdabfcb40" kind="define"><name>BYPASS_VTC_CTRL_ENABLE</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a53e27bb083c80b560d7491d40b148c47" kind="define"><name>BYPASS_DC_FRAME_SWITCH_VAL</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a6da3b36ea64c92e3ef01bb582d8a8ea3" kind="define"><name>XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a6dbed2b7fd0e381fb307396ac5818e3a" kind="define"><name>XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1ad1167c50330179b5726a9c5db1ac2915" kind="define"><name>XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a1c4fcb2f96c7959730621c98774d908d" kind="define"><name>XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1ac38e67d4ea61cacefb79e9ba6514e953" kind="define"><name>BYPASS_AVPG_0_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" kind="define"><name>BYPASS_AVPG_1_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" kind="define"><name>BYPASS_AVPG_2_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" kind="define"><name>BYPASS_AVPG_3_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a6fbd7c163bef94bd3936a727381e83b7" kind="define"><name>BYPASS_VTC_0_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" kind="define"><name>BYPASS_VTC_1_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" kind="define"><name>BYPASS_VTC_2_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" kind="define"><name>BYPASS_VTC_3_BASEADDR</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" kind="define"><name>BYPASS_MAX_STREAMS</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1acb69a8f744bcab7620b2b9c7fc9c19e2" kind="function"><name>XDpDc_BypassPpcFromXsa</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" kind="function"><name>XDpDc_BypassPlStreamMax</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a9eab0db24ce7b3fa480024dd8071066c" kind="function"><name>XDpDc_BypassConfigureLiveGenerator</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1a46cf98bf7493a5d740b8cfb4d1466eca" kind="function"><name>XDpDc_BypassDisableStreamsFrom</name></member>
+    <member refid="mmi__dc__bypass__test_8h_1ae004a354784edc8347b69e1fedc09048" kind="function"><name>XDpDc_MmiDcBypassTest</name></member>
   </compound>
   <compound refid="mmi__dc__cursor_8c" kind="file"><name>mmi_dc_cursor.c</name>
     <member refid="mmi__dc__cursor_8c_1aeec8d3294a1eefe714a7990afdbd6b91" kind="function"><name>XDpDc_InitCursorFrameBuffer</name></member>
@@ -408,10 +458,6 @@
     <member refid="mmi__dc__live__test_8h_1add431657bea4628cc775d98ff9049039" kind="define"><name>AVPG_1_BASEADDR</name></member>
     <member refid="mmi__dc__live__test_8h_1a7309b63aaab0f80b2ca9b86234c6bd9b" kind="define"><name>VTC_BASEADDR</name></member>
     <member refid="mmi__dc__live__test_8h_1a85c489a449d26f9f860f14d5ceba305a" kind="define"><name>LIVE_IN_GPIO_BASEADDR</name></member>
-    <member refid="mmi__dc__live__test_8h_1a958ec803ff7e8580bdff869fe6922b69" kind="define"><name>VID_FMT_GPIO_BASEADDR</name></member>
-    <member refid="mmi__dc__live__test_8h_1afb1a3065ab002d565d645ae8dff0eec0" kind="define"><name>I2S_TX_BASEADDR</name></member>
-    <member refid="mmi__dc__live__test_8h_1a61f8d96ee4e8a21532745f61fa4ec947" kind="define"><name>CLK_WIZ_VID_BASEADDR</name></member>
-    <member refid="mmi__dc__live__test_8h_1a070e483b9d83f8d8be4a1a02dbcafdda" kind="define"><name>CLK_WIZ_AUD_BASEADDR</name></member>
     <member refid="mmi__dc__live__test_8h_1ade787ef3dfffa7914cf580867a3c4c16" kind="define"><name>XDC_LIVE_EX_MAX_AVPATGEN_COUNT</name></member>
     <member refid="mmi__dc__live__test_8h_1a9e3a2a7ca04961599e895c2492437a20" kind="function"><name>XDpDc_MmiDcLiveTest</name></member>
   </compound>
@@ -576,6 +622,7 @@
     <member refid="mmi__dp__init_8c_1aa754244560d41f9452ea5a8ed909ebc7" kind="define"><name>XMMIDP_AUX_250US_LIMIT</name></member>
     <member refid="mmi__dp__init_8c_1a218dc8003e412fc1cef7a3cd4953fe4e" kind="define"><name>XMMIDP_AUX_2000US_LIMIT</name></member>
     <member refid="mmi__dp__init_8c_1ab89d4332268fa0baf90c9bee055db563" kind="define"><name>XMMIDP_AUX_100000US_LIMIT</name></member>
+    <member refid="mmi__dp__init_8c_1a78307a22e1bb3e56bc225c1076d9ca12" kind="define"><name>XDPDC_MST_DBG</name></member>
     <member refid="mmi__dp__init_8c_1aa5e112ae4051e734fcb0cd14111a86ff" kind="define"><name>XMMIDP_PM_CONFIG1_DEFAULT</name></member>
     <member refid="mmi__dp__init_8c_1a47ac97e5fb24b8fc74a571f8a541ee76" kind="define"><name>XMMIDP_PM_CONFIG2_DEFAULT</name></member>
     <member refid="mmi__dp__init_8c_1afc372231db564dbf472ae1a91181e879" kind="define"><name>XMMIDP_GEN_INT_EN_DEFAULT</name></member>
@@ -585,46 +632,71 @@
     <member refid="mmi__dp__init_8c_1ab9ce17b994d3b022848c0e1fd51569b7" kind="define"><name>XMMIDP_SINK_POWERDOWN_DELAY</name></member>
     <member refid="mmi__dp__init_8c_1af1c58d9c62bcffbdc11570b14c928f8b" kind="define"><name>XMMIDP_SINK_POWERUP_DELAY</name></member>
     <member refid="mmi__dp__init_8c_1a7f18e38530a8cc7f61418341d05cd4d2" kind="define"><name>XMMIDP_DEFAULT_BPC</name></member>
-    <member refid="mmi__dp__init_8c_1abe501cdbbb86fab817c0dbfa98de4625" kind="define"><name>XMMIDP_PIX_MODE_SINGLE</name></member>
     <member refid="mmi__dp__init_8c_1ac17e1483ee5add51706a04a5f396a82b" kind="define"><name>XMMIDP_VID_STREAM_ENABLE</name></member>
+    <member refid="mmi__dp__init_8c_1a99acafbd3226b1593fa0c19201afd25b" kind="define"><name>XDPDC_MST_PAYLOAD_SLOTS</name></member>
     <member refid="mmi__dp__init_8c_1a49a9e524527cbdb53a43f3bae9fdfc1e" kind="define"><name>XMMIDP_AUD_CH_PER_DATA_INPUT</name></member>
     <member refid="mmi__dp__init_8c_1a5d9bd6985a4c3e6cac10461788835d32" kind="define"><name>XMMIDP_AUD_DATA_INPUT_LSB</name></member>
     <member refid="mmi__dp__init_8c_1ad94aac937ac3350ec539fb731297218a" kind="define"><name>XMMIDP_AUD_DATA_INPUT_ALL</name></member>
     <member refid="mmi__dp__init_8c_1a752b35dc80f5731fefd720529ee69212" kind="define"><name>XMMIDP_AUD_HBR_MODE_DISABLE</name></member>
     <member refid="mmi__dp__init_8c_1a348b2d7ddb862362a47278e8f145cd5f" kind="define"><name>XMMIDP_AUD_TIMESTAMP_VER</name></member>
     <member refid="mmi__dp__init_8c_1a8bc66cda2efe317047273eb5ced68399" kind="define"><name>XMMIDP_SDP_STREAM_ENABLE</name></member>
+    <member refid="mmi__dp__init_8c_1ab82977e9f93de385f3156a06a3ba3408" kind="define"><name>XMMIDP_SDP_FIXED_PRIORITY_EN</name></member>
+    <member refid="mmi__dp__init_8c_1acc2358dc3d2956e079139e46637f09f4" kind="function"><name>XDpDc_PpcToPixModeSel</name></member>
+    <member refid="mmi__dp__init_8c_1a750bc7e972ccf931f5b4d0f10eda8af8" kind="function"><name>XDpDc_AvpgToVideoFormat</name></member>
+    <member refid="mmi__dp__init_8c_1ac36051876a817bd1cc4f57a96600b4df" kind="function"><name>XDpDc_GetDpVideoFormat</name></member>
+    <member refid="mmi__dp__init_8c_1a268197282be414f87c5c67adb87e347c" kind="function"><name>XDpDc_VideoFormatToBpc</name></member>
+    <member refid="mmi__dp__init_8c_1a057e67464a4dbd6024dfbce275a6cfdd" kind="function"><name>XDpDc_VideoFormatToVidMap</name></member>
+    <member refid="mmi__dp__init_8c_1a85d8e21907f6b09503e5ba6216fe974d" kind="function"><name>XDpDc_VideoFormatToColorFormat</name></member>
+    <member refid="mmi__dp__init_8c_1a5da0ef0725cb5501ec35113be09e4e80" kind="function"><name>XDpDc_StreamPbn</name></member>
+    <member refid="mmi__dp__init_8c_1a790255c83a7235287d2099ccdb16b716" kind="function"><name>XDpDc_CheckMstBandwidth</name></member>
     <member refid="mmi__dp__init_8c_1a3de1ed4f4faf4234e138589a5ff7f905" kind="function"><name>XMmiDp_SinkPowerCycle</name></member>
     <member refid="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" kind="function"><name>XMmiDp_SinkPowerDown</name></member>
     <member refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" kind="function"><name>XMmiDp_SinkPowerUp</name></member>
-    <member refid="mmi__dp__init_8c_1a20c47719bdcdcadfbf43d5ef1a6ef384" kind="function"><name>XDpDc_PrintVideoConfigRegs</name></member>
-    <member refid="mmi__dp__init_8c_1a11051e1275b7c53ce3c92ec5e74f4ab3" kind="function"><name>XDpDc_PrintVideoStreamConfig</name></member>
-    <member refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" kind="function"><name>XMmiDp_SetupVideoStream</name></member>
+    <member refid="mmi__dp__init_8c_1af8f37b141785102ce0dd24378923cbf3" kind="function"><name>XDpDc_PrintMstStreamAlloc</name></member>
+    <member refid="mmi__dp__init_8c_1a989e625daaab46ccedc8408da6833b58" kind="function"><name>XDpDc_PrintMstGlobalRegs</name></member>
+    <member refid="mmi__dp__init_8c_1a28799b8a2bc2fe1ebac64cce90be76dc" kind="function"><name>XDpDc_PrintVideoConfigRegs</name></member>
+    <member refid="mmi__dp__init_8c_1a71939b3d3362bf9d0a8fda4d3ad024a2" kind="function"><name>XDpDc_PrintVideoStreamConfig</name></member>
+    <member refid="mmi__dp__init_8c_1a61ef05816e9d8f84036fa2e4ae70b3c2" kind="function"><name>XDpDc_GetDesignMstEn</name></member>
+    <member refid="mmi__dp__init_8c_1ad62d612a7ac65d0636766a23be209c87" kind="function"><name>XDpDc_CheckMstSupport</name></member>
+    <member refid="mmi__dp__init_8c_1a57a8c2b47b0449d74aa22ca0f5ca7145" kind="function"><name>XDpDc_PrepareVideoStream</name></member>
     <member refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" kind="function"><name>XMmiDp_SetupAudioStream</name></member>
     <member refid="mmi__dp__init_8c_1a1eae9f1eb5bc23cc743633c9b1b8b78f" kind="function"><name>XDpDc_LinkBwToStr</name></member>
-    <member refid="mmi__dp__init_8c_1a219c242a59df1b98fea96cdaa86a5190" kind="function"><name>XDpDc_ApplyUserCaps</name></member>
     <member refid="mmi__dp__init_8c_1a42120e20d01b271c7c097e63216559b1" kind="function"><name>XDpDc_PrintSinkCapabilities</name></member>
     <member refid="mmi__dp__init_8c_1a41b2a3f07c1e3e123bc1408905b97a99" kind="function"><name>XDpDc_PrintLinkTrainingResult</name></member>
-    <member refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" kind="function"><name>XMmiDp_StartFullLinkTrainingCapped</name></member>
+    <member refid="mmi__dp__init_8c_1a1470b14f1f340b5a19a2048effd086e5" kind="function"><name>XDpDc_RunLinkPolicySetup</name></member>
+    <member refid="mmi__dp__init_8c_1ac85f7237318c5aa80160c7e879150239" kind="function"><name>XDpDc_ClearMstRoutes</name></member>
+    <member refid="mmi__dp__init_8c_1ac318114678f69c26694f9dab63a52edf" kind="function"><name>XDpDc_SetupMstTopology</name></member>
+    <member refid="mmi__dp__init_8c_1a923680a2dbc88cecc68fa2a5bb787c60" kind="function"><name>XDpDc_RunStreamPolicySetup</name></member>
+    <member refid="mmi__dp__init_8c_1a2366205c7a4ee18ac1833bc71e721ad7" kind="function"><name>XDpDc_RunConnectSequence</name></member>
     <member refid="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" kind="function"><name>XMmiDp_InitDpCore</name></member>
     <member refid="mmi__dp__init_8c_1ad006bfc4aa600e15be560f77afbe3870" kind="function"><name>XDpDc_InitDpPsuSubsystem</name></member>
   </compound>
   <compound refid="mmi__dp__init_8h" kind="file"><name>mmi_dp_init.h</name>
+    <member refid="mmi__dp__init_8h_1aa29ab52118d45280f9f6f0582374cbed" kind="define"><name>XDPDC_MST_DEBUG</name></member>
     <member refid="mmi__dp__init_8h_1a2a6aa99004f16d903a339a6326c51a5c" kind="function"><name>XMmiDp_SinkPowerDown</name></member>
     <member refid="mmi__dp__init_8h_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" kind="function"><name>XMmiDp_SinkPowerUp</name></member>
     <member refid="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" kind="function"><name>XMmiDp_SinkPowerCycle</name></member>
-    <member refid="mmi__dp__init_8h_1a71d704d64c98127c07711223063b8a1f" kind="function"><name>XMmiDp_SetupVideoStream</name></member>
+    <member refid="mmi__dp__init_8h_1a57a8c2b47b0449d74aa22ca0f5ca7145" kind="function"><name>XDpDc_PrepareVideoStream</name></member>
+    <member refid="mmi__dp__init_8h_1a61ef05816e9d8f84036fa2e4ae70b3c2" kind="function"><name>XDpDc_GetDesignMstEn</name></member>
+    <member refid="mmi__dp__init_8h_1ad62d612a7ac65d0636766a23be209c87" kind="function"><name>XDpDc_CheckMstSupport</name></member>
+    <member refid="mmi__dp__init_8h_1a790255c83a7235287d2099ccdb16b716" kind="function"><name>XDpDc_CheckMstBandwidth</name></member>
     <member refid="mmi__dp__init_8h_1a04602a40acdc79b6203e0add5c7774d5" kind="function"><name>XMmiDp_SetupAudioStream</name></member>
     <member refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" kind="function"><name>XDpDc_InitDpPsuSubsystem</name></member>
     <member refid="mmi__dp__init_8h_1aae88d76ed85f867bd89c174962276b9f" kind="function"><name>XMmiDp_InitDpCore</name></member>
-    <member refid="mmi__dp__init_8h_1ad5774015fbf8628ffdbb3746da70b28b" kind="function"><name>XMmiDp_StartFullLinkTrainingCapped</name></member>
+    <member refid="mmi__dp__init_8h_1a1470b14f1f340b5a19a2048effd086e5" kind="function"><name>XDpDc_RunLinkPolicySetup</name></member>
+    <member refid="mmi__dp__init_8h_1a923680a2dbc88cecc68fa2a5bb787c60" kind="function"><name>XDpDc_RunStreamPolicySetup</name></member>
+    <member refid="mmi__dp__init_8h_1a2366205c7a4ee18ac1833bc71e721ad7" kind="function"><name>XDpDc_RunConnectSequence</name></member>
   </compound>
   <compound refid="mmi__dp__intr_8c" kind="file"><name>mmi_dp_intr.c</name>
     <member refid="mmi__dp__intr_8c_1a815ec22db85dd7ff538bb4eca5dc740f" kind="define"><name>XMMIDP_INTR_ID</name></member>
     <member refid="mmi__dp__intr_8c_1aefb8185e17d74b4dc9e1feec0a8033be" kind="define"><name>XMMIDP_INTR_PARENT</name></member>
+    <member refid="mmi__dp__intr_8c_1a8c0ad0c30ab96ee836fad6a28458e6c0" kind="define"><name>XDPDC_HPD_SETTLE_MS</name></member>
+    <member refid="mmi__dp__intr_8c_1af67539caf1c6ef49a77a64b5d5257801" kind="variable"><name>XDpDc_HotplugSeen</name></member>
     <member refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" kind="function"><name>XDpDc_DisableDpAudioSdpStreams</name></member>
     <member refid="mmi__dp__intr_8c_1a73abe61ea2c8dcfb0e0188cc2a072ca5" kind="function"><name>XDpDc_HpdHotplugHandler</name></member>
     <member refid="mmi__dp__intr_8c_1ab9d0c9085b15a70c514ac40836fec9cb" kind="function"><name>XDpDc_HpdHotunplugHandler</name></member>
     <member refid="mmi__dp__intr_8c_1a472e38536a80269b21c42c25c0a9f65a" kind="function"><name>XDpDc_HpdIrqHandler</name></member>
+    <member refid="mmi__dp__intr_8c_1ab22e1283553b94dce4551d999f4a8e54" kind="function"><name>XDpDc_CheckInitialHpd</name></member>
     <member refid="mmi__dp__intr_8c_1ad5a8cd4236c7a991497612d68cbd6a95" kind="function"><name>XDpDc_SetupDpInterrupts</name></member>
   </compound>
   <compound refid="mmi__dp__intr_8h" kind="file"><name>mmi_dp_intr.h</name>
@@ -646,11 +718,13 @@
     <member refid="mmi__dpdc__example_8c_1a3b26ad15458185176c1bfcd80d3ae691" kind="variable"><name>In_CSCOffset_YUV</name></member>
     <member refid="mmi__dpdc__example_8c_1a08e06728f8350fb403e657e023258846" kind="variable"><name>Out_CSCCoeff_YUV</name></member>
     <member refid="mmi__dpdc__example_8c_1a782a26172306d1bdfb057e8352d0b582" kind="variable"><name>Out_CSCOffset_YUV</name></member>
+    <member refid="mmi__dpdc__example_8c_1a3afce8bbecf8b94c8bdacd85f96c38e1" kind="variable"><name>XDpDc_AudSampleRateHz</name></member>
     <member refid="mmi__dpdc__example_8c_1a05aef7037486274b220f118ecc87aab7" kind="function"><name>outbyte</name></member>
     <member refid="mmi__dpdc__example_8c_1a799a047ef038b61a8125307da2581dfb" kind="function"><name>inbyte</name></member>
+    <member refid="mmi__dpdc__example_8c_1a5615c1a208b9f4897040f89bcf5b4f6c" kind="function"><name>XDpDc_GetAudSampleRateHz</name></member>
     <member refid="mmi__dpdc__example_8c_1ad39b240ba94d0c25d2cc209b3832dde3" kind="function"><name>format_to_string</name></member>
     <member refid="mmi__dpdc__example_8c_1af9f06843797753813439c34fecf28044" kind="function"><name>MapFormat</name></member>
-    <member refid="mmi__dpdc__example_8c_1af412550e03837e9269744fa3166bc760" kind="function"><name>XDpDc_ApplyUserConfig</name></member>
+    <member refid="mmi__dpdc__example_8c_1a6541a1b6004024f7442b28ec1323f79b" kind="function"><name>XDpDc_ApplyUserConfig</name></member>
     <member refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="mmi__dpdc__example_8h" kind="file"><name>mmi_dpdc_example.h</name>
@@ -658,9 +732,24 @@
     <member refid="mmi__dpdc__example_8h_1a4998351787c4c8ca64dba4ad7fc55351" kind="define"><name>APP_DEFAULT_WIDTH</name></member>
     <member refid="mmi__dpdc__example_8h_1ab39174131a1b695d49afcb957ede159f" kind="define"><name>APP_DEFAULT_HEIGHT</name></member>
     <member refid="mmi__dpdc__example_8h_1aeedfa90698ed46924e8bcf56b988966f" kind="define"><name>APP_DEFAULT_FPS</name></member>
+    <member refid="mmi__dpdc__example_8h_1a8ff3b14bfc19428f482b53e91f1769b7" kind="define"><name>APP_BYPASS_8K_WIDTH</name></member>
+    <member refid="mmi__dpdc__example_8h_1ac1908c4e34fa8f35849540b2895947dd" kind="define"><name>APP_BYPASS_8K_HEIGHT</name></member>
+    <member refid="mmi__dpdc__example_8h_1a59fe80ea4f10582bb658c9a244330b41" kind="define"><name>APP_BYPASS_8K_FPS</name></member>
+    <member refid="mmi__dpdc__example_8h_1a841ba00944e76001048ddce7106afc09" kind="define"><name>APP_FUNCTIONAL_MAX_WIDTH</name></member>
+    <member refid="mmi__dpdc__example_8h_1a2ffaeeac8c2e1f75687efed84b93b08d" kind="define"><name>APP_FUNCTIONAL_MAX_HEIGHT</name></member>
     <member refid="mmi__dpdc__example_8h_1a242f5e5c821a97fe17d3fe79327f74cf" kind="define"><name>APP_DEFAULT_NL_PIXFMT</name></member>
     <member refid="mmi__dpdc__example_8h_1aebaa04d409515c79db712a8cf5fba851" kind="define"><name>APP_DEFAULT_LIVE_PIXFMT</name></member>
     <member refid="mmi__dpdc__example_8h_1aac9aef27e6e51c14df9c3cc25b6e24a8" kind="define"><name>APP_DEFAULT_DC_OUT_FMT</name></member>
+    <member refid="mmi__dpdc__example_8h_1aa151e063708a14fa5e4198ba03e47bba" kind="define"><name>XDPDC_AUD_CHANNELS_NONE</name></member>
+    <member refid="mmi__dpdc__example_8h_1ac64319ceecb0020cc8491bacfb1f724b" kind="define"><name>XDPDC_AUD_RATE_UNSUPPORTED_HZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1a0a507586542a0594c86938ab3712e628" kind="define"><name>XDPDC_HZ_PER_KHZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1a25df8abb59175e448fc15347addb971e" kind="define"><name>XDPDC_HZ_PER_TENTH_KHZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1a95b887e948df19c8c988edd37ab842d7" kind="define"><name>XDPDC_AUD_RATE_44_1K_HZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1ad9dd052e820e69f1b3ba4080153859ba" kind="define"><name>XDPDC_AUD_RATE_48K_HZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1a40372a08ed6c6fa7bf2dfea7be65d2a9" kind="define"><name>XDPDC_AUD_RATE_88_2K_HZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1a3ec14064bb035efa34c90fffb82cc7ea" kind="define"><name>XDPDC_AUD_RATE_96K_HZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1af463c725e01eff781183289dd1487dda" kind="define"><name>XDPDC_AUD_RATE_176_4K_HZ</name></member>
+    <member refid="mmi__dpdc__example_8h_1ad6967107b4f29338545528c8df02f00c" kind="define"><name>XDPDC_AUD_RATE_192K_HZ</name></member>
     <member refid="mmi__dpdc__example_8h_1a0c247ee9352ed4022126a9681d091c78" kind="variable"><name>RunCfg</name></member>
     <member refid="mmi__dpdc__example_8h_1a0d8e9793261f6022c971fc8cad248f94" kind="variable"><name>DcSub</name></member>
     <member refid="mmi__dpdc__example_8h_1ae5aaf509c4712e91dd5948fc207a534c" kind="variable"><name>DcDma</name></member>
@@ -672,21 +761,34 @@
     <member refid="mmi__dpdc__example_8h_1a3b26ad15458185176c1bfcd80d3ae691" kind="variable"><name>In_CSCOffset_YUV</name></member>
     <member refid="mmi__dpdc__example_8h_1a08e06728f8350fb403e657e023258846" kind="variable"><name>Out_CSCCoeff_YUV</name></member>
     <member refid="mmi__dpdc__example_8h_1a782a26172306d1bdfb057e8352d0b582" kind="variable"><name>Out_CSCOffset_YUV</name></member>
+    <member refid="mmi__dpdc__example_8h_1a5615c1a208b9f4897040f89bcf5b4f6c" kind="function"><name>XDpDc_GetAudSampleRateHz</name></member>
   </compound>
   <compound refid="mmi__dpdc__menus_8c" kind="file"><name>mmi_dpdc_menus.c</name>
+    <member refid="mmi__dpdc__menus_8c_1adf50e49ade2c6f3fe34b9c5e54419bd1" kind="define"><name>XDpDc_NUM_STANDARD_PRESETS</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a0f16764f1a4624d0f67f8d8b0538f3d3" kind="variable"><name>XDpDc_StandardPresets</name></member>
     <member refid="mmi__dpdc__menus_8c_1a05aef7037486274b220f118ecc87aab7" kind="function"><name>outbyte</name></member>
     <member refid="mmi__dpdc__menus_8c_1a799a047ef038b61a8125307da2581dfb" kind="function"><name>inbyte</name></member>
     <member refid="mmi__dpdc__menus_8c_1a80f9f809549277a26ac38f5dc40c574b" kind="function"><name>read_char</name></member>
     <member refid="mmi__dpdc__menus_8c_1a3e7691738207dc3bd4cc6e56853cedcb" kind="function"><name>read_uint</name></member>
     <member refid="mmi__dpdc__menus_8c_1a47c0ee1bbb5de12af95548dfbe1affcd" kind="function"><name>format_to_string</name></member>
-    <member refid="mmi__dpdc__menus_8c_1a0e5908c2b0abcc9c9da77fa1ac8d968b" kind="function"><name>XDpDc_ResolutionHelpMenu</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a58db2c52cf15484e4a0ed34d683d6a69" kind="function"><name>XDpDc_ApplyStandardPreset</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a6247603aa9167ab3f0a40ec5f4e9d089" kind="function"><name>XDpDc_SetDefaultResolution</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a35118bf92d23a281c27c97e06d611376" kind="function"><name>XDpDc_IsCustomResolutionChoice</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a96aebc88222b5e96f3ac2a9e41371d6e" kind="function"><name>XDpDc_IsBypass8kPresetChoice</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a974ddf1c5df5b1b3360f50583d196766" kind="function"><name>XDpDc_StandardPresetIndex</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a718d1926b279cead6fa483e84aae6225" kind="function"><name>XDpDc_ResolutionHelpMenu</name></member>
     <member refid="mmi__dpdc__menus_8c_1a6228b23109a98eecfe60643b13a22d45" kind="function"><name>XDpDc_FormatHelpMenu</name></member>
     <member refid="mmi__dpdc__menus_8c_1a8483d175bc0a001f960f827bd2dc9954" kind="function"><name>XDpDc_ListNonliveFormats</name></member>
     <member refid="mmi__dpdc__menus_8c_1ab26be72b44786c6adf68c7845b521052" kind="function"><name>XDpDc_ListLiveFormats</name></member>
     <member refid="mmi__dpdc__menus_8c_1a1ed6edf16d317c1b2660d90f7211050c" kind="function"><name>XDpDc_MainHelpMenu</name></member>
     <member refid="mmi__dpdc__menus_8c_1a6ed49c1ca08ecf19af7bdd721bbaa33f" kind="function"><name>XDpDc_DisplayConfig</name></member>
-    <member refid="mmi__dpdc__menus_8c_1ae1a42b50dbb6036e34d6f274b84a5f70" kind="function"><name>XDpDc_GetWidth</name></member>
-    <member refid="mmi__dpdc__menus_8c_1a486e14b1b3925dba0bd61acf08143e5a" kind="function"><name>XDpDc_GetHeight</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a57a65e828a545274ec16968ad80e266d" kind="function"><name>XDpDc_GetWidth</name></member>
+    <member refid="mmi__dpdc__menus_8c_1ae32df605f124dbf0d0b288667d6fd6a3" kind="function"><name>XDpDc_GetHeight</name></member>
+    <member refid="mmi__dpdc__menus_8c_1ad907d52edc3ec766821525ee668761bc" kind="function"><name>XDpDc_IsBypass8kResolution</name></member>
+    <member refid="mmi__dpdc__menus_8c_1af02fee53788eb2ca3364ceeec819518b" kind="function"><name>XDpDc_IsRgbLiveFormat</name></member>
+    <member refid="mmi__dpdc__menus_8c_1af5dbacd7dd8136b35fb968bbb47f1631" kind="function"><name>XDpDc_AvpgToLiveFormat</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a490bc6c0fd434b4fe8edf06d9b588922" kind="function"><name>XDpDc_Apply8kFormatDefaults</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a10cbb87419f10732d28746d1b902d417" kind="function"><name>XDpDc_Warn8kRgbIfNeeded</name></member>
     <member refid="mmi__dpdc__menus_8c_1a966b628e8e50ddba4369c08bdff05de2" kind="function"><name>XDpDc_ConfigureResolution</name></member>
     <member refid="mmi__dpdc__menus_8c_1a1556d176379320be8336c7e4cd9eccb9" kind="function"><name>XDpDc_ConfigureFormat</name></member>
     <member refid="mmi__dpdc__menus_8c_1a4209579dfac10289fe859f84eabdca60" kind="function"><name>XDpDc_ConfigureOutputFormat</name></member>
@@ -695,6 +797,9 @@
     <member refid="mmi__dpdc__menus_8c_1af54b35b14c614478313ab01b1c83869c" kind="function"><name>XDpDc_ConfigureLink</name></member>
     <member refid="mmi__dpdc__menus_8c_1a2eb4b861d67b0634aca89e6f6b215897" kind="function"><name>XDpDc_ValidateModeSpecificConfig</name></member>
     <member refid="mmi__dpdc__menus_8c_1a890432198823da3adc90fa1beae73fa6" kind="function"><name>XDpDc_SelectPresentationMode</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a2af7a16a1477080a2c04e72635d3d146" kind="function"><name>XDpDc_BypassConfigureStream</name></member>
+    <member refid="mmi__dpdc__menus_8c_1ace436f71f2410188d2ab4a18a9193dcd" kind="function"><name>XDpDc_BypassStreamFormatSubmenu</name></member>
+    <member refid="mmi__dpdc__menus_8c_1a1d2ff3d46b21ae8efe33afb713d761c4" kind="function"><name>XDpDc_ConfigureBypassStreams</name></member>
     <member refid="mmi__dpdc__menus_8c_1a4478f802d7e122a29e231d39d32c1147" kind="function"><name>XDpDc_MenuLoop</name></member>
     <member refid="mmi__dpdc__menus_8c_1ae29917836dca01b65905cecb82989b0d" kind="function"><name>read_hex</name></member>
     <member refid="mmi__dpdc__menus_8c_1a872719c7a59412e936c13022311fddac" kind="function"><name>XDpDc_AuxMenu</name></member>
@@ -702,19 +807,25 @@
   </compound>
   <compound refid="mmi__dpdc__menus_8h" kind="file"><name>mmi_dpdc_menus.h</name>
     <member refid="mmi__dpdc__menus_8h_1acf38c0fc04945c6ecf958409085a67c6" kind="define"><name>MMI_DPDC_MENUS_H_</name></member>
-    <member refid="mmi__dpdc__menus_8h_1a0e5908c2b0abcc9c9da77fa1ac8d968b" kind="function"><name>XDpDc_ResolutionHelpMenu</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a1472a54ce602dc351fedb484797302e1" kind="define"><name>XDPDC_AUD_FREQ_UNSET</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a09f1a9312fbbc478e0ca364a1a935401" kind="define"><name>XDPDC_BYPASS_STREAM_MAX</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a718d1926b279cead6fa483e84aae6225" kind="function"><name>XDpDc_ResolutionHelpMenu</name></member>
     <member refid="mmi__dpdc__menus_8h_1a6228b23109a98eecfe60643b13a22d45" kind="function"><name>XDpDc_FormatHelpMenu</name></member>
     <member refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" kind="function"><name>XDpDc_MainHelpMenu</name></member>
     <member refid="mmi__dpdc__menus_8h_1a8483d175bc0a001f960f827bd2dc9954" kind="function"><name>XDpDc_ListNonliveFormats</name></member>
     <member refid="mmi__dpdc__menus_8h_1ab26be72b44786c6adf68c7845b521052" kind="function"><name>XDpDc_ListLiveFormats</name></member>
     <member refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" kind="function"><name>XDpDc_DisplayConfig</name></member>
-    <member refid="mmi__dpdc__menus_8h_1ae1a42b50dbb6036e34d6f274b84a5f70" kind="function"><name>XDpDc_GetWidth</name></member>
-    <member refid="mmi__dpdc__menus_8h_1a486e14b1b3925dba0bd61acf08143e5a" kind="function"><name>XDpDc_GetHeight</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a57a65e828a545274ec16968ad80e266d" kind="function"><name>XDpDc_GetWidth</name></member>
+    <member refid="mmi__dpdc__menus_8h_1ae32df605f124dbf0d0b288667d6fd6a3" kind="function"><name>XDpDc_GetHeight</name></member>
     <member refid="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" kind="function"><name>XDpDc_ConfigureResolution</name></member>
     <member refid="mmi__dpdc__menus_8h_1a1556d176379320be8336c7e4cd9eccb9" kind="function"><name>XDpDc_ConfigureFormat</name></member>
     <member refid="mmi__dpdc__menus_8h_1a4209579dfac10289fe859f84eabdca60" kind="function"><name>XDpDc_ConfigureOutputFormat</name></member>
     <member refid="mmi__dpdc__menus_8h_1a4d1b2cc6794851c52db67e465eedcfa3" kind="function"><name>XDpDc_ConfigureCursor</name></member>
     <member refid="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" kind="function"><name>XDpDc_ConfigurePartialPlane</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a2af7a16a1477080a2c04e72635d3d146" kind="function"><name>XDpDc_BypassConfigureStream</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a1d2ff3d46b21ae8efe33afb713d761c4" kind="function"><name>XDpDc_ConfigureBypassStreams</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a490bc6c0fd434b4fe8edf06d9b588922" kind="function"><name>XDpDc_Apply8kFormatDefaults</name></member>
+    <member refid="mmi__dpdc__menus_8h_1a10cbb87419f10732d28746d1b902d417" kind="function"><name>XDpDc_Warn8kRgbIfNeeded</name></member>
     <member refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" kind="function"><name>XDpDc_MenuLoop</name></member>
     <member refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" kind="function"><name>XDpDc_InitConfigDefaults</name></member>
     <member refid="mmi__dpdc__menus_8h_1a872719c7a59412e936c13022311fddac" kind="function"><name>XDpDc_AuxMenu</name></member>
@@ -722,26 +833,45 @@
   <compound refid="mmi__dpdc__platform_8c" kind="file"><name>mmi_dpdc_platform.c</name>
     <member refid="mmi__dpdc__platform_8c_1a17e93c0269bc770ec81c1553ff5602f3" kind="define"><name>CLK_LOCK</name></member>
     <member refid="mmi__dpdc__platform_8c_1a08702cf232d04dd779ad79634f28a87f" kind="define"><name>PL_AUD_CLK_MULT</name></member>
+    <member refid="mmi__dpdc__platform_8c_1a65bf720c40fd5afdff605072f95cfd72" kind="define"><name>XDPDC_AUD_CLK_WIZ_OUT0</name></member>
     <member refid="mmi__dpdc__platform_8c_1a25556949a511e23b167f7e1d5f15c964" kind="define"><name>XDCDMA_IEN_VSYNC_INT_MASK</name></member>
     <member refid="mmi__dpdc__platform_8c_1aadfa86f5e755f2aa32bac3b6f5242de5" kind="define"><name>XDCDMA_INTR_ID</name></member>
     <member refid="mmi__dpdc__platform_8c_1a1ff9b308f3498ec0bc023bdfbae922c1" kind="define"><name>XDCDMA_INTR_PARENT</name></member>
+    <member refid="mmi__dpdc__platform_8c_1afdaa64a483b68d2009ebe4ee84e4047b" kind="define"><name>XDPDC_DC_RST_RETRIES</name></member>
+    <member refid="mmi__dpdc__platform_8c_1a2c94d7d14e1772fdcec9c05ab5481a52" kind="define"><name>XDPDC_DC_RST_DELAY_US</name></member>
     <member refid="mmi__dpdc__platform_8c_1af901f9be16b68e7a2939c6b47b169526" kind="variable"><name>XDpDc_IrqRunCfgPtr</name></member>
     <member refid="mmi__dpdc__platform_8c_1a86320047194b5db097f6a69a2258111f" kind="variable"><name>XDpDc_CursorToSdpPending</name></member>
     <member refid="mmi__dpdc__platform_8c_1a224cf1d931f6d77694c46039e2fa4cab" kind="variable"><name>XDpDc_CursorFramesRemaining</name></member>
     <member refid="mmi__dpdc__platform_8c_1a77200fe3d03303e19003489d94fa5236" kind="function"><name>XDpDc_DmaInterruptHandler</name></member>
-    <member refid="mmi__dpdc__platform_8c_1a8b8cd17d4698a62cb90da0e9d0f97b4f" kind="function"><name>XClk_WaitForLock</name></member>
+    <member refid="mmi__dpdc__platform_8c_1a03ac4462fd4f7461c3dbec08d198d23d" kind="function"><name>XDpDc_WriteDcReset</name></member>
+    <member refid="mmi__dpdc__platform_8c_1afcc3e8fdc0d1268cbb6a554a09552fbd" kind="function"><name>XDpDc_AssertDcReset</name></member>
+    <member refid="mmi__dpdc__platform_8c_1a12fb2a5e892b789c1464853bd6f33a7d" kind="function"><name>XDpDc_ReleaseDcReset</name></member>
+    <member refid="mmi__dpdc__platform_8c_1ab8293f8e57de723eb0dac9e9a0ae37d7" kind="function"><name>XDpDc_GetVidClkBootHz</name></member>
     <member refid="mmi__dpdc__platform_8c_1a1acaf857e04799cc985d19389fe5ea3f" kind="function"><name>XDpDc_InitClkWiz</name></member>
     <member refid="mmi__dpdc__platform_8c_1a36260594d61926e44fbd3c2d0913ccd8" kind="function"><name>XDpDc_InitDcSubsystem</name></member>
     <member refid="mmi__dpdc__platform_8c_1a2efea0d32fd034fe7ec8bd0710d0d8c3" kind="function"><name>XDpDc_SetupInterrupts</name></member>
     <member refid="mmi__dpdc__platform_8c_1a6c8520e6ad77827c7068054bf7ef0a0c" kind="function"><name>XDpDc_InitPlatform</name></member>
   </compound>
   <compound refid="mmi__dpdc__platform_8h" kind="file"><name>mmi_dpdc_platform.h</name>
+    <member refid="mmi__dpdc__platform_8h_1aa0273e4b3570cfd4db755eeafa0c4ac7" kind="define"><name>XMMI_CRX_BASEADDR</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a5bdcddc2a5c2e3c3af108433496922d8" kind="define"><name>XMMI_CRX_WPROTS</name></member>
+    <member refid="mmi__dpdc__platform_8h_1ae1cc1d0a738b707a547acd81f844dbf4" kind="define"><name>XMMI_CRX_WPROTP</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a53e91793b40958d616e4f676a4093a69" kind="define"><name>XMMI_CRX_WPROT_DISABLE</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a608ba21937ab41444288cccee3883124" kind="define"><name>XMMI_CRX_RST_DC</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a9da7511ae54b1a1e3c0b1b1b5c36b32c" kind="define"><name>XMMI_CRX_RST_DC_BLK_MASK</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a50b127da9d0f36e1a1854061d416af76" kind="define"><name>XMMI_CRX_RST_DC_SS_CFG_POR_MASK</name></member>
+    <member refid="mmi__dpdc__platform_8h_1aa36cc48cbbeacece3c63736731188ea2" kind="define"><name>XMMI_CRX_RST_DC_MASK</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a0c3cd079ed93ed7a00fdf8b180d59c46" kind="define"><name>XMMI_CRX_RST_DC_RELEASE</name></member>
     <member refid="mmi__dpdc__platform_8h_1aeca10c820afc78493d72ed5acd7e2424" kind="define"><name>MMI_DPDC_PLATFORM_H_</name></member>
     <member refid="mmi__dpdc__platform_8h_1a820a9ffb482433d5bf150c41fb4b0cb3" kind="define"><name>DC_BASEADDR</name></member>
     <member refid="mmi__dpdc__platform_8h_1a92d4750e03f47f27bf5b6974d9e8c589" kind="define"><name>DCDMA_BASEADDR</name></member>
     <member refid="mmi__dpdc__platform_8h_1a349f03f1e2239c2b388f2448f6799ad5" kind="define"><name>DP_BASEADDR</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a3dca85b7bfcfa533d457aee73a39e542" kind="define"><name>XMmiCrx_ReadReg</name></member>
+    <member refid="mmi__dpdc__platform_8h_1ad8a9a69a01fccfdd90446342c152424a" kind="define"><name>XMmiCrx_WriteReg</name></member>
     <member refid="mmi__dpdc__platform_8h_1afb1082b4c36973e2b9b85babe0661147" kind="variable"><name>AudDesc0</name></member>
-    <member refid="mmi__dpdc__platform_8h_1a8b8cd17d4698a62cb90da0e9d0f97b4f" kind="function"><name>XClk_WaitForLock</name></member>
+    <member refid="mmi__dpdc__platform_8h_1afcc3e8fdc0d1268cbb6a554a09552fbd" kind="function"><name>XDpDc_AssertDcReset</name></member>
+    <member refid="mmi__dpdc__platform_8h_1a12fb2a5e892b789c1464853bd6f33a7d" kind="function"><name>XDpDc_ReleaseDcReset</name></member>
+    <member refid="mmi__dpdc__platform_8h_1ab8293f8e57de723eb0dac9e9a0ae37d7" kind="function"><name>XDpDc_GetVidClkBootHz</name></member>
     <member refid="mmi__dpdc__platform_8h_1a1acaf857e04799cc985d19389fe5ea3f" kind="function"><name>XDpDc_InitClkWiz</name></member>
     <member refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" kind="function"><name>XDpDc_InitDcSubsystem</name></member>
     <member refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" kind="function"><name>XDpDc_SetupInterrupts</name></member>
@@ -841,6 +971,7 @@
     <member refid="group__mmi__dc_1ga90f3d27153f1ac50925b330a18cf7ae9" kind="function"><name>XDc_SetVideoTiming</name></member>
     <member refid="group__mmi__dc_1ga9096a3a44b617e19831f882b6550215a" kind="function"><name>XDc_SetAudioChCtrl</name></member>
     <member refid="group__mmi__dc_1gaa58756025137aade0084833366439af5" kind="function"><name>XDc_SetAudioSegmentedMode</name></member>
+    <member refid="group__mmi__dc_1ga9913649f45ee47e25f096d57fe0ee5cc" kind="function"><name>XDc_SetAudioChannelStatus</name></member>
     <member refid="group__mmi__dc_1ga956fa9949bfaee2723c873ced27e8277" kind="function"><name>XDc_SetCursorSdpRdyInterval</name></member>
     <member refid="group__mmi__dc_1ga055d5bcfbfad957d91df84a20ff984bb" kind="function"><name>XDc_SetSdpAckSel</name></member>
   </compound>
@@ -874,7 +1005,6 @@
     <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895a9286bedbc5ee289644f2a095750d88d5" kind="enumvalue"><name>YV16Ci2_420_10BPC</name></member>
     <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895aa7c8962521c58548a2b8aed16d397d01" kind="enumvalue"><name>RGBA8888</name></member>
     <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895adb1b146d65c52857a5a4af54e5006101" kind="enumvalue"><name>ABGR8888</name></member>
-    <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895a6cfdbc78732d1b9fc88a708ec40ae5e4" kind="enumvalue"><name>RGB888_GFX</name></member>
     <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895ae8e2937a2b5585fb3bf5a8d36b7bf790" kind="enumvalue"><name>BGR888</name></member>
     <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895af9ec1813cac3087252e8073c42c7733b" kind="enumvalue"><name>RGBA5551</name></member>
     <member refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895a8ec5297bd3545790ed9b81c83152c21d" kind="enumvalue"><name>RGBA4444</name></member>
@@ -982,6 +1112,22 @@
     <member refid="xdc_8h_1ade7189ee3e9d6111088d07c0f133dbbb" kind="enum"><name>XDc_AudEn</name></member>
     <member refid="xdc_8h_1ade7189ee3e9d6111088d07c0f133dbbba89a5e27175964c0e0131ef0e9e98c32a" kind="enumvalue"><name>XDC_AUD_DISABLE</name></member>
     <member refid="xdc_8h_1ade7189ee3e9d6111088d07c0f133dbbba15944480af2b73522293802ad04f90ed" kind="enumvalue"><name>XDC_AUD_ENABLE</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01d" kind="enum"><name>XDc_AudSampleFreq</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01dac81ea4140af60c1b1c58d26ea5de689e" kind="enumvalue"><name>XDC_AUD_FREQ_44_1K</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01da44e47d9dcc2537890da2044f20d26330" kind="enumvalue"><name>XDC_AUD_FREQ_48K</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01dad94c97768aa650255e0214ef3a1daf4f" kind="enumvalue"><name>XDC_AUD_FREQ_88_2K</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01da7a522cf40fd95deb19baa0cc330fc1c3" kind="enumvalue"><name>XDC_AUD_FREQ_96K</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01dac1f2355be0ab86b0c3ada0bdc317b509" kind="enumvalue"><name>XDC_AUD_FREQ_176_4K</name></member>
+    <member refid="xdc_8h_1acab8cd2096139e544a4bafdc31cbe01da6f1bfb029f2c9d406fc196c3316ee891" kind="enumvalue"><name>XDC_AUD_FREQ_192K</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1" kind="enum"><name>XDc_AudChannels</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1a312e541a9e00dc9cdf411f67be910775" kind="enumvalue"><name>XDC_AUD_CHANNELS_1</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1af8213fe196681dc94c4817a938c6c7f6" kind="enumvalue"><name>XDC_AUD_CHANNELS_2</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1ac6d9564e84f2ecdabe60ddeb4af8e2e0" kind="enumvalue"><name>XDC_AUD_CHANNELS_3</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1a485280736aa375a2c3a63c658bfe927e" kind="enumvalue"><name>XDC_AUD_CHANNELS_4</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1a7c9c29fa6dd430220a6396998a3b78ea" kind="enumvalue"><name>XDC_AUD_CHANNELS_5</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1a9e8704a8d6f15d5a03cbdcafbb9484d1" kind="enumvalue"><name>XDC_AUD_CHANNELS_6</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1aa2cd410748508186ad6ec8767fc78d23" kind="enumvalue"><name>XDC_AUD_CHANNELS_7</name></member>
+    <member refid="xdc_8h_1ad062eb17bb23c4b9532a92c7f4b795a1abaafcda3778b1a7d6eed4a0b4c4a3264" kind="enumvalue"><name>XDC_AUD_CHANNELS_8</name></member>
     <member refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kind="enum"><name>XDc_PartialBlendEn</name></member>
     <member refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577dafc8a28c5a154602a8c9e6a28d2c22ed6" kind="enumvalue"><name>PB_DISABLE</name></member>
     <member refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577dae8c8e624bac158f28d8008c63672008a" kind="enumvalue"><name>PB_ENABLE</name></member>
@@ -1038,6 +1184,7 @@
     <member refid="group__mmi__dc_1ga90f3d27153f1ac50925b330a18cf7ae9" kind="function"><name>XDc_SetVideoTiming</name></member>
     <member refid="group__mmi__dc_1ga9096a3a44b617e19831f882b6550215a" kind="function"><name>XDc_SetAudioChCtrl</name></member>
     <member refid="group__mmi__dc_1gaa58756025137aade0084833366439af5" kind="function"><name>XDc_SetAudioSegmentedMode</name></member>
+    <member refid="group__mmi__dc_1ga9913649f45ee47e25f096d57fe0ee5cc" kind="function"><name>XDc_SetAudioChannelStatus</name></member>
     <member refid="group__mmi__dc_1ga956fa9949bfaee2723c873ced27e8277" kind="function"><name>XDc_SetCursorSdpRdyInterval</name></member>
     <member refid="group__mmi__dc_1ga055d5bcfbfad957d91df84a20ff984bb" kind="function"><name>XDc_SetSdpAckSel</name></member>
   </compound>
@@ -1673,6 +1820,36 @@
     <member refid="xdc__hw_8h_1a7d5dd787258ecae1d6c78aeb6b8fd4db" kind="define"><name>XDC_AUD_CH_STATUS67_REG5_STATUS5_SHIFT</name></member>
     <member refid="xdc__hw_8h_1a7e6ef935d88c0c35677905c0992491dd" kind="define"><name>XDC_AUD_CH_STATUS67_REG5_STATUS5_WIDTH</name></member>
     <member refid="xdc__hw_8h_1a1ba22b1e64bdcbf19dafaa6a74cf101b" kind="define"><name>XDC_AUD_CH_STATUS67_REG5_STATUS5_MASK</name></member>
+    <member refid="xdc__hw_8h_1ad28d14a15673b361eb9059a0e4d71e2d" kind="define"><name>XDC_AUD_CH_STATUS_PAIRS</name></member>
+    <member refid="xdc__hw_8h_1ad1d26bd98fc4a7c429fb956a7061fef7" kind="define"><name>XDC_AUD_CH_STATUS_PAIR_OFFSET</name></member>
+    <member refid="xdc__hw_8h_1a86e20ec629e71ea2bab8f871865502f1" kind="define"><name>XDC_AUD_CH_STATUS_RESET_VAL</name></member>
+    <member refid="xdc__hw_8h_1ae7f22de1a6946270ee79bdc7fb755774" kind="define"><name>XDC_AUD_CH_STATUS_REG4_VALID_SHIFT</name></member>
+    <member refid="xdc__hw_8h_1a2f801ae4ddd8e5b9b77c2dbfc2780370" kind="define"><name>XDC_AUD_CH_STATUS_REG4_VALID_WIDTH</name></member>
+    <member refid="xdc__hw_8h_1aeb742f53ef6e088e5fa2eeac45dbd296" kind="define"><name>XDC_AUD_CH_STATUS_REG4_VALID_MASK</name></member>
+    <member refid="xdc__hw_8h_1a61c9db0f5e254a098e47933b528d9e07" kind="define"><name>XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_SHIFT</name></member>
+    <member refid="xdc__hw_8h_1a513f63e1fe374e0c9545423b5554dc91" kind="define"><name>XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_WIDTH</name></member>
+    <member refid="xdc__hw_8h_1a38af31f3f4d0967d1a2c9882809d18f1" kind="define"><name>XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_MASK</name></member>
+    <member refid="xdc__hw_8h_1ad43126a749ee04a95deed450757bf0b4" kind="define"><name>XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_SHIFT</name></member>
+    <member refid="xdc__hw_8h_1a4b0c35e849ad722ca8a3be6c9dfa85d0" kind="define"><name>XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_WIDTH</name></member>
+    <member refid="xdc__hw_8h_1a0c9f1147db840a1e083c0cb002423d86" kind="define"><name>XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_MASK</name></member>
+    <member refid="xdc__hw_8h_1ab791f63995bdc682c544a1d86f2554dc" kind="define"><name>XDC_AUD_CH_STATUS_REG5_CH_COUNT0_SHIFT</name></member>
+    <member refid="xdc__hw_8h_1a7aed7784e232e1da2dc2ebe926c9a12c" kind="define"><name>XDC_AUD_CH_STATUS_REG5_CH_COUNT0_WIDTH</name></member>
+    <member refid="xdc__hw_8h_1a84a787356532811d31df23ff7192e5dd" kind="define"><name>XDC_AUD_CH_STATUS_REG5_CH_COUNT0_MASK</name></member>
+    <member refid="xdc__hw_8h_1a0d8d816e929751c52db30e16877001b9" kind="define"><name>XDC_AUD_CH_STATUS_REG5_CH_COUNT1_SHIFT</name></member>
+    <member refid="xdc__hw_8h_1a39e7fd601f0bec599a5499447161efb9" kind="define"><name>XDC_AUD_CH_STATUS_REG5_CH_COUNT1_WIDTH</name></member>
+    <member refid="xdc__hw_8h_1a9bae36ed28e00696474577240077b0e8" kind="define"><name>XDC_AUD_CH_STATUS_REG5_CH_COUNT1_MASK</name></member>
+    <member refid="xdc__hw_8h_1abe2de2b5cd215267a4f604c3a8de48db" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_44_1K</name></member>
+    <member refid="xdc__hw_8h_1a99ff69db20156556433470317e9a96d6" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_48K</name></member>
+    <member refid="xdc__hw_8h_1a404973b8d9b30a55b6286a0f2247e925" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_88_2K</name></member>
+    <member refid="xdc__hw_8h_1a38acb6d48f738aa96afd5d057bed7807" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_96K</name></member>
+    <member refid="xdc__hw_8h_1a8facf7a619ab40abf1effb23e153c1f8" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_176_4K</name></member>
+    <member refid="xdc__hw_8h_1a0dee2cacd7a1bf4e6839e05805b9b239" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_192K</name></member>
+    <member refid="xdc__hw_8h_1a05c5da8c762c69332d89366229faad56" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_44_1K</name></member>
+    <member refid="xdc__hw_8h_1a614ffb29feb36dbd157e5c4cd046e6e3" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_48K</name></member>
+    <member refid="xdc__hw_8h_1a91c736d7cb91bac5fd45e02e2e065c36" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_88_2K</name></member>
+    <member refid="xdc__hw_8h_1ac8d58af5badbe95b0372d56ce3cf6661" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_96K</name></member>
+    <member refid="xdc__hw_8h_1ae4ed78ba1fbd7b0d5fccbe433b276024" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_176_4K</name></member>
+    <member refid="xdc__hw_8h_1a8ac604a730e8ae56d39efcbd5d535b6f" kind="define"><name>XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_192K</name></member>
     <member refid="xdc__hw_8h_1a5d4fd067faf1e1d3f0c0fde721091ab8" kind="define"><name>XDC_AUD_CH_0_DATA_REG0</name></member>
     <member refid="xdc__hw_8h_1a555ba7c8ac8c4618d38f178ea7e4d874" kind="define"><name>XDC_AUD_CH_0_DATA_REG0_USER_DATA0_SHIFT</name></member>
     <member refid="xdc__hw_8h_1a82d6b24cde4c9d00117c8493ce2c0f61" kind="define"><name>XDC_AUD_CH_0_DATA_REG0_USER_DATA0_WIDTH</name></member>
@@ -7404,6 +7581,7 @@
     <member refid="xdcsub_8c_1a330320c857bdebaf1dcd12c502c31349" kind="function"><name>XDcSub_DisableAudio</name></member>
     <member refid="xdcsub_8c_1a0e50ad340f27139f5ab79eb47a8da4a1" kind="function"><name>XDcSub_SetAudioChCtrl</name></member>
     <member refid="xdcsub_8c_1a8c1912d44869a6693d0b3f9ef4afd68e" kind="function"><name>XDcSub_SetAudioSegmentedMode</name></member>
+    <member refid="xdcsub_8c_1a9902e784683b8896b6aab08d9e992b4f" kind="function"><name>XDcSub_SetAudioSampleFrequency</name></member>
     <member refid="xdcsub_8c_1a6b77fa0d921ddfa0ba990a37e72917ce" kind="function"><name>XDcSub_SetCursorSdpRdyInterval</name></member>
     <member refid="xdcsub_8c_1a11672ed8b0d3dde5b2dde4f9af28955f" kind="function"><name>XDcSub_SetSdpAckSel</name></member>
     <member refid="xdcsub_8c_1a617cbef68ae080bc196437188beaf31e" kind="function"><name>XDcSub_EnableSdp</name></member>
@@ -7412,6 +7590,7 @@
   <compound refid="xdcsub_8h" kind="file"><name>xdcsub.h</name>
     <member refid="xdcsub_8h_1a0ece0ecdfb35461abca5c7474d411612" kind="define"><name>XDCSUB_AUDIO_CHANNELS_MIN</name></member>
     <member refid="xdcsub_8h_1a0afea6b7d63a23659a8d0797f53f0a6e" kind="define"><name>XDCSUB_AUDIO_CHANNELS_MAX</name></member>
+    <member refid="xdcsub_8h_1a65e6a502a143e97cc356e8fbaa027bdb" kind="define"><name>XDCSUB_AUDIO_FREQ_MAX</name></member>
     <member refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" kind="define"><name>XDCSUB_OPMODE_FUNCTIONAL</name></member>
     <member refid="xdcsub_8h_1aa9da509a0585433ac086053a1b260058" kind="define"><name>XDCSUB_OPMODE_BYPASS</name></member>
     <member refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" kind="define"><name>XDCSUB_PPTMODE_NONLIVE</name></member>
@@ -7476,6 +7655,7 @@
     <member refid="xdcsub_8h_1a4e69f4103855f57e2eae9266a6c316b3" kind="function"><name>XDcSub_ConfigureDcVideo</name></member>
     <member refid="xdcsub_8h_1a0e50ad340f27139f5ab79eb47a8da4a1" kind="function"><name>XDcSub_SetAudioChCtrl</name></member>
     <member refid="xdcsub_8h_1a8c1912d44869a6693d0b3f9ef4afd68e" kind="function"><name>XDcSub_SetAudioSegmentedMode</name></member>
+    <member refid="xdcsub_8h_1a9902e784683b8896b6aab08d9e992b4f" kind="function"><name>XDcSub_SetAudioSampleFrequency</name></member>
     <member refid="xdcsub_8h_1a617cbef68ae080bc196437188beaf31e" kind="function"><name>XDcSub_EnableSdp</name></member>
     <member refid="xdcsub_8h_1a11672ed8b0d3dde5b2dde4f9af28955f" kind="function"><name>XDcSub_SetSdpAckSel</name></member>
     <member refid="xdcsub_8h_1a6b77fa0d921ddfa0ba990a37e72917ce" kind="function"><name>XDcSub_SetCursorSdpRdyInterval</name></member>
@@ -7540,6 +7720,7 @@
     <member refid="group__mmi__dc_1ga90f3d27153f1ac50925b330a18cf7ae9" kind="function"><name>XDc_SetVideoTiming</name></member>
     <member refid="group__mmi__dc_1ga9096a3a44b617e19831f882b6550215a" kind="function"><name>XDc_SetAudioChCtrl</name></member>
     <member refid="group__mmi__dc_1gaa58756025137aade0084833366439af5" kind="function"><name>XDc_SetAudioSegmentedMode</name></member>
+    <member refid="group__mmi__dc_1ga9913649f45ee47e25f096d57fe0ee5cc" kind="function"><name>XDc_SetAudioChannelStatus</name></member>
     <member refid="group__mmi__dc_1ga956fa9949bfaee2723c873ced27e8277" kind="function"><name>XDc_SetCursorSdpRdyInterval</name></member>
     <member refid="group__mmi__dc_1ga055d5bcfbfad957d91df84a20ff984bb" kind="function"><name>XDc_SetSdpAckSel</name></member>
     <member refid="group__mmi__dc_1ga8eff7aa509aaaa45e4a73ec3ac3e7ae9" kind="define"><name>XDC_MAX_SF_REG_COUNT</name></member>

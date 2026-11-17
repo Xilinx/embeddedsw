@@ -6,153 +6,153 @@
     <includes refid="hal__i2c_8h" local="yes">hal_i2c.h</includes>
     <includedby refid="max9296_8c" local="no">max9296.c</includedby>
     <incdepgraph>
-      <node id="6179">
-        <label>hal_api.h</label>
-        <childnode refid="6180" relation="include">
-        </childnode>
-        <childnode refid="6162" relation="include">
-        </childnode>
-        <childnode refid="6163" relation="include">
-        </childnode>
-        <childnode refid="6164" relation="include">
-        </childnode>
-        <childnode refid="6177" relation="include">
-        </childnode>
-      </node>
-      <node id="6180">
+      <node id="6224">
         <label>stdbool.h</label>
       </node>
-      <node id="6158">
+      <node id="6202">
         <label>max9296.h</label>
         <link refid="max9296.h"/>
-        <childnode refid="6159" relation="include">
+        <childnode refid="6203" relation="include">
         </childnode>
-        <childnode refid="6165" relation="include">
+        <childnode refid="6209" relation="include">
         </childnode>
       </node>
-      <node id="6166">
+      <node id="6214">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6211">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6212" relation="include">
+        </childnode>
+        <childnode refid="6215" relation="include">
+        </childnode>
+        <childnode refid="6216" relation="include">
+        </childnode>
+      </node>
+      <node id="6203">
+        <label>isi_fmc.h</label>
+        <childnode refid="6204" relation="include">
+        </childnode>
+        <childnode refid="6205" relation="include">
+        </childnode>
+        <childnode refid="6206" relation="include">
+        </childnode>
+        <childnode refid="6207" relation="include">
+        </childnode>
+        <childnode refid="6208" relation="include">
+        </childnode>
+        <childnode refid="6209" relation="include">
+        </childnode>
+      </node>
+      <node id="6221">
+        <label>dct_assert.h</label>
+        <link refid="dct__assert_8h"/>
+        <childnode refid="6211" relation="include">
+        </childnode>
+      </node>
+      <node id="6216">
+        <label>stddef.h</label>
+      </node>
+      <node id="6215">
+        <label>limits.h</label>
+      </node>
+      <node id="6210">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="6173">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="6174" relation="include">
-        </childnode>
-        <childnode refid="6176" relation="include">
-        </childnode>
-      </node>
-      <node id="6170">
-        <label>stdlib.h</label>
-      </node>
-      <node id="6172">
-        <label>stddef.h</label>
-      </node>
-      <node id="6171">
-        <label>limits.h</label>
-      </node>
-      <node id="6178">
-        <label>buf_defs.h</label>
-        <childnode refid="6167" relation="include">
-        </childnode>
-      </node>
-      <node id="6175">
-        <label>string.h</label>
-      </node>
-      <node id="6159">
-        <label>isi_fmc.h</label>
-        <childnode refid="6160" relation="include">
-        </childnode>
-        <childnode refid="6161" relation="include">
-        </childnode>
-        <childnode refid="6162" relation="include">
-        </childnode>
-        <childnode refid="6163" relation="include">
-        </childnode>
-        <childnode refid="6164" relation="include">
-        </childnode>
-        <childnode refid="6165" relation="include">
-        </childnode>
-      </node>
-      <node id="6164">
-        <label>xil_types.h</label>
-      </node>
-      <node id="6162">
-        <label>xiicps.h</label>
-      </node>
-      <node id="6176">
-        <label>ff.h</label>
-      </node>
-      <node id="6160">
-        <label>xparameters.h</label>
-      </node>
-      <node id="6163">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="6167">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="6168" relation="include">
-        </childnode>
-        <childnode refid="6171" relation="include">
-        </childnode>
-        <childnode refid="6172" relation="include">
-        </childnode>
-      </node>
-      <node id="6161">
-        <label>xgpiops.h</label>
-      </node>
-      <node id="6165">
-        <label>hal_i2c.h</label>
-        <childnode refid="6166" relation="include">
-        </childnode>
-        <childnode refid="6167" relation="include">
-        </childnode>
-        <childnode refid="6173" relation="include">
-        </childnode>
-        <childnode refid="6177" relation="include">
-        </childnode>
-        <childnode refid="6178" relation="include">
-        </childnode>
-        <childnode refid="6179" relation="include">
-        </childnode>
-        <childnode refid="6160" relation="include">
-        </childnode>
-      </node>
-      <node id="6174">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="6167" relation="include">
-        </childnode>
-        <childnode refid="6175" relation="include">
-        </childnode>
-      </node>
-      <node id="6169">
-        <label>stdio.h</label>
-      </node>
-      <node id="6177">
-        <label>dct_assert.h</label>
-        <link refid="dct__assert_8h"/>
-        <childnode refid="6167" relation="include">
-        </childnode>
-      </node>
-      <node id="6168">
+      <node id="6212">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="6169" relation="include">
+        <childnode refid="6213" relation="include">
         </childnode>
-        <childnode refid="6170" relation="include">
+        <childnode refid="6214" relation="include">
         </childnode>
+      </node>
+      <node id="6219">
+        <label>string.h</label>
+      </node>
+      <node id="6218">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="6211" relation="include">
+        </childnode>
+        <childnode refid="6219" relation="include">
+        </childnode>
+      </node>
+      <node id="6208">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6206">
+        <label>xiicps.h</label>
+      </node>
+      <node id="6209">
+        <label>hal_i2c.h</label>
+        <childnode refid="6210" relation="include">
+        </childnode>
+        <childnode refid="6211" relation="include">
+        </childnode>
+        <childnode refid="6217" relation="include">
+        </childnode>
+        <childnode refid="6221" relation="include">
+        </childnode>
+        <childnode refid="6222" relation="include">
+        </childnode>
+        <childnode refid="6223" relation="include">
+        </childnode>
+        <childnode refid="6204" relation="include">
+        </childnode>
+      </node>
+      <node id="6220">
+        <label>ff.h</label>
+      </node>
+      <node id="6204">
+        <label>xparameters.h</label>
+      </node>
+      <node id="6207">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="6222">
+        <label>buf_defs.h</label>
+        <childnode refid="6211" relation="include">
+        </childnode>
+      </node>
+      <node id="6217">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="6218" relation="include">
+        </childnode>
+        <childnode refid="6220" relation="include">
+        </childnode>
+      </node>
+      <node id="6205">
+        <label>xgpiops.h</label>
+      </node>
+      <node id="6223">
+        <label>hal_api.h</label>
+        <childnode refid="6224" relation="include">
+        </childnode>
+        <childnode refid="6206" relation="include">
+        </childnode>
+        <childnode refid="6207" relation="include">
+        </childnode>
+        <childnode refid="6208" relation="include">
+        </childnode>
+        <childnode refid="6221" relation="include">
+        </childnode>
+      </node>
+      <node id="6213">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6181">
+      <node id="6225">
         <label>max9296.h</label>
         <link refid="max9296.h"/>
-        <childnode refid="6182" relation="include">
+        <childnode refid="6226" relation="include">
         </childnode>
       </node>
-      <node id="6182">
+      <node id="6226">
         <label>max9296.c</label>
       </node>
     </invincdepgraph>
@@ -166,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="9" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="max9296_8h_1af31389f52e73fb41054407f5fe7dc3ff" prot="public" static="no">
         <name>MAX929X_TABLE_END</name>
@@ -177,7 +177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="11" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="max9296_8h_1a62c28602cfce74c377f96db2b58f76d8" prot="public" static="no">
         <name>MAX929X_TABLE_WAIT</name>
@@ -188,7 +188,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="12" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="max9296_8h_1ac57102e7493a31e1341cd58c4deafe8e" prot="public" static="no">
         <name>MAX929X_TABLE_WAIT_MS</name>
@@ -199,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="13" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="13" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -214,7 +214,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="387" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="387" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="15" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1acbfb908406a91aa5c28b30bbfa7f1182" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="18" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1a0eebcf69361d3ee3dd5decf7e09a70f2" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -257,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1ae12b1dacfecd2b5bc9073e05b231b561" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -270,7 +270,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1a5182c7a7a8b1da9780783aeb9daf89e6" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -285,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="176" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="176" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1a12dafde1dde7dbe55f9d5aa58a6ac4a3" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -298,7 +298,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1a3548e80a7f5e65158bf0270bbfcc192e" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -311,7 +311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="255" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="255" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="max9296_8h_1a167b5928231e5587dbe8cb58c9d78c20" prot="public" static="no" mutable="no">
         <type>RegI2CT</type>
@@ -324,7 +324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="298" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="298" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -339,7 +339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="377" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="377" column="1"/>
       </memberdef>
       <memberdef kind="function" id="max9296_8h_1a359de40d373dd870ebcd3c9ad1f8bef6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -356,7 +356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/fmc/max9296.c" bodystart="188" bodyend="435"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/fmc/max9296.c" bodystart="188" bodyend="435"/>
       </memberdef>
       <memberdef kind="function" id="max9296_8h_1ac7a6bd6a29060c2eda8e330806e97a41" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -369,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="379" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="379" column="1"/>
       </memberdef>
       <memberdef kind="function" id="max9296_8h_1ae97a2c556dcfb7a266b716d58179c59c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -386,7 +386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="380" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="380" column="1"/>
       </memberdef>
       <memberdef kind="function" id="max9296_8h_1af1009ec626edaf0725d7f1995db1f691" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -403,7 +403,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="381" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="381" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -801,6 +801,6 @@
 <codeline lineno="388"><highlight class="normal"></highlight></codeline>
 <codeline lineno="389"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h"/>
   </compounddef>
 </doxygen>

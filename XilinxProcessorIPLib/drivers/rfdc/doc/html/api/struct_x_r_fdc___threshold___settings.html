@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___threshold___settings.
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,6 +106,8 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___threshold___settings.
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XRFdc_Threshold_Settings Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
 </div><!--header-->
@@ -115,9 +117,117 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___threshold___settings.
  <a href="struct_x_r_fdc___threshold___settings.html#details">More...</a></p>
 
 <p><code>#include &lt;xrfdc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a0d25ff71d9b6e58dc807f42b9c7ab5f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___threshold___settings.html#a0d25ff71d9b6e58dc807f42b9c7ab5f4">UpdateThreshold</a></td></tr>
+<tr class="memdesc:a0d25ff71d9b6e58dc807f42b9c7ab5f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects which threshold to update.  <a href="#a0d25ff71d9b6e58dc807f42b9c7ab5f4">More...</a><br/></td></tr>
+<tr class="separator:a0d25ff71d9b6e58dc807f42b9c7ab5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21c3d9eecc44a51b285faa80f3471755"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___threshold___settings.html#a21c3d9eecc44a51b285faa80f3471755">ThresholdMode</a> [2]</td></tr>
+<tr class="memdesc:a21c3d9eecc44a51b285faa80f3471755"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">                 Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1.  <a href="#a21c3d9eecc44a51b285faa80f3471755">More...</a><br/></td></tr>
+<tr class="separator:a21c3d9eecc44a51b285faa80f3471755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73735797f2b1908f6a2cc4eb11bec15d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___threshold___settings.html#a73735797f2b1908f6a2cc4eb11bec15d">ThresholdAvgVal</a> [2]</td></tr>
+<tr class="memdesc:a73735797f2b1908f6a2cc4eb11bec15d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">                   Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1.  <a href="#a73735797f2b1908f6a2cc4eb11bec15d">More...</a><br/></td></tr>
+<tr class="separator:a73735797f2b1908f6a2cc4eb11bec15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39345f0ee2015baa95bff57f49680b36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___threshold___settings.html#a39345f0ee2015baa95bff57f49680b36">ThresholdUnderVal</a> [2]</td></tr>
+<tr class="memdesc:a39345f0ee2015baa95bff57f49680b36"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">                     Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1.  <a href="#a39345f0ee2015baa95bff57f49680b36">More...</a><br/></td></tr>
+<tr class="separator:a39345f0ee2015baa95bff57f49680b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8d67c17d8ebd8424a70a754b5e1ce5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___threshold___settings.html#acc8d67c17d8ebd8424a70a754b5e1ce5">ThresholdOverVal</a> [2]</td></tr>
+<tr class="memdesc:acc8d67c17d8ebd8424a70a754b5e1ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment">                    Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1.  <a href="#acc8d67c17d8ebd8424a70a754b5e1ce5">More...</a><br/></td></tr>
+<tr class="separator:acc8d67c17d8ebd8424a70a754b5e1ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>ADC block Threshold settings. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a73735797f2b1908f6a2cc4eb11bec15d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Threshold_Settings::ThresholdAvgVal[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><pre class="fragment">                   Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gab0076018f6530e26bd9ad95bc7cdc7fa">XRFdc_GetThresholdSettings()</a>, and <a class="el" href="group___overview.html#gaba6dca1e8e40a31b090f14fa12ecd891">XRFdc_SetThresholdSettings()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a21c3d9eecc44a51b285faa80f3471755"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Threshold_Settings::ThresholdMode[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><pre class="fragment">                 Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gab0076018f6530e26bd9ad95bc7cdc7fa">XRFdc_GetThresholdSettings()</a>, and <a class="el" href="group___overview.html#gaba6dca1e8e40a31b090f14fa12ecd891">XRFdc_SetThresholdSettings()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acc8d67c17d8ebd8424a70a754b5e1ce5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Threshold_Settings::ThresholdOverVal[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><pre class="fragment">                    Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gab0076018f6530e26bd9ad95bc7cdc7fa">XRFdc_GetThresholdSettings()</a>, and <a class="el" href="group___overview.html#gaba6dca1e8e40a31b090f14fa12ecd891">XRFdc_SetThresholdSettings()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a39345f0ee2015baa95bff57f49680b36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Threshold_Settings::ThresholdUnderVal[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><pre class="fragment">                     Entry 0 for Threshold0 and 1 for
+</pre><p> Threshold1. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gab0076018f6530e26bd9ad95bc7cdc7fa">XRFdc_GetThresholdSettings()</a>, and <a class="el" href="group___overview.html#gaba6dca1e8e40a31b090f14fa12ecd891">XRFdc_SetThresholdSettings()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0d25ff71d9b6e58dc807f42b9c7ab5f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Threshold_Settings::UpdateThreshold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects which threshold to update. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gab0076018f6530e26bd9ad95bc7cdc7fa">XRFdc_GetThresholdSettings()</a>, and <a class="el" href="group___overview.html#gaba6dca1e8e40a31b090f14fa12ecd891">XRFdc_SetThresholdSettings()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

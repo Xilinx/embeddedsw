@@ -4,48 +4,48 @@
     <compoundname>xplmi_plat_cmd_client.c</compoundname>
     <includes refid="xplmi__plat__cmd__client_8h" local="yes">xplmi_plat_cmd_client.h</includes>
     <incdepgraph>
-      <node id="2451">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="2447">
-        <label>xplmi_plat_cmd_client.c</label>
-        <link refid="xplmi_plat_cmd_client.c"/>
-        <childnode refid="2448" relation="include">
-        </childnode>
-      </node>
-      <node id="2448">
-        <label>xplmi_plat_cmd_client.h</label>
-        <link refid="xplmi__plat__cmd__client_8h"/>
-        <childnode refid="2449" relation="include">
-        </childnode>
-        <childnode refid="2450" relation="include">
-        </childnode>
-        <childnode refid="2453" relation="include">
-        </childnode>
-      </node>
-      <node id="2450">
-        <label>xplmi_mailbox.h</label>
-        <link refid="xplmi__mailbox_8h"/>
-        <childnode refid="2451" relation="include">
-        </childnode>
-        <childnode refid="2452" relation="include">
-        </childnode>
-      </node>
-      <node id="2449">
-        <label>xil_types.h</label>
-      </node>
-      <node id="2452">
-        <label>xparameters.h</label>
-      </node>
-      <node id="2454">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="2453">
+      <node id="2574">
         <label>xplmi_defs.h</label>
         <link refid="xplmi__defs_8h"/>
-        <childnode refid="2454" relation="include">
+        <childnode refid="2575" relation="include">
         </childnode>
-        <childnode refid="2449" relation="include">
+        <childnode refid="2570" relation="include">
+        </childnode>
+      </node>
+      <node id="2572">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="2568">
+        <label>xplmi_plat_cmd_client.c</label>
+        <link refid="xplmi_plat_cmd_client.c"/>
+        <childnode refid="2569" relation="include">
+        </childnode>
+      </node>
+      <node id="2569">
+        <label>xplmi_plat_cmd_client.h</label>
+        <link refid="xplmi__plat__cmd__client_8h"/>
+        <childnode refid="2570" relation="include">
+        </childnode>
+        <childnode refid="2571" relation="include">
+        </childnode>
+        <childnode refid="2574" relation="include">
+        </childnode>
+      </node>
+      <node id="2570">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2573">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2575">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2571">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="2572" relation="include">
+        </childnode>
+        <childnode refid="2573" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -102,7 +102,7 @@
 </para><para>Fill IPI Payload</para><para><itemizedlist>
 <listitem><para>Send an IPI request to the PLM by using the XPlmi_InPlacePlmUpdate CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="61" bodyend="86"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="61" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga312e47feb0264d1df52b0505eef675eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -152,8 +152,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="101" bodyend="106"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="440">XPlmi_InPlacePlmUpdate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="101" bodyend="106"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="448">XPlmi_InPlacePlmUpdate</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga5b26ec2d046651d51851eef8149c511d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -203,8 +203,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="121" bodyend="126"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="440">XPlmi_InPlacePlmUpdate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="121" bodyend="126"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="448">XPlmi_InPlacePlmUpdate</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -275,6 +275,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="126"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c"/>
   </compounddef>
 </doxygen>

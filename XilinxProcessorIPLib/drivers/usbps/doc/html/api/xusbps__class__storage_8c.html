@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xusbps__class__storage_8c.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,6 +117,13 @@ $(document).ready(function(){initNavTree('xusbps__class__storage_8c.html','');})
   2.4   vak  4/01/19  Fixed IAR data_alignment warnings
   2.10  ka   8/21/25  Fixed GCC warnings
   2.11  ka   01/29/26 Fix codespell errors.
+  2.12  sm   10/01/26 Added SendCSW() to send pass/fail command status.
+                      Added ValidateLbaRange() to reject out-of-range and
+                      handle zero-block SCSI READ(10)/WRITE(10), and
+                      to reject a CBW transfer length or direction that
+                      does not match the command.
+                      Added ValidateDataLen() to reject WRITE(10) data
+                      exceeding the command length.
 *</pre> </div><div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="xusbps_8h.html">xusbps.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusbps__ch9__storage_8h.html">xusbps_ch9_storage.h</a>&quot;</code><br/>
@@ -130,7 +137,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab7966c2613bda5b2c9373809f24aac0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles Reduced Block Command (RBC) requests from the host.  <a href="#ab7966c2613bda5b2c9373809f24aac0b">More...</a><br/></td></tr>
 <tr class="separator:ab7966c2613bda5b2c9373809f24aac0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8665f21d5cd56ddd1983b110d15f7d25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__class__storage_8c.html#a8665f21d5cd56ddd1983b110d15f7d25">XUsbPs_ClassReq</a> (<a class="el" href="struct_x_usb_ps.html">XUsbPs</a> *InstancePtr, <a class="el" href="struct_x_usb_ps___setup_data.html">XUsbPs_SetupData</a> *SetupData)</td></tr>
-<tr class="memdesc:a8665f21d5cd56ddd1983b110d15f7d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles a Storage Class Setup request from the host.  <a href="#a8665f21d5cd56ddd1983b110d15f7d25">More...</a><br/></td></tr>
+<tr class="memdesc:a8665f21d5cd56ddd1983b110d15f7d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by Chapter9 handler when class request is received from Host.  <a href="#a8665f21d5cd56ddd1983b110d15f7d25">More...</a><br/></td></tr>
 <tr class="separator:a8665f21d5cd56ddd1983b110d15f7d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -158,19 +165,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function handles a Storage Class Setup request from the host. </p>
-<p>This function is called by Chapter9 handler when class request is received from Host.</p>
+<p>This function is called by Chapter9 handler when class request is received from Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup data structure containing the setup request.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> controller instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_ps___setup_data.html#afda08a011932bde143139829a61c37c0">XUsbPs_SetupData::bmRequestType</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a00cd3d9748a6d8fe54af651126becd50">XUsbPs_SetupData::bRequest</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#ad085f8a84571f2df12ce9e5bc90facae">XUsbPs_SetupData::wIndex</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a6c927388ae044126bc1e546bce8b1243">XUsbPs_SetupData::wLength</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a78686691b1ec4cc04a89d25383e71a9e">XUsbPs_SetupData::wValue</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">XUsbPs_EpBufferSend()</a>, <a class="el" href="group__usbps.html#gadbe72ae98e3bc73150a650f5f8e5c34f">XUsbPs_EpDataBufferReceive()</a>, <a class="el" href="xusbps_8h.html#a4273a108c512645b721b48997017205d">XUsbPs_EpStall</a>, and <a class="el" href="xusbps__ch9_8h.html#ab655d2d8562a99fadd06f4799847d31d">XUSBPS_REQ_REPLY_LEN</a>.</p>
+<p>References <a class="el" href="xusbps__ch9_8h.html#ae1f47de6b24f8fd1b5bead2c68d40e74">ALIGNMENT_CACHELINE</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#afda08a011932bde143139829a61c37c0">XUsbPs_SetupData::bmRequestType</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a00cd3d9748a6d8fe54af651126becd50">XUsbPs_SetupData::bRequest</a>, <a class="el" href="xusbps__class__audio_8h.html#a1a38d28bfa0b0807e198682f337d3389">UAC1_GET_CUR</a>, <a class="el" href="xusbps__class__audio_8h.html#a34af2b0a6e88dca4858d69d625e70434">UAC1_GET_MAX</a>, <a class="el" href="xusbps__class__audio_8h.html#ac8ef05de83109f86981d0c47829ce661">UAC1_GET_MIN</a>, <a class="el" href="xusbps__class__audio_8h.html#a4d155ebb3f8b6780009d3a2f76b0003a">UAC1_GET_RES</a>, <a class="el" href="xusbps__class__audio_8h.html#a638f3c6121bcfac7f9d9978f83288716">UAC1_SET_CUR</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#ad085f8a84571f2df12ce9e5bc90facae">XUsbPs_SetupData::wIndex</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a6c927388ae044126bc1e546bce8b1243">XUsbPs_SetupData::wLength</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a78686691b1ec4cc04a89d25383e71a9e">XUsbPs_SetupData::wValue</a>, <a class="el" href="xusbps__class__storage_8h.html#a9098852a679781fa95b7a486f04f01c5">XUSBPS_CLASSREQ_GET_MAX_LUN</a>, <a class="el" href="xusbps__class__storage_8h.html#af4d63d37e8931f60a7bb4674225f4ea6">XUSBPS_CLASSREQ_MASS_STORAGE_RESET</a>, <a class="el" href="xusbps__ch9_8h.html#a0b998c0a178d3eb68c16fc82f893e891">XUSBPS_ENDPOINT_DIR_MASK</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">XUsbPs_EpBufferSend()</a>, <a class="el" href="group__usbps.html#gadbe72ae98e3bc73150a650f5f8e5c34f">XUsbPs_EpDataBufferReceive()</a>, <a class="el" href="group__usbps.html#ga4273a108c512645b721b48997017205d">XUsbPs_EpStall</a>, and <a class="el" href="xusbps__ch9_8h.html#ab655d2d8562a99fadd06f4799847d31d">XUSBPS_REQ_REPLY_LEN</a>.</p>
 
 <p>Referenced by <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">XUsbPs_Ch9HandleSetupPacket()</a>.</p>
 
@@ -215,17 +219,16 @@ Functions</h2></td></tr>
 <p>This function handles Reduced Block Command (RBC) requests from the host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">EpNum</td><td>is the number of the endpoint on which the RBC was received. </td></tr>
-    <tr><td class="paramname">BufferPtr</td><td>is the data buffer containing the RBC or data. </td></tr>
-    <tr><td class="paramname">BufferLen</td><td>is the length of the data buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the number of the endpoint on which the RBC was received. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>is the data buffer containing the RBC or data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferLen</td><td>is the length of the data buffer. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>&lt; Current SCSI machine state. </p>
 
-<p>References <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">XUsbPs_EpBufferSend()</a>.</p>
+<p>References <a class="el" href="xusbps__ch9__storage_8h.html#ae4ad75a7f1933dd84023d554f49267d2">be2le</a>, <a class="el" href="struct_s_c_s_i___c_a_p___l_i_s_t.html#a7fd0758e2e4c736ee830d0d58d9e8ab3">SCSI_CAP_LIST::blockLength</a>, <a class="el" href="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y.html#a47a2c0a4588184cbbe2e4d5e2a966e33">SCSI_READ_CAPACITY::blockSize</a>, <a class="el" href="struct_u_s_b___c_b_w.html#a1bad7b3c8fc40b3567bb4793fe49061b">USB_CBW::bmCBWFlags</a>, <a class="el" href="struct_u_s_b___c_b_w.html#ac2da300ef1c7606e687ee783e40381aa">USB_CBW::CBWCB</a>, <a class="el" href="struct_u_s_b___c_b_w.html#a1f3cb85bc32de34ff766c61de079a633">USB_CBW::dCBWDataTransferLength</a>, <a class="el" href="struct_u_s_b___c_b_w.html#abe00e0cd6e36535ea8f113bc3af37be7">USB_CBW::dCBWSignature</a>, <a class="el" href="struct_s_c_s_i___c_a_p___l_i_s_t.html#a50b97c43ed5d1e79022dedde9258d0dc">SCSI_CAP_LIST::descCode</a>, <a class="el" href="xusbps__ch9__storage_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16">htonl</a>, <a class="el" href="xusbps__ch9__storage_8h.html#a51799f5ebb4c7228ef7e95c247030f42">htons</a>, <a class="el" href="struct_s_c_s_i___c_a_p___l_i_s_t.html#ab923cfde707c34f7855750c45ed890e7">SCSI_CAP_LIST::listLength</a>, <a class="el" href="struct_s_c_s_i___c_a_p___l_i_s_t.html#a9a8be112b6b508080d6b08f0833102d2">SCSI_CAP_LIST::numBlocks</a>, <a class="el" href="struct_s_c_s_i___r_e_a_d___c_a_p_a_c_i_t_y.html#ac27586cbd3ed593e25011f0a59f2f337">SCSI_READ_CAPACITY::numBlocks</a>, <a class="el" href="xusbps__class__storage_8h.html#abcbcd024a52f656cbba34106b10a01ce">USB_EP_STATE_COMMAND</a>, <a class="el" href="xusbps__class__storage_8h.html#ac403589cc2b7d1eaabc32bf426fddcff">USB_EP_STATE_DATA</a>, <a class="el" href="xusbps__class__storage_8h.html#afb23c3984d1eab7f6c9eda96bf4acd2e">USB_RBC_INQUIRY</a>, <a class="el" href="xusbps__class__storage_8h.html#a2a02161cc295a2b736377657565d0e55">USB_RBC_MEDIUM_REMOVAL</a>, <a class="el" href="xusbps__class__storage_8h.html#a16d0a6b6c407e9b1d244772ee99bd162">USB_RBC_MODE_SENSE</a>, <a class="el" href="xusbps__class__storage_8h.html#adc195711abc29433cfd79274727fff12">USB_RBC_READ</a>, <a class="el" href="xusbps__class__storage_8h.html#a8953eaa3b8dec85c5084acd3cdf54e79">USB_RBC_READ_CAP</a>, <a class="el" href="xusbps__class__storage_8h.html#abe24a3069290946faa733b63c08b4001">USB_RBC_STARTSTOP_UNIT</a>, <a class="el" href="xusbps__class__storage_8h.html#aaeb77857383eb0c9b78bec7208516bfc">USB_RBC_TEST_UNIT_READY</a>, <a class="el" href="xusbps__class__storage_8h.html#a66b0f59a04fa488ad9be98af8827e61d">USB_RBC_VERIFY</a>, <a class="el" href="xusbps__class__storage_8h.html#ae8cc5f967ddc0a55466220d616b06354">USB_RBC_WRITE</a>, <a class="el" href="xusbps__class__storage_8h.html#ab9197267b87aaed640f3e5bff0e581cc">USB_UFI_GET_CAP_LIST</a>, <a class="el" href="xusbps__class__storage_8h.html#af778b0917e01cc32e4289bab5449f930">VFLASH_BLOCK_SIZE</a>, <a class="el" href="xusbps__class__storage_8h.html#a7adb1c99f00b4b2b262ff78a65a69d04">VFLASH_NUM_BLOCKS</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, and <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">XUsbPs_EpBufferSend()</a>.</p>
 
 </div>
 </div>

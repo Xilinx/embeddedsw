@@ -132,7 +132,10 @@ $(document).ready(function(){initNavTree('xilpuf__spartan__ultrascale__plus__enc
  1.0   nik  01/20/26 Initial release
        rpu  02/17/26 Added spacing around __attribute__
        bha  02/25/26 Removed ICCARM related code
-       mb   05/25/26 Remove hard code shared_mem section address</pre><pre> </pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
+       mb   05/25/26 Remove hard code shared_mem section address
+ 2.8   rpu  06/25/26 Updated print statement to print GVF along with shutter value
+       mb   09/19/26 Clarify trim packs HD for PDI/RAM, not eFUSE.
+ </pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <h2>User configurable parameters for PUF </h2>
 <p>#define XPUF_DATA "0123456789ABCDEF0123456789ABCDEF" Data to be encrypted by PUF KEY should be provided in string format.</p>
 <p>#define XPUF_DATA_LEN_IN_BYTES (16U) Length of data to be encrypted should be provided in bytes, where number of bytes must be a multiple of 4.</p>
@@ -352,7 +355,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xpuf__defs_8h.html#ac70aff2d45cf728a19bf8ed8958b5c2a">XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS</a> + <a class="code" href="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c.html#a8d79775b6d86b8b0c91f6e331a829883">\</a></div>
 <div class="line"><a class="code" href="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c.html#a8d79775b6d86b8b0c91f6e331a829883">		                                        XPUF_CHASH_AND_AUX_IN_WORDS</a>)</div>
-<div class="ttc" id="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c_html_a8d79775b6d86b8b0c91f6e331a829883"><div class="ttname"><a href="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c.html#a8d79775b6d86b8b0c91f6e331a829883">XPUF_CHASH_AND_AUX_IN_WORDS</a></div><div class="ttdeci">#define XPUF_CHASH_AND_AUX_IN_WORDS</div><div class="ttdoc">CHASH + AUX size in words. </div><div class="ttdef"><b>Definition:</b> xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c:137</div></div>
+<div class="ttc" id="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c_html_a8d79775b6d86b8b0c91f6e331a829883"><div class="ttname"><a href="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c.html#a8d79775b6d86b8b0c91f6e331a829883">XPUF_CHASH_AND_AUX_IN_WORDS</a></div><div class="ttdeci">#define XPUF_CHASH_AND_AUX_IN_WORDS</div><div class="ttdoc">CHASH + AUX size in words. </div><div class="ttdef"><b>Definition:</b> xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c:138</div></div>
 <div class="ttc" id="xpuf__defs_8h_html_ac70aff2d45cf728a19bf8ed8958b5c2a"><div class="ttname"><a href="xpuf__defs_8h.html#ac70aff2d45cf728a19bf8ed8958b5c2a">XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS</a></div><div class="ttdeci">#define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS</div><div class="ttdoc">eFuse trim syndrome data length in words </div><div class="ttdef"><b>Definition:</b> xpuf_defs.h:59</div></div>
 </div><!-- fragment -->
 <p>127U Syn_data + 1 Aux + 1 Chash </p>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xscutimer__polled__example_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xscutimer__polled__example_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xscutimer_polled_example.c File Reference</div>  </div>
 </div><!--header-->
@@ -108,7 +110,6 @@ $(document).ready(function(){initNavTree('xscutimer__polled__example_8c.html',''
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the Scu Private Timer driver (<a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a>) and hardware timer device. </p>
 <p>This test assumes Auto Reload mode is not enabled.</p>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <p>MODIFICATION HISTORY:</p>
 <pre>
   Ver   Who  Date     Changes
@@ -120,10 +121,17 @@ $(document).ready(function(){initNavTree('xscutimer__polled__example_8c.html',''
   2.5   dp   09/08/23 Update example to stop timer at the end of the test
   2.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
                       documentation.
+  2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 *</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xscutimer_8h.html">xscutimer.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3a689d923f2be2269d806e822e940c41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscutimer__polled__example_8c.html#a3a689d923f2be2269d806e822e940c41">TIMER_LOAD_VALUE</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:a3a689d923f2be2269d806e822e940c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer load value for polled mode example.  <a href="#a3a689d923f2be2269d806e822e940c41">More...</a><br/></td></tr>
+<tr class="separator:a3a689d923f2be2269d806e822e940c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa213e9998cf3ba30efe084cf14c79da8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscutimer__polled__example_8c.html#aa213e9998cf3ba30efe084cf14c79da8">ScuTimerPolledExample</a> (<a class="el" href="struct_x_scu_timer.html">XScuTimer</a> *TimerInstancePtr, UINTPTR BaseAddress)</td></tr>
@@ -132,7 +140,30 @@ Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscutimer__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Scu Private Timer polled mode example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:add55d82a9a9dadba05af9add8d75cc16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_scu_timer.html">XScuTimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xscutimer__polled__example_8c.html#add55d82a9a9dadba05af9add8d75cc16">Timer</a></td></tr>
+<tr class="memdesc:add55d82a9a9dadba05af9add8d75cc16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cortex A9 SCU Private Timer Instance.  <a href="#add55d82a9a9dadba05af9add8d75cc16">More...</a><br/></td></tr>
+<tr class="separator:add55d82a9a9dadba05af9add8d75cc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a3a689d923f2be2269d806e822e940c41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIMER_LOAD_VALUE&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timer load value for polled mode example. </p>
+
+<p>Referenced by <a class="el" href="xscutimer__polled__example_8c.html#aa213e9998cf3ba30efe084cf14c79da8">ScuTimerPolledExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -149,14 +180,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Main function to call the Scu Private Timer polled mode example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
 <p>References <a class="el" href="xscutimer__polled__example_8c.html#aa213e9998cf3ba30efe084cf14c79da8">ScuTimerPolledExample()</a>.</p>
 
@@ -190,17 +214,34 @@ Functions</h2></td></tr>
 <p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> driver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TimerInstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TimerInstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_scu_timer.html" title="The XScuTimer driver instance data. ">XScuTimer</a> instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="group__scutimer.html#ga59badd651be237aab4099cedd96621d2">XScuTimer_CfgInitialize()</a>, <a class="el" href="group__scutimer.html#ga494afe8a54f75991a1e63fcef913df41">XScuTimer_GetCounterValue</a>, <a class="el" href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a>, <a class="el" href="group__scutimer.html#ga58903096d235b860a31f50c4ab70c853">XScuTimer_LookupConfig()</a>, <a class="el" href="group__scutimer.html#gabf24fad576d3adab4b53eebdef424bde">XScuTimer_Start()</a>, and <a class="el" href="group__scutimer.html#gaac0376fbfeb5c29bb44403d6fefd0843">XScuTimer_Stop()</a>.</p>
+<p>References <a class="el" href="struct_x_scu_timer___config.html#a53dc49c2ec07c2bc40cd0c0b29d49bc0">XScuTimer_Config::BaseAddr</a>, <a class="el" href="xscutimer__polled__example_8c.html#add55d82a9a9dadba05af9add8d75cc16">Timer</a>, <a class="el" href="xscutimer__polled__example_8c.html#a3a689d923f2be2269d806e822e940c41">TIMER_LOAD_VALUE</a>, <a class="el" href="group__scutimer.html#ga59badd651be237aab4099cedd96621d2">XScuTimer_CfgInitialize()</a>, <a class="el" href="group__scutimer.html#ga494afe8a54f75991a1e63fcef913df41">XScuTimer_GetCounterValue</a>, <a class="el" href="group__scutimer.html#ga94fbce5d53f983ec5cf675cfc97f4f78">XScuTimer_LoadTimer</a>, <a class="el" href="group__scutimer.html#ga58903096d235b860a31f50c4ab70c853">XScuTimer_LookupConfig()</a>, <a class="el" href="group__scutimer.html#gabf24fad576d3adab4b53eebdef424bde">XScuTimer_Start()</a>, and <a class="el" href="group__scutimer.html#gaac0376fbfeb5c29bb44403d6fefd0843">XScuTimer_Stop()</a>.</p>
 
 <p>Referenced by <a class="el" href="xscutimer__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="add55d82a9a9dadba05af9add8d75cc16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_scu_timer.html">XScuTimer</a> Timer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cortex A9 SCU Private Timer Instance. </p>
+
+<p>Referenced by <a class="el" href="xscutimer__polled__example_8c.html#aa213e9998cf3ba30efe084cf14c79da8">ScuTimerPolledExample()</a>.</p>
 
 </div>
 </div>

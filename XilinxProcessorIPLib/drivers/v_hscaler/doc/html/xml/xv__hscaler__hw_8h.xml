@@ -4,31 +4,13 @@
     <compoundname>xv_hscaler_hw.h</compoundname>
     <includedby refid="xv__hscaler_8h" local="yes">xv_hscaler.h</includedby>
     <invincdepgraph>
-      <node id="47">
-        <label>xv_hscaler_l2.c</label>
-        <link refid="xv__hscaler__l2_8c"/>
-      </node>
-      <node id="45">
-        <label>xv_hscaler_l2.h</label>
-        <link refid="xv__hscaler__l2_8h"/>
-        <childnode refid="46" relation="include">
-        </childnode>
-        <childnode refid="47" relation="include">
-        </childnode>
-      </node>
-      <node id="48">
-        <label>xv_hscaler_g.c</label>
-        <link refid="xv__hscaler__g_8c"/>
-      </node>
       <node id="49">
         <label>xv_hscaler_sinit.c</label>
         <link refid="xv__hscaler__sinit_8c"/>
       </node>
-      <node id="42">
-        <label>xv_hscaler_hw.h</label>
-        <link refid="xv_hscaler_hw.h"/>
-        <childnode refid="43" relation="include">
-        </childnode>
+      <node id="48">
+        <label>xv_hscaler_g.c</label>
+        <link refid="xv__hscaler__g_8c"/>
       </node>
       <node id="44">
         <label>xv_hscaler.c</label>
@@ -50,6 +32,24 @@
         <label>xv_hscaler_coeff.c</label>
         <link refid="xv__hscaler__coeff_8c"/>
       </node>
+      <node id="42">
+        <label>xv_hscaler_hw.h</label>
+        <link refid="xv_hscaler_hw.h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xv_hscaler_l2.c</label>
+        <link refid="xv__hscaler__l2_8c"/>
+      </node>
+      <node id="45">
+        <label>xv_hscaler_l2.h</label>
+        <link refid="xv__hscaler__l2_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
     </invincdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a5800b13df7ed0322b61366e8cb7b8784" prot="public" static="no">
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="13" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_AP_CTRL</name>
@@ -72,14 +72,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="75" bodyend="-1"/>
         <referencedby refid="xv__hscaler_8h_1a0e12a42bfc0aa099330be45c38d31247" compoundref="xv__hscaler_8c" startline="197" endline="204">XV_hscaler_DisableAutoRestart</referencedby>
         <referencedby refid="xv__hscaler_8h_1ae0d2437aa5d0f104aa9f8ea08d3e6211" compoundref="xv__hscaler_8c" startline="177" endline="184">XV_hscaler_EnableAutoRestart</referencedby>
         <referencedby refid="xv__hscaler_8h_1a9952f215099f3805314cb81b8681aa01" compoundref="xv__hscaler_8c" startline="106" endline="116">XV_hscaler_IsDone</referencedby>
         <referencedby refid="xv__hscaler_8h_1a10e8034f617beb44377a8e7d0a9419c8" compoundref="xv__hscaler_8c" startline="129" endline="139">XV_hscaler_IsIdle</referencedby>
         <referencedby refid="xv__hscaler_8h_1a9c646387ef49b919ff45e3d6972a9d44" compoundref="xv__hscaler_8c" startline="153" endline="164">XV_hscaler_IsReady</referencedby>
         <referencedby refid="xv__hscaler_8h_1a8c6d07fe34c3f3c7c54806a69b1c76a7" compoundref="xv__hscaler_8c" startline="82" endline="94">XV_hscaler_Start</referencedby>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a6d29157dfb8dc9fee941abedfd5261ba" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_GIE</name>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a3fad58d5a52b86757cf8b2cf14ce4077" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_IER</name>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1afd771c41040bee1295d7427223297054" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_ISR</name>
@@ -112,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a0d5f268ae17e87fbd5db16cc54317bb7" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA</name>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a93e972a2634200ae43614eaa2503f625" prot="public" static="no">
         <name>XV_HSCALER_CTRL_BITS_HWREG_HEIGHT_DATA</name>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a3ae10a2e35db3f7e679f78804cd7574b" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA</name>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a8043ee25926eb52440d799d59d09d72f" prot="public" static="no">
         <name>XV_HSCALER_CTRL_BITS_HWREG_WIDTHIN_DATA</name>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1ac13e6b5a32a90d4038f371dcc2d7195a" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA</name>
@@ -167,7 +167,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a0cfd8df86fe6f82556ddbab7901dcb13" prot="public" static="no">
         <name>XV_HSCALER_CTRL_BITS_HWREG_WIDTHOUT_DATA</name>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a5ee2c34ded2572947f5248292bbea6c8" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA</name>
@@ -189,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1ae71c3e41d293e06efe7916dbb2bbeae8" prot="public" static="no">
         <name>XV_HSCALER_CTRL_BITS_HWREG_COLORMODE_DATA</name>
@@ -200,7 +200,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a88232c2bfe1ab6d7f13d4f941dfb0ab4" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA</name>
@@ -211,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1acc283994fb1d20cfe03e47f15c1ca5b7" prot="public" static="no">
         <name>XV_HSCALER_CTRL_BITS_HWREG_PIXELRATE_DATA</name>
@@ -222,7 +222,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a688e1bcaa2a7897b564e1f87ad035205" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_COLORMODEOUT_DATA</name>
@@ -233,7 +233,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1aad2a8b326f8626c7610a44763385ec3d" prot="public" static="no">
         <name>XV_HSCALER_CTRL_BITS_HWREG_COLORMODEOUT_DATA</name>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a5c37f4c64b977b9cfd727ec819cd90bf" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE</name>
@@ -255,7 +255,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a5a511dc765a71e12f4a6404b944d1363" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_HIGH</name>
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a9342ec406d4897ae7e8810ebcee68a96" prot="public" static="no">
         <name>XV_HSCALER_CTRL_WIDTH_HWREG_HFLTCOEFF</name>
@@ -277,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1aace57372292d604dc890df32343b19b8" prot="public" static="no">
         <name>XV_HSCALER_CTRL_DEPTH_HWREG_HFLTCOEFF</name>
@@ -288,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1adc20ba971c0517e1d27b70888c73aba1" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE</name>
@@ -299,7 +299,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a02e4cd47017eef8baeb4a0b964976549" prot="public" static="no">
         <name>XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH</name>
@@ -310,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a79d4e6b1c38a22f25d7a2bad3566894f" prot="public" static="no">
         <name>XV_HSCALER_CTRL_WIDTH_HWREG_PHASESH_V</name>
@@ -321,7 +321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hscaler__hw_8h_1a67f05931ad5987b19a224b27103cadb5" prot="public" static="no">
         <name>XV_HSCALER_CTRL_DEPTH_HWREG_PHASESH_V</name>
@@ -332,7 +332,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="108" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h" bodystart="108" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -447,6 +447,6 @@
 <codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_hw.h"/>
   </compounddef>
 </doxygen>

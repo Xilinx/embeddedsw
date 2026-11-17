@@ -6,58 +6,47 @@
     <includes refid="xmipi__tx__phy__hw_8h" local="yes">xmipi_tx_phy_hw.h</includes>
     <includedby refid="xmipi__tx__phy_8c" local="yes">xmipi_tx_phy.c</includedby>
     <includedby refid="xmipi__tx__phy__g_8c" local="yes">xmipi_tx_phy_g.c</includedby>
+    <includedby refid="xmipi__tx__phy__mmcm_8c" local="yes">xmipi_tx_phy_mmcm.c</includedby>
     <includedby refid="xmipi__tx__phy__selftest_8c" local="yes">xmipi_tx_phy_selftest.c</includedby>
     <includedby refid="xmipi__tx__phy__sinit_8c" local="yes">xmipi_tx_phy_sinit.c</includedby>
+    <includedby refid="xmipi__tx__phy__xpll_8c" local="yes">xmipi_tx_phy_xpll.c</includedby>
     <includedby refid="xmipi__tx__phy__example__selftest_8c" local="yes">xmipi_tx_phy_example_selftest.c</includedby>
     <incdepgraph>
-      <node id="14">
+      <node id="15">
         <label>xil_io.h</label>
       </node>
       <node id="12">
-        <label>xil_types.h</label>
-      </node>
-      <node id="11">
         <label>xmipi_tx_phy.h</label>
         <link refid="xmipi_tx_phy.h"/>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>xmipi_tx_phy_hw.h</label>
-        <link refid="xmipi__tx__phy__hw_8h"/>
-        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
       </node>
+      <node id="13">
+        <label>xil_types.h</label>
+      </node>
+      <node id="14">
+        <label>xmipi_tx_phy_hw.h</label>
+        <link refid="xmipi__tx__phy__hw_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="17">
-        <label>xmipi_tx_phy_g.c</label>
-      </node>
-      <node id="18">
-        <label>xmipi_tx_phy_selftest.c</label>
-        <link refid="xmipi__tx__phy__selftest_8c"/>
-      </node>
-      <node id="19">
+      <node id="21">
         <label>xmipi_tx_phy_sinit.c</label>
         <link refid="xmipi__tx__phy__sinit_8c"/>
       </node>
-      <node id="20">
-        <label>xmipi_tx_phy_example_selftest.c</label>
-        <link refid="xmipi__tx__phy__example__selftest_8c"/>
-      </node>
-      <node id="16">
+      <node id="17">
         <label>xmipi_tx_phy.c</label>
         <link refid="xmipi__tx__phy_8c"/>
       </node>
-      <node id="15">
+      <node id="16">
         <label>xmipi_tx_phy.h</label>
         <link refid="xmipi_tx_phy.h"/>
-        <childnode refid="16" relation="include">
-        </childnode>
         <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="18" relation="include">
@@ -66,6 +55,31 @@
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xmipi_tx_phy_g.c</label>
+      </node>
+      <node id="19">
+        <label>xmipi_tx_phy_mmcm.c</label>
+        <link refid="xmipi__tx__phy__mmcm_8c"/>
+      </node>
+      <node id="22">
+        <label>xmipi_tx_phy_xpll.c</label>
+        <link refid="xmipi__tx__phy__xpll_8c"/>
+      </node>
+      <node id="23">
+        <label>xmipi_tx_phy_example_selftest.c</label>
+        <link refid="xmipi__tx__phy__example__selftest_8c"/>
+      </node>
+      <node id="20">
+        <label>xmipi_tx_phy_selftest.c</label>
+        <link refid="xmipi__tx__phy__selftest_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_mipi___tx___phy___config" prot="public">XMipi_Tx_Phy_Config</innerclass>
@@ -81,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1gafb09e64b9efe4ca20303e3ed180d6659" prot="public" static="no">
         <name>XMIPI_TX_PHY_LOW_POWER_MODE</name>
@@ -92,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1gabc5e0ad6781683237fd31b86e224674d" prot="public" static="no">
         <name>XMIPI_TX_PHY_HIGH_POWER_MODE</name>
@@ -103,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="119" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="119" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga9e75abdbbf8a802143da1077354cf90c" prot="public" static="no">
         <name>XMIPI_TX_PHY_ESCAPE_MODE</name>
@@ -114,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="120" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga1d59eea69940bc10dc100faa0983bc55" prot="public" static="no">
         <name>XMIPI_TX_PHY_MODE_MAX</name>
@@ -125,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga9ef76131f9278a362a29e94fda961943" prot="public" static="no">
         <name>XMIPI_TX_PHY_MAX_LANES_V10</name>
@@ -136,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -150,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga794d4197e4f32ea40dc8010b2ae0185c" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_INIT_TIMER</name>
@@ -161,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga45d5dd17088900a16fec2d4ec72055fb" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_HSTIMEOUT</name>
@@ -172,7 +186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="130" bodyend="-1"/>
         <referencedby refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1gaf48cd41ce4fbada5662e23018611c003" prot="public" static="no">
@@ -184,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga2792b35f19f06efb8b6adb0c3e7c0f7f" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_CLKLANE</name>
@@ -195,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga8ca0ab2cf3f6b368c2454200b780ef03" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_DLANE0</name>
@@ -206,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="133" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga8fa083c47f619744ed568fcc76d1d4aa" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_DLANE1</name>
@@ -217,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga7ebd16502a0c0ee0d4b0cb99c7b4af94" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_DLANE2</name>
@@ -228,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga61d3f8f2a197488723c7f18de5fa4452" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_DLANE3</name>
@@ -239,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga4dd60256bbac14dbc8b023397aa7a4ef" prot="public" static="no">
         <name>XMIPI_TX_PHY_HANDLE_MAX</name>
@@ -250,7 +264,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -264,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga9f5d073f4808e8cba74268dd3c07e994" prot="public" static="no">
         <name>XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE</name>
@@ -275,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="145" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -289,7 +303,34 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>mipi_tx_phy Dynamic Line Rate range</header>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gae47e34ba6c6adfbfaa89323b2bce4967" prot="public" static="no">
+        <name>XMIPI_TX_PHY_LINERATE_MIN</name>
+        <initializer>400</initializer>
+        <briefdescription>
+<para>Minimum line rate in Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaf2146f81e04c1e0de13c6a962d02f75c" prot="public" static="no">
+        <name>XMIPI_TX_PHY_LINERATE_MAX</name>
+        <initializer>4500</initializer>
+        <briefdescription>
+<para>Maximum line rate in Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -303,7 +344,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__mipi__tx__phy_1ga81f9f63f8833a3f98ffac4354b419046" prot="public" static="no">
         <name>XMIPI_TX_PHY_DISABLE_FLAG</name>
@@ -314,7 +356,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -326,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -437,7 +480,7 @@
 <para>Enumeration of symbol indices used to program the C-PHY programmable sequence registers. Symbols 0-9 map to DATA0 register, symbols 10-13 map to DATA1 register. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="261" bodyend="276"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="268" bodyend="283"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -488,7 +531,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="177" bodyend="182"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="184" bodyend="189"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga1e7707ea4ce5e3f8a89a97bcc3044189" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -537,7 +580,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="199" bodyend="204"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="206" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga9c2d5d55bb137067bb5385656c488735" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>u32</type>
@@ -597,7 +640,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="222" bodyend="227"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="229" bodyend="234"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga74d852ff5e7b5057719b226964ddd01f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -668,7 +711,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="244" bodyend="250"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="251" bodyend="257"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref> *</type>
@@ -680,9 +723,19 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>Look up the hardware configuration for a device instance. </para>        </briefdescription>
+<para>Look up the device configuration based on the base address. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>Look up the hardware configuration for a device instance.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device to look up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the <ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref> entry, or NULL if not found.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>BaseAddress</parametername>
 </parameternamelist>
@@ -695,7 +748,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_sinit.c" bodystart="45" bodyend="60"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_sinit.c" bodystart="45" bodyend="60"/>
+        <references refid="struct_x_mipi___tx___phy___config_1a5bdd800e8eafa114f68734d96ab786e6" compoundref="xmipi__tx__phy_8h" startline="292">XMipi_Tx_Phy_Config::Name</references>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -747,10 +801,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="64" bodyend="80"/>
-        <references refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" compoundref="xmipi__tx__phy_8h" startline="286">XMipi_Tx_Phy_Config::BaseAddr</references>
-        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="305">XMipi_Tx_Phy::Config</references>
-        <references refid="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" compoundref="xmipi__tx__phy_8h" startline="306">XMipi_Tx_Phy::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="65" bodyend="81"/>
+        <references refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" compoundref="xmipi__tx__phy_8h" startline="293">XMipi_Tx_Phy_Config::BaseAddr</references>
+        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="313">XMipi_Tx_Phy::Config</references>
+        <references refid="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" compoundref="xmipi__tx__phy_8h" startline="314">XMipi_Tx_Phy::IsReady</references>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga0edf3de0af6e081ab9ec6ba03bcb029d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -802,7 +856,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="98" bodyend="142"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="99" bodyend="143"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -840,7 +894,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="337" bodyend="394"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="338" bodyend="393"/>
         <referencedby refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga60dbd7f0c7cc211f6ed1e97c8c1dd8c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -867,7 +921,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="405" bodyend="438"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="404" bodyend="437"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga0e324919c833e8a3044f5807a4e88a6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -915,7 +969,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="451" bodyend="466"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="450" bodyend="465"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga96324c0e81aae087966b15ed5478830e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -942,7 +996,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="479" bodyend="489"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="478" bodyend="488"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1gaa1ad1388f716aaff8073d17268341007" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -969,7 +1023,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="501" bodyend="513"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="500" bodyend="512"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga30186d35cb2a9a6e8c176a2e12b8fc3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1007,7 +1061,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="527" bodyend="536"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="526" bodyend="535"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1gae03f90199460c27b38aca1a9eecd973c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u16</type>
@@ -1045,7 +1099,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="615" bodyend="630"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="614" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="614" bodyend="629"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1gaf9e0be75428b66fe7d9f22b8b223e66b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1083,7 +1137,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="551" bodyend="576"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="550" bodyend="575"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga921e82addba856d2b57c15ac8ace54eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1121,7 +1175,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="589" bodyend="601"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="588" bodyend="600"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1158,7 +1212,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="662" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="662" bodyend="686"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="661" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="661" bodyend="685"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1gad55317d23f56c8dd601c6970d5d6228e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1187,8 +1242,151 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="318" bodyend="324"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="319" bodyend="325"/>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_DynamicLineRateConfig</definition>
+        <argsstring>(XMipi_Tx_Phy *InstancePtr, UINTPTR PllBaseAddr, u32 LineRate)</argsstring>
+        <name>XMipi_Tx_Phy_DynamicLineRateConfig</name>
+        <param>
+          <type><ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PllBaseAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the dynamic line rate for the MIPI TX PHY by programming the MMCM registers and NPI X5PLL registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>The driver disables the PHY, programs the MMCM via XMipi_Tx_Phy_MmcmConfig, delegates the PLL register programming to XMipi_Tx_Phy_XPllConfig, and re-enables the PHY.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PllBaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the X5PLL register space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps (400-4500 Mbps).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if line rate configuration is successful.</para></listitem><listitem><para>XST_FAILURE if the line rate is out of supported range or dynamic line rate is not enabled in hardware.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The PHY is disabled before MMCM and PLL reprogramming and re-enabled after the sequence completes to ensure a clean transition. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="709" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="709" bodyend="763"/>
+        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="313">XMipi_Tx_Phy::Config</references>
+        <references refid="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" compoundref="xmipi__tx__phy_8h" startline="294">XMipi_Tx_Phy_Config::IsDphy</references>
+        <references refid="struct_x_mipi___tx___phy___config_1a31bfb6dff5f914a09f7c6307a704f063" compoundref="xmipi__tx__phy_8h" startline="297">XMipi_Tx_Phy_Config::IsDynamicLineRate</references>
+        <references refid="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" compoundref="xmipi__tx__phy_8c" startline="661" endline="685">XMipi_Tx_Phy_Activate</references>
+        <references refid="group__mipi__tx__phy_1ga81f9f63f8833a3f98ffac4354b419046" compoundref="xmipi__tx__phy_8h" startline="165">XMIPI_TX_PHY_DISABLE_FLAG</references>
+        <references refid="group__mipi__tx__phy_1gaafd73ecc355cb1283c3feaad86e6e66b" compoundref="xmipi__tx__phy_8h" startline="164">XMIPI_TX_PHY_ENABLE_FLAG</references>
+        <references refid="group__mipi__tx__phy_1gaf2146f81e04c1e0de13c6a962d02f75c" compoundref="xmipi__tx__phy_8h" startline="158">XMIPI_TX_PHY_LINERATE_MAX</references>
+        <references refid="group__mipi__tx__phy_1gae47e34ba6c6adfbfaa89323b2bce4967" compoundref="xmipi__tx__phy_8h" startline="157">XMIPI_TX_PHY_LINERATE_MIN</references>
+        <references refid="group__mipi__tx__phy_1gaa3cd46b8e0504cbac709b71bf162ea32" compoundref="xmipi__tx__phy__mmcm_8c" startline="432" endline="525">XMipi_Tx_Phy_MmcmConfig</references>
+        <references refid="group__mipi__tx__phy_1ga3af918938b33b8ea21f8d5e46cdce3c6" compoundref="xmipi__tx__phy__xpll_8c" startline="175" endline="263">XMipi_Tx_Phy_XPllConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__tx__phy_1ga3af918938b33b8ea21f8d5e46cdce3c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_XPllConfig</definition>
+        <argsstring>(UINTPTR PllBaseAddr, u32 LineRate)</argsstring>
+        <name>XMipi_Tx_Phy_XPllConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PllBaseAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the X5PLL registers for a given line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>It looks up the matching bucket from the line rate table, then performs the PLL unlock -&gt; configure -&gt; re-lock sequence.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllBaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the X5PLL register space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps (400-4500 Mbps).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if PLL programming is successful.</para></listitem><listitem><para>XST_FAILURE if no matching line rate bucket is found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_xpll.c" bodystart="175" bodyend="263"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__tx__phy_1gaa3cd46b8e0504cbac709b71bf162ea32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmConfig</definition>
+        <argsstring>(XMipi_Tx_Phy *InstancePtr, u32 LineRate)</argsstring>
+        <name>XMipi_Tx_Phy_MmcmConfig</name>
+        <param>
+          <type><ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the MMCM registers in the TX PHY for a given line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>It computes the optimal MMCM parameters (M, D, O) and writes the corresponding values to the PHY MMCM registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps (400-4500 Mbps).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if MMCM programming is successful.</para></listitem><listitem><para>XST_FAILURE if no valid MMCM solution is found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="432" bodyend="525"/>
+        <referencedby refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" compoundref="xmipi__tx__phy_8c" startline="709" endline="763">XMipi_Tx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1gaec98ba503ea55bbc246f55633031cce5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1239,7 +1437,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="166" bodyend="203"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="167" bodyend="204"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga83eeee796bbf6191c38c715f586fe653" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1277,7 +1475,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="217" bodyend="233"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="218" bodyend="234"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga5c275c8e3a30477d7ff543a063e51092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1304,7 +1502,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="246" bodyend="257"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="247" bodyend="258"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga7f6c18e9dd2eef7c55eef23816c6dbe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1331,7 +1529,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="270" bodyend="281"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="271" bodyend="282"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1gafb2a651e2b9700aa1052e69b04187b1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1358,7 +1556,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="294" bodyend="303"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.c" bodystart="295" bodyend="304"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1370,9 +1568,19 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+<para>Run a self-test on the MIPI TX PHY. </para>        </briefdescription>
         <detaileddescription>
-<para>This test checks if HS Timeout value present in register matches the one from the generated file.</para><para><parameterlist kind="param"><parameteritem>
+<para>Runs a self-test on the driver/device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the self-test passed, XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This test checks if HS Timeout value present in register matches the one from the generated file.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>InstancePtr</parametername>
 </parameternamelist>
@@ -1389,10 +1597,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_selftest.c" bodystart="60" bodyend="72"/>
-        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="305">XMipi_Tx_Phy::Config</references>
-        <references refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" compoundref="xmipi__tx__phy_8h" startline="293">XMipi_Tx_Phy_Config::HSTimeOut</references>
-        <references refid="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" compoundref="xmipi__tx__phy_8c" startline="337" endline="394">XMipi_Tx_Phy_GetInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_selftest.c" bodystart="60" bodyend="72"/>
+        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="313">XMipi_Tx_Phy::Config</references>
+        <references refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" compoundref="xmipi__tx__phy_8h" startline="301">XMipi_Tx_Phy_Config::HSTimeOut</references>
+        <references refid="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" compoundref="xmipi__tx__phy_8c" startline="338" endline="393">XMipi_Tx_Phy_GetInfo</references>
         <references refid="group__mipi__tx__phy_1ga45d5dd17088900a16fec2d4ec72055fb" compoundref="xmipi__tx__phy_8h" startline="130">XMIPI_TX_PHY_HANDLE_HSTIMEOUT</references>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
       </memberdef>
@@ -1442,118 +1650,130 @@
 <codeline lineno="143"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>10000UL<sp/></highlight></codeline>
 <codeline lineno="144" refid="group__mipi__tx__phy_1gaaf2e6f503d4b86cf6d1c9833fcaea04b" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>65541UL<sp/></highlight></codeline>
 <codeline lineno="150"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FF<sp/></highlight></codeline>
-<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_ENABLE_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/></highlight></codeline>
-<codeline lineno="157" refid="group__mipi__tx__phy_1gaafd73ecc355cb1283c3feaad86e6e66b" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DISABLE_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
-<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="comment">/*************************<sp/>Bit<sp/>field<sp/>operations<sp/>****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="176"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_BitSet(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask)</highlight></codeline>
-<codeline lineno="178"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy_WriteReg(BaseAddress,<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)<sp/>|<sp/>BitMask));</highlight></codeline>
-<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"></highlight></codeline>
-<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="198"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_BitReset(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask)</highlight></codeline>
-<codeline lineno="200"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy_WriteReg(BaseAddress,<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)<sp/>&amp;<sp/>~<sp/>BitMask));</highlight></codeline>
-<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="221"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XMipi_Tx_Phy_GetBitField(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask,<sp/>u32<sp/>BitShift)</highlight></codeline>
-<codeline lineno="223"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">((XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>BitMask)<sp/>&gt;&gt;<sp/>BitShift);</highlight></codeline>
-<codeline lineno="226"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"></highlight></codeline>
-<codeline lineno="228"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="243"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_SetBitField(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask,<sp/>u32<sp/>BitShift,<sp/>u32<sp/>Value)</highlight></codeline>
-<codeline lineno="245"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy_WriteReg(BaseAddress,<sp/>RegisterOffset,</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)<sp/>&amp;</highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<sp/>BitMask)<sp/>|<sp/>(Value<sp/>&lt;&lt;<sp/>BitShift)));</highlight></codeline>
-<codeline lineno="249"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight></codeline>
-<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="252"><highlight class="normal"></highlight></codeline>
-<codeline lineno="260"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="261" refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a5d9ec5475f6e44c8cc428945c4f16005" kindref="member">PRG_SEQ_SYM_0</ref><sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
-<codeline lineno="262" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a5d9ec5475f6e44c8cc428945c4f16005" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885ac6c42dde5152a00b2bd2391061556b58" kindref="member">PRG_SEQ_SYM_1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="263" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885ac6c42dde5152a00b2bd2391061556b58" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8a6bcf5e72efc2e442b158c18d5db64" kindref="member">PRG_SEQ_SYM_2</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="264" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8a6bcf5e72efc2e442b158c18d5db64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a70fc6fb522b8debd2c2ecb9df26da9c6" kindref="member">PRG_SEQ_SYM_3</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="265" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a70fc6fb522b8debd2c2ecb9df26da9c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a1f382712f4ea716e8b5d91e5b4d0bbe9" kindref="member">PRG_SEQ_SYM_4</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="266" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a1f382712f4ea716e8b5d91e5b4d0bbe9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a26c9697ea3d02dcf361be52b1e883a69" kindref="member">PRG_SEQ_SYM_5</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="267" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a26c9697ea3d02dcf361be52b1e883a69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a8fbf2fb4a3de67fc54f8241fcb520b08" kindref="member">PRG_SEQ_SYM_6</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="268" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a8fbf2fb4a3de67fc54f8241fcb520b08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a4ffb4c4468bfb280d88ac6c80ac83716" kindref="member">PRG_SEQ_SYM_7</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="269" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a4ffb4c4468bfb280d88ac6c80ac83716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885aeff18f6713e4698b12da4945ca2dfaea" kindref="member">PRG_SEQ_SYM_8</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="270" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885aeff18f6713e4698b12da4945ca2dfaea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a061fdf043d396b736f2cbc084bb1571f" kindref="member">PRG_SEQ_SYM_9</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="271" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a061fdf043d396b736f2cbc084bb1571f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8181bbddef426adb0a47ad84bd1af21" kindref="member">PRG_SEQ_SYM_10</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="272" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8181bbddef426adb0a47ad84bd1af21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a667dd59f166addae5c20b4827e0b3488" kindref="member">PRG_SEQ_SYM_11</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="273" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a667dd59f166addae5c20b4827e0b3488" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a38de520f925fa02971e85fe60486abef" kindref="member">PRG_SEQ_SYM_12</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="274" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a38de520f925fa02971e85fe60486abef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a0d88e58ad0aaa3fd68743389cd773e97" kindref="member">PRG_SEQ_SYM_13</ref><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="275" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a0d88e58ad0aaa3fd68743389cd773e97" refkind="member"><highlight class="normal">}<sp/><ref refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kindref="member">XMipi_Tx_Phy_ProgSeq</ref>;</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"></highlight></codeline>
-<codeline lineno="283"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="284" refid="struct_x_mipi___tx___phy___config" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;<sp/></highlight></codeline>
-<codeline lineno="286" refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsDphy;<sp/></highlight></codeline>
-<codeline lineno="287" refid="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsRegisterPresent;<sp/></highlight></codeline>
-<codeline lineno="288" refid="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MaxLanesPresent;<sp/></highlight></codeline>
-<codeline lineno="289" refid="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EscClkPeriod;<sp/></highlight></codeline>
-<codeline lineno="290" refid="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EscTimeout;<sp/></highlight></codeline>
-<codeline lineno="291" refid="struct_x_mipi___tx___phy___config_1ae35a91c9d0b588fb1bb2a0d7ee84f5f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HSLineRate;<sp/></highlight></codeline>
-<codeline lineno="292" refid="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HSTimeOut;<sp/></highlight></codeline>
-<codeline lineno="293" refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LPXPeriod;<sp/></highlight></codeline>
-<codeline lineno="294" refid="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StableClkPeriod;<sp/></highlight></codeline>
-<codeline lineno="295" refid="struct_x_mipi___tx___phy___config_1ad0140549c6ec552c206c85fe55397212" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref>;</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="304" refid="struct_x_mipi___tx___phy" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>Config;<sp/></highlight></codeline>
-<codeline lineno="305" refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsReady;<sp/></highlight></codeline>
-<codeline lineno="306" refid="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref>;</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"></highlight></codeline>
-<codeline lineno="308"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal"></highlight></codeline>
-<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xmipi_tx_phy_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>*<ref refid="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" kindref="member">XMipi_Tx_Phy_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"></highlight></codeline>
-<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>xmipi_tx_phy.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="314"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" kindref="member">XMipi_Tx_Phy_CfgInitialize</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>*Config,</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="316"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga0edf3de0af6e081ab9ec6ba03bcb029d" kindref="member">XMipi_Tx_Phy_Configure</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Handle,<sp/>u32<sp/>Value);</highlight></codeline>
-<codeline lineno="317"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" kindref="member">XMipi_Tx_Phy_GetInfo</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Handle);</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__tx__phy_1ga60dbd7f0c7cc211f6ed1e97c8c1dd8c0" kindref="member">XMipi_Tx_Phy_Reset</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__tx__phy_1ga0e324919c833e8a3044f5807a4e88a6f" kindref="member">XMipi_Tx_Phy_ClearDataLane</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="320"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga96324c0e81aae087966b15ed5478830e" kindref="member">XMipi_Tx_Phy_GetClkLaneStatus</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="321"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gaa1ad1388f716aaff8073d17268341007" kindref="member">XMipi_Tx_Phy_GetClkLaneMode</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="322"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga30186d35cb2a9a6e8c176a2e12b8fc3c" kindref="member">XMipi_Tx_Phy_GetDataLaneStatus</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
-<codeline lineno="323"><highlight class="normal">u16<sp/><ref refid="group__mipi__tx__phy_1gae03f90199460c27b38aca1a9eecd973c" kindref="member">XMipi_Tx_Phy_GetPacketCount</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
-<codeline lineno="324"><highlight class="normal">u8<sp/><ref refid="group__mipi__tx__phy_1gaf9e0be75428b66fe7d9f22b8b223e66b" kindref="member">XMipi_Tx_Phy_GetDLCalibStatus</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
-<codeline lineno="325"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga921e82addba856d2b57c15ac8ace54eb" kindref="member">XMipi_Tx_Phy_GetDataLaneMode</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
-<codeline lineno="326"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" kindref="member">XMipi_Tx_Phy_Activate</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag);</highlight></codeline>
-<codeline lineno="327"><highlight class="normal">u8<sp/><ref refid="group__mipi__tx__phy_1gad55317d23f56c8dd601c6970d5d6228e" kindref="member">XMipi_Tx_Phy_GetRegIntfcPresent</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"></highlight></codeline>
-<codeline lineno="329"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gaec98ba503ea55bbc246f55633031cce5" kindref="member">XMipi_Tx_Phy_Prog_Seq_Data</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kindref="member">XMipi_Tx_Phy_ProgSeq</ref><sp/>bitpos,<sp/>u32<sp/>Value);</highlight></codeline>
-<codeline lineno="330"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga83eeee796bbf6191c38c715f586fe653" kindref="member">XMipi_Tx_Phy_Get_Seq_Data</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kindref="member">XMipi_Tx_Phy_ProgSeq</ref><sp/>bitpos);</highlight></codeline>
-<codeline lineno="331"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga5c275c8e3a30477d7ff543a063e51092" kindref="member">XMipi_Tx_Phy_En_Prog_Seq_Ctrl</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="332"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga7f6c18e9dd2eef7c55eef23816c6dbe4" kindref="member">XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="333"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gafb2a651e2b9700aa1052e69b04187b1a" kindref="member">XMipi_Tx_Phy_Get_Prog_Seq_Ctrl</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Self<sp/>test<sp/>function<sp/>in<sp/>xcsiss_selftest.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="335"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" kindref="member">XMipi_Tx_Phy_SelfTest</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"></highlight></codeline>
-<codeline lineno="337"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="341"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="342"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_LINERATE_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>400<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__mipi__tx__phy_1gae47e34ba6c6adfbfaa89323b2bce4967" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_LINERATE_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4500<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_ENABLE_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/></highlight></codeline>
+<codeline lineno="164" refid="group__mipi__tx__phy_1gaafd73ecc355cb1283c3feaad86e6e66b" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DISABLE_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="comment">/*************************<sp/>Bit<sp/>field<sp/>operations<sp/>****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="183"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_BitSet(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy_WriteReg(BaseAddress,<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)<sp/>|<sp/>BitMask));</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="205"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_BitReset(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy_WriteReg(BaseAddress,<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)<sp/>&amp;<sp/>~<sp/>BitMask));</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="228"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XMipi_Tx_Phy_GetBitField(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask,<sp/>u32<sp/>BitShift)</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">((XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>BitMask)<sp/>&gt;&gt;<sp/>BitShift);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="250"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_SetBitField(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BitMask,<sp/>u32<sp/>BitShift,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy_WriteReg(BaseAddress,<sp/>RegisterOffset,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XMipi_Tx_Phy_ReadReg(BaseAddress,<sp/>RegisterOffset)<sp/>&amp;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<sp/>BitMask)<sp/>|<sp/>(Value<sp/>&lt;&lt;<sp/>BitShift)));</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="268" refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a5d9ec5475f6e44c8cc428945c4f16005" kindref="member">PRG_SEQ_SYM_0</ref><sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a5d9ec5475f6e44c8cc428945c4f16005" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885ac6c42dde5152a00b2bd2391061556b58" kindref="member">PRG_SEQ_SYM_1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885ac6c42dde5152a00b2bd2391061556b58" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8a6bcf5e72efc2e442b158c18d5db64" kindref="member">PRG_SEQ_SYM_2</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8a6bcf5e72efc2e442b158c18d5db64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a70fc6fb522b8debd2c2ecb9df26da9c6" kindref="member">PRG_SEQ_SYM_3</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a70fc6fb522b8debd2c2ecb9df26da9c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a1f382712f4ea716e8b5d91e5b4d0bbe9" kindref="member">PRG_SEQ_SYM_4</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a1f382712f4ea716e8b5d91e5b4d0bbe9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a26c9697ea3d02dcf361be52b1e883a69" kindref="member">PRG_SEQ_SYM_5</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a26c9697ea3d02dcf361be52b1e883a69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a8fbf2fb4a3de67fc54f8241fcb520b08" kindref="member">PRG_SEQ_SYM_6</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a8fbf2fb4a3de67fc54f8241fcb520b08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a4ffb4c4468bfb280d88ac6c80ac83716" kindref="member">PRG_SEQ_SYM_7</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a4ffb4c4468bfb280d88ac6c80ac83716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885aeff18f6713e4698b12da4945ca2dfaea" kindref="member">PRG_SEQ_SYM_8</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885aeff18f6713e4698b12da4945ca2dfaea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a061fdf043d396b736f2cbc084bb1571f" kindref="member">PRG_SEQ_SYM_9</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a061fdf043d396b736f2cbc084bb1571f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8181bbddef426adb0a47ad84bd1af21" kindref="member">PRG_SEQ_SYM_10</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="279" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885af8181bbddef426adb0a47ad84bd1af21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a667dd59f166addae5c20b4827e0b3488" kindref="member">PRG_SEQ_SYM_11</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a667dd59f166addae5c20b4827e0b3488" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a38de520f925fa02971e85fe60486abef" kindref="member">PRG_SEQ_SYM_12</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a38de520f925fa02971e85fe60486abef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a0d88e58ad0aaa3fd68743389cd773e97" kindref="member">PRG_SEQ_SYM_13</ref><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282" refid="group__mipi__tx__phy_1gga942227e869b75546d6f0778234dc4885a0d88e58ad0aaa3fd68743389cd773e97" refkind="member"><highlight class="normal">}<sp/><ref refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kindref="member">XMipi_Tx_Phy_ProgSeq</ref>;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="291" refid="struct_x_mipi___tx___phy___config" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;<sp/></highlight></codeline>
+<codeline lineno="292" refid="struct_x_mipi___tx___phy___config_1a5bdd800e8eafa114f68734d96ab786e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;<sp/></highlight></codeline>
+<codeline lineno="293" refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsDphy;<sp/></highlight></codeline>
+<codeline lineno="294" refid="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsRegisterPresent;<sp/></highlight></codeline>
+<codeline lineno="295" refid="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MaxLanesPresent;<sp/></highlight></codeline>
+<codeline lineno="296" refid="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsDynamicLineRate;<sp/></highlight></codeline>
+<codeline lineno="297" refid="struct_x_mipi___tx___phy___config_1a31bfb6dff5f914a09f7c6307a704f063" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EscClkPeriod;<sp/></highlight></codeline>
+<codeline lineno="298" refid="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EscTimeout;<sp/></highlight></codeline>
+<codeline lineno="299" refid="struct_x_mipi___tx___phy___config_1ae35a91c9d0b588fb1bb2a0d7ee84f5f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HSLineRate;<sp/></highlight></codeline>
+<codeline lineno="300" refid="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HSTimeOut;<sp/></highlight></codeline>
+<codeline lineno="301" refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LPXPeriod;<sp/></highlight></codeline>
+<codeline lineno="302" refid="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StableClkPeriod;<sp/></highlight></codeline>
+<codeline lineno="303" refid="struct_x_mipi___tx___phy___config_1ad0140549c6ec552c206c85fe55397212" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref>;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="312" refid="struct_x_mipi___tx___phy" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>Config;<sp/></highlight></codeline>
+<codeline lineno="313" refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsReady;<sp/></highlight></codeline>
+<codeline lineno="314" refid="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref>;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xmipi_tx_phy_sinit.c<sp/>*/</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>*<ref refid="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" kindref="member">XMipi_Tx_Phy_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>xmipi_tx_phy.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" kindref="member">XMipi_Tx_Phy_CfgInitialize</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga0edf3de0af6e081ab9ec6ba03bcb029d" kindref="member">XMipi_Tx_Phy_Configure</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Handle,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" kindref="member">XMipi_Tx_Phy_GetInfo</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Handle);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__tx__phy_1ga60dbd7f0c7cc211f6ed1e97c8c1dd8c0" kindref="member">XMipi_Tx_Phy_Reset</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__tx__phy_1ga0e324919c833e8a3044f5807a4e88a6f" kindref="member">XMipi_Tx_Phy_ClearDataLane</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga96324c0e81aae087966b15ed5478830e" kindref="member">XMipi_Tx_Phy_GetClkLaneStatus</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gaa1ad1388f716aaff8073d17268341007" kindref="member">XMipi_Tx_Phy_GetClkLaneMode</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga30186d35cb2a9a6e8c176a2e12b8fc3c" kindref="member">XMipi_Tx_Phy_GetDataLaneStatus</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">u16<sp/><ref refid="group__mipi__tx__phy_1gae03f90199460c27b38aca1a9eecd973c" kindref="member">XMipi_Tx_Phy_GetPacketCount</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">u8<sp/><ref refid="group__mipi__tx__phy_1gaf9e0be75428b66fe7d9f22b8b223e66b" kindref="member">XMipi_Tx_Phy_GetDLCalibStatus</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga921e82addba856d2b57c15ac8ace54eb" kindref="member">XMipi_Tx_Phy_GetDataLaneMode</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataLane);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mipi__tx__phy_1ga1ea4f73d453197f5d121170ae4db05c9" kindref="member">XMipi_Tx_Phy_Activate</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">u8<sp/><ref refid="group__mipi__tx__phy_1gad55317d23f56c8dd601c6970d5d6228e" kindref="member">XMipi_Tx_Phy_GetRegIntfcPresent</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Dynamic<sp/>line<sp/>rate<sp/>configuration<sp/>in<sp/>xmipi_tx_phy.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga706c8c6b8813626eaccfa857577b4faa" kindref="member">XMipi_Tx_Phy_DynamicLineRateConfig</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>PllBaseAddr,<sp/>u32<sp/>LineRate);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>X5PLL<sp/>configuration<sp/>in<sp/>xmipi_tx_phy_xpll.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga3af918938b33b8ea21f8d5e46cdce3c6" kindref="member">XMipi_Tx_Phy_XPllConfig</ref>(UINTPTR<sp/>PllBaseAddr,<sp/>u32<sp/>LineRate);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>MMCM<sp/>configuration<sp/>in<sp/>xmipi_tx_phy_mmcm.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gaa3cd46b8e0504cbac709b71bf162ea32" kindref="member">XMipi_Tx_Phy_MmcmConfig</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/>u32<sp/>LineRate);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gaec98ba503ea55bbc246f55633031cce5" kindref="member">XMipi_Tx_Phy_Prog_Seq_Data</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kindref="member">XMipi_Tx_Phy_ProgSeq</ref><sp/>bitpos,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga83eeee796bbf6191c38c715f586fe653" kindref="member">XMipi_Tx_Phy_Get_Seq_Data</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr,<sp/><ref refid="group__mipi__tx__phy_1ga942227e869b75546d6f0778234dc4885" kindref="member">XMipi_Tx_Phy_ProgSeq</ref><sp/>bitpos);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga5c275c8e3a30477d7ff543a063e51092" kindref="member">XMipi_Tx_Phy_En_Prog_Seq_Ctrl</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga7f6c18e9dd2eef7c55eef23816c6dbe4" kindref="member">XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1gafb2a651e2b9700aa1052e69b04187b1a" kindref="member">XMipi_Tx_Phy_Get_Prog_Seq_Ctrl</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Self<sp/>test<sp/>function<sp/>in<sp/>xcsiss_selftest.c<sp/>*/</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">u32<sp/><ref refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" kindref="member">XMipi_Tx_Phy_SelfTest</ref>(<ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h"/>
   </compounddef>
 </doxygen>

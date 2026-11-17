@@ -2,28 +2,259 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_mmi_dp___config" kind="struct" prot="public">
     <compoundname>XMmiDp_Config</compoundname>
+    <includes local="no">xmmidp.h</includes>
       <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a867763d33c068b613bb88bd60c9cc6b0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XMmiDp_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>compatible </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gac208ef2307d56ac04e68c5402b5b278e" compoundref="xmmidp__phy_8c" startline="1606" endline="1621">XMmiDp_CfgInitialize</referencedby>
+      </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" prot="public" static="no" mutable="no">
         <type>u32</type>
         <definition>u32 XMmiDp_Config::BaseAddr</definition>
         <argsstring></argsstring>
         <name>BaseAddr</name>
         <briefdescription>
-        </briefdescription>
+<para>reg (DP core base) </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gaffa1e3278dc104d51598c908d72c25b7" compoundref="xmmidp__phy_8c" startline="444" endline="464">XMmiDp_AuxSoftReset</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gac208ef2307d56ac04e68c5402b5b278e" compoundref="xmmidp__phy_8c" startline="1606" endline="1621">XMmiDp_CfgInitialize</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gad9754b10ec09c4a56d928cd8471c0ae8" compoundref="xmmidp__intr_8c" startline="42" endline="53">XMmiDp_ClearGeneralHpdEvent</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga8395176062765d2ce0129595146ccdc4" compoundref="xmmidp__stream_8c" startline="200" endline="218">XMmiDp_ClearMsaValues</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gac6ccb66a7196a25e1b548f9ddc8e1623" compoundref="xmmidp__stream_8c" startline="233" endline="250">XMmiDp_ClearVideoConfigValues</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf96484fca7e609f5fbf0c19e6f3f0eb0" compoundref="xmmidp__phy_8c" startline="411" endline="431">XMmiDp_CoreSoftResetAll</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga5dab35dcbbeb3de888b5eb30208af90c" compoundref="xmmidp__intr_8c" startline="114" endline="124">XMmiDp_GeneralInterruptDisable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga6ebd233236c66009d61247de41bb69bb" compoundref="xmmidp__intr_8c" startline="66" endline="76">XMmiDp_GeneralInterruptEnable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga8c43b5a33dff29be895b4e58c810285c" compoundref="xmmidp__intr_8c" startline="325" endline="390">XMmiDp_GeneralInterruptHandler</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga7cfd65b23a054d8824a30bf6dbb6d180" compoundref="xmmidp__intr_8c" startline="138" endline="148">XMmiDp_HpdInterruptDisable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga5b83c2480de23efa469ff14a2660bb24" compoundref="xmmidp__intr_8c" startline="90" endline="100">XMmiDp_HpdInterruptEnable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga3a1716c1aca49a915c57d0f3ddfbb57a" compoundref="xmmidp__intr_8c" startline="251" endline="310">XMmiDp_HpdInterruptHandler</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gad828e78a21d5b2700e1318b80116e71c" compoundref="xmmidp__phy_8c" startline="1567" endline="1593">XMmiDp_IsConnected</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga75d6b1acab7dbdcf0603054c287cc506" compoundref="xmmidp__phy_8c" startline="1685" endline="1712">XMmiDp_PhySoftReset</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga98fc24f84370a48e2cad677269274f47" compoundref="xmmidp__phy_8c" startline="1636" endline="1671">XMmiDp_PhyWaitReady</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga17587910f82d3b484ea19be728e228ce" compoundref="xmmidp__phy_8c" startline="856" endline="867">XMmiDp_RegReadModifyWrite</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gad4553e478558bc70246a73bc49d43799" compoundref="xmmidp__intr_8c" startline="404" endline="414">XMmiDp_SdpStatusInterruptEnable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gafc127205d8d8485a2f9265af632f7b7b" compoundref="xmmidp__stream_8c" startline="1030" endline="1061">XMmiDp_SetAudioConfig1</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga47ed0b4f27fb0badafec87dddca81df3" compoundref="xmmidp__phy_8c" startline="1940" endline="1945">XMmiDp_SetAux_100000Us_Cnt_Limit</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gac08c9347c5b9c108aa9f34221256a225" compoundref="xmmidp__phy_8c" startline="1919" endline="1925">XMmiDp_SetAux_2000Us_Cnt_Limit</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaa5dc71e26942b66fa2b182eb7401f7e1" compoundref="xmmidp__phy_8c" startline="1898" endline="1904">XMmiDp_SetAux_250Us_Cnt_Limit</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gabd2a67461b0e2fc53ee3ffef555012f7" compoundref="xmmidp__stream_8c" startline="1792" endline="1828">XMmiDp_SetCoreCtrl</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga9a34472a236811021fe3a34707b58aad" compoundref="xmmidp__stream_8c" startline="627" endline="645">XMmiDp_SetHBlankInterval</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gafa8478cbb478e7f747bf349036c0a57b" compoundref="xmmidp__stream_8c" startline="2044" endline="2051">XMmiDp_SetMstVcpTable0</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gab0db01fc7bfb342aeaae108aa5713cd9" compoundref="xmmidp__stream_8c" startline="2061" endline="2068">XMmiDp_SetMstVcpTable1</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf61775c748969ab49da45878a13f570c" compoundref="xmmidp__stream_8c" startline="2078" endline="2085">XMmiDp_SetMstVcpTable2</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaee46023e52b329a8e2c75792b63cbe94" compoundref="xmmidp__stream_8c" startline="2095" endline="2102">XMmiDp_SetMstVcpTable3</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gab1b7f36baf43753364030a5d48f72422" compoundref="xmmidp__stream_8c" startline="2112" endline="2119">XMmiDp_SetMstVcpTable4</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gada5251011126752b3de698748c92babc" compoundref="xmmidp__stream_8c" startline="2129" endline="2136">XMmiDp_SetMstVcpTable5</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga76a4789509ab3fd33768a3b31ffe0bd4" compoundref="xmmidp__stream_8c" startline="2146" endline="2153">XMmiDp_SetMstVcpTable6</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga9ace5b42b25dfcd87cd8303e721b5b02" compoundref="xmmidp__stream_8c" startline="2163" endline="2170">XMmiDp_SetMstVcpTable7</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga94ea5d18a9840a52eb740c92f564b77f" compoundref="xmmidp__phy_8c" startline="1960" endline="1966">XMmiDp_SetPmConfig1</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga8059d2320ca0639377be58174b7eb2ee" compoundref="xmmidp__phy_8c" startline="1981" endline="1987">XMmiDp_SetPmConfig2</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga035d309d3fe1cfe261e5e005c0972b02" compoundref="xmmidp__stream_8c" startline="1477" endline="1521">XMmiDp_SetSdpConfig</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf339d0ff4a882b171fe3b26ed52d4ad1" compoundref="xmmidp__stream_8c" startline="1327" endline="1348">XMmiDp_SetSdpHorizontalCtrl</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga742d7fc4e69057b6f3a0e5737189b066" compoundref="xmmidp__stream_8c" startline="1203" endline="1228">XMmiDp_SetSdpVerticalCtrl</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga355fb08fbde6c72eade5548afe01e58d" compoundref="xmmidp__stream_8c" startline="301" endline="325">XMmiDp_SetVideoConfig1</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaef1e5b12c0b1806bf8bc89ab0871d73b" compoundref="xmmidp__stream_8c" startline="340" endline="360">XMmiDp_SetVideoConfig2</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga27ac96dc066a00ddd3b48992242a7732" compoundref="xmmidp__stream_8c" startline="375" endline="394">XMmiDp_SetVideoConfig3</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga3fcb2434b258c2b8a7ba4aade710beda" compoundref="xmmidp__stream_8c" startline="409" endline="428">XMmiDp_SetVideoConfig4</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaa08e15c146aeb60792b536b65b58cfe1" compoundref="xmmidp__stream_8c" startline="443" endline="469">XMmiDp_SetVideoConfig5</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga720c78810ed9d22eb618610fcf675cc3" compoundref="xmmidp__stream_8c" startline="522" endline="542">XMmiDp_SetVideoMsa1</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gacf6a099422a9cf0b0ab1190c541fdfb2" compoundref="xmmidp__stream_8c" startline="557" endline="577">XMmiDp_SetVideoMsa2</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gafe08f168f064e72139b1e7afd4da21ee" compoundref="xmmidp__stream_8c" startline="592" endline="612">XMmiDp_SetVideoMsa3</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga82c1bab3957b10adaa4b6912835ffa69" compoundref="xmmidp__stream_8c" startline="265" endline="286">XMmiDp_SetVInputPolarityCtrl</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga8bed2da8294b29247f242b358e1b15b4" compoundref="xmmidp__stream_8c" startline="484" endline="507">XMmiDp_SetVSampleCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a8816b4fe51277d54f807e967b4b56f47" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XMmiDp_Config::RegNames</definition>
+        <argsstring></argsstring>
+        <name>RegNames</name>
+        <briefdescription>
+<para>reg-names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a8b4dbb13f745e543dd2d161c440e3540" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>interrupts </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a550cef9b76ae4cd6c5c0fd5d0e7297b1" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XMmiDp_Config::IntrNames</definition>
+        <argsstring></argsstring>
+        <name>IntrNames</name>
+        <briefdescription>
+<para>interrupt-names </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a218ce2f906fccc85d1924b9cbbf7e24b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>interrupt-parent </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a6d22b90119d7f52c8e0c28ee2472ca55" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::Ports</definition>
+        <argsstring></argsstring>
+        <name>Ports</name>
+        <briefdescription>
+<para>ports (placeholder) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a8f4e092e24ed19b9fc85d77353b09754" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::Hdcp1x</definition>
+        <argsstring></argsstring>
+        <name>Hdcp1x</name>
+        <briefdescription>
+<para>xlnx,hdcp-1x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a5d4a8c1babb87bc7e207aa5a2b1b3e71" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::Hdcp2x</definition>
+        <argsstring></argsstring>
+        <name>Hdcp2x</name>
+        <briefdescription>
+<para>xlnx,hdcp-2x </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a19b40ab93b913e874598ac2d20c813b2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::MstModeEn</definition>
+        <argsstring></argsstring>
+        <name>MstModeEn</name>
+        <briefdescription>
+<para>xlnx,mst-mode-en: 1=MST design, 0=SST-only </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gac208ef2307d56ac04e68c5402b5b278e" compoundref="xmmidp__phy_8c" startline="1606" endline="1621">XMmiDp_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1ad393a5fc6852b5ab2848a66e12649fec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::DptxStreams</definition>
+        <argsstring></argsstring>
+        <name>DptxStreams</name>
+        <briefdescription>
+<para>xlnx,dptx-streams </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a45472f9f26b7fb195052b3530aa1a306" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::DptxPixelMode</definition>
+        <argsstring></argsstring>
+        <name>DptxPixelMode</name>
+        <briefdescription>
+<para>xlnx,dptx-pixel-mode </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a4aea32216de18f9739a580338024d539" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::DpLanes</definition>
+        <argsstring></argsstring>
+        <name>DpLanes</name>
+        <briefdescription>
+<para>xlnx,dp-lanes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___config_1a8c041f28dd5cbd4eca22e7bbc0162541" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_Config::Phys</definition>
+        <argsstring></argsstring>
+        <name>Phys</name>
+        <briefdescription>
+<para>phys (placeholder) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Populated from SDT / BSP-generated xmmidp_g.c (field order matches mmidp.yaml). </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="36" bodyend="38"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="41" bodyend="56"/>
     <listofallmembers>
       <member refid="struct_x_mmi_dp___config_1a3655c7d91c60c96d27e621804f8b3ca5" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_mmi_dp___config_1a4aea32216de18f9739a580338024d539" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>DpLanes</name></member>
+      <member refid="struct_x_mmi_dp___config_1a45472f9f26b7fb195052b3530aa1a306" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>DptxPixelMode</name></member>
+      <member refid="struct_x_mmi_dp___config_1ad393a5fc6852b5ab2848a66e12649fec" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>DptxStreams</name></member>
+      <member refid="struct_x_mmi_dp___config_1a8f4e092e24ed19b9fc85d77353b09754" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>Hdcp1x</name></member>
+      <member refid="struct_x_mmi_dp___config_1a5d4a8c1babb87bc7e207aa5a2b1b3e71" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>Hdcp2x</name></member>
+      <member refid="struct_x_mmi_dp___config_1a8b4dbb13f745e543dd2d161c440e3540" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_mmi_dp___config_1a550cef9b76ae4cd6c5c0fd5d0e7297b1" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>IntrNames</name></member>
+      <member refid="struct_x_mmi_dp___config_1a218ce2f906fccc85d1924b9cbbf7e24b" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_mmi_dp___config_1a19b40ab93b913e874598ac2d20c813b2" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>MstModeEn</name></member>
+      <member refid="struct_x_mmi_dp___config_1a867763d33c068b613bb88bd60c9cc6b0" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>Name</name></member>
+      <member refid="struct_x_mmi_dp___config_1a8c041f28dd5cbd4eca22e7bbc0162541" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>Phys</name></member>
+      <member refid="struct_x_mmi_dp___config_1a6d22b90119d7f52c8e0c28ee2472ca55" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>Ports</name></member>
+      <member refid="struct_x_mmi_dp___config_1a8816b4fe51277d54f807e967b4b56f47" prot="public" virt="non-virtual"><scope>XMmiDp_Config</scope><name>RegNames</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

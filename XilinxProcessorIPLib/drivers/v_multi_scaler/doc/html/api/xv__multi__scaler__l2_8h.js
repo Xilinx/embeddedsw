@@ -25,7 +25,21 @@ var xv__multi__scaler__l2_8h =
       [ "XV_MULTI_SCALER_Y10", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa5139191690a36c85da65c4d9c2b47180", null ],
       [ "XV_MULTI_SCALER_BGRX8", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa202daf2b5f5135c8c2ee85659bfb5b6d", null ],
       [ "XV_MULTI_SCALER_UYVY8", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa15098ce5516a5f26c5a6a925fd0bcd45", null ],
-      [ "XV_MULTI_SCALER_BGR8", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fabcd0a8432d9def50a7a7614b9417f8c3", null ]
+      [ "XV_MULTI_SCALER_BGR8", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fabcd0a8432d9def50a7a7614b9417f8c3", null ],
+      [ "XV_MULTI_SCALER_Y_U_V8", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa9235de123b288e3a4edcb9d1e04e7257", null ],
+      [ "XV_MULTI_SCALER_Y_U_V10", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa4ff60355838295c3079a3a0d19f5d4f8", null ],
+      [ "XV_MULTI_SCALER_Y_U_V12", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa5505f658cb3a4c66330af65a4681850e", null ],
+      [ "XV_MULTI_SCALER_Y_UV12", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa132bcc0e7290c4e6b32ee81dcdce215d", null ],
+      [ "XV_MULTI_SCALER_Y_UV12_420", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fadc8a30bd5696f5f13eb22b2827c34ff1", null ],
+      [ "XV_MULTI_SCALER_Y12", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa56c8c1491bc0d1823c8ad85971f70f54", null ],
+      [ "XV_MULTI_SCALER_Y_U_V10_L16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61faf89b682407b207baba052b2ecdf054bf", null ],
+      [ "XV_MULTI_SCALER_Y_U_V10_M16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61faad7130b9a409bdb3a14aaf3af0b7f0b6", null ],
+      [ "XV_MULTI_SCALER_Y_U_V12_L16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61faaec3fb048c2f39276e521117153fea5a", null ],
+      [ "XV_MULTI_SCALER_Y_U_V12_M16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa419ddbdc42f07ae48eb5cf3a87292df7", null ],
+      [ "XV_MULTI_SCALER_Y10_L16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa3b78d41a09382b792349e6e7fe866280", null ],
+      [ "XV_MULTI_SCALER_Y10_M16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa41b065425622d72d9fd2c83738abd34e", null ],
+      [ "XV_MULTI_SCALER_Y12_L16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa1b912d5ff9bd502ba7e6dfae912aae72", null ],
+      [ "XV_MULTI_SCALER_Y12_M16LE", "xv__multi__scaler__l2_8h.html#ggaf85fcd2b60ace85961e0abdb589ad61fa693944e3b786b5c342d8238dc938d0a3", null ]
     ] ],
     [ "XV_MULTISCALER_TAPS", "xv__multi__scaler__l2_8h.html#ga287ce7aabbab2249b8159862dceee51b", [
       [ "XV_MULTISCALER_TAPS_6", "xv__multi__scaler__l2_8h.html#gga287ce7aabbab2249b8159862dceee51baec9b4df9ca632e243f88ac5c8958110f", null ],

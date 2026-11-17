@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpio__l_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,26 +105,51 @@ $(document).ready(function(){initNavTree('xgpio__l_8h.html','');});
 <div class="title">xgpio_l.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Provides low-level identifiers and driver functions for GPIO access. </p>
+<p>This header file contains identifiers and driver functions (or macros) that can be used to access the device. Refer to the hardware device specification for more details of the device operation.</p>
+<p>The macros that are available in this file use a multiply to calculate the addresses of registers. You can control whether that multiply is done at run time or at compile time. A constant passed as the channel parameter causes the multiply to be done at compile time. A variable passed as the channel parameter causes it to occur at run time.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a jhl  04/24/02 First release of low level driver
+2.00a jhl  11/26/03 Added support for dual channels and interrupts. This
+                    change required the functions to be changed such that
+                    the interface is not compatible with previous versions.
+                    See the examples in the example directory for macros
+                    to help compile an application that was designed for
+                    previous versions of the driver. The interrupt registers
+                    are accessible using the ReadReg and WriteReg macros and
+                    a channel parameter was added to the other macros.
+2.11a mta  03/21/07 Updated to new coding style
+2.12a sv   11/21/07 Updated driver to support access through DCR bus.
+3.00a sv   11/21/09 Renamed the macros XGpio_mWriteReg to XGpio_WriteReg
+              XGpio_mReadReg to XGpio_ReadReg.
+              Removed the macros XGpio_mSetDataDirection,
+              XGpio_mGetDataReg and XGpio_mSetDataReg. Users
+              should use XGpio_WriteReg/XGpio_ReadReg to achieve the
+              same functionality.
+4.1  lks   11/18/15 Removed support for DCR bridge
+4.14  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gada15711b613febaabed053cffec66e57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#gada15711b613febaabed053cffec66e57">XGPIO_L_H</a></td></tr>
-<tr class="memdesc:gada15711b613febaabed053cffec66e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="group__gpio__api.html#gada15711b613febaabed053cffec66e57">More...</a><br/></td></tr>
-<tr class="separator:gada15711b613febaabed053cffec66e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8929998b33d1d66fe8eaa7f454a05ca6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga8929998b33d1d66fe8eaa7f454a05ca6">XGPIO_CHAN_OFFSET</a>&#160;&#160;&#160;8</td></tr>
-<tr class="memdesc:ga8929998b33d1d66fe8eaa7f454a05ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel offeset.  <a href="group__gpio__api.html#ga8929998b33d1d66fe8eaa7f454a05ca6">More...</a><br/></td></tr>
+<tr class="memdesc:ga8929998b33d1d66fe8eaa7f454a05ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel offset.  <a href="group__gpio__api.html#ga8929998b33d1d66fe8eaa7f454a05ca6">More...</a><br/></td></tr>
 <tr class="separator:ga8929998b33d1d66fe8eaa7f454a05ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaac0c290f448e3f86b01f5fcbaa2fff08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#gaac0c290f448e3f86b01f5fcbaa2fff08">XGpio_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
-<tr class="memdesc:gaac0c290f448e3f86b01f5fcbaa2fff08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Operations.  <a href="group__gpio__api.html#gaac0c290f448e3f86b01f5fcbaa2fff08">More...</a><br/></td></tr>
+<tr class="memdesc:gaac0c290f448e3f86b01f5fcbaa2fff08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input operations.  <a href="group__gpio__api.html#gaac0c290f448e3f86b01f5fcbaa2fff08">More...</a><br/></td></tr>
 <tr class="separator:gaac0c290f448e3f86b01f5fcbaa2fff08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d9bfd9cb86f240e7c57a6f9f0728ba7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga2d9bfd9cb86f240e7c57a6f9f0728ba7">XGpio_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
-<tr class="memdesc:ga2d9bfd9cb86f240e7c57a6f9f0728ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output Operations.  <a href="group__gpio__api.html#ga2d9bfd9cb86f240e7c57a6f9f0728ba7">More...</a><br/></td></tr>
+<tr class="memdesc:ga2d9bfd9cb86f240e7c57a6f9f0728ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output operations.  <a href="group__gpio__api.html#ga2d9bfd9cb86f240e7c57a6f9f0728ba7">More...</a><br/></td></tr>
 <tr class="separator:ga2d9bfd9cb86f240e7c57a6f9f0728ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2cd75ed11bd48af96704b073fa65ef22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga2cd75ed11bd48af96704b073fa65ef22">XGpio_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;<a class="el" href="group__gpio__api.html#ga2d9bfd9cb86f240e7c57a6f9f0728ba7">XGpio_Out32</a>((BaseAddress) + (RegOffset), (u32)(Data))</td></tr>
-<tr class="memdesc:ga2cd75ed11bd48af96704b073fa65ef22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a 32-bit write to a GPIO register.  <a href="group__gpio__api.html#ga2cd75ed11bd48af96704b073fa65ef22">More...</a><br/></td></tr>
+<tr class="memdesc:ga2cd75ed11bd48af96704b073fa65ef22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a 32-bit value to a GPIO register.  <a href="group__gpio__api.html#ga2cd75ed11bd48af96704b073fa65ef22">More...</a><br/></td></tr>
 <tr class="separator:ga2cd75ed11bd48af96704b073fa65ef22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7199da4092b92413af00c613c8cffa57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga7199da4092b92413af00c613c8cffa57">XGpio_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__gpio__api.html#gaac0c290f448e3f86b01f5fcbaa2fff08">XGpio_In32</a>((BaseAddress) + (RegOffset))</td></tr>
 <tr class="memdesc:ga7199da4092b92413af00c613c8cffa57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a value from a GPIO register.  <a href="group__gpio__api.html#ga7199da4092b92413af00c613c8cffa57">More...</a><br/></td></tr>
@@ -133,19 +158,19 @@ Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Register offsets for this device. </p>
 </div></td></tr>
 <tr class="memitem:ga1712704f3a009d03d0b3201c90259793"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga1712704f3a009d03d0b3201c90259793">XGPIO_DATA_OFFSET</a>&#160;&#160;&#160;0x0</td></tr>
-<tr class="memdesc:ga1712704f3a009d03d0b3201c90259793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data register for 1st channel.  <a href="group__gpio__api.html#ga1712704f3a009d03d0b3201c90259793">More...</a><br/></td></tr>
+<tr class="memdesc:ga1712704f3a009d03d0b3201c90259793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data register for first channel.  <a href="group__gpio__api.html#ga1712704f3a009d03d0b3201c90259793">More...</a><br/></td></tr>
 <tr class="separator:ga1712704f3a009d03d0b3201c90259793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafcefd582c52e56dc7c438a72dfa95546"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#gafcefd582c52e56dc7c438a72dfa95546">XGPIO_TRI_OFFSET</a>&#160;&#160;&#160;0x4</td></tr>
-<tr class="memdesc:gafcefd582c52e56dc7c438a72dfa95546"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O direction reg for 1st channel.  <a href="group__gpio__api.html#gafcefd582c52e56dc7c438a72dfa95546">More...</a><br/></td></tr>
+<tr class="memdesc:gafcefd582c52e56dc7c438a72dfa95546"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O direction register for first channel.  <a href="group__gpio__api.html#gafcefd582c52e56dc7c438a72dfa95546">More...</a><br/></td></tr>
 <tr class="separator:gafcefd582c52e56dc7c438a72dfa95546"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae85b884d1fb9ac4c874dd597b1a049b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#gae85b884d1fb9ac4c874dd597b1a049b6">XGPIO_DATA2_OFFSET</a>&#160;&#160;&#160;0x8</td></tr>
-<tr class="memdesc:gae85b884d1fb9ac4c874dd597b1a049b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data register for 2nd channel.  <a href="group__gpio__api.html#gae85b884d1fb9ac4c874dd597b1a049b6">More...</a><br/></td></tr>
+<tr class="memdesc:gae85b884d1fb9ac4c874dd597b1a049b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data register for second channel.  <a href="group__gpio__api.html#gae85b884d1fb9ac4c874dd597b1a049b6">More...</a><br/></td></tr>
 <tr class="separator:gae85b884d1fb9ac4c874dd597b1a049b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac881efa0580f36e99ab03230b26ca2e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#gac881efa0580f36e99ab03230b26ca2e2">XGPIO_TRI2_OFFSET</a>&#160;&#160;&#160;0xC</td></tr>
-<tr class="memdesc:gac881efa0580f36e99ab03230b26ca2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O direction reg for 2nd channel.  <a href="group__gpio__api.html#gac881efa0580f36e99ab03230b26ca2e2">More...</a><br/></td></tr>
+<tr class="memdesc:gac881efa0580f36e99ab03230b26ca2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O direction register for second channel.  <a href="group__gpio__api.html#gac881efa0580f36e99ab03230b26ca2e2">More...</a><br/></td></tr>
 <tr class="separator:gac881efa0580f36e99ab03230b26ca2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga389241f63fd0ce9af2c1f6dc0f69dcb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga389241f63fd0ce9af2c1f6dc0f69dcb3">XGPIO_GIE_OFFSET</a>&#160;&#160;&#160;0x11C</td></tr>
-<tr class="memdesc:ga389241f63fd0ce9af2c1f6dc0f69dcb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glogal interrupt enable register.  <a href="group__gpio__api.html#ga389241f63fd0ce9af2c1f6dc0f69dcb3">More...</a><br/></td></tr>
+<tr class="memdesc:ga389241f63fd0ce9af2c1f6dc0f69dcb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global interrupt enable register.  <a href="group__gpio__api.html#ga389241f63fd0ce9af2c1f6dc0f69dcb3">More...</a><br/></td></tr>
 <tr class="separator:ga389241f63fd0ce9af2c1f6dc0f69dcb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6cbde8210cb1476b67ca87eccacbc2ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga6cbde8210cb1476b67ca87eccacbc2ed">XGPIO_ISR_OFFSET</a>&#160;&#160;&#160;0x120</td></tr>
 <tr class="memdesc:ga6cbde8210cb1476b67ca87eccacbc2ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt status register.  <a href="group__gpio__api.html#ga6cbde8210cb1476b67ca87eccacbc2ed">More...</a><br/></td></tr>
@@ -160,13 +185,13 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga421755999f173a708b8254bb9cdc9b62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask of all bits.  <a href="group__gpio__api.html#ga421755999f173a708b8254bb9cdc9b62">More...</a><br/></td></tr>
 <tr class="separator:ga421755999f173a708b8254bb9cdc9b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga216177d9cad31a8fa22c4114c754f3ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga216177d9cad31a8fa22c4114c754f3ae">XGPIO_IR_CH1_MASK</a>&#160;&#160;&#160;0x1</td></tr>
-<tr class="memdesc:ga216177d9cad31a8fa22c4114c754f3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for the 1st channel.  <a href="group__gpio__api.html#ga216177d9cad31a8fa22c4114c754f3ae">More...</a><br/></td></tr>
+<tr class="memdesc:ga216177d9cad31a8fa22c4114c754f3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for the first channel.  <a href="group__gpio__api.html#ga216177d9cad31a8fa22c4114c754f3ae">More...</a><br/></td></tr>
 <tr class="separator:ga216177d9cad31a8fa22c4114c754f3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga202cdf1a14179cd31df27346a55dced4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga202cdf1a14179cd31df27346a55dced4">XGPIO_IR_CH2_MASK</a>&#160;&#160;&#160;0x2</td></tr>
-<tr class="memdesc:ga202cdf1a14179cd31df27346a55dced4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for the 2nd channel.  <a href="group__gpio__api.html#ga202cdf1a14179cd31df27346a55dced4">More...</a><br/></td></tr>
+<tr class="memdesc:ga202cdf1a14179cd31df27346a55dced4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for the second channel.  <a href="group__gpio__api.html#ga202cdf1a14179cd31df27346a55dced4">More...</a><br/></td></tr>
 <tr class="separator:ga202cdf1a14179cd31df27346a55dced4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Global Interrupt Enable Register bitmaps and masks</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Bit definitions for the Global Interrupt Enable register </p>
+<tr><td colspan="2"><div class="groupText"><p>Bit definitions for the Global Interrupt Enable register. </p>
 </div></td></tr>
 <tr class="memitem:ga0b576e472f8ad06f166d9107de3b0348"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga0b576e472f8ad06f166d9107de3b0348">XGPIO_GIE_GINTR_ENABLE_MASK</a>&#160;&#160;&#160;0x80000000</td></tr>
 <tr class="memdesc:ga0b576e472f8ad06f166d9107de3b0348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for Global Interrupt.  <a href="group__gpio__api.html#ga0b576e472f8ad06f166d9107de3b0348">More...</a><br/></td></tr>

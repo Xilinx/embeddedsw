@@ -13,6 +13,7 @@ var struct_x_ospi_psv =
     [ "OpMode", "struct_x_ospi_psv.html#abb16a8f44c9ec93487044060e9fb522e", null ],
     [ "RecvBufferPtr", "struct_x_ospi_psv.html#af9d2352cda8abe04913cfd09201e3cab", null ],
     [ "RxBytes", "struct_x_ospi_psv.html#ab006c89c9b2e2e9e3eddef303ed06054", null ],
+    [ "RxTuning", "struct_x_ospi_psv.html#a4216146221be743d0f024d1015f87d7b", null ],
     [ "SdrDdrMode", "struct_x_ospi_psv.html#acf4693770163d8061cd9eb4bdaa32605", null ],
     [ "SendBufferPtr", "struct_x_ospi_psv.html#afbb922b012156fcef71c375702c2d37b", null ],
     [ "StatusHandler", "struct_x_ospi_psv.html#a9bb551c6d2885989ab98be25e8794c5d", null ],

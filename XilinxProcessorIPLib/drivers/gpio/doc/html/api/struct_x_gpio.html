@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_gpio.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_gpio.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_gpio.html" title="The XGpio driver instance data. ">XGpio</a> driver instance data.
+<p>Holds the <a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a> driver instance data.
  <a href="struct_x_gpio.html#details">More...</a></p>
 
 <p><code>#include &lt;xgpio.h&gt;</code></p>
@@ -127,15 +127,15 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a3652328c3d29797110949baaaff300fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device is initialized and ready.  <a href="#a3652328c3d29797110949baaaff300fc">More...</a><br/></td></tr>
 <tr class="separator:a3652328c3d29797110949baaaff300fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd2357402ecaeff664407202ce6d9a81"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_gpio.html#acd2357402ecaeff664407202ce6d9a81">InterruptPresent</a></td></tr>
-<tr class="memdesc:acd2357402ecaeff664407202ce6d9a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Are interrupts supported in h/w.  <a href="#acd2357402ecaeff664407202ce6d9a81">More...</a><br/></td></tr>
+<tr class="memdesc:acd2357402ecaeff664407202ce6d9a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether interrupts are supported in hardware.  <a href="#acd2357402ecaeff664407202ce6d9a81">More...</a><br/></td></tr>
 <tr class="separator:acd2357402ecaeff664407202ce6d9a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af688ddb928355a5f70748b97ec4aa593"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_gpio.html#af688ddb928355a5f70748b97ec4aa593">IsDual</a></td></tr>
-<tr class="memdesc:af688ddb928355a5f70748b97ec4aa593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Are 2 channels supported in h/w.  <a href="#af688ddb928355a5f70748b97ec4aa593">More...</a><br/></td></tr>
+<tr class="memdesc:af688ddb928355a5f70748b97ec4aa593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether two channels are supported in hardware.  <a href="#af688ddb928355a5f70748b97ec4aa593">More...</a><br/></td></tr>
 <tr class="separator:af688ddb928355a5f70748b97ec4aa593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_gpio.html" title="The XGpio driver instance data. ">XGpio</a> driver instance data. </p>
-<p>The user is required to allocate a variable of this type for every GPIO device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
+<div class="textblock"><p>Holds the <a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a> driver instance data. </p>
+<p>Allocate a variable of this type for every GPIO device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="ad4f1e3dea77b3d89d4c67b61516eabfe"></a>
 <div class="memitem">
@@ -163,7 +163,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Are interrupts supported in h/w. </p>
+<p>Indicates whether interrupts are supported in hardware. </p>
 
 <p>Referenced by <a class="el" href="group__gpio__api.html#gaf76e70c9ddd0dc3966123c09646d880c">XGpio_CfgInitialize()</a>, <a class="el" href="group__gpio__api.html#ga5138b55159f8b2387f5cf16079b40bbe">XGpio_InterruptClear()</a>, <a class="el" href="group__gpio__api.html#ga21c295f935fdc4e37c9f958b3652fbf6">XGpio_InterruptDisable()</a>, <a class="el" href="group__gpio__api.html#gaa5b62394f65ecbb6566d91412616509c">XGpio_InterruptEnable()</a>, <a class="el" href="group__gpio__api.html#ga1e5e23001aa3d35febe4859270ede71e">XGpio_InterruptGetEnabled()</a>, <a class="el" href="group__gpio__api.html#ga95b0fa50ff962243ea284a4a767fe01e">XGpio_InterruptGetStatus()</a>, <a class="el" href="group__gpio__api.html#ga6241d0ae28815c258bb89a61ce0a6366">XGpio_InterruptGlobalDisable()</a>, and <a class="el" href="group__gpio__api.html#ga116bf1509220aa688f76f80501eb0d9e">XGpio_InterruptGlobalEnable()</a>.</p>
 
@@ -179,7 +179,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Are 2 channels supported in h/w. </p>
+<p>Indicates whether two channels are supported in hardware. </p>
 
 <p>Referenced by <a class="el" href="group__gpio__api.html#gaf76e70c9ddd0dc3966123c09646d880c">XGpio_CfgInitialize()</a>, <a class="el" href="group__gpio__api.html#gae430718af9f347c91be42aad580b216c">XGpio_DiscreteClear()</a>, <a class="el" href="group__gpio__api.html#gaed95c58f21d567fca624f9f51cb25e20">XGpio_DiscreteRead()</a>, <a class="el" href="group__gpio__api.html#ga8f2cea7ef78412c03c7ebdba87b7cdd4">XGpio_DiscreteSet()</a>, <a class="el" href="group__gpio__api.html#gae188a28725318c991ac45afb2452ad9b">XGpio_DiscreteWrite()</a>, <a class="el" href="group__gpio__api.html#ga77090853c15dc3d72e2bfbc66e635ada">XGpio_GetDataDirection()</a>, and <a class="el" href="group__gpio__api.html#gabee6bcad28382ef5ecd336887647c238">XGpio_SetDataDirection()</a>.</p>
 

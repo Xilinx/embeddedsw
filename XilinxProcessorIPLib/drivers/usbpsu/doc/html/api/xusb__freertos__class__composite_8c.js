@@ -14,5 +14,6 @@ var xusb__freertos__class__composite_8c =
     [ "Usb_KeyboardClassReq", "xusb__freertos__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66", null ],
     [ "Usb_ResetHandler", "xusb__freertos__class__composite_8c.html#af5e188c4250382b042768893417ab321", null ],
     [ "Usb_SetIntf", "xusb__freertos__class__composite_8c.html#acd0aa2711cb840f03df965a2c16dfebf", null ],
-    [ "Usb_StorageClassReq", "xusb__freertos__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318", null ]
+    [ "Usb_StorageClassReq", "xusb__freertos__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318", null ],
+    [ "DetachCounter", "xusb__freertos__class__composite_8c.html#ac22d379a546e0b0416abad664966a381", null ]
 ];

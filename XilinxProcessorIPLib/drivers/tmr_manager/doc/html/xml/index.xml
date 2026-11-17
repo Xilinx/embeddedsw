@@ -74,7 +74,7 @@
     <member refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" kind="function"><name>XTMR_Manager_GetStats</name></member>
     <member refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" kind="function"><name>XTMR_Manager_ClearStats</name></member>
     <member refid="group___overview_1gabc6863b91093c3c17f37d2c888c8540c" kind="function"><name>XTMR_Manager_SemCommand</name></member>
-    <member refid="group___overview_1ga3712c905face19b5734a4807ad5e2814" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
+    <member refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
     <member refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" kind="function"><name>XTMR_Manager_DisableInterrupt</name></member>
     <member refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" kind="function"><name>XTMR_Manager_SetHandler</name></member>
     <member refid="group___overview_1gad5a70c2dc4f54f69f80a13b972b6d8d3" kind="function"><name>XTMR_Manager_SelfTest</name></member>
@@ -88,12 +88,11 @@
     <member refid="group___overview_1gabeb554e9f74397f104b26f0cd6fef0ee" kind="variable"><name>XTMR_Manager_ConfigTable</name></member>
   </compound>
   <compound refid="xtmr__manager__intr_8c" kind="file"><name>xtmr_manager_intr.c</name>
-    <member refid="group___overview_1gab0ab64d8a9b6be8268492f2850afe5e5" kind="typedef"><name>Handler</name></member>
     <member refid="group___overview_1ga0549584f56b0116cccfd225c0727b2ef" kind="function"><name>SemInterruptHandler</name></member>
     <member refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" kind="function"><name>XTMR_Manager_SetHandler</name></member>
     <member refid="group___overview_1ga8f61f159bf5788b191d818190b890673" kind="function"><name>XTMR_Manager_InterruptHandler</name></member>
     <member refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" kind="function"><name>XTMR_Manager_DisableInterrupt</name></member>
-    <member refid="group___overview_1ga3712c905face19b5734a4807ad5e2814" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
+    <member refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
   </compound>
   <compound refid="xtmr__manager__intr__example_8c" kind="file"><name>xtmr_manager_intr_example.c</name>
     <member refid="xtmr__manager__intr__example_8c_1a3dca0d3ef7d65a2a9072f81795e02926" kind="define"><name>TMR_MANAGER_DEVICE_ID</name></member>
@@ -222,10 +221,9 @@
     <member refid="xtmr__manager__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xtmr__manager__sem_8c" kind="file"><name>xtmr_manager_sem.c</name>
-    <member refid="group___overview_1gac6c404bd462baf5f9bf9275775a0eedc" kind="typedef"><name>Handler</name></member>
     <member refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" kind="function"><name>XTMR_Manager_SetHandler</name></member>
     <member refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" kind="function"><name>XTMR_Manager_DisableInterrupt</name></member>
-    <member refid="group___overview_1ga3712c905face19b5734a4807ad5e2814" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
+    <member refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
   </compound>
   <compound refid="xtmr__manager__sinit_8c" kind="file"><name>xtmr_manager_sinit.c</name>
     <member refid="group___overview_1ga19df82d2bc220d9855e5eaed3fc42b67" kind="function"><name>XTMR_Manager_LookupConfig</name></member>
@@ -237,8 +235,6 @@
   </compound>
   <compound refid="group___overview" kind="group"><name>Overview</name>
     <member refid="group___overview_1ga8c9619c50a362b87f1d210c31ef76d15" kind="typedef"><name>XTMR_Manager_Handler</name></member>
-    <member refid="group___overview_1gab0ab64d8a9b6be8268492f2850afe5e5" kind="typedef"><name>Handler</name></member>
-    <member refid="group___overview_1gac6c404bd462baf5f9bf9275775a0eedc" kind="typedef"><name>Handler</name></member>
     <member refid="group___overview_1gad24de1aa423a2db29d027fd88f97845c" kind="variable"><name>XTMR_Manager_ConfigTable</name></member>
     <member refid="group___overview_1gabeb554e9f74397f104b26f0cd6fef0ee" kind="variable"><name>XTMR_Manager_ConfigTable</name></member>
     <member refid="group___overview_1ga85f3e7ec943dcdab41e29acac0f79990" kind="variable"><name>XTMR_Manager_StackPointer</name></member>
@@ -257,7 +253,7 @@
     <member refid="group___overview_1ga97c7f0c8ee8e35d6358f7e93aaacb6c2" kind="function"><name>XTMR_Manager_GetStats</name></member>
     <member refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" kind="function"><name>XTMR_Manager_ClearStats</name></member>
     <member refid="group___overview_1gabc6863b91093c3c17f37d2c888c8540c" kind="function"><name>XTMR_Manager_SemCommand</name></member>
-    <member refid="group___overview_1ga3712c905face19b5734a4807ad5e2814" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
+    <member refid="group___overview_1gaae4460868ab0d9ac0f28f4eba203a68a" kind="function"><name>XTMR_Manager_EnableInterrupt</name></member>
     <member refid="group___overview_1gabd9c760a09f6060be524c4724149aeb1" kind="function"><name>XTMR_Manager_DisableInterrupt</name></member>
     <member refid="group___overview_1ga6dc411afbbc8a1bd33eb216be609b57b" kind="function"><name>XTMR_Manager_SetHandler</name></member>
     <member refid="group___overview_1gad5a70c2dc4f54f69f80a13b972b6d8d3" kind="function"><name>XTMR_Manager_SelfTest</name></member>

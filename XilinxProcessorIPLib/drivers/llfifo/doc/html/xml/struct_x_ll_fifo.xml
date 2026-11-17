@@ -10,20 +10,18 @@
         <argsstring></argsstring>
         <name>BaseAddress</name>
         <briefdescription>
-<para><verbatim>BaseAddress is the physical base address of the
-</verbatim> device&apos;s registers </para>        </briefdescription>
+<para>Physical base address of the device registers. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="193" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
-        <referencedby refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</referencedby>
-        <referencedby refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</referencedby>
-        <referencedby refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</referencedby>
-        <referencedby refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</referencedby>
-        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="433" endline="471">XLlFifo_Initialize</referencedby>
+        <referencedby refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="133" endline="139">XLlFifo_iRxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="108" endline="114">XLlFifo_iRxOccupancy</referencedby>
+        <referencedby refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="232" endline="238">XLlFifo_iTxSetLen</referencedby>
+        <referencedby refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="208" endline="214">XLlFifo_iTxVacancy</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -36,9 +34,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="197" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="433" endline="471">XLlFifo_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -46,15 +44,14 @@
         <argsstring></argsstring>
         <name>Axi4BaseAddress</name>
         <briefdescription>
-<para><verbatim> BaseAddress if the FIFO Data interface is
-</verbatim> AXI4 this address should use for FIFO access </para>        </briefdescription>
+<para>AXI4 FIFO data-path base address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="201" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="433" endline="471">XLlFifo_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -62,15 +59,15 @@
         <argsstring></argsstring>
         <name>Datainterface</name>
         <briefdescription>
-<para>Data interface of the FIFO. </para>        </briefdescription>
+<para>Zero if the data interface is AXI4-Lite. </para>        </briefdescription>
         <detaileddescription>
-<para>This value is zero if the Datainterface is AXI4-lite. </para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="205" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
-        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="388" endline="396">XLlFifo_RxGetWord</referencedby>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="409" endline="418">XLlFifo_TxPutWord</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_strm___rx_fifo_streamer" kindref="compound">XStrm_RxFifoStreamer</ref></type>
@@ -83,9 +80,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="208" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="433" endline="471">XLlFifo_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_strm___tx_fifo_streamer" kindref="compound">XStrm_TxFifoStreamer</ref></type>
@@ -98,9 +95,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="211" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="433" endline="471">XLlFifo_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1a69af28eeb0077b9960d636cc57a646ae" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -113,9 +110,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="215" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="235" endline="339">XLlFifoInterruptExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ll_fifo_1a1b4a31737951ce9c8cc86d11d03616f4" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -128,15 +125,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="216" bodyend="-1"/>
-        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
-        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="316" endline="370">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="235" endline="339">XLlFifoInterruptExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef defines a run-time instance of an <ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> device. </para>    </briefdescription>
+<para>Defines the <ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> driver instance. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>This typedef defines a run-time instance of an <ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> device. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="3">
         <label>XStrm_TxFifoStreamer</label>
@@ -157,7 +154,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="192" bodyend="219"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="196" bodyend="218"/>
     <listofallmembers>
       <member refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" prot="public" virt="non-virtual"><scope>XLlFifo</scope><name>Axi4BaseAddress</name></member>
       <member refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" prot="public" virt="non-virtual"><scope>XLlFifo</scope><name>BaseAddress</name></member>

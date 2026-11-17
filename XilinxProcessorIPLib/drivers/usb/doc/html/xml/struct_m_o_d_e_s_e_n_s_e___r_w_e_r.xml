@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r" kind="struct" prot="public">
     <compoundname>MODESENSE_RWER</compoundname>
+    <includes local="no">xusb_storage.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a2562e0dd05e8e35a6182e8c32457f68a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,12 @@
         <argsstring></argsstring>
         <name>page_code</name>
         <briefdescription>
-        </briefdescription>
+<para>Page code for read/write error recovery. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="258" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="239" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a773494fc2bb04f677b6d335039ee3555" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +23,12 @@
         <argsstring></argsstring>
         <name>page_length</name>
         <briefdescription>
-        </briefdescription>
+<para>Page length in bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="259" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="240" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1abfea01f0303f4e7439cfc04b9ca94990" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +36,12 @@
         <argsstring></argsstring>
         <name>page_params</name>
         <briefdescription>
-        </briefdescription>
+<para>Error recovery parameters bitmask. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="260" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="241" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a0c2c580915ce6d08fb968687bd726415" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,12 +49,12 @@
         <argsstring></argsstring>
         <name>read_retry_count</name>
         <briefdescription>
-        </briefdescription>
+<para>Read retry count. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="261" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="242" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a46c978f50bc5e3281c5a0199bbf397c6" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +62,12 @@
         <argsstring>[4]</argsstring>
         <name>reserved_mb0</name>
         <briefdescription>
-        </briefdescription>
+<para>Reserved bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="262" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="243" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a01b055ec5b0dd7d3a67d1ae6b6d3e3ff" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,12 +75,12 @@
         <argsstring></argsstring>
         <name>write_retry_count</name>
         <briefdescription>
-        </briefdescription>
+<para>Write retry count. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="263" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="244" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a7ad04819055f33e8354a5a7f7e838011" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -87,12 +88,12 @@
         <argsstring></argsstring>
         <name>reserved_mb3</name>
         <briefdescription>
-        </briefdescription>
+<para>Reserved byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="264" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="245" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a4dc46fbdb4e793c32f37d4936ce2b39f" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,19 +101,19 @@
         <argsstring>[2]</argsstring>
         <name>recovery_limit</name>
         <briefdescription>
-        </briefdescription>
+<para>Recovery time limit in milliseconds. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="265" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="246" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>SCSI mode sense read-write error recovery page structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="257" bodyend="267"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="238" bodyend="248"/>
     <listofallmembers>
       <member refid="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a2562e0dd05e8e35a6182e8c32457f68a" prot="public" virt="non-virtual"><scope>MODESENSE_RWER</scope><name>page_code</name></member>
       <member refid="struct_m_o_d_e_s_e_n_s_e___r_w_e_r_1a773494fc2bb04f677b6d335039ee3555" prot="public" virt="non-virtual"><scope>MODESENSE_RWER</scope><name>page_length</name></member>

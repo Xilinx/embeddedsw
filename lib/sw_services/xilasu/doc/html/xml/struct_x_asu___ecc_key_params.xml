@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="130" bodyend="-1"/>
-        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="286">XAsu_EccValidatePubKey</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -29,35 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="131" bodyend="-1"/>
-        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="286">XAsu_EccValidatePubKey</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="struct_x_asu___ecc_key_params_1a0d0ce8eef9e2961c1b392c827d3caba7" prot="public" static="no" mutable="no">
-        <type>u32</type>
-        <definition>u32 XAsu_EccKeyParams::CurveType</definition>
-        <argsstring></argsstring>
-        <name>CurveType</name>
-        <briefdescription>
-<para>Type of curve. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="132" bodyend="-1"/>
-        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="286">XAsu_EccValidatePubKey</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="struct_x_asu___ecc_key_params_1a0fdc3fb597fbcf7afc9bfd2afb20478f" prot="public" static="no" mutable="no">
-        <type>u8</type>
-        <definition>u8 XAsu_EccKeyParams::Reserved[4]</definition>
-        <argsstring>[4]</argsstring>
-        <name>Reserved</name>
-        <briefdescription>
-<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="287">XAsu_EccValidatePubKey</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -65,24 +38,22 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="51">
+      <node id="54">
         <label>XAsu_EccKeyParams</label>
         <link refid="struct_x_asu___ecc_key_params"/>
-        <childnode refid="52" relation="usage">
+        <childnode refid="55" relation="usage">
           <edgelabel>PvtKey</edgelabel>
         </childnode>
       </node>
-      <node id="52">
+      <node id="55">
         <label>XAsu_EccKeyObject</label>
         <link refid="struct_x_asu___ecc_key_object"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="129" bodyend="134"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eccinfo.h" bodystart="139" bodyend="142"/>
     <listofallmembers>
-      <member refid="struct_x_asu___ecc_key_params_1a0d0ce8eef9e2961c1b392c827d3caba7" prot="public" virt="non-virtual"><scope>XAsu_EccKeyParams</scope><name>CurveType</name></member>
       <member refid="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" prot="public" virt="non-virtual"><scope>XAsu_EccKeyParams</scope><name>PubKeyAddr</name></member>
       <member refid="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" prot="public" virt="non-virtual"><scope>XAsu_EccKeyParams</scope><name>PvtKey</name></member>
-      <member refid="struct_x_asu___ecc_key_params_1a0fdc3fb597fbcf7afc9bfd2afb20478f" prot="public" virt="non-virtual"><scope>XAsu_EccKeyParams</scope><name>Reserved</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

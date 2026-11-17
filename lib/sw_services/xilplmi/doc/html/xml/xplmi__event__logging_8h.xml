@@ -17,580 +17,609 @@
     <includedby refid="net_2server_2xplmi__plat_8h" local="yes">xplmi_plat.h</includedby>
     <includedby refid="xplmi__plat__cmd_8c" local="yes">xplmi_plat_cmd.c</includedby>
     <incdepgraph>
-      <node id="1396">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi_event_logging.h"/>
-        <childnode refid="1397" relation="include">
-        </childnode>
-        <childnode refid="1400" relation="include">
-        </childnode>
-      </node>
-      <node id="1400">
+      <node id="1481">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="1401" relation="include">
+        <childnode refid="1482" relation="include">
         </childnode>
       </node>
-      <node id="1399">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="1401">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1397">
+      <node id="1478">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="1398" relation="include">
+        <childnode refid="1479" relation="include">
         </childnode>
-        <childnode refid="1399" relation="include">
+        <childnode refid="1480" relation="include">
         </childnode>
       </node>
-      <node id="1398">
+      <node id="1480">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1482">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1479">
         <label>xplmi_status.h</label>
+      </node>
+      <node id="1477">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi_event_logging.h"/>
+        <childnode refid="1478" relation="include">
+        </childnode>
+        <childnode refid="1481" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1437">
-        <label>xplmi_proc.c</label>
-        <link refid="xplmi__proc_8c"/>
-      </node>
-      <node id="1458">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="1403" relation="include">
-        </childnode>
-        <childnode refid="1431" relation="include">
-        </childnode>
-        <childnode refid="1432" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1413" relation="include">
-        </childnode>
-        <childnode refid="1437" relation="include">
-        </childnode>
-        <childnode refid="1449" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1419" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
-        </childnode>
-        <childnode refid="1430" relation="include">
-        </childnode>
-      </node>
-      <node id="1418">
-        <label>xplmi_plat.c</label>
-      </node>
-      <node id="1450">
-        <label>xplmi_plat.h</label>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1419" relation="include">
-        </childnode>
-      </node>
-      <node id="1447">
-        <label>xplmi_scheduler.c</label>
-        <link refid="xplmi__scheduler_8c"/>
-      </node>
-      <node id="1439">
-        <label>xplmi_asu_update.c</label>
-        <link refid="xplmi__asu__update_8c"/>
-      </node>
-      <node id="1434">
-        <label>xplmi_err.c</label>
-        <link refid="2vp__p_2server_2xplmi__err_8c"/>
-      </node>
-      <node id="1442">
-        <label>xplmi_err.h</label>
-        <link refid="2vp__p_2server_2xplmi__err_8h"/>
-        <childnode refid="1434" relation="include">
-        </childnode>
-      </node>
-      <node id="1422">
-        <label>xplmi_err.c</label>
-      </node>
-      <node id="1440">
-        <label>xplmi_err.h</label>
-        <childnode refid="1422" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-      </node>
-      <node id="1411">
-        <label>xplmi_event_logging.c</label>
-        <link refid="xplmi__event__logging_8c"/>
-      </node>
-      <node id="1402">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi_event_logging.h"/>
-        <childnode refid="1403" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1450" relation="include">
-        </childnode>
-        <childnode refid="1451" relation="include">
-        </childnode>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1452" relation="include">
-        </childnode>
-        <childnode refid="1426" relation="include">
-        </childnode>
-        <childnode refid="1453" relation="include">
-        </childnode>
-        <childnode refid="1454" relation="include">
-        </childnode>
-        <childnode refid="1428" relation="include">
-        </childnode>
-      </node>
-      <node id="1421">
-        <label>xplmi_asu_cmd.c</label>
-        <link refid="xplmi__asu__cmd_8c"/>
-      </node>
-      <node id="1413">
-        <label>xplmi_ipi.c</label>
-        <link refid="xplmi__ipi_8c"/>
-      </node>
-      <node id="1456">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="1457" relation="include">
-        </childnode>
-        <childnode refid="1406" relation="include">
-        </childnode>
-        <childnode refid="1413" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
-        </childnode>
-        <childnode refid="1428" relation="include">
-        </childnode>
-        <childnode refid="1429" relation="include">
-        </childnode>
-      </node>
-      <node id="1449">
-        <label>xplmi_task.c</label>
-        <link refid="xplmi__task_8c"/>
-      </node>
-      <node id="1407">
-        <label>xplmi_debug.c</label>
-        <link refid="xplmi__debug_8c"/>
-      </node>
-      <node id="1403">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="1404" relation="include">
-        </childnode>
-        <childnode refid="1406" relation="include">
-        </childnode>
-        <childnode refid="1436" relation="include">
-        </childnode>
-        <childnode refid="1444" relation="include">
-        </childnode>
-        <childnode refid="1445" relation="include">
-        </childnode>
-        <childnode refid="1407" relation="include">
-        </childnode>
-        <childnode refid="1432" relation="include">
-        </childnode>
-        <childnode refid="1408" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-        <childnode refid="1446" relation="include">
-        </childnode>
-        <childnode refid="1437" relation="include">
-        </childnode>
-        <childnode refid="1447" relation="include">
-        </childnode>
-        <childnode refid="1448" relation="include">
-        </childnode>
-        <childnode refid="1449" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1420" relation="include">
-        </childnode>
-        <childnode refid="1421" relation="include">
-        </childnode>
-        <childnode refid="1425" relation="include">
-        </childnode>
-        <childnode refid="1430" relation="include">
-        </childnode>
-      </node>
-      <node id="1414">
-        <label>xplmi_tamper.c</label>
-        <link refid="xplmi__tamper_8c"/>
-      </node>
-      <node id="1424">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="1452">
-        <label>xplmi_plat.h</label>
-        <link refid="2vp_2server_2xplmi__plat_8h"/>
-        <childnode refid="1424" relation="include">
-        </childnode>
-      </node>
-      <node id="1423">
-        <label>xplmi_plat.c</label>
-      </node>
-      <node id="1451">
-        <label>xplmi_plat.h</label>
-        <childnode refid="1422" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-      </node>
-      <node id="1448">
-        <label>xplmi_sysmon.c</label>
-        <link refid="xplmi__sysmon_8c"/>
-      </node>
-      <node id="1415">
+      <node id="1496">
         <label>xplmi_util.c</label>
         <link refid="xplmi__util_8c"/>
       </node>
-      <node id="1406">
-        <label>xplmi.c</label>
-        <link refid="xplmi_8c"/>
-      </node>
-      <node id="1426">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp__p_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="1405">
-        <label>xplmi.h</label>
-        <link refid="xplmi_8h"/>
-        <childnode refid="1406" relation="include">
-        </childnode>
-        <childnode refid="1407" relation="include">
-        </childnode>
-        <childnode refid="1408" relation="include">
-        </childnode>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1413" relation="include">
-        </childnode>
-        <childnode refid="1414" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1416" relation="include">
-        </childnode>
-        <childnode refid="1420" relation="include">
-        </childnode>
-        <childnode refid="1421" relation="include">
-        </childnode>
-        <childnode refid="1422" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1425" relation="include">
-        </childnode>
-        <childnode refid="1426" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
-        </childnode>
-        <childnode refid="1428" relation="include">
-        </childnode>
-        <childnode refid="1429" relation="include">
-        </childnode>
-        <childnode refid="1430" relation="include">
-        </childnode>
-      </node>
-      <node id="1453">
-        <label>xplmi_plat.h</label>
-        <link refid="2vp__p_2server_2xplmi__plat_8h"/>
-        <childnode refid="1426" relation="include">
-        </childnode>
-      </node>
-      <node id="1417">
+      <node id="1519">
         <label>xplmi_err.c</label>
       </node>
-      <node id="1438">
+      <node id="1527">
         <label>xplmi_err.h</label>
-        <childnode refid="1417" relation="include">
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
         </childnode>
       </node>
-      <node id="1432">
-        <label>xplmi_dma.c</label>
-        <link refid="xplmi__dma_8c"/>
+      <node id="1503">
+        <label>xplmi_asufw_keepalive.c</label>
+        <link refid="xplmi__asufw__keepalive_8c"/>
       </node>
-      <node id="1409">
-        <label>xplmi_err_common.c</label>
-        <link refid="xplmi__err__common_8c"/>
+      <node id="1502">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi__asu__cmd_8c"/>
       </node>
-      <node id="1436">
-        <label>xplmi_err_common.h</label>
-        <link refid="xplmi__err__common_8h"/>
-        <childnode refid="1406" relation="include">
-        </childnode>
-        <childnode refid="1408" relation="include">
-        </childnode>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1437" relation="include">
-        </childnode>
-        <childnode refid="1414" relation="include">
-        </childnode>
-        <childnode refid="1417" relation="include">
-        </childnode>
-        <childnode refid="1438" relation="include">
-        </childnode>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1419" relation="include">
-        </childnode>
-        <childnode refid="1439" relation="include">
-        </childnode>
-        <childnode refid="1422" relation="include">
-        </childnode>
-        <childnode refid="1440" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-        <childnode refid="1433" relation="include">
-        </childnode>
-        <childnode refid="1441" relation="include">
-        </childnode>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1434" relation="include">
-        </childnode>
-        <childnode refid="1442" relation="include">
-        </childnode>
-        <childnode refid="1426" relation="include">
-        </childnode>
-        <childnode refid="1435" relation="include">
-        </childnode>
-        <childnode refid="1443" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
-        </childnode>
-      </node>
-      <node id="1429">
-        <label>xplmi_update.c</label>
-        <link refid="xplmi__update_8c"/>
-      </node>
-      <node id="1419">
+      <node id="1500">
         <label>xplmi_ssit.c</label>
+        <link refid="xplmi__ssit_8c"/>
       </node>
-      <node id="1416">
+      <node id="1509">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="1497">
         <label>xplmi_ssit.h</label>
-        <childnode refid="1417" relation="include">
+        <childnode refid="1498" relation="include">
         </childnode>
-        <childnode refid="1418" relation="include">
+        <childnode refid="1499" relation="include">
         </childnode>
-        <childnode refid="1419" relation="include">
+        <childnode refid="1500" relation="include">
         </childnode>
       </node>
-      <node id="1420">
+      <node id="1537">
+        <label>xplmi_plat.h</label>
+        <childnode refid="1509" relation="include">
+        </childnode>
+      </node>
+      <node id="1518">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="1526">
+        <label>xplmi_err.h</label>
+        <link refid="2vp__p_2server_2xplmi__err_8h"/>
+        <childnode refid="1518" relation="include">
+        </childnode>
+      </node>
+      <node id="1508">
         <label>xplmi_wdt.c</label>
       </node>
-      <node id="1412">
-        <label>xplmi_generic.c</label>
+      <node id="1506">
+        <label>xplmi_plat.c</label>
       </node>
-      <node id="1404">
-        <label>xplmi_generic.h</label>
-        <childnode refid="1405" relation="include">
-        </childnode>
-        <childnode refid="1431" relation="include">
-        </childnode>
-        <childnode refid="1432" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1413" relation="include">
-        </childnode>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1422" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-        <childnode refid="1433" relation="include">
-        </childnode>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1434" relation="include">
-        </childnode>
-        <childnode refid="1426" relation="include">
-        </childnode>
-        <childnode refid="1435" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
-        </childnode>
-        <childnode refid="1428" relation="include">
+      <node id="1536">
+        <label>xplmi_plat.h</label>
+        <link refid="2vp_2server_2xplmi__plat_8h"/>
+        <childnode refid="1506" relation="include">
         </childnode>
       </node>
-      <node id="1459">
-        <label>xplmi_modules.c</label>
-        <link refid="xplmi__modules_8c"/>
+      <node id="1489">
+        <label>xplmi_err_cmd.c</label>
+        <link refid="xplmi__err__cmd_8c"/>
       </node>
-      <node id="1455">
-        <label>xplmi_modules.h</label>
-        <link refid="xplmi__modules_8h"/>
-        <childnode refid="1456" relation="include">
-        </childnode>
-        <childnode refid="1445" relation="include">
-        </childnode>
-        <childnode refid="1408" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1459" relation="include">
-        </childnode>
-        <childnode refid="1419" relation="include">
-        </childnode>
-        <childnode refid="1421" relation="include">
-        </childnode>
-        <childnode refid="1428" relation="include">
-        </childnode>
-        <childnode refid="1429" relation="include">
-        </childnode>
+      <node id="1531">
+        <label>xplmi_scheduler.c</label>
+        <link refid="xplmi__scheduler_8c"/>
       </node>
-      <node id="1430">
-        <label>xplmi_wdt.c</label>
-      </node>
-      <node id="1410">
+      <node id="1491">
         <label>xplmi_err_psm.c</label>
         <link refid="xplmi__err__psm_8c"/>
       </node>
-      <node id="1431">
-        <label>xplmi_cdo.c</label>
-        <link refid="xplmi__cdo_8c"/>
+      <node id="1543">
+        <label>xplmi_modules.c</label>
+        <link refid="xplmi__modules_8c"/>
       </node>
-      <node id="1444">
-        <label>xplmi_cdo.h</label>
-        <link refid="xplmi__cdo_8h"/>
-        <childnode refid="1431" relation="include">
+      <node id="1539">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="1540" relation="include">
         </childnode>
-        <childnode refid="1412" relation="include">
+        <childnode refid="1529" relation="include">
         </childnode>
-        <childnode refid="1428" relation="include">
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+        <childnode refid="1502" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
         </childnode>
       </node>
-      <node id="1433">
+      <node id="1499">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="1534">
+        <label>xplmi_plat.h</label>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+      </node>
+      <node id="1504">
         <label>xplmi_err.c</label>
-        <link refid="2vp_2server_2xplmi__err_8c"/>
       </node>
-      <node id="1441">
+      <node id="1501">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="1524">
         <label>xplmi_err.h</label>
-        <link refid="2vp_2server_2xplmi__err_8h"/>
-        <childnode refid="1433" relation="include">
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
         </childnode>
       </node>
-      <node id="1425">
-        <label>xplmi_wdt.c</label>
-        <link refid="2vp_2server_2xplmi__wdt_8c"/>
+      <node id="1493">
+        <label>xplmi_generic.c</label>
       </node>
-      <node id="1445">
+      <node id="1485">
+        <label>xplmi_generic.h</label>
+        <childnode refid="1486" relation="include">
+        </childnode>
+        <childnode refid="1515" relation="include">
+        </childnode>
+        <childnode refid="1516" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1517" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+      </node>
+      <node id="1494">
+        <label>xplmi_ipi.c</label>
+        <link refid="xplmi__ipi_8c"/>
+      </node>
+      <node id="1540">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="1541" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
+        </childnode>
+      </node>
+      <node id="1529">
         <label>xplmi_cmd.c</label>
         <link refid="xplmi__cmd_8c"/>
       </node>
-      <node id="1446">
-        <label>xplmi_gic_interrupts.c</label>
-        <link refid="xplmi__gic__interrupts_8c"/>
-      </node>
-      <node id="1457">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="1458" relation="include">
-        </childnode>
-        <childnode refid="1446" relation="include">
-        </childnode>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1426" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
+      <node id="1507">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="1506" relation="include">
         </childnode>
       </node>
-      <node id="1428">
+      <node id="1498">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="1522">
+        <label>xplmi_err.h</label>
+        <childnode refid="1498" relation="include">
+        </childnode>
+      </node>
+      <node id="1511">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="1538">
+        <label>xplmi_plat.h</label>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1486" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1516" relation="include">
+        </childnode>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
+        </childnode>
+      </node>
+      <node id="1490">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="1520">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1495" relation="include">
+        </childnode>
+        <childnode refid="1498" relation="include">
+        </childnode>
+        <childnode refid="1522" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1524" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1517" relation="include">
+        </childnode>
+        <childnode refid="1525" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1526" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1527" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+      </node>
+      <node id="1533">
+        <label>xplmi_task.c</label>
+        <link refid="xplmi__task_8c"/>
+      </node>
+      <node id="1505">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="1535">
+        <label>xplmi_plat.h</label>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+      </node>
+      <node id="1512">
         <label>xplmi_plat_cmd.c</label>
         <link refid="xplmi__plat__cmd_8c"/>
       </node>
-      <node id="1435">
+      <node id="1521">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi__proc_8c"/>
+      </node>
+      <node id="1542">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="1484" relation="include">
+        </childnode>
+        <childnode refid="1515" relation="include">
+        </childnode>
+        <childnode refid="1516" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1494" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1533" relation="include">
+        </childnode>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1514" relation="include">
+        </childnode>
+      </node>
+      <node id="1514">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="1517">
         <label>xplmi_err.c</label>
       </node>
-      <node id="1443">
+      <node id="1525">
         <label>xplmi_err.h</label>
-        <childnode refid="1406" relation="include">
-        </childnode>
-        <childnode refid="1408" relation="include">
-        </childnode>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1435" relation="include">
-        </childnode>
-        <childnode refid="1427" relation="include">
-        </childnode>
-        <childnode refid="1429" relation="include">
+        <link refid="2vp_2server_2xplmi__err_8h"/>
+        <childnode refid="1517" relation="include">
         </childnode>
       </node>
-      <node id="1427">
-        <label>xplmi_plat.c</label>
+      <node id="1495">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
       </node>
-      <node id="1454">
-        <label>xplmi_plat.h</label>
-        <childnode refid="1455" relation="include">
+      <node id="1487">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="1486">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="1487" relation="include">
         </childnode>
-        <childnode refid="1405" relation="include">
+        <childnode refid="1488" relation="include">
         </childnode>
-        <childnode refid="1406" relation="include">
+        <childnode refid="1489" relation="include">
         </childnode>
-        <childnode refid="1432" relation="include">
+        <childnode refid="1490" relation="include">
         </childnode>
-        <childnode refid="1409" relation="include">
+        <childnode refid="1491" relation="include">
         </childnode>
-        <childnode refid="1410" relation="include">
+        <childnode refid="1492" relation="include">
         </childnode>
-        <childnode refid="1411" relation="include">
+        <childnode refid="1493" relation="include">
         </childnode>
-        <childnode refid="1412" relation="include">
+        <childnode refid="1494" relation="include">
         </childnode>
-        <childnode refid="1446" relation="include">
+        <childnode refid="1495" relation="include">
         </childnode>
-        <childnode refid="1437" relation="include">
+        <childnode refid="1496" relation="include">
         </childnode>
-        <childnode refid="1435" relation="include">
+        <childnode refid="1497" relation="include">
         </childnode>
-        <childnode refid="1427" relation="include">
+        <childnode refid="1501" relation="include">
         </childnode>
-        <childnode refid="1429" relation="include">
+        <childnode refid="1502" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1507" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1510" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
+        </childnode>
+        <childnode refid="1514" relation="include">
         </childnode>
       </node>
-      <node id="1408">
-        <label>xplmi_err_cmd.c</label>
-        <link refid="xplmi__err__cmd_8c"/>
+      <node id="1510">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="1490" relation="include">
+        </childnode>
+        <childnode refid="1491" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+      </node>
+      <node id="1488">
+        <label>xplmi_debug.c</label>
+        <link refid="xplmi__debug_8c"/>
+      </node>
+      <node id="1532">
+        <label>xplmi_sysmon.c</label>
+        <link refid="xplmi__sysmon_8c"/>
+      </node>
+      <node id="1484">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="1485" relation="include">
+        </childnode>
+        <childnode refid="1487" relation="include">
+        </childnode>
+        <childnode refid="1520" relation="include">
+        </childnode>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1529" relation="include">
+        </childnode>
+        <childnode refid="1488" relation="include">
+        </childnode>
+        <childnode refid="1516" relation="include">
+        </childnode>
+        <childnode refid="1489" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1531" relation="include">
+        </childnode>
+        <childnode refid="1532" relation="include">
+        </childnode>
+        <childnode refid="1533" relation="include">
+        </childnode>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+        <childnode refid="1502" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1514" relation="include">
+        </childnode>
+      </node>
+      <node id="1515">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi__cdo_8c"/>
+      </node>
+      <node id="1528">
+        <label>xplmi_cdo.h</label>
+        <link refid="xplmi__cdo_8h"/>
+        <childnode refid="1515" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+      </node>
+      <node id="1516">
+        <label>xplmi_dma.c</label>
+        <link refid="xplmi__dma_8c"/>
+      </node>
+      <node id="1523">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi__asu__update_8c"/>
+      </node>
+      <node id="1530">
+        <label>xplmi_gic_interrupts.c</label>
+        <link refid="xplmi__gic__interrupts_8c"/>
+      </node>
+      <node id="1541">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+      </node>
+      <node id="1513">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+      <node id="1492">
+        <label>xplmi_event_logging.c</label>
+        <link refid="xplmi__event__logging_8c"/>
+      </node>
+      <node id="1483">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi_event_logging.h"/>
+        <childnode refid="1484" relation="include">
+        </childnode>
+        <childnode refid="1492" relation="include">
+        </childnode>
+        <childnode refid="1493" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1534" relation="include">
+        </childnode>
+        <childnode refid="1535" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1536" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1537" relation="include">
+        </childnode>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_plmi___circular_buffer" prot="public">XPlmi_CircularBuffer</innerclass>
@@ -638,92 +667,91 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who     D
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Circular<sp/>buffer<sp/>Structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>StartAddr;<sp/><sp/></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset:31;<sp/><sp/></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsBufferFull:1;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="64"><highlight class="normal">}<sp/>XPlmi_CircularBuffer;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_CircularBuffer<sp/>LogBuffer;<sp/></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LogLevel;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DiscardLogsAndPrintToBuf;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="71"><highlight class="normal">}<sp/>XPlmi_LogInfo;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" kindref="member">XPlmi_EventLogging</ref>(XPlmi_Cmd<sp/>*<sp/>Cmd);</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_StoreTraceLog(u32<sp/>*TraceData,<sp/>u32<sp/>Len);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_InitDebugLogBuffer(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
-<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
-<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_LOG_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
-<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
-<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO<sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
-<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
-<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA<sp/><sp/><sp/>(0x6U)</highlight></codeline>
-<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO<sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
-<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_UART<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
-<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOG_LEVEL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
-<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Trace<sp/>log<sp/>buffer<sp/>length<sp/>shift<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_TRACE_LOG_LEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
-<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Trace<sp/>event<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_TRACE_LOG_LOAD_IMAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
-<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PRINTTOBUFF_MASK<sp/><sp/><sp/><sp/>(0x0FU)<sp/></highlight><highlight class="comment">/*<sp/>Print<sp/>to<sp/>buffer<sp/>mask<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_DISCARDLOG_BIT_POS<sp/>(0x04U)<sp/></highlight><highlight class="comment">/*<sp/>Discard<sp/>logs<sp/>start<sp/>bit<sp/>position<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>Trace<sp/>log<sp/>functions</highlight></codeline>
-<codeline lineno="105"><highlight class="comment"><sp/>*<sp/>TraceBuffer<sp/>structure</highlight></codeline>
-<codeline lineno="106"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/>-<sp/>Header</highlight></codeline>
-<codeline lineno="107"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/>-<sp/>Time<sp/>stamp<sp/>in<sp/>ms</highlight></codeline>
-<codeline lineno="108"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/>-<sp/>Time<sp/>stamp<sp/>fraction</highlight></codeline>
-<codeline lineno="109"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/>-<sp/>Payload</highlight></codeline>
-<codeline lineno="110"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>...</highlight></codeline>
-<codeline lineno="111"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="121"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog2(u32<sp/>Header)</highlight></codeline>
-<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U};</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
-<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="137"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog3(u32<sp/>Header,<sp/>u32<sp/>Arg1)</highlight></codeline>
-<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U,<sp/>Arg1};</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
-<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="154"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog4(u32<sp/>Header,<sp/>u32<sp/>Arg1,<sp/>u32<sp/>Arg2)</highlight></codeline>
-<codeline lineno="155"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U,<sp/>Arg1,<sp/>Arg2};</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
-<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="172"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog5(u32<sp/>Header,<sp/>u32<sp/>Arg1,<sp/>u32<sp/>Arg2,<sp/>u32<sp/>Arg3)</highlight></codeline>
-<codeline lineno="173"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3};</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
-<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XPlmi_LogInfo<sp/>*DebugLog;</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_EVENT_LOGGING_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="60" refid="struct_x_plmi___circular_buffer" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61" refid="struct_x_plmi___circular_buffer_1a58a4cb1b9ebee1299d373b5158377185" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_plmi___circular_buffer_1a58a4cb1b9ebee1299d373b5158377185" kindref="member">StartAddr</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_plmi___circular_buffer_1a85d69df93a55caa304ed361f554047da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_plmi___circular_buffer_1a85d69df93a55caa304ed361f554047da" kindref="member">Len</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_plmi___circular_buffer_1a5ed494efac3549374b45f463e5e0c157" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset:31;<sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_plmi___circular_buffer_1ab2316a312cdea91a2864b043dbd5b784" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsBufferFull:1;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}<sp/><ref refid="struct_x_plmi___circular_buffer" kindref="compound">XPlmi_CircularBuffer</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="struct_x_plmi___log_info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72" refid="struct_x_plmi___log_info_1adbd0982a1db50326948586f2a0c2d96e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_plmi___circular_buffer" kindref="compound">XPlmi_CircularBuffer</ref><sp/><ref refid="struct_x_plmi___log_info_1adbd0982a1db50326948586f2a0c2d96e" kindref="member">LogBuffer</ref>;<sp/></highlight></codeline>
+<codeline lineno="73" refid="struct_x_plmi___log_info_1abae4ae9606232aefcc00c461aed478bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_plmi___log_info_1abae4ae9606232aefcc00c461aed478bf" kindref="member">LogLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_plmi___log_info_1ae70acfe5662ab963c65554dd90575736" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_plmi___log_info_1ae70acfe5662ab963c65554dd90575736" kindref="member">DiscardLogsAndPrintToBuf</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/><ref refid="struct_x_plmi___log_info" kindref="compound">XPlmi_LogInfo</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" kindref="member">XPlmi_EventLogging</ref>(XPlmi_Cmd<sp/>*<sp/>Cmd);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_StoreTraceLog(u32<sp/>*TraceData,<sp/>u32<sp/>Len);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_InitDebugLogBuffer(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_LOG_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_LOG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO<sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA<sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO<sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOGGING_CMD_CONFIG_UART<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_LOG_LEVEL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Trace<sp/>log<sp/>buffer<sp/>length<sp/>shift<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_TRACE_LOG_LEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Trace<sp/>event<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_TRACE_LOG_LOAD_IMAGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PRINTTOBUFF_MASK<sp/><sp/><sp/><sp/>(0x0FU)<sp/></highlight><highlight class="comment">/*<sp/>Print<sp/>to<sp/>buffer<sp/>mask<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_DISCARDLOG_BIT_POS<sp/>(0x04U)<sp/></highlight><highlight class="comment">/*<sp/>Discard<sp/>logs<sp/>start<sp/>bit<sp/>position<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>Trace<sp/>log<sp/>functions</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*<sp/>TraceBuffer<sp/>structure</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/>-<sp/>Header</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/>-<sp/>Time<sp/>stamp<sp/>in<sp/>ms</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/>-<sp/>Time<sp/>stamp<sp/>fraction</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/>-<sp/>Payload</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>...</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="126"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog2(u32<sp/>Header)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U};</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog3(u32<sp/>Header,<sp/>u32<sp/>Arg1)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U,<sp/>Arg1};</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="155"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog4(u32<sp/>Header,<sp/>u32<sp/>Arg1,<sp/>u32<sp/>Arg2)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U,<sp/>Arg1,<sp/>Arg2};</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="171"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_TraceLog5(u32<sp/>Header,<sp/>u32<sp/>Arg1,<sp/>u32<sp/>Arg2,<sp/>u32<sp/>Arg3)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TraceBuffer[]<sp/>=<sp/>{Header,<sp/>0U,<sp/>0U,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3};</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_StoreTraceLog(TraceBuffer,<sp/>XPLMI_ARRAY_SIZE(TraceBuffer));</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_plmi___log_info" kindref="compound">XPlmi_LogInfo</ref><sp/>*DebugLog;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_EVENT_LOGGING_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h"/>
   </compounddef>
 </doxygen>

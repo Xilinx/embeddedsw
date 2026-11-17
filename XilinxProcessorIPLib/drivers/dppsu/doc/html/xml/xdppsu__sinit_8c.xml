@@ -4,6 +4,15 @@
     <compoundname>xdppsu_sinit.c</compoundname>
     <includes refid="xdppsu_8h" local="yes">xdppsu.h</includes>
     <incdepgraph>
+      <node id="167">
+        <label>xil_io.h</label>
+      </node>
+      <node id="164">
+        <label>xdppsu_sinit.c</label>
+        <link refid="xdppsu_sinit.c"/>
+        <childnode refid="165" relation="include">
+        </childnode>
+      </node>
       <node id="165">
         <label>xdppsu.h</label>
         <link refid="xdppsu_8h"/>
@@ -14,14 +23,11 @@
         <childnode refid="169" relation="include">
         </childnode>
       </node>
-      <node id="164">
-        <label>xdppsu_sinit.c</label>
-        <link refid="xdppsu_sinit.c"/>
-        <childnode refid="165" relation="include">
-        </childnode>
+      <node id="169">
+        <label>xvidc.h</label>
       </node>
-      <node id="167">
-        <label>xil_io.h</label>
+      <node id="168">
+        <label>xil_types.h</label>
       </node>
       <node id="166">
         <label>xdppsu_hw.h</label>
@@ -30,12 +36,6 @@
         </childnode>
         <childnode refid="168" relation="include">
         </childnode>
-      </node>
-      <node id="169">
-        <label>xvidc.h</label>
-      </node>
-      <node id="168">
-        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_g.c" bodystart="13" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_g.c" bodystart="13" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -79,9 +79,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c" bodystart="78" bodyend="91"/>
-        <referencedby refid="xdppsu__selftest__example_8c_1a813b92c07fdf38394fe53f1addda1a50" compoundref="xdppsu__selftest__example_8c" startline="98" endline="120">DpPsu_SelfTestExample</referencedby>
-        <referencedby refid="xdppsu__common__example_8h_1a31ed0302fb945e5748d9e7c182533786" compoundref="xdppsu__common__example_8c" startline="89" endline="115">DpPsu_SetupExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c" bodystart="55" bodyend="68"/>
+        <referencedby refid="xdppsu__selftest__example_8c_1a813b92c07fdf38394fe53f1addda1a50" compoundref="xdppsu__selftest__example_8c" startline="87" endline="104">DpPsu_SelfTestExample</referencedby>
+        <referencedby refid="xdppsu__common__example_8h_1a31ed0302fb945e5748d9e7c182533786" compoundref="xdppsu__common__example_8c" startline="188" endline="209">DpPsu_SetupExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -97,7 +97,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -105,54 +105,30 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="26"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu_8h" kindref="compound">xdppsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/><ref refid="xdppsu__sinit_8c_1ab3fccdf4fd9feef9be8cfcae38c58e05" kindref="member">XDpPsu_ConfigTable</ref>[XPAR_XDPPSU_NUM_INSTANCES];</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>XDpPsu_ConfigTable[];</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="62"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*<ref refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" kindref="member">XDpPsu_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XPAR_XDPPSU_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDpPsu_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XDpPsu_ConfigTable[Index];</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="78" refid="xdppsu__sinit_8c_1a516998e367c2732f5a99802c776e13f4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*<ref refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" kindref="member">XDpPsu_LookupConfig</ref>(u32<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XDpPsu_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDpPsu_ConfigTable[Index].BaseAddr<sp/>==<sp/>BaseAddress)<sp/>{</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XDpPsu_ConfigTable[Index];</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/><ref refid="xdppsu__sinit_8c_1ab3fccdf4fd9feef9be8cfcae38c58e05" kindref="member">XDpPsu_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="55" refid="xdppsu__sinit_8c_1a516998e367c2732f5a99802c776e13f4" refkind="member"><highlight class="normal"><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*<ref refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" kindref="member">XDpPsu_LookupConfig</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XDpPsu_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDpPsu_ConfigTable[Index].BaseAddr<sp/>==<sp/>BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XDpPsu_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_sinit.c"/>
   </compounddef>
 </doxygen>

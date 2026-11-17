@@ -1,34 +1,111 @@
 var NAVTREE =
 [
-  [ "ospipsv", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xospipsv_flash_polled_example.c", "example.html#ex1", null ],
-      [ "xospipsv_flash_intr_example.c", "example.html#ex2", null ],
-      [ "xospipsv_flash_non_blocking_read_example.c", "example.html#ex3", null ],
-      [ "xospipsv_flash_config.h", "example.html#ex4", null ]
-    ] ]
-  ] ]
+  [
+    "ospipsv",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xospipsv_flash_polled_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xospipsv_flash_intr_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xospipsv_flash_non_blocking_read_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xospipsv_flash_config.h",
+            "example.html#ex4",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"xospipsv__flash__config_8h.html#ac11736c7cd66aacd60e18a5fa89bd080"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -4,7 +4,7 @@ var searchData=
   ['xcsi2txss_5fcfginitialize',['XCsi2TxSs_CfgInitialize',['../group__csi2txss.html#ga05a335318d3ee341c8288279cf4d8683',1,'xcsi2txss.c']]],
   ['xcsi2txss_5fconfigure',['XCsi2TxSs_Configure',['../group__csi2txss.html#ga20a5a3fc9695ca1ac7fdbea4300da836',1,'xcsi2txss.c']]],
   ['xcsi2txss_5fgetclkmode',['XCsi2TxSs_GetClkMode',['../group__csi2txss.html#ga9322b8aa53d1f0f7ba52a8ddea493942',1,'xcsi2txss.c']]],
-  ['xcsi2txss_5fgetdrvindex',['XCsi2TxSs_GetDrvIndex',['../group__csi2txss.html#ga27c89281844aeddd73fec0e30044013e',1,'xcsi2txss_sinit.c']]],
+  ['xcsi2txss_5fgetdrvindex',['XCsi2TxSs_GetDrvIndex',['../group__csi2txss.html#gae0ca4ef82a0c7ef7a575b30d34299069',1,'xcsi2txss_sinit.c']]],
   ['xcsi2txss_5fgetlinecountforvc',['XCsi2TxSs_GetLineCountForVC',['../group__csi2txss.html#ga655b4f5658f8e8dc4ebc550fc4c6e8f0',1,'xcsi2txss.c']]],
   ['xcsi2txss_5fgetmaxlanecount',['XCsi2TxSs_GetMaxLaneCount',['../group__csi2txss.html#ga9f75eac00e365efaa38c8c3b9f98ec0e',1,'xcsi2txss.c']]],
   ['xcsi2txss_5fgetpixelmode',['XCsi2TxSs_GetPixelMode',['../group__csi2txss.html#ga5f102cce59805525a6129df5c4d7feb8',1,'xcsi2txss.c']]],

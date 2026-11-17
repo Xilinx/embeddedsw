@@ -114,7 +114,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 1.02    abh     07/21/2025 Fixed GCC warnings
       sk  09/26/2025 Added UFS speed change config
 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
-      ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in UFS release</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+      ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in UFS release
+      pre 09/04/2026 Added XLoader_UfsReadDdrCalibData for calib data restore
+      pre 09/26/2026 Fail UFS copy when f_read returns fewer bytes than requested
+      pre 10/22/2026 Added UFS calib data restore under
+                     PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__ufs_8h.html">xloader_ufs.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_proc.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>

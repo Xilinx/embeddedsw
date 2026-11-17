@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="154" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="581" endline="629">XSecure_RsaDestroyKeyInUse</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_key_gen_param_1ad0223ef23fd91d3a10244a210b3a5a41" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="155" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="157" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_key_gen_param_1a681e56f131a246f453d4c6f7eb890031" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -42,8 +42,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="156" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="581" endline="629">XSecure_RsaDestroyKeyInUse</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -77,7 +77,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="153" bodyend="157"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="155" bodyend="159"/>
     <listofallmembers>
       <member refid="struct_x_secure___rsa_key_gen_param_1a681e56f131a246f453d4c6f7eb890031" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyGenParam</scope><name>IsRsaKeyAvail</name></member>
       <member refid="struct_x_secure___rsa_key_gen_param_1a1ca8ed045094de17ea26475d21d026da" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyGenParam</scope><name>KeyPair</name></member>

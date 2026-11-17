@@ -137,7 +137,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a03271fdc42fcd408764f4cc272850d24"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___auth_jtag_message.html#a03271fdc42fcd408764f4cc272850d24">AuthJtagPadding</a> [<a class="el" href="xloader__auth__enc_8h.html#a6a3458a5750ee41e651fb9a4e7421e8b">XLOADER_AUTH_JTAG_PADDING_SIZE</a>]</td></tr>
 <tr class="memdesc:a03271fdc42fcd408764f4cc272850d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA padding for Auth JTAG signature.  <a href="#a03271fdc42fcd408764f4cc272850d24">More...</a><br/></td></tr>
 <tr class="separator:a03271fdc42fcd408764f4cc272850d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb5c4f0ebe966f7170c438e3702e458"><td class="memItemLeft" align="right" valign="top">XLoader_AuthKey&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___auth_jtag_message.html#aefb5c4f0ebe966f7170c438e3702e458">PpkData</a></td></tr>
+<tr class="memitem:aefb5c4f0ebe966f7170c438e3702e458"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_loader___auth_key.html">XLoader_AuthKey</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___auth_jtag_message.html#aefb5c4f0ebe966f7170c438e3702e458">PpkData</a></td></tr>
 <tr class="memdesc:aefb5c4f0ebe966f7170c438e3702e458"><td class="mdescLeft">&#160;</td><td class="mdescRight">PPK.  <a href="#aefb5c4f0ebe966f7170c438e3702e458">More...</a><br/></td></tr>
 <tr class="separator:aefb5c4f0ebe966f7170c438e3702e458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51bbf0cc1ef93b1f7c652babbcd64e2b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_loader___auth_jtag_message.html#a51bbf0cc1ef93b1f7c652babbcd64e2b">AuthJtagPpkShaPadding</a> [<a class="el" href="xloader__auth__enc_8h.html#a41c45d5624be426e07961aa46f482c74">XLOADER_AUTH_JTAG_SHA_PADDING_SIZE</a>]</td></tr>
@@ -176,7 +176,7 @@ Data Fields</h2></td></tr>
 
 <p>Authentication Header. </p>
 
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, and <a class="el" href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">XLoader_VerifySignature()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, and <a class="el" href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">XLoader_VerifySignature()</a>.</p>
 
 </div>
 </div>
@@ -255,12 +255,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XLoader_AuthKey XLoader_AuthJtagMessage::PpkData</td>
+          <td class="memname"><a class="el" href="struct_x_loader___auth_key.html">XLoader_AuthKey</a> XLoader_AuthJtagMessage::PpkData</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>PPK. </p>
+
+<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga41c7e98dc575b59226d0bb8cb6344787">XLoader_PpkVerify()</a>.</p>
 
 </div>
 </div>

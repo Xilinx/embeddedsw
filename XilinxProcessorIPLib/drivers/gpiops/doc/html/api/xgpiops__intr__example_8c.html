@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpiops__intr__example_8c.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,9 +106,10 @@ $(document).ready(function(){initNavTree('xgpiops__intr__example_8c.html','');})
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the GPIO driver (<a class="el" href="struct_x_gpio_ps.html" title="The XGpioPs driver instance data. ">XGpioPs</a>) in an interrupt driven mode of operation. </p>
+<div class="textblock"><p>Demonstrates the GPIO PS driver (<a class="el" href="struct_x_gpio_ps.html" title="XGpioPs driver instance data. ">XGpioPs</a>) in interrupt-driven mode. </p>
+<p>This file contains a design example that uses the GPIO driver (<a class="el" href="struct_x_gpio_ps.html" title="XGpioPs driver instance data. ">XGpioPs</a>) in an interrupt driven mode of operation.</p>
 <p>The example uses the interrupt capability of the GPIO to detect push button events and set the output LEDs based on the input.</p>
-<dl class="section note"><dt>Note</dt><dd>This example assumes that there is a Uart device in the HW design. This example is to provide support only for zcu102 on ZynqMp Platform and only for zc702 on Zynq Platform. For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is 23(DS50 on zcu102 board). For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board is a combination of sw13 and sw14. To operate either of the input pins, keep SW15 low(both should be 00). This example supports the VCK190 and VMK180 for Versal, but requires a PL shim. See Answer Record AR# 75677 and Figure 61 in AM011 Versal TRM for more details. Driver supports both PS GPIO and PMC GPIO. For accessing PMC GPIOs application you need to set "GPIO.PmcGpio = 1" otherwise it accesses PS GPIO.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This example assumes that the hardware design contains a UART device. This example supports only the zcu102 board on the ZynqMP platform and only the zc702 board on the Zynq platform. For the ZynqMP platform, the input pin is 22 (sw19 on the zcu102 board) and the output pin is 23 (DS50 on the zcu102 board). For the Zynq platform, the input pins are 12 (sw14 on the zc702 board) and 14 (sw13 on the zc702 board), and the output pin is 10 (DS23 on the zc702 board). SW15 on the zc702 board is a combination of sw13 and sw14. To operate either of the input pins, keep SW15 low (both should be 00). This example supports the VCK190 and VMK180 for Versal, but requires a PL shim. See Answer Record AR# 75677 and Figure 61 in AM011 Versal TRM for more details. The driver supports both PS GPIO and PMC GPIO. To access PMC GPIOs, set "GPIO.PmcGpio = 1" in the application. Otherwise, the application accesses PS GPIO.</dd></dl>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who  Date     Changes
 </p>
@@ -122,7 +123,9 @@ $(document).ready(function(){initNavTree('xgpiops__intr__example_8c.html','');})
  3.8    sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
  3.9    sne  11/19/20 Added versal PmcGpio example support.
  3.12  gm   07/11/23 Added SDT support.
- 3.15  vlt  01/27/26 Fixed codespell issues</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+ 3.15  vlt  01/27/26 Fixed codespell issues
+ 3.16  vn   07/30/26 Fix Doxygen warnings
+ 3.16  vn   09/10/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xgpiops_8h.html">xgpiops.h</a>&quot;</code><br/>
 <code>#include &quot;xscugic.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
@@ -130,12 +133,59 @@ $(document).ready(function(){initNavTree('xgpiops__intr__example_8c.html','');})
 <code>#include &lt;xil_printf.h&gt;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Device parameters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants map to the names of the hardware instances that were created in the EDK XPS system.</p>
+<p>They are defined here so that you can easily change all the needed device IDs in one place. </p>
+</div></td></tr>
+<tr class="memitem:aa7f1ef680c757f6ec326bdc062ed8fbc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpiops__intr__example_8c.html#aa7f1ef680c757f6ec326bdc062ed8fbc">XGPIOPS_BASEADDR</a>&#160;&#160;&#160;XPAR_XGPIOPS_0_BASEADDR</td></tr>
+<tr class="memdesc:aa7f1ef680c757f6ec326bdc062ed8fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO base address.  <a href="#aa7f1ef680c757f6ec326bdc062ed8fbc">More...</a><br/></td></tr>
+<tr class="separator:aa7f1ef680c757f6ec326bdc062ed8fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">GPIO bank constants</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants define the GPIO banks that are used. </p>
+</div></td></tr>
+<tr class="memitem:a5c770da14f801d2da7fac0cb73e62f43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpiops__intr__example_8c.html#a5c770da14f801d2da7fac0cb73e62f43">GPIO_BANK</a>&#160;&#160;&#160;<a class="el" href="group__gpiops.html#gac5c6fe277747f034cd30c3f3e770dc5b">XGPIOPS_BANK0</a></td></tr>
+<tr class="memdesc:a5c770da14f801d2da7fac0cb73e62f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bank 0 of the GPIO Device.  <a href="#a5c770da14f801d2da7fac0cb73e62f43">More...</a><br/></td></tr>
+<tr class="separator:a5c770da14f801d2da7fac0cb73e62f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpiops__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the GPIO Interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the GPIO interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a5c770da14f801d2da7fac0cb73e62f43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GPIO_BANK&#160;&#160;&#160;<a class="el" href="group__gpiops.html#gac5c6fe277747f034cd30c3f3e770dc5b">XGPIOPS_BANK0</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bank 0 of the GPIO Device. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa7f1ef680c757f6ec326bdc062ed8fbc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XGPIOPS_BASEADDR&#160;&#160;&#160;XPAR_XGPIOPS_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GPIO base address. </p>
+
+<p>Referenced by <a class="el" href="xgpiops__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -151,13 +201,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the GPIO Interrupt example. </p>
+<p>Calls the GPIO interrupt example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="xgpiops__intr__example_8c.html#aa7f1ef680c757f6ec326bdc062ed8fbc">XGPIOPS_BASEADDR</a>.</p>
 
 </div>
 </div>

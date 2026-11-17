@@ -88,7 +88,6 @@
     <member refid="group__canfd_1ga41349b5a26ef723c5f262bdd4a4df76e" kind="define"><name>XCANFD_HANDLER_RECV</name></member>
     <member refid="group__canfd_1gacfd326f78688ca074cbc83a27124a660" kind="define"><name>XCANFD_HANDLER_ERROR</name></member>
     <member refid="group__canfd_1ga056a2ba1200bfaa95d7b77e22b07a6b0" kind="define"><name>XCANFD_HANDLER_EVENT</name></member>
-    <member refid="group__canfd_1ga8b94e6e278cd276ef5bae7be5e7b2ae3" kind="define"><name>XCANFD_H</name></member>
     <member refid="group__canfd_1ga8097ea5244abb720617a9aa8c3cfa0ad" kind="define"><name>XCanFd_IsTxDone</name></member>
     <member refid="group__canfd_1gadd7b8b6d9a5c527ed796bec8ba7106b8" kind="define"><name>XCanFd_CreateIdValue</name></member>
     <member refid="group__canfd_1ga27bec48844db839611b3f40be30bd8ee" kind="define"><name>XCanFd_Create_CanFD_DlcValue</name></member>
@@ -142,7 +141,6 @@
     <member refid="group__canfd_1ga53597704089c4530175ea92fec18a6b2" kind="function"><name>XCanFd_AcceptFilterSet</name></member>
     <member refid="group__canfd_1ga533f5313a1d83e1f7baf951a6772f0ed" kind="function"><name>XCanFd_AcceptFilterGet</name></member>
     <member refid="group__canfd_1gaf25c50ab9ef473c52c127d3ef586ced8" kind="function"><name>XCanFd_LookupConfig</name></member>
-    <member refid="group__canfd_1ga4651c821d0a349a26dabfaee2b4ab11e" kind="function"><name>XCanFd_GetConfig</name></member>
     <member refid="group__canfd_1ga10fa6a0030a1dc8ca563745ffb5f9c95" kind="function"><name>XCanFd_GetDlc2len</name></member>
     <member refid="group__canfd_1ga3586b83927030ada806c45a251dadf32" kind="function"><name>XCanFd_GetLen2Dlc</name></member>
     <member refid="group__canfd_1gab41b6198a5a28b106e241e7c785fbcae" kind="function"><name>XCanFd_GetFreeBuffer</name></member>
@@ -544,7 +542,6 @@
     <member refid="group__canfd_1gadfd90e384c4770f5bc1c331c4b664e89" kind="define"><name>MAX_FILTER_INDEX</name></member>
     <member refid="group__canfd_1ga542481265db77d21efeb1829b8618d13" kind="define"><name>EDL_CANFD</name></member>
     <member refid="group__canfd_1ga1dee60cc900f4a900ce8e00619b40ebe" kind="define"><name>EDL_CAN</name></member>
-    <member refid="group__canfd_1ga47dc418eb3f5796017a1b860480ebd03" kind="define"><name>XCANFD_HW_H</name></member>
     <member refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kind="define"><name>XCanFd_ReadReg</name></member>
     <member refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kind="define"><name>XCanFd_WriteReg</name></member>
   </compound>
@@ -562,12 +559,6 @@
     <member refid="group__canfd_1gaa6b2dd58088aca7507f3e1adddd6a0b8" kind="function"><name>XCanFd_SetHandler</name></member>
   </compound>
   <compound refid="xcanfd__intr__example_8c" kind="file"><name>xcanfd_intr_example.c</name>
-    <member refid="xcanfd__intr__example_8c_1a768a4fc7cda3cb12ab502e4e6977cb50" kind="define"><name>XCANFD_BASEADDRESS</name></member>
-    <member refid="xcanfd__intr__example_8c_1a7b689d14c47ec2af170f1fdbd3fd547a" kind="define"><name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name></member>
-    <member refid="xcanfd__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
-    <member refid="xcanfd__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
-    <member refid="xcanfd__intr__example_8c_1adb1bcd1838bd92a866794184116a4bbf" kind="define"><name>TEST_CANFD_DLC</name></member>
-    <member refid="xcanfd__intr__example_8c_1ad826e8327ae2f1e333992795523c1a31" kind="define"><name>TEST_MAILBOX_MASK</name></member>
     <member refid="xcanfd__intr__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcanfd__intr__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcanfd__intr__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
@@ -578,6 +569,12 @@
     <member refid="xcanfd__intr__example_8c_1ad96e9ba070cc4dd19846492c373ba0b9" kind="define"><name>TEST_FBTR_FIRST_TIMESEGMENT</name></member>
     <member refid="xcanfd__intr__example_8c_1a85fda3522e69a1bf85f7dcd97b6023a1" kind="define"><name>MAX_TIMEOUT</name></member>
     <member refid="xcanfd__intr__example_8c_1aa18abf40b19aaf574481394cec763295" kind="define"><name>MAX_USLEEP_VAL</name></member>
+    <member refid="xcanfd__intr__example_8c_1a768a4fc7cda3cb12ab502e4e6977cb50" kind="define"><name>XCANFD_BASEADDRESS</name></member>
+    <member refid="xcanfd__intr__example_8c_1a7b689d14c47ec2af170f1fdbd3fd547a" kind="define"><name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name></member>
+    <member refid="xcanfd__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
+    <member refid="xcanfd__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
+    <member refid="xcanfd__intr__example_8c_1adb1bcd1838bd92a866794184116a4bbf" kind="define"><name>TEST_CANFD_DLC</name></member>
+    <member refid="xcanfd__intr__example_8c_1ad826e8327ae2f1e333992795523c1a31" kind="define"><name>TEST_MAILBOX_MASK</name></member>
     <member refid="xcanfd__intr__example_8c_1ad4785d878d80b2e68b0373f0c3bca2e2" kind="variable"><name>CanFd</name></member>
     <member refid="xcanfd__intr__example_8c_1a9a5d0495e78295679baab1fc69ea5ab4" kind="variable"><name>TxFrame</name></member>
     <member refid="xcanfd__intr__example_8c_1afd559b6b29eafb5554f79921671e5cf0" kind="variable"><name>RxFrame</name></member>
@@ -594,10 +591,8 @@
     <member refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xcanfd__polled__example_8c" kind="file"><name>xcanfd_polled_example.c</name>
-    <member refid="xcanfd__polled__example_8c_1a768a4fc7cda3cb12ab502e4e6977cb50" kind="define"><name>XCANFD_BASEADDRESS</name></member>
     <member refid="xcanfd__polled__example_8c_1a7b689d14c47ec2af170f1fdbd3fd547a" kind="define"><name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name></member>
     <member refid="xcanfd__polled__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
-    <member refid="xcanfd__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcanfd__polled__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcanfd__polled__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcanfd__polled__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
@@ -606,6 +601,8 @@
     <member refid="xcanfd__polled__example_8c_1a5d1f49839781fd8c867b2ff25bf54705" kind="define"><name>TEST_FBTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcanfd__polled__example_8c_1adcd8382bc86aa05dd490d5ccdd3878c8" kind="define"><name>TEST_FBTR_SECOND_TIMESEGMENT</name></member>
     <member refid="xcanfd__polled__example_8c_1ad96e9ba070cc4dd19846492c373ba0b9" kind="define"><name>TEST_FBTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="xcanfd__polled__example_8c_1a768a4fc7cda3cb12ab502e4e6977cb50" kind="define"><name>XCANFD_BASEADDRESS</name></member>
+    <member refid="xcanfd__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcanfd__polled__example_8c_1ad826e8327ae2f1e333992795523c1a31" kind="define"><name>TEST_MAILBOX_MASK</name></member>
     <member refid="xcanfd__polled__example_8c_1a308d6d407e58de28e1ceb8eb2ae38c39" kind="define"><name>TESTMSG_DLC</name></member>
     <member refid="xcanfd__polled__example_8c_1a9a5d0495e78295679baab1fc69ea5ab4" kind="variable"><name>TxFrame</name></member>
@@ -617,10 +614,6 @@
     <member refid="xcanfd__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xcanfd__selftest_8c" kind="file"><name>xcanfd_selftest.c</name>
-    <member refid="group__canfd_1ga7b689d14c47ec2af170f1fdbd3fd547a" kind="define"><name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name></member>
-    <member refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
-    <member refid="group__canfd_1gadb1bcd1838bd92a866794184116a4bbf" kind="define"><name>TEST_CANFD_DLC</name></member>
-    <member refid="group__canfd_1ga71ec86ad20d81329ef69e8572d9bc452" kind="define"><name>TEST_MAIL_BOX_MASK</name></member>
     <member refid="group__canfd_1ga40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="group__canfd_1gaa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="group__canfd_1ga963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
@@ -629,6 +622,10 @@
     <member refid="group__canfd_1ga5d1f49839781fd8c867b2ff25bf54705" kind="define"><name>TEST_FBTR_SYNCJUMPWIDTH</name></member>
     <member refid="group__canfd_1gadcd8382bc86aa05dd490d5ccdd3878c8" kind="define"><name>TEST_FBTR_SECOND_TIMESEGMENT</name></member>
     <member refid="group__canfd_1gad96e9ba070cc4dd19846492c373ba0b9" kind="define"><name>TEST_FBTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="group__canfd_1ga7b689d14c47ec2af170f1fdbd3fd547a" kind="define"><name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name></member>
+    <member refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
+    <member refid="group__canfd_1gadb1bcd1838bd92a866794184116a4bbf" kind="define"><name>TEST_CANFD_DLC</name></member>
+    <member refid="group__canfd_1ga71ec86ad20d81329ef69e8572d9bc452" kind="define"><name>TEST_MAIL_BOX_MASK</name></member>
     <member refid="group__canfd_1ga9a5d0495e78295679baab1fc69ea5ab4" kind="variable"><name>TxFrame</name></member>
     <member refid="group__canfd_1gafd559b6b29eafb5554f79921671e5cf0" kind="variable"><name>RxFrame</name></member>
     <member refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" kind="function"><name>XCanFd_SelfTest</name></member>
@@ -994,9 +991,18 @@
     <member refid="group__canfd_1gadfd90e384c4770f5bc1c331c4b664e89" kind="define"><name>MAX_FILTER_INDEX</name></member>
     <member refid="group__canfd_1ga542481265db77d21efeb1829b8618d13" kind="define"><name>EDL_CANFD</name></member>
     <member refid="group__canfd_1ga1dee60cc900f4a900ce8e00619b40ebe" kind="define"><name>EDL_CAN</name></member>
+    <member refid="group__canfd_1ga40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
+    <member refid="group__canfd_1gaa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
+    <member refid="group__canfd_1ga963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
+    <member refid="group__canfd_1ga413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="group__canfd_1ga474988275e3a9563fd011d79425deb90" kind="define"><name>TEST_FBRPR_BAUD_PRESCALAR</name></member>
+    <member refid="group__canfd_1ga5d1f49839781fd8c867b2ff25bf54705" kind="define"><name>TEST_FBTR_SYNCJUMPWIDTH</name></member>
+    <member refid="group__canfd_1gadcd8382bc86aa05dd490d5ccdd3878c8" kind="define"><name>TEST_FBTR_SECOND_TIMESEGMENT</name></member>
+    <member refid="group__canfd_1gad96e9ba070cc4dd19846492c373ba0b9" kind="define"><name>TEST_FBTR_FIRST_TIMESEGMENT</name></member>
     <member refid="group__canfd_1ga3bf3ead6015e12d087793c9dc2565cef" kind="typedef"><name>XCanFd_SendRecvHandler</name></member>
     <member refid="group__canfd_1ga097697a5b86992c7881ca4d3ce4f09ee" kind="typedef"><name>XCanFd_ErrorHandler</name></member>
     <member refid="group__canfd_1ga22f7d47515f879f09992563c2917f449" kind="typedef"><name>XCanFd_EventHandler</name></member>
+    <member refid="group__canfd_1ga79b0b11bcc2c742ec2a76df69245c07b" kind="variable"><name>XCanFd_ConfigTable</name></member>
     <member refid="group__canfd_1ga79b0b11bcc2c742ec2a76df69245c07b" kind="variable"><name>XCanFd_ConfigTable</name></member>
     <member refid="group__canfd_1ga9a5d0495e78295679baab1fc69ea5ab4" kind="variable"><name>TxFrame</name></member>
     <member refid="group__canfd_1gafd559b6b29eafb5554f79921671e5cf0" kind="variable"><name>RxFrame</name></member>
@@ -1034,7 +1040,6 @@
     <member refid="group__canfd_1ga2bffa196d476a85715ca9644ba53b471" kind="function"><name>XCanFd_Disable_Tranceiver_Delay_Compensation</name></member>
     <member refid="group__canfd_1ga527b0275aefd9d0b6095a34aa0ad7039" kind="function"><name>XCanFd_Pee_BusOff_Handler</name></member>
     <member refid="group__canfd_1gaf25c50ab9ef473c52c127d3ef586ced8" kind="function"><name>XCanFd_LookupConfig</name></member>
-    <member refid="group__canfd_1ga4651c821d0a349a26dabfaee2b4ab11e" kind="function"><name>XCanFd_GetConfig</name></member>
     <member refid="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" kind="function"><name>XCanFd_SetBaudRatePrescaler</name></member>
     <member refid="group__canfd_1gab34e6273828db6f9f5ef1b88ce094b02" kind="function"><name>XCanFd_GetBaudRatePrescaler</name></member>
     <member refid="group__canfd_1gacedd51c2e06c3be7d4b6908c6e235acb" kind="function"><name>XCanFd_GetFBaudRatePrescaler</name></member>
@@ -1061,7 +1066,6 @@
     <member refid="group__canfd_1ga6f1ea050df6192589666e4ad2135a389" kind="function"><name>XCanFd_InterruptDisable_CancelRqt</name></member>
     <member refid="group__canfd_1ga36c239d6fbf456680364f2e6f018722a" kind="function"><name>XCanFd_InterruptEnable_RxBuffFull</name></member>
     <member refid="group__canfd_1gacce0f487607f85fd398f4f5c6b76326c" kind="function"><name>XCanFd_InterruptDisable_RxBuffFull</name></member>
-    <member refid="group__canfd_1ga8b94e6e278cd276ef5bae7be5e7b2ae3" kind="define"><name>XCANFD_H</name></member>
     <member refid="group__canfd_1ga8097ea5244abb720617a9aa8c3cfa0ad" kind="define"><name>XCanFd_IsTxDone</name></member>
     <member refid="group__canfd_1gadd7b8b6d9a5c527ed796bec8ba7106b8" kind="define"><name>XCanFd_CreateIdValue</name></member>
     <member refid="group__canfd_1ga27bec48844db839611b3f40be30bd8ee" kind="define"><name>XCanFd_Create_CanFD_DlcValue</name></member>
@@ -1099,21 +1103,12 @@
     <member refid="group__canfd_1gaa3b31108024b9e773b2d6aa52ad46ca7" kind="define"><name>XCanFd_Get_NofRxBuffers</name></member>
     <member refid="group__canfd_1ga02d64d90bf4ecd474f96a220fc2e709c" kind="define"><name>XCanFd_Get_RxBuffers</name></member>
     <member refid="group__canfd_1gab8dbb7081f93bf56d1d352f8884f1d8b" kind="define"><name>XCanFD_Check_TrrVal_Set_Bit</name></member>
-    <member refid="group__canfd_1ga47dc418eb3f5796017a1b860480ebd03" kind="define"><name>XCANFD_HW_H</name></member>
     <member refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kind="define"><name>XCanFd_ReadReg</name></member>
     <member refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kind="define"><name>XCanFd_WriteReg</name></member>
     <member refid="group__canfd_1ga7b689d14c47ec2af170f1fdbd3fd547a" kind="define"><name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name></member>
     <member refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="group__canfd_1gadb1bcd1838bd92a866794184116a4bbf" kind="define"><name>TEST_CANFD_DLC</name></member>
     <member refid="group__canfd_1ga71ec86ad20d81329ef69e8572d9bc452" kind="define"><name>TEST_MAIL_BOX_MASK</name></member>
-    <member refid="group__canfd_1ga40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
-    <member refid="group__canfd_1gaa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
-    <member refid="group__canfd_1ga963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
-    <member refid="group__canfd_1ga413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
-    <member refid="group__canfd_1ga474988275e3a9563fd011d79425deb90" kind="define"><name>TEST_FBRPR_BAUD_PRESCALAR</name></member>
-    <member refid="group__canfd_1ga5d1f49839781fd8c867b2ff25bf54705" kind="define"><name>TEST_FBTR_SYNCJUMPWIDTH</name></member>
-    <member refid="group__canfd_1gadcd8382bc86aa05dd490d5ccdd3878c8" kind="define"><name>TEST_FBTR_SECOND_TIMESEGMENT</name></member>
-    <member refid="group__canfd_1gad96e9ba070cc4dd19846492c373ba0b9" kind="define"><name>TEST_FBTR_FIRST_TIMESEGMENT</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>

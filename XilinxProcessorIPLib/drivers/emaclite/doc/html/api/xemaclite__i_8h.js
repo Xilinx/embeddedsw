@@ -1,6 +1,7 @@
 var xemaclite__i_8h =
 [
     [ "XEmacLite_GetTxActive", "xemaclite__i_8h.html#gaf11b44ee01064cec9edddba6ad0673c4", null ],
+    [ "XEMACLITE_I_H", "xemaclite__i_8h.html#a79fd4a4a0d211554fde184f57e791b5c", null ],
     [ "XEmacLite_SetTxActive", "xemaclite__i_8h.html#ga706f363fc35b30595205ded0050a61a6", null ],
     [ "StubHandler", "xemaclite__i_8h.html#ga98577fb052d9327b2c5ed429d3740b97", null ],
     [ "XEmacLite_AlignedRead", "xemaclite__i_8h.html#ga5a8fd0fce2b0e6f91cceb863961c3339", null ],

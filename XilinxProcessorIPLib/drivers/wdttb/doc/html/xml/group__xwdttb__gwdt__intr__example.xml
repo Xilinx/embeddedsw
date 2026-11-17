@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xwdttb__gwdt__intr__example" kind="group">
+    <compoundname>xwdttb_gwdt_intr_example</compoundname>
+    <title>Xwdttb_gwdt_intr_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xwdttb__gwdt__intr__example_1ga9dda9504dd79a16420a3ae6f5f8de0da" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref></type>
+        <definition>XWdtTb GWdtInstance</definition>
+        <argsstring></argsstring>
+        <name>GWdtInstance</name>
+        <briefdescription>
+<para>Instance of Generic WatchDog Timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xwdttb__gwdt__intr__example_1ga5109514376ab669ae13c932c2fa4416b" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>volatile int GWdtExpired</definition>
+        <argsstring></argsstring>
+        <name>GWdtExpired</name>
+        <briefdescription>
+<para>Flag set when the GWDT expires. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xwdttb__gwdt__intr__example_1ga8f1eafe8d4ff8a0e339b8d36fac8d7fb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void GWdtIntrHandler</definition>
+        <argsstring>(void *CallBackRef)</argsstring>
+        <name>GWdtIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Handles the GWDT interrupt of the GWdt device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler runs in interrupt context on the expiration of the WDT period.</para><para>This function provides an example of how to handle GWDT interrupt of the GWdt device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" bodystart="385" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xwdttb__gwdt__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the Generic WDT interrupt example from the main function. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" bodystart="115" bodyend="136"/>
+        <references refid="group__xwdttb__gwdt__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" compoundref="xwdttb__gwdt__intr__example_8c" startline="189" endline="284">WdtTbIntrExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xwdttb__gwdt__intr__example_1ga6c8cb9cb2bb201e51c802085d647e227" prot="public" static="no">
+        <name>WDTPSV_GWOR_COUNT</name>
+        <initializer>0x00110000U</initializer>
+        <briefdescription>
+<para>Generic Watchdog offset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/xwdttb_gwdt_intr_example.c" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xwdttb__gwdt__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" compoundref="xwdttb__gwdt__intr__example_8c" startline="189" endline="284">WdtTbIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

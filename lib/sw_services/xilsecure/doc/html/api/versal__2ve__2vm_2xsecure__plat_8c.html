@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('versal__2ve__2vm_2xsecure__plat_8c.htm
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">versal_2ve_2vm/xsecure_plat.c File Reference</div>  </div>
 </div><!--header-->
@@ -122,6 +123,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 5.7   tvp      02/23/26 Use <a class="el" href="struct_x_secure___sha_plat_config.html" title="SHA platform specific configuration. ">XSecure_ShaPlatConfig</a>, platform specific SHA configurations
       tvp      02/23/26 Handle XSECURE_SHAKE_256_SLH_DSA_CHAIN enum value
       rpu      04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+5.8   rap      09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
 </pre> </div><div class="textblock"><code>#include &quot;xsecure_sss.h&quot;</code><br/>
 <code>#include &quot;xsecure_sha.h&quot;</code><br/>
 <code>#include &quot;xsecure_aes.h&quot;</code><br/>
@@ -180,6 +182,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga53fe2b16231ce29ca1d943967d122925"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga53fe2b16231ce29ca1d943967d122925">XSecure_MemCpyAndChangeEndianness</a> (u64 DestAddress, u64 SrcAddress, u32 Length)</td></tr>
 <tr class="memdesc:ga53fe2b16231ce29ca1d943967d122925"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function can copy the content of memory from 64-bit address to 32-bit address and change endianness of destination data.  <a href="group__xsecure__helper__server__apis.html#ga53fe2b16231ce29ca1d943967d122925">More...</a><br/></td></tr>
 <tr class="separator:ga53fe2b16231ce29ca1d943967d122925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">XSecure_SssLookupTable[Input source][Resource].  <a href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

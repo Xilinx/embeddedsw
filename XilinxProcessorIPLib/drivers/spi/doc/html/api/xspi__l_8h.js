@@ -20,6 +20,7 @@ var xspi__l_8h =
     [ "XSP_DGIER_OFFSET", "xspi__l_8h.html#ga3a66b8345fe53a19c2da1a8162dc366d", null ],
     [ "XSP_DRR_OFFSET", "xspi__l_8h.html#ga078846fea7538049312959d15b44a9dd", null ],
     [ "XSP_DTR_OFFSET", "xspi__l_8h.html#ga02929309d91a658ac28746aee48d0c04", null ],
+    [ "XSP_DUAL_MODE", "xspi__l_8h.html#ga2ffc4a0643a5b408ddc5865cd932679b", null ],
     [ "XSP_GINTR_ENABLE_MASK", "xspi__l_8h.html#ga492a1b3f6bb367fbb9e88b514722b13c", null ],
     [ "XSP_IIER_OFFSET", "xspi__l_8h.html#gace876b867131a62e5407d440c73d6693", null ],
     [ "XSP_IISR_OFFSET", "xspi__l_8h.html#ga2bc4dc18547b8bdd05c5eb2b73c9ff7d", null ],
@@ -39,6 +40,8 @@ var xspi__l_8h =
     [ "XSP_INTR_TX_EMPTY_MASK", "xspi__l_8h.html#gaa8ec3c2cf6ffb5824012e63935fe94cf", null ],
     [ "XSP_INTR_TX_HALF_EMPTY_MASK", "xspi__l_8h.html#ga17b6c5a44bb267e1d71293adfc225cc4", null ],
     [ "XSP_INTR_TX_UNDERRUN_MASK", "xspi__l_8h.html#ga9a7a08185e86401169c2f810642f08ec", null ],
+    [ "XSP_QUAD_MODE", "xspi__l_8h.html#ga65123199589f10eb456ffc73a0473d10", null ],
+    [ "XSP_RFO_MASK", "xspi__l_8h.html#gaac20d42377c8de368527a37e39121666", null ],
     [ "XSP_RFO_OFFSET", "xspi__l_8h.html#ga4e120064bd2a34a145d54608ccef4107", null ],
     [ "XSP_SR_CMD_ERR_MASK", "xspi__l_8h.html#ga05d94bc7a9205d80dd3024783f0cde82", null ],
     [ "XSP_SR_CPOL_CPHA_ERR_MASK", "xspi__l_8h.html#ga2aeb63586150ee640f93d38bf611e583", null ],
@@ -60,7 +63,11 @@ var xspi__l_8h =
     [ "XSP_SRR_OFFSET", "xspi__l_8h.html#gaa82028ecd15bcffd8ab361c0c523a7a9", null ],
     [ "XSP_SRR_RESET_MASK", "xspi__l_8h.html#ga48fdfb116f37c7f14403bed57b556c4c", null ],
     [ "XSP_SSR_OFFSET", "xspi__l_8h.html#ga34c2ab4de85d2a3a5659e5446235942c", null ],
+    [ "XSP_STANDARD_MODE", "xspi__l_8h.html#gadb9526c0fe208894f41ac9a75a4ae33b", null ],
+    [ "XSP_TFO_MASK", "xspi__l_8h.html#ga44ccf60002ad8192685bdbb409b1eac5", null ],
     [ "XSP_TFO_OFFSET", "xspi__l_8h.html#gaf06c80c0767e40c86b2e3fc18457d680", null ],
+    [ "XSpi_In32", "xspi__l_8h.html#ga17b475ddce41f86d28f8e82fbfeea7d8", null ],
+    [ "XSpi_Out32", "xspi__l_8h.html#ga2193543c644c3205b8314c06d1861e1c", null ],
     [ "XSpi_ReadReg", "xspi__l_8h.html#ga5e55891344ab473841b6eefc2bda35a2", null ],
     [ "XSpi_WriteReg", "xspi__l_8h.html#ga32e741800118678aa060ef2a13661e31", null ]
 ];

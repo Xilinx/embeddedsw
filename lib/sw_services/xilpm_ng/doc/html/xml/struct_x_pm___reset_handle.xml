@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___reset_handle" kind="struct" prot="public">
+    <compoundname>XPm_ResetHandle</compoundname>
+    <includes local="no">xpm_reset.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___reset_handle_1a1f0181ab76508e2523affa41a432853d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reset_node" kindref="compound">XPm_ResetNode</ref> *</type>
+        <definition>XPm_ResetNode* XPm_ResetHandle::Reset</definition>
+        <argsstring></argsstring>
+        <name>Reset</name>
+        <briefdescription>
+<para>Reset used by device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_handle_1a66f4d308091dd68481ded7a24b29ec18" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_pm___device_node" kindref="compound">XPm_DeviceNode</ref> *</type>
+        <definition>struct XPm_DeviceNode* XPm_ResetHandle::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device which uses the reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_handle_1a36873536c1315c2c65a394739f7de11f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref> *</type>
+        <definition>XPm_ResetHandle* XPm_ResetHandle::NextReset</definition>
+        <argsstring></argsstring>
+        <name>NextReset</name>
+        <briefdescription>
+<para>Next handle of same device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_handle_1af877085df79803d2c415b6c5efd9ba0e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref> *</type>
+        <definition>XPm_ResetHandle* XPm_ResetHandle::NextDevice</definition>
+        <argsstring></argsstring>
+        <name>NextDevice</name>
+        <briefdescription>
+<para>Next handle of same reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref> - This models reset/device pair. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="276">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="274" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="275" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="273">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="274" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="275" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="272" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="272">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="273" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="277" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="272" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="277">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="274" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="272" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="275">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="273" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="276" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="275" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="274">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="48" bodyend="53"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___reset_handle_1a66f4d308091dd68481ded7a24b29ec18" prot="public" virt="non-virtual"><scope>XPm_ResetHandle</scope><name>Device</name></member>
+      <member refid="struct_x_pm___reset_handle_1af877085df79803d2c415b6c5efd9ba0e" prot="public" virt="non-virtual"><scope>XPm_ResetHandle</scope><name>NextDevice</name></member>
+      <member refid="struct_x_pm___reset_handle_1a36873536c1315c2c65a394739f7de11f" prot="public" virt="non-virtual"><scope>XPm_ResetHandle</scope><name>NextReset</name></member>
+      <member refid="struct_x_pm___reset_handle_1a1f0181ab76508e2523affa41a432853d" prot="public" virt="non-virtual"><scope>XPm_ResetHandle</scope><name>Reset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

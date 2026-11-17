@@ -16,10 +16,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="619" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1191" endline="1822">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
-        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="2956" endline="3275">XHdmiphy1_HdmiDebugInfo</referencedby>
-        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="987" endline="1092">XHdmiphy1_MmcmStart</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="612" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="612" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="3160" endline="3483">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="982" endline="1080">XHdmiphy1_MmcmStart</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1aa8cde6b8904a6c5dffd5546c23f2c244" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___mmcm" kindref="compound">XHdmiphy1_Mmcm</ref></type>
@@ -32,10 +32,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="622" bodyend="-1"/>
-        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1191" endline="1822">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
-        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="2956" endline="3275">XHdmiphy1_HdmiDebugInfo</referencedby>
-        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="987" endline="1092">XHdmiphy1_MmcmStart</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="615" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" compoundref="xhdmiphy1__hdmi_8c" startline="1200" endline="1845">XHdmiphy1_HdmiCfgCalcMmcmParam</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga16dfea31e43d9da2c4c00cd0785b6248" compoundref="xhdmiphy1__hdmi_8c" startline="3160" endline="3483">XHdmiphy1_HdmiDebugInfo</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="982" endline="1080">XHdmiphy1_MmcmStart</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a273c3f14771e7e1ffe24c0a88987dcdd" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___mmcm" kindref="compound">XHdmiphy1_Mmcm</ref></type>
@@ -48,7 +48,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="624" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="617" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" compoundref="xhdmiphy1__dplle5_8c" startline="74" endline="162">XHdmiphy1_DpllWriteParameters</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga7a2d1ddf3e20d013d77568020866475b" compoundref="xhdmiphy1__mmcme4_8c" startline="463" endline="553">XHdmiphy1_Mmcme4WriteParameters</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga522476df58d41cf648464479c92fbe17" compoundref="xhdmiphy1__mmcme5_8c" startline="537" endline="627">XHdmiphy1_Mmcme5WriteParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a64806e03af191381741331b94249c1b8" prot="public" static="no" mutable="no">
         <type>union XHdmiphy1_Quad::@36</type>
@@ -61,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="625" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="618" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1acad6000976c2351b55990aad9bf2184b" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -74,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="628" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="628" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="621" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1af0f90ea361fc67bb39e94a19e5464f15" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -87,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="629" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="629" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="622" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a080200fe0dfec11104b5b9a104f1859c" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -100,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="630" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="623" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a58db78febb6742b065567d90525cf35a" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -113,7 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="631" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="631" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="624" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a6964a55b00fb291549ae36e2b0f57876" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -126,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="633" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="626" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a866c29cdea2aee7831ff6254d11dfc8e" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -139,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="634" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="634" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="627" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1ac762aef05485d7ab924d857f1ba9ed66" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -152,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="637" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="630" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a6cbbbab5877419d0f98e905f9858c2a9" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -165,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="638" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="631" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="631" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1adabc1b9fdb71c7f116eae5ccd152130b" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_hdmiphy1___channel" kindref="compound">XHdmiphy1_Channel</ref></type>
@@ -178,7 +181,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="641" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="634" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="634" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1ab22125390ac469654636f46e7cb9b02f" prot="public" static="no" mutable="no">
         <type>union XHdmiphy1_Quad::@38</type>
@@ -191,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="642" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="635" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a3384e01c8a345632be68ff8b08e3b881" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -204,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="645" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="645" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="638" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1ab5128f3093c1ffe593eed53628e8a6b0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -217,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="646" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="639" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="639" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1ac8a12e406a96f214a85f78890b78a1be" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -230,7 +233,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="647" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="640" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="640" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1aaff72944828fe684a0460ed304eb8c9c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -243,7 +246,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="648" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="648" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="641" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a0de947f8c537108d765f779b773a0c1d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -256,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="649" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="649" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="642" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="642" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a406e63822dde702a422168a94dc400d1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -269,7 +272,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="650" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="643" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a4e04a228bac7e91ef681bdb1a140705e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -282,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="651" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="651" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="644" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="644" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1a7a6dfaf35c53e1144c9f45e19eb0ef66" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -295,7 +298,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="653" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="646" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmiphy1___quad_1aad8f187dcf84e730ba8fd70c9039d867" prot="public" static="no" mutable="no">
         <type>union XHdmiphy1_Quad::@40</type>
@@ -308,7 +311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="654" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="647" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -354,7 +357,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="616" bodyend="655"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="609" bodyend="648"/>
     <listofallmembers>
       <member refid="struct_x_hdmiphy1___quad_1acad6000976c2351b55990aad9bf2184b" prot="public" virt="non-virtual"><scope>XHdmiphy1_Quad</scope><name>Ch1</name></member>
       <member refid="struct_x_hdmiphy1___quad_1af0f90ea361fc67bb39e94a19e5464f15" prot="public" virt="non-virtual"><scope>XHdmiphy1_Quad</scope><name>Ch2</name></member>

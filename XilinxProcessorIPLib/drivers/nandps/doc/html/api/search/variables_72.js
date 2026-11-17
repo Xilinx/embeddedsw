@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['readbuffer',['ReadBuffer',['../xnandps__cache__example_8c.html#aaa747f224cb3f776fb6ecafded15e090',1,'ReadBuffer():&#160;xnandps_cache_example.c'],['../xnandps__example_8c.html#aaa747f224cb3f776fb6ecafded15e090',1,'ReadBuffer():&#160;xnandps_example.c']]],
+  ['readbuffer',['ReadBuffer',['../xnandps__cache__example_8c.html#aaa747f224cb3f776fb6ecafded15e090',1,'ReadBuffer():&#160;xnandps_cache_example.c'],['../xnandps__example_8c.html#aaa747f224cb3f776fb6ecafded15e090',1,'ReadBuffer():&#160;xnandps_example.c'],['../xnandps__skip__example_8c.html#a08c67b78f23dab4b1a97b28cc6bdcc12',1,'ReadBuffer():&#160;xnandps_skip_example.c']]],
+  ['readcache',['ReadCache',['../struct_x_nand_ps___features.html#a7f600fcb3799137e1edac3af4ba6dae3',1,'XNandPs_Features']]],
   ['readpage',['ReadPage',['../struct_x_nand_ps_tag.html#aa589f70667fa1b52e24e2384e421aa01',1,'XNandPsTag']]],
   ['reserved0',['Reserved0',['../struct_onfi_nand___geometry.html#a91505445d9da43fa81e62ad8696d91a8',1,'OnfiNand_Geometry']]],
   ['reserved1',['Reserved1',['../struct_onfi_nand___geometry.html#a9ac074b084cff640de77e0d00bf92e44',1,'OnfiNand_Geometry']]],

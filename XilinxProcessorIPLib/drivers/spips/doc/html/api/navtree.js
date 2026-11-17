@@ -1,37 +1,126 @@
 var NAVTREE =
 [
-  [ "spips", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xspips_selftest_example.c", "example.html#ex1", null ],
-      [ "xspips_eeprom_intr_example.c", "example.html#ex2", null ],
-      [ "xspips_eeprom_polled_example.c", "example.html#ex3", null ],
-      [ "xspips_flash_intr_example.c", "example.html#ex4", null ],
-      [ "xspips_flash_polled_example.c", "example.html#ex5", null ],
-      [ "xspips_slave_polled_example.c", "example.html#ex6", null ],
-      [ "xspips_tpm_polled_example.c", "example.html#ex7", null ]
-    ] ]
-  ] ]
+  [
+    "spips",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xspips_selftest_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xspips_eeprom_intr_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xspips_eeprom_polled_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xspips_flash_intr_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xspips_flash_polled_example.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xspips_slave_polled_example.c",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xspips_tpm_polled_example.c",
+            "example.html#ex7",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"xspips__hw_8h.html#ga3720b391032e33eb4cdb6b114943abbd"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -9,6 +9,7 @@ var searchData=
   ['xuartlite_5finitialize',['XUartLite_Initialize',['../group__uartlite.html#ga3c83194bde1d39a420bc5ff1b6c8677d',1,'xuartlite_sinit.c']]],
   ['xuartlite_5finterrupthandler',['XUartLite_InterruptHandler',['../group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb',1,'xuartlite_intr.c']]],
   ['xuartlite_5fissending',['XUartLite_IsSending',['../group__uartlite.html#ga40bc490d296a7a929f1cc5d07bb29b3c',1,'xuartlite.c']]],
+  ['xuartlite_5flookupconfig',['XUartLite_LookupConfig',['../group__uartlite.html#ga79efa4208bc789a3eb1c7d91ff17671f',1,'xuartlite_sinit.c']]],
   ['xuartlite_5freceivebuffer',['XUartLite_ReceiveBuffer',['../group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8',1,'xuartlite.c']]],
   ['xuartlite_5frecv',['XUartLite_Recv',['../group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d',1,'xuartlite.c']]],
   ['xuartlite_5frecvbyte',['XUartLite_RecvByte',['../group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26',1,'xuartlite_l.c']]],

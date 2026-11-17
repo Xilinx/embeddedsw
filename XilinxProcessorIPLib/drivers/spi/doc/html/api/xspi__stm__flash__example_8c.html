@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__stm__flash__example_8c.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,18 +101,17 @@ $(document).ready(function(){initNavTree('xspi__stm__flash__example_8c.html','')
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xspi_stm_flash_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the SPI driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a>) and hardware device with an STM serial Flash device (M25P series) in the interrupt mode. </p>
-<p>This example erases a Sector, writes to a Page within the Sector, reads back from that Page and compares the data.</p>
-<p>This example has been tested with an M25P16 device. The bytes per page (STM_PAGE_SIZE) in M25P16 is 256.</p>
-<p>This example assumes that the underlying processor is MicroBlaze.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
+<div class="textblock"><p>Implements a design example using the SPI driver (<a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a>) and hardware device with an STM serial Flash device (M25P series) in the interrupt mode. </p>
+<p>The example erases a Sector, writes to a Page within the Sector, reads back from that Page and compares the data.</p>
+<p>The example has been tested with an M25P16 device. The bytes per page (STM_PAGE_SIZE) in M25P16 is 256.</p>
+<p>The example assumes that the underlying processor is MicroBlaze.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -129,6 +128,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     CR-965028.
       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 4.11  sb   07/11/23 Added support for system device-tree flow.
+4.17  vn   08/26/26 Fix Doxygen warnings.
+4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
@@ -137,347 +138,115 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a03934c6901a241dda61e923bca702633"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#a03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>&#160;&#160;&#160;4 /* Read/Write extra bytes */</td></tr>
-<tr class="memdesc:a03934c6901a241dda61e923bca702633"><td class="mdescLeft">&#160;</td><td class="mdescRight">This definitions specify the EXTRA bytes in each of the command transactions.  <a href="#a03934c6901a241dda61e923bca702633">More...</a><br/></td></tr>
-<tr class="separator:a03934c6901a241dda61e923bca702633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a226f2439562fc2e8c8699d500d76e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga7a226f2439562fc2e8c8699d500d76e7">STM_SPI_SELECT</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga7a226f2439562fc2e8c8699d500d76e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant defines the slave select signal that selects the Flash device on the SPI bus, this signal is typically connected to the chip select of the device.  <a href="group__xspi__stm__flash__example.html#ga7a226f2439562fc2e8c8699d500d76e7">More...</a><br/></td></tr>
+<tr class="separator:ga7a226f2439562fc2e8c8699d500d76e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86cac50db1ec5e1b35597df84e069bba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga86cac50db1ec5e1b35597df84e069bba">STM_COMMAND_RANDOM_READ</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:ga86cac50db1ec5e1b35597df84e069bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random read command.  <a href="group__xspi__stm__flash__example.html#ga86cac50db1ec5e1b35597df84e069bba">More...</a><br/></td></tr>
+<tr class="separator:ga86cac50db1ec5e1b35597df84e069bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaafd9849f1a6dd40f64a3ccffbd69fd21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gaafd9849f1a6dd40f64a3ccffbd69fd21">STM_COMMAND_PAGEPROGRAM_WRITE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:gaafd9849f1a6dd40f64a3ccffbd69fd21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Program command.  <a href="group__xspi__stm__flash__example.html#gaafd9849f1a6dd40f64a3ccffbd69fd21">More...</a><br/></td></tr>
+<tr class="separator:gaafd9849f1a6dd40f64a3ccffbd69fd21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9512fcca9f3f8201ddbcd9f7f33eb29b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga9512fcca9f3f8201ddbcd9f7f33eb29b">STM_COMMAND_WRITE_ENABLE</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:ga9512fcca9f3f8201ddbcd9f7f33eb29b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write Enable command.  <a href="group__xspi__stm__flash__example.html#ga9512fcca9f3f8201ddbcd9f7f33eb29b">More...</a><br/></td></tr>
+<tr class="separator:ga9512fcca9f3f8201ddbcd9f7f33eb29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0a3a7e4a816526dd43782dfe8f412ea6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga0a3a7e4a816526dd43782dfe8f412ea6">STM_COMMAND_SECTOR_ERASE</a>&#160;&#160;&#160;0xD8</td></tr>
+<tr class="memdesc:ga0a3a7e4a816526dd43782dfe8f412ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector Erase command.  <a href="group__xspi__stm__flash__example.html#ga0a3a7e4a816526dd43782dfe8f412ea6">More...</a><br/></td></tr>
+<tr class="separator:ga0a3a7e4a816526dd43782dfe8f412ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3b2906c4f7fa0163b74fb14d343b209"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gaf3b2906c4f7fa0163b74fb14d343b209">STM_COMMAND_BULK_ERASE</a>&#160;&#160;&#160;0xC7</td></tr>
+<tr class="memdesc:gaf3b2906c4f7fa0163b74fb14d343b209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk Erase command.  <a href="group__xspi__stm__flash__example.html#gaf3b2906c4f7fa0163b74fb14d343b209">More...</a><br/></td></tr>
+<tr class="separator:gaf3b2906c4f7fa0163b74fb14d343b209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55895e46c330afc876082313bb3599b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga55895e46c330afc876082313bb3599b8">STM_COMMAND_STATUSREG_READ</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:ga55895e46c330afc876082313bb3599b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status read command.  <a href="group__xspi__stm__flash__example.html#ga55895e46c330afc876082313bb3599b8">More...</a><br/></td></tr>
+<tr class="separator:ga55895e46c330afc876082313bb3599b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03934c6901a241dda61e923bca702633"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga03934c6901a241dda61e923bca702633"><td class="mdescLeft">&#160;</td><td class="mdescRight">This definitions specify the EXTRA bytes in each of the command transactions.  <a href="group__xspi__stm__flash__example.html#ga03934c6901a241dda61e923bca702633">More...</a><br/></td></tr>
+<tr class="separator:ga03934c6901a241dda61e923bca702633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6af335ed54e65bfcec84197eae29e73a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga6af335ed54e65bfcec84197eae29e73a">STM_WRITE_ENABLE_BYTES</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga6af335ed54e65bfcec84197eae29e73a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write Enable bytes.  <a href="group__xspi__stm__flash__example.html#ga6af335ed54e65bfcec84197eae29e73a">More...</a><br/></td></tr>
+<tr class="separator:ga6af335ed54e65bfcec84197eae29e73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac4b18de92e6b6613eaec5b72e872d13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gaac4b18de92e6b6613eaec5b72e872d13">STM_SECTOR_ERASE_BYTES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gaac4b18de92e6b6613eaec5b72e872d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector erase extra bytes.  <a href="group__xspi__stm__flash__example.html#gaac4b18de92e6b6613eaec5b72e872d13">More...</a><br/></td></tr>
+<tr class="separator:gaac4b18de92e6b6613eaec5b72e872d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga509a6683d9a4ec69ec67802de59b9971"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga509a6683d9a4ec69ec67802de59b9971">STM_BULK_ERASE_BYTES</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga509a6683d9a4ec69ec67802de59b9971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk erase extra bytes.  <a href="group__xspi__stm__flash__example.html#ga509a6683d9a4ec69ec67802de59b9971">More...</a><br/></td></tr>
+<tr class="separator:ga509a6683d9a4ec69ec67802de59b9971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a572aa707d45196b9af466d3f590d2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga3a572aa707d45196b9af466d3f590d2b">STM_STATUS_READ_BYTES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga3a572aa707d45196b9af466d3f590d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status read bytes count.  <a href="group__xspi__stm__flash__example.html#ga3a572aa707d45196b9af466d3f590d2b">More...</a><br/></td></tr>
+<tr class="separator:ga3a572aa707d45196b9af466d3f590d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e16da128c05c2dbb28238cf3ea8ac0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga4e16da128c05c2dbb28238cf3ea8ac0d">STM_STATUS_WRITE_BYTES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga4e16da128c05c2dbb28238cf3ea8ac0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status write bytes count.  <a href="group__xspi__stm__flash__example.html#ga4e16da128c05c2dbb28238cf3ea8ac0d">More...</a><br/></td></tr>
+<tr class="separator:ga4e16da128c05c2dbb28238cf3ea8ac0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a7516ceb2da068b737f51d5c4136bc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga4a7516ceb2da068b737f51d5c4136bc0">STM_FLASH_SR_IS_READY_MASK</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga4a7516ceb2da068b737f51d5c4136bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ready mask.  <a href="group__xspi__stm__flash__example.html#ga4a7516ceb2da068b737f51d5c4136bc0">More...</a><br/></td></tr>
+<tr class="separator:ga4a7516ceb2da068b737f51d5c4136bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67fbd3fe9dcb5c2b191ef560371ea5e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga67fbd3fe9dcb5c2b191ef560371ea5e4">STM_PAGE_SIZE</a>&#160;&#160;&#160;256</td></tr>
+<tr class="memdesc:ga67fbd3fe9dcb5c2b191ef560371ea5e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes per page in the flash device.  <a href="group__xspi__stm__flash__example.html#ga67fbd3fe9dcb5c2b191ef560371ea5e4">More...</a><br/></td></tr>
+<tr class="separator:ga67fbd3fe9dcb5c2b191ef560371ea5e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8621c230cb4ede3ddec82b0871d559f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gaa8621c230cb4ede3ddec82b0871d559f">STM_FLASH_TEST_ADDRESS</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:gaa8621c230cb4ede3ddec82b0871d559f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address of the page to perform Erase, Write and Read operations.  <a href="group__xspi__stm__flash__example.html#gaa8621c230cb4ede3ddec82b0871d559f">More...</a><br/></td></tr>
+<tr class="separator:gaa8621c230cb4ede3ddec82b0871d559f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade158881a3017a11bd4197d9bcb2e5d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gade158881a3017a11bd4197d9bcb2e5d6">STM_FLASH_TEST_BYTE</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memdesc:gade158881a3017a11bd4197d9bcb2e5d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte offset value written to Flash.  <a href="group__xspi__stm__flash__example.html#gade158881a3017a11bd4197d9bcb2e5d6">More...</a><br/></td></tr>
+<tr class="separator:gade158881a3017a11bd4197d9bcb2e5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b1468d2755101d28e3b8e7a91109d2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga3b1468d2755101d28e3b8e7a91109d2e">BYTE1</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga3b1468d2755101d28e3b8e7a91109d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 1 position.  <a href="group__xspi__stm__flash__example.html#ga3b1468d2755101d28e3b8e7a91109d2e">More...</a><br/></td></tr>
+<tr class="separator:ga3b1468d2755101d28e3b8e7a91109d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cec78d40bc62e93813cc388997f654f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga1cec78d40bc62e93813cc388997f654f">BYTE2</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga1cec78d40bc62e93813cc388997f654f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 2 position.  <a href="group__xspi__stm__flash__example.html#ga1cec78d40bc62e93813cc388997f654f">More...</a><br/></td></tr>
+<tr class="separator:ga1cec78d40bc62e93813cc388997f654f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafce866f3fde25d9e75d531b679c00213"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gafce866f3fde25d9e75d531b679c00213">BYTE3</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gafce866f3fde25d9e75d531b679c00213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 3 position.  <a href="group__xspi__stm__flash__example.html#gafce866f3fde25d9e75d531b679c00213">More...</a><br/></td></tr>
+<tr class="separator:gafce866f3fde25d9e75d531b679c00213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91cb164747412f1fb75f5ab9c6c91fd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga91cb164747412f1fb75f5ab9c6c91fd2">BYTE4</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga91cb164747412f1fb75f5ab9c6c91fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 4 position.  <a href="group__xspi__stm__flash__example.html#ga91cb164747412f1fb75f5ab9c6c91fd2">More...</a><br/></td></tr>
+<tr class="separator:ga91cb164747412f1fb75f5ab9c6c91fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9037d2e19fd39f4b87d7b2074050d9c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga9037d2e19fd39f4b87d7b2074050d9c1">BYTE5</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga9037d2e19fd39f4b87d7b2074050d9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 5 position.  <a href="group__xspi__stm__flash__example.html#ga9037d2e19fd39f4b87d7b2074050d9c1">More...</a><br/></td></tr>
+<tr class="separator:ga9037d2e19fd39f4b87d7b2074050d9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e6f7dc9c6aa7f308dfdb7fe6c43d7e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga7e6f7dc9c6aa7f308dfdb7fe6c43d7e7">STM_DUMMYBYTE</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:ga7e6f7dc9c6aa7f308dfdb7fe6c43d7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy byte.  <a href="group__xspi__stm__flash__example.html#ga7e6f7dc9c6aa7f308dfdb7fe6c43d7e7">More...</a><br/></td></tr>
+<tr class="separator:ga7e6f7dc9c6aa7f308dfdb7fe6c43d7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acd35c3715d81555e31510cd8e985f4de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#acd35c3715d81555e31510cd8e985f4de">SpiStmFlashWriteEnable</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:acd35c3715d81555e31510cd8e985f4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables writes to the STM Serial Flash memory.  <a href="#acd35c3715d81555e31510cd8e985f4de">More...</a><br/></td></tr>
-<tr class="separator:acd35c3715d81555e31510cd8e985f4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa941537bff54666b063ae5d01f2a82e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#aa941537bff54666b063ae5d01f2a82e8">SpiStmFlashWrite</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount)</td></tr>
-<tr class="memdesc:aa941537bff54666b063ae5d01f2a82e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes the data to the specified locations in the STM Serial Flash memory.  <a href="#aa941537bff54666b063ae5d01f2a82e8">More...</a><br/></td></tr>
-<tr class="separator:aa941537bff54666b063ae5d01f2a82e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d6873a7dfd6f962658f9c38c16922bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#a4d6873a7dfd6f962658f9c38c16922bf">SpiStmFlashRead</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount)</td></tr>
-<tr class="memdesc:a4d6873a7dfd6f962658f9c38c16922bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the data from the STM Serial Flash Memory.  <a href="#a4d6873a7dfd6f962658f9c38c16922bf">More...</a><br/></td></tr>
-<tr class="separator:a4d6873a7dfd6f962658f9c38c16922bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cf6f63c9b15b121231880b384d2d6fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#a9cf6f63c9b15b121231880b384d2d6fe">SpiStmFlashBulkErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:a9cf6f63c9b15b121231880b384d2d6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function erases the entire contents of the STM Serial Flash device.  <a href="#a9cf6f63c9b15b121231880b384d2d6fe">More...</a><br/></td></tr>
-<tr class="separator:a9cf6f63c9b15b121231880b384d2d6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67e2c3caac23cc5879eb277cdd2476fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#a67e2c3caac23cc5879eb277cdd2476fd">SpiStmFlashSectorErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr)</td></tr>
-<tr class="memdesc:a67e2c3caac23cc5879eb277cdd2476fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function erases the contents of the specified Sector in the STM Serial Flash device.  <a href="#a67e2c3caac23cc5879eb277cdd2476fd">More...</a><br/></td></tr>
-<tr class="separator:a67e2c3caac23cc5879eb277cdd2476fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dccfc93abc36cebd86eaeb6aa3ec13e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#a7dccfc93abc36cebd86eaeb6aa3ec13e">SpiStmFlashGetStatus</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:a7dccfc93abc36cebd86eaeb6aa3ec13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Status register of the STM Flash.  <a href="#a7dccfc93abc36cebd86eaeb6aa3ec13e">More...</a><br/></td></tr>
-<tr class="separator:a7dccfc93abc36cebd86eaeb6aa3ec13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler</a> (void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</td></tr>
-<tr class="memdesc:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing for the SPI driver.  <a href="#aacdc7be0761bc23854d5f1b9c6dbe36a">More...</a><br/></td></tr>
-<tr class="separator:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__stm__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to execute the Flash example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd35c3715d81555e31510cd8e985f4de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gacd35c3715d81555e31510cd8e985f4de">SpiStmFlashWriteEnable</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:gacd35c3715d81555e31510cd8e985f4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables writes to the STM Serial Flash memory.  <a href="group__xspi__stm__flash__example.html#gacd35c3715d81555e31510cd8e985f4de">More...</a><br/></td></tr>
+<tr class="separator:gacd35c3715d81555e31510cd8e985f4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa941537bff54666b063ae5d01f2a82e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gaa941537bff54666b063ae5d01f2a82e8">SpiStmFlashWrite</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount)</td></tr>
+<tr class="memdesc:gaa941537bff54666b063ae5d01f2a82e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the data to the specified locations in the STM Serial Flash memory.  <a href="group__xspi__stm__flash__example.html#gaa941537bff54666b063ae5d01f2a82e8">More...</a><br/></td></tr>
+<tr class="separator:gaa941537bff54666b063ae5d01f2a82e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d6873a7dfd6f962658f9c38c16922bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga4d6873a7dfd6f962658f9c38c16922bf">SpiStmFlashRead</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount)</td></tr>
+<tr class="memdesc:ga4d6873a7dfd6f962658f9c38c16922bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the data from the STM Serial Flash Memory.  <a href="group__xspi__stm__flash__example.html#ga4d6873a7dfd6f962658f9c38c16922bf">More...</a><br/></td></tr>
+<tr class="separator:ga4d6873a7dfd6f962658f9c38c16922bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cf6f63c9b15b121231880b384d2d6fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga9cf6f63c9b15b121231880b384d2d6fe">SpiStmFlashBulkErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:ga9cf6f63c9b15b121231880b384d2d6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the entire contents of the STM Serial Flash device.  <a href="group__xspi__stm__flash__example.html#ga9cf6f63c9b15b121231880b384d2d6fe">More...</a><br/></td></tr>
+<tr class="separator:ga9cf6f63c9b15b121231880b384d2d6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67e2c3caac23cc5879eb277cdd2476fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga67e2c3caac23cc5879eb277cdd2476fd">SpiStmFlashSectorErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr)</td></tr>
+<tr class="memdesc:ga67e2c3caac23cc5879eb277cdd2476fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the contents of the specified Sector in the STM Serial Flash device.  <a href="group__xspi__stm__flash__example.html#ga67e2c3caac23cc5879eb277cdd2476fd">More...</a><br/></td></tr>
+<tr class="separator:ga67e2c3caac23cc5879eb277cdd2476fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7dccfc93abc36cebd86eaeb6aa3ec13e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga7dccfc93abc36cebd86eaeb6aa3ec13e">SpiStmFlashGetStatus</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:ga7dccfc93abc36cebd86eaeb6aa3ec13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Status register of the STM Flash.  <a href="group__xspi__stm__flash__example.html#ga7dccfc93abc36cebd86eaeb6aa3ec13e">More...</a><br/></td></tr>
+<tr class="separator:ga7dccfc93abc36cebd86eaeb6aa3ec13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gaacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler</a> (void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</td></tr>
+<tr class="memdesc:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the status events of the SPI driver.  <a href="group__xspi__stm__flash__example.html#gaacdc7be0761bc23854d5f1b9c6dbe36a">More...</a><br/></td></tr>
+<tr class="separator:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the STM Flash example.  <a href="group__xspi__stm__flash__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga7abe7b17ce48d24409e2a49aa35d9842"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga7abe7b17ce48d24409e2a49aa35d9842">ErrorCount</a></td></tr>
+<tr class="memdesc:ga7abe7b17ce48d24409e2a49aa35d9842"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following variable tracks any errors that occur during interrupt processing.  <a href="group__xspi__stm__flash__example.html#ga7abe7b17ce48d24409e2a49aa35d9842">More...</a><br/></td></tr>
+<tr class="separator:ga7abe7b17ce48d24409e2a49aa35d9842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga795cc7a7f80d0863d87a2f7e06f7e8e2"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#ga795cc7a7f80d0863d87a2f7e06f7e8e2">ReadBuffer</a> [<a class="el" href="group__xspi__stm__flash__example.html#ga67fbd3fe9dcb5c2b191ef560371ea5e4">STM_PAGE_SIZE</a>+<a class="el" href="group__xspi__stm__flash__example.html#ga03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>]</td></tr>
+<tr class="memdesc:ga795cc7a7f80d0863d87a2f7e06f7e8e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read buffer used during read and write transactions.  <a href="group__xspi__stm__flash__example.html#ga795cc7a7f80d0863d87a2f7e06f7e8e2">More...</a><br/></td></tr>
+<tr class="separator:ga795cc7a7f80d0863d87a2f7e06f7e8e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gada6ed75a68552b1de21b54ca3c63767d"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__stm__flash__example.html#gada6ed75a68552b1de21b54ca3c63767d">WriteBuffer</a> [<a class="el" href="group__xspi__stm__flash__example.html#ga67fbd3fe9dcb5c2b191ef560371ea5e4">STM_PAGE_SIZE</a>+<a class="el" href="group__xspi__stm__flash__example.html#ga03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>]</td></tr>
+<tr class="memdesc:gada6ed75a68552b1de21b54ca3c63767d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer used during read and write transactions.  <a href="group__xspi__stm__flash__example.html#gada6ed75a68552b1de21b54ca3c63767d">More...</a><br/></td></tr>
+<tr class="separator:gada6ed75a68552b1de21b54ca3c63767d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a03934c6901a241dda61e923bca702633"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define STM_READ_WRITE_EXTRA_BYTES&#160;&#160;&#160;4 /* Read/Write extra bytes */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This definitions specify the EXTRA bytes in each of the command transactions. </p>
-<p>This count includes Command byte, address bytes and any don't care bytes needed. </p>
-
-<p>Referenced by <a class="el" href="xspi__stm__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xspi__stm__flash__example_8c.html#a4d6873a7dfd6f962658f9c38c16922bf">SpiStmFlashRead()</a>, and <a class="el" href="xspi__stm__flash__example_8c.html#aa941537bff54666b063ae5d01f2a82e8">SpiStmFlashWrite()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to execute the Flash example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="struct_x_spi___config.html#a495ec19a4ab441ea59a0e220f0728dd9">XSpi_Config::BaseAddress</a>, <a class="el" href="struct_x_spi___config.html#a3f6036a8c85e0a81febbc13c358335e0">XSpi_Config::IntrId</a>, <a class="el" href="struct_x_spi___config.html#a8eab103efa3a50b4bbe39d6a002150b2">XSpi_Config::IntrParent</a>, <a class="el" href="xspi__atmel__flash__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler()</a>, <a class="el" href="xspi__stm__flash__example_8c.html#a4d6873a7dfd6f962658f9c38c16922bf">SpiStmFlashRead()</a>, <a class="el" href="xspi__stm__flash__example_8c.html#a67e2c3caac23cc5879eb277cdd2476fd">SpiStmFlashSectorErase()</a>, <a class="el" href="xspi__stm__flash__example_8c.html#aa941537bff54666b063ae5d01f2a82e8">SpiStmFlashWrite()</a>, <a class="el" href="xspi__stm__flash__example_8c.html#acd35c3715d81555e31510cd8e985f4de">SpiStmFlashWriteEnable()</a>, <a class="el" href="xspi__stm__flash__example_8c.html#a03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>, <a class="el" href="group__spi.html#gac2c043a14b04e38a61b1979ccaa8a200">XSP_MASTER_OPTION</a>, <a class="el" href="group__spi.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi.html#ga59c223b96bc85c1e13bf88a19af91bc3">XSpi_LookupConfig()</a>, <a class="el" href="group__spi.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>, <a class="el" href="group__spi.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, <a class="el" href="group__spi.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>, and <a class="el" href="group__spi.html#ga87fdaad742a2669200c9b2617e5c86ea">XSpi_Start()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aacdc7be0761bc23854d5f1b9c6dbe36a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SpiHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>StatusEvent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>ByteCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is the handler which performs processing for the SPI driver. </p>
-<p>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</p>
-<p>This handler provides an example of how to handle SPI interrupts and is application specific.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked. </td></tr>
-    <tr><td class="paramname">StatusEvent</td><td>is the event that just occurred. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes transferred up until the event occurred.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a9cf6f63c9b15b121231880b384d2d6fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiStmFlashBulkErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function erases the entire contents of the STM Serial Flash device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The erased bytes will read as 0xFF. </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7dccfc93abc36cebd86eaeb6aa3ec13e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiStmFlashGetStatus </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads the Status register of the STM Flash. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The status register content is stored at the second byte pointed by the ReadBuffer. </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4d6873a7dfd6f962658f9c38c16922bf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiStmFlashRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads the data from the STM Serial Flash Memory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the starting address in the Flash Memory from which the data is to be read. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to be read.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xspi__stm__flash__example_8c.html#a03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>, and <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__stm__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a67e2c3caac23cc5879eb277cdd2476fd"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiStmFlashSectorErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Addr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function erases the contents of the specified Sector in the STM Serial Flash device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the address within a sector of the Buffer, which is to be erased.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The erased bytes will be read back as 0xFF. </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__stm__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa941537bff54666b063ae5d01f2a82e8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiStmFlashWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function writes the data to the specified locations in the STM Serial Flash memory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the address in the Buffer, where to write the data. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xspi__stm__flash__example_8c.html#a03934c6901a241dda61e923bca702633">STM_READ_WRITE_EXTRA_BYTES</a>, and <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__stm__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acd35c3715d81555e31510cd8e985f4de"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiStmFlashWriteEnable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function enables writes to the STM Serial Flash memory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__stm__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

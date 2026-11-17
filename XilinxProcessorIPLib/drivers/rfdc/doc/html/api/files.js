@@ -4,6 +4,7 @@ var files =
     [ "xrfdc.h", "xrfdc_8h.html", "xrfdc_8h" ],
     [ "xrfdc_ap.c", "xrfdc__ap_8c.html", "xrfdc__ap_8c" ],
     [ "xrfdc_clk.c", "xrfdc__clk_8c.html", null ],
+    [ "xrfdc_clk.h", "xrfdc__clk_8h.html", null ],
     [ "xrfdc_clock.c", "xrfdc__clock_8c.html", "xrfdc__clock_8c" ],
     [ "xrfdc_dp.c", "xrfdc__dp_8c.html", "xrfdc__dp_8c" ],
     [ "xrfdc_g.c", "xrfdc__g_8c.html", null ],

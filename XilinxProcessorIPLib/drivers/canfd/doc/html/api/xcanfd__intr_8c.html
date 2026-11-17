@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanfd__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,42 +105,64 @@ $(document).ready(function(){initNavTree('xcanfd__intr_8c.html','');});
 <div class="title">xcanfd_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements interrupt handling functions for the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver. </p>
+<p>This file contains functions related to CAN interrupt handling.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date      Changes
+</p>
+<hr/>
+<p>
+1.0   nsk  06/04/15  First release
+1.0     nsk  16/06/15  Updated <a class="el" href="group__canfd.html#ga9576c384b9ef2e8436298b5947010f90" title="Handles CAN FD driver interrupts. ">XCanFd_IntrHandler()</a> since RTL has
+               changed. RTL Changes,Added new bits to MSR,SR,ISR,
+               IER,ICR Registers and modified TS2 bits in
+               BTR and F_SJW bits in F_BTR Registers.
+1.2   mi   09/22/16  Fixed compilation warnings.
+2.1   ask  07/03/18 Added support for canfd 2.0 spec sequential mode.
+                                   XCanFd_SetRxIntrWatermark : This function has been
+                                   moved to <a class="el" href="xcanfd__intr_8c.html" title="Implements interrupt handling functions for the XCanFd driver. ">xcanfd_intr.c</a>
+      ask  07/03/18 Fix for Sequential recv CR# 992606,CR# 1004222.
+2.12  vlt  01/27/26 Fixed codespell issues
+2.13  vn   07/30/26 Fix Doxygen warnings
+2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+2.13  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga92339dc5f53af37742643e2fc39d6288"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga92339dc5f53af37742643e2fc39d6288">XCanFd_InterruptEnable</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga92339dc5f53af37742643e2fc39d6288"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine enables interrupt(s).  <a href="group__canfd.html#ga92339dc5f53af37742643e2fc39d6288">More...</a><br/></td></tr>
+<tr class="memdesc:ga92339dc5f53af37742643e2fc39d6288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables one or more interrupts.  <a href="group__canfd.html#ga92339dc5f53af37742643e2fc39d6288">More...</a><br/></td></tr>
 <tr class="separator:ga92339dc5f53af37742643e2fc39d6288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga79511bed82a06dbbcda537df26ec2f17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga79511bed82a06dbbcda537df26ec2f17">XCanFd_InterruptEnable_ReadyRqt</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga79511bed82a06dbbcda537df26ec2f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine enables TxBuffer Ready Request interrupt(s).  <a href="group__canfd.html#ga79511bed82a06dbbcda537df26ec2f17">More...</a><br/></td></tr>
+<tr class="memdesc:ga79511bed82a06dbbcda537df26ec2f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables one or more TxBuffer Ready Request interrupts.  <a href="group__canfd.html#ga79511bed82a06dbbcda537df26ec2f17">More...</a><br/></td></tr>
 <tr class="separator:ga79511bed82a06dbbcda537df26ec2f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30c8a2c07427426d69ca414db8f1c395"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga30c8a2c07427426d69ca414db8f1c395">XCanFd_InterruptEnable_CancelRqt</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga30c8a2c07427426d69ca414db8f1c395"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine enables TxBuffer Cancellation interrupt(s).  <a href="group__canfd.html#ga30c8a2c07427426d69ca414db8f1c395">More...</a><br/></td></tr>
+<tr class="memdesc:ga30c8a2c07427426d69ca414db8f1c395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables one or more TxBuffer Cancellation interrupts.  <a href="group__canfd.html#ga30c8a2c07427426d69ca414db8f1c395">More...</a><br/></td></tr>
 <tr class="separator:ga30c8a2c07427426d69ca414db8f1c395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10d72b0fbf5baa598bd12853520c6635"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga10d72b0fbf5baa598bd12853520c6635">XCanFd_InterruptDisable_ReadyRqt</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga10d72b0fbf5baa598bd12853520c6635"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine disables TxBuffer Ready Request interrupt(s).  <a href="group__canfd.html#ga10d72b0fbf5baa598bd12853520c6635">More...</a><br/></td></tr>
+<tr class="memdesc:ga10d72b0fbf5baa598bd12853520c6635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables one or more TxBuffer Ready Request interrupts.  <a href="group__canfd.html#ga10d72b0fbf5baa598bd12853520c6635">More...</a><br/></td></tr>
 <tr class="separator:ga10d72b0fbf5baa598bd12853520c6635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6f1ea050df6192589666e4ad2135a389"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga6f1ea050df6192589666e4ad2135a389">XCanFd_InterruptDisable_CancelRqt</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga6f1ea050df6192589666e4ad2135a389"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine disables the TxBuffer Cancel Request interrupt(s).  <a href="group__canfd.html#ga6f1ea050df6192589666e4ad2135a389">More...</a><br/></td></tr>
+<tr class="memdesc:ga6f1ea050df6192589666e4ad2135a389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables one or more TxBuffer Cancel Request interrupts.  <a href="group__canfd.html#ga6f1ea050df6192589666e4ad2135a389">More...</a><br/></td></tr>
 <tr class="separator:ga6f1ea050df6192589666e4ad2135a389"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga36c239d6fbf456680364f2e6f018722a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga36c239d6fbf456680364f2e6f018722a">XCanFd_InterruptEnable_RxBuffFull</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask, u32 RxBuffNumber)</td></tr>
-<tr class="memdesc:ga36c239d6fbf456680364f2e6f018722a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine Enables the RxBuffer Full interrupt(s) in MailBox Mode.  <a href="group__canfd.html#ga36c239d6fbf456680364f2e6f018722a">More...</a><br/></td></tr>
+<tr class="memdesc:ga36c239d6fbf456680364f2e6f018722a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables one or more RxBuffer Full interrupts in MailBox Mode.  <a href="group__canfd.html#ga36c239d6fbf456680364f2e6f018722a">More...</a><br/></td></tr>
 <tr class="separator:ga36c239d6fbf456680364f2e6f018722a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacce0f487607f85fd398f4f5c6b76326c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gacce0f487607f85fd398f4f5c6b76326c">XCanFd_InterruptDisable_RxBuffFull</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask, u32 RxBuffNumber)</td></tr>
-<tr class="memdesc:gacce0f487607f85fd398f4f5c6b76326c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine disables the RxBuffer Full interrupt(s) in MailBox Mode.  <a href="group__canfd.html#gacce0f487607f85fd398f4f5c6b76326c">More...</a><br/></td></tr>
+<tr class="memdesc:gacce0f487607f85fd398f4f5c6b76326c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables one or more RxBuffer Full interrupts in MailBox Mode.  <a href="group__canfd.html#gacce0f487607f85fd398f4f5c6b76326c">More...</a><br/></td></tr>
 <tr class="separator:gacce0f487607f85fd398f4f5c6b76326c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga397f519e750a6d43295cd30ef4be2871"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga397f519e750a6d43295cd30ef4be2871">XCanFd_InterruptDisable</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga397f519e750a6d43295cd30ef4be2871"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine disables interrupt(s).  <a href="group__canfd.html#ga397f519e750a6d43295cd30ef4be2871">More...</a><br/></td></tr>
+<tr class="memdesc:ga397f519e750a6d43295cd30ef4be2871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables one or more interrupts.  <a href="group__canfd.html#ga397f519e750a6d43295cd30ef4be2871">More...</a><br/></td></tr>
 <tr class="separator:ga397f519e750a6d43295cd30ef4be2871"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaea5de9be2f71f3c862c55d640a086122"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gaea5de9be2f71f3c862c55d640a086122">XCanFd_InterruptClear</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gaea5de9be2f71f3c862c55d640a086122"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears interrupt(s).  <a href="group__canfd.html#gaea5de9be2f71f3c862c55d640a086122">More...</a><br/></td></tr>
+<tr class="memdesc:gaea5de9be2f71f3c862c55d640a086122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears one or more interrupts.  <a href="group__canfd.html#gaea5de9be2f71f3c862c55d640a086122">More...</a><br/></td></tr>
 <tr class="separator:gaea5de9be2f71f3c862c55d640a086122"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9576c384b9ef2e8436298b5947010f90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga9576c384b9ef2e8436298b5947010f90">XCanFd_IntrHandler</a> (void *InstancePtr)</td></tr>
-<tr class="memdesc:ga9576c384b9ef2e8436298b5947010f90"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine is the interrupt handler for the CAN driver.  <a href="group__canfd.html#ga9576c384b9ef2e8436298b5947010f90">More...</a><br/></td></tr>
+<tr class="memdesc:ga9576c384b9ef2e8436298b5947010f90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles CAN FD driver interrupts.  <a href="group__canfd.html#ga9576c384b9ef2e8436298b5947010f90">More...</a><br/></td></tr>
 <tr class="separator:ga9576c384b9ef2e8436298b5947010f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa6b2dd58088aca7507f3e1adddd6a0b8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gaa6b2dd58088aca7507f3e1adddd6a0b8">XCanFd_SetHandler</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef)</td></tr>
-<tr class="memdesc:gaa6b2dd58088aca7507f3e1adddd6a0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine installs an asynchronous callback function for the given HandlerType:  <a href="group__canfd.html#gaa6b2dd58088aca7507f3e1adddd6a0b8">More...</a><br/></td></tr>
+<tr class="memdesc:gaa6b2dd58088aca7507f3e1adddd6a0b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Installs an asynchronous callback function.  <a href="group__canfd.html#gaa6b2dd58088aca7507f3e1adddd6a0b8">More...</a><br/></td></tr>
 <tr class="separator:gaa6b2dd58088aca7507f3e1adddd6a0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

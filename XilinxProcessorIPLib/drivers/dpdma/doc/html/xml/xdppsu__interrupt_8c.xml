@@ -7,6 +7,12 @@
       <node id="105">
         <label>xil_assert.h</label>
       </node>
+      <node id="110">
+        <label>xavbuf_clk.h</label>
+      </node>
+      <node id="103">
+        <label>xil_io.h</label>
+      </node>
       <node id="99">
         <label>xdpdma_video_example.h</label>
         <link refid="xdpdma__video__example_8h"/>
@@ -45,12 +51,6 @@
         <childnode refid="107" relation="include">
         </childnode>
       </node>
-      <node id="110">
-        <label>xavbuf_clk.h</label>
-      </node>
-      <node id="103">
-        <label>xil_io.h</label>
-      </node>
       <node id="109">
         <label>xdppsu.h</label>
       </node>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="57" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -117,7 +117,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="45" bodyend="61"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="45" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="xdppsu__interrupt_8c_1a94743de12942412c2b48e7e2eb56d29b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -144,7 +144,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="75" bodyend="131"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="75" bodyend="131"/>
       </memberdef>
       <memberdef kind="function" id="xdppsu__interrupt_8c_1a51529144f29c6d0db501353f1082d7cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -173,11 +173,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="147" bodyend="199"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="147" bodyend="199"/>
         <references refid="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" compoundref="xdppsu__interrupt_8c" startline="291" endline="318">DpPsu_SetupVideoStream</references>
-        <references refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="186" endline="261">InitDpDmaSubsystem</references>
-        <references refid="xdpdma_8c_1a4b37c9c5a788e141ca8492131af1f980" compoundref="xdpdma_8c" startline="826" endline="840">XDpDma_DisplayGfxFrameBuffer</references>
-        <references refid="xdpdma_8c_1af852eb781100e5f56cb62d9cc9887fb6" compoundref="xdpdma_8c" startline="374" endline="427">XDpDma_SetChannelState</references>
+        <references refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="173" endline="236">InitDpDmaSubsystem</references>
+        <references refid="xdpdma_8c_1a4b37c9c5a788e141ca8492131af1f980" compoundref="xdpdma_8c" startline="823" endline="837">XDpDma_DisplayGfxFrameBuffer</references>
+        <references refid="xdpdma_8c_1af852eb781100e5f56cb62d9cc9887fb6" compoundref="xdpdma_8c" startline="371" endline="424">XDpDma_SetChannelState</references>
         <referencedby refid="xdppsu__interrupt_8c_1a601d86ab0c289a1eec2bacc241a3df06" compoundref="xdppsu__interrupt_8c" startline="216" endline="221">DpPsu_IsrHpdEvent</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdppsu__interrupt_8c_1a601d86ab0c289a1eec2bacc241a3df06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -205,9 +205,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="216" bodyend="221"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="216" bodyend="221"/>
         <references refid="xdpdma__video__example_8h_1a51529144f29c6d0db501353f1082d7cd" compoundref="xdppsu__interrupt_8c" startline="147" endline="199">DpPsu_Run</references>
-        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="276" endline="331">SetupInterrupts</referencedby>
+        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="251" endline="268">SetupInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdppsu__interrupt_8c_1adbfe5ef0bf4ee5c6cd11a276a48724a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -234,9 +234,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="237" bodyend="277"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="237" bodyend="277"/>
         <references refid="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" compoundref="xdppsu__interrupt_8c" startline="291" endline="318">DpPsu_SetupVideoStream</references>
-        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="276" endline="331">SetupInterrupts</referencedby>
+        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="251" endline="268">SetupInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdppsu__interrupt_8c_1a3512577114546136adebdabdb5d39f8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -263,7 +263,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="291" bodyend="318"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="291" bodyend="318"/>
         <referencedby refid="xdppsu__interrupt_8c_1adbfe5ef0bf4ee5c6cd11a276a48724a2" compoundref="xdppsu__interrupt_8c" startline="237" endline="277">DpPsu_IsrHpdPulse</referencedby>
         <referencedby refid="xdppsu__interrupt_8c_1a51529144f29c6d0db501353f1082d7cd" compoundref="xdppsu__interrupt_8c" startline="147" endline="199">DpPsu_Run</referencedby>
       </memberdef>
@@ -502,6 +502,6 @@ None.</para><para><preformatted>
 <codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;DONE!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="318"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c"/>
   </compounddef>
 </doxygen>

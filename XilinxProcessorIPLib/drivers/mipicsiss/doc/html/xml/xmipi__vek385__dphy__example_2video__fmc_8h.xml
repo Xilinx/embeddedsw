@@ -17,167 +17,167 @@
     <includedby refid="xmipi__vek385__dphy__example_2xhdmi__menu_8h" local="yes">xhdmi_menu.h</includedby>
     <includedby refid="xmipi__vek385__dphy__example_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
     <incdepgraph>
-      <node id="1415">
+      <node id="1452">
         <label>xil_assert.h</label>
       </node>
-      <node id="1408">
-        <label>video_fmc.h</label>
-        <link refid="xmipi_vek385_dphy_example/video_fmc.h"/>
-        <childnode refid="1409" relation="include">
+      <node id="1456">
+        <label>onsemi_nb7nq621m.h</label>
+        <childnode refid="1446" relation="include">
         </childnode>
-        <childnode refid="1410" relation="include">
+        <childnode refid="1447" relation="include">
         </childnode>
-        <childnode refid="1411" relation="include">
+        <childnode refid="1449" relation="include">
         </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1413" relation="include">
-        </childnode>
-        <childnode refid="1414" relation="include">
-        </childnode>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1419" relation="include">
-        </childnode>
-        <childnode refid="1420" relation="include">
-        </childnode>
-        <childnode refid="1421" relation="include">
-        </childnode>
-        <childnode refid="1422" relation="include">
+        <childnode refid="1448" relation="include">
         </childnode>
       </node>
-      <node id="1412">
+      <node id="1449">
         <label>sleep.h</label>
       </node>
-      <node id="1419">
-        <label>onsemi_nb7nq621m.h</label>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-      </node>
-      <node id="1417">
+      <node id="1454">
         <label>stdlib.h</label>
       </node>
-      <node id="1413">
+      <node id="1455">
+        <label>ti_lmk03318.h</label>
+        <childnode refid="1446" relation="include">
+        </childnode>
+        <childnode refid="1447" relation="include">
+        </childnode>
+        <childnode refid="1449" relation="include">
+        </childnode>
+        <childnode refid="1448" relation="include">
+        </childnode>
+      </node>
+      <node id="1458">
+        <label>si5344drv.h</label>
+        <childnode refid="1446" relation="include">
+        </childnode>
+        <childnode refid="1447" relation="include">
+        </childnode>
+        <childnode refid="1452" relation="include">
+        </childnode>
+        <childnode refid="1453" relation="include">
+        </childnode>
+        <childnode refid="1449" relation="include">
+        </childnode>
+        <childnode refid="1454" relation="include">
+        </childnode>
+        <childnode refid="1448" relation="include">
+        </childnode>
+      </node>
+      <node id="1450">
         <label>xgpio.h</label>
       </node>
-      <node id="1421">
-        <label>si5344drv.h</label>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1416" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1417" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-      </node>
-      <node id="1418">
-        <label>ti_lmk03318.h</label>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-      </node>
-      <node id="1416">
+      <node id="1453">
         <label>xstatus.h</label>
       </node>
-      <node id="1422">
-        <label>rc21008adrv.h</label>
-        <childnode refid="1409" relation="include">
-        </childnode>
-      </node>
-      <node id="1410">
+      <node id="1447">
         <label>xil_types.h</label>
       </node>
-      <node id="1414">
-        <label>idt_8t49n24x.h</label>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1410" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1416" relation="include">
-        </childnode>
-        <childnode refid="1412" relation="include">
-        </childnode>
-        <childnode refid="1417" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
-      </node>
-      <node id="1420">
+      <node id="1457">
         <label>ti_tmds1204.h</label>
-        <childnode refid="1409" relation="include">
+        <childnode refid="1446" relation="include">
         </childnode>
-        <childnode refid="1410" relation="include">
+        <childnode refid="1447" relation="include">
         </childnode>
-        <childnode refid="1412" relation="include">
+        <childnode refid="1449" relation="include">
         </childnode>
-        <childnode refid="1411" relation="include">
+        <childnode refid="1448" relation="include">
         </childnode>
       </node>
-      <node id="1409">
+      <node id="1459">
+        <label>rc21008adrv.h</label>
+        <childnode refid="1446" relation="include">
+        </childnode>
+      </node>
+      <node id="1446">
         <label>xparameters.h</label>
       </node>
-      <node id="1411">
+      <node id="1448">
         <label>xiic.h</label>
+      </node>
+      <node id="1451">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="1446" relation="include">
+        </childnode>
+        <childnode refid="1447" relation="include">
+        </childnode>
+        <childnode refid="1452" relation="include">
+        </childnode>
+        <childnode refid="1453" relation="include">
+        </childnode>
+        <childnode refid="1449" relation="include">
+        </childnode>
+        <childnode refid="1454" relation="include">
+        </childnode>
+        <childnode refid="1448" relation="include">
+        </childnode>
+      </node>
+      <node id="1445">
+        <label>video_fmc.h</label>
+        <link refid="xmipi_vek385_dphy_example/video_fmc.h"/>
+        <childnode refid="1446" relation="include">
+        </childnode>
+        <childnode refid="1447" relation="include">
+        </childnode>
+        <childnode refid="1448" relation="include">
+        </childnode>
+        <childnode refid="1449" relation="include">
+        </childnode>
+        <childnode refid="1450" relation="include">
+        </childnode>
+        <childnode refid="1451" relation="include">
+        </childnode>
+        <childnode refid="1455" relation="include">
+        </childnode>
+        <childnode refid="1456" relation="include">
+        </childnode>
+        <childnode refid="1457" relation="include">
+        </childnode>
+        <childnode refid="1458" relation="include">
+        </childnode>
+        <childnode refid="1459" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1424">
-        <label>video_fmc.c</label>
+      <node id="1465">
+        <label>xmipi_vek385_dphy_example.c</label>
       </node>
-      <node id="1423">
-        <label>video_fmc.h</label>
-        <link refid="xmipi_vek385_dphy_example/video_fmc.h"/>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1425" relation="include">
-        </childnode>
-        <childnode refid="1426" relation="include">
-        </childnode>
-      </node>
-      <node id="1429">
+      <node id="1466">
         <label>xhdmi_menu.c</label>
       </node>
-      <node id="1425">
+      <node id="1462">
         <label>xhdmi_menu.h</label>
-        <childnode refid="1426" relation="include">
+        <childnode refid="1463" relation="include">
         </childnode>
-        <childnode refid="1429" relation="include">
+        <childnode refid="1466" relation="include">
         </childnode>
-        <childnode refid="1428" relation="include">
+        <childnode refid="1465" relation="include">
         </childnode>
       </node>
-      <node id="1427">
+      <node id="1464">
         <label>xhdmi_example.c</label>
       </node>
-      <node id="1426">
+      <node id="1463">
         <label>xhdmi_example.h</label>
-        <childnode refid="1427" relation="include">
+        <childnode refid="1464" relation="include">
         </childnode>
-        <childnode refid="1428" relation="include">
+        <childnode refid="1465" relation="include">
         </childnode>
       </node>
-      <node id="1428">
-        <label>xmipi_vek385_dphy_example.c</label>
+      <node id="1461">
+        <label>video_fmc.c</label>
+      </node>
+      <node id="1460">
+        <label>video_fmc.h</label>
+        <link refid="xmipi_vek385_dphy_example/video_fmc.h"/>
+        <childnode refid="1461" relation="include">
+        </childnode>
+        <childnode refid="1462" relation="include">
+        </childnode>
+        <childnode refid="1463" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_vfmc" prot="public">XVfmc</innerclass>
@@ -191,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="64" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="64" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a9df9c6ed4667419ac3ab7c8472e86530" prot="public" static="no">
         <name>VFMC_GPIO_RX_CH4_DATASRC_SEL_MASK</name>
@@ -202,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -334,7 +334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="68" bodyend="72"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="68" bodyend="72"/>
       </memberdef>
       <memberdef kind="enum" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034" prot="public" static="no">
         <name>XVfmc_MezzType</name>
@@ -704,7 +704,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="74" bodyend="84"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="74" bodyend="84"/>
       </memberdef>
       <memberdef kind="enum" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7db" prot="public" static="no">
         <name>XVfmc_Gpio_Led</name>
@@ -874,7 +874,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="86" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="86" bodyend="91"/>
       </memberdef>
       <memberdef kind="enum" id="xmipi__vek385__dphy__example_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086" prot="public" static="no">
         <name>XVfmc_Gpio_Ch4_DataClkSel</name>
@@ -1024,7 +1024,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="93" bodyend="98"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="93" bodyend="98"/>
       </memberdef>
       <memberdef kind="enum" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a60ad3c8d798a3232a7cf48235bdd8c7f" prot="public" static="no">
         <name>XVfmc_Mezz_RxRefClkSel</name>
@@ -1104,7 +1104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="100" bodyend="103"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="100" bodyend="103"/>
       </memberdef>
       <memberdef kind="enum" id="xmipi__vek385__dphy__example_2video__fmc_8h_1afcdea81c17351398f85f9d3785e2ed5e" prot="public" static="no">
         <name>XVfmc_Mezz_TxRefClkSel</name>
@@ -1184,7 +1184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="105" bodyend="108"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" bodystart="105" bodyend="108"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1213,7 +1213,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="278" bodyend="363"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="278" bodyend="363"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a46f8baf472e73d905fcf6c7bef55dd8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1252,7 +1252,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="381" bodyend="663"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="381" bodyend="663"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1abb27ec363e083e6fa87746641fa55b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1283,7 +1283,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="677" bodyend="701"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="677" bodyend="701"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a89b2373315e38e8b23c34b66e19c54fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1325,7 +1325,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="717" bodyend="730"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="717" bodyend="730"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1ab21a72b56d26ee2e464747b0c3e735b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1358,7 +1358,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="753" bodyend="781"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="753" bodyend="781"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1ab2456847cbd01e548e319ab9249245a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1388,7 +1388,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="795" bodyend="809"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="795" bodyend="809"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a2e04d56e49a753345fe2a44f0fa5d6c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1418,7 +1418,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="822" bodyend="836"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="822" bodyend="836"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a92ddcb049ab8317759be870417f2689a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1456,7 +1456,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="849" bodyend="867"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="849" bodyend="867"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1afd16aad73e7d400b643f33a2d5ef3b8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1494,7 +1494,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="880" bodyend="901"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="880" bodyend="901"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1ad810963ea396d4fe69cecca9d14e14b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1525,7 +1525,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="915" bodyend="934"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="915" bodyend="934"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__vek385__dphy__example_2video__fmc_8h_1a7d02306bc40334704e4cce92b74025bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1556,7 +1556,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="949" bodyend="975"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/video_fmc.c" bodystart="949" bodyend="975"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1566,7 +1566,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -1663,26 +1663,22 @@
 <codeline lineno="122"><highlight class="normal"></highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vfmc_I2cMuxSelect(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>Vfmc_HdmiInit(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u16<sp/>GpioDeviceId,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,</highlight></codeline>
-<codeline lineno="127"><highlight class="normal">#</highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal">u32<sp/>Vfmc_HdmiInit(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>UINTPTR<sp/>GpioBaseAddr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,</highlight></codeline>
-<codeline lineno="129"><highlight class="normal">#endif</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Location<sp/>Loc);</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vfmc_PowerDownTiLMK03318(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Powerdown);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Led_On(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Gpio_Led<sp/>Led,<sp/>u8<sp/>On);</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Ch4_DataClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Gpio_Ch4_DataClkSel<sp/>DataClkSel);</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Enable);</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Enable);</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>IsFRL,</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRate,<sp/>u8<sp/>Lanes);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>IsFRL,</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRate,<sp/>u8<sp/>Lanes);</highlight></codeline>
-<codeline lineno="141"><highlight class="normal">u32<sp/>Vfmc_Mezz_HdmiRxRefClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Mezz_RxRefClkSel<sp/>Sel);</highlight></codeline>
-<codeline lineno="142"><highlight class="normal">u32<sp/>Vfmc_Mezz_HdmiTxRefClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Mezz_TxRefClkSel<sp/>Sel);</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VIDEO_FMC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">u32<sp/>Vfmc_HdmiInit(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>UINTPTR<sp/>GpioBaseAddr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Location<sp/>Loc);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vfmc_PowerDownTiLMK03318(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Powerdown);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Led_On(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Gpio_Led<sp/>Led,<sp/>u8<sp/>On);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Ch4_DataClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Gpio_Ch4_DataClkSel<sp/>DataClkSel);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>IsFRL,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRate,<sp/>u8<sp/>Lanes);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>IsFRL,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRate,<sp/>u8<sp/>Lanes);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">u32<sp/>Vfmc_Mezz_HdmiRxRefClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Mezz_RxRefClkSel<sp/>Sel);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">u32<sp/>Vfmc_Mezz_HdmiTxRefClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Mezz_TxRefClkSel<sp/>Sel);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VIDEO_FMC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/video_fmc.h"/>
   </compounddef>
 </doxygen>

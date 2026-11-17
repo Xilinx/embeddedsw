@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="369" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="368" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss___sub_core_config_1a970ea4730e9822f0c1ffaf00f02701df" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="370" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="369" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains configuration information for the DpRxSs subcore instances. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="364" bodyend="372"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="367" bodyend="370"/>
     <listofallmembers>
       <member refid="struct_x_dp_rx_ss___sub_core_config_1a970ea4730e9822f0c1ffaf00f02701df" prot="public" virt="non-virtual"><scope>XDpRxSs_SubCoreConfig</scope><name>BaseAddress</name></member>
       <member refid="struct_x_dp_rx_ss___sub_core_config_1ad305685baf76041b978a0ce07019d591" prot="public" virt="non-virtual"><scope>XDpRxSs_SubCoreConfig</scope><name>Name</name></member>

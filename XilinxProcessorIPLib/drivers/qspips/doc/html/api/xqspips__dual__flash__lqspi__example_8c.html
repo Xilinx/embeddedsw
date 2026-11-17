@@ -100,17 +100,17 @@ $(document).ready(function(){initNavTree('xqspips__dual__flash__lqspi__example_8
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xqspips_dual_flash_lqspi_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the QSPI driver (<a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a>) in Linear QSPI mode, with two serial FLASH devices on separate buses. </p>
-<p>With two flash memories on separate buses, even numbered bits in data words are written to the lower memory and odd numbered bits are written to the upper memory. This example writes to the two flash memories in QSPI mode and reads the data back from the flash memories, in Linear QSPI mode. It is recommended to use Manual CS + Auto start for best performance.</p>
-<p>The hardware which this example runs on, must have a serial FLASH (Numonyx N25Q, Winbond W25Q, Spansion S25FL, ISSI IS25WP) for it to run. This example has been tested with the Numonyx Serial Flash (N25Q128) and IS25WP series flash parts.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
+<div class="textblock"><p>Implements a design example using the QSPI driver (<a class="el" href="struct_x_qspi_ps.html" title="Holds the XQspiPs driver instance data. ">XQspiPs</a>) in Linear QSPI mode, with two serial FLASH devices on separate buses. </p>
+<p>With two flash memories on separate buses, even numbered bits in data words are written to the lower memory and odd numbered bits are written to the upper memory. The example writes to the two flash memories in QSPI mode and reads the data back from the flash memories, in Linear QSPI mode. It is recommended to use Manual CS + Auto start for best performance.</p>
+<p>The hardware which this example runs on, must have a serial FLASH (Numonyx N25Q, Winbond W25Q, Spansion S25FL, ISSI IS25WP) for it to run. The example has been tested with the Numonyx Serial Flash (N25Q128) and IS25WP series flash parts.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 </p>
@@ -141,325 +141,155 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 3.11  akm 07/10/23 Add support for system device-tree flow for example.
 3.14  sb  03/25/25 Fixed gcc and g++ warnings.
 3.15  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+3.16  vn  08/26/26 Fix Doxygen warnings
+3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspips_8h.html">xqspips.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga076966d3a1aa7647c294802e9f76bb10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga076966d3a1aa7647c294802e9f76bb10">WRITE_STATUS_CMD</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga076966d3a1aa7647c294802e9f76bb10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write status register command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga076966d3a1aa7647c294802e9f76bb10">More...</a><br/></td></tr>
+<tr class="separator:ga076966d3a1aa7647c294802e9f76bb10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf792feb13ae0c1eab8f95f64c8baa96d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gaf792feb13ae0c1eab8f95f64c8baa96d">WRITE_CMD</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:gaf792feb13ae0c1eab8f95f64c8baa96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write (page program) command.  <a href="group__qspips__dual__flash__lqspi__example.html#gaf792feb13ae0c1eab8f95f64c8baa96d">More...</a><br/></td></tr>
+<tr class="separator:gaf792feb13ae0c1eab8f95f64c8baa96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21623e2a5501c821da54dd76ffc1d077"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga21623e2a5501c821da54dd76ffc1d077">READ_CMD</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:ga21623e2a5501c821da54dd76ffc1d077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normal read command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga21623e2a5501c821da54dd76ffc1d077">More...</a><br/></td></tr>
+<tr class="separator:ga21623e2a5501c821da54dd76ffc1d077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12fe83d74a765a1b4ae033e22a23dafe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga12fe83d74a765a1b4ae033e22a23dafe">WRITE_DISABLE_CMD</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:ga12fe83d74a765a1b4ae033e22a23dafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write disable command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga12fe83d74a765a1b4ae033e22a23dafe">More...</a><br/></td></tr>
+<tr class="separator:ga12fe83d74a765a1b4ae033e22a23dafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3ec262a3f2ab7e77412a7fdab86a011"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gaa3ec262a3f2ab7e77412a7fdab86a011">READ_STATUS_CMD</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:gaa3ec262a3f2ab7e77412a7fdab86a011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read status register command.  <a href="group__qspips__dual__flash__lqspi__example.html#gaa3ec262a3f2ab7e77412a7fdab86a011">More...</a><br/></td></tr>
+<tr class="separator:gaa3ec262a3f2ab7e77412a7fdab86a011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga778f641f7a12aabbe1ffd0c948f8e1f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga778f641f7a12aabbe1ffd0c948f8e1f9">WRITE_ENABLE_CMD</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:ga778f641f7a12aabbe1ffd0c948f8e1f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write enable command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga778f641f7a12aabbe1ffd0c948f8e1f9">More...</a><br/></td></tr>
+<tr class="separator:ga778f641f7a12aabbe1ffd0c948f8e1f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad86cd5806516fb265953d7131f4d09ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gad86cd5806516fb265953d7131f4d09ad">FAST_READ_CMD</a>&#160;&#160;&#160;0x0B</td></tr>
+<tr class="memdesc:gad86cd5806516fb265953d7131f4d09ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast read command.  <a href="group__qspips__dual__flash__lqspi__example.html#gad86cd5806516fb265953d7131f4d09ad">More...</a><br/></td></tr>
+<tr class="separator:gad86cd5806516fb265953d7131f4d09ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0a72c7619ef5b2a95ab266c5ec91a52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gae0a72c7619ef5b2a95ab266c5ec91a52">DUAL_READ_CMD</a>&#160;&#160;&#160;0x3B</td></tr>
+<tr class="memdesc:gae0a72c7619ef5b2a95ab266c5ec91a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual read command.  <a href="group__qspips__dual__flash__lqspi__example.html#gae0a72c7619ef5b2a95ab266c5ec91a52">More...</a><br/></td></tr>
+<tr class="separator:gae0a72c7619ef5b2a95ab266c5ec91a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga94af169751fa1931ce12752054751b17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga94af169751fa1931ce12752054751b17">QUAD_READ_CMD</a>&#160;&#160;&#160;0x6B</td></tr>
+<tr class="memdesc:ga94af169751fa1931ce12752054751b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quad read command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga94af169751fa1931ce12752054751b17">More...</a><br/></td></tr>
+<tr class="separator:ga94af169751fa1931ce12752054751b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66456d73cb4185955c6c7e663a85c8da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga66456d73cb4185955c6c7e663a85c8da">BULK_ERASE_CMD</a>&#160;&#160;&#160;0xC7</td></tr>
+<tr class="memdesc:ga66456d73cb4185955c6c7e663a85c8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk erase command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga66456d73cb4185955c6c7e663a85c8da">More...</a><br/></td></tr>
+<tr class="separator:ga66456d73cb4185955c6c7e663a85c8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0eec2203a85fcd7f55550651809df5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga0eec2203a85fcd7f55550651809df5f0">SEC_ERASE_CMD</a>&#160;&#160;&#160;0xD8</td></tr>
+<tr class="memdesc:ga0eec2203a85fcd7f55550651809df5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector erase command.  <a href="group__qspips__dual__flash__lqspi__example.html#ga0eec2203a85fcd7f55550651809df5f0">More...</a><br/></td></tr>
+<tr class="separator:ga0eec2203a85fcd7f55550651809df5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae90b7e8c7fe9d94c5c156a07e57fc27c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gae90b7e8c7fe9d94c5c156a07e57fc27c">READ_ID</a>&#160;&#160;&#160;0x9F</td></tr>
+<tr class="memdesc:gae90b7e8c7fe9d94c5c156a07e57fc27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read ID command.  <a href="group__qspips__dual__flash__lqspi__example.html#gae90b7e8c7fe9d94c5c156a07e57fc27c">More...</a><br/></td></tr>
+<tr class="separator:gae90b7e8c7fe9d94c5c156a07e57fc27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb83c033ee492824badb77fa8ebd5c5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gadb83c033ee492824badb77fa8ebd5c5d">COMMAND_OFFSET</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gadb83c033ee492824badb77fa8ebd5c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLASH instruction.  <a href="group__qspips__dual__flash__lqspi__example.html#gadb83c033ee492824badb77fa8ebd5c5d">More...</a><br/></td></tr>
+<tr class="separator:gadb83c033ee492824badb77fa8ebd5c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacb3f014bb2edc22968015d7c94fc50e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gacb3f014bb2edc22968015d7c94fc50e7">ADDRESS_1_OFFSET</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gacb3f014bb2edc22968015d7c94fc50e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">MSB byte of address to read or write.  <a href="group__qspips__dual__flash__lqspi__example.html#gacb3f014bb2edc22968015d7c94fc50e7">More...</a><br/></td></tr>
+<tr class="separator:gacb3f014bb2edc22968015d7c94fc50e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78eeefaa529edaa16698434814f12882"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga78eeefaa529edaa16698434814f12882">ADDRESS_2_OFFSET</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga78eeefaa529edaa16698434814f12882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Middle byte of address to read or write.  <a href="group__qspips__dual__flash__lqspi__example.html#ga78eeefaa529edaa16698434814f12882">More...</a><br/></td></tr>
+<tr class="separator:ga78eeefaa529edaa16698434814f12882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a5adf9cc2e2cfa409fb6746d5b22ef6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga7a5adf9cc2e2cfa409fb6746d5b22ef6">ADDRESS_3_OFFSET</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga7a5adf9cc2e2cfa409fb6746d5b22ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSB byte of address to read or write.  <a href="group__qspips__dual__flash__lqspi__example.html#ga7a5adf9cc2e2cfa409fb6746d5b22ef6">More...</a><br/></td></tr>
+<tr class="separator:ga7a5adf9cc2e2cfa409fb6746d5b22ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11faa4c105a137b8edaa096de5063835"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga11faa4c105a137b8edaa096de5063835">DATA_OFFSET</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga11faa4c105a137b8edaa096de5063835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start of Data for Read/Write.  <a href="group__qspips__dual__flash__lqspi__example.html#ga11faa4c105a137b8edaa096de5063835">More...</a><br/></td></tr>
+<tr class="separator:ga11faa4c105a137b8edaa096de5063835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb783614ffde5c436ef41d8d5851f7ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gadb783614ffde5c436ef41d8d5851f7ad">DUMMY_OFFSET</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gadb783614ffde5c436ef41d8d5851f7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy byte offset for fast, dual and quad reads.  <a href="group__qspips__dual__flash__lqspi__example.html#gadb783614ffde5c436ef41d8d5851f7ad">More...</a><br/></td></tr>
+<tr class="separator:gadb783614ffde5c436ef41d8d5851f7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad33594c6ec0a6e6830b2ae30fcf2b926"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gad33594c6ec0a6e6830b2ae30fcf2b926">DUMMY_SIZE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gad33594c6ec0a6e6830b2ae30fcf2b926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of dummy bytes for fast, dual and quad reads.  <a href="group__qspips__dual__flash__lqspi__example.html#gad33594c6ec0a6e6830b2ae30fcf2b926">More...</a><br/></td></tr>
+<tr class="separator:gad33594c6ec0a6e6830b2ae30fcf2b926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab70178b04d2917335da4565bbb9e9bf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gab70178b04d2917335da4565bbb9e9bf4">RD_ID_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gab70178b04d2917335da4565bbb9e9bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read ID command + 3 bytes ID response.  <a href="group__qspips__dual__flash__lqspi__example.html#gab70178b04d2917335da4565bbb9e9bf4">More...</a><br/></td></tr>
+<tr class="separator:gab70178b04d2917335da4565bbb9e9bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae684d0413cc3a0dfe84ea9914dc9df34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gae684d0413cc3a0dfe84ea9914dc9df34">BULK_ERASE_SIZE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gae684d0413cc3a0dfe84ea9914dc9df34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk Erase command size.  <a href="group__qspips__dual__flash__lqspi__example.html#gae684d0413cc3a0dfe84ea9914dc9df34">More...</a><br/></td></tr>
+<tr class="separator:gae684d0413cc3a0dfe84ea9914dc9df34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2c806bebfe8737b36450c53bd4eb112c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga2c806bebfe8737b36450c53bd4eb112c">SEC_ERASE_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga2c806bebfe8737b36450c53bd4eb112c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector Erase command + Sector address.  <a href="group__qspips__dual__flash__lqspi__example.html#ga2c806bebfe8737b36450c53bd4eb112c">More...</a><br/></td></tr>
+<tr class="separator:ga2c806bebfe8737b36450c53bd4eb112c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga635c69a613273e533212c0bf3c15b8c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga635c69a613273e533212c0bf3c15b8c4">OVERHEAD_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga635c69a613273e533212c0bf3c15b8c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command and address byte count.  <a href="group__qspips__dual__flash__lqspi__example.html#ga635c69a613273e533212c0bf3c15b8c4">More...</a><br/></td></tr>
+<tr class="separator:ga635c69a613273e533212c0bf3c15b8c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa35bad1e92008da628f27b2f6bb270aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gaa35bad1e92008da628f27b2f6bb270aa">SECTOR_SIZE</a>&#160;&#160;&#160;0x20000</td></tr>
+<tr class="memdesc:gaa35bad1e92008da628f27b2f6bb270aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Half from each flash.  <a href="group__qspips__dual__flash__lqspi__example.html#gaa35bad1e92008da628f27b2f6bb270aa">More...</a><br/></td></tr>
+<tr class="separator:gaa35bad1e92008da628f27b2f6bb270aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac5656d686c3863cc1e0f1533c3f6c685"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gac5656d686c3863cc1e0f1533c3f6c685">NUM_SECTORS</a>&#160;&#160;&#160;0x100</td></tr>
+<tr class="memdesc:gac5656d686c3863cc1e0f1533c3f6c685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of sectors.  <a href="group__qspips__dual__flash__lqspi__example.html#gac5656d686c3863cc1e0f1533c3f6c685">More...</a><br/></td></tr>
+<tr class="separator:gac5656d686c3863cc1e0f1533c3f6c685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae12c40b3b2496ea64cbd1f626d4a5817"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gae12c40b3b2496ea64cbd1f626d4a5817">NUM_PAGES</a>&#160;&#160;&#160;0x10000</td></tr>
+<tr class="memdesc:gae12c40b3b2496ea64cbd1f626d4a5817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of pages.  <a href="group__qspips__dual__flash__lqspi__example.html#gae12c40b3b2496ea64cbd1f626d4a5817">More...</a><br/></td></tr>
+<tr class="separator:gae12c40b3b2496ea64cbd1f626d4a5817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a>&#160;&#160;&#160;512</td></tr>
+<tr class="memdesc:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">256 bytes from each flash.  <a href="group__qspips__dual__flash__lqspi__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">More...</a><br/></td></tr>
+<tr class="separator:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad01773d6d4e813ca3ab93a5654491bcb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gad01773d6d4e813ca3ab93a5654491bcb">LQSPI_CR_FAST_QUAD_READ</a>&#160;&#160;&#160;0x0000006B</td></tr>
+<tr class="memdesc:gad01773d6d4e813ca3ab93a5654491bcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast Quad Read output.  <a href="group__qspips__dual__flash__lqspi__example.html#gad01773d6d4e813ca3ab93a5654491bcb">More...</a><br/></td></tr>
+<tr class="separator:gad01773d6d4e813ca3ab93a5654491bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8fcc17a327c339c2bd038e9869f0bef1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga8fcc17a327c339c2bd038e9869f0bef1">LQSPI_CR_1_DUMMY_BYTE</a>&#160;&#160;&#160;0x00000100</td></tr>
+<tr class="memdesc:ga8fcc17a327c339c2bd038e9869f0bef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 Dummy Byte between address and return data.  <a href="group__qspips__dual__flash__lqspi__example.html#ga8fcc17a327c339c2bd038e9869f0bef1">More...</a><br/></td></tr>
+<tr class="separator:ga8fcc17a327c339c2bd038e9869f0bef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf76861078dd81325e0d7f93f867184d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gabf76861078dd81325e0d7f93f867184d">DUAL_QSPI_CONFIG_WRITE</a></td></tr>
+<tr class="memdesc:gabf76861078dd81325e0d7f93f867184d"><td class="mdescLeft">&#160;</td><td class="mdescRight">LQSPI configuration register value for writing to the dual flash.  <a href="group__qspips__dual__flash__lqspi__example.html#gabf76861078dd81325e0d7f93f867184d">More...</a><br/></td></tr>
+<tr class="separator:gabf76861078dd81325e0d7f93f867184d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae38107216f44024f9b8b59be70e1b27"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gaae38107216f44024f9b8b59be70e1b27">DUAL_QSPI_CONFIG_QUAD_READ</a></td></tr>
+<tr class="memdesc:gaae38107216f44024f9b8b59be70e1b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">LQSPI configuration register value for Linear quad reads of dual flash.  <a href="group__qspips__dual__flash__lqspi__example.html#gaae38107216f44024f9b8b59be70e1b27">More...</a><br/></td></tr>
+<tr class="separator:gaae38107216f44024f9b8b59be70e1b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of flash pages to be written.  <a href="group__qspips__dual__flash__lqspi__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">More...</a><br/></td></tr>
+<tr class="separator:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9376dcef436c7d444fe4d1fd11749101"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga9376dcef436c7d444fe4d1fd11749101">TEST_ADDRESS</a>&#160;&#160;&#160;0x0000</td></tr>
+<tr class="memdesc:ga9376dcef436c7d444fe4d1fd11749101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash address to which data is to be written.  <a href="group__qspips__dual__flash__lqspi__example.html#ga9376dcef436c7d444fe4d1fd11749101">More...</a><br/></td></tr>
+<tr class="separator:ga9376dcef436c7d444fe4d1fd11749101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad922278cd1812d8a566d5b9da390681f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gad922278cd1812d8a566d5b9da390681f">UNIQUE_VALUE</a>&#160;&#160;&#160;0x3</td></tr>
+<tr class="memdesc:gad922278cd1812d8a566d5b9da390681f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start value of the data pattern.  <a href="group__qspips__dual__flash__lqspi__example.html#gad922278cd1812d8a566d5b9da390681f">More...</a><br/></td></tr>
+<tr class="separator:gad922278cd1812d8a566d5b9da390681f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf06a3762adb0aa04b8a5f8f016ca5e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9">MAX_DATA</a>&#160;&#160;&#160;(<a class="el" href="group__qspips__g128__flash__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a> * <a class="el" href="group__qspips__flash__polled__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a>)</td></tr>
+<tr class="memdesc:gaaf06a3762adb0aa04b8a5f8f016ca5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum amount of data transferred to and from the FLASH.  <a href="group__qspips__dual__flash__lqspi__example.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9">More...</a><br/></td></tr>
+<tr class="separator:gaaf06a3762adb0aa04b8a5f8f016ca5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc">FlashErase</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount)</td></tr>
-<tr class="memdesc:a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function erases the sectors in the serial FLASH connected to the QSPI interface.  <a href="#a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc">More...</a><br/></td></tr>
-<tr class="separator:a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4691616d85f33bb068a7e9740249b86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#aa4691616d85f33bb068a7e9740249b86">FlashWrite</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount, u8 Command)</td></tr>
-<tr class="memdesc:aa4691616d85f33bb068a7e9740249b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes to the serial FLASH connected to the QSPI interface.  <a href="#aa4691616d85f33bb068a7e9740249b86">More...</a><br/></td></tr>
-<tr class="separator:aa4691616d85f33bb068a7e9740249b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af28c30bb35e57c70a8b73c8796fb3fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#af28c30bb35e57c70a8b73c8796fb3fb1">FlashRead</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount, u8 Command)</td></tr>
-<tr class="memdesc:af28c30bb35e57c70a8b73c8796fb3fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads from the serial FLASH connected to the QSPI interface.  <a href="#af28c30bb35e57c70a8b73c8796fb3fb1">More...</a><br/></td></tr>
-<tr class="separator:af28c30bb35e57c70a8b73c8796fb3fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa424c9f6fee5f08746f8f3233b7467ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#aa424c9f6fee5f08746f8f3233b7467ed">FlashReadID</a> (void)</td></tr>
-<tr class="memdesc:aa424c9f6fee5f08746f8f3233b7467ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads serial FLASH ID connected to the SPI interface.  <a href="#aa424c9f6fee5f08746f8f3233b7467ed">More...</a><br/></td></tr>
-<tr class="separator:aa424c9f6fee5f08746f8f3233b7467ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6682571380b6d4dee70c0db72199278c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a6682571380b6d4dee70c0db72199278c">FlashQuadEnable</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr)</td></tr>
-<tr class="memdesc:a6682571380b6d4dee70c0db72199278c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables quad mode in the serial flash connected to the SPI interface.  <a href="#a6682571380b6d4dee70c0db72199278c">More...</a><br/></td></tr>
-<tr class="separator:a6682571380b6d4dee70c0db72199278c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57d62056b91d395bf496c958a423ad53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a57d62056b91d395bf496c958a423ad53"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a> device driver in Linear mode.  <a href="#a57d62056b91d395bf496c958a423ad53">More...</a><br/></td></tr>
-<tr class="separator:a57d62056b91d395bf496c958a423ad53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the QSPI Flash example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__stack__lqspi__example.html#ga1cb26e7de1e53fe8bd6c4e1d3a9e8ecc">FlashErase</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount)</td></tr>
+<tr class="memdesc:ga1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the sectors in the serial FLASH connected to the QSPI interface.  <a href="group__qspips__dual__flash__stack__lqspi__example.html#ga1cb26e7de1e53fe8bd6c4e1d3a9e8ecc">More...</a><br/></td></tr>
+<tr class="separator:ga1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4691616d85f33bb068a7e9740249b86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__stack__lqspi__example.html#gaa4691616d85f33bb068a7e9740249b86">FlashWrite</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount, u8 Command)</td></tr>
+<tr class="memdesc:gaa4691616d85f33bb068a7e9740249b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the serial FLASH connected to the QSPI interface.  <a href="group__qspips__dual__flash__stack__lqspi__example.html#gaa4691616d85f33bb068a7e9740249b86">More...</a><br/></td></tr>
+<tr class="separator:gaa4691616d85f33bb068a7e9740249b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf28c30bb35e57c70a8b73c8796fb3fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__flash__intr__example.html#gaf28c30bb35e57c70a8b73c8796fb3fb1">FlashRead</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr, u32 Address, u32 ByteCount, u8 Command)</td></tr>
+<tr class="memdesc:gaf28c30bb35e57c70a8b73c8796fb3fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads from the serial FLASH connected to the QSPI interface.  <a href="group__qspips__flash__intr__example.html#gaf28c30bb35e57c70a8b73c8796fb3fb1">More...</a><br/></td></tr>
+<tr class="separator:gaf28c30bb35e57c70a8b73c8796fb3fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa424c9f6fee5f08746f8f3233b7467ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__stack__lqspi__example.html#gaa424c9f6fee5f08746f8f3233b7467ed">FlashReadID</a> (void)</td></tr>
+<tr class="memdesc:gaa424c9f6fee5f08746f8f3233b7467ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads serial FLASH ID connected to the SPI interface.  <a href="group__qspips__dual__flash__stack__lqspi__example.html#gaa424c9f6fee5f08746f8f3233b7467ed">More...</a><br/></td></tr>
+<tr class="separator:gaa424c9f6fee5f08746f8f3233b7467ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6682571380b6d4dee70c0db72199278c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__stack__lqspi__example.html#ga6682571380b6d4dee70c0db72199278c">FlashQuadEnable</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiPtr)</td></tr>
+<tr class="memdesc:ga6682571380b6d4dee70c0db72199278c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables quad mode in the serial flash connected to the SPI interface.  <a href="group__qspips__dual__flash__stack__lqspi__example.html#ga6682571380b6d4dee70c0db72199278c">More...</a><br/></td></tr>
+<tr class="separator:ga6682571380b6d4dee70c0db72199278c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga57d62056b91d395bf496c958a423ad53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__flash__lqspi__example.html#ga57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample</a> (<a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *QspiInstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga57d62056b91d395bf496c958a423ad53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Illustrates how to use the <a class="el" href="struct_x_qspi_ps.html" title="Holds the XQspiPs driver instance data. ">XQspiPs</a> device driver in Linear mode.  <a href="group__qspips__flash__lqspi__example.html#ga57d62056b91d395bf496c958a423ad53">More...</a><br/></td></tr>
+<tr class="separator:ga57d62056b91d395bf496c958a423ad53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Linear QSPI dual flash example.  <a href="group__qspips__dual__flash__lqspi__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gab3bcee72bda39943b664463f1df4d211"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#gab3bcee72bda39943b664463f1df4d211">Test</a> = 0x2</td></tr>
+<tr class="memdesc:gab3bcee72bda39943b664463f1df4d211"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following variable allows a test value to be added to the values that are written to the FLASH such that unique values can be generated to guarantee the writes to the FLASH were successful.  <a href="group__qspips__dual__flash__lqspi__example.html#gab3bcee72bda39943b664463f1df4d211">More...</a><br/></td></tr>
+<tr class="separator:gab3bcee72bda39943b664463f1df4d211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e3a1c0ddcfc3450d79fb432ce9b8812"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga0e3a1c0ddcfc3450d79fb432ce9b8812">ReadBuffer</a> [<a class="el" href="group__qspips__flash__polled__example.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9">MAX_DATA</a>+<a class="el" href="group__qspips__g128__flash__example.html#ga11faa4c105a137b8edaa096de5063835">DATA_OFFSET</a>+<a class="el" href="group__qspips__g128__flash__example.html#gad33594c6ec0a6e6830b2ae30fcf2b926">DUMMY_SIZE</a>]</td></tr>
+<tr class="memdesc:ga0e3a1c0ddcfc3450d79fb432ce9b8812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read buffer.  <a href="group__qspips__dual__flash__lqspi__example.html#ga0e3a1c0ddcfc3450d79fb432ce9b8812">More...</a><br/></td></tr>
+<tr class="separator:ga0e3a1c0ddcfc3450d79fb432ce9b8812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga53aefd16c5a7bda6489a4afcd1503584"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__dual__flash__lqspi__example.html#ga53aefd16c5a7bda6489a4afcd1503584">WriteBuffer</a> [<a class="el" href="group__qspips__flash__polled__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a>+<a class="el" href="group__qspips__g128__flash__example.html#ga11faa4c105a137b8edaa096de5063835">DATA_OFFSET</a>]</td></tr>
+<tr class="memdesc:ga53aefd16c5a7bda6489a4afcd1503584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer.  <a href="group__qspips__dual__flash__lqspi__example.html#ga53aefd16c5a7bda6489a4afcd1503584">More...</a><br/></td></tr>
+<tr class="separator:ga53aefd16c5a7bda6489a4afcd1503584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FlashErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *&#160;</td>
-          <td class="paramname"><em>QspiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function erases the sectors in the serial FLASH connected to the QSPI interface. </p>
-<p>This function erases the sectors in the serial Flash connected to the QSPI interface.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address of the first sector which needs to be erased. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the total size to be erased.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__qspips.html#ga92bcb2ff87e82a4f27e9a49db023d08d">XQspiPs_PolledTransfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__dual__flash__stack__lqspi__example_8c.html#a696e25af996b9d0106ac7529e9e72472">DualStackExample()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample()</a>, <a class="el" href="xqspips__flash__intr__example_8c.html#a703f891e7456310dbd11f74005e2d2b4">QspiFlashIntrExample()</a>, <a class="el" href="xqspips__flash__polled__example_8c.html#a69d63032b37169995ad11d3c7591121c">QspiFlashPolledExample()</a>, and <a class="el" href="xqspips__g128__flash__example_8c.html#a231588ab2ebd6c354ac94aca5820ed0f">QspiG128FlashExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6682571380b6d4dee70c0db72199278c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FlashQuadEnable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *&#160;</td>
-          <td class="paramname"><em>QspiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function enables quad mode in the serial flash connected to the SPI interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__qspips.html#ga92bcb2ff87e82a4f27e9a49db023d08d">XQspiPs_PolledTransfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__dual__flash__stack__lqspi__example_8c.html#a696e25af996b9d0106ac7529e9e72472">DualStackExample()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample()</a>, <a class="el" href="xqspips__flash__intr__example_8c.html#a703f891e7456310dbd11f74005e2d2b4">QspiFlashIntrExample()</a>, and <a class="el" href="xqspips__flash__polled__example_8c.html#a69d63032b37169995ad11d3c7591121c">QspiFlashPolledExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af28c30bb35e57c70a8b73c8796fb3fb1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FlashRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *&#160;</td>
-          <td class="paramname"><em>QspiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads from the serial FLASH connected to the QSPI interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to read data from in the FLASH. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to read. </td></tr>
-    <tr><td class="paramname">Command</td><td>is the command used to read data from the flash. QSPI device supports one of the Read, Fast Read, Dual Read and Fast Read commands to read data from the flash.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__qspips.html#gaeafbee8d795ef8805ab7c8756f5e2274">XQspiPs_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__flash__intr__example_8c.html#a703f891e7456310dbd11f74005e2d2b4">QspiFlashIntrExample()</a>, <a class="el" href="xqspips__flash__polled__example_8c.html#a69d63032b37169995ad11d3c7591121c">QspiFlashPolledExample()</a>, and <a class="el" href="xqspips__g128__flash__example_8c.html#a231588ab2ebd6c354ac94aca5820ed0f">QspiG128FlashExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa424c9f6fee5f08746f8f3233b7467ed"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashReadID </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads serial FLASH ID connected to the SPI interface. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if read id, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__qspips.html#ga92bcb2ff87e82a4f27e9a49db023d08d">XQspiPs_PolledTransfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__dual__flash__stack__lqspi__example_8c.html#a696e25af996b9d0106ac7529e9e72472">DualStackExample()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample()</a>, <a class="el" href="xqspips__flash__intr__example_8c.html#a703f891e7456310dbd11f74005e2d2b4">QspiFlashIntrExample()</a>, <a class="el" href="xqspips__flash__polled__example_8c.html#a69d63032b37169995ad11d3c7591121c">QspiFlashPolledExample()</a>, and <a class="el" href="xqspips__g128__flash__example_8c.html#a231588ab2ebd6c354ac94aca5820ed0f">QspiG128FlashExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa4691616d85f33bb068a7e9740249b86"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void FlashWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *&#160;</td>
-          <td class="paramname"><em>QspiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function writes to the serial FLASH connected to the QSPI interface. </p>
-<p>This function writes to the serial Flash connected to the QSPI interface.</p>
-<p>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to write data to in the FLASH. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is the command used to write data to the flash. QSPI device supports only Page Program command to write data to the flash.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPtr</td><td>is a pointer to the QSPI driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to write data to in the Flash. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is the command used to write data to the flash. QSPI device supports only Page Program command to write data to the flash.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__qspips.html#ga92bcb2ff87e82a4f27e9a49db023d08d">XQspiPs_PolledTransfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__dual__flash__stack__lqspi__example_8c.html#a696e25af996b9d0106ac7529e9e72472">DualStackExample()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample()</a>, <a class="el" href="xqspips__flash__intr__example_8c.html#a703f891e7456310dbd11f74005e2d2b4">QspiFlashIntrExample()</a>, <a class="el" href="xqspips__flash__polled__example_8c.html#a69d63032b37169995ad11d3c7591121c">QspiFlashPolledExample()</a>, and <a class="el" href="xqspips__g128__flash__example_8c.html#a231588ab2ebd6c354ac94aca5820ed0f">QspiG128FlashExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a57d62056b91d395bf496c958a423ad53"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int LinearQspiFlashExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a> *&#160;</td>
-          <td class="paramname"><em>QspiInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a> device driver in Linear mode. </p>
-<p>This function writes data to the serial FLASH in QSPI mode and reads data in Linear QSPI mode.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiInstancePtr</td><td>is a pointer to the QSPIPS driver to use. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
-
-<p>References <a class="el" href="struct_x_qspi_ps___config.html#a63e87c5d7d434dcbbb745e5d4d5bfa4c">XQspiPs_Config::BaseAddress</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a1cb26e7de1e53fe8bd6c4e1d3a9e8ecc">FlashErase()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a6682571380b6d4dee70c0db72199278c">FlashQuadEnable()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#aa424c9f6fee5f08746f8f3233b7467ed">FlashReadID()</a>, <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#aa4691616d85f33bb068a7e9740249b86">FlashWrite()</a>, <a class="el" href="group__qspips.html#gaf348b6ee07c1e3e7d01857a789e658d4">XQspiPs_CfgInitialize()</a>, <a class="el" href="group__qspips.html#ga79d211f4165bfe188163de14f9b6f80b">XQSPIPS_CLK_PRESCALE_8</a>, <a class="el" href="group__qspips.html#ga4c42b31270f32f0dbaecd9d582ed3287">XQSPIPS_FORCE_SSELECT_OPTION</a>, <a class="el" href="group__qspips.html#ga272d8eb4928d9c3da9eaad379e7bd5a9">XQSPIPS_HOLD_B_DRIVE_OPTION</a>, <a class="el" href="group__qspips.html#gae1d4740600c52a11e0044f7a853292e4">XQspiPs_LookupConfig()</a>, <a class="el" href="group__qspips.html#ga0b0c2444343441f2bd006f8f0971369b">XQSPIPS_LQSPI_MODE_OPTION</a>, <a class="el" href="group__qspips.html#gacbdefc29998bb7b4a61e62f8ef3ed127">XQspiPs_LqspiRead()</a>, <a class="el" href="group__qspips.html#gab11b1e374c5ed9fbfc9ac9e81cad3e3e">XQSPIPS_MANUAL_START_OPTION</a>, <a class="el" href="group__qspips.html#ga0975016f42a8249235098408ab0c9da6">XQspiPs_SelfTest()</a>, <a class="el" href="group__qspips.html#gaafc1b751d17216ad037b7dd167f073f0">XQspiPs_SetClkPrescaler()</a>, <a class="el" href="group__qspips.html#ga3d5c1b501b5dc6e14297682279bbfee2">XQspiPs_SetLqspiConfigReg</a>, <a class="el" href="group__qspips.html#ga425ce03f19417a386c6882efb79641df">XQspiPs_SetOptions()</a>, and <a class="el" href="group__qspips.html#ga8eb7e89e789b707718444125358167e9">XQspiPs_SetSlaveSelect()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the QSPI Flash example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xqspips__dual__flash__lqspi__example_8c.html#a57d62056b91d395bf496c958a423ad53">LinearQspiFlashExample()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

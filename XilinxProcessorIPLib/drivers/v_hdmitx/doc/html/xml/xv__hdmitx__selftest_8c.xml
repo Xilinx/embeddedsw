@@ -7,6 +7,12 @@
       <node id="72">
         <label>xil_assert.h</label>
       </node>
+      <node id="68">
+        <label>xv_hdmitx_selftest.c</label>
+        <link refid="xv_hdmitx_selftest.c"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
       <node id="71">
         <label>xil_io.h</label>
       </node>
@@ -25,14 +31,11 @@
       <node id="74">
         <label>xdebug.h</label>
       </node>
-      <node id="70">
-        <label>xv_hdmitx_hw.h</label>
-        <link refid="xv__hdmitx__hw_8h"/>
-        <childnode refid="71" relation="include">
-        </childnode>
-      </node>
       <node id="73">
         <label>xstatus.h</label>
+      </node>
+      <node id="75">
+        <label>xvidc.h</label>
       </node>
       <node id="69">
         <label>xv_hdmitx.h</label>
@@ -52,19 +55,16 @@
         <childnode refid="78" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>xvidc.h</label>
-      </node>
       <node id="77">
         <label>xil_types.h</label>
       </node>
       <node id="78">
         <label>xv_hdmic.h</label>
       </node>
-      <node id="68">
-        <label>xv_hdmitx_selftest.c</label>
-        <link refid="xv_hdmitx_selftest.c"/>
-        <childnode refid="69" relation="include">
+      <node id="70">
+        <label>xv_hdmitx_hw.h</label>
+        <link refid="xv__hdmitx__hw_8h"/>
+        <childnode refid="71" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -96,9 +96,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_selftest.c" bodystart="59" bodyend="78"/>
-        <references refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" compoundref="xv__hdmitx_8h" startline="208">XV_HdmiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" compoundref="xv__hdmitx_8h" startline="264">XV_HdmiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_selftest.c" bodystart="59" bodyend="78"/>
+        <references refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" compoundref="xv__hdmitx_8h" startline="204">XV_HdmiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_tx_1a7c08db92f62ad7f28dfdfac3561978db" compoundref="xv__hdmitx_8h" startline="260">XV_HdmiTx::Config</references>
         <references refid="xv__hdmitx__hw_8h_1a74530507b4700c300feb4eceed05668f" compoundref="xv__hdmitx__hw_8h" startline="406">XV_HDMITX_MASK_16</references>
         <references refid="xv__hdmitx__hw_8h_1a5131cd2488ca4a797d71849293cc1109" compoundref="xv__hdmitx__hw_8h" startline="407">XV_HDMITX_PIO_ID</references>
         <references refid="xv__hdmitx__hw_8h_1a0f3575afd1ca4f63ffa6c725ff78ee7d" compoundref="xv__hdmitx__hw_8h" startline="72">XV_HDMITX_PIO_ID_OFFSET</references>
@@ -164,6 +164,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_selftest.c"/>
   </compounddef>
 </doxygen>

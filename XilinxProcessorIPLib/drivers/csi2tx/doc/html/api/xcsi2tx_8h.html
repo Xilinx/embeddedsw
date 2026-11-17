@@ -139,9 +139,15 @@ Macros</h2></td></tr>
 <tr class="memitem:ga9dfcb58942d4e840968868fc0decea38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga9dfcb58942d4e840968868fc0decea38">XCSI2TX_MAX_LANES</a>&#160;&#160;&#160;4</td></tr>
 <tr class="memdesc:ga9dfcb58942d4e840968868fc0decea38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Lanes supported by CSI.  <a href="group__csi2tx.html#ga9dfcb58942d4e840968868fc0decea38">More...</a><br/></td></tr>
 <tr class="separator:ga9dfcb58942d4e840968868fc0decea38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaad964d27150f8888fdcde05db9f9ad18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gaad964d27150f8888fdcde05db9f9ad18">XCSI2TX_MAX_VC</a>&#160;&#160;&#160;4</td></tr>
-<tr class="memdesc:gaad964d27150f8888fdcde05db9f9ad18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max number of Virtual Channels.  <a href="group__csi2tx.html#gaad964d27150f8888fdcde05db9f9ad18">More...</a><br/></td></tr>
+<tr class="memitem:gaad964d27150f8888fdcde05db9f9ad18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gaad964d27150f8888fdcde05db9f9ad18">XCSI2TX_MAX_VC</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gaad964d27150f8888fdcde05db9f9ad18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max number of Virtual Channels supported (NUM_VC up to 16)  <a href="group__csi2tx.html#gaad964d27150f8888fdcde05db9f9ad18">More...</a><br/></td></tr>
 <tr class="separator:gaad964d27150f8888fdcde05db9f9ad18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf4298e484d915a20fad394a65f2a1c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gadf4298e484d915a20fad394a65f2a1c6">XCSI2TX_DEFAULT_NUM_VC</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gadf4298e484d915a20fad394a65f2a1c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default number of Virtual Channels when not specified (older IP)  <a href="group__csi2tx.html#gadf4298e484d915a20fad394a65f2a1c6">More...</a><br/></td></tr>
+<tr class="separator:gadf4298e484d915a20fad394a65f2a1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ce8ca3f6fe5992f0fdebc2339c23e2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga3ce8ca3f6fe5992f0fdebc2339c23e2b">XCSI2TX_VC_PER_BANK</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga3ce8ca3f6fe5992f0fdebc2339c23e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual Channels mapped per bank.  <a href="group__csi2tx.html#ga3ce8ca3f6fe5992f0fdebc2339c23e2b">More...</a><br/></td></tr>
+<tr class="separator:ga3ce8ca3f6fe5992f0fdebc2339c23e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Types for setting Callbacks</div></td></tr>
 <tr class="memitem:gadeed03a23550fdd0e8383338a6543549"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadeed03a23550fdd0e8383338a6543549"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_WRG_LANE</b>&#160;&#160;&#160;1</td></tr>
@@ -173,6 +179,46 @@ Macros</h2></td></tr>
 <tr class="memitem:gaeba76537f34ec4d0b563c28ad9aab71a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaeba76537f34ec4d0b563c28ad9aab71a"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TX_HANDLER_LCERRVC3</b>&#160;&#160;&#160;10</td></tr>
 <tr class="separator:gaeba76537f34ec4d0b563c28ad9aab71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga728dd9ef62da778682775bd39fb94949"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga728dd9ef62da778682775bd39fb94949">XCSI2TX_HANDLER_LCERRVC4</a>&#160;&#160;&#160;11</td></tr>
+<tr class="memdesc:ga728dd9ef62da778682775bd39fb94949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC4 handler.  <a href="group__csi2tx.html#ga728dd9ef62da778682775bd39fb94949">More...</a><br/></td></tr>
+<tr class="separator:ga728dd9ef62da778682775bd39fb94949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf1a0013c4a3eb4eae061692144e1bdc6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gaf1a0013c4a3eb4eae061692144e1bdc6">XCSI2TX_HANDLER_LCERRVC5</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:gaf1a0013c4a3eb4eae061692144e1bdc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC5 handler.  <a href="group__csi2tx.html#gaf1a0013c4a3eb4eae061692144e1bdc6">More...</a><br/></td></tr>
+<tr class="separator:gaf1a0013c4a3eb4eae061692144e1bdc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9eae22a2a2836fa088bb174d31dc25ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga9eae22a2a2836fa088bb174d31dc25ca">XCSI2TX_HANDLER_LCERRVC6</a>&#160;&#160;&#160;13</td></tr>
+<tr class="memdesc:ga9eae22a2a2836fa088bb174d31dc25ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC6 handler.  <a href="group__csi2tx.html#ga9eae22a2a2836fa088bb174d31dc25ca">More...</a><br/></td></tr>
+<tr class="separator:ga9eae22a2a2836fa088bb174d31dc25ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa47a5a1928685ceec5ed23a09e08da3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gafa47a5a1928685ceec5ed23a09e08da3">XCSI2TX_HANDLER_LCERRVC7</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:gafa47a5a1928685ceec5ed23a09e08da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC7 handler.  <a href="group__csi2tx.html#gafa47a5a1928685ceec5ed23a09e08da3">More...</a><br/></td></tr>
+<tr class="separator:gafa47a5a1928685ceec5ed23a09e08da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16550f206bc52a200fb69f2c6f72cdc3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga16550f206bc52a200fb69f2c6f72cdc3">XCSI2TX_HANDLER_LCERRVC8</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:ga16550f206bc52a200fb69f2c6f72cdc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC8 handler.  <a href="group__csi2tx.html#ga16550f206bc52a200fb69f2c6f72cdc3">More...</a><br/></td></tr>
+<tr class="separator:ga16550f206bc52a200fb69f2c6f72cdc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga951951dcd952f18d158654d77b2855a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga951951dcd952f18d158654d77b2855a6">XCSI2TX_HANDLER_LCERRVC9</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga951951dcd952f18d158654d77b2855a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC9 handler.  <a href="group__csi2tx.html#ga951951dcd952f18d158654d77b2855a6">More...</a><br/></td></tr>
+<tr class="separator:ga951951dcd952f18d158654d77b2855a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga32f23d01ad9815c7cc3e96cb4cabeecb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga32f23d01ad9815c7cc3e96cb4cabeecb">XCSI2TX_HANDLER_LCERRVC10</a>&#160;&#160;&#160;17</td></tr>
+<tr class="memdesc:ga32f23d01ad9815c7cc3e96cb4cabeecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC10 handler.  <a href="group__csi2tx.html#ga32f23d01ad9815c7cc3e96cb4cabeecb">More...</a><br/></td></tr>
+<tr class="separator:ga32f23d01ad9815c7cc3e96cb4cabeecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8844927f8bc38283496b1a02a72d0a06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga8844927f8bc38283496b1a02a72d0a06">XCSI2TX_HANDLER_LCERRVC11</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:ga8844927f8bc38283496b1a02a72d0a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC11 handler.  <a href="group__csi2tx.html#ga8844927f8bc38283496b1a02a72d0a06">More...</a><br/></td></tr>
+<tr class="separator:ga8844927f8bc38283496b1a02a72d0a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8ce846745cbf975d66fe5f22acb4daf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#gad8ce846745cbf975d66fe5f22acb4daf">XCSI2TX_HANDLER_LCERRVC12</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:gad8ce846745cbf975d66fe5f22acb4daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC12 handler.  <a href="group__csi2tx.html#gad8ce846745cbf975d66fe5f22acb4daf">More...</a><br/></td></tr>
+<tr class="separator:gad8ce846745cbf975d66fe5f22acb4daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78c254d571d047cb2fdebb7ae352083d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga78c254d571d047cb2fdebb7ae352083d">XCSI2TX_HANDLER_LCERRVC13</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga78c254d571d047cb2fdebb7ae352083d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC13 handler.  <a href="group__csi2tx.html#ga78c254d571d047cb2fdebb7ae352083d">More...</a><br/></td></tr>
+<tr class="separator:ga78c254d571d047cb2fdebb7ae352083d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97d211d6c9111edf26655bb3a7446071"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga97d211d6c9111edf26655bb3a7446071">XCSI2TX_HANDLER_LCERRVC14</a>&#160;&#160;&#160;21</td></tr>
+<tr class="memdesc:ga97d211d6c9111edf26655bb3a7446071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC14 handler.  <a href="group__csi2tx.html#ga97d211d6c9111edf26655bb3a7446071">More...</a><br/></td></tr>
+<tr class="separator:ga97d211d6c9111edf26655bb3a7446071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga748fd546378bc024991a21370aef463e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga748fd546378bc024991a21370aef463e">XCSI2TX_HANDLER_LCERRVC15</a>&#160;&#160;&#160;22</td></tr>
+<tr class="memdesc:ga748fd546378bc024991a21370aef463e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line count error VC15 handler.  <a href="group__csi2tx.html#ga748fd546378bc024991a21370aef463e">More...</a><br/></td></tr>
+<tr class="separator:ga748fd546378bc024991a21370aef463e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Pixel per clock modes</div></td></tr>
+<tr class="memitem:ga5c34c06d200d698a4478aa894b1f4cd3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2tx.html#ga5c34c06d200d698a4478aa894b1f4cd3">XCSI2TX_PIXEL_MODE_8PPC</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga5c34c06d200d698a4478aa894b1f4cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 pixels-per-clock mode (PCR[16])  <a href="group__csi2tx.html#ga5c34c06d200d698a4478aa894b1f4cd3">More...</a><br/></td></tr>
+<tr class="separator:ga5c34c06d200d698a4478aa894b1f4cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>

@@ -79,8 +79,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_w"><span>w</span></a></li>
       <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
@@ -104,7 +106,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -116,6 +118,16 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <div class="contents">
 <div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div>
 
+<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>HANDLER_CALLED
+: <a class="el" href="xscuwdt__intr__example_8c.html#ae36a559155f47131ba50ac86cd1fa154">xscuwdt_intr_example.c</a>
+</li>
+<li>HandlerCalled
+: <a class="el" href="xscuwdt__intr__example_8c.html#a9b100a48b01c7347ab4856582cddc4c6">xscuwdt_intr_example.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
 : <a class="el" href="xscuwdt__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xscuwdt_intr_example.c</a>
@@ -125,11 +137,29 @@ $(document).ready(function(){initNavTree('globals.html','');});
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>SCUWDT_BASEADDRESS
+: <a class="el" href="xscuwdt__intr__example_8c.html#a1296c5ae63899613bbf20a668a95634a">xscuwdt_intr_example.c</a>
+, <a class="el" href="xscuwdt__polled__example_8c.html#a1296c5ae63899613bbf20a668a95634a">xscuwdt_polled_example.c</a>
+</li>
 <li>ScuWdtIntrExample()
 : <a class="el" href="xscuwdt__intr__example_8c.html#a0054ab1cdccc0040a5d9633b4c386d9a">xscuwdt_intr_example.c</a>
 </li>
 <li>ScuWdtPolledExample()
 : <a class="el" href="xscuwdt__polled__example_8c.html#a33e89f9e41ed0c166b878661da7f07f6">xscuwdt_polled_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
+<li>Watchdog
+: <a class="el" href="xscuwdt__polled__example_8c.html#a818b7b3c2fa04c2cf0f8e462119174b1">xscuwdt_polled_example.c</a>
+</li>
+<li>WDT_LOAD_VALUE
+: <a class="el" href="xscuwdt__intr__example_8c.html#a5d0b56de3e0bb5a8e26adcf6c9780eab">xscuwdt_intr_example.c</a>
+, <a class="el" href="xscuwdt__polled__example_8c.html#a5d0b56de3e0bb5a8e26adcf6c9780eab">xscuwdt_polled_example.c</a>
+</li>
+<li>WdtInstance
+: <a class="el" href="xscuwdt__intr__example_8c.html#a257312de84b39edd31c3e8b7a4dc5db3">xscuwdt_intr_example.c</a>
 </li>
 </ul>
 
@@ -154,6 +184,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>XSCUWDT_CONTROL_PRESCALER_MASK
 : <a class="el" href="group___overview.html#gae0774dc548157f183fa5c365fcc8f251">xscuwdt_hw.h</a>
 </li>
+<li>XSCUWDT_CONTROL_PRESCALER_SHIFT
+: <a class="el" href="group___overview.html#gac19052eae87df391ecfc92476c6be092">xscuwdt_hw.h</a>
+</li>
 <li>XSCUWDT_CONTROL_WD_ENABLE_MASK
 : <a class="el" href="group___overview.html#gafd4c1f9ff31d9c47028759d68d945a8c">xscuwdt_hw.h</a>
 </li>
@@ -177,12 +210,6 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XScuWdt_GetControlReg
 : <a class="el" href="group___overview.html#gaf62532fc29f79a73a2a058d6e81586a6">xscuwdt.h</a>
-</li>
-<li>XSCUWDT_H
-: <a class="el" href="group___overview.html#ga0bc0278a14721ac3733d4080e7a03ee3">xscuwdt.h</a>
-</li>
-<li>XSCUWDT_HW_H
-: <a class="el" href="group___overview.html#ga483f73470c465c0ce9317a14c4546130">xscuwdt_hw.h</a>
 </li>
 <li>XSCUWDT_ISR_EVENT_FLAG_MASK
 : <a class="el" href="group___overview.html#ga48a52ba61af3b86522de83206703b0cf">xscuwdt_hw.h</a>

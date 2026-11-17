@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xclockps__divider_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,21 +100,47 @@ $(document).ready(function(){initNavTree('xclockps__divider_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xclockps_divider.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xclockps_8h.html">xclockps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements CLOCKPS divider node operations. </p>
+<p>Contains the implementation of interface functions of the clock driver. See xclock.h for a description of the driver.</p>
+<pre>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  cjp    02/09/18 First release
+1.2   sd     02/13/20 Rename ARRAY_SIZE
+1.7   vlt    01/27/26 Fixed codespell issues
+1.8   tb     09/17/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xclockps_8h.html">xclockps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gae87f98f14caa3c851a01895ae37d7b22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps.html#gae87f98f14caa3c851a01895ae37d7b22">XCLOCK_ASSIGN_DIVIDERS_S08</a>(ParentTypeVal, DivIndexVal, CtrlRegVal)</td></tr>
-<tr class="memdesc:gae87f98f14caa3c851a01895ae37d7b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign structure elements for dividers with control register shift of 8 bits.  <a href="group__clockps.html#gae87f98f14caa3c851a01895ae37d7b22">More...</a><br/></td></tr>
+<tr class="memitem:gac76bae5b36a5df7706062bbdc27a81b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gac76bae5b36a5df7706062bbdc27a81b2">XCLOCK_DIV_ASSIGN_INDICES</a>(ClockIdVal, DivIndexVal)</td></tr>
+<tr class="memdesc:gac76bae5b36a5df7706062bbdc27a81b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns structure elements for output clock mappings.  <a href="group__clockps__api.html#gac76bae5b36a5df7706062bbdc27a81b2">More...</a><br/></td></tr>
+<tr class="separator:gac76bae5b36a5df7706062bbdc27a81b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae87f98f14caa3c851a01895ae37d7b22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gae87f98f14caa3c851a01895ae37d7b22">XCLOCK_ASSIGN_DIVIDERS_S08</a>(ParentTypeVal, DivIndexVal, CtrlRegVal)</td></tr>
+<tr class="memdesc:gae87f98f14caa3c851a01895ae37d7b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign structure elements for dividers with control register shift of 8 bits.  <a href="group__clockps__api.html#gae87f98f14caa3c851a01895ae37d7b22">More...</a><br/></td></tr>
 <tr class="separator:gae87f98f14caa3c851a01895ae37d7b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaff4b10197a2fd0a36555dcc086bdaa64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps.html#gaff4b10197a2fd0a36555dcc086bdaa64">XCLOCK_ASSIGN_DIVIDERS_S16</a>(ParentTypeVal, DivIndexVal, CtrlRegVal)</td></tr>
-<tr class="memdesc:gaff4b10197a2fd0a36555dcc086bdaa64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign structure elements for dividers with control register shift of 16 bits.  <a href="group__clockps.html#gaff4b10197a2fd0a36555dcc086bdaa64">More...</a><br/></td></tr>
+<tr class="memitem:gaff4b10197a2fd0a36555dcc086bdaa64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gaff4b10197a2fd0a36555dcc086bdaa64">XCLOCK_ASSIGN_DIVIDERS_S16</a>(ParentTypeVal, DivIndexVal, CtrlRegVal)</td></tr>
+<tr class="memdesc:gaff4b10197a2fd0a36555dcc086bdaa64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign structure elements for dividers with control register shift of 16 bits.  <a href="group__clockps__api.html#gaff4b10197a2fd0a36555dcc086bdaa64">More...</a><br/></td></tr>
 <tr class="separator:gaff4b10197a2fd0a36555dcc086bdaa64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gaf3ce7dcf24a9bfc649a614a5fa981e6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gaf3ce7dcf24a9bfc649a614a5fa981e6c">XClock_DivRegisterFuncs</a> (void)</td></tr>
+<tr class="memdesc:gaf3ce7dcf24a9bfc649a614a5fa981e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers divider node callback functions.  <a href="group__clockps__api.html#gaf3ce7dcf24a9bfc649a614a5fa981e6c">More...</a><br/></td></tr>
+<tr class="separator:gaf3ce7dcf24a9bfc649a614a5fa981e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae9740376a5b40cdaae54486d6137e838"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gae9740376a5b40cdaae54486d6137e838">XClock_DivBeginInit</a> (void)</td></tr>
+<tr class="memdesc:gae9740376a5b40cdaae54486d6137e838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all divider nodes.  <a href="group__clockps__api.html#gae9740376a5b40cdaae54486d6137e838">More...</a><br/></td></tr>
+<tr class="separator:gae9740376a5b40cdaae54486d6137e838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

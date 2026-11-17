@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrtcpsu__alarm__interrupt__example_8c.
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,17 +100,19 @@ $(document).ready(function(){initNavTree('xrtcpsu__alarm__interrupt__example_8c.
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xrtcpsu_alarm_interrupt_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains an alarm example using the <a class="el" href="struct_x_rtc_psu.html" title="The XRtcPsu driver instance data. ">XRtcPsu</a> driver in interrupt mode. </p>
-<p>It sets alarm for a specified time from the current time.</p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> alarm feature in interrupt mode. </p>
+<p>This file contains an alarm example using the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> driver in interrupt mode. It sets alarm for a specified time from the current time.</p>
 <dl class="section note"><dt>Note</dt><dd>The example contains an infinite loop such that if interrupts are not working it may hang.</dd></dl>
-<p>MODIFICATION HISTORY: </p>
 <pre>
+MODIFICATION HISTORY:
 Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -122,6 +124,8 @@ Ver   Who    Date     Changes
 1.13  ht  06/22/23 Added support for system device-tree flow.
 1.15  ht  12/13/24 Fix C++ compilation warnings and errors in SDT flow.
 1.17  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+1.18  vn  07/30/26 Fix Doxygen warnings
+1.18  vn  09/30/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xrtcpsu_8h.html">xrtcpsu.h</a>&quot;</code><br/>
 <code>#include &quot;xscugic.h&quot;</code><br/>
@@ -129,18 +133,50 @@ Ver   Who    Date     Changes
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a135be708f5d1c8515c2bf6b48ce5d14e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a135be708f5d1c8515c2bf6b48ce5d14e">ALARM_PERIOD</a>&#160;&#160;&#160;10U</td></tr>
+<tr class="memdesc:a135be708f5d1c8515c2bf6b48ce5d14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alarm period in seconds.  <a href="#a135be708f5d1c8515c2bf6b48ce5d14e">More...</a><br/></td></tr>
+<tr class="separator:a135be708f5d1c8515c2bf6b48ce5d14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3e843772dd9d972673b8f2da8914f458"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a3e843772dd9d972673b8f2da8914f458">RtcPsuAlarmIntrExample</a> (<a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> *RtcInstPtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a3e843772dd9d972673b8f2da8914f458"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the Rtc device and driver as a design example.  <a href="#a3e843772dd9d972673b8f2da8914f458">More...</a><br/></td></tr>
+<tr class="memdesc:a3e843772dd9d972673b8f2da8914f458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a minimal test on the RTC device and driver as a design example.  <a href="#a3e843772dd9d972673b8f2da8914f458">More...</a><br/></td></tr>
 <tr class="separator:a3e843772dd9d972673b8f2da8914f458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec9a48698a06b521d36fbec8793119ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler</a> (void *CallBackRef, u32 Event)</td></tr>
-<tr class="memdesc:aec9a48698a06b521d36fbec8793119ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing to handle interrupt events from the device.  <a href="#aec9a48698a06b521d36fbec8793119ec">More...</a><br/></td></tr>
+<tr class="memdesc:aec9a48698a06b521d36fbec8793119ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupt events from the device.  <a href="#aec9a48698a06b521d36fbec8793119ec">More...</a><br/></td></tr>
 <tr class="separator:aec9a48698a06b521d36fbec8793119ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the RTC Alarm interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the RTC Alarm interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa31970e4adddf828f5205577f325ef7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#aa31970e4adddf828f5205577f325ef7c">RtcPsu</a></td></tr>
+<tr class="memdesc:aa31970e4adddf828f5205577f325ef7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the RTC Device.  <a href="#aa31970e4adddf828f5205577f325ef7c">More...</a><br/></td></tr>
+<tr class="separator:aa31970e4adddf828f5205577f325ef7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca">IsAlarmGen</a> = 0</td></tr>
+<tr class="memdesc:a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag set when the alarm is generated.  <a href="#a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca">More...</a><br/></td></tr>
+<tr class="separator:a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a135be708f5d1c8515c2bf6b48ce5d14e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ALARM_PERIOD&#160;&#160;&#160;10U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alarm period in seconds. </p>
+
+<p>Referenced by <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a3e843772dd9d972673b8f2da8914f458">RtcPsuAlarmIntrExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="aec9a48698a06b521d36fbec8793119ec"></a>
 <div class="memitem">
@@ -166,20 +202,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the handler which performs processing to handle interrupt events from the device. </p>
-<p>It is called from an interrupt context. so the amount of processing should be minimal.</p>
+<p>Handles interrupt events from the device. </p>
+<p>It is called from an interrupt context, so the amount of processing must be minimal.</p>
 <p>This handler provides an example of how to handle interrupt data for the device and is application specific.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>contains a callback reference from the driver, in this case it is the instance pointer for the <a class="el" href="struct_x_rtc_psu.html" title="The XRtcPsu driver instance data. ">XRtcPsu</a> driver. </td></tr>
-    <tr><td class="paramname">Event</td><td>contains the specific kind of event that has occurred.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Callback reference from the driver. In this case it is the instance pointer for the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Event</td><td>Specific kind of event that has occurred. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__rtcpsu.html#gad594fbf58a112754966cb4ed07a93fa2">XRTCPSU_EVENT_ALARM_GEN</a>.</p>
+<p>References <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca">IsAlarmGen</a>, and <a class="el" href="group__rtcpsu.html#gad594fbf58a112754966cb4ed07a93fa2">XRTCPSU_EVENT_ALARM_GEN</a>.</p>
 
 <p>Referenced by <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a3e843772dd9d972673b8f2da8914f458">RtcPsuAlarmIntrExample()</a>, <a class="el" href="xrtcpsu__periodic__alarm__interrupt__example_8c.html#a466f19414ce6436bac17f8528a587308">RtcPsuPeriodicAlarmIntrExample()</a>, and <a class="el" href="xrtcpsu__seconds__interrupt__example_8c.html#a62dc54770bc562926f39bbce4bf82236">RtcPsuSecondsIntrExample()</a>.</p>
 
@@ -199,9 +233,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the RTC Alarm interrupt example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Calls the RTC Alarm interrupt example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
 <p>References <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a3e843772dd9d972673b8f2da8914f458">RtcPsuAlarmIntrExample()</a>.</p>
 
@@ -231,26 +264,56 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the Rtc device and driver as a design example. </p>
-<p>The purpose of this function is to illustrate how to use alarm feature in the <a class="el" href="struct_x_rtc_psu.html" title="The XRtcPsu driver instance data. ">XRtcPsu</a> driver.</p>
+<p>Runs a minimal test on the RTC device and driver as a design example. </p>
+<p>The purpose of this function is to illustrate how to use the alarm feature in the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> driver.</p>
 <p>This function sets alarm for a specified time from the current time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">RtcInstPtr</td><td>is a pointer to the instance of the RTC driver which is going to be connected to the interrupt controller. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device </td></tr>
-    <tr><td class="paramname">RtcIntrId</td><td>is the interrupt Id and is typically XPAR_&lt;RTCPSU_instance&gt;_INTR value from xparameters.h.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">RtcInstPtr</td><td>Pointer to the instance of the RTC driver that is connected to the interrupt controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<ul>
-<li>This function contains an infinite loop such that if interrupts are not working it may never return. </li>
+<dl class="section note"><dt>Note</dt><dd>- In XSCT/classic flow, the driver uses DeviceId to look up the device configuration.<ul>
+<li>This function contains an infinite loop, so it may never return if interrupts are not working. </li>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_rtc_psu___config.html#a0bc4fef50a1edc589aaa4f9fed0a50c2">XRtcPsu_Config::BaseAddr</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a0d91fe193b2ace3bec1c253d9d4651b0">XRtcPsu_DT::Day</a>, <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler()</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a5217abcfa19b6ee79441c80593233410">XRtcPsu_DT::Hour</a>, <a class="el" href="struct_x_rtc_psu___config.html#ae4c11d2b2bc79f6895acdc17d6f390e8">XRtcPsu_Config::IntrId</a>, <a class="el" href="struct_x_rtc_psu___config.html#a9daa750396c3a9548f103c5f943dd3a7">XRtcPsu_Config::IntrParent</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a985ad2e22c16c13787bad0bc5a6252d3">XRtcPsu_DT::Min</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a17e3941ee44e1c60d8702e5ea9a6b658">XRtcPsu_DT::Month</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a2a4a6d1fc2f482c69610be4c46681ee0">XRtcPsu_DT::Sec</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a768d292f62468b17e36dce098f8c7d49">XRtcPsu_DT::WeekDay</a>, <a class="el" href="group__rtcpsu.html#ga04fcc0a1ae6b27f2a3e0f1ba723c48e3">XRtcPsu_CfgInitialize()</a>, <a class="el" href="group__rtcpsu.html#gaefced00316539320411829b4d701fe3c">XRtcPsu_ClearInterruptMask()</a>, <a class="el" href="group__rtcpsu.html#gad47ac1cadbbe8dd0e67588d1fc658cc2">XRtcPsu_GetCurrentTime()</a>, <a class="el" href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7">XRtcPsu_InterruptHandler()</a>, <a class="el" href="group__rtcpsu.html#gae061b045472720cb345adc5891a8e652">XRtcPsu_LookupConfig()</a>, <a class="el" href="group__rtcpsu.html#gaac3d95ea1a75533a1fd3cd95d62a9914">XRtcPsu_SecToDateTime()</a>, <a class="el" href="group__rtcpsu.html#ga1c969c089715ea9a86cec887c09f9b92">XRtcPsu_SelfTest()</a>, <a class="el" href="group__rtcpsu.html#ga201537801ac896c73018a8719e8637d8">XRtcPsu_SetAlarm()</a>, <a class="el" href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4">XRtcPsu_SetHandler()</a>, <a class="el" href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367">XRtcPsu_SetInterruptMask()</a>, and <a class="el" href="struct_x_rtc_psu___d_t.html#a422474627fadc62823e8ff87e0bf1863">XRtcPsu_DT::Year</a>.</p>
+<p>References <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a135be708f5d1c8515c2bf6b48ce5d14e">ALARM_PERIOD</a>, <a class="el" href="struct_x_rtc_psu___config.html#a0bc4fef50a1edc589aaa4f9fed0a50c2">XRtcPsu_Config::BaseAddr</a>, <a class="el" href="xrtcpsu__set__calibration__example_8c.html#aa55575a8abcd86b30c33e486a498408b">Config</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a0d91fe193b2ace3bec1c253d9d4651b0">XRtcPsu_DT::Day</a>, <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler()</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a5217abcfa19b6ee79441c80593233410">XRtcPsu_DT::Hour</a>, <a class="el" href="struct_x_rtc_psu___config.html#ae4c11d2b2bc79f6895acdc17d6f390e8">XRtcPsu_Config::IntrId</a>, <a class="el" href="struct_x_rtc_psu___config.html#a9daa750396c3a9548f103c5f943dd3a7">XRtcPsu_Config::IntrParent</a>, <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca">IsAlarmGen</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a985ad2e22c16c13787bad0bc5a6252d3">XRtcPsu_DT::Min</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a17e3941ee44e1c60d8702e5ea9a6b658">XRtcPsu_DT::Month</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a2a4a6d1fc2f482c69610be4c46681ee0">XRtcPsu_DT::Sec</a>, <a class="el" href="struct_x_rtc_psu___d_t.html#a768d292f62468b17e36dce098f8c7d49">XRtcPsu_DT::WeekDay</a>, <a class="el" href="group__rtcpsu.html#ga94e17033026fe9cf669cd4d9a989c226">XRTC_INT_DIS_ALRM_MASK</a>, <a class="el" href="group__rtcpsu.html#ga8f829ffb26d872616798a27955727a30">XRTC_INT_EN_ALRM_MASK</a>, <a class="el" href="group__rtcpsu.html#ga04fcc0a1ae6b27f2a3e0f1ba723c48e3">XRtcPsu_CfgInitialize()</a>, <a class="el" href="group__rtcpsu.html#gaefced00316539320411829b4d701fe3c">XRtcPsu_ClearInterruptMask()</a>, <a class="el" href="group__rtcpsu.html#gad47ac1cadbbe8dd0e67588d1fc658cc2">XRtcPsu_GetCurrentTime()</a>, <a class="el" href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7">XRtcPsu_InterruptHandler()</a>, <a class="el" href="group__rtcpsu.html#gae061b045472720cb345adc5891a8e652">XRtcPsu_LookupConfig()</a>, <a class="el" href="group__rtcpsu.html#gaac3d95ea1a75533a1fd3cd95d62a9914">XRtcPsu_SecToDateTime()</a>, <a class="el" href="group__rtcpsu.html#ga1c969c089715ea9a86cec887c09f9b92">XRtcPsu_SelfTest()</a>, <a class="el" href="group__rtcpsu.html#ga201537801ac896c73018a8719e8637d8">XRtcPsu_SetAlarm()</a>, <a class="el" href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4">XRtcPsu_SetHandler()</a>, <a class="el" href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367">XRtcPsu_SetInterruptMask()</a>, and <a class="el" href="struct_x_rtc_psu___d_t.html#a422474627fadc62823e8ff87e0bf1863">XRtcPsu_DT::Year</a>.</p>
 
 <p>Referenced by <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a5fa0eb6b6f1b4bf71eaec6d2d37fa0ca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 IsAlarmGen = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag set when the alarm is generated. </p>
+
+<p>Referenced by <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler()</a>, and <a class="el" href="xrtcpsu__alarm__interrupt__example_8c.html#a3e843772dd9d972673b8f2da8914f458">RtcPsuAlarmIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa31970e4adddf828f5205577f325ef7c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> RtcPsu</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the RTC Device. </p>
 
 </div>
 </div>

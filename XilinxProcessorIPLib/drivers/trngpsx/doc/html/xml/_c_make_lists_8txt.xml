@@ -40,6 +40,6 @@
 <codeline lineno="31"><highlight class="stringliteral"></highlight></codeline>
 <codeline lineno="32"><highlight class="stringliteral">install(TARGETS<sp/>trngpsx<sp/>LIBRARY<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH}<sp/>ARCHIVE<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH})</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

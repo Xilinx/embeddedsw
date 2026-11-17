@@ -10,60 +10,108 @@
     <includes local="yes">xsecure_error.h</includes>
     <includes local="yes">xsecure_plat.h</includes>
     <incdepgraph>
-      <node id="3472">
+      <node id="3613">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="3614" relation="include">
+        </childnode>
+        <childnode refid="3615" relation="include">
+        </childnode>
+        <childnode refid="3616" relation="include">
+        </childnode>
+        <childnode refid="3617" relation="include">
+        </childnode>
+        <childnode refid="3618" relation="include">
+        </childnode>
+        <childnode refid="3619" relation="include">
+        </childnode>
+      </node>
+      <node id="3625">
         <label>xsecure_plat.h</label>
       </node>
-      <node id="3469">
+      <node id="3617">
         <label>xil_sutil.h</label>
       </node>
-      <node id="3464">
+      <node id="3623">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="3609">
         <label>xsecure_rsa_core.c</label>
         <link refid="core/rsa/xsecure_rsa_core.c"/>
-        <childnode refid="3465" relation="include">
+        <childnode refid="3610" relation="include">
         </childnode>
-        <childnode refid="3466" relation="include">
+        <childnode refid="3611" relation="include">
         </childnode>
-        <childnode refid="3468" relation="include">
+        <childnode refid="3620" relation="include">
         </childnode>
-        <childnode refid="3469" relation="include">
+        <childnode refid="3617" relation="include">
         </childnode>
-        <childnode refid="3470" relation="include">
+        <childnode refid="3621" relation="include">
         </childnode>
-        <childnode refid="3471" relation="include">
+        <childnode refid="3624" relation="include">
         </childnode>
-        <childnode refid="3472" relation="include">
+        <childnode refid="3625" relation="include">
         </childnode>
       </node>
-      <node id="3466">
+      <node id="3611">
         <label>xsecure_rsa_core.h</label>
         <link refid="core_2rsa_2xsecure__rsa__core_8h"/>
-        <childnode refid="3465" relation="include">
+        <childnode refid="3610" relation="include">
         </childnode>
-        <childnode refid="3467" relation="include">
+        <childnode refid="3612" relation="include">
         </childnode>
-      </node>
-      <node id="3470">
-        <label>xsecure_rsa.h</label>
-        <link refid="core_2rsa_2xsecure__rsa_8h"/>
-        <childnode refid="3465" relation="include">
-        </childnode>
-        <childnode refid="3466" relation="include">
+        <childnode refid="3613" relation="include">
         </childnode>
       </node>
-      <node id="3467">
+      <node id="3616">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="3619">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3612">
         <label>xsecure_utils.h</label>
       </node>
-      <node id="3468">
-        <label>xsecure_ecdsa_rsa_hw.h</label>
-        <link refid="xsecure__ecdsa__rsa__hw_8h"/>
-        <childnode refid="3465" relation="include">
-        </childnode>
+      <node id="3618">
+        <label>xsecure_config.h</label>
       </node>
-      <node id="3465">
+      <node id="3615">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3610">
         <label>xparameters.h</label>
       </node>
-      <node id="3471">
+      <node id="3622">
+        <label>xsecure_rsa_pss.h</label>
+        <link refid="xsecure__rsa__pss_8h"/>
+        <childnode refid="3613" relation="include">
+        </childnode>
+        <childnode refid="3611" relation="include">
+        </childnode>
+        <childnode refid="3623" relation="include">
+        </childnode>
+      </node>
+      <node id="3624">
         <label>xsecure_error.h</label>
+      </node>
+      <node id="3614">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="3620">
+        <label>xsecure_ecdsa_rsa_hw.h</label>
+        <link refid="xsecure__ecdsa__rsa__hw_8h"/>
+        <childnode refid="3610" relation="include">
+        </childnode>
+      </node>
+      <node id="3621">
+        <label>xsecure_rsa.h</label>
+        <link refid="core_2rsa_2xsecure__rsa_8h"/>
+        <childnode refid="3610" relation="include">
+        </childnode>
+        <childnode refid="3611" relation="include">
+        </childnode>
+        <childnode refid="3622" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -76,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="81" bodyend="-1"/>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga06a22adced7435767b04a4ed7db6461c" prot="public" static="no">
@@ -88,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -109,7 +157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="71" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -138,7 +186,7 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Initialize Modular exponentiation</para></listitem><listitem><para>Initialize Modular.</para></listitem><listitem><para>Initialize Modular extension (R*R Mod M) </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="335" bodyend="353"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="335" bodyend="353"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gabe60393805e6766498d96a973a1ef495" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -187,7 +235,7 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="449" bodyend="503"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="449" bodyend="503"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gae237da0720ea47834ec4cf118efef2d4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -215,7 +263,7 @@
 <para><itemizedlist>
 <listitem><para>Calculate the MINV</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Store calculated MINV value in RSA registers </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="412" bodyend="438"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="412" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga8b456f4b3d0d688828186d25e6382a25" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -253,7 +301,7 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Read the data from RSA RAM buffer and store it in the destination address </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="364" bodyend="399"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="364" bodyend="399"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga4fa1a363c76fd0cfefef06d4612cb04e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -324,7 +372,7 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="550" bodyend="568"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="550" bodyend="568"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -354,13 +402,13 @@
 <para><itemizedlist>
 <listitem><para>Validate the input arguments</para></listitem><listitem><para>Set RSA in use flag </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="111" bodyend="134"/>
-        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::BaseAddress</references>
-        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="111" bodyend="134"/>
+        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="144">XSecure_Rsa::BaseAddress</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="51">XSECURE_CORE_RSA_ECC</references>
         <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
         <references refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" compoundref="core_2rsa_2xsecure__rsa_8h" startline="96">XSECURE_RSA_INVALID_PARAM</references>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="108" endline="136">XSecure_RsaInitialize_64Bit</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -434,52 +482,52 @@
 <para><itemizedlist>
 <listitem><para>Validate the input arguments</para></listitem><listitem><para>Check if modulus exponent buffer is non zero</para></listitem><listitem><para>Reset core</para></listitem><listitem><para>Setting Key length</para></listitem><listitem><para>configuring endianness for data</para></listitem><listitem><para>Put Modulus, exponent, Mod extension in RSA RAM</para></listitem><listitem><para>Initialize Digest</para></listitem><listitem><para>Initialize MINV values from Mod.</para></listitem><listitem><para>Configurations</para></listitem><listitem><para>For 2048 key</para></listitem><listitem><para>For 3072 key</para></listitem><listitem><para>For 4096 key</para></listitem><listitem><para>Start the RSA operation.</para></listitem><listitem><para>Check and wait for status</para></listitem><listitem><para>Time out occurred or RSA error observed</para></listitem><listitem><para>Copy the result</para></listitem><listitem><para>Revert configuring endianness for data</para></listitem><listitem><para>Zeroize and Verify RSA memory space</para></listitem><listitem><para>Reset core </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="156" bodyend="325"/>
-        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::BaseAddress</references>
-        <references refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="152">XSecure_Rsa::EncDec</references>
-        <references refid="struct_x_secure___rsa_1af1962b2e4f9b304470a695e3d5274cff" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="151">XSecure_Rsa::ModExpoAddr</references>
-        <references refid="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="150">XSecure_Rsa::ModExtAddr</references>
-        <references refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="153">XSecure_Rsa::SizeInWords</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga3f74d8b1fdd3cb62e6b42f94477baea2" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="112">XSECURE_ECDSA_RSA_CFG0_2048_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga441252e98483a66e42885babef4a3a4f" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="107">XSECURE_ECDSA_RSA_CFG0_3072_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gad2c0edbea8d67db9377cd12a22645aa0" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="102">XSECURE_ECDSA_RSA_CFG0_4096_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gae86c78b20bfdfe28377fae54d4359bb5" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="113">XSECURE_ECDSA_RSA_CFG1_2048_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gaca2741b6c05e9b8d34814c8da41b9094" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="108">XSECURE_ECDSA_RSA_CFG1_3072_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gab809f2cf302a694e97151c15f1ecd178" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="103">XSECURE_ECDSA_RSA_CFG1_4096_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga428d127a4c7ca3cb3f9ca6c5f598926b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="114">XSECURE_ECDSA_RSA_CFG2_2048_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gadc343c3b1b289869f9d80c16d11e8296" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="109">XSECURE_ECDSA_RSA_CFG2_3072_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga5424da4f0e694d048bf1958cac68d912" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="104">XSECURE_ECDSA_RSA_CFG2_4096_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga657535fb0fdef8833089462fb0001198" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="115">XSECURE_ECDSA_RSA_CFG5_2048_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gabc91f9d925d1a698ea47efd143ee76fc" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="110">XSECURE_ECDSA_RSA_CFG5_3072_VALUE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga1bb16e915f8ae8d239e5828517eebdb0" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="105">XSECURE_ECDSA_RSA_CFG5_4096_VALUE</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="156" bodyend="325"/>
+        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="144">XSecure_Rsa::BaseAddress</references>
+        <references refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::EncDec</references>
+        <references refid="struct_x_secure___rsa_1af1962b2e4f9b304470a695e3d5274cff" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="147">XSecure_Rsa::ModExpoAddr</references>
+        <references refid="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="146">XSecure_Rsa::ModExtAddr</references>
+        <references refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="149">XSecure_Rsa::SizeInWords</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga3f74d8b1fdd3cb62e6b42f94477baea2" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="108">XSECURE_ECDSA_RSA_CFG0_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga441252e98483a66e42885babef4a3a4f" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="103">XSECURE_ECDSA_RSA_CFG0_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gad2c0edbea8d67db9377cd12a22645aa0" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="98">XSECURE_ECDSA_RSA_CFG0_4096_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gae86c78b20bfdfe28377fae54d4359bb5" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="109">XSECURE_ECDSA_RSA_CFG1_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaca2741b6c05e9b8d34814c8da41b9094" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="104">XSECURE_ECDSA_RSA_CFG1_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab809f2cf302a694e97151c15f1ecd178" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="99">XSECURE_ECDSA_RSA_CFG1_4096_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga428d127a4c7ca3cb3f9ca6c5f598926b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="110">XSECURE_ECDSA_RSA_CFG2_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gadc343c3b1b289869f9d80c16d11e8296" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="105">XSECURE_ECDSA_RSA_CFG2_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga5424da4f0e694d048bf1958cac68d912" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="100">XSECURE_ECDSA_RSA_CFG2_4096_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga657535fb0fdef8833089462fb0001198" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="111">XSECURE_ECDSA_RSA_CFG5_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gabc91f9d925d1a698ea47efd143ee76fc" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="106">XSECURE_ECDSA_RSA_CFG5_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga1bb16e915f8ae8d239e5828517eebdb0" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="101">XSECURE_ECDSA_RSA_CFG5_4096_VALUE</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a295bfe198c97c66a4f15ca179aef0d00" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="102">XSECURE_ECDSA_RSA_CFG_OFFSET</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="69">XSECURE_ECDSA_RSA_CTRL_OFFSET</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a44ca8c2ef009ddb0d23287c6e481e939" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="79">XSECURE_ECDSA_RSA_KEY_LEN_OFFSET</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a1b39b90e45fed3b08a2c96f5498eb8b7" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="73">XSECURE_ECDSA_RSA_STATUS_OFFSET</references>
         <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="75">XSECURE_RSA_2048_KEY_SIZE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="80">XSECURE_RSA_2048_SIZE_WORDS</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga59620f1b6f6bde84528a793de12385c5" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="76">XSECURE_RSA_3072_KEY_SIZE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga347aecc336477793453c4d4d7ff4883a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="81">XSECURE_RSA_3072_SIZE_WORDS</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="77">XSECURE_RSA_4096_KEY_SIZE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gaaf42b952c1d1cab97ba23e4c1a5f5ae6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="82">XSECURE_RSA_4096_SIZE_WORDS</references>
-        <references refid="group__xsecure__rsa__server__apis_1gaafa59a9f17f72541503918edc46b049a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="93">XSECURE_RSA_CONTROL_EXP</references>
-        <references refid="group__xsecure__rsa__server__apis_1gaf6aa7128fa94bf8080ab386fbad49019" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="94">XSECURE_RSA_CONTROL_EXP_PRE</references>
+        <references refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="xsecure__defs_8h" startline="141">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="76">XSECURE_RSA_2048_SIZE_WORDS</references>
+        <references refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" compoundref="xsecure__defs_8h" startline="142">XSECURE_RSA_3072_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga347aecc336477793453c4d4d7ff4883a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="77">XSECURE_RSA_3072_SIZE_WORDS</references>
+        <references refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" compoundref="xsecure__defs_8h" startline="143">XSECURE_RSA_4096_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaaf42b952c1d1cab97ba23e4c1a5f5ae6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="78">XSECURE_RSA_4096_SIZE_WORDS</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaafa59a9f17f72541503918edc46b049a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="89">XSECURE_RSA_CONTROL_EXP</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaf6aa7128fa94bf8080ab386fbad49019" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="90">XSECURE_RSA_CONTROL_EXP_PRE</references>
         <references refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" compoundref="core_2rsa_2xsecure__rsa_8h" startline="96">XSECURE_RSA_INVALID_PARAM</references>
         <references refid="group__xsecure__rsa__server__apis_1ga471ea882e22eda21835226bbd7f5f5fe" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="73">XSECURE_RSA_PUBLIC_EXPO_SIZE</references>
-        <references refid="group__xsecure__rsa__server__apis_1gaeb1c90322fbfab2d67199e5a1b7221ac" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="86">XSECURE_RSA_RAM_DIGEST</references>
-        <references refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977ab636361ce27fcaf256dacda0c41e29cd" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="137">XSECURE_RSA_SIGN_DEC</references>
-        <references refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977a6cea5b8237a7ef2b4e973ee824e8ba6c" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="136">XSECURE_RSA_SIGN_ENC</references>
-        <references refid="group__xsecure__rsa__server__apis_1gab2f3464839888fbb08885a9edfa3de1e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="124">XSECURE_RSA_STATUS_DONE</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="125">XSECURE_RSA_STATUS_ERROR</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaeb1c90322fbfab2d67199e5a1b7221ac" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="82">XSECURE_RSA_RAM_DIGEST</references>
+        <references refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977ab636361ce27fcaf256dacda0c41e29cd" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="133">XSECURE_RSA_SIGN_DEC</references>
+        <references refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977a6cea5b8237a7ef2b4e973ee824e8ba6c" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="132">XSECURE_RSA_SIGN_ENC</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab2f3464839888fbb08885a9edfa3de1e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="120">XSECURE_RSA_STATUS_DONE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="121">XSECURE_RSA_STATUS_ERROR</references>
         <references refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="518" endline="537">XSecure_RsaZeroize</references>
         <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
         <references refid="group__xsecure__rsa__server__apis_1gae655880142d336ed6515f196e68a4074" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="81">XSECURE_TIMEOUT_MAX</references>
         <references refid="group__xsecure__generic__server__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" compoundref="core_2util_2xsecure__utils_8h" startline="54">XSECURE_WORD_IN_BITS</references>
         <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="399" endline="451">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="312" endline="340">XSecure_RsaPublicEncrypt_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="389" endline="429">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="307" endline="330">XSecure_RsaPublicEncrypt_64Bit</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -509,8 +557,8 @@
 <para><itemizedlist>
 <listitem><para>Validate the input arguments</para></listitem><listitem><para>Zeroize and verify whole RSA RAM space </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="518" bodyend="537"/>
-        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::BaseAddress</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="518" bodyend="537"/>
+        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="144">XSecure_Rsa::BaseAddress</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a1a773a114eb7eee5d89964d73d7af3f3" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="76">XSECURE_ECDSA_RSA_MINV_OFFSET</references>
         <references refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" compoundref="core_2rsa_2xsecure__rsa_8h" startline="96">XSECURE_RSA_INVALID_PARAM</references>
         <references refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="641" endline="664">XSecure_RsaEcdsaZeroizeAndVerifyRam</references>
@@ -533,8 +581,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="578" bodyend="581"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga88c72694ec8259484002620958682dde" compoundref="core_2rsa_2xsecure__rsa_8c" startline="191" endline="259">XSecure_RsaSignVerification_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="578" bodyend="581"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga88c72694ec8259484002620958682dde" compoundref="core_2rsa_2xsecure__rsa_8c" startline="186" endline="254">XSecure_RsaSignVerification_64Bit</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga03d374a59e9fa66e4caf5ad19321c0ba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -562,7 +610,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="597" bodyend="628"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="597" bodyend="628"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -592,11 +640,11 @@
 <para><itemizedlist>
 <listitem><para>Clears whole RSA or ECDSA RAM space</para></listitem><listitem><para>Verify whether whole RSA or ECDSA RAM space is zeroized or not </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="641" bodyend="664"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="641" bodyend="664"/>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="69">XSECURE_ECDSA_RSA_CTRL_OFFSET</references>
         <references refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="60">XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</references>
-        <references refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="59">XSECURE_RSA_MAX_RD_WR_CNT</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga143c9f60ab09cc9145dcd03ad720957c" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="61">XSECURE_RSA_RAM_RES_Q</references>
+        <references refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="60">XSECURE_RSA_MAX_RD_WR_CNT</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga143c9f60ab09cc9145dcd03ad720957c" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="62">XSECURE_RSA_RAM_RES_Q</references>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="518" endline="537">XSecure_RsaZeroize</referencedby>
       </memberdef>
       </sectiondef>
@@ -731,9 +779,9 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
 <codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="175"><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((KeySize<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeySize<sp/>!=<ref refid="group__xsecure__rsa__server__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeySize<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((KeySize<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeySize<sp/>!=<ref refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeySize<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
 <codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
 <codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
 <codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -1109,6 +1157,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="666"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="667"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c"/>
   </compounddef>
 </doxygen>

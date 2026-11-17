@@ -376,8 +376,8 @@
     <member refid="xv__hdmitx1__hw_8h_1a669d9792a7e6f634260d58e779f08bde" kind="define"><name>XV_HDMITX1_DDC_CFG_1_FFE_LVLS_SHIFT</name></member>
     <member refid="xv__hdmitx1__hw_8h_1a3f2aff1ffd776d4097f3d610f92f1083" kind="define"><name>XV_HDMITX1_DDC_CFG_1_FRL_RATE_MASK</name></member>
     <member refid="xv__hdmitx1__hw_8h_1a305c5b0349da870c24df6ec9234d9c61" kind="define"><name>XV_HDMITX1_VER_BASE</name></member>
-    <member refid="xv__hdmitx1__hw_8h_1acdb9781981b55f2a70cf2ef4e50e00cb" kind="define"><name>XV_HDMITX1_VER_ID_OFFSET</name></member>
     <member refid="xv__hdmitx1__hw_8h_1ab85b13706cb38b267c66b44d3533e000" kind="define"><name>XV_HDMITX1_VER_VERSION_OFFSET</name></member>
+    <member refid="xv__hdmitx1__hw_8h_1acdb9781981b55f2a70cf2ef4e50e00cb" kind="define"><name>XV_HDMITX1_VER_ID_OFFSET</name></member>
     <member refid="xv__hdmitx1__hw_8h_1a3e73d02ee219e0a9c53925f60651ed78" kind="define"><name>XV_HDMITX1_BRDG_FIFO_LVL_OFFSET</name></member>
     <member refid="xv__hdmitx1__hw_8h_1a2a61ed968e178ed839d00ed19855ded3" kind="define"><name>XV_HDMITX1_VCKE_SYS_CNT_OFFSET</name></member>
     <member refid="xv__hdmitx1__hw_8h_1a4839aca0ca1a11f8b1553026a33d8e6e" kind="define"><name>XV_HDMITX1_DBG_STS_OFFSET</name></member>

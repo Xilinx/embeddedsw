@@ -49,5 +49,6 @@ var searchData=
   ['roiwindow',['roiWindow',['../struct_cam_device_roi__s.html#aac2dc7fc0e537db433e99956ed8beac9',1,'CamDeviceRoi_s']]],
   ['rolimits',['roLimits',['../struct_cam_device_dpcc_manual_config__s.html#aaa9cd7ed1717965729b9d25e161b195c',1,'CamDeviceDpccManualConfig_s']]],
   ['rpu',['Rpu',['../structxvisp__ss___config.html#a18f895d531ede886ad73b01d15418f7b',1,'xvisp_ss_Config']]],
+  ['runconfig',['RunConfig',['../struct_run_config.html',1,'']]],
   ['rxmezztype',['RxMezzType',['../struct_x_vfmc.html#ace6fd2245e217ddfa948db79b072f0a7',1,'XVfmc']]]
 ];

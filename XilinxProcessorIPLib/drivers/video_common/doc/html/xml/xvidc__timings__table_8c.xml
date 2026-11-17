@@ -4,24 +4,24 @@
     <compoundname>xvidc_timings_table.c</compoundname>
     <includes refid="xvidc_8h" local="yes">xvidc.h</includes>
     <incdepgraph>
-      <node id="102">
+      <node id="100">
         <label>xvidc_timings_table.c</label>
         <link refid="xvidc_timings_table.c"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>xvidc.h</label>
+        <link refid="xvidc_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
         <childnode refid="103" relation="include">
         </childnode>
       </node>
-      <node id="103">
-        <label>xvidc.h</label>
-        <link refid="xvidc_8h"/>
-        <childnode refid="104" relation="include">
-        </childnode>
-        <childnode refid="105" relation="include">
-        </childnode>
-      </node>
-      <node id="104">
+      <node id="102">
         <label>xil_types.h</label>
       </node>
-      <node id="105">
+      <node id="103">
         <label>xil_printf.h</label>
       </node>
     </incdepgraph>
@@ -37,7 +37,7 @@
 <para>Each entry is of the format: 1) ID: XVIDC_VM_&lt;HRES&gt;x&lt;VRES&gt;_&lt;FRAME RATE (HZ)&gt;_&lt;P|I&gt;(<emphasis>RB = Reduced Blanking) 2) Resolution naming: &quot;&lt;HRES&gt;x&lt;VRES&gt;@&lt;FRAME RATE (HZ)&gt;&quot; 3) Frame rate: XVIDC_FR</emphasis>&lt;FRAME RATE (HZ)&gt; 4) Video timing structure: 1) Horizontal active resolution (pixels) 2) Horizontal front porch (pixels) 3) Horizontal sync width (pixels) 4) Horizontal back porch (pixels) 5) Horizontal total (pixels) 6) Horizontal sync polarity (0=negative|1=positive) 7) Vertical active resolution (lines) 8) Frame 0: Vertical front porch (lines) 9) Frame 0: Vertical sync width (lines) 10) Frame 0: Vertical back porch (lines) 11) Frame 0: Vertical total (lines) 12) Frame 1: Vertical front porch (lines) 13) Frame 1: Vertical sync width (lines) 14) Frame 1: Vertical back porch (lines) 15) Frame 1: Vertical total (lines) 16) Vertical sync polarity (0=negative|1=positive) </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_timings_table.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_timings_table.c" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_timings_table.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_timings_table.c" bodystart="76" bodyend="-1"/>
         <referencedby refid="xvidc__edid__print__example_8h_1a1c214b447b3327e8e6a6e99f6d9bab2d" compoundref="xvidc__edid__print__example_8c" startline="120" endline="133">Edid_PrintSuppVmTable</referencedby>
       </memberdef>
       </sectiondef>
@@ -694,6 +694,6 @@
 <codeline lineno="705"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="706"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_timings_table.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_timings_table.c"/>
   </compounddef>
 </doxygen>

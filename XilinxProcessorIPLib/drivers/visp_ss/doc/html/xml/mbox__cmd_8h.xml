@@ -14,6 +14,11 @@
     <includes refid="mbox__fifo_8h" local="yes">mbox_fifo.h</includes>
     <includes refid="mbox__hardware_8h" local="yes">mbox_hardware.h</includes>
     <includes refid="sensor__cmd_8h" local="yes">sensor_cmd.h</includes>
+    <includes local="no">xstatus.h</includes>
+    <includedby refid="mbox__command_8h" local="yes">mbox_command.h</includedby>
+    <includedby refid="mbox__integrity_8h" local="yes">mbox_integrity.h</includedby>
+    <includedby refid="mbox__interface_8h" local="yes">mbox_interface.h</includedby>
+    <includedby refid="mbox__phy_8h" local="yes">mbox_phy.h</includedby>
     <includedby refid="apu__to__rpu__ipi_8c" local="no">apu_to_rpu_ipi.c</includedby>
     <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
     <includedby refid="sensor__drv_8c" local="yes">sensor_drv.c</includedby>
@@ -21,147 +26,203 @@
     <includedby refid="iba_8c" local="yes">iba.c</includedby>
     <includedby refid="cam__device__api_8c" local="yes">cam_device_api.c</includedby>
     <includedby refid="oba_8c" local="yes">oba.c</includedby>
+    <includedby refid="wdt__notifier_8c" local="yes">wdt_notifier.c</includedby>
     <incdepgraph>
-      <node id="6414">
+      <node id="6477">
         <label>sys/stat.h</label>
       </node>
-      <node id="6419">
+      <node id="6482">
         <label>stdbool.h</label>
       </node>
-      <node id="6426">
+      <node id="6486">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="6484">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6482" relation="include">
+        </childnode>
+        <childnode refid="6485" relation="include">
+        </childnode>
+      </node>
+      <node id="6473">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox_cmd.h"/>
+        <childnode refid="6474" relation="include">
+        </childnode>
+        <childnode refid="6475" relation="include">
+        </childnode>
+        <childnode refid="6476" relation="include">
+        </childnode>
+        <childnode refid="6477" relation="include">
+        </childnode>
+        <childnode refid="6478" relation="include">
+        </childnode>
+        <childnode refid="6479" relation="include">
+        </childnode>
+        <childnode refid="6480" relation="include">
+        </childnode>
+        <childnode refid="6481" relation="include">
+        </childnode>
+        <childnode refid="6486" relation="include">
+        </childnode>
+        <childnode refid="6484" relation="include">
+        </childnode>
+        <childnode refid="6487" relation="include">
+        </childnode>
+        <childnode refid="6488" relation="include">
+        </childnode>
+        <childnode refid="6490" relation="include">
+        </childnode>
+      </node>
+      <node id="6483">
+        <label>stdint.h</label>
+      </node>
+      <node id="6475">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6487">
+        <label>mbox_hardware.h</label>
+        <childnode refid="6484" relation="include">
+        </childnode>
+      </node>
+      <node id="6478">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6489">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="6420">
-        <label>stdint.h</label>
-      </node>
-      <node id="6412">
-        <label>stdlib.h</label>
-      </node>
-      <node id="6415">
-        <label>fcntl.h</label>
-      </node>
-      <node id="6425">
+      <node id="6488">
         <label>sensor_cmd.h</label>
-        <childnode refid="6418" relation="include">
+        <childnode refid="6481" relation="include">
         </childnode>
-        <childnode refid="6426" relation="include">
-        </childnode>
-      </node>
-      <node id="6424">
-        <label>mbox_hardware.h</label>
-        <childnode refid="6421" relation="include">
+        <childnode refid="6489" relation="include">
         </childnode>
       </node>
-      <node id="6418">
-        <label>mbox_api.h</label>
-        <childnode refid="6419" relation="include">
-        </childnode>
-        <childnode refid="6420" relation="include">
-        </childnode>
-        <childnode refid="6421" relation="include">
-        </childnode>
-      </node>
-      <node id="6413">
+      <node id="6476">
         <label>sys/types.h</label>
       </node>
-      <node id="6421">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="6419" relation="include">
-        </childnode>
-        <childnode refid="6422" relation="include">
-        </childnode>
+      <node id="6490">
+        <label>xstatus.h</label>
       </node>
-      <node id="6416">
+      <node id="6479">
         <label>signal.h</label>
       </node>
-      <node id="6423">
-        <label>mbox_error_code.h</label>
+      <node id="6481">
+        <label>mbox_api.h</label>
+        <childnode refid="6482" relation="include">
+        </childnode>
+        <childnode refid="6483" relation="include">
+        </childnode>
+        <childnode refid="6484" relation="include">
+        </childnode>
       </node>
-      <node id="6422">
+      <node id="6485">
         <label>sys/_stdint.h</label>
       </node>
-      <node id="6417">
+      <node id="6480">
         <label>xil_types.h</label>
       </node>
-      <node id="6410">
-        <label>mbox_cmd.h</label>
-        <link refid="mbox_cmd.h"/>
-        <childnode refid="6411" relation="include">
-        </childnode>
-        <childnode refid="6412" relation="include">
-        </childnode>
-        <childnode refid="6413" relation="include">
-        </childnode>
-        <childnode refid="6414" relation="include">
-        </childnode>
-        <childnode refid="6415" relation="include">
-        </childnode>
-        <childnode refid="6416" relation="include">
-        </childnode>
-        <childnode refid="6417" relation="include">
-        </childnode>
-        <childnode refid="6418" relation="include">
-        </childnode>
-        <childnode refid="6423" relation="include">
-        </childnode>
-        <childnode refid="6421" relation="include">
-        </childnode>
-        <childnode refid="6424" relation="include">
-        </childnode>
-        <childnode refid="6425" relation="include">
-        </childnode>
-      </node>
-      <node id="6411">
+      <node id="6474">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6428">
-        <label>apu_to_rpu_ipi.c</label>
+      <node id="6495">
+        <label>mbox_integrity.h</label>
+        <childnode refid="6496" relation="include">
+        </childnode>
+        <childnode refid="6494" relation="include">
+        </childnode>
       </node>
-      <node id="6430">
+      <node id="6501">
         <label>sensor_drv.c</label>
         <link refid="sensor__drv_8c"/>
       </node>
-      <node id="6432">
-        <label>visp_common.c</label>
+      <node id="6500">
+        <label>apu_to_rpu_ipi.c</label>
       </node>
-      <node id="6431">
-        <label>visp_common.h</label>
-        <childnode refid="6432" relation="include">
-        </childnode>
-      </node>
-      <node id="6435">
-        <label>oba.c</label>
-      </node>
-      <node id="6434">
-        <label>cam_device_api.c</label>
-      </node>
-      <node id="6433">
-        <label>iba.c</label>
-      </node>
-      <node id="6427">
+      <node id="6491">
         <label>mbox_cmd.h</label>
         <link refid="mbox_cmd.h"/>
-        <childnode refid="6428" relation="include">
+        <childnode refid="6492" relation="include">
         </childnode>
-        <childnode refid="6429" relation="include">
+        <childnode refid="6495" relation="include">
         </childnode>
-        <childnode refid="6430" relation="include">
+        <childnode refid="6497" relation="include">
         </childnode>
-        <childnode refid="6431" relation="include">
+        <childnode refid="6498" relation="include">
         </childnode>
-        <childnode refid="6433" relation="include">
+        <childnode refid="6500" relation="include">
         </childnode>
-        <childnode refid="6434" relation="include">
+        <childnode refid="6493" relation="include">
         </childnode>
-        <childnode refid="6435" relation="include">
+        <childnode refid="6501" relation="include">
+        </childnode>
+        <childnode refid="6502" relation="include">
+        </childnode>
+        <childnode refid="6504" relation="include">
+        </childnode>
+        <childnode refid="6505" relation="include">
+        </childnode>
+        <childnode refid="6506" relation="include">
+        </childnode>
+        <childnode refid="6507" relation="include">
         </childnode>
       </node>
-      <node id="6429">
+      <node id="6494">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="6497">
+        <label>mbox_interface.h</label>
+        <childnode refid="6493" relation="include">
+        </childnode>
+        <childnode refid="6494" relation="include">
+        </childnode>
+      </node>
+      <node id="6507">
+        <label>wdt_notifier.c</label>
+      </node>
+      <node id="6493">
         <label>mbox_cmd.c</label>
+      </node>
+      <node id="6496">
+        <label>mbox_integrity.c</label>
+      </node>
+      <node id="6504">
+        <label>iba.c</label>
+      </node>
+      <node id="6506">
+        <label>oba.c</label>
+      </node>
+      <node id="6505">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="6499">
+        <label>mbox_phy.c</label>
+      </node>
+      <node id="6498">
+        <label>mbox_phy.h</label>
+        <childnode refid="6494" relation="include">
+        </childnode>
+        <childnode refid="6499" relation="include">
+        </childnode>
+      </node>
+      <node id="6503">
+        <label>visp_common.c</label>
+      </node>
+      <node id="6502">
+        <label>visp_common.h</label>
+        <childnode refid="6503" relation="include">
+        </childnode>
+      </node>
+      <node id="6492">
+        <label>mbox_command.h</label>
+        <childnode refid="6493" relation="include">
+        </childnode>
+        <childnode refid="6494" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -174,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" bodystart="29" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="mbox__cmd_8h_1a90bc74590962865fc1ab7ee1be0f4b64" prot="public" static="no">
         <name>INTC_DEVICE_ID</name>
@@ -185,7 +246,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" bodystart="34" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="mbox__cmd_8h_1a18d3e58d384a520f164f80a44d5a7e08" prot="public" static="no">
         <name>TIMEOUT_COUNT</name>
@@ -196,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" bodystart="36" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -210,12 +271,22 @@
           <declname>cpu</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Initializes the mailbox for the given core. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Local core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="399" bodyend="491"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="116" bodyend="119"/>
+        <referencedby refid="mbox__cmd_8h_1a3eef9cfc651b6e05fc8c36fe2c087ca1" compoundref="mbox__cmd_8c" startline="134" endline="137">init_mailbox_ipi</referencedby>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1a3eef9cfc651b6e05fc8c36fe2c087ca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -223,12 +294,40 @@
         <argsstring>()</argsstring>
         <name>init_mailbox_ipi</name>
         <briefdescription>
-        </briefdescription>
+<para>Initializes the mailbox IPI transport on the local core. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="return"><para>0 on success, -1 on failure. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="519" bodyend="528"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="134" bodyend="137"/>
+        <references refid="mbox__cmd_8h_1a54e2f11c4f6a8de4f63f8e9c9f6a2eaa" compoundref="mbox__cmd_8c" startline="116" endline="119">mailbox_init</references>
+      </memberdef>
+      <memberdef kind="function" id="mbox__cmd_8h_1a751111f785205b6ee67612fcf9df1744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus apu_postmsg</definition>
+        <argsstring>(MboxCoreId receiver_id)</argsstring>
+        <name>apu_postmsg</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <briefdescription>
+<para>Triggers the IPI that notifies the receiver of a posted message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_phy.c" bodystart="93" bodyend="107"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1a4ef7f0aca34a630977de8050c617d7fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int32_t</type>
@@ -237,26 +336,68 @@
         <name>write_mboxcmd</name>
         <param>
           <type>uint32_t</type>
+          <defname>cmdId</defname>
         </param>
         <param>
           <type>void *</type>
+          <defname>struct_msg</defname>
         </param>
         <param>
           <type>uint32_t</type>
+          <defname>size</defname>
         </param>
         <param>
           <type>MboxCoreId</type>
+          <defname>receiver_id</defname>
         </param>
         <param>
           <type>MboxCoreId</type>
+          <defname>core_id</defname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Sends a raw mailbox message without command framing. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cmdId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message identifier to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">struct_msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the raw payload. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination core identifier. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source core identifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VPI_SUCCESS on success, an error code otherwise. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="260" bodyend="287"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="182" bodyend="187"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1a89d9cad67585e0f810fb1578009a0f4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -265,14 +406,23 @@
         <name>apu_mailbox_read</name>
         <param>
           <type>uint32_t</type>
+          <defname>IpiSrcMask</defname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Dispatches pending inbound mailbox messages for the given IPI source. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">IpiSrcMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt source mask of the triggering IPI. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="367" bodyend="396"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="207" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1ac45baccfc8904ee1ca318237b7fb204a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -300,7 +450,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="552" bodyend="652"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="273" bodyend="373"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1a89f40c5dd065c4b7dd8e7449912c245d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -333,7 +483,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="654" bodyend="1019"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="375" bodyend="740"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1af07b68366b2218672e709efe069d1bd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -366,7 +516,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="1022" bodyend="1048"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="743" bodyend="769"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1a949c9ae44275c88712bf4ebf25234725" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -374,12 +524,12 @@
         <argsstring>()</argsstring>
         <name>mailbox_close</name>
         <briefdescription>
-        </briefdescription>
+<para>Closes the mailbox interface. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="493" bodyend="516"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="124" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1aab6f0d4bc8dc271fa7bb3c9a6fc11b4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -390,12 +540,12 @@
           <type>void</type>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Processes a pending asynchronous command received from a remote core. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="289" bodyend="308"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="215" bodyend="238"/>
       </memberdef>
       <memberdef kind="function" id="mbox__cmd_8h_1ae269fb4076e8958fd4443f0c45ea6809" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -406,12 +556,12 @@
           <type>void</type>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Processes a pending asynchronous FuSa command received from a remote core. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="311" bodyend="329"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_cmd.c" bodystart="244" bodyend="266"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -439,7 +589,7 @@
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__fifo_8h" kindref="compound">mbox_fifo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mbox_hardware.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sensor_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xstatus.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MBOX_FIFO_BLOCK_SIZE<sp/>(sizeof(FifoControl)<sp/>+<sp/>sizeof(MboxPostMsg)*MAX_MSGS_PER_BOX)</highlight></codeline>
 <codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
@@ -452,20 +602,22 @@
 <codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal">int32_t<sp/>mailbox_init(uint32_t<sp/>cpu);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>init_mailbox_ipi();</highlight></codeline>
-<codeline lineno="42"><highlight class="normal">int32_t<sp/>write_mboxcmd(uint32_t,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>uint32_t,<sp/>MboxCoreId,<sp/>MboxCoreId);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>apu_mailbox_read(</highlight><highlight class="comment">/*void<sp/>*CallbackRef*/</highlight><highlight class="normal"><sp/>uint32_t);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal">uint32_t<sp/>ParseCommand(MBCmdId_E,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>uint32_t,<sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId,<sp/>MboxCoreId);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal">uint32_t<sp/>ApuProcessCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/><sp/><sp/><sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal">uint32_t<sp/>ApuProcessFusaCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mailbox_close();</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Apu_Mbox_Check_Command(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Apu_Mbox_Check_FusaCommand(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">int32_t<sp/><ref refid="mbox__cmd_8h_1a54e2f11c4f6a8de4f63f8e9c9f6a2eaa" kindref="member">mailbox_init</ref>(uint32_t<sp/>cpu);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1a3eef9cfc651b6e05fc8c36fe2c087ca1" kindref="member">init_mailbox_ipi</ref>();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">XStatus<sp/><ref refid="mbox__cmd_8h_1a751111f785205b6ee67612fcf9df1744" kindref="member">apu_postmsg</ref>(MboxCoreId<sp/>receiver_id);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">int32_t<sp/><ref refid="mbox__cmd_8h_1a4ef7f0aca34a630977de8050c617d7fa" kindref="member">write_mboxcmd</ref>(uint32_t,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>uint32_t,<sp/>MboxCoreId,<sp/>MboxCoreId);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1a89d9cad67585e0f810fb1578009a0f4e" kindref="member">apu_mailbox_read</ref>(</highlight><highlight class="comment">/*void<sp/>*CallbackRef*/</highlight><highlight class="normal"><sp/>uint32_t);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">uint32_t<sp/>ParseCommand(MBCmdId_E,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>uint32_t,<sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId,<sp/>MboxCoreId);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">uint32_t<sp/>ApuProcessCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/><sp/><sp/><sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">uint32_t<sp/>ApuProcessFusaCommand(MBCmdId_E<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>uint32_t<sp/>size,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>core_id,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>src_cpu);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1a949c9ae44275c88712bf4ebf25234725" kindref="member">mailbox_close</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1aab6f0d4bc8dc271fa7bb3c9a6fc11b4d" kindref="member">Apu_Mbox_Check_Command</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mbox__cmd_8h_1ae269fb4076e8958fd4443f0c45ea6809" kindref="member">Apu_Mbox_Check_FusaCommand</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_cmd.h"/>
   </compounddef>
 </doxygen>

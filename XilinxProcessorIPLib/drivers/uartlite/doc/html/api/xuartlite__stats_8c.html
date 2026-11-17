@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartlite__stats_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,7 +105,20 @@ $(document).ready(function(){initNavTree('xuartlite__stats_8c.html','');});
 <div class="title">xuartlite_stats.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Statistics functions for the UART Lite component (<a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a>). </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a ecm  08/31/01 First release
+1.00b jhl  02/21/02 Repartitioned the driver for smaller files
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
+              XUartLite_mClearStats macro is removed.
+3.14  vn   08/26/26 Fix Doxygen warnings
+3.14  vn   09/09/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartlite_8h.html">xuartlite.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartlite__i_8h.html">xuartlite_i.h</a>&quot;</code><br/>
@@ -116,7 +129,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga081d00a44aeebe19ed77e195a063b4e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a snapshot of the current statistics in the structure specified.  <a href="group__uartlite.html#ga081d00a44aeebe19ed77e195a063b4e1">More...</a><br/></td></tr>
 <tr class="separator:ga081d00a44aeebe19ed77e195a063b4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga33651bc4c0c36496d86038d95f39f0cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga33651bc4c0c36496d86038d95f39f0cd">XUartLite_ClearStats</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga33651bc4c0c36496d86038d95f39f0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function zeros the statistics for the given instance.  <a href="group__uartlite.html#ga33651bc4c0c36496d86038d95f39f0cd">More...</a><br/></td></tr>
+<tr class="memdesc:ga33651bc4c0c36496d86038d95f39f0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeros the statistics for the given instance.  <a href="group__uartlite.html#ga33651bc4c0c36496d86038d95f39f0cd">More...</a><br/></td></tr>
 <tr class="separator:ga33651bc4c0c36496d86038d95f39f0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

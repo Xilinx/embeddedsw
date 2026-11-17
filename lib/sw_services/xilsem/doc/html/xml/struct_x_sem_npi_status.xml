@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="318" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="363" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1219" endline="1252">XSem_CmdNpiGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_npi_status_1ad6bb1c2e66f4523d239e18ff685a9ca9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -31,9 +31,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="319" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1219" endline="1252">XSem_CmdNpiGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_npi_status_1af86519a71bc534fd458933dd18fa46d4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -47,10 +47,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="322" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
-        <referencedby refid="xsem__npi__example__pl__mb_8c_1a0d1727d5d5abe0b3a960bc035bc4d45e" compoundref="xsem__npi__example__pl__mb_8c" startline="155" endline="196">XSem_ApiCheckScanCount</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1a0d1727d5d5abe0b3a960bc035bc4d45e" compoundref="xsem__npi__example__pl__mb_8c" startline="157" endline="198">XSem_ApiCheckScanCount</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1219" endline="1252">XSem_CmdNpiGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_npi_status_1af831524318353b603e14fda32c75809f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -64,10 +64,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="324" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
-        <referencedby refid="xsem__npi__example__pl__mb_8c_1a8eda281f7a0e850ffe2973a997cc8fbd" compoundref="xsem__npi__example__pl__mb_8c" startline="205" endline="245">XSem_ApiCheckHbtCount</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="369" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1a8eda281f7a0e850ffe2973a997cc8fbd" compoundref="xsem__npi__example__pl__mb_8c" startline="207" endline="247">XSem_ApiCheckHbtCount</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1219" endline="1252">XSem_CmdNpiGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_npi_status_1a0b7d87074b8e1445554c051089fb7228" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -81,9 +81,9 @@
 <para>-ErrInfo[0]: Calculated SHA value of the descriptor for which mismatch is observed. -ErrInfo[1]: Bit[31:16] Reserved. Bit[15:8] The descriptor index number for which the SHA failure is observed. Bit[7:0] The skip count index of the descriptor where SHA failure is observed (This value is zero if arbitration is not applicable for the descriptor) </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="326" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1221" endline="1254">XSem_CmdNpiGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="532" endline="785">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga81a2507bb54e6b6e8b28399c4196876a" compoundref="xsem__client__api_8c" startline="1219" endline="1252">XSem_CmdNpiGetStatus</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -92,7 +92,7 @@
 <para>This structure provides:<itemizedlist>
 <listitem><para>NPI scan status information (Refer XSem_CmdNpiGetStatus API)</para></listitem><listitem><para>NPI descriptor slave skip counter value if arbitration fails</para></listitem><listitem><para>NPI scan counter value</para></listitem><listitem><para>NPI heartbeat counter value</para></listitem><listitem><para>NPI scan error information if SHA mismatch is detected </para></listitem></itemizedlist>
 </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="317" bodyend="334"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="362" bodyend="379"/>
     <listofallmembers>
       <member refid="struct_x_sem_npi_status_1a0b7d87074b8e1445554c051089fb7228" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>ErrInfo</name></member>
       <member refid="struct_x_sem_npi_status_1af831524318353b603e14fda32c75809f" prot="public" virt="non-virtual"><scope>XSemNpiStatus</scope><name>HbCnt</name></member>

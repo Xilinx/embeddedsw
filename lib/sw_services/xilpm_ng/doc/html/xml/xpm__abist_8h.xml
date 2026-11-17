@@ -1,0 +1,671 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__abist_8h" kind="file">
+    <compoundname>xpm_abist.h</compoundname>
+    <includes refid="xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includedby refid="xpm__abist_8c" local="yes">xpm_abist.c</includedby>
+    <includedby refid="xpm__domain__iso_8c" local="yes">xpm_domain_iso.c</includedby>
+    <incdepgraph>
+      <node id="37">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xil_io.h</label>
+      </node>
+      <node id="35">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="34">
+        <label>xil_util.h</label>
+      </node>
+      <node id="31">
+        <label>xpm_common.h</label>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="30">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="32">
+        <label>xstatus.h</label>
+      </node>
+      <node id="38">
+        <label>xil_types.h</label>
+      </node>
+      <node id="29">
+        <label>xpm_abist.h</label>
+        <link refid="xpm_abist.h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="41">
+        <label>xpm_abist.c</label>
+      </node>
+      <node id="40">
+        <label>xpm_abist.h</label>
+        <link refid="xpm_abist.h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xpm_domain_iso.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__abist_8h_1a023b8b5368a4c1a413ffef38151a97b6" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR</name>
+        <initializer>(0xEB568100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1af64540c7a3c21a5abe825a1610955c09" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS</name>
+        <initializer>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000028U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a698e86b8b989fb368afe3d8dd0018dfe" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_LATENTFAULT_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1af8d54faa3aad022dc919006bc9081e1b" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_MISSIONFAULT_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1ac6c852843c90be72a97b409b5d7dbf84" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_INTEN</name>
+        <initializer>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x0000002CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a09e60818b9962600787a6a5cd3b409f2" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL</name>
+        <initializer>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000034U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1aa0b54aa67185788e760f6742049bb958" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTSTART_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a5104fd3a4b8aef90fd6c7406f5ee42fe" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTDONECLR_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a8307ce8e2ba9ab1dac6375c6431d4c09" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE</name>
+        <initializer>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000038U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a21247bfeb0d937e8de78c3313788c844" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_BISTDONE_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a34f67cddfc98f5de0755fa09acabd1b7" prot="public" static="no">
+        <name>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_MISSIONMODE_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a2ff2526907ee5edaf74f39d21ba07bcf" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR</name>
+        <initializer>(0xEC868100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a864047ca7c5aebbae3878912d1dfc523" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS</name>
+        <initializer>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000028U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a64b6b630b65f8643bd0b49b2baaa27b5" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_LATENTFAULT_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a50a846ac271ab8afbffb30176bf0a265" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_MISSIONFAULT_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a4b2396735266b4231054d2f93b23f8ee" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_INTEN</name>
+        <initializer>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x0000002CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a3c8d4e913fdbeb7ce66f2cc7c6f9ae5d" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL</name>
+        <initializer>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000034U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1ad0346839d341a3a9b3b9443e09645368" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTSTART_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1ad58f3bf8e4d0ec4a9c91211604f757be" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTDONECLR_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a38add3477bf4725d566cffd4b7f3f2c8" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE</name>
+        <initializer>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000038U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a30e08a5c620602ca3f4292a549a5c135" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_BISTDONE_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1ab2b6c5b26874829d454838d7d46e7932" prot="public" static="no">
+        <name>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_MISSIONMODE_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1af14489d79fe0ed305af461e7139ca038" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BASEADDR</name>
+        <initializer>(0xEBF7F380U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a84224df4a69789ff32b0a4700394708a" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_FAULTS</name>
+        <initializer>(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x00000028U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1aad8707aea38917fe22f8f9d2d4ff41a3" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_FAULTS_LATENTFAULT_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1ada01dc7e562facdc5426642c50acfc0d" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_FAULTS_MISSIONFAULT_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a4b8c65c77a27b415c77334df4f51db1c" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_INTEN</name>
+        <initializer>(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x0000002CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a79902e27a08fe890e834a4f2c8afc9e8" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BISTCTL</name>
+        <initializer>(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x00000034U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a08301af19af65deea54cecb9fb7cf641" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BISTCTL_BISTSTART_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a59f7e18da079cd9059103b7be6f4d55f" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BISTCTL_BISTDONECLR_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a2dd7df51e46b34ae2c66a1423d14247c" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BISTDONE</name>
+        <initializer>(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x00000038U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a946297914d945011b5f19390fd3aac7d" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BISTDONE_BISTDONE_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a7954314b5fe1d26f88190ecb86bd8bcd" prot="public" static="no">
+        <name>INTASU_GPV_INTASU_PL_BISTDONE_MISSIONMODE_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a07a9ed4fda61593193205963b0462717" prot="public" static="no">
+        <name>PM_HOUSECLEAN_CHECK</name>
+        <param><defname>BLOCK</defname></param>
+        <param><defname>FUNC</defname></param>
+        <initializer>(0U != XPm_HousecleanCheck( \
+		PM_HOUSECLEAN_DISABLE_ ##BLOCK## _BASEADDR, \
+		PM_HOUSECLEAN_DISABLE_ ##BLOCK## _MASK, \
+		PM_HOUSECLEAN_DISABLE_ ##BLOCK## _OFFSET, \
+		HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK))</initializer>
+        <briefdescription>
+<para>FALSE if house clean of given BLOCK and FUNC is skipped. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note: The condition is evaluated redundantly to avoid glitches from altering branching decision. The BLOCK we supported is only PLD FUNC contains only ABIST </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a4c5c90352bbc9b159578555164e8fcd6" prot="public" static="no">
+        <name>XPM_ABIST_LPD_MASK</name>
+        <initializer>((u32)0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1ae174210d76a5cddb592f7482c55fa2ca" prot="public" static="no">
+        <name>XPM_ABIST_FPD_MASK</name>
+        <initializer>((u32)0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a9f2f9a43294cf928b831039af77ca0ce" prot="public" static="no">
+        <name>XPM_ABIST_ASU_MASK</name>
+        <initializer>((u32)0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__abist_8h_1a1d4065d8c453724dd52f2021bd674021" prot="public" static="no">
+        <name>XPM_ABIST_ALL_MASK</name>
+        <initializer>(XPM_ABIST_LPD_MASK | XPM_ABIST_FPD_MASK | XPM_ABIST_ASU_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__abist_8h_1a416292cd37d2816bdeffbb17c9481c87" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPm_HousecleanCheck</definition>
+        <argsstring>(u32 Address, u32 BlockMask, u32 BlockShift, u32 FuncMask)</argsstring>
+        <name>XPm_HousecleanCheck</name>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlockMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlockShift</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FuncMask</declname>
+        </param>
+        <briefdescription>
+<para>Read both samples before comparing. </para>        </briefdescription>
+        <detaileddescription>
+<para>Skip only when both samples indicate the function is disabled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" bodystart="65" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__abist_8h_1a3abf7d159f82fb4b49a844605b9d2fbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPl_Abist</definition>
+        <argsstring>(u32 DomainMask)</argsstring>
+        <name>XPmPl_Abist</name>
+        <param>
+          <type>u32</type>
+          <declname>DomainMask</declname>
+        </param>
+        <briefdescription>
+<para>Runs Arteris built-in self-test (ABIST) for PL-related LPD, FPD, and ASU Domains. </para>        </briefdescription>
+        <detaileddescription>
+<para>Tests only the selected LPD AFIFS, FPD AFIFS, and INTASU PL controllers whose base-register reads are nonzero. Each ABIST is only required to execute once after booting. Skips testing on QEMU and COSIM platforms or when housecleaning disables PLD ABIST.</para><para>Temporarily enables the RCLK clock outputs and restores CRP_RCLK_CTRL before returning. For each tested controller, disables interrupts, starts BIST, polls for completion, and checks for a latent fault. Clears BIST completion and polls for mission mode before recording successful completion. Subsequent calls skip controllers already marked complete.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DomainMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>OR of XPM_ABIST_LPD_MASK, XPM_ABIST_FPD_MASK, and XPM_ABIST_ASU_MASK. Zero selects no controllers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if all attempted tests succeed or no test runs.</para></listitem><listitem><para>XST_INVALID_PARAM for unsupported DomainMask bits.</para></listitem><listitem><para>XST_FAILURE if a latent fault is detected.</para></listitem><listitem><para>Polling failure status if BIST completion or mission-mode polling fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>A zero base-register read leaves that controller eligible for a subsequent call. Success does not imply every controller completed ABIST. Completion flags persist across calls until software reinitializes them. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.c" bodystart="43" bodyend="205"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_ABIST_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_ABIST_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>LPD_AFIFS_GPV<sp/>register<sp/>definitions</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEB568100U)</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x00000028U)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_LATENTFAULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_MISSIONFAULT_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_INTEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x0000002CU)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x00000034U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTSTART_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTDONECLR_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x00000038U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_BISTDONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_MISSIONMODE_MASK<sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>FPD_AFIFS_GPV<sp/>register<sp/>definitions</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEC868100U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x00000028U)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_LATENTFAULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_MISSIONFAULT_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_INTEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x0000002CU)</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x00000034U)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTSTART_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTDONECLR_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR<sp/>+<sp/>(u32)0x00000038U)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_BISTDONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_MISSIONMODE_MASK<sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>INTASU_GPV<sp/>register<sp/>definitions</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEBF7F380U)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_FAULTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INTASU_GPV_INTASU_PL_BASEADDR<sp/>+<sp/>(u32)0x00000028U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_FAULTS_LATENTFAULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_FAULTS_MISSIONFAULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_INTEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INTASU_GPV_INTASU_PL_BASEADDR<sp/>+<sp/>(u32)0x0000002CU)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BISTCTL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INTASU_GPV_INTASU_PL_BASEADDR<sp/>+<sp/>(u32)0x00000034U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BISTCTL_BISTSTART_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BISTCTL_BISTDONECLR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BISTDONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INTASU_GPV_INTASU_PL_BASEADDR<sp/>+<sp/>(u32)0x00000038U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BISTDONE_BISTDONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTASU_GPV_INTASU_PL_BISTDONE_MISSIONMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XPm_HousecleanCheck(u32<sp/>Address,<sp/>u32<sp/>BlockMask,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BlockShift,<sp/>u32<sp/>FuncMask)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>First<sp/>=<sp/>(XPm_In32(Address)<sp/>&amp;<sp/>BlockMask)<sp/>&gt;&gt;<sp/>BlockShift;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Second<sp/>=<sp/>(XPm_In32(Address)<sp/>&amp;<sp/>BlockMask)<sp/>&gt;&gt;<sp/>BlockShift;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(((First<sp/>&amp;<sp/>FuncMask)<sp/>!=<sp/>FuncMask)<sp/>||</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Second<sp/>&amp;<sp/>FuncMask)<sp/>!=<sp/>FuncMask))<sp/>?<sp/>1U<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>PM_HOUSECLEAN_CHECK(BLOCK,<sp/>FUNC)<sp/>\</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U<sp/>!=<sp/>XPm_HousecleanCheck(<sp/>\</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_HOUSECLEAN_DISABLE_<sp/>##BLOCK##<sp/>_BASEADDR,<sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_HOUSECLEAN_DISABLE_<sp/>##BLOCK##<sp/>_MASK,<sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PM_HOUSECLEAN_DISABLE_<sp/>##BLOCK##<sp/>_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HOUSECLEAN_FUNC_DISABLE_<sp/>##FUNC##<sp/>_MASK))</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Software<sp/>mask<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_ABIST_LPD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x1U)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_ABIST_FPD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x2U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_ABIST_ASU_MASK<sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x4U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_ABIST_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(XPM_ABIST_LPD_MASK<sp/>|<sp/>XPM_ABIST_FPD_MASK<sp/>|<sp/>XPM_ABIST_ASU_MASK)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal">XStatus<sp/>XPmPl_Abist(u32<sp/>DomainMask);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_ABIST_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_abist.h"/>
+  </compounddef>
+</doxygen>

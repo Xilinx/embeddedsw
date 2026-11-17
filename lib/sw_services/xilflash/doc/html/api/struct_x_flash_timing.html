@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('struct_x_flash_timing.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Flash timing.
+<p>Holds the flash timing data.
  <a href="struct_x_flash_timing.html#details">More...</a></p>
 
 <p><code>#include &lt;xilflash_properties.h&gt;</code></p>
@@ -120,20 +120,20 @@ $(document).ready(function(){initNavTree('struct_x_flash_timing.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a0f2c22ebb8c8dea20df70fcbc752a703"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_flash_timing.html#a0f2c22ebb8c8dea20df70fcbc752a703">WriteSingle_Us</a></td></tr>
-<tr class="memdesc:a0f2c22ebb8c8dea20df70fcbc752a703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to program a single word unit Units are in microseconds.  <a href="#a0f2c22ebb8c8dea20df70fcbc752a703">More...</a><br/></td></tr>
+<tr class="memdesc:a0f2c22ebb8c8dea20df70fcbc752a703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to program a single word unit.  <a href="#a0f2c22ebb8c8dea20df70fcbc752a703">More...</a><br/></td></tr>
 <tr class="separator:a0f2c22ebb8c8dea20df70fcbc752a703"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57e945e9b72a597a700cc961b22b4362"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_flash_timing.html#a57e945e9b72a597a700cc961b22b4362">WriteBuffer_Us</a></td></tr>
 <tr class="memdesc:a57e945e9b72a597a700cc961b22b4362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to program the contents of the write buffer.  <a href="#a57e945e9b72a597a700cc961b22b4362">More...</a><br/></td></tr>
 <tr class="separator:a57e945e9b72a597a700cc961b22b4362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4b8713386c554cade817237f17e8b11"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_flash_timing.html#ad4b8713386c554cade817237f17e8b11">EraseBlock_Ms</a></td></tr>
-<tr class="memdesc:ad4b8713386c554cade817237f17e8b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to erase a single block Units are in milliseconds.  <a href="#ad4b8713386c554cade817237f17e8b11">More...</a><br/></td></tr>
+<tr class="memdesc:ad4b8713386c554cade817237f17e8b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to erase a single block.  <a href="#ad4b8713386c554cade817237f17e8b11">More...</a><br/></td></tr>
 <tr class="separator:ad4b8713386c554cade817237f17e8b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cd3df65b4b581ce7885124066c81e6b"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_flash_timing.html#a8cd3df65b4b581ce7885124066c81e6b">EraseChip_Ms</a></td></tr>
-<tr class="memdesc:a8cd3df65b4b581ce7885124066c81e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to perform a chip erase Units are in milliseconds.  <a href="#a8cd3df65b4b581ce7885124066c81e6b">More...</a><br/></td></tr>
+<tr class="memdesc:a8cd3df65b4b581ce7885124066c81e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time to perform a chip erase.  <a href="#a8cd3df65b4b581ce7885124066c81e6b">More...</a><br/></td></tr>
 <tr class="separator:a8cd3df65b4b581ce7885124066c81e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Flash timing. </p>
+<div class="textblock"><p>Holds the flash timing data. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="ad4b8713386c554cade817237f17e8b11"></a>
 <div class="memitem">
@@ -145,7 +145,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Time to erase a single block Units are in milliseconds. </p>
+<p>Time to erase a single block. </p>
+<p>Units are in milliseconds. </p>
 
 </div>
 </div>
@@ -159,7 +160,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Time to perform a chip erase Units are in milliseconds. </p>
+<p>Time to perform a chip erase. </p>
+<p>Units are in milliseconds. </p>
 
 </div>
 </div>
@@ -174,7 +176,7 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Time to program the contents of the write buffer. </p>
-<p>Units are in microseconds If the part does not support write buffers, then this value should be zero </p>
+<p>Units are in microseconds. If the part does not support write buffers, then this value should be zero. </p>
 
 </div>
 </div>
@@ -188,7 +190,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Time to program a single word unit Units are in microseconds. </p>
+<p>Time to program a single word unit. </p>
+<p>Units are in microseconds. </p>
 
 </div>
 </div>

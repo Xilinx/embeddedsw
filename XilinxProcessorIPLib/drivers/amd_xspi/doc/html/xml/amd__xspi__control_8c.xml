@@ -1,0 +1,574 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="amd__xspi__control_8c" kind="file">
+    <compoundname>amd_xspi_control.c</compoundname>
+    <includes refid="amd__xspi_8h" local="yes">amd_xspi.h</includes>
+    <includes refid="amd__xspi__control_8h" local="yes">amd_xspi_control.h</includes>
+    <incdepgraph>
+      <node id="33">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="31">
+        <label>xil_io.h</label>
+      </node>
+      <node id="29">
+        <label>amd_xspi_hw.h</label>
+        <link refid="amd__xspi__hw_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>amd_xspi_control.c</label>
+        <link refid="amd_xspi_control.c"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>amd_xspi_control.h</label>
+        <link refid="amd__xspi__control_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>xstatus.h</label>
+      </node>
+      <node id="30">
+        <label>xil_types.h</label>
+      </node>
+      <node id="28">
+        <label>amd_xspi.h</label>
+        <link refid="amd__xspi_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__amd__xspi_1ga5a3e94e7b465cd5a885cda1f853d1c70" prot="public" static="no">
+        <name>AMD_XSPI_TXN_POLL_COUNT</name>
+        <initializer>1000000U</initializer>
+        <briefdescription>
+<para>Poll bound for a transaction to report complete. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sized well past the longest Lite mode transfer the core runs so that it only trips on a wedged transaction, never on a slow one. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__amd__xspi_1ga4bf2e90d500bdd10537421423cf321ae" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 AmdXspi_WaitTxnComplete</definition>
+        <argsstring>(AmdXspi *InstancePtr)</argsstring>
+        <name>AmdXspi_WaitTxnComplete</name>
+        <param>
+          <type><ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Polls until the core reports the transaction finished. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS once TXN_COMPLETE is seen.<itemizedlist>
+<listitem><para>XST_FAILURE if the core raises TXN_ERROR or the poll expires. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" bodystart="63" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 AmdXspi_LiteRead</definition>
+        <argsstring>(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)</argsstring>
+        <name>AmdXspi_LiteRead</name>
+        <param>
+          <type><ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Performs a Lite mode read transaction. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sends instruction, command/address, and receives data following the Lite mode protocol for xSPI Profile 2.0 (HyperBus).</para><para>The receive buffer is taken from the message rather than passed separately, so a caller cannot hand a read the transmit buffer by mistake.</para><para>The instance, the message and the ready state are checked by <ref refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" kindref="member">AmdXspi_PolledTransfer()</ref>, the only caller. So only the buffers this function goes on to dereference are checked here.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Describes the transaction: command/address bytes, receive buffer, byte count, dummy cycles and frame/IO format.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" bodystart="106" bodyend="160"/>
+        <references refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" compoundref="amd__xspi__hw_8h" startline="170">AMD_XSPI_INTR_TXN_ERROR_MASK</references>
+        <references refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" compoundref="amd__xspi__hw_8h" startline="329">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</references>
+        <references refid="group__amd__xspi_1ga840fb09ff9c9a5aeb78b18fbf3fd407b" compoundref="amd__xspi__hw_8h" startline="67">AMD_XSPI_ISR_OFFSET</references>
+        <references refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</references>
+        <references refid="group__amd__xspi_1gac0312b2cf69e6c3125a061616b415fac" compoundref="amd__xspi__hw_8h" startline="408">AmdXspi_ReadReg</references>
+        <references refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</references>
+        <references refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</references>
+        <references refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</references>
+        <references refid="struct_amd_xspi___config_1a78dbceaed69f4b0b30b0ae9fd1f503cb" compoundref="amd__xspi_8h" startline="115">AmdXspi_Config::BaseAddress</references>
+        <references refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" compoundref="amd__xspi_8h" startline="154">AmdXspi_Msg::ByteCount</references>
+        <references refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" compoundref="amd__xspi_8h" startline="149">AmdXspi_Msg::CmdAddrBufPtr</references>
+        <references refid="struct_amd_xspi___instruction_1a586286049936a4df6c5574193a88fd45" compoundref="amd__xspi__control_8h" startline="50">AmdXspi_Instruction::CmdAddrBytes</references>
+        <references refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" compoundref="amd__xspi_8h" startline="151">AmdXspi_Msg::CmdAddrBytes</references>
+        <references refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" compoundref="amd__xspi_8h" startline="166">AmdXspi::Config</references>
+        <references refid="struct_amd_xspi___instruction_1a2809d945339e7cea7518d26671235324" compoundref="amd__xspi__control_8h" startline="52">AmdXspi_Instruction::DataBytes</references>
+        <references refid="struct_amd_xspi___instruction_1a704b2b31ba8b3b377a8bbd20864dcaec" compoundref="amd__xspi__control_8h" startline="54">AmdXspi_Instruction::DummyCycles</references>
+        <references refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" compoundref="amd__xspi_8h" startline="155">AmdXspi_Msg::DummyCycles</references>
+        <references refid="struct_amd_xspi___instruction_1adac88d3efc6de39b7f6f701bfa07d0aa" compoundref="amd__xspi__control_8h" startline="56">AmdXspi_Instruction::FrameFormat</references>
+        <references refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" compoundref="amd__xspi_8h" startline="156">AmdXspi_Msg::FrameFormat</references>
+        <references refid="struct_amd_xspi___instruction_1a31a78031106781148f613f96a254935d" compoundref="amd__xspi__control_8h" startline="55">AmdXspi_Instruction::IoFormat</references>
+        <references refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" compoundref="amd__xspi_8h" startline="157">AmdXspi_Msg::IoFormat</references>
+        <references refid="struct_amd_xspi___instruction_1a640c1ca792f59528f3e07724caff0064" compoundref="amd__xspi__control_8h" startline="53">AmdXspi_Instruction::IsRead</references>
+        <references refid="struct_amd_xspi___msg_1a8823eb66599ef4ac99fe2fe9cbbd5c9d" compoundref="amd__xspi_8h" startline="153">AmdXspi_Msg::RxBfrPtr</references>
+        <references refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" compoundref="amd__xspi_8h" startline="116">AmdXspi_Config::SpiMode</references>
+        <referencedby refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" compoundref="amd__xspi_8c" startline="178" endline="220">AmdXspi_PolledTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 AmdXspi_LiteWrite</definition>
+        <argsstring>(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)</argsstring>
+        <name>AmdXspi_LiteWrite</name>
+        <param>
+          <type><ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Performs a Lite mode write transaction. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sends instruction, command/address, and data bytes following the Lite mode protocol for xSPI Profile 2.0 (HyperBus).</para><para>The transmit buffer is taken from the message rather than passed separately, so a caller cannot hand a write the receive buffer by mistake.</para><para>The instance, the message and the ready state are checked by <ref refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" kindref="member">AmdXspi_PolledTransfer()</ref>, the only caller. So only the buffer this function goes on to dereference is checked here.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Describes the transaction: command/address bytes, transmit buffer, byte count, dummy cycles and frame/IO format.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" bodystart="185" bodyend="220"/>
+        <references refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" compoundref="amd__xspi__hw_8h" startline="329">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</references>
+        <references refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</references>
+        <references refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</references>
+        <references refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</references>
+        <references refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</references>
+        <references refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" compoundref="amd__xspi_8h" startline="154">AmdXspi_Msg::ByteCount</references>
+        <references refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" compoundref="amd__xspi_8h" startline="149">AmdXspi_Msg::CmdAddrBufPtr</references>
+        <references refid="struct_amd_xspi___instruction_1a586286049936a4df6c5574193a88fd45" compoundref="amd__xspi__control_8h" startline="50">AmdXspi_Instruction::CmdAddrBytes</references>
+        <references refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" compoundref="amd__xspi_8h" startline="151">AmdXspi_Msg::CmdAddrBytes</references>
+        <references refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" compoundref="amd__xspi_8h" startline="166">AmdXspi::Config</references>
+        <references refid="struct_amd_xspi___instruction_1a2809d945339e7cea7518d26671235324" compoundref="amd__xspi__control_8h" startline="52">AmdXspi_Instruction::DataBytes</references>
+        <references refid="struct_amd_xspi___instruction_1a704b2b31ba8b3b377a8bbd20864dcaec" compoundref="amd__xspi__control_8h" startline="54">AmdXspi_Instruction::DummyCycles</references>
+        <references refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" compoundref="amd__xspi_8h" startline="155">AmdXspi_Msg::DummyCycles</references>
+        <references refid="struct_amd_xspi___instruction_1adac88d3efc6de39b7f6f701bfa07d0aa" compoundref="amd__xspi__control_8h" startline="56">AmdXspi_Instruction::FrameFormat</references>
+        <references refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" compoundref="amd__xspi_8h" startline="156">AmdXspi_Msg::FrameFormat</references>
+        <references refid="struct_amd_xspi___instruction_1a31a78031106781148f613f96a254935d" compoundref="amd__xspi__control_8h" startline="55">AmdXspi_Instruction::IoFormat</references>
+        <references refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" compoundref="amd__xspi_8h" startline="157">AmdXspi_Msg::IoFormat</references>
+        <references refid="struct_amd_xspi___instruction_1a640c1ca792f59528f3e07724caff0064" compoundref="amd__xspi__control_8h" startline="53">AmdXspi_Instruction::IsRead</references>
+        <references refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" compoundref="amd__xspi_8h" startline="116">AmdXspi_Config::SpiMode</references>
+        <references refid="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" compoundref="amd__xspi_8h" startline="152">AmdXspi_Msg::TxBfrPtr</references>
+        <referencedby refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" compoundref="amd__xspi_8c" startline="178" endline="220">AmdXspi_PolledTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AmdXspi_StartMessage</definition>
+        <argsstring>(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)</argsstring>
+        <name>AmdXspi_StartMessage</name>
+        <param>
+          <type><ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Starts a single message on the bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>The message comprises the instruction and command/address, plus transmit data for a write.</para><para>This reuses the existing low-level building blocks (AmdXspi_SendInstruction/AmdXspi_SendCmdAddr/AmdXspi_FillTxFifo). It is used both by AmdXspi_InterruptTransfer (to launch the first message) and by AmdXspi_InterruptHandler (to launch each subsequent message on completion).</para><para>Nothing here blocks, which is what makes the second of those callers safe.</para><para>For a read, the interrupt handler drains receive data as the RX FIFO fills and again at completion. This function only issues the transaction.</para><para>The instance, the message and the ready state are checked by both callers. So what is checked here is the message content. Neither of them inspects it, and this function is the first to act on it.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to start. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" bodystart="248" bodyend="302"/>
+        <references refid="group__amd__xspi_1gafc396c18ac6dc7f519114c2c55698462" compoundref="amd__xspi__hw_8h" startline="224">AMD_XSPI_INTR_TX_THRESHOLD_MASK</references>
+        <references refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" compoundref="amd__xspi__hw_8h" startline="329">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</references>
+        <references refid="group__amd__xspi_1gaec139ee879c209baf997a60fb56a5d07" compoundref="amd__xspi__hw_8h" startline="335">AMD_XSPI_MAX_DATA_BYTES</references>
+        <references refid="group__amd__xspi_1gae82659a7c8662b1f97b350e9e6499e95" compoundref="amd__xspi__hw_8h" startline="337">AMD_XSPI_MAX_DUMMY_CYCLES</references>
+        <references refid="group__amd__xspi_1ga304dd2634c3bf1f031c8b2140eb420fa" compoundref="amd__xspi_8h" startline="91">AMD_XSPI_MSG_FLAG_RX</references>
+        <references refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" compoundref="amd__xspi__xfer_8c" startline="92" endline="107">AmdXspi_EncodeCmdAddrBytes</references>
+        <references refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</references>
+        <references refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</references>
+        <references refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</references>
+        <references refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</references>
+        <references refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" compoundref="amd__xspi_8h" startline="154">AmdXspi_Msg::ByteCount</references>
+        <references refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" compoundref="amd__xspi_8h" startline="149">AmdXspi_Msg::CmdAddrBufPtr</references>
+        <references refid="struct_amd_xspi___instruction_1a586286049936a4df6c5574193a88fd45" compoundref="amd__xspi__control_8h" startline="50">AmdXspi_Instruction::CmdAddrBytes</references>
+        <references refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" compoundref="amd__xspi_8h" startline="151">AmdXspi_Msg::CmdAddrBytes</references>
+        <references refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" compoundref="amd__xspi_8h" startline="166">AmdXspi::Config</references>
+        <references refid="struct_amd_xspi___instruction_1a2809d945339e7cea7518d26671235324" compoundref="amd__xspi__control_8h" startline="52">AmdXspi_Instruction::DataBytes</references>
+        <references refid="struct_amd_xspi___instruction_1a704b2b31ba8b3b377a8bbd20864dcaec" compoundref="amd__xspi__control_8h" startline="54">AmdXspi_Instruction::DummyCycles</references>
+        <references refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" compoundref="amd__xspi_8h" startline="155">AmdXspi_Msg::DummyCycles</references>
+        <references refid="struct_amd_xspi___msg_1aedaf86fd1b26e4bead8beb092ee7347a" compoundref="amd__xspi_8h" startline="158">AmdXspi_Msg::Flags</references>
+        <references refid="struct_amd_xspi___instruction_1adac88d3efc6de39b7f6f701bfa07d0aa" compoundref="amd__xspi__control_8h" startline="56">AmdXspi_Instruction::FrameFormat</references>
+        <references refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" compoundref="amd__xspi_8h" startline="156">AmdXspi_Msg::FrameFormat</references>
+        <references refid="struct_amd_xspi___instruction_1a31a78031106781148f613f96a254935d" compoundref="amd__xspi__control_8h" startline="55">AmdXspi_Instruction::IoFormat</references>
+        <references refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" compoundref="amd__xspi_8h" startline="157">AmdXspi_Msg::IoFormat</references>
+        <references refid="struct_amd_xspi___instruction_1a640c1ca792f59528f3e07724caff0064" compoundref="amd__xspi__control_8h" startline="53">AmdXspi_Instruction::IsRead</references>
+        <references refid="struct_amd_xspi_1a6becedcc6541c2f86c8e15815682f1de" compoundref="amd__xspi_8h" startline="175">AmdXspi::MsgRxCnt</references>
+        <references refid="struct_amd_xspi_1a913989dfb315fbee5442f5a98949af24" compoundref="amd__xspi_8h" startline="177">AmdXspi::MsgTxCnt</references>
+        <references refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" compoundref="amd__xspi_8h" startline="116">AmdXspi_Config::SpiMode</references>
+        <references refid="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" compoundref="amd__xspi_8h" startline="152">AmdXspi_Msg::TxBfrPtr</references>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AmdXspi_FinishMessageQueue</definition>
+        <argsstring>(AmdXspi *InstancePtr, u32 StatusEvent, u32 ByteCount)</argsstring>
+        <name>AmdXspi_FinishMessageQueue</name>
+        <param>
+          <type><ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Tears down the active message queue and reports the outcome to the caller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event to pass to the status handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte count to pass to the status handler. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c" bodystart="315" bodyend="335"/>
+        <references refid="group__amd__xspi_1gaa46cc217305ddf9e1501d3e50e22b19a" compoundref="amd__xspi__hw_8h" startline="210">AMD_XSPI_INTR_RX_THRESHOLD_MASK</references>
+        <references refid="group__amd__xspi_1gafc396c18ac6dc7f519114c2c55698462" compoundref="amd__xspi__hw_8h" startline="224">AMD_XSPI_INTR_TX_THRESHOLD_MASK</references>
+        <references refid="group__amd__xspi_1ga326bc9ef908db96f4a38d0c5ef32f82f" compoundref="amd__xspi__hw_8h" startline="166">AMD_XSPI_INTR_TXN_COMPLETE_MASK</references>
+        <references refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" compoundref="amd__xspi__hw_8h" startline="170">AMD_XSPI_INTR_TXN_ERROR_MASK</references>
+        <references refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</references>
+        <references refid="struct_amd_xspi_1a0aa770b09002e352e324821b41ef98df" compoundref="amd__xspi_8h" startline="179">AmdXspi::IsBusy</references>
+        <references refid="struct_amd_xspi_1a4c72d7af2f19ff0903f6ead18c68c88e" compoundref="amd__xspi_8h" startline="170">AmdXspi::Msg</references>
+        <references refid="struct_amd_xspi_1a87f55ac9d949216167c89ca7a42237c2" compoundref="amd__xspi_8h" startline="181">AmdXspi::StatusHandler</references>
+        <references refid="struct_amd_xspi_1a0cc0df3d0ba871f5531e8b9460785509" compoundref="amd__xspi_8h" startline="183">AmdXspi::StatusRef</references>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements the low-level transaction functions of the AXI XSPI driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the low-level transaction functions of the AXI XSPI driver. These functions assemble a Lite mode instruction and sequence the data movement functions to carry out a complete read or write. They also maintain the message queue used by the interrupt driven API.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   akm  07/29/26 Initial release
+1.0   vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="amd__xspi_8h" kindref="compound">amd_xspi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="amd__xspi__control_8h" kindref="compound">amd_xspi_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__amd__xspi_1ga5a3e94e7b465cd5a885cda1f853d1c70" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_TXN_POLL_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000000U</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>AmdXspi_WaitTxnComplete(<ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/><ref refid="group__amd__xspi_1ga5a3e94e7b465cd5a885cda1f853d1c70" kindref="member">AMD_XSPI_TXN_POLL_COUNT</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__amd__xspi_1gac0312b2cf69e6c3125a061616b415fac" kindref="member">AmdXspi_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" kindref="member">Config</ref>.<ref refid="struct_amd_xspi___config_1a78dbceaed69f4b0b30b0ae9fd1f503cb" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga840fb09ff9c9a5aeb78b18fbf3fd407b" kindref="member">AMD_XSPI_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/><ref refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" kindref="member">AMD_XSPI_INTR_TXN_ERROR_MASK</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Timeout<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout--;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/><ref refid="group__amd__xspi_1ga326bc9ef908db96f4a38d0c5ef32f82f" kindref="member">AMD_XSPI_INTR_TXN_COMPLETE_MASK</ref>)<sp/>==<sp/>0U);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" kindref="member">AmdXspi_LiteRead</ref>(<ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_amd_xspi___instruction" kindref="compound">AmdXspi_Instruction</ref><sp/>Instr;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" kindref="member">CmdAddrBufPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a8823eb66599ef4ac99fe2fe9cbbd5c9d" kindref="member">RxBfrPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" kindref="member">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</ref>(InstancePtr-&gt;<ref refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" kindref="member">Config</ref>.<ref refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" kindref="member">SpiMode</ref>,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a586286049936a4df6c5574193a88fd45" kindref="member">CmdAddrBytes</ref><sp/>=<sp/><ref refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" kindref="member">AmdXspi_EncodeCmdAddrBytes</ref>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a2809d945339e7cea7518d26671235324" kindref="member">DataBytes</ref><sp/>=<sp/>(u16)Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a640c1ca792f59528f3e07724caff0064" kindref="member">IsRead</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a704b2b31ba8b3b377a8bbd20864dcaec" kindref="member">DummyCycles</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" kindref="member">DummyCycles</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a31a78031106781148f613f96a254935d" kindref="member">IoFormat</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" kindref="member">IoFormat</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1adac88d3efc6de39b7f6f701bfa07d0aa" kindref="member">FrameFormat</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" kindref="member">FrameFormat</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>instruction<sp/>and<sp/>the<sp/>command/address<sp/>bytes<sp/>have<sp/>to<sp/>reach<sp/>the<sp/>FIFO</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>back<sp/>to<sp/>back,<sp/>or<sp/>the<sp/>controller<sp/>starts<sp/>the<sp/>transaction<sp/>on<sp/>a<sp/>partial</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>instruction.</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" kindref="member">AmdXspi_SendInstruction</ref>(InstancePtr,<sp/>&amp;Instr);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" kindref="member">AmdXspi_SendCmdAddr</ref>(InstancePtr,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" kindref="member">CmdAddrBufPtr</ref>,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>a<sp/>transaction<sp/>error<sp/>after<sp/>issuing<sp/>the<sp/>transaction<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__amd__xspi_1gac0312b2cf69e6c3125a061616b415fac" kindref="member">AmdXspi_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" kindref="member">Config</ref>.<ref refid="struct_amd_xspi___config_1a78dbceaed69f4b0b30b0ae9fd1f503cb" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga840fb09ff9c9a5aeb78b18fbf3fd407b" kindref="member">AMD_XSPI_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/><ref refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" kindref="member">AMD_XSPI_INTR_TXN_ERROR_MASK</ref>)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Drain<sp/>as<sp/>the<sp/>data<sp/>streams<sp/>in<sp/>rather<sp/>than<sp/>waiting<sp/>for<sp/>the<sp/>core<sp/>to</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>finish<sp/>first.<sp/>A<sp/>Lite<sp/>read<sp/>may<sp/>ask<sp/>for<sp/>up<sp/>to<sp/>512<sp/>bytes<sp/>while</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>C_FIFO_DEPTH<sp/>goes<sp/>as<sp/>low<sp/>as<sp/>16<sp/>entries,<sp/>so<sp/>the<sp/>payload<sp/>frequently</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>cannot<sp/>be<sp/>resident<sp/>all<sp/>at<sp/>once<sp/>and<sp/>the<sp/>FIFO<sp/>has<sp/>to<sp/>be<sp/>emptied<sp/>while</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>transaction<sp/>is<sp/>still<sp/>running.<sp/>Draining<sp/>first<sp/>costs<sp/>nothing<sp/>when</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>payload<sp/>would<sp/>have<sp/>fitted<sp/>anyway.</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref><sp/>&gt;<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" kindref="member">AmdXspi_RecvData</ref>(InstancePtr,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a8823eb66599ef4ac99fe2fe9cbbd5c9d" kindref="member">RxBfrPtr</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>AmdXspi_WaitTxnComplete(InstancePtr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="185" refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" kindref="member">AmdXspi_LiteWrite</ref>(<ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_amd_xspi___instruction" kindref="compound">AmdXspi_Instruction</ref><sp/>Instr;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" kindref="member">CmdAddrBufPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" kindref="member">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</ref>(InstancePtr-&gt;<ref refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" kindref="member">Config</ref>.<ref refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" kindref="member">SpiMode</ref>,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a586286049936a4df6c5574193a88fd45" kindref="member">CmdAddrBytes</ref><sp/>=<sp/><ref refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" kindref="member">AmdXspi_EncodeCmdAddrBytes</ref>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a2809d945339e7cea7518d26671235324" kindref="member">DataBytes</ref><sp/>=<sp/>(u16)Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a640c1ca792f59528f3e07724caff0064" kindref="member">IsRead</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a704b2b31ba8b3b377a8bbd20864dcaec" kindref="member">DummyCycles</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" kindref="member">DummyCycles</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a31a78031106781148f613f96a254935d" kindref="member">IoFormat</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" kindref="member">IoFormat</ref>;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1adac88d3efc6de39b7f6f701bfa07d0aa" kindref="member">FrameFormat</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" kindref="member">FrameFormat</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>instruction<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" kindref="member">AmdXspi_SendInstruction</ref>(InstancePtr,<sp/>&amp;Instr);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>command<sp/>and<sp/>address<sp/>bytes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" kindref="member">AmdXspi_SendCmdAddr</ref>(InstancePtr,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" kindref="member">CmdAddrBufPtr</ref>,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>data<sp/>bytes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref><sp/>&gt;<sp/>0U)<sp/>&amp;&amp;<sp/>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" kindref="member">TxBfrPtr</ref><sp/>!=<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" kindref="member">AmdXspi_SendData</ref>(InstancePtr,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" kindref="member">TxBfrPtr</ref>,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>AmdXspi_WaitTxnComplete(InstancePtr);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="248" refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" kindref="member">AmdXspi_StartMessage</ref>(<ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_amd_xspi___instruction" kindref="compound">AmdXspi_Instruction</ref><sp/>Instr;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsRead;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" kindref="member">CmdAddrBufPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(<ref refid="group__amd__xspi_1ga1973027fa480931dc2cb635670816e11" kindref="member">AMD_XSPI_IS_VALID_CMD_ADDR_BYTES</ref>(</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" kindref="member">Config</ref>.<ref refid="struct_amd_xspi___config_1a90d05abda315d45f4c6f37a500aa94dc" kindref="member">SpiMode</ref>,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>));</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref><sp/>&lt;=<sp/><ref refid="group__amd__xspi_1gaec139ee879c209baf997a60fb56a5d07" kindref="member">AMD_XSPI_MAX_DATA_BYTES</ref>);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Msg-&gt;<ref refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" kindref="member">DummyCycles</ref><sp/>&lt;=<sp/><ref refid="group__amd__xspi_1gae82659a7c8662b1f97b350e9e6499e95" kindref="member">AMD_XSPI_MAX_DUMMY_CYCLES</ref>);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_amd_xspi_1a6becedcc6541c2f86c8e15815682f1de" kindref="member">MsgRxCnt</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_amd_xspi_1a913989dfb315fbee5442f5a98949af24" kindref="member">MsgTxCnt</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsRead<sp/>=<sp/>((Msg-&gt;<ref refid="struct_amd_xspi___msg_1aedaf86fd1b26e4bead8beb092ee7347a" kindref="member">Flags</ref><sp/>&amp;<sp/><ref refid="group__amd__xspi_1ga304dd2634c3bf1f031c8b2140eb420fa" kindref="member">AMD_XSPI_MSG_FLAG_RX</ref>)<sp/>!=<sp/>0U)<sp/>?<sp/>1U<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a586286049936a4df6c5574193a88fd45" kindref="member">CmdAddrBytes</ref><sp/>=<sp/><ref refid="group__amd__xspi_1ga1d265c75cd7dfe7ae67ef345361a0cdb" kindref="member">AmdXspi_EncodeCmdAddrBytes</ref>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a2809d945339e7cea7518d26671235324" kindref="member">DataBytes</ref><sp/>=<sp/>(u16)Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a640c1ca792f59528f3e07724caff0064" kindref="member">IsRead</ref><sp/>=<sp/>IsRead;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a704b2b31ba8b3b377a8bbd20864dcaec" kindref="member">DummyCycles</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1acf219237174a448002c568cbeddca24f" kindref="member">DummyCycles</ref>;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1a31a78031106781148f613f96a254935d" kindref="member">IoFormat</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1ad64ee1385ba2282d39a6a350be41587d" kindref="member">IoFormat</ref>;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Instr.<ref refid="struct_amd_xspi___instruction_1adac88d3efc6de39b7f6f701bfa07d0aa" kindref="member">FrameFormat</ref><sp/>=<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a2bdf4e35f4b11a92e5c8d00fbd0fec38" kindref="member">FrameFormat</ref>;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" kindref="member">AmdXspi_SendInstruction</ref>(InstancePtr,<sp/>&amp;Instr);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" kindref="member">AmdXspi_SendCmdAddr</ref>(InstancePtr,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a5e06812233229577987a7b34c2376771" kindref="member">CmdAddrBufPtr</ref>,<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a4343c6ab319ea068392906039f75497d" kindref="member">CmdAddrBytes</ref>);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Push<sp/>only<sp/>what<sp/>the<sp/>FIFO<sp/>has<sp/>room<sp/>for.<sp/>A<sp/>payload<sp/>larger<sp/>than<sp/>the</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>FIFO<sp/>is<sp/>delivered<sp/>across<sp/>the<sp/>TX<sp/>fill-level<sp/>interrupts<sp/>that<sp/>are</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>enabled<sp/>below,<sp/>so<sp/>this<sp/>function<sp/>never<sp/>blocks;<sp/>it<sp/>has<sp/>to<sp/>be<sp/>able<sp/>to</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>run<sp/>from<sp/>the<sp/>interrupt<sp/>handler,<sp/>which<sp/>launches<sp/>every<sp/>message<sp/>after</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>first.</highlight></codeline>
+<codeline lineno="281"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="282"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>A<sp/>stuck<sp/>TX<sp/>FIFO<sp/>cannot<sp/>be<sp/>reported<sp/>from<sp/>here<sp/>because<sp/>this<sp/>function</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only<sp/>launches<sp/>the<sp/>message;<sp/>the<sp/>interrupt<sp/>handler<sp/>owns<sp/>the<sp/>outcome</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>will<sp/>report<sp/>the<sp/>resulting<sp/>transaction<sp/>error<sp/>or<sp/>let<sp/>the<sp/>caller&apos;s</highlight></codeline>
+<codeline lineno="285"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>own<sp/>timeout<sp/>expire.</highlight></codeline>
+<codeline lineno="286"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsRead<sp/>==<sp/>0U)<sp/>&amp;&amp;<sp/>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1abb7b6e68a9dde3f4f34e872309ccd8b4" kindref="member">TxBfrPtr</ref><sp/>!=<sp/>NULL)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref><sp/>&gt;<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" kindref="member">AmdXspi_FillTxFifo</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Ask<sp/>to<sp/>be<sp/>told<sp/>about<sp/>room<sp/>only<sp/>while<sp/>data<sp/>is<sp/>still<sp/>owed.</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>empty-side<sp/>events<sp/>are<sp/>true<sp/>of<sp/>an<sp/>idle<sp/>FIFO,<sp/>so<sp/>leaving</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>them<sp/>enabled<sp/>past<sp/>the<sp/>last<sp/>byte<sp/>would<sp/>invite<sp/>interrupts</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>with<sp/>nothing<sp/>left<sp/>to<sp/>do.</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_amd_xspi_1a913989dfb315fbee5442f5a98949af24" kindref="member">MsgTxCnt</ref><sp/>&lt;<sp/>Msg-&gt;<ref refid="struct_amd_xspi___msg_1a53f6a64ac826c09073cde3635a5f8d89" kindref="member">ByteCount</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" kindref="member">AmdXspi_IntrEnable</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1gafc396c18ac6dc7f519114c2c55698462" kindref="member">AMD_XSPI_INTR_TX_THRESHOLD_MASK</ref>);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="315" refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" kindref="member">AmdXspi_FinishMessageQueue</ref>(<ref refid="struct_amd_xspi" kindref="compound">AmdXspi</ref><sp/>*InstancePtr,<sp/>u32<sp/>StatusEvent,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>every<sp/>interrupt<sp/>the<sp/>queue<sp/>enabled,<sp/>not<sp/>just<sp/>the<sp/>RX<sp/>threshold.</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Leaving<sp/>transaction<sp/>complete<sp/>and<sp/>error<sp/>enabled<sp/>would<sp/>let<sp/>a<sp/>later</highlight></codeline>
+<codeline lineno="321"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>polled<sp/>transfer<sp/>raise<sp/>the<sp/>interrupt<sp/>line<sp/>for<sp/>a<sp/>transfer<sp/>the<sp/>ISR<sp/>has</highlight></codeline>
+<codeline lineno="322"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>no<sp/>queue<sp/>for.</highlight></codeline>
+<codeline lineno="323"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" kindref="member">AmdXspi_IntrDisable</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga326bc9ef908db96f4a38d0c5ef32f82f" kindref="member">AMD_XSPI_INTR_TXN_COMPLETE_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1ga485746efc97d038cb5200b31d4654a2c" kindref="member">AMD_XSPI_INTR_TXN_ERROR_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1gaa46cc217305ddf9e1501d3e50e22b19a" kindref="member">AMD_XSPI_INTR_RX_THRESHOLD_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__amd__xspi_1gafc396c18ac6dc7f519114c2c55698462" kindref="member">AMD_XSPI_INTR_TX_THRESHOLD_MASK</ref>);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_amd_xspi_1a0aa770b09002e352e324821b41ef98df" kindref="member">IsBusy</ref><sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_amd_xspi_1a4c72d7af2f19ff0903f6ead18c68c88e" kindref="member">Msg</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_amd_xspi_1a87f55ac9d949216167c89ca7a42237c2" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_amd_xspi_1a0cc0df3d0ba871f5531e8b9460785509" kindref="member">StatusRef</ref>,<sp/>StatusEvent,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi_control.c"/>
+  </compounddef>
+</doxygen>

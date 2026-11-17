@@ -4,6 +4,8 @@ var searchData=
   ['intcount',['IntCount',['../struct_x_hdcp1x___cipher_stats.html#a105f3fd602c69a8fdcddb02b7b716440',1,'XHdcp1x_CipherStats::IntCount()'],['../struct_x_hdcp1x___port_stats.html#a5e09862f792ac5882b922a58a4d78e72',1,'XHdcp1x_PortStats::IntCount()']]],
   ['intermediate_5fhash',['Intermediate_Hash',['../struct_s_h_a1_context.html#a6d4330353a57a47afd49c4f1b9d6cb92',1,'SHA1Context']]],
   ['intrhandler',['IntrHandler',['../struct_x_hdcp1x___port_phy_if_adaptor_s.html#a5b044a08bc8025741a6a8acc5b54a10d',1,'XHdcp1x_PortPhyIfAdaptorS']]],
+  ['intrid',['IntrId',['../struct_x_hdcp1x___config.html#a562b3c218f2643c5b4ba1c39f20879d5',1,'XHdcp1x_Config']]],
+  ['intrparent',['IntrParent',['../struct_x_hdcp1x___config.html#aef989f691702445bea3ce2887b7f9463',1,'XHdcp1x_Config']]],
   ['isauthcallbackset',['IsAuthCallbackSet',['../struct_x_hdcp1x___port_struct.html#a0236b727093565833b9902c0d6df5fdd',1,'XHdcp1x_PortStruct']]],
   ['isauthenticatedcallbackset',['IsAuthenticatedCallbackSet',['../struct_x_hdcp1x___tx.html#a70af322f00eac53a663529097cb26235',1,'XHdcp1x_Tx::IsAuthenticatedCallbackSet()'],['../struct_x_hdcp1x___rx.html#a5037a2415dafe5f92b225bffcf410e81',1,'XHdcp1x_Rx::IsAuthenticatedCallbackSet()']]],
   ['isauthreqpending',['IsAuthReqPending',['../struct_x_hdcp1x___tx.html#a3c725d9369457fe1de567140a87fce43',1,'XHdcp1x_Tx']]],

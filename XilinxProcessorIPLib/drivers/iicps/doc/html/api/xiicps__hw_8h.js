@@ -6,7 +6,6 @@ var xiicps__hw_8h =
     [ "XIicPs_DisableAllInterrupts", "xiicps__hw_8h.html#ga90efda2a784d4b972f1835b0ba81cde1", null ],
     [ "XIicPs_DisableInterrupts", "xiicps__hw_8h.html#ga6a21536b3361fa36f00745a3e653fbbd", null ],
     [ "XIicPs_EnableInterrupts", "xiicps__hw_8h.html#gaf7a3f4b57fe275f426ac9b771b187b23", null ],
-    [ "XIICPS_HW_H", "xiicps__hw_8h.html#ga985ef58212940c666ada245d3e83a17d", null ],
     [ "XIICPS_IDR_OFFSET", "xiicps__hw_8h.html#gac95b4e2bd04257b322e5bf66f956bdf3", null ],
     [ "XIICPS_IER_OFFSET", "xiicps__hw_8h.html#ga471cbaf2444941e33de173ea5e5c7f03", null ],
     [ "XIICPS_IMR_OFFSET", "xiicps__hw_8h.html#ga0668ec3389dd427fecfca4d1b9d2f0c4", null ],

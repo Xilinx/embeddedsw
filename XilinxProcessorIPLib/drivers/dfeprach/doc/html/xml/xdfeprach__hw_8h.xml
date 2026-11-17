@@ -5,16 +5,6 @@
     <includedby refid="xdfeprach__intr_8c" local="yes">xdfeprach_intr.c</includedby>
     <includedby refid="xdfeprach__examples_8h" local="yes">xdfeprach_examples.h</includedby>
     <invincdepgraph>
-      <node id="53">
-        <label>xdfeprach_examples.c</label>
-        <link refid="xdfeprach__examples_8c"/>
-      </node>
-      <node id="52">
-        <label>xdfeprach_examples.h</label>
-        <link refid="xdfeprach__examples_8h"/>
-        <childnode refid="53" relation="include">
-        </childnode>
-      </node>
       <node id="50">
         <label>xdfeprach_hw.h</label>
         <link refid="xdfeprach_hw.h"/>
@@ -26,6 +16,16 @@
       <node id="51">
         <label>xdfeprach_intr.c</label>
         <link refid="xdfeprach__intr_8c"/>
+      </node>
+      <node id="53">
+        <label>xdfeprach_examples.c</label>
+        <link refid="xdfeprach__examples_8c"/>
+      </node>
+      <node id="52">
+        <label>xdfeprach_examples.h</label>
+        <link refid="xdfeprach__examples_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -408,6 +408,6 @@
 <codeline lineno="406"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="407"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_hw.h"/>
   </compounddef>
 </doxygen>

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['vsicamdevicereleasebufmgmt',['VsiCamDeviceReleaseBufMgmt',['../group____buf__mgmt__ctrl.html#gaec47bf94344eef394d1703ffb0be0bd1',1,'VsiCamDeviceReleaseBufMgmt(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId):&#160;cam_device_buffer_api.c'],['../group____buf__mgmt__ctrl.html#gaec47bf94344eef394d1703ffb0be0bd1',1,'VsiCamDeviceReleaseBufMgmt(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId):&#160;cam_device_buffer_api.c']]],
+  ['vsicamdevicesensorgetconnectportinfo',['VsiCamDeviceSensorGetConnectPortInfo',['../sensor__drv_8c.html#ace57887c24f6bf4d5db0ccb97014e2cc',1,'sensor_drv.c']]],
   ['vsicamdevicesensorgetlistinfo',['VsiCamDeviceSensorGetListInfo',['../sensor__drv_8c.html#a458cbae82977ab34a30d911e23cab829',1,'sensor_drv.c']]],
   ['vsicamdevicesensorgetnumber',['VsiCamDeviceSensorGetNumber',['../sensor__drv_8c.html#af1024b1f477eb572990fb0fd2d6432ad',1,'sensor_drv.c']]],
   ['vsicamdevicesensormapping',['VsiCamDeviceSensorMapping',['../sensor__drv_8c.html#ab4e700ca39795736266f00e055261fc4',1,'sensor_drv.c']]],

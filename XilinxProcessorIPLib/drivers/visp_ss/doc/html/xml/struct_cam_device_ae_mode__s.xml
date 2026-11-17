@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="209" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_ae_mode__s_1ac3f2c9895ef92f57158d232ea26aa16c" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__ae_1ga45306511c485bb5821ed85ede489aef6" kindref="member">CamDeviceAeFlickerMode_t</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="210" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="210" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -36,19 +36,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="64">
+      <node id="66">
         <label>CamDeviceAeFlickerMode_s</label>
         <link refid="struct_cam_device_ae_flicker_mode__s"/>
       </node>
-      <node id="63">
+      <node id="65">
         <label>CamDeviceAeMode_s</label>
         <link refid="struct_cam_device_ae_mode__s"/>
-        <childnode refid="64" relation="usage">
+        <childnode refid="66" relation="usage">
           <edgelabel>antiFlickerMode</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="208" bodyend="211"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="208" bodyend="211"/>
     <listofallmembers>
       <member refid="struct_cam_device_ae_mode__s_1ac3f2c9895ef92f57158d232ea26aa16c" prot="public" virt="non-virtual"><scope>CamDeviceAeMode_s</scope><name>antiFlickerMode</name></member>
       <member refid="struct_cam_device_ae_mode__s_1afd7c7e675f6cd6caaad3ec5a71a83265" prot="public" virt="non-virtual"><scope>CamDeviceAeMode_s</scope><name>semMode</name></member>

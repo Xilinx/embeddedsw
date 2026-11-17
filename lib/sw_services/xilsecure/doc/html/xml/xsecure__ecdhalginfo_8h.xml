@@ -6,30 +6,30 @@
     <includes local="yes">xil_sutil.h</includes>
     <includedby refid="xsecure__ecdhalginfo_8c" local="yes">xsecure_ecdhalginfo.c</includedby>
     <incdepgraph>
-      <node id="1270">
+      <node id="1320">
         <label>xil_sutil.h</label>
       </node>
-      <node id="1269">
+      <node id="1319">
         <label>xil_cryptoalginfo.h</label>
       </node>
-      <node id="1268">
+      <node id="1318">
         <label>xsecure_ecdhalginfo.h</label>
         <link refid="xsecure_ecdhalginfo.h"/>
-        <childnode refid="1269" relation="include">
+        <childnode refid="1319" relation="include">
         </childnode>
-        <childnode refid="1270" relation="include">
+        <childnode refid="1320" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1272">
+      <node id="1322">
         <label>xsecure_ecdhalginfo.c</label>
         <link refid="xsecure__ecdhalginfo_8c"/>
       </node>
-      <node id="1271">
+      <node id="1321">
         <label>xsecure_ecdhalginfo.h</label>
         <link refid="xsecure_ecdhalginfo.h"/>
-        <childnode refid="1272" relation="include">
+        <childnode refid="1322" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -51,16 +51,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_ecdhalginfo.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_ecdhalginfo.c" bodystart="53" bodyend="56"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="157">XSECURE_API_GEN_SHARED_SECRET</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_ecdhalginfo.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_ecdhalginfo.c" bodystart="51" bodyend="54"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="158">XSECURE_API_GEN_SHARED_SECRET</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -104,6 +103,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ECDHALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_ecdhalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_ecdhalginfo.h"/>
   </compounddef>
 </doxygen>

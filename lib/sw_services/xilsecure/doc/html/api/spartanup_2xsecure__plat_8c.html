@@ -123,10 +123,20 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.7   tvp   02/23/26 Use <a class="el" href="struct_x_secure___sha_plat_config.html" title="SHA platform specific configuration. ">XSecure_ShaPlatConfig</a>, platform specific SHA configurations
       mb    03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
       rpu   04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
-      mb    04/23/26 Remove unused macros</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="spartanup_2xsecure__sss_8h.html">xsecure_sss.h</a>&quot;</code><br/>
+      mb    04/23/26 Remove unused macros
+      tbk   04/29/26 Repack AesKeyLookupTbl entries (drop RegOffset and
+                     compute via XSecure_GetKeyRegOffset, narrow
+                     KeyDecSrcSelVal to u8, replace KeyClearVal with
+                     KeyClearBitPos referencing renamed
+                     XSECURE_AES_KEY_CLEAR_*_BIT_POS macros) for memory
+                     footprint reduction
+5.8   ank   09/01/26 Copy SHA residue with Xil_MemCpy to keep Xil_MemCpy64
+                     out of the image
+      rap   09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
+      mb    10/05/26 Name unsupported SHA modes in the mode switch</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xsecure_sss.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="spartanup_2xsecure__sha__hw_8h.html">xsecure_sha_hw.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_sha.h&quot;</code><br/>
-<code>#include &quot;<a class="el" href="spartanup_2xsecure__utils_8h.html">xsecure_utils.h</a>&quot;</code><br/>
+<code>#include &quot;xsecure_utils.h&quot;</code><br/>
 <code>#include &quot;xsecure_aes.h&quot;</code><br/>
 <code>#include &quot;xil_sutil.h&quot;</code><br/>
 </div><table class="memberdecls">
@@ -168,6 +178,12 @@ Variables</h2></td></tr>
 <tr class="memitem:gac6efe63aacf1344cf51d1d2d20706d7d"><td class="memItemLeft" align="right" valign="top">const XSecure_AesKeyLookup&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gac6efe63aacf1344cf51d1d2d20706d7d">AesKeyLookupTbl</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga957ffaf3197a7cf9549ab9b9f701e56f">XSECURE_MAX_KEY_SOURCES</a>]</td></tr>
 <tr class="memdesc:gac6efe63aacf1344cf51d1d2d20706d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TRNG related macros for SPARTANUPLUSAES1 device.  <a href="group__xsecure__helper__server__apis.html#gac6efe63aacf1344cf51d1d2d20706d7d">More...</a><br/></td></tr>
 <tr class="separator:gac6efe63aacf1344cf51d1d2d20706d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure Stream Switch (SSS) configuration lookup table.  <a href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

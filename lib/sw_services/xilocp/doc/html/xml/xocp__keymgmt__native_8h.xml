@@ -4,14 +4,14 @@
     <compoundname>xocp_keymgmt_native.h</compoundname>
     <includes local="yes">xplmi_config.h</includes>
     <incdepgraph>
-      <node id="285">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="284">
+      <node id="297">
         <label>xocp_keymgmt_native.h</label>
         <link refid="xocp_keymgmt_native.h"/>
-        <childnode refid="285" relation="include">
+        <childnode refid="298" relation="include">
         </childnode>
+      </node>
+      <node id="298">
+        <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -122,7 +122,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XOcp_GetSubSysDevAkIndex(u32<sp/>SubSystemId,<sp/>u32*<sp/>DevAkIndex);</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XOcp_GenerateDevAk(u32<sp/>SubSystemId);</highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XOcp_GetX509Certificate(<ref refid="struct_x_ocp___x509_cert" kindref="compound">XOcp_X509Cert</ref><sp/>*XOcp_GetX509CertPtr,<sp/>u32<sp/>SubSystemId);</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XOcp_AttestWithDevAk(<ref refid="struct_x_ocp___attest" kindref="compound">XOcp_Attest</ref><sp/>*AttestWithDevAkPtr,<sp/>u32<sp/>SubSystemId);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XOcp_AttestWithDevAk(<ref refid="struct_x_ocp___attest" kindref="compound">XOcp_Attest</ref><sp/>*AttestationInfoPtr,<sp/>u32<sp/>SubSystemId);</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XOcp_AttestWithKeyWrapDevAk(<ref refid="struct_x_ocp___attest" kindref="compound">XOcp_Attest</ref><sp/>*AttestationInfoPtr,<sp/>u32<sp/>SubSystemId,</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>AttnPloadAddr,<sp/>u32<sp/>AttnPloadSize);</highlight></codeline>
 <codeline lineno="137"><highlight class="normal">u32<sp/>XOcp_IsDevIkReady(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
@@ -142,6 +142,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XOCP_KEYMGMT_NATIVE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/server/xocp_keymgmt_native.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/server/xocp_keymgmt_native.h"/>
   </compounddef>
 </doxygen>

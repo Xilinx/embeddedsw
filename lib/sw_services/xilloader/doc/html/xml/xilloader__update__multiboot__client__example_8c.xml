@@ -8,69 +8,76 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="xloader__defs_8h" local="yes">xloader_defs.h</includes>
     <incdepgraph>
-      <node id="187">
-        <label>xloader_mailbox.h</label>
-        <link refid="xloader__mailbox_8h"/>
-        <childnode refid="188" relation="include">
-        </childnode>
-        <childnode refid="189" relation="include">
-        </childnode>
-        <childnode refid="190" relation="include">
-        </childnode>
-      </node>
-      <node id="185">
+      <node id="229">
         <label>xloader_client.h</label>
         <link refid="xloader__client_8h"/>
-        <childnode refid="186" relation="include">
+        <childnode refid="230" relation="include">
         </childnode>
-        <childnode refid="187" relation="include">
+        <childnode refid="231" relation="include">
         </childnode>
-        <childnode refid="190" relation="include">
+        <childnode refid="232" relation="include">
         </childnode>
-        <childnode refid="184" relation="include">
+        <childnode refid="233" relation="include">
         </childnode>
-      </node>
-      <node id="193">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="192">
-        <label>xil_util.h</label>
-      </node>
-      <node id="190">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="191" relation="include">
+        <childnode refid="236" relation="include">
         </childnode>
-        <childnode refid="186" relation="include">
+        <childnode refid="228" relation="include">
         </childnode>
       </node>
-      <node id="188">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="183">
+      <node id="227">
         <label>xilloader_update_multiboot_client_example.c</label>
         <link refid="xilloader_update_multiboot_client_example.c"/>
-        <childnode refid="184" relation="include">
+        <childnode refid="228" relation="include">
         </childnode>
-        <childnode refid="185" relation="include">
+        <childnode refid="229" relation="include">
         </childnode>
-        <childnode refid="192" relation="include">
+        <childnode refid="231" relation="include">
         </childnode>
-        <childnode refid="193" relation="include">
+        <childnode refid="238" relation="include">
         </childnode>
-        <childnode refid="190" relation="include">
+        <childnode refid="236" relation="include">
         </childnode>
       </node>
-      <node id="186">
+      <node id="238">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="233">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>xil_util.h</label>
+      </node>
+      <node id="234">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="232">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="230">
         <label>xil_types.h</label>
       </node>
-      <node id="189">
+      <node id="235">
         <label>xparameters.h</label>
       </node>
-      <node id="191">
+      <node id="237">
         <label>xil_printf.h</label>
       </node>
-      <node id="184">
+      <node id="236">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="237" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+      </node>
+      <node id="228">
         <label>xloader_bsp_config.h</label>
       </node>
     </incdepgraph>
@@ -84,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" bodystart="55" bodyend="-1"/>
         <referencedby refid="xilloader__update__multiboot__client__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__update__multiboot__client__example_8c" startline="74" endline="112">main</referencedby>
       </memberdef>
       </sectiondef>
@@ -106,12 +113,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" bodystart="74" bodyend="112"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c" bodystart="74" bodyend="112"/>
         <references refid="xilloader__update__multiboot__client__example_8c_1a6fadd8a01fd1eeb727dbbe12c4134127" compoundref="xilloader__update__multiboot__client__example_8c" startline="55">PDI_ADDR</references>
         <references refid="group__xloader__client__apis_1ga93256553f94e9123e1e0cddfb57be60f" compoundref="xloader__mailbox_8c" startline="103" endline="117">XLoader_ClientInit</references>
-        <references refid="xloader__client_8h_1a3bfb7027b81951f1f5d157b1de5ce15ca9d728e3fe53008b745d30b9de829627b" compoundref="xloader__client_8h" startline="82">XLOADER_FLASH_RAW</references>
-        <references refid="xloader__client_8h_1a80466c7a413948d606d725278a61df96a844aeb9fcfa9ec271216b66230accf0c" compoundref="xloader__client_8h" startline="64">XLOADER_PDI_QSPI32</references>
-        <references refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" compoundref="xloader__client_8c" startline="263" endline="277">XLoader_UpdateMultiboot</references>
+        <references refid="xloader__client_8h_1a3bfb7027b81951f1f5d157b1de5ce15ca9d728e3fe53008b745d30b9de829627b" compoundref="xloader__client_8h" startline="87">XLOADER_FLASH_RAW</references>
+        <references refid="xloader__client_8h_1a80466c7a413948d606d725278a61df96a844aeb9fcfa9ec271216b66230accf0c" compoundref="xloader__client_8h" startline="69">XLOADER_PDI_QSPI32</references>
+        <references refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" compoundref="xloader__client_8c" startline="269" endline="283">XLoader_UpdateMultiboot</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -193,6 +200,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="112"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_update_multiboot_client_example.c"/>
   </compounddef>
 </doxygen>

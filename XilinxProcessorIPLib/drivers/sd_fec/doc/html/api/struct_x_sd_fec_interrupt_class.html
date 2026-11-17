@@ -48,6 +48,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_interrupt_class.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,11 +108,11 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_interrupt_class.html',
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSdFecInterruptClass Struct Reference</div>  </div>
+<div class="title">XSdFecInterruptClass Struct Reference<div class="ingroups"><a class="el" href="group__sd__fec.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interrupt class.
+<p>Holds interrupt class and recovery action.
  <a href="struct_x_sd_fec_interrupt_class.html#details">More...</a></p>
 
 <p><code>#include &lt;xsdfec.h&gt;</code></p>
@@ -118,27 +120,27 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_interrupt_class.html',
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a4b8c09af7e5b5c7d5f8bc4f487b171e3"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_interrupt_class.html#a4b8c09af7e5b5c7d5f8bc4f487b171e3">Intf</a></td></tr>
-<tr class="memdesc:a4b8c09af7e5b5c7d5f8bc4f487b171e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered due to interface or control error (ISR)  <a href="#a4b8c09af7e5b5c7d5f8bc4f487b171e3">More...</a><br/></td></tr>
+<tr class="memdesc:a4b8c09af7e5b5c7d5f8bc4f487b171e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered due to interface or control error (ISR).  <a href="#a4b8c09af7e5b5c7d5f8bc4f487b171e3">More...</a><br/></td></tr>
 <tr class="separator:a4b8c09af7e5b5c7d5f8bc4f487b171e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01e69813e77204c9664924531d42c66a"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_interrupt_class.html#a01e69813e77204c9664924531d42c66a">ECCSBit</a></td></tr>
-<tr class="memdesc:a01e69813e77204c9664924531d42c66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered due to single-bit ECC error (ECC_ISR)  <a href="#a01e69813e77204c9664924531d42c66a">More...</a><br/></td></tr>
+<tr class="memdesc:a01e69813e77204c9664924531d42c66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered due to single-bit ECC error (ECC_ISR).  <a href="#a01e69813e77204c9664924531d42c66a">More...</a><br/></td></tr>
 <tr class="separator:a01e69813e77204c9664924531d42c66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38d57c033608974a991ec533bb0265a3"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_interrupt_class.html#a38d57c033608974a991ec533bb0265a3">ECCMBit</a></td></tr>
-<tr class="memdesc:a38d57c033608974a991ec533bb0265a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered due to multi-bit ECC error (ECC_ISR)  <a href="#a38d57c033608974a991ec533bb0265a3">More...</a><br/></td></tr>
+<tr class="memdesc:a38d57c033608974a991ec533bb0265a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggered due to multi-bit ECC error (ECC_ISR).  <a href="#a38d57c033608974a991ec533bb0265a3">More...</a><br/></td></tr>
 <tr class="separator:a38d57c033608974a991ec533bb0265a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67d441005acd67e27ccbe523f199c12b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_interrupt_class.html#a67d441005acd67e27ccbe523f199c12b">RstReq</a></td></tr>
 <tr class="memdesc:a67d441005acd67e27ccbe523f199c12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device requires reset.  <a href="#a67d441005acd67e27ccbe523f199c12b">More...</a><br/></td></tr>
 <tr class="separator:a67d441005acd67e27ccbe523f199c12b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b393fd84238b8f967abe87ab01bae24"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_interrupt_class.html#a8b393fd84238b8f967abe87ab01bae24">ReprogReq</a></td></tr>
-<tr class="memdesc:a8b393fd84238b8f967abe87ab01bae24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device requires reprogrammed.  <a href="#a8b393fd84238b8f967abe87ab01bae24">More...</a><br/></td></tr>
+<tr class="memdesc:a8b393fd84238b8f967abe87ab01bae24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device requires reprogramming.  <a href="#a8b393fd84238b8f967abe87ab01bae24">More...</a><br/></td></tr>
 <tr class="separator:a8b393fd84238b8f967abe87ab01bae24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c4764743c3ef572e0884f7c8e64deed"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_interrupt_class.html#a8c4764743c3ef572e0884f7c8e64deed">ReCfgReq</a></td></tr>
-<tr class="memdesc:a8c4764743c3ef572e0884f7c8e64deed"><td class="mdescLeft">&#160;</td><td class="mdescRight">FPGA requires reprogrammed.  <a href="#a8c4764743c3ef572e0884f7c8e64deed">More...</a><br/></td></tr>
+<tr class="memdesc:a8c4764743c3ef572e0884f7c8e64deed"><td class="mdescLeft">&#160;</td><td class="mdescRight">FPGA requires reprogramming.  <a href="#a8c4764743c3ef572e0884f7c8e64deed">More...</a><br/></td></tr>
 <tr class="separator:a8c4764743c3ef572e0884f7c8e64deed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interrupt class. </p>
-<p>Members define interrupt class and action required </p>
+<div class="textblock"><p>Holds interrupt class and recovery action. </p>
+<p>Members define interrupt class and action required. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a38d57c033608974a991ec533bb0265a3"></a>
 <div class="memitem">
@@ -150,7 +152,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Triggered due to multi-bit ECC error (ECC_ISR) </p>
+<p>Triggered due to multi-bit ECC error (ECC_ISR). </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga1b42b68a68aab9b2526c606d9388bf31">XSdFecInterruptClassifier()</a>.</p>
 
 </div>
 </div>
@@ -164,7 +168,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Triggered due to single-bit ECC error (ECC_ISR) </p>
+<p>Triggered due to single-bit ECC error (ECC_ISR). </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga1b42b68a68aab9b2526c606d9388bf31">XSdFecInterruptClassifier()</a>.</p>
 
 </div>
 </div>
@@ -178,7 +184,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Triggered due to interface or control error (ISR) </p>
+<p>Triggered due to interface or control error (ISR). </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga1b42b68a68aab9b2526c606d9388bf31">XSdFecInterruptClassifier()</a>.</p>
 
 </div>
 </div>
@@ -192,7 +200,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>FPGA requires reprogrammed. </p>
+<p>FPGA requires reprogramming. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga1b42b68a68aab9b2526c606d9388bf31">XSdFecInterruptClassifier()</a>.</p>
 
 </div>
 </div>
@@ -206,7 +216,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Device requires reprogrammed. </p>
+<p>Device requires reprogramming. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga1b42b68a68aab9b2526c606d9388bf31">XSdFecInterruptClassifier()</a>.</p>
 
 </div>
 </div>
@@ -221,6 +233,8 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Device requires reset. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga1b42b68a68aab9b2526c606d9388bf31">XSdFecInterruptClassifier()</a>.</p>
 
 </div>
 </div>

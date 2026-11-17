@@ -1,32 +1,96 @@
 var NAVTREE =
 [
-  [ "dp21rxss", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "dp21rxss",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xdprxss_8h.html#gacf7adeed24f0875c0021511eb1e227de",
-"xdprxss__hw_8h.html#gab3b59a02078d6b802d6a79452a9bd47d"
+"xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a6d19a37b6271d02f50368d9284f64b6a",
+"xvid__pat__gen_8c.html#a3af6fe1895f52a66f19122f95714f4e1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

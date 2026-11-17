@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc__mixer_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,21 +105,69 @@ $(document).ready(function(){initNavTree('xrfdc__mixer_8c.html','');});
 <div class="title">xrfdc_mixer.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the mixer settings functions of the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. </p>
+<p>Contains the interface functions of the Mixer Settings in <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. See <a class="el" href="xrfdc_8h.html">xrfdc.h</a> for a detailed description of the device and driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+5.0   sk     08/06/18 Initial release
+5.1   cog    01/29/19 Replace structure reference ADC checks with
+                      function.
+      cog    01/29/19 XRFdc_SetCoarseMixer and MixerRangeCheck now need
+                      Tile_id as a parameter.
+      cog    01/29/19 Rename DataType to MixerInputDataType for
+                      readability.
+7.0   cog    05/13/19 Formatting changes.
+      cog    06/12/19 Fixed issue where positive NCO frequencies were not
+                      being set correctly.
+      cog    07/03/19 Added new off mode for mixers (both mixers off).
+      cog    08/02/19 Formatting changes.
+      cog    09/01/19 Changed the MACRO for turning off the mixer.
+      cog    09/01/19 Fixed issue where going from calibration mode 1 to
+                      any calibration mode caused the course mixer mode to
+                      be incorrect.
+      cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
+                      for Gen 3 devices.
+7.1   cog    11/28/19 Prevent setting non compliant mixer settings when in the bypass
+                      datapath mode.
+      cog    12/20/19 Metal log messages are now more descriptive.
+             12/23/19 Fabric rate is now auto-corrected when changing a miixer from IQ
+                      to real (and vice versa).
+      cog    01/29/20 Fixed metal log typos.
+8.0   cog    02/10/20 Updated addtogroup.
+      cog    03/05/20 IMR datapath modes require the frequency word to be doubled.
+      cog    03/23/20 Relegate the datapath being in bypass mode to a warning when
+                      getting mixer parameters.
+8.1   cog    06/24/20 Upversion.
+      cog    06/24/20 Explicitly set FIFO width when setting the mixer.
+      cog    10/06/20 Should only get calibration mode when setting/getting the
+                      mixer settings for Gen 1/2 devices.
+9.0   cog    11/25/20 Upversion.
+10.0  cog    11/26/20 Refactor and split files.
+      cog    02/16/21 Fixed issue with the fine mix auto scale setting.
+11.0  cog    05/31/21 Upversion.
+11.1  cog    11/16/21 Upversion.
+      cog    01/18/22 Added safety checks.
+13.2  vn     08/11/26 Fix Doxygen warnings.
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gadea09b22078ade615365c4d1b3c0ab08"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadea09b22078ade615365c4d1b3c0ab08">XRFdc_SetMixerSettings</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, <a class="el" href="struct_x_r_fdc___mixer___settings.html">XRFdc_Mixer_Settings</a> *MixerSettingsPtr)</td></tr>
-<tr class="memdesc:gadea09b22078ade615365c4d1b3c0ab08"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API is used to update various mixer settings, fine, coarse, NCO etc.  <a href="group___overview.html#gadea09b22078ade615365c4d1b3c0ab08">More...</a><br/></td></tr>
+<tr class="memitem:gadea09b22078ade615365c4d1b3c0ab08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadea09b22078ade615365c4d1b3c0ab08">XRFdc_SetMixerSettings</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="struct_x_r_fdc___mixer___settings.html">XRFdc_Mixer_Settings</a> *MixerSettingsPtr)</td></tr>
+<tr class="memdesc:gadea09b22078ade615365c4d1b3c0ab08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates various mixer settings such as fine, coarse, and NCO.  <a href="group___overview.html#gadea09b22078ade615365c4d1b3c0ab08">More...</a><br/></td></tr>
 <tr class="separator:gadea09b22078ade615365c4d1b3c0ab08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1b32e3890d860a8e8bf6d9859e66a25b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga1b32e3890d860a8e8bf6d9859e66a25b">XRFdc_GetMixerSettings</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, <a class="el" href="struct_x_r_fdc___mixer___settings.html">XRFdc_Mixer_Settings</a> *MixerSettingsPtr)</td></tr>
-<tr class="memdesc:ga1b32e3890d860a8e8bf6d9859e66a25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API returns back Mixer/NCO settings to the caller.  <a href="group___overview.html#ga1b32e3890d860a8e8bf6d9859e66a25b">More...</a><br/></td></tr>
+<tr class="memitem:ga1b32e3890d860a8e8bf6d9859e66a25b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga1b32e3890d860a8e8bf6d9859e66a25b">XRFdc_GetMixerSettings</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="struct_x_r_fdc___mixer___settings.html">XRFdc_Mixer_Settings</a> *MixerSettingsPtr)</td></tr>
+<tr class="memdesc:ga1b32e3890d860a8e8bf6d9859e66a25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the mixer and NCO settings to the caller.  <a href="group___overview.html#ga1b32e3890d860a8e8bf6d9859e66a25b">More...</a><br/></td></tr>
 <tr class="separator:ga1b32e3890d860a8e8bf6d9859e66a25b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga18b8ad2dfc2ba2ffcec2dde7796b5a21"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga18b8ad2dfc2ba2ffcec2dde7796b5a21">XRFdc_ResetNCOPhase</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)</td></tr>
+<tr class="memitem:ga18b8ad2dfc2ba2ffcec2dde7796b5a21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga18b8ad2dfc2ba2ffcec2dde7796b5a21">XRFdc_ResetNCOPhase</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id)</td></tr>
 <tr class="memdesc:ga18b8ad2dfc2ba2ffcec2dde7796b5a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the NCO phase of the current block phase accumulator.  <a href="group___overview.html#ga18b8ad2dfc2ba2ffcec2dde7796b5a21">More...</a><br/></td></tr>
 <tr class="separator:ga18b8ad2dfc2ba2ffcec2dde7796b5a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga90c595b371ba67104d2fb525e8b3997e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga90c595b371ba67104d2fb525e8b3997e">XRFdc_GetDataType</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)</td></tr>
-<tr class="memdesc:ga90c595b371ba67104d2fb525e8b3997e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Mixer Input Data Type for ADC/DAC block.  <a href="group___overview.html#ga90c595b371ba67104d2fb525e8b3997e">More...</a><br/></td></tr>
+<tr class="memitem:ga90c595b371ba67104d2fb525e8b3997e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga90c595b371ba67104d2fb525e8b3997e">XRFdc_GetDataType</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id)</td></tr>
+<tr class="memdesc:ga90c595b371ba67104d2fb525e8b3997e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the mixer input data type for an ADC or DAC block.  <a href="group___overview.html#ga90c595b371ba67104d2fb525e8b3997e">More...</a><br/></td></tr>
 <tr class="separator:ga90c595b371ba67104d2fb525e8b3997e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

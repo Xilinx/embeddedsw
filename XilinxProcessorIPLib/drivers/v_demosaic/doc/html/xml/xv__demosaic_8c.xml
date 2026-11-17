@@ -4,41 +4,41 @@
     <compoundname>xv_demosaic.c</compoundname>
     <includes refid="xv__demosaic_8h" local="yes">xv_demosaic.h</includes>
     <incdepgraph>
-      <node id="22">
+      <node id="18">
         <label>xil_assert.h</label>
       </node>
-      <node id="24">
+      <node id="20">
         <label>xil_io.h</label>
       </node>
-      <node id="19">
-        <label>xv_demosaic.c</label>
-        <link refid="xv_demosaic.c"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-      </node>
-      <node id="20">
-        <label>xv_demosaic.h</label>
-        <link refid="xv__demosaic_8h"/>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-      </node>
-      <node id="23">
-        <label>xstatus.h</label>
-      </node>
       <node id="21">
-        <label>xil_types.h</label>
-      </node>
-      <node id="25">
         <label>xv_demosaic_hw.h</label>
         <link refid="xv__demosaic__hw_8h"/>
+      </node>
+      <node id="19">
+        <label>xstatus.h</label>
+      </node>
+      <node id="17">
+        <label>xil_types.h</label>
+      </node>
+      <node id="15">
+        <label>xv_demosaic.c</label>
+        <link refid="xv_demosaic.c"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xv_demosaic.h</label>
+        <link refid="xv__demosaic_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -89,12 +89,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="35" bodyend="50"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
-        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="62" endline="118">driverInit</referencedby>
-        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="152" endline="165">XV_demosaic_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="35" bodyend="50"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="62" endline="106">driverInit</referencedby>
+        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="82" endline="95">XV_demosaic_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a41dc5cdfde882e8bed16965d5f5f5f86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -121,14 +121,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="67" bodyend="75"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="67" bodyend="75"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
-        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="122" endline="156">videoIpConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a5e3a407d7833c2bc549928d745bd32b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -155,12 +155,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="91" bodyend="99"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="91" bodyend="99"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a3e78dd875d5342088e53634681f22d8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -187,12 +187,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="115" bodyend="123"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="115" bodyend="123"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a591e5c37e9e274122fab9a763eca2a5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -219,12 +219,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="140" bodyend="149"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="140" bodyend="149"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a5f0761b2c3d98c221e6b3d1a3153bd23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -251,13 +251,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="166" bodyend="171"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="166" bodyend="171"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
-        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="122" endline="156">videoIpConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1af01e921cbe12a3628cc237f090ac0bcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -284,12 +284,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="188" bodyend="193"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="188" bodyend="193"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1ac238328090e6c339df7e342215984be8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -327,13 +327,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="210" bodyend="215"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="210" bodyend="215"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a3f23644d8fafc72b93437c7a5f530365" compoundref="xv__demosaic__hw_8h" startline="61">XV_DEMOSAIC_CTRL_ADDR_HWREG_WIDTH_DATA</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
-        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="122" endline="156">videoIpConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a21bc9ff12055b15575178d906a131e31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -360,12 +360,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="231" bodyend="239"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="231" bodyend="239"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a3f23644d8fafc72b93437c7a5f530365" compoundref="xv__demosaic__hw_8h" startline="61">XV_DEMOSAIC_CTRL_ADDR_HWREG_WIDTH_DATA</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1aa40e36caefa57c07fe9b9e068f9c8493" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -403,13 +403,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="256" bodyend="261"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="256" bodyend="261"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a91dd566f8b602311771e5ace5d8a32b1" compoundref="xv__demosaic__hw_8h" startline="65">XV_DEMOSAIC_CTRL_ADDR_HWREG_HEIGHT_DATA</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
-        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="122" endline="156">videoIpConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a8cad5ce63900772b821e46d6c60ead88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -436,12 +436,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="277" bodyend="285"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="277" bodyend="285"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a91dd566f8b602311771e5ace5d8a32b1" compoundref="xv__demosaic__hw_8h" startline="65">XV_DEMOSAIC_CTRL_ADDR_HWREG_HEIGHT_DATA</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1adfe6297757130862d4d2fd25ff4c413f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -479,13 +479,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="303" bodyend="308"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="303" bodyend="308"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a87fd4a55330e607271bdb57c6a2693e9" compoundref="xv__demosaic__hw_8h" startline="69">XV_DEMOSAIC_CTRL_ADDR_HWREG_BAYER_PHASE_DATA</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
-        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="122" endline="156">videoIpConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1aad5daf24f3e5183eb540c7e9558f0345" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -512,12 +512,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="324" bodyend="332"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="324" bodyend="332"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a87fd4a55330e607271bdb57c6a2693e9" compoundref="xv__demosaic__hw_8h" startline="69">XV_DEMOSAIC_CTRL_ADDR_HWREG_BAYER_PHASE_DATA</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a6891f3d35c268cddf40987470001ef6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -544,12 +544,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="349" bodyend="354"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="349" bodyend="354"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a1c8bb7b95181af267da4e355c97f5142" compoundref="xv__demosaic__hw_8h" startline="55">XV_DEMOSAIC_CTRL_ADDR_GIE</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1aa71214d873527ed1af928e50b252affb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -576,12 +576,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="371" bodyend="376"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="371" bodyend="376"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a1c8bb7b95181af267da4e355c97f5142" compoundref="xv__demosaic__hw_8h" startline="55">XV_DEMOSAIC_CTRL_ADDR_GIE</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a69fa1f851aa2f2d43ad537ccbdb9260d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -619,13 +619,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="395" bodyend="403"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="395" bodyend="403"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a0829ebf75f074f4937a267cfebe3a67d" compoundref="xv__demosaic__hw_8h" startline="57">XV_DEMOSAIC_CTRL_ADDR_IER</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a4f0de1734d2a54e682d620f06514049f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -663,13 +663,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="421" bodyend="429"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="421" bodyend="429"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a0829ebf75f074f4937a267cfebe3a67d" compoundref="xv__demosaic__hw_8h" startline="57">XV_DEMOSAIC_CTRL_ADDR_IER</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a7158f8e24e9a182c264a876013681193" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -707,12 +707,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="448" bodyend="453"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="448" bodyend="453"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a1fa1c5b1b3ae2d33548d4b422ab0c5b8" compoundref="xv__demosaic__hw_8h" startline="59">XV_DEMOSAIC_CTRL_ADDR_ISR</references>
-        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="105">XV_demosaic_WriteReg</references>
         <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1aa538f7cb79b4692a6584beaf89e6afb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -740,12 +740,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="469" bodyend="474"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="469" bodyend="474"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a0829ebf75f074f4937a267cfebe3a67d" compoundref="xv__demosaic__hw_8h" startline="57">XV_DEMOSAIC_CTRL_ADDR_IER</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__demosaic_8c_1a5543702ffe2eca8a81cbcc4c004e88df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -772,12 +772,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="491" bodyend="496"/>
-        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
-        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="491" bodyend="496"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="76">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="94">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic__hw_8h_1a1fa1c5b1b3ae2d33548d4b422ab0c5b8" compoundref="xv__demosaic__hw_8h" startline="59">XV_DEMOSAIC_CTRL_ADDR_ISR</references>
-        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="109">XV_demosaic_ReadReg</references>
         <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
       </memberdef>
       </sectiondef>
@@ -997,6 +997,6 @@
 <codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" kindref="member">XV_demosaic_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" kindref="member">Config</ref>.<ref refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__demosaic__hw_8h_1a1fa1c5b1b3ae2d33548d4b422ab0c5b8" kindref="member">XV_DEMOSAIC_CTRL_ADDR_ISR</ref>);</highlight></codeline>
 <codeline lineno="496"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c"/>
   </compounddef>
 </doxygen>

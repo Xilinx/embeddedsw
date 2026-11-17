@@ -6,12 +6,14 @@
     <innerfile refid="xmipi__tx__phy_8h">xmipi_tx_phy.h</innerfile>
     <innerfile refid="xmipi__tx__phy__g_8c">xmipi_tx_phy_g.c</innerfile>
     <innerfile refid="xmipi__tx__phy__hw_8h">xmipi_tx_phy_hw.h</innerfile>
+    <innerfile refid="xmipi__tx__phy__mmcm_8c">xmipi_tx_phy_mmcm.c</innerfile>
     <innerfile refid="xmipi__tx__phy__selftest_8c">xmipi_tx_phy_selftest.c</innerfile>
     <innerfile refid="xmipi__tx__phy__sinit_8c">xmipi_tx_phy_sinit.c</innerfile>
+    <innerfile refid="xmipi__tx__phy__xpll_8c">xmipi_tx_phy_xpll.c</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/"/>
   </compounddef>
 </doxygen>

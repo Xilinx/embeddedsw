@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('xplmi__event__logging__client__example
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file illustrates Plmi event logging based on user data To build this application, xilmailbox library must be included in BSP and xilplmi library must be in client mode. </p>
 <p>This example is supported for Versal and Versal Net devices.</p>
-<h2>Procedure to run the example. </h2>
+<h2>Procedure to run the example: </h2>
 <p>Load the Pdi. Download the pdi into ddr. Select the target. Download the example elf into the target.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
@@ -116,19 +116,20 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <hr/>
 <p>
 1.00  dd   02/13/24 Initial release
-      pre  07/10/24 Added SSIT support</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_bsp_config.h&quot;</code><br/>
+      pre  07/10/24 Added SSIT support
+1.01  abh  07/30/26 Removed Xil_DCacheInvalidateRange call, fixed BUFFER_LENGTH (words to bytes),
+                    replaced sub_cmd with macro</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_bsp_config.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__client_8h.html">xplmi_client.h</a>&quot;</code><br/>
-<code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__defs_8h.html">xplmi_defs.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga50bc47889e36ccd506a9cdf1528b050b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__client__example__apis.html#ga50bc47889e36ccd506a9cdf1528b050b">PDI_SRC_ADDR</a>&#160;&#160;&#160;(0x1000000U)</td></tr>
-<tr class="memdesc:ga50bc47889e36ccd506a9cdf1528b050b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pdi address.  <a href="group__xplmi__client__example__apis.html#ga50bc47889e36ccd506a9cdf1528b050b">More...</a><br/></td></tr>
-<tr class="separator:ga50bc47889e36ccd506a9cdf1528b050b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55e7d7cb17adb5517c9a4b6edaec07aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__client__example__apis.html#ga55e7d7cb17adb5517c9a4b6edaec07aa">DEBUG_LOG_BUF_ADDR</a>&#160;&#160;&#160;(0x1000000U)</td></tr>
+<tr class="memdesc:ga55e7d7cb17adb5517c9a4b6edaec07aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start address of the PLM debug log buffer.  <a href="group__xplmi__client__example__apis.html#ga55e7d7cb17adb5517c9a4b6edaec07aa">More...</a><br/></td></tr>
+<tr class="separator:ga55e7d7cb17adb5517c9a4b6edaec07aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf7b7dc9a200cb1404c280bd500fd1551"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__client__example__apis.html#gaf7b7dc9a200cb1404c280bd500fd1551">BUFFER_LENGTH</a>&#160;&#160;&#160;(0x400000U)</td></tr>
-<tr class="memdesc:gaf7b7dc9a200cb1404c280bd500fd1551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of debug log buffer in words.  <a href="group__xplmi__client__example__apis.html#gaf7b7dc9a200cb1404c280bd500fd1551">More...</a><br/></td></tr>
+<tr class="memdesc:gaf7b7dc9a200cb1404c280bd500fd1551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the PLM debug log buffer in words.  <a href="group__xplmi__client__example__apis.html#gaf7b7dc9a200cb1404c280bd500fd1551">More...</a><br/></td></tr>
 <tr class="separator:gaf7b7dc9a200cb1404c280bd500fd1551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

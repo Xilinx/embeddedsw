@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h" kind="file">
+    <compoundname>xmipi_scu200_xp5io_example/dsi_txss_display.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c" local="yes">dsi_txss_display.c</includedby>
+    <includedby refid="xmipi__scu200__xp5io__example_8c" local="yes">xmipi_scu200_xp5io_example.c</includedby>
+    <incdepgraph>
+      <node id="45">
+        <label>xil_types.h</label>
+      </node>
+      <node id="44">
+        <label>dsi_txss_display.h</label>
+        <link refid="xmipi_scu200_xp5io_example/dsi_txss_display.h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="48">
+        <label>xmipi_scu200_xp5io_example.c</label>
+      </node>
+      <node id="47">
+        <label>dsi_txss_display.c</label>
+      </node>
+      <node id="46">
+        <label>dsi_txss_display.h</label>
+        <link refid="xmipi_scu200_xp5io_example/dsi_txss_display.h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a0dabd7a8b3b074741c71533ae3bb32a6" prot="public" static="no">
+        <name>DSI_PANEL_H_RES</name>
+        <initializer>720</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a2305faf6da4cd801f9c4f2202720fe1c" prot="public" static="no">
+        <name>DSI_PANEL_V_RES</name>
+        <initializer>1280</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a11797aaaab21448853f35bf2f9795aa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DsiPath_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>DsiPath_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>One-time DSI TX Subsystem + ATtiny MCU + ILI9881C panel bring-up. </para>        </briefdescription>
+        <detaileddescription>
+<para>Must be called once at boot, regardless of whether DSI or HDMI is the initially selected output — this brings the panel up in COMMAND mode and leaves the DSI TX Subsystem configured for VIDEO mode at the panel&apos;s native 720x1280 timing, ready for DsiPath_StartVideo() to activate it.</para><para><simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+See dsi_txss_display.h for the split rationale vs DsiPath_StartVideo(). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="739" bodyend="812"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1af8d6a41f3dd8603219aeb97d1f48d6cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DsiPath_StartVideo</definition>
+        <argsstring>(void)</argsstring>
+        <name>DsiPath_StartVideo</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Activate the DSI TX Subsystem so it streams whatever video is currently presented on its AXI4-Stream input (the VPSS scaler&apos;s output once the AXI4-Stream Switch is steered to the DSI path). </para>        </briefdescription>
+        <detaileddescription>
+<para>Call this LAST, only once the caller has already rebuilt and started the upstream sensor/CSI/scaler chain (see DsiPath_Reinit()).</para><para><simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+Activate the DSI TX Subsystem so it streams whatever video is currently presented on its AXI4-Stream input (the VPSS scaler&apos;s output once the AXI4-Stream Switch is steered to the DSI path).</para><para>Call this LAST, only once the upstream sensor/CSI/scaler chain has already been rebuilt and started by the caller (see DsiPath_Reinit()) — matches the ZCU102 reference&apos;s <ref refid="pipeline__program_8c_1acd55ed8c8232ae426bf8d3d578e03741" kindref="member">EnableDSI()</ref>, which is likewise called only after CamReset()/EnableCSI()/ <ref refid="pipeline__program_8c_1a9909ac1b3c8acfa727d8b5d0bd7eda39" kindref="member">SetupCameraSensor()</ref>/StartSensor() have all completed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="824" bodyend="835"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a9656bb8bc26fd48353098543d440b152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DsiPath_StopVideo</definition>
+        <argsstring>(void)</argsstring>
+        <name>DsiPath_StopVideo</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Deactivate the DSI TX Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call this first, whenever DSI is about to stop being the active output, or in preparation for DsiPath_Reinit().</para><para>Call this first, whenever DSI is about to stop being the active output (or right before DsiPath_Reinit(), to prepare for re-entering DSI) — matches the ZCU102 reference&apos;s <ref refid="function__prototype_8c_1ae229cb3a71466b40c2ac44019d6a1795" kindref="member">DisableDSI()</ref>, which is always called before its <ref refid="function__prototype_8c_1a571466dbec30928cd622090965a7ef0f" kindref="member">InitDSI()</ref> reset step. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="844" bodyend="848"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1ac8c31c00913fa51695ad87917187a665" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DsiPath_Reinit</definition>
+        <argsstring>(void)</argsstring>
+        <name>DsiPath_Reinit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Hardware-reset the DSI TX Subsystem (XDsiTxSs_Reset()) and re-apply its VIDEO mode timing configuration, without starting it. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call this every time DSI is about to become (or stop being) the active output — after DsiPath_StopVideo(), before DsiPath_StartVideo(). Recovers the core from having starved on a cut-off AXI4-Stream input, which a bare Activate(DISABLE)/(ENABLE) toggle alone does not reliably do.</para><para>Hardware-reset the DSI TX Subsystem (XDsiTxSs_Reset()) and re-apply its VIDEO mode timing configuration, without starting it.</para><para>Matches the ZCU102 reference&apos;s <ref refid="function__prototype_8c_1a571466dbec30928cd622090965a7ef0f" kindref="member">InitDSI()</ref>: a bare XDsiTxSs_Activate(DISABLE)/(ENABLE) toggle is not sufficient to recover the core from having starved on a cut-off AXI4- Stream input (proven empirically — that approach was tried and caused a FIFO under-run on the very first switch to DSI). XDsiTxSs_Reset() clears the byte-stream FIFO and protocol engine state at the register level, so the core comes back in the same known-good state it was in right after boot, instead of whatever state a starve event left it in.</para><para>Call this every time DSI is about to become (or stop being) the active output, before DsiPath_StartVideo() — never call DsiPath_StartVideo() without a preceding DsiPath_Reinit() once the core has ever been disabled/starved. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/dsi_txss_display.c" bodystart="867" bodyend="913"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#ifndef<sp/>DSI_TXSS_DISPLAY_H_</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DSI_TXSS_DISPLAY_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Panel<sp/>native<sp/>resolution<sp/>(Raspberry<sp/>Pi<sp/>Touch<sp/>Display<sp/>2)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DSI_PANEL_H_RES<sp/><sp/><sp/>720</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DSI_PANEL_V_RES<sp/><sp/><sp/>1280</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">u32<sp/>DsiPath_Init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">u32<sp/>DsiPath_StartVideo(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="56"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DsiPath_StopVideo(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DsiPath_Reinit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DSI_TXSS_DISPLAY_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/dsi_txss_display.h"/>
+  </compounddef>
+</doxygen>

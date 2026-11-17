@@ -13,22 +13,22 @@
     <member refid="structvdma__handle_1abc2ec8a7f98140c127c02e382e3d71d4" kind="variable"><name>number_of_frame_count</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma" kind="struct"><name>XAxiVdma</name>
-    <member refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" kind="variable"><name>BaseAddr</name></member>
-    <member refid="group__axivdma_1gad116974229d0e33b61767742f42d9584" kind="variable"><name>HasSG</name></member>
-    <member refid="group__axivdma_1ga8b4441757224aa73135d6ed334bacdb5" kind="variable"><name>IsReady</name></member>
-    <member refid="group__axivdma_1gac5420b0f3823998ce975acbaf1c174b2" kind="variable"><name>MaxNumFrames</name></member>
-    <member refid="group__axivdma_1gac5806353d2211d78f4c963dd7b018ac9" kind="variable"><name>HasMm2S</name></member>
-    <member refid="group__axivdma_1ga1d5c38336cb3bf54211299867efeef2e" kind="variable"><name>HasMm2SDRE</name></member>
-    <member refid="group__axivdma_1ga22a700bda0eb14878a0c343fbac77456" kind="variable"><name>HasS2Mm</name></member>
-    <member refid="group__axivdma_1gac30944eb3c6ea9b1677f5fb916eb6e19" kind="variable"><name>HasS2MmDRE</name></member>
-    <member refid="group__axivdma_1ga64be95b7a55ba43f997c7879ef23a492" kind="variable"><name>EnableVIDParamRead</name></member>
-    <member refid="group__axivdma_1ga2158cdab0215f4079c14741e1af43c5d" kind="variable"><name>UseFsync</name></member>
-    <member refid="group__axivdma_1ga3af417807133e29a55867f9c853fa25b" kind="variable"><name>InternalGenLock</name></member>
-    <member refid="group__axivdma_1gac2cdde8d751e11e934ecea898574e99a" kind="variable"><name>ReadCallBack</name></member>
-    <member refid="group__axivdma_1gae92ec1b3f2075167e0f552a75ecfde46" kind="variable"><name>WriteCallBack</name></member>
-    <member refid="group__axivdma_1ga1534da961a034f0aa6ea9fee0702e7f0" kind="variable"><name>ReadChannel</name></member>
-    <member refid="group__axivdma_1ga606f7921a2a8cf10cfdcf34ee2e82d0a" kind="variable"><name>WriteChannel</name></member>
-    <member refid="group__axivdma_1ga49f2cc215d38001d678803c690aa6dd5" kind="variable"><name>AddrWidth</name></member>
+    <member refid="struct_x_axi_vdma_1a593206ce099f13c6a62e8c1c95f65b0c" kind="variable"><name>BaseAddr</name></member>
+    <member refid="struct_x_axi_vdma_1ad116974229d0e33b61767742f42d9584" kind="variable"><name>HasSG</name></member>
+    <member refid="struct_x_axi_vdma_1a8b4441757224aa73135d6ed334bacdb5" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_axi_vdma_1ac5420b0f3823998ce975acbaf1c174b2" kind="variable"><name>MaxNumFrames</name></member>
+    <member refid="struct_x_axi_vdma_1ac5806353d2211d78f4c963dd7b018ac9" kind="variable"><name>HasMm2S</name></member>
+    <member refid="struct_x_axi_vdma_1a1d5c38336cb3bf54211299867efeef2e" kind="variable"><name>HasMm2SDRE</name></member>
+    <member refid="struct_x_axi_vdma_1a22a700bda0eb14878a0c343fbac77456" kind="variable"><name>HasS2Mm</name></member>
+    <member refid="struct_x_axi_vdma_1ac30944eb3c6ea9b1677f5fb916eb6e19" kind="variable"><name>HasS2MmDRE</name></member>
+    <member refid="struct_x_axi_vdma_1a64be95b7a55ba43f997c7879ef23a492" kind="variable"><name>EnableVIDParamRead</name></member>
+    <member refid="struct_x_axi_vdma_1a2158cdab0215f4079c14741e1af43c5d" kind="variable"><name>UseFsync</name></member>
+    <member refid="struct_x_axi_vdma_1a3af417807133e29a55867f9c853fa25b" kind="variable"><name>InternalGenLock</name></member>
+    <member refid="struct_x_axi_vdma_1ac2cdde8d751e11e934ecea898574e99a" kind="variable"><name>ReadCallBack</name></member>
+    <member refid="struct_x_axi_vdma_1ae92ec1b3f2075167e0f552a75ecfde46" kind="variable"><name>WriteCallBack</name></member>
+    <member refid="struct_x_axi_vdma_1a1534da961a034f0aa6ea9fee0702e7f0" kind="variable"><name>ReadChannel</name></member>
+    <member refid="struct_x_axi_vdma_1a606f7921a2a8cf10cfdcf34ee2e82d0a" kind="variable"><name>WriteChannel</name></member>
+    <member refid="struct_x_axi_vdma_1a49f2cc215d38001d678803c690aa6dd5" kind="variable"><name>AddrWidth</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma___channel" kind="struct"><name>XAxiVdma_Channel</name>
     <member refid="struct_x_axi_vdma___channel_1a6ca45216467672cbcad5a6bb27e152c1" kind="variable"><name>ChanBase</name></member>
@@ -60,10 +60,10 @@
     <member refid="struct_x_axi_vdma___channel_1a4b5174ddb781366aff70d58e15539b45" kind="variable"><name>HasVFlip</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma___channel_call_back" kind="struct"><name>XAxiVdma_ChannelCallBack</name>
-    <member refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kind="variable"><name>CompletionCallBack</name></member>
-    <member refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" kind="variable"><name>CompletionRef</name></member>
-    <member refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" kind="variable"><name>ErrCallBack</name></member>
-    <member refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" kind="variable"><name>ErrRef</name></member>
+    <member refid="struct_x_axi_vdma___channel_call_back_1af3e1965613b2d1a437d798e8a37df333" kind="variable"><name>CompletionCallBack</name></member>
+    <member refid="struct_x_axi_vdma___channel_call_back_1a43dc909946c675490c5380e7f8f90ede" kind="variable"><name>CompletionRef</name></member>
+    <member refid="struct_x_axi_vdma___channel_call_back_1a8bde9bc1e0f2871e63eebff6b4d3a11f" kind="variable"><name>ErrCallBack</name></member>
+    <member refid="struct_x_axi_vdma___channel_call_back_1aa39f1f408770ba9a38f520a0c0df5c48" kind="variable"><name>ErrRef</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma___channel_setup" kind="struct"><name>XAxiVdma_ChannelSetup</name>
     <member refid="struct_x_axi_vdma___channel_setup_1ab3112a8195c671caa26de7ac620c441a" kind="variable"><name>VertSizeInput</name></member>
@@ -80,60 +80,60 @@
     <member refid="struct_x_axi_vdma___channel_setup_1afe07048ec275f7ebdbc6ed30e185cb73" kind="variable"><name>EnableVFlip</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma___config" kind="struct"><name>XAxiVdma_Config</name>
-    <member refid="group__axivdma_1gaf11767b41d205ad229c0d3b31f8b65ec" kind="variable"><name>Name</name></member>
-    <member refid="group__axivdma_1ga76cf51d7be754a670e697e74966c68cd" kind="variable"><name>BaseAddress</name></member>
-    <member refid="group__axivdma_1gabbeae935b306619b3e2d41598ea1727e" kind="variable"><name>MaxFrameStoreNum</name></member>
-    <member refid="group__axivdma_1gae737875f784d02112726509846784dd1" kind="variable"><name>HasMm2S</name></member>
-    <member refid="group__axivdma_1gae673d8167e09607574eafbcebd1f0059" kind="variable"><name>HasMm2SDRE</name></member>
-    <member refid="group__axivdma_1gaf7a988cf756f60c718d29e2f3273764b" kind="variable"><name>Mm2SWordLen</name></member>
-    <member refid="group__axivdma_1gac0131f5b3987b78fe975c03f264586a6" kind="variable"><name>HasS2Mm</name></member>
-    <member refid="group__axivdma_1ga88e3b8ed3aa34aec7d9936681eadae97" kind="variable"><name>HasS2MmDRE</name></member>
-    <member refid="group__axivdma_1gaef8758d32c62de587d9e57fed56c01ee" kind="variable"><name>S2MmWordLen</name></member>
-    <member refid="group__axivdma_1gaf28619bcd27f94ceaf47bbeb0cb0400c" kind="variable"><name>HasSG</name></member>
-    <member refid="group__axivdma_1ga1acfdf764643a690110d0d9bf0094f75" kind="variable"><name>EnableVIDParamRead</name></member>
-    <member refid="group__axivdma_1gab97aef716c82252eeb7eb12832a31dd5" kind="variable"><name>UseFsync</name></member>
-    <member refid="group__axivdma_1ga0ff6f00da81986d480ae3baed727e4a9" kind="variable"><name>FlushonFsync</name></member>
-    <member refid="group__axivdma_1ga14b3296d09ee88ac27a415ca2452a60e" kind="variable"><name>Mm2SBufDepth</name></member>
-    <member refid="group__axivdma_1gae165f3cbaa2eb57aa1708743e45aa845" kind="variable"><name>S2MmBufDepth</name></member>
-    <member refid="group__axivdma_1ga7057aa6b1b3614612b2b1331ec6afd87" kind="variable"><name>Mm2SGenLock</name></member>
-    <member refid="group__axivdma_1ga7938ca3c609d8a44a05cf81cde30a4a7" kind="variable"><name>S2MmGenLock</name></member>
-    <member refid="group__axivdma_1ga990e5208e4320a26ca4cc8f50407489d" kind="variable"><name>InternalGenLock</name></member>
-    <member refid="group__axivdma_1ga7de365f4e644f7d357dfb5aea0ba4241" kind="variable"><name>S2MmSOF</name></member>
-    <member refid="group__axivdma_1ga569bedc89182bd0542f62580767c98d3" kind="variable"><name>Mm2SStreamWidth</name></member>
-    <member refid="group__axivdma_1gaf8169029d1b2a372478df2ad52c99ae3" kind="variable"><name>S2MmStreamWidth</name></member>
-    <member refid="group__axivdma_1gacda6ef717d6af941e0f0c8dc90185a24" kind="variable"><name>Mm2SThresRegEn</name></member>
-    <member refid="group__axivdma_1gad04ebadf6c05c481198b6b27e5e9eec8" kind="variable"><name>Mm2SFrmStoreRegEn</name></member>
-    <member refid="group__axivdma_1ga3f3291160fad20f64ce2e18efcfe8566" kind="variable"><name>Mm2SDlyCntrEn</name></member>
-    <member refid="group__axivdma_1gaca0e931b1418fda82650456d7639b752" kind="variable"><name>Mm2SFrmCntrEn</name></member>
-    <member refid="group__axivdma_1ga83e466b0e6d0b8711db0372000009c9b" kind="variable"><name>S2MmThresRegEn</name></member>
-    <member refid="group__axivdma_1ga5835e4da4043a081141184f760894960" kind="variable"><name>S2MmFrmStoreRegEn</name></member>
-    <member refid="group__axivdma_1ga263c9059a1a7220c0d082791d1f99681" kind="variable"><name>S2MmDlyCntrEn</name></member>
-    <member refid="group__axivdma_1gac0f7d3262d6a8a66cb68516be91f9fa0" kind="variable"><name>S2MmFrmCntrEn</name></member>
-    <member refid="group__axivdma_1gae3bce37353c26d5b2f077a100cdc7bd4" kind="variable"><name>EnableAllDbgFeatures</name></member>
-    <member refid="group__axivdma_1gaefe77aff2f380aac9be64645ca606696" kind="variable"><name>AddrWidth</name></member>
-    <member refid="group__axivdma_1ga759dfd5ee4156f725ec65fe154fa2f89" kind="variable"><name>HasVFlip</name></member>
-    <member refid="group__axivdma_1ga5fd9ae222f444ce3ce26f27907dcf63b" kind="variable"><name>IntrId</name></member>
-    <member refid="group__axivdma_1ga251605353cc3af9cc740d568adc1a217" kind="variable"><name>IntrParent</name></member>
+    <member refid="struct_x_axi_vdma___config_1af11767b41d205ad229c0d3b31f8b65ec" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_axi_vdma___config_1a76cf51d7be754a670e697e74966c68cd" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_axi_vdma___config_1abbeae935b306619b3e2d41598ea1727e" kind="variable"><name>MaxFrameStoreNum</name></member>
+    <member refid="struct_x_axi_vdma___config_1ae737875f784d02112726509846784dd1" kind="variable"><name>HasMm2S</name></member>
+    <member refid="struct_x_axi_vdma___config_1ae673d8167e09607574eafbcebd1f0059" kind="variable"><name>HasMm2SDRE</name></member>
+    <member refid="struct_x_axi_vdma___config_1af7a988cf756f60c718d29e2f3273764b" kind="variable"><name>Mm2SWordLen</name></member>
+    <member refid="struct_x_axi_vdma___config_1ac0131f5b3987b78fe975c03f264586a6" kind="variable"><name>HasS2Mm</name></member>
+    <member refid="struct_x_axi_vdma___config_1a88e3b8ed3aa34aec7d9936681eadae97" kind="variable"><name>HasS2MmDRE</name></member>
+    <member refid="struct_x_axi_vdma___config_1aef8758d32c62de587d9e57fed56c01ee" kind="variable"><name>S2MmWordLen</name></member>
+    <member refid="struct_x_axi_vdma___config_1af28619bcd27f94ceaf47bbeb0cb0400c" kind="variable"><name>HasSG</name></member>
+    <member refid="struct_x_axi_vdma___config_1a1acfdf764643a690110d0d9bf0094f75" kind="variable"><name>EnableVIDParamRead</name></member>
+    <member refid="struct_x_axi_vdma___config_1ab97aef716c82252eeb7eb12832a31dd5" kind="variable"><name>UseFsync</name></member>
+    <member refid="struct_x_axi_vdma___config_1a0ff6f00da81986d480ae3baed727e4a9" kind="variable"><name>FlushonFsync</name></member>
+    <member refid="struct_x_axi_vdma___config_1a14b3296d09ee88ac27a415ca2452a60e" kind="variable"><name>Mm2SBufDepth</name></member>
+    <member refid="struct_x_axi_vdma___config_1ae165f3cbaa2eb57aa1708743e45aa845" kind="variable"><name>S2MmBufDepth</name></member>
+    <member refid="struct_x_axi_vdma___config_1a7057aa6b1b3614612b2b1331ec6afd87" kind="variable"><name>Mm2SGenLock</name></member>
+    <member refid="struct_x_axi_vdma___config_1a7938ca3c609d8a44a05cf81cde30a4a7" kind="variable"><name>S2MmGenLock</name></member>
+    <member refid="struct_x_axi_vdma___config_1a990e5208e4320a26ca4cc8f50407489d" kind="variable"><name>InternalGenLock</name></member>
+    <member refid="struct_x_axi_vdma___config_1a7de365f4e644f7d357dfb5aea0ba4241" kind="variable"><name>S2MmSOF</name></member>
+    <member refid="struct_x_axi_vdma___config_1a569bedc89182bd0542f62580767c98d3" kind="variable"><name>Mm2SStreamWidth</name></member>
+    <member refid="struct_x_axi_vdma___config_1af8169029d1b2a372478df2ad52c99ae3" kind="variable"><name>S2MmStreamWidth</name></member>
+    <member refid="struct_x_axi_vdma___config_1acda6ef717d6af941e0f0c8dc90185a24" kind="variable"><name>Mm2SThresRegEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1ad04ebadf6c05c481198b6b27e5e9eec8" kind="variable"><name>Mm2SFrmStoreRegEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1a3f3291160fad20f64ce2e18efcfe8566" kind="variable"><name>Mm2SDlyCntrEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1aca0e931b1418fda82650456d7639b752" kind="variable"><name>Mm2SFrmCntrEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1a83e466b0e6d0b8711db0372000009c9b" kind="variable"><name>S2MmThresRegEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1a5835e4da4043a081141184f760894960" kind="variable"><name>S2MmFrmStoreRegEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1a263c9059a1a7220c0d082791d1f99681" kind="variable"><name>S2MmDlyCntrEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1ac0f7d3262d6a8a66cb68516be91f9fa0" kind="variable"><name>S2MmFrmCntrEn</name></member>
+    <member refid="struct_x_axi_vdma___config_1ae3bce37353c26d5b2f077a100cdc7bd4" kind="variable"><name>EnableAllDbgFeatures</name></member>
+    <member refid="struct_x_axi_vdma___config_1aefe77aff2f380aac9be64645ca606696" kind="variable"><name>AddrWidth</name></member>
+    <member refid="struct_x_axi_vdma___config_1a759dfd5ee4156f725ec65fe154fa2f89" kind="variable"><name>HasVFlip</name></member>
+    <member refid="struct_x_axi_vdma___config_1a5fd9ae222f444ce3ce26f27907dcf63b" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_axi_vdma___config_1a251605353cc3af9cc740d568adc1a217" kind="variable"><name>IntrParent</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma___dma_setup" kind="struct"><name>XAxiVdma_DmaSetup</name>
-    <member refid="group__axivdma_1ga8539fe046ff0373a8256ca18a2c5e1d3" kind="variable"><name>VertSizeInput</name></member>
-    <member refid="group__axivdma_1ga11ed1fd062b11845c8573ef4598383ea" kind="variable"><name>HoriSizeInput</name></member>
-    <member refid="group__axivdma_1ga080eed5ecf9444cfe6351a244d587aea" kind="variable"><name>Stride</name></member>
-    <member refid="group__axivdma_1ga35c5f4bb861abceeaf787e047f478b41" kind="variable"><name>FrameDelay</name></member>
-    <member refid="group__axivdma_1ga26fc64b9d238ee745ae0e388f38e8173" kind="variable"><name>EnableCircularBuf</name></member>
-    <member refid="group__axivdma_1ga6102a47c1f70529681112f365d0f7bb0" kind="variable"><name>EnableSync</name></member>
-    <member refid="group__axivdma_1gaac365860b37a8b93e667f54f7f8e1e9c" kind="variable"><name>PointNum</name></member>
-    <member refid="group__axivdma_1ga8a2951097dbc67d90d00778eefd5a656" kind="variable"><name>EnableFrameCounter</name></member>
-    <member refid="group__axivdma_1gaea84e7c0f6497813f1989af6ae6cbf70" kind="variable"><name>FrameStoreStartAddr</name></member>
-    <member refid="group__axivdma_1ga21f79be4ba14288e99cb3eacbdea2a17" kind="variable"><name>FixedFrameStoreAddr</name></member>
-    <member refid="group__axivdma_1gad770de5bdcc65820b2dca13c0e590854" kind="variable"><name>GenLockRepeat</name></member>
-    <member refid="group__axivdma_1ga857fde2b0a8c8e52b3c3b0b717373a43" kind="variable"><name>EnableVFlip</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a8539fe046ff0373a8256ca18a2c5e1d3" kind="variable"><name>VertSizeInput</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a11ed1fd062b11845c8573ef4598383ea" kind="variable"><name>HoriSizeInput</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a080eed5ecf9444cfe6351a244d587aea" kind="variable"><name>Stride</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a35c5f4bb861abceeaf787e047f478b41" kind="variable"><name>FrameDelay</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a26fc64b9d238ee745ae0e388f38e8173" kind="variable"><name>EnableCircularBuf</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a6102a47c1f70529681112f365d0f7bb0" kind="variable"><name>EnableSync</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1aac365860b37a8b93e667f54f7f8e1e9c" kind="variable"><name>PointNum</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a8a2951097dbc67d90d00778eefd5a656" kind="variable"><name>EnableFrameCounter</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1aea84e7c0f6497813f1989af6ae6cbf70" kind="variable"><name>FrameStoreStartAddr</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a21f79be4ba14288e99cb3eacbdea2a17" kind="variable"><name>FixedFrameStoreAddr</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1ad770de5bdcc65820b2dca13c0e590854" kind="variable"><name>GenLockRepeat</name></member>
+    <member refid="struct_x_axi_vdma___dma_setup_1a857fde2b0a8c8e52b3c3b0b717373a43" kind="variable"><name>EnableVFlip</name></member>
   </compound>
   <compound refid="struct_x_axi_vdma___frame_counter" kind="struct"><name>XAxiVdma_FrameCounter</name>
-    <member refid="group__axivdma_1gaa60c173f1c6d7314821ae2c24e2ff7af" kind="variable"><name>ReadFrameCount</name></member>
-    <member refid="group__axivdma_1ga03ffbe1551620b7f0f72b905006dcf88" kind="variable"><name>ReadDelayTimerCount</name></member>
-    <member refid="group__axivdma_1gab43078f5f7fdd17728ac6ecfb97aea27" kind="variable"><name>WriteFrameCount</name></member>
-    <member refid="group__axivdma_1gad55f207b3d4bfab082a90ea7a43f044c" kind="variable"><name>WriteDelayTimerCount</name></member>
+    <member refid="struct_x_axi_vdma___frame_counter_1aa60c173f1c6d7314821ae2c24e2ff7af" kind="variable"><name>ReadFrameCount</name></member>
+    <member refid="struct_x_axi_vdma___frame_counter_1a03ffbe1551620b7f0f72b905006dcf88" kind="variable"><name>ReadDelayTimerCount</name></member>
+    <member refid="struct_x_axi_vdma___frame_counter_1ab43078f5f7fdd17728ac6ecfb97aea27" kind="variable"><name>WriteFrameCount</name></member>
+    <member refid="struct_x_axi_vdma___frame_counter_1ad55f207b3d4bfab082a90ea7a43f044c" kind="variable"><name>WriteDelayTimerCount</name></member>
   </compound>
   <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
   </compound>
@@ -142,27 +142,27 @@
   <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
   </compound>
   <compound refid="vdma_8c" kind="file"><name>vdma.c</name>
-    <member refid="vdma_8c_1a26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
-    <member refid="vdma_8c_1a527b755d4c4f2ee6ce45b7fdef4f71f0" kind="variable"><name>srcBuffer</name></member>
-    <member refid="vdma_8c_1a6a990dfb5e3d88faf9e25e0e7cb0b28c" kind="variable"><name>Intc</name></member>
-    <member refid="vdma_8c_1a8f3f4f8546399efc071f59f35f17bdfa" kind="function"><name>run_triple_frame_buffer</name></member>
-    <member refid="vdma_8c_1a38a4577a35fd7f413ae5107273fa7e26" kind="function"><name>SetupIntrSystem</name></member>
-    <member refid="vdma_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
-    <member refid="vdma_8c_1a0efaec58f0146c77d82a5ef5e251c823" kind="function"><name>ReadCallBack</name></member>
-    <member refid="vdma_8c_1a0eceb710d5c5a7e3f3657ee8cf018f21" kind="function"><name>ReadErrorCallBack</name></member>
-    <member refid="vdma_8c_1aa5dc2d3c6b5031198186b796d33c5f72" kind="function"><name>WriteCallBack</name></member>
-    <member refid="vdma_8c_1a9f8b14b2ba773c648c90a221934050b8" kind="function"><name>WriteErrorCallBack</name></member>
-    <member refid="vdma_8c_1a43bd7199752a35dc5be87441d95dd28e" kind="function"><name>DisableIntrSystem</name></member>
+    <member refid="group__axivdma_1ga26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
+    <member refid="group__axivdma_1ga527b755d4c4f2ee6ce45b7fdef4f71f0" kind="variable"><name>srcBuffer</name></member>
+    <member refid="group__axivdma_1ga6a990dfb5e3d88faf9e25e0e7cb0b28c" kind="variable"><name>Intc</name></member>
+    <member refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" kind="function"><name>run_triple_frame_buffer</name></member>
+    <member refid="group__axivdma_1ga38a4577a35fd7f413ae5107273fa7e26" kind="function"><name>SetupIntrSystem</name></member>
+    <member refid="group__axivdma_1gae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axivdma_1ga0efaec58f0146c77d82a5ef5e251c823" kind="function"><name>ReadCallBack</name></member>
+    <member refid="group__axivdma_1ga0eceb710d5c5a7e3f3657ee8cf018f21" kind="function"><name>ReadErrorCallBack</name></member>
+    <member refid="group__axivdma_1gaa5dc2d3c6b5031198186b796d33c5f72" kind="function"><name>WriteCallBack</name></member>
+    <member refid="group__axivdma_1ga9f8b14b2ba773c648c90a221934050b8" kind="function"><name>WriteErrorCallBack</name></member>
+    <member refid="group__axivdma_1ga43bd7199752a35dc5be87441d95dd28e" kind="function"><name>DisableIntrSystem</name></member>
   </compound>
   <compound refid="vdma__api_8c" kind="file"><name>vdma_api.c</name>
-    <member refid="vdma__api_8c_1ac80a3592e72fd96b772ee47a7d8e0d0a" kind="define"><name>DEBUG_MODE</name></member>
-    <member refid="vdma__api_8c_1a31c9d074613a43f04fb29f88890455b4" kind="typedef"><name>vdma_handle</name></member>
-    <member refid="vdma__api_8c_1adfb1f916537f0df6d3fd5c346c9276f7" kind="variable"><name>vdma_context</name></member>
-    <member refid="vdma__api_8c_1a8a4b6244eb82e5d2e0e684c9e45da94e" kind="variable"><name>context_init</name></member>
-    <member refid="vdma__api_8c_1a00cadb2b2cbd9dc30df5e8fa7835a69d" kind="function"><name>ReadSetup</name></member>
-    <member refid="vdma__api_8c_1abac51257ec260f1863172a2d21ce983b" kind="function"><name>WriteSetup</name></member>
-    <member refid="vdma__api_8c_1a0b734d60186ddda8bc9c1884de5e2e9d" kind="function"><name>StartTransfer</name></member>
-    <member refid="vdma__api_8c_1a8f3f4f8546399efc071f59f35f17bdfa" kind="function"><name>run_triple_frame_buffer</name></member>
+    <member refid="group__axivdma_1gac80a3592e72fd96b772ee47a7d8e0d0a" kind="define"><name>DEBUG_MODE</name></member>
+    <member refid="group__axivdma_1ga31c9d074613a43f04fb29f88890455b4" kind="typedef"><name>vdma_handle</name></member>
+    <member refid="group__axivdma_1gadfb1f916537f0df6d3fd5c346c9276f7" kind="variable"><name>vdma_context</name></member>
+    <member refid="group__axivdma_1ga8a4b6244eb82e5d2e0e684c9e45da94e" kind="variable"><name>context_init</name></member>
+    <member refid="group__axivdma_1ga00cadb2b2cbd9dc30df5e8fa7835a69d" kind="function"><name>ReadSetup</name></member>
+    <member refid="group__axivdma_1gabac51257ec260f1863172a2d21ce983b" kind="function"><name>WriteSetup</name></member>
+    <member refid="group__axivdma_1ga0b734d60186ddda8bc9c1884de5e2e9d" kind="function"><name>StartTransfer</name></member>
+    <member refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" kind="function"><name>run_triple_frame_buffer</name></member>
   </compound>
   <compound refid="xaxivdma_8c" kind="file"><name>xaxivdma.c</name>
     <member refid="group__axivdma_1gad0c16315875917715d0a8c49b07b9688" kind="define"><name>INITIALIZATION_POLLING</name></member>
@@ -197,7 +197,7 @@
     <member refid="group__axivdma_1gac01b1199d15a3a95cafb01f61dd1d0d3" kind="function"><name>XAxiVdma_ClearDmaChannelErrors</name></member>
   </compound>
   <compound refid="xaxivdma_8h" kind="file"><name>xaxivdma.h</name>
-    <member refid="group__axivdma_1gae66ac7d51cdfd51731da8c17762a7ee7" kind="define"><name>XAXIVDMA_H_</name></member>
+    <member refid="xaxivdma_8h_1ae66ac7d51cdfd51731da8c17762a7ee7" kind="define"><name>XAXIVDMA_H_</name></member>
     <member refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kind="define"><name>XAXIVDMA_WRITE</name></member>
     <member refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kind="define"><name>XAXIVDMA_READ</name></member>
     <member refid="group__axivdma_1ga001373abfc5971ca63943b4088f58e60" kind="define"><name>XAXIVDMA_CHAN_FSYNC</name></member>
@@ -264,14 +264,6 @@
     <member refid="group__axivdma_1ga657f09a902dac33a87f9eb33960c8d58" kind="define"><name>XAXIVDMA_VIRT_TO_PHYS</name></member>
     <member refid="group__axivdma_1gac1022ff84a093476cff8499bc4bbaae2" kind="define"><name>XAxiVdma_ChannelHiFrmAddrEnable</name></member>
     <member refid="group__axivdma_1gaaf3790410e85baac4ef181f1b77c8cdf" kind="define"><name>XAxiVdma_ChannelHiFrmAddrDisable</name></member>
-    <member refid="group__axivdma_1ga098a6cf6bab51211a81a9fbf21aabd02" kind="function"><name>XAxiVdma_BdRead</name></member>
-    <member refid="group__axivdma_1gac425b695e73b6a96b91c6386ab8c45d7" kind="function"><name>XAxiVdma_BdWrite</name></member>
-    <member refid="group__axivdma_1ga7aa5b9c48f01c6542dd3503f10d6370d" kind="function"><name>XAxiVdma_BdSetNextPtr</name></member>
-    <member refid="group__axivdma_1ga7912bcd21267cd7bbd2fc89ed4961297" kind="function"><name>XAxiVdma_BdSetAddr</name></member>
-    <member refid="group__axivdma_1ga0b30811d74ff2233c8dfbb23727e4357" kind="function"><name>XAxiVdma_BdSetVsize</name></member>
-    <member refid="group__axivdma_1gaec42780c7848dd3a06f9838fc3a70b02" kind="function"><name>XAxiVdma_BdSetHsize</name></member>
-    <member refid="group__axivdma_1ga0290e197beeb008e87269f9cda0c3140" kind="function"><name>XAxiVdma_BdSetStride</name></member>
-    <member refid="group__axivdma_1ga9d2f1869314aebbc7f9f8229ec4c0a93" kind="function"><name>XAxiVdma_BdSetFrmDly</name></member>
     <member refid="group__axivdma_1ga795e26fb85aa4140db060d731a19efeb" kind="function"><name>XAxiVdma_ChannelInit</name></member>
     <member refid="group__axivdma_1ga9b0a1008f3e30f3f031763f108f76405" kind="function"><name>XAxiVdma_ChannelResetNotDone</name></member>
     <member refid="group__axivdma_1ga96e2798de16d738f378458fa2b7b2f1c" kind="function"><name>XAxiVdma_ChannelReset</name></member>
@@ -297,55 +289,60 @@
     <member refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" kind="function"><name>XAxiVdma_ChannelGetPendingIntr</name></member>
     <member refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" kind="function"><name>XAxiVdma_ChannelIntrClear</name></member>
     <member refid="group__axivdma_1gaccc8d62d87870cb43c048938e405d4e6" kind="function"><name>XAxiVdma_ChannelGetEnabledIntr</name></member>
+    <member refid="group__axivdma_1ga098a6cf6bab51211a81a9fbf21aabd02" kind="function"><name>XAxiVdma_BdRead</name></member>
+    <member refid="group__axivdma_1gac425b695e73b6a96b91c6386ab8c45d7" kind="function"><name>XAxiVdma_BdWrite</name></member>
+    <member refid="group__axivdma_1ga7aa5b9c48f01c6542dd3503f10d6370d" kind="function"><name>XAxiVdma_BdSetNextPtr</name></member>
+    <member refid="group__axivdma_1ga7912bcd21267cd7bbd2fc89ed4961297" kind="function"><name>XAxiVdma_BdSetAddr</name></member>
+    <member refid="group__axivdma_1ga0b30811d74ff2233c8dfbb23727e4357" kind="function"><name>XAxiVdma_BdSetVsize</name></member>
+    <member refid="group__axivdma_1ga0afd1a9cc3a19b88b8e30f069a466780" kind="function"><name>XAxiVdma_BdSetHsize</name></member>
+    <member refid="group__axivdma_1ga0290e197beeb008e87269f9cda0c3140" kind="function"><name>XAxiVdma_BdSetStride</name></member>
+    <member refid="group__axivdma_1ga9d2f1869314aebbc7f9f8229ec4c0a93" kind="function"><name>XAxiVdma_BdSetFrmDly</name></member>
   </compound>
   <compound refid="xaxivdma__example__intr_8c" kind="file"><name>xaxivdma_example_intr.c</name>
-    <member refid="xaxivdma__example__intr_8c_1a161b39e28454b275c263fe129ef5e606" kind="define"><name>DDR_BASE_ADDR</name></member>
-    <member refid="xaxivdma__example__intr_8c_1aa15e7de0b3f31393312a548ddfad86cf" kind="define"><name>DDR_HIGH_ADDR</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a0a9c47ea9ab1c7b969656a352d368eac" kind="define"><name>MEM_HIGH_ADDR</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a829f7641546b6b366e93d0faa6733a8c" kind="define"><name>MEM_SPACE</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a20493f2d5086cb3a19ed59df8421a177" kind="define"><name>READ_ADDRESS_BASE</name></member>
-    <member refid="xaxivdma__example__intr_8c_1ab1738bb2def08f1f4546bf624291c657" kind="define"><name>WRITE_ADDRESS_BASE</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a64ff50da5e658f268310094f73c4c03c" kind="define"><name>FRAME_HORIZONTAL_LEN</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a751ce928617668b5cfa05140f8b5f006" kind="define"><name>FRAME_VERTICAL_LEN</name></member>
-    <member refid="xaxivdma__example__intr_8c_1acb794f70075a38cc92be779033b7edac" kind="define"><name>SUBFRAME_START_OFFSET</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a06756b831180b2e77411d45692226960" kind="define"><name>SUBFRAME_HORIZONTAL_SIZE</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a2421560135df4a18784d851e192af1cc" kind="define"><name>SUBFRAME_VERTICAL_SIZE</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a76846530a351d63d89fac86c3c97419f" kind="define"><name>NUM_TEST_FRAME_SETS</name></member>
-    <member refid="xaxivdma__example__intr_8c_1acf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a7a443d21228ff8b8c14dcef572c34701" kind="define"><name>DELAY_TIMER_COUNTER</name></member>
-    <member refid="xaxivdma__example__intr_8c_1aee4b5c8d6513ec4d9b6c6aafc35a8f51" kind="define"><name>XAXIVDMA_RESET_TIMEOUT_USEC</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a62e798950fba8a8100afc6ab9d054966" kind="variable"><name>AxiVdma</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a352663eb2b4a69a2a288c95ad1366dd4" kind="variable"><name>ReadFrameAddr</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a35448331665ba11f0352c9b2fde95c53" kind="variable"><name>WriteFrameAddr</name></member>
-    <member refid="xaxivdma__example__intr_8c_1acad217052804a72b9b98fb11fdad8898" kind="variable"><name>BlockStartOffset</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a321442ec905d70d8661d087c9c629433" kind="variable"><name>BlockHoriz</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a462e16ac245423b7023d5f630f988d47" kind="variable"><name>BlockVert</name></member>
-    <member refid="xaxivdma__example__intr_8c_1ad3bdbadbebb8840dba78f38dbe5bb6f3" kind="variable"><name>ReadCount</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a103a04548bf4817138a21fcb5cdfc23b" kind="variable"><name>WriteCount</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a7ff2e48280b8b4c0b9034527cba60ba0" kind="variable"><name>ReadCfg</name></member>
-    <member refid="xaxivdma__example__intr_8c_1aefc3ab7b01e2e925018f066ae041d156" kind="variable"><name>WriteCfg</name></member>
-    <member refid="xaxivdma__example__intr_8c_1abd6e72d374d1cdf94202c71f7562d2a7" kind="variable"><name>ReadDone</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a64a70a8602db351bdcec5ec994215ccd" kind="variable"><name>ReadError</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a010c9944b5e6c59ddec329e7ad2b8540" kind="variable"><name>WriteDone</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a85f0c5014a55d89a1fab67041675c269" kind="variable"><name>WriteError</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a6a045eeca5e113f1781f8341a862acff" kind="function"><name>ReadSetup</name></member>
-    <member refid="xaxivdma__example__intr_8c_1ad0a75d46c4ddda780372de915731a6f6" kind="function"><name>WriteSetup</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a0b734d60186ddda8bc9c1884de5e2e9d" kind="function"><name>StartTransfer</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a5ad01298346edcda5c95bb7f4684c770" kind="function"><name>CheckFrame</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a75448f30c8fa4581c58edf2bdbef06a2" kind="function"><name>BufferInit</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a0efaec58f0146c77d82a5ef5e251c823" kind="function"><name>ReadCallBack</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a0eceb710d5c5a7e3f3657ee8cf018f21" kind="function"><name>ReadErrorCallBack</name></member>
-    <member refid="xaxivdma__example__intr_8c_1aa5dc2d3c6b5031198186b796d33c5f72" kind="function"><name>WriteCallBack</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a9f8b14b2ba773c648c90a221934050b8" kind="function"><name>WriteErrorCallBack</name></member>
-    <member refid="xaxivdma__example__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__axivdma_1ga64ff50da5e658f268310094f73c4c03c" kind="define"><name>FRAME_HORIZONTAL_LEN</name></member>
+    <member refid="group__axivdma_1ga751ce928617668b5cfa05140f8b5f006" kind="define"><name>FRAME_VERTICAL_LEN</name></member>
+    <member refid="group__axivdma_1gaf9b1b2ba12857a4bf11289dac8c5462d" kind="define"><name>FRAME_SIZE</name></member>
+    <member refid="group__axivdma_1gacc4325af65dfe321ac347559befd4089" kind="define"><name>MAX_FRAME_STORE</name></member>
+    <member refid="group__axivdma_1ga46167a977503a51eb6efe97e870568c3" kind="define"><name>READ_BUFFER_SIZE</name></member>
+    <member refid="group__axivdma_1ga45b6ee479d2daaf80ef51ad238c65c0d" kind="define"><name>WRITE_BUFFER_SIZE</name></member>
+    <member refid="group__axivdma_1gacb794f70075a38cc92be779033b7edac" kind="define"><name>SUBFRAME_START_OFFSET</name></member>
+    <member refid="group__axivdma_1ga06756b831180b2e77411d45692226960" kind="define"><name>SUBFRAME_HORIZONTAL_SIZE</name></member>
+    <member refid="group__axivdma_1ga2421560135df4a18784d851e192af1cc" kind="define"><name>SUBFRAME_VERTICAL_SIZE</name></member>
+    <member refid="group__axivdma_1ga76846530a351d63d89fac86c3c97419f" kind="define"><name>NUM_TEST_FRAME_SETS</name></member>
+    <member refid="group__axivdma_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group__axivdma_1ga7a443d21228ff8b8c14dcef572c34701" kind="define"><name>DELAY_TIMER_COUNTER</name></member>
+    <member refid="group__axivdma_1gaee4b5c8d6513ec4d9b6c6aafc35a8f51" kind="define"><name>XAXIVDMA_RESET_TIMEOUT_USEC</name></member>
+    <member refid="group__axivdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axivdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axivdma_1ga62e798950fba8a8100afc6ab9d054966" kind="variable"><name>AxiVdma</name></member>
+    <member refid="group__axivdma_1ga352663eb2b4a69a2a288c95ad1366dd4" kind="variable"><name>ReadFrameAddr</name></member>
+    <member refid="group__axivdma_1ga35448331665ba11f0352c9b2fde95c53" kind="variable"><name>WriteFrameAddr</name></member>
+    <member refid="group__axivdma_1gacad217052804a72b9b98fb11fdad8898" kind="variable"><name>BlockStartOffset</name></member>
+    <member refid="group__axivdma_1ga321442ec905d70d8661d087c9c629433" kind="variable"><name>BlockHoriz</name></member>
+    <member refid="group__axivdma_1ga462e16ac245423b7023d5f630f988d47" kind="variable"><name>BlockVert</name></member>
+    <member refid="group__axivdma_1gad3bdbadbebb8840dba78f38dbe5bb6f3" kind="variable"><name>ReadCount</name></member>
+    <member refid="group__axivdma_1ga103a04548bf4817138a21fcb5cdfc23b" kind="variable"><name>WriteCount</name></member>
+    <member refid="group__axivdma_1ga7ff2e48280b8b4c0b9034527cba60ba0" kind="variable"><name>ReadCfg</name></member>
+    <member refid="group__axivdma_1gaefc3ab7b01e2e925018f066ae041d156" kind="variable"><name>WriteCfg</name></member>
+    <member refid="group__axivdma_1gabd6e72d374d1cdf94202c71f7562d2a7" kind="variable"><name>ReadDone</name></member>
+    <member refid="group__axivdma_1ga64a70a8602db351bdcec5ec994215ccd" kind="variable"><name>ReadError</name></member>
+    <member refid="group__axivdma_1ga010c9944b5e6c59ddec329e7ad2b8540" kind="variable"><name>WriteDone</name></member>
+    <member refid="group__axivdma_1ga85f0c5014a55d89a1fab67041675c269" kind="variable"><name>WriteError</name></member>
+    <member refid="group__axivdma_1ga6a045eeca5e113f1781f8341a862acff" kind="function"><name>ReadSetup</name></member>
+    <member refid="group__axivdma_1gad0a75d46c4ddda780372de915731a6f6" kind="function"><name>WriteSetup</name></member>
+    <member refid="xaxivdma__example__intr_8c_1ga0b734d60186ddda8bc9c1884de5e2e9d" kind="function"><name>StartTransfer</name></member>
+    <member refid="group__axivdma_1ga5ad01298346edcda5c95bb7f4684c770" kind="function"><name>CheckFrame</name></member>
+    <member refid="group__axivdma_1ga75448f30c8fa4581c58edf2bdbef06a2" kind="function"><name>BufferInit</name></member>
+    <member refid="xaxivdma__example__intr_8c_1ga0efaec58f0146c77d82a5ef5e251c823" kind="function"><name>ReadCallBack</name></member>
+    <member refid="xaxivdma__example__intr_8c_1ga0eceb710d5c5a7e3f3657ee8cf018f21" kind="function"><name>ReadErrorCallBack</name></member>
+    <member refid="xaxivdma__example__intr_8c_1gaa5dc2d3c6b5031198186b796d33c5f72" kind="function"><name>WriteCallBack</name></member>
+    <member refid="xaxivdma__example__intr_8c_1ga9f8b14b2ba773c648c90a221934050b8" kind="function"><name>WriteErrorCallBack</name></member>
+    <member refid="group__axivdma_1gae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xaxivdma__example__selftest_8c" kind="file"><name>xaxivdma_example_selftest.c</name>
-    <member refid="xaxivdma__example__selftest_8c_1a62e798950fba8a8100afc6ab9d054966" kind="variable"><name>AxiVdma</name></member>
-    <member refid="xaxivdma__example__selftest_8c_1aba262ec7ce75d7f5c8a5e6dc90e28ddc" kind="function"><name>AxiVDMASelfTestExample</name></member>
-    <member refid="xaxivdma__example__selftest_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axivdma_1ga62e798950fba8a8100afc6ab9d054966" kind="variable"><name>AxiVdma</name></member>
+    <member refid="group__axivdma_1gaba262ec7ce75d7f5c8a5e6dc90e28ddc" kind="function"><name>AxiVDMASelfTestExample</name></member>
+    <member refid="group__axivdma_1gae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xaxivdma__g_8c" kind="file"><name>xaxivdma_g.c</name>
     <member refid="group__axivdma_1gaefad42d08d1b9bc916575396c3a42c9b" kind="variable"><name>XAxiVdma_ConfigTable</name></member>
@@ -447,13 +444,11 @@
     <member refid="group__axivdma_1gaf1af4c3afa712d97d3f1af8153c9fb48" kind="define"><name>XAXIVDMA_BD_NUM_WORDS</name></member>
     <member refid="group__axivdma_1gab253772ebf384b0e4962efafa11916fb" kind="define"><name>XAXIVDMA_BD_HW_NUM_BYTES</name></member>
     <member refid="group__axivdma_1ga80f15b7cc612ff34dfa70ef2a5283fbd" kind="define"><name>XAXIVDMA_BD_BYTES_TO_CLEAR</name></member>
+    <member refid="xaxivdma__hw_8h_1a5e8b039c263447f0e459c3813e458f5f" kind="define"><name>XAXIVDMA_HW_H_</name></member>
     <member refid="group__axivdma_1gaebbb18b57a2957ab4a90b54c4f557fea" kind="define"><name>XAXIVDMA_MISMATCH_ERROR</name></member>
-    <member refid="group__axivdma_1ga50baa8184a373891c1b33c7d80675d87" kind="define"><name>XAxiVdma_In32</name></member>
-    <member refid="group__axivdma_1ga0744a1b40ccb993ca7d296f430947f6e" kind="define"><name>XAxiVdma_Out32</name></member>
-    <member refid="group__axivdma_1gac657067221649df8f259f9215bfba75e" kind="define"><name>XAxiVdma_ReadReg</name></member>
-    <member refid="group__axivdma_1ga28900a15d22fc5a3729dfa102f5cbec9" kind="define"><name>XAxiVdma_WriteReg</name></member>
   </compound>
   <compound refid="xaxivdma__i_8h" kind="file"><name>xaxivdma_i.h</name>
+    <member refid="xaxivdma__i_8h_1a99faec9839450f1f45b4554599119443" kind="define"><name>XAXIVDMA_I_H_</name></member>
     <member refid="group__axivdma_1ga506d8bcc71c331928b802b37863baf3f" kind="typedef"><name>XAxiVdma_Bd</name></member>
     <member refid="group__axivdma_1ga795e26fb85aa4140db060d731a19efeb" kind="function"><name>XAxiVdma_ChannelInit</name></member>
     <member refid="group__axivdma_1ga96e2798de16d738f378458fa2b7b2f1c" kind="function"><name>XAxiVdma_ChannelReset</name></member>
@@ -601,77 +596,27 @@
     <member refid="group__axivdma_1ga07f81ffdbceb0024e3a675a787ca3d90" kind="typedef"><name>XAxiVdma_CallBack</name></member>
     <member refid="group__axivdma_1gaf4cafedb40698ffa21e672bf20ac3602" kind="typedef"><name>XAxiVdma_ErrorCallBack</name></member>
     <member refid="group__axivdma_1ga506d8bcc71c331928b802b37863baf3f" kind="typedef"><name>XAxiVdma_Bd</name></member>
-    <member refid="group__axivdma_1gaf11767b41d205ad229c0d3b31f8b65ec" kind="variable"><name>Name</name></member>
-    <member refid="group__axivdma_1ga76cf51d7be754a670e697e74966c68cd" kind="variable"><name>BaseAddress</name></member>
-    <member refid="group__axivdma_1gabbeae935b306619b3e2d41598ea1727e" kind="variable"><name>MaxFrameStoreNum</name></member>
-    <member refid="group__axivdma_1gae737875f784d02112726509846784dd1" kind="variable"><name>HasMm2S</name></member>
-    <member refid="group__axivdma_1gae673d8167e09607574eafbcebd1f0059" kind="variable"><name>HasMm2SDRE</name></member>
-    <member refid="group__axivdma_1gaf7a988cf756f60c718d29e2f3273764b" kind="variable"><name>Mm2SWordLen</name></member>
-    <member refid="group__axivdma_1gac0131f5b3987b78fe975c03f264586a6" kind="variable"><name>HasS2Mm</name></member>
-    <member refid="group__axivdma_1ga88e3b8ed3aa34aec7d9936681eadae97" kind="variable"><name>HasS2MmDRE</name></member>
-    <member refid="group__axivdma_1gaef8758d32c62de587d9e57fed56c01ee" kind="variable"><name>S2MmWordLen</name></member>
-    <member refid="group__axivdma_1gaf28619bcd27f94ceaf47bbeb0cb0400c" kind="variable"><name>HasSG</name></member>
-    <member refid="group__axivdma_1ga1acfdf764643a690110d0d9bf0094f75" kind="variable"><name>EnableVIDParamRead</name></member>
-    <member refid="group__axivdma_1gab97aef716c82252eeb7eb12832a31dd5" kind="variable"><name>UseFsync</name></member>
-    <member refid="group__axivdma_1ga0ff6f00da81986d480ae3baed727e4a9" kind="variable"><name>FlushonFsync</name></member>
-    <member refid="group__axivdma_1ga14b3296d09ee88ac27a415ca2452a60e" kind="variable"><name>Mm2SBufDepth</name></member>
-    <member refid="group__axivdma_1gae165f3cbaa2eb57aa1708743e45aa845" kind="variable"><name>S2MmBufDepth</name></member>
-    <member refid="group__axivdma_1ga7057aa6b1b3614612b2b1331ec6afd87" kind="variable"><name>Mm2SGenLock</name></member>
-    <member refid="group__axivdma_1ga7938ca3c609d8a44a05cf81cde30a4a7" kind="variable"><name>S2MmGenLock</name></member>
-    <member refid="group__axivdma_1ga990e5208e4320a26ca4cc8f50407489d" kind="variable"><name>InternalGenLock</name></member>
-    <member refid="group__axivdma_1ga7de365f4e644f7d357dfb5aea0ba4241" kind="variable"><name>S2MmSOF</name></member>
-    <member refid="group__axivdma_1ga569bedc89182bd0542f62580767c98d3" kind="variable"><name>Mm2SStreamWidth</name></member>
-    <member refid="group__axivdma_1gaf8169029d1b2a372478df2ad52c99ae3" kind="variable"><name>S2MmStreamWidth</name></member>
-    <member refid="group__axivdma_1gacda6ef717d6af941e0f0c8dc90185a24" kind="variable"><name>Mm2SThresRegEn</name></member>
-    <member refid="group__axivdma_1gad04ebadf6c05c481198b6b27e5e9eec8" kind="variable"><name>Mm2SFrmStoreRegEn</name></member>
-    <member refid="group__axivdma_1ga3f3291160fad20f64ce2e18efcfe8566" kind="variable"><name>Mm2SDlyCntrEn</name></member>
-    <member refid="group__axivdma_1gaca0e931b1418fda82650456d7639b752" kind="variable"><name>Mm2SFrmCntrEn</name></member>
-    <member refid="group__axivdma_1ga83e466b0e6d0b8711db0372000009c9b" kind="variable"><name>S2MmThresRegEn</name></member>
-    <member refid="group__axivdma_1ga5835e4da4043a081141184f760894960" kind="variable"><name>S2MmFrmStoreRegEn</name></member>
-    <member refid="group__axivdma_1ga263c9059a1a7220c0d082791d1f99681" kind="variable"><name>S2MmDlyCntrEn</name></member>
-    <member refid="group__axivdma_1gac0f7d3262d6a8a66cb68516be91f9fa0" kind="variable"><name>S2MmFrmCntrEn</name></member>
-    <member refid="group__axivdma_1gae3bce37353c26d5b2f077a100cdc7bd4" kind="variable"><name>EnableAllDbgFeatures</name></member>
-    <member refid="group__axivdma_1gaefe77aff2f380aac9be64645ca606696" kind="variable"><name>AddrWidth</name></member>
-    <member refid="group__axivdma_1ga759dfd5ee4156f725ec65fe154fa2f89" kind="variable"><name>HasVFlip</name></member>
-    <member refid="group__axivdma_1ga5fd9ae222f444ce3ce26f27907dcf63b" kind="variable"><name>IntrId</name></member>
-    <member refid="group__axivdma_1ga251605353cc3af9cc740d568adc1a217" kind="variable"><name>IntrParent</name></member>
-    <member refid="group__axivdma_1ga8539fe046ff0373a8256ca18a2c5e1d3" kind="variable"><name>VertSizeInput</name></member>
-    <member refid="group__axivdma_1ga11ed1fd062b11845c8573ef4598383ea" kind="variable"><name>HoriSizeInput</name></member>
-    <member refid="group__axivdma_1ga080eed5ecf9444cfe6351a244d587aea" kind="variable"><name>Stride</name></member>
-    <member refid="group__axivdma_1ga35c5f4bb861abceeaf787e047f478b41" kind="variable"><name>FrameDelay</name></member>
-    <member refid="group__axivdma_1ga26fc64b9d238ee745ae0e388f38e8173" kind="variable"><name>EnableCircularBuf</name></member>
-    <member refid="group__axivdma_1ga6102a47c1f70529681112f365d0f7bb0" kind="variable"><name>EnableSync</name></member>
-    <member refid="group__axivdma_1gaac365860b37a8b93e667f54f7f8e1e9c" kind="variable"><name>PointNum</name></member>
-    <member refid="group__axivdma_1ga8a2951097dbc67d90d00778eefd5a656" kind="variable"><name>EnableFrameCounter</name></member>
-    <member refid="group__axivdma_1gaea84e7c0f6497813f1989af6ae6cbf70" kind="variable"><name>FrameStoreStartAddr</name></member>
-    <member refid="group__axivdma_1ga21f79be4ba14288e99cb3eacbdea2a17" kind="variable"><name>FixedFrameStoreAddr</name></member>
-    <member refid="group__axivdma_1gad770de5bdcc65820b2dca13c0e590854" kind="variable"><name>GenLockRepeat</name></member>
-    <member refid="group__axivdma_1ga857fde2b0a8c8e52b3c3b0b717373a43" kind="variable"><name>EnableVFlip</name></member>
-    <member refid="group__axivdma_1gaa60c173f1c6d7314821ae2c24e2ff7af" kind="variable"><name>ReadFrameCount</name></member>
-    <member refid="group__axivdma_1ga03ffbe1551620b7f0f72b905006dcf88" kind="variable"><name>ReadDelayTimerCount</name></member>
-    <member refid="group__axivdma_1gab43078f5f7fdd17728ac6ecfb97aea27" kind="variable"><name>WriteFrameCount</name></member>
-    <member refid="group__axivdma_1gad55f207b3d4bfab082a90ea7a43f044c" kind="variable"><name>WriteDelayTimerCount</name></member>
-    <member refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kind="variable"><name>CompletionCallBack</name></member>
-    <member refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" kind="variable"><name>CompletionRef</name></member>
-    <member refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" kind="variable"><name>ErrCallBack</name></member>
-    <member refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" kind="variable"><name>ErrRef</name></member>
-    <member refid="group__axivdma_1ga593206ce099f13c6a62e8c1c95f65b0c" kind="variable"><name>BaseAddr</name></member>
-    <member refid="group__axivdma_1gad116974229d0e33b61767742f42d9584" kind="variable"><name>HasSG</name></member>
-    <member refid="group__axivdma_1ga8b4441757224aa73135d6ed334bacdb5" kind="variable"><name>IsReady</name></member>
-    <member refid="group__axivdma_1gac5420b0f3823998ce975acbaf1c174b2" kind="variable"><name>MaxNumFrames</name></member>
-    <member refid="group__axivdma_1gac5806353d2211d78f4c963dd7b018ac9" kind="variable"><name>HasMm2S</name></member>
-    <member refid="group__axivdma_1ga1d5c38336cb3bf54211299867efeef2e" kind="variable"><name>HasMm2SDRE</name></member>
-    <member refid="group__axivdma_1ga22a700bda0eb14878a0c343fbac77456" kind="variable"><name>HasS2Mm</name></member>
-    <member refid="group__axivdma_1gac30944eb3c6ea9b1677f5fb916eb6e19" kind="variable"><name>HasS2MmDRE</name></member>
-    <member refid="group__axivdma_1ga64be95b7a55ba43f997c7879ef23a492" kind="variable"><name>EnableVIDParamRead</name></member>
-    <member refid="group__axivdma_1ga2158cdab0215f4079c14741e1af43c5d" kind="variable"><name>UseFsync</name></member>
-    <member refid="group__axivdma_1ga3af417807133e29a55867f9c853fa25b" kind="variable"><name>InternalGenLock</name></member>
-    <member refid="group__axivdma_1gac2cdde8d751e11e934ecea898574e99a" kind="variable"><name>ReadCallBack</name></member>
-    <member refid="group__axivdma_1gae92ec1b3f2075167e0f552a75ecfde46" kind="variable"><name>WriteCallBack</name></member>
-    <member refid="group__axivdma_1ga1534da961a034f0aa6ea9fee0702e7f0" kind="variable"><name>ReadChannel</name></member>
-    <member refid="group__axivdma_1ga606f7921a2a8cf10cfdcf34ee2e82d0a" kind="variable"><name>WriteChannel</name></member>
-    <member refid="group__axivdma_1ga49f2cc215d38001d678803c690aa6dd5" kind="variable"><name>AddrWidth</name></member>
+    <member refid="group__axivdma_1ga31c9d074613a43f04fb29f88890455b4" kind="typedef"><name>vdma_handle</name></member>
     <member refid="group__axivdma_1gaefad42d08d1b9bc916575396c3a42c9b" kind="variable"><name>XAxiVdma_ConfigTable</name></member>
+    <member refid="group__axivdma_1ga527b755d4c4f2ee6ce45b7fdef4f71f0" kind="variable"><name>srcBuffer</name></member>
+    <member refid="group__axivdma_1ga6a990dfb5e3d88faf9e25e0e7cb0b28c" kind="variable"><name>Intc</name></member>
+    <member refid="group__axivdma_1gadfb1f916537f0df6d3fd5c346c9276f7" kind="variable"><name>vdma_context</name></member>
+    <member refid="group__axivdma_1ga8a4b6244eb82e5d2e0e684c9e45da94e" kind="variable"><name>context_init</name></member>
+    <member refid="group__axivdma_1ga62e798950fba8a8100afc6ab9d054966" kind="variable"><name>AxiVdma</name></member>
+    <member refid="group__axivdma_1ga352663eb2b4a69a2a288c95ad1366dd4" kind="variable"><name>ReadFrameAddr</name></member>
+    <member refid="group__axivdma_1ga35448331665ba11f0352c9b2fde95c53" kind="variable"><name>WriteFrameAddr</name></member>
+    <member refid="group__axivdma_1gacad217052804a72b9b98fb11fdad8898" kind="variable"><name>BlockStartOffset</name></member>
+    <member refid="group__axivdma_1ga321442ec905d70d8661d087c9c629433" kind="variable"><name>BlockHoriz</name></member>
+    <member refid="group__axivdma_1ga462e16ac245423b7023d5f630f988d47" kind="variable"><name>BlockVert</name></member>
+    <member refid="group__axivdma_1gad3bdbadbebb8840dba78f38dbe5bb6f3" kind="variable"><name>ReadCount</name></member>
+    <member refid="group__axivdma_1ga103a04548bf4817138a21fcb5cdfc23b" kind="variable"><name>WriteCount</name></member>
+    <member refid="group__axivdma_1ga7ff2e48280b8b4c0b9034527cba60ba0" kind="variable"><name>ReadCfg</name></member>
+    <member refid="group__axivdma_1gaefc3ab7b01e2e925018f066ae041d156" kind="variable"><name>WriteCfg</name></member>
+    <member refid="group__axivdma_1gabd6e72d374d1cdf94202c71f7562d2a7" kind="variable"><name>ReadDone</name></member>
+    <member refid="group__axivdma_1ga64a70a8602db351bdcec5ec994215ccd" kind="variable"><name>ReadError</name></member>
+    <member refid="group__axivdma_1ga010c9944b5e6c59ddec329e7ad2b8540" kind="variable"><name>WriteDone</name></member>
+    <member refid="group__axivdma_1ga85f0c5014a55d89a1fab67041675c269" kind="variable"><name>WriteError</name></member>
+    <member refid="group__axivdma_1ga62e798950fba8a8100afc6ab9d054966" kind="variable"><name>AxiVdma</name></member>
     <member refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kind="function"><name>XAxiVdma_GetChannel</name></member>
     <member refid="group__axivdma_1gaa215952eff00379a9a1214d97801bf58" kind="function"><name>XAxiVdma_Major</name></member>
     <member refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" kind="function"><name>XAxiVdma_CfgInitialize</name></member>
@@ -711,14 +656,6 @@
     <member refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" kind="function"><name>XAxiVdma_WriteIntrHandler</name></member>
     <member refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" kind="function"><name>XAxiVdma_SetCallBack</name></member>
     <member refid="group__axivdma_1ga97041abec8a49ee091440012fec1f7ca" kind="function"><name>XAxiVdma_Selftest</name></member>
-    <member refid="group__axivdma_1ga098a6cf6bab51211a81a9fbf21aabd02" kind="function"><name>XAxiVdma_BdRead</name></member>
-    <member refid="group__axivdma_1gac425b695e73b6a96b91c6386ab8c45d7" kind="function"><name>XAxiVdma_BdWrite</name></member>
-    <member refid="group__axivdma_1ga7aa5b9c48f01c6542dd3503f10d6370d" kind="function"><name>XAxiVdma_BdSetNextPtr</name></member>
-    <member refid="group__axivdma_1ga7912bcd21267cd7bbd2fc89ed4961297" kind="function"><name>XAxiVdma_BdSetAddr</name></member>
-    <member refid="group__axivdma_1ga0b30811d74ff2233c8dfbb23727e4357" kind="function"><name>XAxiVdma_BdSetVsize</name></member>
-    <member refid="group__axivdma_1gaec42780c7848dd3a06f9838fc3a70b02" kind="function"><name>XAxiVdma_BdSetHsize</name></member>
-    <member refid="group__axivdma_1ga0290e197beeb008e87269f9cda0c3140" kind="function"><name>XAxiVdma_BdSetStride</name></member>
-    <member refid="group__axivdma_1ga9d2f1869314aebbc7f9f8229ec4c0a93" kind="function"><name>XAxiVdma_BdSetFrmDly</name></member>
     <member refid="group__axivdma_1ga795e26fb85aa4140db060d731a19efeb" kind="function"><name>XAxiVdma_ChannelInit</name></member>
     <member refid="group__axivdma_1ga9b0a1008f3e30f3f031763f108f76405" kind="function"><name>XAxiVdma_ChannelResetNotDone</name></member>
     <member refid="group__axivdma_1ga96e2798de16d738f378458fa2b7b2f1c" kind="function"><name>XAxiVdma_ChannelReset</name></member>
@@ -744,8 +681,31 @@
     <member refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" kind="function"><name>XAxiVdma_ChannelGetPendingIntr</name></member>
     <member refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" kind="function"><name>XAxiVdma_ChannelIntrClear</name></member>
     <member refid="group__axivdma_1gaccc8d62d87870cb43c048938e405d4e6" kind="function"><name>XAxiVdma_ChannelGetEnabledIntr</name></member>
+    <member refid="group__axivdma_1ga098a6cf6bab51211a81a9fbf21aabd02" kind="function"><name>XAxiVdma_BdRead</name></member>
+    <member refid="group__axivdma_1gac425b695e73b6a96b91c6386ab8c45d7" kind="function"><name>XAxiVdma_BdWrite</name></member>
+    <member refid="group__axivdma_1ga7aa5b9c48f01c6542dd3503f10d6370d" kind="function"><name>XAxiVdma_BdSetNextPtr</name></member>
+    <member refid="group__axivdma_1ga7912bcd21267cd7bbd2fc89ed4961297" kind="function"><name>XAxiVdma_BdSetAddr</name></member>
+    <member refid="group__axivdma_1ga0b30811d74ff2233c8dfbb23727e4357" kind="function"><name>XAxiVdma_BdSetVsize</name></member>
+    <member refid="group__axivdma_1ga0afd1a9cc3a19b88b8e30f069a466780" kind="function"><name>XAxiVdma_BdSetHsize</name></member>
+    <member refid="group__axivdma_1ga0290e197beeb008e87269f9cda0c3140" kind="function"><name>XAxiVdma_BdSetStride</name></member>
+    <member refid="group__axivdma_1ga9d2f1869314aebbc7f9f8229ec4c0a93" kind="function"><name>XAxiVdma_BdSetFrmDly</name></member>
+    <member refid="group__axivdma_1ga8f3f4f8546399efc071f59f35f17bdfa" kind="function"><name>run_triple_frame_buffer</name></member>
+    <member refid="group__axivdma_1ga38a4577a35fd7f413ae5107273fa7e26" kind="function"><name>SetupIntrSystem</name></member>
+    <member refid="group__axivdma_1gae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axivdma_1ga0efaec58f0146c77d82a5ef5e251c823" kind="function"><name>ReadCallBack</name></member>
+    <member refid="group__axivdma_1ga0eceb710d5c5a7e3f3657ee8cf018f21" kind="function"><name>ReadErrorCallBack</name></member>
+    <member refid="group__axivdma_1gaa5dc2d3c6b5031198186b796d33c5f72" kind="function"><name>WriteCallBack</name></member>
+    <member refid="group__axivdma_1ga9f8b14b2ba773c648c90a221934050b8" kind="function"><name>WriteErrorCallBack</name></member>
+    <member refid="group__axivdma_1ga43bd7199752a35dc5be87441d95dd28e" kind="function"><name>DisableIntrSystem</name></member>
+    <member refid="group__axivdma_1ga00cadb2b2cbd9dc30df5e8fa7835a69d" kind="function"><name>ReadSetup</name></member>
+    <member refid="group__axivdma_1gabac51257ec260f1863172a2d21ce983b" kind="function"><name>WriteSetup</name></member>
+    <member refid="group__axivdma_1ga0b734d60186ddda8bc9c1884de5e2e9d" kind="function"><name>StartTransfer</name></member>
+    <member refid="group__axivdma_1ga6a045eeca5e113f1781f8341a862acff" kind="function"><name>ReadSetup</name></member>
+    <member refid="group__axivdma_1gad0a75d46c4ddda780372de915731a6f6" kind="function"><name>WriteSetup</name></member>
+    <member refid="group__axivdma_1ga5ad01298346edcda5c95bb7f4684c770" kind="function"><name>CheckFrame</name></member>
+    <member refid="group__axivdma_1ga75448f30c8fa4581c58edf2bdbef06a2" kind="function"><name>BufferInit</name></member>
+    <member refid="group__axivdma_1gaba262ec7ce75d7f5c8a5e6dc90e28ddc" kind="function"><name>AxiVDMASelfTestExample</name></member>
     <member refid="group__axivdma_1gad0c16315875917715d0a8c49b07b9688" kind="define"><name>INITIALIZATION_POLLING</name></member>
-    <member refid="group__axivdma_1gae66ac7d51cdfd51731da8c17762a7ee7" kind="define"><name>XAXIVDMA_H_</name></member>
     <member refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kind="define"><name>XAXIVDMA_WRITE</name></member>
     <member refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kind="define"><name>XAXIVDMA_READ</name></member>
     <member refid="group__axivdma_1ga001373abfc5971ca63943b4088f58e60" kind="define"><name>XAXIVDMA_CHAN_FSYNC</name></member>
@@ -771,12 +731,25 @@
     <member refid="group__axivdma_1gac1022ff84a093476cff8499bc4bbaae2" kind="define"><name>XAxiVdma_ChannelHiFrmAddrEnable</name></member>
     <member refid="group__axivdma_1gaaf3790410e85baac4ef181f1b77c8cdf" kind="define"><name>XAxiVdma_ChannelHiFrmAddrDisable</name></member>
     <member refid="group__axivdma_1gaebbb18b57a2957ab4a90b54c4f557fea" kind="define"><name>XAXIVDMA_MISMATCH_ERROR</name></member>
-    <member refid="group__axivdma_1ga50baa8184a373891c1b33c7d80675d87" kind="define"><name>XAxiVdma_In32</name></member>
-    <member refid="group__axivdma_1ga0744a1b40ccb993ca7d296f430947f6e" kind="define"><name>XAxiVdma_Out32</name></member>
-    <member refid="group__axivdma_1gac657067221649df8f259f9215bfba75e" kind="define"><name>XAxiVdma_ReadReg</name></member>
-    <member refid="group__axivdma_1ga28900a15d22fc5a3729dfa102f5cbec9" kind="define"><name>XAxiVdma_WriteReg</name></member>
     <member refid="group__axivdma_1ga9a08eb4a98e05c819763aee591bc41e4" kind="define"><name>XAXIVDMA_RESET_TIMEOUT</name></member>
     <member refid="group__axivdma_1ga10073467a04e92d00f2ff5c6b115ed04" kind="define"><name>XPAR_XAXIVDMA_NUM_INSTANCES</name></member>
+    <member refid="group__axivdma_1ga26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
+    <member refid="group__axivdma_1gac80a3592e72fd96b772ee47a7d8e0d0a" kind="define"><name>DEBUG_MODE</name></member>
+    <member refid="group__axivdma_1ga64ff50da5e658f268310094f73c4c03c" kind="define"><name>FRAME_HORIZONTAL_LEN</name></member>
+    <member refid="group__axivdma_1ga751ce928617668b5cfa05140f8b5f006" kind="define"><name>FRAME_VERTICAL_LEN</name></member>
+    <member refid="group__axivdma_1gaf9b1b2ba12857a4bf11289dac8c5462d" kind="define"><name>FRAME_SIZE</name></member>
+    <member refid="group__axivdma_1gacc4325af65dfe321ac347559befd4089" kind="define"><name>MAX_FRAME_STORE</name></member>
+    <member refid="group__axivdma_1ga46167a977503a51eb6efe97e870568c3" kind="define"><name>READ_BUFFER_SIZE</name></member>
+    <member refid="group__axivdma_1ga45b6ee479d2daaf80ef51ad238c65c0d" kind="define"><name>WRITE_BUFFER_SIZE</name></member>
+    <member refid="group__axivdma_1gacb794f70075a38cc92be779033b7edac" kind="define"><name>SUBFRAME_START_OFFSET</name></member>
+    <member refid="group__axivdma_1ga06756b831180b2e77411d45692226960" kind="define"><name>SUBFRAME_HORIZONTAL_SIZE</name></member>
+    <member refid="group__axivdma_1ga2421560135df4a18784d851e192af1cc" kind="define"><name>SUBFRAME_VERTICAL_SIZE</name></member>
+    <member refid="group__axivdma_1ga76846530a351d63d89fac86c3c97419f" kind="define"><name>NUM_TEST_FRAME_SETS</name></member>
+    <member refid="group__axivdma_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group__axivdma_1ga7a443d21228ff8b8c14dcef572c34701" kind="define"><name>DELAY_TIMER_COUNTER</name></member>
+    <member refid="group__axivdma_1gaee4b5c8d6513ec4d9b6c6aafc35a8f51" kind="define"><name>XAXIVDMA_RESET_TIMEOUT_USEC</name></member>
+    <member refid="group__axivdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axivdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>
@@ -785,7 +758,5 @@
   <compound refid="dir_5a6d34744c72757d96cfc88d6ba76d39" kind="dir"><name>examples</name>
   </compound>
   <compound refid="dir_43ae5b2735398574ce8279937675411d" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

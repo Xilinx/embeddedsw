@@ -17,5 +17,6 @@ var files =
     [ "xwdttb_selftest_example.c", "xwdttb__selftest__example_8c.html", "xwdttb__selftest__example_8c" ],
     [ "xwdttb_sinit.c", "xwdttb__sinit_8c.html", "xwdttb__sinit_8c" ],
     [ "xwdttb_winwdt_example.c", "xwdttb__winwdt__example_8c.html", "xwdttb__winwdt__example_8c" ],
-    [ "xwdttb_winwdt_intr_example.c", "xwdttb__winwdt__intr__example_8c.html", "xwdttb__winwdt__intr__example_8c" ]
+    [ "xwdttb_winwdt_intr_example.c", "xwdttb__winwdt__intr__example_8c.html", "xwdttb__winwdt__intr__example_8c" ],
+    [ "xwdttb_winwdt_qamode_example.c", "xwdttb__winwdt__qamode__example_8c.html", "xwdttb__winwdt__qamode__example_8c" ]
 ];

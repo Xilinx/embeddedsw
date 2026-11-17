@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structpm__acknowledge" kind="struct" prot="public">
+    <compoundname>pm_acknowledge</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpm__acknowledge_1a52ee04341e4b7314d74141cb3b4c5669" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 pm_acknowledge::received</definition>
+        <argsstring></argsstring>
+        <name>received</name>
+        <briefdescription>
+<para>Has acknowledge argument been received? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__acknowledge_1a5f5d90e2dbb8f91b4c2e7e7f119024ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 pm_acknowledge::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+<para>Node argument about which the acknowledge is. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__acknowledge_1ab1483ca45279b2355cc6a0853cc5852f" prot="public" static="no" mutable="no">
+        <type>XStatus</type>
+        <definition>XStatus pm_acknowledge::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <briefdescription>
+<para>Acknowledged status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__acknowledge_1a69f252858878b9ec6a69d7da7d137009" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 pm_acknowledge::opp</definition>
+        <argsstring></argsstring>
+        <name>opp</name>
+        <briefdescription>
+<para>Operating point of node in question. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__acknowledge_1ac3e272bf574d5560184b231911d0afa7" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>volatile bool pm_acknowledge::received</definition>
+        <argsstring></argsstring>
+        <name>received</name>
+        <briefdescription>
+<para>Has acknowledge argument been received? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpm__acknowledge_1a256c4636a48292c7b914fb4cd00db008" prot="public" static="no" mutable="no">
+        <type>enum <ref refid="group__xpm__apis_1ga48a4baeaeb4ccf182359a230b0262522" kindref="member">XPmNodeId</ref></type>
+        <definition>enum XPmNodeId pm_acknowledge::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+<para>Node argument about which the acknowledge is. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/common/pm_api_sys.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.h" bodystart="39" bodyend="44"/>
+    <listofallmembers>
+      <member refid="structpm__acknowledge_1a5f5d90e2dbb8f91b4c2e7e7f119024ba" prot="public" virt="non-virtual"><scope>pm_acknowledge</scope><name>node</name></member>
+      <member refid="structpm__acknowledge_1a256c4636a48292c7b914fb4cd00db008" prot="public" virt="non-virtual"><scope>pm_acknowledge</scope><name>node</name></member>
+      <member refid="structpm__acknowledge_1a69f252858878b9ec6a69d7da7d137009" prot="public" virt="non-virtual"><scope>pm_acknowledge</scope><name>opp</name></member>
+      <member refid="structpm__acknowledge_1a52ee04341e4b7314d74141cb3b4c5669" prot="public" virt="non-virtual"><scope>pm_acknowledge</scope><name>received</name></member>
+      <member refid="structpm__acknowledge_1ac3e272bf574d5560184b231911d0afa7" prot="public" virt="non-virtual"><scope>pm_acknowledge</scope><name>received</name></member>
+      <member refid="structpm__acknowledge_1ab1483ca45279b2355cc6a0853cc5852f" prot="public" virt="non-virtual"><scope>pm_acknowledge</scope><name>status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

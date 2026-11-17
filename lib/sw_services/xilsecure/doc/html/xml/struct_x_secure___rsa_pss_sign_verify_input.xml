@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_pss_sign_verify_input" kind="struct" prot="public">
+    <compoundname>XSecure_RsaPssSignVerifyInput</compoundname>
+    <includes local="no">xsecure_rsa_pss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1a6350d2599d3e0856bc116e20559bab51" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaPssSignVerifyInput::MsgHashAddr</definition>
+        <argsstring></argsstring>
+        <name>MsgHashAddr</name>
+        <briefdescription>
+<para>64-bit address of the SHA3-384 message hash </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1af401675c523af7451c81257653c82c66" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaPssSignVerifyInput::SignAddr</definition>
+        <argsstring></argsstring>
+        <name>SignAddr</name>
+        <briefdescription>
+<para>64-bit address of the RSA signature </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1a92e7e39126e272f0c76ecb7ecd55e6b4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaPssSignVerifyInput::KeySize</definition>
+        <argsstring></argsstring>
+        <name>KeySize</name>
+        <briefdescription>
+<para>RSA key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para>RsaInstPtr-&gt;SizeInWords is fixed to 4096 bits at initialization, so it does not carry this </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1a302f1f1909fdffb8462820fcf088a4fe" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+        <definition>XSecure_Rsa* XSecure_RsaPssSignVerifyInput::RsaInstPtr</definition>
+        <argsstring></argsstring>
+        <name>RsaInstPtr</name>
+        <briefdescription>
+<para>Pointer to initialized RSA instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1abea2c9d45dd9bf51d3ec8bf497ba4ab0" prot="public" static="no" mutable="no">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha* XSecure_RsaPssSignVerifyInput::ShaInstPtr</definition>
+        <argsstring></argsstring>
+        <name>ShaInstPtr</name>
+        <briefdescription>
+<para>Pointer to SHA3 instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1a82dd9cc57193fd8fc0e9e38782efcf7e" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_RsaPssSignVerifyInput::SignedInputData</definition>
+        <argsstring></argsstring>
+        <name>SignedInputData</name>
+        <briefdescription>
+<para>Encoded message (EM) workspace of at least KeySize bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pss_sign_verify_input_1ad659da86a17eff150a218088980f990a" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_RsaPssSignVerifyInput::DataBlock</definition>
+        <argsstring></argsstring>
+        <name>DataBlock</name>
+        <briefdescription>
+<para>Data block (DB) workspace of at least KeySize - 49 bytes, up to XSECURE_RSA_PSS_DATA_BLOCK_LEN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__pss__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" compoundref="xsecure__rsa__pss_8c" startline="76" endline="284">XSecure_RsaPssSignVerify</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The RSA-PSS sign verification input structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to this structure is passed to <ref refid="group__xsecure__rsa__server__apis_1ga46a9b687574b01d9a3a33e8e0b6db63e" kindref="member">XSecure_RsaPssSignVerify()</ref>.</para><para>The two workspaces are caller supplied so that a caller which already owns a suitable scratch region, such as the PMC chunk memory used by XilLoader, does not pay for a second copy. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="137">
+        <label>XSecure_RsaPssSignVerifyInput</label>
+        <link refid="struct_x_secure___rsa_pss_sign_verify_input"/>
+        <childnode refid="138" relation="usage">
+          <edgelabel>RsaInstPtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="138">
+        <label>XSecure_Rsa</label>
+        <link refid="struct_x_secure___rsa"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_pss.h" bodystart="47" bodyend="58"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1ad659da86a17eff150a218088980f990a" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>DataBlock</name></member>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1a92e7e39126e272f0c76ecb7ecd55e6b4" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>KeySize</name></member>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1a6350d2599d3e0856bc116e20559bab51" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>MsgHashAddr</name></member>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1a302f1f1909fdffb8462820fcf088a4fe" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>RsaInstPtr</name></member>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1abea2c9d45dd9bf51d3ec8bf497ba4ab0" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>ShaInstPtr</name></member>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1af401675c523af7451c81257653c82c66" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>SignAddr</name></member>
+      <member refid="struct_x_secure___rsa_pss_sign_verify_input_1a82dd9cc57193fd8fc0e9e38782efcf7e" prot="public" virt="non-virtual"><scope>XSecure_RsaPssSignVerifyInput</scope><name>SignedInputData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

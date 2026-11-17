@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xdmaps__example__w__intr_8c.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,31 +100,13 @@ $(document).ready(function(){initNavTree('xdmaps__example__w__intr_8c.html','');
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xdmaps_example_w_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
-</p>
-<hr/>
-<p>
-1.00    hbm    08/19/2010 First Release
-1.01a nm     03/05/2012 Initializing DmaCmd structure compatible to armcc.
-                        Modified base address to secure register base
-                        address.
-1.02a sg     05/16/2012 Some code cleanup and reorganisation of the
-                  functions within the example.
-1.06a kpc    04/24/2012 Modified the APIs to make this file compatible with
-                        peripheral test suite.
-2.1   kpc    08/23/2014 Fixed IAR compiler reported error.
-2.3   ms     01/23/17  Modified xil_printf statement in main function to
-                       ensure that "Successfully ran" and "Failed" strings are
-                       available in all examples. This is a fix for CR-965028.
-2.4   aj     11/07/2023 Add support for system system device tree flow
-</pre> </div><div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
@@ -136,136 +118,60 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xdmaps_8h.html">xdmaps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gab1d51f76ffb12c924a91e942db9111fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gab1d51f76ffb12c924a91e942db9111fc">DMAPS_BASEADDR</a>&#160;&#160;&#160;XPAR_XDMAPS_0_BASEADDR</td></tr>
+<tr class="memdesc:gab1d51f76ffb12c924a91e942db9111fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the DMAPS device.  <a href="group__dmaps.html#gab1d51f76ffb12c924a91e942db9111fc">More...</a><br/></td></tr>
+<tr class="separator:gab1d51f76ffb12c924a91e942db9111fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga909332372f0611229cad7fda9d67125f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga909332372f0611229cad7fda9d67125f">DMA_DONE_INTR_0</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_0</td></tr>
+<tr class="memdesc:ga909332372f0611229cad7fda9d67125f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 0 done interrupt ID.  <a href="group__dmaps.html#ga909332372f0611229cad7fda9d67125f">More...</a><br/></td></tr>
+<tr class="separator:ga909332372f0611229cad7fda9d67125f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga128616a4daee56e33f3ea93ee364bff0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga128616a4daee56e33f3ea93ee364bff0">DMA_DONE_INTR_1</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_1</td></tr>
+<tr class="memdesc:ga128616a4daee56e33f3ea93ee364bff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 1 done interrupt ID.  <a href="group__dmaps.html#ga128616a4daee56e33f3ea93ee364bff0">More...</a><br/></td></tr>
+<tr class="separator:ga128616a4daee56e33f3ea93ee364bff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8ec9e27648e1fd2fb42fe4c28f20ccb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gab8ec9e27648e1fd2fb42fe4c28f20ccb">DMA_DONE_INTR_2</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_2</td></tr>
+<tr class="memdesc:gab8ec9e27648e1fd2fb42fe4c28f20ccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 2 done interrupt ID.  <a href="group__dmaps.html#gab8ec9e27648e1fd2fb42fe4c28f20ccb">More...</a><br/></td></tr>
+<tr class="separator:gab8ec9e27648e1fd2fb42fe4c28f20ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3f46d4135d582977771d852d34c1b0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gae3f46d4135d582977771d852d34c1b0a">DMA_DONE_INTR_3</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_3</td></tr>
+<tr class="memdesc:gae3f46d4135d582977771d852d34c1b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 3 done interrupt ID.  <a href="group__dmaps.html#gae3f46d4135d582977771d852d34c1b0a">More...</a><br/></td></tr>
+<tr class="separator:gae3f46d4135d582977771d852d34c1b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe7c0f92ccd51a6a80407a5b8e6ff58f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gafe7c0f92ccd51a6a80407a5b8e6ff58f">DMA_DONE_INTR_4</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_4</td></tr>
+<tr class="memdesc:gafe7c0f92ccd51a6a80407a5b8e6ff58f"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 4 done interrupt ID.  <a href="group__dmaps.html#gafe7c0f92ccd51a6a80407a5b8e6ff58f">More...</a><br/></td></tr>
+<tr class="separator:gafe7c0f92ccd51a6a80407a5b8e6ff58f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f3609d41d0b20b2c7304896361f4d12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga4f3609d41d0b20b2c7304896361f4d12">DMA_DONE_INTR_5</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_5</td></tr>
+<tr class="memdesc:ga4f3609d41d0b20b2c7304896361f4d12"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 5 done interrupt ID.  <a href="group__dmaps.html#ga4f3609d41d0b20b2c7304896361f4d12">More...</a><br/></td></tr>
+<tr class="separator:ga4f3609d41d0b20b2c7304896361f4d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2419d41d1157e400c9a4dc76fcbc6d56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga2419d41d1157e400c9a4dc76fcbc6d56">DMA_DONE_INTR_6</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_6</td></tr>
+<tr class="memdesc:ga2419d41d1157e400c9a4dc76fcbc6d56"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 6 done interrupt ID.  <a href="group__dmaps.html#ga2419d41d1157e400c9a4dc76fcbc6d56">More...</a><br/></td></tr>
+<tr class="separator:ga2419d41d1157e400c9a4dc76fcbc6d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e32a63199c7648c3e0fdfc2b8c553ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga3e32a63199c7648c3e0fdfc2b8c553ac">DMA_DONE_INTR_7</a>&#160;&#160;&#160;XPAR_XDMAPS_0_DONE_INTR_7</td></tr>
+<tr class="memdesc:ga3e32a63199c7648c3e0fdfc2b8c553ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA channel 7 done interrupt ID.  <a href="group__dmaps.html#ga3e32a63199c7648c3e0fdfc2b8c553ac">More...</a><br/></td></tr>
+<tr class="separator:ga3e32a63199c7648c3e0fdfc2b8c553ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50a81211c3a7503335fccabdb60396da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga50a81211c3a7503335fccabdb60396da">DMA_FAULT_INTR</a>&#160;&#160;&#160;XPAR_XDMAPS_0_FAULT_INTR</td></tr>
+<tr class="memdesc:ga50a81211c3a7503335fccabdb60396da"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA fault interrupt ID.  <a href="group__dmaps.html#ga50a81211c3a7503335fccabdb60396da">More...</a><br/></td></tr>
+<tr class="separator:ga50a81211c3a7503335fccabdb60396da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga193ce02c8f73daaf9e5fda6590c332fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga193ce02c8f73daaf9e5fda6590c332fb">TEST_ROUNDS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga193ce02c8f73daaf9e5fda6590c332fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of loops that the DMA transfers run.  <a href="group__dmaps.html#ga193ce02c8f73daaf9e5fda6590c332fb">More...</a><br/></td></tr>
+<tr class="separator:ga193ce02c8f73daaf9e5fda6590c332fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe550a5ae27006d276a45c6c9c6f89af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gabe550a5ae27006d276a45c6c9c6f89af">DMA_LENGTH</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:gabe550a5ae27006d276a45c6c9c6f89af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the DMA transfers.  <a href="group__dmaps.html#gabe550a5ae27006d276a45c6c9c6f89af">More...</a><br/></td></tr>
+<tr class="separator:gabe550a5ae27006d276a45c6c9c6f89af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1aab8cdd97f4c3cf6efc68d785dbc72a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga1aab8cdd97f4c3cf6efc68d785dbc72a">TIMEOUT_LIMIT</a>&#160;&#160;&#160;0x2000</td></tr>
+<tr class="memdesc:ga1aab8cdd97f4c3cf6efc68d785dbc72a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loop count used for timeout polling.  <a href="group__dmaps.html#ga1aab8cdd97f4c3cf6efc68d785dbc72a">More...</a><br/></td></tr>
+<tr class="separator:ga1aab8cdd97f4c3cf6efc68d785dbc72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af60b7fc382748cf2c2d6d4b246f47b74"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr</a> (<a class="el" href="struct_x_dma_ps.html">XDmaPs</a> *DmapsInstPtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:af60b7fc382748cf2c2d6d4b246f47b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Example to test the DMA.  <a href="#af60b7fc382748cf2c2d6d4b246f47b74">More...</a><br/></td></tr>
-<tr class="separator:af60b7fc382748cf2c2d6d4b246f47b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae324d787c5677fa5cfea243c6af4b752"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmaps__example__w__intr_8c.html#ae324d787c5677fa5cfea243c6af4b752">DmaDoneHandler</a> (unsigned int Channel, <a class="el" href="struct_x_dma_ps___cmd.html">XDmaPs_Cmd</a> *DmaCmd, void *CallbackRef)</td></tr>
-<tr class="memdesc:ae324d787c5677fa5cfea243c6af4b752"><td class="mdescLeft">&#160;</td><td class="mdescRight">DmaDoneHandler.  <a href="#ae324d787c5677fa5cfea243c6af4b752">More...</a><br/></td></tr>
-<tr class="separator:ae324d787c5677fa5cfea243c6af4b752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmaps__example__w__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the DmaPs interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf60b7fc382748cf2c2d6d4b246f47b74"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr</a> (<a class="el" href="struct_x_dma_ps.html">XDmaPs</a> *DmapsInstPtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gaf60b7fc382748cf2c2d6d4b246f47b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupts Example to test the DMA.  <a href="group__dmaps.html#gaf60b7fc382748cf2c2d6d4b246f47b74">More...</a><br/></td></tr>
+<tr class="separator:gaf60b7fc382748cf2c2d6d4b246f47b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae324d787c5677fa5cfea243c6af4b752"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#gae324d787c5677fa5cfea243c6af4b752">DmaDoneHandler</a> (unsigned int Channel, <a class="el" href="struct_x_dma_ps___cmd.html">XDmaPs_Cmd</a> *DmaCmd, void *CallbackRef)</td></tr>
+<tr class="memdesc:gae324d787c5677fa5cfea243c6af4b752"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMAs done callback for the example.  <a href="group__dmaps.html#gae324d787c5677fa5cfea243c6af4b752">More...</a><br/></td></tr>
+<tr class="separator:gae324d787c5677fa5cfea243c6af4b752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mains entry point for the DmaPs interrupt example.  <a href="group__dmaps.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ae324d787c5677fa5cfea243c6af4b752"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DmaDoneHandler </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>Channel</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_x_dma_ps___cmd.html">XDmaPs_Cmd</a> *&#160;</td>
-          <td class="paramname"><em>DmaCmd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallbackRef</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>DmaDoneHandler. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Channel</td><td>is the Channel number. </td></tr>
-    <tr><td class="paramname">DmaCmd</td><td>is the Dma Command. </td></tr>
-    <tr><td class="paramname">CallbackRef</td><td>is the callback reference data.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_dma_ps___cmd.html#a1002d3474d28e67143b5bc3c30f23b95">XDmaPs_Cmd::BD</a>, <a class="el" href="struct_x_dma_ps___b_d.html#a1c8be35d883d27d0f838358712c42dc4">XDmaPs_BD::DstAddr</a>, and <a class="el" href="struct_x_dma_ps___b_d.html#aa9542ecca6c6f359cc8e9c44ad2e276f">XDmaPs_BD::SrcAddr</a>.</p>
-
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This is the main function for the DmaPs interrupt example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xdmaps__example__w__intr_8c.html#af60b7fc382748cf2c2d6d4b246f47b74">XDmaPs_Example_W_Intr()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af60b7fc382748cf2c2d6d4b246f47b74"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XDmaPs_Example_W_Intr </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_dma_ps.html">XDmaPs</a> *&#160;</td>
-          <td class="paramname"><em>DmapsInstPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Interrupt Example to test the DMA. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DmapsInstPtr</td><td>is a pointer to the DMA PS instance. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the DmaPs device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="struct_x_dma_ps___cmd.html#a1002d3474d28e67143b5bc3c30f23b95">XDmaPs_Cmd::BD</a>, <a class="el" href="struct_x_dma_ps___cmd.html#a188b831f0227eb1b2fdca11ba0582d96">XDmaPs_Cmd::ChanCtrl</a>, <a class="el" href="struct_x_dma_ps.html#a45c4061741c55585776f412090ef1667">XDmaPs::Config</a>, <a class="el" href="xdmaps__example__w__intr_8c.html#ae324d787c5677fa5cfea243c6af4b752">DmaDoneHandler()</a>, <a class="el" href="struct_x_dma_ps___b_d.html#a1c8be35d883d27d0f838358712c42dc4">XDmaPs_BD::DstAddr</a>, <a class="el" href="struct_x_dma_ps___chan_ctrl.html#a853e35c04d6373b1c91b4d3b85fd21ab">XDmaPs_ChanCtrl::DstBurstLen</a>, <a class="el" href="struct_x_dma_ps___chan_ctrl.html#a35b7ed4be966942dca1a4732494068e5">XDmaPs_ChanCtrl::DstBurstSize</a>, <a class="el" href="struct_x_dma_ps___chan_ctrl.html#ae02d61b30e6bf2940560c5719cf78ea9">XDmaPs_ChanCtrl::DstInc</a>, <a class="el" href="struct_x_dma_ps___config.html#a3dbd8e46dc71cf0e1a0199ddc5938255">XDmaPs_Config::IntrId</a>, <a class="el" href="struct_x_dma_ps___config.html#a07b95b027e1b7b87335761f529203a36">XDmaPs_Config::IntrParent</a>, <a class="el" href="struct_x_dma_ps___b_d.html#aad07616e4eedd92b727b6c9b99d77ace">XDmaPs_BD::Length</a>, <a class="el" href="struct_x_dma_ps___b_d.html#aa9542ecca6c6f359cc8e9c44ad2e276f">XDmaPs_BD::SrcAddr</a>, <a class="el" href="struct_x_dma_ps___chan_ctrl.html#af1c78aea07f0790355317bd311ebb3ff">XDmaPs_ChanCtrl::SrcBurstLen</a>, <a class="el" href="struct_x_dma_ps___chan_ctrl.html#a17ee9116237a176efec405cb12461288">XDmaPs_ChanCtrl::SrcBurstSize</a>, <a class="el" href="struct_x_dma_ps___chan_ctrl.html#a3585627ef02899b75c5f2f716d3ab52f">XDmaPs_ChanCtrl::SrcInc</a>, <a class="el" href="group__dmaps.html#ga2fed90dfba1ff9f472b40ed492d78b4c">XDmaPs_CfgInitialize()</a>, <a class="el" href="group__dmaps.html#ga20b05e6795a86f3381e6850a0ada0c6d">XDmaPs_DoneISR_0()</a>, <a class="el" href="group__dmaps.html#ga766bb579aeee8b0914fcb258a4057259">XDmaPs_DoneISR_1()</a>, <a class="el" href="group__dmaps.html#gada1623174e9c5bbb4bf247a650987dbd">XDmaPs_DoneISR_2()</a>, <a class="el" href="group__dmaps.html#ga6b98da80d55e109b0cb57a34f9baa5a9">XDmaPs_DoneISR_3()</a>, <a class="el" href="group__dmaps.html#ga1a1f8340c3a0a64e8a2363c5fe752707">XDmaPs_DoneISR_4()</a>, <a class="el" href="group__dmaps.html#gafbb8e861538769798d48350dd885dc65">XDmaPs_DoneISR_5()</a>, <a class="el" href="group__dmaps.html#ga2946a438ecf5fd79ca346254c69ba208">XDmaPs_DoneISR_6()</a>, <a class="el" href="group__dmaps.html#ga42bc1b1e99ac5ea705d1a707f4618fc3">XDmaPs_DoneISR_7()</a>, <a class="el" href="group__dmaps.html#gae1f2b39fb5e2e8d369c3286aeada67be">XDmaPs_FaultISR()</a>, <a class="el" href="group__dmaps.html#ga71854a1c11448fcf36b1b4f0796fd442">XDmaPs_LookupConfig()</a>, <a class="el" href="group__dmaps.html#gaccf32b08856fbe62745a4d0552aa1bff">XDmaPs_SetDoneHandler()</a>, and <a class="el" href="group__dmaps.html#ga3691ba115c788c4f68a05cf05c486eeb">XDmaPs_Start()</a>.</p>
-
-<p>Referenced by <a class="el" href="xdmaps__example__w__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

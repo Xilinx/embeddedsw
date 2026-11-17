@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="127" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a0092f8adfca951f360f264297732acff" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="128" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -43,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="129" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -57,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="130" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___optional_data_info_1a5083a680af3e731db8af73f2722ebaa7" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -71,15 +71,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="131" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure to hold optional data information. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="126" bodyend="132"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="208" bodyend="214"/>
     <listofallmembers>
       <member refid="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>DataId</name></member>
       <member refid="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" prot="public" virt="non-virtual"><scope>XLoader_OptionalDataInfo</scope><name>PdiAddrHigh</name></member>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___hw_pcr_log_1a3db006e8e4655dab8f6c3b163d9ba60f" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_ocp___hw_pcr_log_info" kindref="compound">XOcp_HwPcrLogInfo</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="143" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___hw_pcr_log_1a18189c2759714ab277466237828d1d5c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ocp___hw_pcr_log_1aa117f46c19378ccd1a2b17e9b6f44634" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="145" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -81,7 +81,7 @@
         <link refid="struct_x_ocp___hw_pcr_event"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="141" bodyend="146"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="141" bodyend="146"/>
     <listofallmembers>
       <member refid="struct_x_ocp___hw_pcr_log_1ae53faac2188c2c461e4cbd14edd71db2" prot="public" virt="non-virtual"><scope>XOcp_HwPcrLog</scope><name>Buffer</name></member>
       <member refid="struct_x_ocp___hw_pcr_log_1a18189c2759714ab277466237828d1d5c" prot="public" virt="non-virtual"><scope>XOcp_HwPcrLog</scope><name>HeadIndex</name></member>

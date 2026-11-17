@@ -10,6 +10,24 @@
       <node id="45">
         <label>xil_io.h</label>
       </node>
+      <node id="47">
+        <label>xstatus.h</label>
+      </node>
+      <node id="44">
+        <label>xsdiaud_hw.h</label>
+        <link refid="xsdiaud__hw_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xil_types.h</label>
+      </node>
+      <node id="42">
+        <label>xsdiaud_intr.c</label>
+        <link refid="xsdiaud_intr.c"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
       <node id="43">
         <label>xsdiaud.h</label>
         <link refid="xsdiaud_8h"/>
@@ -20,24 +38,6 @@
         <childnode refid="47" relation="include">
         </childnode>
         <childnode refid="48" relation="include">
-        </childnode>
-      </node>
-      <node id="44">
-        <label>xsdiaud_hw.h</label>
-        <link refid="xsdiaud__hw_8h"/>
-        <childnode refid="45" relation="include">
-        </childnode>
-      </node>
-      <node id="47">
-        <label>xstatus.h</label>
-      </node>
-      <node id="48">
-        <label>xil_types.h</label>
-      </node>
-      <node id="42">
-        <label>xsdiaud_intr.c</label>
-        <link refid="xsdiaud_intr.c"/>
-        <childnode refid="43" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -66,32 +66,32 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_intr.c" bodystart="58" bodyend="197"/>
-        <references refid="struct_x_sdi_aud_1aa392887fe5c17854f21a7f3b58fb21b1" compoundref="xsdiaud_8h" startline="324">XSdiAud::ActiveChannelChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a27fb79de853d8428e254dfbe81197308" compoundref="xsdiaud_8h" startline="326">XSdiAud::ActiveChannelChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a32d8054f30b5bc736979976705cae0b8" compoundref="xsdiaud_8h" startline="344">XSdiAud::AesCsChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1afa60569bfd7b8b9e3ec317dc2c7f0893" compoundref="xsdiaud_8h" startline="346">XSdiAud::AesCsChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1aa6683873b095ab75e8e33699c47bab54" compoundref="xsdiaud_8h" startline="340">XSdiAud::AesCsUpdateDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a37e49d04cf2f4b87a1d91464e4fd468a" compoundref="xsdiaud_8h" startline="342">XSdiAud::AesCsUpdateDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a5548a6b98ae49097450daea15cfdd5f1" compoundref="xsdiaud_8h" startline="332">XSdiAud::AsxChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a92e1da87ab6788508cd0698806e35fb2" compoundref="xsdiaud_8h" startline="334">XSdiAud::AsxChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
-        <references refid="struct_x_sdi_aud_1a9a9677d6047e8f2775c3859931d56567" compoundref="xsdiaud_8h" startline="360">XSdiAud::ChecksumErrDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a1e0752da820379badb8f8563921125a1" compoundref="xsdiaud_8h" startline="362">XSdiAud::ChecksumErrDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
-        <references refid="struct_x_sdi_aud_1ad02253af50e52b94ae988ecc61b22705" compoundref="xsdiaud_8h" startline="352">XSdiAud::FifoOvrflwDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a4a022005a4ea9a08c2d5d9c6e82f0eb3" compoundref="xsdiaud_8h" startline="354">XSdiAud::FifoOvrflwDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a3602c2887a9387e51fc7d42b8074f336" compoundref="xsdiaud_8h" startline="320">XSdiAud::GrpChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1ad7a725641819ad1ca907fb5c0afb1819" compoundref="xsdiaud_8h" startline="322">XSdiAud::GrpChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a6aafb987091e41fa5f5152a89b8dbdd6" compoundref="xsdiaud_8h" startline="314">XSdiAud::IsReady</references>
-        <references refid="struct_x_sdi_aud_1a019b9077df653ca7ebd43524cedf9a1d" compoundref="xsdiaud_8h" startline="356">XSdiAud::ParityErrDetHandler</references>
-        <references refid="struct_x_sdi_aud_1af59230a4bded4cb4c9bd8b361e7b6c9b" compoundref="xsdiaud_8h" startline="358">XSdiAud::ParityErrDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1aa52548326e684990653e2eab156f81b7" compoundref="xsdiaud_8h" startline="328">XSdiAud::SampleRateChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1af8f039701b726c6b17ebe293af64110f" compoundref="xsdiaud_8h" startline="330">XSdiAud::SampleRateChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1ae3285b1d179549df42bc032d3ca9414d" compoundref="xsdiaud_8h" startline="336">XSdiAud::StatChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a6aeed604e54fcee660a7093053488752" compoundref="xsdiaud_8h" startline="338">XSdiAud::StatChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a83f2ed1503a571d7e5f7ab63f1bdca16" compoundref="xsdiaud_8h" startline="348">XSdiAud::VidPropChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a8c41d5ceafa0fe84cf3402b357ce9cc3" compoundref="xsdiaud_8h" startline="350">XSdiAud::VidPropChangeDetHandlerRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_intr.c" bodystart="58" bodyend="197"/>
+        <references refid="struct_x_sdi_aud_1aa392887fe5c17854f21a7f3b58fb21b1" compoundref="xsdiaud_8h" startline="317">XSdiAud::ActiveChannelChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a27fb79de853d8428e254dfbe81197308" compoundref="xsdiaud_8h" startline="319">XSdiAud::ActiveChannelChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a32d8054f30b5bc736979976705cae0b8" compoundref="xsdiaud_8h" startline="337">XSdiAud::AesCsChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1afa60569bfd7b8b9e3ec317dc2c7f0893" compoundref="xsdiaud_8h" startline="339">XSdiAud::AesCsChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1aa6683873b095ab75e8e33699c47bab54" compoundref="xsdiaud_8h" startline="333">XSdiAud::AesCsUpdateDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a37e49d04cf2f4b87a1d91464e4fd468a" compoundref="xsdiaud_8h" startline="335">XSdiAud::AesCsUpdateDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a5548a6b98ae49097450daea15cfdd5f1" compoundref="xsdiaud_8h" startline="325">XSdiAud::AsxChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a92e1da87ab6788508cd0698806e35fb2" compoundref="xsdiaud_8h" startline="327">XSdiAud::AsxChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="291">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1a9a9677d6047e8f2775c3859931d56567" compoundref="xsdiaud_8h" startline="353">XSdiAud::ChecksumErrDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a1e0752da820379badb8f8563921125a1" compoundref="xsdiaud_8h" startline="355">XSdiAud::ChecksumErrDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="311">XSdiAud::Config</references>
+        <references refid="struct_x_sdi_aud_1ad02253af50e52b94ae988ecc61b22705" compoundref="xsdiaud_8h" startline="345">XSdiAud::FifoOvrflwDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a4a022005a4ea9a08c2d5d9c6e82f0eb3" compoundref="xsdiaud_8h" startline="347">XSdiAud::FifoOvrflwDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a3602c2887a9387e51fc7d42b8074f336" compoundref="xsdiaud_8h" startline="313">XSdiAud::GrpChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1ad7a725641819ad1ca907fb5c0afb1819" compoundref="xsdiaud_8h" startline="315">XSdiAud::GrpChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a6aafb987091e41fa5f5152a89b8dbdd6" compoundref="xsdiaud_8h" startline="307">XSdiAud::IsReady</references>
+        <references refid="struct_x_sdi_aud_1a019b9077df653ca7ebd43524cedf9a1d" compoundref="xsdiaud_8h" startline="349">XSdiAud::ParityErrDetHandler</references>
+        <references refid="struct_x_sdi_aud_1af59230a4bded4cb4c9bd8b361e7b6c9b" compoundref="xsdiaud_8h" startline="351">XSdiAud::ParityErrDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1aa52548326e684990653e2eab156f81b7" compoundref="xsdiaud_8h" startline="321">XSdiAud::SampleRateChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1af8f039701b726c6b17ebe293af64110f" compoundref="xsdiaud_8h" startline="323">XSdiAud::SampleRateChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1ae3285b1d179549df42bc032d3ca9414d" compoundref="xsdiaud_8h" startline="329">XSdiAud::StatChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a6aeed604e54fcee660a7093053488752" compoundref="xsdiaud_8h" startline="331">XSdiAud::StatChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a83f2ed1503a571d7e5f7ab63f1bdca16" compoundref="xsdiaud_8h" startline="341">XSdiAud::VidPropChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a8c41d5ceafa0fe84cf3402b357ce9cc3" compoundref="xsdiaud_8h" startline="343">XSdiAud::VidPropChangeDetHandlerRef</references>
         <references refid="group__sdiaud_1ga511ea16bc7c6f769d3b053a4135ca170" compoundref="xsdiaud__hw_8h" startline="287">XSDIAUD_EXT_INT_ST_CERR_MASK</references>
         <references refid="group__sdiaud_1gaefec5aa548f604a2c66ed0e79db5fdba" compoundref="xsdiaud__hw_8h" startline="282">XSDIAUD_EXT_INT_ST_FIFO_OF_MASK</references>
         <references refid="group__sdiaud_1gaa64b08c4abfbb860e47f4bae2be5dd3c" compoundref="xsdiaud__hw_8h" startline="292">XSDIAUD_EXT_INT_ST_PERR_MASK</references>
@@ -176,29 +176,29 @@ HandlerType                               Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_intr.c" bodystart="230" bodyend="302"/>
-        <references refid="struct_x_sdi_aud_1aa392887fe5c17854f21a7f3b58fb21b1" compoundref="xsdiaud_8h" startline="324">XSdiAud::ActiveChannelChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a27fb79de853d8428e254dfbe81197308" compoundref="xsdiaud_8h" startline="326">XSdiAud::ActiveChannelChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a32d8054f30b5bc736979976705cae0b8" compoundref="xsdiaud_8h" startline="344">XSdiAud::AesCsChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1afa60569bfd7b8b9e3ec317dc2c7f0893" compoundref="xsdiaud_8h" startline="346">XSdiAud::AesCsChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1aa6683873b095ab75e8e33699c47bab54" compoundref="xsdiaud_8h" startline="340">XSdiAud::AesCsUpdateDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a37e49d04cf2f4b87a1d91464e4fd468a" compoundref="xsdiaud_8h" startline="342">XSdiAud::AesCsUpdateDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a5548a6b98ae49097450daea15cfdd5f1" compoundref="xsdiaud_8h" startline="332">XSdiAud::AsxChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a92e1da87ab6788508cd0698806e35fb2" compoundref="xsdiaud_8h" startline="334">XSdiAud::AsxChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a9a9677d6047e8f2775c3859931d56567" compoundref="xsdiaud_8h" startline="360">XSdiAud::ChecksumErrDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a1e0752da820379badb8f8563921125a1" compoundref="xsdiaud_8h" startline="362">XSdiAud::ChecksumErrDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1ad02253af50e52b94ae988ecc61b22705" compoundref="xsdiaud_8h" startline="352">XSdiAud::FifoOvrflwDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a4a022005a4ea9a08c2d5d9c6e82f0eb3" compoundref="xsdiaud_8h" startline="354">XSdiAud::FifoOvrflwDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a3602c2887a9387e51fc7d42b8074f336" compoundref="xsdiaud_8h" startline="320">XSdiAud::GrpChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1ad7a725641819ad1ca907fb5c0afb1819" compoundref="xsdiaud_8h" startline="322">XSdiAud::GrpChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a019b9077df653ca7ebd43524cedf9a1d" compoundref="xsdiaud_8h" startline="356">XSdiAud::ParityErrDetHandler</references>
-        <references refid="struct_x_sdi_aud_1af59230a4bded4cb4c9bd8b361e7b6c9b" compoundref="xsdiaud_8h" startline="358">XSdiAud::ParityErrDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1aa52548326e684990653e2eab156f81b7" compoundref="xsdiaud_8h" startline="328">XSdiAud::SampleRateChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1af8f039701b726c6b17ebe293af64110f" compoundref="xsdiaud_8h" startline="330">XSdiAud::SampleRateChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1ae3285b1d179549df42bc032d3ca9414d" compoundref="xsdiaud_8h" startline="336">XSdiAud::StatChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a6aeed604e54fcee660a7093053488752" compoundref="xsdiaud_8h" startline="338">XSdiAud::StatChangeDetHandlerRef</references>
-        <references refid="struct_x_sdi_aud_1a83f2ed1503a571d7e5f7ab63f1bdca16" compoundref="xsdiaud_8h" startline="348">XSdiAud::VidPropChangeDetHandler</references>
-        <references refid="struct_x_sdi_aud_1a8c41d5ceafa0fe84cf3402b357ce9cc3" compoundref="xsdiaud_8h" startline="350">XSdiAud::VidPropChangeDetHandlerRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_intr.c" bodystart="230" bodyend="302"/>
+        <references refid="struct_x_sdi_aud_1aa392887fe5c17854f21a7f3b58fb21b1" compoundref="xsdiaud_8h" startline="317">XSdiAud::ActiveChannelChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a27fb79de853d8428e254dfbe81197308" compoundref="xsdiaud_8h" startline="319">XSdiAud::ActiveChannelChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a32d8054f30b5bc736979976705cae0b8" compoundref="xsdiaud_8h" startline="337">XSdiAud::AesCsChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1afa60569bfd7b8b9e3ec317dc2c7f0893" compoundref="xsdiaud_8h" startline="339">XSdiAud::AesCsChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1aa6683873b095ab75e8e33699c47bab54" compoundref="xsdiaud_8h" startline="333">XSdiAud::AesCsUpdateDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a37e49d04cf2f4b87a1d91464e4fd468a" compoundref="xsdiaud_8h" startline="335">XSdiAud::AesCsUpdateDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a5548a6b98ae49097450daea15cfdd5f1" compoundref="xsdiaud_8h" startline="325">XSdiAud::AsxChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a92e1da87ab6788508cd0698806e35fb2" compoundref="xsdiaud_8h" startline="327">XSdiAud::AsxChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a9a9677d6047e8f2775c3859931d56567" compoundref="xsdiaud_8h" startline="353">XSdiAud::ChecksumErrDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a1e0752da820379badb8f8563921125a1" compoundref="xsdiaud_8h" startline="355">XSdiAud::ChecksumErrDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1ad02253af50e52b94ae988ecc61b22705" compoundref="xsdiaud_8h" startline="345">XSdiAud::FifoOvrflwDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a4a022005a4ea9a08c2d5d9c6e82f0eb3" compoundref="xsdiaud_8h" startline="347">XSdiAud::FifoOvrflwDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a3602c2887a9387e51fc7d42b8074f336" compoundref="xsdiaud_8h" startline="313">XSdiAud::GrpChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1ad7a725641819ad1ca907fb5c0afb1819" compoundref="xsdiaud_8h" startline="315">XSdiAud::GrpChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a019b9077df653ca7ebd43524cedf9a1d" compoundref="xsdiaud_8h" startline="349">XSdiAud::ParityErrDetHandler</references>
+        <references refid="struct_x_sdi_aud_1af59230a4bded4cb4c9bd8b361e7b6c9b" compoundref="xsdiaud_8h" startline="351">XSdiAud::ParityErrDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1aa52548326e684990653e2eab156f81b7" compoundref="xsdiaud_8h" startline="321">XSdiAud::SampleRateChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1af8f039701b726c6b17ebe293af64110f" compoundref="xsdiaud_8h" startline="323">XSdiAud::SampleRateChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1ae3285b1d179549df42bc032d3ca9414d" compoundref="xsdiaud_8h" startline="329">XSdiAud::StatChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a6aeed604e54fcee660a7093053488752" compoundref="xsdiaud_8h" startline="331">XSdiAud::StatChangeDetHandlerRef</references>
+        <references refid="struct_x_sdi_aud_1a83f2ed1503a571d7e5f7ab63f1bdca16" compoundref="xsdiaud_8h" startline="341">XSdiAud::VidPropChangeDetHandler</references>
+        <references refid="struct_x_sdi_aud_1a8c41d5ceafa0fe84cf3402b357ce9cc3" compoundref="xsdiaud_8h" startline="343">XSdiAud::VidPropChangeDetHandlerRef</references>
         <references refid="group__sdiaud_1gga09263448e3500484935cbca24c7d151aa0cd15bc89144ddb65913f59c34bc7bea" compoundref="xsdiaud_8h" startline="60">XSDIAUD_HANDLER_ACT_CH_CHNG_DET</references>
         <references refid="group__sdiaud_1gga09263448e3500484935cbca24c7d151aadd9a319fc79cf63c1d3d78b9d38b28f4" compoundref="xsdiaud_8h" startline="68">XSDIAUD_HANDLER_AES_CS_CHANGE_DET</references>
         <references refid="group__sdiaud_1gga09263448e3500484935cbca24c7d151aa870b14490bd3205dbfc016c03b3b07f4" compoundref="xsdiaud_8h" startline="66">XSDIAUD_HANDLER_AES_CS_UPDATE_DET</references>
@@ -312,7 +312,7 @@ HandlerType                               Callback Function
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_IntrClr(SdiAudPtr,<sp/>XSDIAUD_INT_ST_AUD_STAT_UPDATE_MASK);</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
 <codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>status<sp/>change<sp/>Detected<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SdiAudPtr-&gt;<ref refid="struct_x_sdi_aud_1a6aeed604e54fcee660a7093053488752" kindref="member">StatChangeDetHandlerRef</ref>)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SdiAudPtr-&gt;<ref refid="struct_x_sdi_aud_1ae3285b1d179549df42bc032d3ca9414d" kindref="member">StatChangeDetHandler</ref>)</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiAudPtr-&gt;<ref refid="struct_x_sdi_aud_1ae3285b1d179549df42bc032d3ca9414d" kindref="member">StatChangeDetHandler</ref></highlight></codeline>
 <codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SdiAudPtr-&gt;<ref refid="struct_x_sdi_aud_1a6aeed604e54fcee660a7093053488752" kindref="member">StatChangeDetHandlerRef</ref>);</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -457,6 +457,6 @@ HandlerType                               Callback Function
 <codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="302"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_intr.c"/>
   </compounddef>
 </doxygen>

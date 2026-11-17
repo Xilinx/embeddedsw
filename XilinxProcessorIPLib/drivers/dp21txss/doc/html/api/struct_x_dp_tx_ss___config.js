@@ -1,12 +1,15 @@
 var struct_x_dp_tx_ss___config =
 [
     [ "BaseAddress", "struct_x_dp_tx_ss___config.html#aee6c9866e032c7e70e399bc0dac84aa6", null ],
+    [ "ClkWizSubCore", "struct_x_dp_tx_ss___config.html#af19b6ec768c165a039c6ea559e98b29d", null ],
     [ "DpSubCore", "struct_x_dp_tx_ss___config.html#abe63ec9d971507c261ee11161217c311", null ],
+    [ "DscEn", "struct_x_dp_tx_ss___config.html#a8e89e4fbf9e7389876bc04577c60a6f2", null ],
     [ "DsSubCore", "struct_x_dp_tx_ss___config.html#a2ae00e68896349205660398ddeef71da", null ],
     [ "Hdcp1xSubCore", "struct_x_dp_tx_ss___config.html#a4b0c7545062e1f7beae64e42aed1b2b1", null ],
     [ "Hdcp22Enable", "struct_x_dp_tx_ss___config.html#ac06e81b32301fe7293a495454233ae72", null ],
     [ "Hdcp22SubCore", "struct_x_dp_tx_ss___config.html#afbca1e96da80d229db199252adf40722", null ],
     [ "HdcpEnable", "struct_x_dp_tx_ss___config.html#a6e771d00e3888fe140b0b4ab162c8ae3", null ],
+    [ "IncludeClkWiz", "struct_x_dp_tx_ss___config.html#acb43974f64b7c889d228803c7f5810cd", null ],
     [ "MaxBpc", "struct_x_dp_tx_ss___config.html#aed67743dbd5cfc7d788f6ebf875146e0", null ],
     [ "MaxLaneCount", "struct_x_dp_tx_ss___config.html#a76c53ab2a931220726a76cb0fc26e909", null ],
     [ "MstSupport", "struct_x_dp_tx_ss___config.html#abbbf67cd9c07fcd8b130f1ef48b514cb", null ],

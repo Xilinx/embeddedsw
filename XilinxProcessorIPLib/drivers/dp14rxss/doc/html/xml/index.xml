@@ -762,100 +762,12 @@
     <member refid="group__dprxss_1ga70947ce811ae2951ee6041a42746e8cb" kind="define"><name>XCLK_WIZ_SWRST_OFFSET</name></member>
     <member refid="group__dprxss_1ga444164d752ca312183fe196d91c1ef49" kind="define"><name>XCLK_WIZ_SWRST_VAL</name></member>
     <member refid="group__dprxss_1ga1130a3203681c537950cc8229a696105" kind="define"><name>XCLK_WIZ_STATUS_OFFSET</name></member>
-    <member refid="group__dprxss_1ga54bfc49d1a188b798cb96cfd40a0dc54" kind="define"><name>XCLK_WIZ_ISR_OFFSET</name></member>
-    <member refid="group__dprxss_1gaab5f77647fad82a4c02eb29b8180f89b" kind="define"><name>XCLK_WIZ_IER_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8d853c1eaeeb4b89d06b7de0ff13d999" kind="define"><name>XCLK_WIZ_RECONFIG_OFFSET</name></member>
-    <member refid="group__dprxss_1gabb6785f83c4d1c43944391e8c3b97395" kind="define"><name>XCLK_WIZ_RECONFIG_VAL</name></member>
-    <member refid="group__dprxss_1ga16472d2b7db6445311e7f55befc24288" kind="define"><name>XCLK_WIZ_REG1_OFFSET</name></member>
-    <member refid="group__dprxss_1gab2cc56d1cb816584cc6e38ae9801be20" kind="define"><name>XCLK_WIZ_REG2_OFFSET</name></member>
-    <member refid="group__dprxss_1gaa2093a22445263697e6d75945eb3f3b3" kind="define"><name>XCLK_WIZ_REG3_OFFSET</name></member>
-    <member refid="group__dprxss_1ga38a1af73dd61e339615ff6d772c67bd6" kind="define"><name>XCLK_WIZ_REG4_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8436a4b72c342af56c35f7867729349c" kind="define"><name>XCLK_WIZ_REG12_OFFSET</name></member>
-    <member refid="group__dprxss_1ga48d2a0b4bd2670f13d8eba0ecc12013c" kind="define"><name>XCLK_WIZ_REG13_OFFSET</name></member>
-    <member refid="group__dprxss_1ga33ba12baa3f240e12cd7add43233787f" kind="define"><name>XCLK_WIZ_REG11_OFFSET</name></member>
-    <member refid="group__dprxss_1gafde0de946bdb86cc3c0cb8edf510d582" kind="define"><name>XCLK_WIZ_REG11_VAL</name></member>
-    <member refid="group__dprxss_1ga877e1e65713c2198cba0f8acb1ed8e12" kind="define"><name>XCLK_WIZ_REG14_OFFSET</name></member>
-    <member refid="group__dprxss_1ga4f68d1b6e12be435cc2718724dadeb79" kind="define"><name>XCLK_WIZ_REG14_VAL</name></member>
-    <member refid="group__dprxss_1gaf166739dc153b008e1e348c39bdb7a3a" kind="define"><name>XCLK_WIZ_REG15_OFFSET</name></member>
-    <member refid="group__dprxss_1gaefad0fe92c925b01659954b7d5779889" kind="define"><name>XCLK_WIZ_REG15_VAL</name></member>
-    <member refid="group__dprxss_1gaf1b0fb18434dbf800de1a87a44e87c26" kind="define"><name>XCLK_WIZ_REG16_OFFSET</name></member>
-    <member refid="group__dprxss_1gaaa6136ef5e8a3c226c362b4eec2b1d5d" kind="define"><name>XCLK_WIZ_REG16_VAL</name></member>
-    <member refid="group__dprxss_1ga6bc158a8205cb827773cf79b606e7eb5" kind="define"><name>XCLK_WIZ_REG17_OFFSET</name></member>
-    <member refid="group__dprxss_1gae12b05cbd1ed7a69fb48cf21ccb61009" kind="define"><name>XCLK_WIZ_REG17_VAL</name></member>
-    <member refid="group__dprxss_1ga52ee62bcaae7ccae96c34546aef1e57c" kind="define"><name>XCLK_WIZ_REG19_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8344ad97aac75db9f1529b4f639565f1" kind="define"><name>XCLK_WIZ_REG25_OFFSET</name></member>
-    <member refid="group__dprxss_1ga0b52940d0a236e7c554cd4cf6e6b749c" kind="define"><name>XCLK_WIZ_REG26_OFFSET</name></member>
-    <member refid="group__dprxss_1gafa3f8e5f41b19f8c60c4248bfa85de88" kind="define"><name>XCLK_WIZ_REG26_VAL</name></member>
-    <member refid="group__dprxss_1gab7613a067b800ef40ca87fc4f5de2068" kind="define"><name>XCLK_WIZ_REG2_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaa2afc1a89bb845b7382592da9e61b2bc" kind="define"><name>XCLK_WIZ_REG3_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab5c41036b6d9e7a0e12e23b6458e5a38" kind="define"><name>XCLK_WIZ_REG4_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga59fa6be985caa832f4b078160bc44a49" kind="define"><name>XCLK_WIZ_REG11_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga40e095f988f64d79b3781854bddd677f" kind="define"><name>XCLK_WIZ_REG15_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf10b0bce61740c700ec693d3319fdcfd" kind="define"><name>XCLK_WIZ_REG17_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga8c53d2ec3bbb4433c6003bd533fea3fe" kind="define"><name>XCLK_WIZ_PRIM_L_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga822ccd12273055cf522d5f1296cb1100" kind="define"><name>XCLK_WIZ_PRIM_H_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf49d0eafabb1502f5e60d08c46576990" kind="define"><name>XCLK_WIZ_SEC_L_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gacdf8e91997121c7a97a899cc67602666" kind="define"><name>XCLK_WIZ_SEC_H_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab9ed762fe4d2c848764a5e2abd55ce36" kind="define"><name>XCLK_WIZ_REG2_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gae5821d7c3857939994789ab3919e88be" kind="define"><name>XCLK_WIZ_REG3_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gadc99ed6fc9b985625b28a4380c816154" kind="define"><name>XCLK_WIZ_REG4_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gae6e943374254bcb102f091777dc33653" kind="define"><name>XCLK_WIZ_REG11_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaeffb5a1aabbe603ee547c37f70d7b60f" kind="define"><name>XCLK_WIZ_REG15_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga65b65804b57774f0beb9efec7f760da1" kind="define"><name>XCLK_WIZ_REG17_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaeebd8ddbf537f8bc4488a44460548f2c" kind="define"><name>XCLK_WIZ_PRIM_L_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga5e1f827f9a39f42665cbc13b1483a941" kind="define"><name>XCLK_WIZ_PRIM_H_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga529fcd7a472e39271c8ab08b8bd08aa4" kind="define"><name>XCLK_WIZ_SEC_L_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaa10382d45997b0f6100357fb5a0b82ac" kind="define"><name>XCLK_WIZ_SEC_H_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga944d8f9bf18ed6f4ad7e833295809078" kind="define"><name>XCLK_WIZ_REG2_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga48456002c6f8718154cacf4f104f9b51" kind="define"><name>XCLK_WIZ_REG3_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga5643f01d948e3791c62069ed1ac1d04e" kind="define"><name>XCLK_WIZ_REG4_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf937e0bc1426749f3b8550efe87b8500" kind="define"><name>XCLK_WIZ_REG11_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab440333942359783056d33e0ae256e3b" kind="define"><name>XCLK_WIZ_REG15_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga1701919666050ef9ee47cc8061d2a10e" kind="define"><name>XCLK_WIZ_REG17_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga4cf4c8246f4bb7820ff5ecf7311137e6" kind="define"><name>XCLK_WIZ_PRIM_L_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga705620b2b2a457178cd97a0015a84a56" kind="define"><name>XCLK_WIZ_PRIM_H_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gad634e56168692768e4f9c3b16318ad8c" kind="define"><name>XCLK_WIZ_SEC_L_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaebbef6922f469b2a04140e1c886d113f" kind="define"><name>XCLK_WIZ_SEC_H_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga862a987c7a770e0bc1920a898cc98df6" kind="define"><name>XCLK_WIZ_REG2_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gabe4d736095f3a79bf7312db988d37661" kind="define"><name>XCLK_WIZ_REG3_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab16af124067a332b46b1c32fdc4272ec" kind="define"><name>XCLK_WIZ_REG4_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab88fab12589ac05c21572b78f6a7c439" kind="define"><name>XCLK_WIZ_REG11_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga3f693d35bd4204f76173a54820d188b0" kind="define"><name>XCLK_WIZ_REG15_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga9d3361757f16f66e769616946818a014" kind="define"><name>XCLK_WIZ_REG17_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga61fda3ad2c9b6941316bdc472d993c4d" kind="define"><name>XCLK_WIZ_PRIM_L_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab9b5a5b7d3e454feab3faf43f7fc27bc" kind="define"><name>XCLK_WIZ_PRIM_H_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga66b64726703afa37ca1401145b7d9b90" kind="define"><name>XCLK_WIZ_SEC_L_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf41e18b5f4a1f0f827ca3056438bc806" kind="define"><name>XCLK_WIZ_SEC_H_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga2aa4f4906d0adf01130e806e3dcc29aa" kind="define"><name>XCLK_WIZ_LOCK</name></member>
-    <member refid="group__dprxss_1ga0e335ce1a067f54477c247e74a4dbc3d" kind="define"><name>XCLK_WIZ_REG3_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga9c0c8a7ada27a0cfba39c0f3aa922c7d" kind="define"><name>XCLK_WIZ_REG3_USED</name></member>
-    <member refid="group__dprxss_1ga2ce6c2a6375c78f8b9923d2330941dae" kind="define"><name>XCLK_WIZ_REG3_MX</name></member>
-    <member refid="group__dprxss_1ga92d4bacb8f557d499888a14e1c48b3c9" kind="define"><name>XCLK_WIZ_REG1_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga8162c60bfa65bf8e6856f4ab94845337" kind="define"><name>XCLK_WIZ_REG1_EN</name></member>
-    <member refid="group__dprxss_1ga901c3adb5465cdf153c4b0d1a51e3bd9" kind="define"><name>XCLK_WIZ_REG1_MX</name></member>
-    <member refid="group__dprxss_1gab434cd858b06997f7ac2c8cdbbb5f525" kind="define"><name>XCLK_WIZ_RECONFIG_LOAD</name></member>
-    <member refid="group__dprxss_1ga1c1811b6a3ab2f3c0e824a07b7ea816d" kind="define"><name>XCLK_WIZ_RECONFIG_SADDR</name></member>
-    <member refid="group__dprxss_1ga99acc131620a3cad06a7500f478f5c96" kind="define"><name>XCLK_WIZ_REG1_EDGE_MASK</name></member>
-    <member refid="group__dprxss_1ga26c3e66c06696502f24f013c0da90e55" kind="define"><name>XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT</name></member>
-    <member refid="group__dprxss_1ga5b78de754a5a563c46cc4364b9698488" kind="define"><name>XCLK_WIZ_CLKOUT0_MX_SHIFT</name></member>
-    <member refid="group__dprxss_1gac7482b3e0a5b624637346bee0811515d" kind="define"><name>XCLK_WIZ_CLKOUT0_P5EN_SHIFT</name></member>
-    <member refid="group__dprxss_1gae49b1d691b76f209b89e751b7d091d43" kind="define"><name>XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga142028c206e507df8633d0b91b0ef273" kind="define"><name>XCLK_WIZ_REG12_EDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga23cf060127024ef4335191be20772152" kind="define"><name>M_VAL_405</name></member>
-    <member refid="group__dprxss_1ga94a35f79ea9ed2d4475bbfe0cd04cdfe" kind="define"><name>M_VAL_270</name></member>
-    <member refid="group__dprxss_1ga1615a7767c0fe00c756548fc2f9e7374" kind="define"><name>M_VAL_135</name></member>
-    <member refid="group__dprxss_1gaedba1f30de040f355bbb20c666d8f47d" kind="define"><name>M_VAL_81</name></member>
-    <member refid="group__dprxss_1ga99c1596422064bea1908329d1bdec3bb" kind="define"><name>D_VAL_ALL</name></member>
+    <member refid="group__dprxss_1ga33502171561ee77f48efc61e827f5f24" kind="define"><name>XCLK_WIZ_STATUS_RETRY</name></member>
+    <member refid="group__dprxss_1ga0a3b56808d083d6d950174b4d420f40f" kind="define"><name>XCLK_WIZ_STATUS_WAIT</name></member>
     <member refid="group__dprxss_1ga93fccfe53bc4be926a3bf30d13e2b5a7" kind="variable"><name>GenEdid</name></member>
     <member refid="group__dprxss_1ga30b79fab08cd8919ee8a3fcc0dda374e" kind="variable"><name>GenDpcd</name></member>
     <member refid="group__dprxss_1ga4782f94b06a21af407d9ec50b00754c9" kind="variable"><name>DpRxSsSubCores</name></member>
     <member refid="group__dprxss_1gaae56707fabedb522429bd9789eb0c8de" kind="define"><name>EDID_IIC_ADDRESS</name></member>
-    <member refid="group__dprxss_1gafa2b2cfbe6e272742dcc2e34b6b85e29" kind="define"><name>XCLK_WIZ_PRIM_L_OFFSET</name></member>
-    <member refid="group__dprxss_1gadda287640b316b00c39ee54db353b3a2" kind="define"><name>XCLK_WIZ_PRIM_H_OFFSET</name></member>
-    <member refid="group__dprxss_1ga19db1ef993e47e4cea3ba42457fedbc5" kind="define"><name>XCLK_WIZ_SEC_L_OFFSET</name></member>
-    <member refid="group__dprxss_1ga6e6d247b1bc9ef9a94afba81dd9a410d" kind="define"><name>XCLK_WIZ_SEC_H_OFFSET</name></member>
-    <member refid="group__dprxss_1ga33502171561ee77f48efc61e827f5f24" kind="define"><name>XCLK_WIZ_STATUS_RETRY</name></member>
-    <member refid="group__dprxss_1ga0a3b56808d083d6d950174b4d420f40f" kind="define"><name>XCLK_WIZ_STATUS_WAIT</name></member>
     <member refid="group__dprxss_1ga03794e35db822248ebc0e5cfec70f976" kind="variable"><name>MCDP6000_IC_Rev</name></member>
     <member refid="group__dprxss_1ga9ead444f622d94ab150e0a1139c8fdc8" kind="function"><name>DpRxSs_GetIncludedSubCores</name></member>
     <member refid="group__dprxss_1ga4cd2d7f5b7a007c1c3d4de596fac4dff" kind="function"><name>DpRxSs_PopulateDpRxPorts</name></member>
@@ -863,7 +775,6 @@
     <member refid="group__dprxss_1ga55a4e63db73df0e85134a921110be886" kind="function"><name>StubTp2Callback</name></member>
     <member refid="group__dprxss_1gaf2021369070578ae8e9a7567e69f8267" kind="function"><name>StubUnplugCallback</name></member>
     <member refid="group__dprxss_1gae633eef37e92deb902ca46e3a320e911" kind="function"><name>StubAccessLaneSetCallback</name></member>
-    <member refid="group__dprxss_1gad03501b890cb24be007b01af199f8638" kind="function"><name>XDpRxSs_Set_Dec_Clk</name></member>
     <member refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" kind="function"><name>XDpRxSs_CfgInitialize</name></member>
     <member refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" kind="function"><name>XDpRxSs_Reset</name></member>
     <member refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" kind="function"><name>XDpRxSs_Start</name></member>
@@ -1636,90 +1547,8 @@
     <member refid="group__dprxss_1ga70947ce811ae2951ee6041a42746e8cb" kind="define"><name>XCLK_WIZ_SWRST_OFFSET</name></member>
     <member refid="group__dprxss_1ga444164d752ca312183fe196d91c1ef49" kind="define"><name>XCLK_WIZ_SWRST_VAL</name></member>
     <member refid="group__dprxss_1ga1130a3203681c537950cc8229a696105" kind="define"><name>XCLK_WIZ_STATUS_OFFSET</name></member>
-    <member refid="group__dprxss_1ga54bfc49d1a188b798cb96cfd40a0dc54" kind="define"><name>XCLK_WIZ_ISR_OFFSET</name></member>
-    <member refid="group__dprxss_1gaab5f77647fad82a4c02eb29b8180f89b" kind="define"><name>XCLK_WIZ_IER_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8d853c1eaeeb4b89d06b7de0ff13d999" kind="define"><name>XCLK_WIZ_RECONFIG_OFFSET</name></member>
-    <member refid="group__dprxss_1gabb6785f83c4d1c43944391e8c3b97395" kind="define"><name>XCLK_WIZ_RECONFIG_VAL</name></member>
-    <member refid="group__dprxss_1ga16472d2b7db6445311e7f55befc24288" kind="define"><name>XCLK_WIZ_REG1_OFFSET</name></member>
-    <member refid="group__dprxss_1gab2cc56d1cb816584cc6e38ae9801be20" kind="define"><name>XCLK_WIZ_REG2_OFFSET</name></member>
-    <member refid="group__dprxss_1gaa2093a22445263697e6d75945eb3f3b3" kind="define"><name>XCLK_WIZ_REG3_OFFSET</name></member>
-    <member refid="group__dprxss_1ga38a1af73dd61e339615ff6d772c67bd6" kind="define"><name>XCLK_WIZ_REG4_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8436a4b72c342af56c35f7867729349c" kind="define"><name>XCLK_WIZ_REG12_OFFSET</name></member>
-    <member refid="group__dprxss_1ga48d2a0b4bd2670f13d8eba0ecc12013c" kind="define"><name>XCLK_WIZ_REG13_OFFSET</name></member>
-    <member refid="group__dprxss_1ga33ba12baa3f240e12cd7add43233787f" kind="define"><name>XCLK_WIZ_REG11_OFFSET</name></member>
-    <member refid="group__dprxss_1gafde0de946bdb86cc3c0cb8edf510d582" kind="define"><name>XCLK_WIZ_REG11_VAL</name></member>
-    <member refid="group__dprxss_1ga877e1e65713c2198cba0f8acb1ed8e12" kind="define"><name>XCLK_WIZ_REG14_OFFSET</name></member>
-    <member refid="group__dprxss_1ga4f68d1b6e12be435cc2718724dadeb79" kind="define"><name>XCLK_WIZ_REG14_VAL</name></member>
-    <member refid="group__dprxss_1gaf166739dc153b008e1e348c39bdb7a3a" kind="define"><name>XCLK_WIZ_REG15_OFFSET</name></member>
-    <member refid="group__dprxss_1gaefad0fe92c925b01659954b7d5779889" kind="define"><name>XCLK_WIZ_REG15_VAL</name></member>
-    <member refid="group__dprxss_1gaf1b0fb18434dbf800de1a87a44e87c26" kind="define"><name>XCLK_WIZ_REG16_OFFSET</name></member>
-    <member refid="group__dprxss_1gaaa6136ef5e8a3c226c362b4eec2b1d5d" kind="define"><name>XCLK_WIZ_REG16_VAL</name></member>
-    <member refid="group__dprxss_1ga6bc158a8205cb827773cf79b606e7eb5" kind="define"><name>XCLK_WIZ_REG17_OFFSET</name></member>
-    <member refid="group__dprxss_1gae12b05cbd1ed7a69fb48cf21ccb61009" kind="define"><name>XCLK_WIZ_REG17_VAL</name></member>
-    <member refid="group__dprxss_1ga52ee62bcaae7ccae96c34546aef1e57c" kind="define"><name>XCLK_WIZ_REG19_OFFSET</name></member>
-    <member refid="group__dprxss_1ga8344ad97aac75db9f1529b4f639565f1" kind="define"><name>XCLK_WIZ_REG25_OFFSET</name></member>
-    <member refid="group__dprxss_1ga0b52940d0a236e7c554cd4cf6e6b749c" kind="define"><name>XCLK_WIZ_REG26_OFFSET</name></member>
-    <member refid="group__dprxss_1gafa3f8e5f41b19f8c60c4248bfa85de88" kind="define"><name>XCLK_WIZ_REG26_VAL</name></member>
-    <member refid="group__dprxss_1gab7613a067b800ef40ca87fc4f5de2068" kind="define"><name>XCLK_WIZ_REG2_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaa2afc1a89bb845b7382592da9e61b2bc" kind="define"><name>XCLK_WIZ_REG3_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab5c41036b6d9e7a0e12e23b6458e5a38" kind="define"><name>XCLK_WIZ_REG4_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga59fa6be985caa832f4b078160bc44a49" kind="define"><name>XCLK_WIZ_REG11_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga40e095f988f64d79b3781854bddd677f" kind="define"><name>XCLK_WIZ_REG15_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf10b0bce61740c700ec693d3319fdcfd" kind="define"><name>XCLK_WIZ_REG17_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga8c53d2ec3bbb4433c6003bd533fea3fe" kind="define"><name>XCLK_WIZ_PRIM_L_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga822ccd12273055cf522d5f1296cb1100" kind="define"><name>XCLK_WIZ_PRIM_H_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf49d0eafabb1502f5e60d08c46576990" kind="define"><name>XCLK_WIZ_SEC_L_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gacdf8e91997121c7a97a899cc67602666" kind="define"><name>XCLK_WIZ_SEC_H_810GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab9ed762fe4d2c848764a5e2abd55ce36" kind="define"><name>XCLK_WIZ_REG2_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gae5821d7c3857939994789ab3919e88be" kind="define"><name>XCLK_WIZ_REG3_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gadc99ed6fc9b985625b28a4380c816154" kind="define"><name>XCLK_WIZ_REG4_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gae6e943374254bcb102f091777dc33653" kind="define"><name>XCLK_WIZ_REG11_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaeffb5a1aabbe603ee547c37f70d7b60f" kind="define"><name>XCLK_WIZ_REG15_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga65b65804b57774f0beb9efec7f760da1" kind="define"><name>XCLK_WIZ_REG17_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaeebd8ddbf537f8bc4488a44460548f2c" kind="define"><name>XCLK_WIZ_PRIM_L_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga5e1f827f9a39f42665cbc13b1483a941" kind="define"><name>XCLK_WIZ_PRIM_H_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga529fcd7a472e39271c8ab08b8bd08aa4" kind="define"><name>XCLK_WIZ_SEC_L_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaa10382d45997b0f6100357fb5a0b82ac" kind="define"><name>XCLK_WIZ_SEC_H_540GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga944d8f9bf18ed6f4ad7e833295809078" kind="define"><name>XCLK_WIZ_REG2_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga48456002c6f8718154cacf4f104f9b51" kind="define"><name>XCLK_WIZ_REG3_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga5643f01d948e3791c62069ed1ac1d04e" kind="define"><name>XCLK_WIZ_REG4_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf937e0bc1426749f3b8550efe87b8500" kind="define"><name>XCLK_WIZ_REG11_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab440333942359783056d33e0ae256e3b" kind="define"><name>XCLK_WIZ_REG15_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga1701919666050ef9ee47cc8061d2a10e" kind="define"><name>XCLK_WIZ_REG17_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga4cf4c8246f4bb7820ff5ecf7311137e6" kind="define"><name>XCLK_WIZ_PRIM_L_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga705620b2b2a457178cd97a0015a84a56" kind="define"><name>XCLK_WIZ_PRIM_H_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gad634e56168692768e4f9c3b16318ad8c" kind="define"><name>XCLK_WIZ_SEC_L_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaebbef6922f469b2a04140e1c886d113f" kind="define"><name>XCLK_WIZ_SEC_H_270GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga862a987c7a770e0bc1920a898cc98df6" kind="define"><name>XCLK_WIZ_REG2_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gabe4d736095f3a79bf7312db988d37661" kind="define"><name>XCLK_WIZ_REG3_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab16af124067a332b46b1c32fdc4272ec" kind="define"><name>XCLK_WIZ_REG4_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab88fab12589ac05c21572b78f6a7c439" kind="define"><name>XCLK_WIZ_REG11_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga3f693d35bd4204f76173a54820d188b0" kind="define"><name>XCLK_WIZ_REG15_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga9d3361757f16f66e769616946818a014" kind="define"><name>XCLK_WIZ_REG17_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga61fda3ad2c9b6941316bdc472d993c4d" kind="define"><name>XCLK_WIZ_PRIM_L_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gab9b5a5b7d3e454feab3faf43f7fc27bc" kind="define"><name>XCLK_WIZ_PRIM_H_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga66b64726703afa37ca1401145b7d9b90" kind="define"><name>XCLK_WIZ_SEC_L_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1gaf41e18b5f4a1f0f827ca3056438bc806" kind="define"><name>XCLK_WIZ_SEC_H_162GBPS_CFG_VAL</name></member>
-    <member refid="group__dprxss_1ga2aa4f4906d0adf01130e806e3dcc29aa" kind="define"><name>XCLK_WIZ_LOCK</name></member>
-    <member refid="group__dprxss_1ga0e335ce1a067f54477c247e74a4dbc3d" kind="define"><name>XCLK_WIZ_REG3_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga9c0c8a7ada27a0cfba39c0f3aa922c7d" kind="define"><name>XCLK_WIZ_REG3_USED</name></member>
-    <member refid="group__dprxss_1ga2ce6c2a6375c78f8b9923d2330941dae" kind="define"><name>XCLK_WIZ_REG3_MX</name></member>
-    <member refid="group__dprxss_1ga92d4bacb8f557d499888a14e1c48b3c9" kind="define"><name>XCLK_WIZ_REG1_PREDIV2</name></member>
-    <member refid="group__dprxss_1ga8162c60bfa65bf8e6856f4ab94845337" kind="define"><name>XCLK_WIZ_REG1_EN</name></member>
-    <member refid="group__dprxss_1ga901c3adb5465cdf153c4b0d1a51e3bd9" kind="define"><name>XCLK_WIZ_REG1_MX</name></member>
-    <member refid="group__dprxss_1gab434cd858b06997f7ac2c8cdbbb5f525" kind="define"><name>XCLK_WIZ_RECONFIG_LOAD</name></member>
-    <member refid="group__dprxss_1ga1c1811b6a3ab2f3c0e824a07b7ea816d" kind="define"><name>XCLK_WIZ_RECONFIG_SADDR</name></member>
-    <member refid="group__dprxss_1ga99acc131620a3cad06a7500f478f5c96" kind="define"><name>XCLK_WIZ_REG1_EDGE_MASK</name></member>
-    <member refid="group__dprxss_1ga26c3e66c06696502f24f013c0da90e55" kind="define"><name>XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT</name></member>
-    <member refid="group__dprxss_1ga5b78de754a5a563c46cc4364b9698488" kind="define"><name>XCLK_WIZ_CLKOUT0_MX_SHIFT</name></member>
-    <member refid="group__dprxss_1gac7482b3e0a5b624637346bee0811515d" kind="define"><name>XCLK_WIZ_CLKOUT0_P5EN_SHIFT</name></member>
-    <member refid="group__dprxss_1gae49b1d691b76f209b89e751b7d091d43" kind="define"><name>XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga142028c206e507df8633d0b91b0ef273" kind="define"><name>XCLK_WIZ_REG12_EDGE_SHIFT</name></member>
-    <member refid="group__dprxss_1ga23cf060127024ef4335191be20772152" kind="define"><name>M_VAL_405</name></member>
-    <member refid="group__dprxss_1ga94a35f79ea9ed2d4475bbfe0cd04cdfe" kind="define"><name>M_VAL_270</name></member>
-    <member refid="group__dprxss_1ga1615a7767c0fe00c756548fc2f9e7374" kind="define"><name>M_VAL_135</name></member>
-    <member refid="group__dprxss_1gaedba1f30de040f355bbb20c666d8f47d" kind="define"><name>M_VAL_81</name></member>
-    <member refid="group__dprxss_1ga99c1596422064bea1908329d1bdec3bb" kind="define"><name>D_VAL_ALL</name></member>
+    <member refid="group__dprxss_1ga33502171561ee77f48efc61e827f5f24" kind="define"><name>XCLK_WIZ_STATUS_RETRY</name></member>
+    <member refid="group__dprxss_1ga0a3b56808d083d6d950174b4d420f40f" kind="define"><name>XCLK_WIZ_STATUS_WAIT</name></member>
     <member refid="group__dprxss_1ga93fccfe53bc4be926a3bf30d13e2b5a7" kind="variable"><name>GenEdid</name></member>
     <member refid="group__dprxss_1ga30b79fab08cd8919ee8a3fcc0dda374e" kind="variable"><name>GenDpcd</name></member>
     <member refid="group__dprxss_1ga4782f94b06a21af407d9ec50b00754c9" kind="variable"><name>DpRxSsSubCores</name></member>
@@ -1793,7 +1622,6 @@
     <member refid="group__dprxss_1ga55a4e63db73df0e85134a921110be886" kind="function"><name>StubTp2Callback</name></member>
     <member refid="group__dprxss_1gaf2021369070578ae8e9a7567e69f8267" kind="function"><name>StubUnplugCallback</name></member>
     <member refid="group__dprxss_1gae633eef37e92deb902ca46e3a320e911" kind="function"><name>StubAccessLaneSetCallback</name></member>
-    <member refid="group__dprxss_1gad03501b890cb24be007b01af199f8638" kind="function"><name>XDpRxSs_Set_Dec_Clk</name></member>
     <member refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" kind="function"><name>XDpRxSs_CfgInitialize</name></member>
     <member refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" kind="function"><name>XDpRxSs_Reset</name></member>
     <member refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" kind="function"><name>XDpRxSs_Start</name></member>
@@ -1846,12 +1674,6 @@
     <member refid="group__dprxss_1gadcb896d0709e385a37949c676141f31a" kind="function"><name>XDpRxSs_MCDP6000_BWchange</name></member>
     <member refid="group__dprxss_1ga4970577bafd19eb94bc8490a187892ab" kind="function"><name>XDpRxSs_MCDP6000_AccessLaneSet</name></member>
     <member refid="group__dprxss_1gaae56707fabedb522429bd9789eb0c8de" kind="define"><name>EDID_IIC_ADDRESS</name></member>
-    <member refid="group__dprxss_1gafa2b2cfbe6e272742dcc2e34b6b85e29" kind="define"><name>XCLK_WIZ_PRIM_L_OFFSET</name></member>
-    <member refid="group__dprxss_1gadda287640b316b00c39ee54db353b3a2" kind="define"><name>XCLK_WIZ_PRIM_H_OFFSET</name></member>
-    <member refid="group__dprxss_1ga19db1ef993e47e4cea3ba42457fedbc5" kind="define"><name>XCLK_WIZ_SEC_L_OFFSET</name></member>
-    <member refid="group__dprxss_1ga6e6d247b1bc9ef9a94afba81dd9a410d" kind="define"><name>XCLK_WIZ_SEC_H_OFFSET</name></member>
-    <member refid="group__dprxss_1ga33502171561ee77f48efc61e827f5f24" kind="define"><name>XCLK_WIZ_STATUS_RETRY</name></member>
-    <member refid="group__dprxss_1ga0a3b56808d083d6d950174b4d420f40f" kind="define"><name>XCLK_WIZ_STATUS_WAIT</name></member>
     <member refid="group__dprxss_1ga2abe6f8f3f2b2f72e390c5bd1f2bf05b" kind="define"><name>XDPRXSS_H_</name></member>
     <member refid="group__dprxss_1gafacc99acbea2d401998a9f7f3c1d3a14" kind="define"><name>XDpRxSs_TimerHandler</name></member>
     <member refid="group__dprxss_1ga1f6dc9cb4d881f290c1c85b822e82119" kind="define"><name>XDpRxSs_DtgEnable</name></member>
@@ -1930,31 +1752,31 @@
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>
-  <compound refid="dir_1552216b5436e7a086b58835dce36f23" kind="dir"><name>com</name>
+  <compound refid="dir_4d41ef1759e79e6e43d5edc9d07f31f6" kind="dir"><name>com</name>
   </compound>
-  <compound refid="dir_47cab7ec5cb5e0a7248f978f00897148" kind="dir"><name>dats_dp14</name>
+  <compound refid="dir_e289518c2535c1225726c08a84fb5559" kind="dir"><name>dats_dp14</name>
   </compound>
-  <compound refid="dir_23691fae39d657c36221119512ebc474" kind="dir"><name>dp</name>
+  <compound refid="dir_aff2b7226292b30ba624a8e7cfe16527" kind="dir"><name>dp</name>
   </compound>
-  <compound refid="dir_46bfffaa5340ace3ac97894585a02788" kind="dir"><name>dp14rxss</name>
+  <compound refid="dir_2fefa2d082bc5bab010cfdb6456c9f33" kind="dir"><name>dp14rxss</name>
   </compound>
-  <compound refid="dir_02d1eebf79b8dfce8016bfeead908537" kind="dir"><name>examples</name>
+  <compound refid="dir_f9d0832f4ce9274260a8aad457c6536f" kind="dir"><name>examples</name>
   </compound>
-  <compound refid="dir_e064c88eca74b9f19db648de0048a65f" kind="dir"><name>hdcp1x</name>
+  <compound refid="dir_6029597fb372d4c92b2116c0a73944af" kind="dir"><name>hdcp1x</name>
   </compound>
-  <compound refid="dir_6c2676319984a78f69b728942ea7b32e" kind="dir"><name>hdcp22</name>
+  <compound refid="dir_abaa20b7d2f964297e7f68f6989f9ff3" kind="dir"><name>hdcp22</name>
   </compound>
-  <compound refid="dir_b0a6c3e02836a6e271751daecd8ba5b7" kind="dir"><name>iic</name>
+  <compound refid="dir_988d828b8c037e5ce7c71da12e40222f" kind="dir"><name>iic</name>
   </compound>
-  <compound refid="dir_72f4dd26b2b1800fc462bad83f4b028b" kind="dir"><name>inc</name>
+  <compound refid="dir_bcfad876a272eb3adf1d8e195a7c19a6" kind="dir"><name>inc</name>
   </compound>
-  <compound refid="dir_eb0f55012d0b188bf62fec7d70522c92" kind="dir"><name>key</name>
+  <compound refid="dir_17828b5c6d9081ca1170e1307d670d7e" kind="dir"><name>key</name>
   </compound>
-  <compound refid="dir_fe0efb9d9335919bb06075b48f0927e9" kind="dir"><name>rx_only</name>
+  <compound refid="dir_53ccdc418b6442e72c83973c8dabbe08" kind="dir"><name>rx_only</name>
   </compound>
-  <compound refid="dir_882cadcf8a613e85293f896e0f975318" kind="dir"><name>src</name>
+  <compound refid="dir_b39575a0a1bc68a47608ad016f9f1446" kind="dir"><name>src</name>
   </compound>
-  <compound refid="dir_f0601af6b19d4e144a03a4423140975a" kind="dir"><name>src</name>
+  <compound refid="dir_24d368e10fcfac0c7a35d07c7e22f9e8" kind="dir"><name>src</name>
   </compound>
   <compound refid="indexpage" kind="page"><name>index</name>
   </compound>

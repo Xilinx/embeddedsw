@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxivdma__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,15 +110,12 @@ $(document).ready(function(){initNavTree('xaxivdma__hw_8h.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a5e8b039c263447f0e459c3813e458f5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxivdma__hw_8h.html#a5e8b039c263447f0e459c3813e458f5f">XAXIVDMA_HW_H_</a></td></tr>
+<tr class="memdesc:a5e8b039c263447f0e459c3813e458f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard for the AXI VDMA hardware header.  <a href="#a5e8b039c263447f0e459c3813e458f5f">More...</a><br/></td></tr>
+<tr class="separator:a5e8b039c263447f0e459c3813e458f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaebbb18b57a2957ab4a90b54c4f557fea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaebbb18b57a2957ab4a90b54c4f557fea">XAXIVDMA_MISMATCH_ERROR</a>&#160;&#160;&#160;0x80000010</td></tr>
 <tr class="memdesc:gaebbb18b57a2957ab4a90b54c4f557fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame/Line Mismatch Error This is a typical DMA Internal Error, which on detection does not require a reset (as opposed to other errors).  <a href="group__axivdma.html#gaebbb18b57a2957ab4a90b54c4f557fea">More...</a><br/></td></tr>
 <tr class="separator:gaebbb18b57a2957ab4a90b54c4f557fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac657067221649df8f259f9215bfba75e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gac657067221649df8f259f9215bfba75e">XAxiVdma_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XAxiVdma_In32((BaseAddress) + (RegOffset))</td></tr>
-<tr class="memdesc:gac657067221649df8f259f9215bfba75e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the given register.  <a href="group__axivdma.html#gac657067221649df8f259f9215bfba75e">More...</a><br/></td></tr>
-<tr class="separator:gac657067221649df8f259f9215bfba75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga28900a15d22fc5a3729dfa102f5cbec9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga28900a15d22fc5a3729dfa102f5cbec9">XAxiVdma_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;XAxiVdma_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
-<tr class="memdesc:ga28900a15d22fc5a3729dfa102f5cbec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the given register.  <a href="group__axivdma.html#ga28900a15d22fc5a3729dfa102f5cbec9">More...</a><br/></td></tr>
-<tr class="separator:ga28900a15d22fc5a3729dfa102f5cbec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Buffer Descriptor Alignment</div></td></tr>
 <tr class="memitem:ga6f1b98d0a6280da333bc1a97adea974e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga6f1b98d0a6280da333bc1a97adea974e">XAXIVDMA_BD_MINIMUM_ALIGNMENT</a>&#160;&#160;&#160;0x20</td></tr>
 <tr class="memdesc:ga6f1b98d0a6280da333bc1a97adea974e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum byte alignment requirement for descriptors.  <a href="group__axivdma.html#ga6f1b98d0a6280da333bc1a97adea974e">More...</a><br/></td></tr>
@@ -130,25 +127,25 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga74cbf8945ca6cf9175bac9d7ad21a1bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of the frame store.  <a href="group__axivdma.html#ga74cbf8945ca6cf9175bac9d7ad21a1bf">More...</a><br/></td></tr>
 <tr class="separator:ga74cbf8945ca6cf9175bac9d7ad21a1bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed6082e7154b873435b6e0cbd6f7bf03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaed6082e7154b873435b6e0cbd6f7bf03">XAXIVDMA_MAX_FRAMESTORE_64</a>&#160;&#160;&#160;16</td></tr>
-<tr class="memdesc:gaed6082e7154b873435b6e0cbd6f7bf03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum # of the frame store for 64 bit.  <a href="group__axivdma.html#gaed6082e7154b873435b6e0cbd6f7bf03">More...</a><br/></td></tr>
+<tr class="memdesc:gaed6082e7154b873435b6e0cbd6f7bf03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum # of the frame store for 64-bit.  <a href="group__axivdma.html#gaed6082e7154b873435b6e0cbd6f7bf03">More...</a><br/></td></tr>
 <tr class="separator:gaed6082e7154b873435b6e0cbd6f7bf03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Maximum transfer length</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>This is determined by hardware </p>
+<tr><td colspan="2"><div class="groupText"><p>This is determined by hardware. </p>
 </div></td></tr>
-<tr class="memitem:ga675991fc9f37eb104afcd1b6e785a5c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga675991fc9f37eb104afcd1b6e785a5c3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_MAX_VSIZE</b>&#160;&#160;&#160;0x1FFF  /* Max vertical size, 8K */</td></tr>
+<tr class="memitem:ga675991fc9f37eb104afcd1b6e785a5c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga675991fc9f37eb104afcd1b6e785a5c3">XAXIVDMA_MAX_VSIZE</a>&#160;&#160;&#160;0x1FFF</td></tr>
+<tr class="memdesc:ga675991fc9f37eb104afcd1b6e785a5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum vertical size (8K).  <a href="group__axivdma.html#ga675991fc9f37eb104afcd1b6e785a5c3">More...</a><br/></td></tr>
 <tr class="separator:ga675991fc9f37eb104afcd1b6e785a5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7ca61fa345c760ec0532c209c8cc06bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7ca61fa345c760ec0532c209c8cc06bd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_MAX_HSIZE</b>&#160;&#160;&#160;0xFFFF  /* Max horizontal size, 64K */</td></tr>
+<tr class="memitem:ga7ca61fa345c760ec0532c209c8cc06bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga7ca61fa345c760ec0532c209c8cc06bd">XAXIVDMA_MAX_HSIZE</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:ga7ca61fa345c760ec0532c209c8cc06bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum horizontal size (64K).  <a href="group__axivdma.html#ga7ca61fa345c760ec0532c209c8cc06bd">More...</a><br/></td></tr>
 <tr class="separator:ga7ca61fa345c760ec0532c209c8cc06bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga243cc3f529218b3edbc954d43cf02c3e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga243cc3f529218b3edbc954d43cf02c3e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_MAX_STRIDE</b>&#160;&#160;&#160;0xFFFF  /* Max stride size, 64K */</td></tr>
+<tr class="memitem:ga243cc3f529218b3edbc954d43cf02c3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga243cc3f529218b3edbc954d43cf02c3e">XAXIVDMA_MAX_STRIDE</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:ga243cc3f529218b3edbc954d43cf02c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum stride size (64K).  <a href="group__axivdma.html#ga243cc3f529218b3edbc954d43cf02c3e">More...</a><br/></td></tr>
 <tr class="separator:ga243cc3f529218b3edbc954d43cf02c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaecab8ebcc9f83abc6b88289fb11b9440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaecab8ebcc9f83abc6b88289fb11b9440">XAXIVDMA_FRMDLY_MAX</a>&#160;&#160;&#160;0xF</td></tr>
 <tr class="memdesc:gaecab8ebcc9f83abc6b88289fb11b9440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum frame delay.  <a href="group__axivdma.html#gaecab8ebcc9f83abc6b88289fb11b9440">More...</a><br/></td></tr>
 <tr class="separator:gaecab8ebcc9f83abc6b88289fb11b9440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Device registers</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Register sets on TX (Read) and RX (Write) channels are identical</p>
+<tr><td colspan="2"><div class="groupText"><p>Register sets on TX (Read) and RX (Write) channels are identical.</p>
 <p>The version register is shared by both channels </p>
 </div></td></tr>
 <tr class="memitem:gae1497f30a25302cb0f4ec93a16a23100"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gae1497f30a25302cb0f4ec93a16a23100">XAXIVDMA_TX_OFFSET</a>&#160;&#160;&#160;0x00000000</td></tr>
@@ -317,11 +314,11 @@ Macros</h2></td></tr>
 <tr class="memitem:gad0d12f32fff3037d4b1316350e02fef6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gad0d12f32fff3037d4b1316350e02fef6">XAXIVDMA_REGINDEX_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
 <tr class="memdesc:gad0d12f32fff3037d4b1316350e02fef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register Index.  <a href="group__axivdma.html#gad0d12f32fff3037d4b1316350e02fef6">More...</a><br/></td></tr>
 <tr class="separator:gad0d12f32fff3037d4b1316350e02fef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadbbf73e481e88de57b05b66a7b2953be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gadbbf73e481e88de57b05b66a7b2953be"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_DELAY_SHIFT</b>&#160;&#160;&#160;24</td></tr>
+<tr class="memitem:gadbbf73e481e88de57b05b66a7b2953be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gadbbf73e481e88de57b05b66a7b2953be">XAXIVDMA_DELAY_SHIFT</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:gadbbf73e481e88de57b05b66a7b2953be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for delay timeout counter.  <a href="group__axivdma.html#gadbbf73e481e88de57b05b66a7b2953be">More...</a><br/></td></tr>
 <tr class="separator:gadbbf73e481e88de57b05b66a7b2953be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa1327862b7b357444edd2fb689247f06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaa1327862b7b357444edd2fb689247f06"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_FRMCNT_SHIFT</b>&#160;&#160;&#160;16</td></tr>
+<tr class="memitem:gaa1327862b7b357444edd2fb689247f06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaa1327862b7b357444edd2fb689247f06">XAXIVDMA_FRMCNT_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gaa1327862b7b357444edd2fb689247f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for frame counter.  <a href="group__axivdma.html#gaa1327862b7b357444edd2fb689247f06">More...</a><br/></td></tr>
 <tr class="separator:gaa1327862b7b357444edd2fb689247f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmask for the XAXIVDMA_CDESC_OFFSET register</div></td></tr>
 <tr class="memitem:gac6d688599e8a9ffdf9c45bd7789f58cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gac6d688599e8a9ffdf9c45bd7789f58cc">XAXIVDMA_CDESC_CURBD_MASK</a>&#160;&#160;&#160;0xFFFFFFE0</td></tr>
@@ -332,8 +329,8 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaa47b0fa02c5e8f984bc17bf18cd379ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">BD to stop on.  <a href="group__axivdma.html#gaa47b0fa02c5e8f984bc17bf18cd379ce">More...</a><br/></td></tr>
 <tr class="separator:gaa47b0fa02c5e8f984bc17bf18cd379ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmask for XAXIVDMA_FRMSTORE_OFFSET register</div></td></tr>
-<tr class="memitem:ga8391dd8e6cc064bdc591d311b25b0c3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8391dd8e6cc064bdc591d311b25b0c3c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_FRMSTORE_MASK</b>&#160;&#160;&#160;0x0000003F</td></tr>
+<tr class="memitem:ga8391dd8e6cc064bdc591d311b25b0c3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga8391dd8e6cc064bdc591d311b25b0c3c">XAXIVDMA_FRMSTORE_MASK</a>&#160;&#160;&#160;0x0000003F</td></tr>
+<tr class="memdesc:ga8391dd8e6cc064bdc591d311b25b0c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame store count mask.  <a href="group__axivdma.html#ga8391dd8e6cc064bdc591d311b25b0c3c">More...</a><br/></td></tr>
 <tr class="separator:ga8391dd8e6cc064bdc591d311b25b0c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmask for XAXIVDMA_PARKPTR_OFFSET register</div></td></tr>
 <tr class="memitem:ga39001a9b8ae972fc53463961ca423ac1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga39001a9b8ae972fc53463961ca423ac1">XAXIVDMA_PARKPTR_READREF_MASK</a>&#160;&#160;&#160;0x0000001F</td></tr>
@@ -348,17 +345,17 @@ Macros</h2></td></tr>
 <tr class="memitem:gafdf5ab4a765d1ed93a697b276d832b7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gafdf5ab4a765d1ed93a697b276d832b7d">XAXIVDMA_PARKPTR_WRTSTR_MASK</a>&#160;&#160;&#160;0x1F000000</td></tr>
 <tr class="memdesc:gafdf5ab4a765d1ed93a697b276d832b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current write frame.  <a href="group__axivdma.html#gafdf5ab4a765d1ed93a697b276d832b7d">More...</a><br/></td></tr>
 <tr class="separator:gafdf5ab4a765d1ed93a697b276d832b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e834922f62a7d5d10e10936acf42b7c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga0e834922f62a7d5d10e10936acf42b7c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_READREF_SHIFT</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:ga0e834922f62a7d5d10e10936acf42b7c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga0e834922f62a7d5d10e10936acf42b7c">XAXIVDMA_READREF_SHIFT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga0e834922f62a7d5d10e10936acf42b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for read park frame.  <a href="group__axivdma.html#ga0e834922f62a7d5d10e10936acf42b7c">More...</a><br/></td></tr>
 <tr class="separator:ga0e834922f62a7d5d10e10936acf42b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8a3db8b7c54d3a33cf2856d04e8d3bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf8a3db8b7c54d3a33cf2856d04e8d3bd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_WRTREF_SHIFT</b>&#160;&#160;&#160;8</td></tr>
+<tr class="memitem:gaf8a3db8b7c54d3a33cf2856d04e8d3bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaf8a3db8b7c54d3a33cf2856d04e8d3bd">XAXIVDMA_WRTREF_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:gaf8a3db8b7c54d3a33cf2856d04e8d3bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for write park frame.  <a href="group__axivdma.html#gaf8a3db8b7c54d3a33cf2856d04e8d3bd">More...</a><br/></td></tr>
 <tr class="separator:gaf8a3db8b7c54d3a33cf2856d04e8d3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5bcf9c65743d7dddf7025d7f2eeb2d70"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5bcf9c65743d7dddf7025d7f2eeb2d70"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_READSTR_SHIFT</b>&#160;&#160;&#160;16</td></tr>
+<tr class="memitem:ga5bcf9c65743d7dddf7025d7f2eeb2d70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga5bcf9c65743d7dddf7025d7f2eeb2d70">XAXIVDMA_READSTR_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga5bcf9c65743d7dddf7025d7f2eeb2d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for current read frame.  <a href="group__axivdma.html#ga5bcf9c65743d7dddf7025d7f2eeb2d70">More...</a><br/></td></tr>
 <tr class="separator:ga5bcf9c65743d7dddf7025d7f2eeb2d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga76a20e94c018639a564b71ec3c34dbe7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga76a20e94c018639a564b71ec3c34dbe7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_WRTSTR_SHIFT</b>&#160;&#160;&#160;24</td></tr>
+<tr class="memitem:ga76a20e94c018639a564b71ec3c34dbe7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga76a20e94c018639a564b71ec3c34dbe7">XAXIVDMA_WRTSTR_SHIFT</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:ga76a20e94c018639a564b71ec3c34dbe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for current write frame.  <a href="group__axivdma.html#ga76a20e94c018639a564b71ec3c34dbe7">More...</a><br/></td></tr>
 <tr class="separator:ga76a20e94c018639a564b71ec3c34dbe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7e274c9f02af4538043f757c3e224a91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga7e274c9f02af4538043f757c3e224a91">XAXIVDMA_FRM_MAX</a>&#160;&#160;&#160;0xF</td></tr>
 <tr class="memdesc:ga7e274c9f02af4538043f757c3e224a91"><td class="mdescLeft">&#160;</td><td class="mdescRight">At most 16 frames.  <a href="group__axivdma.html#ga7e274c9f02af4538043f757c3e224a91">More...</a><br/></td></tr>
@@ -373,11 +370,11 @@ Macros</h2></td></tr>
 <tr class="memitem:gae651c29e871bbdd802cecc9fb45948b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gae651c29e871bbdd802cecc9fb45948b3">XAXIVDMA_VERSION_REV_MASK</a>&#160;&#160;&#160;0x000F0000</td></tr>
 <tr class="memdesc:gae651c29e871bbdd802cecc9fb45948b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revision letter.  <a href="group__axivdma.html#gae651c29e871bbdd802cecc9fb45948b3">More...</a><br/></td></tr>
 <tr class="separator:gae651c29e871bbdd802cecc9fb45948b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7394eb6e7fe9e801acb30d4d776e7062"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7394eb6e7fe9e801acb30d4d776e7062"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_VERSION_MAJOR_SHIFT</b>&#160;&#160;&#160;28</td></tr>
+<tr class="memitem:ga7394eb6e7fe9e801acb30d4d776e7062"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga7394eb6e7fe9e801acb30d4d776e7062">XAXIVDMA_VERSION_MAJOR_SHIFT</a>&#160;&#160;&#160;28</td></tr>
+<tr class="memdesc:ga7394eb6e7fe9e801acb30d4d776e7062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for major version.  <a href="group__axivdma.html#ga7394eb6e7fe9e801acb30d4d776e7062">More...</a><br/></td></tr>
 <tr class="separator:ga7394eb6e7fe9e801acb30d4d776e7062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7250fc83efc10927472e1dadf80295ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7250fc83efc10927472e1dadf80295ea"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XAXIVDMA_VERSION_MINOR_SHIFT</b>&#160;&#160;&#160;20</td></tr>
+<tr class="memitem:ga7250fc83efc10927472e1dadf80295ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga7250fc83efc10927472e1dadf80295ea">XAXIVDMA_VERSION_MINOR_SHIFT</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga7250fc83efc10927472e1dadf80295ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit shift for minor version.  <a href="group__axivdma.html#ga7250fc83efc10927472e1dadf80295ea">More...</a><br/></td></tr>
 <tr class="separator:ga7250fc83efc10927472e1dadf80295ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Bitmask for XAXIVDMA_S2MM_IRQ_MASK_OFFSET register</div></td></tr>
 <tr class="memitem:ga35e5cf93415d4b0f1973af8fca40bec6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga35e5cf93415d4b0f1973af8fca40bec6">XAXIVDMA_S2MM_IRQ_FSZLESS_SOF_ERLY_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
@@ -437,6 +434,21 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga80f15b7cc612ff34dfa70ef2a5283fbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip next ptr when clearing.  <a href="group__axivdma.html#ga80f15b7cc612ff34dfa70ef2a5283fbd">More...</a><br/></td></tr>
 <tr class="separator:ga80f15b7cc612ff34dfa70ef2a5283fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a5e8b039c263447f0e459c3813e458f5f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XAXIVDMA_HW_H_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard for the AXI VDMA hardware header. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

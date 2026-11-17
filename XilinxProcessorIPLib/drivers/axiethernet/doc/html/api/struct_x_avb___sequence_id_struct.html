@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_avb___sequence_id_struct.html
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef defines the format for a data structure which stores the last used sequence ID for all of the PTP timing frames.
+<p>Defines the format for a data structure which stores the last.
  <a href="struct_x_avb___sequence_id_struct.html#details">More...</a></p>
 
 <p><code>#include &lt;xavb.h&gt;</code></p>
@@ -136,14 +136,15 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:ad3a2d748388270eebdc20ae8d419f4d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">SequenceId of the latest RX'd PDelayRespFollowUp message.  <a href="#ad3a2d748388270eebdc20ae8d419f4d9">More...</a><br/></td></tr>
 <tr class="separator:ad3a2d748388270eebdc20ae8d419f4d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6905c062e37474a276a80955ebe565b5"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_avb___sequence_id_struct.html#a6905c062e37474a276a80955ebe565b5">OldSyncSequenceId</a></td></tr>
-<tr class="memdesc:a6905c062e37474a276a80955ebe565b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">SequenceId of the previous RX'd Sync message used for <a class="el" href="xavb_8h.html#ada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a> calculations.  <a href="#a6905c062e37474a276a80955ebe565b5">More...</a><br/></td></tr>
+<tr class="memdesc:a6905c062e37474a276a80955ebe565b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">SequenceId of the previous RX'd Sync message used for <a class="el" href="group__axiethernet.html#gada9dd75eb576b0e600686514fbea45e3" title="Updates the RTC increment rate based on measured sync timing error. ">XAvb_UpdateRtcIncrement()</a> calculations.  <a href="#a6905c062e37474a276a80955ebe565b5">More...</a><br/></td></tr>
 <tr class="separator:a6905c062e37474a276a80955ebe565b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a689e9f68ca62fd5f25c4ba60be3419cc"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_avb___sequence_id_struct.html#a689e9f68ca62fd5f25c4ba60be3419cc">NewSyncSequenceId</a></td></tr>
-<tr class="memdesc:a689e9f68ca62fd5f25c4ba60be3419cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">SequenceId of the current RX'd Sync message used for <a class="el" href="xavb_8h.html#ada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a> calculations.  <a href="#a689e9f68ca62fd5f25c4ba60be3419cc">More...</a><br/></td></tr>
+<tr class="memdesc:a689e9f68ca62fd5f25c4ba60be3419cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">SequenceId of the current RX'd Sync message used for <a class="el" href="group__axiethernet.html#gada9dd75eb576b0e600686514fbea45e3" title="Updates the RTC increment rate based on measured sync timing error. ">XAvb_UpdateRtcIncrement()</a> calculations.  <a href="#a689e9f68ca62fd5f25c4ba60be3419cc">More...</a><br/></td></tr>
 <tr class="separator:a689e9f68ca62fd5f25c4ba60be3419cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef defines the format for a data structure which stores the last used sequence ID for all of the PTP timing frames. </p>
+<div class="textblock"><p>Defines the format for a data structure which stores the last. </p>
+<p>used sequence ID for all of the PTP timing frames. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a518f0eba3028ced57a8b6824df25692a"></a>
 <div class="memitem">
@@ -157,7 +158,7 @@ Data Fields</h2></td></tr>
 
 <p>SequenceId of the latest RX'd FollowUp message. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#afb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gafb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>.</p>
 
 </div>
 </div>
@@ -171,9 +172,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>SequenceId of the current RX'd Sync message used for <a class="el" href="xavb_8h.html#ada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a> calculations. </p>
+<p>SequenceId of the current RX'd Sync message used for <a class="el" href="group__axiethernet.html#gada9dd75eb576b0e600686514fbea45e3" title="Updates the RTC increment rate based on measured sync timing error. ">XAvb_UpdateRtcIncrement()</a> calculations. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#afb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>, and <a class="el" href="xavb_8h.html#ada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gafb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>, and <a class="el" href="group__axiethernet.html#gada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a>.</p>
 
 </div>
 </div>
@@ -187,9 +188,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>SequenceId of the previous RX'd Sync message used for <a class="el" href="xavb_8h.html#ada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a> calculations. </p>
+<p>SequenceId of the previous RX'd Sync message used for <a class="el" href="group__axiethernet.html#gada9dd75eb576b0e600686514fbea45e3" title="Updates the RTC increment rate based on measured sync timing error. ">XAvb_UpdateRtcIncrement()</a> calculations. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#afb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>, and <a class="el" href="xavb_8h.html#ada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gafb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>, and <a class="el" href="group__axiethernet.html#gada9dd75eb576b0e600686514fbea45e3">XAvb_UpdateRtcIncrement()</a>.</p>
 
 </div>
 </div>
@@ -205,7 +206,7 @@ Data Fields</h2></td></tr>
 
 <p>SequenceId of the latest RX'd PDelayRespFollowUp message. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#afd53beaf90143fc360dc6276ba1c49f9">XAvb_DecodeRxPDelayRespFollowUp()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gafd53beaf90143fc360dc6276ba1c49f9">XAvb_DecodeRxPDelayRespFollowUp()</a>.</p>
 
 </div>
 </div>
@@ -221,7 +222,7 @@ Data Fields</h2></td></tr>
 
 <p>SequenceId of the latest TX'd PDelayReq message. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#acc5beb09f67f655b7eb8eb51b3cd2d8a">XAvb_DecodeRxPDelayResp()</a>, and <a class="el" href="xavb__ptp__packets_8c.html#a2e3f462007beb73497bbded566d7f364">XAvb_SendPDelayReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gacc5beb09f67f655b7eb8eb51b3cd2d8a">XAvb_DecodeRxPDelayResp()</a>, and <a class="el" href="group__axiethernet.html#ga2e3f462007beb73497bbded566d7f364">XAvb_SendPDelayReq()</a>.</p>
 
 </div>
 </div>
@@ -237,7 +238,7 @@ Data Fields</h2></td></tr>
 
 <p>SequenceId of the latest RX'd PDelayResp message. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#acc5beb09f67f655b7eb8eb51b3cd2d8a">XAvb_DecodeRxPDelayResp()</a>, and <a class="el" href="xavb__ptp__packets_8c.html#afd53beaf90143fc360dc6276ba1c49f9">XAvb_DecodeRxPDelayRespFollowUp()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gacc5beb09f67f655b7eb8eb51b3cd2d8a">XAvb_DecodeRxPDelayResp()</a>, and <a class="el" href="group__axiethernet.html#gafd53beaf90143fc360dc6276ba1c49f9">XAvb_DecodeRxPDelayRespFollowUp()</a>.</p>
 
 </div>
 </div>
@@ -253,7 +254,7 @@ Data Fields</h2></td></tr>
 
 <p>SequenceId of the latest RX'd Sync message. </p>
 
-<p>Referenced by <a class="el" href="xavb__ptp__packets_8c.html#afb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>, and <a class="el" href="xavb__ptp__packets_8c.html#a3ed6d94f92c94a88dce9444e8a27fe8a">XAvb_DecodeRxSync()</a>.</p>
+<p>Referenced by <a class="el" href="group__axiethernet.html#gafb8650c4c94082dc746db9ec0259e1cb">XAvb_DecodeRxFollowUp()</a>, and <a class="el" href="group__axiethernet.html#ga3ed6d94f92c94a88dce9444e8a27fe8a">XAvb_DecodeRxSync()</a>.</p>
 
 </div>
 </div>

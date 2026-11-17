@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___core" kind="struct" prot="public">
+    <compoundname>XPm_Core</compoundname>
+    <includes local="no">xpm_core.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___core_1a39627620bcb34a46ff5aa06165d2baa7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref></type>
+        <definition>XPm_Device XPm_Core::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___core_1a00f8dabcee93ed95afe5f620e507daa9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Core::SleepMask</definition>
+        <argsstring></argsstring>
+        <name>SleepMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___core_1af0e76c623593d07e8c4426289669bf52" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Core::WakeUpMask</definition>
+        <argsstring></argsstring>
+        <name>WakeUpMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___core_1acaee99ea59da96cbc8bc6bfea4423808" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Core::PwrDwnMask</definition>
+        <argsstring></argsstring>
+        <name>PwrDwnMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___core_1ac1d2910bb37f05e4681ad3b3ad602bc8" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPm_Core::ResumeAddr</definition>
+        <argsstring></argsstring>
+        <name>ResumeAddr</name>
+        <briefdescription>
+<para>Core resume address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___core_1a7e2cf3c3e99a34f046c0933b1df4f0b4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Core::isCoreUp</definition>
+        <argsstring></argsstring>
+        <name>isCoreUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The processor core class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all processor cores. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="99">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="97" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="98" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="96">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="97" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="98" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="100" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="100">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="101" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="100" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="101">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="97" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="100" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="98">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="99" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="98" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="97">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="95">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_core.h" bodystart="30" bodyend="37"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___core_1a39627620bcb34a46ff5aa06165d2baa7" prot="public" virt="non-virtual"><scope>XPm_Core</scope><name>Device</name></member>
+      <member refid="struct_x_pm___core_1a7e2cf3c3e99a34f046c0933b1df4f0b4" prot="public" virt="non-virtual"><scope>XPm_Core</scope><name>isCoreUp</name></member>
+      <member refid="struct_x_pm___core_1acaee99ea59da96cbc8bc6bfea4423808" prot="public" virt="non-virtual"><scope>XPm_Core</scope><name>PwrDwnMask</name></member>
+      <member refid="struct_x_pm___core_1ac1d2910bb37f05e4681ad3b3ad602bc8" prot="public" virt="non-virtual"><scope>XPm_Core</scope><name>ResumeAddr</name></member>
+      <member refid="struct_x_pm___core_1a00f8dabcee93ed95afe5f620e507daa9" prot="public" virt="non-virtual"><scope>XPm_Core</scope><name>SleepMask</name></member>
+      <member refid="struct_x_pm___core_1af0e76c623593d07e8c4426289669bf52" prot="public" virt="non-virtual"><scope>XPm_Core</scope><name>WakeUpMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

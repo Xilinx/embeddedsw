@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="189" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -29,11 +29,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="191" bodyend="-1"/>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
-        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="123" endline="148">DsiTxSs_SelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
+        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="115" endline="140">DsiTxSs_SelfTestExample</referencedby>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
-        <referencedby refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" compoundref="xdsitxss_8c" startline="119" endline="164">XDsiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" compoundref="xdsitxss_8c" startline="112" endline="159">XDsiTxSs_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1ad5bca47e3d8c2b12165513646ecb2a04" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="194" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a577c288549941ba5f8278307b62f1377" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="196" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1ae486561e1280ecbae8d0eed9899e897a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="197" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="187" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a5a11c849e71447b1fb262c771e62b705" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="198" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="188" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="200" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -112,7 +112,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="201" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a3b36814b5678d9b1afb98454324e05a5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsiTxSs_Config::EnEscMode</definition>
+        <argsstring></argsstring>
+        <name>EnEscMode</name>
+        <briefdescription>
+<para>Escape mode (LPDT/ULPS) logic present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" compoundref="xdsitxss_8c" startline="356" endline="362">XDsiTxSs_IsEscModeEnabled</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a51f7855b03e97c7106fed916fa842e72" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -125,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="202" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -139,8 +153,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="203" bodyend="-1"/>
-        <referencedby refid="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" compoundref="xdsitxss_8c" startline="248" endline="260">XDsiTxSs_Reset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" compoundref="xdsitxss_8c" startline="243" endline="255">XDsiTxSs_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" prot="public" static="no" mutable="no">
         <type><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref></type>
@@ -153,8 +167,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="205" bodyend="-1"/>
-        <referencedby refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" compoundref="xdsitxss_8c" startline="272" endline="310">XDsiTxSs_ReportCoreInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" compoundref="xdsitxss_8c" startline="267" endline="305">XDsiTxSs_ReportCoreInfo</referencedby>
         <referencedby refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" compoundref="xdsitxss__selftest_8c" startline="64" endline="98">XDsiTxSs_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1ae37e75593d8c004c2a745b25a503f9c4" prot="public" static="no" mutable="no">
@@ -168,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="206" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="197" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a86997b57eb7c101ccd50e8a2457a0e3b" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -181,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="208" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_tx_ss___config_1a239b31d86a594a644946033000335074" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -194,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="209" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -215,7 +229,7 @@
         <link refid="struct_dsi_tx_ss_sub_core"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="184" bodyend="218"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="179" bodyend="207"/>
     <listofallmembers>
       <member refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>BaseAddr</name></member>
       <member refid="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>CrcGen</name></member>
@@ -226,6 +240,7 @@
       <member refid="struct_x_dsi_tx_ss___config_1ae37e75593d8c004c2a745b25a503f9c4" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>DsiInfo</name></member>
       <member refid="struct_x_dsi_tx_ss___config_1a577c288549941ba5f8278307b62f1377" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>DsiLanes</name></member>
       <member refid="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>DsiPixel</name></member>
+      <member refid="struct_x_dsi_tx_ss___config_1a3b36814b5678d9b1afb98454324e05a5" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>EnEscMode</name></member>
       <member refid="struct_x_dsi_tx_ss___config_1ad5bca47e3d8c2b12165513646ecb2a04" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>HighAddr</name></member>
       <member refid="struct_x_dsi_tx_ss___config_1a86997b57eb7c101ccd50e8a2457a0e3b" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>IntrId</name></member>
       <member refid="struct_x_dsi_tx_ss___config_1a239b31d86a594a644946033000335074" prot="public" virt="non-virtual"><scope>XDsiTxSs_Config</scope><name>IntrParent</name></member>

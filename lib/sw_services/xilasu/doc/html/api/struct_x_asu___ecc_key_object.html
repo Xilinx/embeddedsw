@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -120,18 +121,40 @@ $(document).ready(function(){initNavTree('struct_x_asu___ecc_key_object.html',''
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a90332b73852c71bf7e81d3a613b504f4"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_object.html#a90332b73852c71bf7e81d3a613b504f4">KeyAddr</a></td></tr>
-<tr class="memdesc:a90332b73852c71bf7e81d3a613b504f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address of the key data (private or public)  <a href="#a90332b73852c71bf7e81d3a613b504f4">More...</a><br/></td></tr>
+<tr class="memdesc:a90332b73852c71bf7e81d3a613b504f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address of the key data (private or public); 0 when the key is taken from the key vault via KeyId.  <a href="#a90332b73852c71bf7e81d3a613b504f4">More...</a><br/></td></tr>
 <tr class="separator:a90332b73852c71bf7e81d3a613b504f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02196f5aadc4a8e9a43a6e2d767306c0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_object.html#a02196f5aadc4a8e9a43a6e2d767306c0">KeyId</a></td></tr>
 <tr class="memdesc:a02196f5aadc4a8e9a43a6e2d767306c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key identifier from key management (used if KeyAddr == 0)  <a href="#a02196f5aadc4a8e9a43a6e2d767306c0">More...</a><br/></td></tr>
 <tr class="separator:a02196f5aadc4a8e9a43a6e2d767306c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7340774e8e250d8d2712cc5eaad1690"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_object.html#ac7340774e8e250d8d2712cc5eaad1690">KeyLen</a></td></tr>
-<tr class="memdesc:ac7340774e8e250d8d2712cc5eaad1690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the key in bytes (curve length)  <a href="#ac7340774e8e250d8d2712cc5eaad1690">More...</a><br/></td></tr>
+<tr class="memdesc:ac7340774e8e250d8d2712cc5eaad1690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the key in bytes (curve length); must be 0 when KeyAddr is 0, as the firmware takes the length of a vault sourced key from the stored metadata.  <a href="#ac7340774e8e250d8d2712cc5eaad1690">More...</a><br/></td></tr>
 <tr class="separator:ac7340774e8e250d8d2712cc5eaad1690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca3d4f92c45add7b6161211b42c8d69d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_object.html#aca3d4f92c45add7b6161211b42c8d69d">CurveType</a></td></tr>
+<tr class="memdesc:aca3d4f92c45add7b6161211b42c8d69d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of curve.  <a href="#aca3d4f92c45add7b6161211b42c8d69d">More...</a><br/></td></tr>
+<tr class="separator:aca3d4f92c45add7b6161211b42c8d69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7e68ef5af8f1f15652dc9f45b822ce"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ecc_key_object.html#abc7e68ef5af8f1f15652dc9f45b822ce">Reserved</a> [4]</td></tr>
+<tr class="memdesc:abc7e68ef5af8f1f15652dc9f45b822ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit padding to ensure consistent struct size across architectures.  <a href="#abc7e68ef5af8f1f15652dc9f45b822ce">More...</a><br/></td></tr>
+<tr class="separator:abc7e68ef5af8f1f15652dc9f45b822ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common key object structure used by all ECC operations. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="aca3d4f92c45add7b6161211b42c8d69d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XAsu_EccKeyObject::CurveType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of curve. </p>
+
+<p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__xasu__ecc__client__apis.html#ga66e66b97823b69487c4c2e10635dc226">XAsu_EccValidatePubKey()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a90332b73852c71bf7e81d3a613b504f4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -142,7 +165,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Address of the key data (private or public) </p>
+<p>Address of the key data (private or public); 0 when the key is taken from the key vault via KeyId. </p>
 
 <p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -174,9 +197,24 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Length of the key in bytes (curve length) </p>
+<p>Length of the key in bytes (curve length); must be 0 when KeyAddr is 0, as the firmware takes the length of a vault sourced key from the stored metadata. </p>
+<p>A non-zero length with a zero address is rejected as an invalid parameter. </p>
 
 <p>Referenced by <a class="el" href="group__xasufw__ecdh__client__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__xasu__ecc__client__apis.html#ga66e66b97823b69487c4c2e10635dc226">XAsu_EccValidatePubKey()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abc7e68ef5af8f1f15652dc9f45b822ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XAsu_EccKeyObject::Reserved[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Explicit padding to ensure consistent struct size across architectures. </p>
 
 </div>
 </div>

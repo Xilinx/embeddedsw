@@ -1,5 +1,11 @@
 var xdmaps_8c =
 [
+    [ "XDMAPS_CCR_M2M_SINGLE_BYTE", "xdmaps_8c.html#ga016fc795bc9dee437f8264d95b4538dd", null ],
+    [ "XDMAPS_CCR_SINGLE_BYTE", "xdmaps_8c.html#gafda974c51436dbd4826f8cb43257382c", null ],
+    [ "XDMAPS_MAX_WAIT", "xdmaps_8c.html#ga3bab9e663ba55d9f176d60c4a0b5ab33", null ],
+    [ "XDMAPS_MOV_CCR", "xdmaps_8c.html#ga0ff96edc3262017cb5a534e0f40666b9", null ],
+    [ "XDMAPS_MOV_DAR", "xdmaps_8c.html#ga17d867b1d1c22303bbefc876df00eb44", null ],
+    [ "XDMAPS_MOV_SAR", "xdmaps_8c.html#ga0da5f3a4101306a3fafc78fe68fdc5ba", null ],
     [ "XDmaPs_CfgInitialize", "xdmaps_8c.html#ga2fed90dfba1ff9f472b40ed492d78b4c", null ],
     [ "XDmaPs_ConstructNestedLoop", "xdmaps_8c.html#gaecba56f06526fe2ad0c8af65ff4237bb", null ],
     [ "XDmaPs_ConstructSingleLoop", "xdmaps_8c.html#gada17404db9934447c93bae5a66a71282", null ],

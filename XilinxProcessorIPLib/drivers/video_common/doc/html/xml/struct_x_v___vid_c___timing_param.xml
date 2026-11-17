@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="854" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="854" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="854" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="854" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1af386fed83d4ec7777cd7378a60f60616" prot="public" static="no" mutable="no">
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="855" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="855" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="855" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="855" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a9b10937a0184e8e9d6f83806564e9eca" prot="public" static="no" mutable="no">
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="856" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="856" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="856" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="856" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a8ca51d8a254f18f9470e069c368d88eb" prot="public" static="no" mutable="no">
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="857" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="857" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1ab91d4f92d1dbcbea0093687a5b354fab" prot="public" static="no" mutable="no">
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="858" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="858" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="858" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="858" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a0ef0de4f92f3213ef2695d4c378e4d82" prot="public" static="no" mutable="no">
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="859" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="859" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="859" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="859" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a040730883113f57a9c6c1f9de7e3e741" prot="public" static="no" mutable="no">
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="860" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="860" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="860" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="860" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a8c681dff9b7db1cec5991e4258ef0c91" prot="public" static="no" mutable="no">
@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="861" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="861" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="861" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="861" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1ad72fcc532e6bfa00aaca7b0c1ff2f77c" prot="public" static="no" mutable="no">
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="862" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="862" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="862" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="862" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a567a84cae0ba3866d30d6c496f814406" prot="public" static="no" mutable="no">
@@ -141,7 +141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="863" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="863" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="863" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="863" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a93a3fca15d87113d939bb8cee134eef4" prot="public" static="no" mutable="no">
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="864" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="864" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="864" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="864" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a35cdc8178ab801f514c6f65c42abac70" prot="public" static="no" mutable="no">
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="865" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="865" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="865" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="865" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1a97c016c0213973c43f9e0d071a1966a7" prot="public" static="no" mutable="no">
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="866" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="866" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="866" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="866" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___vid_c___timing_param_1afe68d21df94788fe22ea61897eed70c4" prot="public" static="no" mutable="no">
@@ -199,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="867" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="867" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="867" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="867" bodyend="-1"/>
         <referencedby refid="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" compoundref="xvidc__edid__ext_8c" startline="275" endline="300">XV_VidC_timing</referencedby>
       </memberdef>
       </sectiondef>
@@ -220,7 +220,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="853" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="853" bodyend="868"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="853" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="853" bodyend="868"/>
     <listofallmembers>
       <member refid="struct_x_v___vid_c___timing_param_1a35cdc8178ab801f514c6f65c42abac70" prot="public" virt="non-virtual"><scope>XV_VidC_TimingParam</scope><name>aspect_ratio</name></member>
       <member refid="struct_x_v___vid_c___timing_param_1ad72fcc532e6bfa00aaca7b0c1ff2f77c" prot="public" virt="non-virtual"><scope>XV_VidC_TimingParam</scope><name>hfp</name></member>

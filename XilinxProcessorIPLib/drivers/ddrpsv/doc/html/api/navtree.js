@@ -1,8 +1,16 @@
 var NAVTREE =
 [
-  [ "ddrpsv", "index.html", [
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "ddrpsv",
+    "index.html",
+    [
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

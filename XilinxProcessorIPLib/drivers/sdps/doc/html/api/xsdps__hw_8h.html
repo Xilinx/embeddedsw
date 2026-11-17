@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsdps__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,7 +103,43 @@ $(document).ready(function(){initNavTree('xsdps__hw_8h.html','');});
 <div class="title">xsdps_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Provides the identifiers and basic hardware access macros of the SDPS driver. </p>
+<p>The identifiers and basic HW access driver functions (or macros) can be used to access the device. Other driver functions are defined in <a class="el" href="xsdps_8h.html">xsdps.h</a>.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a hk/sg  10/17/13 Initial release
+2.5     sg         07/09/15 Added SD 3.0 features
+      kvn    07/15/15 Modified the code according to MISRAC-2012.
+2.7   sk     12/10/15 Added support for MMC cards.
+      sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
+2.8   sk     04/20/16 Added new workaround for auto tuning.
+3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
+      sk     07/16/16 Added support for UHS modes.
+      sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
+                      operating modes.
+3.1   sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
+3.2   sk     03/20/17 Add support for EL1 non-secure mode.
+3.3   mn     08/22/17 Updated for Word Access System support
+      mn     09/06/17 Added support for ARMCC toolchain
+3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
+3.6   mn     07/06/18 Fix Doxygen warnings for sdps driver
+3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+      mn     05/21/19 Set correct tap delays for Versal
+      mn     05/21/19 Disable DLL Reset code for Versal
+      mn     07/03/19 Update Input Tap Delays for Versal
+3.9   mn     03/03/20 Restructured the code for more readability and modularity
+3.14  mn     11/28/21 Fix MISRA-C violations.
+4.0   sk     02/25/22 Add support for eMMC5.1.
+      sk     04/07/22 Fix typo in 'XSDPS_MMC_1_BIT_BUS_ARG' macro definition.
+4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
+4.2   ro     06/12/23 Added support for system device-tree flow.
+4.3   ap     11/29/23 Add support for Sanitize feature.
+4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
+4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

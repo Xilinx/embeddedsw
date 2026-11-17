@@ -1,0 +1,1281 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="server_2xpm__common__plat_8h" kind="file">
+    <compoundname>server/xpm_common_plat.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xpm_err.h</includes>
+    <includes local="yes">xplmi_debug.h</includes>
+    <includes local="yes">xpm_defs.h</includes>
+    <incdepgraph>
+      <node id="2228">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2230">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="2226">
+        <label>xpm_common_plat.h</label>
+        <link refid="server/xpm_common_plat.h"/>
+        <childnode refid="2227" relation="include">
+        </childnode>
+        <childnode refid="2228" relation="include">
+        </childnode>
+        <childnode refid="2229" relation="include">
+        </childnode>
+        <childnode refid="2230" relation="include">
+        </childnode>
+        <childnode refid="2231" relation="include">
+        </childnode>
+        <childnode refid="2232" relation="include">
+        </childnode>
+      </node>
+      <node id="2229">
+        <label>xil_util.h</label>
+      </node>
+      <node id="2231">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="2232">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="2227">
+        <label>xstatus.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a3f3e70f74afaa6bc4e4603731595f00d" prot="public" static="no">
+        <name>PSM_IPI_INT_MASK</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="24" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a6fd4f9061bb48013154de490d8ab7bb7" prot="public" static="no">
+        <name>xSELF_TEST</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a24ea01d2f0567ddce22bdc6c6b07d715" prot="public" static="no">
+        <name>xSELF_TEST_DEVICE_REQUEST</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1afbac887198dbdbaaddd2f76e29f201ee" prot="public" static="no">
+        <name>xSELF_TEST_PIN_API</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aa67a1d97ab95504cb2d02ea69a9a1f93" prot="public" static="no">
+        <name>xSELF_TEST_RESET_API</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a057403a2b3edf9093c9723e239e95d1f" prot="public" static="no">
+        <name>xSELF_TEST_CLOCK_API</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ae107e4413b85db6a36f03126d5889421" prot="public" static="no">
+        <name>xDEBUG_REG_IO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aa8cecfc5c5c054d2875c03e77b7be15d" prot="public" static="no">
+        <name>TRUE</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aa93f0eb578d23995850d61f7d61c55c1" prot="public" static="no">
+        <name>FALSE</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ab0c4559223231b5a96be527f334f24f3" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>Arg0</defname></param>
+        <param><defname>Arg1</defname></param>
+        <param><defname>Arg2</defname></param>
+        <param><defname>Arg3</defname></param>
+        <param><defname>Arg4</defname></param>
+        <param><defname>Arg5</defname></param>
+        <initializer>do {								\
+		Payload[0] = (u32)Arg0;					\
+		Payload[1] = (u32)Arg1;					\
+		Payload[2] = (u32)Arg2;					\
+		Payload[3] = (u32)Arg3;					\
+		Payload[4] = (u32)Arg4;					\
+		Payload[5] = (u32)Arg5;					\
+		PmDbg(&quot;%s(%x, %x, %x, %x, %x)\r\n&quot;, __func__, Arg1, Arg2, Arg3, Arg4, Arg5);	\
+	} while (XPM_FALSE_COND)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a3be895312a1db87046713eb1d54a0ea7" prot="public" static="no">
+        <name>XPM_MODULE_ID</name>
+        <initializer>(0x02UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a17b95e4c2000c483d2e8ddf33f74eaab" prot="public" static="no">
+        <name>XPM_HEADER</name>
+        <param><defname>len</defname></param>
+        <param><defname>ApiId</defname></param>
+        <initializer>((len &lt;&lt; 16U) | (XPM_MODULE_ID &lt;&lt; 8U) | ((u32)ApiId))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a932de940a9cce74f70a800ccbde095ed" prot="public" static="no">
+        <name>XPM_HEADER_SET_CMDTYPE</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>SecurityFlag</defname></param>
+        <initializer>(Payload[0] = ((Payload[0] &amp; ~0xFF000000UL) | ((SecurityFlag &amp; 0x1UL) &lt;&lt; 24U)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aface463d01ca02e136e03190096b7f45" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD0</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>ApiId</defname></param>
+        <initializer>XPM_PACK_PAYLOAD(Payload, XPM_HEADER(0UL, ApiId), 0, 0, 0, 0, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a417596d25fbc27288f580c66074c2fd6" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD1</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>ApiId</defname></param>
+        <param><defname>Arg1</defname></param>
+        <initializer>XPM_PACK_PAYLOAD(Payload, XPM_HEADER(1UL, ApiId), Arg1, 0, 0, 0, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a8d027bf6ebc39c2496a03e7e27f574a0" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD2</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>ApiId</defname></param>
+        <param><defname>Arg1</defname></param>
+        <param><defname>Arg2</defname></param>
+        <initializer>XPM_PACK_PAYLOAD(Payload, XPM_HEADER(2UL, ApiId), Arg1, Arg2, 0, 0, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aa62596b23a61d2c513d52fcb5d5919ce" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD3</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>ApiId</defname></param>
+        <param><defname>Arg1</defname></param>
+        <param><defname>Arg2</defname></param>
+        <param><defname>Arg3</defname></param>
+        <initializer>XPM_PACK_PAYLOAD(Payload, XPM_HEADER(3UL, ApiId), Arg1, Arg2, Arg3, 0, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a147b104d68a7b30c60ee2328f5271496" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD4</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>ApiId</defname></param>
+        <param><defname>Arg1</defname></param>
+        <param><defname>Arg2</defname></param>
+        <param><defname>Arg3</defname></param>
+        <param><defname>Arg4</defname></param>
+        <initializer>XPM_PACK_PAYLOAD(Payload, XPM_HEADER(4UL, ApiId), Arg1, Arg2, Arg3, Arg4, 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a4999d607b7d8019e06079d8f004dbcf0" prot="public" static="no">
+        <name>XPM_PACK_PAYLOAD5</name>
+        <param><defname>Payload</defname></param>
+        <param><defname>ApiId</defname></param>
+        <param><defname>Arg1</defname></param>
+        <param><defname>Arg2</defname></param>
+        <param><defname>Arg3</defname></param>
+        <param><defname>Arg4</defname></param>
+        <param><defname>Arg5</defname></param>
+        <initializer>XPM_PACK_PAYLOAD(Payload, XPM_HEADER(5UL, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1afc3add89d6b826e09c1b0a0da134aab7" prot="public" static="no">
+        <name>PM_CHECK_MASK</name>
+        <param><defname>v</defname></param>
+        <param><defname>m</defname></param>
+        <initializer>((v &amp; m) == m)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a1b1e043a34276fe314d697483526f413" prot="public" static="no">
+        <name>PM_DISABLE_HOUSECLEAN_GET</name>
+        <param><defname>BLOCK</defname></param>
+        <initializer>( \
+	(XPm_In32(PM_HOUSECLEAN_DISABLE_ ##BLOCK## _BASEADDR) &amp; PM_HOUSECLEAN_DISABLE_ ##BLOCK## _MASK ) &gt;&gt; PM_HOUSECLEAN_DISABLE_ ##BLOCK## _OFFSET \
+)</initializer>
+        <briefdescription>
+<para>Get a value at each bits to tell if skipping house cleaning function for given block BLOCK are one of these(can be found under xpm_regs.h): LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC, DAC, ADC, UCIE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a07a9ed4fda61593193205963b0462717" prot="public" static="no">
+        <name>PM_HOUSECLEAN_CHECK</name>
+        <param><defname>BLOCK</defname></param>
+        <param><defname>FUNC</defname></param>
+        <initializer>(	\
+	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK)) ||	\
+	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK))		\
+)</initializer>
+        <briefdescription>
+<para>FALSE if house clean of given BLOCK and FUNC is skipped Note: The condition is evaluated redundantly to avoid glitches from altering branching decision. </para>        </briefdescription>
+        <detaileddescription>
+<para>BLOCK are one of these(can be found under xpm_regs.h): LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC, DAC, ADC, UCIE. FUNC are one of these: SCAN, BISR, MBIST, LBIST, PLHC </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ad533924e65bf75ee6451dbc3630c6571" prot="public" static="no">
+        <name>PLATFORM_VERSION_SILICON_ES1</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1adfe3ec71011313562b5d5a9c1135cd51" prot="public" static="no">
+        <name>PLATFORM_VERSION_SILICON_ES2</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a4d82cf65d04b806ad38c7f0644f016f4" prot="public" static="no">
+        <name>XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a92c9bd25010143de102d9f9114c25155" prot="public" static="no">
+        <name>XPM_PMC_TAP_IDCODE_DEV_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a7b454cfdaaa0145d47adba25b56e94ed" prot="public" static="no">
+        <name>XPM_PMC_TAP_IDCODE_SBFMLY_S</name>
+        <initializer>((u32)2U &lt;&lt; XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a692def803571367777fe77cf3081094a" prot="public" static="no">
+        <name>XPM_PMC_TAP_IDCODE_SBFMLY_SV</name>
+        <initializer>((u32)3U &lt;&lt; XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1af2a9399f69dfb7d25493639e10c9a6c4" prot="public" static="no">
+        <name>XPM_PMC_TAP_IDCODE_SBFMLY_P_HS</name>
+        <initializer>((u32)1U &lt;&lt; XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a8c1bca12267dc885eefa4abd427a64ab" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VM1802</name>
+        <initializer>((u32)0x2AU &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a27853957198603f78cd6954b3ed51b61" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VM1802</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_VM1802)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a4f4add76217ab2b66418552b03074f47" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VC1902</name>
+        <initializer>((u32)0x28U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ac8179eaed96e8602d0ded8c1a21f3ec3" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VC1902</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_VC1902)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a032e4da463995621f0080353c604c994" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VM2152</name>
+        <initializer>((u32)0x20U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1af0e5acd8025accbd751dfd423ad603d3" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VM2152</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VM2152)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a5a01958a3e423d0197a005d7fd33c52f" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VP3202</name>
+        <initializer>((u32)0x28U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+<para>Tap ID Code for VP3202 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a8db67cb23d3d5cac5aa8290e76736dc0" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VP3202</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP3202)</initializer>
+        <briefdescription>
+<para>Tap ID Code with Sub-Family for VP3202 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a9f16524c2ff53fa3ad9dc611320b4afc" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VP3102</name>
+        <initializer>((u32)0x29U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+<para>Tap ID Code for VP3102 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aefb814d0992501fedcd95288f53f1237" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VP3102</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP3102)</initializer>
+        <briefdescription>
+<para>Tap ID Code with Sub-Family for VP3102 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ad037698bb5e6d7afe2b187908ca4d74b" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VP3602</name>
+        <initializer>((u32)0x34U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+<para>Tap ID Code for VP3602 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aab3345385b418071dd7dd8f8ea69ac9f" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VP3602</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP3602)</initializer>
+        <briefdescription>
+<para>Tap ID Code with Sub-Family for VP3602 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a3c56b2452da8e4a9e9f7b207a37a26cd" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VP3402</name>
+        <initializer>((u32)0x35U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+<para>Tap ID Code for VP3402 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a511f5e4b125cf7797249317926541d33" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VP3402</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP3402)</initializer>
+        <briefdescription>
+<para>Tap ID Code with Sub-Family for VP3402 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a6ffa595074ae7c019985488dc0f94927" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VP3502</name>
+        <initializer>((u32)0x36U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+<para>Tap ID Code for VP3502 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1abe37223a71daad96a8e5dff35e930d7e" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VP3502</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP3502)</initializer>
+        <briefdescription>
+<para>Tap ID Code with Sub-Family for VP3502 device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a55413eb28bd6a634a6b9e4278d28a1a7" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VR16XX_PARENT</name>
+        <initializer>((u32)0x20U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a252641e7fdbc28dc4ff1c5b91c9dd4c5" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_VR16XX_PARENT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a7e946e64b482f879b47595002dfe7e67" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VR1602</name>
+        <initializer>((u32)0x25U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a8f36a30f0f47a3e724894962f2d61da2" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VR1602</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_VR1602)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1af1b2aa5edcb40fdfe44a823bb2656c8d" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VR1652</name>
+        <initializer>((u32)0x26U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ae49a5cde822cdfab3f2562ba9a885d24" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VR1652</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_VR1652)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a75309176d2e5dc4affd0277dda62dbdd" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VP1902</name>
+        <initializer>((u32)0x0U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a1fc1f9ffa54cd9b3368dc5d608cd273a" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VP1902</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP1902)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ad6c96ffffec618e727a09d75027ba867" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VE2302</name>
+        <initializer>((u32)0x8U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a922ea16ab1c59ae2b72a9a5b995d9bd2" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VE2302</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_SV | PMC_TAP_IDCODE_DEV_VE2302)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a9256ca65c254844f7fa57f119da1c7eb" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VM1102</name>
+        <initializer>((u32)0xAU &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a205d383c6b4143c94a42bf13256bda71" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VM1102</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_SV | PMC_TAP_IDCODE_DEV_VM1102)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a4786b0c47c9b6161ad654845988d1fd0" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_VR13XX_PARENT</name>
+        <initializer>((u32)0x8U &lt;&lt; XPM_PMC_TAP_IDCODE_DEV_SHIFT)</initializer>
+        <briefdescription>
+<para>Tap ID Code for VR13XX_PARENT device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a53f3ea7bb9d4cbec2b3b4e5a391a36da" prot="public" static="no">
+        <name>PMC_TAP_IDCODE_DEV_SBFMLY_VR13XX_PARENT</name>
+        <initializer>(XPM_PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_VR13XX_PARENT)</initializer>
+        <briefdescription>
+<para>Tap ID Code with Sub-Family for VR13XX_PARENT device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a21697475a563d131e0468c7c62dc59a7" prot="public" static="no">
+        <name>SLR_TYPE_MONOLITHIC_DEV</name>
+        <initializer>(0x7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1af858a9d7846cd30dd8e2a30d9778a133" prot="public" static="no">
+        <name>SLR_TYPE_SSIT_DEV_MASTER_SLR</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a052a0865d004447eb1eb3591fbb9dd24" prot="public" static="no">
+        <name>SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_TOP</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ac4a17e92c4d90a89228b4a82981a05c3" prot="public" static="no">
+        <name>SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_NTOP</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aa82a1f44d916602bce531f8615d380ac" prot="public" static="no">
+        <name>SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_TOP</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a5a42ba0499c46c57cf8a29138f4e83ab" prot="public" static="no">
+        <name>SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_NTOP</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1accfdb007fa256d5b93f7b6fc4a8c97ae" prot="public" static="no">
+        <name>SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1aaeaa2d49ce1c25108b860128bffb458b" prot="public" static="no">
+        <name>SLR_TYPE_INVALID</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1acb253dfb7e032867f76ef339d948efb7" prot="public" static="no">
+        <name>SAVE_REGION</name>
+        <param><defname>...</defname></param>
+        <initializer>__VA_ARGS__</initializer>
+        <briefdescription>
+<para>Pass through (Empty) macros, since there&apos;s no save and restore in versal platform. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1a41b0bce13ba9978965f4603a0818d1e0" prot="public" static="no">
+        <name>TIMEOUT_IOCTL_COMPL</name>
+        <initializer>(10000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="server_2xpm__common__plat_8h_1ad891b09bb82feec5710c536bb418ee85" prot="public" static="no">
+        <name>TIMEOUT_AIE_OPS_COMPL</name>
+        <initializer>(100000U)</initializer>
+        <briefdescription>
+<para>Timeout for AIE operations (e.g., memory zeroization) which may take significantly longer than typical IOCTLs, especially on large AIE arrays over the SSIT forwarding path (in microseconds). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="server_2xpm__common__plat_8h_1ad2802203e3dbec426b3be23c9c99e931" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PcsrWrite</definition>
+        <argsstring>(u32 BaseAddress, u32 Mask, u32 Value)</argsstring>
+        <name>XPm_PcsrWrite</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set/clear bits in any NPI PCSR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BaseAddress of device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to be written into PCSR_MASK register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written into PCSR_CONTROL register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.c" bodystart="179" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__common__plat_8h_1ad7767ee38443c1025f832cd75bf982be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPm_PlatGetSlrIndex</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_PlatGetSlrIndex</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.c" bodystart="217" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__common__plat_8h_1a3bc19cfcdff4cbc44d37123cf1aee378" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SsitForwardApi</definition>
+        <argsstring>(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs, const u32 CmdType, u32 *const Response)</argsstring>
+        <name>XPm_SsitForwardApi</name>
+        <param>
+          <type>XPm_ApiId</type>
+          <declname>ApiId</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>ArgBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Response</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to forward APIs to secondary SLR on SSIT devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ApiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PM API ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ArgBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Api specific arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments in the buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional argument. Secure/nonsecure command type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Response</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional argument. Response to client.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.c" bodystart="162" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="server_2xpm__common__plat_8h_1af4eb91c322b6a90afcee7f5c23ecdcaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_SsitForwardApiExt</definition>
+        <argsstring>(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs, const u32 CmdType, u32 *const Response, u32 Timeout)</argsstring>
+        <name>XPm_SsitForwardApiExt</name>
+        <param>
+          <type>XPm_ApiId</type>
+          <declname>ApiId</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>ArgBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Response</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Timeout</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to forward APIs to secondary SLR on SSIT devices, with a caller-specified timeout. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ApiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>PM API ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ArgBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Api specific arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments in the buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional argument. Secure/nonsecure command type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Response</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional argument. Response to client. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout in microseconds to wait for the event completion</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.c" bodystart="88" bodyend="148"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_COMMON_PLAT_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_COMMON_PLAT_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_err.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_IPI_DEVICE_ID</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_IPI_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIPIPS_TARGET_PSV_PSM_0_CH0_MASK</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_IPI_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_IPI_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Hack:<sp/>These<sp/>will<sp/>increase<sp/>code<sp/>size.<sp/><sp/>Define<sp/>them<sp/>as<sp/>needed.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>xSELF_TEST</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xSELF_TEST_DEVICE_REQUEST</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xSELF_TEST_PIN_API</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xSELF_TEST_RESET_API</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xSELF_TEST_CLOCK_API</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xDEBUG_REG_IO</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRUE<sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FALSE<sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Payload<sp/>Packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD(Payload,<sp/>Arg0,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[0]<sp/>=<sp/>(u32)Arg0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[1]<sp/>=<sp/>(u32)Arg1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[2]<sp/>=<sp/>(u32)Arg2;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[3]<sp/>=<sp/>(u32)Arg3;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[4]<sp/>=<sp/>(u32)Arg4;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[5]<sp/>=<sp/>(u32)Arg5;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmDbg(&quot;%s(%x,<sp/>%x,<sp/>%x,<sp/>%x,<sp/>%x)\r\n&quot;,<sp/>__func__,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5);<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>while<sp/>(XPM_FALSE_COND)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_MODULE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02UL)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_HEADER(len,<sp/>ApiId)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((len<sp/>&lt;&lt;<sp/>16U)<sp/>|<sp/>(XPM_MODULE_ID<sp/>&lt;&lt;<sp/>8U)<sp/>|<sp/>((u32)ApiId))</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_HEADER_SET_CMDTYPE(Payload,<sp/>SecurityFlag)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Payload[0]<sp/>=<sp/>((Payload[0]<sp/>&amp;<sp/>~0xFF000000UL)<sp/>|<sp/>((SecurityFlag<sp/>&amp;<sp/>0x1UL)<sp/>&lt;&lt;<sp/>24U)))</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD0(Payload,<sp/>ApiId)<sp/>\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PACK_PAYLOAD(Payload,<sp/>XPM_HEADER(0UL,<sp/>ApiId),<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD1(Payload,<sp/>ApiId,<sp/>Arg1)<sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PACK_PAYLOAD(Payload,<sp/>XPM_HEADER(1UL,<sp/>ApiId),<sp/>Arg1,<sp/>0,<sp/>0,<sp/>0,<sp/>0)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD2(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2)<sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PACK_PAYLOAD(Payload,<sp/>XPM_HEADER(2UL,<sp/>ApiId),<sp/>Arg1,<sp/>Arg2,<sp/>0,<sp/>0,<sp/>0)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD3(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3)<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PACK_PAYLOAD(Payload,<sp/>XPM_HEADER(3UL,<sp/>ApiId),<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>0,<sp/>0)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD4(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4)<sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PACK_PAYLOAD(Payload,<sp/>XPM_HEADER(4UL,<sp/>ApiId),<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>0)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PACK_PAYLOAD5(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5)<sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_PACK_PAYLOAD(Payload,<sp/>XPM_HEADER(5UL,<sp/>ApiId),<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PM_CHECK_MASK(v,<sp/>m)<sp/>((v<sp/>&amp;<sp/>m)<sp/>==<sp/>m)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>PM_DISABLE_HOUSECLEAN_GET(BLOCK)(<sp/>\</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPm_In32(PM_HOUSECLEAN_DISABLE_<sp/>##BLOCK##<sp/>_BASEADDR)<sp/>&amp;<sp/>PM_HOUSECLEAN_DISABLE_<sp/>##BLOCK##<sp/>_MASK<sp/>)<sp/>&gt;&gt;<sp/>PM_HOUSECLEAN_DISABLE_<sp/>##BLOCK##<sp/>_OFFSET<sp/>\</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>PM_HOUSECLEAN_CHECK(BLOCK,<sp/>FUNC)<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK),<sp/>HOUSECLEAN_FUNC_DISABLE_<sp/>##FUNC##<sp/>_MASK))<sp/>||<sp/><sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK),<sp/>HOUSECLEAN_FUNC_DISABLE_<sp/>##FUNC##<sp/>_MASK))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_VERSION_SILICON_ES1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_VERSION_SILICON_ES2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)2U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_SV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)3U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)1U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_SBFMLY_SHIFT)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VM1802<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VM1802<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x2AU<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VM1802<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VM1802)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VC1902<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VC1902<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x28U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VC1902<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VC1902)</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VM2152<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VM2152<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x20U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VM2152<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VM2152)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VP3202<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x28U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VP3202<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VP3202)</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VP3102<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x29U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VP3102<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VP3102)</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VP3602<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x34U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VP3602<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VP3602)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VP3402<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x35U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VP3402<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VP3402)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VP3502<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x36U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VP3502<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VP3502)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VR16XX_PARENT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VR16XX_PARENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x20U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT<sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VR16XX_PARENT)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VR1602<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VR1602<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x25U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VR1602<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VR1602)</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VR1652<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VR1652<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x26U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VR1652<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VR1652)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VP1902<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VP1902<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x0U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VP1902<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VP1902)</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VE2302<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VE2302<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x8U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VE2302<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_SV<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VE2302)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>VM1102<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VM1102<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0xAU<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VM1102<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_SV<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VM1102)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_VR13XX_PARENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x8U<sp/>&lt;&lt;<sp/>XPM_PMC_TAP_IDCODE_DEV_SHIFT)</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMC_TAP_IDCODE_DEV_SBFMLY_VR13XX_PARENT<sp/>(XPM_PMC_TAP_IDCODE_SBFMLY_S<sp/>|<sp/>PMC_TAP_IDCODE_DEV_VR13XX_PARENT)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_MONOLITHIC_DEV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_SSIT_DEV_MASTER_SLR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_TOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_NTOP<sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_TOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_NTOP<sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLR_TYPE_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_BASEADDRESS</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(STDOUT_BASEADDRESS<sp/>==<sp/>0xFF000000U)</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_UART<sp/>PM_DEV_UART_0<sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>node<sp/>ID<sp/>with<sp/>UART0<sp/>device<sp/>ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>(STDOUT_BASEADDRESS<sp/>==<sp/>0xFF010000U)</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_UART<sp/>PM_DEV_UART_1<sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>node<sp/>ID<sp/>with<sp/>UART1<sp/>device<sp/>ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>SAVE_REGION(...)<sp/>__VA_ARGS__</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>NPI<sp/>PCSR<sp/>related<sp/>general<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal">XStatus<sp/>XPm_PcsrWrite(u32<sp/>BaseAddress,<sp/>u32<sp/>Mask,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">u8<sp/>XPm_PlatGetSlrIndex(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/>*<sp/>SSIT<sp/>PLM<sp/>to<sp/>PLM<sp/>communication<sp/>related<sp/>APIs<sp/>and<sp/>Macros</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Timeout<sp/>for<sp/>event<sp/>completion<sp/>(in<sp/>microseconds)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMEOUT_IOCTL_COMPL<sp/><sp/><sp/><sp/><sp/>(10000U)</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>TIMEOUT_AIE_OPS_COMPL<sp/><sp/><sp/>(100000U)</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_ENABLE_PLM_TO_PLM_COMM</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_SLR_IDX_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>12U</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_SLR_IDX_MASK_BITS<sp/><sp/>0x3U</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_SLR_IDX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)NODE_SLR_IDX_MASK_BITS<sp/>&lt;&lt;<sp/>NODE_SLR_IDX_SHIFT)</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">u32<sp/>IsNodeOnSecondarySLR(u32<sp/>DeviceId,<sp/>u32<sp/>*SlrIndex);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_ENABLE_PLM_TO_PLM_COMM<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal">XStatus<sp/>XPm_SsitForwardApi(XPm_ApiId<sp/>ApiId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*ArgBuf,<sp/>u32<sp/>NumArgs,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CmdType,<sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Response);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">XStatus<sp/>XPm_SsitForwardApiExt(XPm_ApiId<sp/>ApiId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*ArgBuf,<sp/>u32<sp/>NumArgs,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>CmdType,<sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Response,<sp/>u32<sp/>Timeout);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_COMMON_PLAT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h"/>
+  </compounddef>
+</doxygen>

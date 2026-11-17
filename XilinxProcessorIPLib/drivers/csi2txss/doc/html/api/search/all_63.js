@@ -12,5 +12,6 @@ var searchData=
   ['csi2txss_5fwrgdtypeeventhandler',['Csi2TxSs_WrgDTypeEventHandler',['../group__csi2txss.html#gacf6090a5e28c69c648d3688cf32069db',1,'xcsi2txss_intr_example.c']]],
   ['csi2txss_5fwrglaneeventhandler',['Csi2TxSs_WrgLaneEventHandler',['../group__csi2txss.html#ga9cb8d015cac4e68c6cbe5b9c0b76bac9',1,'xcsi2txss_intr_example.c']]],
   ['csibuffdepth',['CsiBuffDepth',['../struct_x_csi2_tx_ss___config.html#a941dcb9a60baa61a24bcb28260689183',1,'XCsi2TxSs_Config']]],
-  ['csiinfo',['CsiInfo',['../struct_x_csi2_tx_ss___config.html#ac1f1614d0982366c88534f12b5676b52',1,'XCsi2TxSs_Config']]]
+  ['csiinfo',['CsiInfo',['../struct_x_csi2_tx_ss___config.html#ac1f1614d0982366c88534f12b5676b52',1,'XCsi2TxSs_Config']]],
+  ['csiptr',['CsiPtr',['../struct_x_csi2_tx_ss.html#acce65bd75151241e752b95d27eb3d4be',1,'XCsi2TxSs']]]
 ];

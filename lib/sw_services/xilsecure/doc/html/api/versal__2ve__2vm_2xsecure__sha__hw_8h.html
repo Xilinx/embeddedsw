@@ -114,10 +114,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 5.4   kal  07/24/24 Initial release
       tri  10/07/24 Added maximum supported hash size macro
 5.7   tvp  02/23/26 Move SHA mode and auto padding offset from common file
-      tvp  04/14/26 Change maximum supported hash size macro</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xsecure_utils.h&quot;</code><br/>
+      tvp  04/14/26 Change maximum supported hash size macro
+5.8   tvp  07/17/26 Add SHAKE256 XOF feature support</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xsecure_utils.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a17e2e15eedbe471e964a4876f22c4310"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a17e2e15eedbe471e964a4876f22c4310">XSECURE_SHA3_XOF_FEATURE_SUPPORTED</a></td></tr>
+<tr class="memdesc:a17e2e15eedbe471e964a4876f22c4310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable SHA3-SHAKE256 XOF support.  <a href="#a17e2e15eedbe471e964a4876f22c4310">More...</a><br/></td></tr>
+<tr class="separator:a17e2e15eedbe471e964a4876f22c4310"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20b9a0d810aec45fb949b752d3540a1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>&#160;&#160;&#160;(2)</td></tr>
 <tr class="memdesc:a20b9a0d810aec45fb949b752d3540a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Sha instances.  <a href="#a20b9a0d810aec45fb949b752d3540a1a">More...</a><br/></td></tr>
 <tr class="separator:a20b9a0d810aec45fb949b752d3540a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,9 +143,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ae88a494ef68a7549d515d5afbc7727e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#ae88a494ef68a7549d515d5afbc7727e5">XSECURE_SHA_1_DEVICE_ID</a>&#160;&#160;&#160;(<a class="el" href="versal__2vp__p_2xsecure__sha__hw_8h.html#a9010a1c041352786e2818216b999006a">XSECURE_SHA2_DEVICE_ID</a>)</td></tr>
 <tr class="memdesc:ae88a494ef68a7549d515d5afbc7727e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA 1 device id.  <a href="#ae88a494ef68a7549d515d5afbc7727e5">More...</a><br/></td></tr>
 <tr class="separator:ae88a494ef68a7549d515d5afbc7727e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a031e85221e587a7d744961629b204d7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a031e85221e587a7d744961629b204d7e">XSECURE_MAX_HASH_SIZE_IN_BYTES</a>&#160;&#160;&#160;(136U)</td></tr>
-<tr class="memdesc:a031e85221e587a7d744961629b204d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3 maximum supported hash size.  <a href="#a031e85221e587a7d744961629b204d7e">More...</a><br/></td></tr>
-<tr class="separator:a031e85221e587a7d744961629b204d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99bac9fe3e0b79d902b3ba26276e9609"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a99bac9fe3e0b79d902b3ba26276e9609">XSECURE_SHA3_MODE_OFFSET</a>&#160;&#160;&#160;(0xA0U)</td></tr>
 <tr class="memdesc:a99bac9fe3e0b79d902b3ba26276e9609"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3 Mode Register offset.  <a href="#a99bac9fe3e0b79d902b3ba26276e9609">More...</a><br/></td></tr>
 <tr class="separator:a99bac9fe3e0b79d902b3ba26276e9609"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +155,12 @@ Macros</h2></td></tr>
 <tr class="memitem:a12cd69586b323ea6b6cfa9723bb6cd88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a12cd69586b323ea6b6cfa9723bb6cd88">XSECURE_SHA2_AUTO_PADDING_OFFSET</a>&#160;&#160;&#160;(0xA4U)</td></tr>
 <tr class="memdesc:a12cd69586b323ea6b6cfa9723bb6cd88"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA2 Auto Padding Register offset.  <a href="#a12cd69586b323ea6b6cfa9723bb6cd88">More...</a><br/></td></tr>
 <tr class="separator:a12cd69586b323ea6b6cfa9723bb6cd88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a2cfc9386e26cf1bdb96e9a934e278"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a87a2cfc9386e26cf1bdb96e9a934e278">XSECURE_SHAKE256_XOF_BLOCK_SIZE</a>&#160;&#160;&#160;(136U)</td></tr>
+<tr class="memdesc:a87a2cfc9386e26cf1bdb96e9a934e278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum digest bytes readable from the SHA engine per XOF block.  <a href="#a87a2cfc9386e26cf1bdb96e9a934e278">More...</a><br/></td></tr>
+<tr class="separator:a87a2cfc9386e26cf1bdb96e9a934e278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1b9441098f057c4c7112ef401cfac90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#ae1b9441098f057c4c7112ef401cfac90">XSECURE_SHAKE256_XOF_BLOCK_SIZE_IN_WORDS</a></td></tr>
+<tr class="memdesc:ae1b9441098f057c4c7112ef401cfac90"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHAKE256 XOF hash output block size in words.  <a href="#ae1b9441098f057c4c7112ef401cfac90">More...</a><br/></td></tr>
+<tr class="separator:ae1b9441098f057c4c7112ef401cfac90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register Map</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Register offsets for the SHA module. </p>
 </div></td></tr>
@@ -172,24 +179,11 @@ Macros</h2></td></tr>
 <tr class="memitem:a0b417ef8eb358bc2069dc1c9688e56a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a0b417ef8eb358bc2069dc1c9688e56a1">XSECURE_SHA_DIGEST_0_OFFSET</a>&#160;&#160;&#160;(0x10U)</td></tr>
 <tr class="memdesc:a0b417ef8eb358bc2069dc1c9688e56a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA Digest: Reg 0.  <a href="#a0b417ef8eb358bc2069dc1c9688e56a1">More...</a><br/></td></tr>
 <tr class="separator:a0b417ef8eb358bc2069dc1c9688e56a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd302a64d384675c01f54b89605ad66"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a7dd302a64d384675c01f54b89605ad66">XSECURE_SHA3_NEXT_XOF_OFFSET</a>&#160;&#160;&#160;(0xCU)</td></tr>
+<tr class="memdesc:a7dd302a64d384675c01f54b89605ad66"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3 register to pull the next SHAKE256 XOF output block.  <a href="#a7dd302a64d384675c01f54b89605ad66">More...</a><br/></td></tr>
+<tr class="separator:a7dd302a64d384675c01f54b89605ad66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a031e85221e587a7d744961629b204d7e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_MAX_HASH_SIZE_IN_BYTES&#160;&#160;&#160;(136U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>SHA3 maximum supported hash size. </p>
-
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#ga7a3f9d4fcb7292b40c9d91a0e82d1b22">XSecure_ExtendedShaFinish()</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a12cd69586b323ea6b6cfa9723bb6cd88"></a>
 <div class="memitem">
 <div class="memproto">
@@ -302,6 +296,34 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7dd302a64d384675c01f54b89605ad66"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SHA3_NEXT_XOF_OFFSET&#160;&#160;&#160;(0xCU)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHA3 register to pull the next SHAKE256 XOF output block. </p>
+
+</div>
+</div>
+<a class="anchor" id="a17e2e15eedbe471e964a4876f22c4310"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SHA3_XOF_FEATURE_SUPPORTED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable SHA3-SHAKE256 XOF support. </p>
+
+</div>
+</div>
 <a class="anchor" id="a809692bfb3b5d91eb2e4b3eb722d4f83"></a>
 <div class="memitem">
 <div class="memproto">
@@ -386,7 +408,7 @@ Macros</h2></td></tr>
 
 <p>Reset Register. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#ga7a3f9d4fcb7292b40c9d91a0e82d1b22">XSecure_ExtendedShaFinish()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gad5b378b529d087505726876fcf3e8b79">XSecure_Sha2256Kat()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#ga8e446a6cf529f6a697035b0643c22c1b">XSecure_ShakeKat()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__kat__server__apis.html#gad5b378b529d087505726876fcf3e8b79">XSecure_Sha2256Kat()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#ga8e446a6cf529f6a697035b0643c22c1b">XSecure_ShakeKat()</a>.</p>
 
 </div>
 </div>
@@ -401,6 +423,38 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SHA start message. </p>
+
+</div>
+</div>
+<a class="anchor" id="a87a2cfc9386e26cf1bdb96e9a934e278"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SHAKE256_XOF_BLOCK_SIZE&#160;&#160;&#160;(136U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum digest bytes readable from the SHA engine per XOF block. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae1b9441098f057c4c7112ef401cfac90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SHAKE256_XOF_BLOCK_SIZE_IN_WORDS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a87a2cfc9386e26cf1bdb96e9a934e278">XSECURE_SHAKE256_XOF_BLOCK_SIZE</a> / <a class="code" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">\</a></div>
+<div class="line"><a class="code" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">						   XSECURE_WORD_SIZE</a>)</div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a87a2cfc9386e26cf1bdb96e9a934e278"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a87a2cfc9386e26cf1bdb96e9a934e278">XSECURE_SHAKE256_XOF_BLOCK_SIZE</a></div><div class="ttdeci">#define XSECURE_SHAKE256_XOF_BLOCK_SIZE</div><div class="ttdoc">Maximum digest bytes readable from the SHA engine per XOF block. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:61</div></div>
+<div class="ttc" id="group__xsecure__generic__server__apis_html_ga014b8298824e67a2e9fe8a5c8719f59a"><div class="ttname"><a href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a></div><div class="ttdeci">#define XSECURE_WORD_SIZE</div><div class="ttdoc">WORD size in BYTES. </div><div class="ttdef"><b>Definition:</b> core/util/xsecure_utils.h:52</div></div>
+</div><!-- fragment -->
+<p>SHAKE256 XOF hash output block size in words. </p>
 
 </div>
 </div>

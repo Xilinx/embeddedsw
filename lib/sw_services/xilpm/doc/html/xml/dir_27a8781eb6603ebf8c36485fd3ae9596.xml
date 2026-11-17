@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_27a8781eb6603ebf8c36485fd3ae9596" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="net_2server_2xpm__api__plat_8c">net/server/xpm_api_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__api__plat_8h">net/server/xpm_api_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__apucore__plat_8c">net/server/xpm_apucore_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__apucore__plat_8h">net/server/xpm_apucore_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__bisr__plat_8c">net/server/xpm_bisr_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__bisr__plat_8h">net/server/xpm_bisr_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__clock__plat_8h">net/server/xpm_clock_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__common__plat_8c">net/server/xpm_common_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__common__plat_8h">net/server/xpm_common_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__core__plat_8c">net/server/xpm_core_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__core__plat_8h">net/server/xpm_core_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__cpmdomain_8c">net/server/xpm_cpmdomain.c</innerfile>
+    <innerfile refid="net_2server_2xpm__cpmdomain_8h">net/server/xpm_cpmdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__device__plat_8c">net/server/xpm_device_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__device__plat_8h">net/server/xpm_device_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__domain__iso_8c">net/server/xpm_domain_iso.c</innerfile>
+    <innerfile refid="net_2server_2xpm__domain__iso_8h">net/server/xpm_domain_iso.h</innerfile>
+    <innerfile refid="xpm__hnicxdomain_8c">xpm_hnicxdomain.c</innerfile>
+    <innerfile refid="xpm__hnicxdomain_8h">xpm_hnicxdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__ioctl__plat_8h">net/server/xpm_ioctl_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__mem__plat_8c">net/server/xpm_mem_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__mem__plat_8h">net/server/xpm_mem_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__notifier__plat_8h">net/server/xpm_notifier_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__npdomain_8c">net/server/xpm_npdomain.c</innerfile>
+    <innerfile refid="net_2server_2xpm__npdomain_8h">net/server/xpm_npdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__pin__plat_8c">net/server/xpm_pin_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pin__plat_8h">net/server/xpm_pin_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__pinfunc__plat_8c">net/server/xpm_pinfunc_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pinfunc__plat_8h">net/server/xpm_pinfunc_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__pldevice__plat_8c">net/server/xpm_pldevice_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pldomain__plat_8c">net/server/xpm_pldomain_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pldomain__plat_8h">net/server/xpm_pldomain_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__pll__plat_8c">net/server/xpm_pll_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pll__plat_8h">net/server/xpm_pll_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__pmcdomain_8c">net/server/xpm_pmcdomain.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pmcdomain_8h">net/server/xpm_pmcdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__power__plat_8c">net/server/xpm_power_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__power__plat_8h">net/server/xpm_power_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__powerdomain_8c">net/server/xpm_powerdomain.c</innerfile>
+    <innerfile refid="net_2server_2xpm__powerdomain_8h">net/server/xpm_powerdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__psfpdomain_8c">net/server/xpm_psfpdomain.c</innerfile>
+    <innerfile refid="net_2server_2xpm__psfpdomain_8h">net/server/xpm_psfpdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__pslpdomain_8c">net/server/xpm_pslpdomain.c</innerfile>
+    <innerfile refid="net_2server_2xpm__pslpdomain_8h">net/server/xpm_pslpdomain.h</innerfile>
+    <innerfile refid="net_2server_2xpm__psm__api__plat_8c">net/server/xpm_psm_api_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__psm__api__plat_8h">net/server/xpm_psm_api_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__psm__plat_8c">net/server/xpm_psm_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__psm__plat_8h">net/server/xpm_psm_plat.h</innerfile>
+    <innerfile refid="xpm__rail__plat_8c">xpm_rail_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__rail__plat_8h">net/server/xpm_rail_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__regs_8h">net/server/xpm_regs.h</innerfile>
+    <innerfile refid="net_2server_2xpm__repair_8c">net/server/xpm_repair.c</innerfile>
+    <innerfile refid="net_2server_2xpm__repair_8h">net/server/xpm_repair.h</innerfile>
+    <innerfile refid="xpm__repair__regs_8h">xpm_repair_regs.h</innerfile>
+    <innerfile refid="net_2server_2xpm__requirement__plat_8h">net/server/xpm_requirement_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__reset__plat_8c">net/server/xpm_reset_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__reset__plat_8h">net/server/xpm_reset_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__rpucore__plat_8c">net/server/xpm_rpucore_plat.c</innerfile>
+    <innerfile refid="net_2server_2xpm__rpucore__plat_8h">net/server/xpm_rpucore_plat.h</innerfile>
+    <innerfile refid="net_2server_2xpm__subsystem__plat_8h">net/server/xpm_subsystem_plat.h</innerfile>
+    <innerfile refid="xpm__update_8c">xpm_update.c</innerfile>
+    <innerfile refid="xpm__update_8h">xpm_update.h</innerfile>
+    <innerfile refid="xpm__update__data_8h">xpm_update_data.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/"/>
+  </compounddef>
+</doxygen>

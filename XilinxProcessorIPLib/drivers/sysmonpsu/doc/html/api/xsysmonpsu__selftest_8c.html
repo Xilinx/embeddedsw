@@ -100,60 +100,38 @@ $(document).ready(function(){initNavTree('xsysmonpsu__selftest_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xsysmonpsu_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the diagnostic self-test for the XSysMon driver. </p>
+<p>This file contains a diagnostic self test function for the XSysMon driver. The self test function does a simple read/write test of the Alarm Threshold Register.</p>
+<p>See <a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a> for more information.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.0   kvn    12/15/15 First release
+2.5   mn     07/06/18 Fixed Doxygen warnings
+2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
+3.4   vn     07/30/26 Fix Doxygen warnings
+3.4   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsysmonpsu_8h.html">xsysmonpsu.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gadede42b163bc7f23c95e7007fa336b9a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadede42b163bc7f23c95e7007fa336b9a">XSM_ATR_TEST_VALUE</a>&#160;&#160;&#160;0x55U</td></tr>
+<tr class="memdesc:gadede42b163bc7f23c95e7007fa336b9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant defines the test value to be written to the Alarm Threshold Register.  <a href="group___overview.html#gadede42b163bc7f23c95e7007fa336b9a">More...</a><br/></td></tr>
+<tr class="separator:gadede42b163bc7f23c95e7007fa336b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a39d8d59cc35fe4151b51b5bbafdca2ca"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu__selftest_8c.html#a39d8d59cc35fe4151b51b5bbafdca2ca">XSysMonPsu_SelfTest</a> (<a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a39d8d59cc35fe4151b51b5bbafdca2ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a self-test on the driver/device.  <a href="#a39d8d59cc35fe4151b51b5bbafdca2ca">More...</a><br/></td></tr>
-<tr class="separator:a39d8d59cc35fe4151b51b5bbafdca2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39d8d59cc35fe4151b51b5bbafdca2ca"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga39d8d59cc35fe4151b51b5bbafdca2ca">XSysMonPsu_SelfTest</a> (<a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga39d8d59cc35fe4151b51b5bbafdca2ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver and device.  <a href="group___overview.html#ga39d8d59cc35fe4151b51b5bbafdca2ca">More...</a><br/></td></tr>
+<tr class="separator:ga39d8d59cc35fe4151b51b5bbafdca2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a39d8d59cc35fe4151b51b5bbafdca2ca"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">s32 XSysMonPsu_SelfTest </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_sys_mon_psu.html">XSysMonPsu</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Run a self-test on the driver/device. </p>
-<p>The test</p>
-<ul>
-<li>Resets the device,</li>
-<li>Writes a value into the Alarm Threshold register and reads it back for comparison.</li>
-<li>Resets the device again.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_sys_mon_psu.html" title="The XSysmonPsu driver instance data. ">XSysMonPsu</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the value read from the Alarm Threshold register is the same as the value written.</li>
-<li>XST_FAILURE Otherwise</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This is a destructive test in that resets of the device are performed. Refer to the device specification for the device status after the reset operation. </dd></dl>
-
-<p>References <a class="el" href="struct_x_sys_mon_psu.html#ae4e48efa3298714b2e190f2dbfc9566a">XSysMonPsu::IsReady</a>, <a class="el" href="xsysmonpsu_8h.html#a220ecdeca017ceb88fcb61fcc0f20253">XSM_ATR_SUP1_UPPER</a>, <a class="el" href="xsysmonpsu_8c.html#a708bc2465a24743784ce6119bc05b10a">XSysMonPsu_GetAlarmThreshold()</a>, <a class="el" href="xsysmonpsu_8c.html#ad6fc9daa41e50955a71e2fe7a107a0e5">XSysMonPsu_Reset()</a>, and <a class="el" href="xsysmonpsu_8c.html#a6d436ab807a561d70339cdfe52f6f560">XSysMonPsu_SetAlarmThreshold()</a>.</p>
-
-<p>Referenced by <a class="el" href="xsysmonpsu__ams__example_8c.html#a61d355bff86a58c5cc63a7dafbcc5ea8">SysMonPsuAMSExample()</a>, <a class="el" href="xsysmonpsu__intr__example_8c.html#a26b92e20e1b2b69c588591b91d185d12">SysMonPsuIntrExample()</a>, <a class="el" href="xsysmonpsu__polled__example_8c.html#ae53b4649b4f9335a87072df7e5e579c4">SysMonPsuPolledPrintfExample()</a>, and <a class="el" href="xsysmonpsu__single__ch__intr__example_8c.html#a6f2a932c9e346a5009826057a3e7bd69">SysMonPsuSingleChannelIntrExample()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

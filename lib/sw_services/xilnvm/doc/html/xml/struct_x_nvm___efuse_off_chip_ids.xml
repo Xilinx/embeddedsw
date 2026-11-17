@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="287" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="337" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nvm___efuse_off_chip_ids_1acbe316bc1e084cb88614be382bfdba8d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="288" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="338" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure for OffchipId data. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="286" bodyend="289"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="336" bodyend="339"/>
     <listofallmembers>
       <member refid="struct_x_nvm___efuse_off_chip_ids_1acbe316bc1e084cb88614be382bfdba8d" prot="public" virt="non-virtual"><scope>XNvm_EfuseOffChipIds</scope><name>OffChipId</name></member>
       <member refid="struct_x_nvm___efuse_off_chip_ids_1ac10598c534eb4ca482109a6a0a1bf641" prot="public" virt="non-virtual"><scope>XNvm_EfuseOffChipIds</scope><name>PrgmOffchipId</name></member>

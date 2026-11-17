@@ -1,40 +1,132 @@
 var NAVTREE =
 [
-  [ "dp14rxss", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xdprxss_selftest_example.c", "example.html#ex1", null ],
-      [ "xdprxss_mst_example.c", "example.html#ex2", null ],
-      [ "xdprxss_intr_example.c", "example.html#ex3", null ],
-      [ "xdprxss_debug_example.c", "example.html#ex4", null ],
-      [ "xdprxss_hdcp_example.c", "example.html#ex5", [
-        [ "NOTES", "example.html#IMPORTANT", null ]
-      ] ]
-    ] ]
-  ] ]
+  [
+    "dp14rxss",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xdprxss_selftest_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xdprxss_mst_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xdprxss_intr_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xdprxss_debug_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xdprxss_hdcp_example.c",
+            "example.html#ex5",
+            [
+              [
+                "NOTES",
+                "example.html#IMPORTANT",
+                null
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "_l_m_k04906_8h.html",
-"xdprxss_8h.html#gga3ca7c841e35b2dfe41310092b3837b31a07cc4d6393552a8b53d732f151bbe9ad"
+"xdprxss__dp14__rx_8c.html#ab705b88ffccba236871be621549ff82d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

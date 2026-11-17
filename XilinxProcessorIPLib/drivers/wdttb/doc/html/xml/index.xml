@@ -57,7 +57,6 @@
     <member refid="group__wdttb__api_1gaf06401c68588281006be77362aa8dbf4" kind="function"><name>XWdtTb_GenAnswer</name></member>
   </compound>
   <compound refid="xwdttb_8h" kind="file"><name>xwdttb.h</name>
-    <member refid="group__wdttb__api_1gaa6893b6ff733519d217debc3a198903f" kind="define"><name>XWDTTB_H</name></member>
     <member refid="group__wdttb__api_1ga6ce266ea00535f8b8c9594d2e1f0e630" kind="enum"><name>XWdtTb_Event</name></member>
     <member refid="group__wdttb__api_1gga6ce266ea00535f8b8c9594d2e1f0e630a46d6c3798d61cc4e49a0d5a117c2c44c" kind="enumvalue"><name>XWDTTB_NO_BAD_EVENT</name></member>
     <member refid="group__wdttb__api_1gga6ce266ea00535f8b8c9594d2e1f0e630a6597551da73e180aee12bade6494796f" kind="enumvalue"><name>XWDTTB_RS_KICK_EVENT</name></member>
@@ -137,12 +136,12 @@
     <member refid="xwdttb__gwdt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xwdttb__gwdt__intr__example_8c" kind="file"><name>xwdttb_gwdt_intr_example.c</name>
-    <member refid="xwdttb__gwdt__intr__example_8c_1a6c8cb9cb2bb201e51c802085d647e227" kind="define"><name>WDTPSV_GWOR_COUNT</name></member>
-    <member refid="xwdttb__gwdt__intr__example_8c_1a9dda9504dd79a16420a3ae6f5f8de0da" kind="variable"><name>GWdtInstance</name></member>
-    <member refid="xwdttb__gwdt__intr__example_8c_1a5109514376ab669ae13c932c2fa4416b" kind="variable"><name>GWdtExpired</name></member>
-    <member refid="xwdttb__gwdt__intr__example_8c_1a3a2250354004b0d38a79cbc2549dacfa" kind="function"><name>WdtTbIntrExample</name></member>
-    <member refid="xwdttb__gwdt__intr__example_8c_1a8f1eafe8d4ff8a0e339b8d36fac8d7fb" kind="function"><name>GWdtIntrHandler</name></member>
-    <member refid="xwdttb__gwdt__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga6c8cb9cb2bb201e51c802085d647e227" kind="define"><name>WDTPSV_GWOR_COUNT</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga9dda9504dd79a16420a3ae6f5f8de0da" kind="variable"><name>GWdtInstance</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga5109514376ab669ae13c932c2fa4416b" kind="variable"><name>GWdtExpired</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga8f1eafe8d4ff8a0e339b8d36fac8d7fb" kind="function"><name>GWdtIntrHandler</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xwdttb__gwdt__selftest__example_8c" kind="file"><name>xwdttb_gwdt_selftest_example.c</name>
     <member refid="xwdttb__gwdt__selftest__example_8c_1a4a12f5ad6b4a01428caf8a1acce43f8f" kind="variable"><name>GWatchdog</name></member>
@@ -217,30 +216,29 @@
     <member refid="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" kind="define"><name>XWT_GWCSR_GWEN_MASK</name></member>
     <member refid="group__wdttb__api_1ga5fb2919a8a420cdd29f8ee18767a67ee" kind="define"><name>XWT_GWCSR_GWS1_MASK</name></member>
     <member refid="group__wdttb__api_1ga35aee12ed837e66b135d65407b3ff23e" kind="define"><name>XWT_GWCSR_GWS2_MASK</name></member>
-    <member refid="xwdttb__hw_8h_1adf392cff302c8ea88ba33c545e757d4b" kind="define"><name>XWdtTb_In32</name></member>
-    <member refid="xwdttb__hw_8h_1a64a7b4a2766f990ebafeed1978593308" kind="define"><name>XWdtTb_Out32</name></member>
-    <member refid="group__wdttb__api_1gab5ddc5730a86f3cbab203b333b01595e" kind="define"><name>XWDTTB_HW_H_</name></member>
     <member refid="group__wdttb__api_1ga633f04f09e1b0d8d960aba46ce522b07" kind="define"><name>XWT_GW_WR_MASK</name></member>
     <member refid="group__wdttb__api_1gae0376d1045bc05ff11e88769414398d4" kind="define"><name>XWT_GWRR_MASK</name></member>
-    <member refid="xwdttb__hw_8h_1a1045f4bb88112232e39975b1344a55ff" kind="define"><name>XWT_START_VALUE</name></member>
-    <member refid="xwdttb__hw_8h_1a4ac0486680dc34b383a5ad7012d893a3" kind="define"><name>XWT_END_VALUE</name></member>
-    <member refid="xwdttb__hw_8h_1aa828d0d77eb5c2cb562cb0316e50c70c" kind="define"><name>XWT_ZERO</name></member>
-    <member refid="xwdttb__hw_8h_1a6fc90576f0dea11b4fad40d6624f3b8b" kind="define"><name>XWT_ONE</name></member>
-    <member refid="xwdttb__hw_8h_1a628225259674e506919317cc28a9db79" kind="define"><name>XWT_MAX_BYTE_SEGMENT</name></member>
-    <member refid="xwdttb__hw_8h_1ab4a86d14c65c5a4aef740c3d70a34331" kind="define"><name>XWT_GWDT</name></member>
-    <member refid="xwdttb__hw_8h_1a812114b38de6dd94691113164c16bf26" kind="define"><name>XWT_WWDT</name></member>
-    <member refid="xwdttb__hw_8h_1a18937c99fdc7fba503e6d4195899d2cb" kind="define"><name>XWT_ENABLE_QA_MODE</name></member>
-    <member refid="xwdttb__hw_8h_1ae66e3f35ddde61da7b413d343470b97f" kind="define"><name>XWT_MAX_TIMEOUT</name></member>
-    <member refid="xwdttb__hw_8h_1ae790420ef49bf994030317fab83977b9" kind="define"><name>XWT_KILO_HZ</name></member>
-    <member refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kind="define"><name>XWdtTb_ReadReg</name></member>
-    <member refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kind="define"><name>XWdtTb_WriteReg</name></member>
+    <member refid="group__wdttb__api_1ga1045f4bb88112232e39975b1344a55ff" kind="define"><name>XWT_START_VALUE</name></member>
+    <member refid="group__wdttb__api_1ga4ac0486680dc34b383a5ad7012d893a3" kind="define"><name>XWT_END_VALUE</name></member>
+    <member refid="group__wdttb__api_1gaa828d0d77eb5c2cb562cb0316e50c70c" kind="define"><name>XWT_ZERO</name></member>
+    <member refid="group__wdttb__api_1ga6fc90576f0dea11b4fad40d6624f3b8b" kind="define"><name>XWT_ONE</name></member>
+    <member refid="group__wdttb__api_1ga628225259674e506919317cc28a9db79" kind="define"><name>XWT_MAX_BYTE_SEGMENT</name></member>
+    <member refid="group__wdttb__api_1gab4a86d14c65c5a4aef740c3d70a34331" kind="define"><name>XWT_GWDT</name></member>
+    <member refid="group__wdttb__api_1ga812114b38de6dd94691113164c16bf26" kind="define"><name>XWT_WWDT</name></member>
+    <member refid="group__wdttb__api_1ga18937c99fdc7fba503e6d4195899d2cb" kind="define"><name>XWT_ENABLE_QA_MODE</name></member>
+    <member refid="group__wdttb__api_1gae66e3f35ddde61da7b413d343470b97f" kind="define"><name>XWT_MAX_TIMEOUT</name></member>
+    <member refid="group__wdttb__api_1gae790420ef49bf994030317fab83977b9" kind="define"><name>XWT_KILO_HZ</name></member>
+    <member refid="group__wdttb__api_1gadf392cff302c8ea88ba33c545e757d4b" kind="define"><name>XWdtTb_In32</name></member>
+    <member refid="group__wdttb__api_1ga64a7b4a2766f990ebafeed1978593308" kind="define"><name>XWdtTb_Out32</name></member>
+    <member refid="group__wdttb__api_1gafa6b4b0d4c816cd9bd6da3c9fe7caac3" kind="define"><name>XWdtTb_ReadReg</name></member>
+    <member refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" kind="define"><name>XWdtTb_WriteReg</name></member>
   </compound>
   <compound refid="xwdttb__intr__example_8c" kind="file"><name>xwdttb_intr_example.c</name>
-    <member refid="xwdttb__intr__example_8c_1ab8af281a0812133a8f56ae603f696ef1" kind="variable"><name>WdtTbInstance</name></member>
-    <member refid="xwdttb__intr__example_8c_1a9a3a500686a269cd8194f4693c6f8b45" kind="variable"><name>WdtExpired</name></member>
-    <member refid="xwdttb__intr__example_8c_1ad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
-    <member refid="xwdttb__intr__example_8c_1a30103615faf456b845c73828f7939a4a" kind="function"><name>WdtTbIntrHandler</name></member>
-    <member refid="xwdttb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xwdttb__intr__example_1gab8af281a0812133a8f56ae603f696ef1" kind="variable"><name>WdtTbInstance</name></member>
+    <member refid="group__xwdttb__intr__example_1ga9a3a500686a269cd8194f4693c6f8b45" kind="variable"><name>WdtExpired</name></member>
+    <member refid="group__xwdttb__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
+    <member refid="group__xwdttb__intr__example_1ga30103615faf456b845c73828f7939a4a" kind="function"><name>WdtTbIntrHandler</name></member>
+    <member refid="group__xwdttb__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xwdttb__l_8h" kind="file"><name>xwdttb_l.h</name>
   </compound>
@@ -268,12 +266,12 @@
     <member refid="xwdttb__winwdt__example_8c_1a74953e24323328fb9e670af5781fcb1d" kind="define"><name>WDTTB_EN_PSM</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a1a6a133dfc5cf1913bb4a219b23c61b1" kind="define"><name>WDTTB_EN_FC</name></member>
     <member refid="xwdttb__winwdt__example_8c_1abf95c544ede691d0160c3841f4b23186" kind="define"><name>WDTTB_EN_WDP</name></member>
-    <member refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" kind="define"><name>WDTTB_TSR_VAL</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a2f5793923e00b88a8fb0acb82f94a9af" kind="define"><name>WDTTB_FW_COUNT</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a8090b9e054a00a126b6baa1cd2118305" kind="define"><name>WDTTB_SW_COUNT</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a1aee861e5a8130a2590fbabd10cccbeb" kind="define"><name>WDTTB_BYTE_COUNT</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a0f042882baa1ded6c87fd10cfab456db" kind="define"><name>WDTTB_BYTE_SEGMENT</name></member>
     <member refid="xwdttb__winwdt__example_8c_1ae8b4b1a275d1d9e87eb2f9aadb1b61dd" kind="define"><name>WDTTB_SST_COUNT</name></member>
+    <member refid="xwdttb__winwdt__example_8c_1ab8c9bab86887fd944db74efb59c8ff05" kind="define"><name>WDTTB_TSR_VAL</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a4555711ea4c3a491ac027e2cfb682ee5" kind="variable"><name>WindowWatchdogTimebase</name></member>
     <member refid="xwdttb__winwdt__example_8c_1ab766454433ff6b42cf5c7ebb96e938e3" kind="function"><name>WinWdtTbExample</name></member>
     <member refid="xwdttb__winwdt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
@@ -289,18 +287,18 @@
     <member refid="xwdttb__winwdt__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xwdttb__winwdt__qamode__example_8c" kind="file"><name>xwdttb_winwdt_qamode_example.c</name>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1ab6e6b6019e1c9f1297df69a9c0f5d3cd" kind="define"><name>WIN_WDT_FW_COUNT</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1abcca4fac23cabb6f0a7a684a08c3a90a" kind="define"><name>WIN_WDT_SW_COUNT</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1a7c4beb8b18f7cc956dae726959908860" kind="define"><name>WIN_WDT_SBC_COUNT</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1a5cb3630794e82059b27032e5116b5a66" kind="define"><name>WIN_WDT_BSS_COUNT</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1a31caf9690474a71920e62bc3267a0f10" kind="define"><name>WIN_WDT_TOKEN_SEED</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1acc21eb8bd043b4b73269ebcbc74dd5e7" kind="define"><name>WIN_WDT_FEEDBACK</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1aece0338062e13b9afd622c6937664303" kind="define"><name>WIN_NUM_ITERATIONS</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1ab8af281a0812133a8f56ae603f696ef1" kind="variable"><name>WdtTbInstance</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1a9a3a500686a269cd8194f4693c6f8b45" kind="variable"><name>WdtExpired</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1ad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1ae691ce80002584ae7e099ecd7979e36f" kind="function"><name>WinWdtQAModeIntrHandler</name></member>
-    <member refid="xwdttb__winwdt__qamode__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gab6e6b6019e1c9f1297df69a9c0f5d3cd" kind="define"><name>WIN_WDT_FW_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gabcca4fac23cabb6f0a7a684a08c3a90a" kind="define"><name>WIN_WDT_SW_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga7c4beb8b18f7cc956dae726959908860" kind="define"><name>WIN_WDT_SBC_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga5cb3630794e82059b27032e5116b5a66" kind="define"><name>WIN_WDT_BSS_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga31caf9690474a71920e62bc3267a0f10" kind="define"><name>WIN_WDT_TOKEN_SEED</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gacc21eb8bd043b4b73269ebcbc74dd5e7" kind="define"><name>WIN_WDT_FEEDBACK</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gaece0338062e13b9afd622c6937664303" kind="define"><name>WIN_NUM_ITERATIONS</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gab8af281a0812133a8f56ae603f696ef1" kind="variable"><name>WdtTbInstance</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga9a3a500686a269cd8194f4693c6f8b45" kind="variable"><name>WdtExpired</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gae691ce80002584ae7e099ecd7979e36f" kind="function"><name>WinWdtQAModeIntrHandler</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="group__wdttb__api" kind="group"><name>wdttb_api</name>
     <member refid="group__wdttb__api_1ga5179e62af141b56b29af9e69cbbb8591" kind="define"><name>XWT_MWR_OFFSET</name></member>
@@ -370,6 +368,24 @@
     <member refid="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" kind="define"><name>XWT_GWCSR_GWEN_MASK</name></member>
     <member refid="group__wdttb__api_1ga5fb2919a8a420cdd29f8ee18767a67ee" kind="define"><name>XWT_GWCSR_GWS1_MASK</name></member>
     <member refid="group__wdttb__api_1ga35aee12ed837e66b135d65407b3ff23e" kind="define"><name>XWT_GWCSR_GWS2_MASK</name></member>
+    <member refid="group__wdttb__api_1ga633f04f09e1b0d8d960aba46ce522b07" kind="define"><name>XWT_GW_WR_MASK</name></member>
+    <member refid="group__wdttb__api_1gae0376d1045bc05ff11e88769414398d4" kind="define"><name>XWT_GWRR_MASK</name></member>
+    <member refid="group__wdttb__api_1ga1045f4bb88112232e39975b1344a55ff" kind="define"><name>XWT_START_VALUE</name></member>
+    <member refid="group__wdttb__api_1ga4ac0486680dc34b383a5ad7012d893a3" kind="define"><name>XWT_END_VALUE</name></member>
+    <member refid="group__wdttb__api_1gaa828d0d77eb5c2cb562cb0316e50c70c" kind="define"><name>XWT_ZERO</name></member>
+    <member refid="group__wdttb__api_1ga6fc90576f0dea11b4fad40d6624f3b8b" kind="define"><name>XWT_ONE</name></member>
+    <member refid="group__wdttb__api_1ga628225259674e506919317cc28a9db79" kind="define"><name>XWT_MAX_BYTE_SEGMENT</name></member>
+    <member refid="group__wdttb__api_1gab4a86d14c65c5a4aef740c3d70a34331" kind="define"><name>XWT_GWDT</name></member>
+    <member refid="group__wdttb__api_1ga812114b38de6dd94691113164c16bf26" kind="define"><name>XWT_WWDT</name></member>
+    <member refid="group__wdttb__api_1ga18937c99fdc7fba503e6d4195899d2cb" kind="define"><name>XWT_ENABLE_QA_MODE</name></member>
+    <member refid="group__wdttb__api_1gae66e3f35ddde61da7b413d343470b97f" kind="define"><name>XWT_MAX_TIMEOUT</name></member>
+    <member refid="group__wdttb__api_1gae790420ef49bf994030317fab83977b9" kind="define"><name>XWT_KILO_HZ</name></member>
+    <member refid="group__wdttb__api_1gadf392cff302c8ea88ba33c545e757d4b" kind="define"><name>XWdtTb_In32</name></member>
+    <member refid="group__wdttb__api_1ga64a7b4a2766f990ebafeed1978593308" kind="define"><name>XWdtTb_Out32</name></member>
+    <member refid="group__wdttb__api_1ga4f5e675abc1651523fc8586c4ca34700" kind="define"><name>XWT_MAX_SELFTEST_LOOP_COUNT</name></member>
+    <member refid="group__wdttb__api_1gab51fc9c602dd4d891007e82e3d0f36c9" kind="define"><name>XWT_FW_COUNT</name></member>
+    <member refid="group__wdttb__api_1ga968af3f9423a4490ad7edcdda3ebfb49" kind="define"><name>XWT_SW_COUNT</name></member>
+    <member refid="group__wdttb__api_1ga7d2553ae05bf83bb1da5955480a68415" kind="define"><name>XWT_GWOR_COUNT</name></member>
     <member refid="group__wdttb__api_1ga6ce266ea00535f8b8c9594d2e1f0e630" kind="enum"><name>XWdtTb_Event</name></member>
     <member refid="group__wdttb__api_1gga6ce266ea00535f8b8c9594d2e1f0e630a46d6c3798d61cc4e49a0d5a117c2c44c" kind="enumvalue"><name>XWDTTB_NO_BAD_EVENT</name></member>
     <member refid="group__wdttb__api_1gga6ce266ea00535f8b8c9594d2e1f0e630a6597551da73e180aee12bade6494796f" kind="enumvalue"><name>XWDTTB_RS_KICK_EVENT</name></member>
@@ -433,14 +449,36 @@
     <member refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" kind="function"><name>XWdtTb_DisableWinWdt</name></member>
     <member refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" kind="function"><name>XWdtTb_EnableTimebaseWdt</name></member>
     <member refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" kind="function"><name>XWdtTb_DisableTimebaseWdt</name></member>
-    <member refid="group__wdttb__api_1gaa6893b6ff733519d217debc3a198903f" kind="define"><name>XWDTTB_H</name></member>
-    <member refid="group__wdttb__api_1gab5ddc5730a86f3cbab203b333b01595e" kind="define"><name>XWDTTB_HW_H_</name></member>
-    <member refid="group__wdttb__api_1ga633f04f09e1b0d8d960aba46ce522b07" kind="define"><name>XWT_GW_WR_MASK</name></member>
-    <member refid="group__wdttb__api_1gae0376d1045bc05ff11e88769414398d4" kind="define"><name>XWT_GWRR_MASK</name></member>
-    <member refid="group__wdttb__api_1ga4f5e675abc1651523fc8586c4ca34700" kind="define"><name>XWT_MAX_SELFTEST_LOOP_COUNT</name></member>
-    <member refid="group__wdttb__api_1gab51fc9c602dd4d891007e82e3d0f36c9" kind="define"><name>XWT_FW_COUNT</name></member>
-    <member refid="group__wdttb__api_1ga968af3f9423a4490ad7edcdda3ebfb49" kind="define"><name>XWT_SW_COUNT</name></member>
-    <member refid="group__wdttb__api_1ga7d2553ae05bf83bb1da5955480a68415" kind="define"><name>XWT_GWOR_COUNT</name></member>
+    <member refid="group__wdttb__api_1gafa6b4b0d4c816cd9bd6da3c9fe7caac3" kind="define"><name>XWdtTb_ReadReg</name></member>
+    <member refid="group__wdttb__api_1ga36d539f7262d0267924d2ef5612f0cc2" kind="define"><name>XWdtTb_WriteReg</name></member>
+  </compound>
+  <compound refid="group__xwdttb__gwdt__intr__example" kind="group"><name>xwdttb_gwdt_intr_example</name>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga9dda9504dd79a16420a3ae6f5f8de0da" kind="variable"><name>GWdtInstance</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga5109514376ab669ae13c932c2fa4416b" kind="variable"><name>GWdtExpired</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga8f1eafe8d4ff8a0e339b8d36fac8d7fb" kind="function"><name>GWdtIntrHandler</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xwdttb__gwdt__intr__example_1ga6c8cb9cb2bb201e51c802085d647e227" kind="define"><name>WDTPSV_GWOR_COUNT</name></member>
+  </compound>
+  <compound refid="group__xwdttb__intr__example" kind="group"><name>xwdttb_intr_example</name>
+    <member refid="group__xwdttb__intr__example_1gab8af281a0812133a8f56ae603f696ef1" kind="variable"><name>WdtTbInstance</name></member>
+    <member refid="group__xwdttb__intr__example_1ga9a3a500686a269cd8194f4693c6f8b45" kind="variable"><name>WdtExpired</name></member>
+    <member refid="group__xwdttb__intr__example_1gad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
+    <member refid="group__xwdttb__intr__example_1ga30103615faf456b845c73828f7939a4a" kind="function"><name>WdtTbIntrHandler</name></member>
+    <member refid="group__xwdttb__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="group__xwdttb__winwdt__qamode__example" kind="group"><name>xwdttb_winwdt_qamode_example</name>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gab6e6b6019e1c9f1297df69a9c0f5d3cd" kind="define"><name>WIN_WDT_FW_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gabcca4fac23cabb6f0a7a684a08c3a90a" kind="define"><name>WIN_WDT_SW_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga7c4beb8b18f7cc956dae726959908860" kind="define"><name>WIN_WDT_SBC_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga5cb3630794e82059b27032e5116b5a66" kind="define"><name>WIN_WDT_BSS_COUNT</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga31caf9690474a71920e62bc3267a0f10" kind="define"><name>WIN_WDT_TOKEN_SEED</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gacc21eb8bd043b4b73269ebcbc74dd5e7" kind="define"><name>WIN_WDT_FEEDBACK</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gab8af281a0812133a8f56ae603f696ef1" kind="variable"><name>WdtTbInstance</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga9a3a500686a269cd8194f4693c6f8b45" kind="variable"><name>WdtExpired</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gad5e60e9f326186ec41039b1ad536e60d" kind="function"><name>WdtTbIntrExample</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gae691ce80002584ae7e099ecd7979e36f" kind="function"><name>WinWdtQAModeIntrHandler</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xwdttb__winwdt__qamode__example_1gaece0338062e13b9afd622c6937664303" kind="define"><name>WIN_NUM_ITERATIONS</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>
@@ -449,7 +487,5 @@
   <compound refid="dir_5856286ee6797d4aa89d0071ae50b09a" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_553ce3bad573542a622d1e00fff7c4a7" kind="dir"><name>wdttb</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

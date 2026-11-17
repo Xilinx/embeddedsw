@@ -98,6 +98,8 @@ $(document).ready(function(){initNavTree('xhdmiphy1__gtye4_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xhdmiphy1_gtye4.c File Reference</div>  </div>
 </div><!--header-->
@@ -132,7 +134,509 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.1   ssh  22/02/23 Updated Line Rate Configurations
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xhdmiphy1__gt_8h.html">xhdmiphy1_gt.h</a>&quot;</code><br/>
-</div></div><!-- contents -->
+<code>#include &quot;xstatus.h&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:afa024a6d7df6cc801eaa00bdb503c422"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#afa024a6d7df6cc801eaa00bdb503c422">XHdmiphy1_Gtye4CfgSetCdr</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId)</td></tr>
+<tr class="memdesc:afa024a6d7df6cc801eaa00bdb503c422"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the clock and data recovery (CDR) values for a given channel.  <a href="#afa024a6d7df6cc801eaa00bdb503c422">More...</a><br/></td></tr>
+<tr class="separator:afa024a6d7df6cc801eaa00bdb503c422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d5c98698165cdd2af41e63101dae5d1"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#a7d5c98698165cdd2af41e63101dae5d1">XHdmiphy1_Gtye4CheckPllOpRange</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId, u64 PllClkOutFreqHz)</td></tr>
+<tr class="memdesc:a7d5c98698165cdd2af41e63101dae5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will check if a given PLL output frequency is within the operating range of the PLL for the GT type.  <a href="#a7d5c98698165cdd2af41e63101dae5d1">More...</a><br/></td></tr>
+<tr class="separator:a7d5c98698165cdd2af41e63101dae5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addc85fe8b76f999d95d96221ec41d356"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#addc85fe8b76f999d95d96221ec41d356">XHdmiphy1_Gtye4OutDivChReconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId, XHdmiphy1_DirectionType Dir)</td></tr>
+<tr class="memdesc:addc85fe8b76f999d95d96221ec41d356"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the output divider logic for a given channel.  <a href="#addc85fe8b76f999d95d96221ec41d356">More...</a><br/></td></tr>
+<tr class="separator:addc85fe8b76f999d95d96221ec41d356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5915f9ff27b8e0183268a410d46a6ada"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#a5915f9ff27b8e0183268a410d46a6ada">XHdmiphy1_Gtye4ClkChReconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId)</td></tr>
+<tr class="memdesc:a5915f9ff27b8e0183268a410d46a6ada"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure the channel clock settings.  <a href="#a5915f9ff27b8e0183268a410d46a6ada">More...</a><br/></td></tr>
+<tr class="separator:a5915f9ff27b8e0183268a410d46a6ada"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77cc5b174e73fe6bed3d3d0a208832f4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#a77cc5b174e73fe6bed3d3d0a208832f4">XHdmiphy1_Gtye4ClkCmnReconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> CmnId)</td></tr>
+<tr class="memdesc:a77cc5b174e73fe6bed3d3d0a208832f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure the common channel clock settings.  <a href="#a77cc5b174e73fe6bed3d3d0a208832f4">More...</a><br/></td></tr>
+<tr class="separator:a77cc5b174e73fe6bed3d3d0a208832f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3243c88d37a60dc005b8db9bd36239ea"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#a3243c88d37a60dc005b8db9bd36239ea">XHdmiphy1_Gtye4RxChReconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId)</td></tr>
+<tr class="memdesc:a3243c88d37a60dc005b8db9bd36239ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure the channel's RX settings.  <a href="#a3243c88d37a60dc005b8db9bd36239ea">More...</a><br/></td></tr>
+<tr class="separator:a3243c88d37a60dc005b8db9bd36239ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb1353647eaaae99b3549cefba088ff"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#a8eb1353647eaaae99b3549cefba088ff">XHdmiphy1_Gtye4TxChReconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId)</td></tr>
+<tr class="memdesc:a8eb1353647eaaae99b3549cefba088ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure the channel's TX settings.  <a href="#a8eb1353647eaaae99b3549cefba088ff">More...</a><br/></td></tr>
+<tr class="separator:a8eb1353647eaaae99b3549cefba088ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a158e5a059539c81b1ad21eab4e722c50"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#a158e5a059539c81b1ad21eab4e722c50">XHdmiphy1_Gtye4TxPllRefClkDiv1Reconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId)</td></tr>
+<tr class="memdesc:a158e5a059539c81b1ad21eab4e722c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure the channel's TX CLKDIV1 settings.  <a href="#a158e5a059539c81b1ad21eab4e722c50">More...</a><br/></td></tr>
+<tr class="separator:a158e5a059539c81b1ad21eab4e722c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc20bc03ff4b99355255ee719552ea18"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdmiphy1__gtye4_8c.html#abc20bc03ff4b99355255ee719552ea18">XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId)</td></tr>
+<tr class="memdesc:abc20bc03ff4b99355255ee719552ea18"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure the channel's RX CLKDIV1 settings.  <a href="#abc20bc03ff4b99355255ee719552ea18">More...</a><br/></td></tr>
+<tr class="separator:abc20bc03ff4b99355255ee719552ea18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97c464a7ee31e018574dc69b97ff06da"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xhdmiphy1.html#ga97c464a7ee31e018574dc69b97ff06da">XHdmiphy1_Gtye4CfgCpllCalPeriodandTol</a> (<a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *InstancePtr, u8 QuadId, <a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a> ChId, XHdmiphy1_DirectionType Dir, u32 FreeRunClkFreq)</td></tr>
+<tr class="memdesc:ga97c464a7ee31e018574dc69b97ff06da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the CPLL Calibration period and the count tolerance registers.  <a href="group__xhdmiphy1.html#ga97c464a7ee31e018574dc69b97ff06da">More...</a><br/></td></tr>
+<tr class="separator:ga97c464a7ee31e018574dc69b97ff06da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="afa024a6d7df6cc801eaa00bdb503c422"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4CfgSetCdr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set the clock and data recovery (CDR) values for a given channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#a0204ec609474b091ff494d61ebd2aa80">XHdmiphy1::Quads</a>, <a class="el" href="struct_x_hdmiphy1___channel.html#a67bd659e6e97f698cdca013741601d2a">XHdmiphy1_Channel::RxOutDiv</a>, <a class="el" href="group__xhdmiphy1.html#ga69ae1625b41480778aa00b6b7f40f9cb">XHDMIPHY1_CH2IDX</a>, and <a class="el" href="group__xhdmiphy1.html#gab75f3892f884d01f855d607291eba269">XHdmiphy1_IsHDMI()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7d5c98698165cdd2af41e63101dae5d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4CheckPllOpRange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u64&#160;</td>
+          <td class="paramname"><em>PllClkOutFreqHz</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will check if a given PLL output frequency is within the operating range of the PLL for the GT type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on. </td></tr>
+    <tr><td class="paramname">PllClkOutFreqHz</td><td>is the frequency to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the frequency resides within the PLL's range.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5915f9ff27b8e0183268a410d46a6ada"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4ClkChReconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will configure the channel clock settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#ae19e95b6e84e21a988ba6910ceb3f35a">XHdmiphy1::Config</a>, <a class="el" href="struct_x_hdmiphy1___config.html#a5baa13346e9d06864c9c1881bbbe621a">XHdmiphy1_Config::DrpClkFreq</a>, <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>, <a class="el" href="group__xhdmiphy1.html#ga97e1d4070dafe5a73d9bf60621382c98">XHdmiphy1_GetPllType()</a>, <a class="el" href="group__xhdmiphy1.html#ga7cd4d4f88631190ea51009300a15b783">XHdmiphy1_GetPllVcoFreqHz()</a>, <a class="el" href="group__xhdmiphy1.html#ga97c464a7ee31e018574dc69b97ff06da">XHdmiphy1_Gtye4CfgCpllCalPeriodandTol()</a>, <a class="el" href="group__xhdmiphy1.html#ga17f7c0f80270c3ac676d59ebac22b116">XHdmiphy1_IsTxUsingCpll</a>, and <a class="el" href="group__xhdmiphy1.html#ga018b4db1ade86e456ea095a91597f37c">XHdmiphy1_IsTxUsingQpll</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a77cc5b174e73fe6bed3d3d0a208832f4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4ClkCmnReconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>CmnId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will configure the common channel clock settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">CmnId</td><td>is the common channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#a0204ec609474b091ff494d61ebd2aa80">XHdmiphy1::Quads</a>, <a class="el" href="group__xhdmiphy1.html#ga69ae1625b41480778aa00b6b7f40f9cb">XHDMIPHY1_CH2IDX</a>, <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>, <a class="el" href="group__xhdmiphy1.html#ga7cd4d4f88631190ea51009300a15b783">XHdmiphy1_GetPllVcoFreqHz()</a>, <a class="el" href="group__xhdmiphy1.html#ga22de3338657208e2ee991d68f0248195">XHdmiphy1_GetRefClkSourcesCount()</a>, <a class="el" href="group__xhdmiphy1.html#gab75f3892f884d01f855d607291eba269">XHdmiphy1_IsHDMI()</a>, and <a class="el" href="group__xhdmiphy1.html#ga018b4db1ade86e456ea095a91597f37c">XHdmiphy1_IsTxUsingQpll</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="addc85fe8b76f999d95d96221ec41d356"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4OutDivChReconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XHdmiphy1_DirectionType&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set the output divider logic for a given channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on. </td></tr>
+    <tr><td class="paramname">Dir</td><td>is an indicator for RX or TX.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, and <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3243c88d37a60dc005b8db9bd36239ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4RxChReconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will configure the channel's RX settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#a0204ec609474b091ff494d61ebd2aa80">XHdmiphy1::Quads</a>, <a class="el" href="struct_x_hdmiphy1___channel.html#ab051d1c6482506f1b3469f4f7310be01">XHdmiphy1_Channel::RxDataWidth</a>, <a class="el" href="struct_x_hdmiphy1___channel.html#abdf0d23bac376e9bab185c7625cc74e3">XHdmiphy1_Channel::RxIntDataWidth</a>, <a class="el" href="group__xhdmiphy1.html#ga69ae1625b41480778aa00b6b7f40f9cb">XHDMIPHY1_CH2IDX</a>, <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>, <a class="el" href="group__xhdmiphy1.html#ga31263f99c22623f852ea864fba080232">XHdmiphy1_GetLineRateHz()</a>, <a class="el" href="group__xhdmiphy1.html#ga97e1d4070dafe5a73d9bf60621382c98">XHdmiphy1_GetPllType()</a>, <a class="el" href="group__xhdmiphy1.html#ga7cd4d4f88631190ea51009300a15b783">XHdmiphy1_GetPllVcoFreqHz()</a>, <a class="el" href="xhdmiphy1__gtye4_8c.html#abc20bc03ff4b99355255ee719552ea18">XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig()</a>, and <a class="el" href="group__xhdmiphy1.html#gab75f3892f884d01f855d607291eba269">XHdmiphy1_IsHDMI()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abc20bc03ff4b99355255ee719552ea18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will configure the channel's RX CLKDIV1 settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#a9ba8d9489de84bdfb6acc4d33c7957ea">XHdmiphy1::HdmiRxRefClkHz</a>, <a class="el" href="struct_x_hdmiphy1.html#a0204ec609474b091ff494d61ebd2aa80">XHdmiphy1::Quads</a>, <a class="el" href="group__xhdmiphy1.html#ga69ae1625b41480778aa00b6b7f40f9cb">XHDMIPHY1_CH2IDX</a>, <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>, <a class="el" href="group__xhdmiphy1.html#gaaa8cf29813f43a1066492adea335bf48">XHdmiphy1_GetQuadRefClkFreq()</a>, and <a class="el" href="group__xhdmiphy1.html#gab75f3892f884d01f855d607291eba269">XHdmiphy1_IsHDMI()</a>.</p>
+
+<p>Referenced by <a class="el" href="xhdmiphy1__gtye4_8c.html#a3243c88d37a60dc005b8db9bd36239ea">XHdmiphy1_Gtye4RxChReconfig()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8eb1353647eaaae99b3549cefba088ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4TxChReconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will configure the channel's TX settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#a0204ec609474b091ff494d61ebd2aa80">XHdmiphy1::Quads</a>, <a class="el" href="struct_x_hdmiphy1___channel.html#aa25962f290f288e283801dd1b753bf2d">XHdmiphy1_Channel::TxDataWidth</a>, <a class="el" href="struct_x_hdmiphy1___channel.html#a372c3ce24268dbda097c8413b1954a2a">XHdmiphy1_Channel::TxIntDataWidth</a>, <a class="el" href="group__xhdmiphy1.html#ga69ae1625b41480778aa00b6b7f40f9cb">XHDMIPHY1_CH2IDX</a>, <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>, <a class="el" href="group__xhdmiphy1.html#ga97e1d4070dafe5a73d9bf60621382c98">XHdmiphy1_GetPllType()</a>, <a class="el" href="group__xhdmiphy1.html#ga7cd4d4f88631190ea51009300a15b783">XHdmiphy1_GetPllVcoFreqHz()</a>, <a class="el" href="xhdmiphy1__gtye4_8c.html#a158e5a059539c81b1ad21eab4e722c50">XHdmiphy1_Gtye4TxPllRefClkDiv1Reconfig()</a>, and <a class="el" href="group__xhdmiphy1.html#gab75f3892f884d01f855d607291eba269">XHdmiphy1_IsHDMI()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a158e5a059539c81b1ad21eab4e722c50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XHdmiphy1_Gtye4TxPllRefClkDiv1Reconfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdmiphy1.html">XHdmiphy1</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>QuadId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__xhdmiphy1.html#ga54f72201d2012e3c638ec92b5e310f23">XHdmiphy1_ChannelId</a>&#160;</td>
+          <td class="paramname"><em>ChId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will configure the channel's TX CLKDIV1 settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_hdmiphy1.html" title="The XHdmiphy1 driver instance data. ">XHdmiphy1</a> core instance. </td></tr>
+    <tr><td class="paramname">QuadId</td><td>is the GT quad ID to operate on. </td></tr>
+    <tr><td class="paramname">ChId</td><td>is the channel ID to operate on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the configuration was successful.</li>
+<li>XST_FAILURE otherwise.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p>References <a class="el" href="struct_x_hdmiphy1.html#a834eecec514b7571575a3bf47cfa63e0">XHdmiphy1::HdmiTxRefClkHz</a>, <a class="el" href="struct_x_hdmiphy1.html#a0204ec609474b091ff494d61ebd2aa80">XHdmiphy1::Quads</a>, <a class="el" href="group__xhdmiphy1.html#ga69ae1625b41480778aa00b6b7f40f9cb">XHDMIPHY1_CH2IDX</a>, <a class="el" href="group__xhdmiphy1.html#ga55c5c6061828e1f986b64d4c0ae9a57b">XHdmiphy1_DrpRd()</a>, <a class="el" href="group__xhdmiphy1.html#ga632197e5f773491cdf96f076e7112e0f">XHdmiphy1_DrpWr()</a>, <a class="el" href="group__xhdmiphy1.html#gaaa8cf29813f43a1066492adea335bf48">XHdmiphy1_GetQuadRefClkFreq()</a>, and <a class="el" href="group__xhdmiphy1.html#gab75f3892f884d01f855d607291eba269">XHdmiphy1_IsHDMI()</a>.</p>
+
+<p>Referenced by <a class="el" href="xhdmiphy1__gtye4_8c.html#a8eb1353647eaaae99b3549cefba088ff">XHdmiphy1_Gtye4TxChReconfig()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

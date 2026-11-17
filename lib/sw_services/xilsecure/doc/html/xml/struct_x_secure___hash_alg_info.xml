@@ -15,8 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="50" bodyend="-1"/>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1a2d651b4f8029fd1bde167f52f7b0a680" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,8 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="51" bodyend="-1"/>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1a6c89a5bf973d16144020ebece7415504" prot="public" static="no" mutable="no">
         <type>int(*</type>
@@ -43,8 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="52" bodyend="-1"/>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1aaec31389331a3137f07364a5852286c0" prot="public" static="no" mutable="no">
         <type>int(*</type>
@@ -57,8 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="53" bodyend="-1"/>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1a1252ac9d152a5cbb5731d66d19e6f634" prot="public" static="no" mutable="no">
         <type>int(*</type>
@@ -71,8 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="54" bodyend="-1"/>
-        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___hash_alg_info_1ae683bb56bc7d3ddc71dfc799f36e74c3" prot="public" static="no" mutable="no">
         <type>int(*</type>
@@ -85,14 +80,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure for Hash Algorithm Info. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="49" bodyend="56"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_mgf.h" bodystart="49" bodyend="56"/>
     <listofallmembers>
       <member refid="struct_x_secure___hash_alg_info_1a2d651b4f8029fd1bde167f52f7b0a680" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>HashLen</name></member>
       <member refid="struct_x_secure___hash_alg_info_1ae683bb56bc7d3ddc71dfc799f36e74c3" prot="public" virt="non-virtual"><scope>XSecure_HashAlgInfo</scope><name>ShaDigest</name></member>

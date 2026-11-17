@@ -205,6 +205,21 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 5.7   tbk  04/07/2026 Optimized key zeroization by directly writing combined
                       key clear mask to registers
       mb   04/17/2026 Update crypto check for AES/SHA/RSA
+      tbk  04/29/2026 Move AesState update after DMA transfer in
+                      XSecure_AesUpdateAad GMAC path, remove conditional
+                      check before release reset in XSecure_AesKeyZero, and
+                      repack AesKeyLookupTbl entries (drop RegOffset and
+                      compute via XSecure_GetKeyRegOffset, narrow
+                      KeyDecSrcSelVal to u8, replace KeyClearVal with
+                      KeyClearBitPos and use
+                      XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK helper at the
+                      call site) for memory footprint reduction
+5.8   tvp  06/23/2026 Skip AAD size quad-word check for Versal_2VP_P
+      tvp  09/01/2026 Fix KEK IV endianness on DMA byte-swap platforms
+      tbk  09/15/2026 Skip AES reset on KekDecrypt param/state errors and
+                      bound DstKeySrc before AesKeyLookupTbl access
+      rap  09/20/2026  Updated input parameter validations
+      rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 </pre> </div><div class="textblock"><code>#include &quot;xsecure_utils.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="core_2aes_2xsecure__aes_8h.html">xsecure_aes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__aes__core__hw_8h.html">xsecure_aes_core_hw.h</a>&quot;</code><br/>
@@ -228,6 +243,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga9944c3af466f03239bab724adc5cf8f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__server__apis.html#ga9944c3af466f03239bab724adc5cf8f5">XSECURE_AES_AAD_DISABLE</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:ga9944c3af466f03239bab724adc5cf8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables authentication of data pushed in AES engine.  <a href="group__xsecure__aes__server__apis.html#ga9944c3af466f03239bab724adc5cf8f5">More...</a><br/></td></tr>
 <tr class="separator:ga9944c3af466f03239bab724adc5cf8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga124c77385ef78501a366dc27026fde95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__server__apis.html#ga124c77385ef78501a366dc27026fde95">XSECURE_CACHE_RANGE_LEN</a>(Len)&#160;&#160;&#160;((u32)(Len))</td></tr>
+<tr class="memdesc:ga124c77385ef78501a366dc27026fde95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache range length cast for 32-bit BSP.  <a href="group__xsecure__aes__server__apis.html#ga124c77385ef78501a366dc27026fde95">More...</a><br/></td></tr>
+<tr class="separator:ga124c77385ef78501a366dc27026fde95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pend_susp_cb" kind="struct" prot="public">
+    <compoundname>XPm_PendSuspCb</compoundname>
+    <includes local="no">xpm_subsystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a75ea04a11a60115592a61a4832c9d5cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PendSuspCb::Reason</definition>
+        <argsstring></argsstring>
+        <name>Reason</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a1b6c7c34020a2859b1adca2c54678342" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PendSuspCb::Latency</definition>
+        <argsstring></argsstring>
+        <name>Latency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a2d6b62cc9a5f40234df8664fa50174ff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_PendSuspCb::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pend_susp_cb_1a77d3c4027bb696635d91e1ce0faea856" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPm_PendSuspCb::SuspendCb)(u32 IpiMask, u32 Event, u32 *Payload)</definition>
+        <argsstring>)(u32 IpiMask, u32 Event, u32 *Payload)</argsstring>
+        <name>SuspendCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Pending suspend callback. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="98" bodyend="103"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pend_susp_cb_1a1b6c7c34020a2859b1adca2c54678342" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>Latency</name></member>
+      <member refid="struct_x_pm___pend_susp_cb_1a75ea04a11a60115592a61a4832c9d5cd" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>Reason</name></member>
+      <member refid="struct_x_pm___pend_susp_cb_1a2d6b62cc9a5f40234df8664fa50174ff" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>State</name></member>
+      <member refid="struct_x_pm___pend_susp_cb_1a77d3c4027bb696635d91e1ce0faea856" prot="public" virt="non-virtual"><scope>XPm_PendSuspCb</scope><name>SuspendCb</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

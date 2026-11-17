@@ -51,7 +51,7 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>IV Validation for respective AES engine modes AES Standard mode (ECB, CBC, CTR, CFB, OFB). AES MAC mode (GCM, CCM, GMAC, CMAC).</para><para><table rows="5" cols="3"><row>
+<para>IV Validation for respective AES engine modes AES Standard mode (ECB, CBC, CTR, CFB, OFB). AES MAC mode (GCM, CCM, GMAC, CMAC).</para><para><table rows="6" cols="3"><row>
 <entry thead="yes"><para>Engine Mode </para></entry><entry thead="yes"><para>IvAddress </para></entry><entry thead="yes"><para>IvLength  </para></entry></row>
 <row>
 <entry thead="no"><para>AES-ECB, AES-CMAC </para></entry><entry thead="no"><para>N/A </para></entry><entry thead="no"><para>N/A </para></entry></row>
@@ -60,23 +60,25 @@
 <row>
 <entry thead="no"><para>AES-CCM </para></entry><entry thead="no"><para>Non-zero </para></entry><entry thead="no"><para>7 to 13 bytes </para></entry></row>
 <row>
+<entry thead="no"><para>AES-CFB </para></entry><entry thead="no"><para>Non-zero </para></entry><entry thead="no"><para>16 bytes </para></entry></row>
+<row>
 <entry thead="no"><para>Remaining modes </para></entry><entry thead="no"><para>Non-zero </para></entry><entry thead="no"><para>12 or 16 Bytes </para></entry></row>
 </table>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" bodystart="59" bodyend="105"/>
-        <references refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" compoundref="xasu__aesinfo_8h" startline="72">XASU_AES_CBC_MODE</references>
-        <references refid="group__xasu__common__defs_1ga9c54373e5e7981182e232f50596bb31a" compoundref="xasu__aesinfo_8h" startline="63">XASU_AES_CCM_MAX_NONCE_LEN</references>
-        <references refid="group__xasu__common__defs_1ga13fe3c3756a86473b09f9809d02e87f4" compoundref="xasu__aesinfo_8h" startline="62">XASU_AES_CCM_MIN_NONCE_LEN</references>
-        <references refid="group__xasu__common__defs_1ga30d8f9306c9e8a365a92247259db30db" compoundref="xasu__aesinfo_8h" startline="77">XASU_AES_CCM_MODE</references>
-        <references refid="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" compoundref="xasu__aesinfo_8h" startline="73">XASU_AES_CFB_MODE</references>
-        <references refid="group__xasu__common__defs_1gacc3bdb18dc3dd63126c7088ba676ada1" compoundref="xasu__aesinfo_8h" startline="79">XASU_AES_CMAC_MODE</references>
-        <references refid="group__xasu__common__defs_1ga08289d4f73f990ee87b9afb70d4aae0a" compoundref="xasu__aesinfo_8h" startline="75">XASU_AES_CTR_MODE</references>
-        <references refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" compoundref="xasu__aesinfo_8h" startline="76">XASU_AES_ECB_MODE</references>
-        <references refid="group__xasu__common__defs_1ga266c9d8c0ac689bdb49cbb5cd0d293f9" compoundref="xasu__aesinfo_8h" startline="78">XASU_AES_GCM_MODE</references>
-        <references refid="group__xasu__common__defs_1ga8ddad79fd000463b9b715b9e0f387d2e" compoundref="xasu__aesinfo_8h" startline="51">XASU_AES_IV_SIZE_128BIT_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" compoundref="xasu__aesinfo_8h" startline="50">XASU_AES_IV_SIZE_96BIT_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga14f7e91db0d7babd5ab30699376c5565" compoundref="xasu__aesinfo_8h" startline="74">XASU_AES_OFB_MODE</references>
-        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" bodystart="59" bodyend="110"/>
+        <references refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" compoundref="xasu__aesinfo_8h" startline="73">XASU_AES_CBC_MODE</references>
+        <references refid="group__xasu__common__defs_1ga9c54373e5e7981182e232f50596bb31a" compoundref="xasu__aesinfo_8h" startline="64">XASU_AES_CCM_MAX_NONCE_LEN</references>
+        <references refid="group__xasu__common__defs_1ga13fe3c3756a86473b09f9809d02e87f4" compoundref="xasu__aesinfo_8h" startline="63">XASU_AES_CCM_MIN_NONCE_LEN</references>
+        <references refid="group__xasu__common__defs_1ga30d8f9306c9e8a365a92247259db30db" compoundref="xasu__aesinfo_8h" startline="78">XASU_AES_CCM_MODE</references>
+        <references refid="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" compoundref="xasu__aesinfo_8h" startline="74">XASU_AES_CFB_MODE</references>
+        <references refid="group__xasu__common__defs_1gacc3bdb18dc3dd63126c7088ba676ada1" compoundref="xasu__aesinfo_8h" startline="80">XASU_AES_CMAC_MODE</references>
+        <references refid="group__xasu__common__defs_1ga08289d4f73f990ee87b9afb70d4aae0a" compoundref="xasu__aesinfo_8h" startline="76">XASU_AES_CTR_MODE</references>
+        <references refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" compoundref="xasu__aesinfo_8h" startline="77">XASU_AES_ECB_MODE</references>
+        <references refid="group__xasu__common__defs_1ga266c9d8c0ac689bdb49cbb5cd0d293f9" compoundref="xasu__aesinfo_8h" startline="79">XASU_AES_GCM_MODE</references>
+        <references refid="group__xasu__common__defs_1ga8ddad79fd000463b9b715b9e0f387d2e" compoundref="xasu__aesinfo_8h" startline="52">XASU_AES_IV_SIZE_128BIT_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" compoundref="xasu__aesinfo_8h" startline="51">XASU_AES_IV_SIZE_96BIT_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga14f7e91db0d7babd5ab30699376c5565" compoundref="xasu__aesinfo_8h" startline="75">XASU_AES_OFB_MODE</references>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -135,20 +137,20 @@
 <entry thead="no"><para>AES-CCM </para></entry><entry thead="no"><para>Non-zero </para></entry><entry thead="no"><para>4,6,8,10,12,14,16 </para></entry></row>
 </table>
 NIST recommends using a tag length of at least 64 bits to provide adequate protection against guessing attacks.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" bodystart="121" bodyend="166"/>
-        <references refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" compoundref="xasu__aesinfo_8h" startline="72">XASU_AES_CBC_MODE</references>
-        <references refid="group__xasu__common__defs_1ga30d8f9306c9e8a365a92247259db30db" compoundref="xasu__aesinfo_8h" startline="77">XASU_AES_CCM_MODE</references>
-        <references refid="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" compoundref="xasu__aesinfo_8h" startline="73">XASU_AES_CFB_MODE</references>
-        <references refid="group__xasu__common__defs_1gacc3bdb18dc3dd63126c7088ba676ada1" compoundref="xasu__aesinfo_8h" startline="79">XASU_AES_CMAC_MODE</references>
-        <references refid="group__xasu__common__defs_1ga08289d4f73f990ee87b9afb70d4aae0a" compoundref="xasu__aesinfo_8h" startline="75">XASU_AES_CTR_MODE</references>
-        <references refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" compoundref="xasu__aesinfo_8h" startline="76">XASU_AES_ECB_MODE</references>
-        <references refid="group__xasu__common__defs_1ga75c74eecf55fdbf5459a465738fdadb5" compoundref="xasu__aesinfo_8h" startline="46">XASU_AES_EVEN_MODULUS</references>
-        <references refid="group__xasu__common__defs_1ga266c9d8c0ac689bdb49cbb5cd0d293f9" compoundref="xasu__aesinfo_8h" startline="78">XASU_AES_GCM_MODE</references>
-        <references refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" compoundref="xasu__aesinfo_8h" startline="60">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1gaf02f2441da2bbfbcca832f01458c56ea" compoundref="xasu__aesinfo_8h" startline="58">XASU_AES_MIN_TAG_LENGTH_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga14f7e91db0d7babd5ab30699376c5565" compoundref="xasu__aesinfo_8h" startline="74">XASU_AES_OFB_MODE</references>
-        <references refid="group__xasu__common__defs_1ga3a2c98f32f6ff7605629fdaeea0a3ee8" compoundref="xasu__aesinfo_8h" startline="59">XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES</references>
-        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.c" bodystart="126" bodyend="171"/>
+        <references refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" compoundref="xasu__aesinfo_8h" startline="73">XASU_AES_CBC_MODE</references>
+        <references refid="group__xasu__common__defs_1ga30d8f9306c9e8a365a92247259db30db" compoundref="xasu__aesinfo_8h" startline="78">XASU_AES_CCM_MODE</references>
+        <references refid="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" compoundref="xasu__aesinfo_8h" startline="74">XASU_AES_CFB_MODE</references>
+        <references refid="group__xasu__common__defs_1gacc3bdb18dc3dd63126c7088ba676ada1" compoundref="xasu__aesinfo_8h" startline="80">XASU_AES_CMAC_MODE</references>
+        <references refid="group__xasu__common__defs_1ga08289d4f73f990ee87b9afb70d4aae0a" compoundref="xasu__aesinfo_8h" startline="76">XASU_AES_CTR_MODE</references>
+        <references refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" compoundref="xasu__aesinfo_8h" startline="77">XASU_AES_ECB_MODE</references>
+        <references refid="group__xasu__common__defs_1ga75c74eecf55fdbf5459a465738fdadb5" compoundref="xasu__aesinfo_8h" startline="47">XASU_AES_EVEN_MODULUS</references>
+        <references refid="group__xasu__common__defs_1ga266c9d8c0ac689bdb49cbb5cd0d293f9" compoundref="xasu__aesinfo_8h" startline="79">XASU_AES_GCM_MODE</references>
+        <references refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" compoundref="xasu__aesinfo_8h" startline="61">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaf02f2441da2bbfbcca832f01458c56ea" compoundref="xasu__aesinfo_8h" startline="59">XASU_AES_MIN_TAG_LENGTH_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga14f7e91db0d7babd5ab30699376c5565" compoundref="xasu__aesinfo_8h" startline="75">XASU_AES_OFB_MODE</references>
+        <references refid="group__xasu__common__defs_1ga3a2c98f32f6ff7605629fdaeea0a3ee8" compoundref="xasu__aesinfo_8h" startline="60">XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES</references>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -156,16 +158,15 @@ NIST recommends using a tag length of at least 64 bits to provide adequate prote
         <name>XASU_AES_MODE_REQUIRES_ALIGNMENT</name>
         <param><defname>Mode</defname></param>
         <initializer>(((Mode) == <ref refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" kindref="member">XASU_AES_ECB_MODE</ref>) || \
-	((Mode) == <ref refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" kindref="member">XASU_AES_CBC_MODE</ref>) || \
-	((Mode) == <ref refid="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" kindref="member">XASU_AES_CFB_MODE</ref>))</initializer>
+	((Mode) == <ref refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" kindref="member">XASU_AES_CBC_MODE</ref>))</initializer>
         <briefdescription>
 <para>Modes that always require block-aligned data. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" bodystart="51" bodyend="-1"/>
-        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="174" endline="337">XAsu_AesOperation</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xasu__aes__common__apis_1ga77a0f05afbe0f57dbbafd54c8713ede9" prot="public" static="no">
         <name>XASU_AES_MODE_REQUIRES_DATA</name>
@@ -181,7 +182,7 @@ NIST recommends using a tag length of at least 64 bits to provide adequate prote
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aes_common.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

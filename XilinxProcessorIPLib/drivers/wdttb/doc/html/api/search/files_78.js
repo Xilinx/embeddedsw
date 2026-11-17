@@ -17,5 +17,6 @@ var searchData=
   ['xwdttb_5fselftest_5fexample_2ec',['xwdttb_selftest_example.c',['../xwdttb__selftest__example_8c.html',1,'']]],
   ['xwdttb_5fsinit_2ec',['xwdttb_sinit.c',['../xwdttb__sinit_8c.html',1,'']]],
   ['xwdttb_5fwinwdt_5fexample_2ec',['xwdttb_winwdt_example.c',['../xwdttb__winwdt__example_8c.html',1,'']]],
-  ['xwdttb_5fwinwdt_5fintr_5fexample_2ec',['xwdttb_winwdt_intr_example.c',['../xwdttb__winwdt__intr__example_8c.html',1,'']]]
+  ['xwdttb_5fwinwdt_5fintr_5fexample_2ec',['xwdttb_winwdt_intr_example.c',['../xwdttb__winwdt__intr__example_8c.html',1,'']]],
+  ['xwdttb_5fwinwdt_5fqamode_5fexample_2ec',['xwdttb_winwdt_qamode_example.c',['../xwdttb__winwdt__qamode__example_8c.html',1,'']]]
 ];

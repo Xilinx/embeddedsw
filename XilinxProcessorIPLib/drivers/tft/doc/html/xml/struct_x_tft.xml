@@ -15,13 +15,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="176" bodyend="-1"/>
-        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
-        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</referencedby>
-        <referencedby refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</referencedby>
-        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
-        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</referencedby>
-        <referencedby refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="93" endline="135">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="322" endline="338">XTft_GetPixel</referencedby>
+        <referencedby refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="778" endline="793">XTft_ReadReg</referencedby>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="712" endline="741">XTft_SetFrameBaseAddr</referencedby>
+        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="283" endline="300">XTft_SetPixel</referencedby>
+        <referencedby refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="754" endline="764">XTft_WriteReg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -34,27 +34,27 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="177" bodyend="-1"/>
-        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
-        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
-        <referencedby refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" compoundref="xtft_8c" startline="615" endline="640">XTft_DisableDisplay</referencedby>
-        <referencedby refid="group__tft_1ga308d28143a386bcde54db714f43ae737" compoundref="xtft_8c" startline="575" endline="600">XTft_EnableDisplay</referencedby>
-        <referencedby refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</referencedby>
-        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</referencedby>
-        <referencedby refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" compoundref="xtft_8c" startline="991" endline="1004">XTft_GetVsyncStatus</referencedby>
-        <referencedby refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" compoundref="xtft_8c" startline="953" endline="970">XTft_IntrDisable</referencedby>
-        <referencedby refid="group__tft_1ga3241465696077377ea4000f4caca21a7" compoundref="xtft_8c" startline="922" endline="939">XTft_IntrEnable</referencedby>
-        <referencedby refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</referencedby>
-        <referencedby refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" compoundref="xtft_8c" startline="697" endline="722">XTft_ScanNormal</referencedby>
-        <referencedby refid="group__tft_1gaab5334330486fb514c230f98702d485a" compoundref="xtft_8c" startline="657" endline="682">XTft_ScanReverse</referencedby>
-        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
-        <referencedby refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" compoundref="xtft_8c" startline="255" endline="269">XTft_SetColor</referencedby>
-        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
-        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</referencedby>
-        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="155" endline="171">XTft_SetPos</referencedby>
-        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
-        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
-        <referencedby refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="93" endline="135">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="467" endline="488">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" compoundref="xtft_8c" startline="590" endline="615">XTft_DisableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga308d28143a386bcde54db714f43ae737" compoundref="xtft_8c" startline="553" endline="578">XTft_EnableDisplay</referencedby>
+        <referencedby refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="514" endline="541">XTft_FillScreen</referencedby>
+        <referencedby refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="322" endline="338">XTft_GetPixel</referencedby>
+        <referencedby refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" compoundref="xtft_8c" startline="949" endline="962">XTft_GetVsyncStatus</referencedby>
+        <referencedby refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" compoundref="xtft_8c" startline="910" endline="927">XTft_IntrDisable</referencedby>
+        <referencedby refid="group__tft_1ga3241465696077377ea4000f4caca21a7" compoundref="xtft_8c" startline="882" endline="899">XTft_IntrEnable</referencedby>
+        <referencedby refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="778" endline="793">XTft_ReadReg</referencedby>
+        <referencedby refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" compoundref="xtft_8c" startline="668" endline="693">XTft_ScanNormal</referencedby>
+        <referencedby refid="group__tft_1gaab5334330486fb514c230f98702d485a" compoundref="xtft_8c" startline="631" endline="656">XTft_ScanReverse</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="418" endline="456">XTft_Scroll</referencedby>
+        <referencedby refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" compoundref="xtft_8c" startline="247" endline="261">XTft_SetColor</referencedby>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="712" endline="741">XTft_SetFrameBaseAddr</referencedby>
+        <referencedby refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="283" endline="300">XTft_SetPixel</referencedby>
+        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="151" endline="167">XTft_SetPos</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="192" endline="226">XTft_SetPosChar</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="361" endline="406">XTft_Write</referencedby>
+        <referencedby refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="754" endline="764">XTft_WriteReg</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -67,12 +67,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="178" bodyend="-1"/>
-        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
-        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
-        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="155" endline="171">XTft_SetPos</referencedby>
-        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
-        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="93" endline="135">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="467" endline="488">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="151" endline="167">XTft_SetPos</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="192" endline="226">XTft_SetPosChar</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="361" endline="406">XTft_Write</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -85,12 +85,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="179" bodyend="-1"/>
-        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
-        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
-        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="155" endline="171">XTft_SetPos</referencedby>
-        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
-        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="93" endline="135">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="467" endline="488">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="151" endline="167">XTft_SetPos</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="192" endline="226">XTft_SetPosChar</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="361" endline="406">XTft_Write</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -103,10 +103,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="180" bodyend="-1"/>
-        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
-        <referencedby refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" compoundref="xtft_8c" startline="255" endline="269">XTft_SetColor</referencedby>
-        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="93" endline="135">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" compoundref="xtft_8c" startline="247" endline="261">XTft_SetColor</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="361" endline="406">XTft_Write</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -119,18 +119,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="181" bodyend="-1"/>
-        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
-        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
-        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
-        <referencedby refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" compoundref="xtft_8c" startline="255" endline="269">XTft_SetColor</referencedby>
-        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="93" endline="135">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="467" endline="488">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="418" endline="456">XTft_Scroll</referencedby>
+        <referencedby refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" compoundref="xtft_8c" startline="247" endline="261">XTft_SetColor</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="361" endline="406">XTft_Write</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This structure is the base for whole of the operations that are to be performed on the TFT screen. </para>    </briefdescription>
+<para>Holds instance data for a TFT device. </para>    </briefdescription>
     <detaileddescription>
-<para>With this we will get a handle to the driver through which we access different members like base address, deviceID and using them we navigate, fill colors etc. </para>    </detaileddescription>
+<para>This structure is the handle for TFT screen operations. It exposes the base address and device ID used to navigate and fill colors. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="1">
         <label>XTft</label>
@@ -144,7 +144,7 @@
         <link refid="struct_x_tft___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="174" bodyend="183"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="175" bodyend="184"/>
     <listofallmembers>
       <member refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" prot="public" virt="non-virtual"><scope>XTft</scope><name>BgColor</name></member>
       <member refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" prot="public" virt="non-virtual"><scope>XTft</scope><name>ColVal</name></member>

@@ -15,7 +15,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a9064790018926348d118b3cdc746bef5" prot="public" static="no" mutable="no">
         <type>IsiSensorMode_t</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a57f5523e1950afffa57f799c34697af8" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a17a2e93c3a128703820bba5ce0dba356" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1acc5a6af402893b02a3f095594c3f26df" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a16cfdc4a9af6f7bc02431368b9889778" prot="public" static="no" mutable="no">
         <type>bool_t</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a0d7a1b8c1018c109667cf8fea778d448" prot="public" static="no" mutable="no">
         <type>bool_t</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a545b49f1fddd0352f61c8f7e4eb0a0c7" prot="public" static="no" mutable="no">
         <type>bool_t</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1ad28b8fd5136da8a015df6e8b8fa8437e" prot="public" static="no" mutable="no">
         <type>bool_t</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a5baab1b97af05ed106423a84907765c3" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a31635a63066f0b5eb029e878321fa45e" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a0e10f29b22bff75cfcb5d1ee263388cd" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a06716fbd40d7430534166f0690170728" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1aabe9bd87e1c3533fc7a6082f566f0bd4" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1aef8eaa6bfd1bbf1110c794c5c9531436" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -197,7 +197,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a4777967fd946995d7955a843772405de" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -210,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a61f112038fa252c81e508920dce0ab95" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -223,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1ae1d9fa2176458a8d34b4c478876f4e58" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -236,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1adf359ed1563f7914a4fd0384d585de6a" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -249,7 +249,7 @@
 <para>used for sliders in the application) </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1abc1d7cd7c40820cd38beae17425e3ad5" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -262,7 +262,7 @@
 <para>used for sliders in the application) </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a8892b0e743d0be754fba36402e6c0e90" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -275,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a2c032a0c55201ca289bc482d9e653909" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -288,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a874d3922be0b1997b7468fe8a52967d7" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -301,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a4ed86e36d55d244ddbdec6da267d65d7" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -314,7 +314,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a198478cdcb8195225b3de7ad10400c69" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -327,7 +327,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1abe5ad3a3b4aeaed37b3a093f5b08126c" prot="public" static="no" mutable="no">
         <type>IsiGainInfo_t</type>
@@ -340,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a9d0f9cc19860062921e4e4a1735da937" prot="public" static="no" mutable="no">
         <type>IsiGainInfo_t</type>
@@ -353,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a14f84bc8db4951ad18ed865e1dea4874" prot="public" static="no" mutable="no">
         <type>IsiSensorWb_t</type>
@@ -366,7 +366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1a24400b2389ad5845d95d750aedc10f10" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -379,7 +379,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1ab1e4b4d7339dbdfea8505605bd9e3ea7" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -392,7 +392,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1ac6d24888db7fe0f623c9a78682a89c5f" prot="public" static="no" mutable="no">
         <type>IsiIrLightExp_t</type>
@@ -405,7 +405,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_ox05b1s___context__s_1af2af66e766f297eb300e0ce3eb0d3774" prot="public" static="no" mutable="no">
         <type>IsiIrLightInfo_t</type>
@@ -418,14 +418,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="52" bodyend="101"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="52" bodyend="101"/>
     <listofallmembers>
       <member refid="struct_ox05b1s___context__s_1a8892b0e743d0be754fba36402e6c0e90" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecCurGain</name></member>
       <member refid="struct_ox05b1s___context__s_1a2c032a0c55201ca289bc482d9e653909" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecCurIntegrationTime</name></member>

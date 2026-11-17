@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xclockps__fixedfactor_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,12 +99,44 @@ $(document).ready(function(){initNavTree('xclockps__fixedfactor_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xclockps_fixedfactor.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xclockps_8h.html">xclockps.h</a>&quot;</code><br/>
-</div></div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements CLOCKPS fixed-factor operations. </p>
+<p>This file handles fixed factor related definition and operations.</p>
+<pre>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  cjp    02/09/18 First release
+1.2   sd     02/13/20 Rename ARRAY_SIZE
+1.7   vlt    01/27/26 Fixed codespell issues
+1.8   tb    09/17/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xclockps_8h.html">xclockps.h</a>&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga89c30df73f5325843dfe1da83833eb50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga89c30df73f5325843dfe1da83833eb50">XCLOCK_ASSIGN_FIXEDFACTORS</a>(ParentTypeVal, FixFactIndexVal)</td></tr>
+<tr class="memdesc:ga89c30df73f5325843dfe1da83833eb50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns structure elements for fixed factors.  <a href="group__clockps__api.html#ga89c30df73f5325843dfe1da83833eb50">More...</a><br/></td></tr>
+<tr class="separator:ga89c30df73f5325843dfe1da83833eb50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga7235fef42d502c672bfb5ce79b4f19a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#ga7235fef42d502c672bfb5ce79b4f19a5">XClock_FixedFactorRegisterFuncs</a> (void)</td></tr>
+<tr class="memdesc:ga7235fef42d502c672bfb5ce79b4f19a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers fixed-factor callback functions.  <a href="group__clockps__api.html#ga7235fef42d502c672bfb5ce79b4f19a5">More...</a><br/></td></tr>
+<tr class="separator:ga7235fef42d502c672bfb5ce79b4f19a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8f54ff80703b7041c084ce0a174dad6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clockps__api.html#gaa8f54ff80703b7041c084ce0a174dad6">XClock_FixedFactorBeginInit</a> (void)</td></tr>
+<tr class="memdesc:gaa8f54ff80703b7041c084ce0a174dad6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all fixed-factor nodes.  <a href="group__clockps__api.html#gaa8f54ff80703b7041c084ce0a174dad6">More...</a><br/></td></tr>
+<tr class="separator:gaa8f54ff80703b7041c084ce0a174dad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -9,19 +9,6 @@
       <node id="37">
         <label>xil_assert.h</label>
       </node>
-      <node id="39">
-        <label>xdsitxss.h</label>
-        <link refid="xdsitxss_8h"/>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>xdsi.h</label>
-      </node>
       <node id="36">
         <label>xdsitxss_intr.c</label>
         <link refid="xdsitxss_intr.c"/>
@@ -30,6 +17,19 @@
         <childnode refid="38" relation="include">
         </childnode>
         <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xdsi.h</label>
+      </node>
+      <node id="39">
+        <label>xdsitxss.h</label>
+        <link refid="xdsitxss_8h"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
         </childnode>
       </node>
       <node id="40">
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="50" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="50" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga5ced9aec766736921707512c40873afe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="51" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="51" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gac0b25d125200252072df7ccfc5931bb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -102,8 +102,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="73" bodyend="82"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="73" bodyend="82"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gafb6ca1158027263a71f21d2d79b0bfea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -129,8 +130,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="95" bodyend="104"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="95" bodyend="104"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gab2aaa6f7509b1c98adf63e374cb2bdeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -166,9 +167,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="116" bodyend="125"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="116" bodyend="125"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -240,10 +241,10 @@ XDSI_HANDLER_CMDQ_FIFOFULL      Command queue FIFO Full</preformatted></para><pa
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="160" bodyend="174"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <references refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" compoundref="xdsitxss_8h" startline="245">XDsiTxSs::IsReady</references>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="160" bodyend="174"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" compoundref="xdsitxss_8h" startline="234">XDsiTxSs::IsReady</references>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -337,6 +338,6 @@ XDSI_HANDLER_CMDQ_FIFOFULL      Command queue FIFO Full</preformatted></para><pa
 <codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="174"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c"/>
   </compounddef>
 </doxygen>

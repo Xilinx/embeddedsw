@@ -7,7 +7,7 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
@@ -21,8 +21,20 @@
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_hardware.h)</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>sensor_cmd.h)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_seq.h)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_checksum.h)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_command.h)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_integrity.h)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_interface.h)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>mbox_phy.h)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>sensor_cmd.h)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

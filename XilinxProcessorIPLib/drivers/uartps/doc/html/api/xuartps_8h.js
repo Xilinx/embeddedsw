@@ -1,6 +1,7 @@
 var xuartps_8h =
 [
     [ "TIMEOUT_VAL", "xuartps_8h.html#ga2f0a6417e12aa122e287fe313c03a399", null ],
+    [ "XUARTPS_DFT_BAUDRATE", "xuartps_8h.html#ga29a83258ae29934f5898f9d19b512863", null ],
     [ "XUartPs_DisableUart", "xuartps_8h.html#gaa8604eeb6cd5c80a3a54ef5510bd46ff", null ],
     [ "XUartPs_EnableUart", "xuartps_8h.html#ga800f448c280504c1c8e3a0e2cea28699", null ],
     [ "XUARTPS_EVENT_MODEM", "xuartps_8h.html#ga9cd187ec1b79c1ec7daf4c7293d2bdd0", null ],
@@ -24,6 +25,8 @@ var xuartps_8h =
     [ "XUartPs_GetChannelStatus", "xuartps_8h.html#ga8c50cd4a1f7a342dcdf6d7ab1640b1b9", null ],
     [ "XUartPs_GetModeControl", "xuartps_8h.html#gacd6fb80e110f22c2d305c3152cbe9e22", null ],
     [ "XUartPs_IsTransmitEmpty", "xuartps_8h.html#ga9a3d03d5794a4d8cdda2fa2c4ba8e174", null ],
+    [ "XUARTPS_MAX_RATE", "xuartps_8h.html#ga724abbd57f14e2ba803f92623f5f8d14", null ],
+    [ "XUARTPS_MIN_RATE", "xuartps_8h.html#ga1669bf99834935d9d73796552a8b848b", null ],
     [ "XUARTPS_OPER_MODE_AUTO_ECHO", "xuartps_8h.html#ga59bf55affd72ca3bd5824c921926527b", null ],
     [ "XUARTPS_OPER_MODE_LOCAL_LOOP", "xuartps_8h.html#ga3a71908d40b06c097599a5a29d61e800", null ],
     [ "XUARTPS_OPER_MODE_NORMAL", "xuartps_8h.html#ga9d916026363230478a8c8729e23f3352", null ],

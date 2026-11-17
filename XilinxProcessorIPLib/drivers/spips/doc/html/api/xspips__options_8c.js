@@ -1,5 +1,6 @@
 var xspips__options_8c =
 [
+    [ "XSPIPS_NUM_OPTIONS", "xspips__options_8c.html#ga7c4848f8ba03351f004a99021099759d", null ],
     [ "XSpiPs_GetClkPrescaler", "xspips__options_8c.html#ga98c42c293d0278c31dd74cbcbec9451c", null ],
     [ "XSpiPs_GetDelays", "xspips__options_8c.html#ga06003e6ce763f2e61922a985e40abb2d", null ],
     [ "XSpiPs_GetOptions", "xspips__options_8c.html#ga95e9f2a440a68b4e55694bd593d6c810", null ],

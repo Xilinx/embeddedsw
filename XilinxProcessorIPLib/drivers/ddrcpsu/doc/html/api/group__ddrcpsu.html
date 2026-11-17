@@ -106,11 +106,12 @@ $(document).ready(function(){initNavTree('group__ddrcpsu.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga82ca6f21f4d0a479fd16c3d46b8d4fbb"><td class="memItemLeft" align="right" valign="top">XDdrcpsu_Config *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ddrcpsu.html#ga82ca6f21f4d0a479fd16c3d46b8d4fbb">XDdrcPsu_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga82ca6f21f4d0a479fd16c3d46b8d4fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up XDdrcPsu configuration by base address.  <a href="#ga82ca6f21f4d0a479fd16c3d46b8d4fbb">More...</a><br/></td></tr>
+<tr class="separator:ga82ca6f21f4d0a479fd16c3d46b8d4fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga294dc99cc6579e486ecc5380765f7a0e"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ddrcpsu.html#ga294dc99cc6579e486ecc5380765f7a0e">XDdrcPsu_CfgInitialize</a> (XDdrcPsu *InstancePtr, XDdrcpsu_Config *CfgPtr)</td></tr>
+<tr class="memdesc:ga294dc99cc6579e486ecc5380765f7a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific XDdrcPsu instance.  <a href="#ga294dc99cc6579e486ecc5380765f7a0e">More...</a><br/></td></tr>
 <tr class="separator:ga294dc99cc6579e486ecc5380765f7a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1cc26f10017fedf7f24aebdecc0e863f"><td class="memItemLeft" align="right" valign="top">XDdrcpsu_Config *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ddrcpsu.html#ga1cc26f10017fedf7f24aebdecc0e863f">XDdrcPsu_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga1cc26f10017fedf7f24aebdecc0e863f"><td class="mdescLeft">&#160;</td><td class="mdescRight">XDdrcPsu_LookupConfig returns a reference to an XDdrcpsu_Config structure based on the unique device id, <em>DeviceId</em>.  <a href="#ga1cc26f10017fedf7f24aebdecc0e863f">More...</a><br/></td></tr>
-<tr class="separator:ga1cc26f10017fedf7f24aebdecc0e863f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga294dc99cc6579e486ecc5380765f7a0e"></a>
@@ -136,27 +137,28 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initializes a specific XDdrcPsu instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XCsuDma instance. </td></tr>
-    <tr><td class="paramname">CfgPtr</td><td>is a reference to a structure containing information about a specific XCsuDma instance.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">InstancePtr</td><td>Pointer to the XDdrcPsu instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CfgPtr</td><td>Reference to a structure containing information about a specific XDdrcPsu instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if initialization was successful.</li>
+<li>XST_SUCCESS if initialization was successful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ga1cc26f10017fedf7f24aebdecc0e863f"></a>
+<a class="anchor" id="ga82ca6f21f4d0a479fd16c3d46b8d4fbb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XDdrcpsu_Config * XDdrcPsu_LookupConfig </td>
+          <td class="memname">XDdrcpsu_Config* XDdrcPsu_LookupConfig </td>
           <td>(</td>
           <td class="paramtype">UINTPTR&#160;</td>
           <td class="paramname"><em>BaseAddress</em></td><td>)</td>
@@ -165,16 +167,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>XDdrcPsu_LookupConfig returns a reference to an XDdrcpsu_Config structure based on the unique device id, <em>DeviceId</em>. </p>
-<p>The return value will refer to an entry in the device configuration table defined in the xddrcpsu_g.c file.</p>
+<p>Looks up XDdrcPsu configuration by base address. </p>
+<p>Returns a reference to an XDdrcpsu_Config record in the configuration table defined in xddrcpsu_g.c.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the unique base address of the device for the lookup operation.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Unique base address of the device for the lookup operation.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>CfgPtr is a reference to a config record in the configuration table (in xddrcpsu_g.c) corresponding to <em>BaseAddress</em>, or NULL if no match is found.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the matching config record, or NULL if no match is found. </dd></dl>
 
 </div>
 </div>

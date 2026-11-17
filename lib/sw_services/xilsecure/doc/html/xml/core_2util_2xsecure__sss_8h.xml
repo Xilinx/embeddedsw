@@ -6,30 +6,30 @@
     <includes local="yes">xsecure_plat.h</includes>
     <includedby refid="core_2util_2xsecure__sss_8c" local="yes">xsecure_sss.c</includedby>
     <incdepgraph>
-      <node id="4644">
-        <label>xsecure_plat.h</label>
-      </node>
-      <node id="4642">
+      <node id="4892">
         <label>xsecure_sss.h</label>
         <link refid="core/util/xsecure_sss.h"/>
-        <childnode refid="4643" relation="include">
+        <childnode refid="4893" relation="include">
         </childnode>
-        <childnode refid="4644" relation="include">
+        <childnode refid="4894" relation="include">
         </childnode>
       </node>
-      <node id="4643">
+      <node id="4894">
+        <label>xsecure_plat.h</label>
+      </node>
+      <node id="4893">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4646">
+      <node id="4896">
         <label>xsecure_sss.c</label>
         <link refid="core_2util_2xsecure__sss_8c"/>
       </node>
-      <node id="4645">
+      <node id="4895">
         <label>xsecure_sss.h</label>
         <link refid="core/util/xsecure_sss.h"/>
-        <childnode refid="4646" relation="include">
+        <childnode refid="4896" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -78,7 +78,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gac44d78314f59033c8bee53a3f1dee58b" kindref="member">XSecure_SssInitialize</ref>(XSecure_Sss<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gafd8f0c5f3f14a72235b9aad0fa4bd91d" kindref="member">XSecure_SssInitialize</ref>(XSecure_Sss<sp/>*InstancePtr);</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" kindref="member">XSecure_SssAes</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_Sss<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>InputSrc,</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>OutputSrc);</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga9fd733a169850268505e89c96636a584" kindref="member">XSecure_SssSha</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_Sss<sp/>*InstancePtr,<sp/>u16<sp/>DmaId,</highlight></codeline>
@@ -89,7 +89,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="71"><highlight class="normal">u32<sp/><ref refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" kindref="member">XSecure_SssMask</ref>(<ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>InputSrc,<sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>OutputSrc,<sp/>u32<sp/>Value);</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XSecure_SssLookupTable[<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>][<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>];</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="group__xsecure__helper__server__apis_1ga0754b069dacca3c371fce4754b2d0a38" kindref="member">XSecure_SssLookupTable</ref>[<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>][<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>];</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
 <codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
@@ -97,6 +97,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SSS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.h"/>
   </compounddef>
 </doxygen>

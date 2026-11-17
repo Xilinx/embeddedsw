@@ -1,5 +1,15 @@
 var xaxicdma_8h =
 [
+    [ "XAXICDMA_ALL_BDS", "xaxicdma_8h.html#gabc7205cc3ca63a53529e9de35491ee0e", null ],
+    [ "XAXICDMA_CACHE_FLUSH", "xaxicdma_8h.html#ga920b87736bbfeff00324ef3bc74428d5", null ],
+    [ "XAXICDMA_CACHE_INVALIDATE", "xaxicdma_8h.html#gab1ee176def1394c3bfe82340cc8396f2", null ],
+    [ "XAXICDMA_COALESCE_NO_CHANGE", "xaxicdma_8h.html#ga6f61cbb8624c65bb64d0012bf24a5284", null ],
+    [ "XAXICDMA_KEYHOLE_READ", "xaxicdma_8h.html#gaee794b3af79e9784fcaaabc75e7cae6f", null ],
+    [ "XAXICDMA_KEYHOLE_WRITE", "xaxicdma_8h.html#ga2e31a8c43cde3589ce58ce75a8668a1d", null ],
+    [ "XAXICDMA_MAXIMUM_MAX_HANDLER", "xaxicdma_8h.html#gae8226c9464f82e72e2d0043576347c00", null ],
+    [ "XAXICDMA_SG_MODE", "xaxicdma_8h.html#ga91c5de92ad6a33c0eda5c1283e5281d4", null ],
+    [ "XAXICDMA_SIMPLE_MODE", "xaxicdma_8h.html#ga57779d0c9c90168a091b83ccd9b44719", null ],
+    [ "XAxiCdma_CallBackFn", "xaxicdma_8h.html#ga190041f3a52f247fbc91a93041095aac", null ],
     [ "XAxiCdma_BdRingAlloc", "xaxicdma_8h.html#ga27dd0cdc27b7a724533db75336c4acc6", null ],
     [ "XAxiCdma_BdRingClone", "xaxicdma_8h.html#ga3183f9f25654d2a066c19213f29897be", null ],
     [ "XAxiCdma_BdRingCntCalc", "xaxicdma_8h.html#ga18d5a9deaab709c610d32e42c77df952", null ],

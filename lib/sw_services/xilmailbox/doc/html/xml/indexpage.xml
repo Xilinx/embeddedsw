@@ -4,31 +4,35 @@
     <compoundname>index</compoundname>
     <title>xilmailbox</title>
     <detaileddescription>
-<para>This file contains the definitions for ZynqMP and versal IPI implementation. <preformatted>
+<para>The XilMailbox library provides the top-level hooks for sending or receiving an inter-processor interrupt (IPI) message using the Zynq® UltraScale+ MPSoC IPI hardware. For a full description of IPI features, see the hardware specification. This library supports the following features:<itemizedlist>
+<listitem><para>Triggering an IPI to a remote agent.</para></listitem><listitem><para>Sending an IPI message to a remote agent.</para></listitem><listitem><para>Callbacks for error and receive IPI events.</para></listitem><listitem><para>Reading an IPI message.</para></listitem></itemizedlist>
+</para><para><bold> Software Initialization </bold><itemizedlist>
+<listitem><para>The <ref refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" kindref="member">XMailbox_Initialize()</ref> function initializes IPI. This step initializes a library instance for the given IPI channel.</para></listitem><listitem><para>The <ref refid="group__xilmailbox_1ga3b1215935d7ba605846e3a13f015e956" kindref="member">XMailbox_Send()</ref> function triggers an IPI to a remote agent.</para></listitem><listitem><para>The <ref refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" kindref="member">XMailbox_SendData()</ref> function sends an IPI message to a remote agent. The message type should be either XILMBOX_MSG_TYPE_REQ or XILMBOX_MSG_TYPE_RESP.</para></listitem><listitem><para>The <ref refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" kindref="member">XMailbox_Recv()</ref> function reads an IPI message from a specified source agent. The message type should be either XILMBOX_MSG_TYPE_REQ or XILMBOX_MSG_TYPE_RESP.</para></listitem><listitem><para>Use the <ref refid="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" kindref="member">XMailbox_SetCallBack()</ref> function to register callbacks for receive and error events.</para></listitem></itemizedlist>
+</para><para><preformatted>
  MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
- ----- ---- -------- -------------------------------------------------------
+<hruler/>
+
  1.0   adk  14/02/19    Initial Release
- 1.1   sd   16/08/19    Initialise status variable
+       adk  06/03/19    In the mld file updated supported peripheral option
+                          with A72 and PMC.
  1.3   sd   03/03/21    Doxygen Fixes
- 1.4   sd   23/06/21    Fix MISRA-C warnings
- 1.5   dp   22/11/21    Update <ref refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" kindref="member">XIpiPs_RegisterIrq()</ref> to check whether GIC has
-                        already been setup or not and if it was setup skip
-                        initializing GIC again and just register handlers.
  1.6   sd   28/02/21    Add support for microblaze
-       kpt  03/16/21    Fixed compilation warning on microblaze
- 1.7   sd   01/04/22    Replace memset with Xil_SMemSet
- 1.8   ana  05/02/23      Updated XIpiPs_PollforDone logic to improve
-                                                  AES client performance
+       kpt  03/16/22    Added shared memory API&apos;s for IPI utilization
+ 1.7   sd   10/11/22    Fix a typo
+ 1.8   am   09/03/23    Added payload length macros
          ht   05/30/23    Added support for system device-tree flow.
-         ht   06/12/23    Fix MISRA-C warnings
-         ht   07/24/23    Restructure the code for more modularity
- 1.12  ht   09/02/25      IPI operation relied on the RemoteId stored in XMailbox
+ 1.9   ht   09/12/23      Added code for versioning of library.
+         sd   11/23/23    Clear the interrupts after calling the user handler.
+ 1.11  ht   11/12/24    Update description of XMAILBOX_MAX_MSG_LEN
+       ht   02/18/25    Update Max Message length to XIPIPSU_MAX_MSG_LEN to
+                        accommodate for CRC bytes when IPI CRC is enabled.
+ 1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
                           Instance, which could lead to race conditions and data
                           corruption when handling multiple requests from
                           different IPI channels concurrently.
                           Use RemoteId based APIs to support concurrent IPI
                           channel requests.
-</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
-</para>    </detaileddescription>
+ 1.14  vn   08/26/26    Fix Doxygen warnings.
+ 1.14  vn   09/30/26    Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

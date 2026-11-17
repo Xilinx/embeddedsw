@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___tx___phy___mmcm_result" kind="struct" prot="public">
+    <compoundname>XMipi_Tx_Phy_MmcmResult</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___mmcm_result_1ad64ce7a887f81e280b7e7efc56a3f89d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmResult::Valid</definition>
+        <argsstring></argsstring>
+        <name>Valid</name>
+        <briefdescription>
+<para>Non-zero if solution found. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___mmcm_result_1adac2cd974ff0f130cfda36ede197e0c8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmResult::KFactor</definition>
+        <argsstring></argsstring>
+        <name>KFactor</name>
+        <briefdescription>
+<para>Derived K factor from line rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___mmcm_result_1af4803b4468b06d29743afdfde3f3cd0e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmResult::InputDivider</definition>
+        <argsstring></argsstring>
+        <name>InputDivider</name>
+        <briefdescription>
+<para>Input divider (fixed at 5) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___mmcm_result_1a803efdc71d5aebd3a540b6b3c92ec8cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmResult::OutputDivider</definition>
+        <argsstring></argsstring>
+        <name>OutputDivider</name>
+        <briefdescription>
+<para>Output divider. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___mmcm_result_1a945c2b4edd74cd67e7c5c3c109d16322" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmResult::MultiplierInt</definition>
+        <argsstring></argsstring>
+        <name>MultiplierInt</name>
+        <briefdescription>
+<para>M integer part. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___mmcm_result_1a76fe45e3255cd09f6dff6798a435c40e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_MmcmResult::MultiplierFrac</definition>
+        <argsstring></argsstring>
+        <name>MultiplierFrac</name>
+        <briefdescription>
+<para>M fractional part (0..63) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MMCM computation result structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Holds the computed MMCM parameters and the corresponding DRP register writes that must be applied to the TX PHY register space. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_mmcm.c" bodystart="139" bodyend="146"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___tx___phy___mmcm_result_1af4803b4468b06d29743afdfde3f3cd0e" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_MmcmResult</scope><name>InputDivider</name></member>
+      <member refid="struct_x_mipi___tx___phy___mmcm_result_1adac2cd974ff0f130cfda36ede197e0c8" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_MmcmResult</scope><name>KFactor</name></member>
+      <member refid="struct_x_mipi___tx___phy___mmcm_result_1a76fe45e3255cd09f6dff6798a435c40e" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_MmcmResult</scope><name>MultiplierFrac</name></member>
+      <member refid="struct_x_mipi___tx___phy___mmcm_result_1a945c2b4edd74cd67e7c5c3c109d16322" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_MmcmResult</scope><name>MultiplierInt</name></member>
+      <member refid="struct_x_mipi___tx___phy___mmcm_result_1a803efdc71d5aebd3a540b6b3c92ec8cf" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_MmcmResult</scope><name>OutputDivider</name></member>
+      <member refid="struct_x_mipi___tx___phy___mmcm_result_1ad64ce7a887f81e280b7e7efc56a3f89d" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_MmcmResult</scope><name>Valid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

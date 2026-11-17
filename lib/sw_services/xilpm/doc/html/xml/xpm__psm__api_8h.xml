@@ -1,0 +1,844 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__psm__api_8h" kind="file">
+    <compoundname>xpm_psm_api.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xpm_psm_api_plat.h</includes>
+    <includedby refid="xpm__aie_8h" local="yes">xpm_aie.h</includedby>
+    <includedby refid="server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="server_2xpm__psfpdomain_8h" local="yes">xpm_psfpdomain.h</includedby>
+    <includedby refid="server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="server_2xpm__domain__iso_8c" local="yes">xpm_domain_iso.c</includedby>
+    <includedby refid="server_2xpm__psm__api__plat_8c" local="yes">xpm_psm_api_plat.c</includedby>
+    <includedby refid="xpm__core_8h" local="yes">xpm_core.h</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__core_8c" local="yes">xpm_core.c</includedby>
+    <includedby refid="xpm__psm_8c" local="yes">xpm_psm.c</includedby>
+    <includedby refid="xpm__psm__api_8c" local="yes">xpm_psm_api.c</includedby>
+    <includedby refid="net_2server_2xpm__api__plat_8c" local="yes">xpm_api_plat.c</includedby>
+    <includedby refid="net_2server_2xpm__psfpdomain_8h" local="yes">xpm_psfpdomain.h</includedby>
+    <includedby refid="net_2server_2xpm__cpmdomain_8c" local="yes">xpm_cpmdomain.c</includedby>
+    <includedby refid="net_2server_2xpm__psm__api__plat_8c" local="yes">xpm_psm_api_plat.c</includedby>
+    <incdepgraph>
+      <node id="7443">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="7440">
+        <label>xpm_psm_api.h</label>
+        <link refid="xpm_psm_api.h"/>
+        <childnode refid="7441" relation="include">
+        </childnode>
+        <childnode refid="7442" relation="include">
+        </childnode>
+        <childnode refid="7443" relation="include">
+        </childnode>
+      </node>
+      <node id="7442">
+        <label>xstatus.h</label>
+      </node>
+      <node id="7441">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7491">
+        <label>xpm_pll.c</label>
+      </node>
+      <node id="7489">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="7468">
+        <label>xpm_apucore.c</label>
+      </node>
+      <node id="7465">
+        <label>xpm_apucore.h</label>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7466" relation="include">
+        </childnode>
+        <childnode refid="7467" relation="include">
+        </childnode>
+        <childnode refid="7468" relation="include">
+        </childnode>
+        <childnode refid="7469" relation="include">
+        </childnode>
+        <childnode refid="7470" relation="include">
+        </childnode>
+        <childnode refid="7471" relation="include">
+        </childnode>
+        <childnode refid="7472" relation="include">
+        </childnode>
+        <childnode refid="7473" relation="include">
+        </childnode>
+      </node>
+      <node id="7506">
+        <label>xpm_subsystem_plat.c</label>
+      </node>
+      <node id="7449">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="7500">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="7504">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="7471">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="7477">
+        <label>xpm_bisr.c</label>
+      </node>
+      <node id="7472">
+        <label>xpm_apucore_plat.c</label>
+      </node>
+      <node id="7510">
+        <label>xpm_apucore_plat.h</label>
+        <childnode refid="7465" relation="include">
+        </childnode>
+      </node>
+      <node id="7476">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="7480">
+        <label>xpm_gic_proxy.c</label>
+      </node>
+      <node id="7509">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="7453">
+        <label>xpm_bisr_plat.c</label>
+      </node>
+      <node id="7456">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="7498">
+        <label>xpm_pll_plat.c</label>
+      </node>
+      <node id="7446">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="7445">
+        <label>xpm_aie.h</label>
+        <childnode refid="7446" relation="include">
+        </childnode>
+        <childnode refid="7447" relation="include">
+        </childnode>
+        <childnode refid="7448" relation="include">
+        </childnode>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7453" relation="include">
+        </childnode>
+        <childnode refid="7451" relation="include">
+        </childnode>
+        <childnode refid="7454" relation="include">
+        </childnode>
+      </node>
+      <node id="7457">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="7505">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="7455">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7453" relation="include">
+        </childnode>
+        <childnode refid="7450" relation="include">
+        </childnode>
+        <childnode refid="7456" relation="include">
+        </childnode>
+        <childnode refid="7457" relation="include">
+        </childnode>
+      </node>
+      <node id="7464">
+        <label>xpm_rpucore_plat.h</label>
+      </node>
+      <node id="7448">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="7447">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="7446" relation="include">
+        </childnode>
+        <childnode refid="7448" relation="include">
+        </childnode>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7450" relation="include">
+        </childnode>
+        <childnode refid="7451" relation="include">
+        </childnode>
+        <childnode refid="7452" relation="include">
+        </childnode>
+      </node>
+      <node id="7485">
+        <label>xpm_pldomain_plat.c</label>
+      </node>
+      <node id="7481">
+        <label>xpm_pmc.c</label>
+      </node>
+      <node id="7458">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="7474">
+        <label>xpm_pmc.h</label>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7453" relation="include">
+        </childnode>
+        <childnode refid="7450" relation="include">
+        </childnode>
+        <childnode refid="7451" relation="include">
+        </childnode>
+        <childnode refid="7475" relation="include">
+        </childnode>
+        <childnode refid="7476" relation="include">
+        </childnode>
+        <childnode refid="7456" relation="include">
+        </childnode>
+        <childnode refid="7454" relation="include">
+        </childnode>
+        <childnode refid="7467" relation="include">
+        </childnode>
+        <childnode refid="7477" relation="include">
+        </childnode>
+        <childnode refid="7478" relation="include">
+        </childnode>
+        <childnode refid="7479" relation="include">
+        </childnode>
+        <childnode refid="7480" relation="include">
+        </childnode>
+        <childnode refid="7470" relation="include">
+        </childnode>
+        <childnode refid="7481" relation="include">
+        </childnode>
+        <childnode refid="7482" relation="include">
+        </childnode>
+        <childnode refid="7483" relation="include">
+        </childnode>
+        <childnode refid="7471" relation="include">
+        </childnode>
+        <childnode refid="7484" relation="include">
+        </childnode>
+        <childnode refid="7485" relation="include">
+        </childnode>
+        <childnode refid="7486" relation="include">
+        </childnode>
+        <childnode refid="7473" relation="include">
+        </childnode>
+      </node>
+      <node id="7499">
+        <label>xpm_power_plat.c</label>
+      </node>
+      <node id="7452">
+        <label>xpm_pldevice_plat.c</label>
+      </node>
+      <node id="7490">
+        <label>xpm_psm_plat.c</label>
+      </node>
+      <node id="7493">
+        <label>xpm_psm.c</label>
+      </node>
+      <node id="7487">
+        <label>xpm_psm.h</label>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7463" relation="include">
+        </childnode>
+        <childnode refid="7459" relation="include">
+        </childnode>
+        <childnode refid="7488" relation="include">
+        </childnode>
+        <childnode refid="7489" relation="include">
+        </childnode>
+        <childnode refid="7456" relation="include">
+        </childnode>
+        <childnode refid="7457" relation="include">
+        </childnode>
+        <childnode refid="7460" relation="include">
+        </childnode>
+        <childnode refid="7490" relation="include">
+        </childnode>
+        <childnode refid="7467" relation="include">
+        </childnode>
+        <childnode refid="7469" relation="include">
+        </childnode>
+        <childnode refid="7470" relation="include">
+        </childnode>
+        <childnode refid="7491" relation="include">
+        </childnode>
+        <childnode refid="7492" relation="include">
+        </childnode>
+        <childnode refid="7493" relation="include">
+        </childnode>
+        <childnode refid="7494" relation="include">
+        </childnode>
+        <childnode refid="7495" relation="include">
+        </childnode>
+        <childnode refid="7471" relation="include">
+        </childnode>
+        <childnode refid="7496" relation="include">
+        </childnode>
+        <childnode refid="7497" relation="include">
+        </childnode>
+        <childnode refid="7498" relation="include">
+        </childnode>
+        <childnode refid="7499" relation="include">
+        </childnode>
+        <childnode refid="7486" relation="include">
+        </childnode>
+        <childnode refid="7500" relation="include">
+        </childnode>
+        <childnode refid="7501" relation="include">
+        </childnode>
+        <childnode refid="7502" relation="include">
+        </childnode>
+        <childnode refid="7473" relation="include">
+        </childnode>
+      </node>
+      <node id="7494">
+        <label>xpm_psm_api.c</label>
+      </node>
+      <node id="7444">
+        <label>xpm_psm_api.h</label>
+        <link refid="xpm_psm_api.h"/>
+        <childnode refid="7445" relation="include">
+        </childnode>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7455" relation="include">
+        </childnode>
+        <childnode refid="7458" relation="include">
+        </childnode>
+        <childnode refid="7459" relation="include">
+        </childnode>
+        <childnode refid="7460" relation="include">
+        </childnode>
+        <childnode refid="7461" relation="include">
+        </childnode>
+        <childnode refid="7467" relation="include">
+        </childnode>
+        <childnode refid="7469" relation="include">
+        </childnode>
+        <childnode refid="7493" relation="include">
+        </childnode>
+        <childnode refid="7494" relation="include">
+        </childnode>
+        <childnode refid="7471" relation="include">
+        </childnode>
+        <childnode refid="7512" relation="include">
+        </childnode>
+        <childnode refid="7514" relation="include">
+        </childnode>
+        <childnode refid="7500" relation="include">
+        </childnode>
+      </node>
+      <node id="7514">
+        <label>xpm_cpmdomain.c</label>
+      </node>
+      <node id="7501">
+        <label>xpm_psm_plat.c</label>
+      </node>
+      <node id="7484">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="7459">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="7460">
+        <label>xpm_psm_api_plat.c</label>
+      </node>
+      <node id="7454">
+        <label>xpm_reset_plat.c</label>
+      </node>
+      <node id="7513">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="7512">
+        <label>xpm_psfpdomain.h</label>
+        <childnode refid="7467" relation="include">
+        </childnode>
+        <childnode refid="7477" relation="include">
+        </childnode>
+        <childnode refid="7478" relation="include">
+        </childnode>
+        <childnode refid="7479" relation="include">
+        </childnode>
+        <childnode refid="7471" relation="include">
+        </childnode>
+        <childnode refid="7472" relation="include">
+        </childnode>
+        <childnode refid="7486" relation="include">
+        </childnode>
+        <childnode refid="7513" relation="include">
+        </childnode>
+        <childnode refid="7473" relation="include">
+        </childnode>
+      </node>
+      <node id="7450">
+        <label>xpm_device_plat.c</label>
+      </node>
+      <node id="7466">
+        <label>xpm_apucore_plat.c</label>
+      </node>
+      <node id="7462">
+        <label>xpm_apucore_plat.h</label>
+      </node>
+      <node id="7475">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="7507">
+        <label>xpm_mem_plat.c</label>
+      </node>
+      <node id="7479">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="7473">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="7508">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="7486">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="7469">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="7461">
+        <label>xpm_core.h</label>
+        <childnode refid="7462" relation="include">
+        </childnode>
+        <childnode refid="7453" relation="include">
+        </childnode>
+        <childnode refid="7463" relation="include">
+        </childnode>
+        <childnode refid="7450" relation="include">
+        </childnode>
+        <childnode refid="7456" relation="include">
+        </childnode>
+        <childnode refid="7460" relation="include">
+        </childnode>
+        <childnode refid="7464" relation="include">
+        </childnode>
+        <childnode refid="7465" relation="include">
+        </childnode>
+        <childnode refid="7474" relation="include">
+        </childnode>
+        <childnode refid="7487" relation="include">
+        </childnode>
+        <childnode refid="7503" relation="include">
+        </childnode>
+        <childnode refid="7469" relation="include">
+        </childnode>
+        <childnode refid="7479" relation="include">
+        </childnode>
+        <childnode refid="7508" relation="include">
+        </childnode>
+        <childnode refid="7494" relation="include">
+        </childnode>
+        <childnode refid="7509" relation="include">
+        </childnode>
+        <childnode refid="7510" relation="include">
+        </childnode>
+        <childnode refid="7496" relation="include">
+        </childnode>
+        <childnode refid="7500" relation="include">
+        </childnode>
+        <childnode refid="7511" relation="include">
+        </childnode>
+        <childnode refid="7473" relation="include">
+        </childnode>
+      </node>
+      <node id="7463">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="7478">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="7497">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="7467">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="7451">
+        <label>xpm_ioctl_plat.c</label>
+      </node>
+      <node id="7470">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="7502">
+        <label>xpm_rpucore_plat.c</label>
+      </node>
+      <node id="7496">
+        <label>xpm_core_plat.c</label>
+      </node>
+      <node id="7511">
+        <label>xpm_rpucore_plat.h</label>
+        <childnode refid="7503" relation="include">
+        </childnode>
+      </node>
+      <node id="7492">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="7495">
+        <label>xpm_rpucore.c</label>
+      </node>
+      <node id="7503">
+        <label>xpm_rpucore.h</label>
+        <childnode refid="7449" relation="include">
+        </childnode>
+        <childnode refid="7450" relation="include">
+        </childnode>
+        <childnode refid="7451" relation="include">
+        </childnode>
+        <childnode refid="7504" relation="include">
+        </childnode>
+        <childnode refid="7489" relation="include">
+        </childnode>
+        <childnode refid="7505" relation="include">
+        </childnode>
+        <childnode refid="7506" relation="include">
+        </childnode>
+        <childnode refid="7467" relation="include">
+        </childnode>
+        <childnode refid="7479" relation="include">
+        </childnode>
+        <childnode refid="7470" relation="include">
+        </childnode>
+        <childnode refid="7495" relation="include">
+        </childnode>
+        <childnode refid="7471" relation="include">
+        </childnode>
+        <childnode refid="7496" relation="include">
+        </childnode>
+        <childnode refid="7507" relation="include">
+        </childnode>
+        <childnode refid="7502" relation="include">
+        </childnode>
+        <childnode refid="7473" relation="include">
+        </childnode>
+      </node>
+      <node id="7482">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="7483">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="7488">
+        <label>xpm_pll_plat.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_psm_to_plm_event__t" prot="public">PsmToPlmEvent_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__psm__api_8h_1af440754a2b36cda1bf05ef7c96f92d08" prot="public" static="no">
+        <name>PSM_API_DIRECT_PWR_DWN</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a81b270106ba57199824eb278a956700a" prot="public" static="no">
+        <name>PSM_API_DIRECT_PWR_UP</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1ad733a2bfe5aa0508bc8a253efdc93821" prot="public" static="no">
+        <name>PSM_API_FPD_HOUSECLEAN</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1aac867e24496e71f05cd167f81036c02d" prot="public" static="no">
+        <name>PSM_API_CCIX_EN</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a6ac836581f83238de858ff2db49a83e9" prot="public" static="no">
+        <name>PSM_API_DOMAIN_ISO</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a600ddd2f0ea7f6864975d2d70ded6a1c" prot="public" static="no">
+        <name>PSM_API_GET_PSM_TO_PLM_EVENT_ADDR</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a3340c581ef60f5a32354378a6c9578f8" prot="public" static="no">
+        <name>FUNC_SECLOCKDOWN</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a6929f339df2017efa93b5c87a1cf38c3" prot="public" static="no">
+        <name>PSM_TO_PLM_EVENT_VERSION</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1ad2ab83f17ec3fd58c4bc1ce445162c6e" prot="public" static="no">
+        <name>PWR_UP_EVT</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1ac4b5886d9b0f25b631be5724d4773d36" prot="public" static="no">
+        <name>PWR_DWN_EVT</name>
+        <initializer>(0x100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a5d60c9f13a5f3479f4ec2776552eaa38" prot="public" static="no">
+        <name>DVSEC_PCSR_START_ADDR</name>
+        <initializer>(0x644U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a781fe3593dad4fe4cf5bbdd81bf00d42" prot="public" static="no">
+        <name>BISR_BITMASK_FPX</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__psm__api_8h_1a4ecf520be149ef883a3c5bcd1f51e40f" prot="public" static="no">
+        <name>BISR_BITMASK_LPX</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__psm__api_8h_1a814c610f9e6c623a2b7c3904b1a99989" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_ProcessPsmCmd</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_ProcessPsmCmd</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.c" bodystart="26" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__psm__api_8h_1a1ab620829345ff6ad9204cb8e879b582" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_PwrDwnEvent</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_PwrDwnEvent</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This Function is called by PSM to perform actions to finish suspend procedur of processor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of processor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Call direct power down for Versal NET since it needs to be call from only PSM power down event.</para><para>Call direct power down for Versal NET since it needs to be call from only PSM power down event.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.c" bodystart="91" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__psm__api_8h_1a1b5c676a16f392bfea81ee15bb4150ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_WakeUpEvent</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_WakeUpEvent</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This Function is called by PSM to wake processor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of processor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.c" bodystart="223" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__psm__api_8h_1ab7b1aaf744a6177ffc36b16e3873fe49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_GetPsmToPlmEventAddr</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPm_GetPsmToPlmEventAddr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This Function requests for PSM_TO_PLM_EVENT_ADDR to PSM. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.c" bodystart="269" bodyend="307"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PSM_API_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PSM_API_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psm_api_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_DIRECT_PWR_DWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_DIRECT_PWR_UP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_FPD_HOUSECLEAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_CCIX_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_DOMAIN_ISO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_API_GET_PSM_TO_PLM_EVENT_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FUNC_SECLOCKDOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PSM_TO_PLM_EVENT_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_UP_EVT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PWR_DWN_EVT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100U)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DVSEC_PCSR_START_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x644U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BISR_BITMASK_FPX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BISR_BITMASK_LPX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">PsmToPlmEvent_t<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Version;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Version<sp/>of<sp/>the<sp/>event<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_IPI_DEVICE_ID</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PsmToPlmEventInfo_t<sp/>EventInfo;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StlId;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Event[PROC_DEV_MAX];</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CpuIdleFlag[PROC_DEV_MAX];</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ResumeAddress[PROC_DEV_MAX];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BisrBitmask;<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProcDataAddress;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ProcDataLen;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">XStatus<sp/>XPm_ProcessPsmCmd(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">XStatus<sp/>XPm_PwrDwnEvent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">XStatus<sp/>XPm_WakeUpEvent(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">XStatus<sp/>XPm_GetPsmToPlmEventAddr(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PSM_API_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h"/>
+  </compounddef>
+</doxygen>

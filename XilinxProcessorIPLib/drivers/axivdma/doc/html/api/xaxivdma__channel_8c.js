@@ -2,9 +2,12 @@ var xaxivdma__channel_8c =
 [
     [ "XAxiVdma_ChannelHiFrmAddrDisable", "xaxivdma__channel_8c.html#gaaf3790410e85baac4ef181f1b77c8cdf", null ],
     [ "XAxiVdma_ChannelHiFrmAddrEnable", "xaxivdma__channel_8c.html#gac1022ff84a093476cff8499bc4bbaae2", null ],
+    [ "XAXIVDMA_RESET_POLLING", "xaxivdma__channel_8c.html#ga9c2f0c6eb40083de95866268853f6587", null ],
+    [ "XAXIVDMA_VIRT_TO_PHYS", "xaxivdma__channel_8c.html#ga657f09a902dac33a87f9eb33960c8d58", null ],
     [ "XAxiVdma_ChannelConfig", "xaxivdma__channel_8c.html#ga74ab4785d21c80a0d4501f0d985213e4", null ],
     [ "XAxiVdma_ChannelDisableIntr", "xaxivdma__channel_8c.html#ga2daa8c45a82867bedf786957b4154cdc", null ],
     [ "XAxiVdma_ChannelEnableIntr", "xaxivdma__channel_8c.html#ga64d6b39bc9e900efe9f14c9961f4da24", null ],
+    [ "XAxiVdma_ChannelErrors", "xaxivdma__channel_8c.html#gaaafba768a4bab25af3aa5eace26dbaa5", null ],
     [ "XAxiVdma_ChannelGetEnabledIntr", "xaxivdma__channel_8c.html#gaccc8d62d87870cb43c048938e405d4e6", null ],
     [ "XAxiVdma_ChannelGetFrmCnt", "xaxivdma__channel_8c.html#ga3e90ef720feb2a974511d7e2889a2198", null ],
     [ "XAxiVdma_ChannelGetPendingIntr", "xaxivdma__channel_8c.html#ga361297a60672ab2552754d8a58d3f7ab", null ],
@@ -12,6 +15,7 @@ var xaxivdma__channel_8c =
     [ "XAxiVdma_ChannelInit", "xaxivdma__channel_8c.html#ga795e26fb85aa4140db060d731a19efeb", null ],
     [ "XAxiVdma_ChannelIntrClear", "xaxivdma__channel_8c.html#ga7a8c557bce703f572d4e2dd9e362f489", null ],
     [ "XAxiVdma_ChannelIsBusy", "xaxivdma__channel_8c.html#gaaf57ab476eb91e9f41b6d166d2b2d6bb", null ],
+    [ "XAxiVdma_ChannelIsRunning", "xaxivdma__channel_8c.html#ga0e91413b316013db54fe3fab6ece3803", null ],
     [ "XAxiVdma_ChannelRegisterDump", "xaxivdma__channel_8c.html#ga13807c40f1f871a6b2f7cbde9eeab9a8", null ],
     [ "XAxiVdma_ChannelReset", "xaxivdma__channel_8c.html#ga96e2798de16d738f378458fa2b7b2f1c", null ],
     [ "XAxiVdma_ChannelResetNotDone", "xaxivdma__channel_8c.html#ga9b0a1008f3e30f3f031763f108f76405", null ],
@@ -23,5 +27,6 @@ var xaxivdma__channel_8c =
     [ "XAxiVdma_ChannelStartParking", "xaxivdma__channel_8c.html#ga04f4bf5ac18661ceb9c1ef047949e3d8", null ],
     [ "XAxiVdma_ChannelStartTransfer", "xaxivdma__channel_8c.html#ga3b9c24a02c4b4f99d40820a647de811d", null ],
     [ "XAxiVdma_ChannelStop", "xaxivdma__channel_8c.html#ga12bb1b451a69ecfc70f55d4fbf7257b0", null ],
-    [ "XAxiVdma_ChannelStopParking", "xaxivdma__channel_8c.html#gacd5a402e30c5170d9dab22d16ff01336", null ]
+    [ "XAxiVdma_ChannelStopParking", "xaxivdma__channel_8c.html#gacd5a402e30c5170d9dab22d16ff01336", null ],
+    [ "XAxiVdma_ClearChannelErrors", "xaxivdma__channel_8c.html#ga6f6dfd45cb15f3c19ff48dcf1de93da5", null ]
 ];

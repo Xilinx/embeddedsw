@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="363" bodyend="-1"/>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="151" endline="388">XDpRxSs_CfgInitialize</referencedby>
-        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="566" endline="619">XDpRxSs_ExposePort</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="313" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="147" endline="374">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="552" endline="605">XDpRxSs_ExposePort</referencedby>
         <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="64" endline="112">XDpRxSs_ReportCoreInfo</referencedby>
-        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="401" endline="424">XDpRxSs_Reset</referencedby>
+        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="387" endline="410">XDpRxSs_Reset</referencedby>
         <referencedby refid="group__dprxss_1ga9a5414c99d822a3848b6ef7442fe551d" compoundref="xdprxss__selftest_8c" startline="66" endline="114">XDpRxSs_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a6691a5af4ef59d41e4a64a4bc64947b2" prot="public" static="no" mutable="no">
@@ -33,8 +33,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="364" bodyend="-1"/>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="151" endline="388">XDpRxSs_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="147" endline="374">XDpRxSs_CfgInitialize</referencedby>
         <referencedby refid="group__dprxss_1ga666df5371b82b3dec85271c007f1625d" compoundref="xdprxss__intr_8c" startline="73" endline="83">XDpRxSs_DpIntrHandler</referencedby>
         <referencedby refid="group__dprxss_1ga559238c630ee96cbca342bb098d488fd" compoundref="xdprxss__intr_8c" startline="154" endline="167">XDpRxSs_DrvNoVideoHandler</referencedby>
         <referencedby refid="group__dprxss_1ga2e2d30f0b82711802df4a555897f8e09" compoundref="xdprxss__intr_8c" startline="205" endline="225">XDpRxSs_DrvPowerChangeHandler</referencedby>
@@ -52,29 +52,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="367" bodyend="-1"/>
-        <referencedby refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" compoundref="xdprxss__mst__example_8c" startline="406" endline="420">DpRxSs_CustomWaitUs</referencedby>
-        <referencedby refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" compoundref="xdprxss__mst__example_8c" startline="626" endline="641">DpRxSs_DetectResolution</referencedby>
-        <referencedby refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" compoundref="xdprxss__mst__example_8c" startline="358" endline="384">DpRxSs_SetupTimerHandler</referencedby>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="151" endline="388">XDpRxSs_CfgInitialize</referencedby>
-        <referencedby refid="group__dprxss_1gad307346eadf7cca46055eb02f8e92ddb" compoundref="xdprxss_8c" startline="640" endline="651">XDpRxSs_CheckLinkStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" compoundref="xdprxss__mst__example_8c" startline="363" endline="377">DpRxSs_CustomWaitUs</referencedby>
+        <referencedby refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" compoundref="xdprxss__mst__example_8c" startline="477" endline="492">DpRxSs_DetectResolution</referencedby>
+        <referencedby refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" compoundref="xdprxss__mst__example_8c" startline="319" endline="341">DpRxSs_SetupTimerHandler</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="147" endline="374">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1gad307346eadf7cca46055eb02f8e92ddb" compoundref="xdprxss_8c" startline="626" endline="637">XDpRxSs_CheckLinkStatus</referencedby>
         <referencedby refid="group__dprxss_1ga666df5371b82b3dec85271c007f1625d" compoundref="xdprxss__intr_8c" startline="73" endline="83">XDpRxSs_DpIntrHandler</referencedby>
         <referencedby refid="group__dprxss_1ga559238c630ee96cbca342bb098d488fd" compoundref="xdprxss__intr_8c" startline="154" endline="167">XDpRxSs_DrvNoVideoHandler</referencedby>
         <referencedby refid="group__dprxss_1ga2e2d30f0b82711802df4a555897f8e09" compoundref="xdprxss__intr_8c" startline="205" endline="225">XDpRxSs_DrvPowerChangeHandler</referencedby>
         <referencedby refid="group__dprxss_1gafe7a6062139a0cc9b6128ba8af7eea9e" compoundref="xdprxss__intr_8c" startline="180" endline="192">XDpRxSs_DrvVideoHandler</referencedby>
-        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="566" endline="619">XDpRxSs_ExposePort</referencedby>
-        <referencedby refid="group__dprxss_1gaae2cb38734654cfeca1d77b0439c243e" compoundref="xdprxss_8c" startline="696" endline="706">XDpRxSs_HandleDownReq</referencedby>
+        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="552" endline="605">XDpRxSs_ExposePort</referencedby>
+        <referencedby refid="group__dprxss_1gaae2cb38734654cfeca1d77b0439c243e" compoundref="xdprxss_8c" startline="682" endline="692">XDpRxSs_HandleDownReq</referencedby>
         <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="64" endline="112">XDpRxSs_ReportCoreInfo</referencedby>
         <referencedby refid="group__dprxss_1ga1c18157ed811924d1a2f1dd60a6f3629" compoundref="xdprxss__dbg_8c" startline="125" endline="171">XDpRxSs_ReportLinkInfo</referencedby>
         <referencedby refid="group__dprxss_1ga1db1ad90aab468e882f66cb36a9fcec0" compoundref="xdprxss__dbg_8c" startline="184" endline="230">XDpRxSs_ReportMsaInfo</referencedby>
-        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="401" endline="424">XDpRxSs_Reset</referencedby>
+        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="387" endline="410">XDpRxSs_Reset</referencedby>
         <referencedby refid="group__dprxss_1ga9a5414c99d822a3848b6ef7442fe551d" compoundref="xdprxss__selftest_8c" startline="66" endline="114">XDpRxSs_SelfTest</referencedby>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
-        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="523" endline="545">XDpRxSs_SetLaneCount</referencedby>
-        <referencedby refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" compoundref="xdprxss_8c" startline="481" endline="503">XDpRxSs_SetLinkRate</referencedby>
-        <referencedby refid="group__dprxss_1ga40a20785049e0c92a24c2612dd6a7098" compoundref="xdprxss_8c" startline="665" endline="674">XDpRxSs_SetUserPixelWidth</referencedby>
+        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="509" endline="531">XDpRxSs_SetLaneCount</referencedby>
+        <referencedby refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" compoundref="xdprxss_8c" startline="467" endline="489">XDpRxSs_SetLinkRate</referencedby>
+        <referencedby refid="group__dprxss_1ga40a20785049e0c92a24c2612dd6a7098" compoundref="xdprxss_8c" startline="651" endline="660">XDpRxSs_SetUserPixelWidth</referencedby>
         <referencedby refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" compoundref="xdprxss__intr_8c" startline="479" endline="489">XDpRxSs_SetUserTimerHandler</referencedby>
-        <referencedby refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" compoundref="xdprxss_8c" startline="442" endline="460">XDpRxSs_Start</referencedby>
+        <referencedby refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" compoundref="xdprxss_8c" startline="428" endline="446">XDpRxSs_Start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a82173e2b23c1d47d9240fa58d091b2c6" prot="public" static="no" mutable="no">
         <type>XIic *</type>
@@ -87,12 +87,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="368" bodyend="-1"/>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="151" endline="388">XDpRxSs_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="147" endline="374">XDpRxSs_CfgInitialize</referencedby>
         <referencedby refid="group__dprxss_1ga2e2d30f0b82711802df4a555897f8e09" compoundref="xdprxss__intr_8c" startline="205" endline="225">XDpRxSs_DrvPowerChangeHandler</referencedby>
         <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="64" endline="112">XDpRxSs_ReportCoreInfo</referencedby>
         <referencedby refid="group__dprxss_1gaec9c155be16f1cd2464202647930d27b" compoundref="xdprxss__dbg_8c" startline="242" endline="249">XDpRxSs_ReportDp159BitErrCount</referencedby>
-        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="401" endline="424">XDpRxSs_Reset</referencedby>
+        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="387" endline="410">XDpRxSs_Reset</referencedby>
         <referencedby refid="group__dprxss_1ga9a5414c99d822a3848b6ef7442fe551d" compoundref="xdprxss__selftest_8c" startline="66" endline="114">XDpRxSs_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a60da4e2b7aac11b1f3dccc8d1f7509e0" prot="public" static="no" mutable="no">
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="381" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="331" bodyend="-1"/>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1acf6fc8e8c721c8359cc5633d7f8e1f5d" prot="public" static="no" mutable="no">
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="383" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="333" bodyend="-1"/>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1ae0e1bd70063b93a5b105d8d3ab2ea6c6" prot="public" static="no" mutable="no">
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="386" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="336" bodyend="-1"/>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1aae1174d0b5fea089c0464429dfe01c18" prot="public" static="no" mutable="no">
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="388" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="338" bodyend="-1"/>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1aaa05283423ea32b53d730a8be9401cbb" prot="public" static="no" mutable="no">
@@ -162,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="391" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="341" bodyend="-1"/>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a0678d420efec6c93060400b96cfbb792" prot="public" static="no" mutable="no">
@@ -176,7 +176,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="393" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="343" bodyend="-1"/>
         <referencedby refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" compoundref="xdprxss__intr_8c" startline="272" endline="462">XDpRxSs_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a343152b13dbd31833adcdeb6562432ed" prot="public" static="no" mutable="no">
@@ -190,7 +190,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="398" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="348" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1ac5e4b8314b7628e4f3cc94a8ac0dfadf" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -203,7 +203,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="399" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="349" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1afc12f403a17670fcf650b2056576785d" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_dp_rx_ss___usr_opt" kindref="compound">XDpRxSs_UsrOpt</ref></type>
@@ -216,18 +216,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="402" bodyend="-1"/>
-        <referencedby refid="xdprxss__debug__example_8c_1a55b21f2f855cfce1a43162ef2a9941e1" compoundref="xdprxss__debug__example_8c" startline="154" endline="231">DpRxSs_DebugExample</referencedby>
-        <referencedby refid="xdprxss__hdcp__example_8c_1a8af67b051fa2a400855b4e3db5dfcb27" compoundref="xdprxss__hdcp__example_8c" startline="152" endline="261">DpRxSs_HdcpExample</referencedby>
-        <referencedby refid="xdprxss__intr__example_8c_1a9fb9d3339f8b78c075ba1bf6f6c9f0e3" compoundref="xdprxss__intr__example_8c" startline="232" endline="305">DpRxSs_IntrExample</referencedby>
-        <referencedby refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" compoundref="xdprxss__mst__example_8c" startline="206" endline="277">DpRxSs_MstExample</referencedby>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="151" endline="388">XDpRxSs_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="xdprxss__debug__example_8c_1a55b21f2f855cfce1a43162ef2a9941e1" compoundref="xdprxss__debug__example_8c" startline="140" endline="212">DpRxSs_DebugExample</referencedby>
+        <referencedby refid="xdprxss__hdcp__example_8c_1a8af67b051fa2a400855b4e3db5dfcb27" compoundref="xdprxss__hdcp__example_8c" startline="136" endline="240">DpRxSs_HdcpExample</referencedby>
+        <referencedby refid="xdprxss__intr__example_8c_1a9fb9d3339f8b78c075ba1bf6f6c9f0e3" compoundref="xdprxss__intr__example_8c" startline="198" endline="266">DpRxSs_IntrExample</referencedby>
+        <referencedby refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" compoundref="xdprxss__mst__example_8c" startline="172" endline="238">DpRxSs_MstExample</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="147" endline="374">XDpRxSs_CfgInitialize</referencedby>
         <referencedby refid="group__dprxss_1ga2e2d30f0b82711802df4a555897f8e09" compoundref="xdprxss__intr_8c" startline="205" endline="225">XDpRxSs_DrvPowerChangeHandler</referencedby>
-        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="566" endline="619">XDpRxSs_ExposePort</referencedby>
+        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="552" endline="605">XDpRxSs_ExposePort</referencedby>
         <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="64" endline="112">XDpRxSs_ReportCoreInfo</referencedby>
-        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="523" endline="545">XDpRxSs_SetLaneCount</referencedby>
-        <referencedby refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" compoundref="xdprxss_8c" startline="481" endline="503">XDpRxSs_SetLinkRate</referencedby>
-        <referencedby refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" compoundref="xdprxss_8c" startline="442" endline="460">XDpRxSs_Start</referencedby>
+        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="509" endline="531">XDpRxSs_SetLaneCount</referencedby>
+        <referencedby refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" compoundref="xdprxss_8c" startline="467" endline="489">XDpRxSs_SetLinkRate</referencedby>
+        <referencedby refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" compoundref="xdprxss_8c" startline="428" endline="446">XDpRxSs_Start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a7f5ddceb5414dc0d84b2349ee7762bd7" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -240,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="404" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="354" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_rx_ss_1a279708d0f5f7640e96809d7d1ac92622" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -253,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="405" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="355" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -318,7 +318,7 @@
         <link refid="struct_x_dp_rx_ss___dp_sub_core"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="362" bodyend="406"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="312" bodyend="356"/>
     <listofallmembers>
       <member refid="struct_x_dp_rx_ss_1a38c927311884c9c247ce6bb7299b8f5d" prot="public" virt="non-virtual"><scope>XDpRxSs</scope><name>Config</name></member>
       <member refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" prot="public" virt="non-virtual"><scope>XDpRxSs</scope><name>DpPtr</name></member>

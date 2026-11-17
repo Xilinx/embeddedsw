@@ -15,10 +15,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="139" bodyend="-1"/>
-        <referencedby refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" compoundref="xaudioformatter_8c" startline="76" endline="103">XAudioFormatter_CfgInitialize</referencedby>
-        <referencedby refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" compoundref="xaudioformatter_8c" startline="277" endline="343">XAudioFormatterSetHwParams</referencedby>
-        <referencedby refid="group__audio__formatter_1gabec553226fe4cfd97f01d23b2c30bbad" compoundref="xaudioformatter_8c" startline="422" endline="445">XSdiAud_GetChStat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" compoundref="xaudioformatter_8c" startline="105" endline="132">XAudioFormatter_CfgInitialize</referencedby>
+        <referencedby refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" compoundref="xaudioformatter_8c" startline="301" endline="370">XAudioFormatterSetHwParams</referencedby>
+        <referencedby refid="group__audio__formatter_1gabec553226fe4cfd97f01d23b2c30bbad" compoundref="xaudioformatter_8c" startline="448" endline="470">XSdiAud_GetChStat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -31,17 +31,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="140" bodyend="-1"/>
-        <referencedby refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" compoundref="xaudioformatter_8c" startline="76" endline="103">XAudioFormatter_CfgInitialize</referencedby>
-        <referencedby refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" compoundref="xaudioformatter_8c" startline="116" endline="135">XAudioFormatter_InterruptClear</referencedby>
-        <referencedby refid="group__audio__formatter_1ga9c0f40a1f11f81c15f0bd0e1aea25d0a" compoundref="xaudioformatter_8c" startline="181" endline="200">XAudioFormatter_InterruptDisable</referencedby>
-        <referencedby refid="group__audio__formatter_1ga5779760c06dac849bd2e52ceded0ad65" compoundref="xaudioformatter_8c" startline="148" endline="167">XAudioFormatter_InterruptEnable</referencedby>
-        <referencedby refid="group__audio__formatter_1ga65ddaecacb3d843dade3da4a44862963" compoundref="xaudioformatter_8c" startline="212" endline="231">XAudioFormatterDMAStart</referencedby>
-        <referencedby refid="group__audio__formatter_1ga95f19d9d0e20ad8b8bafcaf277ea1ca3" compoundref="xaudioformatter_8c" startline="243" endline="262">XAudioFormatterDMAStop</referencedby>
-        <referencedby refid="group__audio__formatter_1gabc41edf6bcea2a85b50e8893016fb267" compoundref="xaudioformatter_8c" startline="354" endline="371">XAudioFormatterGetDMATransferCount</referencedby>
-        <referencedby refid="group__audio__formatter_1gae4e206855fe0fd0b43a40050d494b40f" compoundref="xaudioformatter_8c" startline="400" endline="412">XAudioFormatterSetFsMultiplier</referencedby>
-        <referencedby refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" compoundref="xaudioformatter_8c" startline="277" endline="343">XAudioFormatterSetHwParams</referencedby>
-        <referencedby refid="group__audio__formatter_1ga6d1e04ada72ed2b53ee4c03809f8146e" compoundref="xaudioformatter_8c" startline="382" endline="389">XAudioFormatterSetS2MMTimeOut</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" compoundref="xaudioformatter_8c" startline="105" endline="132">XAudioFormatter_CfgInitialize</referencedby>
+        <referencedby refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" compoundref="xaudioformatter_8c" startline="145" endline="163">XAudioFormatter_InterruptClear</referencedby>
+        <referencedby refid="group__audio__formatter_1ga9c0f40a1f11f81c15f0bd0e1aea25d0a" compoundref="xaudioformatter_8c" startline="208" endline="226">XAudioFormatter_InterruptDisable</referencedby>
+        <referencedby refid="group__audio__formatter_1ga5779760c06dac849bd2e52ceded0ad65" compoundref="xaudioformatter_8c" startline="176" endline="194">XAudioFormatter_InterruptEnable</referencedby>
+        <referencedby refid="group__audio__formatter_1ga65ddaecacb3d843dade3da4a44862963" compoundref="xaudioformatter_8c" startline="238" endline="256">XAudioFormatterDMAStart</referencedby>
+        <referencedby refid="group__audio__formatter_1ga95f19d9d0e20ad8b8bafcaf277ea1ca3" compoundref="xaudioformatter_8c" startline="268" endline="286">XAudioFormatterDMAStop</referencedby>
+        <referencedby refid="group__audio__formatter_1gabc41edf6bcea2a85b50e8893016fb267" compoundref="xaudioformatter_8c" startline="381" endline="397">XAudioFormatterGetDMATransferCount</referencedby>
+        <referencedby refid="group__audioformatter_1gad236d638e2ae1afe068b87d0f3621d27" compoundref="xaudioformatter__intr_8c" startline="143" endline="166">XAudioFormatterMM2SIntrHandler</referencedby>
+        <referencedby refid="group__audioformatter_1ga16ea676685b69644cd310b70a55b8b27" compoundref="xaudioformatter__intr_8c" startline="95" endline="124">XAudioFormatterS2MMIntrHandler</referencedby>
+        <referencedby refid="group__audio__formatter_1gae4e206855fe0fd0b43a40050d494b40f" compoundref="xaudioformatter_8c" startline="426" endline="438">XAudioFormatterSetFsMultiplier</referencedby>
+        <referencedby refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" compoundref="xaudioformatter_8c" startline="301" endline="370">XAudioFormatterSetHwParams</referencedby>
+        <referencedby refid="group__audio__formatter_1ga6d1e04ada72ed2b53ee4c03809f8146e" compoundref="xaudioformatter_8c" startline="408" endline="415">XAudioFormatterSetS2MMTimeOut</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1ad948e48b8ee38db6c087062ac5e576a6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -54,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1ac49887933b8c31761562014504103e73" prot="public" static="no" mutable="no">
         <type>_Bool</type>
@@ -67,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="143" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a243aa4fb4eceed6fe46c3086a423b714" prot="public" static="no" mutable="no">
         <type>_Bool</type>
@@ -80,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a4f83cf6028b2c4b1af91e0db4a50af8b" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_ChannelId</type>
@@ -93,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="138" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1ab34a2e5cefb38ad3e93f7b97574da1d5" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_Callback</type>
@@ -106,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="146" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="139" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a300d6acd9a9258e00a7c1ab9a32aa61d" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -119,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="147" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="140" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1aba5b9b7b4f27c81a249116b2a847cce3" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_Callback</type>
@@ -132,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="148" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="141" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1ac37600934057301185af88a0a7715ccb" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -145,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="149" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a5ae140c9c0fb975268d7c6cf1b488123" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_Callback</type>
@@ -158,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="150" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a1b06d8c3eb49cd7f9bca90db7d33ca2a" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -171,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a15bcebc0f5722dbbec4d4a8bbac5fb47" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_Callback</type>
@@ -184,7 +186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="152" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="145" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a722866c49df197974268e0a2cd9d5d98" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -197,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="153" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="146" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1ae5c3fea98fc7d08454173587605f94f7" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_Callback</type>
@@ -210,7 +212,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="154" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a40737123bcb23fdddd4e3d8e2065b239" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -223,7 +225,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="155" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="148" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a08f18930347497b27b0f5a9c6e1e59c7" prot="public" static="no" mutable="no">
         <type>XAudioFormatter_Callback</type>
@@ -236,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="156" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_audio_formatter_1a07d884f2ad70bdf7154d28549b0efb3b" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -249,7 +251,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -269,7 +271,7 @@
         <link refid="struct_x_audio_formatter___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="138" bodyend="158"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="131" bodyend="151"/>
     <listofallmembers>
       <member refid="struct_x_audio_formatter_1ad948e48b8ee38db6c087062ac5e576a6" prot="public" virt="non-virtual"><scope>XAudioFormatter</scope><name>BaseAddress</name></member>
       <member refid="struct_x_audio_formatter_1a4f83cf6028b2c4b1af91e0db4a50af8b" prot="public" virt="non-virtual"><scope>XAudioFormatter</scope><name>ChannelId</name></member>

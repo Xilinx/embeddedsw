@@ -1,9 +1,14 @@
 var searchData=
 [
   ['inputclockhz',['InputClockHz',['../struct_x_qspi_psu___config.html#a630de071c5c249ec4bf502fff7f8daaa',1,'XQspiPsu_Config']]],
+  ['intc_5fdevice_5fid',['INTC_DEVICE_ID',['../group__xqspipsu__generic__flash__interrupt__example.html#ga90bc74590962865fc1ab7ee1be0f4b64',1,'INTC_DEVICE_ID():&#160;xqspipsu_generic_flash_interrupt_example.c'],['../group__xqspipsu__generic__flash__lqspi__example.html#ga90bc74590962865fc1ab7ee1be0f4b64',1,'INTC_DEVICE_ID():&#160;xqspipsu_generic_flash_lqspi_example.c'],['../group__xqspipsu__generic__nand__flash__interrupt__example.html#ga90bc74590962865fc1ab7ee1be0f4b64',1,'INTC_DEVICE_ID():&#160;xqspipsu_generic_nand_flash_interrupt_example.c'],['../group__xqspipsu__polldata__polltimeout__interrupt__example.html#ga90bc74590962865fc1ab7ee1be0f4b64',1,'INTC_DEVICE_ID():&#160;xqspipsu_polldata_polltimeout_interrupt_example.c'],['../group__xqspipsu__write__protect__example.html#ga90bc74590962865fc1ab7ee1be0f4b64',1,'INTC_DEVICE_ID():&#160;xqspipsu_write_protect_example.c']]],
   ['intrid',['IntrId',['../struct_x_qspi_psu___config.html#aa836944a337f60daf7b78757bcd666de',1,'XQspiPsu_Config']]],
   ['intrparent',['IntrParent',['../struct_x_qspi_psu___config.html#a5595f725bd6d14822442c9914b2b9b8e',1,'XQspiPsu_Config']]],
+  ['iou_5ftapdly_5fbypass_5flqspi_5frx_5fmask',['IOU_TAPDLY_BYPASS_LQSPI_RX_MASK',['../group__qspipsu.html#ga18d189b90381866973330f5cdd110b26',1,'xqspipsu_hw.h']]],
+  ['iou_5ftapdly_5fbypass_5flqspi_5frx_5fshift',['IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT',['../group__qspipsu.html#ga81f2bff5f6644462f174fc305e8379f7',1,'xqspipsu_hw.h']]],
+  ['iou_5ftapdly_5fbypass_5flqspi_5frx_5fwidth',['IOU_TAPDLY_BYPASS_LQSPI_RX_WIDTH',['../group__qspipsu.html#gacc733c5b377c27d5aee44ce762dc94b2',1,'xqspipsu_hw.h']]],
   ['iou_5ftapdly_5fbypass_5foffset',['IOU_TAPDLY_BYPASS_OFFSET',['../group__qspipsu.html#ga0bbc5a63a23f12de8b6feb217e0f317b',1,'xqspipsu_hw.h']]],
+  ['iou_5ftapdly_5freset_5fstate',['IOU_TAPDLY_RESET_STATE',['../group__qspipsu.html#ga27c3393df4ae5b7819435ca0f970007f',1,'xqspipsu_hw.h']]],
   ['isbusy',['IsBusy',['../struct_x_qspi_psu.html#ad253a7c807935d5b3178966e74f6821c',1,'XQspiPsu']]],
   ['iscachecoherent',['IsCacheCoherent',['../struct_x_qspi_psu___config.html#a400769b796e581c883c34c63320c51b3',1,'XQspiPsu_Config']]],
   ['isfbclock',['IsFbClock',['../struct_x_qspi_psu___config.html#ab141b30f1c3f753a9805200c580bf716',1,'XQspiPsu_Config']]],

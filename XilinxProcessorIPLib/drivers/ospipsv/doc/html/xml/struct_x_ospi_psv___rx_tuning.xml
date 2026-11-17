@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ospi_psv___rx_tuning" kind="struct" prot="public">
+    <compoundname>XOspiPsv_RxTuning</compoundname>
+    <includes local="no">xospipsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1a63b3537f527086caa96d2533fc4ee697" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_RxTuning::Opcode</definition>
+        <argsstring></argsstring>
+        <name>Opcode</name>
+        <briefdescription>
+<para>Read opcode used to fetch the pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1a8c0c68e689dff579720515934656d56c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_RxTuning::Dummy</definition>
+        <argsstring></argsstring>
+        <name>Dummy</name>
+        <briefdescription>
+<para>Number of dummy cycles for the read opcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1abc359ede4b4380ace685cd39ba7c10b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_RxTuning::Proto</definition>
+        <argsstring></argsstring>
+        <name>Proto</name>
+        <briefdescription>
+<para>Indicate number of Cmd-Addr-Data lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1a441fbba695135a5c9bccce93294c466b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_RxTuning::Addrsize</definition>
+        <argsstring></argsstring>
+        <name>Addrsize</name>
+        <briefdescription>
+<para>Size of the pattern address in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1a6a09485feea48ef43f50058a7a2ca8ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_RxTuning::PatternAddr</definition>
+        <argsstring></argsstring>
+        <name>PatternAddr</name>
+        <briefdescription>
+<para>Flash address the pattern is programmed at. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1a7715ed763948b62c42347290b8588fa0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_RxTuning::PatternSize</definition>
+        <argsstring></argsstring>
+        <name>PatternSize</name>
+        <briefdescription>
+<para><verbatim>       Number of pattern bytes to read and compare,
+</verbatim> has to be a multiple of four </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="676" endline="762">XOspiPsv_CalculateRxTap</referencedby>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1a81bf73b49c4efcd64dcd4670efd6b713" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XOspiPsv_RxTuning::Pattern</definition>
+        <argsstring></argsstring>
+        <name>Pattern</name>
+        <briefdescription>
+<para>Reference pattern used for comparison. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="676" endline="762">XOspiPsv_CalculateRxTap</referencedby>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___rx_tuning_1abf1b8b2ba1741c562089f780eb126807" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XOspiPsv_RxTuning::ReadBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>ReadBfrPtr</name>
+        <briefdescription>
+<para>Application buffer the pattern is read into. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is filled using DMA, so it has to be cache line aligned and at least PatternSize bytes long </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="840" endline="969">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Holds the RX tuning related information. </para>    </briefdescription>
+    <detaileddescription>
+<para>The RX tuning algorithm compares the data read at every RX tap against a reference pattern which is expected to be pre-programmed in the flash. The application owns the pattern and fills this structure in the driver instance before switching to a PHY mode using <ref refid="group__ospipsv_1ga74efb98d92b16935c3ea41e4f77cecea" kindref="member">XOspiPsv_SetSdrDdrMode()</ref>. It supplies the reference data, the location of the pattern in flash, the read instruction used to fetch it and the buffer it is read into. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="139" bodyend="151"/>
+    <listofallmembers>
+      <member refid="struct_x_ospi_psv___rx_tuning_1a441fbba695135a5c9bccce93294c466b" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>Addrsize</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1a8c0c68e689dff579720515934656d56c" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>Dummy</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1a63b3537f527086caa96d2533fc4ee697" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>Opcode</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1a81bf73b49c4efcd64dcd4670efd6b713" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>Pattern</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1a6a09485feea48ef43f50058a7a2ca8ba" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>PatternAddr</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1a7715ed763948b62c42347290b8588fa0" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>PatternSize</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1abc359ede4b4380ace685cd39ba7c10b9" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>Proto</name></member>
+      <member refid="struct_x_ospi_psv___rx_tuning_1abf1b8b2ba1741c562089f780eb126807" prot="public" virt="non-virtual"><scope>XOspiPsv_RxTuning</scope><name>ReadBfrPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

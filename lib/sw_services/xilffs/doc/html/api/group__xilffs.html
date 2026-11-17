@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
@@ -87,7 +88,7 @@ $(document).ready(function(){initNavTree('group__xilffs.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,6 +102,45 @@ $(document).ready(function(){initNavTree('group__xilffs.html','');});
 <div class="title">Overview</div>  </div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Library version info</h2></td></tr>
+<tr class="memitem:gafe5177cb19123df9d8083d5071c44235"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilffs.html#gafe5177cb19123df9d8083d5071c44235">XILFFS_MAJOR_VERSION</a>&#160;&#160;&#160;5U</td></tr>
+<tr class="memdesc:gafe5177cb19123df9d8083d5071c44235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Major version of xilffs library.  <a href="#gafe5177cb19123df9d8083d5071c44235">More...</a><br/></td></tr>
+<tr class="separator:gafe5177cb19123df9d8083d5071c44235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfed463ce178f869932d22a95d2554e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilffs.html#gabfed463ce178f869932d22a95d2554e7">XILFFS_MINOR_VERSION</a>&#160;&#160;&#160;7U</td></tr>
+<tr class="memdesc:gabfed463ce178f869932d22a95d2554e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minor version of xilffs library.  <a href="#gabfed463ce178f869932d22a95d2554e7">More...</a><br/></td></tr>
+<tr class="separator:gabfed463ce178f869932d22a95d2554e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="gafe5177cb19123df9d8083d5071c44235"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XILFFS_MAJOR_VERSION&#160;&#160;&#160;5U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Major version of xilffs library. </p>
+
+</div>
+</div>
+<a class="anchor" id="gabfed463ce178f869932d22a95d2554e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XILFFS_MINOR_VERSION&#160;&#160;&#160;7U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Minor version of xilffs library. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

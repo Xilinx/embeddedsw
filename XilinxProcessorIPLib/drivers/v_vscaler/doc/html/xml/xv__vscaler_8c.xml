@@ -7,6 +7,10 @@
       <node id="5">
         <label>xil_assert.h</label>
       </node>
+      <node id="8">
+        <label>xv_vscaler_hw.h</label>
+        <link refid="xv__vscaler__hw_8h"/>
+      </node>
       <node id="7">
         <label>xil_io.h</label>
       </node>
@@ -29,10 +33,6 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-      </node>
-      <node id="8">
-        <label>xv_vscaler_hw.h</label>
-        <link refid="xv__vscaler__hw_8h"/>
       </node>
       <node id="6">
         <label>xstatus.h</label>
@@ -91,11 +91,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="30" bodyend="45"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
-        <referencedby refid="xv__vscaler__sinit_8c_1a33adad267eecf9f4e3439c71d9b88faa" compoundref="xv__vscaler__sinit_8c" startline="131" endline="145">XV_vscaler_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="30" bodyend="45"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
+        <referencedby refid="xv__vscaler__sinit_8c_1a33adad267eecf9f4e3439c71d9b88faa" compoundref="xv__vscaler__sinit_8c" startline="67" endline="81">XV_vscaler_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1ac93878549b2774a0067b7c9711c3e14c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -122,10 +122,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="59" bodyend="69"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="59" bodyend="69"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__vscaler_1ga18b042a9e8363a391ea0003cc3161fdd" compoundref="xv__vscaler__l2_8c" startline="101" endline="107">XV_VScalerStart</referencedby>
       </memberdef>
@@ -154,10 +154,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="82" bodyend="91"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="82" bodyend="91"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
@@ -186,10 +186,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="104" bodyend="113"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="104" bodyend="113"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
@@ -218,10 +218,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="126" bodyend="136"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="126" bodyend="136"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
@@ -250,10 +250,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="149" bodyend="155"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="149" bodyend="155"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__vscaler_1ga18b042a9e8363a391ea0003cc3161fdd" compoundref="xv__vscaler__l2_8c" startline="101" endline="107">XV_VScalerStart</referencedby>
       </memberdef>
@@ -281,10 +281,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="170" bodyend="175"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="170" bodyend="175"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__vscaler_1ga3e8283da952231832e4e222ad6e5db87" compoundref="xv__vscaler__l2_8c" startline="118" endline="123">XV_VScalerStop</referencedby>
       </memberdef>
@@ -325,10 +325,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="191" bodyend="196"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="191" bodyend="196"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" compoundref="xv__vscaler__l2_8c" startline="374" endline="417">XV_VScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a5ae4d3d419b09bddc9ddcbda73b77f35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -356,10 +356,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="210" bodyend="219"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="210" bodyend="219"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1ad53d59dd268dd2c5a9dea1d89bcf5df8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -399,10 +399,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="236" bodyend="242"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="236" bodyend="242"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" compoundref="xv__vscaler__l2_8c" startline="374" endline="417">XV_VScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1ab61949acefe534a2488cef9a5abdeea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -430,10 +430,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="256" bodyend="265"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="256" bodyend="265"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a8c73450043e36e471579a2d0fd272404" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -473,10 +473,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="281" bodyend="287"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="281" bodyend="287"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" compoundref="xv__vscaler__l2_8c" startline="374" endline="417">XV_VScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1adf18f5ce31c7d60f4087cc55ec9b67f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -504,10 +504,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="301" bodyend="310"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="301" bodyend="310"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1acee2c1ec52df88fdf5cc7b025e950674" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -547,10 +547,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="326" bodyend="332"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="326" bodyend="332"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" compoundref="xv__vscaler__l2_8c" startline="374" endline="417">XV_VScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1af008030d183c88142c8800ab282fe25e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -578,10 +578,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="346" bodyend="355"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="346" bodyend="355"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a0ba1db0e373347f763d1f72a6d3784e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -621,10 +621,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="370" bodyend="375"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="370" bodyend="375"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" compoundref="xv__vscaler__l2_8c" startline="374" endline="417">XV_VScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a968c2fdbffb0c931dcc00e698375db6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -652,10 +652,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="390" bodyend="398"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="390" bodyend="398"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a70cd1e2d2b08d4d789673cc50020764e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -683,10 +683,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="411" bodyend="416"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="411" bodyend="416"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
         <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a6a2256cc55b9c80ea2f883c44f9e432d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -714,10 +714,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="430" bodyend="435"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="430" bodyend="435"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a7db48bb8c89558ede058fafd93bf659b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -743,8 +743,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="450" bodyend="455"/>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="450" bodyend="455"/>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a13f2cce0b24a6a394ff0e05f7e3a1b28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -771,8 +771,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="469" bodyend="474"/>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="469" bodyend="474"/>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1aa296ed16cfbb8b2cff5a38a3c1db1ed5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -799,8 +799,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="488" bodyend="493"/>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="488" bodyend="493"/>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a95e3748f5ec0f48b3d899816619425f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -863,9 +863,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="513" bodyend="526"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="513" bodyend="526"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1aa22f031627268fa360115b7ed8da123d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -928,9 +928,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="548" bodyend="561"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="548" bodyend="561"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1adcb8d3cce71f8638c7514d4086ccb341" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -989,9 +989,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="581" bodyend="594"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="581" bodyend="594"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a0c3743a962d91e0e94d302976fde6ead" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1050,9 +1050,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="616" bodyend="629"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="616" bodyend="629"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1aef78cf2344a65abb4e19346250270de2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1078,10 +1078,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="645" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="645" bodyend="650"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="645" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="645" bodyend="650"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1ad7f489d24ae0ec8e5e6696fa0c12fa6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1107,10 +1107,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="664" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="664" bodyend="669"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="664" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="664" bodyend="669"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1af0f5ea5f6aeb2f8cb6865a308a75d592" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1147,10 +1147,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="686" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="686" bodyend="696"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="686" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="686" bodyend="696"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a66ed466b058a18e9b2dfc7f6e4cf9309" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1187,10 +1187,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="713" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="713" bodyend="723"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="713" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="713" bodyend="723"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a7dc587e811daec6dde1668b00a71267c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1227,10 +1227,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="738" bodyend="743"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="738" bodyend="743"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1a5b2cb2110f3242b7c5882579fabf3224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1256,10 +1256,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="758" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="758" bodyend="763"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="758" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="758" bodyend="763"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__vscaler_8c_1afcd4d0e55e53545aa0567dcb261ed30a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1285,10 +1285,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="776" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="776" bodyend="781"/>
-        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
-        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="74">XV_vscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" line="776" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c" bodystart="776" bodyend="781"/>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="52">XV_vscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="69">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler_1a6658752e25aabc60b0ab4fa27c075b2d" compoundref="xv__vscaler_8h" startline="70">XV_vscaler::IsReady</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1628,6 +1628,6 @@
 <codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XV_vscaler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" kindref="member">Config</ref>.<ref refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" kindref="member">BaseAddress</ref>,<sp/>XV_VSCALER_CTRL_ADDR_ISR);</highlight></codeline>
 <codeline lineno="781"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler.c"/>
   </compounddef>
 </doxygen>

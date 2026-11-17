@@ -6,20 +6,6 @@
     <includedby refid="xilskey__puf__regeneration__example_8c" local="yes">xilskey_puf_regeneration_example.c</includedby>
     <includedby refid="xilskey__puf__registration_8h" local="yes">xilskey_puf_registration.h</includedby>
     <invincdepgraph>
-      <node id="135">
-        <label>xilskey_puf_regeneration_example.c</label>
-        <link refid="xilskey__puf__regeneration__example_8c"/>
-      </node>
-      <node id="136">
-        <label>xilskey_puf_registration.h</label>
-        <link refid="xilskey__puf__registration_8h"/>
-        <childnode refid="137" relation="include">
-        </childnode>
-      </node>
-      <node id="134">
-        <label>xilskey_eps_zynqmp_puf.c</label>
-        <link refid="xilskey__eps__zynqmp__puf_8c"/>
-      </node>
       <node id="133">
         <label>xilskey_eps_zynqmp_puf.h</label>
         <link refid="xilskey_eps_zynqmp_puf.h"/>
@@ -29,6 +15,20 @@
         </childnode>
         <childnode refid="136" relation="include">
         </childnode>
+      </node>
+      <node id="136">
+        <label>xilskey_puf_registration.h</label>
+        <link refid="xilskey__puf__registration_8h"/>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>xilskey_puf_regeneration_example.c</label>
+        <link refid="xilskey__puf__regeneration__example_8c"/>
+      </node>
+      <node id="134">
+        <label>xilskey_eps_zynqmp_puf.c</label>
+        <link refid="xilskey__eps__zynqmp__puf_8c"/>
       </node>
       <node id="137">
         <label>xilskey_puf_registration_example.c</label>
@@ -63,14 +63,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="116" bodyend="214"/>
-        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="116" bodyend="214"/>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="866" endline="906">XilSKey_Efuse_ConvertBitsToBytes</references>
         <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
-        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="412" endline="445">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1abf43b17cdeb5ef29427835349fc8741d" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1207">XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga244ec0ae43d34ee6500c06dd91f9d372" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -99,12 +99,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="231" bodyend="304"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="231" bodyend="304"/>
         <references refid="group__xilskey__zynqmp__efuse_1ga5ccf425dc11a9659dd31419233c1382b" compoundref="xilskey__eps__zynqmp_8c" startline="998" endline="1049">XilSKey_ZynqMp_EfusePs_ReadRow</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga32901f95760a2e693f484f5a57d1ad06" compoundref="xilskey__eps__zynqmp_8c" startline="1212" endline="1251">XilSKey_ZynqMp_EfusePs_SetTimerValues</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1abf43b17cdeb5ef29427835349fc8741d" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1207">XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -133,16 +133,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="320" bodyend="393"/>
-        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="320" bodyend="393"/>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="866" endline="906">XilSKey_Efuse_ConvertBitsToBytes</references>
         <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
         <references refid="group__xilskey__zynqmp__efuse_1gaea3d5e3e09a52ed2a9a3027c065cca23" compoundref="xilskey__eps__zynqmp__puf_8c" startline="414" endline="436">XilSKey_ZynqMp_EfusePs_ReadPufChash</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
-        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="412" endline="445">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9096db2e0e44bf178f5966cb13f5c80e" compoundref="xilskey__utils_8h" startline="1012">XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaea3d5e3e09a52ed2a9a3027c065cca23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -184,11 +184,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="414" bodyend="436"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="414" bodyend="436"/>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1a56e241b58e20d81f4e8e4864fdf3947a" compoundref="xilskey__eps__zynqmp__hw_8h" startline="715">XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
         <referencedby refid="group__xilskey__zynqmp__efuse_1gaccdc46658f23f994c89596961a8580c7" compoundref="xilskey__eps__zynqmp__puf_8c" startline="745" endline="790">XilSKey_Puf_Regeneration</referencedby>
         <referencedby refid="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" compoundref="xilskey__eps__zynqmp__puf_8c" startline="320" endline="393">XilSKey_ZynqMp_EfusePs_WritePufChash</referencedby>
       </memberdef>
@@ -219,16 +219,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="452" bodyend="524"/>
-        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="452" bodyend="524"/>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="866" endline="906">XilSKey_Efuse_ConvertBitsToBytes</references>
         <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
         <references refid="group__xilskey__zynqmp__efuse_1gad1be2e29f7eba2e556ac69870cd2e028" compoundref="xilskey__eps__zynqmp__puf_8c" startline="546" endline="570">XilSKey_ZynqMp_EfusePs_ReadPufAux</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
-        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="412" endline="445">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaed84f9e28f19156244a8c8dfe014040f" compoundref="xilskey__utils_8h" startline="1015">XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gad1be2e29f7eba2e556ac69870cd2e028" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -270,11 +270,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="546" bodyend="570"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="546" bodyend="570"/>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1a148a851dfe5a8e5cc2cf5c544d53b1c1" compoundref="xilskey__eps__zynqmp__hw_8h" startline="729">XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
         <referencedby refid="group__xilskey__zynqmp__efuse_1ga67de13526ea1502e25b09f80094f2246" compoundref="xilskey__eps__zynqmp__puf_8c" startline="452" endline="524">XilSKey_ZynqMp_EfusePs_WritePufAux</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga9491848827417a1fb9e25947487e27bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -303,7 +303,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="804" bodyend="900"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="804" bodyend="900"/>
         <references refid="group__xilskey__zynqmp__efuse_1gaba4a03dfa30f51139e6db70eac6583be" compoundref="xilskey__eps__zynqmp_8c" startline="1121" endline="1166">XilSKey_ZynqMp_EfusePs_CacheLoad</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
         <references refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</references>
@@ -312,7 +312,7 @@
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aadd63eed9124336e7c533a4cd61bcd42b" compoundref="xilskey__utils_8h" startline="965">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aac3e4d7e897e349f879d6089308c53db2" compoundref="xilskey__utils_8h" startline="971">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaaae389f21cedce3366b4857b0db9d962" compoundref="xilskey__utils_8h" startline="968">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga64b5db9c2f22e5e5092d58ac7ad4d7f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -353,9 +353,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="920" bodyend="941"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="920" bodyend="941"/>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga4f7dae2403511abb09eb0504751f35f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -384,7 +384,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Request PUF to register. This will trigger an interrupt to CSUROM</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="623" bodyend="731"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="623" bodyend="731"/>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aac840ba4043d600d19b7699544a2f461f" compoundref="xilskey__utils_8h" startline="1001">XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9e49ab4ac302de7f5e31c12e97cf2ab0" compoundref="xilskey__utils_8h" startline="1006">XSK_EFUSEPS_ERROR_PUF_DATA_UNDERFLOW</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa8cc0fae305d80ef7c765388160da60ad" compoundref="xilskey__utils_8h" startline="986">XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE</references>
@@ -392,7 +392,7 @@
         <references refid="xilskey__eps__zynqmp__puf_8c_1a61995a6593f2767e9a52586c1d69a822aeda9b548d47505ea751e58ad29e01358" compoundref="xilskey__eps__zynqmp__puf_8c" startline="79">XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE</references>
         <references refid="xilskey__eps__zynqmp__puf_8c_1a61995a6593f2767e9a52586c1d69a822abed240fdfae746394ccad3f8b278ccab" compoundref="xilskey__eps__zynqmp__puf_8c" startline="77">XSK_EFUSEPS_PUF_REGISTRATION_STARTED</references>
         <references refid="xilskey__eps__zynqmp__hw_8h_1a22e91434be8027511030a0e8acbc103f" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1218">XSK_ZYNQMP_CSU_BASEADDR</references>
-        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="xilskey__puf__registration__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilskey__puf__registration__example_8c" startline="95" endline="390">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaccdc46658f23f994c89596961a8580c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -420,7 +420,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="745" bodyend="790"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="745" bodyend="790"/>
         <references refid="xilskey__eps__zynqmp__puf_8c_1ae173a76c6c5c1accfaae2131821b7818" compoundref="xilskey__eps__zynqmp__puf_8c" startline="73">XILSKEY_PUF_KEK_REGEN_RDY_TIMEOUT</references>
         <references refid="group__xilskey__zynqmp__efuse_1gaea3d5e3e09a52ed2a9a3027c065cca23" compoundref="xilskey__eps__zynqmp__puf_8c" startline="414" endline="436">XilSKey_ZynqMp_EfusePs_ReadPufChash</references>
         <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aabf26a924fc71ce21326d35f8b9a3f618" compoundref="xilskey__utils_8h" startline="1010">XSK_EFUSEPS_ERROR_PUF_ACCESS</references>
@@ -537,6 +537,6 @@
 <codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSK_EPS_ZYNQMP_PUF_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="151"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h"/>
   </compounddef>
 </doxygen>

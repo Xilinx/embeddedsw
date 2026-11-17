@@ -119,6 +119,9 @@ $(document).ready(function(){initNavTree('union_x_secure___lms_pub_key_tmp__.htm
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a020eaf022952170c3dfc823d441741ed"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_secure___lms_pub_key_tmp__.html#a020eaf022952170c3dfc823d441741ed">Buff</a> [<a class="el" href="group__xsecure__lms__server__apis.html#ga1773523b99233e6c2c2713ef42e27e58">XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE</a>]</td></tr>
+<tr class="memdesc:a020eaf022952170c3dfc823d441741ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw buffer holding the temporary public key data.  <a href="#a020eaf022952170c3dfc823d441741ed">More...</a><br/></td></tr>
+<tr class="separator:a020eaf022952170c3dfc823d441741ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0843f0a293f342b4b3a7c2dc02547bf4"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a062a222c5afb9eca9c338932c79c517f"><td class="memItemLeft" >&#160;&#160;&#160;u8&#160;&#160;&#160;<a class="el" href="union_x_secure___lms_pub_key_tmp__.html#a062cfe1349c7e202d086a4bfad9c3867">I</a> [<a class="el" href="group__xsecure__lms__server__apis.html#gafcdce570f5a0f46e23bc4993015be56b">XSECURE_LMS_I_FIELD_SIZE</a>]</td></tr>
 <tr class="memdesc:a062a222c5afb9eca9c338932c79c517f"><td class="mdescLeft">&#160;</td><td class="mdescRight">I - Merkle Tree's unique identifier (uniformly random 16-byte string) Size - 16 bytes, 0 to 15 bytes.  <a href="#a062a222c5afb9eca9c338932c79c517f">More...</a><br/></td></tr>
@@ -140,6 +143,22 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Used to store data which is repeatedly sent to SHA engine, during LMS root value calculation. </p>
 <p>Size = 16(I) + 4(node_number/2) + 2(D_INTR) + (32 * 2) </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a020eaf022952170c3dfc823d441741ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSecure_LmsPubKeyTmp_::Buff[<a class="el" href="group__xsecure__lms__server__apis.html#ga1773523b99233e6c2c2713ef42e27e58">XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Raw buffer holding the temporary public key data. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__lms__server__apis.html#ga6b50f9fb052dd231c50ea15138f17ff7">XSecure_LmsSignatureVerification()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ac4436f40127798b3bb9261cc09f0a912"></a>
 <div class="memitem">
 <div class="memproto">

@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__mlkem_8h" kind="file">
+    <compoundname>xasu_mlkem.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xasu__mlkeminfo_8h" local="yes">xasu_mlkeminfo.h</includes>
+    <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
+    <includedby refid="xasu__mlkem_8c" local="yes">xasu_mlkem.c</includedby>
+    <includedby refid="xasu__mlkem__example_8c" local="yes">xasu_mlkem_example.c</includedby>
+    <incdepgraph>
+      <node id="1055">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="1050" relation="include">
+        </childnode>
+      </node>
+      <node id="1051">
+        <label>xasu_mlkeminfo.h</label>
+        <link refid="xasu__mlkeminfo_8h"/>
+        <childnode refid="1050" relation="include">
+        </childnode>
+        <childnode refid="1052" relation="include">
+        </childnode>
+      </node>
+      <node id="1054">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="1050" relation="include">
+        </childnode>
+        <childnode refid="1055" relation="include">
+        </childnode>
+      </node>
+      <node id="1052">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1049">
+        <label>xasu_mlkem.h</label>
+        <link refid="xasu_mlkem.h"/>
+        <childnode refid="1050" relation="include">
+        </childnode>
+        <childnode refid="1051" relation="include">
+        </childnode>
+        <childnode refid="1053" relation="include">
+        </childnode>
+      </node>
+      <node id="1053">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="1054" relation="include">
+        </childnode>
+        <childnode refid="1056" relation="include">
+        </childnode>
+        <childnode refid="1057" relation="include">
+        </childnode>
+        <childnode refid="1058" relation="include">
+        </childnode>
+        <childnode refid="1055" relation="include">
+        </childnode>
+      </node>
+      <node id="1056">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1057">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="1050" relation="include">
+        </childnode>
+        <childnode refid="1052" relation="include">
+        </childnode>
+      </node>
+      <node id="1050">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1058">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="1050" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1061">
+        <label>xasu_mlkem_example.c</label>
+        <link refid="xasu__mlkem__example_8c"/>
+      </node>
+      <node id="1060">
+        <label>xasu_mlkem.c</label>
+        <link refid="xasu__mlkem_8c"/>
+      </node>
+      <node id="1059">
+        <label>xasu_mlkem.h</label>
+        <link refid="xasu_mlkem.h"/>
+        <childnode refid="1060" relation="include">
+        </childnode>
+        <childnode refid="1061" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga73b1f809f2527aeb77ed904a05321033" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemEncapsulate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_MlkemEncapsDecapsParams *MlkemParamPtr)</argsstring>
+        <name>XAsu_MlkemEncapsulate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> *</type>
+          <declname>MlkemParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM encapsulation using the provided encapsulation (public) key, producing a ciphertext and a shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MlkemParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> structure which holds the ML-KEM encapsulation parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate ML-KEM encapsulation parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="61" bodyend="99"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga00f994b389e6128c323612b67c086244" compoundref="xasu__mlkeminfo_8h" startline="47">XASU_MLKEM_ENCAPS_CMD_ID</references>
+        <references refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga009b4223afa377d6baad06b99a43c326" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemDecapsulate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_MlkemEncapsDecapsParams *MlkemParamPtr)</argsstring>
+        <name>XAsu_MlkemDecapsulate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> *</type>
+          <declname>MlkemParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM decapsulation using the provided decapsulation (secret) key and ciphertext, producing a shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MlkemParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> structure which holds the ML-KEM decapsulation parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Per FIPS 203, a ciphertext that does not match the decapsulation key yields a pseudorandom shared secret rather than an error, so that decapsulation gives an attacker no way to test ciphertexts. A successful decapsulation therefore does not mean the ciphertext was genuine. Callers must establish that through key confirmation on the derived shared secret, never by expecting a failure here. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate ML-KEM decapsulation parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="186" bodyend="224"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gacb98abdca05a8444d1e9a0d08f1bc225" compoundref="xasu__mlkeminfo_8h" startline="48">XASU_MLKEM_DECAPS_CMD_ID</references>
+        <references refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga34f74d822a703aa70ebc3e9c86747366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_MlkemKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to run the ML-KEM Known Answer Test, which encapsulates to and then decapsulates with a fixed NIST ACVP ML-KEM-512 vector on ASUFW and checks that the shared secrets match. </para>        </briefdescription>
+        <detaileddescription>
+<para>Key generation is not part of it: it carries its own pairwise consistency test instead.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="243" bodyend="271"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="52">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gae3d7c69ecafc8fcc40cd62198d529444" compoundref="xasu__mlkeminfo_8h" startline="49">XASU_MLKEM_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__client__apis_1ga97590390a73ef98d4f689ec13904be9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemEncapsulateDerand</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_MlkemEncapsDerandParams *MlkemParamPtr)</argsstring>
+        <name>XAsu_MlkemEncapsulateDerand</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> *</type>
+          <declname>MlkemParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM encapsulation with the message m supplied by the caller instead of drawn from the TRNG, so that the ACVP encapsulation vectors can be driven through the module. </para>        </briefdescription>
+        <detaileddescription>
+<para>FIPS 203 requires an approved ML-KEM.Encaps to draw m from an approved RBG, so only an ASUFW built with CAVP support serves this command; any other build rejects it as an invalid command. The encapsulation key must be passed by address, as the key vault is not available to this command.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MlkemParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> structure which holds the ML-KEM encapsulation parameters and the message m.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate ML-KEM encapsulation parameters and the supplied message m.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.c" bodystart="123" bodyend="161"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga76010a282b099a2fa3dd20ed8586bff2" compoundref="xasu__mlkeminfo_8h" startline="58">XASU_MLKEM_ENCAPS_DERAND_CMD_ID</references>
+        <references refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</references>
+        <references refid="group__xasu__common__defs_1gad61d7ffe77bf8fa61d0bf6d1b30de94a" compoundref="xasu__def_8h" startline="68">XASU_MODULE_MLKEM_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ML-KEM (FIPS 203) client function prototypes for the ASU ML-KEM module. </para>    </briefdescription>
+    <detaileddescription>
+<para>The client APIs marshal the request parameters into an IPI command and forward it to ASUFW; the actual encapsulation and decapsulation are performed by the ASUFW ML-KEM module. Key pair generation is not an ML-KEM module command: it is requested through the key manager, using XAsu_KmGenerateMlkemKeyPair.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/20/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XASU_MLKEM_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLKEM_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__mlkeminfo_8h" kindref="compound">xasu_mlkeminfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Key<sp/>pair<sp/>generation<sp/>lives<sp/>in<sp/>the<sp/>key<sp/>manager:<sp/>see<sp/>XAsu_KmGenerateMlkemKeyPair.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">s32<sp/><ref refid="group__xasu__mlkem__client__apis_1ga73b1f809f2527aeb77ed904a05321033" kindref="member">XAsu_MlkemEncapsulate</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref><sp/>*MlkemParamPtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>Decapsulation<sp/>never<sp/>reports<sp/>a<sp/>bad<sp/>ciphertext:<sp/>per<sp/>FIPS<sp/>203<sp/>a<sp/>ciphertext<sp/>that<sp/>does<sp/>not<sp/>match</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>the<sp/>key<sp/>yields<sp/>a<sp/>pseudorandom<sp/>shared<sp/>secret.<sp/>Detect<sp/>tampering<sp/>through<sp/>key<sp/>confirmation.</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">s32<sp/><ref refid="group__xasu__mlkem__client__apis_1ga009b4223afa377d6baad06b99a43c326" kindref="member">XAsu_MlkemDecapsulate</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref><sp/>*MlkemParamPtr);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">s32<sp/><ref refid="group__xasu__mlkem__client__apis_1ga34f74d822a703aa70ebc3e9c86747366" kindref="member">XAsu_MlkemKat</ref>(XAsu_ClientParams<sp/>*ClientParamPtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>Derandomized<sp/>encapsulation,<sp/>served<sp/>only<sp/>by<sp/>an<sp/>ASUFW<sp/>built<sp/>with<sp/>CAVP<sp/>support;<sp/>see</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>XASU_MLKEM_ENCAPS_DERAND_CMD_ID.<sp/>A<sp/>production<sp/>ASUFW<sp/>rejects<sp/>the<sp/>command.</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">s32<sp/><ref refid="group__xasu__mlkem__client__apis_1ga97590390a73ef98d4f689ec13904be9a" kindref="member">XAsu_MlkemEncapsulateDerand</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref><sp/>*MlkemParamPtr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_MLKEM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_mlkem.h"/>
+  </compounddef>
+</doxygen>

@@ -161,6 +161,12 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a546df44822abcea4958187d265971c2f"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___tx_link_config.html#a546df44822abcea4958187d265971c2f">cr_done_oldstate</a></td></tr>
 <tr class="memdesc:a546df44822abcea4958187d265971c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the number of lanes done with clock recovery.  <a href="#a546df44822abcea4958187d265971c2f">More...</a><br/></td></tr>
 <tr class="separator:a546df44822abcea4958187d265971c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4306b54f8c025335b759c2089491fe8f"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___tx_link_config.html#a4306b54f8c025335b759c2089491fe8f">MinRateCrRetry</a></td></tr>
+<tr class="memdesc:a4306b54f8c025335b759c2089491fe8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock recovery retries at the minimum link rate before reducing lane count.  <a href="#a4306b54f8c025335b759c2089491fe8f">More...</a><br/></td></tr>
+<tr class="separator:a4306b54f8c025335b759c2089491fe8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fa0df80a86c0b09e6a7d6d0ac49baf7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___tx_link_config.html#a6fa0df80a86c0b09e6a7d6d0ac49baf7">SkipCrTpOff</a></td></tr>
+<tr class="memdesc:a6fa0df80a86c0b09e6a7d6d0ac49baf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip the clock recovery start TP_OFF on a fallback restart.  <a href="#a6fa0df80a86c0b09e6a7d6d0ac49baf7">More...</a><br/></td></tr>
+<tr class="separator:a6fa0df80a86c0b09e6a7d6d0ac49baf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a921e8b8167b7e6ef3b67699941ed05d7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dp___tx_link_config.html#a921e8b8167b7e6ef3b67699941ed05d7">LinkTraining2x</a></td></tr>
 <tr class="memdesc:a921e8b8167b7e6ef3b67699941ed05d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates link training in DP 2.1 mode.  <a href="#a921e8b8167b7e6ef3b67699941ed05d7">More...</a><br/></td></tr>
 <tr class="separator:a921e8b8167b7e6ef3b67699941ed05d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -380,6 +386,20 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a4306b54f8c025335b759c2089491fe8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XDp_TxLinkConfig::MinRateCrRetry</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clock recovery retries at the minimum link rate before reducing lane count. </p>
+
+</div>
+</div>
 <a class="anchor" id="a3d727464529d57e828e2ec30650a2e12"></a>
 <div class="memitem">
 <div class="memproto">
@@ -461,6 +481,20 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Symbol scrambling is currently in use over the main link. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6fa0df80a86c0b09e6a7d6d0ac49baf7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XDp_TxLinkConfig::SkipCrTpOff</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Skip the clock recovery start TP_OFF on a fallback restart. </p>
 
 </div>
 </div>

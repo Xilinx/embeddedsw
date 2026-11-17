@@ -15,14 +15,8 @@
     <member refid="struct_x_csi2_tx_1a723e06a54cc8091363db31e36b8324ea" kind="variable"><name>WrgDataTypeRef</name></member>
     <member refid="struct_x_csi2_tx_1aad11e0bf788ae0bccbe85866f4bf1c54" kind="variable"><name>UnderrunPixelCallBack</name></member>
     <member refid="struct_x_csi2_tx_1aeaa044cf9957f0c3b1097f3c15db3227" kind="variable"><name>UnderrunPixelRef</name></member>
-    <member refid="struct_x_csi2_tx_1ab04de6483544ffacdd76eef768ec50c9" kind="variable"><name>LineCountErrVC0</name></member>
-    <member refid="struct_x_csi2_tx_1ac8e54aecadd550abe63cf1b19af48d0e" kind="variable"><name>LCErrVC0Ref</name></member>
-    <member refid="struct_x_csi2_tx_1a314c2d35521eaf4a0f0f67119726dceb" kind="variable"><name>LineCountErrVC1</name></member>
-    <member refid="struct_x_csi2_tx_1a0fc393310d82667aa783ed40bfd12d76" kind="variable"><name>LCErrVC1Ref</name></member>
-    <member refid="struct_x_csi2_tx_1afd2f8204a1e0783298b3b0c07f22f0ae" kind="variable"><name>LineCountErrVC2</name></member>
-    <member refid="struct_x_csi2_tx_1a459ea7918c3bf9a1a8b09b451722e6cb" kind="variable"><name>LCErrVC2Ref</name></member>
-    <member refid="struct_x_csi2_tx_1a12858a39644fa34ee49424a399afe6fe" kind="variable"><name>LineCountErrVC3</name></member>
-    <member refid="struct_x_csi2_tx_1a4032f85a26722120464fcc6d7e63b01c" kind="variable"><name>LCErrVC3Ref</name></member>
+    <member refid="struct_x_csi2_tx_1ae8402131b4bb16e5ec39d9ae5f12af7d" kind="variable"><name>LineCountErrVC</name></member>
+    <member refid="struct_x_csi2_tx_1a71a4ce69631837e5d5205c59c4d505bf" kind="variable"><name>LCErrVCRef</name></member>
     <member refid="struct_x_csi2_tx_1a76c9bc48780bdcef81faa31b4adafa6a" kind="variable"><name>IsReady</name></member>
   </compound>
   <compound refid="struct_x_csi2_tx___config" kind="struct"><name>XCsi2Tx_Config</name>
@@ -64,6 +58,19 @@
     <member refid="group__csi2tx_1gaebd0699e925fbe1b3b1610f759b879bd" kind="define"><name>XCSI2TX_HANDLER_LCERRVC1</name></member>
     <member refid="group__csi2tx_1ga8abb43019cb22c1ee15ec50c113fdb96" kind="define"><name>XCSI2TX_HANDLER_LCERRVC2</name></member>
     <member refid="group__csi2tx_1gaeba76537f34ec4d0b563c28ad9aab71a" kind="define"><name>XCSI2TX_HANDLER_LCERRVC3</name></member>
+    <member refid="group__csi2tx_1ga728dd9ef62da778682775bd39fb94949" kind="define"><name>XCSI2TX_HANDLER_LCERRVC4</name></member>
+    <member refid="group__csi2tx_1gaf1a0013c4a3eb4eae061692144e1bdc6" kind="define"><name>XCSI2TX_HANDLER_LCERRVC5</name></member>
+    <member refid="group__csi2tx_1ga9eae22a2a2836fa088bb174d31dc25ca" kind="define"><name>XCSI2TX_HANDLER_LCERRVC6</name></member>
+    <member refid="group__csi2tx_1gafa47a5a1928685ceec5ed23a09e08da3" kind="define"><name>XCSI2TX_HANDLER_LCERRVC7</name></member>
+    <member refid="group__csi2tx_1ga16550f206bc52a200fb69f2c6f72cdc3" kind="define"><name>XCSI2TX_HANDLER_LCERRVC8</name></member>
+    <member refid="group__csi2tx_1ga951951dcd952f18d158654d77b2855a6" kind="define"><name>XCSI2TX_HANDLER_LCERRVC9</name></member>
+    <member refid="group__csi2tx_1ga32f23d01ad9815c7cc3e96cb4cabeecb" kind="define"><name>XCSI2TX_HANDLER_LCERRVC10</name></member>
+    <member refid="group__csi2tx_1ga8844927f8bc38283496b1a02a72d0a06" kind="define"><name>XCSI2TX_HANDLER_LCERRVC11</name></member>
+    <member refid="group__csi2tx_1gad8ce846745cbf975d66fe5f22acb4daf" kind="define"><name>XCSI2TX_HANDLER_LCERRVC12</name></member>
+    <member refid="group__csi2tx_1ga78c254d571d047cb2fdebb7ae352083d" kind="define"><name>XCSI2TX_HANDLER_LCERRVC13</name></member>
+    <member refid="group__csi2tx_1ga97d211d6c9111edf26655bb3a7446071" kind="define"><name>XCSI2TX_HANDLER_LCERRVC14</name></member>
+    <member refid="group__csi2tx_1ga748fd546378bc024991a21370aef463e" kind="define"><name>XCSI2TX_HANDLER_LCERRVC15</name></member>
+    <member refid="group__csi2tx_1ga5c34c06d200d698a4478aa894b1f4cd3" kind="define"><name>XCSI2TX_PIXEL_MODE_8PPC</name></member>
     <member refid="group__csi2tx_1gad58795e87b55fa4c2aea73405171341d" kind="define"><name>XCSI2TX_H_</name></member>
     <member refid="group__csi2tx_1ga22c9436f428a8fc799706fb133cb07e4" kind="define"><name>XCSI2TX_ENABLE</name></member>
     <member refid="group__csi2tx_1gaa5b4a62581a8f8fd68092c4d9f63c7fe" kind="define"><name>XCSI2TX_DISABLE</name></member>
@@ -71,6 +78,8 @@
     <member refid="group__csi2tx_1ga65c86d8661e0762105790ca34e88f944" kind="define"><name>XCSI2TX_INACTIVE</name></member>
     <member refid="group__csi2tx_1ga404a6962be3afee7d30c38d8400f925d" kind="define"><name>XCSI2TX_READY</name></member>
     <member refid="group__csi2tx_1gaad964d27150f8888fdcde05db9f9ad18" kind="define"><name>XCSI2TX_MAX_VC</name></member>
+    <member refid="group__csi2tx_1gadf4298e484d915a20fad394a65f2a1c6" kind="define"><name>XCSI2TX_DEFAULT_NUM_VC</name></member>
+    <member refid="group__csi2tx_1ga3ce8ca3f6fe5992f0fdebc2339c23e2b" kind="define"><name>XCSI2TX_VC_PER_BANK</name></member>
     <member refid="group__csi2tx_1ga46a443dfffd8f26578ebaf2a6139b4f3" kind="enum"><name>XCsi2Tx_LCStatus</name></member>
     <member refid="group__csi2tx_1gga46a443dfffd8f26578ebaf2a6139b4f3ae2ab61672a5cb405cae8c9770e7e7710" kind="enumvalue"><name>XCSI2TX_LC_LESS_LINES</name></member>
     <member refid="group__csi2tx_1gga46a443dfffd8f26578ebaf2a6139b4f3a328322afaa225277614e41216fb55954" kind="enumvalue"><name>XCSI2TX_LC_MORE_LINES</name></member>
@@ -99,6 +108,9 @@
     <member refid="group__csi2tx_1ga69d7de04a20a6de451c3cdb6497d6b16" kind="function"><name>XCsi2Tx_SetGSPEntry</name></member>
     <member refid="group__csi2tx_1gad89dcd8ce257fbc164a0c407194e3848" kind="function"><name>XCsi2Tx_SetClkMode</name></member>
     <member refid="group__csi2tx_1ga9e65899fc38059d919fe376a88947180" kind="function"><name>XCsi2Tx_GetClkMode</name></member>
+    <member refid="group__csi2tx_1ga569334d589fdce36f23ebf31fc9803e3" kind="function"><name>XCsi2Tx_SetLineCountBank</name></member>
+    <member refid="group__csi2tx_1ga8cb704fefcae958a4336f36224fe3b85" kind="function"><name>XCsi2Tx_SetVcIsrBank</name></member>
+    <member refid="group__csi2tx_1gab431ef1c5a6ad4039b4bb63f24ff0a6d" kind="function"><name>XCsi2Tx_GetVcIsrBank</name></member>
     <member refid="group__csi2tx_1ga920b2c593a32fc0824594c699e087cf0" kind="function"><name>XCsi2Tx_LookupConfig</name></member>
     <member refid="group__csi2tx_1gac9ea3e1e3c6a8ecc2f5074caca2e4c6b" kind="function"><name>XCsi2Tx_CfgInitialize</name></member>
     <member refid="group__csi2tx_1ga874801fd63ef703d0b8ec36379b743a7" kind="function"><name>XCsi2Tx_Configure</name></member>
@@ -147,15 +159,19 @@
     <member refid="group__csi2tx_1ga050c1ee8bbdce93dd94af43c1407bc8a" kind="define"><name>XCSI2TX_CSR_RIPCD_MASK</name></member>
     <member refid="group__csi2tx_1ga365bfb520f135bb4bb56ed4a552f6bc5" kind="define"><name>XCSI2TX_CCR_ULPS_MASK</name></member>
     <member refid="group__csi2tx_1gaf6b8fe661b78d795fcf3611582ef7503" kind="define"><name>XCSI2TX_CCR_CLKMODE_MASK</name></member>
+    <member refid="group__csi2tx_1gafd548bcb6cb88038ea15482e3a3543a7" kind="define"><name>XCSI2TX_CCR_LCBANKSEL_MASK</name></member>
     <member refid="group__csi2tx_1gafcf8def5459794000772aaf53cb4c71f" kind="define"><name>XCSI2TX_CCR_COREENB_SHIFT</name></member>
     <member refid="group__csi2tx_1ga67708ce79a9373342710f0aeee97b5f2" kind="define"><name>XCSI2TX_CCR_SOFTRESET_SHIFT</name></member>
     <member refid="group__csi2tx_1ga57bca8bfbe0ad63fffd73dd0cf1a690b" kind="define"><name>XCSI2TX_CSR_RIPCD_SHIFT</name></member>
     <member refid="group__csi2tx_1ga775ba2e4270ed52227edced140e20f64" kind="define"><name>XCSI2TX_CCR_ULPS_SHIFT</name></member>
     <member refid="group__csi2tx_1ga3788a910bc4c8a75f61e921f984a3bb1" kind="define"><name>XCSI2TX_CCR_CLKMODE_SHIFT</name></member>
+    <member refid="group__csi2tx_1gaca5b59283830bbf74cd7f0582d199c2d" kind="define"><name>XCSI2TX_CCR_LCBANKSEL_SHIFT</name></member>
+    <member refid="group__csi2tx_1ga5e1070f5337f42065c9572ddd4a2842d" kind="define"><name>XCSI2TX_PCR_PIXEL8_MASK</name></member>
     <member refid="group__csi2tx_1gad0a745f32c903555cf7df3061bf5d6c9" kind="define"><name>XCSI2TX_PCR_LINEGEN_MASK</name></member>
     <member refid="group__csi2tx_1gad43bf7b921fa34c7eba829716229cc33" kind="define"><name>XCSI2TX_PCR_PIXEL_MASK</name></member>
     <member refid="group__csi2tx_1ga8ac3b88d60c89c0b26b5336a75d859d1" kind="define"><name>XCSI2TX_PCR_MAXLANES_MASK</name></member>
     <member refid="group__csi2tx_1gaa1fa0c138bd706cca44e4cf283fd597f" kind="define"><name>XCSI2TX_PCR_ACTLANES_MASK</name></member>
+    <member refid="group__csi2tx_1ga8fe02393d4e9eca70f871efe8432a97f" kind="define"><name>XCSI2TX_PCR_PIXEL8_SHIFT</name></member>
     <member refid="group__csi2tx_1ga6a14f86bc2a9474ec3a0071db4aee45d" kind="define"><name>XCSI2TX_PCR_LINEGEN_SHIFT</name></member>
     <member refid="group__csi2tx_1ga6ca2cebab94aeca88e2316beef3ef65c" kind="define"><name>XCSI2TX_PCR_PIXEL_SHIFT</name></member>
     <member refid="group__csi2tx_1ga1f0417288121bd4157beda42e4371387" kind="define"><name>XCSI2TX_PCR_MAXLANES_SHIFT</name></member>
@@ -168,6 +184,8 @@
     <member refid="group__csi2tx_1ga53bd7ae31025e7e21702d99a57c4a4a9" kind="define"><name>XCSI2TX_DPHY_ULPS_MASK</name></member>
     <member refid="group__csi2tx_1gaf9d48a903d8cae2056e50c07773d6c09" kind="define"><name>XCSI_GPSFIFO_MASK</name></member>
     <member refid="group__csi2tx_1ga32dea0d9bf28275eec9656bc0beab692" kind="define"><name>XCSI_INCORT_LANE_MASK</name></member>
+    <member refid="group__csi2tx_1ga7f68e4c1fa01c387885a18f8f0f5ef4d" kind="define"><name>XCSI2TX_ISR_VCBANKSEL_MASK</name></member>
+    <member refid="group__csi2tx_1gaf07135816ecd946b46b794f2c56d2840" kind="define"><name>XCSI2TX_ISR_VCBANKSEL_SHIFT</name></member>
     <member refid="group__csi2tx_1ga0044b3d448765635208740af525b7f8f" kind="define"><name>XCSITX_LCSTAT_VC0_IER_MASK</name></member>
     <member refid="group__csi2tx_1ga5a70be53ce33122f5cc5d0f4d0450bf6" kind="define"><name>XCSITX_LCSTAT_VC1_IER_MASK</name></member>
     <member refid="group__csi2tx_1gaaffcbe2e0effcbd2ff9806e9e28ebf26" kind="define"><name>XCSITX_LCSTAT_VC2_IER_MASK</name></member>
@@ -184,8 +202,28 @@
     <member refid="group__csi2tx_1gaf1a83a4df52d05590aa4f2f6e3c20a6c" kind="define"><name>XCSITX_LCSTAT_VC1_ISR_OFFSET</name></member>
     <member refid="group__csi2tx_1ga3ee9d8a174df41745968a05430f3a604" kind="define"><name>XCSITX_LCSTAT_VC2_ISR_OFFSET</name></member>
     <member refid="group__csi2tx_1ga945d23526f204191f2d579e9169105d8" kind="define"><name>XCSITX_LCSTAT_VC3_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga7f9375c972255d833d66e82c8c9f7809" kind="define"><name>XCSITX_LCSTAT_VC4_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga27fc40ce0f2682ee006e31bd8dd16b01" kind="define"><name>XCSITX_LCSTAT_VC5_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga73115b2677d20d039158ffe73ed48fc8" kind="define"><name>XCSITX_LCSTAT_VC6_IER_MASK</name></member>
+    <member refid="group__csi2tx_1gad383f5630a4bbdbe1e6814c1f4032d4a" kind="define"><name>XCSITX_LCSTAT_VC7_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga3ff1b87cd55773f44dd15b556eabd439" kind="define"><name>XCSITX_LCSTAT_VC4_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga92febf123f644402ffc663f1680d1f43" kind="define"><name>XCSITX_LCSTAT_VC5_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga4673b2ae52deb9830c7c38e9d461dc28" kind="define"><name>XCSITX_LCSTAT_VC6_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga40f6516abaf87b3dfeea9da53f6747f5" kind="define"><name>XCSITX_LCSTAT_VC7_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga25b27c23a768711fcc48c6bd9091426b" kind="define"><name>XCSITX_LCSTAT_VC4_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1gac30eb66f9b42c94803685658300701ba" kind="define"><name>XCSITX_LCSTAT_VC5_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1gab1efe5bb476f6ffb705208873a2f866a" kind="define"><name>XCSITX_LCSTAT_VC6_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1gaffb08fffbf59eae8a4bd8c90fdb99514" kind="define"><name>XCSITX_LCSTAT_VC7_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1ga747bf79df6575fe2e9bfefef33f10eb0" kind="define"><name>XCSITX_LCSTAT_VC4_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1gad8c3307b72972b39a51575c823164723" kind="define"><name>XCSITX_LCSTAT_VC5_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga6d244b739e75f6b61de675898eddf211" kind="define"><name>XCSITX_LCSTAT_VC6_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga4419ef6c36d5abd7a69ef7698742aa2b" kind="define"><name>XCSITX_LCSTAT_VC7_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga171068401d07729f3ea577461b557822" kind="define"><name>XCSITX_LCSTAT_VC4_7_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga13a7bd3ce6a5f0d9edc86a346fea0896" kind="define"><name>XCSITX_LCSTAT_VC4_7_ISR_MASK</name></member>
     <member refid="group__csi2tx_1ga2edf8b9efa772fbbf6f9b59c8a62ae4e" kind="define"><name>XCSI2TX_SPKTR_DATA_MASK</name></member>
     <member refid="group__csi2tx_1gae7f2e4bcb9b0f9cc88d9a4d20dfaac08" kind="define"><name>XCSI2TX_SPKTR_DATA_SHIFT</name></member>
+    <member refid="group__csi2tx_1ga1da5c2f005c71537a6a2e1dfc3d4579a" kind="define"><name>XCSI2TX_SPKTR_VCEXT_MASK</name></member>
+    <member refid="group__csi2tx_1ga816fb670a7d6223f12a4d3393abc007b" kind="define"><name>XCSI2TX_SPKTR_VCEXT_SHIFT</name></member>
     <member refid="group__csi2tx_1ga393a6fa1172d8460c7966eb9f70f88f0" kind="define"><name>XCSI2TX_SPKTR_VC_MASK</name></member>
     <member refid="group__csi2tx_1ga8b54de5bbedc4ddca730d8cf3eaa5c39" kind="define"><name>XCSI2TX_SPKTR_VC_SHIFT</name></member>
     <member refid="group__csi2tx_1gad8bc662d24b77033cad1dbd64c2cbba2" kind="define"><name>XCSI2TX_SPKTR_DT_MASK</name></member>
@@ -203,6 +241,7 @@
     <member refid="group__csi2tx_1ga40b9d2c4e3ac95c5a55c085ba0412304" kind="function"><name>XCsi2Tx_GetIntrStatus</name></member>
     <member refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" kind="function"><name>XCsi2Tx_InterruptClear</name></member>
     <member refid="group__csi2tx_1ga4dd6f019a905c50bfa662e9823cf5b00" kind="function"><name>XCsi2Tx_SetCallBack</name></member>
+    <member refid="group__csi2tx_1ga94e2fbc0ccec87a498bceddf274942ef" kind="function"><name>Csi2Tx_HandleLcBank</name></member>
     <member refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" kind="function"><name>XCsi2Tx_IntrHandler</name></member>
   </compound>
   <compound refid="xcsi2tx__selftest_8c" kind="file"><name>xcsi2tx_selftest.c</name>
@@ -235,6 +274,19 @@
     <member refid="group__csi2tx_1gaebd0699e925fbe1b3b1610f759b879bd" kind="define"><name>XCSI2TX_HANDLER_LCERRVC1</name></member>
     <member refid="group__csi2tx_1ga8abb43019cb22c1ee15ec50c113fdb96" kind="define"><name>XCSI2TX_HANDLER_LCERRVC2</name></member>
     <member refid="group__csi2tx_1gaeba76537f34ec4d0b563c28ad9aab71a" kind="define"><name>XCSI2TX_HANDLER_LCERRVC3</name></member>
+    <member refid="group__csi2tx_1ga728dd9ef62da778682775bd39fb94949" kind="define"><name>XCSI2TX_HANDLER_LCERRVC4</name></member>
+    <member refid="group__csi2tx_1gaf1a0013c4a3eb4eae061692144e1bdc6" kind="define"><name>XCSI2TX_HANDLER_LCERRVC5</name></member>
+    <member refid="group__csi2tx_1ga9eae22a2a2836fa088bb174d31dc25ca" kind="define"><name>XCSI2TX_HANDLER_LCERRVC6</name></member>
+    <member refid="group__csi2tx_1gafa47a5a1928685ceec5ed23a09e08da3" kind="define"><name>XCSI2TX_HANDLER_LCERRVC7</name></member>
+    <member refid="group__csi2tx_1ga16550f206bc52a200fb69f2c6f72cdc3" kind="define"><name>XCSI2TX_HANDLER_LCERRVC8</name></member>
+    <member refid="group__csi2tx_1ga951951dcd952f18d158654d77b2855a6" kind="define"><name>XCSI2TX_HANDLER_LCERRVC9</name></member>
+    <member refid="group__csi2tx_1ga32f23d01ad9815c7cc3e96cb4cabeecb" kind="define"><name>XCSI2TX_HANDLER_LCERRVC10</name></member>
+    <member refid="group__csi2tx_1ga8844927f8bc38283496b1a02a72d0a06" kind="define"><name>XCSI2TX_HANDLER_LCERRVC11</name></member>
+    <member refid="group__csi2tx_1gad8ce846745cbf975d66fe5f22acb4daf" kind="define"><name>XCSI2TX_HANDLER_LCERRVC12</name></member>
+    <member refid="group__csi2tx_1ga78c254d571d047cb2fdebb7ae352083d" kind="define"><name>XCSI2TX_HANDLER_LCERRVC13</name></member>
+    <member refid="group__csi2tx_1ga97d211d6c9111edf26655bb3a7446071" kind="define"><name>XCSI2TX_HANDLER_LCERRVC14</name></member>
+    <member refid="group__csi2tx_1ga748fd546378bc024991a21370aef463e" kind="define"><name>XCSI2TX_HANDLER_LCERRVC15</name></member>
+    <member refid="group__csi2tx_1ga5c34c06d200d698a4478aa894b1f4cd3" kind="define"><name>XCSI2TX_PIXEL_MODE_8PPC</name></member>
     <member refid="group__csi2tx_1ga946323f75e230f56d7fc2a9640bd8ab1" kind="define"><name>XCSI2TX_CCR_OFFSET</name></member>
     <member refid="group__csi2tx_1gabb3185c624bf861b9d97e8dad49b3d48" kind="define"><name>XCSI2TX_PCR_OFFSET</name></member>
     <member refid="group__csi2tx_1ga9367d74644fe257d2d9ef283bf81d327" kind="define"><name>XCSI2TX_GIER_OFFSET</name></member>
@@ -255,15 +307,19 @@
     <member refid="group__csi2tx_1ga050c1ee8bbdce93dd94af43c1407bc8a" kind="define"><name>XCSI2TX_CSR_RIPCD_MASK</name></member>
     <member refid="group__csi2tx_1ga365bfb520f135bb4bb56ed4a552f6bc5" kind="define"><name>XCSI2TX_CCR_ULPS_MASK</name></member>
     <member refid="group__csi2tx_1gaf6b8fe661b78d795fcf3611582ef7503" kind="define"><name>XCSI2TX_CCR_CLKMODE_MASK</name></member>
+    <member refid="group__csi2tx_1gafd548bcb6cb88038ea15482e3a3543a7" kind="define"><name>XCSI2TX_CCR_LCBANKSEL_MASK</name></member>
     <member refid="group__csi2tx_1gafcf8def5459794000772aaf53cb4c71f" kind="define"><name>XCSI2TX_CCR_COREENB_SHIFT</name></member>
     <member refid="group__csi2tx_1ga67708ce79a9373342710f0aeee97b5f2" kind="define"><name>XCSI2TX_CCR_SOFTRESET_SHIFT</name></member>
     <member refid="group__csi2tx_1ga57bca8bfbe0ad63fffd73dd0cf1a690b" kind="define"><name>XCSI2TX_CSR_RIPCD_SHIFT</name></member>
     <member refid="group__csi2tx_1ga775ba2e4270ed52227edced140e20f64" kind="define"><name>XCSI2TX_CCR_ULPS_SHIFT</name></member>
     <member refid="group__csi2tx_1ga3788a910bc4c8a75f61e921f984a3bb1" kind="define"><name>XCSI2TX_CCR_CLKMODE_SHIFT</name></member>
+    <member refid="group__csi2tx_1gaca5b59283830bbf74cd7f0582d199c2d" kind="define"><name>XCSI2TX_CCR_LCBANKSEL_SHIFT</name></member>
+    <member refid="group__csi2tx_1ga5e1070f5337f42065c9572ddd4a2842d" kind="define"><name>XCSI2TX_PCR_PIXEL8_MASK</name></member>
     <member refid="group__csi2tx_1gad0a745f32c903555cf7df3061bf5d6c9" kind="define"><name>XCSI2TX_PCR_LINEGEN_MASK</name></member>
     <member refid="group__csi2tx_1gad43bf7b921fa34c7eba829716229cc33" kind="define"><name>XCSI2TX_PCR_PIXEL_MASK</name></member>
     <member refid="group__csi2tx_1ga8ac3b88d60c89c0b26b5336a75d859d1" kind="define"><name>XCSI2TX_PCR_MAXLANES_MASK</name></member>
     <member refid="group__csi2tx_1gaa1fa0c138bd706cca44e4cf283fd597f" kind="define"><name>XCSI2TX_PCR_ACTLANES_MASK</name></member>
+    <member refid="group__csi2tx_1ga8fe02393d4e9eca70f871efe8432a97f" kind="define"><name>XCSI2TX_PCR_PIXEL8_SHIFT</name></member>
     <member refid="group__csi2tx_1ga6a14f86bc2a9474ec3a0071db4aee45d" kind="define"><name>XCSI2TX_PCR_LINEGEN_SHIFT</name></member>
     <member refid="group__csi2tx_1ga6ca2cebab94aeca88e2316beef3ef65c" kind="define"><name>XCSI2TX_PCR_PIXEL_SHIFT</name></member>
     <member refid="group__csi2tx_1ga1f0417288121bd4157beda42e4371387" kind="define"><name>XCSI2TX_PCR_MAXLANES_SHIFT</name></member>
@@ -276,6 +332,8 @@
     <member refid="group__csi2tx_1ga53bd7ae31025e7e21702d99a57c4a4a9" kind="define"><name>XCSI2TX_DPHY_ULPS_MASK</name></member>
     <member refid="group__csi2tx_1gaf9d48a903d8cae2056e50c07773d6c09" kind="define"><name>XCSI_GPSFIFO_MASK</name></member>
     <member refid="group__csi2tx_1ga32dea0d9bf28275eec9656bc0beab692" kind="define"><name>XCSI_INCORT_LANE_MASK</name></member>
+    <member refid="group__csi2tx_1ga7f68e4c1fa01c387885a18f8f0f5ef4d" kind="define"><name>XCSI2TX_ISR_VCBANKSEL_MASK</name></member>
+    <member refid="group__csi2tx_1gaf07135816ecd946b46b794f2c56d2840" kind="define"><name>XCSI2TX_ISR_VCBANKSEL_SHIFT</name></member>
     <member refid="group__csi2tx_1ga0044b3d448765635208740af525b7f8f" kind="define"><name>XCSITX_LCSTAT_VC0_IER_MASK</name></member>
     <member refid="group__csi2tx_1ga5a70be53ce33122f5cc5d0f4d0450bf6" kind="define"><name>XCSITX_LCSTAT_VC1_IER_MASK</name></member>
     <member refid="group__csi2tx_1gaaffcbe2e0effcbd2ff9806e9e28ebf26" kind="define"><name>XCSITX_LCSTAT_VC2_IER_MASK</name></member>
@@ -292,8 +350,28 @@
     <member refid="group__csi2tx_1gaf1a83a4df52d05590aa4f2f6e3c20a6c" kind="define"><name>XCSITX_LCSTAT_VC1_ISR_OFFSET</name></member>
     <member refid="group__csi2tx_1ga3ee9d8a174df41745968a05430f3a604" kind="define"><name>XCSITX_LCSTAT_VC2_ISR_OFFSET</name></member>
     <member refid="group__csi2tx_1ga945d23526f204191f2d579e9169105d8" kind="define"><name>XCSITX_LCSTAT_VC3_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga7f9375c972255d833d66e82c8c9f7809" kind="define"><name>XCSITX_LCSTAT_VC4_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga27fc40ce0f2682ee006e31bd8dd16b01" kind="define"><name>XCSITX_LCSTAT_VC5_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga73115b2677d20d039158ffe73ed48fc8" kind="define"><name>XCSITX_LCSTAT_VC6_IER_MASK</name></member>
+    <member refid="group__csi2tx_1gad383f5630a4bbdbe1e6814c1f4032d4a" kind="define"><name>XCSITX_LCSTAT_VC7_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga3ff1b87cd55773f44dd15b556eabd439" kind="define"><name>XCSITX_LCSTAT_VC4_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga92febf123f644402ffc663f1680d1f43" kind="define"><name>XCSITX_LCSTAT_VC5_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga4673b2ae52deb9830c7c38e9d461dc28" kind="define"><name>XCSITX_LCSTAT_VC6_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga40f6516abaf87b3dfeea9da53f6747f5" kind="define"><name>XCSITX_LCSTAT_VC7_IER_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga25b27c23a768711fcc48c6bd9091426b" kind="define"><name>XCSITX_LCSTAT_VC4_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1gac30eb66f9b42c94803685658300701ba" kind="define"><name>XCSITX_LCSTAT_VC5_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1gab1efe5bb476f6ffb705208873a2f866a" kind="define"><name>XCSITX_LCSTAT_VC6_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1gaffb08fffbf59eae8a4bd8c90fdb99514" kind="define"><name>XCSITX_LCSTAT_VC7_ISR_MASK</name></member>
+    <member refid="group__csi2tx_1ga747bf79df6575fe2e9bfefef33f10eb0" kind="define"><name>XCSITX_LCSTAT_VC4_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1gad8c3307b72972b39a51575c823164723" kind="define"><name>XCSITX_LCSTAT_VC5_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga6d244b739e75f6b61de675898eddf211" kind="define"><name>XCSITX_LCSTAT_VC6_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga4419ef6c36d5abd7a69ef7698742aa2b" kind="define"><name>XCSITX_LCSTAT_VC7_ISR_OFFSET</name></member>
+    <member refid="group__csi2tx_1ga171068401d07729f3ea577461b557822" kind="define"><name>XCSITX_LCSTAT_VC4_7_IER_MASK</name></member>
+    <member refid="group__csi2tx_1ga13a7bd3ce6a5f0d9edc86a346fea0896" kind="define"><name>XCSITX_LCSTAT_VC4_7_ISR_MASK</name></member>
     <member refid="group__csi2tx_1ga2edf8b9efa772fbbf6f9b59c8a62ae4e" kind="define"><name>XCSI2TX_SPKTR_DATA_MASK</name></member>
     <member refid="group__csi2tx_1gae7f2e4bcb9b0f9cc88d9a4d20dfaac08" kind="define"><name>XCSI2TX_SPKTR_DATA_SHIFT</name></member>
+    <member refid="group__csi2tx_1ga1da5c2f005c71537a6a2e1dfc3d4579a" kind="define"><name>XCSI2TX_SPKTR_VCEXT_MASK</name></member>
+    <member refid="group__csi2tx_1ga816fb670a7d6223f12a4d3393abc007b" kind="define"><name>XCSI2TX_SPKTR_VCEXT_SHIFT</name></member>
     <member refid="group__csi2tx_1ga393a6fa1172d8460c7966eb9f70f88f0" kind="define"><name>XCSI2TX_SPKTR_VC_MASK</name></member>
     <member refid="group__csi2tx_1ga8b54de5bbedc4ddca730d8cf3eaa5c39" kind="define"><name>XCSI2TX_SPKTR_VC_SHIFT</name></member>
     <member refid="group__csi2tx_1gad8bc662d24b77033cad1dbd64c2cbba2" kind="define"><name>XCSI2TX_SPKTR_DT_MASK</name></member>
@@ -336,6 +414,9 @@
     <member refid="group__csi2tx_1ga69d7de04a20a6de451c3cdb6497d6b16" kind="function"><name>XCsi2Tx_SetGSPEntry</name></member>
     <member refid="group__csi2tx_1gad89dcd8ce257fbc164a0c407194e3848" kind="function"><name>XCsi2Tx_SetClkMode</name></member>
     <member refid="group__csi2tx_1ga9e65899fc38059d919fe376a88947180" kind="function"><name>XCsi2Tx_GetClkMode</name></member>
+    <member refid="group__csi2tx_1ga569334d589fdce36f23ebf31fc9803e3" kind="function"><name>XCsi2Tx_SetLineCountBank</name></member>
+    <member refid="group__csi2tx_1ga8cb704fefcae958a4336f36224fe3b85" kind="function"><name>XCsi2Tx_SetVcIsrBank</name></member>
+    <member refid="group__csi2tx_1gab431ef1c5a6ad4039b4bb63f24ff0a6d" kind="function"><name>XCsi2Tx_GetVcIsrBank</name></member>
     <member refid="group__csi2tx_1ga920b2c593a32fc0824594c699e087cf0" kind="function"><name>XCsi2Tx_LookupConfig</name></member>
     <member refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" kind="function"><name>XCsi2Tx_SelfTest</name></member>
     <member refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" kind="function"><name>XCsi2Tx_IntrHandler</name></member>
@@ -347,6 +428,7 @@
     <member refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" kind="function"><name>XCsi2Tx_InterruptClear</name></member>
     <member refid="group__csi2tx_1gafabcbcc617406a3b718333fb223e803a" kind="function"><name>XCsi2Tx_ReadReg</name></member>
     <member refid="group__csi2tx_1gab9abe8d42a704e431f487e31acda175d" kind="function"><name>XCsi2Tx_WriteReg</name></member>
+    <member refid="group__csi2tx_1ga94e2fbc0ccec87a498bceddf274942ef" kind="function"><name>Csi2Tx_HandleLcBank</name></member>
     <member refid="group__csi2tx_1ga79fec6c8f14f43478aedaaaae040447e" kind="function"><name>Csi2TxSelfTestExample</name></member>
     <member refid="group__csi2tx_1gae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
     <member refid="group__csi2tx_1ga5489a7183a6d97f469c8e9f1f41b6548" kind="define"><name>XCSI2TX_RESET_TIMEOUT</name></member>
@@ -357,6 +439,8 @@
     <member refid="group__csi2tx_1ga65c86d8661e0762105790ca34e88f944" kind="define"><name>XCSI2TX_INACTIVE</name></member>
     <member refid="group__csi2tx_1ga404a6962be3afee7d30c38d8400f925d" kind="define"><name>XCSI2TX_READY</name></member>
     <member refid="group__csi2tx_1gaad964d27150f8888fdcde05db9f9ad18" kind="define"><name>XCSI2TX_MAX_VC</name></member>
+    <member refid="group__csi2tx_1gadf4298e484d915a20fad394a65f2a1c6" kind="define"><name>XCSI2TX_DEFAULT_NUM_VC</name></member>
+    <member refid="group__csi2tx_1ga3ce8ca3f6fe5992f0fdebc2339c23e2b" kind="define"><name>XCSI2TX_VC_PER_BANK</name></member>
     <member refid="group__csi2tx_1ga8f58282f5d1917ec080b9b210aad48a6" kind="define"><name>XCSI2TX_HW_H_</name></member>
     <member refid="group__csi2tx_1gac7a1f2d7c25c0f7238931c4941af0da8" kind="define"><name>XCSI2TX_GSP_MASK</name></member>
     <member refid="group__csi2tx_1ga6a2e3b98a9bede1d1e2264e52ed815a4" kind="define"><name>XCSI2TX_GSP_SHIFT</name></member>

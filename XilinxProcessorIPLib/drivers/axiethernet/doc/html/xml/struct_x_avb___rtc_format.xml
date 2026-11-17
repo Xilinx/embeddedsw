@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="297" bodyend="-1"/>
-        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
-        <referencedby refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="296" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="175" endline="360">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="group__axiethernet_1gadbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="95" endline="109">XAvb_ReadRtc</referencedby>
+        <referencedby refid="group__axiethernet_1ga2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="811" endline="914">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="126" endline="136">XAvb_WriteRtcOffset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -32,11 +32,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="298" bodyend="-1"/>
-        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
-        <referencedby refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="175" endline="360">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="group__axiethernet_1gadbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="95" endline="109">XAvb_ReadRtc</referencedby>
+        <referencedby refid="group__axiethernet_1ga2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="811" endline="914">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="126" endline="136">XAvb_WriteRtcOffset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -49,18 +49,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="299" bodyend="-1"/>
-        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
-        <referencedby refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="175" endline="360">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="group__axiethernet_1gadbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="95" endline="109">XAvb_ReadRtc</referencedby>
+        <referencedby refid="group__axiethernet_1ga2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="811" endline="914">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="126" endline="136">XAvb_WriteRtcOffset</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef defines the format for the Real Time Clock (RTC). </para>    </briefdescription>
+<para>Defines the format for the Real Time Clock (RTC). </para>    </briefdescription>
     <detaileddescription>
-<para>The RTC contains a 48-bit seconds field (split into upper and lower sections) and a 32-bit nano-seconds field. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="295" bodyend="300"/>
+<para>The RTC. contains a 48-bit seconds field (split into upper and lower sections) and a 32-bit nano-seconds field. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="294" bodyend="299"/>
     <listofallmembers>
       <member refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" prot="public" virt="non-virtual"><scope>XAvb_RtcFormat</scope><name>NanoSeconds</name></member>
       <member refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" prot="public" virt="non-virtual"><scope>XAvb_RtcFormat</scope><name>SecondsLower</name></member>

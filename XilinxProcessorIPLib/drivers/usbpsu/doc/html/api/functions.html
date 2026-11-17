@@ -102,7 +102,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
       <li><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_v"><span>v</span></a></li>
       <li><a href="#index_w"><span>w</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -141,6 +143,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>ALIGNMENT_CACHELINE
 : <a class="el" href="struct_x_usb_psu___ep.html#abf2a2982e71d8fdfc40e424ec0b5e12a">XUsbPsu_Ep</a>
 , <a class="el" href="struct_x_usb_psu.html#adfd72916c2cb464e04951ed9151b1173">XUsbPsu</a>
+, <a class="el" href="structstorage__dev.html#a583219e6c835a2673625a490366518cc">storage_dev</a>
+, <a class="el" href="structstorage__if.html#a3ed8bcd3f09f125d78faff20d6b8cb89">storage_if</a>
+, <a class="el" href="struct_x_usb_psu.html#a047ab6cc318e18dfe9e0e875fa7bf02f">XUsbPsu</a>
 </li>
 <li>AppData
 : <a class="el" href="struct_x_usb_psu.html#a7d063081dccb62284227b99de12fd40a">XUsbPsu</a>
@@ -171,6 +176,14 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>BufferPtrLow
 : <a class="el" href="struct_x_usb_psu___trb.html#ae5ea152e5ef5e898965e50acf74dc519">XUsbPsu_Trb</a>
 </li>
+<li>bytesleft
+: <a class="el" href="structstorage__if.html#a890cb7f2c9d0e04aa3cee462b1e8b0b9">storage_if</a>
+, <a class="el" href="structstorage__dev.html#a57d48cfe20125227a5a9a1844222cfc3">storage_dev</a>
+</li>
+<li>bytesRecv
+: <a class="el" href="structaudio__dev.html#a349e9b11e642fa56ca01a3183df18f32">audio_dev</a>
+, <a class="el" href="structaudio__if.html#a4c644c6851e173a71dd82598917fad94">audio_if</a>
+</li>
 <li>BytesTxed
 : <a class="el" href="struct_x_usb_psu___ep.html#afe5ecb3fc2462b344e48f092f9ca3e5b">XUsbPsu_Ep</a>
 </li>
@@ -199,6 +212,16 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>Ctrl
 : <a class="el" href="struct_x_usb_psu___trb.html#a33543ca16a939ea769633dac14708785">XUsbPsu_Trb</a>
 </li>
+<li>curr_state
+: <a class="el" href="structdfu__if.html#a0497d8263d98f682a5c28d6d391970e4">dfu_if</a>
+</li>
+<li>current_inf
+: <a class="el" href="structdfu__if.html#a32104a8a6dc05b1a505ebc586cb413e9">dfu_if</a>
+</li>
+<li>currTrans
+: <a class="el" href="structstorage__if.html#a396861a82f517626e1b676e3ffd242ef">storage_if</a>
+, <a class="el" href="structstorage__dev.html#ac108bde09441ba6b995800cbf9dd52f3">storage_dev</a>
+</li>
 <li>CurUf
 : <a class="el" href="struct_x_usb_psu___ep.html#a9cccdeed84d1af2bbc01731f62c170c7">XUsbPsu_Ep</a>
 </li>
@@ -222,11 +245,32 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>Devt
 : <a class="el" href="union_x_usb_psu___event.html#a74779f9dd7dfb748446938aeaab08819">XUsbPsu_Event</a>
 </li>
+<li>dfu_wait_for_interrupt
+: <a class="el" href="structdfu__if.html#a899b72b8848bbf6af36fba18a208d470">dfu_if</a>
+</li>
 <li>Direction
 : <a class="el" href="struct_x_usb_psu___ep.html#a5d001c89b016fa7087350c46dfe747f2">XUsbPsu_Ep</a>
 </li>
 <li>DisconnectIntrHandler
 : <a class="el" href="struct_x_usb_psu.html#a0206367c1062fe236eca8cdcb11625dd">XUsbPsu</a>
+</li>
+<li>disk
+: <a class="el" href="structdfu__if.html#a217db6ab8a96f9b9fe8371a8e0be8be7">dfu_if</a>
+, <a class="el" href="structaudio__if.html#aa974a0a265623ac1f6afb425347fac09">audio_if</a>
+, <a class="el" href="structstorage__if.html#a0c459a3b7db74d6f8c37e38ce3428706">storage_if</a>
+, <a class="el" href="structstorage__dev.html#a08eb94bb7cb7fdb7c12412463409b6cc">storage_dev</a>
+</li>
+<li>diskptr
+: <a class="el" href="structstorage__dev.html#aa5c70924cb04ee918748074eb9ae0be0">storage_dev</a>
+, <a class="el" href="structstorage__if.html#a598f52b001a094e7ec717059f169cdac">storage_if</a>
+</li>
+<li>disksize
+: <a class="el" href="structdfu__if.html#a857d848e4fc0d6b79a5b38616a0734ae">dfu_if</a>
+, <a class="el" href="structaudio__dev.html#a8e0f2e5e8f642fcb6d27a9c0e4c4ad43">audio_dev</a>
+, <a class="el" href="structaudio__if.html#adb20ed24a1f3e9d7bdf410ae4c230766">audio_if</a>
+, <a class="el" href="structstorage__dev.html#a1aa2dcf13e19e47668bb47fd880ef982">storage_dev</a>
+, <a class="el" href="structstorage__if.html#a8a71b24e91d5892ef4cc7aef5bbe4013">storage_if</a>
+, <a class="el" href="structaudio__dfu__if.html#a5a9e2ffe361c9ca76d679c3b90fd5525">audio_dfu_if</a>
 </li>
 </ul>
 
@@ -272,8 +316,30 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>f_audio
+: <a class="el" href="structaudio__dfu__if.html#aa7fbeacf8b080ec9131128872c1de2fc">audio_dfu_if</a>
+, <a class="el" href="structcomposite__dev.html#af3cce781e7338c23818abe52b734235c">composite_dev</a>
+</li>
+<li>f_dfu
+: <a class="el" href="structcomposite__dev.html#adb46edd6b13a33320ef6097473aa3048">composite_dev</a>
+, <a class="el" href="structaudio__dfu__if.html#afa4a535dbf74e53f4a42020f87b669d6">audio_dfu_if</a>
+</li>
+<li>f_keyboard
+: <a class="el" href="structcomposite__dev.html#a2e3ea40bd5b14716b9c59c721106a271">composite_dev</a>
+</li>
+<li>f_storage
+: <a class="el" href="structcomposite__dev.html#acd5b162f721a0d7f41184a72e14b7a91">composite_dev</a>
+</li>
+<li>firstpkt
+: <a class="el" href="structaudio__dev.html#a1411efa0859559ca878cbb50a598343b">audio_dev</a>
+, <a class="el" href="structaudio__if.html#af6447832e9ef1f10112227aea25ec2bf">audio_if</a>
+</li>
 <li>Flags
 : <a class="el" href="struct_x_usb_psu___evt_buffer.html#a00eecccee1e7f806361d8133b1ed0eb5">XUsbPsu_EvtBuffer</a>
+</li>
+<li>framesize
+: <a class="el" href="structaudio__if.html#adcd520160e0364c163105ea75bbe76b3">audio_if</a>
+, <a class="el" href="structaudio__dev.html#a29345325a79d28b033efd3a091d5ba01">audio_dev</a>
 </li>
 </ul>
 
@@ -281,6 +347,12 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
 <li>Gevt
 : <a class="el" href="union_x_usb_psu___event.html#a30b4571bddf9e8db77dd42da9d99aecd">XUsbPsu_Event</a>
+</li>
+<li>got_dnload_rqst
+: <a class="el" href="structdfu__if.html#aa94f76e9ed40fc02f4d38a74ce0ce595">dfu_if</a>
+</li>
+<li>got_reset
+: <a class="el" href="structdfu__if.html#abedb699cf19cfd96dc4b617b2b45ba0c">dfu_if</a>
 </li>
 </ul>
 
@@ -296,15 +368,32 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>index
+: <a class="el" href="structaudio__if.html#a49e240ee622b901f59db10a05bb3459f">audio_if</a>
+, <a class="el" href="structaudio__dev.html#a923e16a25d72b19103105ddc25efb210">audio_dev</a>
+</li>
+<li>InstancePtr
+: <a class="el" href="structdfu__if.html#ae17eec8a07bcad7005433e4afedbd3fc">dfu_if</a>
+</li>
+<li>interval
+: <a class="el" href="structaudio__if.html#ac0e6929cf9fea7c174e1365c71aa1a79">audio_if</a>
+, <a class="el" href="structaudio__dev.html#a93b83c11956bda83beafddd1a590bc6e">audio_dev</a>
+</li>
 <li>Interval
 : <a class="el" href="struct_x_usb_psu___ep.html#a0f79403cf89a048aeedf9be9a9da8f4f">XUsbPsu_Ep</a>
+</li>
+<li>IntrId
+: <a class="el" href="struct_x_usb_psu___config.html#a9cb738931b4fdcf976f2a5b1979ae427">XUsbPsu_Config</a>
 </li>
 <li>IntrParent
 : <a class="el" href="struct_x_usb_psu___config.html#a9952dcc7e659403550c4ce12a228b4b2">XUsbPsu_Config</a>
 </li>
 <li>Is_DevEvt
-: <a class="el" href="struct_x_usb_psu___event___devt.html#aad2c44bc93213b5e22fdfd824d251f8e">XUsbPsu_Event_Devt</a>
-, <a class="el" href="struct_x_usb_psu___event___type.html#a515fbbdee2186ab41a87c5e4108f5335">XUsbPsu_Event_Type</a>
+: <a class="el" href="struct_x_usb_psu___event___type.html#a515fbbdee2186ab41a87c5e4108f5335">XUsbPsu_Event_Type</a>
+, <a class="el" href="struct_x_usb_psu___event___devt.html#aad2c44bc93213b5e22fdfd824d251f8e">XUsbPsu_Event_Devt</a>
+</li>
+<li>is_dfu
+: <a class="el" href="structdfu__if.html#aadcd4f1649783cc30a3cfb54f42e258f">dfu_if</a>
 </li>
 <li>Is_EpEvt
 : <a class="el" href="struct_x_usb_psu___event___epevt.html#af39e92e02c939057794e42d7ac754f93">XUsbPsu_Event_Epevt</a>
@@ -331,6 +420,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>Length
+: <a class="el" href="structtransfer.html#aa1a48cec70a9df99c3179561e7516901">transfer</a>
+</li>
 <li>LinkState
 : <a class="el" href="struct_x_usb_psu.html#a710de9231e8b9881cce866f535b342f8">XUsbPsu</a>
 </li>
@@ -345,6 +437,12 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
+<li>Name
+: <a class="el" href="struct_x_usb_psu___config.html#a106731ff7eba99998eac449025bd0c41">XUsbPsu_Config</a>
+</li>
+<li>next_state
+: <a class="el" href="structdfu__if.html#a8b19bc632cf034521a7854793460f40b">dfu_if</a>
+</li>
 <li>NumInEps
 : <a class="el" href="struct_x_usb_psu.html#ae1a79187909ced95add06dc5acb2064a">XUsbPsu</a>
 </li>
@@ -362,6 +460,14 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>packetresidue
+: <a class="el" href="structaudio__if.html#ac6a861d0f00b8a2747f929260c9183b3">audio_if</a>
+, <a class="el" href="structaudio__dev.html#a2a1b6e67d201b5f8985d2e8afbc953a4">audio_dev</a>
+</li>
+<li>packetsize
+: <a class="el" href="structaudio__dev.html#a45f953d7ef17635a6bb8e23662a8306b">audio_dev</a>
+, <a class="el" href="structaudio__if.html#af9361c5eefffd4ea3737639efd6eea59">audio_if</a>
+</li>
 <li>Param0
 : <a class="el" href="struct_x_usb_psu___ep_params.html#a025a749009e1eab7b46f6ed9e7fe069d">XUsbPsu_EpParams</a>
 </li>
@@ -374,6 +480,10 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>Parameters
 : <a class="el" href="struct_x_usb_psu___event___epevt.html#ab27628306bbd13422839942b6a426e2c">XUsbPsu_Event_Epevt</a>
 </li>
+<li>phase
+: <a class="el" href="structstorage__if.html#af667f1b0012cf62c397ef106bc3f060c">storage_if</a>
+, <a class="el" href="structstorage__dev.html#afa881a524bf9d7218b192a7fa4b41f82">storage_dev</a>
+</li>
 <li>Phy_Port_Number
 : <a class="el" href="struct_x_usb_psu___event___gevt.html#a37284fd5ee1df56d3066108a94233904">XUsbPsu_Event_Gevt</a>
 </li>
@@ -382,6 +492,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>PrivateData
 : <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData</a>
+</li>
+<li>Ptr
+: <a class="el" href="structtransfer.html#a6d9045c56e18028400f95faaa97ce710">transfer</a>
 </li>
 </ul>
 
@@ -411,8 +524,15 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>ResetIntrHandler
 : <a class="el" href="struct_x_usb_psu.html#a015c992834762e7f50d5be2c99df277d">XUsbPsu</a>
 </li>
+<li>residue
+: <a class="el" href="structaudio__dev.html#a194d1799297112a00573fe86db748333">audio_dev</a>
+, <a class="el" href="structaudio__if.html#add9c543fa5296764fc777679fede898b">audio_if</a>
+</li>
 <li>ResourceIndex
 : <a class="el" href="struct_x_usb_psu___ep.html#a30d0aae28aa3a1d4a9a352db55450df4">XUsbPsu_Ep</a>
+</li>
+<li>runtime_to_dfu
+: <a class="el" href="structdfu__if.html#a270a04c0391e88860c7b25b22c5d724d">dfu_if</a>
 </li>
 </ul>
 
@@ -430,12 +550,24 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>Status
 : <a class="el" href="struct_x_usb_psu___event___epevt.html#a18ceb3ffee55e3a05c1af5cf1933ded2">XUsbPsu_Event_Epevt</a>
 </li>
+<li>status
+: <a class="el" href="structdfu__if.html#af487b629a840e7b2d15174c8e1a41379">dfu_if</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TestMode
 : <a class="el" href="struct_x_usb_psu.html#a71a0cd96ef36f74fd8a258959195cfdb">XUsbPsu</a>
+</li>
+<li>total_bytes_dnloaded
+: <a class="el" href="structdfu__if.html#a7e56e21b697437901e465c624607fe06">dfu_if</a>
+</li>
+<li>total_bytes_uploaded
+: <a class="el" href="structdfu__if.html#abd15cf1fa7c0b3d8f3bc4ccd9f1276a6">dfu_if</a>
+</li>
+<li>total_transfers
+: <a class="el" href="structdfu__if.html#a272cd3e61af50f4227d3682b12086395">dfu_if</a>
 </li>
 <li>TrbDequeue
 : <a class="el" href="struct_x_usb_psu___ep.html#ab2b555a0d98c872b10d400823af928b2">XUsbPsu_Ep</a>
@@ -445,9 +577,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>Type
 : <a class="el" href="struct_x_usb_psu___event___type.html#a65700405a0286bc9885266eaa5174969">XUsbPsu_Event_Type</a>
-, <a class="el" href="struct_x_usb_psu___ep.html#acdc2fe13449f0c73020d316a3bb9736d">XUsbPsu_Ep</a>
-, <a class="el" href="struct_x_usb_psu___event___devt.html#a3c7cc7cec916ba22e1b2f791daabd1e5">XUsbPsu_Event_Devt</a>
 , <a class="el" href="union_x_usb_psu___event.html#a604a48e88a08d42f74073889a9100173">XUsbPsu_Event</a>
+, <a class="el" href="struct_x_usb_psu___event___devt.html#a3c7cc7cec916ba22e1b2f791daabd1e5">XUsbPsu_Event_Devt</a>
+, <a class="el" href="struct_x_usb_psu___ep.html#acdc2fe13449f0c73020d316a3bb9736d">XUsbPsu_Ep</a>
 </li>
 </ul>
 
@@ -463,6 +595,14 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </ul>
 
 
+<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>virtualdisk
+: <a class="el" href="structaudio__dfu__if.html#af08f520a874573f90ae66f9a56234040">audio_dfu_if</a>
+, <a class="el" href="structaudio__dev.html#ad75322a26f3a527336523dba507e940b">audio_dev</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
 <li>wIndex
 : <a class="el" href="struct_setup_packet.html#a18206c45fd8c7d39a81ff4fc428518c1">SetupPacket</a>
@@ -472,6 +612,42 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>wValue
 : <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
+<li>xKeyboardTask
+: <a class="el" href="structkeyboard__if.html#a27bc23c7bd0c45b5bad953382f28b786">keyboard_if</a>
+</li>
+<li>xMainTask
+: <a class="el" href="structaudio__dev.html#aa2dd3acacc11e344ba392ad457fc022e">audio_dev</a>
+, <a class="el" href="structcomposite__dev.html#ab9a225c9af02119b78f43aa28a0233dc">composite_dev</a>
+</li>
+<li>xPlayTask
+: <a class="el" href="structaudio__dev.html#aa6d4e4463de39bba8118d5c16f80dd4f">audio_dev</a>
+, <a class="el" href="structaudio__if.html#aa26f8213a753209330e49e85c3a3c655">audio_if</a>
+</li>
+<li>xRecordTask
+: <a class="el" href="structaudio__dev.html#a59d34afd50db1adec4c620220842891d">audio_dev</a>
+, <a class="el" href="structaudio__if.html#a5ab01f5497fd9ab49862dbb1ff494dcc">audio_if</a>
+</li>
+<li>xSCSITask
+: <a class="el" href="structstorage__if.html#a40ec17463358aea5d6f4fad18407d311">storage_if</a>
+, <a class="el" href="structstorage__dev.html#a9cd38b8d9c7cefd255e7286735577ccf">storage_dev</a>
+</li>
+<li>xSemaphore
+: <a class="el" href="structstorage__if.html#a2cadd733d1f0611da7d08d7aa5773341">storage_if</a>
+, <a class="el" href="structkeyboard__if.html#a378f2f9748783bbd303f099c0b9603d3">keyboard_if</a>
+, <a class="el" href="structstorage__dev.html#a52fb0e6da08066779b4617bf1be3194c">storage_dev</a>
+</li>
+<li>xSemaphorePlay
+: <a class="el" href="structaudio__dev.html#a877c627261d0f09b7266d090628a5b18">audio_dev</a>
+, <a class="el" href="structaudio__if.html#a004e648ec5da90f7d090ccf650993f0e">audio_if</a>
+</li>
+<li>xSemaphoreRecord
+: <a class="el" href="structaudio__dev.html#afca7ac3cbef7b5624d1734562ac32cf1">audio_dev</a>
+, <a class="el" href="structaudio__if.html#a388152b303e0394313a62baf66467cbc">audio_if</a>
 </li>
 </ul>
 </div><!-- contents -->

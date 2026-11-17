@@ -105,14 +105,54 @@ $(document).ready(function(){initNavTree('xiic__intr_8c.html','');});
 <div class="title">xiic_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IIC interrupt processing. </p>
+<p>Contains interrupt functions of the <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> driver. This file is required for the driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.01a rfp  10/19/01 release
+1.01c ecm  12/05/02 new rev
+1.01c rmm  05/14/03 Fixed diab compiler warnings relating to asserts.
+1.03a ecm  06/22/06 Added a call to the status handler in the TxErrorHandler
+                    even if the Rx buffer pointer is not set. This fix is as
+                    a result of a Sony use model which did not set the Rx
+                    pointer while in Master mode so it checks if MSMS == 1.
+1.13a wgr  03/22/07 Converted to new coding style.
+2.00a sdm  10/22/09 Converted all register accesses to 32 bit access.
+              Updated to use the HAL APIs/macros.
+              Some of the macros have been renamed to remove _m from
+              the name and Some of the macros have been renamed to be
+              consistent, see the <a class="el" href="xiic__l_8h.html" title="Defines IIC low-level register offsets and access macros. ">xiic_l.h</a> file for further information.
+2.01a ktn  04/09/10 Updated TxErrorhandler to be called for Master Transmitter
+              case based on Addressed As Slave (AAS) bit rather than
+              MSMS bit(CR 540199).
+2.06a bss  02/14/13 Modified TxErrorHandler in <a class="el" href="xiic__intr_8c.html" title="Implements IIC interrupt processing. ">xiic_intr.c</a> to fix CR #686483
+              Modified bitwise OR to logical OR in
+              XIic_InterruptHandler API.
+2.07a adk   18/04/13 Updated the code to avoid unused variable warnings
+                  when compiling with the -Wextra -Wall flags.
+                  In the file <a class="el" href="xiic_8c.html" title="Implements required IIC driver functions. ">xiic.c</a> and <a class="el" href="xiic__i_8h.html" title="Defines IIC internal driver data and macros. ">xiic_i.h</a>. CR:705001
+3.9   gm   08/02/22 Modified handling of XIIC_INTR_RX_FULL_MASK in <a class="el" href="xiic__intr_8c.html" title="Implements IIC interrupt processing. ">xiic_intr.c</a>
+              to fix CR #1119930 handling RX FULL interrupt before
+              TX error interrupt and clearing TX error interrupt while
+              handling RX FULL interrupt when receive byte count is one,
+              because here the TX error interrupt indicate NACK, not
+              actually TX error.
+3.16  vn   07/30/26 Fix Doxygen warnings
+3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic__i_8h.html">xiic_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga50c5aa4448e8993c80ef7b6a87b1aaea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga50c5aa4448e8993c80ef7b6a87b1aaea">XIic_InterruptHandler</a> (void *InstancePtr)</td></tr>
-<tr class="memdesc:ga50c5aa4448e8993c80ef7b6a87b1aaea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the <a class="el" href="struct_x_iic.html" title="The XIic driver instance data. ">XIic</a> driver.  <a href="group___overview.html#ga50c5aa4448e8993c80ef7b6a87b1aaea">More...</a><br/></td></tr>
+<tr class="memitem:ga50c5aa4448e8993c80ef7b6a87b1aaea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga50c5aa4448e8993c80ef7b6a87b1aaea">XIic_InterruptHandler</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:ga50c5aa4448e8993c80ef7b6a87b1aaea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> driver.  <a href="group__iic__api.html#ga50c5aa4448e8993c80ef7b6a87b1aaea">More...</a><br/></td></tr>
 <tr class="separator:ga50c5aa4448e8993c80ef7b6a87b1aaea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab68f6a977445ce2895c94be4a0654ec1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gab68f6a977445ce2895c94be4a0654ec1">XIic_TransmitFifoFill</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, int Role)</td></tr>
+<tr class="memdesc:gab68f6a977445ce2895c94be4a0654ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the FIFO using the occupancy register to find available space.  <a href="group__iic__api.html#gab68f6a977445ce2895c94be4a0654ec1">More...</a><br/></td></tr>
+<tr class="separator:gab68f6a977445ce2895c94be4a0654ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

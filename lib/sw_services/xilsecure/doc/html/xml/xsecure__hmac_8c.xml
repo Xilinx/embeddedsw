@@ -8,35 +8,35 @@
     <includes local="yes">xsecure_utils.h</includes>
     <includes local="yes">xil_sutil.h</includes>
     <incdepgraph>
-      <node id="1617">
+      <node id="1664">
         <label>xil_sutil.h</label>
       </node>
-      <node id="1614">
-        <label>xsecure_sha_hw.h</label>
-      </node>
-      <node id="1616">
-        <label>xsecure_utils.h</label>
-      </node>
-      <node id="1615">
-        <label>xsecure_error.h</label>
-      </node>
-      <node id="1612">
+      <node id="1659">
         <label>xsecure_hmac.c</label>
         <link refid="xsecure_hmac.c"/>
-        <childnode refid="1613" relation="include">
+        <childnode refid="1660" relation="include">
         </childnode>
-        <childnode refid="1614" relation="include">
+        <childnode refid="1661" relation="include">
         </childnode>
-        <childnode refid="1615" relation="include">
+        <childnode refid="1662" relation="include">
         </childnode>
-        <childnode refid="1616" relation="include">
+        <childnode refid="1663" relation="include">
         </childnode>
-        <childnode refid="1617" relation="include">
+        <childnode refid="1664" relation="include">
         </childnode>
       </node>
-      <node id="1613">
+      <node id="1660">
         <label>xsecure_hmac.h</label>
         <link refid="xsecure__hmac_8h"/>
+      </node>
+      <node id="1661">
+        <label>xsecure_sha_hw.h</label>
+      </node>
+      <node id="1663">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="1662">
+        <label>xsecure_error.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -49,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__hmac__apis_1gaea404628e0dc0b38de0148dc52efc332" prot="public" static="no">
         <name>XSECURE_HMAC_16BIT_SHIFT</name>
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__hmac__apis_1ga4aa385971dc58a6bcfbc4cb2c070ce14" prot="public" static="no">
         <name>XSECURE_HMAC_24BIT_SHIFT</name>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__hmac__apis_1ga733f0326ed9e68235daf7ecf8e2ef0cb" prot="public" static="no">
         <name>XSECURE_HMAC_WORD_LEN</name>
@@ -82,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__hmac__apis_1ga10fbad789f61dc129bbc3e64dbba56da" prot="public" static="no">
         <name>XSECURE_HMAC_IPAD_VALUE</name>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="55" bodyend="-1"/>
         <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__hmac__apis_1gaa628ce44643bcd057dca75465ffc152d" prot="public" static="no">
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="56" bodyend="-1"/>
         <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
       </memberdef>
       </sectiondef>
@@ -182,7 +182,7 @@
 <para><itemizedlist>
 <listitem><para>KDF uses this path, for UDS 48 bytes key in DICE</para></listitem><listitem><para>if Key provided is of SHA 3 block length </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="270" bodyend="312"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="270" bodyend="312"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__hmac__apis_1ga51230606b0883423ae6ff93223d7c018" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -229,7 +229,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="326" bodyend="338"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="326" bodyend="338"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -292,19 +292,19 @@
 <para><itemizedlist>
 <listitem><para>Calculate K0 xor ipad</para></listitem><listitem><para>Calculate K0 Xor Opad</para></listitem><listitem><para>Set SHA under reset </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="75" bodyend="128"/>
-        <references refid="group__xsecure__sha__server__apis_1ga307c72605e3713972b4f4fb2d53ea20e" compoundref="xsecure__sha1_8c" startline="45">K0</references>
-        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="184">XSECURE_HMAC_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="75" bodyend="128"/>
+        <references refid="group__xsecure__sha__server__apis_1ga307c72605e3713972b4f4fb2d53ea20e" compoundref="xsecure__sha1_8c" startline="46">K0</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="182">XSECURE_HMAC_INVALID_PARAM</references>
         <references refid="group__xsecure__hmac__apis_1ga10fbad789f61dc129bbc3e64dbba56da" compoundref="xsecure__hmac_8c" startline="55">XSECURE_HMAC_IPAD_VALUE</references>
         <references refid="group__xsecure__hmac__apis_1gaa628ce44643bcd057dca75465ffc152d" compoundref="xsecure__hmac_8c" startline="56">XSECURE_HMAC_OPAD_VALUE</references>
         <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
-        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
-        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="110">XSECURE_SHA3_BLOCK_LEN</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartan__ultrascale__plus__sha__server__example_8c" startline="71">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="119">XSECURE_SHA3_BLOCK_LEN</references>
         <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
         <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b" compoundref="xsecure__shaclient_8h" startline="55">XSECURE_SHA_UNINITIALIZED</references>
         <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
         <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
-        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="60" endline="193">XSecure_Hkdf</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -357,13 +357,13 @@
 <para><itemizedlist>
 <listitem><para>Set SHA under reset </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="146" bodyend="170"/>
-        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="184">XSECURE_HMAC_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="146" bodyend="170"/>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="182">XSECURE_HMAC_INVALID_PARAM</references>
         <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
-        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="110">XSECURE_SHA3_BLOCK_LEN</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="119">XSECURE_SHA3_BLOCK_LEN</references>
         <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
         <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
-        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="60" endline="193">XSecure_Hkdf</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -406,16 +406,16 @@
 <para><itemizedlist>
 <listitem><para>Calculate final hash on IPAD || MSG </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="190" bodyend="251"/>
-        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="184">XSECURE_HMAC_INVALID_PARAM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c" bodystart="190" bodyend="251"/>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="182">XSECURE_HMAC_INVALID_PARAM</references>
         <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
-        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
-        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="110">XSECURE_SHA3_BLOCK_LEN</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartan__ultrascale__plus__sha__server__example_8c" startline="71">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5cc13ecb6d06e87d8e2c4fec6ba9347d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="119">XSECURE_SHA3_BLOCK_LEN</references>
         <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
         <references refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</references>
         <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
         <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
-        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="60" endline="193">XSecure_Hkdf</referencedby>
         <referencedby refid="group__xsecure__kat__server__apis_1ga7563c34e1bcf0f8490519bdd513b9c65" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1408" endline="1461">XSecure_HmacKat</referencedby>
       </memberdef>
       </sectiondef>
@@ -554,7 +554,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
 <codeline lineno="196"><highlight class="normal"></highlight></codeline>
 <codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;Sha3InstPtr<sp/>==<sp/>NULL)<sp/>||</highlight></codeline>
 <codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Hmac<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" kindref="member">XSECURE_HMAC_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetStatus<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57a6cbcb896914e6bfc67d9df759f6e111c" kindref="member">XSECURE_HMAC_INVALID_PARAM</ref>;</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RET;</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"></highlight></codeline>
@@ -619,7 +619,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
 <codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>if<sp/>Key<sp/>provided<sp/>is<sp/>less<sp/>than<sp/>SHA<sp/>3<sp/>block<sp/>length</highlight></codeline>
 <codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Append<sp/>Zeros<sp/>to<sp/>the<sp/>key<sp/>provided</highlight></codeline>
 <codeline lineno="281"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" kindref="member">XSecure_MemCpy64</ref>((u64)(UINTPTR)K0,<sp/>KeyAddr,<sp/>KeyLen);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)K0,<sp/>KeyAddr,<sp/>KeyLen);</highlight></codeline>
 <codeline lineno="283"><highlight class="normal"></highlight></codeline>
 <codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;K0[KeyLen],<sp/>KeyOutLen<sp/>-<sp/>KeyLen,<sp/>0U,</highlight></codeline>
 <codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyOutLen<sp/>-<sp/>KeyLen);</highlight></codeline>
@@ -642,7 +642,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
 <codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyOutLen<sp/>-<sp/>XSECURE_SHA_384_HASH_SIZE_IN_BYTES);</highlight></codeline>
 <codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" kindref="member">XSecure_MemCpy64</ref>((u64)(UINTPTR)K0,<sp/>KeyAddr,<sp/>KeyOutLen);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)K0,<sp/>KeyAddr,<sp/>KeyOutLen);</highlight></codeline>
 <codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="309"><highlight class="normal"></highlight></codeline>
@@ -665,6 +665,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
 <codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="338"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c"/>
   </compounddef>
 </doxygen>

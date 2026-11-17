@@ -62,11 +62,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" bodystart="50" bodyend="77"/>
-        <references refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" compoundref="xv__demosaic_8h" startline="103">XV_demosaic::CallbackDoneRef</references>
-        <references refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" compoundref="xv__demosaic_8h" startline="105">XV_demosaic::CallbackReadyRef</references>
-        <references refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" compoundref="xv__demosaic_8h" startline="102">XV_demosaic::FrameDoneCallback</references>
-        <references refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" compoundref="xv__demosaic_8h" startline="104">XV_demosaic::FrameReadyCallback</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" bodystart="50" bodyend="77"/>
+        <references refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" compoundref="xv__demosaic_8h" startline="97">XV_demosaic::CallbackDoneRef</references>
+        <references refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" compoundref="xv__demosaic_8h" startline="99">XV_demosaic::CallbackReadyRef</references>
+        <references refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" compoundref="xv__demosaic_8h" startline="96">XV_demosaic::FrameDoneCallback</references>
+        <references refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" compoundref="xv__demosaic_8h" startline="98">XV_demosaic::FrameReadyCallback</references>
         <references refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa1f7fcccfd95b90f778d734ac63b90d94" compoundref="xv__demosaic_8h" startline="64">XVDEMOSAIC_HANDLER_DONE</references>
         <references refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa22fa321977dbe1bf0953f8e7cd41d846" compoundref="xv__demosaic_8h" startline="65">XVDEMOSAIC_HANDLER_READY</references>
       </memberdef>
@@ -95,12 +95,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" bodystart="96" bodyend="126"/>
-        <references refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" compoundref="xv__demosaic_8h" startline="103">XV_demosaic::CallbackDoneRef</references>
-        <references refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" compoundref="xv__demosaic_8h" startline="105">XV_demosaic::CallbackReadyRef</references>
-        <references refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" compoundref="xv__demosaic_8h" startline="102">XV_demosaic::FrameDoneCallback</references>
-        <references refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" compoundref="xv__demosaic_8h" startline="104">XV_demosaic::FrameReadyCallback</references>
-        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" bodystart="96" bodyend="126"/>
+        <references refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" compoundref="xv__demosaic_8h" startline="97">XV_demosaic::CallbackDoneRef</references>
+        <references refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" compoundref="xv__demosaic_8h" startline="99">XV_demosaic::CallbackReadyRef</references>
+        <references refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" compoundref="xv__demosaic_8h" startline="96">XV_demosaic::FrameDoneCallback</references>
+        <references refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" compoundref="xv__demosaic_8h" startline="98">XV_demosaic::FrameReadyCallback</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="95">XV_demosaic::IsReady</references>
         <references refid="xv__demosaic_8c_1a7158f8e24e9a182c264a876013681193" compoundref="xv__demosaic_8c" startline="448" endline="453">XV_demosaic_InterruptClear</references>
         <references refid="xv__demosaic_8c_1a5543702ffe2eca8a81cbcc4c004e88df" compoundref="xv__demosaic_8c" startline="491" endline="496">XV_demosaic_InterruptGetStatus</references>
         <references refid="xv__demosaic_8h_1a3c788dd3373066d3529afd6dc9cbfdc0" compoundref="xv__demosaic_8h" startline="42">XVDEMOSAIC_IRQ_DONE_MASK</references>

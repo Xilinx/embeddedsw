@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartps__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,33 +100,45 @@ $(document).ready(function(){initNavTree('xuartps__intr_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xuartps_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartps_8h.html">xuartps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interrupt handling functions for the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00  drg/jz 01/13/10 First Release
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.1     kvn    04/10/15 Modified code for latest RTL changes.
+3.7   aru    08/17/18 Resolved MISRA-C mandatory violations.(CR#1007755)
+3.19  vn     08/26/26 Fix Doxygen warnings
+3.19  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartps_8h.html">xuartps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga969a172d07d93e0e25851bd35e50ed09"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga969a172d07d93e0e25851bd35e50ed09">Handler</a> )(<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga969a172d07d93e0e25851bd35e50ed09"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing to handle data events from the device.  <a href="group__uartps.html#ga969a172d07d93e0e25851bd35e50ed09">More...</a><br/></td></tr>
-<tr class="separator:ga969a172d07d93e0e25851bd35e50ed09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga183d2a2ce37a822b72dc8123c276cc39"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga183d2a2ce37a822b72dc8123c276cc39">XUartPs_ReceiveBuffer</a> (<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga183d2a2ce37a822b72dc8123c276cc39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives the previously specified buffer from the instance variables.  <a href="group__uartps.html#ga183d2a2ce37a822b72dc8123c276cc39">More...</a><br/></td></tr>
+<tr class="separator:ga183d2a2ce37a822b72dc8123c276cc39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga155e8e81ea00cad7734697093376c2fe"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga155e8e81ea00cad7734697093376c2fe">XUartPs_SendBuffer</a> (<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga155e8e81ea00cad7734697093376c2fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the previously specified buffer from the instance variables.  <a href="group__uartps.html#ga155e8e81ea00cad7734697093376c2fe">More...</a><br/></td></tr>
+<tr class="separator:ga155e8e81ea00cad7734697093376c2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae5cf497a416bc210c4f1dbe99cacc961"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gae5cf497a416bc210c4f1dbe99cacc961">XUartPs_GetInterruptMask</a> (<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gae5cf497a416bc210c4f1dbe99cacc961"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the interrupt mask.  <a href="group__uartps.html#gae5cf497a416bc210c4f1dbe99cacc961">More...</a><br/></td></tr>
+<tr class="memdesc:gae5cf497a416bc210c4f1dbe99cacc961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt mask.  <a href="group__uartps.html#gae5cf497a416bc210c4f1dbe99cacc961">More...</a><br/></td></tr>
 <tr class="separator:gae5cf497a416bc210c4f1dbe99cacc961"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab3b65e926f6f4ac7ab41a70801ba12c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gab3b65e926f6f4ac7ab41a70801ba12c3">XUartPs_SetInterruptMask</a> (<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gab3b65e926f6f4ac7ab41a70801ba12c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the interrupt mask.  <a href="group__uartps.html#gab3b65e926f6f4ac7ab41a70801ba12c3">More...</a><br/></td></tr>
+<tr class="memdesc:gab3b65e926f6f4ac7ab41a70801ba12c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt mask.  <a href="group__uartps.html#gab3b65e926f6f4ac7ab41a70801ba12c3">More...</a><br/></td></tr>
 <tr class="separator:gab3b65e926f6f4ac7ab41a70801ba12c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9528098e589491997c7805592a4b5a7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#ga9528098e589491997c7805592a4b5a7b">XUartPs_SetHandler</a> (<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr, <a class="el" href="group__uartps.html#ga5bb8d1f316dacd471a6cd3c976c7b1ca">XUartPs_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga9528098e589491997c7805592a4b5a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs that needs application's attention.  <a href="group__uartps.html#ga9528098e589491997c7805592a4b5a7b">More...</a><br/></td></tr>
+<tr class="memdesc:ga9528098e589491997c7805592a4b5a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for an event that needs the application's attention.  <a href="group__uartps.html#ga9528098e589491997c7805592a4b5a7b">More...</a><br/></td></tr>
 <tr class="separator:ga9528098e589491997c7805592a4b5a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabf86fb20a58e4a7fbd73afa49f8eb604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartps.html#gabf86fb20a58e4a7fbd73afa49f8eb604">XUartPs_InterruptHandler</a> (<a class="el" href="struct_x_uart_ps.html">XUartPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gabf86fb20a58e4a7fbd73afa49f8eb604"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the driver.  <a href="group__uartps.html#gabf86fb20a58e4a7fbd73afa49f8eb604">More...</a><br/></td></tr>
+<tr class="memdesc:gabf86fb20a58e4a7fbd73afa49f8eb604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the <a class="el" href="struct_x_uart_ps.html" title="Represents the XUartPs driver instance data structure. ">XUartPs</a> driver.  <a href="group__uartps.html#gabf86fb20a58e4a7fbd73afa49f8eb604">More...</a><br/></td></tr>
 <tr class="separator:gabf86fb20a58e4a7fbd73afa49f8eb604"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

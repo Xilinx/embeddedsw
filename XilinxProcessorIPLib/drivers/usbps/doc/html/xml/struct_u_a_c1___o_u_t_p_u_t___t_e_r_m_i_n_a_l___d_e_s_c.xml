@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c" kind="struct" prot="public">
     <compoundname>UAC1_OUTPUT_TERMINAL_DESC</compoundname>
+    <includes local="no">xusbps_ch9_audio.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a45f60a115ff06319690d4dfa64f0b69e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,12 @@
         <argsstring></argsstring>
         <name>bLength</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor length in bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="334" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="344" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1abdc9b258c88f6a16be00227f9df0175f" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +23,12 @@
         <argsstring></argsstring>
         <name>bDescriptorType</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor type identifier. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="335" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="345" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a7da5bce7f04fe1b6bd7fdd25181e666b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +36,12 @@
         <argsstring></argsstring>
         <name>bDescriptorSubtype</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor subtype for class-specific descriptor. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="336" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="346" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1aa2d8358fd0f74446258d3066d939d477" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,12 +49,12 @@
         <argsstring></argsstring>
         <name>bTerminalId</name>
         <briefdescription>
-        </briefdescription>
+<para>Unique terminal identifier. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="337" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="347" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1afb1a497bfc04360e0d77f333dd8c52b9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +62,12 @@
         <argsstring></argsstring>
         <name>wTerminalTypeL</name>
         <briefdescription>
-        </briefdescription>
+<para>Terminal type low byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="338" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="348" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a6f791757f41b7124353545fea6762332" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,12 +75,12 @@
         <argsstring></argsstring>
         <name>wTerminalTypeH</name>
         <briefdescription>
-        </briefdescription>
+<para>Terminal type high byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="339" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="349" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a04b2c3b62cfaf53080eec9d946d2d30c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -87,12 +88,12 @@
         <argsstring></argsstring>
         <name>bAssocTerminal</name>
         <briefdescription>
-        </briefdescription>
+<para>Associated terminal ID. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="340" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="350" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a7532b51e59d054e1f0938e769d11daa7" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,12 +101,12 @@
         <argsstring></argsstring>
         <name>bSourceId</name>
         <briefdescription>
-        </briefdescription>
+<para>ID of connected input terminal. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="341" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="351" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1aee470dd63777b4fe940e6fbb30d96c1a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -113,19 +114,19 @@
         <argsstring></argsstring>
         <name>iTerminal</name>
         <briefdescription>
-        </briefdescription>
+<para>Index of terminal string descriptor. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="342" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="352" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>UAC1 OUTPUT TERMINAL DESC structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="333" bodyend="343"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="343" bodyend="353"/>
     <listofallmembers>
       <member refid="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a04b2c3b62cfaf53080eec9d946d2d30c" prot="public" virt="non-virtual"><scope>UAC1_OUTPUT_TERMINAL_DESC</scope><name>bAssocTerminal</name></member>
       <member refid="struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a7da5bce7f04fe1b6bd7fdd25181e666b" prot="public" virt="non-virtual"><scope>UAC1_OUTPUT_TERMINAL_DESC</scope><name>bDescriptorSubtype</name></member>

@@ -3,15 +3,21 @@
   <compounddef id="dir_7c8744e45007fc8a1adc77f4cc58d5ca" kind="dir">
     <compoundname>inc</compoundname>
     <innerfile refid="mbox__api_8h">mbox_api.h</innerfile>
+    <innerfile refid="mbox__checksum_8h">mbox_checksum.h</innerfile>
     <innerfile refid="mbox__cmd_8h">mbox_cmd.h</innerfile>
+    <innerfile refid="mbox__command_8h">mbox_command.h</innerfile>
     <innerfile refid="mbox__error__code_8h">mbox_error_code.h</innerfile>
     <innerfile refid="mbox__fifo_8h">mbox_fifo.h</innerfile>
     <innerfile refid="mbox__hardware_8h">mbox_hardware.h</innerfile>
+    <innerfile refid="mbox__integrity_8h">mbox_integrity.h</innerfile>
+    <innerfile refid="mbox__interface_8h">mbox_interface.h</innerfile>
+    <innerfile refid="mbox__phy_8h">mbox_phy.h</innerfile>
+    <innerfile refid="mbox__seq_8h">mbox_seq.h</innerfile>
     <innerfile refid="sensor__cmd_8h">sensor_cmd.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/"/>
   </compounddef>
 </doxygen>

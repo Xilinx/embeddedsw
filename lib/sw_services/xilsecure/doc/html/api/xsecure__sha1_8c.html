@@ -113,7 +113,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <hr/>
 <p>
 1.0   mmd  12/20/24 Initial release
-5.6   vns  09/27/25 Added error handling for SHA1 transform</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_sutil.h&quot;</code><br/>
+5.6   vns  09/27/25 Added error handling for SHA1 transform
+5.8   tbk  07/02/26 Added input pointer validations in XSecure_Sha1Digest</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_sutil.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__sha1_8h.html">xsecure_sha1.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_error.h&quot;</code><br/>
 </div><table class="memberdecls">
@@ -189,17 +190,17 @@ Macros</h2></td></tr>
 <tr class="memitem:ga8ac24a09e1273548828d3cc9436f9bc7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__server__apis.html#ga8ac24a09e1273548828d3cc9436f9bc7">R0</a>(v, w, x, y, z, i)</td></tr>
 <tr class="memdesc:ga8ac24a09e1273548828d3cc9436f9bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; R0, R1, R2, R3, R4 are the different intermediate operations used in SHA1 digest calculation  <a href="group__xsecure__sha__server__apis.html#ga8ac24a09e1273548828d3cc9436f9bc7">More...</a><br/></td></tr>
 <tr class="separator:ga8ac24a09e1273548828d3cc9436f9bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2628f8af7bf67ca052200537279f855a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2628f8af7bf67ca052200537279f855a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>R1</b>(v, w, x, y, z, i)</td></tr>
+<tr class="memitem:ga2628f8af7bf67ca052200537279f855a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__server__apis.html#ga2628f8af7bf67ca052200537279f855a">R1</a>(v, w, x, y, z, i)</td></tr>
+<tr class="memdesc:ga2628f8af7bf67ca052200537279f855a"><td class="mdescLeft">&#160;</td><td class="mdescRight">R1 intermediate operation used in SHA1 digest calculation.  <a href="group__xsecure__sha__server__apis.html#ga2628f8af7bf67ca052200537279f855a">More...</a><br/></td></tr>
 <tr class="separator:ga2628f8af7bf67ca052200537279f855a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga774229b80509be0e9e0a1d9819580224"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga774229b80509be0e9e0a1d9819580224"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>R2</b>(v, w, x, y, z, i)</td></tr>
+<tr class="memitem:ga774229b80509be0e9e0a1d9819580224"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__server__apis.html#ga774229b80509be0e9e0a1d9819580224">R2</a>(v, w, x, y, z, i)</td></tr>
+<tr class="memdesc:ga774229b80509be0e9e0a1d9819580224"><td class="mdescLeft">&#160;</td><td class="mdescRight">R2 intermediate operation used in SHA1 digest calculation.  <a href="group__xsecure__sha__server__apis.html#ga774229b80509be0e9e0a1d9819580224">More...</a><br/></td></tr>
 <tr class="separator:ga774229b80509be0e9e0a1d9819580224"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac0b8b342432d17717ff1020d10cf0eea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gac0b8b342432d17717ff1020d10cf0eea"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>R3</b>(v, w, x, y, z, i)</td></tr>
+<tr class="memitem:gac0b8b342432d17717ff1020d10cf0eea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__server__apis.html#gac0b8b342432d17717ff1020d10cf0eea">R3</a>(v, w, x, y, z, i)</td></tr>
+<tr class="memdesc:gac0b8b342432d17717ff1020d10cf0eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">R3 intermediate operation used in SHA1 digest calculation.  <a href="group__xsecure__sha__server__apis.html#gac0b8b342432d17717ff1020d10cf0eea">More...</a><br/></td></tr>
 <tr class="separator:gac0b8b342432d17717ff1020d10cf0eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf77ddc8894422d2af2adbd4e71e55d1f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gaf77ddc8894422d2af2adbd4e71e55d1f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>R4</b>(v, w, x, y, z, i)</td></tr>
+<tr class="memitem:gaf77ddc8894422d2af2adbd4e71e55d1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__server__apis.html#gaf77ddc8894422d2af2adbd4e71e55d1f">R4</a>(v, w, x, y, z, i)</td></tr>
+<tr class="memdesc:gaf77ddc8894422d2af2adbd4e71e55d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">R4 intermediate operation used in SHA1 digest calculation.  <a href="group__xsecure__sha__server__apis.html#gaf77ddc8894422d2af2adbd4e71e55d1f">More...</a><br/></td></tr>
 <tr class="separator:gaf77ddc8894422d2af2adbd4e71e55d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

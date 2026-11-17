@@ -5,28 +5,28 @@
     <includes refid="xmipi__scu200__xp5io__example_2sensor__cfgs_8h" local="yes">sensor_cfgs.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
-      <node id="693">
+      <node id="728">
         <label>sensor_cfgs.c</label>
         <link refid="xmipi_scu200_xp5io_example/sensor_cfgs.c"/>
-        <childnode refid="694" relation="include">
+        <childnode refid="729" relation="include">
         </childnode>
-        <childnode refid="697" relation="include">
+        <childnode refid="732" relation="include">
         </childnode>
       </node>
-      <node id="694">
+      <node id="729">
         <label>sensor_cfgs.h</label>
-        <childnode refid="695" relation="include">
+        <childnode refid="730" relation="include">
         </childnode>
-        <childnode refid="696" relation="include">
+        <childnode refid="731" relation="include">
         </childnode>
       </node>
-      <node id="696">
+      <node id="731">
         <label>xvidc.h</label>
       </node>
-      <node id="695">
+      <node id="730">
         <label>xil_types.h</label>
       </node>
-      <node id="697">
+      <node id="732">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" bodystart="260" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" bodystart="260" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" bodystart="32" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2sensor__cfgs_8c_1a3f347e0a22017d3eae5d048eb79e2583" prot="public" static="no" mutable="no">
         <type>const int</type>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" bodystart="263" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c" bodystart="263" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -323,6 +323,6 @@
 <codeline lineno="263"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS05A10_config_1080p_60fps_regs<sp/>=</highlight></codeline>
 <codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ARRAY_SIZE(OS05A10_config_1080p_60fps_regs);</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/sensor_cfgs.c"/>
   </compounddef>
 </doxygen>

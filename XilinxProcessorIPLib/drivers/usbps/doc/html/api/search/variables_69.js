@@ -1,6 +1,25 @@
 var searchData=
 [
+  ['ichannelnames',['iChannelNames',['../struct_u_a_c1___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html#af032b655dc7c2dc1ce1ab4c93d039775',1,'UAC1_INPUT_TERMINAL_DESC']]],
+  ['iconfiguration',['iConfiguration',['../struct_u_s_b___s_t_d___c_f_g___d_e_s_c.html#abb16f407696302923a27512941b0639e',1,'USB_STD_CFG_DESC']]],
+  ['idproduct',['idProduct',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a6c321def10226e855465337555133950',1,'USB_STD_DEV_DESC']]],
+  ['idvendor',['idVendor',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a7b3acec44b51a031b3e1f2c83ad8d855',1,'USB_STD_DEV_DESC']]],
+  ['ifcfg',['ifCfg',['../struct_u_s_b___c_o_n_f_i_g.html#acfa4cf32ddadffc97ed64c6ffd0fd858',1,'USB_CONFIG']]],
+  ['ifcfg1',['ifCfg1',['../struct_u_s_b___c_o_n_f_i_g.html#ad49dca41d3f6f70c5773272122df8169',1,'USB_CONFIG']]],
+  ['ifeature',['iFeature',['../struct_u_a_c1___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c.html#ac217188257f7f80a52abad6c1e004655',1,'UAC1_FEATURE_UNIT_DESC']]],
+  ['iinterface',['iInterface',['../struct_u_s_b___s_t_d___i_f___d_e_s_c.html#a203a902fb94d90b7b04cfcbb50a3a4a4',1,'USB_STD_IF_DESC']]],
+  ['imanufacturer',['iManufacturer',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a7aa2b60ecbec8691eefffb6d80423877',1,'USB_STD_DEV_DESC']]],
+  ['immed',['immed',['../struct_s_c_s_i___s_t_a_r_t___s_t_o_p.html#ae4e20aabdf2a3931e4f2b445f03f8ee4',1,'SCSI_START_STOP']]],
   ['in',['In',['../struct_x_usb_ps___endpoint.html#a93c98d6d17b4a8465328ad6ec5aa9c2a',1,'XUsbPs_Endpoint::In()'],['../struct_x_usb_ps___ep_config.html#adf5b934788f53cbdb6c23371c0e88e53',1,'XUsbPs_EpConfig::In()']]],
-  ['interval',['Interval',['../struct_x_usb_ps___ep_out.html#a356ebab0c889dc2dc7720921e022d79d',1,'XUsbPs_EpOut::Interval()'],['../struct_x_usb_ps___ep_in.html#a5bc0da1bbc7a7927072dd706c0f0d886',1,'XUsbPs_EpIn::Interval()']]],
-  ['intrparent',['IntrParent',['../struct_x_usb_ps___config.html#a921451bc39dd190d4f756f7e90b962be',1,'XUsbPs_Config']]]
+  ['index',['Index',['../xusbps__audio__example_8c.html#ae015863885aec059536758b1a3fffb87',1,'Index():&#160;xusbps_audio_example.c'],['../xusbps__ch9__audio_8c.html#a8e4ace6ba7b2f92777a32ed934b9346a',1,'Index():&#160;xusbps_audio_example.c']]],
+  ['info0',['info0',['../struct_s_c_s_i___i_n_q_u_i_r_y.html#a04c53a9cec93bc1415fc2106514c02fa',1,'SCSI_INQUIRY']]],
+  ['info1',['info1',['../struct_s_c_s_i___i_n_q_u_i_r_y.html#a37befb384fe7bbc1cc79ca0e7da4f7a8',1,'SCSI_INQUIRY']]],
+  ['interval',['Interval',['../struct_x_usb_ps___ep_out.html#a356ebab0c889dc2dc7720921e022d79d',1,'XUsbPs_EpOut::Interval()'],['../struct_x_usb_ps___ep_in.html#a5bc0da1bbc7a7927072dd706c0f0d886',1,'XUsbPs_EpIn::Interval()'],['../xusbps__audio__example_8c.html#a95236f13662ead86d06423103950e825',1,'Interval():&#160;xusbps_audio_example.c']]],
+  ['intrid',['IntrId',['../struct_x_usb_ps___config.html#adaa27f8890d2b2b4cbae8adaf2b0094a',1,'XUsbPs_Config']]],
+  ['intrparent',['IntrParent',['../struct_x_usb_ps___config.html#a921451bc39dd190d4f756f7e90b962be',1,'XUsbPs_Config']]],
+  ['iproduct',['iProduct',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a01dad317b578781dd7e27da09b7f4bf1',1,'USB_STD_DEV_DESC']]],
+  ['iptermcfg',['ipTermCfg',['../struct_u_s_b___c_o_n_f_i_g.html#afe7c8875e4e148ad72bee241252a7664',1,'USB_CONFIG']]],
+  ['isconfigdone',['IsConfigDone',['../struct_x_usb_ps.html#a44eaf0ad7b11faa94ea384fb8e4ac2c7',1,'XUsbPs']]],
+  ['iserialnumber',['iSerialNumber',['../struct_u_s_b___s_t_d___d_e_v___d_e_s_c.html#a9155398a87efe529abde2aa85382a1df',1,'USB_STD_DEV_DESC']]],
+  ['iterminal',['iTerminal',['../struct_u_a_c1___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html#a2d79bb9254c8f00e22efb62cab00131d',1,'UAC1_INPUT_TERMINAL_DESC::iTerminal()'],['../struct_u_a_c1___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c.html#aee470dd63777b4fe940e6fbb30d96c1a',1,'UAC1_OUTPUT_TERMINAL_DESC::iTerminal()']]]
 ];

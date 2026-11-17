@@ -7,48 +7,6 @@
       <node id="71">
         <label>xil_assert.h</label>
       </node>
-      <node id="70">
-        <label>xil_io.h</label>
-      </node>
-      <node id="73">
-        <label>xdebug.h</label>
-      </node>
-      <node id="67">
-        <label>xv_hdmirx_selftest.c</label>
-        <link refid="xv_hdmirx_selftest.c"/>
-        <childnode refid="68" relation="include">
-        </childnode>
-      </node>
-      <node id="72">
-        <label>xstatus.h</label>
-      </node>
-      <node id="74">
-        <label>xvidc.h</label>
-      </node>
-      <node id="75">
-        <label>xv_hdmirx_vsif.h</label>
-        <link refid="xv__hdmirx__vsif_8h"/>
-        <childnode refid="76" relation="include">
-        </childnode>
-        <childnode refid="71" relation="include">
-        </childnode>
-        <childnode refid="72" relation="include">
-        </childnode>
-        <childnode refid="74" relation="include">
-        </childnode>
-      </node>
-      <node id="69">
-        <label>xv_hdmirx_hw.h</label>
-        <link refid="xv__hdmirx__hw_8h"/>
-        <childnode refid="70" relation="include">
-        </childnode>
-      </node>
-      <node id="76">
-        <label>xil_types.h</label>
-      </node>
-      <node id="77">
-        <label>xv_hdmic.h</label>
-      </node>
       <node id="68">
         <label>xv_hdmirx.h</label>
         <link refid="xv__hdmirx_8h"/>
@@ -66,6 +24,48 @@
         </childnode>
         <childnode refid="77" relation="include">
         </childnode>
+      </node>
+      <node id="70">
+        <label>xil_io.h</label>
+      </node>
+      <node id="69">
+        <label>xv_hdmirx_hw.h</label>
+        <link refid="xv__hdmirx__hw_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xdebug.h</label>
+      </node>
+      <node id="67">
+        <label>xv_hdmirx_selftest.c</label>
+        <link refid="xv_hdmirx_selftest.c"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xv_hdmirx_vsif.h</label>
+        <link refid="xv__hdmirx__vsif_8h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>xstatus.h</label>
+      </node>
+      <node id="74">
+        <label>xvidc.h</label>
+      </node>
+      <node id="76">
+        <label>xil_types.h</label>
+      </node>
+      <node id="77">
+        <label>xv_hdmic.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -96,9 +96,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c" bodystart="59" bodyend="78"/>
-        <references refid="struct_x_v___hdmi_rx___config_1af7bfcbc5394a19ebdb89c10cb8622d39" compoundref="xv__hdmirx_8h" startline="229">XV_HdmiRx_Config::BaseAddress</references>
-        <references refid="struct_x_v___hdmi_rx_1ad2b9509ba5aae6678619d0e1845ef09e" compoundref="xv__hdmirx_8h" startline="283">XV_HdmiRx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c" bodystart="59" bodyend="78"/>
+        <references refid="struct_x_v___hdmi_rx___config_1af7bfcbc5394a19ebdb89c10cb8622d39" compoundref="xv__hdmirx_8h" startline="225">XV_HdmiRx_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_rx_1ad2b9509ba5aae6678619d0e1845ef09e" compoundref="xv__hdmirx_8h" startline="279">XV_HdmiRx::Config</references>
         <references refid="xv__hdmirx__hw_8h_1a4a6303e5aa23e44351563d3559d9a7cc" compoundref="xv__hdmirx__hw_8h" startline="314">XV_HDMIRX_MASK_16</references>
         <references refid="xv__hdmirx__hw_8h_1a3b2aba60044d1ec3e9ddfc0172f77141" compoundref="xv__hdmirx__hw_8h" startline="315">XV_HDMIRX_PIO_ID</references>
         <references refid="xv__hdmirx__hw_8h_1a3072b2f474e183f436eceb634d67a7cf" compoundref="xv__hdmirx__hw_8h" startline="65">XV_HDMIRX_PIO_ID_OFFSET</references>
@@ -164,6 +164,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c"/>
   </compounddef>
 </doxygen>

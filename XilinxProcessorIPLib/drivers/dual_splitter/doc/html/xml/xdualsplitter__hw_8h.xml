@@ -16,23 +16,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="46">
-        <label>xdualsplitter_g.c</label>
-      </node>
-      <node id="47">
-        <label>xdualsplitter_intr.c</label>
-        <link refid="xdualsplitter__intr_8c"/>
-      </node>
-      <node id="43">
-        <label>xdualsplitter_hw.h</label>
-        <link refid="xdualsplitter_hw.h"/>
-        <childnode refid="44" relation="include">
-        </childnode>
-      </node>
-      <node id="50">
-        <label>xdualsplitter_example.c</label>
-        <link refid="xdualsplitter__example_8c"/>
-      </node>
       <node id="48">
         <label>xdualsplitter_selftest.c</label>
         <link refid="xdualsplitter__selftest_8c"/>
@@ -40,6 +23,15 @@
       <node id="49">
         <label>xdualsplitter_sinit.c</label>
         <link refid="xdualsplitter__sinit_8c"/>
+      </node>
+      <node id="43">
+        <label>xdualsplitter_hw.h</label>
+        <link refid="xdualsplitter_hw.h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xdualsplitter_g.c</label>
       </node>
       <node id="45">
         <label>xdualsplitter.c</label>
@@ -61,6 +53,14 @@
         <childnode refid="50" relation="include">
         </childnode>
       </node>
+      <node id="50">
+        <label>xdualsplitter_example.c</label>
+        <link refid="xdualsplitter__example_8c"/>
+      </node>
+      <node id="47">
+        <label>xdualsplitter_intr.c</label>
+        <link refid="xdualsplitter__intr_8c"/>
+      </node>
     </invincdepgraph>
       <sectiondef kind="user-defined">
       <header>Core registers offsets</header>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="45" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1gae0d2add2d78533708bab0984ddb23131" prot="public" static="no">
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" prot="public" static="no">
         <name>XDUSP_IRQ_EN_OFFSET</name>
@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1gad649caaa67afb83491e3f52f4ae9f86d" prot="public" static="no">
         <name>XDUSP_TIME_CTL_OFFSET</name>
@@ -107,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="54" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
         <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
       </memberdef>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="57" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -136,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga8c493f7fecb3dcc8cfd270eac6fd68b5" prot="public" static="no">
         <name>XDUSP_GENR_CTL_RUE_MASK</name>
@@ -147,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga3643ee94cd6200a619faed8ca73a5b3f" prot="public" static="no">
         <name>XDUSP_GENR_CTL_RST_MASK</name>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="69" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
       </memberdef>
       </sectiondef>
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1gaa3083e69b468e8b018f3af6d495d1c9a" prot="public" static="no">
         <name>XDUSP_ERR_EOL_LATE_MASK</name>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1gad5c3df0fa33c98e366e3721e5e41e005" prot="public" static="no">
         <name>XDUSP_ERR_SOF_EARLY_MASK</name>
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1gaaa0cbd7bfe18600c16d01397267ca09a" prot="public" static="no">
         <name>XDUSP_ERR_SOF_LATE_MASK</name>
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" prot="public" static="no">
         <name>XDUSP_ALL_ERR_MASK</name>
@@ -220,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="89" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
       </memberdef>
       </sectiondef>
@@ -235,7 +235,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="102" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
         <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
       </memberdef>
@@ -248,7 +248,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="105" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga064f0f56cff150e7c031d151a1ceadbd" prot="public" static="no">
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="108" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="108" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
         <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
       </memberdef>
@@ -276,7 +276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="116" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="116" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -289,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="121" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -302,7 +302,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="126" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="133" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -328,7 +328,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="142" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="145" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -354,7 +354,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="148" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="148" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
       </memberdef>
@@ -370,7 +370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="161" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga7d7f7a7af0fd9de6643900e9371dccdd" prot="public" static="no">
         <name>XDualSplitter_Out32</name>
@@ -381,7 +381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="162" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" prot="public" static="no">
         <name>XDualSplitter_ReadReg</name>
@@ -411,7 +411,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="182" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="182" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
         <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
         <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
@@ -452,7 +452,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="204" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="204" bodyend="-1"/>
         <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
         <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
         <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
@@ -467,7 +467,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="28" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="28" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -558,6 +558,6 @@
 <codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="188"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h"/>
   </compounddef>
 </doxygen>

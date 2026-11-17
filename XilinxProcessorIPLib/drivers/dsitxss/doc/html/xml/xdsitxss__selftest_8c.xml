@@ -6,6 +6,15 @@
     <includes refid="xdsitxss_8h" local="yes">xdsitxss.h</includes>
     <includes local="yes">xdebug.h</includes>
     <incdepgraph>
+      <node id="59">
+        <label>xdsi.h</label>
+      </node>
+      <node id="61">
+        <label>xdebug.h</label>
+      </node>
+      <node id="56">
+        <label>xstatus.h</label>
+      </node>
       <node id="57">
         <label>xdsitxss.h</label>
         <link refid="xdsitxss_8h"/>
@@ -16,11 +25,11 @@
         <childnode refid="60" relation="include">
         </childnode>
       </node>
-      <node id="59">
-        <label>xdsi.h</label>
+      <node id="58">
+        <label>xil_types.h</label>
       </node>
-      <node id="61">
-        <label>xdebug.h</label>
+      <node id="60">
+        <label>xparameters.h</label>
       </node>
       <node id="55">
         <label>xdsitxss_selftest.c</label>
@@ -31,15 +40,6 @@
         </childnode>
         <childnode refid="61" relation="include">
         </childnode>
-      </node>
-      <node id="56">
-        <label>xstatus.h</label>
-      </node>
-      <node id="58">
-        <label>xil_types.h</label>
-      </node>
-      <node id="60">
-        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -70,13 +70,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_selftest.c" bodystart="64" bodyend="98"/>
-        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="244">XDsiTxSs::Config</references>
-        <references refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" compoundref="xdsitxss_8h" startline="205">XDsiTxSs_Config::DphyInfo</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_selftest.c" bodystart="64" bodyend="98"/>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" compoundref="xdsitxss_8h" startline="196">XDsiTxSs_Config::DphyInfo</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
         <references refid="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" compoundref="xdsitxss_8h" startline="149">DsiTxSsSubCore::IsPresent</references>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
-        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="123" endline="148">DsiTxSs_SelfTestExample</referencedby>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
+        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="115" endline="140">DsiTxSs_SelfTestExample</referencedby>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
       </sectiondef>
@@ -153,6 +153,6 @@
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="98"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_selftest.c"/>
   </compounddef>
 </doxygen>

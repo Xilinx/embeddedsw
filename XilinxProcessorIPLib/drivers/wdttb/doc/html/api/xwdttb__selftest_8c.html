@@ -100,21 +100,56 @@ $(document).ready(function(){initNavTree('xwdttb__selftest_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xwdttb_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xwdttb_8h.html">xwdttb.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the self-test function of the <a class="el" href="struct_x_wdt_tb.html" title="Stores the XWdtTb driver instance data. ">XWdtTb</a> driver. </p>
+<p>The <a class="el" href="xwdttb__selftest_8c.html" title="Implements the self-test function of the XWdtTb driver. ">xwdttb_selftest.c</a> file contains diagnostic self-test functions for the <a class="el" href="struct_x_wdt_tb.html" title="Stores the XWdtTb driver instance data. ">XWdtTb</a> component.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00b jhl  02/06/02 First release
+1.10b mta  03/23/07 Updated to new coding style
+2.00a ktn  10/22/09 Updated to use the HAL processor APIs/macros.
+4.0   sha  12/17/15 Adherence to coding and Doxygen guidelines.
+                    Changed int -&gt; u32.
+                    Update self-test with window WDT feature.
+                    Removed included xil_types, xil_io and xil_assert header
+                    files.
+                    Adherence to MISRA-C guidelines.
+4.0   sha  01/29/16 Added following macros for Window WDT feature:
+                    XWT_FW_COUNT, XWT_SW_COUNT.
+4.3   srm  01/30/18 Added doxygen tags
+4.4   sne  03/01/19 Fixed violations according to MISRAC-2012 standards
+                    modified the code for below violations,
+                    No brackets to then/else,
+                    Literal value requires a U suffix,Function return
+                    type inconsistent,Logical conjunctions need brackets,
+                    Declared the pointer param as Pointer to const,
+                    Procedure has more than one exit point.
+4.4   sne  03/04/19 Added Support for Versal.
+4.5     sne  09/27/19 Updated driver to support WWDT and AXI Timebase WDT.
+5.0     sne  01/31/20 Removed compare value registers write while
+              configuring Generic Watchdog window.
+5.0     sne  02/27/20 Reorganize the driver source.
+5.0     sne  03/09/20 Fixed MISRA-C violations.
+5.7     sb   07/12/23 Added support for system device-tree flow.
+5.12  vlt  01/28/26 Fixed codespell issues.
+5.13  vn   09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xwdttb_8h.html">xwdttb.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Self-test configuration values</div></td></tr>
 <tr class="memitem:ga4f5e675abc1651523fc8586c4ca34700"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga4f5e675abc1651523fc8586c4ca34700">XWT_MAX_SELFTEST_LOOP_COUNT</a>&#160;&#160;&#160;0x00010000U</td></tr>
-<tr class="memdesc:ga4f5e675abc1651523fc8586c4ca34700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loopt count.  <a href="group__wdttb__api.html#ga4f5e675abc1651523fc8586c4ca34700">More...</a><br/></td></tr>
+<tr class="memdesc:ga4f5e675abc1651523fc8586c4ca34700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loop count.  <a href="group__wdttb__api.html#ga4f5e675abc1651523fc8586c4ca34700">More...</a><br/></td></tr>
 <tr class="separator:ga4f5e675abc1651523fc8586c4ca34700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab51fc9c602dd4d891007e82e3d0f36c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gab51fc9c602dd4d891007e82e3d0f36c9">XWT_FW_COUNT</a>&#160;&#160;&#160;0x0U</td></tr>
-<tr class="memdesc:gab51fc9c602dd4d891007e82e3d0f36c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fist Window count.  <a href="group__wdttb__api.html#gab51fc9c602dd4d891007e82e3d0f36c9">More...</a><br/></td></tr>
+<tr class="memdesc:gab51fc9c602dd4d891007e82e3d0f36c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">First Window count.  <a href="group__wdttb__api.html#gab51fc9c602dd4d891007e82e3d0f36c9">More...</a><br/></td></tr>
 <tr class="separator:gab51fc9c602dd4d891007e82e3d0f36c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga968af3f9423a4490ad7edcdda3ebfb49"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga968af3f9423a4490ad7edcdda3ebfb49">XWT_SW_COUNT</a>&#160;&#160;&#160;0x10000U</td></tr>
 <tr class="memdesc:ga968af3f9423a4490ad7edcdda3ebfb49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second window count.  <a href="group__wdttb__api.html#ga968af3f9423a4490ad7edcdda3ebfb49">More...</a><br/></td></tr>
@@ -126,7 +161,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaa9e410506154d92a551b6261742d98b1"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">XWdtTb_SelfTest</a> (const <a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaa9e410506154d92a551b6261742d98b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the timebase or window if enabled.  <a href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">More...</a><br/></td></tr>
+<tr class="memdesc:gaa9e410506154d92a551b6261742d98b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the timebase or window if enabled.  <a href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">More...</a><br/></td></tr>
 <tr class="separator:gaa9e410506154d92a551b6261742d98b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -28,6 +28,6 @@
 <codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>add_subdirectory(scutimer)</highlight></codeline>
 <codeline lineno="20"><highlight class="normal">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

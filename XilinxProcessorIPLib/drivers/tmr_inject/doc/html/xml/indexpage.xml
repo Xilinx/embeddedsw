@@ -22,6 +22,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 1.5   adk  27/12/22 Updated addtogroup tag.
 1.6   adk  03/07/23 Added support for system device-tree flow.
 1.6   adk  08/09/23 Fixed the -Wunused-parameter warning in the driver.
+1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

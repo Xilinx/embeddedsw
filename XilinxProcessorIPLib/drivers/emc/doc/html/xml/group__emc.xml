@@ -4,8 +4,8 @@
     <compoundname>emc</compoundname>
     <title>Overview</title>
     <briefdescription>
-<para>} </para>    </briefdescription>
+<para>Declares the External Memory Controller (EMC) driver. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>} </para>    </detaileddescription>
   </compounddef>
 </doxygen>

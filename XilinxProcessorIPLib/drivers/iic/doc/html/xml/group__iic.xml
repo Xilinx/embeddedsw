@@ -1,0 +1,1928 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__iic" kind="group">
+    <compoundname>iic</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_iic___config" prot="public">XIic_Config</innerclass>
+    <innerclass refid="struct_x_iic_stats" prot="public">XIicStats</innerclass>
+    <innerclass refid="struct_x_iic" prot="public">XIic</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Configuration options</header>
+      <description><para>The following options may be specified or retrieved for the device and enable/disable additional features of the IIC bus.</para><para>Each of the options are bit fields such that more than one may be specified. </para></description>
+      <memberdef kind="define" id="group__iic_1ga44d0ebf5153203223cb5563aaa10a301" prot="public" static="no">
+        <name>XII_GENERAL_CALL_OPTION</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>General call option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="353" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="126" endline="157">XIic_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1gaeef2d22ea6248066e075044748f78a0a" prot="public" static="no">
+        <name>XII_REPEATED_START_OPTION</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Repeated start option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1gae6c2745bbe258e992bcbe4d0724e4072" prot="public" static="no">
+        <name>XII_SEND_10_BIT_OPTION</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Send 10 bit option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="357" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="group__iic__api_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="251" endline="390">XIic_MasterRecv</referencedby>
+        <referencedby refid="group__iic__api_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="110" endline="216">XIic_MasterSend</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status events</header>
+      <description><para>The following status events occur during IIC bus processing and are passed to the status callback.</para><para>Each event is only valid during the appropriate processing of the IIC bus. Each of these events are bit fields such that more than one may be specified. </para></description>
+      <memberdef kind="define" id="group__iic_1ga37e4df461ec4c6ecb22d05e4dfabd841" prot="public" static="no">
+        <name>XII_BUS_NOT_BUSY_EVENT</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Bus transitioned to not busy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="369" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1ga5843af7de7006ae82767f16bb78ee84e" prot="public" static="no">
+        <name>XII_ARB_LOST_EVENT</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Arbitration was lost. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1gab5762b506d3e39139007bb6968cdef80" prot="public" static="no">
+        <name>XII_SLAVE_NO_ACK_EVENT</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Slave did not ACK (had error) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="371" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1ga35a6e58757aa1de945b5ed48640e91cf" prot="public" static="no">
+        <name>XII_MASTER_READ_EVENT</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Master reading from slave. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="372" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1gab24f56a64912a6f65c6c87005c9ce892" prot="public" static="no">
+        <name>XII_MASTER_WRITE_EVENT</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Master writing to slave. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="373" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1gab0181a51cd40861af2b60cd879f2dd86" prot="public" static="no">
+        <name>XII_GENERAL_CALL_EVENT</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>General call to all slaves. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="374" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__iic_1ga85db866c44d23a4c6e985f2c6c647053" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XIic_Handler)(void *CallBackRef, int ByteCount)</definition>
+        <argsstring>)(void *CallBackRef, int ByteCount)</argsstring>
+        <name>XIic_Handler</name>
+        <briefdescription>
+<para>Defines the send and receive callback type for the IIC driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This callback function data type is defined to handle the asynchronous processing of sent and received data of the IIC driver. The application using this driver is expected to define a handler of this type to support interrupt driven mode. The handlers are called in an interrupt context such that minimal processing should be performed. The handler data type is utilized for both send and receive handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. Its type is unimportant to the driver component, so it is a void pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates the number of bytes remaining to be sent or received. A value of zero indicates that the requested number of bytes were sent or received. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__iic_1gac96e3f6975be1bdb8fe5956812855962" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XIic_StatusHandler)(void *CallBackRef, int StatusEvent)</definition>
+        <argsstring>)(void *CallBackRef, int StatusEvent)</argsstring>
+        <name>XIic_StatusHandler</name>
+        <briefdescription>
+<para>Defines the status callback type for the IIC driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This callback function data type is defined to handle the asynchronous processing of status events of the IIC driver. The application using this driver is expected to define a handler of this type to support interrupt driven mode. The handler is called in an interrupt context such that minimal processing should be performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. Its type is unimportant to the driver component, so it is a void pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates one or more status events that occurred. See the definition of the status events above. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iic_1gaf4f74d08f52c1a9e6e1e0ee4035fe8eb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIic_IsIicBusy</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_IsIicBusy</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns whether the I2C bus is busy or free. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is a function which tells whether the I2C bus is busy or free.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the bus is busy.</para></listitem><listitem><para>FALSE if the bus is NOT busy. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="527" bodyend="530"/>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga96f409bb662ff9aaf349002ced83aaac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_Initialize</definition>
+        <argsstring>(XIic *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XIic_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initializes a specific <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance. The initialization entails:</para><para><itemizedlist>
+<listitem><para>Check the device has an entry in the configuration table.</para></listitem><listitem><para>Initialize the driver to allow access to the device registers and initialize other subcomponents necessary for the operation of the device.</para></listitem><listitem><para>Default options to:<itemizedlist>
+<listitem><para>7-bit slave addressing</para></listitem><listitem><para>Send messages as a slave device</para></listitem><listitem><para>Repeated start off</para></listitem><listitem><para>General call recognition disabled</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Clear messageing and error statistics</para></listitem></itemizedlist>
+</para><para>The <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> function must be called after this function before the device is ready to send and receive data on the IIC bus.</para><para>Before <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> is called, the interrupt control must connect the ISR routine to the interrupt handler. This is done by the application, and not <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref>, to allow the use of any interrupt controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when successful</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND indicates the given device id/BaseAddress isn&apos;t found</para></listitem><listitem><para>XST_DEVICE_IS_STARTED indicates the device is started (that is interrupts enabled and messaging is possible). Must stop before re-initialization is allowed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_sinit.c" bodystart="165" bodyend="190"/>
+        <references refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" compoundref="xiic_8h" startline="396">XIic_Config::BaseAddress</references>
+        <references refid="group__iic__api_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</references>
+        <references refid="group__iic_1ga9a97d3d56689e80a6773701e1bf0e808" compoundref="xiic__sinit_8c" startline="100" endline="114">XIic_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga9a97d3d56689e80a6773701e1bf0e808" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref> *</type>
+        <definition>XIic_Config* XIic_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XIic_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration by unique device ID or base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. The XIic_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xiic_8h" kindref="compound">xiic.h</ref> for the definition of <ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_sinit.c" bodystart="100" bodyend="114"/>
+        <references refid="struct_x_iic___config_1a031ffc079eab713ef80fc3b6ac05c1a5" compoundref="xiic_8h" startline="394">XIic_Config::Name</references>
+        <references refid="group__iic__api_1gabf1a99c517996564a1bfa7ccecd1e6f5" compoundref="xiic__g_8c" startline="58">XIic_ConfigTable</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="192" endline="265">IicPmbusPolledExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__selftest__example_8c_1a3c732a0c3f0c51e73fae3f189232bd0b" compoundref="xiic__selftest__example_8c" startline="140" endline="174">IicSelfTestExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+        <referencedby refid="group__iic__api_1ga96f409bb662ff9aaf349002ced83aaac" compoundref="xiic__sinit_8c" startline="165" endline="190">XIic_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_CfgInitialize</definition>
+        <argsstring>(XIic *InstancePtr, XIic_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XIic_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initializes a specific <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance. The initialization entails:</para><para><itemizedlist>
+<listitem><para>Initialize the driver to allow access to the device registers and initialize other subcomponents necessary for the operation of the device.</para></listitem><listitem><para>Default options to:<itemizedlist>
+<listitem><para>7-bit slave addressing</para></listitem><listitem><para>Send messages as a slave device</para></listitem><listitem><para>Repeated start off</para></listitem><listitem><para>General call recognition disabled</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Clear messageing and error statistics</para></listitem></itemizedlist>
+</para><para>The <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> function must be called after this function before the device is ready to send and receive data on the IIC bus.</para><para>Before <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> is called, the interrupt control must connect the ISR routine to the interrupt handler. This is done by the application, and not <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref>, to allow the use of any interrupt controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to a structure containing information about a specific IIC device. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when successful</para></listitem><listitem><para>XST_DEVICE_IS_STARTED indicates the device is started (that is interrupts enabled and messaging is possible). Must stop before re-initialization is allowed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="139" bodyend="191"/>
+        <references refid="struct_x_iic___config_1af821a4e2f518e1351466a870e8089af7" compoundref="xiic_8h" startline="409">XIic_Config::AxiClkFreq</references>
+        <references refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" compoundref="xiic_8h" startline="506">XIic::AxiClkFreq</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1a309fbb83dcbf11ecb031fc3283c21bd1" compoundref="xiic_8h" startline="492">XIic::BNBOnly</references>
+        <references refid="struct_x_iic___config_1a65ecc64160873e6910dab26b912f437f" compoundref="xiic_8h" startline="398">XIic_Config::GpOutWidth</references>
+        <references refid="struct_x_iic_1a19e2155bd464d4dc9e13d5008e22b404" compoundref="xiic_8h" startline="494">XIic::GpOutWidth</references>
+        <references refid="struct_x_iic___config_1aa0d66ed6f0ba5a65d444a8cff6a2ea40" compoundref="xiic_8h" startline="397">XIic_Config::Has10BitAddr</references>
+        <references refid="struct_x_iic_1a8ab26622cd8ec42dde9515c917a6f5ab" compoundref="xiic_8h" startline="480">XIic::Has10BitAddr</references>
+        <references refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" compoundref="xiic_8h" startline="502">XIic::IsDynamic</references>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1a85857f85c5a0fc9af74f3a6745839eca" compoundref="xiic_8h" startline="503">XIic::IsSlaveSetAckOff</references>
+        <references refid="struct_x_iic_1add800c0b51a637b186fa8e3b6adf7a7f" compoundref="xiic_8h" startline="482">XIic::IsStarted</references>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+        <references refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" compoundref="xiic_8h" startline="487">XIic::RecvBufferPtr</references>
+        <references refid="struct_x_iic_1a6459379a9289a7db0f29ded8c4696e7e" compoundref="xiic_8h" startline="498">XIic::RecvHandler</references>
+        <references refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" compoundref="xiic_8h" startline="486">XIic::SendBufferPtr</references>
+        <references refid="struct_x_iic_1aeb346adbf6b1c39840c28e52bb5283e0" compoundref="xiic_8h" startline="500">XIic::SendHandler</references>
+        <references refid="struct_x_iic___config_1a453f6cc99df76bf1c12293b36e44782c" compoundref="xiic_8h" startline="408">XIic_Config::SerialClkDelay</references>
+        <references refid="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" compoundref="xiic_8h" startline="505">XIic::SerialClkDelay</references>
+        <references refid="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" compoundref="xiic_8h" startline="496">XIic::StatusHandler</references>
+        <references refid="group__iic_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="101" endline="114">XIic_ClearStats</references>
+        <references refid="group__iic__api_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="344" endline="351">XIic_Reset</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="192" endline="265">IicPmbusPolledExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__selftest__example_8c_1a3c732a0c3f0c51e73fae3f189232bd0b" compoundref="xiic__selftest__example_8c" startline="140" endline="174">IicSelfTestExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+        <referencedby refid="group__iic__api_1ga96f409bb662ff9aaf349002ced83aaac" compoundref="xiic__sinit_8c" startline="165" endline="190">XIic_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga5f4e497710a9c3719f27d40faa74a10f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_Start</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_Start</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Starts the IIC device and driver by enabling the proper interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function starts the IIC device and driver by enabling the proper interrupts such that data may be sent and received on the IIC bus. This function must be called before the functions to send and receive data.</para><para>Before <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> is called, the interrupt control must connect the ISR routine to the interrupt handler. This is done by the application, and not <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref>, to allow the use of any interrupt controller.</para><para>Start enables:<itemizedlist>
+<listitem><para>IIC device</para></listitem><listitem><para>Interrupts:<itemizedlist>
+<listitem><para>Addressed as slave to allow messages from another master</para></listitem><listitem><para>Arbitration Lost to detect Tx arbitration errors</para></listitem><listitem><para>Global IIC interrupt</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS always.</para></simplesect>
+<simplesect kind="note"><para>The device interrupt is connected to the interrupt controller, but no &quot;messaging&quot; interrupts are enabled. Addressed as Slave is enabled to reception of messages when this devices address is written to the bus. The correct messaging interrupts are enabled when sending or receiving via the IicSend() and IicRecv() functions. No action is required by the application to control any IIC interrupts as the driver completely manages all 8 interrupts. Start and Stop control the ability to use the device. Stopping the device completely stops all device interrupts from the processor. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="228" bodyend="270"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" compoundref="xiic_8h" startline="502">XIic::IsDynamic</references>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1add800c0b51a637b186fa8e3b6adf7a7f" compoundref="xiic_8h" startline="482">XIic::IsStarted</references>
+        <references refid="group__iic__api_1ga538db75a9a83f1f886fa07d4fcabaf75" compoundref="xiic__i_8h" startline="232">XIic_ClearEnableIntr</references>
+        <references refid="group__iic__api_1gabdc7dde7268b381e056c38ebb760fed5" compoundref="xiic__i_8h" startline="210">XIic_ClearIntr</references>
+        <references refid="group__iic__api_1gaa4fa9698cb076131f2d4571ef3bae6f3" compoundref="xiic__l_8h" startline="193">XIIC_CR_ENABLE_DEVICE_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga88cf05913ad5693c477993c2af6cbd7e" compoundref="xiic__l_8h" startline="162">XIIC_INTR_AAS_MASK</references>
+        <references refid="group__iic__api_1gabb6a638c0aa6ee9e3b50dc5d2ca56770" compoundref="xiic__l_8h" startline="157">XIIC_INTR_ARB_LOST_MASK</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gad032470e4ff2a3760aa63f2c3d7e5240" compoundref="xiic__l_8h" startline="106">XIIC_RFD_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga2f926a076e9a6b80bea46664d2e55ee9" compoundref="xiic__l_8h" startline="440">XIic_WriteIier</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="538" endline="594">DynEepromReadData</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="442" endline="522">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" compoundref="xiic__eeprom__example_8c" startline="593" endline="657">EepromReadData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="498" endline="577">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="192" endline="265">IicPmbusPolledExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="290" endline="343">SlaveReadData</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="359" endline="411">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="295" endline="348">TenBitAddrReadData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="364" endline="415">TenBitAddrWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gaaa989e0128057bf11803825d774d496f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_Stop</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_Stop</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stops the IIC device and driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function stops the IIC device and driver such that data is no longer sent or received on the IIC bus. This function stops the device by disabling interrupts. This function only disables interrupts within the device such that the caller is responsible for disconnecting the interrupt handler of the device from the interrupt source and disabling interrupts at other levels.</para><para>Due to bus throttling that could hold the bus between messages when using repeated start option, stop does not occur when the device is actively sending or receiving data from the IIC bus or the bus is being throttled by this device, but instead return XST_IIC_BUS_BUSY.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS indicates all IIC interrupts are disabled. No messages can be received or transmitted until <ref refid="group__iic__api_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start()</ref> is called.</para></listitem><listitem><para>XST_IIC_BUS_BUSY indicates this device is currently engaged in message traffic and cannot be stopped. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="297" bodyend="327"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1add800c0b51a637b186fa8e3b6adf7a7f" compoundref="xiic_8h" startline="482">XIic::IsStarted</references>
+        <references refid="group__iic__api_1gafa18a79f31c286ce3daf88d677096d9d" compoundref="xiic__l_8h" startline="195">XIIC_CR_MSMS_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gab0fe4841630cc66a6b93e5a5d2512fde" compoundref="xiic__l_8h" startline="209">XIIC_SR_ADDR_AS_SLAVE_MASK</references>
+        <references refid="group__iic__api_1gaa039f3dea3b57add15de333f733b5561" compoundref="xiic__l_8h" startline="99">XIIC_SR_REG_OFFSET</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="538" endline="594">DynEepromReadData</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="442" endline="522">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" compoundref="xiic__eeprom__example_8c" startline="593" endline="657">EepromReadData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="498" endline="577">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="290" endline="343">SlaveReadData</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="359" endline="411">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="295" endline="348">TenBitAddrReadData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="364" endline="415">TenBitAddrWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga237935ed7fb41369f52d1d8a4f6fe2a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_Reset</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_Reset</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Resets the IIC device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The complete IIC core is Reset on giving a software reset to the IIC core. Some previous versions of the core only reset the Interrupt Logic/Registers. Refer to the HW specification for further details about this. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="344" bodyend="351"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="group__iic__api_1gad29589acad66518bac5f21a670ccc9a5" compoundref="xiic__l_8h" startline="186">XIIC_RESET_MASK</references>
+        <references refid="group__iic__api_1ga2129f15b6d659403e4aa18355aa67884" compoundref="xiic__l_8h" startline="97">XIIC_RESETR_OFFSET</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group__iic__api_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="87" endline="140">XIic_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gad944f42c3d9972fc2c986a7eed726297" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_SetAddress</definition>
+        <argsstring>(XIic *InstancePtr, int AddressType, int Address)</argsstring>
+        <name>XIic_SetAddress</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>AddressType</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Sets the bus addresses. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the bus addresses. The addresses include the device address that the device responds to as a slave, or the slave address to communicate with on the bus. The IIC device hardware is built to allow either 7 or 10 bit slave addressing only at build time rather than at run time. When this device is a master, slave addressing can be selected at run time to match addressing modes for other bus devices.</para><para>Addresses are represented as hex values with no adjustment for the data direction bit as the software manages address bit placement. Example: For a 7 address written to the device of 1010 011X where X is the transfer direction (send/recv), the address parameter for this function needs to be 01010011 or 0x53 where the correct bit alignment is handled for 7 as well as 10 bit devices. This is especially important as the bit placement is not handled the same depending on which options are used such as repeated start.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AddressType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates which address is being modified, the address which this device responds to on the IIC bus as a slave, or the slave address to communicate with when this device is a master. One of the following values must be contained in this argument. <preformatted>
+  XII_ADDR_TO_SEND_TYPE Slave being addressed by a this master
+  XII_ADDR_TO_RESPOND_TYPE      Address to respond to as a slave device
+</preformatted></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to be set, 7 bit or 10 bit address. A ten bit address must be within the range: 0 - 1023 and a 7 bit address must be within the range 0 - 127.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS is returned if the address was successfully set.</para></listitem><listitem><para>XST_IIC_NO_10_BIT_ADDRESSING indicates only 7 bit addressing supported.</para></listitem><listitem><para>XST_INVALID_PARAM indicates an invalid parameter was specified.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Upper bits of 10-bit address is written only when current device is built as a ten bit device. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="398" bodyend="438"/>
+        <references refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" compoundref="xiic_8h" startline="483">XIic::AddrOfSlave</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1a8ab26622cd8ec42dde9515c917a6f5ab" compoundref="xiic_8h" startline="480">XIic::Has10BitAddr</references>
+        <references refid="group__iic_1gab3f6ec08afcad8f35f9ee2c9e2531366" compoundref="xiic_8h" startline="383">XII_ADDR_TO_RESPOND_TYPE</references>
+        <references refid="group__iic_1gace6af337aea33e4f162897b40591e0ac" compoundref="xiic_8h" startline="382">XII_ADDR_TO_SEND_TYPE</references>
+        <references refid="group__iic__api_1ga831a9fbdcfebad501e336231321be40a" compoundref="xiic__l_8h" startline="102">XIIC_ADR_REG_OFFSET</references>
+        <references refid="group__iic__api_1gaf50b1672278bdf573cd74e36768b0cda" compoundref="xiic__l_8h" startline="105">XIIC_TBA_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga3e8f77e5df8d92a4b27627e03b5e1807" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XIic_GetAddress</definition>
+        <argsstring>(XIic *InstancePtr, int AddressType)</argsstring>
+        <name>XIic_GetAddress</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>AddressType</declname>
+        </param>
+        <briefdescription>
+<para>Gets the addresses for the IIC device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function gets the addresses for the IIC device driver. The addresses include the device address that the device responds to as a slave, or the slave address to communicate with on the bus. The address returned has the same format whether 7 or 10 bits.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AddressType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates which address, the address which this responds to on the IIC bus as a slave, or the slave address to communicate with when this device is a master. One of the following values must be contained in this argument. <preformatted>
+  XII_ADDR_TO_SEND_TYPE Slave being addressed as a master
+  XII_ADDR_TO_RESPOND_TYPE      Slave address to respond to as a slave
+</preformatted> If neither of the two valid arguments are used, the function returns the address of the slave device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The address retrieved. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="465" bodyend="491"/>
+        <references refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" compoundref="xiic_8h" startline="483">XIic::AddrOfSlave</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1a8ab26622cd8ec42dde9515c917a6f5ab" compoundref="xiic_8h" startline="480">XIic::Has10BitAddr</references>
+        <references refid="group__iic_1gab3f6ec08afcad8f35f9ee2c9e2531366" compoundref="xiic_8h" startline="383">XII_ADDR_TO_RESPOND_TYPE</references>
+        <references refid="group__iic__api_1ga831a9fbdcfebad501e336231321be40a" compoundref="xiic__l_8h" startline="102">XIIC_ADR_REG_OFFSET</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gaf50b1672278bdf573cd74e36768b0cda" compoundref="xiic__l_8h" startline="105">XIIC_TBA_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gafe4e886e72abb9d860a6cb83c84c74a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_SetGpOutput</definition>
+        <argsstring>(XIic *InstancePtr, u8 OutputValue)</argsstring>
+        <name>XIic_SetGpOutput</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>OutputValue</declname>
+        </param>
+        <briefdescription>
+<para>Sets the contents of the IIC General Purpose Output register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the contents of the General Purpose Output register for the IIC device driver. Note that the number of bits in this register is parameterizable in the hardware such that it may not exist. This function checks to ensure that it does exist to prevent bus errors, but does not ensure that the number of bits in the register are sufficient for the value being written (won&apos;t cause a bus error).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">OutputValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the given data is written to the GPO register.</para></listitem><listitem><para>XST_NO_FEATURE if the hardware is configured such that this register does not contain any bits to read or write. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="514" bodyend="529"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1a19e2155bd464d4dc9e13d5008e22b404" compoundref="xiic_8h" startline="494">XIic::GpOutWidth</references>
+        <references refid="group__iic__api_1gaf901951024f3144cd51ce84d897a5f5b" compoundref="xiic__l_8h" startline="107">XIIC_GPO_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga4108f79d22b71e2455844a8487b1a776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_GetGpOutput</definition>
+        <argsstring>(XIic *InstancePtr, u8 *OutputValuePtr)</argsstring>
+        <name>XIic_GetGpOutput</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>OutputValuePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the contents of the IIC General Purpose Output register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function gets the contents of the General Purpose Output register for the IIC device driver. Note that the number of bits in this register is parameterizable in the hardware such that it may not exist. This function checks to ensure that it does exist to prevent bus errors.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">OutputValuePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value which was read from the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the given data is read from the GPO register.</para></listitem><listitem><para>XST_NO_FEATURE if the hardware is configured such that this register does not contain any bits to read or write. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="550" bodyend="566"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1a19e2155bd464d4dc9e13d5008e22b404" compoundref="xiic_8h" startline="494">XIic::GpOutWidth</references>
+        <references refid="group__iic__api_1gaf901951024f3144cd51ce84d897a5f5b" compoundref="xiic__l_8h" startline="107">XIIC_GPO_REG_OFFSET</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gaa4b84f9d58cbd40d2633140d79e2aed4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIic_IsSlave</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_IsSlave</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Determines if the device is currently addressed as a slave. </para>        </briefdescription>
+        <detaileddescription>
+<para>A function to determine if the device is currently addressed as a slave.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the device is addressed as slave.</para></listitem><listitem><para>FALSE if the device is NOT addressed as slave. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="582" bodyend="591"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gab0fe4841630cc66a6b93e5a5d2512fde" compoundref="xiic__l_8h" startline="209">XIIC_SR_ADDR_AS_SLAVE_MASK</references>
+        <references refid="group__iic__api_1gaa039f3dea3b57add15de333f733b5561" compoundref="xiic__l_8h" startline="99">XIIC_SR_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga86b4b2b307df26df2ecac39337c78bed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_SetRecvHandler</definition>
+        <argsstring>(XIic *InstancePtr, void *CallBackRef, XIic_Handler FuncPtr)</argsstring>
+        <name>XIic_SetRecvHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type><ref refid="group__iic_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the receive handler that the driver calls after receiving data. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the receive callback function, the receive handler, which the driver calls when it finishes receiving data. The number of bytes used to signal when the receive is complete is the number of bytes set in the XIic_Recv function.</para><para>The handler executes in an interrupt context such that it must minimize the amount of processing performed such as transferring data to a thread context.</para><para>The number of bytes received is passed to the handler as an argument.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The handler is called within interrupt context. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="616" bodyend="625"/>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1a089dc79200a64984f2fc5dca2b3a0ab5" compoundref="xiic_8h" startline="499">XIic::RecvCallBackRef</references>
+        <references refid="struct_x_iic_1a6459379a9289a7db0f29ded8c4696e7e" compoundref="xiic_8h" startline="498">XIic::RecvHandler</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gad33428830e9016ef50c1deae59d1e604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_SetSendHandler</definition>
+        <argsstring>(XIic *InstancePtr, void *CallBackRef, XIic_Handler FuncPtr)</argsstring>
+        <name>XIic_SetSendHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type><ref refid="group__iic_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the send handler called on confirmation of sent data. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the send callback function, the send handler, which the driver calls when it receives confirmation of sent data. The handler executes in an interrupt context such that it must minimize the amount of processing performed such as transferring data to a thread context.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The handler is called within interrupt context. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="645" bodyend="654"/>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1a42ba7a5a3635caf03b7e15fa3348b32f" compoundref="xiic_8h" startline="501">XIic::SendCallBackRef</references>
+        <references refid="struct_x_iic_1aeb346adbf6b1c39840c28e52bb5283e0" compoundref="xiic_8h" startline="500">XIic::SendHandler</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gaa74a6884f6dfc826a10768d7d0333991" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_SetStatusHandler</definition>
+        <argsstring>(XIic *InstancePtr, void *CallBackRef, XIic_StatusHandler FuncPtr)</argsstring>
+        <name>XIic_SetStatusHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type><ref refid="group__iic_1gac96e3f6975be1bdb8fe5956812855962" kindref="member">XIic_StatusHandler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the status handler for events that are not data related. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the status callback function, the status handler, which the driver calls when it encounters conditions which are not data related. The handler executes in an interrupt context such that it must minimize the amount of processing performed such as transferring data to a thread context. The status events that can be returned are described in <ref refid="xiic_8h" kindref="compound">xiic.h</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The handler is called within interrupt context. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.c" bodystart="675" bodyend="684"/>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1a97be26eed0e2551b19c3a296c1c20909" compoundref="xiic_8h" startline="497">XIic::StatusCallBackRef</references>
+        <references refid="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" compoundref="xiic_8h" startline="496">XIic::StatusHandler</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga50c5aa4448e8993c80ef7b6a87b1aaea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_InterruptHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XIic_InterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Handles interrupts for the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver. This function should be connected to the interrupt system.</para><para>Only one interrupt source is handled for each interrupt allowing higher priority system interrupts quicker response time.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="116" bodyend="235"/>
+        <references refid="struct_x_iic_stats_1a8dd8285757503a00e678eba64ba60713" compoundref="xiic_8h" startline="459">XIicStats::ArbitrationLost</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1a309fbb83dcbf11ecb031fc3283c21bd1" compoundref="xiic_8h" startline="492">XIic::BNBOnly</references>
+        <references refid="struct_x_iic_stats_1a029e0c1dd27db0a22e07c79d158db149" compoundref="xiic_8h" startline="467">XIicStats::IicInterrupts</references>
+        <references refid="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" compoundref="xiic_8h" startline="490">XIic::RecvByteCount</references>
+        <references refid="struct_x_iic_stats_1a1e4c261ba880898121d01fef25272640" compoundref="xiic_8h" startline="463">XIicStats::RecvInterrupts</references>
+        <references refid="struct_x_iic_1a42ba7a5a3635caf03b7e15fa3348b32f" compoundref="xiic_8h" startline="501">XIic::SendCallBackRef</references>
+        <references refid="struct_x_iic_1aeb346adbf6b1c39840c28e52bb5283e0" compoundref="xiic_8h" startline="500">XIic::SendHandler</references>
+        <references refid="struct_x_iic_stats_1a91c185703ed112b39723e7141f33c760" compoundref="xiic_8h" startline="465">XIicStats::SendInterrupts</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+        <references refid="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" compoundref="xiic_8h" startline="466">XIicStats::TxErrors</references>
+        <references refid="group__iic__api_1ga8a0957e678ee52796740e343c783ba63" compoundref="xiic__i_8h" startline="168">XIic_DisableIntr</references>
+        <references refid="group__iic__api_1ga88cf05913ad5693c477993c2af6cbd7e" compoundref="xiic__l_8h" startline="162">XIIC_INTR_AAS_MASK</references>
+        <references refid="group__iic__api_1gabb6a638c0aa6ee9e3b50dc5d2ca56770" compoundref="xiic__l_8h" startline="157">XIIC_INTR_ARB_LOST_MASK</references>
+        <references refid="group__iic__api_1ga52e6f9aadc4cc828509347c6768d2c25" compoundref="xiic__l_8h" startline="161">XIIC_INTR_BNB_MASK</references>
+        <references refid="group__iic__api_1gab153bb7f21133bf7471c70f4089494a5" compoundref="xiic__l_8h" startline="163">XIIC_INTR_NAAS_MASK</references>
+        <references refid="group__iic__api_1gac96fa03c6a514cd87cb9deadaef7e574" compoundref="xiic__l_8h" startline="160">XIIC_INTR_RX_FULL_MASK</references>
+        <references refid="group__iic__api_1gadc15e89e891805d58f729c4d1f56b093" compoundref="xiic__l_8h" startline="159">XIIC_INTR_TX_EMPTY_MASK</references>
+        <references refid="group__iic__api_1gaa1ea99d449fd02f69d41d0f41f093282" compoundref="xiic__l_8h" startline="158">XIIC_INTR_TX_ERROR_MASK</references>
+        <references refid="group__iic__api_1ga4af241dbcd0cb4184fe594d09954f69c" compoundref="xiic__l_8h" startline="164">XIIC_INTR_TX_HALF_MASK</references>
+        <references refid="group__iic__api_1gaa839067df3b55f3181db24ebd8db3187" compoundref="xiic__l_8h" startline="369">XIic_IsIntrGlobalEnabled</references>
+        <references refid="group__iic__api_1gaee17ffc86a8270abeb1319e8c67ccce5" compoundref="xiic__l_8h" startline="459">XIic_ReadIier</references>
+        <references refid="group__iic__api_1gaf69a6487ad62b105aa3bb8d0e25b7fe7" compoundref="xiic__l_8h" startline="417">XIic_ReadIisr</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gab0fe4841630cc66a6b93e5a5d2512fde" compoundref="xiic__l_8h" startline="209">XIIC_SR_ADDR_AS_SLAVE_MASK</references>
+        <references refid="group__iic__api_1gaa039f3dea3b57add15de333f733b5561" compoundref="xiic__l_8h" startline="99">XIIC_SR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga3bc448908013aceb690c84fdbb7d66a8" compoundref="xiic__l_8h" startline="396">XIic_WriteIisr</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga337bf0d322d4a7d9b4f8baa30e00ab45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_MasterRecv</definition>
+        <argsstring>(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount)</argsstring>
+        <name>XIic_MasterRecv</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RxMsgPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Receives data as a master from a slave device on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function receives data as a master from a slave device on the IIC bus. If the bus is busy, it indicates so and then enable an interrupt such that the status handler is called when the bus is no longer busy. The slave address which has been set with the <ref refid="group__iic__api_1gad944f42c3d9972fc2c986a7eed726297" kindref="member">XIic_SetAddress()</ref> function is the address from which data is received. Receiving data on the bus performs a read operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Iic instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RxMsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to hold the data that is received. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of message bytes to be received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS indicates the message reception processes has been initiated.</para></listitem><listitem><para>XST_IIC_BUS_BUSY indicates the bus was in use and that the BusNotBusy interrupt is enabled which updates the EventStatus when the bus is no longer busy.</para></listitem><listitem><para>XST_IIC_GENERAL_CALL_ADDRESS indicates the slave address is set to the general call address. This is not allowed for Master receive mode. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_master.c" bodystart="251" bodyend="390"/>
+        <references refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" compoundref="xiic_8h" startline="483">XIic::AddrOfSlave</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="group__iic__api_1ga23db93d1ef8c4651eba08f22fff2ee36" compoundref="xiic__l_8h" startline="232">IIC_RX_FIFO_DEPTH</references>
+        <references refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" compoundref="xiic_8h" startline="502">XIic::IsDynamic</references>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+        <references refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" compoundref="xiic_8h" startline="487">XIic::RecvBufferPtr</references>
+        <references refid="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" compoundref="xiic_8h" startline="490">XIic::RecvByteCount</references>
+        <references refid="struct_x_iic_stats_1a883cabf0999ea6eb384a5ead3b02477c" compoundref="xiic_8h" startline="460">XIicStats::RepeatedStarts</references>
+        <references refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" compoundref="xiic_8h" startline="486">XIic::SendBufferPtr</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+        <references refid="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" compoundref="xiic_8h" startline="488">XIic::TxAddrMode</references>
+        <references refid="group__iic_1gae6c2745bbe258e992bcbe4d0724e4072" compoundref="xiic_8h" startline="357">XII_SEND_10_BIT_OPTION</references>
+        <references refid="group__iic__api_1ga538db75a9a83f1f886fa07d4fcabaf75" compoundref="xiic__i_8h" startline="232">XIic_ClearEnableIntr</references>
+        <references refid="group__iic__api_1gafa18a79f31c286ce3daf88d677096d9d" compoundref="xiic__l_8h" startline="195">XIIC_CR_MSMS_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga5d0c5d60de4fd0ca22e12b8be3870656" compoundref="xiic__l_8h" startline="198">XIIC_CR_REPEATED_START_MASK</references>
+        <references refid="group__iic__api_1gac96fa03c6a514cd87cb9deadaef7e574" compoundref="xiic__l_8h" startline="160">XIIC_INTR_RX_FULL_MASK</references>
+        <references refid="group__iic__api_1gadc15e89e891805d58f729c4d1f56b093" compoundref="xiic__l_8h" startline="159">XIIC_INTR_TX_EMPTY_MASK</references>
+        <references refid="group__iic__api_1gaa1ea99d449fd02f69d41d0f41f093282" compoundref="xiic__l_8h" startline="158">XIIC_INTR_TX_ERROR_MASK</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1ga4778f9f2485a50cbbf522b69114d0213" compoundref="xiic__master_8c" startline="74">XIIC_MASTER_INCLUDE</references>
+        <references refid="group__iic__api_1gab81f7edf097fc4a885fd6134a288a817" compoundref="xiic__l_8h" startline="244">XIIC_READ_OPERATION</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gad032470e4ff2a3760aa63f2c3d7e5240" compoundref="xiic__l_8h" startline="106">XIIC_RFD_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga2001584e918a36a4bfdad231b445d99b" compoundref="xiic__i_8h" startline="99">XIic_Send10BitAddrByte1</references>
+        <references refid="group__iic__api_1ga19cce81b13c7a687ae09311c79918ee0" compoundref="xiic__i_8h" startline="123">XIic_Send10BitAddrByte2</references>
+        <references refid="group__iic__api_1ga0479da320de8a400d6d40748655111ac" compoundref="xiic__i_8h" startline="143">XIic_Send7BitAddr</references>
+        <references refid="group__iic__api_1ga5b8c330e8cacc286d9cd1ddee97bf8b0" compoundref="xiic__i_8h" startline="361">XIic_SetControlRegister</references>
+        <references refid="group__iic__api_1ga583c53065c484392c51e5b6807e6fdef" compoundref="xiic__l_8h" startline="237">XIIC_TX_ADDR_MSTR_RECV_MASK</references>
+        <references refid="group__iic__api_1ga1afdcdb48ad26804632e542e3d45b25a" compoundref="xiic__l_8h" startline="235">XIIC_TX_ADDR_SENT</references>
+        <references refid="group__iic__api_1ga8bb1f3ab452d41daf06eff8d61048fe8" compoundref="xiic__l_8h" startline="245">XIIC_WRITE_OPERATION</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__eeprom__example_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" compoundref="xiic__eeprom__example_8c" startline="593" endline="657">EepromReadData</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga977382e8a20bd5e690229f82af2e7603" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_MasterSend</definition>
+        <argsstring>(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)</argsstring>
+        <name>XIic_MasterSend</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TxMsgPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sends data as a master on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sends data as a master on the IIC bus. If the bus is busy, it indicates so and then enable an interrupt such that the status handler is called when the bus is no longer busy. The slave address which has been set with the <ref refid="group__iic__api_1gad944f42c3d9972fc2c986a7eed726297" kindref="member">XIic_SetAddress()</ref> function is the address to which the specific data is sent. Sending data on the bus performs a write operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Iic instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TxMsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be transmitted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of message bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS indicates the message transmission has been initiated.</para></listitem><listitem><para>XST_IIC_BUS_BUSY indicates the bus was in use and that the BusNotBusy interrupt is enabled which updates the EventStatus when the bus is no longer busy. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_master.c" bodystart="110" bodyend="216"/>
+        <references refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" compoundref="xiic_8h" startline="483">XIic::AddrOfSlave</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" compoundref="xiic_8h" startline="502">XIic::IsDynamic</references>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+        <references refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" compoundref="xiic_8h" startline="487">XIic::RecvBufferPtr</references>
+        <references refid="struct_x_iic_stats_1a883cabf0999ea6eb384a5ead3b02477c" compoundref="xiic_8h" startline="460">XIicStats::RepeatedStarts</references>
+        <references refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" compoundref="xiic_8h" startline="486">XIic::SendBufferPtr</references>
+        <references refid="struct_x_iic_1a754131dbb0faeda957f6124df82eecf0" compoundref="xiic_8h" startline="489">XIic::SendByteCount</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+        <references refid="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" compoundref="xiic_8h" startline="488">XIic::TxAddrMode</references>
+        <references refid="group__iic_1gae6c2745bbe258e992bcbe4d0724e4072" compoundref="xiic_8h" startline="357">XII_SEND_10_BIT_OPTION</references>
+        <references refid="group__iic__api_1ga538db75a9a83f1f886fa07d4fcabaf75" compoundref="xiic__i_8h" startline="232">XIic_ClearEnableIntr</references>
+        <references refid="group__iic__api_1gaefca9cb59ce820ea4fbb4c35f5a1fa55" compoundref="xiic__l_8h" startline="196">XIIC_CR_DIR_IS_TX_MASK</references>
+        <references refid="group__iic__api_1gafa18a79f31c286ce3daf88d677096d9d" compoundref="xiic__l_8h" startline="195">XIIC_CR_MSMS_MASK</references>
+        <references refid="group__iic__api_1ga79990adaa6f077302644d7b787b19c53" compoundref="xiic__l_8h" startline="197">XIIC_CR_NO_ACK_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga5d0c5d60de4fd0ca22e12b8be3870656" compoundref="xiic__l_8h" startline="198">XIIC_CR_REPEATED_START_MASK</references>
+        <references refid="group__iic__api_1gadc15e89e891805d58f729c4d1f56b093" compoundref="xiic__l_8h" startline="159">XIIC_INTR_TX_EMPTY_MASK</references>
+        <references refid="group__iic__api_1gaa1ea99d449fd02f69d41d0f41f093282" compoundref="xiic__l_8h" startline="158">XIIC_INTR_TX_ERROR_MASK</references>
+        <references refid="group__iic__api_1ga4af241dbcd0cb4184fe594d09954f69c" compoundref="xiic__l_8h" startline="164">XIIC_INTR_TX_HALF_MASK</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1ga4778f9f2485a50cbbf522b69114d0213" compoundref="xiic__master_8c" startline="74">XIIC_MASTER_INCLUDE</references>
+        <references refid="group__iic__api_1gaa0040c82cb3f8c0bbff61cbbad86e1ac" compoundref="xiic__l_8h" startline="252">XIIC_MASTER_ROLE</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1ga2001584e918a36a4bfdad231b445d99b" compoundref="xiic__i_8h" startline="99">XIic_Send10BitAddrByte1</references>
+        <references refid="group__iic__api_1ga19cce81b13c7a687ae09311c79918ee0" compoundref="xiic__i_8h" startline="123">XIic_Send10BitAddrByte2</references>
+        <references refid="group__iic__api_1ga0479da320de8a400d6d40748655111ac" compoundref="xiic__i_8h" startline="143">XIic_Send7BitAddr</references>
+        <references refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</references>
+        <references refid="group__iic__api_1ga1afdcdb48ad26804632e542e3d45b25a" compoundref="xiic__l_8h" startline="235">XIIC_TX_ADDR_SENT</references>
+        <references refid="group__iic__api_1ga8bb1f3ab452d41daf06eff8d61048fe8" compoundref="xiic__l_8h" startline="245">XIIC_WRITE_OPERATION</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="442" endline="522">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="498" endline="577">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga4d7985d95cd029ab0b0f2a5ccc614793" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_DynMasterRecv</definition>
+        <argsstring>(XIic *InstancePtr, u8 *RxMsgPtr, u8 ByteCount)</argsstring>
+        <name>XIic_DynMasterRecv</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RxMsgPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Receives data as a master from a slave device on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function receives data as a master from a slave device on the IIC bus. If the bus is busy, it indicates so and then enable an interrupt such that the status handler is called when the bus is no longer busy. The slave address which has been set with the <ref refid="group__iic__api_1gad944f42c3d9972fc2c986a7eed726297" kindref="member">XIic_SetAddress()</ref> function is the address from which data is received. Receiving data on the bus performs a read operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Iic instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RxMsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to hold the data that is received. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of message bytes to be received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS indicates the message reception processes has been initiated.</para></listitem><listitem><para>XST_IIC_BUS_BUSY indicates the bus was in use and that the BusNotBusy interrupt is enabled which updates the EventStatus when the bus is no longer busy.</para></listitem><listitem><para>XST_IIC_GENERAL_CALL_ADDRESS indicates the slave address is set to the general call address. This is not allowed for Master receive mode.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The receive FIFO threshold is a zero based count such that 1 must be subtracted from the desired count to get the correct value. When receiving data it is also necessary to not receive the last byte with the prior bytes because the acknowledge must be setup before the last byte is received. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_dyn_master.c" bodystart="310" bodyend="429"/>
+        <references refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" compoundref="xiic_8h" startline="483">XIic::AddrOfSlave</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="group__iic__api_1ga23db93d1ef8c4651eba08f22fff2ee36" compoundref="xiic__l_8h" startline="232">IIC_RX_FIFO_DEPTH</references>
+        <references refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" compoundref="xiic_8h" startline="502">XIic::IsDynamic</references>
+        <references refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" compoundref="xiic_8h" startline="487">XIic::RecvBufferPtr</references>
+        <references refid="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" compoundref="xiic_8h" startline="490">XIic::RecvByteCount</references>
+        <references refid="struct_x_iic_stats_1a883cabf0999ea6eb384a5ead3b02477c" compoundref="xiic_8h" startline="460">XIicStats::RepeatedStarts</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+        <references refid="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" compoundref="xiic_8h" startline="488">XIic::TxAddrMode</references>
+        <references refid="group__iic__api_1ga538db75a9a83f1f886fa07d4fcabaf75" compoundref="xiic__i_8h" startline="232">XIic_ClearEnableIntr</references>
+        <references refid="group__iic__api_1gafa18a79f31c286ce3daf88d677096d9d" compoundref="xiic__l_8h" startline="195">XIIC_CR_MSMS_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga5d0c5d60de4fd0ca22e12b8be3870656" compoundref="xiic__l_8h" startline="198">XIIC_CR_REPEATED_START_MASK</references>
+        <references refid="group__iic__api_1ga4bdf2d43cbd68f55dbec0faab818b6ed" compoundref="xiic__dyn__master_8c" startline="65">XIIC_DYN_MASTER_INCLUDE</references>
+        <references refid="group__iic__api_1ga81d32f9fd29736e9f9c7ef345527386b" compoundref="xiic__l_8h" startline="529">XIic_DynSend7BitAddress</references>
+        <references refid="group__iic__api_1ga22446f72b705b950e4b485ab9cdd2ae6" compoundref="xiic__l_8h" startline="579">XIic_DynSendStop</references>
+        <references refid="group__iic__api_1gac96fa03c6a514cd87cb9deadaef7e574" compoundref="xiic__l_8h" startline="160">XIIC_INTR_RX_FULL_MASK</references>
+        <references refid="group__iic__api_1gaa1ea99d449fd02f69d41d0f41f093282" compoundref="xiic__l_8h" startline="158">XIIC_INTR_TX_ERROR_MASK</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gab81f7edf097fc4a885fd6134a288a817" compoundref="xiic__l_8h" startline="244">XIIC_READ_OPERATION</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gad032470e4ff2a3760aa63f2c3d7e5240" compoundref="xiic__l_8h" startline="106">XIIC_RFD_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga5b8c330e8cacc286d9cd1ddee97bf8b0" compoundref="xiic__i_8h" startline="361">XIic_SetControlRegister</references>
+        <references refid="group__iic__api_1ga1afdcdb48ad26804632e542e3d45b25a" compoundref="xiic__l_8h" startline="235">XIIC_TX_ADDR_SENT</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="538" endline="594">DynEepromReadData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gac4c6388d0db3b08ddcd47f0b2459ff3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_DynMasterSend</definition>
+        <argsstring>(XIic *InstancePtr, u8 *TxMsgPtr, u8 ByteCount)</argsstring>
+        <name>XIic_DynMasterSend</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TxMsgPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sends data as a Dynamic master on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sends data as a Dynamic master on the IIC bus. If the bus is busy, it indicates so and then enable an interrupt such that the status handler is called when the bus is no longer busy. The slave address is sent by using <ref refid="group__iic__api_1ga81d32f9fd29736e9f9c7ef345527386b" kindref="member">XIic_DynSend7BitAddress()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Iic instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TxMsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be transmitted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of message bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_dyn_master.c" bodystart="97" bodyend="183"/>
+        <references refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" compoundref="xiic_8h" startline="483">XIic::AddrOfSlave</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" compoundref="xiic_8h" startline="502">XIic::IsDynamic</references>
+        <references refid="struct_x_iic_stats_1a883cabf0999ea6eb384a5ead3b02477c" compoundref="xiic_8h" startline="460">XIicStats::RepeatedStarts</references>
+        <references refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" compoundref="xiic_8h" startline="486">XIic::SendBufferPtr</references>
+        <references refid="struct_x_iic_1a754131dbb0faeda957f6124df82eecf0" compoundref="xiic_8h" startline="489">XIic::SendByteCount</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+        <references refid="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" compoundref="xiic_8h" startline="488">XIic::TxAddrMode</references>
+        <references refid="group__iic__api_1ga538db75a9a83f1f886fa07d4fcabaf75" compoundref="xiic__i_8h" startline="232">XIic_ClearEnableIntr</references>
+        <references refid="group__iic__api_1gaefca9cb59ce820ea4fbb4c35f5a1fa55" compoundref="xiic__l_8h" startline="196">XIIC_CR_DIR_IS_TX_MASK</references>
+        <references refid="group__iic__api_1gafa18a79f31c286ce3daf88d677096d9d" compoundref="xiic__l_8h" startline="195">XIIC_CR_MSMS_MASK</references>
+        <references refid="group__iic__api_1ga79990adaa6f077302644d7b787b19c53" compoundref="xiic__l_8h" startline="197">XIIC_CR_NO_ACK_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga4bdf2d43cbd68f55dbec0faab818b6ed" compoundref="xiic__dyn__master_8c" startline="65">XIIC_DYN_MASTER_INCLUDE</references>
+        <references refid="group__iic__api_1ga81d32f9fd29736e9f9c7ef345527386b" compoundref="xiic__l_8h" startline="529">XIic_DynSend7BitAddress</references>
+        <references refid="group__iic__api_1gadc15e89e891805d58f729c4d1f56b093" compoundref="xiic__l_8h" startline="159">XIIC_INTR_TX_EMPTY_MASK</references>
+        <references refid="group__iic__api_1gaa1ea99d449fd02f69d41d0f41f093282" compoundref="xiic__l_8h" startline="158">XIIC_INTR_TX_ERROR_MASK</references>
+        <references refid="group__iic__api_1ga4af241dbcd0cb4184fe594d09954f69c" compoundref="xiic__l_8h" startline="164">XIIC_INTR_TX_HALF_MASK</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gaa0040c82cb3f8c0bbff61cbbad86e1ac" compoundref="xiic__l_8h" startline="252">XIIC_MASTER_ROLE</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</references>
+        <references refid="group__iic__api_1ga1afdcdb48ad26804632e542e3d45b25a" compoundref="xiic__l_8h" startline="235">XIIC_TX_ADDR_SENT</references>
+        <references refid="group__iic__api_1ga8bb1f3ab452d41daf06eff8d61048fe8" compoundref="xiic__l_8h" startline="245">XIIC_WRITE_OPERATION</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="442" endline="522">DynEepromWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga6f86310d413cbe343462b6488f1cf8ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_DynamicInitialize</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_DynamicInitialize</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the IIC core for dynamic functionality. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initialize the IIC core for Dynamic Functionality.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Iic instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="591" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_dyn_master.c" bodystart="609" bodyend="621"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="group__iic__api_1ga2834e01a7020d639b08d62cecec85bbe" compoundref="xiic__l_8c" startline="1027" endline="1065">XIic_DynInit</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga543dde34d5a2f34269641ec3ab1bfdfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_SlaveInclude</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIic_SlaveInclude</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Includes slave code so slave events are processed. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function includes slave code such that slave events are processed. It is necessary to allow slave code to be optional to reduce the size of the driver. This function may be called at any time but must be prior to being selected as a slave on the IIC bus. This function may be called prior to the Cfg_Initialize() function and must be called before any functions in this file are called. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_slave.c" bodystart="96" bodyend="102"/>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga25dc714d97f71049154461e1ff16bcad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_SlaveRecv</definition>
+        <argsstring>(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount)</argsstring>
+        <name>XIic_SlaveRecv</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RxMsgPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Receives data as a slave on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function receives data as a slave on the IIC bus and should not be called until an event has occurred that indicates the device has been selected by a master writing to the slave (XII_MASTER_WRITE_EVENT).</para><para>If more data is received than specified a No Acknowledge is sent to signal the Master to stop sending data. Any received data is read to prevent the slave device from throttling the bus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Iic instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RxMsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to hold the data that is received. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of message bytes to be received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS indicates the message reception has been initiated.</para></listitem><listitem><para>XST_IIC_NOT_SLAVE indicates the device has not been selected to be a slave on the IIC bus such that data cannot be received. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_slave.c" bodystart="228" bodyend="279"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="group__iic__api_1ga23db93d1ef8c4651eba08f22fff2ee36" compoundref="xiic__l_8h" startline="232">IIC_RX_FIFO_DEPTH</references>
+        <references refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" compoundref="xiic_8h" startline="487">XIic::RecvBufferPtr</references>
+        <references refid="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" compoundref="xiic_8h" startline="490">XIic::RecvByteCount</references>
+        <references refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" compoundref="xiic_8h" startline="486">XIic::SendBufferPtr</references>
+        <references refid="group__iic__api_1gabdc7dde7268b381e056c38ebb760fed5" compoundref="xiic__i_8h" startline="210">XIic_ClearIntr</references>
+        <references refid="group__iic__api_1ga4240b23da2af69b3241bfad09012121d" compoundref="xiic__i_8h" startline="189">XIic_EnableIntr</references>
+        <references refid="group__iic__api_1gac96fa03c6a514cd87cb9deadaef7e574" compoundref="xiic__l_8h" startline="160">XIIC_INTR_RX_FULL_MASK</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1gad032470e4ff2a3760aa63f2c3d7e5240" compoundref="xiic__l_8h" startline="106">XIIC_RFD_REG_OFFSET</references>
+        <references refid="group__iic__api_1gab0fe4841630cc66a6b93e5a5d2512fde" compoundref="xiic__l_8h" startline="209">XIIC_SR_ADDR_AS_SLAVE_MASK</references>
+        <references refid="group__iic__api_1gaa039f3dea3b57add15de333f733b5561" compoundref="xiic__l_8h" startline="99">XIIC_SR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="290" endline="343">SlaveReadData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="295" endline="348">TenBitAddrReadData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga24873473751e355c82bb074a0d42ddbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_SlaveSend</definition>
+        <argsstring>(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)</argsstring>
+        <name>XIic_SlaveSend</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TxMsgPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sends data as a slave on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sends data as a slave on the IIC bus and should not be called until an event has occurred that indicates the device has been selected by a master attempting read from the slave (XII_MASTER_READ_EVENT).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TxMsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be transmitted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of message bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS indicates the message transmission has been initiated.</para></listitem><listitem><para>XST_IIC_NOT_SLAVE indicates the device has not been selected to be a slave on the IIC bus such that data cannot be sent. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_slave.c" bodystart="123" bodyend="171"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" compoundref="xiic_8h" startline="487">XIic::RecvBufferPtr</references>
+        <references refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" compoundref="xiic_8h" startline="486">XIic::SendBufferPtr</references>
+        <references refid="struct_x_iic_1a754131dbb0faeda957f6124df82eecf0" compoundref="xiic_8h" startline="489">XIic::SendByteCount</references>
+        <references refid="group__iic__api_1ga538db75a9a83f1f886fa07d4fcabaf75" compoundref="xiic__i_8h" startline="232">XIic_ClearEnableIntr</references>
+        <references refid="group__iic__api_1gadc15e89e891805d58f729c4d1f56b093" compoundref="xiic__l_8h" startline="159">XIIC_INTR_TX_EMPTY_MASK</references>
+        <references refid="group__iic__api_1gaa1ea99d449fd02f69d41d0f41f093282" compoundref="xiic__l_8h" startline="158">XIIC_INTR_TX_ERROR_MASK</references>
+        <references refid="group__iic__api_1ga4af241dbcd0cb4184fe594d09954f69c" compoundref="xiic__l_8h" startline="164">XIIC_INTR_TX_HALF_MASK</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1ga85bbbc139ce96e43b2f1f947d0652539" compoundref="xiic__l_8h" startline="253">XIIC_SLAVE_ROLE</references>
+        <references refid="group__iic__api_1gab0fe4841630cc66a6b93e5a5d2512fde" compoundref="xiic__l_8h" startline="209">XIIC_SR_ADDR_AS_SLAVE_MASK</references>
+        <references refid="group__iic__api_1gaa039f3dea3b57add15de333f733b5561" compoundref="xiic__l_8h" startline="99">XIIC_SR_REG_OFFSET</references>
+        <references refid="group__iic__api_1gab68f6a977445ce2895c94be4a0654ec1" compoundref="xiic__intr_8c" startline="253" endline="288">XIic_TransmitFifoFill</references>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="359" endline="411">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="364" endline="415">TenBitAddrWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gae7a801efedbe489ba0e984dbf8f6daa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_GetStats</definition>
+        <argsstring>(XIic *InstancePtr, XIicStats *StatsPtr)</argsstring>
+        <name>XIic_GetStats</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_iic_stats" kindref="compound">XIicStats</ref> *</type>
+          <declname>StatsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets a copy of the statistics for an IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Gets a copy of the statistics for an IIC device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">StatsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a <ref refid="struct_x_iic_stats" kindref="compound">XIicStats</ref> structure which gets a copy of current statistics. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_stats.c" bodystart="67" bodyend="89"/>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gaf56beeeacad67c0d24ad330ce5c42f90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_ClearStats</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_ClearStats</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Clears the statistics for the IIC device by zeroing all counts. </para>        </briefdescription>
+        <detaileddescription>
+<para>Clears the statistics for the IIC device by zeroing all counts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="604" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_stats.c" bodystart="101" bodyend="114"/>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="478">XIic::Stats</references>
+        <referencedby refid="group__iic_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="139" endline="191">XIic_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga0a4d9b646c26bcf932561699d69d52b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIic_SelfTest</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a limited self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Runs a limited self-test on the driver/device. This test does a read/write test of the Interrupt Registers There is no loopback capabilities for the device such that this test does not send or receive data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if no errors are found</para></listitem><listitem><para>XST_FAILURE if errors are found </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_selftest.c" bodystart="87" bodyend="140"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gaa839067df3b55f3181db24ebd8db3187" compoundref="xiic__l_8h" startline="369">XIic_IsIntrGlobalEnabled</references>
+        <references refid="group__iic__api_1gaee17ffc86a8270abeb1319e8c67ccce5" compoundref="xiic__l_8h" startline="459">XIic_ReadIier</references>
+        <references refid="group__iic__api_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="344" endline="351">XIic_Reset</references>
+        <references refid="group__iic__api_1gac942198f619f45e2705457967e1683c8" compoundref="xiic__l_8h" startline="178">XIIC_TX_RX_INTERRUPTS</references>
+        <references refid="group__iic__api_1ga2f926a076e9a6b80bea46664d2e55ee9" compoundref="xiic__l_8h" startline="440">XIic_WriteIier</references>
+        <referencedby refid="xiic__selftest__example_8c_1a3c732a0c3f0c51e73fae3f189232bd0b" compoundref="xiic__selftest__example_8c" startline="140" endline="174">IicSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gae108a8105a28ba4410b3bd682a87a459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_SetOptions</definition>
+        <argsstring>(XIic *InstancePtr, u32 Options)</argsstring>
+        <name>XIic_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+          <defname>NewOptions</defname>
+        </param>
+        <briefdescription>
+<para>Sets the options for the IIC device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the options for the IIC device driver. The options control how the device behaves relative to the IIC bus. If an option applies to how messages are sent or received on the IIC bus, it must be set prior to calling functions which send or receive data.</para><para>To set multiple options, the values must be ORed together. To not change existing options, read/modify/write with the current options using <ref refid="group__iic_1gaf15dd70c4f1bb34a9e35c1ca85cee841" kindref="member">XIic_GetOptions()</ref>.</para><para><bold>USAGE EXAMPLE:</bold></para><para>Read/modify/write to enable repeated start: <preformatted>
+  u8 Options;
+  Options = XIic_GetOptions(&amp;Iic);
+  XIic_SetOptions(&amp;Iic, Options | XII_REPEATED_START_OPTION);
+</preformatted></para><para>Disabling General Call: <preformatted>
+  Options = XIic_GetOptions(&amp;Iic);
+  XIic_SetOptions(&amp;Iic, Options &amp;= ~XII_GENERAL_CALL_OPTION);
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">NewOptions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The options to be set. See <ref refid="xiic_8h" kindref="compound">xiic.h</ref> for a list of the available options.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Sending or receiving messages with repeated start enabled, and then disabling repeated start, does not take effect until another master transaction is completed. That is, after using repeated start, the bus continues to be throttled after repeated start is disabled until a master transaction occurs allowing the IIC to release the bus. <linebreak/>
+<linebreak/>
+ Options enabled have a 1 in its appropriate bit position. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="126" bodyend="157"/>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+        <references refid="group__iic_1ga44d0ebf5153203223cb5563aaa10a301" compoundref="xiic_8h" startline="353">XII_GENERAL_CALL_OPTION</references>
+        <references refid="group__iic__api_1gac9dda6b07f8f4d2962b8833b05b8603b" compoundref="xiic__l_8h" startline="199">XIIC_CR_GENERAL_CALL_MASK</references>
+        <references refid="group__iic__api_1ga03585e458e3c5adf56986e7c2c3d9d42" compoundref="xiic__l_8h" startline="98">XIIC_CR_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga17d0df7020d5264d20bbc36d276e276e" compoundref="xiic__l_8h" startline="327">XIic_IntrGlobalDisable</references>
+        <references refid="group__iic__api_1ga7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="346">XIic_IntrGlobalEnable</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1ga7a9318f43afc81c1dbd30a27587ba51d" compoundref="xiic__l_8h" startline="309">XIic_WriteReg</references>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gaf15dd70c4f1bb34a9e35c1ca85cee841" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIic_GetOptions</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>XIic_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current options for the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function gets the current options for the IIC device. Options control the how the device behaves on the IIC bus. See SetOptions for more information on options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The options of the IIC device. See <ref refid="xiic_8h" kindref="compound">xiic.h</ref> for a list of available options.</para></simplesect>
+<simplesect kind="note"><para>Options enabled have a 1 in its appropriate bit position. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="176" bodyend="181"/>
+        <references refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" compoundref="xiic_8h" startline="485">XIic::Options</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1ga6e3b4f3e96cb3da5216030e32cbf8894" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIic_SetClk</definition>
+        <argsstring>(XIic *InstancePtr, u32 FsclHz)</argsstring>
+        <name>XIic_SetClk</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FsclHz</declname>
+        </param>
+        <briefdescription>
+<para>Sets the serial clock rate for the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device must be idle before setting these device options. The timing register values are calculated according to the input clock frequency and configured scl frequency. For details, refer to the AXI I2C PG and NXP I2C Spec.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">FsclHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock frequency in Hz(100kHz, 400kHz, 1MHz).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem><listitem><para>XST_INVALID_PARAM if frequency is unsupported or invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="203" bodyend="260"/>
+        <references refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" compoundref="xiic_8h" startline="506">XIic::AxiClkFreq</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="479">XIic::BaseAddress</references>
+        <references refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" compoundref="xiic_8h" startline="481">XIic::IsReady</references>
+        <references refid="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" compoundref="xiic_8h" startline="505">XIic::SerialClkDelay</references>
+        <references refid="group__iic__api_1ga63ef537f0fba0aa0c68f9be05516c6c9" compoundref="xiic__l_8h" startline="100">XIIC_DTR_REG_OFFSET</references>
+        <references refid="group__iic__api_1gabf3cebd7267a2493f601cf58dcbcb652" compoundref="xiic__options_8c" startline="64">XIIC_FAST_MODE</references>
+        <references refid="group__iic__api_1gaaf784247a1d6a6159b8f1fd2104553ea" compoundref="xiic__options_8c" startline="65">XIIC_FAST_MODE_PLUS</references>
+        <references refid="group__iic__api_1gacc4f49866fedb0caea5dbaf1e317a557" compoundref="xiic__options_8c" startline="68">XIIC_NANOSEC_TO_SEC_DIVISOR</references>
+        <references refid="group__iic__api_1gaa83ce02be8eb6fbcc764d02ae9e9194f" compoundref="xiic__l_8h" startline="269">XIic_Out32</references>
+        <references refid="group__iic__api_1gab28be58b11c65ecc54fc2f0c300412c1" compoundref="xiic__l_8h" startline="289">XIic_ReadReg</references>
+        <references refid="group__iic__api_1ga9d5bbd0dd16931b8230a64b587d7be3d" compoundref="xiic__options_8c" startline="59">XIIC_REG_VALUES_100KHZ</references>
+        <references refid="group__iic__api_1ga7e7603570933745fa2232a0c2a08db20" compoundref="xiic__options_8c" startline="61">XIIC_REG_VALUES_1MHZ</references>
+        <references refid="group__iic__api_1ga253f6aec57547c72be13f5da515e4e65" compoundref="xiic__options_8c" startline="60">XIIC_REG_VALUES_400KHZ</references>
+        <references refid="group__iic__api_1ga8efe3f2caa0a1dfa44c4970ad399f3be" compoundref="xiic__options_8c" startline="63">XIIC_STANDARD_MODE</references>
+        <references refid="group__iic__api_1ga0b9bf5db960246435433574c368612e1" compoundref="xiic__l_8h" startline="126">XIIC_TBUF_REG_OFFSET</references>
+        <references refid="group__iic__api_1gac2e01a20b53ae854a7d2d35ec222009c" compoundref="xiic__l_8h" startline="132">XIIC_THDDAT_REG_OFFSET</references>
+        <references refid="group__iic__api_1gac658a66383df30bad42178b20c394af3" compoundref="xiic__l_8h" startline="122">XIIC_THDSTA_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga6f996db256a8421c0505ddc485b96535" compoundref="xiic__l_8h" startline="128">XIIC_THIGH_REG_OFFSET</references>
+        <references refid="group__iic__api_1gad155dd6c07a52eaa0e307b035d260de6" compoundref="xiic__l_8h" startline="130">XIIC_TLOW_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga11cebf32d326154287a2cb0d3029db91" compoundref="xiic__l_8h" startline="124">XIIC_TSUDAT_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga68dcc1c26b4c5542df2deb834894259b" compoundref="xiic__l_8h" startline="118">XIIC_TSUSTA_REG_OFFSET</references>
+        <references refid="group__iic__api_1ga9797e7cca8bcdece8bfdf7aa2ba9d317" compoundref="xiic__l_8h" startline="120">XIIC_TSUSTO_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iic_1gaa8c54559d0b1cf0d86c51a0f1d3151eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_MultiMasterInclude</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIic_MultiMasterInclude</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Includes multi-master code so multi-master events are handled. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function includes multi-master code such that multi-master events are handled properly. Multi-master events include a loss of arbitration and the bus transitioning from busy to not busy. This function allows the multi-master processing to be optional. This function must be called prior to allowing any multi-master events to occur, such as after the driver is initialized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="628" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c" bodystart="75" bodyend="79"/>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__iic_1gace6af337aea33e4f162897b40591e0ac" prot="public" static="no">
+        <name>XII_ADDR_TO_SEND_TYPE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bus address of slave device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="382" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="382" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="272" endline="424">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="321" endline="480">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="246" endline="414">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="221" endline="329">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="197" endline="279">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="219" endline="329">TempSensorExample</referencedby>
+        <referencedby refid="group__iic_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="398" endline="438">XIic_SetAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__iic_1gab3f6ec08afcad8f35f9ee2c9e2531366" prot="public" static="no">
+        <name>XII_ADDR_TO_RESPOND_TYPE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>This device&apos;s bus address as slave. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="193" endline="273">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="194" endline="278">IicTenBitAddrExample</referencedby>
+        <referencedby refid="group__iic_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="465" endline="491">XIic_GetAddress</referencedby>
+        <referencedby refid="group__iic_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="398" endline="438">XIic_SetAddress</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements the AXI IIC driver for master and slave transfers. </para>    </briefdescription>
+    <detaileddescription>
+<para><ref refid="struct_x_iic" kindref="compound">XIic</ref> is the driver for an IIC master or slave device.</para><para>In order to reduce the memory requirements of the driver the driver is partitioned such that there are optional parts of the driver. Slave, master, and multimaster features are optional such that all these files are not required at the same time. To use the slave and multimaster features of the driver, the application must call functions (XIic_SlaveInclude and XIic_MultiMasterInclude) to dynamically include the code. These functions may be called at any time.</para><para>Two sets of higher level API&apos;s are available in the <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver that can be used for Transmission/Reception in Master mode :<itemizedlist>
+<listitem><para><ref refid="group__iic_1ga977382e8a20bd5e690229f82af2e7603" kindref="member">XIic_MasterSend()</ref>/ <ref refid="group__iic_1ga337bf0d322d4a7d9b4f8baa30e00ab45" kindref="member">XIic_MasterRecv()</ref> which is used in normal mode.</para></listitem><listitem><para><ref refid="group__iic_1gac4c6388d0db3b08ddcd47f0b2459ff3c" kindref="member">XIic_DynMasterSend()</ref>/ <ref refid="group__iic_1ga4d7985d95cd029ab0b0f2a5ccc614793" kindref="member">XIic_DynMasterRecv()</ref> which is used in Dynamic mode.</para></listitem></itemizedlist>
+</para><para>Similarly two sets of lower level API&apos;s are available in <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver that can be used for Transmission/Reception in Master mode:<itemizedlist>
+<listitem><para><ref refid="group__iic__api_1ga907c577b53407fb0bfc98d0ca37ee221" kindref="member">XIic_Send()</ref>/ <ref refid="group__iic__api_1ga7a848238d75ff57837afa5a58f11f326" kindref="member">XIic_Recv()</ref> which is used in normal mode</para></listitem><listitem><para><ref refid="group__iic__api_1gadeaf11cda2466ae1c6036a3de0f52874" kindref="member">XIic_DynSend()</ref>/ <ref refid="group__iic__api_1ga9979fbd483e1c8c495c9eb2bfd7ad6e9" kindref="member">XIic_DynRecv()</ref> which is used in Dynamic mode.</para></listitem></itemizedlist>
+</para><para>Use a single set of APIs as required and do not intermix them.</para><para>All the driver APIs can be used for read, write and combined mode of operations on the IIC bus.</para><para>In the normal mode IIC support both 7-bit and 10-bit addressing, and in the dynamic mode support only 7-bit addressing.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of the following ways:</para><para><itemizedlist>
+<listitem><para><ref refid="group__iic_1ga96f409bb662ff9aaf349002ced83aaac" kindref="member">XIic_Initialize()</ref> - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</para></listitem><listitem><para><ref refid="group__iic__api_1ga301f08e1fa6e74bf4c2885702bf0ff70" kindref="member">XIic_CfgInitialize()</ref> - The driver uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>General Purpose Output</bold> The IIC hardware provides a General Purpose Output Register that allows the user to connect general purpose outputs to devices, such as a write protect, for an EEPROM. This register is parameterizable in the hardware such that there could be zero bits in this register and in this case it causes a bus error if read or written.</para><para><bold>Bus Throttling</bold></para><para>The IIC hardware provides bus throttling which allows either the device, as either a master or a slave, to stop the clock on the IIC bus. This feature allows the software to perform the appropriate processing for each interrupt without an unreasonable response restriction. With this design, it is important to understand the implications of bus throttling.</para><para><bold>Repeated Start</bold></para><para>An application can send multiple messages, as a master, to a slave device and re-acquire the IIC bus each time a message is sent. The repeated start option allows the application to send multiple messages without re-acquiring the IIC bus for each message. The transactions involving repeated start are also called combined transfers if there is Read and Write in the same transaction.</para><para>The repeated start feature works with all the API&apos;s in <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver.</para><para>The Repeated Start feature also could cause the application to lock up, or monopolize the IIC bus, should repeated start option be enabled and sequences of messages never end(periodic data collection). Also when repeated start is not disable before the last master message is sent or received, leaves the bus captive to the master, but unused.</para><para><bold>Addressing</bold></para><para>The IIC hardware is parameterized such that it can be built for 7 or 10 bit addresses. The driver provides the ability to control which address size is sent in messages as a master to a slave device. The address size which the hardware responds to as a slave is parameterized as 7 or 10 bits but fixed by the hardware build.</para><para>Addresses are represented as hex values with no adjustment for the data direction bit as the software manages address bit placement. This is especially important as the bit placement is not handled the same depending on which options are used such as repeated start and 7 vs 10 bit addressing.</para><para><bold>Data Rates</bold></para><para>The IIC hardware is parameterized such that it can be built to support data rates from DC to 400KBit. The frequency of the interrupts which occur is proportional to the data rate.</para><para><bold>Polled Mode Operation</bold></para><para>This driver does not provide a polled mode of operation primarily because polled mode which is non-blocking is difficult with the amount of interaction with the hardware that is necessary.</para><para><bold>Interrupts</bold></para><para>The device has many interrupts which allow IIC data transactions as well as bus status processing to occur.</para><para>The interrupts are divided into two types, data and status. Data interrupts indicate data has been received or transmitted while the status interrupts indicate the status of the IIC bus. Some of the interrupts, such as Not Addressed As Slave and Bus Not Busy, are only used when these specific events must be recognized as opposed to being enabled at all times.</para><para>Many of the interrupts are not a single event in that they are continuously present such that they must be disabled after recognition or when undesired. Some of these interrupts, which are data related, may be acknowledged by the software by reading or writing data to the appropriate register, or must be disabled. The following interrupts can be continuous rather than single events.<itemizedlist>
+<listitem><para>Data Transmit Register Empty/Transmit FIFO Empty</para></listitem><listitem><para>Data Receive Register Full/Receive FIFO</para></listitem><listitem><para>Transmit FIFO Half Empty</para></listitem><listitem><para>Bus Not Busy</para></listitem><listitem><para>Addressed As Slave</para></listitem><listitem><para>Not Addressed As Slave</para></listitem></itemizedlist>
+</para><para>The following interrupts are not passed directly to the application through the status callback. These are only used internally for the driver processing and may result in the receive and send handlers being called to indicate completion of an operation. The following interrupts are data related rather than status.<itemizedlist>
+<listitem><para>Data Transmit Register Empty/Transmit FIFO Empty</para></listitem><listitem><para>Data Receive Register Full/Receive FIFO</para></listitem><listitem><para>Transmit FIFO Half Empty</para></listitem><listitem><para>Slave Transmit Complete</para></listitem></itemizedlist>
+</para><para><bold>Interrupt To Event Mapping</bold></para><para>The following table provides a mapping of the interrupts to the events which are passed to the status handler and the intended role (master or slave) for the event. Some interrupts can cause multiple events which are combined together into a single status event such as XII_MASTER_WRITE_EVENT and XII_GENERAL_CALL_EVENT <preformatted>
+Interrupt                         Event(s)                      Role</preformatted></para><para><preformatted>Arbitration Lost Interrupt        XII_ARB_LOST_EVENT            Master
+Transmit Error                    XII_SLAVE_NO_ACK_EVENT        Master
+IIC Bus Not Busy                  XII_BUS_NOT_BUSY_EVENT        Master
+Addressed As Slave                XII_MASTER_READ_EVENT,        Slave
+                                  XII_MASTER_WRITE_EVENT,       Slave
+                                  XII_GENERAL_CALL_EVENT        Slave
+3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
+</preformatted> <bold>Not Addressed As Slave Interrupt</bold></para><para>The Not Addressed As Slave interrupt is not passed directly to the application through the status callback. It is used to determine the end of a message being received by a slave when there was no stop condition (repeated start). It causes the receive handler to be called to indicate completion of the operation.</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.01a rfp  10/19/01 release
+1.01c ecm  12/05/02 new rev
+1.01d jhl  10/08/03 Added general purpose output feature
+1.01d sv   05/09/05 Changed the data being written to the Address/Control
+                    Register and removed the code for testing the
+                    Receive Data Register in XIic_SelfTest function of
+                    <ref refid="xiic__selftest_8c" kindref="compound">xiic_selftest.c</ref> source file
+1.02a jvb  12/14/05 I separated dependency on the static config table and
+                    xparameters.h from the driver initialization by moving
+                    _Initialize and _LookupConfig to _sinit.c. I also added
+                    the new _CfgInitialize routine.
+1.02a mta  03/09/06 Added a new function XIic_IsIicBusy() which returns
+                whether IIC Bus is Busy or Free.
+1.02a mta  03/09/06 Implemented Repeated Start in the Low Level Driver.
+1.03a mta  07/17/06 Added files to support Dynamic IIC controller in High
+              level driver. Added <ref refid="xiic__dyn__master_8c" kindref="compound">xiic_dyn_master.c</ref>. Added support
+                      for IIC Dynamic controller in Low level driver in <ref refid="xiic__l_8c" kindref="compound">xiic_l.c</ref>
+1.13a wgr  03/22/07 Converted to new coding style.
+1.13b ecm  11/29/07 added BB polling loops to the DynSend and DynRecv
+              routines to handle the race condition with BNB in IISR.
+1.14a sdm  08/22/08 Removed support for static interrupt handlers from the MDD
+              file
+1.14a ecm  11/13/08 changed BB polling loops in DynRecv to handle race
+              condition, CR491889. DynSend was correct from v1.13.b
+1.15a ktn  02/17/09 Fixed <ref refid="group__iic__api_1ga3e8f77e5df8d92a4b27627e03b5e1807" kindref="member">XIic_GetAddress()</ref> to return correct device address.
+1.16a ktn  07/17/09 Updated the <ref refid="group__iic_1ga0a4d9b646c26bcf932561699d69d52b1" kindref="member">XIic_SelfTest()</ref> to test only Interrupt
+              Registers.
+2.00a ktn  10/22/09 Converted all register accesses to 32 bit access.,
+              Removed the macro XIIC_RESET, XIic_Reset API should be
+              used in its place.
+              Removed the XIIC_CLEAR_STATS macro, XIic_ClearStats API
+              should be used in its place.
+              Removed the macro XIic_mEnterCriticalRegion,
+              XIic_IntrGlobalDisable should be used in its place.
+              Removed the macro XIic_mExitCriticalRegion,
+              XIic_IntrGlobalEnable should be used in its place.
+              Some of the macros have been renamed to remove _m from
+              the name see the <ref refid="xiic__i_8h" kindref="compound">xiic_i.h</ref> and <ref refid="xiic__l_8h" kindref="compound">xiic_l.h</ref> file for further
+              information (Example XIic_mClearIntr is now
+              XIic_ClearIntr).
+              Some of the macros have been renamed to be consistent,
+              see the <ref refid="xiic__l_8h" kindref="compound">xiic_l.h</ref> file for further information
+              (Example XIIC_WRITE_IIER is renamed as XIic_WriteIier).
+              The driver has been updated to use the HAL APIs/macros
+              (Example XASSERT_NONVOID is now Xil_AssertNonvoid)
+2.01a ktn  04/09/10 Updated TxErrorhandler in <ref refid="xiic__intr_8c" kindref="compound">xiic_intr.c</ref> to be called for
+              Master Transmitter case based on Addressed As Slave (AAS)
+              bit rather than MSMS bit(CR 540199).
+2.02a sdm  10/08/10 Updated to disable the device at the end of the transfer,
+              using Addressed As Slave (AAS) bit when addressed as
+              slave in XIic_Send for CR565373.
+2.03a rkv  01/25/11 Updated in NAAS interrupt handler to support data
+              received less than FIFO size prior to NAAS interrupt.
+              Fixed for CR590212.
+2.04a sdm  07/22/11 Added IsSlaveSetAckOff flag to the instance structure.
+              This flag is set when the Slave has set the Ack Off in the
+              RecvSlaveData function (<ref refid="xiic__slave_8c" kindref="compound">xiic_slave.c</ref>) and
+              is cleared in the NotAddrAsSlaveHandler (<ref refid="xiic__slave_8c" kindref="compound">xiic_slave.c</ref>)
+              when the master has released the bus. This flag is
+              to be used by slave applications for recovering when it
+              has gone out of sync with the master for CR 615004.
+              Removed a compiler warning in XIic_Send (<ref refid="xiic__l_8c" kindref="compound">xiic_l.c</ref>)
+2.05a bss  02/05/12 Assigned RecvBufferPtr in XIic_MasterSend API and
+              SendBufferPtr in XIic_MasterRecv to NULL in <ref refid="xiic__master_8c" kindref="compound">xiic_master.c</ref>
+2.06a bss  02/14/13 Modified TxErrorHandler in <ref refid="xiic__intr_8c" kindref="compound">xiic_intr.c</ref> to fix CR #686483
+              Modified <ref refid="xiic__eeprom__example_8c" kindref="compound">xiic_eeprom_example.c</ref> to fix CR# 683509.
+              Modified bitwise OR to logical OR in
+              XIic_InterruptHandler API in <ref refid="xiic__intr_8c" kindref="compound">xiic_intr.c</ref>.
+2.07a adk  18/04/13 Updated the code to avoid unused variable warnings
+                    when compiling with the -Wextra -Wall flags.
+                    Changes done in files <ref refid="xiic_8c" kindref="compound">xiic.c</ref> and <ref refid="xiic__i_8h" kindref="compound">xiic_i.h</ref>. CR:705001
+2.08a adk  29/07/13 In Low level driver In repeated start condition the
+              Direction of Tx bit must be disabled in recv condition
+              It Fixes the CR:685759 Changes are done in the file
+              <ref refid="xiic__l_8c" kindref="compound">xiic_l.c</ref> in the function XIic_Recv.
+3.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+3.1   adk  01/08/15 When configured as a slave return the actual number of
+                    bytes have been received/sent by the Master
+                    to the user callback (CR: 828504). Changes are made in the
+              file <ref refid="xiic__slave_8c" kindref="compound">xiic_slave.c</ref>.
+3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XIic_CfgInitialize API.
+3.2     sd   18/02/16 In Low level driver in repeated start condition
+                    NACK for last byte is added. Changes are done in
+                    XIic_Recv for CR# 862303
+3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
+                    send/recv.
+3.3   als  06/27/16 XIic_IsIicBusy now a wrapper for XIic_CheckIsBusBusy.
+3.4   ms   01/23/17 Added xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a fix
+                    for CR-965028.
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+      ms   04/05/17 Modified Comment lines in functions of iic
+                    examples to recognize it as documentation block
+                    for doxygen generation.
+3.10  gm   07/09/23 Added SDT support.
+3.15  vlt  11/05/25 Add 64-bit Addressing support.
+3.15  vlt  12/04/25 Add AxiClkFreq and SerialClkDelay to structure for
+                    clock configuration.And add XIic_SetClk API for
+                    dynamic clock configuration.
+3.15  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+3.16  vn   07/30/26 Fix Doxygen warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

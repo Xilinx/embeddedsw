@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xospipsv__hw_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,8 +106,27 @@ $(document).ready(function(){initNavTree('xospipsv__hw_8c.html','');});
 <div class="title">xospipsv_hw.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the hardware functions of the OSPIPSV driver. </p>
+<p>These functions are used by the functions in <a class="el" href="xospipsv__control_8c.html" title="Implements the low level functions of the OSPIPSV driver. ">xospipsv_control.c</a> file.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.2   sk  02/20/20 First release
+1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
+      sk  08/19/20 Reduced the usleep delay while checking transfer done.
+1.4   sk   02/18/21 Added support for Dual byte opcode.
+1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
+1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
+1.11    akm  05/15/24 Added support for x2/x4 operations.
+1.13    sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
+1.15    sb   08/11/26 Add support for pattern-based RX PHY tuning.
+1.15  vn   09/03/26 Fix doxygen warnings.
+1.15  tb   09/30/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
+<code>#include &quot;xil_util.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -139,10 +158,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga54d82d31820cd30d9c32055380e0ab04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data to TX FIFO.  <a href="group__ospipsv__api.html#ga54d82d31820cd30d9c32055380e0ab04">More...</a><br/></td></tr>
 <tr class="separator:ga54d82d31820cd30d9c32055380e0ab04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa347217a72ad5240a86eb29dacec9270"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gaa347217a72ad5240a86eb29dacec9270">XOspiPsv_Setup_Dev_Write_Instr_Reg</a> (const <a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, const <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:gaa347217a72ad5240a86eb29dacec9270"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the below info to write instruction register DataXfertype - SPI/Dual/Quad/Octal AddrXfertype - 3 or 4B.  <a href="group__ospipsv__api.html#gaa347217a72ad5240a86eb29dacec9270">More...</a><br/></td></tr>
+<tr class="memdesc:gaa347217a72ad5240a86eb29dacec9270"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the write instruction register.  <a href="group__ospipsv__api.html#gaa347217a72ad5240a86eb29dacec9270">More...</a><br/></td></tr>
 <tr class="separator:gaa347217a72ad5240a86eb29dacec9270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf618dd1d9a3b5fe6a60feedd9cfca12b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gaf618dd1d9a3b5fe6a60feedd9cfca12b">XOspiPsv_Setup_Dev_Read_Instr_Reg</a> (const <a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, const <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:gaf618dd1d9a3b5fe6a60feedd9cfca12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the below info to read instruction register DataXfertype - SPI/Dual/Quad/Octal AddrXfertype - 3 or 4B.  <a href="group__ospipsv__api.html#gaf618dd1d9a3b5fe6a60feedd9cfca12b">More...</a><br/></td></tr>
+<tr class="memdesc:gaf618dd1d9a3b5fe6a60feedd9cfca12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the read instruction register.  <a href="group__ospipsv__api.html#gaf618dd1d9a3b5fe6a60feedd9cfca12b">More...</a><br/></td></tr>
 <tr class="separator:gaf618dd1d9a3b5fe6a60feedd9cfca12b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab0a1fd4b1edb33eeb7f14588f09a8355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gab0a1fd4b1edb33eeb7f14588f09a8355">XOspiPsv_Setup_Devsize</a> (const <a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, const <a class="el" href="struct_x_ospi_psv___msg.html">XOspiPsv_Msg</a> *Msg)</td></tr>
 <tr class="memdesc:gab0a1fd4b1edb33eeb7f14588f09a8355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the device size config register.  <a href="group__ospipsv__api.html#gab0a1fd4b1edb33eeb7f14588f09a8355">More...</a><br/></td></tr>

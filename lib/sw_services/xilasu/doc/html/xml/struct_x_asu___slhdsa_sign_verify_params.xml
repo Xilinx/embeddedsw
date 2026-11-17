@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___slhdsa_sign_verify_params" kind="struct" prot="public">
+    <compoundname>XAsu_SlhdsaSignVerifyParams</compoundname>
+    <includes local="no">xasu_slhdsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1ae14080be2cdddd7b233b4bd707518d50" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___slhdsa_pk_object" kindref="compound">XAsu_SlhdsaPkObject</ref></type>
+        <definition>XAsu_SlhdsaPkObject XAsu_SlhdsaSignVerifyParams::PkObj</definition>
+        <argsstring></argsstring>
+        <name>PkObj</name>
+        <briefdescription>
+<para>Public key object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1a5aa3bf01e0a7bf5a530c6765ce2b64da" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaSignVerifyParams::MsgAddr</definition>
+        <argsstring></argsstring>
+        <name>MsgAddr</name>
+        <briefdescription>
+<para>Address of the message to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1a167bef6fb19ef0e49f22b4965e0d7802" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaSignVerifyParams::SignatureAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureAddr</name>
+        <briefdescription>
+<para>Address of the signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1a3b90b1ff7efbdd5b93230f0435c52cc0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaSignVerifyParams::CtxAddr</definition>
+        <argsstring></argsstring>
+        <name>CtxAddr</name>
+        <briefdescription>
+<para>Address of the context string (0 if unused) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1a4ae290a1d4fd4d74bcdfbeae1bffa6ce" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaSignVerifyParams::MsgLen</definition>
+        <argsstring></argsstring>
+        <name>MsgLen</name>
+        <briefdescription>
+<para>Length of the message in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1af5747a606595e6f2b157e022413ee8af" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaSignVerifyParams::SignatureLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureLen</name>
+        <briefdescription>
+<para>Length of the signature in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1ab2dee5c4ed99c34c2fc6581d5f42b3a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaSignVerifyParams::CtxLen</definition>
+        <argsstring></argsstring>
+        <name>CtxLen</name>
+        <briefdescription>
+<para>Length of the context string in bytes (0..255) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1a64a30acbcf1f54a2f956aedbf9cb9746" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaSignVerifyParams::ParamSet</definition>
+        <argsstring></argsstring>
+        <name>ParamSet</name>
+        <briefdescription>
+<para>Parameter set (XASU_SLHDSA_PARAM_*) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1af276db27ac7f55ae5202e6eef85a48dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaSignVerifyParams::PreHashMode</definition>
+        <argsstring></argsstring>
+        <name>PreHashMode</name>
+        <briefdescription>
+<para>Pure or pre-hash mode (XASU_SLHDSA_MSG_PURE / XASU_SLHDSA_MSG_PREHASH) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1acc81af269a4314eef423d8e0f2f324c6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaSignVerifyParams::HashId</definition>
+        <argsstring></argsstring>
+        <name>HashId</name>
+        <briefdescription>
+<para>Pre-hash function ID (XASU_SLHDSA_HASHID_SHA256 / XASU_SLHDSA_HASHID_SHA512) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sign_verify_params_1adde6aef2e4c6162c1eaa37fa4b4628a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaSignVerifyParams::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains SLH-DSA signature verification parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="174">
+        <label>XAsu_SlhdsaSignVerifyParams</label>
+        <link refid="struct_x_asu___slhdsa_sign_verify_params"/>
+        <childnode refid="175" relation="usage">
+          <edgelabel>PkObj</edgelabel>
+        </childnode>
+      </node>
+      <node id="175">
+        <label>XAsu_SlhdsaPkObject</label>
+        <link refid="struct_x_asu___slhdsa_pk_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="187" bodyend="201"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1a3b90b1ff7efbdd5b93230f0435c52cc0" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>CtxAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1ab2dee5c4ed99c34c2fc6581d5f42b3a2" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>CtxLen</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1acc81af269a4314eef423d8e0f2f324c6" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>HashId</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1a5aa3bf01e0a7bf5a530c6765ce2b64da" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>MsgAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1a4ae290a1d4fd4d74bcdfbeae1bffa6ce" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>MsgLen</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1a64a30acbcf1f54a2f956aedbf9cb9746" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>ParamSet</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1ae14080be2cdddd7b233b4bd707518d50" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>PkObj</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1af276db27ac7f55ae5202e6eef85a48dc" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>PreHashMode</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1adde6aef2e4c6162c1eaa37fa4b4628a3" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1a167bef6fb19ef0e49f22b4965e0d7802" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>SignatureAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_sign_verify_params_1af5747a606595e6f2b157e022413ee8af" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSignVerifyParams</scope><name>SignatureLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

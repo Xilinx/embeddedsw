@@ -124,44 +124,227 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:aa12c76241fcad981769d65754a5f5591"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#aa12c76241fcad981769d65754a5f5591">USB_DEVICE_ID</a>&#160;&#160;&#160;XPAR_XUSBPSU_0_DEVICE_ID</td></tr>
+<tr class="memdesc:aa12c76241fcad981769d65754a5f5591"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device instance ID.  <a href="#aa12c76241fcad981769d65754a5f5591">More...</a><br/></td></tr>
+<tr class="separator:aa12c76241fcad981769d65754a5f5591"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae8411e95f26738326bc25a0161dde99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#aae8411e95f26738326bc25a0161dde99">USB_EP_DIR_IN</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga3126435e75abbfbfdcf3bfdf9d1175a0">XUSBPSU_EP_DIR_IN</a></td></tr>
+<tr class="memdesc:aae8411e95f26738326bc25a0161dde99"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB endpoint direction: IN.  <a href="#aae8411e95f26738326bc25a0161dde99">More...</a><br/></td></tr>
+<tr class="separator:aae8411e95f26738326bc25a0161dde99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0510b0a04d9cef144e4d9793310abccf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a0510b0a04d9cef144e4d9793310abccf">USB_EP_DIR_OUT</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga512f27591b21fe69754687c156ad0c01">XUSBPSU_EP_DIR_OUT</a></td></tr>
+<tr class="memdesc:a0510b0a04d9cef144e4d9793310abccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB endpoint direction: OUT.  <a href="#a0510b0a04d9cef144e4d9793310abccf">More...</a><br/></td></tr>
+<tr class="separator:a0510b0a04d9cef144e4d9793310abccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a646a87bcd3711adbff2a18ad122cf35a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a646a87bcd3711adbff2a18ad122cf35a">USB_DIR_OUT</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:a646a87bcd3711adbff2a18ad122cf35a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB transfer direction: OUT (host to device).  <a href="#a646a87bcd3711adbff2a18ad122cf35a">More...</a><br/></td></tr>
+<tr class="separator:a646a87bcd3711adbff2a18ad122cf35a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d46c8a7ba5292aa99ef445df6f190af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a1d46c8a7ba5292aa99ef445df6f190af">USB_DIR_IN</a>&#160;&#160;&#160;0x80U</td></tr>
+<tr class="memdesc:a1d46c8a7ba5292aa99ef445df6f190af"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB transfer direction: IN (device to host).  <a href="#a1d46c8a7ba5292aa99ef445df6f190af">More...</a><br/></td></tr>
+<tr class="separator:a1d46c8a7ba5292aa99ef445df6f190af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a435416dd71e258cfd83be50a991db726"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a435416dd71e258cfd83be50a991db726">USB_ENDPOINT_NUMBER_MASK</a>&#160;&#160;&#160;0x0f</td></tr>
+<tr class="memdesc:a435416dd71e258cfd83be50a991db726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract endpoint number from address.  <a href="#a435416dd71e258cfd83be50a991db726">More...</a><br/></td></tr>
+<tr class="separator:a435416dd71e258cfd83be50a991db726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93a6aa5841b4ff46167822362add046d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a93a6aa5841b4ff46167822362add046d">USB_ENDPOINT_DIR_MASK</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memdesc:a93a6aa5841b4ff46167822362add046d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract endpoint direction from address.  <a href="#a93a6aa5841b4ff46167822362add046d">More...</a><br/></td></tr>
+<tr class="separator:a93a6aa5841b4ff46167822362add046d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3836ac877aea665181fd8e8e4fb00d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ac3836ac877aea665181fd8e8e4fb00d4">USB_STATE_ATTACHED</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gac4a7f6cc7385c7af0dfd040d1965e987">XUSBPSU_STATE_ATTACHED</a></td></tr>
+<tr class="memdesc:ac3836ac877aea665181fd8e8e4fb00d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device state: Attached.  <a href="#ac3836ac877aea665181fd8e8e4fb00d4">More...</a><br/></td></tr>
+<tr class="separator:ac3836ac877aea665181fd8e8e4fb00d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d1baf136a8e88d2969578fe5f8b44da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a4d1baf136a8e88d2969578fe5f8b44da">USB_STATE_POWERED</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gab0e5e54dfc6c271a215f191f119a9193">XUSBPSU_STATE_POWERED</a></td></tr>
+<tr class="memdesc:a4d1baf136a8e88d2969578fe5f8b44da"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device state: Powered.  <a href="#a4d1baf136a8e88d2969578fe5f8b44da">More...</a><br/></td></tr>
+<tr class="separator:a4d1baf136a8e88d2969578fe5f8b44da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07e1b6cee441e8eb185c8d654a3f48e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ae07e1b6cee441e8eb185c8d654a3f48e">USB_STATE_DEFAULT</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga7d6e17c324943f3fc70ff60980985ee1">XUSBPSU_STATE_DEFAULT</a></td></tr>
+<tr class="memdesc:ae07e1b6cee441e8eb185c8d654a3f48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device state: Default.  <a href="#ae07e1b6cee441e8eb185c8d654a3f48e">More...</a><br/></td></tr>
+<tr class="separator:ae07e1b6cee441e8eb185c8d654a3f48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af0ac695f410a6e4d4ea71df55d36d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a4af0ac695f410a6e4d4ea71df55d36d6">USB_STATE_ADDRESS</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga10077a7a78df717317306ba0e42610bd">XUSBPSU_STATE_ADDRESS</a></td></tr>
+<tr class="memdesc:a4af0ac695f410a6e4d4ea71df55d36d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device state: Addressed.  <a href="#a4af0ac695f410a6e4d4ea71df55d36d6">More...</a><br/></td></tr>
+<tr class="separator:a4af0ac695f410a6e4d4ea71df55d36d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a3f44fe842ff1655596eba1321d0b80"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a6a3f44fe842ff1655596eba1321d0b80">USB_STATE_CONFIGURED</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gae3a3281573703ad8e23f87108ba00bf9">XUSBPSU_STATE_CONFIGURED</a></td></tr>
+<tr class="memdesc:a6a3f44fe842ff1655596eba1321d0b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device state: Configured.  <a href="#a6a3f44fe842ff1655596eba1321d0b80">More...</a><br/></td></tr>
+<tr class="separator:a6a3f44fe842ff1655596eba1321d0b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d0c594f7f3da59d722dd05e0d268033"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a8d0c594f7f3da59d722dd05e0d268033">USB_STATE_SUSPENDED</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga29bd4b024c2f53d670ace256dd29b0c7">XUSBPSU_STATE_SUSPENDED</a></td></tr>
+<tr class="memdesc:a8d0c594f7f3da59d722dd05e0d268033"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device state: Suspended.  <a href="#a8d0c594f7f3da59d722dd05e0d268033">More...</a><br/></td></tr>
+<tr class="separator:a8d0c594f7f3da59d722dd05e0d268033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fae1ad6c97c621f7505be7bf84b7134"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a8fae1ad6c97c621f7505be7bf84b7134">XUSBPSU_REQ_REPLY_LEN</a>&#160;&#160;&#160;1024</td></tr>
 <tr class="memdesc:a8fae1ad6c97c621f7505be7bf84b7134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max size of reply buffer.  <a href="#a8fae1ad6c97c621f7505be7bf84b7134">More...</a><br/></td></tr>
 <tr class="separator:a8fae1ad6c97c621f7505be7bf84b7134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cb799bc3681d264572505e0179aa8cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a1cb799bc3681d264572505e0179aa8cc">USB_REQ_REPLY_LEN</a>&#160;&#160;&#160;<a class="el" href="xusb__wrapper_8h.html#a8fae1ad6c97c621f7505be7bf84b7134">XUSBPSU_REQ_REPLY_LEN</a></td></tr>
+<tr class="memdesc:a1cb799bc3681d264572505e0179aa8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum USB request reply buffer length.  <a href="#a1cb799bc3681d264572505e0179aa8cc">More...</a><br/></td></tr>
+<tr class="separator:a1cb799bc3681d264572505e0179aa8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8337391d65efade6ef31675cc7496110"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a8337391d65efade6ef31675cc7496110">USB_SPEED_UNKNOWN</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gad04774b7c7c7d3c95121208888438b1e">XUSBPSU_SPEED_UNKNOWN</a></td></tr>
+<tr class="memdesc:a8337391d65efade6ef31675cc7496110"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB speed: Unknown.  <a href="#a8337391d65efade6ef31675cc7496110">More...</a><br/></td></tr>
+<tr class="separator:a8337391d65efade6ef31675cc7496110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bff0dbeb1bdd5ef7526658bc4a81e5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a8bff0dbeb1bdd5ef7526658bc4a81e5a">USB_SPEED_LOW</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gacffd9c26017dc32043d88f8a7b85bc19">XUSBPSU_SPEED_LOW</a></td></tr>
+<tr class="memdesc:a8bff0dbeb1bdd5ef7526658bc4a81e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB speed: Low speed.  <a href="#a8bff0dbeb1bdd5ef7526658bc4a81e5a">More...</a><br/></td></tr>
+<tr class="separator:a8bff0dbeb1bdd5ef7526658bc4a81e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acca2fa0bba388cd4420e922c0a0f142a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#acca2fa0bba388cd4420e922c0a0f142a">USB_SPEED_FULL</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga59f79176f4a1991bf8b9bb1e5b178dc3">XUSBPSU_SPEED_FULL</a></td></tr>
+<tr class="memdesc:acca2fa0bba388cd4420e922c0a0f142a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB speed: Full speed.  <a href="#acca2fa0bba388cd4420e922c0a0f142a">More...</a><br/></td></tr>
+<tr class="separator:acca2fa0bba388cd4420e922c0a0f142a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c876a8d352c9ae67cf68978992b9838"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a7c876a8d352c9ae67cf68978992b9838">USB_SPEED_HIGH</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gad1505139cec9bf7dda6deb3cb292a835">XUSBPSU_SPEED_HIGH</a></td></tr>
+<tr class="memdesc:a7c876a8d352c9ae67cf68978992b9838"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB speed: High speed.  <a href="#a7c876a8d352c9ae67cf68978992b9838">More...</a><br/></td></tr>
+<tr class="separator:a7c876a8d352c9ae67cf68978992b9838"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a739b4b7fda07588dd9eebe02f2994273"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a739b4b7fda07588dd9eebe02f2994273">USB_SPEED_SUPER</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga907197f8e0fa8febbc3c7794c877c147">XUSBPSU_SPEED_SUPER</a></td></tr>
+<tr class="memdesc:a739b4b7fda07588dd9eebe02f2994273"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB speed: SuperSpeed.  <a href="#a739b4b7fda07588dd9eebe02f2994273">More...</a><br/></td></tr>
+<tr class="separator:a739b4b7fda07588dd9eebe02f2994273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d469782a8e9d10f31f7c1b802dd628"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ac4d469782a8e9d10f31f7c1b802dd628">USB_DCFG_SPEED_MASK</a>&#160;&#160;&#160;XUSBPSU_DCFG_SPEED_MASK</td></tr>
+<tr class="memdesc:ac4d469782a8e9d10f31f7c1b802dd628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configuration speed mask.  <a href="#ac4d469782a8e9d10f31f7c1b802dd628">More...</a><br/></td></tr>
+<tr class="separator:ac4d469782a8e9d10f31f7c1b802dd628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0388df9fadd364a6f12ff4181a8c68c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a0388df9fadd364a6f12ff4181a8c68c2">USB_DCFG_SUPERSPEED</a>&#160;&#160;&#160;XUSBPSU_DCFG_SUPERSPEED</td></tr>
+<tr class="memdesc:a0388df9fadd364a6f12ff4181a8c68c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configuration: SuperSpeed.  <a href="#a0388df9fadd364a6f12ff4181a8c68c2">More...</a><br/></td></tr>
+<tr class="separator:a0388df9fadd364a6f12ff4181a8c68c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac334660a2a3d5cf8d5d6f653fffff850"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ac334660a2a3d5cf8d5d6f653fffff850">USB_DCFG_HIGHSPEED</a>&#160;&#160;&#160;XUSBPSU_DCFG_HIGHSPEED</td></tr>
+<tr class="memdesc:ac334660a2a3d5cf8d5d6f653fffff850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configuration: High speed.  <a href="#ac334660a2a3d5cf8d5d6f653fffff850">More...</a><br/></td></tr>
+<tr class="separator:ac334660a2a3d5cf8d5d6f653fffff850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca85b9d850063bada2ce8c9a1a085618"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#aca85b9d850063bada2ce8c9a1a085618">USB_DCFG_FULLSPEED2</a>&#160;&#160;&#160;XUSBPSU_DCFG_FULLSPEED2</td></tr>
+<tr class="memdesc:aca85b9d850063bada2ce8c9a1a085618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configuration: Full speed (alternate).  <a href="#aca85b9d850063bada2ce8c9a1a085618">More...</a><br/></td></tr>
+<tr class="separator:aca85b9d850063bada2ce8c9a1a085618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f06c52980409489c7bf3e35c088bb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ab2f06c52980409489c7bf3e35c088bb6">USB_DCFG_LOWSPEED</a>&#160;&#160;&#160;XUSBPSU_DCFG_LOWSPEED</td></tr>
+<tr class="memdesc:ab2f06c52980409489c7bf3e35c088bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configuration: Low speed.  <a href="#ab2f06c52980409489c7bf3e35c088bb6">More...</a><br/></td></tr>
+<tr class="separator:ab2f06c52980409489c7bf3e35c088bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad32e29694460985f0124da98c6358be7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ad32e29694460985f0124da98c6358be7">USB_DCFG_FULLSPEED1</a>&#160;&#160;&#160;XUSBPSU_DCFG_FULLSPEED1</td></tr>
+<tr class="memdesc:ad32e29694460985f0124da98c6358be7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configuration: Full speed.  <a href="#ad32e29694460985f0124da98c6358be7">More...</a><br/></td></tr>
+<tr class="separator:ad32e29694460985f0124da98c6358be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43656056ee4e69cd60abf1d98d582925"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a43656056ee4e69cd60abf1d98d582925">USB_TEST_J</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga7af07f28c5254049183d86942b54d610">XUSBPSU_TEST_J</a></td></tr>
+<tr class="memdesc:a43656056ee4e69cd60abf1d98d582925"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB test mode: Test_J.  <a href="#a43656056ee4e69cd60abf1d98d582925">More...</a><br/></td></tr>
+<tr class="separator:a43656056ee4e69cd60abf1d98d582925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94cc55d6876e137b0d8101d72ed69f0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a94cc55d6876e137b0d8101d72ed69f0a">USB_TEST_K</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gaba5ac1fc686a1d43125ff1e3550de708">XUSBPSU_TEST_K</a></td></tr>
+<tr class="memdesc:a94cc55d6876e137b0d8101d72ed69f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB test mode: Test_K.  <a href="#a94cc55d6876e137b0d8101d72ed69f0a">More...</a><br/></td></tr>
+<tr class="separator:a94cc55d6876e137b0d8101d72ed69f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae12f4f9fcbaf8f19ba4f2ded69fd6b0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ae12f4f9fcbaf8f19ba4f2ded69fd6b0c">USB_TEST_SE0_NAK</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga145f43dae5d1d499a02248a306d35d9f">XUSBPSU_TEST_SE0_NAK</a></td></tr>
+<tr class="memdesc:ae12f4f9fcbaf8f19ba4f2ded69fd6b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB test mode: Test_SE0_NAK.  <a href="#ae12f4f9fcbaf8f19ba4f2ded69fd6b0c">More...</a><br/></td></tr>
+<tr class="separator:ae12f4f9fcbaf8f19ba4f2ded69fd6b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1701867b88f438ef2974c255664099d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a1701867b88f438ef2974c255664099d3">USB_TEST_PACKET</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga7bd0ead386f64199721fdbdaee530e25">XUSBPSU_TEST_PACKET</a></td></tr>
+<tr class="memdesc:a1701867b88f438ef2974c255664099d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB test mode: Test_Packet.  <a href="#a1701867b88f438ef2974c255664099d3">More...</a><br/></td></tr>
+<tr class="separator:a1701867b88f438ef2974c255664099d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21cf0cae77c05fd596928d03305d7bac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a21cf0cae77c05fd596928d03305d7bac">USB_TEST_FORCE_ENABLE</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gadfc13d0ed152c8a400dba485d2b55d35">XUSBPSU_TEST_FORCE_ENABLE</a></td></tr>
+<tr class="memdesc:a21cf0cae77c05fd596928d03305d7bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB test mode: Test_Force_Enable.  <a href="#a21cf0cae77c05fd596928d03305d7bac">More...</a><br/></td></tr>
+<tr class="separator:a21cf0cae77c05fd596928d03305d7bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3bf2e9ae047392a3ca87d803d585a17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ab3bf2e9ae047392a3ca87d803d585a17">USB_LPM_MODE</a>&#160;&#160;&#160;XUSBPSU_LPM_MODE</td></tr>
+<tr class="memdesc:ab3bf2e9ae047392a3ca87d803d585a17"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB Link Power Management mode.  <a href="#ab3bf2e9ae047392a3ca87d803d585a17">More...</a><br/></td></tr>
+<tr class="separator:ab3bf2e9ae047392a3ca87d803d585a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a644f396a8634cedbecf3862197012dcc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a644f396a8634cedbecf3862197012dcc">PhysicalEp</a>(epnum, direction)&#160;&#160;&#160;(((epnum) &lt;&lt; 1 ) | (direction))</td></tr>
+<tr class="memdesc:a644f396a8634cedbecf3862197012dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the physical endpoint number from logical endpoint and direction.  <a href="#a644f396a8634cedbecf3862197012dcc">More...</a><br/></td></tr>
+<tr class="separator:a644f396a8634cedbecf3862197012dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Endpoint Address</div></td></tr>
-<tr class="memitem:ab06b778272d886385cb599e0ac33aabd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab06b778272d886385cb599e0ac33aabd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP1_IN</b>&#160;&#160;&#160;0x81</td></tr>
+<tr class="memitem:ab06b778272d886385cb599e0ac33aabd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ab06b778272d886385cb599e0ac33aabd">USB_EP1_IN</a>&#160;&#160;&#160;0x81</td></tr>
+<tr class="memdesc:ab06b778272d886385cb599e0ac33aabd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep1 In.  <a href="#ab06b778272d886385cb599e0ac33aabd">More...</a><br/></td></tr>
 <tr class="separator:ab06b778272d886385cb599e0ac33aabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a268675984dab8b87f6c9648cb46e7c8f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a268675984dab8b87f6c9648cb46e7c8f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP1_OUT</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a268675984dab8b87f6c9648cb46e7c8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a268675984dab8b87f6c9648cb46e7c8f">USB_EP1_OUT</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a268675984dab8b87f6c9648cb46e7c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep1 Out.  <a href="#a268675984dab8b87f6c9648cb46e7c8f">More...</a><br/></td></tr>
 <tr class="separator:a268675984dab8b87f6c9648cb46e7c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cb3473e4721ebec0ffd3b7768efe548"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cb3473e4721ebec0ffd3b7768efe548"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP2_IN</b>&#160;&#160;&#160;0x82</td></tr>
+<tr class="memitem:a5cb3473e4721ebec0ffd3b7768efe548"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a5cb3473e4721ebec0ffd3b7768efe548">USB_EP2_IN</a>&#160;&#160;&#160;0x82</td></tr>
+<tr class="memdesc:a5cb3473e4721ebec0ffd3b7768efe548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep2 In.  <a href="#a5cb3473e4721ebec0ffd3b7768efe548">More...</a><br/></td></tr>
 <tr class="separator:a5cb3473e4721ebec0ffd3b7768efe548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84ecd0c91f1c6cce89cf3a015a8863c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84ecd0c91f1c6cce89cf3a015a8863c4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP2_OUT</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:a84ecd0c91f1c6cce89cf3a015a8863c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a84ecd0c91f1c6cce89cf3a015a8863c4">USB_EP2_OUT</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a84ecd0c91f1c6cce89cf3a015a8863c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep2 Out.  <a href="#a84ecd0c91f1c6cce89cf3a015a8863c4">More...</a><br/></td></tr>
 <tr class="separator:a84ecd0c91f1c6cce89cf3a015a8863c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Endpoint Type</div></td></tr>
-<tr class="memitem:a1cecaf205acbc73308396af4f540c012"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cecaf205acbc73308396af4f540c012"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_TYPE_CONTROL</b>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga4cc1d5f5a9d9499d04de1ff248b1fb50">XUSBPSU_ENDPOINT_XFER_CONTROL</a></td></tr>
+<tr class="memitem:a1cecaf205acbc73308396af4f540c012"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a1cecaf205acbc73308396af4f540c012">USB_EP_TYPE_CONTROL</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga4cc1d5f5a9d9499d04de1ff248b1fb50">XUSBPSU_ENDPOINT_XFER_CONTROL</a></td></tr>
+<tr class="memdesc:a1cecaf205acbc73308396af4f540c012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep Type Control.  <a href="#a1cecaf205acbc73308396af4f540c012">More...</a><br/></td></tr>
 <tr class="separator:a1cecaf205acbc73308396af4f540c012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a599edc176083ed21c0b6044a5362a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a599edc176083ed21c0b6044a5362a4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_TYPE_ISOCHRONOUS</b>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga428b7d5150df403d2011a466379d4860">XUSBPSU_ENDPOINT_XFER_ISOC</a></td></tr>
+<tr class="memitem:a2a599edc176083ed21c0b6044a5362a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a2a599edc176083ed21c0b6044a5362a4">USB_EP_TYPE_ISOCHRONOUS</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga428b7d5150df403d2011a466379d4860">XUSBPSU_ENDPOINT_XFER_ISOC</a></td></tr>
+<tr class="memdesc:a2a599edc176083ed21c0b6044a5362a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep Type Isochronous.  <a href="#a2a599edc176083ed21c0b6044a5362a4">More...</a><br/></td></tr>
 <tr class="separator:a2a599edc176083ed21c0b6044a5362a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89eb27133e7e106c3637039f6f49d187"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89eb27133e7e106c3637039f6f49d187"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_TYPE_BULK</b>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gaab7f31fa2f463d3ebd2e0635402741f1">XUSBPSU_ENDPOINT_XFER_BULK</a></td></tr>
+<tr class="memitem:a89eb27133e7e106c3637039f6f49d187"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a89eb27133e7e106c3637039f6f49d187">USB_EP_TYPE_BULK</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gaab7f31fa2f463d3ebd2e0635402741f1">XUSBPSU_ENDPOINT_XFER_BULK</a></td></tr>
+<tr class="memdesc:a89eb27133e7e106c3637039f6f49d187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep Type Bulk.  <a href="#a89eb27133e7e106c3637039f6f49d187">More...</a><br/></td></tr>
 <tr class="separator:a89eb27133e7e106c3637039f6f49d187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a904b4eef8e7bcab363757e19832617ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a904b4eef8e7bcab363757e19832617ee"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>USB_EP_TYPE_INTERRUPT</b>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gae18c69e1589fab7cf7bf0202ad9fd870">XUSBPSU_ENDPOINT_XFER_INT</a></td></tr>
+<tr class="memitem:a904b4eef8e7bcab363757e19832617ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a904b4eef8e7bcab363757e19832617ee">USB_EP_TYPE_INTERRUPT</a>&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gae18c69e1589fab7cf7bf0202ad9fd870">XUSBPSU_ENDPOINT_XFER_INT</a></td></tr>
+<tr class="memdesc:a904b4eef8e7bcab363757e19832617ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb Ep Type Interrupt.  <a href="#a904b4eef8e7bcab363757e19832617ee">More...</a><br/></td></tr>
 <tr class="separator:a904b4eef8e7bcab363757e19832617ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aa54ebd095fc9b75d81ce1c6f3c2db5b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__usbpsu__api.html#ga1cfed736380199beddc59a5a00a53109">Usb_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#aa54ebd095fc9b75d81ce1c6f3c2db5b1">LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:aa54ebd095fc9b75d81ce1c6f3c2db5b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookup USB configuration by base address.  <a href="#aa54ebd095fc9b75d81ce1c6f3c2db5b1">More...</a><br/></td></tr>
+<tr class="separator:aa54ebd095fc9b75d81ce1c6f3c2db5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279ce5fef0ed4e1fcad45af04f34873b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a279ce5fef0ed4e1fcad45af04f34873b">CacheInit</a> (void)</td></tr>
+<tr class="memdesc:a279ce5fef0ed4e1fcad45af04f34873b"><td class="mdescLeft">&#160;</td><td class="mdescRight">CacheInit function.  <a href="#a279ce5fef0ed4e1fcad45af04f34873b">More...</a><br/></td></tr>
+<tr class="separator:a279ce5fef0ed4e1fcad45af04f34873b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7409a4956ffb20a9407c497fd8f1c832"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a7409a4956ffb20a9407c497fd8f1c832">CfgInitialize</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="group__usbpsu__api.html#ga1cfed736380199beddc59a5a00a53109">Usb_Config</a> *ConfigPtr, u32 BaseAddress)</td></tr>
+<tr class="memdesc:a7409a4956ffb20a9407c497fd8f1c832"><td class="mdescLeft">&#160;</td><td class="mdescRight">CfgInitialize function.  <a href="#a7409a4956ffb20a9407c497fd8f1c832">More...</a><br/></td></tr>
+<tr class="separator:a7409a4956ffb20a9407c497fd8f1c832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa7a2c1cb275a983a77b517a964d05ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#aaa7a2c1cb275a983a77b517a964d05ea">Set_Ch9Handler</a> (void *InstancePtr, void(*func)(struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *))</td></tr>
+<tr class="memdesc:aaa7a2c1cb275a983a77b517a964d05ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set_Ch9Handler function.  <a href="#aaa7a2c1cb275a983a77b517a964d05ea">More...</a><br/></td></tr>
+<tr class="separator:aaa7a2c1cb275a983a77b517a964d05ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6db826541b9dca41537548de4b58e258"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a6db826541b9dca41537548de4b58e258">Set_RstHandler</a> (void *InstancePtr, void(*func)(struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *))</td></tr>
+<tr class="memdesc:a6db826541b9dca41537548de4b58e258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set_RstHandler function.  <a href="#a6db826541b9dca41537548de4b58e258">More...</a><br/></td></tr>
+<tr class="separator:a6db826541b9dca41537548de4b58e258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0750f624719ace8ba3116b796b60a89a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a0750f624719ace8ba3116b796b60a89a">Set_Disconnect</a> (void *InstancePtr, void(*func)(struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *))</td></tr>
+<tr class="memdesc:a0750f624719ace8ba3116b796b60a89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set_Disconnect function.  <a href="#a0750f624719ace8ba3116b796b60a89a">More...</a><br/></td></tr>
+<tr class="separator:a0750f624719ace8ba3116b796b60a89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad17a2824033e5c4bd2c8aa6ee66b9189"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ad17a2824033e5c4bd2c8aa6ee66b9189">EpConfigure</a> (void *<a class="el" href="xusb__poll__example_8c.html#a35b6a61151282f1695a33ba48778b541">UsbInstance</a>, u8 EndpointNo, u8 dir, u32 Type)</td></tr>
+<tr class="memdesc:ad17a2824033e5c4bd2c8aa6ee66b9189"><td class="mdescLeft">&#160;</td><td class="mdescRight">EpConfigure function.  <a href="#ad17a2824033e5c4bd2c8aa6ee66b9189">More...</a><br/></td></tr>
+<tr class="separator:ad17a2824033e5c4bd2c8aa6ee66b9189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f6b3711b08d9cbf8dc2f0781f470a50"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a6f6b3711b08d9cbf8dc2f0781f470a50">ConfigureDevice</a> (void *<a class="el" href="xusb__poll__example_8c.html#a35b6a61151282f1695a33ba48778b541">UsbInstance</a>, u8 *MemPtr, u32 memSize)</td></tr>
+<tr class="memdesc:a6f6b3711b08d9cbf8dc2f0781f470a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure Device(void * Usb Instance, u8 * Mem Ptr, u32 m...  <a href="#a6f6b3711b08d9cbf8dc2f0781f470a50">More...</a><br/></td></tr>
+<tr class="separator:a6f6b3711b08d9cbf8dc2f0781f470a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97fa92a8f2bd1552d1d6cb6c9ee5fc29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a97fa92a8f2bd1552d1d6cb6c9ee5fc29">SetEpHandler</a> (void *InstancePtr, u8 Epnum, u8 Dir, void(*Handler)(void *, u32, u32))</td></tr>
+<tr class="memdesc:a97fa92a8f2bd1552d1d6cb6c9ee5fc29"><td class="mdescLeft">&#160;</td><td class="mdescRight">SetEpHandler function.  <a href="#a97fa92a8f2bd1552d1d6cb6c9ee5fc29">More...</a><br/></td></tr>
+<tr class="separator:a97fa92a8f2bd1552d1d6cb6c9ee5fc29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d32fd815ed7b6b1bae2bd649ac428f1"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a8d32fd815ed7b6b1bae2bd649ac428f1">Usb_Start</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:a8d32fd815ed7b6b1bae2bd649ac428f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb_Start function.  <a href="#a8d32fd815ed7b6b1bae2bd649ac428f1">More...</a><br/></td></tr>
+<tr class="separator:a8d32fd815ed7b6b1bae2bd649ac428f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c387f7a6cc0e39d1adaaff2d1fd1f00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a1c387f7a6cc0e39d1adaaff2d1fd1f00">UsbPollHandler</a> (struct <a class="el" href="struct_x_usb_psu.html">XUsbPsu</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a1c387f7a6cc0e39d1adaaff2d1fd1f00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler called from polled mode for handling usb events.  <a href="#a1c387f7a6cc0e39d1adaaff2d1fd1f00">More...</a><br/></td></tr>
 <tr class="separator:a1c387f7a6cc0e39d1adaaff2d1fd1f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af81f75ebda88cd593c5619754286e4ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#af81f75ebda88cd593c5619754286e4ae">UsbEnableEvent</a> (struct <a class="el" href="struct_x_usb_psu.html">XUsbPsu</a> *InstancePtr, u32 Mask)</td></tr>
 <tr class="memdesc:af81f75ebda88cd593c5619754286e4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the events specified in the mask.  <a href="#af81f75ebda88cd593c5619754286e4ae">More...</a><br/></td></tr>
 <tr class="separator:af81f75ebda88cd593c5619754286e4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad850f272d507d36f74a55bb96211b85b"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ad850f272d507d36f74a55bb96211b85b">Get_DrvData</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:ad850f272d507d36f74a55bb96211b85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get_ Drv Data(void * Instance Ptr).  <a href="#ad850f272d507d36f74a55bb96211b85b">More...</a><br/></td></tr>
+<tr class="separator:ad850f272d507d36f74a55bb96211b85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae56a7dab4be473055d1f2c3de0dc0b41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ae56a7dab4be473055d1f2c3de0dc0b41">Set_DrvData</a> (void *InstancePtr, void *data)</td></tr>
+<tr class="memdesc:ae56a7dab4be473055d1f2c3de0dc0b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set_DrvData function.  <a href="#ae56a7dab4be473055d1f2c3de0dc0b41">More...</a><br/></td></tr>
+<tr class="separator:ae56a7dab4be473055d1f2c3de0dc0b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb3a733e66a6a1882c392905105eeaa"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a3cb3a733e66a6a1882c392905105eeaa">IsEpStalled</a> (void *InstancePtr, u8 Epnum, u8 Dir)</td></tr>
+<tr class="memdesc:a3cb3a733e66a6a1882c392905105eeaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is Ep Stalled(void * Instance Ptr, u8  Epnum, u8  Dir).  <a href="#a3cb3a733e66a6a1882c392905105eeaa">More...</a><br/></td></tr>
+<tr class="separator:a3cb3a733e66a6a1882c392905105eeaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ef20d576e6e1bf2a4309036b643e7f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a2ef20d576e6e1bf2a4309036b643e7f3">EpClearStall</a> (void *InstancePtr, u8 Epnum, u8 Dir)</td></tr>
+<tr class="memdesc:a2ef20d576e6e1bf2a4309036b643e7f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">EpClearStall function.  <a href="#a2ef20d576e6e1bf2a4309036b643e7f3">More...</a><br/></td></tr>
+<tr class="separator:a2ef20d576e6e1bf2a4309036b643e7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bebffade70d4d3276e743f7d3db8a6b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a0bebffade70d4d3276e743f7d3db8a6b">EpBufferSend</a> (void *InstancePtr, u8 UsbEp, u8 *BufferPtr, u32 BufferLen)</td></tr>
+<tr class="memdesc:a0bebffade70d4d3276e743f7d3db8a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">EpBufferSend function.  <a href="#a0bebffade70d4d3276e743f7d3db8a6b">More...</a><br/></td></tr>
+<tr class="separator:a0bebffade70d4d3276e743f7d3db8a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab01491c228aee667027315c8d539d8c5"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ab01491c228aee667027315c8d539d8c5">EpBufferRecv</a> (void *InstancePtr, u8 UsbEp, u8 *BufferPtr, u32 Length)</td></tr>
+<tr class="memdesc:ab01491c228aee667027315c8d539d8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">EpBufferRecv function.  <a href="#ab01491c228aee667027315c8d539d8c5">More...</a><br/></td></tr>
+<tr class="separator:ab01491c228aee667027315c8d539d8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d38238db02e22f8cae78864066c940"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a71d38238db02e22f8cae78864066c940">EpSetStall</a> (void *InstancePtr, u8 Epnum, u8 Dir)</td></tr>
+<tr class="memdesc:a71d38238db02e22f8cae78864066c940"><td class="mdescLeft">&#160;</td><td class="mdescRight">EpSetStall function.  <a href="#a71d38238db02e22f8cae78864066c940">More...</a><br/></td></tr>
+<tr class="separator:a71d38238db02e22f8cae78864066c940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a802d14b018de0532913e64d36c123cec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a802d14b018de0532913e64d36c123cec">SetBits</a> (void *InstancePtr, u32 TestSel)</td></tr>
+<tr class="memdesc:a802d14b018de0532913e64d36c123cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">SetBits function.  <a href="#a802d14b018de0532913e64d36c123cec">More...</a><br/></td></tr>
+<tr class="separator:a802d14b018de0532913e64d36c123cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772d84c06a10cea8de04517be09e7c8b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a772d84c06a10cea8de04517be09e7c8b">SetDeviceAddress</a> (void *InstancePtr, u16 Addr)</td></tr>
+<tr class="memdesc:a772d84c06a10cea8de04517be09e7c8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Device Address(void * Instance Ptr, u16  Addr).  <a href="#a772d84c06a10cea8de04517be09e7c8b">More...</a><br/></td></tr>
+<tr class="separator:a772d84c06a10cea8de04517be09e7c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de47b2a35ba7746ebec2f41ed493e98"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a4de47b2a35ba7746ebec2f41ed493e98">SetU1SleepTimeout</a> (void *InstancePtr, u8 Sleep)</td></tr>
+<tr class="memdesc:a4de47b2a35ba7746ebec2f41ed493e98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set U1 Sleep Timeout(void * Instance Ptr, u8  Sleep).  <a href="#a4de47b2a35ba7746ebec2f41ed493e98">More...</a><br/></td></tr>
+<tr class="separator:a4de47b2a35ba7746ebec2f41ed493e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a542a04fdd8d1c57a8ca9d90034584263"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a542a04fdd8d1c57a8ca9d90034584263">SetU2SleepTimeout</a> (void *InstancePtr, u8 Sleep)</td></tr>
+<tr class="memdesc:a542a04fdd8d1c57a8ca9d90034584263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set U2 Sleep Timeout(void * Instance Ptr, u8  Sleep).  <a href="#a542a04fdd8d1c57a8ca9d90034584263">More...</a><br/></td></tr>
+<tr class="separator:a542a04fdd8d1c57a8ca9d90034584263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f87a58eef4f67e796fe290a7c749a8f"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a3f87a58eef4f67e796fe290a7c749a8f">AcceptU1U2Sleep</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:a3f87a58eef4f67e796fe290a7c749a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accept U1 U2 Sleep(void * Instance Ptr).  <a href="#a3f87a58eef4f67e796fe290a7c749a8f">More...</a><br/></td></tr>
+<tr class="separator:a3f87a58eef4f67e796fe290a7c749a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7155981f80b1a470f00f2072abf97124"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a7155981f80b1a470f00f2072abf97124">U1SleepEnable</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:a7155981f80b1a470f00f2072abf97124"><td class="mdescLeft">&#160;</td><td class="mdescRight">U1 Sleep Enable(void * Instance Ptr).  <a href="#a7155981f80b1a470f00f2072abf97124">More...</a><br/></td></tr>
+<tr class="separator:a7155981f80b1a470f00f2072abf97124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7990af6b593432f9fe5ab81f7bd8a3f"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ac7990af6b593432f9fe5ab81f7bd8a3f">U2SleepEnable</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:ac7990af6b593432f9fe5ab81f7bd8a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">U2 Sleep Enable(void * Instance Ptr).  <a href="#ac7990af6b593432f9fe5ab81f7bd8a3f">More...</a><br/></td></tr>
+<tr class="separator:ac7990af6b593432f9fe5ab81f7bd8a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa2a3657dc2cbd418ca6585b69ca3eb"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a4aa2a3657dc2cbd418ca6585b69ca3eb">U1SleepDisable</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:a4aa2a3657dc2cbd418ca6585b69ca3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">U1 Sleep Disable(void * Instance Ptr).  <a href="#a4aa2a3657dc2cbd418ca6585b69ca3eb">More...</a><br/></td></tr>
+<tr class="separator:a4aa2a3657dc2cbd418ca6585b69ca3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ea40d86e353b9e078682baeaabdbbae"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a1ea40d86e353b9e078682baeaabdbbae">U2SleepDisable</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:a1ea40d86e353b9e078682baeaabdbbae"><td class="mdescLeft">&#160;</td><td class="mdescRight">U2 Sleep Disable(void * Instance Ptr).  <a href="#a1ea40d86e353b9e078682baeaabdbbae">More...</a><br/></td></tr>
+<tr class="separator:a1ea40d86e353b9e078682baeaabdbbae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaad9964d36a8a66a5bdbaefcd7bd5522"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#aaad9964d36a8a66a5bdbaefcd7bd5522">EpEnable</a> (void *InstancePtr, u8 UsbEpNum, u8 Dir, u16 Maxsize, u8 Type)</td></tr>
+<tr class="memdesc:aaad9964d36a8a66a5bdbaefcd7bd5522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ep Enable(void * Instance Ptr, u8 Usb Ep Num, u8 Dir, u...  <a href="#aaad9964d36a8a66a5bdbaefcd7bd5522">More...</a><br/></td></tr>
+<tr class="separator:aaad9964d36a8a66a5bdbaefcd7bd5522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89213a25f15867eff5fa1c41b0a1a5bf"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a89213a25f15867eff5fa1c41b0a1a5bf">EpDisable</a> (void *InstancePtr, u8 UsbEpNum, u8 Dir)</td></tr>
+<tr class="memdesc:a89213a25f15867eff5fa1c41b0a1a5bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ep Disable(void * Instance Ptr, u8  Usb Ep Num, u8  Dir).  <a href="#a89213a25f15867eff5fa1c41b0a1a5bf">More...</a><br/></td></tr>
+<tr class="separator:a89213a25f15867eff5fa1c41b0a1a5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a055bcdbc2aabdd7990e383350f1d9ebd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a055bcdbc2aabdd7990e383350f1d9ebd">Usb_SetSpeed</a> (void *InstancePtr, u32 Speed)</td></tr>
+<tr class="memdesc:a055bcdbc2aabdd7990e383350f1d9ebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Usb_SetSpeed function.  <a href="#a055bcdbc2aabdd7990e383350f1d9ebd">More...</a><br/></td></tr>
+<tr class="separator:a055bcdbc2aabdd7990e383350f1d9ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02e8ef492f6fb18133f23f90205cc573"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a02e8ef492f6fb18133f23f90205cc573">IsSuperSpeed</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a02e8ef492f6fb18133f23f90205cc573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets speed of the Core for connecting to Host.  <a href="#a02e8ef492f6fb18133f23f90205cc573">More...</a><br/></td></tr>
 <tr class="separator:a02e8ef492f6fb18133f23f90205cc573"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,11 +354,629 @@ Functions</h2></td></tr>
 <tr class="memitem:a30882c23a359d37202d4096f8e278a69"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a30882c23a359d37202d4096f8e278a69">GetConfigDone</a> (void *InstancePtr)</td></tr>
 <tr class="memdesc:a30882c23a359d37202d4096f8e278a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Config state.  <a href="#a30882c23a359d37202d4096f8e278a69">More...</a><br/></td></tr>
 <tr class="separator:a30882c23a359d37202d4096f8e278a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a151fcc4b98bf4d667303c36a47e83407"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a151fcc4b98bf4d667303c36a47e83407">Ep0StallRestart</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:a151fcc4b98bf4d667303c36a47e83407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ep0StallRestart function.  <a href="#a151fcc4b98bf4d667303c36a47e83407">More...</a><br/></td></tr>
+<tr class="separator:a151fcc4b98bf4d667303c36a47e83407"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab30ae0bb64c54e1ab61239c495a453d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ab30ae0bb64c54e1ab61239c495a453d3">SetEpInterval</a> (void *InstancePtr, u8 UsbEpNum, u8 Dir, u32 Interval)</td></tr>
 <tr class="memdesc:ab30ae0bb64c54e1ab61239c495a453d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Endpoint Interval.  <a href="#ab30ae0bb64c54e1ab61239c495a453d3">More...</a><br/></td></tr>
 <tr class="separator:ab30ae0bb64c54e1ab61239c495a453d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54e3195374a6137c9984c6fd47c3368b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a54e3195374a6137c9984c6fd47c3368b">StopTransfer</a> (void *InstancePtr, u8 EpNum, u8 Dir)</td></tr>
+<tr class="memdesc:a54e3195374a6137c9984c6fd47c3368b"><td class="mdescLeft">&#160;</td><td class="mdescRight">StopTransfer function.  <a href="#a54e3195374a6137c9984c6fd47c3368b">More...</a><br/></td></tr>
+<tr class="separator:a54e3195374a6137c9984c6fd47c3368b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84c0b803c0c80cef67f1c560c6435b8a"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#a84c0b803c0c80cef67f1c560c6435b8a">StreamOn</a> (void *InstancePtr, u8 EpNum, u8 Dir, u8 *BufferPtr)</td></tr>
+<tr class="memdesc:a84c0b803c0c80cef67f1c560c6435b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream On(void * Instance Ptr, u8 Ep Num, u8 Dir, u8 * ...  <a href="#a84c0b803c0c80cef67f1c560c6435b8a">More...</a><br/></td></tr>
+<tr class="separator:a84c0b803c0c80cef67f1c560c6435b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a93cfa344a69238bdae647f51bb4d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__wrapper_8h.html#ac9a93cfa344a69238bdae647f51bb4d3">StreamOff</a> (void *InstancePtr, u8 EpNum, u8 Dir)</td></tr>
+<tr class="memdesc:ac9a93cfa344a69238bdae647f51bb4d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">StreamOff function.  <a href="#ac9a93cfa344a69238bdae647f51bb4d3">More...</a><br/></td></tr>
+<tr class="separator:ac9a93cfa344a69238bdae647f51bb4d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a644f396a8634cedbecf3862197012dcc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PhysicalEp</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">epnum, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">direction&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((epnum) &lt;&lt; 1 ) | (direction))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the physical endpoint number from logical endpoint and direction. </p>
+
+<p>Referenced by <a class="el" href="xusb__wrapper_8h.html#ab30ae0bb64c54e1ab61239c495a453d3">SetEpInterval()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad32e29694460985f0124da98c6358be7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DCFG_FULLSPEED1&#160;&#160;&#160;XUSBPSU_DCFG_FULLSPEED1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configuration: Full speed. </p>
+
+</div>
+</div>
+<a class="anchor" id="aca85b9d850063bada2ce8c9a1a085618"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DCFG_FULLSPEED2&#160;&#160;&#160;XUSBPSU_DCFG_FULLSPEED2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configuration: Full speed (alternate). </p>
+
+</div>
+</div>
+<a class="anchor" id="ac334660a2a3d5cf8d5d6f653fffff850"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DCFG_HIGHSPEED&#160;&#160;&#160;XUSBPSU_DCFG_HIGHSPEED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configuration: High speed. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab2f06c52980409489c7bf3e35c088bb6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DCFG_LOWSPEED&#160;&#160;&#160;XUSBPSU_DCFG_LOWSPEED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configuration: Low speed. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac4d469782a8e9d10f31f7c1b802dd628"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DCFG_SPEED_MASK&#160;&#160;&#160;XUSBPSU_DCFG_SPEED_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configuration speed mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0388df9fadd364a6f12ff4181a8c68c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DCFG_SUPERSPEED&#160;&#160;&#160;XUSBPSU_DCFG_SUPERSPEED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configuration: SuperSpeed. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa12c76241fcad981769d65754a5f5591"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DEVICE_ID&#160;&#160;&#160;XPAR_XUSBPSU_0_DEVICE_ID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device instance ID. </p>
+
+<p>Referenced by <a class="el" href="xusb__audio__dfu__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1d46c8a7ba5292aa99ef445df6f190af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DIR_IN&#160;&#160;&#160;0x80U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB transfer direction: IN (device to host). </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__freertos__ch9__keyboard_8c.html#a043075687afdf64ad9382236bd155e60">Usb_GetDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a646a87bcd3711adbff2a18ad122cf35a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_DIR_OUT&#160;&#160;&#160;0U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB transfer direction: OUT (host to device). </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a93a6aa5841b4ff46167822362add046d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_DIR_MASK&#160;&#160;&#160;0x80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask to extract endpoint direction from address. </p>
+
+</div>
+</div>
+<a class="anchor" id="a435416dd71e258cfd83be50a991db726"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_ENDPOINT_NUMBER_MASK&#160;&#160;&#160;0x0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask to extract endpoint number from address. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab06b778272d886385cb599e0ac33aabd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP1_IN&#160;&#160;&#160;0x81</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep1 In. </p>
+
+</div>
+</div>
+<a class="anchor" id="a268675984dab8b87f6c9648cb46e7c8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP1_OUT&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep1 Out. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5cb3473e4721ebec0ffd3b7768efe548"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP2_IN&#160;&#160;&#160;0x82</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep2 In. </p>
+
+</div>
+</div>
+<a class="anchor" id="a84ecd0c91f1c6cce89cf3a015a8863c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP2_OUT&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep2 Out. </p>
+
+</div>
+</div>
+<a class="anchor" id="aae8411e95f26738326bc25a0161dde99"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_DIR_IN&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga3126435e75abbfbfdcf3bfdf9d1175a0">XUSBPSU_EP_DIR_IN</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB endpoint direction: IN. </p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#ad1d69266191044d7d27c63bd7c049b7c">Usb_DfuSetState()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0510b0a04d9cef144e4d9793310abccf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_DIR_OUT&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga512f27591b21fe69754687c156ad0c01">XUSBPSU_EP_DIR_OUT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB endpoint direction: OUT. </p>
+
+<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a89eb27133e7e106c3637039f6f49d187"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_TYPE_BULK&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gaab7f31fa2f463d3ebd2e0635402741f1">XUSBPSU_ENDPOINT_XFER_BULK</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep Type Bulk. </p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, and <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1cecaf205acbc73308396af4f540c012"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_TYPE_CONTROL&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga4cc1d5f5a9d9499d04de1ff248b1fb50">XUSBPSU_ENDPOINT_XFER_CONTROL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep Type Control. </p>
+
+</div>
+</div>
+<a class="anchor" id="a904b4eef8e7bcab363757e19832617ee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_TYPE_INTERRUPT&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gae18c69e1589fab7cf7bf0202ad9fd870">XUSBPSU_ENDPOINT_XFER_INT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep Type Interrupt. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, and <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a599edc176083ed21c0b6044a5362a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_EP_TYPE_ISOCHRONOUS&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga428b7d5150df403d2011a466379d4860">XUSBPSU_ENDPOINT_XFER_ISOC</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb Ep Type Isochronous. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab3bf2e9ae047392a3ca87d803d585a17"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_LPM_MODE&#160;&#160;&#160;XUSBPSU_LPM_MODE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB Link Power Management mode. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601">Usb_Ch9SetupBosDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1cb799bc3681d264572505e0179aa8cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_REQ_REPLY_LEN&#160;&#160;&#160;<a class="el" href="xusb__wrapper_8h.html#a8fae1ad6c97c621f7505be7bf84b7134">XUSBPSU_REQ_REPLY_LEN</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum USB request reply buffer length. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acca2fa0bba388cd4420e922c0a0f142a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SPEED_FULL&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga59f79176f4a1991bf8b9bb1e5b178dc3">XUSBPSU_SPEED_FULL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB speed: Full speed. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7c876a8d352c9ae67cf68978992b9838"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SPEED_HIGH&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gad1505139cec9bf7dda6deb3cb292a835">XUSBPSU_SPEED_HIGH</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB speed: High speed. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8bff0dbeb1bdd5ef7526658bc4a81e5a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SPEED_LOW&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gacffd9c26017dc32043d88f8a7b85bc19">XUSBPSU_SPEED_LOW</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB speed: Low speed. </p>
+
+</div>
+</div>
+<a class="anchor" id="a739b4b7fda07588dd9eebe02f2994273"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SPEED_SUPER&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga907197f8e0fa8febbc3c7794c877c147">XUSBPSU_SPEED_SUPER</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB speed: SuperSpeed. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, and <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8337391d65efade6ef31675cc7496110"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_SPEED_UNKNOWN&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gad04774b7c7c7d3c95121208888438b1e">XUSBPSU_SPEED_UNKNOWN</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB speed: Unknown. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4af0ac695f410a6e4d4ea71df55d36d6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATE_ADDRESS&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga10077a7a78df717317306ba0e42610bd">XUSBPSU_STATE_ADDRESS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device state: Addressed. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#af99800b04544fe0bfa385de154d79087">Usb_SetConfiguration()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac3836ac877aea665181fd8e8e4fb00d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATE_ATTACHED&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gac4a7f6cc7385c7af0dfd040d1965e987">XUSBPSU_STATE_ATTACHED</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device state: Attached. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6a3f44fe842ff1655596eba1321d0b80"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATE_CONFIGURED&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gae3a3281573703ad8e23f87108ba00bf9">XUSBPSU_STATE_CONFIGURED</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device state: Configured. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#af99800b04544fe0bfa385de154d79087">Usb_SetConfiguration()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae07e1b6cee441e8eb185c8d654a3f48e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATE_DEFAULT&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga7d6e17c324943f3fc70ff60980985ee1">XUSBPSU_STATE_DEFAULT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device state: Default. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#af99800b04544fe0bfa385de154d79087">Usb_SetConfiguration()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d1baf136a8e88d2969578fe5f8b44da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATE_POWERED&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gab0e5e54dfc6c271a215f191f119a9193">XUSBPSU_STATE_POWERED</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device state: Powered. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8d0c594f7f3da59d722dd05e0d268033"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_STATE_SUSPENDED&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga29bd4b024c2f53d670ace256dd29b0c7">XUSBPSU_STATE_SUSPENDED</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device state: Suspended. </p>
+
+</div>
+</div>
+<a class="anchor" id="a21cf0cae77c05fd596928d03305d7bac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TEST_FORCE_ENABLE&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gadfc13d0ed152c8a400dba485d2b55d35">XUSBPSU_TEST_FORCE_ENABLE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB test mode: Test_Force_Enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="a43656056ee4e69cd60abf1d98d582925"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TEST_J&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga7af07f28c5254049183d86942b54d610">XUSBPSU_TEST_J</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB test mode: Test_J. </p>
+
+</div>
+</div>
+<a class="anchor" id="a94cc55d6876e137b0d8101d72ed69f0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TEST_K&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#gaba5ac1fc686a1d43125ff1e3550de708">XUSBPSU_TEST_K</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB test mode: Test_K. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1701867b88f438ef2974c255664099d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TEST_PACKET&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga7bd0ead386f64199721fdbdaee530e25">XUSBPSU_TEST_PACKET</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB test mode: Test_Packet. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae12f4f9fcbaf8f19ba4f2ded69fd6b0c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USB_TEST_SE0_NAK&#160;&#160;&#160;<a class="el" href="group__usbpsu__api.html#ga145f43dae5d1d499a02248a306d35d9f">XUSBPSU_TEST_SE0_NAK</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB test mode: Test_SE0_NAK. </p>
+
+</div>
+</div>
 <a class="anchor" id="a8fae1ad6c97c621f7505be7bf84b7134"></a>
 <div class="memitem">
 <div class="memproto">
@@ -191,6 +992,564 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a3f87a58eef4f67e796fe290a7c749a8f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 AcceptU1U2Sleep </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accept U1 U2 Sleep(void * Instance Ptr). </p>
+<p>Accept U1 U2 Sleep(void * Instance Ptr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga314e8d22a5f1a2e0e4bef7f0c7bffe85">XUsbPsu_AcceptU1U2Sleep()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a279ce5fef0ed4e1fcad45af04f34873b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CacheInit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CacheInit function. </p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7409a4956ffb20a9407c497fd8f1c832"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 CfgInitialize </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__usbpsu__api.html#ga1cfed736380199beddc59a5a00a53109">Usb_Config</a> *&#160;</td>
+          <td class="paramname"><em>ConfigPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>BaseAddress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CfgInitialize function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigPtr</td><td>is a pointer to the USB configuration. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the controller.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="struct_x_usb_psu.html#a7d063081dccb62284227b99de12fd40a">XUsbPsu::AppData</a>, <a class="el" href="xusb__wrapper_8c.html#a1e76e4a0f045f8f10b810f530dc4a63d">PrivateData</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, and <a class="el" href="group__usbpsu__api.html#ga55228afff6b16b58790b91efb185eff5">XUsbPsu_CfgInitialize()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6f6b3711b08d9cbf8dc2f0781f470a50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 ConfigureDevice </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>UsbInstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>MemPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>memSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configure Device(void * Usb Instance, u8 * Mem Ptr, u32 m... </p>
+<p>Configure Device(void * Usb Instance, u8 * Mem Ptr, u32 m...</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbInstance</td><td>is a pointer to the USB instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MemPtr</td><td>is a pointer to the memory buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">memSize</td><td>is the size of the memory buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a151fcc4b98bf4d667303c36a47e83407"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ep0StallRestart </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ep0StallRestart function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga78d9a929bbb9036e7eb4ba85b176df0d">XUsbPsu_Ep0StallRestart()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, and <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab01491c228aee667027315c8d539d8c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 EpBufferRecv </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>UsbEp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>BufferPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EpBufferRecv function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbEp</td><td>is the USB endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>is a pointer to the data buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Length</td><td>is the transfer length.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gad0102ce2327d084245189584307ecdfe">XUsbPsu_EpBufferRecv()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, and <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0bebffade70d4d3276e743f7d3db8a6b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 EpBufferSend </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>UsbEp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>BufferPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>BufferLen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EpBufferSend function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbEp</td><td>is the USB endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>is a pointer to the data buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferLen</td><td>is the buffer length.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga9a977327906f2995960e50d429703687">XUsbPsu_EpBufferSend()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__storage_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b339129f8d97ba9e8fd4cde9bc8e756">SendCSW()</a>, <a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#a6b4c6d0f1989a268becf04033c4537df">Usb_ClassReq_Keyboard()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66">Usb_KeyboardClassReq()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2ef20d576e6e1bf2a4309036b643e7f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EpClearStall </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Epnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EpClearStall function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Epnum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gaeff04b67a7a4a8c63da2327c6ae5e81b">XUsbPsu_EpClearStall()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad17a2824033e5c4bd2c8aa6ee66b9189"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EpConfigure </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>UsbInstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>EndpointNo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EpConfigure function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbInstance</td><td>is a pointer to the USB instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EndpointNo</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dir</td><td>is the endpoint direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type</td><td>is the endpoint type. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a89213a25f15867eff5fa1c41b0a1a5bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 EpDisable </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>UsbEpNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ep Disable(void * Instance Ptr, u8  Usb Ep Num, u8  Dir). </p>
+<p>Ep Disable(void * Instance Ptr, u8  Usb Ep Num, u8  Dir).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbEpNum</td><td>is the USB endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gab3a191b5b5a02738beffd951ce4883d8">XUsbPsu_EpDisable()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaad9964d36a8a66a5bdbaefcd7bd5522"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 EpEnable </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>UsbEpNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Maxsize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ep Enable(void * Instance Ptr, u8 Usb Ep Num, u8 Dir, u... </p>
+<p>Ep Enable(void * Instance Ptr, u8 Usb Ep Num, u8 Dir, u...</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbEpNum</td><td>is the USB endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Maxsize</td><td>is the maximum packet size. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type</td><td>is the endpoint type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga1a566eeb18fcd70e9cf6024f2cf8a35b">XUsbPsu_EpEnable()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a71d38238db02e22f8cae78864066c940"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EpSetStall </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Epnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>EpSetStall function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Epnum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga78d9a929bbb9036e7eb4ba85b176df0d">XUsbPsu_Ep0StallRestart()</a>, and <a class="el" href="group__usbpsu__api.html#ga07f17ab6f8a9e4881fab867ff7e4ecaa">XUsbPsu_EpSetStall()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3">ClassReq()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#ad1d69266191044d7d27c63bd7c049b7c">Usb_DfuSetState()</a>, and <a class="el" href="xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318">Usb_StorageClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad850f272d507d36f74a55bb96211b85b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* Get_DrvData </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get_ Drv Data(void * Instance Ptr). </p>
+<p>Get_ Drv Data(void * Instance Ptr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the driver data, or NULL if not set. </dd></dl>
+
+<p>Referenced by <a class="el" href="xusb__freertos__massstorage__example_8c.html#a5427b67da8571837c063db309a460d37">BulkInHandler()</a>, <a class="el" href="xusb__freertos__massstorage__example_8c.html#a827731c39d2e383df605eccb5864d469">BulkOutHandler()</a>, <a class="el" href="xusb__ch9_8h.html#a4a51f5e7948e7a27adcd66023d48876d">Ch9Handler()</a>, <a class="el" href="xusb__freertos__class__keyboard_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246">prvKeyboardTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, <a class="el" href="xusb__freertos__class__storage_8h.html#a3dd6b88879ee439db086e2ff6a7664d9">prvSCSITask()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a5f71c81f47255ca655c3fe4262b97b68">Usb_Ch9SetupCfgDescReply()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2">Usb_Ch9SetupStrDescReply()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__class__dfu_8h.html#a41ee754aa98c010c6598a68967a25337">Usb_DfuDisconnect()</a>, <a class="el" href="xusb__class__dfu_8h.html#a85ada1b41808b8cc819667bdd0c9f2f8">Usb_DfuReset()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae423c2f49364dc3cd9e2cddf6b62541b">Usb_DfuSetIntf()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a194a9e11a6d5b86e53384260e2f1a90b">Usb_DisconnectHandler()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#af5e188c4250382b042768893417ab321">Usb_ResetHandler()</a>, <a class="el" href="xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be">Usb_SetConfigurationApp()</a>, <a class="el" href="xusb__freertos__ch9__audio_8h.html#a98999124de04efd07c811680f1052471">Usb_SetInterfaceHandler()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a30882c23a359d37202d4096f8e278a69"></a>
 <div class="memitem">
 <div class="memproto">
@@ -208,14 +1567,59 @@ Functions</h2></td></tr>
 <p>Get the Config state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a private member of <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a private member of <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Current configuration value</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Configuration done flag value. </dd></dl>
 
 <p>References <a class="el" href="struct_x_usb_psu.html#a08f67def1d92b23c1988c830f4d8b83f">XUsbPsu::IsConfigDone</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3cb3a733e66a6a1882c392905105eeaa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 IsEpStalled </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Epnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is Ep Stalled(void * Instance Ptr, u8  Epnum, u8  Dir). </p>
+<p>Is Ep Stalled(void * Instance Ptr, u8  Epnum, u8  Dir).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Epnum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga940e5d8d4c56eec4e394507eb0e1ab8b">XUsbPsu_IsEpStalled()</a>.</p>
 
 </div>
 </div>
@@ -236,16 +1640,223 @@ Functions</h2></td></tr>
 <p>Sets speed of the Core for connecting to Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if super speed, XST_FAILURE otherwise. </dd></dl>
 
 <p>References <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, and <a class="el" href="group__usbpsu__api.html#ga7e0a64e9adf5e221b4bd8386ad38055e">XUsbPsu_IsSuperSpeed()</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9">ParseCBW()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a5f71c81f47255ca655c3fe4262b97b68">Usb_Ch9SetupCfgDescReply()</a>, <a class="el" href="xusb__freertos__ch9__storage_8h.html#a8eaa9363a2026b377cee0a09377f6420">Usb_Ch9SetupDevDescReply()</a>, and <a class="el" href="xusb__freertos__ch9__storage_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2">Usb_Ch9SetupStrDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa54ebd095fc9b75d81ce1c6f3c2db5b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__usbpsu__api.html#ga1cfed736380199beddc59a5a00a53109">Usb_Config</a>* LookupConfig </td>
+          <td>(</td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lookup USB configuration by base address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the controller.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the USB configuration, or NULL if not found. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga87fd60823e07b4852b8a8d569121908b">XUsbPsu_LookupConfig()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaa7a2c1cb275a983a77b517a964d05ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Set_Ch9Handler </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *)&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set_Ch9Handler function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>is the Chapter 9 handler callback function pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0750f624719ace8ba3116b796b60a89a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Set_Disconnect </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *)&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set_Disconnect function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>is the disconnect handler callback function pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae56a7dab4be473055d1f2c3de0dc0b41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Set_DrvData </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set_DrvData function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>is the driver data pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6db826541b9dca41537548de4b58e258"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Set_RstHandler </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *)&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set_RstHandler function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">func</td><td>is the reset handler callback function pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a802d14b018de0532913e64d36c123cec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SetBits </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>TestSel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SetBits function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TestSel</td><td>is the test mode selector. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -276,15 +1887,105 @@ Functions</h2></td></tr>
 <p>Set the Config state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a private member of <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Flag</td><td>is the config value.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a private member of <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Flag</td><td>is the config value. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__freertos__ch9__storage_8h.html#af99800b04544fe0bfa385de154d79087">Usb_SetConfiguration()</a>, and <a class="el" href="xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b">Usb_SetConfigurationApp()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a772d84c06a10cea8de04517be09e7c8b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 SetDeviceAddress </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set Device Address(void * Instance Ptr, u16  Addr). </p>
+<p>Set Device Address(void * Instance Ptr, u16  Addr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Addr</td><td>is the USB device address.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga12567217fd7112e7d8fc4c6d91b20e11">XUsbPsu_SetDeviceAddress()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a97fa92a8f2bd1552d1d6cb6c9ee5fc29"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SetEpHandler </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Epnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void *, u32, u32)&#160;</td>
+          <td class="paramname"><em>Handler</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SetEpHandler function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Epnum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Handler</td><td>is the handler function pointer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gad585fe1304adfd139727220832c2dcf5">XUsbPsu_SetEpHandler()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -327,19 +2028,418 @@ Functions</h2></td></tr>
 <p>This function sets Endpoint Interval. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a private member of <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">UsbEpnum</td><td>is Endpoint Number. </td></tr>
-    <tr><td class="paramname">Dir</td><td>is Endpoint Direction(In/Out). </td></tr>
-    <tr><td class="paramname">Interval</td><td>is the data transfer service interval</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a private member of <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UsbEpNum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is Endpoint Direction(In/Out). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Interval</td><td>is the data transfer service interval </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_psu___ep.html#a0f79403cf89a048aeedf9be9a9da8f4f">XUsbPsu_Ep::Interval</a>.</p>
+<p>References <a class="el" href="struct_x_usb_psu___ep.html#a0f79403cf89a048aeedf9be9a9da8f4f">XUsbPsu_Ep::Interval</a>, and <a class="el" href="xusb__wrapper_8h.html#a644f396a8634cedbecf3862197012dcc">PhysicalEp</a>.</p>
 
 <p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4de47b2a35ba7746ebec2f41ed493e98"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 SetU1SleepTimeout </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Sleep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set U1 Sleep Timeout(void * Instance Ptr, u8  Sleep). </p>
+<p>Set U1 Sleep Timeout(void * Instance Ptr, u8  Sleep).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Sleep</td><td>is the sleep timeout value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gaa511f1b4207a9b718f8951e2f3b0ac90">XUsbPsu_SetU1SleepTimeout()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a542a04fdd8d1c57a8ca9d90034584263"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 SetU2SleepTimeout </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Sleep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set U2 Sleep Timeout(void * Instance Ptr, u8  Sleep). </p>
+<p>Set U2 Sleep Timeout(void * Instance Ptr, u8  Sleep).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Sleep</td><td>is the sleep timeout value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gade3b6c0bdb87c504d946212311c04216">XUsbPsu_SetU2SleepTimeout()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a54e3195374a6137c9984c6fd47c3368b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void StopTransfer </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>EpNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>StopTransfer function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga0358f9d4714f7d4e19d429ccf8cc6b26">XUsbPsu_StopTransfer()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__wrapper_8h.html#ac9a93cfa344a69238bdae647f51bb4d3">StreamOff()</a>, and <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9a93cfa344a69238bdae647f51bb4d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void StreamOff </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>EpNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>StreamOff function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="xusb__wrapper_8c.html#a54e3195374a6137c9984c6fd47c3368b">StopTransfer()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a84c0b803c0c80cef67f1c560c6435b8a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 StreamOn </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>EpNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8 *&#160;</td>
+          <td class="paramname"><em>BufferPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stream On(void * Instance Ptr, u8 Ep Num, u8 Dir, u8 * ... </p>
+<p>Stream On(void * Instance Ptr, u8 Ep Num, u8 Dir, u8 * ...</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpNum</td><td>is the endpoint number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Dir</td><td>is the endpoint direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>is a pointer to the data buffer.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721">prvPlayBackTask()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4aa2a3657dc2cbd418ca6585b69ca3eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 U1SleepDisable </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>U1 Sleep Disable(void * Instance Ptr). </p>
+<p>U1 Sleep Disable(void * Instance Ptr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga35ea7b99952969130f6bc35b088b16a0">XUsbPsu_U1SleepDisable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7155981f80b1a470f00f2072abf97124"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 U1SleepEnable </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>U1 Sleep Enable(void * Instance Ptr). </p>
+<p>U1 Sleep Enable(void * Instance Ptr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gab610beaf7a6f5703f123e6682bea8c45">XUsbPsu_U1SleepEnable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1ea40d86e353b9e078682baeaabdbbae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 U2SleepDisable </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>U2 Sleep Disable(void * Instance Ptr). </p>
+<p>U2 Sleep Disable(void * Instance Ptr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gace8c49312a72bbabfb622b62d88ffc0a">XUsbPsu_U2SleepDisable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac7990af6b593432f9fe5ab81f7bd8a3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 U2SleepEnable </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>U2 Sleep Enable(void * Instance Ptr). </p>
+<p>U2 Sleep Enable(void * Instance Ptr).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga5340d1fa1682b73d5f4da55eff3b0a0b">XUsbPsu_U2SleepEnable()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a055bcdbc2aabdd7990e383350f1d9ebd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Usb_SetSpeed </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Speed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb_SetSpeed function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Speed</td><td>is the USB speed value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#gaebd7592c8206e1fa22594cb2e4e44f7f">XUsbPsu_SetSpeed()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d32fd815ed7b6b1bae2bd649ac428f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 Usb_Start </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Usb_Start function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE otherwise. </dd></dl>
+
+<p>References <a class="el" href="group__usbpsu__api.html#ga6d7651e8afca56974940464709b8a3ed">XUsbPsu_Start()</a>.</p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
 </div>
 </div>
@@ -370,12 +2470,11 @@ Functions</h2></td></tr>
 <p>Enables the events specified in the mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_psu.html" title="USB Device Controller representation USB Device Controller representation. ">XUsbPsu</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_psu.html" title="USB Device Controller representation USB Device Controller representation. ">XUsbPsu</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>is the bitmask of events to enable. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="group__usbpsu__api.html#ga48e6e534c10a7a99be5606a0583c2129">XUsbPsu_EnableIntr()</a>.</p>
 
@@ -400,12 +2499,10 @@ Functions</h2></td></tr>
 <p>Handler called from polled mode for handling usb events. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_psu.html" title="USB Device Controller representation USB Device Controller representation. ">XUsbPsu</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_psu.html" title="USB Device Controller representation USB Device Controller representation. ">XUsbPsu</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="group__usbpsu__api.html#ga9b106790d1b007e134bda766af314a9a">XUsbPsu_IntrHandler()</a>.</p>
 

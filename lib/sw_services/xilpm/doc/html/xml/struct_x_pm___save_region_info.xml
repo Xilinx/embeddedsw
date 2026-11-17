@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___save_region_info" kind="struct" prot="public">
+    <compoundname>XPm_SaveRegionInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___save_region_info_1afba2ddbe6600a903f48c536dcce5b7fa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_SaveRegionInfo::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___save_region_info_1ab7acf63b958384fa1ed6528ef5226e1a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_SaveRegionInfo::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="70" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___save_region_info_1afba2ddbe6600a903f48c536dcce5b7fa" prot="public" virt="non-virtual"><scope>XPm_SaveRegionInfo</scope><name>Offset</name></member>
+      <member refid="struct_x_pm___save_region_info_1ab7acf63b958384fa1ed6528ef5226e1a" prot="public" virt="non-virtual"><scope>XPm_SaveRegionInfo</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

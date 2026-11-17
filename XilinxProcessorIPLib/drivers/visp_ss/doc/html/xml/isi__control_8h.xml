@@ -5,117 +5,117 @@
     <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
     <includedby refid="isi__control_8c" local="yes">isi_control.c</includedby>
     <incdepgraph>
-      <node id="5711">
+      <node id="5752">
         <label>stdbool.h</label>
       </node>
-      <node id="5705">
+      <node id="5738">
+        <label>isi_control.h</label>
+        <link refid="isi_control.h"/>
+        <childnode refid="5739" relation="include">
+        </childnode>
+      </node>
+      <node id="5754">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="5752" relation="include">
+        </childnode>
+        <childnode refid="5755" relation="include">
+        </childnode>
+      </node>
+      <node id="5753">
+        <label>stdint.h</label>
+      </node>
+      <node id="5743">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5740">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5741" relation="include">
+        </childnode>
+        <childnode refid="5744" relation="include">
+        </childnode>
+        <childnode refid="5745" relation="include">
+        </childnode>
+      </node>
+      <node id="5745">
+        <label>stddef.h</label>
+      </node>
+      <node id="5744">
+        <label>limits.h</label>
+      </node>
+      <node id="5746">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="5712">
-        <label>stdint.h</label>
-      </node>
-      <node id="5702">
-        <label>stdlib.h</label>
-      </node>
-      <node id="5697">
-        <label>isi_control.h</label>
-        <link refid="isi_control.h"/>
-        <childnode refid="5698" relation="include">
-        </childnode>
-      </node>
-      <node id="5709">
+      <node id="5750">
         <label>sensor_cmd.h</label>
-        <childnode refid="5710" relation="include">
+        <childnode refid="5751" relation="include">
         </childnode>
-        <childnode refid="5705" relation="include">
-        </childnode>
-      </node>
-      <node id="5704">
-        <label>stddef.h</label>
-      </node>
-      <node id="5703">
-        <label>limits.h</label>
-      </node>
-      <node id="5698">
-        <label>cam_device_common.h</label>
-        <childnode refid="5699" relation="include">
-        </childnode>
-        <childnode refid="5705" relation="include">
-        </childnode>
-        <childnode refid="5706" relation="include">
-        </childnode>
-        <childnode refid="5708" relation="include">
-        </childnode>
-        <childnode refid="5709" relation="include">
+        <childnode refid="5746" relation="include">
         </childnode>
       </node>
-      <node id="5708">
-        <label>buf_defs.h</label>
-        <childnode refid="5699" relation="include">
-        </childnode>
-      </node>
-      <node id="5710">
-        <label>mbox_api.h</label>
-        <childnode refid="5711" relation="include">
-        </childnode>
-        <childnode refid="5712" relation="include">
-        </childnode>
-        <childnode refid="5713" relation="include">
-        </childnode>
-      </node>
-      <node id="5707">
-        <label>string.h</label>
-      </node>
-      <node id="5713">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="5711" relation="include">
-        </childnode>
-        <childnode refid="5714" relation="include">
-        </childnode>
-      </node>
-      <node id="5714">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="5699">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="5700" relation="include">
-        </childnode>
-        <childnode refid="5703" relation="include">
-        </childnode>
-        <childnode refid="5704" relation="include">
-        </childnode>
-      </node>
-      <node id="5706">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="5699" relation="include">
-        </childnode>
-        <childnode refid="5707" relation="include">
-        </childnode>
-      </node>
-      <node id="5701">
-        <label>stdio.h</label>
-      </node>
-      <node id="5700">
+      <node id="5741">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="5701" relation="include">
+        <childnode refid="5742" relation="include">
         </childnode>
-        <childnode refid="5702" relation="include">
+        <childnode refid="5743" relation="include">
         </childnode>
+      </node>
+      <node id="5748">
+        <label>string.h</label>
+      </node>
+      <node id="5739">
+        <label>cam_device_common.h</label>
+        <childnode refid="5740" relation="include">
+        </childnode>
+        <childnode refid="5746" relation="include">
+        </childnode>
+        <childnode refid="5747" relation="include">
+        </childnode>
+        <childnode refid="5749" relation="include">
+        </childnode>
+        <childnode refid="5750" relation="include">
+        </childnode>
+      </node>
+      <node id="5751">
+        <label>mbox_api.h</label>
+        <childnode refid="5752" relation="include">
+        </childnode>
+        <childnode refid="5753" relation="include">
+        </childnode>
+        <childnode refid="5754" relation="include">
+        </childnode>
+      </node>
+      <node id="5747">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="5740" relation="include">
+        </childnode>
+        <childnode refid="5748" relation="include">
+        </childnode>
+      </node>
+      <node id="5755">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="5749">
+        <label>buf_defs.h</label>
+        <childnode refid="5740" relation="include">
+        </childnode>
+      </node>
+      <node id="5742">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="5715">
+      <node id="5756">
         <label>isi_control.h</label>
         <link refid="isi_control.h"/>
-        <childnode refid="5716" relation="include">
+        <childnode refid="5757" relation="include">
         </childnode>
       </node>
-      <node id="5716">
+      <node id="5757">
         <label>isi_control.c</label>
         <link refid="isi__control_8c"/>
       </node>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -146,7 +146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="57" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="57" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -165,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="54" bodyend="116"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="54" bodyend="116"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gaceb06d096bd9b934035a984a25e49bb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -182,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="119" bodyend="144"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="119" bodyend="150"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gaccb738c36b240c1fc0276174b88495c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -199,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="147" bodyend="182"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="153" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gab271496afdcf5464767a35977848358a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -216,7 +216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="184" bodyend="210"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="190" bodyend="216"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga04c64782e978826e78558d4aaba4e20a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -233,7 +233,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="211" bodyend="234"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="217" bodyend="240"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gadb3a7edf1bddf7b8c7623a033de64e0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -250,7 +250,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="235" bodyend="258"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="241" bodyend="264"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga0da5f60124e6c046ec776d69d57d0fda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -267,7 +267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="259" bodyend="290"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="265" bodyend="296"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga9c5333aa1b5a9960a0aa30c31e1ca5ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -284,7 +284,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="291" bodyend="320"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="297" bodyend="326"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga44f27498ce3ee66bed73c19ccc899e78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -301,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="321" bodyend="347"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="327" bodyend="353"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga371e4239a22758e7a3672926f8ec5f3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -318,7 +318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="348" bodyend="377"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="354" bodyend="383"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gad122766c9573b6b29ef540fe5a58919d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -335,7 +335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="379" bodyend="408"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="385" bodyend="414"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga6e54c857e1ee13f9438acfc7c80c3834" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -352,7 +352,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="409" bodyend="438"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="415" bodyend="444"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga1a71b65aa9c72b5b25d109efcff47052" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -369,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="439" bodyend="468"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="445" bodyend="474"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gac72123a04772f23b5635cef797b6757e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -386,7 +386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="469" bodyend="495"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="475" bodyend="501"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga7e21dc4c8e56e617a7b92645199f284b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -403,7 +403,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="496" bodyend="522"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="502" bodyend="528"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga5b111642814c496d16f55946b53a5e69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -420,7 +420,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="523" bodyend="552"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="529" bodyend="558"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga99c49069e2fa364f1851040a1f456c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -437,7 +437,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="553" bodyend="579"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="559" bodyend="585"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gaa67c445d505945f5e9f48a3f44d2e964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -454,7 +454,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="580" bodyend="609"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="586" bodyend="615"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga2139e65e24eea2feda95e4a2ce0f7815" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -471,7 +471,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="610" bodyend="636"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="616" bodyend="642"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga1287d4202de54e3b52f8d4f8d6cf04d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -488,7 +488,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="638" bodyend="667"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="644" bodyend="673"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga9c4d2aa919fb0cc74a81d65fedc3f384" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -505,7 +505,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="668" bodyend="694"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="674" bodyend="700"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gafdfc466f4343f12e8bb4a234b923d3db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -522,7 +522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="695" bodyend="724"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="701" bodyend="730"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga16b4b87b3646eba992badec56ce0acc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -539,7 +539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="725" bodyend="751"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="731" bodyend="757"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gaec10c875e17495d67b9ee36fcabeff98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -556,7 +556,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="752" bodyend="781"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="758" bodyend="787"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga5a9d286cf056493b8ccfcbd780a05119" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -573,7 +573,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="783" bodyend="809"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="789" bodyend="815"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga4598eb9d20809b70652e9a0df3ca2c89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -590,7 +590,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="810" bodyend="839"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="816" bodyend="845"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga37f9bd1e42732feb5068dbb3f4f1e902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -607,7 +607,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="840" bodyend="869"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="846" bodyend="875"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga4e74d10a5ca8745d06df4f234a5023a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -624,7 +624,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="872" bodyend="901"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="878" bodyend="907"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga761e99f6fb81a1c68fe86b5c355bc710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -641,7 +641,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="902" bodyend="935"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="908" bodyend="941"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -728,6 +728,6 @@
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h"/>
   </compounddef>
 </doxygen>

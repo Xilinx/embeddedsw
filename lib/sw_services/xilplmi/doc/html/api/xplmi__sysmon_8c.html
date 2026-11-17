@@ -134,7 +134,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       dd   03/28/2023 Updated doxygen comments
 1.08  rama 08/10/2023 Changed OT print to DEBUG_ALWAYS for
                       debug level_0 option
-      mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__sysmon_8h.html">xplmi_sysmon.h</a>&quot;</code><br/>
+      mss  03/13/2024 MISRA-C violation Rule 17.8 fixed
+2.40  obs  02/12/2025 Removed XSysMonPsv driver dependency, use direct
+                      register access for PLM operations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__sysmon_8h.html">xplmi_sysmon.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__debug_8h.html">xplmi_debug.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_hw.h&quot;</code><br/>
@@ -154,11 +156,11 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga5dcd8914dd53d7f531efec97aadde7af"><td class="memItemLeft" align="right" valign="top">XSysMonPsv *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga5dcd8914dd53d7f531efec97aadde7af">XPlmi_GetSysmonInst</a> (void)</td></tr>
-<tr class="memdesc:ga5dcd8914dd53d7f531efec97aadde7af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides address of Sysmon Instance.  <a href="group__xilplmi__server__apis.html#ga5dcd8914dd53d7f531efec97aadde7af">More...</a><br/></td></tr>
-<tr class="separator:ga5dcd8914dd53d7f531efec97aadde7af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a33b3e326c4e91efa6d12833b5470ca"><td class="memItemLeft" align="right" valign="top">XPlmi_SysMonPsv *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga1a33b3e326c4e91efa6d12833b5470ca">XPlmi_GetSysmonInst</a> (void)</td></tr>
+<tr class="memdesc:ga1a33b3e326c4e91efa6d12833b5470ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides address of Sysmon Instance.  <a href="group__xilplmi__server__apis.html#ga1a33b3e326c4e91efa6d12833b5470ca">More...</a><br/></td></tr>
+<tr class="separator:ga1a33b3e326c4e91efa6d12833b5470ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7005f232679e61ea2232d46ef9897b8a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga7005f232679e61ea2232d46ef9897b8a">XPlmi_SysMonInit</a> (void)</td></tr>
-<tr class="memdesc:ga7005f232679e61ea2232d46ef9897b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the SysMon.  <a href="group__xilplmi__server__apis.html#ga7005f232679e61ea2232d46ef9897b8a">More...</a><br/></td></tr>
+<tr class="memdesc:ga7005f232679e61ea2232d46ef9897b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the SysMon using direct register access.  <a href="group__xilplmi__server__apis.html#ga7005f232679e61ea2232d46ef9897b8a">More...</a><br/></td></tr>
 <tr class="separator:ga7005f232679e61ea2232d46ef9897b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2381d59a5154e7ef73fa658045a3c825"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga2381d59a5154e7ef73fa658045a3c825">XPlmi_SysMonOTDetect</a> (u32 WaitInMSecVal)</td></tr>
 <tr class="memdesc:ga2381d59a5154e7ef73fa658045a3c825"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function detects if we are still in over-temperature condition.  <a href="group__xilplmi__server__apis.html#ga2381d59a5154e7ef73fa658045a3c825">More...</a><br/></td></tr>

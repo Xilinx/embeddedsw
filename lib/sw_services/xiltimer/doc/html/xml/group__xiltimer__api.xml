@@ -10,12 +10,17 @@
         <argsstring></argsstring>
         <name>TimerInst</name>
         <briefdescription>
-        </briefdescription>
+<para>Global XTimer instance for timer operations. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" compoundref="xiltimer_8c" startline="215" endline="222">XTimer_ClearTickInterrupt</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" compoundref="xiltimer_8c" startline="130" endline="142">XTimer_SetHandler</referencedby>
+        <referencedby refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" compoundref="xiltimer_8c" startline="169" endline="176">XTimer_SetInterval</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" compoundref="xiltimer_8c" startline="193" endline="207">XTimer_SetIntervalHz</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -41,24 +46,31 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the instance to be worked on </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the Axi Timer Instance baseaddress to be worked on</para></parameterdescription>
+<para>is the Axi Timer Instance baseaddress to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">AxiTimerInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XTmrCtr instance to initialize</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/axi_timer/axi_timer.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/axi_timer/axi_timer.c" bodystart="105" bodyend="124"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/axi_timer/axi_timer.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/axi_timer/axi_timer.c" bodystart="114" bodyend="133"/>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1ga2c391113ad85cc4d13b89397d9d77dc1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -82,21 +94,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the instance to be worked on </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the Scutimer Instance baseaddress to be worked on </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>ScuTimerInstPtr</parametername>
+<parametername direction="out">ScuTimerInstPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the XScuTimer Instance</para></parameterdescription>
@@ -106,7 +118,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" bodystart="116" bodyend="134"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" bodystart="117" bodyend="135"/>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1gaffc16d6c4c44f42d4dad9d9a183f4098" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -126,17 +138,24 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the Scutimer Instance baseaddress to be worked on</para></parameterdescription>
+<para>identifies the TTC instance by base address in SDT builds or by device ID in non-SDT builds. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">TtcPsInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XTtcPs instance to initialize</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="147" bodyend="169"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="150" bodyend="172"/>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -152,18 +171,32 @@
           <declname>DelayType</declname>
         </param>
         <briefdescription>
-<para>This API contains common delay implementation using library API&apos;s. </para>        </briefdescription>
+<para>This API contains common delay implementation using library APIs. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>none</para></simplesect>
-<simplesect kind="note"><para>none </para></simplesect>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DelayType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unit of delay (seconds, milliseconds, microseconds). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="101" bodyend="108"/>
-        <references refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" compoundref="xiltimer_8h" startline="103">XTimerTag::XTimer_ModifyInterval</references>
-        <referencedby refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" compoundref="xiltimer_8c" startline="71" endline="73">msleep</referencedby>
-        <referencedby refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" compoundref="xiltimer_8c" startline="55" endline="57">sleep</referencedby>
-        <referencedby refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" compoundref="xiltimer_8c" startline="87" endline="89">usleep</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="97" bodyend="104"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" compoundref="xiltimer_8h" startline="93">XTimerTag::XTimer_ModifyInterval</references>
+        <referencedby refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" compoundref="xiltimer_8c" startline="72" endline="74">msleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" compoundref="xiltimer_8c" startline="60" endline="62">sleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" compoundref="xiltimer_8c" startline="84" endline="86">usleep</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -179,20 +212,18 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>seconds</parametername>
+<parametername direction="in">seconds</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Delay time in seconds</para></parameterdescription>
+<para>Delay time in seconds </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>none</para></simplesect>
-<simplesect kind="note"><para>none </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="55" bodyend="57"/>
-        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</references>
-        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" compoundref="xiltimer_8h" startline="77">XTIMER_DELAY_SEC</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="60" bodyend="62"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" compoundref="xiltimer_8h" startline="82">XTIMER_DELAY_SEC</references>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -208,20 +239,18 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>mseconds</parametername>
+<parametername direction="in">mseconds</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Delay time in milliseconds</para></parameterdescription>
+<para>Delay time in milliseconds </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>none</para></simplesect>
-<simplesect kind="note"><para>none </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="71" bodyend="73"/>
-        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</references>
-        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" compoundref="xiltimer_8h" startline="78">XTIMER_DELAY_MSEC</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="72" bodyend="74"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" compoundref="xiltimer_8h" startline="83">XTIMER_DELAY_MSEC</references>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -237,20 +266,18 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>useconds</parametername>
+<parametername direction="in">useconds</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Delay time in microseconds</para></parameterdescription>
+<para>Delay time in microseconds </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>none</para></simplesect>
-<simplesect kind="note"><para>none </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="87" bodyend="89"/>
-        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</references>
-        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" compoundref="xiltimer_8h" startline="79">XTIMER_DELAY_USEC</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="84" bodyend="86"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="97" endline="104">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" compoundref="xiltimer_8h" startline="84">XTIMER_DELAY_USEC</references>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -260,11 +287,10 @@
         <briefdescription>
 <para>This API initializes the xiltimer library through constructor. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>none </para></simplesect>
-</para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="118" bodyend="122"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="112" bodyend="116"/>
         <references refid="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee">XilSleepTimer_Init</references>
         <references refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52">XilTickTimer_Init</references>
       </memberdef>
@@ -274,7 +300,7 @@
         <argsstring>(XTimer_TickHandler FuncPtr, void *CallBackRef, u8 Priority)</argsstring>
         <name>XTimer_SetHandler</name>
         <param>
-          <type>XTimer_TickHandler</type>
+          <type><ref refid="xiltimer_8h_1adf78c896aa8018bb63e6aa315e24223b" kindref="member">XTimer_TickHandler</ref></type>
           <declname>FuncPtr</declname>
         </param>
         <param>
@@ -290,34 +316,34 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>FuncPtr</parametername>
+<parametername direction="in">FuncPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the address of the callback function. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>CallBackRef</parametername>
+<parametername direction="in">CallBackRef</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a user data item that will be passed to the callback function when it is invoked. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Priority</parametername>
+<parametername direction="in">Priority</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>- Priority for the interrupt</para></parameterdescription>
+<para>- Priority for the interrupt </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="138" bodyend="150"/>
-        <references refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" compoundref="xiltimer_8h" startline="116">XTimerTag::CallBackRef</references>
-        <references refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" compoundref="xiltimer_8h" startline="115">XTimerTag::Handler</references>
-        <references refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" compoundref="xiltimer_8h" startline="105">XTimerTag::XTimer_TickIntrHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="130" bodyend="142"/>
+        <references refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" compoundref="xiltimer_8h" startline="109">XTimerTag::CallBackRef</references>
+        <references refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" compoundref="xiltimer_8h" startline="108">XTimerTag::Handler</references>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" compoundref="xiltimer_8h" startline="95">XTimerTag::XTimer_TickIntrHandler</references>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -333,19 +359,48 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>delay</parametername>
+<parametername direction="in">delay</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Delay time in milliseconds</para></parameterdescription>
+<para>Delay time in milliseconds </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>none</para></simplesect>
-<simplesect kind="note"><para>none </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="185" bodyend="192"/>
-        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="107">XTimerTag::XTimer_TickInterval</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="169" bodyend="176"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="97">XTimerTag::XTimer_TickInterval</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetIntervalHz</definition>
+        <argsstring>(u32 FreqHz)</argsstring>
+        <name>XTimer_SetIntervalHz</name>
+        <param>
+          <type>u32</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This API configures the tick interval from a frequency in Hz, instead of whole milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the tick interval from a frequency in Hz.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Required tick frequency in Hz</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>If the selected tick timer does not implement XTimer_TickIntervalHz, this API uses Delay = 1000 / FreqHz with integer truncation, so the programmed rate matches FreqHz only when 1000 is an exact multiple of FreqHz. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="193" bodyend="207"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" compoundref="xiltimer_8h" startline="83">XTIMER_DELAY_MSEC</references>
+        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="97">XTimerTag::XTimer_TickInterval</references>
+        <references refid="struct_x_timer_tag_1a793bd1f723f0570b86cfdd0802cc46a5" compoundref="xiltimer_8h" startline="99">XTimerTag::XTimer_TickIntervalHz</references>
       </memberdef>
       <memberdef kind="function" id="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -358,13 +413,12 @@
         <briefdescription>
 <para>This API clears the interrupt status of the tick timer instance. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>none</para></simplesect>
-<simplesect kind="note"><para>none </para></simplesect>
-</para>        </detaileddescription>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="204" bodyend="211"/>
-        <references refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" compoundref="xiltimer_8h" startline="113">XTimerTag::XTickTimer_ClearInterrupt</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="215" bodyend="222"/>
+        <references refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" compoundref="xiltimer_8c" startline="43">TimerInst</references>
+        <references refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" compoundref="xiltimer_8h" startline="106">XTimerTag::XTickTimer_ClearInterrupt</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -377,7 +431,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xiltimer__api_1gaca6f06685ab6904b49da2f41d3c7b46b" prot="public" static="no">
         <name>REG_SHIFT</name>
@@ -388,7 +442,7 @@
 <para>the shift amount is 32, indicating a 16-bit register width. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xiltimer__api_1ga82aee0f8087831dfc46f2d5c884d1b0e" prot="public" static="no">
         <name>XCntrVal</name>
@@ -399,13 +453,116 @@
 <para>Depending on the architecture being targeted, it is a 16-bit unsigned integer (u16). </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="71" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>} </para>    </briefdescription>
     <detaileddescription>
-<para>This file contains the sleep API&apos;s.</para><para>}</para><para><preformatted>
+<para>This file contains the sleep API&apos;s.</para><para><preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who  Date        Changes
+  ----- ---- -------- -------------------------------------------------------
+  1.0  adk       24/11/21 Initial release.
+        adk      12/01/22 Fix compilation errors.
+  1.1   adk      08/08/22 Added support for versal net.
+        adk      08/08/22 Added doxygen tags.
+  2.2  adk       05/03/25 Update LPD_RST_TIMESTAMP and XIOU_SCNTRS_BASEADDR
+                          defines for Versal 2VE and 2VM platforms.
+        adk      09/05/25 Adjust the delay calculation logic for the R52
+                          processor to use XIOU_SCNTRS_FREQ.
+  2.3  adk      02/09/25 Updated the code to initialize global timer only
+                          once to avoid issues in AMP systems.
+   2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who  Date        Changes
+  ----- ---- -------- -------------------------------------------------------
+  1.0   adk  24/11/21 Initial release.
+         adk  25/03/22 Fix compilation errors for a72 processor.
+  1.1    adk  08/08/22 Added support for versal net.
+         adk  08/08/22 Added doxygen tags.
+  2.0   adk  04/07/24 Update the checks for A53 32-bit configuration.
+  2.3   ml   18/07/25 Added one time init for XGlobalTimer_Start
+   2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who  Date        Changes
+  ----- ---- -------- -------------------------------------------------------
+  1.0  adk       24/11/21 Initial release.
+  1.1   adk      08/08/22 Added doxygen tags.
+   2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who  Date        Changes
+  ----- ---- -------- -------------------------------------------------------
+  1.4  mus       24/11/23 Initial release.
+  1.4  mus       13/02/24 Update XilSleepTimer_Init properly initialize MB V
+                         timer.
+   2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who  Date        Changes
+  ----- ---- -------- -------------------------------------------------------
+  1.0  adk       24/11/21 Initial release.
+  1.1   adk      08/08/22 Added doxygen tags.
+  1.3  adk      26/04/23 XGet_CpuFreq() API is defined in the system
+                          device-tree flow, update ifdef check for the same.
+   2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
+ ----- ---- -------- -------------------------------------------------------
+  1.0  adk   24/11/21 Initial release.
+         adk   07/02/22 Updated the IntrHandler as per <ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler()</ref> API
+                        and removed the unneeded XTickTimer_SetPriority() API.
+  1.1    adk   08/08/22 Added doxygen tags.
+  1.3  asa   08/09/23 Fixed the incorrect logic in XTimer_ScutimerModifyInterval
+                      to account for the fact that scutimer counter is always
+                      a decrementing counter.
+                      Update XTimer_ScutimerTickInterval to add support for SDT
+                      flow.
+  2.0  ml    28/03/24 Added description to fix doxygen warnings
+  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
+  2.4  vmt   09/24/26 Added SCU timer tick configuration from frequency.
+  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+  MODIFICATION HISTORY:</preformatted></para><para><preformatted>  Ver   Who  Date        Changes
+  ----- ---- -------- -------------------------------------------------------
+  1.0   adk   24/11/21 Initial release.
+         adk   07/02/22 Updated the IntrHandler as per <ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler()</ref> API
+                        and removed the unneeded XTickTimer_SetPriority() API.
+  1.1   adk   08/08/22 Added doxygen tags.
+  1.3   gm    21/07/23 Added Timer Release Callback function support.
+  1.3   asa   08/09/23 Added macros to ensure that for Zynq/CortexA9
+                       16 bit TTC counters are used.
+  2.0   ml    29/03/24 Added description to fix doxygen warnings.
+  2.4   bdk   13/11/25 Typecasted with proper datatypes to fix MISRA-C
+                        violation rules for 10.1 and 17.7
+  2.4   vmt   08/20/26 Added weak sleep and tick timer instance variables.
+  2.4   vmt   09/01/26 Added XTimer_TtcTickIntervalHz() so TTC tick rates can
+                        be programmed in Hz.
+   2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Date     Changes
+<hruler/>
+
+ 1.0  adk        24/11/21 Initial release.
+        adk      07/02/22 Integrate configuring of priority field into
+                          <ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler()</ref> API instead of a new API.
+ 1.1    adk      08/08/22 Added support for versal net.
+        adk      08/08/22 Added doxygen tags.
+ 1.2  adk        22/12/22 Fixed doxygen style and indentation issues.
+ 1.3  gm         21/07/23 Added Timer Release Callback function.
+ 2.0  ml       28/03/24 added description and removed comments to
+                        fix doxygen warnings.
+ 2.4  vmt      08/20/26 Added weak definitions of sleep and tick
+                        timer instance variables.
+ 2.4  vmt      09/01/26 Added <ref refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" kindref="member">XTimer_SetIntervalHz()</ref> to configure the tick
+                        interval from frequency.
+ 2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</preformatted></para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Date     Changes
 <hruler/>
 
@@ -423,6 +580,11 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Da
  1.4  ht      09/12/23 Added code for versioning of library.
  1.4  mus     15/02/24 Added correct APIs to set/get MB V frequency.
  2.0  ml      28/03/24 Added description to fix doxygen warnings.
+ 2.4  vmt     08/20/26 Added weak sleep and tick timer instance
+                       variables.
+ 2.4  vmt     09/01/26 Added <ref refid="group__xiltimer__api_1ga4381a7c988933521223d057ac235cc91" kindref="member">XTimer_SetIntervalHz()</ref> to configure the tick
+                       interval from frequency.
+ 2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

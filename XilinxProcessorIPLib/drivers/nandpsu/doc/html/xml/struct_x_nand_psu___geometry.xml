@@ -15,13 +15,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="326" bodyend="-1"/>
-        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="159" endline="245">NandReadWriteExample</referencedby>
-        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
-        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
-        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
-        <referencedby refid="group___overview_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1420" endline="1516">XNandPsu_Write</referencedby>
-        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="153" endline="239">NandReadWriteExample</referencedby>
+        <referencedby refid="group__nandpsu__api_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="88" endline="166">XNandPsu_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandpsu_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1492" endline="1588">XNandPsu_Read</referencedby>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandpsu_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1376" endline="1472">XNandPsu_Write</referencedby>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1acb31c921090928f5403eb4d4a656be7a" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -34,9 +34,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="327" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
-        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a512d6752bf36aed2a5cfe231d9526d72" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -49,8 +49,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="328" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2128" endline="2167">XNandPsu_EraseBlock</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a33f499844b9583cee43dd914a061b950" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="329" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="336" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a1487cb09bf44c6af80167e1b1f189080" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="330" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="337" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1af5f01ae266913af7054de33c91ff8e9d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -89,10 +89,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="331" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
-        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
-        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2128" endline="2167">XNandPsu_EraseBlock</referencedby>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a92993e9d034d83f9fe75057c2bc745b9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -105,9 +105,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="332" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
-        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a04f2b73b9ec09f6b9bf8735cacefa86f" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="333" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="340" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a424dc9e69899836039619b5ab1f1ac24" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="334" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="341" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a55ae396e541576b4d3e8337c7b7ab4f3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -146,7 +146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="335" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="342" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a7a931d5c8554b4bfa678f7b435526cff" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -159,10 +159,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="337" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1651" endline="1731">XNandPsu_Erase</referencedby>
-        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
-        <referencedby refid="group___overview_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1420" endline="1516">XNandPsu_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1611" endline="1691">XNandPsu_Erase</referencedby>
+        <referencedby refid="group__nandpsu_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1492" endline="1588">XNandPsu_Read</referencedby>
+        <referencedby refid="group__nandpsu_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1376" endline="1472">XNandPsu_Write</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a0ff8d025d33c76d816e1a09fc1a97556" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -175,11 +175,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="338" bodyend="-1"/>
-        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
-        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
-        <referencedby refid="group___overview_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1420" endline="1516">XNandPsu_Write</referencedby>
-        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1492" endline="1588">XNandPsu_Read</referencedby>
+        <referencedby refid="group__nandpsu_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2059" endline="2112">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandpsu_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1376" endline="1472">XNandPsu_Write</referencedby>
+        <referencedby refid="group__nandpsu_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1787" endline="1912">XNandPsu_WriteSpareBytes</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1abd5bd50be9d37835e78e1adb37815679" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -192,10 +192,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="339" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1651" endline="1731">XNandPsu_Erase</referencedby>
-        <referencedby refid="group___overview_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="86" endline="164">XNandPsu_InitBbtDesc</referencedby>
-        <referencedby refid="group___overview_1ga8d3500cacdc26941b76db6a74f8e2b0f" compoundref="xnandpsu__bbm_8c" startline="805" endline="843">XNandPsu_MarkBlockBad</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="345" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1611" endline="1691">XNandPsu_Erase</referencedby>
+        <referencedby refid="group__nandpsu__api_1ga81efec47413599300b874c98ceffee81" compoundref="xnandpsu__bbm_8c" startline="88" endline="166">XNandPsu_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandpsu__api_1ga8d3500cacdc26941b76db6a74f8e2b0f" compoundref="xnandpsu__bbm_8c" startline="819" endline="857">XNandPsu_MarkBlockBad</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a93e29a770cc95cd76576a2184ff4ec29" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -208,9 +208,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="340" bodyend="-1"/>
-        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
-        <referencedby refid="group___overview_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1420" endline="1516">XNandPsu_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1492" endline="1588">XNandPsu_Read</referencedby>
+        <referencedby refid="group__nandpsu_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1376" endline="1472">XNandPsu_Write</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1aa77b389be09efc2cfe215604aa1f8c18" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -223,9 +223,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="341" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2370" endline="2497">XNandPsu_ChangeTimingMode</referencedby>
-        <referencedby refid="group___overview_1ga834baaa423d26638d10ad7195ba097fa" compoundref="xnandpsu__bbm_8c" startline="257" endline="312">XNandPsu_ScanBbt</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2321" endline="2448">XNandPsu_ChangeTimingMode</referencedby>
+        <referencedby refid="group__nandpsu__api_1ga834baaa423d26638d10ad7195ba097fa" compoundref="xnandpsu__bbm_8c" startline="261" endline="316">XNandPsu_ScanBbt</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1ab450496d7f578b77bb2b8d4c6fa63e56" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -238,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="342" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="348" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1aa2d2b47cd4c8425d89a24d3401fcc9ad" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -251,8 +251,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="343" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga834baaa423d26638d10ad7195ba097fa" compoundref="xnandpsu__bbm_8c" startline="257" endline="312">XNandPsu_ScanBbt</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="group__nandpsu__api_1ga834baaa423d26638d10ad7195ba097fa" compoundref="xnandpsu__bbm_8c" startline="261" endline="316">XNandPsu_ScanBbt</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_psu___geometry_1a64dbdabcd40797abaedc65e04ae873bf" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -265,17 +265,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="344" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1651" endline="1731">XNandPsu_Erase</referencedby>
-        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
-        <referencedby refid="group___overview_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1420" endline="1516">XNandPsu_Write</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="350" bodyend="-1"/>
+        <referencedby refid="group__nandpsu_1ga7fb413a5f75317e698fe97ba12fc7d44" compoundref="xnandpsu_8c" startline="1611" endline="1691">XNandPsu_Erase</referencedby>
+        <referencedby refid="group__nandpsu_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1492" endline="1588">XNandPsu_Read</referencedby>
+        <referencedby refid="group__nandpsu_1gaf276d363e46822efd9ff8ee7b55b906c" compoundref="xnandpsu_8c" startline="1376" endline="1472">XNandPsu_Write</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_nand_psu___geometry" kindref="compound">XNandPsu_Geometry</ref> structure contains the ONFI geometry information. </para>    </briefdescription>
+<para>Holds the ONFI geometry information. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="324" bodyend="345"/>
+<para>The members from BytesPerPage to EccCodeWordSize hold the parameter page information. The remaining members hold driver specific information. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="332" bodyend="351"/>
     <listofallmembers>
       <member refid="struct_x_nand_psu___geometry_1a7a931d5c8554b4bfa678f7b435526cff" prot="public" virt="non-virtual"><scope>XNandPsu_Geometry</scope><name>BlockSize</name></member>
       <member refid="struct_x_nand_psu___geometry_1a33f499844b9583cee43dd914a061b950" prot="public" virt="non-virtual"><scope>XNandPsu_Geometry</scope><name>BlocksPerLun</name></member>

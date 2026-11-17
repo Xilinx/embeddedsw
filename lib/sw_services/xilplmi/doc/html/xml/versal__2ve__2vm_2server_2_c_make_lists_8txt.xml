@@ -18,12 +18,14 @@
 <codeline lineno="9"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xplmi_error_node.h)</highlight></codeline>
 <codeline lineno="10"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xplmi_asu_cmd.h)</highlight></codeline>
 <codeline lineno="11"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xplmi_asu_update.h)</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_err.c)</highlight></codeline>
-<codeline lineno="14"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_plat.c)</highlight></codeline>
-<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_asu_cmd.c)</highlight></codeline>
-<codeline lineno="16"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_asu_update.c)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xplmi_asufw_keepalive.h)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_err.c)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_plat.c)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_asu_cmd.c)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_asu_update.c)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_asufw_keepalive.c)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

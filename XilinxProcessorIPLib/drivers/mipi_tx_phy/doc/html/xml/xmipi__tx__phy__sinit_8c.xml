@@ -4,32 +4,32 @@
     <compoundname>xmipi_tx_phy_sinit.c</compoundname>
     <includes refid="xmipi__tx__phy_8h" local="yes">xmipi_tx_phy.h</includes>
     <incdepgraph>
-      <node id="57">
-        <label>xil_io.h</label>
-      </node>
-      <node id="53">
+      <node id="66">
         <label>xmipi_tx_phy_sinit.c</label>
         <link refid="xmipi_tx_phy_sinit.c"/>
-        <childnode refid="54" relation="include">
+        <childnode refid="67" relation="include">
         </childnode>
       </node>
-      <node id="55">
-        <label>xil_types.h</label>
+      <node id="70">
+        <label>xil_io.h</label>
       </node>
-      <node id="54">
+      <node id="67">
         <label>xmipi_tx_phy.h</label>
         <link refid="xmipi__tx__phy_8h"/>
-        <childnode refid="55" relation="include">
+        <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="56" relation="include">
+        <childnode refid="69" relation="include">
         </childnode>
       </node>
-      <node id="56">
+      <node id="68">
+        <label>xil_types.h</label>
+      </node>
+      <node id="69">
         <label>xmipi_tx_phy_hw.h</label>
         <link refid="xmipi__tx__phy__hw_8h"/>
-        <childnode refid="55" relation="include">
+        <childnode refid="68" relation="include">
         </childnode>
-        <childnode refid="57" relation="include">
+        <childnode refid="70" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -44,9 +44,19 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>Look up the hardware configuration for a device instance. </para>        </briefdescription>
+<para>Look up the device configuration based on the base address. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>Look up the hardware configuration for a device instance.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device to look up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the <ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref> entry, or NULL if not found.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>BaseAddress</parametername>
 </parameternamelist>
@@ -59,7 +69,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_sinit.c" bodystart="45" bodyend="60"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_sinit.c" bodystart="45" bodyend="60"/>
+        <references refid="struct_x_mipi___tx___phy___config_1a5bdd800e8eafa114f68734d96ab786e6" compoundref="xmipi__tx__phy_8h" startline="292">XMipi_Tx_Phy_Config::Name</references>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
       </memberdef>
       </sectiondef>
@@ -69,7 +80,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2022-2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
@@ -85,7 +96,7 @@
 <codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XMipi_Tx_Phy_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>XMipi_Tx_Phy_ConfigTable[Index].<ref refid="struct_x_mipi___tx___phy___config_1a5bdd800e8eafa114f68734d96ab786e6" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XMipi_Tx_Phy_ConfigTable[Index].BaseAddr<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XMipi_Tx_Phy_ConfigTable[Index];</highlight></codeline>
@@ -96,6 +107,6 @@
 <codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
 <codeline lineno="60"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_sinit.c"/>
   </compounddef>
 </doxygen>

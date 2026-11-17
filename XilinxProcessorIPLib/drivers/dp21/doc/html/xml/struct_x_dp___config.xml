@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="570" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="568" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,8 +28,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="572" bodyend="-1"/>
-        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="569" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="237" endline="289">XDp_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a9a0799787a21f54ae0eddb8de0b7cf14" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="573" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="570" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1ab2987e7be375659d959a7e97a96f035a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -55,8 +55,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="575" bodyend="-1"/>
-        <referencedby refid="group__dp_1gaa1d4f025616d218cff6dc47ca3456ff4" compoundref="xdp_8c" startline="2637" endline="2654">XDp_IsLaneCountValid</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="572" bodyend="-1"/>
+        <referencedby refid="group__dp_1gaa1d4f025616d218cff6dc47ca3456ff4" compoundref="xdp_8c" startline="2667" endline="2684">XDp_IsLaneCountValid</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a365f2d8d2631612e1946901662a64b0b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -69,8 +69,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="577" bodyend="-1"/>
-        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="220" endline="272">XDp_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="574" bodyend="-1"/>
+        <referencedby refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="237" endline="289">XDp_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a1848e773ea65e28aa85440c72c4bc9bd" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -83,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="579" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="576" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1ac84b8057614ed03b57a81093dba7db53" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="581" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="578" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a3f284f0e071c5a742ac50c143ea66a47" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="582" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="579" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a8bd1f6452601ab45a534e5e567cef1e6" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -122,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="584" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="584" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="581" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a804bd984a9fe7f1e19d780bf57ed17a7" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -135,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="586" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="583" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a9b41ca69bf5e0ae7300c9a5abd5b34fe" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="588" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="585" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1ad55c96c3cb3b68375ef00270f99624c4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -161,7 +161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="590" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="587" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a2b28d245a94a32d3cf47f2a48044ed3d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="592" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="589" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1aca6d4ff74a97c61024cb9d01208beb15" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="594" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="594" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="591" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="591" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1ad2199240482b0fe872899ab24eb65cab" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -200,7 +200,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="596" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="593" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="593" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a19f28705ad36d2977c7000949184fb9c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -213,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="598" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="595" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a1632df176c6aa05831f6456bc8c0ea6e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -226,7 +226,7 @@
 <para>0 = v1.1a, 1 = v1.2, 2 = v1.4. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="600" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="597" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp___config_1a69d4f2f8c4557a548f9a0d32fe39ef18" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -239,17 +239,31 @@
 <para>0 = TX, 1 = RX. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="603" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="600" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___config_1ae022940b28789e7260b1fd852f0c29fb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Config::DscEn</definition>
+        <argsstring></argsstring>
+        <name>DscEn</name>
+        <briefdescription>
+<para>Display Stream Compression is built into this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="602" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains configuration information for the DisplayPort core. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="566" bodyend="605"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="567" bodyend="604"/>
     <listofallmembers>
       <member refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>BaseAddr</name></member>
       <member refid="struct_x_dp___config_1a1632df176c6aa05831f6456bc8c0ea6e" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>DpProtocol</name></member>
+      <member refid="struct_x_dp___config_1ae022940b28789e7260b1fd852f0c29fb" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>DscEn</name></member>
       <member refid="struct_x_dp___config_1a8bd1f6452601ab45a534e5e567cef1e6" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>DualPixelEn</name></member>
       <member refid="struct_x_dp___config_1a69d4f2f8c4557a548f9a0d32fe39ef18" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>IsRx</name></member>
       <member refid="struct_x_dp___config_1a1848e773ea65e28aa85440c72c4bc9bd" prot="public" virt="non-virtual"><scope>XDp_Config</scope><name>MaxBitsPerColor</name></member>

@@ -8,42 +8,42 @@
     <includes local="yes">xsecure_utils.h</includes>
     <includes local="yes">xsecure_plat.h</includes>
     <incdepgraph>
-      <node id="4773">
+      <node id="5024">
         <label>xsecure_plat.h</label>
       </node>
-      <node id="4768">
+      <node id="5019">
         <label>xil_sutil.h</label>
       </node>
-      <node id="4769">
+      <node id="5020">
         <label>xtrngpsx.h</label>
       </node>
-      <node id="4767">
-        <label>xsecure_trng.c</label>
-        <link refid="trngpsx/xsecure_trng.c"/>
-        <childnode refid="4768" relation="include">
-        </childnode>
-        <childnode refid="4769" relation="include">
-        </childnode>
-        <childnode refid="4770" relation="include">
-        </childnode>
-        <childnode refid="4772" relation="include">
-        </childnode>
-        <childnode refid="4773" relation="include">
-        </childnode>
-      </node>
-      <node id="4770">
-        <label>xsecure_trng.h</label>
-        <link refid="trngpsx_2xsecure__trng_8h"/>
-        <childnode refid="4771" relation="include">
-        </childnode>
-        <childnode refid="4769" relation="include">
-        </childnode>
-      </node>
-      <node id="4772">
+      <node id="5023">
         <label>xsecure_utils.h</label>
       </node>
-      <node id="4771">
+      <node id="5022">
         <label>xil_types.h</label>
+      </node>
+      <node id="5018">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx/xsecure_trng.c"/>
+        <childnode refid="5019" relation="include">
+        </childnode>
+        <childnode refid="5020" relation="include">
+        </childnode>
+        <childnode refid="5021" relation="include">
+        </childnode>
+        <childnode refid="5023" relation="include">
+        </childnode>
+        <childnode refid="5024" relation="include">
+        </childnode>
+      </node>
+      <node id="5021">
+        <label>xsecure_trng.h</label>
+        <link refid="trngpsx_2xsecure__trng_8h"/>
+        <childnode refid="5022" relation="include">
+        </childnode>
+        <childnode refid="5020" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -77,10 +77,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="62" bodyend="67"/>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="402" endline="464">XSecure_GetRandomNum</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="62" bodyend="67"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="492" endline="524">XSecure_ECCRandInit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="88" endline="173">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="416" endline="478">XSecure_GetRandomNum</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -106,7 +106,36 @@
         <briefdescription>
 <para>This function initialize and configures the TRNG into DRNG/HRNG mode of operation. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para><itemizedlist>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XSecureTrngMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode of TRNG operation (DRNG/HRNG/PTRNG). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the seed used for TRNG initialization. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SeedLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the seed in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PersStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the personalization string.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS - Upon success.</para></listitem><listitem><para>XST_FAILURE - On failure.</para></listitem></itemizedlist>
 </para></simplesect>
 <parameterlist kind="param"><parameteritem>
@@ -146,9 +175,9 @@
 <para><itemizedlist>
 <listitem><para>Initiate TRNG</para></listitem><listitem><para>Initiate TRNG </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="78" bodyend="148"/>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="83" bodyend="153"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="492" endline="524">XSecure_ECCRandInit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="88" endline="173">XSecure_EllipticPrvtKeyGenerate</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -242,6 +271,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="127"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c"/>
   </compounddef>
 </doxygen>

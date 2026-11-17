@@ -7,6 +7,7 @@ var searchData=
   ['sidebandmsgcapable',['SideBandMsgCapable',['../struct_x_dp___tx.html#a3cd1ec2fe9a7800c16ae9a7b865178cb',1,'XDp_Tx']]],
   ['sinklist',['SinkList',['../struct_x_dp___tx_topology.html#a7fffcc07ed2dd282ee9847c7ebf7d932',1,'XDp_TxTopology']]],
   ['sinktotal',['SinkTotal',['../struct_x_dp___tx_topology.html#ac673c01cc24bab16921fb469d120d6f4',1,'XDp_TxTopology']]],
+  ['skipcrtpoff',['SkipCrTpOff',['../struct_x_dp___tx_link_config.html#a6fa0df80a86c0b09e6a7d6d0ac49baf7',1,'XDp_TxLinkConfig']]],
   ['startts',['StartTs',['../struct_x_dp___main_stream_attributes.html#a437bc0484222ab3fd1084402ff345e41',1,'XDp_MainStreamAttributes']]],
   ['supportdownspreadcontrol',['SupportDownspreadControl',['../struct_x_dp___tx_link_config.html#a957740d0c485555909af79128c4ab8b9',1,'XDp_TxLinkConfig']]],
   ['supportenhancedframingmode',['SupportEnhancedFramingMode',['../struct_x_dp___tx_link_config.html#aa2438dc91b77d9c780dbca7a1c570d19',1,'XDp_TxLinkConfig']]],

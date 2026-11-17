@@ -5,30 +5,30 @@
     <includes local="yes">xil_types.h</includes>
     <includes refid="xplmi__mailbox_8h" local="yes">xplmi_mailbox.h</includes>
     <incdepgraph>
-      <node id="1931">
+      <node id="2027">
         <label>xilmailbox.h</label>
       </node>
-      <node id="1928">
-        <label>xplmi_mailbox.c</label>
-        <link refid="xplmi_mailbox.c"/>
-        <childnode refid="1929" relation="include">
-        </childnode>
-        <childnode refid="1930" relation="include">
-        </childnode>
-      </node>
-      <node id="1930">
-        <label>xplmi_mailbox.h</label>
-        <link refid="xplmi__mailbox_8h"/>
-        <childnode refid="1931" relation="include">
-        </childnode>
-        <childnode refid="1932" relation="include">
-        </childnode>
-      </node>
-      <node id="1929">
+      <node id="2025">
         <label>xil_types.h</label>
       </node>
-      <node id="1932">
+      <node id="2028">
         <label>xparameters.h</label>
+      </node>
+      <node id="2024">
+        <label>xplmi_mailbox.c</label>
+        <link refid="xplmi_mailbox.c"/>
+        <childnode refid="2025" relation="include">
+        </childnode>
+        <childnode refid="2026" relation="include">
+        </childnode>
+      </node>
+      <node id="2026">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="2027" relation="include">
+        </childnode>
+        <childnode refid="2028" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -86,7 +86,7 @@
 </verbatim><itemizedlist>
 <listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" bodystart="59" bodyend="87"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" bodystart="59" bodyend="87"/>
         <references refid="struct_x_plmi___client_instance_1af7f033f627d7374f83dcb651a7ac6271" compoundref="xplmi__mailbox_8h" startline="98">XPlmi_ClientInstance::MailboxPtr</references>
         <references refid="group__xilplmi__mailbox__apis_1gab7464594dd9d5a4d9e22464ba51d3f84" compoundref="xplmi__mailbox_8h" startline="53">XPLMI_TARGET_IPI_INT_MASK</references>
         <references refid="struct_x_plmi___client_instance_1a49e482f71a9783ca3362e12ae33d85c3" compoundref="xplmi__mailbox_8h" startline="99">XPlmi_ClientInstance::Response</references>
@@ -132,7 +132,7 @@
 <para><itemizedlist>
 <listitem><para>Perform input parameter validation on InstancePtr,if not NULL initialize the InstancePtr Return XST_FAILURE if NULL</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" bodystart="101" bodyend="116"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c" bodystart="101" bodyend="116"/>
         <references refid="struct_x_plmi___client_instance_1af7f033f627d7374f83dcb651a7ac6271" compoundref="xplmi__mailbox_8h" startline="98">XPlmi_ClientInstance::MailboxPtr</references>
         <references refid="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" compoundref="xplmi__mailbox_8h" startline="100">XPlmi_ClientInstance::SlrIndex</references>
         <referencedby refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="118" endline="170">main</referencedby>
@@ -209,6 +209,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date 
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="116"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.c"/>
   </compounddef>
 </doxygen>

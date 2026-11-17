@@ -1,0 +1,1348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__slhdsa__client__example" kind="group">
+    <compoundname>xasu_slhdsa_client_example</compoundname>
+    <title>XilAsu SLH-DSA API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga3cf3db52bd20260e609b41228a94d46a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_SlhdsaMessage[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XAsu_SlhdsaMessage</name>
+        <initializer>= {
+	&apos;S&apos;, &apos;L&apos;, &apos;H&apos;, &apos;-&apos;, &apos;D&apos;, &apos;S&apos;, &apos;A&apos;, &apos; &apos;,
+	&apos;A&apos;, &apos;S&apos;, &apos;U&apos;, &apos; &apos;,
+	&apos;c&apos;, &apos;l&apos;, &apos;i&apos;, &apos;e&apos;, &apos;n&apos;, &apos;t&apos;, &apos; &apos;,
+	&apos;e&apos;, &apos;x&apos;, &apos;a&apos;, &apos;m&apos;, &apos;p&apos;, &apos;l&apos;, &apos;e&apos;
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1gaec065a38a40ed0ed266e437fc2dd5571" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_SlhdsaContext[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XAsu_SlhdsaContext</name>
+        <initializer>= {
+	&apos;S&apos;, &apos;L&apos;, &apos;H&apos;, &apos;-&apos;, &apos;D&apos;, &apos;S&apos;, &apos;A&apos;, &apos;-&apos;, &apos;C&apos;, &apos;T&apos;, &apos;X&apos;
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1gac26cc457ebcdc9e7c42c781ba622876b" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_SlhdsaExampleParamSets[XASU_SLHDSA_EXAMPLE_VARIANT_COUNT]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_VARIANT_COUNT]</argsstring>
+        <name>XAsu_SlhdsaExampleParamSets</name>
+        <initializer>= {
+	<ref refid="group__xasu__common__defs_1ga9e82a37d364e328403de79714ca5bf65" kindref="member">XASU_SLHDSA_PARAM_SHAKE_256S</ref>,
+	<ref refid="group__xasu__common__defs_1ga324c01adefe4072a61768525755dfb20" kindref="member">XASU_SLHDSA_PARAM_SHAKE_128S</ref>,
+	<ref refid="group__xasu__common__defs_1ga7346541974a621cf21ac6b231f4a8b59" kindref="member">XASU_SLHDSA_PARAM_SHA2_256S</ref>,
+	<ref refid="group__xasu__common__defs_1ga2459a5ffeef9093b58bbb5d60f22393a" kindref="member">XASU_SLHDSA_PARAM_SHA2_128S</ref>,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1gad1f43e4836a7ff5e678760171c8a6ecc" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaSecretKey[XASU_SLHDSA_MAX_SK_SIZE]</definition>
+        <argsstring>[XASU_SLHDSA_MAX_SK_SIZE]</argsstring>
+        <name>XAsu_SlhdsaSecretKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga02ef15044039e64db0b5eacf16172f18" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaPublicKey[XASU_SLHDSA_MAX_PK_SIZE]</definition>
+        <argsstring>[XASU_SLHDSA_MAX_PK_SIZE]</argsstring>
+        <name>XAsu_SlhdsaPublicKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga44886b1f511b3c560bec92404686a020" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaSignature[XASU_SLHDSA_EXAMPLE_MAX_SIG_SIZE]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_MAX_SIG_SIZE]</argsstring>
+        <name>XAsu_SlhdsaSignature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga2b993ebe8dcdba154c1416adddca9b1e" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaPreHash[XASU_SLHDSA_PREHASH_SHA512_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_PREHASH_SHA512_LEN]</argsstring>
+        <name>XAsu_SlhdsaPreHash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1gab898c5fad055ad267a51301c2b7fe965" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesInput[XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesInput</name>
+        <initializer>= {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga4108caa8a4f65f07b03ed9fa3db963c3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesAad[XASU_SLHDSA_EXAMPLE_AES_AAD_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_AAD_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesAad</name>
+        <initializer>= {
+	0x9AU, 0x7BU, 0x86U, 0xE7U, 0x82U, 0xCCU, 0xAAU, 0x6AU,
+	0xB2U, 0x21U, 0xBDU, 0x03U, 0x47U, 0x0BU, 0xDCU, 0x2EU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga40ed922579389de7736613b7834caedd" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesKey[XASU_SLHDSA_EXAMPLE_AES_KEY_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_KEY_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesKey</name>
+        <initializer>= {
+	0xD4U, 0x16U, 0xA6U, 0x93U, 0x1DU, 0x52U, 0xE0U, 0xF5U,
+	0x0AU, 0xA0U, 0x89U, 0xA7U, 0x57U, 0xB1U, 0x1AU, 0x89U,
+	0x1CU, 0xBDU, 0x1BU, 0x83U, 0x84U, 0x7DU, 0x4BU, 0xEDU,
+	0x9EU, 0x29U, 0x38U, 0xCDU, 0x4CU, 0x54U, 0xA8U, 0xBAU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga720a92db7f7f8e4900683dc925e4729e" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesIv[XASU_SLHDSA_EXAMPLE_AES_IV_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_IV_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesIv</name>
+        <initializer>= {
+	0x85U, 0x36U, 0x5FU, 0x88U, 0xB0U, 0xB5U,
+	0x62U, 0x98U, 0xDFU, 0xEAU, 0x5AU, 0xB2U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga0eee6bbf47c22a2fe54efe417bfe7bb7" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesExpCt[XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesExpCt</name>
+        <initializer>= {
+	0x59U, 0x8CU, 0xD1U, 0x9FU, 0x16U, 0x83U, 0xB4U, 0x1BU,
+	0x4CU, 0x59U, 0xE1U, 0xC1U, 0x57U, 0xD4U, 0x15U, 0x01U,
+	0xA3U, 0xC0U, 0x89U, 0x02U, 0xF0U, 0xEAU, 0x3AU, 0x37U,
+	0x6AU, 0x8BU, 0x0DU, 0x99U, 0x88U, 0xCFU, 0xF8U, 0xC1U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1gaca675384fd23e174246d06ed99083612" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesExpTag[XASU_SLHDSA_EXAMPLE_AES_TAG_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_TAG_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesExpTag</name>
+        <initializer>= {
+	0xADU, 0xCEU, 0xFEU, 0x2FU, 0x6EU, 0xE4U, 0xC7U, 0x06U,
+	0x0EU, 0x44U, 0xAAU, 0x5EU, 0xDFU, 0x0DU, 0xBEU, 0xBCU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga5cd6f089f7a291f693d26ca7bb0187ba" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesEncData[XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesEncData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga4ef2774c660090d84157a91070a05812" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_SlhdsaAesTag[XASU_SLHDSA_EXAMPLE_AES_TAG_LEN]</definition>
+        <argsstring>[XASU_SLHDSA_EXAMPLE_AES_TAG_LEN]</argsstring>
+        <name>XAsu_SlhdsaAesTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga867694cbbbf1772931c8fd09c705e333" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref></type>
+        <definition>XAsu_AesKeyObject XAsu_SlhdsaAesKeyObj</definition>
+        <argsstring></argsstring>
+        <name>XAsu_SlhdsaAesKeyObj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga2e080d65d9ac7bbaebbe6ebbf563e6cc" prot="public" static="yes" mutable="no">
+        <type>XAsu_ClientParams</type>
+        <definition>XAsu_ClientParams XAsu_SlhdsaAesClientParams</definition>
+        <argsstring></argsstring>
+        <name>XAsu_SlhdsaAesClientParams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga4b1fdf2d49fe8835d66d50d2f3b40399" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 AesNotify</definition>
+        <argsstring></argsstring>
+        <name>AesNotify</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga531ab9f7a3ceb5b9343034d37312b3e7" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 AesErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>AesErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga6a854ab39259aa03c8a3d3a2f46769e1" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 CompletionSeq</definition>
+        <argsstring></argsstring>
+        <name>CompletionSeq</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga34b3568de9fc71e052db84d22708bb70" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 AesSeq</definition>
+        <argsstring></argsstring>
+        <name>AesSeq</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1gaea72bab0e203b8ea6644738a4b85e8c7" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 SignSeq</definition>
+        <argsstring></argsstring>
+        <name>SignSeq</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__slhdsa__client__example_1ga9477c72f7bb56a81cbd0301a40189ed5" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 TrackCompletionOrder</definition>
+        <argsstring></argsstring>
+        <name>TrackCompletionOrder</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gacedbcbbc8f996d3c9244fdc07bb61ce5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_SlhdsaCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_SlhdsaCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback registered with xilasu to notify request completion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status returned from ASUFW. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Record the status before raising Notify, so the waiter never sees a stale status. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="1236" bodyend="1247"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga600c70986c395e53a40bafb758989674" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_SlhdsaAesCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_SlhdsaAesCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback registered for the AES-GCM request overlapped with SLH-DSA sign. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the AES client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status returned from ASUFW. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="1257" bodyend="1267"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga9784534da4977e2dfc23eaafe1aff888" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaWaitForCompletion</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_SlhdsaWaitForCompletion</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Waits for the registered callback to complete an ASUFW request. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Server status returned through the callback. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Busy-wait for the callback to set the notify flag.</para><para>Clear the flag so the next request in the sequence waits on its own callback. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="1215" bodyend="1226"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gacf0f7f510982496d782e4b14baf7b436" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaSubmitAesGcmEncrypt</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_SlhdsaSubmitAesGcmEncrypt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Queues an AES-GCM encrypt on the high-priority IPI queue. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the request was queued.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="1054" bodyend="1090"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gaf246e3e68fa45c5e9df2344d38191f4d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaCheckAesGcmEncrypt</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_SlhdsaCheckAesGcmEncrypt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Checks that the overlapped AES-GCM encrypt completed with the expected tag and ciphertext. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if AES succeeded and the ciphertext and tag match.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="1102" bodyend="1138"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga163ed5216e06f32060e9776f44f1246e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaKeyGenExample</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaKeyGenExample</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Generates an SLH-DSA key pair using ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set up key generation parameters. ErrorStatus is reset first so the value read after the wait can only have come from this request&apos;s callback.</para><para>Send the key generation request to the ASUFW key manager.</para><para>Wait for the callback and return the server status. A successful send only means the request was queued, so the outcome is only known here.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="513" bodyend="545"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga49aa105ae57d9ce25655caf4c482c2af" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaSignExample</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaSignExample</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Signs a test message using the generated SLH-DSA secret key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Sign the test message as pure SLH-DSA with an empty context and hedged add_rand. This is the FIPS 205 default path and is run for every parameter set.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="559" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gaee47879eb72011a9086a56072494efe2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaSignVerifyExample</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaSignVerifyExample</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Verifies the SLH-DSA signature for the test message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Verify with the same empty context and pure message mode used at signing time.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="591" bodyend="604"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga4064a47f82eb6cf8e4ab1b92e71df712" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaRunVariantExample</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaRunVariantExample</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Runs keygen, sign, and verify for one SLH-DSA parameter set. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input pointer.</para><para>Step 1: generate a key pair into the shared buffers consumed by the sign and verify stages below, so this stage must run first.</para><para>Invalidate the key buffers, which ASUFW wrote by DMA, over the per-variant sizes rather than the maximum buffer sizes.</para><para>Step 2: sign the test message with the secret key just generated.</para><para>Invalidate the signature buffer before it is passed back for verification.</para><para>Step 3: verify the signature with the matching public key.</para><para>SHAKE-128s is the cheapest extra sign, so the remaining FIPS modes (non-empty context, HashSLH-DSA and deterministic signing) are exercised on this key pair only when extra-mode coverage is enabled.</para><para>SHA2-256s requires SHA-512 as PH(M) (FIPS 205 footnote 18, n = 32), so HashSLH-DSA SHA-512 is exercised on this key pair only when that coverage is enabled.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="394" bodyend="499"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga19360f5ab8cfc97b83fbdced9e257504" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaRunExtraModesExample</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaRunExtraModesExample</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Runs the extra FIPS 205 modes on one SHAKE-128s key pair. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector (SHAKE-128s).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input pointer.</para><para>Stage 1: pure SLH-DSA with a non-empty context. Sign and verify must use the same CtxAddr and CtxLen, because the context is bound into the message digest.</para><para>Stage 2: HashSLH-DSA. PH(M) is SHA-256 of the test message and is computed on the client; ASUFW hashes 0x01 || ctx_len || ctx || OID || PH(M).</para><para>Stage 3: deterministic signing. add_rand is derived from PK.seed rather than the TRNG, with the default empty context so this path is distinct from stage 1.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="618" bodyend="704"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga4d4d708c0d2a02cb9b21af4ee0999385" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaRunSha512PreHashExample</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaRunSha512PreHashExample</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Runs HashSLH-DSA with SHA-512 PH(M) on one SHA2-256s key pair. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector (SHA2-256s).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input pointer.</para><para>PH(M) is SHA-512 of the test message. HashId must be SHA-512 for 256s sets so that PH(M) is at least 2n bytes. The empty context keeps this path distinct from the SHAKE-128s HashSLH-DSA sequence, which already used a non-empty context.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="718" bodyend="759"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga82b6e721cbbeb2fa2c6f7ce4089cd26d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaSha2Digest</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ShaMode, u32 HashLen)</argsstring>
+        <name>XAsu_SlhdsaSha2Digest</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ShaMode</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashLen</declname>
+        </param>
+        <briefdescription>
+<para>Computes SHA-256 or SHA-512 PH(M) of the test message for HashSLH-DSA. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>XASU_SHA_MODE_256 or XASU_SHA_MODE_512. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Digest length in bytes (32 or 64).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Reset the callback status so the wait observes this SHA2 request only.</para><para>Hash the test message; the digest is the HashSLH-DSA PH(M). </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="774" bodyend="812"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gaf23a407f70c2fb77b1dec595eae9dcdc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaSignOnce</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet, u64 MsgAddr, u32 MsgLen, u64 CtxAddr, u32 CtxLen, u8 PreHashMode, u8 HashId, u8 SignMode, u8 OverlapAes)</argsstring>
+        <name>XAsu_SlhdsaSignOnce</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>MsgAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>CtxAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CtxLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PreHashMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>HashId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SignMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>OverlapAes</declname>
+        </param>
+        <briefdescription>
+<para>Sends one SLH-DSA sign request and waits for completion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the message or PH(M) digest. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message or digest in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CtxAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the FIPS context string, or 0 for empty context. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CtxLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Context length in bytes (0..255). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PreHashMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>XASU_SLHDSA_MSG_PURE or XASU_SLHDSA_MSG_PREHASH. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pre-hash HashId; unused in pure mode. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hedged or deterministic signing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OverlapAes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>When non-zero, queue AES-GCM encrypt immediately after sign.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill sign parameters. SkId stays zero because the secret key is passed by address. SignatureLen and SkLen must match the parameter set or validation rejects the request.</para><para>Send the sign request to ASUFW.</para><para>Queue AES immediately so the server can pick it on the next yield slice. AES uses a second unique ID and callback.</para><para>Wait for the callback. Signing takes seconds to tens of seconds depending on the parameter set, so this busy-wait is long lived by design. When AES was queued, wait for both completions so both results can be checked.</para><para>Print the completion order. Both requests succeeding is the pass criterion. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="942" bodyend="1043"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gaec22b771ab649d9ca56e9e08e0155181" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaVerifyOnce</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet, u64 MsgAddr, u32 MsgLen, u64 CtxAddr, u32 CtxLen, u8 PreHashMode, u8 HashId)</argsstring>
+        <name>XAsu_SlhdsaVerifyOnce</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>MsgAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>CtxAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CtxLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PreHashMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>HashId</declname>
+        </param>
+        <briefdescription>
+<para>Sends one SLH-DSA verify request and waits for a verified verdict. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the message or PH(M) digest used at signing time. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message or digest in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CtxAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the FIPS context string used at signing time. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CtxLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Context length used at signing time. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PreHashMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message mode used at signing time. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pre-hash HashId used at signing time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the server reports XASU_SLHDSA_SIGNATURE_VERIFIED.</para></listitem><listitem><para>Error code or XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Repeat the message, context and message mode used at signing time. AdditionalStatus is cleared so a stale verified verdict from an earlier sequence cannot be reused.</para><para>Send the signature verification request to ASUFW.</para><para>Treat the signature as valid only when the server status is success and AdditionalStatus reports XASU_SLHDSA_SIGNATURE_VERIFIED.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="1158" bodyend="1205"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga20c88cbd724133a28155ed00f4ae23a3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char * XAsu_SlhdsaGetParamSetName</definition>
+        <argsstring>(u8 ParamSet)</argsstring>
+        <name>XAsu_SlhdsaGetParamSetName</name>
+        <param>
+          <type>u8</type>
+          <declname>ParamSet</declname>
+        </param>
+        <briefdescription>
+<para>Returns a human-readable name for an SLH-DSA parameter set selector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamSet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLH-DSA parameter set selector (XASU_SLHDSA_PARAM_*).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to a static variant name string. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="353" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga11b52009a6517852de245f156a2a7820" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SlhdsaExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_SlhdsaExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs SLH-DSA key generation, sign, and verify for all parameter sets. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set up client parameters shared by every request. XASU_CMD_SECURE is required because ASUFW registers keygen and sign as secure-access-only commands.</para><para>Run the full keygen, sign and verify sequence for each supported parameter set, stopping at the first failure.</para><para>Invalidate the key buffers so the final values written by ASUFW are visible. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="303" bodyend="341"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1gade70c91d611de8e75d6bd7c2e9effdcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>(sizeof(XAsu_SlhdsaContext)==XASU_SLHDSA_EXAMPLE_CTX_SIZE,&quot;SLH-DSA example context length must match XASU_SLHDSA_EXAMPLE_CTX_SIZE&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type>sizeof(XAsu_SlhdsaContext)</type>
+          <defval>=<ref refid="group__xasu__slhdsa__client__example_1gaaa8a7270fdba23101ad28d385635d6a2" kindref="member">XASU_SLHDSA_EXAMPLE_CTX_SIZE</ref></defval>
+        </param>
+        <param>
+          <type>&quot;SLH-DSA example context length must match <ref refid="group__xasu__slhdsa__client__example_1gaaa8a7270fdba23101ad28d385635d6a2" kindref="member">XASU_SLHDSA_EXAMPLE_CTX_SIZE</ref>&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="182" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__slhdsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the SLH-DSA client example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully.</para></listitem><listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Disable the data cache so shared buffers need no explicit flush or invalidate.</para><para>Initialize the mailbox instance used to carry IPI requests to ASU.</para><para>Initialize the client layer, which must precede any SLH-DSA client API call. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="259" bodyend="292"/>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="140" endline="196">XAsu_ClientInit</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+<para>Disables cache maintenance calls in this example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga8ec62954b3c444ad35f1516d49ce1cab" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_VARIANT_COUNT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Number of FIPS 205 parameter sets exercised by this example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gacc8a1f59021e5946ff8b1d4a4c28c89b" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_MAX_SIG_SIZE</name>
+        <initializer><ref refid="group__xasu__common__defs_1gae05c812a4997f68de1bb5262bdf1fc75" kindref="member">XASU_SLHDSA_SHA2_256S_SIG_SIZE</ref></initializer>
+        <briefdescription>
+<para>Largest signature size across the exercised parameter sets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga480ea4b46c7e0b11571bdf21d5ace8f0" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_MSG_SIZE</name>
+        <initializer>((u32)sizeof(XAsu_SlhdsaMessage))</initializer>
+        <briefdescription>
+<para>Test message size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gae1371dd8e01f9e1bee5306d5f8b63c6d" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_EXTRA_PARAM_SET</name>
+        <initializer><ref refid="group__xasu__common__defs_1ga324c01adefe4072a61768525755dfb20" kindref="member">XASU_SLHDSA_PARAM_SHAKE_128S</ref></initializer>
+        <briefdescription>
+<para>Parameter set used for context, HashSLH-DSA SHA-256 and deterministic coverage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga86a583d40939fb1029c8709c6ab7a109" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_SHA512_PARAM_SET</name>
+        <initializer><ref refid="group__xasu__common__defs_1ga7346541974a621cf21ac6b231f4a8b59" kindref="member">XASU_SLHDSA_PARAM_SHA2_256S</ref></initializer>
+        <briefdescription>
+<para>Parameter set used for HashSLH-DSA SHA-512 coverage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gaaa8a7270fdba23101ad28d385635d6a2" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_CTX_SIZE</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>FIPS context length used by the extra SHAKE-128s sequences. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gac211a946f3e2b2a258ac6fdb4025e5a4" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_OVERLAP_PARAM_SET</name>
+        <initializer><ref refid="group__xasu__common__defs_1ga9e82a37d364e328403de79714ca5bf65" kindref="member">XASU_SLHDSA_PARAM_SHAKE_256S</ref></initializer>
+        <briefdescription>
+<para>Parameter set used to overlap AES with a yielding sign. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gab8c1fb634e76e9b4963f40e3a030c809" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_EXTRA_MODES_ENABLE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Set to 1U to run context, HashSLH-DSA SHA-256 and deterministic sign on SHAKE-128s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga835840c8dc1378ab76832bd93d9a92e4" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_SHA512_PREHASH_ENABLE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Set to 1U to run HashSLH-DSA SHA-512 on SHA2-256s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gae4279c5004be918bc9dac068738eaf68" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_OVERLAP_ENABLE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Set to 1U to queue AES-GCM during SHAKE-256s sign. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga4e22bd96218e71ae8cdadbcb86371c6e" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_SHA_DMA_BLOCKING_SIZE</name>
+        <initializer>(4096U)</initializer>
+        <briefdescription>
+<para>SHA update size above which ASUFW returns in-progress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga8dc5af266b25091fd613b09b98c74d9a" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_LARGE_MSG_ENABLE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Set to 1U to run the ACVP SHAKE-128s sign/verify KAT whose message exceeds XASU_SLHDSA_EXAMPLE_SHA_DMA_BLOCKING_SIZE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga41a375d6800d0a3cb4bf39937689ae2b" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_LARGE_MSG_PARAM_SET</name>
+        <initializer><ref refid="group__xasu__common__defs_1ga324c01adefe4072a61768525755dfb20" kindref="member">XASU_SLHDSA_PARAM_SHAKE_128S</ref></initializer>
+        <briefdescription>
+<para>Parameter set of the ACVP large-message vector. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1gaf7f33b3c28b926cf976c27bcdf8eb610" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES-GCM payload length used by the yield-overlap encrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="134" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga24af42210de7d4758f2499a1682ca2e8" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_AAD_LEN</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES-GCM AAD length used by the yield-overlap encrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga294f7738c953b71231f76dbe49d7dcfd" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_KEY_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES-256 key length used by the yield-overlap encrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga11d3c1131f8d6103d402da9cb6c548b4" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_IV_LEN</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>AES-GCM IV length used by the yield-overlap encrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__slhdsa__client__example_1ga65637b7b2db383e5d2c73417abc4aeea" prot="public" static="no">
+        <name>XASU_SLHDSA_EXAMPLE_AES_TAG_LEN</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES-GCM tag length used by the yield-overlap encrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_slhdsa_example.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example demonstrates SLH-DSA key generation, message signing, and signature verification using the xilasu client APIs over IPI to ASUFW.</para></simplesect>
+The flow is exercised for all four supported FIPS 205 parameter sets: SHAKE-256s, SHAKE-128s, SHA2-256s, and SHA2-128s.</para><para>For each parameter set the example:<orderedlist>
+<listitem><para>Generates an SLH-DSA key pair.</para></listitem><listitem><para>Signs a test message with the generated secret key.</para></listitem><listitem><para>Verifies the signature with the generated public key.</para></listitem></orderedlist>
+</para><para>SHAKE-128s can also run three extra sign/verify sequences on the same key pair: a non-empty FIPS context, HashSLH-DSA (SHA-256 PH(M)), and deterministic signing. SHA2-256s can additionally run HashSLH-DSA with SHA-512 PH(M). SHAKE-256s can queue an AES-GCM encrypt immediately after the default sign so that ASUFW can pick AES on a yield slice. Both requests must succeed; their completion order is printed and is not a pass/fail check. SHAKE-128s can also run an ACVP known-answer test whose pure message exceeds the SHA DMA blocking size: verify the published signature, then sign deterministically and compare. Those extra paths are off by default; set the matching XASU_SLHDSA_EXAMPLE_*_ENABLE macros to 1U to turn them on.</para><para>Client buffers passed to ASUFW must reside in memory visible to both client and server. See the linker-script notes in <ref refid="xasu__sha2__example_8c" kindref="compound">xasu_sha2_example.c</ref> for OCM/shared-memory placement.</para><para>IPI command flow demonstrated:<orderedlist>
+<listitem><para>XAsu_ClientInit initializes the mailbox and client layer.</para></listitem><listitem><para>For each parameter set, XAsu_KmGenerateSlhdsaKeyPair sends keygen parameters (SkOutAddr, SkOutLen, PkOutAddr, PkOutLen, ParamSet) to the key manager and waits for the IPI callback.</para></listitem><listitem><para>XAsu_SlhdsaSign sends sign parameters (message, secret key, signature output, context. When AES overlap is enabled, SHAKE-256s immediately queues an AES-GCM encrypt so ASUFW can pick AES during a sign yield slice. The example prints the completion order of the two requests.</para></listitem><listitem><para>XAsu_SlhdsaSignVerify sends verify parameters with matching CtxLen and ParamSet.</para></listitem><listitem><para>When extra modes are enabled, SHAKE-128s runs three further sign/verify sequences on the same key pair: non-empty context, HashSLH-DSA SHA-256, and deterministic signing.</para></listitem><listitem><para>When SHA-512 pre-hash is enabled, SHA2-256s signs and verifies HashSLH-DSA with SHA-512 PH(M).</para></listitem><listitem><para>When the large-message KAT is enabled, SHAKE-128s verifies and signs the ACVP vector in <ref refid="xasu__slhdsa__example__largemsg_8h" kindref="compound">xasu_slhdsa_example_largemsg.h</ref> (5377-byte pure message).</para></listitem></orderedlist>
+</para><para>DMA buffer requirements:<itemizedlist>
+<listitem><para>Secret key, public key, message, and signature buffers are placed in dedicated linker sections (.data.XAsu_Slhdsa*) for shared-memory visibility.</para></listitem><listitem><para>Buffer sizes use XASU_SLHDSA_MAX_* constants; per-variant sizes come from XAsu_SlhdsaGetSkSize, XAsu_SlhdsaGetPkSize, and XAsu_SlhdsaGetSigSize.</para></listitem></itemizedlist>
+</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kk     07/08/26 Initial Release
+1.1   kk     09/17/26 Optional extra-mode, SHA-512 pre-hash and AES overlap
+                      coverage, disabled by default
+1.2   kk     10/06/26 Optional ACVP large-message sign/verify KAT, disabled
+                      by default</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

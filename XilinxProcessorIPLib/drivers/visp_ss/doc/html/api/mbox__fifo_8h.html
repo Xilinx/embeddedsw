@@ -101,6 +101,7 @@ $(document).ready(function(){initNavTree('mbox__fifo_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -133,6 +134,12 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_mbox_post_msg.html">MboxPostMsg</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure of Mbox post message - must match NEW_RPU binary layout.  <a href="struct_mbox_post_msg.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae26d28c6e1a404ea560db5840b47d7d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mbox__fifo_8h.html#ae26d28c6e1a404ea560db5840b47d7d3">MBOX_COOKIE_NOT_USED</a>&#160;&#160;&#160;0xFFFFFFFFu</td></tr>
+<tr class="memdesc:ae26d28c6e1a404ea560db5840b47d7d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sentinel cookie marking a fire-and-forget mailbox command.  <a href="#ae26d28c6e1a404ea560db5840b47d7d3">More...</a><br/></td></tr>
+<tr class="separator:ae26d28c6e1a404ea560db5840b47d7d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -194,6 +201,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6e6ecc433f61a4edde5dbd00d13404a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">osFree <a class="el" href="struct_fifo_control.html" title="Structure of fifo control (shared memory - must match RPU layout) ">FifoControl</a> buffer data, only used if the buffer is assigned by  <a href="#a6e6ecc433f61a4edde5dbd00d13404a8">More...</a><br/></td></tr>
 <tr class="separator:a6e6ecc433f61a4edde5dbd00d13404a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae26d28c6e1a404ea560db5840b47d7d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MBOX_COOKIE_NOT_USED&#160;&#160;&#160;0xFFFFFFFFu</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sentinel cookie marking a fire-and-forget mailbox command. </p>
+<p>Matches the APU Linux driver: a command stamped with this cookie bypasses the outbound cookie allocator and the RPU replay dedup. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="a2ba8194513d7a6e49482e4df29d9f901"></a>
 <div class="memitem">

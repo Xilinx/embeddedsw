@@ -10,12 +10,12 @@
         <argsstring>[XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE]</argsstring>
         <name>Buff</name>
         <briefdescription>
-        </briefdescription>
+<para>Byte buffer of LMS OTS sign to public key hash. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="393" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="394" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_ots_sign_to_pub_key_hash___1afb7003f45d43db0c42c6aaa9ce46ddf7" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="399" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="400" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_ots_sign_to_pub_key_hash___1ab739f0cb7f9b1cea2d8e8ccd31a227a1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="404" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="405" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_ots_sign_to_pub_key_hash___1aecad5aa0debf08462495aad1226fd963" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="409" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="410" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_ots_sign_to_pub_key_hash___1a39ff1ba43edfe1f9ca15ee40eb8d7fb4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="414" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="415" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="union_x_secure___lms_ots_sign_to_pub_key_hash___1a5dab1622f0460ce93f097c4d79d6ca09" prot="public" static="no" mutable="no">
         <type>struct XSecure_LmsOtsSignToPubKeyHash_::@4</type>
@@ -80,14 +80,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="415" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="416" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Structure used when validating LMS OTS, once hash chain is completed, result needs to be stored so that they can be further concatenated and hashed to get OTS public key, this provides a way to access members and fill data in a structured way. </para>    </briefdescription>
     <detaileddescription>
 <para>Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32)) </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="392" bodyend="416"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="393" bodyend="417"/>
     <listofallmembers>
       <member refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1a5b15ca9136c41ffa081515249fa08296" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsSignToPubKeyHash_</scope><name>Buff</name></member>
       <member refid="union_x_secure___lms_ots_sign_to_pub_key_hash___1aecad5aa0debf08462495aad1226fd963" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsSignToPubKeyHash_</scope><name>D_PBLC</name></member>

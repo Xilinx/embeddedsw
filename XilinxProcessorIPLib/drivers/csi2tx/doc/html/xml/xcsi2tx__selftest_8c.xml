@@ -6,18 +6,13 @@
     <includes local="yes">xstatus.h</includes>
     <includes refid="xcsi2tx_8h" local="yes">xcsi2tx.h</includes>
     <incdepgraph>
-      <node id="61">
-        <label>xcsi2tx.h</label>
-        <link refid="xcsi2tx_8h"/>
+      <node id="63">
+        <label>xcsi2tx_hw.h</label>
+        <link refid="xcsi2tx__hw_8h"/>
         <childnode refid="62" relation="include">
         </childnode>
-        <childnode refid="60" relation="include">
+        <childnode refid="59" relation="include">
         </childnode>
-        <childnode refid="63" relation="include">
-        </childnode>
-      </node>
-      <node id="59">
-        <label>xil_io.h</label>
       </node>
       <node id="58">
         <label>xcsi2tx_selftest.c</label>
@@ -29,19 +24,24 @@
         <childnode refid="61" relation="include">
         </childnode>
       </node>
+      <node id="59">
+        <label>xil_io.h</label>
+      </node>
+      <node id="61">
+        <label>xcsi2tx.h</label>
+        <link refid="xcsi2tx_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
       <node id="60">
         <label>xstatus.h</label>
       </node>
       <node id="62">
         <label>xil_types.h</label>
-      </node>
-      <node id="63">
-        <label>xcsi2tx_hw.h</label>
-        <link refid="xcsi2tx__hw_8h"/>
-        <childnode refid="62" relation="include">
-        </childnode>
-        <childnode refid="59" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="38" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1gaa45417445b298c5370944ac58cdca015" prot="public" static="no">
         <name>GSP_DEFAULT</name>
@@ -65,7 +65,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga1764b297e8e7727f4063f9a5632a77f5" prot="public" static="no">
         <name>SPKTR_MASK</name>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga36fc4f129ea23a44258b03a9828be889" prot="public" static="no">
         <name>SPKTR_DEFAULT</name>
@@ -87,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga42cb1a5fb2dfc995f2107e81ad4138a1" prot="public" static="no">
         <name>IER_MASK</name>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga90f46b37cc5f1208e83a0a027e83f2c8" prot="public" static="no">
         <name>IER_DEFAULT</name>
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga96d3a2070ea7a88ccef37a93c471836f" prot="public" static="no">
         <name>ISR_MASK</name>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga2d872823d9ef2194511503668d8cc33d" prot="public" static="no">
         <name>ISR_DEFAULT</name>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1gaee062d5a4cc52e21839fad00d70c990e" prot="public" static="no">
         <name>GIER_MASK</name>
@@ -142,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga719a01f7d3da10823724ff39425be9c1" prot="public" static="no">
         <name>GIER_DEFAULT</name>
@@ -153,7 +153,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1ga1cee606add95e7255157890400319560" prot="public" static="no">
         <name>ACT_LANES_MASK</name>
@@ -164,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1gae4b086703c13a10c85cd6486913a229d" prot="public" static="no">
         <name>CCR_MASK</name>
@@ -175,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2tx_1gab38bf16d7fee4703f4fea6fecd7bcd85" prot="public" static="no">
         <name>CCR_DEFAULT</name>
@@ -186,7 +186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -217,17 +217,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="72" bodyend="124"/>
-        <references refid="struct_x_csi2_tx___config_1a3a98c112448388a88d774028e6621d5b" compoundref="xcsi2tx_8h" startline="168">XCsi2Tx_Config::BaseAddr</references>
-        <references refid="struct_x_csi2_tx_1a1d7faad0e8b7a8b43c072367fdc89c63" compoundref="xcsi2tx_8h" startline="206">XCsi2Tx::Config</references>
-        <references refid="struct_x_csi2_tx_1a76c9bc48780bdcef81faa31b4adafa6a" compoundref="xcsi2tx_8h" startline="249">XCsi2Tx::IsReady</references>
-        <references refid="struct_x_csi2_tx___config_1a81490985967772106c88ddf719652d37" compoundref="xcsi2tx_8h" startline="169">XCsi2Tx_Config::MaxLanesPresent</references>
-        <references refid="group__csi2tx_1ga946323f75e230f56d7fc2a9640bd8ab1" compoundref="xcsi2tx__hw_8h" startline="51">XCSI2TX_CCR_OFFSET</references>
-        <references refid="group__csi2tx_1ga9367d74644fe257d2d9ef283bf81d327" compoundref="xcsi2tx__hw_8h" startline="56">XCSI2TX_GIER_OFFSET</references>
-        <references refid="group__csi2tx_1ga2e9aa73ddca76ee93a3c18573a082f19" compoundref="xcsi2tx__hw_8h" startline="62">XCSI2TX_IER_OFFSET</references>
-        <references refid="group__csi2tx_1gab2d607c7c70706cdb08326d2f9d35396" compoundref="xcsi2tx__hw_8h" startline="59">XCSI2TX_ISR_OFFSET</references>
-        <references refid="group__csi2tx_1ga5a0232c79ceea489774863ec4cc3d9e0" compoundref="xcsi2tx_8c" startline="119" endline="143">XCsi2Tx_Reset</references>
-        <references refid="group__csi2tx_1ga98c70dd97a33a24cd5a1d80f9fe9d902" compoundref="xcsi2tx__hw_8h" startline="65">XCSI2TX_SPKTR_OFFSET</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="890" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c" bodystart="72" bodyend="124"/>
+        <references refid="struct_x_csi2_tx___config_1a3a98c112448388a88d774028e6621d5b" compoundref="xcsi2tx_8h" startline="191">XCsi2Tx_Config::BaseAddr</references>
+        <references refid="struct_x_csi2_tx_1a1d7faad0e8b7a8b43c072367fdc89c63" compoundref="xcsi2tx_8h" startline="229">XCsi2Tx::Config</references>
+        <references refid="struct_x_csi2_tx_1a76c9bc48780bdcef81faa31b4adafa6a" compoundref="xcsi2tx_8h" startline="265">XCsi2Tx::IsReady</references>
+        <references refid="struct_x_csi2_tx___config_1a81490985967772106c88ddf719652d37" compoundref="xcsi2tx_8h" startline="192">XCsi2Tx_Config::MaxLanesPresent</references>
+        <references refid="group__csi2tx_1ga946323f75e230f56d7fc2a9640bd8ab1" compoundref="xcsi2tx__hw_8h" startline="53">XCSI2TX_CCR_OFFSET</references>
+        <references refid="group__csi2tx_1ga9367d74644fe257d2d9ef283bf81d327" compoundref="xcsi2tx__hw_8h" startline="58">XCSI2TX_GIER_OFFSET</references>
+        <references refid="group__csi2tx_1ga2e9aa73ddca76ee93a3c18573a082f19" compoundref="xcsi2tx__hw_8h" startline="64">XCSI2TX_IER_OFFSET</references>
+        <references refid="group__csi2tx_1gab2d607c7c70706cdb08326d2f9d35396" compoundref="xcsi2tx__hw_8h" startline="61">XCSI2TX_ISR_OFFSET</references>
+        <references refid="group__csi2tx_1ga5a0232c79ceea489774863ec4cc3d9e0" compoundref="xcsi2tx_8c" startline="124" endline="148">XCsi2Tx_Reset</references>
+        <references refid="group__csi2tx_1ga98c70dd97a33a24cd5a1d80f9fe9d902" compoundref="xcsi2tx__hw_8h" startline="67">XCSI2TX_SPKTR_OFFSET</references>
         <referencedby refid="group__csi2tx_1ga79fec6c8f14f43478aedaaaae040447e" compoundref="xcsi2tx__example__selftest_8c" startline="118" endline="139">Csi2TxSelfTestExample</referencedby>
       </memberdef>
       </sectiondef>
@@ -329,6 +329,6 @@
 <codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="124"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_selftest.c"/>
   </compounddef>
 </doxygen>

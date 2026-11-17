@@ -11,19 +11,6 @@
       <node id="151">
         <label>xil_io.h</label>
       </node>
-      <node id="148">
-        <label>xvphy.h</label>
-        <childnode refid="149" relation="include">
-        </childnode>
-        <childnode refid="146" relation="include">
-        </childnode>
-        <childnode refid="150" relation="include">
-        </childnode>
-        <childnode refid="153" relation="include">
-        </childnode>
-        <childnode refid="154" relation="include">
-        </childnode>
-      </node>
       <node id="150">
         <label>xvphy_hw.h</label>
         <link refid="xvphy__hw_8h"/>
@@ -35,31 +22,17 @@
       <node id="154">
         <label>xvphy_dp.h</label>
       </node>
-      <node id="153">
-        <label>xvidc.h</label>
-      </node>
-      <node id="147">
-        <label>xvphy_gt.h</label>
-        <link refid="xvphy__gt_8h"/>
-        <childnode refid="148" relation="include">
-        </childnode>
-        <childnode refid="155" relation="include">
-        </childnode>
+      <node id="148">
+        <label>xvphy.h</label>
         <childnode refid="149" relation="include">
         </childnode>
-      </node>
-      <node id="152">
-        <label>xil_types.h</label>
-      </node>
-      <node id="146">
-        <label>xparameters.h</label>
-      </node>
-      <node id="145">
-        <label>xvphy_gtxe2.c</label>
-        <link refid="xvphy_gtxe2.c"/>
         <childnode refid="146" relation="include">
         </childnode>
-        <childnode refid="147" relation="include">
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
         </childnode>
       </node>
       <node id="155">
@@ -74,6 +47,33 @@
         <childnode refid="153" relation="include">
         </childnode>
         <childnode refid="154" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>xvphy_gtxe2.c</label>
+        <link refid="xvphy_gtxe2.c"/>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>xvidc.h</label>
+      </node>
+      <node id="152">
+        <label>xil_types.h</label>
+      </node>
+      <node id="146">
+        <label>xparameters.h</label>
+      </node>
+      <node id="147">
+        <label>xvphy_gt.h</label>
+        <link refid="xvphy__gt_8h"/>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -730,6 +730,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="869"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="870"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gtxe2.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gtxe2.c"/>
   </compounddef>
 </doxygen>

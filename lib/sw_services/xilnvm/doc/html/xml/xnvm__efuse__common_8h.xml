@@ -10,100 +10,180 @@
     <includes refid="xnvm__efuse__error_8h" local="yes">xnvm_efuse_error.h</includes>
     <includedby refid="xnvm__efuse__common_8c" local="yes">xnvm_efuse_common.c</includedby>
     <includedby refid="versal__gen_2versal_2server_2xnvm__efuse_8h" local="yes">xnvm_efuse.h</includedby>
-    <includedby refid="versal__gen_2versal__net_2server_2xnvm__efuse_8h" local="yes">xnvm_efuse.h</includedby>
-    <includedby refid="versal__gen_2versal__net_2server_2xnvm__efuse_8c" local="yes">xnvm_efuse.c</includedby>
+    <includedby refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8h" local="yes">xnvm_efuse.h</includedby>
+    <includedby refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" local="yes">xnvm_efuse.c</includedby>
+    <includedby refid="xnvm__efuse__engine_8h" local="yes">xnvm_efuse_engine.h</includedby>
+    <includedby refid="xnvm__efuse__engine_8c" local="yes">xnvm_efuse_engine.c</includedby>
+    <includedby refid="xnvm__ops_8c" local="yes">xnvm_ops.c</includedby>
+    <includedby refid="xnvm__efuse__common__field_8h" local="yes">xnvm_efuse_common_field.h</includedby>
+    <includedby refid="xnvm__efuse__plat_8c" local="yes">xnvm_efuse_plat.c</includedby>
     <includedby refid="xilnvm__efuse__versal__server__example_8c" local="yes">xilnvm_efuse_versal_server_example.c</includedby>
     <incdepgraph>
-      <node id="373">
+      <node id="464">
         <label>xil_io.h</label>
       </node>
-      <node id="372">
-        <label>xnvm_efuse_common.h</label>
-        <link refid="xnvm_efuse_common.h"/>
-        <childnode refid="373" relation="include">
-        </childnode>
-        <childnode refid="374" relation="include">
-        </childnode>
-        <childnode refid="375" relation="include">
-        </childnode>
-        <childnode refid="376" relation="include">
-        </childnode>
-        <childnode refid="377" relation="include">
-        </childnode>
-        <childnode refid="378" relation="include">
-        </childnode>
-      </node>
-      <node id="377">
+      <node id="468">
         <label>xnvm_defs.h</label>
       </node>
-      <node id="379">
+      <node id="470">
         <label>xnvm_efuse_error_plat.h</label>
       </node>
-      <node id="375">
-        <label>xstatus.h</label>
-      </node>
-      <node id="378">
+      <node id="469">
         <label>xnvm_efuse_error.h</label>
         <link refid="xnvm__efuse__error_8h"/>
-        <childnode refid="379" relation="include">
+        <childnode refid="470" relation="include">
         </childnode>
       </node>
-      <node id="376">
+      <node id="466">
+        <label>xstatus.h</label>
+      </node>
+      <node id="467">
         <label>xsysmonpsv.h</label>
       </node>
-      <node id="374">
+      <node id="465">
         <label>xil_types.h</label>
+      </node>
+      <node id="463">
+        <label>xnvm_efuse_common.h</label>
+        <link refid="xnvm_efuse_common.h"/>
+        <childnode refid="464" relation="include">
+        </childnode>
+        <childnode refid="465" relation="include">
+        </childnode>
+        <childnode refid="466" relation="include">
+        </childnode>
+        <childnode refid="467" relation="include">
+        </childnode>
+        <childnode refid="468" relation="include">
+        </childnode>
+        <childnode refid="469" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="385">
-        <label>xnvm_efuse.c</label>
-        <link refid="versal__gen_2versal__net_2server_2xnvm__efuse_8c"/>
-      </node>
-      <node id="384">
-        <label>xnvm_efuse.h</label>
-        <link refid="versal__gen_2versal__net_2server_2xnvm__efuse_8h"/>
-        <childnode refid="385" relation="include">
-        </childnode>
-        <childnode refid="386" relation="include">
-        </childnode>
-        <childnode refid="387" relation="include">
+      <node id="486">
+        <label>xnvm_efuse_plat_field.h</label>
+        <link refid="versal__net_2xnvm__efuse__plat__field_8h"/>
+        <childnode refid="478" relation="include">
         </childnode>
       </node>
-      <node id="386">
+      <node id="485">
+        <label>xnvm_efuse_plat_field.h</label>
+        <link refid="versal__2ve2vm_2xnvm__efuse__plat__field_8h"/>
+      </node>
+      <node id="483">
+        <label>xnvm_efuse_common_field.h</label>
+        <link refid="xnvm__efuse__common__field_8h"/>
+        <childnode refid="484" relation="include">
+        </childnode>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="482" relation="include">
+        </childnode>
+        <childnode refid="485" relation="include">
+        </childnode>
+        <childnode refid="486" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+      </node>
+      <node id="479">
+        <label>xnvm_efuse_plat.c</label>
+        <link refid="xnvm__efuse__plat_8c"/>
+      </node>
+      <node id="478">
+        <label>xnvm_efuse_engine.c</label>
+        <link refid="xnvm__efuse__engine_8c"/>
+      </node>
+      <node id="477">
+        <label>xnvm_efuse_engine.h</label>
+        <link refid="xnvm__efuse__engine_8h"/>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+      </node>
+      <node id="482">
+        <label>xnvm_ops.c</label>
+        <link refid="xnvm__ops_8c"/>
+      </node>
+      <node id="484">
+        <label>xnvm_ops.h</label>
+        <link refid="xnvm__ops_8h"/>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="482" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+      </node>
+      <node id="480">
         <label>xilnvm_efuse_spartan_ultrascale_plus_example.c</label>
         <link refid="xilnvm__efuse__spartan__ultrascale__plus__example_8c"/>
       </node>
-      <node id="387">
+      <node id="481">
         <label>xilnvm_efuse_versal_server_example.c</label>
         <link refid="xilnvm__efuse__versal__server__example_8c"/>
       </node>
-      <node id="381">
-        <label>xnvm_efuse_common.c</label>
-        <link refid="xnvm__efuse__common_8c"/>
-      </node>
-      <node id="380">
-        <label>xnvm_efuse_common.h</label>
-        <link refid="xnvm_efuse_common.h"/>
-        <childnode refid="381" relation="include">
-        </childnode>
-        <childnode refid="382" relation="include">
-        </childnode>
-        <childnode refid="384" relation="include">
-        </childnode>
-        <childnode refid="385" relation="include">
-        </childnode>
-        <childnode refid="387" relation="include">
-        </childnode>
-      </node>
-      <node id="383">
+      <node id="474">
         <label>xnvm_efuse.c</label>
         <link refid="versal__gen_2versal_2server_2xnvm__efuse_8c"/>
       </node>
-      <node id="382">
+      <node id="473">
         <label>xnvm_efuse.h</label>
         <link refid="versal__gen_2versal_2server_2xnvm__efuse_8h"/>
-        <childnode refid="383" relation="include">
+        <childnode refid="474" relation="include">
+        </childnode>
+      </node>
+      <node id="472">
+        <label>xnvm_efuse_common.c</label>
+        <link refid="xnvm__efuse__common_8c"/>
+      </node>
+      <node id="471">
+        <label>xnvm_efuse_common.h</label>
+        <link refid="xnvm_efuse_common.h"/>
+        <childnode refid="472" relation="include">
+        </childnode>
+        <childnode refid="473" relation="include">
+        </childnode>
+        <childnode refid="475" relation="include">
+        </childnode>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="478" relation="include">
+        </childnode>
+        <childnode refid="482" relation="include">
+        </childnode>
+        <childnode refid="483" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="481" relation="include">
+        </childnode>
+      </node>
+      <node id="476">
+        <label>xnvm_efuse.c</label>
+        <link refid="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c"/>
+      </node>
+      <node id="475">
+        <label>xnvm_efuse.h</label>
+        <childnode refid="476" relation="include">
+        </childnode>
+        <childnode refid="477" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="480" relation="include">
+        </childnode>
+        <childnode refid="481" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -118,9 +198,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="56" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="327" endline="387">XNvm_EfuseCheckAesKeyCrc</referencedby>
-        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="115" endline="138">XNvm_EfuseLockController</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga43a467daea1ce3c434d0c01e3657c0a9" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="329" endline="389">XNvm_EfuseCheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xnvm__util__apis_1ga3024ec2e49b24a72d30ffd6ca24fd056" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="116" endline="139">XNvm_EfuseLockController</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga3846194d9f254196d99b9001cc2c1297" prot="public" static="no">
         <name>XNVM_EFUSE_CTRL_WR_UNLOCKED</name>
@@ -131,8 +211,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="57" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="151" endline="174">XNvm_EfuseUnlockController</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="152" endline="175">XNvm_EfuseUnlockController</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -146,7 +226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gac7c04ff53a706bb3dd95581184f552a3" prot="public" static="no">
         <name>XNVM_EFUSE_FULL_RANGE_TEMP_MAX</name>
@@ -157,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga5a7c8f881f15b4a7b8de8f551fe91c89" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_LP_MIN</name>
@@ -168,7 +248,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga314884841e0e1bcafd647f1ee7b404c8" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_LP_MAX</name>
@@ -179,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga3aa863375e98a60e42b019a87e878673" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_MP_MIN</name>
@@ -190,7 +270,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gaf724330e104911db1355469908b1c006" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_MP_MAX</name>
@@ -201,7 +281,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga9050cb9548f68a3b2051e25a58efca04" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_HP_MIN</name>
@@ -212,7 +292,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga64005a005c1e61fcd7a7b47625810b9d" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_HP_MAX</name>
@@ -223,7 +303,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -237,7 +317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga692d062d9cf7828c653d737c10d0222b" prot="public" static="no">
         <name>XNVM_EFUSE_LP_RANGE_CHECK</name>
@@ -248,7 +328,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gaa6bd6f31ed2ac8f428bbff4a84a6b201" prot="public" static="no">
         <name>XNVM_EFUSE_MP_RANGE_CHECK</name>
@@ -259,7 +339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gaa2142f51fe8a59ad589023dbce7463a7" prot="public" static="no">
         <name>XNVM_EFUSE_HP_RANGE_CHECK</name>
@@ -270,7 +350,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -284,7 +364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga98f8e23248c4e69e2316c8f06667f4c5" prot="public" static="no">
         <name>XNVM_EFUSE_VCC_PMC_LP_MAX</name>
@@ -295,7 +375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga9e363be40169d5c4bbd6acd52b055f19" prot="public" static="no">
         <name>XNVM_EFUSE_VCC_PMC_MP_MIN</name>
@@ -306,7 +386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="110" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gab59777230e412544a47d8fa980375d37" prot="public" static="no">
         <name>XNVM_EFUSE_VCC_PMC_MP_MAX</name>
@@ -317,7 +397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gafe8545d942c58a90047a0620cdf2d406" prot="public" static="no">
         <name>XNVM_EFUSE_VCC_PMC_HP_MIN</name>
@@ -328,7 +408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="116" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga74faa9fa5d5986815f72088ddb2a9278" prot="public" static="no">
         <name>XNVM_EFUSE_VCC_PMC_HP_MAX</name>
@@ -339,7 +419,69 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SysMon register offset aliases for XilNvm</header>
+      <memberdef kind="define" id="group__xnvm__efuse__server__apis_1ga337eee2ac865de877fd12536dd5e1df6" prot="public" static="no">
+        <name>XNVM_SYSMON_PCSR_LOCK</name>
+        <initializer>XSYSMONPSV_PCSR_LOCK</initializer>
+        <briefdescription>
+<para>PCSR Lock register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="131" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gad17e6e75f77a845a5d374bd494ace3c6" prot="public" static="no">
+        <name>XNVM_SYSMON_NEW_DATA_FLAG0</name>
+        <initializer>XSYSMONPSV_NEW_DATA_FLAG0</initializer>
+        <briefdescription>
+<para>New Data Flag 0 register offset (Supply[0-31]) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gae2abbe72e0a23a8c3526a206f4359e40" prot="public" static="no">
+        <name>XNVM_SYSMON_NEW_DATA_FLAG1</name>
+        <initializer>XSYSMONPSV_NEW_DATA_FLAG1</initializer>
+        <briefdescription>
+<para>New Data Flag 1 register offset (Supply[32-63]) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gaf0dee8f973b143aa1d8a2096c04e3b68" prot="public" static="no">
+        <name>XNVM_SYSMON_SUPPLY_OFFSET</name>
+        <initializer>XSYSMONPSV_SUPPLY</initializer>
+        <briefdescription>
+<para>Supply register base offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gaa0cdecaa3d476b0f61c73f467a2a3c02" prot="public" static="no">
+        <name>XNVM_SYSMON_TEMP_SAT</name>
+        <initializer>XSYSMONPSV_TEMP_SAT</initializer>
+        <briefdescription>
+<para>Internal temperature register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -352,8 +494,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="117" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaf8c865ce6cd02be72da8d08eae8f6030" compoundref="xnvm__efuse__common_8c" startline="715" endline="853">XNvm_EfuseTempAndVoltChecks</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__server__apis_1gad9ba1c4865a9f5c3ccaf3fc2c9e4dad9" prot="public" static="no">
         <name>XNVM_EFUSE_PROTECTION_BIT_CLEAR</name>
@@ -364,8 +506,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="120" bodyend="-1"/>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" compoundref="xnvm__efuse__common_8c" startline="863" endline="870">XNvm_EfuseReadProtectionBits</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" compoundref="xnvm__efuse__common_8c" startline="870" endline="877">XNvm_EfuseReadProtectionBits</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -405,7 +548,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="127" bodyend="130"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="159" bodyend="162"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__efuse__server__apis_1ga626bd515d5b319991d9b6b337ac3eafa" prot="public" static="no">
         <name>XNvm_EfuseRdMode</name>
@@ -443,7 +586,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="135" bodyend="138"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="167" bodyend="170"/>
       </memberdef>
       <memberdef kind="enum" id="group__xnvm__efuse__server__apis_1ga545e370d65dd5455a7292c721c9bd578" prot="public" static="no">
         <name>XNvm_EfuseType</name>
@@ -469,16 +612,130 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578ab43f680ee3e89199604b6bac11ffc5c7" prot="public">
+          <name>XNVM_EFUSE_PAGE_3</name>
+          <briefdescription>
+<para>Efuse page 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a0fa66511ddfd28793596984767a57d0f" prot="public">
+          <name>XNVM_EFUSE_PAGE_4</name>
+          <briefdescription>
+<para>Efuse page 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578aa8ca3b3ca578f11978bd4a0f3190f167" prot="public">
+          <name>XNVM_EFUSE_PAGE_5</name>
+          <briefdescription>
+<para>Efuse page 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
 <para>eFuse Page </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="143" bodyend="147"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="175" bodyend="182"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xnvm__efuse__server__apis_1ga0da3096084d96372961ec1068e895cd6" prot="public" static="no">
+        <type>XSysMonPsv</type>
+        <definition>typedef XSysMonPsv XNvm_SysmonPsv</definition>
+        <argsstring></argsstring>
+        <name>XNvm_SysmonPsv</name>
+        <briefdescription>
+<para>SysMon PSV instance type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="153" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gad0e9fb36fa6dab385d8f8ac26228a864" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>static float XNvm_SysMon_RawToVoltage</definition>
+        <argsstring>(u32 AdcData)</argsstring>
+        <name>XNvm_SysMon_RawToVoltage</name>
+        <param>
+          <type>u32</type>
+          <declname>AdcData</declname>
+        </param>
+        <briefdescription>
+<para>Converts raw AdcData into Voltage value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AdcData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>System Monitor ADC Raw Data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The Voltage in volts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="195" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga2c39d22efe247f00b3649a7895f45b6f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>static float XNvm_SysMon_FixedToFloat</definition>
+        <argsstring>(u32 FixedQFmt)</argsstring>
+        <name>XNvm_SysMon_FixedToFloat</name>
+        <param>
+          <type>u32</type>
+          <declname>FixedQFmt</declname>
+        </param>
+        <briefdescription>
+<para>Converts the fixed point to degree celsius. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FixedQFmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Q8.7 representation of temperature value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The Temperature in degree celsius. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="213" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gab73ebd1cfa28e79679caad76d1ff5f79" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XNvm_SysMon_ReadDeviceTemp</definition>
+        <argsstring>(XNvm_SysmonPsv *InstancePtr)</argsstring>
+        <name>XNvm_SysMon_ReadDeviceTemp</name>
+        <param>
+          <type><ref refid="group__xnvm__efuse__server__apis_1ga0da3096084d96372961ec1068e895cd6" kindref="member">XNvm_SysmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the device temperature from SysMon registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SysMon instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Temperature value in signed Q8.7 format. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" bodystart="231" bodyend="240"/>
+      </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int XNvm_EfuseCacheReload</definition>
@@ -499,19 +756,21 @@
 <para><itemizedlist>
 <listitem><para>Write 1 to load bit of eFuse_CACHE_LOAD register.</para></listitem><listitem><para>Wait for CACHE_DONE bit to set in EFUSE_STATUS register. If timed out return timeout error, else return XST_SUCCESS.</para></listitem><listitem><para>Read EFUSE_ISR_REG. If EFUSE_ISR_CACHE_ERROR is set return cache load error else return XST_SUCCES.</para></listitem><listitem><para>Reset EFUSE_ISR_CACHE_ERROR bit to 1.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="101" bodyend="147"/>
-        <references refid="xnvm__efuse__common__hw_8h_1a61178ffb55e55f854455a09557cc1536" compoundref="xnvm__efuse__common__hw_8h" startline="211">XNVM_EFUSE_CACHE_LOAD_MASK</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="105" bodyend="151"/>
+        <references refid="xnvm__efuse__common__hw_8h_1a61178ffb55e55f854455a09557cc1536" compoundref="xnvm__efuse__common__hw_8h" startline="229">XNVM_EFUSE_CACHE_LOAD_MASK</references>
         <references refid="xnvm__efuse__common__hw_8h_1af581233a2f372753115d5984f135e7da" compoundref="xnvm__efuse__common__hw_8h" startline="131">XNVM_EFUSE_CACHE_LOAD_REG_OFFSET</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga238b7f7dd27935efd781f2c24080d609" compoundref="spartanup_2xnvm__efuse_8h" startline="165">XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga238b7f7dd27935efd781f2c24080d609" compoundref="spartanup_2xnvm__efuse_8h" startline="166">XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL</references>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba891303a2ed51755ec06ecddc159b8984" compoundref="spartanup_2xnvm__efuse_8h" startline="367">XNVM_EFUSE_ERR_CACHE_LOAD</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga6fdbc7d159dfd097df9156df371c6293" compoundref="spartanup_2xnvm__efuse_8h" startline="150">XNVM_EFUSE_ISR_CACHE_ERROR</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba891303a2ed51755ec06ecddc159b8984" compoundref="spartanup_2xnvm__efuse_8h" startline="368">XNVM_EFUSE_ERR_CACHE_LOAD</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga6fdbc7d159dfd097df9156df371c6293" compoundref="spartanup_2xnvm__efuse_8h" startline="151">XNVM_EFUSE_ISR_CACHE_ERROR</references>
         <references refid="xnvm__efuse__common__hw_8h_1ab9b433dde8d40a16eb9eed84f1e15c2a" compoundref="xnvm__efuse__common__hw_8h" startline="129">XNVM_EFUSE_ISR_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common__hw_8h_1ae0c2bd7f64558fa666cf358ea9ae4f28" compoundref="xnvm__efuse__common__hw_8h" startline="199">XNVM_EFUSE_STATUS_CACHE_DONE</references>
+        <references refid="xnvm__efuse__common__hw_8h_1ae0c2bd7f64558fa666cf358ea9ae4f28" compoundref="xnvm__efuse__common__hw_8h" startline="212">XNVM_EFUSE_STATUS_CACHE_DONE</references>
         <references refid="xnvm__efuse__common__hw_8h_1a4e1c6f020db5fd4a038cbd7c705131a2" compoundref="xnvm__efuse__common__hw_8h" startline="109">XNVM_EFUSE_STATUS_REG_OFFSET</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga145b15bd5a77655d27b8c993dccb77ca" compoundref="xnvm__ops_8c" startline="524" endline="544">XNvm_EfuseOpsCacheOperations</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="129" endline="303">XNvm_EfuseWrite</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -529,14 +788,14 @@
 <para><itemizedlist>
 <listitem><para>Read EFUSE_PD_REG. If enable disable by writing EFUSE_PD_REG to 0.</para></listitem></itemizedlist>
 </para><para>When changing the Power Down state, wait a separation period of 1us, before and after accessing the eFuse-Macro.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="154" bodyend="174"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="158" bodyend="178"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="xnvm__efuse__common__hw_8h_1ac9b7f0dd479568ec2e9815f1cfbe4db7" compoundref="xnvm__efuse__common__hw_8h" startline="231">XNVM_EFUSE_PD_ENABLE</references>
+        <references refid="xnvm__efuse__common__hw_8h_1ac9b7f0dd479568ec2e9815f1cfbe4db7" compoundref="xnvm__efuse__common__hw_8h" startline="249">XNVM_EFUSE_PD_ENABLE</references>
         <references refid="xnvm__efuse__common__hw_8h_1a0531f17b2f6010467733345da44f926e" compoundref="xnvm__efuse__common__hw_8h" startline="139">XNVM_EFUSE_PD_REG_OFFSET</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <references refid="xnvm__efuse__common_8c_1acd50e659ab2873ed4d3fed56e88c6d9c" compoundref="xnvm__efuse__common_8c" startline="53">XNVM_ONE_MICRO_SECOND</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <references refid="xnvm__efuse__common_8c_1acd50e659ab2873ed4d3fed56e88c6d9c" compoundref="xnvm__efuse__common_8c" startline="58">XNVM_ONE_MICRO_SECOND</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -566,17 +825,17 @@
 <para><itemizedlist>
 <listitem><para>Read EFUSE_CFG_REG register.</para></listitem><listitem><para>Read modify and write to EFUSE_CFG_REG to set the read mode.</para></listitem><listitem><para>Read back to check if the write is success, if success return XST_SUCCESS else return error.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="187" bodyend="234"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaadcc8cb62717c66e3b864dfc0b3058cd" compoundref="spartanup_2xnvm__efuse_8h" startline="141">XNVM_EFUSE_CFG_MARGIN_RD</references>
-        <references refid="xnvm__efuse__common__hw_8h_1aa500c31c6384e6a0ac4f07c254eb72af" compoundref="xnvm__efuse__common__hw_8h" startline="188">XNVM_EFUSE_CFG_NORMAL_RD</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="191" bodyend="238"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaadcc8cb62717c66e3b864dfc0b3058cd" compoundref="spartanup_2xnvm__efuse_8h" startline="142">XNVM_EFUSE_CFG_MARGIN_RD</references>
+        <references refid="xnvm__efuse__common__hw_8h_1aa500c31c6384e6a0ac4f07c254eb72af" compoundref="xnvm__efuse__common__hw_8h" startline="201">XNVM_EFUSE_CFG_NORMAL_RD</references>
         <references refid="xnvm__efuse__common__hw_8h_1a7051bf97c8b064951d43f958c72b4cfd" compoundref="xnvm__efuse__common__hw_8h" startline="107">XNVM_EFUSE_CFG_REG_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
         <references refid="xnvm__efuse__common__hw_8h_1ad847570892a175067d1a09606b79ee68" compoundref="xnvm__efuse__common__hw_8h" startline="149">XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK</references>
-        <references refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa2ac2cd53fea8c1c9ffa24c30ce760244" compoundref="spartanup_2xnvm__utils_8h" startline="77">XNVM_EFUSE_NORMAL_RD</references>
-        <references refid="xnvm__efuse__common_8c_1ac098113c35ee3bd002d2ba7c1e7db74e" compoundref="xnvm__efuse__common_8c" startline="60">XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</references>
-        <references refid="xnvm__efuse__common_8c_1adb30690462d9f23f008d70946038ee1d" compoundref="xnvm__efuse__common_8c" startline="61">XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa2ac2cd53fea8c1c9ffa24c30ce760244" compoundref="spartanup_2xnvm__utils_8h" startline="82">XNVM_EFUSE_NORMAL_RD</references>
+        <references refid="xnvm__efuse__common_8c_1ac098113c35ee3bd002d2ba7c1e7db74e" compoundref="xnvm__efuse__common_8c" startline="65">XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</references>
+        <references refid="xnvm__efuse__common_8c_1adb30690462d9f23f008d70946038ee1d" compoundref="xnvm__efuse__common_8c" startline="66">XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET</references>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -594,12 +853,12 @@
 <para><itemizedlist>
 <listitem><para>Set Reference clock for efuse by writing to EFUSE_REF_CLK_REG</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="241" bodyend="249"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="245" bodyend="253"/>
         <references refid="xnvm__efuse__common__hw_8h_1a8c8c2259c36971bcc8ee6b258f846ab1" compoundref="xnvm__efuse__common__hw_8h" startline="72">XNVM_CRP_BASE_ADDR</references>
         <references refid="xnvm__efuse__common__hw_8h_1a172d442db10badbaf971e7847c9877e1" compoundref="xnvm__efuse__common__hw_8h" startline="80">XNVM_CRP_EFUSE_REF_CLK_REG_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1a155f9025cd0bfde8686b29eae6808fbb" compoundref="xnvm__efuse__common__hw_8h" startline="87">XNVM_CRP_EFUSE_REF_CLK_SELSRC</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -617,13 +876,13 @@
 <para><itemizedlist>
 <listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Enable eFuse program mode by writing EFUSE_CFG_REG register</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="257" bodyend="271"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2bf4028ab4c55da82c37e29608c94f4e" compoundref="spartanup_2xnvm__efuse_8h" startline="139">XNVM_EFUSE_CFG_ENABLE_PGM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="261" bodyend="275"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2bf4028ab4c55da82c37e29608c94f4e" compoundref="spartanup_2xnvm__efuse_8h" startline="140">XNVM_EFUSE_CFG_ENABLE_PGM</references>
         <references refid="xnvm__efuse__common__hw_8h_1a7051bf97c8b064951d43f958c72b4cfd" compoundref="xnvm__efuse__common__hw_8h" startline="107">XNVM_EFUSE_CFG_REG_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga0210acfa1906f9a6d4c462ca0c214552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -646,13 +905,14 @@
 <para><itemizedlist>
 <listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Disable eFuse program mode by writing EFUSE_CFG_REG register and return XST_FAILURE on failure</para></listitem><listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Disable eFuse program mode by writing EFUSE_CFG_REG register</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="170" bodyend="188"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2bf4028ab4c55da82c37e29608c94f4e" compoundref="spartanup_2xnvm__efuse_8h" startline="139">XNVM_EFUSE_CFG_ENABLE_PGM</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="175" bodyend="193"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2bf4028ab4c55da82c37e29608c94f4e" compoundref="spartanup_2xnvm__efuse_8h" startline="140">XNVM_EFUSE_CFG_ENABLE_PGM</references>
         <references refid="xnvm__efuse__common__hw_8h_1a7051bf97c8b064951d43f958c72b4cfd" compoundref="xnvm__efuse__common__hw_8h" startline="107">XNVM_EFUSE_CFG_REG_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga33ac3a37674033fcc101cf7290b25c49" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="827" endline="843">XNvm_EfuseCloseController</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="129" endline="303">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="854" endline="1010">XNvm_EfuseWritePuf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -675,13 +935,14 @@
 <para><itemizedlist>
 <listitem><para>Read EFUSE_CFG_REG</para></listitem><listitem><para>Reset Read mode from margin read mode by writing the EFUSE_CFG_REG</para></listitem><listitem><para>Read EFUSE_CFG_REG register.</para></listitem><listitem><para>Reset read mode from margin read mode by writing the EFUSE_CFG_REG.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="199" bodyend="217"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaadcc8cb62717c66e3b864dfc0b3058cd" compoundref="spartanup_2xnvm__efuse_8h" startline="141">XNVM_EFUSE_CFG_MARGIN_RD</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c" bodystart="204" bodyend="222"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaadcc8cb62717c66e3b864dfc0b3058cd" compoundref="spartanup_2xnvm__efuse_8h" startline="142">XNVM_EFUSE_CFG_MARGIN_RD</references>
         <references refid="xnvm__efuse__common__hw_8h_1a7051bf97c8b064951d43f958c72b4cfd" compoundref="xnvm__efuse__common__hw_8h" startline="107">XNVM_EFUSE_CFG_REG_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga33ac3a37674033fcc101cf7290b25c49" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="827" endline="843">XNvm_EfuseCloseController</referencedby>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="129" endline="303">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="854" endline="1010">XNvm_EfuseWritePuf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -699,23 +960,23 @@
 <para><itemizedlist>
 <listitem><para>Read reference clock frequency </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="335" bodyend="381"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="339" bodyend="385"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="xnvm__efuse__common_8c_1a6dbb0c4c8c48e43f76855556bfd8ddfa" compoundref="xnvm__efuse__common_8c" startline="54">XNVM_EFUSE_TPGM_DIV</references>
+        <references refid="xnvm__efuse__common_8c_1a6dbb0c4c8c48e43f76855556bfd8ddfa" compoundref="xnvm__efuse__common_8c" startline="59">XNVM_EFUSE_TPGM_DIV</references>
         <references refid="xnvm__efuse__common__hw_8h_1a7103d49c15f8d03c74e072008748549d" compoundref="xnvm__efuse__common__hw_8h" startline="117">XNVM_EFUSE_TPGM_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common_8c_1ae239711c0eac74b9b61f4722ff364793" compoundref="xnvm__efuse__common_8c" startline="55">XNVM_EFUSE_TRD_DIV</references>
+        <references refid="xnvm__efuse__common_8c_1ae239711c0eac74b9b61f4722ff364793" compoundref="xnvm__efuse__common_8c" startline="60">XNVM_EFUSE_TRD_DIV</references>
         <references refid="xnvm__efuse__common__hw_8h_1acb9f7596c0788f524f9e7f4ae7545ebe" compoundref="xnvm__efuse__common__hw_8h" startline="119">XNVM_EFUSE_TRD_REG_OFFSET</references>
         <references refid="xnvm__efuse__common__hw_8h_1a7bdd295c4fd36b4239bd7e6264e9ddbd" compoundref="xnvm__efuse__common__hw_8h" startline="125">XNVM_EFUSE_TRDM_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common_8c_1a784c2ab9f47ab92cf97a2c7b4fe65f68" compoundref="xnvm__efuse__common_8c" startline="56">XNVM_EFUSE_TRMD_DIV</references>
-        <references refid="xnvm__efuse__common_8c_1a3981b7cdd57c22640d44e78b9586f29e" compoundref="xnvm__efuse__common_8c" startline="59">XNVM_EFUSE_TSU_H_CS_DIV</references>
+        <references refid="xnvm__efuse__common_8c_1a784c2ab9f47ab92cf97a2c7b4fe65f68" compoundref="xnvm__efuse__common_8c" startline="61">XNVM_EFUSE_TRMD_DIV</references>
+        <references refid="xnvm__efuse__common_8c_1a3981b7cdd57c22640d44e78b9586f29e" compoundref="xnvm__efuse__common_8c" startline="64">XNVM_EFUSE_TSU_H_CS_DIV</references>
         <references refid="xnvm__efuse__common__hw_8h_1a11c1f62ceea2426ed796c4e8f33fcfcb" compoundref="xnvm__efuse__common__hw_8h" startline="127">XNVM_EFUSE_TSU_H_CS_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common_8c_1a1e3076a511984c7164e5f40312fceb54" compoundref="xnvm__efuse__common_8c" startline="58">XNVM_EFUSE_TSU_H_PS_CS_DIV</references>
+        <references refid="xnvm__efuse__common_8c_1a1e3076a511984c7164e5f40312fceb54" compoundref="xnvm__efuse__common_8c" startline="63">XNVM_EFUSE_TSU_H_PS_CS_DIV</references>
         <references refid="xnvm__efuse__common__hw_8h_1a628ce684c71da61f6012e1a9ab294b07" compoundref="xnvm__efuse__common__hw_8h" startline="123">XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET</references>
-        <references refid="xnvm__efuse__common_8c_1a819382f59ba2be5679312a9d8d6267c7" compoundref="xnvm__efuse__common_8c" startline="57">XNVM_EFUSE_TSU_H_PS_DIV</references>
+        <references refid="xnvm__efuse__common_8c_1a819382f59ba2be5679312a9d8d6267c7" compoundref="xnvm__efuse__common_8c" startline="62">XNVM_EFUSE_TSU_H_PS_DIV</references>
         <references refid="xnvm__efuse__common__hw_8h_1a25d21fddd383b298b3077b7d7b303cf5" compoundref="xnvm__efuse__common__hw_8h" startline="121">XNVM_EFUSE_TSU_H_PS_REG_OFFSET</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a7fcf032ebb7cde3d6603b57f7fe48994" compoundref="xnvm__efuse__common__hw_8h" startline="245">XNVM_PSU_PSS_REF_CLK_FREQ</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a7fcf032ebb7cde3d6603b57f7fe48994" compoundref="xnvm__efuse__common__hw_8h" startline="263">XNVM_PSU_PSS_REF_CLK_FREQ</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -756,18 +1017,18 @@
 <para><itemizedlist>
 <listitem><para>Unlock eFuse controller to write into eFuse registers.</para></listitem><listitem><para>Disable power down mode and set reference clock to eFuse.</para></listitem><listitem><para>Set read mode.</para></listitem><listitem><para>Initialize eFuse Timers.</para></listitem><listitem><para>Enable programming of Xilinx reserved eFuse.</para></listitem><listitem><para>Check for T bits for the expected pattern.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="398" bodyend="447"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="402" bodyend="451"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="70">XNVM_EFUSE_MODE_PGM</references>
+        <references refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" compoundref="spartanup_2xnvm__utils_8h" startline="75">XNVM_EFUSE_MODE_PGM</references>
         <references refid="xnvm__efuse__common__hw_8h_1a21fa5c8fafdcff3e64fd7903cf6f4bbb" compoundref="xnvm__efuse__common__hw_8h" startline="141">XNVM_EFUSE_TEST_CTRL_REG_OFFSET</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="458" endline="483">XNvm_EfuseCheckForTBits</references>
-        <references refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" compoundref="xnvm__efuse__common_8c" startline="154" endline="174">XNvm_EfuseDisablePowerDown</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="257" endline="271">XNvm_EfuseEnableProgramming</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" compoundref="xnvm__efuse__common_8c" startline="335" endline="381">XNvm_EfuseInitTimers</references>
-        <references refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="187" endline="234">XNvm_EfuseSetReadMode</references>
-        <references refid="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" compoundref="xnvm__efuse__common_8c" startline="241" endline="249">XNvm_EfuseSetRefClk</references>
-        <references refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="417" endline="440">XNvm_EfuseUnlockController</references>
-        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="365" endline="368">XNvm_EfuseWriteReg</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" compoundref="xnvm__efuse__common_8c" startline="462" endline="483">XNvm_EfuseCheckForTBits</references>
+        <references refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" compoundref="xnvm__efuse__common_8c" startline="158" endline="178">XNvm_EfuseDisablePowerDown</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" compoundref="xnvm__efuse__common_8c" startline="261" endline="275">XNvm_EfuseEnableProgramming</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" compoundref="xnvm__efuse__common_8c" startline="339" endline="385">XNvm_EfuseInitTimers</references>
+        <references refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" compoundref="xnvm__efuse__common_8c" startline="191" endline="238">XNvm_EfuseSetReadMode</references>
+        <references refid="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" compoundref="xnvm__efuse__common_8c" startline="245" endline="253">XNvm_EfuseSetRefClk</references>
+        <references refid="group__xnvm__util__apis_1ga9c7176dc69fd682793be08de6c421d37" compoundref="spartanup_2xnvm__utils_8c" startline="422" endline="445">XNvm_EfuseUnlockController</references>
+        <references refid="group__xnvm__util__apis_1ga64ca5266a4e90002294937021465135a" compoundref="spartanup_2xnvm__utils_8c" startline="370" endline="373">XNvm_EfuseWriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -788,15 +1049,13 @@
 <para><itemizedlist>
 <listitem><para>Read EFUSE_STATUS_REG register. Return error code if Read register value not equal to Tbit mask.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="458" bodyend="483"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="462" bodyend="483"/>
         <references refid="xnvm__efuse__common__hw_8h_1adb648186cb73f9ba33b4c5366d2e88f6" compoundref="xnvm__efuse__common__hw_8h" startline="97">XNVM_EFUSE_CTRL_BASEADDR</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55bae9c5b8f4e067beed16673ebb09483586" compoundref="spartanup_2xnvm__efuse_8h" startline="359">XNVM_EFUSE_ERR_PGM_TBIT_PATTERN</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55bae9c5b8f4e067beed16673ebb09483586" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_PGM_TBIT_PATTERN</references>
         <references refid="xnvm__efuse__common__hw_8h_1a4e1c6f020db5fd4a038cbd7c705131a2" compoundref="xnvm__efuse__common__hw_8h" startline="109">XNVM_EFUSE_STATUS_REG_OFFSET</references>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga2c20b4530bdba7752426f6840c1a1964" compoundref="spartanup_2xnvm__efuse_8h" startline="143">XNVM_EFUSE_STATUS_TBIT_0</references>
-        <references refid="xnvm__efuse__common__hw_8h_1ab650bbc6d663cf40bdda996e8bf9a865" compoundref="xnvm__efuse__common__hw_8h" startline="197">XNVM_EFUSE_STATUS_TBIT_1</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a8d6d345941ee5451ffc689dc2b91c50e" compoundref="xnvm__efuse__common__hw_8h" startline="198">XNVM_EFUSE_STATUS_TBIT_2</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="398" endline="447">XNvm_EfuseSetupController</referencedby>
+        <references refid="xnvm__efuse__common__hw_8h_1abfa782aeee75ca53c2cf838f276bd068" compoundref="xnvm__efuse__common__hw_8h" startline="213">XNVM_EFUSE_STATUS_TBIT_MASK</references>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4e019d9cd1db1fc71ae3b17f615eb8a3" compoundref="xnvm__efuse__common_8c" startline="402" endline="451">XNvm_EfuseSetupController</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gac3c8a8519db111050a86072af33a7f9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -824,34 +1083,34 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="659" bodyend="699"/>
-        <references refid="xnvm__efuse__common_8c_1ac098113c35ee3bd002d2ba7c1e7db74e" compoundref="xnvm__efuse__common_8c" startline="60">XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</references>
-        <references refid="xnvm__efuse__common_8c_1a43be5c3424b5e1df2cc040e69447292b" compoundref="xnvm__efuse__common_8c" startline="67">XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS</references>
-        <references refid="xnvm__efuse__common__hw_8h_1ac139e6dad50b06661e6ebae435c9f692" compoundref="xnvm__efuse__common__hw_8h" startline="614">XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a3e8950da6dcc7228740282b24b8760a7" compoundref="xnvm__efuse__common__hw_8h" startline="625">XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a7346ced547c0446e0bb57cbf226b441e" compoundref="xnvm__efuse__common__hw_8h" startline="622">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a74d277e450ab7b41b66542f3a76c6cf2" compoundref="xnvm__efuse__common__hw_8h" startline="633">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT</references>
-        <references refid="xnvm__efuse__common__hw_8h_1af5dde4a71f5618405c80afeecce27d64" compoundref="xnvm__efuse__common__hw_8h" startline="620">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK</references>
-        <references refid="xnvm__efuse__common__hw_8h_1ac224d98e4c805c7ab7c36dc7d0d67d62" compoundref="xnvm__efuse__common__hw_8h" startline="631">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a9b2cdea4fbb9fd729938a5468901b48c" compoundref="xnvm__efuse__common__hw_8h" startline="618">XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK</references>
-        <references refid="xnvm__efuse__common__hw_8h_1a64fe81b3f54698a15364cca2233525b6" compoundref="xnvm__efuse__common__hw_8h" startline="629">XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT</references>
-        <references refid="xnvm__efuse__common__hw_8h_1abfe386c84fee6d990e79bd9d6bdf03da" compoundref="xnvm__efuse__common__hw_8h" startline="616">XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK</references>
-        <references refid="xnvm__efuse__common__hw_8h_1aa228652f42c3bc10dc467c0578eeed57" compoundref="xnvm__efuse__common__hw_8h" startline="627">XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT</references>
-        <references refid="xnvm__efuse__common_8c_1a93915a19e1bccc48bbc4e9d6fef6c379" compoundref="xnvm__efuse__common_8c" startline="65">XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0</references>
-        <references refid="xnvm__efuse__common_8c_1ada30b94ac5b0e038f2689e45f26c296b" compoundref="xnvm__efuse__common_8c" startline="64">XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1</references>
-        <references refid="xnvm__efuse__common_8c_1ab9172ab3c395b1c87cc6c243eb5b5e41" compoundref="xnvm__efuse__common_8c" startline="63">XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL</references>
-        <references refid="xnvm__efuse__common_8c_1a4eddd347eb370c94797d1b0074f95e99" compoundref="xnvm__efuse__common_8c" startline="66">XNVM_EFUSE_SYSMON_VCCPMC_MODE</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="663" bodyend="703"/>
+        <references refid="xnvm__efuse__common_8c_1ac098113c35ee3bd002d2ba7c1e7db74e" compoundref="xnvm__efuse__common_8c" startline="65">XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</references>
+        <references refid="xnvm__efuse__common_8c_1a43be5c3424b5e1df2cc040e69447292b" compoundref="xnvm__efuse__common_8c" startline="72">XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS</references>
+        <references refid="xnvm__efuse__common__hw_8h_1ac139e6dad50b06661e6ebae435c9f692" compoundref="xnvm__efuse__common__hw_8h" startline="632">XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a3e8950da6dcc7228740282b24b8760a7" compoundref="xnvm__efuse__common__hw_8h" startline="643">XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a7346ced547c0446e0bb57cbf226b441e" compoundref="xnvm__efuse__common__hw_8h" startline="640">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a74d277e450ab7b41b66542f3a76c6cf2" compoundref="xnvm__efuse__common__hw_8h" startline="651">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT</references>
+        <references refid="xnvm__efuse__common__hw_8h_1af5dde4a71f5618405c80afeecce27d64" compoundref="xnvm__efuse__common__hw_8h" startline="638">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1ac224d98e4c805c7ab7c36dc7d0d67d62" compoundref="xnvm__efuse__common__hw_8h" startline="649">XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a9b2cdea4fbb9fd729938a5468901b48c" compoundref="xnvm__efuse__common__hw_8h" startline="636">XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1a64fe81b3f54698a15364cca2233525b6" compoundref="xnvm__efuse__common__hw_8h" startline="647">XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT</references>
+        <references refid="xnvm__efuse__common__hw_8h_1abfe386c84fee6d990e79bd9d6bdf03da" compoundref="xnvm__efuse__common__hw_8h" startline="634">XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK</references>
+        <references refid="xnvm__efuse__common__hw_8h_1aa228652f42c3bc10dc467c0578eeed57" compoundref="xnvm__efuse__common__hw_8h" startline="645">XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT</references>
+        <references refid="xnvm__efuse__common_8c_1a93915a19e1bccc48bbc4e9d6fef6c379" compoundref="xnvm__efuse__common_8c" startline="70">XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0</references>
+        <references refid="xnvm__efuse__common_8c_1ada30b94ac5b0e038f2689e45f26c296b" compoundref="xnvm__efuse__common_8c" startline="69">XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1</references>
+        <references refid="xnvm__efuse__common_8c_1ab9172ab3c395b1c87cc6c243eb5b5e41" compoundref="xnvm__efuse__common_8c" startline="68">XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL</references>
+        <references refid="xnvm__efuse__common_8c_1a4eddd347eb370c94797d1b0074f95e99" compoundref="xnvm__efuse__common_8c" startline="71">XNVM_EFUSE_SYSMON_VCCPMC_MODE</references>
         <references refid="xnvm__efuse__common__hw_8h_1aed2f2e416ffaf22e96f3812611cd89fc" compoundref="xnvm__efuse__common__hw_8h" startline="64">XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET</references>
-        <references refid="xnvm__efuse__common_8c_1a187d1e419e66b1ba10a3a73debd9904d" compoundref="xnvm__efuse__common_8c" startline="71">XNVM_EFUSE_WORD_LEN</references>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gaf8c865ce6cd02be72da8d08eae8f6030" compoundref="xnvm__efuse__common_8c" startline="715" endline="853">XNvm_EfuseTempAndVoltChecks</referencedby>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga187d1e419e66b1ba10a3a73debd9904d" compoundref="spartanup_2xnvm__efuse_8h" startline="67">XNVM_EFUSE_WORD_LEN</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" compoundref="xnvm__efuse__common_8c" startline="722" endline="860">XNvm_EfuseTempAndVoltChecks</referencedby>
       </memberdef>
-      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1gaf8c865ce6cd02be72da8d08eae8f6030" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int XNvm_EfuseTempAndVoltChecks</definition>
-        <argsstring>(const XSysMonPsv *SysMonInstPtr)</argsstring>
+        <argsstring>(const XNvm_SysmonPsv *SysMonInstPtr)</argsstring>
         <name>XNvm_EfuseTempAndVoltChecks</name>
         <param>
-          <type>const XSysMonPsv *</type>
+          <type>const <ref refid="group__xnvm__efuse__server__apis_1ga0da3096084d96372961ec1068e895cd6" kindref="member">XNvm_SysmonPsv</ref> *</type>
           <declname>SysMonInstPtr</declname>
         </param>
         <briefdescription>
@@ -866,7 +1125,7 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS - On successful Voltage and Temperature checks.</para></listitem><listitem><para>XNVM_EFUSE_ERR_INVALID_PARAM - Input validation failure.</para></listitem><listitem><para>XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is out of range</para></listitem><listitem><para>XNVM_EFUSE_ERROR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS - On successful Voltage and Temperature checks.</para></listitem><listitem><para>XNVM_EFUSE_ERR_INVALID_PARAM - SysMonInstPtr is NULL or the SysMon instance is not ready.</para></listitem><listitem><para>XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is out of range</para></listitem><listitem><para>XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range</para></listitem><listitem><para>XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED - No sysmon supply is enabled for monitoring</para></listitem><listitem><para>XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA - No new sysmon measurement data is available </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
@@ -875,44 +1134,27 @@
 </para><para>Else, clear the New data flag if its set</para><para><itemizedlist>
 <listitem><para>Read the raw voltage value from the supply.</para></listitem><listitem><para>Convert raw to voltage.</para></listitem><listitem><para>Check for voltage operating limits. Return error if voltage is not within operating limits.</para></listitem><listitem><para>Read the raw temperature value from the sysmon satellite.</para></listitem><listitem><para>Convert IntegralPart and FractionalPart to absolute values.</para></listitem><listitem><para>Check for temperature operating limits. Return error if temperature is not within operating limits.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="715" bodyend="853"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="360">XNVM_EFUSE_ERR_INVALID_PARAM</references>
-        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca5889e498bb62933e403a7c28332ee064" compoundref="xnvm__efuse__error_8h" startline="212">XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED</references>
-        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca6aed89fc61667e4a2784d0099fd4f769" compoundref="xnvm__efuse__error_8h" startline="206">XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE</references>
-        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca92857890de785d9496d723d7cbe56ab5" compoundref="xnvm__efuse__error_8h" startline="209">XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE</references>
-        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca8f2f820cef391a9e44e23feb978cca50" compoundref="xnvm__efuse__error_8h" startline="215">XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA</references>
-        <references refid="xnvm__efuse__common_8c_1ad803c38ffc552fe2bc5f6c5f8e6dab70" compoundref="xnvm__efuse__common_8c" startline="70">XNVM_EFUSE_FRACTION_MUL_VALUE</references>
-        <references refid="xnvm__efuse__common_8c_1ac098113c35ee3bd002d2ba7c1e7db74e" compoundref="xnvm__efuse__common_8c" startline="60">XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</references>
-        <references refid="group__xnvm__efuse__server__apis_1ga8ef2281f0ef0fed30c29ba5d0c2a4c05" compoundref="xnvm__efuse__common_8h" startline="117">XNVM_EFUSE_SYSMON_LOCK_CODE</references>
-        <references refid="xnvm__efuse__common_8c_1a75a6f7f12d78cdad69940f49e27811d3" compoundref="xnvm__efuse__common_8c" startline="68">XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="722" bodyend="860"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba9a62e9c5d07c9b4e2dd2c350275e632b" compoundref="spartanup_2xnvm__efuse_8h" startline="361">XNVM_EFUSE_ERR_INVALID_PARAM</references>
+        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad1ae6555dfedac811da6fa7049014034" compoundref="xnvm__efuse__error_8h" startline="214">XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55bacd86f3ad9f5800c47028da3f657bbd02" compoundref="spartanup_2xnvm__efuse_8h" startline="442">XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba57589212ada1dd1b766c78e4db4b57ed" compoundref="spartanup_2xnvm__efuse_8h" startline="443">XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE</references>
+        <references refid="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca3199eac8cf3d6dc651f13c7f57bbe96d" compoundref="xnvm__efuse__error_8h" startline="217">XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA</references>
+        <references refid="xnvm__efuse__common_8c_1ad803c38ffc552fe2bc5f6c5f8e6dab70" compoundref="xnvm__efuse__common_8c" startline="75">XNVM_EFUSE_FRACTION_MUL_VALUE</references>
+        <references refid="xnvm__efuse__common_8c_1ac098113c35ee3bd002d2ba7c1e7db74e" compoundref="xnvm__efuse__common_8c" startline="65">XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga8ef2281f0ef0fed30c29ba5d0c2a4c05" compoundref="xnvm__efuse__common_8h" startline="124">XNVM_EFUSE_SYSMON_LOCK_CODE</references>
+        <references refid="xnvm__efuse__common_8c_1a75a6f7f12d78cdad69940f49e27811d3" compoundref="xnvm__efuse__common_8c" startline="73">XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG</references>
         <references refid="xnvm__efuse__common__hw_8h_1ad3e4aab0daaf3ad918a41498277cd09d" compoundref="xnvm__efuse__common__hw_8h" startline="48">XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR</references>
         <references refid="xnvm__efuse__common__hw_8h_1a8b70cf74f3c0fdc7848cc5d408d07b3e" compoundref="xnvm__efuse__common__hw_8h" startline="56">XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR</references>
-        <references refid="xnvm__efuse__common_8c_1a3cff342e0039664d80d62412e1494341" compoundref="xnvm__efuse__common_8c" startline="69">XNVM_EFUSE_SYSMONPSV_TIMEOUT</references>
-        <references refid="xnvm__efuse__common_8c_1a187d1e419e66b1ba10a3a73debd9904d" compoundref="xnvm__efuse__common_8c" startline="71">XNVM_EFUSE_WORD_LEN</references>
-        <references refid="group__xnvm__efuse__server__apis_1gac3c8a8519db111050a86072af33a7f9d" compoundref="xnvm__efuse__common_8c" startline="659" endline="699">XNvm_GetSysmonSupplyRegId</references>
-        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="128" endline="299">XNvm_EfuseWrite</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga475005d64d5d8d97dae539743f7793b9" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="256" endline="328">XNvm_EfuseWriteAesKey</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6379fae3915b48ae864d0a62b03ccbfd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1181" endline="1251">XNvm_EfuseWriteBootEnvCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c5ab114e31ea08f87ba33432d6d058e" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1808" endline="1865">XNvm_EfuseWriteBootModeDisable</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gade779f5fb0d828586ba86b87492c0e50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1961" endline="2045">XNvm_EfuseWriteCrc</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga37d5999c68b18d7cd4e95bb4fd9105d2" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="650" endline="718">XNvm_EfuseWriteDecOnly</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga10e7c8ba2f592b3cbd00323d300c1314" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1737" endline="1788">XNvm_EfuseWriteDisableInplacePlmUpdate</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1882" endline="1944">XNvm_EfuseWriteDmeMode</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1611" endline="1720">XNvm_EfuseWriteDmeRevoke</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga6c6a62d77c7a495ffaf45390f771dc65" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1522" endline="1591">XNvm_EfuseWriteDmeUserKey</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga9b518b5753573d6f65ba1d15c94fce86" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1270" endline="1340">XNvm_EfuseWriteFipsInfo</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga99b50ea3f231e5b81fd8d3e944daa3ff" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="452" endline="525">XNvm_EfuseWriteIv</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga80edb4b2292a02831cafa2034a62707d" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1094" endline="1163">XNvm_EfuseWriteMisc1Bits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga8e9c61a48bf95850aa3c9aec666c6264" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="921" endline="991">XNvm_EfuseWriteMiscCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga2126e9f3c76ffe698caf235573b1bf59" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="838" endline="903">XNvm_EfuseWriteOffChipRevokeID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga5093d8298f30653879f3f0f3023029bd" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="352" endline="425">XNvm_EfuseWritePpkHash</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="2333" endline="2417">XNvm_EfuseWritePufSecCtrl</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1gacdba7ab23e8c853bedc9896a4bd6de71" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="739" endline="819">XNvm_EfuseWriteRevocationID</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga694dd3629494a12171684e87cd7c4b9f" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1008" endline="1077">XNvm_EfuseWriteSecCtrlBits</referencedby>
-        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+        <references refid="xnvm__efuse__common_8c_1a3cff342e0039664d80d62412e1494341" compoundref="xnvm__efuse__common_8c" startline="74">XNVM_EFUSE_SYSMONPSV_TIMEOUT</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga187d1e419e66b1ba10a3a73debd9904d" compoundref="spartanup_2xnvm__efuse_8h" startline="67">XNVM_EFUSE_WORD_LEN</references>
+        <references refid="group__xnvm__efuse__server__apis_1gac3c8a8519db111050a86072af33a7f9d" compoundref="xnvm__efuse__common_8c" startline="663" endline="703">XNvm_GetSysmonSupplyRegId</references>
+        <references refid="group__xnvm__efuse__server__apis_1gad17e6e75f77a845a5d374bd494ace3c6" compoundref="xnvm__efuse__common_8h" startline="142">XNVM_SYSMON_NEW_DATA_FLAG0</references>
+        <references refid="group__xnvm__efuse__server__apis_1ga337eee2ac865de877fd12536dd5e1df6" compoundref="xnvm__efuse__common_8h" startline="141">XNVM_SYSMON_PCSR_LOCK</references>
+        <references refid="group__xnvm__efuse__server__apis_1gaf0dee8f973b143aa1d8a2096c04e3b68" compoundref="xnvm__efuse__common_8h" startline="144">XNVM_SYSMON_SUPPLY_OFFSET</references>
+        <references refid="group__xnvm__efuse__server__apis_1gaa0cdecaa3d476b0f61c73f467a2a3c02" compoundref="xnvm__efuse__common_8h" startline="145">XNVM_SYSMON_TEMP_SAT</references>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" compoundref="spartanup_2xnvm__efuse_8c" startline="129" endline="303">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="854" endline="1010">XNvm_EfuseWritePuf</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -938,11 +1180,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="863" bodyend="870"/>
-        <references refid="xnvm__efuse__common__hw_8h_1a467ea87d34e4f09532943d40d358b37f" compoundref="xnvm__efuse__common__hw_8h" startline="282">XNVM_EFUSE_CACHE_BASEADDR</references>
-        <references refid="group__xnvm__efuse__server__apis_1gad9ba1c4865a9f5c3ccaf3fc2c9e4dad9" compoundref="xnvm__efuse__common_8h" startline="120">XNVM_EFUSE_PROTECTION_BIT_CLEAR</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.c" bodystart="870" bodyend="877"/>
+        <references refid="xnvm__efuse__common__hw_8h_1a467ea87d34e4f09532943d40d358b37f" compoundref="xnvm__efuse__common__hw_8h" startline="300">XNVM_EFUSE_CACHE_BASEADDR</references>
+        <references refid="group__xnvm__efuse__server__apis_1gad9ba1c4865a9f5c3ccaf3fc2c9e4dad9" compoundref="xnvm__efuse__common_8h" startline="127">XNVM_EFUSE_PROTECTION_BIT_CLEAR</references>
         <references refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aa62fb13830c2ee70860fb1d7bd50bcec" compoundref="versal__gen_2versal_2server_2xnvm__efuse__hw_8h" startline="64">XNVM_EFUSE_TBITS_XILINX_CTRL_ROW</references>
-        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="351" endline="354">XNvm_EfuseReadReg</references>
+        <references refid="group__xnvm__util__apis_1ga0b8d44122a9957c29ed1be2574a53aed" compoundref="spartanup_2xnvm__utils_8c" startline="356" endline="359">XNvm_EfuseReadReg</references>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -955,9 +1198,12 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 3.0   kal  07/16/2022 Initial release
 3.1   skg  10/25/2022 Added comments for macros and enums
 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
-      vss  09/19/2023   Fixed MISRA-C Rule 8.7 violation
+          vss  09/19/2023       Fixed MISRA-C Rule 8.7 violation
 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
-      ng   11/22/2023 Fixed doxygen grouping</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+      ng   11/22/2023 Fixed doxygen grouping
+3.7   obs  03/26/2026 Updated function signatures to use XNvm_SysmonPsv type
+                      Added XNVM_SYSMON_* macros and XNvm_SysMon_*() inline
+                      wrappers using proper XNVM namespace</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
@@ -967,88 +1213,147 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_COMMON_H</highlight></codeline>
-<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_COMMON_H</highlight></codeline>
-<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsysmonpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__efuse__error_8h" kindref="compound">xnvm_efuse_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
-<codeline lineno="56" refid="group__xnvm__efuse__server__apis_1ga9afb36a9e0e49a9cac6a60b94df16a3c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CTRL_WR_LOCKED<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
-<codeline lineno="57" refid="group__xnvm__efuse__server__apis_1ga3846194d9f254196d99b9001cc2c1297" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CTRL_WR_UNLOCKED<sp/><sp/><sp/><sp/><sp/>(0x00U)<sp/></highlight></codeline>
-<codeline lineno="64" refid="group__xnvm__efuse__server__apis_1gaa1c079b48271f7e1107d847b85f94b2b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_FULL_RANGE_TEMP_MIN<sp/><sp/>(-55.0f)<sp/></highlight></codeline>
-<codeline lineno="65" refid="group__xnvm__efuse__server__apis_1gac7c04ff53a706bb3dd95581184f552a3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_FULL_RANGE_TEMP_MAX<sp/><sp/>(125.0f)<sp/></highlight></codeline>
-<codeline lineno="67" refid="group__xnvm__efuse__server__apis_1ga5a7c8f881f15b4a7b8de8f551fe91c89" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_LP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.0f)<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="68" refid="group__xnvm__efuse__server__apis_1ga314884841e0e1bcafd647f1ee7b404c8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_LP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(100.0f)<sp/></highlight></codeline>
-<codeline lineno="69" refid="group__xnvm__efuse__server__apis_1ga3aa863375e98a60e42b019a87e878673" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_MP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(-40.0f)<sp/></highlight></codeline>
-<codeline lineno="70" refid="group__xnvm__efuse__server__apis_1gaf724330e104911db1355469908b1c006" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_MP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(110.0f)<sp/></highlight></codeline>
-<codeline lineno="71" refid="group__xnvm__efuse__server__apis_1ga9050cb9548f68a3b2051e25a58efca04" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_HP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(-55.0f)<sp/></highlight></codeline>
-<codeline lineno="72" refid="group__xnvm__efuse__server__apis_1ga64005a005c1e61fcd7a7b47625810b9d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_HP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(125.0f)<sp/></highlight></codeline>
-<codeline lineno="79" refid="group__xnvm__efuse__server__apis_1ga50377a74a15b19ab2140c8fcfdcabaa7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_FULL_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_LP_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_MP_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="85" refid="group__xnvm__efuse__server__apis_1gaa6bd6f31ed2ac8f428bbff4a84a6b201" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HP_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_LP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.676f)<sp/></highlight></codeline>
-<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_LP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.724f)<sp/></highlight></codeline>
-<codeline lineno="97" refid="group__xnvm__efuse__server__apis_1ga6b93717eceba7786bfd70ec3701efead" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_MP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.775f)<sp/></highlight></codeline>
-<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_MP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.825f)<sp/></highlight></codeline>
-<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_HP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.854f)<sp/></highlight></codeline>
-<codeline lineno="103" refid="group__xnvm__efuse__server__apis_1ga9e363be40169d5c4bbd6acd52b055f19" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_HP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.906f)<sp/></highlight></codeline>
-<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_LOCK_CODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF9E8D7C6U)</highlight></codeline>
-<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PROTECTION_BIT_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
-<codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="113"><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
-<codeline lineno="117" refid="group__xnvm__efuse__server__apis_1ga8ef2281f0ef0fed30c29ba5d0c2a4c05" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea45f51f9dc7365809c3e52c2c265a1ce6" kindref="member">XNVM_EFUSE_MODE_RD</ref>,<sp/></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" kindref="member">XNVM_EFUSE_MODE_PGM</ref><sp/></highlight></codeline>
-<codeline lineno="120" refid="group__xnvm__efuse__server__apis_1gad9ba1c4865a9f5c3ccaf3fc2c9e4dad9" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xnvm__util__apis_1gaf5262e07dfefff15534093f7f3d24fde" kindref="member">XNvm_EfuseOpMode</ref>;</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa2ac2cd53fea8c1c9ffa24c30ce760244" kindref="member">XNVM_EFUSE_NORMAL_RD</ref>,<sp/></highlight></codeline>
-<codeline lineno="127" refid="group__xnvm__efuse__server__apis_1gaf5262e07dfefff15534093f7f3d24fde" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" kindref="member">XNVM_EFUSE_MARGIN_RD</ref><sp/></highlight></codeline>
-<codeline lineno="128" refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea45f51f9dc7365809c3e52c2c265a1ce6" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" kindref="member">XNvm_EfuseRdMode</ref>;</highlight></codeline>
-<codeline lineno="129" refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" refkind="member"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a4331fac23f7b2fc9210f52578aca0873" kindref="member">XNVM_EFUSE_PAGE_0</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
-<codeline lineno="135" refid="group__xnvm__efuse__server__apis_1ga626bd515d5b319991d9b6b337ac3eafa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a93b3ce45e3bed96a04dd25fd7267d3ee" kindref="member">XNVM_EFUSE_PAGE_1</ref>,<sp/></highlight></codeline>
-<codeline lineno="136" refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa2ac2cd53fea8c1c9ffa24c30ce760244" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578af42a55e305604ef7abe0da7829d74b0c" kindref="member">XNVM_EFUSE_PAGE_2</ref><sp/></highlight></codeline>
-<codeline lineno="137" refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xnvm__efuse__server__apis_1ga545e370d65dd5455a7292c721c9bd578" kindref="member">XNvm_EfuseType</ref>;</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" kindref="member">XNvm_EfuseCacheReload</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="143" refid="group__xnvm__efuse__server__apis_1ga545e370d65dd5455a7292c721c9bd578" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" kindref="member">XNvm_EfuseDisablePowerDown</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="144" refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a4331fac23f7b2fc9210f52578aca0873" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" kindref="member">XNvm_EfuseSetReadMode</ref>(<ref refid="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" kindref="member">XNvm_EfuseRdMode</ref><sp/>RdMode);</highlight></codeline>
-<codeline lineno="145" refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a93b3ce45e3bed96a04dd25fd7267d3ee" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" kindref="member">XNvm_EfuseSetRefClk</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="146" refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578af42a55e305604ef7abe0da7829d74b0c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" kindref="member">XNvm_EfuseEnableProgramming</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" kindref="member">XNvm_EfuseDisableProgramming</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" kindref="member">XNvm_EfuseResetReadMode</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" kindref="member">XNvm_EfuseInitTimers</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1ga07f1dca511ab0d8e815069634ccc305c" kindref="member">XNvm_EfuseSetupController</ref>(<ref refid="group__xnvm__util__apis_1gaf5262e07dfefff15534093f7f3d24fde" kindref="member">XNvm_EfuseOpMode</ref><sp/>Op,<sp/><ref refid="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" kindref="member">XNvm_EfuseRdMode</ref><sp/>RdMode);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" kindref="member">XNvm_EfuseCheckForTBits</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="152"><highlight class="normal">u32<sp/><ref refid="group__xnvm__efuse__server__apis_1gac3c8a8519db111050a86072af33a7f9d" kindref="member">XNvm_GetSysmonSupplyRegId</ref>(UINTPTR<sp/>SysmonpsvSatBaseAddr);</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gaf8c865ce6cd02be72da8d08eae8f6030" kindref="member">XNvm_EfuseTempAndVoltChecks</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSysMonPsv<sp/>*SysMonInstPtr);</highlight></codeline>
-<codeline lineno="154"><highlight class="normal">u32<sp/><ref refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" kindref="member">XNvm_EfuseReadProtectionBits</ref>(u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_COMMON_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_COMMON_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_COMMON_H</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_sysmon.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsysmonpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__efuse__error_8h" kindref="compound">xnvm_efuse_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="63" refid="group__xnvm__efuse__server__apis_1ga9afb36a9e0e49a9cac6a60b94df16a3c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CTRL_WR_LOCKED<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__xnvm__efuse__server__apis_1ga3846194d9f254196d99b9001cc2c1297" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CTRL_WR_UNLOCKED<sp/><sp/><sp/><sp/><sp/>(0x00U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xnvm__efuse__server__apis_1gaa1c079b48271f7e1107d847b85f94b2b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_FULL_RANGE_TEMP_MIN<sp/><sp/>(-55.0f)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xnvm__efuse__server__apis_1gac7c04ff53a706bb3dd95581184f552a3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_FULL_RANGE_TEMP_MAX<sp/><sp/>(125.0f)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xnvm__efuse__server__apis_1ga5a7c8f881f15b4a7b8de8f551fe91c89" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_LP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.0f)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xnvm__efuse__server__apis_1ga314884841e0e1bcafd647f1ee7b404c8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_LP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(100.0f)<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xnvm__efuse__server__apis_1ga3aa863375e98a60e42b019a87e878673" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_MP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(-40.0f)<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xnvm__efuse__server__apis_1gaf724330e104911db1355469908b1c006" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_MP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(110.0f)<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__xnvm__efuse__server__apis_1ga9050cb9548f68a3b2051e25a58efca04" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_HP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(-55.0f)<sp/></highlight></codeline>
+<codeline lineno="79" refid="group__xnvm__efuse__server__apis_1ga64005a005c1e61fcd7a7b47625810b9d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TEMP_HP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(125.0f)<sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xnvm__efuse__server__apis_1ga50377a74a15b19ab2140c8fcfdcabaa7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_FULL_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_LP_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_MP_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xnvm__efuse__server__apis_1gaa6bd6f31ed2ac8f428bbff4a84a6b201" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HP_RANGE_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_LP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.676f)<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_LP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.724f)<sp/></highlight></codeline>
+<codeline lineno="104" refid="group__xnvm__efuse__server__apis_1ga6b93717eceba7786bfd70ec3701efead" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_MP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.775f)<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_MP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.825f)<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_HP_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.854f)<sp/></highlight></codeline>
+<codeline lineno="110" refid="group__xnvm__efuse__server__apis_1ga9e363be40169d5c4bbd6acd52b055f19" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_VCC_PMC_HP_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0.906f)<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_LOCK_CODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF9E8D7C6U)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PROTECTION_BIT_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124" refid="group__xnvm__efuse__server__apis_1ga8ef2281f0ef0fed30c29ba5d0c2a4c05" refkind="member"><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_PCSR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SYSMON_PCSR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_NEW_DATA_FLAG0<sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SYSMON_NEW_DATA_FLAG0<sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="group__xnvm__efuse__server__apis_1gad9ba1c4865a9f5c3ccaf3fc2c9e4dad9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_NEW_DATA_FLAG1<sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SYSMON_NEW_DATA_FLAG1<sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_SUPPLY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SYSMON_SUPPLY_OFFSET<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_TEMP_SAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SYSMON_TEMP_SAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_PCSR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_PCSR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_NEW_DATA_FLAG0<sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_NEW_DATA_FLAG0<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_NEW_DATA_FLAG1<sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_NEW_DATA_FLAG1<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_SUPPLY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_SUPPLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XNVM_SYSMON_TEMP_SAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_TEMP_SAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="141" refid="group__xnvm__efuse__server__apis_1ga337eee2ac865de877fd12536dd5e1df6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>XPlmi_SysMonPsv<sp/><ref refid="group__xnvm__efuse__server__apis_1ga0da3096084d96372961ec1068e895cd6" kindref="member">XNvm_SysmonPsv</ref>;<sp/></highlight></codeline>
+<codeline lineno="142" refid="group__xnvm__efuse__server__apis_1gad17e6e75f77a845a5d374bd494ace3c6" refkind="member"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="143" refid="group__xnvm__efuse__server__apis_1gae2abbe72e0a23a8c3526a206f4359e40" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>XSysMonPsv<sp/><ref refid="group__xnvm__efuse__server__apis_1ga0da3096084d96372961ec1068e895cd6" kindref="member">XNvm_SysmonPsv</ref>;<sp/></highlight></codeline>
+<codeline lineno="144" refid="group__xnvm__efuse__server__apis_1gaf0dee8f973b143aa1d8a2096c04e3b68" refkind="member"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="145" refid="group__xnvm__efuse__server__apis_1gaa0cdecaa3d476b0f61c73f467a2a3c02" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea45f51f9dc7365809c3e52c2c265a1ce6" kindref="member">XNVM_EFUSE_MODE_RD</ref>,<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" kindref="member">XNVM_EFUSE_MODE_PGM</ref><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/><ref refid="group__xnvm__util__apis_1gaf5262e07dfefff15534093f7f3d24fde" kindref="member">XNvm_EfuseOpMode</ref>;</highlight></codeline>
+<codeline lineno="153" refid="group__xnvm__efuse__server__apis_1ga0da3096084d96372961ec1068e895cd6" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa2ac2cd53fea8c1c9ffa24c30ce760244" kindref="member">XNVM_EFUSE_NORMAL_RD</ref>,<sp/></highlight></codeline>
+<codeline lineno="159" refid="group__xnvm__efuse__server__apis_1gaf5262e07dfefff15534093f7f3d24fde" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" kindref="member">XNVM_EFUSE_MARGIN_RD</ref><sp/></highlight></codeline>
+<codeline lineno="160" refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea45f51f9dc7365809c3e52c2c265a1ce6" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" kindref="member">XNvm_EfuseRdMode</ref>;</highlight></codeline>
+<codeline lineno="161" refid="group__xnvm__efuse__server__apis_1ggaf5262e07dfefff15534093f7f3d24fdea208c82bd3ed32e751519ef6d637945f4" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a4331fac23f7b2fc9210f52578aca0873" kindref="member">XNVM_EFUSE_PAGE_0</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="167" refid="group__xnvm__efuse__server__apis_1ga626bd515d5b319991d9b6b337ac3eafa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a93b3ce45e3bed96a04dd25fd7267d3ee" kindref="member">XNVM_EFUSE_PAGE_1</ref>,<sp/></highlight></codeline>
+<codeline lineno="168" refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa2ac2cd53fea8c1c9ffa24c30ce760244" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578af42a55e305604ef7abe0da7829d74b0c" kindref="member">XNVM_EFUSE_PAGE_2</ref>,<sp/></highlight></codeline>
+<codeline lineno="169" refid="group__xnvm__efuse__server__apis_1gga626bd515d5b319991d9b6b337ac3eafaa18b6311160df31960b4fd35561b2628c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578ab43f680ee3e89199604b6bac11ffc5c7" kindref="member">XNVM_EFUSE_PAGE_3</ref>,<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a0fa66511ddfd28793596984767a57d0f" kindref="member">XNVM_EFUSE_PAGE_4</ref>,<sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578aa8ca3b3ca578f11978bd4a0f3190f167" kindref="member">XNVM_EFUSE_PAGE_5</ref><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}<sp/><ref refid="group__xnvm__efuse__server__apis_1ga545e370d65dd5455a7292c721c9bd578" kindref="member">XNvm_EfuseType</ref>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175" refid="group__xnvm__efuse__server__apis_1ga545e370d65dd5455a7292c721c9bd578" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="group__xnvm__efuse__server__apis_1gga545e370d65dd5455a7292c721c9bd578a4331fac23f7b2fc9210f52578aca0873" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="185"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>XNvm_SysMon_RawToVoltage(u32<sp/>AdcData)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPlmi_SysMon_RawToVoltage(AdcData);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSysMonPsv_RawToVoltage(AdcData);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="203"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>XNvm_SysMon_FixedToFloat(u32<sp/>FixedQFmt)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPlmi_SysMon_FixedToFloat(FixedQFmt);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSysMonPsv_FixedToFloat(FixedQFmt);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="221"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XNvm_SysMon_ReadDeviceTemp(</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_SysmonPsv<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XPlmi_SysMon_ReadDeviceTemp(InstancePtr);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSysMonPsv_ReadDeviceTemp((XSysMonPsv<sp/>*)InstancePtr,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_VAL);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga92376a9337883b186a9d6c888f7b7937" kindref="member">XNvm_EfuseCacheReload</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gaf62c488013d769df5cf16476d9dc04ed" kindref="member">XNvm_EfuseDisablePowerDown</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__xnvm__efuse__server__apis_1gab18b9343a842ff2c9d533625bd4ffe9a" kindref="member">XNvm_EfuseSetReadMode</ref>(<ref refid="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" kindref="member">XNvm_EfuseRdMode</ref><sp/>RdMode);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1gab12034723a4823aa225ddf9500fc45e7" kindref="member">XNvm_EfuseSetRefClk</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga0f509a4e6fbf01df3a0a5cf4e5b1920a" kindref="member">XNvm_EfuseEnableProgramming</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1ga0210acfa1906f9a6d4c462ca0c214552" kindref="member">XNvm_EfuseDisableProgramming</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1gadf9884d1248299bbcab9c2eb75f3c12d" kindref="member">XNvm_EfuseResetReadMode</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga48684cc917830291d61d10ec465489e1" kindref="member">XNvm_EfuseInitTimers</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1ga07f1dca511ab0d8e815069634ccc305c" kindref="member">XNvm_EfuseSetupController</ref>(<ref refid="group__xnvm__util__apis_1gaf5262e07dfefff15534093f7f3d24fde" kindref="member">XNvm_EfuseOpMode</ref><sp/>Op,<sp/><ref refid="group__xnvm__util__apis_1ga626bd515d5b319991d9b6b337ac3eafa" kindref="member">XNvm_EfuseRdMode</ref><sp/>RdMode);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga34244e65ac073b03f29ee6a5672da34a" kindref="member">XNvm_EfuseCheckForTBits</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">u32<sp/><ref refid="group__xnvm__efuse__server__apis_1gac3c8a8519db111050a86072af33a7f9d" kindref="member">XNvm_GetSysmonSupplyRegId</ref>(UINTPTR<sp/>SysmonpsvSatBaseAddr);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__server__apis_1ga9ac5a370fbe5c453948e7205ecb5ed13" kindref="member">XNvm_EfuseTempAndVoltChecks</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_SysmonPsv<sp/>*SysMonInstPtr);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">u32<sp/><ref refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" kindref="member">XNvm_EfuseReadProtectionBits</ref>(u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_COMMON_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h"/>
   </compounddef>
 </doxygen>

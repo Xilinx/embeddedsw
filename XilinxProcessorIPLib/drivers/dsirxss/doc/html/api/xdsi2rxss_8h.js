@@ -13,7 +13,7 @@ var xdsi2rxss_8h =
     [ "XDsi2RxSs_CfgInitialize", "xdsi2rxss_8h.html#gacf02fba1186dd59ea301c448f21c6cce", null ],
     [ "XDsi2RxSs_DefaultConfigure", "xdsi2rxss_8h.html#gaa289941e9d71e4d0d890e7f8b3d51a37", null ],
     [ "XDsi2RxSs_GetConfigParams", "xdsi2rxss_8h.html#ga77c35b7c60f267e093374252444b5f5f", null ],
-    [ "XDsi2RxSs_GetDrvIndex", "xdsi2rxss_8h.html#ga007151e6775d2507f0988046b69e1b07", null ],
+    [ "XDsi2RxSs_GetDrvIndex", "xdsi2rxss_8h.html#ga28690c5facb8d33a5bea2e476eb67660", null ],
     [ "XDsi2RxSs_GetPixelFormat", "xdsi2rxss_8h.html#ga2cf031088593839d8ea59b5a490033c4", null ],
     [ "XDsi2RxSs_IntrHandler", "xdsi2rxss_8h.html#gae21d03381f99fe44f81736b43a3dfd9f", null ],
     [ "XDsi2RxSs_IsControllerReady", "xdsi2rxss_8h.html#ga5c30eee05917e5298c3af145ef0687b1", null ],

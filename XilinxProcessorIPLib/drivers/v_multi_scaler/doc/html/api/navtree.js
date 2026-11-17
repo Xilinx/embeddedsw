@@ -1,34 +1,99 @@
 var NAVTREE =
 [
-  [ "v_multi_scaler", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", "globals_func" ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "v_multi_scaler",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xv__multi__scaler_8c.html#a85fd5f17666feb95babc5390c8c9a131",
-"xv__multi__scaler_8h.html#a1cf839060517db3c089435bbff15b14d",
-"xv__multi__scaler_8h.html#ac1348ae23cb73ae620260fcbacee94ae",
-"xv__multi__scaler__hw_8h.html#a5dca88716d725d56abd221eccd56ac3d"
+"xv__multi__scaler_8c.html#a7238a8c55e3c1498408209c8d6872c87",
+"xv__multi__scaler_8h.html#a0980f9ed92f92f678760a1c3c43bf70d",
+"xv__multi__scaler_8h.html#aa3d67abb15f989a790cae9acd82f09f1",
+"xv__multi__scaler__hw_8h.html#a1c3c577b172d8ee187141e2868f8c552",
+"xv__multi__scaler__hw_8h.html#add75a0ca76b0e7b5e4c2294d78b32aa7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

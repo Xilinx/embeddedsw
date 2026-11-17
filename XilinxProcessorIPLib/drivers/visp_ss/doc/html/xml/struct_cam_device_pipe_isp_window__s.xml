@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="184" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -23,19 +23,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="523">
+      <node id="525">
         <label>CamDevicePipeIspWindow_s</label>
         <link refid="struct_cam_device_pipe_isp_window__s"/>
-        <childnode refid="524" relation="usage">
+        <childnode refid="526" relation="usage">
           <edgelabel>cropWindow</edgelabel>
         </childnode>
       </node>
-      <node id="524">
+      <node id="526">
         <label>CamDeviceWindow_s</label>
         <link refid="struct_cam_device_window__s"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="183" bodyend="185"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="183" bodyend="185"/>
     <listofallmembers>
       <member refid="struct_cam_device_pipe_isp_window__s_1a4f1d8bc412afd6f47592f4862a001dfe" prot="public" virt="non-virtual"><scope>CamDevicePipeIspWindow_s</scope><name>cropWindow</name></member>
     </listofallmembers>

@@ -45,7 +45,7 @@
     <member refid="xpciepsu_8c_1ac37187a4408cabc294f4f3a7dba9c6cb" kind="function"><name>XPciePsu_BarMemoryAlloc</name></member>
     <member refid="xpciepsu_8c_1a7d28ab94282b2f74793895408a6f8685" kind="function"><name>XPciePsu_AllocBarSpace</name></member>
     <member refid="xpciepsu_8c_1a6450b2ec66b3408bda0e516874b5b013" kind="function"><name>XPciePsu_IncreamentNpMem</name></member>
-    <member refid="xpciepsu_8c_1a84ffec9bd6f7e1d79d0f719792b033fd" kind="function"><name>XPciePsu_FetchDevicesInBus</name></member>
+    <member refid="xpciepsu_8c_1ab5c1ef97b4b07538e9f2f98f54a09190" kind="function"><name>XPciePsu_FetchDevicesInBus</name></member>
     <member refid="xpciepsu_8c_1a862b72cd0796d429f122b5b83603f1d3" kind="function"><name>XPciePsu_EnumerateBus</name></member>
     <member refid="xpciepsu_8c_1a3d54a4fe188343ce59d689901c2b88c6" kind="function"><name>XPciePsu_CfgInitialize</name></member>
   </compound>

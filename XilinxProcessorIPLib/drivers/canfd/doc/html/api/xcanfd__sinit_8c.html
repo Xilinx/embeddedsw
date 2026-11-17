@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanfd__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,12 +105,26 @@ $(document).ready(function(){initNavTree('xcanfd__sinit_8c.html','');});
 <div class="title">xcanfd_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Static initialization functionality for the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver. </p>
+<p>This file contains the implementation of the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver's static initialization functionality.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.0   nsk    06/03/15 First release
+1.3   ask    08/08/18 Fixed doxygen warnings
+2.0     ask    09/12/18 Added support for canfd 2.0 spec sequential mode
+2.8     ht     06/19/23 Added support for system device-tree flow
+2.12  vlt    11/05/25 Add 64-bit Addressing Support.
+2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+2.13  vn   09/30/26 Update Doxygen comments to AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaf25c50ab9ef473c52c127d3ef586ced8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_can_fd___config.html">XCanFd_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gaf25c50ab9ef473c52c127d3ef586ced8">XCanFd_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gaf25c50ab9ef473c52c127d3ef586ced8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__canfd.html#gaf25c50ab9ef473c52c127d3ef586ced8">More...</a><br/></td></tr>
+<tr class="memdesc:gaf25c50ab9ef473c52c127d3ef586ced8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID or BaseAddress.  <a href="group__canfd.html#gaf25c50ab9ef473c52c127d3ef586ced8">More...</a><br/></td></tr>
 <tr class="separator:gaf25c50ab9ef473c52c127d3ef586ced8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

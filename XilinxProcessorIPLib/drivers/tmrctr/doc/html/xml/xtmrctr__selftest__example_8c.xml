@@ -9,38 +9,8 @@
       <node id="172">
         <label>xil_assert.h</label>
       </node>
-      <node id="174">
-        <label>xtmrctr_l.h</label>
-        <link refid="xtmrctr__l_8h"/>
-        <childnode refid="171" relation="include">
-        </childnode>
-        <childnode refid="175" relation="include">
-        </childnode>
-      </node>
       <node id="175">
         <label>xil_io.h</label>
-      </node>
-      <node id="173">
-        <label>xstatus.h</label>
-      </node>
-      <node id="169">
-        <label>xtmrctr_selftest_example.c</label>
-        <link refid="xtmrctr_selftest_example.c"/>
-        <childnode refid="170" relation="include">
-        </childnode>
-        <childnode refid="176" relation="include">
-        </childnode>
-        <childnode refid="177" relation="include">
-        </childnode>
-      </node>
-      <node id="171">
-        <label>xil_types.h</label>
-      </node>
-      <node id="177">
-        <label>xparameters.h</label>
-      </node>
-      <node id="176">
-        <label>xil_printf.h</label>
       </node>
       <node id="170">
         <label>xtmrctr.h</label>
@@ -54,18 +24,49 @@
         <childnode refid="174" relation="include">
         </childnode>
       </node>
+      <node id="174">
+        <label>xtmrctr_l.h</label>
+        <link refid="xtmrctr__l_8h"/>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+      </node>
+      <node id="173">
+        <label>xstatus.h</label>
+      </node>
+      <node id="171">
+        <label>xil_types.h</label>
+      </node>
+      <node id="177">
+        <label>xparameters.h</label>
+      </node>
+      <node id="176">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="169">
+        <label>xtmrctr_selftest_example.c</label>
+        <link refid="xtmrctr_selftest_example.c"/>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+        <childnode refid="177" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="xtmrctr__selftest__example_8c_1ac1378975479dee8e1e6c72574d911068" prot="public" static="no">
         <name>XTMRCTR_BASEADDRESS</name>
         <initializer>XPAR_XTMRCTR_0_BASEADDR</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="50" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="48" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="48" bodyend="-1"/>
+        <referencedby refid="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xtmrctr__selftest__example_8c" startline="83" endline="98">main</referencedby>
       </memberdef>
       <memberdef kind="define" id="xtmrctr__selftest__example_8c_1a0f8b332e6a2ba2a0dfe8ac9342bf9eee" prot="public" static="no">
         <name>TIMER_COUNTER_0</name>
@@ -76,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -86,12 +87,12 @@
         <argsstring></argsstring>
         <name>TimerCounter</name>
         <briefdescription>
-        </briefdescription>
+<para>The instance of the timer counter. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="70" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -105,21 +106,14 @@
           <declname>BaseAddr</declname>
         </param>
         <briefdescription>
-<para>This function does a minimal test on the TmrCtr device and driver as a design example. </para>        </briefdescription>
+<para>Performs a minimal self-test on the TmrCtr device and driver. </para>        </briefdescription>
         <detaileddescription>
-<para>The purpose of this function is to illustrate how to use the <ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> component.</para><para><parameterlist kind="param"><parameteritem>
+<para>The purpose of this function is to illustrate how to use the <ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> component. <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddr</parametername>
+<parametername direction="in">BaseAddr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the base address of the device </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>TmrCtrNumber</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</para></simplesect>
@@ -127,10 +121,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="137" bodyend="166"/>
-        <references refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" compoundref="xtmrctr_8c" startline="197" endline="224">XTmrCtr_Initialize</references>
-        <references refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</references>
-        <referencedby refid="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xtmrctr__selftest__example_8c" startline="91" endline="106">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="125" bodyend="152"/>
+        <references refid="xtmrctr__polled__example_8c_1abf821aa6ffa7f03be3f71df5bcf99279" compoundref="xtmrctr__polled__example_8c" startline="71">TimerCounter</references>
+        <references refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" compoundref="xtmrctr_8c" startline="197" endline="222">XTmrCtr_Initialize</references>
+        <references refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="65" endline="130">XTmrCtr_SelfTest</references>
+        <referencedby refid="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xtmrctr__selftest__example_8c" startline="83" endline="98">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -143,28 +138,19 @@
         <briefdescription>
 <para>Main function to call the example. </para>        </briefdescription>
         <detaileddescription>
-<para>This function is not included if the example is generated from the TestAppGen test tool.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>None</parametername>
-</parameternamelist>
-<parameterdescription>
-<para></para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure.</para></simplesect>
-<simplesect kind="note"><para>None </para></simplesect>
+<para>This function is not included if the example is generated from the TestAppGen test tool.</para><para><simplesect kind="return"><para>XST_SUCCESS to indicate success, else XST_FAILURE to indicate a Failure. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="91" bodyend="106"/>
-        <references refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" compoundref="xtmrctr__selftest__example_8c" startline="137" endline="166">TmrCtrSelfTestExample</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c" bodystart="83" bodyend="98"/>
+        <references refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" compoundref="xtmrctr__selftest__example_8c" startline="125" endline="152">TmrCtrSelfTestExample</references>
+        <references refid="xtmrctr__selftest__example_8c_1ac1378975479dee8e1e6c72574d911068" compoundref="xtmrctr__selftest__example_8c" startline="48">XTMRCTR_BASEADDRESS</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This file contains a example for using the Timer Counter hardware and driver. </para>    </briefdescription>
     <detaileddescription>
-<para><simplesect kind="note"><para></para></simplesect>
-None</para><para><preformatted>
+<para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  Changes
 <hruler/>
 
@@ -176,113 +162,108 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                     CR-965028.
 4.15  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
                     documentation.
+4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="35"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmrctr_8h" kindref="compound">xtmrctr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmrctr_8h" kindref="compound">xtmrctr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
-<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
-<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
-<codeline lineno="46"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TMRCTR_DEVICE_ID<sp/><sp/>XPAR_TMRCTR_0_DEVICE_ID</highlight></codeline>
-<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTMRCTR_BASEADDRESS<sp/>XPAR_XTMRCTR_0_BASEADDR</highlight></codeline>
-<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>This<sp/>example<sp/>only<sp/>uses<sp/>the<sp/>1st<sp/>of<sp/>the<sp/>2<sp/>timer<sp/>counters<sp/>contained<sp/>in<sp/>a</highlight></codeline>
-<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>single<sp/>timer<sp/>counter<sp/>hardware<sp/>device</highlight></codeline>
-<codeline lineno="56"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMER_COUNTER_0<sp/><sp/>0</highlight></codeline>
-<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TMRCTR_DEVICE_ID<sp/><sp/>XPAR_TMRCTR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="48" refid="xtmrctr__selftest__example_8c_1ac1378975479dee8e1e6c72574d911068" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTMRCTR_BASEADDRESS<sp/>XPAR_XTMRCTR_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>This<sp/>example<sp/>only<sp/>uses<sp/>the<sp/>1st<sp/>of<sp/>the<sp/>2<sp/>timer<sp/>counters<sp/>contained<sp/>in<sp/>a</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>single<sp/>timer<sp/>counter<sp/>hardware<sp/>device</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMER_COUNTER_0<sp/><sp/>0</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(UINTPTR<sp/>BaseAddr);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>**************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/>TimerCounter;<sp/></highlight><highlight class="comment">/*<sp/>The<sp/>instance<sp/>of<sp/>the<sp/>timer<sp/>counter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="90"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
-<codeline lineno="91" refid="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__fast__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(TMRCTR_DEVICE_ID);</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(XTMRCTR_BASEADDRESS);</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Tmrctr<sp/>selftest<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Tmrctr<sp/>selftest<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="134"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="137" refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(UINTPTR<sp/>BaseAddr)</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TmrCtrNumber<sp/>=<sp/>TIMER_COUNTER_0;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/>*TmrCtrInstancePtr<sp/>=<sp/>&amp;TimerCounter;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>TmrCtr<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>iss<sp/>ready<sp/>to<sp/>use</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(UINTPTR<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>**************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="xtmrctr__selftest__example_8c_1abf821aa6ffa7f03be3f71df5bcf99279" refkind="member"><highlight class="normal"><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/><ref refid="xtmrctr__polled__example_8c_1abf821aa6ffa7f03be3f71df5bcf99279" kindref="member">TimerCounter</ref>;<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="83" refid="xtmrctr__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__fast__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(TMRCTR_DEVICE_ID);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(<ref refid="xtmrctr__selftest__example_8c_1ac1378975479dee8e1e6c72574d911068" kindref="member">XTMRCTR_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Tmrctr<sp/>selftest<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Tmrctr<sp/>selftest<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="125" refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" kindref="member">TmrCtrSelfTestExample</ref>(UINTPTR<sp/>BaseAddr)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TmrCtrNumber<sp/>=<sp/>TIMER_COUNTER_0;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/>*TmrCtrInstancePtr<sp/>=<sp/>&amp;<ref refid="xtmrctr__polled__example_8c_1abf821aa6ffa7f03be3f71df5bcf99279" kindref="member">TimerCounter</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>TmrCtr<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>iss<sp/>ready<sp/>to<sp/>use</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kindref="member">XTmrCtr_Initialize</ref>(TmrCtrInstancePtr,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kindref="member">XTmrCtr_Initialize</ref>(TmrCtrInstancePtr,<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>a<sp/>self-test<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>hardware<sp/>was<sp/>built</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>correctly,<sp/>use<sp/>the<sp/>1st<sp/>timer<sp/>in<sp/>the<sp/>device<sp/>(0)</highlight></codeline>
 <codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kindref="member">XTmrCtr_Initialize</ref>(TmrCtrInstancePtr,<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" kindref="member">XTmrCtr_Initialize</ref>(TmrCtrInstancePtr,<sp/>BaseAddr);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>a<sp/>self-test<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>hardware<sp/>was<sp/>built</highlight></codeline>
-<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>correctly,<sp/>use<sp/>the<sp/>1st<sp/>timer<sp/>in<sp/>the<sp/>device<sp/>(0)</highlight></codeline>
-<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" kindref="member">XTmrCtr_SelfTest</ref>(TmrCtrInstancePtr,<sp/>TmrCtrNumber);</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" kindref="member">XTmrCtr_SelfTest</ref>(TmrCtrInstancePtr,<sp/>TmrCtrNumber);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/examples/xtmrctr_selftest_example.c"/>
   </compounddef>
 </doxygen>

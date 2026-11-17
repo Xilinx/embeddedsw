@@ -21,7 +21,6 @@ var xcanfd_8h =
     [ "XCanFd_GetRxIntrWatermark", "xcanfd_8h.html#gaf28eec968865024be2030639a62f1854", null ],
     [ "XCanFd_GetStatus", "xcanfd_8h.html#ga10c03f02c1a921925c45bbac2035a6d2", null ],
     [ "XCanFd_GetTImeStamp_Count", "xcanfd_8h.html#gab96c04fa6ab9670c0939fc7e1af8a54b", null ],
-    [ "XCANFD_H", "xcanfd_8h.html#ga8b94e6e278cd276ef5bae7be5e7b2ae3", null ],
     [ "XCANFD_HANDLER_ERROR", "xcanfd_8h.html#gacfd326f78688ca074cbc83a27124a660", null ],
     [ "XCANFD_HANDLER_EVENT", "xcanfd_8h.html#ga056a2ba1200bfaa95d7b77e22b07a6b0", null ],
     [ "XCANFD_HANDLER_RECV", "xcanfd_8h.html#ga41349b5a26ef723c5f262bdd4a4df76e", null ],

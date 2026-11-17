@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmonpsv__driver_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,72 +107,60 @@ $(document).ready(function(){initNavTree('xsysmonpsv__driver_8h.html','');});
 <div class="title">xsysmonpsv_driver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Declares the driver data structures for the AMD Versal System Monitor. </p>
+<p>The SysMon driver supports the AMD System Monitor device on Versal.</p>
+<p>The System Monitor device has the following features:</p>
+<ul>
+<li>Measures and monitors up to 160 voltages across the chip.</li>
+<li>Provides automatic alarms based on user-defined limits for the on-chip temperature.</li>
+<li>Provides optional interrupt request generation.</li>
+</ul>
+<p>Refer to the hardware device specification for detailed information about the device.</p>
+<pre>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+3.0   cog    03/25/21 Driver Restructure
+3.1   cog    04/09/22 Remove GIC standalone related functionality for
+                      arch64 architecture
+4.0   se     10/04/22 Update return value definitions
+4.0   se     11/10/22 Secure and Non-Secure mode integration
+4.1   cog    07/18/23 Add support for SDT flow
+5.1   se     03/03/25 Compiler warnings fixed
+5.2   se     08/24/25 Microblaze support added
+5.3   se     03/13/26 Fix secure mode and PCSR re-lock in SDT flow
+5.4   vn     07/30/26 Fix Doxygen warnings
+5.4   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xsysmonpsv_supplylist.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___config.html">XSysMonPsv_Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains configuration information for a device.  <a href="struct_x_sys_mon_psv___config.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration information for a device.  <a href="struct_x_sys_mon_psv___config.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv___event_handler.html">XSysMonPsv_EventHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an interrupt callback structure where callbacks and the callback reference is stored.  <a href="struct_x_sys_mon_psv___event_handler.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the interrupt callbacks and their callback references.  <a href="struct_x_sys_mon_psv___event_handler.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psv.html">XSysMonPsv</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The XSysmonPsv driver instance data.  <a href="struct_x_sys_mon_psv.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the <a class="el" href="struct_x_sys_mon_psv.html" title="Holds the XSysMonPsv driver instance data. ">XSysMonPsv</a> driver instance data.  <a href="struct_x_sys_mon_psv.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a16eec4745af4af2aaee82607ad4ba2e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__driver_8h.html#a16eec4745af4af2aaee82607ad4ba2e3">XSYSMONPSV_MAX_SUPPLIES</a>&#160;&#160;&#160;160U</td></tr>
-<tr class="memdesc:a16eec4745af4af2aaee82607ad4ba2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Supplies.  <a href="#a16eec4745af4af2aaee82607ad4ba2e3">More...</a><br/></td></tr>
-<tr class="separator:a16eec4745af4af2aaee82607ad4ba2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16eec4745af4af2aaee82607ad4ba2e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga16eec4745af4af2aaee82607ad4ba2e3">XSYSMONPSV_MAX_SUPPLIES</a>&#160;&#160;&#160;160U</td></tr>
+<tr class="memdesc:ga16eec4745af4af2aaee82607ad4ba2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Supplies.  <a href="group__sysmonpsv__api.html#ga16eec4745af4af2aaee82607ad4ba2e3">More...</a><br/></td></tr>
+<tr class="separator:ga16eec4745af4af2aaee82607ad4ba2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ace82b8d812c9cfb257766db1aad68a66"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsv__driver_8h.html#ace82b8d812c9cfb257766db1aad68a66">XSysMonPsv_Handler</a> )(void *CallbackRef)</td></tr>
-<tr class="memdesc:ace82b8d812c9cfb257766db1aad68a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">This data type defines a handler that an application defines to communicate with interrupt system to retrieve state information about an application.  <a href="#ace82b8d812c9cfb257766db1aad68a66">More...</a><br/></td></tr>
-<tr class="separator:ace82b8d812c9cfb257766db1aad68a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace82b8d812c9cfb257766db1aad68a66"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gace82b8d812c9cfb257766db1aad68a66">XSysMonPsv_Handler</a> )(void *CallbackRef)</td></tr>
+<tr class="memdesc:gace82b8d812c9cfb257766db1aad68a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines an application handler for the interrupt system.  <a href="group__sysmonpsv__api.html#gace82b8d812c9cfb257766db1aad68a66">More...</a><br/></td></tr>
+<tr class="separator:gace82b8d812c9cfb257766db1aad68a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a16eec4745af4af2aaee82607ad4ba2e3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSYSMONPSV_MAX_SUPPLIES&#160;&#160;&#160;160U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Max Supplies. </p>
-
-<p>Referenced by <a class="el" href="group__sysmonpsv__api.html#ga6aec1b9759a733a3efa72ccc9a872006">XSysMonPsv_CfgInitialize()</a>, <a class="el" href="xsysmonpsv__services_8h.html#ae768764267b169d51b366abe2c67e6ad">XSysMonPsv_DisableVoltageEvents()</a>, <a class="el" href="xsysmonpsv__services_8h.html#a27ee2cbf4e86a5e66f8ed744187a805f">XSysMonPsv_EnableVoltageEvents()</a>, <a class="el" href="group__sysmonpsv__api.html#ga67c461a10a691c449c71cab32fac6a48">XSysMonPsv_GetSupplyThresholdLower()</a>, <a class="el" href="group__sysmonpsv__api.html#ga5b0151be3a224dd63fea642c1fe585ad">XSysMonPsv_GetSupplyThresholdUpper()</a>, <a class="el" href="group__sysmonpsv__api.html#gad9a7e5df580de9e887d2a32e63506af6">XSysMonPsv_ReadSupplyProcessed()</a>, and <a class="el" href="group__sysmonpsv__api.html#gadae2aa6363d44df1bd536d34b057e005">XSysMonPsv_ReadSupplyRaw()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="ace82b8d812c9cfb257766db1aad68a66"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef void(* XSysMonPsv_Handler)(void *CallbackRef)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This data type defines a handler that an application defines to communicate with interrupt system to retrieve state information about an application. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallbackRef</td><td>Callback reference passed in by the upper layer when setting the handler, and is passed back to the upper layer when the handler is called. It is used to find the device driver instance. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -13,6 +13,16 @@ var xdc_8h =
       [ "ALPHA_DISABLE", "xdc_8h.html#aae2fc17de8e29853ca4a5e187d9f7dedae82db7f090d48d0c1d888b096b5713ad", null ],
       [ "ALPHA_ENABLE", "xdc_8h.html#aae2fc17de8e29853ca4a5e187d9f7deda2c9e31e14d0c805e3d0ecf85b9b50b42", null ]
     ] ],
+    [ "XDc_AudChannels", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1", [
+      [ "XDC_AUD_CHANNELS_1", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1a312e541a9e00dc9cdf411f67be910775", null ],
+      [ "XDC_AUD_CHANNELS_2", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1af8213fe196681dc94c4817a938c6c7f6", null ],
+      [ "XDC_AUD_CHANNELS_3", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1ac6d9564e84f2ecdabe60ddeb4af8e2e0", null ],
+      [ "XDC_AUD_CHANNELS_4", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1a485280736aa375a2c3a63c658bfe927e", null ],
+      [ "XDC_AUD_CHANNELS_5", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1a7c9c29fa6dd430220a6396998a3b78ea", null ],
+      [ "XDC_AUD_CHANNELS_6", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1a9e8704a8d6f15d5a03cbdcafbb9484d1", null ],
+      [ "XDC_AUD_CHANNELS_7", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1aa2cd410748508186ad6ec8767fc78d23", null ],
+      [ "XDC_AUD_CHANNELS_8", "xdc_8h.html#ad062eb17bb23c4b9532a92c7f4b795a1abaafcda3778b1a7d6eed4a0b4c4a3264", null ]
+    ] ],
     [ "XDc_AudEn", "xdc_8h.html#ade7189ee3e9d6111088d07c0f133dbbb", [
       [ "XDC_AUD_DISABLE", "xdc_8h.html#ade7189ee3e9d6111088d07c0f133dbbba89a5e27175964c0e0131ef0e9e98c32a", null ],
       [ "XDC_AUD_ENABLE", "xdc_8h.html#ade7189ee3e9d6111088d07c0f133dbbba15944480af2b73522293802ad04f90ed", null ]
@@ -26,6 +36,14 @@ var xdc_8h =
       [ "XDC_AUDSTREAM_DISABLE_AUDIO", "xdc_8h.html#a999bb0a1f86e3d9c5f03f4bfaf96d7d5a5faa61564cfc0e49380a8e1f6dff00d2", null ],
       [ "XDC_AUDSTREAM_NONLIVE", "xdc_8h.html#a999bb0a1f86e3d9c5f03f4bfaf96d7d5ae8ffb78c5d6b907052f960cf938c0203", null ],
       [ "XDC_AUDSTREAM_NONE", "xdc_8h.html#a999bb0a1f86e3d9c5f03f4bfaf96d7d5a352a34110c761d4a706076c0d95de049", null ]
+    ] ],
+    [ "XDc_AudSampleFreq", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01d", [
+      [ "XDC_AUD_FREQ_44_1K", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01dac81ea4140af60c1b1c58d26ea5de689e", null ],
+      [ "XDC_AUD_FREQ_48K", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01da44e47d9dcc2537890da2044f20d26330", null ],
+      [ "XDC_AUD_FREQ_88_2K", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01dad94c97768aa650255e0214ef3a1daf4f", null ],
+      [ "XDC_AUD_FREQ_96K", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01da7a522cf40fd95deb19baa0cc330fc1c3", null ],
+      [ "XDC_AUD_FREQ_176_4K", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01dac1f2355be0ab86b0c3ada0bdc317b509", null ],
+      [ "XDC_AUD_FREQ_192K", "xdc_8h.html#acab8cd2096139e544a4bafdc31cbe01da6f1bfb029f2c9d406fc196c3316ee891", null ]
     ] ],
     [ "XDc_ChromaBlend", "xdc_8h.html#a465de7d2b9607709912074fb3bc129d9", [
       [ "CHROMA_DISABLE", "xdc_8h.html#a465de7d2b9607709912074fb3bc129d9a03c6880a324f44b7f6f0f5d5492a8b7f", null ],
@@ -75,7 +93,6 @@ var xdc_8h =
       [ "YV16Ci2_420_10BPC", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895a9286bedbc5ee289644f2a095750d88d5", null ],
       [ "RGBA8888", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895aa7c8962521c58548a2b8aed16d397d01", null ],
       [ "ABGR8888", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895adb1b146d65c52857a5a4af54e5006101", null ],
-      [ "RGB888_GFX", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895a6cfdbc78732d1b9fc88a708ec40ae5e4", null ],
       [ "BGR888", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895ae8e2937a2b5585fb3bf5a8d36b7bf790", null ],
       [ "RGBA5551", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895af9ec1813cac3087252e8073c42c7733b", null ],
       [ "RGBA4444", "xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895a8ec5297bd3545790ed9b81c83152c21d", null ],
@@ -183,6 +200,7 @@ var xdc_8h =
     [ "XDc_GetStcCustomEventTs", "xdc_8h.html#ga98cfadf0d83ea6247c8f0c5bb617d858", null ],
     [ "XDc_GetStcSnapshot", "xdc_8h.html#ga630aa054591316b4cee2f0b53c850e8e", null ],
     [ "XDc_Initialize", "xdc_8h.html#ga1acb51b36c4104aa33200d78135383ea", null ],
+    [ "XDc_SetAudioChannelStatus", "xdc_8h.html#ga9913649f45ee47e25f096d57fe0ee5cc", null ],
     [ "XDc_SetAudioChCtrl", "xdc_8h.html#ga9096a3a44b617e19831f882b6550215a", null ],
     [ "XDc_SetAudioSegmentedMode", "xdc_8h.html#gaa58756025137aade0084833366439af5", null ],
     [ "XDc_SetAudioVideoClkSrc", "xdc_8h.html#gaa74f088c7434d449aa6c7c196c2f45b9", null ],

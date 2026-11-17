@@ -106,7 +106,21 @@ $(document).ready(function(){initNavTree('xnandps__bbm_8h.html','');});
 <div class="title">xnandps_bbm.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xnandps_8h.html">xnandps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Declares the Bad Block Management (BBM) interface. </p>
+<p>This file implements the Bad Block Management(BBM) functionality. This is similar to the Bad Block Management which is a part of the MTD subsystem in Linux. The factory marked bad blocks are scanned initially and a Bad Block Table(BBT) is created in the memory. This table is also written to the flash so that upon reboot, the BBT is read back from the flash and loaded into the memory instead of scanning every time. The Bad Block Table(BBT) is written into one of the the last four blocks in the flash memory. The last four blocks are marked as Reserved so that user can't erase/program those blocks.</p>
+<p>There are two bad block tables, a primary table and a mirror table. The tables are versioned and incrementing version number is used to detect and recover from interrupted updates. Each table is stored in a separate block, beginning in the first page of that block. Only two blocks would be necessary in the absence of bad blocks within the last four; the range of four provides a little slack in case one or two of those blocks is bad. These blocks are marked as reserved and cannot be programmed by the user. A NAND Flash device with 3 or more factory bad blocks in the last 4 cannot be used. The bad block table signature is written into the spare data area of the pages containing bad block table so that upon rebooting the bad block table signature is searched and the bad block table is loaded into RAM. The signature is "Bbt0" for primary Bad Block Table and "1tbB" for Mirror Bad Block Table. The version offset follows the signature offset in the spare data area. The version number increments on every update to the bad block table and the version wraps at 0xff.</p>
+<p>Each block in the Bad Block Table(BBT) is represented by 2 bits. The two bits are encoded as follows in RAM BBT. 0'b00 -&gt; Good Block 0'b01 -&gt; Block is bad due to wear 0'b10 -&gt; Reserved block 0'b11 -&gt; Factory marked bad block</p>
+<p>While writing to the flash the two bits are encoded as follows. 0'b00 -&gt; Factory marked bad block 0'b01 -&gt; Reserved block 0'b10 -&gt; Block is bad due to wear 0'b11 -&gt; Good Block</p>
+<p>The user can check for the validity of the block using the API XNandPs_IsBlockBad and take the action based on the return value. Also user can update the bad block table using XNandPs_MarkBlockBad API.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date          Changes
+</p>
+<hr/>
+<p>
+1.00a nm     12/10/2010  First release
+2.12  vn     09/29/26    Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xnandps_8h.html">xnandps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -180,16 +194,16 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaf7c432bad01dd727f91f1f0435f92cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block shift mask for a Bad Block Table entry byte.  <a href="group__nandps.html#gaf7c432bad01dd727f91f1f0435f92cac">More...</a><br/></td></tr>
 <tr class="separator:gaf7c432bad01dd727f91f1f0435f92cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga820a56f0443165ef4e45daafb8bfb604"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga820a56f0443165ef4e45daafb8bfb604">XNandPs_BbtBlockShift</a>(Block)&#160;&#160;&#160;((Block * 2) &amp; <a class="el" href="group__nandps.html#gaf7c432bad01dd727f91f1f0435f92cac">XNANDPS_BLOCK_SHIFT_MASK</a>)</td></tr>
-<tr class="memdesc:ga820a56f0443165ef4e45daafb8bfb604"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns the Block shift value corresponding to a Block.  <a href="group__nandps.html#ga820a56f0443165ef4e45daafb8bfb604">More...</a><br/></td></tr>
+<tr class="memdesc:ga820a56f0443165ef4e45daafb8bfb604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the block shift value corresponding to a block.  <a href="group__nandps.html#ga820a56f0443165ef4e45daafb8bfb604">More...</a><br/></td></tr>
 <tr class="separator:ga820a56f0443165ef4e45daafb8bfb604"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga5744d2e6e03eb2b815771cf660ab2e11">XNandPs_IsBlockBad</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr, u32 Block)</td></tr>
-<tr class="memdesc:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether a block is bad or not.  <a href="group__nandps.html#ga5744d2e6e03eb2b815771cf660ab2e11">More...</a><br/></td></tr>
+<tr class="memdesc:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a block is bad.  <a href="group__nandps.html#ga5744d2e6e03eb2b815771cf660ab2e11">More...</a><br/></td></tr>
 <tr class="separator:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga65ec4f2496ae641d1306089dff5416b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga65ec4f2496ae641d1306089dff5416b2">XNandPs_MarkBlockBad</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr, u32 Block)</td></tr>
-<tr class="memdesc:ga65ec4f2496ae641d1306089dff5416b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function marks a block as bad in the RAM based Bad Block Table(BBT).  <a href="group__nandps.html#ga65ec4f2496ae641d1306089dff5416b2">More...</a><br/></td></tr>
+<tr class="memdesc:ga65ec4f2496ae641d1306089dff5416b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a block as bad in the RAM based Bad Block Table (BBT).  <a href="group__nandps.html#ga65ec4f2496ae641d1306089dff5416b2">More...</a><br/></td></tr>
 <tr class="separator:ga65ec4f2496ae641d1306089dff5416b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

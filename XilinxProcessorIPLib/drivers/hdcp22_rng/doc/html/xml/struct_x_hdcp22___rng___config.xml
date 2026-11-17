@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="65" bodyend="-1"/>
         <referencedby refid="group__hdcp22__rng_1ga978c7ec1b9ddbfd02084306d0aa1e21a" compoundref="xhdcp22__rng_8c" startline="71" endline="98">XHdcp22Rng_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__rng_1ga7e005af26bda452f9939a06d306bfafe" compoundref="xhdcp22__rng_8c" startline="117" endline="141">XHdcp22Rng_GetRandom</referencedby>
         <referencedby refid="group__hdcp22__rng_1gac23d7fedd7eb00b9478c4b87a4884e55" compoundref="xhdcp22__rng__selftest_8c" startline="58" endline="77">XHdcp22Rng_SelfTest</referencedby>
@@ -38,7 +38,7 @@
 <para>This typedef contains configuration information for the HDCP22 Rng core. </para>    </briefdescription>
     <detaileddescription>
 <para>Each HDCP22 Rng device should have a configuration structure associated. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="63" bodyend="70"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="63" bodyend="66"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___rng___config_1a6d648178a59f2cea284b646c65ea594c" prot="public" virt="non-virtual"><scope>XHdcp22_Rng_Config</scope><name>BaseAddress</name></member>
       <member refid="struct_x_hdcp22___rng___config_1a7c531ca4ca4432385c07e8bfd5658081" prot="public" virt="non-virtual"><scope>XHdcp22_Rng_Config</scope><name>Name</name></member>

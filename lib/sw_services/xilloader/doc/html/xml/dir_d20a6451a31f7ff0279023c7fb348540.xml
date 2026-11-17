@@ -19,6 +19,7 @@
     <innerfile refid="xloader__kat_8h">xloader_kat.h</innerfile>
     <innerfile refid="xloader__ospi_8c">xloader_ospi.c</innerfile>
     <innerfile refid="xloader__ospi_8h">xloader_ospi.h</innerfile>
+    <innerfile refid="xloader__ppk_8c">xloader_ppk.c</innerfile>
     <innerfile refid="xloader__prtn__load_8c">xloader_prtn_load.c</innerfile>
     <innerfile refid="xloader__qspi_8c">xloader_qspi.c</innerfile>
     <innerfile refid="xloader__qspi_8h">xloader_qspi.h</innerfile>
@@ -34,6 +35,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/"/>
   </compounddef>
 </doxygen>

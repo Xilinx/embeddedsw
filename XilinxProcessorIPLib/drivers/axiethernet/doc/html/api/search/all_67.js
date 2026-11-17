@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['getbufaddr',['GetBufAddr',['../group__axiethernet.html#ga1f1d42d43a717a5f848b9450b49d2217',1,'xaxiethernet_mcdma_ping_req_example.c']]],
+  ['getrxbufaddr',['GetRxBufAddr',['../group__axiethernet.html#ga6a760910a657f14d29a2c5a4462741f1',1,'xaxiethernet_mcdma_ping_req_example.c']]],
   ['gmdisccallbackref',['GMDiscCallBackRef',['../struct_x_avb.html#a6f2483d14031dc855c8cf27c796c122e',1,'XAvb']]],
   ['gmdischandler',['GMDiscHandler',['../struct_x_avb.html#adaa9fca5f2df9e76794cb97f8bd1f307',1,'XAvb']]],
   ['grandmasteridentity',['GrandmasterIdentity',['../struct_x_avb___bmc_data.html#aa842c05dfde7a1dccd0a48c906c742d9',1,'XAvb_BmcData']]],

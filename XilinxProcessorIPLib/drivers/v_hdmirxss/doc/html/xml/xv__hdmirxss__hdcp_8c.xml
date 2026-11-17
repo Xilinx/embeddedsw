@@ -4,12 +4,6 @@
     <compoundname>xv_hdmirxss_hdcp.c</compoundname>
     <includes refid="xv__hdmirxss_8h" local="yes">xv_hdmirxss.h</includes>
     <incdepgraph>
-      <node id="1380">
-        <label>xv_hdmirxss_hdcp.c</label>
-        <link refid="xv_hdmirxss_hdcp.c"/>
-        <childnode refid="1381" relation="include">
-        </childnode>
-      </node>
       <node id="1384">
         <label>xv_hdmirx.h</label>
       </node>
@@ -21,6 +15,12 @@
       </node>
       <node id="1382">
         <label>xparameters.h</label>
+      </node>
+      <node id="1380">
+        <label>xv_hdmirxss_hdcp.c</label>
+        <link refid="xv_hdmirxss_hdcp.c"/>
+        <childnode refid="1381" relation="include">
+        </childnode>
       </node>
       <node id="1381">
         <label>xv_hdmirxss.h</label>
@@ -1624,6 +1624,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="2147"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="2148"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss_hdcp.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss_hdcp.c"/>
   </compounddef>
 </doxygen>

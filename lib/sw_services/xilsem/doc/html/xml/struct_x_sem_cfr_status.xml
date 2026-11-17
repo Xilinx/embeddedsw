@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="301" bodyend="-1"/>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="663" endline="690">XSem_CmdCfrGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_cfr_status_1ade29b60e7b0785d909c7065bd54ad9c9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -30,8 +30,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="302" bodyend="-1"/>
-        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="663" endline="690">XSem_CmdCfrGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_cfr_status_1ab833bd42039240f18e2637d47b8e2956" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -44,8 +44,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="303" bodyend="-1"/>
-        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="348" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="663" endline="690">XSem_CmdCfrGetStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem_cfr_status_1a4761efb652d2500853d8cb20c54f6578" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -58,9 +58,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="304" bodyend="-1"/>
-        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
-        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="804" endline="1022">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="663" endline="690">XSem_CmdCfrGetStatus</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -69,7 +69,7 @@
 <para><itemizedlist>
 <listitem><para>CRAM scan state information</para></listitem><listitem><para>The low address of last 7 corrected error details if correction is enabled in design</para></listitem><listitem><para>The high address of last 7 corrected error details if correction is enabled in design</para></listitem><listitem><para>CRAM corrected error bits count value </para></listitem></itemizedlist>
 </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="300" bodyend="305"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="345" bodyend="350"/>
     <listofallmembers>
       <member refid="struct_x_sem_cfr_status_1ab833bd42039240f18e2637d47b8e2956" prot="public" virt="non-virtual"><scope>XSemCfrStatus</scope><name>ErrAddrH</name></member>
       <member refid="struct_x_sem_cfr_status_1ade29b60e7b0785d909c7065bd54ad9c9" prot="public" virt="non-virtual"><scope>XSemCfrStatus</scope><name>ErrAddrL</name></member>

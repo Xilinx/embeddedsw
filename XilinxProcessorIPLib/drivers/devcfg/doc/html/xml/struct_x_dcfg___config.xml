@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="186" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="188" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="188" bodyend="-1"/>
         <referencedby refid="xdevcfg__selftest__example_8c_1afcc9080c658869d88656386b9337961b" compoundref="xdevcfg__selftest__example_8c" startline="125" endline="160">DcfgSelfTestExample</referencedby>
         <referencedby refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" compoundref="xdevcfg_8c" startline="109" endline="149">XDcfg_CfgInitialize</referencedby>
         <referencedby refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" compoundref="xdevcfg_8c" startline="261" endline="277">XDcfg_ClearControlRegister</referencedby>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="190" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dcfg___config_1a20fc14c0f6295c5dce336af39226ba5a" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="192" bodyend="-1"/>
         <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
       </memberdef>
       </sectiondef>
@@ -92,7 +92,7 @@
 <para>This typedef contains configuration information for the device. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="182" bodyend="195"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="182" bodyend="195"/>
     <listofallmembers>
       <member refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" prot="public" virt="non-virtual"><scope>XDcfg_Config</scope><name>BaseAddr</name></member>
       <member refid="struct_x_dcfg___config_1a9ad7b8dc6bbeea7d3094a58667bf4138" prot="public" virt="non-virtual"><scope>XDcfg_Config</scope><name>IntrId</name></member>

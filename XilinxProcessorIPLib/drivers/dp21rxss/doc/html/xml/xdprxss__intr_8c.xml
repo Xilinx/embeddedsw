@@ -4,64 +4,64 @@
     <compoundname>xdprxss_intr.c</compoundname>
     <includes refid="xdprxss_8h" local="yes">xdprxss.h</includes>
     <incdepgraph>
-      <node id="1605">
+      <node id="1648">
         <label>xil_assert.h</label>
       </node>
-      <node id="1602">
-        <label>xdprxss.h</label>
-        <link refid="xdprxss_8h"/>
-        <childnode refid="1603" relation="include">
-        </childnode>
-        <childnode refid="1605" relation="include">
-        </childnode>
-        <childnode refid="1606" relation="include">
-        </childnode>
-        <childnode refid="1607" relation="include">
-        </childnode>
-        <childnode refid="1609" relation="include">
-        </childnode>
-        <childnode refid="1610" relation="include">
-        </childnode>
-      </node>
-      <node id="1604">
+      <node id="1647">
         <label>xil_io.h</label>
       </node>
-      <node id="1609">
-        <label>xdprxss_iic.h</label>
-        <link refid="xdprxss__iic_8h"/>
-      </node>
-      <node id="1608">
-        <label>xdp.h</label>
-      </node>
-      <node id="1601">
+      <node id="1644">
         <label>xdprxss_intr.c</label>
         <link refid="xdprxss_intr.c"/>
-        <childnode refid="1602" relation="include">
+        <childnode refid="1645" relation="include">
         </childnode>
       </node>
-      <node id="1607">
-        <label>xdprxss_dprx.h</label>
-        <link refid="xdprxss__dprx_8h"/>
-        <childnode refid="1608" relation="include">
-        </childnode>
-      </node>
-      <node id="1606">
-        <label>xstatus.h</label>
-      </node>
-      <node id="1610">
-        <label>xdprxss_hdcp1x.h</label>
-        <link refid="xdprxss__hdcp1x_8h"/>
-        <childnode refid="1611" relation="include">
-        </childnode>
-      </node>
-      <node id="1603">
+      <node id="1646">
         <label>xdprxss_hw.h</label>
         <link refid="xdprxss__hw_8h"/>
-        <childnode refid="1604" relation="include">
+        <childnode refid="1647" relation="include">
         </childnode>
       </node>
-      <node id="1611">
+      <node id="1651">
+        <label>xdp.h</label>
+      </node>
+      <node id="1645">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="1646" relation="include">
+        </childnode>
+        <childnode refid="1648" relation="include">
+        </childnode>
+        <childnode refid="1649" relation="include">
+        </childnode>
+        <childnode refid="1650" relation="include">
+        </childnode>
+        <childnode refid="1652" relation="include">
+        </childnode>
+        <childnode refid="1653" relation="include">
+        </childnode>
+      </node>
+      <node id="1650">
+        <label>xdprxss_dprx.h</label>
+        <link refid="xdprxss__dprx_8h"/>
+        <childnode refid="1651" relation="include">
+        </childnode>
+      </node>
+      <node id="1649">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1654">
         <label>xparameters.h</label>
+      </node>
+      <node id="1653">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss__hdcp1x_8h"/>
+        <childnode refid="1654" relation="include">
+        </childnode>
+      </node>
+      <node id="1652">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss__iic_8h"/>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -89,11 +89,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="74" bodyend="84"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="74" bodyend="84"/>
         <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="540">XDpRxSs::DpPtr</references>
         <references refid="struct_x_dp_rx_ss_1a6691a5af4ef59d41e4a64a4bc64947b2" compoundref="xdprxss_8h" startline="537">XDpRxSs::IsReady</references>
-        <referencedby refid="xdprxss__dp21__pt_8c_1ae9ec19bf96454ab233bf2e86e80f4a1b" compoundref="xdprxss__dp21__pt_8c" startline="1441" endline="1572">Dp21RxSs_Pt_SetupIntrSystem</referencedby>
-        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a82296473fccecfdd24d3fc5fcddc714b" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="1432" endline="1557">DpSs_SetupIntrSystem</referencedby>
+        <referencedby refid="xdprxss__dp21__pt_8c_1ae9ec19bf96454ab233bf2e86e80f4a1b" compoundref="xdprxss__dp21__pt_8c" startline="1535" endline="1666">Dp21RxSs_Pt_SetupIntrSystem</referencedby>
+        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a82296473fccecfdd24d3fc5fcddc714b" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="1256" endline="1381">DpSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dprxss_1ga559238c630ee96cbca342bb098d488fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -119,10 +119,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="186" bodyend="202"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="186" bodyend="202"/>
         <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="540">XDpRxSs::DpPtr</references>
         <references refid="struct_x_dp_rx_ss_1a6691a5af4ef59d41e4a64a4bc64947b2" compoundref="xdprxss_8h" startline="537">XDpRxSs::IsReady</references>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="234" endline="587">XDpRxSs_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dprxss_1gafe7a6062139a0cc9b6128ba8af7eea9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -148,10 +148,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="215" bodyend="227"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="215" bodyend="227"/>
         <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="540">XDpRxSs::DpPtr</references>
         <references refid="struct_x_dp_rx_ss_1a6691a5af4ef59d41e4a64a4bc64947b2" compoundref="xdprxss_8h" startline="537">XDpRxSs::IsReady</references>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="234" endline="587">XDpRxSs_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dprxss_1ga2e2d30f0b82711802df4a555897f8e09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -177,10 +177,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="240" bodyend="257"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="240" bodyend="257"/>
         <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="540">XDpRxSs::DpPtr</references>
         <references refid="struct_x_dp_rx_ss_1a6691a5af4ef59d41e4a64a4bc64947b2" compoundref="xdprxss_8h" startline="537">XDpRxSs::IsReady</references>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="234" endline="587">XDpRxSs_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -265,7 +265,7 @@ XDPRXSS_HANDLER_PLL_RESET_EVENT          PllResetCallback
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="304" bodyend="680"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="304" bodyend="751"/>
         <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="540">XDpRxSs::DpPtr</references>
         <references refid="struct_x_dp_rx_ss_1a6691a5af4ef59d41e4a64a4bc64947b2" compoundref="xdprxss_8h" startline="537">XDpRxSs::IsReady</references>
         <references refid="struct_x_dp_rx_ss_1ae0e1bd70063b93a5b105d8d3ab2ea6c6" compoundref="xdprxss_8h" startline="572">XDpRxSs::LinkBwCallback</references>
@@ -274,49 +274,60 @@ XDPRXSS_HANDLER_PLL_RESET_EVENT          PllResetCallback
         <references refid="struct_x_dp_rx_ss_1acf6fc8e8c721c8359cc5633d7f8e1f5d" compoundref="xdprxss_8h" startline="569">XDpRxSs::PllResetRef</references>
         <references refid="struct_x_dp_rx_ss_1aaa05283423ea32b53d730a8be9401cbb" compoundref="xdprxss_8h" startline="577">XDpRxSs::UnplugCallback</references>
         <references refid="struct_x_dp_rx_ss_1a0678d420efec6c93060400b96cfbb792" compoundref="xdprxss_8h" startline="579">XDpRxSs::UnplugRef</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a428d19d1a9c1e542daeb251a863ab07b" compoundref="xdprxss_8h" startline="261">XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a51438ae9459d42e97912ec565f33008f" compoundref="xdprxss_8h" startline="255">XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae3352e504bfe4182697b9cc1d23f57ee" compoundref="xdprxss_8h" startline="258">XDPRXSS_DRV_HANDLER_DP_VID_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a00fee3de49d36bba93dea56f115d2699" compoundref="xdprxss_8h" startline="217">XDPRXSS_HANDLER_DP_ACT_RX_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a07cc4d6393552a8b53d732f151bbe9ad" compoundref="xdprxss_8h" startline="209">XDPRXSS_HANDLER_DP_AUD_OVRFLW_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ac41fb1333ca3e3b60e5677382e2274fa" compoundref="xdprxss_8h" startline="200">XDPRXSS_HANDLER_DP_BW_CHG_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab28cd614aced217dd5698e91b43e3c07" compoundref="xdprxss_8h" startline="220">XDPRXSS_HANDLER_DP_CRC_TEST_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6e837e7f939c39fe6ce42f1c2c6af5cc" compoundref="xdprxss_8h" startline="206">XDPRXSS_HANDLER_DP_DWN_REP_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a93d97f416e80d71c176cd031b6d757cf" compoundref="xdprxss_8h" startline="203">XDPRXSS_HANDLER_DP_DWN_REQ_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31acbc934b65bafeb85348c8274193f8eaf" compoundref="xdprxss_8h" startline="194">XDPRXSS_HANDLER_DP_EXT_PKT_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31abb12c3c800c8b075c7c54ec2683e2080" compoundref="xdprxss_8h" startline="345">XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_2_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae7993d59dd06594fdce87aab132984a7" compoundref="xdprxss_8h" startline="348">XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_3_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a054e4bf1d20ed8968f437ea9d6e4d946" compoundref="xdprxss_8h" startline="351">XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_4_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a9509fff116bd038c71045fd18b54af06" compoundref="xdprxss_8h" startline="191">XDPRXSS_HANDLER_DP_INFO_PKT_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a43d1d1f060262ac36e3472f3b3d29954" compoundref="xdprxss_8h" startline="336">XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_2_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a0a124902cabee7c2f353eb79f5745805" compoundref="xdprxss_8h" startline="339">XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_3_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab231d725890ba3a4e58d1bfb4ecf7725" compoundref="xdprxss_8h" startline="342">XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_4_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a7a6e35c4a9fac72087282bf5aa3216f7" compoundref="xdprxss_8h" startline="179">XDPRXSS_HANDLER_DP_NO_VID_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae936d95034351feeaaa75d767f2e3a63" compoundref="xdprxss_8h" startline="318">XDPRXSS_HANDLER_DP_NO_VID_STREAM_2_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aab64917bcd30a1fcbfce5a575b5344c6" compoundref="xdprxss_8h" startline="321">XDPRXSS_HANDLER_DP_NO_VID_STREAM_3_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a9a7d10ce42f36d17d0166b2aacb9769a" compoundref="xdprxss_8h" startline="324">XDPRXSS_HANDLER_DP_NO_VID_STREAM_4_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6a5642a97fec667477c5eea73192a4e8" compoundref="xdprxss_8h" startline="212">XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31af22eb893491e4a1b83df7a4bd35e8abe" compoundref="xdprxss_8h" startline="176">XDPRXSS_HANDLER_DP_PWR_CHG_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aeddd5b57682f2d8c3e7f07403d184339" compoundref="xdprxss_8h" startline="197">XDPRXSS_HANDLER_DP_TDONE_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31afd6250ba9a49ebe26f5be42103625e3f" compoundref="xdprxss_8h" startline="185">XDPRXSS_HANDLER_DP_TLOST_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6d19a37b6271d02f50368d9284f64b6a" compoundref="xdprxss_8h" startline="182">XDPRXSS_HANDLER_DP_VBLANK_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a787777e4c0e3b27e0ca0c616b0f43906" compoundref="xdprxss_8h" startline="273">XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a558df4ac29ad329960e0a42cc9997b23" compoundref="xdprxss_8h" startline="277">XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31afba12dbf314bf794808757bc49c8d393" compoundref="xdprxss_8h" startline="281">XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a79f779e134981300fc7ab52b2bf11eff" compoundref="xdprxss_8h" startline="188">XDPRXSS_HANDLER_DP_VID_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a0a42596573bc60e8f94c8e3b7b48ae11" compoundref="xdprxss_8h" startline="327">XDPRXSS_HANDLER_DP_VID_STREAM_2_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a8ba7598e65a53881da3894dbc642a25c" compoundref="xdprxss_8h" startline="330">XDPRXSS_HANDLER_DP_VID_STREAM_3_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aebe4fe8a61e39c555fc6db0c808d9ea1" compoundref="xdprxss_8h" startline="333">XDPRXSS_HANDLER_DP_VID_STREAM_4_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab5882181a8edf31196932d84f82ced50" compoundref="xdprxss_8h" startline="173">XDPRXSS_HANDLER_DP_VM_CHG_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a487ab994f7f5c2749dbb782dbd41a87e" compoundref="xdprxss_8h" startline="309">XDPRXSS_HANDLER_DP_VM_CHG_STREAM_2_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a213f8903d09354f05fd48509de977d87" compoundref="xdprxss_8h" startline="312">XDPRXSS_HANDLER_DP_VM_CHG_STREAM_3_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a206ce28ff9ef9060a0fcc907a77200d2" compoundref="xdprxss_8h" startline="315">XDPRXSS_HANDLER_DP_VM_CHG_STREAM_4_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a148ff5a3b54e14baaf0ce9740d4e90a3" compoundref="xdprxss_8h" startline="249">XDPRXSS_HANDLER_LINKBW_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a4ee8d2b95922a7fd6a85f519b8e8919a" compoundref="xdprxss_8h" startline="252">XDPRXSS_HANDLER_PLL_RESET_EVENT</references>
-        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a54d8a7534f2766333f1048fcad9e3cbd" compoundref="xdprxss_8h" startline="246">XDPRXSS_HANDLER_UNPLUG_EVENT</references>
-        <referencedby refid="xdprxss__dp21__rx_8c_1a0a7486431cab68af81fb7ba9f2bc4793" compoundref="hdcp_2rx_8c" startline="236" endline="296">DpRxSs_SetupIntrSystem</referencedby>
-        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
-        <referencedby refid="xdprxss__dp21__rx_8c_1a86c8dfc1cedc2b6d829e77b9eb54739d" compoundref="xdprxss__dp21__rx_8c" startline="996" endline="1037">XDpRxSs_SetUserCallBackHandlers</referencedby>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a428d19d1a9c1e542daeb251a863ab07b" compoundref="xdprxss_8h" startline="277">XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a51438ae9459d42e97912ec565f33008f" compoundref="xdprxss_8h" startline="271">XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae3352e504bfe4182697b9cc1d23f57ee" compoundref="xdprxss_8h" startline="274">XDPRXSS_DRV_HANDLER_DP_VID_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae849672cbd7972a17de1262735966e9b" compoundref="xdprxss_8h" startline="286">XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a911f359d919c9b6d7b945674f7910eff" compoundref="xdprxss_8h" startline="280">XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a90bd0bc7d763792b6e8abcc4136f7fb9" compoundref="xdprxss_8h" startline="283">XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a00fee3de49d36bba93dea56f115d2699" compoundref="xdprxss_8h" startline="233">XDPRXSS_HANDLER_DP_ACT_RX_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae31683ea6ee150368455d8e50c2f12cf" compoundref="xdprxss_8h" startline="301">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_1_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ad268f553fc729c9fccb7ef1f928568e4" compoundref="xdprxss_8h" startline="304">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a102d46be97d57c8a9802c56a797e0f7a" compoundref="xdprxss_8h" startline="307">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a4854a53efc49a6554d36d44989ae79f1" compoundref="xdprxss_8h" startline="310">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a5dbc9786865543fc5684ce3b3eefe267" compoundref="xdprxss_8h" startline="313">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_1_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a3a25e7bfef55157397ae9178cfaf0ee6" compoundref="xdprxss_8h" startline="316">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aa36c79072fb687efa2aceabe4a4647b9" compoundref="xdprxss_8h" startline="319">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae25b4ddf496f29c283341610c6c2ded6" compoundref="xdprxss_8h" startline="322">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a07cc4d6393552a8b53d732f151bbe9ad" compoundref="xdprxss_8h" startline="225">XDPRXSS_HANDLER_DP_AUD_OVRFLW_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ac41fb1333ca3e3b60e5677382e2274fa" compoundref="xdprxss_8h" startline="216">XDPRXSS_HANDLER_DP_BW_CHG_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab28cd614aced217dd5698e91b43e3c07" compoundref="xdprxss_8h" startline="236">XDPRXSS_HANDLER_DP_CRC_TEST_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6e837e7f939c39fe6ce42f1c2c6af5cc" compoundref="xdprxss_8h" startline="222">XDPRXSS_HANDLER_DP_DWN_REP_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a93d97f416e80d71c176cd031b6d757cf" compoundref="xdprxss_8h" startline="219">XDPRXSS_HANDLER_DP_DWN_REQ_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31acbc934b65bafeb85348c8274193f8eaf" compoundref="xdprxss_8h" startline="210">XDPRXSS_HANDLER_DP_EXT_PKT_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31abb12c3c800c8b075c7c54ec2683e2080" compoundref="xdprxss_8h" startline="361">XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae7993d59dd06594fdce87aab132984a7" compoundref="xdprxss_8h" startline="364">XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a054e4bf1d20ed8968f437ea9d6e4d946" compoundref="xdprxss_8h" startline="367">XDPRXSS_HANDLER_DP_EXT_PKT_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a9509fff116bd038c71045fd18b54af06" compoundref="xdprxss_8h" startline="207">XDPRXSS_HANDLER_DP_INFO_PKT_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a43d1d1f060262ac36e3472f3b3d29954" compoundref="xdprxss_8h" startline="352">XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a0a124902cabee7c2f353eb79f5745805" compoundref="xdprxss_8h" startline="355">XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab231d725890ba3a4e58d1bfb4ecf7725" compoundref="xdprxss_8h" startline="358">XDPRXSS_HANDLER_DP_INFO_PKT_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a7a6e35c4a9fac72087282bf5aa3216f7" compoundref="xdprxss_8h" startline="195">XDPRXSS_HANDLER_DP_NO_VID_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae936d95034351feeaaa75d767f2e3a63" compoundref="xdprxss_8h" startline="334">XDPRXSS_HANDLER_DP_NO_VID_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aab64917bcd30a1fcbfce5a575b5344c6" compoundref="xdprxss_8h" startline="337">XDPRXSS_HANDLER_DP_NO_VID_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a9a7d10ce42f36d17d0166b2aacb9769a" compoundref="xdprxss_8h" startline="340">XDPRXSS_HANDLER_DP_NO_VID_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6a5642a97fec667477c5eea73192a4e8" compoundref="xdprxss_8h" startline="228">XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31af22eb893491e4a1b83df7a4bd35e8abe" compoundref="xdprxss_8h" startline="192">XDPRXSS_HANDLER_DP_PWR_CHG_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aeddd5b57682f2d8c3e7f07403d184339" compoundref="xdprxss_8h" startline="213">XDPRXSS_HANDLER_DP_TDONE_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31afd6250ba9a49ebe26f5be42103625e3f" compoundref="xdprxss_8h" startline="201">XDPRXSS_HANDLER_DP_TLOST_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6d19a37b6271d02f50368d9284f64b6a" compoundref="xdprxss_8h" startline="198">XDPRXSS_HANDLER_DP_VBLANK_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a787777e4c0e3b27e0ca0c616b0f43906" compoundref="xdprxss_8h" startline="289">XDPRXSS_HANDLER_DP_VBLANK_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a558df4ac29ad329960e0a42cc9997b23" compoundref="xdprxss_8h" startline="293">XDPRXSS_HANDLER_DP_VBLANK_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31afba12dbf314bf794808757bc49c8d393" compoundref="xdprxss_8h" startline="297">XDPRXSS_HANDLER_DP_VBLANK_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a79f779e134981300fc7ab52b2bf11eff" compoundref="xdprxss_8h" startline="204">XDPRXSS_HANDLER_DP_VID_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a0a42596573bc60e8f94c8e3b7b48ae11" compoundref="xdprxss_8h" startline="343">XDPRXSS_HANDLER_DP_VID_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a8ba7598e65a53881da3894dbc642a25c" compoundref="xdprxss_8h" startline="346">XDPRXSS_HANDLER_DP_VID_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aebe4fe8a61e39c555fc6db0c808d9ea1" compoundref="xdprxss_8h" startline="349">XDPRXSS_HANDLER_DP_VID_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab5882181a8edf31196932d84f82ced50" compoundref="xdprxss_8h" startline="189">XDPRXSS_HANDLER_DP_VM_CHG_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a487ab994f7f5c2749dbb782dbd41a87e" compoundref="xdprxss_8h" startline="325">XDPRXSS_HANDLER_DP_VM_CHG_STREAM_2_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a213f8903d09354f05fd48509de977d87" compoundref="xdprxss_8h" startline="328">XDPRXSS_HANDLER_DP_VM_CHG_STREAM_3_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a206ce28ff9ef9060a0fcc907a77200d2" compoundref="xdprxss_8h" startline="331">XDPRXSS_HANDLER_DP_VM_CHG_STREAM_4_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a148ff5a3b54e14baaf0ce9740d4e90a3" compoundref="xdprxss_8h" startline="265">XDPRXSS_HANDLER_LINKBW_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a4ee8d2b95922a7fd6a85f519b8e8919a" compoundref="xdprxss_8h" startline="268">XDPRXSS_HANDLER_PLL_RESET_EVENT</references>
+        <references refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a54d8a7534f2766333f1048fcad9e3cbd" compoundref="xdprxss_8h" startline="262">XDPRXSS_HANDLER_UNPLUG_EVENT</references>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0a7486431cab68af81fb7ba9f2bc4793" compoundref="hdcp_2rx_8c" startline="258" endline="318">DpRxSs_SetupIntrSystem</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="234" endline="587">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a86c8dfc1cedc2b6d829e77b9eb54739d" compoundref="xdprxss__dp21__rx_8c" startline="942" endline="983">XDpRxSs_SetUserCallBackHandlers</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -364,9 +375,9 @@ XDPRXSS_HANDLER_PLL_RESET_EVENT          PllResetCallback
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="697" bodyend="707"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="1145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c" bodystart="768" bodyend="778"/>
         <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="540">XDpRxSs::DpPtr</references>
-        <referencedby refid="xdprxss__dp21__rx_8c_1a0a7486431cab68af81fb7ba9f2bc4793" compoundref="hdcp_2rx_8c" startline="236" endline="296">DpRxSs_SetupIntrSystem</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0a7486431cab68af81fb7ba9f2bc4793" compoundref="hdcp_2rx_8c" startline="258" endline="318">DpRxSs_SetupIntrSystem</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -888,27 +899,98 @@ XDPRXSS_HANDLER_PLL_RESET_EVENT          PllResetCallback
 <codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="673"><highlight class="normal"></highlight></codeline>
-<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
-<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="678"><highlight class="normal"></highlight></codeline>
-<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="680"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="681"><highlight class="normal"></highlight></codeline>
-<codeline lineno="682"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="697" refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" kindref="member">XDpRxSs_SetUserTimerHandler</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gafacc99acbea2d401998a9f7f3c1d3a14" kindref="member">XDpRxSs_TimerHandler</ref><sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
-<codeline lineno="699"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="704"><highlight class="normal"></highlight></codeline>
-<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>custom<sp/>timer<sp/>wait<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_SetUserTimerHandler(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,<sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
-<codeline lineno="707"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a911f359d919c9b6d7b945674f7910eff" kindref="member">XDPRXSS_HANDLER_ACCESS_LANE_SET_EVENT</ref>:</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ACCESS_LANE_SET,</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a90bd0bc7d763792b6e8abcc4136f7fb9" kindref="member">XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT</ref>:</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ACCESS_LINK_QUAL,</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae849672cbd7972a17de1262735966e9b" kindref="member">XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT</ref>:</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ACCESS_ERR_COUNTER,</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"></highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae31683ea6ee150368455d8e50c2f12cf" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_1_EVENT</ref>:</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP,</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ad268f553fc729c9fccb7ef1f928568e4" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_2_EVENT</ref>:</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2,</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a102d46be97d57c8a9802c56a797e0f7a" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_3_EVENT</ref>:</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_3,</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a4854a53efc49a6554d36d44989ae79f1" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_SDP_STREAM_4_EVENT</ref>:</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_4,</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a5dbc9786865543fc5684ce3b3eefe267" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_1_EVENT</ref>:</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK,</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a3a25e7bfef55157397ae9178cfaf0ee6" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_2_EVENT</ref>:</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2,</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aa36c79072fb687efa2aceabe4a4647b9" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_3_EVENT</ref>:</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_3,</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ae25b4ddf496f29c283341610c6c2ded6" kindref="member">XDPRXSS_HANDLER_DP_ADAPTIVESYNC_VBLANK_STREAM_4_EVENT</ref>:</highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxSetCallback(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_4,</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"></highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>setting<sp/>Access<sp/>Lane/Link<sp/>Qual<sp/>and<sp/>Adaptive<sp/>Sync<sp/>callback(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"></highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="751"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"></highlight></codeline>
+<codeline lineno="753"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="768" refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" kindref="member">XDpRxSs_SetUserTimerHandler</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gafacc99acbea2d401998a9f7f3c1d3a14" kindref="member">XDpRxSs_TimerHandler</ref><sp/>CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="770"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"></highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>custom<sp/>timer<sp/>wait<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_SetUserTimerHandler(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,<sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="778"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_intr.c"/>
   </compounddef>
 </doxygen>

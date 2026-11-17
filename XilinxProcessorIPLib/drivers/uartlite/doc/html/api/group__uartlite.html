@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('group__uartlite.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,124 +113,240 @@ $(document).ready(function(){initNavTree('group__uartlite.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite___stats.html">XUartLite_Stats</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Statistics for the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> driver.  <a href="struct_x_uart_lite___stats.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Statistics for the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> driver.  <a href="struct_x_uart_lite___stats.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite___buffer.html">XUartLite_Buffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode.  <a href="struct_x_uart_lite___buffer.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer descriptor for send and receive operations.  <a href="struct_x_uart_lite___buffer.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains configuration information for the device.  <a href="struct_x_uart_lite___config.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds configuration information for the UART Lite device.  <a href="struct_x_uart_lite___config.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite.html">XUartLite</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> driver instance data.  <a href="struct_x_uart_lite.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver instance data for the UART Lite.  <a href="struct_x_uart_lite.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gacb96d217d7b77e8d517e9556d421db95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;XUartLite_Out32((BaseAddress) + (RegOffset), (u32)(Data))</td></tr>
-<tr class="memdesc:gacb96d217d7b77e8d517e9556d421db95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a value to a UartLite register.  <a href="#gacb96d217d7b77e8d517e9556d421db95">More...</a><br/></td></tr>
+<tr class="memitem:ga9a29be78566c773a9f1ad81bd3fddb5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga9a29be78566c773a9f1ad81bd3fddb5e">XUartLite_UpdateStats</a>(InstancePtr, StatusRegister)</td></tr>
+<tr class="memdesc:ga9a29be78566c773a9f1ad81bd3fddb5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the statistics of the instance.  <a href="#ga9a29be78566c773a9f1ad81bd3fddb5e">More...</a><br/></td></tr>
+<tr class="separator:ga9a29be78566c773a9f1ad81bd3fddb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacb96d217d7b77e8d517e9556d421db95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gabb9fedf44870b17b62d697b7121167b8">XUartLite_Out32</a>((BaseAddress) + (RegOffset), (u32)(Data))</td></tr>
+<tr class="memdesc:gacb96d217d7b77e8d517e9556d421db95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a value to a UartLite register.  <a href="#gacb96d217d7b77e8d517e9556d421db95">More...</a><br/></td></tr>
 <tr class="separator:gacb96d217d7b77e8d517e9556d421db95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga41431b69c8c2c2829277a851d70b7bf6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XUartLite_In32((BaseAddress) + (RegOffset))</td></tr>
-<tr class="memdesc:ga41431b69c8c2c2829277a851d70b7bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a value from a UartLite register.  <a href="#ga41431b69c8c2c2829277a851d70b7bf6">More...</a><br/></td></tr>
+<tr class="memitem:ga41431b69c8c2c2829277a851d70b7bf6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gafefad2b4afb25774eb09791ccafb20c8">XUartLite_In32</a>((BaseAddress) + (RegOffset))</td></tr>
+<tr class="memdesc:ga41431b69c8c2c2829277a851d70b7bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a value from a UartLite register.  <a href="#ga41431b69c8c2c2829277a851d70b7bf6">More...</a><br/></td></tr>
 <tr class="separator:ga41431b69c8c2c2829277a851d70b7bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacef0be395bab4e7b6c4bc8c081ebe9cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>(BaseAddress, Mask)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>((BaseAddress), XUL_CONTROL_REG_OFFSET, (Mask))</td></tr>
-<tr class="memdesc:gacef0be395bab4e7b6c4bc8c081ebe9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contents of the control register.  <a href="#gacef0be395bab4e7b6c4bc8c081ebe9cf">More...</a><br/></td></tr>
+<tr class="memitem:gacef0be395bab4e7b6c4bc8c081ebe9cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>(BaseAddress, Mask)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>((BaseAddress), <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, (Mask))</td></tr>
+<tr class="memdesc:gacef0be395bab4e7b6c4bc8c081ebe9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the contents of the control register.  <a href="#gacef0be395bab4e7b6c4bc8c081ebe9cf">More...</a><br/></td></tr>
 <tr class="separator:gacef0be395bab4e7b6c4bc8c081ebe9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac2c823eabd69cc7e34fa76921ea294dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>((BaseAddress), XUL_STATUS_REG_OFFSET)</td></tr>
-<tr class="memdesc:gac2c823eabd69cc7e34fa76921ea294dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the contents of the status register.  <a href="#gac2c823eabd69cc7e34fa76921ea294dd">More...</a><br/></td></tr>
+<tr class="memitem:gac2c823eabd69cc7e34fa76921ea294dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>((BaseAddress), <a class="el" href="group__uartlite.html#ga13cc5a4dd0ee4939136579f2e8dc9ce5">XUL_STATUS_REG_OFFSET</a>)</td></tr>
+<tr class="memdesc:gac2c823eabd69cc7e34fa76921ea294dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contents of the status register.  <a href="#gac2c823eabd69cc7e34fa76921ea294dd">More...</a><br/></td></tr>
 <tr class="separator:gac2c823eabd69cc7e34fa76921ea294dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad03599e323029e7b9263f1bd458cd5ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gad03599e323029e7b9263f1bd458cd5ce">XUartLite_IsReceiveEmpty</a>(BaseAddress)</td></tr>
-<tr class="memdesc:gad03599e323029e7b9263f1bd458cd5ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check to see if the receiver has data.  <a href="#gad03599e323029e7b9263f1bd458cd5ce">More...</a><br/></td></tr>
+<tr class="memdesc:gad03599e323029e7b9263f1bd458cd5ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the receiver has data.  <a href="#gad03599e323029e7b9263f1bd458cd5ce">More...</a><br/></td></tr>
 <tr class="separator:gad03599e323029e7b9263f1bd458cd5ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga63565710e31e2c07851858e835016086"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga63565710e31e2c07851858e835016086">XUartLite_IsTransmitFull</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga63565710e31e2c07851858e835016086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check to see if the transmitter is full.  <a href="#ga63565710e31e2c07851858e835016086">More...</a><br/></td></tr>
+<tr class="memdesc:ga63565710e31e2c07851858e835016086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the transmitter is full.  <a href="#ga63565710e31e2c07851858e835016086">More...</a><br/></td></tr>
 <tr class="separator:ga63565710e31e2c07851858e835016086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafa2025650e6a0618c0527ca224fe3db3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gafa2025650e6a0618c0527ca224fe3db3">XUartLite_IsIntrEnabled</a>(BaseAddress)</td></tr>
-<tr class="memdesc:gafa2025650e6a0618c0527ca224fe3db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check to see if the interrupt is enabled.  <a href="#gafa2025650e6a0618c0527ca224fe3db3">More...</a><br/></td></tr>
+<tr class="memdesc:gafa2025650e6a0618c0527ca224fe3db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the interrupt is enabled.  <a href="#gafa2025650e6a0618c0527ca224fe3db3">More...</a><br/></td></tr>
 <tr class="separator:gafa2025650e6a0618c0527ca224fe3db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga60612a3ae00273a06a2905f6cfd7b10f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga60612a3ae00273a06a2905f6cfd7b10f">XUartLite_EnableIntr</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>((BaseAddress), XUL_CR_ENABLE_INTR)</td></tr>
-<tr class="memdesc:ga60612a3ae00273a06a2905f6cfd7b10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the device interrupt.  <a href="#ga60612a3ae00273a06a2905f6cfd7b10f">More...</a><br/></td></tr>
+<tr class="memitem:ga60612a3ae00273a06a2905f6cfd7b10f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga60612a3ae00273a06a2905f6cfd7b10f">XUartLite_EnableIntr</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>((BaseAddress), <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>)</td></tr>
+<tr class="memdesc:ga60612a3ae00273a06a2905f6cfd7b10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the device interrupt.  <a href="#ga60612a3ae00273a06a2905f6cfd7b10f">More...</a><br/></td></tr>
 <tr class="separator:ga60612a3ae00273a06a2905f6cfd7b10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6b2947c72dbab9e7397fcfcbca4e300f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga6b2947c72dbab9e7397fcfcbca4e300f">XUartLite_DisableIntr</a>(BaseAddress)&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>((BaseAddress), 0)</td></tr>
-<tr class="memdesc:ga6b2947c72dbab9e7397fcfcbca4e300f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the device interrupt.  <a href="#ga6b2947c72dbab9e7397fcfcbca4e300f">More...</a><br/></td></tr>
+<tr class="memdesc:ga6b2947c72dbab9e7397fcfcbca4e300f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the device interrupt.  <a href="#ga6b2947c72dbab9e7397fcfcbca4e300f">More...</a><br/></td></tr>
 <tr class="separator:ga6b2947c72dbab9e7397fcfcbca4e300f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:gab0f5a21f40b003c13e1fcde2ab036f75"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gab0f5a21f40b003c13e1fcde2ab036f75">XUartLite_Handler</a> )(void *CallBackRef, unsigned int ByteCount)</td></tr>
-<tr class="memdesc:gab0f5a21f40b003c13e1fcde2ab036f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function.  <a href="#gab0f5a21f40b003c13e1fcde2ab036f75">More...</a><br/></td></tr>
+<tr class="memdesc:gab0f5a21f40b003c13e1fcde2ab036f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the callback function type for send and receive operations.  <a href="#gab0f5a21f40b003c13e1fcde2ab036f75">More...</a><br/></td></tr>
 <tr class="separator:gab0f5a21f40b003c13e1fcde2ab036f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaaf61ea88e001e95175590cb5b221a18d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, <a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a> *Config, UINTPTR EffectiveAddr)</td></tr>
-<tr class="memdesc:gaaf61ea88e001e95175590cb5b221a18d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.  <a href="#gaaf61ea88e001e95175590cb5b221a18d">More...</a><br/></td></tr>
+<tr class="memdesc:gaaf61ea88e001e95175590cb5b221a18d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.  <a href="#gaaf61ea88e001e95175590cb5b221a18d">More...</a><br/></td></tr>
 <tr class="separator:gaaf61ea88e001e95175590cb5b221a18d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacd990348cf8483d47934d3263dc6fe90"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, u8 *DataBufferPtr, unsigned int NumBytes)</td></tr>
-<tr class="memdesc:gacd990348cf8483d47934d3263dc6fe90"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sends the specified buffer of data using the UART in either polled or interrupt driven modes.  <a href="#gacd990348cf8483d47934d3263dc6fe90">More...</a><br/></td></tr>
+<tr class="memdesc:gacd990348cf8483d47934d3263dc6fe90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the specified buffer of data using the UART.  <a href="#gacd990348cf8483d47934d3263dc6fe90">More...</a><br/></td></tr>
 <tr class="separator:gacd990348cf8483d47934d3263dc6fe90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa30ed8bfedba1acdc67dc94e77d5a41d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, u8 *DataBufferPtr, unsigned int NumBytes)</td></tr>
-<tr class="memdesc:gaa30ed8bfedba1acdc67dc94e77d5a41d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer.  <a href="#gaa30ed8bfedba1acdc67dc94e77d5a41d">More...</a><br/></td></tr>
+<tr class="memdesc:gaa30ed8bfedba1acdc67dc94e77d5a41d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a specified number of bytes of data from the UART.  <a href="#gaa30ed8bfedba1acdc67dc94e77d5a41d">More...</a><br/></td></tr>
 <tr class="separator:gaa30ed8bfedba1acdc67dc94e77d5a41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7932155bf2bc603fc0a972f5aefec77e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga7932155bf2bc603fc0a972f5aefec77e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets the FIFOs, both transmit and receive, of the UART such that they are emptied.  <a href="#ga7932155bf2bc603fc0a972f5aefec77e">More...</a><br/></td></tr>
+<tr class="memdesc:ga7932155bf2bc603fc0a972f5aefec77e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the FIFOs, both transmit and receive, of the UART.  <a href="#ga7932155bf2bc603fc0a972f5aefec77e">More...</a><br/></td></tr>
 <tr class="separator:ga7932155bf2bc603fc0a972f5aefec77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40bc490d296a7a929f1cc5d07bb29b3c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga40bc490d296a7a929f1cc5d07bb29b3c">XUartLite_IsSending</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga40bc490d296a7a929f1cc5d07bb29b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the specified UART is sending data.  <a href="#ga40bc490d296a7a929f1cc5d07bb29b3c">More...</a><br/></td></tr>
+<tr class="memdesc:ga40bc490d296a7a929f1cc5d07bb29b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the specified UART is sending data.  <a href="#ga40bc490d296a7a929f1cc5d07bb29b3c">More...</a><br/></td></tr>
 <tr class="separator:ga40bc490d296a7a929f1cc5d07bb29b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga155b5a1fba111533992e283445ad8f73"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga155b5a1fba111533992e283445ad8f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="#ga155b5a1fba111533992e283445ad8f73">More...</a><br/></td></tr>
+<tr class="memdesc:ga155b5a1fba111533992e283445ad8f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a previously specified buffer of data to the UART.  <a href="#ga155b5a1fba111533992e283445ad8f73">More...</a><br/></td></tr>
 <tr class="separator:ga155b5a1fba111533992e283445ad8f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="#ga74efaecba1b6b1406c8c82abbb628cc8">More...</a><br/></td></tr>
+<tr class="memdesc:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a previously specified buffer of data from the UART.  <a href="#ga74efaecba1b6b1406c8c82abbb628cc8">More...</a><br/></td></tr>
 <tr class="separator:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga52107358628671b9c39beb81183b7365"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga52107358628671b9c39beb81183b7365"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the status register and updates the error stats, before returning the status register value.  <a href="#ga52107358628671b9c39beb81183b7365">More...</a><br/></td></tr>
+<tr class="memdesc:ga52107358628671b9c39beb81183b7365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the status register and updates the error stats before returning the status register value.  <a href="#ga52107358628671b9c39beb81183b7365">More...</a><br/></td></tr>
 <tr class="separator:ga52107358628671b9c39beb81183b7365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3c83194bde1d39a420bc5ff1b6c8677d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga3c83194bde1d39a420bc5ff1b6c8677d">XUartLite_Initialize</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga3c83194bde1d39a420bc5ff1b6c8677d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.  <a href="#ga3c83194bde1d39a420bc5ff1b6c8677d">More...</a><br/></td></tr>
+<tr class="memdesc:ga3c83194bde1d39a420bc5ff1b6c8677d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.  <a href="#ga3c83194bde1d39a420bc5ff1b6c8677d">More...</a><br/></td></tr>
 <tr class="separator:ga3c83194bde1d39a420bc5ff1b6c8677d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga79efa4208bc789a3eb1c7d91ff17671f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga79efa4208bc789a3eb1c7d91ff17671f">XUartLite_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga79efa4208bc789a3eb1c7d91ff17671f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID or base address.  <a href="#ga79efa4208bc789a3eb1c7d91ff17671f">More...</a><br/></td></tr>
+<tr class="separator:ga79efa4208bc789a3eb1c7d91ff17671f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga081d00a44aeebe19ed77e195a063b4e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga081d00a44aeebe19ed77e195a063b4e1">XUartLite_GetStats</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, <a class="el" href="struct_x_uart_lite___stats.html">XUartLite_Stats</a> *StatsPtr)</td></tr>
 <tr class="memdesc:ga081d00a44aeebe19ed77e195a063b4e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a snapshot of the current statistics in the structure specified.  <a href="#ga081d00a44aeebe19ed77e195a063b4e1">More...</a><br/></td></tr>
 <tr class="separator:ga081d00a44aeebe19ed77e195a063b4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga33651bc4c0c36496d86038d95f39f0cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga33651bc4c0c36496d86038d95f39f0cd">XUartLite_ClearStats</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga33651bc4c0c36496d86038d95f39f0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function zeros the statistics for the given instance.  <a href="#ga33651bc4c0c36496d86038d95f39f0cd">More...</a><br/></td></tr>
+<tr class="memdesc:ga33651bc4c0c36496d86038d95f39f0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeros the statistics for the given instance.  <a href="#ga33651bc4c0c36496d86038d95f39f0cd">More...</a><br/></td></tr>
 <tr class="separator:ga33651bc4c0c36496d86038d95f39f0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabfbfaddf9ab531ff85a1c4f9036631aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gabfbfaddf9ab531ff85a1c4f9036631aa">XUartLite_SelfTest</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gabfbfaddf9ab531ff85a1c4f9036631aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the device hardware.  <a href="#gabfbfaddf9ab531ff85a1c4f9036631aa">More...</a><br/></td></tr>
 <tr class="separator:gabfbfaddf9ab531ff85a1c4f9036631aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaca08a21fa15779ce8dedd2ac9f25971e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaca08a21fa15779ce8dedd2ac9f25971e">XUartLite_EnableInterrupt</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaca08a21fa15779ce8dedd2ac9f25971e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the UART interrupt such that an interrupt will occur when data is received or data has been transmitted.  <a href="#gaca08a21fa15779ce8dedd2ac9f25971e">More...</a><br/></td></tr>
+<tr class="memdesc:gaca08a21fa15779ce8dedd2ac9f25971e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the UART interrupt.  <a href="#gaca08a21fa15779ce8dedd2ac9f25971e">More...</a><br/></td></tr>
 <tr class="separator:gaca08a21fa15779ce8dedd2ac9f25971e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaa1b67ac0d2f5bf69ce6084ea49cef39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaaa1b67ac0d2f5bf69ce6084ea49cef39">XUartLite_DisableInterrupt</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaaa1b67ac0d2f5bf69ce6084ea49cef39"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the UART interrupt.  <a href="#gaaa1b67ac0d2f5bf69ce6084ea49cef39">More...</a><br/></td></tr>
+<tr class="memdesc:gaaa1b67ac0d2f5bf69ce6084ea49cef39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the UART interrupt.  <a href="#gaaa1b67ac0d2f5bf69ce6084ea49cef39">More...</a><br/></td></tr>
 <tr class="separator:gaaa1b67ac0d2f5bf69ce6084ea49cef39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga312d1ce48b9e29e08ebb25d942b2ff51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga312d1ce48b9e29e08ebb25d942b2ff51">XUartLite_SetRecvHandler</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, <a class="el" href="group__uartlite.html#gab0f5a21f40b003c13e1fcde2ab036f75">XUartLite_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga312d1ce48b9e29e08ebb25d942b2ff51"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs in the driver.  <a href="#ga312d1ce48b9e29e08ebb25d942b2ff51">More...</a><br/></td></tr>
+<tr class="memdesc:ga312d1ce48b9e29e08ebb25d942b2ff51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the receive callback handler.  <a href="#ga312d1ce48b9e29e08ebb25d942b2ff51">More...</a><br/></td></tr>
 <tr class="separator:ga312d1ce48b9e29e08ebb25d942b2ff51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga282cca48bbd4c1144c811681854fc780"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga282cca48bbd4c1144c811681854fc780">XUartLite_SetSendHandler</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr, <a class="el" href="group__uartlite.html#gab0f5a21f40b003c13e1fcde2ab036f75">XUartLite_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga282cca48bbd4c1144c811681854fc780"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs in the driver.  <a href="#ga282cca48bbd4c1144c811681854fc780">More...</a><br/></td></tr>
+<tr class="memdesc:ga282cca48bbd4c1144c811681854fc780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the send callback handler.  <a href="#ga282cca48bbd4c1144c811681854fc780">More...</a><br/></td></tr>
 <tr class="separator:ga282cca48bbd4c1144c811681854fc780"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga399463f89d7b4e846a4a4089e9cd54fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb">XUartLite_InterruptHandler</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga399463f89d7b4e846a4a4089e9cd54fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the UART lite driver.  <a href="#ga399463f89d7b4e846a4a4089e9cd54fb">More...</a><br/></td></tr>
+<tr class="memdesc:ga399463f89d7b4e846a4a4089e9cd54fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the UART Lite driver.  <a href="#ga399463f89d7b4e846a4a4089e9cd54fb">More...</a><br/></td></tr>
 <tr class="separator:ga399463f89d7b4e846a4a4089e9cd54fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">XUartLite_SendByte</a> (UINTPTR BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sends a single byte using the UART.  <a href="#gaac1bc87a3b2b3873eff73cc3b93c153d">More...</a><br/></td></tr>
+<tr class="memdesc:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a single byte using the UART.  <a href="#gaac1bc87a3b2b3873eff73cc3b93c153d">More...</a><br/></td></tr>
 <tr class="separator:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">XUartLite_RecvByte</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions receives a single byte using the UART.  <a href="#ga2cccdf9978fb4d1f7fab69a4b39e6e26">More...</a><br/></td></tr>
+<tr class="memdesc:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a single byte using the UART.  <a href="#ga2cccdf9978fb4d1f7fab69a4b39e6e26">More...</a><br/></td></tr>
 <tr class="separator:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ga6433869fe2d0dd5e9282352ca2fce41f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga6433869fe2d0dd5e9282352ca2fce41f">XUartLite_ConfigTable</a> [XPAR_XUARTLITE_NUM_INSTANCES]</td></tr>
-<tr class="memdesc:ga6433869fe2d0dd5e9282352ca2fce41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for UART Lite devices.  <a href="#ga6433869fe2d0dd5e9282352ca2fce41f">More...</a><br/></td></tr>
+<tr class="memdesc:ga6433869fe2d0dd5e9282352ca2fce41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration table for UART Lite devices.  <a href="#ga6433869fe2d0dd5e9282352ca2fce41f">More...</a><br/></td></tr>
 <tr class="separator:ga6433869fe2d0dd5e9282352ca2fce41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaa00e4300e2ccd4b82fd4414b054a589e">XUartLite_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for UART Lite devices.  <a href="#gaa00e4300e2ccd4b82fd4414b054a589e">More...</a><br/></td></tr>
+<tr class="memdesc:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration entry for each UART Lite instance.  <a href="#gaa00e4300e2ccd4b82fd4414b054a589e">More...</a><br/></td></tr>
 <tr class="separator:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+DCR bus bridge configuration</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp77225f89ad30b3412bf5d207e2b30df8"></a>Set to 1 if the UartLite device is accessed through a DCR bus connected to a bridge. </p>
+</td></tr>
+<tr class="memitem:ga73a78ef4851566fcd3f73a6a38eb24f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga73a78ef4851566fcd3f73a6a38eb24f1">XPAR_XUARTLITE_USE_DCR_BRIDGE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga73a78ef4851566fcd3f73a6a38eb24f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">DCR bus bridge access flag.  <a href="#ga73a78ef4851566fcd3f73a6a38eb24f1">More...</a><br/></td></tr>
+<tr class="separator:ga73a78ef4851566fcd3f73a6a38eb24f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+UART Lite register offsets</h2></td></tr>
+<tr class="memitem:ga438983f426dddf9605cc1c8c395965d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga438983f426dddf9605cc1c8c395965d0">XUL_RX_FIFO_OFFSET</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga438983f426dddf9605cc1c8c395965d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO, read only.  <a href="#ga438983f426dddf9605cc1c8c395965d0">More...</a><br/></td></tr>
+<tr class="separator:ga438983f426dddf9605cc1c8c395965d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ec51d3bc1f78f00647f39b19a85349e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga5ec51d3bc1f78f00647f39b19a85349e">XUL_TX_FIFO_OFFSET</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga5ec51d3bc1f78f00647f39b19a85349e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO, write only.  <a href="#ga5ec51d3bc1f78f00647f39b19a85349e">More...</a><br/></td></tr>
+<tr class="separator:ga5ec51d3bc1f78f00647f39b19a85349e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13cc5a4dd0ee4939136579f2e8dc9ce5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga13cc5a4dd0ee4939136579f2e8dc9ce5">XUL_STATUS_REG_OFFSET</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga13cc5a4dd0ee4939136579f2e8dc9ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status register, read only.  <a href="#ga13cc5a4dd0ee4939136579f2e8dc9ce5">More...</a><br/></td></tr>
+<tr class="separator:ga13cc5a4dd0ee4939136579f2e8dc9ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2dad2c534965b54d3775ef0890fca368"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:ga2dad2c534965b54d3775ef0890fca368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control register, write only.  <a href="#ga2dad2c534965b54d3775ef0890fca368">More...</a><br/></td></tr>
+<tr class="separator:ga2dad2c534965b54d3775ef0890fca368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Control register bit positions</h2></td></tr>
+<tr class="memitem:ga0443ad29f8a61065cd45dbef7da37c2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="memdesc:ga0443ad29f8a61065cd45dbef7da37c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable interrupt.  <a href="#ga0443ad29f8a61065cd45dbef7da37c2c">More...</a><br/></td></tr>
+<tr class="separator:ga0443ad29f8a61065cd45dbef7da37c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8cd3b98360644b6d2c6ef946bf5f900b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga8cd3b98360644b6d2c6ef946bf5f900b">XUL_CR_FIFO_RX_RESET</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:ga8cd3b98360644b6d2c6ef946bf5f900b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset receive FIFO.  <a href="#ga8cd3b98360644b6d2c6ef946bf5f900b">More...</a><br/></td></tr>
+<tr class="separator:ga8cd3b98360644b6d2c6ef946bf5f900b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeef27cec1e7942cf010a2c5aeb2b8da9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaeef27cec1e7942cf010a2c5aeb2b8da9">XUL_CR_FIFO_TX_RESET</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:gaeef27cec1e7942cf010a2c5aeb2b8da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset transmit FIFO.  <a href="#gaeef27cec1e7942cf010a2c5aeb2b8da9">More...</a><br/></td></tr>
+<tr class="separator:gaeef27cec1e7942cf010a2c5aeb2b8da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Status register bit positions</h2></td></tr>
+<tr class="memitem:ga33cf5a2b5ddc5ae960235ce37cd6c32f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga33cf5a2b5ddc5ae960235ce37cd6c32f">XUL_SR_PARITY_ERROR</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memdesc:ga33cf5a2b5ddc5ae960235ce37cd6c32f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parity error detected.  <a href="#ga33cf5a2b5ddc5ae960235ce37cd6c32f">More...</a><br/></td></tr>
+<tr class="separator:ga33cf5a2b5ddc5ae960235ce37cd6c32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa52948dba7418fd7d4a68b47e3770dc1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaa52948dba7418fd7d4a68b47e3770dc1">XUL_SR_FRAMING_ERROR</a>&#160;&#160;&#160;0x40</td></tr>
+<tr class="memdesc:gaa52948dba7418fd7d4a68b47e3770dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Framing error detected.  <a href="#gaa52948dba7418fd7d4a68b47e3770dc1">More...</a><br/></td></tr>
+<tr class="separator:gaa52948dba7418fd7d4a68b47e3770dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5614aae83f54065f4ca0aa7cdfc7f737"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga5614aae83f54065f4ca0aa7cdfc7f737">XUL_SR_OVERRUN_ERROR</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memdesc:ga5614aae83f54065f4ca0aa7cdfc7f737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrun error detected.  <a href="#ga5614aae83f54065f4ca0aa7cdfc7f737">More...</a><br/></td></tr>
+<tr class="separator:ga5614aae83f54065f4ca0aa7cdfc7f737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef49f4399d015532ee90cda2c0045324"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaef49f4399d015532ee90cda2c0045324">XUL_SR_INTR_ENABLED</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="memdesc:gaef49f4399d015532ee90cda2c0045324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt enabled.  <a href="#gaef49f4399d015532ee90cda2c0045324">More...</a><br/></td></tr>
+<tr class="separator:gaef49f4399d015532ee90cda2c0045324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76bf6a9a14882e45364a21693be7e920"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga76bf6a9a14882e45364a21693be7e920">XUL_SR_TX_FIFO_FULL</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:ga76bf6a9a14882e45364a21693be7e920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO full.  <a href="#ga76bf6a9a14882e45364a21693be7e920">More...</a><br/></td></tr>
+<tr class="separator:ga76bf6a9a14882e45364a21693be7e920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2422afb0d57f84bb1890af558741b18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gae2422afb0d57f84bb1890af558741b18">XUL_SR_TX_FIFO_EMPTY</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:gae2422afb0d57f84bb1890af558741b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO empty.  <a href="#gae2422afb0d57f84bb1890af558741b18">More...</a><br/></td></tr>
+<tr class="separator:gae2422afb0d57f84bb1890af558741b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3eb7c74b86b3aef6a8b8657b612e0537"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga3eb7c74b86b3aef6a8b8657b612e0537">XUL_SR_RX_FIFO_FULL</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:ga3eb7c74b86b3aef6a8b8657b612e0537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO full.  <a href="#ga3eb7c74b86b3aef6a8b8657b612e0537">More...</a><br/></td></tr>
+<tr class="separator:ga3eb7c74b86b3aef6a8b8657b612e0537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a1722c4c799b50641831e1d092d9893"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga7a1722c4c799b50641831e1d092d9893">XUL_SR_RX_FIFO_VALID_DATA</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga7a1722c4c799b50641831e1d092d9893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data in receive FIFO.  <a href="#ga7a1722c4c799b50641831e1d092d9893">More...</a><br/></td></tr>
+<tr class="separator:ga7a1722c4c799b50641831e1d092d9893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+FIFO and serial line constants</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpac95a0da52ebfd4646bf788801b374d2"></a>Fixed hardware parameters for the UartLite IP. </p>
+</td></tr>
+<tr class="memitem:gac63c90dc318def62d06ac084b4bb126d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gac63c90dc318def62d06ac084b4bb126d">XUL_FIFO_SIZE</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gac63c90dc318def62d06ac084b4bb126d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit/receive FIFO size in bytes.  <a href="#gac63c90dc318def62d06ac084b4bb126d">More...</a><br/></td></tr>
+<tr class="separator:gac63c90dc318def62d06ac084b4bb126d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf9a9355e4872a6de8340af575c2aec72"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaf9a9355e4872a6de8340af575c2aec72">XUL_STOP_BITS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gaf9a9355e4872a6de8340af575c2aec72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop bits, fixed at 1.  <a href="#gaf9a9355e4872a6de8340af575c2aec72">More...</a><br/></td></tr>
+<tr class="separator:gaf9a9355e4872a6de8340af575c2aec72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Parity definitions</h2></td></tr>
+<tr class="memitem:ga3b04347e664ae6d55ebd9d2609191767"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga3b04347e664ae6d55ebd9d2609191767">XUL_PARITY_NONE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga3b04347e664ae6d55ebd9d2609191767"><td class="mdescLeft">&#160;</td><td class="mdescRight">No parity.  <a href="#ga3b04347e664ae6d55ebd9d2609191767">More...</a><br/></td></tr>
+<tr class="separator:ga3b04347e664ae6d55ebd9d2609191767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12cf047d972692d6f36a88527fc1423e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga12cf047d972692d6f36a88527fc1423e">XUL_PARITY_ODD</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga12cf047d972692d6f36a88527fc1423e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Odd parity.  <a href="#ga12cf047d972692d6f36a88527fc1423e">More...</a><br/></td></tr>
+<tr class="separator:ga12cf047d972692d6f36a88527fc1423e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e3df7cb0f5abb04b6d391faa34c9098"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga0e3df7cb0f5abb04b6d391faa34c9098">XUL_PARITY_EVEN</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga0e3df7cb0f5abb04b6d391faa34c9098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Even parity.  <a href="#ga0e3df7cb0f5abb04b6d391faa34c9098">More...</a><br/></td></tr>
+<tr class="separator:ga0e3df7cb0f5abb04b6d391faa34c9098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+I/O access method macros</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpd8be57ac7789345c540539064b1fad51"></a>Define the appropriate I/O access method to memory mapped I/O or DCR. </p>
+</td></tr>
+<tr class="memitem:gafefad2b4afb25774eb09791ccafb20c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gafefad2b4afb25774eb09791ccafb20c8">XUartLite_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
+<tr class="memdesc:gafefad2b4afb25774eb09791ccafb20c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory-mapped 32-bit input operation.  <a href="#gafefad2b4afb25774eb09791ccafb20c8">More...</a><br/></td></tr>
+<tr class="separator:gafefad2b4afb25774eb09791ccafb20c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb9fedf44870b17b62d697b7121167b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gabb9fedf44870b17b62d697b7121167b8">XUartLite_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
+<tr class="memdesc:gabb9fedf44870b17b62d697b7121167b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory-mapped 32-bit output operation.  <a href="#gabb9fedf44870b17b62d697b7121167b8">More...</a><br/></td></tr>
+<tr class="separator:gabb9fedf44870b17b62d697b7121167b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga73a78ef4851566fcd3f73a6a38eb24f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPAR_XUARTLITE_USE_DCR_BRIDGE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DCR bus bridge access flag. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga6b2947c72dbab9e7397fcfcbca4e300f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -245,16 +361,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Disable the device interrupt. </p>
-<p>We cannot read the control register, so we just clear all bits. Since the only other ones are the FIFO reset bits, this works without side effects.</p>
+<p>Disables the device interrupt. </p>
+<p>The control register cannot be read, so this macro just clears all bits. Since the only other ones are the FIFO reset bits, this works without side effects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group__uartlite.html#ga6b2947c72dbab9e7397fcfcbca4e300f" title="Disable the device interrupt. ">XUartLite_DisableIntr(u32 BaseAddress)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group__uartlite.html#ga6b2947c72dbab9e7397fcfcbca4e300f" title="Disables the device interrupt. ">XUartLite_DisableIntr(u32 BaseAddress)</a>; </dd></dl>
 
 </div>
 </div>
@@ -267,21 +382,20 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">BaseAddress</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>((BaseAddress), XUL_CR_ENABLE_INTR)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf">XUartLite_SetControlReg</a>((BaseAddress), <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Enable the device interrupt. </p>
-<p>We cannot read the control register, so we just write the enable interrupt bit and clear all others. Since the only other ones are the FIFO reset bits, this works without side effects.</p>
+<p>Enables the device interrupt. </p>
+<p>The control register cannot be read, so this macro just writes the enable interrupt bit and clears all others. Since the only other ones are the FIFO reset bits, this works without side effects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group__uartlite.html#ga60612a3ae00273a06a2905f6cfd7b10f" title="Enable the device interrupt. ">XUartLite_EnableIntr(u32 BaseAddress)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group__uartlite.html#ga60612a3ae00273a06a2905f6cfd7b10f" title="Enables the device interrupt. ">XUartLite_EnableIntr(u32 BaseAddress)</a>; </dd></dl>
 
 </div>
 </div>
@@ -294,23 +408,37 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">BaseAddress</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>((BaseAddress), XUL_STATUS_REG_OFFSET)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>((BaseAddress), <a class="el" href="group__uartlite.html#ga13cc5a4dd0ee4939136579f2e8dc9ce5">XUL_STATUS_REG_OFFSET</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the contents of the status register. </p>
+<p>Returns the contents of the status register. </p>
 <p>Use the XUL_SR_* constants defined above to interpret the bit-mask returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A 32-bit value representing the contents of the status register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: u32 <a class="el" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd" title="Get the contents of the status register. ">XUartLite_GetStatusReg(u32 BaseAddress)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: u32 <a class="el" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd" title="Returns the contents of the status register. ">XUartLite_GetStatusReg(u32 BaseAddress)</a>; </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gafefad2b4afb25774eb09791ccafb20c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUartLite_In32&#160;&#160;&#160;Xil_In32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Memory-mapped 32-bit input operation. </p>
 
 </div>
 </div>
@@ -327,19 +455,20 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>((BaseAddress)) &amp; XUL_SR_INTR_ENABLED) == \</div>
-<div class="line">          XUL_SR_INTR_ENABLED)</div>
-<div class="ttc" id="group__uartlite_html_gac2c823eabd69cc7e34fa76921ea294dd"><div class="ttname"><a href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a></div><div class="ttdeci">#define XUartLite_GetStatusReg(BaseAddress)</div><div class="ttdoc">Get the contents of the status register. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:204</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>((BaseAddress)) &amp; <a class="code" href="group__uartlite.html#gaef49f4399d015532ee90cda2c0045324">XUL_SR_INTR_ENABLED</a>) == \</div>
+<div class="line">          <a class="code" href="group__uartlite.html#gaef49f4399d015532ee90cda2c0045324">XUL_SR_INTR_ENABLED</a>)</div>
+<div class="ttc" id="group__uartlite_html_gaef49f4399d015532ee90cda2c0045324"><div class="ttname"><a href="group__uartlite.html#gaef49f4399d015532ee90cda2c0045324">XUL_SR_INTR_ENABLED</a></div><div class="ttdeci">#define XUL_SR_INTR_ENABLED</div><div class="ttdoc">Interrupt enabled. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:104</div></div>
+<div class="ttc" id="group__uartlite_html_gac2c823eabd69cc7e34fa76921ea294dd"><div class="ttname"><a href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a></div><div class="ttdeci">#define XUartLite_GetStatusReg(BaseAddress)</div><div class="ttdoc">Returns the contents of the status register. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:235</div></div>
 </div><!-- fragment -->
-<p>Check to see if the interrupt is enabled. </p>
+<p>Checks if the interrupt is enabled. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the interrupt is enabled, FALSE otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group__uartlite.html#gafa2025650e6a0618c0527ca224fe3db3" title="Check to see if the interrupt is enabled. ">XUartLite_IsIntrEnabled(u32 BaseAddress)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group__uartlite.html#gafa2025650e6a0618c0527ca224fe3db3" title="Checks if the interrupt is enabled. ">XUartLite_IsIntrEnabled(u32 BaseAddress)</a>; </dd></dl>
 
 </div>
 </div>
@@ -356,19 +485,20 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>((BaseAddress)) &amp; XUL_SR_RX_FIFO_VALID_DATA) != \</div>
-<div class="line">        XUL_SR_RX_FIFO_VALID_DATA)</div>
-<div class="ttc" id="group__uartlite_html_gac2c823eabd69cc7e34fa76921ea294dd"><div class="ttname"><a href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a></div><div class="ttdeci">#define XUartLite_GetStatusReg(BaseAddress)</div><div class="ttdoc">Get the contents of the status register. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:204</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>((BaseAddress)) &amp; <a class="code" href="group__uartlite.html#ga7a1722c4c799b50641831e1d092d9893">XUL_SR_RX_FIFO_VALID_DATA</a>) != \</div>
+<div class="line">        <a class="code" href="group__uartlite.html#ga7a1722c4c799b50641831e1d092d9893">XUL_SR_RX_FIFO_VALID_DATA</a>)</div>
+<div class="ttc" id="group__uartlite_html_gac2c823eabd69cc7e34fa76921ea294dd"><div class="ttname"><a href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a></div><div class="ttdeci">#define XUartLite_GetStatusReg(BaseAddress)</div><div class="ttdoc">Returns the contents of the status register. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:235</div></div>
+<div class="ttc" id="group__uartlite_html_ga7a1722c4c799b50641831e1d092d9893"><div class="ttname"><a href="group__uartlite.html#ga7a1722c4c799b50641831e1d092d9893">XUL_SR_RX_FIFO_VALID_DATA</a></div><div class="ttdeci">#define XUL_SR_RX_FIFO_VALID_DATA</div><div class="ttdoc">Data in receive FIFO. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:108</div></div>
 </div><!-- fragment -->
-<p>Check to see if the receiver has data. </p>
+<p>Checks if the receiver has data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the receiver is empty, FALSE if there is data present.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group__uartlite.html#gad03599e323029e7b9263f1bd458cd5ce" title="Check to see if the receiver has data. ">XUartLite_IsReceiveEmpty(u32 BaseAddress)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group__uartlite.html#gad03599e323029e7b9263f1bd458cd5ce" title="Checks if the receiver has data. ">XUartLite_IsReceiveEmpty(u32 BaseAddress)</a>; </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">XUartLite_RecvByte()</a>.</p>
 
@@ -387,21 +517,36 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>((BaseAddress)) &amp; XUL_SR_TX_FIFO_FULL) == \</div>
-<div class="line">          XUL_SR_TX_FIFO_FULL)</div>
-<div class="ttc" id="group__uartlite_html_gac2c823eabd69cc7e34fa76921ea294dd"><div class="ttname"><a href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a></div><div class="ttdeci">#define XUartLite_GetStatusReg(BaseAddress)</div><div class="ttdoc">Get the contents of the status register. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:204</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>((BaseAddress)) &amp; <a class="code" href="group__uartlite.html#ga76bf6a9a14882e45364a21693be7e920">XUL_SR_TX_FIFO_FULL</a>) == \</div>
+<div class="line">          <a class="code" href="group__uartlite.html#ga76bf6a9a14882e45364a21693be7e920">XUL_SR_TX_FIFO_FULL</a>)</div>
+<div class="ttc" id="group__uartlite_html_gac2c823eabd69cc7e34fa76921ea294dd"><div class="ttname"><a href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a></div><div class="ttdeci">#define XUartLite_GetStatusReg(BaseAddress)</div><div class="ttdoc">Returns the contents of the status register. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:235</div></div>
+<div class="ttc" id="group__uartlite_html_ga76bf6a9a14882e45364a21693be7e920"><div class="ttname"><a href="group__uartlite.html#ga76bf6a9a14882e45364a21693be7e920">XUL_SR_TX_FIFO_FULL</a></div><div class="ttdeci">#define XUL_SR_TX_FIFO_FULL</div><div class="ttdoc">Transmit FIFO full. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:105</div></div>
 </div><!-- fragment -->
-<p>Check to see if the transmitter is full. </p>
+<p>Checks if the transmitter is full. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the transmitter is full, FALSE otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group__uartlite.html#ga63565710e31e2c07851858e835016086" title="Check to see if the transmitter is full. ">XUartLite_IsTransmitFull(u32 BaseAddress)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: int <a class="el" href="group__uartlite.html#ga63565710e31e2c07851858e835016086" title="Checks if the transmitter is full. ">XUartLite_IsTransmitFull(u32 BaseAddress)</a>; </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">XUartLite_SendByte()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabb9fedf44870b17b62d697b7121167b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUartLite_Out32&#160;&#160;&#160;Xil_Out32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Memory-mapped 32-bit output operation. </p>
 
 </div>
 </div>
@@ -424,22 +569,22 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XUartLite_In32((BaseAddress) + (RegOffset))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gafefad2b4afb25774eb09791ccafb20c8">XUartLite_In32</a>((BaseAddress) + (RegOffset))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read a value from a UartLite register. </p>
+<p>Reads a value from a UartLite register. </p>
 <p>A 32 bit read is performed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the UartLite device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>is the register offset from the base to read from.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the UartLite device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>Register offset from the base to read from.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Data read from the register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6" title="Read a value from a UartLite register. ">XUartLite_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6" title="Reads a value from a UartLite register. ">XUartLite_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, and <a class="el" href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">XUartLite_RecvByte()</a>.</p>
 
@@ -464,22 +609,76 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>((BaseAddress), XUL_CONTROL_REG_OFFSET, (Mask))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>((BaseAddress), <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, (Mask))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the contents of the control register. </p>
+<p>Sets the contents of the control register. </p>
 <p>Use the XUL_CR_* constants defined above to create the bit-mask to be written to the register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the 32-bit value to write to the control register</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>The 32-bit value to write to the control register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf" title="Set the contents of the control register. ">XUartLite_SetControlReg(u32 BaseAddress, u32 Mask)</a>; </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style Signature: void <a class="el" href="group__uartlite.html#gacef0be395bab4e7b6c4bc8c081ebe9cf" title="Sets the contents of the control register. ">XUartLite_SetControlReg(u32 BaseAddress, u32 Mask)</a>; </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9a29be78566c773a9f1ad81bd3fddb5e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUartLite_UpdateStats</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">StatusRegister&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">{                                                               \</div>
+<div class="line">        if ((StatusRegister) &amp; <a class="code" href="group__uartlite.html#ga5614aae83f54065f4ca0aa7cdfc7f737">XUL_SR_OVERRUN_ERROR</a>)            \</div>
+<div class="line">        {                                                       \</div>
+<div class="line">                (InstancePtr)-&gt;Stats.ReceiveOverrunErrors++;    \</div>
+<div class="line">        }                                                       \</div>
+<div class="line">        if ((StatusRegister) &amp; <a class="code" href="group__uartlite.html#ga33cf5a2b5ddc5ae960235ce37cd6c32f">XUL_SR_PARITY_ERROR</a>)             \</div>
+<div class="line">        {                                                       \</div>
+<div class="line">                (InstancePtr)-&gt;Stats.ReceiveParityErrors++;     \</div>
+<div class="line">        }                                                       \</div>
+<div class="line">        if ((StatusRegister) &amp; <a class="code" href="group__uartlite.html#gaa52948dba7418fd7d4a68b47e3770dc1">XUL_SR_FRAMING_ERROR</a>)            \</div>
+<div class="line">        {                                                       \</div>
+<div class="line">                (InstancePtr)-&gt;Stats.ReceiveFramingErrors++;    \</div>
+<div class="line">        }                                                       \</div>
+<div class="line">}</div>
+<div class="ttc" id="group__uartlite_html_ga5614aae83f54065f4ca0aa7cdfc7f737"><div class="ttname"><a href="group__uartlite.html#ga5614aae83f54065f4ca0aa7cdfc7f737">XUL_SR_OVERRUN_ERROR</a></div><div class="ttdeci">#define XUL_SR_OVERRUN_ERROR</div><div class="ttdoc">Overrun error detected. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:103</div></div>
+<div class="ttc" id="group__uartlite_html_gaa52948dba7418fd7d4a68b47e3770dc1"><div class="ttname"><a href="group__uartlite.html#gaa52948dba7418fd7d4a68b47e3770dc1">XUL_SR_FRAMING_ERROR</a></div><div class="ttdeci">#define XUL_SR_FRAMING_ERROR</div><div class="ttdoc">Framing error detected. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:102</div></div>
+<div class="ttc" id="group__uartlite_html_ga33cf5a2b5ddc5ae960235ce37cd6c32f"><div class="ttname"><a href="group__uartlite.html#ga33cf5a2b5ddc5ae960235ce37cd6c32f">XUL_SR_PARITY_ERROR</a></div><div class="ttdeci">#define XUL_SR_PARITY_ERROR</div><div class="ttdoc">Parity error detected. </div><div class="ttdef"><b>Definition:</b> xuartlite_l.h:101</div></div>
+</div><!-- fragment -->
+<p>Updates the statistics of the instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">StatusRegister</td><td>Contents of the UART status register to update the statistics with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Signature: void XUartLite_UpdateStats(<a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> *InstancePtr, u32 StatusRegister) </dd></dl>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>.</p>
 
 </div>
 </div>
@@ -508,25 +707,328 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XUartLite_Out32((BaseAddress) + (RegOffset), (u32)(Data))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__uartlite.html#gabb9fedf44870b17b62d697b7121167b8">XUartLite_Out32</a>((BaseAddress) + (RegOffset), (u32)(Data))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Write a value to a UartLite register. </p>
+<p>Writes a value to a UartLite register. </p>
 <p>A 32 bit write is performed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the UartLite device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>is the register offset from the base to write to. </td></tr>
-    <tr><td class="paramname">Data</td><td>is the data written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the UartLite device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>Register offset from the base to write to. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Data written to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void XUartLite_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>, <a class="el" href="group__uartlite.html#gaaa1b67ac0d2f5bf69ce6084ea49cef39">XUartLite_DisableInterrupt()</a>, <a class="el" href="group__uartlite.html#gaca08a21fa15779ce8dedd2ac9f25971e">XUartLite_EnableInterrupt()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>, <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>, <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>, and <a class="el" href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">XUartLite_SendByte()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga2dad2c534965b54d3775ef0890fca368"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_CONTROL_REG_OFFSET&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control register, write only. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>, <a class="el" href="group__uartlite.html#gaaa1b67ac0d2f5bf69ce6084ea49cef39">XUartLite_DisableInterrupt()</a>, <a class="el" href="group__uartlite.html#gaca08a21fa15779ce8dedd2ac9f25971e">XUartLite_EnableInterrupt()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>, <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>, and <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga0443ad29f8a61065cd45dbef7da37c2c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_CR_ENABLE_INTR&#160;&#160;&#160;0x10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable interrupt. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#gaca08a21fa15779ce8dedd2ac9f25971e">XUartLite_EnableInterrupt()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>, and <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga8cd3b98360644b6d2c6ef946bf5f900b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_CR_FIFO_RX_RESET&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset receive FIFO. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaeef27cec1e7942cf010a2c5aeb2b8da9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_CR_FIFO_TX_RESET&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset transmit FIFO. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gac63c90dc318def62d06ac084b4bb126d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_FIFO_SIZE&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transmit/receive FIFO size in bytes. </p>
+<p>Fixed to 16 in the UartLite IP, not configurable, and not used by the driver. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0e3df7cb0f5abb04b6d391faa34c9098"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_PARITY_EVEN&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Even parity. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3b04347e664ae6d55ebd9d2609191767"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_PARITY_NONE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>No parity. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga12cf047d972692d6f36a88527fc1423e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_PARITY_ODD&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Odd parity. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga438983f426dddf9605cc1c8c395965d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_RX_FIFO_OFFSET&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive FIFO, read only. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, and <a class="el" href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">XUartLite_RecvByte()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaa52948dba7418fd7d4a68b47e3770dc1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_FRAMING_ERROR&#160;&#160;&#160;0x40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Framing error detected. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaef49f4399d015532ee90cda2c0045324"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_INTR_ENABLED&#160;&#160;&#160;0x10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt enabled. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga5614aae83f54065f4ca0aa7cdfc7f737"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_OVERRUN_ERROR&#160;&#160;&#160;0x20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Overrun error detected. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga33cf5a2b5ddc5ae960235ce37cd6c32f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_PARITY_ERROR&#160;&#160;&#160;0x80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parity error detected. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga3eb7c74b86b3aef6a8b8657b612e0537"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_RX_FIFO_FULL&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive FIFO full. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb">XUartLite_InterruptHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga7a1722c4c799b50641831e1d092d9893"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_RX_FIFO_VALID_DATA&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data in receive FIFO. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb">XUartLite_InterruptHandler()</a>, and <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gae2422afb0d57f84bb1890af558741b18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_TX_FIFO_EMPTY&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transmit FIFO empty. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb">XUartLite_InterruptHandler()</a>, <a class="el" href="group__uartlite.html#ga40bc490d296a7a929f1cc5d07bb29b3c">XUartLite_IsSending()</a>, and <a class="el" href="group__uartlite.html#gabfbfaddf9ab531ff85a1c4f9036631aa">XUartLite_SelfTest()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga76bf6a9a14882e45364a21693be7e920"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_SR_TX_FIFO_FULL&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transmit FIFO full. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga13cc5a4dd0ee4939136579f2e8dc9ce5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_STATUS_REG_OFFSET&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Status register, read only. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf9a9355e4872a6de8340af575c2aec72"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_STOP_BITS&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop bits, fixed at 1. </p>
+<p>Baud, parity, and data bits are fixed on a per-instance basis. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5ec51d3bc1f78f00647f39b19a85349e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUL_TX_FIFO_OFFSET&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transmit FIFO, write only. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>, and <a class="el" href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">XUartLite_SendByte()</a>.</p>
 
 </div>
 </div>
@@ -541,7 +1043,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback function. </p>
+<p>Defines the callback function type for send and receive operations. </p>
 <p>The first argument is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. The second argument is the ByteCount which is the number of bytes that actually moved from/to the buffer provided in the _Send/_Receive call. </p>
 
 </div>
@@ -577,13 +1079,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize a <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </p>
-<p>The receive and transmit FIFOs of the UART are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the UART interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</p>
+<p>Initializes a <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </p>
+<p>The receive and transmit FIFOs of the UART are not flushed, so you may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the UART interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </td></tr>
-    <tr><td class="paramname">Config</td><td>is a reference to a structure containing information about a specific UART Lite device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </td></tr>
-    <tr><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Config</td><td>Reference to a structure containing information about a specific UART Lite device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddr</td><td>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</td></tr>
   </table>
   </dd>
 </dl>
@@ -593,7 +1095,7 @@ Variables</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The Config pointer argument is not used by this function, but is provided to keep the function signature consistent with other drivers. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite.html#ac6bbb7a88a8cd4610a9f7d7384551df1">XUartLite::ReceiveBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a92bda98b3f5f8c49eb9dfeb4acef80c5">XUartLite::RecvHandler</a>, <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a2f49dd74fe86187018d13732838537e6">XUartLite::SendHandler</a>, <a class="el" href="group__uartlite.html#ga33651bc4c0c36496d86038d95f39f0cd">XUartLite_ClearStats()</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a5b91bd91cf707bdc8f1ffdb9e82509fc">XUartLite_Buffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_lite.html#ac6bbb7a88a8cd4610a9f7d7384551df1">XUartLite::ReceiveBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a92bda98b3f5f8c49eb9dfeb4acef80c5">XUartLite::RecvHandler</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a7317923470ca4dd5619123985b7f3b03">XUartLite_Buffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_lite___buffer.html#ab27923a6614c5a60548b08c6d5bc469e">XUartLite_Buffer::RequestedBytes</a>, <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a2f49dd74fe86187018d13732838537e6">XUartLite::SendHandler</a>, <a class="el" href="group__uartlite.html#ga33651bc4c0c36496d86038d95f39f0cd">XUartLite_ClearStats()</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, and <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#ga3c83194bde1d39a420bc5ff1b6c8677d">XUartLite_Initialize()</a>.</p>
 
@@ -613,17 +1115,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function zeros the statistics for the given instance. </p>
+<p>Zeros the statistics for the given instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite___stats.html#a419c9a4c527458f4ca8e681fa300160f">XUartLite_Stats::CharactersReceived</a>, <a class="el" href="struct_x_uart_lite___stats.html#a2835184ffdbb9eb956f475f71460c699">XUartLite_Stats::CharactersTransmitted</a>, <a class="el" href="struct_x_uart_lite___stats.html#ad78aa2351dfb161a2651a4229137e5e9">XUartLite_Stats::ReceiveFramingErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a5aa85c00c96797e499040c43f000b458">XUartLite_Stats::ReceiveInterrupts</a>, <a class="el" href="struct_x_uart_lite___stats.html#af82d51917660948cd9fd5860ee1c9e00">XUartLite_Stats::ReceiveOverrunErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a54e9bfc44f29f17020ed86b0eba6da86">XUartLite_Stats::ReceiveParityErrors</a>, and <a class="el" href="struct_x_uart_lite___stats.html#a046cc0881c445ef40f27140e19e2c174">XUartLite_Stats::TransmitInterrupts</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite___stats.html#a419c9a4c527458f4ca8e681fa300160f">XUartLite_Stats::CharactersReceived</a>, <a class="el" href="struct_x_uart_lite___stats.html#a2835184ffdbb9eb956f475f71460c699">XUartLite_Stats::CharactersTransmitted</a>, <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite___stats.html#ad78aa2351dfb161a2651a4229137e5e9">XUartLite_Stats::ReceiveFramingErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a5aa85c00c96797e499040c43f000b458">XUartLite_Stats::ReceiveInterrupts</a>, <a class="el" href="struct_x_uart_lite___stats.html#af82d51917660948cd9fd5860ee1c9e00">XUartLite_Stats::ReceiveOverrunErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a54e9bfc44f29f17020ed86b0eba6da86">XUartLite_Stats::ReceiveParityErrors</a>, <a class="el" href="struct_x_uart_lite.html#a0278b1063cd5e106e8f01a70d2033552">XUartLite::Stats</a>, and <a class="el" href="struct_x_uart_lite___stats.html#a046cc0881c445ef40f27140e19e2c174">XUartLite_Stats::TransmitInterrupts</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>.</p>
 
@@ -643,18 +1143,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function disables the UART interrupt. </p>
-<p>After calling this function, data may still be received by the UART but no interrupt will be generated since the hardware device has no way to disable the receiver.</p>
+<p>Disables the UART interrupt. </p>
+<p>After calling this function, data may still be received by the UART but no interrupt is generated since the hardware device has no way to disable the receiver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, and <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>.</p>
 
 </div>
 </div>
@@ -672,20 +1170,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function enables the UART interrupt such that an interrupt will occur when data is received or data has been transmitted. </p>
-<p>The device contains 16 byte receive and transmit FIFOs such that an interrupt is generated anytime there is data in the receive FIFO and when the transmit FIFO transitions from not empty to empty.</p>
+<p>Enables the UART interrupt. </p>
+<p>An interrupt occurs when data is received or data has been transmitted. The device contains 16 byte receive and transmit FIFOs such that an interrupt is generated anytime there is data in the receive FIFO and when the transmit FIFO transitions from not empty to empty.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, and <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
 
 </div>
 </div>
@@ -703,18 +1199,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function reads the status register and updates the error stats, before returning the status register value. </p>
-<p>The status register is a clear on read register, so the errors if occurred have to be recorded every time status register is read. This function is designed to be an internal function for the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> component such that it may be called from wherever the status register needs to be read from the other driver functions.</p>
+<p>Reads the status register and updates the error stats before returning the status register value. </p>
+<p>The status register is a clear on read register, so the errors if occurred have to be recorded every time the status register is read. This function is designed to be an internal function for the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> component such that it may be called from wherever the status register needs to be read from the other driver functions.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value of status register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of status register. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="group__uartlite.html#gac2c823eabd69cc7e34fa76921ea294dd">XUartLite_GetStatusReg</a>, and <a class="el" href="group__uartlite.html#ga9a29be78566c773a9f1ad81bd3fddb5e">XUartLite_UpdateStats</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb">XUartLite_InterruptHandler()</a>, <a class="el" href="group__uartlite.html#ga40bc490d296a7a929f1cc5d07bb29b3c">XUartLite_IsSending()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>, <a class="el" href="group__uartlite.html#gabfbfaddf9ab531ff85a1c4f9036631aa">XUartLite_SelfTest()</a>, <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>, and <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>.</p>
 
@@ -747,15 +1242,13 @@ Variables</h2></td></tr>
 <p>Returns a snapshot of the current statistics in the structure specified. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </td></tr>
-    <tr><td class="paramname">StatsPtr</td><td>is a pointer to a XUartLiteStats structure to where the statistics are to be copied.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">StatsPtr</td><td>Pointer to a XUartLiteStats structure to where the statistics are to be copied. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite___stats.html#a419c9a4c527458f4ca8e681fa300160f">XUartLite_Stats::CharactersReceived</a>, <a class="el" href="struct_x_uart_lite___stats.html#a2835184ffdbb9eb956f475f71460c699">XUartLite_Stats::CharactersTransmitted</a>, <a class="el" href="struct_x_uart_lite___stats.html#ad78aa2351dfb161a2651a4229137e5e9">XUartLite_Stats::ReceiveFramingErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a5aa85c00c96797e499040c43f000b458">XUartLite_Stats::ReceiveInterrupts</a>, <a class="el" href="struct_x_uart_lite___stats.html#af82d51917660948cd9fd5860ee1c9e00">XUartLite_Stats::ReceiveOverrunErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a54e9bfc44f29f17020ed86b0eba6da86">XUartLite_Stats::ReceiveParityErrors</a>, and <a class="el" href="struct_x_uart_lite___stats.html#a046cc0881c445ef40f27140e19e2c174">XUartLite_Stats::TransmitInterrupts</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite___stats.html#a419c9a4c527458f4ca8e681fa300160f">XUartLite_Stats::CharactersReceived</a>, <a class="el" href="struct_x_uart_lite___stats.html#a2835184ffdbb9eb956f475f71460c699">XUartLite_Stats::CharactersTransmitted</a>, <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite___stats.html#ad78aa2351dfb161a2651a4229137e5e9">XUartLite_Stats::ReceiveFramingErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a5aa85c00c96797e499040c43f000b458">XUartLite_Stats::ReceiveInterrupts</a>, <a class="el" href="struct_x_uart_lite___stats.html#af82d51917660948cd9fd5860ee1c9e00">XUartLite_Stats::ReceiveOverrunErrors</a>, <a class="el" href="struct_x_uart_lite___stats.html#a54e9bfc44f29f17020ed86b0eba6da86">XUartLite_Stats::ReceiveParityErrors</a>, <a class="el" href="struct_x_uart_lite.html#a0278b1063cd5e106e8f01a70d2033552">XUartLite::Stats</a>, and <a class="el" href="struct_x_uart_lite___stats.html#a046cc0881c445ef40f27140e19e2c174">XUartLite_Stats::TransmitInterrupts</a>.</p>
 
 </div>
 </div>
@@ -783,12 +1276,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize a <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </p>
-<p>The receive and transmit FIFOs of the UART are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the UART interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</p>
+<p>Initializes a <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </p>
+<p>The receive and transmit FIFOs of the UART are not flushed, so they may be flushed if desired. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the UART interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -799,9 +1292,9 @@ Variables</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite___config.html#a8afe6e1ad74e83584e757bebddbf7a30">XUartLite_Config::RegBaseAddr</a>, and <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite___config.html#a8afe6e1ad74e83584e757bebddbf7a30">XUartLite_Config::RegBaseAddr</a>, <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>, and <a class="el" href="group__uartlite.html#ga79efa4208bc789a3eb1c7d91ff17671f">XUartLite_LookupConfig()</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>, and <a class="el" href="xuartlite__selftest__example_8c.html#a262dc5e981799ecf2b5463319f94452f">UartLiteSelfTestExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>, and <a class="el" href="xuartlite__selftest__example_8c.html#a262dc5e981799ecf2b5463319f94452f">UartLiteSelfTestExample()</a>.</p>
 
 </div>
 </div>
@@ -819,20 +1312,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the UART lite driver. </p>
-<p>It must be connected to an interrupt system by the user such that it is called when an interrupt for any UART lite occurs. This function does not save or restore the processor context such that the user must ensure this occurs.</p>
+<p>Handles interrupts for the UART Lite driver. </p>
+<p>It must be connected to an interrupt system such that it is called when an interrupt for any UART lite occurs. This function does not save or restore the processor context such that the caller must ensure this occurs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>contains a pointer to the instance of the UART that the interrupt is for.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the instance of the UART that the interrupt is for. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, and <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite___buffer.html#ab27923a6614c5a60548b08c6d5bc469e">XUartLite_Buffer::RequestedBytes</a>, <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga3eb7c74b86b3aef6a8b8657b612e0537">XUL_SR_RX_FIFO_FULL</a>, <a class="el" href="group__uartlite.html#ga7a1722c4c799b50641831e1d092d9893">XUL_SR_RX_FIFO_VALID_DATA</a>, and <a class="el" href="group__uartlite.html#gae2422afb0d57f84bb1890af558741b18">XUL_SR_TX_FIFO_EMPTY</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
 
 </div>
 </div>
@@ -850,18 +1341,48 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function determines if the specified UART is sending data. </p>
+<p>Determines if the specified UART is sending data. </p>
 <p>If the transmitter register is not empty, it is sending data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A value of TRUE if the UART is sending data, otherwise FALSE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A value of TRUE if the UART is sending data, otherwise FALSE. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>.</p>
+<p>References <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, and <a class="el" href="group__uartlite.html#gae2422afb0d57f84bb1890af558741b18">XUL_SR_TX_FIFO_EMPTY</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga79efa4208bc789a3eb1c7d91ff17671f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a> * XUartLite_LookupConfig </td>
+          <td>(</td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Looks up the device configuration based on the unique device ID or base address. </p>
+<p>The XUartLite_ConfigTable[] contains the configuration info for each device in the system.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <a class="el" href="xuartlite_8h.html">xuartlite.h</a> for the definition of <a class="el" href="struct_x_uart_lite___config.html" title="Holds configuration information for the UART Lite device. ">XUartLite_Config</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+
+<p>References <a class="el" href="struct_x_uart_lite___config.html#a8d5c1bec555a07a93d2b793beb6d089d">XUartLite_Config::Name</a>, and <a class="el" href="group__uartlite.html#ga6433869fe2d0dd5e9282352ca2fce41f">XUartLite_ConfigTable</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, and <a class="el" href="group__uartlite.html#ga3c83194bde1d39a420bc5ff1b6c8677d">XUartLite_Initialize()</a>.</p>
 
 </div>
 </div>
@@ -879,21 +1400,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function receives a buffer that has been previously specified by setting up the instance variables of the instance. </p>
-<p>This function is designed to be an internal function for the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
-<p>This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer. This function is designed for either polled or interrupt driven modes. It is non-blocking such that it will return if there is no data has already received by the UART.</p>
-<p>In a polled mode, this function will only receive as much data as the UART can buffer, either in the receiver or in the FIFO if present and enabled. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</p>
-<p>In interrupt mode, this function will start receiving and then the interrupt handler of the driver will continue until the buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</p>
+<p>Receives a previously specified buffer of data from the UART. </p>
+<p>The buffer is specified beforehand by setting up the instance variables of the instance. This function is designed to be an internal function for the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
+<p>It attempts to receive a specified number of bytes of data from the UART and store it into the specified buffer. It is designed for either polled or interrupt driven modes. It is non-blocking such that it returns if there is no data already received by the UART.</p>
+<p>In a polled mode, this function only receives as much data as the UART can buffer, either in the receiver or in the FIFO if present and enabled. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</p>
+<p>In interrupt mode, this function starts receiving and then the interrupt handler of the driver continues until the buffer has been received. A callback function, as specified by the application, is called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes received.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes received. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite___stats.html#a419c9a4c527458f4ca8e681fa300160f">XUartLite_Stats::CharactersReceived</a>, <a class="el" href="struct_x_uart_lite.html#ac6bbb7a88a8cd4610a9f7d7384551df1">XUartLite::ReceiveBuffer</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite___stats.html#a419c9a4c527458f4ca8e681fa300160f">XUartLite_Stats::CharactersReceived</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a5b91bd91cf707bdc8f1ffdb9e82509fc">XUartLite_Buffer::NextBytePtr</a>, <a class="el" href="group__xuartlite__intr__example.html#gafbd019bfda4e60925a20aa5762688cca">ReceiveBuffer</a>, <a class="el" href="struct_x_uart_lite.html#ac6bbb7a88a8cd4610a9f7d7384551df1">XUartLite::ReceiveBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a7317923470ca4dd5619123985b7f3b03">XUartLite_Buffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_lite.html#a0278b1063cd5e106e8f01a70d2033552">XUartLite::Stats</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>, <a class="el" href="group__uartlite.html#ga438983f426dddf9605cc1c8c395965d0">XUL_RX_FIFO_OFFSET</a>, and <a class="el" href="group__uartlite.html#ga7a1722c4c799b50641831e1d092d9893">XUL_SR_RX_FIFO_VALID_DATA</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>.</p>
 
@@ -929,24 +1449,24 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer. </p>
-<p>This function is designed for either polled or interrupt driven modes. It is non-blocking such that it will return if no data has already received by the UART.</p>
-<p>In a polled mode, this function will only receive as much data as the UART can buffer in the FIFO. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</p>
-<p>In interrupt mode, this function will start receiving and then the interrupt handler of the driver will continue receiving data until the buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</p>
+<p>Receives a specified number of bytes of data from the UART. </p>
+<p>This function attempts to receive the data and store it into the specified buffer. It is designed for either polled or interrupt driven modes. It is non-blocking such that it returns if no data has already been received by the UART.</p>
+<p>In a polled mode, this function only receives as much data as the UART can buffer in the FIFO. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</p>
+<p>In interrupt mode, this function starts receiving and then the interrupt handler of the driver continues receiving data until the buffer has been received. A callback function, as specified by the application, is called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </td></tr>
-    <tr><td class="paramname">DataBufferPtr</td><td>is pointer to buffer for data to be received into. </td></tr>
-    <tr><td class="paramname">NumBytes</td><td>is the number of bytes to be received. A value of zero will stop a previous receive operation that is in progress in interrupt mode.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">DataBufferPtr</td><td>Pointer to buffer to receive data into. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBytes</td><td>Number of bytes to receive. A value of zero stops a previous receive operation that is in progress in interrupt mode.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of bytes received.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite.html#ac6bbb7a88a8cd4610a9f7d7384551df1">XUartLite::ReceiveBuffer</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a5b91bd91cf707bdc8f1ffdb9e82509fc">XUartLite_Buffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_lite.html#ac6bbb7a88a8cd4610a9f7d7384551df1">XUartLite::ReceiveBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a7317923470ca4dd5619123985b7f3b03">XUartLite_Buffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_lite___buffer.html#ab27923a6614c5a60548b08c6d5bc469e">XUartLite_Buffer::RequestedBytes</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, and <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, and <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, and <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>.</p>
 
 </div>
 </div>
@@ -964,18 +1484,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions receives a single byte using the UART. </p>
+<p>Receives a single byte using the UART. </p>
 <p>It is blocking in that it waits for the receiver to become non-empty before it reads from the receive register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The byte of data received.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The byte of data received. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#gad03599e323029e7b9263f1bd458cd5ce">XUartLite_IsReceiveEmpty</a>, and <a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>.</p>
+<p>References <a class="el" href="group__uartlite.html#gad03599e323029e7b9263f1bd458cd5ce">XUartLite_IsReceiveEmpty</a>, <a class="el" href="group__uartlite.html#ga41431b69c8c2c2829277a851d70b7bf6">XUartLite_ReadReg</a>, and <a class="el" href="group__uartlite.html#ga438983f426dddf9605cc1c8c395965d0">XUL_RX_FIFO_OFFSET</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartlite__low__level__example_8c.html#ac1dca50db3a0c3d10cc190006574097a">UartLiteLowLevelExample()</a>.</p>
 
@@ -995,18 +1514,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function resets the FIFOs, both transmit and receive, of the UART such that they are emptied. </p>
-<p>Since the UART does not have any way to disable it from receiving data, it may be necessary for the application to reset the FIFOs to get rid of any unwanted data.</p>
+<p>Resets the FIFOs, both transmit and receive, of the UART. </p>
+<p>The FIFOs are emptied. Since the UART does not have any way to disable it from receiving data, it may be necessary for the application to reset the FIFOs to get rid of any unwanted data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance .</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, <a class="el" href="group__uartlite.html#ga8cd3b98360644b6d2c6ef946bf5f900b">XUL_CR_FIFO_RX_RESET</a>, <a class="el" href="group__uartlite.html#gaeef27cec1e7942cf010a2c5aeb2b8da9">XUL_CR_FIFO_TX_RESET</a>, and <a class="el" href="group__uartlite.html#gaef49f4399d015532ee90cda2c0045324">XUL_SR_INTR_ENABLED</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#gabfbfaddf9ab531ff85a1c4f9036631aa">XUartLite_SelfTest()</a>.</p>
 
@@ -1030,20 +1547,19 @@ Variables</h2></td></tr>
 <p>Since there is no way to perform a loopback in the hardware, this test can only check the state of the status register to verify it is correct. This test assumes that the hardware device is still in its reset state, but has been initialized with the Initialize function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the self-test was successful.</li>
-<li>XST_FAILURE if the self-test failed, the status register value was not correct</li>
+<li>XST_FAILURE if the self-test failed, the status register value was not correct. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, and <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga7932155bf2bc603fc0a972f5aefec77e">XUartLite_ResetFifos()</a>, and <a class="el" href="group__uartlite.html#gae2422afb0d57f84bb1890af558741b18">XUL_SR_TX_FIFO_EMPTY</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>, and <a class="el" href="xuartlite__selftest__example_8c.html#a262dc5e981799ecf2b5463319f94452f">UartLiteSelfTestExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>, and <a class="el" href="xuartlite__selftest__example_8c.html#a262dc5e981799ecf2b5463319f94452f">UartLiteSelfTestExample()</a>.</p>
 
 </div>
 </div>
@@ -1077,24 +1593,24 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sends the specified buffer of data using the UART in either polled or interrupt driven modes. </p>
-<p>This function is non-blocking such that it will return before the data has been sent by the UART. If the UART is busy sending data, it will return and indicate zero bytes were sent.</p>
-<p>In a polled mode, this function will only send as much data as the UART can buffer in the FIFO. The application may need to call it repeatedly to send a buffer.</p>
-<p>In interrupt mode, this function will start sending the specified buffer and then the interrupt handler of the driver will continue sending data until the buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending the buffer.</p>
+<p>Sends the specified buffer of data using the UART. </p>
+<p>This function operates in either polled or interrupt driven modes. It is non-blocking such that it returns before the data has been sent by the UART. If the UART is busy sending data, it returns and indicates zero bytes were sent.</p>
+<p>In a polled mode, this function only sends as much data as the UART can buffer in the FIFO. The application may need to call it repeatedly to send a buffer.</p>
+<p>In interrupt mode, this function starts sending the specified buffer and then the interrupt handler of the driver continues sending data until the buffer has been sent. A callback function, as specified by the application, is called to indicate the completion of sending the buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </td></tr>
-    <tr><td class="paramname">DataBufferPtr</td><td>is pointer to a buffer of data to be sent. </td></tr>
-    <tr><td class="paramname">NumBytes</td><td>contains the number of bytes to be sent. A value of zero will stop a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO will be sent.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DataBufferPtr</td><td>Pointer to a buffer of data to send. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBytes</td><td>Number of bytes to send. A value of zero stops a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO is sent.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of bytes actually sent.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a5b91bd91cf707bdc8f1ffdb9e82509fc">XUartLite_Buffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a7317923470ca4dd5619123985b7f3b03">XUartLite_Buffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_lite___buffer.html#ab27923a6614c5a60548b08c6d5bc469e">XUartLite_Buffer::RequestedBytes</a>, <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, and <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, and <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>, and <a class="el" href="xuartlite__polled__example_8c.html#aafae45d01390b1f13b15fbcdaac8a448">UartLitePolledExample()</a>.</p>
 
 </div>
 </div>
@@ -1112,21 +1628,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sends a buffer that has been previously specified by setting up the instance variables of the instance. </p>
-<p>This function is designed to be an internal function for the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
-<p>This function sends the specified buffer of data to the UART in either polled or interrupt driven modes. This function is non-blocking such that it will return before the data has been sent by the UART.</p>
-<p>In a polled mode, this function will only send as much data as the UART can buffer, either in the transmitter or in the FIFO if present and enabled. The application may need to call it repeatedly to send a buffer.</p>
-<p>In interrupt mode, this function will start sending the specified buffer and then the interrupt handler of the driver will continue until the buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending the buffer.</p>
+<p>Sends a previously specified buffer of data to the UART. </p>
+<p>The buffer is specified beforehand by setting up the instance variables of the instance. This function is designed to be an internal function for the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
+<p>It sends the specified buffer of data to the UART in either polled or interrupt driven modes. It is non-blocking such that it returns before the data has been sent by the UART.</p>
+<p>In a polled mode, this function only sends as much data as the UART can buffer, either in the transmitter or in the FIFO if present and enabled. The application may need to call it repeatedly to send a buffer.</p>
+<p>In interrupt mode, this function starts sending the specified buffer and then the interrupt handler of the driver continues until the buffer has been sent. A callback function, as specified by the application, is called to indicate the completion of sending the buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NumBytes is the number of bytes actually sent (put into the UART transmitter and/or FIFO).</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes actually sent (put into the UART transmitter and/or FIFO). </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite___stats.html#a2835184ffdbb9eb956f475f71460c699">XUartLite_Stats::CharactersTransmitted</a>, <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite___stats.html#a2835184ffdbb9eb956f475f71460c699">XUartLite_Stats::CharactersTransmitted</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a5b91bd91cf707bdc8f1ffdb9e82509fc">XUartLite_Buffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_lite.html#a08ccbc82a65cff09837a71aa320eda30">XUartLite::RegBaseAddress</a>, <a class="el" href="struct_x_uart_lite___buffer.html#a7317923470ca4dd5619123985b7f3b03">XUartLite_Buffer::RemainingBytes</a>, <a class="el" href="group__xuartlite__intr__example.html#ga21a34b7f8d09398f53237562bd1f579b">SendBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a2f1181b625ce924d3eea822bb7d1b048">XUartLite::SendBuffer</a>, <a class="el" href="struct_x_uart_lite.html#a0278b1063cd5e106e8f01a70d2033552">XUartLite::Stats</a>, <a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR()</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, <a class="el" href="group__uartlite.html#ga2dad2c534965b54d3775ef0890fca368">XUL_CONTROL_REG_OFFSET</a>, <a class="el" href="group__uartlite.html#ga0443ad29f8a61065cd45dbef7da37c2c">XUL_CR_ENABLE_INTR</a>, <a class="el" href="group__uartlite.html#ga76bf6a9a14882e45364a21693be7e920">XUL_SR_TX_FIFO_FULL</a>, and <a class="el" href="group__uartlite.html#ga5ec51d3bc1f78f00647f39b19a85349e">XUL_TX_FIFO_OFFSET</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>.</p>
 
@@ -1156,19 +1671,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sends a single byte using the UART. </p>
+<p>Sends a single byte using the UART. </p>
 <p>It is blocking in that it waits for the transmitter to become non-full before it writes the byte to the transmit register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device </td></tr>
-    <tr><td class="paramname">Data</td><td>is the byte of data to send</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Byte of data to send. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__uartlite.html#ga63565710e31e2c07851858e835016086">XUartLite_IsTransmitFull</a>, and <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>.</p>
+<p>References <a class="el" href="group__uartlite.html#ga63565710e31e2c07851858e835016086">XUartLite_IsTransmitFull</a>, <a class="el" href="group__uartlite.html#gacb96d217d7b77e8d517e9556d421db95">XUartLite_WriteReg</a>, and <a class="el" href="group__uartlite.html#ga5ec51d3bc1f78f00647f39b19a85349e">XUL_TX_FIFO_OFFSET</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartlite__low__level__example_8c.html#ac1dca50db3a0c3d10cc190006574097a">UartLiteLowLevelExample()</a>.</p>
 
@@ -1204,22 +1717,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the handler that will be called when an event (interrupt) occurs in the driver. </p>
-<p>The purpose of the handler is to allow application specific processing to be performed.</p>
+<p>Sets the receive callback handler. </p>
+<p>This function sets the handler called when an event (interrupt) occurs in the driver. The handler allows application-specific processing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance. </td></tr>
-    <tr><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>Pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Upper layer callback reference passed back when the callback function is invoked.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver doesn't know what it is (nor should it) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver does not know what it is (nor should it) </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite.html#ab174da82712959f718ee725216a85bc1">XUartLite::RecvCallBackRef</a>, and <a class="el" href="struct_x_uart_lite.html#a92bda98b3f5f8c49eb9dfeb4acef80c5">XUartLite::RecvHandler</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite.html#ab174da82712959f718ee725216a85bc1">XUartLite::RecvCallBackRef</a>, and <a class="el" href="struct_x_uart_lite.html#a92bda98b3f5f8c49eb9dfeb4acef80c5">XUartLite::RecvHandler</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
 
 </div>
 </div>
@@ -1253,22 +1765,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the handler that will be called when an event (interrupt) occurs in the driver. </p>
-<p>The purpose of the handler is to allow application specific processing to be performed.</p>
+<p>Sets the send callback handler. </p>
+<p>This function sets the handler called when an event (interrupt) occurs in the driver. The handler allows application-specific processing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_lite.html" title="The XUartLite driver instance data. ">XUartLite</a> instance . </td></tr>
-    <tr><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>Pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Upper layer callback reference passed back when the callback function is invoked.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver doesn't know what it is (nor should it) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver does not know what it is (nor should it) </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_lite.html#a4fbf0298a548fd9c5ac1024a9e2c8f70">XUartLite::SendCallBackRef</a>, and <a class="el" href="struct_x_uart_lite.html#a2f49dd74fe86187018d13732838537e6">XUartLite::SendHandler</a>.</p>
+<p>References <a class="el" href="struct_x_uart_lite.html#ad69736dd05545bcc20417637f4f19c21">XUartLite::IsReady</a>, <a class="el" href="struct_x_uart_lite.html#a4fbf0298a548fd9c5ac1024a9e2c8f70">XUartLite::SendCallBackRef</a>, and <a class="el" href="struct_x_uart_lite.html#a2f49dd74fe86187018d13732838537e6">XUartLite::SendHandler</a>.</p>
 
-<p>Referenced by <a class="el" href="xuartlite__intr__example_8c.html#a8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xuartlite__intr__tapp__example.html#ga8079702e33795e4de685d18352796beb">UartLiteIntrExample()</a>.</p>
 
 </div>
 </div>
@@ -1294,7 +1805,10 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">}</div>
 </div><!-- fragment -->
-<p>The configuration table for UART Lite devices. </p>
+<p>Holds the configuration table for UART Lite devices. </p>
+<p>Holds the configuration entry for each UART Lite instance. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga79efa4208bc789a3eb1c7d91ff17671f">XUartLite_LookupConfig()</a>.</p>
 
 </div>
 </div>
@@ -1308,7 +1822,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The configuration table for UART Lite devices. </p>
+<p>Holds the configuration entry for each UART Lite instance. </p>
+<p>Holds the configuration entry for each UART Lite instance. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#ga79efa4208bc789a3eb1c7d91ff17671f">XUartLite_LookupConfig()</a>.</p>
 
 </div>
 </div>

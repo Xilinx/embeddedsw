@@ -107,12 +107,34 @@ $(document).ready(function(){initNavTree('xnandps__onfi_8h.html','');});
 <div class="title">xnandps_onfi.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xnandps_8h.html">xnandps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements ONFI specific commands to read parameter page information. </p>
+<p>This file implements ONFI specific commands which are used to get the parameter page information.</p>
+<p>The following commands are supported currently.</p>
+<ul>
+<li>Reset</li>
+<li>Read ID</li>
+<li>READ Parameter Page</li>
+<li>Read Status</li>
+<li>Change Read Column</li>
+<li>Get Features</li>
+<li>Set Features</li>
+</ul>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date          Changes
+</p>
+<hr/>
+<p>
+1.00a nm     12/10/2010  First release
+1.04a nm     04/25/2013  Implemented PR# 699544. Added page cache read
+                   and program commands to ONFI command list.
+2.12  vn     09/29/26    Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xnandps_8h.html">xnandps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_onfi_nand___geometry.html">OnfiNand_Geometry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ONFI 1.0 support.  <a href="struct_onfi_nand___geometry.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes the ONFI 1.0 parameter page structure.  <a href="struct_onfi_nand___geometry.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -266,7 +288,7 @@ Enumerations</h2></td></tr>
 <a class="el" href="group__nandps.html#ggac876c6eb0d6c95869f0a68dccd44b975a917fd89fc6851edcf198f44f133ddf3a">PAGE_CACHE_PROGRAM</a>
 <br/>
  }</td></tr>
-<tr class="memdesc:gac876c6eb0d6c95869f0a68dccd44b975"><td class="mdescLeft">&#160;</td><td class="mdescRight">This enum defines the onfi commands.  <a href="group__nandps.html#gac876c6eb0d6c95869f0a68dccd44b975">More...</a><br/></td></tr>
+<tr class="memdesc:gac876c6eb0d6c95869f0a68dccd44b975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerates the ONFI commands.  <a href="group__nandps.html#gac876c6eb0d6c95869f0a68dccd44b975">More...</a><br/></td></tr>
 <tr class="separator:gac876c6eb0d6c95869f0a68dccd44b975"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -10,5 +10,6 @@ var struct_x_spi_ps =
     [ "RequestedBytes", "struct_x_spi_ps.html#a85a5e324de43e019ef15666bdc0685cd", null ],
     [ "SendBufferPtr", "struct_x_spi_ps.html#a827b441c0132c3ab87377efb81a027f2", null ],
     [ "SlaveSelect", "struct_x_spi_ps.html#a8d79fad73f829520b891e94b6e4536e1", null ],
+    [ "StatusHandler", "struct_x_spi_ps.html#a860dddb87083c72fdc1b8de7c3ad4425", null ],
     [ "StatusRef", "struct_x_spi_ps.html#a012e4128cb1e93e765a8551512d91a77", null ]
 ];

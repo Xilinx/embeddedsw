@@ -3,7 +3,9 @@ var xresetps_8h =
     [ "XRESETPS_CHK_ASSERT_SUPPORT", "xresetps_8h.html#gabf462cbc24020a687d206a711e8d0a82", null ],
     [ "XRESETPS_CHK_PULSE_SUPPORT", "xresetps_8h.html#ga4e0e8086d2165c87d0e772870efb69ca", null ],
     [ "XRESETPS_CHK_STATUS_SUPPORT", "xresetps_8h.html#ga3448c0dcb52799633e53c8cfd8d3dca9", null ],
+    [ "XRESETPS_NOSUP", "xresetps_8h.html#gada067b524f80e6460f153c1b5542d4e8", null ],
     [ "XResetPs_ReadReg", "xresetps_8h.html#gaaa78ef37a8192ac9c0473ffccc38eb65", null ],
+    [ "XRESETPS_SUP", "xresetps_8h.html#gae2b7824db50dc2343030f7640e4a4244", null ],
     [ "XRESETPS_SUPPORTED_ACT", "xresetps_8h.html#gac84616329b152d481719ec191489af72", null ],
     [ "XResetPs_WriteReg", "xresetps_8h.html#ga50fdb585f27cbd1efa5730724431c2fc", null ],
     [ "XResetPs_PulseTypes", "xresetps_8h.html#ga5a52351208e345e52c54b29dffa0b8ee", [

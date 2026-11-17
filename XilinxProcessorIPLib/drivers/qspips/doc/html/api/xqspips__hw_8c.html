@@ -105,7 +105,18 @@ $(document).ready(function(){initNavTree('xqspips__hw_8c.html','');});
 <div class="title">xqspips_hw.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xqspips__hw_8h.html">xqspips_hw.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Contains low level functions, primarily reset related. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+2.03a hk  09/17/13 First release
+3.1   hk  06/19/14 When writing to the configuration register, set/reset
+                   required bits leaving reserved bits untouched. CR# 796813.
+3.16  vn  08/26/26 Fix Doxygen warnings
+3.16  tb  09/30/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspips__hw_8h.html">xqspips_hw.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xqspips_8h.html">xqspips.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -113,17 +124,17 @@ Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Pre-scaler value for divided by 4</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Pre-scaler value for divided by 4 </p>
 </div></td></tr>
-<tr class="memitem:gabb60adb143551fb7c555c3dd4b90e043"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gabb60adb143551fb7c555c3dd4b90e043"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XQSPIPS_CR_PRESC_DIV_BY_4</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:gabb60adb143551fb7c555c3dd4b90e043"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__api.html#gabb60adb143551fb7c555c3dd4b90e043">XQSPIPS_CR_PRESC_DIV_BY_4</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:gabb60adb143551fb7c555c3dd4b90e043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-scaler value for divided by 4.  <a href="group__qspips__api.html#gabb60adb143551fb7c555c3dd4b90e043">More...</a><br/></td></tr>
 <tr class="separator:gabb60adb143551fb7c555c3dd4b90e043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2732af9facd00339b5dc96c83d74a355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips.html#ga2732af9facd00339b5dc96c83d74a355">XQspiPs_ResetHw</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga2732af9facd00339b5dc96c83d74a355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets QSPI by disabling the device and bringing it to reset state through register writes.  <a href="group__qspips.html#ga2732af9facd00339b5dc96c83d74a355">More...</a><br/></td></tr>
+<tr class="memitem:ga2732af9facd00339b5dc96c83d74a355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__api.html#ga2732af9facd00339b5dc96c83d74a355">XQspiPs_ResetHw</a> (u32 BaseAddress)</td></tr>
+<tr class="memdesc:ga2732af9facd00339b5dc96c83d74a355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets QSPI by disabling the device and bringing it to reset state through register writes.  <a href="group__qspips__api.html#ga2732af9facd00339b5dc96c83d74a355">More...</a><br/></td></tr>
 <tr class="separator:ga2732af9facd00339b5dc96c83d74a355"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad769e09710e28c9876cebf678f6e890c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips.html#gad769e09710e28c9876cebf678f6e890c">XQspiPs_LinearInit</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:gad769e09710e28c9876cebf678f6e890c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes QSPI to Linear mode with default QSPI boot settings.  <a href="group__qspips.html#gad769e09710e28c9876cebf678f6e890c">More...</a><br/></td></tr>
+<tr class="memitem:gad769e09710e28c9876cebf678f6e890c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__api.html#gad769e09710e28c9876cebf678f6e890c">XQspiPs_LinearInit</a> (u32 BaseAddress)</td></tr>
+<tr class="memdesc:gad769e09710e28c9876cebf678f6e890c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes QSPI to Linear mode with default QSPI boot settings.  <a href="group__qspips__api.html#gad769e09710e28c9876cebf678f6e890c">More...</a><br/></td></tr>
 <tr class="separator:gad769e09710e28c9876cebf678f6e890c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

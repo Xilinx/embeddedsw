@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusb__msc_8c" kind="file">
+    <compoundname>xusb_msc.c</compoundname>
+    <includes refid="xusb__msc_8h" local="yes">xusb_msc.h</includes>
+    <incdepgraph>
+      <node id="231">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="232">
+        <label>xil_io.h</label>
+      </node>
+      <node id="229">
+        <label>xusb_l.h</label>
+        <link refid="xusb__l_8h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="228">
+        <label>xusb.h</label>
+        <link refid="xusb_8h"/>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="226">
+        <label>xusb_msc.c</label>
+        <link refid="xusb_msc.c"/>
+        <childnode refid="227" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>xusb_msc.h</label>
+        <link refid="xusb__msc_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+      </node>
+      <node id="233">
+        <label>xstatus.h</label>
+      </node>
+      <node id="230">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xusb__msc_8c_1a9d923a3c2e527279267bc7e04fb3d999" prot="public" static="no">
+        <name>SENSE_RESPONSE_CODE_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__msc_8c_1ae21584f3b25c8831365374209db3dd65" prot="public" static="no">
+        <name>SENSE_KEY_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__msc_8c_1aa348f3d83bb805302effc8189858a3dc" prot="public" static="no">
+        <name>SENSE_ADDITIONAL_LENGTH_OFFSET</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__msc_8c_1a821e4f3d68f738a0783a3fff391c1c31" prot="public" static="no">
+        <name>SENSE_ASC_OFFSET</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__msc_8c_1abf3dff72affb2f98475a8b5094ab6aa8" prot="public" static="no">
+        <name>SENSE_ASCQ_OFFSET</name>
+        <initializer>13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__msc_8c_1afa5035ca63983d98ca7ce8db7511b8fa" prot="public" static="no">
+        <name>SENSE_RESPONSE_CODE</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusb__msc_8c_1ab93db1e1c4186e7168d324288ef88c2e" prot="public" static="no">
+        <name>SENSE_ADDITIONAL_LENGTH</name>
+        <initializer>(XUSB_MSC_SENSE_LEN - 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xusb__msc_8c_1ac92528d9ca5362f261319f90c279935f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsb_MsRejectCommand</definition>
+        <argsstring>(XUsb *InstancePtr, u8 EndPoint, u32 TransferLength, u8 *CswStatus, u32 *CswResidue, volatile u32 *BlockCount, volatile u8 *CmdFlag, volatile u8 *SendStatus)</argsstring>
+        <name>XUsb_MsRejectCommand</name>
+        <param>
+          <type><ref refid="struct_x_usb" kindref="compound">XUsb</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EndPoint</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TransferLength</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>CswStatus</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CswResidue</declname>
+        </param>
+        <param>
+          <type>volatile u32 *</type>
+          <declname>BlockCount</declname>
+        </param>
+        <param>
+          <type>volatile u8 *</type>
+          <declname>CmdFlag</declname>
+        </param>
+        <param>
+          <type>volatile u8 *</type>
+          <declname>SendStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function rejects a mass storage command that cannot be serviced. </para>        </briefdescription>
+        <detaileddescription>
+<para>The command fails with the whole requested data length as residue and the data phase endpoint is halted: bulk IN for READ, bulk OUT for WRITE. The status is then queued on bulk IN by the caller, where the core holds it until the host clears the halt when bulk IN is the stalled endpoint.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_usb" kindref="compound">XUsb</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">EndPoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the endpoint carrying the data phase. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">TransferLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data transfer length from the Command Block Wrapper. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">CswStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the status field of the Command Status Wrapper. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">CswResidue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the data residue field of the Command Status Wrapper. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">BlockCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the pending transfer block count. It is cleared when non-NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">CmdFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the command-in-progress flag. It is cleared when non-NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">SendStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the flag that requests the status phase. It is set when non-NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Pass NULL for SendStatus when the example does not keep that flag. The caller queues the CSW and records it only after that send succeeds. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="75" bodyend="100"/>
+        <references refid="group__usb_1gab38009aad2e0011e0bd392f064edeec7" compoundref="xusb__endpoint_8c" startline="120" endline="135">XUsb_EpStall</references>
+        <referencedby refid="xusb__storage_8h_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__dma__intr__storage_8c" startline="876" endline="988">Read10</referencedby>
+        <referencedby refid="xusb__storage_8h_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__dma__intr__storage_8c" startline="1001" endline="1043">Write10</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xusb__msc_8c_1a885bed3c7959d70f572aca1b04b7f42d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsb_MsSetSense</definition>
+        <argsstring>(u8 *SenseData, u8 SenseKey, u8 Asc, u8 Ascq)</argsstring>
+        <name>XUsb_MsSetSense</name>
+        <param>
+          <type>u8 *</type>
+          <declname>SenseData</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SenseKey</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Asc</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Ascq</declname>
+        </param>
+        <briefdescription>
+<para>This function loads the fixed format sense data returned by the next REQUEST SENSE command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">SenseData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XUSB_MSC_SENSE_LEN byte sense data buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SenseKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sense key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Asc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the additional sense code. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Ascq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the additional sense code qualifier.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c" bodystart="118" bodyend="133"/>
+        <referencedby refid="xusb__storage_8c_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__storage_8c" startline="603" endline="853">ProcessRxCmd</referencedby>
+        <referencedby refid="xusb__storage_8c_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__storage_8c" startline="866" endline="996">Read10</referencedby>
+        <referencedby refid="xusb__storage_8c_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__storage_8c" startline="1009" endline="1144">Write10</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the mass-storage class helpers used by the mass-storage examples. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   sm   10/01/26 First release. Added <ref refid="xusb__msc_8c_1ac92528d9ca5362f261319f90c279935f" kindref="member">XUsb_MsRejectCommand()</ref> and
+                <ref refid="xusb__msc_8c_1a885bed3c7959d70f572aca1b04b7f42d" kindref="member">XUsb_MsSetSense()</ref>.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__msc_8h" kindref="compound">xusb_msc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>Fixed<sp/>format<sp/>sense<sp/>data<sp/>byte<sp/>offsets<sp/>and<sp/>values.</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SENSE_RESPONSE_CODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SENSE_KEY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SENSE_ADDITIONAL_LENGTH_OFFSET<sp/><sp/>7</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SENSE_ASC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SENSE_ASCQ_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SENSE_RESPONSE_CODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SENSE_ADDITIONAL_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUSB_MSC_SENSE_LEN<sp/>-<sp/>8)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="xusb__msc_8h_1ac92528d9ca5362f261319f90c279935f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__msc_8c_1ac92528d9ca5362f261319f90c279935f" kindref="member">XUsb_MsRejectCommand</ref>(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr,<sp/>u8<sp/>EndPoint,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TransferLength,<sp/>u8<sp/>*CswStatus,<sp/>u32<sp/>*CswResidue,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>*<ref refid="xusb__storage_8h_1a05b1323f8e5fa23dbe4db86752fed5c4" kindref="member">BlockCount</ref>,<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/>*<ref refid="xusb__dma__intr__storage_8c_1a0bed40faee8bf08c610c37ce2d0ddee0" kindref="member">CmdFlag</ref>,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/>*<ref refid="xusb__dma__intr__storage_8c_1a2dfc62201c9c9939b786c019f6dd4101" kindref="member">SendStatus</ref>)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CswStatus<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CswResidue<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CswStatus<sp/>=<sp/>XUSB_MSC_CSW_FAILED;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CswResidue<sp/>=<sp/>TransferLength;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BlockCount<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BlockCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CmdFlag<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CmdFlag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SendStatus<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*SendStatus<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gab38009aad2e0011e0bd392f064edeec7" kindref="member">XUsb_EpStall</ref>(InstancePtr,<sp/>EndPoint);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="118" refid="xusb__msc_8h_1a885bed3c7959d70f572aca1b04b7f42d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__msc_8c_1a885bed3c7959d70f572aca1b04b7f42d" kindref="member">XUsb_MsSetSense</ref>(u8<sp/>*SenseData,<sp/>u8<sp/>SenseKey,<sp/>u8<sp/>Asc,<sp/>u8<sp/>Ascq)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SenseData<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XUSB_MSC_SENSE_LEN;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SenseData[Index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SenseData[SENSE_RESPONSE_CODE_OFFSET]<sp/>=<sp/>SENSE_RESPONSE_CODE;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SenseData[SENSE_KEY_OFFSET]<sp/>=<sp/>SenseKey;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SenseData[SENSE_ADDITIONAL_LENGTH_OFFSET]<sp/>=<sp/>SENSE_ADDITIONAL_LENGTH;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SenseData[SENSE_ASC_OFFSET]<sp/>=<sp/>Asc;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SenseData[SENSE_ASCQ_OFFSET]<sp/>=<sp/>Ascq;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_msc.c"/>
+  </compounddef>
+</doxygen>

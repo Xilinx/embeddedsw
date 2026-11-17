@@ -111,7 +111,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ----- ---- -------- -------------------------------------------------------
 1.10  kal  24/07/2024 Initial release
 1.11  sk   03/05/2025 Added ASU destination CPU attribute
-      sk   03/17/2025 Updated Header attributes for RPU clusters</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      sk   03/17/2025 Updated Header attributes for RPU clusters
+1.15  vm   08/22/2026 Added ASU data structure information optional data Id
+      ng   09/09/2026 Added XIH_PH_ATTRB_PRTN_TYPE_TLBIN partition type</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -241,6 +243,9 @@ XilPdi Definitions</h2></td></tr>
 <tr class="memitem:a4eecaad1480a70584baef454ddba8cf6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4eecaad1480a70584baef454ddba8cf6"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XIH_PH_ATTRB_PRTN_TYPE_CDO</b>&#160;&#160;&#160;(0x2000000U)</td></tr>
 <tr class="separator:a4eecaad1480a70584baef454ddba8cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a177118bf74b43bfeabfb52a779dce22e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2xilpdi__plat_8h.html#a177118bf74b43bfeabfb52a779dce22e">XIH_PH_ATTRB_PRTN_TYPE_TLBIN</a>&#160;&#160;&#160;(0x6000000U)</td></tr>
+<tr class="memdesc:a177118bf74b43bfeabfb52a779dce22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition type for tlbin.  <a href="#a177118bf74b43bfeabfb52a779dce22e">More...</a><br/></td></tr>
+<tr class="separator:a177118bf74b43bfeabfb52a779dce22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabacf40da5795b93b64f865838a583a2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabacf40da5795b93b64f865838a583a2"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK</b>&#160;&#160;&#160;(0x7000000U)</td></tr>
 <tr class="separator:aabacf40da5795b93b64f865838a583a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -358,6 +363,9 @@ XilPdi Definitions</h2></td></tr>
 <tr class="memitem:aee6cc0a34ff814c9516e3d510f1e0b94"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee6cc0a34ff814c9516e3d510f1e0b94"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XIH_OPT_DATA_STRUCT_INFO_ID</b>&#160;&#160;&#160;(2U)</td></tr>
 <tr class="separator:aee6cc0a34ff814c9516e3d510f1e0b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ce872e72904f503c3da3b439d04e532"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2xilpdi__plat_8h.html#a4ce872e72904f503c3da3b439d04e532">XIH_OPT_DATA_ASU_STRUCT_INFO_ID</a>&#160;&#160;&#160;(4U)</td></tr>
+<tr class="memdesc:a4ce872e72904f503c3da3b439d04e532"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASU data structure information optional data Id.  <a href="#a4ce872e72904f503c3da3b439d04e532">More...</a><br/></td></tr>
+<tr class="separator:a4ce872e72904f503c3da3b439d04e532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe0eb8b87843a088c0ec15d589f47ade"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2ve__2vm_2xilpdi__plat_8h.html#abe0eb8b87843a088c0ec15d589f47ade">XIH_BH_META_HDR_OFFSET</a>&#160;&#160;&#160;(0x2D0U)</td></tr>
 <tr class="memdesc:abe0eb8b87843a088c0ec15d589f47ade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset to the metaheader offset field present in boot header.  <a href="#abe0eb8b87843a088c0ec15d589f47ade">More...</a><br/></td></tr>
 <tr class="separator:abe0eb8b87843a088c0ec15d589f47ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -495,6 +503,20 @@ XilPdi Definitions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a4ce872e72904f503c3da3b439d04e532"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XIH_OPT_DATA_ASU_STRUCT_INFO_ID&#160;&#160;&#160;(4U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ASU data structure information optional data Id. </p>
+
+</div>
+</div>
 <a class="anchor" id="a1c23aa3bfeb4a296c35a73b9c1b79b08"></a>
 <div class="memitem">
 <div class="memproto">
@@ -520,6 +542,20 @@ XilPdi Definitions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Prtn Attribute Values. </p>
+
+</div>
+</div>
+<a class="anchor" id="a177118bf74b43bfeabfb52a779dce22e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XIH_PH_ATTRB_PRTN_TYPE_TLBIN&#160;&#160;&#160;(0x6000000U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Partition type for tlbin. </p>
 
 </div>
 </div>

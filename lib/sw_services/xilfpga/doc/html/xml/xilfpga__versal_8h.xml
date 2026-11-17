@@ -47,6 +47,6 @@
 <codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XILFPGA_VERSAL_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.h"/>
   </compounddef>
 </doxygen>

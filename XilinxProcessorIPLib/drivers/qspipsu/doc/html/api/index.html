@@ -116,20 +116,20 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
                    writing/reading from 0x0 location is permitted.
 1.1   sk  04/12/16 Added debug message prints.
 1.2 nsk 07/01/16 Added LQSPI support
-                 Modified <a class="el" href="group__qspipsu__api.html#ga389021b0119ed0e51648c4d4b984b98a" title="select QSPI controller ">XQspiPsu_Select()</a> macro in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
-                 Added <a class="el" href="group__qspipsu__api.html#ga6079956c578f636665b87ca5f60b8bad" title="Read Configuration register of LQSPI Controller. ">XQspiPsu_GetLqspiConfigReg()</a> in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
-                 Added required macros in <a class="el" href="xqspipsu__hw_8h.html">xqspipsu_hw.h</a>
-                 Modified <a class="el" href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7" title="Sets the options for the QSPIPSU device driver.The options control how the device behaves relative to...">XQspiPsu_SetOptions()</a> to support
+                 Modified <a class="el" href="group__qspipsu__api.html#ga389021b0119ed0e51648c4d4b984b98a" title="Selects the QSPI controller. ">XQspiPsu_Select()</a> macro in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
+                 Added <a class="el" href="group__qspipsu__api.html#ga6079956c578f636665b87ca5f60b8bad" title="Reads the configuration register of the LQSPI controller. ">XQspiPsu_GetLqspiConfigReg()</a> in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
+                 Added required macros in <a class="el" href="xqspipsu__hw_8h.html" title="Provides register definitions and access macros for the QSPIPSU driver. ">xqspipsu_hw.h</a>
+                 Modified <a class="el" href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7" title="Sets the options for the QSPIPSU device driver. ">XQspiPsu_SetOptions()</a> to support
                  LQSPI options and updated OptionsTable in
-                 <a class="el" href="xqspipsu__options_8c.html">xqspipsu_options.c</a>
+                 <a class="el" href="xqspipsu__options_8c.html" title="Implements the option, clock, and flash configuration functions. ">xqspipsu_options.c</a>
       rk  07/15/16 Added support for TapDelays at different frequencies.
     nsk 08/05/16 Added example support PollData and PollTimeout
                  Added  XQSPIPSU_MSG_FLAG_POLL macro in <a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>
                  Added XQspiPsu_Create_PollConfigData and
-                 XQspiPsu_PollData() functions in <a class="el" href="xqspipsu_8c.html">xqspipsu.c</a>
+                 XQspiPsu_PollData() functions in <a class="el" href="xqspipsu_8c.html" title="Implements the core transfer functions of the QSPIPSU driver. ">xqspipsu.c</a>
 1.3 nsk 09/16/16 Update PollData and Polltimeout support for dual parallel
                  configuration. Updated XQspiPsu_PollData() and
-                 XQspiPsu_Create_PollConfigData() functions in <a class="el" href="xqspipsu_8c.html">xqspipsu.c</a>
+                 XQspiPsu_Create_PollConfigData() functions in <a class="el" href="xqspipsu_8c.html" title="Implements the core transfer functions of the QSPIPSU driver. ">xqspipsu.c</a>
                    and also modified the polldata example
       ms  03/17/17 Added readme.txt file in examples folder for doxygen
                    generation.
@@ -153,8 +153,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 1.7 tjs 01/11/18 Added support for MX66L1G45G flash from Macronix CR-992367
 1.7 tjs 01/16/18 Removed the check for DMA MSB to be written. (CR#992560)
 1.7 tjs 01/17/18 Added support to toggle the WP pin of flash. (PR#2448)
-                   Added <a class="el" href="group__qspipsu__api.html#ga54cce449d0bda6133fe2c254a164e08e" title="Sets the Write Protect and Hold options for the QSPIPSU device driver. ">XQspiPsu_SetWP()</a> in <a class="el" href="xqspipsu__options_8c.html">xqspipsu_options.c</a>
-                   Added <a class="el" href="group__qspipsu__api.html#ga0ec97b3d7c6cb24544f0bfa8114b56d7" title="Enables/disables Write Protect pin on the flash parts. ">XQspiPsu_WriteProtectToggle()</a> in <a class="el" href="xqspipsu_8c.html">xqspipsu.c</a> and
+                   Added <a class="el" href="group__qspipsu__api.html#ga54cce449d0bda6133fe2c254a164e08e" title="Sets the Write Protect and Hold options for the QSPIPSU device driver. ">XQspiPsu_SetWP()</a> in <a class="el" href="xqspipsu__options_8c.html" title="Implements the option, clock, and flash configuration functions. ">xqspipsu_options.c</a>
+                   Added <a class="el" href="group__qspipsu__api.html#ga0ec97b3d7c6cb24544f0bfa8114b56d7" title="Enables or disables the Write Protect pin on the flash parts. ">XQspiPsu_WriteProtectToggle()</a> in <a class="el" href="xqspipsu_8c.html" title="Implements the core transfer functions of the QSPIPSU driver. ">xqspipsu.c</a> and
                    also added write protect example.
 1.7 tjs 03/14/18 Added support in EL1 NS mode (CR#974882)
 1.7 tjs 26/03/18 In dual parallel mode enable both CS when issuing Write
@@ -182,7 +182,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 1.9  nsk 03/27/19 Update 64bit dma support
              (CR#1018102).
 1.9  akm 04/03/19 Fixed data alignment warnings on IAR compiler.
-1.9  akm 04/03/19 Fixed compilation error in <a class="el" href="xqspipsu__generic__flash__lqspi__example_8c.html#aa6bbd1c49467adb12326f1d14b849a97" title="Read the flash in Linear QSPI mode. ">XQspiPsu_LqspiRead()</a>
+1.9  akm 04/03/19 Fixed compilation error in <a class="el" href="group__xqspipsu__generic__flash__lqspi__example.html#gaa6bbd1c49467adb12326f1d14b849a97" title="Reads the flash in Linear QSPI mode. ">XQspiPsu_LqspiRead()</a>
                     function on IAR compiler.
 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
@@ -195,7 +195,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
                      APIs for non-blocking transfer.
 1.11 sd  01/02/20 Added clocking support
 1.11 akm 03/09/20 Reorganize the source code, enable qspi controller and
-             interrupts in <a class="el" href="group__qspipsu__api.html#ga803eccd67d1dfde416b54488865c1e9d" title="Initializes a specific XQspiPsu instance as such the driver is ready to use. ">XQspiPsu_CfgInitialize()</a> API.
+             interrupts in <a class="el" href="group__qspipsu__api.html#ga803eccd67d1dfde416b54488865c1e9d" title="Initializes an XQspiPsu instance so that the driver is ready to use. ">XQspiPsu_CfgInitialize()</a> API.
 1.11 akm 03/26/20 Fixed issue by updating XQspiPsu_CfgInitialize to return
              XST_DEVICE_IS_STARTED instead of asserting, when the
              instance is already configured(CR#1058525).
@@ -216,7 +216,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 1.20 ht  09/27/24 Fix IAR warning.
 1.23 vlt 12/16/25 Update Doxygen comments to include SDT flow details.
 1.23 vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
-                  to support 64-bit addressing.</pre><pre></pre> </div></div><!-- contents -->
+                  to support 64-bit addressing.
+1.24 tb  09/30/26 Align Doxygen comments with AMD standards
+1.24 zm  09/30/26 Add XQspiPsu_ValidateMsgParams and XQspiPsu_CheckDmaByteCount
+                  functions.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -10,12 +10,15 @@
         <argsstring></argsstring>
         <name>RegBaseAddress</name>
         <briefdescription>
-        </briefdescription>
+<para>Base address of registers. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="217" endline="230">XTMR_Inject_Disable</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="190" endline="206">XTMR_Inject_Enable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1ac449a879d5427634f4b3981634e703f6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -23,12 +26,18 @@
         <argsstring></argsstring>
         <name>IsReady</name>
         <briefdescription>
-        </briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="217" endline="230">XTMR_Inject_Disable</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="190" endline="206">XTMR_Inject_Enable</referencedby>
+        <referencedby refid="group___overview_1gaa8c496ccf948ca1b3ed359f6f6be485c" compoundref="xtmr__inject_8c" startline="251" endline="262">XTMR_Inject_InjectBit</referencedby>
+        <referencedby refid="group___overview_1ga0459573a53d4807b01ee65ed3709b547" compoundref="xtmr__inject_8c" startline="284" endline="294">XTMR_Inject_InjectMask</referencedby>
+        <referencedby refid="group___overview_1gae03f2de24906f2660c4ab03a869e50cb" compoundref="xtmr__inject__selftest_8c" startline="68" endline="78">XTMR_Inject_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1a82839ec096fef02e029775a31ea9595d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -41,9 +50,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="105" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="180" endline="196">XTMR_Inject_Enable</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="190" endline="206">XTMR_Inject_Enable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1ac480a708bc6795061809b64df28786a0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -56,8 +65,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="107" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1ae93bf505a45cc2d41a5233e907804571" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -70,8 +79,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="108" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1a4ac160caf2b04cb7f6de36e4ec99d10a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -84,10 +93,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="109" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="209" endline="222">XTMR_Inject_Disable</referencedby>
-        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="180" endline="196">XTMR_Inject_Enable</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="217" endline="230">XTMR_Inject_Disable</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="190" endline="206">XTMR_Inject_Enable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1a2dbe75583ee09a3dee528087cf378066" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,10 +109,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="110" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="209" endline="222">XTMR_Inject_Disable</referencedby>
-        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="180" endline="196">XTMR_Inject_Enable</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="217" endline="230">XTMR_Inject_Disable</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="190" endline="206">XTMR_Inject_Enable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___inject_1a5cd63a57c9e0fc660198ca908a80d59b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -116,17 +125,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="111" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
-        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="209" endline="222">XTMR_Inject_Disable</referencedby>
-        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="180" endline="196">XTMR_Inject_Enable</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="135" endline="178">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="217" endline="230">XTMR_Inject_Disable</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="190" endline="206">XTMR_Inject_Enable</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>The <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
 <para>The user is required to allocate a variable of this type for every TMR Inject device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="102" bodyend="112"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="103" bodyend="113"/>
     <listofallmembers>
       <member refid="struct_x_t_m_r___inject_1ac480a708bc6795061809b64df28786a0" prot="public" virt="non-virtual"><scope>XTMR_Inject</scope><name>Address</name></member>
       <member refid="struct_x_t_m_r___inject_1a2dbe75583ee09a3dee528087cf378066" prot="public" virt="non-virtual"><scope>XTMR_Inject</scope><name>CpuId</name></member>

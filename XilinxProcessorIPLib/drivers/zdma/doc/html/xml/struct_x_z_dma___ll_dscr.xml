@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="212" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1aafcc22c471d1e12d4c95236efa40aeeb" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="213" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1a3efcb822d3fcefa6fbe0404dd9d6a7d4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="214" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="210" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1ab0ca1a2e61ac8548577ade75235a15f0" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="215" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1aea55eef028df77b8584128b1163fb268" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -67,14 +67,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="212" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef contains scatter gather descriptor fields for ZDMA core. </para>    </briefdescription>
+<para>Holds scatter-gather descriptor fields for the ZDMA core. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="211" bodyend="221"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="207" bodyend="217"/>
     <listofallmembers>
       <member refid="struct_x_z_dma___ll_dscr_1ab9fe52f76f76855968a2e39c47b5dcd6" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>Address</name></member>
       <member refid="struct_x_z_dma___ll_dscr_1a3efcb822d3fcefa6fbe0404dd9d6a7d4" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>Cntl</name></member>

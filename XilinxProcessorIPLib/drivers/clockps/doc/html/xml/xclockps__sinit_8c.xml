@@ -7,8 +7,21 @@
       <node id="98">
         <label>xil_io.h</label>
       </node>
+      <node id="99">
+        <label>xclockps_hw.h</label>
+        <link refid="xclockps__hw_8h"/>
+      </node>
       <node id="96">
         <label>xstatus.h</label>
+      </node>
+      <node id="97">
+        <label>xil_types.h</label>
+      </node>
+      <node id="94">
+        <label>xclockps_sinit.c</label>
+        <link refid="xclockps_sinit.c"/>
+        <childnode refid="95" relation="include">
+        </childnode>
       </node>
       <node id="95">
         <label>xclockps.h</label>
@@ -22,40 +35,26 @@
         <childnode refid="99" relation="include">
         </childnode>
       </node>
-      <node id="99">
-        <label>xclockps_hw.h</label>
-        <link refid="xclockps__hw_8h"/>
-      </node>
-      <node id="97">
-        <label>xil_types.h</label>
-      </node>
-      <node id="94">
-        <label>xclockps_sinit.c</label>
-        <link refid="xclockps_sinit.c"/>
-        <childnode refid="95" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="group__clockps_1ga461bde3b9f716720c74f99f6170bb895" prot="public" static="no" mutable="no">
-        <type>XClockPs_Config</type>
+      <memberdef kind="variable" id="group__clockps__api_1ga461bde3b9f716720c74f99f6170bb895" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref></type>
         <definition>XClockPs_Config XClockPs_ConfigTable[]</definition>
         <argsstring>[]</argsstring>
         <name>XClockPs_ConfigTable</name>
         <briefdescription>
-<para>configuration table defined in <ref refid="xclockps__g_8c" kindref="compound">xclockps_g.c</ref> </para>        </briefdescription>
+<para>Declares the CLOCKPS configuration table. </para>        </briefdescription>
         <detaileddescription>
-<para>configuration table defined in <ref refid="xclockps__g_8c" kindref="compound">xclockps_g.c</ref> </para>        </detaileddescription>
+<para>Configuration table defined in <ref refid="xclockps__g_8c" kindref="compound">xclockps_g.c</ref>.</para><para>Declares the CLOCKPS configuration table.</para><para>This table contains configuration information for clocking device in the system. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_g.c" bodystart="44" bodyend="-1"/>
-        <referencedby refid="group__clockps_1ga07d8407d52c6b095f5830f9883565fd7" compoundref="xclockps__sinit_8c" startline="89" endline="102">XClock_LookupConfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_g.c" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__clockps_1ga07d8407d52c6b095f5830f9883565fd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>XClockPs_Config *</type>
-        <definition>XClockPs_Config * XClock_LookupConfig</definition>
+      <memberdef kind="function" id="group__clockps__api_1gaaf64099292484b2eb2d6b8c1d5926585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref> *</type>
+        <definition>XClockPs_Config* XClock_LookupConfig</definition>
         <argsstring>(UINTPTR BaseAddress)</argsstring>
         <name>XClock_LookupConfig</name>
         <param>
@@ -63,29 +62,39 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+<para>Looks up CLOCKPS configuration by ID or base address. </para>        </briefdescription>
         <detaileddescription>
-<para>The XClockPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. The XClockPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>contains the base address of the device</para></parameterdescription>
+<para>Contains the base address of the device.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xclockps_8h" kindref="compound">xclockps.h</ref> for the definition of XClockPs_Config.</para></simplesect>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xclockps_8h" kindref="compound">xclockps.h</ref> for the definition of <ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref>.</para></simplesect>
 <simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c" bodystart="89" bodyend="102"/>
-        <references refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" compoundref="xclockps__g_8c" startline="44">XClockPs_ConfigTable</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c" bodystart="97" bodyend="110"/>
+        <references refid="struct_x_clock_ps___config_1aec5cdf3f15b9de7a3405fd8ac4604bc9" compoundref="xclockps_8h" startline="284">XClockPs_Config::Name</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Implements CLOCKPS static initialization. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>This file contains method for static initialization (compile-time) of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+<hruler/>
+
+1.00  cjp    02/09/18 First release
+1.7   vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+1.7   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+1.8   tb    09/17/26 Align Doxygen comments with AMD standards.
+</preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
@@ -94,60 +103,60 @@
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xclockps_8h" kindref="compound">xclockps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight></codeline>
-<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XClockPs_Config<sp/><ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[XPAR_XCLOCKPS_NUM_INSTANCES];</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XClockPs_Config<sp/><ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[];</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="73"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">XClockPs_Config<sp/>*<ref refid="group__clockps_1ga07d8407d52c6b095f5830f9883565fd7" kindref="member">XClock_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
-<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClockPs_Config<sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>(u32)XPAR_XCLOCKPS_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[Index];</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XClockPs_Config<sp/>*)CfgPtr;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="89" refid="group__clockps_1ga07d8407d52c6b095f5830f9883565fd7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">XClockPs_Config<sp/>*<ref refid="group__clockps_1ga07d8407d52c6b095f5830f9883565fd7" kindref="member">XClock_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClockPs_Config<sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xclockps_8h" kindref="compound">xclockps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/><ref refid="group__clockps__api_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[XPAR_XCLOCKPS_NUM_INSTANCES];</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>XClockPs_ConfigTable[];</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>*<ref refid="group__clockps_1gaaf64099292484b2eb2d6b8c1d5926585" kindref="member">XClock_LookupConfig</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>(u32)XPAR_XCLOCKPS_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XClockPs_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XClockPs_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/><ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;<ref refid="group__clockps_1ga143d2ae8c8728081cbf24ad5fe089111" kindref="member">XClockPs_ConfigTable</ref>[Index];</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XClockPs_Config<sp/>*)CfgPtr;</highlight></codeline>
-<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="104"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>*)CfgPtr;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="97" refid="group__clockps__api_1gaaf64099292484b2eb2d6b8c1d5926585" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>*<ref refid="group__clockps_1gaaf64099292484b2eb2d6b8c1d5926585" kindref="member">XClock_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>XClockPs_ConfigTable[Index].<ref refid="struct_x_clock_ps___config_1aec5cdf3f15b9de7a3405fd8ac4604bc9" kindref="member">Name</ref><sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XClockPs_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XClockPs_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref><sp/>*)CfgPtr;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_sinit.c"/>
   </compounddef>
 </doxygen>

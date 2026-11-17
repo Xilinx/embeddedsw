@@ -95,13 +95,6 @@
     <member refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" kind="function"><name>init_platform</name></member>
     <member refid="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" kind="function"><name>cleanup_platform</name></member>
   </compound>
-  <compound refid="_r_e_a_d_m_e_8txt" kind="file"><name>README.txt</name>
-    <member refid="_r_e_a_d_m_e_8txt_1afd65a00838850c24ce03d8dbc323e864" kind="function"><name>files</name></member>
-    <member refid="_r_e_a_d_m_e_8txt_1a5ac18369783b864522749a0827f3f031" kind="function"><name>Lock</name></member>
-  </compound>
-  <compound refid="vfrmbufwr__example__kc705_8tcl" kind="file"><name>vfrmbufwr_example_kc705.tcl</name>
-    <member refid="vfrmbufwr__example__kc705_8tcl_1a6b7da069cf145b83e48f0e12ca27947c" kind="function"><name>vfrmbufwr_example</name></member>
-  </compound>
   <compound refid="xv__frmbufwr_8c" kind="file"><name>xv_frmbufwr.c</name>
     <member refid="xv__frmbufwr_8c_1a1ffcda6d7c6abe158bc96a3b01efd174" kind="function"><name>XV_frmbufwr_CfgInitialize</name></member>
     <member refid="xv__frmbufwr_8c_1a1fa08ab807087c53eae5cda44cafd616" kind="function"><name>XV_frmbufwr_Start</name></member>

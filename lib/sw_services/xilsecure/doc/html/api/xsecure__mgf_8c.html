@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('xsecure__mgf_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains code related to mask generate function. </p>
+<div class="textblock"><p>Implements the mask generation function (MGF) for RSA-PSS and OAEP. </p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 </p>
@@ -118,23 +118,23 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 5.3   kpt     12/13/23 Added SHA384 MGF support
       kpt     03/22/24 Fixed MISRA-C violation Rule 17.7
       kal     07/24/24 Code refactoring for versal_2ve_2vm</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__mgf_8h.html">xsecure_mgf.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="xsecure__sha384_8h.html">xsecure_sha384.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="versal__net_2xsecure__error_8h.html">xsecure_error.h</a>&quot;</code><br/>
+<code>#include &quot;xsecure_sha.h&quot;</code><br/>
+<code>#include &quot;xsecure_error.h&quot;</code><br/>
 <code>#include &quot;xil_sutil.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:gaa02bc7c1534754656c639d206cce86df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#gaa02bc7c1534754656c639d206cce86df">XSECURE_I2OSP_LIMIT</a>&#160;&#160;&#160;(256U)</td></tr>
-<tr class="memdesc:gaa02bc7c1534754656c639d206cce86df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer to octet stream primitive limit.  <a href="group__xsecure__mgf__server__apis.html#gaa02bc7c1534754656c639d206cce86df">More...</a><br/></td></tr>
+<tr class="memdesc:gaa02bc7c1534754656c639d206cce86df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer to octet-string primitive limit.  <a href="group__xsecure__mgf__server__apis.html#gaa02bc7c1534754656c639d206cce86df">More...</a><br/></td></tr>
 <tr class="separator:gaa02bc7c1534754656c639d206cce86df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_secure___hash_alg_info.html">XSecure_HashAlgInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#ga3528d2ff2183bb3aab43e4d408ee6760">XSecure_GetHashInstance</a> (XSecure_ShaMode Shatype)</td></tr>
-<tr class="memdesc:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns hash function list of user specified hash algorithm.  <a href="group__xsecure__mgf__server__apis.html#ga3528d2ff2183bb3aab43e4d408ee6760">More...</a><br/></td></tr>
+<tr class="memdesc:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash algorithm table entry for the requested SHA mode.  <a href="group__xsecure__mgf__server__apis.html#ga3528d2ff2183bb3aab43e4d408ee6760">More...</a><br/></td></tr>
 <tr class="separator:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga51accda21580807193b7f1309a153c52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#ga51accda21580807193b7f1309a153c52">XSecure_MaskGenFunc</a> (XSecure_ShaMode ShaType, void *InstancePtr, <a class="el" href="struct_x_secure___mgf_input.html">XSecure_MgfInput</a> *MgfInput)</td></tr>
-<tr class="memdesc:ga51accda21580807193b7f1309a153c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes an input of variable length and a desired output length as input, and provides fixed output mask using cryptographic hash function.  <a href="group__xsecure__mgf__server__apis.html#ga51accda21580807193b7f1309a153c52">More...</a><br/></td></tr>
+<tr class="memdesc:ga51accda21580807193b7f1309a153c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a fixed-length mask from a variable-length seed using MGF1.  <a href="group__xsecure__mgf__server__apis.html#ga51accda21580807193b7f1309a153c52">More...</a><br/></td></tr>
 <tr class="separator:ga51accda21580807193b7f1309a153c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

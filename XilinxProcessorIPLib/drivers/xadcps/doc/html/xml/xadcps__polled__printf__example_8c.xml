@@ -13,14 +13,17 @@
       <node id="72">
         <label>xil_io.h</label>
       </node>
-      <node id="70">
-        <label>xstatus.h</label>
-      </node>
-      <node id="68">
-        <label>xil_types.h</label>
-      </node>
-      <node id="74">
-        <label>xil_printf.h</label>
+      <node id="67">
+        <label>xadcps.h</label>
+        <link refid="xadcps_8h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
       </node>
       <node id="66">
         <label>xadcps_polled_printf_example.c</label>
@@ -34,6 +37,12 @@
         <childnode refid="74" relation="include">
         </childnode>
       </node>
+      <node id="70">
+        <label>xstatus.h</label>
+      </node>
+      <node id="68">
+        <label>xil_types.h</label>
+      </node>
       <node id="71">
         <label>xadcps_hw.h</label>
         <link refid="xadcps__hw_8h"/>
@@ -44,20 +53,11 @@
         <childnode refid="72" relation="include">
         </childnode>
       </node>
+      <node id="74">
+        <label>xil_printf.h</label>
+      </node>
       <node id="73">
         <label>stdio.h</label>
-      </node>
-      <node id="67">
-        <label>xadcps.h</label>
-        <link refid="xadcps_8h"/>
-        <childnode refid="68" relation="include">
-        </childnode>
-        <childnode refid="69" relation="include">
-        </childnode>
-        <childnode refid="70" relation="include">
-        </childnode>
-        <childnode refid="71" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -70,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="56" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="56" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xadcps__polled__printf__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" prot="public" static="no">
         <name>printf</name>
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="64" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="73" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -129,7 +129,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="132" bodyend="261"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="132" bodyend="261"/>
       </memberdef>
       <memberdef kind="function" id="xadcps__polled__printf__example_8c_1a7c19f652c228c6b4200dc2230d5654dd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -156,7 +156,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="280" bodyend="290"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="280" bodyend="290"/>
       </memberdef>
       <memberdef kind="function" id="xadcps__polled__printf__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -184,7 +184,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="89" bodyend="105"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c" bodystart="89" bodyend="105"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -414,6 +414,6 @@ This examples also assumes that there is a STDIO device in the system.</para><pa
 <codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)((Temp<sp/>-(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Temp))<sp/>*<sp/>(1000.0f))));</highlight></codeline>
 <codeline lineno="290"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/examples/xadcps_polled_printf_example.c"/>
   </compounddef>
 </doxygen>

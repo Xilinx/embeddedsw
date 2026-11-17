@@ -1,5 +1,7 @@
 var xsysmon_8h =
 [
+    [ "XSM_ATR_BRAM_LOWER", "xsysmon_8h.html#ga9379c9f0bf54792abbe6557caf05c531", null ],
+    [ "XSM_ATR_BRAM_UPPER", "xsysmon_8h.html#gacf2d376d1cb081da16ed3bb9082819c9", null ],
     [ "XSM_ATR_OT_LOWER", "xsysmon_8h.html#ga3c17894e2b8cc575bc8192c2ede7f019", null ],
     [ "XSM_ATR_OT_UPPER", "xsysmon_8h.html#gaca2f92bee99f2e78c2418bb237763ab4", null ],
     [ "XSM_ATR_TEMP_LOWER", "xsysmon_8h.html#ga138ea63ae47cd1478f188045792a5aef", null ],
@@ -34,6 +36,7 @@ var xsysmon_8h =
     [ "XSM_CH_ADC_CALIB", "xsysmon_8h.html#ga802955d06a498aca0909e488caee528c", null ],
     [ "XSM_CH_AUX_MAX", "xsysmon_8h.html#gae8c007df4d1c481557120435619b4ff5", null ],
     [ "XSM_CH_AUX_MIN", "xsysmon_8h.html#ga41aa90146d4e0786b8d36888e44aac34", null ],
+    [ "XSM_CH_CALIBRATION", "xsysmon_8h.html#ga6107e293b2406555e93aaec74b2581c5", null ],
     [ "XSM_CH_GAINERR_CALIB", "xsysmon_8h.html#ga15ea4b9f08ee9dc44fc000384ca36e42", null ],
     [ "XSM_CH_SUPPLY_CALIB", "xsysmon_8h.html#ga3fdb14478def5283880cd4d65dfaf56f", null ],
     [ "XSM_CH_TEMP", "xsysmon_8h.html#gaf2f79c54dddbdf090934f80f315b2e60", null ],

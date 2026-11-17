@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -113,6 +114,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa09f38e166d54e624013584714c334dd"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__client__apis.html#gaa09f38e166d54e624013584714c334dd">XAsu_OcpGetDevAkX509Certificate</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___ocp_cert_params.html">XAsu_OcpCertParams</a> *OcpCertClientParamPtr)</td></tr>
 <tr class="memdesc:gaa09f38e166d54e624013584714c334dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends command to ASUFW to perform DevAk certificate generation operation.  <a href="#gaa09f38e166d54e624013584714c334dd">More...</a><br/></td></tr>
 <tr class="separator:gaa09f38e166d54e624013584714c334dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabee89cdb47e38b70cadf8e7e1c83416d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__client__apis.html#gabee89cdb47e38b70cadf8e7e1c83416d">XAsu_OcpGetUserX509Certificate</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___ocp_user_cert_params.html">XAsu_OcpUserCertParams</a> *OcpUserCertClientParamPtr)</td></tr>
+<tr class="memdesc:gabee89cdb47e38b70cadf8e7e1c83416d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends command to ASUFW to generate a user X.509 certificate.  <a href="#gabee89cdb47e38b70cadf8e7e1c83416d">More...</a><br/></td></tr>
+<tr class="separator:gabee89cdb47e38b70cadf8e7e1c83416d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5ea47b4f5a36aace5a9f471042173fa3"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__client__apis.html#ga5ea47b4f5a36aace5a9f471042173fa3">XAsu_OcpGetDevIkCsr</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___ocp_cert_params.html">XAsu_OcpCertParams</a> *OcpCertClientParamPtr)</td></tr>
 <tr class="memdesc:ga5ea47b4f5a36aace5a9f471042173fa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends command to ASUFW to perform CSR(Certificate Signing Request) generation operation.  <a href="#ga5ea47b4f5a36aace5a9f471042173fa3">More...</a><br/></td></tr>
 <tr class="separator:ga5ea47b4f5a36aace5a9f471042173fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,9 +126,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3c3e8b42eab489f97dab01062de04aba"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__client__apis.html#ga3c3e8b42eab489f97dab01062de04aba">XAsu_OcpUdeChallengeReq</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___ocp_ude_params.html">XAsu_OcpUdeParams</a> *OcpUdeParamsPtr)</td></tr>
 <tr class="memdesc:ga3c3e8b42eab489f97dab01062de04aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends command to ASUFW to generate UDE challenge response.  <a href="#ga3c3e8b42eab489f97dab01062de04aba">More...</a><br/></td></tr>
 <tr class="separator:ga3c3e8b42eab489f97dab01062de04aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga56ee81058035dc435d3cc4597c769b10"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__client__apis.html#ga56ee81058035dc435d3cc4597c769b10">XAsu_OcpUdeKeysEncrypt</a> (XAsu_ClientParams *ClientParamPtr, <a class="el" href="struct_x_asu___ocp_ude_key_encrypt.html">XAsu_OcpUdeKeyEncrypt</a> *OcpUdeKeyEnc)</td></tr>
-<tr class="memdesc:ga56ee81058035dc435d3cc4597c769b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends command to ASUFW to perform UDE key encryption operation.  <a href="#ga56ee81058035dc435d3cc4597c769b10">More...</a><br/></td></tr>
-<tr class="separator:ga56ee81058035dc435d3cc4597c769b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa4e266d168a74b841012e6884d281486"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__client__apis.html#gaa4e266d168a74b841012e6884d281486">XAsu_OcpGetHuk</a> (XAsu_ClientParams *ClientParamPtr, u8 *HukBuf, u32 BufLen)</td></tr>
 <tr class="memdesc:gaa4e266d168a74b841012e6884d281486"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI request to get the Hardware Unique Key.  <a href="#gaa4e266d168a74b841012e6884d281486">More...</a><br/></td></tr>
 <tr class="separator:gaa4e266d168a74b841012e6884d281486"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -377,6 +378,57 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gabee89cdb47e38b70cadf8e7e1c83416d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_OcpGetUserX509Certificate </td>
+          <td>(</td>
+          <td class="paramtype">XAsu_ClientParams *&#160;</td>
+          <td class="paramname"><em>ClientParamPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_asu___ocp_user_cert_params.html">XAsu_OcpUserCertParams</a> *&#160;</td>
+          <td class="paramname"><em>OcpUserCertClientParamPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sends command to ASUFW to generate a user X.509 certificate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ClientParamPtr</td><td>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </td></tr>
+    <tr><td class="paramname">OcpUserCertClientParamPtr</td><td>Pointer to <a class="el" href="struct_x_asu___ocp_user_cert_params.html" title="This structure contains the parameters of a user X.509 certificate request. ">XAsu_OcpUserCertParams</a> structure which holds the user certificate request parameters.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</li>
+<li>XST_FAILURE, in case of failure.</li>
+<li>XASU_INVALID_ARGUMENT, if any input parameter is invalid.</li>
+<li>XASU_INVALID_UNIQUE_ID, if the unique ID is invalid.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Currently, the user X.509 certificate generation is only supported for ECC P-384 keys. Other key types are not supported yet. </dd></dl>
+<p>Validate OCP client parameter.</p>
+<p>Validate client parameter.</p>
+<p>Validate OCP client parameter inputs.</p>
+<p>Generate a unique ID and register the callback function.</p>
+<p>Create command header.</p>
+<p>Update request buffer and send an IPI request to ASUFW. </p>
+
+<p>References <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9">XASU_INVALID_ARGUMENT</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb">XASU_INVALID_UNIQUE_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga1158cb3e6515c65776b230c7e77b3dd5">XASU_MODULE_OCP_ID</a>, <a class="el" href="group__xasu__common__defs.html#gaa52b8c24844ee1dc76b9d558bb94a97d">XASU_OCP_GET_USER_X509_CERT_CMD_ID</a>, <a class="el" href="group__xasu__ocp__common__apis.html#ga06b02babee3bba75629be182efa734fd">XAsu_OcpValidateUserCertParams()</a>, <a class="el" href="group__xasu__client__info.html#gabf24e9f135a85ff96d8acc23a5c83508">XAsu_RegCallBackNGetUniqueId()</a>, <a class="el" href="group__xasu__client__info.html#ga717d31c270f3965991fdd19a0b70c633">XAsu_SendCmdToAsu()</a>, <a class="el" href="group__xasu__common__defs.html#ga6d1fd341a9f72c4f16e5632e790b9ab9">XASU_TRUE</a>, <a class="el" href="group__xasu__common__defs.html#ga0e29ca164aa8fa3ac30a7b9102b615d9">XASU_UNIQUE_ID_MAX</a>, <a class="el" href="group__xasu__client__info.html#gae0f7072bf1eddf7ee11f1e5852570682">XAsu_ValidateClientParameters()</a>, and <a class="el" href="group__xasu__client__info.html#ga8e8593fc336981968a9288ff63c61f5b">XASU_WORD_LEN_IN_BYTES</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga3c3e8b42eab489f97dab01062de04aba"></a>
 <div class="memitem">
 <div class="memproto">
@@ -426,57 +478,6 @@ Functions</h2></td></tr>
 <p>Update request buffer and send an IPI request to ASUFW. </p>
 
 <p>References <a class="el" href="struct_x_asu___ocp_ude_params.html#adc1581b5e472714037858d6925c243ae">XAsu_OcpUdeParams::NonceAddr</a>, <a class="el" href="struct_x_asu___ocp_ude_params.html#a02a1410a6391e264049b304435ae62a7">XAsu_OcpUdeParams::OcpUdeResponseAddr</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9">XASU_INVALID_ARGUMENT</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb">XASU_INVALID_UNIQUE_ID</a>, <a class="el" href="group__xasu__generic__apis.html#ga04f710c11a465ba2bca492d9517c73d1">XAsu_IsBufferNonZero()</a>, <a class="el" href="group__xasu__common__defs.html#ga1158cb3e6515c65776b230c7e77b3dd5">XASU_MODULE_OCP_ID</a>, <a class="el" href="group__xasu__common__defs.html#gac5d62e631dcbe2c388a5d3c913a8ea2b">XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga28aceb2c4710123b9d78e04221c1ec9a">XASU_OCP_UDE_NONCE_SIZE_IN_BYTES</a>, <a class="el" href="group__xasu__client__info.html#gabf24e9f135a85ff96d8acc23a5c83508">XAsu_RegCallBackNGetUniqueId()</a>, <a class="el" href="group__xasu__client__info.html#ga717d31c270f3965991fdd19a0b70c633">XAsu_SendCmdToAsu()</a>, <a class="el" href="group__xasu__common__defs.html#ga6d1fd341a9f72c4f16e5632e790b9ab9">XASU_TRUE</a>, <a class="el" href="group__xasu__common__defs.html#ga0e29ca164aa8fa3ac30a7b9102b615d9">XASU_UNIQUE_ID_MAX</a>, <a class="el" href="group__xasu__client__info.html#gae0f7072bf1eddf7ee11f1e5852570682">XAsu_ValidateClientParameters()</a>, and <a class="el" href="group__xasu__client__info.html#ga8e8593fc336981968a9288ff63c61f5b">XASU_WORD_LEN_IN_BYTES</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga56ee81058035dc435d3cc4597c769b10"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">s32 XAsu_OcpUdeKeysEncrypt </td>
-          <td>(</td>
-          <td class="paramtype">XAsu_ClientParams *&#160;</td>
-          <td class="paramname"><em>ClientParamPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_x_asu___ocp_ude_key_encrypt.html">XAsu_OcpUdeKeyEncrypt</a> *&#160;</td>
-          <td class="paramname"><em>OcpUdeKeyEnc</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function sends command to ASUFW to perform UDE key encryption operation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ClientParamPtr</td><td>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </td></tr>
-    <tr><td class="paramname">OcpUdeKeyEnc</td><td>Pointer to <a class="el" href="struct_x_asu___ocp_ude_key_encrypt.html" title="This structure contains information related to UDE private key encryption. ">XAsu_OcpUdeKeyEncrypt</a> structure which holds the parameters of UDE key arguments.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</li>
-<li>XASU_INVALID_ARGUMENT, if any argument is invalid.<ul>
-<li>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</li>
-</ul>
-</li>
-<li>XST_FAILURE, in case of failure. </li>
-</ul>
-</dd></dl>
-<p>Validate OCP client parameter.</p>
-<p>Validate client parameters.</p>
-<p>Generate a unique ID and register the callback function.</p>
-<p>Create command header.</p>
-<p>Update request buffer and send an IPI request to ASUFW. </p>
-
-<p>References <a class="el" href="struct_x_asu___ocp_ude_key_encrypt.html#aefc8f560af9956ce96269c0671904a55">XAsu_OcpUdeKeyEncrypt::UdeEncPvtKeyAddr</a>, <a class="el" href="struct_x_asu___ocp_ude_key_encrypt.html#af51069cc503e1ada4c3ed809c44052b1">XAsu_OcpUdeKeyEncrypt::UdeKeyId</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9">XASU_INVALID_ARGUMENT</a>, <a class="el" href="group__xasu__client__error__codes.html#gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb">XASU_INVALID_UNIQUE_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga1158cb3e6515c65776b230c7e77b3dd5">XASU_MODULE_OCP_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga68a46fe8a839c20f661cf42486bbbfd0">XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID</a>, <a class="el" href="group__xasu__common__defs.html#gad880d89ca1a89bc2c2ff4fac497c3265">XASU_OCP_UDE_USER_KEY_0_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga470f236563fb84db2eaef155ccded4d7">XASU_OCP_UDE_USER_KEY_1_ID</a>, <a class="el" href="group__xasu__common__defs.html#gad14e623466c119d4d421f9bf9f7d0b71">XASU_OCP_UDE_USER_KEY_2_ID</a>, <a class="el" href="group__xasu__client__info.html#gabf24e9f135a85ff96d8acc23a5c83508">XAsu_RegCallBackNGetUniqueId()</a>, <a class="el" href="group__xasu__client__info.html#ga717d31c270f3965991fdd19a0b70c633">XAsu_SendCmdToAsu()</a>, <a class="el" href="group__xasu__common__defs.html#ga6d1fd341a9f72c4f16e5632e790b9ab9">XASU_TRUE</a>, <a class="el" href="group__xasu__common__defs.html#ga0e29ca164aa8fa3ac30a7b9102b615d9">XASU_UNIQUE_ID_MAX</a>, <a class="el" href="group__xasu__client__info.html#gae0f7072bf1eddf7ee11f1e5852570682">XAsu_ValidateClientParameters()</a>, and <a class="el" href="group__xasu__client__info.html#ga8e8593fc336981968a9288ff63c61f5b">XASU_WORD_LEN_IN_BYTES</a>.</p>
 
 </div>
 </div>

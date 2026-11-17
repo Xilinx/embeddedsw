@@ -105,26 +105,58 @@ $(document).ready(function(){initNavTree('xresetps_8c.html','');});
 <div class="title">xresetps.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xresetps_8h.html">xresetps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interface functions of the <a class="el" href="struct_x_reset_ps.html" title="Holds the XResetPs driver instance data. ">XResetPs</a> driver. </p>
+<p>See <a class="el" href="xresetps_8h.html">xresetps.h</a> for a description of the driver.</p>
+<pre>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00  cjp    09/05/17 First release
+1.1   Nava   04/20/18 Fixed compilation warnings.
+1.2   cjp    04/27/18 Updated for clockps interdependency
+1.2   Nava   05/21/18 Fixed compilation warnings on R5.
+1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
+1.5   sk     11/30/21 Fix compilation warnings reported with "-Wundef" flag.
+1.6   sd     07/07/23 Added SDT support.
+1.8   vlt    01/27/26 Fixed codespell issues.
+1.9   vn     07/30/26 Fix Doxygen warnings
+1.9  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xresetps_8h.html">xresetps.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xresetps__hw_8h.html">xresetps_hw.h</a>&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Internal reset constants</div></td></tr>
+<tr class="memitem:gad4b3de2aedd2b5901c2340a80c85026c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#gad4b3de2aedd2b5901c2340a80c85026c">XRESETPS_RSTID_BASE</a>&#160;&#160;&#160;(1000)</td></tr>
+<tr class="memdesc:gad4b3de2aedd2b5901c2340a80c85026c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base reset ID.  <a href="group__resetps.html#gad4b3de2aedd2b5901c2340a80c85026c">More...</a><br/></td></tr>
+<tr class="separator:gad4b3de2aedd2b5901c2340a80c85026c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4ecc6109af35347a1a4717fcc68ed83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#gab4ecc6109af35347a1a4717fcc68ed83">XRESETPS_REGADDR_INVALID</a>&#160;&#160;&#160;(0xFFFFFFFFU)</td></tr>
+<tr class="memdesc:gab4ecc6109af35347a1a4717fcc68ed83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid register address.  <a href="group__resetps.html#gab4ecc6109af35347a1a4717fcc68ed83">More...</a><br/></td></tr>
+<tr class="separator:gab4ecc6109af35347a1a4717fcc68ed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe46c4797c1e6132ea3c47d1ca3de60d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#gabe46c4797c1e6132ea3c47d1ca3de60d">XRESETPS_BM_INVALID</a>&#160;&#160;&#160;(0xFFFFFFFFU)</td></tr>
+<tr class="memdesc:gabe46c4797c1e6132ea3c47d1ca3de60d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid bitmask.  <a href="group__resetps.html#gabe46c4797c1e6132ea3c47d1ca3de60d">More...</a><br/></td></tr>
+<tr class="separator:gabe46c4797c1e6132ea3c47d1ca3de60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaa07a2af5abb40332c21bb77963841dcd"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#gaa07a2af5abb40332c21bb77963841dcd">XResetPs_CfgInitialize</a> (<a class="el" href="struct_x_reset_ps.html">XResetPs</a> *InstancePtr, <a class="el" href="struct_x_reset_ps___config.html">XResetPs_Config</a> *ConfigPtr)</td></tr>
-<tr class="memdesc:gaa07a2af5abb40332c21bb77963841dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a specific reset controller instance/driver.  <a href="group__resetps.html#gaa07a2af5abb40332c21bb77963841dcd">More...</a><br/></td></tr>
+<tr class="memdesc:gaa07a2af5abb40332c21bb77963841dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific reset controller instance or driver.  <a href="group__resetps.html#gaa07a2af5abb40332c21bb77963841dcd">More...</a><br/></td></tr>
 <tr class="separator:gaa07a2af5abb40332c21bb77963841dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga65cfe2715d69c8cd2f34300478107501"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#ga65cfe2715d69c8cd2f34300478107501">XResetPs_ResetAssert</a> (<a class="el" href="struct_x_reset_ps.html">XResetPs</a> *InstancePtr, const <a class="el" href="group__resetps.html#gae2a8fda4fe9a2b1b31fc9bab21478b42">XResetPs_RstId</a> ResetID)</td></tr>
-<tr class="memdesc:ga65cfe2715d69c8cd2f34300478107501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert reset for specific peripheral based on reset ID.  <a href="group__resetps.html#ga65cfe2715d69c8cd2f34300478107501">More...</a><br/></td></tr>
+<tr class="memdesc:ga65cfe2715d69c8cd2f34300478107501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asserts reset for a specific peripheral based on reset ID.  <a href="group__resetps.html#ga65cfe2715d69c8cd2f34300478107501">More...</a><br/></td></tr>
 <tr class="separator:ga65cfe2715d69c8cd2f34300478107501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4bddc4ee235a6971cc1e488cc265fb77"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#ga4bddc4ee235a6971cc1e488cc265fb77">XResetPs_ResetDeassert</a> (<a class="el" href="struct_x_reset_ps.html">XResetPs</a> *InstancePtr, const <a class="el" href="group__resetps.html#gae2a8fda4fe9a2b1b31fc9bab21478b42">XResetPs_RstId</a> ResetID)</td></tr>
-<tr class="memdesc:ga4bddc4ee235a6971cc1e488cc265fb77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deassert reset for specific peripheral based on reset ID.  <a href="group__resetps.html#ga4bddc4ee235a6971cc1e488cc265fb77">More...</a><br/></td></tr>
+<tr class="memdesc:ga4bddc4ee235a6971cc1e488cc265fb77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deasserts reset for a specific peripheral based on reset ID.  <a href="group__resetps.html#ga4bddc4ee235a6971cc1e488cc265fb77">More...</a><br/></td></tr>
 <tr class="separator:ga4bddc4ee235a6971cc1e488cc265fb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad814235db40b178bbd7834e8c95e6da3"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#gad814235db40b178bbd7834e8c95e6da3">XResetPs_ResetPulse</a> (<a class="el" href="struct_x_reset_ps.html">XResetPs</a> *InstancePtr, const <a class="el" href="group__resetps.html#gae2a8fda4fe9a2b1b31fc9bab21478b42">XResetPs_RstId</a> ResetID)</td></tr>
-<tr class="memdesc:gad814235db40b178bbd7834e8c95e6da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pulse reset for specific peripheral based on reset ID.  <a href="group__resetps.html#gad814235db40b178bbd7834e8c95e6da3">More...</a><br/></td></tr>
+<tr class="memdesc:gad814235db40b178bbd7834e8c95e6da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pulse resets a specific peripheral based on reset ID.  <a href="group__resetps.html#gad814235db40b178bbd7834e8c95e6da3">More...</a><br/></td></tr>
 <tr class="separator:gad814235db40b178bbd7834e8c95e6da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga235e646a14d31e1136808857810947ab"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__resetps.html#ga235e646a14d31e1136808857810947ab">XResetPs_ResetStatus</a> (<a class="el" href="struct_x_reset_ps.html">XResetPs</a> *InstancePtr, const <a class="el" href="group__resetps.html#gae2a8fda4fe9a2b1b31fc9bab21478b42">XResetPs_RstId</a> ResetID, <a class="el" href="group__resetps.html#ga817684309b117563ee54a4237f505ad6">XResetPs_RstStatus</a> *Status)</td></tr>
-<tr class="memdesc:ga235e646a14d31e1136808857810947ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get reset status for specific peripheral based on reset ID.  <a href="group__resetps.html#ga235e646a14d31e1136808857810947ab">More...</a><br/></td></tr>
+<tr class="memdesc:ga235e646a14d31e1136808857810947ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reset status for a specific peripheral based on reset ID.  <a href="group__resetps.html#ga235e646a14d31e1136808857810947ab">More...</a><br/></td></tr>
 <tr class="separator:ga235e646a14d31e1136808857810947ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

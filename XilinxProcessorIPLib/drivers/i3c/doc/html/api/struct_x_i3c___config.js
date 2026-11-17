@@ -8,6 +8,7 @@ var struct_x_i3c___config =
     [ "InputClockHz", "struct_x_i3c___config.html#afcc9598c42b89940e46ed396994f62cb", null ],
     [ "IntrId", "struct_x_i3c___config.html#a7f71b2b21fa1795229cc84a064fbd702", null ],
     [ "IntrParent", "struct_x_i3c___config.html#ad36a95d9675a8e6e1915cd116fa94ad6", null ],
+    [ "Name", "struct_x_i3c___config.html#a86b79479573e4601d5cc593ad87d5311", null ],
     [ "RwFifoDepth", "struct_x_i3c___config.html#a1ccd35fbd357de82147eed63989ede57", null ],
     [ "WrThreshold", "struct_x_i3c___config.html#ac06902bd1139701f9309539b84ca9acf", null ]
 ];

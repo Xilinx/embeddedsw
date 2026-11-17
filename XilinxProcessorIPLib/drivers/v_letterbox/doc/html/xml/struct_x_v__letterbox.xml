@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" bodystart="67" bodyend="-1"/>
-        <referencedby refid="group__v__letterbox_1gabe5aadfb6c0a89a900d85917f0c6fc2b" compoundref="xv__letterbox__l2_8c" startline="214" endline="260">XV_LBoxDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__v__letterbox_1gabe5aadfb6c0a89a900d85917f0c6fc2b" compoundref="xv__letterbox__l2_8c" startline="218" endline="264">XV_LBoxDbgReportStatus</referencedby>
         <referencedby refid="xv__letterbox_8h_1a820df8e1b157d14473bae23ca060f9af" compoundref="xv__letterbox_8c" startline="31" endline="46">XV_letterbox_CfgInitialize</referencedby>
         <referencedby refid="xv__letterbox_8h_1af047334689f19e5909714ee69481815b" compoundref="xv__letterbox_8c" startline="176" endline="181">XV_letterbox_DisableAutoRestart</referencedby>
         <referencedby refid="xv__letterbox_8h_1a60212c81ee1171a7832b3500782e23a1" compoundref="xv__letterbox_8c" startline="155" endline="161">XV_letterbox_EnableAutoRestart</referencedby>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" bodystart="64" bodyend="-1"/>
         <referencedby refid="xv__letterbox_8h_1a820df8e1b157d14473bae23ca060f9af" compoundref="xv__letterbox_8c" startline="31" endline="46">XV_letterbox_CfgInitialize</referencedby>
         <referencedby refid="xv__letterbox_8h_1af047334689f19e5909714ee69481815b" compoundref="xv__letterbox_8c" startline="176" endline="181">XV_letterbox_DisableAutoRestart</referencedby>
         <referencedby refid="xv__letterbox_8h_1a60212c81ee1171a7832b3500782e23a1" compoundref="xv__letterbox_8c" startline="155" endline="161">XV_letterbox_EnableAutoRestart</referencedby>
@@ -77,7 +77,7 @@
         <referencedby refid="xv__letterbox_8h_1a053efb7198027e35a1dcdd7088a52b56" compoundref="xv__letterbox_8c" startline="311" endline="319">XV_letterbox_Get_HwReg_video_format</referencedby>
         <referencedby refid="xv__letterbox_8h_1a691e8e13e6fc4e1d8c6b6ad3eb40533c" compoundref="xv__letterbox_8c" startline="219" endline="227">XV_letterbox_Get_HwReg_width</referencedby>
         <referencedby refid="xv__letterbox_8h_1ac12440f3ba7694b93abaa3f336852722" compoundref="xv__letterbox_8c" startline="550" endline="559">XV_letterbox_Get_HwReg_Y_R_value</referencedby>
-        <referencedby refid="xv__letterbox__sinit_8c_1a18d22578bd68d9c519f54cd7df10a1df" compoundref="xv__letterbox__sinit_8c" startline="137" endline="151">XV_letterbox_Initialize</referencedby>
+        <referencedby refid="xv__letterbox__sinit_8c_1a18d22578bd68d9c519f54cd7df10a1df" compoundref="xv__letterbox__sinit_8c" startline="72" endline="86">XV_letterbox_Initialize</referencedby>
         <referencedby refid="xv__letterbox_8h_1a5a1598b47bad981fa335bcd5642c3cec" compoundref="xv__letterbox_8c" startline="763" endline="769">XV_letterbox_InterruptClear</referencedby>
         <referencedby refid="xv__letterbox_8h_1a34fdd1bb9f403e96337f0f6b37bee974" compoundref="xv__letterbox_8c" startline="739" endline="747">XV_letterbox_InterruptDisable</referencedby>
         <referencedby refid="xv__letterbox_8h_1a52afb89b33f3c329d6660e8d83f85e85" compoundref="xv__letterbox_8c" startline="713" endline="721">XV_letterbox_InterruptEnable</referencedby>
@@ -118,7 +118,7 @@
         <link refid="struct_x_v__letterbox___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" bodystart="66" bodyend="69"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.h" bodystart="62" bodyend="65"/>
     <listofallmembers>
       <member refid="struct_x_v__letterbox_1a892b5dc48c3aff2ea82743e407acbd64" prot="public" virt="non-virtual"><scope>XV_letterbox</scope><name>Config</name></member>
       <member refid="struct_x_v__letterbox_1a211a87f78a8b453970a1e4320b5fa022" prot="public" virt="non-virtual"><scope>XV_letterbox</scope><name>IsReady</name></member>

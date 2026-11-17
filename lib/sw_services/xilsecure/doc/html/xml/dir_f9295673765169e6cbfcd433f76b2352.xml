@@ -4,10 +4,12 @@
     <compoundname>utils</compoundname>
     <innerfile refid="xsecure__alghelper_8c">xsecure_alghelper.c</innerfile>
     <innerfile refid="xsecure__alghelper_8h">xsecure_alghelper.h</innerfile>
+    <innerfile refid="xsecure__libver_8c">xsecure_libver.c</innerfile>
+    <innerfile refid="xsecure__libver_8h">xsecure_libver.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/"/>
   </compounddef>
 </doxygen>

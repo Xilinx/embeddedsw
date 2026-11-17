@@ -114,7 +114,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <p>
 5.0   kpt   08/17/24 Initial release
       pre   03/02/25 Removed data context setting for AES and SHA
-5.5   hj    03/20/25 Change AesKeyLookupTbl initialisation format</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__core_8h.html">xsecure_core.h</a>&quot;</code><br/>
+5.5   hj    03/20/25 Change AesKeyLookupTbl initialisation format
+5.7   tbk   04/29/2026 Repack AesKeyLookupTbl entries (drop RegOffset and
+                      compute via XSecure_GetKeyRegOffset, narrow
+                      KeyDecSrcSelVal to u8, replace KeyClearVal with
+                      KeyClearBitPos referencing renamed
+                      XSECURE_AES_KEY_CLEAR_*_BIT_POS macros) for memory
+                      footprint reduction
+5.8   tvp   09/15/26  Guard AES key lookup table definition</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__core_8h.html">xsecure_core.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_aes.h&quot;</code><br/>
 <code>#include &quot;xsecure_sha.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__sha__common_8h.html">xsecure_sha_common.h</a>&quot;</code><br/>

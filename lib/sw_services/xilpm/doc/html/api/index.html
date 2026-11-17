@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>xilpm: Main Page</title>
+<title>xilpm: The following table lists the parameter ID and their respective values:</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -85,7 +88,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,10 +99,39 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">xilpm Documentation</div>  </div>
+<div class="title">The following table lists the parameter ID and their respective values: </div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><p>This function is used to set the pin parameter of specified pin</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PinId</td><td>Pin ID </td></tr>
+    <tr><td class="paramname">ParamId</td><td>Parameter ID </td></tr>
+    <tr><td class="paramname">ParamVal</td><td>Value of the parameter</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>} </p>
+<hr/>
+ <table class="doxtable">
+<tr>
+<th>ParamId </th><th>ParamVal  </th></tr>
+<tr>
+<td>PINCTRL_CONFIG_SLEW_RATE </td><td>PINCTRL_SLEW_RATE_SLOW, PINCTRL_SLEW_RATE_FAST </td></tr>
+<tr>
+<td>PINCTRL_CONFIG_BIAS_STATUS </td><td>PINCTRL_BIAS_DISABLE, PINCTRL_BIAS_ENABLE </td></tr>
+<tr>
+<td>PINCTRL_CONFIG_PULL_CTRL </td><td>PINCTRL_BIAS_PULL_DOWN, PINCTRL_BIAS_PULL_UP </td></tr>
+<tr>
+<td>PINCTRL_CONFIG_SCHMITT_CMOS </td><td>PINCTRL_INPUT_TYPE_CMOS, PINCTRL_INPUT_TYPE_SCHMITT </td></tr>
+<tr>
+<td>PINCTRL_CONFIG_DRIVE_STRENGTH </td><td>PINCTRL_DRIVE_STRENGTH_TRISTATE, PINCTRL_DRIVE_STRENGTH_4MA, PINCTRL_DRIVE_STRENGTH_8MA, PINCTRL_DRIVE_STRENGTH_12MA </td></tr>
+<tr>
+<td>PINCTRL_CONFIG_TRI_STATE </td><td>PINCTRL_TRI_STATE_DISABLE, PINCTRL_TRI_STATE_ENABLE </td></tr>
+</table>
+<hr/>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE or an error code or a reason code </dd></dl>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

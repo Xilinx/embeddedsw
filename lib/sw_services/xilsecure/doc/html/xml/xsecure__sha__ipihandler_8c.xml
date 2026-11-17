@@ -14,156 +14,158 @@
     <includes local="yes">xil_sutil.h</includes>
     <includes local="yes">xplmi_plat.h</includes>
     <incdepgraph>
-      <node id="4232">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="4224">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="4211">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="4227">
-        <label>xplmi.h</label>
-      </node>
-      <node id="4207">
-        <label>xplmi_dma.h</label>
-      </node>
-      <node id="4229">
-        <label>xplmi_scheduler.h</label>
-      </node>
-      <node id="4215">
-        <label>xsecure_sha_common.h</label>
-        <link refid="xsecure__sha__common_8h"/>
-        <childnode refid="4216" relation="include">
-        </childnode>
-        <childnode refid="4217" relation="include">
-        </childnode>
-        <childnode refid="4218" relation="include">
-        </childnode>
-      </node>
-      <node id="4217">
-        <label>xsecure_sss.h</label>
-      </node>
-      <node id="4212">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="4220">
-        <label>xplmi_cmd.h</label>
-      </node>
-      <node id="4221">
-        <label>xsecure_init.h</label>
-        <link refid="xsecure__init_8h"/>
-        <childnode refid="4222" relation="include">
-        </childnode>
-        <childnode refid="4223" relation="include">
-        </childnode>
-        <childnode refid="4224" relation="include">
-        </childnode>
-      </node>
-      <node id="4228">
-        <label>xsecure_resourcehandling.h</label>
-        <link refid="xsecure__resourcehandling_8h"/>
-        <childnode refid="4222" relation="include">
-        </childnode>
-        <childnode refid="4215" relation="include">
-        </childnode>
-        <childnode refid="4229" relation="include">
-        </childnode>
-        <childnode refid="4230" relation="include">
-        </childnode>
-        <childnode refid="4221" relation="include">
-        </childnode>
-        <childnode refid="4231" relation="include">
-        </childnode>
-      </node>
-      <node id="4208">
+      <node id="4456">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="4209" relation="include">
+        <childnode refid="4457" relation="include">
         </childnode>
-        <childnode refid="4210" relation="include">
+        <childnode refid="4458" relation="include">
         </childnode>
-        <childnode refid="4211" relation="include">
+        <childnode refid="4459" relation="include">
         </childnode>
-        <childnode refid="4212" relation="include">
+        <childnode refid="4460" relation="include">
         </childnode>
-        <childnode refid="4213" relation="include">
+        <childnode refid="4461" relation="include">
+        </childnode>
+        <childnode refid="4462" relation="include">
         </childnode>
       </node>
-      <node id="4222">
-        <label>xsecure_aes.h</label>
+      <node id="4477">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="4471" relation="include">
+        </childnode>
+        <childnode refid="4464" relation="include">
+        </childnode>
+        <childnode refid="4478" relation="include">
+        </childnode>
+        <childnode refid="4479" relation="include">
+        </childnode>
+        <childnode refid="4470" relation="include">
+        </childnode>
+        <childnode refid="4480" relation="include">
+        </childnode>
       </node>
-      <node id="4214">
+      <node id="4460">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="4473">
         <label>xsecure_sha.h</label>
-        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8h"/>
-        <childnode refid="4215" relation="include">
-        </childnode>
       </node>
-      <node id="4231">
-        <label>xplmi_config.h</label>
+      <node id="4459">
+        <label>xil_cache.h</label>
       </node>
-      <node id="4218">
-        <label>xsecure_sha_hw.h</label>
+      <node id="4476">
+        <label>xplmi.h</label>
       </node>
-      <node id="4206">
+      <node id="4454">
         <label>xsecure_sha_ipihandler.c</label>
         <link refid="xsecure_sha_ipihandler.c"/>
-        <childnode refid="4207" relation="include">
+        <childnode refid="4455" relation="include">
         </childnode>
-        <childnode refid="4208" relation="include">
+        <childnode refid="4456" relation="include">
         </childnode>
-        <childnode refid="4214" relation="include">
+        <childnode refid="4463" relation="include">
         </childnode>
-        <childnode refid="4219" relation="include">
+        <childnode refid="4468" relation="include">
         </childnode>
-        <childnode refid="4221" relation="include">
+        <childnode refid="4470" relation="include">
         </childnode>
-        <childnode refid="4225" relation="include">
+        <childnode refid="4474" relation="include">
         </childnode>
-        <childnode refid="4226" relation="include">
+        <childnode refid="4475" relation="include">
         </childnode>
-        <childnode refid="4227" relation="include">
+        <childnode refid="4476" relation="include">
         </childnode>
-        <childnode refid="4228" relation="include">
+        <childnode refid="4477" relation="include">
         </childnode>
-        <childnode refid="4232" relation="include">
+        <childnode refid="4460" relation="include">
         </childnode>
-        <childnode refid="4233" relation="include">
+        <childnode refid="4481" relation="include">
         </childnode>
       </node>
-      <node id="4219">
+      <node id="4468">
         <label>xsecure_sha_ipihandler.h</label>
         <link refid="xsecure__sha__ipihandler_8h"/>
-        <childnode refid="4220" relation="include">
+        <childnode refid="4469" relation="include">
         </childnode>
       </node>
-      <node id="4213">
+      <node id="4455">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="4463">
+        <label>xsecure_sha.h</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8h"/>
+        <childnode refid="4464" relation="include">
+        </childnode>
+      </node>
+      <node id="4478">
+        <label>xplmi_scheduler.h</label>
+      </node>
+      <node id="4466">
+        <label>xsecure_sss.h</label>
+      </node>
+      <node id="4462">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="4469">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="4471">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="4480">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="4467">
+        <label>xsecure_sha_hw.h</label>
+      </node>
+      <node id="4461">
         <label>xsecure_config.h</label>
       </node>
-      <node id="4210">
+      <node id="4458">
         <label>xil_types.h</label>
       </node>
-      <node id="4216">
+      <node id="4470">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="4471" relation="include">
+        </childnode>
+        <childnode refid="4472" relation="include">
+        </childnode>
+        <childnode refid="4473" relation="include">
+        </childnode>
+      </node>
+      <node id="4465">
         <label>xpmcdma.h</label>
       </node>
-      <node id="4225">
+      <node id="4474">
         <label>xsecure_error.h</label>
       </node>
-      <node id="4209">
+      <node id="4457">
         <label>xil_printf.h</label>
       </node>
-      <node id="4226">
+      <node id="4475">
         <label>xplmi_hw.h</label>
       </node>
-      <node id="4230">
+      <node id="4479">
         <label>xsecure_sha_ipihandler.h</label>
       </node>
-      <node id="4233">
+      <node id="4481">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="4223">
+      <node id="4472">
         <label>xsecure_rsa_core.h</label>
+      </node>
+      <node id="4464">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure__sha__common_8h"/>
+        <childnode refid="4465" relation="include">
+        </childnode>
+        <childnode refid="4466" relation="include">
+        </childnode>
+        <childnode refid="4467" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -176,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="62" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -197,7 +199,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="134" bodyend="148"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="134" bodyend="148"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha__server__apis_1gab37f53e9a603edeea1dae0a2619b392e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -282,7 +284,7 @@
 <para><itemizedlist>
 <listitem><para>Initializes and starts the sha3 engine</para></listitem><listitem><para>copy hash to provided destination address using DMA </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="172" bodyend="211"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="172" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha__server__apis_1ga279eb3fe6b3b30f99124216070a9e62d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -312,7 +314,7 @@
 <para><itemizedlist>
 <listitem><para>Calculate the SHA-3 digest on the given input data</para></listitem><listitem><para>Initiate and complete the DMA to DMA transfer </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="225" bodyend="260"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="225" bodyend="270"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -342,13 +344,13 @@
 <para><itemizedlist>
 <listitem><para>SHA IPI event handling</para></listitem><listitem><para>Call the API handler according to API ID </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="88" bodyend="123"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="58">XSECURE_API_SHA3_UPDATE</references>
-        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
-        <references refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="443" endline="478">XSecure_IpiEventHandling</references>
-        <references refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="421" endline="427">XSecure_MakeResFree</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c" bodystart="88" bodyend="123"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="64">XSECURE_API_SHA3_UPDATE</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="193" endline="196">XSecure_GetSha3Instance</references>
+        <references refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="459" endline="494">XSecure_IpiEventHandling</references>
+        <references refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="426" endline="443">XSecure_MakeResFree</references>
         <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
         <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
       </memberdef>
@@ -421,7 +423,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha3<sp/>*XSecureSha3InstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" kindref="member">XSECURE_SHA_0_DEVICE_ID</ref>);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Cmd)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Cmd<sp/>==<sp/>NULL)<sp/>||<sp/>(Cmd-&gt;Payload<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -511,38 +513,48 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="225"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_ShaOperation(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
 <codeline lineno="226"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Pload<sp/>=<sp/>Cmd-&gt;Payload;</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputSize<sp/>=<sp/>Pload[2U];</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha3<sp/>*XSecureSha3InstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" kindref="member">XSECURE_SHA_0_DEVICE_ID</ref>);;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Pload;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputSize;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha3<sp/>*XSecureSha3InstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" kindref="member">XSECURE_SHA_0_DEVICE_ID</ref>);</highlight></codeline>
 <codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma<sp/>*PmcDmaInstPtr<sp/>=<sp/>XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);</highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr<sp/>=<sp/>((u64)Pload[1U]<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)Pload[0U];</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstAddr<sp/>=<sp/>((u64)Pload[4U]<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)Pload[3U];</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstAddr;</highlight></codeline>
 <codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__apis_1gadfb02b0d0129acbfe8a8d6a293a7285f" kindref="member">XSecure_Sha3Hash</ref><sp/>Hash<sp/>=<sp/>{0U};</highlight></codeline>
 <codeline lineno="235"><highlight class="normal"></highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((InputSize<sp/>&amp;<sp/>XSECURE_IPI_FIRST_PACKET_MASK)<sp/>!=<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InputSize<sp/>&amp;<sp/>XSECURE_IPI_CONTINUE_MASK)<sp/>==<sp/>0U)){</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PmcDmaInstPtr)<sp/>{</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InputSize<sp/>=<sp/>InputSize<sp/>&amp;<sp/>(~XSECURE_IPI_CONTINUE_MASK)<sp/>&amp;</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~XSECURE_IPI_FIRST_PACKET_MASK);</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" kindref="member">XSecure_Sha3Digest</ref>(XSecureSha3InstPtr,<sp/>DataAddr,<sp/>InputSize,</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__apis_1gadfb02b0d0129acbfe8a8d6a293a7285f" kindref="member">XSecure_Sha3Hash</ref><sp/>*)&amp;Hash);</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>==<sp/>Status)<sp/>{</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash),<sp/>DstAddr,</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SHA3_HASH_LENGTH_IN_WORDS,<sp/>XPLMI_PMCDMA_0);</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_Sha3UpdateIpi(Cmd-&gt;SubsystemId,<sp/>Pload[0U],<sp/>Pload[1U],</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload[2U],<sp/>Pload[3U],<sp/>Pload[4U]);</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"></highlight></codeline>
-<codeline lineno="258"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Cmd<sp/>==<sp/>NULL)<sp/>||<sp/>(Cmd-&gt;Payload<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload<sp/>=<sp/>Cmd-&gt;Payload;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InputSize<sp/>=<sp/>Pload[2U];</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataAddr<sp/>=<sp/>((u64)Pload[1U]<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)Pload[0U];</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DstAddr<sp/>=<sp/>((u64)Pload[4U]<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)Pload[3U];</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((InputSize<sp/>&amp;<sp/>XSECURE_IPI_FIRST_PACKET_MASK)<sp/>!=<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InputSize<sp/>&amp;<sp/>XSECURE_IPI_CONTINUE_MASK)<sp/>==<sp/>0U)){</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>PmcDmaInstPtr)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InputSize<sp/>=<sp/>InputSize<sp/>&amp;<sp/>(~XSECURE_IPI_CONTINUE_MASK)<sp/>&amp;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(~XSECURE_IPI_FIRST_PACKET_MASK);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__client__apis_1ga08e726488222ad0ba91e822d90e97e1e" kindref="member">XSecure_Sha3Digest</ref>(XSecureSha3InstPtr,<sp/>DataAddr,<sp/>InputSize,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__apis_1gadfb02b0d0129acbfe8a8d6a293a7285f" kindref="member">XSecure_Sha3Hash</ref><sp/>*)&amp;Hash);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>==<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash),<sp/>DstAddr,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SHA3_HASH_LENGTH_IN_WORDS,<sp/>XPLMI_PMCDMA_0);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_Sha3UpdateIpi(Cmd-&gt;SubsystemId,<sp/>Pload[0U],<sp/>Pload[1U],</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload[2U],<sp/>Pload[3U],<sp/>Pload[4U]);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c"/>
   </compounddef>
 </doxygen>

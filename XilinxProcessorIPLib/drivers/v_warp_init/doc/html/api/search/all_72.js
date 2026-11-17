@@ -14,6 +14,7 @@ var searchData=
   ['reserved_5f1',['reserved_1',['../struct_x_v_warp_init_vector___hw.html#ae7f87e49ab5d2144dd1169d765d17835',1,'XVWarpInitVector_Hw']]],
   ['reserved_5f2',['reserved_2',['../struct_x_v_warp_init_vector___hw.html#af83d184806619bbf01ec8eb30647fecd',1,'XVWarpInitVector_Hw']]],
   ['resetfilter',['ResetFilter',['../xwarp__example_8c.html#a45fc896dee9ad80fd6040487eebcac56',1,'xwarp_example.c']]],
+  ['resetwarpinit',['ResetWarpInit',['../xwarp__example_8c.html#aeae79e8d109d94839dab3134e3f1adcb',1,'xwarp_example.c']]],
   ['right_5fbottom_5fx',['right_bottom_x',['../struct_keystone__params__fl.html#a11302f58b2dabd5410f0bb3faebc687e',1,'Keystone_params_fl::right_bottom_x()'],['../struct_w_a_r_p___c_f_g.html#a39fa671844a799f2595033769431b820',1,'WARP_CFG::right_bottom_x()']]],
   ['right_5fbottom_5fy',['right_bottom_y',['../struct_keystone__params__fl.html#a4b005166ada22b122aca7dff2fa6e96e',1,'Keystone_params_fl::right_bottom_y()'],['../struct_w_a_r_p___c_f_g.html#ad377f0afc309f84664d7866ae21b69dc',1,'WARP_CFG::right_bottom_y()']]],
   ['right_5ftop_5fx',['right_top_x',['../struct_keystone__params__fl.html#aef08be7f52d4d7aefc374ceeb46e5306',1,'Keystone_params_fl::right_top_x()'],['../struct_w_a_r_p___c_f_g.html#a82a309c21217a06dd76092c5c3cc98e5',1,'WARP_CFG::right_top_x()']]],

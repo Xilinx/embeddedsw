@@ -10,19 +10,19 @@
         <argsstring></argsstring>
         <name>Config</name>
         <briefdescription>
-<para>Hardware Configuration. </para>        </briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="98" bodyend="-1"/>
-        <referencedby refid="group__resetps_1gaa07a2af5abb40332c21bb77963841dcd" compoundref="xresetps_8c" startline="661" endline="676">XResetPs_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__resetps_1gaa07a2af5abb40332c21bb77963841dcd" compoundref="xresetps_8c" startline="675" endline="690">XResetPs_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> driver instance data. </para>    </briefdescription>
+<para>Holds the <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for every reset controller device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+<para>Allocate a variable of this type for every reset controller device in the system. Pass a pointer to a variable of this type to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="4">
         <label>XResetPs_Config</label>
@@ -36,7 +36,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="97" bodyend="99"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="111" bodyend="113"/>
     <listofallmembers>
       <member refid="struct_x_reset_ps_1a300e175ee1267ca7e41e57e698649c44" prot="public" virt="non-virtual"><scope>XResetPs</scope><name>Config</name></member>
     </listofallmembers>

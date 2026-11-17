@@ -80,5 +80,6 @@ var xtrngpsv_8h =
     [ "XTrngpsv_Reseed", "xtrngpsv_8h.html#ga7740e9622a48052d5ebb9ddf10165138", null ],
     [ "XTrngpsv_RunHealthTest", "xtrngpsv_8h.html#gab3d40fb1f24910ed5c246968ac462b69", null ],
     [ "XTrngpsv_RunKAT", "xtrngpsv_8h.html#ga4db54d9685d0ac834bf95023fe659a0d", null ],
-    [ "XTrngpsv_Uninstantiate", "xtrngpsv_8h.html#gad0c8b58adb37a766661ca12aa302ed53", null ]
+    [ "XTrngpsv_Uninstantiate", "xtrngpsv_8h.html#gad0c8b58adb37a766661ca12aa302ed53", null ],
+    [ "XTrngpsv_ConfigTable", "xtrngpsv_8h.html#ga82a931f91cc6d614497e94b6012554f1", null ]
 ];

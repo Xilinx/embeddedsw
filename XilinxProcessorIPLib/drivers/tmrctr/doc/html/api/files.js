@@ -4,7 +4,7 @@ var files =
     [ "xtmrctr.h", "xtmrctr_8h.html", "xtmrctr_8h" ],
     [ "xtmrctr_fast_intr_example.c", "xtmrctr__fast__intr__example_8c.html", "xtmrctr__fast__intr__example_8c" ],
     [ "xtmrctr_g.c", "xtmrctr__g_8c.html", "xtmrctr__g_8c" ],
-    [ "xtmrctr_i.h", "xtmrctr__i_8h.html", null ],
+    [ "xtmrctr_i.h", "xtmrctr__i_8h.html", "xtmrctr__i_8h" ],
     [ "xtmrctr_intr.c", "xtmrctr__intr_8c.html", "xtmrctr__intr_8c" ],
     [ "xtmrctr_intr_64bit_example.c", "xtmrctr__intr__64bit__example_8c.html", "xtmrctr__intr__64bit__example_8c" ],
     [ "xtmrctr_intr_example.c", "xtmrctr__intr__example_8c.html", "xtmrctr__intr__example_8c" ],

@@ -10,50 +10,14 @@
       <node id="233">
         <label>xil_assert.h</label>
       </node>
-      <node id="224">
-        <label>xhdcp1x_port_intr.c</label>
-        <link refid="xhdcp1x_port_intr.c"/>
-        <childnode refid="225" relation="include">
-        </childnode>
-        <childnode refid="233" relation="include">
-        </childnode>
-        <childnode refid="228" relation="include">
-        </childnode>
-        <childnode refid="227" relation="include">
-        </childnode>
-      </node>
-      <node id="230">
-        <label>xil_io.h</label>
-      </node>
-      <node id="225">
-        <label>xhdcp1x_port.h</label>
-        <link refid="xhdcp1x__port_8h"/>
-        <childnode refid="226" relation="include">
-        </childnode>
-        <childnode refid="227" relation="include">
-        </childnode>
-        <childnode refid="231" relation="include">
-        </childnode>
-        <childnode refid="228" relation="include">
-        </childnode>
-      </node>
-      <node id="232">
-        <label>xtmrctr.h</label>
-      </node>
-      <node id="231">
-        <label>xstatus.h</label>
-      </node>
       <node id="229">
         <label>xhdcp1x_hw.h</label>
         <link refid="xhdcp1x__hw_8h"/>
         <childnode refid="230" relation="include">
         </childnode>
       </node>
-      <node id="228">
-        <label>xil_types.h</label>
-      </node>
-      <node id="227">
-        <label>xparameters.h</label>
+      <node id="230">
+        <label>xil_io.h</label>
       </node>
       <node id="226">
         <label>xhdcp1x.h</label>
@@ -67,6 +31,42 @@
         <childnode refid="231" relation="include">
         </childnode>
         <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="224">
+        <label>xhdcp1x_port_intr.c</label>
+        <link refid="xhdcp1x_port_intr.c"/>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+      </node>
+      <node id="232">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="231">
+        <label>xstatus.h</label>
+      </node>
+      <node id="228">
+        <label>xil_types.h</label>
+      </node>
+      <node id="227">
+        <label>xparameters.h</label>
+      </node>
+      <node id="225">
+        <label>xhdcp1x_port.h</label>
+        <link refid="xhdcp1x__port_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -137,11 +137,11 @@ HandlerType                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c" bodystart="66" bodyend="92"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a0b9372be6bbed654eb7809a3c571aac6" compoundref="xhdcp1x_8h" startline="972">XHdcp1x_PortStruct::AuthCallback</references>
-        <references refid="struct_x_hdcp1x___port_struct_1add20260f047759cae3278e3c7721d870" compoundref="xhdcp1x_8h" startline="973">XHdcp1x_PortStruct::AuthRef</references>
-        <references refid="struct_x_hdcp1x___port_struct_1a0236b727093565833b9902c0d6df5fdd" compoundref="xhdcp1x_8h" startline="974">XHdcp1x_PortStruct::IsAuthCallbackSet</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c" bodystart="66" bodyend="92"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a0b9372be6bbed654eb7809a3c571aac6" compoundref="xhdcp1x_8h" startline="964">XHdcp1x_PortStruct::AuthCallback</references>
+        <references refid="struct_x_hdcp1x___port_struct_1add20260f047759cae3278e3c7721d870" compoundref="xhdcp1x_8h" startline="965">XHdcp1x_PortStruct::AuthRef</references>
+        <references refid="struct_x_hdcp1x___port_struct_1a0236b727093565833b9902c0d6df5fdd" compoundref="xhdcp1x_8h" startline="966">XHdcp1x_PortStruct::IsAuthCallbackSet</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
         <references refid="group__hdcp1x_1gga758e8028b33a9204cabc6b8327eacaf3a1763ad0694adf51c42870df78089ec87" compoundref="xhdcp1x__port_8h" startline="53">XHDCP1X_PORT_HANDLER_AUTHENTICATE</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga5e84960fab8e0598e3dc0ecffd7fa2dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -179,12 +179,12 @@ HandlerType                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c" bodystart="104" bodyend="119"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
-        <references refid="struct_x_hdcp1x___port_stats_1a5e09862f792ac5882b922a58a4d78e72" compoundref="xhdcp1x_8h" startline="937">XHdcp1x_PortStats::IntCount</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c" bodystart="104" bodyend="119"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_stats_1a5e09862f792ac5882b922a58a4d78e72" compoundref="xhdcp1x_8h" startline="929">XHdcp1x_PortStats::IntCount</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a5b044a08bc8025741a6a8acc5b54a10d" compoundref="xhdcp1x__port_8h" startline="72">XHdcp1x_PortPhyIfAdaptorS::IntrHandler</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
-        <references refid="struct_x_hdcp1x___port_struct_1a316391664c4d927846ef9169bf723e0f" compoundref="xhdcp1x_8h" startline="975">XHdcp1x_PortStruct::Stats</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x___port_struct_1a316391664c4d927846ef9169bf723e0f" compoundref="xhdcp1x_8h" startline="967">XHdcp1x_PortStruct::Stats</references>
         <referencedby refid="group__hdcp1x_1gaac0a3b497e4974beccb2adfba3d5fa19" compoundref="xhdcp1x__intr_8c" startline="125" endline="135">XHdcp1x_PortIntrHandler</referencedby>
       </memberdef>
       </sectiondef>
@@ -262,6 +262,6 @@ HandlerType                           Callback Function Type
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="119"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c"/>
   </compounddef>
 </doxygen>

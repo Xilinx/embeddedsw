@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="61" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8651415dc1db7c9bdbbc0f328a379d67" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="62" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -43,9 +43,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="63" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="106" endline="169">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1af7c9b754f239713e21a41d6f61b1e61b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -58,8 +58,8 @@
 <para>MsgLen can be 0 &lt;= MsgLen &lt; ((2^B)-8B). Where B is the block length of the selected SHA type and SHA mode. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="64" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -72,9 +72,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="66" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="106" endline="169">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a88cff332a0caa94bdd7f7951243b8235" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -87,9 +87,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="67" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="106" endline="169">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a1ac844d8a769624d98bbd4a1403d60f2" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -103,8 +103,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="68" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8ed434b3d836170df4b69125ed09f29a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -119,8 +119,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="71" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1af681757f8d870f564596fbcaccc1de81" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -133,9 +133,9 @@
 <para>These can be a combination of XASU_INIT, XASU_UPDATE and XASU_FINISH </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="74" bodyend="-1"/>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
-        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="106" endline="169">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="243" endline="302">XAsu_HmacSha3Kat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___hmac_params_1a40e46c297195191a432795b2912af9ee" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -156,19 +156,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="68">
+      <node id="72">
         <label>XAsu_HmacParams</label>
         <link refid="struct_x_asu___hmac_params"/>
-        <childnode refid="69" relation="usage">
+        <childnode refid="73" relation="usage">
           <edgelabel>KeyObject</edgelabel>
         </childnode>
       </node>
-      <node id="69">
+      <node id="73">
         <label>XAsu_KdfHmacKeyObject</label>
         <link refid="struct_x_asu___kdf_hmac_key_object"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="60" bodyend="77"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="63" bodyend="80"/>
     <listofallmembers>
       <member refid="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>HmacAddr</name></member>
       <member refid="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>HmacLen</name></member>

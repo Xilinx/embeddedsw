@@ -8,71 +8,76 @@
     <includes local="yes">xsecure_plat_defs.h</includes>
     <includedby refid="xsecure__lmsclient_8c" local="yes">xsecure_lmsclient.c</includedby>
     <incdepgraph>
-      <node id="2081">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="2082">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="2077">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="2079">
+      <node id="2162">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="2080" relation="include">
+        <childnode refid="2163" relation="include">
         </childnode>
-        <childnode refid="2075" relation="include">
+        <childnode refid="2158" relation="include">
         </childnode>
-        <childnode refid="2081" relation="include">
+        <childnode refid="2164" relation="include">
         </childnode>
-        <childnode refid="2082" relation="include">
+        <childnode refid="2165" relation="include">
         </childnode>
-        <childnode refid="2083" relation="include">
+        <childnode refid="2166" relation="include">
         </childnode>
-      </node>
-      <node id="2074">
-        <label>xsecure_lmsclient.h</label>
-        <link refid="xsecure_lmsclient.h"/>
-        <childnode refid="2075" relation="include">
-        </childnode>
-        <childnode refid="2076" relation="include">
-        </childnode>
-        <childnode refid="2079" relation="include">
-        </childnode>
-        <childnode refid="2082" relation="include">
+        <childnode refid="2167" relation="include">
         </childnode>
       </node>
-      <node id="2083">
-        <label>xsecure_config.h</label>
+      <node id="2165">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="2075">
-        <label>xil_types.h</label>
+      <node id="2164">
+        <label>xil_cache.h</label>
       </node>
-      <node id="2078">
-        <label>xparameters.h</label>
+      <node id="2167">
+        <label>xsecure_plat_defs.h</label>
       </node>
-      <node id="2080">
-        <label>xil_printf.h</label>
+      <node id="2160">
+        <label>xilmailbox.h</label>
       </node>
-      <node id="2076">
+      <node id="2159">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="2077" relation="include">
+        <childnode refid="2160" relation="include">
         </childnode>
-        <childnode refid="2078" relation="include">
+        <childnode refid="2161" relation="include">
+        </childnode>
+      </node>
+      <node id="2166">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2158">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2161">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2163">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2157">
+        <label>xsecure_lmsclient.h</label>
+        <link refid="xsecure_lmsclient.h"/>
+        <childnode refid="2158" relation="include">
+        </childnode>
+        <childnode refid="2159" relation="include">
+        </childnode>
+        <childnode refid="2162" relation="include">
+        </childnode>
+        <childnode refid="2167" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2085">
+      <node id="2169">
         <label>xsecure_lmsclient.c</label>
         <link refid="xsecure__lmsclient_8c"/>
       </node>
-      <node id="2084">
+      <node id="2168">
         <label>xsecure_lmsclient.h</label>
         <link refid="xsecure_lmsclient.h"/>
-        <childnode refid="2085" relation="include">
+        <childnode refid="2169" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -114,10 +119,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" bodystart="67" bodyend="87"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="162">XSECURE_API_LMS_SIGN_VERIFY</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" bodystart="67" bodyend="87"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="164">XSECURE_API_LMS_SIGN_VERIFY</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -163,6 +168,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_LMSCLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.h"/>
   </compounddef>
 </doxygen>

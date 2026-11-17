@@ -10,6 +10,14 @@
       <node id="191">
         <label>xil_io.h</label>
       </node>
+      <node id="189">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="187" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+      </node>
       <node id="188">
         <label>xiomodule.h</label>
         <link refid="xiomodule_8h"/>
@@ -19,6 +27,9 @@
         </childnode>
         <childnode refid="192" relation="include">
         </childnode>
+      </node>
+      <node id="187">
+        <label>xstatus.h</label>
       </node>
       <node id="185">
         <label>xiomodule_selftest_example.c</label>
@@ -32,9 +43,6 @@
         <childnode refid="193" relation="include">
         </childnode>
       </node>
-      <node id="187">
-        <label>xstatus.h</label>
-      </node>
       <node id="192">
         <label>xil_types.h</label>
       </node>
@@ -43,14 +51,6 @@
       </node>
       <node id="193">
         <label>xil_printf.h</label>
-      </node>
-      <node id="189">
-        <label>xiomodule_l.h</label>
-        <link refid="xiomodule__l_8h"/>
-        <childnode refid="187" relation="include">
-        </childnode>
-        <childnode refid="190" relation="include">
-        </childnode>
       </node>
       <node id="190">
         <label>xiomodule_io.h</label>
@@ -64,12 +64,13 @@
         <name>IOMODULE_DEVICE_ID</name>
         <initializer>XPAR_IOMODULE_0_BASEADDR</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Device base address for SDT build. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="60" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="60" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="60" bodyend="-1"/>
+        <referencedby refid="xiomodule__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiomodule__selftest__example_8c" startline="89" endline="105">main</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -79,12 +80,12 @@
         <argsstring></argsstring>
         <name>IOModule</name>
         <briefdescription>
-        </briefdescription>
+<para>Instance of the IO Module. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="76" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -102,21 +103,20 @@
         <detaileddescription>
 <para>This is a destructive test. This function is an example of how to use the IO Module driver component (<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref>) and the hardware device. This function is designed to work without external hardware devices to cause interrupts. It may not return if the IO Module is not properly connected to the processor in either software or hardware.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>DeviceId</parametername>
+<parametername direction="in">DeviceId</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is device ID of the IO Module Device, typically XPAR_&lt;IOMODULE_instance&gt;_DEVICE_ID value from xparameters.h</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS to indicate success, otherwise XST_FAILURE</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
+<simplesect kind="return"><para>XST_SUCCESS to indicate success, otherwise XST_FAILURE </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="130" bodyend="153"/>
-        <references refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</references>
-        <references refid="group__iomodule_1ga4a295427c84e3c7f0cee3440ba119093" compoundref="xiomodule__selftest_8c" startline="221" endline="266">XIOModule_SelfTest</references>
-        <referencedby refid="xiomodule__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiomodule__selftest__example_8c" startline="93" endline="109">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="124" bodyend="147"/>
+        <references refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="114" endline="236">XIOModule_Initialize</references>
+        <references refid="group__iomodule_1ga4a295427c84e3c7f0cee3440ba119093" compoundref="xiomodule__selftest_8c" startline="220" endline="265">XIOModule_SelfTest</references>
+        <referencedby refid="xiomodule__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiomodule__selftest__example_8c" startline="89" endline="105">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="xiomodule__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -129,21 +129,13 @@
         <briefdescription>
 <para>This is the main function for the IO Module example. </para>        </briefdescription>
         <detaileddescription>
-<para>This function is not included if the example is generated from the TestAppGen test tool.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>None.</parametername>
-</parameternamelist>
-<parameterdescription>
-<para></para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
+<para>This function is not included if the example is generated from the TestAppGen test tool.</para><para><simplesect kind="return"><para>XST_SUCCESS to indicate success, otherwise XST_FAILURE. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="93" bodyend="109"/>
-        <references refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" compoundref="xiomodule__selftest__example_8c" startline="130" endline="153">IOModuleSelfTestExample</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c" bodystart="89" bodyend="105"/>
+        <references refid="xiomodule__selftest__example_8c_1ab7c8be360118cc6c9374a723fbc45b97" compoundref="xiomodule__selftest__example_8c" startline="60">IOMODULE_DEVICE_ID</references>
+        <references refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" compoundref="xiomodule__selftest__example_8c" startline="124" endline="147">IOModuleSelfTestExample</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -165,7 +157,7 @@ None</para><para><preformatted></preformatted></para><para><preformatted>MODIFIC
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -187,10 +179,10 @@ None</para><para><preformatted></preformatted></para><para><preformatted>MODIFIC
 <codeline lineno="55"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOMODULE_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IOMODULE_0_DEVICE_ID</highlight></codeline>
-<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOMODULE_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IOMODULE_0_BASEADDR</highlight></codeline>
-<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOMODULE_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IOMODULE_0_DEVICE_ID<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="60" refid="xiomodule__selftest__example_8c_1ab7c8be360118cc6c9374a723fbc45b97" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IOMODULE_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IOMODULE_0_BASEADDR<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
@@ -205,56 +197,54 @@ None</para><para><preformatted></preformatted></para><para><preformatted>MODIFIC
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>IOModule;<sp/></highlight><highlight class="comment">/*<sp/>Instance<sp/>of<sp/>the<sp/>IO<sp/>Module<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="92"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
-<codeline lineno="93" refid="xiomodule__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiomodule__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>Run<sp/>the<sp/>example,<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>generated<sp/>in<sp/>xparameters.h</highlight></codeline>
-<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" kindref="member">IOModuleSelfTestExample</ref>(IOMODULE_DEVICE_ID);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Iomodule<sp/>selftest<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Iomodule<sp/>selftest<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="130" refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" kindref="member">IOModuleSelfTestExample</ref>(u32<sp/>DeviceId)</highlight></codeline>
-<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>IO<sp/>Module<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready<sp/>to<sp/>use.</highlight></codeline>
-<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" kindref="member">XIOModule_Initialize</ref>(&amp;IOModule,<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>a<sp/>self-test<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>hardware<sp/>was<sp/>built<sp/>correctly.</highlight></codeline>
-<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__iomodule_1ga4a295427c84e3c7f0cee3440ba119093" kindref="member">XIOModule_SelfTest</ref>(&amp;IOModule);</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="153"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>IOModule;<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="89" refid="xiomodule__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiomodule__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>Run<sp/>the<sp/>example,<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>generated<sp/>in<sp/>xparameters.h</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" kindref="member">IOModuleSelfTestExample</ref>(<ref refid="xiomodule__selftest__example_8c_1ab7c8be360118cc6c9374a723fbc45b97" kindref="member">IOMODULE_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Iomodule<sp/>selftest<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Iomodule<sp/>selftest<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="124" refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="xiomodule__selftest__example_8c_1a5eff95ee33e5ad325c465b50d71c0427" kindref="member">IOModuleSelfTestExample</ref>(u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>IO<sp/>Module<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready<sp/>to<sp/>use.</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" kindref="member">XIOModule_Initialize</ref>(&amp;IOModule,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>a<sp/>self-test<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>hardware<sp/>was<sp/>built<sp/>correctly.</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__iomodule_1ga4a295427c84e3c7f0cee3440ba119093" kindref="member">XIOModule_SelfTest</ref>(&amp;IOModule);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/examples/xiomodule_selftest_example.c"/>
   </compounddef>
 </doxygen>

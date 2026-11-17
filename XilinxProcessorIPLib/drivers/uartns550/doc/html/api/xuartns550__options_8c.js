@@ -1,5 +1,6 @@
 var xuartns550__options_8c =
 [
+    [ "XUN_NUM_OPTIONS", "xuartns550__options_8c.html#ga0cca097353c3439833fb22f5761ebc3f", null ],
     [ "XUartNs550_GetFifoThreshold", "xuartns550__options_8c.html#ga4f7c185a91f28f3490fa8ef71dab1059", null ],
     [ "XUartNs550_GetLastErrors", "xuartns550__options_8c.html#gab5c78c74113daef4f74aefbc57e92b3a", null ],
     [ "XUartNs550_GetModemStatus", "xuartns550__options_8c.html#ga541b6125f67b83adfe5f508215d59ea6", null ],

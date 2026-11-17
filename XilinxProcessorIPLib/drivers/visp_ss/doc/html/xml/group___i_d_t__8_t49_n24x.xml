@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___i_d_t__8_t49_n24x_1gad484f9a5e6e75768adc98ae54f6b3d1d" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -84,7 +84,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="115" bodyend="129"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="117" bodyend="131"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaa1758966e97511050dc7e0214d3d011e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned</type>
@@ -155,7 +155,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="151" bodyend="196"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="153" bodyend="198"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaabca8012e8222671cbd875f363ccb889" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned</type>
@@ -226,7 +226,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="218" bodyend="255"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="220" bodyend="257"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gad23134b8cab258d7b5a8d5e80387e6ad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -270,7 +270,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="272" bodyend="318"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="274" bodyend="320"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gac93560d659233d69757d0f2112b65e9a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -318,7 +318,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="335" bodyend="363"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="337" bodyend="365"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gacf5bc12393964d6fb4c6e5c73755a46e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -370,7 +370,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="380" bodyend="401"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="382" bodyend="403"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga96534bd64a3798a3765dda0f15497117" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -410,7 +410,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="418" bodyend="458"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="420" bodyend="460"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga2fc6bab1be5e7090337546ffa1932e3b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -458,7 +458,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="915" bodyend="943"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="926" bodyend="954"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga6eaa225ffe1889a54965c4284789179c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -506,7 +506,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="960" bodyend="988"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="971" bodyend="999"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gad2104e0e02e2dde302ad66c1f5cb7e38" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -554,7 +554,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1005" bodyend="1033"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1016" bodyend="1044"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gae8497a51c7cbb2943cb1e0dba6422763" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -598,7 +598,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1050" bodyend="1067"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1061" bodyend="1078"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga68481575dc77db1d61ede89d0d84ee46" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -642,7 +642,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1084" bodyend="1106"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1095" bodyend="1117"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaaeb518a611bf7a9a530abe1d4b6ec592" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -690,7 +690,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1123" bodyend="1157"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1134" bodyend="1168"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga57001608da5f678c7794214cf28eee1e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -738,7 +738,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1174" bodyend="1213"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1185" bodyend="1224"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaefa5f5f095f05e4692ef0e76965aa53d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -782,12 +782,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1230" bodyend="1267"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1241" bodyend="1278"/>
       </memberdef>
-      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gab10b8562ea39e2965d50680d94fe54be" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga530f30110b79c4745079e7c51a4f8b09" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>static int IDT_8T49N24x_GetIntDivTable</definition>
-        <argsstring>(int FOut, int *DivTable, u8 Bypass)</argsstring>
+        <argsstring>(int FOut, int *DivTable, int DivTableSize, u8 Bypass)</argsstring>
         <name>IDT_8T49N24x_GetIntDivTable</name>
         <param>
           <type>int</type>
@@ -796,6 +796,10 @@
         <param>
           <type>int *</type>
           <declname>DivTable</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>DivTableSize</declname>
         </param>
         <param>
           <type>u8</type>
@@ -807,7 +811,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="461" bodyend="536"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="463" bodyend="546"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaf47b5fc8bb6c82a48b39151842114708" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -851,7 +855,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="553" bodyend="773"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="563" bodyend="784"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaa0e53d200847d5057a57bccc1270c543" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -895,7 +899,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1330" bodyend="1351"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1341" bodyend="1362"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga3f3270346e69cbdd12b088e6b7262f71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -943,7 +947,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1283" bodyend="1313"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1294" bodyend="1324"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga9f3f909a2c4e87d6e620a8ad4a97e71b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -964,7 +968,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1398" bodyend="1413"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1409" bodyend="1424"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1039,12 +1043,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="796" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="796" bodyend="898"/>
-        <references refid="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" compoundref="idt__8t49n24x_8h" startline="65">IDT_8T49N24X_FIN_MAX</references>
-        <references refid="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" compoundref="idt__8t49n24x_8h" startline="66">IDT_8T49N24X_FIN_MIN</references>
-        <references refid="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" compoundref="idt__8t49n24x_8h" startline="62">IDT_8T49N24X_FOUT_MAX</references>
-        <references refid="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" compoundref="idt__8t49n24x_8h" startline="63">IDT_8T49N24X_FOUT_MIN</references>
-        <referencedby refid="group___i_d_t__8_t49_n24x_1gacc5465ba335d0d30c552186a903c875d" compoundref="idt__8t49n24x_8c" startline="1777" endline="1810">IDT_8T49N24x_I2cClk</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="807" bodyend="909"/>
+        <references refid="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" compoundref="idt__8t49n24x_8h" startline="66">IDT_8T49N24X_FIN_MAX</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" compoundref="idt__8t49n24x_8h" startline="67">IDT_8T49N24X_FIN_MIN</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" compoundref="idt__8t49n24x_8h" startline="63">IDT_8T49N24X_FOUT_MAX</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" compoundref="idt__8t49n24x_8h" startline="64">IDT_8T49N24X_FOUT_MIN</references>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1gacc5465ba335d0d30c552186a903c875d" compoundref="idt__8t49n24x_8c" startline="1788" endline="1821">IDT_8T49N24x_I2cClk</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga010071f43bdf166d05455910f96ad7a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1084,7 +1088,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="1369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1369" bodyend="1396"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="1380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1380" bodyend="1407"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga018e7060eee80071535581ec5509606b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1122,7 +1126,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="1428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1428" bodyend="1467"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="1439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1439" bodyend="1478"/>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gacc5465ba335d0d30c552186a903c875d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1184,9 +1188,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="1777" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1777" bodyend="1810"/>
-        <references refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="796" endline="898">IDT_8T49N24x_SetClock</references>
-        <references refid="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" compoundref="idt__8t49n24x_8h" startline="57">IDT_8T49N24X_XTAL_FREQ</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="1788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1788" bodyend="1821"/>
+        <references refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="807" endline="909">IDT_8T49N24x_SetClock</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" compoundref="idt__8t49n24x_8h" startline="58">IDT_8T49N24X_XTAL_FREQ</references>
       </memberdef>
       <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gadd9e95cd73396ab1e1fe6151b447ea32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1226,7 +1230,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="1828" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="1828" bodyend="1860"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="1839" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="1839" bodyend="1871"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -1239,7 +1243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="34" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
         <name>I2C_REPEATED_START</name>
@@ -1250,7 +1254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="45" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="46" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -1261,7 +1265,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.c" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.c" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaebc93de546f7e0b0780636a51d607de7" prot="public" static="no">
         <name>IDT_8T49N24X_REVID</name>
@@ -1272,7 +1276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gade98dea2877c91639d8d22fb41095d03" prot="public" static="no">
         <name>IDT_8T49N24X_DEVID</name>
@@ -1283,7 +1287,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" prot="public" static="no">
         <name>IDT_8T49N24X_XTAL_FREQ</name>
@@ -1294,8 +1298,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="57" bodyend="-1"/>
-        <referencedby refid="group___i_d_t__8_t49_n24x_1gacc5465ba335d0d30c552186a903c875d" compoundref="idt__8t49n24x_8c" startline="1777" endline="1810">IDT_8T49N24x_I2cClk</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1gacc5465ba335d0d30c552186a903c875d" compoundref="idt__8t49n24x_8c" startline="1788" endline="1821">IDT_8T49N24x_I2cClk</referencedby>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga2d83e1558736400d007a80a5349cf0d1" prot="public" static="no">
         <name>IDT_8T49N24X_FVCO_MAX</name>
@@ -1306,7 +1310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaf9ad5b298900a22c9ebc37a486af6684" prot="public" static="no">
         <name>IDT_8T49N24X_FVCO_MIN</name>
@@ -1317,7 +1321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" prot="public" static="no">
         <name>IDT_8T49N24X_FOUT_MAX</name>
@@ -1328,8 +1332,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="62" bodyend="-1"/>
-        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="796" endline="898">IDT_8T49N24x_SetClock</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="807" endline="909">IDT_8T49N24x_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" prot="public" static="no">
         <name>IDT_8T49N24X_FOUT_MIN</name>
@@ -1340,8 +1344,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="63" bodyend="-1"/>
-        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="796" endline="898">IDT_8T49N24x_SetClock</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="807" endline="909">IDT_8T49N24x_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" prot="public" static="no">
         <name>IDT_8T49N24X_FIN_MAX</name>
@@ -1352,8 +1356,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="65" bodyend="-1"/>
-        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="796" endline="898">IDT_8T49N24x_SetClock</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="807" endline="909">IDT_8T49N24x_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" prot="public" static="no">
         <name>IDT_8T49N24X_FIN_MIN</name>
@@ -1364,8 +1368,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="66" bodyend="-1"/>
-        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="796" endline="898">IDT_8T49N24x_SetClock</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga780a9a896b104060488d0c32b00b2958" compoundref="idt__8t49n24x_8c" startline="807" endline="909">IDT_8T49N24x_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga4cea3fac38189fc8f029806786a8e4b5" prot="public" static="no">
         <name>IDT_8T49N24X_FPD_MAX</name>
@@ -1376,7 +1380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga76e9e95139c5da228ab4dcbc956454b9" prot="public" static="no">
         <name>IDT_8T49N24X_FPD_MIN</name>
@@ -1387,7 +1391,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga50a1385556eb7661136cb84909dd75ef" prot="public" static="no">
         <name>IDT_8T49N24X_P_MAX</name>
@@ -1398,7 +1402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gab6d58c9a27a80b943dc2712b7d0509b6" prot="public" static="no">
         <name>IDT_8T49N24X_M_MAX</name>
@@ -1409,7 +1413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/idt_8t49n24x.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/idt_8t49n24x.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1417,6 +1421,7 @@
     <detaileddescription>
 <para><preformatted>
 Copyright (c) 2016-2021 Xilinx, Inc.
+Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 Copyright (c) 2016 Adeas B.V. All rights reserved.</preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
 <hruler/>
 

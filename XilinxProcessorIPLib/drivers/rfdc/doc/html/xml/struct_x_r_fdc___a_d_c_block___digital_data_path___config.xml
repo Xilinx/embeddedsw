@@ -5,69 +5,72 @@
     <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1ab37c36248e74b68dba076a585e601a30" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath_Config::MixerInputDataType</definition>
         <argsstring></argsstring>
         <name>MixerInputDataType</name>
         <briefdescription>
-        </briefdescription>
+<para>Mixer input data type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="621" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="679" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="679" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga90c595b371ba67104d2fb525e8b3997e" compoundref="xrfdc__mixer_8c" startline="1122" endline="1155">XRFdc_GetDataType</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1a915334f08b1fbfdc6531de196ee852ef" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath_Config::DataWidth</definition>
         <argsstring></argsstring>
         <name>DataWidth</name>
         <briefdescription>
-        </briefdescription>
+<para>Data width. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="622" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="680" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="680" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga6c7abc983e35e136a2b6c570604f5ac2" compoundref="xrfdc_8c" startline="2260" endline="2291">XRFdc_GetDataWidth</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1adc67126338128f3305b07dc32a82877a" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath_Config::DecimationMode</definition>
         <argsstring></argsstring>
         <name>DecimationMode</name>
         <briefdescription>
-        </briefdescription>
+<para>Decimation mode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="623" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="681" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="681" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1aee4cc193b67b1329c7246712a95b833e" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath_Config::FifoEnable</definition>
         <argsstring></argsstring>
         <name>FifoEnable</name>
         <briefdescription>
-        </briefdescription>
+<para>FIFO enable status. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="624" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="682" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="682" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5d4b9f3f2a6537c481241102777c8e90" compoundref="xrfdc__dp_8c" startline="2025" endline="2054">XRFdc_IsFifoEnabled</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1a78cee9f8d07e7c1cf907a9a8ebb2a193" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_ADCBlock_DigitalDataPath_Config::MixerType</definition>
         <argsstring></argsstring>
         <name>MixerType</name>
         <briefdescription>
-        </briefdescription>
+<para>Mixer type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="625" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="683" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="683" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1a5bb07dccd95372f73b299f6e99703b59" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -75,19 +78,19 @@
         <argsstring></argsstring>
         <name>NCOFreq</name>
         <briefdescription>
-        </briefdescription>
+<para>NCO frequency. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="626" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="684" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>DAC block Digital DataPath Config settings. </para>    </briefdescription>
+<para>ADC block Digital DataPath Config settings. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="620" bodyend="627"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="678" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="678" bodyend="685"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1a915334f08b1fbfdc6531de196ee852ef" prot="public" virt="non-virtual"><scope>XRFdc_ADCBlock_DigitalDataPath_Config</scope><name>DataWidth</name></member>
       <member refid="struct_x_r_fdc___a_d_c_block___digital_data_path___config_1adc67126338128f3305b07dc32a82877a" prot="public" virt="non-virtual"><scope>XRFdc_ADCBlock_DigitalDataPath_Config</scope><name>DecimationMode</name></member>

@@ -167,6 +167,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3cf85f93b1d4ae0d2127af36ce761a96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_audio_formatter___config.html">XAudioFormatter_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio__formatter.html#ga3cf85f93b1d4ae0d2127af36ce761a96">XAudioFormatter_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
 <tr class="memdesc:ga3cf85f93b1d4ae0d2127af36ce761a96"><td class="mdescLeft">&#160;</td><td class="mdescRight">XAudioFormatter_LookupConfig returns a reference to an <a class="el" href="struct_x_audio_formatter___config.html" title="This typedef contains configuration information for a audio formatter core. ">XAudioFormatter_Config</a> structure based on the unique device id, <em>DeviceId</em>.  <a href="#ga3cf85f93b1d4ae0d2127af36ce761a96">More...</a><br/></td></tr>
 <tr class="separator:ga3cf85f93b1d4ae0d2127af36ce761a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga16ea676685b69644cd310b70a55b8b27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio__formatter.html#ga16ea676685b69644cd310b70a55b8b27">XAudioFormatterS2MMIntrHandler</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:ga16ea676685b69644cd310b70a55b8b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt handler for the Audio Formatter S2MM DMA.  <a href="#ga16ea676685b69644cd310b70a55b8b27">More...</a><br/></td></tr>
+<tr class="separator:ga16ea676685b69644cd310b70a55b8b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad236d638e2ae1afe068b87d0f3621d27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__audio__formatter.html#gad236d638e2ae1afe068b87d0f3621d27">XAudioFormatterMM2SIntrHandler</a> (void *InstancePtr)</td></tr>
+<tr class="memdesc:gad236d638e2ae1afe068b87d0f3621d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt handler for the Audio Formatter MM2S DMA.  <a href="#gad236d638e2ae1afe068b87d0f3621d27">More...</a><br/></td></tr>
+<tr class="separator:gad236d638e2ae1afe068b87d0f3621d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ga73a0740e9df67c58f6ffa8dc6c40f26a"></a>
@@ -263,6 +269,8 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_audio_formatter.html#a5894ac993866f9253b146582cbbd1887">XAudioFormatter::IsReady</a>.</p>
+
+<p>Referenced by <a class="el" href="group__audioformatter.html#gad236d638e2ae1afe068b87d0f3621d27">XAudioFormatterMM2SIntrHandler()</a>, and <a class="el" href="group__audioformatter.html#ga16ea676685b69644cd310b70a55b8b27">XAudioFormatterS2MMIntrHandler()</a>.</p>
 
 </div>
 </div>
@@ -477,6 +485,66 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>- No. of bytes of data read from memory. </dd></dl>
 
 <p>References <a class="el" href="struct_x_audio_formatter.html#a5894ac993866f9253b146582cbbd1887">XAudioFormatter::IsReady</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gad236d638e2ae1afe068b87d0f3621d27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XAudioFormatterMM2SIntrHandler </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt handler for the Audio Formatter MM2S DMA. </p>
+<p>Interrupt handler for the Audio Formatter MM2S DMA.</p>
+<p>This handler reads the pending interrupt from the MM2S status register, determines the source of the interrupt, clears it, and calls the corresponding user-registered callback.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_audio_formatter.html" title="The audio formatter driver instance data structure. ">XAudioFormatter</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The application is responsible for connecting this function to the interrupt system. </dd></dl>
+
+<p>References <a class="el" href="struct_x_audio_formatter.html#a5894ac993866f9253b146582cbbd1887">XAudioFormatter::IsReady</a>, and <a class="el" href="group__audio__formatter.html#ga6bf13816fa1c5fa913e85ec5734b7dcd">XAudioFormatter_InterruptClear()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga16ea676685b69644cd310b70a55b8b27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XAudioFormatterS2MMIntrHandler </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt handler for the Audio Formatter S2MM DMA. </p>
+<p>Interrupt handler for the Audio Formatter S2MM DMA.</p>
+<p>This handler reads the pending interrupt from the S2MM status register, determines the source of the interrupt, clears it, and calls the corresponding user-registered callback.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_audio_formatter.html" title="The audio formatter driver instance data structure. ">XAudioFormatter</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The application is responsible for connecting this function to the interrupt system. </dd></dl>
+
+<p>References <a class="el" href="struct_x_audio_formatter.html#a5894ac993866f9253b146582cbbd1887">XAudioFormatter::IsReady</a>, and <a class="el" href="group__audio__formatter.html#ga6bf13816fa1c5fa913e85ec5734b7dcd">XAudioFormatter_InterruptClear()</a>.</p>
 
 </div>
 </div>

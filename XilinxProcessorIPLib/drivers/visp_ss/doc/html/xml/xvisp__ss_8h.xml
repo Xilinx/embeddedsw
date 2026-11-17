@@ -12,62 +12,62 @@
     <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
     <includedby refid="xvisp__ss__example_8c" local="yes">xvisp_ss_example.c</includedby>
     <incdepgraph>
-      <node id="11931">
+      <node id="12412">
         <label>xil_assert.h</label>
       </node>
-      <node id="11929">
-        <label>xvisp_ss.h</label>
-        <link refid="xvisp_ss.h"/>
-        <childnode refid="11930" relation="include">
-        </childnode>
-        <childnode refid="11931" relation="include">
-        </childnode>
-        <childnode refid="11932" relation="include">
-        </childnode>
-      </node>
-      <node id="11932">
+      <node id="12413">
         <label>xstatus.h</label>
       </node>
-      <node id="11930">
+      <node id="12411">
         <label>xil_types.h</label>
+      </node>
+      <node id="12410">
+        <label>xvisp_ss.h</label>
+        <link refid="xvisp_ss.h"/>
+        <childnode refid="12411" relation="include">
+        </childnode>
+        <childnode refid="12412" relation="include">
+        </childnode>
+        <childnode refid="12413" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="11934">
-        <label>apu_to_rpu_ipi.c</label>
+      <node id="12418">
+        <label>vvbench.c</label>
       </node>
-      <node id="11938">
-        <label>vvdevice.c</label>
-      </node>
-      <node id="11935">
-        <label>xvisp_ss.c</label>
-        <link refid="xvisp__ss_8c"/>
-      </node>
-      <node id="11933">
-        <label>xvisp_ss.h</label>
-        <link refid="xvisp_ss.h"/>
-        <childnode refid="11934" relation="include">
-        </childnode>
-        <childnode refid="11935" relation="include">
-        </childnode>
-        <childnode refid="11936" relation="include">
-        </childnode>
-        <childnode refid="11937" relation="include">
-        </childnode>
-        <childnode refid="11938" relation="include">
-        </childnode>
-        <childnode refid="11939" relation="include">
-        </childnode>
-      </node>
-      <node id="11936">
+      <node id="12417">
         <label>xvisp_ss_sinit.c</label>
         <link refid="xvisp__ss__sinit_8c"/>
       </node>
-      <node id="11937">
-        <label>vvbench.c</label>
+      <node id="12415">
+        <label>apu_to_rpu_ipi.c</label>
       </node>
-      <node id="11939">
+      <node id="12420">
         <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="12419">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="12416">
+        <label>xvisp_ss.c</label>
+        <link refid="xvisp__ss_8c"/>
+      </node>
+      <node id="12414">
+        <label>xvisp_ss.h</label>
+        <link refid="xvisp_ss.h"/>
+        <childnode refid="12415" relation="include">
+        </childnode>
+        <childnode refid="12416" relation="include">
+        </childnode>
+        <childnode refid="12417" relation="include">
+        </childnode>
+        <childnode refid="12418" relation="include">
+        </childnode>
+        <childnode refid="12419" relation="include">
+        </childnode>
+        <childnode refid="12420" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="structxvisp__ss___config" prot="public">xvisp_ss_Config</innerclass>
@@ -82,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="7" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="7" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="7" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="7" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -124,9 +124,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="131" bodyend="147"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="131" bodyend="147"/>
         <references refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" compoundref="xvisp__ss__sinit_8c" startline="75" endline="89">XVisp_Ss_LookupConfig</references>
-        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="103">XVisp_Ss::IsReady</references>
+        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="114">XVisp_Ss::IsReady</references>
         <references refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</references>
         <references refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" compoundref="xvisp__ss_8h" startline="36">xvisp_ss_Config::BaseAddress</references>
       </memberdef>
@@ -155,7 +155,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="75" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="75" bodyend="89"/>
         <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss_8h_1ab636bb42c01cf75bea0eaac0657248e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -206,10 +206,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="74" bodyend="94"/>
-        <references refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" compoundref="xvisp__ss_8h" startline="102">XVisp_Ss::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="74" bodyend="94"/>
+        <references refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" compoundref="xvisp__ss_8h" startline="113">XVisp_Ss::Config</references>
         <references refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" compoundref="xvisp__ss_8h" startline="36">xvisp_ss_Config::BaseAddress</references>
-        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="103">XVisp_Ss::IsReady</references>
+        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="114">XVisp_Ss::IsReady</references>
         <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss_8h_1a1dbe420b68573c622a3e3019114aef05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -223,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="96" bodyend="100"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="96" bodyend="100"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss_8h_1ad00cd56894f7d97e3a72356bc2a22669" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="101" bodyend="127"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="101" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss_8h_1a65519322f78ede8ced2b630f9af83af7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -271,7 +271,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="142" bodyend="151"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="142" bodyend="151"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -365,49 +365,60 @@
 <codeline lineno="88" refid="structxvisp__ss___config_1ae78bf00fad63ef9f43b6d17b3d746ff8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ae78bf00fad63ef9f43b6d17b3d746ff8" kindref="member">Oba1SpBpp</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="89" refid="structxvisp__ss___config_1a14ea5cd80b92a57c22a72f2a61a26dbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a14ea5cd80b92a57c22a72f2a61a26dbd" kindref="member">Oba1SpPpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="90" refid="structxvisp__ss___config_1af35fa90bd2401bb5fb20f496f5fcb182" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1af35fa90bd2401bb5fb20f496f5fcb182" kindref="member">Oba1SpDataFormat</ref>;<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="92" refid="structxvisp__ss___config_1abd06defb3913867ec8200fdd3acfdc6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Interrupts[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="93" refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" kindref="member">InterruptParent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="94"><highlight class="normal">}<sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref>;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="101" refid="struct_x_visp___ss" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="102" refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/><ref refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" kindref="member">Config</ref>;<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="103" refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="104"><highlight class="normal">}<sp/><ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref>;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>Static<sp/>Initialization<sp/>API&apos;s<sp/>in<sp/>xvisp_ss_sinit.c</highlight></codeline>
-<codeline lineno="112"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" kindref="member">XVisp_Ss_Initialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*<ref refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" kindref="member">XVisp_Ss_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" kindref="member">XVisp_Ss_Initialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*<ref refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" kindref="member">XVisp_Ss_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Image<sp/>Splitter/Stitcher<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="structxvisp__ss___config_1a4fa09f48e4007348a2feacca848e4c8e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a4fa09f48e4007348a2feacca848e4c8e" kindref="member">SplitterStitcherEnable</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="structxvisp__ss___config_1a861785ec753688f4953ba097f1b9503e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a861785ec753688f4953ba097f1b9503e" kindref="member">SplitterStitcherDataFormat</ref>;<sp/></highlight></codeline>
+<codeline lineno="94" refid="structxvisp__ss___config_1ab012d8e3d2545432188e604f72094520" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ab012d8e3d2545432188e604f72094520" kindref="member">SplitterStitcherHres</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="structxvisp__ss___config_1ab57740e7420b9a86dc292fd76d183a52" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ab57740e7420b9a86dc292fd76d183a52" kindref="member">SplitterStitcherVres</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="structxvisp__ss___config_1a6497e4327a5c18f062b625e2ee2b68de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a6497e4327a5c18f062b625e2ee2b68de" kindref="member">SplitterStitcherRpu</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="structxvisp__ss___config_1a8c9bf7638c1fb455ed878f1349d8904f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a8c9bf7638c1fb455ed878f1349d8904f" kindref="member">SplitterStitcherVcid</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="structxvisp__ss___config_1aa81ea2d72441508310a550cd4381d2a8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1aa81ea2d72441508310a550cd4381d2a8" kindref="member">SplitterStitcherRgb888</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="structxvisp__ss___config_1abb2feeda85ed21dd139d674ceb444b30" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1abb2feeda85ed21dd139d674ceb444b30" kindref="member">SplitterStitcherY</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="structxvisp__ss___config_1af9a697f486d1749d4924a6b0b438f8a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1af9a697f486d1749d4924a6b0b438f8a5" kindref="member">SplitterStitcherYuv422</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="structxvisp__ss___config_1a9f08a4339ff8f36977716fba9a6b262a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a9f08a4339ff8f36977716fba9a6b262a" kindref="member">SplitterStitcherYuv420</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="structxvisp__ss___config_1abd06defb3913867ec8200fdd3acfdc6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Interrupts[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" kindref="member">InterruptParent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}<sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112" refid="struct_x_visp___ss" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113" refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/><ref refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" kindref="member">Config</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<sp/><ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
 <codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="122"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>implemented<sp/>in<sp/>xvisp_ss.c</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/>*<sp/>Static<sp/>Initialization<sp/>API&apos;s<sp/>in<sp/>xvisp_ss_sinit.c</highlight></codeline>
 <codeline lineno="123"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" kindref="member">XVisp_Ss_CfgInitialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*Config,</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>reset_isp2rpu_mapping();</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_isp2rpu_mapping(u32<sp/>rpu_id,<sp/>u32<sp/>isp_id);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvisp__ss_8c_1a65519322f78ede8ced2b630f9af83af7" kindref="member">selectDestinationCore</ref>(u32<sp/>ispid);</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" kindref="member">XVisp_Ss_Initialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*<ref refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" kindref="member">XVisp_Ss_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" kindref="member">XVisp_Ss_Initialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*<ref refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" kindref="member">XVisp_Ss_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>implemented<sp/>in<sp/>xvisp_ss.c</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" kindref="member">XVisp_Ss_CfgInitialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>reset_isp2rpu_mapping();</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_isp2rpu_mapping(u32<sp/>rpu_id,<sp/>u32<sp/>isp_id);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvisp__ss_8c_1a65519322f78ede8ced2b630f9af83af7" kindref="member">selectDestinationCore</ref>(u32<sp/>ispid);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h"/>
   </compounddef>
 </doxygen>

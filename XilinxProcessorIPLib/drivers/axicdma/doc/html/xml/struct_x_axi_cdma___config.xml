@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_axi_cdma___config" kind="struct" prot="public">
     <compoundname>XAxiCdma_Config</compoundname>
+    <includes local="no">xaxicdma.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a98570c3ae3141d909262db916aa71d3f" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -14,7 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="410" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axicdma_1ga856f02999291c9c30d44e2c63822c6e8" compoundref="xaxicdma__sinit_8c" startline="75" endline="90">XAxiCdma_LookupConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a9a87a843efcf47bd5ea2428217288b73" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -27,7 +30,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="412" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gacd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1006" endline="1129">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga3e07cf3c4c4ef7c370d4d73675ad0e56" compoundref="xaxicdma__example__hybrid__poll_8c" startline="713" endline="811">XAxiCdma_HybridPollExample</referencedby>
+        <referencedby refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="801" endline="939">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga181467aa90f99b2abf37424af8373b89" compoundref="xaxicdma__example__sg__poll_8c" startline="514" endline="640">XAxiCdma_SgPollExample</referencedby>
+        <referencedby refid="group__axicdma_1ga594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="263" endline="328">XAxiCdma_SimpleIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga87209e4dc5ba9c6092d82623d1af223f" compoundref="xaxicdma__example__simple__poll_8c" startline="203" endline="244">XAxiCdma_SimplePollExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a9f9196114cd86ea29b9a9951b16ebdd0" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -40,7 +49,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="413" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a1bdfd01d492fb5e46bfd12bb18ac5f44" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -53,7 +63,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="414" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a5150381b84e79c7859aa4d70851a98bf" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -66,7 +77,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="415" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="406" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1ad0a29ae084a111047ffcdc7dda3417e0" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -79,7 +91,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="416" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="407" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a0958aa1063664113fc68a0acd1907a26" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -92,7 +105,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="417" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="408" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" compoundref="xaxicdma_8c" startline="124" endline="211">XAxiCdma_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1acac3926c83d02a8ffe1a82e69fd0431a" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -105,7 +119,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="419" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="410" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gacd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1006" endline="1129">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="801" endline="939">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="263" endline="328">XAxiCdma_SimpleIntrExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_axi_cdma___config_1a136f7c2279ce73e454c783f1f6c20b90" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -118,14 +135,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="420" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="411" bodyend="-1"/>
+        <referencedby refid="group__axicdma_1gacd911a5613750742b62bcb5b8de6398f" compoundref="xaxicdma__example__hybrid__intr_8c" startline="1006" endline="1129">XAxiCdma_HybridIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" compoundref="xaxicdma__example__sg__intr_8c" startline="801" endline="939">XAxiCdma_SgIntrExample</referencedby>
+        <referencedby refid="group__axicdma_1ga594d3f0ffc0da3e2b2b3758a499e21bb" compoundref="xaxicdma__example__simple__intr_8c" startline="263" endline="328">XAxiCdma_SimpleIntrExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Hardware configuration structure for the CDMA engine. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="406" bodyend="422"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="397" bodyend="413"/>
     <listofallmembers>
       <member refid="struct_x_axi_cdma___config_1a0958aa1063664113fc68a0acd1907a26" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>AddrWidth</name></member>
       <member refid="struct_x_axi_cdma___config_1a9a87a843efcf47bd5ea2428217288b73" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>BaseAddress</name></member>

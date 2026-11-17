@@ -4,15 +4,15 @@
     <compoundname>xsecure_mldsa_hw.h</compoundname>
     <includedby refid="xsecure__mldsa_8c" local="yes">xsecure_mldsa.c</includedby>
     <invincdepgraph>
-      <node id="2192">
-        <label>xsecure_mldsa.c</label>
-        <link refid="xsecure__mldsa_8c"/>
-      </node>
-      <node id="2191">
+      <node id="2279">
         <label>xsecure_mldsa_hw.h</label>
         <link refid="xsecure_mldsa_hw.h"/>
-        <childnode refid="2192" relation="include">
+        <childnode refid="2280" relation="include">
         </childnode>
+      </node>
+      <node id="2280">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -75,6 +75,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_MLDSA_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_mldsa_hw.h"/>
   </compounddef>
 </doxygen>

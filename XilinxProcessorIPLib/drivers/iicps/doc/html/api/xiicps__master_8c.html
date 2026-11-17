@@ -105,7 +105,55 @@ $(document).ready(function(){initNavTree('xiicps__master_8c.html','');});
 <div class="title">xiicps_master.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the master mode transfers of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>The <a class="el" href="xiicps__master_8c.html" title="Implements the master mode transfers of the XIicPs driver. ">xiicps_master.c</a> file handles master mode transfers.</p>
+<pre> MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a jz   01/30/10 First release
+1.00a sdm  09/21/11 Updated the XIicPs_SetupMaster to not check for
+              Bus Busy condition when the Hold Bit is set.
+1.01a sg   03/30/12 Fixed an issue in XIicPs_MasterSendPolled where a
+              check for transfer completion is added, which indicates
+                 the completion of current transfer.
+2.0   hk   03/07/14 Added check for error status in the while loop that
+                    checks for completion. CR# 762244, 764875.
+2.1   hk   04/24/14 Fix for CR# 789821 to handle &gt;14 byte transfers.
+                    Fix for CR# 761060 - provision for repeated start.
+2.2   hk   08/23/14 Slave monitor mode changes - clear FIFO, enable
+                    read mode and clear transfer size register.
+                    Disable NACK to avoid interrupts on each retry.
+2.3     sk       10/06/14 Fill transmit fifo before address register when sending.
+                                          Replaced XIICPS_DATA_INTR_DEPTH with XIICPS_FIFO_DEPTH.
+                                          Repeated start feature removed.
+3.0     sk       12/06/14 Implemented Repeated start feature.
+                 01/31/15 Modified the code according to MISRAC 2012 Compliant.
+                 02/18/15 Implemented larger data transfer using repeated start
+                                  in Zynq UltraScale MP.
+3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+3.6   ask 09/03/18 In XIicPs_MasterRecvPolled, set transfer size register
+                     before slave address. Fix for CR996440.
+3.8   sd 09/06/18  Enable the Timeout interrupt
+3.9   sg 03/09/19  Added arbitration lost support in polled transfer
+3.11  rna 12/20/19 Clear the ISR before enabling interrupts in Send/Receive.
+          12/23/19 Add 10 bit address support for Master/Slave
+          12/24/19 Disable slave monitor with XIICPS_CR_NEA_MASK for 10 bit
+                   addresses according to the IP spec.
+3.11  sd  02/06/20 Added clocking support.
+3.11  rna 02/12/20 Moved static data transfer functions to <a class="el" href="xiicps__xfer_8c.html" title="Implements the internal data transfer helpers of the XIicPs driver. ">xiicps_xfer.c</a> file
+          02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+3.13  rna 11/24/20 Added timeout to XIicPs_MasterSendPolled function.
+      rna 12/17/20 Clear hold bit at correct time in Rx path of ISR
+      rna 05/24/21 Fix Misra c violations
+3.18 gm  08/11/23 Update Receive Polled and Interrupt Handler functions
+                     as modular.
+3.24 vn  08/26/26 Fix Doxygen warnings
+3.24 tb  09/30/26 Align Doxygen comments with AMD standards
+3.24 vlt 10/02/26 Refactor <a class="el" href="group__iicps__api.html#ga71584f1a7e675cde41cfd9d1bd4320b4" title="Initiates a polled mode send in master mode. ">XIicPs_MasterSendPolled()</a> and
+             <a class="el" href="group__iicps__api.html#gad64f0389aa694ecf21ca8a39e44cf13f" title="Handles interrupts for the master mode. ">XIicPs_MasterInterruptHandler()</a> to reduce CCM.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps__xfer_8h.html">xiicps_xfer.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 </div><table class="memberdecls">
@@ -117,9 +165,11 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Master functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Provides the functions for the device as master, in <a class="el" href="xiicps__master_8c.html" title="Implements the master mode transfers of the XIicPs driver. ">xiicps_master.c</a>. </p>
+</div></td></tr>
 <tr class="memitem:ga3027c1eb6ece3193a978a2da8e06c011"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011">XIicPs_MasterSend</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount, u16 SlaveAddr)</td></tr>
-<tr class="memdesc:ga3027c1eb6ece3193a978a2da8e06c011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for device as master, in <a class="el" href="xiicps__master_8c.html">xiicps_master.c</a>.  <a href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011">More...</a><br/></td></tr>
+<tr class="memdesc:ga3027c1eb6ece3193a978a2da8e06c011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates an interrupt-driven send in master mode.  <a href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011">More...</a><br/></td></tr>
 <tr class="separator:ga3027c1eb6ece3193a978a2da8e06c011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4817f45c28341cea4ab8960dc1203acb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga4817f45c28341cea4ab8960dc1203acb">XIicPs_MasterRecv</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount, u16 SlaveAddr)</td></tr>
 <tr class="memdesc:ga4817f45c28341cea4ab8960dc1203acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates an interrupt-driven receive in master mode.  <a href="group__iicps__api.html#ga4817f45c28341cea4ab8960dc1203acb">More...</a><br/></td></tr>
@@ -137,7 +187,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga15f2e8071ff8d8e1ec1dc56d29ab202b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables slave monitor mode.  <a href="group__iicps__api.html#ga15f2e8071ff8d8e1ec1dc56d29ab202b">More...</a><br/></td></tr>
 <tr class="separator:ga15f2e8071ff8d8e1ec1dc56d29ab202b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad64f0389aa694ecf21ca8a39e44cf13f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gad64f0389aa694ecf21ca8a39e44cf13f">XIicPs_MasterInterruptHandler</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gad64f0389aa694ecf21ca8a39e44cf13f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interrupt handler for the master mode.  <a href="group__iicps__api.html#gad64f0389aa694ecf21ca8a39e44cf13f">More...</a><br/></td></tr>
+<tr class="memdesc:gad64f0389aa694ecf21ca8a39e44cf13f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the master mode.  <a href="group__iicps__api.html#gad64f0389aa694ecf21ca8a39e44cf13f">More...</a><br/></td></tr>
 <tr class="separator:gad64f0389aa694ecf21ca8a39e44cf13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

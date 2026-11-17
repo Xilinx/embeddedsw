@@ -1,36 +1,112 @@
 var NAVTREE =
 [
-  [ "sysmonpsv", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Enumerations", "globals_enum.html", null ],
-      [ "Enumerator", "globals_eval.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xsysmonpsv_polled_example.c", "example.html#ex1", null ],
-      [ "xsysmonpsv_intr_example.c", "example.html#ex2", null ]
-    ] ]
-  ] ]
+  [
+    "sysmonpsv",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Enumerations",
+            "globals_enum.html",
+            null
+          ],
+          [
+            "Enumerator",
+            "globals_eval.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xsysmonpsv_polled_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xsysmonpsv_intr_example.c",
+            "example.html#ex2",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xsysmonpsv__hw_8h.html#ga1038088baca8de9c1747f19a59962bb2",
-"xsysmonpsv__hw_8h.html#gaedc7b72f6668bf1ebcec44de5916a982"
+"xsysmonpsv__hw_8h.html#ga1dc13e5fe83b2345990971199aa14de6",
+"xsysmonpsv__hw_8h.html#gaf9f2135f699b33b1047caee3979dc858"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

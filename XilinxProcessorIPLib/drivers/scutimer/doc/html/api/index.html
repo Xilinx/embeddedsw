@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Interrupts (Interrupt handler is not provided in this driver. Application has to register it's own handler)</li>
 </ul>
 <p><b> Initialization and Configuration </b></p>
-<p>The device driver enables higher layer software (e.g., an application) to communicate with the Timer.</p>
+<p>The device driver enables higher layer software (for example, an application) to communicate with the Timer.</p>
 <p><a class="el" href="group__scutimer.html#ga59badd651be237aab4099cedd96621d2" title="Initialize a specific timer instance/driver. ">XScuTimer_CfgInitialize()</a> API is used to initialize the Timer. The user needs to first call the <a class="el" href="group__scutimer.html#ga58903096d235b860a31f50c4ab70c853" title="Lookup the device configuration based on the unique device ID/BaseAddress. ">XScuTimer_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__scutimer.html#ga59badd651be237aab4099cedd96621d2" title="Initialize a specific timer instance/driver. ">XScuTimer_CfgInitialize()</a> API.</p>
 <p><b> Interrupts </b></p>
 <p>The Timer hardware supports interrupts.</p>
@@ -143,6 +143,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
                    incremental builds, it would help to reduce compilation
                    time.
 2.5   dp   07/11/23 Add support for system device tree flow
+2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

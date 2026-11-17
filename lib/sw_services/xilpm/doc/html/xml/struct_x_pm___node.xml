@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___node" kind="struct" prot="public">
+    <compoundname>XPm_Node</compoundname>
+    <includes local="no">xpm_node.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Node::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Node ID: For XilPM clock and pin APIs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_node.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_node.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Node::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address: Specify to node type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_node.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_node.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The node class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all the power, clock, pin and reset node classes. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_node.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_node.h" bodystart="29" bodyend="37"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___node_1a0436658590986f3f8a1b450780383252" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" prot="public" virt="non-virtual"><scope>XPm_Node</scope><name>Id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

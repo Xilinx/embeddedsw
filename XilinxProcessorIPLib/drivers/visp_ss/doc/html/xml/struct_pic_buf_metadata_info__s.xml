@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="501" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="501" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a9a21268f6e31fc92797b9af662cda20d" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="502" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="502" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1acf203cd2fbc915f66ff626fdddaf47a2" prot="public" static="no" mutable="no">
         <type>uint64_t</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="503" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="503" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1acdd0b038db2e0f8f91e5386a3f77183c" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="504" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="504" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a78503328186dd47392b383d8d049c003" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="511" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="511" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a258b6267b30d706f9df2ff0da978a50b" prot="public" static="no" mutable="no">
         <type><ref refid="struct_metadata_ccm_config__s" kindref="compound">MetadataCcmConfig_t</ref></type>
@@ -91,7 +91,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="519" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="519" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1ab83f412f550ee7b99814c9ff0ed42894" prot="public" static="no" mutable="no">
         <type>MetadataRawChannelFloat_t</type>
@@ -104,7 +104,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="520" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="520" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1ad7ae168e23d8f38afabc085e9c72b16e" prot="public" static="no" mutable="no">
         <type>MetadataRawChannelFloat_t</type>
@@ -117,7 +117,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="521" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="521" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a54f3876c412fbd125118a8017e5560a4" prot="public" static="no" mutable="no">
         <type>MetadataRawChannelFloat_t</type>
@@ -130,7 +130,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="522" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="522" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a40b6153a2e6a99a53bc74db7ec45e64d" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -143,7 +143,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="523" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="523" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1afc8d6528a6229de28f553804eed1d01d" prot="public" static="no" mutable="no">
         <type><ref refid="struct_metadata_integer_range__s" kindref="compound">MetadataIntegerRange_t</ref></type>
@@ -156,7 +156,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="524" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="524" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a84ca7f7684e1777f0dad9c38d64c766d" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -169,7 +169,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="525" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="525" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a2b2d60597393037f33ce152e90123acd" prot="public" static="no" mutable="no">
         <type>MetadataFloatRange_t</type>
@@ -182,7 +182,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="526" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="526" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1ac9a40c68dc055b96bed90a9bcf49de85" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -195,7 +195,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="527" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="527" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1abf684de207bbb0dd1ebf975d51f1ed56" prot="public" static="no" mutable="no">
         <type>MetadataFloatRange_t</type>
@@ -208,7 +208,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="528" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="528" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a7680897056d6417f1025ddffc67167fc" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -221,7 +221,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="530" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="530" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a7b90f89ef0f717d6ce85020d45869466" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -234,7 +234,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="531" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="531" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a748ec75b52b1759a2697d3432b2d79af" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -247,7 +247,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="532" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="532" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a3c4246896318afd9d27582ff78501cad" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -260,7 +260,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="533" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="533" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a798ae3abe5669c97fc604b42a28b06b8" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -273,7 +273,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="534" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="534" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a261f67463306187708b89f029920fbae" prot="public" static="no" mutable="no">
         <type>MetadataLuxIndexSensorMode_t</type>
@@ -286,7 +286,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="535" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="535" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a44726dc9d2d87616b72baa58c11ff825" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -299,7 +299,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="536" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="536" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a24eb1a2f4a150eb215d81e249a98fa88" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -312,7 +312,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="537" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="537" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1ab1e5b4d40bef387fb5debe1cbe9996fa" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -325,7 +325,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="538" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="538" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_pic_buf_metadata_info__s_1a1d73b0accd6c04db5cb053ecf41321bb" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -338,7 +338,7 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="539" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="539" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="539" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="539" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -346,26 +346,26 @@ expoInfo[3]: ES image integration time </para>        </briefdescription>
     <detaileddescription>
 <para>image all metadata info. </para>    </detaileddescription>
     <collaborationgraph>
-      <node id="966">
+      <node id="972">
         <label>MetadataIntegerRange_s</label>
         <link refid="struct_metadata_integer_range__s"/>
       </node>
-      <node id="965">
+      <node id="971">
         <label>MetadataCcmConfig_s</label>
         <link refid="struct_metadata_ccm_config__s"/>
       </node>
-      <node id="964">
+      <node id="970">
         <label>PicBufMetadataInfo_s</label>
         <link refid="struct_pic_buf_metadata_info__s"/>
-        <childnode refid="965" relation="usage">
+        <childnode refid="971" relation="usage">
           <edgelabel>ccmConfig</edgelabel>
         </childnode>
-        <childnode refid="966" relation="usage">
+        <childnode refid="972" relation="usage">
           <edgelabel>integrationTimeRange</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="500" bodyend="540"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="500" bodyend="540"/>
     <listofallmembers>
       <member refid="struct_pic_buf_metadata_info__s_1a84ca7f7684e1777f0dad9c38d64c766d" prot="public" virt="non-virtual"><scope>PicBufMetadataInfo_s</scope><name>analogGain</name></member>
       <member refid="struct_pic_buf_metadata_info__s_1a2b2d60597393037f33ce152e90123acd" prot="public" virt="non-virtual"><scope>PicBufMetadataInfo_s</scope><name>analogGainRange</name></member>

@@ -4,37 +4,37 @@
     <compoundname>XClock_PllMappings</compoundname>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_clock___pll_mappings_1a75f8c05d87f964ac46100243bd8f5aa5" prot="public" static="no" mutable="no">
-        <type>XClock_OutputClks</type>
+        <type><ref refid="group__clockps_1ga474490e4890cee518764e6986cea21e2" kindref="member">XClock_OutputClks</ref></type>
         <definition>XClock_OutputClks XClock_PllMappings::ClockId</definition>
         <argsstring></argsstring>
         <name>ClockId</name>
         <briefdescription>
-        </briefdescription>
+<para>Clockid. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_clock___pll_mappings_1aca7d9b6d17da261986bd571aaecced4d" prot="public" static="no" mutable="no">
-        <type>XClock_PllIndices</type>
+        <type><ref refid="group__clockps_1gad2313883ea84fc47b117e07483489dda" kindref="member">XClock_PllIndices</ref></type>
         <definition>XClock_PllIndices XClock_PllMappings::PllIndex</definition>
         <argsstring></argsstring>
         <name>PllIndex</name>
         <briefdescription>
-        </briefdescription>
+<para>Pllindex. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" bodystart="115" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Holds output clocks mapped to plls. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" bodystart="79" bodyend="82"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_pll.c" bodystart="113" bodyend="117"/>
     <listofallmembers>
       <member refid="struct_x_clock___pll_mappings_1a75f8c05d87f964ac46100243bd8f5aa5" prot="public" virt="non-virtual"><scope>XClock_PllMappings</scope><name>ClockId</name></member>
       <member refid="struct_x_clock___pll_mappings_1aca7d9b6d17da261986bd571aaecced4d" prot="public" virt="non-virtual"><scope>XClock_PllMappings</scope><name>PllIndex</name></member>

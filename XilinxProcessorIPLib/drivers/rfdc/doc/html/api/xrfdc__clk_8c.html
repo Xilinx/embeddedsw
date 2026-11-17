@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc__clk_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,8 +104,8 @@ $(document).ready(function(){initNavTree('xrfdc__clk_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a programming example for using the lmx2594 and lmk04028 clock generator. </p>
-<p>This example configures the lmx2594 to 20 frequencies. If 0 is passed then the chip is powered down. For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro while compiling this example.</p>
+<div class="textblock"><p>Demonstrates programming the LMX2594 and LMK04208 clock generators. </p>
+<p>This file contains a programming example for using the lmx2594 and lmk04028 clock generator. This example configures the lmx2594 to 20 frequencies. If 0 is passed then the chip is powered down. For zcu111 board users are expected to define XPS_BOARD_ZCU111 macro while compiling this example.</p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -113,7 +113,8 @@ $(document).ready(function(){initNavTree('xrfdc__clk_8c.html','');});
 1.0   sd     04/11/18 First release
 4.0   sd     05/22/18 Updated lmx configuration
 5.0   sd     09/05/18 Updated lmx reset sequence
-8.0   cog    04/09/20 Fixed error in PLL B for 1474.56 MHz</pre><pre></pre> </div></div><!-- contents -->
+8.0   cog    04/09/20 Fixed error in PLL B for 1474.56 MHz
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

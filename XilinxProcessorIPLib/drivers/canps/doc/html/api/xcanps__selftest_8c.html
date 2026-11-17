@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanps__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,23 @@ $(document).ready(function(){initNavTree('xcanps__selftest_8c.html','');});
 <div class="title">xcanps_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the self-test diagnostic for the <a class="el" href="struct_x_can_ps.html" title="Stores the XCanPs driver instance data. ">XCanPs</a> CAN driver. </p>
+<p>This file contains a diagnostic self-test function for the <a class="el" href="struct_x_can_ps.html" title="Stores the XCanPs driver instance data. ">XCanPs</a> driver. Read <a class="el" href="xcanps_8h.html">xcanps.h</a> file for more information.</p>
+<dl class="section note"><dt>Note</dt><dd>The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set up for a CAN baud rate of 40Kbps. This setting assumes a CAN clock of 24MHz. These need to be changed based on the desired baudrate and CAN clock frequency.</dd></dl>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00a xd/sv  01/12/10 First release
+2.1 adk                 23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
+                                         SDK claims a 40kbps baud rate but it's not.
+3.00  kvn    02/13/15 Modified code for MISRA_C:2012 compliance.
+3.5     sne    07/01/20 Fixed MISRAC warnings.
+3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+3.13  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xcanps_8h.html">xcanps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -121,7 +137,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga84d18d801c4f8ab5cc8eeadeff33d8b5"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canps.html#ga84d18d801c4f8ab5cc8eeadeff33d8b5">XCanPs_SelfTest</a> (<a class="el" href="struct_x_can_ps.html">XCanPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga84d18d801c4f8ab5cc8eeadeff33d8b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the CAN driver/device.  <a href="group__canps.html#ga84d18d801c4f8ab5cc8eeadeff33d8b5">More...</a><br/></td></tr>
+<tr class="memdesc:ga84d18d801c4f8ab5cc8eeadeff33d8b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides diagnostic self-test functions from <a class="el" href="xcanps__selftest_8c.html" title="Implements the self-test diagnostic for the XCanPs CAN driver. ">xcanps_selftest.c</a>.  <a href="group__canps.html#ga84d18d801c4f8ab5cc8eeadeff33d8b5">More...</a><br/></td></tr>
 <tr class="separator:ga84d18d801c4f8ab5cc8eeadeff33d8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

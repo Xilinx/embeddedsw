@@ -558,7 +558,8 @@
     <member refid="xv__hdmic__vsif_8c_1aca06539dfd384eaebabe5d861ec81ae8" kind="function"><name>XV_HdmiC_VSIF_Conv3DSampMethodTo3DSampMethod</name></member>
     <member refid="xv__hdmic__vsif_8c_1ac080dddd1c72434d6cfd51ace0e1cf28" kind="function"><name>XV_HdmiC_VSIF_Conv3DSampPosTo3DSampPos</name></member>
     <member refid="xv__hdmic__vsif_8c_1ab2a7f328e7f3e0a696013099498b3724" kind="function"><name>XV_HdmiC_Parse_HDMI_VSIF</name></member>
-    <member refid="xv__hdmic__vsif_8c_1affef2b757c4bcf09de11e66c54b3999d" kind="function"><name>XV_HdmiC_RemoveECCBytes</name></member>
+    <member refid="xv__hdmic__vsif_8c_1a3cf95ff0c422887f94d59acbb3bb22dd" kind="function"><name>XV_HdmiC_HasBytes</name></member>
+    <member refid="xv__hdmic__vsif_8c_1a5b62b38a91811838f454e2ff9468fbac" kind="function"><name>XV_HdmiC_RemoveECCBytes</name></member>
     <member refid="xv__hdmic__vsif_8c_1a14a7c99bfe04d635b57a6c8a9d776992" kind="function"><name>XV_HdmiC_Parse_HF_VSIF</name></member>
     <member refid="xv__hdmic__vsif_8c_1a5825e4142d39f686767925c5a61d0615" kind="function"><name>XV_HdmiC_VSIF_ParsePacket</name></member>
     <member refid="xv__hdmic__vsif_8c_1a8a0298a71305a180496600a5c7359199" kind="function"><name>XV_HdmiC_InsertECCBytes</name></member>

@@ -465,48 +465,48 @@
           <detaileddescription>
 <para>All Data pointers are NULL </para>          </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca6aed89fc61667e4a2784d0099fd4f769" prot="public">
-          <name>XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcacd86f3ad9f5800c47028da3f657bbd02" prot="public">
+          <name>XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE</name>
           <initializer>= 0xF100</initializer>
           <briefdescription>
 <para>0xF100 - Error before programming eFuse, Temperature is out of range </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca92857890de785d9496d723d7cbe56ab5" prot="public">
-          <name>XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca57589212ada1dd1b766c78e4db4b57ed" prot="public">
+          <name>XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE</name>
           <initializer>= 0xF200</initializer>
           <briefdescription>
 <para>0xF200 - Error before programming eFuse, Voltage is out of range </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca5889e498bb62933e403a7c28332ee064" prot="public">
-          <name>XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad1ae6555dfedac811da6fa7049014034" prot="public">
+          <name>XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED</name>
           <initializer>= 0xF300</initializer>
           <briefdescription>
 <para>0xF300 - Error before programming eFuse, no supplies are enabled </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca8f2f820cef391a9e44e23feb978cca50" prot="public">
-          <name>XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca3199eac8cf3d6dc651f13c7f57bbe96d" prot="public">
+          <name>XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA</name>
           <initializer>= 0xF400</initializer>
           <briefdescription>
 <para>0xF400 - Error before programming eFuse, new data is not available </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca86ffedf762c2a56f63d1eee2a88c5c17" prot="public">
-          <name>XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca9d91497c1119048f9b78493ead76f766" prot="public">
+          <name>XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED</name>
           <initializer>= 0xFA00</initializer>
           <briefdescription>
 <para>0xFA00 - Error when eFuse access, is not enabled </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca2e67b34114355dcc8f9b6528b3db6f3d" prot="public">
-          <name>XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca501aad13c9a5ba0217f16930d45c7702" prot="public">
+          <name>XNVM_EFUSE_ERR_INVALID_ADDR_RANGE</name>
           <initializer>=	0xFB00</initializer>
           <briefdescription>
 <para>0xFB00 - Error when accessed address range, of eFuse is invalid </para>          </briefdescription>
@@ -543,7 +543,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h" bodystart="55" bodyend="235"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h" bodystart="57" bodyend="237"/>
       </memberdef>
       <memberdef kind="enum" id="group__xilnvm__error__codes_1ga86e3961e656aebaac884575ef08d47ad" prot="public" static="no">
         <name>XNvm_EfuseVersalErrorCodes</name>
@@ -751,7 +751,7 @@
           <name>XNVM_EFUSE_ERR_WRITE_CACHE_WR_LK</name>
           <initializer>= 0xA400</initializer>
           <briefdescription>
-<para>0xA400 - Error in SVD_WR_LK efuse programming </para>          </briefdescription>
+<para>0xA400 - Error in CACHE_WR_LK efuse programming </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -859,8 +859,8 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa2a71e6cbe3ab92b745903acaa7922b5" prot="public">
-          <name>XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada3fedaeed37e50f1d052cefc74b367e8a" prot="public">
+          <name>XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED</name>
           <initializer>= 0xC500</initializer>
           <briefdescription>
 <para>0xC500 - Error Additional ppk enable bits are neither programmed/requested </para>          </briefdescription>
@@ -936,14 +936,6 @@
           <initializer>= 0xCE00</initializer>
           <briefdescription>
 <para>0xCE00 - Error while programming additional PPK&apos;s PPK0/PPK1/PPK2 are neither programmed/requested </para>          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad40617228ffca822be26187c5b1ec717" prot="public">
-          <name>XNVM_ERR_WRITE_PUF_USER_DATA</name>
-          <initializer>= 0x10000</initializer>
-          <briefdescription>
-<para>0x10000 When user chooses PUF efuses as user efuses data provided for last row i.e row 255 is not valid </para>          </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
@@ -1179,13 +1171,21 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada51abf3075d073198dbbb6c9c79af8c54" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_USER_DATA</name>
+          <initializer>= 0x10000</initializer>
+          <briefdescription>
+<para>0x10000 When user chooses PUF efuses as user efuses data provided for last row i.e row 255 is not valid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
 <para>The following table lists the Versal eFuse library error codes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" bodystart="49" bodyend="301"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" bodystart="50" bodyend="302"/>
       </memberdef>
       <memberdef kind="enum" id="group__xilnvm__error__codes_1ga30215236c6d8dc87857fb0cee99c658a" prot="public" static="no">
         <name>XNvm_EfuseVersalNetErrorCodes</name>
@@ -1539,7 +1539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_error_plat.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_error_plat.h" bodystart="50" bodyend="183"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_efuse_error_plat.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/common/xnvm_efuse_error_plat.h" bodystart="50" bodyend="183"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

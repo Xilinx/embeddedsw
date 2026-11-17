@@ -6,11 +6,11 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="xuhdsdi__example_2platform__config_8h" local="yes">platform_config.h</includes>
     <incdepgraph>
-      <node id="322">
-        <label>xil_cache.h</label>
-      </node>
       <node id="323">
         <label>platform_config.h</label>
+      </node>
+      <node id="322">
+        <label>xil_cache.h</label>
       </node>
       <node id="320">
         <label>platform.c</label>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="20" bodyend="33"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="20" bodyend="33"/>
       </memberdef>
       <memberdef kind="function" id="xuhdsdi__example_2platform_8c_1a3cd45da24455dd0c7d139388f50d2857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="36" bodyend="40"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="36" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="xuhdsdi__example_2platform_8c_1ac7b3df0fa68526d64c732d5f916e34b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="43" bodyend="50"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="43" bodyend="50"/>
       </memberdef>
       <memberdef kind="function" id="xuhdsdi__example_2platform_8c_1a4b736149688a45152511e1acfeefd8ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="53" bodyend="57"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="53" bodyend="57"/>
       </memberdef>
       <memberdef kind="function" id="xuhdsdi__example_2platform_8c_1a69d3ed8dd8510465bb611c416e6325ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="60" bodyend="63"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c" bodystart="60" bodyend="63"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -177,6 +177,6 @@
 <codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>disable_caches();</highlight></codeline>
 <codeline lineno="63"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_example/platform.c"/>
   </compounddef>
 </doxygen>

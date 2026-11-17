@@ -100,15 +100,14 @@ $(document).ready(function(){initNavTree('xqspips__selftest__example_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xqspips_selftest_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains an example for using the QSPI Hardware, it does a simple hardware connection check. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None</p>
+<div class="textblock"><p>Implements an example for using the QSPI Hardware, it does a simple hardware connection check. </p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
@@ -117,72 +116,26 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.00  drg/jz 01/25/10 First release.
 3.11  akm    07/10/23 Add support for system device-tree flow for example.
 3.15  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+3.16  vn     08/26/26 Fix Doxygen warnings
+3.16  tb     09/30/26 Align Doxygen comments with AMD documentation standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspips_8h.html">xqspips.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac2c8e6ffe5e72246bdcb251911867317"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__selftest__example_8c.html#ac2c8e6ffe5e72246bdcb251911867317">QspiPsSelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ac2c8e6ffe5e72246bdcb251911867317"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a selftest on the QSPI device and <a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a> driver as an example.  <a href="#ac2c8e6ffe5e72246bdcb251911867317">More...</a><br/></td></tr>
-<tr class="separator:ac2c8e6ffe5e72246bdcb251911867317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspips__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Qspi Selftest example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac2c8e6ffe5e72246bdcb251911867317"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__selftest__example.html#gac2c8e6ffe5e72246bdcb251911867317">QspiPsSelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gac2c8e6ffe5e72246bdcb251911867317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a selftest on the QSPI device and <a class="el" href="struct_x_qspi_ps.html" title="Holds the XQspiPs driver instance data. ">XQspiPs</a> driver as an example.  <a href="group__qspips__selftest__example.html#gac2c8e6ffe5e72246bdcb251911867317">More...</a><br/></td></tr>
+<tr class="separator:gac2c8e6ffe5e72246bdcb251911867317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__selftest__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Qspi Selftest example.  <a href="group__qspips__selftest__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga23da13cda9c1c3e8f6e6ab15159f17ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_qspi_ps.html">XQspiPs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspips__selftest__example.html#ga23da13cda9c1c3e8f6e6ab15159f17ff">Qspi</a></td></tr>
+<tr class="memdesc:ga23da13cda9c1c3e8f6e6ab15159f17ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the QSPI device.  <a href="group__qspips__selftest__example.html#ga23da13cda9c1c3e8f6e6ab15159f17ff">More...</a><br/></td></tr>
+<tr class="separator:ga23da13cda9c1c3e8f6e6ab15159f17ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the Qspi Selftest example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xqspips__selftest__example_8c.html#ac2c8e6ffe5e72246bdcb251911867317">QspiPsSelfTestExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac2c8e6ffe5e72246bdcb251911867317"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int QspiPsSelfTestExample </td>
-          <td>(</td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function does a selftest on the QSPI device and <a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a> driver as an example. </p>
-<p>The purpose of this function is to illustrate the usage of the <a class="el" href="struct_x_qspi_ps.html" title="The XQspiPs driver instance data. ">XQspiPs</a> driver.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
-
-<p>References <a class="el" href="struct_x_qspi_ps___config.html#a63e87c5d7d434dcbbb745e5d4d5bfa4c">XQspiPs_Config::BaseAddress</a>, <a class="el" href="group__qspips.html#gaf348b6ee07c1e3e7d01857a789e658d4">XQspiPs_CfgInitialize()</a>, <a class="el" href="group__qspips.html#gae1d4740600c52a11e0044f7a853292e4">XQspiPs_LookupConfig()</a>, and <a class="el" href="group__qspips.html#ga0975016f42a8249235098408ab0c9da6">XQspiPs_SelfTest()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspips__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

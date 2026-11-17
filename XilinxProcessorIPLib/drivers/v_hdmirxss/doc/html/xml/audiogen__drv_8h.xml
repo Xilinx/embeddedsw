@@ -15,12 +15,6 @@
       <node id="55">
         <label>sleep.h</label>
       </node>
-      <node id="53">
-        <label>xstatus.h</label>
-      </node>
-      <node id="51">
-        <label>xvidc.h</label>
-      </node>
       <node id="50">
         <label>audiogen_drv.h</label>
         <link refid="audiogen_drv.h"/>
@@ -34,6 +28,12 @@
         </childnode>
         <childnode refid="55" relation="include">
         </childnode>
+      </node>
+      <node id="53">
+        <label>xstatus.h</label>
+      </node>
+      <node id="51">
+        <label>xvidc.h</label>
       </node>
       <node id="52">
         <label>xil_types.h</label>
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="44" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="44" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a54032017588d2fc51e5632662318220d" prot="public" static="no">
         <name>XAudGen_In32</name>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ac092aef14372cdc316d142336d855ec6" prot="public" static="no">
         <name>XAudGen_Out32</name>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a32eb5f44dc9631db2600edd337de5e35" prot="public" static="no">
         <name>XAudGen_ReadReg</name>
@@ -116,7 +116,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a1f8b21c2dd98f173e0f58038514a832d" prot="public" static="no">
         <name>XAudGen_WriteReg</name>
@@ -154,7 +154,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="152" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1adb0787c24d3108dd9882976ea4e2afd5" prot="public" static="no">
         <name>AUD_CTRL</name>
@@ -165,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="155" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a4b3ef28903c591db79f4c1f729dc4a32" prot="public" static="no">
         <name>AUD_CFG</name>
@@ -176,7 +176,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="156" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="156" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ac694e554f6a4669c19385ae136f8820b" prot="public" static="no">
         <name>CH1_CTRL</name>
@@ -187,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="157" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1afa3bfe9a87462945fe21465d0baa4d2d" prot="public" static="no">
         <name>CH2_CTRL</name>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a80a17c17af3714b963f4920f51e2998a" prot="public" static="no">
         <name>CH3_CTRL</name>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="159" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="159" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a3f312cfe9b90b5251ff5f997abada201" prot="public" static="no">
         <name>CH4_CTRL</name>
@@ -220,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="160" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="160" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a2dfe3dcbdaf71eaf8dcc71c765a64698" prot="public" static="no">
         <name>CH5_CTRL</name>
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="161" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a9773d54a3d2ddfafeb093b318902bfb1" prot="public" static="no">
         <name>CH6_CTRL</name>
@@ -242,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="162" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a8b93c0725619089a02de4eaa852ebfbf" prot="public" static="no">
         <name>CH7_CTRL</name>
@@ -253,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="163" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="163" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1aac5cccddfc90daf7dfc413d7522e89a5" prot="public" static="no">
         <name>CH8_CTRL</name>
@@ -264,7 +264,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="164" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ab6c81a55ed2830390a5e1e5edfe0b71b" prot="public" static="no">
         <name>CHSTS_0</name>
@@ -275,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="165" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="165" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1af53cfd1219734cdeded2e78fdc65445a" prot="public" static="no">
         <name>CHSTS_1</name>
@@ -286,7 +286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="166" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a32866b08833cce5a2c31676525d90af6" prot="public" static="no">
         <name>CHSTS_2</name>
@@ -297,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="167" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="167" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a7639e3a817388dbe8e37dfff97a34118" prot="public" static="no">
         <name>CHSTS_3</name>
@@ -308,7 +308,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="168" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="168" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a38e8cc9c0c4dfbaffbc17c91203ddc92" prot="public" static="no">
         <name>CHSTS_4</name>
@@ -319,7 +319,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="169" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="169" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a7bd7280bc4fda6a6f37356c0def94a0b" prot="public" static="no">
         <name>CHSTS_5</name>
@@ -330,7 +330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="170" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="170" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a8e2d06ba6c01b9b1be9f28b741b01023" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_RST_MASK</name>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="173" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="173" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a941e19383b2f48bb50ef98736b92d661" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_RST_SHIFT</name>
@@ -352,7 +352,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="174" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="174" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1addbc7fc3d3c1bef75f96319ef4ff8d04" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_START_MASK</name>
@@ -363,7 +363,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="175" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="175" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a17fecb2b9a7edb7a491dddd39ec31e89" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_START_SHIFT</name>
@@ -374,7 +374,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="176" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="176" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a4e228ab796878ab4b8d2912df9d336e0" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_UPDCFG_MASK</name>
@@ -385,7 +385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="177" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="177" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1afe6c31f4612d52dd9aa7ac2b0f6de93f" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_UPDCFG_SHIFT</name>
@@ -396,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="178" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="178" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a9b4b137ff82b5b9342cfba3e8daa8a69" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_DROP_MASK</name>
@@ -407,7 +407,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a946980d992e898f7c8b93c1134957995" prot="public" static="no">
         <name>AUD_CTRL_REG_AUD_DROP_SHIFT</name>
@@ -418,7 +418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="180" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a151b32c74b3bb7c8190ddde48026b4b6" prot="public" static="no">
         <name>AUD_CFG_REG_SAMPRATE_MASK</name>
@@ -429,7 +429,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="183" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="183" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a2e0658822f1b02b2f66af49b68e4438c" prot="public" static="no">
         <name>AUD_CFG_REG_SAMPRATE_SHIFT</name>
@@ -440,7 +440,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="184" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a5c321f6de2e6ed51b90a9ea2a10cb421" prot="public" static="no">
         <name>AUD_CFG_REG_NUMCH_MASK</name>
@@ -451,7 +451,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="185" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="185" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a220f3817c80f721434bb72abd00752d0" prot="public" static="no">
         <name>AUD_CFG_REG_NUMCH_SHIFT</name>
@@ -462,7 +462,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="186" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1acef477436797af564ea0de26584fc5fa" prot="public" static="no">
         <name>CH_CTRL_REG_PATTERN_MASK</name>
@@ -473,7 +473,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="189" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="189" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a08310e8f00b8879ba3eec5c1b2c520bf" prot="public" static="no">
         <name>CH_CTRL_REG_PATTERN_SHIFT</name>
@@ -484,7 +484,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="190" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="190" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ab4a0b1b843c255a4c2ed24aacdf0dd95" prot="public" static="no">
         <name>CH_CTRL_REG_PERIOD_MASK</name>
@@ -495,7 +495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a5fcb0705752c913a51cd843bfb5d7f62" prot="public" static="no">
         <name>CH_CTRL_REG_PERIOD_SHIFT</name>
@@ -506,7 +506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a11f0a24b3f5589e9032b2e898f1ecc88" prot="public" static="no">
         <name>ACR_VER</name>
@@ -517,7 +517,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="195" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="195" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a3490619666bf662b793dd8675f94edd1" prot="public" static="no">
         <name>ACR_CTRL</name>
@@ -528,7 +528,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="196" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="196" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1aa7393348b75db248342227921b6df934" prot="public" static="no">
         <name>ACR_CTS</name>
@@ -539,7 +539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="197" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="197" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ae96904e0e4ed07683b991e5726ce7402" prot="public" static="no">
         <name>ACR_N</name>
@@ -550,7 +550,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="198" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a430b3bfb91753a30696c23b6ae545044" prot="public" static="no">
         <name>ACR_CTRL_ENAB_ACR_MASK</name>
@@ -561,7 +561,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="201" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1af9d047870b9bcd049dccdf8611d53122" prot="public" static="no">
         <name>ACR_CTRL_ENAB_ACR_SHIFT</name>
@@ -572,7 +572,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="202" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="202" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a3311ac606ec7f69a84cd83e4f9f4a1f5" prot="public" static="no">
         <name>ACR_CTRL_SEL_ACR_MASK</name>
@@ -583,7 +583,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="203" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="203" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ab590d857257578b9ae751aa5f8912a2e" prot="public" static="no">
         <name>ACR_CTRL_SEL_ACR_SHIFT</name>
@@ -594,7 +594,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="204" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="204" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ae543b4075d663c19dc393f0fb1c22b25" prot="public" static="no">
         <name>ACR_CTRL_AUD_RST_MASK</name>
@@ -605,7 +605,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="205" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="205" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1ab70da6772f06504b4a59372546853dcc" prot="public" static="no">
         <name>ACR_CTRL_AUD_RST_SHIFT</name>
@@ -616,7 +616,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="206" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="206" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a5a7fef2f2ac0f50cf4da625a090dc2a2" prot="public" static="no">
         <name>ACR_CTRL_TMDSCLKRATIO_MASK</name>
@@ -627,7 +627,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="207" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a33b93941458d12a573c91d0611a265fe" prot="public" static="no">
         <name>ACR_CTRL_TMDSCLKRATIO_SHIFT</name>
@@ -638,7 +638,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="208" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a4432ca29f70485b19c491321ba13aa7e" prot="public" static="no">
         <name>ACR_SEL_GEN</name>
@@ -649,7 +649,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="210" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="210" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="audiogen__drv_8h_1a6c5a5e8cc43964a7101dd747356d37a6" prot="public" static="no">
         <name>ACR_SEL_IN</name>
@@ -660,7 +660,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="211" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -729,7 +729,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="52" bodyend="61"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="52" bodyend="61"/>
       </memberdef>
       <memberdef kind="enum" id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2" prot="public" static="no">
         <name>AudioPattern_t</name>
@@ -778,7 +778,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="63" bodyend="69"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="63" bodyend="69"/>
       </memberdef>
       <memberdef kind="enum" id="audiogen__drv_8h_1a38f16784b07ff9bb90f943cf805b1054" prot="public" static="no">
         <name>XhdmiAudioGen_MmcmDivType</name>
@@ -809,7 +809,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="88" bodyend="92"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="88" bodyend="92"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -840,7 +840,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="171" bodyend="188"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="171" bodyend="188"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a85d736de9c9bf0c4096db24d81cd2496" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -857,7 +857,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="190" bodyend="200"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="190" bodyend="200"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a7a7d2fe8b1ec7c5df7c812fbe2cd01d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -878,7 +878,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="202" bodyend="216"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="202" bodyend="216"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a801a72103ee6081467edb9642cde1420" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -899,7 +899,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="218" bodyend="232"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="218" bodyend="232"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a01a8bfb5b8de7df121960c001f8e60c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -924,7 +924,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="247" bodyend="295"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="247" bodyend="295"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a7340d573381940e569f99b7bd6aa0487" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -949,7 +949,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="441" bodyend="458"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="441" bodyend="458"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a54377240ed29174aae4c99179f385adb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -970,7 +970,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="460" bodyend="475"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="460" bodyend="475"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a8f8341d1f3b692dc6a560315f73836a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -987,7 +987,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="477" bodyend="483"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="477" bodyend="483"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a4a1d65e91d39a09d2ee525bdb8039ad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1008,7 +1008,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="485" bodyend="546"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="485" bodyend="546"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a6fe687bc1b41f1beb043a885cc43a9a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1025,7 +1025,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="234" bodyend="245"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="234" bodyend="245"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a7c1103cf12785bc7d35bfbd1906d6865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1046,7 +1046,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="297" bodyend="312"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="297" bodyend="312"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a7df50c1d51d911f31e3c1b752670c904" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1067,7 +1067,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="314" bodyend="326"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="314" bodyend="326"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1ad10ba8e6fcb98d53bc7d6710dfddffd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1084,7 +1084,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="328" bodyend="434"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="328" bodyend="434"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1aa9430145380e587276e95cd9bc20b05b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1101,7 +1101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="436" bodyend="439"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="436" bodyend="439"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1ab2122518f0c3089997b9efab21fcea69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1122,7 +1122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="548" bodyend="561"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="548" bodyend="561"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a81570872aaff60af26fe3b5554e05a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1143,7 +1143,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="563" bodyend="577"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="563" bodyend="577"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a16f8c3f7dd58e8aa31223bc45ccc7887" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1164,7 +1164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="579" bodyend="593"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="579" bodyend="593"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1a04f97612bed07cbdeaef91f62190856f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1185,7 +1185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="595" bodyend="608"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="595" bodyend="608"/>
       </memberdef>
       <memberdef kind="function" id="audiogen__drv_8h_1aa0e04fc5ae7a965a3c97d9da652a8a46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1206,7 +1206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="610" bodyend="614"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.c" bodystart="610" bodyend="614"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1389,6 +1389,6 @@ X.XX  XX  YYYY/MM/DD   ...
 <codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_SEL_IN<sp/><sp/>0<sp/><sp/>//<sp/>Select<sp/>input<sp/>ACR<sp/>values</highlight></codeline>
 <codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>AUDIOGEN_DRV_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h"/>
   </compounddef>
 </doxygen>

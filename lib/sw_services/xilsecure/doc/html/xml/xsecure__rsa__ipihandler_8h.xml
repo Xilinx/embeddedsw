@@ -11,61 +11,61 @@
     <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <incdepgraph>
-      <node id="3583">
+      <node id="3747">
         <label>xsecure_rsa_ipihandler.h</label>
         <link refid="xsecure_rsa_ipihandler.h"/>
-        <childnode refid="3584" relation="include">
+        <childnode refid="3748" relation="include">
         </childnode>
-        <childnode refid="3585" relation="include">
+        <childnode refid="3749" relation="include">
         </childnode>
       </node>
-      <node id="3585">
+      <node id="3749">
         <label>xplmi_cmd.h</label>
       </node>
-      <node id="3584">
+      <node id="3748">
         <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3590">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp_2xsecure__cmd_8c"/>
-      </node>
-      <node id="3587">
+      <node id="3751">
         <label>xsecure_rsa_ipihandler.c</label>
         <link refid="xsecure__rsa__ipihandler_8c"/>
       </node>
-      <node id="3586">
+      <node id="3750">
         <label>xsecure_rsa_ipihandler.h</label>
         <link refid="xsecure_rsa_ipihandler.h"/>
-        <childnode refid="3587" relation="include">
+        <childnode refid="3751" relation="include">
         </childnode>
-        <childnode refid="3588" relation="include">
+        <childnode refid="3752" relation="include">
         </childnode>
-        <childnode refid="3589" relation="include">
+        <childnode refid="3753" relation="include">
         </childnode>
-        <childnode refid="3590" relation="include">
+        <childnode refid="3754" relation="include">
         </childnode>
-        <childnode refid="3591" relation="include">
+        <childnode refid="3755" relation="include">
         </childnode>
-        <childnode refid="3592" relation="include">
+        <childnode refid="3756" relation="include">
         </childnode>
       </node>
-      <node id="3591">
+      <node id="3753">
         <label>xsecure_cmd.c</label>
-        <link refid="2vp__p_2xsecure__cmd_8c"/>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
       </node>
-      <node id="3592">
+      <node id="3756">
         <label>xsecure_cmd.c</label>
         <link refid="net_2xsecure__cmd_8c"/>
       </node>
-      <node id="3588">
+      <node id="3752">
         <label>xsecure_cmd.c</label>
         <link refid="xsecure__cmd_8c"/>
       </node>
-      <node id="3589">
+      <node id="3755">
         <label>xsecure_cmd.c</label>
-        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="3754">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp_2xsecure__cmd_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -78,7 +78,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -110,13 +110,14 @@
 <para><itemizedlist>
 <listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_RsaEncrypt</para></listitem><listitem><para>XSecure_RsaSignVerify </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" bodystart="71" bodyend="102"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" compoundref="xsecure__plat__defs_8h" startline="56">XSECURE_API_RSA_PUBLIC_ENCRYPT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="55">XSECURE_API_RSA_SIGN_VERIFY</references>
-        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
-        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.c" bodystart="82" bodyend="120"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9be86c6a15deed3c91ee0c1ff3bf6932" compoundref="xsecure__plat__defs_8h" startline="79">XSECURE_API_RSA_PSS_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" compoundref="xsecure__plat__defs_8h" startline="62">XSECURE_API_RSA_PUBLIC_ENCRYPT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="61">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -164,6 +165,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSA_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_ipihandler.h"/>
   </compounddef>
 </doxygen>

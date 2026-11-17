@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___b_l_u_n_info.html'
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,20 +112,82 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___b_l_u_n_info.html'
 </div><!--header-->
 <div class="contents">
 
-<p>BootLU information structure.
+<p>Holds boot logical-unit information.
  <a href="struct_x_ufs_psxc___b_l_u_n_info.html#details">More...</a></p>
 
 <p><code>#include &lt;xufspsxc.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:ab9bbddee0c254d7cce80cc8d6b065970"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___b_l_u_n_info.html#ab9bbddee0c254d7cce80cc8d6b065970">LunID</a></td></tr>
+<tr class="memdesc:ab9bbddee0c254d7cce80cc8d6b065970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logical Unit Number identifier (0-31).  <a href="#ab9bbddee0c254d7cce80cc8d6b065970">More...</a><br/></td></tr>
+<tr class="separator:ab9bbddee0c254d7cce80cc8d6b065970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae576d96342db24d238263d3dc697bc4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___b_l_u_n_info.html#aae576d96342db24d238263d3dc697bc4">BootLunID</a></td></tr>
+<tr class="memdesc:aae576d96342db24d238263d3dc697bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boot LUN identifier (BLUN_A=1, BLUN_B=2).  <a href="#aae576d96342db24d238263d3dc697bc4">More...</a><br/></td></tr>
+<tr class="separator:aae576d96342db24d238263d3dc697bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15f183a60e0d7bfa0a434ed758afc455"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___b_l_u_n_info.html#a15f183a60e0d7bfa0a434ed758afc455">BlockSize</a></td></tr>
+<tr class="memdesc:a15f183a60e0d7bfa0a434ed758afc455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block size in bytes (typically 4096 for UFS).  <a href="#a15f183a60e0d7bfa0a434ed758afc455">More...</a><br/></td></tr>
+<tr class="separator:a15f183a60e0d7bfa0a434ed758afc455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab714ed4e93338a1be37c70df5c7f13"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___b_l_u_n_info.html#aaab714ed4e93338a1be37c70df5c7f13">MemoryType</a></td></tr>
+<tr class="memdesc:aaab714ed4e93338a1be37c70df5c7f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory type (Normal, System Code, Enhanced, etc.).  <a href="#aaab714ed4e93338a1be37c70df5c7f13">More...</a><br/></td></tr>
+<tr class="separator:aaab714ed4e93338a1be37c70df5c7f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b35809464b475570c04c116221d70ab"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___b_l_u_n_info.html#a6b35809464b475570c04c116221d70ab">NumAllocUnits</a></td></tr>
+<tr class="memdesc:a6b35809464b475570c04c116221d70ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of allocation units assigned to this LU.  <a href="#a6b35809464b475570c04c116221d70ab">More...</a><br/></td></tr>
+<tr class="separator:a6b35809464b475570c04c116221d70ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa25dda08ce27077d9d76162ae22af298"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___b_l_u_n_info.html#aa25dda08ce27077d9d76162ae22af298">LUNSize</a></td></tr>
-<tr class="memdesc:aa25dda08ce27077d9d76162ae22af298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size is in MB.  <a href="#aa25dda08ce27077d9d76162ae22af298">More...</a><br/></td></tr>
+<tr class="memdesc:aa25dda08ce27077d9d76162ae22af298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total size of the Logical Unit in MB.  <a href="#aa25dda08ce27077d9d76162ae22af298">More...</a><br/></td></tr>
 <tr class="separator:aa25dda08ce27077d9d76162ae22af298"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>BootLU information structure. </p>
+<div class="textblock"><p>Holds boot logical-unit information. </p>
+<p>BootLU information structure </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a15f183a60e0d7bfa0a434ed758afc455"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUfsPsxc_BLUNInfo::BlockSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Block size in bytes (typically 4096 for UFS). </p>
+
+<p>Referenced by <a class="el" href="group__ufspsxc.html#ga1e4078f7061f73d5ccd64eafe59c13ee">XUfsPsxc_CheckBootReq()</a>, <a class="el" href="group__ufspsxc__api.html#ga12ee1bec882160b1a0f4d273ad4af0e3">XUfsPsxc_FillReadCmdUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga3c13cdebf8362d85f77b3b15fe52d2c3">XUfsPsxc_FillWriteCmdUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga7c68d7e7d43d9d3f3c327c4ea3d58dd6">XUfsPsxc_ReadPolled()</a>, <a class="el" href="group__ufspsxc__api.html#ga13fea34df11f07626308ad42623497ff">XUfsPsxc_Set4KBlkSize()</a>, <a class="el" href="group__ufspsxc.html#ga6e5ad67b7055e0c5174028c2bdd464c0">XUfsPsxc_SwitchBootLUN()</a>, and <a class="el" href="group__ufspsxc.html#ga5b503a6cef357e029c87ab07e4354763">XUfsPsxc_WritePolled()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aae576d96342db24d238263d3dc697bc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUfsPsxc_BLUNInfo::BootLunID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Boot LUN identifier (BLUN_A=1, BLUN_B=2). </p>
+
+<p>Referenced by <a class="el" href="group__ufspsxc.html#ga1e4078f7061f73d5ccd64eafe59c13ee">XUfsPsxc_CheckBootReq()</a>, and <a class="el" href="group__ufspsxc.html#ga6e5ad67b7055e0c5174028c2bdd464c0">XUfsPsxc_SwitchBootLUN()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab9bbddee0c254d7cce80cc8d6b065970"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUfsPsxc_BLUNInfo::LunID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Logical Unit Number identifier (0-31). </p>
+
+</div>
+</div>
 <a class="anchor" id="aa25dda08ce27077d9d76162ae22af298"></a>
 <div class="memitem">
 <div class="memproto">
@@ -136,7 +198,37 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Size is in MB. </p>
+<p>Total size of the Logical Unit in MB. </p>
+
+</div>
+</div>
+<a class="anchor" id="aaab714ed4e93338a1be37c70df5c7f13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUfsPsxc_BLUNInfo::MemoryType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Memory type (Normal, System Code, Enhanced, etc.). </p>
+
+<p>Referenced by <a class="el" href="group__ufspsxc__api.html#ga353f784dcc8a50185ea407bc0dcb4768">XUfsPsxc_GetLUNInfo()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6b35809464b475570c04c116221d70ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XUfsPsxc_BLUNInfo::NumAllocUnits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of allocation units assigned to this LU. </p>
 
 </div>
 </div>

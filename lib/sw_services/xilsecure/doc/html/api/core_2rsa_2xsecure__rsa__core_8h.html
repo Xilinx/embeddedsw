@@ -131,6 +131,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 5.2   kpt  08/20/23 Added prototype XSecure_RsaEcdsaZeroizeAndVerifyRam
 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xsecure_utils.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xsecure__defs_8h.html">xsecure_defs.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -155,24 +156,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gaff1f1cf3b0d2fd6ec4db3c38c5a846b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#gaff1f1cf3b0d2fd6ec4db3c38c5a846b1">XSECURE_RSA_DATA_VALUE_ERROR</a>&#160;&#160;&#160;(0x2U)</td></tr>
 <tr class="memdesc:gaff1f1cf3b0d2fd6ec4db3c38c5a846b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">for RSA private decryption data should be lesser than modulus  <a href="group__xsecure__rsa__server__apis.html#gaff1f1cf3b0d2fd6ec4db3c38c5a846b1">More...</a><br/></td></tr>
 <tr class="separator:gaff1f1cf3b0d2fd6ec4db3c38c5a846b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3637356df5720621bbd9924fa45a8d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#gae3637356df5720621bbd9924fa45a8d8">XSECURE_HASH_TYPE_SHA3</a>&#160;&#160;&#160;(48U)</td></tr>
-<tr class="memdesc:gae3637356df5720621bbd9924fa45a8d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA-3 hash size.  <a href="group__xsecure__rsa__server__apis.html#gae3637356df5720621bbd9924fa45a8d8">More...</a><br/></td></tr>
-<tr class="separator:gae3637356df5720621bbd9924fa45a8d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad56c1ad7d5fadefa4f0fb466854b7036"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#gad56c1ad7d5fadefa4f0fb466854b7036">XSECURE_FSBL_SIG_SIZE</a>&#160;&#160;&#160;(512U)</td></tr>
 <tr class="memdesc:gad56c1ad7d5fadefa4f0fb466854b7036"><td class="mdescLeft">&#160;</td><td class="mdescRight">FSBL signature size.  <a href="group__xsecure__rsa__server__apis.html#gad56c1ad7d5fadefa4f0fb466854b7036">More...</a><br/></td></tr>
 <tr class="separator:gad56c1ad7d5fadefa4f0fb466854b7036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga471ea882e22eda21835226bbd7f5f5fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#ga471ea882e22eda21835226bbd7f5f5fe">XSECURE_RSA_PUBLIC_EXPO_SIZE</a>&#160;&#160;&#160;(4U)</td></tr>
 <tr class="memdesc:ga471ea882e22eda21835226bbd7f5f5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of public key expo.  <a href="group__xsecure__rsa__server__apis.html#ga471ea882e22eda21835226bbd7f5f5fe">More...</a><br/></td></tr>
 <tr class="separator:ga471ea882e22eda21835226bbd7f5f5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga07736a55ec2f9d8242a46ee20fc9f7b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#ga07736a55ec2f9d8242a46ee20fc9f7b6">XSECURE_RSA_2048_KEY_SIZE</a>&#160;&#160;&#160;(2048U/8U)</td></tr>
-<tr class="memdesc:ga07736a55ec2f9d8242a46ee20fc9f7b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 2048 key size.  <a href="group__xsecure__rsa__server__apis.html#ga07736a55ec2f9d8242a46ee20fc9f7b6">More...</a><br/></td></tr>
-<tr class="separator:ga07736a55ec2f9d8242a46ee20fc9f7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga59620f1b6f6bde84528a793de12385c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#ga59620f1b6f6bde84528a793de12385c5">XSECURE_RSA_3072_KEY_SIZE</a>&#160;&#160;&#160;(3072U/8U)</td></tr>
-<tr class="memdesc:ga59620f1b6f6bde84528a793de12385c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 3072 key size.  <a href="group__xsecure__rsa__server__apis.html#ga59620f1b6f6bde84528a793de12385c5">More...</a><br/></td></tr>
-<tr class="separator:ga59620f1b6f6bde84528a793de12385c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6ff2e0197483048fcc9e7c52416750c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#ga6ff2e0197483048fcc9e7c52416750c8">XSECURE_RSA_4096_KEY_SIZE</a>&#160;&#160;&#160;(4096U/8U)</td></tr>
-<tr class="memdesc:ga6ff2e0197483048fcc9e7c52416750c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 4096 key size.  <a href="group__xsecure__rsa__server__apis.html#ga6ff2e0197483048fcc9e7c52416750c8">More...</a><br/></td></tr>
-<tr class="separator:ga6ff2e0197483048fcc9e7c52416750c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab5e03185e5083dafd48c34ec3860f13b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__server__apis.html#gab5e03185e5083dafd48c34ec3860f13b">XSECURE_RSA_2048_SIZE_WORDS</a>&#160;&#160;&#160;(64)</td></tr>
 <tr class="memdesc:gab5e03185e5083dafd48c34ec3860f13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 2048 Size in words.  <a href="group__xsecure__rsa__server__apis.html#gab5e03185e5083dafd48c34ec3860f13b">More...</a><br/></td></tr>
 <tr class="separator:gab5e03185e5083dafd48c34ec3860f13b"><td class="memSeparator" colspan="2">&#160;</td></tr>

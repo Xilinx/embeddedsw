@@ -1,5 +1,9 @@
 var xstreamer_8h =
 [
+    [ "LARGEST_FIFO_KEYHOLE_SIZE_WORDS", "xstreamer_8h.html#ga4a3e97b47b47ea3b883952f58cb9deb9", null ],
+    [ "XStrm_IsRxInternalEmpty", "xstreamer_8h.html#ga2357fcad0c03d6b706d5ad71c4d7b749", null ],
+    [ "XStrm_RxOccupancy", "xstreamer_8h.html#ga52d6c5d159859cfcf8e43daf7d54ad07", null ],
+    [ "XStrm_TxVacancy", "xstreamer_8h.html#ga7c2fa1c0b560f90b656aaac27721769c", null ],
     [ "XStrm_RxFifoStreamer", "xstreamer_8h.html#ga4f27ac6f38ad77d7b92014a52eb5c16b", null ],
     [ "XStrm_TxFifoStreamer", "xstreamer_8h.html#ga3d1351f115d97cbce95da390d0ea4033", null ],
     [ "XStrm_Read", "xstreamer_8h.html#ga915d68a9cce0f2464fc7644383cb887a", null ],

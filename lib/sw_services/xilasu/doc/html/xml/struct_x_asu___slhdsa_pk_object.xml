@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___slhdsa_pk_object" kind="struct" prot="public">
+    <compoundname>XAsu_SlhdsaPkObject</compoundname>
+    <includes local="no">xasu_slhdsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_pk_object_1a0312c0a9aba8201fe38edfabd54c166b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaPkObject::PubKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>PubKeyAddr</name>
+        <briefdescription>
+<para>Address of the public key data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_pk_object_1a9b7ec7b6cf465bfdb79c37219ce84380" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaPkObject::PubKeyId</definition>
+        <argsstring></argsstring>
+        <name>PubKeyId</name>
+        <briefdescription>
+<para>Reserved for future key management support; ignored. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_pk_object_1a9a4b95b7e26aad452a6de83e8470e7ab" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaPkObject::PubKeyLen</definition>
+        <argsstring></argsstring>
+        <name>PubKeyLen</name>
+        <briefdescription>
+<para>Length of the public key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1ga312850c7ed43070a4f3a60ddfbd67032" compoundref="xasu__slhdsa__common_8c" startline="398" endline="476">XAsu_SlhdsaValidateSignVerifyParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure represents an SLH-DSA public key object. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="162" bodyend="166"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___slhdsa_pk_object_1a0312c0a9aba8201fe38edfabd54c166b" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaPkObject</scope><name>PubKeyAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_pk_object_1a9b7ec7b6cf465bfdb79c37219ce84380" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaPkObject</scope><name>PubKeyId</name></member>
+      <member refid="struct_x_asu___slhdsa_pk_object_1a9a4b95b7e26aad452a6de83e8470e7ab" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaPkObject</scope><name>PubKeyLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

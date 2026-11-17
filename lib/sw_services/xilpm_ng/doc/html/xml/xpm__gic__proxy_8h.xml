@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__gic__proxy_8h" kind="file">
+    <compoundname>xpm_gic_proxy.h</compoundname>
+    <includes refid="xpm__periph_8h" local="yes">xpm_periph.h</includes>
+    <includedby refid="xpm__gic__proxy_8c" local="yes">xpm_gic_proxy.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="1675">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1667" relation="include">
+        </childnode>
+        <childnode refid="1676" relation="include">
+        </childnode>
+      </node>
+      <node id="1665">
+        <label>xpm_device.h</label>
+        <childnode refid="1666" relation="include">
+        </childnode>
+        <childnode refid="1677" relation="include">
+        </childnode>
+        <childnode refid="1678" relation="include">
+        </childnode>
+        <childnode refid="1679" relation="include">
+        </childnode>
+      </node>
+      <node id="1671">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1673">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1668" relation="include">
+        </childnode>
+      </node>
+      <node id="1676">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1663">
+        <label>xpm_gic_proxy.h</label>
+        <link refid="xpm_gic_proxy.h"/>
+        <childnode refid="1664" relation="include">
+        </childnode>
+      </node>
+      <node id="1664">
+        <label>xpm_periph.h</label>
+        <childnode refid="1665" relation="include">
+        </childnode>
+      </node>
+      <node id="1672">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1670">
+        <label>xpm_common.h</label>
+        <childnode refid="1668" relation="include">
+        </childnode>
+        <childnode refid="1671" relation="include">
+        </childnode>
+        <childnode refid="1672" relation="include">
+        </childnode>
+        <childnode refid="1673" relation="include">
+        </childnode>
+        <childnode refid="1674" relation="include">
+        </childnode>
+        <childnode refid="1675" relation="include">
+        </childnode>
+      </node>
+      <node id="1674">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1679">
+        <label>xpm_reset.h</label>
+        <childnode refid="1666" relation="include">
+        </childnode>
+        <childnode refid="1670" relation="include">
+        </childnode>
+      </node>
+      <node id="1666">
+        <label>xpm_node.h</label>
+        <childnode refid="1667" relation="include">
+        </childnode>
+        <childnode refid="1668" relation="include">
+        </childnode>
+        <childnode refid="1669" relation="include">
+        </childnode>
+        <childnode refid="1670" relation="include">
+        </childnode>
+      </node>
+      <node id="1677">
+        <label>xpm_power.h</label>
+        <childnode refid="1675" relation="include">
+        </childnode>
+        <childnode refid="1666" relation="include">
+        </childnode>
+      </node>
+      <node id="1668">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1678">
+        <label>xpm_clock.h</label>
+        <childnode refid="1670" relation="include">
+        </childnode>
+        <childnode refid="1666" relation="include">
+        </childnode>
+        <childnode refid="1677" relation="include">
+        </childnode>
+      </node>
+      <node id="1667">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1669">
+        <label>xpm_nodeid.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1681">
+        <label>xpm_gic_proxy.c</label>
+      </node>
+      <node id="1680">
+        <label>xpm_gic_proxy.h</label>
+        <link refid="xpm_gic_proxy.h"/>
+        <childnode refid="1681" relation="include">
+        </childnode>
+        <childnode refid="1682" relation="include">
+        </childnode>
+      </node>
+      <node id="1682">
+        <label>xpm_runtime_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___gic_proxy_group" prot="public">XPm_GicProxyGroup</innerclass>
+    <innerclass refid="struct_x_pm___gic_proxy__t" prot="public">XPm_GicProxy_t</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__gic__proxy_8h_1ad01e3a94c68229de399161c012f70108" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmGicProxy_WakeEventSet</definition>
+        <argsstring>(const XPm_Periph *Periph, u8 Enable)</argsstring>
+        <name>XPmGicProxy_WakeEventSet</name>
+        <param>
+          <type>const XPm_Periph *</type>
+          <declname>Periph</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Enable or disable a wake event in the GIC Proxy for a peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para>When enabling, clears any pending IRQ for the peripheral in the GIC Proxy status register and remembers the wake-source bit so a later call to XPm_GicProxy.Enable() can program the IRQ-enable register. When disabling, the wake-source bit is cleared in the cached SetMask only.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Periph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the peripheral whose wake event is configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Non-zero to remember the wake source and clear pending IRQ; zero to clear the cached wake-source bit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, error code on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="120" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8h_1a424292812c8ccf85a6dcfa4444ee7284" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmGicProxy_EnableWakeup</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmGicProxy_EnableWakeup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Enable GIC Proxy wake interrupts (runtime override of the weak BOOT stub defined in xpm_powerdomain.c). </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success, error code on failure.</para></simplesect>
+<simplesect kind="note"><para>Strong symbol - linked when XilPM runtime (EEMI/Subsystem) is enabled; overrides the weak BOOT-only stub. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="325" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__gic__proxy_8h_1a7efd86f9515d2a9963a8ad7ccf9289c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmGicProxy_ClearWakeup</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmGicProxy_ClearWakeup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Clear all cached GIC Proxy wake-up sources. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Public wrapper around the file-local XPm_GicProxy.Clear() so callers outside this translation unit (e.g. the wakeup path) can reset the GIC Proxy setup. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c" bodystart="337" bodyend="340"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_GIC_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_GIC_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_periph.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20" refid="struct_x_pm___gic_proxy_group" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21" refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___gic_proxy_group_1a6db3618e3e9505deec811d790ccc32c3" kindref="member">SetMask</ref>;<sp/></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}<sp/><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="struct_x_pm___gic_proxy__t" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34" refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___gic_proxy__t_1a508c3e56238fa0e1912fddea3126b558" kindref="member">Groups</ref>;<sp/></highlight></codeline>
+<codeline lineno="35" refid="struct_x_pm___gic_proxy__t_1a1c5a74c6eb86553ac8429e5bf803a7be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Clear)(void);<sp/></highlight></codeline>
+<codeline lineno="36" refid="struct_x_pm___gic_proxy__t_1afa80eb57106035f23620dd1acb6d4cf3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Enable)(void);<sp/></highlight></codeline>
+<codeline lineno="37" refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_pm___gic_proxy__t_1a877b297f060f8864fb4086427a30902d" kindref="member">GroupsCnt</ref>;<sp/></highlight></codeline>
+<codeline lineno="38" refid="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___gic_proxy__t_1ac03a7a7339adbe81362c76327c94f773" kindref="member">Flags</ref>;<sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}<sp/><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*********************************************************************</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>Global<sp/>data<sp/>declarations</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">XStatus<sp/>XPmGicProxy_WakeEventSet(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Periph<sp/>*Periph,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">XStatus<sp/>XPmGicProxy_EnableWakeup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmGicProxy_ClearWakeup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*XPM_GIC_H_*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h"/>
+  </compounddef>
+</doxygen>

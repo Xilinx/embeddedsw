@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpiops__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,13 +105,28 @@ $(document).ready(function(){initNavTree('xgpiops__selftest_8c.html','');});
 <div class="title">xgpiops_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the diagnostic self-test function for the <a class="el" href="struct_x_gpio_ps.html" title="XGpioPs driver instance data. ">XGpioPs</a> driver. </p>
+<p>This file contains a diagnostic self-test function for the <a class="el" href="struct_x_gpio_ps.html" title="XGpioPs driver instance data. ">XGpioPs</a> driver. See <a class="el" href="xgpiops_8h.html">xgpiops.h</a> for more information.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a sv   01/18/10 First Release
+3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+3.5   sne  03/01/19 Fixes violations according to MISRAC-2012
+                    in safety mode and modified the code such as
+                    Use of mixed mode arithmetic,Declared the pointer param
+                    as Pointer to const,Casting operation to a pointer,
+                    Literal value requires a U suffix.
+3.16  vn   09/10/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xgpiops_8h.html">xgpiops.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga173133193aeba362fa0a5c6e7cdd8dfa"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpiops.html#ga173133193aeba362fa0a5c6e7cdd8dfa">XGpioPs_SelfTest</a> (<a class="el" href="struct_x_gpio_ps.html">XGpioPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga173133193aeba362fa0a5c6e7cdd8dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the GPIO driver/device.  <a href="group__gpiops.html#ga173133193aeba362fa0a5c6e7cdd8dfa">More...</a><br/></td></tr>
+<tr class="memdesc:ga173133193aeba362fa0a5c6e7cdd8dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the GPIO driver and device.  <a href="group__gpiops.html#ga173133193aeba362fa0a5c6e7cdd8dfa">More...</a><br/></td></tr>
 <tr class="separator:ga173133193aeba362fa0a5c6e7cdd8dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

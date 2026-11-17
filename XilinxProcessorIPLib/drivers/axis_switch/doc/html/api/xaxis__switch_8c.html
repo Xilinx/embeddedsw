@@ -105,28 +105,49 @@ $(document).ready(function(){initNavTree('xaxis__switch_8c.html','');});
 <div class="title">xaxis_switch.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xaxis__switch_8h.html">xaxis_switch.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Main file for the AXI4-Stream Switch Control Router core. </p>
+<p>See <a class="el" href="xaxis__switch_8h.html">xaxis_switch.h</a> for more details of the driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.00  sha 01/28/15 Initial release.
+1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+                   adding 64 bit support. CR# 867425.
+                   Changed the prototype of XAxisScr_CfgInitialize API.
+1.5   asa 08/25/22 Remove the incorrect check in the API
+                   XAxisScr_IsMiPortEnabled. Because of the incorrect check
+                   the API can return a false TRUE for an failure case.
+                   As an example, if a MI is configured for SI[7] and the
+                   API is called to check if the MI is configured for SI[3],
+                   the API will return TRUE.
+1.9   vn  07/30/26 Fix Doxygen warnings
+1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+1.9  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xaxis__switch_8h.html">xaxis_switch.h</a>&quot;</code><br/>
 <code>#include &quot;string.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga91d899fe6d8456f8460acd4a122dce64"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga91d899fe6d8456f8460acd4a122dce64">XAxisScr_CfgInitialize</a> (<a class="el" href="struct_x_axis___switch.html">XAxis_Switch</a> *InstancePtr, <a class="el" href="struct_x_axis___switch___config.html">XAxis_Switch_Config</a> *CfgPtr, UINTPTR EffectiveAddr)</td></tr>
-<tr class="memdesc:ga91d899fe6d8456f8460acd4a122dce64"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the AXI4-Stream Switch core.  <a href="group__axis__switch.html#ga91d899fe6d8456f8460acd4a122dce64">More...</a><br/></td></tr>
+<tr class="memdesc:ga91d899fe6d8456f8460acd4a122dce64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the AXI4-Stream Switch core.  <a href="group__axis__switch.html#ga91d899fe6d8456f8460acd4a122dce64">More...</a><br/></td></tr>
 <tr class="separator:ga91d899fe6d8456f8460acd4a122dce64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga943a402b210b5f2901b6d6e7ae323d50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga943a402b210b5f2901b6d6e7ae323d50">XAxisScr_MiPortEnable</a> (<a class="el" href="struct_x_axis___switch.html">XAxis_Switch</a> *InstancePtr, u8 MiIndex, u8 SiIndex)</td></tr>
-<tr class="memdesc:ga943a402b210b5f2901b6d6e7ae323d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the MUX port specified by a MI index and links with desired SI, indicated by a SiIndex.  <a href="group__axis__switch.html#ga943a402b210b5f2901b6d6e7ae323d50">More...</a><br/></td></tr>
+<tr class="memdesc:ga943a402b210b5f2901b6d6e7ae323d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the MUX port specified by a MI index and links it with the desired SI.  <a href="group__axis__switch.html#ga943a402b210b5f2901b6d6e7ae323d50">More...</a><br/></td></tr>
 <tr class="separator:ga943a402b210b5f2901b6d6e7ae323d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1fcba7107d4ecb9955aa302c1b798729"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga1fcba7107d4ecb9955aa302c1b798729">XAxisScr_MiPortDisable</a> (<a class="el" href="struct_x_axis___switch.html">XAxis_Switch</a> *InstancePtr, u8 MiIndex)</td></tr>
-<tr class="memdesc:ga1fcba7107d4ecb9955aa302c1b798729"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the MUX port specified by a MI index and un-link SI, set previously.  <a href="group__axis__switch.html#ga1fcba7107d4ecb9955aa302c1b798729">More...</a><br/></td></tr>
+<tr class="memdesc:ga1fcba7107d4ecb9955aa302c1b798729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the MUX port specified by a MI index and unlinks the previously set SI.  <a href="group__axis__switch.html#ga1fcba7107d4ecb9955aa302c1b798729">More...</a><br/></td></tr>
 <tr class="separator:ga1fcba7107d4ecb9955aa302c1b798729"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga35ef34ba6c57b57506741b4a04f87e75"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga35ef34ba6c57b57506741b4a04f87e75">XAxisScr_IsMiPortEnabled</a> (<a class="el" href="struct_x_axis___switch.html">XAxis_Switch</a> *InstancePtr, u8 MiIndex, u8 SiIndex)</td></tr>
-<tr class="memdesc:ga35ef34ba6c57b57506741b4a04f87e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the status of whether MUX is sourced from desired SI.  <a href="group__axis__switch.html#ga35ef34ba6c57b57506741b4a04f87e75">More...</a><br/></td></tr>
+<tr class="memdesc:ga35ef34ba6c57b57506741b4a04f87e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the MUX is sourced from the desired SI.  <a href="group__axis__switch.html#ga35ef34ba6c57b57506741b4a04f87e75">More...</a><br/></td></tr>
 <tr class="separator:ga35ef34ba6c57b57506741b4a04f87e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga993cbd838dd30de44a943c7f4a046101"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga993cbd838dd30de44a943c7f4a046101">XAxisScr_IsMiPortDisabled</a> (<a class="el" href="struct_x_axis___switch.html">XAxis_Switch</a> *InstancePtr, u8 MiIndex)</td></tr>
-<tr class="memdesc:ga993cbd838dd30de44a943c7f4a046101"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the status of whether MUX is disabled.  <a href="group__axis__switch.html#ga993cbd838dd30de44a943c7f4a046101">More...</a><br/></td></tr>
+<tr class="memdesc:ga993cbd838dd30de44a943c7f4a046101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the MUX port is disabled.  <a href="group__axis__switch.html#ga993cbd838dd30de44a943c7f4a046101">More...</a><br/></td></tr>
 <tr class="separator:ga993cbd838dd30de44a943c7f4a046101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga84a532ac4e377199c15802d84b43256e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga84a532ac4e377199c15802d84b43256e">XAxisScr_MiPortDisableAll</a> (<a class="el" href="struct_x_axis___switch.html">XAxis_Switch</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga84a532ac4e377199c15802d84b43256e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables all the MUX port, in turn removes association with desired SI.  <a href="group__axis__switch.html#ga84a532ac4e377199c15802d84b43256e">More...</a><br/></td></tr>
+<tr class="memdesc:ga84a532ac4e377199c15802d84b43256e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables all MUX ports and removes association with the SI.  <a href="group__axis__switch.html#ga84a532ac4e377199c15802d84b43256e">More...</a><br/></td></tr>
 <tr class="separator:ga84a532ac4e377199c15802d84b43256e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

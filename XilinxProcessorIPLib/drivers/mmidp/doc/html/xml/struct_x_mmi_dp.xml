@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="410" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="496" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1abc5f425abc612c99f9301618f2da1104" prot="public" static="no" mutable="no">
         <type>XMmiDp_RxConfig</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="411" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="497" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a5f3fe3bc13df327f688ad9b79243b156" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_mmi_dp___video_config" kindref="compound">XMmiDp_VideoConfig</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="412" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="498" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a32e43812bb40ba46c3ec47b8ca6840fd" prot="public" static="no" mutable="no">
         <type>XMmiDp_VSampleCtrl</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="413" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="499" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a22d537ff68bae82ded761e447de253ad" prot="public" static="no" mutable="no">
         <type>XMmiDp_AudioConfig</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="414" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="500" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1af948aa077fd26c493c17667e53851bf9" prot="public" static="no" mutable="no">
         <type>XMmiDp_SdpVerticalCtrl</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="415" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="501" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a0d11e7fd9da80508425448f0379d528b" prot="public" static="no" mutable="no">
         <type>XMmiDp_SdpHorizontalCtrl</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="416" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="502" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a05ba6afdee132f30b4661db74700b65b" prot="public" static="no" mutable="no">
         <type>XMmiDp_PhyConfig</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="417" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="503" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a71230010505b44376c51e2c62059cae1" prot="public" static="no" mutable="no">
         <type>XMmiDp_LinkConfig</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="418" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="504" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1ae59d74375200d208e8f95835747edf43" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="419" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="505" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a668ee11f937d3a484bd3a5b65d9596bb" prot="public" static="no" mutable="no">
         <type>XMmiDp_SdpConfig</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="420" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="506" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1acbe8786b73344fadc745d2b91c80b1aa" prot="public" static="no" mutable="no">
         <type>XMmiDp_SdpConfig</type>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="421" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="507" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a753ce52b16177a273cb8e44b265e371e" prot="public" static="no" mutable="no">
         <type>XMmiDp_SdpConfig</type>
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="422" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="508" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1ab23a1ccdf1af4855bd270dcc8e425e16" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="423" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="509" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a790048cae5526229fbc423187c0fcc3f" prot="public" static="no" mutable="no">
         <type>XMmiDp_Controller</type>
@@ -197,7 +197,42 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="424" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp_1a7c58a1c7566c0866665bf88c536627f4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mmi_dp___mst_stream" kindref="compound">XMmiDp_MstStream</ref></type>
+        <definition>XMmiDp_MstStream XMmiDp::MstStreamConfig[XMMIDP_STREAM_ID4]</definition>
+        <argsstring>[XMMIDP_STREAM_ID4]</argsstring>
+        <name>MstStreamConfig</name>
+        <briefdescription>
+<para>MST payload allocation per stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="512" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" compoundref="xmmidp__stream_8c" startline="2872" endline="2901">XMmiDp_AllocatePayloadStream</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" compoundref="xmmidp__stream_8c" startline="2507" endline="2573">XMmiDp_ComputeTimeSlot</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf94b814b5fe5d3155d7920dd31d86b43" compoundref="xmmidp__stream_8c" startline="2919" endline="3123">XMmiDp_ComputeTuParams</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga28b8a293ece904a674e3c45b2ad592ba" compoundref="xmmidp__stream_8c" startline="2682" endline="2765">XMmiDp_DistributeMstPayloadSlots</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gafe77bc22c82563d0ff294dc96f77740b" compoundref="xmmidp__stream_8c" startline="2789" endline="2844">XMmiDp_SetSinkVcPayloadTable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf08de325c6163c2ebff2c9ac6c898d2f" compoundref="xmmidp__stream_8c" startline="2281" endline="2320">XMmiDp_SetTxVcPayloadTable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mmi_dp___mst_topology" kindref="compound">XMmiDp_MstTopology</ref></type>
+        <definition>XMmiDp_MstTopology XMmiDp::MstTopology</definition>
+        <argsstring></argsstring>
+        <name>MstTopology</name>
+        <briefdescription>
+<para>Result of the last MST topology discovery. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="514" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga15b34394423bc9f336b415da9121762d" compoundref="xmmidp__mst_8c" startline="737" endline="808">XMmiDp_MstDiscoverTopology</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1aa540cada6ffaa64fd97764461a97d189" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -210,10 +245,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="425" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="515" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1add4a5cb5d2fd0dedb2910266cd659393" prot="public" static="no" mutable="no">
-        <type>XMmiDp_Config</type>
+        <type><ref refid="struct_x_mmi_dp___config" kindref="compound">XMmiDp_Config</ref></type>
         <definition>XMmiDp_Config XMmiDp::Config</definition>
         <argsstring></argsstring>
         <name>Config</name>
@@ -223,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="426" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="516" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a81d3b66f29bb1f125538fe65dd6e4a6c" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -236,7 +271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="427" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="517" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1ac971361c1e8abafd544799cd8e8ef776" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -249,7 +284,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="428" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="518" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1ae9600b42c21a3f14dc2d44fcec6ec483" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -262,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="429" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="519" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a3621cd1fb8212dd2cdbd8b9003816828" prot="public" static="no" mutable="no">
         <type>XMmiDp_HpdIrqHandler</type>
@@ -275,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="430" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="520" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a8c787cacf871b1545b41bcfa1a2b4777" prot="public" static="no" mutable="no">
         <type>XMmiDp_HpdHotPlugHandler</type>
@@ -288,7 +323,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="431" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="521" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mmi_dp_1a959e46d7a80db1edd7c81f6f9c1cd0c4" prot="public" static="no" mutable="no">
         <type>XMmiDp_HpdHotUnplugHandler</type>
@@ -301,7 +336,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="432" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="522" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -310,6 +345,13 @@
 <para>The user is required to allocate a variable of this type for every <ref refid="struct_x_mmi_dp" kindref="compound">XMmiDp</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="2">
+        <label>XMmiDp_MstTopology</label>
+        <link refid="struct_x_mmi_dp___mst_topology"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Sinks</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
         <label>XMmiDp_VideoConfig</label>
         <link refid="struct_x_mmi_dp___video_config"/>
       </node>
@@ -317,18 +359,39 @@
         <label>XMmiDp</label>
         <link refid="struct_x_mmi_dp"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>MstTopology</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
           <edgelabel>VideoConfig</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
+        <childnode refid="5" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>MstStreamConfig</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
           <edgelabel>MsaConfig</edgelabel>
         </childnode>
       </node>
-      <node id="3">
+      <node id="5">
+        <label>XMmiDp_Config</label>
+        <link refid="struct_x_mmi_dp___config"/>
+      </node>
+      <node id="6">
+        <label>XMmiDp_MstStream</label>
+        <link refid="struct_x_mmi_dp___mst_stream"/>
+      </node>
+      <node id="7">
         <label>XMmiDp_MainStreamAttributes</label>
         <link refid="struct_x_mmi_dp___main_stream_attributes"/>
       </node>
+      <node id="3">
+        <label>XMmiDp_MstSink</label>
+        <link refid="struct_x_mmi_dp___mst_sink"/>
+      </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="409" bodyend="433"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="495" bodyend="523"/>
     <listofallmembers>
       <member refid="struct_x_mmi_dp_1a22d537ff68bae82ded761e447de253ad" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>AudCfg</name></member>
       <member refid="struct_x_mmi_dp_1aa540cada6ffaa64fd97764461a97d189" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>AuxDelayUs</name></member>
@@ -342,6 +405,8 @@
       <member refid="struct_x_mmi_dp_1a3621cd1fb8212dd2cdbd8b9003816828" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>HpdIrqHandler</name></member>
       <member refid="struct_x_mmi_dp_1a71230010505b44376c51e2c62059cae1" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>LinkConfig</name></member>
       <member refid="struct_x_mmi_dp_1ad84c0d7ccf0a0f23a2297ab19f31f476" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>MsaConfig</name></member>
+      <member refid="struct_x_mmi_dp_1a7c58a1c7566c0866665bf88c536627f4" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>MstStreamConfig</name></member>
+      <member refid="struct_x_mmi_dp_1ae34151617e88b9050784f87aadbf6bfd" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>MstTopology</name></member>
       <member refid="struct_x_mmi_dp_1a05ba6afdee132f30b4661db74700b65b" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>PhyConfig</name></member>
       <member refid="struct_x_mmi_dp_1abc5f425abc612c99f9301618f2da1104" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>RxConfig</name></member>
       <member refid="struct_x_mmi_dp_1a668ee11f937d3a484bd3a5b65d9596bb" prot="public" virt="non-virtual"><scope>XMmiDp</scope><name>SdpCfg1</name></member>

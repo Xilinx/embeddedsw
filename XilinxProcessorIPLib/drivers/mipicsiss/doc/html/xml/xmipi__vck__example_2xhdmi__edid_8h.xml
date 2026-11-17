@@ -8,62 +8,62 @@
     <includedby refid="xmipi__vck__example_2xhdmi__menu_8h" local="yes">xhdmi_menu.h</includedby>
     <includedby refid="xmipi__vck__example_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
     <incdepgraph>
-      <node id="1619">
-        <label>xvidc_edid_ext.h</label>
-      </node>
-      <node id="1617">
+      <node id="1654">
         <label>xhdmi_edid.h</label>
         <link refid="xmipi_vck_example/xhdmi_edid.h"/>
-        <childnode refid="1618" relation="include">
+        <childnode refid="1655" relation="include">
         </childnode>
-        <childnode refid="1619" relation="include">
+        <childnode refid="1656" relation="include">
         </childnode>
       </node>
-      <node id="1618">
+      <node id="1656">
+        <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="1655">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1623">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="1624">
-        <label>xhdmi_example.h</label>
-        <childnode refid="1622" relation="include">
-        </childnode>
-        <childnode refid="1623" relation="include">
-        </childnode>
-        <childnode refid="1625" relation="include">
-        </childnode>
-        <childnode refid="1626" relation="include">
-        </childnode>
-      </node>
-      <node id="1625">
+      <node id="1662">
         <label>xhdmi_menu.c</label>
       </node>
-      <node id="1622">
+      <node id="1659">
         <label>xhdmi_menu.h</label>
-        <childnode refid="1623" relation="include">
+        <childnode refid="1660" relation="include">
         </childnode>
-        <childnode refid="1624" relation="include">
+        <childnode refid="1661" relation="include">
         </childnode>
-        <childnode refid="1625" relation="include">
+        <childnode refid="1662" relation="include">
         </childnode>
       </node>
-      <node id="1626">
-        <label>xmipi_vck190_example.c</label>
-      </node>
-      <node id="1621">
+      <node id="1658">
         <label>xhdmi_edid.c</label>
       </node>
-      <node id="1620">
+      <node id="1657">
         <label>xhdmi_edid.h</label>
         <link refid="xmipi_vck_example/xhdmi_edid.h"/>
-        <childnode refid="1621" relation="include">
+        <childnode refid="1658" relation="include">
         </childnode>
-        <childnode refid="1622" relation="include">
+        <childnode refid="1659" relation="include">
         </childnode>
-        <childnode refid="1624" relation="include">
+        <childnode refid="1661" relation="include">
+        </childnode>
+      </node>
+      <node id="1663">
+        <label>xmipi_vck190_example.c</label>
+      </node>
+      <node id="1660">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="1661">
+        <label>xhdmi_example.h</label>
+        <childnode refid="1659" relation="include">
+        </childnode>
+        <childnode refid="1660" relation="include">
+        </childnode>
+        <childnode refid="1662" relation="include">
+        </childnode>
+        <childnode refid="1663" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/xhdmi_edid.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/xhdmi_edid.h" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/xhdmi_edid.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/xhdmi_edid.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -193,6 +193,6 @@
 <codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDMI_EDID_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/xhdmi_edid.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/xhdmi_edid.h"/>
   </compounddef>
 </doxygen>

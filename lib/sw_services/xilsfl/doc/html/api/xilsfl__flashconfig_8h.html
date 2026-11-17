@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xilsfl__flashconfig_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,22 +100,62 @@ $(document).ready(function(){initNavTree('xilsfl__flashconfig_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xilsfl_flashconfig.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xilsfl_8h.html">xilsfl.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Declares the flash configuration table and flash-related constants. </p>
+<p>This file contains the flash configuration table and flash-related defines.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   sb  8/20/24  Initial release
+1.1   sb  02/11/25 Add support for x2/x4 operation.
+1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
+1.4   vn  08/26/26 Fix Doxygen warnings.
+1.4   vn  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilsfl_8h.html">xilsfl.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_flash_info.html">XFlashInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains configuration information for a flash Device.  <a href="struct_x_flash_info.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration information for a flash device.  <a href="struct_x_flash_info.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Flash dummy cycles</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Dummy cycles that the library can send to the flash device. </p>
+</div></td></tr>
+<tr class="memitem:ga9d94d20d91f30a6485f68b5a97bb1e16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga9d94d20d91f30a6485f68b5a97bb1e16">XSFL_FLASH_DUMMY_CYCLES_0</a>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memdesc:ga9d94d20d91f30a6485f68b5a97bb1e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero dummy cycles.  <a href="group__xilsfl.html#ga9d94d20d91f30a6485f68b5a97bb1e16">More...</a><br/></td></tr>
+<tr class="separator:ga9d94d20d91f30a6485f68b5a97bb1e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d44b80720fd373a53985cff36294816"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga7d44b80720fd373a53985cff36294816">XSFL_FLASH_DUMMY_CYCLES_8</a>&#160;&#160;&#160;0x8</td></tr>
+<tr class="memdesc:ga7d44b80720fd373a53985cff36294816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eight dummy cycles.  <a href="group__xilsfl.html#ga7d44b80720fd373a53985cff36294816">More...</a><br/></td></tr>
+<tr class="separator:ga7d44b80720fd373a53985cff36294816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1674db5944099ffb248a6d374b900de4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga1674db5944099ffb248a6d374b900de4">XSFL_FLASH_DUMMY_CYCLES_10</a>&#160;&#160;&#160;0xA</td></tr>
+<tr class="memdesc:ga1674db5944099ffb248a6d374b900de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">10 dummy cycles.  <a href="group__xilsfl.html#ga1674db5944099ffb248a6d374b900de4">More...</a><br/></td></tr>
+<tr class="separator:ga1674db5944099ffb248a6d374b900de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f445a7c0e8d3f774478ff31d391fb21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga3f445a7c0e8d3f774478ff31d391fb21">XSFL_FLASH_DUMMY_CYCLES_16</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="memdesc:ga3f445a7c0e8d3f774478ff31d391fb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">16 dummy cycles.  <a href="group__xilsfl.html#ga3f445a7c0e8d3f774478ff31d391fb21">More...</a><br/></td></tr>
+<tr class="separator:ga3f445a7c0e8d3f774478ff31d391fb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08d9dd3d19fbe4e6042a71afd62e3b60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga08d9dd3d19fbe4e6042a71afd62e3b60">XSFL_FLASH_DUMMY_CYCLES_20</a>&#160;&#160;&#160;0x14</td></tr>
+<tr class="memdesc:ga08d9dd3d19fbe4e6042a71afd62e3b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">20 dummy cycles.  <a href="group__xilsfl.html#ga08d9dd3d19fbe4e6042a71afd62e3b60">More...</a><br/></td></tr>
+<tr class="separator:ga08d9dd3d19fbe4e6042a71afd62e3b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb448efb6b1fe4c48eeffb51e5b89f49"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gafb448efb6b1fe4c48eeffb51e5b89f49">XSFL_FLASH_DUMMY_CYCLES_21</a>&#160;&#160;&#160;0x15</td></tr>
+<tr class="memdesc:gafb448efb6b1fe4c48eeffb51e5b89f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">21 dummy cycles.  <a href="group__xilsfl.html#gafb448efb6b1fe4c48eeffb51e5b89f49">More...</a><br/></td></tr>
+<tr class="separator:gafb448efb6b1fe4c48eeffb51e5b89f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Flash frequencies</div></td></tr>
+<tr class="memitem:gad9e390695ed51a716901fb20f53dc75d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gad9e390695ed51a716901fb20f53dc75d">XSFL_FLASH_FREQUENCY_166_MHZ</a>&#160;&#160;&#160;166000000U</td></tr>
+<tr class="memdesc:gad9e390695ed51a716901fb20f53dc75d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash frequency of 166 MHz.  <a href="group__xilsfl.html#gad9e390695ed51a716901fb20f53dc75d">More...</a><br/></td></tr>
+<tr class="separator:gad9e390695ed51a716901fb20f53dc75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab738f9a8fe35cf929d7fc8f995cb7614"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gab738f9a8fe35cf929d7fc8f995cb7614">XSFL_FLASH_FREQUENCY_150_MHZ</a>&#160;&#160;&#160;150000000U</td></tr>
+<tr class="memdesc:gab738f9a8fe35cf929d7fc8f995cb7614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash frequency of 150 MHz.  <a href="group__xilsfl.html#gab738f9a8fe35cf929d7fc8f995cb7614">More...</a><br/></td></tr>
+<tr class="separator:gab738f9a8fe35cf929d7fc8f995cb7614"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga41b90824c16a7992f9d6807302368f9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga41b90824c16a7992f9d6807302368f9f">XSFL_FLASH_FREQUENCY_133_MHZ</a>&#160;&#160;&#160;133000000U</td></tr>
 <tr class="memdesc:ga41b90824c16a7992f9d6807302368f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash frequency of 133 MHz.  <a href="group__xilsfl.html#ga41b90824c16a7992f9d6807302368f9f">More...</a><br/></td></tr>
 <tr class="separator:ga41b90824c16a7992f9d6807302368f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,8 +163,14 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga3117ca4afac19f594039caade68a1466"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga3117ca4afac19f594039caade68a1466">XSfl_CalculateFCTIndex</a> (u32 ReadId, u32 *FCTIndex)</td></tr>
-<tr class="memdesc:ga3117ca4afac19f594039caade68a1466"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function used to Identifies the flash in FCT table.  <a href="group__xilsfl.html#ga3117ca4afac19f594039caade68a1466">More...</a><br/></td></tr>
+<tr class="memdesc:ga3117ca4afac19f594039caade68a1466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the flash in the Flash Configuration Table (FCT).  <a href="group__xilsfl.html#ga3117ca4afac19f594039caade68a1466">More...</a><br/></td></tr>
 <tr class="separator:ga3117ca4afac19f594039caade68a1466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga49546ca692512f2b92129b92006af985"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_x_flash_info.html">XFlashInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga49546ca692512f2b92129b92006af985">Flash_Config_Table</a> []</td></tr>
+<tr class="memdesc:ga49546ca692512f2b92129b92006af985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration of each supported flash device.  <a href="group__xilsfl.html#ga49546ca692512f2b92129b92006af985">More...</a><br/></td></tr>
+<tr class="separator:ga49546ca692512f2b92129b92006af985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

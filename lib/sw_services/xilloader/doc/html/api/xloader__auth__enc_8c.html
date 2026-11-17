@@ -259,7 +259,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                       will be called during boot from Pdi_Init.
       rmv  01/30/2026 Renamed OCP keymanagment macro
       vss  02/01/2026 Updated PPK revoke error logic.
-      tvp  03/05/2026 Use XLoader_AuthKey to accommodate new algorithms support
+      tvp  03/05/2026 Use <a class="el" href="struct_x_loader___auth_key.html" title="Authentication Key. ">XLoader_AuthKey</a> to accommodate new algorithms support
       tvp  03/05/2026 Add authenticated boot support for Versal_2vp_p
       tvp  03/05/2026 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
@@ -267,7 +267,25 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       tvp  03/31/2026 Use generic API to increment IV
       rpu  04/14/2026 Moved Hashblock related code to <a class="el" href="xloader__secure_8c.html" title="This file contains all common security operations including sha related code. ">xloader_secure.c</a>
       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
-      sri  04/24/2026 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      sri  04/24/2026 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
+      ng   07/13/2026 Reduced debug print levels on error paths
+2.5   obs  07/14/2026 Bounded meta header image/partition count in XLoader_ReadAndVerifySecureHdrs
+      tvp  07/28/2026 Add XLoader_GetAuthAlgoStr to log authentication
+                      algorithm during PDI authentication
+      pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
+      sri  08/14/2026 Refactored HashBlock authentication to XLoader_AuthNCopyHashBlock
+                      for shared server and Versal_2Ve_2Vm client paths
+      vss  09/09/2026 Added ECDSA P-521 to XLoader_GetKeySizeSignPadding for VERSAL_2VP_P
+      mkr  09/08/2026 Fixed discarded-qualifiers GCC warnings
+      tbk  09/07/26 Bound IHT and partition HashBlockSize in words, PPK and
+                      HB signature Total/Actual sizes, and reject zero copy lengths
+      sri  10/05/2026 Use AuthJtagMessagePtr AuthHdr for LMS Auth JTAG signature verify
+      vss  10/09/2026 Derive LMS/LMS-HSS signature length from the public key
+      vss  10/14/2026 Allow multiple algorithm bits in the hybrid field and
+                      require each key algorithm to be present in the other
+                      key's hybrid mask
+      gnr  10/21/2026 Fixed enum-conversion warning in XLoader_AuthNCopyHashBlock
+                      for VERSAL_2VP_P</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xplmi.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__enc_8h.html">xloader_auth_enc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__secure_8h.html">xloader_secure.h</a>&quot;</code><br/>
@@ -278,6 +296,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xsecure_elliptic.h&quot;</code><br/>
 <code>#include &quot;xsecure_aes_core_hw.h&quot;</code><br/>
 <code>#include &quot;xsecure_rsa_core.h&quot;</code><br/>
+<code>#include &quot;xsecure_rsa_pss.h&quot;</code><br/>
 <code>#include &quot;xsecure_utils.h&quot;</code><br/>
 <code>#include &quot;xplmi_modules.h&quot;</code><br/>
 <code>#include &quot;xplmi_scheduler.h&quot;</code><br/>
@@ -290,12 +309,6 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gab5e43af745222cb78f6a71853c891183"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gab5e43af745222cb78f6a71853c891183">XLOADER_RSA_PSS_MSB_PADDING_MASK</a>&#160;&#160;&#160;(u8)(0x80U)</td></tr>
-<tr class="memdesc:gab5e43af745222cb78f6a71853c891183"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA PSS MSB padding mask.  <a href="group__xloader__server__apis.html#gab5e43af745222cb78f6a71853c891183">More...</a><br/></td></tr>
-<tr class="separator:gab5e43af745222cb78f6a71853c891183"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga98ac029ac7965b392e6bb0097876fd94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga98ac029ac7965b392e6bb0097876fd94">XLOADER_RSA_EM_MSB_INDEX</a>&#160;&#160;&#160;(0x0U)</td></tr>
-<tr class="memdesc:ga98ac029ac7965b392e6bb0097876fd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA EM MSB Index.  <a href="group__xloader__server__apis.html#ga98ac029ac7965b392e6bb0097876fd94">More...</a><br/></td></tr>
-<tr class="separator:ga98ac029ac7965b392e6bb0097876fd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaad372ad8e543134647457ddfd18128ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gaad372ad8e543134647457ddfd18128ab">XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT</a>&#160;&#160;&#160;(31U)</td></tr>
 <tr class="memdesc:gaad372ad8e543134647457ddfd18128ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Global Variation Filter in PUF shutter value.  <a href="group__xloader__server__apis.html#gaad372ad8e543134647457ddfd18128ab">More...</a><br/></td></tr>
 <tr class="separator:gaad372ad8e543134647457ddfd18128ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -329,20 +342,14 @@ Functions</h2></td></tr>
 <tr class="memitem:gac4b3b88f124856db12efa0ce4d6c81d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gac4b3b88f124856db12efa0ce4d6c81d0">XLoader_ReadAndVerifySecureHdrs</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr, XilPdi_MetaHdr *MetaHdr)</td></tr>
 <tr class="memdesc:gac4b3b88f124856db12efa0ce4d6c81d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates and/or decrypts the image headers and partition headers and copies the contents to the corresponding structures.  <a href="group__xloader__server__apis.html#gac4b3b88f124856db12efa0ce4d6c81d0">More...</a><br/></td></tr>
 <tr class="separator:gac4b3b88f124856db12efa0ce4d6c81d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabc232d3b5b2c07628059fb8a73927942"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">XLoader_VerifySignature</a> (const <a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr, u8 *Hash, XLoader_AuthKey *AuthKey, u8 *Signature)</td></tr>
+<tr class="memitem:gabc232d3b5b2c07628059fb8a73927942"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">XLoader_VerifySignature</a> (const <a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr, u8 *Hash, <a class="el" href="struct_x_loader___auth_key.html">XLoader_AuthKey</a> *AuthKey, u8 *Signature)</td></tr>
 <tr class="memdesc:gabc232d3b5b2c07628059fb8a73927942"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies the signature (RSA/ECDSA) using the provided key and compares the result with the expected hash.  <a href="group__xloader__server__apis.html#gabc232d3b5b2c07628059fb8a73927942">More...</a><br/></td></tr>
 <tr class="separator:gabc232d3b5b2c07628059fb8a73927942"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab6898ef045d13b406a9ac80d1c8d0d11"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gab6898ef045d13b406a9ac80d1c8d0d11">XLoader_VerifyRevokeId</a> (u32 RevokeId)</td></tr>
-<tr class="memdesc:gab6898ef045d13b406a9ac80d1c8d0d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates SPK by verifying if the given SPK ID has been revoked or not.  <a href="group__xloader__server__apis.html#gab6898ef045d13b406a9ac80d1c8d0d11">More...</a><br/></td></tr>
-<tr class="separator:gab6898ef045d13b406a9ac80d1c8d0d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadec7b8bbeb190d83de231b302c251533"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gadec7b8bbeb190d83de231b302c251533">XLoader_IsPpkValid</a> (const u8 *PpkHash)</td></tr>
-<tr class="memdesc:gadec7b8bbeb190d83de231b302c251533"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates PPK hash against eFUSE stored hash.  <a href="group__xloader__server__apis.html#gadec7b8bbeb190d83de231b302c251533">More...</a><br/></td></tr>
-<tr class="separator:gadec7b8bbeb190d83de231b302c251533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga41c7e98dc575b59226d0bb8cb6344787"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga41c7e98dc575b59226d0bb8cb6344787">XLoader_PpkVerify</a> (const <a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr, const u32 PpkSize)</td></tr>
-<tr class="memdesc:ga41c7e98dc575b59226d0bb8cb6344787"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies PPK.  <a href="group__xloader__server__apis.html#ga41c7e98dc575b59226d0bb8cb6344787">More...</a><br/></td></tr>
-<tr class="separator:ga41c7e98dc575b59226d0bb8cb6344787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga963ef65f3c5ee69a62d55459b4454ed1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga963ef65f3c5ee69a62d55459b4454ed1">XLoader_VerifyRevokeId</a> (u32 RevokeId)</td></tr>
+<tr class="memdesc:ga963ef65f3c5ee69a62d55459b4454ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates SPK by verifying if the given SPK ID has been revoked or not.  <a href="group__xloader__server__apis.html#ga963ef65f3c5ee69a62d55459b4454ed1">More...</a><br/></td></tr>
+<tr class="separator:ga963ef65f3c5ee69a62d55459b4454ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga314c67dbef884040c630923f3b48416a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga314c67dbef884040c630923f3b48416a">XLoader_RsaPssSignVerify</a> (u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize)</td></tr>
-<tr class="memdesc:ga314c67dbef884040c630923f3b48416a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function encrypts the RSA signature provided and performs required PSS operations to extract salt and calculates M prime hash and compares with hash obtained from EM.  <a href="group__xloader__server__apis.html#ga314c67dbef884040c630923f3b48416a">More...</a><br/></td></tr>
+<tr class="memdesc:ga314c67dbef884040c630923f3b48416a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function verifies RSA-PSS signature (SHA3-384) for the given message hash by invoking XSecure_RsaPssSignVerify.  <a href="group__xloader__server__apis.html#ga314c67dbef884040c630923f3b48416a">More...</a><br/></td></tr>
 <tr class="separator:ga314c67dbef884040c630923f3b48416a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga203aa0ade1430a8a53e7974c0e4eba3c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga203aa0ade1430a8a53e7974c0e4eba3c">XLoader_EnableJtag</a> (volatile u32 CfgState)</td></tr>
 <tr class="memdesc:ga203aa0ade1430a8a53e7974c0e4eba3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the Jtag.  <a href="group__xloader__server__apis.html#ga203aa0ade1430a8a53e7974c0e4eba3c">More...</a><br/></td></tr>
@@ -362,24 +369,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gacb572c209348e5ec41f2e15c92de9c36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gacb572c209348e5ec41f2e15c92de9c36">XLoader_CheckSecureState</a> (u32 RegVal, u32 Var, u32 ExpectedValue)</td></tr>
 <tr class="memdesc:gacb572c209348e5ec41f2e15c92de9c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if the secure state of boot matches the expected value or not.  <a href="group__xloader__server__apis.html#gacb572c209348e5ec41f2e15c92de9c36">More...</a><br/></td></tr>
 <tr class="separator:gacb572c209348e5ec41f2e15c92de9c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr)</td></tr>
-<tr class="memdesc:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs RSA or Ecdsa KAT based on pdi.  <a href="group__xloader__server__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">More...</a><br/></td></tr>
-<tr class="separator:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga677a618842a76cb8ee935fd0e5bd18fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga677a618842a76cb8ee935fd0e5bd18fa">XLoader_ImgHdrTblAuth</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr)</td></tr>
 <tr class="memdesc:ga677a618842a76cb8ee935fd0e5bd18fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates the image header table.  <a href="group__xloader__server__apis.html#ga677a618842a76cb8ee935fd0e5bd18fa">More...</a><br/></td></tr>
 <tr class="separator:ga677a618842a76cb8ee935fd0e5bd18fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga112597ce43d11195a3d8924eb435254f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga112597ce43d11195a3d8924eb435254f">XLoader_DataAuth</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr, u8 *Hash, u8 *Signature)</td></tr>
 <tr class="memdesc:ga112597ce43d11195a3d8924eb435254f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates the data with SPK.  <a href="group__xloader__server__apis.html#ga112597ce43d11195a3d8924eb435254f">More...</a><br/></td></tr>
 <tr class="separator:ga112597ce43d11195a3d8924eb435254f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacdc253920da8decda6028f77d6d79cb6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gacdc253920da8decda6028f77d6d79cb6">XLoader_GetPpkInvalidMaskAndOffset</a> (<a class="el" href="xloader__auth__enc_8h.html#a85aba33b166080b4874c0f5657589b3e">XLoader_PpkSel</a> PpkSelect, u32 *InvalidMask, u32 *PpkOffset)</td></tr>
-<tr class="memdesc:gacdc253920da8decda6028f77d6d79cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the invalid mask and PPK offset based on the selected PPK.  <a href="group__xloader__server__apis.html#gacdc253920da8decda6028f77d6d79cb6">More...</a><br/></td></tr>
-<tr class="separator:gacdc253920da8decda6028f77d6d79cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae0beb003c621ffb731a7ca0c5409b9d8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gae0beb003c621ffb731a7ca0c5409b9d8">XLoader_IsPpkRevoked</a> (u32 PpkInvldMask)</td></tr>
-<tr class="memdesc:gae0beb003c621ffb731a7ca0c5409b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if the selected PPK is revoked by reading the PPK invalid bits from eFUSE.  <a href="group__xloader__server__apis.html#gae0beb003c621ffb731a7ca0c5409b9d8">More...</a><br/></td></tr>
-<tr class="separator:gae0beb003c621ffb731a7ca0c5409b9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0471c92b49e77af3b786d1b1484c99a5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga0471c92b49e77af3b786d1b1484c99a5">XLoader_ValidatePpkHash</a> (const u8 *PpkHash, u32 PpkOffset)</td></tr>
-<tr class="memdesc:ga0471c92b49e77af3b786d1b1484c99a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function compares the provided PPK hash with the hash stored in eFUSE and validates it is not all zeros.  <a href="group__xloader__server__apis.html#ga0471c92b49e77af3b786d1b1484c99a5">More...</a><br/></td></tr>
-<tr class="separator:ga0471c92b49e77af3b786d1b1484c99a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

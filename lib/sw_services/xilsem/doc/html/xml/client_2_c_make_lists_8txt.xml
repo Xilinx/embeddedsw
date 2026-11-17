@@ -15,6 +15,6 @@
 <codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsem_ipi_interface.c)</highlight></codeline>
 <codeline lineno="7"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsem_ipi_interface.h)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

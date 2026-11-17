@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -108,18 +109,6 @@ $(document).ready(function(){initNavTree('group__xasu__keymanager__common__apis.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gad523f02a44991223ddca95d225aaaaa2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gad523f02a44991223ddca95d225aaaaa2">XASU_KM_AES_KEYTYPE</a>&#160;&#160;&#160;(0U)</td></tr>
-<tr class="memdesc:gad523f02a44991223ddca95d225aaaaa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type identifier for AES key.  <a href="#gad523f02a44991223ddca95d225aaaaa2">More...</a><br/></td></tr>
-<tr class="separator:gad523f02a44991223ddca95d225aaaaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabe851c3e1fa77f7b77f0df95ef268b85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gabe851c3e1fa77f7b77f0df95ef268b85">XASU_KM_IV_KEYTYPE</a>&#160;&#160;&#160;(1U)</td></tr>
-<tr class="memdesc:gabe851c3e1fa77f7b77f0df95ef268b85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type identifier for IV.  <a href="#gabe851c3e1fa77f7b77f0df95ef268b85">More...</a><br/></td></tr>
-<tr class="separator:gabe851c3e1fa77f7b77f0df95ef268b85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0ca9bd91b3d5b9bf359f90ec2e951655"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga0ca9bd91b3d5b9bf359f90ec2e951655">XASU_KM_KDF_HMAC_KEYTYPE</a>&#160;&#160;&#160;(2U)</td></tr>
-<tr class="memdesc:ga0ca9bd91b3d5b9bf359f90ec2e951655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type identifier for KDF/HMAC key.  <a href="#ga0ca9bd91b3d5b9bf359f90ec2e951655">More...</a><br/></td></tr>
-<tr class="separator:ga0ca9bd91b3d5b9bf359f90ec2e951655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8dea45fa4715b4b58bca204ee48b309"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gaf8dea45fa4715b4b58bca204ee48b309">XASU_KM_RSA_KEYTYPE</a>&#160;&#160;&#160;(3U)</td></tr>
-<tr class="memdesc:gaf8dea45fa4715b4b58bca204ee48b309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key type identifier for RSA key.  <a href="#gaf8dea45fa4715b4b58bca204ee48b309">More...</a><br/></td></tr>
-<tr class="separator:gaf8dea45fa4715b4b58bca204ee48b309"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70a7974fef7970c490e7e9b8742c2e34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga70a7974fef7970c490e7e9b8742c2e34">XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</a>&#160;&#160;&#160;(0xFFU)</td></tr>
 <tr class="memdesc:ga70a7974fef7970c490e7e9b8742c2e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract lower byte of AccessRights.  <a href="#ga70a7974fef7970c490e7e9b8742c2e34">More...</a><br/></td></tr>
 <tr class="separator:ga70a7974fef7970c490e7e9b8742c2e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,32 +116,74 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaff4b40fc044fab5da0d2ec8e32ff6b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift to extract upper byte of AccessRights.  <a href="#gaff4b40fc044fab5da0d2ec8e32ff6b8b">More...</a><br/></td></tr>
 <tr class="separator:gaff4b40fc044fab5da0d2ec8e32ff6b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ff905b0fe2bc419cf87bff8d21a8c98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga7ff905b0fe2bc419cf87bff8d21a8c98">XASU_KEYMANAGER_NON_EXPORTABLE_VAULT</a>&#160;&#160;&#160;(0x00U)</td></tr>
-<tr class="memdesc:ga7ff905b0fe2bc419cf87bff8d21a8c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-exportable vault value.  <a href="#ga7ff905b0fe2bc419cf87bff8d21a8c98">More...</a><br/></td></tr>
+<tr class="memdesc:ga7ff905b0fe2bc419cf87bff8d21a8c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Values the Restrictions field of a key vault takes.  <a href="#ga7ff905b0fe2bc419cf87bff8d21a8c98">More...</a><br/></td></tr>
 <tr class="separator:ga7ff905b0fe2bc419cf87bff8d21a8c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadfda1187495f8062039f30b17e7143b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gadfda1187495f8062039f30b17e7143b1">XASU_KEYMANAGER_EXPORTABLE_VAULT</a>&#160;&#160;&#160;(0x01U)</td></tr>
-<tr class="memdesc:gadfda1187495f8062039f30b17e7143b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exportable vault value.  <a href="#gadfda1187495f8062039f30b17e7143b1">More...</a><br/></td></tr>
+<tr class="memdesc:gadfda1187495f8062039f30b17e7143b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lowest exportable value.  <a href="#gadfda1187495f8062039f30b17e7143b1">More...</a><br/></td></tr>
 <tr class="separator:gadfda1187495f8062039f30b17e7143b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c900b9c830a20bdd0b99bebe08db247"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga0c900b9c830a20bdd0b99bebe08db247">XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX</a>&#160;&#160;&#160;(0x03U)</td></tr>
+<tr class="memdesc:ga0c900b9c830a20bdd0b99bebe08db247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest exportable value.  <a href="#ga0c900b9c830a20bdd0b99bebe08db247">More...</a><br/></td></tr>
+<tr class="separator:ga0c900b9c830a20bdd0b99bebe08db247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac08647dd80c12c0c80be466cafad863f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gac08647dd80c12c0c80be466cafad863f">XASU_IS_REDUNDANT_BYTE_VALID</a>(Val)</td></tr>
 <tr class="memdesc:gac08647dd80c12c0c80be466cafad863f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if lower byte and upper byte of AccessRights are same.  <a href="#gac08647dd80c12c0c80be466cafad863f">More...</a><br/></td></tr>
 <tr class="separator:gac08647dd80c12c0c80be466cafad863f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d2167055615e37be59b8956024023e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga4d2167055615e37be59b8956024023e7">XASU_KM_VALIDATE_FLOW_INVALID</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:ga4d2167055615e37be59b8956024023e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid / unset validation flow.  <a href="#ga4d2167055615e37be59b8956024023e7">More...</a><br/></td></tr>
+<tr class="separator:ga4d2167055615e37be59b8956024023e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2e7235f0859f5b905012a04847226f1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga2e7235f0859f5b905012a04847226f1c">XASU_KM_VALIDATE_FLOW_GENERATE</a>&#160;&#160;&#160;(1U)</td></tr>
+<tr class="memdesc:ga2e7235f0859f5b905012a04847226f1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate API validation flow.  <a href="#ga2e7235f0859f5b905012a04847226f1c">More...</a><br/></td></tr>
+<tr class="separator:ga2e7235f0859f5b905012a04847226f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga53ec50681fa1e75ea0a0789ecb8e692d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga53ec50681fa1e75ea0a0789ecb8e692d">XASU_KM_VALIDATE_FLOW_STORE</a>&#160;&#160;&#160;(2U)</td></tr>
+<tr class="memdesc:ga53ec50681fa1e75ea0a0789ecb8e692d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store API validation flow.  <a href="#ga53ec50681fa1e75ea0a0789ecb8e692d">More...</a><br/></td></tr>
+<tr class="separator:ga53ec50681fa1e75ea0a0789ecb8e692d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1fb460be10706e2f2689c8f62a7e979d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga1fb460be10706e2f2689c8f62a7e979d">XASU_KM_RSA_EXPORT_LEN</a>(KeyLen)</td></tr>
+<tr class="memdesc:ga1fb460be10706e2f2689c8f62a7e979d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes an RSA key-pair export writes for KeyLen.  <a href="#ga1fb460be10706e2f2689c8f62a7e979d">More...</a><br/></td></tr>
+<tr class="separator:ga1fb460be10706e2f2689c8f62a7e979d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8bf80cae142e638db86cbd1bb4191a90"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga8bf80cae142e638db86cbd1bb4191a90">XAsu_KmValidateVaultParams</a> (const <a class="el" href="struct_x_asu___key_manager_params.html">XAsu_KeyManagerParams</a> *KmParamsPtr)</td></tr>
-<tr class="memdesc:ga8bf80cae142e638db86cbd1bb4191a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates input parameters for keymanager.  <a href="#ga8bf80cae142e638db86cbd1bb4191a90">More...</a><br/></td></tr>
-<tr class="separator:ga8bf80cae142e638db86cbd1bb4191a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed7a338139856f73034a592f739a9424"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gaed7a338139856f73034a592f739a9424">XAsu_KmValidateKeyMetadata</a> (const <a class="el" href="struct_x_asu___key_manager_key_metadata.html">XAsu_KeyManagerKeyMetadata</a> *MetadataPtr)</td></tr>
 <tr class="memdesc:gaed7a338139856f73034a592f739a9424"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates key metadata fields.  <a href="#gaed7a338139856f73034a592f739a9424">More...</a><br/></td></tr>
 <tr class="separator:gaed7a338139856f73034a592f739a9424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22b61966ec11a3311f1a63a009c2a3fc"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga22b61966ec11a3311f1a63a009c2a3fc">XAsu_KmValidateKeyAttributes</a> (u8 KeyType, u8 KeyAttributes)</td></tr>
+<tr class="memdesc:ga22b61966ec11a3311f1a63a009c2a3fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the key type and its key attributes field.  <a href="#ga22b61966ec11a3311f1a63a009c2a3fc">More...</a><br/></td></tr>
+<tr class="separator:ga22b61966ec11a3311f1a63a009c2a3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga832747a743a59c2bf317704126639f43"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga832747a743a59c2bf317704126639f43">XAsu_KmValidateAesKeySplitUseCase</a> (u8 KeyType, u8 KeyUseCase)</td></tr>
+<tr class="memdesc:ga832747a743a59c2bf317704126639f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates that an AES key does not combine the key split use case with any other use case.  <a href="#ga832747a743a59c2bf317704126639f43">More...</a><br/></td></tr>
+<tr class="separator:ga832747a743a59c2bf317704126639f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafd14cee9cb664e2c541e3bac5c7226ae"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength</a> (u32 KeyLength, u8 KeyType)</td></tr>
 <tr class="memdesc:gafd14cee9cb664e2c541e3bac5c7226ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates key length parameters for a given key.  <a href="#gafd14cee9cb664e2c541e3bac5c7226ae">More...</a><br/></td></tr>
 <tr class="separator:gafd14cee9cb664e2c541e3bac5c7226ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf7896ecdb1b554bbbcf662ae5c2de3fe"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gaf7896ecdb1b554bbbcf662ae5c2de3fe">XAsu_KmValidateKeyAddrNdKeyId</a> (u64 KeyCompAddr, u32 KeyId)</td></tr>
-<tr class="memdesc:gaf7896ecdb1b554bbbcf662ae5c2de3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates that exactly one of KeyCompAddr or KeyId is provided.  <a href="#gaf7896ecdb1b554bbbcf662ae5c2de3fe">More...</a><br/></td></tr>
-<tr class="separator:gaf7896ecdb1b554bbbcf662ae5c2de3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbe45fc32cb856475b4476ad95a07753"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gacbe45fc32cb856475b4476ad95a07753">XAsu_KmGetMldsaKeyLengths</a> (u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</td></tr>
+<tr class="memdesc:gacbe45fc32cb856475b4476ad95a07753"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resolves the ML-DSA public and private key lengths of a parameter set.  <a href="#gacbe45fc32cb856475b4476ad95a07753">More...</a><br/></td></tr>
+<tr class="separator:gacbe45fc32cb856475b4476ad95a07753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga26c9ec64f981596acc8bf918795be24c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga26c9ec64f981596acc8bf918795be24c">XAsu_KmGetMlkemKeyLengths</a> (u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</td></tr>
+<tr class="memdesc:ga26c9ec64f981596acc8bf918795be24c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resolves the ML-KEM encapsulation (public) and decapsulation (private) key lengths of a parameter set.  <a href="#ga26c9ec64f981596acc8bf918795be24c">More...</a><br/></td></tr>
+<tr class="separator:ga26c9ec64f981596acc8bf918795be24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbc0a57ede23302ab735fea729e7454b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gafbc0a57ede23302ab735fea729e7454b">XAsu_KmValidateMldsaKeyGenParams</a> (const <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html">XAsu_KeyManagerPqcKeyGenParams</a> *PqcParamsPtr, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</td></tr>
+<tr class="memdesc:gafbc0a57ede23302ab735fea729e7454b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the ML-DSA key pair generation parameters against the contract both the client and the server hold the request to, and returns the key lengths of the requested parameter set as a by-product, since every caller needs them right after.  <a href="#gafbc0a57ede23302ab735fea729e7454b">More...</a><br/></td></tr>
+<tr class="separator:gafbc0a57ede23302ab735fea729e7454b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaebe24596141769116059c0fe0545de3d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gaebe24596141769116059c0fe0545de3d">XAsu_KmValidateMlkemKeyGenParams</a> (const <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html">XAsu_KeyManagerPqcKeyGenParams</a> *PqcParamsPtr, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</td></tr>
+<tr class="memdesc:gaebe24596141769116059c0fe0545de3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the ML-KEM key pair generation parameters against the contract both the client and the server hold the request to.  <a href="#gaebe24596141769116059c0fe0545de3d">More...</a><br/></td></tr>
+<tr class="separator:gaebe24596141769116059c0fe0545de3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c066f789bdb8cd1b5950dcc65054c4b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga4c066f789bdb8cd1b5950dcc65054c4b">XAsu_KmValidateSlhdsaKeyGenParams</a> (const <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html">XAsu_SlhdsaKeyGenParams</a> *KeyGenParamsPtr, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)</td></tr>
+<tr class="memdesc:ga4c066f789bdb8cd1b5950dcc65054c4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the SLH-DSA key pair generation parameters against the contract both the client and the server hold the request to, and returns the key lengths of the requested parameter set as a by-product, since every caller needs them right after.  <a href="#ga4c066f789bdb8cd1b5950dcc65054c4b">More...</a><br/></td></tr>
+<tr class="separator:ga4c066f789bdb8cd1b5950dcc65054c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0a6492ebd1c1cab8bcea3f951d21ef0"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gac0a6492ebd1c1cab8bcea3f951d21ef0">XAsu_KmValidateKeyAddrNdKeyId</a> (u64 KeyCompAddr, u32 KeyCompLen, u64 KeyId)</td></tr>
+<tr class="memdesc:gac0a6492ebd1c1cab8bcea3f951d21ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates that exactly one of KeyCompAddr or KeyId is provided, and that a vault sourced component carries no length.  <a href="#gac0a6492ebd1c1cab8bcea3f951d21ef0">More...</a><br/></td></tr>
+<tr class="separator:gac0a6492ebd1c1cab8bcea3f951d21ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5510ee07e2b5dc1ac23ccba2bc94b528"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga5510ee07e2b5dc1ac23ccba2bc94b528">XAsu_KmValidateVaultCreateParams</a> (const <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html">XAsu_KeyManagerSubVaultParams</a> *ParamsPtr)</td></tr>
 <tr class="memdesc:ga5510ee07e2b5dc1ac23ccba2bc94b528"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates input parameters for key vault creation.  <a href="#ga5510ee07e2b5dc1ac23ccba2bc94b528">More...</a><br/></td></tr>
 <tr class="separator:ga5510ee07e2b5dc1ac23ccba2bc94b528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac04d6039b68d92cb536861728ecb3836"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gac04d6039b68d92cb536861728ecb3836">XAsu_KmValidateXorKeyParams</a> (const <a class="el" href="struct_x_asu___km_xor_key_params.html">XAsu_KmXorKeyParams</a> *ParamsPtr)</td></tr>
+<tr class="memdesc:gac04d6039b68d92cb536861728ecb3836"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the input parameters for combining two AES key splits using XOR.  <a href="#gac04d6039b68d92cb536861728ecb3836">More...</a><br/></td></tr>
+<tr class="separator:gac04d6039b68d92cb536861728ecb3836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7763261b475fcd2d6888a832c713e968"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams</a> (const <a class="el" href="struct_x_asu___key_manager_params.html">XAsu_KeyManagerParams</a> *KmParamsPtr, u8 ValidationFlow, u8 KeyType, u32 MinimumKeyObjectLen)</td></tr>
+<tr class="memdesc:ga7763261b475fcd2d6888a832c713e968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate key manager Generate and Store requests.  <a href="#ga7763261b475fcd2d6888a832c713e968">More...</a><br/></td></tr>
+<tr class="separator:ga7763261b475fcd2d6888a832c713e968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabeb2f384f0b190c21c431acb99653e1b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__keymanager__common__apis.html#gabeb2f384f0b190c21c431acb99653e1b">XAsu_KmGetStoreKeyObjectLen</a> (u32 CompositeKeyId, u16 KeyLen, u32 *KeyObjectLenPtr)</td></tr>
+<tr class="memdesc:gabeb2f384f0b190c21c431acb99653e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the minimum KeyObjectLen required for a plain Store Key request.  <a href="#gabeb2f384f0b190c21c431acb99653e1b">More...</a><br/></td></tr>
+<tr class="separator:gabeb2f384f0b190c21c431acb99653e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="gac08647dd80c12c0c80be466cafad863f"></a>
@@ -170,8 +201,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(((Val) &amp; <a class="code" href="group__xasu__keymanager__common__apis.html#ga70a7974fef7970c490e7e9b8742c2e34">XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</a>) == \</div>
 <div class="line">                                                ((Val) &gt;&gt; <a class="code" href="group__xasu__keymanager__common__apis.html#gaff4b40fc044fab5da0d2ec8e32ff6b8b">XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT</a>))</div>
-<div class="ttc" id="group__xasu__keymanager__common__apis_html_gaff4b40fc044fab5da0d2ec8e32ff6b8b"><div class="ttname"><a href="group__xasu__keymanager__common__apis.html#gaff4b40fc044fab5da0d2ec8e32ff6b8b">XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT</a></div><div class="ttdeci">#define XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT</div><div class="ttdoc">Shift to extract upper byte of AccessRights. </div><div class="ttdef"><b>Definition:</b> xasu_keymanager_common.h:47</div></div>
-<div class="ttc" id="group__xasu__keymanager__common__apis_html_ga70a7974fef7970c490e7e9b8742c2e34"><div class="ttname"><a href="group__xasu__keymanager__common__apis.html#ga70a7974fef7970c490e7e9b8742c2e34">XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</a></div><div class="ttdeci">#define XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</div><div class="ttdoc">Mask to extract lower byte of AccessRights. </div><div class="ttdef"><b>Definition:</b> xasu_keymanager_common.h:46</div></div>
+<div class="ttc" id="group__xasu__keymanager__common__apis_html_gaff4b40fc044fab5da0d2ec8e32ff6b8b"><div class="ttname"><a href="group__xasu__keymanager__common__apis.html#gaff4b40fc044fab5da0d2ec8e32ff6b8b">XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT</a></div><div class="ttdeci">#define XASU_KM_ACCESS_RIGHTS_UPPER_BYTE_SHIFT</div><div class="ttdoc">Shift to extract upper byte of AccessRights. </div><div class="ttdef"><b>Definition:</b> xasu_keymanager_common.h:42</div></div>
+<div class="ttc" id="group__xasu__keymanager__common__apis_html_ga70a7974fef7970c490e7e9b8742c2e34"><div class="ttname"><a href="group__xasu__keymanager__common__apis.html#ga70a7974fef7970c490e7e9b8742c2e34">XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</a></div><div class="ttdeci">#define XASU_KM_ACCESS_RIGHTS_LOWER_BYTE_MASK</div><div class="ttdoc">Mask to extract lower byte of AccessRights. </div><div class="ttdef"><b>Definition:</b> xasu_keymanager_common.h:41</div></div>
 </div><!-- fragment -->
 <p>Check if lower byte and upper byte of AccessRights are same. </p>
 
@@ -189,7 +220,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Exportable vault value. </p>
+<p>Lowest exportable value. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0c900b9c830a20bdd0b99bebe08db247"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX&#160;&#160;&#160;(0x03U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Highest exportable value. </p>
 
 <p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga5510ee07e2b5dc1ac23ccba2bc94b528">XAsu_KmValidateVaultCreateParams()</a>.</p>
 
@@ -205,9 +250,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Non-exportable vault value. </p>
-
-<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga5510ee07e2b5dc1ac23ccba2bc94b528">XAsu_KmValidateVaultCreateParams()</a>.</p>
+<p>Values the Restrictions field of a key vault takes. </p>
+<p>Zero keeps the vault inside the device and every value from XASU_KEYMANAGER_EXPORTABLE_VAULT to XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX marks it exportable, so 0x01, 0x02 and 0x03 all grant export.Vault stays in the device </p>
 
 </div>
 </div>
@@ -239,72 +283,282 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gad523f02a44991223ddca95d225aaaaa2"></a>
+<a class="anchor" id="ga1fb460be10706e2f2689c8f62a7e979d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XASU_KM_AES_KEYTYPE&#160;&#160;&#160;(0U)</td>
+          <td class="memname">#define XASU_KM_RSA_EXPORT_LEN</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">KeyLen</td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((u32)<span class="keyword">sizeof</span>(u32) + \</div>
+<div class="line">                ((((u32)<span class="keyword">sizeof</span>(<a class="code" href="struct_x_asu___rsa_key_pair_object.html">XAsu_RsaKeyPairObject</a>) - (u32)<span class="keyword">sizeof</span>(u32)) * (u32)(KeyLen)) / <a class="code" href="group__xasu__common__defs.html#ga476467dcafd680088f426d59235bf7ce">\</a></div>
+<div class="line"><a class="code" href="group__xasu__common__defs.html#ga476467dcafd680088f426d59235bf7ce">		 XRSA_4096_KEY_SIZE</a>))</div>
+<div class="ttc" id="struct_x_asu___rsa_key_pair_object_html"><div class="ttname"><a href="struct_x_asu___rsa_key_pair_object.html">XAsu_RsaKeyPairObject</a></div><div class="ttdoc">This structure contains the RSA key pair object with modulus, exponents, and CRT parameters. </div><div class="ttdef"><b>Definition:</b> xasu_keymanagerinfo.h:398</div></div>
+<div class="ttc" id="group__xasu__common__defs_html_ga476467dcafd680088f426d59235bf7ce"><div class="ttname"><a href="group__xasu__common__defs.html#ga476467dcafd680088f426d59235bf7ce">XRSA_4096_KEY_SIZE</a></div><div class="ttdeci">#define XRSA_4096_KEY_SIZE</div><div class="ttdoc">4096 bit key size in bytes </div><div class="ttdef"><b>Definition:</b> xasu_rsainfo.h:81</div></div>
+</div><!-- fragment -->
+<p>Bytes an RSA key-pair export writes for KeyLen. </p>
+<p>The export is packed and every field except PubExp scales with the key length. </p>
 
-<p>Key type identifier for AES key. </p>
-
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga56b084274630d37fa309acb8a415bc93">XAsu_KmGenerateAesKey()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="gabe851c3e1fa77f7b77f0df95ef268b85"></a>
+<a class="anchor" id="ga2e7235f0859f5b905012a04847226f1c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XASU_KM_IV_KEYTYPE&#160;&#160;&#160;(1U)</td>
+          <td class="memname">#define XASU_KM_VALIDATE_FLOW_GENERATE&#160;&#160;&#160;(1U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key type identifier for IV. </p>
+<p>Generate API validation flow. </p>
 
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gac066d272856e75beb3e09464144c5ccb">XAsu_KmGenerateAesIv()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gac066d272856e75beb3e09464144c5ccb">XAsu_KmGenerateAesIv()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga56b084274630d37fa309acb8a415bc93">XAsu_KmGenerateAesKey()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga3705ea1001da546f3fc6f3b3721a2035">XAsu_KmGenerateEccKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga7119eabec9b842d5ba1b2a1537fad5fe">XAsu_KmGenerateMldsaKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga762ad88c777a9ede2c461e5368304c37">XAsu_KmGenerateMlkemKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga14ab4dc7e43637436186efc7d332d5de">XAsu_KmGenerateRawKey()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga0ca9bd91b3d5b9bf359f90ec2e951655"></a>
+<a class="anchor" id="ga4d2167055615e37be59b8956024023e7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XASU_KM_KDF_HMAC_KEYTYPE&#160;&#160;&#160;(2U)</td>
+          <td class="memname">#define XASU_KM_VALIDATE_FLOW_INVALID&#160;&#160;&#160;(0U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key type identifier for KDF/HMAC key. </p>
-
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga14ab4dc7e43637436186efc7d332d5de">XAsu_KmGenerateRawKey()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength()</a>.</p>
+<p>Invalid / unset validation flow. </p>
 
 </div>
 </div>
-<a class="anchor" id="gaf8dea45fa4715b4b58bca204ee48b309"></a>
+<a class="anchor" id="ga53ec50681fa1e75ea0a0789ecb8e692d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XASU_KM_RSA_KEYTYPE&#160;&#160;&#160;(3U)</td>
+          <td class="memname">#define XASU_KM_VALIDATE_FLOW_STORE&#160;&#160;&#160;(2U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Key type identifier for RSA key. </p>
+<p>Store API validation flow. </p>
 
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga125224815bbb6f71e54dfc4ed27f9908">XAsu_KmStoreKey()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="gaf7896ecdb1b554bbbcf662ae5c2de3fe"></a>
+<a class="anchor" id="gacbe45fc32cb856475b4476ad95a07753"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmGetMldsaKeyLengths </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>ParamSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PubKeyLenPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PrivKeyLenPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function resolves the ML-DSA public and private key lengths of a parameter set. </p>
+<p>Unlike the other algorithms, an ML-DSA key pair has no single "key length": the two halves differ in size and neither is derivable from the other, so both are returned from the parameter set carried in the key attributes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ParamSet</td><td>ML-DSA parameter set (see XAsu_MldsaParamSet). </td></tr>
+    <tr><td class="paramname">PubKeyLenPtr</td><td>Pointer to the output public key length in bytes. </td></tr>
+    <tr><td class="paramname">PrivKeyLenPtr</td><td>Pointer to the output private key length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if the parameter set is supported and both lengths are returned.</li>
+<li>XST_FAILURE, if a pointer is NULL or the parameter set is unsupported. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="group__xasu__common__defs.html#ggac4f6617241450cf09b6dbfe56cb4ec45a39c230d309ff7e93566994c9d7866631">XASU_MLDSA_44</a>, <a class="el" href="group__xasu__common__defs.html#ga58ff90cd15906de697f530cde302b848">XASU_MLDSA_44_PRIV_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#gad5a4eaff25b799e3d4074ce00d7a965a">XASU_MLDSA_44_PUB_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#ggac4f6617241450cf09b6dbfe56cb4ec45a1e863db7c5c991fcc1dc6bfde5dd1212">XASU_MLDSA_65</a>, <a class="el" href="group__xasu__common__defs.html#gaf947e2b8054732273a96052501830254">XASU_MLDSA_65_PRIV_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#ga4bd0ca108c420fa07b70837e9ba8a7f2">XASU_MLDSA_65_PUB_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#ggac4f6617241450cf09b6dbfe56cb4ec45afa4ac7963b0db583423a33f683ef87b7">XASU_MLDSA_87</a>, <a class="el" href="group__xasu__common__defs.html#gad676510a9cad34fb53246461ce349c96">XASU_MLDSA_87_PRIV_KEY_LEN</a>, and <a class="el" href="group__xasu__common__defs.html#gad2bb3a7e61b958872f561f2d46c5263f">XASU_MLDSA_87_PUB_KEY_LEN</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#gafbc0a57ede23302ab735fea729e7454b">XAsu_KmValidateMldsaKeyGenParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga26c9ec64f981596acc8bf918795be24c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmGetMlkemKeyLengths </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>ParamSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PubKeyLenPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PrivKeyLenPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function resolves the ML-KEM encapsulation (public) and decapsulation (private) key lengths of a parameter set. </p>
+<p>See XAsu_KmGetMldsaKeyLengths for why both lengths are returned rather than a single key length.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ParamSet</td><td>ML-KEM parameter set (see XAsu_MlkemParamSet). </td></tr>
+    <tr><td class="paramname">PubKeyLenPtr</td><td>Pointer to the output encapsulation key length in bytes. </td></tr>
+    <tr><td class="paramname">PrivKeyLenPtr</td><td>Pointer to the output decapsulation key length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if the parameter set is supported and both lengths are returned.</li>
+<li>XST_FAILURE, if a pointer is NULL or the parameter set is unsupported. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="group__xasu__common__defs.html#gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef">XASU_MLKEM_1024</a>, <a class="el" href="group__xasu__common__defs.html#ga0df320506be0454831176b1972f4b456">XASU_MLKEM_1024_PRIV_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#gaa72129ca722086b1defcf1e239a8bcb5">XASU_MLKEM_1024_PUB_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#gga8e8b750c7772ca1546cd48fc7d28ad74a0ad5702ab7daeec153b6a06e3c3ff585">XASU_MLKEM_512</a>, <a class="el" href="group__xasu__common__defs.html#ga9fbdbf59cbdc8003a090c25cdc50b8f3">XASU_MLKEM_512_PRIV_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#ga81f6b407fcdb5b6026791127fb0521d3">XASU_MLKEM_512_PUB_KEY_LEN</a>, <a class="el" href="group__xasu__common__defs.html#gga8e8b750c7772ca1546cd48fc7d28ad74a7b108c35fdbef643fe0774aca297538a">XASU_MLKEM_768</a>, <a class="el" href="group__xasu__common__defs.html#ga46f1ece9a25d196cdca4f0fc6ccc0bd2">XASU_MLKEM_768_PRIV_KEY_LEN</a>, and <a class="el" href="group__xasu__common__defs.html#ga402ab624798d7d1662ef71cbdf3195f3">XASU_MLKEM_768_PUB_KEY_LEN</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#gaebe24596141769116059c0fe0545de3d">XAsu_KmValidateMlkemKeyGenParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabeb2f384f0b190c21c431acb99653e1b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmGetStoreKeyObjectLen </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>CompositeKeyId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>KeyLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>KeyObjectLenPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute the minimum KeyObjectLen required for a plain Store Key request. </p>
+<p>Matches the client-facing object sizes used by provisioning store serialization and by the Store Key DMA/repack path: RSA private and public use fixed object layouts, ECC public uses twice the curve length, and other types use KeyLen.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CompositeKeyId</td><td>Composite key identifier that encodes the key type. </td></tr>
+    <tr><td class="paramname">KeyLen</td><td>KeyMetadata.Length from the Store Key request. </td></tr>
+    <tr><td class="paramname">KeyObjectLenPtr</td><td>Output pointer for the required buffer length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if the required length is returned.</li>
+<li>XST_FAILURE, if KeyObjectLenPtr is NULL, KeyLen is zero, or ECC public KeyLen is unsupported. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="group__xasu__common__defs.html#ga8472a238724905399a7aa23e410523f7">XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334">XASU_ECC_PUB_SUBVAULT_ID</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#affd16fd3d9279dc50f4f4d1a3cbf6146">XASU_KM_GET_KEY_TYPE</a>, <a class="el" href="group__xasu__common__defs.html#ga7fde0f2d4410bc849d07afff46f028cc">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53">XASU_RSA_PUB_SUBVAULT_ID</a>, and <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251">XASU_RSA_PVT_SUBVAULT_ID</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gae6952ca4cfc8a4778631829d0e483222">XAsu_ProvisionValidateStoreKeyMetadata()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga832747a743a59c2bf317704126639f43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmValidateAesKeySplitUseCase </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>KeyType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>KeyUseCase</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function validates that an AES key does not combine the key split use case with any other use case. </p>
+<p>The key type is taken as a parameter rather than read from the key metadata, because the Generate Key APIs pass their own key type. For any other key type the function returns success, since the key split use case bit is reserved there.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">KeyType</td><td>Key type identifier. May include the wrapped-key bit (XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before comparing against the sub-vault identifier. </td></tr>
+    <tr><td class="paramname">KeyUseCase</td><td>Key use case value from the key metadata.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if the key use case is valid for the given key type.</li>
+<li>XST_FAILURE, if the key use case is invalid. </li>
+</ul>
+</dd></dl>
+<p>For an AES key the key split use case is exclusive. A key which also carries another AES use case is usable as a key in its own right, which defeats the purpose of splitting it.</p>
+
+<p>References <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656">XASU_AES_SUBVAULT_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga4a7fd078db77274c2c3c114c65fd7a38">XASU_KEYMANAGER_AES_KEY_SPLIT_USE_CASE</a>, and <a class="el" href="group__xasu__common__defs.html#ga7fde0f2d4410bc849d07afff46f028cc">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gac04d6039b68d92cb536861728ecb3836">XAsu_KmValidateXorKeyParams()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gae6952ca4cfc8a4778631829d0e483222">XAsu_ProvisionValidateStoreKeyMetadata()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gac0a6492ebd1c1cab8bcea3f951d21ef0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -318,6 +572,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>KeyCompLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u64&#160;</td>
           <td class="paramname"><em>KeyId</em>&#160;</td>
         </tr>
         <tr>
@@ -328,22 +588,72 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function validates that exactly one of KeyCompAddr or KeyId is provided. </p>
+<p>This function validates that exactly one of KeyCompAddr or KeyId is provided, and that a vault sourced component carries no length. </p>
+<p>It applies to anything the key vault holds, a key or an IV. KeyId is u64 so the same helper can test either a composite vault KeyId or a full 64-bit KeyIdAddr without truncating high addresses.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">KeyCompAddr</td><td>Address of the key component structure. </td></tr>
-    <tr><td class="paramname">KeyId</td><td>Composite key identifier for vault-based key retrieval.</td></tr>
+    <tr><td class="paramname">KeyCompAddr</td><td>Address of the key or IV component, 0 when it is taken from the key vault. </td></tr>
+    <tr><td class="paramname">KeyCompLen</td><td>Length of the key or IV component buffer in bytes. A component whose length the caller does not supply passes 0. </td></tr>
+    <tr><td class="paramname">KeyId</td><td>Composite vault key/IV identifier, or a destination KeyIdAddr when used by generate-parameter validation.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero.</li>
-<li>XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source). </li>
+<li>XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero and a vault sourced component carries a zero length.</li>
+<li>XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source), or if a vault sourced component carries a non-zero length. </li>
 </ul>
 </dd></dl>
-<p>Reject if both are zero (no source) or both are non-zero (ambiguous source). </p>
+<p>Reject if both are zero (no source) or both are non-zero (ambiguous source).</p>
+<p>A component held in the key vault is not passed by the caller and the firmware takes its length from the stored metadata, so the request must leave the length at zero. Reject a left over length here, where the caller learns it supplied an invalid parameter, rather than letting the server range check a buffer at address zero.</p>
 
-<p>Referenced by <a class="el" href="group__xasu__aes__client__apis.html#ga5806e37710086106ef80cd8f9442d58a">XAsu_AesOperation()</a>, <a class="el" href="group__xasu__hmac__client__apis.html#ga6dece0ea2e001f9096c462d3a730b5ae">XAsu_HmacSha3Kat()</a>, <a class="el" href="group__xasu__keywrap__common__apis.html#gaa4a3001cea810588543c533c8116e07b">XAsu_KeyWrapUnwrapValidateInputParams()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga8bf80cae142e638db86cbd1bb4191a90">XAsu_KmValidateVaultParams()</a>, <a class="el" href="group__xasu__lms__common__apis.html#ga5424e0629ae8a2da990c72a8aba4b92d">XAsu_LmsValidateParams()</a>, <a class="el" href="group__xasu__rsa__common__apis.html#gaad67e90120a3bdd3a8f4a98c3543eba4">XAsu_RsaValidateInputParams()</a>, and <a class="el" href="group__xasu__kdf__common__apis.html#ga292e21219acdc8b7d0c7f233c74a5552">XAsu_ValidateKdfParameters()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__aes__client__apis.html#ga5806e37710086106ef80cd8f9442d58a">XAsu_AesOperation()</a>, <a class="el" href="group__xasu__hmac__client__apis.html#ga6dece0ea2e001f9096c462d3a730b5ae">XAsu_HmacSha3Kat()</a>, <a class="el" href="group__xasu__keywrap__common__apis.html#gaa4a3001cea810588543c533c8116e07b">XAsu_KeyWrapUnwrapValidateInputParams()</a>, <a class="el" href="group__xasu__lms__common__apis.html#ga5424e0629ae8a2da990c72a8aba4b92d">XAsu_LmsValidateParams()</a>, <a class="el" href="group__xasu__mldsa__common__apis.html#ga157ddf135e67ddfd7dd51031fa65ee36">XAsu_MldsaValidateParams()</a>, <a class="el" href="group__xasu__mlkem__common__apis.html#ga0699c83a7c9436b39a0c8d2d6b9cfcf6">XAsu_MlkemValidateParams()</a>, <a class="el" href="group__xasu__rsa__common__apis.html#gaad67e90120a3bdd3a8f4a98c3543eba4">XAsu_RsaValidateInputParams()</a>, and <a class="el" href="group__xasu__kdf__common__apis.html#ga292e21219acdc8b7d0c7f233c74a5552">XAsu_ValidateKdfParameters()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga22b61966ec11a3311f1a63a009c2a3fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmValidateKeyAttributes </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>KeyType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>KeyAttributes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function validates the key type and its key attributes field. </p>
+<p>It rejects a key type that has no storable sub-vault (invalid or unknown values) and then validates the key attributes against the key type.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">KeyType</td><td>Key type identifier. May include the wrapped-key bit (XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before comparing against the sub-vault identifier. </td></tr>
+    <tr><td class="paramname">KeyAttributes</td><td>Key attributes value from the key metadata.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if the key attributes are valid for the given key type.</li>
+<li>XST_FAILURE, if the key attributes are invalid or the key type has no storable sub-vault. </li>
+</ul>
+</dd></dl>
+<p>Reject a key type that does not map to a storable sub-vault. The sub-vault IDs run without gaps from XASU_AES_SUBVAULT_ID up to XASU_INVALID_SUBVAULT_ID, so a single range check covers every storable type. Invalid sub-vaults are excluded by design; no caller of this helper stores or generates them.</p>
+<p>For an RSA private key, the key attributes encode the private key format (prime/totient presence) and must not exceed the maximum supported value.</p>
+
+<p>References <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82">XASU_INVALID_SUBVAULT_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga7fde0f2d4410bc849d07afff46f028cc">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</a>, <a class="el" href="group__xasu__common__defs.html#ga5540f33752eb5f4c0014b1dde7e4dfdb">XASU_KM_RSA_PVT_ATTR_MAX</a>, and <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251">XASU_RSA_PVT_SUBVAULT_ID</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gac04d6039b68d92cb536861728ecb3836">XAsu_KmValidateXorKeyParams()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gae6952ca4cfc8a4778631829d0e483222">XAsu_ProvisionValidateStoreKeyMetadata()</a>.</p>
 
 </div>
 </div>
@@ -375,7 +685,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">KeyLength</td><td>Length of the key material in bytes. </td></tr>
-    <tr><td class="paramname">KeyType</td><td>Type of key to be validated (see XASU_KM_*_KEYTYPE).</td></tr>
+    <tr><td class="paramname">KeyType</td><td>Type of key to be validated.</td></tr>
   </table>
   </dd>
 </dl>
@@ -389,9 +699,9 @@ Functions</h2></td></tr>
 <p>Validate key length is non-zero and does not exceed maximum size for KDF/HMAC.</p>
 <p>Validate key length based on compile-time RSA key generation configuration. </p>
 
-<p>References <a class="el" href="group__xasu__common__defs.html#ga8ddad79fd000463b9b715b9e0f387d2e">XASU_AES_IV_SIZE_128BIT_IN_BYTES</a>, <a class="el" href="group__xasu__common__defs.html#gacba8eb852f5f9a4f3353036821898d6d">XASU_AES_KEY_SIZE_128BIT_IN_BYTES</a>, <a class="el" href="group__xasu__common__defs.html#ga4b958ef7daa82ef0c73b7b1ef657e8af">XASU_AES_KEY_SIZE_256BIT_IN_BYTES</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gad523f02a44991223ddca95d225aaaaa2">XASU_KM_AES_KEYTYPE</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gabe851c3e1fa77f7b77f0df95ef268b85">XASU_KM_IV_KEYTYPE</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga0ca9bd91b3d5b9bf359f90ec2e951655">XASU_KM_KDF_HMAC_KEYTYPE</a>, <a class="el" href="group__xasu__common__defs.html#ga3154a859fe1e5133d7c92cffe3fae2e7">XASU_KM_KDF_HMAC_MAX_KEY_LENGTH</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gaf8dea45fa4715b4b58bca204ee48b309">XASU_KM_RSA_KEYTYPE</a>, <a class="el" href="group__xasu__common__defs.html#gaf03b8841773c39c464177cccbe4a8169">XRSA_2048_KEY_SIZE</a>, <a class="el" href="group__xasu__common__defs.html#ga97f2cf29f335afb53c49908a5af0eea4">XRSA_3072_KEY_SIZE</a>, and <a class="el" href="group__xasu__common__defs.html#ga476467dcafd680088f426d59235bf7ce">XRSA_4096_KEY_SIZE</a>.</p>
+<p>References <a class="el" href="group__xasu__common__defs.html#ga8ddad79fd000463b9b715b9e0f387d2e">XASU_AES_IV_SIZE_128BIT_IN_BYTES</a>, <a class="el" href="group__xasu__common__defs.html#gacba8eb852f5f9a4f3353036821898d6d">XASU_AES_KEY_SIZE_128BIT_IN_BYTES</a>, <a class="el" href="group__xasu__common__defs.html#ga4b958ef7daa82ef0c73b7b1ef657e8af">XASU_AES_KEY_SIZE_256BIT_IN_BYTES</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656">XASU_AES_SUBVAULT_ID</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefa71dc647937225980e817a86924acdc75">XASU_IV_SUBVAULT_ID</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefa86a082fadbc14b7ca3ff0a3cf16fea59">XASU_KDF_HMAC_SUBVAULT_ID</a>, <a class="el" href="group__xasu__common__defs.html#ga3154a859fe1e5133d7c92cffe3fae2e7">XASU_KM_KDF_HMAC_MAX_KEY_LENGTH</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251">XASU_RSA_PVT_SUBVAULT_ID</a>, <a class="el" href="group__xasu__common__defs.html#gaf03b8841773c39c464177cccbe4a8169">XRSA_2048_KEY_SIZE</a>, <a class="el" href="group__xasu__common__defs.html#ga97f2cf29f335afb53c49908a5af0eea4">XRSA_3072_KEY_SIZE</a>, and <a class="el" href="group__xasu__common__defs.html#ga476467dcafd680088f426d59235bf7ce">XRSA_4096_KEY_SIZE</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gac066d272856e75beb3e09464144c5ccb">XAsu_KmGenerateAesIv()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga56b084274630d37fa309acb8a415bc93">XAsu_KmGenerateAesKey()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga14ab4dc7e43637436186efc7d332d5de">XAsu_KmGenerateRawKey()</a>, and <a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gac04d6039b68d92cb536861728ecb3836">XAsu_KmValidateXorKeyParams()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gae6952ca4cfc8a4778631829d0e483222">XAsu_ProvisionValidateStoreKeyMetadata()</a>.</p>
 
 </div>
 </div>
@@ -422,9 +732,241 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab24bc266d1169f4e3362310f08bfe67c">XAsu_KeyManagerKeyMetadata::KeyUseCase</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a3e02463adde858b8f4d637a88e247e68">XAsu_KeyManagerKeyMetadata::UsageCount</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a0bb7e1beccfef6947420b1f0672e54ad">XAsu_KeyManagerKeyMetadata::VaultId</a>, and <a class="el" href="group__xasu__common__defs.html#ga9dfb0e1de39faf56b461a45841dd8e8f">XASU_KM_MAX_VAULTS</a>.</p>
+<p>References <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a3063301d7a110770365f39d08f05f37b">XAsu_KeyManagerKeyMetadata::CompositeKeyId</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab24bc266d1169f4e3362310f08bfe67c">XAsu_KeyManagerKeyMetadata::KeyUseCase</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a3e02463adde858b8f4d637a88e247e68">XAsu_KeyManagerKeyMetadata::UsageCount</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#acb7c635bf8df43b72fd35e1384f2f6b5">XASU_KM_GET_VAULT_ID</a>, and <a class="el" href="group__xasu__common__defs.html#ga9dfb0e1de39faf56b461a45841dd8e8f">XASU_KM_MAX_VAULTS</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga125224815bbb6f71e54dfc4ed27f9908">XAsu_KmStoreKey()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#ga8bf80cae142e638db86cbd1bb4191a90">XAsu_KmValidateVaultParams()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__common__apis.html#ga7763261b475fcd2d6888a832c713e968">XAsu_KmValidateParams()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gac04d6039b68d92cb536861728ecb3836">XAsu_KmValidateXorKeyParams()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gae6952ca4cfc8a4778631829d0e483222">XAsu_ProvisionValidateStoreKeyMetadata()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gafbc0a57ede23302ab735fea729e7454b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmValidateMldsaKeyGenParams </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html">XAsu_KeyManagerPqcKeyGenParams</a> *&#160;</td>
+          <td class="paramname"><em>PqcParamsPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PubKeyLenPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PrivKeyLenPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function validates the ML-DSA key pair generation parameters against the contract both the client and the server hold the request to, and returns the key lengths of the requested parameter set as a by-product, since every caller needs them right after. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PqcParamsPtr</td><td>Pointer to <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html" title="This structure contains info for the ML-DSA and ML-KEM key pair generation parameters. ">XAsu_KeyManagerPqcKeyGenParams</a> structure that holds the key generation parameters. </td></tr>
+    <tr><td class="paramname">PubKeyLenPtr</td><td>Pointer to the output public key length in bytes. </td></tr>
+    <tr><td class="paramname">PrivKeyLenPtr</td><td>Pointer to the output private key length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if input validation is successful.</li>
+<li>XST_FAILURE, if input validation fails. </li>
+</ul>
+</dd></dl>
+<p>An explicit seed must come with its exact length and a zero address with a zero length, so that a request cannot name a seed the core would then draw for itself.</p>
+<p>Resolve both key lengths from the parameter set.</p>
+<p>Confirm the declared length is the public key length of that set. Both halves of the pair are sized from the parameter set, so the declared length is a cross-check rather than an input.</p>
+
+<p>References <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab136d3365e8b6521fbcfd8f486fd2c5c">XAsu_KeyManagerKeyMetadata::KeyAttributes</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a518352aa0b4584e86f2a1c0d9f67af06">XAsu_KeyManagerParams::KeyMetadata</a>, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html#a9e0d21ea2bfdb9d5c5dab144484bff67">XAsu_KeyManagerPqcKeyGenParams::KmParams</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a11b4d219ee7c09b8dfa90768b73d87c7">XAsu_KeyManagerKeyMetadata::Length</a>, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html#ad6b140e0e579eae0305dd8e6888eb1ae">XAsu_KeyManagerPqcKeyGenParams::SeedAddr</a>, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html#a8adf68477cd03347f62a17fbd7b1f10b">XAsu_KeyManagerPqcKeyGenParams::SeedLen</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gacbe45fc32cb856475b4476ad95a07753">XAsu_KmGetMldsaKeyLengths()</a>, and <a class="el" href="group__xasu__common__defs.html#ga346034ee448f0d34558d05569f07bef2">XASU_MLDSA_KEYGEN_SEED_LEN</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga7119eabec9b842d5ba1b2a1537fad5fe">XAsu_KmGenerateMldsaKeyPair()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaebe24596141769116059c0fe0545de3d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmValidateMlkemKeyGenParams </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html">XAsu_KeyManagerPqcKeyGenParams</a> *&#160;</td>
+          <td class="paramname"><em>PqcParamsPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PubKeyLenPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PrivKeyLenPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function validates the ML-KEM key pair generation parameters against the contract both the client and the server hold the request to. </p>
+<p>See XAsu_KmValidateMldsaKeyGenParams for why the key lengths are returned as well.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">PqcParamsPtr</td><td>Pointer to <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html" title="This structure contains info for the ML-DSA and ML-KEM key pair generation parameters. ">XAsu_KeyManagerPqcKeyGenParams</a> structure that holds the key generation parameters. </td></tr>
+    <tr><td class="paramname">PubKeyLenPtr</td><td>Pointer to the output encapsulation key length in bytes. </td></tr>
+    <tr><td class="paramname">PrivKeyLenPtr</td><td>Pointer to the output decapsulation key length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if input validation is successful.</li>
+<li>XST_FAILURE, if input validation fails. </li>
+</ul>
+</dd></dl>
+<p>An explicit seed must come with its exact length and a zero address with a zero length, so that a request cannot name a seed the core would then draw for itself.</p>
+<p>Resolve both key lengths from the parameter set.</p>
+<p>Confirm the declared length is the encapsulation key length of that set. </p>
+
+<p>References <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab136d3365e8b6521fbcfd8f486fd2c5c">XAsu_KeyManagerKeyMetadata::KeyAttributes</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a518352aa0b4584e86f2a1c0d9f67af06">XAsu_KeyManagerParams::KeyMetadata</a>, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html#a9e0d21ea2bfdb9d5c5dab144484bff67">XAsu_KeyManagerPqcKeyGenParams::KmParams</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a11b4d219ee7c09b8dfa90768b73d87c7">XAsu_KeyManagerKeyMetadata::Length</a>, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html#ad6b140e0e579eae0305dd8e6888eb1ae">XAsu_KeyManagerPqcKeyGenParams::SeedAddr</a>, <a class="el" href="struct_x_asu___key_manager_pqc_key_gen_params.html#a8adf68477cd03347f62a17fbd7b1f10b">XAsu_KeyManagerPqcKeyGenParams::SeedLen</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga26c9ec64f981596acc8bf918795be24c">XAsu_KmGetMlkemKeyLengths()</a>, and <a class="el" href="group__xasu__common__defs.html#gaaa8947c2c5ee124579961461e18b162e">XASU_MLKEM_KEYGEN_SEED_LEN</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga762ad88c777a9ede2c461e5368304c37">XAsu_KmGenerateMlkemKeyPair()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga7763261b475fcd2d6888a832c713e968"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmValidateParams </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_x_asu___key_manager_params.html">XAsu_KeyManagerParams</a> *&#160;</td>
+          <td class="paramname"><em>KmParamsPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>ValidationFlow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>KeyType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>MinimumKeyObjectLen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Validate key manager Generate and Store requests. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">KmParamsPtr</td><td>Pointer to <a class="el" href="struct_x_asu___key_manager_params.html" title="This structure contains info for key manager parameters. ">XAsu_KeyManagerParams</a> structure that holds the input parameters for Key manager APIs. </td></tr>
+    <tr><td class="paramname">ValidationFlow</td><td>Validation flow selector (XASU_KM_VALIDATE_FLOW_INVALID is rejected):<ul>
+<li>XASU_KM_VALIDATE_FLOW_GENERATE: exactly one of KeyObjectAddr or KeyIdAddr is set; when exporting to client memory, KeyObjectLen must cover the larger of KeyMetadata.Length and MinimumKeyObjectLen; when storing in the vault, KeyMetadata is validated and the key type in CompositeKeyId must equal KeyType.</li>
+<li>XASU_KM_VALIDATE_FLOW_STORE: KeyObjectAddr, KeyIdAddr, and KeyObjectLen are mandatory; KeyMetadata, key attributes, key type, and plain/wrapped length rules are checked. Both flows check that the key type is a valid sub-vault ID and apply the AES key split use-case rule. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">KeyType</td><td>Generate flow key type: the sub-vault ID for AES, IV and KDF/HMAC keys, or the private sub-vault ID for RSA, ECC, ML-DSA and ML-KEM key pairs. It must be a valid sub-vault ID without the wrapped-key bit. It selects the key length rule for AES, IV, KDF/HMAC and RSA, the RSA attribute rule, and the ECC curve check. ML-DSA and ML-KEM parameters are checked by their algorithm-specific validators. Ignored for the Store flow, where the key type is obtained from CompositeKeyId. </td></tr>
+    <tr><td class="paramname">MinimumKeyObjectLen</td><td>Size of the complete exported object for the Generate flow. When the exported object is only the key bytes, pass KeyMetadata.Length; 0U has the same effect. Ignored when the generated key is stored in the vault and for the Store flow.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if input validation is successful.</li>
+<li>XST_FAILURE, if input validation fails. </li>
+</ul>
+</dd></dl>
+<p>A key stored in the vault must carry the API's key type in CompositeKeyId.</p>
+<p>A Generate key type must not carry the wrapped-key bit, so it is not masked.</p>
+<p>Store API requires both input key buffer and output key ID address.</p>
+<p>Checks common to both flows.</p>
+<p>Check the ECC curve and its private-key length in the shared generate path.</p>
+<p>An export buffer must hold the larger of the key and the complete exported object. AES, IV and KDF/HMAC export only the key, so the key length is that size. A key pair passes the object size, which is already at least the key length.</p>
+<p>Plain Store Key input size depends on key type (RSA/ECC public objects are larger than KeyMetadata.Length alone). Require KeyObjectLen to cover the bytes the store path will consume from KeyObjectAddr.</p>
+
+<p>References <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a3063301d7a110770365f39d08f05f37b">XAsu_KeyManagerKeyMetadata::CompositeKeyId</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab136d3365e8b6521fbcfd8f486fd2c5c">XAsu_KeyManagerKeyMetadata::KeyAttributes</a>, <a class="el" href="struct_x_asu___key_manager_params.html#af7b159bed08728b504f1636b64432322">XAsu_KeyManagerParams::KeyIdAddr</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a518352aa0b4584e86f2a1c0d9f67af06">XAsu_KeyManagerParams::KeyMetadata</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a885de57c0cd9d6c3b788a50f2e6985a4">XAsu_KeyManagerParams::KeyObjectAddr</a>, <a class="el" href="struct_x_asu___key_manager_params.html#ab434c6fe4301663ed0221d47bb2cd0e7">XAsu_KeyManagerParams::KeyObjectLen</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab24bc266d1169f4e3362310f08bfe67c">XAsu_KeyManagerKeyMetadata::KeyUseCase</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a11b4d219ee7c09b8dfa90768b73d87c7">XAsu_KeyManagerKeyMetadata::Length</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a9a45b82fce6b349db3f7efaaa74c4533">XAsu_KeyManagerParams::WrappedInputLen</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334">XASU_ECC_PUB_SUBVAULT_ID</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefa4f33bfdc92dc53b6972090427fa74fa7">XASU_ECC_PVT_SUBVAULT_ID</a>, <a class="el" href="group__xasu__ecies__common__apis.html#gabea090d5e90377bd531c47b85e8854bc">XAsu_EccValidateCurveInfo()</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82">XASU_INVALID_SUBVAULT_ID</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#affd16fd3d9279dc50f4f4d1a3cbf6146">XASU_KM_GET_KEY_TYPE</a>, <a class="el" href="group__xasu__common__defs.html#ga7fde0f2d4410bc849d07afff46f028cc">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</a>, <a class="el" href="group__xasu__common__defs.html#ga8dcfbbcb4d691065f5fd402b9a7f2603">XASU_KM_RSA_PVT_PRIME_NUM_PRESENT</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga2e7235f0859f5b905012a04847226f1c">XASU_KM_VALIDATE_FLOW_GENERATE</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga53ec50681fa1e75ea0a0789ecb8e692d">XASU_KM_VALIDATE_FLOW_STORE</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gabeb2f384f0b190c21c431acb99653e1b">XAsu_KmGetStoreKeyObjectLen()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga832747a743a59c2bf317704126639f43">XAsu_KmValidateAesKeySplitUseCase()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga22b61966ec11a3311f1a63a009c2a3fc">XAsu_KmValidateKeyAttributes()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gaed7a338139856f73034a592f739a9424">XAsu_KmValidateKeyMetadata()</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53">XASU_RSA_PUB_SUBVAULT_ID</a>, and <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251">XASU_RSA_PVT_SUBVAULT_ID</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gac066d272856e75beb3e09464144c5ccb">XAsu_KmGenerateAesIv()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga56b084274630d37fa309acb8a415bc93">XAsu_KmGenerateAesKey()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga3705ea1001da546f3fc6f3b3721a2035">XAsu_KmGenerateEccKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga7119eabec9b842d5ba1b2a1537fad5fe">XAsu_KmGenerateMldsaKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga762ad88c777a9ede2c461e5368304c37">XAsu_KmGenerateMlkemKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga14ab4dc7e43637436186efc7d332d5de">XAsu_KmGenerateRawKey()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair()</a>, and <a class="el" href="group__xasu__keymanager__client__apis.html#ga125224815bbb6f71e54dfc4ed27f9908">XAsu_KmStoreKey()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga4c066f789bdb8cd1b5950dcc65054c4b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">s32 XAsu_KmValidateSlhdsaKeyGenParams </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html">XAsu_SlhdsaKeyGenParams</a> *&#160;</td>
+          <td class="paramname"><em>KeyGenParamsPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PubKeyLenPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>PrivKeyLenPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function validates the SLH-DSA key pair generation parameters against the contract both the client and the server hold the request to, and returns the key lengths of the requested parameter set as a by-product, since every caller needs them right after. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">KeyGenParamsPtr</td><td>Pointer to <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html" title="This structure contains info for the SLH-DSA key pair generation parameters. ">XAsu_SlhdsaKeyGenParams</a> structure that holds the key generation parameters. </td></tr>
+    <tr><td class="paramname">PubKeyLenPtr</td><td>Pointer to the output public key length in bytes. </td></tr>
+    <tr><td class="paramname">PrivKeyLenPtr</td><td>Pointer to the output secret key length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, if input validation is successful.</li>
+<li>XST_FAILURE, if input validation fails. </li>
+</ul>
+</dd></dl>
+<p>Both output addresses are mandatory. A zero address is treated as invalid rather than as a request to skip an output, because key generation always produces both keys.</p>
+<p>Resolve both key lengths from the parameter set, which also confirms the parameter set is one of the supported sets.</p>
+<p>Both declared output lengths must equal the key sizes of the requested parameter set. A client declaring any other length has not sized its buffers to the keys ASUFW is about to write.</p>
+
+<p>References <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html#a0d596dd10659db0ab1d9529bcbc751d1">XAsu_SlhdsaKeyGenParams::ParamSet</a>, <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html#afc96376a69bb871298f58a68a231ec3c">XAsu_SlhdsaKeyGenParams::PkOutAddr</a>, <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html#a55628c0f8fba9327655cfb7bce2f9694">XAsu_SlhdsaKeyGenParams::PkOutLen</a>, <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html#a579de6584fbde781e4b1354ac8c523d8">XAsu_SlhdsaKeyGenParams::SkOutAddr</a>, and <a class="el" href="struct_x_asu___slhdsa_key_gen_params.html#a5f0414e586d3d61997a7983791c4de1b">XAsu_SlhdsaKeyGenParams::SkOutLen</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gafec06548cd5090f8235c96b54f062e9c">XAsu_KmGenerateSlhdsaKeyPair()</a>.</p>
 
 </div>
 </div>
@@ -454,46 +996,57 @@ Functions</h2></td></tr>
 <li>XST_FAILURE, if input validation fails. </li>
 </ul>
 </dd></dl>
-<p>Validate at least one sub-vault has non-zero capacity. </p>
+<p>Validate at least one sub-vault has non-zero capacity.</p>
+<p>Reject the restriction values that are reserved.</p>
+<p>Reject requested vault ID out of user range (0 = auto-assign). </p>
 
-<p>References <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a890638e3675989aec90bb0a508d01753">XAsu_KeyManagerSubVaultParams::AESKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#aee2730f3db896dbf5993564c7218091b">XAsu_KeyManagerSubVaultParams::ECCPubKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a3bc5c9ba701fc64b91608cc2df778830">XAsu_KeyManagerSubVaultParams::ECCPvtKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a58e8d1900ea2219edeef5a1a185072e3">XAsu_KeyManagerSubVaultParams::IVVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a2b1aeda09bf402a4d58ad0a304666f3d">XAsu_KeyManagerSubVaultParams::KDFHmacKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a3afa39d6b7d6d50754670c986381bbe9">XAsu_KeyManagerSubVaultParams::LMSKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a7777cfe773824e8655d84003e0838039">XAsu_KeyManagerSubVaultParams::Restrictions</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a55acb505fd424df28ce324595521b7ee">XAsu_KeyManagerSubVaultParams::RSAPubKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a7acc476cd8f8dafc737b98e24906ff44">XAsu_KeyManagerSubVaultParams::RSAPvtKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#afd2f1e5657b67701519472624242c60b">XAsu_KeyManagerSubVaultParams::X509KeyVaultCapacity</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gadfda1187495f8062039f30b17e7143b1">XASU_KEYMANAGER_EXPORTABLE_VAULT</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#ga7ff905b0fe2bc419cf87bff8d21a8c98">XASU_KEYMANAGER_NON_EXPORTABLE_VAULT</a>.</p>
+<p>References <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a890638e3675989aec90bb0a508d01753">XAsu_KeyManagerSubVaultParams::AESKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#aee2730f3db896dbf5993564c7218091b">XAsu_KeyManagerSubVaultParams::ECCPubKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a3bc5c9ba701fc64b91608cc2df778830">XAsu_KeyManagerSubVaultParams::ECCPvtKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a58e8d1900ea2219edeef5a1a185072e3">XAsu_KeyManagerSubVaultParams::IVVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a2b1aeda09bf402a4d58ad0a304666f3d">XAsu_KeyManagerSubVaultParams::KDFHmacKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a3afa39d6b7d6d50754670c986381bbe9">XAsu_KeyManagerSubVaultParams::LMSKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a5de841abc45eafba1b7f854f47ee69d2">XAsu_KeyManagerSubVaultParams::MldsaPubKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a3c634ba04e449556cf8eec14f9ee7530">XAsu_KeyManagerSubVaultParams::MldsaPvtKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#abf18980336be657118eb264b00bd0dbe">XAsu_KeyManagerSubVaultParams::MlkemPubKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#abaa6fcee14471e5c55f1385cd3d6597f">XAsu_KeyManagerSubVaultParams::MlkemPvtKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a7777cfe773824e8655d84003e0838039">XAsu_KeyManagerSubVaultParams::Restrictions</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a55acb505fd424df28ce324595521b7ee">XAsu_KeyManagerSubVaultParams::RSAPubKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#a7acc476cd8f8dafc737b98e24906ff44">XAsu_KeyManagerSubVaultParams::RSAPvtKeyVaultCapacity</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#af2a5639492e49e60e2ef876418c236e9">XAsu_KeyManagerSubVaultParams::VaultId</a>, <a class="el" href="struct_x_asu___key_manager_sub_vault_params.html#afd2f1e5657b67701519472624242c60b">XAsu_KeyManagerSubVaultParams::X509KeyVaultCapacity</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga0c900b9c830a20bdd0b99bebe08db247">XASU_KEYMANAGER_EXPORTABLE_VAULT_MAX</a>, and <a class="el" href="group__xasu__common__defs.html#ga9dfb0e1de39faf56b461a45841dd8e8f">XASU_KM_MAX_VAULTS</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga27ba749e3ba109043a0d7ae904391ea9">XAsu_KmCreateKeyVault()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#ga27ba749e3ba109043a0d7ae904391ea9">XAsu_KmCreateKeyVault()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gaf923237ff8cde695d69997cef9e5e752">XAsu_ProvisionValidateCreateKeyVaultParams()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga8bf80cae142e638db86cbd1bb4191a90"></a>
+<a class="anchor" id="gac04d6039b68d92cb536861728ecb3836"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">s32 XAsu_KmValidateVaultParams </td>
+          <td class="memname">s32 XAsu_KmValidateXorKeyParams </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_x_asu___key_manager_params.html">XAsu_KeyManagerParams</a> *&#160;</td>
-          <td class="paramname"><em>KmParamsPtr</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="struct_x_asu___km_xor_key_params.html">XAsu_KmXorKeyParams</a> *&#160;</td>
+          <td class="paramname"><em>ParamsPtr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function validates input parameters for keymanager. </p>
+<p>This function validates the input parameters for combining two AES key splits using XOR. </p>
+<p>The key type of the input key splits and the length of the combined key are validated by the server against the stored key splits.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">KmParamsPtr</td><td>Pointer to <a class="el" href="struct_x_asu___key_manager_params.html" title="This structure contains info for key manager parameters. ">XAsu_KeyManagerParams</a> structure that holds the input parameters for Key manager</td></tr>
+    <tr><td class="paramname">ParamsPtr</td><td>Pointer to the <a class="el" href="struct_x_asu___km_xor_key_params.html" title="This structure contains info for combining two AES key splits using XOR. ">XAsu_KmXorKeyParams</a> structure.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS, if input validation is successful.</li>
-<li>XST_FAILURE, if input validation fails. </li>
+<li>XST_SUCCESS, if the input parameters are valid.</li>
+<li>XST_FAILURE, if any input parameter is invalid. </li>
 </ul>
 </dd></dl>
-<p>Validate at least one output destination is provided.</p>
-<p>Validate key metadata. </p>
+<p>Validate input parameters.</p>
+<p>Validate that both input key IDs are provided.</p>
+<p>The address for the output key ID is required when the destination slot is auto-assigned, and shall not be supplied when the caller selects the slot, since the composite key ID is then already known to the caller.</p>
+<p>Reject identical input key IDs. A key XORed with itself yields an all zero key, so allowing this would let the caller install a known key of its choosing.</p>
+<p>The combined key must not overwrite either input key split.</p>
+<p>Key splitting is defined for AES keys only. The key slot may be zero, which requests an auto-assigned slot.</p>
+<p>Validate the metadata of the combined key. This rejects a zero key use case, which is required here because the use case of the input key splits cannot be inherited.</p>
+<p>Validate the key attributes of the combined key against its key type.</p>
+<p>Validate the key use case of the combined key against its key type.</p>
+<p>Validate the length of the combined key. </p>
 
-<p>References <a class="el" href="struct_x_asu___key_manager_params.html#af7b159bed08728b504f1636b64432322">XAsu_KeyManagerParams::KeyIdAddr</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a518352aa0b4584e86f2a1c0d9f67af06">XAsu_KeyManagerParams::KeyMetadata</a>, <a class="el" href="struct_x_asu___key_manager_params.html#a885de57c0cd9d6c3b788a50f2e6985a4">XAsu_KeyManagerParams::KeyObjectAddr</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gaf7896ecdb1b554bbbcf662ae5c2de3fe">XAsu_KmValidateKeyAddrNdKeyId()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#gaed7a338139856f73034a592f739a9424">XAsu_KmValidateKeyMetadata()</a>.</p>
+<p>References <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a3063301d7a110770365f39d08f05f37b">XAsu_KeyManagerKeyMetadata::CompositeKeyId</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab136d3365e8b6521fbcfd8f486fd2c5c">XAsu_KeyManagerKeyMetadata::KeyAttributes</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#ab24bc266d1169f4e3362310f08bfe67c">XAsu_KeyManagerKeyMetadata::KeyUseCase</a>, <a class="el" href="struct_x_asu___key_manager_key_metadata.html#a11b4d219ee7c09b8dfa90768b73d87c7">XAsu_KeyManagerKeyMetadata::Length</a>, <a class="el" href="struct_x_asu___km_xor_key_params.html#ab283fac111073a97c76265dc5e3fc4bb">XAsu_KmXorKeyParams::OutKeyIdAddr</a>, <a class="el" href="struct_x_asu___km_xor_key_params.html#a14f3e6244876977d10259f5008ea261e">XAsu_KmXorKeyParams::OutKeyMetadata</a>, <a class="el" href="struct_x_asu___km_xor_key_params.html#a2f59f9df1fd7907842d6a3fd72de71bf">XAsu_KmXorKeyParams::SplitKeyId1</a>, <a class="el" href="struct_x_asu___km_xor_key_params.html#aead88aec4d7497026530ec5316cda4b9">XAsu_KmXorKeyParams::SplitKeyId2</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656">XASU_AES_SUBVAULT_ID</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#afa88378ffe079687309c1f86fa4c57a7">XASU_KM_GET_KEY_INDEX</a>, <a class="el" href="xasu__keymanagerinfo_8h.html#affd16fd3d9279dc50f4f4d1a3cbf6146">XASU_KM_GET_KEY_TYPE</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga832747a743a59c2bf317704126639f43">XAsu_KmValidateAesKeySplitUseCase()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#ga22b61966ec11a3311f1a63a009c2a3fc">XAsu_KmValidateKeyAttributes()</a>, <a class="el" href="group__xasu__keymanager__common__apis.html#gafd14cee9cb664e2c541e3bac5c7226ae">XAsu_KmValidateKeyLength()</a>, and <a class="el" href="group__xasu__keymanager__common__apis.html#gaed7a338139856f73034a592f739a9424">XAsu_KmValidateKeyMetadata()</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gac066d272856e75beb3e09464144c5ccb">XAsu_KmGenerateAesIv()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga56b084274630d37fa309acb8a415bc93">XAsu_KmGenerateAesKey()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga3705ea1001da546f3fc6f3b3721a2035">XAsu_KmGenerateEccKeyPair()</a>, <a class="el" href="group__xasu__keymanager__client__apis.html#ga14ab4dc7e43637436186efc7d332d5de">XAsu_KmGenerateRawKey()</a>, and <a class="el" href="group__xasu__keymanager__client__apis.html#gab7094e9eae7536f433977773199a0ded">XAsu_KmGenerateRsaKeyPair()</a>.</p>
+<p>Referenced by <a class="el" href="group__xasu__keymanager__client__apis.html#gacd1ebc0c0c12895775a2073502c71e6e">XAsu_KmXorKeys()</a>, and <a class="el" href="group__xasu__provision__common__apis.html#gabc12756dda306cfd187eaf77638c255b">XAsu_ProvisionValidateXorParams()</a>.</p>
 
 </div>
 </div>

@@ -100,22 +100,51 @@ $(document).ready(function(){initNavTree('xiic__dyn__master_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xiic_dyn_master.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IIC dynamic-mode master transfers. </p>
+<p>Contains master functions for the <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> component in Dynamic controller mode. This file is necessary to send or receive as a master on the IIC bus.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.03a mta 04/10/06 Created.
+1.13a wgr 03/22/07 Converted to new coding style.
+2.00a ktn 10/22/09 Converted all register accesses to 32 bit access.
+             Updated to use the HAL APIs/macros. The macros
+             XIic_mDynSend7BitAddress and XIic_mDynSendStop have
+             been removed from this file as they were already
+             defined in a header file.
+             Some of the macros have been renamed to remove _m from
+             the name and Some of the macros have been renamed to be
+             consistent, see the <a class="el" href="xiic__l_8h.html" title="Defines IIC low-level register offsets and access macros. ">xiic_l.h</a> file for further information.
+3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic__i_8h.html">xiic_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga4bdf2d43cbd68f55dbec0faab818b6ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga4bdf2d43cbd68f55dbec0faab818b6ed">XIIC_DYN_MASTER_INCLUDE</a></td></tr>
+<tr class="memdesc:ga4bdf2d43cbd68f55dbec0faab818b6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Includes dynamic master code for sending and receiving data.  <a href="group__iic__api.html#ga4bdf2d43cbd68f55dbec0faab818b6ed">More...</a><br/></td></tr>
+<tr class="separator:ga4bdf2d43cbd68f55dbec0faab818b6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gac4c6388d0db3b08ddcd47f0b2459ff3c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac4c6388d0db3b08ddcd47f0b2459ff3c">XIic_DynMasterSend</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u8 *TxMsgPtr, u8 ByteCount)</td></tr>
-<tr class="memdesc:gac4c6388d0db3b08ddcd47f0b2459ff3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends data as a Dynamic master on the IIC bus.  <a href="group___overview.html#gac4c6388d0db3b08ddcd47f0b2459ff3c">More...</a><br/></td></tr>
+<tr class="memitem:gac4c6388d0db3b08ddcd47f0b2459ff3c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gac4c6388d0db3b08ddcd47f0b2459ff3c">XIic_DynMasterSend</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u8 *TxMsgPtr, u8 ByteCount)</td></tr>
+<tr class="memdesc:gac4c6388d0db3b08ddcd47f0b2459ff3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends data as a Dynamic master on the IIC bus.  <a href="group__iic__api.html#gac4c6388d0db3b08ddcd47f0b2459ff3c">More...</a><br/></td></tr>
 <tr class="separator:gac4c6388d0db3b08ddcd47f0b2459ff3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4d7985d95cd029ab0b0f2a5ccc614793"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga4d7985d95cd029ab0b0f2a5ccc614793">XIic_DynMasterRecv</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u8 *RxMsgPtr, u8 ByteCount)</td></tr>
-<tr class="memdesc:ga4d7985d95cd029ab0b0f2a5ccc614793"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives data as a master from a slave device on the IIC bus.  <a href="group___overview.html#ga4d7985d95cd029ab0b0f2a5ccc614793">More...</a><br/></td></tr>
+<tr class="memitem:ga4d7985d95cd029ab0b0f2a5ccc614793"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga4d7985d95cd029ab0b0f2a5ccc614793">XIic_DynMasterRecv</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, u8 *RxMsgPtr, u8 ByteCount)</td></tr>
+<tr class="memdesc:ga4d7985d95cd029ab0b0f2a5ccc614793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives data as a master from a slave device on the IIC bus.  <a href="group__iic__api.html#ga4d7985d95cd029ab0b0f2a5ccc614793">More...</a><br/></td></tr>
 <tr class="separator:ga4d7985d95cd029ab0b0f2a5ccc614793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f86310d413cbe343462b6488f1cf8ab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga6f86310d413cbe343462b6488f1cf8ab">XIic_DynamicInitialize</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga6f86310d413cbe343462b6488f1cf8ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the IIC core for dynamic functionality.  <a href="group__iic__api.html#ga6f86310d413cbe343462b6488f1cf8ab">More...</a><br/></td></tr>
+<tr class="separator:ga6f86310d413cbe343462b6488f1cf8ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

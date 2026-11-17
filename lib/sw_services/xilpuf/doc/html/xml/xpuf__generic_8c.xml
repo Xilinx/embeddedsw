@@ -4,36 +4,36 @@
     <compoundname>xpuf_generic.c</compoundname>
     <includes refid="xpuf__generic_8h" local="yes">xpuf_generic.h</includes>
     <incdepgraph>
-      <node id="227">
-        <label>xpuf_mailbox.h</label>
-        <link refid="xpuf__mailbox_8h"/>
-        <childnode refid="228" relation="include">
-        </childnode>
-        <childnode refid="229" relation="include">
-        </childnode>
-      </node>
-      <node id="228">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="226">
-        <label>xil_types.h</label>
-      </node>
-      <node id="229">
-        <label>xparameters.h</label>
-      </node>
-      <node id="224">
+      <node id="252">
         <label>xpuf_generic.c</label>
         <link refid="xpuf_generic.c"/>
-        <childnode refid="225" relation="include">
+        <childnode refid="253" relation="include">
         </childnode>
       </node>
-      <node id="225">
+      <node id="253">
         <label>xpuf_generic.h</label>
         <link refid="xpuf__generic_8h"/>
-        <childnode refid="226" relation="include">
+        <childnode refid="254" relation="include">
         </childnode>
-        <childnode refid="227" relation="include">
+        <childnode refid="255" relation="include">
         </childnode>
+      </node>
+      <node id="256">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="254">
+        <label>xil_types.h</label>
+      </node>
+      <node id="255">
+        <label>xpuf_mailbox.h</label>
+        <link refid="xpuf__mailbox_8h"/>
+        <childnode refid="256" relation="include">
+        </childnode>
+        <childnode refid="257" relation="include">
+        </childnode>
+      </node>
+      <node id="257">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -91,14 +91,14 @@
 <parametername>ResponseBuf</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to store response values (can be NULL) </para></parameterdescription>
+<para>Pointer to the caller buffer that receives the response data words. When non-NULL, it must hold RESPONSE_ARG_CNT words: the IPI receive path fills the whole response frame before the status word is shifted out. May be NULL when no response data is needed. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>ResponseLen</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Length of response buffer (number of u32 elements)</para></parameterdescription>
+<para>Number of response data words the caller consumes (0..RESPONSE_ARG_CNT - 1). This is the count of returned words, not the required buffer size (see ResponseBuf).</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -108,14 +108,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Validate input parameters.</para></listitem><listitem><para>For other environments, use IPI mailbox communication.</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem><listitem><para>Note: For communication via IPI mailbox, response is not directly returned. The caller should handle response retrieval if needed.</para></listitem></itemizedlist>
+<listitem><para>A non-zero ResponseLen requires a non-NULL ResponseBuf. ResponseLen is clamped below to the reachable data words before the mailbox shift.</para></listitem><listitem><para>For other environments, use IPI mailbox communication.</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem><listitem><para>On failure, return without shifting/mutating ResponseBuf.</para></listitem><listitem><para>Cap ResponseLen: the mailbox shift below consumes Response[0], leaving RESPONSE_ARG_CNT - 1 data slots reachable via ResponseBuf[Idx + 1U].</para></listitem><listitem><para>Shift IPI response data in ResponseBuf to skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0] holds the first data word, matching the SMC path layout. <ref refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" kindref="member">XPuf_ProcessMailbox()</ref> writes RESPONSE_ARG_CNT words when ResponseBuf is non-NULL.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" bodystart="67" bodyend="105"/>
-        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="88">XPuf_ClientInstance::MailboxPtr</references>
-        <references refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" compoundref="xpuf__mailbox_8c" startline="72" endline="98">XPuf_ProcessMailbox</references>
-        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
-        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
-        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" bodystart="75" bodyend="135"/>
+        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="89">XPuf_ClientInstance::MailboxPtr</references>
+        <references refid="xpuf__mailbox_8h_1aff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xpuf__mailbox_8h" startline="79">RESPONSE_ARG_CNT</references>
+        <references refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" compoundref="xpuf__mailbox_8c" startline="78" endline="114">XPuf_ProcessMailbox</references>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="213" endline="245">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga03926d586e353bb459b3da51ae7e4e8b" compoundref="xpuf__client_8c" startline="291" endline="344">XPuf_GetServerLibInfo</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="164" endline="200">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="113" endline="149">XPuf_Registration</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -125,7 +127,9 @@
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
 <hruler/>
 
-2.7   tbk  03/24/26 Initial release for unified SMC/Mailbox handling</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+2.7   tbk  03/24/26 Initial release for unified SMC/Mailbox handling
+2.8   tbk  06/22/26 Added response buffer parameter validation
+      tus  08/07/26 Returned the response payload on the IPI mailbox path</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
@@ -133,55 +137,68 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
-<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__generic_8h" kindref="compound">xpuf_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
-<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__smc_8h" kindref="compound">xpuf_smc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__generic_8h" kindref="compound">xpuf_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__smc_8h" kindref="compound">xpuf_smc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
-<codeline lineno="67" refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" kindref="member">XPuf_SendRequest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>*PayloadBuf,<sp/>u32<sp/>PayloadLen,</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*ResponseBuf,<sp/>u32<sp/>ResponseLen)</highlight></codeline>
-<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PayloadBuf<sp/>==<sp/>NULL)<sp/>||<sp/>(PayloadLen<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
-<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;<sp/></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_SmcCall(PayloadBuf,<sp/>PayloadLen,<sp/>ResponseBuf,<sp/>ResponseLen);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" kindref="member">XPuf_SendRequest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>*PayloadBuf,<sp/>u32<sp/>PayloadLen,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*ResponseBuf,<sp/>u32<sp/>ResponseLen)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Idx<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PayloadBuf<sp/>==<sp/>NULL)<sp/>||<sp/>(PayloadLen<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ResponseLen<sp/>&gt;<sp/>(u32)<ref refid="xpuf__mailbox_8h_1aff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ResponseLen<sp/>&gt;<sp/>0U)<sp/>&amp;&amp;<sp/>(ResponseBuf<sp/>==<sp/>NULL)))<sp/>{</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" kindref="member">XPuf_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" kindref="member">MailboxPtr</ref>,<sp/>PayloadBuf,<sp/>PayloadLen);</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ResponseBuf;<sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>in<sp/>mailbox<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ResponseLen;<sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>in<sp/>mailbox<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Idx;<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_SmcCall(PayloadBuf,<sp/>PayloadLen,<sp/>ResponseBuf,<sp/>ResponseLen);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" kindref="member">XPuf_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" kindref="member">MailboxPtr</ref>,<sp/>PayloadBuf,<sp/>PayloadLen,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResponseBuf);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ResponseLen<sp/>&gt;<sp/>((u32)RESPONSE_ARG_CNT<sp/>-<sp/>1U))<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResponseLen<sp/>=<sp/>(u32)RESPONSE_ARG_CNT<sp/>-<sp/>1U;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>ResponseLen;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResponseBuf[Idx]<sp/>=<sp/>ResponseBuf[Idx<sp/>+<sp/>1U];</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c"/>
   </compounddef>
 </doxygen>

@@ -1,6 +1,6 @@
 var xdptxss__dp21__tx_8h =
 [
-    [ "DpTxSs_HpdCon", "xdptxss__dp21__tx_8h.html#a8ec01cdb3e41fff7c52f53c52e4e4813", null ],
+    [ "DpTxSs_HpdCon", "xdptxss__dp21__tx_8h.html#afcf3afc3c0aed9f17e481c43374dbcf1", null ],
     [ "DpTxSs_HpdPulseCon", "xdptxss__dp21__tx_8h.html#a04e41ff0a52bed864e9ac4194aed5aa9", null ],
     [ "DpTxSs_PhyConfig", "xdptxss__dp21__tx_8h.html#a9dcb8e2bf0d7742080dc7c33cbdf507c", null ],
     [ "DpTxSs_Sink_PowerCycle", "xdptxss__dp21__tx_8h.html#a44a8aa5aff665254f8ecd7d70f31cf25", null ],

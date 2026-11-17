@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="162" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="162" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structinternal__hooks_1a5cc2dd5383da5f20b19e0f27fa59e123" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="163" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="163" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structinternal__hooks_1a5dd48d5c2f2b1cf4f6eec5df6205e15c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *CJSON_CDECL *</type>
@@ -56,14 +56,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="164" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="164" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="161" bodyend="165"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="161" bodyend="165"/>
     <listofallmembers>
       <member refid="structinternal__hooks_1a872a0c28217b451331d24b8e0484b293" prot="public" virt="non-virtual"><scope>internal_hooks</scope><name>allocate</name></member>
       <member refid="structinternal__hooks_1a5dd48d5c2f2b1cf4f6eec5df6205e15c" prot="public" virt="non-virtual"><scope>internal_hooks</scope><name>reallocate</name></member>

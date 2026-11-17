@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('group__ipipsu__api.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,7 +101,8 @@ $(document).ready(function(){initNavTree('group__ipipsu__api.html','');});
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">IPIPSU APIs</div>  </div>
 </div><!--header-->
@@ -109,17 +110,14 @@ $(document).ready(function(){initNavTree('group__ipipsu__api.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaf92686c675ebd6fe4efc7213c7f8f204"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#gaf92686c675ebd6fe4efc7213c7f8f204">XIPIPSU_HW_H_</a></td></tr>
-<tr class="memdesc:gaf92686c675ebd6fe4efc7213c7f8f204"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; prevent circular inclusions  <a href="#gaf92686c675ebd6fe4efc7213c7f8f204">More...</a><br/></td></tr>
-<tr class="separator:gaf92686c675ebd6fe4efc7213c7f8f204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7c62207cd1bb028fe62103eee40477f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga7c62207cd1bb028fe62103eee40477f2">XIPIPSU_MSG_RAM_BASE</a>&#160;&#160;&#160;0xFF990000U</td></tr>
-<tr class="memdesc:ga7c62207cd1bb028fe62103eee40477f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPI Message RAM base address.  <a href="#ga7c62207cd1bb028fe62103eee40477f2">More...</a><br/></td></tr>
+<tr class="memdesc:ga7c62207cd1bb028fe62103eee40477f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPI message RAM base address.  <a href="#ga7c62207cd1bb028fe62103eee40477f2">More...</a><br/></td></tr>
 <tr class="separator:ga7c62207cd1bb028fe62103eee40477f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5989f697e24f79be32727d13ee3f4350"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga5989f697e24f79be32727d13ee3f4350">XIPIPSU_MSG_BUF_SIZE</a>&#160;&#160;&#160;8U</td></tr>
-<tr class="memdesc:ga5989f697e24f79be32727d13ee3f4350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer size for up to 8 messages, each 4-bytes long.  <a href="#ga5989f697e24f79be32727d13ee3f4350">More...</a><br/></td></tr>
+<tr class="memdesc:ga5989f697e24f79be32727d13ee3f4350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message buffer size in 32-bit words (eight words, 32 bytes).  <a href="#ga5989f697e24f79be32727d13ee3f4350">More...</a><br/></td></tr>
 <tr class="separator:ga5989f697e24f79be32727d13ee3f4350"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad6677575d97c6c8df0a1776fdbd94b7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#gad6677575d97c6c8df0a1776fdbd94b7e">XIPIPSU_MAX_BUFF_INDEX</a>&#160;&#160;&#160;7U</td></tr>
-<tr class="memdesc:gad6677575d97c6c8df0a1776fdbd94b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum Buffer Index.  <a href="#gad6677575d97c6c8df0a1776fdbd94b7e">More...</a><br/></td></tr>
+<tr class="memdesc:gad6677575d97c6c8df0a1776fdbd94b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum buffer index.  <a href="#gad6677575d97c6c8df0a1776fdbd94b7e">More...</a><br/></td></tr>
 <tr class="separator:gad6677575d97c6c8df0a1776fdbd94b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae0907003c35118f6135e65877227d15e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#gae0907003c35118f6135e65877227d15e">XIPIPSU_BUFFER_OFFSET_GROUP</a>&#160;&#160;&#160;(8U * 2U * 32U)</td></tr>
 <tr class="memdesc:gae0907003c35118f6135e65877227d15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer offset for group.  <a href="#gae0907003c35118f6135e65877227d15e">More...</a><br/></td></tr>
@@ -134,25 +132,25 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga47ff7fda69269789f8a32d6be7357712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of targets.  <a href="#ga47ff7fda69269789f8a32d6be7357712">More...</a><br/></td></tr>
 <tr class="separator:ga47ff7fda69269789f8a32d6be7357712"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7b5daa2f9a7fef0e3897606b491dafcc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga7b5daa2f9a7fef0e3897606b491dafcc">XIPIPSU_TRIG_OFFSET</a>&#160;&#160;&#160;0x00U</td></tr>
-<tr class="memdesc:ga7b5daa2f9a7fef0e3897606b491dafcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for Trigger register.  <a href="#ga7b5daa2f9a7fef0e3897606b491dafcc">More...</a><br/></td></tr>
+<tr class="memdesc:ga7b5daa2f9a7fef0e3897606b491dafcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for trigger register.  <a href="#ga7b5daa2f9a7fef0e3897606b491dafcc">More...</a><br/></td></tr>
 <tr class="separator:ga7b5daa2f9a7fef0e3897606b491dafcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ca8515703f72eb2194a408cfa5b4a18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga1ca8515703f72eb2194a408cfa5b4a18">XIPIPSU_OBS_OFFSET</a>&#160;&#160;&#160;0x04U</td></tr>
-<tr class="memdesc:ga1ca8515703f72eb2194a408cfa5b4a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for Observation register.  <a href="#ga1ca8515703f72eb2194a408cfa5b4a18">More...</a><br/></td></tr>
+<tr class="memdesc:ga1ca8515703f72eb2194a408cfa5b4a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for observation register.  <a href="#ga1ca8515703f72eb2194a408cfa5b4a18">More...</a><br/></td></tr>
 <tr class="separator:ga1ca8515703f72eb2194a408cfa5b4a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c9abd1d0247d6b28268131d90b62a05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga5c9abd1d0247d6b28268131d90b62a05">XIPIPSU_ISR_OFFSET</a>&#160;&#160;&#160;0x10U</td></tr>
-<tr class="memdesc:ga5c9abd1d0247d6b28268131d90b62a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for ISR register.  <a href="#ga5c9abd1d0247d6b28268131d90b62a05">More...</a><br/></td></tr>
+<tr class="memdesc:ga5c9abd1d0247d6b28268131d90b62a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for the interrupt status register (ISR).  <a href="#ga5c9abd1d0247d6b28268131d90b62a05">More...</a><br/></td></tr>
 <tr class="separator:ga5c9abd1d0247d6b28268131d90b62a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga44ee4ca145f4adbe7584e6d9a08c4bdf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga44ee4ca145f4adbe7584e6d9a08c4bdf">XIPIPSU_IMR_OFFSET</a>&#160;&#160;&#160;0x14U</td></tr>
-<tr class="memdesc:ga44ee4ca145f4adbe7584e6d9a08c4bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for Interrupt Mask Register.  <a href="#ga44ee4ca145f4adbe7584e6d9a08c4bdf">More...</a><br/></td></tr>
+<tr class="memdesc:ga44ee4ca145f4adbe7584e6d9a08c4bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for interrupt mask register.  <a href="#ga44ee4ca145f4adbe7584e6d9a08c4bdf">More...</a><br/></td></tr>
 <tr class="separator:ga44ee4ca145f4adbe7584e6d9a08c4bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab20d7be8c5dd6ca941862eb1ff40289d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#gab20d7be8c5dd6ca941862eb1ff40289d">XIPIPSU_IER_OFFSET</a>&#160;&#160;&#160;0x18U</td></tr>
-<tr class="memdesc:gab20d7be8c5dd6ca941862eb1ff40289d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for Interrupt Enable Register.  <a href="#gab20d7be8c5dd6ca941862eb1ff40289d">More...</a><br/></td></tr>
+<tr class="memdesc:gab20d7be8c5dd6ca941862eb1ff40289d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for interrupt enable register.  <a href="#gab20d7be8c5dd6ca941862eb1ff40289d">More...</a><br/></td></tr>
 <tr class="separator:gab20d7be8c5dd6ca941862eb1ff40289d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81c99cede6902a231b207281d9a6e212"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga81c99cede6902a231b207281d9a6e212">XIPIPSU_IDR_OFFSET</a>&#160;&#160;&#160;0x1CU</td></tr>
-<tr class="memdesc:ga81c99cede6902a231b207281d9a6e212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for Interrupt Disable Register.  <a href="#ga81c99cede6902a231b207281d9a6e212">More...</a><br/></td></tr>
+<tr class="memdesc:ga81c99cede6902a231b207281d9a6e212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset for interrupt disable register.  <a href="#ga81c99cede6902a231b207281d9a6e212">More...</a><br/></td></tr>
 <tr class="separator:ga81c99cede6902a231b207281d9a6e212"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6625ac1f3ce4297feacf81cd25acf53f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga6625ac1f3ce4297feacf81cd25acf53f">XIPIPSU_ECC_UE_MASK</a>&#160;&#160;&#160;0x40U</td></tr>
-<tr class="memdesc:ga6625ac1f3ce4297feacf81cd25acf53f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uncorrecteble Error mask.  <a href="#ga6625ac1f3ce4297feacf81cd25acf53f">More...</a><br/></td></tr>
+<tr class="memdesc:ga6625ac1f3ce4297feacf81cd25acf53f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uncorrectable error mask.  <a href="#ga6625ac1f3ce4297feacf81cd25acf53f">More...</a><br/></td></tr>
 <tr class="separator:ga6625ac1f3ce4297feacf81cd25acf53f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga708ab6017d3971d9f9c0bf052fcdfd2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga708ab6017d3971d9f9c0bf052fcdfd2f">XIPIPSU_ALL_MASK</a>&#160;&#160;&#160;0x0F0F0301U</td></tr>
 <tr class="memdesc:ga708ab6017d3971d9f9c0bf052fcdfd2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">All valid bit mask.  <a href="#ga708ab6017d3971d9f9c0bf052fcdfd2f">More...</a><br/></td></tr>
@@ -161,32 +159,38 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga9fb4494480ae0079422956f2af1da357"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, <a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *CfgPtr, UINTPTR EffectiveAddress)</td></tr>
-<tr class="memdesc:ga9fb4494480ae0079422956f2af1da357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Instance pointer based on a given Config Pointer.  <a href="#ga9fb4494480ae0079422956f2af1da357">More...</a><br/></td></tr>
+<tr class="memdesc:ga9fb4494480ae0079422956f2af1da357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an IPI instance from a given configuration record.  <a href="#ga9fb4494480ae0079422956f2af1da357">More...</a><br/></td></tr>
 <tr class="separator:ga9fb4494480ae0079422956f2af1da357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9c55b8deb0e6b0a4ff355ad3a74aa2f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga9c55b8deb0e6b0a4ff355ad3a74aa2f1">XIpiPsu_Reset</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga9c55b8deb0e6b0a4ff355ad3a74aa2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the given IPI register set.  <a href="#ga9c55b8deb0e6b0a4ff355ad3a74aa2f1">More...</a><br/></td></tr>
 <tr class="separator:ga9c55b8deb0e6b0a4ff355ad3a74aa2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga8aa0005ec03abef3b3c1a506cb924e6e">XIpiPsu_TriggerIpi</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask)</td></tr>
-<tr class="memdesc:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a Destination CPU.  <a href="#ga8aa0005ec03abef3b3c1a506cb924e6e">More...</a><br/></td></tr>
+<tr class="memdesc:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="#ga8aa0005ec03abef3b3c1a506cb924e6e">More...</a><br/></td></tr>
 <tr class="separator:ga8aa0005ec03abef3b3c1a506cb924e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">XIpiPsu_PollForAck</a> (const <a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask, u32 TimeOutCount)</td></tr>
-<tr class="memdesc:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls for an acknowledgement using Observation Register.  <a href="#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">More...</a><br/></td></tr>
+<tr class="memdesc:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls for an acknowledgment using the observation register.  <a href="#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">More...</a><br/></td></tr>
 <tr class="separator:ga8153ea7257d7db9dd3f2ac0dd03e2ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga64113249dac23760b5cc0e9d038f8361"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga64113249dac23760b5cc0e9d038f8361">XIpiPsu_ReadMessage</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLength, u8 BufferType)</td></tr>
-<tr class="memdesc:ga64113249dac23760b5cc0e9d038f8361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Incoming Message from a Source.  <a href="#ga64113249dac23760b5cc0e9d038f8361">More...</a><br/></td></tr>
+<tr class="memdesc:ga64113249dac23760b5cc0e9d038f8361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an incoming message from a source.  <a href="#ga64113249dac23760b5cc0e9d038f8361">More...</a><br/></td></tr>
 <tr class="separator:ga64113249dac23760b5cc0e9d038f8361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga429d934e93e38c71d92ad98775b9cd92"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga429d934e93e38c71d92ad98775b9cd92">XIpiPsu_WriteMessage</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLength, u8 BufferType)</td></tr>
-<tr class="memdesc:ga429d934e93e38c71d92ad98775b9cd92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a Message to Destination.  <a href="#ga429d934e93e38c71d92ad98775b9cd92">More...</a><br/></td></tr>
+<tr class="memdesc:ga429d934e93e38c71d92ad98775b9cd92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message to a destination.  <a href="#ga429d934e93e38c71d92ad98775b9cd92">More...</a><br/></td></tr>
 <tr class="separator:ga429d934e93e38c71d92ad98775b9cd92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1404a6dc6d1ff0a6baf80a74e6bdb6e5"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 SrcCpuMask, u32 DestCpuMask, u32 BufferType)</td></tr>
-<tr class="memdesc:ga1404a6dc6d1ff0a6baf80a74e6bdb6e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Buffer Address for a given pair of CPUs.  <a href="#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">More...</a><br/></td></tr>
-<tr class="separator:ga1404a6dc6d1ff0a6baf80a74e6bdb6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga09ecec5ff12505d68ceebf1914b8b30f"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 SrcCpuMask, u32 DestCpuMask, u32 BufferType)</td></tr>
+<tr class="memdesc:ga09ecec5ff12505d68ceebf1914b8b30f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the buffer address for a given pair of CPUs.  <a href="#ga09ecec5ff12505d68ceebf1914b8b30f">More...</a><br/></td></tr>
+<tr class="separator:ga09ecec5ff12505d68ceebf1914b8b30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7d429daed621ef6c33656d873e31d9b3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex</a> (const <a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 CpuMask)</td></tr>
-<tr class="memdesc:ga7d429daed621ef6c33656d873e31d9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Buffer Index for a CPU specified by Mask.  <a href="#ga7d429daed621ef6c33656d873e31d9b3">More...</a><br/></td></tr>
+<tr class="memdesc:ga7d429daed621ef6c33656d873e31d9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the buffer index for a CPU specified by the mask.  <a href="#ga7d429daed621ef6c33656d873e31d9b3">More...</a><br/></td></tr>
 <tr class="separator:ga7d429daed621ef6c33656d873e31d9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#gacb9c27ce83faa62ddce4b6898ddb419e">XIpiPsu_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="#gacb9c27ce83faa62ddce4b6898ddb419e">More...</a><br/></td></tr>
+<tr class="memdesc:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID or base address.  <a href="#gacb9c27ce83faa62ddce4b6898ddb419e">More...</a><br/></td></tr>
 <tr class="separator:gacb9c27ce83faa62ddce4b6898ddb419e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga3d2dd48cfc18bf089c15ce6b61c3f031"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga3d2dd48cfc18bf089c15ce6b61c3f031">XIpiPsu_ConfigTable</a> []</td></tr>
+<tr class="memdesc:ga3d2dd48cfc18bf089c15ce6b61c3f031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds one configuration entry per IPI device in the system.  <a href="#ga3d2dd48cfc18bf089c15ce6b61c3f031">More...</a><br/></td></tr>
+<tr class="separator:ga3d2dd48cfc18bf089c15ce6b61c3f031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="ga708ab6017d3971d9f9c0bf052fcdfd2f"></a>
@@ -217,7 +221,7 @@ Functions</h2></td></tr>
 
 <p>Buffer offset for group. </p>
 
-<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>.</p>
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>.</p>
 
 </div>
 </div>
@@ -233,7 +237,7 @@ Functions</h2></td></tr>
 
 <p>Buffer offset for response. </p>
 
-<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>.</p>
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>.</p>
 
 </div>
 </div>
@@ -249,7 +253,7 @@ Functions</h2></td></tr>
 
 <p>Buffer offset for target. </p>
 
-<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>.</p>
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>.</p>
 
 </div>
 </div>
@@ -263,22 +267,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Uncorrecteble Error mask. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaf92686c675ebd6fe4efc7213c7f8f204"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XIPIPSU_HW_H_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>&lt; prevent circular inclusions </p>
-<p>by using protection macros </p>
+<p>Uncorrectable error mask. </p>
 
 </div>
 </div>
@@ -292,7 +281,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Offset for Interrupt Disable Register. </p>
+<p>Offset for interrupt disable register. </p>
 
 <p>Referenced by <a class="el" href="group__ipipsu.html#ga9c55b8deb0e6b0a4ff355ad3a74aa2f1">XIpiPsu_Reset()</a>.</p>
 
@@ -308,7 +297,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Offset for Interrupt Enable Register. </p>
+<p>Offset for interrupt enable register. </p>
 
 </div>
 </div>
@@ -322,7 +311,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Offset for Interrupt Mask Register. </p>
+<p>Offset for interrupt mask register. </p>
 
 </div>
 </div>
@@ -336,7 +325,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Offset for ISR register. </p>
+<p>Offset for the interrupt status register (ISR). </p>
 
 <p>Referenced by <a class="el" href="group__ipipsu.html#ga9c55b8deb0e6b0a4ff355ad3a74aa2f1">XIpiPsu_Reset()</a>.</p>
 
@@ -352,9 +341,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Maximum Buffer Index. </p>
+<p>Maximum buffer index. </p>
 
-<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>, and <a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex()</a>.</p>
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>, and <a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex()</a>.</p>
 
 </div>
 </div>
@@ -382,7 +371,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Buffer size for up to 8 messages, each 4-bytes long. </p>
+<p>Message buffer size in 32-bit words (eight words, 32 bytes). </p>
 
 </div>
 </div>
@@ -396,9 +385,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>IPI Message RAM base address. </p>
+<p>IPI message RAM base address. </p>
 
-<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>.</p>
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>.</p>
 
 </div>
 </div>
@@ -412,7 +401,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Offset for Observation register. </p>
+<p>Offset for observation register. </p>
 
 <p>Referenced by <a class="el" href="group__ipipsu.html#ga8153ea7257d7db9dd3f2ac0dd03e2ee2">XIpiPsu_PollForAck()</a>.</p>
 
@@ -428,7 +417,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Offset for Trigger register. </p>
+<p>Offset for trigger register. </p>
 
 <p>Referenced by <a class="el" href="group__ipipsu.html#ga8aa0005ec03abef3b3c1a506cb924e6e">XIpiPsu_TriggerIpi()</a>.</p>
 
@@ -465,29 +454,29 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the Instance pointer based on a given Config Pointer. </p>
+<p>Initializes an IPI instance from a given configuration record. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the instance to be worked on </td></tr>
-    <tr><td class="paramname">CfgPtr</td><td>Device configuration structure containing required hardware build data </td></tr>
-    <tr><td class="paramname">EffectiveAddress</td><td>Base address of the device. If address translation is not utilized, this parameter can be passed in using CfgPtr-&gt;Config. BaseAddress to specify the physical base address. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CfgPtr</td><td>Device configuration structure containing the required hardware build data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddress</td><td>Base address of the device. If address translation is not used, pass CfgPtr-&gt;BaseAddress to specify the physical base address. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS after successful initialization. </dd></dl>
 
-<p>References <a class="el" href="struct_x_ipi_psu___config.html#a0d87ebd028051d4a05ab03410aadbc00">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu___target.html#ad8cf0011981eb538784e520195585e74">XIpiPsu_Target::BufferIndex</a>, <a class="el" href="struct_x_ipi_psu___config.html#a05cc5c627e65d8e37754913d0fc90470">XIpiPsu_Config::BufferIndex</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f">XIpiPsu_Config::IntId</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="struct_x_ipi_psu___target.html#a4ac80767ed4dcfd90d9a02db6a2a8eb4">XIpiPsu_Target::Mask</a>, <a class="el" href="struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626">XIpiPsu_Config::TargetCount</a>, and <a class="el" href="struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727">XIpiPsu_Config::TargetList</a>.</p>
+<p>References <a class="el" href="struct_x_ipi_psu___config.html#a0d87ebd028051d4a05ab03410aadbc00">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu___target.html#ad8cf0011981eb538784e520195585e74">XIpiPsu_Target::BufferIndex</a>, <a class="el" href="struct_x_ipi_psu___config.html#a05cc5c627e65d8e37754913d0fc90470">XIpiPsu_Config::BufferIndex</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f">XIpiPsu_Config::IntId</a>, <a class="el" href="struct_x_ipi_psu___config.html#ac77f391158f02bcfb7f38200f5a97b7a">XIpiPsu_Config::IntrParent</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="struct_x_ipi_psu___target.html#a4ac80767ed4dcfd90d9a02db6a2a8eb4">XIpiPsu_Target::Mask</a>, <a class="el" href="struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626">XIpiPsu_Config::TargetCount</a>, and <a class="el" href="struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727">XIpiPsu_Config::TargetList</a>.</p>
 
 <p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga1404a6dc6d1ff0a6baf80a74e6bdb6e5"></a>
+<a class="anchor" id="ga09ecec5ff12505d68ceebf1914b8b30f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32* XIpiPsu_GetBufferAddress </td>
+          <td class="memname">u32 * XIpiPsu_GetBufferAddress </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *&#160;</td>
           <td class="paramname"><em>InstancePtr</em>, </td>
@@ -518,17 +507,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the Buffer Address for a given pair of CPUs. </p>
+<p>Gets the buffer address for a given pair of CPUs. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
-    <tr><td class="paramname">SrcCpuMask</td><td>Mask for Source CPU </td></tr>
-    <tr><td class="paramname">DestCpuMask</td><td>Mask for Destination CPU </td></tr>
-    <tr><td class="paramname">BufferType</td><td>Type of buffer either XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SrcCpuMask</td><td>Mask for the source CPU. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DestCpuMask</td><td>Mask for the destination CPU. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferType</td><td>Type of buffer, either XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Valid Buffer Address if no error NULL if an error occurs in calculating address </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>Valid buffer address if no error.</li>
+<li>NULL if an error occurs while calculating the address. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="group__ipipsu.html#gaad130b0ac7cc7a948fa636e7a2000bed">XIPIPSU_BUF_TYPE_MSG</a>, <a class="el" href="group__ipipsu.html#gad0b378b86976236e743f8a75ed9f8d8d">XIPIPSU_BUF_TYPE_RESP</a>, <a class="el" href="group__ipipsu__api.html#gae0907003c35118f6135e65877227d15e">XIPIPSU_BUFFER_OFFSET_GROUP</a>, <a class="el" href="group__ipipsu__api.html#gaf2361ea49ab17d6cc10e53ea607a9e9f">XIPIPSU_BUFFER_OFFSET_RESPONSE</a>, <a class="el" href="group__ipipsu__api.html#ga1b15715fa2640ed4fd66146d328bbbba">XIPIPSU_BUFFER_OFFSET_TARGET</a>, <a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex()</a>, <a class="el" href="group__ipipsu__api.html#gad6677575d97c6c8df0a1776fdbd94b7e">XIPIPSU_MAX_BUFF_INDEX</a>, and <a class="el" href="group__ipipsu__api.html#ga7c62207cd1bb028fe62103eee40477f2">XIPIPSU_MSG_RAM_BASE</a>.</p>
 
@@ -560,19 +553,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the Buffer Index for a CPU specified by Mask. </p>
+<p>Gets the buffer index for a CPU specified by the mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
-    <tr><td class="paramname">CpuMask</td><td>Mask of the CPU form which Index is required</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CpuMask</td><td>Mask of the CPU for which the index is required.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Buffer Index value if CPU Mask is valid XIPIPSU_MAX_BUFF_INDEX+1 if not valid </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>Buffer index value if the CPU mask is valid.</li>
+<li>XIPIPSU_MAX_BUFF_INDEX + 1 if not valid. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="struct_x_ipi_psu___target.html#ad8cf0011981eb538784e520195585e74">XIpiPsu_Target::BufferIndex</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___target.html#a4ac80767ed4dcfd90d9a02db6a2a8eb4">XIpiPsu_Target::Mask</a>, <a class="el" href="struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626">XIpiPsu_Config::TargetCount</a>, <a class="el" href="struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727">XIpiPsu_Config::TargetList</a>, and <a class="el" href="group__ipipsu__api.html#gad6677575d97c6c8df0a1776fdbd94b7e">XIPIPSU_MAX_BUFF_INDEX</a>.</p>
 
-<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>.</p>
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>.</p>
 
 </div>
 </div>
@@ -590,16 +587,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Looks up the device configuration based on the unique device ID/BaseAddress. </p>
-<p>The XIpiPsu_ConfigTable[] contains the configuration info for each device in the system.</p>
+<p>Looks up the device configuration based on the unique device ID or base address. </p>
+<p>The XIpiPsu_ConfigTable[] array holds the configuration information for each device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <a class="el" href="xipipsu_8h.html">xipipsu.h</a> for the definition of <a class="el" href="struct_x_ipi_psu___config.html" title="This typedef contains configuration information for the device. ">XIpiPsu_Config</a>.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the configuration found, or NULL if the specified device ID or base address is not found. See <a class="el" href="xipipsu_8h.html">xipipsu.h</a> for the definition of <a class="el" href="struct_x_ipi_psu___config.html" title="Holds the configuration information for one IPI device. ">XIpiPsu_Config</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In the XSCT/Classic flow, DeviceId selects the device configuration. In the system device-tree flow, BaseAddress selects it. </dd></dl>
 
 <p>References <a class="el" href="struct_x_ipi_psu___config.html#a1c9364d2c9eaa634447fe03442dbb225">XIpiPsu_Config::Name</a>, and <a class="el" href="group__ipipsu.html#ga3d2dd48cfc18bf089c15ce6b61c3f031">XIpiPsu_ConfigTable</a>.</p>
 
@@ -637,16 +634,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Polls for an acknowledgement using Observation Register. </p>
+<p>Polls for an acknowledgment using the observation register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
-    <tr><td class="paramname">DestCpuMask</td><td>Mask of the destination CPU from which ACK is expected </td></tr>
-    <tr><td class="paramname">TimeOutCount</td><td>Count after which the routines returns failure</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DestCpuMask</td><td>Mask of the destination CPU from which the acknowledgment is expected. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TimeOutCount</td><td>Count after which the routine returns failure.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful XST_FAILURE if a timeout occurred </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if a timeout occurs. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="struct_x_ipi_psu___config.html#a0d87ebd028051d4a05ab03410aadbc00">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="group__ipipsu__api.html#ga1ca8515703f72eb2194a408cfa5b4a18">XIPIPSU_OBS_OFFSET</a>, and <a class="el" href="group__ipipsu.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a>.</p>
 
@@ -694,20 +695,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read an Incoming Message from a Source. </p>
+<p>Reads an incoming message from a source. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
-    <tr><td class="paramname">SrcCpuMask</td><td>Device Mask for the CPU which has sent the message </td></tr>
-    <tr><td class="paramname">MsgPtr</td><td>Pointer to Buffer to which the read message needs to be stored </td></tr>
-    <tr><td class="paramname">MsgLength</td><td>Number of messages (each message is 4bytes) </td></tr>
-    <tr><td class="paramname">BufferType</td><td>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SrcCpuMask</td><td>Device mask for the CPU that sent the message. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">MsgPtr</td><td>Buffer that receives the read message. Must not be NULL and must hold at least MsgLength words. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MsgLength</td><td>Number of words to read (each word is 4 bytes). Must not exceed XIPIPSU_MAX_MSG_LEN. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferType</td><td>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful XST_FAILURE if an error occurred </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XIPIPSU_CRC_ERROR if the CRC check fails (when CRC is enabled).</li>
+<li>XST_FAILURE if the buffer address is not valid. </li>
+</ul>
+</dd></dl>
 
-<p>References <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="group__ipipsu.html#gac57efc54862ee5bea23a3e217388a2dc">XIPIPSU_CRC_ERROR</a>, <a class="el" href="group__ipipsu.html#ga0b65ba4c02df42fe764615f99546fa56">XIPIPSU_CRC_INDEX</a>, <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>, <a class="el" href="group__ipipsu.html#ga6191e58907dea92be1f8fd83a2673be8">XIPIPSU_MAX_MSG_LEN</a>, and <a class="el" href="group__ipipsu.html#ga60f742faef33529c730b02614441789b">XIPIPSU_W0_TO_W6_SIZE</a>.</p>
+<p>References <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="group__ipipsu.html#gac57efc54862ee5bea23a3e217388a2dc">XIPIPSU_CRC_ERROR</a>, <a class="el" href="group__ipipsu.html#ga0b65ba4c02df42fe764615f99546fa56">XIPIPSU_CRC_INDEX</a>, <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>, <a class="el" href="group__ipipsu.html#ga6191e58907dea92be1f8fd83a2673be8">XIPIPSU_MAX_MSG_LEN</a>, and <a class="el" href="group__ipipsu.html#ga60f742faef33529c730b02614441789b">XIPIPSU_W0_TO_W6_SIZE</a>.</p>
 
 <p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#a2dc7058c8f10506fd4279462d399d33a">IpiIntrHandler()</a>.</p>
 
@@ -728,11 +734,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Resets the given IPI register set. </p>
-<pre class="fragment">    This function can be called to disable the IPIs from all
-    the sources and clear any pending IPIs in status register
-</pre><dl class="params"><dt>Parameters</dt><dd>
+<p>Disables the IPIs from all sources and clears any pending IPIs in the status register.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
   </table>
   </dd>
 </dl>
@@ -765,15 +770,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Triggers an IPI to a Destination CPU. </p>
+<p>Triggers an IPI to a destination CPU. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
-    <tr><td class="paramname">DestCpuMask</td><td>Mask of the CPU to which IPI is to be triggered</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DestCpuMask</td><td>Mask of the CPU to which the IPI is triggered.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful XST_FAILURE if an error occurred </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS after the trigger register is written. </dd></dl>
 
 <p>References <a class="el" href="struct_x_ipi_psu___config.html#a0d87ebd028051d4a05ab03410aadbc00">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="group__ipipsu__api.html#ga7b5daa2f9a7fef0e3897606b491dafcc">XIPIPSU_TRIG_OFFSET</a>, and <a class="el" href="group__ipipsu.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>.</p>
 
@@ -821,22 +826,44 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sends a Message to Destination. </p>
+<p>Sends a message to a destination. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to current IPI instance </td></tr>
-    <tr><td class="paramname">DestCpuMask</td><td>Device Mask for the destination CPU </td></tr>
-    <tr><td class="paramname">MsgPtr</td><td>Pointer to Buffer which contains the message to be sent </td></tr>
-    <tr><td class="paramname">MsgLength</td><td>Number of messages (each message is 4bytes) </td></tr>
-    <tr><td class="paramname">BufferType</td><td>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the IPI instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DestCpuMask</td><td>Device mask for the destination CPU. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MsgPtr</td><td>Buffer that contains the message to send. Must not be NULL and must hold at least MsgLength words. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">MsgLength</td><td>Number of words to send (each word is 4 bytes). Must not exceed XIPIPSU_MAX_MSG_LEN. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferType</td><td>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful XST_FAILURE if an error occurred </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if the buffer address is not valid. </li>
+</ul>
+</dd></dl>
 
-<p>References <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="group__ipipsu.html#ga0b65ba4c02df42fe764615f99546fa56">XIPIPSU_CRC_INDEX</a>, <a class="el" href="group__ipipsu__api.html#ga1404a6dc6d1ff0a6baf80a74e6bdb6e5">XIpiPsu_GetBufferAddress()</a>, <a class="el" href="group__ipipsu.html#ga6191e58907dea92be1f8fd83a2673be8">XIPIPSU_MAX_MSG_LEN</a>, and <a class="el" href="group__ipipsu.html#ga60f742faef33529c730b02614441789b">XIPIPSU_W0_TO_W6_SIZE</a>.</p>
+<p>References <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, <a class="el" href="group__ipipsu.html#ga0b65ba4c02df42fe764615f99546fa56">XIPIPSU_CRC_INDEX</a>, <a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress()</a>, <a class="el" href="group__ipipsu.html#ga6191e58907dea92be1f8fd83a2673be8">XIPIPSU_MAX_MSG_LEN</a>, and <a class="el" href="group__ipipsu.html#ga60f742faef33529c730b02614441789b">XIPIPSU_W0_TO_W6_SIZE</a>.</p>
 
 <p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#a2dc7058c8f10506fd4279462d399d33a">IpiIntrHandler()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ga3d2dd48cfc18bf089c15ce6b61c3f031"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> XIpiPsu_ConfigTable[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Holds one configuration entry per IPI device in the system. </p>
+<p>Holds the configuration entry for each IPI instance. </p>
+
+<p>Referenced by <a class="el" href="group__ipipsu__api.html#gacb9c27ce83faa62ddce4b6898ddb419e">XIpiPsu_LookupConfig()</a>.</p>
 
 </div>
 </div>

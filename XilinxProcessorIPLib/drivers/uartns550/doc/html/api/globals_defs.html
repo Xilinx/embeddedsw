@@ -80,6 +80,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
       <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
@@ -103,7 +105,7 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -115,7 +117,38 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <div class="contents">
 &#160;
 
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TEST_BUFFER_SIZE
+: <a class="el" href="xuartns550__intr__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">xuartns550_intr_example.c</a>
+, <a class="el" href="xuartns550__polled__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">xuartns550_polled_example.c</a>
+, <a class="el" href="xuartns550__low__level__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">xuartns550_low_level_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>UART_BASEADDR
+: <a class="el" href="xuartns550__low__level__example_8c.html#a304768dcd826d7d65123ff4bafc11050">xuartns550_low_level_example.c</a>
+</li>
+<li>UART_BAUDRATE
+: <a class="el" href="xuartns550__low__level__example_8c.html#a2c7ed0283bd6f2f9d791860d6254ef4f">xuartns550_low_level_example.c</a>
+</li>
+<li>UART_CLOCK_HZ
+: <a class="el" href="xuartns550__low__level__example_8c.html#a746be0f65341dddf1d951e9fcdb698c5">xuartns550_low_level_example.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
+<li>XPAR_DEFAULT_BAUD_RATE
+: <a class="el" href="group__uartns550.html#gacf96ed2e4750caf9d060f88c4f0b6fe9">xuartns550_sinit.c</a>
+</li>
+<li>XUARTNS550_BASEADDRESS
+: <a class="el" href="xuartns550__hello__world__example_8c.html#ac9565031659897863ae69977e7021556">xuartns550_hello_world_example.c</a>
+, <a class="el" href="xuartns550__polled__example_8c.html#ac9565031659897863ae69977e7021556">xuartns550_polled_example.c</a>
+, <a class="el" href="xuartns550__selftest__example_8c.html#ac9565031659897863ae69977e7021556">xuartns550_selftest_example.c</a>
+, <a class="el" href="xuartns550__intr__example_8c.html#ac9565031659897863ae69977e7021556">xuartns550_intr_example.c</a>
+</li>
 <li>XUartNs550_DisableIntr
 : <a class="el" href="group__uartns550.html#ga9039b3a4a9852fa556e522976edd1288">xuartns550_l.h</a>
 </li>
@@ -140,8 +173,14 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XUartNs550_SetLineControlReg
 : <a class="el" href="group__uartns550.html#ga4f3ff99ca70dfe6c715cbbfdd9742230">xuartns550_l.h</a>
 </li>
+<li>XUartNs550_UpdateStats
+: <a class="el" href="group__uartns550.html#gaab6f0640b2ce44ce814b72be9be82af2">xuartns550.h</a>
+</li>
 <li>XUartNs550_WriteReg
 : <a class="el" href="group__uartns550.html#gae648146666080fdac4f6949b6ed3101a">xuartns550_l.h</a>
+</li>
+<li>XUN_DIVISOR_BYTE_MASK
+: <a class="el" href="group__uartns550.html#ga6708c902724ba63054f78d2179562615">xuartns550_l.h</a>
 </li>
 <li>XUN_DLL_OFFSET
 : <a class="el" href="group__uartns550.html#ga035a43e3e92312cf94894d0df59eed71">xuartns550_l.h</a>
@@ -202,6 +241,9 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </li>
 <li>XUN_FIFO_RX_TRIGGER
 : <a class="el" href="group__uartns550.html#gab75853d561b5a47735a412acc54b1507">xuartns550_l.h</a>
+</li>
+<li>XUN_FIFO_SIZE
+: <a class="el" href="group__uartns550.html#ga4b1b546e60a0c76832f6e3a9a3957094">xuartns550_l.h</a>
 </li>
 <li>XUN_FIFO_TRIGGER_01
 : <a class="el" href="group__uartns550.html#ga53fffaa233387f3bdc9f8524f4c0498f">xuartns550.h</a>
@@ -335,6 +377,9 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XUN_LSR_TX_EMPTY
 : <a class="el" href="group__uartns550.html#ga648b52ef84c2214179e2fe3c80d77677">xuartns550_l.h</a>
 </li>
+<li>XUN_MAX_BAUD_ERROR_RATE
+: <a class="el" href="group__uartns550.html#gad99395b30fbe6d0f90fc2937db2cfcce">xuartns550.c</a>
+</li>
 <li>XUN_MCR_DTR
 : <a class="el" href="group__uartns550.html#ga3c2e9f72e54de87dedaafe6085ae4ec9">xuartns550_l.h</a>
 </li>
@@ -380,6 +425,15 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XUN_MSR_OFFSET
 : <a class="el" href="group__uartns550.html#ga69e96899321d1c793301e52cb4ff7d5b">xuartns550_l.h</a>
 </li>
+<li>XUN_NS16550_MAX_RATE
+: <a class="el" href="group__uartns550.html#ga0d0b450ce409b77274109a7610a9d4a9">xuartns550.h</a>
+</li>
+<li>XUN_NS16550_MIN_RATE
+: <a class="el" href="group__uartns550.html#gad953e8f3c273533ab5613314fb3344b6">xuartns550.h</a>
+</li>
+<li>XUN_NUM_OPTIONS
+: <a class="el" href="group__uartns550.html#ga0cca097353c3439833fb22f5761ebc3f">xuartns550_options.c</a>
+</li>
 <li>XUN_OPTION_ASSERT_DTR
 : <a class="el" href="group__uartns550.html#ga98413720ccbd9c0e7a47468885d894a8">xuartns550.h</a>
 </li>
@@ -419,8 +473,14 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XUN_RBR_OFFSET
 : <a class="el" href="group__uartns550.html#ga0c9f6a9aff7a8753caf9965f3162c2ce">xuartns550_l.h</a>
 </li>
+<li>XUN_REG_OFFSET
+: <a class="el" href="group__uartns550.html#ga3aa5621d35dd0e4eea01fcee2063a7a3">xuartns550_l.h</a>
+</li>
 <li>XUN_THR_OFFSET
 : <a class="el" href="group__uartns550.html#gaaeadf9e35937495ade3ac065a4a6ccbf">xuartns550_l.h</a>
+</li>
+<li>XUN_TOTAL_BYTES
+: <a class="el" href="group__uartns550.html#gaf60af6bcba36728fc6ba35120acfe403">xuartns550_selftest.c</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -109,6 +109,12 @@ $(document).ready(function(){initNavTree('index.html','');});
   1.0  adk   24/11/21 Initial release.
          adk   07/02/22 Updated the IntrHandler as per <a class="el" href="group__xiltimer__api.html#ga6395671177518353e3ab5ded9609eb1e" title="This routine installs an asynchronous callback function for the given FuncPtr. ">XTimer_SetHandler()</a> API.
   1.1    adk   08/08/22 Added doxygen tags.
+  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
+  2.5  vmt   09/24/26 Initialize the AXI tick timer from SetIntrHandler
+                      when IsReady is not set so the handler can be
+                      installed before the tick interval is programmed.
+  2.5  vmt   09/24/26 Added AXI timer tick configuration from frequency.
+  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

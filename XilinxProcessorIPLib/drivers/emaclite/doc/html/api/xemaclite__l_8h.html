@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xemaclite__l_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,6 +112,9 @@ $(document).ready(function(){initNavTree('xemaclite__l_8h.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:afe412cba5e39b05c922dde82ef216d5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xemaclite__l_8h.html#afe412cba5e39b05c922dde82ef216d5d">XEMAC_LITE_L_H</a>&#160;&#160;&#160;/* by using protection macros */</td></tr>
+<tr class="memdesc:afe412cba5e39b05c922dde82ef216d5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Include guard for the EmacLite low-level header.  <a href="#afe412cba5e39b05c922dde82ef216d5d">More...</a><br/></td></tr>
+<tr class="separator:afe412cba5e39b05c922dde82ef216d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4dbb708d2fea4f6a716bcf9eb0aaad66"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga4dbb708d2fea4f6a716bcf9eb0aaad66">XEL_TXBUFF_OFFSET</a>&#160;&#160;&#160;(0x00000000)</td></tr>
 <tr class="memdesc:ga4dbb708d2fea4f6a716bcf9eb0aaad66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register offsets for the Ethernet MAC.  <a href="group__emaclite.html#ga4dbb708d2fea4f6a716bcf9eb0aaad66">More...</a><br/></td></tr>
 <tr class="separator:ga4dbb708d2fea4f6a716bcf9eb0aaad66"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,13 +227,13 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga24da5eeb80edf023bfe5385019770ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Right shift value to align length.  <a href="group__emaclite.html#ga24da5eeb80edf023bfe5385019770ea7">More...</a><br/></td></tr>
 <tr class="separator:ga24da5eeb80edf023bfe5385019770ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0efb69007c897a0f35a57c9e50fdb469"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga0efb69007c897a0f35a57c9e50fdb469">XEL_MAX_FRAME_SIZE</a>&#160;&#160;&#160;(<a class="el" href="group__emaclite.html#gace93038c04a45e17a8be70f058bbf9da">XEL_HEADER_SIZE</a>+<a class="el" href="group__emaclite.html#ga41c8fc68a64b6dfb418a1ac824cc9151">XEL_MTU_SIZE</a>+ <a class="el" href="group__emaclite.html#ga8a4567a704724d25d4ddbeed59578cc9">XEL_FCS_SIZE</a>)</td></tr>
-<tr class="memdesc:ga0efb69007c897a0f35a57c9e50fdb469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of Rx frame used if length/type field contains the type (&gt; 1500)  <a href="group__emaclite.html#ga0efb69007c897a0f35a57c9e50fdb469">More...</a><br/></td></tr>
+<tr class="memdesc:ga0efb69007c897a0f35a57c9e50fdb469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of Rx frame used if length/type field contains the type (&gt; 1500).  <a href="group__emaclite.html#ga0efb69007c897a0f35a57c9e50fdb469">More...</a><br/></td></tr>
 <tr class="separator:ga0efb69007c897a0f35a57c9e50fdb469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad1e5b828ffb7ae505719dd4f2f07bf39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gad1e5b828ffb7ae505719dd4f2f07bf39">XEL_MAX_TX_FRAME_SIZE</a>&#160;&#160;&#160;(<a class="el" href="group__emaclite.html#gace93038c04a45e17a8be70f058bbf9da">XEL_HEADER_SIZE</a> + <a class="el" href="group__emaclite.html#ga41c8fc68a64b6dfb418a1ac824cc9151">XEL_MTU_SIZE</a>)</td></tr>
 <tr class="memdesc:gad1e5b828ffb7ae505719dd4f2f07bf39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max length of Tx frame.  <a href="group__emaclite.html#gad1e5b828ffb7ae505719dd4f2f07bf39">More...</a><br/></td></tr>
 <tr class="separator:gad1e5b828ffb7ae505719dd4f2f07bf39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ccc893b8efdefc7409c03c99c7719a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga1ccc893b8efdefc7409c03c99c7719a7">XEL_MAC_ADDR_SIZE</a>&#160;&#160;&#160;6</td></tr>
-<tr class="memdesc:ga1ccc893b8efdefc7409c03c99c7719a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">length of MAC address  <a href="group__emaclite.html#ga1ccc893b8efdefc7409c03c99c7719a7">More...</a><br/></td></tr>
+<tr class="memdesc:ga1ccc893b8efdefc7409c03c99c7719a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">length of MAC address.  <a href="group__emaclite.html#ga1ccc893b8efdefc7409c03c99c7719a7">More...</a><br/></td></tr>
 <tr class="separator:ga1ccc893b8efdefc7409c03c99c7719a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadd10850a396aefec8cb1b22fff3cd62b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gadd10850a396aefec8cb1b22fff3cd62b">XEL_ETHER_PROTO_TYPE_IP</a>&#160;&#160;&#160;0x0800</td></tr>
 <tr class="memdesc:gadd10850a396aefec8cb1b22fff3cd62b"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP Protocol.  <a href="group__emaclite.html#gadd10850a396aefec8cb1b22fff3cd62b">More...</a><br/></td></tr>
@@ -250,10 +253,16 @@ Macros</h2></td></tr>
 <tr class="memitem:gacdfcd5a1a11b18e51012fecd6dc9eade"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gacdfcd5a1a11b18e51012fecd6dc9eade">XEL_VLAN_TAG_SIZE</a>&#160;&#160;&#160;4</td></tr>
 <tr class="memdesc:gacdfcd5a1a11b18e51012fecd6dc9eade"><td class="mdescLeft">&#160;</td><td class="mdescRight">VLAN Tag Size.  <a href="group__emaclite.html#gacdfcd5a1a11b18e51012fecd6dc9eade">More...</a><br/></td></tr>
 <tr class="separator:gacdfcd5a1a11b18e51012fecd6dc9eade"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1242a868f45e27bd21e802f37ccc56cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga1242a868f45e27bd21e802f37ccc56cc">XEmacLite_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XEmacLite_In32((BaseAddress) + (RegOffset))</td></tr>
+<tr class="memitem:gae73479e6a24a45ff433c63bb679c5c0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gae73479e6a24a45ff433c63bb679c5c0c">XEmacLite_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
+<tr class="memdesc:gae73479e6a24a45ff433c63bb679c5c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a 32-bit value from the specified address.  <a href="group__emaclite.html#gae73479e6a24a45ff433c63bb679c5c0c">More...</a><br/></td></tr>
+<tr class="separator:gae73479e6a24a45ff433c63bb679c5c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga167280ef2371e5a93928a61c95820dcd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga167280ef2371e5a93928a61c95820dcd">XEmacLite_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
+<tr class="memdesc:ga167280ef2371e5a93928a61c95820dcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a 32-bit value to the specified address.  <a href="group__emaclite.html#ga167280ef2371e5a93928a61c95820dcd">More...</a><br/></td></tr>
+<tr class="separator:ga167280ef2371e5a93928a61c95820dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1242a868f45e27bd21e802f37ccc56cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga1242a868f45e27bd21e802f37ccc56cc">XEmacLite_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__emaclite.html#gae73479e6a24a45ff433c63bb679c5c0c">XEmacLite_In32</a>((BaseAddress) + (RegOffset))</td></tr>
 <tr class="memdesc:ga1242a868f45e27bd21e802f37ccc56cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read from the specified EmacLite device register.  <a href="group__emaclite.html#ga1242a868f45e27bd21e802f37ccc56cc">More...</a><br/></td></tr>
 <tr class="separator:ga1242a868f45e27bd21e802f37ccc56cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga96be859f6762b5de8817367548561035"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga96be859f6762b5de8817367548561035">XEmacLite_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;XEmacLite_Out32((BaseAddress) + (RegOffset), (RegisterValue))</td></tr>
+<tr class="memitem:ga96be859f6762b5de8817367548561035"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#ga96be859f6762b5de8817367548561035">XEmacLite_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;<a class="el" href="group__emaclite.html#ga167280ef2371e5a93928a61c95820dcd">XEmacLite_Out32</a>((BaseAddress) + (RegOffset), (RegisterValue))</td></tr>
 <tr class="memdesc:ga96be859f6762b5de8817367548561035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to the specified EmacLite device register.  <a href="group__emaclite.html#ga96be859f6762b5de8817367548561035">More...</a><br/></td></tr>
 <tr class="separator:ga96be859f6762b5de8817367548561035"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad66fc12c63bb5e0a63289f63fa9d5e41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__emaclite.html#gad66fc12c63bb5e0a63289f63fa9d5e41">XEmacLite_GetTxStatus</a>(BaseAddress)&#160;&#160;&#160;(<a class="el" href="group__emaclite.html#ga1242a868f45e27bd21e802f37ccc56cc">XEmacLite_ReadReg</a>((BaseAddress), <a class="el" href="group__emaclite.html#ga45c15f0ba6b3ef9849abfb63e47ea692">XEL_TSR_OFFSET</a>))</td></tr>
@@ -284,6 +293,21 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga6be219c4ba85e928f273845bd69bdeca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive a frame.  <a href="group__emaclite.html#ga6be219c4ba85e928f273845bd69bdeca">More...</a><br/></td></tr>
 <tr class="separator:ga6be219c4ba85e928f273845bd69bdeca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="afe412cba5e39b05c922dde82ef216d5d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XEMAC_LITE_L_H&#160;&#160;&#160;/* by using protection macros */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Include guard for the EmacLite low-level header. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

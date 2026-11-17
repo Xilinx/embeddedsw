@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c" kind="struct" prot="public">
     <compoundname>USB_STD_AUDIO_EP_DESC</compoundname>
+    <includes local="no">xusb_types.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a4c0389e5150dd18c0104755766f746c4" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,12 @@
         <argsstring></argsstring>
         <name>bLength</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor length in bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="384" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="385" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a5829d5a7262197ae0b6889aaeaa179d9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +23,12 @@
         <argsstring></argsstring>
         <name>bDescriptorType</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor type identifier. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="385" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="386" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a7878b5ffc2d7d71bb48438f298608b46" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +36,12 @@
         <argsstring></argsstring>
         <name>bEndpointAddress</name>
         <briefdescription>
-        </briefdescription>
+<para>Endpoint address and direction. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="386" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="387" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a3b730c09908930246df685d3f21b6336" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,12 +49,12 @@
         <argsstring></argsstring>
         <name>bmAttributes</name>
         <briefdescription>
-        </briefdescription>
+<para>Endpoint attributes bitmask. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="387" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="388" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1aae5e05b79e88f2eed5550f0262245060" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +62,12 @@
         <argsstring></argsstring>
         <name>bMaxPacketSizeL</name>
         <briefdescription>
-        </briefdescription>
+<para>Maximum packet size low byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="388" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="389" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a63e63323aeb5c4a83f78505c07405fc9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,12 +75,12 @@
         <argsstring></argsstring>
         <name>bMaxPacketSizeH</name>
         <briefdescription>
-        </briefdescription>
+<para>Maximum packet size high byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="389" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a0853a54162c8ee0e60ed5c4c89616353" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -87,12 +88,12 @@
         <argsstring></argsstring>
         <name>bInterval</name>
         <briefdescription>
-        </briefdescription>
+<para>Polling interval in frames. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="390" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="391" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a1b25d1e4feb3bba2932011ca8ddcd641" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,12 +101,12 @@
         <argsstring></argsstring>
         <name>bRefresh</name>
         <briefdescription>
-        </briefdescription>
+<para>Refresh rate for synchronization. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="391" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="392" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a8cabc0f4ed17116af0679feab3cbef2c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -113,19 +114,19 @@
         <argsstring></argsstring>
         <name>bSyncAddress</name>
         <briefdescription>
-        </briefdescription>
+<para>Synchronization endpoint address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="392" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="393" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>USB standard audio endpoint descriptor. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="383" bodyend="394"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="384" bodyend="395"/>
     <listofallmembers>
       <member refid="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a5829d5a7262197ae0b6889aaeaa179d9" prot="public" virt="non-virtual"><scope>USB_STD_AUDIO_EP_DESC</scope><name>bDescriptorType</name></member>
       <member refid="struct_u_s_b___s_t_d___a_u_d_i_o___e_p___d_e_s_c_1a7878b5ffc2d7d71bb48438f298608b46" prot="public" virt="non-virtual"><scope>USB_STD_AUDIO_EP_DESC</scope><name>bEndpointAddress</name></member>

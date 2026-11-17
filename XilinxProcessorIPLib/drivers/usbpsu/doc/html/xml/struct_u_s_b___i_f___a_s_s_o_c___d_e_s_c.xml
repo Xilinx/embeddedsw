@@ -9,12 +9,12 @@
         <argsstring></argsstring>
         <name>bLength</name>
         <briefdescription>
-        </briefdescription>
+<para>B Length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1acae774c141861024ec9a8afb59451198" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +22,12 @@
         <argsstring></argsstring>
         <name>bDescriptorType</name>
         <briefdescription>
-        </briefdescription>
+<para>B Descriptor Type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1ae7a54ab8ecbfc6bdd2517c49f845f4f8" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +35,12 @@
         <argsstring></argsstring>
         <name>bFirstInterface</name>
         <briefdescription>
-        </briefdescription>
+<para>B First Interface. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1a5eaf520939e421687ad83e92c3ea0875" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,12 +48,12 @@
         <argsstring></argsstring>
         <name>bInterfaceCount</name>
         <briefdescription>
-        </briefdescription>
+<para>B Interface Count. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1a1c68fd6fc468c01e9a7a19f2a8595a5b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +61,12 @@
         <argsstring></argsstring>
         <name>bFunctionClass</name>
         <briefdescription>
-        </briefdescription>
+<para>B Function Class. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1a8609a9271cac40875aa0862964432c3a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,12 +74,12 @@
         <argsstring></argsstring>
         <name>bFunctionSubClass</name>
         <briefdescription>
-        </briefdescription>
+<para>B Function Sub Class. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1abf1a12c91f79565588e152bd13a424c8" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -87,12 +87,12 @@
         <argsstring></argsstring>
         <name>bFunctionProtocol</name>
         <briefdescription>
-        </briefdescription>
+<para>B Function Protocol. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="138" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1aa2b980f20a5e891f46b82a946ff43b64" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,19 +100,19 @@
         <argsstring></argsstring>
         <name>iFunction</name>
         <briefdescription>
-        </briefdescription>
+<para>I Function. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="139" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="127" bodyend="141"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="130" bodyend="144"/>
     <listofallmembers>
       <member refid="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1acae774c141861024ec9a8afb59451198" prot="public" virt="non-virtual"><scope>USB_IF_ASSOC_DESC</scope><name>bDescriptorType</name></member>
       <member refid="struct_u_s_b___i_f___a_s_s_o_c___d_e_s_c_1ae7a54ab8ecbfc6bdd2517c49f845f4f8" prot="public" virt="non-virtual"><scope>USB_IF_ASSOC_DESC</scope><name>bFirstInterface</name></member>

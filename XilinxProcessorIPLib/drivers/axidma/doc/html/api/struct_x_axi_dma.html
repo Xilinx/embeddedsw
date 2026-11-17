@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_axi_dma.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,20 +113,49 @@ $(document).ready(function(){initNavTree('struct_x_axi_dma.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_axi_dma.html" title="The XAxiDma driver instance data. ">XAxiDma</a> driver instance data.
+<p>Holds driver instance data for one DMA engine.
  <a href="struct_x_axi_dma.html#details">More...</a></p>
 
 <p><code>#include &lt;xaxidma.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a6a5998bf39bd677a8de8398fe47adce9"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a6a5998bf39bd677a8de8398fe47adce9">RegBase</a></td></tr>
+<tr class="memdesc:a6a5998bf39bd677a8de8398fe47adce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual base address of the DMA engine.  <a href="#a6a5998bf39bd677a8de8398fe47adce9">More...</a><br/></td></tr>
+<tr class="separator:a6a5998bf39bd677a8de8398fe47adce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3255b4c923d78f96fc7b49164ecf8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a2a3255b4c923d78f96fc7b49164ecf8c">HasMm2S</a></td></tr>
+<tr class="memdesc:a2a3255b4c923d78f96fc7b49164ecf8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has transmit channel.  <a href="#a2a3255b4c923d78f96fc7b49164ecf8c">More...</a><br/></td></tr>
+<tr class="separator:a2a3255b4c923d78f96fc7b49164ecf8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d10692e5c0d03d0e0206a8fcd1406c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a75d10692e5c0d03d0e0206a8fcd1406c">HasS2Mm</a></td></tr>
+<tr class="memdesc:a75d10692e5c0d03d0e0206a8fcd1406c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has receive channel.  <a href="#a75d10692e5c0d03d0e0206a8fcd1406c">More...</a><br/></td></tr>
+<tr class="separator:a75d10692e5c0d03d0e0206a8fcd1406c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b717775515d60e9b541ca833ef77a57"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a0b717775515d60e9b541ca833ef77a57">Initialized</a></td></tr>
+<tr class="memdesc:a0b717775515d60e9b541ca833ef77a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver has been initialized.  <a href="#a0b717775515d60e9b541ca833ef77a57">More...</a><br/></td></tr>
+<tr class="separator:a0b717775515d60e9b541ca833ef77a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c5138c2ff12cff97f8d1444550735fd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a3c5138c2ff12cff97f8d1444550735fd">HasSg</a></td></tr>
+<tr class="memdesc:a3c5138c2ff12cff97f8d1444550735fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has scatter gather support.  <a href="#a3c5138c2ff12cff97f8d1444550735fd">More...</a><br/></td></tr>
+<tr class="separator:a3c5138c2ff12cff97f8d1444550735fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a5ccf48497442af66f144e3eec7fb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a32a5ccf48497442af66f144e3eec7fb3">TxBdRing</a></td></tr>
+<tr class="memdesc:a32a5ccf48497442af66f144e3eec7fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">BD container management for TX channel.  <a href="#a32a5ccf48497442af66f144e3eec7fb3">More...</a><br/></td></tr>
+<tr class="separator:a32a5ccf48497442af66f144e3eec7fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af94c5b7900782398fbd065318c5b0fb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#af94c5b7900782398fbd065318c5b0fb6">RxBdRing</a> [16]</td></tr>
+<tr class="memdesc:af94c5b7900782398fbd065318c5b0fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">BD container management for RX channel.  <a href="#af94c5b7900782398fbd065318c5b0fb6">More...</a><br/></td></tr>
+<tr class="separator:af94c5b7900782398fbd065318c5b0fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66a036eb577236ee764d37db526d9636"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a66a036eb577236ee764d37db526d9636">TxNumChannels</a></td></tr>
+<tr class="memdesc:a66a036eb577236ee764d37db526d9636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of transmit channels.  <a href="#a66a036eb577236ee764d37db526d9636">More...</a><br/></td></tr>
+<tr class="separator:a66a036eb577236ee764d37db526d9636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa157e5664aea2c332fd3bc19bf5cb5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a7fa157e5664aea2c332fd3bc19bf5cb5">RxNumChannels</a></td></tr>
+<tr class="memdesc:a7fa157e5664aea2c332fd3bc19bf5cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of receive channels.  <a href="#a7fa157e5664aea2c332fd3bc19bf5cb5">More...</a><br/></td></tr>
+<tr class="separator:a7fa157e5664aea2c332fd3bc19bf5cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93f1a8501a700c7b7de3f2789d024016"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a93f1a8501a700c7b7de3f2789d024016">MicroDmaMode</a></td></tr>
+<tr class="memdesc:a93f1a8501a700c7b7de3f2789d024016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether Micro DMA mode is enabled.  <a href="#a93f1a8501a700c7b7de3f2789d024016">More...</a><br/></td></tr>
+<tr class="separator:a93f1a8501a700c7b7de3f2789d024016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a663f5757eabe6b1b8813ed5fdb0d0edb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html#a663f5757eabe6b1b8813ed5fdb0d0edb">AddrWidth</a></td></tr>
 <tr class="memdesc:a663f5757eabe6b1b8813ed5fdb0d0edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address Width.  <a href="#a663f5757eabe6b1b8813ed5fdb0d0edb">More...</a><br/></td></tr>
 <tr class="separator:a663f5757eabe6b1b8813ed5fdb0d0edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_axi_dma.html" title="The XAxiDma driver instance data. ">XAxiDma</a> driver instance data. </p>
-<p>An instance must be allocated for each DMA engine in use. </p>
+<div class="textblock"><p>Holds driver instance data for one DMA engine. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a663f5757eabe6b1b8813ed5fdb0d0edb"></a>
 <div class="memitem">
@@ -141,6 +170,166 @@ Data Fields</h2></td></tr>
 <p>Address Width. </p>
 
 <p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a3255b4c923d78f96fc7b49164ecf8c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::HasMm2S</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Has transmit channel. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga847cd9a0255fcb444bce58b945de8574">XAxiDma_Resume()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a75d10692e5c0d03d0e0206a8fcd1406c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::HasS2Mm</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Has receive channel. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga847cd9a0255fcb444bce58b945de8574">XAxiDma_Resume()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3c5138c2ff12cff97f8d1444550735fd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::HasSg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Has scatter gather support. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b717775515d60e9b541ca833ef77a57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::Initialized</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Driver has been initialized. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga847cd9a0255fcb444bce58b945de8574">XAxiDma_Resume()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a93f1a8501a700c7b7de3f2789d024016"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::MicroDmaMode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates whether Micro DMA mode is enabled. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6a5998bf39bd677a8de8398fe47adce9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XAxiDma::RegBase</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Virtual base address of the DMA engine. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af94c5b7900782398fbd065318c5b0fb6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> XAxiDma::RxBdRing[16]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BD container management for RX channel. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7fa157e5664aea2c332fd3bc19bf5cb5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::RxNumChannels</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of receive channels. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga847cd9a0255fcb444bce58b945de8574">XAxiDma_Resume()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a32a5ccf48497442af66f144e3eec7fb3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> XAxiDma::TxBdRing</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BD container management for TX channel. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66a036eb577236ee764d37db526d9636"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiDma::TxNumChannels</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of transmit channels. </p>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>.</p>
 
 </div>
 </div>

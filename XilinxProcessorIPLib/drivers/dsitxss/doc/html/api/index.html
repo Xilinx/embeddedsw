@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Number of Input Pixels per beat(1, 2, 4)</li>
 <li>DPHY with/without Register interface</li>
 <li>Line Rate</li>
-<li>CRC Generation Enable In order to reduce resource usage, the DPHY can be configured to be without register interface with fixed functions. Static configuration parameters are stored in xdsitxss_g.c file, that gets generated when compiling the board support package (BSP). A table is defined where each entry contains configuration information for the instances of the subsystem in the design. This information includes the elected configuration, sub-cores used and their device ID, base addresses of memory mapped devices and address range available for subsystem frame/field buffers.</li>
+<li>CRC Generation Enable In order to reduce resource usage, the DPHY can be configured to be without register interface with fixed functions. Static configuration parameters are stored in xdsitxss_g.c file, that gets generated when compiling the board support package (BSP). A table is defined where each entry contains configuration information for the instances of the subsystem in the design. This information includes the elected configuration, sub-cores used and base addresses of memory mapped devices and address range available for subsystem frame/field buffers.</li>
 </ul>
 <p>The subsystem driver itself always includes the full software stack irrespective of the configuration selected. Generic API's are provided to interact with the subsystem and/or with the included sub -cores. At run-time the subsystem will query the static configuration and configures itself for supported use cases</p>
 <p><b>Subsystem Driver Description</b></p>

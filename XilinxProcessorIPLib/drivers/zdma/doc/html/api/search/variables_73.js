@@ -2,9 +2,9 @@ var searchData=
 [
   ['size',['Size',['../struct_x_z_dma___ll_dscr.html#aafcc22c471d1e12d4c95236efa40aeeb',1,'XZDma_LlDscr::Size()'],['../struct_x_z_dma___li_dscr.html#a9d17397962de3bf16645a730ea44a76f',1,'XZDma_LiDscr::Size()'],['../struct_x_z_dma___transfer.html#a7303e49ce16dc93c4dc80cf1502e7c06',1,'XZDma_Transfer::Size()']]],
   ['slcr_5fadma',['Slcr_adma',['../struct_x_z_dma.html#aea5c37a59737c90ea9387f350ca1acb0',1,'XZDma']]],
-  ['src1buf',['Src1Buf',['../xzdma__linear__example_8c.html#abc0a4b3b5452793e579616fc8f783d9f',1,'xzdma_linear_example.c']]],
+  ['src1buf',['Src1Buf',['../group__zdma.html#gabc0a4b3b5452793e579616fc8f783d9f',1,'xzdma_linear_example.c']]],
   ['srcaddr',['SrcAddr',['../struct_x_z_dma___transfer.html#ab626fca02248c80daf58098a181ca3ac',1,'XZDma_Transfer']]],
-  ['srcbuf',['SrcBuf',['../xzdma__linear__example_8c.html#a77bef88f9d2eeb675a87d1cade15e5bf',1,'SrcBuf():&#160;xzdma_linear_example.c'],['../xzdma__readonlymode__example_8c.html#a77bef88f9d2eeb675a87d1cade15e5bf',1,'SrcBuf():&#160;xzdma_readonlymode_example.c'],['../xzdma__writeonlymode__example_8c.html#a19913a1f36801c805d1bfe220061084c',1,'SrcBuf():&#160;xzdma_writeonlymode_example.c']]],
+  ['srcbuf',['SrcBuf',['../group__zdma.html#ga77bef88f9d2eeb675a87d1cade15e5bf',1,'SrcBuf():&#160;xzdma_linear_example.c'],['../group__zdma.html#ga77bef88f9d2eeb675a87d1cade15e5bf',1,'SrcBuf():&#160;xzdma_readonlymode_example.c'],['../group__zdma.html#ga19913a1f36801c805d1bfe220061084c',1,'SrcBuf():&#160;xzdma_writeonlymode_example.c']]],
   ['srcburstlen',['SrcBurstLen',['../struct_x_z_dma___data_config.html#a3c1367c6570b09c6fb40b870f07fd792',1,'XZDma_DataConfig']]],
   ['srcbursttype',['SrcBurstType',['../struct_x_z_dma___data_config.html#a946a5d7a1367df277236f3aa5941ac02',1,'XZDma_DataConfig']]],
   ['srccache',['SrcCache',['../struct_x_z_dma___data_config.html#aad59bcf9b6125e7b663e4c824a0d5349',1,'XZDma_DataConfig']]],

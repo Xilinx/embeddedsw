@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -22,25 +22,25 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="851">
+      <node id="855">
         <label>IsiSensorContext_s</label>
-        <childnode refid="852" relation="usage">
+        <childnode refid="856" relation="usage">
           <edgelabel>pSensor</edgelabel>
         </childnode>
       </node>
-      <node id="853">
+      <node id="857">
         <label>IsiCaps_s</label>
         <link refid="struct_isi_caps__s"/>
       </node>
-      <node id="852">
+      <node id="856">
         <label>IsiSensor_s</label>
         <link refid="struct_isi_sensor__s"/>
-        <childnode refid="853" relation="usage">
+        <childnode refid="857" relation="usage">
           <edgelabel>pIsiCaps</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" bodystart="48" bodyend="53"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" bodystart="48" bodyend="53"/>
     <listofallmembers>
       <member refid="group__isi__priv_1ga74b5b39e324c8ff39402909b17afe4ef" prot="public" virt="non-virtual"><scope>IsiSensorContext_s</scope><name>pSensor</name></member>
     </listofallmembers>

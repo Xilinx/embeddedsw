@@ -131,8 +131,6 @@
     <member refid="group__v__deinterlacer_1gaeaae347a5097c0000bae36d1ada725ac" kind="function"><name>XV_DeintSetFieldBuffers</name></member>
     <member refid="group__v__deinterlacer_1ga53dc58946156cbfe489bd8d71f0aaaa2" kind="function"><name>XV_DeintDbgReportStatus</name></member>
   </compound>
-  <compound refid="xv__deinterlacer__linux_8c" kind="file"><name>xv_deinterlacer_linux.c</name>
-  </compound>
   <compound refid="xv__deinterlacer__sinit_8c" kind="file"><name>xv_deinterlacer_sinit.c</name>
     <member refid="xv__deinterlacer__sinit_8c_1a7d05a742f9ad8f3d4de26e108c870c0c" kind="define"><name>XPAR_XV_DEINTERLACER_NUM_INSTANCES</name></member>
     <member refid="xv__deinterlacer__sinit_8c_1a5001864c413db2493083fa8504120f6f" kind="variable"><name>XV_deinterlacer_ConfigTable</name></member>

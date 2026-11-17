@@ -105,19 +105,47 @@ $(document).ready(function(){initNavTree('xiicps__options_8c.html','');});
 <div class="title">xiicps_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the options and clock functions of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>The <a class="el" href="xiicps__options_8c.html" title="Implements the options and clock functions of the XIicPs driver. ">xiicps_options.c</a> file contains functions for the configuration of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
+</p>
+<hr/>
+<p>
+1.00a drg/jz  01/30/10 First release
+1.02a sg        08/29/12 Updated the logic to arrive at the best divisors
+                 to achieve I2C clock with minimum error.
+                 This is a fix for CR #674195
+1.03a hk  05/04/13 Initialized BestDivA and BestDivB to 0.
+                 This is fix for CR#704398 to remove warning.
+2.0   hk  03/07/14 Limited frequency set when 100KHz or 400KHz is
+                   selected. This is a hardware limitation. CR#779290.
+2.1   hk  04/24/14 Fix for CR# 761060 - provision for repeated start.
+2.3     sk      10/07/14 Repeated start feature removed.
+3.0     sk      12/06/14 Implemented Repeated start feature.
+                01/31/15 Modified the code according to MISRAC 2012 Compliant.
+3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+3.11  rna 12/23/19 Add 10 bit address support for Master/Slave
+          02/02/20 Correct return value of XIicPs_GetOptions function
+          02/04/20 Modified latest code for MISRA-C:2012 Compliance
+3.24  tb  09/30/26 Align Doxygen comments with AMD standards
+3.24  vlt 10/02/26 Refactor <a class="el" href="group__iicps__api.html#gafb24cfdacf6cf28d80126862dc1cfbe5" title="Sets the serial clock rate for the IIC device. ">XIicPs_SetSClk()</a> to reduce CCM.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga7835042cdace3ed1433a81d373d92da7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga7835042cdace3ed1433a81d373d92da7">XIICPS_NUM_OPTIONS</a>&#160;&#160;&#160;(sizeof(OptionsTable) / sizeof(OptionsMap))</td></tr>
-<tr class="memdesc:ga7835042cdace3ed1433a81d373d92da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculated no.  <a href="group__iicps__api.html#ga7835042cdace3ed1433a81d373d92da7">More...</a><br/></td></tr>
+<tr class="memdesc:ga7835042cdace3ed1433a81d373d92da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculated number of options.  <a href="group__iicps__api.html#ga7835042cdace3ed1433a81d373d92da7">More...</a><br/></td></tr>
 <tr class="separator:ga7835042cdace3ed1433a81d373d92da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Options and clock functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Provides the functions for setting and getting data rate, in <a class="el" href="xiicps__options_8c.html" title="Implements the options and clock functions of the XIicPs driver. ">xiicps_options.c</a>. </p>
+</div></td></tr>
 <tr class="memitem:gaec1dc5be2be8a7394263cfe56af976c5"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gaec1dc5be2be8a7394263cfe56af976c5">XIicPs_SetOptions</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u32 Options)</td></tr>
-<tr class="memdesc:gaec1dc5be2be8a7394263cfe56af976c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for setting and getting data rate, in <a class="el" href="xiicps__options_8c.html">xiicps_options.c</a>.  <a href="group__iicps__api.html#gaec1dc5be2be8a7394263cfe56af976c5">More...</a><br/></td></tr>
+<tr class="memdesc:gaec1dc5be2be8a7394263cfe56af976c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the IIC device driver.  <a href="group__iicps__api.html#gaec1dc5be2be8a7394263cfe56af976c5">More...</a><br/></td></tr>
 <tr class="separator:gaec1dc5be2be8a7394263cfe56af976c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga87cbf2622a9c6ad66b18d4c3f9575a76"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga87cbf2622a9c6ad66b18d4c3f9575a76">XIicPs_ClearOptions</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr, u32 Options)</td></tr>
 <tr class="memdesc:ga87cbf2622a9c6ad66b18d4c3f9575a76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the options for the IIC device driver.  <a href="group__iicps__api.html#ga87cbf2622a9c6ad66b18d4c3f9575a76">More...</a><br/></td></tr>

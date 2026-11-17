@@ -129,7 +129,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       ng   02/14/2024 removed int typecast for errors
       jb   03/19/2024 Updated XPLMI_MAX_ADDR_BUFFERS count from 1 to 3
       am   04/04/2024 Fixed doxygen warnings
-2.4   abh  10/10/2025 Fixed MISRA-C violations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__modules_8h.html">xplmi_modules.h</a>&quot;</code><br/>
+2.4   abh  10/10/2025 Fixed MISRA-C violations
+2.5   ng   07/31/2026 Fixed run_proc error handling during SLD</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__modules_8h.html">xplmi_modules.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi_8h.html">xplmi.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__ipi_8h.html">xplmi_ipi.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_generic.h&quot;</code><br/>
@@ -138,6 +139,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__cdo_8h.html">xplmi_cdo.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__update_8h.html">xplmi_update.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xplmi__tamper_8h.html">xplmi_tamper.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>

@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
@@ -87,7 +88,7 @@ $(document).ready(function(){initNavTree('xmcdma__interrupt__example_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -98,82 +99,74 @@ $(document).ready(function(){initNavTree('xmcdma__interrupt__example_8c.html',''
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xmcdma_interrupt_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file demonstrates how to use the mcdma driver on the Xilinx AXI MCDMA core (AXI MCDMA) to transfer packets in interrupt mode. </p>
-<p>This examples shows how to do multiple packets and multiple BD's Per packet transfers.</p>
-<p>H/W Requirements: In order to test this example at the design level AXI MCDMA MM2S should be connected with the S2MM channel.</p>
-<p>System level Considerations for Zynq UltraScale+ designs: Please refer <a class="el" href="xmcdma__polled__example_8c.html" title="This file demonstrates how to use the mcdma driver on the Xilinx AXI MCDMA core (AXI MCDMA) to transf...">xmcdma_polled_example.c</a> file.</p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date      Changes
------ ---- --------  -------------------------------------------------------
-1.0      adk  18/07/17  Initial Version.
-1.2      rsp  07/19/18  Read channel count from IP config.
-                Fix gcc 'pointer from integer without a cast' warning.
-      rsp  08/17/18     Fix typos and rephrase comments.
-      rsp  08/17/18  Read Length register value from IP config.
-1.3   rsp  02/05/19  Remove snooping enable from application.
-      rsp  02/06/19  Programmatically select cache maintenance ops for HPC
-                     and non-HPC designs. In Rx remove arch64 specific dsb
-                     instruction by performing cache invalidate operation
-                     for all supported architectures.
-1.7   sa   08/12/22  Updated the example to use latest MIG cannoical define
-                        i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
-1.8      sa   09/29/22  Fix infinite loops in the example.
-1.9   aj   19/07/23  Updated the example to support SDT flow.
-</pre><hr/>
-</div><div class="textblock"><code>#include &quot;<a class="el" href="xmcdma_8h.html">xmcdma.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="xmcdma_8h.html">xmcdma.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xdebug.h&quot;</code><br/>
-<code>#include &quot;xmcdma_hw.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xmcdma__hw_8h.html">xmcdma_hw.h</a>&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;xplatform_info.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gac84dc23d51bbabb7335d37395230e8f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#gac84dc23d51bbabb7335d37395230e8f6">MCDMA_BASE_ADDR</a>&#160;&#160;&#160;XPAR_XMCDMA_0_BASEADDR</td></tr>
+<tr class="memdesc:gac84dc23d51bbabb7335d37395230e8f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the MCDMA device.  <a href="group__mcdma.html#gac84dc23d51bbabb7335d37395230e8f6">More...</a><br/></td></tr>
+<tr class="separator:gac84dc23d51bbabb7335d37395230e8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c850c92fe393b5099dcf0cefe24173e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga4c850c92fe393b5099dcf0cefe24173e">NUMBER_OF_BDS_PER_PKT</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga4c850c92fe393b5099dcf0cefe24173e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of buffer descriptors per packet.  <a href="group__mcdma.html#ga4c850c92fe393b5099dcf0cefe24173e">More...</a><br/></td></tr>
+<tr class="separator:ga4c850c92fe393b5099dcf0cefe24173e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga014a3adba0cfa2dc2faced4a68114fbe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga014a3adba0cfa2dc2faced4a68114fbe">NUMBER_OF_PKTS_TO_TRANSFER</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:ga014a3adba0cfa2dc2faced4a68114fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of packets to transfer in the test.  <a href="group__mcdma.html#ga014a3adba0cfa2dc2faced4a68114fbe">More...</a><br/></td></tr>
+<tr class="separator:ga014a3adba0cfa2dc2faced4a68114fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad145c274adf210cacf11db6de650c93d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#gad145c274adf210cacf11db6de650c93d">NUMBER_OF_BDS_TO_TRANSFER</a></td></tr>
+<tr class="memdesc:gad145c274adf210cacf11db6de650c93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total buffer descriptors to transfer.  <a href="group__mcdma.html#gad145c274adf210cacf11db6de650c93d">More...</a><br/></td></tr>
+<tr class="separator:gad145c274adf210cacf11db6de650c93d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1db766cf63218389006e24d33d582f1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga1db766cf63218389006e24d33d582f1f">PACKETS_PER_IRQ</a>&#160;&#160;&#160;50</td></tr>
+<tr class="memdesc:ga1db766cf63218389006e24d33d582f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of packets processed per interrupt.  <a href="group__mcdma.html#ga1db766cf63218389006e24d33d582f1f">More...</a><br/></td></tr>
+<tr class="separator:ga1db766cf63218389006e24d33d582f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2cbdec5743bbebc99afa6729c5b98f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#gaa2cbdec5743bbebc99afa6729c5b98f1">MAX_PKT_LEN</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:gaa2cbdec5743bbebc99afa6729c5b98f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum packet length in bytes.  <a href="group__mcdma.html#gaa2cbdec5743bbebc99afa6729c5b98f1">More...</a><br/></td></tr>
+<tr class="separator:gaa2cbdec5743bbebc99afa6729c5b98f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga69d6714be441102515074342e287197a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga69d6714be441102515074342e287197a">BLOCK_SIZE_2MB</a>&#160;&#160;&#160;0x200000U</td></tr>
+<tr class="memdesc:ga69d6714be441102515074342e287197a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Two-megabyte block size for TLB attributes.  <a href="group__mcdma.html#ga69d6714be441102515074342e287197a">More...</a><br/></td></tr>
+<tr class="separator:ga69d6714be441102515074342e287197a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf460349d2a6f5f1d11c77701b56ca3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#gacf460349d2a6f5f1d11c77701b56ca3e">TEST_START_VALUE</a>&#160;&#160;&#160;0xC</td></tr>
+<tr class="memdesc:gacf460349d2a6f5f1d11c77701b56ca3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starting value used to fill and verify test data.  <a href="group__mcdma.html#gacf460349d2a6f5f1d11c77701b56ca3e">More...</a><br/></td></tr>
+<tr class="separator:gacf460349d2a6f5f1d11c77701b56ca3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga168b51be2ff0434d9e606cd81a36a989"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga168b51be2ff0434d9e606cd81a36a989">POLL_TIMEOUT_COUNTER</a>&#160;&#160;&#160;1000000U</td></tr>
+<tr class="memdesc:ga168b51be2ff0434d9e606cd81a36a989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum poll iterations before a transfer times out.  <a href="group__mcdma.html#ga168b51be2ff0434d9e606cd81a36a989">More...</a><br/></td></tr>
+<tr class="separator:ga168b51be2ff0434d9e606cd81a36a989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga697928dda71fa389068d6060162ae1ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga697928dda71fa389068d6060162ae1ef">NUMBER_OF_EVENTS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga697928dda71fa389068d6060162ae1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of interrupt events expected to complete the test.  <a href="group__mcdma.html#ga697928dda71fa389068d6060162ae1ef">More...</a><br/></td></tr>
+<tr class="separator:ga697928dda71fa389068d6060162ae1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac69ee46f4a51ed14f0d68628c2dec71d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#gac69ee46f4a51ed14f0d68628c2dec71d">MAX_CHANNELS</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:gac69ee46f4a51ed14f0d68628c2dec71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of MCDMA channels.  <a href="group__mcdma.html#gac69ee46f4a51ed14f0d68628c2dec71d">More...</a><br/></td></tr>
+<tr class="separator:gac69ee46f4a51ed14f0d68628c2dec71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ab33647617098646990fe263600b650"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga9ab33647617098646990fe263600b650">TX_BUFFER_SIZE</a>&#160;&#160;&#160;(<a class="el" href="group__mcdma.html#gad145c274adf210cacf11db6de650c93d">NUMBER_OF_BDS_TO_TRANSFER</a> * <a class="el" href="group__mcdma.html#gaa2cbdec5743bbebc99afa6729c5b98f1">MAX_PKT_LEN</a> * <a class="el" href="group__mcdma.html#gac69ee46f4a51ed14f0d68628c2dec71d">MAX_CHANNELS</a> )</td></tr>
+<tr class="memdesc:ga9ab33647617098646990fe263600b650"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit buffer size in bytes.  <a href="group__mcdma.html#ga9ab33647617098646990fe263600b650">More...</a><br/></td></tr>
+<tr class="separator:ga9ab33647617098646990fe263600b650"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga739a2a1a0047c98ac1b18ecd25dac092"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga739a2a1a0047c98ac1b18ecd25dac092">RX_BUFFER_SIZE</a>&#160;&#160;&#160;(<a class="el" href="group__mcdma.html#gad145c274adf210cacf11db6de650c93d">NUMBER_OF_BDS_TO_TRANSFER</a> * <a class="el" href="group__mcdma.html#gaa2cbdec5743bbebc99afa6729c5b98f1">MAX_PKT_LEN</a> * <a class="el" href="group__mcdma.html#gac69ee46f4a51ed14f0d68628c2dec71d">MAX_CHANNELS</a> )</td></tr>
+<tr class="memdesc:ga739a2a1a0047c98ac1b18ecd25dac092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive buffer size in bytes.  <a href="group__mcdma.html#ga739a2a1a0047c98ac1b18ecd25dac092">More...</a><br/></td></tr>
+<tr class="separator:ga739a2a1a0047c98ac1b18ecd25dac092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64e70e955482e715d7d8eb8ae678a046"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga64e70e955482e715d7d8eb8ae678a046">TX_BD_SPACE_SIZE</a>&#160;&#160;&#160;(<a class="el" href="group__mcdma.html#gad145c274adf210cacf11db6de650c93d">NUMBER_OF_BDS_TO_TRANSFER</a> * sizeof(<a class="el" href="group__mcdma.html#gab0faadd4c5865b9b5207cd7645383950">XMcdma_Bd</a>) * <a class="el" href="group__mcdma.html#gac69ee46f4a51ed14f0d68628c2dec71d">MAX_CHANNELS</a>)</td></tr>
+<tr class="memdesc:ga64e70e955482e715d7d8eb8ae678a046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit BD space size in bytes.  <a href="group__mcdma.html#ga64e70e955482e715d7d8eb8ae678a046">More...</a><br/></td></tr>
+<tr class="separator:ga64e70e955482e715d7d8eb8ae678a046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6c4c8de08ac1ca72b66a4050277ef19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#gac6c4c8de08ac1ca72b66a4050277ef19">RX_BD_SPACE_SIZE</a>&#160;&#160;&#160;(<a class="el" href="group__mcdma.html#gad145c274adf210cacf11db6de650c93d">NUMBER_OF_BDS_TO_TRANSFER</a> * sizeof(<a class="el" href="group__mcdma.html#gab0faadd4c5865b9b5207cd7645383950">XMcdma_Bd</a>) * <a class="el" href="group__mcdma.html#gac69ee46f4a51ed14f0d68628c2dec71d">MAX_CHANNELS</a>)</td></tr>
+<tr class="memdesc:gac6c4c8de08ac1ca72b66a4050277ef19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive BD space size in bytes.  <a href="group__mcdma.html#gac6c4c8de08ac1ca72b66a4050277ef19">More...</a><br/></td></tr>
+<tr class="separator:gac6c4c8de08ac1ca72b66a4050277ef19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xmcdma__interrupt__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mcdma.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the MCDMA interrupt-mode example entry point.  <a href="group__mcdma.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function. </p>
-<p>This function is the main entry of the tests on DMA core. It sets up DMA engine to be ready to receive and send packets, then a packet is transmitted and will be verified after it is received via the DMA.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if test passes</li>
-<li>XST_FAILURE if test fails.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__mcdma.html#gaded8280c89d619daddc45d217358a319">XMcDma_CfgInitialize()</a>, and <a class="el" href="group__mcdma.html#ga40001810e81daead29b9959adec411c8">XMcdma_LookupConfig()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

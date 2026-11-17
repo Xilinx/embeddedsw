@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_i3c_psx___config.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,11 +108,11 @@ $(document).ready(function(){initNavTree('struct_x_i3c_psx___config.html','');})
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XI3cPsx_Config Struct Reference</div>  </div>
+<div class="title">XI3cPsx_Config Struct Reference<div class="ingroups"><a class="el" href="group__i3cpsx.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for the device.
+<p>Holds configuration information for the device.
  <a href="struct_x_i3c_psx___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xi3cpsx.h&gt;</code></p>
@@ -126,10 +126,10 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a4f4633a41e3d44f839d1d57ab8d5a7c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the device.  <a href="#a4f4633a41e3d44f839d1d57ab8d5a7c9">More...</a><br/></td></tr>
 <tr class="separator:a4f4633a41e3d44f839d1d57ab8d5a7c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79fe5b77d0221b0892a514459a538827"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx___config.html#a79fe5b77d0221b0892a514459a538827">IntrId</a></td></tr>
-<tr class="memdesc:a79fe5b77d0221b0892a514459a538827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags.  <a href="#a79fe5b77d0221b0892a514459a538827">More...</a><br/></td></tr>
+<tr class="memdesc:a79fe5b77d0221b0892a514459a538827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags.  <a href="#a79fe5b77d0221b0892a514459a538827">More...</a><br/></td></tr>
 <tr class="separator:a79fe5b77d0221b0892a514459a538827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab79c83351a0c9b9c603c38116ee9269"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx___config.html#aab79c83351a0c9b9c603c38116ee9269">IntrParent</a></td></tr>
-<tr class="memdesc:aab79c83351a0c9b9c603c38116ee9269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1] Parent base address.  <a href="#aab79c83351a0c9b9c603c38116ee9269">More...</a><br/></td></tr>
+<tr class="memdesc:aab79c83351a0c9b9c603c38116ee9269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] interrupt parent type; bit[64/32:1] parent base address.  <a href="#aab79c83351a0c9b9c603c38116ee9269">More...</a><br/></td></tr>
 <tr class="separator:aab79c83351a0c9b9c603c38116ee9269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa76d9e4b8c427158e74cd21c37b62cc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx___config.html#afa76d9e4b8c427158e74cd21c37b62cc">InputClockHz</a></td></tr>
 <tr class="memdesc:afa76d9e4b8c427158e74cd21c37b62cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input clock frequency.  <a href="#afa76d9e4b8c427158e74cd21c37b62cc">More...</a><br/></td></tr>
@@ -139,7 +139,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:add540cee8ff3c582dbc6536f781aba41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for the device. </p>
+<div class="textblock"><p>Holds configuration information for the device. </p>
+<p>This typedef contains configuration information for the device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a4f4633a41e3d44f839d1d57ab8d5a7c9"></a>
 <div class="memitem">
@@ -153,7 +154,7 @@ Data Fields</h2></td></tr>
 
 <p>Base address of the device. </p>
 
-<p>Referenced by <a class="el" href="xi3cpsx__intr__example_8c.html#a813e5bbca8357e45e0b2f412727f8b96">I3cPsxMasterIntrExample()</a>, <a class="el" href="xi3cpsx__polled__example_8c.html#a5419de39e4f4fb073bb44ad6c07d657a">I3cPsxMasterPolledExample()</a>, <a class="el" href="xi3cpsx__slave__loopback_8c.html#ab9d0cb3ac9cd03f7d09a187b988688c4">I3cPsxSlaveLoopbackExample()</a>, <a class="el" href="group___overview.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group___overview.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group___overview.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group___overview.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group___overview.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group___overview.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, <a class="el" href="group___overview.html#ga72475e850e3677acf4a32c3a6ba58141">XI3cPsx_Reset()</a>, <a class="el" href="group___overview.html#ga5f5337ebb6a45588fd6c72aeaa87ecc0">XI3cPsx_ResetFifos()</a>, <a class="el" href="xi3cpsx__options_8c.html#a840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, <a class="el" href="group___overview.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave()</a>, <a class="el" href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>, <a class="el" href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, <a class="el" href="group___overview.html#ga620be974fe2a6fd52a390ce36cc1a300">XI3cPsx_WrCmdFifo()</a>, and <a class="el" href="group___overview.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
+<p>Referenced by <a class="el" href="xi3cpsx__intr__example_8c.html#a813e5bbca8357e45e0b2f412727f8b96">I3cPsxMasterIntrExample()</a>, <a class="el" href="xi3cpsx__polled__example_8c.html#a5419de39e4f4fb073bb44ad6c07d657a">I3cPsxMasterPolledExample()</a>, <a class="el" href="xi3cpsx__slave__intr__loopback_8c.html#a0191fa11e5a5679438cfa2ca89553e20">I3cPsxSlaveIntrLoopbackExample()</a>, <a class="el" href="xi3cpsx__slave__loopback_8c.html#ab9d0cb3ac9cd03f7d09a187b988688c4">I3cPsxSlaveLoopbackExample()</a>, <a class="el" href="group__i3cpsx__api.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga67bf66f817a77e2f0853503e6b5b4289">XI3cPsx_DisableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c01e1c25170142147ca03dc67e8252f">XI3cPsx_DisableIbi()</a>, <a class="el" href="group__i3cpsx__api.html#ga3070017e3f8c720a473fa4ff97e01eae">XI3cPsx_EnableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#gaa9839ccffc6576b507ddc99f50b08203">XI3cPsx_EnableIbi()</a>, <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group__i3cpsx__api.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group__i3cpsx.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, <a class="el" href="group__i3cpsx__api.html#ga72475e850e3677acf4a32c3a6ba58141">XI3cPsx_Reset()</a>, <a class="el" href="group__i3cpsx__api.html#ga5f5337ebb6a45588fd6c72aeaa87ecc0">XI3cPsx_ResetFifos()</a>, <a class="el" href="group__i3cpsx__api.html#ga840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, <a class="el" href="group__i3cpsx__api.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend()</a>, <a class="el" href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, <a class="el" href="group__i3cpsx.html#ga620be974fe2a6fd52a390ce36cc1a300">XI3cPsx_WrCmdFifo()</a>, and <a class="el" href="group__i3cpsx.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
 
 </div>
 </div>
@@ -169,7 +170,7 @@ Data Fields</h2></td></tr>
 
 <p>No of I3C devices. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group___overview.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group___overview.html#ga8a69288d43feb7b4b08a025f240c7d3d">XI3cPsx_SendAddrAssignCmd()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, and <a class="el" href="group__i3cpsx.html#ga8a69288d43feb7b4b08a025f240c7d3d">XI3cPsx_SendAddrAssignCmd()</a>.</p>
 
 </div>
 </div>
@@ -185,7 +186,7 @@ Data Fields</h2></td></tr>
 
 <p>Input clock frequency. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="xi3cpsx__options_8c.html#a840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#ga840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>.</p>
 
 </div>
 </div>
@@ -199,9 +200,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </p>
+<p>Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags. </p>
 
-<p>Referenced by <a class="el" href="xi3cpsx__intr__example_8c.html#a813e5bbca8357e45e0b2f412727f8b96">I3cPsxMasterIntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="xi3cpsx__intr__example_8c.html#a813e5bbca8357e45e0b2f412727f8b96">I3cPsxMasterIntrExample()</a>, and <a class="el" href="xi3cpsx__slave__intr__loopback_8c.html#a0191fa11e5a5679438cfa2ca89553e20">I3cPsxSlaveIntrLoopbackExample()</a>.</p>
 
 </div>
 </div>
@@ -215,9 +216,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
+<p>Bit[0] interrupt parent type; bit[64/32:1] parent base address. </p>
 
-<p>Referenced by <a class="el" href="xi3cpsx__intr__example_8c.html#a813e5bbca8357e45e0b2f412727f8b96">I3cPsxMasterIntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="xi3cpsx__intr__example_8c.html#a813e5bbca8357e45e0b2f412727f8b96">I3cPsxMasterIntrExample()</a>, and <a class="el" href="xi3cpsx__slave__intr__loopback_8c.html#a0191fa11e5a5679438cfa2ca89553e20">I3cPsxSlaveIntrLoopbackExample()</a>.</p>
 
 </div>
 </div>
@@ -232,6 +233,8 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Name of the device. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga5604f7648887a603000e4d79089d4ce9">XI3cPsx_LookupConfig()</a>.</p>
 
 </div>
 </div>

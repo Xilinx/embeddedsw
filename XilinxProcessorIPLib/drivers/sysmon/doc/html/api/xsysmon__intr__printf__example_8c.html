@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmon__intr__printf__example_8c.html
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,16 +100,16 @@ $(document).ready(function(){initNavTree('xsysmon__intr__printf__example_8c.html
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xsysmon_intr_printf_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the driver functions of the System Monitor/ADC driver. </p>
-<p>This example here shows the usage of the driver/device in interrupt mode to handle on-chip temperature and voltage alarm interrupts.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This code assumes that no Operating System is being used.</p>
+<div class="textblock"><p>Demonstrates interrupt-mode alarm handling with printf reporting. </p>
+<p>This file contains a design example using the driver functions of the System Monitor/ADC driver. This example here shows the usage of the driver/device in interrupt mode to handle on-chip temperature and voltage alarm interrupts.</p>
+<dl class="section note"><dt>Note</dt><dd>This code assumes that no Operating System is being used.</dd></dl>
 <p>The values of the on-chip Temperature, VccInt voltage and VccAux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</p>
 <p>This examples also assumes that there is a STDIO device in the system. This example has floating point calculations and uses printfs for outputting floating point data, therefore the memory allocated for the Stack must be more.</p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
@@ -136,6 +136,8 @@ $(document).ready(function(){initNavTree('xsysmon__intr__printf__example_8c.html
 7.8   cog  07/20/23 Added support for SDT flow
 7.11  dc   02/18/26 Correct spelling errors
 8.0   se   03/05/26 Added SDT interrupt support and IP type detection
+8.1   vn   07/30/26 Fix Doxygen warnings
+8.1   vn   09/29/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsysmon_8h.html">xsysmon.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;stdio.h&quot;</code><br/>
@@ -144,12 +146,190 @@ $(document).ready(function(){initNavTree('xsysmon__intr__printf__example_8c.html
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a84f7428db805800241676dd836763f43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a84f7428db805800241676dd836763f43">SYSMON_DEVICE_ID</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a84f7428db805800241676dd836763f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device ID.  <a href="#a84f7428db805800241676dd836763f43">More...</a><br/></td></tr>
+<tr class="separator:a84f7428db805800241676dd836763f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90bc74590962865fc1ab7ee1be0f4b64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a90bc74590962865fc1ab7ee1be0f4b64">INTC_DEVICE_ID</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a90bc74590962865fc1ab7ee1be0f4b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTC device ID.  <a href="#a90bc74590962865fc1ab7ee1be0f4b64">More...</a><br/></td></tr>
+<tr class="separator:a90bc74590962865fc1ab7ee1be0f4b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac172b71c97538be551eb7030467d8ab2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#ac172b71c97538be551eb7030467d8ab2">INTR_ID</a>&#160;&#160;&#160;(32U + 29U)</td></tr>
+<tr class="memdesc:ac172b71c97538be551eb7030467d8ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">System Monitor interrupt ID.  <a href="#ac172b71c97538be551eb7030467d8ab2">More...</a><br/></td></tr>
+<tr class="separator:ac172b71c97538be551eb7030467d8ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b33c8a1d71d5b9f76973a3fbf40fc0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a3b33c8a1d71d5b9f76973a3fbf40fc0a">TEST_TEMP_UPPER</a>&#160;&#160;&#160;85.0f</td></tr>
+<tr class="memdesc:a3b33c8a1d71d5b9f76973a3fbf40fc0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature Upper Alarm Limit.  <a href="#a3b33c8a1d71d5b9f76973a3fbf40fc0a">More...</a><br/></td></tr>
+<tr class="separator:a3b33c8a1d71d5b9f76973a3fbf40fc0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ec333381c22e400b7319b034568547d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a7ec333381c22e400b7319b034568547d">TEST_TEMP_LOWER</a>&#160;&#160;&#160;65.0f</td></tr>
+<tr class="memdesc:a7ec333381c22e400b7319b034568547d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temperature Lower Alarm Limit.  <a href="#a7ec333381c22e400b7319b034568547d">More...</a><br/></td></tr>
+<tr class="separator:a7ec333381c22e400b7319b034568547d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacaec090cff93b6bdca806ed6018a4f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#aacaec090cff93b6bdca806ed6018a4f0">TEST_VCCINT_UPPER</a>&#160;&#160;&#160;1.05f</td></tr>
+<tr class="memdesc:aacaec090cff93b6bdca806ed6018a4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">VccInt Upper Alarm Limit.  <a href="#aacaec090cff93b6bdca806ed6018a4f0">More...</a><br/></td></tr>
+<tr class="separator:aacaec090cff93b6bdca806ed6018a4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13a9394f7bc302e0b3859f9bd283a7eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a13a9394f7bc302e0b3859f9bd283a7eb">TEST_VCCINT_LOWER</a>&#160;&#160;&#160;0.95f</td></tr>
+<tr class="memdesc:a13a9394f7bc302e0b3859f9bd283a7eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">VccInt Lower Alarm Limit.  <a href="#a13a9394f7bc302e0b3859f9bd283a7eb">More...</a><br/></td></tr>
+<tr class="separator:a13a9394f7bc302e0b3859f9bd283a7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af68ceafb17d9dd3f9bcb0148d155f48b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#af68ceafb17d9dd3f9bcb0148d155f48b">TEST_VCCAUX_UPPER</a>&#160;&#160;&#160;2.625f</td></tr>
+<tr class="memdesc:af68ceafb17d9dd3f9bcb0148d155f48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">VccAux Upper Alarm Limit.  <a href="#af68ceafb17d9dd3f9bcb0148d155f48b">More...</a><br/></td></tr>
+<tr class="separator:af68ceafb17d9dd3f9bcb0148d155f48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4ca70cc9b3e703d18727460200b6f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#aca4ca70cc9b3e703d18727460200b6f9">TEST_VCCAUX_LOWER</a>&#160;&#160;&#160;2.375f</td></tr>
+<tr class="memdesc:aca4ca70cc9b3e703d18727460200b6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">VccAux Lower Alarm Limit.  <a href="#aca4ca70cc9b3e703d18727460200b6f9">More...</a><br/></td></tr>
+<tr class="separator:aca4ca70cc9b3e703d18727460200b6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb9f0894fab1c8fbb0753c9c7c2a8d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a3cb9f0894fab1c8fbb0753c9c7c2a8d9">printf</a>&#160;&#160;&#160;xil_printf</td></tr>
+<tr class="memdesc:a3cb9f0894fab1c8fbb0753c9c7c2a8d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Small foot-print printf function.  <a href="#a3cb9f0894fab1c8fbb0753c9c7c2a8d9">More...</a><br/></td></tr>
+<tr class="separator:a3cb9f0894fab1c8fbb0753c9c7c2a8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__intr__printf__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the Interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the Interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a90bc74590962865fc1ab7ee1be0f4b64"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTC_DEVICE_ID&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>INTC device ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac172b71c97538be551eb7030467d8ab2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTR_ID&#160;&#160;&#160;(32U + 29U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System Monitor interrupt ID. </p>
+
+<p>Referenced by <a class="el" href="xsysmon__intr__printf__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3cb9f0894fab1c8fbb0753c9c7c2a8d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define printf&#160;&#160;&#160;xil_printf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Small foot-print printf function. </p>
+
+</div>
+</div>
+<a class="anchor" id="a84f7428db805800241676dd836763f43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSMON_DEVICE_ID&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device ID. </p>
+
+<p>Referenced by <a class="el" href="xsysmon__intr__printf__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7ec333381c22e400b7319b034568547d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_TEMP_LOWER&#160;&#160;&#160;65.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temperature Lower Alarm Limit. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3b33c8a1d71d5b9f76973a3fbf40fc0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_TEMP_UPPER&#160;&#160;&#160;85.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temperature Upper Alarm Limit. </p>
+
+</div>
+</div>
+<a class="anchor" id="aca4ca70cc9b3e703d18727460200b6f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_VCCAUX_LOWER&#160;&#160;&#160;2.375f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VccAux Lower Alarm Limit. </p>
+
+</div>
+</div>
+<a class="anchor" id="af68ceafb17d9dd3f9bcb0148d155f48b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_VCCAUX_UPPER&#160;&#160;&#160;2.625f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VccAux Upper Alarm Limit. </p>
+
+</div>
+</div>
+<a class="anchor" id="a13a9394f7bc302e0b3859f9bd283a7eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_VCCINT_LOWER&#160;&#160;&#160;0.95f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VccInt Lower Alarm Limit. </p>
+
+</div>
+</div>
+<a class="anchor" id="aacaec090cff93b6bdca806ed6018a4f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_VCCINT_UPPER&#160;&#160;&#160;1.05f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VccInt Upper Alarm Limit. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -165,21 +345,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the Interrupt example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Invokes the Interrupt example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xsysmon__intr__example_8c.html#af50518d379f898d28dfc9072e9984140">SysMonIntrExample()</a>.</p>
+<p>References <a class="el" href="xsysmon__intr__printf__example_8c.html#ac172b71c97538be551eb7030467d8ab2">INTR_ID</a>, <a class="el" href="xsysmon__intr__printf__example_8c.html#a84f7428db805800241676dd836763f43">SYSMON_DEVICE_ID</a>, and <a class="el" href="xsysmon__intr__example_8c.html#af50518d379f898d28dfc9072e9984140">SysMonIntrExample()</a>.</p>
 
 </div>
 </div>

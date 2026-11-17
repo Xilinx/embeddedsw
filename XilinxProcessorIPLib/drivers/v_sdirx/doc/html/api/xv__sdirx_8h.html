@@ -1223,15 +1223,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the <a class="el" href="struct_x_v___sdi_rx___config.html" title="This typedef contains configuration information for the SDI RX core. ">XV_SdiRx_Config</a> structure corresponding to the given BaseAddress. Returns NULL if a matching configuration is not found.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function searches the configuration table for a device matching the specified BaseAddress and returns a pointer to its configuration structure. The configuration structure contains all hardware-specific parameters needed to initialize the SDI Rx core.</dd></dl>
 <p>Looks up the device configuration for a SDI Rx core based on its base address.</p>
-<p>The return value will refer to an entry in the device configuration table defined in the xv_sdirx_g.c file.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique core ID of the SDI RX core for the lookup operation.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XV_SdiRx_LookupConfig returns a reference to a config record in the configuration table (in xv_sdirx_g.c) corresponding to <em>DeviceId</em>, or NULL if no match is found.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. Look up the configuration for an SDI Rx device based on its base address.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">BaseAddress</td><td>The base address of the SDI Rx device to look up.</td></tr>

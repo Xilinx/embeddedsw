@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xuartpsv__hw_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,18 +104,27 @@ $(document).ready(function(){initNavTree('xuartpsv__hw_8c.html','');});
 <div class="title">xuartpsv_hw.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartpsv__hw_8h.html">xuartpsv_hw.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements low-level hardware access functions for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver  Who  Date      Changes
+</p>
+<hr/>
+<p>
+1.0  sg   09/18/17  First Release
+1.15 vn   07/30/26  Fix Doxygen warnings
+1.15 vn   09/10/26  Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartpsv__hw_8h.html">xuartpsv_hw.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga24308126daae7b67de1790b345933598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">XUartPsv_SendByte</a> (UINTPTR BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:ga24308126daae7b67de1790b345933598"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends one byte using the device.  <a href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">More...</a><br/></td></tr>
+<tr class="memdesc:ga24308126daae7b67de1790b345933598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends one byte using the device in polled mode.  <a href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">More...</a><br/></td></tr>
 <tr class="separator:ga24308126daae7b67de1790b345933598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">XUartPsv_RecvByte</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a byte from the device.  <a href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">More...</a><br/></td></tr>
+<tr class="memdesc:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a byte from the device in polled mode.  <a href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">More...</a><br/></td></tr>
 <tr class="separator:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga99e7a45fe3e00b94d58f540acf6328af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">XUartPsv_ResetHw</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga99e7a45fe3e00b94d58f540acf6328af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets UART.  <a href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">More...</a><br/></td></tr>
+<tr class="memdesc:ga99e7a45fe3e00b94d58f540acf6328af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the UART.  <a href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">More...</a><br/></td></tr>
 <tr class="separator:ga99e7a45fe3e00b94d58f540acf6328af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

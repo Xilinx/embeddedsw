@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__2vp__p_2client_2xloader__plat__client_8h" kind="file">
+    <compoundname>versal_2vp_p/client/xloader_plat_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xloader__mailbox_8h" local="yes">xloader_mailbox.h</includes>
+    <includedby refid="versal__2vp__p_2client_2xloader__plat__client_8c" local="yes">xloader_plat_client.c</includedby>
+    <incdepgraph>
+      <node id="1262">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="1263" relation="include">
+        </childnode>
+        <childnode refid="1264" relation="include">
+        </childnode>
+        <childnode refid="1265" relation="include">
+        </childnode>
+      </node>
+      <node id="1260">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal_2vp_p/client/xloader_plat_client.h"/>
+        <childnode refid="1261" relation="include">
+        </childnode>
+        <childnode refid="1262" relation="include">
+        </childnode>
+      </node>
+      <node id="1263">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1261">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1264">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1266">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1265">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1266" relation="include">
+        </childnode>
+        <childnode refid="1261" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1268">
+        <label>xloader_plat_client.c</label>
+        <link refid="versal__2vp__p_2client_2xloader__plat__client_8c"/>
+      </node>
+      <node id="1267">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal_2vp_p/client/xloader_plat_client.h"/>
+        <childnode refid="1268" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ConfigureJtagState</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 Flag)</argsstring>
+        <name>XLoader_ConfigureJtagState</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to configure jtag status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To enable / disable jtag.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To enable/disable jtag.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2vp_p/client/xloader_plat_client.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="304" bodyend="329"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the client function prototypes, defines and macros. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+2.5   tvp  08/03/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>XLOADER_PLAT_CLIENT_H</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_PLAT_CLIENT_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__mailbox_8h" kindref="compound">xloader_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kindref="member">XLoader_ConfigureJtagState</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_PLAT_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2vp_p/client/xloader_plat_client.h"/>
+  </compounddef>
+</doxygen>

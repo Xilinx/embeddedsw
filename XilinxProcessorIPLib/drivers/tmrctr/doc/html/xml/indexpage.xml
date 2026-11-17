@@ -75,6 +75,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                     is enabled in compilation flags.
 4.10  adk  27/12/22 Updated addtogroup tag.
 4.11  adk  04/14/23 Added support for system device-tree flow.
+4.16  ml   16/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

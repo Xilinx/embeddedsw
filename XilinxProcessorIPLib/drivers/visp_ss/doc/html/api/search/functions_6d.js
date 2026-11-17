@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['mailbox_5fclose',['mailbox_close',['../mbox__cmd_8h.html#a949c9ae44275c88712bf4ebf25234725',1,'mbox_cmd.c']]],
+  ['mailbox_5finit',['mailbox_init',['../mbox__cmd_8h.html#a54e2f11c4f6a8de4f63f8e9c9f6a2eaa',1,'mbox_cmd.c']]],
+  ['mbox_5fchecksum_5fcalculate',['mbox_checksum_calculate',['../mbox__checksum_8h.html#a4bafdc482f9426ed8f66b692ee3a2997',1,'mbox_checksum_calculate(MboxPostMsg *msg):&#160;mbox_checksum.c'],['../mbox__checksum_8c.html#a4bafdc482f9426ed8f66b692ee3a2997',1,'mbox_checksum_calculate(MboxPostMsg *msg):&#160;mbox_checksum.c']]],
+  ['mbox_5fchecksum_5fsize',['mbox_checksum_size',['../mbox__checksum_8h.html#a08081b5f3c430f19db4a96e6837fc02d',1,'mbox_checksum_size(const MboxPostMsg *msg):&#160;mbox_checksum.c'],['../mbox__checksum_8c.html#a08081b5f3c430f19db4a96e6837fc02d',1,'mbox_checksum_size(const MboxPostMsg *msg):&#160;mbox_checksum.c']]],
+  ['mbox_5fseq_5fassign_5foutbound',['mbox_seq_assign_outbound',['../mbox__seq_8h.html#a0c3a4f3eaa90f1caa8b330ec29b2dc38',1,'mbox_seq_assign_outbound(MboxCoreId remote_core_id, Payload_packet *payload):&#160;mbox_seq.c'],['../mbox__seq_8c.html#a0c3a4f3eaa90f1caa8b330ec29b2dc38',1,'mbox_seq_assign_outbound(MboxCoreId remote_core_id, Payload_packet *payload):&#160;mbox_seq.c']]],
+  ['mbox_5fseq_5finit_5fall',['mbox_seq_init_all',['../mbox__seq_8h.html#aa6c27d9f82181c5bb3357b4685765b16',1,'mbox_seq_init_all(void):&#160;mbox_seq.c'],['../mbox__seq_8c.html#aa6c27d9f82181c5bb3357b4685765b16',1,'mbox_seq_init_all(void):&#160;mbox_seq.c']]],
+  ['mbox_5fseq_5fmark_5fresync',['mbox_seq_mark_resync',['../mbox__seq_8h.html#a6ce339f8e45b2223bb0f072b76d02a7c',1,'mbox_seq_mark_resync(MboxCoreId remote_core_id):&#160;mbox_seq.c'],['../mbox__seq_8c.html#a6ce339f8e45b2223bb0f072b76d02a7c',1,'mbox_seq_mark_resync(MboxCoreId remote_core_id):&#160;mbox_seq.c']]],
+  ['mbox_5fseq_5fvalidate_5finbound',['mbox_seq_validate_inbound',['../mbox__seq_8h.html#a222dac29e6b88c34147587bb68e021da',1,'mbox_seq_validate_inbound(MboxCoreId remote_core_id, const MboxPostMsg *msg):&#160;mbox_seq.c'],['../mbox__seq_8c.html#a222dac29e6b88c34147587bb68e021da',1,'mbox_seq_validate_inbound(MboxCoreId remote_core_id, const MboxPostMsg *msg):&#160;mbox_seq.c']]]
+];

@@ -4,14 +4,14 @@
     <compoundname>xtpm_cmd.h</compoundname>
     <includes local="yes">xplmi_config.h</includes>
     <incdepgraph>
-      <node id="53">
-        <label>xplmi_config.h</label>
-      </node>
       <node id="52">
         <label>xtpm_cmd.h</label>
         <link refid="xtpm_cmd.h"/>
         <childnode refid="53" relation="include">
         </childnode>
+      </node>
+      <node id="53">
+        <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -51,6 +51,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XTPM_CMD_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/server/xtpm_cmd.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/server/xtpm_cmd.h"/>
   </compounddef>
 </doxygen>

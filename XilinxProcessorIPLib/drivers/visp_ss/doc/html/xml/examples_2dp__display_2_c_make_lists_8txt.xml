@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="examples_2dp__display_2_c_make_lists_8txt" kind="file">
+    <compoundname>examples/dp_display/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>DisplayPort<sp/>live-output<sp/>support<sp/>sources<sp/>for<sp/>the<sp/>VISP<sp/>SS<sp/>example.</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Datapath:<sp/>ISP<sp/>-&gt;<sp/>frmbuf_wr<sp/>-&gt;<sp/>DDR<sp/>-&gt;<sp/>frmbuf_rd<sp/>-&gt;<sp/>VTC<sp/>-&gt;<sp/>DC<sp/>(live)<sp/>-&gt;<sp/>DP<sp/>TX</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Self-guarded:<sp/>only<sp/>compiled<sp/>when<sp/>the<sp/>design<sp/>provides<sp/>the<sp/>DP/DC/clk_wiz<sp/>IPs</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>(DP_DISPLAY_AVAILABLE<sp/>is<sp/>set<sp/>in<sp/>test.cmake<sp/>from<sp/>xparameters.h),<sp/>so<sp/>the<sp/>same</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>example<sp/>also<sp/>builds<sp/>on<sp/>ISP-only<sp/>/<sp/>HDMI<sp/>designs<sp/>that<sp/>lack<sp/>these<sp/>drivers.</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(DP_DISPLAY_AVAILABLE)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>dp_display_bridge.h)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>mmi_dpdc_example.h)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>mmi_dpdc_platform.h)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>mmi_dc_nonlive_test.h)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>mmi_dp_init.h)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>mmi_dp_intr.h)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>dp_display_bridge.c)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>mmi_dp_init.c)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>mmi_dp_intr.c)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/dp_display/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

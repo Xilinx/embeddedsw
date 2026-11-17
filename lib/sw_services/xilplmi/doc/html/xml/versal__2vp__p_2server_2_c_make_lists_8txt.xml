@@ -19,6 +19,6 @@
 <codeline lineno="10"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_err.c)</highlight></codeline>
 <codeline lineno="11"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_plat.c)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp_p/server/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp_p/server/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

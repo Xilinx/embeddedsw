@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,8 +28,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="123" bodyend="-1"/>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
         <referencedby refid="group__i2stx_1gab33cb9b421dbb85cef8a75a0dbf8a1dd" compoundref="xi2stx_8c" startline="79" endline="105">XI2s_Tx_CfgInitialize</referencedby>
         <referencedby refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</referencedby>
         <referencedby refid="group__i2stx_1gab68c1f16ccac1a678e93bd9c3bcdaed0" compoundref="xi2stx_8c" startline="292" endline="306">XI2s_Tx_GetAesChStatus</referencedby>
@@ -38,7 +38,7 @@
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
         <referencedby refid="group__i2stx_1gab101d38c979a17b2bd4540a3b418933d" compoundref="xi2stx_8c" startline="369" endline="383">XI2s_Tx_Justify</referencedby>
         <referencedby refid="group__i2stx_1gae5c7f651728493e9ca5a13d824f47893" compoundref="xi2stx_8c" startline="344" endline="358">XI2s_Tx_JustifyEnable</referencedby>
-        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="155" endline="218">XI2s_Tx_LogDisplay</referencedby>
+        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="157" endline="215">XI2s_Tx_LogDisplay</referencedby>
         <referencedby refid="group__i2stx_1ga265a3458a6fd3232bba3df9f9341e3cd" compoundref="xi2stx_8c" startline="199" endline="239">XI2s_Tx_SetChMux</referencedby>
         <referencedby refid="group__i2stx_1gacdd2c6678f1038ca76099cbcaebe1fde" compoundref="xi2stx_8c" startline="259" endline="281">XI2s_Tx_SetSclkOutDiv</referencedby>
       </memberdef>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="120" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gacdd2c6678f1038ca76099cbcaebe1fde" compoundref="xi2stx_8c" startline="259" endline="281">XI2s_Tx_SetSclkOutDiv</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i2stx___config_1a859e555af49b28a0fc21cc78001654e5" prot="public" static="no" mutable="no">
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i2stx___config_1a43a22f65a31208715277ffd61dc2d3fe" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i2stx___config_1a5a2f448e04f2f4b111801418097ed07e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i2stx___config_1a4bacb2d7f6fb18f6c29c60bb5338c8f2" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i2stx___config_1a4c296cb693b8783b0f1ce06f22567a5c" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -119,14 +119,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains configuration information for the I2s Transmitter. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="117" bodyend="133"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="117" bodyend="127"/>
     <listofallmembers>
       <member refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" prot="public" virt="non-virtual"><scope>XI2stx_Config</scope><name>BaseAddress</name></member>
       <member refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" prot="public" virt="non-virtual"><scope>XI2stx_Config</scope><name>DWidth</name></member>

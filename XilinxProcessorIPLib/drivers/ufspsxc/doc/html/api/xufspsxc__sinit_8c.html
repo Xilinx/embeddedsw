@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xufspsxc__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,14 +104,24 @@ $(document).ready(function(){initNavTree('xufspsxc__sinit_8c.html','');});
 <div class="title">xufspsxc_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements UFSPSXC static initialization. </p>
+<p>Implements static initialization for the UFSPSXC driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   sk  01/16/24 First release
+1.3   tb  09/16/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xufspsxc_8h.html">xufspsxc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2002c7351a5cac41c7a0bea8c1bf8ed9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ufs_psxc___config.html">XUfsPsxc_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ufspsxc.html#ga2002c7351a5cac41c7a0bea8c1bf8ed9">XUfsPsxc_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga2002c7351a5cac41c7a0bea8c1bf8ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID.  <a href="group__ufspsxc.html#ga2002c7351a5cac41c7a0bea8c1bf8ed9">More...</a><br/></td></tr>
-<tr class="separator:ga2002c7351a5cac41c7a0bea8c1bf8ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2aa0df1edb5747863d5be2d9058356fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ufs_psxc___config.html">XUfsPsxc_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ufspsxc__api.html#ga2aa0df1edb5747863d5be2d9058356fe">XUfsPsxc_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga2aa0df1edb5747863d5be2d9058356fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up UFSPSXC configuration by base address.  <a href="group__ufspsxc__api.html#ga2aa0df1edb5747863d5be2d9058356fe">More...</a><br/></td></tr>
+<tr class="separator:ga2aa0df1edb5747863d5be2d9058356fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

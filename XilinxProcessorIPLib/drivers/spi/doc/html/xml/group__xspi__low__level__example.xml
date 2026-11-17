@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspi__low__level__example" kind="group">
+    <compoundname>xspi_low_level_example</compoundname>
+    <title>Xspi_low_level_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspi__low__level__example_1gad956cc40f38fd50369912f124b256acc" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Buffer[BUFFER_SIZE]</definition>
+        <argsstring>[BUFFER_SIZE]</argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+<para>The buffer used for Transmission/Reception of the SPI test data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="163" endline="297">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__xspi__low__level__example_1ga84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="134" endline="209">XSpi_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspi__low__level__example_1ga84062f5eec2674a89353f5679b0928a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSpi_LowLevelExample</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XSpi_LowLevelExample</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs a simple loopback test within an SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the SPI device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" bodystart="134" bodyend="209"/>
+        <references refid="group__xspi__low__level__example_1gad956cc40f38fd50369912f124b256acc" compoundref="xspi__low__level__example_8c" startline="96">Buffer</references>
+        <references refid="group__xspi__low__level__example_1ga6b20d41d6252e9871430c242cb1a56e7" compoundref="xspi__low__level__example_8c" startline="91">BUFFER_SIZE</references>
+        <references refid="group__spi__api_1ga1c10904273bbeb8fb8fc502c5cc9cdf6" compoundref="xspi__l_8h" startline="213">XSP_CR_ENABLE_MASK</references>
+        <references refid="group__spi__api_1ga6a060df48208ca7e56572762233ceadb" compoundref="xspi__l_8h" startline="212">XSP_CR_LOOPBACK_MASK</references>
+        <references refid="group__spi__api_1ga25aabcaa1db090de7cf4aaf3cb05ea6b" compoundref="xspi__l_8h" startline="214">XSP_CR_MASTER_MODE_MASK</references>
+        <references refid="group__spi__api_1ga3a63aa98328d40e3221901143e128da1" compoundref="xspi__l_8h" startline="118">XSP_CR_OFFSET</references>
+        <references refid="group__spi__api_1ga2d045067441152dbf5729d4dce64032b" compoundref="xspi__l_8h" startline="224">XSP_CR_TRANS_INHIBIT_MASK</references>
+        <references refid="group__spi__api_1ga078846fea7538049312959d15b44a9dd" compoundref="xspi__l_8h" startline="121">XSP_DRR_OFFSET</references>
+        <references refid="group__spi__api_1ga02929309d91a658ac28746aee48d0c04" compoundref="xspi__l_8h" startline="120">XSP_DTR_OFFSET</references>
+        <references refid="group__spi__api_1gae4915bf726554a2abf5922129f88542b" compoundref="xspi__l_8h" startline="119">XSP_SR_OFFSET</references>
+        <references refid="group__spi__api_1ga25dfccf25bae24caa237ec3b75825438" compoundref="xspi__l_8h" startline="255">XSP_SR_RX_EMPTY_MASK</references>
+        <references refid="group__spi__api_1gaaa5946629075b285ce0c4b90a87f4fec" compoundref="xspi__l_8h" startline="257">XSP_SR_TX_EMPTY_MASK</references>
+        <references refid="group__spi__api_1ga2666d211089b037853ee6d1f80130ae7" compoundref="xspi__l_8h" startline="260">XSP_SR_TX_FULL_MASK</references>
+        <references refid="group__spi__api_1ga5e55891344ab473841b6eefc2bda35a2" compoundref="xspi__l_8h" startline="82">XSpi_ReadReg</references>
+        <references refid="group__spi__api_1ga32e741800118678aa060ef2a13661e31" compoundref="xspi__l_8h" startline="99">XSpi_WriteReg</references>
+        <referencedby refid="group__xspi__low__level__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__low__level__example_8c" startline="106" endline="122">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspi__low__level__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the SPI Low Level example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS to indicate success, else XST_FAILURE to indicate Failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" bodystart="106" bodyend="122"/>
+        <references refid="group__xspi__low__level__example_1ga436080127ea3e4da2c133b63566132fc" compoundref="xspi__low__level__example_8c" startline="72">SPI_BASEADDR</references>
+        <references refid="group__xspi__low__level__example_1ga84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="134" endline="209">XSpi_LowLevelExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspi__low__level__example_1ga436080127ea3e4da2c133b63566132fc" prot="public" static="no">
+        <name>SPI_BASEADDR</name>
+        <initializer>XPAR_XSPI_0_BASEADDR</initializer>
+        <briefdescription>
+<para>SPI base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" line="72" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xspi__low__level__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspi__low__level__example_8c" startline="106" endline="122">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspi__low__level__example_1ga6b20d41d6252e9871430c242cb1a56e7" prot="public" static="no">
+        <name>BUFFER_SIZE</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>This is the size of the buffer to be transmitted/received in this example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spi/examples/xspi_low_level_example.c" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xspi__low__level__example_1ga84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="134" endline="209">XSpi_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

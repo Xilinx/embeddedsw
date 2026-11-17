@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_clk___wiz___config.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,11 +109,11 @@ $(document).ready(function(){initNavTree('struct_x_clk___wiz___config.html','');
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XClk_Wiz_Config Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
+<div class="title">XClk_Wiz_Config Struct Reference<div class="ingroups"><a class="el" href="group__clk__wiz.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The configuration structure for CLK_WIZ Controller This structure passes the hardware building information to the driver.
+<p>Holds CLK_WIZ device configuration data.
  <a href="struct_x_clk___wiz___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xclk_wiz.h&gt;</code></p>
@@ -174,14 +174,15 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:ad27e675e3da734bc59621ddb146dc927"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of clocks.  <a href="#ad27e675e3da734bc59621ddb146dc927">More...</a><br/></td></tr>
 <tr class="separator:ad27e675e3da734bc59621ddb146dc927"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ba8b3c180b759c858f1f5ccbf2ec0dd"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_clk___wiz___config.html#a9ba8b3c180b759c858f1f5ccbf2ec0dd">IntId</a></td></tr>
-<tr class="memdesc:a9ba8b3c180b759c858f1f5ccbf2ec0dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt ID on GIC.  <a href="#a9ba8b3c180b759c858f1f5ccbf2ec0dd">More...</a><br/></td></tr>
+<tr class="memdesc:a9ba8b3c180b759c858f1f5ccbf2ec0dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt ID on the GIC.  <a href="#a9ba8b3c180b759c858f1f5ccbf2ec0dd">More...</a><br/></td></tr>
 <tr class="separator:a9ba8b3c180b759c858f1f5ccbf2ec0dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3219042353291eaa8025c1ff0ead5014"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_clk___wiz___config.html#a3219042353291eaa8025c1ff0ead5014">IntrParent</a></td></tr>
 <tr class="memdesc:a3219042353291eaa8025c1ff0ead5014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1] Parent base address.  <a href="#a3219042353291eaa8025c1ff0ead5014">More...</a><br/></td></tr>
 <tr class="separator:a3219042353291eaa8025c1ff0ead5014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The configuration structure for CLK_WIZ Controller This structure passes the hardware building information to the driver. </p>
+<div class="textblock"><p>Holds CLK_WIZ device configuration data. </p>
+<p>The configuration structure for CLK_WIZ Controller This structure passes the hardware building information to the driver </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="aa737385b3fd370d1bb677f0b366cdbd0"></a>
 <div class="memitem">
@@ -195,7 +196,7 @@ Data Fields</h2></td></tr>
 
 <p>Base address of CLK_WIZ Controller. </p>
 
-<p>Referenced by <a class="el" href="xclk__wiz__intr__example_8c.html#aaf3c110063d937f1fbe69c0e299fe55d">Clk_Wiz_Reconfig()</a>, <a class="el" href="xclk__wiz__setrate__example_8c.html#a91d283445c401eebe2a05eff4c549363">ClkWiz_Example()</a>, <a class="el" href="xclk__wiz__intr__example_8c.html#a4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>, <a class="el" href="xclk__wiz__intr__example_8c.html#ab6b07f0022d7f609127ba69fcce3a6ca">Wait_For_Lock()</a>, <a class="el" href="xclk__wiz__versal__example_8c.html#a7ac72face0b386c645cdba25e6d99967">XClk_WaitForLock()</a>, <a class="el" href="group___overview.html#ga96e21929b605502ed7b693c0a2132b4e">XClk_Wiz_CfgInitialize()</a>, <a class="el" href="group___overview.html#gac6b82e8b7e00bc66dd233345a4cb5c41">XClk_Wiz_DisableClock()</a>, <a class="el" href="group___overview.html#ga0965f9b5b43c453ca70e8b43f03490ca">XClk_Wiz_EnableClock()</a>, and <a class="el" href="group___overview.html#gacf581607624ee4f19e501ff7802101db">XClk_Wiz_WaitForLock()</a>.</p>
+<p>Referenced by <a class="el" href="group__xclk__wiz__intr__example.html#gaaf3c110063d937f1fbe69c0e299fe55d">Clk_Wiz_Reconfig()</a>, <a class="el" href="group__xclk__wiz__versal__example.html#ga91d283445c401eebe2a05eff4c549363">ClkWiz_Example()</a>, <a class="el" href="group__xclk__wiz__intr__example.html#ga4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>, <a class="el" href="group__xclk__wiz__intr__example.html#gab6b07f0022d7f609127ba69fcce3a6ca">Wait_For_Lock()</a>, <a class="el" href="group__xclk__wiz__versal__example.html#ga7ac72face0b386c645cdba25e6d99967">XClk_WaitForLock()</a>, <a class="el" href="group__clk__wiz.html#ga8e0a2e5f4f78b8e13d0d41b4857feac6">XClk_Wiz_CfgInitialize()</a>, <a class="el" href="group__clk__wiz.html#gac6b82e8b7e00bc66dd233345a4cb5c41">XClk_Wiz_DisableClock()</a>, <a class="el" href="group__clk__wiz.html#ga0965f9b5b43c453ca70e8b43f03490ca">XClk_Wiz_EnableClock()</a>, and <a class="el" href="group__clk__wiz.html#gacf581607624ee4f19e501ff7802101db">XClk_Wiz_WaitForLock()</a>.</p>
 
 </div>
 </div>
@@ -211,7 +212,7 @@ Data Fields</h2></td></tr>
 
 <p>It enables the Clock Monitor. </p>
 
-<p>Referenced by <a class="el" href="xclk__wiz__intr__example_8c.html#a4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__xclk__wiz__intr__example.html#ga4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>.</p>
 
 </div>
 </div>
@@ -311,9 +312,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Interrupt ID on GIC. </p>
+<p>Interrupt ID on the GIC. </p>
 
-<p>Referenced by <a class="el" href="xclk__wiz__intr__example_8c.html#a4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>, and <a class="el" href="group___overview.html#ga96e21929b605502ed7b693c0a2132b4e">XClk_Wiz_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__xclk__wiz__intr__example.html#ga4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>, and <a class="el" href="group__clk__wiz.html#ga8e0a2e5f4f78b8e13d0d41b4857feac6">XClk_Wiz_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -329,7 +330,7 @@ Data Fields</h2></td></tr>
 
 <p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
 
-<p>Referenced by <a class="el" href="xclk__wiz__intr__example_8c.html#a4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>, and <a class="el" href="group___overview.html#ga96e21929b605502ed7b693c0a2132b4e">XClk_Wiz_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__xclk__wiz__intr__example.html#ga4317fcb0dd04f5e8a7ea459815115c12">ClkWiz_IntrExample()</a>, and <a class="el" href="group__clk__wiz.html#ga8e0a2e5f4f78b8e13d0d41b4857feac6">XClk_Wiz_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -345,7 +346,7 @@ Data Fields</h2></td></tr>
 
 <p>Name of the device. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga7c7165398cf3a2578d5dfd1c3947b43c">XClk_Wiz_GetInputRate()</a>, <a class="el" href="group___overview.html#gaa010b97df663b779c04308727bce6bdc">XClk_Wiz_LookupConfig()</a>, and <a class="el" href="group___overview.html#ga0456881555560b358b47fb336542a4d3">XClk_Wiz_SetInputRate()</a>.</p>
+<p>Referenced by <a class="el" href="group__clk__wiz.html#ga73446298c7b928ee6cb202f5400b3bbd">XClk_Wiz_GetClkInSel()</a>, <a class="el" href="group__clk__wiz.html#ga64acfcb227b6e29e76f6a7717a614b0b">XClk_Wiz_GetInFreqkHz()</a>, <a class="el" href="group__clk__wiz.html#ga7c7165398cf3a2578d5dfd1c3947b43c">XClk_Wiz_GetInputRate()</a>, <a class="el" href="group__clk__wiz__api.html#ga209a145483be43688a5ff52b66de0010">XClk_Wiz_LookupConfig()</a>, <a class="el" href="group__clk__wiz.html#ga64b0e1b69d29b23d6059c0a7100c724c">XClk_Wiz_SetClkInSel()</a>, <a class="el" href="group__clk__wiz.html#ga90fd2e4dc22840e69f951887194ea467">XClk_Wiz_SetInFreqkHz()</a>, and <a class="el" href="group__clk__wiz.html#ga0456881555560b358b47fb336542a4d3">XClk_Wiz_SetInputRate()</a>.</p>
 
 </div>
 </div>
@@ -361,7 +362,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of clocks. </p>
 
-<p>Referenced by <a class="el" href="xclk__wiz__setrate__example_8c.html#a91d283445c401eebe2a05eff4c549363">ClkWiz_Example()</a>, <a class="el" href="group___overview.html#ga5da48627691e7e979b7c4fbcb608796a">XClk_Wiz_GetRate()</a>, <a class="el" href="group___overview.html#gadaf78e2da6e9c9dc9bd7a86f97d6b79e">XClk_Wiz_SetRate()</a>, and <a class="el" href="group___overview.html#ga0408e2c4fba6d9237aeb72db5c38164b">XClk_Wiz_SetRateHz()</a>.</p>
+<p>Referenced by <a class="el" href="group__xclk__wiz__versal__example.html#ga91d283445c401eebe2a05eff4c549363">ClkWiz_Example()</a>, <a class="el" href="group__clk__wiz.html#gaede940c91c3db1ca5391002c54836a51">XClk_Wiz_GetOutFreqkHz()</a>, <a class="el" href="group__clk__wiz.html#ga5da48627691e7e979b7c4fbcb608796a">XClk_Wiz_GetRate()</a>, <a class="el" href="group__clk__wiz.html#ga77adb7e4f27536847ca35ffdcd271111">XClk_Wiz_SetOutFreqkHz()</a>, <a class="el" href="group__clk__wiz.html#gadaf78e2da6e9c9dc9bd7a86f97d6b79e">XClk_Wiz_SetRate()</a>, <a class="el" href="group__clk__wiz.html#ga0408e2c4fba6d9237aeb72db5c38164b">XClk_Wiz_SetRateHz()</a>, and <a class="el" href="group__clk__wiz.html#gac5cd1fee1ff92a4c5ebb9e38f5d09793">XClk_Wiz_UpdateDivisors()</a>.</p>
 
 </div>
 </div>
@@ -391,7 +392,7 @@ Data Fields</h2></td></tr>
 
 <p>Input Clock. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga0456881555560b358b47fb336542a4d3">XClk_Wiz_SetInputRate()</a>.</p>
+<p>Referenced by <a class="el" href="group__clk__wiz.html#ga7c7165398cf3a2578d5dfd1c3947b43c">XClk_Wiz_GetInputRate()</a>, and <a class="el" href="group__clk__wiz.html#ga0456881555560b358b47fb336542a4d3">XClk_Wiz_SetInputRate()</a>.</p>
 
 </div>
 </div>

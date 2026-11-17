@@ -9,12 +9,12 @@
         <argsstring></argsstring>
         <name>Shift</name>
         <briefdescription>
-        </briefdescription>
+<para>Shift. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_clock___type_div_1aea26c6e3e314eb6354c257539ea88870" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +22,12 @@
         <argsstring></argsstring>
         <name>IsInit</name>
         <briefdescription>
-        </briefdescription>
+<para>Isinit. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_clock___type_div_1afec452d5776f9a7be6aa0891efdca94b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +35,12 @@
         <argsstring></argsstring>
         <name>EnableCount</name>
         <briefdescription>
-        </briefdescription>
+<para>Enablecount. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_clock___type_div_1ab41e0632264ac3bf5d8a1e54bd8b7086" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -48,12 +48,12 @@
         <argsstring></argsstring>
         <name>Parent</name>
         <briefdescription>
-        </briefdescription>
+<para>Parent. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_clock___type_div_1a754b1c1f4d79f52e1922e84bb5d7b8a3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -61,32 +61,32 @@
         <argsstring></argsstring>
         <name>CtrlReg</name>
         <briefdescription>
-        </briefdescription>
+<para>Ctrlreg. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_clock___type_div_1a84cf17c363d4622937365272d1903efe" prot="public" static="no" mutable="no">
-        <type>XClockRate</type>
+        <type><ref refid="group__clockps_1gaf55785e68481a5b3236a81a4f02c10dc" kindref="member">XClockRate</ref></type>
         <definition>XClockRate XClock_TypeDiv::Rate</definition>
         <argsstring></argsstring>
         <name>Rate</name>
         <briefdescription>
-        </briefdescription>
+<para>Rate. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="100" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Holds divisors. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="76" bodyend="83"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="94" bodyend="102"/>
     <listofallmembers>
       <member refid="struct_x_clock___type_div_1a754b1c1f4d79f52e1922e84bb5d7b8a3" prot="public" virt="non-virtual"><scope>XClock_TypeDiv</scope><name>CtrlReg</name></member>
       <member refid="struct_x_clock___type_div_1afec452d5776f9a7be6aa0891efdca94b" prot="public" virt="non-virtual"><scope>XClock_TypeDiv</scope><name>EnableCount</name></member>

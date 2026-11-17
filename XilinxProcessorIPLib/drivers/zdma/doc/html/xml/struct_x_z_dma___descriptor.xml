@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="197" bodyend="-1"/>
-        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="265" endline="299">XZDma_CreateBDList</referencedby>
-        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="262" endline="296">XZDma_CreateBDList</referencedby>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="897" endline="965">XZDma_ScatterGather</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___descriptor_1a0af3889a9a8bffce7a1b088b33f3af30" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -30,9 +30,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="198" bodyend="-1"/>
-        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="265" endline="299">XZDma_CreateBDList</referencedby>
-        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="262" endline="296">XZDma_CreateBDList</referencedby>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="897" endline="965">XZDma_ScatterGather</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___descriptor_1a79a3a960fa2f970881929a7fe8e3c6e6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -45,12 +45,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="199" bodyend="-1"/>
-        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="265" endline="299">XZDma_CreateBDList</referencedby>
-        <referencedby refid="group__zdma_1ga70f7466e97aae2126181727774f6e6bb" compoundref="xzdma_8c" startline="818" endline="844">XZDma_Start</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="262" endline="296">XZDma_CreateBDList</referencedby>
+        <referencedby refid="group__zdma_1ga70f7466e97aae2126181727774f6e6bb" compoundref="xzdma_8c" startline="798" endline="825">XZDma_Start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_z_dma___descriptor_1aa8747f4ea5ab6059bf7ccc85a74abf03" prot="public" static="no" mutable="no">
-        <type><ref refid="xzdma_8h_1a8deecd1bc1f130b591748afb1790a013" kindref="member">XZDma_DscrType</ref></type>
+        <type><ref refid="group__zdma_1ga8deecd1bc1f130b591748afb1790a013" kindref="member">XZDma_DscrType</ref></type>
         <definition>XZDma_DscrType XZDma_Descriptor::DscrType</definition>
         <argsstring></argsstring>
         <name>DscrType</name>
@@ -60,16 +60,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="200" bodyend="-1"/>
-        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="265" endline="299">XZDma_CreateBDList</referencedby>
-        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="262" endline="296">XZDma_CreateBDList</referencedby>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="897" endline="965">XZDma_ScatterGather</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef contains scatter gather descriptor fields for ZDMA core. </para>    </briefdescription>
+<para>Holds scatter-gather descriptor fields for the ZDMA core. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="196" bodyend="202"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="192" bodyend="198"/>
     <listofallmembers>
       <member refid="struct_x_z_dma___descriptor_1a79a3a960fa2f970881929a7fe8e3c6e6" prot="public" virt="non-virtual"><scope>XZDma_Descriptor</scope><name>DscrCount</name></member>
       <member refid="struct_x_z_dma___descriptor_1aa8747f4ea5ab6059bf7ccc85a74abf03" prot="public" virt="non-virtual"><scope>XZDma_Descriptor</scope><name>DscrType</name></member>

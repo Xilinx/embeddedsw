@@ -1,0 +1,918 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xqspipsu__generic__flash__lqspi__example" kind="group">
+    <compoundname>xqspipsu_generic_flash_lqspi_example</compoundname>
+    <title>Xqspipsu_generic_flash_lqspi_example</title>
+      <sectiondef kind="user-defined">
+      <header>XPAR parameter mappings</header>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga90bc74590962865fc1ab7ee1be0f4b64" prot="public" static="no">
+        <name>INTC_DEVICE_ID</name>
+        <initializer>XPAR_SCUGIC_SINGLE_DEVICE_ID</initializer>
+        <briefdescription>
+<para>Interrupt controller device ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga2c6677f58d994a4318d67e35673735d7" prot="public" static="no">
+        <name>QSPIPSU_INTR_ID</name>
+        <initializer>XPAR_XQSPIPS_0_INTR</initializer>
+        <briefdescription>
+<para>QSPIPSU interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__xqspipsu__generic__flash__lqspi__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xqspipsu__generic__flash__lqspi__example_8c" startline="244" endline="267">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>4-byte address mode selection</header>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga31940fea1df9356b6121b7fd9b022b04" prot="public" static="no">
+        <name>ENTER_4B</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Value to enter 4-byte address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga42b702d33037696a449fedb2aa9bf2a4" prot="public" static="no">
+        <name>EXIT_4B</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Value to exit 4-byte address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga8aacb9e0b5c8a66134d297b16670f6ae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadCmd</definition>
+        <argsstring></argsstring>
+        <name>ReadCmd</name>
+        <briefdescription>
+<para>Read command used for flash reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga0282705d6928fb1ec764e90e42e8fe5b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteCmd</definition>
+        <argsstring></argsstring>
+        <name>WriteCmd</name>
+        <briefdescription>
+<para>Write command used for flash writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga84a26bd98405c23d484087358ecfb0d8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 StatusCmd</definition>
+        <argsstring></argsstring>
+        <name>StatusCmd</name>
+        <briefdescription>
+<para>Command used to read the flash status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gae0707f64633bd21ff248072e461b91d7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SectorEraseCmd</definition>
+        <argsstring></argsstring>
+        <name>SectorEraseCmd</name>
+        <briefdescription>
+<para>Command used for sector erases. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gadb76586d04c997f8b79c771199f091be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FSRFlag</definition>
+        <argsstring></argsstring>
+        <name>FSRFlag</name>
+        <briefdescription>
+<para>Set when the flag status register is polled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga6d521daf149f9047dc5d589daaa16d42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Single-byte command transmit buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga3823486ff385aeb62ad5e661d3127982" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBfrPtr[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>ReadBfrPtr</name>
+        <briefdescription>
+<para>Receive buffer for the flash ID and registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gaf8ace83e43786ba25b4a81742df92b37" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashMake</definition>
+        <argsstring></argsstring>
+        <name>FlashMake</name>
+        <briefdescription>
+<para>Manufacturer ID of the detected flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga8d80524bb6369924849dee07b6037695" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FCTIndex</definition>
+        <argsstring></argsstring>
+        <name>FCTIndex</name>
+        <briefdescription>
+<para>Flash configuration table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga175593a17440fbee28967264baf4cb77" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref></type>
+        <definition>XQspiPsu QspiPsuInstance</definition>
+        <argsstring></argsstring>
+        <name>QspiPsuInstance</name>
+        <briefdescription>
+<para>QSPIPSU driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gac5d623290bc61b6752404b56e0c9fd94" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref></type>
+        <definition>XQspiPsu_Msg FlashMsg[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>FlashMsg</name>
+        <briefdescription>
+<para>Messages for flash transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga9bff0e07ddc92703ae31b4dcee56c153" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransferDone</definition>
+        <argsstring></argsstring>
+        <name>TransferDone</name>
+        <briefdescription>
+<para>Set when a transfer ends. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <briefdescription>
+<para>Tracks errors that occur during interrupt processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gab3bcee72bda39943b664463f1df4d211" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Test</definition>
+        <argsstring></argsstring>
+        <name>Test</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>The following variable allows a test value to be added to the values that are written to the Flash such that unique values can be generated to guarantee the writes to the Flash were successful. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gad4a9fc13421a86b26f3d05645beabd42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[(PAGE_COUNT *MAX_PAGE_SIZE)+DATA_OFFSET]</definition>
+        <argsstring>[(PAGE_COUNT *MAX_PAGE_SIZE)+DATA_OFFSET]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Buffer that holds the data to write to the flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gae05983c4f8e4b2d1c912414136eac56c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdBfr[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>CmdBfr</name>
+        <briefdescription>
+<para>Buffer for the flash command and address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xqspipsu__generic__flash__lqspi__example_1gab839e91b4279b469bdd2167b7e386fd2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MaxData</definition>
+        <argsstring></argsstring>
+        <name>MaxData</name>
+        <initializer>= <ref refid="group__xqspipsu__write__protect__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kindref="member">PAGE_COUNT</ref> * 256</initializer>
+        <briefdescription>
+<para>Maximum amount of data to transfer to and from the Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>The value also sets the size of the buffer that holds the data and the transfer overhead. It is initialized to the single flash page size. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga5460b9fed1713fd6fcf6fe88b8eb3331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int QspiPsuInterruptFlashExample</definition>
+        <argsstring>(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>QspiPsuInterruptFlashExample</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Demonstrates the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> driver with flash devices of 128Mb or more. </para>        </briefdescription>
+        <detaileddescription>
+<para>The example uses the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> device driver in single, parallel, and stacked modes with flash devices greater than or equal to 128Mb.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">QspiPsuInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance of the QspiPsu device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="154" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1gac7c0194bd58d158581c699b8c07c309d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashReadID</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr)</argsstring>
+        <name>FlashReadID</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the flash ID and identifies the flash in the FCT table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga8c7c38172a5258ee7cdfaef5a1a9af82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashErase</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Erases sectors in the serial Flash connected to the QSPIPSU interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the first sector to erase. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total size to erase. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer to transmit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga333c8e44e9af52811dee98f2cfcacf53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashWrite</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashWrite</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial Flash connected to the QSPIPSU interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>All the data put into the buffer must be in the same page of the device, with page boundaries on 256-byte boundaries.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address in the Flash to write the data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command used to write data to the flash. The QSPIPSU device supports only the Page Program command to write data to the flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer to transmit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="159" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1gaaaad34739d0ad6d1fb5436c1d6428463" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashRead</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashRead</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a read operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default setting is DMA mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the first sector which needs to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total size to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Command used to read data from the flash. Supports normal, fast, dual, and quad read commands. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer that contains the data to transmit. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the read buffer to which valid received data is written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="161" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1gaf45c38b76bbabbaf848a33cdc889ebfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetRealAddr</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u32 Address)</argsstring>
+        <name>GetRealAddr</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Translates the address based on the type of interconnection. </para>        </briefdescription>
+        <detaileddescription>
+<para>In stacked mode, this function asserts the corresponding slave select.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to access (for erase, write, or read).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Translated address. For single mode, the address is unchanged. For stacked mode, the lower flash size is subtracted. For parallel mode, the address is divided by 2.</para></simplesect>
+<simplesect kind="note"><para>This function gets the actual address to work on the flash. It also selects the CS and BUS based on the detected configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga4f09bf044ed26b11fc5489cb7b7ca1e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int BulkErase</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)</argsstring>
+        <name>BulkErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a bulk erase when the flash device has a single die. </para>        </briefdescription>
+        <detaileddescription>
+<para>The bulk erase works for both Spansion and Micron flash devices.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command and address to send.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="164" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga97d8ab88e6002a97c30b95b66db231ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DieErase</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)</argsstring>
+        <name>DieErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a die erase operation on all the dies in the flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>It uses the die erase command for Micron 512Mbit and 1Gbit devices.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command and address to send.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="165" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga48231ad0042a647ddbcf702df748d1a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QspiPsuHandler</definition>
+        <argsstring>(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</argsstring>
+        <name>QspiPsuHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Handles the callback from the QSPIPSU driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event that just occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes transferred up until the event occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="171" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1gae8d1767607b58391ccb2d0103c2fd456" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashEnterExit4BAddMode</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr, unsigned int Enable)</argsstring>
+        <name>FlashEnterExit4BAddMode</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Enters or exits the 4-byte addressing mode of the flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>As per the Micron and ISSI specifications, a write enable command is issued before the command to enter 4-byte address mode. Macronix and Winbond flash parts do not require write enable.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode selection: 1 enters 4-byte mode and 0 exits it.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if it fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="172" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga83a78784f5ba39b5e76b17a7e4a5ecad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashEnableQuadMode</definition>
+        <argsstring>(XQspiPsu *QspiPsuPtr)</argsstring>
+        <name>FlashEnableQuadMode</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>QspiPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables Quad mode for flash parts that need it before Quad commands. </para>        </briefdescription>
+        <detaileddescription>
+<para>For S25FL-L series flash parts, this is required because the default configuration is x1/x2 mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPSU driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if it fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the QSPIPSU Flash example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="244" bodyend="267"/>
+        <references refid="group__xqspipsu__generic__flash__lqspi__example_1ga2c6677f58d994a4318d67e35673735d7" compoundref="xqspipsu__generic__flash__lqspi__example_8c" startline="119">QSPIPSU_INTR_ID</references>
+        <references refid="group__xqspipsu__generic__flash__interrupt__example_1ga5460b9fed1713fd6fcf6fe88b8eb3331" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="298" endline="539">QspiPsuInterruptFlashExample</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xqspipsu__generic__flash__lqspi__example_1gaa6bbd1c49467adb12326f1d14b849a97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XQspiPsu_LqspiRead</definition>
+        <argsstring>(XQspiPsu *InstancePtr, u8 *RecvBufPtr, UINTPTR Address, unsigned ByteCount)</argsstring>
+        <name>XQspiPsu_LqspiRead</name>
+        <param>
+          <type><ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RecvBufPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Reads the flash in Linear QSPI mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">RecvBufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer for received data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting address within the flash from where data needs to be read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to receive.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the read is performed.</para></listitem><listitem><para>XST_FAILURE if Linear mode is not set. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="285" bodyend="307"/>
+        <references refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" compoundref="xqspipsu_8h" startline="240">XQspiPsu::IsReady</references>
+        <references refid="group__qspipsu__api_1ga6079956c578f636665b87ca5f60b8bad" compoundref="xqspipsu_8h" startline="459">XQspiPsu_GetLqspiConfigReg</references>
+        <references refid="group__qspipsu_1gac5bfff58ddca187becec7c533cf355fe" compoundref="xqspipsu__hw_8h" startline="168">XQSPIPSU_LQSPI_CR_LINEAR_MASK</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" prot="public" static="no">
+        <name>PAGE_COUNT</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Number of flash pages to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" prot="public" static="no">
+        <name>MAX_PAGE_SIZE</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Maximum page size to initialize the write and read buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1ga9376dcef436c7d444fe4d1fd11749101" prot="public" static="no">
+        <name>TEST_ADDRESS</name>
+        <initializer>0x000000</initializer>
+        <briefdescription>
+<para>Flash address to write data to. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xqspipsu__generic__flash__lqspi__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Start value of the test data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_lqspi_example.c" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -28,7 +28,6 @@
     <member refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" kind="function"><name>XWdtPs_SetControlValue</name></member>
   </compound>
   <compound refid="xwdtps_8h" kind="file"><name>xwdtps.h</name>
-    <member refid="group__wdtps_1gac766494d522d445e628dd65f01fe4130" kind="define"><name>XWDTPS_H</name></member>
     <member refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" kind="define"><name>XWDTPS_RESET_SIGNAL</name></member>
     <member refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" kind="define"><name>XWDTPS_IRQ_SIGNAL</name></member>
     <member refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" kind="define"><name>XWDTPS_CLK_PRESCALE</name></member>
@@ -74,7 +73,6 @@
     <member refid="group__wdtps_1gac45a97f7c45ce5c10365a27c199d8d2c" kind="define"><name>XWDTPS_CCR_PSCALE_4096</name></member>
     <member refid="group__wdtps_1ga798fcec0eac576d8309e3995e3597b3e" kind="define"><name>XWDTPS_RESTART_KEY_VAL</name></member>
     <member refid="group__wdtps_1ga79c7165641f0f9b4e356675fc0d0960b" kind="define"><name>XWDTPS_SR_WDZ_MASK</name></member>
-    <member refid="group__wdtps_1gaa55483ea4e4979700111be19b03d06e7" kind="define"><name>XWDTPS_HW_H</name></member>
     <member refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" kind="define"><name>XWdtPs_ReadReg</name></member>
     <member refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" kind="define"><name>XWdtPs_WriteReg</name></member>
   </compound>
@@ -104,6 +102,10 @@
     <member refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" kind="function"><name>XWdtPs_LookupConfig</name></member>
   </compound>
   <compound refid="group__wdtps" kind="group"><name>wdtps</name>
+    <member refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" kind="define"><name>XWDTPS_RESET_SIGNAL</name></member>
+    <member refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" kind="define"><name>XWDTPS_IRQ_SIGNAL</name></member>
+    <member refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" kind="define"><name>XWDTPS_CLK_PRESCALE</name></member>
+    <member refid="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" kind="define"><name>XWDTPS_COUNTER_RESET</name></member>
     <member refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" kind="define"><name>XWDTPS_ZMR_OFFSET</name></member>
     <member refid="group__wdtps_1ga55c7e50c407f1bb66181c306fc51e3b3" kind="define"><name>XWDTPS_CCR_OFFSET</name></member>
     <member refid="group__wdtps_1gaa8bb5ca85ad74f2e5601444673e6ed09" kind="define"><name>XWDTPS_RESTART_OFFSET</name></member>
@@ -139,14 +141,8 @@
     <member refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" kind="function"><name>XWdtPs_SetControlValue</name></member>
     <member refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" kind="function"><name>XWdtPs_LookupConfig</name></member>
     <member refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" kind="function"><name>XWdtPs_SelfTest</name></member>
-    <member refid="group__wdtps_1gac766494d522d445e628dd65f01fe4130" kind="define"><name>XWDTPS_H</name></member>
-    <member refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" kind="define"><name>XWDTPS_RESET_SIGNAL</name></member>
-    <member refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" kind="define"><name>XWDTPS_IRQ_SIGNAL</name></member>
-    <member refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" kind="define"><name>XWDTPS_CLK_PRESCALE</name></member>
-    <member refid="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" kind="define"><name>XWDTPS_COUNTER_RESET</name></member>
     <member refid="group__wdtps_1ga5ad51ea203fc3eb20ecd848117c2f930" kind="define"><name>XWdtPs_IsWdtExpired</name></member>
     <member refid="group__wdtps_1ga89baace72a7b8abe477a8cfed4606a08" kind="define"><name>XWdtPs_RestartWdt</name></member>
-    <member refid="group__wdtps_1gaa55483ea4e4979700111be19b03d06e7" kind="define"><name>XWDTPS_HW_H</name></member>
     <member refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" kind="define"><name>XWdtPs_ReadReg</name></member>
     <member refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" kind="define"><name>XWdtPs_WriteReg</name></member>
   </compound>

@@ -4,7 +4,7 @@
     <compoundname>index</compoundname>
     <title>rfdc</title>
     <detaileddescription>
-<para>The Xilinx� LogiCORE IP Zynq UltraScale+ RFSoC RF Data Converter IP core provides a configurable wrapper to allow the RF DAC and RF ADC blocks to be used in IP Integrator designs. Multiple tiles are available on each RFSoC and each tile can have a number of data converters (analog-to-digital (ADC) and digital-to-analog (DAC)). The RF ADCs can sample input frequencies up to 4 GHz at 4 GSPS with excellent noise spectral density. The RF DACs generate output carrier frequencies up to 4 GHz using the 2nd Nyquist zone with excellent noise spectral density at an update rate of 6.4 GSPS. The RF data converters also include power efficient digital down-converters (DDCs) and digital up-converters (DUCs) that include programmable interpolation and decimation, NCO and complex mixer. The DDCs and DUCs can also support dual-band operation. A maximum of 4 tiles are available on for DAC and ADC operations each. Each tile can have a maximum of 4 blocks/slices. This driver provides APIs to configure various functionalities. Similarly the driver provides APIs to read back configurations. Some of the features that the driver supports are: 1) Setting up and reading back fine mixer settings 2) Setting up and reading back coarse mixer settings 3) Reading back interpolation or decimation factors 4) Setting up and reading back QMC settings which include gain, phase etc 5) Setting up and reading back decoder mode settings 6) Setting up and reading back coarse delay settings All the APIs implemented in the driver provide appropriate range checks. An API has been provided for debug purpose which will dump all registers for a requested tile. Inline functions have also been provided to read back the parameters initially configured through the GUI.</para><para>There are plans to add more features, e.g. Support for multi band, PLL configurations etc.</para><para><preformatted>
+<para>The Xilinx� LogiCORE IP Zynq UltraScale+ RFSoC RF Data Converter IP core provides a configurable wrapper to allow the RF DAC and RF ADC blocks to be used in IP Integrator designs. Multiple tiles are available on each RFSoC and each tile can have a number of data converters (analog-to-digital (ADC) and digital-to-analog (DAC)). The RF ADCs can sample input frequencies up to 4 GHz at 4 GSPS with excellent noise spectral density. The RF DACs generate output carrier frequencies up to 4 GHz using the 2nd Nyquist zone with excellent noise spectral density at an update rate of 6.4 GSPS. The RF data converters also include power efficient digital down-converters (DDCs) and digital up-converters (DUCs) that include programmable interpolation and decimation, NCO and complex mixer. The DDCs and DUCs can also support dual-band operation. A maximum of 4 tiles are available on for DAC and ADC operations each. Each tile can have a maximum of 4 blocks/slices. This driver provides APIs to configure various functionalities. Similarly the driver provides APIs to read back configurations. Some of the features that the driver supports are: 1) Setting up and reading back fine mixer settings 2) Setting up and reading back coarse mixer settings 3) Reading back interpolation or decimation factors 4) Setting up and reading back QMC settings which include gain, phase etc 5) Setting up and reading back decoder mode settings 6) Setting up and reading back coarse delay settings All the APIs implemented in the driver provide appropriate range checks. An API has been provided for debug purpose that dumps all registers for a requested tile. Inline functions have also been provided to read back the parameters initially configured through the GUI.</para><para>There are plans to add more features, for example, support for multi band, PLL configurations etc.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
 <hruler/>
 
@@ -242,7 +242,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 11.1  cog    11/16/21 Upversion.
       cog    11/26/21 Header file clean up, this fixes a C++ compilation issue.
       cog    11/26/21 Pack all structs for RAFT compatibility.
-      cog    12/06/21 Rearrange XRFdc_Distribution_Settings.
+      cog    12/06/21 Rearrange <ref refid="struct_x_r_fdc___distribution___settings" kindref="compound">XRFdc_Distribution_Settings</ref>.
       cog    01/18/22 Added safety checks.
 12.0  cog    10/26/22 Added API <ref refid="group___overview_1ga8088952096ccd13370fb1cfc2b6cf87a" kindref="member">XRFdc_GetCoupling()</ref>, this gets the ADC or
                       DAC coupling.
@@ -252,6 +252,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
       cog    07/14/23 Fix issues with SDT flow.
       cog    07/27/23 Add NCO frequency to config structures.
 12.3  cog    07/09/24 Corrected GEN3 maximum ADC VCO frequency.
-13.1  dc     02/18/26 Correct spelling errors</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+13.1  dc     02/18/26 Correct spelling errors
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

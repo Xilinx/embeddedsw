@@ -10,14 +10,14 @@
         <argsstring></argsstring>
         <name>BaudRate</name>
         <briefdescription>
-<para>In bps, ie 1200. </para>        </briefdescription>
+<para>In bps, for example 1200. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="276" bodyend="-1"/>
-        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="658" endline="693">XUartPsv_GetDataFormat</referencedby>
-        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="560" endline="640">XUartPsv_SetDataFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="278" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="642" endline="677">XUartPsv_GetDataFormat</referencedby>
+        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="547" endline="627">XUartPsv_SetDataFormat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -30,9 +30,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="277" bodyend="-1"/>
-        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="658" endline="693">XUartPsv_GetDataFormat</referencedby>
-        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="560" endline="640">XUartPsv_SetDataFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="642" endline="677">XUartPsv_GetDataFormat</referencedby>
+        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="547" endline="627">XUartPsv_SetDataFormat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_psv_format_1a3d43837c0b3d6bb47322503ace817c9d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -45,9 +45,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="278" bodyend="-1"/>
-        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="658" endline="693">XUartPsv_GetDataFormat</referencedby>
-        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="560" endline="640">XUartPsv_SetDataFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="642" endline="677">XUartPsv_GetDataFormat</referencedby>
+        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="547" endline="627">XUartPsv_SetDataFormat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_psv_format_1aa5b4911ebade83ca74edd5acc235c484" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -60,16 +60,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="279" bodyend="-1"/>
-        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="658" endline="693">XUartPsv_GetDataFormat</referencedby>
-        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="560" endline="640">XUartPsv_SetDataFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1gad9a82725de555ca0e6414d95afb4fb2a" compoundref="xuartpsv__options_8c" startline="642" endline="677">XUartPsv_GetDataFormat</referencedby>
+        <referencedby refid="group__uartpsv_1ga5947dc8794a2d6d1b5cfb7558a83ac4a" compoundref="xuartpsv__options_8c" startline="547" endline="627">XUartPsv_SetDataFormat</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Keep track of data format setting of a device. </para>    </briefdescription>
+<para>Tracks data format settings of a device. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="275" bodyend="280"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" bodystart="277" bodyend="282"/>
     <listofallmembers>
       <member refid="struct_x_uart_psv_format_1a710c7759c468d53d77fc8bd3fa5b8b37" prot="public" virt="non-virtual"><scope>XUartPsvFormat</scope><name>BaudRate</name></member>
       <member refid="struct_x_uart_psv_format_1a6a1664ca6b7271ad33b58b128d462dd9" prot="public" virt="non-virtual"><scope>XUartPsvFormat</scope><name>DataBits</name></member>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___permissions" kind="struct" prot="public">
+    <compoundname>XPm_Permissions</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___permissions_1a2bc99e8934edefbe6ca636bfbbf35d89" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Permissions::WakeupPerms</definition>
+        <argsstring></argsstring>
+        <name>WakeupPerms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___permissions_1ab961ae31de966fdfc3e6f6f6c211c466" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Permissions::PowerdownPerms</definition>
+        <argsstring></argsstring>
+        <name>PowerdownPerms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="22" bodyend="29"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___permissions_1ab961ae31de966fdfc3e6f6f6c211c466" prot="public" virt="non-virtual"><scope>XPm_Permissions</scope><name>PowerdownPerms</name></member>
+      <member refid="struct_x_pm___permissions_1a2bc99e8934edefbe6ca636bfbbf35d89" prot="public" virt="non-virtual"><scope>XPm_Permissions</scope><name>WakeupPerms</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

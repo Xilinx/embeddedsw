@@ -77,6 +77,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -97,7 +103,7 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,7 +113,17 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TIMER_LOAD_VALUE
+: <a class="el" href="xscutimer__intr__example_8c.html#a3a689d923f2be2269d806e822e940c41">xscutimer_intr_example.c</a>
+, <a class="el" href="xscutimer__polled__example_8c.html#a3a689d923f2be2269d806e822e940c41">xscutimer_polled_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
 <li>XScuTimer_ClearInterruptStatus
 : <a class="el" href="group__scutimer.html#gadc11e29fe8f755683fbc6edc883e0a4d">xscutimer.h</a>
 </li>
@@ -125,6 +141,9 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </li>
 <li>XSCUTIMER_CONTROL_PRESCALER_MASK
 : <a class="el" href="group__scutimer.html#ga867b2da6f5e9b1d921c34a925d4b498a">xscutimer_hw.h</a>
+</li>
+<li>XSCUTIMER_CONTROL_PRESCALER_SHIFT
+: <a class="el" href="group__scutimer.html#ga31316fbcb2292f6d29c39a025bbd9821">xscutimer_hw.h</a>
 </li>
 <li>XSCUTIMER_COUNTER_OFFSET
 : <a class="el" href="group__scutimer.html#gaa96f9778b3fb95bb968793b504bee53e">xscutimer_hw.h</a>
@@ -179,6 +198,9 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </li>
 <li>XScuTimer_RestartTimer
 : <a class="el" href="group__scutimer.html#gaf1976650946668999ca5107fef691e53">xscutimer.h</a>
+</li>
+<li>XSCUTIMER_SELFTEST_VALUE
+: <a class="el" href="group__scutimer.html#ga2795253b5bea39b3ca8e8bf96bec03f5">xscutimer_selftest.c</a>
 </li>
 <li>XScuTimer_SetControlReg
 : <a class="el" href="group__scutimer.html#gae0b71c6aa97a846b93c4a5fa2092be9e">xscutimer_hw.h</a>

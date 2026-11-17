@@ -2,4 +2,14 @@
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
+  <compound refid="xasu__ram__ecc_8h" kind="file"><name>xasu_ram_ecc.h</name>
+  </compound>
+  <compound refid="group__asu__ram__ecc" kind="group"><name>asu_ram_ecc</name>
+  </compound>
+  <compound refid="dir_0fa78471ce2e79e1e53a20201c07ec11" kind="dir"><name>asu_ram_ecc</name>
+  </compound>
+  <compound refid="dir_b1a65a1042246ef583768fb1680c1ea2" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
 </doxygenindex>

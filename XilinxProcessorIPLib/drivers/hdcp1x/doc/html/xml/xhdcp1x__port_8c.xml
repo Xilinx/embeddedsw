@@ -12,11 +12,46 @@
       <node id="188">
         <label>xil_assert.h</label>
       </node>
+      <node id="184">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="185" relation="include">
+        </childnode>
+      </node>
       <node id="185">
         <label>xil_io.h</label>
       </node>
       <node id="178">
         <label>stdlib.h</label>
+      </node>
+      <node id="181">
+        <label>xhdcp1x.h</label>
+        <link refid="xhdcp1x_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="187" relation="include">
+        </childnode>
+      </node>
+      <node id="179">
+        <label>string.h</label>
+      </node>
+      <node id="187">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="186">
+        <label>xstatus.h</label>
+      </node>
+      <node id="183">
+        <label>xil_types.h</label>
+      </node>
+      <node id="182">
+        <label>xparameters.h</label>
       </node>
       <node id="177">
         <label>xhdcp1x_port.c</label>
@@ -46,41 +81,6 @@
         <childnode refid="183" relation="include">
         </childnode>
       </node>
-      <node id="179">
-        <label>string.h</label>
-      </node>
-      <node id="187">
-        <label>xtmrctr.h</label>
-      </node>
-      <node id="186">
-        <label>xstatus.h</label>
-      </node>
-      <node id="184">
-        <label>xhdcp1x_hw.h</label>
-        <link refid="xhdcp1x__hw_8h"/>
-        <childnode refid="185" relation="include">
-        </childnode>
-      </node>
-      <node id="183">
-        <label>xil_types.h</label>
-      </node>
-      <node id="182">
-        <label>xparameters.h</label>
-      </node>
-      <node id="181">
-        <label>xhdcp1x.h</label>
-        <link refid="xhdcp1x_8h"/>
-        <childnode refid="182" relation="include">
-        </childnode>
-        <childnode refid="183" relation="include">
-        </childnode>
-        <childnode refid="184" relation="include">
-        </childnode>
-        <childnode refid="186" relation="include">
-        </childnode>
-        <childnode refid="187" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
       <sectiondef kind="func">
       <memberdef kind="function" id="group__hdcp1x_1gaf5f729774d507b92940336ef2112939a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -108,11 +108,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="93" bodyend="132"/>
-        <references refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" compoundref="xhdcp1x_8h" startline="1147">XHdcp1x::Config</references>
-        <references refid="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" compoundref="xhdcp1x_8h" startline="905">XHdcp1x_Config::IsHDMI</references>
-        <references refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" compoundref="xhdcp1x_8h" startline="904">XHdcp1x_Config::IsRx</references>
-        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="93" bodyend="132"/>
+        <references refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" compoundref="xhdcp1x_8h" startline="1139">XHdcp1x::Config</references>
+        <references refid="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" compoundref="xhdcp1x_8h" startline="899">XHdcp1x_Config::IsHDMI</references>
+        <references refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" compoundref="xhdcp1x_8h" startline="898">XHdcp1x_Config::IsRx</references>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="229">XHdcp1x_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1gafe3971f3a49c69f3a316f3fab58fdf20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -141,10 +141,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="147" bodyend="168"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="147" bodyend="168"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a57ab492440b7738789d5458d3c2d621c" compoundref="xhdcp1x__port_8h" startline="63">XHdcp1x_PortPhyIfAdaptorS::Enable</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1gabaa138ac8e69b6b515fc1abf6cf0b83d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -184,12 +184,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="185" bodyend="206"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="185" bodyend="206"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a29464d4bc157416de77ed37b60516636" compoundref="xhdcp1x__port_8h" startline="74">XHdcp1x_PortPhyIfAdaptorS::SetEcfSlots</references>
-        <referencedby refid="group__hdcp1x_1ga4f752680b62e63e3c354880fd5d5156c" compoundref="xhdcp1x__tx_8c" startline="3596" endline="3599">XHdcp1x_TxEnableEcf</referencedby>
-        <referencedby refid="group__hdcp1x_1ga77e1f67d04fe05ef14dbc3c28e6a5942" compoundref="xhdcp1x__tx_8c" startline="547" endline="556">XHdcp1x_TxEnableEcfTimeslots</referencedby>
+        <referencedby refid="group__hdcp1x_1ga4f752680b62e63e3c354880fd5d5156c" compoundref="xhdcp1x__tx_8c" startline="3636" endline="3639">XHdcp1x_TxEnableEcf</referencedby>
+        <referencedby refid="group__hdcp1x_1ga77e1f67d04fe05ef14dbc3c28e6a5942" compoundref="xhdcp1x__tx_8c" startline="549" endline="558">XHdcp1x_TxEnableEcfTimeslots</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga152c8d8f9abdee612ce15f6e914a122a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -218,10 +218,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="220" bodyend="241"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="220" bodyend="241"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a3d4d78ac9c53e61be087a3d193e30de5" compoundref="xhdcp1x__port_8h" startline="64">XHdcp1x_PortPhyIfAdaptorS::Disable</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1gaf1e24817724b0410a9b272343a0ef745" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -248,11 +248,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="254" bodyend="271"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="254" bodyend="271"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ac2c8553a0119a61454b55a636301ac22" compoundref="xhdcp1x__port_8h" startline="67">XHdcp1x_PortPhyIfAdaptorS::IsCapable</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
-        <referencedby refid="group__hdcp1x_1gad30b097e8f3ff909c1ad5bd4c6a7d7c8" compoundref="xhdcp1x__tx_8c" startline="732" endline="745">XHdcp1x_TxIsDownstrmCapable</referencedby>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
+        <referencedby refid="group__hdcp1x_1gad30b097e8f3ff909c1ad5bd4c6a7d7c8" compoundref="xhdcp1x__tx_8c" startline="734" endline="747">XHdcp1x_TxIsDownstrmCapable</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga41b5285a790690159dece6baa5afadf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -279,11 +279,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="285" bodyend="302"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="285" bodyend="302"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1acffa4b66e65db9e791093cc0b5dd2af6" compoundref="xhdcp1x__port_8h" startline="68">XHdcp1x_PortPhyIfAdaptorS::IsRepeater</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
-        <referencedby refid="group__hdcp1x_1gaee964dc4d6fc103705d6358fc2db9480" compoundref="xhdcp1x__tx_8c" startline="891" endline="902">XHdcp1x_TxIsRepeater</referencedby>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
+        <referencedby refid="group__hdcp1x_1gaee964dc4d6fc103705d6358fc2db9480" compoundref="xhdcp1x__tx_8c" startline="893" endline="904">XHdcp1x_TxIsRepeater</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga4ddc37a110b704b91553dea3646d18e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -323,9 +323,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="318" bodyend="339"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="318" bodyend="339"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a184af78bafe34409e91dd15a96cca351" compoundref="xhdcp1x__port_8h" startline="69">XHdcp1x_PortPhyIfAdaptorS::SetRepeater</references>
         <referencedby refid="group__hdcp1x_1ga0b43677a8ea30e51ee23b673349d488e" compoundref="xhdcp1x__rx_8c" startline="387" endline="400">XHdcp1x_RxSetRepeaterBcaps</referencedby>
       </memberdef>
@@ -367,10 +367,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="355" bodyend="377"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="355" bodyend="377"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1afbf79bdc45c855b241e5e1302cee98ad" compoundref="xhdcp1x__port_8h" startline="70">XHdcp1x_PortPhyIfAdaptorS::GetRepeaterInfo</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga6e36b9c8a021600e2c9e3766f94b6dc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -430,16 +430,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="393" bodyend="413"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="393" bodyend="413"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae57bfa58871123955d691a0e764b3e0c" compoundref="xhdcp1x__port_8h" startline="65">XHdcp1x_PortPhyIfAdaptorS::Read</references>
-        <referencedby refid="group__hdcp1x_1gadc55a06b412b97147efb33690e6b1a81" compoundref="xhdcp1x__rx_8c" startline="1606" endline="1630">XHdcp1x_RxSetHdmiMode</referencedby>
-        <referencedby refid="group__hdcp1x_1gae3eacc3ce1104040154509de3edd755f" compoundref="xhdcp1x__rx_8c" startline="1520" endline="1548">XHdcp1x_RxSetTopologyMaxCascadeExceeded</referencedby>
-        <referencedby refid="group__hdcp1x_1ga9e592488862d8a1a599abbcf8bd1b30c" compoundref="xhdcp1x__rx_8c" startline="1561" endline="1594">XHdcp1x_RxSetTopologyMaxDevsExceeded</referencedby>
-        <referencedby refid="group__hdcp1x_1gaacbe196b64bd19fe98db62e552b89788" compoundref="xhdcp1x__tx_8c" startline="2354" endline="2373">XHdcp1x_TxGetTopologyBKSV</referencedby>
-        <referencedby refid="group__hdcp1x_1gaf854c758691f491c5f80e89a795f2a24" compoundref="xhdcp1x__tx_8c" startline="2309" endline="2337">XHdcp1x_TxGetTopologyMaxCascadeExceeded</referencedby>
-        <referencedby refid="group__hdcp1x_1ga029629390d42624ba18930e5d73a948e" compoundref="xhdcp1x__tx_8c" startline="2390" endline="2418">XHdcp1x_TxGetTopologyMaxDevsExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1gadc55a06b412b97147efb33690e6b1a81" compoundref="xhdcp1x__rx_8c" startline="1604" endline="1628">XHdcp1x_RxSetHdmiMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gae3eacc3ce1104040154509de3edd755f" compoundref="xhdcp1x__rx_8c" startline="1518" endline="1546">XHdcp1x_RxSetTopologyMaxCascadeExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9e592488862d8a1a599abbcf8bd1b30c" compoundref="xhdcp1x__rx_8c" startline="1559" endline="1592">XHdcp1x_RxSetTopologyMaxDevsExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1gaacbe196b64bd19fe98db62e552b89788" compoundref="xhdcp1x__tx_8c" startline="2386" endline="2405">XHdcp1x_TxGetTopologyBKSV</referencedby>
+        <referencedby refid="group__hdcp1x_1gaf854c758691f491c5f80e89a795f2a24" compoundref="xhdcp1x__tx_8c" startline="2341" endline="2369">XHdcp1x_TxGetTopologyMaxCascadeExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1ga029629390d42624ba18930e5d73a948e" compoundref="xhdcp1x__tx_8c" startline="2422" endline="2450">XHdcp1x_TxGetTopologyMaxDevsExceeded</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga46da74febe033d53ef2420d318fd63b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -499,13 +499,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="429" bodyend="449"/>
-        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
-        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="429" bodyend="449"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="962">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1141">XHdcp1x::Port</references>
         <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ad9892dcb133381504c00b6db21e3a485" compoundref="xhdcp1x__port_8h" startline="66">XHdcp1x_PortPhyIfAdaptorS::Write</references>
-        <referencedby refid="group__hdcp1x_1gadc55a06b412b97147efb33690e6b1a81" compoundref="xhdcp1x__rx_8c" startline="1606" endline="1630">XHdcp1x_RxSetHdmiMode</referencedby>
-        <referencedby refid="group__hdcp1x_1gae3eacc3ce1104040154509de3edd755f" compoundref="xhdcp1x__rx_8c" startline="1520" endline="1548">XHdcp1x_RxSetTopologyMaxCascadeExceeded</referencedby>
-        <referencedby refid="group__hdcp1x_1ga9e592488862d8a1a599abbcf8bd1b30c" compoundref="xhdcp1x__rx_8c" startline="1561" endline="1594">XHdcp1x_RxSetTopologyMaxDevsExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1gadc55a06b412b97147efb33690e6b1a81" compoundref="xhdcp1x__rx_8c" startline="1604" endline="1628">XHdcp1x_RxSetHdmiMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gae3eacc3ce1104040154509de3edd755f" compoundref="xhdcp1x__rx_8c" startline="1518" endline="1546">XHdcp1x_RxSetTopologyMaxCascadeExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9e592488862d8a1a599abbcf8bd1b30c" compoundref="xhdcp1x__rx_8c" startline="1559" endline="1592">XHdcp1x_RxSetTopologyMaxDevsExceeded</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -824,6 +824,6 @@
 <codeline lineno="449"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="450"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c"/>
   </compounddef>
 </doxygen>

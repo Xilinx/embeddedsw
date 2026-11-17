@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -99,6 +100,7 @@ $(document).ready(function(){initNavTree('xasu__ocp__common_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xasu_ocp_common.c File Reference</div>  </div>
@@ -114,8 +116,27 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.0   rmv  08/12/25 Initial release
       rmv  09/08/25 Add validation for signature buffer length in XAsu_OcpValidateAttestParams
                function</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xasu__ocp__common_8h.html">xasu_ocp_common.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xasu__def_8h.html">xasu_def.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xasu__eccinfo_8h.html">xasu_eccinfo.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga697839baf5a08470384c5d9b411ebf73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga697839baf5a08470384c5d9b411ebf73">XASU_X509_TIME_YEAR_SHIFT</a>&#160;&#160;&#160;(40U)</td></tr>
+<tr class="memdesc:ga697839baf5a08470384c5d9b411ebf73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit positions at which the fields of a point in time are packed into a single value.  <a href="group__xasu__ocp__common__apis.html#ga697839baf5a08470384c5d9b411ebf73">More...</a><br/></td></tr>
+<tr class="separator:ga697839baf5a08470384c5d9b411ebf73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b11aabcb132a0af7aa2a83d3534fe19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga1b11aabcb132a0af7aa2a83d3534fe19">XASU_X509_TIME_MONTH_SHIFT</a>&#160;&#160;&#160;(32U)</td></tr>
+<tr class="memdesc:ga1b11aabcb132a0af7aa2a83d3534fe19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the month.  <a href="group__xasu__ocp__common__apis.html#ga1b11aabcb132a0af7aa2a83d3534fe19">More...</a><br/></td></tr>
+<tr class="separator:ga1b11aabcb132a0af7aa2a83d3534fe19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9818be059f8417cca73809fc1c2d1b67"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga9818be059f8417cca73809fc1c2d1b67">XASU_X509_TIME_DAY_SHIFT</a>&#160;&#160;&#160;(24U)</td></tr>
+<tr class="memdesc:ga9818be059f8417cca73809fc1c2d1b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the day.  <a href="group__xasu__ocp__common__apis.html#ga9818be059f8417cca73809fc1c2d1b67">More...</a><br/></td></tr>
+<tr class="separator:ga9818be059f8417cca73809fc1c2d1b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc35cf67b25348a1985b919c890fec5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#gabc35cf67b25348a1985b919c890fec5d">XASU_X509_TIME_HOUR_SHIFT</a>&#160;&#160;&#160;(16U)</td></tr>
+<tr class="memdesc:gabc35cf67b25348a1985b919c890fec5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the hour.  <a href="group__xasu__ocp__common__apis.html#gabc35cf67b25348a1985b919c890fec5d">More...</a><br/></td></tr>
+<tr class="separator:gabc35cf67b25348a1985b919c890fec5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4e3f0f3acee68b61aada4e5f7e9010a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga4e3f0f3acee68b61aada4e5f7e9010a6">XASU_X509_TIME_MINUTE_SHIFT</a>&#160;&#160;&#160;(8U)</td></tr>
+<tr class="memdesc:ga4e3f0f3acee68b61aada4e5f7e9010a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of the minute.  <a href="group__xasu__ocp__common__apis.html#ga4e3f0f3acee68b61aada4e5f7e9010a6">More...</a><br/></td></tr>
+<tr class="separator:ga4e3f0f3acee68b61aada4e5f7e9010a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga14a22333993f81451f6060e6432b5608"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga14a22333993f81451f6060e6432b5608">XAsu_OcpValidateCertParams</a> (const <a class="el" href="struct_x_asu___ocp_cert_params.html">XAsu_OcpCertParams</a> *OcpCertParam)</td></tr>
@@ -124,6 +145,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3e41f95cc96b47f6c22d3a45f9acacf7"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga3e41f95cc96b47f6c22d3a45f9acacf7">XAsu_OcpValidateAttestParams</a> (const <a class="el" href="struct_x_asu___ocp_dev_ak_attest.html">XAsu_OcpDevAkAttest</a> *OcpAttestParam)</td></tr>
 <tr class="memdesc:ga3e41f95cc96b47f6c22d3a45f9acacf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the OCP DevAk attestation parameters.  <a href="group__xasu__ocp__common__apis.html#ga3e41f95cc96b47f6c22d3a45f9acacf7">More...</a><br/></td></tr>
 <tr class="separator:ga3e41f95cc96b47f6c22d3a45f9acacf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06b02babee3bba75629be182efa734fd"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga06b02babee3bba75629be182efa734fd">XAsu_OcpValidateUserCertParams</a> (const <a class="el" href="struct_x_asu___ocp_user_cert_params.html">XAsu_OcpUserCertParams</a> *OcpUserCertParam)</td></tr>
+<tr class="memdesc:ga06b02babee3bba75629be182efa734fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the user X.509 certificate request parameters.  <a href="group__xasu__ocp__common__apis.html#ga06b02babee3bba75629be182efa734fd">More...</a><br/></td></tr>
+<tr class="separator:ga06b02babee3bba75629be182efa734fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga181ca521ae2d554fecc22277c4e8d1f4"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__ocp__common__apis.html#ga181ca521ae2d554fecc22277c4e8d1f4">XAsu_OcpValidateUserCertCfg</a> (const <a class="el" href="struct_x_asu___x509_user_cert_cfg.html">XAsu_X509UserCertCfg</a> *UserCertCfg)</td></tr>
+<tr class="memdesc:ga181ca521ae2d554fecc22277c4e8d1f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the user supplied configuration of a user X.509 certificate.  <a href="group__xasu__ocp__common__apis.html#ga181ca521ae2d554fecc22277c4e8d1f4">More...</a><br/></td></tr>
+<tr class="separator:ga181ca521ae2d554fecc22277c4e8d1f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

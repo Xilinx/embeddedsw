@@ -6,10 +6,6 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="platform__config_8h" local="yes">platform_config.h</includes>
     <incdepgraph>
-      <node id="5">
-        <label>platform_config.h</label>
-        <link refid="platform__config_8h"/>
-      </node>
       <node id="4">
         <label>xil_cache.h</label>
       </node>
@@ -25,6 +21,10 @@
       </node>
       <node id="3">
         <label>xparameters.h</label>
+      </node>
+      <node id="5">
+        <label>platform_config.h</label>
+        <link refid="platform__config_8h"/>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="36" bodyend="49"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="36" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1a3cd45da24455dd0c7d139388f50d2857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="52" bodyend="56"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="52" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1ac7b3df0fa68526d64c732d5f916e34b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="59" bodyend="66"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="59" bodyend="66"/>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1a4b736149688a45152511e1acfeefd8ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="69" bodyend="73"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="69" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1a69d3ed8dd8510465bb611c416e6325ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="76" bodyend="79"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c" bodystart="76" bodyend="79"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -183,6 +183,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>disable_caches();</highlight></codeline>
 <codeline lineno="79"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.c"/>
   </compounddef>
 </doxygen>

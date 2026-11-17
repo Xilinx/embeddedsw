@@ -1,5 +1,5 @@
 var NAVTREEINDEX0 =
 {
-"index.html":[],
-"pages.html":[]
+  "index.html": [],
+  "pages.html": []
 };

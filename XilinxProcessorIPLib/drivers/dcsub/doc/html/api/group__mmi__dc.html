@@ -254,6 +254,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa58756025137aade0084833366439af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dc.html#gaa58756025137aade0084833366439af5">XDc_SetAudioSegmentedMode</a> (XDc *InstancePtr)</td></tr>
 <tr class="memdesc:gaa58756025137aade0084833366439af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Audio Segmented Mode.  <a href="#gaa58756025137aade0084833366439af5">More...</a><br/></td></tr>
 <tr class="separator:gaa58756025137aade0084833366439af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9913649f45ee47e25f096d57fe0ee5cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dc.html#ga9913649f45ee47e25f096d57fe0ee5cc">XDc_SetAudioChannelStatus</a> (XDc *InstancePtr)</td></tr>
+<tr class="memdesc:ga9913649f45ee47e25f096d57fe0ee5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the IEC 60958 audio channel status words of every channel pair (CH01, CH23, CH45, CH67) from the sample frequency and the active channel count held in the instance.  <a href="#ga9913649f45ee47e25f096d57fe0ee5cc">More...</a><br/></td></tr>
+<tr class="separator:ga9913649f45ee47e25f096d57fe0ee5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga956fa9949bfaee2723c873ced27e8277"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mmi__dc.html#ga956fa9949bfaee2723c873ced27e8277">XDc_SetCursorSdpRdyInterval</a> (XDc *InstancePtr)</td></tr>
 <tr class="memdesc:ga956fa9949bfaee2723c873ced27e8277"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets Cursor Sdp Ready Interval.  <a href="#ga956fa9949bfaee2723c873ced27e8277">More...</a><br/></td></tr>
 <tr class="separator:ga956fa9949bfaee2723c873ced27e8277"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -943,6 +946,34 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xdc__hw_8h.html#a7385ed871e510fe24d0dcf322c001d67">XDC_DC_AUD</a>, and <a class="el" href="xdc__hw_8h.html#a062318ea1e6d6815de6958ea8e81c0ce">XDc_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga9913649f45ee47e25f096d57fe0ee5cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XDc_SetAudioChannelStatus </td>
+          <td>(</td>
+          <td class="paramtype">XDc *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets the IEC 60958 audio channel status words of every channel pair (CH01, CH23, CH45, CH67) from the sample frequency and the active channel count held in the instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XDc instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>References <a class="el" href="xdc__hw_8h.html#ab5d05ad1c9fe4e368809da2733919f58">XDC_AUD_CH_STATUS01_REG0</a>, <a class="el" href="xdc__hw_8h.html#a242d8664992a52dc8157a46cb64db7eb">XDC_AUD_CH_STATUS01_REG1</a>, <a class="el" href="xdc__hw_8h.html#acb30c810498e3ab48b36a0aa64c6d615">XDC_AUD_CH_STATUS01_REG2</a>, <a class="el" href="xdc__hw_8h.html#a7dac50dd0b44cef2a0e279036c98c50c">XDC_AUD_CH_STATUS01_REG3</a>, <a class="el" href="xdc__hw_8h.html#ae615a831411902320abe7432b1d3a26f">XDC_AUD_CH_STATUS01_REG4</a>, <a class="el" href="xdc__hw_8h.html#a14d9d4531d11004939d4a65051e2a699">XDC_AUD_CH_STATUS01_REG5</a>, <a class="el" href="xdc__hw_8h.html#ad1d26bd98fc4a7c429fb956a7061fef7">XDC_AUD_CH_STATUS_PAIR_OFFSET</a>, <a class="el" href="xdc__hw_8h.html#ad28d14a15673b361eb9059a0e4d71e2d">XDC_AUD_CH_STATUS_PAIRS</a>, <a class="el" href="xdc__hw_8h.html#a61c9db0f5e254a098e47933b528d9e07">XDC_AUD_CH_STATUS_REG4_SAMP_FREQ_SHIFT</a>, <a class="el" href="xdc__hw_8h.html#aeb742f53ef6e088e5fa2eeac45dbd296">XDC_AUD_CH_STATUS_REG4_VALID_MASK</a>, <a class="el" href="xdc__hw_8h.html#ab791f63995bdc682c544a1d86f2554dc">XDC_AUD_CH_STATUS_REG5_CH_COUNT0_SHIFT</a>, <a class="el" href="xdc__hw_8h.html#a0d8d816e929751c52db30e16877001b9">XDC_AUD_CH_STATUS_REG5_CH_COUNT1_SHIFT</a>, <a class="el" href="xdc__hw_8h.html#ad43126a749ee04a95deed450757bf0b4">XDC_AUD_CH_STATUS_REG5_SAMP_FREQ_SHIFT</a>, <a class="el" href="xdc__hw_8h.html#a86e20ec629e71ea2bab8f871865502f1">XDC_AUD_CH_STATUS_RESET_VAL</a>, <a class="el" href="xdc__hw_8h.html#ae4ed78ba1fbd7b0d5fccbe433b276024">XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_176_4K</a>, <a class="el" href="xdc__hw_8h.html#a8ac604a730e8ae56d39efcbd5d535b6f">XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_192K</a>, <a class="el" href="xdc__hw_8h.html#a05c5da8c762c69332d89366229faad56">XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_44_1K</a>, <a class="el" href="xdc__hw_8h.html#a614ffb29feb36dbd157e5c4cd046e6e3">XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_48K</a>, <a class="el" href="xdc__hw_8h.html#a91c736d7cb91bac5fd45e02e2e065c36">XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_88_2K</a>, <a class="el" href="xdc__hw_8h.html#ac8d58af5badbe95b0372d56ce3cf6661">XDC_AUD_CH_STATUS_SAMP_FREQ_LSB_96K</a>, <a class="el" href="xdc__hw_8h.html#a8facf7a619ab40abf1effb23e153c1f8">XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_176_4K</a>, <a class="el" href="xdc__hw_8h.html#a0dee2cacd7a1bf4e6839e05805b9b239">XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_192K</a>, <a class="el" href="xdc__hw_8h.html#abe2de2b5cd215267a4f604c3a8de48db">XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_44_1K</a>, <a class="el" href="xdc__hw_8h.html#a99ff69db20156556433470317e9a96d6">XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_48K</a>, <a class="el" href="xdc__hw_8h.html#a404973b8d9b30a55b6286a0f2247e925">XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_88_2K</a>, <a class="el" href="xdc__hw_8h.html#a38acb6d48f738aa96afd5d057bed7807">XDC_AUD_CH_STATUS_SAMP_FREQ_MSB_96K</a>, and <a class="el" href="xdc__hw_8h.html#a062318ea1e6d6815de6958ea8e81c0ce">XDc_WriteReg</a>.</p>
+
+<p>Referenced by <a class="el" href="xdcsub_8h.html#a9902e784683b8896b6aab08d9e992b4f">XDcSub_SetAudioSampleFrequency()</a>.</p>
 
 </div>
 </div>

@@ -13,6 +13,9 @@
       <node id="1026">
         <label>xvphy_hw.h</label>
       </node>
+      <node id="1032">
+        <label>videofmc_defs.h</label>
+      </node>
       <node id="1025">
         <label>xvphy_dp.h</label>
       </node>
@@ -38,17 +41,6 @@
       </node>
       <node id="1002">
         <label>xdp_hw.h</label>
-      </node>
-      <node id="1012">
-        <label>xdptxss_dualsplitter.h</label>
-        <link refid="xdptxss__dualsplitter_8h"/>
-        <childnode refid="1013" relation="include">
-        </childnode>
-        <childnode refid="1001" relation="include">
-        </childnode>
-      </node>
-      <node id="1036">
-        <label>xgpio.h</label>
       </node>
       <node id="999">
         <label>main.h</label>
@@ -111,6 +103,23 @@
         <childnode refid="1037" relation="include">
         </childnode>
       </node>
+      <node id="998">
+        <label>menus.c</label>
+        <link refid="pt_only/menus.c"/>
+        <childnode refid="999" relation="include">
+        </childnode>
+      </node>
+      <node id="1036">
+        <label>xgpio.h</label>
+      </node>
+      <node id="1012">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="1013" relation="include">
+        </childnode>
+        <childnode refid="1001" relation="include">
+        </childnode>
+      </node>
       <node id="1003">
         <label>xdprxss.h</label>
       </node>
@@ -141,11 +150,6 @@
         <childnode refid="1006" relation="include">
         </childnode>
       </node>
-      <node id="1033">
-        <label>idt_8t49n24x.h</label>
-        <childnode refid="1021" relation="include">
-        </childnode>
-      </node>
       <node id="1022">
         <label>xtmrctr.h</label>
       </node>
@@ -158,31 +162,11 @@
       <node id="1009">
         <label>xvidc.h</label>
       </node>
-      <node id="1029">
-        <label>xvidframe_crc.h</label>
-        <childnode refid="1021" relation="include">
-        </childnode>
-        <childnode refid="1007" relation="include">
-        </childnode>
-        <childnode refid="1006" relation="include">
-        </childnode>
-        <childnode refid="1013" relation="include">
-        </childnode>
-      </node>
       <node id="1019">
         <label>xil_exception.h</label>
       </node>
       <node id="1016">
         <label>xdprxss_mcdp6000.h</label>
-      </node>
-      <node id="1034">
-        <label>xi2stx.h</label>
-      </node>
-      <node id="1031">
-        <label>xiicps.h</label>
-      </node>
-      <node id="1021">
-        <label>xil_types.h</label>
       </node>
       <node id="1004">
         <label>xdptxss.h</label>
@@ -204,10 +188,24 @@
         <childnode refid="1014" relation="include">
         </childnode>
       </node>
-      <node id="998">
-        <label>menus.c</label>
-        <link refid="pt_only/menus.c"/>
-        <childnode refid="999" relation="include">
+      <node id="1034">
+        <label>xi2stx.h</label>
+      </node>
+      <node id="1031">
+        <label>xiicps.h</label>
+      </node>
+      <node id="1021">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1029">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1007" relation="include">
+        </childnode>
+        <childnode refid="1006" relation="include">
+        </childnode>
+        <childnode refid="1013" relation="include">
         </childnode>
       </node>
       <node id="1013">
@@ -219,11 +217,13 @@
       <node id="1017">
         <label>xiic.h</label>
       </node>
-      <node id="1032">
-        <label>videofmc_defs.h</label>
-      </node>
       <node id="1015">
         <label>xvtc.h</label>
+      </node>
+      <node id="1033">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="1021" relation="include">
+        </childnode>
       </node>
       <node id="1030">
         <label>xscugic.h</label>
@@ -261,7 +261,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 1.00 KI  07/13/17 Initial release.</preformatted></para><para><preformatted></preformatted> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="pt__only_2menus_8c_1acfdb8f3462c18fb43035843977f1ec94" prot="public" static="no" mutable="no">
         <type>XVidC_VideoMode</type>
@@ -274,7 +274,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/menus.c" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/menus.c" bodystart="191" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -292,7 +292,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="139" bodyend="143"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="139" bodyend="143"/>
       </memberdef>
       <memberdef kind="function" id="pt__only_2menus_8c_1a1980e4a59b5e053f6caaf3d86e2e84c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -321,7 +321,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="159" bodyend="178"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="159" bodyend="178"/>
       </memberdef>
       <memberdef kind="function" id="pt__only_2menus_8c_1aadb092d2b2a18c5bc7ac0ca37cd497c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -334,10 +334,34 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 KU  02/05/19 Initial release.
+1.01 KU  09/09/19 Added support for unplug, enhanced audio check
+1.02 ND  02/14/19 mcdp related function call now need dprxss instance address
+                  instead of base address  as first parameter
+1.03 ND  09/11/20 Added support for New AV pattern generator
+1.04 ND  02/12/21 Added case &apos;z&apos; to display menu in PT mode.
+                                        Added support to set the MSA values for the tx according to
+                                        the selected stream to be displayed front the menu.
+                                        Added the enabling of vblank interrupts for all streams in
+                                        Dprx_InterruptHandlerActRx() handler.
+1.05 ND  04/03/21 Moved all global variables declaration from .h to .c
+                                    files due to gcc compiler compilation error.
+1.06 ND  04/15/21 Added support for stream 2,3 and 4 handler interrupts
+1.07 ND  02/25/22 Modified the code for de-asserting longer hpd for some
+                                        gpu&apos;s to retrain our rx.
+1.08 ND  07/18/22 Added support to the app for branch topology.
+                                        Disabling the av pat gen before start of new training
+                                        sequence.
+                                        Updation of the LMK03318 address.
+1.09 ND  08/26/22 Added DELAY macro to increase delay in <ref refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" kindref="member">IDT_8T49N24x_SetClock()</ref>
+                                        if encountering iic race condition.</preformatted></para><para><preformatted></preformatted> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="47" bodyend="67"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="47" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="pt__only_2menus_8c_1a76a1fc2e7f293c94a2338ee498293cbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -353,7 +377,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="69" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="69" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="pt__only_2menus_8c_1aff8ea8208be8761861f5d20825789688" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -366,7 +390,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="91" bodyend="119"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="91" bodyend="119"/>
       </memberdef>
       <memberdef kind="function" id="pt__only_2menus_8c_1a9fbf159f45136cd32bfb242f5bdc4a9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -382,7 +406,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="121" bodyend="135"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="121" bodyend="135"/>
       </memberdef>
       <memberdef kind="function" id="pt__only_2menus_8c_1ad673f235f7cfedfa92f5e7b76e1dc6c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -421,7 +445,7 @@ This function to get uart input from user</para><para><parameterlist kind="param
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="215" bodyend="248"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="215" bodyend="248"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -628,6 +652,6 @@ This function to get uart input from user</para><para><parameterlist kind="param
 <codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
 <codeline lineno="248"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c"/>
   </compounddef>
 </doxygen>

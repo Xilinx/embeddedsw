@@ -1,12 +1,32 @@
 var NAVTREE =
 [
-  [ "mpegtsmux", "index.html", [
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "mpegtsmux",
+    "index.html",
+    [
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

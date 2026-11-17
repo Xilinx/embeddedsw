@@ -160,6 +160,8 @@ Functions</h2></td></tr>
 
 <p>Maximum context length. </p>
 
+<p>Referenced by <a class="el" href="group__xsecure__kdf__server__apis.html#ga4ce6b83111541227a82cb8f566a02106">XSecure_Hkdf()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ga15237f8d6eba1d098909fdb0b783d72b"></a>
@@ -234,6 +236,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <ul>
 <li>Validate input parameters.</li>
+<li>Validate the context, as it is updated to HMAC on every iteration.</li>
 <li>Calculate number of iterations based on HKDF output key length and SHA hash length.</li>
 <li>Calculate HMAC and form KdfInput</li>
 <li>Update block index of 1 byte to HMAC.</li>
@@ -242,10 +245,12 @@ Functions</h2></td></tr>
 <li>HMAC output size is the SHA algorithm hash length. HKDF key output can be any length.</li>
 <li>In the last iteration, data to be copied to the destination can be less than or equal to SHA algorithm hash length which varies based on the requested key output length.</li>
 <li>Copy the final HMAC of each iteration to the destination key output buffer.</li>
-<li>Verify loop index is within expected bounds </li>
+<li>Verify loop index is within expected bounds</li>
+<li>Zeroize the key derived pads present in the local HMAC instance.</li>
+<li>Zeroize the derived key present in the local HMAC result buffer. </li>
 </ul>
 
-<p>References <a class="el" href="struct_x_secure___kdf_params.html#a0ff6b6d4c1005ca38fccbe178c91e191">XSecure_KdfParams::Context</a>, <a class="el" href="struct_x_secure___kdf_params.html#ad38bce1bc74ef8860f762791cfb2c17b">XSecure_KdfParams::ContextLen</a>, <a class="el" href="struct_x_secure___kdf_params.html#a9ca8f93ad9bce513d1e8fdfc4940ec06">XSecure_KdfParams::Key</a>, <a class="el" href="struct_x_secure___kdf_params.html#a3fe9e4b9b80c44784c02548f2e384fca">XSecure_KdfParams::KeyLen</a>, <a class="el" href="versal__2vp_2xsecure__error_8h.html#a385c44f6fb256e5716a2302a5b940388a9b599f0a2489846588637ca0b4b997a2">XSECURE_ERR_HKDF_INVALID_PARAM</a>, <a class="el" href="group__xsecure__generic__server__apis.html#gaae2c6ce911d390c5176b5b4b7ff5a4fb">XSecure_GetSha3Instance()</a>, <a class="el" href="group__xsecure__kdf__server__apis.html#ga020b57c7fea18820e9caa9a3ba5ad1cb">XSECURE_HKDF_BLOCK_INDEX_LENGTH</a>, <a class="el" href="group__xsecure__kdf__server__apis.html#ga15237f8d6eba1d098909fdb0b783d72b">XSECURE_HKDF_MAX_ITERATIONS</a>, <a class="el" href="group__xsecure__hmac__apis.html#ga19b58a827d01b838233e4b98fb95b0f7">XSecure_HmacFinal()</a>, <a class="el" href="group__xsecure__hmac__apis.html#ga326185e9709790ef9dc6d0eb61da6ab9">XSecure_HmacInit()</a>, <a class="el" href="group__xsecure__hmac__apis.html#gaec1f83f5e69e2ba5d879cd97eab498eb">XSecure_HmacUpdate()</a>, <a class="el" href="versal_2xsecure__sha__hw_8h.html#a809692bfb3b5d91eb2e4b3eb722d4f83">XSECURE_SHA_0_DEVICE_ID</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
+<p>References <a class="el" href="struct_x_secure___kdf_params.html#a0ff6b6d4c1005ca38fccbe178c91e191">XSecure_KdfParams::Context</a>, <a class="el" href="struct_x_secure___kdf_params.html#ad38bce1bc74ef8860f762791cfb2c17b">XSecure_KdfParams::ContextLen</a>, <a class="el" href="struct_x_secure___kdf_params.html#a9ca8f93ad9bce513d1e8fdfc4940ec06">XSecure_KdfParams::Key</a>, <a class="el" href="struct_x_secure___kdf_params.html#a3fe9e4b9b80c44784c02548f2e384fca">XSecure_KdfParams::KeyLen</a>, <a class="el" href="versal__2vp_2xsecure__error_8h.html#a385c44f6fb256e5716a2302a5b940388a9b599f0a2489846588637ca0b4b997a2">XSECURE_ERR_HKDF_INVALID_PARAM</a>, <a class="el" href="group__xsecure__generic__server__apis.html#gaae2c6ce911d390c5176b5b4b7ff5a4fb">XSecure_GetSha3Instance()</a>, <a class="el" href="group__xsecure__kdf__server__apis.html#ga020b57c7fea18820e9caa9a3ba5ad1cb">XSECURE_HKDF_BLOCK_INDEX_LENGTH</a>, <a class="el" href="group__xsecure__kdf__server__apis.html#gad08b62a3393772d42f729e390c57fe36">XSECURE_HKDF_MAX_CONTEXT_LEN</a>, <a class="el" href="group__xsecure__kdf__server__apis.html#ga15237f8d6eba1d098909fdb0b783d72b">XSECURE_HKDF_MAX_ITERATIONS</a>, <a class="el" href="group__xsecure__hmac__apis.html#ga19b58a827d01b838233e4b98fb95b0f7">XSecure_HmacFinal()</a>, <a class="el" href="group__xsecure__hmac__apis.html#ga326185e9709790ef9dc6d0eb61da6ab9">XSecure_HmacInit()</a>, <a class="el" href="group__xsecure__hmac__apis.html#gaec1f83f5e69e2ba5d879cd97eab498eb">XSecure_HmacUpdate()</a>, <a class="el" href="versal_2xsecure__sha__hw_8h.html#a809692bfb3b5d91eb2e4b3eb722d4f83">XSECURE_SHA_0_DEVICE_ID</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
 
 </div>
 </div>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpio__extra_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,16 +105,33 @@ $(document).ready(function(){initNavTree('xgpio__extra_8c.html','');});
 <div class="title">xgpio_extra.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xgpio_8h.html">xgpio.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the advanced discrete functions of the <a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a> driver. </p>
+<p>See <a class="el" href="xgpio_8h.html">xgpio.h</a> for more information about the driver.</p>
+<dl class="section note"><dt>Note</dt><dd>These APIs can only be used if the GPIO_IO ports in the IP are used for connecting to the external output ports.</dd></dl>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a rmm  02/04/02 First release
+2.00a jhl  12/16/02 Update for dual channel and interrupt support
+2.11a mta  03/21/07 Updated to new coding style
+3.00a sv   11/21/09 Updated to use HAL Processor APIs. Renamed the macros
+              XGpio_mWriteReg to XGpio_WriteReg, and XGpio_mReadReg
+              to XGpio_ReadReg.
+4.14  vn   07/30/26 Fix Doxygen warnings
+4.14  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xgpio_8h.html">xgpio.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xgpio__i_8h.html">xgpio_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga8f2cea7ef78412c03c7ebdba87b7cdd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#ga8f2cea7ef78412c03c7ebdba87b7cdd4">XGpio_DiscreteSet</a> (<a class="el" href="struct_x_gpio.html">XGpio</a> *InstancePtr, unsigned Channel, u32 Mask)</td></tr>
-<tr class="memdesc:ga8f2cea7ef78412c03c7ebdba87b7cdd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output discrete(s) to logic 1 for the specified GPIO channel.  <a href="group__gpio__api.html#ga8f2cea7ef78412c03c7ebdba87b7cdd4">More...</a><br/></td></tr>
+<tr class="memdesc:ga8f2cea7ef78412c03c7ebdba87b7cdd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets output discretes to logic 1 for the specified GPIO channel.  <a href="group__gpio__api.html#ga8f2cea7ef78412c03c7ebdba87b7cdd4">More...</a><br/></td></tr>
 <tr class="separator:ga8f2cea7ef78412c03c7ebdba87b7cdd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae430718af9f347c91be42aad580b216c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gpio__api.html#gae430718af9f347c91be42aad580b216c">XGpio_DiscreteClear</a> (<a class="el" href="struct_x_gpio.html">XGpio</a> *InstancePtr, unsigned Channel, u32 Mask)</td></tr>
-<tr class="memdesc:gae430718af9f347c91be42aad580b216c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output discrete(s) to logic 0 for the specified GPIO channel.  <a href="group__gpio__api.html#gae430718af9f347c91be42aad580b216c">More...</a><br/></td></tr>
+<tr class="memdesc:gae430718af9f347c91be42aad580b216c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets output discretes to logic 0 for the specified GPIO channel.  <a href="group__gpio__api.html#gae430718af9f347c91be42aad580b216c">More...</a><br/></td></tr>
 <tr class="separator:gae430718af9f347c91be42aad580b216c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -15,34 +15,34 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="432" bodyend="-1"/>
-        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
-        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
-        <referencedby refid="xavb_8h_1af8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="78" endline="116">XAvb_CfgInitialize</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1aaefe66ad0ca9e6af05129765cca4c3df" compoundref="xavb__ptp__packets_8c" startline="953" endline="986">XAvb_IsRxFramePTP</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
-        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb_8h_1a888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="705" endline="717">XAvb_SetupRxFilterControlMatchMode</referencedby>
-        <referencedby refid="xavb_8h_1a4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="630" endline="647">XAvb_SetupRxFilterControlPcp</referencedby>
-        <referencedby refid="xavb_8h_1afb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="669" endline="686">XAvb_SetupRxFilterControlVid</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
-        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afcb3695de30c54e17e3c3e0a461ab0eb" compoundref="xavb__ptp__packets_8c" startline="311" endline="324">XAvb_WaitOnTxPtpQueue</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="436" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="161" endline="287">main</referencedby>
+        <referencedby refid="group__axiethernet_1ga5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="615" endline="651">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="group__axiethernet_1ga5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="175" endline="360">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="group__axiethernet_1gaf8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="80" endline="118">XAvb_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="139" endline="232">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1328" endline="1420">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="68" endline="121">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gaaefe66ad0ca9e6af05129765cca4c3df" compoundref="xavb__ptp__packets_8c" startline="932" endline="965">XAvb_IsRxFramePTP</referencedby>
+        <referencedby refid="group__axiethernet_1gaeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="327" endline="354">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="group__axiethernet_1ga989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="478" endline="535">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="369" endline="462">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="434" endline="578">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
+        <referencedby refid="group__axiethernet_1ga2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="552" endline="592">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="group__axiethernet_1ga63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="610" endline="795">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1ga2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="811" endline="914">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="678" endline="690">XAvb_SetupRxFilterControlMatchMode</referencedby>
+        <referencedby refid="group__axiethernet_1ga4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="611" endline="628">XAvb_SetupRxFilterControlPcp</referencedby>
+        <referencedby refid="group__axiethernet_1gafb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="646" endline="663">XAvb_SetupRxFilterControlVid</referencedby>
+        <referencedby refid="group__axiethernet_1ga42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1567" endline="1688">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="438" endline="611">XAvb_UpdateRtcIncrement</referencedby>
+        <referencedby refid="group__axiethernet_1gafcb3695de30c54e17e3c3e0a461ab0eb" compoundref="xavb__ptp__packets_8c" startline="298" endline="312">XAvb_WaitOnTxPtpQueue</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1aced8bd4c1c2fe81821504bc65e8774eb" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -55,12 +55,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="435" bodyend="-1"/>
-        <referencedby refid="xavb_8h_1af8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="78" endline="116">XAvb_CfgInitialize</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a3c8e2297936bf5abb7f206b365611b30" compoundref="xavb__ptp__bmca_8c" startline="781" endline="794">XAvb_SetGMDiscontinuityHandler</referencedby>
-        <referencedby refid="xavb_8h_1a8657704dc9974d465536615ebbeb79d9" compoundref="xavb_8c" startline="219" endline="238">XAvb_Start</referencedby>
-        <referencedby refid="xavb_8h_1a5a5d4a65b18da8805b9a6bf464961f25" compoundref="xavb_8c" startline="253" endline="263">XAvb_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="439" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gaf8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="80" endline="118">XAvb_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
+        <referencedby refid="group__axiethernet_1ga3c8e2297936bf5abb7f206b365611b30" compoundref="xavb__ptp__bmca_8c" startline="762" endline="775">XAvb_SetGMDiscontinuityHandler</referencedby>
+        <referencedby refid="group__axiethernet_1ga8657704dc9974d465536615ebbeb79d9" compoundref="xavb_8c" startline="213" endline="233">XAvb_Start</referencedby>
+        <referencedby refid="group__axiethernet_1ga5a5d4a65b18da8805b9a6bf464961f25" compoundref="xavb_8c" startline="244" endline="254">XAvb_Stop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1ab9f684536dfa36945974c3bd6c59b44c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="438" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="442" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a194197130a475d3183dc70f1319d73dc" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -86,11 +86,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="441" bodyend="-1"/>
-        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
-        <referencedby refid="xavb_8h_1a8657704dc9974d465536615ebbeb79d9" compoundref="xavb_8c" startline="219" endline="238">XAvb_Start</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="434" endline="578">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
+        <referencedby refid="group__axiethernet_1ga8657704dc9974d465536615ebbeb79d9" compoundref="xavb_8c" startline="213" endline="233">XAvb_Start</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a8311fd4524732cca626191f25591bfba" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -103,9 +103,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="444" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a004f6ae823f2e50f4dd2fac409953537" compoundref="xavb__ptp__bmca_8c" startline="745" endline="761">XAvb_ChangePeerASCapability</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga004f6ae823f2e50f4dd2fac409953537" compoundref="xavb__ptp__bmca_8c" startline="728" endline="744">XAvb_ChangePeerASCapability</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a9ae7367366022ccb6d467da689de8e09" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -118,8 +118,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="447" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="703" endline="730">XAvb_ChangePTPLockStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="690" endline="717">XAvb_ChangePTPLockStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a42340ba979c53633a3cf53628c7eaec9" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___m_d_sync_receive" kindref="compound">XAvb_MDSyncReceive</ref></type>
@@ -132,10 +132,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="450" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1afa0f0b3779f43a549fc63b1c9d6e9f23" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___port_identity" kindref="compound">XAvb_PortIdentity</ref></type>
@@ -148,10 +148,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="453" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="457" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="139" endline="232">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1ga42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1567" endline="1688">XAvb_SetupSourcePortIdentity</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a81e68bbc2d63aab5e4d6a36bf7039f03" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___bmc_data" kindref="compound">XAvb_BmcData</ref></type>
@@ -164,14 +164,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="456" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="670" endline="688">XAvb_BecomeRtcSlave</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="615" endline="651">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="group__axiethernet_1ga52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="661" endline="679">XAvb_BecomeRtcSlave</referencedby>
+        <referencedby refid="group__axiethernet_1ga5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="139" endline="232">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="68" endline="121">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a58aca67d5c17f24eec11e1f2b6361780" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___ptp_struct" kindref="compound">XAvb_PtpStruct</ref></type>
@@ -184,20 +184,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="459" bodyend="-1"/>
-        <referencedby refid="xavb_8h_1a6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="104" endline="161">XAvb_CalcDelay</referencedby>
-        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="463" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga6d7814f965d4141992654954f1243679" compoundref="xavb__rtc__sync_8c" startline="103" endline="160">XAvb_CalcDelay</referencedby>
+        <referencedby refid="group__axiethernet_1ga5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="175" endline="360">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="478" endline="535">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="369" endline="462">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
+        <referencedby refid="group__axiethernet_1ga2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="552" endline="592">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="group__axiethernet_1ga63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="610" endline="795">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1ga2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="811" endline="914">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="438" endline="611">XAvb_UpdateRtcIncrement</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a2d58b8df5e9c75db8d9dd7aa6aa8867d" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___sequence_id_struct" kindref="compound">XAvb_SequenceIdStruct</ref></type>
@@ -210,13 +210,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="462" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
-        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="466" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="552" endline="592">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="group__axiethernet_1gada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="438" endline="611">XAvb_UpdateRtcIncrement</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a0594bd4664c37ed685bb007113e8e2b6" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___signalling_frame_data" kindref="compound">XAvb_SignallingFrameData</ref></type>
@@ -229,10 +229,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="465" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="469" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1328" endline="1420">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1adfddd0be1695d91532dd7dc2ee5614e2" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___counters" kindref="compound">XAvb_Counters</ref></type>
@@ -245,14 +245,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="468" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="670" endline="688">XAvb_BecomeRtcSlave</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
-        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="472" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="661" endline="679">XAvb_BecomeRtcSlave</referencedby>
+        <referencedby refid="group__axiethernet_1ga5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="139" endline="232">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="group__axiethernet_1gafb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1048" endline="1142">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1ga3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="978" endline="1035">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="group__axiethernet_1ga99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="434" endline="578">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a779ce95ec439713b953c0fbf89cd818e" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_avb___state_machine_data" kindref="compound">XAvb_StateMachineData</ref></type>
@@ -265,11 +265,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="471" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
-        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
-        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
-        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="475" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gacc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1155" endline="1232">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="group__axiethernet_1gafd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1245" endline="1315">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="group__axiethernet_1gaab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="266" endline="421">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="group__axiethernet_1gaf24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="129" endline="197">XAvb_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1adaa9fca5f2df9e76794cb97f8bd1f307" prot="public" static="no" mutable="no">
         <type><ref refid="xavb_8h_1a89773b9c275933b3c03bbf78179342b5" kindref="member">XAvb_Handler</ref></type>
@@ -282,12 +282,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="474" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="670" endline="688">XAvb_BecomeRtcSlave</referencedby>
-        <referencedby refid="xavb_8h_1af8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="78" endline="116">XAvb_CfgInitialize</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="703" endline="730">XAvb_ChangePTPLockStatus</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a3c8e2297936bf5abb7f206b365611b30" compoundref="xavb__ptp__bmca_8c" startline="781" endline="794">XAvb_SetGMDiscontinuityHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="478" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="615" endline="651">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="group__axiethernet_1ga52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="661" endline="679">XAvb_BecomeRtcSlave</referencedby>
+        <referencedby refid="group__axiethernet_1gaf8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="80" endline="118">XAvb_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="690" endline="717">XAvb_ChangePTPLockStatus</referencedby>
+        <referencedby refid="group__axiethernet_1ga3c8e2297936bf5abb7f206b365611b30" compoundref="xavb__ptp__bmca_8c" startline="762" endline="775">XAvb_SetGMDiscontinuityHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_avb_1a6f2483d14031dc855c8cf27c796c122e" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -300,17 +300,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="476" bodyend="-1"/>
-        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="670" endline="688">XAvb_BecomeRtcSlave</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="703" endline="730">XAvb_ChangePTPLockStatus</referencedby>
-        <referencedby refid="xavb__ptp__bmca_8c_1a3c8e2297936bf5abb7f206b365611b30" compoundref="xavb__ptp__bmca_8c" startline="781" endline="794">XAvb_SetGMDiscontinuityHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="480" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="615" endline="651">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="group__axiethernet_1ga52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="661" endline="679">XAvb_BecomeRtcSlave</referencedby>
+        <referencedby refid="group__axiethernet_1ga07f69b843cd86ca6149c838c478c4e01" compoundref="xavb__ptp__bmca_8c" startline="690" endline="717">XAvb_ChangePTPLockStatus</referencedby>
+        <referencedby refid="group__axiethernet_1ga3c8e2297936bf5abb7f206b365611b30" compoundref="xavb__ptp__bmca_8c" startline="762" endline="775">XAvb_SetGMDiscontinuityHandler</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>The <ref refid="struct_x_avb" kindref="compound">XAvb</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for every AVB device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+<para>The user is required to allocate a. variable of this type for every AVB device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="4">
         <label>XAvb_BmcData</label>
@@ -401,7 +401,7 @@
         <link refid="struct_x_avb___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="430" bodyend="478"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="434" bodyend="482"/>
     <listofallmembers>
       <member refid="struct_x_avb_1ab9f684536dfa36945974c3bd6c59b44c" prot="public" virt="non-virtual"><scope>XAvb</scope><name>AVBIsEnabled</name></member>
       <member refid="struct_x_avb_1a004789c582ac680a57d708f86c13ab9f" prot="public" virt="non-virtual"><scope>XAvb</scope><name>Config</name></member>

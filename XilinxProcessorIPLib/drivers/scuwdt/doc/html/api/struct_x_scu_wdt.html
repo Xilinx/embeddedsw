@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_scu_wdt.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_scu_wdt.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_scu_wdt.html" title="The XScuWdt driver instance data. ">XScuWdt</a> driver instance data.
+<p>Stores the <a class="el" href="struct_x_scu_wdt.html" title="Stores the XScuWdt driver instance data. ">XScuWdt</a> driver instance data.
  <a href="struct_x_scu_wdt.html#details">More...</a></p>
 
 <p><code>#include &lt;xscuwdt.h&gt;</code></p>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('struct_x_scu_wdt.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a6d670660d7b2dbb2cb2af9894f2d8562"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_scu_wdt___config.html">XScuWdt_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_scu_wdt.html#a6d670660d7b2dbb2cb2af9894f2d8562">Config</a></td></tr>
-<tr class="memdesc:a6d670660d7b2dbb2cb2af9894f2d8562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware Configuration.  <a href="#a6d670660d7b2dbb2cb2af9894f2d8562">More...</a><br/></td></tr>
+<tr class="memdesc:a6d670660d7b2dbb2cb2af9894f2d8562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware configuration.  <a href="#a6d670660d7b2dbb2cb2af9894f2d8562">More...</a><br/></td></tr>
 <tr class="separator:a6d670660d7b2dbb2cb2af9894f2d8562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0f6b50d4cc3682c07cb1f982e0d9ceb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_scu_wdt.html#aa0f6b50d4cc3682c07cb1f982e0d9ceb">IsReady</a></td></tr>
 <tr class="memdesc:aa0f6b50d4cc3682c07cb1f982e0d9ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device is initialized and ready.  <a href="#aa0f6b50d4cc3682c07cb1f982e0d9ceb">More...</a><br/></td></tr>
@@ -131,8 +131,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:ab9a2c001a81fa32ba6c78b94689dd611"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_scu_wdt.html" title="The XScuWdt driver instance data. ">XScuWdt</a> driver instance data. </p>
-<p>The user is required to allocate a variable of this type for every watchdog/timer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
+<div class="textblock"><p>Stores the <a class="el" href="struct_x_scu_wdt.html" title="Stores the XScuWdt driver instance data. ">XScuWdt</a> driver instance data. </p>
+<p>Allocate a variable of this type for every watchdog/timer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a6d670660d7b2dbb2cb2af9894f2d8562"></a>
 <div class="memitem">
@@ -144,7 +144,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Hardware Configuration. </p>
+<p>Hardware configuration. </p>
 
 <p>Referenced by <a class="el" href="xscuwdt__intr__example_8c.html#a0054ab1cdccc0040a5d9633b4c386d9a">ScuWdtIntrExample()</a>, <a class="el" href="group___overview.html#ga1fee56fc3ec3c8b003e6ae0528703b1c">XScuWdt_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga87a7a8230fc5fa80f64cb66210e596b8">XScuWdt_Start()</a>, and <a class="el" href="group___overview.html#gae1493503cc6e52afa681f23329e9abef">XScuWdt_Stop()</a>.</p>
 

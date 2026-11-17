@@ -49,6 +49,7 @@
   </compound>
   <compound refid="xaudioformatter_8c" kind="file"><name>xaudioformatter.c</name>
     <member refid="group__audio__formatter_1gabcb57620cab64c1e6e6b20e5f5da6689" kind="define"><name>XAUD_CHSTAT_NUMBER_OF_BYTES</name></member>
+    <member refid="group__audio__formatter_1gaee2a01552273b6783a5d15826863f843" kind="function"><name>XAudioFormatter_GetChanOffset</name></member>
     <member refid="group__audio__formatter_1ga53384ac363365da9f8e31ed55cbf1d0b" kind="function"><name>XAudioFormatterDMAReset</name></member>
     <member refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" kind="function"><name>XAudioFormatter_CfgInitialize</name></member>
     <member refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kind="function"><name>XAudioFormatter_InterruptClear</name></member>
@@ -89,8 +90,8 @@
     <member refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" kind="function"><name>XAudioFormatterSetHwParams</name></member>
     <member refid="group__audio__formatter_1ga01115fb4671f5eb88367bd4fc90d132a" kind="function"><name>XAudioFormatter_SetS2MMCallback</name></member>
     <member refid="group__audio__formatter_1ga26b6f9857745896b401c69697bd578af" kind="function"><name>XAudioFormatter_SetMM2SCallback</name></member>
-    <member refid="group__audio__formatter_1gae45ba1a48542184450ef25de83ff1e73" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
-    <member refid="group__audio__formatter_1ga885f34c0b1cff4b4bb04691b690dc74d" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
+    <member refid="group__audio__formatter_1ga16ea676685b69644cd310b70a55b8b27" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
+    <member refid="group__audio__formatter_1gad236d638e2ae1afe068b87d0f3621d27" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
     <member refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kind="function"><name>XAudioFormatter_InterruptClear</name></member>
     <member refid="group__audio__formatter_1ga53384ac363365da9f8e31ed55cbf1d0b" kind="function"><name>XAudioFormatterDMAReset</name></member>
     <member refid="group__audio__formatter_1gae4e206855fe0fd0b43a40050d494b40f" kind="function"><name>XAudioFormatterSetFsMultiplier</name></member>
@@ -142,8 +143,8 @@
   <compound refid="xaudioformatter__intr_8c" kind="file"><name>xaudioformatter_intr.c</name>
     <member refid="group__audioformatter_1ga01115fb4671f5eb88367bd4fc90d132a" kind="function"><name>XAudioFormatter_SetS2MMCallback</name></member>
     <member refid="group__audioformatter_1ga26b6f9857745896b401c69697bd578af" kind="function"><name>XAudioFormatter_SetMM2SCallback</name></member>
-    <member refid="group__audioformatter_1gae45ba1a48542184450ef25de83ff1e73" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
-    <member refid="group__audioformatter_1ga885f34c0b1cff4b4bb04691b690dc74d" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
+    <member refid="group__audioformatter_1ga16ea676685b69644cd310b70a55b8b27" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
+    <member refid="group__audioformatter_1gad236d638e2ae1afe068b87d0f3621d27" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
   </compound>
   <compound refid="xaudioformatter__intr__example_8c" kind="file"><name>xaudioformatter_intr_example.c</name>
     <member refid="xaudioformatter__intr__example_8c_1a167767e873a8537c635ddbf87a856a39" kind="define"><name>XAUDIO_FORMATTER_SW_VER</name></member>
@@ -202,6 +203,7 @@
     <member refid="group__audio__formatter_1gga63d09815bef23fb7e08aa19f46c2aa1fa9cfc15f539c38c294a74d60d774aa45c" kind="enumvalue"><name>XAudioFormatter_ERROR_Handler</name></member>
     <member refid="group__audio__formatter_1ga6d56aeabfbcbc25bbb88632880469d3b" kind="typedef"><name>XAudioFormatter_Callback</name></member>
     <member refid="group__audio__formatter_1ga0cb73700f1f2e6fb71aabe01bd3de35a" kind="variable"><name>XAudioFormatter_ConfigTable</name></member>
+    <member refid="group__audio__formatter_1gaee2a01552273b6783a5d15826863f843" kind="function"><name>XAudioFormatter_GetChanOffset</name></member>
     <member refid="group__audio__formatter_1ga53384ac363365da9f8e31ed55cbf1d0b" kind="function"><name>XAudioFormatterDMAReset</name></member>
     <member refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" kind="function"><name>XAudioFormatter_CfgInitialize</name></member>
     <member refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kind="function"><name>XAudioFormatter_InterruptClear</name></member>
@@ -218,16 +220,16 @@
     <member refid="group__audio__formatter_1gaf88c6655b3273187c42fa5f28c06533c" kind="function"><name>XAudioFormatter_Initialize</name></member>
     <member refid="group__audio__formatter_1ga01115fb4671f5eb88367bd4fc90d132a" kind="function"><name>XAudioFormatter_SetS2MMCallback</name></member>
     <member refid="group__audio__formatter_1ga26b6f9857745896b401c69697bd578af" kind="function"><name>XAudioFormatter_SetMM2SCallback</name></member>
-    <member refid="group__audio__formatter_1gae45ba1a48542184450ef25de83ff1e73" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
-    <member refid="group__audio__formatter_1ga885f34c0b1cff4b4bb04691b690dc74d" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
+    <member refid="group__audio__formatter_1ga16ea676685b69644cd310b70a55b8b27" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
+    <member refid="group__audio__formatter_1gad236d638e2ae1afe068b87d0f3621d27" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
     <member refid="group__audio__formatter_1gabcb57620cab64c1e6e6b20e5f5da6689" kind="define"><name>XAUD_CHSTAT_NUMBER_OF_BYTES</name></member>
     <member refid="group__audio__formatter_1ga73a0740e9df67c58f6ffa8dc6c40f26a" kind="define"><name>XAUDFMT_H_</name></member>
   </compound>
   <compound refid="group__audioformatter" kind="group"><name>audioformatter</name>
     <member refid="group__audioformatter_1ga01115fb4671f5eb88367bd4fc90d132a" kind="function"><name>XAudioFormatter_SetS2MMCallback</name></member>
     <member refid="group__audioformatter_1ga26b6f9857745896b401c69697bd578af" kind="function"><name>XAudioFormatter_SetMM2SCallback</name></member>
-    <member refid="group__audioformatter_1gae45ba1a48542184450ef25de83ff1e73" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
-    <member refid="group__audioformatter_1ga885f34c0b1cff4b4bb04691b690dc74d" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
+    <member refid="group__audioformatter_1ga16ea676685b69644cd310b70a55b8b27" kind="function"><name>XAudioFormatterS2MMIntrHandler</name></member>
+    <member refid="group__audioformatter_1gad236d638e2ae1afe068b87d0f3621d27" kind="function"><name>XAudioFormatterMM2SIntrHandler</name></member>
     <member refid="group__audioformatter_1ga6a7006c2fa2d0a88c457d36f7ff17cf7" kind="define"><name>XAUDFMT_HW_H_</name></member>
     <member refid="group__audioformatter_1ga3a8ea58898cb58fc96013383d39f482c" kind="define"><name>BIT</name></member>
     <member refid="group__audioformatter_1ga5d30aaedd071e55f855ff3c9a4386250" kind="define"><name>XAUD_FORMATTER_S2MM_OFFSET</name></member>

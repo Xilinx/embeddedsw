@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcan__l_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,20 +105,31 @@ $(document).ready(function(){initNavTree('xcan__l_8h.html','');});
 <div class="title">xcan_l.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Low-level CAN hardware register definitions and access macros. </p>
+<p>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the device. Other driver functions are defined in <a class="el" href="xcan_8h.html">xcan.h</a>.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a xd   04/12/05 First release
+1.10a mta  05/13/07 Updated to new coding style
+2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
+              The macros have been renamed to remove _m from the name.
+3.8   ht   12/13/23 Added support for ECC.
+3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+3.13  vn   09/30/26 Update Doxygen comments to AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gac65cec1791cdaa6d0b68a80936f25c1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#gac65cec1791cdaa6d0b68a80936f25c1a">XCAN_L_H</a></td></tr>
-<tr class="memdesc:gac65cec1791cdaa6d0b68a80936f25c1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="group__can.html#gac65cec1791cdaa6d0b68a80936f25c1a">More...</a><br/></td></tr>
-<tr class="separator:gac65cec1791cdaa6d0b68a80936f25c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2ee91da70cd3c92169c780186a9d6c51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga2ee91da70cd3c92169c780186a9d6c51">XCan_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;Xil_In32((BaseAddress) + (RegOffset))</td></tr>
-<tr class="memdesc:ga2ee91da70cd3c92169c780186a9d6c51"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the given register.  <a href="group__can.html#ga2ee91da70cd3c92169c780186a9d6c51">More...</a><br/></td></tr>
+<tr class="memdesc:ga2ee91da70cd3c92169c780186a9d6c51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given register.  <a href="group__can.html#ga2ee91da70cd3c92169c780186a9d6c51">More...</a><br/></td></tr>
 <tr class="separator:ga2ee91da70cd3c92169c780186a9d6c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4b58327ea939610d5b1816a686ffd6c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga4b58327ea939610d5b1816a686ffd6c7">XCan_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;Xil_Out32((BaseAddress) + (RegOffset), (Data))</td></tr>
-<tr class="memdesc:ga4b58327ea939610d5b1816a686ffd6c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro writes the given register.  <a href="group__can.html#ga4b58327ea939610d5b1816a686ffd6c7">More...</a><br/></td></tr>
+<tr class="memdesc:ga4b58327ea939610d5b1816a686ffd6c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given register.  <a href="group__can.html#ga4b58327ea939610d5b1816a686ffd6c7">More...</a><br/></td></tr>
 <tr class="separator:ga4b58327ea939610d5b1816a686ffd6c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register offsets for the CAN. Each register is 32 bits.</div></td></tr>
 <tr class="memitem:ga183cc527b562ba6494c84f9dc56ed83f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga183cc527b562ba6494c84f9dc56ed83f">XCAN_SRR_OFFSET</a>&#160;&#160;&#160;0x000</td></tr>
@@ -384,8 +395,8 @@ Macros</h2></td></tr>
 <tr class="memitem:ga553b29006c0052225803342e61f63918"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga553b29006c0052225803342e61f63918">XCAN_IXR_ALL</a></td></tr>
 <tr class="memdesc:ga553b29006c0052225803342e61f63918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for basic interrupts.  <a href="group__can.html#ga553b29006c0052225803342e61f63918">More...</a><br/></td></tr>
 <tr class="separator:ga553b29006c0052225803342e61f63918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Mask/Acceptance Filter ID) </p>
+<tr><td colspan="2"><div class="groupHeader">CAN Frame Identifier</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>(TX High Priority Buffer/TX/RX/Acceptance Filter Mask/Acceptance Filter ID) </p>
 </div></td></tr>
 <tr class="memitem:gada1163dd1ad028100277856729da0c76"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#gada1163dd1ad028100277856729da0c76">XCAN_IDR_ID1_MASK</a>&#160;&#160;&#160;0xFFE00000</td></tr>
 <tr class="memdesc:gada1163dd1ad028100277856729da0c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard Messg Ident Mask.  <a href="group__can.html#gada1163dd1ad028100277856729da0c76">More...</a><br/></td></tr>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xintc__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xintc__selftest_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xintc_selftest.c File Reference</div>  </div>
@@ -110,13 +111,19 @@ $(document).ready(function(){initNavTree('xintc__selftest_8c.html','');});
 <code>#include &quot;<a class="el" href="xintc_8h.html">xintc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xintc__i_8h.html">xintc_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga0a3e862d0b6387284dfc91d45dd3374e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__intc.html#ga0a3e862d0b6387284dfc91d45dd3374e">XIN_TEST_MASK</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga0a3e862d0b6387284dfc91d45dd3374e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask used to test the interrupt controller registers.  <a href="group__intc.html#ga0a3e862d0b6387284dfc91d45dd3374e">More...</a><br/></td></tr>
+<tr class="separator:ga0a3e862d0b6387284dfc91d45dd3374e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaf9a9a16180b363930d21bc94dfe71147"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__intc.html#gaf9a9a16180b363930d21bc94dfe71147">XIntc_SelfTest</a> (<a class="el" href="struct_x_intc.html">XIntc</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf9a9a16180b363930d21bc94dfe71147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a self-test on the driver/device.  <a href="group__intc.html#gaf9a9a16180b363930d21bc94dfe71147">More...</a><br/></td></tr>
+<tr class="memdesc:gaf9a9a16180b363930d21bc94dfe71147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the <a class="el" href="struct_x_intc.html" title="The XIntc driver instance data. ">XIntc</a> driver/device.  <a href="group__intc.html#gaf9a9a16180b363930d21bc94dfe71147">More...</a><br/></td></tr>
 <tr class="separator:gaf9a9a16180b363930d21bc94dfe71147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17972363ab5a1a8f5f1d135c5b3c22c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__intc.html#ga17972363ab5a1a8f5f1d135c5b3c22c7">XIntc_SimulateIntr</a> (<a class="el" href="struct_x_intc.html">XIntc</a> *InstancePtr, u8 Id)</td></tr>
-<tr class="memdesc:ga17972363ab5a1a8f5f1d135c5b3c22c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows software to simulate an interrupt in the interrupt controller.  <a href="group__intc.html#ga17972363ab5a1a8f5f1d135c5b3c22c7">More...</a><br/></td></tr>
+<tr class="memdesc:ga17972363ab5a1a8f5f1d135c5b3c22c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates an interrupt for the specified interrupt ID.  <a href="group__intc.html#ga17972363ab5a1a8f5f1d135c5b3c22c7">More...</a><br/></td></tr>
 <tr class="separator:ga17972363ab5a1a8f5f1d135c5b3c22c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

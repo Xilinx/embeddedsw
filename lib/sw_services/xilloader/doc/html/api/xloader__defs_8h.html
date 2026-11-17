@@ -116,7 +116,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       har  03/05/24 Fixed doxygen warnings
       pre  08/22/24 Added XLOADER_CFI_SEL_READBACK_ID
       pre  10/26/24 Made XLOADER_CMD_ID_LOAD_READBACK_PDI command ID as reserved
-2.4   gnr  02/06/26 Removed conditional inclusion for XLOADER_CMD_ID_DATA_AUTH</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
+2.4   gnr  02/06/26 Removed conditional inclusion for XLOADER_CMD_ID_DATA_AUTH
+2.5   ng   07/09/26 Added XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID command id
+      ng   08/22/26 Added macros for glitch detector configuration
+      pre  08/12/26 Added XLOADER_CMD_ID_CALIBDATA_RESTORE command id
+      ng   09/09/26 Added XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR command id
+                    for versal_2ve_2vm
+      aa   09/15/26 Added XLOADER_IDCODE_BYPASS_FLAG macro</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -187,6 +193,18 @@ Macros</h2></td></tr>
 <tr class="memitem:a54d872b87e11572aa56efe1aa586240e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#a54d872b87e11572aa56efe1aa586240e">XLOADER_CFI_SEL_READBACK_ID</a>&#160;&#160;&#160;(18U)</td></tr>
 <tr class="memdesc:a54d872b87e11572aa56efe1aa586240e"><td class="mdescLeft">&#160;</td><td class="mdescRight">command id for CFI selective readback  <a href="#a54d872b87e11572aa56efe1aa586240e">More...</a><br/></td></tr>
 <tr class="separator:a54d872b87e11572aa56efe1aa586240e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb3dbcb76972041c70447f40745052f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#abb3dbcb76972041c70447f40745052f0">XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID</a>&#160;&#160;&#160;(19U)</td></tr>
+<tr class="memdesc:abb3dbcb76972041c70447f40745052f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">command id for setting DDR address to restart image from DDR  <a href="#abb3dbcb76972041c70447f40745052f0">More...</a><br/></td></tr>
+<tr class="separator:abb3dbcb76972041c70447f40745052f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6781626f4cd510b61bb82d7d104dee6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#a6781626f4cd510b61bb82d7d104dee6c">XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR</a>&#160;&#160;&#160;(20U)</td></tr>
+<tr class="memdesc:a6781626f4cd510b61bb82d7d104dee6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">command id for glitch detector config  <a href="#a6781626f4cd510b61bb82d7d104dee6c">More...</a><br/></td></tr>
+<tr class="separator:a6781626f4cd510b61bb82d7d104dee6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916bc048b27810685fb062cdc9def9df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#a916bc048b27810685fb062cdc9def9df">XLOADER_CMD_ID_CALIBDATA_RESTORE</a>&#160;&#160;&#160;(21U)</td></tr>
+<tr class="memdesc:a916bc048b27810685fb062cdc9def9df"><td class="mdescLeft">&#160;</td><td class="mdescRight">command id for DDR calibration data restore  <a href="#a916bc048b27810685fb062cdc9def9df">More...</a><br/></td></tr>
+<tr class="separator:a916bc048b27810685fb062cdc9def9df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade0996ff5dc3acb83ddf9787911738dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#ade0996ff5dc3acb83ddf9787911738dd">XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR</a>&#160;&#160;&#160;(22U)</td></tr>
+<tr class="memdesc:ade0996ff5dc3acb83ddf9787911738dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">command id for get tlbin partition load address  <a href="#ade0996ff5dc3acb83ddf9787911738dd">More...</a><br/></td></tr>
+<tr class="separator:ade0996ff5dc3acb83ddf9787911738dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf8f803d138a9c88fc766505351c4fa8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#acf8f803d138a9c88fc766505351c4fa8">XLOADER_HEADER_LEN_1</a>&#160;&#160;&#160;(1U)</td></tr>
 <tr class="memdesc:acf8f803d138a9c88fc766505351c4fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Header length 1.  <a href="#acf8f803d138a9c88fc766505351c4fa8">More...</a><br/></td></tr>
 <tr class="separator:acf8f803d138a9c88fc766505351c4fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,6 +229,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ae6a2be2a534dfe2bac3f3575d37d6436"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#ae6a2be2a534dfe2bac3f3575d37d6436">XLOADER_GET_OPT_DATA_FLAG</a>&#160;&#160;&#160;(0x80U)</td></tr>
 <tr class="memdesc:ae6a2be2a534dfe2bac3f3575d37d6436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to indicate that Extract Metaheader request is to extract optional data only.  <a href="#ae6a2be2a534dfe2bac3f3575d37d6436">More...</a><br/></td></tr>
 <tr class="separator:ae6a2be2a534dfe2bac3f3575d37d6436"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8c1f05045478ffe7ef4be0401aa762d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#ae8c1f05045478ffe7ef4be0401aa762d">XLOADER_IDCODE_BYPASS_FLAG</a>&#160;&#160;&#160;(0x100U)</td></tr>
+<tr class="memdesc:ae8c1f05045478ffe7ef4be0401aa762d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to bypass IDcode check during Extract Metaheader.  <a href="#ae8c1f05045478ffe7ef4be0401aa762d">More...</a><br/></td></tr>
+<tr class="separator:ae8c1f05045478ffe7ef4be0401aa762d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9849c69818df75599877328a2c15c297"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__defs_8h.html#a9849c69818df75599877328a2c15c297">XLOADER_DATA_ID_SHIFT</a>&#160;&#160;&#160;(16U)</td></tr>
 <tr class="memdesc:a9849c69818df75599877328a2c15c297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift to get data ID from the payload of Extract metaheader command.  <a href="#a9849c69818df75599877328a2c15c297">More...</a><br/></td></tr>
 <tr class="separator:a9849c69818df75599877328a2c15c297"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -337,6 +358,20 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a916bc048b27810685fb062cdc9def9df"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_CMD_ID_CALIBDATA_RESTORE&#160;&#160;&#160;(21U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>command id for DDR calibration data restore </p>
+
+</div>
+</div>
 <a class="anchor" id="a01cc2b3426ec16af47f9baaf7758adc8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -348,6 +383,22 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>command id for Cframe data clear check </p>
+
+</div>
+</div>
+<a class="anchor" id="a6781626f4cd510b61bb82d7d104dee6c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_CMD_ID_CONFIG_GLITCH_DETECTOR&#160;&#160;&#160;(20U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>command id for glitch detector config </p>
+
+<p>Referenced by <a class="el" href="group__xloader__client__apis.html#ga3b72ed1bce0c661b7082f291e11fde08">XLoader_ConfigureGlitchDetector()</a>.</p>
 
 </div>
 </div>
@@ -409,6 +460,8 @@ Macros</h2></td></tr>
 
 <p>command id for features </p>
 
+<p>Referenced by <a class="el" href="group__xloader__client__apis.html#ga1b0f922a669106f6a1c6d0df014e5221">XLoader_GetServerLibInfo()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac47b1de83196aaa4ad120472deb2d9fc"></a>
@@ -456,6 +509,22 @@ Macros</h2></td></tr>
 <p>command id for get Image info list </p>
 
 <p>Referenced by <a class="el" href="group__xloader__client__apis.html#gac4737ad97892352c05d25dc687aa87a1">XLoader_GetImageInfoList()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ade0996ff5dc3acb83ddf9787911738dd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_CMD_ID_GET_TLBIN_LOAD_ADDR&#160;&#160;&#160;(22U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>command id for get tlbin partition load address </p>
+
+<p>Referenced by <a class="el" href="group__xloader__client__apis.html#gadfeef36c1fee845ec54f39c8ce9c18c6">XLoader_GetTlbinLoadAddr()</a>.</p>
 
 </div>
 </div>
@@ -738,6 +807,36 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Header length 6. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae8c1f05045478ffe7ef4be0401aa762d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_IDCODE_BYPASS_FLAG&#160;&#160;&#160;(0x100U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag to bypass IDcode check during Extract Metaheader. </p>
+
+</div>
+</div>
+<a class="anchor" id="abb3dbcb76972041c70447f40745052f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XLOADER_SET_DDR_ADDR_FOR_RESTART_IMAGE_ID&#160;&#160;&#160;(19U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>command id for setting DDR address to restart image from DDR </p>
+
+<p>Referenced by <a class="el" href="group__xloader__client__apis.html#gad2ea291a5214f42c54ab14c0a394bbaa">XLoader_SetDdrAddrForRestartImage()</a>.</p>
 
 </div>
 </div>

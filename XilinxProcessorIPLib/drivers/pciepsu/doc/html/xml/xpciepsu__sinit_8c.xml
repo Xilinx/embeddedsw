@@ -19,6 +19,12 @@
         <childnode refid="130" relation="include">
         </childnode>
       </node>
+      <node id="132">
+        <label>xstatus.h</label>
+      </node>
+      <node id="131">
+        <label>xil_types.h</label>
+      </node>
       <node id="130">
         <label>xpciepsu.h</label>
         <link refid="xpciepsu_8h"/>
@@ -30,12 +36,6 @@
         </childnode>
         <childnode refid="134" relation="include">
         </childnode>
-      </node>
-      <node id="132">
-        <label>xstatus.h</label>
-      </node>
-      <node id="131">
-        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -63,7 +63,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c" bodystart="75" bodyend="100"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c" bodystart="75" bodyend="100"/>
         <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
         <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1acc7842964c589d60177706498dfb51c1" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="213" endline="231">XPciePsu_InitEndPoint</referencedby>
       </memberdef>
@@ -155,6 +155,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="100"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c"/>
   </compounddef>
 </doxygen>

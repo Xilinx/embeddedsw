@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm_fw_gem_pwr_ctrl__t" kind="struct" prot="public">
+    <compoundname>XPmFwGemPwrCtrl_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1aca24a0b10edd788cef558be6d5ccca19" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::PwrStateMask</definition>
+        <argsstring></argsstring>
+        <name>PwrStateMask</name>
+        <briefdescription>
+<para>Bit number in the Power State Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1af694ed80fd09470ae9361ecaea189f81" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::ChipEnMask</definition>
+        <argsstring></argsstring>
+        <name>ChipEnMask</name>
+        <briefdescription>
+<para>Bit number in the chip enable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1ad1fda71523da33c6d360f3e32427d82b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::PwrCtrlMask</definition>
+        <argsstring></argsstring>
+        <name>PwrCtrlMask</name>
+        <briefdescription>
+<para>Bit number in the Power control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1a04ad2e285e5a11a5f57830bcb577faf9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::PwrStatusMask</definition>
+        <argsstring></argsstring>
+        <name>PwrStatusMask</name>
+        <briefdescription>
+<para>Bit number in the Power status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1ac2c5741b29831b0cef1463b6721055f8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::ReqPwrUpStatusMask</definition>
+        <argsstring></argsstring>
+        <name>ReqPwrUpStatusMask</name>
+        <briefdescription>
+<para>Bit number in the Power status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1ab48ae4e93b6314cbf2419bd403d89dff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::ReqPwrDwnStatusMask</definition>
+        <argsstring></argsstring>
+        <name>ReqPwrDwnStatusMask</name>
+        <briefdescription>
+<para>Bit number in the Power status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1af606bd8af5a9515a1c502ec2559a0c59" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::ClkCtrlAddr</definition>
+        <argsstring></argsstring>
+        <name>ClkCtrlAddr</name>
+        <briefdescription>
+<para>Address of the clock control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1ad5b764b4631eb3a57f97270e5681e66c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::ClkCtrlMask</definition>
+        <argsstring></argsstring>
+        <name>ClkCtrlMask</name>
+        <briefdescription>
+<para>Bit number in the clock control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1a10b92a720ee3480f1e37094ad93b9cc7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::RstCtrlAddr</definition>
+        <argsstring></argsstring>
+        <name>RstCtrlAddr</name>
+        <briefdescription>
+<para>Address of the reset control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1af572916d7a23376f029f75dd849728cb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::RstCtrlMask</definition>
+        <argsstring></argsstring>
+        <name>RstCtrlMask</name>
+        <briefdescription>
+<para>Bit number in the reset control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1a4ff9ad03ffc8ea1e9052c671d3cad05b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::PwrStateAckTimeout</definition>
+        <argsstring></argsstring>
+        <name>PwrStateAckTimeout</name>
+        <briefdescription>
+<para>mem_BANKx_ACK_PROP_TIMEOUT </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm_fw_gem_pwr_ctrl__t_1afe2c666f682c44f9c6469ea2c7eb703a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmFwGemPwrCtrl_t::PwrUpWaitTime</definition>
+        <argsstring></argsstring>
+        <name>PwrUpWaitTime</name>
+        <briefdescription>
+<para>mem_BANKx_PWRUP_WAIT_TIME </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power_core.h" bodystart="107" bodyend="120"/>
+    <listofallmembers>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1af694ed80fd09470ae9361ecaea189f81" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>ChipEnMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1af606bd8af5a9515a1c502ec2559a0c59" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>ClkCtrlAddr</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1ad5b764b4631eb3a57f97270e5681e66c" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>ClkCtrlMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1ad1fda71523da33c6d360f3e32427d82b" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>PwrCtrlMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1a4ff9ad03ffc8ea1e9052c671d3cad05b" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>PwrStateAckTimeout</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1aca24a0b10edd788cef558be6d5ccca19" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>PwrStateMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1a04ad2e285e5a11a5f57830bcb577faf9" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>PwrStatusMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1afe2c666f682c44f9c6469ea2c7eb703a" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>PwrUpWaitTime</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1ab48ae4e93b6314cbf2419bd403d89dff" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>ReqPwrDwnStatusMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1ac2c5741b29831b0cef1463b6721055f8" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>ReqPwrUpStatusMask</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1a10b92a720ee3480f1e37094ad93b9cc7" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>RstCtrlAddr</name></member>
+      <member refid="struct_x_pm_fw_gem_pwr_ctrl__t_1af572916d7a23376f029f75dd849728cb" prot="public" virt="non-virtual"><scope>XPmFwGemPwrCtrl_t</scope><name>RstCtrlMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

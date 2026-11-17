@@ -8,379 +8,379 @@
     <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
     <includedby refid="xvisp__ss__example_8c" local="no">xvisp_ss_example.c</includedby>
     <incdepgraph>
-      <node id="12028">
+      <node id="12518">
         <label>stdbool.h</label>
       </node>
-      <node id="12040">
-        <label>cam_device_cpd_api.h</label>
-        <childnode refid="12015" relation="include">
+      <node id="12545">
+        <label>cam_device_cnr_api.h</label>
+      </node>
+      <node id="12543">
+        <label>cam_device_ae_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+        <childnode refid="12519" relation="include">
         </childnode>
       </node>
-      <node id="12038">
-        <label>cam_device_lsc_api.h</label>
-        <childnode refid="12015" relation="include">
+      <node id="12526">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="12505" relation="include">
         </childnode>
       </node>
-      <node id="12032">
+      <node id="12522">
         <label>cam_device_module_api.h</label>
-        <childnode refid="12033" relation="include">
+        <childnode refid="12523" relation="include">
         </childnode>
-        <childnode refid="12034" relation="include">
+        <childnode refid="12524" relation="include">
         </childnode>
-        <childnode refid="12035" relation="include">
+        <childnode refid="12525" relation="include">
         </childnode>
-        <childnode refid="12036" relation="include">
+        <childnode refid="12526" relation="include">
         </childnode>
-        <childnode refid="12037" relation="include">
+        <childnode refid="12527" relation="include">
         </childnode>
-        <childnode refid="12038" relation="include">
+        <childnode refid="12528" relation="include">
         </childnode>
-        <childnode refid="12039" relation="include">
+        <childnode refid="12529" relation="include">
         </childnode>
-        <childnode refid="12040" relation="include">
+        <childnode refid="12530" relation="include">
         </childnode>
-        <childnode refid="12041" relation="include">
+        <childnode refid="12531" relation="include">
         </childnode>
-        <childnode refid="12042" relation="include">
+        <childnode refid="12532" relation="include">
         </childnode>
-        <childnode refid="12043" relation="include">
+        <childnode refid="12533" relation="include">
         </childnode>
-        <childnode refid="12044" relation="include">
+        <childnode refid="12534" relation="include">
         </childnode>
-        <childnode refid="12045" relation="include">
+        <childnode refid="12535" relation="include">
         </childnode>
-        <childnode refid="12046" relation="include">
+        <childnode refid="12536" relation="include">
         </childnode>
-        <childnode refid="12047" relation="include">
+        <childnode refid="12537" relation="include">
         </childnode>
-        <childnode refid="12048" relation="include">
+        <childnode refid="12538" relation="include">
         </childnode>
-        <childnode refid="12049" relation="include">
+        <childnode refid="12539" relation="include">
         </childnode>
-        <childnode refid="12050" relation="include">
+        <childnode refid="12540" relation="include">
         </childnode>
-        <childnode refid="12051" relation="include">
+        <childnode refid="12541" relation="include">
         </childnode>
-        <childnode refid="12052" relation="include">
+        <childnode refid="12542" relation="include">
         </childnode>
-        <childnode refid="12053" relation="include">
+        <childnode refid="12543" relation="include">
         </childnode>
-        <childnode refid="12054" relation="include">
+        <childnode refid="12544" relation="include">
         </childnode>
-        <childnode refid="12055" relation="include">
+        <childnode refid="12545" relation="include">
         </childnode>
-        <childnode refid="12056" relation="include">
+        <childnode refid="12546" relation="include">
         </childnode>
-        <childnode refid="12057" relation="include">
+        <childnode refid="12547" relation="include">
         </childnode>
-        <childnode refid="12058" relation="include">
+        <childnode refid="12548" relation="include">
         </childnode>
-        <childnode refid="12059" relation="include">
+        <childnode refid="12549" relation="include">
         </childnode>
-        <childnode refid="12060" relation="include">
-        </childnode>
-      </node>
-      <node id="12052">
-        <label>cam_device_dmsc_api.h</label>
-        <childnode refid="12015" relation="include">
+        <childnode refid="12550" relation="include">
         </childnode>
       </node>
-      <node id="12047">
-        <label>cam_device_dpcc_api.h</label>
-        <childnode refid="12015" relation="include">
+      <node id="12520">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="12518" relation="include">
+        </childnode>
+        <childnode refid="12521" relation="include">
         </childnode>
       </node>
-      <node id="12022">
+      <node id="12519">
+        <label>stdint.h</label>
+      </node>
+      <node id="12509">
+        <label>stdlib.h</label>
+      </node>
+      <node id="12506">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="12507" relation="include">
+        </childnode>
+        <childnode refid="12510" relation="include">
+        </childnode>
+        <childnode refid="12511" relation="include">
+        </childnode>
+      </node>
+      <node id="12523">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12511">
+        <label>stddef.h</label>
+      </node>
+      <node id="12525">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12534">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12530">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12510">
+        <label>limits.h</label>
+      </node>
+      <node id="12532">
+        <label>cam_device_hdr_api.h</label>
+      </node>
+      <node id="12512">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="12065">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="12023" relation="include">
-        </childnode>
-        <childnode refid="12066" relation="include">
-        </childnode>
-      </node>
-      <node id="12039">
-        <label>cam_device_rgbir_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12029">
-        <label>stdint.h</label>
-      </node>
-      <node id="12019">
-        <label>stdlib.h</label>
-      </node>
-      <node id="12035">
-        <label>cam_device_2dnr_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12041">
-        <label>cam_device_bls_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12061">
-        <label>cam_device_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-        <childnode refid="12062" relation="include">
-        </childnode>
-        <childnode refid="12063" relation="include">
-        </childnode>
-        <childnode refid="12043" relation="include">
-        </childnode>
-      </node>
-      <node id="12062">
-        <label>cam_device_calibration.h</label>
-        <childnode refid="12016" relation="include">
-        </childnode>
-      </node>
-      <node id="12042">
-        <label>cam_device_hdr_api.h</label>
-      </node>
-      <node id="12034">
-        <label>cam_device_wb_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12026">
-        <label>sensor_cmd.h</label>
-        <childnode refid="12027" relation="include">
-        </childnode>
-        <childnode refid="12022" relation="include">
-        </childnode>
-      </node>
-      <node id="12036">
-        <label>cam_device_ge_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12064">
-        <label>cam_device_buffer_api.h</label>
-        <childnode refid="12016" relation="include">
-        </childnode>
-        <childnode refid="12022" relation="include">
-        </childnode>
-        <childnode refid="12065" relation="include">
-        </childnode>
-        <childnode refid="12061" relation="include">
-        </childnode>
-        <childnode refid="12025" relation="include">
-        </childnode>
-      </node>
-      <node id="12060">
-        <label>cam_device_fusa_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12054">
+      <node id="12544">
         <label>cam_device_gtm_api.h</label>
-        <childnode refid="12015" relation="include">
+        <childnode refid="12505" relation="include">
         </childnode>
       </node>
-      <node id="12021">
-        <label>stddef.h</label>
-      </node>
-      <node id="12048">
-        <label>cam_device_wdr_api.h</label>
-        <childnode refid="12015" relation="include">
+      <node id="12528">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="12505" relation="include">
         </childnode>
       </node>
-      <node id="12020">
-        <label>limits.h</label>
-      </node>
-      <node id="12015">
-        <label>cam_device_common.h</label>
-        <childnode refid="12016" relation="include">
+      <node id="12516">
+        <label>sensor_cmd.h</label>
+        <childnode refid="12517" relation="include">
         </childnode>
-        <childnode refid="12022" relation="include">
-        </childnode>
-        <childnode refid="12023" relation="include">
-        </childnode>
-        <childnode refid="12025" relation="include">
-        </childnode>
-        <childnode refid="12026" relation="include">
+        <childnode refid="12512" relation="include">
         </childnode>
       </node>
-      <node id="12049">
-        <label>cam_device_af_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12025">
-        <label>buf_defs.h</label>
-        <childnode refid="12016" relation="include">
-        </childnode>
-      </node>
-      <node id="12027">
-        <label>mbox_api.h</label>
-        <childnode refid="12028" relation="include">
-        </childnode>
-        <childnode refid="12029" relation="include">
-        </childnode>
-        <childnode refid="12030" relation="include">
-        </childnode>
-      </node>
-      <node id="12055">
-        <label>cam_device_cnr_api.h</label>
-      </node>
-      <node id="12014">
-        <label>cam_device_app.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-        <childnode refid="12032" relation="include">
-        </childnode>
-      </node>
-      <node id="12024">
-        <label>string.h</label>
-      </node>
-      <node id="12030">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="12028" relation="include">
-        </childnode>
-        <childnode refid="12031" relation="include">
-        </childnode>
-      </node>
-      <node id="12050">
-        <label>cam_device_afm_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12046">
-        <label>cam_device_gc_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12056">
-        <label>cam_device_exp_api_v2.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12037">
+      <node id="12527">
         <label>cam_device_cproc_api.h</label>
-        <childnode refid="12015" relation="include">
+        <childnode refid="12505" relation="include">
         </childnode>
       </node>
-      <node id="12045">
-        <label>cam_device_ee_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12031">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="12059">
-        <label>cam_device_tpg_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12044">
-        <label>cam_device_3dnr_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12066">
-        <label>ff.h</label>
-      </node>
-      <node id="12063">
-        <label>offline_trace.h</label>
-        <link refid="offline__trace_8h"/>
-        <childnode refid="12017" relation="include">
-        </childnode>
-        <childnode refid="12016" relation="include">
-        </childnode>
-        <childnode refid="12022" relation="include">
-        </childnode>
-      </node>
-      <node id="12016">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="12017" relation="include">
-        </childnode>
-        <childnode refid="12020" relation="include">
-        </childnode>
-        <childnode refid="12021" relation="include">
-        </childnode>
-      </node>
-      <node id="12053">
-        <label>cam_device_ae_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-        <childnode refid="12029" relation="include">
-        </childnode>
-      </node>
-      <node id="12051">
-        <label>cam_device_awb_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-        <childnode refid="12029" relation="include">
-        </childnode>
-      </node>
-      <node id="12033">
-        <label>cam_device_dg_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12043">
-        <label>cam_device_ccm_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12058">
-        <label>cam_device_hist256_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12023">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="12016" relation="include">
-        </childnode>
-        <childnode refid="12024" relation="include">
-        </childnode>
-      </node>
-      <node id="12018">
-        <label>stdio.h</label>
-      </node>
-      <node id="12057">
-        <label>cam_device_hist64_api.h</label>
-        <childnode refid="12015" relation="include">
-        </childnode>
-      </node>
-      <node id="12017">
+      <node id="12507">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="12018" relation="include">
+        <childnode refid="12508" relation="include">
         </childnode>
-        <childnode refid="12019" relation="include">
+        <childnode refid="12509" relation="include">
         </childnode>
       </node>
-      <node id="12013">
+      <node id="12541">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+        <childnode refid="12519" relation="include">
+        </childnode>
+      </node>
+      <node id="12539">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12547">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12514">
+        <label>string.h</label>
+      </node>
+      <node id="12542">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12549">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12503">
         <label>xvisp_ss_example.h</label>
         <link refid="xvisp_ss_example.h"/>
-        <childnode refid="12014" relation="include">
+        <childnode refid="12504" relation="include">
         </childnode>
-        <childnode refid="12061" relation="include">
+        <childnode refid="12551" relation="include">
         </childnode>
-        <childnode refid="12064" relation="include">
+        <childnode refid="12554" relation="include">
         </childnode>
-        <childnode refid="12015" relation="include">
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12505">
+        <label>cam_device_common.h</label>
+        <childnode refid="12506" relation="include">
+        </childnode>
+        <childnode refid="12512" relation="include">
+        </childnode>
+        <childnode refid="12513" relation="include">
+        </childnode>
+        <childnode refid="12515" relation="include">
+        </childnode>
+        <childnode refid="12516" relation="include">
+        </childnode>
+      </node>
+      <node id="12517">
+        <label>mbox_api.h</label>
+        <childnode refid="12518" relation="include">
+        </childnode>
+        <childnode refid="12519" relation="include">
+        </childnode>
+        <childnode refid="12520" relation="include">
+        </childnode>
+      </node>
+      <node id="12537">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12529">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12550">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12540">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12536">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12513">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="12506" relation="include">
+        </childnode>
+        <childnode refid="12514" relation="include">
+        </childnode>
+      </node>
+      <node id="12521">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="12531">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12504">
+        <label>cam_device_app.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+        <childnode refid="12522" relation="include">
+        </childnode>
+      </node>
+      <node id="12533">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12556">
+        <label>ff.h</label>
+      </node>
+      <node id="12553">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="12507" relation="include">
+        </childnode>
+        <childnode refid="12506" relation="include">
+        </childnode>
+        <childnode refid="12512" relation="include">
+        </childnode>
+      </node>
+      <node id="12548">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12551">
+        <label>cam_device_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+        <childnode refid="12552" relation="include">
+        </childnode>
+        <childnode refid="12553" relation="include">
+        </childnode>
+        <childnode refid="12533" relation="include">
+        </childnode>
+      </node>
+      <node id="12515">
+        <label>buf_defs.h</label>
+        <childnode refid="12506" relation="include">
+        </childnode>
+      </node>
+      <node id="12554">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="12506" relation="include">
+        </childnode>
+        <childnode refid="12512" relation="include">
+        </childnode>
+        <childnode refid="12555" relation="include">
+        </childnode>
+        <childnode refid="12551" relation="include">
+        </childnode>
+        <childnode refid="12515" relation="include">
+        </childnode>
+      </node>
+      <node id="12555">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="12513" relation="include">
+        </childnode>
+        <childnode refid="12556" relation="include">
+        </childnode>
+      </node>
+      <node id="12552">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="12506" relation="include">
+        </childnode>
+      </node>
+      <node id="12524">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12508">
+        <label>stdio.h</label>
+      </node>
+      <node id="12538">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12535">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="12505" relation="include">
+        </childnode>
+      </node>
+      <node id="12546">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="12505" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="12068">
+      <node id="12558">
         <label>xvisp_ss_example.c</label>
       </node>
-      <node id="12067">
+      <node id="12557">
         <label>xvisp_ss_example.h</label>
         <link refid="xvisp_ss_example.h"/>
-        <childnode refid="12068" relation="include">
+        <childnode refid="12558" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -395,7 +395,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="20" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xvisp__ss__example_8h_1ac5735af12612c74e20bf178d670bccc6" prot="public" static="no">
         <name>TXT_GREEN</name>
@@ -406,7 +406,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="21" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xvisp__ss__example_8h_1acc078a49bdfa1408bf8cce2c223a783c" prot="public" static="no">
         <name>TXT_YELLOW</name>
@@ -417,7 +417,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="22" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xvisp__ss__example_8h_1adb4b14dae2c4bda6d262f420d2a5938d" prot="public" static="no">
         <name>TXT_BLUE</name>
@@ -428,7 +428,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="23" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xvisp__ss__example_8h_1ab8a3fefa95362096ecfd0fd42537898d" prot="public" static="no">
         <name>TXT_MAGENTA</name>
@@ -439,7 +439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xvisp__ss__example_8h_1ae126809050be1003b36fda3449838999" prot="public" static="no">
         <name>TXT_CYAN</name>
@@ -450,7 +450,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xvisp__ss__example_8h_1a6f1a67a56a532494c0ab1bc84db52db1" prot="public" static="no">
         <name>TXT_RST</name>
@@ -461,7 +461,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -479,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="29" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="32" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1ab458f6ff7df970c30ccf4a575995bc7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -499,7 +499,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.c" bodystart="370" bodyend="424"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.c" bodystart="459" bodyend="518"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1ad71080817b903a456d106bcd982077c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -524,7 +524,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.c" bodystart="313" bodyend="349"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.c" bodystart="403" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1abcc7ab6ce587c6e30d90967f06887f45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -540,7 +540,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="32" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="35" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a7d50dc021ba3ca7d7cc7546cc2ab9d66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -553,7 +553,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="33" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="36" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a318d6a21713964bfa66c2aea6932a57e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -582,7 +582,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="34" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="37" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1aebb562f11e87481392dc94dc8ed028c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -595,7 +595,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="35" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="38" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a2b830d18fab008a4ed4bac94b40e4d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -612,7 +612,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="37" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="40" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a256774af3a1295f3c468151302dcbd6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -629,7 +629,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="38" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="41" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a34463c53003ddd368cfe08564d943acf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -646,7 +646,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="39" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="42" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a38f3d83455ecbc2b0cee375afffc7f23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -663,7 +663,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="40" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="43" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a2706c5feb44ed7b6c885a9cefca3e475" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -680,7 +680,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="41" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="44" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a130e7b7c4f735868434946b63b3177ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -697,7 +697,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="42" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="45" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1ac50065af66e92c3c3408562c6115f3d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -714,7 +714,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="43" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="46" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a8427fc9f5a17c7bf6626dd40f35d7928" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -731,7 +731,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="44" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="47" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a8e7e55ad3416817ce9d442f41296e3e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -748,7 +748,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="45" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="48" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a10039aae6e2200294deeb0f4e910d61e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -765,7 +765,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="46" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="49" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a0a7986528912f17c9f5ee0a8ef623423" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -782,7 +782,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="47" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="50" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1a0b1be878bda066fd5a0b8e47de99fa34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -799,7 +799,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="48" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="51" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xvisp__ss__example_8h_1aba00fd600ce3ed49c0858aa305178236" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -816,7 +816,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="50" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h" line="53" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -832,53 +832,56 @@
 <codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_buffer_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Aligned<sp/>buffer<sp/>structure<sp/>-<sp/>use<sp/>memory_manager.h<sp/>definition<sp/>if<sp/>available<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>MEMORY_MANAGER_H</highlight></codeline>
-<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">aligned_buf<sp/>{</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*original_addr;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Original<sp/>malloc<sp/>address<sp/>for<sp/>freeing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*aligned_addr;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Aligned<sp/>address<sp/>for<sp/>hardware<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>size;</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>alignment;</highlight></codeline>
-<codeline lineno="17"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TXT_RED<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[31m&quot;</highlight></codeline>
-<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_GREEN<sp/><sp/><sp/>&quot;\x1b[32m&quot;</highlight></codeline>
-<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_YELLOW<sp/><sp/>&quot;\x1b[33m&quot;</highlight></codeline>
-<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_BLUE<sp/><sp/><sp/><sp/>&quot;\x1b[34m&quot;</highlight></codeline>
-<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_MAGENTA<sp/>&quot;\x1b[35m&quot;</highlight></codeline>
-<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_CYAN<sp/><sp/><sp/><sp/>&quot;\x1b[36m&quot;</highlight></codeline>
-<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_RST<sp/><sp/><sp/>&quot;\x1b[0m&quot;</highlight></codeline>
-<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>declarations</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>reset_hw_function(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>config_visp_ss();</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>init_visp_ss(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>enable_fbwr();</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>init_fbwr(u8<sp/>hpId,<sp/><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref><sp/>bufIo,<sp/><ref refid="struct_cam_device_pipe_out_fmt__s" kindref="compound">CamDevicePipeOutFmt_t</ref><sp/>outFormat,<sp/>u64<sp/>bufsize);</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup_frmbuf_wr();</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_0(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_1(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_2(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_3(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_4(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_5(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_6(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_7(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_8(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_9(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_10(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_11(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Reset_IP(u8<sp/>Ip_ResetBit);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XMIPICSISS_NUM_INSTANCES</highlight></codeline>
-<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setup_mipi_csi_interrupts(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>ARMR52</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="trace_8h" kindref="compound">trace.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Aligned<sp/>buffer<sp/>structure<sp/>-<sp/>use<sp/>memory_manager.h<sp/>definition<sp/>if<sp/>available<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>MEMORY_MANAGER_H</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">aligned_buf<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*original_addr;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Original<sp/>malloc<sp/>address<sp/>for<sp/>freeing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*aligned_addr;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Aligned<sp/>address<sp/>for<sp/>hardware<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>size;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>alignment;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TXT_RED<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[31m&quot;</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_GREEN<sp/><sp/><sp/>&quot;\x1b[32m&quot;</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_YELLOW<sp/><sp/>&quot;\x1b[33m&quot;</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_BLUE<sp/><sp/><sp/><sp/>&quot;\x1b[34m&quot;</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_MAGENTA<sp/>&quot;\x1b[35m&quot;</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_CYAN<sp/><sp/><sp/><sp/>&quot;\x1b[36m&quot;</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_RST<sp/><sp/><sp/>&quot;\x1b[0m&quot;</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Function<sp/>declarations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>reset_hw_function(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>config_visp_ss();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>init_visp_ss(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>enable_fbwr();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>init_fbwr(u8<sp/>hpId,<sp/><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref><sp/>bufIo,<sp/><ref refid="struct_cam_device_pipe_out_fmt__s" kindref="compound">CamDevicePipeOutFmt_t</ref><sp/>outFormat,<sp/>u64<sp/>bufsize);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setup_frmbuf_wr();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_0(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_1(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_2(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_3(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_4(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_5(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_6(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_7(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_8(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_9(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_10(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FrmbufwrDoneCallback_11(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Reset_IP(u8<sp/>Ip_ResetBit);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XMIPICSISS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>setup_mipi_csi_interrupts(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xvisp_ss_example.h"/>
   </compounddef>
 </doxygen>

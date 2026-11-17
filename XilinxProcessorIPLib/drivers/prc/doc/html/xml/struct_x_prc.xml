@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="318" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="318" bodyend="-1"/>
         <referencedby refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" compoundref="xprc_8c" startline="75" endline="142">XPrc_CfgInitialize</referencedby>
         <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
         <referencedby refid="group__prc_1gaa1e1c547c5d110ec0e5fb28721398547" compoundref="xprc_8c" startline="739" endline="755">XPrc_GetBsId</referencedby>
@@ -52,7 +52,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="319" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="319" bodyend="-1"/>
         <referencedby refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" compoundref="xprc_8c" startline="75" endline="142">XPrc_CfgInitialize</referencedby>
         <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
         <referencedby refid="group__prc_1ga23ab1e4290b46abb79a99627c2f85d41" compoundref="xprc_8c" startline="807" endline="828">XPrc_GetBsSize</referencedby>
@@ -72,7 +72,7 @@
 <para>The <ref refid="struct_x_prc" kindref="compound">XPrc</ref> instance data structure. </para>    </briefdescription>
     <detaileddescription>
 <para>A pointer to an instance data structure is passed around by functions to refer to a specific instance. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="317" bodyend="320"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="317" bodyend="320"/>
     <listofallmembers>
       <member refid="struct_x_prc_1a004702b744e3189596b5ac40f0b439ad" prot="public" virt="non-virtual"><scope>XPrc</scope><name>Config</name></member>
       <member refid="struct_x_prc_1a27ae60cc32838ce302440d7a62ad9e46" prot="public" virt="non-virtual"><scope>XPrc</scope><name>IsReady</name></member>

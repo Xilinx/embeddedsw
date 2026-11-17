@@ -6,30 +6,30 @@
     <includes local="yes">xil_sutil.h</includes>
     <includedby refid="xsecure__lmsalginfo_8c" local="yes">xsecure_lmsalginfo.c</includedby>
     <incdepgraph>
-      <node id="2048">
-        <label>xsecure_lmsalginfo.h</label>
-        <link refid="client/core/lms_hss/xsecure_lmsalginfo.h"/>
-        <childnode refid="2049" relation="include">
-        </childnode>
-        <childnode refid="2050" relation="include">
-        </childnode>
-      </node>
-      <node id="2050">
+      <node id="2136">
         <label>xil_sutil.h</label>
       </node>
-      <node id="2049">
+      <node id="2134">
+        <label>xsecure_lmsalginfo.h</label>
+        <link refid="client/core/lms_hss/xsecure_lmsalginfo.h"/>
+        <childnode refid="2135" relation="include">
+        </childnode>
+        <childnode refid="2136" relation="include">
+        </childnode>
+      </node>
+      <node id="2135">
         <label>xil_cryptoalginfo.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2052">
+      <node id="2138">
         <label>xsecure_lmsalginfo.c</label>
         <link refid="xsecure__lmsalginfo_8c"/>
       </node>
-      <node id="2051">
+      <node id="2137">
         <label>xsecure_lmsalginfo.h</label>
         <link refid="client/core/lms_hss/xsecure_lmsalginfo.h"/>
-        <childnode refid="2052" relation="include">
+        <childnode refid="2138" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -57,9 +57,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c" bodystart="50" bodyend="53"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="162">XSECURE_API_LMS_SIGN_VERIFY</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="164">XSECURE_API_LMS_SIGN_VERIFY</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -105,6 +105,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_LMSALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.h"/>
   </compounddef>
 </doxygen>

@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" bodystart="10" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="vck190__av__pt_2platform__config_8h_1a0f4ff52ed3a5a46691f6a4d03988923d" prot="public" static="no">
         <name>UART_DEVICE_ID</name>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" bodystart="11" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h" bodystart="11" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -66,6 +66,6 @@
 <codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UART_DEVICE_ID<sp/>0</highlight></codeline>
 <codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h"/>
   </compounddef>
 </doxygen>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,22 +100,41 @@ $(document).ready(function(){initNavTree('xuartns550__sinit_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xuartns550_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Static initialization functionality for the <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> component. </p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date         Changes
+</p>
+<hr/>
+<p>
+ 1.01a jvb  10/13/05 First release
+ 1.11a sv   03/20/07 Updated to use the new coding guidelines.
+ 2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
+ 3.9   gm   07/09/23 Added SDT support
+ 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+ 3.15  vn   09/09/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550__i_8h.html">xuartns550_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gacf96ed2e4750caf9d060f88c4f0b6fe9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gacf96ed2e4750caf9d060f88c4f0b6fe9">XPAR_DEFAULT_BAUD_RATE</a>&#160;&#160;&#160;19200</td></tr>
+<tr class="memdesc:gacf96ed2e4750caf9d060f88c4f0b6fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default baud rate.  <a href="group__uartns550.html#gacf96ed2e4750caf9d060f88c4f0b6fe9">More...</a><br/></td></tr>
+<tr class="separator:gacf96ed2e4750caf9d060f88c4f0b6fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga6121a7c3b5ad2899eb7fa058df9201d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_ns550___config.html">XUartNs550_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga6121a7c3b5ad2899eb7fa058df9201d2">XUartNs550_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga6121a7c3b5ad2899eb7fa058df9201d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__uartns550.html#ga6121a7c3b5ad2899eb7fa058df9201d2">More...</a><br/></td></tr>
+<tr class="memdesc:ga6121a7c3b5ad2899eb7fa058df9201d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID or base address.  <a href="group__uartns550.html#ga6121a7c3b5ad2899eb7fa058df9201d2">More...</a><br/></td></tr>
 <tr class="separator:ga6121a7c3b5ad2899eb7fa058df9201d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga442492dcbff076f40f1fca0f571621c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga442492dcbff076f40f1fca0f571621c9">XUartNs550_Initialize</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga442492dcbff076f40f1fca0f571621c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_uart_ns550.html" title="The XUartNs550 driver instance data. ">XUartNs550</a> instance such that it is ready to be used.  <a href="group__uartns550.html#ga442492dcbff076f40f1fca0f571621c9">More...</a><br/></td></tr>
+<tr class="memdesc:ga442492dcbff076f40f1fca0f571621c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> instance for use.  <a href="group__uartns550.html#ga442492dcbff076f40f1fca0f571621c9">More...</a><br/></td></tr>
 <tr class="separator:ga442492dcbff076f40f1fca0f571621c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

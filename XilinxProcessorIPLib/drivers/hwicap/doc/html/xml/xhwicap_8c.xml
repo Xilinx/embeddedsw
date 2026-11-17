@@ -8,12 +8,24 @@
     <includes local="yes">xparameters.h</includes>
     <includes local="no">sleep.h</includes>
     <incdepgraph>
+      <node id="9">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap__l_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>xil_assert.h</label>
       </node>
-      <node id="8">
-        <label>xhwicap_i.h</label>
-        <link refid="xhwicap__i_8h"/>
+      <node id="10">
+        <label>xil_io.h</label>
+      </node>
+      <node id="13">
+        <label>sleep.h</label>
       </node>
       <node id="4">
         <label>xhwicap.c</label>
@@ -41,21 +53,9 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="10">
-        <label>xil_io.h</label>
-      </node>
-      <node id="13">
-        <label>sleep.h</label>
-      </node>
-      <node id="9">
-        <label>xhwicap_l.h</label>
-        <link refid="xhwicap__l_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
+      <node id="8">
+        <label>xhwicap_i.h</label>
+        <link refid="xhwicap__i_8h"/>
       </node>
       <node id="11">
         <label>xstatus.h</label>
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hwicap_1ga6878d8f593392889b25b79f111b7fae2" prot="public" static="no">
         <name>DEVICE_ULTRA_WORDS_PER_FRAME</name>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hwicap_1gaaa3cd9e282384088bf5b67b18f1aedbd" prot="public" static="no">
         <name>DEVICE_ULTRA_PLUS_WORDS_PER_FRAME</name>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="91" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -122,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__hwicap_1ga417ab658501465c4188c28757ee8f84c" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="114" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__hwicap_1gad2ce3bdde5654f5246b50f8372d02297" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -160,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="120" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="120" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -211,7 +211,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="838" bodyend="845"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="838" bodyend="845"/>
       </memberdef>
       <memberdef kind="function" id="group__hwicap_1gae2b5ad0b82bbfdfb05133ed3194bb699" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -228,7 +228,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="790" bodyend="820"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="790" bodyend="820"/>
       </memberdef>
       <memberdef kind="function" id="group__hwicap_1gad497b5129aff666181e85457f1c5f678" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -277,7 +277,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Set IcapWidth</para><para>Set IsLiteMode </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="157" bodyend="262"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="157" bodyend="262"/>
         <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
         <references refid="struct_x_hw_icap_1abd5f77c5e222b3372623794a6d8bb05c" compoundref="xhwicap_8h" startline="260">XHwIcap::BytesPerFrame</references>
         <references refid="struct_x_hw_icap_1a1fbb30f90288a5c42de2e456b6ca510e" compoundref="xhwicap_8h" startline="259">XHwIcap::DeviceFamily</references>
@@ -345,7 +345,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="300" bodyend="503"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="300" bodyend="503"/>
         <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
         <references refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" compoundref="xhwicap_8h" startline="255">XHwIcap::HwIcapConfig</references>
         <references refid="struct_x_hw_icap___config_1a65bee38ed10f278be07d83822af3439d" compoundref="xhwicap_8h" startline="243">XHwIcap_Config::IcapWidth</references>
@@ -422,7 +422,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="528" bodyend="661"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="528" bodyend="661"/>
         <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
         <references refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" compoundref="xhwicap_8h" startline="255">XHwIcap::HwIcapConfig</references>
         <references refid="struct_x_hw_icap___config_1a65bee38ed10f278be07d83822af3439d" compoundref="xhwicap_8h" startline="243">XHwIcap_Config::IcapWidth</references>
@@ -467,7 +467,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="677" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="677" bodyend="705"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="677" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="677" bodyend="705"/>
         <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
         <references refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" compoundref="xhwicap_8h" startline="255">XHwIcap::HwIcapConfig</references>
         <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
@@ -502,7 +502,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="719" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="719" bodyend="746"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="719" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="719" bodyend="746"/>
         <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
         <references refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" compoundref="xhwicap_8h" startline="255">XHwIcap::HwIcapConfig</references>
         <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
@@ -536,7 +536,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="761" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="761" bodyend="781"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" line="761" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c" bodystart="761" bodyend="781"/>
         <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
         <references refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" compoundref="xhwicap_8h" startline="255">XHwIcap::HwIcapConfig</references>
         <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
@@ -1193,6 +1193,6 @@
 <codeline lineno="844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
 <codeline lineno="845"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.c"/>
   </compounddef>
 </doxygen>

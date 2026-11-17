@@ -138,11 +138,18 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.7   tvp  02/19/26 Added <a class="el" href="struct_x_secure___mldsa_sign_verify_params.html" title="Structure for input parameters for MLDSA Sign Verification. ">XSecure_MldsaSignVerifyParams</a>
       tvp  02/19/26 Added <a class="el" href="struct_x_secure___slhdsa_input_params.html" title="Structure for input parameters for SLHDSA Sign Verification. ">XSecure_SlhdsaInputParams</a>
       tvp  03/09/26 Added <a class="el" href="struct_x_secure___mldsa_sign_gen_params.html" title="Structure for input parameters for MLDSA Sign Generation. ">XSecure_MldsaSignGenParams</a>
-      tvp  03/17/26 Re-arrange Mldsa and Slhdsa Sign verify params</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
+      tvp  03/17/26 Re-arrange Mldsa and Slhdsa Sign verify params
+5.8   tus  08/19/26 Added XSecure_LibCapBit capability bit-position registry for
+                    the library-info query; library info uses the shared
+                    Xil_LibInfo container (xil_cryptoalginfo.h)
+      rap  09/09/26 Moved XSECURE_ECC_P521_SIZE_IN_BYTES here as the single
+                    client/server definition (same approach as RSA key sizes)
+      mb   09/08/26 Fixed typo in Elliptic sign structure descriptions</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
-<code>#include &quot;xsecure_plat_defs.h&quot;</code><br/>
+<code>#include &quot;xil_sutil.h&quot;</code><br/>
 <code>#include &quot;xsecure_config.h&quot;</code><br/>
+<code>#include &quot;xsecure_plat_defs.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -152,11 +159,14 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___rsa_sign_params.html">XSecure_RsaSignParams</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for input parameters for RSA Sign verification.  <a href="struct_x_secure___rsa_sign_params.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html">XSecure_RsaPssSignVerifyParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for input parameters for RSA-PSS sign verification.  <a href="struct_x_secure___rsa_pss_sign_verify_params.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___elliptic_sign_gen_params.html">XSecure_EllipticSignGenParams</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for input parameters for Ellitic Sign generation.  <a href="struct_x_secure___elliptic_sign_gen_params.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___elliptic_sign_verify_params.html">XSecure_EllipticSignVerifyParams</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for input parameters for Ellitic Sign Verification.  <a href="struct_x_secure___elliptic_sign_verify_params.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for input parameters for Elliptic Sign Verification.  <a href="struct_x_secure___elliptic_sign_verify_params.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___aes_init_ops.html">XSecure_AesInitOps</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for input parameters for Initialisation of AES Encryption and Decryption.  <a href="struct_x_secure___aes_init_ops.html#details">More...</a><br/></td></tr>
@@ -224,16 +234,52 @@ Macros</h2></td></tr>
 <tr class="memitem:gaec6e0642a5377d68c66bc54fb39ad161"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gaec6e0642a5377d68c66bc54fb39ad161">XSecure_EllipticCrvClass</a>&#160;&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#ga678d756780f5569d245a8fe5fe7606c7">XSecure_EccCrvClass</a></td></tr>
 <tr class="memdesc:gaec6e0642a5377d68c66bc54fb39ad161"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for XSecure_EccCrvClass enum for backward compatibility.  <a href="group__xsecure__common__apis.html#gaec6e0642a5377d68c66bc54fb39ad161">More...</a><br/></td></tr>
 <tr class="separator:gaec6e0642a5377d68c66bc54fb39ad161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7f0fdd86e7cf849e595e156156b7804"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gad7f0fdd86e7cf849e595e156156b7804">XSECURE_ECC_P521_SIZE_IN_BYTES</a>&#160;&#160;&#160;(66U)</td></tr>
+<tr class="memdesc:gad7f0fdd86e7cf849e595e156156b7804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of NIST P-521 curve in bytes.  <a href="group__xsecure__common__apis.html#gad7f0fdd86e7cf849e595e156156b7804">More...</a><br/></td></tr>
+<tr class="separator:gad7f0fdd86e7cf849e595e156156b7804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga07736a55ec2f9d8242a46ee20fc9f7b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga07736a55ec2f9d8242a46ee20fc9f7b6">XSECURE_RSA_2048_KEY_SIZE</a>&#160;&#160;&#160;(2048U/8U)</td></tr>
+<tr class="memdesc:ga07736a55ec2f9d8242a46ee20fc9f7b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 2048 key size.  <a href="group__xsecure__common__apis.html#ga07736a55ec2f9d8242a46ee20fc9f7b6">More...</a><br/></td></tr>
+<tr class="separator:ga07736a55ec2f9d8242a46ee20fc9f7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59620f1b6f6bde84528a793de12385c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga59620f1b6f6bde84528a793de12385c5">XSECURE_RSA_3072_KEY_SIZE</a>&#160;&#160;&#160;(3072U/8U)</td></tr>
+<tr class="memdesc:ga59620f1b6f6bde84528a793de12385c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 3072 key size.  <a href="group__xsecure__common__apis.html#ga59620f1b6f6bde84528a793de12385c5">More...</a><br/></td></tr>
+<tr class="separator:ga59620f1b6f6bde84528a793de12385c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ff2e0197483048fcc9e7c52416750c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga6ff2e0197483048fcc9e7c52416750c8">XSECURE_RSA_4096_KEY_SIZE</a>&#160;&#160;&#160;(4096U/8U)</td></tr>
+<tr class="memdesc:ga6ff2e0197483048fcc9e7c52416750c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA 4096 key size.  <a href="group__xsecure__common__apis.html#ga6ff2e0197483048fcc9e7c52416750c8">More...</a><br/></td></tr>
+<tr class="separator:ga6ff2e0197483048fcc9e7c52416750c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3637356df5720621bbd9924fa45a8d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gae3637356df5720621bbd9924fa45a8d8">XSECURE_HASH_TYPE_SHA3</a>&#160;&#160;&#160;(48U)</td></tr>
+<tr class="memdesc:gae3637356df5720621bbd9924fa45a8d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA-3 hash size in bytes.  <a href="group__xsecure__common__apis.html#gae3637356df5720621bbd9924fa45a8d8">More...</a><br/></td></tr>
+<tr class="separator:gae3637356df5720621bbd9924fa45a8d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa21a4342991c4c6a94d6d66b56d8b58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gafa21a4342991c4c6a94d6d66b56d8b58">XSECURE_RSA_PSS_2048_KEY_SIZE</a>&#160;&#160;&#160;(256U)</td></tr>
+<tr class="memdesc:gafa21a4342991c4c6a94d6d66b56d8b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA-PSS sign verification supported key sizes.  <a href="group__xsecure__common__apis.html#gafa21a4342991c4c6a94d6d66b56d8b58">More...</a><br/></td></tr>
+<tr class="separator:gafa21a4342991c4c6a94d6d66b56d8b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e07888ea67723a44714c1a06e78cfd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga3e07888ea67723a44714c1a06e78cfd9">XSECURE_RSA_PSS_3072_KEY_SIZE</a>&#160;&#160;&#160;(384U)</td></tr>
+<tr class="memdesc:ga3e07888ea67723a44714c1a06e78cfd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA-3072 key size in bytes.  <a href="group__xsecure__common__apis.html#ga3e07888ea67723a44714c1a06e78cfd9">More...</a><br/></td></tr>
+<tr class="separator:ga3e07888ea67723a44714c1a06e78cfd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91d7ff6c55e5dbfc20630bff84beed45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga91d7ff6c55e5dbfc20630bff84beed45">XSECURE_RSA_PSS_4096_KEY_SIZE</a>&#160;&#160;&#160;(512U)</td></tr>
+<tr class="memdesc:ga91d7ff6c55e5dbfc20630bff84beed45"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA-4096 key size in bytes.  <a href="group__xsecure__common__apis.html#ga91d7ff6c55e5dbfc20630bff84beed45">More...</a><br/></td></tr>
+<tr class="separator:ga91d7ff6c55e5dbfc20630bff84beed45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4447fcf5f3f323048ea9cf7407404e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gab4447fcf5f3f323048ea9cf7407404e0">XSECURE_RSA_PSS_HASH_SIZE</a>&#160;&#160;&#160;(48U)</td></tr>
+<tr class="memdesc:gab4447fcf5f3f323048ea9cf7407404e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3-384 hash size in bytes.  <a href="group__xsecure__common__apis.html#gab4447fcf5f3f323048ea9cf7407404e0">More...</a><br/></td></tr>
+<tr class="separator:gab4447fcf5f3f323048ea9cf7407404e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga73de045638494c1e271d0bf1d6025688"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga73de045638494c1e271d0bf1d6025688">XSECURE_LIB_CAP_WORDS</a>&#160;&#160;&#160;(2U)</td></tr>
+<tr class="memdesc:ga73de045638494c1e271d0bf1d6025688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of 32-bit capability words carried in the library information response.  <a href="group__xsecure__common__apis.html#ga73de045638494c1e271d0bf1d6025688">More...</a><br/></td></tr>
+<tr class="separator:ga73de045638494c1e271d0bf1d6025688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70b849ef6cb6f5c89b4f5d6b33702e9a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga70b849ef6cb6f5c89b4f5d6b33702e9a">XSECURE_LIB_CAP_BITS_PER_WORD</a>&#160;&#160;&#160;(32U)</td></tr>
+<tr class="memdesc:ga70b849ef6cb6f5c89b4f5d6b33702e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of capability bits per 32-bit word.  <a href="group__xsecure__common__apis.html#ga70b849ef6cb6f5c89b4f5d6b33702e9a">More...</a><br/></td></tr>
+<tr class="separator:ga70b849ef6cb6f5c89b4f5d6b33702e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Debug related macros</div></td></tr>
 <tr class="memitem:gadab2e360fc5b40845c9d4f1128075ea6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gadab2e360fc5b40845c9d4f1128075ea6">XSECURE_DEBUG</a>&#160;&#160;&#160;(0U)</td></tr>
 <tr class="memdesc:gadab2e360fc5b40845c9d4f1128075ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Enable client printfs by setting XSECURE_DEBUG to 1  <a href="group__xsecure__common__apis.html#gadab2e360fc5b40845c9d4f1128075ea6">More...</a><br/></td></tr>
 <tr class="separator:gadab2e360fc5b40845c9d4f1128075ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad317bd5f7cf522c602b9f00246d34d97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gad317bd5f7cf522c602b9f00246d34d97"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSECURE_DEBUG_GENERAL</b>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memitem:gad317bd5f7cf522c602b9f00246d34d97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:gad317bd5f7cf522c602b9f00246d34d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">General debug print control macro.  <a href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">More...</a><br/></td></tr>
 <tr class="separator:gad317bd5f7cf522c602b9f00246d34d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:ga6e32d922e4d8450e93b7893dbfc175c8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga6e32d922e4d8450e93b7893dbfc175c8">XSecure_RsaPssStatus</a> </td></tr>
+<tr class="memdesc:ga6e32d922e4d8450e93b7893dbfc175c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">RSA-PSS verification errors.  <a href="group__xsecure__common__apis.html#ga6e32d922e4d8450e93b7893dbfc175c8">More...</a><br/></td></tr>
+<tr class="separator:ga6e32d922e4d8450e93b7893dbfc175c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadcb99879df57dfcbb96293bd161933be"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#gadcb99879df57dfcbb96293bd161933be">XSecure_AesOp</a> { <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091">XSECURE_ENCRYPT</a>,
 <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae">XSECURE_DECRYPT</a>,
 <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091">XSECURE_ENCRYPT</a>,
@@ -268,6 +314,27 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:gae9abbc75ac66f341f029869aac24c716"><td class="mdescLeft">&#160;</td><td class="mdescRight">XilSecure API KAT operations.  <a href="group__xsecure__common__apis.html#gae9abbc75ac66f341f029869aac24c716">More...</a><br/></td></tr>
 <tr class="separator:gae9abbc75ac66f341f029869aac24c716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b0d7e019c82d17ca584e64bd45d0ee4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__common__apis.html#ga3b0d7e019c82d17ca584e64bd45d0ee4">XSecure_LibCapBit</a> { <br/>
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a86c521c6f25a954dfe7799ccbabb1e53">XSECURE_CAP_ECC_NIST_P192_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a60a4e0526ac2035743b5acd5b74bdff7">XSECURE_CAP_ECC_NIST_P224_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a97be954456fbab1de32b74629d7cb44d">XSECURE_CAP_ECC_NIST_P256_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a5a1a12b310abf2dca30d56e3a52c281c">XSECURE_CAP_ECC_NIST_P384_BIT</a>,
+<br/>
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4aae127b8b575ea1099380bde92e2b836e">XSECURE_CAP_ECC_NIST_P521_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a9c79510d708fdd1f57faa89e745f3846">XSECURE_CAP_ECDSA_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4aa203d25b1e48bc0e90f88b6853bd28cf">XSECURE_CAP_ECC_BIG_ENDIAN_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a6b1b41aab22f7f38a573a7c3b771603b">XSECURE_CAP_RSA_BIT</a>,
+<br/>
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a832162b82cf1946adbc65ba3e5df9e91">XSECURE_CAP_AES_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4ad8e3c8ba0b372fc9b2beee6f32194951">XSECURE_CAP_LIB_CRYPTOALGINFO_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4aad70d5243722e42b16c83f80c7dd0083">XSECURE_CAP_ECDH_BIT</a>,
+<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a242ca31ad43748ae39a6b06388d8a1c6">XSECURE_CAP_TRNG_BIT</a>,
+<br/>
+&#160;&#160;<a class="el" href="group__xsecure__common__apis.html#gga3b0d7e019c82d17ca584e64bd45d0ee4a0c64797df4824c12b97ca0e4fac2eebe">XSECURE_CAP_LMS_BIT</a>
+<br/>
+ }</td></tr>
+<tr class="memdesc:ga3b0d7e019c82d17ca584e64bd45d0ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">XilSecure library capability bit positions (global registry).  <a href="group__xsecure__common__apis.html#ga3b0d7e019c82d17ca584e64bd45d0ee4">More...</a><br/></td></tr>
+<tr class="separator:ga3b0d7e019c82d17ca584e64bd45d0ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

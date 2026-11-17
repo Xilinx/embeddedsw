@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_502b2123dfc10a246ed6d44a6d889edd" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="net_2common_2xpm__defs_8h">net/common/xpm_defs.h</innerfile>
+    <innerfile refid="net_2common_2xpm__err_8h">net/common/xpm_err.h</innerfile>
+    <innerfile refid="versal__net_2common_2xpm__error__node_8h">versal_net/common/xpm_error_node.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/"/>
+  </compounddef>
+</doxygen>

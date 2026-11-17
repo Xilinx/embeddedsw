@@ -5,17 +5,19 @@
     <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___d_s_a___settings_1a0aecf4462987cc68c24d5d8a447efaaf" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_DSA_Settings::DisableRTS</definition>
         <argsstring></argsstring>
         <name>DisableRTS</name>
         <briefdescription>
-        </briefdescription>
+<para>Disables RTS control of DSA attenuation. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="538" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="594" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="594" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1164a091617095872eda503c31fbde75" compoundref="xrfdc__ap_8c" startline="3050" endline="3100">XRFdc_GetDSA</referencedby>
+        <referencedby refid="group___overview_1gae74e1d49f3f10c8dad02d6a55b4cd0dc" compoundref="xrfdc__ap_8c" startline="2966" endline="3030">XRFdc_SetDSA</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___d_s_a___settings_1aa801bed2dfaa611d39220640a4424362" prot="public" static="no" mutable="no">
         <type>float</type>
@@ -23,19 +25,21 @@
         <argsstring></argsstring>
         <name>Attenuation</name>
         <briefdescription>
-        </briefdescription>
+<para>Attenuation. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="539" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="539" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="595" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1164a091617095872eda503c31fbde75" compoundref="xrfdc__ap_8c" startline="3050" endline="3100">XRFdc_GetDSA</referencedby>
+        <referencedby refid="group___overview_1gae74e1d49f3f10c8dad02d6a55b4cd0dc" compoundref="xrfdc__ap_8c" startline="2966" endline="3030">XRFdc_SetDSA</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>RFSoC DSA settings. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="537" bodyend="540"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="593" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="593" bodyend="596"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___d_s_a___settings_1aa801bed2dfaa611d39220640a4424362" prot="public" virt="non-virtual"><scope>XRFdc_DSA_Settings</scope><name>Attenuation</name></member>
       <member refid="struct_x_r_fdc___d_s_a___settings_1a0aecf4462987cc68c24d5d8a447efaaf" prot="public" virt="non-virtual"><scope>XRFdc_DSA_Settings</scope><name>DisableRTS</name></member>

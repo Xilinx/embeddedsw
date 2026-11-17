@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('xilpuf__client__example_8c.html','');}
    static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".data.PufData")));
                                    should be changed to
    static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
-</pre><p>To keep things simple, by default the cache is disabled for this example</p>
+</pre><p>By default the cache is enabled for this example</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who   Date     Changes
  ----- ---  -------- -------------------------------------------------------
@@ -148,6 +148,7 @@ $(document).ready(function(){initNavTree('xilpuf__client__example_8c.html','');}
  2.6   rpu  07/15/25 Fixed GCC warnings
  2.7   bha  01/06/26 Fixed Doxygen warnings
        bha  02/25/26 Removed ICCARM related code
+ 2.8   rama 09/17/26 Enable cache by default for client example
  </pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xpuf_bsp_config.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xpuf__client_8h.html">xpuf_client.h</a>&quot;</code><br/>

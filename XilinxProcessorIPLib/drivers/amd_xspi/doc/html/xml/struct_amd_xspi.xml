@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_amd_xspi" kind="struct" prot="public">
+    <compoundname>AmdXspi</compoundname>
+    <includes local="no">amd_xspi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_amd_xspi___config" kindref="compound">AmdXspi_Config</ref></type>
+        <definition>AmdXspi_Config AmdXspi::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5291013eb37134ed9952b8177688997d" compoundref="amd__xspi__control_8c" startline="106" endline="160">AmdXspi_LiteRead</referencedby>
+        <referencedby refid="group__amd__xspi_1gaa54ca901276e476e7edc53a4dfc58de7" compoundref="amd__xspi__control_8c" startline="185" endline="220">AmdXspi_LiteWrite</referencedby>
+        <referencedby refid="group__amd__xspi_1ga2febbb2c76e6fbb2194227aff419d7a8" compoundref="amd__xspi__hw_8c" startline="59" endline="84">AmdXspi_PrepareTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga1a315283dd3752f02502d9fdc97a750b" compoundref="amd__xspi__xfer_8c" startline="332" endline="391">AmdXspi_RecvData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga780024e0ac043f9ae8de538a3b70af32" compoundref="amd__xspi__hw_8c" startline="160" endline="204">AmdXspi_Reset</referencedby>
+        <referencedby refid="group__amd__xspi_1ga520f9d48d3040aab4bfaf3035fa468ed" compoundref="amd__xspi__xfer_8c" startline="209" endline="228">AmdXspi_SendCmdAddr</referencedby>
+        <referencedby refid="group__amd__xspi_1gab19437550215cb0c2b51e6ad707fc3a9" compoundref="amd__xspi__xfer_8c" startline="247" endline="304">AmdXspi_SendData</referencedby>
+        <referencedby refid="group__amd__xspi_1ga6e3c7acd4cd28b50c35916eedc90d1ed" compoundref="amd__xspi__xfer_8c" startline="165" endline="194">AmdXspi_SendInstruction</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+        <referencedby refid="group__amd__xspi_1ga7d21c9f6b7cc656b8a6f966cfa7b43b0" compoundref="amd__xspi__options_8c" startline="120" endline="144">AmdXspi_SetSlaveSelect</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1aef47146cf87e0d4659655a14e68252ae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1gaf09f24bb52a6ef143fee479c3e492539" compoundref="amd__xspi__hw_8c" startline="119" endline="132">AmdXspi_IntrDisable</referencedby>
+        <referencedby refid="group__amd__xspi_1gaaee992bcc009c148e4fb4439d717081e" compoundref="amd__xspi__hw_8c" startline="95" endline="108">AmdXspi_IntrEnable</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" compoundref="amd__xspi_8c" startline="178" endline="220">AmdXspi_PolledTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" compoundref="amd__xspi__options_8c" startline="64" endline="106">AmdXspi_SetClkMode</referencedby>
+        <referencedby refid="group__amd__xspi_1ga7d21c9f6b7cc656b8a6f966cfa7b43b0" compoundref="amd__xspi__options_8c" startline="120" endline="144">AmdXspi_SetSlaveSelect</referencedby>
+        <referencedby refid="group__amd__xspi_1ga9a1e337145023921c52d5f1fe5b3f613" compoundref="amd__xspi_8c" startline="456" endline="465">AmdXspi_SetStatusHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a4c72d7af2f19ff0903f6ead18c68c88e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_amd_xspi___msg" kindref="compound">AmdXspi_Msg</ref> *</type>
+        <definition>AmdXspi_Msg* AmdXspi::Msg</definition>
+        <argsstring></argsstring>
+        <name>Msg</name>
+        <briefdescription>
+<para>Active message queue (NULL if none). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a2271baa075133eb71ae0ad7b240d5283" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi::NumMsg</definition>
+        <argsstring></argsstring>
+        <name>NumMsg</name>
+        <briefdescription>
+<para>Number of messages in the queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a397fe66df5ba90031e19dc3d735edfdc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi::MsgCnt</definition>
+        <argsstring></argsstring>
+        <name>MsgCnt</name>
+        <briefdescription>
+<para>Index of message being processed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a6becedcc6541c2f86c8e15815682f1de" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi::MsgRxCnt</definition>
+        <argsstring></argsstring>
+        <name>MsgRxCnt</name>
+        <briefdescription>
+<para>Bytes drained so far for this message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga78b0d8712a023b4aa7738f1060bbf651" compoundref="amd__xspi__xfer_8c" startline="475" endline="516">AmdXspi_DrainRxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a913989dfb315fbee5442f5a98949af24" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 AmdXspi::MsgTxCnt</definition>
+        <argsstring></argsstring>
+        <name>MsgTxCnt</name>
+        <briefdescription>
+<para>Bytes pushed so far for this message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gaba7fc15430a871d1ba922e3e3928dddf" compoundref="amd__xspi__xfer_8c" startline="413" endline="439">AmdXspi_FillTxFifo</referencedby>
+        <referencedby refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" compoundref="amd__xspi_8c" startline="328" endline="439">AmdXspi_InterruptHandler</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5a8b28eb2e813d91d9498d6e5dc8e7bf" compoundref="amd__xspi__control_8c" startline="248" endline="302">AmdXspi_StartMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a0aa770b09002e352e324821b41ef98df" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 AmdXspi::IsBusy</definition>
+        <argsstring></argsstring>
+        <name>IsBusy</name>
+        <briefdescription>
+<para>A message-based transfer is active. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1ga823a98a3a53a879dd2a0a4ae8bfde266" compoundref="amd__xspi_8c" startline="120" endline="157">AmdXspi_Abort</referencedby>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" compoundref="amd__xspi_8c" startline="241" endline="291">AmdXspi_InterruptTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" compoundref="amd__xspi_8c" startline="178" endline="220">AmdXspi_PolledTransfer</referencedby>
+        <referencedby refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" compoundref="amd__xspi__hw_8c" startline="223" endline="327">AmdXspi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a87f55ac9d949216167c89ca7a42237c2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__amd__xspi_1ga420b8eac783a434071e3a70cad029301" kindref="member">AmdXspi_StatusHandler</ref></type>
+        <definition>AmdXspi_StatusHandler AmdXspi::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Status callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1ga9a1e337145023921c52d5f1fe5b3f613" compoundref="amd__xspi_8c" startline="456" endline="465">AmdXspi_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_amd_xspi_1a0cc0df3d0ba871f5531e8b9460785509" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* AmdXspi::StatusRef</definition>
+        <argsstring></argsstring>
+        <name>StatusRef</name>
+        <briefdescription>
+<para>Status callback reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" compoundref="amd__xspi_8c" startline="61" endline="100">AmdXspi_CfgInitialize</referencedby>
+        <referencedby refid="group__amd__xspi_1gaff4e08a87998acdde41b3a9a4f86a241" compoundref="amd__xspi__control_8c" startline="315" endline="335">AmdXspi_FinishMessageQueue</referencedby>
+        <referencedby refid="group__amd__xspi_1ga9a1e337145023921c52d5f1fe5b3f613" compoundref="amd__xspi_8c" startline="456" endline="465">AmdXspi_SetStatusHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the AXI XSPI driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>AmdXspi_Config</label>
+        <link refid="struct_amd_xspi___config"/>
+      </node>
+      <node id="3">
+        <label>AmdXspi_Msg</label>
+        <link refid="struct_amd_xspi___msg"/>
+      </node>
+      <node id="1">
+        <label>AmdXspi</label>
+        <link refid="struct_amd_xspi"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Msg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/amd_xspi.h" bodystart="165" bodyend="184"/>
+    <listofallmembers>
+      <member refid="struct_amd_xspi_1a3540cde91cdf2d186a1081e416b005ee" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>Config</name></member>
+      <member refid="struct_amd_xspi_1a0aa770b09002e352e324821b41ef98df" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>IsBusy</name></member>
+      <member refid="struct_amd_xspi_1aef47146cf87e0d4659655a14e68252ae" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>IsReady</name></member>
+      <member refid="struct_amd_xspi_1a4c72d7af2f19ff0903f6ead18c68c88e" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>Msg</name></member>
+      <member refid="struct_amd_xspi_1a397fe66df5ba90031e19dc3d735edfdc" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>MsgCnt</name></member>
+      <member refid="struct_amd_xspi_1a6becedcc6541c2f86c8e15815682f1de" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>MsgRxCnt</name></member>
+      <member refid="struct_amd_xspi_1a913989dfb315fbee5442f5a98949af24" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>MsgTxCnt</name></member>
+      <member refid="struct_amd_xspi_1a2271baa075133eb71ae0ad7b240d5283" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>NumMsg</name></member>
+      <member refid="struct_amd_xspi_1a87f55ac9d949216167c89ca7a42237c2" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>StatusHandler</name></member>
+      <member refid="struct_amd_xspi_1a0cc0df3d0ba871f5531e8b9460785509" prot="public" virt="non-virtual"><scope>AmdXspi</scope><name>StatusRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

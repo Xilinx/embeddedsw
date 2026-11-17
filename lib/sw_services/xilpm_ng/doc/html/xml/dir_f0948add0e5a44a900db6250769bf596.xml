@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f0948add0e5a44a900db6250769bf596" kind="dir">
+    <compoundname>xilpm_subsys</compoundname>
+    <innerfile refid="xpm__runtime__hbmon__subsys_8c">xpm_runtime_hbmon_subsys.c</innerfile>
+    <innerfile refid="xpm__runtime__mem__subsys_8c">xpm_runtime_mem_subsys.c</innerfile>
+    <innerfile refid="xpm__runtime__subsys_8c">xpm_runtime_subsys.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/"/>
+  </compounddef>
+</doxygen>

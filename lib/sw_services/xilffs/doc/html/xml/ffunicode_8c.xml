@@ -4,29 +4,6 @@
     <compoundname>ffunicode.c</compoundname>
     <includes refid="ff_8h" local="yes">ff.h</includes>
     <incdepgraph>
-      <node id="73">
-        <label>xil_io.h</label>
-      </node>
-      <node id="67">
-        <label>ffunicode.c</label>
-        <link refid="ffunicode.c"/>
-        <childnode refid="68" relation="include">
-        </childnode>
-      </node>
-      <node id="72">
-        <label>xil_util.h</label>
-      </node>
-      <node id="70">
-        <label>xilffs_config.h</label>
-      </node>
-      <node id="69">
-        <label>ffconf.h</label>
-        <childnode refid="70" relation="include">
-        </childnode>
-      </node>
-      <node id="74">
-        <label>xil_types.h</label>
-      </node>
       <node id="71">
         <label>xilffs.h</label>
         <link refid="xilffs_8h"/>
@@ -37,11 +14,34 @@
         <childnode refid="74" relation="include">
         </childnode>
       </node>
+      <node id="73">
+        <label>xil_io.h</label>
+      </node>
+      <node id="72">
+        <label>xil_util.h</label>
+      </node>
+      <node id="70">
+        <label>xilffs_config.h</label>
+      </node>
+      <node id="67">
+        <label>ffunicode.c</label>
+        <link refid="ffunicode.c"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
       <node id="68">
         <label>ff.h</label>
         <childnode refid="69" relation="include">
         </childnode>
         <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
+      <node id="69">
+        <label>ffconf.h</label>
+        <childnode refid="70" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -15644,6 +15644,6 @@
 <codeline lineno="15592"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15593"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>#if<sp/>FF_USE_LFN<sp/>!=<sp/>0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/ffunicode.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/ffunicode.c"/>
   </compounddef>
 </doxygen>

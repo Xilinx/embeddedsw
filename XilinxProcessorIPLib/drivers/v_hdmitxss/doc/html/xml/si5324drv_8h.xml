@@ -12,12 +12,6 @@
     <includedby refid="si5324drv_8c" local="yes">si5324drv.c</includedby>
     <includedby refid="_tx_only_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
     <incdepgraph>
-      <node id="324">
-        <label>xil_types.h</label>
-      </node>
-      <node id="325">
-        <label>xparameters.h</label>
-      </node>
       <node id="323">
         <label>si5324drv.h</label>
         <link refid="si5324drv.h"/>
@@ -25,6 +19,12 @@
         </childnode>
         <childnode refid="325" relation="include">
         </childnode>
+      </node>
+      <node id="324">
+        <label>xil_types.h</label>
+      </node>
+      <node id="325">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -48,129 +48,6 @@
         <childnode refid="353" relation="include">
         </childnode>
       </node>
-      <node id="347">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="344">
-        <label>xhdmi_example.h</label>
-        <childnode refid="345" relation="include">
-        </childnode>
-        <childnode refid="346" relation="include">
-        </childnode>
-        <childnode refid="347" relation="include">
-        </childnode>
-      </node>
-      <node id="350">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="352">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="339">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="349">
-        <label>xhdmi_example.h</label>
-        <childnode refid="350" relation="include">
-        </childnode>
-        <childnode refid="351" relation="include">
-        </childnode>
-        <childnode refid="352" relation="include">
-        </childnode>
-      </node>
-      <node id="336">
-        <label>xhdmi_example.h</label>
-        <childnode refid="337" relation="include">
-        </childnode>
-        <childnode refid="338" relation="include">
-        </childnode>
-        <childnode refid="339" relation="include">
-        </childnode>
-      </node>
-      <node id="334">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="331">
-        <label>xhdmi_example.h</label>
-        <childnode refid="332" relation="include">
-        </childnode>
-        <childnode refid="333" relation="include">
-        </childnode>
-        <childnode refid="334" relation="include">
-        </childnode>
-      </node>
-      <node id="329">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="327">
-        <label>xhdmi_example.h</label>
-        <childnode refid="328" relation="include">
-        </childnode>
-        <childnode refid="329" relation="include">
-        </childnode>
-      </node>
-      <node id="343">
-        <label>xhdmi_example.c</label>
-      </node>
-      <node id="341">
-        <label>xhdmi_example.h</label>
-        <childnode refid="342" relation="include">
-        </childnode>
-        <childnode refid="343" relation="include">
-        </childnode>
-      </node>
-      <node id="340">
-        <label>xhdmi_menu.c</label>
-      </node>
-      <node id="338">
-        <label>xhdmi_menu.h</label>
-        <childnode refid="336" relation="include">
-        </childnode>
-        <childnode refid="339" relation="include">
-        </childnode>
-        <childnode refid="340" relation="include">
-        </childnode>
-      </node>
-      <node id="346">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="345">
-        <label>xhdcp.h</label>
-        <childnode refid="346" relation="include">
-        </childnode>
-        <childnode refid="344" relation="include">
-        </childnode>
-      </node>
-      <node id="335">
-        <label>xhdmi_menu.c</label>
-      </node>
-      <node id="333">
-        <label>xhdmi_menu.h</label>
-        <childnode refid="331" relation="include">
-        </childnode>
-        <childnode refid="334" relation="include">
-        </childnode>
-        <childnode refid="335" relation="include">
-        </childnode>
-      </node>
-      <node id="330">
-        <label>xhdmi_menu.c</label>
-      </node>
-      <node id="328">
-        <label>xhdmi_menu.h</label>
-        <childnode refid="329" relation="include">
-        </childnode>
-        <childnode refid="327" relation="include">
-        </childnode>
-        <childnode refid="330" relation="include">
-        </childnode>
-      </node>
-      <node id="332">
-        <label>xhdcp.c</label>
-      </node>
-      <node id="337">
-        <label>xhdcp.c</label>
-      </node>
       <node id="348">
         <label>si5324drv.c</label>
         <link refid="si5324drv_8c"/>
@@ -193,8 +70,131 @@
         <childnode refid="349" relation="include">
         </childnode>
       </node>
+      <node id="352">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="349">
+        <label>xhdmi_example.h</label>
+        <childnode refid="350" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+        <childnode refid="352" relation="include">
+        </childnode>
+      </node>
+      <node id="334">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="331">
+        <label>xhdmi_example.h</label>
+        <childnode refid="332" relation="include">
+        </childnode>
+        <childnode refid="333" relation="include">
+        </childnode>
+        <childnode refid="334" relation="include">
+        </childnode>
+      </node>
+      <node id="332">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="350">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="343">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="341">
+        <label>xhdmi_example.h</label>
+        <childnode refid="342" relation="include">
+        </childnode>
+        <childnode refid="343" relation="include">
+        </childnode>
+      </node>
+      <node id="330">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="328">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
+        <childnode refid="330" relation="include">
+        </childnode>
+      </node>
+      <node id="335">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="333">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="331" relation="include">
+        </childnode>
+        <childnode refid="334" relation="include">
+        </childnode>
+        <childnode refid="335" relation="include">
+        </childnode>
+      </node>
       <node id="342">
         <label>xhdcp.c</label>
+      </node>
+      <node id="339">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="336">
+        <label>xhdmi_example.h</label>
+        <childnode refid="337" relation="include">
+        </childnode>
+        <childnode refid="338" relation="include">
+        </childnode>
+        <childnode refid="339" relation="include">
+        </childnode>
+      </node>
+      <node id="347">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="344">
+        <label>xhdmi_example.h</label>
+        <childnode refid="345" relation="include">
+        </childnode>
+        <childnode refid="346" relation="include">
+        </childnode>
+        <childnode refid="347" relation="include">
+        </childnode>
+      </node>
+      <node id="337">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="329">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="327">
+        <label>xhdmi_example.h</label>
+        <childnode refid="328" relation="include">
+        </childnode>
+        <childnode refid="329" relation="include">
+        </childnode>
+      </node>
+      <node id="346">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="345">
+        <label>xhdcp.h</label>
+        <childnode refid="346" relation="include">
+        </childnode>
+        <childnode refid="344" relation="include">
+        </childnode>
+      </node>
+      <node id="340">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="338">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="336" relation="include">
+        </childnode>
+        <childnode refid="339" relation="include">
+        </childnode>
+        <childnode refid="340" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="structsi5324__settings__t" prot="public">si5324_settings_t</innerclass>
@@ -208,7 +208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1aa7a50734f0226414ddcb1e1c30815f20" prot="public" static="no">
         <name>SI5324_DEBUG</name>
@@ -219,7 +219,7 @@
 <para>Set to TRUE to enable debug prints, to FALSE to disable debug prints. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="58" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a646751e6239e3401140c8c2a61c760a6" compoundref="si5324drv_8c" startline="398" endline="428">Si5324_DoSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a80fcbb47ed73a63de3c6ce58d7cd2398" compoundref="si5324drv_8c" startline="669" endline="691">Si5324_FindN2</referencedby>
@@ -238,7 +238,7 @@
 <para>Operation was successful </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="64" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a646751e6239e3401140c8c2a61c760a6" compoundref="si5324drv_8c" startline="398" endline="428">Si5324_DoSettings</referencedby>
         <referencedby refid="si5324drv_8h_1af9e636114c299d13030d4959417c70e6" compoundref="si5324drv_8c" startline="443" endline="467">Si5324_Reset</referencedby>
@@ -253,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="65" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a646751e6239e3401140c8c2a61c760a6" compoundref="si5324drv_8c" startline="398" endline="428">Si5324_DoSettings</referencedby>
         <referencedby refid="si5324drv_8h_1af9e636114c299d13030d4959417c70e6" compoundref="si5324drv_8c" startline="443" endline="467">Si5324_Reset</referencedby>
       </memberdef>
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="66" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a5fa75e494c0f242ce3a8d43680ec5b25" prot="public" static="no">
@@ -278,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="67" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a646751e6239e3401140c8c2a61c760a6" compoundref="si5324drv_8c" startline="398" endline="428">Si5324_DoSettings</referencedby>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
@@ -291,7 +291,7 @@
 <para>Use clock input 1 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="72" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a02493d2265012108f5e0d4b80b199c76" prot="public" static="no">
@@ -303,7 +303,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="73" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1aa1d51e9b1e4b660eee4ec41222751c1e" prot="public" static="no">
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="74" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a8adf10a1b80feb2992f6b971cdd28271" prot="public" static="no">
@@ -327,7 +327,7 @@
 <para>Minimum oscillator frequency </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="79" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a372fa6209b36e5fdb84df6141eed682f" compoundref="si5324drv_8c" startline="573" endline="655">Si5324_FindN2ls</referencedby>
       </memberdef>
@@ -340,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="80" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a372fa6209b36e5fdb84df6141eed682f" compoundref="si5324drv_8c" startline="573" endline="655">Si5324_FindN2ls</referencedby>
       </memberdef>
@@ -353,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a228ebaa351cbbfc0f6c5c94554d7ca4e" prot="public" static="no">
         <name>SI5324_F3_MAX</name>
@@ -364,7 +364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="82" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a80fcbb47ed73a63de3c6ce58d7cd2398" compoundref="si5324drv_8c" startline="669" endline="691">Si5324_FindN2</referencedby>
         <referencedby refid="si5324drv_8c_1a372fa6209b36e5fdb84df6141eed682f" compoundref="si5324drv_8c" startline="573" endline="655">Si5324_FindN2ls</referencedby>
@@ -378,7 +378,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="83" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1aa37b2b306f750c592c636849367b5987" prot="public" static="no">
@@ -390,7 +390,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="84" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1ad6256033a0e61e3af40ff9d7cb420639" prot="public" static="no">
@@ -402,7 +402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="85" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a372fa6209b36e5fdb84df6141eed682f" compoundref="si5324drv_8c" startline="573" endline="655">Si5324_FindN2ls</referencedby>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
@@ -415,7 +415,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="86" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a372fa6209b36e5fdb84df6141eed682f" compoundref="si5324drv_8c" startline="573" endline="655">Si5324_FindN2ls</referencedby>
         <referencedby refid="si5324drv_8h_1a5fe598dcb0d500c012afc7970117f5ed" compoundref="si5324drv_8c" startline="878" endline="1026">Si5324_SetClock</referencedby>
       </memberdef>
@@ -428,7 +428,7 @@
 <para>Minimum N1_HS setting (4 and 5 are for higher output frequencies than we support </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="91" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1aca2c63c7a287455eff6d20da1772484e" prot="public" static="no">
@@ -440,7 +440,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="92" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a69fe20269cf003fdcf22f5fc1cd2769c" prot="public" static="no">
@@ -452,7 +452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="93" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a756bafb27288aa8cf3100c14800d9a4e" compoundref="si5324drv_8c" startline="704" endline="729">Si5324_CalcNclsLimits</referencedby>
       </memberdef>
@@ -465,7 +465,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="94" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
         <referencedby refid="si5324drv_8c_1a756bafb27288aa8cf3100c14800d9a4e" compoundref="si5324drv_8c" startline="704" endline="729">Si5324_CalcNclsLimits</referencedby>
       </memberdef>
@@ -478,7 +478,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="95" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a80fcbb47ed73a63de3c6ce58d7cd2398" compoundref="si5324drv_8c" startline="669" endline="691">Si5324_FindN2</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a8c09138972a1acb59eb46de878c97a3a" prot="public" static="no">
@@ -490,7 +490,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="96" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a80fcbb47ed73a63de3c6ce58d7cd2398" compoundref="si5324drv_8c" startline="669" endline="691">Si5324_FindN2</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a59663975c6b419aae6b34f3ef265605e" prot="public" static="no">
@@ -502,7 +502,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="97" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a80fcbb47ed73a63de3c6ce58d7cd2398" compoundref="si5324drv_8c" startline="669" endline="691">Si5324_FindN2</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1aad9917dc2207eddbbe18ac7e14050133" prot="public" static="no">
@@ -514,7 +514,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="98" bodyend="-1"/>
         <referencedby refid="si5324drv_8c_1a80fcbb47ed73a63de3c6ce58d7cd2398" compoundref="si5324drv_8c" startline="669" endline="691">Si5324_FindN2</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1af66f4eb0a55fc7655b5d6ce991660dc8" prot="public" static="no">
@@ -526,7 +526,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="99" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
       </memberdef>
       <memberdef kind="define" id="si5324drv_8h_1a28f9a58a114f115759c45d759008a97e" prot="public" static="no">
@@ -538,7 +538,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" bodystart="100" bodyend="-1"/>
         <referencedby refid="si5324drv_8h_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</referencedby>
       </memberdef>
       </sectiondef>
@@ -578,7 +578,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="482" bodyend="492"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="482" bodyend="492"/>
         <references refid="si5324drv_8h_1aa7a50734f0226414ddcb1e1c30815f20" compoundref="si5324drv_8h" startline="58">SI5324_DEBUG</references>
         <references refid="si5324drv_8c_1a20b8835416e6bdb5d4c48e1ded4279c3" compoundref="si5324drv_8c" startline="53">SI5324_DEFAULTS</references>
         <references refid="si5324drv_8c_1a646751e6239e3401140c8c2a61c760a6" compoundref="si5324drv_8c" startline="398" endline="428">Si5324_DoSettings</references>
@@ -685,7 +685,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="785" bodyend="858"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="785" bodyend="858"/>
         <references refid="si5324drv_8c_1a756bafb27288aa8cf3100c14800d9a4e" compoundref="si5324drv_8c" startline="704" endline="729">Si5324_CalcNclsLimits</references>
         <references refid="si5324drv_8h_1aa7a50734f0226414ddcb1e1c30815f20" compoundref="si5324drv_8h" startline="58">SI5324_DEBUG</references>
         <references refid="si5324drv_8h_1a8e4d865d04b23e830daa8be2e35a0922" compoundref="si5324drv_8h" startline="66">SI5324_ERR_FREQ</references>
@@ -807,7 +807,7 @@ Set the output frequency.</para><para><parameterlist kind="param"><parameteritem
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="878" bodyend="1026"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="878" bodyend="1026"/>
         <references refid="si5324drv_8c_1a9d9c096a3379e1a3e168b33f7d0c27f2" compoundref="si5324drv_8c" startline="785" endline="858">Si5324_CalcFreqSettings</references>
         <references refid="si5324drv_8h_1a2db6980ae01d5ddad9a49d3251516feb" compoundref="si5324drv_8h" startline="72">SI5324_CLKSRC_CLK1</references>
         <references refid="si5324drv_8h_1a02493d2265012108f5e0d4b80b199c76" compoundref="si5324drv_8h" startline="73">SI5324_CLKSRC_CLK2</references>
@@ -857,7 +857,7 @@ Set the output frequency.</para><para><parameterlist kind="param"><parameteritem
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="443" bodyend="467"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.c" bodystart="443" bodyend="467"/>
         <references refid="si5324drv_8h_1aa7a50734f0226414ddcb1e1c30815f20" compoundref="si5324drv_8h" startline="58">SI5324_DEBUG</references>
         <references refid="si5324drv_8c_1a646751e6239e3401140c8c2a61c760a6" compoundref="si5324drv_8c" startline="398" endline="428">Si5324_DoSettings</references>
         <references refid="si5324drv_8h_1a9ede2c0617ef9093ee69e3c5a01199f8" compoundref="si5324drv_8h" startline="65">SI5324_ERR_IIC</references>
@@ -988,6 +988,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="230"><highlight class="normal"></highlight></codeline>
 <codeline lineno="231"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SI5324DRV_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/si5324drv.h"/>
   </compounddef>
 </doxygen>

@@ -31,9 +31,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" line="1161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_utils.c" bodystart="1169" bodyend="1287"/>
-        <references refid="xilskey__utils_8c_1aaeb26ca3e2bcdbf7207734864aa58af1" compoundref="xilskey__utils_8c" startline="648" endline="724">XilSKey_Efuse_ConvertStringToHexBE</references>
-        <references refid="xilskey__bbram_8c_1a37c270a53d567eed209d11b83d16cca7" compoundref="xilskey__utils_8c" startline="1302" endline="1331">XilSKey_RowCrcCalculation</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" line="1161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_utils.c" bodystart="1149" bodyend="1267"/>
+        <references refid="xilskey__utils_8c_1aaeb26ca3e2bcdbf7207734864aa58af1" compoundref="xilskey__utils_8c" startline="629" endline="705">XilSKey_Efuse_ConvertStringToHexBE</references>
+        <references refid="xilskey__bbram_8c_1a37c270a53d567eed209d11b83d16cca7" compoundref="xilskey__utils_8c" startline="1282" endline="1311">XilSKey_RowCrcCalculation</references>
         <references refid="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65ae55d28ebd5f89397eda7ba2640fa5e02" compoundref="xilskey__utils_8h" startline="601">XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH</references>
       </memberdef>
       <memberdef kind="function" id="group__xilskey__cmn__crc_1ga0552daa4e1f376eaac1360aba6d23930" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -60,8 +60,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" line="1162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_utils.c" bodystart="1384" bodyend="1446"/>
-        <references refid="xilskey__bbram_8c_1a37c270a53d567eed209d11b83d16cca7" compoundref="xilskey__utils_8c" startline="1302" endline="1331">XilSKey_RowCrcCalculation</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" line="1162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_utils.c" bodystart="1364" bodyend="1426"/>
+        <references refid="xilskey__bbram_8c_1a37c270a53d567eed209d11b83d16cca7" compoundref="xilskey__utils_8c" startline="1282" endline="1311">XilSKey_RowCrcCalculation</references>
         <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
       </memberdef>
       </sectiondef>

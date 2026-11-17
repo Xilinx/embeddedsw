@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>By default, the mipi_rx_phy core is initialized and ready.</p>
 <p>The application needs to do following steps in order for preparing the MIPI mipi_rx_phy core to be ready.</p>
 <ul>
-<li>Call XMipi_Rx_Phy_LookupConfig using a device ID to find the core configuration.</li>
+<li>Call XMipi_Rx_Phy_LookupConfig using a base address to find the core configuration.</li>
 <li>Call XMipi_Rx_Phy_CfgInitialize to initialize the device and the driver instance associated with it.</li>
 <li>Individual parameters can be configured by sending values with appropriate handles.</li>
 </ul>

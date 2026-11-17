@@ -19,7 +19,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c" bodystart="63" bodyend="131"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c" bodystart="63" bodyend="131"/>
         <references refid="struct_x_dfe_equ___trigger_cfg_1a4bb27d0c97a24ba4f73ee2b0aa7e94f7" compoundref="xdfeequ_8h" startline="237">XDfeEqu_TriggerCfg::Activate</references>
         <references refid="struct_x_dfe_equ___coefficients_1af55285beee6b7c9cf8bfcdf8b9435158" compoundref="xdfeequ_8h" startline="273">XDfeEqu_Coefficients::Coefficients</references>
         <references refid="struct_x_dfe_equ___eq_config_1a42c1ff0831f5080a2cc3db9f90c482d6" compoundref="xdfeequ_8h" startline="282">XDfeEqu_EqConfig::DatapathMode</references>
@@ -145,6 +145,6 @@
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeequ_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
 <codeline lineno="131"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_pass_through_example.c"/>
   </compounddef>
 </doxygen>

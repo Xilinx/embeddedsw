@@ -73,11 +73,11 @@ HandlerType                     Callback Function Type
 </preformatted></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" bodystart="58" bodyend="85"/>
-        <references refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" compoundref="xv__tpg_8h" startline="139">XV_tpg::CallbackDoneRef</references>
-        <references refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" compoundref="xv__tpg_8h" startline="142">XV_tpg::CallbackReadyRef</references>
-        <references refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" compoundref="xv__tpg_8h" startline="138">XV_tpg::FrameDoneCallback</references>
-        <references refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" compoundref="xv__tpg_8h" startline="141">XV_tpg::FrameReadyCallback</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" bodystart="58" bodyend="85"/>
+        <references refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" compoundref="xv__tpg_8h" startline="133">XV_tpg::CallbackDoneRef</references>
+        <references refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" compoundref="xv__tpg_8h" startline="136">XV_tpg::CallbackReadyRef</references>
+        <references refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" compoundref="xv__tpg_8h" startline="132">XV_tpg::FrameDoneCallback</references>
+        <references refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" compoundref="xv__tpg_8h" startline="135">XV_tpg::FrameReadyCallback</references>
         <references refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8ad78cccfc9458c5c0bf5087b61b430a2b" compoundref="xv__tpg_8h" startline="97">XVTPG_HANDLER_DONE</references>
         <references refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8a3719f627a799acef4db874cddb88852a" compoundref="xv__tpg_8h" startline="98">XVTPG_HANDLER_READY</references>
       </memberdef>
@@ -106,14 +106,14 @@ HandlerType                     Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" bodystart="109" bodyend="139"/>
-        <references refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" compoundref="xv__tpg_8h" startline="139">XV_tpg::CallbackDoneRef</references>
-        <references refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" compoundref="xv__tpg_8h" startline="142">XV_tpg::CallbackReadyRef</references>
-        <references refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" compoundref="xv__tpg_8h" startline="138">XV_tpg::FrameDoneCallback</references>
-        <references refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" compoundref="xv__tpg_8h" startline="141">XV_tpg::FrameReadyCallback</references>
-        <references refid="struct_x_v__tpg_1a90433a42547a648492ef277251bd376e" compoundref="xv__tpg_8h" startline="137">XV_tpg::IsReady</references>
-        <references refid="xv__tpg_8c_1a040b3a764510bf1fa38ebec2c5969f9d" compoundref="xv__tpg_8c" startline="1512" endline="1517">XV_tpg_InterruptClear</references>
-        <references refid="xv__tpg_8c_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" compoundref="xv__tpg_8c" startline="1550" endline="1555">XV_tpg_InterruptGetStatus</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" bodystart="109" bodyend="139"/>
+        <references refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" compoundref="xv__tpg_8h" startline="133">XV_tpg::CallbackDoneRef</references>
+        <references refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" compoundref="xv__tpg_8h" startline="136">XV_tpg::CallbackReadyRef</references>
+        <references refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" compoundref="xv__tpg_8h" startline="132">XV_tpg::FrameDoneCallback</references>
+        <references refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" compoundref="xv__tpg_8h" startline="135">XV_tpg::FrameReadyCallback</references>
+        <references refid="struct_x_v__tpg_1a90433a42547a648492ef277251bd376e" compoundref="xv__tpg_8h" startline="131">XV_tpg::IsReady</references>
+        <references refid="xv__tpg_8c_1a040b3a764510bf1fa38ebec2c5969f9d" compoundref="xv__tpg_8c" startline="1510" endline="1515">XV_tpg_InterruptClear</references>
+        <references refid="xv__tpg_8c_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" compoundref="xv__tpg_8c" startline="1548" endline="1553">XV_tpg_InterruptGetStatus</references>
         <references refid="xv__tpg_8h_1aed0be5e593434cc3bfe33ac671e6ac58" compoundref="xv__tpg_8h" startline="86">XVTPG_IRQ_DONE_MASK</references>
         <references refid="xv__tpg_8h_1a10313bcf877f561921dc384b6e0c1f9b" compoundref="xv__tpg_8h" startline="88">XVTPG_IRQ_READY_MASK</references>
       </memberdef>

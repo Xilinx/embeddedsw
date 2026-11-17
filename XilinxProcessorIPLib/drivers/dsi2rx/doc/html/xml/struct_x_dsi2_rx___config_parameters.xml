@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="88" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="214" endline="228">XDsi2Rx_GetConfigParams</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="216" endline="230">XDsi2Rx_GetConfigParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="89" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="214" endline="228">XDsi2Rx_GetConfigParams</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="216" endline="230">XDsi2Rx_GetConfigParams</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -50,7 +50,7 @@
         <link refid="struct_x_dsi2_rx___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="87" bodyend="90"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="97" bodyend="100"/>
     <listofallmembers>
       <member refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" prot="public" virt="non-virtual"><scope>XDsi2Rx_ConfigParameters</scope><name>Config</name></member>
       <member refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" prot="public" virt="non-virtual"><scope>XDsi2Rx_ConfigParameters</scope><name>PixelMode</name></member>

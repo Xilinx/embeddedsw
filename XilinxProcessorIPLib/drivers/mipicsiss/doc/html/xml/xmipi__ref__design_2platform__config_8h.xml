@@ -5,29 +5,29 @@
     <includedby refid="xmipi__ref__design_2platform_8c" local="yes">platform.c</includedby>
     <includedby refid="xmipi__ref__design_2platform_8h" local="yes">platform.h</includedby>
     <invincdepgraph>
-      <node id="557">
-        <label>si5324drv.c</label>
+      <node id="590">
+        <label>platform.c</label>
       </node>
-      <node id="558">
+      <node id="591">
+        <label>platform.h</label>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+      </node>
+      <node id="593">
         <label>xmipi_example.c</label>
         <link refid="xmipi__example_8c"/>
       </node>
-      <node id="554">
+      <node id="592">
+        <label>si5324drv.c</label>
+      </node>
+      <node id="589">
         <label>platform_config.h</label>
         <link refid="xmipi_ref_design/platform_config.h"/>
-        <childnode refid="555" relation="include">
+        <childnode refid="590" relation="include">
         </childnode>
-        <childnode refid="556" relation="include">
-        </childnode>
-      </node>
-      <node id="555">
-        <label>platform.c</label>
-      </node>
-      <node id="556">
-        <label>platform.h</label>
-        <childnode refid="557" relation="include">
-        </childnode>
-        <childnode refid="558" relation="include">
+        <childnode refid="591" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -47,6 +47,6 @@
 <codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform_config.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform_config.h"/>
   </compounddef>
 </doxygen>

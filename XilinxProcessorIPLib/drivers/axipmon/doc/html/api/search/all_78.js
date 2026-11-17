@@ -67,6 +67,7 @@ var searchData=
   ['xapm_5fincrementer_5f8',['XAPM_INCREMENTER_8',['../group__axipmon.html#ga154aa87c6da64423b8df0ce1d587ae7e',1,'xaxipmon.h']]],
   ['xapm_5fincrementer_5f9',['XAPM_INCREMENTER_9',['../group__axipmon.html#ga874f418db90c6082bb2f90797a297aab',1,'xaxipmon.h']]],
   ['xapm_5fis_5foffset',['XAPM_IS_OFFSET',['../group__axipmon.html#ga69159b99f1e781791a995986c52f29a4',1,'xaxipmon_hw.h']]],
+  ['xapm_5fixr_5fall_5fmask',['XAPM_IXR_ALL_MASK',['../group__axipmon.html#gac900b305a62f2816b11493a501543f12',1,'xaxipmon_hw.h']]],
   ['xapm_5fixr_5ffifo_5ffull_5fmask',['XAPM_IXR_FIFO_FULL_MASK',['../group__axipmon.html#ga717341be557ee87e62e7d8e5cf33cc0f',1,'xaxipmon_hw.h']]],
   ['xapm_5fixr_5fgcc_5foverflow_5fmask',['XAPM_IXR_GCC_OVERFLOW_MASK',['../group__axipmon.html#ga69ea91f067c2c82aaad6d3c3e519a71b',1,'xaxipmon_hw.h']]],
   ['xapm_5fixr_5fmc0_5foverflow_5fmask',['XAPM_IXR_MC0_OVERFLOW_MASK',['../group__axipmon.html#ga9a98d01e06db6301e01e69d84eb03d15',1,'xaxipmon_hw.h']]],

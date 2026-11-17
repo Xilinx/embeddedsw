@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>amd_xspi</title>
+    <detaileddescription>
+<para>This file contains the software API definition for the AXI XSPI controller driver. The AXI XSPI is a Serial Peripheral Interface (SPI) controller that operates in AXI-Lite mode for register-based data transfers.</para><para><bold>Features</bold><itemizedlist>
+<listitem><para>AXI-Lite mode operation (register-based transfers)</para></listitem><listitem><para>Multiple operating modes:<itemizedlist>
+<listitem><para>Mode 0: Standard SPI half-duplex (single data line)</para></listitem><listitem><para>Mode 1: Standard SPI (io0 = MOSI, io1 = MISO)</para></listitem><listitem><para>Mode 2: Dual SPI (2 data lines)</para></listitem><listitem><para>Mode 3: Quad SPI (4 data lines)</para></listitem><listitem><para>Mode 4: xSPI Profile 1.0 (Octal)</para></listitem><listitem><para>Mode 5: xSPI Profile 2.0 (HyperBus)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Configurable SPI clock modes (CPOL/CPHA: 0, 1, 2, 3). Modes 4 and 5 support clock mode 0 only, and <ref refid="group__amd__xspi_1ga198118bce107d3c10396dbc150017dbc" kindref="member">AmdXspi_SetClkMode()</ref> rejects the rest.</para></listitem><listitem><para>Multiple slave select support (up to 8 slaves)</para></listitem><listitem><para>TX and RX FIFOs with occupancy monitoring</para></listitem><listitem><para>FIFO ECC errors reported through the error interrupt</para></listitem><listitem><para>Interrupt-driven or polled operation</para></listitem></itemizedlist>
+</para><para><bold>Initialization</bold> The driver is initialized using two-step initialization:<orderedlist>
+<listitem><para><ref refid="group__amd__xspi_1ga1bd70a24f250f6fff1700df83c9b3294" kindref="member">AmdXspi_LookupConfig()</ref> to get the configuration</para></listitem><listitem><para><ref refid="group__amd__xspi_1gae5e354404e9e10004d37733523d3b3a8" kindref="member">AmdXspi_CfgInitialize()</ref> to initialize the driver instance</para></listitem></orderedlist>
+</para><para><bold>Transfer Operations</bold> This driver supports AXI-Lite mode transfers only. The message based API is the primary interface. A message describes one command/address phase and one data phase inside a single chip-select window. That is what an opcode based flash and a HyperBus device both need.<itemizedlist>
+<listitem><para><ref refid="group__amd__xspi_1ga5ca6aa930b6c45be84fe284a58a792ad" kindref="member">AmdXspi_PolledTransfer()</ref> to run a message queue to completion</para></listitem><listitem><para><ref refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" kindref="member">AmdXspi_InterruptTransfer()</ref> to run one in the background</para></listitem></itemizedlist>
+</para><para>A message always carries a command/address phase, which the instruction field cannot encode as zero bytes. For a device that needs none, such as a plain SPI part in modes 0 to 3, <ref refid="group__amd__xspi_1gad4048ec540b07df57213da7815401f81" kindref="member">AmdXspi_Transfer()</ref> moves raw bytes instead. Pass NULL for either buffer to make the transfer one-directional.</para><para><bold>Interrupts</bold> Interrupts are used by <ref refid="group__amd__xspi_1ga956da3fd507245b807878ddf409b5029" kindref="member">AmdXspi_InterruptTransfer()</ref> only; the byte oriented interface is polled. A single callback reports the outcome:<itemizedlist>
+<listitem><para><ref refid="group__amd__xspi_1ga9a1e337145023921c52d5f1fe5b3f613" kindref="member">AmdXspi_SetStatusHandler()</ref> to register it</para></listitem><listitem><para><ref refid="group__amd__xspi_1gab68e8aa45fe3ebc3b98a323e47bca582" kindref="member">AmdXspi_InterruptHandler()</ref> as the main ISR</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   akm  07/29/26 Initial release
+1.0   vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

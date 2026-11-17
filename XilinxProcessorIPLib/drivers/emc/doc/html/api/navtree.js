@@ -1,8 +1,16 @@
 var NAVTREE =
 [
-  [ "emc", "index.html", [
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "emc",
+    "index.html",
+    [
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

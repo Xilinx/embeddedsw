@@ -156,7 +156,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.08  dc   07/12/22 Moved error codes related to buffer clear to xplmi_status.h
       obs  09/30/2024 Fixed Doxygen Warnings
 2.4   tvp  02/04/26 Define register addresses for efuse ppk hash only for
-                    platforms other than Versal_2vp_p</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+                    platforms other than Versal_2vp_p
+      sri  08/14/26 Updated XLoader_CopyHashBlock to add destination HashBlock parameter
+2.5   tbk  09/07/26 Added XLoader_ValidateHashBlockSize</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xsecure_sha.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__enc_8h.html">xloader_auth_enc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>
@@ -199,9 +201,6 @@ Macros</h2></td></tr>
 <tr class="memitem:a4bad464b42af8b211d6354872c0cb265"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#a4bad464b42af8b211d6354872c0cb265">XLOADER_BBRAM_CL_DECREMENT_COUNT</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:a4bad464b42af8b211d6354872c0cb265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to indicate if counter in Configuration Limiter should be decremented.  <a href="#a4bad464b42af8b211d6354872c0cb265">More...</a><br/></td></tr>
 <tr class="separator:a4bad464b42af8b211d6354872c0cb265"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0c2619b66b85993f7396174f8344adb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xloader__secure_8h.html#aa0c2619b66b85993f7396174f8344adb">XLOADER_ENTRY_SIZE_IN_HASHBLOCK</a>&#160;&#160;&#160;(52U)</td></tr>
-<tr class="memdesc:aa0c2619b66b85993f7396174f8344adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each entry size in HashBlock.  <a href="#aa0c2619b66b85993f7396174f8344adb">More...</a><br/></td></tr>
-<tr class="separator:aa0c2619b66b85993f7396174f8344adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -291,7 +290,7 @@ Functions</h2></td></tr>
 
 <p>PPK0 Start register address. </p>
 
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga4e5d053bbf2e5283aac4b2a1e860b44d">XLoader_CheckNonZeroPpk()</a>, and <a class="el" href="group__xloader__server__apis.html#gacdc253920da8decda6028f77d6d79cb6">XLoader_GetPpkInvalidMaskAndOffset()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__server__apis.html#ga4e5d053bbf2e5283aac4b2a1e860b44d">XLoader_CheckNonZeroPpk()</a>.</p>
 
 </div>
 </div>
@@ -306,8 +305,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>PPK1 Start register address. </p>
-
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#gacdc253920da8decda6028f77d6d79cb6">XLoader_GetPpkInvalidMaskAndOffset()</a>.</p>
 
 </div>
 </div>
@@ -338,8 +335,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>PPK2 Start register address. </p>
-
-<p>Referenced by <a class="el" href="group__xloader__server__apis.html#gacdc253920da8decda6028f77d6d79cb6">XLoader_GetPpkInvalidMaskAndOffset()</a>.</p>
 
 </div>
 </div>
@@ -372,20 +367,6 @@ Functions</h2></td></tr>
 <p>Security Misc0 register address. </p>
 
 <p>Referenced by <a class="el" href="group__xloader__server__apis.html#gade5fc1ce6a279c921672d5692df5cf56">XLoader_SetSecureState()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa0c2619b66b85993f7396174f8344adb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK&#160;&#160;&#160;(52U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Each entry size in HashBlock. </p>
 
 </div>
 </div>

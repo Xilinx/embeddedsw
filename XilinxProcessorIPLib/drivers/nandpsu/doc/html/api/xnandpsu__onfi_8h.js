@@ -98,5 +98,6 @@ var xnandpsu__onfi_8h =
       [ "RESET", "xnandpsu__onfi_8h.html#gga5cc7c90cb423455c9cbde71127180a6fa589b7d94a3d91d145720e2fed0eb3a05", null ],
       [ "MAX_CMDS", "xnandpsu__onfi_8h.html#gga5cc7c90cb423455c9cbde71127180a6fa4d3d3fa486f828228b6a8b5aac3100b0", null ]
     ] ],
-    [ "XNandPsu_OnfiParamPageCrc", "xnandpsu__onfi_8h.html#ga474cec95b9bf91d0ae8ec1988792cdd2", null ]
+    [ "XNandPsu_OnfiParamPageCrc", "xnandpsu__onfi_8h.html#ga474cec95b9bf91d0ae8ec1988792cdd2", null ],
+    [ "OnfiCmd", "xnandpsu__onfi_8h.html#gaa14cdc14f9b5cfec93d83127c2e1164c", null ]
 ];

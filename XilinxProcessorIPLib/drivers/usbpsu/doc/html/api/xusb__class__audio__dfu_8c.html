@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('xusb__class__audio__dfu_8c.html','');}
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_class_audio_dfu.c File Reference</div>  </div>
 </div><!--header-->
@@ -121,14 +122,14 @@ $(document).ready(function(){initNavTree('xusb__class__audio__dfu_8c.html','');}
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad1d69266191044d7d27c63bd7c049b7c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#ad1d69266191044d7d27c63bd7c049b7c">Usb_DfuSetState</a> (struct dfu_if *DFU, u8 dfu_state)</td></tr>
+<tr class="memitem:ad1d69266191044d7d27c63bd7c049b7c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#ad1d69266191044d7d27c63bd7c049b7c">Usb_DfuSetState</a> (struct <a class="el" href="structdfu__if.html">dfu_if</a> *<a class="el" href="xusb__freertos__dfu__example_8c.html#a4502457caf193a71c80baed790f38599">DFU</a>, u8 dfu_state)</td></tr>
 <tr class="memdesc:ad1d69266191044d7d27c63bd7c049b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles setting of DFU state.  <a href="#ad1d69266191044d7d27c63bd7c049b7c">More...</a><br/></td></tr>
 <tr class="separator:ad1d69266191044d7d27c63bd7c049b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ad7bb0798660879a761038133bf0b80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#a4ad7bb0798660879a761038133bf0b80">USB_DfuSetDwloadState</a> (struct dfu_if *DFU, u8 *status)</td></tr>
+<tr class="memitem:a4ad7bb0798660879a761038133bf0b80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#a4ad7bb0798660879a761038133bf0b80">USB_DfuSetDwloadState</a> (struct <a class="el" href="structdfu__if.html">dfu_if</a> *<a class="el" href="xusb__freertos__dfu__example_8c.html#a4502457caf193a71c80baed790f38599">DFU</a>, u8 *status)</td></tr>
 <tr class="memdesc:a4ad7bb0798660879a761038133bf0b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates the current state while downloading a file.  <a href="#a4ad7bb0798660879a761038133bf0b80">More...</a><br/></td></tr>
 <tr class="separator:a4ad7bb0798660879a761038133bf0b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ade58346ca33654f5138ee9c443610d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#a3ade58346ca33654f5138ee9c443610d">USB_DfuGetStatus</a> (struct dfu_if *DFU, u8 *status)</td></tr>
-<tr class="memdesc:a3ade58346ca33654f5138ee9c443610d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles getting of DFU status.  <a href="#a3ade58346ca33654f5138ee9c443610d">More...</a><br/></td></tr>
+<tr class="memitem:a3ade58346ca33654f5138ee9c443610d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#a3ade58346ca33654f5138ee9c443610d">USB_DfuGetStatus</a> (struct <a class="el" href="structdfu__if.html">dfu_if</a> *<a class="el" href="xusb__freertos__dfu__example_8c.html#a4502457caf193a71c80baed790f38599">DFU</a>, u8 *status)</td></tr>
+<tr class="memdesc:a3ade58346ca33654f5138ee9c443610d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles getting of DFU status.  <a href="#a3ade58346ca33654f5138ee9c443610d">More...</a><br/></td></tr>
 <tr class="separator:a3ade58346ca33654f5138ee9c443610d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a194a9e11a6d5b86e53384260e2f1a90b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#a194a9e11a6d5b86e53384260e2f1a90b">Usb_DisconnectHandler</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a194a9e11a6d5b86e53384260e2f1a90b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles USB disconnect, called from driver.  <a href="#a194a9e11a6d5b86e53384260e2f1a90b">More...</a><br/></td></tr>
@@ -139,8 +140,52 @@ Functions</h2></td></tr>
 <tr class="memitem:acd0aa2711cb840f03df965a2c16dfebf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
 <tr class="memdesc:acd0aa2711cb840f03df965a2c16dfebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles set interface request.  <a href="#acd0aa2711cb840f03df965a2c16dfebf">More...</a><br/></td></tr>
 <tr class="separator:acd0aa2711cb840f03df965a2c16dfebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32b6f95139e55ff73c71303408094577"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
+<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle USB class request for the composite device.  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
+<tr class="separator:a32b6f95139e55ff73c71303408094577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac22d379a546e0b0416abad664966a381"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__class__audio__dfu_8c.html#ac22d379a546e0b0416abad664966a381">DetachCounter</a> = 0</td></tr>
+<tr class="memdesc:ac22d379a546e0b0416abad664966a381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach Counter.  <a href="#ac22d379a546e0b0416abad664966a381">More...</a><br/></td></tr>
+<tr class="separator:ac22d379a546e0b0416abad664966a381"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a32b6f95139e55ff73c71303408094577"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Usb_ClassReq </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_setup_packet.html">SetupPacket</a> *&#160;</td>
+          <td class="paramname"><em>SetupData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handle USB class request for the composite device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is a pointer to the setup packet data. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a3ade58346ca33654f5138ee9c443610d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +193,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void USB_DfuGetStatus </td>
           <td>(</td>
-          <td class="paramtype">struct dfu_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structdfu__if.html">dfu_if</a> *&#160;</td>
           <td class="paramname"><em>DFU</em>, </td>
         </tr>
         <tr>
@@ -165,16 +210,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function handles getting of DFU status. </p>
+<p>Handles getting of DFU status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">status</td><td>is the pointer of the DFU status</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DFU</td><td>is a pointer to the DFU instance of the controller. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">status</td><td>is a pointer to the DFU status byte array (6 bytes). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>.</p>
 
@@ -187,7 +230,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void USB_DfuSetDwloadState </td>
           <td>(</td>
-          <td class="paramtype">struct dfu_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structdfu__if.html">dfu_if</a> *&#160;</td>
           <td class="paramname"><em>DFU</em>, </td>
         </tr>
         <tr>
@@ -207,12 +250,11 @@ Functions</h2></td></tr>
 <p>This function updates the current state while downloading a file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">status</td><td>is a pointer of the DFU status</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">status</td><td>is a pointer of the DFU status </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__freertos__class__composite_8h.html#a3ade58346ca33654f5138ee9c443610d">USB_DfuGetStatus()</a>.</p>
 
@@ -225,7 +267,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">s32 Usb_DfuSetState </td>
           <td>(</td>
-          <td class="paramtype">struct dfu_if *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="structdfu__if.html">dfu_if</a> *&#160;</td>
           <td class="paramname"><em>DFU</em>, </td>
         </tr>
         <tr>
@@ -245,16 +287,15 @@ Functions</h2></td></tr>
 <p>This function handles setting of DFU state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
-    <tr><td class="paramname">dfu_state</td><td>is a value of the DFU state to be set</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DFU</td><td>is a pointer to DFU instance of the controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dfu_state</td><td>is a value of the DFU state to be set</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if the function is successful.<ul>
-<li>XST_FAILURE if an Error occurred.</li>
+<li>XST_FAILURE if an Error occurred. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusb__class__dfu_8h.html#ae341b8eb99d5437ecbe2e1aed80d080c">Usb_DfuClassReq()</a>, <a class="el" href="xusb__class__dfu_8h.html#ae423c2f49364dc3cd9e2cddf6b62541b">Usb_DfuSetIntf()</a>, and <a class="el" href="xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf">Usb_SetIntf()</a>.</p>
 
@@ -277,12 +318,10 @@ Functions</h2></td></tr>
 <p>This function handles USB disconnect, called from driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -303,12 +342,10 @@ Functions</h2></td></tr>
 <p>This function handles USB reset, called from driver. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -339,13 +376,26 @@ Functions</h2></td></tr>
 <p>This function handles set interface request. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is a pointer to setup token of control transfer</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance of the controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is a pointer to setup token of control transfer </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ac22d379a546e0b0416abad664966a381"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 DetachCounter = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Detach Counter. </p>
 
 </div>
 </div>

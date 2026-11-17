@@ -105,6 +105,7 @@ $(document).ready(function(){initNavTree('xilpuf__versal__net__example_8c.html',
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file illustrates encryption of red key, UDS and DME private keys using PUF KEY. </p>
 <p>It can also be used for generating only PUF ID. To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode and xilpuf in server mode.</p>
+<p>By default the cache is enabled for this example </p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who   Date     Changes
  ----- ---  -------- -------------------------------------------------------
@@ -118,6 +119,8 @@ $(document).ready(function(){initNavTree('xilpuf__versal__net__example_8c.html',
  2.6   rpu   07/15/25 Fixed GCC warnings
  2.7   bha   01/06/26 Fixed Doxygen warnings
  2.8   tvp   04/03/26 Use generic API to increment IV
+       sri   08/05/26 Fixed issue in programming encrypted DME private key 3 into eFuses
+       rama  09/17/26 Enable cache by default for client example
  </pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xpuf_bsp_config.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xpuf__client_8h.html">xpuf_client.h</a>&quot;</code><br/>

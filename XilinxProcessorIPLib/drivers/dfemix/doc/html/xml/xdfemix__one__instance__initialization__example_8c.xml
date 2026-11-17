@@ -7,24 +7,6 @@
       <node id="58">
         <label>stdbool.h</label>
       </node>
-      <node id="59">
-        <label>metal/sys.h</label>
-      </node>
-      <node id="57">
-        <label>assert.h</label>
-      </node>
-      <node id="55">
-        <label>xdfemix.h</label>
-        <link refid="xdfemix_8h"/>
-        <childnode refid="56" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
-        <childnode refid="58" relation="include">
-        </childnode>
-        <childnode refid="59" relation="include">
-        </childnode>
-      </node>
       <node id="54">
         <label>xdfemix_examples.h</label>
         <link refid="xdfemix__examples_8h"/>
@@ -41,6 +23,21 @@
         <childnode refid="64" relation="include">
         </childnode>
       </node>
+      <node id="59">
+        <label>metal/sys.h</label>
+      </node>
+      <node id="57">
+        <label>assert.h</label>
+      </node>
+      <node id="60">
+        <label>xdfemix_hw.h</label>
+      </node>
+      <node id="53">
+        <label>xdfemix_one_instance_initialization_example.c</label>
+        <link refid="xdfemix_one_instance_initialization_example.c"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
       <node id="64">
         <label>metal/sleep.h</label>
       </node>
@@ -50,20 +47,23 @@
       <node id="61">
         <label>math.h</label>
       </node>
-      <node id="60">
-        <label>xdfemix_hw.h</label>
+      <node id="55">
+        <label>xdfemix.h</label>
+        <link refid="xdfemix_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
       </node>
       <node id="56">
         <label>linux/types.h</label>
       </node>
       <node id="62">
         <label>stdio.h</label>
-      </node>
-      <node id="53">
-        <label>xdfemix_one_instance_initialization_example.c</label>
-        <link refid="xdfemix_one_instance_initialization_example.c"/>
-        <childnode refid="54" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -83,7 +83,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c" bodystart="54" bodyend="95"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c" bodystart="54" bodyend="95"/>
         <references refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" compoundref="xdfemix_8h" startline="208">XDfeMix_Version::Major</references>
         <references refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" compoundref="xdfemix_8h" startline="209">XDfeMix_Version::Minor</references>
         <references refid="struct_x_dfe_mix___version_1a3e008974f46642083bd193fb40e4d7e0" compoundref="xdfemix_8h" startline="211">XDfeMix_Version::Patch</references>
@@ -171,6 +171,6 @@
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
 <codeline lineno="95"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c"/>
   </compounddef>
 </doxygen>

@@ -13,6 +13,8 @@ var xiic__dynamic__eeprom__example_8c =
     [ "IicDynEepromExample", "xiic__dynamic__eeprom__example_8c.html#acf73440d825599aa965a161279937fdb", null ],
     [ "main", "xiic__dynamic__eeprom__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "EepromIicAddr", "xiic__dynamic__eeprom__example_8c.html#a76e91838aa728d2227d7a2f3107616a9", null ],
+    [ "IicInstance", "xiic__dynamic__eeprom__example_8c.html#a82ac42ea08442144b4d372ff9f7740c0", null ],
+    [ "ReadBuffer", "xiic__dynamic__eeprom__example_8c.html#af87b2a3712f19c0723e6b945b30cd2cc", null ],
     [ "ReceiveComplete", "xiic__dynamic__eeprom__example_8c.html#a9f1fae969d865449aacad8208e70ce16", null ],
     [ "TransmitComplete", "xiic__dynamic__eeprom__example_8c.html#a19d9dd848a431a459bff8db6e3eb2985", null ],
     [ "WriteBuffer", "xiic__dynamic__eeprom__example_8c.html#a301b988b2453fda0d2780ed4d82c8450", null ]

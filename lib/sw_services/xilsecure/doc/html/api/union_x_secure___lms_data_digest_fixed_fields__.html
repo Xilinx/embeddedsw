@@ -119,6 +119,9 @@ $(document).ready(function(){initNavTree('union_x_secure___lms_data_digest_fixed
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a25c36cc10fb93dd748a10d2cee3d7929"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_secure___lms_data_digest_fixed_fields__.html#a25c36cc10fb93dd748a10d2cee3d7929">Buff</a> [<a class="el" href="group__xsecure__lms__server__apis.html#ga434d38a2acb11f42b7fed781844eb3ee">XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE</a>]</td></tr>
+<tr class="memdesc:a25c36cc10fb93dd748a10d2cee3d7929"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte buffer of LMS data digest fixed fields.  <a href="#a25c36cc10fb93dd748a10d2cee3d7929">More...</a><br/></td></tr>
+<tr class="separator:a25c36cc10fb93dd748a10d2cee3d7929"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38ae34046c478595b442ef95fdc313d0"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:abb0a0e12ba08bf22c4c30d1b37c20fd4"><td class="memItemLeft" >&#160;&#160;&#160;u8&#160;&#160;&#160;<a class="el" href="union_x_secure___lms_data_digest_fixed_fields__.html#aaa6fe65d46b47201f9c1759148669987">I</a> [<a class="el" href="group__xsecure__lms__server__apis.html#gafcdce570f5a0f46e23bc4993015be56b">XSECURE_LMS_I_FIELD_SIZE</a>]</td></tr>
 <tr class="memdesc:abb0a0e12ba08bf22c4c30d1b37c20fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">I - Merkle Tree's unique identifier (uniformly random 16-byte string) Size - 16 bytes, 0 to 15 bytes.  <a href="#abb0a0e12ba08bf22c4c30d1b37c20fd4">More...</a><br/></td></tr>
@@ -140,6 +143,22 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Temporary buffer, used to send prefix fields to calculate digest for data to be authenticate. </p>
 <p>Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a25c36cc10fb93dd748a10d2cee3d7929"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSecure_LmsDataDigestFixedFields_::Buff[<a class="el" href="group__xsecure__lms__server__apis.html#ga434d38a2acb11f42b7fed781844eb3ee">XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte buffer of LMS data digest fixed fields. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__lms__server__apis.html#ga20f145ad946cac0682c7428afe35dc8f">XSecure_LmsHashMessage()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a47f35181622252a6c7fbe981d2287fb5"></a>
 <div class="memitem">
 <div class="memproto">

@@ -105,12 +105,12 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="contents">
 <div class="textblock"><p>The Xilinx Reset Controller driver supports the following features:</p>
 <ul>
-<li>Assert reset for specific peripheral.</li>
-<li>Deassert reset for specific peripheral.</li>
-<li>Pulse reset for specific peripheral.</li>
-<li>Get reset status for specific peripheral.</li>
+<li>Assert reset for a specific peripheral.</li>
+<li>Deassert reset for a specific peripheral.</li>
+<li>Pulse reset for a specific peripheral.</li>
+<li>Get reset status for a specific peripheral.</li>
 </ul>
-<p>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</p>
+<p>This driver is intended to be real-time operating system (RTOS) and processor independent. It works with physical addresses only. The layer above this driver must satisfy any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control.</p>
 <pre>
 MODIFICATION HISTORY:
 Ver   Who    Date     Changes
@@ -129,6 +129,7 @@ Ver   Who    Date     Changes
 1.8   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 1.8   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
                       to support 64-bit addressing.
+1.9   vn     09/10/26 Align Doxygen comments with AMD standards
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

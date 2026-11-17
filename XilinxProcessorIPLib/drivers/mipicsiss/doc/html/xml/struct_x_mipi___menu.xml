@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___menu_1a0e87b6ca8b6c8084bcf11027dec892cf" prot="public" static="no" mutable="no">
         <type><ref refid="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3" kindref="member">XMipi_MenuType</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___menu_1a7528267151a52849e84f5a8d63221856" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___menu_1af4af6e50c8e8d25aff0b07a8f92e8e60" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mipi___menu_1ae062ed7a733a3e715095fd1a9dec6d21" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -75,19 +75,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="40">
+      <node id="42">
         <label>XMipi_Menu</label>
         <link refid="struct_x_mipi___menu"/>
-        <childnode refid="41" relation="usage">
+        <childnode refid="43" relation="usage">
           <edgelabel>Config</edgelabel>
         </childnode>
       </node>
-      <node id="41">
+      <node id="43">
         <label>XMipi_MenuConfig</label>
         <link refid="struct_x_mipi___menu_config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="72" bodyend="79"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="72" bodyend="79"/>
     <listofallmembers>
       <member refid="struct_x_mipi___menu_1a25693f656fa2e3297e188c148fe523ec" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>Config</name></member>
       <member refid="struct_x_mipi___menu_1a0e87b6ca8b6c8084bcf11027dec892cf" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>CurrentMenu</name></member>

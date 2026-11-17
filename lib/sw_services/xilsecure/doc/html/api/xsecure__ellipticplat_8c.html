@@ -125,7 +125,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       kpt  01/09/24 Updated option for non-blocking trng reseed
       ss   04/05/24 Fixed doxygen warnings
 5.5   tvp  05/13/25 Code refactoring for Platform specific TRNG functions
-      tvp  05/14/25 XSecure_UpdateTrngCryptoStatus is not applicable for Versal_2vp</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+      tvp  05/14/25 XSecure_UpdateTrngCryptoStatus is not applicable for Versal_2vp
+5.8   tbk  07/02/26 Added redundant P-384-only curve validation for ECC key
+                    generation APIs
+      rap  09/09/26 Removed EcdhGetSecret buffer address zero checks</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__ellipticplat_8h.html">xsecure_ellipticplat.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_plat_kat.h&quot;</code><br/>
 <code>#include &quot;xsecure_error.h&quot;</code><br/>

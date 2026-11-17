@@ -99,19 +99,27 @@ $(document).ready(function(){initNavTree('xaxis__switch__hw_8h.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">xaxis_switch_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Hardware definition file for the AXI4-Stream Switch register interface. </p>
+<p>Contains identifiers and register-level core functions (or macros) to access the Xilinx AXI4-Stream Switch Control Router core.</p>
+<p>For more information about the operation of this core see the hardware specification and documentation in the higher level driver <a class="el" href="xaxis__switch_8h.html">xaxis_switch.h</a> file.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.00  sha 01/28/15 Initial release.
+1.9   vn  07/30/26 Fix Doxygen warnings
+1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+1.9  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga5a9a509c0aec471d47a841f955c087c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga5a9a509c0aec471d47a841f955c087c5">XAXIS_SWITCH_HW_H_</a></td></tr>
-<tr class="memdesc:ga5a9a509c0aec471d47a841f955c087c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="group__axis__switch.html#ga5a9a509c0aec471d47a841f955c087c5">More...</a><br/></td></tr>
-<tr class="separator:ga5a9a509c0aec471d47a841f955c087c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">MI MUX register offsets</div></td></tr>
 <tr class="memitem:ga05c58dacf3ab036292d57faac0bc1cca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga05c58dacf3ab036292d57faac0bc1cca">XAXIS_SCR_CTRL_OFFSET</a>&#160;&#160;&#160;0x000</td></tr>
 <tr class="memdesc:ga05c58dacf3ab036292d57faac0bc1cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Register offset.  <a href="group__axis__switch.html#ga05c58dacf3ab036292d57faac0bc1cca">More...</a><br/></td></tr>
@@ -127,7 +135,8 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga61bbd9728daef6347dc32ae4234f19de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register Update mask.  <a href="group__axis__switch.html#ga61bbd9728daef6347dc32ae4234f19de">More...</a><br/></td></tr>
 <tr class="separator:ga61bbd9728daef6347dc32ae4234f19de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">MI MUX register mask</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>It is applicable for MI[0...15] registers. </p>
+<tr><td colspan="2"><div class="groupText"><p>Defines MI MUX register masks.</p>
+<p>Applicable for MI[0...15] registers. </p>
 </div></td></tr>
 <tr class="memitem:ga32f8940e49e11e5b238d5613ae4f667a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga32f8940e49e11e5b238d5613ae4f667a">XAXIS_SCR_MI_X_MUX_MASK</a>&#160;&#160;&#160;0x0F</td></tr>
 <tr class="memdesc:ga32f8940e49e11e5b238d5613ae4f667a"><td class="mdescLeft">&#160;</td><td class="mdescRight">MI MUX mask.  <a href="group__axis__switch.html#ga32f8940e49e11e5b238d5613ae4f667a">More...</a><br/></td></tr>
@@ -139,6 +148,8 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga06b31a381d36b949c68bbfaf92610bc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MI Disable shift.  <a href="group__axis__switch.html#ga06b31a381d36b949c68bbfaf92610bc3">More...</a><br/></td></tr>
 <tr class="separator:ga06b31a381d36b949c68bbfaf92610bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register access macro definition</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Defines register access macros. </p>
+</div></td></tr>
 <tr class="memitem:ga81d5f42ceeea6429358b40a24b990421"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga81d5f42ceeea6429358b40a24b990421">XAxisScr_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
 <tr class="memdesc:ga81d5f42ceeea6429358b40a24b990421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Operations.  <a href="group__axis__switch.html#ga81d5f42ceeea6429358b40a24b990421">More...</a><br/></td></tr>
 <tr class="separator:ga81d5f42ceeea6429358b40a24b990421"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,10 +157,10 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaca96433d3b19296beb0a781e5428a5f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output Operations.  <a href="group__axis__switch.html#gaca96433d3b19296beb0a781e5428a5f6">More...</a><br/></td></tr>
 <tr class="separator:gaca96433d3b19296beb0a781e5428a5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga68fcd4f0df5a838b218c7ebde0e6b152"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga68fcd4f0df5a838b218c7ebde0e6b152">XAxisScr_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__axis__switch.html#ga81d5f42ceeea6429358b40a24b990421">XAxisScr_In32</a>((BaseAddress) + ((u32)RegOffset))</td></tr>
-<tr class="memdesc:ga68fcd4f0df5a838b218c7ebde0e6b152"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads a value from a AXI4-Stream Switch register.  <a href="group__axis__switch.html#ga68fcd4f0df5a838b218c7ebde0e6b152">More...</a><br/></td></tr>
+<tr class="memdesc:ga68fcd4f0df5a838b218c7ebde0e6b152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a value from an AXI4-Stream Switch register.  <a href="group__axis__switch.html#ga68fcd4f0df5a838b218c7ebde0e6b152">More...</a><br/></td></tr>
 <tr class="separator:ga68fcd4f0df5a838b218c7ebde0e6b152"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga993bec85cbffd929a7f8418e65f293de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axis__switch.html#ga993bec85cbffd929a7f8418e65f293de">XAxisScr_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;<a class="el" href="group__axis__switch.html#gaca96433d3b19296beb0a781e5428a5f6">XAxisScr_Out32</a>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</td></tr>
-<tr class="memdesc:ga993bec85cbffd929a7f8418e65f293de"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro writes a value to a AXI4-Stream Switch register.  <a href="group__axis__switch.html#ga993bec85cbffd929a7f8418e65f293de">More...</a><br/></td></tr>
+<tr class="memdesc:ga993bec85cbffd929a7f8418e65f293de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a value to an AXI4-Stream Switch register.  <a href="group__axis__switch.html#ga993bec85cbffd929a7f8418e65f293de">More...</a><br/></td></tr>
 <tr class="separator:ga993bec85cbffd929a7f8418e65f293de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

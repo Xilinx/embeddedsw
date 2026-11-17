@@ -8,44 +8,44 @@
     <includedby refid="onsemi__nb7nq621m_8c" local="yes">onsemi_nb7nq621m.c</includedby>
     <includedby refid="video__fmc_8h" local="yes">video_fmc.h</includedby>
     <incdepgraph>
-      <node id="6933">
+      <node id="7345">
         <label>sleep.h</label>
       </node>
-      <node id="6930">
+      <node id="7342">
         <label>onsemi_nb7nq621m.h</label>
         <link refid="onsemi_nb7nq621m.h"/>
-        <childnode refid="6931" relation="include">
+        <childnode refid="7343" relation="include">
         </childnode>
-        <childnode refid="6932" relation="include">
+        <childnode refid="7344" relation="include">
         </childnode>
-        <childnode refid="6933" relation="include">
+        <childnode refid="7345" relation="include">
         </childnode>
       </node>
-      <node id="6932">
+      <node id="7344">
         <label>xil_types.h</label>
       </node>
-      <node id="6931">
+      <node id="7343">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6935">
+      <node id="7347">
         <label>onsemi_nb7nq621m.c</label>
       </node>
-      <node id="6934">
+      <node id="7346">
         <label>onsemi_nb7nq621m.h</label>
         <link refid="onsemi_nb7nq621m.h"/>
-        <childnode refid="6935" relation="include">
+        <childnode refid="7347" relation="include">
         </childnode>
-        <childnode refid="6936" relation="include">
+        <childnode refid="7348" relation="include">
         </childnode>
       </node>
-      <node id="6937">
+      <node id="7349">
         <label>video_fmc.c</label>
       </node>
-      <node id="6936">
+      <node id="7348">
         <label>video_fmc.h</label>
-        <childnode refid="6937" relation="include">
+        <childnode refid="7349" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gabb47b2144ddfb3f754a34cf53fa7bddd" prot="public" static="no">
         <name>REG04_BIT7_LANE_CTRL_INDIVIDUAL</name>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga08d8563da6d89b95275da64e94b8dd5d" prot="public" static="no">
         <name>REG04_BIT6_LANE_SWAP_DISABLE</name>
@@ -82,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga071fd2c9ae991fe90b898b83a5c2e5d7" prot="public" static="no">
         <name>REG04_BIT6_LANE_SWAP_ENABLE</name>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga837a32af24007fdc9e378c12afb27895" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_HIZ</name>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga54f3e76371813cd05aa230060c993708" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_300</name>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga4705f5bc8a6f8e8b1e658cbbb0be4210" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_200</name>
@@ -126,7 +126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga5c0714c33b9b6241c30fd9e56afeabe4" prot="public" static="no">
         <name>REG04_BIT53_MODE_TMDS_100</name>
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaa41c1f819eb01bace837e50f03e371af" prot="public" static="no">
         <name>REG04_BIT53_MODE_FRL_DC</name>
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gae8f2b4ce752dc4f3b0657fbebadb94bb" prot="public" static="no">
         <name>REG04_BIT53_MODE_FRL_AC</name>
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2e19b1affd4bc4526d04acfa298ed246" prot="public" static="no">
         <name>REG04_BIT53_MODE_ML</name>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -422,7 +422,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h" bodystart="70" bodyend="105"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h" bodystart="71" bodyend="106"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -486,7 +486,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="869" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="869" bodyend="930"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="869" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="869" bodyend="937"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -526,8 +526,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="947" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="947" bodyend="977"/>
-        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" compoundref="onsemi__nb7nq621m_8c" startline="1245" endline="1281">ONSEMI_NB7NQ621M_RegisterDump</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="954" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="954" bodyend="984"/>
+        <referencedby refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" compoundref="onsemi__nb7nq621m_8c" startline="1260" endline="1296">ONSEMI_NB7NQ621M_RegisterDump</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga433132f50e696e116cdb516571b86072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -567,7 +567,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="994" bodyend="1013"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1001" bodyend="1020"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga889c7576a2aa608de7b1fb633cbb06e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -651,7 +651,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="1034" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="1034" bodyend="1203"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1041" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1041" bodyend="1218"/>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -689,8 +689,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="1245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="1245" bodyend="1281"/>
-        <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" compoundref="onsemi__nb7nq621m_8c" startline="947" endline="977">ONSEMI_NB7NQ621M_CheckDeviceID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1260" bodyend="1296"/>
+        <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" compoundref="onsemi__nb7nq621m_8c" startline="954" endline="984">ONSEMI_NB7NQ621M_CheckDeviceID</references>
       </memberdef>
       <memberdef kind="function" id="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -716,7 +716,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" line="1217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.c" bodystart="1217" bodyend="1230"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" line="1232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.c" bodystart="1232" bodyend="1245"/>
         <references refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gaf765b2cbc5bdae5de39f3290253f1e4f" compoundref="onsemi__nb7nq621m_8c" startline="54">OnsemiRegisterFields</references>
       </memberdef>
       </sectiondef>
@@ -727,116 +727,117 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>â€“<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
-<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>ONSEMI_NB7NQ621M_H</highlight></codeline>
-<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ONSEMI_NB7NQ621M_H</highlight></codeline>
-<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
-<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
-<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
-<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
-<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_XIIC_NUM_INSTANCES)</highlight></codeline>
-<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>6)<sp/></highlight><highlight class="comment">/*GTYE4*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VCU118</highlight></codeline>
-<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Place-holder<sp/>for<sp/>other<sp/>boards<sp/>in<sp/>future<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT7_LANE_CTRL_GLOBAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT7_LANE_CTRL_INDIVIDUAL<sp/>1</highlight></codeline>
-<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT6_LANE_SWAP_DISABLE<sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT6_LANE_SWAP_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
-<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_HIZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
-<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_300<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
-<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
-<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
-<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_FRL_DC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
-<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_FRL_AC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
-<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_ML<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7</highlight></codeline>
-<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
-<codeline lineno="70" refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga980d994dbabc11143336e92116be5da4" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS<sp/>=<sp/>0,</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS_14_L<sp/>=<sp/>21,</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS_14_H<sp/>=<sp/>33,</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS_20<sp/>=<sp/>45,</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_FRL<sp/>=<sp/>57,</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R0<sp/>=<sp/>69,</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_14_LL<sp/>=<sp/>90,</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_14_L<sp/>=<sp/>99,</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_14<sp/>=<sp/>108,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HDMI<sp/>1.4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_20<sp/>=<sp/>117,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HDMI<sp/>2.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_FRL<sp/>=<sp/>126,</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_FRL_10G<sp/>=<sp/>135,</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_FRL_12G<sp/>=<sp/>144,</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R1_TMDS_14<sp/>=<sp/>153,</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R1_TMDS_20<sp/>=<sp/>162,</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R1_FRL<sp/>=<sp/>171,</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_TMDS_14_L<sp/>=<sp/>180,</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_TMDS_14_H<sp/>=<sp/>196,</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_TMDS_20<sp/>=<sp/>208,</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_FRL<sp/>=<sp/>220,</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R2_TMDS_14<sp/>=<sp/>232,</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R2_TMDS_20<sp/>=<sp/>241,</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R2_FRL<sp/>=<sp/>250,</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Above<sp/>these<sp/>were<sp/>all<sp/>early<sp/>versions<sp/>of</highlight></codeline>
-<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>OnSemi<sp/>re-driver</highlight></codeline>
-<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>the<sp/>21<sp/>write<sp/>registers<sp/>are<sp/>added<sp/>for<sp/>flexibility</highlight></codeline>
-<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_TMDS_14_L<sp/>=<sp/>271,</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_TMDS_14_H<sp/>=<sp/>TX_R3_TMDS_14_L<sp/>+<sp/>21,</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_TMDS_20<sp/>=<sp/>TX_R3_TMDS_14_H<sp/>+<sp/>21,</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_FRL<sp/>=<sp/>TX_R3_TMDS_20<sp/>+<sp/>21,</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R3_TMDS_14<sp/>=<sp/>TX_R3_FRL<sp/>+<sp/>21,</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R3_TMDS_20<sp/>=<sp/>RX_R3_TMDS_14<sp/>+<sp/>21,</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R3_FRL<sp/>=<sp/>RX_R3_TMDS_20<sp/>+<sp/>21,</highlight></codeline>
-<codeline lineno="105"><highlight class="normal">}<sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga980d994dbabc11143336e92116be5da4" kindref="member">Onsemi_DeviceType</ref>;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110" refid="struct_onsemi___register_field" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="111" refid="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" kindref="member">DeviceType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="112" refid="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" kindref="member">Address</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Values;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal">}<sp/><ref refid="struct_onsemi___register_field" kindref="compound">Onsemi_RegisterField</ref>;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga137f0bf469bfc29758da13b6dfe8aca4" kindref="member">ONSEMI_NB7NQ621M_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Revision,<sp/>u8<sp/>IsTx);</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" kindref="member">ONSEMI_NB7NQ621M_CheckDeviceID</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
-<codeline lineno="122"><highlight class="normal">u8<sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga433132f50e696e116cdb516571b86072" kindref="member">ONSEMI_NB7NQ621M_CheckDeviceVersion</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga889c7576a2aa608de7b1fb633cbb06e1" kindref="member">ONSEMI_NB7NQ621M_LineRateReconfig</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Revision,<sp/>u8<sp/>IsFRL,<sp/>u64<sp/>LineRate,<sp/>u8<sp/>IsTx);</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" kindref="member">ONSEMI_NB7NQ621M_RegisterDump</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" kindref="member">ONSEMI_NB7NQ621M_RegisterLibraryDump</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ONSEMI_NB7NQ621M_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>ONSEMI_NB7NQ621M_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ONSEMI_NB7NQ621M_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_XIIC_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>6)<sp/></highlight><highlight class="comment">/*GTYE4*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VCU118</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Place-holder<sp/>for<sp/>other<sp/>boards<sp/>in<sp/>future<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT7_LANE_CTRL_GLOBAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT7_LANE_CTRL_INDIVIDUAL<sp/>1</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT6_LANE_SWAP_DISABLE<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT6_LANE_SWAP_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_HIZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_300<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_TMDS_100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_FRL_DC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_FRL_AC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>REG04_BIT53_MODE_ML<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="71" refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga980d994dbabc11143336e92116be5da4" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS_14_L<sp/>=<sp/>21,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS_14_H<sp/>=<sp/>33,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_TMDS_20<sp/>=<sp/>45,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R0_FRL<sp/>=<sp/>57,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R0<sp/>=<sp/>69,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_14_LL<sp/>=<sp/>90,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_14_L<sp/>=<sp/>99,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_14<sp/>=<sp/>108,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HDMI<sp/>1.4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_TMDS_20<sp/>=<sp/>117,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HDMI<sp/>2.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_FRL<sp/>=<sp/>126,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_FRL_10G<sp/>=<sp/>135,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R1_FRL_12G<sp/>=<sp/>144,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R1_TMDS_14<sp/>=<sp/>153,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R1_TMDS_20<sp/>=<sp/>162,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R1_FRL<sp/>=<sp/>171,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_TMDS_14_L<sp/>=<sp/>180,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_TMDS_14_H<sp/>=<sp/>196,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_TMDS_20<sp/>=<sp/>208,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R2_FRL<sp/>=<sp/>220,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R2_TMDS_14<sp/>=<sp/>232,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R2_TMDS_20<sp/>=<sp/>241,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R2_FRL<sp/>=<sp/>250,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Above<sp/>these<sp/>were<sp/>all<sp/>early<sp/>versions<sp/>of</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>OnSemi<sp/>re-driver</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>the<sp/>21<sp/>write<sp/>registers<sp/>are<sp/>added<sp/>for<sp/>flexibility</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_TMDS_14_L<sp/>=<sp/>271,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_TMDS_14_H<sp/>=<sp/>TX_R3_TMDS_14_L<sp/>+<sp/>21,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_TMDS_20<sp/>=<sp/>TX_R3_TMDS_14_H<sp/>+<sp/>21,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TX_R3_FRL<sp/>=<sp/>TX_R3_TMDS_20<sp/>+<sp/>21,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R3_TMDS_14<sp/>=<sp/>TX_R3_FRL<sp/>+<sp/>21,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R3_TMDS_20<sp/>=<sp/>RX_R3_TMDS_14<sp/>+<sp/>21,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RX_R3_FRL<sp/>=<sp/>RX_R3_TMDS_20<sp/>+<sp/>21,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}<sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga980d994dbabc11143336e92116be5da4" kindref="member">Onsemi_DeviceType</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="struct_onsemi___register_field" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112" refid="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" kindref="member">DeviceType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" kindref="member">Address</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Values;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<sp/><ref refid="struct_onsemi___register_field" kindref="compound">Onsemi_RegisterField</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga137f0bf469bfc29758da13b6dfe8aca4" kindref="member">ONSEMI_NB7NQ621M_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Revision,<sp/>u8<sp/>IsTx);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga2a8bc4fa80976de9b5d9e8e8e070784f" kindref="member">ONSEMI_NB7NQ621M_CheckDeviceID</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">u8<sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga433132f50e696e116cdb516571b86072" kindref="member">ONSEMI_NB7NQ621M_CheckDeviceVersion</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga889c7576a2aa608de7b1fb633cbb06e1" kindref="member">ONSEMI_NB7NQ621M_LineRateReconfig</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Revision,<sp/>u8<sp/>IsFRL,<sp/>u64<sp/>LineRate,<sp/>u8<sp/>IsTx);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1gab6760c6fb0727ceecd530d08b20cca96" kindref="member">ONSEMI_NB7NQ621M_RegisterDump</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___o_n_s_e_m_i___n_b7_n_q621_m_1ga3932656cdb0c50d3030080fdf9d187ef" kindref="member">ONSEMI_NB7NQ621M_RegisterLibraryDump</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ONSEMI_NB7NQ621M_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/onsemi_nb7nq621m.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/hdmi_display/onsemi_nb7nq621m.h"/>
   </compounddef>
 </doxygen>

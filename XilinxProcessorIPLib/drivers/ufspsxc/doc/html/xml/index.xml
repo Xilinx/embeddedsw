@@ -6,6 +6,7 @@
     <member refid="struct_x_ufs_psxc_1a4c844d6b232e376e2e3a305010e82800" kind="variable"><name>TestUnitRdyLun</name></member>
     <member refid="struct_x_ufs_psxc_1aa05041d157353c06249dbf65a5258cbf" kind="variable"><name>AllocUnitSize</name></member>
     <member refid="struct_x_ufs_psxc_1a0f61a28c041ad8515599c066c14d4c91" kind="variable"><name>SegmentSize</name></member>
+    <member refid="struct_x_ufs_psxc_1aab4f0bb2deed6af099f5c9300b9e2416" kind="variable"><name>DeviceCapacityMiB</name></member>
     <member refid="struct_x_ufs_psxc_1affac3a9613e0d8ec011b2dfd0615c9ed" kind="variable"><name>IsReady</name></member>
     <member refid="struct_x_ufs_psxc_1aac8308eb3db3e1114ba74cd939cafe70" kind="variable"><name>CapAdjFactor</name></member>
     <member refid="struct_x_ufs_psxc_1af51590f54e68c7abde991a3b78b33953" kind="variable"><name>UD0BaseOffset</name></member>
@@ -20,7 +21,7 @@
     <member refid="struct_x_ufs_psxc_1ad5454b7ffce463add169fc9003c5f900" kind="variable"><name>BLunBLunId</name></member>
     <member refid="struct_x_ufs_psxc_1adfbdbe0e904b836ece09e71013d5fa5c" kind="variable"><name>PowerMode</name></member>
     <member refid="struct_x_ufs_psxc_1a18356f3363611bd87c604075919a9aa8" kind="variable"><name>Config_Desc_Data</name></member>
-    <member refid="struct_x_ufs_psxc_1a7bce7916c4e55193974efce3f304d89b" kind="variable"><name>LUNInfo</name></member>
+    <member refid="struct_x_ufs_psxc_1a9bb4875c59891fdfc93a448ce6ce1402" kind="variable"><name>LUNInfo</name></member>
     <member refid="struct_x_ufs_psxc_1a40590173865640480671ea4c87b5f9f5" kind="variable"><name>Config</name></member>
     <member refid="struct_x_ufs_psxc_1a15b3baa4da1f2b59e8dd2525ffa21c77" kind="variable"><name>req_desc_baseaddr</name></member>
     <member refid="struct_x_ufs_psxc_1a1d243835e7651bebde57356cca4b6e34" kind="variable"><name>CmdDesc</name></member>
@@ -133,17 +134,15 @@
   <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
   </compound>
   <compound refid="xufspsxc_8c" kind="file"><name>xufspsxc.c</name>
-    <member refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" kind="function"><name>XUfsPsxc_CfgInitialize</name></member>
-    <member refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" kind="function"><name>XUfsPsxc_Initialize</name></member>
-    <member refid="group__ufspsxc_1ga76dd7620ac6f336d4a9aaa5108e009d6" kind="function"><name>XUfsPsxc_ConfigureSpeedGear</name></member>
-    <member refid="group__ufspsxc_1ga1e4078f7061f73d5ccd64eafe59c13ee" kind="function"><name>XUfsPsxc_CheckBootReq</name></member>
-    <member refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" kind="function"><name>XUfsPsxc_SwitchBootLUN</name></member>
-    <member refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" kind="function"><name>XUfsPsxc_ReadPolled</name></member>
-    <member refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" kind="function"><name>XUfsPsxc_WritePolled</name></member>
+    <member refid="group__ufspsxc__api_1gaa67843f95526f7c11553c1f125004374" kind="function"><name>XUfsPsxc_CfgInitialize</name></member>
+    <member refid="group__ufspsxc__api_1ga615ad820fd1faa16ebd1ad620f2837e5" kind="function"><name>XUfsPsxc_Initialize</name></member>
+    <member refid="group__ufspsxc__api_1ga76dd7620ac6f336d4a9aaa5108e009d6" kind="function"><name>XUfsPsxc_ConfigureSpeedGear</name></member>
+    <member refid="group__ufspsxc__api_1ga1e4078f7061f73d5ccd64eafe59c13ee" kind="function"><name>XUfsPsxc_CheckBootReq</name></member>
+    <member refid="group__ufspsxc__api_1ga6e5ad67b7055e0c5174028c2bdd464c0" kind="function"><name>XUfsPsxc_SwitchBootLUN</name></member>
+    <member refid="group__ufspsxc__api_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" kind="function"><name>XUfsPsxc_ReadPolled</name></member>
+    <member refid="group__ufspsxc__api_1ga5b503a6cef357e029c87ab07e4354763" kind="function"><name>XUfsPsxc_WritePolled</name></member>
   </compound>
   <compound refid="xufspsxc_8h" kind="file"><name>xufspsxc.h</name>
-    <member refid="group__ufspsxc_1ga7587500eda2c906e138f1c6993ac9ce4" kind="define"><name>XUFSPSXC_H_</name></member>
-    <member refid="group__ufspsxc_1ga21b3eb3474baa6a0ef517a522f4e218c" kind="define"><name>XUFSPSXC_PRDT_ENTRIES</name></member>
     <member refid="group__ufspsxc_1ga5f89f5e1828c893eaeadf6ff46bfcdff" kind="define"><name>XUFSPSXC_SCSI_GOOD</name></member>
     <member refid="group__ufspsxc_1ga2ed9d84ef327176b4456e0da22c9eaaa" kind="define"><name>XUFSPSXC_SCSI_CHK_CONDITION</name></member>
     <member refid="group__ufspsxc_1ga69010e5dc98544ffef5b5e4d6a302470" kind="define"><name>XUFSPSXC_SCSI_BUSY</name></member>
@@ -181,6 +180,17 @@
     <member refid="group__ufspsxc_1gabf48ac9e578c571147fa8e5911396dc5" kind="define"><name>XUFSPSXC_UD0_BASE_OFFSET</name></member>
     <member refid="group__ufspsxc_1gafd01e69efc908eaaa496acd70d36e1ea" kind="define"><name>XUFSPSXC_UD_LEN_OFFSET</name></member>
     <member refid="group__ufspsxc_1gaf6ea9a0f9ed2392f69da14e9eec28889" kind="define"><name>XUFSPSXC_GEOMETRY_DESC_LEN</name></member>
+    <member refid="group__ufspsxc_1gae3ca35e27bbc2f8b3d52d771cd19fdf0" kind="define"><name>XUFSPSXC_DEV_CAPACITY_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga45cf883ab7e7ebb8e491c2b629397a33" kind="define"><name>XUFSPSXC_DEV_CAPACITY_BYTES</name></member>
+    <member refid="group__ufspsxc_1gaabe9788fba8e87b72cba25b64fa67512" kind="define"><name>XUFSPSXC_MAXNUMLU_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga72e1d5ddb2410c3349aa7da2448f20d7" kind="define"><name>XUFSPSXC_SEGSZ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga58e4cc0c5bccf5f109c88e69ffe958af" kind="define"><name>XUFSPSXC_ALLOCSZ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gac020fbd9e4a381df2405cab2d223d048" kind="define"><name>XUFSPSXC_SYSCODE_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gaad81456bab2c21a657bd46ebed518f41" kind="define"><name>XUFSPSXC_NONPERS_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gaa89b9bc4eb6fd6365b5e00451a7cef02" kind="define"><name>XUFSPSXC_ENH1_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga6471aba0234fb62bcd38bd296fe74c79" kind="define"><name>XUFSPSXC_ENH2_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gad12198dab8a8bb24ae3c720ce67b4ec9" kind="define"><name>XUFSPSXC_ENH3_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga30f00e91d0ed7ef6ac22e9f2a6755386" kind="define"><name>XUFSPSXC_ENH4_CAPADJ_OFFSET</name></member>
     <member refid="group__ufspsxc_1ga760cfa1ed17f017b0fdb201265a32332" kind="define"><name>XUFSPSXC_CFG_DESC_LEN</name></member>
     <member refid="group__ufspsxc_1gaa37371fda5dcb35c37bc4d5ba66f017f" kind="define"><name>XUFSPSXC_CFG_DESC_HEADER_LEN</name></member>
     <member refid="group__ufspsxc_1ga1f61408ea3970b211c3202d5a90a2e11" kind="define"><name>XUFSPSXC_CFG_DESC_UNITDESC_LEN</name></member>
@@ -193,15 +203,6 @@
     <member refid="group__ufspsxc_1ga462f6eb7ca83d4070b067889315c8ed1" kind="define"><name>XUFSPSXC_NUM_ALLOC_OFFSET</name></member>
     <member refid="group__ufspsxc_1ga829de71033e258d8cc43eb00255b8534" kind="define"><name>XUFSPSXC_MAX_CDB_LEN</name></member>
     <member refid="group__ufspsxc_1ga61d0f3ba9f7704a7e6cca17df4c497ad" kind="define"><name>XUFSPSXC_FDEVINIT_FLAG_IDN</name></member>
-    <member refid="group__ufspsxc_1gaabe9788fba8e87b72cba25b64fa67512" kind="define"><name>XUFSPSXC_MAXNUMLU_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga72e1d5ddb2410c3349aa7da2448f20d7" kind="define"><name>XUFSPSXC_SEGSZ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga58e4cc0c5bccf5f109c88e69ffe958af" kind="define"><name>XUFSPSXC_ALLOCSZ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gac020fbd9e4a381df2405cab2d223d048" kind="define"><name>XUFSPSXC_SYSCODE_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gaad81456bab2c21a657bd46ebed518f41" kind="define"><name>XUFSPSXC_NONPERS_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gaa89b9bc4eb6fd6365b5e00451a7cef02" kind="define"><name>XUFSPSXC_ENH1_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga6471aba0234fb62bcd38bd296fe74c79" kind="define"><name>XUFSPSXC_ENH2_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gad12198dab8a8bb24ae3c720ce67b4ec9" kind="define"><name>XUFSPSXC_ENH3_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga30f00e91d0ed7ef6ac22e9f2a6755386" kind="define"><name>XUFSPSXC_ENH4_CAPADJ_OFFSET</name></member>
     <member refid="group__ufspsxc_1gab7268acc276d615a7c64be9f5f1e3ab8" kind="define"><name>XUFSPSXC_BLUN_A</name></member>
     <member refid="group__ufspsxc_1gaeefaf1317b2e1142ee9ed303f61c0961" kind="define"><name>XUFSPSXC_BLUN_B</name></member>
     <member refid="group__ufspsxc_1gaa0c2a99a1a4f5a0b22f38fe3b4bc09e8" kind="define"><name>XUFSPSXC_LU_ENABLE</name></member>
@@ -209,6 +210,8 @@
     <member refid="group__ufspsxc_1ga89f3c3ab86f434c5edb64513c91af0fd" kind="define"><name>XUFSPSXC_BLUNEN_ATTRID</name></member>
     <member refid="group__ufspsxc_1ga01e8e5bee3bc0c6a32a4bfe0ed543ed9" kind="define"><name>XUFSPSXC_WRITE</name></member>
     <member refid="group__ufspsxc_1gaa16f7afec23dd06d4e4d3bc10f69969c" kind="define"><name>XUFSPSXC_READ</name></member>
+    <member refid="group__ufspsxc_1ga29484581b049e93c0197d7a1cf118ba4" kind="define"><name>XUFSPSXC_INVALID_LUN_ID</name></member>
+    <member refid="group__ufspsxc_1gadc5971ad7ce63b7cbc59591023b97c12" kind="define"><name>XUFSPSXC_BLUN_ID</name></member>
     <member refid="group__ufspsxc_1gab22d72b625c76a5eb4a1e5fe02244398" kind="define"><name>XUFSPSXC_CT_UFS_STORAGE_MASK</name></member>
     <member refid="group__ufspsxc_1gafdcd3b949e40a42d46f92f0588247503" kind="define"><name>XUFSPSXC_INTERRUPT_CMD_MASK</name></member>
     <member refid="group__ufspsxc_1ga27b6d606b23a9abcbac39e9b877f94ef" kind="define"><name>XUFSPSXC_DD_DEV_TO_MEM_MASK</name></member>
@@ -216,8 +219,6 @@
     <member refid="group__ufspsxc_1ga45ee7865d30290f4ec93dd0b4509be23" kind="define"><name>XUFSPSXC_LBA_OVER_32BIT</name></member>
     <member refid="group__ufspsxc_1gacf98eb79c4d1fb109d9b07535e37b72c" kind="define"><name>XUFSPSXC_TL_OVER_16BIT</name></member>
     <member refid="group__ufspsxc_1ga14f6738aeabb61d20d962b0b09251190" kind="define"><name>XUFSPSXC_256KB</name></member>
-    <member refid="group__ufspsxc_1ga29484581b049e93c0197d7a1cf118ba4" kind="define"><name>XUFSPSXC_INVALID_LUN_ID</name></member>
-    <member refid="group__ufspsxc_1gadc5971ad7ce63b7cbc59591023b97c12" kind="define"><name>XUFSPSXC_BLUN_ID</name></member>
     <member refid="group__ufspsxc_1gaa66931c159ec94710cf936d381c781d0" kind="define"><name>XUFSPSXC_PWM_G1</name></member>
     <member refid="group__ufspsxc_1ga2add35d4477c4fb6cd85a73856127876" kind="define"><name>XUFSPSXC_PWM_G2</name></member>
     <member refid="group__ufspsxc_1ga7a39ac0f60afb1703fc9ee97389f10b0" kind="define"><name>XUFSPSXC_PWM_G3</name></member>
@@ -244,6 +245,17 @@
     <member refid="group__ufspsxc_1ga23af6656d9f4a344171255d867a7e88f" kind="define"><name>XUFSPSXC_CLK_SEL_26</name></member>
     <member refid="group__ufspsxc_1gaac1c0f0fab76c04f28d103f735ba6949" kind="define"><name>XUFSPSXC_CLK_SEL_38P4</name></member>
     <member refid="group__ufspsxc_1ga2d584f6076512fed965f1ca2013267f9" kind="define"><name>XUFSPSXC_CLK_SEL_52</name></member>
+    <member refid="group__ufspsxc_1gae8105fe32d2ca23c83abceac87cf7226" kind="define"><name>XUFSPSXC_PA_REFRESH_ADAPT</name></member>
+    <member refid="group__ufspsxc_1gaa2288b87f5161ad5a7c16d1f06e255d2" kind="define"><name>XUFSPSXC_PA_INITIAL_ADAPT</name></member>
+    <member refid="group__ufspsxc_1ga539599a68725761dcd106c36a3596710" kind="define"><name>XUFSPSXC_PA_NO_ADAPT</name></member>
+    <member refid="group__ufspsxc_1gae6db46140eaabe33da415ee748b3a75a" kind="define"><name>XUFSPSXC_REF_CLK_FREQ_ATTRID</name></member>
+    <member refid="group__ufspsxc_1gadbcfa7ecee7bbc546ec4d62df65973f3" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_19_2_MHZ</name></member>
+    <member refid="group__ufspsxc_1ga0308280960e65b867c7940f5ed34d6dd" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_26_MHZ</name></member>
+    <member refid="group__ufspsxc_1ga0dc07a7003363ff57da4e68c45d4b6f1" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_38_4_MHZ</name></member>
+    <member refid="group__ufspsxc_1gadcc87d60bfae59b35e4883a5c44b1f54" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_52_MHZ</name></member>
+    <member refid="group__ufspsxc_1gaf99b4235640b2919f9c5bdea546f365d" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_INVAL</name></member>
+    <member refid="group__ufspsxc_1ga21b3eb3474baa6a0ef517a522f4e218c" kind="define"><name>XUFSPSXC_PRDT_ENTRIES</name></member>
+    <member refid="group__ufspsxc_1ga6b750f09f34daa68c3f42d43dfd82adf" kind="define"><name>XUFSPSXC_MAX_LUNS</name></member>
     <member refid="group__ufspsxc_1gac10a0fb90e2574aa38c359a72524f80d" kind="enum"><name>Error_Bits_15_12</name></member>
     <member refid="group__ufspsxc_1ggac10a0fb90e2574aa38c359a72524f80da9a3c0902d1ccf675caf57b5253640d93" kind="enumvalue"><name>XUFSPSXC_NOP_OUT_ERROR</name></member>
     <member refid="group__ufspsxc_1ggac10a0fb90e2574aa38c359a72524f80daca6270bf62b817f4175271955d75cafa" kind="enumvalue"><name>XUFSPSXC_SCSI_CMD_WRITE_ERROR</name></member>
@@ -346,6 +358,7 @@
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7aff5fd9bfca9a3c3fc9344959f994cdfc" kind="enumvalue"><name>XUFSPSXC_INVALID_MEMTYPE</name></member>
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a38036d0621f99b6e449818519115ca2c" kind="enumvalue"><name>XUFSPSXC_INVALID_TRANS_CODE</name></member>
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7add7eb7fc9cae29033b7ed3c4b13c8813" kind="enumvalue"><name>XUFSPSXC_PHY_NOT_CALIBRATED</name></member>
+    <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7af7be624e5128a91cff0c885baf1a1376" kind="enumvalue"><name>XUFSPSXC_INVALID_REFCLKFREQ</name></member>
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7ab5fa37283e655ce4671e2a05855cb35d" kind="enumvalue"><name>XUFSPSXC_FAILURE</name></member>
     <member refid="group__ufspsxc_1gaf9b168bb820007591178cae08462113c" kind="enum"><name>Hce</name></member>
     <member refid="group__ufspsxc_1ggaf9b168bb820007591178cae08462113ca46e879a3de0e5df5b5028d5660c16d32" kind="enumvalue"><name>XUFSPSXC_HCE_DISABLE</name></member>
@@ -373,12 +386,16 @@
     <member refid="group__ufspsxc_1gga83a4c830b7fe25695f2ff3a134c6dee8ac044599160c75e37de05a4547a68ae63" kind="enumvalue"><name>XUFSPSXC_QRY_READ_ATTR_TASK_TAG</name></member>
     <member refid="group__ufspsxc_1gga83a4c830b7fe25695f2ff3a134c6dee8a323a7ffac44a6414489d262c8d03d497" kind="enumvalue"><name>XUFSPSXC_QRY_WRITE_ATTR_TASK_TAG</name></member>
     <member refid="group__ufspsxc_1ga1cf7a3e1b54eb5dab02ad4aadb7042f3" kind="variable"><name>XUfsPsxc_ConfigTable</name></member>
+    <member refid="group__ufspsxc_1ga72fb58527b4619c991dca4422c6a8305" kind="function"><name>XUfsPsxc_IsValidLun</name></member>
+    <member refid="group__ufspsxc_1ga11a805a39ff266fd5d8cff09fb3e60c5" kind="function"><name>XUfsPsxc_IsPhyUncalibrated</name></member>
+    <member refid="group__ufspsxc_1ga485f450b3ad0ac38bf3721e930150454" kind="function"><name>XUfsPsxc_FlushReqUpiuCache</name></member>
+    <member refid="group__ufspsxc_1ga2bfba8a684ffa36cb6a8371511607603" kind="function"><name>XUfsPsxc_InvalidateRespUpiuCache</name></member>
     <member refid="group__ufspsxc_1ga314fdd0e9e808483a0b5debedde09ef4" kind="function"><name>XUfsPsxc_FillUpiuHeader</name></member>
     <member refid="group__ufspsxc_1gaac975c7c91ce752dcac935f00f211aaa" kind="function"><name>XUfsPsxc_FillCmdUpiu</name></member>
     <member refid="group__ufspsxc_1ga6a1a8b8fd104c1d49a52d8b2fea4af76" kind="function"><name>XUfsPsxc_FillQryReqUpiu</name></member>
     <member refid="group__ufspsxc_1ga37a48957828e7b1133f643e8c21eaefa" kind="function"><name>XUfsPsxc_FillUTPTransReqDesc</name></member>
     <member refid="group__ufspsxc_1ga26ed4ca398ad30b616f6b160d5157a10" kind="function"><name>XUfsPsxc_FillUICCmd</name></member>
-    <member refid="group__ufspsxc_1ga2002c7351a5cac41c7a0bea8c1bf8ed9" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
+    <member refid="group__ufspsxc_1ga2aa0df1edb5747863d5be2d9058356fe" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
     <member refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" kind="function"><name>XUfsPsxc_CfgInitialize</name></member>
     <member refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" kind="function"><name>XUfsPsxc_Initialize</name></member>
     <member refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" kind="function"><name>XUfsPsxc_ReadPolled</name></member>
@@ -388,69 +405,92 @@
     <member refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" kind="function"><name>XUfsPsxc_SwitchBootLUN</name></member>
   </compound>
   <compound refid="xufspsxc__control_8h" kind="file"><name>xufspsxc_control.h</name>
-    <member refid="group__ufspsxc_1ga281e93b3445e60af8166923832e56789" kind="define"><name>XUFSPSXC_LOWLEVEL_H_</name></member>
-    <member refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" kind="function"><name>XUfsPsxc_SendUICCmd</name></member>
-    <member refid="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" kind="function"><name>XUfsPsxc_SetHce</name></member>
-    <member refid="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" kind="function"><name>XUfsPsxc_FillNopOutUpiu</name></member>
-    <member refid="group__ufspsxc_1gafd68bf712ad71a509ba5e9715d8b2827" kind="function"><name>XUfsPsxc_FillTestUnitRdyUpiu</name></member>
-    <member refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" kind="function"><name>XUfsPsxc_FillReadCmdUpiu</name></member>
-    <member refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" kind="function"><name>XUfsPsxc_ProcessUpiu</name></member>
-    <member refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" kind="function"><name>XUfsPsxc_FillFlagUpiu</name></member>
-    <member refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" kind="function"><name>XUfsPsxc_FillDescUpiu</name></member>
-    <member refid="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" kind="function"><name>XUfsPsxc_FillAttrUpiu</name></member>
-    <member refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" kind="function"><name>XUfsPsxc_HostInitialize</name></member>
-    <member refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" kind="function"><name>XUfsPsxc_CardInitialize</name></member>
-    <member refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" kind="function"><name>XUfsPsxc_GetLUNInfo</name></member>
-    <member refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" kind="function"><name>XUfsPsxc_WritePhyReg</name></member>
-    <member refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" kind="function"><name>XUfsPsxc_ReadPhyReg</name></member>
-    <member refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" kind="function"><name>XUfsPsxc_Set4KBlkSize</name></member>
-    <member refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" kind="function"><name>XUfsPsxc_PhyInit</name></member>
-    <member refid="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" kind="function"><name>XUfsPsxc_SetRmmiConfig</name></member>
-    <member refid="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" kind="function"><name>XUfsPsxc_EnableMPhy</name></member>
-    <member refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" kind="function"><name>XUfsPsxc_OverridePhyRxReq</name></member>
-    <member refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" kind="function"><name>XUfsPsxc_ConfigureTxRxAttributes</name></member>
-    <member refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" kind="function"><name>XUfsPsxc_ReadDeviceInfo</name></member>
-    <member refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kind="function"><name>XUfsPsxc_FillWriteCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" kind="function"><name>XUfsPsxc_SendUICCmd</name></member>
+    <member refid="group__ufspsxc__api_1ga9d2af8ff970bc14578e9b35d1969d460" kind="function"><name>XUfsPsxc_SetHce</name></member>
+    <member refid="group__ufspsxc__api_1ga033076869a57d47e1742f555bb6a0276" kind="function"><name>XUfsPsxc_FillNopOutUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gafd68bf712ad71a509ba5e9715d8b2827" kind="function"><name>XUfsPsxc_FillTestUnitRdyUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" kind="function"><name>XUfsPsxc_FillReadCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga5c93689c07193dfa1a85d9b093596b0e" kind="function"><name>XUfsPsxc_ProcessUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga4f01785053f7c891ffceab509d137b1e" kind="function"><name>XUfsPsxc_FillFlagUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gac6c05905f6fcef83ac0da3b72887164b" kind="function"><name>XUfsPsxc_FillDescUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga88763b7077bb9b4880c84156663dc1cb" kind="function"><name>XUfsPsxc_FillAttrUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gae0db9d094adbe197913f6c107e0f02ef" kind="function"><name>XUfsPsxc_HostInitialize</name></member>
+    <member refid="group__ufspsxc__api_1gafa5f97c1a585f348eb57d7cfa82b5080" kind="function"><name>XUfsPsxc_CardInitialize</name></member>
+    <member refid="group__ufspsxc__api_1ga353f784dcc8a50185ea407bc0dcb4768" kind="function"><name>XUfsPsxc_GetLUNInfo</name></member>
+    <member refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kind="function"><name>XUfsPsxc_WritePhyReg</name></member>
+    <member refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kind="function"><name>XUfsPsxc_ReadPhyReg</name></member>
+    <member refid="group__ufspsxc__api_1ga13fea34df11f07626308ad42623497ff" kind="function"><name>XUfsPsxc_Set4KBlkSize</name></member>
+    <member refid="group__ufspsxc__api_1ga2c5da410d2eefa54129eb56efb13bc3f" kind="function"><name>XUfsPsxc_PhyInit</name></member>
+    <member refid="group__ufspsxc__api_1ga186554489b15b12e4d3e6d07669f317f" kind="function"><name>XUfsPsxc_SetRmmiConfig</name></member>
+    <member refid="group__ufspsxc__api_1ga46c30f50e646ad1e1a080ef88b80eb70" kind="function"><name>XUfsPsxc_EnableMPhy</name></member>
+    <member refid="group__ufspsxc__api_1ga16fd74d7320f10b5240412d467ff82c6" kind="function"><name>XUfsPsxc_OverridePhyRxReq</name></member>
+    <member refid="group__ufspsxc__api_1ga9d5217db85b9198686faa9f2dabd07b4" kind="function"><name>XUfsPsxc_ConfigureTxRxAttributes</name></member>
+    <member refid="group__ufspsxc__api_1ga029d0b5ef73c6cd4daaf455d82afbd57" kind="function"><name>XUfsPsxc_ReadDeviceInfo</name></member>
+    <member refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kind="function"><name>XUfsPsxc_FillWriteCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga30216e9b993a9aa77c9f21fedc9e6728" kind="function"><name>XUfsPsxc_SetbRefClkFreq</name></member>
+    <member refid="group__ufspsxc__api_1gad633d87b1e0effb0a878732bcb7c63e4" kind="function"><name>XUfsPsxc_IsValidSpeedGear</name></member>
+    <member refid="group__ufspsxc__api_1ga4678a94ab35c54ebf278434eee49a02c" kind="function"><name>XUfsPsxc_WaitForPowerModeChange</name></member>
+    <member refid="group__ufspsxc__api_1ga7c53c0273b0baaf8c7dd90cf484eb5b8" kind="function"><name>XUfsPsxc_WaitTestUnitReady</name></member>
+    <member refid="group__ufspsxc__api_1ga1ee7b55cd0bfcd99adb88d75222a60ee" kind="function"><name>XUfsPsxc_GetMinBytesPerSec</name></member>
+    <member refid="group__ufspsxc__api_1ga5f290332136d2b1496f06f1b0ba72312" kind="function"><name>XUfsPsxc_EvaluateUpiuResponse</name></member>
+    <member refid="group__ufspsxc__api_1gadda62952ac18be0ce84c920b6eeaa6ec" kind="function"><name>XUfsPsxc_ProgramRxCompValues</name></member>
+    <member refid="group__ufspsxc__api_1gad6046f37bfd7a44a8c0c6b33e5248834" kind="function"><name>XUfsPsxc_BypassRxAfeCalib</name></member>
+    <member refid="group__ufspsxc__api_1ga375aca915c9601a9615c5fb44dcc2faf" kind="function"><name>XUfsPsxc_ProgramRxCalibConfig</name></member>
+    <member refid="group__ufspsxc__api_1gaba575b8c0935146a711534b9acb84e9f" kind="function"><name>XUfsPsxc_ClearPhyRxOverride</name></member>
+    <member refid="group__ufspsxc__api_1gad9868bc70a0f783cfcb6ef9cafef7d34" kind="function"><name>XUfsPsxc_ConfigureHsSeries</name></member>
   </compound>
   <compound refid="xufspsxc__g_8c" kind="file"><name>xufspsxc_g.c</name>
-    <member refid="group__ufspsxc_1ga454806ecd7715e21194f2d17a3e4fecf" kind="variable"><name>XUfsPsxc_ConfigTable</name></member>
+    <member refid="group__ufspsxc__api_1ga454806ecd7715e21194f2d17a3e4fecf" kind="variable"><name>XUfsPsxc_ConfigTable</name></member>
   </compound>
   <compound refid="xufspsxc__hw_8c" kind="file"><name>xufspsxc_hw.c</name>
-    <member refid="group__ufspsxc_1gae89f876eec6ce93bb5e4efd1f25dc430" kind="define"><name>SEC_TO_MSEC</name></member>
-    <member refid="group__ufspsxc_1ga15a90e07572cf5accafb637c9066c75e" kind="define"><name>XUFSPSXC_HSG1A_MIN_BPS</name></member>
-    <member refid="group__ufspsxc_1gaf1d541c4bec66feaa26568a3476e5335" kind="define"><name>XUFSPSXC_HSG1B_MIN_BPS</name></member>
-    <member refid="group__ufspsxc_1gad38efbc7476b58c072f2830e7c289a8d" kind="define"><name>XUFSPSXC_PWMG1_MIN_BPS</name></member>
-    <member refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" kind="function"><name>XUfsPsxc_SendUICCmd</name></member>
-    <member refid="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" kind="function"><name>XUfsPsxc_SetHce</name></member>
-    <member refid="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" kind="function"><name>XUfsPsxc_FillNopOutUpiu</name></member>
-    <member refid="group__ufspsxc_1gafd68bf712ad71a509ba5e9715d8b2827" kind="function"><name>XUfsPsxc_FillTestUnitRdyUpiu</name></member>
-    <member refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" kind="function"><name>XUfsPsxc_FillReadCmdUpiu</name></member>
-    <member refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kind="function"><name>XUfsPsxc_FillWriteCmdUpiu</name></member>
-    <member refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" kind="function"><name>XUfsPsxc_FillFlagUpiu</name></member>
-    <member refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" kind="function"><name>XUfsPsxc_FillDescUpiu</name></member>
-    <member refid="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" kind="function"><name>XUfsPsxc_FillAttrUpiu</name></member>
-    <member refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" kind="function"><name>XUfsPsxc_ProcessUpiu</name></member>
-    <member refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" kind="function"><name>XUfsPsxc_PhyInit</name></member>
-    <member refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" kind="function"><name>XUfsPsxc_OverridePhyRxReq</name></member>
+    <member refid="group__ufspsxc__api_1gae89f876eec6ce93bb5e4efd1f25dc430" kind="define"><name>SEC_TO_MSEC</name></member>
+    <member refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" kind="function"><name>XUfsPsxc_SendUICCmd</name></member>
+    <member refid="group__ufspsxc__api_1ga9d2af8ff970bc14578e9b35d1969d460" kind="function"><name>XUfsPsxc_SetHce</name></member>
+    <member refid="group__ufspsxc__api_1ga033076869a57d47e1742f555bb6a0276" kind="function"><name>XUfsPsxc_FillNopOutUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gafd68bf712ad71a509ba5e9715d8b2827" kind="function"><name>XUfsPsxc_FillTestUnitRdyUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" kind="function"><name>XUfsPsxc_FillReadCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kind="function"><name>XUfsPsxc_FillWriteCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga4f01785053f7c891ffceab509d137b1e" kind="function"><name>XUfsPsxc_FillFlagUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gac6c05905f6fcef83ac0da3b72887164b" kind="function"><name>XUfsPsxc_FillDescUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga88763b7077bb9b4880c84156663dc1cb" kind="function"><name>XUfsPsxc_FillAttrUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gad633d87b1e0effb0a878732bcb7c63e4" kind="function"><name>XUfsPsxc_IsValidSpeedGear</name></member>
+    <member refid="group__ufspsxc__api_1ga4678a94ab35c54ebf278434eee49a02c" kind="function"><name>XUfsPsxc_WaitForPowerModeChange</name></member>
+    <member refid="group__ufspsxc__api_1ga5c93689c07193dfa1a85d9b093596b0e" kind="function"><name>XUfsPsxc_ProcessUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga2c5da410d2eefa54129eb56efb13bc3f" kind="function"><name>XUfsPsxc_PhyInit</name></member>
+    <member refid="group__ufspsxc__api_1ga16fd74d7320f10b5240412d467ff82c6" kind="function"><name>XUfsPsxc_OverridePhyRxReq</name></member>
+    <member refid="group__ufspsxc__api_1gaba575b8c0935146a711534b9acb84e9f" kind="function"><name>XUfsPsxc_ClearPhyRxOverride</name></member>
   </compound>
   <compound refid="xufspsxc__hw_8h" kind="file"><name>xufspsxc_hw.h</name>
   </compound>
   <compound refid="xufspsxc__init_8c" kind="file"><name>xufspsxc_init.c</name>
-    <member refid="group__ufspsxc_1ga753a73edd113b8fce62cb1bb0dc0d547" kind="define"><name>XUFSPSXC_MAX_UD0_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga38f0df558f0dddc21407276096d02823" kind="define"><name>XUFSPSXC_MAX_UD0_LENGTH</name></member>
-    <member refid="group__ufspsxc_1gaf1c9ac2306e1c6da0f6b39e1c57fbedd" kind="define"><name>XUFSPSXC_HIBERN8_STATE</name></member>
-    <member refid="group__ufspsxc_1gae477f1320c74758b0286ffdd37a27502" kind="define"><name>XUFSPSXC_SLEEP_STATE</name></member>
-    <member refid="group__ufspsxc_1ga0a81d938b9e58a54e972a4c73cf04396" kind="define"><name>XUFSPSXC_LS_BURST_STATE</name></member>
-    <member refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" kind="function"><name>XUfsPsxc_HostInitialize</name></member>
-    <member refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" kind="function"><name>XUfsPsxc_CardInitialize</name></member>
-    <member refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" kind="function"><name>XUfsPsxc_ReadDeviceInfo</name></member>
-    <member refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" kind="function"><name>XUfsPsxc_GetLUNInfo</name></member>
-    <member refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" kind="function"><name>XUfsPsxc_Set4KBlkSize</name></member>
-    <member refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" kind="function"><name>XUfsPsxc_WritePhyReg</name></member>
-    <member refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" kind="function"><name>XUfsPsxc_ReadPhyReg</name></member>
-    <member refid="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" kind="function"><name>XUfsPsxc_SetRmmiConfig</name></member>
-    <member refid="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" kind="function"><name>XUfsPsxc_EnableMPhy</name></member>
-    <member refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" kind="function"><name>XUfsPsxc_ConfigureTxRxAttributes</name></member>
+    <member refid="group__ufspsxc__api_1ga753a73edd113b8fce62cb1bb0dc0d547" kind="define"><name>XUFSPSXC_MAX_UD0_OFFSET</name></member>
+    <member refid="group__ufspsxc__api_1ga38f0df558f0dddc21407276096d02823" kind="define"><name>XUFSPSXC_MAX_UD0_LENGTH</name></member>
+    <member refid="group__ufspsxc__api_1gaf1c9ac2306e1c6da0f6b39e1c57fbedd" kind="define"><name>XUFSPSXC_HIBERN8_STATE</name></member>
+    <member refid="group__ufspsxc__api_1gae477f1320c74758b0286ffdd37a27502" kind="define"><name>XUFSPSXC_SLEEP_STATE</name></member>
+    <member refid="group__ufspsxc__api_1ga0a81d938b9e58a54e972a4c73cf04396" kind="define"><name>XUFSPSXC_LS_BURST_STATE</name></member>
+    <member refid="group__ufspsxc__api_1ga15a90e07572cf5accafb637c9066c75e" kind="define"><name>XUFSPSXC_HSG1A_MIN_BPS</name></member>
+    <member refid="group__ufspsxc__api_1gaf1d541c4bec66feaa26568a3476e5335" kind="define"><name>XUFSPSXC_HSG1B_MIN_BPS</name></member>
+    <member refid="group__ufspsxc__api_1gad38efbc7476b58c072f2830e7c289a8d" kind="define"><name>XUFSPSXC_PWMG1_MIN_BPS</name></member>
+    <member refid="group__ufspsxc__api_1gae0db9d094adbe197913f6c107e0f02ef" kind="function"><name>XUfsPsxc_HostInitialize</name></member>
+    <member refid="group__ufspsxc__api_1gafa5f97c1a585f348eb57d7cfa82b5080" kind="function"><name>XUfsPsxc_CardInitialize</name></member>
+    <member refid="group__ufspsxc__api_1ga029d0b5ef73c6cd4daaf455d82afbd57" kind="function"><name>XUfsPsxc_ReadDeviceInfo</name></member>
+    <member refid="group__ufspsxc__api_1ga353f784dcc8a50185ea407bc0dcb4768" kind="function"><name>XUfsPsxc_GetLUNInfo</name></member>
+    <member refid="group__ufspsxc__api_1ga13fea34df11f07626308ad42623497ff" kind="function"><name>XUfsPsxc_Set4KBlkSize</name></member>
+    <member refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kind="function"><name>XUfsPsxc_WritePhyReg</name></member>
+    <member refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kind="function"><name>XUfsPsxc_ReadPhyReg</name></member>
+    <member refid="group__ufspsxc__api_1ga186554489b15b12e4d3e6d07669f317f" kind="function"><name>XUfsPsxc_SetRmmiConfig</name></member>
+    <member refid="group__ufspsxc__api_1ga46c30f50e646ad1e1a080ef88b80eb70" kind="function"><name>XUfsPsxc_EnableMPhy</name></member>
+    <member refid="group__ufspsxc__api_1ga7c53c0273b0baaf8c7dd90cf484eb5b8" kind="function"><name>XUfsPsxc_WaitTestUnitReady</name></member>
+    <member refid="group__ufspsxc__api_1ga1ee7b55cd0bfcd99adb88d75222a60ee" kind="function"><name>XUfsPsxc_GetMinBytesPerSec</name></member>
+    <member refid="group__ufspsxc__api_1ga5f290332136d2b1496f06f1b0ba72312" kind="function"><name>XUfsPsxc_EvaluateUpiuResponse</name></member>
+    <member refid="group__ufspsxc__api_1ga9d5217db85b9198686faa9f2dabd07b4" kind="function"><name>XUfsPsxc_ConfigureTxRxAttributes</name></member>
+    <member refid="group__ufspsxc__api_1ga30216e9b993a9aa77c9f21fedc9e6728" kind="function"><name>XUfsPsxc_SetbRefClkFreq</name></member>
+  </compound>
+  <compound refid="xufspsxc__phy_8c" kind="file"><name>xufspsxc_phy.c</name>
+    <member refid="group__ufspsxc__api_1gadda62952ac18be0ce84c920b6eeaa6ec" kind="function"><name>XUfsPsxc_ProgramRxCompValues</name></member>
+    <member refid="group__ufspsxc__api_1gad6046f37bfd7a44a8c0c6b33e5248834" kind="function"><name>XUfsPsxc_BypassRxAfeCalib</name></member>
+    <member refid="group__ufspsxc__api_1ga375aca915c9601a9615c5fb44dcc2faf" kind="function"><name>XUfsPsxc_ProgramRxCalibConfig</name></member>
+    <member refid="group__ufspsxc__api_1gad9868bc70a0f783cfcb6ef9cafef7d34" kind="function"><name>XUfsPsxc_ConfigureHsSeries</name></member>
   </compound>
   <compound refid="xufspsxc__setluncfg__example_8c" kind="file"><name>xufspsxc_setluncfg_example.c</name>
     <member refid="xufspsxc__setluncfg__example_8c_1ac73aefac8643a9c433a83c25bf2ebebe" kind="define"><name>ENABLE_READ_WRITE</name></member>
@@ -473,9 +513,120 @@
     <member refid="xufspsxc__setluncfg__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xufspsxc__sinit_8c" kind="file"><name>xufspsxc_sinit.c</name>
-    <member refid="group__ufspsxc_1ga2002c7351a5cac41c7a0bea8c1bf8ed9" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
+    <member refid="group__ufspsxc__api_1ga2aa0df1edb5747863d5be2d9058356fe" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
   </compound>
   <compound refid="group__ufspsxc" kind="group"><name>ufspsxc</name>
+    <member refid="group__ufspsxc_1ga5f89f5e1828c893eaeadf6ff46bfcdff" kind="define"><name>XUFSPSXC_SCSI_GOOD</name></member>
+    <member refid="group__ufspsxc_1ga2ed9d84ef327176b4456e0da22c9eaaa" kind="define"><name>XUFSPSXC_SCSI_CHK_CONDITION</name></member>
+    <member refid="group__ufspsxc_1ga69010e5dc98544ffef5b5e4d6a302470" kind="define"><name>XUFSPSXC_SCSI_BUSY</name></member>
+    <member refid="group__ufspsxc_1gad13fd6399b69b33c1a04ace5d6029c8d" kind="define"><name>XUFSPSXC_SCSI_RESV_CONFLICT</name></member>
+    <member refid="group__ufspsxc_1ga2084348cb8697013895e5f1eca0ef871" kind="define"><name>XUFSPSXC_SCSI_TASK_SET_FULL</name></member>
+    <member refid="group__ufspsxc_1ga451cdd5fcbb26a63800b939274764efe" kind="define"><name>XUFSPSXC_DME_GET_OPCODE</name></member>
+    <member refid="group__ufspsxc_1gaa54857a68db40a1b77affc825fb6ebcc" kind="define"><name>XUFSPSXC_DME_SET_OPCODE</name></member>
+    <member refid="group__ufspsxc_1gafa26b48778954f42213944d4ef1ca163" kind="define"><name>XUFSPSXC_UIC_CFG_CMD_MAX_OPCODE</name></member>
+    <member refid="group__ufspsxc_1ga781d0a6bf851fca7b9419a2fd41c01bd" kind="define"><name>XUFSPSXC_DME_LINKSTARTUP_OPCODE</name></member>
+    <member refid="group__ufspsxc_1ga3d571fa957807c7784a7b52edcc8560f" kind="define"><name>XUFSPSXC_NOP_UPIU_TRANS_CODE</name></member>
+    <member refid="group__ufspsxc_1ga35c6cf8157875b919d1b20967b7d8405" kind="define"><name>XUFSPSXC_CMD_UPIU_TRANS_CODE</name></member>
+    <member refid="group__ufspsxc_1gaa6983cdba8de73167a6e607dbcf0f9a4" kind="define"><name>XUFSPSXC_QRY_UPIU_TRANS_CODE</name></member>
+    <member refid="group__ufspsxc_1ga48a7a62d33642e48518da551be4355e4" kind="define"><name>XUFSPSXC_UPIU_FLAGS_WRITE</name></member>
+    <member refid="group__ufspsxc_1gab93636ba1565b84873faf7cfe4eb94fc" kind="define"><name>XUFSPSXC_UPIU_FLAGS_READ</name></member>
+    <member refid="group__ufspsxc_1ga5329dfdc6c38162c48874807c2567ce3" kind="define"><name>XUFSPSXC_QRY_READ</name></member>
+    <member refid="group__ufspsxc_1gaa7ee0594e6c2855d85642cab0f9e5ad2" kind="define"><name>XUFSPSXC_QRY_WRITE</name></member>
+    <member refid="group__ufspsxc_1ga707f9ce62529b9ecb6e1104d59f19e4c" kind="define"><name>XUFSPSXC_SCSI_TEST_UNIT_RDY_CMD</name></member>
+    <member refid="group__ufspsxc_1ga8ea52e84cdb7af89ebddef9e327b9352" kind="define"><name>XUFSPSXC_SCSI_READ10_CMD</name></member>
+    <member refid="group__ufspsxc_1gadf63401d0cb4784c39037e3ce7e59081" kind="define"><name>XUFSPSXC_SCSI_WRITE10_CMD</name></member>
+    <member refid="group__ufspsxc_1ga9563d8775bc644ea342dae5559637105" kind="define"><name>XUFSPSXC_SCSI_READ16_CMD</name></member>
+    <member refid="group__ufspsxc_1gaed8c5a7400f5d6059f27da894659a063" kind="define"><name>XUFSPSXC_SCSI_WRITE16_CMD</name></member>
+    <member refid="group__ufspsxc_1gad1c85a03cb8777e458bb7f4abd77f2b8" kind="define"><name>XUFSPSXC_QRY_READ_DESC_CMD</name></member>
+    <member refid="group__ufspsxc_1ga26dc5f34c0676013844941362d3cf803" kind="define"><name>XUFSPSXC_QRY_WRITE_DESC_CMD</name></member>
+    <member refid="group__ufspsxc_1gac3f2a2aad2112231b9680d6bae97747b" kind="define"><name>XUFSPSXC_QRY_READ_ATTR_CMD</name></member>
+    <member refid="group__ufspsxc_1gaa94004b5ed8b7fa2a1f91fa08ec8af0a" kind="define"><name>XUFSPSXC_QRY_WRITE_ATTR_CMD</name></member>
+    <member refid="group__ufspsxc_1ga57c06556bc86c3eb14b12177ef5b694c" kind="define"><name>XUFSPSXC_QRY_READ_FLAG_CMD</name></member>
+    <member refid="group__ufspsxc_1ga1af2e67bcc4c1782e9c0e7de4c3fd2d5" kind="define"><name>XUFSPSXC_QRY_SET_FLAG_CMD</name></member>
+    <member refid="group__ufspsxc_1ga96f6070e205f7bf470fd71585c31d5dd" kind="define"><name>XUFSPSXC_DEVICE_DESC_IDN</name></member>
+    <member refid="group__ufspsxc_1gade2f87f90faa1db636610f9447199a7d" kind="define"><name>XUFSPSXC_CONFIG_DESC_IDN</name></member>
+    <member refid="group__ufspsxc_1gaf01906b6a3026c336653c68ce7c9d1ca" kind="define"><name>XUFSPSXC_UNIT_DESC_IDN</name></member>
+    <member refid="group__ufspsxc_1ga2503a580fee030bf7adfb3162dc28088" kind="define"><name>XUFSPSXC_GEOMETRY_DESC_IDN</name></member>
+    <member refid="group__ufspsxc_1ga0850e331369c62501fcc1e90f4e2013f" kind="define"><name>XUFSPSXC_DEVICE_DESC_BOOTEN_LEN</name></member>
+    <member refid="group__ufspsxc_1ga39b34d02c54e4369ff28b9325e790040" kind="define"><name>XUFSPSXC_DEVICE_DESC_REQ_LEN</name></member>
+    <member refid="group__ufspsxc_1gafae9e0e3bfe131293584e8d4f18007d4" kind="define"><name>XUFSPSXC_DEVICE_BOOTEN_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gabf48ac9e578c571147fa8e5911396dc5" kind="define"><name>XUFSPSXC_UD0_BASE_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gafd01e69efc908eaaa496acd70d36e1ea" kind="define"><name>XUFSPSXC_UD_LEN_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gaf6ea9a0f9ed2392f69da14e9eec28889" kind="define"><name>XUFSPSXC_GEOMETRY_DESC_LEN</name></member>
+    <member refid="group__ufspsxc_1gae3ca35e27bbc2f8b3d52d771cd19fdf0" kind="define"><name>XUFSPSXC_DEV_CAPACITY_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga45cf883ab7e7ebb8e491c2b629397a33" kind="define"><name>XUFSPSXC_DEV_CAPACITY_BYTES</name></member>
+    <member refid="group__ufspsxc_1gaabe9788fba8e87b72cba25b64fa67512" kind="define"><name>XUFSPSXC_MAXNUMLU_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga72e1d5ddb2410c3349aa7da2448f20d7" kind="define"><name>XUFSPSXC_SEGSZ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga58e4cc0c5bccf5f109c88e69ffe958af" kind="define"><name>XUFSPSXC_ALLOCSZ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gac020fbd9e4a381df2405cab2d223d048" kind="define"><name>XUFSPSXC_SYSCODE_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gaad81456bab2c21a657bd46ebed518f41" kind="define"><name>XUFSPSXC_NONPERS_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gaa89b9bc4eb6fd6365b5e00451a7cef02" kind="define"><name>XUFSPSXC_ENH1_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga6471aba0234fb62bcd38bd296fe74c79" kind="define"><name>XUFSPSXC_ENH2_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gad12198dab8a8bb24ae3c720ce67b4ec9" kind="define"><name>XUFSPSXC_ENH3_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga30f00e91d0ed7ef6ac22e9f2a6755386" kind="define"><name>XUFSPSXC_ENH4_CAPADJ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga760cfa1ed17f017b0fdb201265a32332" kind="define"><name>XUFSPSXC_CFG_DESC_LEN</name></member>
+    <member refid="group__ufspsxc_1gaa37371fda5dcb35c37bc4d5ba66f017f" kind="define"><name>XUFSPSXC_CFG_DESC_HEADER_LEN</name></member>
+    <member refid="group__ufspsxc_1ga1f61408ea3970b211c3202d5a90a2e11" kind="define"><name>XUFSPSXC_CFG_DESC_UNITDESC_LEN</name></member>
+    <member refid="group__ufspsxc_1gaa6bdd1b720c22ddd4907301c2e337517" kind="define"><name>XUFSPSXC_CFG_DESC_CONT_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gaef9b55a71681eef4c22012db1656507c" kind="define"><name>XUFSPSXC_CFG_DESC_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga6ca9c3048750566f0af06813fc400830" kind="define"><name>XUFSPSXC_LU_ENABLE_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gad058aac65826e714e4abace9e2e03a0e" kind="define"><name>XUFSPSXC_BLUNEN_OFFSET</name></member>
+    <member refid="group__ufspsxc_1gad47ba90cfa102c95bb34d88f3097b770" kind="define"><name>XUFSPSXC_BLKSZ_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga959006f75cc877f78a8c26f441f6083b" kind="define"><name>XUFSPSXC_MEMTYPE_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga462f6eb7ca83d4070b067889315c8ed1" kind="define"><name>XUFSPSXC_NUM_ALLOC_OFFSET</name></member>
+    <member refid="group__ufspsxc_1ga829de71033e258d8cc43eb00255b8534" kind="define"><name>XUFSPSXC_MAX_CDB_LEN</name></member>
+    <member refid="group__ufspsxc_1ga61d0f3ba9f7704a7e6cca17df4c497ad" kind="define"><name>XUFSPSXC_FDEVINIT_FLAG_IDN</name></member>
+    <member refid="group__ufspsxc_1gab7268acc276d615a7c64be9f5f1e3ab8" kind="define"><name>XUFSPSXC_BLUN_A</name></member>
+    <member refid="group__ufspsxc_1gaeefaf1317b2e1142ee9ed303f61c0961" kind="define"><name>XUFSPSXC_BLUN_B</name></member>
+    <member refid="group__ufspsxc_1gaa0c2a99a1a4f5a0b22f38fe3b4bc09e8" kind="define"><name>XUFSPSXC_LU_ENABLE</name></member>
+    <member refid="group__ufspsxc_1ga01c06d2abfd1f5b4036e28116092459a" kind="define"><name>XUFSPSXC_LU_BLKSZ_4K</name></member>
+    <member refid="group__ufspsxc_1ga89f3c3ab86f434c5edb64513c91af0fd" kind="define"><name>XUFSPSXC_BLUNEN_ATTRID</name></member>
+    <member refid="group__ufspsxc_1ga01e8e5bee3bc0c6a32a4bfe0ed543ed9" kind="define"><name>XUFSPSXC_WRITE</name></member>
+    <member refid="group__ufspsxc_1gaa16f7afec23dd06d4e4d3bc10f69969c" kind="define"><name>XUFSPSXC_READ</name></member>
+    <member refid="group__ufspsxc_1ga29484581b049e93c0197d7a1cf118ba4" kind="define"><name>XUFSPSXC_INVALID_LUN_ID</name></member>
+    <member refid="group__ufspsxc_1gadc5971ad7ce63b7cbc59591023b97c12" kind="define"><name>XUFSPSXC_BLUN_ID</name></member>
+    <member refid="group__ufspsxc_1gab22d72b625c76a5eb4a1e5fe02244398" kind="define"><name>XUFSPSXC_CT_UFS_STORAGE_MASK</name></member>
+    <member refid="group__ufspsxc_1gafdcd3b949e40a42d46f92f0588247503" kind="define"><name>XUFSPSXC_INTERRUPT_CMD_MASK</name></member>
+    <member refid="group__ufspsxc_1ga27b6d606b23a9abcbac39e9b877f94ef" kind="define"><name>XUFSPSXC_DD_DEV_TO_MEM_MASK</name></member>
+    <member refid="group__ufspsxc_1ga1d7da08ab8c4faa435525531457d7221" kind="define"><name>XUFSPSXC_DD_MEM_TO_DEV_MASK</name></member>
+    <member refid="group__ufspsxc_1ga45ee7865d30290f4ec93dd0b4509be23" kind="define"><name>XUFSPSXC_LBA_OVER_32BIT</name></member>
+    <member refid="group__ufspsxc_1gacf98eb79c4d1fb109d9b07535e37b72c" kind="define"><name>XUFSPSXC_TL_OVER_16BIT</name></member>
+    <member refid="group__ufspsxc_1ga14f6738aeabb61d20d962b0b09251190" kind="define"><name>XUFSPSXC_256KB</name></member>
+    <member refid="group__ufspsxc_1gaa66931c159ec94710cf936d381c781d0" kind="define"><name>XUFSPSXC_PWM_G1</name></member>
+    <member refid="group__ufspsxc_1ga2add35d4477c4fb6cd85a73856127876" kind="define"><name>XUFSPSXC_PWM_G2</name></member>
+    <member refid="group__ufspsxc_1ga7a39ac0f60afb1703fc9ee97389f10b0" kind="define"><name>XUFSPSXC_PWM_G3</name></member>
+    <member refid="group__ufspsxc_1gaffb7f8f86545727078518c34327afa93" kind="define"><name>XUFSPSXC_PWM_G4</name></member>
+    <member refid="group__ufspsxc_1ga1a3b64a80e98191b4b174da4ba0cc0f0" kind="define"><name>XUFSPSXC_HS_G1</name></member>
+    <member refid="group__ufspsxc_1ga2de5d5b3c3ca72db437e1880ac145d31" kind="define"><name>XUFSPSXC_HS_G2</name></member>
+    <member refid="group__ufspsxc_1ga4fa8e04752b486ac5ccacbf562c5238c" kind="define"><name>XUFSPSXC_HS_G3</name></member>
+    <member refid="group__ufspsxc_1gaa020dea8b4a71a93487526426101660d" kind="define"><name>XUFSPSXC_HS_G4</name></member>
+    <member refid="group__ufspsxc_1gaa64d1af9fd204497b84349873c4da91f" kind="define"><name>XUFSPSXC_HS_G1_B</name></member>
+    <member refid="group__ufspsxc_1ga31020d3220214fe6380d802ff81ce970" kind="define"><name>XUFSPSXC_HS_G2_B</name></member>
+    <member refid="group__ufspsxc_1ga9214e452ac5e934e8730670bc4b0deed" kind="define"><name>XUFSPSXC_HS_G3_B</name></member>
+    <member refid="group__ufspsxc_1ga925a0f7fbf7e94d9f978c5b8ecb504ee" kind="define"><name>XUFSPSXC_HS_G4_B</name></member>
+    <member refid="group__ufspsxc_1gae8b1abd47e1330eb17b53dff5b9f57e5" kind="define"><name>XUFSPSXC_TX_RX_FAST</name></member>
+    <member refid="group__ufspsxc_1ga532d9e4ee3653f71026eab8a31cd4872" kind="define"><name>XUFSPSXC_TX_RX_SLOW</name></member>
+    <member refid="group__ufspsxc_1ga7798fea2643e8d47bc1e0f7921a1821b" kind="define"><name>XUFSPSXC_HSSERIES_A</name></member>
+    <member refid="group__ufspsxc_1ga949d5c65265c6d011f39a4d57a7c295a" kind="define"><name>XUFSPSXC_HSSERIES_B</name></member>
+    <member refid="group__ufspsxc_1ga72e0e4dcbd7402145895597e6584ca7c" kind="define"><name>XUFSPSXC_GEAR4</name></member>
+    <member refid="group__ufspsxc_1gaff212508df171273edbceeab4efdaddd" kind="define"><name>XUFSPSXC_PWR_OK</name></member>
+    <member refid="group__ufspsxc_1gabac9c187affddb9ebf713c97422868b4" kind="define"><name>XUFSPSXC_PWR_LOCAL</name></member>
+    <member refid="group__ufspsxc_1gabbdd1ca8ee504d99014c713210cf66b1" kind="define"><name>XUFSPSXC_PWR_ERR_CAP</name></member>
+    <member refid="group__ufspsxc_1ga92482b0efdce55cba1b291bab4030994" kind="define"><name>XUFSPSXC_PWR_FATAL_ERR</name></member>
+    <member refid="group__ufspsxc_1ga9c0ef165e4cef92808d950849f2d73b9" kind="define"><name>XUFSPSXC_PWR_MODE_VAL</name></member>
+    <member refid="group__ufspsxc_1ga283745d0dee2d2ac41950353345fc32b" kind="define"><name>XUFSPSXC_CLK_SEL_19P2</name></member>
+    <member refid="group__ufspsxc_1ga23af6656d9f4a344171255d867a7e88f" kind="define"><name>XUFSPSXC_CLK_SEL_26</name></member>
+    <member refid="group__ufspsxc_1gaac1c0f0fab76c04f28d103f735ba6949" kind="define"><name>XUFSPSXC_CLK_SEL_38P4</name></member>
+    <member refid="group__ufspsxc_1ga2d584f6076512fed965f1ca2013267f9" kind="define"><name>XUFSPSXC_CLK_SEL_52</name></member>
+    <member refid="group__ufspsxc_1gae8105fe32d2ca23c83abceac87cf7226" kind="define"><name>XUFSPSXC_PA_REFRESH_ADAPT</name></member>
+    <member refid="group__ufspsxc_1gaa2288b87f5161ad5a7c16d1f06e255d2" kind="define"><name>XUFSPSXC_PA_INITIAL_ADAPT</name></member>
+    <member refid="group__ufspsxc_1ga539599a68725761dcd106c36a3596710" kind="define"><name>XUFSPSXC_PA_NO_ADAPT</name></member>
+    <member refid="group__ufspsxc_1gae6db46140eaabe33da415ee748b3a75a" kind="define"><name>XUFSPSXC_REF_CLK_FREQ_ATTRID</name></member>
+    <member refid="group__ufspsxc_1gadbcfa7ecee7bbc546ec4d62df65973f3" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_19_2_MHZ</name></member>
+    <member refid="group__ufspsxc_1ga0308280960e65b867c7940f5ed34d6dd" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_26_MHZ</name></member>
+    <member refid="group__ufspsxc_1ga0dc07a7003363ff57da4e68c45d4b6f1" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_38_4_MHZ</name></member>
+    <member refid="group__ufspsxc_1gadcc87d60bfae59b35e4883a5c44b1f54" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_52_MHZ</name></member>
+    <member refid="group__ufspsxc_1gaf99b4235640b2919f9c5bdea546f365d" kind="define"><name>XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_INVAL</name></member>
     <member refid="group__ufspsxc_1gac10a0fb90e2574aa38c359a72524f80d" kind="enum"><name>Error_Bits_15_12</name></member>
     <member refid="group__ufspsxc_1ggac10a0fb90e2574aa38c359a72524f80da9a3c0902d1ccf675caf57b5253640d93" kind="enumvalue"><name>XUFSPSXC_NOP_OUT_ERROR</name></member>
     <member refid="group__ufspsxc_1ggac10a0fb90e2574aa38c359a72524f80daca6270bf62b817f4175271955d75cafa" kind="enumvalue"><name>XUFSPSXC_SCSI_CMD_WRITE_ERROR</name></member>
@@ -578,6 +729,7 @@
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7aff5fd9bfca9a3c3fc9344959f994cdfc" kind="enumvalue"><name>XUFSPSXC_INVALID_MEMTYPE</name></member>
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7a38036d0621f99b6e449818519115ca2c" kind="enumvalue"><name>XUFSPSXC_INVALID_TRANS_CODE</name></member>
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7add7eb7fc9cae29033b7ed3c4b13c8813" kind="enumvalue"><name>XUFSPSXC_PHY_NOT_CALIBRATED</name></member>
+    <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7af7be624e5128a91cff0c885baf1a1376" kind="enumvalue"><name>XUFSPSXC_INVALID_REFCLKFREQ</name></member>
     <member refid="group__ufspsxc_1gga8166a9b46d56cb1dafc946a5303550a7ab5fa37283e655ce4671e2a05855cb35d" kind="enumvalue"><name>XUFSPSXC_FAILURE</name></member>
     <member refid="group__ufspsxc_1gaf9b168bb820007591178cae08462113c" kind="enum"><name>Hce</name></member>
     <member refid="group__ufspsxc_1ggaf9b168bb820007591178cae08462113ca46e879a3de0e5df5b5028d5660c16d32" kind="enumvalue"><name>XUFSPSXC_HCE_DISABLE</name></member>
@@ -605,161 +757,83 @@
     <member refid="group__ufspsxc_1gga83a4c830b7fe25695f2ff3a134c6dee8ac044599160c75e37de05a4547a68ae63" kind="enumvalue"><name>XUFSPSXC_QRY_READ_ATTR_TASK_TAG</name></member>
     <member refid="group__ufspsxc_1gga83a4c830b7fe25695f2ff3a134c6dee8a323a7ffac44a6414489d262c8d03d497" kind="enumvalue"><name>XUFSPSXC_QRY_WRITE_ATTR_TASK_TAG</name></member>
     <member refid="group__ufspsxc_1ga1cf7a3e1b54eb5dab02ad4aadb7042f3" kind="variable"><name>XUfsPsxc_ConfigTable</name></member>
-    <member refid="group__ufspsxc_1ga454806ecd7715e21194f2d17a3e4fecf" kind="variable"><name>XUfsPsxc_ConfigTable</name></member>
-    <member refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" kind="function"><name>XUfsPsxc_CfgInitialize</name></member>
-    <member refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" kind="function"><name>XUfsPsxc_Initialize</name></member>
-    <member refid="group__ufspsxc_1ga76dd7620ac6f336d4a9aaa5108e009d6" kind="function"><name>XUfsPsxc_ConfigureSpeedGear</name></member>
-    <member refid="group__ufspsxc_1ga1e4078f7061f73d5ccd64eafe59c13ee" kind="function"><name>XUfsPsxc_CheckBootReq</name></member>
-    <member refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" kind="function"><name>XUfsPsxc_SwitchBootLUN</name></member>
-    <member refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" kind="function"><name>XUfsPsxc_ReadPolled</name></member>
-    <member refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" kind="function"><name>XUfsPsxc_WritePolled</name></member>
+    <member refid="group__ufspsxc_1ga72fb58527b4619c991dca4422c6a8305" kind="function"><name>XUfsPsxc_IsValidLun</name></member>
+    <member refid="group__ufspsxc_1ga11a805a39ff266fd5d8cff09fb3e60c5" kind="function"><name>XUfsPsxc_IsPhyUncalibrated</name></member>
+    <member refid="group__ufspsxc_1ga485f450b3ad0ac38bf3721e930150454" kind="function"><name>XUfsPsxc_FlushReqUpiuCache</name></member>
+    <member refid="group__ufspsxc_1ga2bfba8a684ffa36cb6a8371511607603" kind="function"><name>XUfsPsxc_InvalidateRespUpiuCache</name></member>
     <member refid="group__ufspsxc_1ga314fdd0e9e808483a0b5debedde09ef4" kind="function"><name>XUfsPsxc_FillUpiuHeader</name></member>
     <member refid="group__ufspsxc_1gaac975c7c91ce752dcac935f00f211aaa" kind="function"><name>XUfsPsxc_FillCmdUpiu</name></member>
     <member refid="group__ufspsxc_1ga6a1a8b8fd104c1d49a52d8b2fea4af76" kind="function"><name>XUfsPsxc_FillQryReqUpiu</name></member>
     <member refid="group__ufspsxc_1ga37a48957828e7b1133f643e8c21eaefa" kind="function"><name>XUfsPsxc_FillUTPTransReqDesc</name></member>
     <member refid="group__ufspsxc_1ga26ed4ca398ad30b616f6b160d5157a10" kind="function"><name>XUfsPsxc_FillUICCmd</name></member>
-    <member refid="group__ufspsxc_1ga2002c7351a5cac41c7a0bea8c1bf8ed9" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
-    <member refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" kind="function"><name>XUfsPsxc_SendUICCmd</name></member>
-    <member refid="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" kind="function"><name>XUfsPsxc_SetHce</name></member>
-    <member refid="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" kind="function"><name>XUfsPsxc_FillNopOutUpiu</name></member>
-    <member refid="group__ufspsxc_1gafd68bf712ad71a509ba5e9715d8b2827" kind="function"><name>XUfsPsxc_FillTestUnitRdyUpiu</name></member>
-    <member refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" kind="function"><name>XUfsPsxc_FillReadCmdUpiu</name></member>
-    <member refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" kind="function"><name>XUfsPsxc_ProcessUpiu</name></member>
-    <member refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" kind="function"><name>XUfsPsxc_FillFlagUpiu</name></member>
-    <member refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" kind="function"><name>XUfsPsxc_FillDescUpiu</name></member>
-    <member refid="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" kind="function"><name>XUfsPsxc_FillAttrUpiu</name></member>
-    <member refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" kind="function"><name>XUfsPsxc_HostInitialize</name></member>
-    <member refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" kind="function"><name>XUfsPsxc_CardInitialize</name></member>
-    <member refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" kind="function"><name>XUfsPsxc_GetLUNInfo</name></member>
-    <member refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" kind="function"><name>XUfsPsxc_WritePhyReg</name></member>
-    <member refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" kind="function"><name>XUfsPsxc_ReadPhyReg</name></member>
-    <member refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" kind="function"><name>XUfsPsxc_Set4KBlkSize</name></member>
-    <member refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" kind="function"><name>XUfsPsxc_PhyInit</name></member>
-    <member refid="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" kind="function"><name>XUfsPsxc_SetRmmiConfig</name></member>
-    <member refid="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" kind="function"><name>XUfsPsxc_EnableMPhy</name></member>
-    <member refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" kind="function"><name>XUfsPsxc_OverridePhyRxReq</name></member>
-    <member refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" kind="function"><name>XUfsPsxc_ConfigureTxRxAttributes</name></member>
-    <member refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" kind="function"><name>XUfsPsxc_ReadDeviceInfo</name></member>
-    <member refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kind="function"><name>XUfsPsxc_FillWriteCmdUpiu</name></member>
-    <member refid="group__ufspsxc_1ga7587500eda2c906e138f1c6993ac9ce4" kind="define"><name>XUFSPSXC_H_</name></member>
+    <member refid="group__ufspsxc_1ga2aa0df1edb5747863d5be2d9058356fe" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
+    <member refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" kind="function"><name>XUfsPsxc_CfgInitialize</name></member>
+    <member refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" kind="function"><name>XUfsPsxc_Initialize</name></member>
+    <member refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" kind="function"><name>XUfsPsxc_ReadPolled</name></member>
+    <member refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" kind="function"><name>XUfsPsxc_WritePolled</name></member>
+    <member refid="group__ufspsxc_1ga1e4078f7061f73d5ccd64eafe59c13ee" kind="function"><name>XUfsPsxc_CheckBootReq</name></member>
+    <member refid="group__ufspsxc_1ga76dd7620ac6f336d4a9aaa5108e009d6" kind="function"><name>XUfsPsxc_ConfigureSpeedGear</name></member>
+    <member refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" kind="function"><name>XUfsPsxc_SwitchBootLUN</name></member>
     <member refid="group__ufspsxc_1ga21b3eb3474baa6a0ef517a522f4e218c" kind="define"><name>XUFSPSXC_PRDT_ENTRIES</name></member>
-    <member refid="group__ufspsxc_1ga5f89f5e1828c893eaeadf6ff46bfcdff" kind="define"><name>XUFSPSXC_SCSI_GOOD</name></member>
-    <member refid="group__ufspsxc_1ga2ed9d84ef327176b4456e0da22c9eaaa" kind="define"><name>XUFSPSXC_SCSI_CHK_CONDITION</name></member>
-    <member refid="group__ufspsxc_1ga69010e5dc98544ffef5b5e4d6a302470" kind="define"><name>XUFSPSXC_SCSI_BUSY</name></member>
-    <member refid="group__ufspsxc_1gad13fd6399b69b33c1a04ace5d6029c8d" kind="define"><name>XUFSPSXC_SCSI_RESV_CONFLICT</name></member>
-    <member refid="group__ufspsxc_1ga2084348cb8697013895e5f1eca0ef871" kind="define"><name>XUFSPSXC_SCSI_TASK_SET_FULL</name></member>
-    <member refid="group__ufspsxc_1ga451cdd5fcbb26a63800b939274764efe" kind="define"><name>XUFSPSXC_DME_GET_OPCODE</name></member>
-    <member refid="group__ufspsxc_1gaa54857a68db40a1b77affc825fb6ebcc" kind="define"><name>XUFSPSXC_DME_SET_OPCODE</name></member>
-    <member refid="group__ufspsxc_1gafa26b48778954f42213944d4ef1ca163" kind="define"><name>XUFSPSXC_UIC_CFG_CMD_MAX_OPCODE</name></member>
-    <member refid="group__ufspsxc_1ga781d0a6bf851fca7b9419a2fd41c01bd" kind="define"><name>XUFSPSXC_DME_LINKSTARTUP_OPCODE</name></member>
-    <member refid="group__ufspsxc_1ga3d571fa957807c7784a7b52edcc8560f" kind="define"><name>XUFSPSXC_NOP_UPIU_TRANS_CODE</name></member>
-    <member refid="group__ufspsxc_1ga35c6cf8157875b919d1b20967b7d8405" kind="define"><name>XUFSPSXC_CMD_UPIU_TRANS_CODE</name></member>
-    <member refid="group__ufspsxc_1gaa6983cdba8de73167a6e607dbcf0f9a4" kind="define"><name>XUFSPSXC_QRY_UPIU_TRANS_CODE</name></member>
-    <member refid="group__ufspsxc_1ga48a7a62d33642e48518da551be4355e4" kind="define"><name>XUFSPSXC_UPIU_FLAGS_WRITE</name></member>
-    <member refid="group__ufspsxc_1gab93636ba1565b84873faf7cfe4eb94fc" kind="define"><name>XUFSPSXC_UPIU_FLAGS_READ</name></member>
-    <member refid="group__ufspsxc_1ga5329dfdc6c38162c48874807c2567ce3" kind="define"><name>XUFSPSXC_QRY_READ</name></member>
-    <member refid="group__ufspsxc_1gaa7ee0594e6c2855d85642cab0f9e5ad2" kind="define"><name>XUFSPSXC_QRY_WRITE</name></member>
-    <member refid="group__ufspsxc_1ga707f9ce62529b9ecb6e1104d59f19e4c" kind="define"><name>XUFSPSXC_SCSI_TEST_UNIT_RDY_CMD</name></member>
-    <member refid="group__ufspsxc_1ga8ea52e84cdb7af89ebddef9e327b9352" kind="define"><name>XUFSPSXC_SCSI_READ10_CMD</name></member>
-    <member refid="group__ufspsxc_1gadf63401d0cb4784c39037e3ce7e59081" kind="define"><name>XUFSPSXC_SCSI_WRITE10_CMD</name></member>
-    <member refid="group__ufspsxc_1ga9563d8775bc644ea342dae5559637105" kind="define"><name>XUFSPSXC_SCSI_READ16_CMD</name></member>
-    <member refid="group__ufspsxc_1gaed8c5a7400f5d6059f27da894659a063" kind="define"><name>XUFSPSXC_SCSI_WRITE16_CMD</name></member>
-    <member refid="group__ufspsxc_1gad1c85a03cb8777e458bb7f4abd77f2b8" kind="define"><name>XUFSPSXC_QRY_READ_DESC_CMD</name></member>
-    <member refid="group__ufspsxc_1ga26dc5f34c0676013844941362d3cf803" kind="define"><name>XUFSPSXC_QRY_WRITE_DESC_CMD</name></member>
-    <member refid="group__ufspsxc_1gac3f2a2aad2112231b9680d6bae97747b" kind="define"><name>XUFSPSXC_QRY_READ_ATTR_CMD</name></member>
-    <member refid="group__ufspsxc_1gaa94004b5ed8b7fa2a1f91fa08ec8af0a" kind="define"><name>XUFSPSXC_QRY_WRITE_ATTR_CMD</name></member>
-    <member refid="group__ufspsxc_1ga57c06556bc86c3eb14b12177ef5b694c" kind="define"><name>XUFSPSXC_QRY_READ_FLAG_CMD</name></member>
-    <member refid="group__ufspsxc_1ga1af2e67bcc4c1782e9c0e7de4c3fd2d5" kind="define"><name>XUFSPSXC_QRY_SET_FLAG_CMD</name></member>
-    <member refid="group__ufspsxc_1ga96f6070e205f7bf470fd71585c31d5dd" kind="define"><name>XUFSPSXC_DEVICE_DESC_IDN</name></member>
-    <member refid="group__ufspsxc_1gade2f87f90faa1db636610f9447199a7d" kind="define"><name>XUFSPSXC_CONFIG_DESC_IDN</name></member>
-    <member refid="group__ufspsxc_1gaf01906b6a3026c336653c68ce7c9d1ca" kind="define"><name>XUFSPSXC_UNIT_DESC_IDN</name></member>
-    <member refid="group__ufspsxc_1ga2503a580fee030bf7adfb3162dc28088" kind="define"><name>XUFSPSXC_GEOMETRY_DESC_IDN</name></member>
-    <member refid="group__ufspsxc_1ga0850e331369c62501fcc1e90f4e2013f" kind="define"><name>XUFSPSXC_DEVICE_DESC_BOOTEN_LEN</name></member>
-    <member refid="group__ufspsxc_1ga39b34d02c54e4369ff28b9325e790040" kind="define"><name>XUFSPSXC_DEVICE_DESC_REQ_LEN</name></member>
-    <member refid="group__ufspsxc_1gafae9e0e3bfe131293584e8d4f18007d4" kind="define"><name>XUFSPSXC_DEVICE_BOOTEN_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gabf48ac9e578c571147fa8e5911396dc5" kind="define"><name>XUFSPSXC_UD0_BASE_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gafd01e69efc908eaaa496acd70d36e1ea" kind="define"><name>XUFSPSXC_UD_LEN_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gaf6ea9a0f9ed2392f69da14e9eec28889" kind="define"><name>XUFSPSXC_GEOMETRY_DESC_LEN</name></member>
-    <member refid="group__ufspsxc_1ga760cfa1ed17f017b0fdb201265a32332" kind="define"><name>XUFSPSXC_CFG_DESC_LEN</name></member>
-    <member refid="group__ufspsxc_1gaa37371fda5dcb35c37bc4d5ba66f017f" kind="define"><name>XUFSPSXC_CFG_DESC_HEADER_LEN</name></member>
-    <member refid="group__ufspsxc_1ga1f61408ea3970b211c3202d5a90a2e11" kind="define"><name>XUFSPSXC_CFG_DESC_UNITDESC_LEN</name></member>
-    <member refid="group__ufspsxc_1gaa6bdd1b720c22ddd4907301c2e337517" kind="define"><name>XUFSPSXC_CFG_DESC_CONT_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gaef9b55a71681eef4c22012db1656507c" kind="define"><name>XUFSPSXC_CFG_DESC_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga6ca9c3048750566f0af06813fc400830" kind="define"><name>XUFSPSXC_LU_ENABLE_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gad058aac65826e714e4abace9e2e03a0e" kind="define"><name>XUFSPSXC_BLUNEN_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gad47ba90cfa102c95bb34d88f3097b770" kind="define"><name>XUFSPSXC_BLKSZ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga959006f75cc877f78a8c26f441f6083b" kind="define"><name>XUFSPSXC_MEMTYPE_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga462f6eb7ca83d4070b067889315c8ed1" kind="define"><name>XUFSPSXC_NUM_ALLOC_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga829de71033e258d8cc43eb00255b8534" kind="define"><name>XUFSPSXC_MAX_CDB_LEN</name></member>
-    <member refid="group__ufspsxc_1ga61d0f3ba9f7704a7e6cca17df4c497ad" kind="define"><name>XUFSPSXC_FDEVINIT_FLAG_IDN</name></member>
-    <member refid="group__ufspsxc_1gaabe9788fba8e87b72cba25b64fa67512" kind="define"><name>XUFSPSXC_MAXNUMLU_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga72e1d5ddb2410c3349aa7da2448f20d7" kind="define"><name>XUFSPSXC_SEGSZ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga58e4cc0c5bccf5f109c88e69ffe958af" kind="define"><name>XUFSPSXC_ALLOCSZ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gac020fbd9e4a381df2405cab2d223d048" kind="define"><name>XUFSPSXC_SYSCODE_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gaad81456bab2c21a657bd46ebed518f41" kind="define"><name>XUFSPSXC_NONPERS_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gaa89b9bc4eb6fd6365b5e00451a7cef02" kind="define"><name>XUFSPSXC_ENH1_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga6471aba0234fb62bcd38bd296fe74c79" kind="define"><name>XUFSPSXC_ENH2_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gad12198dab8a8bb24ae3c720ce67b4ec9" kind="define"><name>XUFSPSXC_ENH3_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga30f00e91d0ed7ef6ac22e9f2a6755386" kind="define"><name>XUFSPSXC_ENH4_CAPADJ_OFFSET</name></member>
-    <member refid="group__ufspsxc_1gab7268acc276d615a7c64be9f5f1e3ab8" kind="define"><name>XUFSPSXC_BLUN_A</name></member>
-    <member refid="group__ufspsxc_1gaeefaf1317b2e1142ee9ed303f61c0961" kind="define"><name>XUFSPSXC_BLUN_B</name></member>
-    <member refid="group__ufspsxc_1gaa0c2a99a1a4f5a0b22f38fe3b4bc09e8" kind="define"><name>XUFSPSXC_LU_ENABLE</name></member>
-    <member refid="group__ufspsxc_1ga01c06d2abfd1f5b4036e28116092459a" kind="define"><name>XUFSPSXC_LU_BLKSZ_4K</name></member>
-    <member refid="group__ufspsxc_1ga89f3c3ab86f434c5edb64513c91af0fd" kind="define"><name>XUFSPSXC_BLUNEN_ATTRID</name></member>
-    <member refid="group__ufspsxc_1ga01e8e5bee3bc0c6a32a4bfe0ed543ed9" kind="define"><name>XUFSPSXC_WRITE</name></member>
-    <member refid="group__ufspsxc_1gaa16f7afec23dd06d4e4d3bc10f69969c" kind="define"><name>XUFSPSXC_READ</name></member>
-    <member refid="group__ufspsxc_1gab22d72b625c76a5eb4a1e5fe02244398" kind="define"><name>XUFSPSXC_CT_UFS_STORAGE_MASK</name></member>
-    <member refid="group__ufspsxc_1gafdcd3b949e40a42d46f92f0588247503" kind="define"><name>XUFSPSXC_INTERRUPT_CMD_MASK</name></member>
-    <member refid="group__ufspsxc_1ga27b6d606b23a9abcbac39e9b877f94ef" kind="define"><name>XUFSPSXC_DD_DEV_TO_MEM_MASK</name></member>
-    <member refid="group__ufspsxc_1ga1d7da08ab8c4faa435525531457d7221" kind="define"><name>XUFSPSXC_DD_MEM_TO_DEV_MASK</name></member>
-    <member refid="group__ufspsxc_1ga45ee7865d30290f4ec93dd0b4509be23" kind="define"><name>XUFSPSXC_LBA_OVER_32BIT</name></member>
-    <member refid="group__ufspsxc_1gacf98eb79c4d1fb109d9b07535e37b72c" kind="define"><name>XUFSPSXC_TL_OVER_16BIT</name></member>
-    <member refid="group__ufspsxc_1ga14f6738aeabb61d20d962b0b09251190" kind="define"><name>XUFSPSXC_256KB</name></member>
-    <member refid="group__ufspsxc_1ga29484581b049e93c0197d7a1cf118ba4" kind="define"><name>XUFSPSXC_INVALID_LUN_ID</name></member>
-    <member refid="group__ufspsxc_1gadc5971ad7ce63b7cbc59591023b97c12" kind="define"><name>XUFSPSXC_BLUN_ID</name></member>
-    <member refid="group__ufspsxc_1gaa66931c159ec94710cf936d381c781d0" kind="define"><name>XUFSPSXC_PWM_G1</name></member>
-    <member refid="group__ufspsxc_1ga2add35d4477c4fb6cd85a73856127876" kind="define"><name>XUFSPSXC_PWM_G2</name></member>
-    <member refid="group__ufspsxc_1ga7a39ac0f60afb1703fc9ee97389f10b0" kind="define"><name>XUFSPSXC_PWM_G3</name></member>
-    <member refid="group__ufspsxc_1gaffb7f8f86545727078518c34327afa93" kind="define"><name>XUFSPSXC_PWM_G4</name></member>
-    <member refid="group__ufspsxc_1ga1a3b64a80e98191b4b174da4ba0cc0f0" kind="define"><name>XUFSPSXC_HS_G1</name></member>
-    <member refid="group__ufspsxc_1ga2de5d5b3c3ca72db437e1880ac145d31" kind="define"><name>XUFSPSXC_HS_G2</name></member>
-    <member refid="group__ufspsxc_1ga4fa8e04752b486ac5ccacbf562c5238c" kind="define"><name>XUFSPSXC_HS_G3</name></member>
-    <member refid="group__ufspsxc_1gaa020dea8b4a71a93487526426101660d" kind="define"><name>XUFSPSXC_HS_G4</name></member>
-    <member refid="group__ufspsxc_1gaa64d1af9fd204497b84349873c4da91f" kind="define"><name>XUFSPSXC_HS_G1_B</name></member>
-    <member refid="group__ufspsxc_1ga31020d3220214fe6380d802ff81ce970" kind="define"><name>XUFSPSXC_HS_G2_B</name></member>
-    <member refid="group__ufspsxc_1ga9214e452ac5e934e8730670bc4b0deed" kind="define"><name>XUFSPSXC_HS_G3_B</name></member>
-    <member refid="group__ufspsxc_1ga925a0f7fbf7e94d9f978c5b8ecb504ee" kind="define"><name>XUFSPSXC_HS_G4_B</name></member>
-    <member refid="group__ufspsxc_1gae8b1abd47e1330eb17b53dff5b9f57e5" kind="define"><name>XUFSPSXC_TX_RX_FAST</name></member>
-    <member refid="group__ufspsxc_1ga532d9e4ee3653f71026eab8a31cd4872" kind="define"><name>XUFSPSXC_TX_RX_SLOW</name></member>
-    <member refid="group__ufspsxc_1ga7798fea2643e8d47bc1e0f7921a1821b" kind="define"><name>XUFSPSXC_HSSERIES_A</name></member>
-    <member refid="group__ufspsxc_1ga949d5c65265c6d011f39a4d57a7c295a" kind="define"><name>XUFSPSXC_HSSERIES_B</name></member>
-    <member refid="group__ufspsxc_1ga72e0e4dcbd7402145895597e6584ca7c" kind="define"><name>XUFSPSXC_GEAR4</name></member>
-    <member refid="group__ufspsxc_1gaff212508df171273edbceeab4efdaddd" kind="define"><name>XUFSPSXC_PWR_OK</name></member>
-    <member refid="group__ufspsxc_1gabac9c187affddb9ebf713c97422868b4" kind="define"><name>XUFSPSXC_PWR_LOCAL</name></member>
-    <member refid="group__ufspsxc_1gabbdd1ca8ee504d99014c713210cf66b1" kind="define"><name>XUFSPSXC_PWR_ERR_CAP</name></member>
-    <member refid="group__ufspsxc_1ga92482b0efdce55cba1b291bab4030994" kind="define"><name>XUFSPSXC_PWR_FATAL_ERR</name></member>
-    <member refid="group__ufspsxc_1ga9c0ef165e4cef92808d950849f2d73b9" kind="define"><name>XUFSPSXC_PWR_MODE_VAL</name></member>
-    <member refid="group__ufspsxc_1ga283745d0dee2d2ac41950353345fc32b" kind="define"><name>XUFSPSXC_CLK_SEL_19P2</name></member>
-    <member refid="group__ufspsxc_1ga23af6656d9f4a344171255d867a7e88f" kind="define"><name>XUFSPSXC_CLK_SEL_26</name></member>
-    <member refid="group__ufspsxc_1gaac1c0f0fab76c04f28d103f735ba6949" kind="define"><name>XUFSPSXC_CLK_SEL_38P4</name></member>
-    <member refid="group__ufspsxc_1ga2d584f6076512fed965f1ca2013267f9" kind="define"><name>XUFSPSXC_CLK_SEL_52</name></member>
-    <member refid="group__ufspsxc_1ga281e93b3445e60af8166923832e56789" kind="define"><name>XUFSPSXC_LOWLEVEL_H_</name></member>
-    <member refid="group__ufspsxc_1gae89f876eec6ce93bb5e4efd1f25dc430" kind="define"><name>SEC_TO_MSEC</name></member>
-    <member refid="group__ufspsxc_1ga15a90e07572cf5accafb637c9066c75e" kind="define"><name>XUFSPSXC_HSG1A_MIN_BPS</name></member>
-    <member refid="group__ufspsxc_1gaf1d541c4bec66feaa26568a3476e5335" kind="define"><name>XUFSPSXC_HSG1B_MIN_BPS</name></member>
-    <member refid="group__ufspsxc_1gad38efbc7476b58c072f2830e7c289a8d" kind="define"><name>XUFSPSXC_PWMG1_MIN_BPS</name></member>
-    <member refid="group__ufspsxc_1ga753a73edd113b8fce62cb1bb0dc0d547" kind="define"><name>XUFSPSXC_MAX_UD0_OFFSET</name></member>
-    <member refid="group__ufspsxc_1ga38f0df558f0dddc21407276096d02823" kind="define"><name>XUFSPSXC_MAX_UD0_LENGTH</name></member>
-    <member refid="group__ufspsxc_1gaf1c9ac2306e1c6da0f6b39e1c57fbedd" kind="define"><name>XUFSPSXC_HIBERN8_STATE</name></member>
-    <member refid="group__ufspsxc_1gae477f1320c74758b0286ffdd37a27502" kind="define"><name>XUFSPSXC_SLEEP_STATE</name></member>
-    <member refid="group__ufspsxc_1ga0a81d938b9e58a54e972a4c73cf04396" kind="define"><name>XUFSPSXC_LS_BURST_STATE</name></member>
+    <member refid="group__ufspsxc_1ga6b750f09f34daa68c3f42d43dfd82adf" kind="define"><name>XUFSPSXC_MAX_LUNS</name></member>
+  </compound>
+  <compound refid="group__ufspsxc__api" kind="group"><name>ufspsxc_api</name>
+    <member refid="group__ufspsxc__api_1ga454806ecd7715e21194f2d17a3e4fecf" kind="variable"><name>XUfsPsxc_ConfigTable</name></member>
+    <member refid="group__ufspsxc__api_1gaa67843f95526f7c11553c1f125004374" kind="function"><name>XUfsPsxc_CfgInitialize</name></member>
+    <member refid="group__ufspsxc__api_1ga615ad820fd1faa16ebd1ad620f2837e5" kind="function"><name>XUfsPsxc_Initialize</name></member>
+    <member refid="group__ufspsxc__api_1ga76dd7620ac6f336d4a9aaa5108e009d6" kind="function"><name>XUfsPsxc_ConfigureSpeedGear</name></member>
+    <member refid="group__ufspsxc__api_1ga1e4078f7061f73d5ccd64eafe59c13ee" kind="function"><name>XUfsPsxc_CheckBootReq</name></member>
+    <member refid="group__ufspsxc__api_1ga6e5ad67b7055e0c5174028c2bdd464c0" kind="function"><name>XUfsPsxc_SwitchBootLUN</name></member>
+    <member refid="group__ufspsxc__api_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" kind="function"><name>XUfsPsxc_ReadPolled</name></member>
+    <member refid="group__ufspsxc__api_1ga5b503a6cef357e029c87ab07e4354763" kind="function"><name>XUfsPsxc_WritePolled</name></member>
+    <member refid="group__ufspsxc__api_1ga3466d6c88ad459aef56d2d686ff077c8" kind="function"><name>XUfsPsxc_SendUICCmd</name></member>
+    <member refid="group__ufspsxc__api_1ga9d2af8ff970bc14578e9b35d1969d460" kind="function"><name>XUfsPsxc_SetHce</name></member>
+    <member refid="group__ufspsxc__api_1ga033076869a57d47e1742f555bb6a0276" kind="function"><name>XUfsPsxc_FillNopOutUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gafd68bf712ad71a509ba5e9715d8b2827" kind="function"><name>XUfsPsxc_FillTestUnitRdyUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" kind="function"><name>XUfsPsxc_FillReadCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga5c93689c07193dfa1a85d9b093596b0e" kind="function"><name>XUfsPsxc_ProcessUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga4f01785053f7c891ffceab509d137b1e" kind="function"><name>XUfsPsxc_FillFlagUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gac6c05905f6fcef83ac0da3b72887164b" kind="function"><name>XUfsPsxc_FillDescUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga88763b7077bb9b4880c84156663dc1cb" kind="function"><name>XUfsPsxc_FillAttrUpiu</name></member>
+    <member refid="group__ufspsxc__api_1gae0db9d094adbe197913f6c107e0f02ef" kind="function"><name>XUfsPsxc_HostInitialize</name></member>
+    <member refid="group__ufspsxc__api_1gafa5f97c1a585f348eb57d7cfa82b5080" kind="function"><name>XUfsPsxc_CardInitialize</name></member>
+    <member refid="group__ufspsxc__api_1ga353f784dcc8a50185ea407bc0dcb4768" kind="function"><name>XUfsPsxc_GetLUNInfo</name></member>
+    <member refid="group__ufspsxc__api_1ga506adfb0eda2bedee784c7abee535397" kind="function"><name>XUfsPsxc_WritePhyReg</name></member>
+    <member refid="group__ufspsxc__api_1ga35add787c05c073b7b1a404d54425f78" kind="function"><name>XUfsPsxc_ReadPhyReg</name></member>
+    <member refid="group__ufspsxc__api_1ga13fea34df11f07626308ad42623497ff" kind="function"><name>XUfsPsxc_Set4KBlkSize</name></member>
+    <member refid="group__ufspsxc__api_1ga2c5da410d2eefa54129eb56efb13bc3f" kind="function"><name>XUfsPsxc_PhyInit</name></member>
+    <member refid="group__ufspsxc__api_1ga186554489b15b12e4d3e6d07669f317f" kind="function"><name>XUfsPsxc_SetRmmiConfig</name></member>
+    <member refid="group__ufspsxc__api_1ga46c30f50e646ad1e1a080ef88b80eb70" kind="function"><name>XUfsPsxc_EnableMPhy</name></member>
+    <member refid="group__ufspsxc__api_1ga16fd74d7320f10b5240412d467ff82c6" kind="function"><name>XUfsPsxc_OverridePhyRxReq</name></member>
+    <member refid="group__ufspsxc__api_1ga9d5217db85b9198686faa9f2dabd07b4" kind="function"><name>XUfsPsxc_ConfigureTxRxAttributes</name></member>
+    <member refid="group__ufspsxc__api_1ga029d0b5ef73c6cd4daaf455d82afbd57" kind="function"><name>XUfsPsxc_ReadDeviceInfo</name></member>
+    <member refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kind="function"><name>XUfsPsxc_FillWriteCmdUpiu</name></member>
+    <member refid="group__ufspsxc__api_1ga30216e9b993a9aa77c9f21fedc9e6728" kind="function"><name>XUfsPsxc_SetbRefClkFreq</name></member>
+    <member refid="group__ufspsxc__api_1gad633d87b1e0effb0a878732bcb7c63e4" kind="function"><name>XUfsPsxc_IsValidSpeedGear</name></member>
+    <member refid="group__ufspsxc__api_1ga4678a94ab35c54ebf278434eee49a02c" kind="function"><name>XUfsPsxc_WaitForPowerModeChange</name></member>
+    <member refid="group__ufspsxc__api_1ga7c53c0273b0baaf8c7dd90cf484eb5b8" kind="function"><name>XUfsPsxc_WaitTestUnitReady</name></member>
+    <member refid="group__ufspsxc__api_1ga1ee7b55cd0bfcd99adb88d75222a60ee" kind="function"><name>XUfsPsxc_GetMinBytesPerSec</name></member>
+    <member refid="group__ufspsxc__api_1ga5f290332136d2b1496f06f1b0ba72312" kind="function"><name>XUfsPsxc_EvaluateUpiuResponse</name></member>
+    <member refid="group__ufspsxc__api_1gadda62952ac18be0ce84c920b6eeaa6ec" kind="function"><name>XUfsPsxc_ProgramRxCompValues</name></member>
+    <member refid="group__ufspsxc__api_1gad6046f37bfd7a44a8c0c6b33e5248834" kind="function"><name>XUfsPsxc_BypassRxAfeCalib</name></member>
+    <member refid="group__ufspsxc__api_1ga375aca915c9601a9615c5fb44dcc2faf" kind="function"><name>XUfsPsxc_ProgramRxCalibConfig</name></member>
+    <member refid="group__ufspsxc__api_1gaba575b8c0935146a711534b9acb84e9f" kind="function"><name>XUfsPsxc_ClearPhyRxOverride</name></member>
+    <member refid="group__ufspsxc__api_1gad9868bc70a0f783cfcb6ef9cafef7d34" kind="function"><name>XUfsPsxc_ConfigureHsSeries</name></member>
+    <member refid="group__ufspsxc__api_1ga2aa0df1edb5747863d5be2d9058356fe" kind="function"><name>XUfsPsxc_LookupConfig</name></member>
+    <member refid="group__ufspsxc__api_1gae89f876eec6ce93bb5e4efd1f25dc430" kind="define"><name>SEC_TO_MSEC</name></member>
+    <member refid="group__ufspsxc__api_1ga753a73edd113b8fce62cb1bb0dc0d547" kind="define"><name>XUFSPSXC_MAX_UD0_OFFSET</name></member>
+    <member refid="group__ufspsxc__api_1ga38f0df558f0dddc21407276096d02823" kind="define"><name>XUFSPSXC_MAX_UD0_LENGTH</name></member>
+    <member refid="group__ufspsxc__api_1gaf1c9ac2306e1c6da0f6b39e1c57fbedd" kind="define"><name>XUFSPSXC_HIBERN8_STATE</name></member>
+    <member refid="group__ufspsxc__api_1gae477f1320c74758b0286ffdd37a27502" kind="define"><name>XUFSPSXC_SLEEP_STATE</name></member>
+    <member refid="group__ufspsxc__api_1ga0a81d938b9e58a54e972a4c73cf04396" kind="define"><name>XUFSPSXC_LS_BURST_STATE</name></member>
+    <member refid="group__ufspsxc__api_1ga15a90e07572cf5accafb637c9066c75e" kind="define"><name>XUFSPSXC_HSG1A_MIN_BPS</name></member>
+    <member refid="group__ufspsxc__api_1gaf1d541c4bec66feaa26568a3476e5335" kind="define"><name>XUFSPSXC_HSG1B_MIN_BPS</name></member>
+    <member refid="group__ufspsxc__api_1gad38efbc7476b58c072f2830e7c289a8d" kind="define"><name>XUFSPSXC_PWMG1_MIN_BPS</name></member>
   </compound>
   <compound refid="dir_78d6e41cf5423ed15a3a425348318bb6" kind="dir"><name>examples</name>
   </compound>
   <compound refid="dir_6e34033d30a819e3a4341e96e6b7d929" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_73013ec7e403bda0a256cacabab7916d" kind="dir"><name>ufspsxc</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

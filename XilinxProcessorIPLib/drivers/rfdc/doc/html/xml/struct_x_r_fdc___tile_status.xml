@@ -5,76 +5,82 @@
     <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1a7f52ff7933b641cfa0e6a4369535d13e" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_TileStatus::IsEnabled</definition>
         <argsstring></argsstring>
         <name>IsEnabled</name>
         <briefdescription>
-        </briefdescription>
+<para>1 if tile is enabled, 0 otherwise. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="555" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="611" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1ad92c5c6f1b71ab70e19f18cd31c8103c" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_TileStatus::TileState</definition>
         <argsstring></argsstring>
         <name>TileState</name>
         <briefdescription>
-        </briefdescription>
+<para>Indicates tile current state. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="556" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="612" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="612" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
+        <referencedby refid="group___overview_1ga032b44b96776ed88ed58464b1d014d63" compoundref="xrfdc__mts_8c" startline="1305" endline="1395">XRFdc_MultiConverter_Sync</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1abf3d3f5de278fc1b00845d5fdbb49028" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc_TileStatus::BlockStatusMask</definition>
         <argsstring></argsstring>
         <name>BlockStatusMask</name>
         <briefdescription>
-        </briefdescription>
+<para>Bit mask for block status, 1 indicates block enable. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="557" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="613" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="613" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1ab3c2f1541ed58abe84b6489034a632d8" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_TileStatus::PowerUpState</definition>
         <argsstring></argsstring>
         <name>PowerUpState</name>
         <briefdescription>
-        </briefdescription>
+<para>Power-up state of the tile. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="558" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="615" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1a7f9240200ed4e943711b1a6605bb21c2" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_TileStatus::PLLState</definition>
         <argsstring></argsstring>
         <name>PLLState</name>
         <briefdescription>
-        </briefdescription>
+<para>PLL state of the tile. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="559" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="616" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>RFSoC Tile status. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="554" bodyend="560"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="610" bodyend="617"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___tile_status_1abf3d3f5de278fc1b00845d5fdbb49028" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>BlockStatusMask</name></member>
       <member refid="struct_x_r_fdc___tile_status_1a7f52ff7933b641cfa0e6a4369535d13e" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>IsEnabled</name></member>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___slhdsa_sk_object" kind="struct" prot="public">
+    <compoundname>XAsu_SlhdsaSkObject</compoundname>
+    <includes local="no">xasu_slhdsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sk_object_1a2c9a9dd2b844126b9a8243c7227d600f" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_SlhdsaSkObject::SkAddr</definition>
+        <argsstring></argsstring>
+        <name>SkAddr</name>
+        <briefdescription>
+<para>Address of the secret key data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" compoundref="xasu__slhdsa__common_8c" startline="291" endline="384">XAsu_SlhdsaValidateSignParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sk_object_1ab201aae34415f714cb743ebe5e4687b9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaSkObject::SkId</definition>
+        <argsstring></argsstring>
+        <name>SkId</name>
+        <briefdescription>
+<para>Reserved for future key management support; ignored. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___slhdsa_sk_object_1ae5ee9c8cd442e840306f7b26d9b19d46" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_SlhdsaSkObject::SkLen</definition>
+        <argsstring></argsstring>
+        <name>SkLen</name>
+        <briefdescription>
+<para>Length of the secret key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__xasu__slhdsa__common__apis_1gab1f2fb4d1494069b5b4d91f72fa3ea1f" compoundref="xasu__slhdsa__common_8c" startline="291" endline="384">XAsu_SlhdsaValidateSignParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure represents an SLH-DSA secret key object. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_slhdsainfo.h" bodystart="155" bodyend="159"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___slhdsa_sk_object_1a2c9a9dd2b844126b9a8243c7227d600f" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSkObject</scope><name>SkAddr</name></member>
+      <member refid="struct_x_asu___slhdsa_sk_object_1ab201aae34415f714cb743ebe5e4687b9" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSkObject</scope><name>SkId</name></member>
+      <member refid="struct_x_asu___slhdsa_sk_object_1ae5ee9c8cd442e840306f7b26d9b19d46" prot="public" virt="non-virtual"><scope>XAsu_SlhdsaSkObject</scope><name>SkLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

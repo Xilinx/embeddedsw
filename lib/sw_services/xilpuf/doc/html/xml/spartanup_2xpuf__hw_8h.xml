@@ -8,35 +8,35 @@
     <includedby refid="versal__gen_2server_2xpuf_8c" local="yes">xpuf.c</includedby>
     <includedby refid="versal__gen_2server_2xpuf__plat_8c" local="yes">xpuf_plat.c</includedby>
     <invincdepgraph>
-      <node id="247">
-        <label>xpuf_plat.c</label>
-      </node>
-      <node id="246">
+      <node id="272">
         <label>xpuf.c</label>
       </node>
-      <node id="242">
-        <label>xpuf_hw.h</label>
-        <link refid="spartanup/xpuf_hw.h"/>
-        <childnode refid="243" relation="include">
-        </childnode>
-        <childnode refid="244" relation="include">
-        </childnode>
-        <childnode refid="245" relation="include">
-        </childnode>
-        <childnode refid="246" relation="include">
-        </childnode>
-        <childnode refid="247" relation="include">
-        </childnode>
-      </node>
-      <node id="243">
-        <label>xpuf.c</label>
-      </node>
-      <node id="244">
-        <label>xpuf.c</label>
-      </node>
-      <node id="245">
+      <node id="273">
         <label>xpuf_plat.c</label>
         <link refid="versal__2vp__p_2server_2xpuf__plat_8c"/>
+      </node>
+      <node id="275">
+        <label>xpuf_plat.c</label>
+      </node>
+      <node id="271">
+        <label>xpuf.c</label>
+      </node>
+      <node id="270">
+        <label>xpuf_hw.h</label>
+        <link refid="spartanup/xpuf_hw.h"/>
+        <childnode refid="271" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="274" relation="include">
+        </childnode>
+        <childnode refid="275" relation="include">
+        </childnode>
+      </node>
+      <node id="274">
+        <label>xpuf.c</label>
       </node>
     </invincdepgraph>
       <sectiondef kind="user-defined">
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a378f7fb6dd13be48e71ee3d8268310c9" prot="public" static="no">
         <name>XPUF_PUF_CFG0_OFFSET</name>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1ad8ae1e84fde66ce3279ceabaec7ef29b" prot="public" static="no">
         <name>XPUF_PUF_CFG1_OFFSET</name>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a5b09782cec29eb3688e48a7ab3c25478" prot="public" static="no">
         <name>XPUF_PUF_SHUT_OFFSET</name>
@@ -83,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a0307a45e9ce86fc982023be0bc589e15" prot="public" static="no">
         <name>XPUF_PUF_STATUS_OFFSET</name>
@@ -94,7 +94,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aac065ed904fdc6cf30c5a72eee0dfe81" prot="public" static="no">
         <name>XPUF_PUF_WORD_OFFSET</name>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a07f6d13d22c76ec201e1eba8d2c1462a" prot="public" static="no">
         <name>XPUF_PUF_DBG_OFFSET</name>
@@ -116,7 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a8fa70ca008f8b7185b98adb5e0d4355c" prot="public" static="no">
         <name>XPUF_PUF_CHASH_OFFSET</name>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -141,7 +141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a7feea0f76057cffd0a7dfb70c0543b01" prot="public" static="no">
         <name>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET</name>
@@ -152,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1acc70b6f35bcdee82e2fc151262d05518" prot="public" static="no">
         <name>XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET</name>
@@ -163,7 +163,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aefd38f0e57b5784aad04e37ab14fd3af" prot="public" static="no">
         <name>XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET</name>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a50b3a35de37cdd1989b6c321b221f574" prot="public" static="no">
         <name>XPUF_PMC_GLOBAL_PUF_RO_SWAP_OFFSET</name>
@@ -185,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a033d6ae6139636f45d6c60dfd0d27935" prot="public" static="no">
         <name>XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET</name>
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -210,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a6ecccb5394199541d2b158e7390b13c4" prot="public" static="no">
         <name>XPUF_CMD_REGISTRATION</name>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a88ccf6d2d29f56d0fcbc04a32aa38221" prot="public" static="no">
         <name>XPUF_CMD_REGEN_ON_DEMAND</name>
@@ -232,7 +232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1dc0d25715d5462bd4dfb9c7c565fbba" prot="public" static="no">
         <name>XPUF_CMD_STOP</name>
@@ -243,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -257,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a5bb1e7102ad6d1438b2738732d8ef590" prot="public" static="no">
         <name>XPUF_CFG0_HASH_SEL</name>
@@ -268,7 +268,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -296,7 +296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1acc0edf21ac7dffef28649d67b298fc11" prot="public" static="no">
         <name>XPUF_STATUS_ID_ZERO</name>
@@ -307,7 +307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1e613c480a5234d7b9bd38a0358db75b" prot="public" static="no">
         <name>XPUF_STATUS_KEY_RDY</name>
@@ -318,7 +318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1132056b6c36613af8f10fe1e43cd66e" prot="public" static="no">
         <name>XPUF_STATUS_ZZ_MASK</name>
@@ -329,7 +329,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aa051b5036b418d936dd9601b9cc80a0d" prot="public" static="no">
         <name>XPUF_STATUS_SEG_RDY</name>
@@ -340,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -353,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="36" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1af3635e29c526accdfc917794ba073188" prot="public" static="no">
         <name>XPUF_BASEADDR</name>
@@ -364,7 +364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="38" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aa434bf16a400f338385e4b9df797a1da" prot="public" static="no">
         <name>XPUF_CLEAR_ID</name>
@@ -375,7 +375,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -414,7 +414,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="124" bodyend="127"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="124" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="spartanup_2xpuf__hw_8h_1abe5f7a9b92568ee1540b219191442f7e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -461,7 +461,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="140" bodyend="143"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="140" bodyend="143"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -540,6 +540,6 @@
 <codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPUF_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h"/>
   </compounddef>
 </doxygen>

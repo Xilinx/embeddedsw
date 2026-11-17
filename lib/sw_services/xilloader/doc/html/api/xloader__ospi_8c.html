@@ -142,7 +142,19 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in OSPI release
       aa   04/14/2026 Skip 4B address mode entry for Spansion flash
                       as it supports only in SDR mode
-      aa   04/23/2026 Fix OSPI SDR fallback for Spansion flash</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      aa   04/23/2026 Fix OSPI SDR fallback for Spansion flash
+2.5   aa   07/02/2026 Implemented timeout handling for OSPI 4B address mode
+                      polling to prevent indefinite hangs
+      gnr  08/25/2026 Fixed OSPI device reset for VERSAL_2VE_2VM devices to use
+                      XOspiPsv_DeviceResetViaOspi instead of XOspiPsv_DeviceReset
+      gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
+      pre  09/04/2026 Added support for OSPI calib data restore operation.
+      obs  09/16/2026 Sized the 4B address mode flag status buffer, used the
+                      SDR byte count, and assigned DDR dummy cycles
+      pre  10/22/2026 Added OSPI calib data restore under
+                      PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default, and
+                      reset the prefetch and transfer-pending state during
+                      init and release</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__ospi_8h.html">xloader_ospi.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_proc.h&quot;</code><br/>

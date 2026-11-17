@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmr__manager__intr__tapp__example_8c.
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xtmr__manager__intr__tapp__example_8c.
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xtmr_manager_intr_tapp_example.c File Reference</div>  </div>
@@ -119,12 +120,25 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
                       configuration.
 1.7   adk  04/04/25 Ported example to the SDT flow.
 1.8   ml   29/07/25 Fixed unused parameter warning
+1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xtmr__manager_8h.html">xtmr_manager.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3dca0d3ef7d65a2a9072f81795e02926"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a3dca0d3ef7d65a2a9072f81795e02926">TMR_MANAGER_DEVICE_ID</a>&#160;&#160;&#160;XPAR_TMR_MANAGER_0_BASEADDR</td></tr>
+<tr class="memdesc:a3dca0d3ef7d65a2a9072f81795e02926"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR Manager base address.  <a href="#a3dca0d3ef7d65a2a9072f81795e02926">More...</a><br/></td></tr>
+<tr class="separator:a3dca0d3ef7d65a2a9072f81795e02926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a150537fd470ba40683baaf22910d3464"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a150537fd470ba40683baaf22910d3464">TMR_MANAGER_IRPT_INTR</a>&#160;&#160;&#160;XPAR_SCUGIC_SINGLE_TMR_MANAGER_0_VEC_ID</td></tr>
+<tr class="memdesc:a150537fd470ba40683baaf22910d3464"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMR Manager interrupt vector ID.  <a href="#a150537fd470ba40683baaf22910d3464">More...</a><br/></td></tr>
+<tr class="separator:a150537fd470ba40683baaf22910d3464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90bc74590962865fc1ab7ee1be0f4b64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a90bc74590962865fc1ab7ee1be0f4b64">INTC_DEVICE_ID</a>&#160;&#160;&#160;XPAR_SCUGIC_SINGLE_DEVICE_ID</td></tr>
+<tr class="memdesc:a90bc74590962865fc1ab7ee1be0f4b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt controller device ID.  <a href="#a90bc74590962865fc1ab7ee1be0f4b64">More...</a><br/></td></tr>
+<tr class="separator:a90bc74590962865fc1ab7ee1be0f4b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:afb8ab1c25d01fb705b19f3d519826814"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__manager__intr__tapp__example_8c.html#afb8ab1c25d01fb705b19f3d519826814">TMR_ManagerIntrExample</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *TMR_ManagerInstPtr, UINTPTR BaseAddress)</td></tr>
@@ -134,6 +148,53 @@ Functions</h2></td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the TMR_Manager interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a90bc74590962865fc1ab7ee1be0f4b64"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INTC_DEVICE_ID&#160;&#160;&#160;XPAR_SCUGIC_SINGLE_DEVICE_ID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt controller device ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3dca0d3ef7d65a2a9072f81795e02926"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TMR_MANAGER_DEVICE_ID&#160;&#160;&#160;XPAR_TMR_MANAGER_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TMR Manager base address. </p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a150537fd470ba40683baaf22910d3464"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TMR_MANAGER_IRPT_INTR&#160;&#160;&#160;XPAR_SCUGIC_SINGLE_TMR_MANAGER_0_VEC_ID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TMR Manager interrupt vector ID. </p>
+
+<p>Referenced by <a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -150,16 +211,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Main function to call the TMR_Manager interrupt example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xtmr__manager__intr__example_8c.html#afac56f7c06b7f49ccc240019cd8db0fe">TMR_ManagerIntrExample()</a>.</p>
+<p>References <a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a3dca0d3ef7d65a2a9072f81795e02926">TMR_MANAGER_DEVICE_ID</a>, <a class="el" href="xtmr__manager__intr__tapp__example_8c.html#a150537fd470ba40683baaf22910d3464">TMR_MANAGER_IRPT_INTR</a>, and <a class="el" href="xtmr__manager__intr__example_8c.html#afac56f7c06b7f49ccc240019cd8db0fe">TMR_ManagerIntrExample()</a>.</p>
 
 </div>
 </div>
@@ -193,18 +247,15 @@ Functions</h2></td></tr>
 <p>This function uses the interrupt driver mode of the TMR_Manager. The calls to the TMR_Manager driver in the interrupt handlers, should only use the non-blocking calls.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">IntcInstancePtr</td><td>is a pointer to the instance of INTC driver. </td></tr>
-    <tr><td class="paramname">TMR_ManagerInstPtr</td><td>is a pointer to the instance of TMR_Manager driver. </td></tr>
-    <tr><td class="paramname">TMR_ManagerDeviceId</td><td>is the Device ID of the TMR_Manager Device and is the XPAR_&lt;TMR_MANAGER_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">TMR_ManagerIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;TMR_MANAGER_instance&gt;_VEC_ID value from xparameters.h.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TMR_ManagerInstPtr</td><td>is a pointer to the instance of the TMR_Manager driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the TMR_Manager device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <p>This function contains an infinite loop such that if interrupts are not working it may never return. </p>
 
-<p>References <a class="el" href="group___overview.html#ga3712c905face19b5734a4807ad5e2814">XTMR_Manager_EnableInterrupt()</a>, <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>, and <a class="el" href="group___overview.html#gad5a70c2dc4f54f69f80a13b972b6d8d3">XTMR_Manager_SelfTest()</a>.</p>
+<p>References <a class="el" href="struct_x_t_m_r___manager.html#a742af92f46cbd48043582f2f1fac1586">XTMR_Manager::Config</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#a7af3688caf0ba497d9adf870b5e8c2cd">XTMR_Manager_Config::IntrId</a>, <a class="el" href="struct_x_t_m_r___manager___config.html#ad762ee0355ec7220ee1c1b11912ba4e5">XTMR_Manager_Config::IntrParent</a>, <a class="el" href="group___overview.html#gaae4460868ab0d9ac0f28f4eba203a68a">XTMR_Manager_EnableInterrupt()</a>, <a class="el" href="group___overview.html#gaa1feb2cff60ea2b09f42a1fe6ad1a9df">XTMR_Manager_Initialize()</a>, and <a class="el" href="group___overview.html#gad5a70c2dc4f54f69f80a13b972b6d8d3">XTMR_Manager_SelfTest()</a>.</p>
 
 </div>
 </div>

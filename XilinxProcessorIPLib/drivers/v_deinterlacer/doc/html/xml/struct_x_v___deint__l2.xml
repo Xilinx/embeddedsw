@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -42,7 +42,7 @@
         <link refid="struct_x_v__deinterlacer___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" bodystart="120" bodyend="124"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" bodystart="120" bodyend="124"/>
     <listofallmembers>
       <member refid="struct_x_v___deint__l2_1a7661fd748aed6b153e3528f771d91a8c" prot="public" virt="non-virtual"><scope>XV_Deint_l2</scope><name>Deint</name></member>
     </listofallmembers>

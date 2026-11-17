@@ -98,7 +98,6 @@ var xcanfd__hw_8h =
     [ "XCANFD_FSR_RI_1_MASK", "xcanfd__hw_8h.html#gae3a1411622bf3d8d09b85ff2e2e28cbb", null ],
     [ "XCANFD_FSR_RI_1_SHIFT", "xcanfd__hw_8h.html#ga6f63f310c131f1ea6894fe022b9e2d98", null ],
     [ "XCANFD_FSR_RI_MASK", "xcanfd__hw_8h.html#ga90ada91711a91ba65a2b069b065f5484", null ],
-    [ "XCANFD_HW_H", "xcanfd__hw_8h.html#ga47dc418eb3f5796017a1b860480ebd03", null ],
     [ "XCANFD_ICR_OFFSET", "xcanfd__hw_8h.html#ga5bd9cae14b664a41a4ff58601b8656c7", null ],
     [ "XCANFD_IDR_ID1_MASK", "xcanfd__hw_8h.html#gaf3459bfd84186d43926280b9d5c41d43", null ],
     [ "XCANFD_IDR_ID1_SHIFT", "xcanfd__hw_8h.html#ga2288d59ab6b0ec1c8559e11425706cfd", null ],

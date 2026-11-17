@@ -142,7 +142,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 5.6   mb    09/09/25   Return error code on AES IPI event handling failure
         obs   09/23/25   Added support for Verifying Address Range
 5.7   tvp   03/12/26   Configure DmaSwap before transferring IV to AES engine
-                       for versal_2vp_p</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_dma.h&quot;</code><br/>
+                       for versal_2vp_p
+5.8   ks    09/22/26   Removed the AES KEK decrypt IPI handler as the client
+                       API is deprecated</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_dma.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="core_2aes_2xsecure__aes_8h.html">xsecure_aes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__aes__ipihandler_8h.html">xsecure_aes_ipihandler.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__defs_8h.html">xsecure_defs.h</a>&quot;</code><br/>
@@ -154,17 +156,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga6ef6c422dedc24716a5cd91892304134"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__server__apis.html#ga6ef6c422dedc24716a5cd91892304134">XSECURE_AES_DEC_KEY_SRC_MASK</a>&#160;&#160;&#160;(0x000000FFU)</td></tr>
-<tr class="memdesc:ga6ef6c422dedc24716a5cd91892304134"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES decrypt key source mask for KEK decryption.  <a href="group__xsecure__aes__server__apis.html#ga6ef6c422dedc24716a5cd91892304134">More...</a><br/></td></tr>
-<tr class="separator:ga6ef6c422dedc24716a5cd91892304134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4824f991f48dd7050a69598367dfb093"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__server__apis.html#ga4824f991f48dd7050a69598367dfb093">XSECURE_AES_DST_KEY_SRC_MASK</a>&#160;&#160;&#160;(0x0000FF00U)</td></tr>
-<tr class="memdesc:ga4824f991f48dd7050a69598367dfb093"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES destination key source mask for KEK decryption.  <a href="group__xsecure__aes__server__apis.html#ga4824f991f48dd7050a69598367dfb093">More...</a><br/></td></tr>
-<tr class="separator:ga4824f991f48dd7050a69598367dfb093"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4d5a472989742f1f1f53e87597e33b3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__server__apis.html#ga4d5a472989742f1f1f53e87597e33b3f">XSECURE_AES_KEY_SIZE_MASK</a>&#160;&#160;&#160;(0xFFFF0000U)</td></tr>
-<tr class="memdesc:ga4d5a472989742f1f1f53e87597e33b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key Size mask.  <a href="group__xsecure__aes__server__apis.html#ga4d5a472989742f1f1f53e87597e33b3f">More...</a><br/></td></tr>
-<tr class="separator:ga4d5a472989742f1f1f53e87597e33b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafb041a8728c54e97cdc310326006af0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__server__apis.html#gafb041a8728c54e97cdc310326006af0a">XSECURE_PMCDMA_DEVICEID</a>&#160;&#160;&#160;(PMCDMA_0_DEVICE_ID)</td></tr>
-<tr class="memdesc:gafb041a8728c54e97cdc310326006af0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES destination key source mask for KEK decryption.  <a href="group__xsecure__aes__server__apis.html#gafb041a8728c54e97cdc310326006af0a">More...</a><br/></td></tr>
+<tr class="memdesc:gafb041a8728c54e97cdc310326006af0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">PMC DMA device ID.  <a href="group__xsecure__aes__server__apis.html#gafb041a8728c54e97cdc310326006af0a">More...</a><br/></td></tr>
 <tr class="separator:gafb041a8728c54e97cdc310326006af0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

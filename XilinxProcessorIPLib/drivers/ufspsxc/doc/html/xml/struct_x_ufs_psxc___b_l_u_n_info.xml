@@ -10,12 +10,12 @@
         <argsstring></argsstring>
         <name>LunID</name>
         <briefdescription>
-        </briefdescription>
+<para>Logical Unit Number identifier (0-31). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="215" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="276" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1aae576d96342db24d238263d3dc697bc4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -23,12 +23,14 @@
         <argsstring></argsstring>
         <name>BootLunID</name>
         <briefdescription>
-        </briefdescription>
+<para>Boot LUN identifier (BLUN_A=1, BLUN_B=2). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="277" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1ga1e4078f7061f73d5ccd64eafe59c13ee" compoundref="xufspsxc_8c" startline="209" endline="256">XUfsPsxc_CheckBootReq</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="272" endline="332">XUfsPsxc_SwitchBootLUN</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1a15f183a60e0d7bfa0a434ed758afc455" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -36,12 +38,19 @@
         <argsstring></argsstring>
         <name>BlockSize</name>
         <briefdescription>
-        </briefdescription>
+<para>Block size in bytes (typically 4096 for UFS). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="217" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1ga1e4078f7061f73d5ccd64eafe59c13ee" compoundref="xufspsxc_8c" startline="209" endline="256">XUfsPsxc_CheckBootReq</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="243" endline="309">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="324" endline="381">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="353" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc__api_1ga13fea34df11f07626308ad42623497ff" compoundref="xufspsxc__init_8c" startline="490" endline="534">XUfsPsxc_Set4KBlkSize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="272" endline="332">XUfsPsxc_SwitchBootLUN</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="435" endline="489">XUfsPsxc_WritePolled</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1aaab714ed4e93338a1be37c70df5c7f13" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -49,12 +58,13 @@
         <argsstring></argsstring>
         <name>MemoryType</name>
         <briefdescription>
-        </briefdescription>
+<para>Memory type (Normal, System Code, Enhanced, etc.). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="218" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga353f784dcc8a50185ea407bc0dcb4768" compoundref="xufspsxc__init_8c" startline="398" endline="474">XUfsPsxc_GetLUNInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1a6b35809464b475570c04c116221d70ab" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -62,12 +72,12 @@
         <argsstring></argsstring>
         <name>NumAllocUnits</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of allocation units assigned to this LU. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="219" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="283" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ufs_psxc___b_l_u_n_info_1aa25dda08ce27077d9d76162ae22af298" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -75,19 +85,19 @@
         <argsstring></argsstring>
         <name>LUNSize</name>
         <briefdescription>
-<para>Size is in MB. </para>        </briefdescription>
+<para>Total size of the Logical Unit in MB. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="220" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="284" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>BootLU information structure. </para>    </briefdescription>
+<para>Holds boot logical-unit information. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="214" bodyend="221"/>
+<para>BootLU information structure </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="275" bodyend="285"/>
     <listofallmembers>
       <member refid="struct_x_ufs_psxc___b_l_u_n_info_1a15f183a60e0d7bfa0a434ed758afc455" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>BlockSize</name></member>
       <member refid="struct_x_ufs_psxc___b_l_u_n_info_1aae576d96342db24d238263d3dc697bc4" prot="public" virt="non-virtual"><scope>XUfsPsxc_BLUNInfo</scope><name>BootLunID</name></member>

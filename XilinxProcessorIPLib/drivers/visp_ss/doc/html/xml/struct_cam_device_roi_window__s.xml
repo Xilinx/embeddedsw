@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="695" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="695" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="695" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="695" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_roi_window__s_1a2080cfbac02fbb95d5e01d0b46262041" prot="public" static="no" mutable="no">
         <type>float32_t</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="696" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="696" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="696" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="696" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -36,19 +36,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="546">
+      <node id="548">
         <label>CamDeviceRoiWindow_s</label>
         <link refid="struct_cam_device_roi_window__s"/>
-        <childnode refid="547" relation="usage">
+        <childnode refid="549" relation="usage">
           <edgelabel>window</edgelabel>
         </childnode>
       </node>
-      <node id="547">
+      <node id="549">
         <label>CamDeviceWindow_s</label>
         <link refid="struct_cam_device_window__s"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="694" bodyend="697"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="694" bodyend="697"/>
     <listofallmembers>
       <member refid="struct_cam_device_roi_window__s_1a2080cfbac02fbb95d5e01d0b46262041" prot="public" virt="non-virtual"><scope>CamDeviceRoiWindow_s</scope><name>weight</name></member>
       <member refid="struct_cam_device_roi_window__s_1adbdbedd83eb90830a8d791cdb0a8ef40" prot="public" virt="non-virtual"><scope>CamDeviceRoiWindow_s</scope><name>window</name></member>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrtcpsu__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,13 +105,31 @@ $(document).ready(function(){initNavTree('xrtcpsu__selftest_8c.html','');});
 <div class="title">xrtcpsu_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the self-test function of the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> driver. </p>
+<p>This file contains the self-test functions for the <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.00  kvn    04/21/15 First release.
+1.7   sne    03/01/19 Added Versal support.
+1.7   sne    03/01/19 Fixed violations according to MISRAC-2012 standards
+                      modified the code such as
+                      No brackets to loop body,Declared the pointer param
+                      as Pointer to const,No brackets to then/else,
+                      Literal value requires a U suffix,Casting operation to a pointer
+                      Array has no bounds specified,Logical conjunctions need brackets.
+1.17  vlt    01/30/26 Fixed codespell errors.
+1.18  vn     09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xrtcpsu_8h.html">xrtcpsu.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga1c969c089715ea9a86cec887c09f9b92"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rtcpsu.html#ga1c969c089715ea9a86cec887c09f9b92">XRtcPsu_SelfTest</a> (<a class="el" href="struct_x_rtc_psu.html">XRtcPsu</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga1c969c089715ea9a86cec887c09f9b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the driver and hardware device.  <a href="group__rtcpsu.html#ga1c969c089715ea9a86cec887c09f9b92">More...</a><br/></td></tr>
+<tr class="memdesc:ga1c969c089715ea9a86cec887c09f9b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver and hardware device.  <a href="group__rtcpsu.html#ga1c969c089715ea9a86cec887c09f9b92">More...</a><br/></td></tr>
 <tr class="separator:ga1c969c089715ea9a86cec887c09f9b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

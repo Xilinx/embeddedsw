@@ -37,6 +37,10 @@ var searchData=
   ['xiicpssmbusmasterintrexample',['XIicPsSmbusMasterIntrExample',['../xiicps__smbus__intr__master__example_8c.html#a17d5b2d2e2cc13f46e3fe53aa8c7e102',1,'xiicps_smbus_intr_master_example.c']]],
   ['xiicpssmbusmasterreadblockdata',['XIicPsSmbusMasterReadBlockData',['../xiicps__smbus__intr__master__example_8c.html#a7133eab85731592fdb9d5d1c66bb6957',1,'xiicps_smbus_intr_master_example.c']]],
   ['xiicpssmbusmasterwriteblockdata',['XIicPsSmbusMasterWriteBlockData',['../xiicps__smbus__intr__master__example_8c.html#a41b1c933a934b05ba55a4e0f69c9fb01',1,'xiicps_smbus_intr_master_example.c']]],
-  ['xiicpssmbuspolledmasterreadblockdata',['XIicPsSmbusPolledMasterReadBlockData',['../xiicps__smbus__polled__master__example_8c.html#a1df049427145c4784d51ce31c1924cdf',1,'xiicps_smbus_polled_master_example.c']]],
-  ['xiicpssmbuspolledmasterwriteblockdata',['XIicPsSmbusPolledMasterWriteBlockData',['../xiicps__smbus__polled__master__example_8c.html#a3cc02a4c6ac84fe878754040e949f1e5',1,'xiicps_smbus_polled_master_example.c']]]
+  ['xiicpssmbuspolledmasterreadblockdata',['XIicPsSmbusPolledMasterReadBlockData',['../group__xiicps__smbus__polled__master__example.html#ga1df049427145c4784d51ce31c1924cdf',1,'xiicps_smbus_polled_master_example.c']]],
+  ['xiicpssmbuspolledmasterwriteblockdata',['XIicPsSmbusPolledMasterWriteBlockData',['../group__xiicps__smbus__polled__master__example.html#ga3cc02a4c6ac84fe878754040e949f1e5',1,'xiicps_smbus_polled_master_example.c']]],
+  ['xiicpssmbuspolledreadblockdata',['XIicPsSmbusPolledReadBlockData',['../xiicps__smbus__polled__slave__example_8c.html#a03bf7a8a923f36c4b4957e24c20a929f',1,'xiicps_smbus_polled_slave_example.c']]],
+  ['xiicpssmbuspolledwriteblockdata',['XIicPsSmbusPolledWriteBlockData',['../xiicps__smbus__polled__slave__example_8c.html#a62f01b5f508f184adbeeb41283d13526',1,'xiicps_smbus_polled_slave_example.c']]],
+  ['xiicpssmbusreadblockdata',['XIicPsSmbusReadBlockData',['../xiicps__smbus__intr__slave__example_8c.html#a66968ac75387699726842d805e48af4f',1,'xiicps_smbus_intr_slave_example.c']]],
+  ['xiicpssmbuswriteblockdata',['XIicPsSmbusWriteBlockData',['../xiicps__smbus__intr__slave__example_8c.html#a371372ea55b5ca94589d04ee4760ed9f',1,'xiicps_smbus_intr_slave_example.c']]]
 ];

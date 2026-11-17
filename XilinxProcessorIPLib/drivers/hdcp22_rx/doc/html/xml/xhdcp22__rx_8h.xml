@@ -61,6 +61,9 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="30">
+        <label>xhdcp22_rx_g.c</label>
+      </node>
       <node id="28">
         <label>xhdcp22_rx.c</label>
         <link refid="xhdcp22__rx_8c"/>
@@ -77,16 +80,13 @@
         <childnode refid="31" relation="include">
         </childnode>
       </node>
-      <node id="30">
-        <label>xhdcp22_rx_g.c</label>
+      <node id="31">
+        <label>xhdcp22_rx_sinit.c</label>
+        <link refid="xhdcp22__rx__sinit_8c"/>
       </node>
       <node id="29">
         <label>xhdcp22_rx_crypt.c</label>
         <link refid="xhdcp22__rx__crypt_8c"/>
-      </node>
-      <node id="31">
-        <label>xhdcp22_rx_sinit.c</label>
-        <link refid="xhdcp22__rx__sinit_8c"/>
       </node>
       <node id="27">
         <label>xhdcp22_rx_i.h</label>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rx_1gace98a4d8a21f9826226e6a4849420b5a" prot="public" static="no">
         <name>XHDCP22_RX_MAX_MESSAGE_SIZE</name>
@@ -128,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rx_1gae7897244831cd89c8a58cbddd8f27ec9" prot="public" static="no">
         <name>XHDCP22_RX_LOG_BUFFER_SIZE</name>
@@ -139,9 +139,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="102" bodyend="-1"/>
-        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3871" endline="3902">XHdcp22Rx_LogRd</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3874" endline="3905">XHdcp22Rx_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rx_1ga3c339c8a00b1b92cb3ddd5ec7f908e34" prot="public" static="no">
         <name>XHDCP22_RX_ENCRYPTION_STATUS_INTERVAL</name>
@@ -152,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__hdcp22__rx_1ga3fede162092da75f2395ce71c1204ed7" prot="public" static="no">
         <name>XHDCP22_RX_REPEATERAUTH_ACK_INTERVAL</name>
@@ -163,7 +163,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="104" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -189,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="121" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="121" bodyend="125"/>
       </memberdef>
       <memberdef kind="enum" id="group__hdcp22__rx_1ga7adfc5f7001d38972bad9a8f458d049d" prot="public" static="no">
         <name>XHdcp22_Rx_Mode</name>
@@ -220,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="130" bodyend="135"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="130" bodyend="135"/>
       </memberdef>
       <memberdef kind="enum" id="group__hdcp22__rx_1ga572e4ca00cc3b96e7c0e12f7f0f7f608" prot="public" static="no">
         <name>XHdcp22_Rx_HandlerType</name>
@@ -349,7 +349,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="140" bodyend="159"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="140" bodyend="159"/>
       </memberdef>
       <memberdef kind="enum" id="group__hdcp22__rx_1gaefd71c02fc784052667cdfcd19e1adb0" prot="public" static="no">
         <name>XHdcp22_Rx_StateType</name>
@@ -518,7 +518,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="164" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="164" bodyend="186"/>
       </memberdef>
       <memberdef kind="enum" id="group__hdcp22__rx_1ga85e5e0afd89eb4bb06e1e90e66185425" prot="public" static="no">
         <name>XHdcp22_Rx_AuthenticationType</name>
@@ -556,7 +556,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="191" bodyend="197"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="191" bodyend="197"/>
       </memberdef>
       <memberdef kind="enum" id="group__hdcp22__rx_1gafbb78d3e181bcf8c0a9b124805e9ab3f" prot="public" static="no">
         <name>XHdcp22_Rx_LogEvt</name>
@@ -622,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="202" bodyend="211"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="202" bodyend="211"/>
       </memberdef>
       <memberdef kind="enum" id="group__hdcp22__rx_1ga24ebd9fd04b5494042a06c219e9beaf9" prot="public" static="no">
         <name>XHdcp22_Rx_TopologyField</name>
@@ -681,7 +681,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="216" bodyend="224"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="216" bodyend="224"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -696,7 +696,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="110" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="110" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="group__hdcp22__rx_1ga96434911658b0c468f84827453fcdfe3" prot="public" static="no">
         <type>void(*</type>
@@ -709,7 +709,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="group__hdcp22__rx_1gaf121cf071516cc25183109edbc5d88c0" prot="public" static="no">
         <type>void(*</type>
@@ -722,7 +722,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="114" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="group__hdcp22__rx_1ga33e4939cca9920126d68040f8d64cfa2" prot="public" static="no">
         <type>u32(*</type>
@@ -735,7 +735,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="116" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="116" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -764,7 +764,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_sinit.c" bodystart="83" bodyend="102"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_sinit.c" bodystart="62" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -813,13 +813,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="151" bodyend="280"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="151" bodyend="280"/>
         <references refid="struct_x_hdcp22___rx___handles_1a2a7d23c71b02818542947ce1eb170eca" compoundref="xhdcp22__rx_8h" startline="345">XHdcp22_Rx_Handles::AuthenticatedCallback</references>
         <references refid="struct_x_hdcp22___rx___handles_1aeef75ad71da63f63d7d3ef53a7998c4d" compoundref="xhdcp22__rx_8h" startline="359">XHdcp22_Rx_Handles::AuthenticationRequestCallback</references>
         <references refid="struct_x_hdcp22___rx___info_1afff16614392c71e52688e06bf3d67d3b" compoundref="xhdcp22__rx_8h" startline="474">XHdcp22_Rx_Info::AuthenticationStatus</references>
         <references refid="struct_x_hdcp22___rx___info_1aec4422d11655700d0d5e7731b0ed4b92" compoundref="xhdcp22__rx_8h" startline="484">XHdcp22_Rx_Info::AuthRequestCnt</references>
-        <references refid="struct_x_hdcp22___rx___config_1a4bef4d06185735a9af42916382b45e86" compoundref="xhdcp22__rx_8h" startline="536">XHdcp22_Rx_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" compoundref="xhdcp22__rx_8h" startline="570">XHdcp22_Rx::Config</references>
+        <references refid="struct_x_hdcp22___rx___config_1a4bef4d06185735a9af42916382b45e86" compoundref="xhdcp22__rx_8h" startline="531">XHdcp22_Rx_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" compoundref="xhdcp22__rx_8h" startline="554">XHdcp22_Rx::Config</references>
         <references refid="struct_x_hdcp22___rx___info_1a8438f99807ac19486e7ea4d27ba9bd49" compoundref="xhdcp22__rx_8h" startline="467">XHdcp22_Rx_Info::CurrentState</references>
         <references refid="struct_x_hdcp22___rx___handles_1a069c977570ebc93606c9ea9c328c8f3d" compoundref="xhdcp22__rx_8h" startline="321">XHdcp22_Rx_Handles::DdcClearReadBufferCallback</references>
         <references refid="struct_x_hdcp22___rx___handles_1a590852ae15d008d5c87537e2fb9c59bb" compoundref="xhdcp22__rx_8h" startline="328">XHdcp22_Rx_Handles::DdcClearWriteBufferCallback</references>
@@ -833,9 +833,9 @@
         <references refid="struct_x_hdcp22___rx___handles_1a2027fb9a853a41971a777ea65b3de67b" compoundref="xhdcp22__rx_8h" startline="279">XHdcp22_Rx_Handles::DdcSetDataCallback</references>
         <references refid="struct_x_hdcp22___rx___info_1a92a1021c79ed70cf316e23cbe5c9c712" compoundref="xhdcp22__rx_8h" startline="451">XHdcp22_Rx_Info::ErrorFlag</references>
         <references refid="struct_x_hdcp22___rx___info_1a462f7d1b51f98c705c94742425e1c97d" compoundref="xhdcp22__rx_8h" startline="453">XHdcp22_Rx_Info::ErrorFlagSticky</references>
-        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Handles</references>
+        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="574">XHdcp22_Rx::Handles</references>
         <references refid="struct_x_hdcp22___rx___info_1a8b9f1df7126dd8c235662001f147b1a4" compoundref="xhdcp22__rx_8h" startline="465">XHdcp22_Rx_Info::HasStreamManagementInfo</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___handles_1a3cdf28a1e1ed6f0b46d2054f0313ffb8" compoundref="xhdcp22__rx_8h" startline="349">XHdcp22_Rx_Handles::IsAuthenticatedCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___handles_1aee30685ff06ba386b590fe6235d305bd" compoundref="xhdcp22__rx_8h" startline="363">XHdcp22_Rx_Handles::IsAuthenticationRequestCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___handles_1ab265a5ca89f90460ad9d1b52df828f52" compoundref="xhdcp22__rx_8h" startline="342">XHdcp22_Rx_Handles::IsDdcAllCallbacksSet</references>
@@ -851,21 +851,21 @@
         <references refid="struct_x_hdcp22___rx___info_1acfd97a64a01152bcfca811b014f29ec9" compoundref="xhdcp22__rx_8h" startline="441">XHdcp22_Rx_Info::IsEnabled</references>
         <references refid="struct_x_hdcp22___rx___info_1a3452b36df7fc01eb73c6b7d338ac20c5" compoundref="xhdcp22__rx_8h" startline="482">XHdcp22_Rx_Info::IsEncrypted</references>
         <references refid="struct_x_hdcp22___rx___info_1a0e0008c93dfa581ab473acc8e058603d" compoundref="xhdcp22__rx_8h" startline="443">XHdcp22_Rx_Info::IsNoStoredKm</references>
-        <references refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" compoundref="xhdcp22__rx_8h" startline="572">XHdcp22_Rx::IsReady</references>
+        <references refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" compoundref="xhdcp22__rx_8h" startline="556">XHdcp22_Rx::IsReady</references>
         <references refid="struct_x_hdcp22___rx___handles_1aebc2ed6699e04f82a9121a22289161a6" compoundref="xhdcp22__rx_8h" startline="370">XHdcp22_Rx_Handles::IsStreamManageRequestCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___handles_1a384630c2b3ee0112fd0d418ed408781e" compoundref="xhdcp22__rx_8h" startline="377">XHdcp22_Rx_Handles::IsTopologyUpdateCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___info_1acf84ba482867410e19dda97320d1f13e" compoundref="xhdcp22__rx_8h" startline="480">XHdcp22_Rx_Info::IsTopologyValid</references>
         <references refid="struct_x_hdcp22___rx___info_1af2357d0c44cf316921c8595fdaebc699" compoundref="xhdcp22__rx_8h" startline="445">XHdcp22_Rx_Info::LCInitAttempts</references>
         <references refid="struct_x_hdcp22___rx___info_1a6404954b9219c06251b161c26dbe313e" compoundref="xhdcp22__rx_8h" startline="488">XHdcp22_Rx_Info::LinkErrorCnt</references>
-        <references refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" compoundref="xhdcp22__rx_8h" startline="540">XHdcp22_Rx_Config::Mode</references>
+        <references refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" compoundref="xhdcp22__rx_8h" startline="535">XHdcp22_Rx_Config::Mode</references>
         <references refid="struct_x_hdcp22___rx___info_1aa9ed9a28ac7d542d6ea7c89c7fddd29b" compoundref="xhdcp22__rx_8h" startline="469">XHdcp22_Rx_Info::NextState</references>
         <references refid="struct_x_hdcp22___rx___info_1a635260573ed56ba4eb41f6e9e83b70ef" compoundref="xhdcp22__rx_8h" startline="447">XHdcp22_Rx_Info::ReauthReq</references>
         <references refid="struct_x_hdcp22___rx___info_1acbaa7ff43bc773da54ed2a07c9cef0e9" compoundref="xhdcp22__rx_8h" startline="486">XHdcp22_Rx_Info::ReauthRequestCnt</references>
         <references refid="struct_x_hdcp22___rx___info_1af8e3e8674a2069f0c6bbbb6e6b5e854a" compoundref="xhdcp22__rx_8h" startline="472">XHdcp22_Rx_Info::ReturnState</references>
-        <references refid="struct_x_hdcp22___rx_1af57a2d6df695715d084a044b16bc7d27" compoundref="xhdcp22__rx_8h" startline="574">XHdcp22_Rx::RxCaps</references>
+        <references refid="struct_x_hdcp22___rx_1af57a2d6df695715d084a044b16bc7d27" compoundref="xhdcp22__rx_8h" startline="558">XHdcp22_Rx::RxCaps</references>
         <references refid="struct_x_hdcp22___rx___info_1a3f4b6b90ed0883e0fced8546ab5ae07e" compoundref="xhdcp22__rx_8h" startline="463">XHdcp22_Rx_Info::SeqNumV</references>
         <references refid="struct_x_hdcp22___rx___info_1a4783dd8ec855b77a725d9f283bcc4ddd" compoundref="xhdcp22__rx_8h" startline="476">XHdcp22_Rx_Info::SkipRead</references>
-        <references refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" compoundref="xhdcp22__rx_8h" startline="588">XHdcp22_Rx::StateFunc</references>
+        <references refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" compoundref="xhdcp22__rx_8h" startline="572">XHdcp22_Rx::StateFunc</references>
         <references refid="struct_x_hdcp22___rx___handles_1a0aa4df8510d079e280d1d5c3ae095a8c" compoundref="xhdcp22__rx_8h" startline="366">XHdcp22_Rx_Handles::StreamManageRequestCallback</references>
         <references refid="struct_x_hdcp22___rx___info_1acdcff6e1462fb80514dd6a09adcb2935" compoundref="xhdcp22__rx_8h" startline="449">XHdcp22_Rx_Info::TopologyReady</references>
         <references refid="struct_x_hdcp22___rx___handles_1ae86e6aa6a6347f043523c0688dbdd788" compoundref="xhdcp22__rx_8h" startline="373">XHdcp22_Rx_Handles::TopologyUpdateCallback</references>
@@ -874,7 +874,7 @@
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0a3c715f85a4e6b4314dee40fd81796e97" compoundref="xhdcp22__rx_8h" startline="167">XHDCP22_RX_STATE_B0_WAIT_AKEINIT</references>
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0ad7d641e969257ccde4ae27e1ec885f56" compoundref="xhdcp22__rx_8h" startline="166">XHDCP22_RX_STATE_UNDEFINED</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425ac131e0cdf3c07a7e91f86a57643fe695" compoundref="xhdcp22__rx_8h" startline="193">XHDCP22_RX_UNAUTHENTICATED</references>
-        <references refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" compoundref="xhdcp22__rx_8c" startline="3759" endline="3774">XHdcp22Rx_LogReset</references>
+        <references refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" compoundref="xhdcp22__rx_8c" startline="3762" endline="3777">XHdcp22Rx_LogReset</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -901,21 +901,21 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="372" bodyend="399"/>
-        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="600">XHdcp22_Rx::CipherInst</references>
-        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Handles</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="372" bodyend="399"/>
+        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::CipherInst</references>
+        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="574">XHdcp22_Rx::Handles</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___handles_1ab265a5ca89f90460ad9d1b52df828f52" compoundref="xhdcp22__rx_8h" startline="342">XHdcp22_Rx_Handles::IsDdcAllCallbacksSet</references>
         <references refid="struct_x_hdcp22___rx___info_1acfd97a64a01152bcfca811b014f29ec9" compoundref="xhdcp22__rx_8h" startline="441">XHdcp22_Rx_Info::IsEnabled</references>
-        <references refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" compoundref="xhdcp22__rx_8h" startline="572">XHdcp22_Rx::IsReady</references>
-        <references refid="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" compoundref="xhdcp22__rx_8h" startline="594">XHdcp22_Rx::MmultInst</references>
-        <references refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" compoundref="xhdcp22__rx_8h" startline="578">XHdcp22_Rx::PrivateKeyPtr</references>
-        <references refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" compoundref="xhdcp22__rx_8h" startline="576">XHdcp22_Rx::PublicCertPtr</references>
-        <references refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" compoundref="xhdcp22__rx_8h" startline="598">XHdcp22_Rx::RngInst</references>
-        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="596">XHdcp22_Rx::TimerInst</references>
+        <references refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" compoundref="xhdcp22__rx_8h" startline="556">XHdcp22_Rx::IsReady</references>
+        <references refid="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" compoundref="xhdcp22__rx_8h" startline="578">XHdcp22_Rx::MmultInst</references>
+        <references refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" compoundref="xhdcp22__rx_8h" startline="562">XHdcp22_Rx::PrivateKeyPtr</references>
+        <references refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" compoundref="xhdcp22__rx_8h" startline="560">XHdcp22_Rx::PublicCertPtr</references>
+        <references refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" compoundref="xhdcp22__rx_8h" startline="582">XHdcp22_Rx::RngInst</references>
+        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="580">XHdcp22_Rx::TimerInst</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fa7adf0d3df8ff779be6326f13fb88d904" compoundref="xhdcp22__rx_8h" startline="204">XHDCP22_RX_LOG_EVT_INFO</references>
         <references refid="group__hdcp22__rx_1gga20928bc2281a6f5afe57681e9e3719f1a2652ad16066fd7f9ec2dda7e69629dc2" compoundref="xhdcp22__rx__i_8h" startline="148">XHDCP22_RX_LOG_INFO_ENABLE</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -942,14 +942,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="416" bodyend="436"/>
-        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="600">XHdcp22_Rx::CipherInst</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="416" bodyend="436"/>
+        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::CipherInst</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___info_1acfd97a64a01152bcfca811b014f29ec9" compoundref="xhdcp22__rx_8h" startline="441">XHdcp22_Rx_Info::IsEnabled</references>
-        <references refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" compoundref="xhdcp22__rx_8h" startline="598">XHdcp22_Rx::RngInst</references>
+        <references refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" compoundref="xhdcp22__rx_8h" startline="582">XHdcp22_Rx::RngInst</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fa7adf0d3df8ff779be6326f13fb88d904" compoundref="xhdcp22__rx_8h" startline="204">XHDCP22_RX_LOG_EVT_INFO</references>
         <references refid="group__hdcp22__rx_1gga20928bc2281a6f5afe57681e9e3719f1a236f29d07407c62b23076ec33b6849b0" compoundref="xhdcp22__rx__i_8h" startline="149">XHDCP22_RX_LOG_INFO_DISABLE</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -976,17 +976,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="296" bodyend="357"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="296" bodyend="357"/>
         <references refid="struct_x_hdcp22___rx___info_1afff16614392c71e52688e06bf3d67d3b" compoundref="xhdcp22__rx_8h" startline="474">XHdcp22_Rx_Info::AuthenticationStatus</references>
         <references refid="struct_x_hdcp22___rx___info_1aec4422d11655700d0d5e7731b0ed4b92" compoundref="xhdcp22__rx_8h" startline="484">XHdcp22_Rx_Info::AuthRequestCnt</references>
-        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="600">XHdcp22_Rx::CipherInst</references>
+        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::CipherInst</references>
         <references refid="struct_x_hdcp22___rx___info_1a8438f99807ac19486e7ea4d27ba9bd49" compoundref="xhdcp22__rx_8h" startline="467">XHdcp22_Rx_Info::CurrentState</references>
         <references refid="struct_x_hdcp22___rx___info_1a0bf300b403efbe00baea7e4bc5a06d5b" compoundref="xhdcp22__rx_8h" startline="490">XHdcp22_Rx_Info::DdcErrorCnt</references>
         <references refid="struct_x_hdcp22___rx___info_1a92a1021c79ed70cf316e23cbe5c9c712" compoundref="xhdcp22__rx_8h" startline="451">XHdcp22_Rx_Info::ErrorFlag</references>
         <references refid="struct_x_hdcp22___rx___info_1a462f7d1b51f98c705c94742425e1c97d" compoundref="xhdcp22__rx_8h" startline="453">XHdcp22_Rx_Info::ErrorFlagSticky</references>
-        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Handles</references>
+        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="574">XHdcp22_Rx::Handles</references>
         <references refid="struct_x_hdcp22___rx___info_1a8b9f1df7126dd8c235662001f147b1a4" compoundref="xhdcp22__rx_8h" startline="465">XHdcp22_Rx_Info::HasStreamManagementInfo</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___handles_1ab265a5ca89f90460ad9d1b52df828f52" compoundref="xhdcp22__rx_8h" startline="342">XHdcp22_Rx_Handles::IsDdcAllCallbacksSet</references>
         <references refid="struct_x_hdcp22___rx___info_1a3452b36df7fc01eb73c6b7d338ac20c5" compoundref="xhdcp22__rx_8h" startline="482">XHdcp22_Rx_Info::IsEncrypted</references>
         <references refid="struct_x_hdcp22___rx___info_1a0e0008c93dfa581ab473acc8e058603d" compoundref="xhdcp22__rx_8h" startline="443">XHdcp22_Rx_Info::IsNoStoredKm</references>
@@ -994,16 +994,16 @@
         <references refid="struct_x_hdcp22___rx___handles_1a15b1c9e7a45dc83f9e6e61951591d139" compoundref="xhdcp22__rx_8h" startline="356">XHdcp22_Rx_Handles::IsUnauthenticatedCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___info_1af2357d0c44cf316921c8595fdaebc699" compoundref="xhdcp22__rx_8h" startline="445">XHdcp22_Rx_Info::LCInitAttempts</references>
         <references refid="struct_x_hdcp22___rx___info_1a6404954b9219c06251b161c26dbe313e" compoundref="xhdcp22__rx_8h" startline="488">XHdcp22_Rx_Info::LinkErrorCnt</references>
-        <references refid="struct_x_hdcp22___rx_1a0cfbcd03119550596009d58a94df3f01" compoundref="xhdcp22__rx_8h" startline="602">XHdcp22_Rx::MessageBuffer</references>
-        <references refid="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" compoundref="xhdcp22__rx_8h" startline="604">XHdcp22_Rx::MessageSize</references>
+        <references refid="struct_x_hdcp22___rx_1a0cfbcd03119550596009d58a94df3f01" compoundref="xhdcp22__rx_8h" startline="586">XHdcp22_Rx::MessageBuffer</references>
+        <references refid="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" compoundref="xhdcp22__rx_8h" startline="588">XHdcp22_Rx::MessageSize</references>
         <references refid="struct_x_hdcp22___rx___info_1aa9ed9a28ac7d542d6ea7c89c7fddd29b" compoundref="xhdcp22__rx_8h" startline="469">XHdcp22_Rx_Info::NextState</references>
         <references refid="struct_x_hdcp22___rx___info_1a635260573ed56ba4eb41f6e9e83b70ef" compoundref="xhdcp22__rx_8h" startline="447">XHdcp22_Rx_Info::ReauthReq</references>
         <references refid="struct_x_hdcp22___rx___info_1acbaa7ff43bc773da54ed2a07c9cef0e9" compoundref="xhdcp22__rx_8h" startline="486">XHdcp22_Rx_Info::ReauthRequestCnt</references>
         <references refid="struct_x_hdcp22___rx___info_1af8e3e8674a2069f0c6bbbb6e6b5e854a" compoundref="xhdcp22__rx_8h" startline="472">XHdcp22_Rx_Info::ReturnState</references>
         <references refid="struct_x_hdcp22___rx___info_1a3f4b6b90ed0883e0fced8546ab5ae07e" compoundref="xhdcp22__rx_8h" startline="463">XHdcp22_Rx_Info::SeqNumV</references>
         <references refid="struct_x_hdcp22___rx___info_1a4783dd8ec855b77a725d9f283bcc4ddd" compoundref="xhdcp22__rx_8h" startline="476">XHdcp22_Rx_Info::SkipRead</references>
-        <references refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" compoundref="xhdcp22__rx_8h" startline="588">XHdcp22_Rx::StateFunc</references>
-        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="606">XHdcp22_Rx::Topology</references>
+        <references refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" compoundref="xhdcp22__rx_8h" startline="572">XHdcp22_Rx::StateFunc</references>
+        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Topology</references>
         <references refid="struct_x_hdcp22___rx___info_1acdcff6e1462fb80514dd6a09adcb2935" compoundref="xhdcp22__rx_8h" startline="449">XHdcp22_Rx_Info::TopologyReady</references>
         <references refid="struct_x_hdcp22___rx___handles_1ae146eedd56d2a6a76f6c1c703e78f8de" compoundref="xhdcp22__rx_8h" startline="352">XHdcp22_Rx_Handles::UnauthenticatedCallback</references>
         <references refid="struct_x_hdcp22___rx___handles_1a8b247aaa9181d7965dd7b4442c956746" compoundref="xhdcp22__rx_8h" startline="354">XHdcp22_Rx_Handles::UnauthenticatedCallbackRef</references>
@@ -1014,7 +1014,7 @@
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0a3c715f85a4e6b4314dee40fd81796e97" compoundref="xhdcp22__rx_8h" startline="167">XHDCP22_RX_STATE_B0_WAIT_AKEINIT</references>
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0ad7d641e969257ccde4ae27e1ec885f56" compoundref="xhdcp22__rx_8h" startline="166">XHDCP22_RX_STATE_UNDEFINED</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425ac131e0cdf3c07a7e91f86a57643fe695" compoundref="xhdcp22__rx_8h" startline="193">XHDCP22_RX_UNAUTHENTICATED</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga47b59a5f9c314a6accc90e836f198730" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1041,15 +1041,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="659" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="659" bodyend="677"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="659" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="659" bodyend="677"/>
         <references refid="struct_x_hdcp22___rx___info_1afff16614392c71e52688e06bf3d67d3b" compoundref="xhdcp22__rx_8h" startline="474">XHdcp22_Rx_Info::AuthenticationStatus</references>
         <references refid="struct_x_hdcp22___rx___info_1a8438f99807ac19486e7ea4d27ba9bd49" compoundref="xhdcp22__rx_8h" startline="467">XHdcp22_Rx_Info::CurrentState</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___info_1acfd97a64a01152bcfca811b014f29ec9" compoundref="xhdcp22__rx_8h" startline="441">XHdcp22_Rx_Info::IsEnabled</references>
         <references refid="struct_x_hdcp22___rx___info_1aa9ed9a28ac7d542d6ea7c89c7fddd29b" compoundref="xhdcp22__rx_8h" startline="469">XHdcp22_Rx_Info::NextState</references>
-        <references refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" compoundref="xhdcp22__rx_8h" startline="588">XHdcp22_Rx::StateFunc</references>
+        <references refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" compoundref="xhdcp22__rx_8h" startline="572">XHdcp22_Rx::StateFunc</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fa064b505c4eda4feb919beacac6fa8b25" compoundref="xhdcp22__rx_8h" startline="205">XHDCP22_RX_LOG_EVT_INFO_STATE</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga59d922ad6c0dcdabc012fd4fbe4e84e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1128,7 +1128,7 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="491" bodyend="647"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="491" bodyend="647"/>
         <references refid="struct_x_hdcp22___rx___handles_1a2a7d23c71b02818542947ce1eb170eca" compoundref="xhdcp22__rx_8h" startline="345">XHdcp22_Rx_Handles::AuthenticatedCallback</references>
         <references refid="struct_x_hdcp22___rx___handles_1abd5aaa72937ede3630ff171e8fd94be8" compoundref="xhdcp22__rx_8h" startline="347">XHdcp22_Rx_Handles::AuthenticatedCallbackRef</references>
         <references refid="struct_x_hdcp22___rx___handles_1aeef75ad71da63f63d7d3ef53a7998c4d" compoundref="xhdcp22__rx_8h" startline="359">XHdcp22_Rx_Handles::AuthenticationRequestCallback</references>
@@ -1153,7 +1153,7 @@ HandlerType                                           Callback Function Type
         <references refid="struct_x_hdcp22___rx___handles_1a4287197393d8dcba8a49a7b6562817f7" compoundref="xhdcp22__rx_8h" startline="281">XHdcp22_Rx_Handles::DdcSetDataCallbackRef</references>
         <references refid="struct_x_hdcp22___rx___handles_1a851656229d7b170e9a3df79995bf3731" compoundref="xhdcp22__rx_8h" startline="380">XHdcp22_Rx_Handles::EncryptionStatusCallback</references>
         <references refid="struct_x_hdcp22___rx___handles_1ab51eaee09c6de6fa7fffd0a33e3bcdd5" compoundref="xhdcp22__rx_8h" startline="382">XHdcp22_Rx_Handles::EncryptionStatusCallbackRef</references>
-        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Handles</references>
+        <references refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" compoundref="xhdcp22__rx_8h" startline="574">XHdcp22_Rx::Handles</references>
         <references refid="struct_x_hdcp22___rx___handles_1a3cdf28a1e1ed6f0b46d2054f0313ffb8" compoundref="xhdcp22__rx_8h" startline="349">XHdcp22_Rx_Handles::IsAuthenticatedCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___handles_1aee30685ff06ba386b590fe6235d305bd" compoundref="xhdcp22__rx_8h" startline="363">XHdcp22_Rx_Handles::IsAuthenticationRequestCallbackSet</references>
         <references refid="struct_x_hdcp22___rx___handles_1ab265a5ca89f90460ad9d1b52df828f52" compoundref="xhdcp22__rx_8h" startline="342">XHdcp22_Rx_Handles::IsDdcAllCallbacksSet</references>
@@ -1219,8 +1219,8 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1006" bodyend="1012"/>
-        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="600">XHdcp22_Rx::CipherInst</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1006" bodyend="1012"/>
+        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::CipherInst</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga4c771ca262727b4fc5d386664d375242" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XTmrCtr *</type>
@@ -1247,8 +1247,8 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1025" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1025" bodyend="1031"/>
-        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="596">XHdcp22_Rx::TimerInst</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1025" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1025" bodyend="1031"/>
+        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="580">XHdcp22_Rx::TimerInst</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga33dbc9cd56835bce1cd99e9153747d1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1269,7 +1269,7 @@ HandlerType                                           Callback Function Type
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="438" bodyend="450"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="438" bodyend="450"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga845a0efbeae098a01b0cfc9b2c5189cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1296,10 +1296,10 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="689" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="689" bodyend="695"/>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="689" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="689" bodyend="695"/>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___info_1acfd97a64a01152bcfca811b014f29ec9" compoundref="xhdcp22__rx_8h" startline="441">XHdcp22_Rx_Info::IsEnabled</references>
-        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4154" endline="4211">XHdcp22Rx_Info</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga695b18c297a4df65500ddf992a43229c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1326,9 +1326,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="707" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="707" bodyend="717"/>
-        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="600">XHdcp22_Rx::CipherInst</references>
-        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="707" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="707" bodyend="717"/>
+        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::CipherInst</references>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4154" endline="4211">XHdcp22Rx_Info</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga7fffa97fa9a5708e57358850a2dc0cb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -1355,9 +1355,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="730" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="730" bodyend="736"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="730" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="730" bodyend="736"/>
         <references refid="struct_x_hdcp22___rx___info_1afff16614392c71e52688e06bf3d67d3b" compoundref="xhdcp22__rx_8h" startline="474">XHdcp22_Rx_Info::AuthenticationStatus</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425a4a0a8d8993710fa55db810940367a8a3" compoundref="xhdcp22__rx_8h" startline="194">XHDCP22_RX_AUTHENTICATION_BUSY</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gae1f928aca11e913b06c89b8a6851700d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1385,9 +1385,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="749" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="749" bodyend="754"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="749" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="749" bodyend="754"/>
         <references refid="struct_x_hdcp22___rx___info_1afff16614392c71e52688e06bf3d67d3b" compoundref="xhdcp22__rx_8h" startline="474">XHdcp22_Rx_Info::AuthenticationStatus</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425af23257b80aee6962d699714591173a47" compoundref="xhdcp22__rx_8h" startline="195">XHDCP22_RX_AUTHENTICATED</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga5e59aa8f06dbe42e9a87cfe09e29909a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1415,9 +1415,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="767" bodyend="772"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="767" bodyend="772"/>
         <references refid="struct_x_hdcp22___rx___info_1a462f7d1b51f98c705c94742425e1c97d" compoundref="xhdcp22__rx_8h" startline="453">XHdcp22_Rx_Info::ErrorFlagSticky</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="group__hdcp22__rx_1ggadb0975887f2f021d7b188c894212b8eea6b8f0770aa6243310e3b134c4c30f994" compoundref="xhdcp22__rx__i_8h" startline="113">XHDCP22_RX_ERROR_FLAG_NONE</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1444,7 +1444,7 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="4151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="4151" bodyend="4208"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="4154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="4154" bodyend="4211"/>
         <references refid="struct_x_hdcp22___rx___info_1afff16614392c71e52688e06bf3d67d3b" compoundref="xhdcp22__rx_8h" startline="474">XHdcp22_Rx_Info::AuthenticationStatus</references>
         <references refid="struct_x_hdcp22___rx___info_1aec4422d11655700d0d5e7731b0ed4b92" compoundref="xhdcp22__rx_8h" startline="484">XHdcp22_Rx_Info::AuthRequestCnt</references>
         <references refid="struct_x_hdcp22___rx___info_1a0bf300b403efbe00baea7e4bc5a06d5b" compoundref="xhdcp22__rx_8h" startline="490">XHdcp22_Rx_Info::DdcErrorCnt</references>
@@ -1452,12 +1452,12 @@ HandlerType                                           Callback Function Type
         <references refid="struct_x_hdcp22___rx___topology_1a80642d0d3b59b8c6ce5b78a45f6294c6" compoundref="xhdcp22__rx_8h" startline="509">XHdcp22_Rx_Topology::DeviceCnt</references>
         <references refid="struct_x_hdcp22___rx___topology_1afc3f7dd753363cfe23a0635e27cbaf6a" compoundref="xhdcp22__rx_8h" startline="521">XHdcp22_Rx_Topology::Hdcp1DeviceDownstream</references>
         <references refid="struct_x_hdcp22___rx___topology_1a026059e678ab61f84387822e9a46444d" compoundref="xhdcp22__rx_8h" startline="518">XHdcp22_Rx_Topology::Hdcp2LegacyDeviceDownstream</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___info_1a6404954b9219c06251b161c26dbe313e" compoundref="xhdcp22__rx_8h" startline="488">XHdcp22_Rx_Info::LinkErrorCnt</references>
         <references refid="struct_x_hdcp22___rx___topology_1a3eb444c758c2fcd1cad1694ef4f2f9b3" compoundref="xhdcp22__rx_8h" startline="515">XHdcp22_Rx_Topology::MaxCascadeExceeded</references>
         <references refid="struct_x_hdcp22___rx___topology_1a1bed9f99b22ff9eb398ee87b4fcde0a0" compoundref="xhdcp22__rx_8h" startline="512">XHdcp22_Rx_Topology::MaxDevsExceeded</references>
         <references refid="struct_x_hdcp22___rx___info_1acbaa7ff43bc773da54ed2a07c9cef0e9" compoundref="xhdcp22__rx_8h" startline="486">XHdcp22_Rx_Info::ReauthRequestCnt</references>
-        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="606">XHdcp22_Rx::Topology</references>
+        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Topology</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425af23257b80aee6962d699714591173a47" compoundref="xhdcp22__rx_8h" startline="195">XHDCP22_RX_AUTHENTICATED</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425a4a0a8d8993710fa55db810940367a8a3" compoundref="xhdcp22__rx_8h" startline="194">XHDCP22_RX_AUTHENTICATION_BUSY</references>
         <references refid="group__hdcp22__rx_1gga85e5e0afd89eb4bb06e1e90e66185425a618835be5fed51b31cff37ca0a1fccf8" compoundref="xhdcp22__rx_8h" startline="196">XHDCP22_RX_REAUTHENTICATE_REQUESTED</references>
@@ -1491,13 +1491,13 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="832" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="832" bodyend="845"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="832" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="832" bodyend="845"/>
         <references refid="struct_x_hdcp22___rx___info_1a92a1021c79ed70cf316e23cbe5c9c712" compoundref="xhdcp22__rx_8h" startline="451">XHdcp22_Rx_Info::ErrorFlag</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___info_1a6404954b9219c06251b161c26dbe313e" compoundref="xhdcp22__rx_8h" startline="488">XHdcp22_Rx_Info::LinkErrorCnt</references>
         <references refid="group__hdcp22__rx_1ggadb0975887f2f021d7b188c894212b8eea96f097b1ae8f34dda2010da79a2a979b" compoundref="xhdcp22__rx__i_8h" startline="123">XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3faf3a15bfa7dcb73966068660cadc3c461" compoundref="xhdcp22__rx_8h" startline="208">XHDCP22_RX_LOG_EVT_ERROR</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga69bb699d6fcee2a6cdab30ac68bed43f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1523,13 +1523,13 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="857" bodyend="870"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="857" bodyend="870"/>
         <references refid="struct_x_hdcp22___rx___info_1a0bf300b403efbe00baea7e4bc5a06d5b" compoundref="xhdcp22__rx_8h" startline="490">XHdcp22_Rx_Info::DdcErrorCnt</references>
         <references refid="struct_x_hdcp22___rx___info_1a92a1021c79ed70cf316e23cbe5c9c712" compoundref="xhdcp22__rx_8h" startline="451">XHdcp22_Rx_Info::ErrorFlag</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="group__hdcp22__rx_1ggadb0975887f2f021d7b188c894212b8eea7e203990b9d6056ffeb85d783b61a4b1" compoundref="xhdcp22__rx__i_8h" startline="124">XHDCP22_RX_ERROR_FLAG_DDC_BURST</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3faf3a15bfa7dcb73966068660cadc3c461" compoundref="xhdcp22__rx_8h" startline="208">XHDCP22_RX_LOG_EVT_ERROR</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga16533ea5fe36fc0934a175129391e292" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1555,13 +1555,13 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="881" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="881" bodyend="891"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="881" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="881" bodyend="891"/>
         <references refid="struct_x_hdcp22___rx___info_1abfba70f67d6db1b256b052c7f00c00c0" compoundref="xhdcp22__rx_8h" startline="455">XHdcp22_Rx_Info::DdcFlag</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="group__hdcp22__rx_1gga88fdbb6bdbb5cdaaeaacfce34503aaf2a574e91aaf59061fb4d9abc4c777c93a4" compoundref="xhdcp22__rx__i_8h" startline="138">XHDCP22_RX_DDC_FLAG_WRITE_MESSAGE_READY</references>
         <references refid="group__hdcp22__rx_1gga20928bc2281a6f5afe57681e9e3719f1a14b709722c714628e02d0a83da87b1c0" compoundref="xhdcp22__rx__i_8h" startline="153">XHDCP22_RX_LOG_DEBUG_WRITE_MESSAGE_AVAILABLE</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fa521a1a139db8aab12c0461669f171bf9" compoundref="xhdcp22__rx_8h" startline="207">XHDCP22_RX_LOG_EVT_DEBUG</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga0b25a42ec4e1d41af401561bddd241ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1587,13 +1587,13 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="903" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="903" bodyend="913"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="903" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="903" bodyend="913"/>
         <references refid="struct_x_hdcp22___rx___info_1abfba70f67d6db1b256b052c7f00c00c0" compoundref="xhdcp22__rx_8h" startline="455">XHdcp22_Rx_Info::DdcFlag</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="group__hdcp22__rx_1gga88fdbb6bdbb5cdaaeaacfce34503aaf2a6890282e04d34f00bab7fb71417b69d5" compoundref="xhdcp22__rx__i_8h" startline="139">XHDCP22_RX_DDC_FLAG_READ_MESSAGE_READY</references>
         <references refid="group__hdcp22__rx_1gga20928bc2281a6f5afe57681e9e3719f1a3d9c976665634becfbaeadd64c7a8b9f" compoundref="xhdcp22__rx__i_8h" startline="154">XHDCP22_RX_LOG_DEBUG_READ_MESSAGE_COMPLETE</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fa521a1a139db8aab12c0461669f171bf9" compoundref="xhdcp22__rx_8h" startline="207">XHDCP22_RX_LOG_EVT_DEBUG</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gabdf3cbadaad0ee90840269c2bc9de45f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1630,8 +1630,8 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="926" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="926" bodyend="933"/>
-        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="600">XHdcp22_Rx::CipherInst</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="926" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="926" bodyend="933"/>
+        <references refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::CipherInst</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gab7ebf254e69d22037e200597bb01af32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1668,8 +1668,8 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="945" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="945" bodyend="952"/>
-        <references refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" compoundref="xhdcp22__rx_8h" startline="576">XHdcp22_Rx::PublicCertPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="945" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="945" bodyend="952"/>
+        <references refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" compoundref="xhdcp22__rx_8h" startline="560">XHdcp22_Rx::PublicCertPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gae2759209a6313a7f1b1322ef9d0efab3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1709,11 +1709,11 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="966" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="966" bodyend="994"/>
-        <references refid="struct_x_hdcp22___rx_1a5b046cfb332861e0da12046aa434e8b1" compoundref="xhdcp22__rx_8h" startline="580">XHdcp22_Rx::NPrimeP</references>
-        <references refid="struct_x_hdcp22___rx_1a8600812a81daf1433f2837c16ff59f28" compoundref="xhdcp22__rx_8h" startline="582">XHdcp22_Rx::NPrimeQ</references>
-        <references refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" compoundref="xhdcp22__rx_8h" startline="578">XHdcp22_Rx::PrivateKeyPtr</references>
-        <references refid="group__hdcp22__rx_1ga2a4b131d960ce7477390623dcb500c22" compoundref="xhdcp22__rx__crypt_8c" startline="97" endline="158">XHdcp22Rx_CalcMontNPrime</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="966" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="966" bodyend="994"/>
+        <references refid="struct_x_hdcp22___rx_1a5b046cfb332861e0da12046aa434e8b1" compoundref="xhdcp22__rx_8h" startline="564">XHdcp22_Rx::NPrimeP</references>
+        <references refid="struct_x_hdcp22___rx_1a8600812a81daf1433f2837c16ff59f28" compoundref="xhdcp22__rx_8h" startline="566">XHdcp22_Rx::NPrimeQ</references>
+        <references refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" compoundref="xhdcp22__rx_8h" startline="562">XHdcp22_Rx::PrivateKeyPtr</references>
+        <references refid="group__hdcp22__rx_1ga2a4b131d960ce7477390623dcb500c22" compoundref="xhdcp22__rx__crypt_8c" startline="98" endline="159">XHdcp22Rx_CalcMontNPrime</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1750,11 +1750,11 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3759" bodyend="3774"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3762" bodyend="3777"/>
         <references refid="struct_x_hdcp22___rx___log_1acee0d63924647d199b0b7fc9bf648282" compoundref="xhdcp22__rx_8h" startline="430">XHdcp22_Rx_Log::Head</references>
-        <references refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" compoundref="xhdcp22__rx_8h" startline="592">XHdcp22_Rx::Log</references>
+        <references refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" compoundref="xhdcp22__rx_8h" startline="576">XHdcp22_Rx::Log</references>
         <references refid="struct_x_hdcp22___rx___log_1ad90d7e6f5b2310b3ed67ebd44328d3f0" compoundref="xhdcp22__rx_8h" startline="428">XHdcp22_Rx_Log::Tail</references>
-        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="596">XHdcp22_Rx::TimerInst</references>
+        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="580">XHdcp22_Rx::TimerInst</references>
         <references refid="struct_x_hdcp22___rx___log_1a79858eb19f8c3f04b6f1b5a4f85a1f99" compoundref="xhdcp22__rx_8h" startline="432">XHdcp22_Rx_Log::Verbose</references>
         <referencedby refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" compoundref="xhdcp22__rx_8c" startline="151" endline="280">XHdcp22Rx_CfgInitialize</referencedby>
       </memberdef>
@@ -1783,9 +1783,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3787" bodyend="3794"/>
-        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="596">XHdcp22_Rx::TimerInst</references>
-        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3790" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3790" bodyend="3797"/>
+        <references refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" compoundref="xhdcp22__rx_8h" startline="580">XHdcp22_Rx::TimerInst</references>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1833,12 +1833,12 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3811" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3811" bodyend="3856"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3814" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3814" bodyend="3859"/>
         <references refid="struct_x_hdcp22___rx___log_item_1a1492f7bd3d1f2c4c947b5c27b2bb57bc" compoundref="xhdcp22__rx_8h" startline="416">XHdcp22_Rx_LogItem::Data</references>
         <references refid="struct_x_hdcp22___rx___info_1a462f7d1b51f98c705c94742425e1c97d" compoundref="xhdcp22__rx_8h" startline="453">XHdcp22_Rx_Info::ErrorFlagSticky</references>
         <references refid="struct_x_hdcp22___rx___log_1acee0d63924647d199b0b7fc9bf648282" compoundref="xhdcp22__rx_8h" startline="430">XHdcp22_Rx_Log::Head</references>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
-        <references refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" compoundref="xhdcp22__rx_8h" startline="592">XHdcp22_Rx::Log</references>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
+        <references refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" compoundref="xhdcp22__rx_8h" startline="576">XHdcp22_Rx::Log</references>
         <references refid="struct_x_hdcp22___rx___log_item_1a6230272315956444704ab7ebf254f95d" compoundref="xhdcp22__rx_8h" startline="414">XHdcp22_Rx_LogItem::LogEvent</references>
         <references refid="struct_x_hdcp22___rx___log_1a248f531e896d0b18d32e780106e67d5f" compoundref="xhdcp22__rx_8h" startline="426">XHdcp22_Rx_Log::LogItems</references>
         <references refid="struct_x_hdcp22___rx___log_1ad90d7e6f5b2310b3ed67ebd44328d3f0" compoundref="xhdcp22__rx_8h" startline="428">XHdcp22_Rx_Log::Tail</references>
@@ -1849,12 +1849,12 @@ HandlerType                                           Callback Function Type
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3faf3a15bfa7dcb73966068660cadc3c461" compoundref="xhdcp22__rx_8h" startline="208">XHDCP22_RX_LOG_EVT_ERROR</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fadd679e305e537d73e4ae8cc51fe6b7a8" compoundref="xhdcp22__rx_8h" startline="206">XHDCP22_RX_LOG_EVT_INFO_MESSAGE</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fae67f1d0ce9e178b1049ed028e23424a8" compoundref="xhdcp22__rx_8h" startline="210">XHDCP22_RX_LOG_EVT_INVALID</references>
-        <references refid="group__hdcp22__rx_1gac3e7aaaef0878575fc2a6eef6494e7f5" compoundref="xhdcp22__rx_8c" startline="3787" endline="3794">XHdcp22Rx_LogGetTimeUSecs</references>
+        <references refid="group__hdcp22__rx_1gac3e7aaaef0878575fc2a6eef6494e7f5" compoundref="xhdcp22__rx_8c" startline="3790" endline="3797">XHdcp22Rx_LogGetTimeUSecs</references>
         <referencedby refid="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" compoundref="xhdcp22__rx_8c" startline="416" endline="436">XHdcp22Rx_Disable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" compoundref="xhdcp22__rx_8c" startline="372" endline="399">XHdcp22Rx_Enable</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga47b59a5f9c314a6accc90e836f198730" compoundref="xhdcp22__rx_8c" startline="659" endline="677">XHdcp22Rx_Poll</referencedby>
         <referencedby refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" compoundref="xhdcp22__rx_8c" startline="296" endline="357">XHdcp22Rx_Reset</referencedby>
-        <referencedby refid="group__hdcp22__rx_1ga736d136f515b397e659377757763aed2" compoundref="xhdcp22__rx__crypt_8c" startline="231" endline="262">XHdcp22Rx_RsaesOaepDecrypt</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga4207ff002000408dc3355e1d2f28c654" compoundref="xhdcp22__rx__crypt_8c" startline="233" endline="264">XHdcp22Rx_RsaesOaepDecrypt</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga69bb699d6fcee2a6cdab30ac68bed43f" compoundref="xhdcp22__rx_8c" startline="857" endline="870">XHdcp22Rx_SetDdcError</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga09d8a888ad25296342426ea4df4ba7e7" compoundref="xhdcp22__rx_8c" startline="832" endline="845">XHdcp22Rx_SetLinkError</referencedby>
         <referencedby refid="group__hdcp22__rx_1ga0b25a42ec4e1d41af401561bddd241ea" compoundref="xhdcp22__rx_8c" startline="903" endline="913">XHdcp22Rx_SetReadMessageComplete</referencedby>
@@ -1888,16 +1888,16 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3871" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3871" bodyend="3902"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3874" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3874" bodyend="3905"/>
         <references refid="struct_x_hdcp22___rx___log_item_1a1492f7bd3d1f2c4c947b5c27b2bb57bc" compoundref="xhdcp22__rx_8h" startline="416">XHdcp22_Rx_LogItem::Data</references>
         <references refid="struct_x_hdcp22___rx___log_1acee0d63924647d199b0b7fc9bf648282" compoundref="xhdcp22__rx_8h" startline="430">XHdcp22_Rx_Log::Head</references>
-        <references refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" compoundref="xhdcp22__rx_8h" startline="592">XHdcp22_Rx::Log</references>
+        <references refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" compoundref="xhdcp22__rx_8h" startline="576">XHdcp22_Rx::Log</references>
         <references refid="struct_x_hdcp22___rx___log_item_1a6230272315956444704ab7ebf254f95d" compoundref="xhdcp22__rx_8h" startline="414">XHdcp22_Rx_LogItem::LogEvent</references>
         <references refid="struct_x_hdcp22___rx___log_1a248f531e896d0b18d32e780106e67d5f" compoundref="xhdcp22__rx_8h" startline="426">XHdcp22_Rx_Log::LogItems</references>
         <references refid="struct_x_hdcp22___rx___log_1ad90d7e6f5b2310b3ed67ebd44328d3f0" compoundref="xhdcp22__rx_8h" startline="428">XHdcp22_Rx_Log::Tail</references>
         <references refid="struct_x_hdcp22___rx___log_item_1a5320117d6828349f498ff009492237f7" compoundref="xhdcp22__rx_8h" startline="418">XHdcp22_Rx_LogItem::TimeStamp</references>
         <references refid="group__hdcp22__rx_1gae7897244831cd89c8a58cbddd8f27ec9" compoundref="xhdcp22__rx_8h" startline="102">XHDCP22_RX_LOG_BUFFER_SIZE</references>
-        <referencedby refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" compoundref="xhdcp22__rx_8c" startline="3914" endline="4139">XHdcp22Rx_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" compoundref="xhdcp22__rx_8c" startline="3917" endline="4142">XHdcp22Rx_LogDisplay</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1923,7 +1923,7 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3914" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3914" bodyend="4139"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="3917" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="3917" bodyend="4142"/>
         <references refid="struct_x_hdcp22___rx___log_item_1a1492f7bd3d1f2c4c947b5c27b2bb57bc" compoundref="xhdcp22__rx_8h" startline="416">XHdcp22_Rx_LogItem::Data</references>
         <references refid="struct_x_hdcp22___rx___log_item_1a6230272315956444704ab7ebf254f95d" compoundref="xhdcp22__rx_8h" startline="414">XHdcp22_Rx_LogItem::LogEvent</references>
         <references refid="struct_x_hdcp22___rx___log_item_1a5320117d6828349f498ff009492237f7" compoundref="xhdcp22__rx_8h" startline="418">XHdcp22_Rx_LogItem::TimeStamp</references>
@@ -2004,7 +2004,7 @@ HandlerType                                           Callback Function Type
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0abc92071e92c05a409dcf58fb36ab5eca" compoundref="xhdcp22__rx_8h" startline="183">XHDCP22_RX_STATE_C7_SEND_STREAM_READY_DONE</references>
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0ad2d7cddc1e16558a90fc664a74a9ddad" compoundref="xhdcp22__rx_8h" startline="181">XHDCP22_RX_STATE_C7_WAIT_STREAM_MANAGEMENT</references>
         <references refid="group__hdcp22__rx_1ggaefd71c02fc784052667cdfcd19e1adb0a3da5bb5703ac6d19a91f14cb21441d4f" compoundref="xhdcp22__rx_8h" startline="184">XHDCP22_RX_STATE_C8_AUTHENTICATED</references>
-        <references refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3871" endline="3902">XHdcp22Rx_LogRd</references>
+        <references refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3874" endline="3905">XHdcp22Rx_LogRd</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga9a737bfe1572fc283f1a2613b978bbae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2041,8 +2041,8 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1044" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1044" bodyend="1051"/>
-        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="606">XHdcp22_Rx::Topology</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1044" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1044" bodyend="1051"/>
+        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Topology</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga7df1401bd1badc409de8f2bd17ffb7e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2090,9 +2090,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1069" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1069" bodyend="1077"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1069" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1069" bodyend="1077"/>
         <references refid="struct_x_hdcp22___rx___topology_1a2c823e37751cbbcb87fa83859e9a7919" compoundref="xhdcp22__rx_8h" startline="502">XHdcp22_Rx_Topology::ReceiverIdList</references>
-        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="606">XHdcp22_Rx::Topology</references>
+        <references refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" compoundref="xhdcp22__rx_8h" startline="590">XHdcp22_Rx::Topology</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga5d54c1d30d5b2fdb5013e8303f89f86d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2140,7 +2140,7 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1089" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1089" bodyend="1118"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1089" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1089" bodyend="1118"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1gabf8ede6226b5618c883b72fa0299d584" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2166,12 +2166,12 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1131" bodyend="1139"/>
-        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="584">XHdcp22_Rx::Info</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1131" bodyend="1139"/>
+        <references refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" compoundref="xhdcp22__rx_8h" startline="568">XHdcp22_Rx::Info</references>
         <references refid="struct_x_hdcp22___rx___info_1acf84ba482867410e19dda97320d1f13e" compoundref="xhdcp22__rx_8h" startline="480">XHdcp22_Rx_Info::IsTopologyValid</references>
         <references refid="group__hdcp22__rx_1ggafbb78d3e181bcf8c0a9b124805e9ab3fa7adf0d3df8ff779be6326f13fb88d904" compoundref="xhdcp22__rx_8h" startline="204">XHDCP22_RX_LOG_EVT_INFO</references>
         <references refid="group__hdcp22__rx_1gga20928bc2281a6f5afe57681e9e3719f1a30b858dedfcfa05ec4388a31c66956af" compoundref="xhdcp22__rx__i_8h" startline="152">XHDCP22_RX_LOG_INFO_TOPOLOGY_UPDATE</references>
-        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</references>
+        <references refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3814" endline="3859">XHdcp22Rx_LogWr</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga6fd9509e111de6a53919411b347ca731" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2207,10 +2207,10 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="803" bodyend="817"/>
-        <references refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" compoundref="xhdcp22__rx_8h" startline="570">XHdcp22_Rx::Config</references>
-        <references refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" compoundref="xhdcp22__rx_8h" startline="540">XHdcp22_Rx_Config::Mode</references>
-        <references refid="struct_x_hdcp22___rx_1af57a2d6df695715d084a044b16bc7d27" compoundref="xhdcp22__rx_8h" startline="574">XHdcp22_Rx::RxCaps</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="803" bodyend="817"/>
+        <references refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" compoundref="xhdcp22__rx_8h" startline="554">XHdcp22_Rx::Config</references>
+        <references refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" compoundref="xhdcp22__rx_8h" startline="535">XHdcp22_Rx_Config::Mode</references>
+        <references refid="struct_x_hdcp22___rx_1af57a2d6df695715d084a044b16bc7d27" compoundref="xhdcp22__rx_8h" startline="558">XHdcp22_Rx::RxCaps</references>
         <references refid="group__hdcp22__rx_1gga7adfc5f7001d38972bad9a8f458d049dad5cfd1b19e71012681aabfbdaa88a243" compoundref="xhdcp22__rx_8h" startline="132">XHDCP22_RX_RECEIVER</references>
         <references refid="group__hdcp22__rx_1gga7adfc5f7001d38972bad9a8f458d049daa2fa64ddb827cc982a881d05675f6944" compoundref="xhdcp22__rx_8h" startline="133">XHDCP22_RX_REPEATER</references>
       </memberdef>
@@ -2240,11 +2240,11 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="786" bodyend="791"/>
-        <references refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" compoundref="xhdcp22__rx_8h" startline="570">XHdcp22_Rx::Config</references>
-        <references refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" compoundref="xhdcp22__rx_8h" startline="540">XHdcp22_Rx_Config::Mode</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="786" bodyend="791"/>
+        <references refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" compoundref="xhdcp22__rx_8h" startline="554">XHdcp22_Rx::Config</references>
+        <references refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" compoundref="xhdcp22__rx_8h" startline="535">XHdcp22_Rx_Config::Mode</references>
         <references refid="group__hdcp22__rx_1gga7adfc5f7001d38972bad9a8f458d049dad5cfd1b19e71012681aabfbdaa88a243" compoundref="xhdcp22__rx_8h" startline="132">XHDCP22_RX_RECEIVER</references>
-        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4154" endline="4211">XHdcp22Rx_Info</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__rx_1ga9b436a3c2e25f9fbb87affb3d3659f45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -2273,9 +2273,9 @@ HandlerType                                           Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1163" bodyend="1169"/>
-        <references refid="struct_x_hdcp22___rx_1adb6cf97b031bd727eaaa07747ac5e5ca" compoundref="xhdcp22__rx_8h" startline="586">XHdcp22_Rx::Params</references>
-        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4151" endline="4208">XHdcp22Rx_Info</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" line="1163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.c" bodystart="1163" bodyend="1169"/>
+        <references refid="struct_x_hdcp22___rx_1adb6cf97b031bd727eaaa07747ac5e5ca" compoundref="xhdcp22__rx_8h" startline="570">XHdcp22_Rx::Params</references>
+        <referencedby refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" compoundref="xhdcp22__rx_8c" startline="4154" endline="4211">XHdcp22Rx_Info</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2583,121 +2583,103 @@ HandlerType                                           Callback Function Type
 <codeline lineno="523"><highlight class="normal"></highlight></codeline>
 <codeline lineno="527" refid="struct_x_hdcp22___rx___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="528"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="529"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="530"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;</highlight></codeline>
-<codeline lineno="532"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="533"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="534"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="535"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="536" refid="struct_x_hdcp22___rx___config_1a4bef4d06185735a9af42916382b45e86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_hdcp22___rx___config_1a4bef4d06185735a9af42916382b45e86" kindref="member">BaseAddress</ref>;</highlight></codeline>
-<codeline lineno="538" refid="struct_x_hdcp22___rx___config_1a6a1c3017c4db06e8b8a4ae2b72044500" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx___config_1a6a1c3017c4db06e8b8a4ae2b72044500" kindref="member">Protocol</ref>;</highlight></codeline>
-<codeline lineno="540" refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" kindref="member">Mode</ref>;</highlight></codeline>
-<codeline lineno="541"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="542"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerDeviceId;</highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CipherDeviceId;</highlight></codeline>
-<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MontMultDeviceId;</highlight></codeline>
-<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RngDeviceId;</highlight></codeline>
-<codeline lineno="550"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="551"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerDeviceAddress;</highlight></codeline>
-<codeline lineno="553" refid="struct_x_hdcp22___rx___config_1a7a4e95203bb68c8a8089b7277538c7e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx___config_1a7a4e95203bb68c8a8089b7277538c7e4" kindref="member">CipherDeviceAddress</ref>;</highlight></codeline>
-<codeline lineno="555" refid="struct_x_hdcp22___rx___config_1ac512fcd9cbfd42b4f8dd3c9df112fd4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx___config_1ac512fcd9cbfd42b4f8dd3c9df112fd4f" kindref="member">MontMultDeviceAddress</ref>;</highlight></codeline>
-<codeline lineno="557" refid="struct_x_hdcp22___rx___config_1aecb7ae6f5a296c39eb8fc53a5b6b1a90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx___config_1aecb7ae6f5a296c39eb8fc53a5b6b1a90" kindref="member">RngDeviceAddress</ref>;</highlight></codeline>
-<codeline lineno="558"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="559"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref>;</highlight></codeline>
-<codeline lineno="560"><highlight class="normal"></highlight></codeline>
-<codeline lineno="567" refid="struct_x_hdcp22___rx" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="568"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="570" refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/><ref refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" kindref="member">Config</ref>;</highlight></codeline>
-<codeline lineno="572" refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" kindref="member">IsReady</ref>;</highlight></codeline>
-<codeline lineno="574" refid="struct_x_hdcp22___rx_1af57a2d6df695715d084a044b16bc7d27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RxCaps[3];</highlight></codeline>
-<codeline lineno="576" refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<ref refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" kindref="member">PublicCertPtr</ref>;</highlight></codeline>
-<codeline lineno="578" refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<ref refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" kindref="member">PrivateKeyPtr</ref>;</highlight></codeline>
-<codeline lineno="580" refid="struct_x_hdcp22___rx_1a5b046cfb332861e0da12046aa434e8b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NPrimeP[64];</highlight></codeline>
-<codeline lineno="582" refid="struct_x_hdcp22___rx_1a8600812a81daf1433f2837c16ff59f28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NPrimeQ[64];</highlight></codeline>
-<codeline lineno="584" refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___info" kindref="compound">XHdcp22_Rx_Info</ref><sp/><ref refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" kindref="member">Info</ref>;</highlight></codeline>
-<codeline lineno="586" refid="struct_x_hdcp22___rx_1adb6cf97b031bd727eaaa07747ac5e5ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___parameters" kindref="compound">XHdcp22_Rx_Parameters</ref><sp/><ref refid="struct_x_hdcp22___rx_1adb6cf97b031bd727eaaa07747ac5e5ca" kindref="member">Params</ref>;</highlight></codeline>
-<codeline lineno="588" refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga75724060bdc497e3e265906d661377fe" kindref="member">XHdcp22_Rx_StateFunc</ref><sp/><ref refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" kindref="member">StateFunc</ref>;</highlight></codeline>
-<codeline lineno="590" refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___handles" kindref="compound">XHdcp22_Rx_Handles</ref><sp/><ref refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" kindref="member">Handles</ref>;</highlight></codeline>
-<codeline lineno="592" refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___log" kindref="compound">XHdcp22_Rx_Log</ref><sp/><ref refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" kindref="member">Log</ref>;</highlight></codeline>
-<codeline lineno="594" refid="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult<sp/><ref refid="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" kindref="member">MmultInst</ref>;</highlight></codeline>
-<codeline lineno="596" refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/><ref refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" kindref="member">TimerInst</ref>;</highlight></codeline>
-<codeline lineno="598" refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_Rng<sp/><ref refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" kindref="member">RngInst</ref>;</highlight></codeline>
-<codeline lineno="600" refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_Cipher<sp/><ref refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" kindref="member">CipherInst</ref>;</highlight></codeline>
-<codeline lineno="602" refid="struct_x_hdcp22___rx_1a0cfbcd03119550596009d58a94df3f01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MessageBuffer[<ref refid="group__hdcp22__rx_1gace98a4d8a21f9826226e6a4849420b5a" kindref="member">XHDCP22_RX_MAX_MESSAGE_SIZE</ref>];</highlight></codeline>
-<codeline lineno="604" refid="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" kindref="member">MessageSize</ref>;</highlight></codeline>
-<codeline lineno="606" refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___topology" kindref="compound">XHdcp22_Rx_Topology</ref><sp/><ref refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" kindref="member">Topology</ref>;</highlight></codeline>
-<codeline lineno="607"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_XHDCP22_RX_TEST_</highlight></codeline>
-<codeline lineno="608"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___test" kindref="compound">XHdcp22_Rx_Test</ref><sp/>Test;</highlight></codeline>
-<codeline lineno="610"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="611"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hdcp22Broadcast;</highlight></codeline>
-<codeline lineno="612"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref>;</highlight></codeline>
-<codeline lineno="613"><highlight class="normal"></highlight></codeline>
-<codeline lineno="614"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="615"><highlight class="normal"></highlight></codeline>
-<codeline lineno="616"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="617"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="618"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>initializing<sp/>and<sp/>running<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="619"><highlight class="normal"><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/>*<ref refid="group__hdcp22__rx_1ga419216fe5a07c13b40909a00116d1296" kindref="member">XHdcp22Rx_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="620"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="621"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/>*<ref refid="group__hdcp22__rx_1ga419216fe5a07c13b40909a00116d1296" kindref="member">XHdcp22Rx_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="622"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="623"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" kindref="member">XHdcp22Rx_CfgInitialize</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
-<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="625"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" kindref="member">XHdcp22Rx_Enable</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="626"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" kindref="member">XHdcp22Rx_Disable</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="627"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" kindref="member">XHdcp22Rx_Reset</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="628"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga47b59a5f9c314a6accc90e836f198730" kindref="member">XHdcp22Rx_Poll</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="629"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga59d922ad6c0dcdabc012fd4fbe4e84e0" kindref="member">XHdcp22Rx_SetCallback</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga572e4ca00cc3b96e7c0e12f7f0f7f608" kindref="member">XHdcp22_Rx_HandlerType</ref><sp/>HandlerType,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="631"><highlight class="normal">u32<sp/><sp/><ref refid="group__hdcp22__rx_1ga25378c2077d187a76c06a8408411535e" kindref="member">XHdcp22Rx_GetVersion</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="632"><highlight class="normal">XTmrCtr*<sp/><ref refid="group__hdcp22__rx_1ga4c771ca262727b4fc5d386664d375242" kindref="member">XHdcp22Rx_GetTimer</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="633"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22Rx_SetBroadcast(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>enable);</highlight></codeline>
-<codeline lineno="634"><highlight class="normal"></highlight></codeline>
-<codeline lineno="635"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>checking<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="636"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga845a0efbeae098a01b0cfc9b2c5189cb" kindref="member">XHdcp22Rx_IsEnabled</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="637"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga695b18c297a4df65500ddf992a43229c" kindref="member">XHdcp22Rx_IsEncryptionEnabled</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="638"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga7fffa97fa9a5708e57358850a2dc0cb5" kindref="member">XHdcp22Rx_IsInProgress</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="639"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1gae1f928aca11e913b06c89b8a6851700d" kindref="member">XHdcp22Rx_IsAuthenticated</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="640"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga5e59aa8f06dbe42e9a87cfe09e29909a" kindref="member">XHdcp22Rx_IsError</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="641"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" kindref="member">XHdcp22Rx_Info</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="642"><highlight class="normal"></highlight></codeline>
-<codeline lineno="643"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>used<sp/>in<sp/>callback<sp/>routines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="644"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga09d8a888ad25296342426ea4df4ba7e7" kindref="member">XHdcp22Rx_SetLinkError</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="645"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga69bb699d6fcee2a6cdab30ac68bed43f" kindref="member">XHdcp22Rx_SetDdcError</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="646"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga16533ea5fe36fc0934a175129391e292" kindref="member">XHdcp22Rx_SetWriteMessageAvailable</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="647"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga0b25a42ec4e1d41af401561bddd241ea" kindref="member">XHdcp22Rx_SetReadMessageComplete</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="648"><highlight class="normal"></highlight></codeline>
-<codeline lineno="649"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>loading<sp/>authentication<sp/>constants<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="650"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gabdf3cbadaad0ee90840269c2bc9de45f" kindref="member">XHdcp22Rx_LoadLc128</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Lc128Ptr);</highlight></codeline>
-<codeline lineno="651"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gab7ebf254e69d22037e200597bb01af32" kindref="member">XHdcp22Rx_LoadPublicCert</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PublicCertPtr);</highlight></codeline>
-<codeline lineno="652"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1gae2759209a6313a7f1b1322ef9d0efab3" kindref="member">XHdcp22Rx_LoadPrivateKey</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PrivateKeyPtr);</highlight></codeline>
-<codeline lineno="653"><highlight class="normal"></highlight></codeline>
-<codeline lineno="654"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>logging<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="655"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" kindref="member">XHdcp22Rx_LogReset</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Verbose);</highlight></codeline>
-<codeline lineno="656"><highlight class="normal">u32<sp/><sp/><ref refid="group__hdcp22__rx_1gac3e7aaaef0878575fc2a6eef6494e7f5" kindref="member">XHdcp22Rx_LogGetTimeUSecs</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="657"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" kindref="member">XHdcp22Rx_LogWr</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u16<sp/>Evt,<sp/>u16<sp/>Data);</highlight></codeline>
-<codeline lineno="658"><highlight class="normal"><ref refid="struct_x_hdcp22___rx___log_item" kindref="compound">XHdcp22_Rx_LogItem</ref>*<sp/><ref refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" kindref="member">XHdcp22Rx_LogRd</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="659"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" kindref="member">XHdcp22Rx_LogDisplay</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="660"><highlight class="normal"></highlight></codeline>
-<codeline lineno="661"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>repeater<sp/>upstream<sp/>interface<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="662"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga9a737bfe1572fc283f1a2613b978bbae" kindref="member">XHdcp22Rx_SetTopology</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx___topology" kindref="compound">XHdcp22_Rx_Topology</ref><sp/>*TopologyPtr);</highlight></codeline>
-<codeline lineno="663"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga7df1401bd1badc409de8f2bd17ffb7e5" kindref="member">XHdcp22Rx_SetTopologyReceiverIdList</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*ListPtr,<sp/>u32<sp/>ListSize);</highlight></codeline>
-<codeline lineno="664"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga5d54c1d30d5b2fdb5013e8303f89f86d" kindref="member">XHdcp22Rx_SetTopologyField</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/><ref refid="group__hdcp22__rx_1ga24ebd9fd04b5494042a06c219e9beaf9" kindref="member">XHdcp22_Rx_TopologyField</ref><sp/>Field,<sp/>u8<sp/>Value);</highlight></codeline>
-<codeline lineno="665"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gabf8ede6226b5618c883b72fa0299d584" kindref="member">XHdcp22Rx_SetTopologyUpdate</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="666"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga6fd9509e111de6a53919411b347ca731" kindref="member">XHdcp22Rx_SetRepeater</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
-<codeline lineno="667"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga9bcd47f38b9b1c367b2c1a817f406776" kindref="member">XHdcp22Rx_IsRepeater</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="668"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga9b436a3c2e25f9fbb87affb3d3659f45" kindref="member">XHdcp22Rx_GetContentStreamType</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="669"><highlight class="normal"></highlight></codeline>
-<codeline lineno="670"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="671"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="672"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="673"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="674"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP22_RX_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="675"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="531" refid="struct_x_hdcp22___rx___config_1a4bef4d06185735a9af42916382b45e86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_hdcp22___rx___config_1a4bef4d06185735a9af42916382b45e86" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="533" refid="struct_x_hdcp22___rx___config_1a6a1c3017c4db06e8b8a4ae2b72044500" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx___config_1a6a1c3017c4db06e8b8a4ae2b72044500" kindref="member">Protocol</ref>;</highlight></codeline>
+<codeline lineno="535" refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx___config_1ab842aa602dffc5c105cbe417823689a7" kindref="member">Mode</ref>;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerDeviceAddress;</highlight></codeline>
+<codeline lineno="538" refid="struct_x_hdcp22___rx___config_1a7a4e95203bb68c8a8089b7277538c7e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx___config_1a7a4e95203bb68c8a8089b7277538c7e4" kindref="member">CipherDeviceAddress</ref>;</highlight></codeline>
+<codeline lineno="540" refid="struct_x_hdcp22___rx___config_1ac512fcd9cbfd42b4f8dd3c9df112fd4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx___config_1ac512fcd9cbfd42b4f8dd3c9df112fd4f" kindref="member">MontMultDeviceAddress</ref>;</highlight></codeline>
+<codeline lineno="542" refid="struct_x_hdcp22___rx___config_1aecb7ae6f5a296c39eb8fc53a5b6b1a90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx___config_1aecb7ae6f5a296c39eb8fc53a5b6b1a90" kindref="member">RngDeviceAddress</ref>;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref>;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551" refid="struct_x_hdcp22___rx" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="554" refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/><ref refid="struct_x_hdcp22___rx_1af875fb3f6ee904fa62ef7f9bdbcef443" kindref="member">Config</ref>;</highlight></codeline>
+<codeline lineno="556" refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_hdcp22___rx_1ac7d2a3cf31251bb7ba0205ed658b85f7" kindref="member">IsReady</ref>;</highlight></codeline>
+<codeline lineno="558" refid="struct_x_hdcp22___rx_1af57a2d6df695715d084a044b16bc7d27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RxCaps[3];</highlight></codeline>
+<codeline lineno="560" refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<ref refid="struct_x_hdcp22___rx_1aef49a33996637f7186f94ae5b54f443c" kindref="member">PublicCertPtr</ref>;</highlight></codeline>
+<codeline lineno="562" refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<ref refid="struct_x_hdcp22___rx_1a6766b930135c640abc5bd48c78744a81" kindref="member">PrivateKeyPtr</ref>;</highlight></codeline>
+<codeline lineno="564" refid="struct_x_hdcp22___rx_1a5b046cfb332861e0da12046aa434e8b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NPrimeP[64];</highlight></codeline>
+<codeline lineno="566" refid="struct_x_hdcp22___rx_1a8600812a81daf1433f2837c16ff59f28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NPrimeQ[64];</highlight></codeline>
+<codeline lineno="568" refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___info" kindref="compound">XHdcp22_Rx_Info</ref><sp/><ref refid="struct_x_hdcp22___rx_1acfca993d0f20c2927ca9bc44b5dfe416" kindref="member">Info</ref>;</highlight></codeline>
+<codeline lineno="570" refid="struct_x_hdcp22___rx_1adb6cf97b031bd727eaaa07747ac5e5ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___parameters" kindref="compound">XHdcp22_Rx_Parameters</ref><sp/><ref refid="struct_x_hdcp22___rx_1adb6cf97b031bd727eaaa07747ac5e5ca" kindref="member">Params</ref>;</highlight></codeline>
+<codeline lineno="572" refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga75724060bdc497e3e265906d661377fe" kindref="member">XHdcp22_Rx_StateFunc</ref><sp/><ref refid="struct_x_hdcp22___rx_1a482ad646ab1d4377741049cb07ef3e38" kindref="member">StateFunc</ref>;</highlight></codeline>
+<codeline lineno="574" refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___handles" kindref="compound">XHdcp22_Rx_Handles</ref><sp/><ref refid="struct_x_hdcp22___rx_1a196d22198767d54d0e7b5473c07fb53a" kindref="member">Handles</ref>;</highlight></codeline>
+<codeline lineno="576" refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___log" kindref="compound">XHdcp22_Rx_Log</ref><sp/><ref refid="struct_x_hdcp22___rx_1a5f12dd1eeb676b4708efb0a3328dd123" kindref="member">Log</ref>;</highlight></codeline>
+<codeline lineno="578" refid="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult<sp/><ref refid="struct_x_hdcp22___rx_1acdd3015b9712a384e76354ef0ae56b4c" kindref="member">MmultInst</ref>;</highlight></codeline>
+<codeline lineno="580" refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/><ref refid="struct_x_hdcp22___rx_1a14df82d18c42846b839eadfbf4c69184" kindref="member">TimerInst</ref>;</highlight></codeline>
+<codeline lineno="582" refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_Rng<sp/><ref refid="struct_x_hdcp22___rx_1ab1c54055911e14b515de74638bf65a37" kindref="member">RngInst</ref>;</highlight></codeline>
+<codeline lineno="584" refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_Cipher<sp/><ref refid="struct_x_hdcp22___rx_1a703b590705576f012dba79e0b27d9793" kindref="member">CipherInst</ref>;</highlight></codeline>
+<codeline lineno="586" refid="struct_x_hdcp22___rx_1a0cfbcd03119550596009d58a94df3f01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MessageBuffer[<ref refid="group__hdcp22__rx_1gace98a4d8a21f9826226e6a4849420b5a" kindref="member">XHDCP22_RX_MAX_MESSAGE_SIZE</ref>];</highlight></codeline>
+<codeline lineno="588" refid="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx_1ab663cf1f9197981e4e52aa2f6f9d93cf" kindref="member">MessageSize</ref>;</highlight></codeline>
+<codeline lineno="590" refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___topology" kindref="compound">XHdcp22_Rx_Topology</ref><sp/><ref refid="struct_x_hdcp22___rx_1a55d547e465c0344f45d56d49de2be43a" kindref="member">Topology</ref>;</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_XHDCP22_RX_TEST_</highlight></codeline>
+<codeline lineno="592"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp22___rx___test" kindref="compound">XHdcp22_Rx_Test</ref><sp/>Test;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="595"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hdcp22Broadcast;</highlight></codeline>
+<codeline lineno="596"><highlight class="normal">}<sp/><ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref>;</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="599"><highlight class="normal"></highlight></codeline>
+<codeline lineno="600"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>initializing<sp/>and<sp/>running<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/>*<ref refid="group__hdcp22__rx_1ga419216fe5a07c13b40909a00116d1296" kindref="member">XHdcp22Rx_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1gad9f0da4bb3fd46bcbc144b3adbcd4b96" kindref="member">XHdcp22Rx_CfgInitialize</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_hdcp22___rx___config" kindref="compound">XHdcp22_Rx_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga92a8c4c868f58cdf9e392f433862bae0" kindref="member">XHdcp22Rx_Enable</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga6ae8f7530fdd796d0117cb8f12a585d2" kindref="member">XHdcp22Rx_Disable</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1gab0e1f5a3406d126f288a721c2b866955" kindref="member">XHdcp22Rx_Reset</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga47b59a5f9c314a6accc90e836f198730" kindref="member">XHdcp22Rx_Poll</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1ga59d922ad6c0dcdabc012fd4fbe4e84e0" kindref="member">XHdcp22Rx_SetCallback</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga572e4ca00cc3b96e7c0e12f7f0f7f608" kindref="member">XHdcp22_Rx_HandlerType</ref><sp/>HandlerType,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal">u32<sp/><sp/><ref refid="group__hdcp22__rx_1ga25378c2077d187a76c06a8408411535e" kindref="member">XHdcp22Rx_GetVersion</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal">XTmrCtr*<sp/><ref refid="group__hdcp22__rx_1ga4c771ca262727b4fc5d386664d375242" kindref="member">XHdcp22Rx_GetTimer</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22Rx_SetBroadcast(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>enable);</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"></highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>checking<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga845a0efbeae098a01b0cfc9b2c5189cb" kindref="member">XHdcp22Rx_IsEnabled</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga695b18c297a4df65500ddf992a43229c" kindref="member">XHdcp22Rx_IsEncryptionEnabled</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="618"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga7fffa97fa9a5708e57358850a2dc0cb5" kindref="member">XHdcp22Rx_IsInProgress</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="619"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1gae1f928aca11e913b06c89b8a6851700d" kindref="member">XHdcp22Rx_IsAuthenticated</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga5e59aa8f06dbe42e9a87cfe09e29909a" kindref="member">XHdcp22Rx_IsError</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gabb056cbd10d25e0847745836c7c5922c" kindref="member">XHdcp22Rx_Info</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>used<sp/>in<sp/>callback<sp/>routines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga09d8a888ad25296342426ea4df4ba7e7" kindref="member">XHdcp22Rx_SetLinkError</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga69bb699d6fcee2a6cdab30ac68bed43f" kindref="member">XHdcp22Rx_SetDdcError</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga16533ea5fe36fc0934a175129391e292" kindref="member">XHdcp22Rx_SetWriteMessageAvailable</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga0b25a42ec4e1d41af401561bddd241ea" kindref="member">XHdcp22Rx_SetReadMessageComplete</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>loading<sp/>authentication<sp/>constants<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gabdf3cbadaad0ee90840269c2bc9de45f" kindref="member">XHdcp22Rx_LoadLc128</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Lc128Ptr);</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gab7ebf254e69d22037e200597bb01af32" kindref="member">XHdcp22Rx_LoadPublicCert</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PublicCertPtr);</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="group__hdcp22__rx_1gae2759209a6313a7f1b1322ef9d0efab3" kindref="member">XHdcp22Rx_LoadPrivateKey</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*PrivateKeyPtr);</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"></highlight></codeline>
+<codeline lineno="634"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>logging<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga315e3715814bcf73e5ceca9e8bb2a9fc" kindref="member">XHdcp22Rx_LogReset</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Verbose);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal">u32<sp/><sp/><ref refid="group__hdcp22__rx_1gac3e7aaaef0878575fc2a6eef6494e7f5" kindref="member">XHdcp22Rx_LogGetTimeUSecs</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" kindref="member">XHdcp22Rx_LogWr</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u16<sp/>Evt,<sp/>u16<sp/>Data);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><ref refid="struct_x_hdcp22___rx___log_item" kindref="compound">XHdcp22_Rx_LogItem</ref>*<sp/><ref refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" kindref="member">XHdcp22Rx_LogRd</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" kindref="member">XHdcp22Rx_LogDisplay</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"></highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>for<sp/>repeater<sp/>upstream<sp/>interface<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga9a737bfe1572fc283f1a2613b978bbae" kindref="member">XHdcp22Rx_SetTopology</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___rx___topology" kindref="compound">XHdcp22_Rx_Topology</ref><sp/>*TopologyPtr);</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga7df1401bd1badc409de8f2bd17ffb7e5" kindref="member">XHdcp22Rx_SetTopologyReceiverIdList</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*ListPtr,<sp/>u32<sp/>ListSize);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga5d54c1d30d5b2fdb5013e8303f89f86d" kindref="member">XHdcp22Rx_SetTopologyField</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/><ref refid="group__hdcp22__rx_1ga24ebd9fd04b5494042a06c219e9beaf9" kindref="member">XHdcp22_Rx_TopologyField</ref><sp/>Field,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1gabf8ede6226b5618c883b72fa0299d584" kindref="member">XHdcp22Rx_SetTopologyUpdate</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__rx_1ga6fd9509e111de6a53919411b347ca731" kindref="member">XHdcp22Rx_SetRepeater</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="647"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga9bcd47f38b9b1c367b2c1a817f406776" kindref="member">XHdcp22Rx_IsRepeater</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="648"><highlight class="normal">u8<sp/><sp/><sp/><ref refid="group__hdcp22__rx_1ga9b436a3c2e25f9fbb87affb3d3659f45" kindref="member">XHdcp22Rx_GetContentStreamType</ref>(<ref refid="struct_x_hdcp22___rx" kindref="compound">XHdcp22_Rx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight></codeline>
+<codeline lineno="650"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="651"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="653"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP22_RX_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="655"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h"/>
   </compounddef>
 </doxygen>

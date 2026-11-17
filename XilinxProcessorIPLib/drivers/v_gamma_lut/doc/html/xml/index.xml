@@ -38,12 +38,8 @@
     <member refid="main_8c_1a1404ec37649e5775142431036025c57a" kind="function"><name>resetIp</name></member>
     <member refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
-  <compound refid="vgamma__lut__example__kc705_8tcl" kind="file"><name>vgamma_lut_example_kc705.tcl</name>
-    <member refid="vgamma__lut__example__kc705_8tcl_1a67f2bc01c34e97bf19a8af8aa6184800" kind="function"><name>vgamma_lut_example</name></member>
-  </compound>
   <compound refid="xv__gamma__lut_8c" kind="file"><name>xv_gamma_lut.c</name>
+    <member refid="xv__gamma__lut_8c_1a87837039cdaec268ca3d908ae276ee9d" kind="function"><name>XV_gamma_lut_LutRangeOk</name></member>
     <member refid="xv__gamma__lut_8c_1a164a423eb45d21fc5b1b248a252ce87d" kind="function"><name>XV_gamma_lut_CfgInitialize</name></member>
     <member refid="xv__gamma__lut_8c_1a3435176f56514a6d31d37b96280eede1" kind="function"><name>XV_gamma_lut_Start</name></member>
     <member refid="xv__gamma__lut_8c_1a52915a27b7eac019117945f2d810a053" kind="function"><name>XV_gamma_lut_IsDone</name></member>
@@ -62,28 +58,28 @@
     <member refid="xv__gamma__lut_8c_1acefad788aa14c5e5917af9ebd7358edf" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_0_TotalBytes</name></member>
     <member refid="xv__gamma__lut_8c_1a8128a0b4e1aee6eced8f9c904bca95a6" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_0_BitWidth</name></member>
     <member refid="xv__gamma__lut_8c_1a2c4aea67a4ef9a9893e19562a18eaa68" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_0_Depth</name></member>
-    <member refid="xv__gamma__lut_8c_1ae59b641d2ee3ea018c4236c448b4451f" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</name></member>
-    <member refid="xv__gamma__lut_8c_1a5a1499d9419d21a34ed895bc4a6eb47f" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</name></member>
-    <member refid="xv__gamma__lut_8c_1ade451aeecc028b05d1993aca3f404d29" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</name></member>
-    <member refid="xv__gamma__lut_8c_1a4159c7b30c6cbb75a5665a5bcb4057f3" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</name></member>
+    <member refid="xv__gamma__lut_8c_1a193d300930b7397df81e591ec5919cc0" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</name></member>
+    <member refid="xv__gamma__lut_8c_1af1a07b4066bac0ac05743c24fb2a02c7" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</name></member>
+    <member refid="xv__gamma__lut_8c_1ab81e2b7c80593d54884b1f43ffca9b25" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</name></member>
+    <member refid="xv__gamma__lut_8c_1a1c5e6228f8c1a8f35612864fdc1dd341" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</name></member>
     <member refid="xv__gamma__lut_8c_1afd451f6cf961583ff14e8a9a41e6aafe" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_BaseAddress</name></member>
     <member refid="xv__gamma__lut_8c_1aba1b7e96c6d891c3251c25ff86051323" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_HighAddress</name></member>
     <member refid="xv__gamma__lut_8c_1a2b446e8b042c2d4bb08177e2741c3349" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_TotalBytes</name></member>
     <member refid="xv__gamma__lut_8c_1a156374700654a7ce1903ab83886101d6" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_BitWidth</name></member>
     <member refid="xv__gamma__lut_8c_1a2cda24c7f97c977c785ddc03c8a20923" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_Depth</name></member>
-    <member refid="xv__gamma__lut_8c_1abc94054a3bc15dd3f88ef9f633725a8c" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</name></member>
-    <member refid="xv__gamma__lut_8c_1a8e0117c2bea8920555b4599b5018fc82" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</name></member>
-    <member refid="xv__gamma__lut_8c_1a8c32c2137d41ca4ef6691aa4e3a6b93b" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</name></member>
-    <member refid="xv__gamma__lut_8c_1a9d76de6cb0b75c7233c5326d5ae99429" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</name></member>
+    <member refid="xv__gamma__lut_8c_1a9cb7c7aa8cc40c91e51b2ad96b995614" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</name></member>
+    <member refid="xv__gamma__lut_8c_1a51f7b42bd8b1c9a46172c587552a1484" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</name></member>
+    <member refid="xv__gamma__lut_8c_1a5556f322a4c5bf7a5728fda492a1f399" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</name></member>
+    <member refid="xv__gamma__lut_8c_1a9a7db6df3ef93be5076efd97ef49d87b" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</name></member>
     <member refid="xv__gamma__lut_8c_1a4ce16daf750141d2f775224169320dc2" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_BaseAddress</name></member>
     <member refid="xv__gamma__lut_8c_1a21bca0c11221800a291cd8069bacf9f9" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_HighAddress</name></member>
     <member refid="xv__gamma__lut_8c_1a044dda9cd83e78b529d87d27e396255a" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_TotalBytes</name></member>
     <member refid="xv__gamma__lut_8c_1aa9ce0359e4ef1b8248d57280bb132933" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_BitWidth</name></member>
     <member refid="xv__gamma__lut_8c_1a05cee7d0c940bd2e3c990c3f1923dadb" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_Depth</name></member>
-    <member refid="xv__gamma__lut_8c_1a4d0d36eb81f07e1f276ad5290e00d3da" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</name></member>
-    <member refid="xv__gamma__lut_8c_1a20fb8d0329cd56f1616050bc44f6bd59" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</name></member>
-    <member refid="xv__gamma__lut_8c_1a79f4ef13e9b8e610de156b742e753c07" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</name></member>
-    <member refid="xv__gamma__lut_8c_1a62770a2f54caf64c6b72c0f0484258dc" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</name></member>
+    <member refid="xv__gamma__lut_8c_1add2e11707a0c695382ad242d66cd8d4a" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</name></member>
+    <member refid="xv__gamma__lut_8c_1ad9f2820bcd5dba7f17b2396a0e71cbb0" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</name></member>
+    <member refid="xv__gamma__lut_8c_1aaba113f2686e65a23b6eb377eced5e1c" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</name></member>
+    <member refid="xv__gamma__lut_8c_1a8731bd05d04db9a9c666253bb7fc2903" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</name></member>
     <member refid="xv__gamma__lut_8c_1a852d3416d88d0c3ee8549fab7a858874" kind="function"><name>XV_gamma_lut_InterruptGlobalEnable</name></member>
     <member refid="xv__gamma__lut_8c_1a91801c03efa81b2735df746f78af304b" kind="function"><name>XV_gamma_lut_InterruptGlobalDisable</name></member>
     <member refid="xv__gamma__lut_8c_1adcfd346f8d93324de3fd3de13fcacb35" kind="function"><name>XV_gamma_lut_InterruptEnable</name></member>
@@ -121,28 +117,28 @@
     <member refid="xv__gamma__lut_8h_1acefad788aa14c5e5917af9ebd7358edf" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_0_TotalBytes</name></member>
     <member refid="xv__gamma__lut_8h_1a8128a0b4e1aee6eced8f9c904bca95a6" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_0_BitWidth</name></member>
     <member refid="xv__gamma__lut_8h_1a2c4aea67a4ef9a9893e19562a18eaa68" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_0_Depth</name></member>
-    <member refid="xv__gamma__lut_8h_1ae59b641d2ee3ea018c4236c448b4451f" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</name></member>
-    <member refid="xv__gamma__lut_8h_1a5a1499d9419d21a34ed895bc4a6eb47f" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</name></member>
-    <member refid="xv__gamma__lut_8h_1ade451aeecc028b05d1993aca3f404d29" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</name></member>
-    <member refid="xv__gamma__lut_8h_1a4159c7b30c6cbb75a5665a5bcb4057f3" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</name></member>
+    <member refid="xv__gamma__lut_8h_1a193d300930b7397df81e591ec5919cc0" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</name></member>
+    <member refid="xv__gamma__lut_8h_1af1a07b4066bac0ac05743c24fb2a02c7" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</name></member>
+    <member refid="xv__gamma__lut_8h_1ab81e2b7c80593d54884b1f43ffca9b25" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</name></member>
+    <member refid="xv__gamma__lut_8h_1a1c5e6228f8c1a8f35612864fdc1dd341" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</name></member>
     <member refid="xv__gamma__lut_8h_1afd451f6cf961583ff14e8a9a41e6aafe" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_BaseAddress</name></member>
     <member refid="xv__gamma__lut_8h_1aba1b7e96c6d891c3251c25ff86051323" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_HighAddress</name></member>
     <member refid="xv__gamma__lut_8h_1a2b446e8b042c2d4bb08177e2741c3349" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_TotalBytes</name></member>
     <member refid="xv__gamma__lut_8h_1a156374700654a7ce1903ab83886101d6" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_BitWidth</name></member>
     <member refid="xv__gamma__lut_8h_1a2cda24c7f97c977c785ddc03c8a20923" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_1_Depth</name></member>
-    <member refid="xv__gamma__lut_8h_1abc94054a3bc15dd3f88ef9f633725a8c" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</name></member>
-    <member refid="xv__gamma__lut_8h_1a8e0117c2bea8920555b4599b5018fc82" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</name></member>
-    <member refid="xv__gamma__lut_8h_1a8c32c2137d41ca4ef6691aa4e3a6b93b" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</name></member>
-    <member refid="xv__gamma__lut_8h_1a9d76de6cb0b75c7233c5326d5ae99429" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</name></member>
+    <member refid="xv__gamma__lut_8h_1a9cb7c7aa8cc40c91e51b2ad96b995614" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</name></member>
+    <member refid="xv__gamma__lut_8h_1a51f7b42bd8b1c9a46172c587552a1484" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</name></member>
+    <member refid="xv__gamma__lut_8h_1a5556f322a4c5bf7a5728fda492a1f399" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</name></member>
+    <member refid="xv__gamma__lut_8h_1a9a7db6df3ef93be5076efd97ef49d87b" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</name></member>
     <member refid="xv__gamma__lut_8h_1a4ce16daf750141d2f775224169320dc2" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_BaseAddress</name></member>
     <member refid="xv__gamma__lut_8h_1a21bca0c11221800a291cd8069bacf9f9" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_HighAddress</name></member>
     <member refid="xv__gamma__lut_8h_1a044dda9cd83e78b529d87d27e396255a" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_TotalBytes</name></member>
     <member refid="xv__gamma__lut_8h_1aa9ce0359e4ef1b8248d57280bb132933" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_BitWidth</name></member>
     <member refid="xv__gamma__lut_8h_1a05cee7d0c940bd2e3c990c3f1923dadb" kind="function"><name>XV_gamma_lut_Get_HwReg_gamma_lut_2_Depth</name></member>
-    <member refid="xv__gamma__lut_8h_1a4d0d36eb81f07e1f276ad5290e00d3da" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</name></member>
-    <member refid="xv__gamma__lut_8h_1a20fb8d0329cd56f1616050bc44f6bd59" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</name></member>
-    <member refid="xv__gamma__lut_8h_1a79f4ef13e9b8e610de156b742e753c07" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</name></member>
-    <member refid="xv__gamma__lut_8h_1a62770a2f54caf64c6b72c0f0484258dc" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</name></member>
+    <member refid="xv__gamma__lut_8h_1add2e11707a0c695382ad242d66cd8d4a" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</name></member>
+    <member refid="xv__gamma__lut_8h_1ad9f2820bcd5dba7f17b2396a0e71cbb0" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</name></member>
+    <member refid="xv__gamma__lut_8h_1aaba113f2686e65a23b6eb377eced5e1c" kind="function"><name>XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</name></member>
+    <member refid="xv__gamma__lut_8h_1a8731bd05d04db9a9c666253bb7fc2903" kind="function"><name>XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</name></member>
     <member refid="xv__gamma__lut_8h_1a852d3416d88d0c3ee8549fab7a858874" kind="function"><name>XV_gamma_lut_InterruptGlobalEnable</name></member>
     <member refid="xv__gamma__lut_8h_1a91801c03efa81b2735df746f78af304b" kind="function"><name>XV_gamma_lut_InterruptGlobalDisable</name></member>
     <member refid="xv__gamma__lut_8h_1adcfd346f8d93324de3fd3de13fcacb35" kind="function"><name>XV_gamma_lut_InterruptEnable</name></member>
@@ -196,8 +192,6 @@
   <compound refid="group__v__gamma__lut" kind="group"><name>v_gamma_lut</name>
     <member refid="group__v__gamma__lut_1ga1eee746789dd56e4aedece7baf166715" kind="function"><name>XVGammaLut_SetCallback</name></member>
     <member refid="group__v__gamma__lut_1ga009d3cf75a477fc0d391e85b2be4992b" kind="function"><name>XVGammaLut_InterruptHandler</name></member>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_58c773283779dc788acd035b9beaa40b" kind="dir"><name>examples</name>
   </compound>

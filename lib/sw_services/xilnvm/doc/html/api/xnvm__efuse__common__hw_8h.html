@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__efuse__common__hw_8h.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -236,10 +236,20 @@ Macros</h2></td></tr>
 <tr class="memitem:a233780d7a93bf4efb5c80941479c1bee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a233780d7a93bf4efb5c80941479c1bee">XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK</a>&#160;&#160;&#160;(0x00000040U)</td></tr>
 <tr class="memdesc:a233780d7a93bf4efb5c80941479c1bee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask for AES CRC done.  <a href="#a233780d7a93bf4efb5c80941479c1bee">More...</a><br/></td></tr>
 <tr class="separator:a233780d7a93bf4efb5c80941479c1bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">CRC status register select</div></td></tr>
+<tr class="memitem:a0a40fe1b5d28cbabf2be3027101209e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a0a40fe1b5d28cbabf2be3027101209e8">XNVM_EFUSE_CRC_STATUS_OFFSET</a>(CrcReg)&#160;&#160;&#160;(<a class="el" href="xnvm__efuse__common__hw_8h.html#a4e1c6f020db5fd4a038cbd7c705131a2">XNVM_EFUSE_STATUS_REG_OFFSET</a>)</td></tr>
+<tr class="memdesc:a0a40fe1b5d28cbabf2be3027101209e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC done/pass live in STATUS.  <a href="#a0a40fe1b5d28cbabf2be3027101209e8">More...</a><br/></td></tr>
+<tr class="separator:a0a40fe1b5d28cbabf2be3027101209e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">WR_UNLOCK Code</div></td></tr>
 <tr class="memitem:a27d922d261bbb270c7ea7bff131d0ec8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a27d922d261bbb270c7ea7bff131d0ec8">XNVM_EFUSE_WR_UNLOCK_PASSCODE</a>&#160;&#160;&#160;(0xDF0DU)</td></tr>
 <tr class="memdesc:a27d922d261bbb270c7ea7bff131d0ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse Write Unlock Passcode  <a href="#a27d922d261bbb270c7ea7bff131d0ec8">More...</a><br/></td></tr>
 <tr class="separator:a27d922d261bbb270c7ea7bff131d0ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bda8aa1bba04fc7c33209a2823c6aa9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a0bda8aa1bba04fc7c33209a2823c6aa9">XNVM_EFUSE_WR_UNLOCK_VAL</a>&#160;&#160;&#160;(<a class="el" href="xnvm__efuse__common__hw_8h.html#a27d922d261bbb270c7ea7bff131d0ec8">XNVM_EFUSE_WR_UNLOCK_PASSCODE</a>)</td></tr>
+<tr class="memdesc:a0bda8aa1bba04fc7c33209a2823c6aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value written to WR_LOCK to unlock controller register access.  <a href="#a0bda8aa1bba04fc7c33209a2823c6aa9">More...</a><br/></td></tr>
+<tr class="separator:a0bda8aa1bba04fc7c33209a2823c6aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d0a93e6488fe35e680f84385c6e11f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a3d0a93e6488fe35e680f84385c6e11f3">XNVM_EFUSE_WR_LOCK_VAL</a>&#160;&#160;&#160;(~<a class="el" href="xnvm__efuse__common__hw_8h.html#a27d922d261bbb270c7ea7bff131d0ec8">XNVM_EFUSE_WR_UNLOCK_PASSCODE</a>)</td></tr>
+<tr class="memdesc:a3d0a93e6488fe35e680f84385c6e11f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value written to WR_LOCK to lock controller register access.  <a href="#a3d0a93e6488fe35e680f84385c6e11f3">More...</a><br/></td></tr>
+<tr class="separator:a3d0a93e6488fe35e680f84385c6e11f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">eFuse Controller CFG register</div></td></tr>
 <tr class="memitem:a2bf4028ab4c55da82c37e29608c94f4e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a2bf4028ab4c55da82c37e29608c94f4e">XNVM_EFUSE_CFG_ENABLE_PGM</a>&#160;&#160;&#160;(0x01U &lt;&lt; 1U)</td></tr>
 <tr class="memdesc:a2bf4028ab4c55da82c37e29608c94f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE configuration enable program bit  <a href="#a2bf4028ab4c55da82c37e29608c94f4e">More...</a><br/></td></tr>
@@ -263,6 +273,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ae0c2bd7f64558fa666cf358ea9ae4f28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#ae0c2bd7f64558fa666cf358ea9ae4f28">XNVM_EFUSE_STATUS_CACHE_DONE</a>&#160;&#160;&#160;(0x01U &lt;&lt; 5U)</td></tr>
 <tr class="memdesc:ae0c2bd7f64558fa666cf358ea9ae4f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE status cache done bit  <a href="#ae0c2bd7f64558fa666cf358ea9ae4f28">More...</a><br/></td></tr>
 <tr class="separator:ae0c2bd7f64558fa666cf358ea9ae4f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa782aeee75ca53c2cf838f276bd068"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#abfa782aeee75ca53c2cf838f276bd068">XNVM_EFUSE_STATUS_TBIT_MASK</a></td></tr>
+<tr class="memdesc:abfa782aeee75ca53c2cf838f276bd068"><td class="mdescLeft">&#160;</td><td class="mdescRight">TBIT bits that must be set before programming.  <a href="#abfa782aeee75ca53c2cf838f276bd068">More...</a><br/></td></tr>
+<tr class="separator:abfa782aeee75ca53c2cf838f276bd068"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">eFuse Controller PGM_ADDR register</div></td></tr>
 <tr class="memitem:ae1d1e3bc4e12197fc8f937f7a1dae887"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#ae1d1e3bc4e12197fc8f937f7a1dae887">XNVM_EFUSE_ADDR_COLUMN_SHIFT</a>&#160;&#160;&#160;(0U)</td></tr>
 <tr class="memdesc:ae1d1e3bc4e12197fc8f937f7a1dae887"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE address column bit shift  <a href="#ae1d1e3bc4e12197fc8f937f7a1dae887">More...</a><br/></td></tr>
@@ -273,6 +286,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a9a8cfe3e22db521dacbbe9bcec3774e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a9a8cfe3e22db521dacbbe9bcec3774e4">XNVM_EFUSE_ADDR_PAGE_SHIFT</a>&#160;&#160;&#160;(13U)</td></tr>
 <tr class="memdesc:a9a8cfe3e22db521dacbbe9bcec3774e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE address page bit shift  <a href="#a9a8cfe3e22db521dacbbe9bcec3774e4">More...</a><br/></td></tr>
 <tr class="separator:a9a8cfe3e22db521dacbbe9bcec3774e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37a8dc8c98a8f16f5dcf47c151d80bfe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a37a8dc8c98a8f16f5dcf47c151d80bfe">XNVM_EFUSE_LAST_ROW_IN_PAGE</a>&#160;&#160;&#160;(255U)</td></tr>
+<tr class="memdesc:a37a8dc8c98a8f16f5dcf47c151d80bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last valid row index on an eFuse page.  <a href="#a37a8dc8c98a8f16f5dcf47c151d80bfe">More...</a><br/></td></tr>
+<tr class="separator:a37a8dc8c98a8f16f5dcf47c151d80bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">eFuse ISR Register</div></td></tr>
 <tr class="memitem:a51712aa28325c6dcbe83df105cdd82e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__efuse__common__hw_8h.html#a51712aa28325c6dcbe83df105cdd82e7">XNVM_EFUSE_ISR_PGM_DONE</a>&#160;&#160;&#160;(0x01U &lt;&lt; 0U)</td></tr>
 <tr class="memdesc:a51712aa28325c6dcbe83df105cdd82e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE ISR program done bit  <a href="#a51712aa28325c6dcbe83df105cdd82e7">More...</a><br/></td></tr>
@@ -910,7 +926,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE AES CRC register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
 
 </div>
 </div>
@@ -940,8 +956,6 @@ Macros</h2></td></tr>
 
 <p>eFUSE AES user key 0 CRC register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="adbd938671b945ff5119e8d436860d91a"></a>
@@ -956,8 +970,6 @@ Macros</h2></td></tr>
 
 <p>eFUSE AES user key 1 CRC register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a43029f9824799bc9e7ca8554128b8db3"></a>
@@ -971,8 +983,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Number of eFUSE rows for boot environment control. </p>
-
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga6379fae3915b48ae864d0a62b03ccbfd">XNvm_EfuseWriteBootEnvCtrlBits()</a>.</p>
 
 </div>
 </div>
@@ -1001,8 +1011,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>eFUSE cache analog trim 3 register offset </p>
-
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga53da415156ffb127deaac7c1891a9a50">XNvm_EfuseWriteGlitchConfigBits()</a>.</p>
 
 </div>
 </div>
@@ -1046,7 +1054,7 @@ Macros</h2></td></tr>
 
 <p>eFuse Cache Base Address </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga074ef023f48a3f5164b0bf0f6d464d5c">XNvm_EfuseCheckZeros()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga51762cb7925471e499cb19ff551039d7">XNvm_EfuseIsPufHelperDataEmpty()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga15d0a0989ba278e28edaaf2cd9d7bf7f">XNvm_EfuseReadProtectionBits()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga989884994fda65f39b2f66ced494f83d">XNvm_EfuseValidateFipsInfo()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gacc264f1596fadaaf19db535bf527435a">XNvm_EfuseValidatePpkHashWriteReq()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#gade779f5fb0d828586ba86b87492c0e50">XNvm_EfuseWriteCrc()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga3e5b32d4a7ec60464f46788458b5e67f">XNvm_EfuseWritePuf()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga9e5e2abc14f75b9dc43d03284af58ade">XNvm_EfuseWriteUds()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga05cd2825902d18394a7ba8c56c5342b6">XNvm_IsDmeModeEn()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga074ef023f48a3f5164b0bf0f6d464d5c">XNvm_EfuseCheckZeros()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga51762cb7925471e499cb19ff551039d7">XNvm_EfuseIsPufHelperDataEmpty()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga4d4b8fa510a9a0fc773eccc863cae848">XNvm_EfuseOpsValidateCrc()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#gad86c042caa77fd779b4f0ac666798c51">XNvm_EfuseOpsValidateFieldWrLk()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga37e793bd4d5eb4aab760dbd26583ccf9">XNvm_EfuseOpsValidatePufHdAccess()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga15d0a0989ba278e28edaaf2cd9d7bf7f">XNvm_EfuseReadProtectionBits()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga989884994fda65f39b2f66ced494f83d">XNvm_EfuseValidateFipsInfo()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gacc264f1596fadaaf19db535bf527435a">XNvm_EfuseValidatePpkHashWriteReq()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga05cd2825902d18394a7ba8c56c5342b6">XNvm_IsDmeModeEn()</a>.</p>
 
 </div>
 </div>
@@ -1078,7 +1086,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache boot environment control register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#gad54e3a2965d27295dc233e5e3084adf8">XNvm_EfuseReadBootEnvCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga6379fae3915b48ae864d0a62b03ccbfd">XNvm_EfuseWriteBootEnvCtrlBits()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#gad54e3a2965d27295dc233e5e3084adf8">XNvm_EfuseReadBootEnvCtrlBits()</a>.</p>
 
 </div>
 </div>
@@ -1394,7 +1402,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache meta header IV range 0 register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#ga135e1963c74a2381565bd628c81720c0">XNvm_EfuseReadIv()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gabe9934f94cf8712b7b30ad3502eb5565">XNvm_EfuseValidateIvWriteReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga135e1963c74a2381565bd628c81720c0">XNvm_EfuseReadIv()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gabe9934f94cf8712b7b30ad3502eb5565">XNvm_EfuseValidateIvWriteReq()</a>.</p>
 
 </div>
 </div>
@@ -1634,7 +1642,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache miscellaneous control register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#ga1c35752ba6d01bc69f9d78cfddda2e82">XNvm_EfuseReadMiscCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga8e9c61a48bf95850aa3c9aec666c6264">XNvm_EfuseWriteMiscCtrlBits()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#ga1c35752ba6d01bc69f9d78cfddda2e82">XNvm_EfuseReadMiscCtrlBits()</a>.</p>
 
 </div>
 </div>
@@ -1858,7 +1866,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache PPK0 hash 0 register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#ga3e9fad7c29bb703abdad2844084da7f9">XNvm_EfuseReadPpkHash()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gacc264f1596fadaaf19db535bf527435a">XNvm_EfuseValidatePpkHashWriteReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga3e9fad7c29bb703abdad2844084da7f9">XNvm_EfuseReadPpkHash()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gacc264f1596fadaaf19db535bf527435a">XNvm_EfuseValidatePpkHashWriteReq()</a>.</p>
 
 </div>
 </div>
@@ -1906,7 +1914,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache PUF CHASH register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga51762cb7925471e499cb19ff551039d7">XNvm_EfuseIsPufHelperDataEmpty()</a>, and <a class="el" href="group__xnvm__efuse__client__apis.html#ga9b5fb7e19fefd6373484355119ac291d">XNvm_EfuseReadPuf()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga51762cb7925471e499cb19ff551039d7">XNvm_EfuseIsPufHelperDataEmpty()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>, and <a class="el" href="group__xnvm__efuse__client__apis.html#ga9b5fb7e19fefd6373484355119ac291d">XNvm_EfuseReadPuf()</a>.</p>
 
 </div>
 </div>
@@ -1954,7 +1962,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache PUF ECC control register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga51762cb7925471e499cb19ff551039d7">XNvm_EfuseIsPufHelperDataEmpty()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga3e5b32d4a7ec60464f46788458b5e67f">XNvm_EfuseWritePuf()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga51762cb7925471e499cb19ff551039d7">XNvm_EfuseIsPufHelperDataEmpty()</a>.</p>
 
 </div>
 </div>
@@ -2242,7 +2250,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for AES write lock. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf0e51beac90b7d5fe2d18c9ef25bc2ea">XNvm_EfuseReadSecCtrlBits()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf0e51beac90b7d5fe2d18c9ef25bc2ea">XNvm_EfuseReadSecCtrlBits()</a>.</p>
 
 </div>
 </div>
@@ -2402,7 +2410,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache security control register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#ga72d33a554a48e21836973409c882919d">XNvm_EfuseReadPufSecCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga898b27ad1395039d8a8e6f79c6f72fa1">XNvm_EfuseReadSecCtrlBits()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gacc264f1596fadaaf19db535bf527435a">XNvm_EfuseValidatePpkHashWriteReq()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga694dd3629494a12171684e87cd7c4b9f">XNvm_EfuseWriteSecCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga9e5e2abc14f75b9dc43d03284af58ade">XNvm_EfuseWriteUds()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga37e793bd4d5eb4aab760dbd26583ccf9">XNvm_EfuseOpsValidatePufHdAccess()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga72d33a554a48e21836973409c882919d">XNvm_EfuseReadPufSecCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga898b27ad1395039d8a8e6f79c6f72fa1">XNvm_EfuseReadSecCtrlBits()</a>, <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gacc264f1596fadaaf19db535bf527435a">XNvm_EfuseValidatePpkHashWriteReq()</a>.</p>
 
 </div>
 </div>
@@ -2546,7 +2554,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for PUF disable. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga4632d36b5d828148cb6cdec52d6310ff">XNvm_EfuseReadPufSecCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga420873a40f9a6f98373837d2fed08bb6">XNvm_EfuseWritePuf()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga37e793bd4d5eb4aab760dbd26583ccf9">XNvm_EfuseOpsValidatePufHdAccess()</a>, <a class="el" href="group__xnvm__efuse__server__apis.html#ga4632d36b5d828148cb6cdec52d6310ff">XNvm_EfuseReadPufSecCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga420873a40f9a6f98373837d2fed08bb6">XNvm_EfuseWritePuf()</a>.</p>
 
 </div>
 </div>
@@ -2578,7 +2586,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for PUF syndrome lock. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#ga72d33a554a48e21836973409c882919d">XNvm_EfuseReadPufSecCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga420873a40f9a6f98373837d2fed08bb6">XNvm_EfuseWritePuf()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga37e793bd4d5eb4aab760dbd26583ccf9">XNvm_EfuseOpsValidatePufHdAccess()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga72d33a554a48e21836973409c882919d">XNvm_EfuseReadPufSecCtrlBits()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga420873a40f9a6f98373837d2fed08bb6">XNvm_EfuseWritePuf()</a>.</p>
 
 </div>
 </div>
@@ -2770,7 +2778,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for user key 0 write lock. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf0e51beac90b7d5fe2d18c9ef25bc2ea">XNvm_EfuseReadSecCtrlBits()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf0e51beac90b7d5fe2d18c9ef25bc2ea">XNvm_EfuseReadSecCtrlBits()</a>.</p>
 
 </div>
 </div>
@@ -2834,7 +2842,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for user key 1 write lock. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf0e51beac90b7d5fe2d18c9ef25bc2ea">XNvm_EfuseReadSecCtrlBits()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf0e51beac90b7d5fe2d18c9ef25bc2ea">XNvm_EfuseReadSecCtrlBits()</a>.</p>
 
 </div>
 </div>
@@ -2866,7 +2874,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache security miscellaneous 0 register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
 
 </div>
 </div>
@@ -2882,7 +2890,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE cache security miscellaneous 1 register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga80edb4b2292a02831cafa2034a62707d">XNvm_EfuseWriteMisc1Bits()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
 
 </div>
 </div>
@@ -2898,6 +2906,8 @@ Macros</h2></td></tr>
 
 <p>Bit mask for TBITS0_SVD anchor 0. </p>
 
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a901a2b1b7cb6b364588706a5a80581c1"></a>
@@ -2911,6 +2921,8 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bit mask for TBITS0_SVD anchor 1. </p>
+
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
 
 </div>
 </div>
@@ -2926,6 +2938,8 @@ Macros</h2></td></tr>
 
 <p>Bit mask for TBITS0_SVD anchor 2. </p>
 
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a714d2adcfd974f5e912f798beee0ad60"></a>
@@ -2940,6 +2954,8 @@ Macros</h2></td></tr>
 
 <p>Bit mask for TBITS0_SVD anchor 3. </p>
 
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aae1aa6df20f516033f31e17e5bb14f47"></a>
@@ -2953,6 +2969,8 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>eFUSE cache TBITS0_SVD register offset </p>
+
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
 
 </div>
 </div>
@@ -3142,6 +3160,26 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0a40fe1b5d28cbabf2be3027101209e8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XNVM_EFUSE_CRC_STATUS_OFFSET</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CrcReg</td><td>)</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="xnvm__efuse__common__hw_8h.html#a4e1c6f020db5fd4a038cbd7c705131a2">XNVM_EFUSE_STATUS_REG_OFFSET</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CRC done/pass live in STATUS. </p>
+
+<p>Referenced by <a class="el" href="group__xnvm__util__apis.html#ga43a467daea1ce3c434d0c01e3657c0a9">XNvm_EfuseCheckAesKeyCrc()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="adb648186cb73f9ba33b4c5366d2e88f6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -3186,7 +3224,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for AES CRC done. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
 
 </div>
 </div>
@@ -3202,7 +3240,7 @@ Macros</h2></td></tr>
 
 <p>Bit mask for AES CRC pass. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>, and <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#ga2aca2c53d5bb8c2d003e5a5e4097b884">XNvm_EfuseValidateDecOnlyRequest()</a>.</p>
 
 </div>
 </div>
@@ -3218,8 +3256,6 @@ Macros</h2></td></tr>
 
 <p>Bit mask for AES user key 0 CRC done. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6b3be9705db929f0be4031996702a5a2"></a>
@@ -3233,8 +3269,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bit mask for AES user key 0 CRC pass. </p>
-
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
 
 </div>
 </div>
@@ -3250,8 +3284,6 @@ Macros</h2></td></tr>
 
 <p>Bit mask for AES user key 1 CRC done. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="afd669813ab9757ecc9093bb7ce0799ba"></a>
@@ -3265,8 +3297,6 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bit mask for AES user key 1 CRC pass. </p>
-
-<p>Referenced by <a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq()</a>.</p>
 
 </div>
 </div>
@@ -3399,6 +3429,22 @@ Macros</h2></td></tr>
 <p>Number of eFUSE rows for IV. </p>
 
 <p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaac535d6758d3eccb3407e6d30acad999">XNvm_EfuseReadIv()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a37a8dc8c98a8f16f5dcf47c151d80bfe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XNVM_EFUSE_LAST_ROW_IN_PAGE&#160;&#160;&#160;(255U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Last valid row index on an eFuse page. </p>
+
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga14c5359ce9050192aeeef497575aad5f">XNvm_EfusePgmAndVerifyData()</a>.</p>
 
 </div>
 </div>
@@ -3590,6 +3636,8 @@ Macros</h2></td></tr>
 
 <p>eFuse Security_Misc_1 Protection Mask </p>
 
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaa382c4bb1913e008f005ea239d399862">XNvm_EfusePlatProtectionChecks()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae0c2bd7f64558fa666cf358ea9ae4f28"></a>
@@ -3620,7 +3668,7 @@ Macros</h2></td></tr>
 
 <p>eFUSE status register offset </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga92376a9337883b186a9d6c888f7b7937">XNvm_EfuseCacheReload()</a>, <a class="el" href="group__xnvm__util__apis.html#ga43a467daea1ce3c434d0c01e3657c0a9">XNvm_EfuseCheckAesKeyCrc()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga34244e65ac073b03f29ee6a5672da34a">XNvm_EfuseCheckForTBits()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga92376a9337883b186a9d6c888f7b7937">XNvm_EfuseCacheReload()</a>, and <a class="el" href="group__xnvm__efuse__server__apis.html#ga34244e65ac073b03f29ee6a5672da34a">XNvm_EfuseCheckForTBits()</a>.</p>
 
 </div>
 </div>
@@ -3650,8 +3698,6 @@ Macros</h2></td></tr>
 
 <p>eFUSE status TBIT 1 </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga34244e65ac073b03f29ee6a5672da34a">XNvm_EfuseCheckForTBits()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8d6d345941ee5451ffc689dc2b91c50e"></a>
@@ -3665,6 +3711,26 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>eFUSE status TBIT 2 </p>
+
+</div>
+</div>
+<a class="anchor" id="abfa782aeee75ca53c2cf838f276bd068"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XNVM_EFUSE_STATUS_TBIT_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="xnvm__efuse__common__hw_8h.html#a2c20b4530bdba7752426f6840c1a1964">XNVM_EFUSE_STATUS_TBIT_0</a> | <a class="code" href="xnvm__efuse__common__hw_8h.html#ab650bbc6d663cf40bdda996e8bf9a865">\</a></div>
+<div class="line"><a class="code" href="xnvm__efuse__common__hw_8h.html#ab650bbc6d663cf40bdda996e8bf9a865">							 XNVM_EFUSE_STATUS_TBIT_1</a> | <a class="code" href="xnvm__efuse__common__hw_8h.html#a8d6d345941ee5451ffc689dc2b91c50e">\</a></div>
+<div class="line"><a class="code" href="xnvm__efuse__common__hw_8h.html#a8d6d345941ee5451ffc689dc2b91c50e">							 XNVM_EFUSE_STATUS_TBIT_2</a>)</div>
+<div class="ttc" id="xnvm__efuse__common__hw_8h_html_a2c20b4530bdba7752426f6840c1a1964"><div class="ttname"><a href="xnvm__efuse__common__hw_8h.html#a2c20b4530bdba7752426f6840c1a1964">XNVM_EFUSE_STATUS_TBIT_0</a></div><div class="ttdeci">#define XNVM_EFUSE_STATUS_TBIT_0</div><div class="ttdoc">eFUSE status TBIT 0 </div><div class="ttdef"><b>Definition:</b> xnvm_efuse_common_hw.h:209</div></div>
+<div class="ttc" id="xnvm__efuse__common__hw_8h_html_a8d6d345941ee5451ffc689dc2b91c50e"><div class="ttname"><a href="xnvm__efuse__common__hw_8h.html#a8d6d345941ee5451ffc689dc2b91c50e">XNVM_EFUSE_STATUS_TBIT_2</a></div><div class="ttdeci">#define XNVM_EFUSE_STATUS_TBIT_2</div><div class="ttdoc">eFUSE status TBIT 2 </div><div class="ttdef"><b>Definition:</b> xnvm_efuse_common_hw.h:211</div></div>
+<div class="ttc" id="xnvm__efuse__common__hw_8h_html_ab650bbc6d663cf40bdda996e8bf9a865"><div class="ttname"><a href="xnvm__efuse__common__hw_8h.html#ab650bbc6d663cf40bdda996e8bf9a865">XNVM_EFUSE_STATUS_TBIT_1</a></div><div class="ttdeci">#define XNVM_EFUSE_STATUS_TBIT_1</div><div class="ttdoc">eFUSE status TBIT 1 </div><div class="ttdef"><b>Definition:</b> xnvm_efuse_common_hw.h:210</div></div>
+</div><!-- fragment -->
+<p>TBIT bits that must be set before programming. </p>
 
 <p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga34244e65ac073b03f29ee6a5672da34a">XNvm_EfuseCheckForTBits()</a>.</p>
 
@@ -3842,7 +3908,7 @@ Macros</h2></td></tr>
 
 <p>SYSMONPSV_SAT0 Base Address. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks()</a>.</p>
 
 </div>
 </div>
@@ -3858,7 +3924,7 @@ Macros</h2></td></tr>
 
 <p>SYSMONPSV_SAT1 Base Address. </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks()</a>.</p>
 
 </div>
 </div>
@@ -4020,6 +4086,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a3d0a93e6488fe35e680f84385c6e11f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XNVM_EFUSE_WR_LOCK_VAL&#160;&#160;&#160;(~<a class="el" href="xnvm__efuse__common__hw_8h.html#a27d922d261bbb270c7ea7bff131d0ec8">XNVM_EFUSE_WR_UNLOCK_PASSCODE</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value written to WR_LOCK to lock controller register access. </p>
+
+<p>Referenced by <a class="el" href="group__xnvm__util__apis.html#ga3024ec2e49b24a72d30ffd6ca24fd056">XNvm_EfuseLockController()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a27d922d261bbb270c7ea7bff131d0ec8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -4032,7 +4114,21 @@ Macros</h2></td></tr>
 
 <p>eFuse Write Unlock Passcode </p>
 
-<p>Referenced by <a class="el" href="group__xnvm__util__apis.html#ga3024ec2e49b24a72d30ffd6ca24fd056">XNvm_EfuseLockController()</a>, and <a class="el" href="group__xnvm__util__apis.html#ga9c7176dc69fd682793be08de6c421d37">XNvm_EfuseUnlockController()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a0bda8aa1bba04fc7c33209a2823c6aa9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XNVM_EFUSE_WR_UNLOCK_VAL&#160;&#160;&#160;(<a class="el" href="xnvm__efuse__common__hw_8h.html#a27d922d261bbb270c7ea7bff131d0ec8">XNVM_EFUSE_WR_UNLOCK_PASSCODE</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value written to WR_LOCK to unlock controller register access. </p>
+
+<p>Referenced by <a class="el" href="group__xnvm__util__apis.html#ga9c7176dc69fd682793be08de6c421d37">XNvm_EfuseUnlockController()</a>.</p>
 
 </div>
 </div>

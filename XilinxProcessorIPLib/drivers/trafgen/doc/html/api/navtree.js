@@ -1,34 +1,111 @@
 var NAVTREE =
 [
-  [ "trafgen", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xtrafgen_interrupt_example.c", "example.html#ex1", null ],
-      [ "xtrafgen_master_streaming_example.c", "example.html#ex2", null ],
-      [ "xtrafgen_polling_example.c", "example.html#ex3", null ],
-      [ "xtrafgen_static_mode_example.c", "example.html#ex4", null ]
-    ] ]
-  ] ]
+  [
+    "trafgen",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xtrafgen_interrupt_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xtrafgen_master_streaming_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xtrafgen_polling_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xtrafgen_static_mode_example.c",
+            "example.html#ex4",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xtrafgen__polling__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4"
+"xtrafgen__hw_8h.html#gaea7d215adbbf69b18fac485e2d150bd9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xospipsv__options_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,25 @@ $(document).ready(function(){initNavTree('xospipsv__options_8c.html','');});
 <div class="title">xospipsv_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xospipsv_8h.html">xospipsv.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the functions to configure the OSPIPSV component. </p>
+<p>The file specifically configures some optional settings, clock and flash related information.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   nsk  02/19/18 First release
+      sk   01/09/19 Updated <a class="el" href="group__ospipsv.html#gab47df170b16816d4cc11dee6c3008e3c" title="Sets the options for the OSPIPSV device driver. ">XOspiPsv_SetOptions()</a> API to support
+                    DAC mode switching.
+                    Removed Legacy/STIG mode option in OptionsTable.
+      sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
+1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+1.11  sb   07/09/24 Limit dummy value range in <a class="el" href="group__ospipsv.html#gaec5aab7a4cee335804494e31429b53ec" title="Configures how the controller polls the device following a write transfer in DAC mode. ">XOspiPsv_ConfigureAutoPolling()</a>.
+1.11  ng  08/20/24 Add spartanup device support
+1.15  vn  09/03/26 Fix doxygen warnings.
+1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xospipsv_8h.html">xospipsv.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xospipsv__control_8h.html">xospipsv_control.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -118,7 +136,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gab47df170b16816d4cc11dee6c3008e3c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gab47df170b16816d4cc11dee6c3008e3c">XOspiPsv_SetOptions</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, u32 Options)</td></tr>
-<tr class="memdesc:gab47df170b16816d4cc11dee6c3008e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the OSPIPSV device driver.The options control how the device behaves relative to the OSPIPSV bus.  <a href="group__ospipsv__api.html#gab47df170b16816d4cc11dee6c3008e3c">More...</a><br/></td></tr>
+<tr class="memdesc:gab47df170b16816d4cc11dee6c3008e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the OSPIPSV device driver.  <a href="group__ospipsv__api.html#gab47df170b16816d4cc11dee6c3008e3c">More...</a><br/></td></tr>
 <tr class="separator:gab47df170b16816d4cc11dee6c3008e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga19324f8c6c1156b26c84cc9d413a4801"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga19324f8c6c1156b26c84cc9d413a4801">XOspiPsv_GetOptions</a> (const <a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga19324f8c6c1156b26c84cc9d413a4801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the options for the OSPIPSV device.  <a href="group__ospipsv__api.html#ga19324f8c6c1156b26c84cc9d413a4801">More...</a><br/></td></tr>
@@ -130,10 +148,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga74efb98d92b16935c3ea41e4f77cecea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the edge mode (SDR or DDR).  <a href="group__ospipsv__api.html#ga74efb98d92b16935c3ea41e4f77cecea">More...</a><br/></td></tr>
 <tr class="separator:ga74efb98d92b16935c3ea41e4f77cecea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d17525a71d9df7268fcc4269f19270c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#ga2d17525a71d9df7268fcc4269f19270c">XOspiPsv_SelectFlash</a> (<a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, u8 chip_select)</td></tr>
-<tr class="memdesc:ga2d17525a71d9df7268fcc4269f19270c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to signify the OSPIPSV driver that the Hardware flash configuration being used.  <a href="group__ospipsv__api.html#ga2d17525a71d9df7268fcc4269f19270c">More...</a><br/></td></tr>
+<tr class="memdesc:ga2d17525a71d9df7268fcc4269f19270c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the hardware flash configuration used by the OSPIPSV driver.  <a href="group__ospipsv__api.html#ga2d17525a71d9df7268fcc4269f19270c">More...</a><br/></td></tr>
 <tr class="separator:ga2d17525a71d9df7268fcc4269f19270c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaec5aab7a4cee335804494e31429b53ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ospipsv__api.html#gaec5aab7a4cee335804494e31429b53ec">XOspiPsv_ConfigureAutoPolling</a> (const <a class="el" href="struct_x_ospi_psv.html">XOspiPsv</a> *InstancePtr, u32 FlashMode)</td></tr>
-<tr class="memdesc:gaec5aab7a4cee335804494e31429b53ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures how the controller will poll the device following a write transfer in DAC mode.  <a href="group__ospipsv__api.html#gaec5aab7a4cee335804494e31429b53ec">More...</a><br/></td></tr>
+<tr class="memdesc:gaec5aab7a4cee335804494e31429b53ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures how the controller polls the device following a write transfer in DAC mode.  <a href="group__ospipsv__api.html#gaec5aab7a4cee335804494e31429b53ec">More...</a><br/></td></tr>
 <tr class="separator:gaec5aab7a4cee335804494e31429b53ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

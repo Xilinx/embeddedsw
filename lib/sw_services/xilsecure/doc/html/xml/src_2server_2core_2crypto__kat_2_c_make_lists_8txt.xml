@@ -17,6 +17,6 @@
 <codeline lineno="8"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_kat_ipihandler.c)</highlight></codeline>
 <codeline lineno="9"><highlight class="stringliteral">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

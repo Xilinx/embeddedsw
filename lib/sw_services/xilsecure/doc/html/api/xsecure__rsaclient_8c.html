@@ -125,7 +125,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       yog  05/04/23 Fixed HIS COMF violations
 5.4   yog  04/29/24 Fixed doxygen warnings.
       pre  08/29/24 APIs are updated for SSIT support
-5.7   tbk  03/16/26 Added SMC support</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__rsaclient_8h.html">xsecure_rsaclient.h</a>&quot;</code><br/>
+5.7   tbk  03/16/26 Added SMC support
+5.8   rap  07/20/26 Updated input parameter validations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsecure__rsaclient_8h.html">xsecure_rsaclient.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__generic_8h.html">xsecure_generic.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -139,6 +140,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8bdc7108615c89806dae54dd56f428d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">XSecure_RsaSignVerification</a> (XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr, const u32 Size)</td></tr>
 <tr class="memdesc:ga8bdc7108615c89806dae54dd56f428d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to Perform RSA sign verification.  <a href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">More...</a><br/></td></tr>
 <tr class="separator:ga8bdc7108615c89806dae54dd56f428d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga438ec16f016a9d63be18ebbced880bef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga438ec16f016a9d63be18ebbced880bef">XSecure_RsaPssSignVerification</a> (XSecure_ClientInstance *InstancePtr, const <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html">XSecure_RsaPssSignVerifyParams</a> *Params)</td></tr>
+<tr class="memdesc:ga438ec16f016a9d63be18ebbced880bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to perform RSA-PSS sign verification (SHA3-384).  <a href="group__xsecure__rsa__client__apis.html#ga438ec16f016a9d63be18ebbced880bef">More...</a><br/></td></tr>
+<tr class="separator:ga438ec16f016a9d63be18ebbced880bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

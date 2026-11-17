@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xusbps__ch9__storage_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -118,6 +118,22 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Byte order conversion macros.</div></td></tr>
+<tr class="memitem:ae4ad75a7f1933dd84023d554f49267d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#ae4ad75a7f1933dd84023d554f49267d2">be2le</a>(val)&#160;&#160;&#160;(u32)(val)</td></tr>
+<tr class="memdesc:ae4ad75a7f1933dd84023d554f49267d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast a 32-bit value without byte swapping.  <a href="#ae4ad75a7f1933dd84023d554f49267d2">More...</a><br/></td></tr>
+<tr class="separator:ae4ad75a7f1933dd84023d554f49267d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c">be2les</a>(x)&#160;&#160;&#160;(u16) (x)</td></tr>
+<tr class="memdesc:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast a 16-bit value without byte swapping.  <a href="#adef8521a1dcd1b2e4eaa90c52f502d3c">More...</a><br/></td></tr>
+<tr class="separator:adef8521a1dcd1b2e4eaa90c52f502d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16">htonl</a>(val)</td></tr>
+<tr class="memdesc:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert 32-bit host to network byte order.  <a href="#a8135b2c24ee2a9f4bce9c36060c76d16">More...</a><br/></td></tr>
+<tr class="separator:a8135b2c24ee2a9f4bce9c36060c76d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51799f5ebb4c7228ef7e95c247030f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a51799f5ebb4c7228ef7e95c247030f42">htons</a>(x)&#160;&#160;&#160;(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</td></tr>
+<tr class="memdesc:a51799f5ebb4c7228ef7e95c247030f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert 16-bit host to network byte order.  <a href="#a51799f5ebb4c7228ef7e95c247030f42">More...</a><br/></td></tr>
+<tr class="separator:a51799f5ebb4c7228ef7e95c247030f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a135fc516ea82eb4231418c28d36a0b4f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a135fc516ea82eb4231418c28d36a0b4f">XUsbPs_Ch9SetupDevDescReply</a> (u8 *BufPtr, u32 BufLen)</td></tr>
@@ -126,7 +142,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a6f03702dc3627ef29d13543b7f5eb351"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a6f03702dc3627ef29d13543b7f5eb351">XUsbPs_Ch9SetupCfgDescReply</a> (u8 *BufPtr, u32 BufLen)</td></tr>
 <tr class="memdesc:a6f03702dc3627ef29d13543b7f5eb351"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the configuration descriptor for the device.  <a href="#a6f03702dc3627ef29d13543b7f5eb351">More...</a><br/></td></tr>
 <tr class="separator:a6f03702dc3627ef29d13543b7f5eb351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c178fd005bf89027556067cd952cc62"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a6c178fd005bf89027556067cd952cc62">XUsbPs_Ch9SetupStrDescReply</a> (u8 *BufPtr, u32 BufLen, u8 Index)</td></tr>
+<tr class="memitem:a6c178fd005bf89027556067cd952cc62"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a6c178fd005bf89027556067cd952cc62">XUsbPs_Ch9SetupStrDescReply</a> (u8 *BufPtr, u32 BufLen, u8 <a class="el" href="xusbps__ch9__audio_8c.html#a8e4ace6ba7b2f92777a32ed934b9346a">Index</a>)</td></tr>
 <tr class="memdesc:a6c178fd005bf89027556067cd952cc62"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a string descriptor for the given index.  <a href="#a6c178fd005bf89027556067cd952cc62">More...</a><br/></td></tr>
 <tr class="separator:a6c178fd005bf89027556067cd952cc62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72238ee80cba8facd72277ab2ec271de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9__storage_8h.html#a72238ee80cba8facd72277ab2ec271de">XUsbPs_SetConfiguration</a> (<a class="el" href="struct_x_usb_ps.html">XUsbPs</a> *InstancePtr, int ConfigIdx)</td></tr>
@@ -139,6 +155,91 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4942a94ee10ae5832b33125aa184f9ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by Chapter9 handler when SET_CONFIGURATION command or SET_INTERFACE command is received from Host.  <a href="#a4942a94ee10ae5832b33125aa184f9ab">More...</a><br/></td></tr>
 <tr class="separator:a4942a94ee10ae5832b33125aa184f9ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae4ad75a7f1933dd84023d554f49267d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define be2le</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val</td><td>)</td>
+          <td>&#160;&#160;&#160;(u32)(val)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cast a 32-bit value without byte swapping. </p>
+
+<p>Referenced by <a class="el" href="xusbps__class__storage_8h.html#ab7966c2613bda5b2c9373809f24aac0b">XUsbPs_HandleStorageReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adef8521a1dcd1b2e4eaa90c52f502d3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define be2les</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(u16) (x)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cast a 16-bit value without byte swapping. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9__storage_8c.html#a6f03702dc3627ef29d13543b7f5eb351">XUsbPs_Ch9SetupCfgDescReply()</a>, <a class="el" href="xusbps__ch9__storage_8c.html#a135fc516ea82eb4231418c28d36a0b4f">XUsbPs_Ch9SetupDevDescReply()</a>, and <a class="el" href="xusbps__ch9__storage_8c.html#a6c178fd005bf89027556067cd952cc62">XUsbPs_Ch9SetupStrDescReply()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8135b2c24ee2a9f4bce9c36060c76d16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define htonl</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((((u32)(val) &amp; 0x000000FF)&lt;&lt;24) |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0x0000FF00)&lt;&lt;8)  |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0x00FF0000)&gt;&gt;8)  |      \</div>
+<div class="line">                         (((u32)(val) &amp; 0xFF000000)&gt;&gt;24))</div>
+</div><!-- fragment -->
+<p>Convert 32-bit host to network byte order. </p>
+
+<p>Referenced by <a class="el" href="xusbps__class__storage_8h.html#ab7966c2613bda5b2c9373809f24aac0b">XUsbPs_HandleStorageReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51799f5ebb4c7228ef7e95c247030f42"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define htons</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert 16-bit host to network byte order. </p>
+
+<p>Referenced by <a class="el" href="xusbps__class__storage_8h.html#ab7966c2613bda5b2c9373809f24aac0b">XUsbPs_HandleStorageReq()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a6f03702dc3627ef29d13543b7f5eb351"></a>
 <div class="memitem">
@@ -167,21 +268,16 @@ Functions</h2></td></tr>
 <p>This function returns the configuration descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error. </dd></dl>
+<p>&lt; Check buffer pointer is OK and buffer is big enough.</p>
+<p>&lt; Check buffer pointer is OK and buffer is big enough. </p>
+
+<p>References <a class="el" href="xusbps__ch9__storage_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c">be2les</a>, <a class="el" href="xusbps__ch9__storage_8c.html#a932aef2cfe7e73d90ac70f71f0adde75">USB_BULKIN_EP</a>, <a class="el" href="xusbps__ch9__storage_8c.html#a81b680af0eb78daaadae724655af52c4">USB_BULKOUT_EP</a>, <a class="el" href="xusbps__ch9__storage_8c.html#aef8f319339dbb20b7b75375fb47841a6">USB_CONFIG_DESC</a>, <a class="el" href="xusbps__ch9__storage_8c.html#ad79ebdae98ebb8c8943a6cf4cf937da2">USB_ENDPOINT_CFG_DESC</a>, and <a class="el" href="xusbps__ch9__storage_8c.html#af9b6bf9fad461172f55b542fa15de992">USB_INTERFACE_CFG_DESC</a>.</p>
 
 </div>
 </div>
@@ -212,21 +308,14 @@ Functions</h2></td></tr>
 <p>This function returns the device descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error. </dd></dl>
+
+<p>References <a class="el" href="xusbps__ch9__storage_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c">be2les</a>, <a class="el" href="xusbps__ch9__audio_8c.html#a3beb70f10bb3d715cc478e087098d994">deviceDesc</a>, <a class="el" href="xusbps__ch9__storage_8c.html#a3ecf618797930f2ee1673933d5dbffad">USB_DEVICE_DESC</a>, and <a class="el" href="xusbps__ch9__storage_8c.html#a765c39164d229fe00e878cc1207f6949">USB_ENDPOINT0_MAXP</a>.</p>
 
 </div>
 </div>
@@ -263,23 +352,15 @@ Functions</h2></td></tr>
 <p>This function returns a string descriptor for the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
-    <tr><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
-    <tr><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error. </dd></dl>
+
+<p>References <a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c.html#a48d4f8a73e6eff5168d8f68d7834c1ca">USB_STD_STRING_DESC::bDescriptorType</a>, <a class="el" href="xusbps__ch9__storage_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c">be2les</a>, <a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c.html#ad48531f46a85de3018f2bdece21c9d1e">USB_STD_STRING_DESC::bLength</a>, <a class="el" href="xusbps__audio__example_8c.html#ae015863885aec059536758b1a3fffb87">Index</a>, <a class="el" href="xusbps__ch9__storage_8c.html#ab070d46e9e3bf4045b5018cfe210e50b">USB_STRING_DESC</a>, and <a class="el" href="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c.html#ae086be461d7b04fb96ff3d07d84bad79">USB_STD_STRING_DESC::wLANGID</a>.</p>
 
 </div>
 </div>
@@ -310,24 +391,13 @@ Functions</h2></td></tr>
 <p>Changes State of Core to USB configured State. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> controller instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigIdx</td><td>is the configuration index selected by the host. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>Changes State of Core to USB configured State.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">ConfigIdx</td><td>is the Index of the desired configuration.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#ga102e27fd21789376f375b89fb3094d85">XUSBPS_EPCR1_OFFSET</a>, <a class="el" href="group__usbps.html#ga9645d41ecd7e18e997368c2fb90abd1e">XUSBPS_EPCR_RXR_MASK</a>, <a class="el" href="group__usbps.html#gafaa776284ac5e56996ab387ab825888b">XUSBPS_EPCR_RXT_BULK_MASK</a>, <a class="el" href="group__usbps.html#gaec7cf9ddd4b206b68e8a6856c2393c53">XUSBPS_EPCR_TXR_MASK</a>, <a class="el" href="group__usbps.html#ga14f191015affc97b3a9c990c2d68de4c">XUSBPS_EPCR_TXT_BULK_MASK</a>, <a class="el" href="xusbps_8h.html#ad5dcc2f75c336bb6ea4c9697b0d88c1d">XUsbPs_EpEnable</a>, <a class="el" href="group__usbps.html#gaba0ae2eac9c6b402e32e401333a5b105">XUsbPs_EpPrime()</a>, <a class="el" href="xusbps_8h.html#ab3136c0894811be3b4406dff0d7634f8">XUsbPs_SetBits</a>, and <a class="el" href="xusbps__ch9_8c.html#abf899592bb832acdf774bc2445598f38">XUsbPs_SetConfigDone()</a>.</p>
+<p>References <a class="el" href="struct_x_usb_ps.html#a9613ff3e4ceb977b76e2b849e0fdb1c8">XUsbPs::AppData</a>, <a class="el" href="struct_usb___dev_data.html#ae6b25681fad0c3686de251a7e611f00f">Usb_DevData::State</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#ga102e27fd21789376f375b89fb3094d85">XUSBPS_EPCR1_OFFSET</a>, <a class="el" href="group__usbps.html#ga9645d41ecd7e18e997368c2fb90abd1e">XUSBPS_EPCR_RXR_MASK</a>, <a class="el" href="group__usbps.html#gafaa776284ac5e56996ab387ab825888b">XUSBPS_EPCR_RXT_BULK_MASK</a>, <a class="el" href="group__usbps.html#gaec7cf9ddd4b206b68e8a6856c2393c53">XUSBPS_EPCR_TXR_MASK</a>, <a class="el" href="group__usbps.html#ga14f191015affc97b3a9c990c2d68de4c">XUSBPS_EPCR_TXT_BULK_MASK</a>, <a class="el" href="group__usbps.html#gad5dcc2f75c336bb6ea4c9697b0d88c1d">XUsbPs_EpEnable</a>, <a class="el" href="group__usbps.html#gaba0ae2eac9c6b402e32e401333a5b105">XUsbPs_EpPrime()</a>, <a class="el" href="group__usbps.html#gab3136c0894811be3b4406dff0d7634f8">XUsbPs_SetBits</a>, <a class="el" href="xusbps__ch9_8c.html#abf899592bb832acdf774bc2445598f38">XUsbPs_SetConfigDone()</a>, <a class="el" href="group__usbps.html#ga3a12942e4d8ac14564f536ca7b8bbcc9">XUSBPS_STATE_ADDRESS</a>, <a class="el" href="group__usbps.html#ga981de273ba778b80abee8d064e5298d6">XUSBPS_STATE_CONFIGURED</a>, and <a class="el" href="group__usbps.html#ga02853f411d537c7dda32011bb1f81716">XUSBPS_STATE_DEFAULT</a>.</p>
 
 </div>
 </div>
@@ -358,32 +428,14 @@ Functions</h2></td></tr>
 <p>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> controller instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful,</li>
-<li>XST_FAILURE if unsuccessful.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Non control endpoints must be enabled after SET_CONFIGURATION command since hardware clears all previously enabled endpoints except control endpoints when this command is received.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful,</li>
-<li>XST_FAILURE if unsuccessful.</li>
-</ul>
-</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Non control endpoints must be enabled after SET_CONFIGURATION command since hardware clears all previously enabled endpoints except control endpoints when this command is received. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_ps___setup_data.html#a78686691b1ec4cc04a89d25383e71a9e">XUsbPs_SetupData::wValue</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="xusbps_8h.html#a5b9a6534a546a278e48e31c0f3f53cbf">XUsbPs_EpDisable</a>, and <a class="el" href="xusbps__ch9_8c.html#abf899592bb832acdf774bc2445598f38">XUsbPs_SetConfigDone()</a>.</p>
+<p>References <a class="el" href="xusbps__ch9__audio_8h.html#aab8f5bc9518d1611092d31d8212bc06b">ISO_EP</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a78686691b1ec4cc04a89d25383e71a9e">XUsbPs_SetupData::wValue</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#ga5b9a6534a546a278e48e31c0f3f53cbf">XUsbPs_EpDisable</a>, and <a class="el" href="xusbps__ch9_8c.html#abf899592bb832acdf774bc2445598f38">XUsbPs_SetConfigDone()</a>.</p>
 
 </div>
 </div>
@@ -414,22 +466,14 @@ Functions</h2></td></tr>
 <p>This function is called by Chapter9 handler when SET_CONFIGURATION command or SET_INTERFACE command is received from Host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> controller instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Non control endpoints must be enabled after SET_INTERFACE command since hardware clears all previously enabled endpoints except control endpoints when this command is received.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Non control endpoints must be enabled after SET_INTERFACE command since hardware clears all previously enabled endpoints except control endpoints when this command is received. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_ps___setup_data.html#ad085f8a84571f2df12ce9e5bc90facae">XUsbPs_SetupData::wIndex</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a78686691b1ec4cc04a89d25383e71a9e">XUsbPs_SetupData::wValue</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, and <a class="el" href="xusbps_8h.html#a5b9a6534a546a278e48e31c0f3f53cbf">XUsbPs_EpDisable</a>.</p>
+<p>References <a class="el" href="xusbps__ch9__audio_8h.html#aa3effb770f0314c0352dabcd57e9954c">AUDIO_INTERVAL</a>, <a class="el" href="xusbps__audio__example_8c.html#a1f946c7d2b74571706ecb53626f2fa19">BufferPtrTemp</a>, <a class="el" href="xusbps__audio__example_8c.html#aca71b1f96a92142d9ee89511138e54d9">FirstPktFrame</a>, <a class="el" href="xusbps__audio__example_8c.html#ae015863885aec059536758b1a3fffb87">Index</a>, <a class="el" href="xusbps__ch9__audio_8h.html#aab8f5bc9518d1611092d31d8212bc06b">ISO_EP</a>, <a class="el" href="xusbps__audio__example_8c.html#a5c474c16eab5b4dc8baf76c3be90f989">Residue</a>, <a class="el" href="xusbps__ch9__audio_8h.html#a2a599edc176083ed21c0b6044a5362a4">USB_EP_TYPE_ISOCHRONOUS</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#ad085f8a84571f2df12ce9e5bc90facae">XUsbPs_SetupData::wIndex</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a78686691b1ec4cc04a89d25383e71a9e">XUsbPs_SetupData::wValue</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, and <a class="el" href="group__usbps.html#ga5b9a6534a546a278e48e31c0f3f53cbf">XUsbPs_EpDisable</a>.</p>
 
 </div>
 </div>

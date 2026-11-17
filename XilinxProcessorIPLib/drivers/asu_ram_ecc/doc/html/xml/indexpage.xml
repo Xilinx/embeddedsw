@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>asu_ram_ecc</title>
+    <detaileddescription>
+<para>This driver exists only to populate xparameters.h with the ASU RAM ECC configuration parameters and the control register base addresses extracted from the design. There is no source code.</para><para>MODIFICATION HISTORY: VER WHO DATE NOTES <hruler/>
+ 1.0 lp 08/24/26 Initial release </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

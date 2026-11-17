@@ -117,18 +117,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
       aa   03/09/2026 Added error code for USB download timeout
       aa   04/01/2026 Added XLOADER_ERR_USB_DDR_OVERFLOW error code
-      obs  04/03/2026 Reserved the unused error codes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
------ ---- -------- ----------------------------------------------------------------------------
-2.3   sd  10/13/25 Initial release
-2.4     abh  01/01/2026 Added error code for OSPI Prescaler and IDAC controller fails
-      gnr  01/06/26 Added XLOADER_ERR_INVALID_CPUID error code
-      aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
-      aa   03/09/2026 Added error code for USB download timeout
-      tvp  03/13/2026 Add error codes related to authenticated boot
-      aa   04/01/2026 Added XLOADER_ERR_USB_DDR_OVERFLOW error code
-      obs  04/03/2026 Reserved the unused error codes</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      obs  04/03/2026 Reserved the unused error codes
+2.5   aa   07/02/2026 Added XLOADER_ERR_OSPI_TIMEOUT error code for OSPI 4B
+                      address mode polling timeout handling
+      obs  07/14/2026 Updated XLOADER_ERR_IMGHDR_TBL description for meta
+                      header image/partition count check
+      pre  07/24/2026 Enabled TPM feature for VERSAL_2VP devices
+      abh  09/22/2026 Updated Doxygen comments</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -324,7 +319,7 @@ PLM error codes description</h2></td></tr>
 &#160;&#160;<b>XLOADER_ERR_OSPI_READID</b>,
 <b>XLOADER_ERR_OSPI_READ</b>,
 <b>XLOADER_ERR_OSPI_4BMODE</b>,
-<b>XLOADER_ERR_RESERVED_314</b>,
+<b>XLOADER_ERR_OSPI_TIMEOUT</b>,
 <br/>
 &#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</b>,
 <b>XLOADER_ERR_QSPI_INIT</b>,
@@ -693,431 +688,441 @@ PLM error codes description</h2></td></tr>
 <br/>
 &#160;&#160;<b>XPLM_ERR_UPDATE_PDI_UNSUPPORTED_VER</b>,
 <b>XPLM_ERR_UPDATE_INVALID_IDENT_STRING</b>,
+<b>XPLM_ERR_ASUFW_NOT_ALIVE</b>,
+<b>XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_ASU_UPDATE_INVALID_ADDR</b>,
+<b>XPLM_ERR_ASU_UPDATE_INVALID_OPT_DATA_LEN</b>,
+<b>XPLM_ERR_ASU_UPDATE_NO_STRUCT_DATA</b>,
+<b>XPLM_ERR_ASU_UPDATE_INVALID_DS_LEN</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_ASU_UPDATE_DS_CHECKSUM_FAILED</b>,
 <b>XLOADER_UNSUPPORTED_BOOT_MODE</b> = 0x300,
 <b>XLOADER_ERR_UNSUPPORTED_USB_PRIMARY</b>,
+<b>XLOADER_ERR_IMGHDR_TBL</b> = 0x302,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_IMGHDR_TBL</b> = 0x302,
-<b>XLOADER_ERR_IMGHDR</b>,
+&#160;&#160;<b>XLOADER_ERR_IMGHDR</b>,
 <b>XLOADER_ERR_PRTNHDR</b>,
 <b>XLOADER_ERR_RESERVED_305</b>,
+<b>XLOADER_ERR_RESERVED1</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED1</b>,
-<b>XLOADER_ERR_RESERVED2</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED2</b>,
 <b>XLOADER_ERR_RESERVED3</b>,
 <b>XLOADER_ERR_RESERVED_309</b>,
+<b>XLOADER_ERR_WAKEUP_ASU</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_WAKEUP_ASU</b>,
-<b>XLOADER_ERR_RESERVED_30B</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_30B</b>,
 <b>XLOADER_ERR_UNSUPPORTED_OSPI</b>,
 <b>XLOADER_ERR_UNSUPPORTED_OSPI_SIZE</b>,
+<b>XLOADER_ERR_OSPI_INIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_INIT</b>,
-<b>XLOADER_ERR_OSPI_CFG</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_CFG</b>,
 <b>XLOADER_ERR_OSPI_SEL_FLASH_CS0</b>,
 <b>XLOADER_ERR_OSPI_READID</b>,
+<b>XLOADER_ERR_OSPI_READ</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_READ</b>,
-<b>XLOADER_ERR_OSPI_4BMODE</b>,
-<b>XLOADER_ERR_RESERVED_314</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_4BMODE</b>,
+<b>XLOADER_ERR_OSPI_TIMEOUT</b>,
 <b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</b>,
+<b>XLOADER_ERR_QSPI_INIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_QSPI_INIT</b>,
-<b>XLOADER_ERR_QSPI_MANUAL_START</b>,
+&#160;&#160;<b>XLOADER_ERR_QSPI_MANUAL_START</b>,
 <b>XLOADER_ERR_QSPI_PRESCALER_CLK</b>,
 <b>XLOADER_ERR_QSPI_CONNECTION</b>,
+<b>XLOADER_ERR_QSPI_READ</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_QSPI_READ</b>,
-<b>XLOADER_ERR_QSPI_LENGTH</b>,
+&#160;&#160;<b>XLOADER_ERR_QSPI_LENGTH</b>,
 <b>XLOADER_ERR_SD_INIT</b>,
 <b>XLOADER_ERR_SD_F_OPEN</b>,
+<b>XLOADER_ERR_SD_F_LSEEK</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_SD_F_LSEEK</b>,
-<b>XLOADER_ERR_SD_F_READ</b>,
+&#160;&#160;<b>XLOADER_ERR_SD_F_READ</b>,
 <b>XLOADER_ERR_IMG_ID_NOT_FOUND</b>,
 <b>XLOADER_ERR_RESERVED5</b>,
+<b>XLOADER_ERR_CFRAME_LOOKUP</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_CFRAME_LOOKUP</b>,
-<b>XLOADER_ERR_CFRAME_CFG</b>,
+&#160;&#160;<b>XLOADER_ERR_CFRAME_CFG</b>,
 <b>XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE</b>,
 <b>XLOADER_ERR_RESERVED11</b>,
+<b>XLOADER_ERR_GEN_IDCODE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_GEN_IDCODE</b>,
-<b>XLOADER_ERR_USB_LOOKUP</b>,
+&#160;&#160;<b>XLOADER_ERR_USB_LOOKUP</b>,
 <b>XLOADER_ERR_USB_CFG</b>,
 <b>XLOADER_ERR_USB_START</b>,
+<b>XLOADER_ERR_RESERVED_32A</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_32A</b>,
-<b>XLOADER_ERR_DEFERRED_CDO_PROCESS</b>,
+&#160;&#160;<b>XLOADER_ERR_DEFERRED_CDO_PROCESS</b>,
 <b>XLOADER_ERR_SD_LOOKUP</b>,
 <b>XLOADER_ERR_SD_CFG</b>,
+<b>XLOADER_ERR_SD_CARD_INIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_SD_CARD_INIT</b>,
-<b>XLOADER_ERR_MMC_PART_CONFIG</b>,
+&#160;&#160;<b>XLOADER_ERR_MMC_PART_CONFIG</b>,
 <b>XLOADER_ERR_SEM_STOP_SCAN</b>,
 <b>XLOADER_ERR_SEM_INIT</b>,
+<b>XLOADER_ERR_DELAY_ATTRB</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_DELAY_ATTRB</b>,
-<b>XLOADER_ERR_NUM_HANDOFF_CPUS</b>,
+&#160;&#160;<b>XLOADER_ERR_NUM_HANDOFF_CPUS</b>,
 <b>XLOADER_ERR_OSPI_CONN_MODE</b>,
 <b>XLOADER_ERR_OSPI_SEL_FLASH_CS1</b>,
+<b>XLOADER_ERR_OSPI_SDR_NON_PHY</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_SDR_NON_PHY</b>,
-<b>XLOADER_ERR_OSPI_COPY_OVERFLOW</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_COPY_OVERFLOW</b>,
 <b>XLOADER_ERR_SD_F_CLOSE</b>,
 <b>XLOADER_ERR_SD_UMOUNT</b>,
+<b>XLOADER_ERR_DMA_XFER</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_DMA_XFER</b>,
-<b>XLOADER_ERR_RESERVED_33B</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_33B</b>,
 <b>XLOADER_ERR_CONFIG_SUBSYSTEM</b>,
 <b>XLOADER_ERR_COPY_TO_MEM</b>,
+<b>XLOADER_ERR_DELAY_LOAD</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_DELAY_LOAD</b>,
-<b>XLOADER_ERR_ADD_TASK_SCHEDULER</b>,
+&#160;&#160;<b>XLOADER_ERR_ADD_TASK_SCHEDULER</b>,
 <b>XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT</b>,
 <b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE</b>,
+<b>XLOADER_ERR_PM_DEV_ASU_PROC</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_ASU_PROC</b>,
-<b>XLOADER_ERR_RESERVED_343</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_343</b>,
 <b>XLOADER_ERR_RESERVED_344</b>,
 <b>XLOADER_ERR_RESERVED_345</b>,
+<b>XLOADER_ERR_RESERVED_346</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_346</b>,
-<b>XLOADER_ERR_RESERVED_347</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_347</b>,
 <b>XLOADER_ERR_RESERVED_348</b>,
 <b>XLOADER_ERR_RESERVED_349</b>,
+<b>XLOADER_ERR_RESERVED_34A</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_34A</b>,
-<b>XLOADER_ERR_PM_DEV_DDR_0</b>,
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_DDR_0</b>,
 <b>XLOADER_ERR_PM_DEV_QSPI</b>,
 <b>XLOADER_ERR_PM_DEV_SDIO_0</b>,
+<b>XLOADER_ERR_PM_DEV_SDIO_1</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_SDIO_1</b>,
-<b>XLOADER_ERR_RESERVED_34F</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_34F</b>,
 <b>XLOADER_ERR_PM_DEV_OSPI</b>,
 <b>XLOADER_ERR_DEV_NOT_DEFINED</b>,
+<b>XLOADER_ERR_PARENT_QUERY_VERIFY</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PARENT_QUERY_VERIFY</b>,
-<b>XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE</b>,
+&#160;&#160;<b>XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE</b>,
 <b>XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY</b>,
 <b>XLOADER_ERR_INVALIDATE_CHILD_IMG</b>,
+<b>XLOADER_ERR_INVALID_PARENT_IMG_ID</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_INVALID_PARENT_IMG_ID</b>,
-<b>XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW</b>,
+&#160;&#160;<b>XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW</b>,
 <b>XLOADER_ERR_FUNCTION_ID_MISMATCH</b>,
 <b>XLOADER_ERR_MEMSET</b>,
+<b>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS</b>,
 <br/>
-&#160;&#160;<b>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS</b>,
-<b>XLOADER_ERR_INIT_CDO</b>,
+&#160;&#160;<b>XLOADER_ERR_INIT_CDO</b>,
 <b>XLOADER_ERR_INVALID_ELF_LOAD_ADDR</b>,
 <b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE</b>,
+<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC</b>,
-<b>XLOADER_ERR_UNSUPPORTED_FILE_NUM</b>,
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_FILE_NUM</b>,
 <b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET</b>,
 <b>XLOADER_ERR_SECURE_NOT_ENABLED</b>,
+<b>XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC</b>,
-<b>XLOADER_ERR_RESERVED6</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED6</b>,
 <b>XLOADER_ERR_RESERVED7</b>,
 <b>XLOADER_ERR_RESERVED8</b>,
+<b>XLOADER_ERR_RESERVED9</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED9</b>,
-<b>XLOADER_ERR_RELEASE_PM_DEV_DDR_0</b>,
+&#160;&#160;<b>XLOADER_ERR_RELEASE_PM_DEV_DDR_0</b>,
 <b>XLOADER_ERR_RESERVED_368</b>,
 <b>XLOADER_ERR_RESERVED_369</b>,
+<b>XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE</b>,
-<b>XLOADER_ERR_RESERVED_36B</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_36B</b>,
 <b>XLOADER_ERR_PM_DEV_UFS</b>,
 <b>XLOADER_ERR_UFS_SPEED_CHANGE</b>,
+<b>XLOADER_ERR_RESERVED_36E</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_36E</b>,
-<b>XLOADER_ERR_RESERVED_36F</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_36F</b>,
 <b>XLOADER_ERR_RESERVED_370</b>,
 <b>XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS</b>,
+<b>XLOADER_ERR_RESERVED10</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED10</b>,
-<b>XLOADER_ERR_ECDSA_NOT_ENABLED</b>,
+&#160;&#160;<b>XLOADER_ERR_ECDSA_NOT_ENABLED</b>,
 <b>XLOADER_ERR_RSA_NOT_ENABLED</b>,
 <b>XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR</b>,
+<b>XLOADER_ERR_PRTN_COPY_TO_PMCRAM</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PRTN_COPY_TO_PMCRAM</b>,
-<b>XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST</b>,
+&#160;&#160;<b>XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST</b>,
 <b>XLOADER_ERR_OSPI_PRESCALER_CLK</b>,
 <b>XLOADER_ERR_OSPI_IDAC_EN</b>,
+<b>XLOADER_ERR_INVALID_CPUID</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_INVALID_CPUID</b>,
-<b>XLOADER_ERR_OSPI_DUMMY_CFG</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_DUMMY_CFG</b>,
 <b>XLOADER_ERR_USB_TIMEOUT</b>,
 <b>XLOADER_ERR_USB_DDR_OVERFLOW</b>,
+<b>XLOADER_ERR_WAKEUP_A78_0</b> = 0x3A0,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_WAKEUP_A78_0</b> = 0x3A0,
-<b>XLOADER_ERR_WAKEUP_A78_1</b>,
+&#160;&#160;<b>XLOADER_ERR_WAKEUP_A78_1</b>,
 <b>XLOADER_ERR_WAKEUP_R52_0</b>,
 <b>XLOADER_ERR_WAKEUP_R52_1</b>,
+<b>XLOADER_ERR_WAKEUP_A78_2</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_WAKEUP_A78_2</b>,
-<b>XLOADER_ERR_WAKEUP_A78_3</b>,
+&#160;&#160;<b>XLOADER_ERR_WAKEUP_A78_3</b>,
 <b>XLOADER_ERR_INVALID_R52_CLUSTER</b>,
 <b>XLOADER_ERR_HDR_MEASUREMENT</b>,
+<b>XLOADER_ERR_DATA_MEASUREMENT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_DATA_MEASUREMENT</b>,
-<b>XLOADER_ERR_RESERVED_3A9</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_3A9</b>,
 <b>XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</b>,
 <b>XLOADER_MEASURE_ROM_FAILURE</b>,
+<b>XLOADER_MEASURE_PLM_FAILURE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_MEASURE_PLM_FAILURE</b>,
-<b>XLOADER_ERR_INIT_GET_DMA</b> = 0x600,
+&#160;&#160;<b>XLOADER_ERR_INIT_GET_DMA</b> = 0x600,
 <b>XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE</b>,
 <b>XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL</b>,
+<b>XLOADER_ERR_INIT_AC_COPY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_INIT_AC_COPY_FAIL</b>,
-<b>XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC</b>,
+&#160;&#160;<b>XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC</b>,
 <b>XLOADER_ERR_DMA_TRANSFER</b>,
 <b>XLOADER_ERR_RESERVED_606</b>,
+<b>XLOADER_ERR_IHT_GET_DMA</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_IHT_GET_DMA</b>,
-<b>XLOADER_ERR_IHT_COPY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_IHT_COPY_FAIL</b>,
 <b>XLOADER_ERR_IHT_HASH_CALC_FAIL</b>,
 <b>XLOADER_ERR_IHT_AUTH_FAIL</b>,
+<b>XLOADER_ERR_HDR_COPY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_COPY_FAIL</b>,
-<b>XLOADER_ERR_HDR_AES_OP_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_HDR_AES_OP_FAIL</b>,
 <b>XLOADER_ERR_HDR_DEC_FAIL</b>,
 <b>XLOADER_ERR_HDR_AUTH_FAIL</b>,
+<b>XLOADER_ERR_HDR_NOT_SECURE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_NOT_SECURE</b>,
-<b>XLOADER_ERR_HDR_GET_DMA</b>,
+&#160;&#160;<b>XLOADER_ERR_HDR_GET_DMA</b>,
 <b>XLOADER_ERR_HDR_HASH_CALC_FAIL</b>,
 <b>XLOADER_ERR_HDR_NOT_ENCRYPTED</b>,
+<b>XLOADER_ERR_RESERVED_613</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_613</b>,
-<b>XLOADER_ERR_SEC_IH_READ_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_SEC_IH_READ_FAIL</b>,
 <b>XLOADER_ERR_SEC_PH_READ_FAIL</b>,
 <b>XLOADER_ERR_PRTN_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_PRTN_AUTH_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PRTN_AUTH_FAIL</b>,
-<b>XLOADER_ERR_PRTN_HASH_COMPARE_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_PRTN_HASH_COMPARE_FAIL</b>,
 <b>XLOADER_ERR_PRTN_DECRYPT_FAIL</b>,
 <b>XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY</b>,
+<b>XLOADER_ERR_RESERVED4</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED4</b>,
-<b>XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO</b>,
 <b>XLOADER_ERR_ENCONLY_ENC_COMPULSORY</b>,
 <b>XLOADER_ERR_KAT_FAILED</b>,
+<b>XLOADER_ERR_DATA_COPY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_DATA_COPY_FAIL</b>,
-<b>XLOADER_ERR_METAHDR_LEN_OVERFLOW</b>,
+&#160;&#160;<b>XLOADER_ERR_METAHDR_LEN_OVERFLOW</b>,
 <b>XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY</b>,
 <b>XLOADER_ERR_AUTH_JTAG_DISABLED</b>,
+<b>XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL</b>,
-<b>XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL</b>,
 <b>XLOADER_ERR_RESERVED_625</b>,
 <b>XLOADER_ERR_AUTH_JTAG_GET_DMA</b>,
+<b>XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL</b>,
-<b>XLOADER_ERR_AUTH_JTAG_DMA_XFR</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_DMA_XFR</b>,
 <b>XLOADER_ERR_MEMSET_SECURE_PTR</b>,
 <b>XLOADER_ERR_GLITCH_DETECTED</b>,
+<b>XLOADER_ERR_AUTH_JTAG_SPK_REVOKED</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_SPK_REVOKED</b>,
-<b>XLOADER_ERR_METAHDR_KEYSRC_MISMATCH</b>,
+&#160;&#160;<b>XLOADER_ERR_METAHDR_KEYSRC_MISMATCH</b>,
 <b>XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC</b>,
 <b>XLOADER_ERR_RESERVED_62E</b>,
+<b>XLOADER_ERR_HDR_AAD_UPDATE_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_AAD_UPDATE_FAIL</b>,
-<b>XLOADER_ERR_UNSUPPORTED_PDI_VER</b>,
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_PDI_VER</b>,
 <b>XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED</b>,
 <b>XLOADER_ERR_AUTH_JTAG_INVALID_DNA</b>,
+<b>XLOADER_ERR_SEC_IH_VERIFY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_SEC_IH_VERIFY_FAIL</b>,
-<b>XLOADER_ERR_SEC_PH_VERIFY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_SEC_PH_VERIFY_FAIL</b>,
 <b>XLOADER_ERR_SECURE_CLEAR_FAIL</b>,
 <b>XLOADER_ERR_READ_IHT_OPTIONAL_DATA</b>,
+<b>XLOADER_ERR_STORE_DIGEST_TABLE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_STORE_DIGEST_TABLE</b>,
-<b>XLOADER_ERR_RESERVED_638</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_638</b>,
 <b>XLOADER_ERR_UFS_F_OPEN</b>,
 <b>XLOADER_ERR_UFS_F_LSEEK</b>,
+<b>XLOADER_ERR_UFS_F_READ</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_UFS_F_READ</b>,
-<b>XLOADER_ERR_UFS_F_CLOSE</b>,
+&#160;&#160;<b>XLOADER_ERR_UFS_F_CLOSE</b>,
 <b>XLOADER_ERR_UFS_UMOUNT</b>,
 <b>XLOADER_ERR_RESERVED_63E</b>,
+<b>XLOADER_ERR_UFS_MAX_BOOT_FILES_LIMIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_UFS_MAX_BOOT_FILES_LIMIT</b>,
-<b>XLOADER_ERR_UFS_INIT</b>,
+&#160;&#160;<b>XLOADER_ERR_UFS_INIT</b>,
 <b>XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL</b>,
 <b>XLOADER_ERR_HASH_BLOCK_HASH_COMPARE_FAIL</b>,
+<b>XLOADER_ERR_MH_HASH_CALC_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_MH_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL</b>,
 <b>XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE</b>,
 <b>XLOADER_ERR_PPK_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_SPK_HASH_CALC_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_SPK_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_PPK_COPY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_PPK_COPY_FAIL</b>,
 <b>XLOADER_ERR_SPK_HEADER_COPY_FAIL</b>,
 <b>XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL</b>,
+<b>XLOADER_ERR_SPK_COPY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_SPK_COPY_FAIL</b>,
-<b>XLOADER_ERR_SPK_SIGN_COPY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_SPK_SIGN_COPY_FAIL</b>,
 <b>XLOADER_ERR_HASH_BLOCK_COPY_FAIL</b>,
 <b>XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL</b>,
-<b>XLOADER_ERR_GET_LMS_ALGO_FAILED</b>,
+&#160;&#160;<b>XLOADER_ERR_GET_LMS_ALGO_FAILED</b>,
 <b>XLOADER_ERR_RESERVED_651</b>,
 <b>XLOADER_ERR_RESERVED_652</b>,
+<b>XLOADER_ERR_RESERVED_653</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_653</b>,
-<b>XLOADER_ERR_LMS_HSS_GET_DMA</b>,
+&#160;&#160;<b>XLOADER_ERR_LMS_HSS_GET_DMA</b>,
 <b>XLOADER_ERR_LMS_GET_DMA</b>,
 <b>XLOADER_ERR_CONFIG_LIMIT_EXCEEDED</b>,
+<b>XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED</b>,
-<b>XLOADER_ERR_KEY_AUTH_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_KEY_AUTH_FAIL</b>,
 <b>XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL</b>,
 <b>XLOADER_ERR_AUTH_JTAG_INVALID_MSG_LEN</b>,
+<b>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</b>,
-<b>XLOADER_ERR_AUTH_JTAG_INVALID_IDWORD</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_INVALID_IDWORD</b>,
 <b>XLOADER_ERR_PRTN_REVOKED</b>,
 <b>XOCP_PCR_ERR_SWPCR_DUP_CONFIG</b> = 0x6A0,
+<b>XOCP_PCR_ERR_IN_SWPCR_CONFIG</b>,
 <br/>
-&#160;&#160;<b>XOCP_PCR_ERR_IN_SWPCR_CONFIG</b>,
-<b>XOCP_DEVAK_MAX_COUNT_EXCEED</b> = 0x6B0,
+&#160;&#160;<b>XOCP_DEVAK_MAX_COUNT_EXCEED</b> = 0x6B0,
 <b>XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</b> = 0x6B1,
 <b>XOCP_ERR_KAT_FAILED</b> = 0x6C0,
+<b>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</b>,
 <br/>
-&#160;&#160;<b>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</b>,
-<b>XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</b>,
+&#160;&#160;<b>XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</b>,
 <b>XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</b>,
 <b>XLOADER_TRNG_INIT_FAIL</b>,
+<b>XOCP_ERR_INVALID_XPPU_CONFIGURATION</b>,
 <br/>
-&#160;&#160;<b>XOCP_ERR_INVALID_XPPU_CONFIGURATION</b>,
-<b>XSECURE_ERR_ADD_TASK_SCHEDULER</b> = 0x6E0,
+&#160;&#160;<b>XSECURE_ERR_ADD_TASK_SCHEDULER</b> = 0x6E0,
 <b>XSECURE_ERR_REMOVE_TASK_SCHEDULER</b>,
 <b>XPLMI_ERR_CDO_CMD</b> = 0x2000,
+<b>XPLMI_ERR_USER_MODULE_CDO_CMD</b> = 0x3000,
 <br/>
-&#160;&#160;<b>XPLMI_ERR_USER_MODULE_CDO_CMD</b> = 0x3000,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aae5d9785d3f04295943d4a072ef7faae">XPLMI_ERR_DMA_LOOKUP</a> = 0x100,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aae5d9785d3f04295943d4a072ef7faae">XPLMI_ERR_DMA_LOOKUP</a> = 0x100,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5164d0e750b6c2d68736998206efdf60">XPLMI_ERR_DMA_CFG</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae0cecd86db3576a153f91dd36c09ba64">XPLMI_ERR_DMA_SELFTEST</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb">XPLMI_ERR_IOMOD_INIT</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb">XPLMI_ERR_IOMOD_INIT</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42">XPLMI_ERR_IOMOD_START</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42">XPLMI_ERR_IOMOD_START</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8">XPLMI_ERR_IOMOD_CONNECT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a172c4dae8b9f1a08b9fd36c51cbbac3c">XPLMI_ERR_RESERVED_106</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b">XPLMI_ERR_CMD_APIID</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a60d83e4808e366a70f784c43c35da87b">XPLMI_ERR_CMD_APIID</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9">XPLMI_ERR_CMD_HANDLER_NULL</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0bc8c093b7db4622f373d7b900e8abe9">XPLMI_ERR_CMD_HANDLER_NULL</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5b61645a4d4e6f9f17a6754e92f4facc">XPLMI_ERR_RESERVED_109</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aa4f5c5c9b27ba276b0619ee3052fcbea">XPLMI_ERR_RESERVED_10A</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a02156819d7bc27b622ad9b4e7133af45">XPLMI_ERR_CDO_HDR_ID</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a02156819d7bc27b622ad9b4e7133af45">XPLMI_ERR_CDO_HDR_ID</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a965ea8d21f19843e0b063681dd587b2e">XPLMI_ERR_CDO_CHECKSUM</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a965ea8d21f19843e0b063681dd587b2e">XPLMI_ERR_CDO_CHECKSUM</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac908dfa1f060ff9c52ff57212500628f">XPLMI_ERR_RESERVED_10D</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2d2e9c6b052cd00637e95ac09b306aef">XPLMI_ERR_UART_LOOKUP</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ade7868c57f1197b9464c04199671844f">XPLMI_ERR_UART_CFG</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ade7868c57f1197b9464c04199671844f">XPLMI_ERR_UART_CFG</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af3457a1da9c4fa7e5185934a75f63cc0">XPLMI_ERR_RESERVED_110</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af3457a1da9c4fa7e5185934a75f63cc0">XPLMI_ERR_RESERVED_110</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a812ee2a4db3e18339c10d6e8043b6312">XPLMI_ERR_RESERVED_111</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aa56e33d8864a77f32e48794231503adf">XPLMI_ERR_RESERVED_112</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2e5a260fd5e14e7cc9c37df23ec50f59">XPLMI_ERR_RESERVED_113</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2e5a260fd5e14e7cc9c37df23ec50f59">XPLMI_ERR_RESERVED_113</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab64c943d3e693b99c01f3912d07b92c6">XPLMI_ERR_RESERVED_114</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab64c943d3e693b99c01f3912d07b92c6">XPLMI_ERR_RESERVED_114</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a59299613515f8568b3a53e2425fa91da">XPLMI_ERR_IPI_CMD</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae7263d1a20bbed57dbdf53f47b69fa89">XPLMI_ERR_REGISTER_IOMOD_HANDLER</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab89c0de3a2bc86867e5a329bb32d0659">XPLMI_ERR_RESERVED_117</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab89c0de3a2bc86867e5a329bb32d0659">XPLMI_ERR_RESERVED_117</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a775644dd9540c0354e41861c85e0b3f4">XPLMI_ERR_RESERVED_118</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a775644dd9540c0354e41861c85e0b3f4">XPLMI_ERR_RESERVED_118</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac6e1475d52f698606485c479243e2116">XPLMI_ERR_RESERVED_119</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aa1b022945e24b2ac595c40de1f014a9e">XPLMI_ERR_RESERVED_11A</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab12d2ab6a2349db716578fd84a3103fa">XPLMI_ERR_RESERVED_11B</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab12d2ab6a2349db716578fd84a3103fa">XPLMI_ERR_RESERVED_11B</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3afd75ddb1de9bca7d0dc02ff91e5a3824">XPLMI_ERR_RESERVED_11C</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3afd75ddb1de9bca7d0dc02ff91e5a3824">XPLMI_ERR_RESERVED_11C</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a56d65f916018b3150230d947445db9b0">XPLMI_ERR_DMA_XFER_WAIT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6f659a3abd1a45bd4b1330545f265492">XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3abe1a3e2b6eafc52202667b77dc48d9f1">XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3abe1a3e2b6eafc52202667b77dc48d9f1">XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af1c138ebf9d18c3c772851c422aa8970">XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af1c138ebf9d18c3c772851c422aa8970">XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3acbe8a805e08cbdc3faa4cf4f90d32965">XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9b8ec07454976d41b64385aabca50537">XPLMI_ERR_DMA_XFER_WAIT_SRC</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9f26e6d4ff3e21d571c06eb7fe12e566">XPLMI_ERR_DMA_XFER_WAIT_DEST</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9f26e6d4ff3e21d571c06eb7fe12e566">XPLMI_ERR_DMA_XFER_WAIT_DEST</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6093c14eb56b932353cdb31ca98b0f66">XPLMI_ERR_UART_MEMSET</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6093c14eb56b932353cdb31ca98b0f66">XPLMI_ERR_UART_MEMSET</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac061763640c3d7fdc76fe0336d7b4b4b">XPLMI_ERR_RESERVED_125</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad392998d6bbaeee7bd36b78400a3f732">XPLMI_ERR_MEMCPY_CMD_EXEC</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9de69cee882797a086606b6a878a71ea">XPLMI_ERR_MEMCPY_IMAGE_INFO</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9de69cee882797a086606b6a878a71ea">XPLMI_ERR_MEMCPY_IMAGE_INFO</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a489080a886793f42db5c82d1ae08b8d8">XPLMI_ERR_UART_PSV_SET_BAUD_RATE</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a489080a886793f42db5c82d1ae08b8d8">XPLMI_ERR_UART_PSV_SET_BAUD_RATE</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5ac333d1f771cb89169fccbea664d8d8">XPLMI_ERR_RESERVED_129</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae904189b4f5885feee54949348ead481">XPLMI_ERR_RESERVED_12A</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad8a969ebb72acf5ca5f2184b021d3ac9">XPLMI_ERR_RESERVED_12B</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad8a969ebb72acf5ca5f2184b021d3ac9">XPLMI_ERR_RESERVED_12B</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac97ec8f72d4e705b3e717b60f5c5f285">XPLMI_NPI_ERR</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac97ec8f72d4e705b3e717b60f5c5f285">XPLMI_NPI_ERR</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a4d36d7ca08d5d76fa262b8555fb8fdac">XPLMI_IPI_CRC_MISMATCH_ERR</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac2ce9e67236c6a2eafd687d4d6c16594">XPLMI_IPI_READ_ERR</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2869c5a80b4a2b931415afe2583ebab2">XPLMI_ERR_UNALIGNED_DMA_XFER</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2869c5a80b4a2b931415afe2583ebab2">XPLMI_ERR_UNALIGNED_DMA_XFER</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a215b5cfac224352449bc81293a842d9f">XPLMI_ERR_RESERVED_130</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a215b5cfac224352449bc81293a842d9f">XPLMI_ERR_RESERVED_130</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3acf5d0bf4fbb90aa927c43d526c171a2a">XPLMI_ERR_TASK_EXISTS</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3abee6c5f73ea125d6505003ddd4936fa9">XPLMI_ERR_INVALID_TASK_TYPE</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a44bf3de2a38900f56e8dd5ebdbb729e3">XPLMI_ERR_INVALID_TASK_PERIOD</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a44bf3de2a38900f56e8dd5ebdbb729e3">XPLMI_ERR_INVALID_TASK_PERIOD</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9f34b42fe9b1f1a1b20833538e19f11c">XPLMI_ERR_NPI_LOCK</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9f34b42fe9b1f1a1b20833538e19f11c">XPLMI_ERR_NPI_LOCK</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aeda3f8d28e658e3604090269112f9dab">XPLMI_ERR_RESERVED_135</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3adc606b250a1d15d58cd04b9dd47b03bb">XPLMI_ERR_RESERVED_136</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a25c661aa0aefd27f2a5a86d5de033d23">XPLMI_ERR_RESERVED_137</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a25c661aa0aefd27f2a5a86d5de033d23">XPLMI_ERR_RESERVED_137</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2461007019832aba314b5ca9ac2cfcba">XPLMI_ERR_RESERVED_138</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a2461007019832aba314b5ca9ac2cfcba">XPLMI_ERR_RESERVED_138</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a717baa822e2dc79a645e4b6ff85be842">XPLMI_ERR_SCHED_TASK_MISSED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab01b5ef15aa6ad65bafd711e9bd52cc7">XPLMI_ERR_SET_PMC_IRO_FREQ</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a143abfad6125c84f30cf3b341d0d82c1">XPLMI_ERR_RESERVED_13B</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a143abfad6125c84f30cf3b341d0d82c1">XPLMI_ERR_RESERVED_13B</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af3c29ffbdc05b1f66066f1fa38f2a5d3">XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af3c29ffbdc05b1f66066f1fa38f2a5d3">XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac6b6aa70b5489755d9f39b7b9c2c54a7">XPLMI_ERR_RESERVED_13D</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aa710bf60290d6a43e962ee951004c79a">XPLMI_ERR_RESERVED_13E</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ace7f978e4362acd1704c0c90bca8ec38">XPLMI_ERR_RESERVED_13F</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ace7f978e4362acd1704c0c90bca8ec38">XPLMI_ERR_RESERVED_13F</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab988a65c9848b15344d68233c1535271">XPLMI_INVALID_BREAK_LENGTH</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab988a65c9848b15344d68233c1535271">XPLMI_INVALID_BREAK_LENGTH</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8711e11440c971c157281d74fc66d8d1">XPLMI_ERR_MODULE_NOT_REGISTERED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a7eaee6e49b0dd0d753b13b88d8ac878c">XPLMI_ERR_PRE_INIT</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a58c911430dff921f81a5d0f87f007b12">XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a58c911430dff921f81a5d0f87f007b12">XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a076fd89b5682ff754fff1a94bfeb8f70">XPLMI_ERR_EMINIT_INVALID_PARAM</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a076fd89b5682ff754fff1a94bfeb8f70">XPLMI_ERR_EMINIT_INVALID_PARAM</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3abdaf8cad8046fed1991e8b4f5caf9205">XPLMI_CMD_IN_PROGRESS</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a007e0cc033afe2c71718c4699893b487">XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL</a> = 0x1A0,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a391a67610f590ef66e7a97d2d7aba961">XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a391a67610f590ef66e7a97d2d7aba961">XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a75521032b16d7ae7b9a00408c75f67bb">XPLMI_INVALID_SLR_TYPE</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a75521032b16d7ae7b9a00408c75f67bb">XPLMI_INVALID_SLR_TYPE</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5953aa60552d90cd13768807361abd08">XPLMI_INVALID_SLR_INDEX</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a922a9d7ac0e691d6f33abfbe6d67c014">XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad0b1b217ec990a532804f7d05749822a">XPLMI_SSIT_INVALID_EVENT</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad0b1b217ec990a532804f7d05749822a">XPLMI_SSIT_INVALID_EVENT</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a755c9fc78756f829876f64569b53422c">XPLMI_SSIT_EVENT_IS_PENDING</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a755c9fc78756f829876f64569b53422c">XPLMI_SSIT_EVENT_IS_PENDING</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a423ff22128cd46f6d0ff373cdb7a0045">XPLMI_SSIT_EVENT_NOT_ACKNOWLEDGED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6470a299c96e3bb13cb4625c0dcd093e">XPLMI_SSIT_BUF_SIZE_EXCEEDS</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0bbe6ee41777d7b253ae34e451b6bf37">XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0bbe6ee41777d7b253ae34e451b6bf37">XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6cae0e02ee37aae058a607df8100add1">XPLMI_SSIT_EVENT_IS_NOT_PENDING</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6cae0e02ee37aae058a607df8100add1">XPLMI_SSIT_EVENT_IS_NOT_PENDING</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a4591a2e587480c03265730ac90a2f21f">XPLMI_SSIT_INTR_NOT_ENABLED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aa117ea1ce7991aab87aabc0eb99e37b3">XPLMI_ERR_RESERVED_1AC</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a12cc0d31763f5b51c81f83703871b7e3">XPLMI_ERR_RESERVED_1AD</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a12cc0d31763f5b51c81f83703871b7e3">XPLMI_ERR_RESERVED_1AD</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a959054a2627412be24649e6fcaf04cb5">XPLMI_SSIT_SECURE_COMM_INVALID_SRCADDR</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a959054a2627412be24649e6fcaf04cb5">XPLMI_SSIT_SECURE_COMM_INVALID_SRCADDR</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0785786fb13e001f5756072485800b26">XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_ENCRYPTION</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a433485b1a15b651c92194a4010c967c9">XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_DECRYPTION</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a3d8e90cb8461750fb495c90d0b369726">XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_ENCRYPTION</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a3d8e90cb8461750fb495c90d0b369726">XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_ENCRYPTION</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a57201a046e66a98698a87cde10591994">XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a57201a046e66a98698a87cde10591994">XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a3f08a0e8c07eae1539c10a2904b11eec">XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9ce6d64cf93b2e62e8b231402ddfafb7">XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3adef3df2a15d24da3e42202ad3afa337c">XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3adef3df2a15d24da3e42202ad3afa337c">XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a91a2b4f8688c271816e39e7133d785ba">XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a91a2b4f8688c271816e39e7133d785ba">XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a7bbaad827fe06eca0162152c2d70744e">XPLMI_ERR_TPM_INIT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07">XPLM_ERR_TASK_CREATE</a> = 0x200,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a4428f47e3e199d9832e21bdf890b7ac6">XPLM_ERR_PM_MOD</a>,
 <br/>
@@ -1161,7 +1166,7 @@ PLM error codes description</h2></td></tr>
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5c25120537ddfef1a59ac626eb416fdc">XLOADER_ERR_OSPI_READ</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aad7994088f6b8ebcd88560351dc5a753">XLOADER_ERR_OSPI_4BMODE</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a10a4b4cf173c60def8fb372d2d2205ac">XLOADER_ERR_RESERVED_314</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a010bc5a96554be290a5ee5ebf5f110fa">XLOADER_ERR_OSPI_TIMEOUT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6a55b2edc2e4788b3d554e7e8bc77260">XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ace00ecafafa238f961f148ae97400641">XLOADER_ERR_QSPI_INIT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a50a8ea14d41dc9ba0254be34598f9e20">XLOADER_ERR_QSPI_MANUAL_START</a>,
@@ -1369,517 +1374,47 @@ PLM error codes description</h2></td></tr>
 &#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8d5410608440b0d02acc71bb8c0abd77">XLOADER_ERR_DATA_MEASUREMENT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a24883e66b7fe35cf937eccf5d844e1a5">XLOADER_PRTN_HASH_NOT_PRESENT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a86a1a1db9636591b1f1fa05d30efeb61">XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae4c50eab05bc8b245e7f858775c9bb63">XLOADER_MEASURE_ROM_FAILURE</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ab2c8feb619ee11903561663cae49befa">XLOADER_MEASURE_PLM_FAILURE</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9e51ffb221c1e97e57a00d09cd5251cc">XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</a> = 0x65B,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5e2806682d54f4748fcf4257ad26ba57">XLOADER_ERR_PRTN_REVOKED</a> = 0x65D,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a5e2806682d54f4748fcf4257ad26ba57">XLOADER_ERR_PRTN_REVOKED</a> = 0x65D,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aafd5cc6067eb5cb1af0631c34d6b8ae2">XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED</a> = 0x6A0,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3abf971c78a41dd7df049f2ba55c09871a">XLOADER_TRNG_INIT_FAIL</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3abf971c78a41dd7df049f2ba55c09871a">XLOADER_TRNG_INIT_FAIL</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ac8f64a0a009f0e30f5eaf2290c43a1a8">XOCP_PCR_ERR_SWPCR_DUP_CONFIG</a> = 0x6B0,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae070a17e8573775fe68f8296634ab71d">XOCP_PCR_ERR_IN_SWPCR_CONFIG</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae070a17e8573775fe68f8296634ab71d">XOCP_PCR_ERR_IN_SWPCR_CONFIG</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a281c0545feaa3f8637664da45c9d85a5">XOCP_DEVAK_MAX_COUNT_EXCEED</a> = 0x6C0,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8c4c5eabffbb324daaffe77bf6c7e11c">XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8c4c5eabffbb324daaffe77bf6c7e11c">XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a30245569d2dc74b4de84cd39aa54641f">XOCP_ERR_KAT_FAILED</a> = 0x6D0,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a1fc68224be86de44dc338d16e4c3e2e6">XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a1fc68224be86de44dc338d16e4c3e2e6">XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a100ca851480c45acf9df8ee9ea48f6e1">XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a72936495ad6bd8e7f61491a68da6facb">XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a72936495ad6bd8e7f61491a68da6facb">XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3affdd45ab72066a3a60af28e81c01f996">XOCP_ERR_DIGEST_CALC</a>,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af67d4bcbf8f51633b86087b9f03c97b7">XOCP_ERR_AES_KEY_ZEROIZE</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3af67d4bcbf8f51633b86087b9f03c97b7">XOCP_ERR_AES_KEY_ZEROIZE</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8d2f7e53d7969d9ad453abb489de4e43">XOCP_ERR_AES_ENC_INIT</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0d119c5b5ff0bdfd6d77e5e981c88cfa">XOCP_ERR_AES_ENC_DATA</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a0d119c5b5ff0bdfd6d77e5e981c88cfa">XOCP_ERR_AES_ENC_DATA</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad229631a4d4b692a9d7f3f46a018d977">XOCP_ERR_PUF_REGENERATION</a>,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3acbf32fd6911ea705dd9e7ee91b807344">XOCP_ERR_KDF_FAILED</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3acbf32fd6911ea705dd9e7ee91b807344">XOCP_ERR_KDF_FAILED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a39e0b0c7e1c164898bf7b1ebc5732b1c">XOCP_ERR_HASH_COPY_FAILED</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6aa55f1109c575f862b1673201c945b3">XOCP_ERR_DME_PARAM_COPY_FAILED</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a6aa55f1109c575f862b1673201c945b3">XOCP_ERR_DME_PARAM_COPY_FAILED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a342ddab1176ddb562377d98a5308ac2a">XOCP_ERR_DME_SIGN_COPY_FAILED</a>,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae2fa217d09e32b35cb8b33e258544f83">XOCP_ERR_DME_CH_SIGN</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ae2fa217d09e32b35cb8b33e258544f83">XOCP_ERR_DME_CH_SIGN</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a045e682caf7293b9970acf70c5795d43">XOCP_ERR_DME_DEC_PRIV_KEY</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8e5370a39e7768bf7648310ed8e0ef27">XOCP_ERR_GEN_DME_PUB_KEY</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a8e5370a39e7768bf7648310ed8e0ef27">XOCP_ERR_GEN_DME_PUB_KEY</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3aa45cd5cc5dfd9f4c1fc5588b8a4ac0d0">XOCP_ERR_DME_PWCT</a>,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a85e82e05a5b1a7de580f35b6a3c08283">XOCP_ERR_GEN_ECC_KEY</a>,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a85e82e05a5b1a7de580f35b6a3c08283">XOCP_ERR_GEN_ECC_KEY</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a3bd1efde79cf77d4ce971fc090ee5a8c">XOCP_ERR_GEN_DME_SIGN</a>,
-<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3adccb5e145583b56b1c791f54f8f7ddde">XOCP_ERR_DME_SIGN_VERIF_FAILED</a>,
+<br/>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3adccb5e145583b56b1c791f54f8f7ddde">XOCP_ERR_DME_SIGN_VERIF_FAILED</a>,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3affce0b20f932dce3ce2d42815d6ab9f5">XOCP_ERR_DME_MEAS_COPY_FAILED</a>,
-<br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728">XPLMI_ERR_CDO_CMD</a> = 0x2000,
+<a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728">XPLMI_ERR_CDO_CMD</a> = 0x2000,
 <a class="el" href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3ad4c9af74245250681fd515020433c822">XPLMI_ERR_USER_MODULE_CDO_CMD</a> = 0x3000,
-<b>XPLMI_ERR_DMA_LOOKUP</b> = 0x100,
-<b>XPLMI_ERR_DMA_CFG</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_DMA_SELFTEST</b>,
-<b>XPLMI_ERR_IOMOD_INIT</b>,
-<b>XPLMI_ERR_IOMOD_START</b>,
-<b>XPLMI_ERR_IOMOD_CONNECT</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_106</b>,
-<b>XPLMI_ERR_CMD_APIID</b>,
-<b>XPLMI_ERR_CMD_HANDLER_NULL</b>,
-<b>XPLMI_ERR_RESERVED_109</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_10A</b>,
-<b>XPLMI_ERR_CDO_HDR_ID</b>,
-<b>XPLMI_ERR_CDO_CHECKSUM</b>,
-<b>XPLMI_ERR_RESERVED_10D</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_UART_LOOKUP</b>,
-<b>XPLMI_ERR_UART_CFG</b>,
-<b>XPLMI_ERR_RESERVED_110</b>,
-<b>XPLMI_ERR_RESERVED_111</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_112</b>,
-<b>XPLMI_ERR_RESERVED_113</b>,
-<b>XPLMI_ERR_RESERVED_114</b>,
-<b>XPLMI_ERR_IPI_CMD</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_REGISTER_IOMOD_HANDLER</b>,
-<b>XPLMI_ERR_RESERVED_117</b>,
-<b>XPLMI_ERR_RESERVED_118</b>,
-<b>XPLMI_ERR_RESERVED_119</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_11A</b>,
-<b>XPLMI_ERR_RESERVED_11B</b>,
-<b>XPLMI_ERR_RESERVED_11C</b>,
-<b>XPLMI_ERR_DMA_XFER_WAIT</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC</b>,
-<b>XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST</b>,
-<b>XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT</b>,
-<b>XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_DMA_XFER_WAIT_SRC</b>,
-<b>XPLMI_ERR_DMA_XFER_WAIT_DEST</b>,
-<b>XPLMI_ERR_UART_MEMSET</b>,
-<b>XPLMI_ERR_RESERVED_125</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_MEMCPY_CMD_EXEC</b>,
-<b>XPLMI_ERR_MEMCPY_IMAGE_INFO</b>,
-<b>XPLMI_ERR_UART_PSV_SET_BAUD_RATE</b>,
-<b>XPLMI_ERR_RESERVED_129</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_12A</b>,
-<b>XPLMI_ERR_RESERVED_12B</b>,
-<b>XPLMI_NPI_ERR</b>,
-<b>XPLMI_IPI_CRC_MISMATCH_ERR</b>,
-<br/>
-&#160;&#160;<b>XPLMI_IPI_READ_ERR</b>,
-<b>XPLMI_ERR_UNALIGNED_DMA_XFER</b>,
-<b>XPLMI_ERR_RESERVED_130</b>,
-<b>XPLMI_ERR_TASK_EXISTS</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_INVALID_TASK_TYPE</b>,
-<b>XPLMI_ERR_INVALID_TASK_PERIOD</b>,
-<b>XPLMI_ERR_NPI_LOCK</b>,
-<b>XPLMI_ERR_RESERVED_135</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_136</b>,
-<b>XPLMI_ERR_RESERVED_137</b>,
-<b>XPLMI_ERR_RESERVED_138</b>,
-<b>XPLMI_ERR_SCHED_TASK_MISSED</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_SET_PMC_IRO_FREQ</b>,
-<b>XPLMI_ERR_RESERVED_13B</b>,
-<b>XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE</b>,
-<b>XPLMI_ERR_RESERVED_13D</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_13E</b>,
-<b>XPLMI_ERR_RESERVED_13F</b>,
-<b>XPLMI_INVALID_BREAK_LENGTH</b>,
-<b>XPLMI_ERR_MODULE_NOT_REGISTERED</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_PRE_INIT</b>,
-<b>XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS</b>,
-<b>XPLMI_ERR_EMINIT_INVALID_PARAM</b>,
-<b>XPLMI_CMD_IN_PROGRESS</b>,
-<br/>
-&#160;&#160;<b>XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL</b> = 0x1A0,
-<b>XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK</b>,
-<b>XPLMI_INVALID_SLR_TYPE</b>,
-<b>XPLMI_INVALID_SLR_INDEX</b>,
-<br/>
-&#160;&#160;<b>XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS</b>,
-<b>XPLMI_SSIT_INVALID_EVENT</b>,
-<b>XPLMI_SSIT_EVENT_IS_PENDING</b>,
-<b>XPLMI_SSIT_EVENT_NOT_ACKNOWLEDGED</b>,
-<br/>
-&#160;&#160;<b>XPLMI_SSIT_BUF_SIZE_EXCEEDS</b>,
-<b>XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR</b>,
-<b>XPLMI_SSIT_EVENT_IS_NOT_PENDING</b>,
-<b>XPLMI_SSIT_INTR_NOT_ENABLED</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_1AC</b>,
-<b>XPLMI_ERR_RESERVED_1AD</b>,
-<b>XPLMI_SSIT_SECURE_COMM_INVALID_SRCADDR</b>,
-<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_ENCRYPTION</b>,
-<br/>
-&#160;&#160;<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_DECRYPTION</b>,
-<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_ENCRYPTION</b>,
-<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION</b>,
-<b>XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS</b>,
-<br/>
-&#160;&#160;<b>XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE</b>,
-<b>XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK</b>,
-<b>XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</b>,
-<b>XPLMI_ERR_RESERVED_1B7</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_MEMCPY_STORE_DB</b>,
-<b>XPLMI_ERR_MEMSET_RESTORE_DB</b>,
-<b>XPLMI_ERR_MEMCPY_RESTORE_DB</b>,
-<b>XPLMI_ERR_MEMSET_DBHDR</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_MEMCPY_RELOCATE</b>,
-<b>XPLMI_ERR_PLM_UPDATE_RELOCATED_FN</b>,
-<b>XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE</b>,
-<b>XPLMI_ERR_RETRY_SHUTDOWN_LATER</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_STORE_DATA_BACKUP</b>,
-<b>XPLMI_ERR_INVALID_STORE_DS_HANDLER</b>,
-<b>XPLMI_ERR_INVALID_RESTORE_DS_HANDLER</b>,
-<b>XPLMI_ERR_INVALID_DS_ENTRY</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_DS_ALIGNMENT_INCORRECT</b>,
-<b>XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW</b>,
-<b>XPLMI_ERR_PLM_UPDATE_INVALID_OP</b>,
-<b>XPLMI_ERR_DB_HDR_SIZE_MISMATCH</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_DB_HDR_VERSION_MISMATCH</b>,
-<b>XPLMI_ERR_DB_ENDADDR_INVALID</b>,
-<b>XPLM_ERR_TASK_CREATE</b> = 0x200,
-<b>XPLM_ERR_PM_MOD</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_RESERVED_202</b>,
-<b>XPLM_ERR_EXCEPTION</b>,
-<b>XPLM_ERR_NPLL_LOCK</b>,
-<b>XPLM_ERR_STL_MOD</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_KEEP_ALIVE_TASK_CREATE</b>,
-<b>XPLM_ERR_RESERVED_207</b>,
-<b>XPLM_ERR_PSM_NOT_ALIVE</b>,
-<b>XPLM_ERR_IPI_SEND</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_PMC_RAM_MEMSET</b>,
-<b>XPLM_ERR_STL_DIAG_TASK_CREATE</b>,
-<b>XPLM_ERR_STL_DIAG_TASK_REMOVE</b>,
-<b>XPLM_ERR_RESERVED_20D</b>,
-<br/>
-&#160;&#160;<b>XLOADER_UNSUPPORTED_BOOT_MODE</b> = 0x300,
-<b>XLOADER_ERR_UNSUPPORTED_USB_PRIMARY</b>,
-<b>XLOADER_ERR_IMGHDR_TBL</b> = 0x302,
-<b>XLOADER_ERR_IMGHDR</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_PRTNHDR</b>,
-<b>XLOADER_ERR_WAKEUP_A72_0</b>,
-<b>XLOADER_ERR_WAKEUP_A72_1</b>,
-<b>XLOADER_ERR_WAKEUP_R5_0</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_WAKEUP_R5_1</b>,
-<b>XLOADER_ERR_WAKEUP_R5_L</b>,
-<b>XLOADER_ERR_WAKEUP_PSM</b>,
-<b>XLOADER_ERR_RESERVED_30B</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_OSPI</b>,
-<b>XLOADER_ERR_UNSUPPORTED_OSPI_SIZE</b>,
-<b>XLOADER_ERR_OSPI_INIT</b>,
-<b>XLOADER_ERR_OSPI_CFG</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_SEL_FLASH_CS0</b>,
-<b>XLOADER_ERR_OSPI_READID</b>,
-<b>XLOADER_ERR_OSPI_READ</b>,
-<b>XLOADER_ERR_OSPI_4BMODE</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_314</b>,
-<b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</b>,
-<b>XLOADER_ERR_QSPI_INIT</b>,
-<b>XLOADER_ERR_QSPI_MANUAL_START</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_QSPI_PRESCALER_CLK</b>,
-<b>XLOADER_ERR_QSPI_CONNECTION</b>,
-<b>XLOADER_ERR_QSPI_READ</b>,
-<b>XLOADER_ERR_QSPI_LENGTH</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_SD_INIT</b>,
-<b>XLOADER_ERR_SD_F_OPEN</b>,
-<b>XLOADER_ERR_SD_F_LSEEK</b>,
-<b>XLOADER_ERR_SD_F_READ</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_IMG_ID_NOT_FOUND</b>,
-<b>XLOADER_ERR_TCM_ADDR_OUTOF_RANGE</b>,
-<b>XLOADER_ERR_CFRAME_LOOKUP</b>,
-<b>XLOADER_ERR_CFRAME_CFG</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE</b>,
-<b>XLOADER_ERR_SECURE_METAHDR</b>,
-<b>XLOADER_ERR_GEN_IDCODE</b>,
-<b>XLOADER_ERR_USB_LOOKUP</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_USB_CFG</b>,
-<b>XLOADER_ERR_USB_START</b>,
-<b>XLOADER_ERR_RESERVED_32A</b>,
-<b>XLOADER_ERR_DEFERRED_CDO_PROCESS</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_SD_LOOKUP</b>,
-<b>XLOADER_ERR_SD_CFG</b>,
-<b>XLOADER_ERR_SD_CARD_INIT</b>,
-<b>XLOADER_ERR_MMC_PART_CONFIG</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_SEM_STOP_SCAN</b>,
-<b>XLOADER_ERR_SEM_INIT</b>,
-<b>XLOADER_ERR_DELAY_ATTRB</b>,
-<b>XLOADER_ERR_NUM_HANDOFF_CPUS</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_CONN_MODE</b>,
-<b>XLOADER_ERR_OSPI_SEL_FLASH_CS1</b>,
-<b>XLOADER_ERR_OSPI_SDR_NON_PHY</b>,
-<b>XLOADER_ERR_OSPI_COPY_OVERFLOW</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_SD_F_CLOSE</b>,
-<b>XLOADER_ERR_SD_UMOUNT</b>,
-<b>XLOADER_ERR_DMA_XFER</b>,
-<b>XLOADER_ERR_RESERVED_33B</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_CONFIG_SUBSYSTEM</b>,
-<b>XLOADER_ERR_COPY_TO_MEM</b>,
-<b>XLOADER_ERR_DELAY_LOAD</b>,
-<b>XLOADER_ERR_ADD_TASK_SCHEDULER</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT</b>,
-<b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE</b>,
-<b>XLOADER_ERR_PM_DEV_PSM_PROC</b>,
-<b>XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT</b>,
-<b>XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP</b>,
-<b>XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP</b>,
-<b>XLOADER_ERR_PM_DEV_TCM_0_A</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_TCM_0_B</b>,
-<b>XLOADER_ERR_PM_DEV_TCM_1_A</b>,
-<b>XLOADER_ERR_PM_DEV_TCM_1_B</b>,
-<b>XLOADER_ERR_PM_DEV_DDR_0</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_QSPI</b>,
-<b>XLOADER_ERR_PM_DEV_SDIO_0</b>,
-<b>XLOADER_ERR_PM_DEV_SDIO_1</b>,
-<b>XLOADER_ERR_RESERVED_34F</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_OSPI</b>,
-<b>XLOADER_ERR_DEV_NOT_DEFINED</b>,
-<b>XLOADER_ERR_PARENT_QUERY_VERIFY</b>,
-<b>XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY</b>,
-<b>XLOADER_ERR_INVALIDATE_CHILD_IMG</b>,
-<b>XLOADER_ERR_INVALID_PARENT_IMG_ID</b>,
-<b>XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_FUNCTION_ID_MISMATCH</b>,
-<b>XLOADER_ERR_MEMSET</b>,
-<b>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS</b>,
-<b>XLOADER_ERR_INIT_CDO</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_INVALID_ELF_LOAD_ADDR</b>,
-<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE</b>,
-<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC</b>,
-<b>XLOADER_ERR_UNSUPPORTED_FILE_NUM</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET</b>,
-<b>XLOADER_ERR_SECURE_NOT_ENABLED</b>,
-<b>XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC</b>,
-<b>XLOADER_ERR_RESERVED0</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED1</b>,
-<b>XLOADER_ERR_RESERVED2</b>,
-<b>XLOADER_ERR_RESERVED3</b>,
-<b>XLOADER_ERR_RELEASE_PM_DEV_DDR_0</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_368</b>,
-<b>XLOADER_ERR_RESERVED_369</b>,
-<b>XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE</b>,
-<b>XLOADER_ERR_INVALID_TCM_ADDR</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_36C</b>,
-<b>XLOADER_ERR_RESERVED_36D</b>,
-<b>XLOADER_ERR_RESERVED_36E</b>,
-<b>XLOADER_ERR_RESERVED_36F</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_370</b>,
-<b>XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS</b>,
-<b>XLOADER_ERR_RESERVED4</b>,
-<b>XLOADER_ERR_ECDSA_NOT_ENABLED</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RSA_NOT_ENABLED</b>,
-<b>XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR</b>,
-<b>XLOADER_ERR_PRTN_COPY_TO_PMCRAM</b>,
-<b>XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_PRESCALER_CLK</b>,
-<b>XLOADER_ERR_OSPI_IDAC_EN</b>,
-<b>XLOADER_ERR_INVALID_CPUID</b>,
-<b>XLOADER_ERR_OSPI_DUMMY_CFG</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_USB_TIMEOUT</b>,
-<b>XLOADER_ERR_USB_DDR_OVERFLOW</b>,
-<b>XLOADER_ERR_INIT_GET_DMA</b> = 0x600,
-<b>XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL</b>,
-<b>XLOADER_ERR_INIT_AC_COPY_FAIL</b>,
-<b>XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC</b>,
-<b>XLOADER_ERR_DMA_TRANSFER</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_606</b>,
-<b>XLOADER_ERR_IHT_GET_DMA</b>,
-<b>XLOADER_ERR_IHT_COPY_FAIL</b>,
-<b>XLOADER_ERR_IHT_HASH_CALC_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_IHT_AUTH_FAIL</b>,
-<b>XLOADER_ERR_HDR_COPY_FAIL</b>,
-<b>XLOADER_ERR_HDR_AES_OP_FAIL</b>,
-<b>XLOADER_ERR_HDR_DEC_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_AUTH_FAIL</b>,
-<b>XLOADER_ERR_HDR_NOT_SECURE</b>,
-<b>XLOADER_ERR_HDR_GET_DMA</b>,
-<b>XLOADER_ERR_HDR_HASH_CALC_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_NOT_ENCRYPTED</b>,
-<b>XLOADER_ERR_RESERVED_613</b>,
-<b>XLOADER_ERR_SEC_IH_READ_FAIL</b>,
-<b>XLOADER_ERR_SEC_PH_READ_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_PRTN_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_PRTN_AUTH_FAIL</b>,
-<b>XLOADER_ERR_PRTN_HASH_COMPARE_FAIL</b>,
-<b>XLOADER_ERR_PRTN_DECRYPT_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY</b>,
-<b>XLOADER_ERR_RESERVED_61B</b>,
-<b>XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO</b>,
-<b>XLOADER_ERR_ENCONLY_ENC_COMPULSORY</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_KAT_FAILED</b>,
-<b>XLOADER_ERR_DATA_COPY_FAIL</b>,
-<b>XLOADER_ERR_METAHDR_LEN_OVERFLOW</b>,
-<b>XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_DISABLED</b>,
-<b>XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL</b>,
-<b>XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL</b>,
-<b>XLOADER_ERR_RESERVED_625</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_GET_DMA</b>,
-<b>XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL</b>,
-<b>XLOADER_ERR_AUTH_JTAG_DMA_XFR</b>,
-<b>XLOADER_ERR_MEMSET_SECURE_PTR</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_GLITCH_DETECTED</b>,
-<b>XLOADER_ERR_AUTH_JTAG_SPK_REVOKED</b>,
-<b>XLOADER_ERR_METAHDR_KEYSRC_MISMATCH</b>,
-<b>XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_62E</b>,
-<b>XLOADER_ERR_HDR_AAD_UPDATE_FAIL</b>,
-<b>XLOADER_ERR_UNSUPPORTED_PDI_VER</b>,
-<b>XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_INVALID_DNA</b>,
-<b>XLOADER_ERR_SEC_IH_VERIFY_FAIL</b>,
-<b>XLOADER_ERR_SEC_PH_VERIFY_FAIL</b>,
-<b>XLOADER_ERR_SECURE_CLEAR_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_READ_IHT_OPTIONAL_DATA</b>,
-<b>XLOADER_ERR_STORE_DIGEST_TABLE</b>,
-<b>XLOADER_ERR_RESERVED_638</b>,
-<b>XLOADER_ERR_RESERVED_639</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_DATA_MEASUREMENT</b>,
-<b>XLOADER_PRTN_HASH_NOT_PRESENT</b>,
-<b>XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</b>,
-<b>XLOADER_ERR_HASH_BLOCK_COPY_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_HASH_BLOCK_HASH_COMPARE_FAIL</b>,
-<b>XLOADER_ERR_MH_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE</b>,
-<b>XLOADER_ERR_PPK_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_SPK_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_PPK_COPY_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_SPK_HEADER_COPY_FAIL</b>,
-<b>XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL</b>,
-<b>XLOADER_ERR_SPK_COPY_FAIL</b>,
-<b>XLOADER_ERR_SPK_SIGN_COPY_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL</b>,
-<b>XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL</b>,
-<b>XLOADER_ERR_GET_LMS_ALGO_FAILED</b>,
-<b>XLOADER_ERR_RESERVED_64D</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_64E</b>,
-<b>XLOADER_ERR_RESERVED_64F</b>,
-<b>XLOADER_ERR_LMS_HSS_GET_DMA</b>,
-<b>XLOADER_ERR_LMS_GET_DMA</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_652</b>,
-<b>XLOADER_ERR_RESERVED_653</b>,
-<b>XLOADER_ERR_KEY_AUTH_FAIL</b>,
-<b>XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</b> = 0x65B,
-<b>XLOADER_ERR_PRTN_REVOKED</b> = 0x65D,
-<b>XLOADER_ERR_PPK_HEADER_COPY_FAIL</b>,
-<b>XLOADER_ERR_INCORRECT_KEY</b>,
-<br/>
-&#160;&#160;<b>XLOADER_ERR_INVALID_HYBRID_KEYPAIR</b>,
-<b>XLOADER_ERR_KEY_ALGO_MISMATCH</b>,
-<b>XLOADER_ERR_SIGN_HDR_COPY_FAIL</b>,
-<b>XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED</b>,
-<br/>
-&#160;&#160;<b>XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED</b> = 0x6A0,
-<b>XLOADER_TRNG_INIT_FAIL</b>,
-<b>XOCP_PCR_ERR_SWPCR_DUP_CONFIG</b> = 0x6B0,
-<b>XOCP_PCR_ERR_IN_SWPCR_CONFIG</b>,
-<br/>
-&#160;&#160;<b>XOCP_DEVAK_MAX_COUNT_EXCEED</b> = 0x6C0,
-<b>XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</b>,
-<b>XOCP_ERR_KAT_FAILED</b> = 0x6D0,
-<b>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</b>,
-<br/>
-&#160;&#160;<b>XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</b>,
-<b>XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</b>,
-<b>XOCP_ERR_RESERVED_6D4</b>,
-<b>XOCP_ERR_RESERVED_6D5</b>,
-<br/>
-&#160;&#160;<b>XOCP_ERR_RESERVED_6D6</b>,
-<b>XOCP_ERR_RESERVED_6D7</b>,
-<b>XOCP_ERR_RESERVED_6D8</b>,
-<b>XOCP_ERR_RESERVED_6D9</b>,
-<br/>
-&#160;&#160;<b>XOCP_ERR_RESERVED_6DA</b>,
-<b>XOCP_ERR_RESERVED_6DB</b>,
-<b>XOCP_ERR_RESERVED_6DC</b>,
-<b>XOCP_ERR_RESERVED_6DD</b>,
-<br/>
-&#160;&#160;<b>XOCP_ERR_RESERVED_6DE</b>,
-<b>XOCP_ERR_RESERVED_6DF</b>,
-<b>XOCP_ERR_RESERVED_6E0</b>,
-<b>XOCP_ERR_RESERVED_6E1</b>,
-<br/>
-&#160;&#160;<b>XOCP_ERR_RESERVED_6E2</b>,
-<b>XOCP_ERR_RESERVED_6E3</b>,
-<b>XOCP_ERR_RESERVED_6E4</b>,
-<b>XPLMI_ERR_CDO_CMD</b> = 0x2000,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_USER_MODULE_CDO_CMD</b> = 0x3000,
-<b>XPLM_SUCCESS</b> = 0x0,
-<b>XPLM_FAILURE</b>,
-<b>XPLMI_TASK_INPROGRESS</b>,
 <br/>
 &#160;&#160;<b>XPLMI_ERR_DMA_LOOKUP</b> = 0x100,
 <b>XPLMI_ERR_DMA_CFG</b>,
@@ -1968,335 +1503,808 @@ PLM error codes description</h2></td></tr>
 <br/>
 &#160;&#160;<b>XPLMI_ERR_EMINIT_INVALID_PARAM</b>,
 <b>XPLMI_CMD_IN_PROGRESS</b>,
-<b>XPLMI_ERR_PLM_UPDATE_COMPATIBILITY</b> = 0x1A0,
-<b>XPLMI_ERR_PLAT_RESERVED_1A1</b>,
+<b>XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL</b> = 0x1A0,
+<b>XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK</b>,
+<br/>
+&#160;&#160;<b>XPLMI_INVALID_SLR_TYPE</b>,
+<b>XPLMI_INVALID_SLR_INDEX</b>,
+<b>XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS</b>,
+<b>XPLMI_SSIT_INVALID_EVENT</b>,
+<br/>
+&#160;&#160;<b>XPLMI_SSIT_EVENT_IS_PENDING</b>,
+<b>XPLMI_SSIT_EVENT_NOT_ACKNOWLEDGED</b>,
+<b>XPLMI_SSIT_BUF_SIZE_EXCEEDS</b>,
+<b>XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR</b>,
+<br/>
+&#160;&#160;<b>XPLMI_SSIT_EVENT_IS_NOT_PENDING</b>,
+<b>XPLMI_SSIT_INTR_NOT_ENABLED</b>,
+<b>XPLMI_ERR_INVALID_ROM_INT_REQ</b>,
+<b>XPLMI_ERR_RESERVED_1AD</b>,
+<br/>
+&#160;&#160;<b>XPLMI_SSIT_SECURE_COMM_INVALID_SRCADDR</b>,
+<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_ENCRYPTION</b>,
+<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_DECRYPTION</b>,
+<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_ENCRYPTION</b>,
+<br/>
+&#160;&#160;<b>XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION</b>,
+<b>XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS</b>,
+<b>XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE</b>,
+<b>XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK</b>,
+<br/>
+&#160;&#160;<b>XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</b>,
+<b>XPLMI_ERR_RESERVED_1B7</b>,
+<b>XPLMI_ERR_MEMCPY_STORE_DB</b>,
+<b>XPLMI_ERR_MEMSET_RESTORE_DB</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_MEMCPY_RESTORE_DB</b>,
+<b>XPLMI_ERR_MEMSET_DBHDR</b>,
+<b>XPLMI_ERR_MEMCPY_RELOCATE</b>,
+<b>XPLMI_ERR_PLM_UPDATE_RELOCATED_FN</b>,
 <br/>
 &#160;&#160;<b>XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE</b>,
+<b>XPLMI_ERR_RETRY_SHUTDOWN_LATER</b>,
+<b>XPLMI_ERR_STORE_DATA_BACKUP</b>,
 <b>XPLMI_ERR_INVALID_STORE_DS_HANDLER</b>,
-<b>XPLMI_ERR_INVALID_RESTORE_DS_HANDLER</b>,
-<b>XPLMI_ERR_PLAT_RESERVED_1A5</b>,
 <br/>
-&#160;&#160;<b>XPLMI_ERR_INVALID_DS_ENTRY</b>,
+&#160;&#160;<b>XPLMI_ERR_INVALID_RESTORE_DS_HANDLER</b>,
+<b>XPLMI_ERR_INVALID_DS_ENTRY</b>,
 <b>XPLMI_ERR_DS_ALIGNMENT_INCORRECT</b>,
 <b>XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW</b>,
-<b>XPLMI_ERR_PLM_UPDATE_INVALID_OP</b>,
 <br/>
-&#160;&#160;<b>XPLMI_ERR_PLM_UPDATE_RELOCATED_FN</b>,
+&#160;&#160;<b>XPLMI_ERR_PLM_UPDATE_INVALID_OP</b>,
 <b>XPLMI_ERR_DB_HDR_SIZE_MISMATCH</b>,
 <b>XPLMI_ERR_DB_HDR_VERSION_MISMATCH</b>,
 <b>XPLMI_ERR_DB_ENDADDR_INVALID</b>,
 <br/>
-&#160;&#160;<b>XPLMI_ERR_RESERVED_1AE</b>,
-<b>XPLMI_ERR_RESERVED_1AF</b>,
-<b>XPLMI_ERR_INVALID_ROM_INT_REQ</b>,
-<b>XPLMI_ERR_MEMCPY_STORE_DB</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_MEMSET_RESTORE_DB</b>,
-<b>XPLMI_ERR_MEMCPY_RESTORE_DB</b>,
-<b>XPLMI_ERR_MEMSET_DBHDR</b>,
-<b>XPLMI_ERR_MEMCPY_RELOCATE</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_PLAT_RESERVED_1B6</b>,
-<b>XPLMI_ERR_PLAT_RESERVED_1B7</b>,
-<b>XPLMI_ERR_PLAT_RESERVED_1B8</b>,
-<b>XPLMI_ERR_PLAT_RESERVED_1B9</b>,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_PLAT_RESERVED_1BA</b>,
-<b>XPLMI_ERR_RETRY_SHUTDOWN_LATER</b>,
-<b>XPLMI_ERR_STORE_DATA_BACKUP</b>,
-<b>XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS</b>,
-<br/>
-&#160;&#160;<b>XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK</b>,
-<b>XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</b>,
-<b>XPLM_ERR_TASK_CREATE</b> = 0x200,
+&#160;&#160;<b>XPLM_ERR_TASK_CREATE</b> = 0x200,
 <b>XPLM_ERR_PM_MOD</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_RESERVED_202</b>,
+<b>XPLM_ERR_RESERVED_202</b>,
 <b>XPLM_ERR_EXCEPTION</b>,
-<b>XPLM_ERR_RESERVED_204</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_NPLL_LOCK</b>,
 <b>XPLM_ERR_STL_MOD</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_KEEP_ALIVE_TASK_CREATE</b>,
+<b>XPLM_ERR_KEEP_ALIVE_TASK_CREATE</b>,
 <b>XPLM_ERR_RESERVED_207</b>,
-<b>XPLM_ERR_PSM_NOT_ALIVE</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_PSM_NOT_ALIVE</b>,
 <b>XPLM_ERR_IPI_SEND</b>,
+<b>XPLM_ERR_PMC_RAM_MEMSET</b>,
+<b>XPLM_ERR_STL_DIAG_TASK_CREATE</b>,
 <br/>
-&#160;&#160;<b>XPLM_ERR_PMC_RAM_MEMSET</b>,
-<b>XPLM_ERR_RESERVED_2A0</b> = 0x2A0,
-<b>XPLM_ERR_UPDATE_ID_CODE_CHECK</b>,
-<b>XPLM_ERR_INVALID_UPDATE_ADDR</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_INVALID_UPDATE_BH_IDENT</b>,
-<b>XPLM_ERR_NO_STRUCT_OPTIONAL_DATA</b>,
-<b>XPLM_ERR_DS_INFO_CHECKSUM_FAILED</b>,
-<b>XPLM_ERR_UPDATE_PDI_UNSUPPORTED_VER</b>,
-<br/>
-&#160;&#160;<b>XPLM_ERR_UPDATE_INVALID_IDENT_STRING</b>,
+&#160;&#160;<b>XPLM_ERR_STL_DIAG_TASK_REMOVE</b>,
+<b>XPLM_ERR_RESERVED_20D</b>,
 <b>XLOADER_UNSUPPORTED_BOOT_MODE</b> = 0x300,
 <b>XLOADER_ERR_UNSUPPORTED_USB_PRIMARY</b>,
-<b>XLOADER_ERR_IMGHDR_TBL</b> = 0x302,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_IMGHDR</b>,
+&#160;&#160;<b>XLOADER_ERR_IMGHDR_TBL</b> = 0x302,
+<b>XLOADER_ERR_IMGHDR</b>,
 <b>XLOADER_ERR_PRTNHDR</b>,
-<b>XLOADER_ERR_RESERVED_305</b>,
-<b>XLOADER_ERR_RESERVED_306</b>,
+<b>XLOADER_ERR_WAKEUP_A72_0</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_307</b>,
-<b>XLOADER_ERR_RESERVED_308</b>,
-<b>XLOADER_ERR_RESERVED_309</b>,
-<b>XLOADER_ERR_WAKEUP_PSM</b>,
+&#160;&#160;<b>XLOADER_ERR_WAKEUP_A72_1</b>,
+<b>XLOADER_ERR_WAKEUP_R5_0</b>,
+<b>XLOADER_ERR_WAKEUP_R5_1</b>,
+<b>XLOADER_ERR_WAKEUP_R5_L</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_30B</b>,
+&#160;&#160;<b>XLOADER_ERR_WAKEUP_PSM</b>,
+<b>XLOADER_ERR_RESERVED_30B</b>,
 <b>XLOADER_ERR_UNSUPPORTED_OSPI</b>,
 <b>XLOADER_ERR_UNSUPPORTED_OSPI_SIZE</b>,
-<b>XLOADER_ERR_OSPI_INIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_CFG</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_INIT</b>,
+<b>XLOADER_ERR_OSPI_CFG</b>,
 <b>XLOADER_ERR_OSPI_SEL_FLASH_CS0</b>,
 <b>XLOADER_ERR_OSPI_READID</b>,
-<b>XLOADER_ERR_OSPI_READ</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_4BMODE</b>,
-<b>XLOADER_ERR_RESERVED_314</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_READ</b>,
+<b>XLOADER_ERR_OSPI_4BMODE</b>,
+<b>XLOADER_ERR_OSPI_TIMEOUT</b>,
 <b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</b>,
-<b>XLOADER_ERR_QSPI_INIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_QSPI_MANUAL_START</b>,
+&#160;&#160;<b>XLOADER_ERR_QSPI_INIT</b>,
+<b>XLOADER_ERR_QSPI_MANUAL_START</b>,
 <b>XLOADER_ERR_QSPI_PRESCALER_CLK</b>,
 <b>XLOADER_ERR_QSPI_CONNECTION</b>,
-<b>XLOADER_ERR_QSPI_READ</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_QSPI_LENGTH</b>,
+&#160;&#160;<b>XLOADER_ERR_QSPI_READ</b>,
+<b>XLOADER_ERR_QSPI_LENGTH</b>,
 <b>XLOADER_ERR_SD_INIT</b>,
 <b>XLOADER_ERR_SD_F_OPEN</b>,
-<b>XLOADER_ERR_SD_F_LSEEK</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_SD_F_READ</b>,
+&#160;&#160;<b>XLOADER_ERR_SD_F_LSEEK</b>,
+<b>XLOADER_ERR_SD_F_READ</b>,
 <b>XLOADER_ERR_IMG_ID_NOT_FOUND</b>,
-<b>XLOADER_ERR_RESERVED_321</b>,
-<b>XLOADER_ERR_CFRAME_LOOKUP</b>,
+<b>XLOADER_ERR_TCM_ADDR_OUTOF_RANGE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_CFRAME_CFG</b>,
+&#160;&#160;<b>XLOADER_ERR_CFRAME_LOOKUP</b>,
+<b>XLOADER_ERR_CFRAME_CFG</b>,
 <b>XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE</b>,
-<b>XLOADER_ERR_RESERVED_325</b>,
-<b>XLOADER_ERR_GEN_IDCODE</b>,
+<b>XLOADER_ERR_SECURE_METAHDR</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_USB_LOOKUP</b>,
+&#160;&#160;<b>XLOADER_ERR_GEN_IDCODE</b>,
+<b>XLOADER_ERR_USB_LOOKUP</b>,
 <b>XLOADER_ERR_USB_CFG</b>,
 <b>XLOADER_ERR_USB_START</b>,
-<b>XLOADER_ERR_RESERVED_32A</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_DEFERRED_CDO_PROCESS</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_32A</b>,
+<b>XLOADER_ERR_DEFERRED_CDO_PROCESS</b>,
 <b>XLOADER_ERR_SD_LOOKUP</b>,
 <b>XLOADER_ERR_SD_CFG</b>,
-<b>XLOADER_ERR_SD_CARD_INIT</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_MMC_PART_CONFIG</b>,
+&#160;&#160;<b>XLOADER_ERR_SD_CARD_INIT</b>,
+<b>XLOADER_ERR_MMC_PART_CONFIG</b>,
 <b>XLOADER_ERR_SEM_STOP_SCAN</b>,
 <b>XLOADER_ERR_SEM_INIT</b>,
-<b>XLOADER_ERR_DELAY_ATTRB</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_NUM_HANDOFF_CPUS</b>,
+&#160;&#160;<b>XLOADER_ERR_DELAY_ATTRB</b>,
+<b>XLOADER_ERR_NUM_HANDOFF_CPUS</b>,
 <b>XLOADER_ERR_OSPI_CONN_MODE</b>,
 <b>XLOADER_ERR_OSPI_SEL_FLASH_CS1</b>,
-<b>XLOADER_ERR_OSPI_SDR_NON_PHY</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_COPY_OVERFLOW</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_SDR_NON_PHY</b>,
+<b>XLOADER_ERR_OSPI_COPY_OVERFLOW</b>,
 <b>XLOADER_ERR_SD_F_CLOSE</b>,
 <b>XLOADER_ERR_SD_UMOUNT</b>,
-<b>XLOADER_ERR_DMA_XFER</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_33B</b>,
+&#160;&#160;<b>XLOADER_ERR_DMA_XFER</b>,
+<b>XLOADER_ERR_RESERVED_33B</b>,
 <b>XLOADER_ERR_CONFIG_SUBSYSTEM</b>,
-<b>XLOADER_ERR_RESERVED_33D</b>,
-<b>XLOADER_ERR_DELAY_LOAD</b>,
+<b>XLOADER_ERR_COPY_TO_MEM</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_ADD_TASK_SCHEDULER</b>,
+&#160;&#160;<b>XLOADER_ERR_DELAY_LOAD</b>,
+<b>XLOADER_ERR_ADD_TASK_SCHEDULER</b>,
 <b>XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT</b>,
 <b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE</b>,
-<b>XLOADER_ERR_PM_DEV_PSM_PROC</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_343</b>,
-<b>XLOADER_ERR_RESERVED_344</b>,
-<b>XLOADER_ERR_RESERVED_345</b>,
-<b>XLOADER_ERR_RESERVED_346</b>,
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_PSM_PROC</b>,
+<b>XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT</b>,
+<b>XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT</b>,
+<b>XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_347</b>,
-<b>XLOADER_ERR_RESERVED_348</b>,
-<b>XLOADER_ERR_RESERVED_349</b>,
-<b>XLOADER_ERR_RESERVED_34A</b>,
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP</b>,
+<b>XLOADER_ERR_PM_DEV_TCM_0_A</b>,
+<b>XLOADER_ERR_PM_DEV_TCM_0_B</b>,
+<b>XLOADER_ERR_PM_DEV_TCM_1_A</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PM_DEV_DDR_0</b>,
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_TCM_1_B</b>,
+<b>XLOADER_ERR_PM_DEV_DDR_0</b>,
 <b>XLOADER_ERR_PM_DEV_QSPI</b>,
 <b>XLOADER_ERR_PM_DEV_SDIO_0</b>,
-<b>XLOADER_ERR_PM_DEV_SDIO_1</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_34F</b>,
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_SDIO_1</b>,
+<b>XLOADER_ERR_RESERVED_34F</b>,
 <b>XLOADER_ERR_PM_DEV_OSPI</b>,
 <b>XLOADER_ERR_DEV_NOT_DEFINED</b>,
-<b>XLOADER_ERR_PARENT_QUERY_VERIFY</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE</b>,
+&#160;&#160;<b>XLOADER_ERR_PARENT_QUERY_VERIFY</b>,
+<b>XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE</b>,
 <b>XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY</b>,
 <b>XLOADER_ERR_INVALIDATE_CHILD_IMG</b>,
-<b>XLOADER_ERR_INVALID_PARENT_IMG_ID</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW</b>,
+&#160;&#160;<b>XLOADER_ERR_INVALID_PARENT_IMG_ID</b>,
+<b>XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW</b>,
 <b>XLOADER_ERR_FUNCTION_ID_MISMATCH</b>,
 <b>XLOADER_ERR_MEMSET</b>,
-<b>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_INIT_CDO</b>,
+&#160;&#160;<b>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS</b>,
+<b>XLOADER_ERR_INIT_CDO</b>,
 <b>XLOADER_ERR_INVALID_ELF_LOAD_ADDR</b>,
 <b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE</b>,
-<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_FILE_NUM</b>,
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC</b>,
+<b>XLOADER_ERR_UNSUPPORTED_FILE_NUM</b>,
 <b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET</b>,
 <b>XLOADER_ERR_SECURE_NOT_ENABLED</b>,
-<b>XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_363</b>,
-<b>XLOADER_ERR_RESERVED_364</b>,
-<b>XLOADER_ERR_RESERVED_365</b>,
-<b>XLOADER_ERR_RESERVED_366</b>,
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC</b>,
+<b>XLOADER_ERR_RESERVED0</b>,
+<b>XLOADER_ERR_RESERVED1</b>,
+<b>XLOADER_ERR_RESERVED2</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RELEASE_PM_DEV_DDR_0</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED3</b>,
+<b>XLOADER_ERR_RELEASE_PM_DEV_DDR_0</b>,
 <b>XLOADER_ERR_RESERVED_368</b>,
 <b>XLOADER_ERR_RESERVED_369</b>,
-<b>XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_36B</b>,
+&#160;&#160;<b>XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE</b>,
+<b>XLOADER_ERR_INVALID_TCM_ADDR</b>,
 <b>XLOADER_ERR_RESERVED_36C</b>,
 <b>XLOADER_ERR_RESERVED_36D</b>,
-<b>XLOADER_ERR_RESERVED_36E</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_36F</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_36E</b>,
+<b>XLOADER_ERR_RESERVED_36F</b>,
 <b>XLOADER_ERR_RESERVED_370</b>,
 <b>XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS</b>,
-<b>XLOADER_ERR_RESERVED_372</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_ECDSA_NOT_ENABLED</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED4</b>,
+<b>XLOADER_ERR_ECDSA_NOT_ENABLED</b>,
 <b>XLOADER_ERR_RSA_NOT_ENABLED</b>,
 <b>XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR</b>,
-<b>XLOADER_ERR_PRTN_COPY_TO_PMCRAM</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST</b>,
+&#160;&#160;<b>XLOADER_ERR_PRTN_COPY_TO_PMCRAM</b>,
+<b>XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST</b>,
 <b>XLOADER_ERR_OSPI_PRESCALER_CLK</b>,
 <b>XLOADER_ERR_OSPI_IDAC_EN</b>,
-<b>XLOADER_ERR_INVALID_CPUID</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_OSPI_DUMMY_CFG</b>,
+&#160;&#160;<b>XLOADER_ERR_INVALID_CPUID</b>,
+<b>XLOADER_ERR_OSPI_DUMMY_CFG</b>,
 <b>XLOADER_ERR_USB_TIMEOUT</b>,
 <b>XLOADER_ERR_USB_DDR_OVERFLOW</b>,
-<b>XLOADER_ERR_WAKEUP_A78_0</b> = 0x3A0,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_WAKEUP_A78_1</b>,
-<b>XLOADER_ERR_WAKEUP_R52_0</b>,
+&#160;&#160;<b>XLOADER_ERR_INIT_GET_DMA</b> = 0x600,
+<b>XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE</b>,
+<b>XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL</b>,
+<b>XLOADER_ERR_INIT_AC_COPY_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC</b>,
+<b>XLOADER_ERR_DMA_TRANSFER</b>,
+<b>XLOADER_ERR_RESERVED_606</b>,
+<b>XLOADER_ERR_IHT_GET_DMA</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_IHT_COPY_FAIL</b>,
+<b>XLOADER_ERR_IHT_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_IHT_AUTH_FAIL</b>,
+<b>XLOADER_ERR_HDR_COPY_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_HDR_AES_OP_FAIL</b>,
+<b>XLOADER_ERR_HDR_DEC_FAIL</b>,
+<b>XLOADER_ERR_HDR_AUTH_FAIL</b>,
+<b>XLOADER_ERR_HDR_NOT_SECURE</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_HDR_GET_DMA</b>,
+<b>XLOADER_ERR_HDR_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_HDR_NOT_ENCRYPTED</b>,
+<b>XLOADER_ERR_RESERVED_613</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SEC_IH_READ_FAIL</b>,
+<b>XLOADER_ERR_SEC_PH_READ_FAIL</b>,
+<b>XLOADER_ERR_PRTN_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_PRTN_AUTH_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_PRTN_HASH_COMPARE_FAIL</b>,
+<b>XLOADER_ERR_PRTN_DECRYPT_FAIL</b>,
+<b>XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY</b>,
+<b>XLOADER_ERR_RESERVED_61B</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO</b>,
+<b>XLOADER_ERR_ENCONLY_ENC_COMPULSORY</b>,
+<b>XLOADER_ERR_KAT_FAILED</b>,
+<b>XLOADER_ERR_DATA_COPY_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_METAHDR_LEN_OVERFLOW</b>,
+<b>XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY</b>,
+<b>XLOADER_ERR_AUTH_JTAG_DISABLED</b>,
+<b>XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL</b>,
+<b>XLOADER_ERR_RESERVED_625</b>,
+<b>XLOADER_ERR_AUTH_JTAG_GET_DMA</b>,
+<b>XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_DMA_XFR</b>,
+<b>XLOADER_ERR_MEMSET_SECURE_PTR</b>,
+<b>XLOADER_ERR_GLITCH_DETECTED</b>,
+<b>XLOADER_ERR_AUTH_JTAG_SPK_REVOKED</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_METAHDR_KEYSRC_MISMATCH</b>,
+<b>XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC</b>,
+<b>XLOADER_ERR_RESERVED_62E</b>,
+<b>XLOADER_ERR_HDR_AAD_UPDATE_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_PDI_VER</b>,
+<b>XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED</b>,
+<b>XLOADER_ERR_AUTH_JTAG_INVALID_DNA</b>,
+<b>XLOADER_ERR_SEC_IH_VERIFY_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SEC_PH_VERIFY_FAIL</b>,
+<b>XLOADER_ERR_SECURE_CLEAR_FAIL</b>,
+<b>XLOADER_ERR_READ_IHT_OPTIONAL_DATA</b>,
+<b>XLOADER_ERR_STORE_DIGEST_TABLE</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_638</b>,
+<b>XLOADER_ERR_RESERVED_639</b>,
+<b>XLOADER_ERR_DATA_MEASUREMENT</b>,
+<b>XLOADER_PRTN_HASH_NOT_PRESENT</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</b>,
+<b>XLOADER_ERR_HASH_BLOCK_COPY_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_HASH_COMPARE_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_MH_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE</b>,
+<b>XLOADER_ERR_PPK_HASH_CALC_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SPK_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_PPK_COPY_FAIL</b>,
+<b>XLOADER_ERR_SPK_HEADER_COPY_FAIL</b>,
+<b>XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SPK_COPY_FAIL</b>,
+<b>XLOADER_ERR_SPK_SIGN_COPY_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_GET_LMS_ALGO_FAILED</b>,
+<b>XLOADER_ERR_RESERVED_64D</b>,
+<b>XLOADER_ERR_RESERVED_64E</b>,
+<b>XLOADER_ERR_RESERVED_64F</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_LMS_HSS_GET_DMA</b>,
+<b>XLOADER_ERR_LMS_GET_DMA</b>,
+<b>XLOADER_ERR_RESERVED_652</b>,
+<b>XLOADER_ERR_RESERVED_653</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_KEY_AUTH_FAIL</b>,
+<b>XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL</b>,
+<b>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</b> = 0x65B,
+<b>XLOADER_ERR_PRTN_REVOKED</b> = 0x65D,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_PPK_HEADER_COPY_FAIL</b>,
+<b>XLOADER_ERR_INCORRECT_KEY</b>,
+<b>XLOADER_ERR_INVALID_HYBRID_KEYPAIR</b>,
+<b>XLOADER_ERR_KEY_ALGO_MISMATCH</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SIGN_HDR_COPY_FAIL</b>,
+<b>XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED</b>,
+<b>XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED</b> = 0x6A0,
+<b>XLOADER_TRNG_INIT_FAIL</b>,
+<br/>
+&#160;&#160;<b>XOCP_PCR_ERR_SWPCR_DUP_CONFIG</b> = 0x6B0,
+<b>XOCP_PCR_ERR_IN_SWPCR_CONFIG</b>,
+<b>XOCP_DEVAK_MAX_COUNT_EXCEED</b> = 0x6C0,
+<b>XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</b>,
+<br/>
+&#160;&#160;<b>XOCP_ERR_INVALID_XPPU_CONFIGURATION</b>,
+<b>XOCP_ERR_KAT_FAILED</b> = 0x6D0,
+<b>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</b>,
+<b>XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</b>,
+<br/>
+&#160;&#160;<b>XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</b>,
+<b>XOCP_ERR_RESERVED_6D4</b>,
+<b>XOCP_ERR_RESERVED_6D5</b>,
+<b>XOCP_ERR_RESERVED_6D6</b>,
+<br/>
+&#160;&#160;<b>XOCP_ERR_RESERVED_6D7</b>,
+<b>XOCP_ERR_RESERVED_6D8</b>,
+<b>XOCP_ERR_RESERVED_6D9</b>,
+<b>XOCP_ERR_RESERVED_6DA</b>,
+<br/>
+&#160;&#160;<b>XOCP_ERR_RESERVED_6DB</b>,
+<b>XOCP_ERR_RESERVED_6DC</b>,
+<b>XOCP_ERR_RESERVED_6DD</b>,
+<b>XOCP_ERR_RESERVED_6DE</b>,
+<br/>
+&#160;&#160;<b>XOCP_ERR_RESERVED_6DF</b>,
+<b>XOCP_ERR_RESERVED_6E0</b>,
+<b>XOCP_ERR_RESERVED_6E1</b>,
+<b>XOCP_ERR_RESERVED_6E2</b>,
+<br/>
+&#160;&#160;<b>XOCP_ERR_RESERVED_6E3</b>,
+<b>XOCP_ERR_RESERVED_6E4</b>,
+<b>XPLMI_ERR_CDO_CMD</b> = 0x2000,
+<b>XPLMI_ERR_USER_MODULE_CDO_CMD</b> = 0x3000,
+<br/>
+&#160;&#160;<b>XPLM_SUCCESS</b> = 0x0,
+<b>XPLM_FAILURE</b>,
+<b>XPLMI_TASK_INPROGRESS</b>,
+<b>XPLMI_ERR_DMA_LOOKUP</b> = 0x100,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_DMA_CFG</b>,
+<b>XPLMI_ERR_DMA_SELFTEST</b>,
+<b>XPLMI_ERR_IOMOD_INIT</b>,
+<b>XPLMI_ERR_IOMOD_START</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_IOMOD_CONNECT</b>,
+<b>XPLMI_ERR_RESERVED_106</b>,
+<b>XPLMI_ERR_CMD_APIID</b>,
+<b>XPLMI_ERR_CMD_HANDLER_NULL</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_109</b>,
+<b>XPLMI_ERR_RESERVED_10A</b>,
+<b>XPLMI_ERR_CDO_HDR_ID</b>,
+<b>XPLMI_ERR_CDO_CHECKSUM</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_10D</b>,
+<b>XPLMI_ERR_UART_LOOKUP</b>,
+<b>XPLMI_ERR_UART_CFG</b>,
+<b>XPLMI_ERR_RESERVED_110</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_111</b>,
+<b>XPLMI_ERR_RESERVED_112</b>,
+<b>XPLMI_ERR_RESERVED_113</b>,
+<b>XPLMI_ERR_RESERVED_114</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_IPI_CMD</b>,
+<b>XPLMI_ERR_REGISTER_IOMOD_HANDLER</b>,
+<b>XPLMI_ERR_RESERVED_117</b>,
+<b>XPLMI_ERR_RESERVED_118</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_119</b>,
+<b>XPLMI_ERR_RESERVED_11A</b>,
+<b>XPLMI_ERR_RESERVED_11B</b>,
+<b>XPLMI_ERR_RESERVED_11C</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_DMA_XFER_WAIT</b>,
+<b>XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC</b>,
+<b>XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST</b>,
+<b>XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT</b>,
+<b>XPLMI_ERR_DMA_XFER_WAIT_SRC</b>,
+<b>XPLMI_ERR_DMA_XFER_WAIT_DEST</b>,
+<b>XPLMI_ERR_UART_MEMSET</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_125</b>,
+<b>XPLMI_ERR_MEMCPY_CMD_EXEC</b>,
+<b>XPLMI_ERR_MEMCPY_IMAGE_INFO</b>,
+<b>XPLMI_ERR_UART_PSV_SET_BAUD_RATE</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_129</b>,
+<b>XPLMI_ERR_RESERVED_12A</b>,
+<b>XPLMI_ERR_RESERVED_12B</b>,
+<b>XPLMI_NPI_ERR</b>,
+<br/>
+&#160;&#160;<b>XPLMI_IPI_CRC_MISMATCH_ERR</b>,
+<b>XPLMI_IPI_READ_ERR</b>,
+<b>XPLMI_ERR_UNALIGNED_DMA_XFER</b>,
+<b>XPLMI_ERR_RESERVED_130</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_TASK_EXISTS</b>,
+<b>XPLMI_ERR_INVALID_TASK_TYPE</b>,
+<b>XPLMI_ERR_INVALID_TASK_PERIOD</b>,
+<b>XPLMI_ERR_NPI_LOCK</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_135</b>,
+<b>XPLMI_ERR_RESERVED_136</b>,
+<b>XPLMI_ERR_RESERVED_137</b>,
+<b>XPLMI_ERR_RESERVED_138</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_SCHED_TASK_MISSED</b>,
+<b>XPLMI_ERR_SET_PMC_IRO_FREQ</b>,
+<b>XPLMI_ERR_RESERVED_13B</b>,
+<b>XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_13D</b>,
+<b>XPLMI_ERR_RESERVED_13E</b>,
+<b>XPLMI_ERR_RESERVED_13F</b>,
+<b>XPLMI_INVALID_BREAK_LENGTH</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_MODULE_NOT_REGISTERED</b>,
+<b>XPLMI_ERR_PRE_INIT</b>,
+<b>XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS</b>,
+<b>XPLMI_ERR_EMINIT_INVALID_PARAM</b>,
+<br/>
+&#160;&#160;<b>XPLMI_CMD_IN_PROGRESS</b>,
+<b>XPLMI_ERR_PLM_UPDATE_COMPATIBILITY</b> = 0x1A0,
+<b>XPLMI_ERR_PLAT_RESERVED_1A1</b>,
+<b>XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_INVALID_STORE_DS_HANDLER</b>,
+<b>XPLMI_ERR_INVALID_RESTORE_DS_HANDLER</b>,
+<b>XPLMI_ERR_PLAT_RESERVED_1A5</b>,
+<b>XPLMI_ERR_INVALID_DS_ENTRY</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_DS_ALIGNMENT_INCORRECT</b>,
+<b>XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW</b>,
+<b>XPLMI_ERR_PLM_UPDATE_INVALID_OP</b>,
+<b>XPLMI_ERR_PLM_UPDATE_RELOCATED_FN</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_DB_HDR_SIZE_MISMATCH</b>,
+<b>XPLMI_ERR_DB_HDR_VERSION_MISMATCH</b>,
+<b>XPLMI_ERR_DB_ENDADDR_INVALID</b>,
+<b>XPLMI_ERR_RESERVED_1AE</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RESERVED_1AF</b>,
+<b>XPLMI_ERR_INVALID_ROM_INT_REQ</b>,
+<b>XPLMI_ERR_MEMCPY_STORE_DB</b>,
+<b>XPLMI_ERR_MEMSET_RESTORE_DB</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_MEMCPY_RESTORE_DB</b>,
+<b>XPLMI_ERR_MEMSET_DBHDR</b>,
+<b>XPLMI_ERR_MEMCPY_RELOCATE</b>,
+<b>XPLMI_ERR_PLAT_RESERVED_1B6</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_PLAT_RESERVED_1B7</b>,
+<b>XPLMI_ERR_PLAT_RESERVED_1B8</b>,
+<b>XPLMI_ERR_PLAT_RESERVED_1B9</b>,
+<b>XPLMI_ERR_PLAT_RESERVED_1BA</b>,
+<br/>
+&#160;&#160;<b>XPLMI_ERR_RETRY_SHUTDOWN_LATER</b>,
+<b>XPLMI_ERR_STORE_DATA_BACKUP</b>,
+<b>XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS</b>,
+<b>XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK</b>,
+<br/>
+&#160;&#160;<b>XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</b>,
+<b>XPLM_ERR_TASK_CREATE</b> = 0x200,
+<b>XPLM_ERR_PM_MOD</b>,
+<b>XPLM_ERR_RESERVED_202</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_EXCEPTION</b>,
+<b>XPLM_ERR_RESERVED_204</b>,
+<b>XPLM_ERR_STL_MOD</b>,
+<b>XPLM_ERR_KEEP_ALIVE_TASK_CREATE</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_RESERVED_207</b>,
+<b>XPLM_ERR_PSM_NOT_ALIVE</b>,
+<b>XPLM_ERR_IPI_SEND</b>,
+<b>XPLM_ERR_PMC_RAM_MEMSET</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_RESERVED_2A0</b> = 0x2A0,
+<b>XPLM_ERR_UPDATE_ID_CODE_CHECK</b>,
+<b>XPLM_ERR_INVALID_UPDATE_ADDR</b>,
+<b>XPLM_ERR_INVALID_UPDATE_BH_IDENT</b>,
+<br/>
+&#160;&#160;<b>XPLM_ERR_NO_STRUCT_OPTIONAL_DATA</b>,
+<b>XPLM_ERR_DS_INFO_CHECKSUM_FAILED</b>,
+<b>XPLM_ERR_UPDATE_PDI_UNSUPPORTED_VER</b>,
+<b>XPLM_ERR_UPDATE_INVALID_IDENT_STRING</b>,
+<br/>
+&#160;&#160;<b>XLOADER_UNSUPPORTED_BOOT_MODE</b> = 0x300,
+<b>XLOADER_ERR_UNSUPPORTED_USB_PRIMARY</b>,
+<b>XLOADER_ERR_IMGHDR_TBL</b> = 0x302,
+<b>XLOADER_ERR_IMGHDR</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_PRTNHDR</b>,
+<b>XLOADER_ERR_RESERVED_305</b>,
+<b>XLOADER_ERR_RESERVED_306</b>,
+<b>XLOADER_ERR_RESERVED_307</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_308</b>,
+<b>XLOADER_ERR_RESERVED_309</b>,
+<b>XLOADER_ERR_WAKEUP_PSM</b>,
+<b>XLOADER_ERR_RESERVED_30B</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_OSPI</b>,
+<b>XLOADER_ERR_UNSUPPORTED_OSPI_SIZE</b>,
+<b>XLOADER_ERR_OSPI_INIT</b>,
+<b>XLOADER_ERR_OSPI_CFG</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_OSPI_SEL_FLASH_CS0</b>,
+<b>XLOADER_ERR_OSPI_READID</b>,
+<b>XLOADER_ERR_OSPI_READ</b>,
+<b>XLOADER_ERR_OSPI_4BMODE</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_OSPI_TIMEOUT</b>,
+<b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</b>,
+<b>XLOADER_ERR_QSPI_INIT</b>,
+<b>XLOADER_ERR_QSPI_MANUAL_START</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_QSPI_PRESCALER_CLK</b>,
+<b>XLOADER_ERR_QSPI_CONNECTION</b>,
+<b>XLOADER_ERR_QSPI_READ</b>,
+<b>XLOADER_ERR_QSPI_LENGTH</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SD_INIT</b>,
+<b>XLOADER_ERR_SD_F_OPEN</b>,
+<b>XLOADER_ERR_SD_F_LSEEK</b>,
+<b>XLOADER_ERR_SD_F_READ</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_IMG_ID_NOT_FOUND</b>,
+<b>XLOADER_ERR_RESERVED_321</b>,
+<b>XLOADER_ERR_CFRAME_LOOKUP</b>,
+<b>XLOADER_ERR_CFRAME_CFG</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE</b>,
+<b>XLOADER_ERR_RESERVED_325</b>,
+<b>XLOADER_ERR_GEN_IDCODE</b>,
+<b>XLOADER_ERR_USB_LOOKUP</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_USB_CFG</b>,
+<b>XLOADER_ERR_USB_START</b>,
+<b>XLOADER_ERR_RESERVED_32A</b>,
+<b>XLOADER_ERR_DEFERRED_CDO_PROCESS</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SD_LOOKUP</b>,
+<b>XLOADER_ERR_SD_CFG</b>,
+<b>XLOADER_ERR_SD_CARD_INIT</b>,
+<b>XLOADER_ERR_MMC_PART_CONFIG</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SEM_STOP_SCAN</b>,
+<b>XLOADER_ERR_SEM_INIT</b>,
+<b>XLOADER_ERR_DELAY_ATTRB</b>,
+<b>XLOADER_ERR_NUM_HANDOFF_CPUS</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_OSPI_CONN_MODE</b>,
+<b>XLOADER_ERR_OSPI_SEL_FLASH_CS1</b>,
+<b>XLOADER_ERR_OSPI_SDR_NON_PHY</b>,
+<b>XLOADER_ERR_OSPI_COPY_OVERFLOW</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SD_F_CLOSE</b>,
+<b>XLOADER_ERR_SD_UMOUNT</b>,
+<b>XLOADER_ERR_DMA_XFER</b>,
+<b>XLOADER_ERR_RESERVED_33B</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_CONFIG_SUBSYSTEM</b>,
+<b>XLOADER_ERR_RESERVED_33D</b>,
+<b>XLOADER_ERR_DELAY_LOAD</b>,
+<b>XLOADER_ERR_ADD_TASK_SCHEDULER</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT</b>,
+<b>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE</b>,
+<b>XLOADER_ERR_PM_DEV_PSM_PROC</b>,
+<b>XLOADER_ERR_RESERVED_343</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_344</b>,
+<b>XLOADER_ERR_RESERVED_345</b>,
+<b>XLOADER_ERR_RESERVED_346</b>,
+<b>XLOADER_ERR_RESERVED_347</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_348</b>,
+<b>XLOADER_ERR_RESERVED_349</b>,
+<b>XLOADER_ERR_RESERVED_34A</b>,
+<b>XLOADER_ERR_PM_DEV_DDR_0</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_QSPI</b>,
+<b>XLOADER_ERR_PM_DEV_SDIO_0</b>,
+<b>XLOADER_ERR_PM_DEV_SDIO_1</b>,
+<b>XLOADER_ERR_RESERVED_34F</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_PM_DEV_OSPI</b>,
+<b>XLOADER_ERR_DEV_NOT_DEFINED</b>,
+<b>XLOADER_ERR_PARENT_QUERY_VERIFY</b>,
+<b>XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY</b>,
+<b>XLOADER_ERR_INVALIDATE_CHILD_IMG</b>,
+<b>XLOADER_ERR_INVALID_PARENT_IMG_ID</b>,
+<b>XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_FUNCTION_ID_MISMATCH</b>,
+<b>XLOADER_ERR_MEMSET</b>,
+<b>XLOADER_DDR_COPY_UNSUPPORTED_PARAMS</b>,
+<b>XLOADER_ERR_INIT_CDO</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_INVALID_ELF_LOAD_ADDR</b>,
+<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE</b>,
+<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC</b>,
+<b>XLOADER_ERR_UNSUPPORTED_FILE_NUM</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET</b>,
+<b>XLOADER_ERR_SECURE_NOT_ENABLED</b>,
+<b>XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC</b>,
+<b>XLOADER_ERR_RESERVED_363</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_364</b>,
+<b>XLOADER_ERR_RESERVED_365</b>,
+<b>XLOADER_ERR_RESERVED_366</b>,
+<b>XLOADER_ERR_RELEASE_PM_DEV_DDR_0</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_368</b>,
+<b>XLOADER_ERR_RESERVED_369</b>,
+<b>XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE</b>,
+<b>XLOADER_ERR_RESERVED_36B</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_36C</b>,
+<b>XLOADER_ERR_RESERVED_36D</b>,
+<b>XLOADER_ERR_RESERVED_36E</b>,
+<b>XLOADER_ERR_RESERVED_36F</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RESERVED_370</b>,
+<b>XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS</b>,
+<b>XLOADER_ERR_RESERVED_372</b>,
+<b>XLOADER_ERR_ECDSA_NOT_ENABLED</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_RSA_NOT_ENABLED</b>,
+<b>XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR</b>,
+<b>XLOADER_ERR_PRTN_COPY_TO_PMCRAM</b>,
+<b>XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_OSPI_PRESCALER_CLK</b>,
+<b>XLOADER_ERR_OSPI_IDAC_EN</b>,
+<b>XLOADER_ERR_INVALID_CPUID</b>,
+<b>XLOADER_ERR_OSPI_DUMMY_CFG</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_USB_TIMEOUT</b>,
+<b>XLOADER_ERR_USB_DDR_OVERFLOW</b>,
+<b>XLOADER_ERR_WAKEUP_A78_0</b> = 0x3A0,
+<b>XLOADER_ERR_WAKEUP_A78_1</b>,
+<br/>
+&#160;&#160;<b>XLOADER_ERR_WAKEUP_R52_0</b>,
 <b>XLOADER_ERR_RESERVED_3A3</b>,
 <b>XLOADER_ERR_WAKEUP_A78_2</b>,
+<b>XLOADER_ERR_WAKEUP_A78_3</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_WAKEUP_A78_3</b>,
-<b>XLOADER_ERR_INVALID_R52_CLUSTER</b>,
+&#160;&#160;<b>XLOADER_ERR_INVALID_R52_CLUSTER</b>,
 <b>XLOADER_ERR_HDR_MEASUREMENT</b>,
 <b>XLOADER_ERR_DATA_MEASUREMENT</b>,
+<b>XLOADER_ERR_RESERVED_3A9</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_3A9</b>,
-<b>XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</b>,
+&#160;&#160;<b>XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</b>,
 <b>XLOADER_ERR_INIT_GET_DMA</b> = 0x600,
 <b>XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE</b>,
+<b>XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL</b>,
-<b>XLOADER_ERR_INIT_AC_COPY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_INIT_AC_COPY_FAIL</b>,
 <b>XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC</b>,
 <b>XLOADER_ERR_DMA_TRANSFER</b>,
+<b>XLOADER_ERR_RESERVED_606</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_606</b>,
-<b>XLOADER_ERR_RESERVED_607</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_607</b>,
 <b>XLOADER_ERR_IHT_COPY_FAIL</b>,
 <b>XLOADER_ERR_IHT_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_IHT_AUTH_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_IHT_AUTH_FAIL</b>,
-<b>XLOADER_ERR_HDR_COPY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_HDR_COPY_FAIL</b>,
 <b>XLOADER_ERR_HDR_AES_OP_FAIL</b>,
 <b>XLOADER_ERR_HDR_DEC_FAIL</b>,
+<b>XLOADER_ERR_HDR_AUTH_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_AUTH_FAIL</b>,
-<b>XLOADER_ERR_HDR_NOT_SECURE</b>,
+&#160;&#160;<b>XLOADER_ERR_HDR_NOT_SECURE</b>,
 <b>XLOADER_ERR_HDR_GET_DMA</b>,
 <b>XLOADER_ERR_HDR_HASH_CALC_FAIL</b>,
+<b>XLOADER_ERR_HDR_NOT_ENCRYPTED</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HDR_NOT_ENCRYPTED</b>,
-<b>XLOADER_ERR_RESERVED_613</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_613</b>,
 <b>XLOADER_ERR_SEC_IH_READ_FAIL</b>,
 <b>XLOADER_ERR_SEC_PH_READ_FAIL</b>,
+<b>XLOADER_ERR_PRTN_HASH_CALC_FAIL</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_PRTN_HASH_CALC_FAIL</b>,
-<b>XLOADER_ERR_PRTN_AUTH_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_PRTN_AUTH_FAIL</b>,
 <b>XLOADER_ERR_PRTN_HASH_COMPARE_FAIL</b>,
 <b>XLOADER_ERR_PRTN_DECRYPT_FAIL</b>,
+<b>XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY</b>,
-<b>XLOADER_ERR_RESERVED_61B</b>,
+&#160;&#160;<b>XLOADER_ERR_RESERVED_61B</b>,
 <b>XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO</b>,
 <b>XLOADER_ERR_ENCONLY_ENC_COMPULSORY</b>,
+<b>XLOADER_ERR_KAT_FAILED</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_KAT_FAILED</b>,
-<b>XLOADER_ERR_DATA_COPY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_DATA_COPY_FAIL</b>,
 <b>XLOADER_ERR_METAHDR_LEN_OVERFLOW</b>,
 <b>XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY</b>,
+<b>XLOADER_ERR_AUTH_JTAG_DISABLED</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_DISABLED</b>,
-<b>XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL</b>,
 <b>XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL</b>,
 <b>XLOADER_ERR_RESERVED_625</b>,
+<b>XLOADER_ERR_AUTH_JTAG_GET_DMA</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_GET_DMA</b>,
-<b>XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL</b>,
 <b>XLOADER_ERR_AUTH_JTAG_DMA_XFR</b>,
 <b>XLOADER_ERR_MEMSET_SECURE_PTR</b>,
+<b>XLOADER_ERR_GLITCH_DETECTED</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_GLITCH_DETECTED</b>,
-<b>XLOADER_ERR_AUTH_JTAG_SPK_REVOKED</b>,
+&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_SPK_REVOKED</b>,
 <b>XLOADER_ERR_METAHDR_KEYSRC_MISMATCH</b>,
 <b>XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC</b>,
+<b>XLOADER_ERR_RESERVED_62E</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_RESERVED_62E</b>,
-<b>XLOADER_ERR_HDR_AAD_UPDATE_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_HDR_AAD_UPDATE_FAIL</b>,
 <b>XLOADER_ERR_UNSUPPORTED_PDI_VER</b>,
 <b>XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED</b>,
+<b>XLOADER_ERR_AUTH_JTAG_INVALID_DNA</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_INVALID_DNA</b>,
-<b>XLOADER_ERR_SEC_IH_VERIFY_FAIL</b>,
+&#160;&#160;<b>XLOADER_ERR_SEC_IH_VERIFY_FAIL</b>,
 <b>XLOADER_ERR_SEC_PH_VERIFY_FAIL</b>,
 <b>XLOADER_ERR_SECURE_CLEAR_FAIL</b>,
+<b>XLOADER_ERR_READ_IHT_OPTIONAL_DATA</b>,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_READ_IHT_OPTIONAL_DATA</b>,
-<b>XLOADER_ERR_STORE_DIGEST_TABLE</b>,
+&#160;&#160;<b>XLOADER_ERR_STORE_DIGEST_TABLE</b>,
 <b>XLOADER_ERR_RESERVED_638</b>,
 <b>XLOADER_ERR_RESERVED_639</b>,
+<b>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</b> = 0x65B,
 <br/>
-&#160;&#160;<b>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</b> = 0x65B,
-<b>XLOADER_ERR_PRTN_REVOKED</b> = 0x65D,
+&#160;&#160;<b>XLOADER_ERR_PRTN_REVOKED</b> = 0x65D,
 <b>XOCP_PCR_ERR_SWPCR_DUP_CONFIG</b> = 0x6A0,
 <b>XOCP_PCR_ERR_IN_SWPCR_CONFIG</b>,
+<b>XOCP_DEVAK_MAX_COUNT_EXCEED</b> = 0x6B0,
 <br/>
-&#160;&#160;<b>XOCP_DEVAK_MAX_COUNT_EXCEED</b> = 0x6B0,
-<b>XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</b> = 0x6B1,
+&#160;&#160;<b>XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED</b> = 0x6B1,
 <b>XOCP_ERR_KAT_FAILED</b> = 0x6C0,
 <b>XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED</b>,
+<b>XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</b>,
 <br/>
-&#160;&#160;<b>XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED</b>,
-<b>XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</b>,
+&#160;&#160;<b>XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT</b>,
 <b>XLOADER_TRNG_INIT_FAIL</b>,
 <b>XOCP_ERR_INVALID_XPPU_CONFIGURATION</b>,
+<b>XSECURE_ERR_ADD_TASK_SCHEDULER</b> = 0x6E0,
 <br/>
-&#160;&#160;<b>XSECURE_ERR_ADD_TASK_SCHEDULER</b> = 0x6E0,
-<b>XSECURE_ERR_REMOVE_TASK_SCHEDULER</b>,
+&#160;&#160;<b>XSECURE_ERR_REMOVE_TASK_SCHEDULER</b>,
 <b>XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER</b>,
 <b>XPLMI_ERR_CDO_CMD</b> = 0x2000,
-<br/>
-&#160;&#160;<b>XPLMI_ERR_USER_MODULE_CDO_CMD</b> = 0x3000
+<b>XPLMI_ERR_USER_MODULE_CDO_CMD</b> = 0x3000
 <br/>
  }</td></tr>
 <tr class="memdesc:a2e39b3b0824b1911dafde398ea02b6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status for PLM functions.  <a href="2vp_2server_2xplmi__status_8h.html#a2e39b3b0824b1911dafde398ea02b6d3">More...</a><br/></td></tr>
@@ -2666,6 +2674,9 @@ PLM error codes description</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a91a2b4f8688c271816e39e7133d785ba"></a>XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID</em>&nbsp;</td><td class="fielddoc">
 <p>0x1B6 - PSM IPI event structure not initialized </p>
 </td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a7bbaad827fe06eca0162152c2d70744e"></a>XPLMI_ERR_TPM_INIT</em>&nbsp;</td><td class="fielddoc">
+<p>0x1B7 Error when TPM initialization gets failed </p>
+</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07"></a>XPLM_ERR_TASK_CREATE</em>&nbsp;</td><td class="fielddoc">
 <p>Status codes used in PLM. </p>
 <p>0x200 - Error when task create fails. This can happen when max tasks are created </p>
@@ -2721,7 +2732,10 @@ PLM error codes description</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3abbf82cc32e75324969c50e64781cde52"></a>XLOADER_ERR_IMGHDR_TBL</em>&nbsp;</td><td class="fielddoc">
 <p>0x302 - Multiple conditions can give this error. </p>
 <ul>
-<li>If PLM is unable to read image header table </li>
+<li>If PLM is unable to read image header table<ul>
+<li>If the number of images or partitions in the meta header exceeds XIH_MAX_IMGS or XIH_MAX_PRTNS </li>
+</ul>
+</li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a4f6351c3d1de0558f579d8670582fa96"></a>XLOADER_ERR_IMGHDR</em>&nbsp;</td><td class="fielddoc">
@@ -2784,8 +2798,8 @@ PLM error codes description</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3aad7994088f6b8ebcd88560351dc5a753"></a>XLOADER_ERR_OSPI_4BMODE</em>&nbsp;</td><td class="fielddoc">
 <p>0x313 - Error when OSPI is unable to enter/exit 4B mode </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a10a4b4cf173c60def8fb372d2d2205ac"></a>XLOADER_ERR_RESERVED_314</em>&nbsp;</td><td class="fielddoc">
-<p>0x314 - XLOADER_ERR_RESERVED_314 </p>
+<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a010bc5a96554be290a5ee5ebf5f110fa"></a>XLOADER_ERR_OSPI_TIMEOUT</em>&nbsp;</td><td class="fielddoc">
+<p>0x314 - Error when OSPI 4B address mode polling times out </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a6a55b2edc2e4788b3d554e7e8bc77260"></a>XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID</em>&nbsp;</td><td class="fielddoc">
 <p>0x315 - Error when QSPI flash ID is not supported </p>
@@ -3289,6 +3303,12 @@ PLM error codes description</h2></td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a86a1a1db9636591b1f1fa05d30efeb61"></a>XLOADER_ERR_SECURE_CONFIG_MEASUREMENT</em>&nbsp;</td><td class="fielddoc">
 <p>0x63C - Error in Secure config measurement </p>
 </td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3ae4c50eab05bc8b245e7f858775c9bb63"></a>XLOADER_MEASURE_ROM_FAILURE</em>&nbsp;</td><td class="fielddoc">
+<p>0x63D - Error while ROM digest transfer to TPM </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3ab2c8feb619ee11903561663cae49befa"></a>XLOADER_MEASURE_PLM_FAILURE</em>&nbsp;</td><td class="fielddoc">
+<p>0x63E - Error while PLM digest transfer to TPM </p>
+</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a9e51ffb221c1e97e57a00d09cd5251cc"></a>XLOADER_ERR_AUTH_JTAG_INVALID_PARAM</em>&nbsp;</td><td class="fielddoc">
 <p>0x65B Invalid parameter passed for JTAG authentication </p>
 </td></tr>
@@ -3329,52 +3349,52 @@ PLM error codes description</h2></td></tr>
 <p>0x6D4 Error in digest calculation </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3af67d4bcbf8f51633b86087b9f03c97b7"></a>XOCP_ERR_AES_KEY_ZEROIZE</em>&nbsp;</td><td class="fielddoc">
-<p>0x6D4 Error while clearing AES key </p>
+<p>0x6D5 Error while clearing AES key </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a8d2f7e53d7969d9ad453abb489de4e43"></a>XOCP_ERR_AES_ENC_INIT</em>&nbsp;</td><td class="fielddoc">
-<p>0x6D5 Error while initializing AES key </p>
+<p>0x6D6 Error while initializing AES key </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a0d119c5b5ff0bdfd6d77e5e981c88cfa"></a>XOCP_ERR_AES_ENC_DATA</em>&nbsp;</td><td class="fielddoc">
-<p>0x6D6 Error while AES encrypting data </p>
+<p>0x6D7 Error while AES encrypting data </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3ad229631a4d4b692a9d7f3f46a018d977"></a>XOCP_ERR_PUF_REGENERATION</em>&nbsp;</td><td class="fielddoc">
-<p>0x6D7 Error while PUF regeneration </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3acbf32fd6911ea705dd9e7ee91b807344"></a>XOCP_ERR_KDF_FAILED</em>&nbsp;</td><td class="fielddoc">
 <p>0x6D8 Error while PUF regeneration </p>
 </td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3acbf32fd6911ea705dd9e7ee91b807344"></a>XOCP_ERR_KDF_FAILED</em>&nbsp;</td><td class="fielddoc">
+<p>0x6D9 Error in KDF </p>
+</td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a39e0b0c7e1c164898bf7b1ebc5732b1c"></a>XOCP_ERR_HASH_COPY_FAILED</em>&nbsp;</td><td class="fielddoc">
-<p>0x6D8 Error while copying Hash </p>
+<p>0x6DA Error while copying Hash </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a6aa55f1109c575f862b1673201c945b3"></a>XOCP_ERR_DME_PARAM_COPY_FAILED</em>&nbsp;</td><td class="fielddoc">
-<p>0x6D9 Error while copying DME input params </p>
+<p>0x6DB Error while copying DME input params </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a342ddab1176ddb562377d98a5308ac2a"></a>XOCP_ERR_DME_SIGN_COPY_FAILED</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DA Error while copying DME signature </p>
+<p>0x6DC Error while copying DME signature </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3ae2fa217d09e32b35cb8b33e258544f83"></a>XOCP_ERR_DME_CH_SIGN</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DA Error while DME challenge signature </p>
+<p>0x6DD Error while DME challenge signature </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a045e682caf7293b9970acf70c5795d43"></a>XOCP_ERR_DME_DEC_PRIV_KEY</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DB Error while decrypting DME private key </p>
+<p>0x6DE Error while decrypting DME private key </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a8e5370a39e7768bf7648310ed8e0ef27"></a>XOCP_ERR_GEN_DME_PUB_KEY</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DC Error while generating DME public key </p>
+<p>0x6DF Error while generating DME public key </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3aa45cd5cc5dfd9f4c1fc5588b8a4ac0d0"></a>XOCP_ERR_DME_PWCT</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DD Error in pair wise consistency test for DME keys </p>
+<p>0x6E0 Error in pair wise consistency test for DME keys </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a85e82e05a5b1a7de580f35b6a3c08283"></a>XOCP_ERR_GEN_ECC_KEY</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DE Error while generating ephemeral key </p>
+<p>0x6E1 Error while generating ephemeral key </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a3bd1efde79cf77d4ce971fc090ee5a8c"></a>XOCP_ERR_GEN_DME_SIGN</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DF Error while generating DME signature </p>
+<p>0x6E2 Error while generating DME signature </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3adccb5e145583b56b1c791f54f8f7ddde"></a>XOCP_ERR_DME_SIGN_VERIF_FAILED</em>&nbsp;</td><td class="fielddoc">
-<p>0x6DF Error while verifying DME signature </p>
+<p>0x6E3 Error while verifying DME signature </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3affce0b20f932dce3ce2d42815d6ab9f5"></a>XOCP_ERR_DME_MEAS_COPY_FAILED</em>&nbsp;</td><td class="fielddoc">
-<p>0x6E0 Error while copying DME measurement </p>
+<p>0x6E4 Error while copying DME measurement </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a2e39b3b0824b1911dafde398ea02b6d3a9246a5be90e1b01b6069b9fec3013728"></a>XPLMI_ERR_CDO_CMD</em>&nbsp;</td><td class="fielddoc">
 <p>0x2XXX, CDO command handler has failed. </p>

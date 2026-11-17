@@ -478,7 +478,7 @@
     <member refid="group__hdcp22__rx_1gaf9adc4199a8d531d2c5f26e3e85970f0" kind="function"><name>XHdcp22Rx_Pkcs1Rsadp</name></member>
     <member refid="group__hdcp22__rx_1gabb5e8b9f02449e1f97a3ce395894bc87" kind="function"><name>XHdcp22Rx_Pkcs1Mgf1</name></member>
     <member refid="group__hdcp22__rx_1gadf9977210d8b417bfb64a4d25da168a3" kind="function"><name>XHdcp22Rx_Pkcs1EmeOaepEncode</name></member>
-    <member refid="group__hdcp22__rx_1gae19ee28b48b04da6ba2c0e4594c625ea" kind="function"><name>XHdcp22Rx_Pkcs1EmeOaepDecode</name></member>
+    <member refid="group__hdcp22__rx_1ga58c3c0a6f1b3e9b1cf783203e3dc5c17" kind="function"><name>XHdcp22Rx_Pkcs1EmeOaepDecode</name></member>
     <member refid="group__hdcp22__rx_1ga7a7c801f3bc14751e3eb7d37f6cd73ed" kind="function"><name>XHdcp22Rx_Pkcs1MontMultFiosInit</name></member>
     <member refid="group__hdcp22__rx_1gac09fd396e81d4c55420d9d59cbbc94bc" kind="function"><name>XHdcp22Rx_Pkcs1MontMultFios</name></member>
     <member refid="group__hdcp22__rx_1gafe88fedc07a6ae050f0c3e37765aa186" kind="function"><name>XHdcp22Rx_Pkcs1MontExp</name></member>
@@ -486,7 +486,7 @@
     <member refid="group__hdcp22__rx_1ga5167fcc44a5f363abfe4f2b3874ba4b4" kind="function"><name>XHdcp22Rx_Xor</name></member>
     <member refid="group__hdcp22__rx_1ga2a4b131d960ce7477390623dcb500c22" kind="function"><name>XHdcp22Rx_CalcMontNPrime</name></member>
     <member refid="group__hdcp22__rx_1ga509c671d4be808b4cd66fad2bf587bed" kind="function"><name>XHdcp22Rx_RsaesOaepEncrypt</name></member>
-    <member refid="group__hdcp22__rx_1ga736d136f515b397e659377757763aed2" kind="function"><name>XHdcp22Rx_RsaesOaepDecrypt</name></member>
+    <member refid="group__hdcp22__rx_1ga4207ff002000408dc3355e1d2f28c654" kind="function"><name>XHdcp22Rx_RsaesOaepDecrypt</name></member>
     <member refid="group__hdcp22__rx_1ga65027e431ba9aa70ab2552875638b2a9" kind="function"><name>XHdcp22Rx_GenerateRandom</name></member>
     <member refid="group__hdcp22__rx_1gafb3b8c8121a9d5d87360d4c90121124d" kind="function"><name>XHdcp22Rx_ComputeHPrime</name></member>
     <member refid="group__hdcp22__rx_1gad36540fb48852368b0db839790f7275a" kind="function"><name>XHdcp22Rx_ComputeEkh</name></member>
@@ -642,7 +642,7 @@
     <member refid="group__hdcp22__rx_1ga2a4b131d960ce7477390623dcb500c22" kind="function"><name>XHdcp22Rx_CalcMontNPrime</name></member>
     <member refid="group__hdcp22__rx_1ga65027e431ba9aa70ab2552875638b2a9" kind="function"><name>XHdcp22Rx_GenerateRandom</name></member>
     <member refid="group__hdcp22__rx_1ga509c671d4be808b4cd66fad2bf587bed" kind="function"><name>XHdcp22Rx_RsaesOaepEncrypt</name></member>
-    <member refid="group__hdcp22__rx_1ga736d136f515b397e659377757763aed2" kind="function"><name>XHdcp22Rx_RsaesOaepDecrypt</name></member>
+    <member refid="group__hdcp22__rx_1ga4207ff002000408dc3355e1d2f28c654" kind="function"><name>XHdcp22Rx_RsaesOaepDecrypt</name></member>
     <member refid="group__hdcp22__rx_1gafb3b8c8121a9d5d87360d4c90121124d" kind="function"><name>XHdcp22Rx_ComputeHPrime</name></member>
     <member refid="group__hdcp22__rx_1gad36540fb48852368b0db839790f7275a" kind="function"><name>XHdcp22Rx_ComputeEkh</name></member>
     <member refid="group__hdcp22__rx_1ga50a73ce38d0b498f6eb72835d5989c8b" kind="function"><name>XHdcp22Rx_ComputeLPrime</name></member>
@@ -918,7 +918,7 @@
     <member refid="group__hdcp22__rx_1gaf9adc4199a8d531d2c5f26e3e85970f0" kind="function"><name>XHdcp22Rx_Pkcs1Rsadp</name></member>
     <member refid="group__hdcp22__rx_1gabb5e8b9f02449e1f97a3ce395894bc87" kind="function"><name>XHdcp22Rx_Pkcs1Mgf1</name></member>
     <member refid="group__hdcp22__rx_1gadf9977210d8b417bfb64a4d25da168a3" kind="function"><name>XHdcp22Rx_Pkcs1EmeOaepEncode</name></member>
-    <member refid="group__hdcp22__rx_1gae19ee28b48b04da6ba2c0e4594c625ea" kind="function"><name>XHdcp22Rx_Pkcs1EmeOaepDecode</name></member>
+    <member refid="group__hdcp22__rx_1ga58c3c0a6f1b3e9b1cf783203e3dc5c17" kind="function"><name>XHdcp22Rx_Pkcs1EmeOaepDecode</name></member>
     <member refid="group__hdcp22__rx_1ga7a7c801f3bc14751e3eb7d37f6cd73ed" kind="function"><name>XHdcp22Rx_Pkcs1MontMultFiosInit</name></member>
     <member refid="group__hdcp22__rx_1gac09fd396e81d4c55420d9d59cbbc94bc" kind="function"><name>XHdcp22Rx_Pkcs1MontMultFios</name></member>
     <member refid="group__hdcp22__rx_1gafe88fedc07a6ae050f0c3e37765aa186" kind="function"><name>XHdcp22Rx_Pkcs1MontExp</name></member>
@@ -926,7 +926,7 @@
     <member refid="group__hdcp22__rx_1ga5167fcc44a5f363abfe4f2b3874ba4b4" kind="function"><name>XHdcp22Rx_Xor</name></member>
     <member refid="group__hdcp22__rx_1ga2a4b131d960ce7477390623dcb500c22" kind="function"><name>XHdcp22Rx_CalcMontNPrime</name></member>
     <member refid="group__hdcp22__rx_1ga509c671d4be808b4cd66fad2bf587bed" kind="function"><name>XHdcp22Rx_RsaesOaepEncrypt</name></member>
-    <member refid="group__hdcp22__rx_1ga736d136f515b397e659377757763aed2" kind="function"><name>XHdcp22Rx_RsaesOaepDecrypt</name></member>
+    <member refid="group__hdcp22__rx_1ga4207ff002000408dc3355e1d2f28c654" kind="function"><name>XHdcp22Rx_RsaesOaepDecrypt</name></member>
     <member refid="group__hdcp22__rx_1ga65027e431ba9aa70ab2552875638b2a9" kind="function"><name>XHdcp22Rx_GenerateRandom</name></member>
     <member refid="group__hdcp22__rx_1gafb3b8c8121a9d5d87360d4c90121124d" kind="function"><name>XHdcp22Rx_ComputeHPrime</name></member>
     <member refid="group__hdcp22__rx_1gad36540fb48852368b0db839790f7275a" kind="function"><name>XHdcp22Rx_ComputeEkh</name></member>

@@ -2,7 +2,7 @@ var xdptxss__dp21__tx_8c =
 [
     [ "ClkWiz_Locked", "xdptxss__dp21__tx_8c.html#a40db3a1befdd0b153debbb04049ccc70", null ],
     [ "DpTxSs_Ffe_AdjustHandler", "xdptxss__dp21__tx_8c.html#a911a781336cfbd1cd6e978bdb40fd7b2", null ],
-    [ "DpTxSs_HpdCon", "xdptxss__dp21__tx_8c.html#aa68f758c57e64c4f7e64d0b26577f9fa", null ],
+    [ "DpTxSs_HpdCon", "xdptxss__dp21__tx_8c.html#afcf3afc3c0aed9f17e481c43374dbcf1", null ],
     [ "DpTxSs_HpdEventHandler", "xdptxss__dp21__tx_8c.html#a43bfef1afb72a74517979ca8d98b62c3", null ],
     [ "DpTxSs_HpdPulseCon", "xdptxss__dp21__tx_8c.html#a04e41ff0a52bed864e9ac4194aed5aa9", null ],
     [ "DpTxSs_HpdPulseHandler", "xdptxss__dp21__tx_8c.html#ad9678951bcf73b3ab52d7dbb5243f531", null ],
@@ -11,7 +11,8 @@ var xdptxss__dp21__tx_8c =
     [ "DpTxSs_PhyConfig", "xdptxss__dp21__tx_8c.html#a9dcb8e2bf0d7742080dc7c33cbdf507c", null ],
     [ "DpTxSs_PhyInit", "xdptxss__dp21__tx_8c.html#af99c567e691516d9f53489f1c81d3b6a", null ],
     [ "DpTxSs_PlatformInit", "xdptxss__dp21__tx_8c.html#a77566cbc37f750518218986d3d37c4f4", null ],
-    [ "DpTxSs_Setup", "xdptxss__dp21__tx_8c.html#a1531c0baa2d3390d97f70db53fdb4fe3", null ],
+    [ "DpTxSs_SafeMode", "xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6", null ],
+    [ "DpTxSs_Setup", "xdptxss__dp21__tx_8c.html#a1693c544f8b12ff5e49c4748731cc939", null ],
     [ "DpTxSs_SetupIntrSystem", "xdptxss__dp21__tx_8c.html#a580b1ce673353caf117185940232783e", null ],
     [ "DpTxSs_Sink_PowerCycle", "xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25", null ],
     [ "DpTxSs_Sink_PowerDown", "xdptxss__dp21__tx_8c.html#a874ccb1f5f04bfdd4d747ac001a646b9", null ],

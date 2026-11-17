@@ -105,13 +105,28 @@ $(document).ready(function(){initNavTree('xqspipsu__sinit_8c.html','');});
 <div class="title">xqspipsu_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements static initialization for the <a class="el" href="struct_x_qspi_psu.html" title="Stores the XQspiPsu driver instance data. ">XQspiPsu</a> driver. </p>
+<p>This file contains the implementation of the <a class="el" href="struct_x_qspi_psu.html" title="Stores the XQspiPsu driver instance data. ">XQspiPsu</a> component's static initialization functionality.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0   hk  08/21/14 First release
+1.15  akm 10/26/21 Fix MISRA-C violations.
+1.18  sb  06/07/23 Added support for system device-tree flow.
+1.23  vlt 12/16/25 Update Doxygen comments to include SDT flow details.
+1.23  vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                   to support 64-bit addressing.
+1.24  tb  09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga76f8802ef15bef7f1a788b38fbb00c69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_qspi_psu___config.html">XQspiPsu_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga76f8802ef15bef7f1a788b38fbb00c69">XQspiPsu_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga76f8802ef15bef7f1a788b38fbb00c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__qspipsu__api.html#ga76f8802ef15bef7f1a788b38fbb00c69">More...</a><br/></td></tr>
+<tr class="memdesc:ga76f8802ef15bef7f1a788b38fbb00c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration by device ID or base address.  <a href="group__qspipsu__api.html#ga76f8802ef15bef7f1a788b38fbb00c69">More...</a><br/></td></tr>
 <tr class="separator:ga76f8802ef15bef7f1a788b38fbb00c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

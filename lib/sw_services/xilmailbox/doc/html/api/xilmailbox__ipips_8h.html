@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xilmailbox__ipips_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,27 +105,44 @@ $(document).ready(function(){initNavTree('xilmailbox__ipips_8h.html','');});
 <div class="title">xilmailbox_ipips.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the XilMailbox IPI agent structure and IPI constants. </p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date        Changes
+</p>
+<hr/>
+<p>
+ 1.0   adk  12/02/19    Initial Release
+ 1.3   sd   03/03/21    Doxygen Fixes
+ 1.6   sd   28/02/21    Add support for microblaze
+ 1.8   ht   07/24/23    Restructure the code for more modularity
+ 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
+ 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
+ 1.14  vn   08/26/26    Fix Doxygen warnings.
+ 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
 <code>#include &quot;xipipsu.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mailbox___agent.html">XMailbox_Agent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure used to refer Xilmailbox agents.  <a href="struct_x_mailbox___agent.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the data used to refer to XilMailbox agents.  <a href="struct_x_mailbox___agent.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:gad27cc17b25bb93134368d5eb21126eae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gad27cc17b25bb93134368d5eb21126eae">BIT</a>(x)&#160;&#160;&#160;(1 &lt;&lt; (x))</td></tr>
-<tr class="memdesc:gad27cc17b25bb93134368d5eb21126eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position.  <a href="group__xilmailbox.html#gad27cc17b25bb93134368d5eb21126eae">More...</a><br/></td></tr>
+<tr class="memdesc:gad27cc17b25bb93134368d5eb21126eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a bit mask with the given bit position set.  <a href="group__xilmailbox.html#gad27cc17b25bb93134368d5eb21126eae">More...</a><br/></td></tr>
 <tr class="separator:gad27cc17b25bb93134368d5eb21126eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">IPI acknowledgment polling</div></td></tr>
 <tr class="memitem:gaf22e2c7d554cc41b64ba743959394334"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gaf22e2c7d554cc41b64ba743959394334">XIPI_DONE_TIMEOUT_VAL</a>&#160;&#160;&#160;2000000</td></tr>
 <tr class="memdesc:gaf22e2c7d554cc41b64ba743959394334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout for IPI.  <a href="group__xilmailbox.html#gaf22e2c7d554cc41b64ba743959394334">More...</a><br/></td></tr>
 <tr class="separator:gaf22e2c7d554cc41b64ba743959394334"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga325538ceb2db30df5882c8e45353836a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga325538ceb2db30df5882c8e45353836a">XIPI_IPI_DONE_BIT_SLEEP_IN_US</a>&#160;&#160;&#160;(1U)</td></tr>
-<tr class="memdesc:ga325538ceb2db30df5882c8e45353836a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sleep for 1Us.  <a href="group__xilmailbox.html#ga325538ceb2db30df5882c8e45353836a">More...</a><br/></td></tr>
+<tr class="memdesc:ga325538ceb2db30df5882c8e45353836a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sleep for 1 us.  <a href="group__xilmailbox.html#ga325538ceb2db30df5882c8e45353836a">More...</a><br/></td></tr>
 <tr class="separator:ga325538ceb2db30df5882c8e45353836a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">IPI channels</div></td></tr>
 <tr class="memitem:gadf643d08bd8cbcfde6234a6bdaae9e88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gadf643d08bd8cbcfde6234a6bdaae9e88">XMAILBOX_IPI0</a>&#160;&#160;&#160;<a class="el" href="group__xilmailbox.html#gad27cc17b25bb93134368d5eb21126eae">BIT</a>(0)</td></tr>
 <tr class="memdesc:gadf643d08bd8cbcfde6234a6bdaae9e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPI0 channel.  <a href="group__xilmailbox.html#gadf643d08bd8cbcfde6234a6bdaae9e88">More...</a><br/></td></tr>
 <tr class="separator:gadf643d08bd8cbcfde6234a6bdaae9e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,13 +177,14 @@ Macros</h2></td></tr>
 <tr class="memdesc:gab888e665d43986e50eaba5abcdcda68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPI10 channel.  <a href="group__xilmailbox.html#gab888e665d43986e50eaba5abcdcda68a">More...</a><br/></td></tr>
 <tr class="separator:gab888e665d43986e50eaba5abcdcda68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf83db6a62871c736b4f8f485d56caed8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gaf83db6a62871c736b4f8f485d56caed8">XMAILBOX_MAX_CHANNELS</a>&#160;&#160;&#160;11U</td></tr>
-<tr class="memdesc:gaf83db6a62871c736b4f8f485d56caed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum channel.  <a href="group__xilmailbox.html#gaf83db6a62871c736b4f8f485d56caed8">More...</a><br/></td></tr>
+<tr class="memdesc:gaf83db6a62871c736b4f8f485d56caed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum channels.  <a href="group__xilmailbox.html#gaf83db6a62871c736b4f8f485d56caed8">More...</a><br/></td></tr>
 <tr class="separator:gaf83db6a62871c736b4f8f485d56caed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad14b42daa39e07711ec871f737bdb41b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gad14b42daa39e07711ec871f737bdb41b">XMAILBOX_INTR_ID</a>&#160;&#160;&#160;22U</td></tr>
-<tr class="memdesc:gad14b42daa39e07711ec871f737bdb41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt id.  <a href="group__xilmailbox.html#gad14b42daa39e07711ec871f737bdb41b">More...</a><br/></td></tr>
+<tr class="memdesc:gad14b42daa39e07711ec871f737bdb41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt ID.  <a href="group__xilmailbox.html#gad14b42daa39e07711ec871f737bdb41b">More...</a><br/></td></tr>
 <tr class="separator:gad14b42daa39e07711ec871f737bdb41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Error handling</div></td></tr>
 <tr class="memitem:ga90293f74a32c52eb71ecf11d8c34bc3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga90293f74a32c52eb71ecf11d8c34bc3d">IPI_BASEADDRESS</a>&#160;&#160;&#160;0xFF380000U</td></tr>
-<tr class="memdesc:ga90293f74a32c52eb71ecf11d8c34bc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address.  <a href="group__xilmailbox.html#ga90293f74a32c52eb71ecf11d8c34bc3d">More...</a><br/></td></tr>
+<tr class="memdesc:ga90293f74a32c52eb71ecf11d8c34bc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address.  <a href="group__xilmailbox.html#ga90293f74a32c52eb71ecf11d8c34bc3d">More...</a><br/></td></tr>
 <tr class="separator:ga90293f74a32c52eb71ecf11d8c34bc3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10837217c3d1614d878ab47ff497e30c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga10837217c3d1614d878ab47ff497e30c">IPI_ADDRDECODE_ERROR</a>&#160;&#160;&#160;<a class="el" href="group__xilmailbox.html#gad27cc17b25bb93134368d5eb21126eae">BIT</a>(0)</td></tr>
 <tr class="memdesc:ga10837217c3d1614d878ab47ff497e30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address decode error.  <a href="group__xilmailbox.html#ga10837217c3d1614d878ab47ff497e30c">More...</a><br/></td></tr>

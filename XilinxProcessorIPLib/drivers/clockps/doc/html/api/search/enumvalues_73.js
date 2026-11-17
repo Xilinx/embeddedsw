@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['sata_5fref_5fdiv0',['SATA_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a3e3c7297cd78ba5f6e01f52b42ffebda',1,'xclockps.h']]],
+  ['sata_5fref_5fgate',['SATA_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5a3848059a266ec15fbabe1a175cfb51ba',1,'xclockps.h']]],
+  ['sata_5fref_5fmux',['SATA_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64adec516ce879d9ff30890c052d32f337f',1,'xclockps.h']]],
+  ['sdio0_5fref_5fdiv0',['SDIO0_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a2d6f098cf3ccc5f5ca97142e859a45a0',1,'xclockps.h']]],
+  ['sdio0_5fref_5fdiv1',['SDIO0_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a6fddb0f0182b96372fb31f766ad59440',1,'xclockps.h']]],
+  ['sdio0_5fref_5fgate',['SDIO0_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5ae4a3d41d34427b325a974e5cd6c7d613',1,'xclockps.h']]],
+  ['sdio0_5fref_5fmux',['SDIO0_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a39de5b8ce912a327342b6adef673cabc',1,'xclockps.h']]],
+  ['sdio1_5fref_5fdiv0',['SDIO1_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3ac17e3f20e314edc7be781bc4880f8a02',1,'xclockps.h']]],
+  ['sdio1_5fref_5fdiv1',['SDIO1_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3aebfed0661845ef77960d34c3a83d3aef',1,'xclockps.h']]],
+  ['sdio1_5fref_5fgate',['SDIO1_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5abfcfb41e94e2c110d44d1ba4206aa80a',1,'xclockps.h']]],
+  ['sdio1_5fref_5fmux',['SDIO1_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a277356e2bb764f82be5d69d4a3fbc01e',1,'xclockps.h']]],
+  ['spi0_5fref_5fdiv0',['SPI0_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3ad9edd0abae3f3c32c3eaa5f7c8e08a2e',1,'xclockps.h']]],
+  ['spi0_5fref_5fdiv1',['SPI0_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a4963d49c2fc5b960bde8c4fa6b76fb64',1,'xclockps.h']]],
+  ['spi0_5fref_5fgate',['SPI0_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5a95965abdfa12fc5667023ca92ef844bb',1,'xclockps.h']]],
+  ['spi0_5fref_5fmux',['SPI0_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64accae6aedd5c3461a7da0fd5e64dd773d',1,'xclockps.h']]],
+  ['spi1_5fref_5fdiv0',['SPI1_REF_DIV0',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a76665d38130fb592543f3748efeefe03',1,'xclockps.h']]],
+  ['spi1_5fref_5fdiv1',['SPI1_REF_DIV1',['../group__clockps.html#ggad28e67775a6a35b325701bc7415c01a3a3af77ff202af8e3e80dffae14f88532b',1,'xclockps.h']]],
+  ['spi1_5fref_5fgate',['SPI1_REF_GATE',['../group__clockps.html#gga44ca0efcaae97b06e9de8c033f088cd5aa6d99707f5c217dd604ff59285ed3e07',1,'xclockps.h']]],
+  ['spi1_5fref_5fmux',['SPI1_REF_MUX',['../group__clockps.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a7e6256fe8038a8c60a22977ea294193b',1,'xclockps.h']]]
+];

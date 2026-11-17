@@ -27,8 +27,6 @@
     <member refid="struct_x_intc___vector_table_entry_1a8badf1d4125bbca6d53404610eb813bc" kind="variable"><name>CallBackRef</name></member>
   </compound>
   <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
-    <member refid="src_2_c_make_lists_8txt_1a54c485e67dd34ffad55b0061b65a2fb5" kind="function"><name>if</name></member>
-    <member refid="src_2_c_make_lists_8txt_1aa8aa13b67a170bd56f906c02abbac438" kind="function"><name>instances</name></member>
   </compound>
   <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
   </compound>
@@ -39,6 +37,7 @@
     <member refid="group__intc_1gafda8c0d108cc122f2137138f734e757b" kind="function"><name>StubHandler</name></member>
     <member refid="group__intc_1gae057f399bb307653c60f366b99e480cc" kind="function"><name>XIntc_InitializeSlaves</name></member>
     <member refid="group__intc_1gacd04cd094f631f275f0bf5448d319c11" kind="function"><name>XIntc_FindControllerByAddr</name></member>
+    <member refid="group__intc_1ga2126cc6ab67d2a9262564ddf40fd3357" kind="function"><name>XIntc_GetChainRoot</name></member>
     <member refid="group__intc_1ga0bb7bd09f344cbb0ca86c36b2de3130f" kind="function"><name>XIntc_FindControllerForId</name></member>
     <member refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" kind="function"><name>XIntc_GetPrimaryController</name></member>
     <member refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" kind="function"><name>XIntc_Initialize</name></member>
@@ -66,7 +65,6 @@
     <member refid="group__intc_1ga842aea1f6663265412f5618f102e8f18" kind="define"><name>XIN_CONTROLLER_MAX_INTRS</name></member>
     <member refid="group__intc_1ga9d6cfdfe9914f029b5a88d014400188e" kind="define"><name>XINTC_STANDARD_VECTOR_ADDRESS_WIDTH</name></member>
     <member refid="group__intc_1gae719e5a0b6bd6482b86d9240a5226a83" kind="define"><name>XIN_CASCADE_IRQ_MASK</name></member>
-    <member refid="group__intc_1ga83c73f41c10e5cb7be5c1fc0b1f05993" kind="define"><name>XINTC_MAX_CASCADE_CONTROLLERS</name></member>
     <member refid="group__intc_1ga023c861e5fa5ddd0f0e6d67dd5aa504b" kind="define"><name>XINTC_INTR_PARENT_MASK</name></member>
     <member refid="group__intc_1ga2686148d7a9d3f2f214735198506d7d0" kind="define"><name>XINTC_NO_PARENT</name></member>
     <member refid="group__intc_1ga9e07373b9cba0eafcb65c0dd23f6a4ab" kind="define"><name>XINTC_H</name></member>
@@ -82,6 +80,7 @@
     <member refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" kind="function"><name>XIntc_LookupConfig</name></member>
     <member refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" kind="function"><name>LookupConfigByBaseAddress</name></member>
     <member refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" kind="function"><name>XIntc_GetPrimaryController</name></member>
+    <member refid="group__intc_1ga2126cc6ab67d2a9262564ddf40fd3357" kind="function"><name>XIntc_GetChainRoot</name></member>
     <member refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" kind="function"><name>XIntc_ConnectFastHandler</name></member>
     <member refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" kind="function"><name>XIntc_SetNormalIntrMode</name></member>
     <member refid="group__intc_1ga7eb4ea6d2f66a5b3ca32b12ec68bc151" kind="function"><name>XIntc_TriggerSwIntr</name></member>
@@ -120,7 +119,7 @@
     <member refid="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" kind="function"><name>XIntc_RegisterHandler</name></member>
     <member refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" kind="function"><name>LookupConfigByBaseAddress</name></member>
     <member refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" kind="function"><name>XIntc_RegisterFastHandler</name></member>
-    <member refid="group__intc_1ga6cd54f00bc82f5d4714dca5873f48de6" kind="function"><name>XIntc_GetChildBaseAddress</name></member>
+    <member refid="group__intc_1ga211e1671d622d106b4e8aa8a5538fbf9" kind="function"><name>XIntc_GetChildForPin</name></member>
   </compound>
   <compound refid="xintc__l_8h" kind="file"><name>xintc_l.h</name>
     <member refid="group__intc_1ga2591750e740c97fb30372d7fd6fba9ca" kind="define"><name>XINTC_L_H</name></member>
@@ -194,7 +193,6 @@
     <member refid="group__intc_1ga842aea1f6663265412f5618f102e8f18" kind="define"><name>XIN_CONTROLLER_MAX_INTRS</name></member>
     <member refid="group__intc_1ga9d6cfdfe9914f029b5a88d014400188e" kind="define"><name>XINTC_STANDARD_VECTOR_ADDRESS_WIDTH</name></member>
     <member refid="group__intc_1gae719e5a0b6bd6482b86d9240a5226a83" kind="define"><name>XIN_CASCADE_IRQ_MASK</name></member>
-    <member refid="group__intc_1ga83c73f41c10e5cb7be5c1fc0b1f05993" kind="define"><name>XINTC_MAX_CASCADE_CONTROLLERS</name></member>
     <member refid="group__intc_1ga023c861e5fa5ddd0f0e6d67dd5aa504b" kind="define"><name>XINTC_INTR_PARENT_MASK</name></member>
     <member refid="group__intc_1ga2686148d7a9d3f2f214735198506d7d0" kind="define"><name>XINTC_NO_PARENT</name></member>
     <member refid="group__intc_1gab333e5826535071fe60f13b70b6e56dd" kind="typedef"><name>XFastInterruptHandler</name></member>
@@ -206,6 +204,7 @@
     <member refid="group__intc_1gafda8c0d108cc122f2137138f734e757b" kind="function"><name>StubHandler</name></member>
     <member refid="group__intc_1gae057f399bb307653c60f366b99e480cc" kind="function"><name>XIntc_InitializeSlaves</name></member>
     <member refid="group__intc_1gacd04cd094f631f275f0bf5448d319c11" kind="function"><name>XIntc_FindControllerByAddr</name></member>
+    <member refid="group__intc_1ga2126cc6ab67d2a9262564ddf40fd3357" kind="function"><name>XIntc_GetChainRoot</name></member>
     <member refid="group__intc_1ga0bb7bd09f344cbb0ca86c36b2de3130f" kind="function"><name>XIntc_FindControllerForId</name></member>
     <member refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" kind="function"><name>XIntc_GetPrimaryController</name></member>
     <member refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" kind="function"><name>XIntc_Initialize</name></member>
@@ -232,7 +231,7 @@
     <member refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" kind="function"><name>XIntc_SetIntrSvcOption</name></member>
     <member refid="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" kind="function"><name>XIntc_RegisterHandler</name></member>
     <member refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" kind="function"><name>XIntc_RegisterFastHandler</name></member>
-    <member refid="group__intc_1ga6cd54f00bc82f5d4714dca5873f48de6" kind="function"><name>XIntc_GetChildBaseAddress</name></member>
+    <member refid="group__intc_1ga211e1671d622d106b4e8aa8a5538fbf9" kind="function"><name>XIntc_GetChildForPin</name></member>
     <member refid="group__intc_1gabf91e27eb2cc036f84df2e15d14343a8" kind="function"><name>XIntc_LowLevelInterruptHandler</name></member>
     <member refid="group__intc_1ga9e07373b9cba0eafcb65c0dd23f6a4ab" kind="define"><name>XINTC_H</name></member>
     <member refid="group__intc_1ga2d461c0e2b7ab3d3106575c4c3a5adff" kind="define"><name>XINTC_I_H</name></member>

@@ -1,0 +1,430 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xpm__psm__api__plat_8c" kind="file">
+    <compoundname>net/server/xpm_psm_api_plat.c</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__core_8h" local="yes">xpm_core.h</includes>
+    <includes local="yes">xpm_defs.h</includes>
+    <includes refid="xpm__psm__api_8h" local="yes">xpm_psm_api.h</includes>
+    <includes local="yes">xpm_nodeid.h</includes>
+    <includes refid="xpm__ipi_8h" local="yes">xpm_ipi.h</includes>
+    <includes refid="xpm__api_8h" local="yes">xpm_api.h</includes>
+    <includes refid="xpm__psm_8h" local="yes">xpm_psm.h</includes>
+    <includes refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includes>
+    <includes refid="xpm__subsystem_8h" local="yes">xpm_subsystem.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <incdepgraph>
+      <node id="7563">
+        <label>xpm_psm_api_plat.c</label>
+        <link refid="net/server/xpm_psm_api_plat.c"/>
+        <childnode refid="7564" relation="include">
+        </childnode>
+        <childnode refid="7571" relation="include">
+        </childnode>
+        <childnode refid="7578" relation="include">
+        </childnode>
+        <childnode refid="7591" relation="include">
+        </childnode>
+        <childnode refid="7576" relation="include">
+        </childnode>
+        <childnode refid="7593" relation="include">
+        </childnode>
+        <childnode refid="7585" relation="include">
+        </childnode>
+        <childnode refid="7594" relation="include">
+        </childnode>
+        <childnode refid="7596" relation="include">
+        </childnode>
+        <childnode refid="7584" relation="include">
+        </childnode>
+        <childnode refid="7598" relation="include">
+        </childnode>
+      </node>
+      <node id="7582">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="7597">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="7566">
+        <label>xil_io.h</label>
+      </node>
+      <node id="7584">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="7585" relation="include">
+        </childnode>
+        <childnode refid="7578" relation="include">
+        </childnode>
+        <childnode refid="7565" relation="include">
+        </childnode>
+        <childnode refid="7588" relation="include">
+        </childnode>
+      </node>
+      <node id="7574">
+        <label>xpm_node.h</label>
+        <childnode refid="7575" relation="include">
+        </childnode>
+        <childnode refid="7565" relation="include">
+        </childnode>
+        <childnode refid="7576" relation="include">
+        </childnode>
+        <childnode refid="7564" relation="include">
+        </childnode>
+      </node>
+      <node id="7568">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="7581">
+        <label>xpm_clock.h</label>
+        <childnode refid="7564" relation="include">
+        </childnode>
+        <childnode refid="7582" relation="include">
+        </childnode>
+        <childnode refid="7574" relation="include">
+        </childnode>
+        <childnode refid="7577" relation="include">
+        </childnode>
+      </node>
+      <node id="7598">
+        <label>xplmi.h</label>
+      </node>
+      <node id="7592">
+        <label>xpm_psm_api_plat.h</label>
+      </node>
+      <node id="7595">
+        <label>xpm_psm_plat.h</label>
+      </node>
+      <node id="7567">
+        <label>xil_util.h</label>
+      </node>
+      <node id="7569">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="7594">
+        <label>xpm_psm.h</label>
+        <childnode refid="7571" relation="include">
+        </childnode>
+        <childnode refid="7595" relation="include">
+        </childnode>
+      </node>
+      <node id="7593">
+        <label>xpm_ipi.h</label>
+        <childnode refid="7564" relation="include">
+        </childnode>
+      </node>
+      <node id="7591">
+        <label>xpm_psm_api.h</label>
+        <childnode refid="7575" relation="include">
+        </childnode>
+        <childnode refid="7565" relation="include">
+        </childnode>
+        <childnode refid="7592" relation="include">
+        </childnode>
+      </node>
+      <node id="7579">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="7578">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="7588">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="7590">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="7589">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="7572">
+        <label>xpm_core_plat.h</label>
+      </node>
+      <node id="7565">
+        <label>xstatus.h</label>
+      </node>
+      <node id="7596">
+        <label>xpm_requirement.h</label>
+        <childnode refid="7573" relation="include">
+        </childnode>
+        <childnode refid="7584" relation="include">
+        </childnode>
+        <childnode refid="7597" relation="include">
+        </childnode>
+      </node>
+      <node id="7573">
+        <label>xpm_device.h</label>
+        <childnode refid="7574" relation="include">
+        </childnode>
+        <childnode refid="7577" relation="include">
+        </childnode>
+        <childnode refid="7581" relation="include">
+        </childnode>
+        <childnode refid="7583" relation="include">
+        </childnode>
+        <childnode refid="7590" relation="include">
+        </childnode>
+      </node>
+      <node id="7576">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="7586">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="7571">
+        <label>xpm_core.h</label>
+        <childnode refid="7572" relation="include">
+        </childnode>
+        <childnode refid="7573" relation="include">
+        </childnode>
+        <childnode refid="7591" relation="include">
+        </childnode>
+      </node>
+      <node id="7575">
+        <label>xil_types.h</label>
+      </node>
+      <node id="7570">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="7564">
+        <label>xpm_common.h</label>
+        <childnode refid="7565" relation="include">
+        </childnode>
+        <childnode refid="7566" relation="include">
+        </childnode>
+        <childnode refid="7567" relation="include">
+        </childnode>
+        <childnode refid="7568" relation="include">
+        </childnode>
+        <childnode refid="7569" relation="include">
+        </childnode>
+        <childnode refid="7570" relation="include">
+        </childnode>
+      </node>
+      <node id="7585">
+        <label>xpm_api.h</label>
+        <childnode refid="7575" relation="include">
+        </childnode>
+        <childnode refid="7565" relation="include">
+        </childnode>
+        <childnode refid="7578" relation="include">
+        </childnode>
+        <childnode refid="7568" relation="include">
+        </childnode>
+        <childnode refid="7586" relation="include">
+        </childnode>
+        <childnode refid="7587" relation="include">
+        </childnode>
+      </node>
+      <node id="7577">
+        <label>xpm_power.h</label>
+        <childnode refid="7578" relation="include">
+        </childnode>
+        <childnode refid="7574" relation="include">
+        </childnode>
+        <childnode refid="7579" relation="include">
+        </childnode>
+        <childnode refid="7580" relation="include">
+        </childnode>
+      </node>
+      <node id="7580">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="7587">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="7583">
+        <label>xpm_reset.h</label>
+        <childnode refid="7574" relation="include">
+        </childnode>
+        <childnode refid="7564" relation="include">
+        </childnode>
+        <childnode refid="7584" relation="include">
+        </childnode>
+        <childnode refid="7589" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="net_2server_2xpm__psm__api__plat_8c_1a12beb60c26a0cd2bcc8a1fc39d6e3147" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ProcDevList[PROC_DEV_MAX]</definition>
+        <argsstring>[PROC_DEV_MAX]</argsstring>
+        <name>ProcDevList</name>
+        <initializer>= {
+	[ACPU_0] = PM_DEV_ACPU_0_0,
+	[ACPU_1] = PM_DEV_ACPU_0_1,
+	[ACPU_2] = PM_DEV_ACPU_0_2,
+	[ACPU_3] = PM_DEV_ACPU_0_3,
+	[ACPU_4] = PM_DEV_ACPU_1_0,
+	[ACPU_5] = PM_DEV_ACPU_1_1,
+	[ACPU_6] = PM_DEV_ACPU_1_2,
+	[ACPU_7] = PM_DEV_ACPU_1_3,
+	[ACPU_8] = PM_DEV_ACPU_2_0,
+	[ACPU_9] = PM_DEV_ACPU_2_1,
+	[ACPU_10] = PM_DEV_ACPU_2_2,
+	[ACPU_11] = PM_DEV_ACPU_2_3,
+	[ACPU_12] = PM_DEV_ACPU_3_0,
+	[ACPU_13] = PM_DEV_ACPU_3_1,
+	[ACPU_14] = PM_DEV_ACPU_3_2,
+	[ACPU_15] = PM_DEV_ACPU_3_3,
+	[RPU0_0] = PM_DEV_RPU_A_0,
+	[RPU0_1] = PM_DEV_RPU_A_1,
+	[RPU1_0] = PM_DEV_RPU_B_0,
+	[RPU1_1] = PM_DEV_RPU_B_1,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xpm__psm__api__plat_8c_1a7e3aefaa098e6d9f56c1ea8241d81259" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_DirectPwrUp</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_DirectPwrUp</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This Function will power up processor by sending IPI to PSM for performing direct power up operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of processor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c" bodystart="55" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2server_2xpm__psm__api__plat_8c_1a8b007ba73df1624e6f9fedc2da7ad68d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPm_DirectPwrDwn</definition>
+        <argsstring>(const u32 DeviceId)</argsstring>
+        <name>XPm_DirectPwrDwn</name>
+        <param>
+          <type>const u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This Function will power down processor by sending IPI to PSM for performing direct power down operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of processor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code.</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c" bodystart="86" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_nodeid.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_ipi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_psm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>ProcDevList[PROC_DEV_MAX]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_0]<sp/>=<sp/>PM_DEV_ACPU_0_0,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_1]<sp/>=<sp/>PM_DEV_ACPU_0_1,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_2]<sp/>=<sp/>PM_DEV_ACPU_0_2,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_3]<sp/>=<sp/>PM_DEV_ACPU_0_3,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_4]<sp/>=<sp/>PM_DEV_ACPU_1_0,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_5]<sp/>=<sp/>PM_DEV_ACPU_1_1,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_6]<sp/>=<sp/>PM_DEV_ACPU_1_2,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_7]<sp/>=<sp/>PM_DEV_ACPU_1_3,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_8]<sp/>=<sp/>PM_DEV_ACPU_2_0,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_9]<sp/>=<sp/>PM_DEV_ACPU_2_1,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_10]<sp/>=<sp/>PM_DEV_ACPU_2_2,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_11]<sp/>=<sp/>PM_DEV_ACPU_2_3,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_12]<sp/>=<sp/>PM_DEV_ACPU_3_0,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_13]<sp/>=<sp/>PM_DEV_ACPU_3_1,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_14]<sp/>=<sp/>PM_DEV_ACPU_3_2,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[ACPU_15]<sp/>=<sp/>PM_DEV_ACPU_3_3,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[RPU0_0]<sp/>=<sp/>PM_DEV_RPU_A_0,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[RPU0_1]<sp/>=<sp/>PM_DEV_RPU_A_1,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[RPU1_0]<sp/>=<sp/>PM_DEV_RPU_B_0,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[RPU1_1]<sp/>=<sp/>PM_DEV_RPU_B_1,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">XStatus<sp/>XPm_DirectPwrUp(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[0]<sp/>=<sp/>PSM_API_DIRECT_PWR_UP;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[1]<sp/>=<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_IpiSend(PSM_IPI_INT_MASK,<sp/>Payload);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_IpiReadStatus(PSM_IPI_INT_MASK);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">XStatus<sp/>XPm_DirectPwrDwn(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[0]<sp/>=<sp/>PSM_API_DIRECT_PWR_DWN;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[1]<sp/>=<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_IpiSend(PSM_IPI_INT_MASK,<sp/>Payload);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPm_IpiReadStatus(PSM_IPI_INT_MASK);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c"/>
+  </compounddef>
+</doxygen>

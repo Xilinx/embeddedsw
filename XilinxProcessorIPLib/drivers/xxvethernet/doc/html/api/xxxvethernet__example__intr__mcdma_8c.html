@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('xxxvethernet__example__intr__mcdma_8c.
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,25 +100,13 @@ $(document).ready(function(){initNavTree('xxxvethernet__example__intr__mcdma_8c.
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xxxvethernet_example_intr_mcdma.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Implements examples that utilize the Xxv Ethernet's interrupt driven MCDMA packet transfer mode to send and receive frames. </p>
-<p>This example demonstrates how to perform a simple send and receive.</p>
-<p>Functional guide to example:</p>
-<ul>
-<li>XxvEthernetSgDmaIntrSingleFrameExample demonstrates the simplest way to send and receive frames in interrupt driven mode.</li>
-</ul>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
-<hr/>
-<p>
-1.0   hk   06/16/17 First release
-1.4   rsp  05/12/20 Fix Wint-conversion gcc warning in <a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#ad378e34d2e8428eef9ea834edff258b3" title="This function demonstrates the usage usage of the Xxv Ethernet by sending and receiving frames in int...">XxvEthernetSgDmaIntrExample()</a>.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xxxvethernet__example_8h.html">xxxvethernet_example.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="xxxvethernet__example_8h.html">xxxvethernet_example.h</a>&quot;</code><br/>
 <code>#include &quot;xmcdma.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
@@ -125,147 +114,78 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;stdlib.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga24a86e7405362903742f1a6611a7bead"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga24a86e7405362903742f1a6611a7bead">XXVETHERNET_BASEADDR</a>&#160;&#160;&#160;XPAR_XXXVETHERNET_0_BASEADDR</td></tr>
+<tr class="memdesc:ga24a86e7405362903742f1a6611a7bead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the Xxv Ethernet device.  <a href="group__xxvethernet.html#ga24a86e7405362903742f1a6611a7bead">More...</a><br/></td></tr>
+<tr class="separator:ga24a86e7405362903742f1a6611a7bead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0004d764dd3a78de535ddb8a400d97d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga0004d764dd3a78de535ddb8a400d97d9">RXBD_CNT</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:ga0004d764dd3a78de535ddb8a400d97d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of RxBDs to use.  <a href="group__xxvethernet.html#ga0004d764dd3a78de535ddb8a400d97d9">More...</a><br/></td></tr>
+<tr class="separator:ga0004d764dd3a78de535ddb8a400d97d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b8777c106b3892e84513c5584f09ce3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga7b8777c106b3892e84513c5584f09ce3">TXBD_CNT</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:ga7b8777c106b3892e84513c5584f09ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of TxBDs to use.  <a href="group__xxvethernet.html#ga7b8777c106b3892e84513c5584f09ce3">More...</a><br/></td></tr>
+<tr class="separator:ga7b8777c106b3892e84513c5584f09ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabab2a46249fbb3757e55d84df589df7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gabab2a46249fbb3757e55d84df589df7d">BD_ALIGNMENT</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:gabab2a46249fbb3757e55d84df589df7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte alignment of buffer descriptors.  <a href="group__xxvethernet.html#gabab2a46249fbb3757e55d84df589df7d">More...</a><br/></td></tr>
+<tr class="separator:gabab2a46249fbb3757e55d84df589df7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fb2dea7d964f6ed95dfac2897c4001d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga3fb2dea7d964f6ed95dfac2897c4001d">PAYLOAD_SIZE</a>&#160;&#160;&#160;8900</td></tr>
+<tr class="memdesc:ga3fb2dea7d964f6ed95dfac2897c4001d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload size used in examples.  <a href="group__xxvethernet.html#ga3fb2dea7d964f6ed95dfac2897c4001d">More...</a><br/></td></tr>
+<tr class="separator:ga3fb2dea7d964f6ed95dfac2897c4001d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21d3389819b6b281a246e001219e40a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga21d3389819b6b281a246e001219e40a9">IP_VERSION_4</a>&#160;&#160;&#160;0x800</td></tr>
+<tr class="memdesc:ga21d3389819b6b281a246e001219e40a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ethernet type/length value for IPv4 frames.  <a href="group__xxvethernet.html#ga21d3389819b6b281a246e001219e40a9">More...</a><br/></td></tr>
+<tr class="separator:ga21d3389819b6b281a246e001219e40a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf3254144adcb49fc04fbfe9e6ade04d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gabf3254144adcb49fc04fbfe9e6ade04d">IP_HEADER_VERSION</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:gabf3254144adcb49fc04fbfe9e6ade04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 version field value in the IP header.  <a href="group__xxvethernet.html#gabf3254144adcb49fc04fbfe9e6ade04d">More...</a><br/></td></tr>
+<tr class="separator:gabf3254144adcb49fc04fbfe9e6ade04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae35e31715134fcf4cdd0fcd26cc0ae2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gae35e31715134fcf4cdd0fcd26cc0ae2b">IP_HEADER_LEN_IN_WORDS</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:gae35e31715134fcf4cdd0fcd26cc0ae2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header length in 32-bit words.  <a href="group__xxvethernet.html#gae35e31715134fcf4cdd0fcd26cc0ae2b">More...</a><br/></td></tr>
+<tr class="separator:gae35e31715134fcf4cdd0fcd26cc0ae2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga294612afcb62d33531f390a08f0c3209"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga294612afcb62d33531f390a08f0c3209">IP_HEADER_LENGTH</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga294612afcb62d33531f390a08f0c3209"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header length in bytes.  <a href="group__xxvethernet.html#ga294612afcb62d33531f390a08f0c3209">More...</a><br/></td></tr>
+<tr class="separator:ga294612afcb62d33531f390a08f0c3209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c6ebeebceb2352481dd42bfe3580fcb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga4c6ebeebceb2352481dd42bfe3580fcb">IP_HEADER_PROTOCOL_TCP</a>&#160;&#160;&#160;0x6</td></tr>
+<tr class="memdesc:ga4c6ebeebceb2352481dd42bfe3580fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP protocol value for TCP packets.  <a href="group__xxvethernet.html#ga4c6ebeebceb2352481dd42bfe3580fcb">More...</a><br/></td></tr>
+<tr class="separator:ga4c6ebeebceb2352481dd42bfe3580fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4f249419477b372d04767eb2093bb58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gaf4f249419477b372d04767eb2093bb58">IP_HEADER_PROTOCOL_UDP</a>&#160;&#160;&#160;0x17</td></tr>
+<tr class="memdesc:gaf4f249419477b372d04767eb2093bb58"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP protocol value for UDP packets.  <a href="group__xxvethernet.html#gaf4f249419477b372d04767eb2093bb58">More...</a><br/></td></tr>
+<tr class="separator:gaf4f249419477b372d04767eb2093bb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68bfededdafe838f9982d3d2fa20d3b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga68bfededdafe838f9982d3d2fa20d3b0">TCP_HEADER_LEN_IN_WORDS</a>&#160;&#160;&#160;0x5</td></tr>
+<tr class="memdesc:ga68bfededdafe838f9982d3d2fa20d3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP header length in 32-bit words.  <a href="group__xxvethernet.html#ga68bfededdafe838f9982d3d2fa20d3b0">More...</a><br/></td></tr>
+<tr class="separator:ga68bfededdafe838f9982d3d2fa20d3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8aaf93f719395dfd0b720265ae29bef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gad8aaf93f719395dfd0b720265ae29bef">TCP_HEADER_LENGTH</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:gad8aaf93f719395dfd0b720265ae29bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP header length in bytes.  <a href="group__xxvethernet.html#gad8aaf93f719395dfd0b720265ae29bef">More...</a><br/></td></tr>
+<tr class="separator:gad8aaf93f719395dfd0b720265ae29bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga822c7cd26afe49b62c9125633b54eae0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga822c7cd26afe49b62c9125633b54eae0">RXBD_SPACE_BYTES</a>&#160;&#160;&#160;(<a class="el" href="group__xxvethernet.html#ga0004d764dd3a78de535ddb8a400d97d9">RXBD_CNT</a> * 64 * 16)</td></tr>
+<tr class="memdesc:ga822c7cd26afe49b62c9125633b54eae0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes reserved for receive BD space.  <a href="group__xxvethernet.html#ga822c7cd26afe49b62c9125633b54eae0">More...</a><br/></td></tr>
+<tr class="separator:ga822c7cd26afe49b62c9125633b54eae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga93ec935470cf2aa3eb8cc9a8dc06eb05">TXBD_SPACE_BYTES</a>&#160;&#160;&#160;(<a class="el" href="group__xxvethernet.html#ga7b8777c106b3892e84513c5584f09ce3">TXBD_CNT</a> * 64 * 16)</td></tr>
+<tr class="memdesc:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bytes reserved for transmit BD space.  <a href="group__xxvethernet.html#ga93ec935470cf2aa3eb8cc9a8dc06eb05">More...</a><br/></td></tr>
+<tr class="separator:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga69d6714be441102515074342e287197a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga69d6714be441102515074342e287197a">BLOCK_SIZE_2MB</a>&#160;&#160;&#160;0x200000U</td></tr>
+<tr class="memdesc:ga69d6714be441102515074342e287197a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Two-megabyte block size for TLB attributes.  <a href="group__xxvethernet.html#ga69d6714be441102515074342e287197a">More...</a><br/></td></tr>
+<tr class="separator:ga69d6714be441102515074342e287197a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbad0bcec47edfd40d1ca213be24408d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gacbad0bcec47edfd40d1ca213be24408d">INTC</a>&#160;&#160;&#160;XScuGic</td></tr>
+<tr class="memdesc:gacbad0bcec47edfd40d1ca213be24408d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt controller driver type for SCU GIC.  <a href="group__xxvethernet.html#gacbad0bcec47edfd40d1ca213be24408d">More...</a><br/></td></tr>
+<tr class="separator:gacbad0bcec47edfd40d1ca213be24408d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1774a555f3fbdee1c1a31fd1dfda655d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga1774a555f3fbdee1c1a31fd1dfda655d">INTC_HANDLER</a>&#160;&#160;&#160;XScuGic_InterruptHandler</td></tr>
+<tr class="memdesc:ga1774a555f3fbdee1c1a31fd1dfda655d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt handler for SCU GIC.  <a href="group__xxvethernet.html#ga1774a555f3fbdee1c1a31fd1dfda655d">More...</a><br/></td></tr>
+<tr class="separator:ga1774a555f3fbdee1c1a31fd1dfda655d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad378e34d2e8428eef9ea834edff258b3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#ad378e34d2e8428eef9ea834edff258b3">XxvEthernetSgDmaIntrExample</a> (<a class="el" href="struct_x_xxv_ethernet.html">XXxvEthernet</a> *XxvEthernetInstancePtr, XMcdma *DmaInstancePtr, UINTPTR XxvBaseAddress)</td></tr>
-<tr class="memdesc:ad378e34d2e8428eef9ea834edff258b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage usage of the Xxv Ethernet by sending and receiving frames in interrupt driven MCDMA mode.  <a href="#ad378e34d2e8428eef9ea834edff258b3">More...</a><br/></td></tr>
-<tr class="separator:ad378e34d2e8428eef9ea834edff258b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b7170116154c4ce8b89da78bdf9070d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#a8b7170116154c4ce8b89da78bdf9070d">XxvEthernetSgDmaIntrSingleFrameExample</a> (<a class="el" href="struct_x_xxv_ethernet.html">XXxvEthernet</a> *XxvEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
-<tr class="memdesc:a8b7170116154c4ce8b89da78bdf9070d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage of the Xxv Ethernet by sending and receiving a single frame in interrupt mode using MCDMA.  <a href="#a8b7170116154c4ce8b89da78bdf9070d">More...</a><br/></td></tr>
-<tr class="separator:a8b7170116154c4ce8b89da78bdf9070d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the Xxv Ethernet example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad378e34d2e8428eef9ea834edff258b3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gad378e34d2e8428eef9ea834edff258b3">XxvEthernetSgDmaIntrExample</a> (<a class="el" href="struct_x_xxv_ethernet.html">XXxvEthernet</a> *XxvEthernetInstancePtr, XMcdma *DmaInstancePtr, UINTPTR XxvBaseAddress)</td></tr>
+<tr class="memdesc:gad378e34d2e8428eef9ea834edff258b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates Xxv Ethernet send and receive in interrupt-driven MCDMA mode.  <a href="group__xxvethernet.html#gad378e34d2e8428eef9ea834edff258b3">More...</a><br/></td></tr>
+<tr class="separator:gad378e34d2e8428eef9ea834edff258b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b7170116154c4ce8b89da78bdf9070d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga8b7170116154c4ce8b89da78bdf9070d">XxvEthernetSgDmaIntrSingleFrameExample</a> (<a class="el" href="struct_x_xxv_ethernet.html">XXxvEthernet</a> *XxvEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
+<tr class="memdesc:ga8b7170116154c4ce8b89da78bdf9070d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends and receives a single Xxv Ethernet frame in interrupt-driven MCDMA mode.  <a href="group__xxvethernet.html#ga8b7170116154c4ce8b89da78bdf9070d">More...</a><br/></td></tr>
+<tr class="separator:ga8b7170116154c4ce8b89da78bdf9070d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the main entry point of the Xxv Ethernet example.  <a href="group__xxvethernet.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabb2279c8fead1cfe0c75320157f7896"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xxvethernet.html#gaabb2279c8fead1cfe0c75320157f7896">AxiEthernetSetMAC</a> (char *MacAddr, u8 ChanTdest)</td></tr>
+<tr class="memdesc:gaabb2279c8fead1cfe0c75320157f7896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs a channel-specific destination MAC address.  <a href="group__xxvethernet.html#gaabb2279c8fead1cfe0c75320157f7896">More...</a><br/></td></tr>
+<tr class="separator:gaabb2279c8fead1cfe0c75320157f7896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This is the main function for the Xxv Ethernet example. </p>
-<p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS to indicate success.<ul>
-<li>XST_FAILURE to indicate failure</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#ad378e34d2e8428eef9ea834edff258b3">XxvEthernetSgDmaIntrExample()</a>, and <a class="el" href="xxxvethernet__example_8h.html#ae5577a2e1499d8be6c88fcac63e8d553">XxvEthernetUtilErrorTrap()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad378e34d2e8428eef9ea834edff258b3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XxvEthernetSgDmaIntrExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_xxv_ethernet.html">XXxvEthernet</a> *&#160;</td>
-          <td class="paramname"><em>XxvEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>XxvBaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage usage of the Xxv Ethernet by sending and receiving frames in interrupt driven MCDMA mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">XxvEthernetInstancePtr</td><td>is a pointer to the instance of the XxvEthernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the AXI MCDMA component. </td></tr>
-    <tr><td class="paramname">XxvBaseAddress</td><td>contains the base address of the XxvEthernet device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>AxiMcdma hardware must be initialized before initializing XxvEthernet. Since AxiMcdma reset line is connected to the XxvEthernet reset line, a reset of AxiMcdma hardware during its initialization would reset XxvEthernet. </dd></dl>
-
-<p>References <a class="el" href="struct_x_xxv_ethernet___config.html#a7224e895cfa19a244b6394008f72b892">XXxvEthernet_Config::BaseAddress</a>, <a class="el" href="struct_x_xxv_ethernet___config.html#a49f53742b9dcc82373e52a28de62d130">XXxvEthernet_Config::XxvDevBaseAddress</a>, <a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#a8b7170116154c4ce8b89da78bdf9070d">XxvEthernetSgDmaIntrSingleFrameExample()</a>, <a class="el" href="xxxvethernet__example_8h.html#abb5bc0fd706a832742ca65487e6687af">XxvEthernetUtilEnterLocalLoopback()</a>, <a class="el" href="xxxvethernet__example_8h.html#ae5577a2e1499d8be6c88fcac63e8d553">XxvEthernetUtilErrorTrap()</a>, <a class="el" href="group__xxvethernet.html#gad071a1cb807ee930634dac763c9d8227">XXxvEthernet_CfgInitialize()</a>, <a class="el" href="group__xxvethernet.html#ga544b9ee2115ee6e77a8a89b76fe832d6">XXxvEthernet_LookupConfig()</a>, and <a class="el" href="group__xxvethernet.html#gacd8a86e3ca2431a4181de0d75fd58759">XXxvEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8b7170116154c4ce8b89da78bdf9070d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int XxvEthernetSgDmaIntrSingleFrameExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_xxv_ethernet.html">XXxvEthernet</a> *&#160;</td>
-          <td class="paramname"><em>XxvEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ChanId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage of the Xxv Ethernet by sending and receiving a single frame in interrupt mode using MCDMA. </p>
-<p>The source packet will be described by two descriptors. It will be received into a buffer described by a single descriptor.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">XxvEthernetInstancePtr</td><td>is a pointer to the instance of the Xxv Ethernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xxxvethernet__example_8h.html#ae5577a2e1499d8be6c88fcac63e8d553">XxvEthernetUtilErrorTrap()</a>, <a class="el" href="xxxvethernet__example_8h.html#a445292fcf7f28cbf3a9c379eb311b371">XxvEthernetUtilFrameHdrFormatMAC()</a>, <a class="el" href="xxxvethernet__example_8h.html#a10525c2457e7790f874b9bef3635b322">XxvEthernetUtilFrameHdrFormatType()</a>, <a class="el" href="xxxvethernet__example_8h.html#ad9494c30f93da4a8476ec61c8b1605b5">XxvEthernetUtilFrameMemClear()</a>, <a class="el" href="xxxvethernet__example_8h.html#a3435bac2a9a1be6bd28fda22f93c5f7c">XxvEthernetUtilFrameSetPayloadData()</a>, <a class="el" href="xxxvethernet__example_8h.html#a9442be912857bc50928bb7a53d5b6685">XxvEthernetUtilFrameVerify()</a>, <a class="el" href="group__xxvethernet.html#ga6e4b05d1a7db9def0f688bb3f12839f1">XXxvEthernet_Start()</a>, and <a class="el" href="group__xxvethernet.html#gacd8a86e3ca2431a4181de0d75fd58759">XXxvEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xxxvethernet__example__intr__mcdma_8c.html#ad378e34d2e8428eef9ea834edff258b3">XxvEthernetSgDmaIntrExample()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

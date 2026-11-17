@@ -7,35 +7,35 @@
     <includedby refid="xsecure__lms__ipihandler_8c" local="yes">xsecure_lms_ipihandler.c</includedby>
     <includedby refid="2ve__2vm_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <incdepgraph>
-      <node id="2014">
+      <node id="2100">
         <label>xsecure_lms_ipihandler.h</label>
         <link refid="xsecure_lms_ipihandler.h"/>
-        <childnode refid="2015" relation="include">
+        <childnode refid="2101" relation="include">
         </childnode>
-        <childnode refid="2016" relation="include">
+        <childnode refid="2102" relation="include">
         </childnode>
       </node>
-      <node id="2015">
+      <node id="2101">
         <label>xplmi_cmd.h</label>
       </node>
-      <node id="2016">
+      <node id="2102">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2018">
+      <node id="2104">
         <label>xsecure_lms_ipihandler.c</label>
         <link refid="xsecure__lms__ipihandler_8c"/>
       </node>
-      <node id="2017">
+      <node id="2103">
         <label>xsecure_lms_ipihandler.h</label>
         <link refid="xsecure_lms_ipihandler.h"/>
-        <childnode refid="2018" relation="include">
+        <childnode refid="2104" relation="include">
         </childnode>
-        <childnode refid="2019" relation="include">
+        <childnode refid="2105" relation="include">
         </childnode>
       </node>
-      <node id="2019">
+      <node id="2105">
         <label>xsecure_cmd.c</label>
         <link refid="2ve__2vm_2xsecure__cmd_8c"/>
       </node>
@@ -67,10 +67,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" bodystart="56" bodyend="74"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="162">XSECURE_API_LMS_SIGN_VERIFY</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.c" bodystart="56" bodyend="74"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="164">XSECURE_API_LMS_SIGN_VERIFY</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -108,6 +108,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_LMS_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ipihandler.h"/>
   </compounddef>
 </doxygen>

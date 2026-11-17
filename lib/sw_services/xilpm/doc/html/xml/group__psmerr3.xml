@@ -1,0 +1,695 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__psmerr3" kind="group">
+    <compoundname>psmerr3</compoundname>
+    <title>Error Event Mask for PSM ERR3</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__psmerr3_1gae2228e89aadbccd5956f5969d7ef3dfd" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_A1</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core A1, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="565" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gab8b6f71966aad9bba9c371a43190602c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_B0</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core B0, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="568" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="568" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gabdec27921d8d3e0b7d54d8703e0eff91" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_B1</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core B1, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="571" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga8b53f79a7f1b24265d67e46b12d17612" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A0_CR</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A0 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="574" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gad6bb819b2c573855e3155e80e7b3e346" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A0_TFATAL</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A0 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="577" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="577" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf649ee595137f39b526fef3b8a9dcf3c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A0_TIMEOUT</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A0 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="580" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="580" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf1aaa677b36f06fd8d9bbe280b0d75f3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUA0</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUA0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="583" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="583" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gac573c374370cb034f485468432bbf274" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUA0</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUA0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="586" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="586" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga290244f7c2538d8643be0c78062722f9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A1_CR</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="589" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="589" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga79d1aa304264fa6b50690c2acd721817" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A1_TFATAL</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="592" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga183d4a19a008c80e25e834f5348dd2da" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A1_TIMEOUT</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="595" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaad16401fb7c28dc05f4753b19a20c144" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUA1</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUA1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="598" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="598" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga9b5552acdcf79ee2669338369603e5fc" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUA1</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUA1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="601" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga1801a039089e8aefe8c5b01936bb4468" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B0_CR</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="604" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf4c89241ff4f13cd1bbdfecc22f380dd" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B0_TFATAL</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="607" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf5f82fe46e46f37f9bd083d683ab4dd2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B0_TIMEOUT</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="610" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga3b6f652d7712393e0f5cabe7452a2db5" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUB0</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUB0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="613" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gae1b29f93fbaef8ea9ce6b7d0fba52d32" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUB0</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUB0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="616" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf911b4b1dcfeeba964d0454c832d2a8b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B1_CR</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="619" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga7799e5b965df27d585cb99bbca25e38c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B1_TFATAL</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="622" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="622" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gabd6697909a7897143827ce4c9835b133" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B1_TIMEOUT</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="625" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaba3a942bf37cbefd0d5a92b4ff7c530e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUB1</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUB1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="628" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="628" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gace162beb1f0759251f6e6b61164e6d96" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUB1</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUB1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="631" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga4e55bfc004ac100463960db647203970" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PCIL_RPU</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PCIL ERR FOR RPU Clusters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="634" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="634" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf850b7e6f2e434ffc9a27ba20d6596b3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPXAFIFS_CR</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPXAFIFS Corr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="637" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="637" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gae625a2302bfad464a986efea5fabae14" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPXAFIFS_NCR</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPXAFIFS UnCorr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="640" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="640" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga9cfefc909668f0dac722a3d4f7d61d39" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CMN_1</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CMN_1 PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="643" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="643" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga592d101e7fbd6318b988ee4b59f8d3e3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CMN_2</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CMN_2 PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="646" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gadeffaa8806b2089dcd00ab1764b8e7cf" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CMN_3</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CMN_3 PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="649" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="649" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaaf25e2d21d1002b93c64da0949ba096a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CML</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CML PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="652" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="652" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gac04feb198f84f1d3f32c67e416793cba" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_INT_WRAP</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD_INT_WRAP PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" line="655" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_error_node.h" bodystart="655" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gae2228e89aadbccd5956f5969d7ef3dfd" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_A1</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core A1, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="567" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="567" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gab8b6f71966aad9bba9c371a43190602c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_B0</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core B0, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="570" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gabdec27921d8d3e0b7d54d8703e0eff91" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B18_R52_B1</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[18] from R52 Core B1, Err event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="573" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga8b53f79a7f1b24265d67e46b12d17612" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A0_CR</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A0 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="576" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gad6bb819b2c573855e3155e80e7b3e346" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A0_TFATAL</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A0 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="579" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="579" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf649ee595137f39b526fef3b8a9dcf3c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A0_TIMEOUT</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A0 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="582" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="582" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf1aaa677b36f06fd8d9bbe280b0d75f3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUA0</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUA0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="585" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="585" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gac573c374370cb034f485468432bbf274" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUA0</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUA0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="588" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="588" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga290244f7c2538d8643be0c78062722f9" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A1_CR</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="591" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="591" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga79d1aa304264fa6b50690c2acd721817" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A1_TFATAL</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="594" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="594" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga183d4a19a008c80e25e834f5348dd2da" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_A1_TIMEOUT</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="597" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="597" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaad16401fb7c28dc05f4753b19a20c144" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUA1</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUA1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="600" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="600" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga9b5552acdcf79ee2669338369603e5fc" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUA1</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUA1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="603" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="603" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga1801a039089e8aefe8c5b01936bb4468" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B0_CR</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="606" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf4c89241ff4f13cd1bbdfecc22f380dd" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B0_TFATAL</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="609" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="609" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf5f82fe46e46f37f9bd083d683ab4dd2" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B0_TIMEOUT</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="612" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="612" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga3b6f652d7712393e0f5cabe7452a2db5" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUB0</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUB0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="615" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gae1b29f93fbaef8ea9ce6b7d0fba52d32" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUB0</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUB0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="618" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf911b4b1dcfeeba964d0454c832d2a8b" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B1_CR</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Correctable Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="621" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="621" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga7799e5b965df27d585cb99bbca25e38c" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B1_TFATAL</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core TFatal Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="624" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gabd6697909a7897143827ce4c9835b133" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_R52_B1_TIMEOUT</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Error event mask for R52 A1 Core Timeout Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="627" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="627" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaba3a942bf37cbefd0d5a92b4ff7c530e" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B24_B20_RPUB1</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[24:20] pf ERREVNT for RPUB1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="630" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="630" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gace162beb1f0759251f6e6b61164e6d96" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_B25_RPUB1</name>
+        <initializer>(0x00400000U)</initializer>
+        <briefdescription>
+<para>Error event mask for Bit[25] of ERREVNT for RPUB1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="633" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga4e55bfc004ac100463960db647203970" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PCIL_RPU</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PCIL ERR FOR RPU Clusters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="636" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="636" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaf850b7e6f2e434ffc9a27ba20d6596b3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPXAFIFS_CR</name>
+        <initializer>(0x02000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPXAFIFS Corr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="639" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="639" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gae625a2302bfad464a986efea5fabae14" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPXAFIFS_NCR</name>
+        <initializer>(0x04000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPXAFIFS UnCorr Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="642" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="642" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga9cfefc909668f0dac722a3d4f7d61d39" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CMN_1</name>
+        <initializer>(0x08000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CMN_1 PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="645" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="645" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1ga592d101e7fbd6318b988ee4b59f8d3e3" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CMN_2</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CMN_2 PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="648" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="648" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gadeffaa8806b2089dcd00ab1764b8e7cf" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CMN_3</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CMN_3 PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="651" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="651" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gaaf25e2d21d1002b93c64da0949ba096a" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_PSX_CML</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for PSX_CML PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="654" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="654" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__psmerr3_1gac04feb198f84f1d3f32c67e416793cba" prot="public" static="no">
+        <name>XPM_EVENT_ERROR_MASK_FPD_INT_WRAP</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Error event mask for FPD_INT_WRAP PD block consolidated ERROR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" line="657" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h" bodystart="657" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Error Events belong to PSM ERR3 Node. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -7,47 +7,47 @@
     <includes local="yes">xdebug.h</includes>
     <includes local="yes">xstatus.h</includes>
     <incdepgraph>
-      <node id="26">
+      <node id="29">
         <label>xil_io.h</label>
       </node>
-      <node id="27">
-        <label>xdebug.h</label>
-      </node>
-      <node id="28">
-        <label>xstatus.h</label>
-      </node>
-      <node id="21">
-        <label>xmipi_tx_phy_example_selftest.c</label>
-        <link refid="xmipi_tx_phy_example_selftest.c"/>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
+      <node id="26">
+        <label>xmipi_tx_phy.h</label>
+        <link refid="xmipi__tx__phy_8h"/>
         <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
       </node>
+      <node id="30">
+        <label>xdebug.h</label>
+      </node>
+      <node id="31">
+        <label>xstatus.h</label>
+      </node>
       <node id="24">
-        <label>xil_types.h</label>
-      </node>
-      <node id="22">
-        <label>xparameters.h</label>
-      </node>
-      <node id="23">
-        <label>xmipi_tx_phy.h</label>
-        <link refid="xmipi__tx__phy_8h"/>
-        <childnode refid="24" relation="include">
-        </childnode>
+        <label>xmipi_tx_phy_example_selftest.c</label>
+        <link refid="xmipi_tx_phy_example_selftest.c"/>
         <childnode refid="25" relation="include">
         </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>xil_types.h</label>
       </node>
       <node id="25">
+        <label>xparameters.h</label>
+      </node>
+      <node id="28">
         <label>xmipi_tx_phy_hw.h</label>
         <link refid="xmipi__tx__phy__hw_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -109,10 +109,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="109" bodyend="135"/>
-        <references refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" compoundref="xmipi__tx__phy_8h" startline="286">XMipi_Tx_Phy_Config::BaseAddr</references>
-        <references refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</references>
-        <references refid="group__mipi__tx__phy_1gad55317d23f56c8dd601c6970d5d6228e" compoundref="xmipi__tx__phy_8c" startline="318" endline="324">XMipi_Tx_Phy_GetRegIntfcPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="109" bodyend="135"/>
+        <references refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" compoundref="xmipi__tx__phy_8h" startline="293">XMipi_Tx_Phy_Config::BaseAddr</references>
+        <references refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="65" endline="81">XMipi_Tx_Phy_CfgInitialize</references>
+        <references refid="group__mipi__tx__phy_1gad55317d23f56c8dd601c6970d5d6228e" compoundref="xmipi__tx__phy_8c" startline="319" endline="325">XMipi_Tx_Phy_GetRegIntfcPresent</references>
         <references refid="group__mipi__tx__phy_1ga6aca7437c8f5880a23d50fa3e8c3ef98" compoundref="xmipi__tx__phy__sinit_8c" startline="45" endline="60">XMipi_Tx_Phy_LookupConfig</references>
         <references refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</references>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xmipi__tx__phy__example__selftest_8c" startline="72" endline="92">main</referencedby>
@@ -140,7 +140,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="72" bodyend="92"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c" bodystart="72" bodyend="92"/>
         <references refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</references>
       </memberdef>
       </sectiondef>
@@ -250,6 +250,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       D
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="135"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/xmipi_tx_phy_example_selftest.c"/>
   </compounddef>
 </doxygen>

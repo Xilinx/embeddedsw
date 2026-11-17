@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xilmailbox_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,31 +102,52 @@ $(document).ready(function(){initNavTree('xilmailbox_8c.html','');});
 <div class="title">xilmailbox.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the XilMailbox library top-level functions. </p>
+<p>This file contains the definitions for the Xilinx mailbox library top-level functions.</p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date        Changes
+</p>
+<hr/>
+<p>
+ 1.0   adk  14/02/19    Initial Release
+ 1.1   sd   16/08/19    Initialise status variable
+ 1.3   sd   03/03/21    Doxygen Fixes
+ 1.4   sd   23/06/21    Fix MISRA-C warnings
+ 1.6   kpt  03/16/22    Added shared memory API's for IPI utilization
+ 1.11  ht   11/12/24    Update description of MsgLen
+ 1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+                          Instance, which could lead to race conditions and data
+                          corruption when handling multiple requests from
+                          different IPI channels concurrently.
+                          Use RemoteId based APIs to support concurrent IPI
+                          channel requests.
+ 1.14  vn   08/26/26    Fix Doxygen warnings.
+ 1.14  vn   09/30/26    Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Functions for xilmailbox.c</div></td></tr>
 <tr class="memitem:ga3b1215935d7ba605846e3a13f015e956"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga3b1215935d7ba605846e3a13f015e956">XMailbox_Send</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u32 RemoteId, u8 Is_Blocking)</td></tr>
-<tr class="memdesc:ga3b1215935d7ba605846e3a13f015e956"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function triggers an IPI to a destination CPU.  <a href="group__xilmailbox.html#ga3b1215935d7ba605846e3a13f015e956">More...</a><br/></td></tr>
+<tr class="memdesc:ga3b1215935d7ba605846e3a13f015e956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="group__xilmailbox.html#ga3b1215935d7ba605846e3a13f015e956">More...</a><br/></td></tr>
 <tr class="separator:ga3b1215935d7ba605846e3a13f015e956"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4c8296024494f03b6e33a54fe80ba3da"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">XMailbox_SendData</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u32 RemoteId, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</td></tr>
-<tr class="memdesc:ga4c8296024494f03b6e33a54fe80ba3da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI message to a destination CPU.  <a href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">More...</a><br/></td></tr>
+<tr class="memdesc:ga4c8296024494f03b6e33a54fe80ba3da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an IPI message to a destination CPU.  <a href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">More...</a><br/></td></tr>
 <tr class="separator:ga4c8296024494f03b6e33a54fe80ba3da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1e5da60f7c2fc80ec54209fc4031c03b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">XMailbox_Recv</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u32 SourceId, void *BufferPtr, u32 MsgLen, u8 BufferType)</td></tr>
-<tr class="memdesc:ga1e5da60f7c2fc80ec54209fc4031c03b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads an IPI message.  <a href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">More...</a><br/></td></tr>
+<tr class="memdesc:ga1e5da60f7c2fc80ec54209fc4031c03b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an IPI message.  <a href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">More...</a><br/></td></tr>
 <tr class="separator:ga1e5da60f7c2fc80ec54209fc4031c03b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafbc26a4d8f0d4cff937f88b125defe01"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">XMailbox_SetCallBack</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, <a class="el" href="group__xilmailbox.html#ga143f24a7eb4d52ae8289dd2a76104b5e">XMailbox_Handler</a> HandlerType, void *CallBackFuncPtr, void *CallBackRefPtr)</td></tr>
-<tr class="memdesc:gafbc26a4d8f0d4cff937f88b125defe01"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine installs an asynchronous callback function for the given HandlerType.  <a href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">More...</a><br/></td></tr>
+<tr class="memdesc:gafbc26a4d8f0d4cff937f88b125defe01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Installs an asynchronous callback function for the given HandlerType.  <a href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">More...</a><br/></td></tr>
 <tr class="separator:gafbc26a4d8f0d4cff937f88b125defe01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5a04406fa4d00d2acad6a32ff7a4230b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga5a04406fa4d00d2acad6a32ff7a4230b">XMailbox_SetSharedMem</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u64 Address, u32 Size)</td></tr>
-<tr class="memdesc:ga5a04406fa4d00d2acad6a32ff7a4230b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the shared memory location for IPI usage.  <a href="group__xilmailbox.html#ga5a04406fa4d00d2acad6a32ff7a4230b">More...</a><br/></td></tr>
+<tr class="memdesc:ga5a04406fa4d00d2acad6a32ff7a4230b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the shared memory location for IPI usage.  <a href="group__xilmailbox.html#ga5a04406fa4d00d2acad6a32ff7a4230b">More...</a><br/></td></tr>
 <tr class="separator:ga5a04406fa4d00d2acad6a32ff7a4230b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4c4631ec46d933f1fff9ce944c3b82d6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga4c4631ec46d933f1fff9ce944c3b82d6">XMailbox_GetSharedMem</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, u64 **Address)</td></tr>
-<tr class="memdesc:ga4c4631ec46d933f1fff9ce944c3b82d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the shared memory location for IPI usage.  <a href="group__xilmailbox.html#ga4c4631ec46d933f1fff9ce944c3b82d6">More...</a><br/></td></tr>
+<tr class="memdesc:ga4c4631ec46d933f1fff9ce944c3b82d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the shared memory location for IPI usage.  <a href="group__xilmailbox.html#ga4c4631ec46d933f1fff9ce944c3b82d6">More...</a><br/></td></tr>
 <tr class="separator:ga4c4631ec46d933f1fff9ce944c3b82d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae18bdfda3723a66063211be38ad0a541"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gae18bdfda3723a66063211be38ad0a541">XMailbox_ReleaseSharedMem</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gae18bdfda3723a66063211be38ad0a541"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function releases the shared memory.  <a href="group__xilmailbox.html#gae18bdfda3723a66063211be38ad0a541">More...</a><br/></td></tr>
+<tr class="memdesc:gae18bdfda3723a66063211be38ad0a541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the shared memory.  <a href="group__xilmailbox.html#gae18bdfda3723a66063211be38ad0a541">More...</a><br/></td></tr>
 <tr class="separator:gae18bdfda3723a66063211be38ad0a541"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

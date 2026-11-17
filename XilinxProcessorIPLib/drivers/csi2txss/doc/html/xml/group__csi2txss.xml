@@ -14,23 +14,23 @@
         <name>XCSI2TXSS_CCM</name>
         <initializer>0</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Continuous clock mode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="146" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gacd9530ef696f11d578ee0b2f4472988b" prot="public" static="no">
         <name>XCSI2TXSS_NCCM</name>
         <initializer>1</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Non-continuous clock mode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="141" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="147" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -40,111 +40,249 @@
         <name>XCSI2TXSS_HANDLER_WRG_LANE</name>
         <initializer>XCSI2TX_HANDLER_WRG_LANE</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Wrong lane count interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="152" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga9f32259451d8d738ae5fd1a86fc97664" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_GSPFIFO_FULL</name>
         <initializer>XCSI2TX_HANDLER_GSPFIFO_FULL</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Generic short packet FIFO full interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="153" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gaf862572a5d401ca36856d0f4fbbeaa4b" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_ULPS</name>
         <initializer>XCSI2TX_HANDLER_ULPS</initializer>
         <briefdescription>
-        </briefdescription>
+<para>ULPS interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="154" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga73f6c698f750d577c3a906443b541306" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_LINEBUF_FULL</name>
         <initializer>XCSI2TX_HANDLER_LINEBUF_FULL</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Line buffer full interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="155" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga9d3ff71e7bc5a95352239fc2fa47c0df" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_WRG_DATATYPE</name>
         <initializer>XCSI2TX_HANDLER_WRG_DATATYPE</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Wrong data type interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="156" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga89ea48e72171d9f38f3ddd1a0391c7cb" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_UNDERRUN_PIXEL</name>
         <initializer>XCSI2TX_HANDLER_UNDERRUN_PIXEL</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Pixel underrun interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gac71ece1dc47fd422a91541e030c80b1b" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_LCERRVC0</name>
         <initializer>XCSI2TX_HANDLER_LCERRVC0</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Line count error VC0 interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga190abad2793270fd82fc1fa7fbcd5271" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_LCERRVC1</name>
         <initializer>XCSI2TX_HANDLER_LCERRVC1</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Line count error VC1 interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="159" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="165" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga896017caa5868dbc4d9157d3f720b49d" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_LCERRVC2</name>
         <initializer>XCSI2TX_HANDLER_LCERRVC2</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Line count error VC2 interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="160" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga5728a0b286be31d56815f3e45efecfff" prot="public" static="no">
         <name>XCSI2TXSS_HANDLER_LCERRVC3</name>
         <initializer>XCSI2TX_HANDLER_LCERRVC3</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Line count error VC3 interrupt handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="161" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gae752b3b92c5b0a249b2b0d7a7732f38d" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC4</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC4</initializer>
+        <briefdescription>
+<para>Line count error VC4 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga4e1c44a9b18847b81018727589405a21" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC5</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC5</initializer>
+        <briefdescription>
+<para>Line count error VC5 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga99d9bde4c3c67a4c8f7282dcb1f599c0" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC6</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC6</initializer>
+        <briefdescription>
+<para>Line count error VC6 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gaaade0fb1bc9b00e90822348b1871edd4" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC7</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC7</initializer>
+        <briefdescription>
+<para>Line count error VC7 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gaac1784656e3437801f363e8856494541" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC8</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC8</initializer>
+        <briefdescription>
+<para>Line count error VC8 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga163ff112828e482b65ef8e060969c3ef" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC9</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC9</initializer>
+        <briefdescription>
+<para>Line count error VC9 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gac87267baec2fd724790e8854ca09ebff" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC10</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC10</initializer>
+        <briefdescription>
+<para>Line count error VC10 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga40c862e25f7287b2c1c26fbceb3d72f0" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC11</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC11</initializer>
+        <briefdescription>
+<para>Line count error VC11 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gacc8fc44f1b8be59695e0faf48ccd8c6e" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC12</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC12</initializer>
+        <briefdescription>
+<para>Line count error VC12 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga6268f9e8697db71eecb60dfc622b23f1" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC13</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC13</initializer>
+        <briefdescription>
+<para>Line count error VC13 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga3d6aa0af59a055f25863b14a59ef97e1" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC14</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC14</initializer>
+        <briefdescription>
+<para>Line count error VC14 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga519a81d7399b6e84dd9da21a66f53b67" prot="public" static="no">
+        <name>XCSI2TXSS_HANDLER_LCERRVC15</name>
+        <initializer>XCSI2TX_HANDLER_LCERRVC15</initializer>
+        <briefdescription>
+<para>Line count error VC15 interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -172,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="170" bodyend="173"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="188" bodyend="191"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -204,14 +342,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="group__csi2txss_1ga0a6b94b75ef141bbd5c00263a5bc2a33" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="group__csi2txss_1ga6678474df44ca687062b7b63cbc4db01" prot="public" static="no" mutable="no">
         <type>XCsi2TxSs_SubCores</type>
-        <definition>XCsi2TxSs_SubCores Csi2TxSsSubCores[]</definition>
-        <argsstring>[]</argsstring>
+        <definition>XCsi2TxSs_SubCores Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XCSI2TXSS_NUM_INSTANCES]</argsstring>
         <name>Csi2TxSsSubCores</name>
         <briefdescription>
         </briefdescription>
@@ -219,7 +357,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__csi2txss_1ga61a912cfec8d51e97c134ef733d222f0" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_csi2_tx_ss___config" kindref="compound">XCsi2TxSs_Config</ref></type>
@@ -232,7 +370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_sinit.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_g.c" bodystart="3" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_sinit.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_g.c" bodystart="3" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__csi2txss_1gad56ea00127fff1bba8faf14233c46dab" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref></type>
@@ -245,7 +383,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="105" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__csi2txss_1gaa16347b525ce013cc8fc9512f0432e7a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -258,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__csi2txss_1gad56ea00127fff1bba8faf14233c46dab" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref></type>
@@ -271,7 +409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -289,18 +427,17 @@
         <detaileddescription>
 <para>For each sub-core that is present in the design the sub-core driver instance is binded with the subsystem sub-core driver handle</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>CsiSsPtr</parametername>
+<parametername>Csi2TxSsPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the Subsystem instance to be worked.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="155" bodyend="177"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="173" bodyend="189"/>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gaca3e06ebaa43e3f839de620bf24ff1c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -330,69 +467,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="372" bodyend="415"/>
-      </memberdef>
-      <memberdef kind="function" id="group__csi2txss_1ga24360c041fd3f49f3e6bdb70bc566787" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>u32</type>
-        <definition>static u32 Csi2TxSs_ComputeSubCoreAbsAddr</definition>
-        <argsstring>(UINTPTR SsBaseAddr, UINTPTR SsHighAddr, u32 Offset, UINTPTR *BaseAddr)</argsstring>
-        <name>Csi2TxSs_ComputeSubCoreAbsAddr</name>
-        <param>
-          <type>UINTPTR</type>
-          <declname>SsBaseAddr</declname>
-        </param>
-        <param>
-          <type>UINTPTR</type>
-          <declname>SsHighAddr</declname>
-        </param>
-        <param>
-          <type>u32</type>
-          <declname>Offset</declname>
-        </param>
-        <param>
-          <type>UINTPTR *</type>
-          <declname>BaseAddr</declname>
-        </param>
-        <briefdescription>
-<para>This function computes the subcore absolute address on axi-lite interface Subsystem is mapped at an absolute address and all included sub-cores are at pre-defined offset from the subsystem base address. </para>        </briefdescription>
-        <detaileddescription>
-<para>To access the subcore register map from host CPU an absolute address is required. The subsystem is aligned to 4K address and has address range of max 8K (0x00000-0x2000). By default, CSI is at offset 0x0_0000, and DPHY is at offset 0x0_1000. <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>SsBaseAddr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the base address of the the Subsystem instance </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>SsHighAddr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the max address of the Subsystem instance </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Offset</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the offset of the specified core </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>BaseAddr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the computed absolute base address of the subcore</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS if base address computation is successful and within subsystem address range</para></listitem><listitem><para>XST_FAILURE Otherwise</para></listitem></itemizedlist>
-</para></simplesect>
-<simplesect kind="note"><para>None </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="503" bodyend="522"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="413" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -443,13 +518,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="104" bodyend="139"/>
-        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="218">XCsi2TxSs_Config::BaseAddr</references>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="231">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
-        <references refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" compoundref="xcsi2txss_8h" startline="250">XCsi2TxSs::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="110" bodyend="159"/>
+        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="227">XCsi2TxSs_Config::BaseAddr</references>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="241">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
+        <references refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" compoundref="xcsi2txss_8h" startline="259">XCsi2TxSs::IsReady</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" compoundref="xcsi2txss_8h" startline="237">XCsi2TxSs_Config::NumVC</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
-        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="124" endline="147">Csi2TxSs_SelfTestExample</referencedby>
+        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="114" endline="137">Csi2TxSs_SelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -502,9 +579,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="198" bodyend="229"/>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="210" bodyend="269"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="243">XCsi2TxSs_Config::FEGenEnabled</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" compoundref="xcsi2txss_8h" startline="237">XCsi2TxSs_Config::NumVC</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -545,9 +624,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="248" bodyend="266"/>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="231">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="288" bodyend="311"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="241">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga9933630512ea21627aae263ff1833372" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -577,7 +657,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="283" bodyend="297"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="328" bodyend="342"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -600,14 +681,14 @@
 <para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="311" bodyend="337"/>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="231">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="354" bodyend="380"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="241">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga066c927aebc1b2c199e33350662e4fd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -630,13 +711,13 @@
 <para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="351" bodyend="357"/>
-        <references refid="struct_x_csi2_tx_ss_1a69db6382dd247f145f9685994e790b3a" compoundref="xcsi2txss_8h" startline="253">XCsi2TxSs::SpktData</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="392" bodyend="398"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss_1a69db6382dd247f145f9685994e790b3a" compoundref="xcsi2txss_8h" startline="262">XCsi2TxSs::SpktData</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga7e993c82c56bef5ed7a768a71705630b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -669,12 +750,12 @@
 <para>0 : DISABLE 1 : ENABLE</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="541" bodyend="543"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="582" bodyend="584"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga533565da7643edb6132a77e5443a2f2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -707,12 +788,12 @@
 <para>GSP 32 bit Entry</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="561" bodyend="563"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="600" bodyend="602"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga5f102cce59805525a6129df5c4d7feb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -739,7 +820,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="580" bodyend="582"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="619" bodyend="621"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga9f75eac00e365efaa38c8c3b9f98ec0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -766,7 +848,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="598" bodyend="600"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="637" bodyend="639"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga886d9a156806e822b1912fdfbdf66529" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -795,7 +878,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="617" bodyend="624"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="656" bodyend="663"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga292c264c19f272a7b985ca641535be5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -830,12 +914,12 @@
 </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="643" bodyend="650"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="680" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="680" bodyend="687"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga2da520a569957fe9fde9177404ee574f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -868,12 +952,12 @@
 <para>for Continuous Mode (0) or Non-continuous Mode (1)</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="667" bodyend="674"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="702" bodyend="709"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga9322b8aa53d1f0f7ba52a8ddea493942" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -900,7 +984,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="690" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="690" bodyend="697"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="725" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="725" bodyend="732"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -934,7 +1019,7 @@
 <parametername>VC</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is which Virtual channel to be configured for (0-3). </para></parameterdescription>
+<para>is which Virtual channel to be configured for (0 to NumVC-1). </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
@@ -945,15 +1030,17 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_NO_FEATURE if Frame End generation is not enabled</para></listitem><listitem><para>XST_INVALID_PARAM if any param is invalid e.g. VC is always 0 to 3 and Line Count is 0 to 0xFFFF.</para></listitem><listitem><para>XST_FAILURE in case the core is already running.</para></listitem><listitem><para>XST_SUCCESS otherwise</para></listitem></itemizedlist>
+<listitem><para>XST_NO_FEATURE if Frame End generation is not enabled</para></listitem><listitem><para>XST_INVALID_PARAM if any param is invalid e.g. VC is always 0 to NumVC-1 and Line Count is 0 to 0xFFFF.</para></listitem><listitem><para>XST_FAILURE in case the core is already running.</para></listitem><listitem><para>XST_SUCCESS otherwise</para></listitem></itemizedlist>
 </para></simplesect>
 <simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="720" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="720" bodyend="730"/>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="756" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="756" bodyend="770"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="243">XCsi2TxSs_Config::FEGenEnabled</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" compoundref="xcsi2txss_8h" startline="237">XCsi2TxSs_Config::NumVC</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -987,7 +1074,7 @@
 <parametername>VC</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is which Virtual channel to be configured for (0-3). </para></parameterdescription>
+<para>is which Virtual channel to be configured for (0 to NumVC-1). </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
@@ -998,15 +1085,17 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_NO_FEATURE if Frame End generation is not enabled</para></listitem><listitem><para>XST_INVALID_PARAM if any param is invalid e.g. VC is always 0 to 3 and Line Count is 0 to 0xFFFF.</para></listitem><listitem><para>XST_SUCCESS otherwise</para></listitem></itemizedlist>
+<listitem><para>XST_NO_FEATURE if Frame End generation is not enabled</para></listitem><listitem><para>XST_INVALID_PARAM if any param is invalid e.g. VC is always 0 to NumVC-1 and Line Count is 0 to 0xFFFF.</para></listitem><listitem><para>XST_SUCCESS otherwise</para></listitem></itemizedlist>
 </para></simplesect>
 <simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="752" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="752" bodyend="762"/>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="793" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="793" bodyend="807"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="243">XCsi2TxSs_Config::FEGenEnabled</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" compoundref="xcsi2txss_8h" startline="237">XCsi2TxSs_Config::NumVC</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="struct_x_csi2_tx_ss___config" kindref="compound">XCsi2TxSs_Config</ref> *</type>
@@ -1018,61 +1107,72 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This function looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+<para>Look up the device configuration based on the base address. </para>        </briefdescription>
         <detaileddescription>
-<para>The table XCsi2TxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<para>This function looks for the device configuration based on the base address.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>DeviceId</parametername>
+<parametername>BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the unique device ID of the device being looked up</para></parameterdescription>
+<para>is the base address of the device to look up.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found</para></simplesect>
+<simplesect kind="return"><para>Pointer to the <ref refid="struct_x_csi2_tx_ss___config" kindref="compound">XCsi2TxSs_Config</ref> entry, or NULL if not found.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+The table XCsi2TxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device being looked up</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found</para></simplesect>
 <simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_sinit.c" bodystart="79" bodyend="92"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_sinit.c" bodystart="63" bodyend="76"/>
+        <references refid="struct_x_csi2_tx_ss___config_1aa9e7796617d323e739bdf9dbf40a6884" compoundref="xcsi2txss_8h" startline="226">XCsi2TxSs_Config::Name</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
-        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="124" endline="147">Csi2TxSs_SelfTestExample</referencedby>
+        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="114" endline="137">Csi2TxSs_SelfTestExample</referencedby>
       </memberdef>
-      <memberdef kind="function" id="group__csi2txss_1ga27c89281844aeddd73fec0e30044013e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__csi2txss_1gae0ca4ef82a0c7ef7a575b30d34299069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
         <definition>u32 XCsi2TxSs_GetDrvIndex</definition>
-        <argsstring>(XCsi2TxSs *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
         <name>XCsi2TxSs_GetDrvIndex</name>
-        <param>
-          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
-          <declname>InstancePtr</declname>
-        </param>
         <param>
           <type>UINTPTR</type>
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This function returns the Index number of config table using BaseAddress. </para>        </briefdescription>
+<para>Get the driver index based on the base address. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>This function returns the Index number of config table using BaseAddress.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>A</parametername>
+<parametername>BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pointer to the instance structure</para></parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
 </parameteritem>
-<parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Driver index in the configuration table.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>Base</parametername>
+<parametername>BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>address of the instance</para></parameterdescription>
+<para>is the base address of the instance</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>Index number of the config table </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_sinit.c" bodystart="106" bodyend="116"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_sinit.c" bodystart="88" bodyend="98"/>
+        <references refid="struct_x_csi2_tx_ss___config_1aa9e7796617d323e739bdf9dbf40a6884" compoundref="xcsi2txss_8h" startline="226">XCsi2TxSs_Config::Name</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga55777b4afc7abf235debe2d797969577" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1084,9 +1184,19 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-<para>This function performs self test on MIPI CSI Tx Subsystem sub-cores. </para>        </briefdescription>
+<para>Run a self-test on the CSI2 TX subsystem. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>This function performs self test on MIPI CSI Tx Subsystem sub-cores.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the self-test passed, XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>InstancePtr</parametername>
 </parameternamelist>
@@ -1101,8 +1211,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_selftest.c" bodystart="62" bodyend="88"/>
-        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="124" endline="147">Csi2TxSs_SelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_selftest.c" bodystart="62" bodyend="88"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="114" endline="137">Csi2TxSs_SelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga8d8dd9ec87494c3d3b90dcafd05a6028" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1114,9 +1225,9 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-<para>This function is the interrupt handler for the MIPI CSI2 Tx Subsystem. </para>        </briefdescription>
+<para>Interrupt handler for the CSI2 TX subsystem. </para>        </briefdescription>
         <detaileddescription>
-<para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__csi2txss_1ga445feeebfebea8ae0119be48a4a27ede" kindref="member">XCsi2TxSs_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<para>This function is the interrupt handler for the MIPI CSI2 Tx Subsystem.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__csi2txss_1ga445feeebfebea8ae0119be48a4a27ede" kindref="member">XCsi2TxSs_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>InstancePtr</parametername>
 </parameternamelist>
@@ -1124,12 +1235,12 @@
 <para>is a pointer to the <ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> core instance that just interrupted.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
 <simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_intr.c" bodystart="73" bodyend="82"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_intr.c" bodystart="71" bodyend="80"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga05e607ece4b52c59fa349f5f2e42976f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1146,9 +1257,9 @@
           <declname>IntrMask</declname>
         </param>
         <briefdescription>
-<para>This function is used to disable the interrupts in the CSI core. </para>        </briefdescription>
+<para>Disable the specified CSI2 TX subsystem interrupts. </para>        </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
+<para>This function is used to disable the interrupts in the CSI core.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>InstancePtr</parametername>
 </parameternamelist>
@@ -1163,14 +1274,14 @@
 <para>Indicates Mask for enable interrupts.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_intr.c" bodystart="150" bodyend="168"/>
-        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
-        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_intr.c" bodystart="146" bodyend="164"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="258">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="243">XCsi2TxSs_Config::FEGenEnabled</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga445feeebfebea8ae0119be48a4a27ede" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1194,9 +1305,9 @@
           <declname>CallbackRef</declname>
         </param>
         <briefdescription>
-<para>This routine installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+<para>Register a user callback for the given handler type. </para>        </briefdescription>
         <detaileddescription>
-<para><preformatted>
+<para>This routine installs an asynchronous callback function for the given HandlerType:</para><para><preformatted>
 HandlerType                                     Invoked by this driver when:
 -------------------------                       -------------------------------
 (XCSI2TXSS_HANDLER_WRG_LANE)            IncorrectLaneCallBack
@@ -1245,8 +1356,9 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_intr.c" bodystart="120" bodyend="135"/>
-        <references refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" compoundref="xcsi2txss_8h" startline="250">XCsi2TxSs::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_intr.c" bodystart="118" bodyend="133"/>
+        <references refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" compoundref="xcsi2txss_8h" startline="261">XCsi2TxSs::CsiPtr</references>
+        <references refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" compoundref="xcsi2txss_8h" startline="259">XCsi2TxSs::IsReady</references>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gaa32921b293f53976fcdf00c417d7376c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -1285,7 +1397,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="71" bodyend="74"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="78" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gad02a74fc64d39691117b3f2310788e4f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1334,7 +1446,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="93" bodyend="97"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="100" bodyend="104"/>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1363,16 +1475,16 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="211" bodyend="294"/>
-        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="218">XCsi2TxSs_Config::BaseAddr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="211" bodyend="294"/>
+        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="227">XCsi2TxSs_Config::BaseAddr</references>
         <references refid="group__csi2txss_1ga7f3c94a567227794158a9e77850ad45a" compoundref="xcsi2txss__intr__example_8c" startline="311" endline="316">Csi2TxSs_PlatformInit</references>
         <references refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</references>
-        <references refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" compoundref="xcsi2txss_8c" startline="248" endline="266">XCsi2TxSs_Activate</references>
-        <references refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="104" endline="139">XCsi2TxSs_CfgInitialize</references>
-        <references refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" compoundref="xcsi2txss_8c" startline="198" endline="229">XCsi2TxSs_Configure</references>
-        <references refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" compoundref="xcsi2txss__sinit_8c" startline="79" endline="92">XCsi2TxSs_LookupConfig</references>
-        <references refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" compoundref="xcsi2txss_8c" startline="311" endline="337">XCsi2TxSs_ReportCoreInfo</references>
-        <references refid="group__csi2txss_1ga9933630512ea21627aae263ff1833372" compoundref="xcsi2txss_8c" startline="283" endline="297">XCsi2TxSs_Reset</references>
+        <references refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" compoundref="xcsi2txss_8c" startline="288" endline="311">XCsi2TxSs_Activate</references>
+        <references refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="110" endline="159">XCsi2TxSs_CfgInitialize</references>
+        <references refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" compoundref="xcsi2txss_8c" startline="210" endline="269">XCsi2TxSs_Configure</references>
+        <references refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" compoundref="xcsi2txss__sinit_8c" startline="63" endline="76">XCsi2TxSs_LookupConfig</references>
+        <references refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" compoundref="xcsi2txss_8c" startline="354" endline="380">XCsi2TxSs_ReportCoreInfo</references>
+        <references refid="group__csi2txss_1ga9933630512ea21627aae263ff1833372" compoundref="xcsi2txss_8c" startline="328" endline="342">XCsi2TxSs_Reset</references>
         <referencedby refid="group__csi2txss_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xcsi2txss__intr__example_8c" startline="171" endline="189">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga7f3c94a567227794158a9e77850ad45a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1401,7 +1513,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="311" bodyend="316"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="311" bodyend="316"/>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1431,15 +1543,21 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="340" bodyend="454"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="340" bodyend="454"/>
         <references refid="group__csi2txss_1ga5e477c7bc4aee8614bb89b403165d59c" compoundref="xcsi2txss__intr__example_8c" startline="493" endline="497">Csi2TxSs_GSPFullEventHandler</references>
         <references refid="group__csi2txss_1ga003874deb0dc72b7d5f78b4d00a68561" compoundref="xcsi2txss__intr__example_8c" startline="541" endline="546">Csi2TxSs_LinebufEventHandler</references>
         <references refid="group__csi2txss_1gadc28c0547eca7d2f3f09cc4151c7cab5" compoundref="xcsi2txss__intr__example_8c" startline="513" endline="524">Csi2TxSs_UlpsEventHandler</references>
         <references refid="group__csi2txss_1gab5d956c45981158d58b15833b9f570d0" compoundref="xcsi2txss__intr__example_8c" startline="587" endline="592">Csi2TxSs_UrunPixelEventHandler</references>
         <references refid="group__csi2txss_1gacf6090a5e28c69c648d3688cf32069db" compoundref="xcsi2txss__intr__example_8c" startline="564" endline="569">Csi2TxSs_WrgDTypeEventHandler</references>
         <references refid="group__csi2txss_1ga9cb8d015cac4e68c6cbe5b9c0b76bac9" compoundref="xcsi2txss__intr__example_8c" startline="471" endline="476">Csi2TxSs_WrgLaneEventHandler</references>
-        <references refid="group__csi2txss_1ga8d8dd9ec87494c3d3b90dcafd05a6028" compoundref="xcsi2txss__intr_8c" startline="73" endline="82">XCsi2TxSs_IntrHandler</references>
-        <references refid="group__csi2txss_1ga445feeebfebea8ae0119be48a4a27ede" compoundref="xcsi2txss__intr_8c" startline="120" endline="135">XCsi2TxSs_SetCallBack</references>
+        <references refid="group__csi2txss_1ga9f32259451d8d738ae5fd1a86fc97664" compoundref="xcsi2txss_8h" startline="159">XCSI2TXSS_HANDLER_GSPFIFO_FULL</references>
+        <references refid="group__csi2txss_1ga73f6c698f750d577c3a906443b541306" compoundref="xcsi2txss_8h" startline="161">XCSI2TXSS_HANDLER_LINEBUF_FULL</references>
+        <references refid="group__csi2txss_1gaf862572a5d401ca36856d0f4fbbeaa4b" compoundref="xcsi2txss_8h" startline="160">XCSI2TXSS_HANDLER_ULPS</references>
+        <references refid="group__csi2txss_1ga89ea48e72171d9f38f3ddd1a0391c7cb" compoundref="xcsi2txss_8h" startline="163">XCSI2TXSS_HANDLER_UNDERRUN_PIXEL</references>
+        <references refid="group__csi2txss_1ga9d3ff71e7bc5a95352239fc2fa47c0df" compoundref="xcsi2txss_8h" startline="162">XCSI2TXSS_HANDLER_WRG_DATATYPE</references>
+        <references refid="group__csi2txss_1gadef6492317bf9725afe3e0953b4f8b69" compoundref="xcsi2txss_8h" startline="158">XCSI2TXSS_HANDLER_WRG_LANE</references>
+        <references refid="group__csi2txss_1ga8d8dd9ec87494c3d3b90dcafd05a6028" compoundref="xcsi2txss__intr_8c" startline="71" endline="80">XCsi2TxSs_IntrHandler</references>
+        <references refid="group__csi2txss_1ga445feeebfebea8ae0119be48a4a27ede" compoundref="xcsi2txss__intr_8c" startline="118" endline="133">XCsi2TxSs_SetCallBack</references>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga9cb8d015cac4e68c6cbe5b9c0b76bac9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1478,7 +1596,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="471" bodyend="476"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="471" bodyend="476"/>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga5e477c7bc4aee8614bb89b403165d59c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1517,7 +1635,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="493" bodyend="497"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="493" bodyend="497"/>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gadc28c0547eca7d2f3f09cc4151c7cab5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1556,7 +1674,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="513" bodyend="524"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="513" bodyend="524"/>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga003874deb0dc72b7d5f78b4d00a68561" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1595,7 +1713,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="541" bodyend="546"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="541" bodyend="546"/>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gacf6090a5e28c69c648d3688cf32069db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1634,7 +1752,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="564" bodyend="569"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="564" bodyend="569"/>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gab5d956c45981158d58b15833b9f570d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1673,7 +1791,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="587" bodyend="592"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="587" bodyend="592"/>
         <referencedby refid="group__csi2txss_1ga4261a1f4e4767eee83fa1ab1990fd25e" compoundref="xcsi2txss__intr__example_8c" startline="340" endline="454">Csi2TxSs_SetupIntrSystem</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga5ef80f6395edcd58eccbacc6d3132c54" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1701,7 +1819,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="126" bodyend="153"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="126" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1gae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1737,7 +1855,7 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="171" bodyend="189"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="171" bodyend="189"/>
         <references refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</references>
       </memberdef>
       <memberdef kind="function" id="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1757,7 +1875,7 @@ HandlerType                                     Invoked by this driver when:
 <parametername>DeviceId</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the unique device ID of the MIPI CSI2 TX Subsystem core.</para></parameterdescription>
+<para>is the base address of the MIPI CSI2 TX Subsystem core.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -1767,10 +1885,10 @@ HandlerType                                     Invoked by this driver when:
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" bodystart="124" bodyend="147"/>
-        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="218">XCsi2TxSs_Config::BaseAddr</references>
-        <references refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="104" endline="139">XCsi2TxSs_CfgInitialize</references>
-        <references refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" compoundref="xcsi2txss__sinit_8c" startline="79" endline="92">XCsi2TxSs_LookupConfig</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" bodystart="114" bodyend="137"/>
+        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="227">XCsi2TxSs_Config::BaseAddr</references>
+        <references refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="110" endline="159">XCsi2TxSs_CfgInitialize</references>
+        <references refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" compoundref="xcsi2txss__sinit_8c" startline="63" endline="76">XCsi2TxSs_LookupConfig</references>
         <references refid="group__csi2txss_1ga55777b4afc7abf235debe2d797969577" compoundref="xcsi2txss__selftest_8c" startline="62" endline="88">XCsi2TxSs_SelfTest</references>
       </memberdef>
       </sectiondef>
@@ -1783,18 +1901,18 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="114" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga0aa4e979c2884f13f6e14a7452cef0b4" prot="public" static="no">
         <name>XCSI2TXSS_MAX_VC</name>
         <initializer>XCSI2TX_MAX_VC</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Maximum number of virtual channels. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="164" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="182" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga39b5da92207a4466dd7232ef2f6e3801" prot="public" static="no">
         <name>XCSI2TXSS_HW_H_</name>
@@ -1804,7 +1922,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="32" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gaa391d70bccc6db8ca71ef6a7436135ac" prot="public" static="no">
         <name>XCSI2TXSS_ISR_ALLINTR_MASK</name>
@@ -1815,7 +1933,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga3aca3345f0135b49486db2b2f271c249" prot="public" static="no">
         <name>XCSI2TXSS_LCSTAT_VC0_IER_MASK</name>
@@ -1826,7 +1944,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gae2255b8a9b66fb2ffcd47a850fe86033" prot="public" static="no">
         <name>XCSI2TXSS_LCSTAT_VC1_IER_MASK</name>
@@ -1837,7 +1955,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gaf36b9b055a516bad077aaee0a6a69de6" prot="public" static="no">
         <name>XCSI2TXSS_LCSTAT_VC2_IER_MASK</name>
@@ -1848,7 +1966,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga10c10663e214c399ac840273e05714a6" prot="public" static="no">
         <name>XCSI2TXSS_LCSTAT_VC3_IER_MASK</name>
@@ -1859,7 +1977,62 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga8d56f353d397eb776e697d34c0209db4" prot="public" static="no">
+        <name>XCSI2TXSS_LCSTAT_VC4_IER_MASK</name>
+        <initializer>XCSITX_LCSTAT_VC4_IER_MASK</initializer>
+        <briefdescription>
+<para>Line count status VC4 IER mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gad6b5aa57ab6a9214854039c327b63d32" prot="public" static="no">
+        <name>XCSI2TXSS_LCSTAT_VC5_IER_MASK</name>
+        <initializer>XCSITX_LCSTAT_VC5_IER_MASK</initializer>
+        <briefdescription>
+<para>Line count status VC5 IER mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga8b3b70040d35fb09e85a914363e1e8bd" prot="public" static="no">
+        <name>XCSI2TXSS_LCSTAT_VC6_IER_MASK</name>
+        <initializer>XCSITX_LCSTAT_VC6_IER_MASK</initializer>
+        <briefdescription>
+<para>Line count status VC6 IER mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1gaebf7af476419d3269aa2cb0d8ed3a5bf" prot="public" static="no">
+        <name>XCSI2TXSS_LCSTAT_VC7_IER_MASK</name>
+        <initializer>XCSITX_LCSTAT_VC7_IER_MASK</initializer>
+        <briefdescription>
+<para>Line count status VC7 IER mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2txss_1ga9225df3ea7d283068731243552589992" prot="public" static="no">
+        <name>XCSI2TXSS_LCSTAT_VC4_7_IER_MASK</name>
+        <initializer>XCSITX_LCSTAT_VC4_7_IER_MASK</initializer>
+        <briefdescription>
+<para>Line count status VC4-VC7 IER mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss_hw.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga16136319756e4257975f235e2d6ed24e" prot="public" static="no">
         <name>XINTC_DEVICE_ID</name>
@@ -1870,7 +2043,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="70" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="70" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1ga8a4d333ab2fdfc0b4e13e3ae9598bd06" prot="public" static="no">
         <name>XINTC_CSI2TXSS_CSI_INTERRUPT_ID</name>
@@ -1881,7 +2054,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gab7c5e8a4e1c2ac814050c57d1d5c6f50" prot="public" static="no">
         <name>XINTC</name>
@@ -1892,7 +2065,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gad8afa18f74b11f8d7109d1f1bd751656" prot="public" static="no">
         <name>XINTC_HANDLER</name>
@@ -1903,7 +2076,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gaa43f2fbbe04b1d8f7128da3b692f166e" prot="public" static="no">
         <name>XCSI2TXSS_DEVICE_ID</name>
@@ -1914,7 +2087,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gaf53b4a92f5960f1d6289002c6d44dbcd" prot="public" static="no">
         <name>MAX_INTERRUPT_COUNT</name>
@@ -1925,7 +2098,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_intr_example.c" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__csi2txss_1gaceda8ed85804eddec616d756ac3d755b" prot="public" static="no">
         <name>XCSI2TXSS_BASE</name>
@@ -1936,7 +2109,7 @@ HandlerType                                     Invoked by this driver when:
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/examples/xcsi2txss_selftest_example.c" bodystart="43" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1949,12 +2122,18 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who   Date   
 1.0 sss 07/14/16 Initial release
     vsa 15/12/17 Add support for Clock Mode
 1.2 vsa 02/28/18 Add Frame End Generation feature
+1.3 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) support: subsystem owns the
+                 VC count, validates the VC range, widens the line count
+                 interrupt allow-list and programs the per-bank (VC0-7 and
+                 VC8-15) line count enables for the CSI2 TX subsystem v3.0 IP
 </preformatted></para><para>For more information about the operation of this core see the hardware specification and documentation in the higher level driver xcsi2tx.h file.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who  Date     Changes
 <hruler/>
 
 1.0 sss 07/14/16 Initial release
 1.2 vsa 02/28/18 Add Frame End Generation feature
+1.3 ai  09/17/26 Added VC4-VC7 line count status/enable mask aliases for
+                 multi-VC support on the CSI2 TX subsystem v3.0 IP
 </preformatted></para><para>The interrupt registration and handler are defined here. The callbacks are registered for events which are interrupts clubbed together on the basis of the CSI2 specification. Refer to CSI2 driver for the event groups.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
 <hruler/>

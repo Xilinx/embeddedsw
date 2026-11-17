@@ -8,76 +8,49 @@
     <includedby refid="xv__hdmirxss1_8h" local="yes">xv_hdmirxss1.h</includedby>
     <includedby refid="xv__hdmirxss1__frl_8c" local="yes">xv_hdmirxss1_frl.c</includedby>
     <incdepgraph>
-      <node id="655">
+      <node id="657">
         <label>xil_assert.h</label>
       </node>
-      <node id="653">
+      <node id="655">
         <label>xv_hdmirxss1_frl.h</label>
         <link refid="xv_hdmirxss1_frl.h"/>
-        <childnode refid="654" relation="include">
-        </childnode>
-        <childnode refid="655" relation="include">
-        </childnode>
         <childnode refid="656" relation="include">
         </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
       </node>
-      <node id="656">
+      <node id="658">
         <label>xstatus.h</label>
       </node>
-      <node id="654">
+      <node id="656">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
       <node id="664">
-        <label>xv_hdmirxss1_hdcp.c</label>
-        <link refid="xv__hdmirxss1__hdcp_8c"/>
-      </node>
-      <node id="666">
-        <label>xv_hdmirxss1_sinit.c</label>
-        <link refid="xv__hdmirxss1__sinit_8c"/>
-      </node>
-      <node id="661">
-        <label>xv_hdmirxss1_coreinit.c</label>
-        <link refid="xv__hdmirxss1__coreinit_8c"/>
-      </node>
-      <node id="660">
-        <label>xv_hdmirxss1_coreinit.h</label>
-        <link refid="xv__hdmirxss1__coreinit_8h"/>
-        <childnode refid="659" relation="include">
-        </childnode>
-        <childnode refid="661" relation="include">
-        </childnode>
-      </node>
-      <node id="663">
-        <label>xv_hdmirxss1_g.c</label>
-      </node>
-      <node id="662">
         <label>xv_hdmirxss1_frl.c</label>
         <link refid="xv__hdmirxss1__frl_8c"/>
       </node>
-      <node id="657">
+      <node id="659">
         <label>xv_hdmirxss1_frl.h</label>
         <link refid="xv_hdmirxss1_frl.h"/>
-        <childnode refid="658" relation="include">
+        <childnode refid="660" relation="include">
         </childnode>
-        <childnode refid="662" relation="include">
+        <childnode refid="664" relation="include">
         </childnode>
       </node>
-      <node id="659">
+      <node id="661">
         <label>xv_hdmirxss1.c</label>
         <link refid="xv__hdmirxss1_8c"/>
       </node>
-      <node id="658">
+      <node id="660">
         <label>xv_hdmirxss1.h</label>
         <link refid="xv__hdmirxss1_8h"/>
-        <childnode refid="659" relation="include">
-        </childnode>
-        <childnode refid="660" relation="include">
+        <childnode refid="661" relation="include">
         </childnode>
         <childnode refid="662" relation="include">
-        </childnode>
-        <childnode refid="663" relation="include">
         </childnode>
         <childnode refid="664" relation="include">
         </childnode>
@@ -85,10 +58,37 @@
         </childnode>
         <childnode refid="666" relation="include">
         </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
       </node>
       <node id="665">
+        <label>xv_hdmirxss1_g.c</label>
+      </node>
+      <node id="666">
+        <label>xv_hdmirxss1_hdcp.c</label>
+        <link refid="xv__hdmirxss1__hdcp_8c"/>
+      </node>
+      <node id="668">
+        <label>xv_hdmirxss1_sinit.c</label>
+        <link refid="xv__hdmirxss1__sinit_8c"/>
+      </node>
+      <node id="667">
         <label>xv_hdmirxss1_log.c</label>
         <link refid="xv__hdmirxss1__log_8c"/>
+      </node>
+      <node id="663">
+        <label>xv_hdmirxss1_coreinit.c</label>
+        <link refid="xv__hdmirxss1__coreinit_8c"/>
+      </node>
+      <node id="662">
+        <label>xv_hdmirxss1_coreinit.h</label>
+        <link refid="xv__hdmirxss1__coreinit_8h"/>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="54" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="54" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirxss1__frl_8h_1ae3f70430e6323c8674c87ac97a44bae2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -136,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="55" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="55" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirxss1__frl_8h_1add011f95edda7fe781095a43d89484c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -163,9 +163,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.c" bodystart="206" bodyend="214"/>
-        <references refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" compoundref="xv__hdmirxss1_8h" startline="473">XV_HdmiRxSs1::TmdsConfigCallback</references>
-        <references refid="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" compoundref="xv__hdmirxss1_8h" startline="474">XV_HdmiRxSs1::TmdsConfigRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.c" bodystart="206" bodyend="214"/>
+        <references refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" compoundref="xv__hdmirxss1_8h" startline="460">XV_HdmiRxSs1::TmdsConfigCallback</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" compoundref="xv__hdmirxss1_8h" startline="461">XV_HdmiRxSs1::TmdsConfigRef</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -208,6 +208,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h"/>
   </compounddef>
 </doxygen>

@@ -113,7 +113,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <p>
 5.5   tvp  05/13/25 Initial release
 5.7   tbk  03/27/26 Add fault injection protection for HKDF loop counter
-      tbk  03/27/26 Set error code before goto on Hmac operations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_sutil.h&quot;</code><br/>
+      tbk  03/27/26 Set error code before goto on Hmac operations
+5.8   ks   08/20/26 Zeroize local HMAC buffers and validate context</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_sutil.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__kdf_8h.html">xsecure_kdf.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__sha__common_8h.html">xsecure_sha_common.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__hmac_8h.html">xsecure_hmac.h</a>&quot;</code><br/>

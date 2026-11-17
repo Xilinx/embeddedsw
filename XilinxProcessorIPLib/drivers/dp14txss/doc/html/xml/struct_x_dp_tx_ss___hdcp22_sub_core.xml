@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="300" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="293" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_tx_ss___hdcp22_sub_core_1ac75d6f0de17044c1852a5153617d9edd" prot="public" static="no" mutable="no">
         <type>XDpTxSs_SubCoreConfig</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="302" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="295" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>HDCP22 Sub-core structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="298" bodyend="303"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="291" bodyend="296"/>
     <listofallmembers>
       <member refid="struct_x_dp_tx_ss___hdcp22_sub_core_1ac75d6f0de17044c1852a5153617d9edd" prot="public" virt="non-virtual"><scope>XDpTxSs_Hdcp22SubCore</scope><name>Hdcp22Config</name></member>
       <member refid="struct_x_dp_tx_ss___hdcp22_sub_core_1ad1cc81acfc3112f8f68e0c8f01287f3b" prot="public" virt="non-virtual"><scope>XDpTxSs_Hdcp22SubCore</scope><name>IsPresent</name></member>

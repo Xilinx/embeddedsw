@@ -4,6 +4,9 @@
     <compoundname>xmipi_rx_phy_g.c</compoundname>
     <includes refid="xmipi__rx__phy_8h" local="yes">xmipi_rx_phy.h</includes>
     <incdepgraph>
+      <node id="37">
+        <label>xil_io.h</label>
+      </node>
       <node id="36">
         <label>xmipi_rx_phy_hw.h</label>
         <link refid="xmipi__rx__phy__hw_8h"/>
@@ -12,8 +15,13 @@
         <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="37">
-        <label>xil_io.h</label>
+      <node id="34">
+        <label>xmipi_rx_phy.h</label>
+        <link refid="xmipi__rx__phy_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
       </node>
       <node id="35">
         <label>xil_types.h</label>
@@ -22,14 +30,6 @@
         <label>xmipi_rx_phy_g.c</label>
         <link refid="xmipi_rx_phy_g.c"/>
         <childnode refid="34" relation="include">
-        </childnode>
-      </node>
-      <node id="34">
-        <label>xmipi_rx_phy.h</label>
-        <link refid="xmipi__rx__phy_8h"/>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -69,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_g.c" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_g.c" bodystart="12" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_g.c" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_g.c" bodystart="12" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -113,6 +113,6 @@
 <codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="35"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_g.c"/>
   </compounddef>
 </doxygen>

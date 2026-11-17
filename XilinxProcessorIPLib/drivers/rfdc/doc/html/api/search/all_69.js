@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['i2cbus',['I2CBUS',['../xrfdc__gen2__or__below__clocked__example_8c.html#afdd3353539455c931a508bce8abd9de2',1,'I2CBUS():&#160;xrfdc_gen2_or_below_clocked_example.c'],['../xrfdc__gen3__clocked__example_8c.html#afdd3353539455c931a508bce8abd9de2',1,'I2CBUS():&#160;xrfdc_gen3_clocked_example.c'],['../xrfdc__intr__example_8c.html#afdd3353539455c931a508bce8abd9de2',1,'I2CBUS():&#160;xrfdc_intr_example.c'],['../xrfdc__mts__example_8c.html#afdd3353539455c931a508bce8abd9de2',1,'I2CBUS():&#160;xrfdc_mts_example.c'],['../xrfdc__read__write__example_8c.html#afdd3353539455c931a508bce8abd9de2',1,'I2CBUS():&#160;xrfdc_read_write_example.c']]],
+  ['info',['Info',['../struct_x_r_fdc___distribution___settings.html#a9d084056f366774d42000ffafdcec11c',1,'XRFdc_Distribution_Settings']]],
+  ['interpolationfactor',['InterpolationFactor',['../struct_x_r_fdc___d_a_c_block___digital_data_path.html#a36fd5abbd33120d594c6b8160790b842',1,'XRFdc_DACBlock_DigitalDataPath']]],
+  ['interpolationmode',['InterpolationMode',['../struct_x_r_fdc___d_a_c_block___digital_data_path___config.html#a4c34ed075f49572106d68ba5d89ab5d3',1,'XRFdc_DACBlock_DigitalDataPath_Config']]],
+  ['interruptoccured',['InterruptOccured',['../xrfdc__intr__example_8c.html#a57a76219e46110708f0df91e7e52e951',1,'xrfdc_intr_example.c']]],
+  ['inversesincfilterenable',['InverseSincFilterEnable',['../struct_x_r_fdc___d_a_c_block___analog_data_path.html#a2e849c2970339bf6bc76647a722f5971',1,'XRFdc_DACBlock_AnalogDataPath']]],
+  ['invsyncenable',['InvSyncEnable',['../struct_x_r_fdc___d_a_c_block___analog_data_path___config.html#acda13eacd693b018d1e23e76267eee6d',1,'XRFdc_DACBlock_AnalogDataPath_Config']]],
+  ['io',['io',['../struct_x_r_fdc.html#a81a7ec282f785ba4bcea65ea0bc30d6c',1,'XRFdc']]],
+  ['io_5fcap',['io_cap',['../xrfdc__intr__example_8c.html#a89017a8e0a58d5713f9953766bca0367',1,'xrfdc_intr_example.c']]],
+  ['io_5fstim',['io_stim',['../xrfdc__intr__example_8c.html#a682d88ce691a3d2f92cbc6d43dc5bd64',1,'xrfdc_intr_example.c']]],
+  ['iptype',['IPType',['../struct_x_r_fdc___config.html#a55a75ff18aa3627ee2caf8838da9dfd8',1,'XRFdc_Config']]],
+  ['isdelaybalanced',['IsDelayBalanced',['../struct_x_r_fdc___distribution___info.html#a44cbe175eec40565953e8a42ef8c1fb8',1,'XRFdc_Distribution_Info']]],
+  ['isenabled',['IsEnabled',['../struct_x_r_fdc___tile_status.html#a7f52ff7933b641cfa0e6a4369535d13e',1,'XRFdc_TileStatus']]],
+  ['isfifoflagsasserted',['IsFIFOFlagsAsserted',['../struct_x_r_fdc___block_status.html#a194ef7fcad16939fe43c8274d0959771',1,'XRFdc_BlockStatus']]],
+  ['isfifoflagsenabled',['IsFIFOFlagsEnabled',['../struct_x_r_fdc___block_status.html#ac3285bbb6843da29857ce7dc27c38414',1,'XRFdc_BlockStatus']]],
+  ['ispll',['IsPLL',['../struct_x_r_fdc___m_t_s___d_t_c___settings.html#a6b1ded7b87eceff117474a565f7c1b05',1,'XRFdc_MTS_DTC_Settings']]],
+  ['isready',['IsReady',['../struct_x_r_fdc.html#abc5a9e9b65015a6be5a33d82df322be0',1,'XRFdc']]]
+];

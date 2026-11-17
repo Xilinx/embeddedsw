@@ -8,28 +8,26 @@
     <includes refid="xv__hdmitxss1__frl_8h" local="yes">xv_hdmitxss1_frl.h</includes>
     <includes refid="xv__hdmitxss1_8h" local="yes">xv_hdmitxss1.h</includes>
     <incdepgraph>
-      <node id="664">
+      <node id="666">
         <label>xil_assert.h</label>
       </node>
-      <node id="671">
-        <label>xv_hdmic_vsif.h</label>
-      </node>
-      <node id="673">
-        <label>xvidc_edid_ext.h</label>
-      </node>
-      <node id="672">
-        <label>xvidc_edid.h</label>
-      </node>
-      <node id="674">
-        <label>xv_hdmitx1.h</label>
-      </node>
-      <node id="662">
+      <node id="664">
         <label>xv_hdmitxss1_frl.c</label>
         <link refid="xv_hdmitxss1_frl.c"/>
-        <childnode refid="663" relation="include">
+        <childnode refid="665" relation="include">
         </childnode>
-        <childnode refid="664" relation="include">
+        <childnode refid="666" relation="include">
         </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
+        <childnode refid="669" relation="include">
+        </childnode>
+      </node>
+      <node id="668">
+        <label>xv_hdmitxss1_frl.h</label>
+        <link refid="xv__hdmitxss1__frl_8h"/>
         <childnode refid="665" relation="include">
         </childnode>
         <childnode refid="666" relation="include">
@@ -37,44 +35,24 @@
         <childnode refid="667" relation="include">
         </childnode>
       </node>
-      <node id="666">
-        <label>xv_hdmitxss1_frl.h</label>
-        <link refid="xv__hdmitxss1__frl_8h"/>
-        <childnode refid="663" relation="include">
-        </childnode>
-        <childnode refid="664" relation="include">
-        </childnode>
-        <childnode refid="665" relation="include">
-        </childnode>
-      </node>
-      <node id="665">
-        <label>xstatus.h</label>
-      </node>
-      <node id="669">
-        <label>xvidc.h</label>
-      </node>
-      <node id="663">
-        <label>xil_types.h</label>
-      </node>
-      <node id="670">
-        <label>xv_hdmic.h</label>
-      </node>
-      <node id="668">
-        <label>xparameters.h</label>
+      <node id="673">
+        <label>xv_hdmic_vsif.h</label>
       </node>
       <node id="675">
-        <label>xvtc.h</label>
+        <label>xvidc_edid_ext.h</label>
       </node>
-      <node id="667">
+      <node id="674">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="676">
+        <label>xv_hdmitx1.h</label>
+      </node>
+      <node id="669">
         <label>xv_hdmitxss1.h</label>
         <link refid="xv__hdmitxss1_8h"/>
-        <childnode refid="668" relation="include">
-        </childnode>
-        <childnode refid="665" relation="include">
-        </childnode>
-        <childnode refid="669" relation="include">
-        </childnode>
         <childnode refid="670" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
         </childnode>
         <childnode refid="671" relation="include">
         </childnode>
@@ -86,8 +64,30 @@
         </childnode>
         <childnode refid="675" relation="include">
         </childnode>
-        <childnode refid="666" relation="include">
+        <childnode refid="676" relation="include">
         </childnode>
+        <childnode refid="677" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
+      </node>
+      <node id="667">
+        <label>xstatus.h</label>
+      </node>
+      <node id="671">
+        <label>xvidc.h</label>
+      </node>
+      <node id="665">
+        <label>xil_types.h</label>
+      </node>
+      <node id="672">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="670">
+        <label>xparameters.h</label>
+      </node>
+      <node id="677">
+        <label>xvtc.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -100,7 +100,7 @@
 <para>±0.50% = 5000 ppm </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="484" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="484" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="484" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="484" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a14d831c77fb94c733180a03b10aa4676" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_TOLERANCE_FRL_BIT_PPM</name>
@@ -111,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="485" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="485" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="485" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="485" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1aa43892599fbfa34b08bee2ff9f4f35f2" prot="public" static="no">
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="486" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="486" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="486" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="486" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a3a90740bffcaafb922bb9e3da2d0a850" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_CFRL_CB</name>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="487" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="487" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="487" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="487" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a1e23fa4b1183ab68c478ee99af0638ea" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_CFRL_SB_3LANE</name>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="488" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="488" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="488" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="488" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1add8ffbbda940ccd832c32ccf7d04ee32" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_CFRL_SB_4LANE</name>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="489" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="489" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="489" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="489" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a861f3be1adc6426533b8550db45437b4" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_OVERHEAD_SB_3LANE</name>
@@ -167,7 +167,7 @@
 <para>0.147% * 100000 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="494" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="494" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="494" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="494" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1ad36214a5dc3ffbeab11e231f667bb89c" prot="public" static="no">
@@ -179,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="495" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="495" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="495" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="495" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a31022bd772d9659ee174a12bba914090" prot="public" static="no">
@@ -191,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="496" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="496" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="496" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="496" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a425f418c1d364ce40e21dba5536ab18e" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_OVERHEAD_MAP</name>
@@ -202,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="497" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="497" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="497" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="497" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a5775f34ba876c6d3441c3fb8c096ddea" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_OVERHEAD_MARGIN</name>
@@ -213,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="498" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="498" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="498" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="498" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a4342a579559f9d1ff00682a82183991a" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_ENCODE_DATA_BITS</name>
@@ -224,7 +224,7 @@
 <para>Data bits per symbol </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="503" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="503" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="503" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="503" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a2fd4e44b7739d51c508ebb3fc5bd6089" prot="public" static="no">
@@ -236,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="504" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="504" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="504" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="504" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a0a818c522ea33eacef39015d42dc2803" prot="public" static="no">
@@ -248,7 +248,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="505" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="505" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a8571166452948cb41ec14e0eed6aec9b" prot="public" static="no">
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="506" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="506" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="506" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="506" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a1dfa681bc606c5f7d7a7b40d6c55f410" prot="public" static="no">
@@ -272,7 +272,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="507" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="507" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="507" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="507" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a2efef492a2b3577562af3ff376242322" prot="public" static="no">
@@ -284,7 +284,7 @@
 <para>Rounding value for display </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="512" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="512" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="512" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="512" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a6c51cf9056c0c8bf66b3148dec68cc1a" prot="public" static="no">
         <name>XV_HDMITXSS1_FRL_DISP_DIVISOR</name>
@@ -295,7 +295,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="513" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="513" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="513" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="513" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1afc89b6804e04d7100ab8659573922bbb" prot="public" static="no">
@@ -307,7 +307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="514" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="514" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="514" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="514" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1afe6312a349721eea445a8b179b8ebc5c" prot="public" static="no">
@@ -319,7 +319,7 @@
 <para>1 Gbps = 10^9 bps </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="519" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="519" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="519" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="519" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a37633b6242a8f6f296b5bd5216d320ab" prot="public" static="no">
@@ -331,7 +331,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="520" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="520" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a77ecf874f53a31c375b9b9e85b4d7113" prot="public" static="no">
@@ -343,7 +343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="521" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="521" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="521" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="521" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a4c6aed19e7411cc9c8d696b5911293ad" prot="public" static="no">
@@ -355,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="522" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="522" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="522" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="522" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1af3cd9783fde5e8cd9be842f55e70035a" prot="public" static="no">
@@ -367,7 +367,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="523" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="523" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="523" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="523" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1acfaa42ab416c246b0c4f3477e1d058c0" prot="public" static="no">
@@ -379,7 +379,7 @@
 <para>YCbCr 4:2:0 bandwidth divisor </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="528" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="528" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="528" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="528" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1ac6f88edba6a7e6679805c76bd5e181b1" prot="public" static="no">
@@ -391,7 +391,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="529" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="529" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="529" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="529" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__hdmitxss1__frl_8c_1a4992a83129d02296077c81d017c47e4d" prot="public" static="no">
@@ -405,7 +405,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="534" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="534" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="534" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="534" bodyend="-1"/>
         <referencedby refid="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" compoundref="xv__hdmitxss1__frl_8c" startline="571" endline="794">XV_HdmiTxSs1_FrlCalcBandwidth</referencedby>
       </memberdef>
       </sectiondef>
@@ -435,10 +435,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="237" bodyend="249"/>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a88bbd5a97e7a01a235d925f69edd6822" compoundref="xv__hdmitxss1_8h" startline="477">XV_HdmiTxSs1::TmdsConfigCallback</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a8d892935990ad343a02e62039708ba32" compoundref="xv__hdmitxss1_8h" startline="478">XV_HdmiTxSs1::TmdsConfigRef</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a521bdc151a83e9587a1d73afbc691502" compoundref="xv__hdmitxss1_8h" startline="137">XV_HDMITXSS1_LOG_EVT_TMDS_START</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="237" bodyend="249"/>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a88bbd5a97e7a01a235d925f69edd6822" compoundref="xv__hdmitxss1_8h" startline="463">XV_HdmiTxSs1::TmdsConfigCallback</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a8d892935990ad343a02e62039708ba32" compoundref="xv__hdmitxss1_8h" startline="464">XV_HdmiTxSs1::TmdsConfigRef</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a521bdc151a83e9587a1d73afbc691502" compoundref="xv__hdmitxss1_8h" startline="135">XV_HDMITXSS1_LOG_EVT_TMDS_START</references>
         <references refid="xv__hdmitxss1_8h_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</references>
       </memberdef>
       <memberdef kind="function" id="xv__hdmitxss1__frl_8c_1ae0c83c074025a7ef3eacd1be60723bc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -503,10 +503,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="571" bodyend="794"/>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a63bee4c3905ad10f1615dc796a4d6a97" compoundref="xv__hdmitxss1_8h" startline="497">XV_HdmiTxSs1::AudioChannels</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1ab9c7709befa6b85a8311d9647d47927e" compoundref="xv__hdmitxss1_8h" startline="495">XV_HdmiTxSs1::AudioEnabled</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a20364540787ca3b61a22e2138cd03369" compoundref="xv__hdmitxss1_8h" startline="416">XV_HdmiTxSs1::HdmiTx1Ptr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c" bodystart="571" bodyend="794"/>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a63bee4c3905ad10f1615dc796a4d6a97" compoundref="xv__hdmitxss1_8h" startline="483">XV_HdmiTxSs1::AudioChannels</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1ab9c7709befa6b85a8311d9647d47927e" compoundref="xv__hdmitxss1_8h" startline="481">XV_HdmiTxSs1::AudioEnabled</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a20364540787ca3b61a22e2138cd03369" compoundref="xv__hdmitxss1_8h" startline="402">XV_HdmiTxSs1::HdmiTx1Ptr</references>
         <references refid="xv__hdmitxss1__frl_8c_1af3cd9783fde5e8cd9be842f55e70035a" compoundref="xv__hdmitxss1__frl_8c" startline="523">XV_HDMITXSS1_FRL_AUDIO_MBPS_DIVISOR</references>
         <references refid="xv__hdmitxss1__frl_8c_1a1dfa681bc606c5f7d7a7b40d6c55f410" compoundref="xv__hdmitxss1__frl_8c" startline="507">XV_HDMITXSS1_FRL_CHAR_PER_2TB</references>
         <references refid="xv__hdmitxss1__frl_8c_1afc89b6804e04d7100ab8659573922bbb" compoundref="xv__hdmitxss1__frl_8c" startline="514">XV_HDMITXSS1_FRL_DISP_DECIMAL</references>
@@ -1002,6 +1002,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="794"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_frl.c"/>
   </compounddef>
 </doxygen>

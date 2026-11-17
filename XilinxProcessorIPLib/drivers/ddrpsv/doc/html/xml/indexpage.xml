@@ -4,8 +4,7 @@
     <compoundname>index</compoundname>
     <title>ddrpsv</title>
     <detaileddescription>
-<para>The Xilinx DdrPsv driver. This driver supports the Xilinx axi_noc IP core.</para><para><simplesect kind="note"><para>None.</para></simplesect>
-<preformatted>
+<para>The Xilinx DdrPsv driver. This driver supports the Xilinx axi_noc IP core.</para><para><preformatted>
  MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
 <hruler/>
 
@@ -50,6 +49,7 @@
                      psv_psm processor. As macros exported by this tcl are
                      consumed by only ARM based BSP&apos;s, we can skip
                      it for firmware processor BSP. It fixes CR#1105828.
-1.8    vlt  01/30/26 Fixed codespell errors</preformatted></para><para><preformatted> </preformatted> </para>    </detaileddescription>
+1.8    vlt  01/30/26 Fixed codespell errors
+ 1.9   vn   09/30/26 Align Doxygen comments with AMD standards</preformatted></para><para><preformatted> </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

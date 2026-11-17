@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -115,7 +116,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.0   am   07/16/24 Initial release
       am   08/01/24 Replaced enums with macros
 1.1   am   01/20/25 Added AES CCM nonce macros
-      am   03/14/25 Updated correct macro value of XASU_AES_CCM_MIN_NONCE_LEN</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+      am   03/14/25 Updated correct macro value of XASU_AES_CCM_MIN_NONCE_LEN
+      kp   09/23/26 Document KEY_1 / KEY_RED_1 as black/red register-form selection</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xasu_bsp_config.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -244,7 +246,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga7b7001532704792d79c3cf40c6ad7ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efuse key 0.  <a href="group__xasu__common__defs.html#ga7b7001532704792d79c3cf40c6ad7ba9">More...</a><br/></td></tr>
 <tr class="separator:ga7b7001532704792d79c3cf40c6ad7ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad3d9fe82dfd372c24f34d6529556df10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gad3d9fe82dfd372c24f34d6529556df10">XASU_AES_EFUSE_KEY_1</a>&#160;&#160;&#160;(0x9U)</td></tr>
-<tr class="memdesc:gad3d9fe82dfd372c24f34d6529556df10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efuse key 1.  <a href="group__xasu__common__defs.html#gad3d9fe82dfd372c24f34d6529556df10">More...</a><br/></td></tr>
+<tr class="memdesc:gad3d9fe82dfd372c24f34d6529556df10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Black eFUSE user key 1.  <a href="group__xasu__common__defs.html#gad3d9fe82dfd372c24f34d6529556df10">More...</a><br/></td></tr>
 <tr class="separator:gad3d9fe82dfd372c24f34d6529556df10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga82f19fd6044728c10767c0b51f84aa1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga82f19fd6044728c10767c0b51f84aa1d">XASU_AES_PUF_KEY</a>&#160;&#160;&#160;(0xAU)</td></tr>
 <tr class="memdesc:ga82f19fd6044728c10767c0b51f84aa1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PUF key.  <a href="group__xasu__common__defs.html#ga82f19fd6044728c10767c0b51f84aa1d">More...</a><br/></td></tr>
@@ -253,7 +255,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga5bdccf8372b2e4c871289ad4c4247401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efuse Red key 0.  <a href="group__xasu__common__defs.html#ga5bdccf8372b2e4c871289ad4c4247401">More...</a><br/></td></tr>
 <tr class="separator:ga5bdccf8372b2e4c871289ad4c4247401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab99c2081fadf07d7c0d1d01247f53a32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gab99c2081fadf07d7c0d1d01247f53a32">XASU_AES_EFUSE_KEY_RED_1</a>&#160;&#160;&#160;(0xCU)</td></tr>
-<tr class="memdesc:gab99c2081fadf07d7c0d1d01247f53a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efuse Red key 1.  <a href="group__xasu__common__defs.html#gab99c2081fadf07d7c0d1d01247f53a32">More...</a><br/></td></tr>
+<tr class="memdesc:gab99c2081fadf07d7c0d1d01247f53a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Red eFUSE user key 1.  <a href="group__xasu__common__defs.html#gab99c2081fadf07d7c0d1d01247f53a32">More...</a><br/></td></tr>
 <tr class="separator:gab99c2081fadf07d7c0d1d01247f53a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac3dfec0afa7187124134f58f02616a79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gac3dfec0afa7187124134f58f02616a79">XASU_AES_EXPANDED_KEYS</a>&#160;&#160;&#160;(0xDU)</td></tr>
 <tr class="memdesc:gac3dfec0afa7187124134f58f02616a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expanded keys in AES engine.  <a href="group__xasu__common__defs.html#gac3dfec0afa7187124134f58f02616a79">More...</a><br/></td></tr>

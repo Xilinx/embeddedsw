@@ -116,7 +116,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 1.03  skd  07/14/2020 Added 64bit support for DDR source address
       bsv  10/13/2020 Code clean up
 1.04  bsv  08/26/2021 Code clean up
-      dd   09/11/2023 MISRA-C violation Rule 17.8 fixed</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+      pre  08/17/2026 Added DDR calibration data restore and status check APIs
+      pre  09/06/2026 Include xplmi_cmd.h for XPlmi_Cmd
+      pre  10/22/2026 DDR calibration data restore is under
+                      PLM_ENABLE_DDR_CALIB_RESTORE and is disabled by default</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+</div><div class="textblock"><code>#include &quot;xplmi_cmd.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -129,6 +134,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7a4c313af5a0caa20fa13c561ba0f04a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga7a4c313af5a0caa20fa13c561ba0f04a">XLoader_DdrRelease</a> (void)</td></tr>
 <tr class="memdesc:ga7a4c313af5a0caa20fa13c561ba0f04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function releases control of DDR.  <a href="group__xloader__server__apis.html#ga7a4c313af5a0caa20fa13c561ba0f04a">More...</a><br/></td></tr>
 <tr class="separator:ga7a4c313af5a0caa20fa13c561ba0f04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9870c3bf75d6cfbd669c535dd7f7a589"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga9870c3bf75d6cfbd669c535dd7f7a589">XLoader_CalibDataRestore</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:ga9870c3bf75d6cfbd669c535dd7f7a589"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function restores the calibration data of the warm-boot DDR memory controllers carried in the command.  <a href="group__xloader__server__apis.html#ga9870c3bf75d6cfbd669c535dd7f7a589">More...</a><br/></td></tr>
+<tr class="separator:ga9870c3bf75d6cfbd669c535dd7f7a589"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

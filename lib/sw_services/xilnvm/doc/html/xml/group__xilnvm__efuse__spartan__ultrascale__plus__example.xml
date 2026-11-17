@@ -21,7 +21,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Initialize SysMon for temperature and voltage checks. Checks are performed only when System Monitor IP is available in the design</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="187" bodyend="289"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="180" bodyend="282"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga96ff3319f4d0839b35e067f297501261" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -40,7 +40,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="300" bodyend="374"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="293" bodyend="367"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabcdd62474f21cd552737a10b0e6ccedb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -59,7 +59,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="385" bodyend="400"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="378" bodyend="393"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga3afe3e00f672c91efbf75c065f8d0303" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -87,7 +87,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="413" bodyend="435"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="406" bodyend="428"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga9588cb313f3c595d8a10dbf54ed2a1df" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -115,7 +115,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="449" bodyend="469"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="442" bodyend="462"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaa43fb44142032171db7d2406188bce86" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -143,7 +143,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="482" bodyend="497"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="475" bodyend="490"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gafa82809eb00e878c4644c7e2f5f96a65" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -162,7 +162,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="508" bodyend="523"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="501" bodyend="516"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga50bb10ea49a38839766e47724daa3c7d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -181,7 +181,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="534" bodyend="550"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="527" bodyend="543"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gab44bfd69cc4f8d44c2024ec572f657ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -200,7 +200,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1111" bodyend="1118"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1104" bodyend="1111"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga1cd29bd7ef80f1ec6e0ac14418c0d26f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -219,7 +219,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1129" bodyend="1254"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1122" bodyend="1247"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga3958bcb7c1618ab0e3c26bbd6a09e994" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -258,7 +258,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="764" bodyend="822"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="757" bodyend="815"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaaca5eaf7ef8ee97a7c10b908b970a1f2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -297,7 +297,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="845" bodyend="853"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="838" bodyend="846"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga12f93582705ec41889a909e471f2797e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -336,7 +336,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="876" bodyend="896"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="869" bodyend="889"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga406da0b95be15b6a047efb20cf6eef58" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -375,7 +375,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="917" bodyend="938"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="910" bodyend="931"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga0f81dcac87ccd86bd1e419ae5a52ff76" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -416,7 +416,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="575" bodyend="596"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="568" bodyend="589"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga5b891afabf460ea1164d909d37cbc6af" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -455,7 +455,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="626" bodyend="691"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="619" bodyend="684"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga37f7fe3fd2b9ba3bb0c52c395ce8964b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -494,7 +494,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="713" bodyend="723"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="706" bodyend="716"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gae5ec13946e3687e43a2d688fc20de8bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -533,7 +533,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1007" bodyend="1033"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1000" bodyend="1026"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaaf21f87a0a6b089b0b061f77d85fa30d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -552,7 +552,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1296" bodyend="1317"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1289" bodyend="1310"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga2bb2418a958246a265643aa4d22c3c53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -580,7 +580,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1438" bodyend="1449"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1431" bodyend="1442"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga1721c330ccfaf727b7e48f3bf8f96ebb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -630,7 +630,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1334" bodyend="1351"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1327" bodyend="1344"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaca9aa69323953773f7ad3df503a1c595" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -680,7 +680,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Convert IV string to Little endian Hex format Example: Input: &quot;378EEDC68DA27486E0FDF8F7&quot; After conversion: Dst[0]-&gt;E0FDF8F7 Dst[1]-&gt;8DA27486 Dst[2]-&gt;378EEDC6</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1368" bodyend="1395"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1361" bodyend="1388"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gab5317bebac00e3026759b0c6b566b0dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -706,7 +706,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1500" bodyend="1514"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1493" bodyend="1507"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga30f52ffad149cef68711a6d3bf431291" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -745,7 +745,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1464" bodyend="1487"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1457" bodyend="1480"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gad85099e651ab0e77ae139402dee77479" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -792,7 +792,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1526" bodyend="1534"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1519" bodyend="1527"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gad82e461607d8c01cee60a7f82dc531bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -842,7 +842,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1413" bodyend="1426"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1406" bodyend="1419"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gae2abbca8bbb25801c4a6206600252267" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -870,7 +870,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="117" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="110" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga9ff57b24be3eaa28ef0f22e706d75434" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -909,7 +909,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="964" bodyend="983"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="957" bodyend="976"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga00714d1face33a60ac5724a6b8a9e9e7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -928,7 +928,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1265" bodyend="1284"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="1258" bodyend="1277"/>
       </memberdef>
       <memberdef kind="function" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -947,8 +947,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="135" bodyend="159"/>
-        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3a9a956a04c34687c49520e2646fefca" compoundref="spartanup_2xnvm__efuse_8h" startline="374">XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="128" bodyend="152"/>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba3a9a956a04c34687c49520e2646fefca" compoundref="spartanup_2xnvm__efuse_8h" startline="375">XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -961,7 +961,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga75a54ad53ee0eb9c2a19e92a4489a7ef" prot="public" static="no">
         <name>XNVM_EFUSE_ROW_STRING_LEN</name>
@@ -972,7 +972,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga30c71b69091debd236b89cc121df35f2" prot="public" static="no">
         <name>XNVM_EFUSE_IV_LEN_IN_BITS</name>
@@ -983,7 +983,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gacf2cf44f1f64595a6dacd7af19a7e54f" prot="public" static="no">
         <name>XNVM_EFUSE_AES_KEY_LEN_IN_BITS</name>
@@ -994,56 +994,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="59" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" prot="public" static="no">
-        <name>XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</name>
-        <initializer>(256U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
-        <briefdescription>
-<para>256-bit AES Key length in bytes </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="60" bodyend="-1"/>
-        <referencedby refid="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" compoundref="xnvm__bbram_8c" startline="146" endline="214">XNvm_BbramWriteAesKey</referencedby>
-      </memberdef>
-      <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" prot="public" static="no">
-        <name>XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</name>
-        <initializer>(\
-	<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
-        <briefdescription>
-<para>256-bit AES Key length in characters </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="62" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga5045f5d1d94086673d5e9c801e863108" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="188" endline="211">XNvm_ValidateAesKey</referencedby>
-      </memberdef>
-      <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaa9ef0da2274fe990e3150d2be706f9b0" prot="public" static="no">
-        <name>XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</name>
-        <initializer>(128U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
-        <briefdescription>
-<para>128-bit AES Key length in bytes </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="64" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga358c030ad147484ce163feb5216aeed8" prot="public" static="no">
-        <name>XNVM_128_BITS_AES_KEY_LEN_IN_CHARS</name>
-        <initializer>(\
-	<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaa9ef0da2274fe990e3150d2be706f9b0" kindref="member">XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
-        <briefdescription>
-<para>128-bit AES Key length in characters </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="66" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga5045f5d1d94086673d5e9c801e863108" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="188" endline="211">XNvm_ValidateAesKey</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga6ae9c460e837225a637dd5cc35ad39bb" prot="public" static="no">
         <name>XNVM_IV_STRING_LEN</name>
@@ -1054,19 +1005,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="62" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gae4c7451093c061675e604ae3426242a3" prot="public" static="no">
-        <name>XNVM_MAX_AES_KEY_LEN_IN_CHARS</name>
-        <initializer><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</ref></initializer>
+      <memberdef kind="define" id="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga20b8179fdbca646efcb514e5d8c167a2" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_HASH_STRING_LEN</name>
+        <initializer>(<ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gacbad61ddff5025478c93b148bc1f5112" kindref="member">XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES</ref> * 2U)</initializer>
         <briefdescription>
-<para>Max AES Key length in characters. </para>        </briefdescription>
+<para>PPK hash string length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="69" bodyend="-1"/>
-        <referencedby refid="group__xnvm__util__apis_1ga5045f5d1d94086673d5e9c801e863108" compoundref="versal__gen_2common_2xnvm__utils_8c" startline="188" endline="211">XNvm_ValidateAesKey</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c" bodystart="63" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1095,6 +1045,9 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver      Who    D
                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
       mb    04/18/2026 Initialize the AesRevokeId structure only when user intends to program revoke IDs
-      mb    05/13/2026 Removed shared memory section details from header comments as it is not required for efuse programming.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+      mb    05/13/2026 Removed shared memory section details from header comments as it is not required for efuse programming.
+3.8   rpu   07/06/2026 Fix GCC warnings
+      mb    09/17/2026 Drop local AES key length macros; use xnvm_utils.h.
+</preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

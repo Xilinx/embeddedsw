@@ -35,6 +35,8 @@
   <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
   </compound>
   <compound refid="xiicps_8c" kind="file"><name>xiicps.c</name>
+    <member refid="group__iicps__api_1gabd4ba2aa2291af01df08fab20deb1549" kind="define"><name>XIICPS_RECOVERY_PULSES</name></member>
+    <member refid="group__iicps__api_1gad7f15172036947a34ada05eac06fda2f" kind="define"><name>XIICPS_RECOVERY_DELAY</name></member>
     <member refid="group__iicps__api_1gae97ad9c202953c7e49bfb56533c47079" kind="function"><name>XIicPs_CfgInitialize</name></member>
     <member refid="group__iicps__api_1ga5b67ad96b8c40bdd47c2c2f8a57f170c" kind="function"><name>XIicPs_BusIsBusy</name></member>
     <member refid="group__iicps__api_1ga3eaa694ecd774beca05bf79c1f9df6c0" kind="function"><name>XIicPs_Abort</name></member>
@@ -42,8 +44,6 @@
     <member refid="group__iicps__api_1gaf2c308a0247b1db734a997c01c75c282" kind="function"><name>XIicPs_BusRecovery</name></member>
     <member refid="group__iicps__api_1ga6767d795533c56b3bc6ad08354c3acb1" kind="function"><name>XIicPsSclHold</name></member>
     <member refid="group__iicps__api_1ga69c3112248f1ef2bda7a07f7724bcde9" kind="function"><name>XIicPsSetTimeOut</name></member>
-    <member refid="group__iicps__api_1gabd4ba2aa2291af01df08fab20deb1549" kind="define"><name>XIICPS_RECOVERY_PULSES</name></member>
-    <member refid="group__iicps__api_1gad7f15172036947a34ada05eac06fda2f" kind="define"><name>XIICPS_RECOVERY_DELAY</name></member>
     <member refid="group__iicps__api_1ga9b64cc6e234b7aad71de09f29669fcb9" kind="function"><name>StubHandler</name></member>
   </compound>
   <compound refid="xiicps_8h" kind="file"><name>xiicps.h</name>
@@ -61,12 +61,16 @@
     <member refid="group__iicps__api_1ga209dc1a98260b84e648df54ba923fc81" kind="define"><name>XIICPS_EVENT_RX_OVR</name></member>
     <member refid="group__iicps__api_1ga809489609a6aabd5fd53c0242a565e59" kind="define"><name>XIICPS_EVENT_TX_OVR</name></member>
     <member refid="group__iicps__api_1gac593e16a56addd3ff460a40ff04e1ed4" kind="define"><name>XIICPS_EVENT_RX_UNF</name></member>
+    <member refid="group__iicps__api_1ga80e3362dd68172d429bb9361768d09e7" kind="define"><name>SENDING_ROLE</name></member>
+    <member refid="group__iicps__api_1ga9cfa5c76753b0658954c2c3dfec95d40" kind="define"><name>RECVING_ROLE</name></member>
+    <member refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" kind="function"><name>XIicPs_LookupConfig</name></member>
     <member refid="group__iicps__api_1gae97ad9c202953c7e49bfb56533c47079" kind="function"><name>XIicPs_CfgInitialize</name></member>
     <member refid="group__iicps__api_1ga3eaa694ecd774beca05bf79c1f9df6c0" kind="function"><name>XIicPs_Abort</name></member>
     <member refid="group__iicps__api_1ga1169a92eb8594d6f038816b5740916f7" kind="function"><name>XIicPs_Reset</name></member>
     <member refid="group__iicps__api_1ga5b67ad96b8c40bdd47c2c2f8a57f170c" kind="function"><name>XIicPs_BusIsBusy</name></member>
     <member refid="group__iicps__api_1gacfb0d8f18f8105db7708669ddb186e19" kind="function"><name>TransmitFifoFill</name></member>
     <member refid="group__iicps__api_1gaf2c308a0247b1db734a997c01c75c282" kind="function"><name>XIicPs_BusRecovery</name></member>
+    <member refid="group__iicps__api_1gab2581047e7d5607fe96fe0dac9673527" kind="function"><name>XIicPs_SetStatusHandler</name></member>
     <member refid="group__iicps__api_1ga3027c1eb6ece3193a978a2da8e06c011" kind="function"><name>XIicPs_MasterSend</name></member>
     <member refid="group__iicps__api_1ga4817f45c28341cea4ab8960dc1203acb" kind="function"><name>XIicPs_MasterRecv</name></member>
     <member refid="group__iicps__api_1ga71584f1a7e675cde41cfd9d1bd4320b4" kind="function"><name>XIicPs_MasterSendPolled</name></member>
@@ -82,23 +86,18 @@
     <member refid="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" kind="function"><name>XIicPs_SlaveInterruptHandler</name></member>
     <member refid="group__iicps__api_1ga6767d795533c56b3bc6ad08354c3acb1" kind="function"><name>XIicPsSclHold</name></member>
     <member refid="group__iicps__api_1ga69c3112248f1ef2bda7a07f7724bcde9" kind="function"><name>XIicPsSetTimeOut</name></member>
+    <member refid="group__iicps__api_1ga6f9db7651cd6ee0232dc9fdaca3f976a" kind="function"><name>XIicPs_SelfTest</name></member>
     <member refid="group__iicps__api_1gaec1dc5be2be8a7394263cfe56af976c5" kind="function"><name>XIicPs_SetOptions</name></member>
     <member refid="group__iicps__api_1ga87cbf2622a9c6ad66b18d4c3f9575a76" kind="function"><name>XIicPs_ClearOptions</name></member>
     <member refid="group__iicps__api_1ga20964e35a74f4e16f90e78510c9b4337" kind="function"><name>XIicPs_GetOptions</name></member>
     <member refid="group__iicps__api_1gafb24cfdacf6cf28d80126862dc1cfbe5" kind="function"><name>XIicPs_SetSClk</name></member>
     <member refid="group__iicps__api_1ga9f2d2d3d11c2c9125a5bc8a0d95593cb" kind="function"><name>XIicPs_GetSClk</name></member>
-    <member refid="group__iicps__api_1ga27348268a3738fea6e82f6ba0845a11b" kind="define"><name>XIICPS_H</name></member>
-    <member refid="group__iicps__api_1ga80e3362dd68172d429bb9361768d09e7" kind="define"><name>SENDING_ROLE</name></member>
-    <member refid="group__iicps__api_1ga9cfa5c76753b0658954c2c3dfec95d40" kind="define"><name>RECVING_ROLE</name></member>
     <member refid="group__iicps__api_1ga6f509d74539ec1fa9580312e520ce0b8" kind="define"><name>XIICPS_MAX_TRANSFER_SIZE</name></member>
     <member refid="group__iicps__api_1ga479fe9cf74b161f574917ec20852ad1c" kind="define"><name>XIicPs_SendByte</name></member>
     <member refid="group__iicps__api_1ga432020341d6b2c06bba8a084df9b5075" kind="define"><name>XIicPs_RecvByte</name></member>
     <member refid="group__iicps__api_1gad5b508fb2987b4bf23a840389450deef" kind="typedef"><name>XIicPs_IntrHandler</name></member>
     <member refid="group__iicps__api_1ga549d334ca8efcb3b3152a86807dea92d" kind="variable"><name>XIicPs_ConfigTable</name></member>
     <member refid="group__iicps__api_1ga869201c39904d0d42db6128cc3b025b6" kind="function"><name>XIicPs_RxDataValidStatus</name></member>
-    <member refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" kind="function"><name>XIicPs_LookupConfig</name></member>
-    <member refid="group__iicps__api_1gab2581047e7d5607fe96fe0dac9673527" kind="function"><name>XIicPs_SetStatusHandler</name></member>
-    <member refid="group__iicps__api_1ga6f9db7651cd6ee0232dc9fdaca3f976a" kind="function"><name>XIicPs_SelfTest</name></member>
   </compound>
   <compound refid="xiicps__eeprom__intr__example_8c" kind="file"><name>xiicps_eeprom_intr_example.c</name>
     <member refid="xiicps__eeprom__intr__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
@@ -201,7 +200,6 @@
     <member refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kind="define"><name>XIICPS_IXR_COMP_MASK</name></member>
     <member refid="group__iicps__api_1ga98fd97807996f571433d9235dc0b0ca4" kind="define"><name>XIICPS_IXR_DEFAULT_MASK</name></member>
     <member refid="group__iicps__api_1ga8e324637da3483d518d499b7257c7631" kind="define"><name>XIICPS_IXR_ALL_INTR_MASK</name></member>
-    <member refid="group__iicps__api_1ga985ef58212940c666ada245d3e83a17d" kind="define"><name>XIICPS_HW_H</name></member>
     <member refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kind="define"><name>XIicPs_ReadReg</name></member>
     <member refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kind="define"><name>XIicPs_WriteReg</name></member>
     <member refid="group__iicps__api_1gab8f0f78d7389924d17d2b7b49f622cf1" kind="define"><name>XIicPs_ReadIER</name></member>
@@ -213,11 +211,11 @@
     <member refid="group__iicps__api_1gab2581047e7d5607fe96fe0dac9673527" kind="function"><name>XIicPs_SetStatusHandler</name></member>
   </compound>
   <compound refid="xiicps__intr__master__example_8c" kind="file"><name>xiicps_intr_master_example.c</name>
-    <member refid="xiicps__intr__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__intr__master__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
     <member refid="xiicps__intr__master__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
     <member refid="xiicps__intr__master__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
     <member refid="xiicps__intr__master__example_8c_1a9fbae19f5a536db7c07329420e11d611" kind="define"><name>NUMBER_OF_SIZES</name></member>
+    <member refid="xiicps__intr__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__intr__master__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
     <member refid="xiicps__intr__master__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xiicps__intr__master__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
@@ -267,6 +265,13 @@
     <member refid="group__iicps__api_1ga15f2e8071ff8d8e1ec1dc56d29ab202b" kind="function"><name>XIicPs_DisableSlaveMonitor</name></member>
     <member refid="group__iicps__api_1gad64f0389aa694ecf21ca8a39e44cf13f" kind="function"><name>XIicPs_MasterInterruptHandler</name></member>
     <member refid="group__iicps__api_1ga15d5d2b9d158b3b550f7202d17bb8831" kind="define"><name>TX_MAX_LOOPCNT</name></member>
+    <member refid="group__iicps__api_1ga2ac305a90cf51d95f863e2c0ea19cb71" kind="function"><name>XIicPs_MasterSendRemainingData</name></member>
+    <member refid="group__iicps__api_1ga661b069cc7d5a571060fec7aaba5039d" kind="function"><name>XIicPs_MasterWaitSendComplete</name></member>
+    <member refid="group__iicps__api_1ga3169bb0e484d98a9dc3d6ba27dd50db5" kind="function"><name>XIicPs_ClearHold</name></member>
+    <member refid="group__iicps__api_1ga8b6d4e493ed1150f9eec4fed799874bf" kind="function"><name>XIicPs_ProcessMasterRecvComplete</name></member>
+    <member refid="group__iicps__api_1ga7ba0610c184e3c11f9d5b581e94e65c7" kind="function"><name>XIicPs_ProcessMasterNackEvent</name></member>
+    <member refid="group__iicps__api_1ga08dbe8c0a61a276253d0a559d85f5d75" kind="function"><name>XIicPs_ProcessMasterStatusEvents</name></member>
+    <member refid="group__iicps__api_1ga3ab784eadc09e2e2b3e62a5002b4215d" kind="function"><name>XIicPs_ProcessMasterErrorEvents</name></member>
   </compound>
   <compound refid="xiicps__options_8c" kind="file"><name>xiicps_options.c</name>
     <member refid="group__iicps__api_1gaec1dc5be2be8a7394263cfe56af976c5" kind="function"><name>XIicPs_SetOptions</name></member>
@@ -276,22 +281,23 @@
     <member refid="group__iicps__api_1ga9f2d2d3d11c2c9125a5bc8a0d95593cb" kind="function"><name>XIicPs_GetSClk</name></member>
     <member refid="group__iicps__api_1ga7835042cdace3ed1433a81d373d92da7" kind="define"><name>XIICPS_NUM_OPTIONS</name></member>
     <member refid="group__iicps__api_1gabc5db3dcd7184b5e18386c2eec6c9140" kind="variable"><name>OptionsTable</name></member>
+    <member refid="group__iicps__api_1ga3c542148d16806fd3b9a3c3407f94544" kind="function"><name>XIicPs_FindBestDivisors</name></member>
   </compound>
   <compound refid="xiicps__polled__master__example_8c" kind="file"><name>xiicps_polled_master_example.c</name>
-    <member refid="xiicps__polled__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
-    <member refid="xiicps__polled__master__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
-    <member refid="xiicps__polled__master__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
-    <member refid="xiicps__polled__master__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xiicps__polled__master__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
-    <member refid="xiicps__polled__master__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
-    <member refid="xiicps__polled__master__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
-    <member refid="xiicps__polled__master__example_8c_1aa91a208e2847369ac37702ff02d958b2" kind="function"><name>IicPsMasterPolledExample</name></member>
-    <member refid="xiicps__polled__master__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="group__xiicps__polled__master__example_1gab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="group__xiicps__polled__master__example_1gac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="group__xiicps__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" kind="function"><name>IicPsMasterPolledExample</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xiicps__polled__multi__master__example_8c" kind="file"><name>xiicps_polled_multi_master_example.c</name>
-    <member refid="xiicps__polled__multi__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__polled__multi__master__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
     <member refid="xiicps__polled__multi__master__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="xiicps__polled__multi__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__polled__multi__master__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
     <member refid="xiicps__polled__multi__master__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
     <member refid="xiicps__polled__multi__master__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
@@ -310,7 +316,6 @@
     <member refid="xiicps__polled__slave__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xiicps__repeated__start__example_8c" kind="file"><name>xiicps_repeated_start_example.c</name>
-    <member refid="xiicps__repeated__start__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a275f687a50cfdd64445e0b0c78ed8b7c" kind="define"><name>MUX_ADDR</name></member>
@@ -321,6 +326,7 @@
     <member refid="xiicps__repeated__start__example_8c_1a3ca349d87dc7e5625f9d4ac98e0863dd" kind="define"><name>PAGE_SIZE_32</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kind="define"><name>PAGE_SIZE</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a7af37e61ba165b5b6efedb92324f40b4" kind="define"><name>PAGE_SIZE_64</name></member>
+    <member refid="xiicps__repeated__start__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a96932befbe81496318633eab6e623adb" kind="define"><name>EEPROM_START_ADDRESS</name></member>
     <member refid="xiicps__repeated__start__example_8c_1a4ae9146f0c09aa38be3493e20b7e3d73" kind="typedef"><name>AddressType</name></member>
     <member refid="xiicps__repeated__start__example_8c_1ac7db75e5429cd57006e6040fb7266c88" kind="variable"><name>IicInstance</name></member>
@@ -346,8 +352,8 @@
     <member refid="xiicps__repeated__start__example_8c_1a860601273ad41675f51bfc83ddcb7386" kind="function"><name>EepromReadData</name></member>
   </compound>
   <compound refid="xiicps__selftest_8c" kind="file"><name>xiicps_selftest.c</name>
-    <member refid="group__iicps__api_1ga1711ee48cbfe0d2c99cb7d14a52edaeb" kind="define"><name>REG_TEST_VALUE</name></member>
     <member refid="group__iicps__api_1ga6f9db7651cd6ee0232dc9fdaca3f976a" kind="function"><name>XIicPs_SelfTest</name></member>
+    <member refid="group__iicps__api_1ga1711ee48cbfe0d2c99cb7d14a52edaeb" kind="define"><name>REG_TEST_VALUE</name></member>
   </compound>
   <compound refid="xiicps__selftest__example_8c" kind="file"><name>xiicps_selftest_example.c</name>
     <member refid="xiicps__selftest__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
@@ -365,6 +371,9 @@
     <member refid="group__iicps__api_1ga5ca49d9131b13d66f58de0b5a23faea4" kind="function"><name>XIicPs_SlaveSendPolled</name></member>
     <member refid="group__iicps__api_1ga74b0af9e4395c8de724dc377e3504d0d" kind="function"><name>XIicPs_SlaveRecvPolled</name></member>
     <member refid="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" kind="function"><name>XIicPs_SlaveInterruptHandler</name></member>
+    <member refid="group__iicps__api_1gae6740aa29868cca3422c693077a19c0a" kind="function"><name>XIicPs_SlaveWaitForReadRequest</name></member>
+    <member refid="group__iicps__api_1gaeeff192df650177e2741daf030b1ad77" kind="function"><name>XIicPs_SlaveSendData</name></member>
+    <member refid="group__iicps__api_1ga1206897066bad2f46588f37613fc6294" kind="function"><name>XIicPs_WaitForSlaveSendComplete</name></member>
   </compound>
   <compound refid="xiicps__slave__monitor__example_8c" kind="file"><name>xiicps_slave_monitor_example.c</name>
     <member refid="xiicps__slave__monitor__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
@@ -385,9 +394,9 @@
     <member refid="xiicps__slave__monitor__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xiicps__smbus__intr__master__example_8c" kind="file"><name>xiicps_smbus_intr_master_example.c</name>
-    <member refid="xiicps__smbus__intr__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__smbus__intr__master__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
     <member refid="xiicps__smbus__intr__master__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="xiicps__smbus__intr__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__smbus__intr__master__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
     <member refid="xiicps__smbus__intr__master__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
     <member refid="xiicps__smbus__intr__master__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
@@ -404,9 +413,9 @@
     <member refid="xiicps__smbus__intr__master__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xiicps__smbus__intr__slave__example_8c" kind="file"><name>xiicps_smbus_intr_slave_example.c</name>
-    <member refid="xiicps__smbus__intr__slave__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__smbus__intr__slave__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
     <member refid="xiicps__smbus__intr__slave__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="xiicps__smbus__intr__slave__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__smbus__intr__slave__example_8c_1a6b20d41d6252e9871430c242cb1a56e7" kind="define"><name>BUFFER_SIZE</name></member>
     <member refid="xiicps__smbus__intr__slave__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
     <member refid="xiicps__smbus__intr__slave__example_8c_1afb9795baf2e9711c38b29b3d2a87057c" kind="variable"><name>SendBuffer</name></member>
@@ -424,24 +433,24 @@
     <member refid="xiicps__smbus__intr__slave__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xiicps__smbus__polled__master__example_8c" kind="file"><name>xiicps_smbus_polled_master_example.c</name>
-    <member refid="xiicps__smbus__polled__master__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a71142896a5a7f34825230c61ad69221a" kind="variable"><name>Cmd</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a0aba49284a0a043a8e1d7c93e07357c3" kind="variable"><name>RecvByteCount</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1aa91a208e2847369ac37702ff02d958b2" kind="function"><name>IicPsMasterPolledExample</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a3cc02a4c6ac84fe878754040e949f1e5" kind="function"><name>XIicPsSmbusPolledMasterWriteBlockData</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a1df049427145c4784d51ce31c1924cdf" kind="function"><name>XIicPsSmbusPolledMasterReadBlockData</name></member>
-    <member refid="xiicps__smbus__polled__master__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1gab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1gac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga71142896a5a7f34825230c61ad69221a" kind="variable"><name>Cmd</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga0aba49284a0a043a8e1d7c93e07357c3" kind="variable"><name>RecvByteCount</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" kind="function"><name>IicPsMasterPolledExample</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga3cc02a4c6ac84fe878754040e949f1e5" kind="function"><name>XIicPsSmbusPolledMasterWriteBlockData</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga1df049427145c4784d51ce31c1924cdf" kind="function"><name>XIicPsSmbusPolledMasterReadBlockData</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xiicps__smbus__polled__slave__example_8c" kind="file"><name>xiicps_smbus_polled_slave_example.c</name>
-    <member refid="xiicps__smbus__polled__slave__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__smbus__polled__slave__example_8c_1a709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
     <member refid="xiicps__smbus__polled__slave__example_8c_1a34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="xiicps__smbus__polled__slave__example_8c_1ab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
     <member refid="xiicps__smbus__polled__slave__example_8c_1a6b20d41d6252e9871430c242cb1a56e7" kind="define"><name>BUFFER_SIZE</name></member>
     <member refid="xiicps__smbus__polled__slave__example_8c_1ac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
     <member refid="xiicps__smbus__polled__slave__example_8c_1afb9795baf2e9711c38b29b3d2a87057c" kind="variable"><name>SendBuffer</name></member>
@@ -465,6 +474,8 @@
   <compound refid="xiicps__xfer_8h" kind="file"><name>xiicps_xfer.h</name>
   </compound>
   <compound refid="group__iicps__api" kind="group"><name>iicps_api</name>
+    <member refid="group__iicps__api_1gabd4ba2aa2291af01df08fab20deb1549" kind="define"><name>XIICPS_RECOVERY_PULSES</name></member>
+    <member refid="group__iicps__api_1gad7f15172036947a34ada05eac06fda2f" kind="define"><name>XIICPS_RECOVERY_DELAY</name></member>
     <member refid="group__iicps__api_1gabaf93558635651b401ca9404cc777d73" kind="define"><name>XIICPS_7_BIT_ADDR_OPTION</name></member>
     <member refid="group__iicps__api_1ga4057e55c42ab0d06b32c55d5e67e0029" kind="define"><name>XIICPS_10_BIT_ADDR_OPTION</name></member>
     <member refid="group__iicps__api_1ga7748c81bca2cc231cba3fa780530d95a" kind="define"><name>XIICPS_SLAVE_MON_OPTION</name></member>
@@ -479,12 +490,16 @@
     <member refid="group__iicps__api_1ga209dc1a98260b84e648df54ba923fc81" kind="define"><name>XIICPS_EVENT_RX_OVR</name></member>
     <member refid="group__iicps__api_1ga809489609a6aabd5fd53c0242a565e59" kind="define"><name>XIICPS_EVENT_TX_OVR</name></member>
     <member refid="group__iicps__api_1gac593e16a56addd3ff460a40ff04e1ed4" kind="define"><name>XIICPS_EVENT_RX_UNF</name></member>
+    <member refid="group__iicps__api_1ga80e3362dd68172d429bb9361768d09e7" kind="define"><name>SENDING_ROLE</name></member>
+    <member refid="group__iicps__api_1ga9cfa5c76753b0658954c2c3dfec95d40" kind="define"><name>RECVING_ROLE</name></member>
+    <member refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" kind="function"><name>XIicPs_LookupConfig</name></member>
     <member refid="group__iicps__api_1gae97ad9c202953c7e49bfb56533c47079" kind="function"><name>XIicPs_CfgInitialize</name></member>
     <member refid="group__iicps__api_1ga5b67ad96b8c40bdd47c2c2f8a57f170c" kind="function"><name>XIicPs_BusIsBusy</name></member>
     <member refid="group__iicps__api_1ga3eaa694ecd774beca05bf79c1f9df6c0" kind="function"><name>XIicPs_Abort</name></member>
     <member refid="group__iicps__api_1gacfb0d8f18f8105db7708669ddb186e19" kind="function"><name>TransmitFifoFill</name></member>
     <member refid="group__iicps__api_1gaf2c308a0247b1db734a997c01c75c282" kind="function"><name>XIicPs_BusRecovery</name></member>
     <member refid="group__iicps__api_1ga1169a92eb8594d6f038816b5740916f7" kind="function"><name>XIicPs_Reset</name></member>
+    <member refid="group__iicps__api_1gab2581047e7d5607fe96fe0dac9673527" kind="function"><name>XIicPs_SetStatusHandler</name></member>
     <member refid="group__iicps__api_1ga3027c1eb6ece3193a978a2da8e06c011" kind="function"><name>XIicPs_MasterSend</name></member>
     <member refid="group__iicps__api_1ga4817f45c28341cea4ab8960dc1203acb" kind="function"><name>XIicPs_MasterRecv</name></member>
     <member refid="group__iicps__api_1ga71584f1a7e675cde41cfd9d1bd4320b4" kind="function"><name>XIicPs_MasterSendPolled</name></member>
@@ -500,6 +515,7 @@
     <member refid="group__iicps__api_1ga5ca49d9131b13d66f58de0b5a23faea4" kind="function"><name>XIicPs_SlaveSendPolled</name></member>
     <member refid="group__iicps__api_1ga74b0af9e4395c8de724dc377e3504d0d" kind="function"><name>XIicPs_SlaveRecvPolled</name></member>
     <member refid="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" kind="function"><name>XIicPs_SlaveInterruptHandler</name></member>
+    <member refid="group__iicps__api_1ga6f9db7651cd6ee0232dc9fdaca3f976a" kind="function"><name>XIicPs_SelfTest</name></member>
     <member refid="group__iicps__api_1gaec1dc5be2be8a7394263cfe56af976c5" kind="function"><name>XIicPs_SetOptions</name></member>
     <member refid="group__iicps__api_1ga87cbf2622a9c6ad66b18d4c3f9575a76" kind="function"><name>XIicPs_ClearOptions</name></member>
     <member refid="group__iicps__api_1ga20964e35a74f4e16f90e78510c9b4337" kind="function"><name>XIicPs_GetOptions</name></member>
@@ -533,26 +549,28 @@
     <member refid="group__iicps__api_1gabc5db3dcd7184b5e18386c2eec6c9140" kind="variable"><name>OptionsTable</name></member>
     <member refid="group__iicps__api_1ga9b64cc6e234b7aad71de09f29669fcb9" kind="function"><name>StubHandler</name></member>
     <member refid="group__iicps__api_1ga869201c39904d0d42db6128cc3b025b6" kind="function"><name>XIicPs_RxDataValidStatus</name></member>
-    <member refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" kind="function"><name>XIicPs_LookupConfig</name></member>
-    <member refid="group__iicps__api_1gab2581047e7d5607fe96fe0dac9673527" kind="function"><name>XIicPs_SetStatusHandler</name></member>
-    <member refid="group__iicps__api_1ga6f9db7651cd6ee0232dc9fdaca3f976a" kind="function"><name>XIicPs_SelfTest</name></member>
     <member refid="group__iicps__api_1ga935187507d0449da043070029b9b7d25" kind="function"><name>XIicPs_ResetHw</name></member>
     <member refid="group__iicps__api_1gab4873151354658814e3e28681540a009" kind="function"><name>XIicPs_MasterRead</name></member>
+    <member refid="group__iicps__api_1ga2ac305a90cf51d95f863e2c0ea19cb71" kind="function"><name>XIicPs_MasterSendRemainingData</name></member>
+    <member refid="group__iicps__api_1ga661b069cc7d5a571060fec7aaba5039d" kind="function"><name>XIicPs_MasterWaitSendComplete</name></member>
+    <member refid="group__iicps__api_1ga3169bb0e484d98a9dc3d6ba27dd50db5" kind="function"><name>XIicPs_ClearHold</name></member>
+    <member refid="group__iicps__api_1ga8b6d4e493ed1150f9eec4fed799874bf" kind="function"><name>XIicPs_ProcessMasterRecvComplete</name></member>
+    <member refid="group__iicps__api_1ga7ba0610c184e3c11f9d5b581e94e65c7" kind="function"><name>XIicPs_ProcessMasterNackEvent</name></member>
+    <member refid="group__iicps__api_1ga08dbe8c0a61a276253d0a559d85f5d75" kind="function"><name>XIicPs_ProcessMasterStatusEvents</name></member>
+    <member refid="group__iicps__api_1ga3ab784eadc09e2e2b3e62a5002b4215d" kind="function"><name>XIicPs_ProcessMasterErrorEvents</name></member>
+    <member refid="group__iicps__api_1ga3c542148d16806fd3b9a3c3407f94544" kind="function"><name>XIicPs_FindBestDivisors</name></member>
+    <member refid="group__iicps__api_1gae6740aa29868cca3422c693077a19c0a" kind="function"><name>XIicPs_SlaveWaitForReadRequest</name></member>
+    <member refid="group__iicps__api_1gaeeff192df650177e2741daf030b1ad77" kind="function"><name>XIicPs_SlaveSendData</name></member>
+    <member refid="group__iicps__api_1ga1206897066bad2f46588f37613fc6294" kind="function"><name>XIicPs_WaitForSlaveSendComplete</name></member>
     <member refid="group__iicps__api_1gab4edada5e6ef2c6e9a986489a54604b3" kind="function"><name>XIicPs_SetupMaster</name></member>
     <member refid="group__iicps__api_1gaf87bf18c36aebe9840bae9102c10572b" kind="function"><name>MasterSendData</name></member>
     <member refid="group__iicps__api_1gaec237d71613a20b823bb60d522fe0a4b" kind="function"><name>XIicPs_MasterPolledRead</name></member>
     <member refid="group__iicps__api_1gae27f80d47ab655d8861b176ce0b57916" kind="function"><name>XIicPs_MasterIntrSend</name></member>
     <member refid="group__iicps__api_1gabaf5959c99fcfbbe368fa0a670347c69" kind="function"><name>XIicPs_MasterIntrRead</name></member>
     <member refid="group__iicps__api_1ga15d33ac37a7293a75df5ac07a2eb4e37" kind="function"><name>SlaveRecvData</name></member>
-    <member refid="group__iicps__api_1gabd4ba2aa2291af01df08fab20deb1549" kind="define"><name>XIICPS_RECOVERY_PULSES</name></member>
-    <member refid="group__iicps__api_1gad7f15172036947a34ada05eac06fda2f" kind="define"><name>XIICPS_RECOVERY_DELAY</name></member>
-    <member refid="group__iicps__api_1ga27348268a3738fea6e82f6ba0845a11b" kind="define"><name>XIICPS_H</name></member>
-    <member refid="group__iicps__api_1ga80e3362dd68172d429bb9361768d09e7" kind="define"><name>SENDING_ROLE</name></member>
-    <member refid="group__iicps__api_1ga9cfa5c76753b0658954c2c3dfec95d40" kind="define"><name>RECVING_ROLE</name></member>
     <member refid="group__iicps__api_1ga6f509d74539ec1fa9580312e520ce0b8" kind="define"><name>XIICPS_MAX_TRANSFER_SIZE</name></member>
     <member refid="group__iicps__api_1ga479fe9cf74b161f574917ec20852ad1c" kind="define"><name>XIicPs_SendByte</name></member>
     <member refid="group__iicps__api_1ga432020341d6b2c06bba8a084df9b5075" kind="define"><name>XIicPs_RecvByte</name></member>
-    <member refid="group__iicps__api_1ga985ef58212940c666ada245d3e83a17d" kind="define"><name>XIICPS_HW_H</name></member>
     <member refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kind="define"><name>XIicPs_ReadReg</name></member>
     <member refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kind="define"><name>XIicPs_WriteReg</name></member>
     <member refid="group__iicps__api_1gab8f0f78d7389924d17d2b7b49f622cf1" kind="define"><name>XIicPs_ReadIER</name></member>
@@ -563,6 +581,31 @@
     <member refid="group__iicps__api_1ga7835042cdace3ed1433a81d373d92da7" kind="define"><name>XIICPS_NUM_OPTIONS</name></member>
     <member refid="group__iicps__api_1ga1711ee48cbfe0d2c99cb7d14a52edaeb" kind="define"><name>REG_TEST_VALUE</name></member>
   </compound>
+  <compound refid="group__xiicps__polled__master__example" kind="group"><name>xiicps_polled_master_example</name>
+    <member refid="group__xiicps__polled__master__example_1ga709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="group__xiicps__polled__master__example_1gac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xiicps__polled__master__example_1gab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
+    <member refid="group__xiicps__polled__master__example_1ga0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+  </compound>
+  <compound refid="group__xiicps__smbus__polled__master__example" kind="group"><name>xiicps_smbus_polled_master_example</name>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga709b03962769714690547d1d17268708" kind="define"><name>IIC_SLAVE_ADDR</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga34f6b11bc914bc005cf3f302a394c026" kind="define"><name>IIC_SCLK_RATE</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1gac16e1350ea077cddfa26851a6e7ead7c" kind="variable"><name>Iic</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga71142896a5a7f34825230c61ad69221a" kind="variable"><name>Cmd</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga0aba49284a0a043a8e1d7c93e07357c3" kind="variable"><name>RecvByteCount</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1gaa91a208e2847369ac37702ff02d958b2" kind="function"><name>IicPsMasterPolledExample</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga3cc02a4c6ac84fe878754040e949f1e5" kind="function"><name>XIicPsSmbusPolledMasterWriteBlockData</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga1df049427145c4784d51ce31c1924cdf" kind="function"><name>XIicPsSmbusPolledMasterReadBlockData</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1gab8a417bcd1481342d0ff31c50cf97ab6" kind="define"><name>XIICPS_BASEADDRESS</name></member>
+    <member refid="group__xiicps__smbus__polled__master__example_1ga0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+  </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_4a3808a55c1d1aeb350d5f56def062fc" kind="dir"><name>examples</name>
@@ -570,7 +613,5 @@
   <compound refid="dir_92b4cd6e551554114d598f1dd1ae4f56" kind="dir"><name>iicps</name>
   </compound>
   <compound refid="dir_31ff3da3d4b4d13d849bb74b303b6b3d" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

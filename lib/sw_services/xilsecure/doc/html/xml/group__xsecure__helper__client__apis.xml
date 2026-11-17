@@ -65,7 +65,7 @@
 <para><itemizedlist>
 <listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_UpdateCryptoMask API and returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="150" bodyend="177"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="151" bodyend="178"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__client__apis_1ga1eb29d664fde12ed80f9c89c37345a5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -115,8 +115,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="64" bodyend="69"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" compoundref="net_2xsecure__plat__defs_8h" startline="115">XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="65" bodyend="70"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" compoundref="net_2xsecure__plat__defs_8h" startline="116">XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__client__apis_1gae1c3a0850bbe7d480db69b6c18d57d01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -166,8 +166,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="85" bodyend="90"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" compoundref="net_2xsecure__plat__defs_8h" startline="116">XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="86" bodyend="91"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" compoundref="net_2xsecure__plat__defs_8h" startline="117">XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__client__apis_1gaf7393da6128bf378cf635d7f851e18ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -217,8 +217,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="106" bodyend="111"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" compoundref="net_2xsecure__plat__defs_8h" startline="117">XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="107" bodyend="112"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" compoundref="net_2xsecure__plat__defs_8h" startline="118">XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__client__apis_1gae60f390422826e0edcd5c4aada5a8953" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -268,8 +268,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="127" bodyend="132"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" compoundref="net_2xsecure__plat__defs_8h" startline="118">XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="128" bodyend="133"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" compoundref="net_2xsecure__plat__defs_8h" startline="119">XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__client__apis_1ga34fb190dff4e61e8f39544f732a94edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -310,11 +310,11 @@
 <para><itemizedlist>
 <listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_KeyUnwrapIpi API and returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="193" bodyend="218"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" compoundref="net_2xsecure__plat__defs_8h" startline="126">XSECURE_API_KEY_UNWRAP</references>
-        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
-        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="194" bodyend="219"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" compoundref="net_2xsecure__plat__defs_8h" startline="127">XSECURE_API_KEY_UNWRAP</references>
+        <references refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" compoundref="xsecure__mailbox_8c" startline="84" endline="127">XSecure_ProcessMailbox</references>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="234" endline="387">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__client__apis_1ga9ab0a956262afa96bfebba076415aa8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -344,9 +344,9 @@
 <para><itemizedlist>
 <listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDestroyKeyInUse API and returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="233" bodyend="254"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1f9dbb2720c7e9bcf7e1a7ca6129ac8f" compoundref="net_2xsecure__plat__defs_8h" startline="129">XSECURE_API_RSA_RELEASE_KEY</references>
-        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="234" bodyend="255"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1f9dbb2720c7e9bcf7e1a7ca6129ac8f" compoundref="net_2xsecure__plat__defs_8h" startline="130">XSECURE_API_RSA_RELEASE_KEY</references>
+        <references refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" compoundref="xsecure__mailbox_8c" startline="84" endline="127">XSecure_ProcessMailbox</references>
       </memberdef>
       </sectiondef>
     <briefdescription>

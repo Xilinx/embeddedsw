@@ -12,146 +12,146 @@
     <includedby refid="ox08b40_8c" local="yes">ox08b40.c</includedby>
     <includedby refid="isi_8c" local="yes">isi.c</includedby>
     <incdepgraph>
-      <node id="5831">
+      <node id="5868">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5865">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5866" relation="include">
+        </childnode>
+        <childnode refid="5869" relation="include">
+        </childnode>
+        <childnode refid="5870" relation="include">
+        </childnode>
+      </node>
+      <node id="5870">
+        <label>stddef.h</label>
+      </node>
+      <node id="5869">
+        <label>limits.h</label>
+      </node>
+      <node id="5872">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="5827">
-        <label>stdlib.h</label>
-      </node>
-      <node id="5829">
-        <label>stddef.h</label>
-      </node>
-      <node id="5823">
-        <label>isi_priv.h</label>
-        <link refid="isi_priv.h"/>
-        <childnode refid="5824" relation="include">
+      <node id="5877">
+        <label>isi_metadata.h</label>
+        <childnode refid="5865" relation="include">
         </childnode>
-        <childnode refid="5830" relation="include">
+        <childnode refid="5874" relation="include">
         </childnode>
       </node>
-      <node id="5828">
-        <label>limits.h</label>
-      </node>
-      <node id="5832">
-        <label>buf_defs.h</label>
-        <childnode refid="5824" relation="include">
+      <node id="5866">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5867" relation="include">
+        </childnode>
+        <childnode refid="5868" relation="include">
         </childnode>
       </node>
-      <node id="5833">
+      <node id="5874">
         <label>isi_vvsensor.h</label>
         <link refid="isi__vvsensor_8h"/>
-        <childnode refid="5834" relation="include">
+        <childnode refid="5875" relation="include">
         </childnode>
       </node>
-      <node id="5830">
-        <label>isi.h</label>
-        <link refid="isi_8h"/>
-        <childnode refid="5824" relation="include">
-        </childnode>
-        <childnode refid="5831" relation="include">
-        </childnode>
-        <childnode refid="5832" relation="include">
-        </childnode>
-        <childnode refid="5833" relation="include">
-        </childnode>
-        <childnode refid="5835" relation="include">
-        </childnode>
-        <childnode refid="5836" relation="include">
-        </childnode>
-      </node>
-      <node id="5836">
-        <label>isi_metadata.h</label>
-        <childnode refid="5824" relation="include">
-        </childnode>
-        <childnode refid="5833" relation="include">
-        </childnode>
-      </node>
-      <node id="5835">
-        <label>isi_otp.h</label>
-        <childnode refid="5824" relation="include">
-        </childnode>
-        <childnode refid="5834" relation="include">
-        </childnode>
-      </node>
-      <node id="5834">
+      <node id="5875">
         <label>isi_common.h</label>
         <link refid="isi__common_8h"/>
       </node>
-      <node id="5824">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="5825" relation="include">
+      <node id="5864">
+        <label>isi_priv.h</label>
+        <link refid="isi_priv.h"/>
+        <childnode refid="5865" relation="include">
         </childnode>
-        <childnode refid="5828" relation="include">
-        </childnode>
-        <childnode refid="5829" relation="include">
+        <childnode refid="5871" relation="include">
         </childnode>
       </node>
-      <node id="5826">
+      <node id="5876">
+        <label>isi_otp.h</label>
+        <childnode refid="5865" relation="include">
+        </childnode>
+        <childnode refid="5875" relation="include">
+        </childnode>
+      </node>
+      <node id="5871">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="5865" relation="include">
+        </childnode>
+        <childnode refid="5872" relation="include">
+        </childnode>
+        <childnode refid="5873" relation="include">
+        </childnode>
+        <childnode refid="5874" relation="include">
+        </childnode>
+        <childnode refid="5876" relation="include">
+        </childnode>
+        <childnode refid="5877" relation="include">
+        </childnode>
+      </node>
+      <node id="5873">
+        <label>buf_defs.h</label>
+        <childnode refid="5865" relation="include">
+        </childnode>
+      </node>
+      <node id="5867">
         <label>stdio.h</label>
-      </node>
-      <node id="5825">
-        <label>linux_compat.h</label>
-        <link refid="linux__compat_8h"/>
-        <childnode refid="5826" relation="include">
-        </childnode>
-        <childnode refid="5827" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="5842">
+      <node id="5884">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="5885" relation="include">
+        </childnode>
+      </node>
+      <node id="5879">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5880" relation="include">
+        </childnode>
+        <childnode refid="5881" relation="include">
+        </childnode>
+      </node>
+      <node id="5883">
         <label>ox05b1s.c</label>
       </node>
-      <node id="5838">
-        <label>ox03f10_priv.h</label>
-        <childnode refid="5839" relation="include">
-        </childnode>
-        <childnode refid="5840" relation="include">
-        </childnode>
-      </node>
-      <node id="5841">
+      <node id="5882">
         <label>ox05b1s_priv.h</label>
         <link refid="ox05b1s__priv_8h"/>
-        <childnode refid="5842" relation="include">
+        <childnode refid="5883" relation="include">
         </childnode>
       </node>
-      <node id="5843">
-        <label>ox08b40_priv.h</label>
-        <childnode refid="5844" relation="include">
-        </childnode>
-      </node>
-      <node id="5837">
+      <node id="5878">
         <label>isi_priv.h</label>
         <link refid="isi_priv.h"/>
-        <childnode refid="5838" relation="include">
+        <childnode refid="5879" relation="include">
         </childnode>
-        <childnode refid="5841" relation="include">
+        <childnode refid="5882" relation="include">
         </childnode>
-        <childnode refid="5843" relation="include">
+        <childnode refid="5884" relation="include">
         </childnode>
-        <childnode refid="5840" relation="include">
+        <childnode refid="5881" relation="include">
         </childnode>
-        <childnode refid="5842" relation="include">
+        <childnode refid="5883" relation="include">
         </childnode>
-        <childnode refid="5844" relation="include">
+        <childnode refid="5885" relation="include">
         </childnode>
-        <childnode refid="5845" relation="include">
+        <childnode refid="5886" relation="include">
         </childnode>
       </node>
-      <node id="5844">
-        <label>ox08b40.c</label>
-      </node>
-      <node id="5840">
-        <label>ox03f10.c</label>
-      </node>
-      <node id="5845">
+      <node id="5886">
         <label>isi.c</label>
         <link refid="isi_8c"/>
       </node>
-      <node id="5839">
+      <node id="5885">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5880">
         <label>ms_fw.c</label>
+      </node>
+      <node id="5881">
+        <label>ox03f10.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_isi_sensor_context__s" prot="public">IsiSensorContext_s</innerclass>
@@ -167,7 +167,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="53" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="53" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -218,6 +218,6 @@
 <codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ISI_PRIV_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h"/>
   </compounddef>
 </doxygen>

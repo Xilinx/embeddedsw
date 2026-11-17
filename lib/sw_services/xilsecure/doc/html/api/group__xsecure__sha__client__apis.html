@@ -115,6 +115,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga915e1f4bbd0281a9944ca07d137564d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__client__apis.html#ga915e1f4bbd0281a9944ca07d137564d2">XSECURE_SHA_UPDATE_CONTINUE_SHIFT</a>&#160;&#160;&#160;(31U)</td></tr>
 <tr class="memdesc:ga915e1f4bbd0281a9944ca07d137564d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA - Update continue shift.  <a href="#ga915e1f4bbd0281a9944ca07d137564d2">More...</a><br/></td></tr>
 <tr class="separator:ga915e1f4bbd0281a9944ca07d137564d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe9d5d1d75d7379d6d94c7cc96346aa3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__sha__client__apis.html#gabe9d5d1d75d7379d6d94c7cc96346aa3">XSECURE_SHA_MAX_DATA_SIZE</a>&#160;&#160;&#160;(((u32)1U &lt;&lt; XSECURE_SHA_FIRST_PACKET_SHIFT) - 1U)</td></tr>
+<tr class="memdesc:gabe9d5d1d75d7379d6d94c7cc96346aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA - Max data size per request.  <a href="#gabe9d5d1d75d7379d6d94c7cc96346aa3">More...</a><br/></td></tr>
+<tr class="separator:gabe9d5d1d75d7379d6d94c7cc96346aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -155,6 +158,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SHA - First packet shift. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__sha__client__apis.html#ga08e726488222ad0ba91e822d90e97e1e">XSecure_Sha3Digest()</a>, and <a class="el" href="group__xsecure__sha__client__apis.html#ga66d0db1bbf860bc2247297ce63f398a2">XSecure_Sha3Update()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gabe9d5d1d75d7379d6d94c7cc96346aa3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SHA_MAX_DATA_SIZE&#160;&#160;&#160;(((u32)1U &lt;&lt; XSECURE_SHA_FIRST_PACKET_SHIFT) - 1U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHA - Max data size per request. </p>
 
 <p>Referenced by <a class="el" href="group__xsecure__sha__client__apis.html#ga08e726488222ad0ba91e822d90e97e1e">XSecure_Sha3Digest()</a>, and <a class="el" href="group__xsecure__sha__client__apis.html#ga66d0db1bbf860bc2247297ce63f398a2">XSecure_Sha3Update()</a>.</p>
 
@@ -245,7 +264,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
     <tr><td class="paramname">InDataAddr</td><td>Address of the input buffer where the input data is stored </td></tr>
     <tr><td class="paramname">OutDataAddr</td><td>Address of the output buffer to store the output hash </td></tr>
-    <tr><td class="paramname">Size</td><td>Size of the data to be updated to SHA3 engine</td></tr>
+    <tr><td class="paramname">Size</td><td>Size of the data to be updated to SHA3 engine. Must not exceed XSECURE_SHA_MAX_DATA_SIZE as Size shares a payload word with the FIRST_PACKET (bit 30) and UPDATE_CONTINUE (bit 31) control flags; a larger value would alias those flags and reset the SHA engine mid-stream.</td></tr>
   </table>
   </dd>
 </dl>
@@ -256,12 +275,13 @@ Functions</h2></td></tr>
 </dd></dl>
 <ul>
 <li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Validate Size. Return XST_FAILURE if it overlaps the payload control flags</li>
 <li>Initialize SHA3</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, <a class="el" href="group__xsecure__utils__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gabf91e298c2be913258c6a4b23660a528">XSecure_Sha3Initialize()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gac9bee0b8c91bd473c44af604523c68d3">XSECURE_SHA_FIRST_PACKET_SHIFT</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b">XSECURE_SHA_UNINITIALIZED</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gabf91e298c2be913258c6a4b23660a528">XSecure_Sha3Initialize()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gac9bee0b8c91bd473c44af604523c68d3">XSECURE_SHA_FIRST_PACKET_SHIFT</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gabe9d5d1d75d7379d6d94c7cc96346aa3">XSECURE_SHA_MAX_DATA_SIZE</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b">XSECURE_SHA_UNINITIALIZED</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__apis.html#ga6c51d7aa8a0db0c40a00a641d7aa4055">XSecure_PpkVerify()</a>, and <a class="el" href="group__xsecure__sha__server__apis.html#gacbd073de84e1cdf375ea6d140db14c6e">XSecure_ShaDigest()</a>.</p>
 
@@ -311,7 +331,7 @@ Functions</h2></td></tr>
 <li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, <a class="el" href="group__xsecure__utils__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1">XSECURE_SHA_INITIALIZED</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b">XSECURE_SHA_UNINITIALIZED</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4">XSECURE_SHA_UPDATE</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1">XSECURE_SHA_INITIALIZED</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1a40386d74147a901cee80b9ccf82c4f5b">XSECURE_SHA_UNINITIALIZED</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4">XSECURE_SHA_UPDATE</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__sha__server__apis.html#ga2b9c2f6b6aba580fb23fe0a5c8c8747c">XSecure_Sha3Digest()</a>, <a class="el" href="group__xsecure__apis.html#gadfb02b0d0129acbfe8a8d6a293a7285f">XSecure_Sha3Hash()</a>, <a class="el" href="group__xsecure__sha__server__apis.html#ga681f3c347149b5d4254611f833ab93cf">XSecure_ShaFinish()</a>, and <a class="el" href="group__xsecure__apis.html#gae9ccb5dc051bf792ce88b8f3fe376122">XSecure_SpkAuthentication()</a>.</p>
 
@@ -334,11 +354,10 @@ Functions</h2></td></tr>
 <p>This function returns the SHA crypto algorithm information. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AlgInfo</td><td>Pointer to memory for holding the crypto algorithm information</td></tr>
+    <tr><td class="paramname">AlgInfo</td><td>Pointer to memory for holding the crypto algorithm information </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 <p>References <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647">XSECURE_API_SHA3_OPERATION</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, and <a class="el" href="xsecure__alghelper_8c.html#aaf53b255cb80926070a852e882a331c9">XSecure_GetAlgInfo()</a>.</p>
 
@@ -406,7 +425,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
     <tr><td class="paramname">InDataAddr</td><td>Address of the output buffer to store the output hash </td></tr>
-    <tr><td class="paramname">Size</td><td>Size of the data to be updated to SHA3 engine</td></tr>
+    <tr><td class="paramname">Size</td><td>Size of the data to be updated to SHA3 engine. Must not exceed XSECURE_SHA_MAX_DATA_SIZE as Size shares a payload word with the FIRST_PACKET (bit 30) and UPDATE_CONTINUE (bit 31) control flags; a larger value would alias those flags and reset the SHA engine mid-stream.</td></tr>
   </table>
   </dd>
 </dl>
@@ -417,12 +436,13 @@ Functions</h2></td></tr>
 </dd></dl>
 <ul>
 <li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Validate Size. Return XST_FAILURE if it overlaps the payload control flags</li>
 <li>Validate Sha3state. Return XST_FAILURE if the state is not XSECURE_SHA_UNINITIALIZED</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, <a class="el" href="group__xsecure__utils__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gac9bee0b8c91bd473c44af604523c68d3">XSECURE_SHA_FIRST_PACKET_SHIFT</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1">XSECURE_SHA_INITIALIZED</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4">XSECURE_SHA_UPDATE</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ga915e1f4bbd0281a9944ca07d137564d2">XSECURE_SHA_UPDATE_CONTINUE_SHIFT</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f">XSECURE_API_SHA3_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gac9bee0b8c91bd473c44af604523c68d3">XSECURE_SHA_FIRST_PACKET_SHIFT</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1">XSECURE_SHA_INITIALIZED</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gabe9d5d1d75d7379d6d94c7cc96346aa3">XSECURE_SHA_MAX_DATA_SIZE</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ggad25387a8cba5004407abe70e310752c1aec35de2db7c5287ad3fb6f6c6d18a7d4">XSECURE_SHA_UPDATE</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ga915e1f4bbd0281a9944ca07d137564d2">XSECURE_SHA_UPDATE_CONTINUE_SHIFT</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__sha__server__apis.html#ga2b9c2f6b6aba580fb23fe0a5c8c8747c">XSecure_Sha3Digest()</a>, <a class="el" href="group__xsecure__apis.html#gadfb02b0d0129acbfe8a8d6a293a7285f">XSecure_Sha3Hash()</a>, and <a class="el" href="group__xsecure__apis.html#gae9ccb5dc051bf792ce88b8f3fe376122">XSecure_SpkAuthentication()</a>.</p>
 

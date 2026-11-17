@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="298" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="296" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___sub_core_1a3ec4a4becfdadc2af1f184f7248b6f5d" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="303" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="297" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Sub-Core Configuration Table. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="296" bodyend="305"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="294" bodyend="298"/>
     <listofallmembers>
       <member refid="struct_x_v___hdmi_tx_ss1___sub_core_1a3ec4a4becfdadc2af1f184f7248b6f5d" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_SubCore</scope><name>AbsAddr</name></member>
       <member refid="struct_x_v___hdmi_tx_ss1___sub_core_1a699945d2e2df9f79fca9f58f67f45116" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_SubCore</scope><name>IsPresent</name></member>

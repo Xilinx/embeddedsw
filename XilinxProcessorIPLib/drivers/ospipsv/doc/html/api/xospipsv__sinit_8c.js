@@ -1,4 +1,4 @@
 var xospipsv__sinit_8c =
 [
-    [ "XOspiPsv_LookupConfig", "xospipsv__sinit_8c.html#gab96043a4ed792c49c8f839b522ac95a1", null ]
+    [ "XOspiPsv_LookupConfig", "xospipsv__sinit_8c.html#ga466b35dd2fa531cda25197d883b445d9", null ]
 ];

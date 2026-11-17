@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_csi_rx_ss_sub_core_1a2b5ebebc7e28571b0eab8755a7357e16" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="197" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Sub-Core Configuration Table. </para>    </briefdescription>
     <detaileddescription>
 <para>This structure contains the configuration information for sub-cores present in the MIPI CSI Rx Subsystem. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="190" bodyend="199"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="190" bodyend="194"/>
     <listofallmembers>
       <member refid="struct_csi_rx_ss_sub_core_1a2b5ebebc7e28571b0eab8755a7357e16" prot="public" virt="non-virtual"><scope>CsiRxSsSubCore</scope><name>AddrOffset</name></member>
       <member refid="struct_csi_rx_ss_sub_core_1ac81d6fed1469fd9d75d8006d423656f0" prot="public" virt="non-virtual"><scope>CsiRxSsSubCore</scope><name>IsPresent</name></member>

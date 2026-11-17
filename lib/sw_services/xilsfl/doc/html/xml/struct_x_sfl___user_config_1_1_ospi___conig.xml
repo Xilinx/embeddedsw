@@ -2,8 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_sfl___user_config_1_1_ospi___conig" kind="struct" prot="public">
     <compoundname>XSfl_UserConfig::Ospi_Conig</compoundname>
+    <includes local="no">xilsfl.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="group__xilsfl_1ga97427cb9e16fcbc7bb3d6123d8b5c7cf" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_sfl___user_config_1_1_ospi___conig_1a97427cb9e16fcbc7bb3d6123d8b5c7cf" prot="public" static="no" mutable="no">
         <type>u32</type>
         <definition>u32 XSfl_UserConfig::Ospi_Conig::BaseAddress</definition>
         <argsstring></argsstring>
@@ -14,22 +15,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="356" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="510" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="510" bodyend="-1"/>
+        <referencedby refid="xilsfl__ospi__flash__readwrite__example_8c_1ac9643c6f7d05d31e806a1697819800c2" compoundref="xilsfl__ospi__flash__readwrite__example_8c" startline="130" endline="235">SflReadWriteExample</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="group__xilsfl_1gaadf09ce84208bf8485a1e8c9a1ccb6d1" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_sfl___user_config_1_1_ospi___conig_1aadf09ce84208bf8485a1e8c9a1ccb6d1" prot="public" static="no" mutable="no">
         <type>u8</type>
         <definition>u8 XSfl_UserConfig::Ospi_Conig::ReadMode</definition>
         <argsstring></argsstring>
         <name>ReadMode</name>
         <briefdescription>
-<para>Operating Mode DAC or INDAC. </para>        </briefdescription>
+<para>Operating mode, DAC or INDAC. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="357" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="511" bodyend="-1"/>
+        <referencedby refid="xilsfl__ospi__flash__readwrite__example_8c_1ac9643c6f7d05d31e806a1697819800c2" compoundref="xilsfl__ospi__flash__readwrite__example_8c" startline="130" endline="235">SflReadWriteExample</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="group__xilsfl_1ga5f67e619e340c591632091db200a588a" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_sfl___user_config_1_1_ospi___conig_1a5f67e619e340c591632091db200a588a" prot="public" static="no" mutable="no">
         <type>u8</type>
         <definition>u8 XSfl_UserConfig::Ospi_Conig::ChipSelect</definition>
         <argsstring></argsstring>
@@ -40,9 +43,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="358" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="512" bodyend="-1"/>
+        <referencedby refid="xilsfl__ospi__flash__readwrite__example_8c_1ac9643c6f7d05d31e806a1697819800c2" compoundref="xilsfl__ospi__flash__readwrite__example_8c" startline="130" endline="235">SflReadWriteExample</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="group__xilsfl_1ga230dd8d5024d6fe7d75759d0198477d1" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_sfl___user_config_1_1_ospi___conig_1a230dd8d5024d6fe7d75759d0198477d1" prot="public" static="no" mutable="no">
         <type>u32</type>
         <definition>u32 XSfl_UserConfig::Ospi_Conig::Quirks</definition>
         <argsstring></argsstring>
@@ -53,19 +57,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="359" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="513" bodyend="-1"/>
+        <referencedby refid="xilsfl__ospi__flash__readwrite__example_8c_1ac9643c6f7d05d31e806a1697819800c2" compoundref="xilsfl__ospi__flash__readwrite__example_8c" startline="130" endline="235">SflReadWriteExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Holds the OSPI controller configuration. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="355" bodyend="360"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="509" bodyend="515"/>
     <listofallmembers>
-      <member refid="group__xilsfl_1ga97427cb9e16fcbc7bb3d6123d8b5c7cf" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>BaseAddress</name></member>
-      <member refid="group__xilsfl_1ga5f67e619e340c591632091db200a588a" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>ChipSelect</name></member>
-      <member refid="group__xilsfl_1ga230dd8d5024d6fe7d75759d0198477d1" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>Quirks</name></member>
-      <member refid="group__xilsfl_1gaadf09ce84208bf8485a1e8c9a1ccb6d1" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>ReadMode</name></member>
+      <member refid="struct_x_sfl___user_config_1_1_ospi___conig_1a97427cb9e16fcbc7bb3d6123d8b5c7cf" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_sfl___user_config_1_1_ospi___conig_1a5f67e619e340c591632091db200a588a" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>ChipSelect</name></member>
+      <member refid="struct_x_sfl___user_config_1_1_ospi___conig_1a230dd8d5024d6fe7d75759d0198477d1" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>Quirks</name></member>
+      <member refid="struct_x_sfl___user_config_1_1_ospi___conig_1aadf09ce84208bf8485a1e8c9a1ccb6d1" prot="public" virt="non-virtual"><scope>XSfl_UserConfig::Ospi_Conig</scope><name>ReadMode</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

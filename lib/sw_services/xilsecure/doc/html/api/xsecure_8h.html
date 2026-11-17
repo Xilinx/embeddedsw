@@ -129,7 +129,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       rpo  04/09/20 Aligned buffers used by DMA to 64 bytes
       rpo  09/10/20 Added a new error for RSA input validation parameter
 4.7   am   11/26/21 Resolved doxygen warnings
-5.2   ng   07/13/23 Added SDT support</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+5.2   ng   07/13/23 Added SDT support
+5.8   rap  08/28/26 Fixed Doxygen Warnings</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xcsudma.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="zynqmp_2xsecure__aes_8h.html">xsecure_aes.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="zynqmp_2xsecure__rsa_8h.html">xsecure_rsa.h</a>&quot;</code><br/>
@@ -138,11 +139,20 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___data_addr.html">XSecure_DataAddr</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition address.  <a href="struct_x_secure___data_addr.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___rsa_key.html">XSecure_RsaKey</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input parameters pointers for RSA.  <a href="struct_x_secure___rsa_key.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___aes_params.html">XSecure_AesParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Params.  <a href="struct_x_secure___aes_params.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___partition_header.html">XSecure_PartitionHeader</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to store the partition header details.  <a href="struct_x_secure___partition_header.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___image_info.html">XSecure_ImageInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image info.  <a href="struct_x_secure___image_info.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -499,17 +509,17 @@ Macros</h2></td></tr>
 <tr class="memitem:gae33786149ea4cbc8eaebd03b1668ab4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gae33786149ea4cbc8eaebd03b1668ab4b">XSECURE_EFUSE_SEC_CTRL</a>&#160;&#160;&#160;(<a class="el" href="group__xsecure__apis.html#gaa270fbb01072db3e1af7f45a3fcf5519">XSECURE_EFUSE_BASEADDR</a>  + 0X00001058U)</td></tr>
 <tr class="memdesc:gae33786149ea4cbc8eaebd03b1668ab4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; eFuse secure control register offsets and definitions  <a href="group__xsecure__apis.html#gae33786149ea4cbc8eaebd03b1668ab4b">More...</a><br/></td></tr>
 <tr class="separator:gae33786149ea4cbc8eaebd03b1668ab4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7164a2f46c4c008ede2fb93af7beea9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga7164a2f46c4c008ede2fb93af7beea9a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSECURE_EFUSE_SEC_CTRL_PPK0_REVOKE</b>&#160;&#160;&#160;(0x18000000U)</td></tr>
+<tr class="memitem:ga7164a2f46c4c008ede2fb93af7beea9a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga7164a2f46c4c008ede2fb93af7beea9a">XSECURE_EFUSE_SEC_CTRL_PPK0_REVOKE</a>&#160;&#160;&#160;(0x18000000U)</td></tr>
+<tr class="memdesc:ga7164a2f46c4c008ede2fb93af7beea9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse secure control PPK0 revoke  <a href="group__xsecure__apis.html#ga7164a2f46c4c008ede2fb93af7beea9a">More...</a><br/></td></tr>
 <tr class="separator:ga7164a2f46c4c008ede2fb93af7beea9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga884a200c905fdfb3104c724d1ec25187"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga884a200c905fdfb3104c724d1ec25187"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSECURE_EFUSE_SEC_CTRL_PPK1_REVOKE</b>&#160;&#160;&#160;(0xC0000000U)</td></tr>
+<tr class="memitem:ga884a200c905fdfb3104c724d1ec25187"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga884a200c905fdfb3104c724d1ec25187">XSECURE_EFUSE_SEC_CTRL_PPK1_REVOKE</a>&#160;&#160;&#160;(0xC0000000U)</td></tr>
+<tr class="memdesc:ga884a200c905fdfb3104c724d1ec25187"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse secure control PPK1 revoke  <a href="group__xsecure__apis.html#ga884a200c905fdfb3104c724d1ec25187">More...</a><br/></td></tr>
 <tr class="separator:ga884a200c905fdfb3104c724d1ec25187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga266957fb0fb97505a56ed5ce58c7e0c5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga266957fb0fb97505a56ed5ce58c7e0c5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSECURE_EFUSE_SEC_CTRL_RSA_ENABLE</b>&#160;&#160;&#160;(0x03FFF800U)</td></tr>
+<tr class="memitem:ga266957fb0fb97505a56ed5ce58c7e0c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga266957fb0fb97505a56ed5ce58c7e0c5">XSECURE_EFUSE_SEC_CTRL_RSA_ENABLE</a>&#160;&#160;&#160;(0x03FFF800U)</td></tr>
+<tr class="memdesc:ga266957fb0fb97505a56ed5ce58c7e0c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse secure control RSA enable  <a href="group__xsecure__apis.html#ga266957fb0fb97505a56ed5ce58c7e0c5">More...</a><br/></td></tr>
 <tr class="separator:ga266957fb0fb97505a56ed5ce58c7e0c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5cb7399222773e68ad543c3f53e67b12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga5cb7399222773e68ad543c3f53e67b12"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XSECURE_EFUSE_SEC_CTRL_ENC_ONLY</b>&#160;&#160;&#160;(0x00000004U)</td></tr>
+<tr class="memitem:ga5cb7399222773e68ad543c3f53e67b12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga5cb7399222773e68ad543c3f53e67b12">XSECURE_EFUSE_SEC_CTRL_ENC_ONLY</a>&#160;&#160;&#160;(0x00000004U)</td></tr>
+<tr class="memdesc:ga5cb7399222773e68ad543c3f53e67b12"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse secure control encryption only  <a href="group__xsecure__apis.html#ga5cb7399222773e68ad543c3f53e67b12">More...</a><br/></td></tr>
 <tr class="separator:ga5cb7399222773e68ad543c3f53e67b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -524,7 +534,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga17ffcc1179ee379019196d122403f8dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs authentication of data by encrypting the signature with provided key and compares with hash of the data and returns success or failure.  <a href="group__xsecure__apis.html#ga17ffcc1179ee379019196d122403f8dc">More...</a><br/></td></tr>
 <tr class="separator:ga17ffcc1179ee379019196d122403f8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed078cea869af70d50468b7ca38dcd32"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gaed078cea869af70d50468b7ca38dcd32">XSecure_AesOperation</a> (u32 AddrHigh, u32 AddrLow)</td></tr>
-<tr class="memdesc:gaed078cea869af70d50468b7ca38dcd32"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks for flags field of the XSecure_AesParams struct and resolves weather the request is encryption or decryption.  <a href="group__xsecure__apis.html#gaed078cea869af70d50468b7ca38dcd32">More...</a><br/></td></tr>
+<tr class="memdesc:gaed078cea869af70d50468b7ca38dcd32"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks for flags field of the <a class="el" href="struct_x_secure___aes_params.html" title="AES Params. ">XSecure_AesParams</a> struct and resolves weather the request is encryption or decryption.  <a href="group__xsecure__apis.html#gaed078cea869af70d50468b7ca38dcd32">More...</a><br/></td></tr>
 <tr class="separator:gaed078cea869af70d50468b7ca38dcd32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga13ca99347b37b300de1c90e694fd116b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga13ca99347b37b300de1c90e694fd116b">XSecure_MemCopy</a> (void *DestPtr, void *SrcPtr, u32 Size)</td></tr>
 <tr class="memdesc:ga13ca99347b37b300de1c90e694fd116b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function copies the data from specified source to destination using CSU DMA.  <a href="group__xsecure__apis.html#ga13ca99347b37b300de1c90e694fd116b">More...</a><br/></td></tr>
@@ -547,7 +557,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga54a754b03bfbbe9c42f9f3d10959f04e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga54a754b03bfbbe9c42f9f3d10959f04e">XSecure_PartitionAuthentication</a> (XCsuDma *CsuDmaInstPtr, u8 *Data, u32 Size, u8 *AuthCertPtr)</td></tr>
 <tr class="memdesc:ga54a754b03bfbbe9c42f9f3d10959f04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs authentication of a partition of an image.  <a href="group__xsecure__apis.html#ga54a754b03bfbbe9c42f9f3d10959f04e">More...</a><br/></td></tr>
 <tr class="separator:ga54a754b03bfbbe9c42f9f3d10959f04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8edc4da56d93ab6df2072aa149d79344"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga8edc4da56d93ab6df2072aa149d79344">XSecure_AuthenticationHeaders</a> (u8 *StartAddr, XSecure_ImageInfo *ImageInfo)</td></tr>
+<tr class="memitem:ga8edc4da56d93ab6df2072aa149d79344"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga8edc4da56d93ab6df2072aa149d79344">XSecure_AuthenticationHeaders</a> (u8 *StartAddr, <a class="el" href="struct_x_secure___image_info.html">XSecure_ImageInfo</a> *ImageInfo)</td></tr>
 <tr class="memdesc:ga8edc4da56d93ab6df2072aa149d79344"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function authenticates the single partition image's boot header and image header, also copies all the required details to the ImageInfo pointer.  <a href="group__xsecure__apis.html#ga8edc4da56d93ab6df2072aa149d79344">More...</a><br/></td></tr>
 <tr class="separator:ga8edc4da56d93ab6df2072aa149d79344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf673d8443678e45f3334378a4b446881"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gaf673d8443678e45f3334378a4b446881">XSecure_IsRsaEnabled</a> (void)</td></tr>
@@ -556,7 +566,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga23dad33b2fa4200a33342e8353b7b73f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga23dad33b2fa4200a33342e8353b7b73f">XSecure_IsEncOnlyEnabled</a> (void)</td></tr>
 <tr class="memdesc:ga23dad33b2fa4200a33342e8353b7b73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function tells whether encrypt only is enabled or not.  <a href="group__xsecure__apis.html#ga23dad33b2fa4200a33342e8353b7b73f">More...</a><br/></td></tr>
 <tr class="separator:ga23dad33b2fa4200a33342e8353b7b73f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8cf65db24d617af02144836f17aaacab"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga8cf65db24d617af02144836f17aaacab">XSecure_SecureImage</a> (u32 AddrHigh, u32 AddrLow, u32 KupAddrHigh, u32 KupAddrLow, XSecure_DataAddr *Addr)</td></tr>
+<tr class="memitem:ga8cf65db24d617af02144836f17aaacab"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga8cf65db24d617af02144836f17aaacab">XSecure_SecureImage</a> (u32 AddrHigh, u32 AddrLow, u32 KupAddrHigh, u32 KupAddrLow, <a class="el" href="struct_x_secure___data_addr.html">XSecure_DataAddr</a> *Addr)</td></tr>
 <tr class="memdesc:ga8cf65db24d617af02144836f17aaacab"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function process the secure image of single partition created by bootgen.  <a href="group__xsecure__apis.html#ga8cf65db24d617af02144836f17aaacab">More...</a><br/></td></tr>
 <tr class="separator:ga8cf65db24d617af02144836f17aaacab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf3322f65da42ccaf3e4a0b2541c1bb00"><td class="memItemLeft" align="right" valign="top">XCsuDma *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gaf3322f65da42ccaf3e4a0b2541c1bb00">Xsecure_GetCsuDma</a> (void)</td></tr>

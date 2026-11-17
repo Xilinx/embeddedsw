@@ -329,7 +329,7 @@
 <codeline lineno="316"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#error<sp/>FF_FS_LOCK<sp/>must<sp/>be<sp/>0<sp/>at<sp/>read-only<sp/>configuration</highlight></codeline>
 <codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="318"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>object<sp/>identifier<sp/>with<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Object<sp/>ID<sp/>1,<sp/>volume<sp/>(NULL:blank<sp/>entry)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Object<sp/>ID<sp/>1,<sp/>volume<sp/>(NULL:blank<sp/>entry)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clu;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Object<sp/>ID<sp/>2,<sp/>containing<sp/>directory<sp/>(0:root)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>ofs;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Object<sp/>ID<sp/>3,<sp/>offset<sp/>in<sp/>the<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>ctr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Object<sp/>open<sp/>status,<sp/>0:none,<sp/>0x01..0xFF:read<sp/>mode<sp/>open<sp/>count,<sp/>0x100:write<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -507,7 +507,7 @@
 <codeline lineno="494"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_VOLUMES<sp/>&lt;<sp/>1<sp/>||<sp/>FF_VOLUMES<sp/>&gt;<sp/>175</highlight></codeline>
 <codeline lineno="495"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#error<sp/>Wrong<sp/>FF_VOLUMES<sp/>setting</highlight></codeline>
 <codeline lineno="496"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="497"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FATFS<sp/>*FatFs[FF_VOLUMES];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>filesystem<sp/>objects<sp/>(logical<sp/>drives)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*FatFs[FF_VOLUMES];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>filesystem<sp/>objects<sp/>(logical<sp/>drives)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="498"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>WORD<sp/>Fsid;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>mount<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="499"><highlight class="normal"></highlight></codeline>
 <codeline lineno="500"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_FS_RPATH</highlight></codeline>
@@ -1226,7 +1226,7 @@
 <codeline lineno="1213"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1214"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1215"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lock_volume<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>1:Ok,<sp/>0:timeout<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>to<sp/>lock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>to<sp/>lock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>syslock<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>System<sp/>lock<sp/>required<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1218"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1219"><highlight class="normal">{</highlight></codeline>
@@ -1254,7 +1254,7 @@
 <codeline lineno="1241"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1242"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1243"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>unlock_volume<sp/>(</highlight></codeline>
-<codeline lineno="1244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Result<sp/>code<sp/>to<sp/>be<sp/>returned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1246"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1247"><highlight class="normal">{</highlight></codeline>
@@ -1279,7 +1279,7 @@
 <codeline lineno="1266"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1267"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1268"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>chk_share<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>file<sp/>can<sp/>be<sp/>accessed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>pointing<sp/>the<sp/>file<sp/>to<sp/>be<sp/>checked<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>pointing<sp/>the<sp/>file<sp/>to<sp/>be<sp/>checked<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>acc<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Desired<sp/>access<sp/>type<sp/>(0:Read<sp/>mode<sp/>open,<sp/>1:Write<sp/>mode<sp/>open,<sp/>2:Delete<sp/>or<sp/>rename)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1271"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1272"><highlight class="normal">{</highlight></codeline>
@@ -1318,7 +1318,7 @@
 <codeline lineno="1305"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1306"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1307"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>UINT<sp/>inc_share<sp/>(<sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>object<sp/>open<sp/>counter<sp/>and<sp/>returns<sp/>its<sp/>index<sp/>(0:Internal<sp/>error)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>pointing<sp/>the<sp/>file<sp/>to<sp/>register<sp/>or<sp/>increment<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>pointing<sp/>the<sp/>file<sp/>to<sp/>register<sp/>or<sp/>increment<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>acc<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Desired<sp/>access<sp/>(0:Read,<sp/>1:Write,<sp/>2:Delete/Rename)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1310"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1311"><highlight class="normal">{</highlight></codeline>
@@ -1385,7 +1385,7 @@
 <codeline lineno="1372"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1373"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1374"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>clear_share<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>all<sp/>lock<sp/>entries<sp/>of<sp/>the<sp/>volume<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs</highlight></codeline>
+<codeline lineno="1375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs</highlight></codeline>
 <codeline lineno="1376"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1377"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>i;</highlight></codeline>
@@ -1406,7 +1406,7 @@
 <codeline lineno="1393"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1394"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!FF_FS_READONLY</highlight></codeline>
 <codeline lineno="1395"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>sync_window<sp/>(<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>FR_OK<sp/>or<sp/>FR_DISK_ERR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1397"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1398"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -1433,7 +1433,7 @@
 <codeline lineno="1420"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1421"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1422"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>move_window<sp/>(<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>FR_OK<sp/>or<sp/>FR_DISK_ERR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>sect<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sector<sp/>LBA<sp/>to<sp/>make<sp/>appearance<sp/>in<sp/>the<sp/>fs-&gt;win[]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1425"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1426"><highlight class="normal">{</highlight></codeline>
@@ -1471,7 +1471,7 @@
 <codeline lineno="1458"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1459"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1460"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>sync_fs<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>FR_OK<sp/>or<sp/>FR_DISK_ERR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1462"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1463"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -1522,7 +1522,7 @@
 <codeline lineno="1509"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1510"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1511"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>LBA_t<sp/>clst2sect<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>!=0:Sector<sp/>number,<sp/>0:Failed<sp/>(invalid<sp/>cluster#)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster#<sp/>to<sp/>be<sp/>converted<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1514"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1515"><highlight class="normal">{</highlight></codeline>
@@ -1541,13 +1541,13 @@
 <codeline lineno="1528"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1529"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1530"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DWORD<sp/>get_fat<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0xFFFFFFFF:Disk<sp/>error,<sp/>1:Internal<sp/>error,<sp/>2..0x7FFFFFFF:Cluster<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*obj,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>number<sp/>to<sp/>get<sp/>the<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1533"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1534"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>wc,<sp/>bc;</highlight></codeline>
 <codeline lineno="1536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>val;</highlight></codeline>
-<codeline lineno="1537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>obj-&gt;fs;</highlight></codeline>
+<codeline lineno="1537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>obj-&gt;fs;</highlight></codeline>
 <codeline lineno="1538"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1539"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(clst<sp/>&lt;<sp/>2<sp/>||<sp/>clst<sp/>&gt;=<sp/>fs-&gt;n_fatent)<sp/>{<sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>in<sp/>valid<sp/>range<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1633,7 +1633,7 @@
 <codeline lineno="1620"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1621"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1622"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>put_fat<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):succeeded,<sp/>!=0:error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FAT<sp/>index<sp/>number<sp/>(cluster<sp/>number)<sp/>to<sp/>be<sp/>changed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>val<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>value<sp/>to<sp/>be<sp/>set<sp/>to<sp/>the<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1626"><highlight class="normal">)</highlight></codeline>
@@ -1707,7 +1707,7 @@
 <codeline lineno="1694"><highlight class="normal"></highlight><highlight class="comment">/*--------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1695"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1696"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DWORD<sp/>find_bitmap<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:Not<sp/>found,<sp/>2..:Cluster<sp/>block<sp/>found,<sp/>0xFFFFFFFF:Disk<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst,<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>number<sp/>to<sp/>scan<sp/>from<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>ncl<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>contiguous<sp/>clusters<sp/>to<sp/>find<sp/>(1..)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1700"><highlight class="normal">)</highlight></codeline>
@@ -1764,7 +1764,7 @@
 <codeline lineno="1751"><highlight class="normal"></highlight><highlight class="comment">/*----------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1752"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1753"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>change_bitmap<sp/>(</highlight></codeline>
-<codeline lineno="1754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst,<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>number<sp/>to<sp/>change<sp/>from<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>ncl,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>clusters<sp/>to<sp/>be<sp/>changed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bv<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>bit<sp/>value<sp/>to<sp/>be<sp/>set<sp/>(0<sp/>or<sp/>1)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1808,7 +1808,7 @@
 <codeline lineno="1795"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1796"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1797"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>fill_first_frag<sp/>(</highlight></codeline>
-<codeline lineno="1798"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*obj<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1798"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1799"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1800"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1801"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -1833,7 +1833,7 @@
 <codeline lineno="1820"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1821"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1822"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>fill_last_frag<sp/>(</highlight></codeline>
-<codeline lineno="1823"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*obj,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1823"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1824"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>lcl,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Last<sp/>cluster<sp/>of<sp/>the<sp/>fragment<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1825"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>term<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>set<sp/>the<sp/>last<sp/>FAT<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1826"><highlight class="normal">)</highlight></codeline>
@@ -1861,14 +1861,14 @@
 <codeline lineno="1848"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1849"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1850"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>remove_chain<sp/>(<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):succeeded,<sp/>!=0:error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1851"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*obj,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1851"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1852"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>to<sp/>remove<sp/>a<sp/>chain<sp/>from<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1853"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>pclst<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Previous<sp/>cluster<sp/>of<sp/>clst<sp/>(0<sp/>if<sp/>entire<sp/>chain)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1854"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1855"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1856"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
 <codeline lineno="1857"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>nxt;</highlight></codeline>
-<codeline lineno="1858"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>obj-&gt;fs;</highlight></codeline>
+<codeline lineno="1858"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>obj-&gt;fs;</highlight></codeline>
 <codeline lineno="1859"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_FS_EXFAT<sp/>||<sp/>FF_USE_TRIM</highlight></codeline>
 <codeline lineno="1860"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>scl<sp/>=<sp/>clst,<sp/>ecl<sp/>=<sp/>clst;</highlight></codeline>
 <codeline lineno="1861"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
@@ -1981,13 +1981,13 @@
 <codeline lineno="1968"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1969"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1970"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DWORD<sp/>create_chain<sp/>(<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:No<sp/>free<sp/>cluster,<sp/>1:Internal<sp/>error,<sp/>0xFFFFFFFF:Disk<sp/>error,<sp/>&gt;=2:New<sp/>cluster#<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1971"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*obj,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1971"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Corresponding<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1972"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster#<sp/>to<sp/>stretch,<sp/>0:Create<sp/>a<sp/>new<sp/>chain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1973"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="1974"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="1975"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>cs,<sp/>ncl,<sp/>scl;</highlight></codeline>
 <codeline lineno="1976"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="1977"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>obj-&gt;fs;</highlight></codeline>
+<codeline lineno="1977"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>obj-&gt;fs;</highlight></codeline>
 <codeline lineno="1978"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1979"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1980"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(clst<sp/>==<sp/>0)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>a<sp/>new<sp/>chain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -2124,13 +2124,13 @@
 <codeline lineno="2111"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2112"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2113"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DWORD<sp/>clmt_clust<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>&lt;2:Error,<sp/>&gt;=2:Cluster<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>ofs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>offset<sp/>to<sp/>be<sp/>converted<sp/>to<sp/>cluster#<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2116"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2117"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>cl,<sp/>ncl;</highlight></codeline>
 <codeline lineno="2119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>*tbl;</highlight></codeline>
-<codeline lineno="2120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>fp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="2120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>fp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="2121"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2122"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tbl<sp/>=<sp/>fp-&gt;cltbl<sp/>+<sp/>1;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Top<sp/>of<sp/>CLMT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -2160,7 +2160,7 @@
 <codeline lineno="2147"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2148"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!FF_FS_READONLY</highlight></codeline>
 <codeline lineno="2149"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_clear<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>FR_OK<sp/>or<sp/>FR_DISK_ERR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>table<sp/>to<sp/>clear<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2152"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2153"><highlight class="normal">{</highlight></codeline>
@@ -2206,12 +2206,12 @@
 <codeline lineno="2193"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2194"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2195"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_sdi<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):succeeded,<sp/>!=0:error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>ofs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Offset<sp/>of<sp/>directory<sp/>table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2198"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2199"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>csz,<sp/>clst;</highlight></codeline>
-<codeline lineno="2201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="2201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="2202"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2203"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ofs<sp/>&gt;=<sp/>(DWORD)((FF_FS_EXFAT<sp/>&amp;&amp;<sp/>fs-&gt;fs_type<sp/>==<sp/>FS_EXFAT)<sp/>?<sp/>MAX_DIR_EX<sp/>:<sp/>MAX_DIR)</highlight></codeline>
@@ -2266,12 +2266,12 @@
 <codeline lineno="2253"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2254"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2255"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_next<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):succeeded,<sp/>FR_NO_FILE:End<sp/>of<sp/>table,<sp/>FR_DENIED:Could<sp/>not<sp/>stretch<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>stretch<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:<sp/>Do<sp/>not<sp/>stretch<sp/>table,<sp/>1:<sp/>Stretch<sp/>table<sp/>if<sp/>needed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2258"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2259"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>ofs,<sp/>clst;</highlight></codeline>
-<codeline lineno="2261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="2261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="2262"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2263"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ofs<sp/>=<sp/>dp-&gt;dptr<sp/>+<sp/>SZDIRE;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Next<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -2350,13 +2350,13 @@
 <codeline lineno="2337"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2338"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2339"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_alloc<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):succeeded,<sp/>!=0:error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>n_ent<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>contiguous<sp/>entries<sp/>to<sp/>allocate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2342"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2343"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
 <codeline lineno="2345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>n;</highlight></codeline>
-<codeline lineno="2346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="2346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="2347"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2348"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>dir_sdi(dp,<sp/>0);</highlight></codeline>
@@ -2401,7 +2401,7 @@
 <codeline lineno="2388"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2389"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2390"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>DWORD<sp/>ld_clust<sp/>(<sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>the<sp/>top<sp/>cluster<sp/>value<sp/>of<sp/>the<sp/>SFN<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>fs<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>fs<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE<sp/>*dir<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>key<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2393"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2394"><highlight class="normal">{</highlight></codeline>
@@ -2418,7 +2418,7 @@
 <codeline lineno="2405"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2406"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!FF_FS_READONLY</highlight></codeline>
 <codeline lineno="2407"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>st_clust<sp/>(</highlight></codeline>
-<codeline lineno="2408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>fs<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>fs<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>*dir,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>key<sp/>entry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>cl<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Value<sp/>to<sp/>be<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2411"><highlight class="normal">)</highlight></codeline>
@@ -2717,7 +2717,7 @@
 <codeline lineno="2704"><highlight class="normal"></highlight><highlight class="comment">/*------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2705"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2706"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>load_xdir<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_INT_ERR:<sp/>invalid<sp/>entry<sp/>block<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reading<sp/>directory<sp/>object<sp/>pointing<sp/>top<sp/>of<sp/>the<sp/>entry<sp/>block<sp/>to<sp/>load<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reading<sp/>directory<sp/>object<sp/>pointing<sp/>top<sp/>of<sp/>the<sp/>entry<sp/>block<sp/>to<sp/>load<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2708"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2709"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -2798,11 +2798,11 @@
 <codeline lineno="2785"><highlight class="normal"></highlight><highlight class="comment">/*------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2786"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2787"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_alloc_info<sp/>(</highlight></codeline>
-<codeline lineno="2788"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*dobj,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>allocation<sp/>information<sp/>to<sp/>be<sp/>initialized<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2789"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR*<sp/>sdir<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Additional<sp/>source<sp/>about<sp/>containing<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2788"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*dobj,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>allocation<sp/>information<sp/>to<sp/>be<sp/>initialized<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2789"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref>*<sp/>sdir<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Additional<sp/>source<sp/>about<sp/>containing<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2790"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2791"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="2792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dobj-&gt;fs;</highlight></codeline>
+<codeline lineno="2792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dobj-&gt;fs;</highlight></codeline>
 <codeline lineno="2793"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2794"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(sdir)<sp/>{<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>containing<sp/>directory.<sp/>This<sp/>block<sp/>needs<sp/>to<sp/>precede<sp/>the<sp/>following.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -2824,8 +2824,8 @@
 <codeline lineno="2811"><highlight class="normal"></highlight><highlight class="comment">/*------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2812"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2813"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>load_obj_xdir<sp/>(</highlight></codeline>
-<codeline lineno="2814"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Blank<sp/>directory<sp/>object<sp/>to<sp/>be<sp/>used<sp/>to<sp/>access<sp/>containing<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2815"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FFOBJID<sp/>*obj<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>with<sp/>its<sp/>containing<sp/>directory<sp/>information<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2814"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Blank<sp/>directory<sp/>object<sp/>to<sp/>be<sp/>used<sp/>to<sp/>access<sp/>containing<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2815"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Object<sp/>with<sp/>its<sp/>containing<sp/>directory<sp/>information<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2816"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2817"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2818"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -2853,7 +2853,7 @@
 <codeline lineno="2840"><highlight class="normal"></highlight><highlight class="comment">/*----------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2841"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2842"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>store_xdir<sp/>(</highlight></codeline>
-<codeline lineno="2843"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2843"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2844"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2845"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2846"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -2942,12 +2942,12 @@
 <codeline lineno="2929"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DIR_READ_LABEL(dp)<sp/>dir_read(dp,<sp/>1)</highlight></codeline>
 <codeline lineno="2930"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2931"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_read<sp/>(</highlight></codeline>
-<codeline lineno="2932"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2932"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2933"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vol<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filtered<sp/>by<sp/>0:file/directory<sp/>or<sp/>1:volume<sp/>label<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2934"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="2935"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="2936"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_NO_FILE;</highlight></codeline>
-<codeline lineno="2937"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="2937"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="2938"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>attr,<sp/>et;</highlight></codeline>
 <codeline lineno="2939"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_LFN</highlight></codeline>
 <codeline lineno="2940"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>ord<sp/>=<sp/>0xFF,<sp/>sum<sp/>=<sp/>0xFF;</highlight></codeline>
@@ -3034,11 +3034,11 @@
 <codeline lineno="3021"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3022"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3023"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_find<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):succeeded,<sp/>!=0:error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3024"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>with<sp/>the<sp/>file<sp/>name<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3024"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>with<sp/>the<sp/>file<sp/>name<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3025"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="3026"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="3027"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="3028"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="3028"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="3029"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>et;</highlight></codeline>
 <codeline lineno="3030"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_LFN</highlight></codeline>
 <codeline lineno="3031"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>attr,<sp/>ord,<sp/>sum;</highlight></codeline>
@@ -3146,11 +3146,11 @@
 <codeline lineno="3133"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3134"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT</highlight></codeline>
 <codeline lineno="3135"><highlight class="normal">dir_register<sp/>(<sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK:succeeded,<sp/>FR_DENIED:no<sp/>free<sp/>entry<sp/>or<sp/>too<sp/>many<sp/>SFN<sp/>collision,<sp/>FR_DISK_ERR:disk<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Target<sp/>directory<sp/>with<sp/>object<sp/>name<sp/>to<sp/>be<sp/>created<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Target<sp/>directory<sp/>with<sp/>object<sp/>name<sp/>to<sp/>be<sp/>created<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3137"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="3138"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="3139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="3140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="3140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="3141"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_LFN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>LFN<sp/>configuration<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="3142"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>n,<sp/>len,<sp/>n_ent;</highlight></codeline>
 <codeline lineno="3143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>sn[12];</highlight></codeline>
@@ -3181,7 +3181,7 @@
 <codeline lineno="3168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>res;</highlight></codeline>
 <codeline lineno="3169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="3170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dp-&gt;obj.sclust<sp/>!=<sp/>0)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Is<sp/>it<sp/>a<sp/>sub-directory?<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
+<codeline lineno="3171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
 <codeline lineno="3172"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>load_obj_xdir(&amp;dj,<sp/>&amp;dp-&gt;obj);<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Load<sp/>the<sp/>object<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(res<sp/>!=<sp/>FR_OK)<sp/>{</highlight></codeline>
@@ -3280,11 +3280,11 @@
 <codeline lineno="3267"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3268"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3269"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>dir_remove<sp/>(<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK:Succeeded,<sp/>FR_DISK_ERR:A<sp/>disk<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>pointing<sp/>the<sp/>entry<sp/>to<sp/>be<sp/>removed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>pointing<sp/>the<sp/>entry<sp/>to<sp/>be<sp/>removed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3271"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="3272"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="3273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="3274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="3274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="3275"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_LFN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>LFN<sp/>configuration<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="3276"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>last<sp/>=<sp/>dp-&gt;dptr;</highlight></codeline>
 <codeline lineno="3277"><highlight class="normal"></highlight></codeline>
@@ -3334,14 +3334,14 @@
 <codeline lineno="3321"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3322"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3323"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>get_fileinfo<sp/>(</highlight></codeline>
-<codeline lineno="3324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILINFO<sp/>*fno<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>information<sp/>to<sp/>be<sp/>filled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref><sp/>*fno<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>information<sp/>to<sp/>be<sp/>filled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3326"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="3327"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="3328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>si,<sp/>di;</highlight></codeline>
 <codeline lineno="3329"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_LFN</highlight></codeline>
 <codeline lineno="3330"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WCHAR<sp/>wc,<sp/>hs;</highlight></codeline>
-<codeline lineno="3331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="3331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="3332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>nw;</highlight></codeline>
 <codeline lineno="3333"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
 <codeline lineno="3334"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCHAR<sp/>c;</highlight></codeline>
@@ -3638,7 +3638,7 @@
 <codeline lineno="3625"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3626"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3627"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>create_name<sp/>(<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK:<sp/>successful,<sp/>FR_INVALID_NAME:<sp/>could<sp/>not<sp/>create<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>**path<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>pointer<sp/>to<sp/>the<sp/>segment<sp/>in<sp/>the<sp/>path<sp/>string<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3630"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="3631"><highlight class="normal">{</highlight></codeline>
@@ -3924,13 +3924,13 @@
 <codeline lineno="3911"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3912"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3913"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>follow_path<sp/>(<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):<sp/>successful,<sp/>!=0:<sp/>error<sp/>code<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>to<sp/>return<sp/>last<sp/>directory<sp/>and<sp/>found<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Directory<sp/>object<sp/>to<sp/>return<sp/>last<sp/>directory<sp/>and<sp/>found<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3915"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Full-path<sp/>string<sp/>to<sp/>find<sp/>a<sp/>file<sp/>or<sp/>directory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3916"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="3917"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="3918"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
 <codeline lineno="3919"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>ns;</highlight></codeline>
-<codeline lineno="3920"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
+<codeline lineno="3920"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs<sp/>=<sp/>dp-&gt;obj.fs;</highlight></codeline>
 <codeline lineno="3921"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3922"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3923"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determines<sp/>the<sp/>start<sp/>directory<sp/>(current<sp/>directory<sp/>or<sp/>forced<sp/>root<sp/>directory)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -4260,7 +4260,7 @@
 <codeline lineno="4247"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4248"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>UINT</highlight></codeline>
 <codeline lineno="4249"><highlight class="normal">check_fs<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0:FAT/FAT32<sp/>VBR,<sp/>1:exFAT<sp/>VBR,<sp/>2:Not<sp/>FAT<sp/>and<sp/>valid<sp/>BS,<sp/>3:Not<sp/>FAT<sp/>and<sp/>invalid<sp/>BS,<sp/>4:Disk<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>sect<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sector<sp/>to<sp/>load<sp/>and<sp/>check<sp/>if<sp/>it<sp/>is<sp/>an<sp/>FAT-VBR<sp/>or<sp/>not<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4252"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="4253"><highlight class="normal">{</highlight></codeline>
@@ -4306,7 +4306,7 @@
 <codeline lineno="4293"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>(It<sp/>supports<sp/>only<sp/>generic<sp/>partitioning<sp/>rules,<sp/>MBR,<sp/>GPT<sp/>and<sp/>SFD)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4294"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4295"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>UINT<sp/>find_volume<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>BS<sp/>status<sp/>found<sp/>in<sp/>the<sp/>hosting<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>part<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Partition<sp/>to<sp/>fined<sp/>=<sp/>0:find<sp/>as<sp/>SFD<sp/>and<sp/>partitions,<sp/>&gt;0:forced<sp/>partition<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4298"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="4299"><highlight class="normal">{</highlight></codeline>
@@ -4376,12 +4376,12 @@
 <codeline lineno="4363"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4364"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>mount_volume<sp/>(<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>FR_OK(0):<sp/>successful,<sp/>!=0:<sp/>an<sp/>error<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>**path,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>pointer<sp/>to<sp/>the<sp/>path<sp/>name<sp/>(drive<sp/>number)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>**rfs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>pointer<sp/>to<sp/>the<sp/>found<sp/>filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>**rfs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>pointer<sp/>to<sp/>the<sp/>found<sp/>filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>mode<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Desiered<sp/>access<sp/>mode<sp/>to<sp/>check<sp/>write<sp/>protection<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4368"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="4369"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="4370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vol;</highlight></codeline>
-<codeline lineno="4371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="4371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="4372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DSTATUS<sp/>stat;</highlight></codeline>
 <codeline lineno="4373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>bsect;</highlight></codeline>
 <codeline lineno="4374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>fmt;</highlight></codeline>
@@ -4685,8 +4685,8 @@
 <codeline lineno="4672"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4673"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4674"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>FRESULT<sp/>validate<sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>FR_OK<sp/>or<sp/>FR_INVALID_OBJECT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>*obj,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>FFOBJID,<sp/>the<sp/>1st<sp/>member<sp/>in<sp/>the<sp/>FIL/DIR<sp/>structure,<sp/>to<sp/>check<sp/>validity<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>**rfs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>pointer<sp/>to<sp/>the<sp/>owner<sp/>filesystem<sp/>object<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>*obj,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>FFOBJID,<sp/>the<sp/>1st<sp/>member<sp/>in<sp/>the<sp/>FIL/DIR<sp/>structure,<sp/>to<sp/>check<sp/>validity<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>**rfs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>pointer<sp/>to<sp/>the<sp/>owner<sp/>filesystem<sp/>object<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4677"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="4678"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="4679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_INVALID_OBJECT;</highlight></codeline>
@@ -4731,12 +4731,12 @@
 <codeline lineno="4718"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4719"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4720"><highlight class="normal">FRESULT<sp/>f_mount<sp/>(</highlight></codeline>
-<codeline lineno="4721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>filesystem<sp/>object<sp/>to<sp/>be<sp/>registered<sp/>(NULL:unmount)*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>filesystem<sp/>object<sp/>to<sp/>be<sp/>registered<sp/>(NULL:unmount)*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Logical<sp/>drive<sp/>number<sp/>to<sp/>be<sp/>mounted/unmounted<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>opt<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mount<sp/>option:<sp/>0=Do<sp/>not<sp/>mount<sp/>(delayed<sp/>mount),<sp/>1=Mount<sp/>immediately<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4724"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="4725"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="4726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*cfs;</highlight></codeline>
+<codeline lineno="4726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*cfs;</highlight></codeline>
 <codeline lineno="4727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vol;</highlight></codeline>
 <codeline lineno="4728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
 <codeline lineno="4729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*rp<sp/>=<sp/>path;</highlight></codeline>
@@ -4797,14 +4797,14 @@
 <codeline lineno="4784"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4785"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4786"><highlight class="normal">FRESULT<sp/>f_open<sp/>(</highlight></codeline>
-<codeline lineno="4787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>blank<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>blank<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4788"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>name<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4789"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>mode<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Access<sp/>mode<sp/>and<sp/>open<sp/>mode<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4790"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="4791"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="4792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="4793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj<sp/>=<sp/>{0};</highlight></codeline>
-<codeline lineno="4794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="4793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="4794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="4795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="4796"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4797"><highlight class="normal"></highlight></codeline>
@@ -5019,14 +5019,14 @@
 <codeline lineno="5006"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5007"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5008"><highlight class="normal">FRESULT<sp/>f_read<sp/>(</highlight></codeline>
-<codeline lineno="5009"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>read<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5009"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>read<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5010"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*buff,<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>buffer<sp/>to<sp/>store<sp/>the<sp/>read<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5011"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>btr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>bytes<sp/>to<sp/>read<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5012"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>*br<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>bytes<sp/>read<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5013"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5014"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5015"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5016"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5016"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5017"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>sect;</highlight></codeline>
 <codeline lineno="5018"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>remain;</highlight></codeline>
 <codeline lineno="5019"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>rcnt,<sp/>cc,<sp/>csect;</highlight></codeline>
@@ -5152,14 +5152,14 @@
 <codeline lineno="5139"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5140"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5141"><highlight class="normal">FRESULT<sp/>f_write<sp/>(</highlight></codeline>
-<codeline lineno="5142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*buff,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>to<sp/>be<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>btw,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>bytes<sp/>to<sp/>write<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>*bw<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>bytes<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5146"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5147"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst;</highlight></codeline>
 <codeline lineno="5151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>sect;</highlight></codeline>
 <codeline lineno="5152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>wcnt,<sp/>cc,<sp/>csect;</highlight></codeline>
@@ -5303,11 +5303,11 @@
 <codeline lineno="5290"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5291"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5292"><highlight class="normal">FRESULT<sp/>f_sync<sp/>(</highlight></codeline>
-<codeline lineno="5293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>synced<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>synced<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5294"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5295"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5298"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5299"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>validate(&amp;fp-&gt;obj,<sp/>&amp;fs);<sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>validity<sp/>of<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -5329,7 +5329,7 @@
 <codeline lineno="5316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>fill_last_frag(&amp;fp-&gt;obj,<sp/>fp-&gt;clust,<sp/>0xFFFFFFFF);<sp/><sp/></highlight><highlight class="comment">/*<sp/>Fill<sp/>last<sp/>fragment<sp/>on<sp/>the<sp/>FAT<sp/>if<sp/>needed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="5318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(res<sp/>==<sp/>FR_OK)<sp/>{</highlight></codeline>
-<codeline lineno="5319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
+<codeline lineno="5319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
 <codeline lineno="5320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="5321"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INIT_NAMEBUFF(fs);</highlight></codeline>
@@ -5387,11 +5387,11 @@
 <codeline lineno="5374"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5375"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5376"><highlight class="normal">FRESULT<sp/>f_close<sp/>(</highlight></codeline>
-<codeline lineno="5377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>closed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Open<sp/>file<sp/>to<sp/>be<sp/>closed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5378"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5379"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5382"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5383"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!FF_FS_READONLY</highlight></codeline>
 <codeline lineno="5384"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>f_sync(fp);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flush<sp/>cached<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -5452,8 +5452,8 @@
 <codeline lineno="5439"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5440"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
-<codeline lineno="5443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
+<codeline lineno="5443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="5445"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5446"><highlight class="normal"></highlight></codeline>
@@ -5519,15 +5519,15 @@
 <codeline lineno="5506"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5507"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
-<codeline lineno="5510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
+<codeline lineno="5510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5511"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_VOLUMES<sp/>&gt;=<sp/>2</highlight></codeline>
 <codeline lineno="5512"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>vl;</highlight></codeline>
 <codeline lineno="5513"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_STR_VOLUME_ID</highlight></codeline>
 <codeline lineno="5514"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*vid;</highlight></codeline>
 <codeline lineno="5515"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="5516"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="5517"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILINFO<sp/>fno;</highlight></codeline>
+<codeline lineno="5517"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref><sp/>fno;</highlight></codeline>
 <codeline lineno="5518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="5519"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5520"><highlight class="normal"></highlight></codeline>
@@ -5676,12 +5676,12 @@
 <codeline lineno="5663"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5664"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5665"><highlight class="normal">FRESULT<sp/>f_lseek<sp/>(</highlight></codeline>
-<codeline lineno="5666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>ofs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>pointer<sp/>from<sp/>top<sp/>of<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5668"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5669"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst,<sp/>bcs;</highlight></codeline>
 <codeline lineno="5673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>nsect;</highlight></codeline>
 <codeline lineno="5674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>ifptr;</highlight></codeline>
@@ -5887,12 +5887,12 @@
 <codeline lineno="5874"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5875"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5876"><highlight class="normal">FRESULT<sp/>f_opendir<sp/>(</highlight></codeline>
-<codeline lineno="5877"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>directory<sp/>object<sp/>to<sp/>create<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5877"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>directory<sp/>object<sp/>to<sp/>create<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5878"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5879"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5880"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5881"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5882"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5882"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5883"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="5884"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5885"><highlight class="normal"></highlight></codeline>
@@ -5960,11 +5960,11 @@
 <codeline lineno="5947"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5948"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5949"><highlight class="normal">FRESULT<sp/>f_closedir<sp/>(</highlight></codeline>
-<codeline lineno="5950"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>to<sp/>be<sp/>closed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5950"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>object<sp/>to<sp/>be<sp/>closed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5951"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5952"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5953"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5954"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5954"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5955"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5956"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5957"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res<sp/>=<sp/>validate(&amp;dp-&gt;obj,<sp/>&amp;fs);<sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>validity<sp/>of<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -5994,12 +5994,12 @@
 <codeline lineno="5981"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5982"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5983"><highlight class="normal">FRESULT<sp/>f_readdir<sp/>(</highlight></codeline>
-<codeline lineno="5984"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>open<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5985"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILINFO<sp/>*fno<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>file<sp/>information<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5984"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>open<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5985"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref><sp/>*fno<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>file<sp/>information<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5986"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="5987"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="5988"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="5989"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="5989"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="5990"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="5991"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5992"><highlight class="normal"></highlight></codeline>
@@ -6040,8 +6040,8 @@
 <codeline lineno="6027"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6028"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6029"><highlight class="normal">FRESULT<sp/>f_findnext<sp/>(</highlight></codeline>
-<codeline lineno="6030"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>open<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6031"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILINFO<sp/>*fno<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>information<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6030"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>open<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6031"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref><sp/>*fno<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>information<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6032"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6033"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6034"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
@@ -6071,8 +6071,8 @@
 <codeline lineno="6058"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6059"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6060"><highlight class="normal">FRESULT<sp/>f_findfirst<sp/>(</highlight></codeline>
-<codeline lineno="6061"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>blank<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6062"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILINFO<sp/>*fno,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>information<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6061"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>*dp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>blank<sp/>directory<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6062"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref><sp/>*fno,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>information<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6063"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>directory<sp/>to<sp/>open<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6064"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*pattern<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>matching<sp/>pattern<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6065"><highlight class="normal">)</highlight></codeline>
@@ -6099,11 +6099,11 @@
 <codeline lineno="6086"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6087"><highlight class="normal">FRESULT<sp/>f_stat<sp/>(</highlight></codeline>
 <codeline lineno="6088"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6089"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILINFO<sp/>*fno<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>file<sp/>information<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6089"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref><sp/>*fno<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>file<sp/>information<sp/>to<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6090"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6091"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6092"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6093"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="6093"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj<sp/>=<sp/>{0};</highlight></codeline>
 <codeline lineno="6094"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="6095"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6096"><highlight class="normal"></highlight></codeline>
@@ -6141,15 +6141,15 @@
 <codeline lineno="6128"><highlight class="normal">FRESULT<sp/>f_getfree<sp/>(</highlight></codeline>
 <codeline lineno="6129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Logical<sp/>drive<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>*nclst,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>a<sp/>variable<sp/>to<sp/>return<sp/>number<sp/>of<sp/>free<sp/>clusters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>**fatfs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>a<sp/>pointer<sp/>to<sp/>return<sp/>corresponding<sp/>filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>**fatfs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>a<sp/>pointer<sp/>to<sp/>return<sp/>corresponding<sp/>filesystem<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6132"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6133"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="6135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="6136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>nfree,<sp/>clst,<sp/>stat;</highlight></codeline>
 <codeline lineno="6137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>sect;</highlight></codeline>
 <codeline lineno="6138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>i;</highlight></codeline>
-<codeline lineno="6139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>obj;</highlight></codeline>
+<codeline lineno="6139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>obj;</highlight></codeline>
 <codeline lineno="6140"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6141"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>logical<sp/>drive<sp/>and<sp/>mount<sp/>the<sp/>volume<sp/>if<sp/>needed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -6255,11 +6255,11 @@
 <codeline lineno="6242"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6243"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6244"><highlight class="normal">FRESULT<sp/>f_truncate<sp/>(</highlight></codeline>
-<codeline lineno="6245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6246"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6247"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="6249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="6250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>ncl;</highlight></codeline>
 <codeline lineno="6251"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6252"><highlight class="normal"></highlight></codeline>
@@ -6322,11 +6322,11 @@
 <codeline lineno="6309"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6310"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj,<sp/>sdj;</highlight></codeline>
+<codeline lineno="6312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj,<sp/>sdj;</highlight></codeline>
 <codeline lineno="6314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>dclst<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="6315"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_FS_EXFAT</highlight></codeline>
-<codeline lineno="6316"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>obj;</highlight></codeline>
+<codeline lineno="6316"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>obj;</highlight></codeline>
 <codeline lineno="6317"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="6318"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="6319"><highlight class="normal"></highlight></codeline>
@@ -6418,9 +6418,9 @@
 <codeline lineno="6405"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6406"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
-<codeline lineno="6410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FFOBJID<sp/>sobj;</highlight></codeline>
+<codeline lineno="6408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
+<codeline lineno="6410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_f_o_b_j_i_d" kindref="compound">FFOBJID</ref><sp/>sobj;</highlight></codeline>
 <codeline lineno="6411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>dcl,<sp/>pcl,<sp/>tm;</highlight></codeline>
 <codeline lineno="6412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="6413"><highlight class="normal"></highlight></codeline>
@@ -6513,8 +6513,8 @@
 <codeline lineno="6500"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6501"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>djo,<sp/>djn;</highlight></codeline>
+<codeline lineno="6503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>djo,<sp/>djn;</highlight></codeline>
 <codeline lineno="6505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>buf[FF_FS_EXFAT<sp/>?<sp/>SZDIRE<sp/>*<sp/>2<sp/>:<sp/>SZDIRE],<sp/>*dir;</highlight></codeline>
 <codeline lineno="6506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="6507"><highlight class="normal"></highlight></codeline>
@@ -6646,8 +6646,8 @@
 <codeline lineno="6633"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6634"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
+<codeline lineno="6636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
 <codeline lineno="6638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="6639"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6640"><highlight class="normal"></highlight></codeline>
@@ -6693,12 +6693,12 @@
 <codeline lineno="6680"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6681"><highlight class="normal">FRESULT<sp/>f_utime<sp/>(</highlight></codeline>
 <codeline lineno="6682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file/directory<sp/>name<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>FILINFO*<sp/>fno<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Timestamp<sp/>to<sp/>be<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_f_i_l_i_n_f_o" kindref="compound">FILINFO</ref>*<sp/>fno<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Timestamp<sp/>to<sp/>be<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6684"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6685"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
+<codeline lineno="6687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
 <codeline lineno="6689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEF_NAMEBUFF</highlight></codeline>
 <codeline lineno="6690"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6691"><highlight class="normal"></highlight></codeline>
@@ -6769,8 +6769,8 @@
 <codeline lineno="6756"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6757"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
+<codeline lineno="6759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
 <codeline lineno="6761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>si,<sp/>di;</highlight></codeline>
 <codeline lineno="6762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WCHAR<sp/>wc;</highlight></codeline>
 <codeline lineno="6763"><highlight class="normal"></highlight></codeline>
@@ -6880,8 +6880,8 @@
 <codeline lineno="6867"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="6868"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="6869"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="6870"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
-<codeline lineno="6871"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DIR<sp/>dj;</highlight></codeline>
+<codeline lineno="6870"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
+<codeline lineno="6871"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_d_i_r" kindref="compound">DIR</ref><sp/>dj;</highlight></codeline>
 <codeline lineno="6872"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>dirvn[22];</highlight></codeline>
 <codeline lineno="6873"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>di;</highlight></codeline>
 <codeline lineno="6874"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WCHAR<sp/>wc;</highlight></codeline>
@@ -7025,13 +7025,13 @@
 <codeline lineno="7012"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7013"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7014"><highlight class="normal">FRESULT<sp/>f_expand<sp/>(</highlight></codeline>
-<codeline lineno="7015"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7015"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7016"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>fsz,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>File<sp/>size<sp/>to<sp/>be<sp/>expanded<sp/>to<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7017"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>opt<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Operation<sp/>mode<sp/>0:Find<sp/>and<sp/>prepare<sp/>or<sp/>1:Find<sp/>and<sp/>allocate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7018"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="7019"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="7020"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="7021"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="7021"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="7022"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>n,<sp/>clst,<sp/>stcl,<sp/>scl,<sp/>ncl,<sp/>tcl,<sp/>lclst;</highlight></codeline>
 <codeline lineno="7023"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7024"><highlight class="normal"></highlight></codeline>
@@ -7151,14 +7151,14 @@
 <codeline lineno="7138"><highlight class="normal"></highlight><highlight class="comment">/*-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7139"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7140"><highlight class="normal">FRESULT<sp/>f_forward<sp/>(</highlight></codeline>
-<codeline lineno="7141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>(*func)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE<sp/>*,<sp/>UINT),<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>streaming<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>btf,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>bytes<sp/>to<sp/>forward<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>*bf<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>number<sp/>of<sp/>bytes<sp/>forwarded<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7145"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="7146"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="7147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FRESULT<sp/>res<sp/>=<sp/>FR_DISK_ERR;</highlight></codeline>
-<codeline lineno="7148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="7148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="7149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DWORD<sp/>clst;</highlight></codeline>
 <codeline lineno="7150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LBA_t<sp/>sect;</highlight></codeline>
 <codeline lineno="7151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FSIZE_t<sp/>remain;</highlight></codeline>
@@ -7427,14 +7427,14 @@
 <codeline lineno="7414"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7415"><highlight class="normal">FRESULT<sp/>f_mkfs<sp/>(</highlight></codeline>
 <codeline lineno="7416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Logical<sp/>drive<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MKFS_PARM<sp/>*opt,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Format<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_m_k_f_s___p_a_r_m" kindref="compound">MKFS_PARM</ref><sp/>*opt,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Format<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*work,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>working<sp/>buffer<sp/>(null:<sp/>use<sp/>len<sp/>bytes<sp/>of<sp/>heap<sp/>memory)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT<sp/>len<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Size<sp/>of<sp/>working<sp/>buffer<sp/>[byte]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7420"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="7421"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="7422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>WORD<sp/>cst[]<sp/>=<sp/>{1,<sp/>4,<sp/>16,<sp/>64,<sp/>256,<sp/>512,<sp/>0};<sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>size<sp/>boundary<sp/>for<sp/>FAT<sp/>volume<sp/>(4K<sp/>sector<sp/>unit)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>WORD<sp/>cst32[]<sp/>=<sp/>{1,<sp/>2,<sp/>4,<sp/>8,<sp/>16,<sp/>32,<sp/>0};<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cluster<sp/>size<sp/>boundary<sp/>for<sp/>FAT32<sp/>volume<sp/>(128K<sp/>sector<sp/>unit)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MKFS_PARM<sp/>defopt<sp/>=<sp/>{FM_ANY,<sp/>0,<sp/>0,<sp/>0,<sp/>0};<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Default<sp/>parameter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_m_k_f_s___p_a_r_m" kindref="compound">MKFS_PARM</ref><sp/>defopt<sp/>=<sp/>{FM_ANY,<sp/>0,<sp/>0,<sp/>0,<sp/>0};<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Default<sp/>parameter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>fsopt,<sp/>fsty,<sp/>sys,<sp/>pdrv,<sp/>ipart;</highlight></codeline>
 <codeline lineno="7426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>*buf;</highlight></codeline>
 <codeline lineno="7427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BYTE<sp/>*pte;</highlight></codeline>
@@ -8160,7 +8160,7 @@
 <codeline lineno="8147"><highlight class="normal">TCHAR<sp/>*f_gets<sp/>(</highlight></codeline>
 <codeline lineno="8148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCHAR<sp/>*buff,<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>buffer<sp/>to<sp/>store<sp/>read<sp/>string<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Size<sp/>of<sp/>string<sp/>buffer<sp/>(items)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8151"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="8152"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nc<sp/>=<sp/>0;</highlight></codeline>
@@ -8347,7 +8347,7 @@
 <codeline lineno="8334"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Output<sp/>buffer<sp/>and<sp/>work<sp/>area<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8335"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8336"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="8337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>writing<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>writing<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>idx,<sp/>nchr;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>index<sp/>of<sp/>buf[]<sp/>(-1:error),<sp/>number<sp/>of<sp/>encoding<sp/>units<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8339"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>FF_USE_LFN<sp/>&amp;&amp;<sp/>FF_LFN_UNICODE<sp/>==<sp/>1</highlight></codeline>
 <codeline lineno="8340"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WCHAR<sp/>hs;</highlight></codeline>
@@ -8541,7 +8541,7 @@
 <codeline lineno="8528"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8529"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialize<sp/>write<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8530"><highlight class="normal"></highlight></codeline>
-<codeline lineno="8531"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>putc_init<sp/>(putbuff<sp/>*pb,<sp/>FIL<sp/>*fp)</highlight></codeline>
+<codeline lineno="8531"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>putc_init<sp/>(putbuff<sp/>*pb,<sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp)</highlight></codeline>
 <codeline lineno="8532"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(pb,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>(putbuff));</highlight></codeline>
 <codeline lineno="8534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pb-&gt;fp<sp/>=<sp/>fp;</highlight></codeline>
@@ -8551,7 +8551,7 @@
 <codeline lineno="8538"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8539"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_putc<sp/>(</highlight></codeline>
 <codeline lineno="8540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCHAR<sp/>c,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>character<sp/>to<sp/>be<sp/>output<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8542"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="8543"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>putbuff<sp/>pb;</highlight></codeline>
@@ -8571,7 +8571,7 @@
 <codeline lineno="8558"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8559"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_puts<sp/>(</highlight></codeline>
 <codeline lineno="8560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*str,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>string<sp/>to<sp/>be<sp/>output<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8562"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="8563"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>putbuff<sp/>pb;</highlight></codeline>
@@ -8752,7 +8752,7 @@
 <codeline lineno="8739"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8740"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8741"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>f_printf<sp/>(</highlight></codeline>
-<codeline lineno="8742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_i_l" kindref="compound">FIL</ref><sp/>*fp,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>file<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*fmt,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>format<sp/>string<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>...<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Optional<sp/>arguments...<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8745"><highlight class="normal">)</highlight></codeline>
@@ -8954,7 +8954,7 @@
 <codeline lineno="8941"><highlight class="normal">FRESULT<sp/>f_ioctl<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>TCHAR<sp/>*path,<sp/>BYTE<sp/>Cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*buff)</highlight></codeline>
 <codeline lineno="8942"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8943"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vol;</highlight></codeline>
-<codeline lineno="8944"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATFS<sp/>*fs;</highlight></codeline>
+<codeline lineno="8944"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_f_a_t_f_s" kindref="compound">FATFS</ref><sp/>*fs;</highlight></codeline>
 <codeline lineno="8945"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8946"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vol<sp/>=<sp/>get_ldnumber(&amp;path);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>target<sp/>logical<sp/>drive<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8947"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vol<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
@@ -8973,6 +8973,6 @@
 <codeline lineno="8960"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8961"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>(defined<sp/>FILE_SYSTEM_INTERFACE_SD)<sp/>||<sp/>(defined<sp/>FILE_SYSTEM_INTERFACE_RAM)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/ff.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilffs/src/ff.c"/>
   </compounddef>
 </doxygen>

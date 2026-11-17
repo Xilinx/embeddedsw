@@ -108,36 +108,39 @@ $(document).ready(function(){initNavTree('xilskey__puf__registration__example_8c
 <div class="textblock"><p>This file illustrates how to do PUF registration and generating syndrome data and obtaining helper data, debug 2 result, Auxiliary and CHash values from generated syndrome data. </p>
 <p>This example also encrypts the provided AES key with PUF and generates the black key. Finally programs the PUF code and black key into eFUSE on user request (provided in <a class="el" href="xilskey__puf__registration_8h.html" title="This file contains header interface related information for PUF device and macros used in the driver...">xilskey_puf_registration.h</a>)</p>
 <pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who   Date     Changes
------ ---  -------- -------------------------------------------------------
-6.1   rp   17/10/16 First release.
-6.2   vns  02/18/17 Modified Encrypt API call due to change in Xilsecure
-           03/10/17 Added Support for programming and reading PUF reserved
-                    bit
-6.7   mmd  03/17/19 Ignored PUF data on overflow
-6.9   kpt  02/27/20 Removed XilSKey_Puf_Fetch_Dbg_Mode2_result
-                    which is used only for debug purpose
-      har  03/09/20 Fixed array overrun condition in
-                    XilSKey_Generate_FuseFormat function.
-      kal  05/15/20 Replace all eFuse read with Cache reads.
-7.0   kpt  09/02/20 Added successfully ran print to the example in case of
-                    success</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who   Date     Changes
+ ----- ---  -------- -------------------------------------------------------
+ 6.1   rp   17/10/16 First release.
+ 6.2   vns  02/18/17 Modified Encrypt API call due to change in Xilsecure
+            03/10/17 Added Support for programming and reading PUF reserved
+                     bit
+ 6.7   mmd  03/17/19 Ignored PUF data on overflow
+ 6.9   kpt  02/27/20 Removed XilSKey_Puf_Fetch_Dbg_Mode2_result
+                     which is used only for debug purpose
+       har  03/09/20 Fixed array overrun condition in
+                     XilSKey_Generate_FuseFormat function.
+       kal  05/15/20 Replace all eFuse read with Cache reads.
+ 7.0   kpt  09/02/20 Added successfully ran print to the example in case of
+                     success
+8.0   rap   08/18/26 Added explicit void to function definitions and
+                     declarations with empty parameter lists.</pre><pre> </pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xilskey__puf__registration_8h.html">xilskey_puf_registration.h</a>&quot;</code><br/>
 <code>#include &quot;xplatform_info.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__puf__registration__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilskey__puf__registration__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int main </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>

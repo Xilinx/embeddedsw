@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___tile_status.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,6 +106,8 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___tile_status.html','')
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XRFdc_TileStatus Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
 </div><!--header-->
@@ -115,9 +117,109 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___tile_status.html','')
  <a href="struct_x_r_fdc___tile_status.html#details">More...</a></p>
 
 <p><code>#include &lt;xrfdc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a7f52ff7933b641cfa0e6a4369535d13e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___tile_status.html#a7f52ff7933b641cfa0e6a4369535d13e">IsEnabled</a></td></tr>
+<tr class="memdesc:a7f52ff7933b641cfa0e6a4369535d13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if tile is enabled, 0 otherwise.  <a href="#a7f52ff7933b641cfa0e6a4369535d13e">More...</a><br/></td></tr>
+<tr class="separator:a7f52ff7933b641cfa0e6a4369535d13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad92c5c6f1b71ab70e19f18cd31c8103c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___tile_status.html#ad92c5c6f1b71ab70e19f18cd31c8103c">TileState</a></td></tr>
+<tr class="memdesc:ad92c5c6f1b71ab70e19f18cd31c8103c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates tile current state.  <a href="#ad92c5c6f1b71ab70e19f18cd31c8103c">More...</a><br/></td></tr>
+<tr class="separator:ad92c5c6f1b71ab70e19f18cd31c8103c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf3d3f5de278fc1b00845d5fdbb49028"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___tile_status.html#abf3d3f5de278fc1b00845d5fdbb49028">BlockStatusMask</a></td></tr>
+<tr class="memdesc:abf3d3f5de278fc1b00845d5fdbb49028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask for block status, 1 indicates block enable.  <a href="#abf3d3f5de278fc1b00845d5fdbb49028">More...</a><br/></td></tr>
+<tr class="separator:abf3d3f5de278fc1b00845d5fdbb49028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c2f1541ed58abe84b6489034a632d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___tile_status.html#ab3c2f1541ed58abe84b6489034a632d8">PowerUpState</a></td></tr>
+<tr class="memdesc:ab3c2f1541ed58abe84b6489034a632d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power-up state of the tile.  <a href="#ab3c2f1541ed58abe84b6489034a632d8">More...</a><br/></td></tr>
+<tr class="separator:ab3c2f1541ed58abe84b6489034a632d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f9240200ed4e943711b1a6605bb21c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___tile_status.html#a7f9240200ed4e943711b1a6605bb21c2">PLLState</a></td></tr>
+<tr class="memdesc:a7f9240200ed4e943711b1a6605bb21c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">PLL state of the tile.  <a href="#a7f9240200ed4e943711b1a6605bb21c2">More...</a><br/></td></tr>
+<tr class="separator:a7f9240200ed4e943711b1a6605bb21c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RFSoC Tile status. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="abf3d3f5de278fc1b00845d5fdbb49028"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a> XRFdc_TileStatus::BlockStatusMask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit mask for block status, 1 indicates block enable. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7f52ff7933b641cfa0e6a4369535d13e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_TileStatus::IsEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1 if tile is enabled, 0 otherwise. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7f9240200ed4e943711b1a6605bb21c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_TileStatus::PLLState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PLL state of the tile. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab3c2f1541ed58abe84b6489034a632d8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_TileStatus::PowerUpState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Power-up state of the tile. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad92c5c6f1b71ab70e19f18cd31c8103c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_TileStatus::TileState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates tile current state. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus()</a>, and <a class="el" href="group___overview.html#ga032b44b96776ed88ed58464b1d014d63">XRFdc_MultiConverter_Sync()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

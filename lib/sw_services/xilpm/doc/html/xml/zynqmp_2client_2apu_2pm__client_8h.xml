@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="zynqmp_2client_2apu_2pm__client_8h" kind="file">
+    <compoundname>zynqmp/client/apu/pm_client.h</compoundname>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="pm__apu_8h" local="yes">pm_apu.h</includes>
+    <includes local="yes">pm_defs.h</includes>
+    <includes refid="pm__common_8h" local="yes">pm_common.h</includes>
+    <includedby refid="zynqmp_2client_2apu_2pm__client_8c" local="yes">pm_client.c</includedby>
+    <incdepgraph>
+      <node id="244">
+        <label>pm_defs.h</label>
+      </node>
+      <node id="252">
+        <label>stdbool.h</label>
+      </node>
+      <node id="240">
+        <label>pm_client.h</label>
+        <link refid="zynqmp/client/apu/pm_client.h"/>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="243" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+      </node>
+      <node id="242">
+        <label>xil_io.h</label>
+      </node>
+      <node id="251">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="245">
+        <label>pm_common.h</label>
+        <link refid="pm__common_8h"/>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>pm_apu.h</label>
+      </node>
+      <node id="248">
+        <label>xstatus.h</label>
+      </node>
+      <node id="241">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="247">
+        <label>xil_types.h</label>
+      </node>
+      <node id="249">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="250">
+        <label>pm_defs.h</label>
+        <childnode refid="251" relation="include">
+        </childnode>
+      </node>
+      <node id="246">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="254">
+        <label>pm_client.c</label>
+      </node>
+      <node id="253">
+        <label>pm_client.h</label>
+        <link refid="zynqmp/client/apu/pm_client.h"/>
+        <childnode refid="254" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>CONTENT</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>File<sp/>is<sp/>specific<sp/>for<sp/>each<sp/>PU<sp/>instance<sp/>and<sp/>must<sp/>exist<sp/>in<sp/>order<sp/>to</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>port<sp/>Power<sp/>Management<sp/>code<sp/>for<sp/>some<sp/>new<sp/>PU.</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>Contains<sp/>PU<sp/>specific<sp/>macros<sp/>and<sp/>macros<sp/>to<sp/>be<sp/>defined<sp/>depending<sp/>on</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>the<sp/>execution<sp/>environment.</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PM_CLIENT_H</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PM_CLIENT_H</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pm_apu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;pm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pm__common_8h" kindref="compound">pm_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#define<sp/>pm_print(MSG,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(&quot;APU:<sp/>&quot;MSG,##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PM_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/apu/pm_client.h"/>
+  </compounddef>
+</doxygen>

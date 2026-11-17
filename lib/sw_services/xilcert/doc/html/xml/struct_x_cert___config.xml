@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___config" kind="struct" prot="public">
+    <compoundname>XCert_Config</compoundname>
+    <includes local="no">xcert_genx509cert.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___config_1a713b05bc774246e63056a1483235fc2f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_Config::SubSystemId</definition>
+        <argsstring></argsstring>
+        <name>SubSystemId</name>
+        <briefdescription>
+<para>Subsystem ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___config_1adb3dd0cdc1717d159222742214449890" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_Config::KeyIndex</definition>
+        <argsstring></argsstring>
+        <name>KeyIndex</name>
+        <briefdescription>
+<para>Key Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___config_1a56c02874f9f1e352ba7f660618aaa3c6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cert___user_cfg" kindref="compound">XCert_UserCfg</ref> *</type>
+        <definition>XCert_UserCfg* XCert_Config::UserCfg</definition>
+        <argsstring></argsstring>
+        <name>UserCfg</name>
+        <briefdescription>
+<para>Configuration from User. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___config_1acd8d359b5c228905e28f209e7200f60d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cert___app_cfg" kindref="compound">XCert_AppCfg</ref></type>
+        <definition>XCert_AppCfg XCert_Config::AppCfg</definition>
+        <argsstring></argsstring>
+        <name>AppCfg</name>
+        <briefdescription>
+<para>Configuration from application. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the configuration for X.509 certificate for given Subsystem ID. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XCert_DmeChallenge</label>
+        <link refid="struct_x_cert___dme_challenge"/>
+      </node>
+      <node id="6">
+        <label>XCert_AppCfg</label>
+        <link refid="struct_x_cert___app_cfg"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>DmeResp</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XCert_DmeResponse</label>
+        <link refid="struct_x_cert___dme_response"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Dme</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>XCert_UserCfg</label>
+        <link refid="struct_x_cert___user_cfg"/>
+      </node>
+      <node id="5">
+        <label>XCert_Config</label>
+        <link refid="struct_x_cert___config"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>AppCfg</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>UserCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="181" bodyend="186"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___config_1acd8d359b5c228905e28f209e7200f60d" prot="public" virt="non-virtual"><scope>XCert_Config</scope><name>AppCfg</name></member>
+      <member refid="struct_x_cert___config_1adb3dd0cdc1717d159222742214449890" prot="public" virt="non-virtual"><scope>XCert_Config</scope><name>KeyIndex</name></member>
+      <member refid="struct_x_cert___config_1a713b05bc774246e63056a1483235fc2f" prot="public" virt="non-virtual"><scope>XCert_Config</scope><name>SubSystemId</name></member>
+      <member refid="struct_x_cert___config_1a56c02874f9f1e352ba7f660618aaa3c6" prot="public" virt="non-virtual"><scope>XCert_Config</scope><name>UserCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

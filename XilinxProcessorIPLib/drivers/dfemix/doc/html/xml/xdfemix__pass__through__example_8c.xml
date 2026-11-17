@@ -19,7 +19,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c" bodystart="66" bodyend="178"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c" bodystart="66" bodyend="178"/>
         <references refid="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" compoundref="xdfemix_8h" startline="261">XDfeMix_TriggerCfg::Activate</references>
         <references refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a35c7833cc86f7fd89ed24c8ba114a75b" compoundref="xdfemix_8h" startline="404">XDfeMix_DUCDDCCfg::CCGain</references>
         <references refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" compoundref="xdfemix_8h" startline="506">XDfeMix_Status::CCSequenceError</references>
@@ -208,6 +208,6 @@
 <codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
 <codeline lineno="178"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_pass_through_example.c"/>
   </compounddef>
 </doxygen>

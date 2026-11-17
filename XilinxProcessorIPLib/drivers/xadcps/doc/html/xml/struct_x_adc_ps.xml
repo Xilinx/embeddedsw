@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="322" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="322" bodyend="-1"/>
         <referencedby refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" compoundref="xadcps_8c" startline="86" endline="133">XAdcPs_CfgInitialize</referencedby>
         <referencedby refid="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" compoundref="xadcps__intr_8c" startline="206" endline="225">XAdcPs_IntrClear</referencedby>
         <referencedby refid="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" compoundref="xadcps__intr_8c" startline="110" endline="129">XAdcPs_IntrDisable</referencedby>
@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="323" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="323" bodyend="-1"/>
         <referencedby refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" compoundref="xadcps_8c" startline="86" endline="133">XAdcPs_CfgInitialize</referencedby>
         <referencedby refid="group___overview_1gaac4aa7cafe46dc4ec867050db6bd8fd8" compoundref="xadcps_8c" startline="1498" endline="1517">XAdcPs_DisableUserOverTemp</referencedby>
         <referencedby refid="group___overview_1ga7bd1df96dde38098c639a690484c063d" compoundref="xadcps_8c" startline="1458" endline="1482">XAdcPs_EnableUserOverTemp</referencedby>
@@ -98,7 +98,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="321" bodyend="325"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="321" bodyend="325"/>
     <listofallmembers>
       <member refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" prot="public" virt="non-virtual"><scope>XAdcPs</scope><name>Config</name></member>
       <member refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" prot="public" virt="non-virtual"><scope>XAdcPs</scope><name>IsReady</name></member>

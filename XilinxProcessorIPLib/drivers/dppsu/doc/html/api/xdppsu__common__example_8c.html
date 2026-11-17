@@ -118,6 +118,18 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7386e44e956d4e783e345ca361326df0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__common__example_8c.html#a7386e44e956d4e783e345ca361326df0">DpPsu_PlatformInit</a> (void)</td></tr>
+<tr class="memdesc:a7386e44e956d4e783e345ca361326df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the platform initialization required before the DisplayPort TX core can be used.  <a href="#a7386e44e956d4e783e345ca361326df0">More...</a><br/></td></tr>
+<tr class="separator:a7386e44e956d4e783e345ca361326df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a867f66d113cb90c1b0d155b0d3ac6db9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__common__example_8c.html#a867f66d113cb90c1b0d155b0d3ac6db9">DpPsu_StreamSrcSetup</a> (<a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a867f66d113cb90c1b0d155b0d3ac6db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets up the video stream source that feeds the DisplayPort TX core.  <a href="#a867f66d113cb90c1b0d155b0d3ac6db9">More...</a><br/></td></tr>
+<tr class="separator:a867f66d113cb90c1b0d155b0d3ac6db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de1d859acd2736a7cf7976b858748b2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__common__example_8c.html#a8de1d859acd2736a7cf7976b858748b2">DpPsu_StreamSrcConfigure</a> (<a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a8de1d859acd2736a7cf7976b858748b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the video stream source that feeds the DisplayPort TX core.  <a href="#a8de1d859acd2736a7cf7976b858748b2">More...</a><br/></td></tr>
+<tr class="separator:a8de1d859acd2736a7cf7976b858748b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a625233c5d04622e106246bce7a5432a5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__common__example_8c.html#a625233c5d04622e106246bce7a5432a5">DpPsu_StreamSrcSync</a> (<a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a625233c5d04622e106246bce7a5432a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function synchronizes the video stream source with the DisplayPort TX core.  <a href="#a625233c5d04622e106246bce7a5432a5">More...</a><br/></td></tr>
+<tr class="separator:a625233c5d04622e106246bce7a5432a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05b560a8593f7a81eee6df4151d8ba4f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdppsu__common__example_8c.html#a05b560a8593f7a81eee6df4151d8ba4f">DpPsu_Run</a> (<a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a05b560a8593f7a81eee6df4151d8ba4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will configure and establish a link with the receiver device, afterwards, a video stream will start to be sent over the main link.  <a href="#a05b560a8593f7a81eee6df4151d8ba4f">More...</a><br/></td></tr>
 <tr class="separator:a05b560a8593f7a81eee6df4151d8ba4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +141,32 @@ Functions</h2></td></tr>
 <tr class="separator:a64d2267afa217a44aa3bf09bcd51e409"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a7386e44e956d4e783e345ca361326df0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DpPsu_PlatformInit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function performs the platform initialization required before the DisplayPort TX core can be used. </p>
+<p>It is provided as an empty default so that the examples build and link out of the box.</p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS always.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contents of this function are hardware system specific - it is up to the user to fill it in as needed. Typical tasks are bringing up the clocking for the video pixel clock and the DisplayPort reference clock, releasing resets, and configuring the PS-GT lanes and the video pipeline routing. </dd></dl>
+
+<p>Referenced by <a class="el" href="xdppsu__intr__example_8c.html#a9888aea9ec2327cd631da76a364dad83">DpPsu_IntrExample()</a>, and <a class="el" href="xdppsu__poll__example_8c.html#ad78dc9982ab43622fc66f25b16eb6b6b">DpPsu_PollExample()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a05b560a8593f7a81eee6df4151d8ba4f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -238,6 +276,96 @@ Functions</h2></td></tr>
 <p>References <a class="el" href="struct_x_dp_psu___config.html#a59991a74d33038e382665a3460a669ee">XDpPsu_Config::BaseAddr</a>, <a class="el" href="struct_x_dp_psu.html#a95a9619caa3d18b50a4562de54d57704">XDpPsu::Config</a>, <a class="el" href="struct_x_dp_psu___link_config.html#a1e61b94ec7a7329b4b7929251b293e79">XDpPsu_LinkConfig::LaneCount</a>, <a class="el" href="struct_x_dp_psu.html#a37e28c28f46f7e08ce4738a9232a0678">XDpPsu::LinkConfig</a>, <a class="el" href="struct_x_dp_psu___link_config.html#ae1994c57d3126737fc0028f5039b62be">XDpPsu_LinkConfig::LinkRate</a>, <a class="el" href="struct_x_dp_psu___link_config.html#a0953d4a5c490da688eb7d4636f918712">XDpPsu_LinkConfig::MaxLaneCount</a>, <a class="el" href="struct_x_dp_psu___link_config.html#a7add556a95dbf238f21ae156bfd284f3">XDpPsu_LinkConfig::MaxLinkRate</a>, <a class="el" href="xdppsu_8c.html#a3d4cefedd9d272f58c7927b72add609d">XDpPsu_CfgMainLinkMax()</a>, <a class="el" href="xdppsu_8c.html#ae723bbc24a4dbce124cdd92979af27af">XDpPsu_CheckLinkStatus()</a>, <a class="el" href="xdppsu_8c.html#abe31bd9b101b094a40eff13ef032ea44">XDpPsu_EstablishLink()</a>, <a class="el" href="xdppsu_8c.html#a0a935cce246619f8f43ea0794ed9fa8e">XDpPsu_GetRxCapabilities()</a>, <a class="el" href="xdppsu__hw_8h.html#a39533d8f8e18fce7b13f84d440b6b176">XDPPSU_LINK_BW_SET</a>, <a class="el" href="xdppsu__hw_8h.html#a236d6b24b5cf2e0e8ac65a4079ae93bc">XDpPsu_ReadReg</a>, <a class="el" href="xdppsu_8c.html#a7836168f290562156a24fb51762acde4">XDpPsu_SetDownspread()</a>, <a class="el" href="xdppsu_8c.html#a2ec5ae4af1f5232fc86116d457045997">XDpPsu_SetEnhancedFrameMode()</a>, <a class="el" href="xdppsu_8c.html#a868ca9bd2184707f3929e6f7e695cc93">XDpPsu_SetLaneCount()</a>, and <a class="el" href="xdppsu_8c.html#a68384c6a808dff1f2e68e7611057a548">XDpPsu_SetLinkRate()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdppsu__common__example_8h.html#a05b560a8593f7a81eee6df4151d8ba4f">DpPsu_Run()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8de1d859acd2736a7cf7976b858748b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DpPsu_StreamSrcConfigure </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function configures the video stream source that feeds the DisplayPort TX core. </p>
+<p>It is provided as an empty default so that the examples build and link out of the box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_dp_psu.html" title="The XDpPsu driver instance data. ">XDpPsu</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS always.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contents of this function are hardware system specific - it is up to the user to fill it in as needed. For the PS DisplayPort this typically means programming the video format, the blender and the audio/video buffer attributes using the AVBuf driver, for example XAVBuf_ConfigureVideoPipeline. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a867f66d113cb90c1b0d155b0d3ac6db9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DpPsu_StreamSrcSetup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sets up the video stream source that feeds the DisplayPort TX core. </p>
+<p>It is provided as an empty default so that the examples build and link out of the box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_dp_psu.html" title="The XDpPsu driver instance data. ">XDpPsu</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS always.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contents of this function are hardware system specific - it is up to the user to fill it in as needed. For the PS DisplayPort this typically means selecting the video and audio input sources using the AVBuf driver, for example XAVBuf_InputVideoSelect. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a625233c5d04622e106246bce7a5432a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DpPsu_StreamSrcSync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp_psu.html">XDpPsu</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function synchronizes the video stream source with the DisplayPort TX core. </p>
+<p>It is provided as an empty default so that the examples build and link out of the box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_dp_psu.html" title="The XDpPsu driver instance data. ">XDpPsu</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS always.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The contents of this function are hardware system specific - it is up to the user to fill it in as needed. For the PS DisplayPort this typically means enabling the video and audio timing and releasing the buffer outputs so the stream tracks the main link. </dd></dl>
 
 </div>
 </div>

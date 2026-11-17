@@ -6,62 +6,40 @@
     <includedby refid="xv__hdmitxss1_8c" local="yes">xv_hdmitxss1.c</includedby>
     <includedby refid="xv__hdmitxss1__coreinit_8c" local="yes">xv_hdmitxss1_coreinit.c</includedby>
     <incdepgraph>
-      <node id="658">
+      <node id="660">
         <label>xil_assert.h</label>
       </node>
-      <node id="651">
-        <label>xv_hdmic_vsif.h</label>
-      </node>
-      <node id="653">
-        <label>xvidc_edid_ext.h</label>
-      </node>
-      <node id="652">
-        <label>xvidc_edid.h</label>
-      </node>
-      <node id="654">
-        <label>xv_hdmitx1.h</label>
-      </node>
-      <node id="656">
+      <node id="658">
         <label>xv_hdmitxss1_frl.h</label>
         <link refid="xv__hdmitxss1__frl_8h"/>
-        <childnode refid="657" relation="include">
+        <childnode refid="659" relation="include">
         </childnode>
-        <childnode refid="658" relation="include">
+        <childnode refid="660" relation="include">
         </childnode>
-        <childnode refid="648" relation="include">
-        </childnode>
-      </node>
-      <node id="645">
-        <label>xv_hdmitxss1_coreinit.h</label>
-        <link refid="xv_hdmitxss1_coreinit.h"/>
-        <childnode refid="646" relation="include">
+        <childnode refid="650" relation="include">
         </childnode>
       </node>
-      <node id="648">
-        <label>xstatus.h</label>
-      </node>
-      <node id="649">
-        <label>xvidc.h</label>
-      </node>
-      <node id="657">
-        <label>xil_types.h</label>
-      </node>
-      <node id="650">
-        <label>xv_hdmic.h</label>
-      </node>
-      <node id="647">
-        <label>xparameters.h</label>
+      <node id="653">
+        <label>xv_hdmic_vsif.h</label>
       </node>
       <node id="655">
-        <label>xvtc.h</label>
+        <label>xvidc_edid_ext.h</label>
       </node>
-      <node id="646">
-        <label>xv_hdmitxss1.h</label>
-        <link refid="xv__hdmitxss1_8h"/>
-        <childnode refid="647" relation="include">
-        </childnode>
+      <node id="654">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="647">
+        <label>xv_hdmitxss1_coreinit.h</label>
+        <link refid="xv_hdmitxss1_coreinit.h"/>
         <childnode refid="648" relation="include">
         </childnode>
+      </node>
+      <node id="656">
+        <label>xv_hdmitx1.h</label>
+      </node>
+      <node id="648">
+        <label>xv_hdmitxss1.h</label>
+        <link refid="xv__hdmitxss1_8h"/>
         <childnode refid="649" relation="include">
         </childnode>
         <childnode refid="650" relation="include">
@@ -78,22 +56,44 @@
         </childnode>
         <childnode refid="656" relation="include">
         </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+      </node>
+      <node id="650">
+        <label>xstatus.h</label>
+      </node>
+      <node id="651">
+        <label>xvidc.h</label>
+      </node>
+      <node id="659">
+        <label>xil_types.h</label>
+      </node>
+      <node id="652">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="649">
+        <label>xparameters.h</label>
+      </node>
+      <node id="657">
+        <label>xvtc.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="661">
+      <node id="663">
         <label>xv_hdmitxss1_coreinit.c</label>
         <link refid="xv__hdmitxss1__coreinit_8c"/>
       </node>
-      <node id="659">
+      <node id="661">
         <label>xv_hdmitxss1_coreinit.h</label>
         <link refid="xv_hdmitxss1_coreinit.h"/>
-        <childnode refid="660" relation="include">
+        <childnode refid="662" relation="include">
         </childnode>
-        <childnode refid="661" relation="include">
+        <childnode refid="663" relation="include">
         </childnode>
       </node>
-      <node id="660">
+      <node id="662">
         <label>xv_hdmitxss1.c</label>
         <link refid="xv__hdmitxss1_8c"/>
       </node>
@@ -108,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -136,16 +136,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.c" bodystart="55" bodyend="98"/>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a20364540787ca3b61a22e2138cd03369" compoundref="xv__hdmitxss1_8h" startline="416">XV_HdmiTxSs1::HdmiTx1Ptr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.c" bodystart="55" bodyend="92"/>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a20364540787ca3b61a22e2138cd03369" compoundref="xv__hdmitxss1_8h" startline="402">XV_HdmiTxSs1::HdmiTx1Ptr</references>
         <references refid="xv__hdmitxss1_8h_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a0b16619b4646eb99a2e88ead03e48c5b" compoundref="xv__hdmitxss1_8h" startline="104">XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a0af4e590d235b7ed72a2f32c2f1313c4" compoundref="xv__hdmitxss1_8h" startline="401">XV_HdmiTxSs1::Config</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___config_1a6c96b525bcc797ccaa4db3d8638bf09d" compoundref="xv__hdmitxss1_8h" startline="339">XV_HdmiTxSs1_Config::HdmiTx1</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___config_1a2fad82bc5ec410236e8995be3b421baf" compoundref="xv__hdmitxss1_8h" startline="321">XV_HdmiTxSs1_Config::BaseAddress</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___config_1aa8205c90494b16611fb959bb27b10304" compoundref="xv__hdmitxss1_8h" startline="334">XV_HdmiTxSs1_Config::AxiLiteClkFreq</references>
-        <references refid="xv__hdmitxss1_8c_1ad69b7781c8499dfd2cf8b1cd6744baf2" compoundref="xv__hdmitxss1_8c" startline="172" endline="181">XV_HdmiTxSS1_SetHdmiTmdsMode</references>
-        <referencedby refid="xv__hdmitxss1_8h_1a33b732506d6578b5daf78406e2864af0" compoundref="xv__hdmitxss1_8c" startline="475" endline="606">XV_HdmiTxSs1_CfgInitialize</referencedby>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a0b16619b4646eb99a2e88ead03e48c5b" compoundref="xv__hdmitxss1_8h" startline="102">XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a0af4e590d235b7ed72a2f32c2f1313c4" compoundref="xv__hdmitxss1_8h" startline="387">XV_HdmiTxSs1::Config</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___config_1a6c96b525bcc797ccaa4db3d8638bf09d" compoundref="xv__hdmitxss1_8h" startline="327">XV_HdmiTxSs1_Config::HdmiTx1</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___config_1a2fad82bc5ec410236e8995be3b421baf" compoundref="xv__hdmitxss1_8h" startline="309">XV_HdmiTxSs1_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___config_1aa8205c90494b16611fb959bb27b10304" compoundref="xv__hdmitxss1_8h" startline="322">XV_HdmiTxSs1_Config::AxiLiteClkFreq</references>
+        <references refid="xv__hdmitxss1_8c_1ad69b7781c8499dfd2cf8b1cd6744baf2" compoundref="xv__hdmitxss1_8c" startline="167" endline="176">XV_HdmiTxSS1_SetHdmiTmdsMode</references>
+        <referencedby refid="xv__hdmitxss1_8h_1a33b732506d6578b5daf78406e2864af0" compoundref="xv__hdmitxss1_8c" startline="448" endline="575">XV_HdmiTxSs1_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__hdmitxss1_1ga64a794defc59694de323c4b239088906" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -171,14 +171,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.c" bodystart="109" bodyend="145"/>
-        <references refid="struct_x_v___hdmi_tx_ss1_1aec5ea5b9de3421ff6542da966c26995a" compoundref="xv__hdmitxss1_8h" startline="417">XV_HdmiTxSs1::VtcPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.c" bodystart="103" bodyend="133"/>
+        <references refid="struct_x_v___hdmi_tx_ss1_1aec5ea5b9de3421ff6542da966c26995a" compoundref="xv__hdmitxss1_8h" startline="403">XV_HdmiTxSs1::VtcPtr</references>
         <references refid="xv__hdmitxss1_8h_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</references>
-        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae69bc0ec2857088237ad39aef1e68b86" compoundref="xv__hdmitxss1_8h" startline="105">XV_HDMITXSS1_LOG_EVT_VTC_INIT</references>
-        <references refid="struct_x_v___hdmi_tx_ss1_1a0af4e590d235b7ed72a2f32c2f1313c4" compoundref="xv__hdmitxss1_8h" startline="401">XV_HdmiTxSs1::Config</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___config_1a551d6a6fa1e71515aead4eba79f11a46" compoundref="xv__hdmitxss1_8h" startline="340">XV_HdmiTxSs1_Config::Vtc</references>
-        <references refid="struct_x_v___hdmi_tx_ss1___config_1a2fad82bc5ec410236e8995be3b421baf" compoundref="xv__hdmitxss1_8h" startline="321">XV_HdmiTxSs1_Config::BaseAddress</references>
-        <referencedby refid="xv__hdmitxss1_8h_1a33b732506d6578b5daf78406e2864af0" compoundref="xv__hdmitxss1_8c" startline="475" endline="606">XV_HdmiTxSs1_CfgInitialize</referencedby>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae69bc0ec2857088237ad39aef1e68b86" compoundref="xv__hdmitxss1_8h" startline="103">XV_HDMITXSS1_LOG_EVT_VTC_INIT</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a0af4e590d235b7ed72a2f32c2f1313c4" compoundref="xv__hdmitxss1_8h" startline="387">XV_HdmiTxSs1::Config</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___config_1a551d6a6fa1e71515aead4eba79f11a46" compoundref="xv__hdmitxss1_8h" startline="328">XV_HdmiTxSs1_Config::Vtc</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___config_1a2fad82bc5ec410236e8995be3b421baf" compoundref="xv__hdmitxss1_8h" startline="309">XV_HdmiTxSs1_Config::BaseAddress</references>
+        <referencedby refid="xv__hdmitxss1_8h_1a33b732506d6578b5daf78406e2864af0" compoundref="xv__hdmitxss1_8c" startline="448" endline="575">XV_HdmiTxSs1_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -225,6 +225,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.h"/>
   </compounddef>
 </doxygen>

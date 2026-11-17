@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xclk__wiz__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,14 +105,26 @@ $(document).ready(function(){initNavTree('xclk__wiz__sinit_8c.html','');});
 <div class="title">xclk_wiz_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements CLK_WIZ static initialization. </p>
+<p>Look up the hardware settings using device ID. The hardware setting is inside the configuration table in <a class="el" href="xclk__wiz__g_8c.html" title="Provides the CLK_WIZ configuration table. ">xclk_wiz_g.c</a>, generated automatically by XPS or manually.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver Who Date     Changes
+</p>
+<hr/>
+<p>
+1.0 ram 02/12/16 Initial version for Clock Wizard
+1.6 sd  7/07/23 Added SDT support.
+1.11 vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+1.12 tb  09/16/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xclk__wiz_8h.html">xclk_wiz.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa010b97df663b779c04308727bce6bdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_clk___wiz___config.html">XClk_Wiz_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa010b97df663b779c04308727bce6bdc">XClk_Wiz_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gaa010b97df663b779c04308727bce6bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group___overview.html#gaa010b97df663b779c04308727bce6bdc">More...</a><br/></td></tr>
-<tr class="separator:gaa010b97df663b779c04308727bce6bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga209a145483be43688a5ff52b66de0010"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_clk___wiz___config.html">XClk_Wiz_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__clk__wiz__api.html#ga209a145483be43688a5ff52b66de0010">XClk_Wiz_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga209a145483be43688a5ff52b66de0010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up CLK_WIZ configuration by ID or base address.  <a href="group__clk__wiz__api.html#ga209a145483be43688a5ff52b66de0010">More...</a><br/></td></tr>
+<tr class="separator:ga209a145483be43688a5ff52b66de0010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

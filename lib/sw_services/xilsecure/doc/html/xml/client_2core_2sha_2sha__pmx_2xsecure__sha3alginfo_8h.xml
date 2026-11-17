@@ -7,42 +7,42 @@
     <includedby refid="xsecure__sha3alginfo_8c" local="yes">xsecure_sha3alginfo.c</includedby>
     <includedby refid="xsecure__shaclient_8h" local="yes">xsecure_shaclient.h</includedby>
     <incdepgraph>
-      <node id="3942">
+      <node id="4183">
         <label>xil_sutil.h</label>
       </node>
-      <node id="3940">
+      <node id="4182">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="4181">
         <label>xsecure_sha3alginfo.h</label>
         <link refid="client/core/sha/sha_pmx/xsecure_sha3alginfo.h"/>
-        <childnode refid="3941" relation="include">
+        <childnode refid="4182" relation="include">
         </childnode>
-        <childnode refid="3942" relation="include">
+        <childnode refid="4183" relation="include">
         </childnode>
-      </node>
-      <node id="3941">
-        <label>xil_cryptoalginfo.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3944">
-        <label>xsecure_sha3alginfo.c</label>
-        <link refid="xsecure__sha3alginfo_8c"/>
-      </node>
-      <node id="3943">
-        <label>xsecure_sha3alginfo.h</label>
-        <link refid="client/core/sha/sha_pmx/xsecure_sha3alginfo.h"/>
-        <childnode refid="3944" relation="include">
-        </childnode>
-        <childnode refid="3945" relation="include">
-        </childnode>
-      </node>
-      <node id="3946">
+      <node id="4187">
         <label>xsecure_shaclient.c</label>
         <link refid="xsecure__shaclient_8c"/>
       </node>
-      <node id="3945">
+      <node id="4186">
         <label>xsecure_shaclient.h</label>
         <link refid="xsecure__shaclient_8h"/>
-        <childnode refid="3946" relation="include">
+        <childnode refid="4187" relation="include">
+        </childnode>
+      </node>
+      <node id="4185">
+        <label>xsecure_sha3alginfo.c</label>
+        <link refid="xsecure__sha3alginfo_8c"/>
+      </node>
+      <node id="4184">
+        <label>xsecure_sha3alginfo.h</label>
+        <link refid="client/core/sha/sha_pmx/xsecure_sha3alginfo.h"/>
+        <childnode refid="4185" relation="include">
+        </childnode>
+        <childnode refid="4186" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -64,17 +64,16 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_sha3alginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_sha3alginfo.c" bodystart="52" bodyend="59"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="137">XSECURE_API_SHA3_OPERATION</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="58">XSECURE_API_SHA3_UPDATE</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_sha3alginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_sha3alginfo.c" bodystart="50" bodyend="57"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="138">XSECURE_API_SHA3_OPERATION</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" compoundref="xsecure__plat__defs_8h" startline="64">XSECURE_API_SHA3_UPDATE</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -125,6 +124,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SHA3ALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_sha3alginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/xsecure_sha3alginfo.h"/>
   </compounddef>
 </doxygen>

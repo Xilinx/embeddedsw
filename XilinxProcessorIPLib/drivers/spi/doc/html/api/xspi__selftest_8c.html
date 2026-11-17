@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,18 +100,54 @@ $(document).ready(function(){initNavTree('xspi__selftest_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xspi_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the selftest functions for the <a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a> driver component. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00b jhl  2/27/02  First release
+1.00b rpm  04/25/02 Collapsed IPIF and reg base addresses into one
+1.11a wgr  03/22/07 Converted to new coding style.
+1.12a sv   03/17/08 Updated the code to support 16/32 bit transfer width.
+2.00a sv   07/30/08 Updated the code to support 16/32 bit transfer width.
+3.00a sdm  10/28/09 Updated all the register accesses as 32 bit access.
+3.02a sdm  05/04/11 Updated to run the loopback test only in standard spi
+              mode.
+3.03a sdm  08/09/11 Updated the selftest to check for a correct default value
+              in the case of axi_qspi - CR 620502
+3.04a bss  03/21/12 Updated Selftest to check for XIP mode and return if XIP
+              mode is true
+4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi__i_8h.html">xspi_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga78d7d3cab4d99627ee19d97f7ad50ddd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga78d7d3cab4d99627ee19d97f7ad50ddd">XSP_SR_RESET_STATE</a>&#160;&#160;&#160;0x5</td></tr>
+<tr class="memdesc:ga78d7d3cab4d99627ee19d97f7ad50ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default to Tx/Rx reg empty.  <a href="group__spi__api.html#ga78d7d3cab4d99627ee19d97f7ad50ddd">More...</a><br/></td></tr>
+<tr class="separator:ga78d7d3cab4d99627ee19d97f7ad50ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga386b93089d8b090452a5e0d5d32bb461"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga386b93089d8b090452a5e0d5d32bb461">XSP_CR_RESET_STATE</a>&#160;&#160;&#160;0x180</td></tr>
+<tr class="memdesc:ga386b93089d8b090452a5e0d5d32bb461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control register reset value.  <a href="group__spi__api.html#ga386b93089d8b090452a5e0d5d32bb461">More...</a><br/></td></tr>
+<tr class="separator:ga386b93089d8b090452a5e0d5d32bb461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4d142a14073e88afe783cb6737ea9f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#gaf4d142a14073e88afe783cb6737ea9f8">XSP_HALF_WORD_TESTBYTE</a>&#160;&#160;&#160;0x2200</td></tr>
+<tr class="memdesc:gaf4d142a14073e88afe783cb6737ea9f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test Byte for Half Word.  <a href="group__spi__api.html#gaf4d142a14073e88afe783cb6737ea9f8">More...</a><br/></td></tr>
+<tr class="separator:gaf4d142a14073e88afe783cb6737ea9f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef71f8556163a5ddcdf235565d051958"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#gaef71f8556163a5ddcdf235565d051958">XSP_WORD_TESTBYTE</a>&#160;&#160;&#160;0xAA005500</td></tr>
+<tr class="memdesc:gaef71f8556163a5ddcdf235565d051958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test Byte for Word.  <a href="group__spi__api.html#gaef71f8556163a5ddcdf235565d051958">More...</a><br/></td></tr>
+<tr class="separator:gaef71f8556163a5ddcdf235565d051958"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga11b6ebdb6f69c6939176e05600b10e3e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga11b6ebdb6f69c6939176e05600b10e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="group__spi.html#ga11b6ebdb6f69c6939176e05600b10e3e">More...</a><br/></td></tr>
+<tr class="memitem:ga11b6ebdb6f69c6939176e05600b10e3e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__spi__api.html#ga11b6ebdb6f69c6939176e05600b10e3e">XSpi_SelfTest</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga11b6ebdb6f69c6939176e05600b10e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="group__spi__api.html#ga11b6ebdb6f69c6939176e05600b10e3e">More...</a><br/></td></tr>
 <tr class="separator:ga11b6ebdb6f69c6939176e05600b10e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

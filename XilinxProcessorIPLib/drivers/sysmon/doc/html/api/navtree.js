@@ -1,37 +1,122 @@
 var NAVTREE =
 [
-  [ "sysmon", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xsysmon_extmux_example.c", "example.html#ex1", null ],
-      [ "xsysmon_intr_example.c", "example.html#ex2", null ],
-      [ "xsysmon_intr_printf_example.c", "example.html#ex3", null ],
-      [ "xsysmon_low_level_example.c", "example.html#ex4", null ],
-      [ "xsysmon_polled_example.c", "example.html#ex5", null ],
-      [ "xsysmon_polled_printf_example.c", "example.html#ex6", null ],
-      [ "xsysmon_single_ch_intr_example.c", "example.html#ex7", null ]
-    ] ]
-  ] ]
+  [
+    "sysmon",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xsysmon_extmux_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xsysmon_intr_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xsysmon_intr_printf_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xsysmon_low_level_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xsysmon_polled_example.c",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xsysmon_polled_printf_example.c",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xsysmon_single_ch_intr_example.c",
+            "example.html#ex7",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xsysmon__hw_8h.html#ga2cd4e863edca9e460d86a745e1806f9e"
+"xsysmon__hw_8h.html#ga1e41a22a8c7108f33c75ff2013594a3d",
+"xsysmon__intr__printf__example_8c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

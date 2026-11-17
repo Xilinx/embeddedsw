@@ -8,40 +8,40 @@
     <includedby refid="versal__gen_2server_2xpuf_8c" local="yes">xpuf.c</includedby>
     <includedby refid="versal__gen_2server_2xpuf__plat_8c" local="yes">xpuf_plat.c</includedby>
     <incdepgraph>
-      <node id="309">
+      <node id="338">
         <label>xpuf_plat.h</label>
         <link refid="versal_gen/server/xpuf_plat.h"/>
-        <childnode refid="310" relation="include">
+        <childnode refid="339" relation="include">
         </childnode>
-        <childnode refid="311" relation="include">
+        <childnode refid="340" relation="include">
         </childnode>
       </node>
-      <node id="311">
+      <node id="340">
         <label>xil_types.h</label>
       </node>
-      <node id="310">
+      <node id="339">
         <label>xparameters.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="315">
+      <node id="342">
+        <label>xpuf.h</label>
+      </node>
+      <node id="344">
         <label>xpuf_plat.c</label>
       </node>
-      <node id="312">
+      <node id="341">
         <label>xpuf_plat.h</label>
         <link refid="versal_gen/server/xpuf_plat.h"/>
-        <childnode refid="313" relation="include">
+        <childnode refid="342" relation="include">
         </childnode>
-        <childnode refid="314" relation="include">
+        <childnode refid="343" relation="include">
         </childnode>
-        <childnode refid="315" relation="include">
+        <childnode refid="344" relation="include">
         </childnode>
       </node>
-      <node id="314">
+      <node id="343">
         <label>xpuf.c</label>
-      </node>
-      <node id="313">
-        <label>xpuf.h</label>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -105,6 +105,6 @@
 <codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPUF_PLAT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/versal_gen/server/xpuf_plat.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/versal_gen/server/xpuf_plat.h"/>
   </compounddef>
 </doxygen>

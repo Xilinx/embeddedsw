@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilpmerroreventmask" kind="group">
+    <compoundname>xilpmerroreventmask</compoundname>
+    <title>Error Event Mask</title>
+    <innergroup refid="group__pmcerr1">Error Event Mask for PMC ERR1</innergroup>
+    <innergroup refid="group__pmcerr2">Error Event Mask for PMC ERR2</innergroup>
+    <innergroup refid="group__pmcerr3">Error Event Mask for PMC ERR3</innergroup>
+    <innergroup refid="group__psmerr1">Error Event Mask for PSM ERR1</innergroup>
+    <innergroup refid="group__psmerr2">Error Event Mask for PSM ERR2</innergroup>
+    <innergroup refid="group__psmerr3">Error Event Mask for PSM ERR3</innergroup>
+    <innergroup refid="group__psmerr4">Error Event Mask for PSM ERR4</innergroup>
+    <innergroup refid="group__swerr">Error Event Mask for Software error events</innergroup>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

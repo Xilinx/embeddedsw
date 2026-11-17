@@ -5,7 +5,6 @@ var xipipsu__hw_8h =
     [ "XIPIPSU_BUFFER_OFFSET_RESPONSE", "xipipsu__hw_8h.html#gaf2361ea49ab17d6cc10e53ea607a9e9f", null ],
     [ "XIPIPSU_BUFFER_OFFSET_TARGET", "xipipsu__hw_8h.html#ga1b15715fa2640ed4fd66146d328bbbba", null ],
     [ "XIPIPSU_ECC_UE_MASK", "xipipsu__hw_8h.html#ga6625ac1f3ce4297feacf81cd25acf53f", null ],
-    [ "XIPIPSU_HW_H_", "xipipsu__hw_8h.html#gaf92686c675ebd6fe4efc7213c7f8f204", null ],
     [ "XIPIPSU_IDR_OFFSET", "xipipsu__hw_8h.html#ga81c99cede6902a231b207281d9a6e212", null ],
     [ "XIPIPSU_IER_OFFSET", "xipipsu__hw_8h.html#gab20d7be8c5dd6ca941862eb1ff40289d", null ],
     [ "XIPIPSU_IMR_OFFSET", "xipipsu__hw_8h.html#ga44ee4ca145f4adbe7584e6d9a08c4bdf", null ],

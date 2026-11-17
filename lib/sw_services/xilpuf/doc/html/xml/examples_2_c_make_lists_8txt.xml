@@ -30,21 +30,29 @@
 <codeline lineno="21"><highlight class="stringliteral"></highlight></codeline>
 <codeline lineno="22"><highlight class="stringliteral">if<sp/>(NOT(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
 <codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>if(&quot;</highlight><highlight class="normal">${XILPUF_Mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">server</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
-<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_enc_dec_data_example.c;xilpuf_example.c;)</highlight></codeline>
-<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>else()</highlight></codeline>
-<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_client_example.c;xilpuf_enc_dec_data_client_example.c;xilpuf_ssit_client_example.c;)</highlight></codeline>
-<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
-<codeline lineno="28"><highlight class="stringliteral">else()</highlight></codeline>
-<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_spartan_ultrascale_plus_example.c;xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c;)</highlight></codeline>
-<codeline lineno="30"><highlight class="stringliteral">endif()</highlight></codeline>
-<codeline lineno="31"><highlight class="stringliteral"></highlight></codeline>
-<codeline lineno="32"><highlight class="stringliteral">linker_gen(&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
-<codeline lineno="33"><highlight class="stringliteral">foreach(EXAMPLE<sp/>${COMMON_EXAMPLES})</highlight></codeline>
-<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>string(REGEX<sp/>REPLACE<sp/>&quot;</highlight><highlight class="normal">\\.[^.]*$</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="stringliteral">&quot;<sp/>EXAMPLE<sp/>${EXAMPLE})</highlight></codeline>
-<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_executable(${EXAMPLE}.elf<sp/>${EXAMPLE})</highlight></codeline>
-<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_link_libraries(${EXAMPLE}.elf<sp/>-Wl,--gc-sections<sp/>-T\&quot;${CMAKE_SOURCE_DIR}/lscript.ld\&quot;<sp/>-L\&quot;${CMAKE_SOURCE_DIR}/\&quot;<sp/>-Wl,--start-group<sp/>${_deps}<sp/>-Wl,--end-group)</highlight></codeline>
-<codeline lineno="37"><highlight class="stringliteral">endforeach()</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if((NOT<sp/>&quot;</highlight><highlight class="normal">Versal_2VP</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)<sp/>AND<sp/>(NOT<sp/>&quot;</highlight><highlight class="normal">Versal_2VP_P</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT))</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_enc_dec_data_example.c;xilpuf_example.c;)</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>else()</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(&quot;</highlight><highlight class="normal">Versal_2VP_P</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_versal_2vp_p_client_example.c;)</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elseif(&quot;</highlight><highlight class="normal">Versal_2VP</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_client_example.c;)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else()</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_client_example.c;xilpuf_enc_dec_data_client_example.c;xilpuf_ssit_client_example.c;)</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral">else()</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilpuf_spartan_ultrascale_plus_example.c;xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c;)</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral">linker_gen(&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral">foreach(EXAMPLE<sp/>${COMMON_EXAMPLES})</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>string(REGEX<sp/>REPLACE<sp/>&quot;</highlight><highlight class="normal">\\.[^.]*$</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="stringliteral">&quot;<sp/>EXAMPLE<sp/>${EXAMPLE})</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_executable(${EXAMPLE}.elf<sp/>${EXAMPLE})</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_link_libraries(${EXAMPLE}.elf<sp/>-Wl,--gc-sections<sp/>-T\&quot;${CMAKE_SOURCE_DIR}/lscript.ld\&quot;<sp/>-L\&quot;${CMAKE_SOURCE_DIR}/\&quot;<sp/>-Wl,--start-group<sp/>${_deps}<sp/>-Wl,--end-group)</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral">endforeach()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/examples/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

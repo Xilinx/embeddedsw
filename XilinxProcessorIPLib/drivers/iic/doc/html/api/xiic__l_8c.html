@@ -105,27 +105,91 @@ $(document).ready(function(){initNavTree('xiic__l_8c.html','');});
 <div class="title">xiic_l.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;sleep.h&gt;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IIC low-level send and receive helpers. </p>
+<p>This file contains low-level driver functions that can be used to access the device in normal and dynamic controller mode. Refer to the hardware device specification for more details of the device operation.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.01b jhl 05/13/02  First release
+1.01b jhl 10/14/02  Corrected bug in the receive function, the setup of the
+                    interrupt status mask was not being done in the loop such
+                    that a read would sometimes fail on the last byte because
+                    the transmit error which should have been ignored was
+                    being used.  This would leave an extra byte in the FIFO
+                    and the bus throttled such that the next operation would
+                    also fail.  Also updated the receive function to not
+                    disable the device after the last byte until after the
+                    bus transitions to not busy which is more consistent
+                    with the expected behavior.
+1.01c ecm  12/05/02 new rev
+1.02a mta  03/09/06 Implemented Repeated Start in the Low Level Driver.
+1.03a mta  04/04/06 Implemented Dynamic IIC core routines.
+1.03a ecm  06/15/06 Fixed the hang in low_level_eeprom_test with -O0
+                    Added polling loops for BNB to allow the slave to
+                    respond correctly. Also added polling loop prior
+                    to reset in _Recv.
+1.13a wgr  03/22/07 Converted to new coding style.
+1.13b ecm  11/29/07 added BB polling loops to the DynSend and DynRecv
+                routines to handle the race condition with BNB in IISR.
+2.00a sdm  10/22/09 Converted all register accesses to 32 bit access.
+              Updated to use the HAL APIs/macros.
+              Some of the macros have been renamed to remove _m from
+              the name and Some of the macros have been renamed to be
+              consistent, see the <a class="el" href="xiic__i_8h.html" title="Defines IIC internal driver data and macros. ">xiic_i.h</a> and <a class="el" href="xiic__l_8h.html" title="Defines IIC low-level register offsets and access macros. ">xiic_l.h</a> files for
+              further information.
+2.02a sdm  10/08/10 Updated to disable the device at the end of the transfer,
+              only when addressed as slave in XIic_Send for CR565373.
+2.04a sdm  07/22/11 Removed a compiler warning by adding parenthesis around &amp;
+              at line 479.
+2.08a adk  29/07/13 In Low level driver In repeated start condition the
+              Direction of Tx bit must be disabled in Receive
+              condition It Fixes the CR:685759 Changes are done
+              in the function XIic_Recv.
+3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototypes of RecvData, SendData,
+                    DynRecvData, DynSendData APIs.
+3.2     sd   18/02/16 In Low level driver in repeated start condition
+                    NACK for last byte is added. Changes are done in
+                    XIic_Recv for CR# 862303
+3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
+                    send/recv.
+3.3   als  06/27/16 Added Low-level XIic_CheckIsBusBusy API.
+3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
+3.4     nk   16/11/16 Reduced sleeping time in Bus-busy check.
+3.5   sd   08/29/18 Fix bus busy check for the NACK case.
+3.15  vlt  04/20/26 Added TX_ERROR check after last byte in SendData()
+                    and DynSendData() to detect NACK on the last byte.
+3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &lt;sleep.h&gt;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic__l_8h.html">xiic_l.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga7a848238d75ff57837afa5a58f11f326"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7a848238d75ff57837afa5a58f11f326">XIic_Recv</a> (UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, unsigned ByteCount, u8 Option)</td></tr>
-<tr class="memdesc:ga7a848238d75ff57837afa5a58f11f326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data as a master on the IIC bus.  <a href="group___overview.html#ga7a848238d75ff57837afa5a58f11f326">More...</a><br/></td></tr>
+<tr class="memitem:ga7a848238d75ff57837afa5a58f11f326"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga7a848238d75ff57837afa5a58f11f326">XIic_Recv</a> (UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, unsigned ByteCount, u8 Option)</td></tr>
+<tr class="memdesc:ga7a848238d75ff57837afa5a58f11f326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives data as a master on the IIC bus.  <a href="group__iic__api.html#ga7a848238d75ff57837afa5a58f11f326">More...</a><br/></td></tr>
 <tr class="separator:ga7a848238d75ff57837afa5a58f11f326"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga907c577b53407fb0bfc98d0ca37ee221"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga907c577b53407fb0bfc98d0ca37ee221">XIic_Send</a> (UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, unsigned ByteCount, u8 Option)</td></tr>
-<tr class="memdesc:ga907c577b53407fb0bfc98d0ca37ee221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data as a master on the IIC bus.  <a href="group___overview.html#ga907c577b53407fb0bfc98d0ca37ee221">More...</a><br/></td></tr>
+<tr class="memitem:ga907c577b53407fb0bfc98d0ca37ee221"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga907c577b53407fb0bfc98d0ca37ee221">XIic_Send</a> (UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, unsigned ByteCount, u8 Option)</td></tr>
+<tr class="memdesc:ga907c577b53407fb0bfc98d0ca37ee221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends data as a master on the IIC bus.  <a href="group__iic__api.html#ga907c577b53407fb0bfc98d0ca37ee221">More...</a><br/></td></tr>
 <tr class="separator:ga907c577b53407fb0bfc98d0ca37ee221"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9979fbd483e1c8c495c9eb2bfd7ad6e9"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9979fbd483e1c8c495c9eb2bfd7ad6e9">XIic_DynRecv</a> (UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)</td></tr>
-<tr class="memdesc:ga9979fbd483e1c8c495c9eb2bfd7ad6e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data as a master on the IIC bus.  <a href="group___overview.html#ga9979fbd483e1c8c495c9eb2bfd7ad6e9">More...</a><br/></td></tr>
+<tr class="memitem:ga9979fbd483e1c8c495c9eb2bfd7ad6e9"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga9979fbd483e1c8c495c9eb2bfd7ad6e9">XIic_DynRecv</a> (UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)</td></tr>
+<tr class="memdesc:ga9979fbd483e1c8c495c9eb2bfd7ad6e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives data as a master on the IIC bus.  <a href="group__iic__api.html#ga9979fbd483e1c8c495c9eb2bfd7ad6e9">More...</a><br/></td></tr>
 <tr class="separator:ga9979fbd483e1c8c495c9eb2bfd7ad6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadeaf11cda2466ae1c6036a3de0f52874"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadeaf11cda2466ae1c6036a3de0f52874">XIic_DynSend</a> (UINTPTR BaseAddress, u16 Address, u8 *BufferPtr, u8 ByteCount, u8 Option)</td></tr>
-<tr class="memdesc:gadeaf11cda2466ae1c6036a3de0f52874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data as a master on the IIC bus.  <a href="group___overview.html#gadeaf11cda2466ae1c6036a3de0f52874">More...</a><br/></td></tr>
+<tr class="memitem:gadeaf11cda2466ae1c6036a3de0f52874"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gadeaf11cda2466ae1c6036a3de0f52874">XIic_DynSend</a> (UINTPTR BaseAddress, u16 Address, u8 *BufferPtr, u8 ByteCount, u8 Option)</td></tr>
+<tr class="memdesc:gadeaf11cda2466ae1c6036a3de0f52874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends data as a master on the IIC bus.  <a href="group__iic__api.html#gadeaf11cda2466ae1c6036a3de0f52874">More...</a><br/></td></tr>
 <tr class="separator:gadeaf11cda2466ae1c6036a3de0f52874"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga90f3806cf4817250596f6f68f2c066a3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga90f3806cf4817250596f6f68f2c066a3">XIic_WaitBusFree</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga90f3806cf4817250596f6f68f2c066a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will wait until the I2C bus is free or timeout.  <a href="group___overview.html#ga90f3806cf4817250596f6f68f2c066a3">More...</a><br/></td></tr>
+<tr class="memitem:ga2834e01a7020d639b08d62cecec85bbe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga2834e01a7020d639b08d62cecec85bbe">XIic_DynInit</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga2834e01a7020d639b08d62cecec85bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the IIC core for dynamic functionality.  <a href="group__iic__api.html#ga2834e01a7020d639b08d62cecec85bbe">More...</a><br/></td></tr>
+<tr class="separator:ga2834e01a7020d639b08d62cecec85bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga666950a34ecedafb419839935b62fb7f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga666950a34ecedafb419839935b62fb7f">XIic_CheckIsBusBusy</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga666950a34ecedafb419839935b62fb7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the I2C bus is busy or free.  <a href="group__iic__api.html#ga666950a34ecedafb419839935b62fb7f">More...</a><br/></td></tr>
+<tr class="separator:ga666950a34ecedafb419839935b62fb7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90f3806cf4817250596f6f68f2c066a3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga90f3806cf4817250596f6f68f2c066a3">XIic_WaitBusFree</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga90f3806cf4817250596f6f68f2c066a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits until the I2C bus is free or a timeout occurs.  <a href="group__iic__api.html#ga90f3806cf4817250596f6f68f2c066a3">More...</a><br/></td></tr>
 <tr class="separator:ga90f3806cf4817250596f6f68f2c066a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

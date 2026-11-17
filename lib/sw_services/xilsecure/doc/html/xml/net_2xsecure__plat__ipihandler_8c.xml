@@ -12,183 +12,185 @@
     <includes refid="versal__net_2xsecure__error_8h" local="yes">xsecure_error.h</includes>
     <includes refid="versal__net_2_rsa_8h" local="yes">Rsa.h</includes>
     <incdepgraph>
-      <node id="2843">
-        <label>xsecure_plat_rsa.h</label>
-        <link refid="xsecure__plat__rsa_8h"/>
-        <childnode refid="2836" relation="include">
-        </childnode>
-        <childnode refid="2833" relation="include">
-        </childnode>
-        <childnode refid="2844" relation="include">
-        </childnode>
-        <childnode refid="2845" relation="include">
-        </childnode>
-        <childnode refid="2847" relation="include">
-        </childnode>
-        <childnode refid="2846" relation="include">
-        </childnode>
-      </node>
-      <node id="2837">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="2848">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="2856">
-        <label>xsecure_core.h</label>
-        <link refid="xsecure__core_8h"/>
-        <childnode refid="2833" relation="include">
-        </childnode>
-        <childnode refid="2857" relation="include">
-        </childnode>
-        <childnode refid="2831" relation="include">
-        </childnode>
-      </node>
-      <node id="2841">
-        <label>xsecure_keyunwrap.h</label>
-        <link refid="xsecure__keyunwrap_8h"/>
-        <childnode refid="2842" relation="include">
-        </childnode>
-        <childnode refid="2835" relation="include">
-        </childnode>
-      </node>
-      <node id="2834">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="2853">
-        <label>xsecure_error.h</label>
-        <link refid="versal__net_2xsecure__error_8h"/>
-      </node>
-      <node id="2846">
-        <label>Rsa.h</label>
-      </node>
-      <node id="2857">
-        <label>xsecure_cryptochk.h</label>
-      </node>
-      <node id="2845">
-        <label>xsecure_rsa_q.h</label>
-        <link refid="xsecure__rsa__q_8h"/>
-        <childnode refid="2836" relation="include">
-        </childnode>
-        <childnode refid="2833" relation="include">
-        </childnode>
-        <childnode refid="2844" relation="include">
-        </childnode>
-        <childnode refid="2846" relation="include">
-        </childnode>
-      </node>
-      <node id="2849">
-        <label>xsecure_plat.h</label>
-        <link refid="versal__net_2xsecure__plat_8h"/>
-        <childnode refid="2850" relation="include">
-        </childnode>
-        <childnode refid="2842" relation="include">
-        </childnode>
-        <childnode refid="2852" relation="include">
-        </childnode>
-        <childnode refid="2853" relation="include">
-        </childnode>
-        <childnode refid="2854" relation="include">
-        </childnode>
-        <childnode refid="2855" relation="include">
-        </childnode>
-        <childnode refid="2856" relation="include">
-        </childnode>
-      </node>
-      <node id="2854">
-        <label>xtrngpsx.h</label>
-      </node>
-      <node id="2835">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="2840">
-        <label>xplmi_cmd.h</label>
-      </node>
-      <node id="2831">
+      <node id="2954">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="2832" relation="include">
+        <childnode refid="2955" relation="include">
         </childnode>
-        <childnode refid="2833" relation="include">
+        <childnode refid="2956" relation="include">
         </childnode>
-        <childnode refid="2834" relation="include">
+        <childnode refid="2957" relation="include">
         </childnode>
-        <childnode refid="2835" relation="include">
+        <childnode refid="2958" relation="include">
         </childnode>
-        <childnode refid="2836" relation="include">
+        <childnode refid="2959" relation="include">
+        </childnode>
+        <childnode refid="2960" relation="include">
         </childnode>
       </node>
-      <node id="2855">
-        <label>xsecure_trng.h</label>
+      <node id="2973">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__net_2xsecure__sha__hw_8h"/>
+        <childnode refid="2974" relation="include">
+        </childnode>
       </node>
-      <node id="2858">
+      <node id="2958">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2971">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="2957">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2969">
         <label>Rsa.h</label>
       </node>
-      <node id="2851">
-        <label>xsecure_utils.h</label>
+      <node id="2980">
+        <label>xsecure_cryptochk.h</label>
       </node>
-      <node id="2836">
-        <label>xsecure_config.h</label>
+      <node id="2977">
+        <label>xtrngpsx.h</label>
       </node>
-      <node id="2833">
-        <label>xil_types.h</label>
-      </node>
-      <node id="2842">
-        <label>xpmcdma.h</label>
-      </node>
-      <node id="2830">
-        <label>xsecure_plat_ipihandler.c</label>
-        <link refid="net/xsecure_plat_ipihandler.c"/>
-        <childnode refid="2831" relation="include">
+      <node id="2968">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure__rsa__q_8h"/>
+        <childnode refid="2959" relation="include">
         </childnode>
-        <childnode refid="2837" relation="include">
+        <childnode refid="2956" relation="include">
         </childnode>
-        <childnode refid="2838" relation="include">
+        <childnode refid="2967" relation="include">
         </childnode>
-        <childnode refid="2839" relation="include">
-        </childnode>
-        <childnode refid="2841" relation="include">
-        </childnode>
-        <childnode refid="2843" relation="include">
-        </childnode>
-        <childnode refid="2849" relation="include">
-        </childnode>
-        <childnode refid="2853" relation="include">
-        </childnode>
-        <childnode refid="2858" relation="include">
+        <childnode refid="2969" relation="include">
         </childnode>
       </node>
-      <node id="2839">
-        <label>xsecure_plat_ipihandler.h</label>
-        <link refid="net_2xsecure__plat__ipihandler_8h"/>
-        <childnode refid="2840" relation="include">
+      <node id="2960">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2979">
+        <label>xsecure_core.h</label>
+        <link refid="xsecure__core_8h"/>
+        <childnode refid="2956" relation="include">
+        </childnode>
+        <childnode refid="2980" relation="include">
+        </childnode>
+        <childnode refid="2954" relation="include">
         </childnode>
       </node>
-      <node id="2852">
+      <node id="2975">
         <label>xsecure_aes_core_hw.h</label>
         <link refid="xsecure__aes__core__hw_8h"/>
       </node>
-      <node id="2832">
+      <node id="2963">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="2964">
+        <label>xsecure_keyunwrap.h</label>
+        <link refid="xsecure__keyunwrap_8h"/>
+        <childnode refid="2965" relation="include">
+        </childnode>
+        <childnode refid="2960" relation="include">
+        </childnode>
+      </node>
+      <node id="2953">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net/xsecure_plat_ipihandler.c"/>
+        <childnode refid="2954" relation="include">
+        </childnode>
+        <childnode refid="2958" relation="include">
+        </childnode>
+        <childnode refid="2961" relation="include">
+        </childnode>
+        <childnode refid="2962" relation="include">
+        </childnode>
+        <childnode refid="2964" relation="include">
+        </childnode>
+        <childnode refid="2966" relation="include">
+        </childnode>
+        <childnode refid="2972" relation="include">
+        </childnode>
+        <childnode refid="2976" relation="include">
+        </childnode>
+        <childnode refid="2981" relation="include">
+        </childnode>
+      </node>
+      <node id="2962">
+        <label>xsecure_plat_ipihandler.h</label>
+        <link refid="net_2xsecure__plat__ipihandler_8h"/>
+        <childnode refid="2963" relation="include">
+        </childnode>
+      </node>
+      <node id="2978">
+        <label>xsecure_trng.h</label>
+      </node>
+      <node id="2974">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="2976">
+        <label>xsecure_error.h</label>
+        <link refid="versal__net_2xsecure__error_8h"/>
+      </node>
+      <node id="2959">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2956">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2965">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="2981">
+        <label>Rsa.h</label>
+      </node>
+      <node id="2972">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="2973" relation="include">
+        </childnode>
+        <childnode refid="2965" relation="include">
+        </childnode>
+        <childnode refid="2975" relation="include">
+        </childnode>
+        <childnode refid="2976" relation="include">
+        </childnode>
+        <childnode refid="2977" relation="include">
+        </childnode>
+        <childnode refid="2978" relation="include">
+        </childnode>
+        <childnode refid="2979" relation="include">
+        </childnode>
+      </node>
+      <node id="2955">
         <label>xil_printf.h</label>
       </node>
-      <node id="2847">
+      <node id="2970">
         <label>xsecure_mgf.h</label>
         <link refid="xsecure__mgf_8h"/>
-        <childnode refid="2833" relation="include">
+        <childnode refid="2956" relation="include">
         </childnode>
-        <childnode refid="2848" relation="include">
+        <childnode refid="2971" relation="include">
         </childnode>
       </node>
-      <node id="2838">
+      <node id="2961">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="2844">
+      <node id="2967">
         <label>xsecure_rsa_core.h</label>
       </node>
-      <node id="2850">
-        <label>xsecure_sha_hw.h</label>
-        <link refid="versal__net_2xsecure__sha__hw_8h"/>
-        <childnode refid="2851" relation="include">
+      <node id="2966">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="2959" relation="include">
+        </childnode>
+        <childnode refid="2956" relation="include">
+        </childnode>
+        <childnode refid="2967" relation="include">
+        </childnode>
+        <childnode refid="2968" relation="include">
+        </childnode>
+        <childnode refid="2970" relation="include">
+        </childnode>
+        <childnode refid="2969" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -202,7 +204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -254,7 +256,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="143" bodyend="163"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="143" bodyend="163"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga370e88741e94b80e8cc500e390aed0cf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -304,7 +306,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="181" bodyend="206"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="181" bodyend="206"/>
       </memberdef>
       <memberdef kind="function" id="net_2xsecure__plat__ipihandler_8c_1ga9f5dc4dac922170c42258ce37c1b6453" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -378,7 +380,7 @@
 <para><itemizedlist>
 <listitem><para>Validate internal address fields in the copied structure</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="230" bodyend="409"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c" bodystart="230" bodyend="397"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga7d0e634c95aed6e2adc7673b85920146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -441,12 +443,12 @@
 <para><itemizedlist>
 <listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_RsaDecrypt</para></listitem><listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_RsaDecrypt </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" bodystart="63" bodyend="89"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="57">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
-        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
-        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" bodystart="63" bodyend="89"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="63">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -583,25 +585,25 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="180"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_KeyUnwrapIpi(u32<sp/>SubsystemId,<sp/>u32<sp/>KeyWrapAddrLow,<sp/>u32<sp/>KeyWrapAddrHigh)</highlight></codeline>
 <codeline lineno="181"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyWrapAddr<sp/>=<sp/>((u64)KeyWrapAddrHigh<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)KeyWrapAddrLow;</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSECURE_KEY_STORE_ADDR<sp/>==<sp/>0U)</highlight></codeline>
-<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__net_2xsecure__error_8h_1ac36f475ca5b446f4fde4c9b90bec77c8a97eeb26ad9c840ce35a91f0e931f9b72" kindref="member">XSECURE_ERR_INVALID_KEY_STORE_ADDR</ref>;</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref><sp/>KeyWrapData<sp/>=<sp/>{0U};</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>KeyWrapAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref>)<sp/>,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_MemCpy64((u64)(UINTPTR)&amp;KeyWrapData,<sp/>KeyWrapAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref>));</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSECURE_KEY_STORE_ADDR<sp/>==<sp/>0U)</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)SubsystemId;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)KeyWrapAddrLow;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)KeyWrapAddrHigh;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__net_2xsecure__error_8h_1ac36f475ca5b446f4fde4c9b90bec77c8a97eeb26ad9c840ce35a91f0e931f9b72" kindref="member">XSECURE_ERR_INVALID_KEY_STORE_ADDR</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyWrapAddr<sp/>=<sp/>((u64)KeyWrapAddrHigh<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)KeyWrapAddrLow;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref><sp/>KeyWrapData<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>KeyWrapAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref>)<sp/>,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&amp;KeyWrapData,<sp/>KeyWrapAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref>));</highlight></codeline>
 <codeline lineno="195"><highlight class="normal"></highlight></codeline>
 <codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>KeyWrapData.KeyWrapAddr,<sp/>KeyWrapData.TotalWrappedKeySize,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"></highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__client__apis_1ga34fb190dff4e61e8f39544f732a94edf" kindref="member">XSecure_KeyUnwrap</ref>(&amp;KeyWrapData);</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="205"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="206"><highlight class="normal"></highlight></codeline>
 <codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
@@ -609,182 +611,170 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DstAddrLow,<sp/>u32<sp/>DstAddrHigh)</highlight></codeline>
 <codeline lineno="231"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>RsaParamAddr<sp/>=<sp/>((u64)RsaParamAddrHigh<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)RsaParamAddrLow;</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstAddr<sp/>=<sp/>((u64)DstAddrHigh<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)DstAddrLow;</highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref><sp/>RsaParams;</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref><sp/>RsaKeyParam;</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaOperationParam<sp/>*RsaOperationParamPtr<sp/>=<sp/>(XSecure_RsaOperationParam*)(UINTPTR)<ref refid="group__xsecure__helper__server__apis_1ga1e0ad150c146b96db31918808898426a" kindref="member">XSECURE_RSA_KEY_ADDRESS</ref>;</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*OutDataPtr<sp/>=<sp/>(u8<sp/>*)(UINTPTR)(<ref refid="group__xsecure__helper__server__apis_1ga1e0ad150c146b96db31918808898426a" kindref="member">XSECURE_RSA_KEY_ADDRESS</ref><sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XSecure_RsaOperationParam));</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*PubExponentPtr<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*P<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Q<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Tot<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubModulus[<ref refid="group__xsecure__rsa__server__apis_1gaaf42b952c1d1cab97ba23e4c1a5f5ae6" kindref="member">XSECURE_RSA_4096_SIZE_WORDS</ref>];</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>RsaParamAddr<sp/>=<sp/>((u64)RsaParamAddrHigh<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)RsaParamAddrLow;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstAddr<sp/>=<sp/>((u64)DstAddrHigh<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>)<sp/>|<sp/>(u64)DstAddrLow;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref><sp/>RsaParams;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref><sp/>RsaKeyParam;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa_operation_param" kindref="compound">XSecure_RsaOperationParam</ref><sp/>*RsaOperationParamPtr<sp/>=<sp/>(<ref refid="struct_x_secure___rsa_operation_param" kindref="compound">XSecure_RsaOperationParam</ref>*)(UINTPTR)<ref refid="group__xsecure__helper__server__apis_1ga1e0ad150c146b96db31918808898426a" kindref="member">XSECURE_RSA_KEY_ADDRESS</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*OutDataPtr<sp/>=<sp/>(u8<sp/>*)(UINTPTR)(<ref refid="group__xsecure__helper__server__apis_1ga1e0ad150c146b96db31918808898426a" kindref="member">XSECURE_RSA_KEY_ADDRESS</ref><sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_operation_param" kindref="compound">XSecure_RsaOperationParam</ref>));</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*PubExponentPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*P<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Q<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Tot<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubModulus[<ref refid="group__xsecure__rsa__server__apis_1gaaf42b952c1d1cab97ba23e4c1a5f5ae6" kindref="member">XSECURE_RSA_4096_SIZE_WORDS</ref>];</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParamAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(RsaParams),<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
 <codeline lineno="246"><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParamAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(RsaParams),<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&amp;RsaParams,<sp/>RsaParamAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>));</highlight></codeline>
 <codeline lineno="248"><highlight class="normal"></highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_MemCpy64((UINTPTR)&amp;RsaParams,<sp/>RsaParamAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_in_param" kindref="compound">XSecure_RsaInParam</ref>));</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>DstAddr,<sp/>RsaParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParams.KeyAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref>),<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParams.DataAddr,<sp/>RsaParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>DstAddr,<sp/>RsaParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParams.KeyAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref>),<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(SubsystemId,<sp/>RsaParams.DataAddr,<sp/>RsaParams.Size,<sp/>Status,<sp/><ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a8767576f043b15cb64bd15f43251e040" kindref="member">XSECURE_ERR_INVALID_ADDR_RANGE</ref>,<sp/>END);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet(RsaOperationParamPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_operation_param" kindref="compound">XSecure_RsaOperationParam</ref>),<sp/>0U,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_operation_param" kindref="compound">XSecure_RsaOperationParam</ref>));</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="260"><highlight class="normal"></highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet(RsaOperationParamPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XSecure_RsaOperationParam),<sp/>0U,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XSecure_RsaOperationParam));</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_MemCpy64((UINTPTR)&amp;RsaKeyParam,<sp/>RsaParams.KeyAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref>));</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="270"><highlight class="normal"></highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a84e9eaacd7117d73a7db698016497788" kindref="member">XSECURE_RSA_EXPOPT_MODE</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a63a9801e0bafd1272c17c5d99af2b672" kindref="member">XSECURE_RSA_EXPQ_MODE</ref>))<sp/>{</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"></highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaParams.Size<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaParams.Size<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaParams.Size<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight></codeline>
-<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;InData,</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams.DataAddr,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"></highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;Mod,</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a5f3a7d4b5502fa96c286ae362282f8ab" kindref="member">ModAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"></highlight></codeline>
-<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;Exp,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a441a49245a0bc7ee6ddf86069c900d86" kindref="member">ExpAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a84e9eaacd7117d73a7db698016497788" kindref="member">XSECURE_RSA_EXPOPT_MODE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;RN,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a613758fc9ccd1e3a0c453ef2a9686680" kindref="member">RNAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;RRN,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a48f5397cb0fa0fbfdb28de7d760ba663" kindref="member">RRNAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&amp;RsaKeyParam,<sp/>RsaParams.KeyAddr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref>));</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a84e9eaacd7117d73a7db698016497788" kindref="member">XSECURE_RSA_EXPOPT_MODE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a63a9801e0bafd1272c17c5d99af2b672" kindref="member">XSECURE_RSA_EXPQ_MODE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaParams.Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaParams.Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaParams.Size<sp/>!=<sp/><ref refid="group__xsecure__common__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a84b65be23134491786287530d02cf5fa" kindref="member">InData</ref>,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaParams.DataAddr,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1ad3d60bdd55546e582c801fb71c5605cd" kindref="member">Mod</ref>,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a5f3a7d4b5502fa96c286ae362282f8ab" kindref="member">ModAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>!=<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a18b4965ef19407a4ff9ee9183273121c" kindref="member">Exp</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a441a49245a0bc7ee6ddf86069c900d86" kindref="member">ExpAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a84e9eaacd7117d73a7db698016497788" kindref="member">XSECURE_RSA_EXPOPT_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a9e36a635656ac68c5695e2ef857523b3" kindref="member">RN</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a613758fc9ccd1e3a0c453ef2a9686680" kindref="member">RNAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a143731ffab18bf235e0d443b6785347a" kindref="member">RRN</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a48f5397cb0fa0fbfdb28de7d760ba663" kindref="member">RRNAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1adb55050eed36eae709e13ad6fa6c594f" kindref="member">IsTotAvail</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a444d2b58f45844ee64e0dcfa436367d2" kindref="member">Tot</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1abda0b62377ff4fd55920b5161c0fdd72" kindref="member">TotAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tot<sp/>=<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a444d2b58f45844ee64e0dcfa436367d2" kindref="member">Tot</ref>;</highlight></codeline>
 <codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"></highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1adb55050eed36eae709e13ad6fa6c594f" kindref="member">IsTotAvail</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;Tot,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1abda0b62377ff4fd55920b5161c0fdd72" kindref="member">TotAddr</ref>,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tot<sp/>=<sp/>RsaOperationParamPtr-&gt;Tot;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a5e745e78567de2a23d041fe7f1a0767a" kindref="member">IsPrimeAvail</ref><sp/>==<sp/>TRUE)<sp/>||<sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" kindref="member">PSize</ref><sp/>!=<sp/>RsaParams.Size<sp/>/<sp/>2U)<sp/>||</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref><sp/>!=<sp/>RsaParams.Size<sp/>/<sp/>2U))<sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a5e745e78567de2a23d041fe7f1a0767a" kindref="member">IsPrimeAvail</ref><sp/>==<sp/>TRUE)<sp/>||<sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>))<sp/>{</highlight></codeline>
-<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" kindref="member">PSize</ref><sp/>!=<sp/>RsaParams.Size<sp/>/<sp/>2U)<sp/>||</highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref><sp/>!=<sp/>RsaParams.Size<sp/>/<sp/>2U))<sp/>{</highlight></codeline>
-<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="330"><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;DP,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a20acfcaa47104ac654dec2a9008dcefc" kindref="member">DPAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" kindref="member">PSize</ref>);</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"></highlight></codeline>
-<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;DQ,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a9adc1a772f4b4e838d4715b92b03db43" kindref="member">DQAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref>);</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"></highlight></codeline>
-<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;QInv,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1ad7e456c306bfae931f365ccc9ac940b6" kindref="member">QInvAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref>);</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="347"><highlight class="normal"></highlight></codeline>
-<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;P,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a8b8b12cc9a48c8da8428d5d3d142ba1e" kindref="member">PAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" kindref="member">PSize</ref>);</highlight></codeline>
-<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"></highlight></codeline>
-<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;Q,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a0fd6370dd4563498462a45c9032f110b" kindref="member">QAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref>);</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="357"><highlight class="normal"></highlight></codeline>
-<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>P<sp/>=<sp/>RsaOperationParamPtr-&gt;P;</highlight></codeline>
-<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Q<sp/>=<sp/>RsaOperationParamPtr-&gt;Q;</highlight></codeline>
-<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="361"><highlight class="normal"></highlight></codeline>
-<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a081b55726c3eb90a3fcff6409dedc5d8" kindref="member">IsPubExpAvail</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
-<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet(&amp;PubModulus,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>,<sp/>0U,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>);</highlight></codeline>
-<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SReverseData(&amp;RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1adae3863c6fab5863314c638a57a0e2bf" kindref="member">PubExp</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" kindref="member">XSECURE_RSA_PUB_EXP_SIZE</ref>);</highlight></codeline>
-<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PubModulus[0U]<sp/>=<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1adae3863c6fab5863314c638a57a0e2bf" kindref="member">PubExp</ref>;</highlight></codeline>
-<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PubExponentPtr<sp/>=<sp/>(u8*)(UINTPTR)PubModulus;</highlight></codeline>
-<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="374"><highlight class="normal"></highlight></codeline>
-<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a63a9801e0bafd1272c17c5d99af2b672" kindref="member">XSECURE_RSA_EXPQ_MODE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" kindref="member">XSecure_RsaExp</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)RsaOperationParamPtr-&gt;InData,</highlight></codeline>
-<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;Exp,<sp/>RsaOperationParamPtr-&gt;Mod,<sp/>P,<sp/>Q,<sp/>PubExponentPtr,</highlight></codeline>
-<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tot,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(RsaParams.Size<sp/>*<sp/>8U),<sp/>OutDataPtr);</highlight></codeline>
-<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" kindref="member">XSecure_RsaExpCRT</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)RsaOperationParamPtr-&gt;InData,</highlight></codeline>
-<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;P,<sp/>RsaOperationParamPtr-&gt;Q,<sp/>RsaOperationParamPtr-&gt;DP,</highlight></codeline>
-<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;DQ,<sp/>RsaOperationParamPtr-&gt;QInv,<sp/>PubExponentPtr,</highlight></codeline>
-<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;Mod,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(RsaParams.Size<sp/>*<sp/>8U),<sp/>OutDataPtr);</highlight></codeline>
-<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" kindref="member">XSecure_RsaExpopt</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)RsaOperationParamPtr-&gt;InData,</highlight></codeline>
-<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;Exp,<sp/>RsaOperationParamPtr-&gt;Mod,<sp/>RsaOperationParamPtr-&gt;RN,<sp/>RsaOperationParamPtr-&gt;RRN,<sp/>P,<sp/>Q,<sp/>PubExponentPtr,</highlight></codeline>
-<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tot,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(RsaParams.Size<sp/>*<sp/>8U),<sp/>OutDataPtr);</highlight></codeline>
-<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57aeb7483f30dc5f8b8e6b6291f609c2e75" kindref="member">XSECURE_RSA_GEN_SIGN_FAILED_ERROR</ref>;</highlight></codeline>
-<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="395"><highlight class="normal"></highlight></codeline>
-<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SReverseData(OutDataPtr,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="400"><highlight class="normal"></highlight></codeline>
-<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(SStatus,<sp/>SStatusTmp,<sp/>XPlmi_MemCpy64,<sp/>DstAddr,<sp/>(UINTPTR)OutDataPtr,<sp/>RsaParams.Size);</highlight></codeline>
-<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(SStatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
-<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abdd1b757ae917a610547c4b71c87ca09" kindref="member">XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR</ref>;</highlight></codeline>
-<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="405"><highlight class="normal"></highlight></codeline>
-<codeline lineno="406"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="408"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="409"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="410"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a3ae580d02d3fea755ff12128e68ee207" kindref="member">DP</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a20acfcaa47104ac654dec2a9008dcefc" kindref="member">DPAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" kindref="member">PSize</ref>);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1af6df8d385ac87733df148ccd875ea311" kindref="member">DQ</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a9adc1a772f4b4e838d4715b92b03db43" kindref="member">DQAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref>);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1af340984e1a9670ba461682f2c597f8a6" kindref="member">QInv</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1ad7e456c306bfae931f365ccc9ac940b6" kindref="member">QInvAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref>);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a22b08490ded038cd8c10a4245c078408" kindref="member">P</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a8b8b12cc9a48c8da8428d5d3d142ba1e" kindref="member">PAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" kindref="member">PSize</ref>);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" kindref="member">XSecure_MemCpyAndChangeEndianness</ref>((UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a59b96acce917fc96bb7c6b771d6b59ac" kindref="member">Q</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a0fd6370dd4563498462a45c9032f110b" kindref="member">QAddr</ref>,<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" kindref="member">QSize</ref>);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>P<sp/>=<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a22b08490ded038cd8c10a4245c078408" kindref="member">P</ref>;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Q<sp/>=<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a59b96acce917fc96bb7c6b771d6b59ac" kindref="member">Q</ref>;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1a081b55726c3eb90a3fcff6409dedc5d8" kindref="member">IsPubExpAvail</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet(&amp;PubModulus,<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>,<sp/>0U,<sp/><ref refid="group__xsecure__common__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SReverseData(&amp;RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1adae3863c6fab5863314c638a57a0e2bf" kindref="member">PubExp</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" kindref="member">XSECURE_RSA_PUB_EXP_SIZE</ref>);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PubModulus[0U]<sp/>=<sp/>RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1adae3863c6fab5863314c638a57a0e2bf" kindref="member">PubExp</ref>;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PubExponentPtr<sp/>=<sp/>(u8*)(UINTPTR)PubModulus;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a63a9801e0bafd1272c17c5d99af2b672" kindref="member">XSECURE_RSA_EXPQ_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" kindref="member">XSecure_RsaExp</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a84b65be23134491786287530d02cf5fa" kindref="member">InData</ref>,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a18b4965ef19407a4ff9ee9183273121c" kindref="member">Exp</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1ad3d60bdd55546e582c801fb71c5605cd" kindref="member">Mod</ref>,<sp/>P,<sp/>Q,<sp/>PubExponentPtr,</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tot,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(RsaParams.Size<sp/>*<sp/>8U),<sp/>OutDataPtr);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaKeyParam.<ref refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" kindref="member">OpMode</ref><sp/>==<sp/><ref refid="group__xsecure__common__apis_1gga5b1d1d5cfad67445a88f0bab32bfd998a655bdf09cba68fbd2012e721c272883d" kindref="member">XSECURE_RSA_CRT_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" kindref="member">XSecure_RsaExpCRT</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a84b65be23134491786287530d02cf5fa" kindref="member">InData</ref>,</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a22b08490ded038cd8c10a4245c078408" kindref="member">P</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a59b96acce917fc96bb7c6b771d6b59ac" kindref="member">Q</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a3ae580d02d3fea755ff12128e68ee207" kindref="member">DP</ref>,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1af6df8d385ac87733df148ccd875ea311" kindref="member">DQ</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1af340984e1a9670ba461682f2c597f8a6" kindref="member">QInv</ref>,<sp/>PubExponentPtr,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1ad3d60bdd55546e582c801fb71c5605cd" kindref="member">Mod</ref>,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(RsaParams.Size<sp/>*<sp/>8U),<sp/>OutDataPtr);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" kindref="member">XSecure_RsaExpopt</ref>((</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(UINTPTR)RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a84b65be23134491786287530d02cf5fa" kindref="member">InData</ref>,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a18b4965ef19407a4ff9ee9183273121c" kindref="member">Exp</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1ad3d60bdd55546e582c801fb71c5605cd" kindref="member">Mod</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a9e36a635656ac68c5695e2ef857523b3" kindref="member">RN</ref>,<sp/>RsaOperationParamPtr-&gt;<ref refid="struct_x_secure___rsa_operation_param_1a143731ffab18bf235e0d443b6785347a" kindref="member">RRN</ref>,<sp/>P,<sp/>Q,<sp/>PubExponentPtr,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tot,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(RsaParams.Size<sp/>*<sp/>8U),<sp/>OutDataPtr);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57aeb7483f30dc5f8b8e6b6291f609c2e75" kindref="member">XSECURE_RSA_GEN_SIGN_FAILED_ERROR</ref>;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SReverseData(OutDataPtr,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_REDUNDANT_IMPL(Xil_MemCpyFrom32To64Addr,<sp/>DstAddr,<sp/>(u32)(UINTPTR)OutDataPtr,<sp/>RsaParams.Size);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.c"/>
   </compounddef>
 </doxygen>

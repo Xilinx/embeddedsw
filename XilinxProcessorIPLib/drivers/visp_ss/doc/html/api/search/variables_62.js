@@ -25,6 +25,7 @@ var searchData=
   ['bluechannelmean',['blueChannelMean',['../struct_cam_device_metadata_mean_luma__s.html#ad6a7f5472af5aa1adacf0b99b7221945',1,'CamDeviceMetadataMeanLuma_s']]],
   ['boundsheight',['boundsHeight',['../struct_cam_device_sensor_size__s.html#a46f08b206e498b31f94ebdf2f290aca1',1,'CamDeviceSensorSize_s']]],
   ['boundswidth',['boundsWidth',['../struct_cam_device_sensor_size__s.html#a351b61a43a18d3326eb1a97d914d50eb',1,'CamDeviceSensorSize_s']]],
+  ['bpc',['Bpc',['../struct_frame_info.html#aa86b846fe97a34c623b23f2a7c82a434',1,'FrameInfo::Bpc()'],['../struct_avpg_run_config.html#acaedb0caa17ed5c9a3a6b295d8b53d3b',1,'AvpgRunConfig::bpc()']]],
   ['bptenable',['bptEnable',['../struct_cam_device_dpcc_manual_config__s.html#aaa03b1cbfc788065f873b85bac33e89e',1,'CamDeviceDpccManualConfig_s']]],
   ['bptnum',['bptNum',['../struct_cam_device_dpcc_manual_config__s.html#ac420b386ec8697b98423029408fa3c75',1,'CamDeviceDpccManualConfig_s']]],
   ['bptoutmode',['bptOutMode',['../struct_cam_device_dpcc_manual_config__s.html#a6777c409114cc1e1bdc88c508d509f89',1,'CamDeviceDpccManualConfig_s']]],
@@ -44,5 +45,9 @@ var searchData=
   ['bwcormaxlog',['bwcorMaxLog',['../struct_cam_device_gtm_black_white_correction_config__s.html#a5035fcea09566b788d2d6864fce0626a',1,'CamDeviceGtmBlackWhiteCorrectionConfig_s::bwcorMaxLog()'],['../struct_cam_device_gtm_auto_config__s.html#a4fb725632e87f2d779228657fe8d784d',1,'CamDeviceGtmAutoConfig_s::bwcorMaxLog()']]],
   ['bwcorminlog',['bwcorMinLog',['../struct_cam_device_gtm_black_white_correction_config__s.html#ad37b83ceb9009d17222881e5f382133c',1,'CamDeviceGtmBlackWhiteCorrectionConfig_s::bwcorMinLog()'],['../struct_cam_device_gtm_auto_config__s.html#a1d0afe30680b23e1a160416d21fc35d6',1,'CamDeviceGtmAutoConfig_s::bwcorMinLog()']]],
   ['bwcormode',['bwcorMode',['../struct_cam_device_gtm_black_white_correction_config__s.html#a8a1e3a2798158c3d2fe993c9ed4aae4b',1,'CamDeviceGtmBlackWhiteCorrectionConfig_s']]],
-  ['bwcorrectenable',['bwCorrectEnable',['../struct_cam_device_gtm_status__s.html#a959aa6ee7ef793e12b89f8e3bfe83fc8',1,'CamDeviceGtmStatus_s']]]
+  ['bwcorrectenable',['bwCorrectEnable',['../struct_cam_device_gtm_status__s.html#a959aa6ee7ef793e12b89f8e3bfe83fc8',1,'CamDeviceGtmStatus_s']]],
+  ['byp_5fstream_5fpix_5fmode',['byp_stream_pix_mode',['../struct_run_config.html#aa58560df211387b3a1831ea7cb143fc2',1,'RunConfig']]],
+  ['byp_5fstream_5fsdp_5fen',['byp_stream_sdp_en',['../struct_run_config.html#a50cbf3aaeda34e448ac04e7099a14f71',1,'RunConfig']]],
+  ['byp_5fstream_5fvid_5fmode',['byp_stream_vid_mode',['../struct_run_config.html#a45a9c59b4d58dc5781cf00d0d75daf33',1,'RunConfig']]],
+  ['byp_5fstreams',['byp_streams',['../struct_run_config.html#aff52ebeac2ec54f6ebc4be06dbd9f4c7',1,'RunConfig']]]
 ];

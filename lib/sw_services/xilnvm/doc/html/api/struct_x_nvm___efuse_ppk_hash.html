@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_nvm___efuse_ppk_hash.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -267,20 +267,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a45a618cd58083e6b4d529efb65063b1a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 XNvm_EfusePpkHash::PrgmPpk0Hash</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Program PPK0 hash. </p>
-
-</div>
-</div>
 <a class="anchor" id="a5eacdd1ac1aec50713bc0f2e9dc07bc0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -297,17 +283,17 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1739c2640ee3285353628bcf98eb3e15"></a>
+<a class="anchor" id="a45a618cd58083e6b4d529efb65063b1a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u8 XNvm_EfusePpkHash::PrgmPpk1Hash</td>
+          <td class="memname">u8 XNvm_EfusePpkHash::PrgmPpk0Hash</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Program PPK1 hash. </p>
+<p>Program PPK0 hash. </p>
 
 </div>
 </div>
@@ -327,17 +313,17 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7371cb85b53241054beb3517f733737a"></a>
+<a class="anchor" id="a1739c2640ee3285353628bcf98eb3e15"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u8 XNvm_EfusePpkHash::PrgmPpk2Hash</td>
+          <td class="memname">u8 XNvm_EfusePpkHash::PrgmPpk1Hash</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Program PPK2 hash. </p>
+<p>Program PPK1 hash. </p>
 
 </div>
 </div>
@@ -354,6 +340,20 @@ Data Fields</h2></td></tr>
 <p>Flag to determine whether to program PPK2 hash or not. </p>
 
 <p>Referenced by <a class="el" href="group__xnvm__efuse__client__apis.html#gac572fc5f0c58365ced7c15eeb8adec73">XNvm_EfuseWrite()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7371cb85b53241054beb3517f733737a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XNvm_EfusePpkHash::PrgmPpk2Hash</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Program PPK2 hash. </p>
 
 </div>
 </div>

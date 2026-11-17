@@ -47,6 +47,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,7 +88,7 @@ $(document).ready(function(){initNavTree('xcert__genx509cert_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,6 +98,8 @@ $(document).ready(function(){initNavTree('xcert__genx509cert_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xcert_genx509cert.c File Reference</div>  </div>
 </div><!--header-->
@@ -129,9 +133,33 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 1.6   vm   12/18/2025 Add validation for certificate size
       rpu  01/17/2026 Add Layer field to TCB Info extension
       rmv  01/30/2026 Renamed OCP keymanagement macro
-      tbk  05/03/2026 Add validation for xcert remaining buffer before writing field</pre><pre></pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
+      tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
+      sri  08/24/2026 Centralize SKI/AKI macros; Versal Net keeps SHA-1 via xcert_sha.h
+1.7   sri  10/04/2026 Add SHA3-384 signature algorithm OID support for Versal_2VP_P</pre><pre></pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
-</div></div><!-- contents -->
+<code>#include &quot;xsecure_ellipticplat.h&quot;</code><br/>
+<code>#include &quot;xcert_sha.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xcert__genx509cert_8h.html">xcert_genx509cert.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xcert__createfield_8h.html">xcert_createfield.h</a>&quot;</code><br/>
+<code>#include &quot;xplmi.h&quot;</code><br/>
+<code>#include &quot;xplmi_status.h&quot;</code><br/>
+<code>#include &quot;xplmi_tamper.h&quot;</code><br/>
+<code>#include &quot;xplmi_dma.h&quot;</code><br/>
+<code>#include &quot;xsecure_kat.h&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga3b45264c1bf4790b462655981d05289b"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#ga3b45264c1bf4790b462655981d05289b">XCert_GetSpkId</a> (void)</td></tr>
+<tr class="memdesc:ga3b45264c1bf4790b462655981d05289b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the pointer to the static variable SpkId.  <a href="group__xcert__apis.html#ga3b45264c1bf4790b462655981d05289b">More...</a><br/></td></tr>
+<tr class="separator:ga3b45264c1bf4790b462655981d05289b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">XCert_GenerateX509Cert</a> (u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize, <a class="el" href="struct_x_cert___config.html">XCert_Config</a> *Cfg)</td></tr>
+<tr class="memdesc:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function creates the X.509 Certificate/Certificate Signing Request(CSR)  <a href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">More...</a><br/></td></tr>
+<tr class="separator:gafc17a8e6c3a9c36de72923ddf5ec9a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">XCert_StoreCertUserInput</a> (u32 SubSystemId, <a class="el" href="xcert__genx509cert_8h.html#ab77f95d2568bc13fae0a90d6df8a7af0">XCert_UserCfgFields</a> FieldType, u8 *Val, u32 Len, u32 KeyIndex)</td></tr>
+<tr class="memdesc:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function stores the user provided value for the user configurable fields in the certificate as per the provided FieldType.  <a href="group__xcert__apis.html#ga8b37477fe9d2496ae31617c733fe1f9d">More...</a><br/></td></tr>
+<tr class="separator:ga8b37477fe9d2496ae31617c733fe1f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

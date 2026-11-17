@@ -8,9 +8,6 @@
     <includes local="yes">xiic.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
-      <node id="1426">
-        <label>stdlib.h</label>
-      </node>
       <node id="1425">
         <label>si5328drv.c</label>
         <link refid="zcu_pt_dp14_hdcp/si5328drv.c"/>
@@ -31,6 +28,9 @@
         </childnode>
         <childnode refid="1429" relation="include">
         </childnode>
+      </node>
+      <node id="1426">
+        <label>stdlib.h</label>
       </node>
       <node id="1427">
         <label>xil_types.h</label>
@@ -54,7 +54,7 @@
 <para>This array consists of pairs with the first value the register number and the second number the register value. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -116,7 +116,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1219" bodyend="1243"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1219" bodyend="1243"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1a880070d745e860cbed057dfc1e9b9e2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -154,7 +154,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1258" bodyend="1282"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1258" bodyend="1282"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1ae852c7a6877cbb63c0e5017d04badd02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -191,7 +191,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1297" bodyend="1307"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1297" bodyend="1307"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1a9715e0130fd3b1a8f8d4992cdd17b8a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -249,7 +249,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1319" bodyend="1375"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1319" bodyend="1375"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1a1e00a1aeda3b7a20a9ef27d227e03e3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -276,7 +276,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1388" bodyend="1475"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1388" bodyend="1475"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1a7f2d310f029737fa290c878b5cad7e89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -303,7 +303,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1489" bodyend="1514"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1489" bodyend="1514"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1a1201b3fce6e1ad482cbc2755e2ae8a28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -330,7 +330,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1527" bodyend="1552"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1527" bodyend="1552"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1ad5231ee569dd178cc620b1b1d6d17386" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -357,7 +357,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1566" bodyend="1590"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1566" bodyend="1590"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1aad9c1fe6773bd8f19f9eca8afdbeb9e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -461,7 +461,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1609" bodyend="1684"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1609" bodyend="1684"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2si5328drv_8c_1abc3795486ff600420b9b553ebbc775be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -531,7 +531,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1704" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1704" bodyend="1854"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" line="1704" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c" bodystart="1704" bodyend="1854"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1637,7 +1637,7 @@
 <codeline lineno="1177"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1178"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sanity<sp/>check</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(buf))<sp/>{</highlight></codeline>
+<codeline lineno="1180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(buf))<sp/>{</highlight></codeline>
 <codeline lineno="1181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SI5328_DEBUG)<sp/>{</highlight></codeline>
 <codeline lineno="1182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Si5328:<sp/>FATAL<sp/>ERROR:<sp/>Incorrect<sp/>buffer<sp/>size<sp/>while<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;programming<sp/>frequency<sp/>settings!&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -1855,7 +1855,7 @@
 <codeline lineno="1452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\t\t\t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fosc<sp/>=<sp/>%dkHz<sp/>f3<sp/>=<sp/>%dHz.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
 <codeline lineno="1453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)((fosc_actual<sp/>&gt;&gt;<sp/>28)<sp/>/<sp/>1000),<sp/>(u32)(f3_actual<sp/>&gt;&gt;<sp/>28));</highlight></codeline>
 <codeline lineno="1454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((u64)llabs(delta_fout))<sp/>&lt;<sp/>settings-&gt;best_delta_fout)<sp/>{</highlight></codeline>
+<codeline lineno="1455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(delta_fout<sp/>&lt;<sp/>settings-&gt;best_delta_fout)<sp/>{</highlight></codeline>
 <codeline lineno="1456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Found<sp/>a<sp/>better<sp/>solution:<sp/>remember<sp/>this<sp/>one!</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SI5328_DEBUG)<sp/>{</highlight></codeline>
 <codeline lineno="1458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\t\t\tThis<sp/>solution<sp/>is<sp/>the<sp/>best<sp/>yet!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -1866,7 +1866,7 @@
 <codeline lineno="1463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>settings-&gt;best_n2_ls<sp/>=<sp/>settings-&gt;n2_ls;</highlight></codeline>
 <codeline lineno="1464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>settings-&gt;best_n3<sp/>=<sp/>settings-&gt;n3;</highlight></codeline>
 <codeline lineno="1465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>settings-&gt;best_fout<sp/>=<sp/>fout_actual;</highlight></codeline>
-<codeline lineno="1466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>settings-&gt;best_delta_fout<sp/>=<sp/>llabs(delta_fout);</highlight></codeline>
+<codeline lineno="1466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>settings-&gt;best_delta_fout<sp/>=<sp/>delta_fout;</highlight></codeline>
 <codeline lineno="1467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(delta_fout<sp/>==<sp/>0)<sp/>{</highlight></codeline>
 <codeline lineno="1468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Best<sp/>possible<sp/>result<sp/>found.<sp/>Skip<sp/>the<sp/>rest<sp/>of<sp/>the<sp/>possibilities.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>1;</highlight></codeline>
@@ -2181,7 +2181,7 @@
 <codeline lineno="1839"><highlight class="normal"><sp/><sp/><sp/><sp/>i<sp/>+=<sp/>2;</highlight></codeline>
 <codeline lineno="1840"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1841"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sanity<sp/>check</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1842"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(buf))<sp/>{</highlight></codeline>
+<codeline lineno="1842"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(buf))<sp/>{</highlight></codeline>
 <codeline lineno="1843"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SI5328_DEBUG)<sp/>{</highlight></codeline>
 <codeline lineno="1844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Si5328:<sp/>FATAL<sp/>ERROR:<sp/>Incorrect<sp/>buffer<sp/>size<sp/>while<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="1845"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>programming<sp/>frequency<sp/>settings!&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -2195,6 +2195,6 @@
 <codeline lineno="1853"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
 <codeline lineno="1854"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/si5328drv.c"/>
   </compounddef>
 </doxygen>

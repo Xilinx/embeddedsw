@@ -111,8 +111,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 1.01  sk  03/28/2025 Added define for Multiboot index
       sk  09/26/2025 Added drive number define for UFS
       sk  10/24/2025 Added ffs header for multi part define
-2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+      pre  08/18/2026 Added XLoader_UfsReadDdrCalibData for calib data restore
+      pre  10/22/2026 UFS calib data restore APIs are under
+                      PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xplmi_status.h&quot;</code><br/>
+<code>#include &quot;xparameters.h&quot;</code><br/>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

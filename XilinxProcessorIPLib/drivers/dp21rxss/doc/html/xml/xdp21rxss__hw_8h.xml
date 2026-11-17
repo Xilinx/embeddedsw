@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp21rxss__hw_8h" kind="file">
+    <compoundname>xdp21rxss_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="1139">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1138">
+        <label>xdp21rxss_hw.h</label>
+        <link refid="xdp21rxss_hw.h"/>
+        <childnode refid="1139" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Subsystem register offsets for the compression and FEC blocks.</header>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a7ea0728276b30baed8e6aa5f29ca1849" prot="public" static="no">
+        <name>XDP21_RX_PPS_SDP_BASE_OFFSET</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+<para>First word of the picture parameter set captured from the received secondary data packet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1aad66bc3bc28ff221194a9966e12566b0" prot="public" static="no">
+        <name>XDP21_RX_PPS_SDP_STATUS_OFFSET</name>
+        <initializer>0x0804</initializer>
+        <briefdescription>
+<para>Picture parameter set capture status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a1985fcb185f2bd6deb76ff4533bccfa4" prot="public" static="no">
+        <name>XDP21_RX_PPS_SDP_CTRL_OFFSET</name>
+        <initializer>0x0808</initializer>
+        <briefdescription>
+<para>Picture parameter set capture control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a2faaf703609f8ea8cd0c5a65fdbbb99b" prot="public" static="no">
+        <name>XDP21_RX_DSC_ENABLE_OFFSET</name>
+        <initializer>0x080C</initializer>
+        <briefdescription>
+<para>Enables the decompressor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a729d79819a4d7a43de3ac8fa958d59eb" prot="public" static="no">
+        <name>XDP21_RX_FEC_STATUS_OFFSET</name>
+        <initializer>0x0810</initializer>
+        <briefdescription>
+<para>Forward error correction status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a1bf532fce56d1babddc438a85ea6107e" prot="public" static="no">
+        <name>XDP21_RX_FEC_CTRL_OFFSET</name>
+        <initializer>0x0814</initializer>
+        <briefdescription>
+<para>Forward error correction control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a76a1d1939e038bbc63b8c87b159cddf7" prot="public" static="no">
+        <name>XDP21_RX_FEC_ERR_COUNT_OFFSET</name>
+        <initializer>0x0818</initializer>
+        <briefdescription>
+<para>Count of errors the decoder could not correct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a4085d5b5c713b9d725e6dd1ec722ae10" prot="public" static="no">
+        <name>XDP21_RX_FEC_CORR_COUNT_OFFSET</name>
+        <initializer>0x081C</initializer>
+        <briefdescription>
+<para>Count of errors the decoder corrected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bit masks for the status and control registers above.</header>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a769042fff721776964e5a4358e3c69ff" prot="public" static="no">
+        <name>XDP21_RX_PPS_SDP_VALID</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+<para>In the status register, the captured picture parameter set is valid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1a0a613d91041611d130fb3c2f9c4a017c" prot="public" static="no">
+        <name>XDP21_RX_DSC_STREAM_ACTIVE</name>
+        <initializer>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+<para>In the status register, the received stream is compressed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp21rxss__hw_8h_1abd374374c0ed77389edf527083bceec5" prot="public" static="no">
+        <name>XDP21_RX_FEC_ACTIVE</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+<para>In the FEC status register, the decoder is running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the register offsets and bit masks for the Display Stream Compression and Forward Error Correction blocks of the Xilinx DisplayPort 2.1 RX Subsystem. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       Date     Changes
+<hruler/>
+
+1.0   Dhanunjay 10/05/26 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XDP21RXSS_HW_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP21RXSS_HW_H_</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="36" refid="xdp21rxss__hw_8h_1a7ea0728276b30baed8e6aa5f29ca1849" refkind="member"><highlight class="preprocessor">#define<sp/>XDP21_RX_PPS_SDP_BASE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0800<sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor">#define<sp/>XDP21_RX_PPS_SDP_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x0804<sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#define<sp/>XDP21_RX_PPS_SDP_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0808<sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="xdp21rxss__hw_8h_1aad66bc3bc28ff221194a9966e12566b0" refkind="member"><highlight class="preprocessor">#define<sp/>XDP21_RX_DSC_ENABLE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x080C<sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>XDP21_RX_FEC_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0810<sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>XDP21_RX_FEC_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0814<sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="xdp21rxss__hw_8h_1a2faaf703609f8ea8cd0c5a65fdbbb99b" refkind="member"><highlight class="preprocessor">#define<sp/>XDP21_RX_FEC_ERR_COUNT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0818<sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="xdp21rxss__hw_8h_1a729d79819a4d7a43de3ac8fa958d59eb" refkind="member"><highlight class="preprocessor">#define<sp/>XDP21_RX_FEC_CORR_COUNT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x081C<sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XDP21_RX_PPS_SDP_VALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="xdp21rxss__hw_8h_1a4085d5b5c713b9d725e6dd1ec722ae10" refkind="member"><highlight class="preprocessor">#define<sp/>XDP21_RX_DSC_STREAM_ACTIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)<sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XDP21_RX_FEC_ACTIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP21RXSS_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdp21rxss_hw.h"/>
+  </compounddef>
+</doxygen>

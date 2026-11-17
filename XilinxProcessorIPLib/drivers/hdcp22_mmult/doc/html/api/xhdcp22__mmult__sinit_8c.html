@@ -47,6 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="modules.html"><span>API&#160;Groups</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,7 +89,7 @@ $(document).ready(function(){initNavTree('xhdcp22__mmult__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,6 +99,10 @@ $(document).ready(function(){initNavTree('xhdcp22__mmult__sinit_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xhdcp22_mmult_sinit.c File Reference</div>  </div>
 </div><!--header-->
@@ -103,7 +110,100 @@ $(document).ready(function(){initNavTree('xhdcp22__mmult__sinit_8c.html','');});
 <div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xhdcp22__mmult_8h.html">xhdcp22_mmult.h</a>&quot;</code><br/>
-</div></div><!-- contents -->
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a68b4b7bab5fab716e4f0d39359bc4f28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdcp22__mmult__sinit_8c.html#a68b4b7bab5fab716e4f0d39359bc4f28">XPAR_XHDCP22_MMULT_NUM_INSTANCES</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a68b4b7bab5fab716e4f0d39359bc4f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a170c4f343ec4ae9c6bac6066831a0fbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_hdcp22__mmult___config.html">XHdcp22_mmult_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdcp22__mmult__sinit_8c.html#a170c4f343ec4ae9c6bac6066831a0fbb">XHdcp22_mmult_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="separator:a170c4f343ec4ae9c6bac6066831a0fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a135634219c127344183f1e124c5324b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdcp22__mmult__sinit_8c.html#a135634219c127344183f1e124c5324b2">XHdcp22_mmult_Initialize</a> (<a class="el" href="struct_x_hdcp22__mmult.html">XHdcp22_mmult</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="separator:a135634219c127344183f1e124c5324b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a41d28c2ab7def2cb0f1a5378f302bee0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_hdcp22__mmult___config.html">XHdcp22_mmult_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xhdcp22__mmult__sinit_8c.html#a41d28c2ab7def2cb0f1a5378f302bee0">XHdcp22_mmult_ConfigTable</a> []</td></tr>
+<tr class="separator:a41d28c2ab7def2cb0f1a5378f302bee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a68b4b7bab5fab716e4f0d39359bc4f28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPAR_XHDCP22_MMULT_NUM_INSTANCES&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a135634219c127344183f1e124c5324b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XHdcp22_mmult_Initialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdcp22__mmult.html">XHdcp22_mmult</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="struct_x_hdcp22__mmult___config.html#a414d2630751fe29f9d30040fdf0c0493">XHdcp22_mmult_Config::BaseAddress</a>, <a class="el" href="struct_x_hdcp22__mmult.html#a67fbd087ff8010772a2c8e014db89b4a">XHdcp22_mmult::IsReady</a>, <a class="el" href="group__hdcp22__mmult.html#ga94b5544d7e1f29c8bac9ea8f4c40d541">XHdcp22_mmult_CfgInitialize()</a>, and <a class="el" href="xhdcp22__mmult_8h.html#a170c4f343ec4ae9c6bac6066831a0fbb">XHdcp22_mmult_LookupConfig()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a170c4f343ec4ae9c6bac6066831a0fbb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_hdcp22__mmult___config.html">XHdcp22_mmult_Config</a>* XHdcp22_mmult_LookupConfig </td>
+          <td>(</td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>References <a class="el" href="struct_x_hdcp22__mmult___config.html#a4caae91d3c978c067198b8a7c6e05ae3">XHdcp22_mmult_Config::Name</a>.</p>
+
+<p>Referenced by <a class="el" href="xhdcp22__mmult__sinit_8c.html#a135634219c127344183f1e124c5324b2">XHdcp22_mmult_Initialize()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a41d28c2ab7def2cb0f1a5378f302bee0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_hdcp22__mmult___config.html">XHdcp22_mmult_Config</a> XHdcp22_mmult_ConfigTable[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

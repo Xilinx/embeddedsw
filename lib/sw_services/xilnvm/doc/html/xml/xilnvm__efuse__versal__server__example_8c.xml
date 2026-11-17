@@ -10,97 +10,108 @@
     <includes local="yes">xil_util.h</includes>
     <includes refid="xnvm__common__defs_8h" local="yes">xnvm_common_defs.h</includes>
     <incdepgraph>
-      <node id="112">
+      <node id="131">
         <label>xil_io.h</label>
       </node>
-      <node id="109">
-        <label>xilnvm_efuse_versal_server_example.c</label>
-        <link refid="xilnvm_efuse_versal_server_example.c"/>
-        <childnode refid="110" relation="include">
-        </childnode>
-        <childnode refid="111" relation="include">
-        </childnode>
-        <childnode refid="119" relation="include">
-        </childnode>
-        <childnode refid="121" relation="include">
-        </childnode>
-        <childnode refid="122" relation="include">
-        </childnode>
-        <childnode refid="123" relation="include">
-        </childnode>
-        <childnode refid="124" relation="include">
-        </childnode>
-      </node>
-      <node id="110">
-        <label>xnvm_efuse.h</label>
-      </node>
-      <node id="123">
-        <label>xil_util.h</label>
-      </node>
-      <node id="111">
-        <label>xnvm_efuse_common.h</label>
-        <link refid="xnvm__efuse__common_8h"/>
-        <childnode refid="112" relation="include">
-        </childnode>
-        <childnode refid="113" relation="include">
-        </childnode>
-        <childnode refid="114" relation="include">
-        </childnode>
-        <childnode refid="115" relation="include">
-        </childnode>
-        <childnode refid="116" relation="include">
-        </childnode>
-        <childnode refid="117" relation="include">
-        </childnode>
-      </node>
-      <node id="116">
-        <label>xnvm_defs.h</label>
-      </node>
-      <node id="122">
-        <label>xnvm_utils.h</label>
-      </node>
-      <node id="119">
-        <label>xnvm_efuse_common_hw.h</label>
-        <link refid="xnvm__efuse__common__hw_8h"/>
-        <childnode refid="120" relation="include">
-        </childnode>
-      </node>
-      <node id="118">
-        <label>xnvm_efuse_error_plat.h</label>
-      </node>
-      <node id="114">
-        <label>xstatus.h</label>
-      </node>
-      <node id="117">
-        <label>xnvm_efuse_error.h</label>
-        <link refid="xnvm__efuse__error_8h"/>
-        <childnode refid="118" relation="include">
-        </childnode>
-      </node>
-      <node id="115">
-        <label>xsysmonpsv.h</label>
-      </node>
-      <node id="113">
-        <label>xil_types.h</label>
-      </node>
-      <node id="124">
-        <label>xnvm_common_defs.h</label>
-        <link refid="xnvm__common__defs_8h"/>
-        <childnode refid="113" relation="include">
-        </childnode>
-        <childnode refid="125" relation="include">
-        </childnode>
-      </node>
-      <node id="120">
-        <label>xparameters.h</label>
-      </node>
-      <node id="125">
-        <label>xilnvm_bsp_config.h</label>
-      </node>
-      <node id="121">
+      <node id="140">
         <label>xilnvm_efuse_versal_input.h</label>
         <link refid="xilnvm__efuse__versal__input_8h"/>
-        <childnode refid="120" relation="include">
+        <childnode refid="139" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>xnvm_utils.h</label>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+      <node id="129">
+        <label>xnvm_efuse.h</label>
+      </node>
+      <node id="142">
+        <label>xil_util.h</label>
+      </node>
+      <node id="143">
+        <label>xnvm_common_defs.h</label>
+        <link refid="xnvm__common__defs_8h"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="128">
+        <label>xilnvm_efuse_versal_server_example.c</label>
+        <link refid="xilnvm_efuse_versal_server_example.c"/>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>xnvm_utils.h</label>
+      </node>
+      <node id="137">
+        <label>xnvm_efuse_error_plat.h</label>
+      </node>
+      <node id="136">
+        <label>xnvm_efuse_error.h</label>
+        <link refid="xnvm__efuse__error_8h"/>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="133">
+        <label>xstatus.h</label>
+      </node>
+      <node id="138">
+        <label>xnvm_efuse_common_hw.h</label>
+        <link refid="xnvm__efuse__common__hw_8h"/>
+        <childnode refid="139" relation="include">
+        </childnode>
+      </node>
+      <node id="134">
+        <label>xsysmonpsv.h</label>
+      </node>
+      <node id="132">
+        <label>xil_types.h</label>
+      </node>
+      <node id="139">
+        <label>xparameters.h</label>
+      </node>
+      <node id="145">
+        <label>xilnvm_bsp_config.h</label>
+      </node>
+      <node id="130">
+        <label>xnvm_efuse_common.h</label>
+        <link refid="xnvm__efuse__common_8h"/>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -114,18 +125,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga20b8179fdbca646efcb514e5d8c167a2" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_HASH_STRING_LEN</name>
-        <initializer>(64U)</initializer>
+        <initializer>(<ref refid="group__xnvm__def__api__ids_1ga25e4686e8bf210fed6a7ed41e1d88340" kindref="member">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</ref> * 2U)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga75a54ad53ee0eb9c2a19e92a4489a7ef" prot="public" static="no">
         <name>XNVM_EFUSE_ROW_STRING_LEN</name>
@@ -136,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga7e57ad124c24a003b4770f5a6eb8e0e7" prot="public" static="no">
         <name>XNVM_EFUSE_GLITCH_WR_LK_MASK</name>
@@ -147,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1gacc2fed2080b003d8f2d2ad636ed2ca76" prot="public" static="no">
         <name>XNVM_EFUSE_DEC_EFUSE_ONLY_MASK</name>
@@ -158,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga609675b021bb7c0700660707f3c42dd4" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX</name>
@@ -169,7 +180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga6aab35d890227548938b98edad6d939b" prot="public" static="no">
         <name>XNVM_EFUSE_VOLT_SOC_LIMIT</name>
@@ -180,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga5ebc89643176d045307e053819c4a745" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_READ_START</name>
@@ -191,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga0c0a45ac43d3b1c71be92030b2655c01" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_READ_END</name>
@@ -202,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="88" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="88" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="88" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -217,7 +228,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xnvm__efuse__versal__server__example_1ga78f9bcd9751682479ba44b88f9a5c54d" prot="public" static="yes" mutable="no">
         <type>XSysMonPsv_Config *</type>
@@ -231,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="96" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -252,7 +263,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="224" bodyend="333"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="224" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gaaf21f87a0a6b089b0b061f77d85fa30d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -271,7 +282,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="480" bodyend="543"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="480" bodyend="543"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga96ff3319f4d0839b35e067f297501261" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -290,7 +301,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="344" bodyend="468"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="344" bodyend="468"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab44bfd69cc4f8d44c2024ec572f657ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -309,7 +320,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1542" bodyend="1860"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1542" bodyend="1860"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga59c89a986705394fc76b3df75068ee86" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -348,7 +359,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="849" bodyend="898"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="849" bodyend="898"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga461edce871b89dbe3fb1ab425e6b918c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -387,7 +398,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="929" bodyend="962"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="929" bodyend="962"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga92d79be8424c72fc7e3d9829b4cdd783" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -427,7 +438,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1126" bodyend="1249"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1126" bodyend="1249"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga32534c26ed42cc0979926d7c9f1365e9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -466,7 +477,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1423" bodyend="1477"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1423" bodyend="1477"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga1d4eb457f1ff0e0c32aff8173716999c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -507,7 +518,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Config data size is 31 bits Bit[30:0]</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="570" bodyend="619"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="570" bodyend="619"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga76af8f69da066a97f30fe4071a147b81" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -548,7 +559,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="648" bodyend="690"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="648" bodyend="690"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga90d9dd133404f59787beec4bff69f590" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -587,7 +598,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="717" bodyend="777"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="717" bodyend="777"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga3ff01a6321934994a29c6951bc5781eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -626,7 +637,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="799" bodyend="810"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="799" bodyend="810"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga39d022ba7afb1114c3cdfb1f75c33da0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -665,7 +676,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1501" bodyend="1531"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1501" bodyend="1531"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gaedc6ddc35b9400984cd573b15842ea54" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -704,7 +715,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1272" bodyend="1395"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1272" bodyend="1395"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga3177068d90192b1dc9158bfece5cbb0d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -743,7 +754,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1039" bodyend="1103"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1039" bodyend="1103"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab5f45b1e4148dceb6385e76fa255b7b0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -782,7 +793,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="988" bodyend="1006"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="988" bodyend="1006"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga2bb2418a958246a265643aa4d22c3c53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -810,7 +821,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1978" bodyend="1994"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1978" bodyend="1994"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga1721c330ccfaf727b7e48f3bf8f96ebb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -860,7 +871,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1877" bodyend="1894"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1877" bodyend="1894"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga14057d6bd2f0aa87660d457d585ef72c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -921,7 +932,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1915" bodyend="1941"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1915" bodyend="1941"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab5317bebac00e3026759b0c6b566b0dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -947,7 +958,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2047" bodyend="2061"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2047" bodyend="2061"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga30f52ffad149cef68711a6d3bf431291" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -986,7 +997,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2010" bodyend="2034"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2010" bodyend="2034"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gad85099e651ab0e77ae139402dee77479" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1033,7 +1044,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2073" bodyend="2082"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2073" bodyend="2082"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga275cdc2152f8c9ace0049e3906c21ecc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1061,7 +1072,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1953" bodyend="1966"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1953" bodyend="1966"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab6d0042e28b92077df7d4df4fb2fc36c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1097,7 +1108,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2308" bodyend="2317"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2308" bodyend="2317"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1113,7 +1124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="148" bodyend="191"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="148" bodyend="191"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1140,7 +1151,7 @@
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_KEY_STRING_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)</highlight></codeline>
-<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES<sp/>*<sp/>2U)</highlight></codeline>
 <codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_STRING_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
 <codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)</highlight></codeline>
 <codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DEC_EFUSE_ONLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000ffffU)</highlight></codeline>
@@ -1345,16 +1356,16 @@
 <codeline lineno="310"><highlight class="normal"></highlight></codeline>
 <codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1a56cf00130abbe5a1a24c2540f1f1d07d" kindref="member">EnvMonitorDis</ref><sp/>=<sp/>XNVM_EFUSE_ENV_MONITOR_DISABLE;</highlight></codeline>
 <codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1a56cf00130abbe5a1a24c2540f1f1d07d" kindref="member">EnvMonitorDis</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
-<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1a9a4f3c5af3102245a63c8f5f25acf4de" kindref="member">SysMonInstPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1acc2bbc2bb6dd9120f599d892cb701fd5" kindref="member">SysMonInstPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
 <codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1a9a4f3c5af3102245a63c8f5f25acf4de" kindref="member">SysMonInstPtr</ref><sp/>=<sp/>&amp;SysMonInst;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1acc2bbc2bb6dd9120f599d892cb701fd5" kindref="member">SysMonInstPtr</ref><sp/>=<sp/>&amp;SysMonInst;</highlight></codeline>
 <codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XSysMonPsv_LookupConfig();</highlight></codeline>
 <codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
 <codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="321"><highlight class="normal"></highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSysMonPsv_CfgInitialize(WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1a9a4f3c5af3102245a63c8f5f25acf4de" kindref="member">SysMonInstPtr</ref>,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSysMonPsv_CfgInitialize(WriteEfuse.<ref refid="struct_x_nvm___efuse_data_1acc2bbc2bb6dd9120f599d892cb701fd5" kindref="member">SysMonInstPtr</ref>,</highlight></codeline>
 <codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr);</highlight></codeline>
 <codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -1454,7 +1465,7 @@
 <codeline lineno="427"><highlight class="normal"></highlight></codeline>
 <codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Offchip<sp/>ids<sp/>read<sp/>from<sp/>cache<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Row<sp/>=<sp/>0;<sp/>Row<sp/>&lt;<sp/>(s8)<ref refid="group__xnvm__def__api__ids_1gaa7f7b6c8917369edc7cb2e7cc55caa12" kindref="member">XNVM_NUM_OF_OFFCHIP_ID_FUSES</ref>;<sp/>Row++)<sp/>{</highlight></codeline>
-<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__efuse__client__apis_1ga55a6be49ea504c9e07a532b5e82797c1" kindref="member">XNvm_EfuseReadOffchipRevokeId</ref>(&amp;OffChipId,<sp/>(<ref refid="group__xnvm__def__api__ids_1gaf84fe281e56c68dea0409b055fd2cd26" kindref="member">XNvm_OffchipId</ref>)Row);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__efuse__client__apis_1ga12186aecc17c0d7a06832afb5b25f75f" kindref="member">XNvm_EfuseReadOffchipRevokeId</ref>(&amp;OffChipId,<sp/>(<ref refid="group__xnvm__def__api__ids_1gaf84fe281e56c68dea0409b055fd2cd26" kindref="member">XNvm_OffchipId</ref>)Row);</highlight></codeline>
 <codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -1666,7 +1677,7 @@
 <codeline lineno="725"><highlight class="normal"></highlight></codeline>
 <codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpkHash-&gt;<ref refid="struct_x_nvm___efuse_ppk_hash_1a5eacdd1ac1aec50713bc0f2e9dc07bc0" kindref="member">PrgmPpk0Hash</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XilNvm_ValidateHash((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)XNVM_EFUSE_PPK0_HASH,</highlight></codeline>
-<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN);</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga20b8179fdbca646efcb514e5d8c167a2" kindref="member">XNVM_EFUSE_PPK_HASH_STRING_LEN</ref>);</highlight></codeline>
 <codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ppk0Hash<sp/>string<sp/>validation<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -1680,7 +1691,7 @@
 <codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpkHash-&gt;<ref refid="struct_x_nvm___efuse_ppk_hash_1a0415883e85bba272ca2aa08257d732ec" kindref="member">PrgmPpk1Hash</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XilNvm_ValidateHash((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)XNVM_EFUSE_PPK1_HASH,</highlight></codeline>
-<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN);</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga20b8179fdbca646efcb514e5d8c167a2" kindref="member">XNVM_EFUSE_PPK_HASH_STRING_LEN</ref>);</highlight></codeline>
 <codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ppk1Hash<sp/>string<sp/>validation<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -1694,9 +1705,9 @@
 <codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpkHash-&gt;<ref refid="struct_x_nvm___efuse_ppk_hash_1ae98360e6297ff7e80f28943473100bb0" kindref="member">PrgmPpk2Hash</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XilNvm_ValidateHash((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)XNVM_EFUSE_PPK2_HASH,</highlight></codeline>
-<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN);</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga20b8179fdbca646efcb514e5d8c167a2" kindref="member">XNVM_EFUSE_PPK_HASH_STRING_LEN</ref>);</highlight></codeline>
 <codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ppk1Hash<sp/>string<sp/>validation<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ppk2Hash<sp/>string<sp/>validation<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_ConvertStringToHexBE((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)XNVM_EFUSE_PPK2_HASH,</highlight></codeline>
@@ -2338,7 +2349,7 @@
 <codeline lineno="1628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CRC<sp/>check<sp/>on<sp/>User<sp/>key<sp/>0<sp/>is<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="1629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="1631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CRC<sp/>check<sp/>on<sp/>User<sp/>key<sp/>1<sp/>is<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CRC<sp/>check<sp/>on<sp/>User<sp/>key<sp/>0<sp/>is<sp/>not<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="1632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SecCtrlBits.<ref refid="struct_x_nvm___efuse_sec_ctrl_bits_1a61c4c23d3de10d58c547004e74894849" kindref="member">UserKey0WrLk</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="1634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Programming<sp/>User<sp/>key<sp/>0<sp/>is<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -2350,7 +2361,7 @@
 <codeline lineno="1640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CRC<sp/>check<sp/>on<sp/>User<sp/>key<sp/>1<sp/>is<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="1641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="1643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CRC<sp/>check<sp/>on<sp/>User<sp/>key<sp/>1<sp/>is<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="1643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CRC<sp/>check<sp/>on<sp/>User<sp/>key<sp/>1<sp/>is<sp/>not<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="1644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SecCtrlBits.<ref refid="struct_x_nvm___efuse_sec_ctrl_bits_1abadbf50cfecfeff1503520e790b5657d" kindref="member">UserKey1WrLk</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="1646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Programming<sp/>User<sp/>key<sp/>1<sp/>is<sp/>disabled\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -2834,7 +2845,7 @@
 <codeline lineno="2257"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpkHash-&gt;PrgmPpk3Hash<sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="2259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XilNvm_ValidateHash((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)XNVM_EFUSE_PPK3_HASH,</highlight></codeline>
-<codeline lineno="2260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN);</highlight></codeline>
+<codeline lineno="2260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga20b8179fdbca646efcb514e5d8c167a2" kindref="member">XNVM_EFUSE_PPK_HASH_STRING_LEN</ref>);</highlight></codeline>
 <codeline lineno="2261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="2262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ppk3Hash<sp/>string<sp/>validation<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="2263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -2849,7 +2860,7 @@
 <codeline lineno="2272"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpkHash-&gt;PrgmPpk4Hash<sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
 <codeline lineno="2274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XilNvm_ValidateHash((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)XNVM_EFUSE_PPK4_HASH,</highlight></codeline>
-<codeline lineno="2275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PPK_HASH_STRING_LEN);</highlight></codeline>
+<codeline lineno="2275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga20b8179fdbca646efcb514e5d8c167a2" kindref="member">XNVM_EFUSE_PPK_HASH_STRING_LEN</ref>);</highlight></codeline>
 <codeline lineno="2276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="2277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ppk4Hash<sp/>string<sp/>validation<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="2278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -2886,6 +2897,6 @@
 <codeline lineno="2316"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2317"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c"/>
   </compounddef>
 </doxygen>

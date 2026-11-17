@@ -7,76 +7,81 @@
     <includes local="yes">xil_printf.h</includes>
     <includes local="yes">xsecure_config.h</includes>
     <incdepgraph>
-      <node id="318">
-        <label>xilsecure_versal_ecdsa_server_example.c</label>
-        <link refid="xilsecure_versal_ecdsa_server_example.c"/>
-        <childnode refid="319" relation="include">
+      <node id="327">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="328" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
         </childnode>
         <childnode refid="329" relation="include">
         </childnode>
-        <childnode refid="325" relation="include">
+        <childnode refid="330" relation="include">
         </childnode>
-        <childnode refid="328" relation="include">
+        <childnode refid="331" relation="include">
+        </childnode>
+        <childnode refid="332" relation="include">
         </childnode>
       </node>
-      <node id="326">
+      <node id="330">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="329">
         <label>xil_cache.h</label>
       </node>
-      <node id="319">
-        <label>xsecure_elliptic.h</label>
-        <link refid="xsecure__elliptic_8h"/>
-        <childnode refid="320" relation="include">
-        </childnode>
-        <childnode refid="321" relation="include">
-        </childnode>
-        <childnode refid="322" relation="include">
-        </childnode>
-      </node>
-      <node id="323">
+      <node id="326">
         <label>Ecdsa.h</label>
       </node>
-      <node id="327">
+      <node id="332">
         <label>xsecure_plat_defs.h</label>
       </node>
-      <node id="324">
-        <label>xsecure_defs.h</label>
-        <link refid="xsecure__defs_8h"/>
+      <node id="322">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure__elliptic_8h"/>
+        <childnode refid="323" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
+        </childnode>
         <childnode refid="325" relation="include">
         </childnode>
-        <childnode refid="321" relation="include">
+      </node>
+      <node id="333">
+        <label>xstatus.h</label>
+      </node>
+      <node id="325">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="323" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
         </childnode>
         <childnode refid="326" relation="include">
         </childnode>
         <childnode refid="327" relation="include">
         </childnode>
-        <childnode refid="328" relation="include">
-        </childnode>
       </node>
-      <node id="322">
-        <label>xsecure_ellipticcrvs.h</label>
-        <link refid="xsecure__ellipticcrvs_8h"/>
-        <childnode refid="320" relation="include">
-        </childnode>
-        <childnode refid="321" relation="include">
-        </childnode>
-        <childnode refid="323" relation="include">
-        </childnode>
-        <childnode refid="324" relation="include">
-        </childnode>
-      </node>
-      <node id="329">
-        <label>xstatus.h</label>
-      </node>
-      <node id="328">
+      <node id="331">
         <label>xsecure_config.h</label>
       </node>
-      <node id="321">
+      <node id="324">
         <label>xil_types.h</label>
       </node>
-      <node id="320">
+      <node id="321">
+        <label>xilsecure_versal_ecdsa_server_example.c</label>
+        <link refid="xilsecure_versal_ecdsa_server_example.c"/>
+        <childnode refid="322" relation="include">
+        </childnode>
+        <childnode refid="333" relation="include">
+        </childnode>
+        <childnode refid="328" relation="include">
+        </childnode>
+        <childnode refid="331" relation="include">
+        </childnode>
+      </node>
+      <node id="323">
         <label>xparameters.h</label>
       </node>
-      <node id="325">
+      <node id="328">
         <label>xil_printf.h</label>
       </node>
     </incdepgraph>
@@ -112,13 +117,16 @@ This function test elliptic curve P-224</para><para><simplesect kind="return"><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" bodystart="729" bodyend="742"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" bodystart="729" bodyend="742"/>
       </memberdef>
-      <memberdef kind="function" id="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int XSecure_TestP384</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>XSecure_TestP384</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
 <para>This function test elliptic curve P-384. </para>        </briefdescription>
         <detaileddescription>
@@ -128,30 +136,33 @@ This function test elliptic curve P-224</para><para><simplesect kind="return"><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" bodystart="137" bodyend="249"/>
-        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="85">XSecure_EllipticKey::Qx</references>
-        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="86">XSecure_EllipticKey::Qy</references>
-        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="91">XSecure_EllipticSign::SignR</references>
-        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="92">XSecure_EllipticSign::SignS</references>
-        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__ecdsa__client__apis_1ga623ff4e3a9216677e7b5abe2767790a8" compoundref="xsecure__ellipticclient_8c" startline="135" endline="165">XSecure_EllipticGenerateKey</references>
-        <references refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</references>
-        <references refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" compoundref="xsecure__ellipticclient_8c" startline="181" endline="208">XSecure_EllipticValidateKey</references>
-        <references refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" compoundref="xsecure__ellipticclient_8c" startline="228" endline="277">XSecure_EllipticVerifySign</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" bodystart="137" bodyend="249"/>
+        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="89">XSecure_EllipticKey::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="90">XSecure_EllipticKey::Qy</references>
+        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="95">XSecure_EllipticSign::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="96">XSecure_EllipticSign::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="284">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__client__apis_1ga623ff4e3a9216677e7b5abe2767790a8" compoundref="xsecure__ellipticclient_8c" startline="150" endline="188">XSecure_EllipticGenerateKey</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="425" endline="471">XSecure_EllipticGenerateSignature</references>
+        <references refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" compoundref="xsecure__ellipticclient_8c" startline="205" endline="238">XSecure_EllipticValidateKey</references>
+        <references refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" compoundref="xsecure__ellipticclient_8c" startline="259" endline="321">XSecure_EllipticVerifySign</references>
       </memberdef>
-      <memberdef kind="function" id="xilsecure__versal__ecdsa__server__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="xilsecure__versal__ecdsa__server__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int main</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(void)</argsstring>
         <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" bodystart="75" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c" bodystart="75" bodyend="125"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -197,26 +208,26 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_ShowData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Data,<sp/>u32<sp/>Len);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" kindref="member">XSecure_TestP384</ref>();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" kindref="member">XSecure_TestP384</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P192</highlight></codeline>
-<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP192();</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP192(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P224</highlight></codeline>
-<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP224();</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP224(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P256</highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP256();</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP256(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P521</highlight></codeline>
-<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP521();</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP521(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="76"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Test<sp/>P-384<sp/>curve<sp/>started<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" kindref="member">XSecure_TestP384</ref>();</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" kindref="member">XSecure_TestP384</ref>();</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ECDSA<sp/>example<sp/>failed<sp/>for<sp/>P-384<sp/>with<sp/>Status:%08x\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -264,7 +275,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="125"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"></highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="137" refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" kindref="member">XSecure_TestP384</ref>()</highlight></codeline>
+<codeline lineno="137" refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" kindref="member">XSecure_TestP384</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="138"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qx[<ref refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" kindref="member">XSECURE_ECC_P384_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
@@ -380,14 +391,14 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="250"><highlight class="normal"></highlight></codeline>
 <codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
 <codeline lineno="261"><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P521</highlight></codeline>
-<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP521()</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP521(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="263"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qx[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qy[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>R[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>S[<ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qx[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qy[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>R[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>S[<ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
 <codeline lineno="270"><highlight class="normal"></highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref><sp/>Key<sp/>=<sp/>{<sp/>Qx,<sp/>Qy<sp/>};</highlight></codeline>
 <codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___elliptic_sign" kindref="compound">XSecure_EllipticSign</ref><sp/>GeneratedSign<sp/>=<sp/>{<sp/>R,<sp/>S<sp/>};</highlight></codeline>
@@ -470,10 +481,10 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(Hash,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Hash));</highlight></codeline>
 <codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Generated<sp/>Key<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Qx<sp/>:&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(Key.<ref refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" kindref="member">Qx</ref>,<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(Key.<ref refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" kindref="member">Qx</ref>,<sp/><ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
 <codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Qy<sp/>:&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(Key.<ref refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" kindref="member">Qy</ref>,<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(Key.<ref refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" kindref="member">Qy</ref>,<sp/><ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
 <codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="357"><highlight class="normal"></highlight></codeline>
 <codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" kindref="member">XSecure_EllipticGenerateSignature</ref>(<ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" kindref="member">XSECURE_ECC_NIST_P521</ref>,<sp/>Hash,</highlight></codeline>
@@ -485,10 +496,10 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="364"><highlight class="normal"></highlight></codeline>
 <codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Generated<sp/>Sign\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;R<sp/>:&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(GeneratedSign.<ref refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" kindref="member">SignR</ref>,<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(GeneratedSign.<ref refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" kindref="member">SignR</ref>,<sp/><ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
 <codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;S<sp/>:&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(GeneratedSign.<ref refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" kindref="member">SignS</ref>,<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShowData(GeneratedSign.<ref refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" kindref="member">SignS</ref>,<sp/><ref refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" kindref="member">XSECURE_ECC_P521_SIZE_IN_BYTES</ref>);</highlight></codeline>
 <codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="372"><highlight class="normal"></highlight></codeline>
 <codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" kindref="member">XSecure_EllipticValidateKey</ref>(<ref refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" kindref="member">XSECURE_ECC_NIST_P521</ref>,<sp/>&amp;Key);</highlight></codeline>
@@ -513,7 +524,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="392"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
 <codeline lineno="403"><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P256</highlight></codeline>
-<codeline lineno="404"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP256()</highlight></codeline>
+<codeline lineno="404"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP256(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="405"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qx[<ref refid="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" kindref="member">XSECURE_ECC_P256_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
@@ -618,7 +629,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="506"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="507"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
 <codeline lineno="517"><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P192</highlight></codeline>
-<codeline lineno="518"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP192()</highlight></codeline>
+<codeline lineno="518"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP192(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="519"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qx[<ref refid="group__xsecure__ecdsa__server__apis_1ga26187a912fd3da2eb9cea5f36b25a709" kindref="member">XSECURE_ECC_P192_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
@@ -717,7 +728,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="614"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="615"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
 <codeline lineno="625"><highlight class="preprocessor">#ifdef<sp/>XSECURE_ECC_SUPPORT_NIST_P224</highlight></codeline>
-<codeline lineno="626"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP224()</highlight></codeline>
+<codeline lineno="626"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_TestP224(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="627"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Qx[<ref refid="group__xsecure__ecdsa__server__apis_1ga192d103795f91f2cfa9a4b9cca781285" kindref="member">XSECURE_ECC_P224_SIZE_IN_BYTES</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
@@ -835,6 +846,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="741"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="742"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c"/>
   </compounddef>
 </doxygen>

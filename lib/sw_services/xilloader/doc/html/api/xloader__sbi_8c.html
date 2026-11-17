@@ -128,7 +128,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 1.06  bm   07/06/2022 Refactor versal and versal_net code
 1.07  ng   11/11/2022 Updated doxygen comments
       ng   03/30/2023 Updated algorithm and return values in doxygen comments
-2.1   mb   08/20/2024 Masked JCONFIG bit when bootmode is SBI JTAG</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+2.1   mb   08/20/2024 Masked JCONFIG bit when bootmode is SBI JTAG
+2.5   gnr  08/19/2026 Added XLoader_SbiSyncWordReArm to re-enable SMAP sync
+                      word detection and drain the SBI FIFO between PDIs
+      gnr  09/11/2026 Added PDI source check in XLoader_SbiSyncWordReArm</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_generic.h&quot;</code><br/>
 <code>#include &quot;xplmi_util.h&quot;</code><br/>

@@ -100,21 +100,28 @@ $(document).ready(function(){initNavTree('xqspipsu__xfer_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xqspipsu_xfer.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the polled and interrupt mode data transfer functions. </p>
+<p>The <a class="el" href="xqspipsu__xfer_8c.html" title="Implements the polled and interrupt mode data transfer functions. ">xqspipsu_xfer.c</a> file contains functions to receive and transfer data in polled and interrupt mode.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.18   sb  08/29/2023 Restructured the code for more modularity
+1.18   sb  08/29/2023 Update XQspiPsu_PolledRecvData api to fix MISRA-C warnings.
+1.22   sb  10/24/2025 Added cache invalidate when EL1_NONSECURE is not defined.
+       zm  06/18/2026 Queued whole transfer into GENFIFO to fix bus conflict.
+       zm  06/25/2026 Skip IO read when RxBytes is zero.
+1.24   vn  08/26/26   Fix Doxygen warnings.
+1.24   tb  09/30/26   Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xqspipsu__control_8h.html">xqspipsu_control.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga02055aef4b0f9a801005ebdc7b556157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga02055aef4b0f9a801005ebdc7b556157">MAX_DELAY_CNT</a>&#160;&#160;&#160;1000000000U</td></tr>
-<tr class="memdesc:ga02055aef4b0f9a801005ebdc7b556157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max delay count.  <a href="group__qspipsu__api.html#ga02055aef4b0f9a801005ebdc7b556157">More...</a><br/></td></tr>
-<tr class="separator:ga02055aef4b0f9a801005ebdc7b556157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gad8adcb1fd07106bb0add26e24a4c0084"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gad8adcb1fd07106bb0add26e24a4c0084">XQspiPsu_PolledSendData</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, s32 Index)</td></tr>
@@ -123,12 +130,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga18829cabd2b37c4cf9fb2efa0632c398"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga18829cabd2b37c4cf9fb2efa0632c398">XQspiPsu_PolledRecvData</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, s32 Index, u32 *IOPending)</td></tr>
 <tr class="memdesc:ga18829cabd2b37c4cf9fb2efa0632c398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfers Rx data on the bus in polled mode.  <a href="group__qspipsu__api.html#ga18829cabd2b37c4cf9fb2efa0632c398">More...</a><br/></td></tr>
 <tr class="separator:ga18829cabd2b37c4cf9fb2efa0632c398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa77c471d9c50c3671a2f2a7c28707f4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gaa77c471d9c50c3671a2f2a7c28707f4d">XQspiPsu_IntrSendData</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 QspiPsuStatusReg, u8 *DeltaMsgCnt)</td></tr>
-<tr class="memdesc:gaa77c471d9c50c3671a2f2a7c28707f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a transfer of Tx data on the bus in interrupt mode.  <a href="group__qspipsu__api.html#gaa77c471d9c50c3671a2f2a7c28707f4d">More...</a><br/></td></tr>
-<tr class="separator:gaa77c471d9c50c3671a2f2a7c28707f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga872f5fe8dbac27ca8867387e2185069d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga872f5fe8dbac27ca8867387e2185069d">XQspiPsu_IntrRecvData</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 QspiPsuStatusReg, u32 DmaIntrStatusReg, u8 *DeltaMsgCnt)</td></tr>
-<tr class="memdesc:ga872f5fe8dbac27ca8867387e2185069d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a transfer of Rx data on the busin interrupt mode.  <a href="group__qspipsu__api.html#ga872f5fe8dbac27ca8867387e2185069d">More...</a><br/></td></tr>
-<tr class="separator:ga872f5fe8dbac27ca8867387e2185069d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f4b93c7ac506e7fbeb97aeb66ddd1c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga2f4b93c7ac506e7fbeb97aeb66ddd1c6">XQspiPsu_IntrSendData</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 QspiPsuStatusReg)</td></tr>
+<tr class="memdesc:ga2f4b93c7ac506e7fbeb97aeb66ddd1c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a transfer of Tx data on the bus in interrupt mode.  <a href="group__qspipsu__api.html#ga2f4b93c7ac506e7fbeb97aeb66ddd1c6">More...</a><br/></td></tr>
+<tr class="separator:ga2f4b93c7ac506e7fbeb97aeb66ddd1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga94b9b45b99033a0aeb866faf50100906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga94b9b45b99033a0aeb866faf50100906">XQspiPsu_IntrRecvData</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, u32 QspiPsuStatusReg, u32 DmaIntrStatusReg)</td></tr>
+<tr class="memdesc:ga94b9b45b99033a0aeb866faf50100906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a transfer of Rx data on the bus in interrupt mode.  <a href="group__qspipsu__api.html#ga94b9b45b99033a0aeb866faf50100906">More...</a><br/></td></tr>
+<tr class="separator:ga94b9b45b99033a0aeb866faf50100906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="64" bodyend="70"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="64" bodyend="70"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="179" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="173" bodyend="180"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -124,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaffd31964c7785f76f3c1e443e6f306dd" prot="public" static="no">
         <name>XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_MASK</name>
@@ -135,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="46" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" prot="public" static="no">
@@ -147,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="51" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga61af06e74f87b278b69a501a972e68e8" prot="public" static="no">
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="54" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga78cc8bc6611969180c83c93f6a495896" prot="public" static="no">
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="59" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga36f5fabf2bf95db8602835cc95861fa5" prot="public" static="no">
@@ -183,7 +183,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="62" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gafa5b86b6aa7c49e9edc95ee095e99ae1" prot="public" static="no">
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="67" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga6ad2f825b0dda934666fd0c8e66de95f" prot="public" static="no">
@@ -207,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="70" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaab03ab7ac0cf37ff3a8f57008ff6c8b3" prot="public" static="no">
@@ -219,7 +219,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="73" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga7938a13abaa67d6d136feabbd6014b1d" prot="public" static="no">
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="76" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga3e5272ba1cc19696a062a2261c7811d3" prot="public" static="no">
@@ -243,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" prot="public" static="no">
         <name>XI2S_TX_AES_STS_CH_MODE_MASK</name>
@@ -254,7 +254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="82" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gabb8e06582adcf37c20a9db80d9d22881" prot="public" static="no">
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="85" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga4425bdbc5e0d0d757fb94635c60a6279" prot="public" static="no">
@@ -278,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="88" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga7a09ffa618e6590c9e82f91a49b4f68c" prot="public" static="no">
@@ -290,7 +290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga2792e6c77cf3427d9ba40ecafc84781c" prot="public" static="no">
         <name>XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_MASK</name>
@@ -301,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="98" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga16fae1ae006e75519d45a4dc31e2aca1" prot="public" static="no">
@@ -313,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="105" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaeadd56e1eb2fe7f16e64d20f4cc658a2" prot="public" static="no">
@@ -325,7 +325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="108" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="108" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga2d1071669dd6047ca5c4ed69c9dc78a4" prot="public" static="no">
@@ -337,7 +337,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="113" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="113" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga00224a5937919a23e18bac70be453341" prot="public" static="no">
@@ -349,7 +349,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="118" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga6ea48d72e9607d6d8d8056421054ee85" prot="public" static="no">
@@ -361,7 +361,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaa34fe37e7fabe3dbe32d1cb3978a7ab3" prot="public" static="no">
         <name>XI2S_TX_AES_STS_CH_NUM0_MASK</name>
@@ -372,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="126" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaa6c85a34557271fafd80989c4d16c3fa" prot="public" static="no">
@@ -384,7 +384,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="129" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga7444409e9557cb8d2fba5d04791cc90f" prot="public" static="no">
@@ -396,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="130" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga2119679a117b6557a57553bafb66fa8b" prot="public" static="no">
@@ -408,7 +408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="133" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga0b92225913f1d1397643d294b96a3e79" prot="public" static="no">
         <name>XI2S_TX_AES_STS_CH_NUM1_MASK</name>
@@ -419,7 +419,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="134" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gabc365c9d82d007f429dbc2c3175ba469" prot="public" static="no">
@@ -431,7 +431,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="137" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga60bdf4661314ff81890dd36a51203c1b" prot="public" static="no">
@@ -443,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="140" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gac59f23705e781eb6d2375f7793e05847" prot="public" static="no">
@@ -455,7 +455,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="145" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gac284c05fb5e7d7ad0f7c571cceb92c44" prot="public" static="no">
@@ -467,7 +467,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="150" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="150" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga32a5c5c380f0add139e9973ca5509ea2" prot="public" static="no">
@@ -479,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="157" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gab54c4d024eec7747b7fdf2a90082ab54" prot="public" static="no">
@@ -491,7 +491,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="160" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="160" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gab1548ab3982c777016c42ae4a5666fd6" prot="public" static="no">
@@ -503,7 +503,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="165" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="165" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga06846f7b8d66403d152212ba43f193d1" prot="public" static="no">
@@ -515,7 +515,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="168" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="168" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gafa41e86e16999bcb460a58866386e054" prot="public" static="no">
@@ -527,7 +527,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="173" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="173" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gac50f0435d41fd0b486bb02013ece9bd1" prot="public" static="no">
@@ -539,7 +539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="178" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="178" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga60f5065e192f127698ebd215693532d2" prot="public" static="no">
@@ -551,7 +551,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="185" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="185" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga2417522499255b6d277cf54940eb5873" prot="public" static="no">
         <name>XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_MASK</name>
@@ -562,7 +562,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="188" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="188" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gadd0c030f77a5fcb8c4a947a095bebff3" prot="public" static="no">
@@ -574,7 +574,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="193" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="193" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gac420217f8cd0d4a9970399ae81cf01c1" prot="public" static="no">
         <name>XI2S_TX_AES_STS_ALPHANUM_CH_DEST_DATA_OFFSET</name>
@@ -585,7 +585,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="199" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga77f91a5fe07d9b303b311f3c578b4f72" prot="public" static="no">
         <name>XI2S_TX_AES_STS_LOCAL_SAMPLE_ADDRCODE_OFFSET</name>
@@ -596,7 +596,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="205" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="205" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga20282a1477a1bd5c341d125779741b53" prot="public" static="no">
         <name>XI2S_TX_AES_STS_TIMEOFDAY_SAMPLE_ADDRCODE_OFFSET</name>
@@ -607,7 +607,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="211" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga1424825d020d189367c1d66634b3c704" prot="public" static="no">
         <name>XI2S_TX_AES_STS_RELIABLE_FLAGS_OFFSET</name>
@@ -618,7 +618,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="219" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="219" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gae5dd63d1443d92e1002b3a67cc6a1a84" prot="public" static="no">
@@ -630,7 +630,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="223" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="223" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
       </memberdef>
       </sectiondef>
@@ -644,7 +644,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -692,7 +692,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="58" bodyend="64"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="58" bodyend="64"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -707,7 +707,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gac8b735fda830cc26a7c58d713191b588" prot="public" static="no">
         <name>XI2S_TX_CORE_CFG_OFFSET</name>
@@ -718,7 +718,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" prot="public" static="no">
         <name>XI2S_TX_CORE_CTRL_OFFSET</name>
@@ -729,7 +729,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="47" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</referencedby>
         <referencedby refid="group__i2stx_1gab101d38c979a17b2bd4540a3b418933d" compoundref="xi2stx_8c" startline="369" endline="383">XI2s_Tx_Justify</referencedby>
         <referencedby refid="group__i2stx_1gae5c7f651728493e9ca5a13d824f47893" compoundref="xi2stx_8c" startline="344" endline="358">XI2s_Tx_JustifyEnable</referencedby>
@@ -743,7 +743,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="49" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gab8f9b6a032bcb91ac82b9552f1ba3194" compoundref="xi2stx_8c" startline="173" endline="185">XI2s_Tx_IntrDisable</referencedby>
         <referencedby refid="group__i2stx_1ga8d2df1eb8affcff7f6b1eacad5016b39" compoundref="xi2stx_8c" startline="147" endline="159">XI2s_Tx_IntrEnable</referencedby>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
@@ -757,7 +757,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="50" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga0a514342cc0cc00eb2d5de77f1c35831" prot="public" static="no">
@@ -769,7 +769,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="52" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gacdd2c6678f1038ca76099cbcaebe1fde" compoundref="xi2stx_8c" startline="259" endline="281">XI2s_Tx_SetSclkOutDiv</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gab099dec92b378872d40f46d5d37bfce3" prot="public" static="no">
@@ -781,7 +781,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="54" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga265a3458a6fd3232bba3df9f9341e3cd" compoundref="xi2stx_8c" startline="199" endline="239">XI2s_Tx_SetChMux</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga14dd880ff140c74666a9cf9136379a09" prot="public" static="no">
@@ -793,7 +793,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga670aa850785e57f081453ede1f4cb4e8" prot="public" static="no">
         <name>XI2S_TX_CH45_OFFSET</name>
@@ -804,7 +804,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga28be098b8367b7212b8a10d2738204df" prot="public" static="no">
         <name>XI2S_TX_CH67_OFFSET</name>
@@ -815,7 +815,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga4c3299df5616dd53e12403b0c50332b4" prot="public" static="no">
         <name>XI2S_TX_AES_CHSTS0_OFFSET</name>
@@ -826,7 +826,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="59" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
         <referencedby refid="group__i2stx_1gab68c1f16ccac1a678e93bd9c3bcdaed0" compoundref="xi2stx_8c" startline="292" endline="306">XI2s_Tx_GetAesChStatus</referencedby>
       </memberdef>
@@ -839,7 +839,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="60" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga5f71faf4e090ca874ebdd6faf8d45c58" prot="public" static="no">
@@ -851,7 +851,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="61" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gac14aa59e8a02b5bbadd089909bfe8eef" prot="public" static="no">
@@ -863,7 +863,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="62" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaecf7d1b7f8e2ea9002be176c2da7d11c" prot="public" static="no">
@@ -875,7 +875,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="63" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga5ee4df6c437ca4892d784a41d3ac6933" prot="public" static="no">
@@ -887,7 +887,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="64" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
       </memberdef>
       </sectiondef>
@@ -902,7 +902,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga3791b6a3ea448f12b7430b6717251216" prot="public" static="no">
         <name>XI2S_TX_REG_CFG_MSTR_MASK</name>
@@ -913,7 +913,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gad24a8b84c1cb1bc7b5b337c9983f06ae" prot="public" static="no">
         <name>XI2S_TX_REG_CFG_NUM_CH_SHIFT</name>
@@ -924,7 +924,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga15244aa7ed58929e6cfa985aa0925e0b" prot="public" static="no">
         <name>XI2S_TX_REG_CFG_NUM_CH_MASK</name>
@@ -935,7 +935,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gadcbb270122beea24e73bd9e054037219" prot="public" static="no">
         <name>XI2S_TX_REG_CFG_DWDTH_SHIFT</name>
@@ -946,7 +946,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gad4aa6c0904241a95aedc1e304b461795" prot="public" static="no">
         <name>XI2S_TX_REG_CFG_DWDTH_MASK</name>
@@ -957,7 +957,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -971,7 +971,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga1b2c881b163a551e9a2e691b2efbf298" prot="public" static="no">
         <name>XI2S_TX_REG_CTRL_EN_MASK</name>
@@ -982,7 +982,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="92" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaf8c9496196c2e60b679d772a5bb94bce" prot="public" static="no">
@@ -994,7 +994,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga1ea8f32a59f2631f40ae16a73ae81049" prot="public" static="no">
         <name>XI2S_TX_REG_CTRL_JFE_MASK</name>
@@ -1005,7 +1005,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="96" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae5c7f651728493e9ca5a13d824f47893" compoundref="xi2stx_8c" startline="344" endline="358">XI2s_Tx_JustifyEnable</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaedef85bd81cde3085348c033e9346d89" prot="public" static="no">
@@ -1017,7 +1017,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga079cf019c32c23a6c9d4de4a1d3f79d7" prot="public" static="no">
         <name>XI2S_TX_REG_CTRL_LORJF_MASK</name>
@@ -1028,7 +1028,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="100" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gab101d38c979a17b2bd4540a3b418933d" compoundref="xi2stx_8c" startline="369" endline="383">XI2s_Tx_Justify</referencedby>
       </memberdef>
       </sectiondef>
@@ -1043,7 +1043,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gad3a413e9c7d1c7be7eb5c970b2b1da8b" prot="public" static="no">
         <name>XI2S_TX_INTR_AES_BLKCMPLT_MASK</name>
@@ -1054,7 +1054,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="110" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="110" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga2819f9d81091b1148adf69cae58bd75d" prot="public" static="no">
@@ -1066,7 +1066,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="115" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gad2a8cc76d84d195679304c51c9b39076" prot="public" static="no">
         <name>XI2S_TX_INTR_AES_BLKSYNCERR_MASK</name>
@@ -1077,7 +1077,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="118" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga4f0e12e2538d1ea42f12bd8e12fb8f83" prot="public" static="no">
@@ -1089,7 +1089,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga957f3265c9bec698c9250d1e106795f9" prot="public" static="no">
         <name>XI2S_TX_INTR_AES_CHSTSUPD_MASK</name>
@@ -1100,7 +1100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="126" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gacbe707ac375ce43702049440e0de4099" prot="public" static="no">
@@ -1112,7 +1112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga1389efbbe1bf1f0d834324564556f221" prot="public" static="no">
         <name>XI2S_TX_INTR_AUDUNDRFLW_MASK</name>
@@ -1123,7 +1123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="134" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga0de7bad6dd089f7401c230fbae6b78a1" prot="public" static="no">
@@ -1135,7 +1135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="139" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="139" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gaafa069cfbe1276144cc6e24ead6166b4" prot="public" static="no">
         <name>XI2S_TX_GINTR_EN_MASK</name>
@@ -1146,7 +1146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="142" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -1160,7 +1160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="149" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga9ad611dd66000557282ecbe330b06290" prot="public" static="no">
         <name>XI2S_TX_REG_TMR_SCLKDIV_MASK</name>
@@ -1171,7 +1171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="150" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -1185,7 +1185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga3f8bc951ab906c7ff8c3242794df432d" prot="public" static="no">
         <name>XI2S_TX_REG_CHCTRL_CHMUX_MASK</name>
@@ -1196,7 +1196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="159" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="159" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -1210,7 +1210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="170" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="170" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga0d0a46e656491896100303e61c472d01" prot="public" static="no">
         <name>XI2s_Tx_Out32</name>
@@ -1221,7 +1221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="171" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="171" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" prot="public" static="no">
         <name>XI2s_Tx_ReadReg</name>
@@ -1251,7 +1251,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="192" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</referencedby>
         <referencedby refid="group__i2stx_1gab68c1f16ccac1a678e93bd9c3bcdaed0" compoundref="xi2stx_8c" startline="292" endline="306">XI2s_Tx_GetAesChStatus</referencedby>
         <referencedby refid="group__i2stx_1gab8f9b6a032bcb91ac82b9552f1ba3194" compoundref="xi2stx_8c" startline="173" endline="185">XI2s_Tx_IntrDisable</referencedby>
@@ -1296,7 +1296,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="214" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_hw.h" bodystart="214" bodyend="-1"/>
         <referencedby refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" compoundref="xi2stx_8c" startline="317" endline="333">XI2s_Tx_ClrAesChStatRegs</referencedby>
         <referencedby refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</referencedby>
         <referencedby refid="group__i2stx_1gab8f9b6a032bcb91ac82b9552f1ba3194" compoundref="xi2stx_8c" startline="173" endline="185">XI2s_Tx_IntrDisable</referencedby>
@@ -1352,7 +1352,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="76" bodyend="82"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="76" bodyend="82"/>
       </memberdef>
       <memberdef kind="enum" id="group__i2stx_1ga2530845dc4c6c409a2cb7025beda590f" prot="public" static="no">
         <name>XI2s_Tx_Justification</name>
@@ -1377,7 +1377,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="88" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="88" bodyend="91"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -1402,7 +1402,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -1417,7 +1417,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_sinit.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c" bodystart="14" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_sinit.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1470,13 +1470,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="79" bodyend="105"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="140">XI2s_Tx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="79" bodyend="105"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="134">XI2s_Tx::IsReady</references>
         <references refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</references>
         <references refid="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" compoundref="xi2stx__selftest_8c" startline="124" endline="166">XI2s_Tx_SelfTest</references>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1512,10 +1512,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="117" bodyend="135"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" compoundref="xi2stx_8h" startline="141">XI2s_Tx::IsStarted</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="117" bodyend="135"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" compoundref="xi2stx_8h" startline="135">XI2s_Tx::IsStarted</references>
         <references refid="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" compoundref="xi2stx__hw_8h" startline="47">XI2S_TX_CORE_CTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1ga1b2c881b163a551e9a2e691b2efbf298" compoundref="xi2stx__hw_8h" startline="92">XI2S_TX_REG_CTRL_EN_MASK</references>
@@ -1557,9 +1557,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="147" bodyend="159"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="147" bodyend="159"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
@@ -1599,9 +1599,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="173" bodyend="185"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="173" bodyend="185"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
@@ -1654,15 +1654,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="199" bodyend="239"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="199" bodyend="239"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1gab099dec92b378872d40f46d5d37bfce3" compoundref="xi2stx__hw_8h" startline="54">XI2S_TX_CH01_OFFSET</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" compoundref="xi2stx_8h" startline="181">XI2S_TX_CHMUX_AXIS_01</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" compoundref="xi2stx_8h" startline="182">XI2S_TX_CHMUX_AXIS_23</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" compoundref="xi2stx_8h" startline="183">XI2S_TX_CHMUX_AXIS_45</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" compoundref="xi2stx_8h" startline="184">XI2S_TX_CHMUX_AXIS_67</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" compoundref="xi2stx_8h" startline="185">XI2S_TX_CHMUX_WAVEGEN</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" compoundref="xi2stx_8h" startline="175">XI2S_TX_CHMUX_AXIS_01</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" compoundref="xi2stx_8h" startline="176">XI2S_TX_CHMUX_AXIS_23</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" compoundref="xi2stx_8h" startline="177">XI2S_TX_CHMUX_AXIS_45</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" compoundref="xi2stx_8h" startline="178">XI2S_TX_CHMUX_AXIS_67</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" compoundref="xi2stx_8h" startline="179">XI2S_TX_CHMUX_WAVEGEN</references>
         <references refid="group__i2stx_1gga5aae612901765b9ea6bb107e5b66b619a252275e8db08efabd78dbe0c652605f4" compoundref="xi2stx_8h" startline="81">XI2S_TX_NUM_CHANNELS</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
       </memberdef>
@@ -1714,10 +1714,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="259" bodyend="281"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" compoundref="xi2stx_8h" startline="124">XI2stx_Config::DWidth</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="259" bodyend="281"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" compoundref="xi2stx_8h" startline="120">XI2stx_Config::DWidth</references>
         <references refid="group__i2stx_1ga0a514342cc0cc00eb2d5de77f1c35831" compoundref="xi2stx__hw_8h" startline="52">XI2S_TX_TMR_CTRL_OFFSET</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
       </memberdef>
@@ -1755,9 +1755,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="292" bodyend="306"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="292" bodyend="306"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1ga4c3299df5616dd53e12403b0c50332b4" compoundref="xi2stx__hw_8h" startline="59">XI2S_TX_AES_CHSTS0_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
       </memberdef>
@@ -1784,7 +1784,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="317" bodyend="333"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="317" bodyend="333"/>
         <references refid="group__i2stx_1ga4c3299df5616dd53e12403b0c50332b4" compoundref="xi2stx__hw_8h" startline="59">XI2S_TX_AES_CHSTS0_OFFSET</references>
         <references refid="group__i2stx_1ga1b7803271c5d40b4131f36985ca44d7c" compoundref="xi2stx__hw_8h" startline="60">XI2S_TX_AES_CHSTS1_OFFSET</references>
         <references refid="group__i2stx_1ga5f71faf4e090ca874ebdd6faf8d45c58" compoundref="xi2stx__hw_8h" startline="61">XI2S_TX_AES_CHSTS2_OFFSET</references>
@@ -1827,9 +1827,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="344" bodyend="358"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="344" bodyend="358"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" compoundref="xi2stx__hw_8h" startline="47">XI2S_TX_CORE_CTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1ga1ea8f32a59f2631f40ae16a73ae81049" compoundref="xi2stx__hw_8h" startline="96">XI2S_TX_REG_CTRL_JFE_MASK</references>
@@ -1871,9 +1871,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="369" bodyend="383"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="369" bodyend="383"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" compoundref="xi2stx__hw_8h" startline="47">XI2S_TX_CORE_CTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1ga079cf019c32c23a6c9d4de4a1d3f79d7" compoundref="xi2stx__hw_8h" startline="100">XI2S_TX_REG_CTRL_LORJF_MASK</references>
@@ -1903,7 +1903,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="201" bodyend="208"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="195" bodyend="202"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga891b0b3270845a893f12a1f1d38dbfc6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1941,7 +1941,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="221" bodyend="228"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="215" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga6aef1f17ffc07f8aede6d2b42c27dfe4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1967,7 +1967,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="239" bodyend="243"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="233" bodyend="237"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga9471d594dd9ed87a3b73b9fcdc77daf6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1993,7 +1993,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="255" bodyend="259"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="249" bodyend="253"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2022,10 +2022,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="124" bodyend="166"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="124" bodyend="166"/>
         <references refid="group__i2stx_1gab2803f3bdda4dec91e86a6f95c3ad7be" compoundref="xi2stx__selftest_8c" startline="55">XI2s_Tx_GetMaxChannels</references>
         <references refid="group__i2stx_1ga5d785135b55f2d7fc8b26defaa45798b" compoundref="xi2stx__selftest_8c" startline="74">XI2s_Tx_IsI2sMaster</references>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
         <referencedby refid="group__i2stx_1gab33cb9b421dbb85cef8a75a0dbf8a1dd" compoundref="xi2stx_8c" startline="79" endline="105">XI2s_Tx_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga881a1d81d9245fa57dcc316c025b79a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -2054,8 +2054,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_sinit.c" bodystart="82" bodyend="101"/>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_sinit.c" bodystart="61" bodyend="80"/>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga16570218ac4aef4cf9cc22bdd6ebedef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2092,7 +2092,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="298" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="287" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2118,13 +2118,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
-        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
-        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
-        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="140">XI2s_Tx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="141">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="143">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="148">XI2s_Tx::AudUndrflwHandler</references>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="134">XI2s_Tx::IsReady</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" compoundref="xi2stx__debug_8h" startline="59">XI2S_TX_AES_BLKCMPLT_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" compoundref="xi2stx__debug_8h" startline="60">XI2S_TX_AES_BLKSYNCERR_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" compoundref="xi2stx__debug_8h" startline="61">XI2S_TX_AES_CHSTSUPD_EVT</references>
@@ -2135,7 +2135,7 @@
         <references refid="group__i2stx_1ga1389efbbe1bf1f0d834324564556f221" compoundref="xi2stx__hw_8h" startline="134">XI2S_TX_INTR_AUDUNDRFLW_MASK</references>
         <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
         <references refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" compoundref="xi2stx__hw_8h" startline="50">XI2S_TX_IRQSTS_OFFSET</references>
-        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</references>
+        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="85">XI2s_Tx_LogWrite</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -2205,10 +2205,10 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
-        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
-        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
-        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="141">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="143">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="148">XI2s_Tx::AudUndrflwHandler</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3aee14491aed8a040a938a4a67e74bc6bd" compoundref="xi2stx_8h" startline="65">XI2S_TX_HANDLER_AES_BLKCMPLT</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a8172cb6e2a0d147df0f06a0eada66f8d" compoundref="xi2stx_8h" startline="66">XI2S_TX_HANDLER_AES_BLKSYNCERR</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3ab9374d0904c4cd4ac730b17fff220107" compoundref="xi2stx_8h" startline="67">XI2S_TX_HANDLER_AES_CHSTSUPD</references>
@@ -2239,16 +2239,16 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="155" bodyend="218"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="157" bodyend="215"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="struct_x_i2s___tx___log_item_1a33c4f8732bfee9f467439c89af42043e" compoundref="xi2stx__debug_8h" startline="71">XI2s_Tx_LogItem::Event</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" compoundref="xi2stx__debug_8h" startline="59">XI2S_TX_AES_BLKCMPLT_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" compoundref="xi2stx__debug_8h" startline="60">XI2S_TX_AES_BLKSYNCERR_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" compoundref="xi2stx__debug_8h" startline="61">XI2S_TX_AES_CHSTSUPD_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0c8694f12ae4d34ddb805f6b4658a71d" compoundref="xi2stx__debug_8h" startline="62">XI2S_TX_AUD_UNDRFLW_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0de22b2a681cf072923f5be2f0ab542d" compoundref="xi2stx__debug_8h" startline="63">XI2S_TX_LOG_EVT_INVALID</references>
-        <references refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="101" endline="125">XI2s_Tx_LogRead</references>
+        <references refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="100" endline="127">XI2s_Tx_LogRead</references>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2296,13 +2296,13 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="59" bodyend="86"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="59" bodyend="85"/>
         <references refid="struct_x_i2s___tx___log_item_1a9c5069bf23673203a835dedfd62a319b" compoundref="xi2stx__debug_8h" startline="72">XI2s_Tx_LogItem::Data</references>
         <references refid="struct_x_i2s___tx___log_item_1a33c4f8732bfee9f467439c89af42043e" compoundref="xi2stx__debug_8h" startline="71">XI2s_Tx_LogItem::Event</references>
         <references refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" compoundref="xi2stx__debug_8h" startline="81">XI2s_Tx_Log::Head</references>
         <references refid="struct_x_i2s___tx___log_1af465a471fb7d599165cb7265bb0c4f51" compoundref="xi2stx__debug_8h" startline="83">XI2s_Tx_Log::IsEnabled</references>
         <references refid="struct_x_i2s___tx___log_1a1bd37896c4071876e22a70c6b695cba4" compoundref="xi2stx__debug_8h" startline="79">XI2s_Tx_Log::Items</references>
-        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="144">XI2s_Tx::Log</references>
+        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="138">XI2s_Tx::Log</references>
         <references refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" compoundref="xi2stx__debug_8h" startline="82">XI2s_Tx_Log::Tail</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0de22b2a681cf072923f5be2f0ab542d" compoundref="xi2stx__debug_8h" startline="63">XI2S_TX_LOG_EVT_INVALID</references>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
@@ -2332,12 +2332,12 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="101" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="100" bodyend="127"/>
         <references refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" compoundref="xi2stx__debug_8h" startline="81">XI2s_Tx_Log::Head</references>
         <references refid="struct_x_i2s___tx___log_1a1bd37896c4071876e22a70c6b695cba4" compoundref="xi2stx__debug_8h" startline="79">XI2s_Tx_Log::Items</references>
-        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="144">XI2s_Tx::Log</references>
+        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="138">XI2s_Tx::Log</references>
         <references refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" compoundref="xi2stx__debug_8h" startline="82">XI2s_Tx_Log::Tail</references>
-        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="155" endline="218">XI2s_Tx_LogDisplay</referencedby>
+        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="157" endline="215">XI2s_Tx_LogDisplay</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2363,10 +2363,10 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="137" bodyend="145"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="139" bodyend="147"/>
         <references refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" compoundref="xi2stx__debug_8h" startline="81">XI2s_Tx_Log::Head</references>
         <references refid="struct_x_i2s___tx___log_1af465a471fb7d599165cb7265bb0c4f51" compoundref="xi2stx__debug_8h" startline="83">XI2s_Tx_Log::IsEnabled</references>
-        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="144">XI2s_Tx::Log</references>
+        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="138">XI2s_Tx::Log</references>
         <references refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" compoundref="xi2stx__debug_8h" startline="82">XI2s_Tx_Log::Tail</references>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -2393,7 +2393,7 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
 <para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" bodystart="57" bodyend="238"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" bodystart="57" bodyend="238"/>
         <references refid="group__i2stx_1ga36f5fabf2bf95db8602835cc95861fa5" compoundref="xi2stx__chsts_8h" startline="62">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</references>
         <references refid="group__i2stx_1ga78cc8bc6611969180c83c93f6a495896" compoundref="xi2stx__chsts_8h" startline="59">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</references>
         <references refid="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" compoundref="xi2stx__chsts_8h" startline="82">XI2S_TX_AES_STS_CH_MODE_MASK</references>
@@ -2454,7 +2454,7 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="91" bodyend="100"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="91" bodyend="100"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -2467,7 +2467,7 @@ HandlerType                              Callback Function
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga548bc811efe27dd9f893b64206a5161f" prot="public" static="no">
         <name>XI2S_TX_CORE_VER</name>
@@ -2478,7 +2478,7 @@ HandlerType                              Callback Function
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1gab2803f3bdda4dec91e86a6f95c3ad7be" prot="public" static="no">
         <name>XI2s_Tx_GetMaxChannels</name>
@@ -2501,7 +2501,7 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="55" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" compoundref="xi2stx__selftest_8c" startline="124" endline="166">XI2s_Tx_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__i2stx_1ga5d785135b55f2d7fc8b26defaa45798b" prot="public" static="no">
@@ -2528,7 +2528,7 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="74" bodyend="-1"/>
         <referencedby refid="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" compoundref="xi2stx__selftest_8c" startline="124" endline="166">XI2s_Tx_SelfTest</referencedby>
       </memberdef>
       </sectiondef>

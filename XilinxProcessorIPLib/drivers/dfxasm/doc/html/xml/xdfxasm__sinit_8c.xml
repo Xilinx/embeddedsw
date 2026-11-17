@@ -7,12 +7,6 @@
       <node id="52">
         <label>xil_assert.h</label>
       </node>
-      <node id="54">
-        <label>xdfxasm_hw.h</label>
-        <link refid="xdfxasm__hw_8h"/>
-        <childnode refid="55" relation="include">
-        </childnode>
-      </node>
       <node id="55">
         <label>xil_io.h</label>
       </node>
@@ -25,6 +19,9 @@
       <node id="53">
         <label>xstatus.h</label>
       </node>
+      <node id="51">
+        <label>xil_types.h</label>
+      </node>
       <node id="50">
         <label>xdfxasm.h</label>
         <childnode refid="51" relation="include">
@@ -36,8 +33,11 @@
         <childnode refid="54" relation="include">
         </childnode>
       </node>
-      <node id="51">
-        <label>xil_types.h</label>
+      <node id="54">
+        <label>xdfxasm_hw.h</label>
+        <link refid="xdfxasm__hw_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -52,7 +52,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_g.c" bodystart="12" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_g.c" bodystart="12" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -81,7 +81,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" bodystart="89" bodyend="104"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c" bodystart="89" bodyend="104"/>
         <referencedby refid="xdfxasm__example_8c_1af912ad10837e3f41d017989e080b019f" compoundref="xdfxasm__example_8c" startline="126" endline="157">XDfxasm_Example</referencedby>
       </memberdef>
       </sectiondef>
@@ -155,6 +155,6 @@
 <codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c"/>
   </compounddef>
 </doxygen>

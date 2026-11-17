@@ -2,6 +2,7 @@ var annotated =
 [
     [ "XDpTxSs", "struct_x_dp_tx_ss.html", "struct_x_dp_tx_ss" ],
     [ "XDpTxSs_AudioSAD", "struct_x_dp_tx_ss___audio_s_a_d.html", "struct_x_dp_tx_ss___audio_s_a_d" ],
+    [ "XDpTxSs_ClkWizSubCore", "struct_x_dp_tx_ss___clk_wiz_sub_core.html", "struct_x_dp_tx_ss___clk_wiz_sub_core" ],
     [ "XDpTxSs_Config", "struct_x_dp_tx_ss___config.html", "struct_x_dp_tx_ss___config" ],
     [ "XDpTxSs_DpSubCore", "struct_x_dp_tx_ss___dp_sub_core.html", "struct_x_dp_tx_ss___dp_sub_core" ],
     [ "XDpTxSs_DsSubCore", "struct_x_dp_tx_ss___ds_sub_core.html", "struct_x_dp_tx_ss___ds_sub_core" ],

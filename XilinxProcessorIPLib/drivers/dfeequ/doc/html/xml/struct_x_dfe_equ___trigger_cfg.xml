@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="237" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="237" bodyend="-1"/>
         <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
         <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="239" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="239" bodyend="-1"/>
         <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
       </memberdef>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="242" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="242" bodyend="-1"/>
         <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
         <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
         <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
@@ -73,7 +73,7 @@
         <link refid="struct_x_dfe_equ___trigger"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="236" bodyend="243"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="236" bodyend="243"/>
     <listofallmembers>
       <member refid="struct_x_dfe_equ___trigger_cfg_1a4bb27d0c97a24ba4f73ee2b0aa7e94f7" prot="public" virt="non-virtual"><scope>XDfeEqu_TriggerCfg</scope><name>Activate</name></member>
       <member refid="struct_x_dfe_equ___trigger_cfg_1a06852548f52f277fdb53f58b25ef9ab5" prot="public" virt="non-virtual"><scope>XDfeEqu_TriggerCfg</scope><name>LowPower</name></member>

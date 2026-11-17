@@ -48,6 +48,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_turbo_parameters.html'
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,19 +105,64 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_turbo_parameters.html'
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSdFecTurboParameters Struct Reference</div>  </div>
+<div class="title">XSdFecTurboParameters Struct Reference<div class="ingroups"><a class="el" href="group__sd__fec.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Struct defining Turbo Decode parameters.
+<p>Holds Turbo Decode parameters.
  <a href="struct_x_sd_fec_turbo_parameters.html#details">More...</a></p>
 
 <p><code>#include &lt;xsdfec.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:ab8c3ff095e11d92162a2c55bced47944"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_turbo_parameters.html#ab8c3ff095e11d92162a2c55bced47944">Alg</a></td></tr>
+<tr class="memdesc:ab8c3ff095e11d92162a2c55bced47944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turbo algorithm.  <a href="#ab8c3ff095e11d92162a2c55bced47944">More...</a><br/></td></tr>
+<tr class="separator:ab8c3ff095e11d92162a2c55bced47944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3d3d41a8394d017755eef42876650ed"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_turbo_parameters.html#af3d3d41a8394d017755eef42876650ed">Scale</a></td></tr>
+<tr class="memdesc:af3d3d41a8394d017755eef42876650ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turbo scale factor.  <a href="#af3d3d41a8394d017755eef42876650ed">More...</a><br/></td></tr>
+<tr class="separator:af3d3d41a8394d017755eef42876650ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Struct defining Turbo Decode parameters. </p>
-<p>Member values defined in device specific header x&lt;ipinst_name&gt;_turbo_params.h as per IP GUI configuration </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds Turbo Decode parameters. </p>
+<p>Member values are defined in the device specific header "x&lt;ipinst_name&gt;_turbo_params.h" as per IP GUI configuration. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="ab8c3ff095e11d92162a2c55bced47944"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSdFecTurboParameters::Alg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turbo algorithm. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga6a90d9797e3ed8354f8a85a0f19fdd61">XSdFecSetTurboParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af3d3d41a8394d017755eef42876650ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XSdFecTurboParameters::Scale</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turbo scale factor. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga6a90d9797e3ed8354f8a85a0f19fdd61">XSdFecSetTurboParams()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

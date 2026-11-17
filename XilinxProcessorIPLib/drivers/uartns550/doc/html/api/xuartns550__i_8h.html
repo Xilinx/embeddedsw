@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__i_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,21 +106,41 @@ $(document).ready(function(){initNavTree('xuartns550__i_8h.html','');});
 <div class="title">xuartns550_i.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Declares internal identifiers shared across the driver files. </p>
+<p>This header file contains internal identifiers, which are those shared between the files of the driver. It is intended for internal use only.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a ecm  08/16/01 First release
+1.00b jhl  03/11/02 Repartitioned driver for smaller files.
+1.11a sv   03/20/07 Updated to use the new coding guidelines.
+2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
+              Updated to use HAL Processor APIs. _m is removed from the
+              name of all the macro definitions. XUartNs550_mClearStats
+              macro is removed, XUartNs550_ClearStats function should be
+              used in its place.
+3.15  vn   09/09/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gab8e499e36ea8619d0a2ffba8a2ecd0c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gab8e499e36ea8619d0a2ffba8a2ecd0c0">XUartNs550_SetBaudRate</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr, u32 BaudRate)</td></tr>
+<tr class="memdesc:gab8e499e36ea8619d0a2ffba8a2ecd0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the baud rate for the specified UART.  <a href="group__uartns550.html#gab8e499e36ea8619d0a2ffba8a2ecd0c0">More...</a><br/></td></tr>
+<tr class="separator:gab8e499e36ea8619d0a2ffba8a2ecd0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9046228564fdafeb5715dce1c0b46766"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga9046228564fdafeb5715dce1c0b46766">XUartNs550_SendBuffer</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga9046228564fdafeb5715dce1c0b46766"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="group__uartns550.html#ga9046228564fdafeb5715dce1c0b46766">More...</a><br/></td></tr>
+<tr class="memdesc:ga9046228564fdafeb5715dce1c0b46766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the previously specified buffer using the instance variables.  <a href="group__uartns550.html#ga9046228564fdafeb5715dce1c0b46766">More...</a><br/></td></tr>
 <tr class="separator:ga9046228564fdafeb5715dce1c0b46766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6df754edf91aea638537a15536d4d34e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga6df754edf91aea638537a15536d4d34e">XUartNs550_ReceiveBuffer</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga6df754edf91aea638537a15536d4d34e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="group__uartns550.html#ga6df754edf91aea638537a15536d4d34e">More...</a><br/></td></tr>
+<tr class="memdesc:ga6df754edf91aea638537a15536d4d34e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a buffer previously specified by setting up the instance variables of the instance.  <a href="group__uartns550.html#ga6df754edf91aea638537a15536d4d34e">More...</a><br/></td></tr>
 <tr class="separator:ga6df754edf91aea638537a15536d4d34e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ga5cd4c8bf2383f952ef18132b828636fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_ns550___config.html">XUartNs550_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga5cd4c8bf2383f952ef18132b828636fc">XUartNs550_ConfigTable</a> []</td></tr>
-<tr class="memdesc:ga5cd4c8bf2383f952ef18132b828636fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for UART 16550/16450 devices in the table.  <a href="group__uartns550.html#ga5cd4c8bf2383f952ef18132b828636fc">More...</a><br/></td></tr>
+<tr class="memdesc:ga5cd4c8bf2383f952ef18132b828636fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration entry for each UartNs550 instance.  <a href="group__uartns550.html#ga5cd4c8bf2383f952ef18132b828636fc">More...</a><br/></td></tr>
 <tr class="separator:ga5cd4c8bf2383f952ef18132b828636fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

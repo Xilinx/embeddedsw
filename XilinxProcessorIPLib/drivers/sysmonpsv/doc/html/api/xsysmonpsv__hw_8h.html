@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmonpsv__hw_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,74 +105,34 @@ $(document).ready(function(){initNavTree('xsysmonpsv__hw_8h.html','');});
 <div class="title">xsysmonpsv_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the register identifiers and access macros for the device. </p>
+<p>The <a class="el" href="xsysmonpsv__hw_8h.html" title="Defines the register identifiers and access macros for the device. ">xsysmonpsv_hw.h</a> header file defines the identifiers and basic driver macros used to access the device.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.0   aad    11/09/18 First release
+1.1   aad    07/11/19 Fixed NEW_DATA_MASK
+2.0   aad    10/12/20 MISRAC Violations
+2.1   aad    02/24/21 Added additional macro to support production silicon.
+2.3   aad    07/26/21 Added doxygen comments for Macros
+      aad    07/26/21 Removed unused Macros
+3.0   cog    03/25/21 Driver Restructure
+5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
+                      voltage supplies and temperature satellites.
+5.3   dc     02/18/26 Correct spelling errors
+      se     03/25/26 Fix Coverity/MISRA-C violations: U suffix,
+                      (void) cast, sign conversion, parentheses
+5.4   vn     07/30/26 Fix Doxygen warnings
+5.4   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gac4d2725db59f87d4101feca04a8db8bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gac4d2725db59f87d4101feca04a8db8bf">XSYSMONPSV_INTR_MASK</a>&#160;&#160;&#160;0xFFFFFFFFU</td></tr>
-<tr class="memdesc:gac4d2725db59f87d4101feca04a8db8bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">All interrupt Mask.  <a href="group__sysmonpsv__api.html#gac4d2725db59f87d4101feca04a8db8bf">More...</a><br/></td></tr>
-<tr class="separator:gac4d2725db59f87d4101feca04a8db8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga916b6265b6d630fc8678e714e3123dfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga916b6265b6d630fc8678e714e3123dfd">XSYSMONPSV_INVALID_SUPPLY</a>&#160;&#160;&#160;160U</td></tr>
-<tr class="memdesc:ga916b6265b6d630fc8678e714e3123dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid Supply.  <a href="group__sysmonpsv__api.html#ga916b6265b6d630fc8678e714e3123dfd">More...</a><br/></td></tr>
-<tr class="separator:ga916b6265b6d630fc8678e714e3123dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf7c65de7a02c76a4d43fca55c252daed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gaf7c65de7a02c76a4d43fca55c252daed">XSYSMONPSV_PMBUS_INTERFACE</a>&#160;&#160;&#160;0U</td></tr>
-<tr class="memdesc:gaf7c65de7a02c76a4d43fca55c252daed"><td class="mdescLeft">&#160;</td><td class="mdescRight">PMBus interface select.  <a href="group__sysmonpsv__api.html#gaf7c65de7a02c76a4d43fca55c252daed">More...</a><br/></td></tr>
-<tr class="separator:gaf7c65de7a02c76a4d43fca55c252daed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8df11fbae1c0f64e6e8f048aa548a592"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga8df11fbae1c0f64e6e8f048aa548a592">XSYSMONPSV_I2C_INTERFACE</a>&#160;&#160;&#160;1U</td></tr>
-<tr class="memdesc:ga8df11fbae1c0f64e6e8f048aa548a592"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C interface select.  <a href="group__sysmonpsv__api.html#ga8df11fbae1c0f64e6e8f048aa548a592">More...</a><br/></td></tr>
-<tr class="separator:ga8df11fbae1c0f64e6e8f048aa548a592"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9a679ed94a444b7c9bfe9932e281d842"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga9a679ed94a444b7c9bfe9932e281d842">XSYSMONPSV_INVALID</a>&#160;&#160;&#160;0x80000000U</td></tr>
-<tr class="memdesc:ga9a679ed94a444b7c9bfe9932e281d842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid Val.  <a href="group__sysmonpsv__api.html#ga9a679ed94a444b7c9bfe9932e281d842">More...</a><br/></td></tr>
-<tr class="separator:ga9a679ed94a444b7c9bfe9932e281d842"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd095087843a79c22a2ed9e7d4a80601"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gadd095087843a79c22a2ed9e7d4a80601">XSYSMONPSV_EXPONENT_RANGE_16</a>&#160;&#160;&#160;16U</td></tr>
-<tr class="memdesc:gadd095087843a79c22a2ed9e7d4a80601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage exponent val bit.  <a href="group__sysmonpsv__api.html#gadd095087843a79c22a2ed9e7d4a80601">More...</a><br/></td></tr>
-<tr class="separator:gadd095087843a79c22a2ed9e7d4a80601"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaefe6cfa411d5285fbdacb853190a97e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gaefe6cfa411d5285fbdacb853190a97e9">XSYSMONPSV_QFMT_SIGN</a>&#160;&#160;&#160;15U</td></tr>
-<tr class="memdesc:gaefe6cfa411d5285fbdacb853190a97e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Q format signed bit.  <a href="group__sysmonpsv__api.html#gaefe6cfa411d5285fbdacb853190a97e9">More...</a><br/></td></tr>
-<tr class="separator:gaefe6cfa411d5285fbdacb853190a97e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga31cb5d6debbd2b67318798f3fad175e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga31cb5d6debbd2b67318798f3fad175e6">XSYSMONPSV_QFMT_FRACTION</a>&#160;&#160;&#160;128</td></tr>
-<tr class="memdesc:ga31cb5d6debbd2b67318798f3fad175e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Q format fractional val.  <a href="group__sysmonpsv__api.html#ga31cb5d6debbd2b67318798f3fad175e6">More...</a><br/></td></tr>
-<tr class="separator:ga31cb5d6debbd2b67318798f3fad175e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga35ecf3166abe7254e2c59db1df1b9a6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga35ecf3166abe7254e2c59db1df1b9a6f">XSYSMONPSV_UP_SAT_SIGNED</a>&#160;&#160;&#160;32767</td></tr>
-<tr class="memdesc:ga35ecf3166abe7254e2c59db1df1b9a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit staurated signed val.  <a href="group__sysmonpsv__api.html#ga35ecf3166abe7254e2c59db1df1b9a6f">More...</a><br/></td></tr>
-<tr class="separator:ga35ecf3166abe7254e2c59db1df1b9a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8c544d085eddc2aaf125abab345c6b19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga8c544d085eddc2aaf125abab345c6b19">XSYSMONPSV_UP_SAT</a>&#160;&#160;&#160;65535</td></tr>
-<tr class="memdesc:ga8c544d085eddc2aaf125abab345c6b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit saturated unsigned val.  <a href="group__sysmonpsv__api.html#ga8c544d085eddc2aaf125abab345c6b19">More...</a><br/></td></tr>
-<tr class="separator:ga8c544d085eddc2aaf125abab345c6b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae910b542514c585b0c21095bfafda0d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae910b542514c585b0c21095bfafda0d1">XSYSMONPSV_LOW_SAT_SIGNED</a>&#160;&#160;&#160;-32767</td></tr>
-<tr class="memdesc:gae910b542514c585b0c21095bfafda0d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit signed saturated val.  <a href="group__sysmonpsv__api.html#gae910b542514c585b0c21095bfafda0d1">More...</a><br/></td></tr>
-<tr class="separator:gae910b542514c585b0c21095bfafda0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6983143ca4186de09ea4698a1f716050"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga6983143ca4186de09ea4698a1f716050">XSYSMONPSV_LOW_SAT</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ga6983143ca4186de09ea4698a1f716050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit unsigned saturated val.  <a href="group__sysmonpsv__api.html#ga6983143ca4186de09ea4698a1f716050">More...</a><br/></td></tr>
-<tr class="separator:ga6983143ca4186de09ea4698a1f716050"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac53f4a499467bc20d3cac34ec7c5462d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gac53f4a499467bc20d3cac34ec7c5462d">XSYSMONPSV_BIPOLAR_UP_SAT</a>&#160;&#160;&#160;0x7FFFU</td></tr>
-<tr class="memdesc:gac53f4a499467bc20d3cac34ec7c5462d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit bipolar saturated val.  <a href="group__sysmonpsv__api.html#gac53f4a499467bc20d3cac34ec7c5462d">More...</a><br/></td></tr>
-<tr class="separator:gac53f4a499467bc20d3cac34ec7c5462d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab7326063786477906c81cfb95cdfb031"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gab7326063786477906c81cfb95cdfb031">XSYSMONPSV_BIPOLAR_LOW_SAT</a>&#160;&#160;&#160;0x8000U</td></tr>
-<tr class="memdesc:gab7326063786477906c81cfb95cdfb031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit bipolar saturated val.  <a href="group__sysmonpsv__api.html#gab7326063786477906c81cfb95cdfb031">More...</a><br/></td></tr>
-<tr class="separator:gab7326063786477906c81cfb95cdfb031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae6eec8d4c3c28742240cf1d093076fb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae6eec8d4c3c28742240cf1d093076fb1">XSYSMONPSV_UNIPOLAR_UP_SAT</a>&#160;&#160;&#160;0xFFFFU</td></tr>
-<tr class="memdesc:gae6eec8d4c3c28742240cf1d093076fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit unipolar saturated val.  <a href="group__sysmonpsv__api.html#gae6eec8d4c3c28742240cf1d093076fb1">More...</a><br/></td></tr>
-<tr class="separator:gae6eec8d4c3c28742240cf1d093076fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae60516dc9120589cdad9720f00dc5e8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae60516dc9120589cdad9720f00dc5e8a">XSYSMONPSV_UNIPOLAR_LOW_SAT</a>&#160;&#160;&#160;0x0000U</td></tr>
-<tr class="memdesc:gae60516dc9120589cdad9720f00dc5e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit unipolar saturated val.  <a href="group__sysmonpsv__api.html#gae60516dc9120589cdad9720f00dc5e8a">More...</a><br/></td></tr>
-<tr class="separator:gae60516dc9120589cdad9720f00dc5e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4511d13f5ffa0ee9e8fc2f2747b2bf2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga4511d13f5ffa0ee9e8fc2f2747b2bf2c">XSYSMONPSV_ENABLE</a>&#160;&#160;&#160;1U</td></tr>
-<tr class="memdesc:ga4511d13f5ffa0ee9e8fc2f2747b2bf2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable.  <a href="group__sysmonpsv__api.html#ga4511d13f5ffa0ee9e8fc2f2747b2bf2c">More...</a><br/></td></tr>
-<tr class="separator:ga4511d13f5ffa0ee9e8fc2f2747b2bf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabb88b357fb5015f02bb077710b9cb363"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gabb88b357fb5015f02bb077710b9cb363">XSYSMONPSV_DISABLE</a>&#160;&#160;&#160;0U</td></tr>
-<tr class="memdesc:gabb88b357fb5015f02bb077710b9cb363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable.  <a href="group__sysmonpsv__api.html#gabb88b357fb5015f02bb077710b9cb363">More...</a><br/></td></tr>
-<tr class="separator:gabb88b357fb5015f02bb077710b9cb363"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0ed6ba2cc03cf67109b6f0e76092fa0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga0ed6ba2cc03cf67109b6f0e76092fa0d">XSYSMONPSV_HYSTERESIS</a>&#160;&#160;&#160;1U</td></tr>
-<tr class="memdesc:ga0ed6ba2cc03cf67109b6f0e76092fa0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hysteresis Mode.  <a href="group__sysmonpsv__api.html#ga0ed6ba2cc03cf67109b6f0e76092fa0d">More...</a><br/></td></tr>
-<tr class="separator:ga0ed6ba2cc03cf67109b6f0e76092fa0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafab9cfffa4c4b70719f4673d29f24e25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gafab9cfffa4c4b70719f4673d29f24e25">XSYSMONPSV_WINDOW</a>&#160;&#160;&#160;0U</td></tr>
-<tr class="memdesc:gafab9cfffa4c4b70719f4673d29f24e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Window Mode.  <a href="group__sysmonpsv__api.html#gafab9cfffa4c4b70719f4673d29f24e25">More...</a><br/></td></tr>
-<tr class="separator:gafab9cfffa4c4b70719f4673d29f24e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga041663fa6b740159ff7c8a62696ab343"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga041663fa6b740159ff7c8a62696ab343">XSysMonPsv_ReadReg</a>(RegisterAddr)&#160;&#160;&#160;Xil_In32(RegisterAddr)</td></tr>
-<tr class="memdesc:ga041663fa6b740159ff7c8a62696ab343"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the given register.  <a href="group__sysmonpsv__api.html#ga041663fa6b740159ff7c8a62696ab343">More...</a><br/></td></tr>
+<tr class="memdesc:ga041663fa6b740159ff7c8a62696ab343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given register.  <a href="group__sysmonpsv__api.html#ga041663fa6b740159ff7c8a62696ab343">More...</a><br/></td></tr>
 <tr class="separator:ga041663fa6b740159ff7c8a62696ab343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8cbd7c6a5ab69676275747d2157f6638"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga8cbd7c6a5ab69676275747d2157f6638">XSysMonPsv_WriteReg</a>(RegisterAddr, Data)&#160;&#160;&#160;Xil_Out32(RegisterAddr, (u32)(Data))</td></tr>
-<tr class="memdesc:ga8cbd7c6a5ab69676275747d2157f6638"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro writes the given register.  <a href="group__sysmonpsv__api.html#ga8cbd7c6a5ab69676275747d2157f6638">More...</a><br/></td></tr>
+<tr class="memdesc:ga8cbd7c6a5ab69676275747d2157f6638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given register.  <a href="group__sysmonpsv__api.html#ga8cbd7c6a5ab69676275747d2157f6638">More...</a><br/></td></tr>
 <tr class="separator:ga8cbd7c6a5ab69676275747d2157f6638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">XSYSMONPSV Base Address</div></td></tr>
 <tr class="memitem:ga818f06eaca79f0f447cad974fbd49dab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga818f06eaca79f0f447cad974fbd49dab">XSYSMONPSV_BASEADDR</a>&#160;&#160;&#160;0XF1270000U</td></tr>
@@ -220,6 +180,10 @@ Macros</h2></td></tr>
 <tr class="memitem:ga89fc6cd47c25add86b47f9e1c0980c93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga89fc6cd47c25add86b47f9e1c0980c93">XSYSMONPSV_PCSR_LOCK_STATE_MASK</a>&#160;&#160;&#160;0X00000001U</td></tr>
 <tr class="memdesc:ga89fc6cd47c25add86b47f9e1c0980c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">PCSR Lock State Mask.  <a href="group__sysmonpsv__api.html#ga89fc6cd47c25add86b47f9e1c0980c93">More...</a><br/></td></tr>
 <tr class="separator:ga89fc6cd47c25add86b47f9e1c0980c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Interrupt mask</div></td></tr>
+<tr class="memitem:gac4d2725db59f87d4101feca04a8db8bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gac4d2725db59f87d4101feca04a8db8bf">XSYSMONPSV_INTR_MASK</a>&#160;&#160;&#160;0xFFFFFFFFU</td></tr>
+<tr class="memdesc:gac4d2725db59f87d4101feca04a8db8bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">All interrupt Mask.  <a href="group__sysmonpsv__api.html#gac4d2725db59f87d4101feca04a8db8bf">More...</a><br/></td></tr>
+<tr class="separator:gac4d2725db59f87d4101feca04a8db8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register: XSYSMONPSV_ISR</div></td></tr>
 <tr class="memitem:gad6a0d0fc444bc07d4bea0576fb87bb9d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gad6a0d0fc444bc07d4bea0576fb87bb9d">XSYSMONPSV_ISR_OFFSET</a>&#160;&#160;&#160;0X00000044U</td></tr>
 <tr class="memdesc:gad6a0d0fc444bc07d4bea0576fb87bb9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Status Register Offset.  <a href="group__sysmonpsv__api.html#gad6a0d0fc444bc07d4bea0576fb87bb9d">More...</a><br/></td></tr>
@@ -1028,6 +992,64 @@ Macros</h2></td></tr>
 <tr class="memitem:ga3fc72c1647c5cb582c99f645ecc20766"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga3fc72c1647c5cb582c99f645ecc20766">XSYSMONPSV_TEMP_SAT</a>&#160;&#160;&#160;0X00001FACU</td></tr>
 <tr class="memdesc:ga3fc72c1647c5cb582c99f645ecc20766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal Temp Reg.  <a href="group__sysmonpsv__api.html#ga3fc72c1647c5cb582c99f645ecc20766">More...</a><br/></td></tr>
 <tr class="separator:ga3fc72c1647c5cb582c99f645ecc20766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Supply, data format, and alarm mode definitions</div></td></tr>
+<tr class="memitem:ga916b6265b6d630fc8678e714e3123dfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga916b6265b6d630fc8678e714e3123dfd">XSYSMONPSV_INVALID_SUPPLY</a>&#160;&#160;&#160;160U</td></tr>
+<tr class="memdesc:ga916b6265b6d630fc8678e714e3123dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid Supply.  <a href="group__sysmonpsv__api.html#ga916b6265b6d630fc8678e714e3123dfd">More...</a><br/></td></tr>
+<tr class="separator:ga916b6265b6d630fc8678e714e3123dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf7c65de7a02c76a4d43fca55c252daed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gaf7c65de7a02c76a4d43fca55c252daed">XSYSMONPSV_PMBUS_INTERFACE</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:gaf7c65de7a02c76a4d43fca55c252daed"><td class="mdescLeft">&#160;</td><td class="mdescRight">PMBus interface select.  <a href="group__sysmonpsv__api.html#gaf7c65de7a02c76a4d43fca55c252daed">More...</a><br/></td></tr>
+<tr class="separator:gaf7c65de7a02c76a4d43fca55c252daed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8df11fbae1c0f64e6e8f048aa548a592"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga8df11fbae1c0f64e6e8f048aa548a592">XSYSMONPSV_I2C_INTERFACE</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memdesc:ga8df11fbae1c0f64e6e8f048aa548a592"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C interface select.  <a href="group__sysmonpsv__api.html#ga8df11fbae1c0f64e6e8f048aa548a592">More...</a><br/></td></tr>
+<tr class="separator:ga8df11fbae1c0f64e6e8f048aa548a592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a679ed94a444b7c9bfe9932e281d842"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga9a679ed94a444b7c9bfe9932e281d842">XSYSMONPSV_INVALID</a>&#160;&#160;&#160;0x80000000U</td></tr>
+<tr class="memdesc:ga9a679ed94a444b7c9bfe9932e281d842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid Val.  <a href="group__sysmonpsv__api.html#ga9a679ed94a444b7c9bfe9932e281d842">More...</a><br/></td></tr>
+<tr class="separator:ga9a679ed94a444b7c9bfe9932e281d842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd095087843a79c22a2ed9e7d4a80601"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gadd095087843a79c22a2ed9e7d4a80601">XSYSMONPSV_EXPONENT_RANGE_16</a>&#160;&#160;&#160;16U</td></tr>
+<tr class="memdesc:gadd095087843a79c22a2ed9e7d4a80601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage exponent val bit.  <a href="group__sysmonpsv__api.html#gadd095087843a79c22a2ed9e7d4a80601">More...</a><br/></td></tr>
+<tr class="separator:gadd095087843a79c22a2ed9e7d4a80601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaefe6cfa411d5285fbdacb853190a97e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gaefe6cfa411d5285fbdacb853190a97e9">XSYSMONPSV_QFMT_SIGN</a>&#160;&#160;&#160;15U</td></tr>
+<tr class="memdesc:gaefe6cfa411d5285fbdacb853190a97e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Q format signed bit.  <a href="group__sysmonpsv__api.html#gaefe6cfa411d5285fbdacb853190a97e9">More...</a><br/></td></tr>
+<tr class="separator:gaefe6cfa411d5285fbdacb853190a97e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31cb5d6debbd2b67318798f3fad175e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga31cb5d6debbd2b67318798f3fad175e6">XSYSMONPSV_QFMT_FRACTION</a>&#160;&#160;&#160;128</td></tr>
+<tr class="memdesc:ga31cb5d6debbd2b67318798f3fad175e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Q format fractional val.  <a href="group__sysmonpsv__api.html#ga31cb5d6debbd2b67318798f3fad175e6">More...</a><br/></td></tr>
+<tr class="separator:ga31cb5d6debbd2b67318798f3fad175e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga35ecf3166abe7254e2c59db1df1b9a6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga35ecf3166abe7254e2c59db1df1b9a6f">XSYSMONPSV_UP_SAT_SIGNED</a>&#160;&#160;&#160;32767</td></tr>
+<tr class="memdesc:ga35ecf3166abe7254e2c59db1df1b9a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit saturated signed val.  <a href="group__sysmonpsv__api.html#ga35ecf3166abe7254e2c59db1df1b9a6f">More...</a><br/></td></tr>
+<tr class="separator:ga35ecf3166abe7254e2c59db1df1b9a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c544d085eddc2aaf125abab345c6b19"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga8c544d085eddc2aaf125abab345c6b19">XSYSMONPSV_UP_SAT</a>&#160;&#160;&#160;65535</td></tr>
+<tr class="memdesc:ga8c544d085eddc2aaf125abab345c6b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit saturated unsigned val.  <a href="group__sysmonpsv__api.html#ga8c544d085eddc2aaf125abab345c6b19">More...</a><br/></td></tr>
+<tr class="separator:ga8c544d085eddc2aaf125abab345c6b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae910b542514c585b0c21095bfafda0d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae910b542514c585b0c21095bfafda0d1">XSYSMONPSV_LOW_SAT_SIGNED</a>&#160;&#160;&#160;-32767</td></tr>
+<tr class="memdesc:gae910b542514c585b0c21095bfafda0d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit signed saturated val.  <a href="group__sysmonpsv__api.html#gae910b542514c585b0c21095bfafda0d1">More...</a><br/></td></tr>
+<tr class="separator:gae910b542514c585b0c21095bfafda0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6983143ca4186de09ea4698a1f716050"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga6983143ca4186de09ea4698a1f716050">XSYSMONPSV_LOW_SAT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga6983143ca4186de09ea4698a1f716050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit unsigned saturated val.  <a href="group__sysmonpsv__api.html#ga6983143ca4186de09ea4698a1f716050">More...</a><br/></td></tr>
+<tr class="separator:ga6983143ca4186de09ea4698a1f716050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac53f4a499467bc20d3cac34ec7c5462d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gac53f4a499467bc20d3cac34ec7c5462d">XSYSMONPSV_BIPOLAR_UP_SAT</a>&#160;&#160;&#160;0x7FFFU</td></tr>
+<tr class="memdesc:gac53f4a499467bc20d3cac34ec7c5462d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit bipolar saturated val.  <a href="group__sysmonpsv__api.html#gac53f4a499467bc20d3cac34ec7c5462d">More...</a><br/></td></tr>
+<tr class="separator:gac53f4a499467bc20d3cac34ec7c5462d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab7326063786477906c81cfb95cdfb031"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gab7326063786477906c81cfb95cdfb031">XSYSMONPSV_BIPOLAR_LOW_SAT</a>&#160;&#160;&#160;0x8000U</td></tr>
+<tr class="memdesc:gab7326063786477906c81cfb95cdfb031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit bipolar saturated val.  <a href="group__sysmonpsv__api.html#gab7326063786477906c81cfb95cdfb031">More...</a><br/></td></tr>
+<tr class="separator:gab7326063786477906c81cfb95cdfb031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6eec8d4c3c28742240cf1d093076fb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae6eec8d4c3c28742240cf1d093076fb1">XSYSMONPSV_UNIPOLAR_UP_SAT</a>&#160;&#160;&#160;0xFFFFU</td></tr>
+<tr class="memdesc:gae6eec8d4c3c28742240cf1d093076fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper limit unipolar saturated val.  <a href="group__sysmonpsv__api.html#gae6eec8d4c3c28742240cf1d093076fb1">More...</a><br/></td></tr>
+<tr class="separator:gae6eec8d4c3c28742240cf1d093076fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae60516dc9120589cdad9720f00dc5e8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gae60516dc9120589cdad9720f00dc5e8a">XSYSMONPSV_UNIPOLAR_LOW_SAT</a>&#160;&#160;&#160;0x0000U</td></tr>
+<tr class="memdesc:gae60516dc9120589cdad9720f00dc5e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lower limit unipolar saturated val.  <a href="group__sysmonpsv__api.html#gae60516dc9120589cdad9720f00dc5e8a">More...</a><br/></td></tr>
+<tr class="separator:gae60516dc9120589cdad9720f00dc5e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4511d13f5ffa0ee9e8fc2f2747b2bf2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga4511d13f5ffa0ee9e8fc2f2747b2bf2c">XSYSMONPSV_ENABLE</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memdesc:ga4511d13f5ffa0ee9e8fc2f2747b2bf2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable.  <a href="group__sysmonpsv__api.html#ga4511d13f5ffa0ee9e8fc2f2747b2bf2c">More...</a><br/></td></tr>
+<tr class="separator:ga4511d13f5ffa0ee9e8fc2f2747b2bf2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb88b357fb5015f02bb077710b9cb363"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gabb88b357fb5015f02bb077710b9cb363">XSYSMONPSV_DISABLE</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:gabb88b357fb5015f02bb077710b9cb363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable.  <a href="group__sysmonpsv__api.html#gabb88b357fb5015f02bb077710b9cb363">More...</a><br/></td></tr>
+<tr class="separator:gabb88b357fb5015f02bb077710b9cb363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0ed6ba2cc03cf67109b6f0e76092fa0d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#ga0ed6ba2cc03cf67109b6f0e76092fa0d">XSYSMONPSV_HYSTERESIS</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memdesc:ga0ed6ba2cc03cf67109b6f0e76092fa0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hysteresis Mode.  <a href="group__sysmonpsv__api.html#ga0ed6ba2cc03cf67109b6f0e76092fa0d">More...</a><br/></td></tr>
+<tr class="separator:ga0ed6ba2cc03cf67109b6f0e76092fa0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafab9cfffa4c4b70719f4673d29f24e25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sysmonpsv__api.html#gafab9cfffa4c4b70719f4673d29f24e25">XSYSMONPSV_WINDOW</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:gafab9cfffa4c4b70719f4673d29f24e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Window Mode.  <a href="group__sysmonpsv__api.html#gafab9cfffa4c4b70719f4673d29f24e25">More...</a><br/></td></tr>
+<tr class="separator:gafab9cfffa4c4b70719f4673d29f24e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,7 +1,21 @@
 var searchData=
 [
   ['data_2eh',['data.h',['../data_8h.html',1,'']]],
+  ['data_5fphase',['DATA_PHASE',['../xusb__types_8h.html#a7492975f808288752386a9c29b1c0664',1,'xusb_types.h']]],
+  ['dcbwdatatransferlength',['dCBWDataTransferLength',['../union_u_s_b_c_b_w_1_1_length.html#a2635b0ffcf8d01be0e3fd03d47ba6cd9',1,'USBCBW::Length']]],
+  ['dcbwflags',['dCBWFlags',['../struct_u_s_b_c_b_w.html#a904c15666137606c69a30fc6531d29aa',1,'USBCBW']]],
+  ['dcbwsignature',['dCBWSignature',['../union_u_s_b_c_b_w_1_1_signature.html#abea4233f80eb264d2abf94c18228ee90',1,'USBCBW::Signature::dCBWSignature()'],['../struct_u_s_b_c_s_w.html#a67ab73a950d6a048896ac7bed2d0187a',1,'USBCSW::dCBWSignature()']]],
+  ['dcbwtag',['dCBWTag',['../struct_u_s_b_c_b_w.html#ab648b4d74b9f7dbd35a52b9adabae450',1,'USBCBW::dCBWTag()'],['../struct_u_s_b_c_s_w.html#afcb6848787865668be4b95fb3c345a67',1,'USBCSW::dCBWTag()']]],
+  ['dcswdataresidue',['dCSWDataResidue',['../union_u_s_b_c_s_w_1_1_residue.html#acc4a2e425ddb869f570687c626b46537',1,'USBCSW::Residue']]],
+  ['device_5fdescr',['DEVICE_DESCR',['../xusb__types_8h.html#a6f62c335e086ab5d75660911f9d4d5b7',1,'xusb_types.h']]],
+  ['device_5fremote_5fwakeup',['DEVICE_REMOTE_WAKEUP',['../xusb__types_8h.html#a77fa7e6093059898a0849f02968fba1d',1,'xusb_types.h']]],
+  ['device_5fspec_5fparams',['device_spec_params',['../struct_m_o_d_e_s_e_n_s_e___m_p_l.html#a5074d4c5f4c7adf5fe3b027e43e39c47',1,'MODESENSE_MPL']]],
+  ['device_5ftype',['device_type',['../struct_i_n_q_u_i_r_y.html#a427dfc77f846d9a435c97fd48bdbb6b3',1,'INQUIRY']]],
   ['deviceconfig',['DeviceConfig',['../struct_x_usb.html#ab3ca87faf1aa1caaa6fa6e6f7c3e9267',1,'XUsb']]],
+  ['devicedescriptor',['DeviceDescriptor',['../xusb__cp9_8c.html#ac4bdafe0046dc17cfcdd12be1bb63625',1,'DeviceDescriptor():&#160;xusb_keyboard.h'],['../xusb__keyboard_8h.html#ac4bdafe0046dc17cfcdd12be1bb63625',1,'DeviceDescriptor():&#160;xusb_keyboard.h'],['../xusb__microphone_8h.html#ac4bdafe0046dc17cfcdd12be1bb63625',1,'DeviceDescriptor():&#160;xusb_microphone.h'],['../xusb__mouse_8h.html#ac4bdafe0046dc17cfcdd12be1bb63625',1,'DeviceDescriptor():&#160;xusb_mouse.h'],['../xusb__storage_8h.html#ac4bdafe0046dc17cfcdd12be1bb63625',1,'DeviceDescriptor():&#160;xusb_storage.h']]],
+  ['dir_5fdevice_5fto_5fhost',['DIR_DEVICE_TO_HOST',['../xusb__types_8h.html#a1dac5262df361df6c7ec1a0f121f5de4',1,'xusb_types.h']]],
   ['dmaenabled',['DmaEnabled',['../struct_x_usb___config.html#a7c086dc12e6b8886254b7a78e18926fb',1,'XUsb_Config']]],
+  ['dmahandlerfunc',['DmaHandlerFunc',['../struct_x_usb.html#aac0bb48abc01f8cc3382a9d247e69499',1,'XUsb']]],
+  ['dmahandlerref',['DmaHandlerRef',['../struct_x_usb.html#a231f75ae18c5a2ec09932cd9cc1e9ad6',1,'XUsb']]],
   ['dmaintrhandler',['DmaIntrHandler',['../xusb__dma__intr__storage_8c.html#aaa76bf2e4a9d18c6362bdf783a067da6',1,'xusb_dma_intr_storage.c']]]
 ];

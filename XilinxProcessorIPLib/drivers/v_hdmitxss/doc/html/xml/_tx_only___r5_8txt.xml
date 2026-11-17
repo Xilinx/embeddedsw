@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" bodystart="18" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" bodystart="18" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" line="23" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" line="23" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_tx_only___r5_8txt_1a0d4c738f9ad170c1315f6223fcac5185" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter only For see xhdmi_example c FEATURES *A test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *If the</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" line="24" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt" line="24" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -138,6 +138,6 @@
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Goto<sp/>HDCP<sp/>menu.</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/TxOnly_R5.txt"/>
   </compounddef>
 </doxygen>

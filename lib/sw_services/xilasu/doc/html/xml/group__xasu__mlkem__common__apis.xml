@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__mlkem__common__apis" kind="group">
+    <compoundname>xasu_mlkem_common_apis</compoundname>
+    <title>ML-KEM Common APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemValidateParams</definition>
+        <argsstring>(const XAsu_MlkemEncapsDecapsParams *MlkemParamsPtr)</argsstring>
+        <name>XAsu_MlkemValidateParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> *</type>
+          <declname>MlkemParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the ML-KEM encapsulation/decapsulation parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MlkemParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_decaps_params" kindref="compound">XAsu_MlkemEncapsDecapsParams</ref> structure which holds the ML-KEM encapsulation/decapsulation parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of ML-KEM parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ML-KEM params pointer.</para><para>Validate the parameter set against the FIPS 203 approved sets.</para><para>Validate ciphertext address, which is the output for encaps and the input for decaps.</para><para>Validate the shared secret address and buffer length, which is an output of both operations and is 32 bytes for every parameter set.</para><para>Validate that exactly one of KeyAddr or KeyId is provided, and that a vault sourced key carries no length.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" bodystart="56" bodyend="97"/>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1ac59ca4a3c15a1747e2b45858a816f18e" compoundref="xasu__mlkeminfo_8h" startline="107">XAsu_MlkemEncapsDecapsParams::CtAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" compoundref="xasu__mlkeminfo_8h" startline="105">XAsu_MlkemEncapsDecapsParams::KeyAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" compoundref="xasu__mlkeminfo_8h" startline="112">XAsu_MlkemEncapsDecapsParams::KeyId</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a4b3b9fdbe3c7e374e97a42cb21468096" compoundref="xasu__mlkeminfo_8h" startline="109">XAsu_MlkemEncapsDecapsParams::KeyLen</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a5bc8d1d20f73b9f13835336763ac771f" compoundref="xasu__mlkeminfo_8h" startline="114">XAsu_MlkemEncapsDecapsParams::ParamSet</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a328b37938ecb0a6fa574c36d84823d93" compoundref="xasu__mlkeminfo_8h" startline="108">XAsu_MlkemEncapsDecapsParams::SharedSecretAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a05400d2b8fb8d0314ba9822fe2465973" compoundref="xasu__mlkeminfo_8h" startline="111">XAsu_MlkemEncapsDecapsParams::SharedSecretLen</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac0a6492ebd1c1cab8bcea3f951d21ef0" compoundref="xasu__keymanager__common_8c" startline="598" endline="622">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__common__defs_1gga8e8b750c7772ca1546cd48fc7d28ad74a33b142badee2e55bf5dc8ff4eee468ef" compoundref="xasu__mlkeminfo_8h" startline="91">XASU_MLKEM_1024</references>
+        <references refid="group__xasu__common__defs_1ga624cf0e1e83f263420f0bc428e61e25c" compoundref="xasu__mlkeminfo_8h" startline="62">XASU_MLKEM_SHARED_SECRET_LEN</references>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga009b4223afa377d6baad06b99a43c326" compoundref="xasu__mlkem_8c" startline="186" endline="224">XAsu_MlkemDecapsulate</referencedby>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga73b1f809f2527aeb77ed904a05321033" compoundref="xasu__mlkem_8c" startline="61" endline="99">XAsu_MlkemEncapsulate</referencedby>
+        <referencedby refid="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" compoundref="xasu__mlkem__common_8c" startline="112" endline="151">XAsu_MlkemValidateEncapsDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__mlkem__common__apis_1gaf1c883b73f84a809c8f39af53f1e27f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_MlkemValidateEncapsDerandParams</definition>
+        <argsstring>(const XAsu_MlkemEncapsDerandParams *MlkemParamsPtr)</argsstring>
+        <name>XAsu_MlkemValidateEncapsDerandParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> *</type>
+          <declname>MlkemParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the parameters of the ML-KEM encapsulation which takes the message m from the request, an algorithm validation only service. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MlkemParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> structure which holds the ML-KEM encapsulation parameters and the message m.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of ML-KEM parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ML-KEM params pointer.</para><para>Validate the parameters this command shares with encapsulation.</para><para>The encapsulation key comes from KeyAddr only, as the key vault is not reachable from a validation command.</para><para>m must be supplied: a zero address is an error here rather than a request to draw from the TRNG.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mlkem_common.c" bodystart="112" bodyend="151"/>
+        <references refid="struct_x_asu___mlkem_encaps_derand_params_1a1b73605e8b9dec124e9eb05b25228bcf" compoundref="xasu__mlkeminfo_8h" startline="128">XAsu_MlkemEncapsDerandParams::EncapsParams</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a5f2871677aeb21b5fb4860300dd0f8eb" compoundref="xasu__mlkeminfo_8h" startline="105">XAsu_MlkemEncapsDecapsParams::KeyAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_decaps_params_1a866c57ac0101e827f5213bb133e08de4" compoundref="xasu__mlkeminfo_8h" startline="112">XAsu_MlkemEncapsDecapsParams::KeyId</references>
+        <references refid="struct_x_asu___mlkem_encaps_derand_params_1a9a8107baec49082ea7cc085ee86b0999" compoundref="xasu__mlkeminfo_8h" startline="130">XAsu_MlkemEncapsDerandParams::SeedAddr</references>
+        <references refid="struct_x_asu___mlkem_encaps_derand_params_1a26fef363d07567c5132e834eb50d8bd2" compoundref="xasu__mlkeminfo_8h" startline="132">XAsu_MlkemEncapsDerandParams::SeedLen</references>
+        <references refid="group__xasu__common__defs_1gaaef1d2229646653ed1a2e26cba386897" compoundref="xasu__mlkeminfo_8h" startline="66">XASU_MLKEM_ENCAPS_SEED_LEN</references>
+        <references refid="group__xasu__mlkem__common__apis_1ga0699c83a7c9436b39a0c8d2d6b9cfcf6" compoundref="xasu__mlkem__common_8c" startline="56" endline="97">XAsu_MlkemValidateParams</references>
+        <referencedby refid="group__xasu__mlkem__client__apis_1ga97590390a73ef98d4f689ec13904be9a" compoundref="xasu__mlkem_8c" startline="123" endline="161">XAsu_MlkemEncapsulateDerand</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

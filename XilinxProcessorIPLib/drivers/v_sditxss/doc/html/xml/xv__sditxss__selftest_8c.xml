@@ -5,11 +5,16 @@
     <includes local="yes">xstatus.h</includes>
     <includes refid="xv__sditxss_8h" local="yes">xv_sditxss.h</includes>
     <incdepgraph>
+      <node id="163">
+        <label>xv_sditxss_selftest.c</label>
+        <link refid="xv_sditxss_selftest.c"/>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+      </node>
       <node id="168">
         <label>xv_sditx.h</label>
-      </node>
-      <node id="166">
-        <label>xv_sdivid.h</label>
       </node>
       <node id="165">
         <label>xv_sditxss.h</label>
@@ -25,13 +30,8 @@
         <childnode refid="169" relation="include">
         </childnode>
       </node>
-      <node id="163">
-        <label>xv_sditxss_selftest.c</label>
-        <link refid="xv_sditxss_selftest.c"/>
-        <childnode refid="164" relation="include">
-        </childnode>
-        <childnode refid="165" relation="include">
-        </childnode>
+      <node id="166">
+        <label>xv_sdivid.h</label>
       </node>
       <node id="164">
         <label>xstatus.h</label>
@@ -71,9 +71,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_selftest.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_selftest.c" bodystart="62" bodyend="78"/>
-        <references refid="struct_x_v___sdi_tx_ss_1a2499b55a82ee0938a2d0fcdca1077d71" compoundref="xv__sditxss_8h" startline="179">XV_SdiTxSs::SdiTxPtr</references>
-        <referencedby refid="group__v__sditxss_1gad8c8a961366f67ebeef6487c907517a3" compoundref="xv__sditxss__selftest__example_8c" startline="124" endline="152">SdiTxSs_SelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_selftest.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_selftest.c" bodystart="62" bodyend="78"/>
+        <references refid="struct_x_v___sdi_tx_ss_1a2499b55a82ee0938a2d0fcdca1077d71" compoundref="xv__sditxss_8h" startline="168">XV_SdiTxSs::SdiTxPtr</references>
+        <referencedby refid="group__v__sditxss_1gad8c8a961366f67ebeef6487c907517a3" compoundref="xv__sditxss__selftest__example_8c" startline="108" endline="131">SdiTxSs_SelfTestExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -130,6 +130,6 @@
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_selftest.c"/>
   </compounddef>
 </doxygen>

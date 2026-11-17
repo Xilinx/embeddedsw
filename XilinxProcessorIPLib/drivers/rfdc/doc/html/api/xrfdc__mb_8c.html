@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc__mb_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,27 +105,61 @@ $(document).ready(function(){initNavTree('xrfdc__mb_8c.html','');});
 <div class="title">xrfdc_mb.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the multiband settings functions of the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. </p>
+<p>Contains the interface functions of the Mixer Settings in <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. See <a class="el" href="xrfdc_8h.html">xrfdc.h</a> for a detailed description of the device and driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+6.0   cog    02/17/18 Initial release/handle alternate bound out.
+7.0   cog    05/13/19 Formatting changes.
+      cog    08/02/19 Formatting changes.
+7.1   cog    12/20/19 Metal log messages are now more descriptive.
+      cog    01/29/20 Fixed metal log typos.
+8.0   cog    02/10/20 Updated addtogroup.
+      cog    03/20/20 Clock enables for new bondout.
+8.1   cog    06/24/20 Upversion.
+      cog    06/24/20 Support for Dual Band IQ for new bondout.
+      cog    06/24/20 MB config is now read from bitstream.
+      cog    08/04/20 Refactor multiband for Dual DAC tiles.
+      cog    08/28/20 Prevent datapaths in bypass mode from being
+                      configured for multiband.
+      cog    10/12/20 Check generation before checking datapath mode.
+      cog    10/14/20 Get I and Q data now supports warm bitstream swap.
+9.0   cog    11/25/20 Upversion.
+10.0  cog    11/26/20 Refactor and split files.
+      cog    12/23/20 Fixed issue with IQ QMC on 48dr devices.
+11.0  cog    05/31/21 Upversion.
+11.1  cog    11/16/21 Upversion.
+      cog    01/18/22 Refactor connected data components.
+      cog    01/18/22 Added safety checks.
+      cog    01/18/22 Use single read access API rather than using
+                      XRFdc_GetMultibandConfig in XRFdc_UpdateMBConfig.
+13.1  dc     02/18/26 Correct spelling errors
+13.2  vn     08/11/26 Fix Doxygen warnings.
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gad7e3cba3e05ff50ddfe105a36f81fb80"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad7e3cba3e05ff50ddfe105a36f81fb80">XRFdc_MultiBand</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u8 DigitalDataPathMask, u32 MixerInOutDataType, u32 DataConverterMask)</td></tr>
-<tr class="memdesc:gad7e3cba3e05ff50ddfe105a36f81fb80"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-level API to setup multiband configuration.  <a href="group___overview.html#gad7e3cba3e05ff50ddfe105a36f81fb80">More...</a><br/></td></tr>
+<tr class="memitem:gad7e3cba3e05ff50ddfe105a36f81fb80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad7e3cba3e05ff50ddfe105a36f81fb80">XRFdc_MultiBand</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a> DigitalDataPathMask, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> MixerInOutDataType, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> DataConverterMask)</td></tr>
+<tr class="memdesc:gad7e3cba3e05ff50ddfe105a36f81fb80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the multiband configuration.  <a href="group___overview.html#gad7e3cba3e05ff50ddfe105a36f81fb80">More...</a><br/></td></tr>
 <tr class="separator:gad7e3cba3e05ff50ddfe105a36f81fb80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad2d6653ec718b7101f71a1b83d396353"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad2d6653ec718b7101f71a1b83d396353">XRFdc_GetConnectedIQData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int *ConnectedIData, int *ConnectedQData)</td></tr>
-<tr class="memdesc:gad2d6653ec718b7101f71a1b83d396353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Data Converter connected for digital data paths I &amp; Q.  <a href="group___overview.html#gad2d6653ec718b7101f71a1b83d396353">More...</a><br/></td></tr>
+<tr class="memitem:gad2d6653ec718b7101f71a1b83d396353"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad2d6653ec718b7101f71a1b83d396353">XRFdc_GetConnectedIQData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, int *ConnectedIData, int *ConnectedQData)</td></tr>
+<tr class="memdesc:gad2d6653ec718b7101f71a1b83d396353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data converter connected for digital data paths I and Q.  <a href="group___overview.html#gad2d6653ec718b7101f71a1b83d396353">More...</a><br/></td></tr>
 <tr class="separator:gad2d6653ec718b7101f71a1b83d396353"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga889649376447bce7933939a22330b6a2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga889649376447bce7933939a22330b6a2">XRFdc_GetConnectedIData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)</td></tr>
-<tr class="memdesc:ga889649376447bce7933939a22330b6a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Data Converter connected for digital data path I.  <a href="group___overview.html#ga889649376447bce7933939a22330b6a2">More...</a><br/></td></tr>
+<tr class="memitem:ga889649376447bce7933939a22330b6a2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga889649376447bce7933939a22330b6a2">XRFdc_GetConnectedIData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id)</td></tr>
+<tr class="memdesc:ga889649376447bce7933939a22330b6a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data converter connected for digital data path I.  <a href="group___overview.html#ga889649376447bce7933939a22330b6a2">More...</a><br/></td></tr>
 <tr class="separator:ga889649376447bce7933939a22330b6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3504998d8ceb2fa3c0af7c2805c2c175"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3504998d8ceb2fa3c0af7c2805c2c175">XRFdc_GetConnectedQData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)</td></tr>
-<tr class="memdesc:ga3504998d8ceb2fa3c0af7c2805c2c175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Data Converter connected for digital data path Q.  <a href="group___overview.html#ga3504998d8ceb2fa3c0af7c2805c2c175">More...</a><br/></td></tr>
+<tr class="memitem:ga3504998d8ceb2fa3c0af7c2805c2c175"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3504998d8ceb2fa3c0af7c2805c2c175">XRFdc_GetConnectedQData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id)</td></tr>
+<tr class="memdesc:ga3504998d8ceb2fa3c0af7c2805c2c175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data converter connected for digital data path Q.  <a href="group___overview.html#ga3504998d8ceb2fa3c0af7c2805c2c175">More...</a><br/></td></tr>
 <tr class="separator:ga3504998d8ceb2fa3c0af7c2805c2c175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab97e92645ac7826214f132cb26730eda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab97e92645ac7826214f132cb26730eda">XRFdc_SetConnectedIQData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData, int ConnectedQData)</td></tr>
-<tr class="memdesc:gab97e92645ac7826214f132cb26730eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Data Converter connected for digital data path I and Q.  <a href="group___overview.html#gab97e92645ac7826214f132cb26730eda">More...</a><br/></td></tr>
+<tr class="memitem:gab97e92645ac7826214f132cb26730eda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab97e92645ac7826214f132cb26730eda">XRFdc_SetConnectedIQData</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, int ConnectedIData, int ConnectedQData)</td></tr>
+<tr class="memdesc:gab97e92645ac7826214f132cb26730eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data converter connected for digital data paths I and Q.  <a href="group___overview.html#gab97e92645ac7826214f132cb26730eda">More...</a><br/></td></tr>
 <tr class="separator:gab97e92645ac7826214f132cb26730eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga317443e7984605e39a1637e362ccdb90"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga317443e7984605e39a1637e362ccdb90">XRFdc_GetMultibandConfig</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id)</td></tr>
-<tr class="memdesc:ga317443e7984605e39a1637e362ccdb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Multiband Config data.  <a href="group___overview.html#ga317443e7984605e39a1637e362ccdb90">More...</a><br/></td></tr>
+<tr class="memitem:ga317443e7984605e39a1637e362ccdb90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga317443e7984605e39a1637e362ccdb90">XRFdc_GetMultibandConfig</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id)</td></tr>
+<tr class="memdesc:ga317443e7984605e39a1637e362ccdb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the multiband configuration data.  <a href="group___overview.html#ga317443e7984605e39a1637e362ccdb90">More...</a><br/></td></tr>
 <tr class="separator:ga317443e7984605e39a1637e362ccdb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

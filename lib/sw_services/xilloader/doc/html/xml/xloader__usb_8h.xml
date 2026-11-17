@@ -6,32 +6,32 @@
     <includedby refid="xloader__dfu__util_8h" local="yes">xloader_dfu_util.h</includedby>
     <includedby refid="xloader__usb_8c" local="yes">xloader_usb.c</includedby>
     <invincdepgraph>
-      <node id="1551">
-        <label>xloader_usb.c</label>
-        <link refid="xloader__usb_8c"/>
-      </node>
-      <node id="1547">
-        <label>xloader_usb.h</label>
-        <link refid="xloader_usb.h"/>
-        <childnode refid="1548" relation="include">
-        </childnode>
-        <childnode refid="1549" relation="include">
-        </childnode>
-        <childnode refid="1551" relation="include">
-        </childnode>
-      </node>
-      <node id="1548">
-        <label>xloader.c</label>
-        <link refid="xloader_8c"/>
-      </node>
-      <node id="1550">
+      <node id="1771">
         <label>xloader_dfu_util.c</label>
         <link refid="xloader__dfu__util_8c"/>
       </node>
-      <node id="1549">
+      <node id="1770">
         <label>xloader_dfu_util.h</label>
         <link refid="xloader__dfu__util_8h"/>
-        <childnode refid="1550" relation="include">
+        <childnode refid="1771" relation="include">
+        </childnode>
+      </node>
+      <node id="1769">
+        <label>xloader.c</label>
+        <link refid="xloader_8c"/>
+      </node>
+      <node id="1772">
+        <label>xloader_usb.c</label>
+        <link refid="xloader__usb_8c"/>
+      </node>
+      <node id="1768">
+        <label>xloader_usb.h</label>
+        <link refid="xloader_usb.h"/>
+        <childnode refid="1769" relation="include">
+        </childnode>
+        <childnode refid="1770" relation="include">
+        </childnode>
+        <childnode refid="1772" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -126,6 +126,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XLOADER_USB_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_usb.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_usb.h"/>
   </compounddef>
 </doxygen>

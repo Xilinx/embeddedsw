@@ -4,124 +4,148 @@
     <compoundname>xasu_keymanager.h</compoundname>
     <includes local="yes">xil_types.h</includes>
     <includes refid="xasu__keymanagerinfo_8h" local="yes">xasu_keymanagerinfo.h</includes>
+    <includes refid="xasu__slhdsainfo_8h" local="yes">xasu_slhdsainfo.h</includes>
     <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
     <includedby refid="xasu__keymanager_8c" local="yes">xasu_keymanager.c</includedby>
+    <includedby refid="xasu__keymanager__example_8c" local="yes">xasu_keymanager_example.c</includedby>
+    <includedby refid="xasu__ocp__user__cert__example_8c" local="yes">xasu_ocp_user_cert_example.c</includedby>
+    <includedby refid="xasu__slhdsa__example_8c" local="yes">xasu_slhdsa_example.c</includedby>
     <incdepgraph>
-      <node id="585">
+      <node id="683">
         <label>xasu_def.h</label>
         <link refid="xasu__def_8h"/>
-        <childnode refid="573" relation="include">
+        <childnode refid="674" relation="include">
         </childnode>
       </node>
-      <node id="581">
-        <label>xasu_sharedmem.h</label>
-        <link refid="xasu__sharedmem_8h"/>
-        <childnode refid="573" relation="include">
-        </childnode>
-      </node>
-      <node id="580">
-        <label>xasu_client.h</label>
-        <link refid="xasu__client_8h"/>
-        <childnode refid="581" relation="include">
-        </childnode>
-        <childnode refid="582" relation="include">
-        </childnode>
-        <childnode refid="583" relation="include">
-        </childnode>
-        <childnode refid="584" relation="include">
-        </childnode>
-        <childnode refid="585" relation="include">
-        </childnode>
-      </node>
-      <node id="575">
-        <label>xil_util.h</label>
-      </node>
-      <node id="577">
-        <label>xasu_bsp_config.h</label>
-      </node>
-      <node id="582">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="583">
-        <label>xasu_perf.h</label>
-        <link refid="xasu__perf_8h"/>
-        <childnode refid="573" relation="include">
-        </childnode>
-        <childnode refid="577" relation="include">
-        </childnode>
-      </node>
-      <node id="574">
-        <label>xasu_keymanagerinfo.h</label>
-        <link refid="xasu__keymanagerinfo_8h"/>
-        <childnode refid="573" relation="include">
-        </childnode>
-        <childnode refid="575" relation="include">
-        </childnode>
-        <childnode refid="576" relation="include">
-        </childnode>
-        <childnode refid="578" relation="include">
-        </childnode>
-        <childnode refid="579" relation="include">
-        </childnode>
-        <childnode refid="577" relation="include">
-        </childnode>
-      </node>
-      <node id="573">
-        <label>xil_types.h</label>
-      </node>
-      <node id="578">
-        <label>xasu_eccinfo.h</label>
-        <link refid="xasu__eccinfo_8h"/>
-        <childnode refid="573" relation="include">
-        </childnode>
-        <childnode refid="577" relation="include">
-        </childnode>
-      </node>
-      <node id="572">
-        <label>xasu_keymanager.h</label>
-        <link refid="xasu_keymanager.h"/>
-        <childnode refid="573" relation="include">
-        </childnode>
-        <childnode refid="574" relation="include">
-        </childnode>
-        <childnode refid="580" relation="include">
-        </childnode>
-      </node>
-      <node id="576">
-        <label>xasu_rsainfo.h</label>
-        <link refid="xasu__rsainfo_8h"/>
-        <childnode refid="573" relation="include">
-        </childnode>
-        <childnode refid="575" relation="include">
-        </childnode>
-        <childnode refid="577" relation="include">
-        </childnode>
-      </node>
-      <node id="579">
+      <node id="679">
         <label>xasu_aesinfo.h</label>
         <link refid="xasu__aesinfo_8h"/>
-        <childnode refid="573" relation="include">
+        <childnode refid="674" relation="include">
         </childnode>
-        <childnode refid="577" relation="include">
+        <childnode refid="678" relation="include">
         </childnode>
       </node>
-      <node id="584">
+      <node id="682">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="683" relation="include">
+        </childnode>
+      </node>
+      <node id="676">
+        <label>xil_util.h</label>
+      </node>
+      <node id="678">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="681">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="682" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+        <childnode refid="685" relation="include">
+        </childnode>
+        <childnode refid="686" relation="include">
+        </childnode>
+        <childnode refid="683" relation="include">
+        </childnode>
+      </node>
+      <node id="684">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="680">
+        <label>xasu_slhdsainfo.h</label>
+        <link refid="xasu__slhdsainfo_8h"/>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="678" relation="include">
+        </childnode>
+      </node>
+      <node id="685">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="678" relation="include">
+        </childnode>
+      </node>
+      <node id="674">
+        <label>xil_types.h</label>
+      </node>
+      <node id="673">
+        <label>xasu_keymanager.h</label>
+        <link refid="xasu_keymanager.h"/>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="675" relation="include">
+        </childnode>
+        <childnode refid="680" relation="include">
+        </childnode>
+        <childnode refid="681" relation="include">
+        </childnode>
+      </node>
+      <node id="675">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="676" relation="include">
+        </childnode>
+        <childnode refid="677" relation="include">
+        </childnode>
+        <childnode refid="679" relation="include">
+        </childnode>
+        <childnode refid="678" relation="include">
+        </childnode>
+      </node>
+      <node id="677">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="676" relation="include">
+        </childnode>
+        <childnode refid="678" relation="include">
+        </childnode>
+      </node>
+      <node id="686">
         <label>xasu_status.h</label>
         <link refid="xasu__status_8h"/>
-        <childnode refid="573" relation="include">
+        <childnode refid="674" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="587">
+      <node id="689">
+        <label>xasu_keymanager_example.c</label>
+        <link refid="xasu__keymanager__example_8c"/>
+      </node>
+      <node id="690">
+        <label>xasu_ocp_user_cert_example.c</label>
+        <link refid="xasu__ocp__user__cert__example_8c"/>
+      </node>
+      <node id="688">
         <label>xasu_keymanager.c</label>
         <link refid="xasu__keymanager_8c"/>
       </node>
-      <node id="586">
+      <node id="687">
         <label>xasu_keymanager.h</label>
         <link refid="xasu_keymanager.h"/>
-        <childnode refid="587" relation="include">
+        <childnode refid="688" relation="include">
         </childnode>
+        <childnode refid="689" relation="include">
+        </childnode>
+        <childnode refid="690" relation="include">
+        </childnode>
+        <childnode refid="691" relation="include">
+        </childnode>
+      </node>
+      <node id="691">
+        <label>xasu_slhdsa_example.c</label>
+        <link refid="xasu__slhdsa__example_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -162,22 +186,22 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="67" bodyend="121"/>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a6f0c8014f215ea0e28728fab0eaf9316" compoundref="xasu__keymanagerinfo_8h" startline="198">XAsu_KeyManagerSubVaultParams::AccessRights</references>
-        <references refid="struct_x_asu___key_manager_sub_vault_params_1a502cff614ec073e3fa9dc79a0d9acc5c" compoundref="xasu__keymanagerinfo_8h" startline="188">XAsu_KeyManagerSubVaultParams::VaultIdAddr</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__keymanager__common__apis_1gac08647dd80c12c0c80be466cafad863f" compoundref="xasu__keymanager__common_8h" startline="54">XASU_IS_REDUNDANT_BYTE_VALID</references>
-        <references refid="group__xasu__common__defs_1gac0624ac2023b316ce02a22c039284605" compoundref="xasu__keymanagerinfo_8h" startline="48">XASU_KM_CREATE_KEYVAULT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="68" bodyend="122"/>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a6f0c8014f215ea0e28728fab0eaf9316" compoundref="xasu__keymanagerinfo_8h" startline="391">XAsu_KeyManagerSubVaultParams::AccessRights</references>
+        <references refid="struct_x_asu___key_manager_sub_vault_params_1a502cff614ec073e3fa9dc79a0d9acc5c" compoundref="xasu__keymanagerinfo_8h" startline="377">XAsu_KeyManagerSubVaultParams::VaultIdAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac08647dd80c12c0c80be466cafad863f" compoundref="xasu__keymanager__common_8h" startline="55">XASU_IS_REDUNDANT_BYTE_VALID</references>
+        <references refid="group__xasu__common__defs_1gac0624ac2023b316ce02a22c039284605" compoundref="xasu__keymanagerinfo_8h" startline="50">XASU_KM_CREATE_KEYVAULT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="636" endline="674">XAsu_KmValidateVaultCreateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -211,29 +235,29 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="139" bodyend="186"/>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="162">XAsu_KeyManagerKeyMetadata::Length</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__keymanager__common__apis_1gad523f02a44991223ddca95d225aaaaa2" compoundref="xasu__keymanager__common_8h" startline="40">XASU_KM_AES_KEYTYPE</references>
-        <references refid="group__xasu__common__defs_1gabf75a310d299abcd87952b69915699e4" compoundref="xasu__keymanagerinfo_8h" startline="51">XASU_KM_GEN_AES_KEY_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function. A key ID is returned only when the key is stored in the vault; an exported key is written to KeyObjectAddr.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="141" bodyend="195"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" compoundref="xasu__keymanagerinfo_8h" startline="264">XASU_AES_SUBVAULT_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gabf75a310d299abcd87952b69915699e4" compoundref="xasu__keymanagerinfo_8h" startline="53">XASU_KM_GEN_AES_KEY_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -271,25 +295,25 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="204" bodyend="251"/>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="162">XAsu_KeyManagerKeyMetadata::Length</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga7d2a32d5c90029e8b9d84ab00a23e863" compoundref="xasu__keymanagerinfo_8h" startline="52">XASU_KM_GEN_AES_IV_CMD_ID</references>
-        <references refid="group__xasu__keymanager__common__apis_1gabe851c3e1fa77f7b77f0df95ef268b85" compoundref="xasu__keymanager__common_8h" startline="41">XASU_KM_IV_KEYTYPE</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function. An IV ID is returned only when the IV is stored in the vault; an exported IV is written to KeyObjectAddr.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="213" bodyend="267"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa71dc647937225980e817a86924acdc75" compoundref="xasu__keymanagerinfo_8h" startline="265">XASU_IV_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga7d2a32d5c90029e8b9d84ab00a23e863" compoundref="xasu__keymanagerinfo_8h" startline="54">XASU_KM_GEN_AES_IV_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gafda93d7df00d0dd4a14762d5adf03706" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -328,18 +352,18 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="268" bodyend="302"/>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga9874b8c0c9595e70565d4890968c146c" compoundref="xasu__keymanagerinfo_8h" startline="49">XASU_KM_DELETE_KEYVAULT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1ga9dfb0e1de39faf56b461a45841dd8e8f" compoundref="xasu__keymanagerinfo_8h" startline="74">XASU_KM_MAX_VAULTS</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="284" bodyend="318"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga9874b8c0c9595e70565d4890968c146c" compoundref="xasu__keymanagerinfo_8h" startline="51">XASU_KM_DELETE_KEYVAULT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga9dfb0e1de39faf56b461a45841dd8e8f" compoundref="xasu__keymanagerinfo_8h" startline="132">XASU_KM_MAX_VAULTS</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga29138b38ed8aa506d1fef266e168aaf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -369,7 +393,7 @@
 <parametername>KeyId</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Composite key identifier containing VaultId (bits [23:16]), KeyType (bits [31:24]), and KeyIndex (bits [15:0]).</para></parameterdescription>
+<para>Composite key identifier, built with <ref refid="xasu__keymanagerinfo_8h_1ae004a9a17cd9a33a3c6f1281a7de3e77" kindref="member">XASU_KM_COMPOSE_KEY_ID()</ref>.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -378,18 +402,18 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validations of inputs.</para><para>Validate KeyId is not zero.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="320" bodyend="356"/>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga5b8d219409b4082ac0957f1ef5103eb1" compoundref="xasu__keymanagerinfo_8h" startline="50">XASU_KM_DELETE_KEY_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="335" bodyend="371"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga5b8d219409b4082ac0957f1ef5103eb1" compoundref="xasu__keymanagerinfo_8h" startline="52">XASU_KM_DELETE_KEY_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -427,30 +451,195 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validation of inputs.</para><para>Key attribute should be set to indicate presence of prime components for RSA private key.</para><para>Validate key length is either 2048-bit or 3072-bit or 4096-bit for RSA.</para><para>Generate a unique ID and register the callback function. Two key IDs will be returned for RSA key pair generation command and stores at the address provided in KmSubVaultParamPtr-&gt;KeyIdAddr by the client:<itemizedlist>
+<para>Validation of inputs.</para><para>Generate a unique ID and register the callback function. Two key IDs will be returned for RSA key pair generation command and stores at the address provided in KmSubVaultParamPtr-&gt;KeyIdAddr by the client:<itemizedlist>
 <listitem><para>First key ID will be the public key ID</para></listitem><listitem><para>Second key ID will be the private key ID</para></listitem><listitem><para>The size allocated for key IDs should be (XASU_KM_NUM_OF_KEY_IDS * XASU_KM_OUTPUT_ID_SIZE_IN_BYTES) to store both the key IDs.</para></listitem></itemizedlist>
 </para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="375" bodyend="442"/>
-        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="160">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="162">XAsu_KeyManagerKeyMetadata::Length</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gaf01a49f56136106cec86d306916abbd9" compoundref="xasu__keymanagerinfo_8h" startline="54">XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID</references>
-        <references refid="group__xasu__keymanager__client__apis_1gaf6e08bc67e7e0e8709235d6664111cbc" compoundref="xasu__keymanager_8c" startline="42">XASU_KM_NUM_OF_KEY_IDS</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaf8dea45fa4715b4b58bca204ee48b309" compoundref="xasu__keymanager__common_8h" startline="43">XASU_KM_RSA_KEYTYPE</references>
-        <references refid="group__xasu__keymanager__client__apis_1ga8dcfbbcb4d691065f5fd402b9a7f2603" compoundref="xasu__keymanager_8c" startline="43">XASU_KM_RSA_PVT_PRIME_NUM_PRESENT</references>
-        <references refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="390" bodyend="451"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gaf01a49f56136106cec86d306916abbd9" compoundref="xasu__keymanagerinfo_8h" startline="56">XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID</references>
+        <references refid="group__xasu__keymanager__client__apis_1gaf6e08bc67e7e0e8709235d6664111cbc" compoundref="xasu__keymanager_8c" startline="46">XASU_KM_NUM_OF_KEY_IDS</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga1fb460be10706e2f2689c8f62a7e979d" compoundref="xasu__keymanager__common_8h" startline="65">XASU_KM_RSA_EXPORT_LEN</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" compoundref="xasu__keymanagerinfo_8h" startline="267">XASU_RSA_PVT_SUBVAULT_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga7119eabec9b842d5ba1b2a1537fad5fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmGenerateMldsaKeyPair</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerPqcKeyGenParams *KmSubVaultParamPtr)</argsstring>
+        <name>XAsu_KmGenerateMldsaKeyPair</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> *</type>
+          <declname>KmSubVaultParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-DSA key pair generation for the requested subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KmSubVaultParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> structure which holds the parameters of KeyVault input arguments. The ML-DSA parameter set is passed in KmParams.KeyMetadata.KeyAttributes and the public key length in KmParams.KeyMetadata.Length. A non-zero SeedAddr derives the pair from that seed instead of one drawn from the TRNG. When the pair is stored, KmParams.KeyMetadata.CompositeKeyId selects the vault and the slot index requested in both the private and the public sub-vault, or zero to take the first free slot in each.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validation of inputs.</para><para>Validate the ML-DSA key generation parameters.</para><para>Generate a unique ID and register the callback function. Two key IDs will be returned, as for the ECC key pair generation command:<itemizedlist>
+<listitem><para>First key ID will be the public key ID</para></listitem><listitem><para>Second key ID will be the private key ID</para></listitem></itemizedlist>
+</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="551" bodyend="613"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1a9e0d21ea2bfdb9d5c5dab144484bff67" compoundref="xasu__keymanagerinfo_8h" startline="355">XAsu_KeyManagerPqcKeyGenParams::KmParams</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga79e2ee4f9dc918fa857a15812a09fbdc" compoundref="xasu__keymanagerinfo_8h" startline="62">XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID</references>
+        <references refid="group__xasu__keymanager__client__apis_1gaf6e08bc67e7e0e8709235d6664111cbc" compoundref="xasu__keymanager_8c" startline="46">XASU_KM_NUM_OF_KEY_IDS</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" compoundref="xasu__keymanager__common_8c" startline="420" endline="460">XAsu_KmValidateMldsaKeyGenParams</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa612cd9616142cddc6ad859cae843b3af" compoundref="xasu__keymanagerinfo_8h" startline="273">XASU_MLDSA_PVT_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga762ad88c777a9ede2c461e5368304c37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmGenerateMlkemKeyPair</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerPqcKeyGenParams *KmSubVaultParamPtr)</argsstring>
+        <name>XAsu_KmGenerateMlkemKeyPair</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> *</type>
+          <declname>KmSubVaultParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ML-KEM key pair generation for the requested subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KmSubVaultParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref> structure which holds the parameters of KeyVault input arguments. The ML-KEM parameter set is passed in KmParams.KeyMetadata.KeyAttributes and the encapsulation key length in KmParams.KeyMetadata.Length. A non-zero SeedAddr derives the pair from that 64-byte d || z seed instead of one drawn from the TRNG. When the pair is stored, KmParams.KeyMetadata.CompositeKeyId selects the vault and the slot index requested in both the decapsulation and the encapsulation sub-vault, or zero to take the first free slot in each.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validation of inputs.</para><para>Validate the seed and the parameter set against the same contract the server validates them against, so that the request is rejected here rather than after an IPI round trip.</para><para>Generate a unique ID and register the callback function. Two key IDs are returned: the encapsulation key ID first, then the decapsulation key ID.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="641" bodyend="704"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_pqc_key_gen_params_1a9e0d21ea2bfdb9d5c5dab144484bff67" compoundref="xasu__keymanagerinfo_8h" startline="355">XAsu_KeyManagerPqcKeyGenParams::KmParams</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2947e18fd0198b3497134bc6f159a6a9" compoundref="xasu__keymanagerinfo_8h" startline="65">XASU_KM_GEN_MLKEM_KEY_PAIR_CMD_ID</references>
+        <references refid="group__xasu__keymanager__client__apis_1gaf6e08bc67e7e0e8709235d6664111cbc" compoundref="xasu__keymanager_8c" startline="46">XASU_KM_NUM_OF_KEY_IDS</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" compoundref="xasu__keymanager__common_8c" startline="478" endline="514">XAsu_KmValidateMlkemKeyGenParams</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4c232c79841d0de4304fda7e4c1d0542" compoundref="xasu__keymanagerinfo_8h" startline="275">XASU_MLKEM_PVT_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gafec06548cd5090f8235c96b54f062e9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmGenerateSlhdsaKeyPair</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr)</argsstring>
+        <name>XAsu_KmGenerateSlhdsaKeyPair</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___slhdsa_key_gen_params" kindref="compound">XAsu_SlhdsaKeyGenParams</ref> *</type>
+          <declname>KeyGenParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform SLH-DSA key pair generation for the requested subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyGenParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___slhdsa_key_gen_params" kindref="compound">XAsu_SlhdsaKeyGenParams</ref> structure which holds the key generation parameters. ParamSet selects the key sizes and the hash family, SkOutAddr and PkOutAddr name the buffers that receive the pair, and SkOutLen and PkOutLen must equal those sizes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if no queue slot is available.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validation of inputs.</para><para>Validate the SLH-DSA key generation parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="727" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="727" bodyend="773"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga823965d7968b5c5846d4bdd17e83fd9d" compoundref="xasu__keymanagerinfo_8h" startline="71">XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga4c066f789bdb8cd1b5950dcc65054c4b" compoundref="xasu__keymanager__common_8c" startline="533" endline="575">XAsu_KmValidateSlhdsaKeyGenParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -488,28 +677,26 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validation of inputs.</para><para>Validate the curve length and curve type for ECC.</para><para>Generate a unique ID and register the callback function. Two key IDs will be returned for ECC key pair generation command and stores at the address provided in KmSubVaultParamPtr-&gt;KeyIdAddr by the client:<itemizedlist>
+<para>Validation of inputs.</para><para>Generate a unique ID and register the callback function. Two key IDs will be returned for ECC key pair generation command and stores at the address provided in KmSubVaultParamPtr-&gt;KeyIdAddr by the client:<itemizedlist>
 <listitem><para>First key ID will be the public key ID</para></listitem><listitem><para>Second key ID will be the private key ID</para></listitem><listitem><para>The size allocated for key IDs should be (XASU_KM_NUM_OF_KEY_IDS * XASU_KM_OUTPUT_ID_SIZE_IN_BYTES) to store both the key IDs.</para></listitem></itemizedlist>
 </para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="461" bodyend="522"/>
-        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="160">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="162">XAsu_KeyManagerKeyMetadata::Length</references>
-        <references refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga2b430e15ed3fccd4f60cf37352307f5e" compoundref="xasu__keymanagerinfo_8h" startline="55">XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID</references>
-        <references refid="group__xasu__keymanager__client__apis_1gaf6e08bc67e7e0e8709235d6664111cbc" compoundref="xasu__keymanager_8c" startline="42">XASU_KM_NUM_OF_KEY_IDS</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="470" bodyend="525"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4f33bfdc92dc53b6972090427fa74fa7" compoundref="xasu__keymanagerinfo_8h" startline="269">XASU_ECC_PVT_SUBVAULT_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga2b430e15ed3fccd4f60cf37352307f5e" compoundref="xasu__keymanagerinfo_8h" startline="57">XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID</references>
+        <references refid="group__xasu__keymanager__client__apis_1gaf6e08bc67e7e0e8709235d6664111cbc" compoundref="xasu__keymanager_8c" startline="46">XASU_KM_NUM_OF_KEY_IDS</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -543,32 +730,27 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if the generated unique ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validations of inputs.</para><para>Validate key metadata.</para><para>KeyType may have the wrapped-key bit set by the caller. Mask it out before comparing against the sub-vault identifier to validate key attributes.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="540" bodyend="600"/>
-        <references refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" compoundref="xasu__keymanagerinfo_8h" startline="160">XAsu_KeyManagerKeyMetadata::KeyAttributes</references>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" compoundref="xasu__keymanagerinfo_8h" startline="173">XAsu_KeyManagerParams::KeyObjectAddr</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a232f48effb7996f286541782d4711489" compoundref="xasu__keymanagerinfo_8h" startline="154">XAsu_KeyManagerKeyMetadata::KeyType</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga7fde0f2d4410bc849d07afff46f028cc" compoundref="xasu__keymanagerinfo_8h" startline="72">XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga5540f33752eb5f4c0014b1dde7e4dfdb" compoundref="xasu__keymanagerinfo_8h" startline="132">XASU_KM_RSA_PVT_ATTR_MAX</references>
-        <references refid="group__xasu__common__defs_1ga87c4a31a395449a4bf7d53a8c026153f" compoundref="xasu__keymanagerinfo_8h" startline="56">XASU_KM_STORE_KEY_CMD_ID</references>
-        <references refid="group__xasu__keymanager__common__apis_1gaed7a338139856f73034a592f739a9424" compoundref="xasu__keymanager__common_8c" startline="96" endline="115">XAsu_KmValidateKeyMetadata</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" compoundref="xasu__keymanagerinfo_8h" startline="141">XASU_RSA_PVT_SUBVAULT_ID</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="792" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="792" bodyend="832"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82" compoundref="xasu__keymanagerinfo_8h" startline="277">XASU_INVALID_SUBVAULT_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga87c4a31a395449a4bf7d53a8c026153f" compoundref="xasu__keymanagerinfo_8h" startline="58">XASU_KM_STORE_KEY_CMD_ID</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga53ec50681fa1e75ea0a0789ecb8e692d" compoundref="xasu__keymanager__common_8h" startline="63">XASU_KM_VALIDATE_FLOW_STORE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -606,25 +788,25 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="619" bodyend="666"/>
-        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="177">XAsu_KeyManagerParams::KeyIdAddr</references>
-        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="170">XAsu_KeyManagerParams::KeyMetadata</references>
-        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="162">XAsu_KeyManagerKeyMetadata::Length</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga4dd6dcb6dba625aace70cd86016960c4" compoundref="xasu__keymanagerinfo_8h" startline="53">XASU_KM_GEN_RAW_KEY_CMD_ID</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga0ca9bd91b3d5b9bf359f90ec2e951655" compoundref="xasu__keymanager__common_8h" startline="42">XASU_KM_KDF_HMAC_KEYTYPE</references>
-        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="63">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</references>
-        <references refid="group__xasu__keymanager__common__apis_1ga8bf80cae142e638db86cbd1bb4191a90" compoundref="xasu__keymanager__common_8c" startline="58" endline="83">XAsu_KmValidateVaultParams</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function. A key ID is returned only when the key is stored in the vault; an exported key is written to KeyObjectAddr.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="851" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="851" bodyend="905"/>
+        <references refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" compoundref="xasu__keymanagerinfo_8h" startline="325">XAsu_KeyManagerParams::KeyIdAddr</references>
+        <references refid="struct_x_asu___key_manager_params_1a518352aa0b4584e86f2a1c0d9f67af06" compoundref="xasu__keymanagerinfo_8h" startline="318">XAsu_KeyManagerParams::KeyMetadata</references>
+        <references refid="struct_x_asu___key_manager_key_metadata_1a11b4d219ee7c09b8dfa90768b73d87c7" compoundref="xasu__keymanagerinfo_8h" startline="307">XAsu_KeyManagerKeyMetadata::Length</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa86a082fadbc14b7ca3ff0a3cf16fea59" compoundref="xasu__keymanagerinfo_8h" startline="266">XASU_KDF_HMAC_SUBVAULT_ID</references>
+        <references refid="group__xasu__common__defs_1ga4dd6dcb6dba625aace70cd86016960c4" compoundref="xasu__keymanagerinfo_8h" startline="55">XASU_KM_GEN_RAW_KEY_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga2e7235f0859f5b905012a04847226f1c" compoundref="xasu__keymanager__common_8h" startline="62">XASU_KM_VALIDATE_FLOW_GENERATE</references>
+        <references refid="group__xasu__keymanager__common__apis_1ga7763261b475fcd2d6888a832c713e968" compoundref="xasu__keymanager__common_8c" startline="809" endline="944">XAsu_KmValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -662,22 +844,27 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="684" bodyend="724"/>
-        <references refid="struct_x_asu___key_vault_transfer_params_1ad510c5f95321ac4833ad166d00017b46" compoundref="xasu__keymanagerinfo_8h" startline="223">XAsu_KeyVaultTransferParams::ActualSizeAddr</references>
-        <references refid="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" compoundref="xasu__keymanagerinfo_8h" startline="224">XAsu_KeyVaultTransferParams::BufSize</references>
-        <references refid="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" compoundref="xasu__keymanagerinfo_8h" startline="222">XAsu_KeyVaultTransferParams::DataAddr</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1ga58dfc9b62ceedbb67764edfe8a3668eb" compoundref="xasu__keymanagerinfo_8h" startline="57">XASU_KM_EXPORT_KEYVAULT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1ga350078d7afaaa92d440324cc5e42eff5" compoundref="xasu__keymanagerinfo_8h" startline="64">XASU_KM_EXPORT_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+<para>Validations of inputs.</para><para>The context is what an import has to repeat, so an empty one is refused here.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="923" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="923" bodyend="971"/>
+        <references refid="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" compoundref="xasu__keymanagerinfo_8h" startline="422">XAsu_KeyVaultTransferParams::BufSize</references>
+        <references refid="struct_x_asu___key_vault_transfer_params_1abdfc2a8a9cc26ef7f41130111d1a4a87" compoundref="xasu__keymanagerinfo_8h" startline="427">XAsu_KeyVaultTransferParams::Context</references>
+        <references refid="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" compoundref="xasu__keymanagerinfo_8h" startline="417">XAsu_KeyVaultTransferParams::DataAddr</references>
+        <references refid="struct_x_asu___key_vault_transfer_params_1abdf7864bb83e40fa9a892b95edde15dd" compoundref="xasu__keymanagerinfo_8h" startline="418">XAsu_KeyVaultTransferParams::ExportResultAddr</references>
+        <references refid="struct_x_asu___key_vault_transfer_params_1a4e3ce7ca8c8a63fb91799ba6c1524462" compoundref="xasu__keymanagerinfo_8h" startline="423">XAsu_KeyVaultTransferParams::RevokeEfuseNum</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__generic__apis_1ga04f710c11a465ba2bca492d9517c73d1" compoundref="xasu__generic_8c" startline="57" endline="74">XAsu_IsBufferNonZero</references>
+        <references refid="group__xasu__common__defs_1ga58dfc9b62ceedbb67764edfe8a3668eb" compoundref="xasu__keymanagerinfo_8h" startline="59">XASU_KM_EXPORT_KEYVAULT_CMD_ID</references>
+        <references refid="xasu__keymanagerinfo_8h_1a350078d7afaaa92d440324cc5e42eff5" compoundref="xasu__keymanagerinfo_8h" startline="488">XASU_KM_EXPORT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga316892248ce8c84c60331be00d0de898" compoundref="xasu__keymanagerinfo_8h" startline="101">XASU_KM_KV_CONTEXT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gac8553011f680b346c419db17de338dfd" compoundref="xasu__keymanagerinfo_8h" startline="105">XASU_KM_KV_REVOKE_EFUSE_COUNT</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -715,20 +902,124 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
+<para>Validations of inputs.</para><para>Only the context the blob was exported under recovers it, so it must be supplied.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="989" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="989" bodyend="1034"/>
+        <references refid="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" compoundref="xasu__keymanagerinfo_8h" startline="422">XAsu_KeyVaultTransferParams::BufSize</references>
+        <references refid="struct_x_asu___key_vault_transfer_params_1abdfc2a8a9cc26ef7f41130111d1a4a87" compoundref="xasu__keymanagerinfo_8h" startline="427">XAsu_KeyVaultTransferParams::Context</references>
+        <references refid="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" compoundref="xasu__keymanagerinfo_8h" startline="417">XAsu_KeyVaultTransferParams::DataAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__generic__apis_1ga04f710c11a465ba2bca492d9517c73d1" compoundref="xasu__generic_8c" startline="57" endline="74">XAsu_IsBufferNonZero</references>
+        <references refid="group__xasu__common__defs_1gaa621ca613ebe973da936d53621b85319" compoundref="xasu__keymanagerinfo_8h" startline="60">XASU_KM_IMPORT_KEYVAULT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga316892248ce8c84c60331be00d0de898" compoundref="xasu__keymanagerinfo_8h" startline="101">XASU_KM_KV_CONTEXT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gaf8d30b39e729d3137b4165a6ffb54da9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmSetEpochTime</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, u32 CurrentEpochTime)</argsstring>
+        <name>XAsu_KmSetEpochTime</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CurrentEpochTime</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to set the epoch time. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurrentEpochTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current epoch time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if unique ID generation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
 <para>Validations of inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="742" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="742" bodyend="780"/>
-        <references refid="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" compoundref="xasu__keymanagerinfo_8h" startline="224">XAsu_KeyVaultTransferParams::BufSize</references>
-        <references refid="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" compoundref="xasu__keymanagerinfo_8h" startline="222">XAsu_KeyVaultTransferParams::DataAddr</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gaa621ca613ebe973da936d53621b85319" compoundref="xasu__keymanagerinfo_8h" startline="58">XASU_KM_IMPORT_KEYVAULT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="62">XASU_MODULE_KEYMANAGER_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="1051" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="1051" bodyend="1086"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1182573fa95adcb35fb873e05e5a13ad" compoundref="xasu__keymanagerinfo_8h" startline="61">XASU_KM_SET_EPOCH_TIME_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keymanager__client__apis_1gacd1ebc0c0c12895775a2073502c71e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KmXorKeys</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_KmXorKeyParams *XorParamsPtr)</argsstring>
+        <name>XAsu_KmXorKeys</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___km_xor_key_params" kindref="compound">XAsu_KmXorKeyParams</ref> *</type>
+          <declname>XorParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to generate a key by combining two AES key splits using XOR and to store the combined key in the specified key vault slot, or in the first free slot when none is requested. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XorParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___km_xor_key_params" kindref="compound">XAsu_KmXorKeyParams</ref> structure which holds the input key IDs, the metadata of the combined key and, when the slot is auto-assigned, the address where the composite key ID of the combined key is stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if unique ID generation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validations of inputs.</para><para>Validate the XOR key combine parameters.</para><para>Register a response buffer only when the caller asked for the assigned key ID, which is required only for an auto-assigned slot.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" line="1108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.c" bodystart="1108" bodyend="1161"/>
+        <references refid="struct_x_asu___km_xor_key_params_1ab283fac111073a97c76265dc5e3fc4bb" compoundref="xasu__keymanagerinfo_8h" startline="441">XAsu_KmXorKeyParams::OutKeyIdAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gae39f4b672b506d647f80bf03876ba8fc" compoundref="xasu__keymanagerinfo_8h" startline="68">XASU_KM_XOR_KEY_CMD_ID</references>
+        <references refid="group__xasu__keymanager__common__apis_1gac04d6039b68d92cb536861728ecb3836" compoundref="xasu__keymanager__common_8c" startline="689" endline="771">XAsu_KmValidateXorKeyParams</references>
+        <references refid="group__xasu__common__defs_1ga664e391cd6dad91049e455b9746c0a4b" compoundref="xasu__def_8h" startline="64">XASU_MODULE_KEYMANAGER_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -756,43 +1047,52 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__keymanagerinfo_8h" kindref="compound">xasu_keymanagerinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" kindref="member">XAsu_KmCreateKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_sub_vault_params" kindref="compound">XAsu_KeyManagerSubVaultParams</ref><sp/>*KmVaultParamPtr);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" kindref="member">XAsu_KmGenerateAesKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" kindref="member">XAsu_KmGenerateAesIv</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
-<codeline lineno="53"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gafda93d7df00d0dd4a14762d5adf03706" kindref="member">XAsu_KmDeleteKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u32<sp/>VaultId);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga29138b38ed8aa506d1fef266e168aaf1" kindref="member">XAsu_KmDeleteKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u32<sp/>KeyId);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" kindref="member">XAsu_KmGenerateRsaKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
-<codeline lineno="57"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" kindref="member">XAsu_KmGenerateEccKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" kindref="member">XAsu_KmStoreKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KeyParams);</highlight></codeline>
-<codeline lineno="60"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" kindref="member">XAsu_KmGenerateRawKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
-<codeline lineno="62"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" kindref="member">XAsu_KmExportKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_vault_transfer_params" kindref="compound">XAsu_KeyVaultTransferParams</ref><sp/>*ExportParams);</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" kindref="member">XAsu_KmImportKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_vault_transfer_params" kindref="compound">XAsu_KeyVaultTransferParams</ref><sp/>*ImportParams);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_KEYMANAGER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__slhdsainfo_8h" kindref="compound">xasu_slhdsainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" kindref="member">XAsu_KmCreateKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_sub_vault_params" kindref="compound">XAsu_KeyManagerSubVaultParams</ref><sp/>*KmVaultParamPtr);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" kindref="member">XAsu_KmGenerateAesKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" kindref="member">XAsu_KmGenerateAesIv</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gafda93d7df00d0dd4a14762d5adf03706" kindref="member">XAsu_KmDeleteKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u32<sp/>VaultId);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga29138b38ed8aa506d1fef266e168aaf1" kindref="member">XAsu_KmDeleteKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u32<sp/>KeyId);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" kindref="member">XAsu_KmGenerateRsaKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga7119eabec9b842d5ba1b2a1537fad5fe" kindref="member">XAsu_KmGenerateMldsaKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga762ad88c777a9ede2c461e5368304c37" kindref="member">XAsu_KmGenerateMlkemKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_pqc_key_gen_params" kindref="compound">XAsu_KeyManagerPqcKeyGenParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gafec06548cd5090f8235c96b54f062e9c" kindref="member">XAsu_KmGenerateSlhdsaKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___slhdsa_key_gen_params" kindref="compound">XAsu_SlhdsaKeyGenParams</ref><sp/>*KeyGenParamsPtr);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" kindref="member">XAsu_KmGenerateEccKeyPair</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" kindref="member">XAsu_KmStoreKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KeyParams);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" kindref="member">XAsu_KmGenerateRawKey</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref><sp/>*KmSubVaultParamPtr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" kindref="member">XAsu_KmExportKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_vault_transfer_params" kindref="compound">XAsu_KeyVaultTransferParams</ref><sp/>*ExportParams);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" kindref="member">XAsu_KmImportKeyVault</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_vault_transfer_params" kindref="compound">XAsu_KeyVaultTransferParams</ref><sp/>*ImportParams);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gaf8d30b39e729d3137b4165a6ffb54da9" kindref="member">XAsu_KmSetEpochTime</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u32<sp/>CurrentEpochTime);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">s32<sp/><ref refid="group__xasu__keymanager__client__apis_1gacd1ebc0c0c12895775a2073502c71e6e" kindref="member">XAsu_KmXorKeys</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___km_xor_key_params" kindref="compound">XAsu_KmXorKeyParams</ref><sp/>*XorParamsPtr);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_KEYMANAGER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_keymanager.h"/>
   </compounddef>
 </doxygen>

@@ -11,6 +11,21 @@
       <node id="90">
         <label>xil_io.h</label>
       </node>
+      <node id="95">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>xi2stx_hw.h</label>
+        <link refid="xi2stx__hw_8h"/>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xstatus.h</label>
+      </node>
       <node id="86">
         <label>xi2stx_g.c</label>
         <link refid="xi2stx_g.c"/>
@@ -18,6 +33,22 @@
         </childnode>
         <childnode refid="88" relation="include">
         </childnode>
+      </node>
+      <node id="93">
+        <label>xil_types.h</label>
+      </node>
+      <node id="91">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx__debug_8h"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+      </node>
+      <node id="87">
+        <label>xparameters.h</label>
       </node>
       <node id="88">
         <label>xi2stx.h</label>
@@ -31,37 +62,6 @@
         <childnode refid="92" relation="include">
         </childnode>
         <childnode refid="94" relation="include">
-        </childnode>
-      </node>
-      <node id="91">
-        <label>xi2stx_debug.h</label>
-        <link refid="xi2stx__debug_8h"/>
-        <childnode refid="92" relation="include">
-        </childnode>
-        <childnode refid="93" relation="include">
-        </childnode>
-        <childnode refid="94" relation="include">
-        </childnode>
-      </node>
-      <node id="94">
-        <label>xstatus.h</label>
-      </node>
-      <node id="95">
-        <label>xi2stx_chsts.h</label>
-        <link refid="xi2stx__chsts_8h"/>
-        <childnode refid="88" relation="include">
-        </childnode>
-      </node>
-      <node id="93">
-        <label>xil_types.h</label>
-      </node>
-      <node id="87">
-        <label>xparameters.h</label>
-      </node>
-      <node id="89">
-        <label>xi2stx_hw.h</label>
-        <link refid="xi2stx__hw_8h"/>
-        <childnode refid="90" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c" bodystart="14" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -123,6 +123,6 @@
 <codeline lineno="25"><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_g.c"/>
   </compounddef>
 </doxygen>

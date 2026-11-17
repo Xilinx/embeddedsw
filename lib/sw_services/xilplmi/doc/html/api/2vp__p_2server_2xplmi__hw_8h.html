@@ -114,6 +114,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       sk  01/23/26 Added define for Domain Init Status Register
       sd  03/13/26 Added macros for hardware interrupt registers
       pre 05/30/26 Added PS I2C instances check for I2C handshake feature
+3.0   sd  08/03/26 Added SSS_CFG_ERR mask
+      sd  08/20/26 Moved PMC WDT instance selection to <a class="el" href="xplmi__wdt__hw_8h.html" title="This file owns the PMC WDT hardware definitions and the selection of the PMC WDT instance from the de...">xplmi_wdt_hw.h</a>
+      ng  08/23/26 Added register definitions for slave error handlers
+      pre 08/25/26 Added DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
+                      and DDRMC_PCSR_STATUS_CALERROR_MASK macros
+      pre 10/22/26 Made DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
+                      and DDRMC_PCSR_STATUS_CALERROR_MASK macros conditional on
+                      PLM_ENABLE_DDR_CALIB_RESTORE
+      pre 10/23/26 Define the I2C instance present for each DDRMC5 I2C master
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="2vp__p_2server_2xplmi__config_8h.html">xplmi_config.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>

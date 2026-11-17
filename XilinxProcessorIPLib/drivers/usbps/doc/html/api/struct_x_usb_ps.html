@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_usb_ps.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('struct_x_usb_ps.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XUsbPs Struct Reference</div>  </div>
+<div class="title">XUsbPs Struct Reference<div class="ingroups"><a class="el" href="group__usbps.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -135,7 +135,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a6b2850e98dd08df31ee5369ce56e8c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps___device_config.html">XUsbPs_DeviceConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#a6b2850e98dd08df31ee5369ce56e8c50">DeviceConfig</a></td></tr>
 <tr class="memdesc:a6b2850e98dd08df31ee5369ce56e8c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following structures hold the configuration for DEVICE mode of the controller.  <a href="#a6b2850e98dd08df31ee5369ce56e8c50">More...</a><br/></td></tr>
 <tr class="separator:a6b2850e98dd08df31ee5369ce56e8c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdcf162fbc8bd0b2e4eb32386bdb22d8"><td class="memItemLeft" align="right" valign="top">XUsbPs_IntrHandlerFunc&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#acdcf162fbc8bd0b2e4eb32386bdb22d8">HandlerFunc</a></td></tr>
+<tr class="memitem:acdcf162fbc8bd0b2e4eb32386bdb22d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__usbps.html#ga874b9f224a6f0b430a95ec2d143173b4">XUsbPs_IntrHandlerFunc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#acdcf162fbc8bd0b2e4eb32386bdb22d8">HandlerFunc</a></td></tr>
 <tr class="memdesc:acdcf162fbc8bd0b2e4eb32386bdb22d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler function for the controller.  <a href="#acdcf162fbc8bd0b2e4eb32386bdb22d8">More...</a><br/></td></tr>
 <tr class="separator:acdcf162fbc8bd0b2e4eb32386bdb22d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ff9fb5a7e23901d72230e26dfc9ae5d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#a5ff9fb5a7e23901d72230e26dfc9ae5d">HandlerRef</a></td></tr>
@@ -144,11 +144,36 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a82d001c64fb44301908797ffae28abd0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#a82d001c64fb44301908797ffae28abd0">HandlerMask</a></td></tr>
 <tr class="memdesc:a82d001c64fb44301908797ffae28abd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">User interrupt mask.  <a href="#a82d001c64fb44301908797ffae28abd0">More...</a><br/></td></tr>
 <tr class="separator:a82d001c64fb44301908797ffae28abd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9613ff3e4ceb977b76e2b849e0fdb1c8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#a9613ff3e4ceb977b76e2b849e0fdb1c8">AppData</a></td></tr>
+<tr class="memdesc:a9613ff3e4ceb977b76e2b849e0fdb1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to device runtime data structure.  <a href="#a9613ff3e4ceb977b76e2b849e0fdb1c8">More...</a><br/></td></tr>
+<tr class="separator:a9613ff3e4ceb977b76e2b849e0fdb1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44eaf0ad7b11faa94ea384fb8e4ac2c7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#a44eaf0ad7b11faa94ea384fb8e4ac2c7">IsConfigDone</a></td></tr>
+<tr class="memdesc:a44eaf0ad7b11faa94ea384fb8e4ac2c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating configuration is complete.  <a href="#a44eaf0ad7b11faa94ea384fb8e4ac2c7">More...</a><br/></td></tr>
+<tr class="separator:a44eaf0ad7b11faa94ea384fb8e4ac2c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066d0880336b8cd00dfd8e06d8159619"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps.html#a066d0880336b8cd00dfd8e06d8159619">data_ptr</a></td></tr>
+<tr class="memdesc:a066d0880336b8cd00dfd8e06d8159619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer for storing application-specific data.  <a href="#a066d0880336b8cd00dfd8e06d8159619">More...</a><br/></td></tr>
+<tr class="separator:a066d0880336b8cd00dfd8e06d8159619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> driver instance data. </p>
 <p>The user is required to allocate a variable of this type for every USB controller in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a9613ff3e4ceb977b76e2b849e0fdb1c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a>* XUsbPs::AppData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to device runtime data structure. </p>
+
+<p>Referenced by <a class="el" href="xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d">XUsbPs_CfgInit()</a>, <a class="el" href="group__usbps.html#ga5eb603906d381d4a426a3d24fc2082a0">XUsbPs_EpSetIsoHandler()</a>, <a class="el" href="xusbps__ch9__storage_8h.html#a72238ee80cba8facd72277ab2ec271de">XUsbPs_SetConfiguration()</a>, and <a class="el" href="group__usbps.html#ga8c700bcf9ba08271914145803776d265">XUsbPs_SetDeviceAddress()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a85f47a2007b61d22d85cc229a7afe26b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -181,6 +206,20 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a066d0880336b8cd00dfd8e06d8159619"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XUsbPs::data_ptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer for storing application-specific data. </p>
+
+</div>
+</div>
 <a class="anchor" id="a6b2850e98dd08df31ee5369ce56e8c50"></a>
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +242,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XUsbPs_IntrHandlerFunc XUsbPs::HandlerFunc</td>
+          <td class="memname"><a class="el" href="group__usbps.html#ga874b9f224a6f0b430a95ec2d143173b4">XUsbPs_IntrHandlerFunc</a> XUsbPs::HandlerFunc</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -244,6 +283,20 @@ Data Fields</h2></td></tr>
 <p>User data reference for the handler. </p>
 
 <p>Referenced by <a class="el" href="group__usbps.html#ga60e2b0f6fabc24cdf785d704ab2585d1">XUsbPs_IntrHandler()</a>, and <a class="el" href="group__usbps.html#ga521c050d3b146bb58862f5fadf7f6ba6">XUsbPs_IntrSetHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a44eaf0ad7b11faa94ea384fb8e4ac2c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XUsbPs::IsConfigDone</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating configuration is complete. </p>
 
 </div>
 </div>

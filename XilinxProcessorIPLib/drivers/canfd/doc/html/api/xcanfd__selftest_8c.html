@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanfd__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +106,26 @@ $(document).ready(function(){initNavTree('xcanfd__selftest_8c.html','');});
 <div class="title">xcanfd_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Diagnostic self-test function for the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver. </p>
+<p>This file contains a diagnostic self-test function for the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver.</p>
+<p>See <a class="el" href="xcanfd_8h.html">xcanfd.h</a> for more information.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.0   nsk  06/04/15 First release
+1.2   mi   09/22/16 Fixed compilation warnings.
+1.3   ask  08/08/18 Fixed Cppcheck warnings and updated the Canfd Id with
+                                        11 bit value
+2.1     ask  09/21/18 Fixed CanFD hang issue in selftest by correcting the
+                    Configuration regarding the Baud Rate and bit timing
+                    for both Arbitration and Data Phase.
+2.12  vlt  01/27/26 Fixed codespell issues
+2.13  vn   09/08/26 Fix Doxygen comments to comply with AMD standards.
+2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+2.13  vn   09/30/26 Update Doxygen comments to AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -123,6 +142,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ga71ec86ad20d81329ef69e8572d9bc452"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga71ec86ad20d81329ef69e8572d9bc452">TEST_MAIL_BOX_MASK</a>&#160;&#160;&#160;0xFFFFFFFFU</td></tr>
 <tr class="memdesc:ga71ec86ad20d81329ef69e8572d9bc452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mailbox Filter Index Value.  <a href="group__canfd.html#ga71ec86ad20d81329ef69e8572d9bc452">More...</a><br/></td></tr>
 <tr class="separator:ga71ec86ad20d81329ef69e8572d9bc452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Baud Rate Prescaler and Bit Timing Register values</div></td></tr>
 <tr class="memitem:ga40b93f102dc8a0ae0f87092bc96087f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga40b93f102dc8a0ae0f87092bc96087f1">TEST_BRPR_BAUD_PRESCALAR</a>&#160;&#160;&#160;29</td></tr>
 <tr class="memdesc:ga40b93f102dc8a0ae0f87092bc96087f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Baud Rate Prescalar.  <a href="group__canfd.html#ga40b93f102dc8a0ae0f87092bc96087f1">More...</a><br/></td></tr>
 <tr class="separator:ga40b93f102dc8a0ae0f87092bc96087f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +155,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ga413d190032b595cee3eaad35f5ff0f95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga413d190032b595cee3eaad35f5ff0f95">TEST_BTR_FIRST_TIMESEGMENT</a>&#160;&#160;&#160;15</td></tr>
 <tr class="memdesc:ga413d190032b595cee3eaad35f5ff0f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time Segment 1.  <a href="group__canfd.html#ga413d190032b595cee3eaad35f5ff0f95">More...</a><br/></td></tr>
 <tr class="separator:ga413d190032b595cee3eaad35f5ff0f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Fast Baud Rate Prescaler and Fast Bit Timing Register values</div></td></tr>
 <tr class="memitem:ga474988275e3a9563fd011d79425deb90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga474988275e3a9563fd011d79425deb90">TEST_FBRPR_BAUD_PRESCALAR</a>&#160;&#160;&#160;29</td></tr>
 <tr class="memdesc:ga474988275e3a9563fd011d79425deb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Baud Rate Prescalar for canfd.  <a href="group__canfd.html#ga474988275e3a9563fd011d79425deb90">More...</a><br/></td></tr>
 <tr class="separator:ga474988275e3a9563fd011d79425deb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,7 +172,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gad1bbb72c208cf3330dc27a32b2546999"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gad1bbb72c208cf3330dc27a32b2546999">XCanFd_SelfTest</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gad1bbb72c208cf3330dc27a32b2546999"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the CAN driver/device.  <a href="group__canfd.html#gad1bbb72c208cf3330dc27a32b2546999">More...</a><br/></td></tr>
+<tr class="memdesc:gad1bbb72c208cf3330dc27a32b2546999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the CAN driver/device.  <a href="group__canfd.html#gad1bbb72c208cf3330dc27a32b2546999">More...</a><br/></td></tr>
 <tr class="separator:gad1bbb72c208cf3330dc27a32b2546999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

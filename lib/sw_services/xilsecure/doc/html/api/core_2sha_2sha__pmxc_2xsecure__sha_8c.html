@@ -100,8 +100,7 @@ $(document).ready(function(){initNavTree('core_2sha_2sha__pmxc_2xsecure__sha_8c.
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">core/sha/sha_pmxc/xsecure_sha.c File Reference</div>  </div>
 </div><!--header-->
@@ -124,11 +123,17 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       tvp  02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
       tvp  02/23/26 Add XSecure_ExtendedShaFinish to support variable-length
                     hash output
-      tvp  04/15/26 Add SHA mode validation in XSecure_ExtendedShaFinish</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      tvp  04/15/26 Add SHA mode validation in XSecure_ExtendedShaFinish
+5.8   tvp  07/17/26 Add SHAKE256 XOF feature support
+      tbk  09/15/26 Reset SHA after Start fails post-release; restore
+                    INITIALIZED
+      rap  09/22/26 Fixed warnings caused due to new compiler flags added in makefile
+</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="core_2sha_2sha__pmxc_2xsecure__sha_8h.html">xsecure_sha.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_error.h&quot;</code><br/>
 <code>#include &quot;xsecure_utils.h&quot;</code><br/>
 <code>#include &quot;xsecure_sha_hw.h&quot;</code><br/>
+<code>#include &quot;xil_sutil.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -147,9 +152,6 @@ Macros</h2></td></tr>
 <tr class="memitem:gaa0dd4ce2dd22acbb8cb04dd25d52198e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gaa0dd4ce2dd22acbb8cb04dd25d52198e">XSECURE_SHA3_END_NIST_PADDING_MASK</a>&#160;&#160;&#160;(0x80U)</td></tr>
 <tr class="memdesc:gaa0dd4ce2dd22acbb8cb04dd25d52198e"><td class="mdescLeft">&#160;</td><td class="mdescRight">NIST end padding mask.  <a href="group__xsecure__apis.html#gaa0dd4ce2dd22acbb8cb04dd25d52198e">More...</a><br/></td></tr>
 <tr class="separator:gaa0dd4ce2dd22acbb8cb04dd25d52198e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafd6b872cb2234834c31b747c2680e1e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gafd6b872cb2234834c31b747c2680e1e4">XSECURE_MAX_PADDING_LENGTH</a>&#160;&#160;&#160;(144U)</td></tr>
-<tr class="memdesc:gafd6b872cb2234834c31b747c2680e1e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum padding length for SHA.  <a href="group__xsecure__apis.html#gafd6b872cb2234834c31b747c2680e1e4">More...</a><br/></td></tr>
-<tr class="separator:gafd6b872cb2234834c31b747c2680e1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga864d2d6a4466b670b09cbc602f4015e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga864d2d6a4466b670b09cbc602f4015e6">XSECURE_SHA2_256_LENGTH_FIELD_SIZE</a>&#160;&#160;&#160;(8U)</td></tr>
 <tr class="memdesc:ga864d2d6a4466b670b09cbc602f4015e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA2-256 length field size.  <a href="group__xsecure__apis.html#ga864d2d6a4466b670b09cbc602f4015e6">More...</a><br/></td></tr>
 <tr class="separator:ga864d2d6a4466b670b09cbc602f4015e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,9 +203,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga573e05dfb7c5e67a48b05764f0820c02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga573e05dfb7c5e67a48b05764f0820c02">XSecure_ShaUpdate</a> (XSecure_Sha *const InstancePtr, u64 DataAddr, const u32 DataSize)</td></tr>
 <tr class="memdesc:ga573e05dfb7c5e67a48b05764f0820c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates input data to SHA Engine to calculate Hash.  <a href="group__xsecure__apis.html#ga573e05dfb7c5e67a48b05764f0820c02">More...</a><br/></td></tr>
 <tr class="separator:ga573e05dfb7c5e67a48b05764f0820c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a3f9d4fcb7292b40c9d91a0e82d1b22"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga7a3f9d4fcb7292b40c9d91a0e82d1b22">XSecure_ExtendedShaFinish</a> (XSecure_Sha *const InstancePtr, u64 HashAddr, u32 HashBufSize, u32 ReqHashSize)</td></tr>
-<tr class="memdesc:ga7a3f9d4fcb7292b40c9d91a0e82d1b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates and reads the final hash of input data with support for variable-length hash output.  <a href="group__xsecure__apis.html#ga7a3f9d4fcb7292b40c9d91a0e82d1b22">More...</a><br/></td></tr>
-<tr class="separator:ga7a3f9d4fcb7292b40c9d91a0e82d1b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2a1148f45c70231d1125d1d4a85c0336"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga2a1148f45c70231d1125d1d4a85c0336">XSecure_ShaFinish</a> (XSecure_Sha *const InstancePtr, u64 HashAddr, u32 HashBufSize)</td></tr>
 <tr class="memdesc:ga2a1148f45c70231d1125d1d4a85c0336"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates and reads the final hash of input data.  <a href="group__xsecure__apis.html#ga2a1148f45c70231d1125d1d4a85c0336">More...</a><br/></td></tr>
 <tr class="separator:ga2a1148f45c70231d1125d1d4a85c0336"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,12 +212,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga7eb62ddb5d303871b0ca86c77a668d4b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga7eb62ddb5d303871b0ca86c77a668d4b">XSecure_ShaLastUpdate</a> (XSecure_Sha *InstancePtr)</td></tr>
 <tr class="memdesc:ga7eb62ddb5d303871b0ca86c77a668d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function notifies the SHA driver at the end of the SHA data update.  <a href="group__xsecure__apis.html#ga7eb62ddb5d303871b0ca86c77a668d4b">More...</a><br/></td></tr>
 <tr class="separator:ga7eb62ddb5d303871b0ca86c77a668d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:gad0ae847200f6e1980720e59bd0d2f3b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_secure___sha_plat_config.html">XSecure_ShaPlatConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#gad0ae847200f6e1980720e59bd0d2f3b9">ShaInitPlatConfig</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
-<tr class="memdesc:gad0ae847200f6e1980720e59bd0d2f3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA platform configuration.  <a href="group__xsecure__apis.html#gad0ae847200f6e1980720e59bd0d2f3b9">More...</a><br/></td></tr>
-<tr class="separator:gad0ae847200f6e1980720e59bd0d2f3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

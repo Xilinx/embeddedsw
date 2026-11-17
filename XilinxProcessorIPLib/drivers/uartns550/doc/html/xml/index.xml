@@ -65,6 +65,8 @@
     <member refid="group__uartns550_1gab8e499e36ea8619d0a2ffba8a2ecd0c0" kind="function"><name>XUartNs550_SetBaudRate</name></member>
   </compound>
   <compound refid="xuartns550_8h" kind="file"><name>xuartns550.h</name>
+    <member refid="group__uartns550_1ga0d0b450ce409b77274109a7610a9d4a9" kind="define"><name>XUN_NS16550_MAX_RATE</name></member>
+    <member refid="group__uartns550_1gad953e8f3c273533ab5613314fb3344b6" kind="define"><name>XUN_NS16550_MIN_RATE</name></member>
     <member refid="group__uartns550_1ga08a745fcffbdb351b5bac16197578eba" kind="define"><name>XUN_OPTION_RXLINE_INTR</name></member>
     <member refid="group__uartns550_1ga2b69543bcd3d4e794193b9b47da1bcce" kind="define"><name>XUN_OPTION_SET_BREAK</name></member>
     <member refid="group__uartns550_1gaaf47eddf3f91b4dfea5fa70849ccf094" kind="define"><name>XUN_OPTION_LOOPBACK</name></member>
@@ -108,9 +110,6 @@
     <member refid="group__uartns550_1gaaeba54cf3dd6a4113dbcea2c02acdfcf" kind="define"><name>XUN_ERROR_PARITY_MASK</name></member>
     <member refid="group__uartns550_1ga87c3d1d1c50213ac56e0c60f544761e2" kind="define"><name>XUN_ERROR_OVERRUN_MASK</name></member>
     <member refid="group__uartns550_1ga9f68b9cbaa34388aab27c289db3e390a" kind="define"><name>XUN_ERROR_NONE</name></member>
-    <member refid="group__uartns550_1gaed2b98e35e479c8f7e57f260ee5b4be3" kind="define"><name>XUARTNS550_H</name></member>
-    <member refid="group__uartns550_1ga0d0b450ce409b77274109a7610a9d4a9" kind="define"><name>XUN_NS16550_MAX_RATE</name></member>
-    <member refid="group__uartns550_1gad953e8f3c273533ab5613314fb3344b6" kind="define"><name>XUN_NS16550_MIN_RATE</name></member>
     <member refid="group__uartns550_1gaab6f0640b2ce44ce814b72be9be82af2" kind="define"><name>XUartNs550_UpdateStats</name></member>
     <member refid="group__uartns550_1gae4e97640db5af678d474f3398045d64a" kind="typedef"><name>XUartNs550_Handler</name></member>
     <member refid="group__uartns550_1ga442492dcbff076f40f1fca0f571621c9" kind="function"><name>XUartNs550_Initialize</name></member>
@@ -147,14 +146,12 @@
     <member refid="xuartns550__hello__world__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xuartns550__i_8h" kind="file"><name>xuartns550_i.h</name>
-    <member refid="group__uartns550_1ga9676e7da58f7dedd377fa0d3e11bf91a" kind="define"><name>XUARTNS550_I_H</name></member>
     <member refid="group__uartns550_1ga5cd4c8bf2383f952ef18132b828636fc" kind="variable"><name>XUartNs550_ConfigTable</name></member>
     <member refid="group__uartns550_1gab8e499e36ea8619d0a2ffba8a2ecd0c0" kind="function"><name>XUartNs550_SetBaudRate</name></member>
     <member refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" kind="function"><name>XUartNs550_SendBuffer</name></member>
     <member refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" kind="function"><name>XUartNs550_ReceiveBuffer</name></member>
   </compound>
   <compound refid="xuartns550__intr_8c" kind="file"><name>xuartns550_intr.c</name>
-    <member refid="group__uartns550_1ga35bf39b965ef886056fbc6f1b84647bf" kind="typedef"><name>Handler</name></member>
     <member refid="group__uartns550_1ga13a30be3e28d24c0c21e1fda90b0adf4" kind="variable"><name>HandlerTable</name></member>
     <member refid="group__uartns550_1gae40959943dd11dadba2dad8e50dce788" kind="function"><name>NoInterruptHandler</name></member>
     <member refid="group__uartns550_1ga467a83ea95572f8433a8eee897cbf4bc" kind="function"><name>ReceiveStatusHandler</name></member>
@@ -167,13 +164,13 @@
   </compound>
   <compound refid="xuartns550__intr__example_8c" kind="file"><name>xuartns550_intr_example.c</name>
     <member refid="xuartns550__intr__example_8c_1ac9565031659897863ae69977e7021556" kind="define"><name>XUARTNS550_BASEADDRESS</name></member>
-    <member refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xuartns550__intr__example_8c_1ac9d3d00553431391ec5272c9b2ccc106" kind="variable"><name>UartNs550Instance</name></member>
     <member refid="xuartns550__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xuartns550__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
     <member refid="xuartns550__intr__example_8c_1a91504b2b83f558d49de403298d4ea9c3" kind="variable"><name>TotalReceivedCount</name></member>
     <member refid="xuartns550__intr__example_8c_1a9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
     <member refid="xuartns550__intr__example_8c_1ab30b3314ed122ef745133ccaac0a62ed" kind="variable"><name>TotalErrorCount</name></member>
+    <member refid="xuartns550__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartns550__intr__example_8c_1ac9d3d00553431391ec5272c9b2ccc106" kind="variable"><name>UartNs550Instance</name></member>
     <member refid="xuartns550__intr__example_8c_1a11f829fa6a144951a80eaaf4f433dfe9" kind="function"><name>UartNs550IntrExample</name></member>
     <member refid="xuartns550__intr__example_8c_1a6afc272c9c7feecb2b9b25f00c430227" kind="function"><name>UartNs550IntrHandler</name></member>
     <member refid="xuartns550__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
@@ -234,7 +231,6 @@
     <member refid="group__uartns550_1ga21276c29b98219b18cf86d0eb2c7134b" kind="define"><name>XUN_LSR_OVERRUN_ERROR</name></member>
     <member refid="group__uartns550_1ga64e43cf523785c523618adc1f046370f" kind="define"><name>XUN_LSR_DATA_READY</name></member>
     <member refid="group__uartns550_1gaf2d9f7f1bffd43b92ef31d187f4bcb5e" kind="define"><name>XUN_LSR_ERROR_BREAK</name></member>
-    <member refid="group__uartns550_1ga4c29e1365c1d130514e256262625bc15" kind="define"><name>XUARTNS550_L_H</name></member>
     <member refid="group__uartns550_1ga3aa5621d35dd0e4eea01fcee2063a7a3" kind="define"><name>XUN_REG_OFFSET</name></member>
     <member refid="group__uartns550_1ga4b1b546e60a0c76832f6e3a9a3957094" kind="define"><name>XUN_FIFO_SIZE</name></member>
     <member refid="group__uartns550_1ga6708c902724ba63054f78d2179562615" kind="define"><name>XUN_DIVISOR_BYTE_MASK</name></member>
@@ -275,10 +271,10 @@
   </compound>
   <compound refid="xuartns550__polled__example_8c" kind="file"><name>xuartns550_polled_example.c</name>
     <member refid="xuartns550__polled__example_8c_1ac9565031659897863ae69977e7021556" kind="define"><name>XUARTNS550_BASEADDRESS</name></member>
-    <member refid="xuartns550__polled__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xuartns550__polled__example_8c_1a6e87fcc551de28aab7f27c3be026a642" kind="variable"><name>UartNs550</name></member>
     <member refid="xuartns550__polled__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xuartns550__polled__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="xuartns550__polled__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartns550__polled__example_8c_1a6e87fcc551de28aab7f27c3be026a642" kind="variable"><name>UartNs550</name></member>
     <member refid="xuartns550__polled__example_8c_1a7c4c6161e43a4f7d84845cab7c612b4a" kind="function"><name>UartNs550PolledExample</name></member>
     <member refid="xuartns550__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
@@ -304,6 +300,9 @@
     <member refid="group__uartns550_1ga67e2cea916214f246e449b8438d01384" kind="function"><name>XUartNs550_ClearStats</name></member>
   </compound>
   <compound refid="group__uartns550" kind="group"><name>uartns550</name>
+    <member refid="group__uartns550_1gad99395b30fbe6d0f90fc2937db2cfcce" kind="define"><name>XUN_MAX_BAUD_ERROR_RATE</name></member>
+    <member refid="group__uartns550_1ga0d0b450ce409b77274109a7610a9d4a9" kind="define"><name>XUN_NS16550_MAX_RATE</name></member>
+    <member refid="group__uartns550_1gad953e8f3c273533ab5613314fb3344b6" kind="define"><name>XUN_NS16550_MIN_RATE</name></member>
     <member refid="group__uartns550_1ga08a745fcffbdb351b5bac16197578eba" kind="define"><name>XUN_OPTION_RXLINE_INTR</name></member>
     <member refid="group__uartns550_1ga2b69543bcd3d4e794193b9b47da1bcce" kind="define"><name>XUN_OPTION_SET_BREAK</name></member>
     <member refid="group__uartns550_1gaaf47eddf3f91b4dfea5fa70849ccf094" kind="define"><name>XUN_OPTION_LOOPBACK</name></member>
@@ -397,8 +396,9 @@
     <member refid="group__uartns550_1ga21276c29b98219b18cf86d0eb2c7134b" kind="define"><name>XUN_LSR_OVERRUN_ERROR</name></member>
     <member refid="group__uartns550_1ga64e43cf523785c523618adc1f046370f" kind="define"><name>XUN_LSR_DATA_READY</name></member>
     <member refid="group__uartns550_1gaf2d9f7f1bffd43b92ef31d187f4bcb5e" kind="define"><name>XUN_LSR_ERROR_BREAK</name></member>
+    <member refid="group__uartns550_1ga0cca097353c3439833fb22f5761ebc3f" kind="define"><name>XUN_NUM_OPTIONS</name></member>
+    <member refid="group__uartns550_1gaf60af6bcba36728fc6ba35120acfe403" kind="define"><name>XUN_TOTAL_BYTES</name></member>
     <member refid="group__uartns550_1gae4e97640db5af678d474f3398045d64a" kind="typedef"><name>XUartNs550_Handler</name></member>
-    <member refid="group__uartns550_1ga35bf39b965ef886056fbc6f1b84647bf" kind="typedef"><name>Handler</name></member>
     <member refid="group__uartns550_1ga5cd4c8bf2383f952ef18132b828636fc" kind="variable"><name>XUartNs550_ConfigTable</name></member>
     <member refid="group__uartns550_1ga5cd4c8bf2383f952ef18132b828636fc" kind="variable"><name>XUartNs550_ConfigTable</name></member>
     <member refid="group__uartns550_1ga13a30be3e28d24c0c21e1fda90b0adf4" kind="variable"><name>HandlerTable</name></member>
@@ -438,13 +438,7 @@
     <member refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" kind="function"><name>XUartNs550_RecvByte</name></member>
     <member refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" kind="function"><name>XUartNs550_SetBaud</name></member>
     <member refid="group__uartns550_1gaaba1267b3a0c80de8126bbc6e4c601cf" kind="function"><name>ReadFcrRegister</name></member>
-    <member refid="group__uartns550_1gad99395b30fbe6d0f90fc2937db2cfcce" kind="define"><name>XUN_MAX_BAUD_ERROR_RATE</name></member>
-    <member refid="group__uartns550_1gaed2b98e35e479c8f7e57f260ee5b4be3" kind="define"><name>XUARTNS550_H</name></member>
-    <member refid="group__uartns550_1ga0d0b450ce409b77274109a7610a9d4a9" kind="define"><name>XUN_NS16550_MAX_RATE</name></member>
-    <member refid="group__uartns550_1gad953e8f3c273533ab5613314fb3344b6" kind="define"><name>XUN_NS16550_MIN_RATE</name></member>
     <member refid="group__uartns550_1gaab6f0640b2ce44ce814b72be9be82af2" kind="define"><name>XUartNs550_UpdateStats</name></member>
-    <member refid="group__uartns550_1ga9676e7da58f7dedd377fa0d3e11bf91a" kind="define"><name>XUARTNS550_I_H</name></member>
-    <member refid="group__uartns550_1ga4c29e1365c1d130514e256262625bc15" kind="define"><name>XUARTNS550_L_H</name></member>
     <member refid="group__uartns550_1ga3aa5621d35dd0e4eea01fcee2063a7a3" kind="define"><name>XUN_REG_OFFSET</name></member>
     <member refid="group__uartns550_1ga4b1b546e60a0c76832f6e3a9a3957094" kind="define"><name>XUN_FIFO_SIZE</name></member>
     <member refid="group__uartns550_1ga6708c902724ba63054f78d2179562615" kind="define"><name>XUN_DIVISOR_BYTE_MASK</name></member>
@@ -457,8 +451,6 @@
     <member refid="group__uartns550_1ga9039b3a4a9852fa556e522976edd1288" kind="define"><name>XUartNs550_DisableIntr</name></member>
     <member refid="group__uartns550_1ga941188ffba023576548effef6ccb0707" kind="define"><name>XUartNs550_IsReceiveData</name></member>
     <member refid="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" kind="define"><name>XUartNs550_IsTransmitEmpty</name></member>
-    <member refid="group__uartns550_1ga0cca097353c3439833fb22f5761ebc3f" kind="define"><name>XUN_NUM_OPTIONS</name></member>
-    <member refid="group__uartns550_1gaf60af6bcba36728fc6ba35120acfe403" kind="define"><name>XUN_TOTAL_BYTES</name></member>
     <member refid="group__uartns550_1gacf96ed2e4750caf9d060f88c4f0b6fe9" kind="define"><name>XPAR_DEFAULT_BAUD_RATE</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
@@ -468,7 +460,5 @@
   <compound refid="dir_0c360c872a74a54ba60ea09511c995f5" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_f3ce0e19e8ce3c30cd10b30b274a7ff5" kind="dir"><name>uartns550</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

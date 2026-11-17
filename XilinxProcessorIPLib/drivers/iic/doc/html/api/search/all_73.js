@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['send_5fcount',['SEND_COUNT',['../xiic__repeated__start__example_8c.html#abd38f7f7a976cfd7ce6646bcc08ded46',1,'SEND_COUNT():&#160;xiic_repeated_start_example.c'],['../xiic__slave__example_8c.html#abd38f7f7a976cfd7ce6646bcc08ded46',1,'SEND_COUNT():&#160;xiic_slave_example.c'],['../xiic__tenbitaddr__example_8c.html#abd38f7f7a976cfd7ce6646bcc08ded46',1,'SEND_COUNT():&#160;xiic_tenbitaddr_example.c']]],
   ['sendbufferptr',['SendBufferPtr',['../struct_x_iic.html#afcc1aa70319f4a9676b02f9f019b76b5',1,'XIic']]],
   ['sendbytecount',['SendByteCount',['../struct_x_iic.html#a754131dbb0faeda957f6124df82eecf0',1,'XIic']]],
   ['sendbytes',['SendBytes',['../struct_x_iic_stats.html#ace8ca6a8acab52a3b345405ee876f38a',1,'XIicStats']]],

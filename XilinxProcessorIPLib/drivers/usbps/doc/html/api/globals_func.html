@@ -74,6 +74,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
@@ -103,7 +104,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -124,40 +125,36 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 
 <h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
-<li>XUsbPs_BusReset()
-: <a class="el" href="xusbps_8h.html#aa47418bedd29f6bc36e075b124227eb0">xusbps.h</a>
-</li>
 <li>XUsbPs_CfgInit()
 : <a class="el" href="xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d">xusbps_audio_example.c</a>
 </li>
 <li>XUsbPs_CfgInitialize()
-: <a class="el" href="group__usbps.html#ga1a3417695facf9eff86ce6a1e14a9bbc">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga1a3417695facf9eff86ce6a1e14a9bbc">xusbps.c</a>
+: <a class="el" href="group__usbps.html#ga1a3417695facf9eff86ce6a1e14a9bbc">xusbps.c</a>
 </li>
 <li>XUsbPs_Ch9HandleSetupPacket()
-: <a class="el" href="xusbps__ch9_8c.html#a254a6aac5f51679919255c4602aa04d2">xusbps_ch9.c</a>
-, <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">xusbps_ch9.h</a>
+: <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">xusbps_ch9.h</a>
+, <a class="el" href="xusbps__ch9_8c.html#a254a6aac5f51679919255c4602aa04d2">xusbps_ch9.c</a>
 </li>
 <li>XUsbPs_Ch9SetupCfgDescReply()
-: <a class="el" href="xusbps__ch9__audio_8c.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_audio.c</a>
-, <a class="el" href="xusbps__ch9__audio_8h.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_audio.h</a>
-, <a class="el" href="xusbps__ch9__storage_8c.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_storage.c</a>
+: <a class="el" href="xusbps__ch9__storage_8c.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_storage.c</a>
 , <a class="el" href="xusbps__ch9__storage_8h.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_storage.h</a>
 , <a class="el" href="xusbps__ch9_8c.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9.c</a>
+, <a class="el" href="xusbps__ch9__audio_8c.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_audio.c</a>
+, <a class="el" href="xusbps__ch9__audio_8h.html#a6f03702dc3627ef29d13543b7f5eb351">xusbps_ch9_audio.h</a>
 </li>
 <li>XUsbPs_Ch9SetupDevDescReply()
-: <a class="el" href="xusbps__ch9__storage_8h.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9_storage.h</a>
-, <a class="el" href="xusbps__ch9_8c.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9.c</a>
+: <a class="el" href="xusbps__ch9_8c.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9.c</a>
 , <a class="el" href="xusbps__ch9__audio_8c.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9_audio.c</a>
 , <a class="el" href="xusbps__ch9__audio_8h.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9_audio.h</a>
 , <a class="el" href="xusbps__ch9__storage_8c.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9_storage.c</a>
+, <a class="el" href="xusbps__ch9__storage_8h.html#a135fc516ea82eb4231418c28d36a0b4f">xusbps_ch9_storage.h</a>
 </li>
 <li>XUsbPs_Ch9SetupStrDescReply()
-: <a class="el" href="xusbps__ch9_8c.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9.c</a>
-, <a class="el" href="xusbps__ch9__audio_8c.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9_audio.c</a>
+: <a class="el" href="xusbps__ch9__audio_8c.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9_audio.c</a>
 , <a class="el" href="xusbps__ch9__audio_8h.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9_audio.h</a>
 , <a class="el" href="xusbps__ch9__storage_8c.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9_storage.c</a>
 , <a class="el" href="xusbps__ch9__storage_8h.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9_storage.h</a>
+, <a class="el" href="xusbps__ch9_8c.html#a6c178fd005bf89027556067cd952cc62">xusbps_ch9.c</a>
 </li>
 <li>XUsbPs_ClassReq()
 : <a class="el" href="xusbps__ch9_8c.html#a8665f21d5cd56ddd1983b110d15f7d25">xusbps_ch9.c</a>
@@ -168,123 +165,102 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XUsbPs_ConfigureDevice()
 : <a class="el" href="group__usbps.html#ga6daace32113a806a6822a6d5943a93f4">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga6daace32113a806a6822a6d5943a93f4">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_DeviceReset()
 : <a class="el" href="group__usbps.html#ga69b214c21727c4b1f641d84414f397df">xusbps.c</a>
-, <a class="el" href="group__usbps.html#ga69b214c21727c4b1f641d84414f397df">xusbps.h</a>
 </li>
 <li>XUsbPs_EpBufferReceive()
-: <a class="el" href="group__usbps.html#gac27a9d64ddf33a2400d7493e301a7192">xusbps_endpoint.c</a>
-, <a class="el" href="group__usbps.html#gac27a9d64ddf33a2400d7493e301a7192">xusbps.h</a>
+: <a class="el" href="group__usbps.html#gac27a9d64ddf33a2400d7493e301a7192">xusbps.h</a>
 </li>
 <li>XUsbPs_EpBufferRelease()
 : <a class="el" href="group__usbps.html#gaa01a009151d133f07249d7f932e22f11">xusbps.h</a>
-, <a class="el" href="group__usbps.html#gaa01a009151d133f07249d7f932e22f11">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpBufferSend()
 : <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpBufferSendWithZLT()
 : <a class="el" href="group__usbps.html#ga1e4c0735be24ea24b73404db8d18133e">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga1e4c0735be24ea24b73404db8d18133e">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpDataBufferReceive()
 : <a class="el" href="group__usbps.html#gadbe72ae98e3bc73150a650f5f8e5c34f">xusbps.h</a>
-, <a class="el" href="group__usbps.html#gadbe72ae98e3bc73150a650f5f8e5c34f">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpGetData()
 : <a class="el" href="group__usbps.html#ga0532b9ebbcab7bb72ec6bef692e20faf">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga0532b9ebbcab7bb72ec6bef692e20faf">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpGetSetupData()
 : <a class="el" href="group__usbps.html#ga91c44ff9dcae2e47ed8112c8a0779fa1">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga91c44ff9dcae2e47ed8112c8a0779fa1">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpPrime()
 : <a class="el" href="group__usbps.html#gaba0ae2eac9c6b402e32e401333a5b105">xusbps.h</a>
-, <a class="el" href="group__usbps.html#gaba0ae2eac9c6b402e32e401333a5b105">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpSetHandler()
 : <a class="el" href="group__usbps.html#ga04fb0b564bcd01cdf33e29ca2732656a">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga04fb0b564bcd01cdf33e29ca2732656a">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_EpSetIsoHandler()
 : <a class="el" href="group__usbps.html#ga5eb603906d381d4a426a3d24fc2082a0">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga5eb603906d381d4a426a3d24fc2082a0">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_GetConfigDone()
 : <a class="el" href="xusbps__ch9_8c.html#aeead6889c2c28efe966a873ae1518d96">xusbps_ch9.c</a>
 , <a class="el" href="xusbps__ch9_8h.html#aeead6889c2c28efe966a873ae1518d96">xusbps_ch9.h</a>
 </li>
 <li>XUsbPs_HandleStorageReq()
-: <a class="el" href="xusbps__class__storage_8c.html#ab7966c2613bda5b2c9373809f24aac0b">xusbps_class_storage.c</a>
-, <a class="el" href="xusbps__class__storage_8h.html#ab7966c2613bda5b2c9373809f24aac0b">xusbps_class_storage.h</a>
+: <a class="el" href="xusbps__class__storage_8h.html#ab7966c2613bda5b2c9373809f24aac0b">xusbps_class_storage.h</a>
+, <a class="el" href="xusbps__class__storage_8c.html#ab7966c2613bda5b2c9373809f24aac0b">xusbps_class_storage.c</a>
 </li>
 <li>XUsbPs_IntrHandler()
 : <a class="el" href="group__usbps.html#ga60e2b0f6fabc24cdf785d704ab2585d1">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga60e2b0f6fabc24cdf785d704ab2585d1">xusbps_intr.c</a>
 </li>
 <li>XUsbPs_IntrSetHandler()
 : <a class="el" href="group__usbps.html#ga521c050d3b146bb58862f5fadf7f6ba6">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga521c050d3b146bb58862f5fadf7f6ba6">xusbps_intr.c</a>
 </li>
 <li>XUsbPs_LookupConfig()
-: <a class="el" href="group__usbps.html#gac79e39dc62c743463e360c400f33d194">xusbps.h</a>
-, <a class="el" href="group__usbps.html#gac79e39dc62c743463e360c400f33d194">xusbps_sinit.c</a>
+: <a class="el" href="group__usbps.html#ga8cb10ce201abc0315bc3a74d6af52f64">xusbps.h</a>
 </li>
 <li>XUsbPs_ReconfigureEp()
 : <a class="el" href="group__usbps.html#ga90aab040f015299b2064124bed882896">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga90aab040f015299b2064124bed882896">xusbps_endpoint.c</a>
 </li>
 <li>XUsbPs_RequestHostResume()
-: <a class="el" href="group__usbps.html#ga5dc88831ee2823e24d7024e585704772">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga5dc88831ee2823e24d7024e585704772">xusbps.c</a>
+: <a class="el" href="group__usbps.html#ga5dc88831ee2823e24d7024e585704772">xusbps.c</a>
 </li>
 <li>XUsbPs_Reset()
-: <a class="el" href="group__usbps.html#ga2c583a4c515653fd70c111fe0d2ddb37">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga2c583a4c515653fd70c111fe0d2ddb37">xusbps.c</a>
+: <a class="el" href="group__usbps.html#ga2c583a4c515653fd70c111fe0d2ddb37">xusbps.c</a>
 </li>
 <li>XUsbPs_ResetHw()
 : <a class="el" href="group__usbps.html#gaf07a1ec6f70450249f71f4831649974c">xusbps_hw.c</a>
 </li>
 <li>XUsbPs_Resume()
 : <a class="el" href="group__usbps.html#gaa71f906531330b2f05ede2f17ab54c69">xusbps.c</a>
-, <a class="el" href="group__usbps.html#gaa71f906531330b2f05ede2f17ab54c69">xusbps.h</a>
 </li>
 <li>XUsbPs_SetConfigDone()
 : <a class="el" href="xusbps__ch9_8c.html#abf899592bb832acdf774bc2445598f38">xusbps_ch9.c</a>
 , <a class="el" href="xusbps__ch9_8h.html#abf899592bb832acdf774bc2445598f38">xusbps_ch9.h</a>
 </li>
 <li>XUsbPs_SetConfiguration()
-: <a class="el" href="xusbps__ch9_8c.html#a72238ee80cba8facd72277ab2ec271de">xusbps_ch9.c</a>
+: <a class="el" href="xusbps__ch9__audio_8h.html#a54ab31ab0980b65e2b5827e7585f36cf">xusbps_ch9_audio.h</a>
+, <a class="el" href="xusbps__ch9__audio_8c.html#a72238ee80cba8facd72277ab2ec271de">xusbps_ch9_audio.c</a>
 , <a class="el" href="xusbps__ch9__storage_8c.html#a72238ee80cba8facd72277ab2ec271de">xusbps_ch9_storage.c</a>
 , <a class="el" href="xusbps__ch9__storage_8h.html#a72238ee80cba8facd72277ab2ec271de">xusbps_ch9_storage.h</a>
-, <a class="el" href="xusbps__ch9__audio_8c.html#a72238ee80cba8facd72277ab2ec271de">xusbps_ch9_audio.c</a>
-, <a class="el" href="xusbps__ch9__audio_8h.html#a54ab31ab0980b65e2b5827e7585f36cf">xusbps_ch9_audio.h</a>
+, <a class="el" href="xusbps__ch9_8c.html#a72238ee80cba8facd72277ab2ec271de">xusbps_ch9.c</a>
 </li>
 <li>XUsbPs_SetConfigurationApp()
-: <a class="el" href="xusbps__ch9__audio_8c.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_audio.c</a>
-, <a class="el" href="xusbps__ch9__audio_8h.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_audio.h</a>
-, <a class="el" href="xusbps__ch9__storage_8h.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_storage.h</a>
-, <a class="el" href="xusbps__ch9__storage_8c.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_storage.c</a>
+: <a class="el" href="xusbps__ch9__storage_8h.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_storage.h</a>
+, <a class="el" href="xusbps__ch9__audio_8c.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_audio.c</a>
 , <a class="el" href="xusbps__ch9_8c.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9.c</a>
+, <a class="el" href="xusbps__ch9__audio_8h.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_audio.h</a>
+, <a class="el" href="xusbps__ch9__storage_8c.html#a6f3de0049101ffbf7d6c92a55442e226">xusbps_ch9_storage.c</a>
 </li>
 <li>XUsbPs_SetDeviceAddress()
-: <a class="el" href="group__usbps.html#ga8c700bcf9ba08271914145803776d265">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga8c700bcf9ba08271914145803776d265">xusbps.c</a>
+: <a class="el" href="group__usbps.html#ga8c700bcf9ba08271914145803776d265">xusbps.c</a>
 </li>
 <li>XUsbPs_SetInterfaceHandler()
-: <a class="el" href="xusbps__ch9__storage_8h.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_storage.h</a>
-, <a class="el" href="xusbps__ch9__audio_8h.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_audio.h</a>
-, <a class="el" href="xusbps__ch9__storage_8c.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_storage.c</a>
+: <a class="el" href="xusbps__ch9__audio_8h.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_audio.h</a>
 , <a class="el" href="xusbps__ch9__audio_8c.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_audio.c</a>
+, <a class="el" href="xusbps__ch9__storage_8c.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_storage.c</a>
+, <a class="el" href="xusbps__ch9__storage_8h.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9_storage.h</a>
 , <a class="el" href="xusbps__ch9_8c.html#a4942a94ee10ae5832b33125aa184f9ab">xusbps_ch9.c</a>
 </li>
 <li>XUsbPs_Suspend()
-: <a class="el" href="group__usbps.html#ga0f25904ea86f189b6597c0dff795f61f">xusbps.h</a>
-, <a class="el" href="group__usbps.html#ga0f25904ea86f189b6597c0dff795f61f">xusbps.c</a>
+: <a class="el" href="group__usbps.html#ga0f25904ea86f189b6597c0dff795f61f">xusbps.c</a>
 </li>
 </ul>
 </div><!-- contents -->

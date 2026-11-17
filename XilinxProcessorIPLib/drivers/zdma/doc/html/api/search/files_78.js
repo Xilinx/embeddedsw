@@ -2,6 +2,7 @@ var searchData=
 [
   ['xzdma_2ec',['xzdma.c',['../xzdma_8c.html',1,'']]],
   ['xzdma_2eh',['xzdma.h',['../xzdma_8h.html',1,'']]],
+  ['xzdma_5fg_2ec',['xzdma_g.c',['../xzdma__g_8c.html',1,'']]],
   ['xzdma_5fhw_2eh',['xzdma_hw.h',['../xzdma__hw_8h.html',1,'']]],
   ['xzdma_5fintr_2ec',['xzdma_intr.c',['../xzdma__intr_8c.html',1,'']]],
   ['xzdma_5flinear_5fexample_2ec',['xzdma_linear_example.c',['../xzdma__linear__example_8c.html',1,'']]],

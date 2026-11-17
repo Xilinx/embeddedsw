@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxipmon__ocm__example_8c.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,18 +100,23 @@ $(document).ready(function(){initNavTree('xaxipmon__ocm__example_8c.html','');})
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xaxipmon_ocm_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example showing how to use the driver APIs of the AXI Performance Monitor driver to measure the following metrics captured at OCM of Zynq MP: </p>
-<pre class="fragment">  - Write Transcation Count
-  - Write Byte Count
-  - Read Transcation Count
-  - Read Byte Count
-</pre><pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+<div class="textblock"><p>Measures OCM traffic metrics using the AXI Performance Monitor driver. </p>
+<p>This file contains a design example that shows how to use the AXI Performance Monitor driver APIs. The example measures the following metrics captured at OCM of Zynq MP:</p>
+<ul>
+<li>Write Transaction Count</li>
+<li>Write Byte Count</li>
+<li>Read Transaction Count</li>
+<li>Read Byte Count</li>
+</ul>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
 <p>
@@ -122,17 +127,33 @@ $(document).ready(function(){initNavTree('xaxipmon__ocm__example_8c.html','');})
                       available in all examples. This is a fix for CR-965028.
 6.10  ht     06/23/23 Added support for system device-tree flow.
 6.14  vlt    01/27/26 Fixed codespell issues
+6.15  vn     07/30/26 Fix Doxygen warnings
+6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xaxipmon_8h.html">xaxipmon.h</a>&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a93f97e455a4335f7c2b6cff3716e2691"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#a93f97e455a4335f7c2b6cff3716e2691">SAMPLE_INTERVAL</a>&#160;&#160;&#160;0x100</td></tr>
+<tr class="memdesc:a93f97e455a4335f7c2b6cff3716e2691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sampling interval.  <a href="#a93f97e455a4335f7c2b6cff3716e2691">More...</a><br/></td></tr>
+<tr class="separator:a93f97e455a4335f7c2b6cff3716e2691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">OCM test addresses</div></td></tr>
+<tr class="memitem:af17b49739eba5a6dbf7caf7481c71991"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#af17b49739eba5a6dbf7caf7481c71991">OCM_WRITE_ADDRESS</a>&#160;&#160;&#160;0xFFFE0000</td></tr>
+<tr class="memdesc:af17b49739eba5a6dbf7caf7481c71991"><td class="mdescLeft">&#160;</td><td class="mdescRight">OCM write test address.  <a href="#af17b49739eba5a6dbf7caf7481c71991">More...</a><br/></td></tr>
+<tr class="separator:af17b49739eba5a6dbf7caf7481c71991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0753a2c84687dc17094c1962dff3aad6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#a0753a2c84687dc17094c1962dff3aad6">OCM_READ_ADDRESS</a>&#160;&#160;&#160;0xFFFF0000</td></tr>
+<tr class="memdesc:a0753a2c84687dc17094c1962dff3aad6"><td class="mdescLeft">&#160;</td><td class="mdescRight">OCM read test address.  <a href="#a0753a2c84687dc17094c1962dff3aad6">More...</a><br/></td></tr>
+<tr class="separator:a0753a2c84687dc17094c1962dff3aad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:affabe0f236da72ce614eb1327a0663d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#affabe0f236da72ce614eb1327a0663d3">ApmCheck</a> (u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)</td></tr>
 <tr class="memdesc:affabe0f236da72ce614eb1327a0663d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the metrics passed to this function are same as collected by APM.  <a href="#affabe0f236da72ce614eb1327a0663d3">More...</a><br/></td></tr>
 <tr class="separator:affabe0f236da72ce614eb1327a0663d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b57d7ae6147dd7eeae26ff6de9bffaf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction</a> ()</td></tr>
-<tr class="memdesc:a1b57d7ae6147dd7eeae26ff6de9bffaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates write and read transcations to OCM and reads metrics captured by APM.  <a href="#a1b57d7ae6147dd7eeae26ff6de9bffaf">More...</a><br/></td></tr>
+<tr class="memdesc:a1b57d7ae6147dd7eeae26ff6de9bffaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates write and read transactions to OCM and reads metrics captured by APM.  <a href="#a1b57d7ae6147dd7eeae26ff6de9bffaf">More...</a><br/></td></tr>
 <tr class="separator:a1b57d7ae6147dd7eeae26ff6de9bffaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45f2fc789f580be3954954245bb05427"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#a45f2fc789f580be3954954245bb05427">ApmMetricConfig</a> (<a class="el" href="struct_x_axi_pmon.html">XAxiPmon</a> *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)</td></tr>
 <tr class="memdesc:a45f2fc789f580be3954954245bb05427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Counter 0 and Counter 1 for collecting the passed metrics.  <a href="#a45f2fc789f580be3954954245bb05427">More...</a><br/></td></tr>
@@ -141,9 +162,64 @@ Functions</h2></td></tr>
 <tr class="memdesc:a33a055205e1207383072c902f6e8bee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads metrics from APM counters to buffer.  <a href="#a33a055205e1207383072c902f6e8bee1">More...</a><br/></td></tr>
 <tr class="separator:a33a055205e1207383072c902f6e8bee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the example in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the AXI Performance Monitor OCM example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a47c5759a179275fc06e7bb53db38aac7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxipmon__ocm__example_8c.html#a47c5759a179275fc06e7bb53db38aac7">MetricsBuffer</a> [6]</td></tr>
+<tr class="memdesc:a47c5759a179275fc06e7bb53db38aac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for the collected metrics.  <a href="#a47c5759a179275fc06e7bb53db38aac7">More...</a><br/></td></tr>
+<tr class="separator:a47c5759a179275fc06e7bb53db38aac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a0753a2c84687dc17094c1962dff3aad6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OCM_READ_ADDRESS&#160;&#160;&#160;0xFFFF0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>OCM read test address. </p>
+
+<p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af17b49739eba5a6dbf7caf7481c71991"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OCM_WRITE_ADDRESS&#160;&#160;&#160;0xFFFE0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>OCM write test address. </p>
+
+<p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a93f97e455a4335f7c2b6cff3716e2691"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SAMPLE_INTERVAL&#160;&#160;&#160;0x100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sampling interval. </p>
+
+<p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a45f2fc789f580be3954954245bb05427">ApmMetricConfig()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="affabe0f236da72ce614eb1327a0663d3"></a>
 <div class="memitem">
@@ -190,20 +266,19 @@ Functions</h2></td></tr>
 <p>Checks the metrics passed to this function are same as collected by APM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BufferPtr</td><td>is pointer to buffer containing captured metrics. </td></tr>
-    <tr><td class="paramname">Wtx</td><td>is Write transaction count value to be checked. </td></tr>
-    <tr><td class="paramname">Wbc</td><td>is Write byte count value to be checked. </td></tr>
-    <tr><td class="paramname">Rtx</td><td>is Read transaction count value to be checked. </td></tr>
-    <tr><td class="paramname">Rbc</td><td>is Read byte count value to be checked.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>Pointer to buffer containing captured metrics. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Wtx</td><td>Write transaction count value to be checked. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Wbc</td><td>Write byte count value to be checked. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Rtx</td><td>Read transaction count value to be checked. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Rbc</td><td>Read byte count value to be checked.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if metrics passed are equal to metrics collected by APM.</li>
-<li>XST_FAILURE if any of the metrics passed is not equal to metrics collected by APM.</li>
+<li>XST_FAILURE if any of the metrics passed is not equal to metrics collected by APM. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -248,21 +323,20 @@ Functions</h2></td></tr>
 <p>Sets Counter 0 and Counter 1 for collecting the passed metrics. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to APM instance. </td></tr>
-    <tr><td class="paramname">Slot</td><td>is APM slot. </td></tr>
-    <tr><td class="paramname">Metric1</td><td>is Metric to be captured by Counter 1 </td></tr>
-    <tr><td class="paramname">Metric2</td><td>is Metric to be captured by Counter 2</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to APM instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">slot</td><td>APM slot. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Metric1</td><td>Metric to be captured by Counter 1. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Metric2</td><td>Metric to be captured by Counter 2.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS on success.</li>
-<li>XST_FAILURE on failure.</li>
+<li>XST_FAILURE on failure. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="group__axipmon.html#ga1f34457ef45ca60383e42a52d173d498">XAPM_METRIC_COUNTER_0</a>, <a class="el" href="group__axipmon.html#gad5defe9c4e3649b5b8c6016cabea6fe7">XAPM_METRIC_COUNTER_1</a>, <a class="el" href="group__axipmon.html#ga12595840082105ce722b8b36d910443a">XAxiPmon_EnableMetricsCounter()</a>, <a class="el" href="group__axipmon.html#ga25191e9280ab4a1dcffae7afd08ae599">XAxiPmon_ResetGlobalClkCounter()</a>, <a class="el" href="group__axipmon.html#ga34106e1380f932cb94c74e1bea3a34b3">XAxiPmon_ResetMetricCounter()</a>, <a class="el" href="group__axipmon.html#gaa14a3b36f2558ecbc47d81d4b3c3fd9d">XAxiPmon_SetMetrics()</a>, and <a class="el" href="group__axipmon.html#ga086eebc115587aab4f5613ed99a28314">XAxiPmon_StartCounters()</a>.</p>
+<p>References <a class="el" href="xaxipmon__ocm__example_8c.html#a93f97e455a4335f7c2b6cff3716e2691">SAMPLE_INTERVAL</a>, <a class="el" href="group__axipmon.html#ga1f34457ef45ca60383e42a52d173d498">XAPM_METRIC_COUNTER_0</a>, <a class="el" href="group__axipmon.html#gad5defe9c4e3649b5b8c6016cabea6fe7">XAPM_METRIC_COUNTER_1</a>, <a class="el" href="group__axipmon.html#ga12595840082105ce722b8b36d910443a">XAxiPmon_EnableMetricsCounter()</a>, <a class="el" href="group__axipmon.html#ga25191e9280ab4a1dcffae7afd08ae599">XAxiPmon_ResetGlobalClkCounter()</a>, <a class="el" href="group__axipmon.html#ga34106e1380f932cb94c74e1bea3a34b3">XAxiPmon_ResetMetricCounter()</a>, <a class="el" href="group__axipmon.html#gaa14a3b36f2558ecbc47d81d4b3c3fd9d">XAxiPmon_SetMetrics()</a>, and <a class="el" href="group__axipmon.html#ga086eebc115587aab4f5613ed99a28314">XAxiPmon_StartCounters()</a>.</p>
 
 <p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>.</p>
 
@@ -282,21 +356,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the example in this file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Invokes the AXI Performance Monitor OCM example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xaxipmon__ocm__example_8c.html#affabe0f236da72ce614eb1327a0663d3">ApmCheck()</a>, <a class="el" href="struct_x_axi_pmon___config.html#aaaf3e726cc3af1648c88b8a3052252db">XAxiPmon_Config::BaseAddress</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>, <a class="el" href="group__axipmon.html#gafc3c070e08d80f970b4e84c74ca6b37e">XAxiPmon_CfgInitialize()</a>, <a class="el" href="group__axipmon.html#ga339b500e3f165daf5b7b8f943eee0437">XAxiPmon_DisableMetricsCounter()</a>, and <a class="el" href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748">XAxiPmon_LookupConfig()</a>.</p>
+<p>References <a class="el" href="xaxipmon__ocm__example_8c.html#affabe0f236da72ce614eb1327a0663d3">ApmCheck()</a>, <a class="el" href="struct_x_axi_pmon___config.html#aaaf3e726cc3af1648c88b8a3052252db">XAxiPmon_Config::BaseAddress</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a47c5759a179275fc06e7bb53db38aac7">MetricsBuffer</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>, <a class="el" href="group__axipmon.html#gafc3c070e08d80f970b4e84c74ca6b37e">XAxiPmon_CfgInitialize()</a>, <a class="el" href="group__axipmon.html#ga339b500e3f165daf5b7b8f943eee0437">XAxiPmon_DisableMetricsCounter()</a>, and <a class="el" href="group__axipmon.html#ga5e458d0ea6c0a458eb3bdd4b638be748">XAxiPmon_LookupConfig()</a>.</p>
 
 </div>
 </div>
@@ -313,17 +380,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generates write and read transcations to OCM and reads metrics captured by APM. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Generates write and read transactions to OCM and reads metrics captured by APM. </p>
 
-<p>References <a class="el" href="xaxipmon__ocm__example_8c.html#a45f2fc789f580be3954954245bb05427">ApmMetricConfig()</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a33a055205e1207383072c902f6e8bee1">ReadMetrics()</a>, <a class="el" href="group__axipmon.html#ga1f34457ef45ca60383e42a52d173d498">XAPM_METRIC_COUNTER_0</a>, <a class="el" href="group__axipmon.html#gad5defe9c4e3649b5b8c6016cabea6fe7">XAPM_METRIC_COUNTER_1</a>, <a class="el" href="group__axipmon.html#ga345d7613d04158d0c726d87020dc9d46">XAPM_METRIC_SET_0</a>, <a class="el" href="group__axipmon.html#ga735a85df6ce7d834e9471e302d0bc208">XAPM_METRIC_SET_1</a>, <a class="el" href="group__axipmon.html#ga010e12c93f6988991c9d1982b74c5f84">XAPM_METRIC_SET_2</a>, and <a class="el" href="group__axipmon.html#ga9108e3537c68814feed6dda8105f0691">XAPM_METRIC_SET_3</a>.</p>
+<p>References <a class="el" href="xaxipmon__ocm__example_8c.html#a45f2fc789f580be3954954245bb05427">ApmMetricConfig()</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a47c5759a179275fc06e7bb53db38aac7">MetricsBuffer</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a0753a2c84687dc17094c1962dff3aad6">OCM_READ_ADDRESS</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#af17b49739eba5a6dbf7caf7481c71991">OCM_WRITE_ADDRESS</a>, <a class="el" href="xaxipmon__ocm__example_8c.html#a33a055205e1207383072c902f6e8bee1">ReadMetrics()</a>, <a class="el" href="group__axipmon.html#ga1f34457ef45ca60383e42a52d173d498">XAPM_METRIC_COUNTER_0</a>, <a class="el" href="group__axipmon.html#gad5defe9c4e3649b5b8c6016cabea6fe7">XAPM_METRIC_COUNTER_1</a>, <a class="el" href="group__axipmon.html#ga345d7613d04158d0c726d87020dc9d46">XAPM_METRIC_SET_0</a>, <a class="el" href="group__axipmon.html#ga735a85df6ce7d834e9471e302d0bc208">XAPM_METRIC_SET_1</a>, <a class="el" href="group__axipmon.html#ga010e12c93f6988991c9d1982b74c5f84">XAPM_METRIC_SET_2</a>, and <a class="el" href="group__axipmon.html#ga9108e3537c68814feed6dda8105f0691">XAPM_METRIC_SET_3</a>.</p>
 
 <p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -368,19 +427,34 @@ Functions</h2></td></tr>
 <p>Reads metrics from APM counters to buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to APM instance. </td></tr>
-    <tr><td class="paramname">BufferPtr</td><td>is pointer to buffer. </td></tr>
-    <tr><td class="paramname">Counter1</td><td>is counter number. </td></tr>
-    <tr><td class="paramname">Counter2</td><td>is counter number.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to APM instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufferPtr</td><td>Pointer to buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Counter1</td><td>Counter number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Counter2</td><td>Counter number. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="group__axipmon.html#ga5450238f0ff52df5a447c26199e9dd4d">XAxiPmon_GetMetricCounter()</a>, and <a class="el" href="group__axipmon.html#ga700e821cca7fea12dfe83c0364d3ec90">XAxiPmon_StopCounters()</a>.</p>
 
 <p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a47c5759a179275fc06e7bb53db38aac7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 MetricsBuffer[6]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for the collected metrics. </p>
+
+<p>Referenced by <a class="el" href="xaxipmon__ocm__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="xaxipmon__ocm__example_8c.html#a1b57d7ae6147dd7eeae26ff6de9bffaf">OcmTransaction()</a>.</p>
 
 </div>
 </div>

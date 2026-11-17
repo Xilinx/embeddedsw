@@ -596,9 +596,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga509c671d4be808b4cd66fad2bf587bed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__rx__dp.html#ga509c671d4be808b4cd66fad2bf587bed">XHdcp22Rx_RsaesOaepEncrypt</a> (const <a class="el" href="struct_x_hdcp22___rx___kpub_rx.html">XHdcp22_Rx_KpubRx</a> *KpubRx, const u8 *Message, const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage)</td></tr>
 <tr class="memdesc:ga509c671d4be808b4cd66fad2bf587bed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the RSAES-OAEP-Encrypt operation.  <a href="#ga509c671d4be808b4cd66fad2bf587bed">More...</a><br/></td></tr>
 <tr class="separator:ga509c671d4be808b4cd66fad2bf587bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3d2509597b3704dc185ad09269224b6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__rx__dp.html#gaa3d2509597b3704dc185ad09269224b6">XHdcp22Rx_RsaesOaepDecrypt</a> (<a class="el" href="struct_x_hdcp22___rx___dp.html">XHdcp22_Rx_Dp</a> *InstancePtr, const <a class="el" href="struct_x_hdcp22___rx___kpriv_rx.html">XHdcp22_Rx_KprivRx</a> *KprivRx, u8 *EncryptedMessage, u8 *Message, int *MessageLen)</td></tr>
-<tr class="memdesc:gaa3d2509597b3704dc185ad09269224b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the RSAES-OAEP-Decrypt operation.  <a href="#gaa3d2509597b3704dc185ad09269224b6">More...</a><br/></td></tr>
-<tr class="separator:gaa3d2509597b3704dc185ad09269224b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1b727d78797eebf9d3a3c2ee1b1cc6c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__rx__dp.html#gae1b727d78797eebf9d3a3c2ee1b1cc6c">XHdcp22Rx_RsaesOaepDecrypt</a> (<a class="el" href="struct_x_hdcp22___rx___dp.html">XHdcp22_Rx_Dp</a> *InstancePtr, const <a class="el" href="struct_x_hdcp22___rx___kpriv_rx.html">XHdcp22_Rx_KprivRx</a> *KprivRx, u8 *EncryptedMessage, u8 *Message, int MessageMaxLen, int *MessageLen)</td></tr>
+<tr class="memdesc:gae1b727d78797eebf9d3a3c2ee1b1cc6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function implements the RSAES-OAEP-Decrypt operation.  <a href="#gae1b727d78797eebf9d3a3c2ee1b1cc6c">More...</a><br/></td></tr>
+<tr class="separator:gae1b727d78797eebf9d3a3c2ee1b1cc6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac017dde631ab6b5e368196f160e7c822"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__rx__dp.html#gac017dde631ab6b5e368196f160e7c822">XHdcp22Rx_GenerateRandom</a> (<a class="el" href="struct_x_hdcp22___rx___dp.html">XHdcp22_Rx_Dp</a> *InstancePtr, int NumOctets, u8 *RandomNumberPtr)</td></tr>
 <tr class="memdesc:gac017dde631ab6b5e368196f160e7c822"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function generates random octets.  <a href="#gac017dde631ab6b5e368196f160e7c822">More...</a><br/></td></tr>
 <tr class="separator:gac017dde631ab6b5e368196f160e7c822"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2725,7 +2725,7 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_hdcp22___rx___dp___log_item.html#a9794f083c4b90d611a5199be1d11c9f7">XHdcp22_Rx_Dp_LogItem::Data</a>, <a class="el" href="struct_x_hdcp22___rx___dp___info.html#a704b81af9e4166dbd47558d717e3b770">XHdcp22_Rx_Dp_Info::ErrorFlagSticky</a>, <a class="el" href="struct_x_hdcp22___rx___dp___log.html#aa5bc4782016089013484f0adc327776c">XHdcp22_Rx_Dp_Log::Head</a>, <a class="el" href="struct_x_hdcp22___rx___dp.html#a2838d97453be9d875b5e0deb20accb9c">XHdcp22_Rx_Dp::Info</a>, <a class="el" href="struct_x_hdcp22___rx___dp.html#abcf9ab90586651116b157ec780064fa6">XHdcp22_Rx_Dp::Log</a>, <a class="el" href="struct_x_hdcp22___rx___dp___log_item.html#a82cf2d745ad560f21f34ab1f0f5186a0">XHdcp22_Rx_Dp_LogItem::LogEvent</a>, <a class="el" href="struct_x_hdcp22___rx___dp___log.html#a07832ec8eabf4f5a7e88b4faf86bda74">XHdcp22_Rx_Dp_Log::LogItems</a>, <a class="el" href="struct_x_hdcp22___rx___dp___log.html#ab0af67e52be154fce0263a18b6648057">XHdcp22_Rx_Dp_Log::Tail</a>, <a class="el" href="struct_x_hdcp22___rx___dp___log_item.html#a00156e29e46edfeb41db249e2b764d01">XHdcp22_Rx_Dp_LogItem::TimeStamp</a>, <a class="el" href="struct_x_hdcp22___rx___dp___log.html#a6bc287693823851be3cd7ce6973068ab">XHdcp22_Rx_Dp_Log::Verbose</a>, <a class="el" href="group__hdcp22__rx__dp.html#gae7897244831cd89c8a58cbddd8f27ec9">XHDCP22_RX_LOG_BUFFER_SIZE</a>, <a class="el" href="group__hdcp22__rx__dp.html#ggaba7edadb858cea679529a731dbe0c667a521a1a139db8aab12c0461669f171bf9">XHDCP22_RX_LOG_EVT_DEBUG</a>, <a class="el" href="group__hdcp22__rx__dp.html#ggaba7edadb858cea679529a731dbe0c667af3a15bfa7dcb73966068660cadc3c461">XHDCP22_RX_LOG_EVT_ERROR</a>, <a class="el" href="group__hdcp22__rx__dp.html#ggaba7edadb858cea679529a731dbe0c667add679e305e537d73e4ae8cc51fe6b7a8">XHDCP22_RX_LOG_EVT_INFO_MESSAGE</a>, <a class="el" href="group__hdcp22__rx__dp.html#ggaba7edadb858cea679529a731dbe0c667ae67f1d0ce9e178b1049ed028e23424a8">XHDCP22_RX_LOG_EVT_INVALID</a>, and <a class="el" href="group__hdcp22__rx__dp.html#ga217f09019070feccdaabd49e3bf1a362">XHdcp22Rx_Dp_LogGetTimeUSecs()</a>.</p>
 
-<p>Referenced by <a class="el" href="group__hdcp22__rx__dp.html#gabf66a78585a61c03bcd366052aed7835">XHdcp22Rx_Dp_Disable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga6281e6d2c45c5ea258f8e09aad6aecaf">XHdcp22Rx_Dp_Enable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga41c0e98253aa0ee2208fb0c14454d607">XHdcp22Rx_Dp_Poll()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga341246c3ed3de24390cc4ac4f748944d">XHdcp22Rx_Dp_Reset()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gaa2accd8e4aa0947ae31ec3b382a3a9b8">XHdcp22Rx_Dp_SetDdcError()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gaa89b9df4c6100842c24712383668a0b3">XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gab6853f67f87ebf354e25cab9e3b365f6">XHdcp22Rx_Dp_SetLinkError()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga7efa2f7ea9385423cc6fe744209caa02">XHdcp22Rx_Dp_SetReadMessageComplete()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga97f392420ffbddc21bd14150b7c277ef">XHdcp22Rx_Dp_SetTopologyUpdate()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gaeee2a3168ed27bf6899ed209bd9bf4b5">XHdcp22Rx_Dp_SetWriteMessageAvailable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga3061cdb91ae0ec8d56ba58bcaaa3d5cf">XHdcp22Rx_Dp_TimerHandler()</a>, and <a class="el" href="group__hdcp22__rx__dp.html#gaa3d2509597b3704dc185ad09269224b6">XHdcp22Rx_RsaesOaepDecrypt()</a>.</p>
+<p>Referenced by <a class="el" href="group__hdcp22__rx__dp.html#gabf66a78585a61c03bcd366052aed7835">XHdcp22Rx_Dp_Disable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga6281e6d2c45c5ea258f8e09aad6aecaf">XHdcp22Rx_Dp_Enable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga41c0e98253aa0ee2208fb0c14454d607">XHdcp22Rx_Dp_Poll()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga341246c3ed3de24390cc4ac4f748944d">XHdcp22Rx_Dp_Reset()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gaa2accd8e4aa0947ae31ec3b382a3a9b8">XHdcp22Rx_Dp_SetDdcError()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gaa89b9df4c6100842c24712383668a0b3">XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gab6853f67f87ebf354e25cab9e3b365f6">XHdcp22Rx_Dp_SetLinkError()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga7efa2f7ea9385423cc6fe744209caa02">XHdcp22Rx_Dp_SetReadMessageComplete()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga97f392420ffbddc21bd14150b7c277ef">XHdcp22Rx_Dp_SetTopologyUpdate()</a>, <a class="el" href="group__hdcp22__rx__dp.html#gaeee2a3168ed27bf6899ed209bd9bf4b5">XHdcp22Rx_Dp_SetWriteMessageAvailable()</a>, <a class="el" href="group__hdcp22__rx__dp.html#ga3061cdb91ae0ec8d56ba58bcaaa3d5cf">XHdcp22Rx_Dp_TimerHandler()</a>, and <a class="el" href="group__hdcp22__rx__dp.html#gae1b727d78797eebf9d3a3c2ee1b1cc6c">XHdcp22Rx_RsaesOaepDecrypt()</a>.</p>
 
 </div>
 </div>
@@ -3346,7 +3346,7 @@ HandlerType                                           Callback Function Type
 
 </div>
 </div>
-<a class="anchor" id="gaa3d2509597b3704dc185ad09269224b6"></a>
+<a class="anchor" id="gae1b727d78797eebf9d3a3c2ee1b1cc6c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -3377,6 +3377,12 @@ HandlerType                                           Callback Function Type
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>MessageMaxLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">int *&#160;</td>
           <td class="paramname"><em>MessageLen</em>&#160;</td>
         </tr>
@@ -3397,6 +3403,7 @@ HandlerType                                           Callback Function Type
     <tr><td class="paramname">KprivRx</td><td>is the RSA private key structure containing the quintuple. </td></tr>
     <tr><td class="paramname">EncryptedMessage</td><td>is the 128 byte octet string to be decrypted. </td></tr>
     <tr><td class="paramname">Message</td><td>is the octet string after decryption. </td></tr>
+    <tr><td class="paramname">MessageMaxLen</td><td>is the capacity of the Message buffer in bytes. </td></tr>
     <tr><td class="paramname">MessageLen</td><td>is the length of the message octet string after decryption.</td></tr>
   </table>
   </dd>

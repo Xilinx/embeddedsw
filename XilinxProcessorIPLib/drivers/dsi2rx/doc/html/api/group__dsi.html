@@ -101,6 +101,7 @@ $(document).ready(function(){initNavTree('group__dsi.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -119,6 +120,15 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_dsi2_rx.html" title="The XDsi2Rx driver instance data. ">XDsi2Rx</a> driver instance data.  <a href="struct_x_dsi2_rx.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga1776fdd230eb1a5e1794315f97ff3eea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga1776fdd230eb1a5e1794315f97ff3eea">XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG</a>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:ga1776fdd230eb1a5e1794315f97ff3eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Incorrect lane configuration handler.  <a href="#ga1776fdd230eb1a5e1794315f97ff3eea">More...</a><br/></td></tr>
+<tr class="separator:ga1776fdd230eb1a5e1794315f97ff3eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga25cd902e38887951ff189907e0a08620"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga25cd902e38887951ff189907e0a08620">XDSI2RX_HANDLER_WC_CORRUPTION</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga25cd902e38887951ff189907e0a08620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word count corruption handler.  <a href="#ga25cd902e38887951ff189907e0a08620">More...</a><br/></td></tr>
+<tr class="separator:ga25cd902e38887951ff189907e0a08620"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -153,24 +163,57 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga7572f62d7760d6b34e5711cff0e52c0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine installs an asynchronous callback function for the given HandlerType:  <a href="#ga7572f62d7760d6b34e5711cff0e52c0d">More...</a><br/></td></tr>
 <tr class="separator:ga7572f62d7760d6b34e5711cff0e52c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaffaee65e23167d38fd3ae1107126a334"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gaffaee65e23167d38fd3ae1107126a334">XDsi2Rx_InterruptEnable</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gaffaee65e23167d38fd3ae1107126a334"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will enable the interrupts present in the interrupt mask passed onto the function.  <a href="#gaffaee65e23167d38fd3ae1107126a334">More...</a><br/></td></tr>
+<tr class="memdesc:gaffaee65e23167d38fd3ae1107126a334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the interrupts in Mask.  <a href="#gaffaee65e23167d38fd3ae1107126a334">More...</a><br/></td></tr>
 <tr class="separator:gaffaee65e23167d38fd3ae1107126a334"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6b1fdbb4e464f81ccdf0e823d44293ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga6b1fdbb4e464f81ccdf0e823d44293ce">XDsi2Rx_InterruptDisable</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga6b1fdbb4e464f81ccdf0e823d44293ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will disable the interrupts present in the interrupt mask passed onto the function.  <a href="#ga6b1fdbb4e464f81ccdf0e823d44293ce">More...</a><br/></td></tr>
+<tr class="memdesc:ga6b1fdbb4e464f81ccdf0e823d44293ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the interrupts in Mask.  <a href="#ga6b1fdbb4e464f81ccdf0e823d44293ce">More...</a><br/></td></tr>
 <tr class="separator:ga6b1fdbb4e464f81ccdf0e823d44293ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga436fb30a622a80c5d57a6aa34bf8de86"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga436fb30a622a80c5d57a6aa34bf8de86">XDsi2Rx_InterruptGetEnabled</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga436fb30a622a80c5d57a6aa34bf8de86"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will get the interrupt mask set (enabled) in the DSI core.  <a href="#ga436fb30a622a80c5d57a6aa34bf8de86">More...</a><br/></td></tr>
+<tr class="memdesc:ga436fb30a622a80c5d57a6aa34bf8de86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the interrupts enabled in the core.  <a href="#ga436fb30a622a80c5d57a6aa34bf8de86">More...</a><br/></td></tr>
 <tr class="separator:ga436fb30a622a80c5d57a6aa34bf8de86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45">XDsi2Rx_InterruptGetStatus</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will get the list of interrupts Invoked in the Interrupt Status Register of the DSI core.  <a href="#ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45">More...</a><br/></td></tr>
+<tr class="memdesc:ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the active interrupt status.  <a href="#ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45">More...</a><br/></td></tr>
 <tr class="separator:ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6bca141c9dba1cc9f3fa86f05d049486"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga6bca141c9dba1cc9f3fa86f05d049486">XDsi2Rx_InterruptClear</a> (<a class="el" href="struct_x_dsi2_rx.html">XDsi2Rx</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga6bca141c9dba1cc9f3fa86f05d049486"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will clear the interrupts set in the Interrupt Status Register of the DSI core.  <a href="#ga6bca141c9dba1cc9f3fa86f05d049486">More...</a><br/></td></tr>
+<tr class="memdesc:ga6bca141c9dba1cc9f3fa86f05d049486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the interrupts in Mask.  <a href="#ga6bca141c9dba1cc9f3fa86f05d049486">More...</a><br/></td></tr>
 <tr class="separator:ga6bca141c9dba1cc9f3fa86f05d049486"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga54b30c41e3c917badd1eba84e3644fa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler</a> (void *InstancePtr)</td></tr>
-<tr class="memdesc:ga54b30c41e3c917badd1eba84e3644fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the DSI core.  <a href="#ga54b30c41e3c917badd1eba84e3644fa9">More...</a><br/></td></tr>
+<tr class="memdesc:ga54b30c41e3c917badd1eba84e3644fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatch a core interrupt to the registered callbacks.  <a href="#ga54b30c41e3c917badd1eba84e3644fa9">More...</a><br/></td></tr>
 <tr class="separator:ga54b30c41e3c917badd1eba84e3644fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga1776fdd230eb1a5e1794315f97ff3eea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG&#160;&#160;&#160;19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incorrect lane configuration handler. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga7572f62d7760d6b34e5711cff0e52c0d">XDsi2Rx_SetCallback()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga25cd902e38887951ff189907e0a08620"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI2RX_HANDLER_WC_CORRUPTION&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Word count corruption handler. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga7572f62d7760d6b34e5711cff0e52c0d">XDsi2Rx_SetCallback()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="ga682db3444587540df26e7d626afcca98"></a>
 <div class="memitem">
@@ -287,7 +330,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, and <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#a6742caa96bdac8c5f1dec6f9b0d27ce4">XDsi2Rx::IncorrectLaneConfigCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>, and <a class="el" href="struct_x_dsi2_rx.html#a9a0e70ea3c19401527a9a819b963f830">XDsi2Rx::WCCorruptionCallback</a>.</p>
 
 </div>
 </div>
@@ -318,7 +361,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, and <a class="el" href="struct_x_dsi2_rx.html#a1f65ac6290f33a82b8d943158c570aa6">XDsi2Rx::PixelMode</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#a1f65ac6290f33a82b8d943158c570aa6">XDsi2Rx::PixelMode</a>, <a class="el" href="group__dsi2rx.html#ga55212a0ff76d2548a051de7bd1276f6d">XDSI2RX_PCR_OFFSET</a>, <a class="el" href="group__dsi2rx.html#gac026498cc6e7484ba08feed79b2d434e">XDSI2RX_PCR_PIXELMODE_MASK</a>, and <a class="el" href="group__dsi2rx.html#ga388004b3a3814f7596c94d9295d4eafe">XDSI2RX_PCR_PIXELMODE_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -357,7 +400,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>none.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>none. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ae6843da1fb5e14b90353827fecbcf8c7">XDsi2Rx_ConfigParameters::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, and <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ac6ca53bfa1d1b660c58b5709f14b81b5">XDsi2Rx_ConfigParameters::PixelMode</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ae6843da1fb5e14b90353827fecbcf8c7">XDsi2Rx_ConfigParameters::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx___config_parameters.html#ac6ca53bfa1d1b660c58b5709f14b81b5">XDsi2Rx_ConfigParameters::PixelMode</a>, <a class="el" href="group__dsi2rx.html#ga55212a0ff76d2548a051de7bd1276f6d">XDSI2RX_PCR_OFFSET</a>, <a class="el" href="group__dsi2rx.html#gac026498cc6e7484ba08feed79b2d434e">XDSI2RX_PCR_PIXELMODE_MASK</a>, and <a class="el" href="group__dsi2rx.html#ga388004b3a3814f7596c94d9295d4eafe">XDSI2RX_PCR_PIXELMODE_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -385,7 +428,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function will clear the interrupts set in the Interrupt Status Register of the DSI core. </p>
+<p>Clear the interrupts in Mask. </p>
+<p>This function will clear the interrupts set in the Interrupt Status Register of the DSI core.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the <a class="el" href="struct_x_dsi2_rx.html" title="The XDsi2Rx driver instance data. ">XDsi2Rx</a> instance to operate on </td></tr>
@@ -393,8 +437,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+<p>References <a class="el" href="group__dsi2rx.html#ga9d5f6ca0c9340a9ad4841f67ba468c32">XDSI2RX_IER_ALLINTR_MASK</a>.</p>
 
 <p>Referenced by <a class="el" href="group__dsi.html#ga54b30c41e3c917badd1eba84e3644fa9">XDsi2Rx_IntrHandler()</a>.</p>
 
@@ -424,7 +469,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function will disable the interrupts present in the interrupt mask passed onto the function. </p>
+<p>Disable the interrupts in Mask. </p>
+<p>This function will disable the interrupts present in the interrupt mask passed onto the function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the XDsi instance to operate on </td></tr>
@@ -432,8 +478,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+<p>References <a class="el" href="group__dsi2rx.html#ga9d5f6ca0c9340a9ad4841f67ba468c32">XDSI2RX_IER_ALLINTR_MASK</a>.</p>
 
 </div>
 </div>
@@ -461,7 +508,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function will enable the interrupts present in the interrupt mask passed onto the function. </p>
+<p>Enable the interrupts in Mask. </p>
+<p>This function will enable the interrupts present in the interrupt mask passed onto the function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the <a class="el" href="struct_x_dsi2_rx.html" title="The XDsi2Rx driver instance data. ">XDsi2Rx</a> instance to operate on </td></tr>
@@ -469,8 +517,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+<p>References <a class="el" href="group__dsi2rx.html#ga9d5f6ca0c9340a9ad4841f67ba468c32">XDSI2RX_IER_ALLINTR_MASK</a>.</p>
 
 </div>
 </div>
@@ -488,7 +537,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function will get the interrupt mask set (enabled) in the DSI core. </p>
+<p>Get the interrupts enabled in the core. </p>
+<p>This function will get the interrupt mask set (enabled) in the DSI core.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the XDsi instance to operate on</td></tr>
@@ -514,7 +564,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function will get the list of interrupts Invoked in the Interrupt Status Register of the DSI core. </p>
+<p>Get the active interrupt status. </p>
+<p>This function will get the list of interrupts Invoked in the Interrupt Status Register of the DSI core.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the XDsi instance to operate on</td></tr>
@@ -542,7 +593,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the DSI core. </p>
+<p>Dispatch a core interrupt to the registered callbacks. </p>
+<p>This function is the interrupt handler for the DSI core.</p>
 <p>This handler reads the Invoked interrupt from the Interrupt Status register determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in Interrupt Enable register and finally clears the interrupts.</p>
 <p>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using <a class="el" href="group__dsi.html#ga7572f62d7760d6b34e5711cff0e52c0d" title="This routine installs an asynchronous callback function for the given HandlerType: ...">XDsi2Rx_SetCallback()</a> during initialization phase.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -551,10 +603,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Interrupt should be enabled to execute interrupt handler. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#aed3bbcc1f3132eaec0fbfd8b696b3b7c">XDsi2Rx::UnsupportDataTypeRef</a>, <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>, <a class="el" href="group__dsi.html#ga6bca141c9dba1cc9f3fa86f05d049486">XDsi2Rx_InterruptClear()</a>, and <a class="el" href="group__dsi.html#ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45">XDsi2Rx_InterruptGetStatus()</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx.html#a6742caa96bdac8c5f1dec6f9b0d27ce4">XDsi2Rx::IncorrectLaneConfigCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#ab42c5120620fe509ac9f50924b7b26b6">XDsi2Rx::IncorrectLaneConfigRef</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#aed3bbcc1f3132eaec0fbfd8b696b3b7c">XDsi2Rx::UnsupportDataTypeRef</a>, <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#a9a0e70ea3c19401527a9a819b963f830">XDsi2Rx::WCCorruptionCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#ad74890f31f0c951885253c76f066cdb0">XDsi2Rx::WCCorruptionRef</a>, <a class="el" href="group__dsi2rx.html#ga948a8546d784b2b4ff00b898986959d7">XDSI2RX_IER_CRC_ERR_MASK</a>, <a class="el" href="group__dsi2rx.html#ga2aad504ea3c4d8490ecc4eeff7304223">XDSI2RX_IER_ECC1_BIT_MASK</a>, <a class="el" href="group__dsi2rx.html#ga22621de5ddd6b00f6bf2c0573feec1c3">XDSI2RX_IER_ECC2_BIT_MASK</a>, <a class="el" href="group__dsi2rx.html#ga0d40720c2f182cac22e34e89391d0adf">XDSI2RX_IER_FRAME_START_MASK</a>, <a class="el" href="group__dsi2rx.html#ga355484ed4c1eaa6be6979e280dbf997e">XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK</a>, <a class="el" href="group__dsi2rx.html#ga8c8556f6983ad2b68aba77e4c035642e">XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK</a>, <a class="el" href="group__dsi2rx.html#gaac5349a838fdca09c8212a247a9c39c9">XDSI2RX_IER_INCORRECT_LANE_CONFIG_MASK</a>, <a class="el" href="group__dsi2rx.html#gad1ea138d5e3a76fef5ac73fda6e31d61">XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK</a>, <a class="el" href="group__dsi2rx.html#ga19da08b4e2af79e98193311133df77cf">XDSI2RX_IER_SOT_ERR_LANE1_MASK</a>, <a class="el" href="group__dsi2rx.html#gafe4108c56b1bcabb030373000603b354">XDSI2RX_IER_SOT_ERR_LANE2_MASK</a>, <a class="el" href="group__dsi2rx.html#gacca32dab9742b885249685de14eb3d33">XDSI2RX_IER_SOT_ERR_LANE3_MASK</a>, <a class="el" href="group__dsi2rx.html#ga62e8b52d38696cc55161cbaede8fc1c4">XDSI2RX_IER_SOT_ERR_LANE4_MASK</a>, <a class="el" href="group__dsi2rx.html#ga3687fc6548880588287f3f71b4e88cbf">XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK</a>, <a class="el" href="group__dsi2rx.html#ga9a641714fd0be79108406b5f45449a39">XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK</a>, <a class="el" href="group__dsi2rx.html#ga29bc9bf2b3daa916b0c5097159dd6b84">XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK</a>, <a class="el" href="group__dsi2rx.html#ga2f5affb2e4109fe9d72b0e38c467fed2">XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK</a>, <a class="el" href="group__dsi2rx.html#ga3d3dcb5de43bc52613d5cfd7bd6f9ffc">XDSI2RX_IER_STOP_STATE_MASK</a>, <a class="el" href="group__dsi2rx.html#gaabe767966d898c6c4527b4292d4fa3a5">XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK</a>, <a class="el" href="group__dsi2rx.html#gaf3ed5d37971744d0b9e56dade2692459">XDSI2RX_IER_UN_DATA_TYPE_MASK</a>, <a class="el" href="group__dsi2rx.html#ga27929ebcc8db90dbbe3b58f08a1ddbe1">XDSI2RX_IER_WC_CORRUPTION_MASK</a>, <a class="el" href="group__dsi.html#ga6bca141c9dba1cc9f3fa86f05d049486">XDsi2Rx_InterruptClear()</a>, and <a class="el" href="group__dsi.html#ga2c9b6cbfd8f8a0e98d2f7421e4ae7b45">XDsi2Rx_InterruptGetStatus()</a>.</p>
 
 </div>
 </div>
@@ -575,7 +626,7 @@ Functions</h2></td></tr>
 <p>Look up the hardware configuration for a device instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>is the unique device ID of the device to lookup for</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device to lookup for</td></tr>
   </table>
   </dd>
 </dl>
@@ -640,7 +691,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, and <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx___config.html#a07d0063d512e6ffd4582b60b3a07f884">XDsi2Rx_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi2_rx.html#ad839d6712558a4ba874bdbd23a277b07">XDsi2Rx::Config</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="group__dsi2rx.html#ga16cf3380173e61542d797f0b9c4a883a">XDSI2RX_CCR_COREENB_MASK</a>, <a class="el" href="group__dsi2rx.html#ga1aa2477d51817223016084e383df9a27">XDSI2RX_CCR_COREENB_SHIFT</a>, and <a class="el" href="group__dsi2rx.html#ga414878c04061bbb96896259e36fb1334">XDSI2RX_CCR_OFFSET</a>.</p>
 
 </div>
 </div>
@@ -700,7 +751,9 @@ XDSI2RX_HANDLER_LM_ASYNC_FIFO_FULL      Long msg asyn fifo full.
 XDSI2RX_HANDLER_STREAM_ASYNC_FIFO_FULL stream async fifo full
 XDSI2RX_HANDLER_GSP_FIFO_NE             generic short packet fifo not empty
 XDSI2RX_HANDLER_GSP_FIFO_FULL           generic short packet fifo full
-XDSI2RX_HANDLER_FRAME_STARTED           frame started</pre><pre></pre><dl class="params"><dt>Parameters</dt><dd>
+XDSI2RX_HANDLER_FRAME_STARTED           frame started
+XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG   incorrect lane configuration
+XDSI2RX_HANDLER_WC_CORRUPTION           word count corruption</pre><pre></pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the XDsi instance to operate on </td></tr>
     <tr><td class="paramname">HandleType</td><td>is the type of call back to be registered. </td></tr>
@@ -718,7 +771,7 @@ XDSI2RX_HANDLER_FRAME_STARTED           frame started</pre><pre></pre><dl class=
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#aed3bbcc1f3132eaec0fbfd8b696b3b7c">XDsi2Rx::UnsupportDataTypeRef</a>, and <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>.</p>
+<p>References <a class="el" href="struct_x_dsi2_rx.html#a6742caa96bdac8c5f1dec6f9b0d27ce4">XDsi2Rx::IncorrectLaneConfigCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#ab42c5120620fe509ac9f50924b7b26b6">XDsi2Rx::IncorrectLaneConfigRef</a>, <a class="el" href="struct_x_dsi2_rx.html#a57889229cf2847a9a249edb2f05213fd">XDsi2Rx::IsReady</a>, <a class="el" href="struct_x_dsi2_rx.html#aed3bbcc1f3132eaec0fbfd8b696b3b7c">XDsi2Rx::UnsupportDataTypeRef</a>, <a class="el" href="struct_x_dsi2_rx.html#a2b6cd6b63c8fe1358aea1340a9b49029">XDsi2Rx::UnSupportedDataTypeCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#a9a0e70ea3c19401527a9a819b963f830">XDsi2Rx::WCCorruptionCallback</a>, <a class="el" href="struct_x_dsi2_rx.html#ad74890f31f0c951885253c76f066cdb0">XDsi2Rx::WCCorruptionRef</a>, <a class="el" href="group__dsi.html#ga1776fdd230eb1a5e1794315f97ff3eea">XDSI2RX_HANDLER_INCORRECT_LANE_CONFIG</a>, and <a class="el" href="group__dsi.html#ga25cd902e38887951ff189907e0a08620">XDSI2RX_HANDLER_WC_CORRUPTION</a>.</p>
 
 </div>
 </div>

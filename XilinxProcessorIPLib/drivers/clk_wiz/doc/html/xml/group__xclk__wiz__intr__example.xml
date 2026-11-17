@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xclk__wiz__intr__example" kind="group">
+    <compoundname>xclk_wiz_intr_example</compoundname>
+    <title>Xclk_wiz_intr_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xclk__wiz__intr__example_1ga7fb7991a7d16bc1e56eb248d079ee0e9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref></type>
+        <definition>XClk_Wiz ClkWiz_Mon</definition>
+        <argsstring></argsstring>
+        <name>ClkWiz_Mon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xclk__wiz__intr__example_1gafe1f538083ba57672c15775f0d15739d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref></type>
+        <definition>XClk_Wiz ClkWiz_Dynamic</definition>
+        <argsstring></argsstring>
+        <name>ClkWiz_Dynamic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xclk__wiz__intr__example_1ga514a20a48c18d5c5b3d9ade2bf769adb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Clk_Outof_Range_Flag</definition>
+        <argsstring></argsstring>
+        <name>Clk_Outof_Range_Flag</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xclk__wiz__intr__example_1ga10a12a709c38b58c8e1f9c8c5bf1f3ea" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Clk_Glitch_Flag</definition>
+        <argsstring></argsstring>
+        <name>Clk_Glitch_Flag</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xclk__wiz__intr__example_1ga0c1676c1f93a753723835275f828f3c7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Clk_Stop_Flag</definition>
+        <argsstring></argsstring>
+        <name>Clk_Stop_Flag</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 ClkWiz_IntrExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>ClkWiz_IntrExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs the CLK_WIZ interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the main entry point for the interrupt example using the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> driver. This function sets up the system with interrupts handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the system setup failed.</para></listitem><listitem><para>XST_SUCCESS should never return since this function, if setup was successful, is blocking.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<itemizedlist>
+<listitem><para>If system setup was successful, this function is blocking in order to illustrate interrupt handling taking place for HPD events. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="588" bodyend="686"/>
+        <references refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" compoundref="xclk__wiz_8h" startline="189">XClk_Wiz_Config::BaseAddr</references>
+        <references refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</references>
+        <references refid="group__xclk__wiz__intr__example_1ga129f20100bd1ab7e3165219f38659e90" compoundref="xclk__wiz__intr__example_8c" startline="751" endline="766">ClkWiz_ClkGlitchEventHandler</references>
+        <references refid="group__xclk__wiz__intr__example_1gabf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="701" endline="736">ClkWiz_ClkOutOfRangeEventHandler</references>
+        <references refid="group__xclk__wiz__intr__example_1ga24a8c4f20358d67ba7512698e94ec60d" compoundref="xclk__wiz__intr__example_8c" startline="780" endline="795">ClkWiz_ClkStopEventHandler</references>
+        <references refid="struct_x_clk___wiz_1a28ae78d16753f81178e32cdbb0758e52" compoundref="xclk__wiz_8h" startline="242">XClk_Wiz::Config</references>
+        <references refid="group__xclk__wiz__intr__example_1gaa93f4f357d4911b56121f95a2917cd1a" compoundref="xclk__wiz__intr__example_8c" startline="226" endline="255">Delay</references>
+        <references refid="struct_x_clk___wiz___config_1a747f7008ad88b23cca557aaeedee9b6d" compoundref="xclk__wiz_8h" startline="190">XClk_Wiz_Config::EnableClkMon</references>
+        <references refid="struct_x_clk___wiz___config_1a9ba8b3c180b759c858f1f5ccbf2ec0dd" compoundref="xclk__wiz_8h" startline="212">XClk_Wiz_Config::IntId</references>
+        <references refid="struct_x_clk___wiz___config_1a3219042353291eaa8025c1ff0ead5014" compoundref="xclk__wiz_8h" startline="213">XClk_Wiz_Config::IntrParent</references>
+        <references refid="group__clk__wiz__api_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="95" endline="124">XClk_Wiz_CfgInitialize</references>
+        <references refid="group__clk__wiz_1gac3811181179e3fbfd232e2b8be3d9451" compoundref="xclk__wiz_8h" startline="121">XCLK_WIZ_HANDLER_CLK_GLITCH</references>
+        <references refid="group__clk__wiz_1gabaa1e03e198614d7b81d27532638eb51" compoundref="xclk__wiz_8h" startline="119">XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE</references>
+        <references refid="group__clk__wiz_1gaf15550bd34d158d5f4ae232145fa6ad3" compoundref="xclk__wiz_8h" startline="123">XCLK_WIZ_HANDLER_CLK_STOP</references>
+        <references refid="group__clk__wiz__api_1gaa454fd2cfc7ed730c52b747b72de71ef" compoundref="xclk__wiz__hw_8h" startline="357">XCLK_WIZ_IER_ALLINTR_MASK</references>
+        <references refid="group__clk__wiz__api_1ga4f547fb0dce8abc367979e38081a5080" compoundref="xclk__wiz__intr_8c" startline="70" endline="80">XClk_Wiz_InterruptEnable</references>
+        <references refid="group__clk__wiz_1ga209a145483be43688a5ff52b66de0010" compoundref="xclk__wiz__sinit_8c" startline="83" endline="98">XClk_Wiz_LookupConfig</references>
+        <references refid="group__clk__wiz_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="208" endline="238">XClk_Wiz_SetCallBack</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xclk__wiz__intr__example_8c" startline="405" endline="427">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1gab4d4ca4b2b5d036b0e0df621692135f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XClk_Wiz_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XClk_Wiz_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Handles CLK_WIZ interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the CLK_WIZ core.</para><para>This handler reads the pending interrupt from the Interrupt Status register determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in Interrupt Enable register and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__clk__wiz_1ga57d65e65942c50b405b79dacf4704339" kindref="member">XClk_Wiz_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="261" bodyend="310"/>
+        <references refid="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" compoundref="xclk__wiz_8h" startline="254">XClk_Wiz::ClkGlitchCallBack</references>
+        <references refid="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" compoundref="xclk__wiz_8h" startline="256">XClk_Wiz::ClkGlitchRef</references>
+        <references refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" compoundref="xclk__wiz_8h" startline="249">XClk_Wiz::ClkOutOfRangeCallBack</references>
+        <references refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" compoundref="xclk__wiz_8h" startline="252">XClk_Wiz::ClkOutOfRangeRef</references>
+        <references refid="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" compoundref="xclk__wiz_8h" startline="259">XClk_Wiz::ClkStopCallBack</references>
+        <references refid="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" compoundref="xclk__wiz_8h" startline="260">XClk_Wiz::ClkStopRef</references>
+        <references refid="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" compoundref="xclk__wiz_8h" startline="265">XClk_Wiz::IsReady</references>
+        <references refid="group__clk__wiz__api_1gab48767fd035d10bd40cec167cdd7778d" compoundref="xclk__wiz__intr_8c" startline="163" endline="172">XClk_Wiz_InterruptClear</references>
+        <references refid="group__clk__wiz__api_1gaf5850b23acf450ae86fcc514f052256e" compoundref="xclk__wiz__intr_8c" startline="140" endline="149">XClk_Wiz_InterruptGetStatus</references>
+        <references refid="group__clk__wiz__api_1ga868aa5dd6399404298d686e73a44a565" compoundref="xclk__wiz__hw_8h" startline="244">XCLK_WIZ_ISR_CLKALL_GLITCH_MASK</references>
+        <references refid="group__clk__wiz__api_1ga7b6a6f0f1fda56cdb7b97a293e9ee72e" compoundref="xclk__wiz__hw_8h" startline="248">XCLK_WIZ_ISR_CLKALL_MAXFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga9cfc8a66cb70f62b8546fb4b9a448d50" compoundref="xclk__wiz__hw_8h" startline="246">XCLK_WIZ_ISR_CLKALL_MINFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga82daa29abf414a316c26355e3771cf88" compoundref="xclk__wiz__hw_8h" startline="242">XCLK_WIZ_ISR_CLKALL_STOP_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1ga4f547fb0dce8abc367979e38081a5080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XClk_Wiz_InterruptEnable</definition>
+        <argsstring>(XClk_Wiz *InstancePtr, u32 Mask)</argsstring>
+        <name>XClk_Wiz_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enables interrupts in the CLK_WIZ mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>XClk_Wiz_InterruptEnable enables the interrupts present in the interrupt mask passed onto the function</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask which need to be enabled in core. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="70" bodyend="80"/>
+        <references refid="group__clk__wiz__api_1gaa454fd2cfc7ed730c52b747b72de71ef" compoundref="xclk__wiz__hw_8h" startline="357">XCLK_WIZ_IER_ALLINTR_MASK</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Clk_Wiz_Reconfig</definition>
+        <argsstring>(XClk_Wiz_Config *CfgPtr_Dynamic)</argsstring>
+        <name>Clk_Wiz_Reconfig</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref> *</type>
+          <declname>CfgPtr_Dynamic</declname>
+        </param>
+        <briefdescription>
+<para>Reconfigures dynamic-clock frequencies. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the Clk_Wiz_Reconfig function, it reconfigures frequencies as per input array</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CfgPtr_Dynamic</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides pointer to clock wizard dynamic config.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Error 0 for pass scenario</para></listitem><listitem><para>Error &gt; 0 for failure scenario </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="271" bodyend="386"/>
+        <references refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" compoundref="xclk__wiz_8h" startline="189">XClk_Wiz_Config::BaseAddr</references>
+        <references refid="group__xclk__wiz__intr__example_1ga3bbeeba2262281b67739bd3754033029" compoundref="xclk__wiz__intr__example_8c" startline="130">CLK_FRAC_EN</references>
+        <references refid="group__xclk__wiz__intr__example_1ga17e93c0269bc770ec81c1553ff5602f3" compoundref="xclk__wiz__intr__example_8c" startline="104">CLK_LOCK</references>
+        <references refid="group__xclk__wiz__intr__example_1ga2846c6dcceb8c2064ff781b2c9d4fadd" compoundref="xclk__wiz__intr__example_8c" startline="110">CLK_WIZ_VCO_FACTOR</references>
+        <references refid="group__xclk__wiz__intr__example_1ga0d61c40d0e4e99dbce85d7a92fdfbf19" compoundref="xclk__wiz__intr__example_8c" startline="116">DYNAMIC_INPUT_FREQ_FACTOR</references>
+        <references refid="group__xclk__wiz__intr__example_1gab1887c4cf26a54e3a66c4401797a7286" compoundref="xclk__wiz__intr__example_8c" startline="125">DYNAMIC_OUTPUT_FREQFACTOR</references>
+        <references refid="group__xclk__wiz__intr__example_1gab6b07f0022d7f609127ba69fcce3a6ca" compoundref="xclk__wiz__intr__example_8c" startline="199" endline="212">Wait_For_Lock</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1gab6b07f0022d7f609127ba69fcce3a6ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Wait_For_Lock</definition>
+        <argsstring>(XClk_Wiz_Config *CfgPtr_Dynamic)</argsstring>
+        <name>Wait_For_Lock</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref> *</type>
+          <declname>CfgPtr_Dynamic</declname>
+        </param>
+        <briefdescription>
+<para>Waits for the dynamic clock wizard to lock. </para>        </briefdescription>
+        <detaileddescription>
+<para>Waits for the lock to settle after a frequency change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CfgPtr_Dynamic</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides pointer to clock wizard dynamic config.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Error 0 for pass scenario</para></listitem><listitem><para>Error &gt; 0 for failure scenario </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="199" bodyend="212"/>
+        <references refid="struct_x_clk___wiz___config_1aa737385b3fd370d1bb677f0b366cdbd0" compoundref="xclk__wiz_8h" startline="189">XClk_Wiz_Config::BaseAddr</references>
+        <references refid="group__xclk__wiz__intr__example_1ga17e93c0269bc770ec81c1553ff5602f3" compoundref="xclk__wiz__intr__example_8c" startline="104">CLK_LOCK</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1gabf464e4d1be9b2b093b568d721920bb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ClkWiz_ClkOutOfRangeEventHandler</definition>
+        <argsstring>(void *CallBackRef, u32 Mask)</argsstring>
+        <name>ClkWiz_ClkOutOfRangeEventHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Handles a clock out-of-range interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called when a clock out of range is received by the CLK_WIZ Subsystem core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains a callback reference from the driver. In this case it is the instance pointer for the ClkWiz_Mon driver.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Of interrupt which caused this event. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="701" bodyend="736"/>
+        <references refid="group__clk__wiz__api_1ga5e762fe87dddbe8ac453306748a216f5" compoundref="xclk__wiz__hw_8h" startline="239">XCLK_WIZ_ISR_CLK0_MAXFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga37ecc718da5a33c16329f6f6d1967e4e" compoundref="xclk__wiz__hw_8h" startline="231">XCLK_WIZ_ISR_CLK0_MINFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga834ed8f9541edc0c5be94ca0de404f87" compoundref="xclk__wiz__hw_8h" startline="237">XCLK_WIZ_ISR_CLK1_MAXFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga8e3dd7df0cf46c203cab6d190c9e4cd9" compoundref="xclk__wiz__hw_8h" startline="229">XCLK_WIZ_ISR_CLK1_MINFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga2cfaf083bfc11e4d527262c6dfe0c24e" compoundref="xclk__wiz__hw_8h" startline="235">XCLK_WIZ_ISR_CLK2_MAXFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga24b899afdcc87e9a2c97eabe52fb610c" compoundref="xclk__wiz__hw_8h" startline="227">XCLK_WIZ_ISR_CLK2_MINFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga9a3354cec0d629d0ed3c26d28bbd1994" compoundref="xclk__wiz__hw_8h" startline="233">XCLK_WIZ_ISR_CLK3_MAXFREQ_MASK</references>
+        <references refid="group__clk__wiz__api_1ga163b2686ce7e37b98fc9d510a95febdb" compoundref="xclk__wiz__hw_8h" startline="225">XCLK_WIZ_ISR_CLK3_MINFREQ_MASK</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1ga129f20100bd1ab7e3165219f38659e90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ClkWiz_ClkGlitchEventHandler</definition>
+        <argsstring>(void *CallBackRef, u32 Mask)</argsstring>
+        <name>ClkWiz_ClkGlitchEventHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Handles a clock-glitch interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called when a clock glitch event is received by the CLK_WIZ Subsystem core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains a callback reference from the driver. In this case it is the instance pointer for the ClkWiz_Mon driver.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Of interrupt which caused this event. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="751" bodyend="766"/>
+        <references refid="group__clk__wiz__api_1gabf7f48abd562e1b1389b86bb978f091e" compoundref="xclk__wiz__hw_8h" startline="223">XCLK_WIZ_ISR_CLK0_GLITCH_MASK</references>
+        <references refid="group__clk__wiz__api_1gafcb540ab2c83a559450ae71633258269" compoundref="xclk__wiz__hw_8h" startline="221">XCLK_WIZ_ISR_CLK1_GLITCH_MASK</references>
+        <references refid="group__clk__wiz__api_1gaa79abe7629e383c5d83f09ab640a7267" compoundref="xclk__wiz__hw_8h" startline="219">XCLK_WIZ_ISR_CLK2_GLITCH_MASK</references>
+        <references refid="group__clk__wiz__api_1ga5634a366b8ced209061e028c163fddd5" compoundref="xclk__wiz__hw_8h" startline="217">XCLK_WIZ_ISR_CLK3_GLITCH_MASK</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1ga24a8c4f20358d67ba7512698e94ec60d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ClkWiz_ClkStopEventHandler</definition>
+        <argsstring>(void *CallBackRef, u32 Mask)</argsstring>
+        <name>ClkWiz_ClkStopEventHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Handles a clock-stop interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called when a clock stop event is received by the CLK_WIZ Subsystem core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Of interrupt which caused this event. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="780" bodyend="795"/>
+        <references refid="group__clk__wiz__api_1ga29f231a7715e94baec2277b768f5f1a5" compoundref="xclk__wiz__hw_8h" startline="215">XCLK_WIZ_ISR_CLK0_STOP_MASK</references>
+        <references refid="group__clk__wiz__api_1ga7152a10657a3caeef169c0be28087362" compoundref="xclk__wiz__hw_8h" startline="213">XCLK_WIZ_ISR_CLK1_STOP_MASK</references>
+        <references refid="group__clk__wiz__api_1gab7ecb70f6cf41fd44769722fdcf2a6a6" compoundref="xclk__wiz__hw_8h" startline="211">XCLK_WIZ_ISR_CLK2_STOP_MASK</references>
+        <references refid="group__clk__wiz__api_1ga6a11cf2b70a1598342cde6ad50577ec9" compoundref="xclk__wiz__hw_8h" startline="209">XCLK_WIZ_ISR_CLK3_STOP_MASK</references>
+        <referencedby refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1gaa93f4f357d4911b56121f95a2917cd1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Delay</definition>
+        <argsstring>(u32 Seconds)</argsstring>
+        <name>Delay</name>
+        <param>
+          <type>u32</type>
+          <declname>Seconds</declname>
+        </param>
+        <briefdescription>
+<para>Delays for a number of seconds. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Microblaze we use an assembly loop that is roughly the same regardless of optimization level, although caches and memory access time can make the delay vary. Just keep in mind that after resetting or updating the PHY modes, the PHY typically needs time to recover.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Seconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of seconds to sleep. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="226" bodyend="255"/>
+        <referencedby refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xclk__wiz__intr__example_1gae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Runs the CLK_WIZ example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the main function for <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> interrupt example. If the ClkWiz_IntrExample function which sets up the system succeeds, this function waits for the interrupts. Notify the events</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the interrupt example was unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Unless setup failed, main never returns since ClkWiz_IntrExample is blocking (it is waiting on interrupts for Hot-Plug-Detect (HPD) events. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="405" bodyend="427"/>
+        <references refid="group__xclk__wiz__intr__example_1ga4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="588" endline="686">ClkWiz_IntrExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1ga17e93c0269bc770ec81c1553ff5602f3" prot="public" static="no">
+        <name>CLK_LOCK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Clock-lock status bit value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</referencedby>
+        <referencedby refid="group__xclk__wiz__intr__example_1gab6b07f0022d7f609127ba69fcce3a6ca" compoundref="xclk__wiz__intr__example_8c" startline="199" endline="212">Wait_For_Lock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1gabde951a3e1ca1706e3610e9e77af5048" prot="public" static="no">
+        <name>VCO_FREQ</name>
+        <initializer>600</initializer>
+        <briefdescription>
+<para>Example VCO frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1ga2846c6dcceb8c2064ff781b2c9d4fadd" prot="public" static="no">
+        <name>CLK_WIZ_VCO_FACTOR</name>
+        <initializer>(<ref refid="group__xclk__wiz__intr__example_1gabde951a3e1ca1706e3610e9e77af5048" kindref="member">VCO_FREQ</ref> * 10000)</initializer>
+        <briefdescription>
+<para>Scaled VCO frequency factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1ga8218ae88ed3ac24c04335163b9257499" prot="public" static="no">
+        <name>DYNAMIC_INPUT_FREQ</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Example input frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1ga0d61c40d0e4e99dbce85d7a92fdfbf19" prot="public" static="no">
+        <name>DYNAMIC_INPUT_FREQ_FACTOR</name>
+        <initializer>(<ref refid="group__xclk__wiz__intr__example_1ga8218ae88ed3ac24c04335163b9257499" kindref="member">DYNAMIC_INPUT_FREQ</ref> * 10000)</initializer>
+        <briefdescription>
+<para>Scaled input-frequency factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1gad146afc5993c026ab2c6c47cc0103756" prot="public" static="no">
+        <name>DYNAMIC_OUTPUT_FREQ</name>
+        <initializer>175</initializer>
+        <briefdescription>
+<para>Example output frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1gab1887c4cf26a54e3a66c4401797a7286" prot="public" static="no">
+        <name>DYNAMIC_OUTPUT_FREQFACTOR</name>
+        <initializer>(<ref refid="group__xclk__wiz__intr__example_1gad146afc5993c026ab2c6c47cc0103756" kindref="member">DYNAMIC_OUTPUT_FREQ</ref> * 10000)</initializer>
+        <briefdescription>
+<para>Scaled output-frequency factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1ga9e189541f366a3c8e1707c3ca381dde3" prot="public" static="no">
+        <name>CLK_WIZ_RECONFIG_OUTPUT</name>
+        <initializer><ref refid="group__xclk__wiz__intr__example_1gad146afc5993c026ab2c6c47cc0103756" kindref="member">DYNAMIC_OUTPUT_FREQ</ref></initializer>
+        <briefdescription>
+<para>Reconfigured output frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xclk__wiz__intr__example_1ga3bbeeba2262281b67739bd3754033029" prot="public" static="no">
+        <name>CLK_FRAC_EN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Fractional-divide enable value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__xclk__wiz__intr__example_1gaaf3c110063d937f1fbe69c0e299fe55d" compoundref="xclk__wiz__intr__example_8c" startline="271" endline="386">Clk_Wiz_Reconfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

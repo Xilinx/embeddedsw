@@ -14,85 +14,6 @@
       <node id="863">
         <label>xuartps.h</label>
       </node>
-      <node id="849">
-        <label>xdprxss.h</label>
-        <link refid="xdprxss_8h"/>
-        <childnode refid="850" relation="include">
-        </childnode>
-        <childnode refid="852" relation="include">
-        </childnode>
-        <childnode refid="853" relation="include">
-        </childnode>
-        <childnode refid="854" relation="include">
-        </childnode>
-        <childnode refid="855" relation="include">
-        </childnode>
-        <childnode refid="856" relation="include">
-        </childnode>
-      </node>
-      <node id="867">
-        <label>xvphy_hw.h</label>
-      </node>
-      <node id="866">
-        <label>xvphy_dp.h</label>
-      </node>
-      <node id="851">
-        <label>xil_io.h</label>
-      </node>
-      <node id="865">
-        <label>xvphy.h</label>
-      </node>
-      <node id="868">
-        <label>sleep.h</label>
-      </node>
-      <node id="869">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="848">
-        <label>xdp_hw.h</label>
-      </node>
-      <node id="874">
-        <label>xgpio.h</label>
-      </node>
-      <node id="855">
-        <label>xdprxss_iic.h</label>
-        <link refid="xdprxss__iic_8h"/>
-      </node>
-      <node id="870">
-        <label>xvidframe_crc.h</label>
-        <childnode refid="843" relation="include">
-        </childnode>
-        <childnode refid="852" relation="include">
-        </childnode>
-        <childnode refid="851" relation="include">
-        </childnode>
-        <childnode refid="846" relation="include">
-        </childnode>
-      </node>
-      <node id="845">
-        <label>stddef.h</label>
-      </node>
-      <node id="847">
-        <label>xdp.h</label>
-      </node>
-      <node id="871">
-        <label>si570drv.h</label>
-        <childnode refid="843" relation="include">
-        </childnode>
-        <childnode refid="846" relation="include">
-        </childnode>
-        <childnode refid="858" relation="include">
-        </childnode>
-      </node>
-      <node id="873">
-        <label>videofmc_defs.h</label>
-      </node>
-      <node id="859">
-        <label>xiic_l.h</label>
-      </node>
-      <node id="872">
-        <label>xinterrupt_wrap.h</label>
-      </node>
       <node id="844">
         <label>main.h</label>
         <childnode refid="845" relation="include">
@@ -148,17 +69,20 @@
         <childnode refid="875" relation="include">
         </childnode>
       </node>
-      <node id="862">
-        <label>xtmrctr.h</label>
+      <node id="867">
+        <label>xvphy_hw.h</label>
       </node>
-      <node id="854">
-        <label>xdprxss_dprx.h</label>
-        <link refid="xdprxss__dprx_8h"/>
-        <childnode refid="847" relation="include">
-        </childnode>
+      <node id="866">
+        <label>xvphy_dp.h</label>
       </node>
-      <node id="853">
-        <label>xstatus.h</label>
+      <node id="851">
+        <label>xil_io.h</label>
+      </node>
+      <node id="865">
+        <label>xvphy.h</label>
+      </node>
+      <node id="868">
+        <label>sleep.h</label>
       </node>
       <node id="842">
         <label>si570.c</label>
@@ -168,20 +92,86 @@
         <childnode refid="844" relation="include">
         </childnode>
       </node>
-      <node id="856">
-        <label>xdprxss_hdcp1x.h</label>
-        <link refid="xdprxss__hdcp1x_8h"/>
-        <childnode refid="846" relation="include">
-        </childnode>
+      <node id="869">
+        <label>xil_cache.h</label>
       </node>
-      <node id="860">
-        <label>xil_exception.h</label>
+      <node id="848">
+        <label>xdp_hw.h</label>
+      </node>
+      <node id="874">
+        <label>xgpio.h</label>
       </node>
       <node id="850">
         <label>xdprxss_hw.h</label>
         <link refid="xdprxss__hw_8h"/>
         <childnode refid="851" relation="include">
         </childnode>
+      </node>
+      <node id="845">
+        <label>stddef.h</label>
+      </node>
+      <node id="847">
+        <label>xdp.h</label>
+      </node>
+      <node id="849">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="850" relation="include">
+        </childnode>
+        <childnode refid="852" relation="include">
+        </childnode>
+        <childnode refid="853" relation="include">
+        </childnode>
+        <childnode refid="854" relation="include">
+        </childnode>
+        <childnode refid="855" relation="include">
+        </childnode>
+        <childnode refid="856" relation="include">
+        </childnode>
+      </node>
+      <node id="873">
+        <label>videofmc_defs.h</label>
+      </node>
+      <node id="859">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="870">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="843" relation="include">
+        </childnode>
+        <childnode refid="852" relation="include">
+        </childnode>
+        <childnode refid="851" relation="include">
+        </childnode>
+        <childnode refid="846" relation="include">
+        </childnode>
+      </node>
+      <node id="871">
+        <label>si570drv.h</label>
+        <childnode refid="843" relation="include">
+        </childnode>
+        <childnode refid="846" relation="include">
+        </childnode>
+        <childnode refid="858" relation="include">
+        </childnode>
+      </node>
+      <node id="872">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="854">
+        <label>xdprxss_dprx.h</label>
+        <link refid="xdprxss__dprx_8h"/>
+        <childnode refid="847" relation="include">
+        </childnode>
+      </node>
+      <node id="862">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="853">
+        <label>xstatus.h</label>
+      </node>
+      <node id="860">
+        <label>xil_exception.h</label>
       </node>
       <node id="843">
         <label>xil_types.h</label>
@@ -197,6 +187,16 @@
       </node>
       <node id="858">
         <label>xiic.h</label>
+      </node>
+      <node id="856">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss__hdcp1x_8h"/>
+        <childnode refid="846" relation="include">
+        </childnode>
+      </node>
+      <node id="855">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss__iic_8h"/>
       </node>
       <node id="875">
         <label>xv_tpg.h</label>
@@ -216,7 +216,7 @@
 <codeline lineno="23"><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;main.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLATFORM_MB</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(PLATFORM_MB)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
 <codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>ENABLE_AUDIO</highlight></codeline>
 <codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/>TransmitComplete;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flag<sp/>to<sp/>check<sp/>completion<sp/>of<sp/>Transmission<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/>ReceiveComplete;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flag<sp/>to<sp/>check<sp/>completion<sp/>of<sp/>Reception<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -592,6 +592,6 @@
 <codeline lineno="399"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="400"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/si570.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/si570.c"/>
   </compounddef>
 </doxygen>

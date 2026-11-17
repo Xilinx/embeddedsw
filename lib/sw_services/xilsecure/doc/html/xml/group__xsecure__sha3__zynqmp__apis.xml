@@ -28,7 +28,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="105" bodyend="111"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="105" bodyend="111"/>
         <referencedby refid="group__xsecure__sha__server__apis_1gaa37ef7b49e853ef0abe0c4e489dd9508" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="426" endline="503">XSecure_Sha3Finish</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1ga7d96aa7232102f7c1b5906b008072c05" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -90,7 +90,7 @@
 <para><itemizedlist>
 <listitem><para>Asserts validate the input arguments</para></listitem><listitem><para>Configure the SSS for SHA3 hashing.</para></listitem><listitem><para>Checking the CSU DMA done bit should be enough.</para></listitem><listitem><para>Acknowledge the transfer has completed </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="534" bodyend="562"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="530" bodyend="558"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1ga9255c45c9bfdda8e4ba51302d12674a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -151,7 +151,7 @@
 <para><itemizedlist>
 <listitem><para>Handle Partial data and non dword aligned data address</para></listitem><listitem><para>Process data of size in multiple of dwords</para></listitem><listitem><para>Handle remaining data during processing of next data chunk or during data padding</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="578" bodyend="649"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="574" bodyend="645"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gab98a0a99bd8cbfc66f9f87d7fd1f140e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -192,16 +192,15 @@
 <parametername>MsgLen</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Length of padding in bytes.</para></parameterdescription>
+<para>Length of padding in bytes. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="252" bodyend="262"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="250" bodyend="260"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gaef7ebf0aee572f9e4e7f1875fabf109a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -245,14 +244,13 @@
 <para>is the length of padding in bytes</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="277" bodyend="286"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="273" bodyend="282"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1ga5d65c58f46583b7f5f61c1097cd47b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -292,7 +290,7 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="147" bodyend="172"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="147" bodyend="172"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1ga2e99ff8e049c773e83e4568f73cc92c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -332,9 +330,9 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments</para></listitem><listitem><para>If operation is in between can&apos;t be modified </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="193" bodyend="214"/>
-        <referencedby refid="group__xsecure__apis_1ga6c51d7aa8a0db0c40a00a641d7aa4055" compoundref="xsecure_8c" startline="1201" endline="1268">XSecure_PpkVerify</referencedby>
-        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="193" bodyend="214"/>
+        <referencedby refid="group__xsecure__apis_1ga6c51d7aa8a0db0c40a00a641d7aa4055" compoundref="xsecure_8c" startline="1204" endline="1271">XSecure_PpkVerify</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1288" endline="1389">XSecure_SpkAuthentication</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gad0cbba1668bb950d44266ecd77e2d8ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -360,7 +358,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="228" bodyend="238"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="228" bodyend="238"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gaf5b5bd6216ac55a6a9baf719e6bdd725" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -387,7 +385,7 @@
 <para><itemizedlist>
 <listitem><para>Asserts validate the input arguments</para></listitem><listitem><para>Reset SHA3 engine.</para></listitem><listitem><para>Start SHA3 engine. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="295" bodyend="315"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="291" bodyend="311"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gaf7010e1b3b34eaafcb2f8691468c4e38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -437,7 +435,7 @@
 <para><itemizedlist>
 <listitem><para>Asserts validate the input arguments</para></listitem><listitem><para>Set SHA under reset on failure condition </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="330" bodyend="371"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="326" bodyend="367"/>
         <references refid="zynqmp_2xsecure__sha__hw_8h_1ad18915bf882dd444d8c0c4d728fdf6f6" compoundref="zynqmp_2xsecure__sha__hw_8h" startline="46">XSECURE_CSU_SHA3_RESET_OFFSET</references>
         <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
       </memberdef>
@@ -478,7 +476,7 @@
 <para><itemizedlist>
 <listitem><para>Asserts validate the input arguments</para></listitem><listitem><para>Check the SHA3 DONE bit.</para></listitem><listitem><para>If requested, read out the Hash in reverse order.</para></listitem><listitem><para>Set SHA under reset </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="388" bodyend="452"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="384" bodyend="448"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gaa11b46ae20210a953d2bf3f661994c94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -539,10 +537,10 @@
 <para><itemizedlist>
 <listitem><para>Asserts validate the input arguments </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="469" bodyend="490"/>
-        <references refid="group__xsecure__sha__client__apis_1gad9611876471310e83eae5fc2ac640576" compoundref="xsecure__shaclient_8c" startline="157" endline="200">XSecure_Sha3Finish</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="465" bodyend="486"/>
+        <references refid="group__xsecure__sha__client__apis_1gad9611876471310e83eae5fc2ac640576" compoundref="xsecure__shaclient_8c" startline="170" endline="213">XSecure_Sha3Finish</references>
         <references refid="group__xsecure__sha__server__apis_1gaf5b5bd6216ac55a6a9baf719e6bdd725" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="263" endline="307">XSecure_Sha3Start</references>
-        <references refid="group__xsecure__sha__client__apis_1ga66d0db1bbf860bc2247297ce63f398a2" compoundref="xsecure__shaclient_8c" startline="94" endline="141">XSecure_Sha3Update</references>
+        <references refid="group__xsecure__sha__client__apis_1ga66d0db1bbf860bc2247297ce63f398a2" compoundref="xsecure__shaclient_8c" startline="101" endline="154">XSecure_Sha3Update</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__sha3__zynqmp__apis_1gadaf29fb89501047e26df87f1ce0ac2e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -578,7 +576,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="503" bodyend="519"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="499" bodyend="515"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -591,7 +589,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__zynqmp__apis_1gaf9f222d82b8ef0f118d96e2b18188bc5" prot="public" static="no">
         <name>XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS</name>
@@ -602,7 +600,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__zynqmp__apis_1ga1e79d1d522d9a7797256fb50652b9e42" prot="public" static="no">
         <name>XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK</name>
@@ -613,7 +611,7 @@
 <para>CSU SHA3 start Keccak padding mask </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__zynqmp__apis_1ga30aa6550c845b9a392f88e82f0e98728" prot="public" static="no">
         <name>XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK</name>
@@ -624,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__zynqmp__apis_1ga008bdf984c9dfd9deffb6b4c526b3293" prot="public" static="no">
         <name>XSECURE_CSU_SHA3_START_NIST_PADDING_MASK</name>
@@ -635,7 +633,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__sha3__zynqmp__apis_1ga9c6b39dae5bfa02fcd4c1d9dea553e53" prot="public" static="no">
         <name>XSECURE_CSU_SHA3_END_NIST_PADDING_MASK</name>
@@ -646,7 +644,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c" bodystart="89" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

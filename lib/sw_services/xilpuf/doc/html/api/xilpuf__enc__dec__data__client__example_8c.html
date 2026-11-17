@@ -121,6 +121,8 @@ $(document).ready(function(){initNavTree('xilpuf__enc__dec__data__client__exampl
          vss  11/22/23 Added header file required for SDT flow
  2.7   bha  01/06/26 Fixed Doxygen warnings
        bha  02/25/26 Removed ICCARM related code
+ 2.8   rpu  08/03/26 Updated shared memory section
+       rama 09/17/26 Enable cache by default for client example
  </pre> <dl class="section note"><dt>Note</dt><dd></dd></dl>
 <h2>User configurable parameters for PUF </h2>
 <p>#define XPUF_DATA "000000000000000000000000" Data to be encrypted by PUF KEY should be provided in string format.</p>
@@ -155,10 +157,10 @@ $(document).ready(function(){initNavTree('xilpuf__enc__dec__data__client__exampl
            2. In this example ".data" section elements that are passed by reference to the server-side should
               be stored in the above shared memory section. To make it happen in below example,
               replace ".data" in attribute section with ".sharedmemory". For example,
-   static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".data.PufData")));
+   static XPuf_DataAddr PufData __attribute__ ((aligned (64)) __attribute__ ((section (".data.PufData")));
                                    should be changed to
-   static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
-</pre><p>To keep things simple, by default the cache is disabled for this example </p>
+   static XPuf_DataAddr PufData __attribute__ ((aligned (64)) __attribute__ ((section (".sharedmemory.PufData")));
+</pre><p>By default the cache is enabled for this example </p>
 </div><div class="textblock"><code>#include &quot;xpuf_bsp_config.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xpuf__client_8h.html">xpuf_client.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_aesclient.h&quot;</code><br/>

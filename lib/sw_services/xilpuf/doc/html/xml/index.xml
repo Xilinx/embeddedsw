@@ -297,13 +297,13 @@
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a82ecc56dfac798d0cc40a1dfb56fdce7" kind="function"><name>XPuf_ValidateUserInput</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a21ba6ce752fb74085ae9c7b6a6140e29" kind="function"><name>XPuf_GenerateKey</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1afa66d066e0e5b484f329cadd50031e45" kind="function"><name>XPuf_GenerateBlackKey</name></member>
-    <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1ac6e0536915f50843e64749c6b3127ed8" kind="function"><name>XPuf_ProgramBlackKeynIV</name></member>
+    <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1ade74a53a6ca562163f8f444d571df8d1" kind="function"><name>XPuf_ProgramBlackKeynIV</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a84653b22762e873d45a286059ce6e543" kind="function"><name>XPuf_ReverseData</name></member>
-    <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a53313320c6ae406ec96dfb1fc50dd2df" kind="function"><name>XPuf_ShowPufSecCtrlBits</name></member>
+    <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a834a4885ba323a63c7802e03f3e886f8" kind="function"><name>XPuf_ShowPufSecCtrlBits</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a816154e9037a55427f286d4b34f03ae1" kind="function"><name>XPuf_ShowData</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a14b4f2dceed61819e0ea2a603cd1fb8a" kind="function"><name>XPuf_FormatAesKey</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1adda380e9a0fcece0a0c181c185e7c995" kind="function"><name>XPuf_CalculatePufHash</name></member>
-    <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1acf6cf89e6fecffa8662ebc189380193d" kind="function"><name>XPuf_WritePufSecCtrlBits</name></member>
+    <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a9132f9e005fa8746b90b3ca9ce343806" kind="function"><name>XPuf_WritePufSecCtrlBits</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a457fa8cb6dc67bfb91561ebed1ba2712" kind="function"><name>XPuf_DecompressPufHd</name></member>
     <member refid="xilpuf__spartan__ultrascale__plus__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
@@ -358,6 +358,32 @@
     <member refid="xilpuf__ssit__client__example_8c_1afb73a4644d35edca28deb1d831246548" kind="function"><name>XPuf_WritePufSecCtrlBits</name></member>
     <member refid="xilpuf__ssit__client__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
+  <compound refid="xilpuf__versal__2vp__p__client__example_8c" kind="file"><name>xilpuf_versal_2vp_p_client_example.c</name>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a80a0ace046afce008ac1aa70a0a7cebc" kind="define"><name>XPUF_IV_LEN_IN_BYTES</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a2bbd9bb7bf2bbb5b7bde4598d60aa94c" kind="define"><name>XPUF_RED_KEY_LEN_IN_BITS</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a04bfe21248ef2e9c7903f75e2038e7f1" kind="define"><name>XPUF_IV_LEN_IN_BITS</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1acfd9c1c1a5bb34481f2fc2f99c637afb" kind="define"><name>XPUF_GCM_TAG_SIZE</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a35b4d377c9fb0a0aba102ce2cbf27776" kind="define"><name>XPUF_HD_LEN_IN_WORDS</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1adeae201828b6f555ff36343e035d56aa" kind="define"><name>XPUF_ID_LEN_IN_BYTES</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a5604445c3ad206a1403cbb813e34930a" kind="define"><name>XPUF_AES_KEY_SIZE_128BIT_WORDS</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1aff3ac857396976245cb841ef2c83ac8d" kind="define"><name>XPUF_AES_KEY_SIZE_256BIT_WORDS</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a32ada8aef7c45e840dc69519fb735dce" kind="define"><name>XSECURE_SHARED_MEM_SIZE_IN_BYTES</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1ae1b75862bbdc655777a2cf674449f34f" kind="define"><name>XSECURE_TOTAL_SHARED_MEM</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a89b4c1f84e142242faca42e18d5aeb19" kind="variable"><name>PufData</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1acbe1d2c6f43e8fc40c7903fcefc84501" kind="variable"><name>PufArr</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a852997164a875b352a4ce65bcf865f30" kind="variable"><name>FormattedBlackKey</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a55410960ed8331aa0a52c8fbfac02fda" kind="variable"><name>Iv</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a60efaa0c60367a7c2e567e16c6f1cdb9" kind="variable"><name>SharedMem</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1ac33c579a642a0d988a8ab4a18be8fb3b" kind="variable"><name>RedKey</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1ae824cefea0374d03aa27e7240bcf24f1" kind="variable"><name>BlackKey</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1ab60e71e1c767cfc3e45236cbe443bde7" kind="variable"><name>GcmTag</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a82ecc56dfac798d0cc40a1dfb56fdce7" kind="function"><name>XPuf_ValidateUserInput</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a21489143adff8b5efb3676ba17a3f1e4" kind="function"><name>XPuf_GenerateKey</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a25b9ecb4ebb77490a97f732631257b15" kind="function"><name>XPuf_GenerateBlackKey</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a14b4f2dceed61819e0ea2a603cd1fb8a" kind="function"><name>XPuf_FormatAesKey</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a816154e9037a55427f286d4b34f03ae1" kind="function"><name>XPuf_ShowData</name></member>
+    <member refid="xilpuf__versal__2vp__p__client__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
   <compound refid="xilpuf__versal__net__example_8c" kind="file"><name>xilpuf_versal_net_example.c</name>
     <member refid="xilpuf__versal__net__example_8c_1a2bbd9bb7bf2bbb5b7bde4598d60aa94c" kind="define"><name>XPUF_RED_KEY_LEN_IN_BITS</name></member>
     <member refid="xilpuf__versal__net__example_8c_1a499a88c83fb39e747f1b4ae3888b1745" kind="define"><name>XPUF_UDS_LEN_IN_BYTES</name></member>
@@ -386,6 +412,12 @@
     <member refid="xilpuf__versal__net__example_8c_1aaacbc93cd0c7e29f4bba4afea109fbeb" kind="variable"><name>SharedMem</name></member>
     <member refid="xilpuf__versal__net__example_8c_1aa6a3edc68d1b3df0baa2c719843a4735" kind="variable"><name>EncData</name></member>
     <member refid="xilpuf__versal__net__example_8c_1a9f3c17e610021a2575d4aa67160d1bc9" kind="variable"><name>PufDataAddr</name></member>
+    <member refid="xilpuf__versal__net__example_8c_1af5acf604a415360af8599a4eb3510691" kind="variable"><name>PufId</name></member>
+    <member refid="xilpuf__versal__net__example_8c_1af134ba572ff69516e79ff1d59c57895b" kind="variable"><name>SyndromeData</name></member>
+    <member refid="xilpuf__versal__net__example_8c_1a5af76940e6bbb9444f3066c2cc6fd8b2" kind="variable"><name>EfuseSynData</name></member>
+    <member refid="xilpuf__versal__net__example_8c_1aa12a30f8cc6444f030c44346c2ca1c5c" kind="variable"><name>Chash</name></member>
+    <member refid="xilpuf__versal__net__example_8c_1aacaca01d8f7cf1e88cfcbefae2e42fdf" kind="variable"><name>Aux</name></member>
+    <member refid="xilpuf__versal__net__example_8c_1ab60e71e1c767cfc3e45236cbe443bde7" kind="variable"><name>GcmTag</name></member>
     <member refid="xilpuf__versal__net__example_8c_1a55410960ed8331aa0a52c8fbfac02fda" kind="variable"><name>Iv</name></member>
     <member refid="xilpuf__versal__net__example_8c_1a558f8106e9cb5f62ee5ac4f35dee094b" kind="variable"><name>InputData</name></member>
     <member refid="xilpuf__versal__net__example_8c_1ab598741b19e91218b7c91b9227d4f65e" kind="variable"><name>UpdatedIv</name></member>
@@ -451,7 +483,7 @@
     <member refid="group__xpuf__apis_1gaa0522ec07766daf5b0740456e6415995" kind="function"><name>XPuf_RegeneratePufKey</name></member>
     <member refid="group__xpuf__apis_1gadfb1c40dbead1263ba9c65d219846eb9" kind="function"><name>XPuf_WaitForPufSynWordRdyAndCaptureStatus</name></member>
     <member refid="group__xpuf__apis_1ga98eee51c5759d46dd7eb4f1d61d1e5f1" kind="function"><name>XPuf_WaitForPufSynWordRdy</name></member>
-    <member refid="group__xpuf__apis_1gaacbf032450e17d5acbe45752f2334cf2" kind="function"><name>XPuf_CfgGlobalVariationFilter</name></member>
+    <member refid="group__xpuf__apis_1ga6da1e2fee7b8366d5f70cb348217a5e7" kind="function"><name>XPuf_CfgGlobalVariationFilter</name></member>
     <member refid="group__xpuf__apis_1ga4a78ef5576d9672737f53ec6a1f7bdd6" kind="function"><name>XPuf_ClearPuf</name></member>
     <member refid="group__xpuf__apis_1ga786383f422425770236df072cea069a4" kind="function"><name>XPuf_ResetPuf</name></member>
     <member refid="group__xpuf__apis_1gab598a9740710e3625a667828ee42c9da" kind="function"><name>XPuf_SetPuf</name></member>
@@ -514,12 +546,16 @@
     <member refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" kind="function"><name>XPuf_Registration</name></member>
     <member refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" kind="function"><name>XPuf_Regeneration</name></member>
     <member refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" kind="function"><name>XPuf_ClearPufID</name></member>
+    <member refid="group__xpuf__client__api_1ga2834ea2d1e70119bc740382865dadb6a" kind="function"><name>XPuf_GetClientLibVersion</name></member>
+    <member refid="group__xpuf__client__api_1ga03926d586e353bb459b3da51ae7e4e8b" kind="function"><name>XPuf_GetServerLibInfo</name></member>
   </compound>
   <compound refid="xpuf__client_8h" kind="file"><name>xpuf_client.h</name>
     <member refid="group__xpuf__client__api_1ga49d1e926b95c73c927b8b3f078899f98" kind="function"><name>XPuf_ClientInit</name></member>
     <member refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" kind="function"><name>XPuf_Registration</name></member>
     <member refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" kind="function"><name>XPuf_Regeneration</name></member>
     <member refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" kind="function"><name>XPuf_ClearPufID</name></member>
+    <member refid="group__xpuf__client__api_1ga2834ea2d1e70119bc740382865dadb6a" kind="function"><name>XPuf_GetClientLibVersion</name></member>
+    <member refid="group__xpuf__client__api_1ga03926d586e353bb459b3da51ae7e4e8b" kind="function"><name>XPuf_GetServerLibInfo</name></member>
   </compound>
   <compound refid="xpuf__cmd_8c" kind="file"><name>xpuf_cmd.c</name>
   </compound>
@@ -647,7 +683,7 @@
   <compound refid="xpuf__ipihandler_8h" kind="file"><name>xpuf_ipihandler.h</name>
   </compound>
   <compound refid="xpuf__mailbox_8c" kind="file"><name>xpuf_mailbox.c</name>
-    <member refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" kind="function"><name>XPuf_ProcessMailbox</name></member>
+    <member refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" kind="function"><name>XPuf_ProcessMailbox</name></member>
   </compound>
   <compound refid="xpuf__mailbox_8h" kind="file"><name>xpuf_mailbox.h</name>
     <member refid="xpuf__mailbox_8h_1ac76299be447d1de716aa792fe89c4964" kind="define"><name>XPUF_PACK_PAYLOAD</name></member>
@@ -671,7 +707,7 @@
     <member refid="xpuf__mailbox_8h_1a9fc9e137d33878bdfbca1d2a78610aeeac927b2cdfaae2cfcb71553aa81863a7e" kind="enumvalue"><name>XPUF_SLR_INDEX_3</name></member>
     <member refid="xpuf__mailbox_8h_1a2438a7082f5832f957a60e47c75b3972" kind="function"><name>PufHeader</name></member>
     <member refid="xpuf__mailbox_8h_1a2f7a85ffde45f7b92b714b282b1bb7ff" kind="function"><name>XPuf_SetSlrIndex</name></member>
-    <member refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" kind="function"><name>XPuf_ProcessMailbox</name></member>
+    <member refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" kind="function"><name>XPuf_ProcessMailbox</name></member>
   </compound>
   <compound refid="versal__2vp__p_2server_2xpuf__plat_8c" kind="file"><name>versal_2vp_p/server/xpuf_plat.c</name>
   </compound>
@@ -695,7 +731,7 @@
     <member refid="group__xpuf__apis_1gaa0522ec07766daf5b0740456e6415995" kind="function"><name>XPuf_RegeneratePufKey</name></member>
     <member refid="group__xpuf__apis_1gadfb1c40dbead1263ba9c65d219846eb9" kind="function"><name>XPuf_WaitForPufSynWordRdyAndCaptureStatus</name></member>
     <member refid="group__xpuf__apis_1ga98eee51c5759d46dd7eb4f1d61d1e5f1" kind="function"><name>XPuf_WaitForPufSynWordRdy</name></member>
-    <member refid="group__xpuf__apis_1gaacbf032450e17d5acbe45752f2334cf2" kind="function"><name>XPuf_CfgGlobalVariationFilter</name></member>
+    <member refid="group__xpuf__apis_1ga6da1e2fee7b8366d5f70cb348217a5e7" kind="function"><name>XPuf_CfgGlobalVariationFilter</name></member>
     <member refid="group__xpuf__apis_1ga4a78ef5576d9672737f53ec6a1f7bdd6" kind="function"><name>XPuf_ClearPuf</name></member>
     <member refid="group__xpuf__apis_1ga786383f422425770236df072cea069a4" kind="function"><name>XPuf_ResetPuf</name></member>
     <member refid="group__xpuf__apis_1gab598a9740710e3625a667828ee42c9da" kind="function"><name>XPuf_SetPuf</name></member>
@@ -722,12 +758,14 @@
     <member refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" kind="function"><name>XPuf_Registration</name></member>
     <member refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" kind="function"><name>XPuf_Regeneration</name></member>
     <member refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" kind="function"><name>XPuf_ClearPufID</name></member>
+    <member refid="group__xpuf__client__api_1ga2834ea2d1e70119bc740382865dadb6a" kind="function"><name>XPuf_GetClientLibVersion</name></member>
+    <member refid="group__xpuf__client__api_1ga03926d586e353bb459b3da51ae7e4e8b" kind="function"><name>XPuf_GetServerLibInfo</name></member>
     <member refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" kind="function"><name>XPuf_SendRequest</name></member>
     <member refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" kind="define"><name>XPUF_SLR_INDEX_SHIFT</name></member>
     <member refid="group__xpuf__client__api_1gaf5881ac64a7ea71e067471c3012aa2e1" kind="define"><name>XPUF_ADDR_HIGH_SHIFT</name></member>
   </compound>
   <compound refid="group__xpuf__mailbox__apis" kind="group"><name>xpuf_mailbox_apis</name>
-    <member refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" kind="function"><name>XPuf_ProcessMailbox</name></member>
+    <member refid="group__xpuf__mailbox__apis_1ga2f20e5b50966261f896c0e5ea7ec6f1d" kind="function"><name>XPuf_ProcessMailbox</name></member>
   </compound>
   <compound refid="group__xpuf__server__apis" kind="group"><name>xpuf_server_apis</name>
     <member refid="group__xpuf__server__apis_1ga98eee51c5759d46dd7eb4f1d61d1e5f1" kind="function"><name>XPuf_WaitForPufSynWordRdy</name></member>

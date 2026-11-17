@@ -6,20 +6,24 @@
     <includedby refid="xvphy_8c" local="yes">xvphy.c</includedby>
     <includedby refid="xvphy__i_8c" local="yes">xvphy_i.c</includedby>
     <incdepgraph>
-      <node id="173">
-        <label>xparameters.h</label>
-      </node>
       <node id="172">
         <label>xvphy_hdmi.h</label>
         <link refid="xvphy_hdmi.h"/>
         <childnode refid="173" relation="include">
         </childnode>
       </node>
+      <node id="173">
+        <label>xparameters.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
       <node id="175">
         <label>xvphy.c</label>
         <link refid="xvphy_8c"/>
+      </node>
+      <node id="176">
+        <label>xvphy_i.c</label>
+        <link refid="xvphy__i_8c"/>
       </node>
       <node id="174">
         <label>xvphy_hdmi.h</label>
@@ -28,10 +32,6 @@
         </childnode>
         <childnode refid="176" relation="include">
         </childnode>
-      </node>
-      <node id="176">
-        <label>xvphy_i.c</label>
-        <link refid="xvphy__i_8c"/>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -209,6 +209,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_hdmi.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_hdmi.h"/>
   </compounddef>
 </doxygen>

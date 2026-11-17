@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__mlkem__client__example" kind="group">
+    <compoundname>xasu_mlkem_client_example</compoundname>
+    <title>XilAsu ML-KEM API Example Generic Usage</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of the ASU ML-KEM (FIPS 203) client APIs. It first decapsulates a fixed ACVP ciphertext and checks the shared secret against the expected one, so that decapsulation is measured against NIST data rather than against the example itself. It then encapsulates to a fixed ML-KEM-512 encapsulation key, decapsulates the resulting ciphertext with the matching decapsulation key and checks that both shared secrets match, which is what exercises encapsulation.</para></simplesect>
+Encapsulation and decapsulation take the key from the caller, so the example supplies a known pair: ML-KEM key generation is a key manager operation and is shown in the key manager example. The keys, the ciphertext and the expected shared secret below are taken verbatim from the NIST ACVP server test data (github.com/usnistgov/ACVP-Server, gen-val/json-files, ML-KEM-encapDecap-FIPS203/internalProjection.json), tgId 1 tcId 1. That is the same ACVP test case the firmware CAST in xasufw_kat.c uses, so the two agree byte for byte.</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   ss     08/20/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

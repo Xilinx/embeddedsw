@@ -119,7 +119,7 @@ Data Structures</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:gaa02bc7c1534754656c639d206cce86df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#gaa02bc7c1534754656c639d206cce86df">XSECURE_I2OSP_LIMIT</a>&#160;&#160;&#160;(256U)</td></tr>
-<tr class="memdesc:gaa02bc7c1534754656c639d206cce86df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer to octet stream primitive limit.  <a href="#gaa02bc7c1534754656c639d206cce86df">More...</a><br/></td></tr>
+<tr class="memdesc:gaa02bc7c1534754656c639d206cce86df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer to octet-string primitive limit.  <a href="#gaa02bc7c1534754656c639d206cce86df">More...</a><br/></td></tr>
 <tr class="separator:gaa02bc7c1534754656c639d206cce86df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40f95b0f59b06abf8ee6dda379447069"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#ga40f95b0f59b06abf8ee6dda379447069">XSECURE_SHA3_HASH_LENGTH_IN_BYTES</a>&#160;&#160;&#160;(48U)</td></tr>
 <tr class="memdesc:ga40f95b0f59b06abf8ee6dda379447069"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3 Hash length in bytes.  <a href="#ga40f95b0f59b06abf8ee6dda379447069">More...</a><br/></td></tr>
@@ -128,10 +128,10 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_secure___hash_alg_info.html">XSecure_HashAlgInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#ga3528d2ff2183bb3aab43e4d408ee6760">XSecure_GetHashInstance</a> (XSecure_ShaMode Shatype)</td></tr>
-<tr class="memdesc:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns hash function list of user specified hash algorithm.  <a href="#ga3528d2ff2183bb3aab43e4d408ee6760">More...</a><br/></td></tr>
+<tr class="memdesc:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash algorithm table entry for the requested SHA mode.  <a href="#ga3528d2ff2183bb3aab43e4d408ee6760">More...</a><br/></td></tr>
 <tr class="separator:ga3528d2ff2183bb3aab43e4d408ee6760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga51accda21580807193b7f1309a153c52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mgf__server__apis.html#ga51accda21580807193b7f1309a153c52">XSecure_MaskGenFunc</a> (XSecure_ShaMode ShaType, void *InstancePtr, <a class="el" href="struct_x_secure___mgf_input.html">XSecure_MgfInput</a> *MgfInput)</td></tr>
-<tr class="memdesc:ga51accda21580807193b7f1309a153c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function takes an input of variable length and a desired output length as input, and provides fixed output mask using cryptographic hash function.  <a href="#ga51accda21580807193b7f1309a153c52">More...</a><br/></td></tr>
+<tr class="memdesc:ga51accda21580807193b7f1309a153c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a fixed-length mask from a variable-length seed using MGF1.  <a href="#ga51accda21580807193b7f1309a153c52">More...</a><br/></td></tr>
 <tr class="separator:ga51accda21580807193b7f1309a153c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -145,7 +145,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Integer to octet stream primitive limit. </p>
+<p>Integer to octet-string primitive limit. </p>
 
 </div>
 </div>
@@ -180,23 +180,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns hash function list of user specified hash algorithm. </p>
+<p>Returns the hash algorithm table entry for the requested SHA mode. </p>
 <p>Get Hash Instance function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Shatype</td><td>holds the XSecure_ShaMode value of chosen sha algo.</td></tr>
+    <tr><td class="paramname">Shatype</td><td>SHA algorithm identifier.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>Pointer to <a class="el" href="struct_x_secure___hash_alg_info.html" title="Structure for Hash Algorithm Info. ">XSecure_HashAlgInfo</a> instance</li>
-<li>NULL Otherwise </li>
+<li>Pointer to an <a class="el" href="struct_x_secure___hash_alg_info.html" title="Structure for Hash Algorithm Info. ">XSecure_HashAlgInfo</a> instance on success.</li>
+<li>NULL if the algorithm is not supported. </li>
 </ul>
 </dd></dl>
-
-<p>References <a class="el" href="group__xsecure__sha__example__apis.html#gab861d4c865c5fd4a955a54426cce4522">XSECURE_SHA3_384</a>.</p>
-
-<p>Referenced by <a class="el" href="group__xsecure__mgf__server__apis.html#ga51accda21580807193b7f1309a153c52">XSecure_MaskGenFunc()</a>.</p>
 
 </div>
 </div>
@@ -230,25 +226,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function takes an input of variable length and a desired output length as input, and provides fixed output mask using cryptographic hash function. </p>
+<p>Generates a fixed-length mask from a variable-length seed using MGF1. </p>
 <p>Mask Generation function.</p>
-<p>i.e. Mask Generation Function(MGF).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ShaType</td><td>is of type XSecure_ShaMode. </td></tr>
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the sha instance. </td></tr>
-    <tr><td class="paramname">MgfInput</td><td>is a pointer to <a class="el" href="struct_x_secure___mgf_input.html" title="Structure has input and output parameters used for MGF. ">XSecure_MgfInput</a> instance.</td></tr>
+    <tr><td class="paramname">ShaType</td><td>SHA algorithm identifier. </td></tr>
+    <tr><td class="paramname">InstancePtr</td><td>Pointer to the SHA instance. </td></tr>
+    <tr><td class="paramname">MgfInput</td><td>Pointer to the MGF input and output parameters.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS On success.</li>
-<li>XST_INVALID_PARAM If any input parameter is invalid</li>
-<li>XST_FAILURE On failure. </li>
+<li>XST_SUCCESS on success.</li>
+<li>XST_INVALID_PARAM if any input parameter is invalid.</li>
+<li>XST_FAILURE on failure. </li>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_secure___hash_alg_info.html#a2d651b4f8029fd1bde167f52f7b0a680">XSecure_HashAlgInfo::HashLen</a>, <a class="el" href="struct_x_secure___mgf_input.html#a3df7726c093f8481f8649de0fbbad69b">XSecure_MgfInput::Output</a>, <a class="el" href="struct_x_secure___mgf_input.html#a7ef2ac3615a3516392e8f3e7af2301c2">XSecure_MgfInput::OutputLen</a>, <a class="el" href="struct_x_secure___mgf_input.html#a75315a260d2fc303f4e09f6115da6ba8">XSecure_MgfInput::Seed</a>, <a class="el" href="struct_x_secure___mgf_input.html#a4b5d243ace02a92433f2a3b7593480a3">XSecure_MgfInput::SeedLen</a>, <a class="el" href="struct_x_secure___hash_alg_info.html#a1252ac9d152a5cbb5731d66d19e6f634">XSecure_HashAlgInfo::ShaFinish</a>, <a class="el" href="struct_x_secure___hash_alg_info.html#a6c89a5bf973d16144020ebece7415504">XSecure_HashAlgInfo::ShaStart</a>, <a class="el" href="struct_x_secure___hash_alg_info.html#ae3302b269d249878b73bb94363200795">XSecure_HashAlgInfo::Shatype</a>, <a class="el" href="struct_x_secure___hash_alg_info.html#aaec31389331a3137f07364a5852286c0">XSecure_HashAlgInfo::ShaUpdate</a>, <a class="el" href="group__xsecure__mgf__server__apis.html#ga3528d2ff2183bb3aab43e4d408ee6760">XSecure_GetHashInstance()</a>, <a class="el" href="group__xsecure__mgf__server__apis.html#ga40f95b0f59b06abf8ee6dda379447069">XSECURE_SHA3_HASH_LENGTH_IN_BYTES</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
+<p>References <a class="el" href="struct_x_secure___mgf_input.html#a3df7726c093f8481f8649de0fbbad69b">XSecure_MgfInput::Output</a>, <a class="el" href="struct_x_secure___mgf_input.html#a7ef2ac3615a3516392e8f3e7af2301c2">XSecure_MgfInput::OutputLen</a>, <a class="el" href="struct_x_secure___mgf_input.html#a75315a260d2fc303f4e09f6115da6ba8">XSecure_MgfInput::Seed</a>, <a class="el" href="struct_x_secure___mgf_input.html#a4b5d243ace02a92433f2a3b7593480a3">XSecure_MgfInput::SeedLen</a>, <a class="el" href="group__xsecure__mgf__server__apis.html#ga40f95b0f59b06abf8ee6dda379447069">XSECURE_SHA3_HASH_LENGTH_IN_BYTES</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
+
+<p>Referenced by <a class="el" href="group__xsecure__rsa__pss__server__apis.html#ga46a9b687574b01d9a3a33e8e0b6db63e">XSecure_RsaPssSignVerify()</a>.</p>
 
 </div>
 </div>

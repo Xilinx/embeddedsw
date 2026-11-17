@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6b5029100cc8b72f76830a7bfc019c37" kind="dir">
+    <compoundname>util</compoundname>
+    <innerfile refid="xpm__alloc_8c">xpm_alloc.c</innerfile>
+    <innerfile refid="xpm__alloc_8h">xpm_alloc.h</innerfile>
+    <innerfile refid="xpm__list_8h">xpm_list.h</innerfile>
+    <innerfile refid="xpm__update_8c">xpm_update.c</innerfile>
+    <innerfile refid="xpm__update_8h">xpm_update.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/"/>
+  </compounddef>
+</doxygen>

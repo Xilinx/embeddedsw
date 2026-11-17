@@ -93,12 +93,6 @@
     <member refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" kind="function"><name>init_platform</name></member>
     <member refid="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" kind="function"><name>cleanup_platform</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-    <member refid="readme_8txt_1a2d8b148a28b9105552b1cb215fc2ae04" kind="function"><name>files</name></member>
-  </compound>
-  <compound refid="vfrmbufrd__example__kc705_8tcl" kind="file"><name>vfrmbufrd_example_kc705.tcl</name>
-    <member refid="vfrmbufrd__example__kc705_8tcl_1a118f8904c99e6149aee708cb385b0ba7" kind="function"><name>vfrmbufrd_example</name></member>
-  </compound>
   <compound refid="xv__frmbufrd_8c" kind="file"><name>xv_frmbufrd.c</name>
     <member refid="xv__frmbufrd_8c_1ae27c0ffab1b0eba3b0227dfaaf98b329" kind="function"><name>XV_frmbufrd_CfgInitialize</name></member>
     <member refid="xv__frmbufrd_8c_1a1a379b724e987de8c348bcc1aa98f2b9" kind="function"><name>XV_frmbufrd_Start</name></member>

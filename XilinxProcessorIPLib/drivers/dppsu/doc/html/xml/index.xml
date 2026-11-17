@@ -177,6 +177,10 @@
   </compound>
   <compound refid="xdppsu__common__example_8c" kind="file"><name>xdppsu_common_example.c</name>
     <member refid="xdppsu__common__example_8c_1a1ec7e1c46f984c377eba84ec2f597e23" kind="function"><name>DpPsu_StartVideoStream</name></member>
+    <member refid="xdppsu__common__example_8c_1a7386e44e956d4e783e345ca361326df0" kind="function"><name>DpPsu_PlatformInit</name></member>
+    <member refid="xdppsu__common__example_8c_1a867f66d113cb90c1b0d155b0d3ac6db9" kind="function"><name>DpPsu_StreamSrcSetup</name></member>
+    <member refid="xdppsu__common__example_8c_1a8de1d859acd2736a7cf7976b858748b2" kind="function"><name>DpPsu_StreamSrcConfigure</name></member>
+    <member refid="xdppsu__common__example_8c_1a625233c5d04622e106246bce7a5432a5" kind="function"><name>DpPsu_StreamSrcSync</name></member>
     <member refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kind="function"><name>DpPsu_Run</name></member>
     <member refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kind="function"><name>DpPsu_SetupExample</name></member>
     <member refid="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" kind="function"><name>DpPsu_StartLink</name></member>

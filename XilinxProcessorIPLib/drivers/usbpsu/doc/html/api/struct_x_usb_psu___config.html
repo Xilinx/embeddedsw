@@ -120,6 +120,9 @@ $(document).ready(function(){initNavTree('struct_x_usb_psu___config.html','');})
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:a106731ff7eba99998eac449025bd0c41"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___config.html#a106731ff7eba99998eac449025bd0c41">Name</a></td></tr>
+<tr class="memdesc:a106731ff7eba99998eac449025bd0c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique name of controller.  <a href="#a106731ff7eba99998eac449025bd0c41">More...</a><br/></td></tr>
+<tr class="separator:a106731ff7eba99998eac449025bd0c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a389cb184e06d5795b4239fe005e2290f"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___config.html#a389cb184e06d5795b4239fe005e2290f">BaseAddress</a></td></tr>
 <tr class="memdesc:a389cb184e06d5795b4239fe005e2290f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core register base address.  <a href="#a389cb184e06d5795b4239fe005e2290f">More...</a><br/></td></tr>
 <tr class="separator:a389cb184e06d5795b4239fe005e2290f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,19 +132,22 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aaa803eab77fc38e18becdf22821e22e4"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___config.html#aaa803eab77fc38e18becdf22821e22e4">EnableSuperSpeed</a></td></tr>
 <tr class="memdesc:aaa803eab77fc38e18becdf22821e22e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to enable super speed support.  <a href="#aaa803eab77fc38e18becdf22821e22e4">More...</a><br/></td></tr>
 <tr class="separator:aaa803eab77fc38e18becdf22821e22e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cb738931b4fdcf976f2a5b1979ae427"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___config.html#a9cb738931b4fdcf976f2a5b1979ae427">IntrId</a> [3]</td></tr>
+<tr class="memdesc:a9cb738931b4fdcf976f2a5b1979ae427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] Interrupt-id Bits[15:12] trigger type.  <a href="#a9cb738931b4fdcf976f2a5b1979ae427">More...</a><br/></td></tr>
+<tr class="separator:a9cb738931b4fdcf976f2a5b1979ae427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9952dcc7e659403550c4ce12a228b4b2"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_psu___config.html#a9952dcc7e659403550c4ce12a228b4b2">IntrParent</a></td></tr>
-<tr class="memdesc:a9952dcc7e659403550c4ce12a228b4b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] Interrupt-id Bits[15:12] trigger type.  <a href="#a9952dcc7e659403550c4ce12a228b4b2">More...</a><br/></td></tr>
+<tr class="memdesc:a9952dcc7e659403550c4ce12a228b4b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1].  <a href="#a9952dcc7e659403550c4ce12a228b4b2">More...</a><br/></td></tr>
 <tr class="separator:a9952dcc7e659403550c4ce12a228b4b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>struct <a class="el" href="struct_x_usb_psu___config.html" title="struct XUsbPsu_Config - Configuration information for the USB ">XUsbPsu_Config</a> - Configuration information for the USB </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId,:</td><td>Unique ID of controller </td></tr>
-    <tr><td class="paramname">BaseAddress,:</td><td>Core register base address </td></tr>
-    <tr><td class="paramname">IsCacheCoherent,:</td><td>Describes whether Cache Coherent or not </td></tr>
-    <tr><td class="paramname">EnableSuperSpeed,:</td><td>Set to enable super speed support </td></tr>
-    <tr><td class="paramname">RefClk,:</td><td>Input clocks </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DeviceId,:</td><td>Unique ID of controller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress,:</td><td>Core register base address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IsCacheCoherent,:</td><td>Describes whether Cache Coherent or not </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EnableSuperSpeed,:</td><td>Set to enable super speed support </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RefClk,:</td><td>Input clocks </td></tr>
   </table>
   </dd>
 </dl>
@@ -178,6 +184,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9cb738931b4fdcf976f2a5b1979ae427"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XUsbPsu_Config::IntrId[3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bits[11:0] Interrupt-id Bits[15:12] trigger type. </p>
+
+<p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a9952dcc7e659403550c4ce12a228b4b2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -188,8 +210,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bits[11:0] Interrupt-id Bits[15:12] trigger type. </p>
-<p>level flags </p>
+<p>Bit[0] Interrupt parent type Bit[64/32:1]. </p>
 
 <p>Referenced by <a class="el" href="xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -208,6 +229,22 @@ Data Fields</h2></td></tr>
 <p>Describes whether Cache Coherent or not. </p>
 
 <p>Referenced by <a class="el" href="group__usbpsu__api.html#ga01495a656b7de39f6874390556643a1e">XUsbPsu_CoreInit()</a>, <a class="el" href="group__usbpsu__api.html#gaee37aa4d612811db703893d777308e3e">XUsbPsu_Ep0DataDone()</a>, <a class="el" href="group__usbpsu__api.html#gacaefa0abe2036b61d3341ee9232ffb17">XUsbPsu_Ep0Recv()</a>, <a class="el" href="group__usbpsu__api.html#ga057ab0e4a9511055a42e60b92550660d">XUsbPsu_Ep0Send()</a>, <a class="el" href="group__usbpsu__api.html#ga8dcb3237803d60fc90cea8270b6fe1a0">XUsbPsu_Ep0StartStatus()</a>, <a class="el" href="group__usbpsu__api.html#ga5fbc6f2e5e21efc273d5d44a4bdf21d1">XUsbPsu_Ep0StatusDone()</a>, <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>, <a class="el" href="group__usbpsu__api.html#gad0102ce2327d084245189584307ecdfe">XUsbPsu_EpBufferRecv()</a>, <a class="el" href="group__usbpsu__api.html#ga9a977327906f2995960e50d429703687">XUsbPsu_EpBufferSend()</a>, <a class="el" href="group__usbpsu__api.html#ga1a566eeb18fcd70e9cf6024f2cf8a35b">XUsbPsu_EpEnable()</a>, <a class="el" href="group__usbpsu__api.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, <a class="el" href="group__usbpsu__api.html#gaa95e2a0adf788cfa67722243e0c6e803">XUsbPsu_EventBufferHandler()</a>, and <a class="el" href="group__usbpsu__api.html#ga1cbbfbb1658f7fe29ec7f1b24ba87eeb">XUsbPsu_RecvSetup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a106731ff7eba99998eac449025bd0c41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* XUsbPsu_Config::Name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unique name of controller. </p>
+
+<p>Referenced by <a class="el" href="group__usbpsu__api.html#ga87fd60823e07b4852b8a8d569121908b">XUsbPsu_LookupConfig()</a>.</p>
 
 </div>
 </div>

@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_axi_vdma___dma_setup.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,53 +113,222 @@ $(document).ready(function(){initNavTree('struct_x_axi_vdma___dma_setup.html',''
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_axi_vdma___dma_setup.html" title="The XAxiVdma_DmaSetup structure contains all the necessary information to start a frame write or read...">XAxiVdma_DmaSetup</a> structure contains all the necessary information to start a frame write or read.
+<p>Holds settings to start a frame read or write transfer.
  <a href="struct_x_axi_vdma___dma_setup.html#details">More...</a></p>
 
 <p><code>#include &lt;xaxivdma.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ga8539fe046ff0373a8256ca18a2c5e1d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga8539fe046ff0373a8256ca18a2c5e1d3">VertSizeInput</a></td></tr>
-<tr class="memdesc:ga8539fe046ff0373a8256ca18a2c5e1d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertical size input.  <a href="group__axivdma.html#ga8539fe046ff0373a8256ca18a2c5e1d3">More...</a><br/></td></tr>
-<tr class="separator:ga8539fe046ff0373a8256ca18a2c5e1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11ed1fd062b11845c8573ef4598383ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga11ed1fd062b11845c8573ef4598383ea">HoriSizeInput</a></td></tr>
-<tr class="memdesc:ga11ed1fd062b11845c8573ef4598383ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horizontal size input.  <a href="group__axivdma.html#ga11ed1fd062b11845c8573ef4598383ea">More...</a><br/></td></tr>
-<tr class="separator:ga11ed1fd062b11845c8573ef4598383ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga080eed5ecf9444cfe6351a244d587aea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga080eed5ecf9444cfe6351a244d587aea">Stride</a></td></tr>
-<tr class="memdesc:ga080eed5ecf9444cfe6351a244d587aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stride.  <a href="group__axivdma.html#ga080eed5ecf9444cfe6351a244d587aea">More...</a><br/></td></tr>
-<tr class="separator:ga080eed5ecf9444cfe6351a244d587aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga35c5f4bb861abceeaf787e047f478b41"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga35c5f4bb861abceeaf787e047f478b41">FrameDelay</a></td></tr>
-<tr class="memdesc:ga35c5f4bb861abceeaf787e047f478b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame Delay.  <a href="group__axivdma.html#ga35c5f4bb861abceeaf787e047f478b41">More...</a><br/></td></tr>
-<tr class="separator:ga35c5f4bb861abceeaf787e047f478b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga26fc64b9d238ee745ae0e388f38e8173"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga26fc64b9d238ee745ae0e388f38e8173">EnableCircularBuf</a></td></tr>
-<tr class="memdesc:ga26fc64b9d238ee745ae0e388f38e8173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Circular Buffer Mode?  <a href="group__axivdma.html#ga26fc64b9d238ee745ae0e388f38e8173">More...</a><br/></td></tr>
-<tr class="separator:ga26fc64b9d238ee745ae0e388f38e8173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6102a47c1f70529681112f365d0f7bb0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga6102a47c1f70529681112f365d0f7bb0">EnableSync</a></td></tr>
-<tr class="memdesc:ga6102a47c1f70529681112f365d0f7bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gen-Lock Mode?  <a href="group__axivdma.html#ga6102a47c1f70529681112f365d0f7bb0">More...</a><br/></td></tr>
-<tr class="separator:ga6102a47c1f70529681112f365d0f7bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaac365860b37a8b93e667f54f7f8e1e9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaac365860b37a8b93e667f54f7f8e1e9c">PointNum</a></td></tr>
-<tr class="memdesc:gaac365860b37a8b93e667f54f7f8e1e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Master we synchronize with.  <a href="group__axivdma.html#gaac365860b37a8b93e667f54f7f8e1e9c">More...</a><br/></td></tr>
-<tr class="separator:gaac365860b37a8b93e667f54f7f8e1e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a2951097dbc67d90d00778eefd5a656"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga8a2951097dbc67d90d00778eefd5a656">EnableFrameCounter</a></td></tr>
-<tr class="memdesc:ga8a2951097dbc67d90d00778eefd5a656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame Counter Enable.  <a href="group__axivdma.html#ga8a2951097dbc67d90d00778eefd5a656">More...</a><br/></td></tr>
-<tr class="separator:ga8a2951097dbc67d90d00778eefd5a656"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaea84e7c0f6497813f1989af6ae6cbf70"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gaea84e7c0f6497813f1989af6ae6cbf70">FrameStoreStartAddr</a> [<a class="el" href="group__axivdma.html#ga74cbf8945ca6cf9175bac9d7ad21a1bf">XAXIVDMA_MAX_FRAMESTORE</a>]</td></tr>
-<tr class="memdesc:gaea84e7c0f6497813f1989af6ae6cbf70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start Addresses of Frame Store Buffers.  <a href="group__axivdma.html#gaea84e7c0f6497813f1989af6ae6cbf70">More...</a><br/></td></tr>
-<tr class="separator:gaea84e7c0f6497813f1989af6ae6cbf70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga21f79be4ba14288e99cb3eacbdea2a17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga21f79be4ba14288e99cb3eacbdea2a17">FixedFrameStoreAddr</a></td></tr>
-<tr class="memdesc:ga21f79be4ba14288e99cb3eacbdea2a17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed Frame Store Address index.  <a href="group__axivdma.html#ga21f79be4ba14288e99cb3eacbdea2a17">More...</a><br/></td></tr>
-<tr class="separator:ga21f79be4ba14288e99cb3eacbdea2a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad770de5bdcc65820b2dca13c0e590854"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#gad770de5bdcc65820b2dca13c0e590854">GenLockRepeat</a></td></tr>
-<tr class="memdesc:gad770de5bdcc65820b2dca13c0e590854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gen-Lock Repeat?  <a href="group__axivdma.html#gad770de5bdcc65820b2dca13c0e590854">More...</a><br/></td></tr>
-<tr class="separator:gad770de5bdcc65820b2dca13c0e590854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga857fde2b0a8c8e52b3c3b0b717373a43"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axivdma.html#ga857fde2b0a8c8e52b3c3b0b717373a43">EnableVFlip</a></td></tr>
-<tr class="memdesc:ga857fde2b0a8c8e52b3c3b0b717373a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertical Flip state.  <a href="group__axivdma.html#ga857fde2b0a8c8e52b3c3b0b717373a43">More...</a><br/></td></tr>
-<tr class="separator:ga857fde2b0a8c8e52b3c3b0b717373a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8539fe046ff0373a8256ca18a2c5e1d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a8539fe046ff0373a8256ca18a2c5e1d3">VertSizeInput</a></td></tr>
+<tr class="memdesc:a8539fe046ff0373a8256ca18a2c5e1d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertical size input.  <a href="#a8539fe046ff0373a8256ca18a2c5e1d3">More...</a><br/></td></tr>
+<tr class="separator:a8539fe046ff0373a8256ca18a2c5e1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11ed1fd062b11845c8573ef4598383ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a11ed1fd062b11845c8573ef4598383ea">HoriSizeInput</a></td></tr>
+<tr class="memdesc:a11ed1fd062b11845c8573ef4598383ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Horizontal size input.  <a href="#a11ed1fd062b11845c8573ef4598383ea">More...</a><br/></td></tr>
+<tr class="separator:a11ed1fd062b11845c8573ef4598383ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a080eed5ecf9444cfe6351a244d587aea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a080eed5ecf9444cfe6351a244d587aea">Stride</a></td></tr>
+<tr class="memdesc:a080eed5ecf9444cfe6351a244d587aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stride.  <a href="#a080eed5ecf9444cfe6351a244d587aea">More...</a><br/></td></tr>
+<tr class="separator:a080eed5ecf9444cfe6351a244d587aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35c5f4bb861abceeaf787e047f478b41"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a35c5f4bb861abceeaf787e047f478b41">FrameDelay</a></td></tr>
+<tr class="memdesc:a35c5f4bb861abceeaf787e047f478b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame Delay.  <a href="#a35c5f4bb861abceeaf787e047f478b41">More...</a><br/></td></tr>
+<tr class="separator:a35c5f4bb861abceeaf787e047f478b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26fc64b9d238ee745ae0e388f38e8173"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a26fc64b9d238ee745ae0e388f38e8173">EnableCircularBuf</a></td></tr>
+<tr class="memdesc:a26fc64b9d238ee745ae0e388f38e8173"><td class="mdescLeft">&#160;</td><td class="mdescRight">Circular Buffer Mode?  <a href="#a26fc64b9d238ee745ae0e388f38e8173">More...</a><br/></td></tr>
+<tr class="separator:a26fc64b9d238ee745ae0e388f38e8173"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6102a47c1f70529681112f365d0f7bb0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a6102a47c1f70529681112f365d0f7bb0">EnableSync</a></td></tr>
+<tr class="memdesc:a6102a47c1f70529681112f365d0f7bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gen-Lock Mode?  <a href="#a6102a47c1f70529681112f365d0f7bb0">More...</a><br/></td></tr>
+<tr class="separator:a6102a47c1f70529681112f365d0f7bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac365860b37a8b93e667f54f7f8e1e9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#aac365860b37a8b93e667f54f7f8e1e9c">PointNum</a></td></tr>
+<tr class="memdesc:aac365860b37a8b93e667f54f7f8e1e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Master we synchronize with.  <a href="#aac365860b37a8b93e667f54f7f8e1e9c">More...</a><br/></td></tr>
+<tr class="separator:aac365860b37a8b93e667f54f7f8e1e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a2951097dbc67d90d00778eefd5a656"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a8a2951097dbc67d90d00778eefd5a656">EnableFrameCounter</a></td></tr>
+<tr class="memdesc:a8a2951097dbc67d90d00778eefd5a656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame Counter Enable.  <a href="#a8a2951097dbc67d90d00778eefd5a656">More...</a><br/></td></tr>
+<tr class="separator:a8a2951097dbc67d90d00778eefd5a656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea84e7c0f6497813f1989af6ae6cbf70"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#aea84e7c0f6497813f1989af6ae6cbf70">FrameStoreStartAddr</a> [<a class="el" href="group__axivdma.html#ga74cbf8945ca6cf9175bac9d7ad21a1bf">XAXIVDMA_MAX_FRAMESTORE</a>]</td></tr>
+<tr class="memdesc:aea84e7c0f6497813f1989af6ae6cbf70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start addresses of frame store buffers.  <a href="#aea84e7c0f6497813f1989af6ae6cbf70">More...</a><br/></td></tr>
+<tr class="separator:aea84e7c0f6497813f1989af6ae6cbf70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21f79be4ba14288e99cb3eacbdea2a17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a21f79be4ba14288e99cb3eacbdea2a17">FixedFrameStoreAddr</a></td></tr>
+<tr class="memdesc:a21f79be4ba14288e99cb3eacbdea2a17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed Frame Store Address index.  <a href="#a21f79be4ba14288e99cb3eacbdea2a17">More...</a><br/></td></tr>
+<tr class="separator:a21f79be4ba14288e99cb3eacbdea2a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad770de5bdcc65820b2dca13c0e590854"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#ad770de5bdcc65820b2dca13c0e590854">GenLockRepeat</a></td></tr>
+<tr class="memdesc:ad770de5bdcc65820b2dca13c0e590854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gen-Lock Repeat?  <a href="#ad770de5bdcc65820b2dca13c0e590854">More...</a><br/></td></tr>
+<tr class="separator:ad770de5bdcc65820b2dca13c0e590854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857fde2b0a8c8e52b3c3b0b717373a43"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_vdma___dma_setup.html#a857fde2b0a8c8e52b3c3b0b717373a43">EnableVFlip</a></td></tr>
+<tr class="memdesc:a857fde2b0a8c8e52b3c3b0b717373a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertical Flip state.  <a href="#a857fde2b0a8c8e52b3c3b0b717373a43">More...</a><br/></td></tr>
+<tr class="separator:a857fde2b0a8c8e52b3c3b0b717373a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_axi_vdma___dma_setup.html" title="The XAxiVdma_DmaSetup structure contains all the necessary information to start a frame write or read...">XAxiVdma_DmaSetup</a> structure contains all the necessary information to start a frame write or read. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds settings to start a frame read or write transfer. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a26fc64b9d238ee745ae0e388f38e8173"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::EnableCircularBuf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Circular Buffer Mode? </p>
+
+</div>
+</div>
+<a class="anchor" id="a8a2951097dbc67d90d00778eefd5a656"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::EnableFrameCounter</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frame Counter Enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6102a47c1f70529681112f365d0f7bb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::EnableSync</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gen-Lock Mode? </p>
+
+</div>
+</div>
+<a class="anchor" id="a857fde2b0a8c8e52b3c3b0b717373a43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XAxiVdma_DmaSetup::EnableVFlip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vertical Flip state. </p>
+
+</div>
+</div>
+<a class="anchor" id="a21f79be4ba14288e99cb3eacbdea2a17"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::FixedFrameStoreAddr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fixed Frame Store Address index. </p>
+
+</div>
+</div>
+<a class="anchor" id="a35c5f4bb861abceeaf787e047f478b41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::FrameDelay</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frame Delay. </p>
+
+</div>
+</div>
+<a class="anchor" id="aea84e7c0f6497813f1989af6ae6cbf70"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XAxiVdma_DmaSetup::FrameStoreStartAddr[<a class="el" href="group__axivdma.html#ga74cbf8945ca6cf9175bac9d7ad21a1bf">XAXIVDMA_MAX_FRAMESTORE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start addresses of frame store buffers. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad770de5bdcc65820b2dca13c0e590854"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::GenLockRepeat</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gen-Lock Repeat? </p>
+
+</div>
+</div>
+<a class="anchor" id="a11ed1fd062b11845c8573ef4598383ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::HoriSizeInput</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Horizontal size input. </p>
+
+</div>
+</div>
+<a class="anchor" id="aac365860b37a8b93e667f54f7f8e1e9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::PointNum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Master we synchronize with. </p>
+
+</div>
+</div>
+<a class="anchor" id="a080eed5ecf9444cfe6351a244d587aea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::Stride</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stride. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8539fe046ff0373a8256ca18a2c5e1d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XAxiVdma_DmaSetup::VertSizeInput</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vertical size input. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

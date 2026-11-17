@@ -11,6 +11,7 @@ var struct_x_spi =
     [ "NumSlaveBits", "struct_x_spi.html#ab2896a95a00faec5cee34d83093ffb3f", null ],
     [ "RecvBufferPtr", "struct_x_spi.html#acc5a98e31ed6927b50d6bff4c87f5bb9", null ],
     [ "RemainingBytes", "struct_x_spi.html#a883553e7813c71d61fc1f84de68d9bf4", null ],
+    [ "RemainingRecvBytes", "struct_x_spi.html#ab6f4f27311c97aa26b859035734e198b", null ],
     [ "RequestedBytes", "struct_x_spi.html#a1f78cff15e7571d1db3630834d376877", null ],
     [ "SendBufferPtr", "struct_x_spi.html#af85c6077464bc0877fe6334564b9430c", null ],
     [ "SlaveOnly", "struct_x_spi.html#a282ea84ad4ceb9e950bb91b66231780b", null ],

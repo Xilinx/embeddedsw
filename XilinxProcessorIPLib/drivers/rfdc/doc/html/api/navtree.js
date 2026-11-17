@@ -1,36 +1,116 @@
 var NAVTREE =
 [
-  [ "rfdc", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "README", "md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_2026_81_embeddeds1921dabe3f10ffdca90d50618bf371fc.html", null ],
-    [ "Examples", "example.html", [
-      [ "xrfdc_selftest_example.c", "example.html#ex1", null ],
-      [ "xrfdc_read_write_example.c", "example.html#ex2", null ],
-      [ "xrfdc_intr_example.c", "example.html#ex3", null ]
-    ] ]
-  ] ]
+  [
+    "rfdc",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                "functions_dup"
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                "functions_vars"
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "README",
+        "md__proj_xhdsswstaff1_bhawanas_patch_integration_auto_jobs_esw_github_doxy_git_master_embeddedsw0f594f43f3aeb0df38b1d912b7d7f083.html",
+        null
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xrfdc_selftest_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xrfdc_read_write_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xrfdc_intr_example.c",
+            "example.html#ex3",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xrfdc__dp_8c.html#ga78e05abc52a947dafdaecb11a41f7fe4",
-"xrfdc__hw_8h.html#ga5d2b06dceaf2ce19923b93d516cae937",
-"xrfdc__hw_8h.html#gac3ae417057fbc9457e804936ec9004cc"
+"xrfdc_8h.html#ga43b39e1be1937e41fa1635b60e904f56",
+"xrfdc_8h.html#gab37a32c0fea51e2f533227ac353fd765",
+"xrfdc__dp_8c.html#ga263541a35ffd82b926e315a252f4e6d1",
+"xrfdc__hw_8h.html#ga413088467612fed50166cecb96be66a7",
+"xrfdc__hw_8h.html#ga9443f0b18e8907df65b591461aef95dc",
+"xrfdc__hw_8h.html#gae57507c44bb48929ebdf873af8b995a8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -107,15 +107,14 @@ $(document).ready(function(){initNavTree('xtft__example_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the driver functions of the <a class="el" href="struct_x_tft.html" title="This structure is the base for whole of the operations that are to be performed on the TFT screen...">XTft</a> driver. </p>
-<p>This example shows the usage of the driver/device to</p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_tft.html" title="Holds instance data for a TFT device. ">XTft</a> driver. </p>
+<p>This file contains a design example using the driver functions of the <a class="el" href="struct_x_tft.html" title="Holds instance data for a TFT device. ">XTft</a> driver. This example shows the usage of the driver/device to</p>
 <ul>
 <li>Write a character and write a string of characters</li>
 <li>Draw a line</li>
 <li>Turn ON/OFF the TFT Device</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>TFT_FRAME_ADDR specifies the starting address of the 2MB space for storing the frame data and has to be defined by the user based on the system memory map.</p>
+<dl class="section note"><dt>Note</dt><dd>TFT_FRAME_ADDR specifies the starting address of the 2MB space for storing the frame data. Define it from the system memory map.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver    Who   Date      Changes
 </p>
@@ -137,7 +136,10 @@ MODIFICATION HISTORY:</pre><pre>Ver    Who   Date      Changes
 6.4   sd     07/08/23 Added SDT support.
 6.6   sd     12/16/24 Update the DDR_HIGH_ADDR to support BRAM..
 6.8   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
-6.8   vlt    01/06/26 fixed GCC warnings.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xtft_8h.html">xtft.h</a>&quot;</code><br/>
+6.8   vlt    01/06/26 fixed GCC warnings.
+6.9   vn     07/30/26 Fix Doxygen warnings
+6.9  tb     09/16/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xtft_8h.html">xtft.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
@@ -171,10 +173,10 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa567e9e2b698234bafb682123dfa239e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtft__example_8c.html#aa567e9e2b698234bafb682123dfa239e">TftExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:aa567e9e2b698234bafb682123dfa239e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the example function which performs the following operations on the TFT device -.  <a href="#aa567e9e2b698234bafb682123dfa239e">More...</a><br/></td></tr>
+<tr class="memdesc:aa567e9e2b698234bafb682123dfa239e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates TFT character, string, and line drawing.  <a href="#aa567e9e2b698234bafb682123dfa239e">More...</a><br/></td></tr>
 <tr class="separator:aa567e9e2b698234bafb682123dfa239e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtft__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the Tft example.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
+<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the TFT example.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -205,7 +207,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Color Values. </p>
-<p>Foreground Color - Green </p>
+<p>Foreground Color - Green. </p>
 
 <p>Referenced by <a class="el" href="xtft__example_8c.html#aa567e9e2b698234bafb682123dfa239e">TftExample()</a>.</p>
 
@@ -255,7 +257,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Start and End point Coordinates for the line. </p>
-<p>Column Start Position </p>
+<p>Column Start Position. </p>
 
 <p>Referenced by <a class="el" href="xtft__example_8c.html#aa567e9e2b698234bafb682123dfa239e">TftExample()</a>.</p>
 
@@ -323,19 +325,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the Tft example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Runs the TFT example. </p>
+<p>Main function that invokes the Tft example.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if unsuccessful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xtft__example_8c.html#aa567e9e2b698234bafb682123dfa239e">TftExample()</a>.</p>
 
@@ -355,7 +351,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This is the example function which performs the following operations on the TFT device -. </p>
+<p>Demonstrates TFT character, string, and line drawing. </p>
+<p>This is the example function which performs the following operations on the TFT device -</p>
 <ul>
 <li>Set the color values of foreground and background</li>
 <li>Write two characters (S) one after another</li>
@@ -367,7 +364,7 @@ Functions</h2></td></tr>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -378,7 +375,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_tft___config.html#af13b84d730fc82272b844c4f787a5142">XTft_Config::BaseAddress</a>, <a class="el" href="xtft__example_8c.html#aa2e911a0e8fa78132f9baffbf26ebd73">BGCOLOR_VALUE</a>, <a class="el" href="xtft__example_8c.html#a27bab78a5956de44e87eab983a9f8783">FGCOLOR_VALUE</a>, <a class="el" href="xtft__example_8c.html#a4e5b258835a007d43f1eac8a5f60fe55">TFT_FRAME_ADDR</a>, <a class="el" href="xtft__example_8c.html#a2d24b990c00e26930d01f4179147cb59">WHITECOLOR_VALUE</a>, <a class="el" href="xtft__example_8c.html#aa4d3ff9341955d632e5107848bb2e9a7">X1POS</a>, <a class="el" href="xtft__example_8c.html#a6654e71fdd217d10e9445d8d2939d8ae">X2POS</a>, <a class="el" href="group__tft.html#ga7cb92a2667272b013b8fccb0df1307ad">XTft_CfgInitialize()</a>, <a class="el" href="group__tft.html#ga4181b68f12ba322250de4e29ef453abe">XTft_ClearScreen()</a>, <a class="el" href="group__tft.html#ga5324d540859b06ca950fbf07d466a7fe">XTft_DisableDisplay()</a>, <a class="el" href="group__tft.html#ga308d28143a386bcde54db714f43ae737">XTft_EnableDisplay()</a>, <a class="el" href="group__tft.html#gacc8325682d029d3618ff0a7d6ee265dc">XTft_GetVsyncStatus()</a>, <a class="el" href="group__tft.html#gafcc9028848f7ab88a9461c53a5c64bf0">XTFT_IESR_VADDRLATCH_STATUS_MASK</a>, <a class="el" href="group__tft.html#ga6fbdb38685fd32b2c564a93b5fe70bf3">XTft_LookupConfig()</a>, <a class="el" href="group__tft.html#ga40c2b5ed76baff0d64b5a78b67620184">XTft_Scroll()</a>, <a class="el" href="group__tft.html#ga689206aec1006c6231f4b10062a8eeb0">XTft_SetColor()</a>, <a class="el" href="group__tft.html#ga56ccbb6cd6478cd5bd330ef70f733b4a">XTft_SetFrameBaseAddr()</a>, <a class="el" href="group__tft.html#ga1cc88ecc501ab053fdccbcb270315068">XTft_Write()</a>, <a class="el" href="xtft__example_8c.html#a939dbc13f86ffcd1cc75869dfba9c9f7">Y1POS</a>, and <a class="el" href="xtft__example_8c.html#a8ba6644e505663efa5d41d4989c7d344">Y2POS</a>.</p>
+<p>References <a class="el" href="struct_x_tft___config.html#af13b84d730fc82272b844c4f787a5142">XTft_Config::BaseAddress</a>, <a class="el" href="xtft__example_8c.html#aa2e911a0e8fa78132f9baffbf26ebd73">BGCOLOR_VALUE</a>, <a class="el" href="xtft__example_8c.html#a27bab78a5956de44e87eab983a9f8783">FGCOLOR_VALUE</a>, <a class="el" href="xtft__example_8c.html#a4e5b258835a007d43f1eac8a5f60fe55">TFT_FRAME_ADDR</a>, <a class="el" href="xtft__example_8c.html#a2d24b990c00e26930d01f4179147cb59">WHITECOLOR_VALUE</a>, <a class="el" href="xtft__example_8c.html#aa4d3ff9341955d632e5107848bb2e9a7">X1POS</a>, <a class="el" href="xtft__example_8c.html#a6654e71fdd217d10e9445d8d2939d8ae">X2POS</a>, <a class="el" href="group__tft__api.html#ga7cb92a2667272b013b8fccb0df1307ad">XTft_CfgInitialize()</a>, <a class="el" href="group__tft__api.html#ga4181b68f12ba322250de4e29ef453abe">XTft_ClearScreen()</a>, <a class="el" href="group__tft__api.html#ga5324d540859b06ca950fbf07d466a7fe">XTft_DisableDisplay()</a>, <a class="el" href="group__tft__api.html#ga308d28143a386bcde54db714f43ae737">XTft_EnableDisplay()</a>, <a class="el" href="group__tft__api.html#gacc8325682d029d3618ff0a7d6ee265dc">XTft_GetVsyncStatus()</a>, <a class="el" href="group__tft__api.html#gafcc9028848f7ab88a9461c53a5c64bf0">XTFT_IESR_VADDRLATCH_STATUS_MASK</a>, <a class="el" href="group__tft.html#gafa2e204523f93ebfad01cc5dce39d859">XTft_LookupConfig()</a>, <a class="el" href="group__tft__api.html#ga40c2b5ed76baff0d64b5a78b67620184">XTft_Scroll()</a>, <a class="el" href="group__tft__api.html#ga689206aec1006c6231f4b10062a8eeb0">XTft_SetColor()</a>, <a class="el" href="group__tft__api.html#ga56ccbb6cd6478cd5bd330ef70f733b4a">XTft_SetFrameBaseAddr()</a>, <a class="el" href="group__tft__api.html#ga1cc88ecc501ab053fdccbcb270315068">XTft_Write()</a>, <a class="el" href="xtft__example_8c.html#a939dbc13f86ffcd1cc75869dfba9c9f7">Y1POS</a>, and <a class="el" href="xtft__example_8c.html#a8ba6644e505663efa5d41d4989c7d344">Y2POS</a>.</p>
 
 <p>Referenced by <a class="el" href="xtft__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 

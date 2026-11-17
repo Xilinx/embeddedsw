@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="52" bodyend="-1"/>
         <referencedby refid="xv__hcresampler_8h_1a71eaf34c1f00f4fa6e1c05fdc8559fc3" compoundref="xv__hcresampler_8c" startline="37" endline="52">XV_hcresampler_CfgInitialize</referencedby>
         <referencedby refid="xv__hcresampler_8h_1a68cb2008cb880739abfefd576ef1f348" compoundref="xv__hcresampler_8c" startline="189" endline="194">XV_hcresampler_DisableAutoRestart</referencedby>
         <referencedby refid="xv__hcresampler_8h_1a743973d52e0778d0f77b70069ebfbf92" compoundref="xv__hcresampler_8c" startline="165" endline="170">XV_hcresampler_EnableAutoRestart</referencedby>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a45b019a9e600e29d8580d974e5a7c9cd" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__hcresampler___config_1aaf63221d466fe079c075d932e046086c" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a8b8ebbc646640a4c83c3054c5d3b778c" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="57" bodyend="-1"/>
         <referencedby refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" compoundref="xv__hcresampler__l2_8c" startline="352" endline="420">XV_HCrsmplDbgReportStatus</referencedby>
         <referencedby refid="group__v__hcresampler_1gab0f5941d407f7792cd60e1e82bbb46d3" compoundref="xv__hcresampler__l2_8c" startline="272" endline="304">XV_HCrsmplSetFormat</referencedby>
       </memberdef>
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="58" bodyend="-1"/>
         <referencedby refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" compoundref="xv__hcresampler__l2_8c" startline="352" endline="420">XV_HCrsmplDbgReportStatus</referencedby>
         <referencedby refid="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" compoundref="xv__hcresampler__l2_8c" startline="118" endline="157">XV_HCrsmplLoadDefaultCoeff</referencedby>
         <referencedby refid="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" compoundref="xv__hcresampler__l2_8c" startline="171" endline="237">XV_HCrsmplrLoadExtCoeff</referencedby>
@@ -143,7 +143,7 @@
 <para>This typedef contains configuration information for the horizontal chroma resampler core. </para>    </briefdescription>
     <detaileddescription>
 <para>Each core instance should have a configuration structure associated. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="50" bodyend="63"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler.h" bodystart="50" bodyend="59"/>
     <listofallmembers>
       <member refid="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>BaseAddress</name></member>
       <member refid="struct_x_v__hcresampler___config_1a8b8ebbc646640a4c83c3054c5d3b778c" prot="public" virt="non-virtual"><scope>XV_hcresampler_Config</scope><name>MaxDataWidth</name></member>

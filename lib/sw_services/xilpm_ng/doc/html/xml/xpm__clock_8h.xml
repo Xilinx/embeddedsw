@@ -1,0 +1,2284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__clock_8h" kind="file">
+    <compoundname>xpm_clock.h</compoundname>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <includedby refid="xpm__device_8h" local="yes">xpm_device.h</includedby>
+    <includedby refid="xpm__api_8c" local="yes">xpm_api.c</includedby>
+    <includedby refid="xpm__pll_8h" local="yes">xpm_pll.h</includedby>
+    <includedby refid="xpm__clock_8c" local="yes">xpm_clock.c</includedby>
+    <includedby refid="xpm__runtime__clock_8h" local="yes">xpm_runtime_clock.h</includedby>
+    <includedby refid="xpm__runtime__pll_8h" local="yes">xpm_runtime_pll.h</includedby>
+    <includedby refid="xpm__runtime__clock_8c" local="yes">xpm_runtime_clock.c</includedby>
+    <incdepgraph>
+      <node id="541">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="542" relation="include">
+        </childnode>
+        <childnode refid="543" relation="include">
+        </childnode>
+      </node>
+      <node id="537">
+        <label>xil_io.h</label>
+      </node>
+      <node id="539">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="536" relation="include">
+        </childnode>
+      </node>
+      <node id="543">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="538">
+        <label>xil_util.h</label>
+      </node>
+      <node id="535">
+        <label>xpm_common.h</label>
+        <childnode refid="536" relation="include">
+        </childnode>
+        <childnode refid="537" relation="include">
+        </childnode>
+        <childnode refid="538" relation="include">
+        </childnode>
+        <childnode refid="539" relation="include">
+        </childnode>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="541" relation="include">
+        </childnode>
+      </node>
+      <node id="540">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="544">
+        <label>xpm_node.h</label>
+        <childnode refid="542" relation="include">
+        </childnode>
+        <childnode refid="536" relation="include">
+        </childnode>
+        <childnode refid="545" relation="include">
+        </childnode>
+        <childnode refid="535" relation="include">
+        </childnode>
+      </node>
+      <node id="546">
+        <label>xpm_power.h</label>
+        <childnode refid="541" relation="include">
+        </childnode>
+        <childnode refid="544" relation="include">
+        </childnode>
+      </node>
+      <node id="536">
+        <label>xstatus.h</label>
+      </node>
+      <node id="534">
+        <label>xpm_clock.h</label>
+        <link refid="xpm_clock.h"/>
+        <childnode refid="535" relation="include">
+        </childnode>
+        <childnode refid="544" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+      </node>
+      <node id="542">
+        <label>xil_types.h</label>
+      </node>
+      <node id="545">
+        <label>xpm_nodeid.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="600">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="580">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="591" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="556" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+      </node>
+      <node id="599">
+        <label>xpm_runtime_mem.c</label>
+      </node>
+      <node id="650">
+        <label>xpm_runtime_mem.h</label>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+      </node>
+      <node id="597">
+        <label>xpm_power_handlers.c</label>
+      </node>
+      <node id="595">
+        <label>xpm_notifier.c</label>
+      </node>
+      <node id="594">
+        <label>xpm_notifier.h</label>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="589">
+        <label>xpm_runtime_power.c</label>
+      </node>
+      <node id="555">
+        <label>xpm_device.c</label>
+      </node>
+      <node id="628">
+        <label>xpm_repair_bram_uram.c</label>
+      </node>
+      <node id="549">
+        <label>xpm_device.h</label>
+        <childnode refid="550" relation="include">
+        </childnode>
+        <childnode refid="562" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="607" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="644" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+      </node>
+      <node id="636">
+        <label>xpm_repair_mmi.c</label>
+      </node>
+      <node id="568">
+        <label>xpm_pin.c</label>
+      </node>
+      <node id="567">
+        <label>xpm_pin.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+      </node>
+      <node id="614">
+        <label>xpm_pldomain.c</label>
+      </node>
+      <node id="631">
+        <label>xpm_repair_gtm_gty_gtyp.c</label>
+      </node>
+      <node id="654">
+        <label>xpm_pll.c</label>
+      </node>
+      <node id="653">
+        <label>xpm_pll.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+      </node>
+      <node id="593">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="647">
+        <label>xpm_fsm.h</label>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+      </node>
+      <node id="606">
+        <label>xpm_ams_trim.c</label>
+      </node>
+      <node id="617">
+        <label>xpm_gic_proxy.c</label>
+      </node>
+      <node id="624">
+        <label>xpm_gic_proxy.h</label>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="590">
+        <label>xpm_runtime_reset.c</label>
+      </node>
+      <node id="569">
+        <label>xpm_pin_groups.c</label>
+      </node>
+      <node id="564">
+        <label>xpm_pldevice.c</label>
+      </node>
+      <node id="598">
+        <label>xpm_runtime_reset.h</label>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+      </node>
+      <node id="586">
+        <label>xpm_runtime_alloc.c</label>
+      </node>
+      <node id="563">
+        <label>xpm_pldevice.h</label>
+        <childnode refid="552" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="601">
+        <label>xpm_mem.c</label>
+      </node>
+      <node id="575">
+        <label>xpm_periph.c</label>
+      </node>
+      <node id="562">
+        <label>xpm_mem.h</label>
+        <childnode refid="563" relation="include">
+        </childnode>
+        <childnode refid="566" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+      </node>
+      <node id="623">
+        <label>xpm_periph.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+      </node>
+      <node id="613">
+        <label>xpm_common.c</label>
+      </node>
+      <node id="576">
+        <label>xpm_rail.c</label>
+      </node>
+      <node id="630">
+        <label>xpm_repair_eio.c</label>
+      </node>
+      <node id="577">
+        <label>xpm_reset.c</label>
+      </node>
+      <node id="626">
+        <label>xpm_runtime_periph.c</label>
+      </node>
+      <node id="625">
+        <label>xpm_runtime_periph.h</label>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+      </node>
+      <node id="560">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="582">
+        <label>xpm_requirement.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+      </node>
+      <node id="558">
+        <label>xpm_runtime_aie.c</label>
+      </node>
+      <node id="556">
+        <label>xpm_runtime_aie.h</label>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="573">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="553">
+        <label>xpm_aiedevice.c</label>
+      </node>
+      <node id="633">
+        <label>xpm_repair_isp2.c</label>
+      </node>
+      <node id="570">
+        <label>xpm_runtime_pin.h</label>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+      </node>
+      <node id="552">
+        <label>xpm_aiedevice.h</label>
+        <childnode refid="553" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="556" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="655">
+        <label>xpm_runtime_pll.c</label>
+      </node>
+      <node id="656">
+        <label>xpm_runtime_pll.h</label>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+      </node>
+      <node id="602">
+        <label>xpm_mem_tcm.c</label>
+      </node>
+      <node id="643">
+        <label>xpm_mem_tcm.h</label>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="621">
+        <label>xpm_power.c</label>
+      </node>
+      <node id="548">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="557">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="644">
+        <label>xpm_npdomain.c</label>
+      </node>
+      <node id="591">
+        <label>xpm_ioctl.h</label>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="574">
+        <label>xpm_asucore.c</label>
+      </node>
+      <node id="611">
+        <label>xpm_asucore.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+      </node>
+      <node id="615">
+        <label>xpm_pmc.c</label>
+      </node>
+      <node id="612">
+        <label>xpm_pmc.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+      </node>
+      <node id="565">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="604">
+        <label>xpm_runtime_api.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="622">
+        <label>xpm_power_core.c</label>
+      </node>
+      <node id="581">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="620">
+        <label>xpm_power_core.h</label>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="585">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="649">
+        <label>xpm_device_fsm.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+      </node>
+      <node id="571">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="646">
+        <label>xpm_pslpdomain.c</label>
+      </node>
+      <node id="572">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="634">
+        <label>xpm_repair_lpd_fpd_pmxc.c</label>
+      </node>
+      <node id="551">
+        <label>xpm_aie.c</label>
+      </node>
+      <node id="550">
+        <label>xpm_aie.h</label>
+        <childnode refid="551" relation="include">
+        </childnode>
+        <childnode refid="552" relation="include">
+        </childnode>
+        <childnode refid="553" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+      </node>
+      <node id="629">
+        <label>xpm_repair_ddrmc5e.c</label>
+      </node>
+      <node id="605">
+        <label>xpm_memtbl.c</label>
+        <link refid="xpm__memtbl_8c"/>
+      </node>
+      <node id="641">
+        <label>xpm_clock.c</label>
+      </node>
+      <node id="547">
+        <label>xpm_clock.h</label>
+        <link refid="xpm_clock.h"/>
+        <childnode refid="548" relation="include">
+        </childnode>
+        <childnode refid="549" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="656" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+      </node>
+      <node id="587">
+        <label>xpm_runtime_clock.c</label>
+      </node>
+      <node id="592">
+        <label>xpm_runtime_clock.h</label>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+      </node>
+      <node id="635">
+        <label>xpm_repair_me2ps.c</label>
+      </node>
+      <node id="554">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="566">
+        <label>xpm_api.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+      </node>
+      <node id="609">
+        <label>xpm_apucore.c</label>
+      </node>
+      <node id="608">
+        <label>xpm_apucore.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+      </node>
+      <node id="561">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="583">
+        <label>xpm_runtime_mem_subsys.c</label>
+      </node>
+      <node id="645">
+        <label>xpm_psfpdomain.c</label>
+      </node>
+      <node id="616">
+        <label>xpm_repair.c</label>
+      </node>
+      <node id="627">
+        <label>xpm_repair.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+      </node>
+      <node id="559">
+        <label>xpm_runtime_device.c</label>
+      </node>
+      <node id="584">
+        <label>xpm_runtime_device.h</label>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+      </node>
+      <node id="588">
+        <label>xpm_runtime_core.c</label>
+      </node>
+      <node id="579">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="637">
+        <label>xpm_repair_vcu2.c</label>
+      </node>
+      <node id="596">
+        <label>xpm_runtime_core.h</label>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="640">
+        <label>xpm_regulator.c</label>
+      </node>
+      <node id="639">
+        <label>xpm_regulator.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+      </node>
+      <node id="652">
+        <label>xpm_pinfunc.c</label>
+      </node>
+      <node id="651">
+        <label>xpm_pinfunc.h</label>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+      </node>
+      <node id="638">
+        <label>xpm_repair_vip.c</label>
+      </node>
+      <node id="619">
+        <label>xpm_runtime_rpucore.c</label>
+      </node>
+      <node id="578">
+        <label>xpm_rpucore.c</label>
+      </node>
+      <node id="618">
+        <label>xpm_rpucore.h</label>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+      </node>
+      <node id="603">
+        <label>xpm_ddr_fsm.c</label>
+      </node>
+      <node id="648">
+        <label>xpm_ddr_fsm.h</label>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+      </node>
+      <node id="610">
+        <label>xpm_core.c</label>
+      </node>
+      <node id="607">
+        <label>xpm_core.h</label>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="612" relation="include">
+        </childnode>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+      </node>
+      <node id="642">
+        <label>xpm_domain_iso.c</label>
+      </node>
+      <node id="632">
+        <label>xpm_repair_hardblock.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___clk_topology_node" prot="public">XPm_ClkTopologyNode</innerclass>
+    <innerclass refid="struct_x_pm___clk_topology" prot="public">XPm_ClkTopology</innerclass>
+    <innerclass refid="struct_x_pm___clock_node" prot="public">XPm_ClockNode</innerclass>
+    <innerclass refid="struct_x_pm___clock_handle" prot="public">XPm_ClockHandle</innerclass>
+    <innerclass refid="struct_x_pm___out_clock_node" prot="public">XPm_OutClockNode</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__clock_8h_1a291f0dd420663adb7f6edaf782f93773" prot="public" static="no">
+        <name>ISPLL</name>
+        <param><defname>id</defname></param>
+        <initializer>((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) &amp;&amp; \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_PLL) &amp;&amp; \
+			 (NODEINDEX(id) &lt; (u32)XPM_NODEIDX_CLK_MAX))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="17" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ab090997adc5ee32c134bd03c8ac29d98" prot="public" static="no">
+        <name>ISOUTCLK</name>
+        <param><defname>id</defname></param>
+        <initializer>((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) &amp;&amp; \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_OUT) &amp;&amp; \
+			 (NODEINDEX(id) &lt; (u32)XPM_NODEIDX_CLK_MAX))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1acd783b17d5efe94474c342d046b50ab0" prot="public" static="no">
+        <name>ISREFCLK</name>
+        <param><defname>id</defname></param>
+        <initializer>((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) &amp;&amp; \
+			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_REF) &amp;&amp; \
+			 (NODEINDEX(id) &lt; (u32)XPM_NODEIDX_CLK_MAX))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a619106593b12cfd5d9203b46d49a450d" prot="public" static="no">
+        <name>TOPOLOGY_GENERIC_PLL</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ae6c956757a610cedd50b54d9f5b901cf" prot="public" static="no">
+        <name>TOPOLOGY_NOC_PLL</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1abf2866078b4d99eb372088dfa748616c" prot="public" static="no">
+        <name>TOPOLOGY_GENERIC_MUX_DIV</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a5fd48c22ec36963d4fcbd449715b4f60" prot="public" static="no">
+        <name>TOPOLOGY_GENERIC_MUX_GATE</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a77be7fa7a08098630362b93730552b08" prot="public" static="no">
+        <name>TOPOLOGY_GENERIC_DIV_GATE</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a7f2277539608cee951612390bda5918b" prot="public" static="no">
+        <name>TOPOLOGY_GENERIC_MUX_DIV_GATE_1</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a32ede6402e422382bd3484ccbd7fa19a" prot="public" static="no">
+        <name>TOPOLOGY_GENERIC_MUX_DIV_GATE_2</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1aff91fb67df7dcd027768440b6b4ec1df" prot="public" static="no">
+        <name>TOPOLOGY_CUSTOM</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a02d2e4454a800c3bab6276894d2ca89e" prot="public" static="no">
+        <name>MAX_TOPOLOGY</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a6f776715c77da25a195d4029421842d5" prot="public" static="no">
+        <name>MAX_MUX_PARENTS</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ab66a1b76292b571536c72e3795a5640d" prot="public" static="no">
+        <name>MAX_NAME_BYTES</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1acbe1d808bc9eb30c185938dbac431ec1" prot="public" static="no">
+        <name>CLOCK_PARENT_INVALID</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a1a1d39523f2b187e344801edf45ce3e9" prot="public" static="no">
+        <name>CLK_FLAG_READ_ONLY</name>
+        <initializer>BIT32(0U)</initializer>
+        <briefdescription>
+<para>Clock flag marking the clock as read-only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1aac5df5493baf5f76d01a823ba73b569b" prot="public" static="no">
+        <name>ISCPMCLK</name>
+        <param><defname>idx</defname></param>
+        <initializer>(((idx) == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PLL) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_POSTCLK) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PLL_OUT) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_CORE_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_DBG_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX0_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX1_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_TOPSW) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_TOPSW_REF) ||	\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_DMA_ALT) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX2_REF))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a23f7821401ac0a5b5d02a206d0f44900" prot="public" static="no">
+        <name>CLK_DUMMY_PARENT</name>
+        <initializer>(0xFFFFFFFEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a63a7146234d40f56140fb4dfe4ed1151" prot="public" static="no">
+        <name>XPM_CLK_STATE_OFF</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a17d2e75d67a48f69ebabccc825b1ed17" prot="public" static="no">
+        <name>XPM_CLK_STATE_REQUESTED</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a105a66e4aeca551f87e3a3d0ef5b3cf5" prot="public" static="no">
+        <name>XPM_CLK_STATE_ON</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a242154c8dc2b115d43fa920687e28cc1" prot="public" static="no">
+        <name>PERIPH_MUX_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1aba91b38aebab1d586947516f3bd84a27" prot="public" static="no">
+        <name>PERIPH_MUX_WIDTH</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a79f29b3b3fa36cd157e3401721546066" prot="public" static="no">
+        <name>PERIPH_DIV_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a721f7826c671bf36fe7533b7bc79e76d" prot="public" static="no">
+        <name>PERIPH_DIV_WIDTH</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ab6c2cd001598d44f2d1dfea172753178" prot="public" static="no">
+        <name>PERIPH_GATE1_SHIFT</name>
+        <initializer>25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a4d60b049ae03fb8e48bc9a37b59d8310" prot="public" static="no">
+        <name>PERIPH_GATE2_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1af7a858065eaeb025ecd6b88b0f26c00a" prot="public" static="no">
+        <name>PERIPH_GATE_WIDTH</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a0b48aa043b984b86fb4f7cbafd938ead" prot="public" static="no">
+        <name>NA_TYPE_FLAGS</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a196c3ba9d3bc48f43820a5d2c61825d2" prot="public" static="no">
+        <name>CLK_SET_RATE_GATE</name>
+        <initializer>BIT16(0) /* must be gated across rate change */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1af972ea81ced353b157047645b2c41886" prot="public" static="no">
+        <name>CLK_SET_PARENT_GATE</name>
+        <initializer>BIT16(1) /* must be gated across re-parent */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a1bb7079d499c21d45f2812ca95a753d3" prot="public" static="no">
+        <name>CLK_SET_RATE_PARENT</name>
+        <initializer>BIT16(2) /* propagate rate change up one level */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ad4167b05330d9bdad28e22f4d468406d" prot="public" static="no">
+        <name>CLK_IGNORE_UNUSED</name>
+        <initializer>BIT16(3) /* do not gate even if unused */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a5cac47eb8239fa8b1159a3fe5d7610d3" prot="public" static="no">
+        <name>CLK_GET_RATE_NOCACHE</name>
+        <initializer>BIT16(6) /* do not use the cached clk rate */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a312452ab4ec8bbef6f8f96ecfa374e36" prot="public" static="no">
+        <name>CLK_SET_RATE_NO_REPARENT</name>
+        <initializer>BIT16(7) /* don&apos;t re-parent on rate change */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ab2c327ceda0b2a7f98313187a3127333" prot="public" static="no">
+        <name>CLK_GET_ACCURACY_NOCACHE</name>
+        <initializer>BIT16(8) /* do not use the cached clk accuracy */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a1024f3005e15616e896230ff87c8de0d" prot="public" static="no">
+        <name>CLK_RECALC_NEW_RATES</name>
+        <initializer>BIT16(9) /* recalc rates after notifications */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1afbf94e2d57671c88488ebcbaefd9d05f" prot="public" static="no">
+        <name>CLK_SET_RATE_UNGATE</name>
+        <initializer>BIT16(10) /* clock needs to run to set rate */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a3b7ff7df0e7e22bf8e4f5faf4103ec66" prot="public" static="no">
+        <name>CLK_IS_CRITICAL</name>
+        <initializer>BIT16(11) /* do not gate, ever */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ab154773e056ddb88cd9bf0c0fcc1e725" prot="public" static="no">
+        <name>CLK_DIVIDER_ONE_BASED</name>
+        <initializer>BIT(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a55dc8b4bbe0673da2b95302681623a7e" prot="public" static="no">
+        <name>CLK_DIVIDER_POWER_OF_TWO</name>
+        <initializer>BIT(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1af66567c77a37de9722da84249013d1ea" prot="public" static="no">
+        <name>CLK_DIVIDER_ALLOW_ZERO</name>
+        <initializer>BIT(2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a204eb935938b5aea762334832e610ddb" prot="public" static="no">
+        <name>CLK_DIVIDER_HIWORD_MASK</name>
+        <initializer>BIT(3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a6a5c680312de6a8f5de4e56a13f7d672" prot="public" static="no">
+        <name>CLK_DIVIDER_ROUND_CLOSEST</name>
+        <initializer>BIT(4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1af2b0b359b7b98fc4ee902a061ccb50fe" prot="public" static="no">
+        <name>CLK_DIVIDER_READ_ONLY</name>
+        <initializer>BIT16(5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a90bd7f19949dac47879b6d2ed5bd5ed4" prot="public" static="no">
+        <name>CLK_DIVIDER_MAX_AT_ZERO</name>
+        <initializer>BIT(6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a981c009602bdfe6019104b8e6d9f5656" prot="public" static="no">
+        <name>CLK_MUX_INDEX_ONE</name>
+        <initializer>BIT(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a8a1690bed3e38303ae5cf5db085ba9a6" prot="public" static="no">
+        <name>CLK_MUX_INDEX_BIT</name>
+        <initializer>BIT(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a0af205c1362e805fffe7c7367cbd2f85" prot="public" static="no">
+        <name>CLK_MUX_HIWORD_MASK</name>
+        <initializer>BIT(2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a8e90a287a9bd281d39b34fce01aa78be" prot="public" static="no">
+        <name>CLK_MUX_READ_ONLY</name>
+        <initializer>BIT16(3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ad8b562b6ff64a3a4406faa8f258e74c5" prot="public" static="no">
+        <name>CLK_MUX_ROUND_CLOSEST</name>
+        <initializer>BIT(4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a682f4937cd0ae2eb8f5a13a8dadc7b5c" prot="public" static="no">
+        <name>CLK_MUX_BIG_ENDIAN</name>
+        <initializer>BIT(5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1a2f970bcf78c241c9e7ff16386ec1a920" prot="public" static="no">
+        <name>CLK_GATE_ACTIVE_LOW</name>
+        <initializer>BIT(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__clock_8h_1ac4428660cf816a5a26d106cb2b8ed53a" prot="public" static="no">
+        <name>XPM_CLK_STATE_INVALID</name>
+        <initializer>0xFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
+        <name>@0</name>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55bafeec3d92b10ebeaa68bbb56e4d08691c" prot="public">
+          <name>TYPE_INVALID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55babb6a9d04b05c8f5ef1e309934ac6b7bb" prot="public">
+          <name>TYPE_MUX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55bab7a5c1fb267fe1d5ff064497a7e8504a" prot="public">
+          <name>TYPE_PLL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55bafde87eb123f3a43f74d622d0b7363168" prot="public">
+          <name>TYPE_FIXEDFACTOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55ba914bb64760e6e2f02dcde35fcc15e666" prot="public">
+          <name>TYPE_DIV1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55ba7171ed3fab6313e72719042018fe3706" prot="public">
+          <name>TYPE_DIV2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55ba687e82c3b913a0ab7d8a6c152c0d9572" prot="public">
+          <name>TYPE_GATE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__clock_8h_1a06fc87d81c62e9abb8790b6e5713c55bad0303d8955463d6d6410a0a9a442b4c8" prot="public">
+          <name>TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="116" bodyend="125"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__clock_8h_1a4731c08b628486a2025992f06ae488df" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref></type>
+        <definition>typedef struct XPm_ClockNode XPm_ClockNode</definition>
+        <argsstring></argsstring>
+        <name>XPm_ClockNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__clock_8h_1ae39d2ed04825bc75fdc27d58cc00122a" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref></type>
+        <definition>typedef struct XPm_ClockHandle XPm_ClockHandle</definition>
+        <argsstring></argsstring>
+        <name>XPm_ClockHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__clock_8h_1aef11eed09ed90e2a05dae68d384a3bfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_AddNode</definition>
+        <argsstring>(u32 Id, u32 ControlReg, u8 TopologyType, u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId, u8 ClkFlags)</argsstring>
+        <name>XPmClock_AddNode</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ControlReg</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TopologyType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>NumCustomNodes</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>NumParents</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PowerDomainId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ClkFlags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="304" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a4ddeb00ab21fa63e56034c3d3a65caa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_AddClkName</definition>
+        <argsstring>(u32 Id, const char *Name)</argsstring>
+        <name>XPmClock_AddClkName</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="360" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a95546457c8ecd3a38698bed944c29fec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_AddSubNode</definition>
+        <argsstring>(u32 Id, u32 Type, u32 ControlReg, u8 Param1, u8 Param2, u32 Flags)</argsstring>
+        <name>XPmClock_AddSubNode</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Type</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ControlReg</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Param1</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Param2</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="376" bodyend="436"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1ad64ab3b5e9ec3fa41ba996b28ac5f826" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_AddParent</definition>
+        <argsstring>(u32 Id, const u32 *Parents, u8 NumParents)</argsstring>
+        <name>XPmClock_AddParent</name>
+        <param>
+          <type>u32</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>Parents</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>NumParents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="438" bodyend="528"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1abcce2a3beb586fa7ee45aaa3c2242b6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+        <definition>XPm_ClockNode* XPmClock_GetById</definition>
+        <argsstring>(u32 ClockId)</argsstring>
+        <name>XPmClock_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>ClockId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="530" bodyend="563"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1ab059a0effe9a8df7b69df9dd059c6a7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+        <definition>XPm_ClockNode* XPmClock_GetByIdx</definition>
+        <argsstring>(u32 ClockIdx)</argsstring>
+        <name>XPmClock_GetByIdx</name>
+        <param>
+          <type>u32</type>
+          <declname>ClockIdx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="565" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a3224697c6358ac8dd1db0d00428c1c57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_SetById</definition>
+        <argsstring>(u32 ClockId, XPm_ClockNode *Clk)</argsstring>
+        <name>XPmClock_SetById</name>
+        <param>
+          <type>u32</type>
+          <declname>ClockId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+          <declname>Clk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="580" bodyend="598"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a0fe0afc31a603a6839b7d8aa6f705bd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="struct_x_pm___clk_topology_node" kindref="compound">XPm_ClkTopologyNode</ref> *</type>
+        <definition>struct XPm_ClkTopologyNode* XPmClock_GetTopologyNode</definition>
+        <argsstring>(const XPm_OutClockNode *Clk, u32 Type)</argsstring>
+        <name>XPmClock_GetTopologyNode</name>
+        <param>
+          <type>const XPm_OutClockNode *</type>
+          <declname>Clk</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>Find the first node of a requested type in a clock topology. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Clk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output clock whose topology is searched. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested topology node type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Matching node, or NULL for an absent clock, node array or type. Generic nodes receive the clock control address before return. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="609" bodyend="644"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1ad27c05ff3b3d386417a6159adc2f2f60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_GetClockData</definition>
+        <argsstring>(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value)</argsstring>
+        <name>XPmClock_GetClockData</name>
+        <param>
+          <type>const XPm_OutClockNode *</type>
+          <declname>Clk</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Nodetype</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="671" bodyend="698"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1acf0e1bdd914f818203746efe8a6e3f26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_SetRate</definition>
+        <argsstring>(XPm_ClockNode *Clk, const u32 ClkRate)</argsstring>
+        <name>XPmClock_SetRate</name>
+        <param>
+          <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> *</type>
+          <declname>Clk</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>ClkRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="701" bodyend="706"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a76be796b25a6fee91da649d4455a0211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref> **</type>
+        <definition>XPm_ClockNode** XPmClock_GetClkList</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmClock_GetClkList</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="202" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1ace5d067d754ce277a859ce27ed0eac20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmClock_GetMaxClkNodes</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmClock_GetMaxClkNodes</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the number of clock-node slots currently in use. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Current maximum clock-node count recorded during clock initialization. Returns zero before any clock nodes are registered. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="217" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a36bd9a6989cbaa89e045c09c27d894b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmClock_InitParent</definition>
+        <argsstring>(XPm_OutClockNode *Clk)</argsstring>
+        <name>XPmClock_InitParent</name>
+        <param>
+          <type>XPm_OutClockNode *</type>
+          <declname>Clk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="646" bodyend="668"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__clock_8h_1a5af53924f8b88dc3016b01ff7b31386f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmClock_InitGenericTopology</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmClock_InitGenericTopology</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Allocate and initialize the generic clock topology definitions. </para>        </briefdescription>
+        <detaileddescription>
+<para>The allocated mux, divider, and gate node arrays are retained in the global topology table for subsequent output-clock initialization. Allocations made before an allocation failure are not rolled back.</para><para><simplesect kind="return"><para>XST_SUCCESS if every topology was initialized, or XST_BUFFER_TOO_SMALL if a topology-node allocation failed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c" bodystart="173" bodyend="192"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_CLOCK_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLOCK_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISPLL(id)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((NODECLASS(id)<sp/>==<sp/>(u32)XPM_NODECLASS_CLOCK)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODESUBCLASS(id)<sp/>==<sp/>(u32)XPM_NODESUBCL_CLOCK_PLL)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODEINDEX(id)<sp/>&lt;<sp/>(u32)XPM_NODEIDX_CLK_MAX))</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISOUTCLK(id)<sp/><sp/><sp/><sp/>((NODECLASS(id)<sp/>==<sp/>(u32)XPM_NODECLASS_CLOCK)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODESUBCLASS(id)<sp/>==<sp/>(u32)XPM_NODESUBCL_CLOCK_OUT)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODEINDEX(id)<sp/>&lt;<sp/>(u32)XPM_NODEIDX_CLK_MAX))</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISREFCLK(id)<sp/><sp/><sp/><sp/>((NODECLASS(id)<sp/>==<sp/>(u32)XPM_NODECLASS_CLOCK)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODESUBCLASS(id)<sp/>==<sp/>(u32)XPM_NODESUBCL_CLOCK_REF)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(NODEINDEX(id)<sp/>&lt;<sp/>(u32)XPM_NODEIDX_CLK_MAX))</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Topology<sp/>types<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_GENERIC_PLL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_NOC_PLL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_GENERIC_MUX_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_GENERIC_MUX_GATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_GENERIC_DIV_GATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_GENERIC_MUX_DIV_GATE_1<sp/>6U</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_GENERIC_MUX_DIV_GATE_2<sp/>7U</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TOPOLOGY_CUSTOM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_TOPOLOGY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_MUX_PARENTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_NAME_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLOCK_PARENT_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clock<sp/>Flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLK_FLAG_READ_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT32(0U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>ISCPMCLK(idx)<sp/><sp/><sp/>(((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPLL)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_PRESRC)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_PLL)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_POSTCLK)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_PLL_OUT)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_CORE_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_DBG_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_AUX0_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_AUX1_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM_TOPSW)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_TOPSW_REF)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_DMA_ALT)<sp/>||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((idx)<sp/>==<sp/>(u32)XPM_NODEIDX_CLK_CPM5N_AUX2_REF))</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DUMMY_PARENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFEU)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="struct_x_pm___clk_topology_node" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clk_topology_node" kindref="compound">XPm_ClkTopologyNode</ref><sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>Clkflags;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>Typeflags;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal">{uint8_t<sp/>Shift;<sp/>uint8_t<sp/>Mult;}Param1;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal">{uint8_t<sp/>Width;<sp/>uint8_t<sp/>Div;}Param2;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Type;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clk_topology_node" kindref="compound">XPm_ClkTopologyNode</ref><sp/>*Nodes;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>Id;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>NumNodes;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MuxSources[MAX_MUX_PARENTS];<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}XPm_ClkTopology;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref><sp/><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="struct_x_pm___clock_node" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref><sp/>Node;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>Name[MAX_NAME_BYTES];</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumParents;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Flags;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ParentIdx;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>UseCount;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ClkRate;</highlight></codeline>
+<codeline lineno="95" refid="struct_x_pm___clock_node_1a9d4b7dbd139f46f0749335cb175547ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref><sp/>*<ref refid="struct_x_pm___clock_node_1a9d4b7dbd139f46f0749335cb175547ee" kindref="member">ClkHandles</ref>;<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_Power<sp/>*PwrDomain;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="struct_x_pm___clock_handle" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref><sp/>{</highlight></codeline>
+<codeline lineno="103" refid="struct_x_pm___clock_handle_1a1c064352f107aceefdacc5786cf9482b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>*<ref refid="struct_x_pm___clock_handle_1a1c064352f107aceefdacc5786cf9482b" kindref="member">Clock</ref>;<sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_pm___clock_handle_1ab6e82f81335fae0d1d4e428bb23fd392" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___device_node" kindref="compound">XPm_DeviceNode</ref><sp/>*<ref refid="struct_x_pm___clock_handle_1ab6e82f81335fae0d1d4e428bb23fd392" kindref="member">Device</ref>;<sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_pm___clock_handle_1a4eb89d527e48959f8eb1d65225c1301c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref><sp/>*<ref refid="struct_x_pm___clock_handle_1a4eb89d527e48959f8eb1d65225c1301c" kindref="member">NextClock</ref>;<sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_x_pm___clock_handle_1ac1cbad4209706a688aebfaf6048b2cd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref><sp/>*<ref refid="struct_x_pm___clock_handle_1ac1cbad4209706a688aebfaf6048b2cd0" kindref="member">NextDevice</ref>;<sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>ClkNode;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_ClkTopology<sp/>Topology;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}XPm_OutClockNode;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Common<sp/>topology<sp/>definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_INVALID,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_MUX,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_PLL,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_FIXEDFACTOR,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_DIV1,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_DIV2,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_GATE,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TYPE_MAX,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clock<sp/>states:<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLK_STATE_OFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLK_STATE_REQUESTED<sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//For<sp/>all<sp/>clocks<sp/>with/without<sp/>gate</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLK_STATE_ON<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//For<sp/>clocks<sp/>with<sp/>gate</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Peripheral<sp/>Clocks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_MUX_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_MUX_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_DIV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_DIV_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_GATE1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_GATE2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PERIPH_GATE_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Common<sp/>Flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NA_TYPE_FLAGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_SET_RATE_GATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(0)<sp/></highlight><highlight class="comment">/*<sp/>must<sp/>be<sp/>gated<sp/>across<sp/>rate<sp/>change<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_SET_PARENT_GATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(1)<sp/></highlight><highlight class="comment">/*<sp/>must<sp/>be<sp/>gated<sp/>across<sp/>re-parent<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_SET_RATE_PARENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(2)<sp/></highlight><highlight class="comment">/*<sp/>propagate<sp/>rate<sp/>change<sp/>up<sp/>one<sp/>level<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_IGNORE_UNUSED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(3)<sp/></highlight><highlight class="comment">/*<sp/>do<sp/>not<sp/>gate<sp/>even<sp/>if<sp/>unused<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BIT(4)<sp/>unused<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BIT(5)<sp/>unused<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLK_GET_RATE_NOCACHE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(6)<sp/></highlight><highlight class="comment">/*<sp/>do<sp/>not<sp/>use<sp/>the<sp/>cached<sp/>clk<sp/>rate<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_SET_RATE_NO_REPARENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(7)<sp/></highlight><highlight class="comment">/*<sp/>don&apos;t<sp/>re-parent<sp/>on<sp/>rate<sp/>change<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_GET_ACCURACY_NOCACHE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(8)<sp/></highlight><highlight class="comment">/*<sp/>do<sp/>not<sp/>use<sp/>the<sp/>cached<sp/>clk<sp/>accuracy<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_RECALC_NEW_RATES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(9)<sp/></highlight><highlight class="comment">/*<sp/>recalc<sp/>rates<sp/>after<sp/>notifications<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_SET_RATE_UNGATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(10)<sp/></highlight><highlight class="comment">/*<sp/>clock<sp/>needs<sp/>to<sp/>run<sp/>to<sp/>set<sp/>rate<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_IS_CRITICAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(11)<sp/></highlight><highlight class="comment">/*<sp/>do<sp/>not<sp/>gate,<sp/>ever<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Type<sp/>Flags<sp/>for<sp/>divider<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_ONE_BASED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(0)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_POWER_OF_TWO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(1)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_ALLOW_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(2)</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_HIWORD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(3)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_ROUND_CLOSEST<sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(4)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_READ_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(5)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_DIVIDER_MAX_AT_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(6)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Type<sp/>Flags<sp/>for<sp/>mux<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLK_MUX_INDEX_ONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(0)</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_MUX_INDEX_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(1)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_MUX_HIWORD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(2)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_MUX_READ_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT16(3)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_MUX_ROUND_CLOSEST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(4)</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLK_MUX_BIG_ENDIAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(5)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Type<sp/>Flags<sp/>for<sp/>gate<sp/>clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLK_GATE_ACTIVE_LOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT(0)</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_CLK_STATE_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">XStatus<sp/>XPmClock_AddNode(u32<sp/>Id,<sp/>u32<sp/>ControlReg,<sp/>u8<sp/>TopologyType,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumCustomNodes,<sp/>u8<sp/>NumParents,<sp/>u32<sp/>PowerDomainId,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ClkFlags);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">XStatus<sp/>XPmClock_AddClkName(u32<sp/>Id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">XStatus<sp/>XPmClock_AddSubNode(u32<sp/>Id,<sp/>u32<sp/>Type,<sp/>u32<sp/>ControlReg,<sp/>u8<sp/>Param1,<sp/>u8<sp/>Param2,<sp/>u32<sp/>Flags);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">XStatus<sp/>XPmClock_AddParent(u32<sp/>Id,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Parents,<sp/>u8<sp/>NumParents);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref>*<sp/>XPmClock_GetById(u32<sp/>ClockId);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref>*<sp/>XPmClock_GetByIdx(u32<sp/>ClockIdx);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">XStatus<sp/>XPmClock_SetById(u32<sp/>ClockId,<sp/><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>*Clk);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___clk_topology_node" kindref="compound">XPm_ClkTopologyNode</ref><sp/>*XPmClock_GetTopologyNode(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_OutClockNode<sp/>*Clk,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Type);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">XStatus<sp/>XPmClock_GetClockData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_OutClockNode<sp/>*Clk,<sp/>u32<sp/>Nodetype,<sp/>u32<sp/>*Value);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">XStatus<sp/>XPmClock_SetRate(<ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref><sp/>*Clk,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ClkRate);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><ref refid="struct_x_pm___clock_node" kindref="compound">XPm_ClockNode</ref>**<sp/>XPmClock_GetClkList(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">u32<sp/>XPmClock_GetMaxClkNodes(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmClock_InitParent(XPm_OutClockNode<sp/>*Clk);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">XStatus<sp/>XPmClock_InitGenericTopology(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_CLOCK_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h"/>
+  </compounddef>
+</doxygen>

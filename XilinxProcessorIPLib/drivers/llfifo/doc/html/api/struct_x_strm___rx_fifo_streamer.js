@@ -1,5 +1,6 @@
 var struct_x_strm___rx_fifo_streamer =
 [
+    [ "AlignedBuffer", "struct_x_strm___rx_fifo_streamer.html#a5d1f8f992cd102849b29a2df35751393", null ],
     [ "FifoInstance", "struct_x_strm___rx_fifo_streamer.html#ab278ceaef035943f8a3a8b85a8cab99d", null ],
     [ "FifoWidth", "struct_x_strm___rx_fifo_streamer.html#a3ad4cdd1ad14dcecfaf5f923850289fb", null ],
     [ "FrmByteCnt", "struct_x_strm___rx_fifo_streamer.html#a9fa74d02f4fa2607e78b11de059be837", null ],

@@ -7,9 +7,18 @@
       <node id="173">
         <label>xil_assert.h</label>
       </node>
-      <node id="170">
-        <label>xhwicap_i.h</label>
-        <link refid="xhwicap__i_8h"/>
+      <node id="171">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap__l_8h"/>
+        <childnode refid="172" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+      <node id="174">
+        <label>xil_io.h</label>
       </node>
       <node id="169">
         <label>xhwicap.h</label>
@@ -23,24 +32,15 @@
         <childnode refid="176" relation="include">
         </childnode>
       </node>
-      <node id="174">
-        <label>xil_io.h</label>
-      </node>
-      <node id="171">
-        <label>xhwicap_l.h</label>
-        <link refid="xhwicap__l_8h"/>
-        <childnode refid="172" relation="include">
-        </childnode>
-        <childnode refid="173" relation="include">
-        </childnode>
-        <childnode refid="174" relation="include">
-        </childnode>
-      </node>
       <node id="168">
         <label>xhwicap_sinit.c</label>
         <link refid="xhwicap_sinit.c"/>
         <childnode refid="169" relation="include">
         </childnode>
+      </node>
+      <node id="170">
+        <label>xhwicap_i.h</label>
+        <link refid="xhwicap__i_8h"/>
       </node>
       <node id="175">
         <label>xstatus.h</label>
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_g.c" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_g.c" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -95,7 +95,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c" bodystart="82" bodyend="95"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c" bodystart="82" bodyend="95"/>
         <referencedby refid="xhwicap__intr__example_8c_1ad30f00094bfccf190e8f4400fc5842c1" compoundref="xhwicap__intr__example_8c" startline="205" endline="306">HwIcapIntrExample</referencedby>
         <referencedby refid="xhwicap__read__config__reg__example_8c_1a0e29c54ec6e9cfd604c5c2551391fca6" compoundref="xhwicap__read__config__reg__example_8c" startline="152" endline="288">HwIcapReadConfigRegExample</referencedby>
         <referencedby refid="xhwicap__read__frame__polled__example_8c_1a16ff4504349dbf3a25d488972402d87a" compoundref="xhwicap__read__frame__polled__example_8c" startline="147" endline="207">HwIcapReadFramePolledExample</referencedby>
@@ -166,6 +166,6 @@
 <codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_sinit.c"/>
   </compounddef>
 </doxygen>

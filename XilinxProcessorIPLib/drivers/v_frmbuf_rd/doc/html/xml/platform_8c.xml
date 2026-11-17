@@ -32,7 +32,7 @@
 <para>This function enables the instruction and data caches for either PowerPC or MicroBlaze processors. For PowerPC, it enables cache regions specified by CACHEABLE_REGION_MASK. For MicroBlaze, it checks if instruction and data caches are configured and enables them accordingly.</para><para>Conditional compilation is used to ensure the correct cache enabling functions are called for the detected processor architecture. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="40" bodyend="53"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="40" bodyend="53"/>
         <referencedby refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" compoundref="platform_8c" startline="102" endline="113">init_platform</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -46,7 +46,7 @@
 <para>This function calls the Xil_DCacheDisable() and Xil_ICacheDisable() functions to turn off the data and instruction caches, respectively. It is typically used in bare-metal embedded systems where cache coherency is not required or before performing operations that require caches to be disabled. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="65" bodyend="69"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="65" bodyend="69"/>
         <referencedby refid="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" compoundref="platform_8c" startline="123" endline="126">cleanup_platform</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1a7c8ab9435f095e55019fe880192c3537" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -60,7 +60,7 @@
 <para>This function configures the UART for standard output. If the platform uses the 16550 UART, it sets the baud rate and line control register. If the platform uses the PS7 UART, it assumes the bootrom or BSP has already configured it to 115200 bps.</para><para>Platform-specific macros (STDOUT_IS_16550, STDOUT_IS_PS7_UART) determine which initialization steps are performed. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="82" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="82" bodyend="91"/>
         <referencedby refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" compoundref="platform_8c" startline="102" endline="113">init_platform</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1afddcfa5cf23f52259c9da7f926a4af57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -74,10 +74,10 @@
 <para>This function performs platform-specific initialization steps, such as enabling processor caches and initializing the UART for standard output. If running outside of the SDK, PS7 initialization can be enabled by uncommenting the relevant lines and including the required files. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="102" bodyend="113"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="102" bodyend="113"/>
         <references refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" compoundref="platform_8c" startline="40" endline="53">enable_caches</references>
         <references refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" compoundref="platform_8c" startline="82" endline="91">init_uart</references>
-        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="651" endline="801">main</referencedby>
+        <referencedby refid="xv__frmbufrd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufrd__example_8c" startline="536" endline="677">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8c_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -90,7 +90,7 @@
 <para>This function is typically called during the shutdown or cleanup phase of an embedded application to ensure that all CPU caches are properly disabled before exiting or resetting the system. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="123" bodyend="126"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c" bodystart="123" bodyend="126"/>
         <references refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" compoundref="platform_8c" startline="65" endline="69">disable_caches</references>
       </memberdef>
       </sectiondef>
@@ -175,6 +175,6 @@
 <codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" kindref="member">disable_caches</ref>();</highlight></codeline>
 <codeline lineno="126"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/platform.c"/>
   </compounddef>
 </doxygen>

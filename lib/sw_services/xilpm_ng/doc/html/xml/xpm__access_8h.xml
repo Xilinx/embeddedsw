@@ -1,0 +1,1299 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__access_8h" kind="file">
+    <compoundname>xpm_access.h</compoundname>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includes refid="xpm__regnode_8h" local="yes">xpm_regnode.h</includes>
+    <includedby refid="xpm__runtime__subsys_8c" local="yes">xpm_runtime_subsys.c</includedby>
+    <includedby refid="xpm__access_8c" local="yes">xpm_access.c</includedby>
+    <includedby refid="xpm__ioctl_8c" local="yes">xpm_ioctl.c</includedby>
+    <includedby refid="xpm__runtime__api_8c" local="yes">xpm_runtime_api.c</includedby>
+    <incdepgraph>
+      <node id="87">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>xil_io.h</label>
+      </node>
+      <node id="85">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="84">
+        <label>xil_util.h</label>
+      </node>
+      <node id="82">
+        <label>xpm_common.h</label>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="78">
+        <label>xpm_node.h</label>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>xpm_power.h</label>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xpm_regnode.h</label>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>xstatus.h</label>
+      </node>
+      <node id="79">
+        <label>xil_types.h</label>
+      </node>
+      <node id="81">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="77">
+        <label>xpm_access.h</label>
+        <link refid="xpm_access.h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="94">
+        <label>xpm_ioctl.c</label>
+      </node>
+      <node id="95">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="92">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="93">
+        <label>xpm_access.c</label>
+      </node>
+      <node id="91">
+        <label>xpm_access.h</label>
+        <link refid="xpm_access.h"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___node_aper" prot="public">XPm_NodeAper</innerclass>
+    <innerclass refid="struct_x_pm___node_access" prot="public">XPm_NodeAccess</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__access_8h_1aaf7cd5044e020d3e7718dba9976e9b7a" prot="public" static="no">
+        <name>NODE_ACCESS_ARG_MIN_LEN</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1aea00ac970c04584763acd6e4cd5d03a6" prot="public" static="no">
+        <name>XPM_NODE_ACCESS_TABLE_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ac0a065d38f30538d7031bcf89047c765" prot="public" static="no">
+        <name>NODE_APER_OFFSET_BIT_FIELD_SIZE</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ac109f7bad1f7d3ab344d454d0c8faf0f" prot="public" static="no">
+        <name>NODE_APER_SIZE_BIT_FIELD_SIZE</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a000888a25f9b0abe94b940685b312216" prot="public" static="no">
+        <name>NODE_APER_ACCESS_BIT_FIELD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1acc325f3f1c9e54d77179ac3f9853f2b3" prot="public" static="no">
+        <name>NODE_APER_CLEAR_TYPE_BIT_FIELD_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>ClearType field width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1abdda96920015994667af65889cd1a6a8" prot="public" static="no">
+        <name>NODE_APER_EFLAG0_BIT_FIELD_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>EFlag0 field width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a22d983787f563a76cd6ca362c0dbee97" prot="public" static="no">
+        <name>NODE_APER_EFLAG1_BIT_FIELD_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>EFlag1 field width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a05e84ae38bba4f5203786716e4efafc6" prot="public" static="no">
+        <name>NODE_APER_OFFSET_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a257e343dea37ad070129f95b1f891f02" prot="public" static="no">
+        <name>NODE_APER_OFFSET_MASK</name>
+        <initializer>(0xFFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a7887d79a6323eeeaed663773e1a73425" prot="public" static="no">
+        <name>NODE_APER_SIZE_SHIFT</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ac637807f8639c5fc1e3092db966f7cf8" prot="public" static="no">
+        <name>NODE_APER_SIZE_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1af64858b6dcc0866ce1ae8171c0d015db" prot="public" static="no">
+        <name>NODE_APER_ACCESS_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1abd3b7ce08c69e92832244f72f62626cc" prot="public" static="no">
+        <name>NODE_APER_ACCESS_MASK</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a3f80227ca8d7f73d612209b297b07946" prot="public" static="no">
+        <name>NODE_APER_CLEARTYPE_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>clear_type field shift in word2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a6cfd5205faf74ca8b2cd6977ac56c80f" prot="public" static="no">
+        <name>NODE_APER_CLEARTYPE_MASK</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>clear_type field mask (2 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ae2ff6539d99bfef53a510bf67f951354" prot="public" static="no">
+        <name>NODE_APER_EFLAG0_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>flag0 bit position in word2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ab1ad4abcd749f52830bbd982ec445896" prot="public" static="no">
+        <name>NODE_APER_EFLAG1_SHIFT</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>flag1 bit position in word2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a436032dd3485b497513a5fa1f6492b2c" prot="public" static="no">
+        <name>NODE_APER_FLAG_MASK</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>single-bit mask for flag0/flag1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a3b4a905ea89e9dcc3af3028445adb2ed" prot="public" static="no">
+        <name>NODE_APER_WORD2_RSVD_MASK</name>
+        <initializer>(0xFFFFFF00U)</initializer>
+        <briefdescription>
+<para>reserved bits; must be 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1aafd219cd3881a8779e877740f1fcdfcf" prot="public" static="no">
+        <name>NODE_APER_OFFSET</name>
+        <param><defname>Ap</defname></param>
+        <initializer>(((Ap) &gt;&gt; NODE_APER_OFFSET_SHIFT) &amp; NODE_APER_OFFSET_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1aec982e21b080d7449b47f7f74aa29cc2" prot="public" static="no">
+        <name>NODE_APER_SIZE</name>
+        <param><defname>Ap</defname></param>
+        <initializer>(((Ap) &gt;&gt; NODE_APER_SIZE_SHIFT) &amp; NODE_APER_SIZE_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a7014156f202583a7a49f79fc7d97d9e2" prot="public" static="no">
+        <name>NODE_APER_ACCESS</name>
+        <param><defname>Ap</defname></param>
+        <initializer>(((Ap) &gt;&gt; NODE_APER_ACCESS_SHIFT) &amp; NODE_APER_ACCESS_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a1daa37a7fba6408fe637a24be15b8d7a" prot="public" static="no">
+        <name>NODE_APER_CLEARTYPE</name>
+        <param><defname>Ap</defname></param>
+        <initializer>(((Ap) &gt;&gt; NODE_APER_CLEARTYPE_SHIFT) &amp; NODE_APER_CLEARTYPE_MASK)</initializer>
+        <briefdescription>
+<para>Extract clear_type field from a SET_NODE_ACCESS word2 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ae83a4c2655245c9a6b16782b8f8d471a" prot="public" static="no">
+        <name>NODE_APER_EFLAG0</name>
+        <param><defname>Ap</defname></param>
+        <initializer>(((Ap) &gt;&gt; NODE_APER_EFLAG0_SHIFT) &amp; NODE_APER_FLAG_MASK)</initializer>
+        <briefdescription>
+<para>Extract event-flag0 bit from a SET_NODE_ACCESS word2 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ae67f5f256cb5f5407f14c83f24838e03" prot="public" static="no">
+        <name>NODE_APER_EFLAG1</name>
+        <param><defname>Ap</defname></param>
+        <initializer>(((Ap) &gt;&gt; NODE_APER_EFLAG1_SHIFT) &amp; NODE_APER_FLAG_MASK)</initializer>
+        <briefdescription>
+<para>Extract event-flag1 bit from a SET_NODE_ACCESS word2 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1ad61c4803220ecaeeedf9657f419fe351" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_FLAG_CLEAR_AFTER_READ</name>
+        <initializer>(0x1U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+<para>Clear ISR after read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a277864cd923640d226ccbbbfa6cc32f1" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_FLAG_READ_NODE_LIST</name>
+        <initializer>(0x1U &lt;&lt; 1U)</initializer>
+        <briefdescription>
+<para>Return flat node-id list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a9a2e25aae78084ee4103b08f52f953d8" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_FLAG_READ_NODES</name>
+        <initializer>(0x1U &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Read request-specified ranges. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a797a8683267ca22500d18f3431f4518b" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_FLAG_EFLAG0</name>
+        <initializer>(0x1U &lt;&lt; 3U)</initializer>
+        <briefdescription>
+<para>Select EFlag0 apertures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a80de1fc2a1a49d733d8028cd6213832d" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_FLAG_EFLAG1</name>
+        <initializer>(0x1U &lt;&lt; 4U)</initializer>
+        <briefdescription>
+<para>Select EFlag1 apertures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a3de01bfaa3c68bb20de48803aafca001" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_FLAG_VALID_MASK</name>
+        <initializer>(XPM_EVENT_STATUS_FLAG_CLEAR_AFTER_READ |	\
+	 XPM_EVENT_STATUS_FLAG_READ_NODE_LIST |		\
+	 XPM_EVENT_STATUS_FLAG_READ_NODES |		\
+	 XPM_EVENT_STATUS_FLAG_EFLAG0 |			\
+	 XPM_EVENT_STATUS_FLAG_EFLAG1)</initializer>
+        <briefdescription>
+<para>All defined GET_EVENT_STATUS_REGS request flag bits; any bit outside is rejected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1aadc523453028bf12e9c053638b0ea3d3" prot="public" static="no">
+        <name>XPM_EVENT_STATUS_REPLY_MAX_WORDS</name>
+        <initializer>(320U)</initializer>
+        <briefdescription>
+<para>Reply staging cap in 32-bit words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1aee2c3cd250d32aa3368a3858b6d1238c" prot="public" static="no">
+        <name>XPM_READNODES_OFFSET_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>READ_NODES offset field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a9b193ed4489fcbcbbeb9bb7325aa03f9" prot="public" static="no">
+        <name>XPM_READNODES_OFFSET_MASK</name>
+        <initializer>(0x3FFU)</initializer>
+        <briefdescription>
+<para>READ_NODES offset mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a7d3ca990e025091e30759065f018bdce" prot="public" static="no">
+        <name>XPM_READNODES_SIZE_SHIFT</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>READ_NODES size field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a144bd5f7b73e37315a796945fff6144b" prot="public" static="no">
+        <name>XPM_READNODES_SIZE_MASK</name>
+        <initializer>(0x3FU)</initializer>
+        <briefdescription>
+<para>READ_NODES size mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a9462671169e018b3677bc5144d24f897" prot="public" static="no">
+        <name>XPM_READNODES_OFFSET</name>
+        <param><defname>Arg</defname></param>
+        <initializer>(((Arg) &gt;&gt; XPM_READNODES_OFFSET_SHIFT) &amp; XPM_READNODES_OFFSET_MASK)</initializer>
+        <briefdescription>
+<para>Extract word offset from a READ_NODES range descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__access_8h_1a492e3c44383b35cc7c39a07a4877f9e1" prot="public" static="no">
+        <name>XPM_READNODES_SIZE</name>
+        <param><defname>Arg</defname></param>
+        <initializer>(((Arg) &gt;&gt; XPM_READNODES_SIZE_SHIFT) &amp; XPM_READNODES_SIZE_MASK)</initializer>
+        <briefdescription>
+<para>Extract size (register count) from a READ_NODES range descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829" prot="public" static="no">
+        <name>XPm_NodeAccessTypes</name>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829ab0cec4711ba483953ba163bc03d08707" prot="public">
+          <name>ACCESS_RESERVED</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0x0 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829a042e1969d7dc0803ae9cf028c458f5d4" prot="public">
+          <name>ACCESS_ANY_RO</name>
+          <briefdescription>
+<para>0x1 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829a54d696789ea146dc3e7556d6a6edb690" prot="public">
+          <name>ACCESS_ANY_RW</name>
+          <briefdescription>
+<para>0x2 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829aba7349cbbede25e720700d463ebf5c0a" prot="public">
+          <name>ACCESS_SEC_RO</name>
+          <briefdescription>
+<para>0x3 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829ab59d9c0f1e67707576879862ad77b0c7" prot="public">
+          <name>ACCESS_SEC_RW</name>
+          <briefdescription>
+<para>0x4 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829a886f86340d0680018f71476743bff5a9" prot="public">
+          <name>ACCESS_SEC_NS_SUBSYS_RO</name>
+          <briefdescription>
+<para>0x5 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829a6ae81564479b2c9c11a9c2e497fc8cf3" prot="public">
+          <name>ACCESS_SEC_NS_SUBSYS_RW</name>
+          <briefdescription>
+<para>0x6 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829a9174e50e5ef3e5efcd68755e5c91f205" prot="public">
+          <name>ACCESS_SEC_SUBSYS_RO</name>
+          <briefdescription>
+<para>0x7 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829a96924196172d00cee5f8785eb9742d1a" prot="public">
+          <name>ACCESS_SEC_SUBSYS_RW</name>
+          <briefdescription>
+<para>0x8 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1afa7b395d7dcd4afbccef641f8f3b4829aab066b5d31ced65431e5f565336bfb11" prot="public">
+          <name>ACCESS_TYPE_MAX</name>
+          <briefdescription>
+<para>0x9 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Node access types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="128" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpm__access_8h_1a385c44f6fb256e5716a2302a5b940388" prot="public" static="no">
+        <name>@10</name>
+        <enumvalue id="xpm__access_8h_1a385c44f6fb256e5716a2302a5b940388ad79895742d54a1558076192452a9d1e6" prot="public">
+          <name>CLEAR_NONE</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0x0 - no clear </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1a385c44f6fb256e5716a2302a5b940388a68e470dd63a1b82dc7b1f1045f733788" prot="public">
+          <name>CLEAR_W1TC</name>
+          <initializer>= 1U</initializer>
+          <briefdescription>
+<para>0x1 - write-1-to-clear (write back snapshot) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1a385c44f6fb256e5716a2302a5b940388ab0825a74f29f46a0e45dac1cfca5ab7e" prot="public">
+          <name>CLEAR_W0TC</name>
+          <initializer>= 2U</initializer>
+          <briefdescription>
+<para>0x2 - write-0-to-clear (write back inverse) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__access_8h_1a385c44f6fb256e5716a2302a5b940388a8437128d25a66b72264ab68289d60fe7" prot="public">
+          <name>CLEAR_TYPE_MAX</name>
+          <briefdescription>
+<para>0x3 - reserved (reject) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Aperture post-read clear behavior (used by GET_EVENT_STATUS_REGS ClearAfterRead). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="146" bodyend="153"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__access_8h_1a14004426b6cfd47ebf8358823b1b76a7" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref></type>
+        <definition>typedef struct XPm_NodeAccess XPm_NodeAccess</definition>
+        <argsstring></argsstring>
+        <name>XPm_NodeAccess</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xpm__access_8h_1a80afb049e71b9c4b23a354a864d51914" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref></type>
+        <definition>typedef struct XPm_NodeAper XPm_NodeAper</definition>
+        <argsstring></argsstring>
+        <name>XPm_NodeAper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__access_8h_1aedb2f8113b6660e0290a31437984581d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmAccess_RegnodeInit</definition>
+        <argsstring>(XPm_RegNode *RegNode, u32 NodeId, u32 BaseAddress, XPm_Power *Power)</argsstring>
+        <name>XPmAccess_RegnodeInit</name>
+        <param>
+          <type><ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref> *</type>
+          <declname>RegNode</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XPm_Power *</type>
+          <declname>Power</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="179" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__access_8h_1a4ce396e7f7ac1314dd40cc7fcffb9731" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAccess_AddRegnodeRequirement</definition>
+        <argsstring>(u32 SubsystemId, u32 RegnodeId)</argsstring>
+        <name>XPmAccess_AddRegnodeRequirement</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegnodeId</declname>
+        </param>
+        <briefdescription>
+<para>Add requirements on a regnode from different subsystems. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a Subsystem </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegnodeId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node Id assigned to a Regnode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND otherwise</para></simplesect>
+<simplesect kind="note"><para>SubsystemId must be validated on caller side </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="1494" bodyend="1510"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__access_8h_1af25e06e2b6087ef44e57554956da8d58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAccess_UpdateTable</definition>
+        <argsstring>(const u32 *Args, u32 NumArgs)</argsstring>
+        <name>XPmAccess_UpdateTable</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>Args</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumArgs</declname>
+        </param>
+        <briefdescription>
+<para>Add a new node access entry to the &quot;Node Access Table&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>command arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumArgs</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of arguments</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>This function implements an prepend/update behavior:<itemizedlist>
+<listitem><para>If an aperture with the same offset and size exists, it updates the access field</para></listitem><listitem><para>If it doesn&apos;t exist, it prepends the new aperture to the list </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="1312" bodyend="1480"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__access_8h_1a26b8e97743efe2fd1529bb879b723523" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAccess_ReadReg</definition>
+        <argsstring>(u32 SubsystemId, u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 Count, u32 *const Response, u32 CmdType)</argsstring>
+        <name>XPmAccess_ReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Count</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Response</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>IOCTL read action handler (Reads given offset - 1 32-bit word) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem Id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Id (Device, Regnode etc.) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IoctlId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOCTL Id (Rd/Wr etc.) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset to write to in base address of the given node </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Count</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Count (Must be 1 for now, may change in future) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Secure/Non-Secure command type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="448" bodyend="469"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__access_8h_1a2c589a4303618bde557d99515d4279b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAccess_MaskWriteReg</definition>
+        <argsstring>(u32 SubsystemId, u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 Mask, u32 Value, u32 CmdType)</argsstring>
+        <name>XPmAccess_MaskWriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref></type>
+          <declname>IoctlId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>IOCTL read action handler (Mask writes to given offset - 1 32-bit word) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SubsystemId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem Id </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Id (Device, Regnode etc.) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IoctlId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IOCTL Id (Rd/Wr etc.) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset to write to in base address of the given node </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to be applied to Value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be written to given offset </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdType</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Secure/Non-Secure command type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or error code</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>If for all the 32bit writes (i.e mask = 0xffffffff), simply write to entire address without RMW For any other mask, use PmRmw32()</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c" bodystart="488" bodyend="517"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__access_8h_1a8f24b6a92afaa4d2170baa774de99d19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAccess_GetEventStatusRegs</definition>
+        <argsstring>(u32 SubsystemId, u32 EventNodeId, u32 Mask, u32 Flags, const u32 *ReqArgs, u32 ReqArgCnt, u32 *Reply, u32 *ReplyUsed, u32 CmdType)</argsstring>
+        <name>XPmAccess_GetEventStatusRegs</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EventNodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>ReqArgs</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ReqArgCnt</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Reply</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReplyUsed</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+<para>GET_EVENT_STATUS_REGS core: source-trace read of the nodes linked to {EventNodeId, Mask}. </para>        </briefdescription>
+        <detaileddescription>
+<para>Post-read ISR clears are only recorded (and their write permission verified) here; they are applied by XPmAccess_ApplyEventClears() after the reply has been delivered, so a clear failure can never destroy the snapshot. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="210" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__access_8h_1a9059b37531ab5d7f5d0cd4c46fa8d916" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmAccess_ApplyEventClears</definition>
+        <argsstring>(u32 SubsystemId, u32 CmdType)</argsstring>
+        <name>XPmAccess_ApplyEventClears</name>
+        <param>
+          <type>u32</type>
+          <declname>SubsystemId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CmdType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="215" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_ACCESS_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_ACCESS_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regnode.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref><sp/><ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref><sp/><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref>;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Minimum<sp/>number<sp/>of<sp/>arguments<sp/>in<sp/>node<sp/>access<sp/>command<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_ACCESS_ARG_MIN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Size<sp/>of<sp/>node<sp/>access<sp/>table*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_NODE_ACCESS_TABLE_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Size<sp/>of<sp/>bit<sp/>fields<sp/>for<sp/>XPm_NodeAper<sp/>struct<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_OFFSET_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_SIZE_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_ACCESS_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_CLEAR_TYPE_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#define<sp/>NODE_APER_EFLAG0_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#define<sp/>NODE_APER_EFLAG1_BIT_FIELD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>SET_NODE_ACCESS<sp/>Masks/Shifts<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_OFFSET_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_OFFSET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFU)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_SIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_ACCESS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_ACCESS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>Extended<sp/>attributes<sp/>packed<sp/>in<sp/>the<sp/>free<sp/>bits<sp/>of<sp/>SET_NODE_ACCESS<sp/>word2</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>(Args[i+1]).<sp/>Layout:<sp/>[7]<sp/>flag1<sp/><sp/>[6]<sp/>flag0<sp/><sp/>[5:4]<sp/>clear_type<sp/><sp/>[3:0]<sp/>access.</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>Legacy<sp/>CDOs<sp/>leave<sp/>these<sp/>bits<sp/>0<sp/>(clear_type<sp/>=<sp/>CLEAR_NONE,<sp/>no<sp/>event<sp/>flags),</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>so<sp/>the<sp/>parser<sp/>remains<sp/>backward<sp/>compatible.</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_CLEARTYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>NODE_APER_CLEARTYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>NODE_APER_EFLAG0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>NODE_APER_EFLAG1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>NODE_APER_FLAG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>SET_NODE_ACCESS<sp/>word2<sp/>(Args[i+1])<sp/>uses<sp/>only<sp/>bits<sp/>[7:0]<sp/>(access,<sp/>clear_type,</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>flag0,<sp/>flag1).<sp/>Bits<sp/>[31:8]<sp/>are<sp/>reserved<sp/>and<sp/>MUST<sp/>be<sp/>zero;<sp/>the<sp/>parser<sp/>rejects</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>a<sp/>non-zero<sp/>reserved<sp/>field<sp/>so<sp/>the<sp/>contract<sp/>is<sp/>self-enforcing<sp/>regardless<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>CDO<sp/>generator<sp/>(no<sp/>longer<sp/>relying<sp/>on<sp/>generators<sp/>to<sp/>zero-fill<sp/>the<sp/>free<sp/>bits).</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_WORD2_RSVD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFF00U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>NODE_APER_OFFSET(Ap)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Ap)<sp/>&gt;&gt;<sp/>NODE_APER_OFFSET_SHIFT)<sp/>&amp;<sp/>NODE_APER_OFFSET_MASK)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_SIZE(Ap)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Ap)<sp/>&gt;&gt;<sp/>NODE_APER_SIZE_SHIFT)<sp/>&amp;<sp/>NODE_APER_SIZE_MASK)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NODE_APER_ACCESS(Ap)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Ap)<sp/>&gt;&gt;<sp/>NODE_APER_ACCESS_SHIFT)<sp/>&amp;<sp/>NODE_APER_ACCESS_MASK)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>NODE_APER_CLEARTYPE(Ap)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Ap)<sp/>&gt;&gt;<sp/>NODE_APER_CLEARTYPE_SHIFT)<sp/>&amp;<sp/>NODE_APER_CLEARTYPE_MASK)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>NODE_APER_EFLAG0(Ap)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Ap)<sp/>&gt;&gt;<sp/>NODE_APER_EFLAG0_SHIFT)<sp/>&amp;<sp/>NODE_APER_FLAG_MASK)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>NODE_APER_EFLAG1(Ap)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Ap)<sp/>&gt;&gt;<sp/>NODE_APER_EFLAG1_SHIFT)<sp/>&amp;<sp/>NODE_APER_FLAG_MASK)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>GET_EVENT_STATUS_REGS<sp/>request<sp/>&quot;Flags&quot;<sp/>word<sp/>bit<sp/>definitions.<sp/>These<sp/>live<sp/>inside</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>the<sp/>request<sp/>buffer,<sp/>not<sp/>in<sp/>the<sp/>IPI<sp/>arg<sp/>words.</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_FLAG_CLEAR_AFTER_READ<sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_FLAG_READ_NODE_LIST<sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_FLAG_READ_NODES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_FLAG_EFLAG0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_FLAG_EFLAG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_FLAG_VALID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPM_EVENT_STATUS_FLAG_CLEAR_AFTER_READ<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_EVENT_STATUS_FLAG_READ_NODE_LIST<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_EVENT_STATUS_FLAG_READ_NODES<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_EVENT_STATUS_FLAG_EFLAG0<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_EVENT_STATUS_FLAG_EFLAG1)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*<sp/>Maximum<sp/>GET_EVENT_STATUS_REGS<sp/>reply<sp/>the<sp/>PLM<sp/>stages<sp/>per<sp/>call,<sp/>in<sp/>32-bit<sp/>words,</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*<sp/>used<sp/>to<sp/>size<sp/>the<sp/>reply<sp/>staging<sp/>buffer<sp/>(xpm_runtime_api.c).<sp/>versal_2ve_2vm<sp/>worst<sp/>case<sp/>is</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>5<sp/>controllers<sp/>x<sp/>(MAIN<sp/>34<sp/>+<sp/>NOC<sp/>21)<sp/>+<sp/>reply<sp/>word0<sp/>=<sp/>276<sp/>words<sp/>(~1.1<sp/>KB);</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>320<sp/>gives<sp/>~16%<sp/>headroom.<sp/>A<sp/>caller<sp/>request<sp/>larger<sp/>than<sp/>this</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*<sp/>is<sp/>clamped<sp/>and<sp/>reported<sp/>via<sp/>XST_BUFFER_TOO_SMALL<sp/>so<sp/>it<sp/>can<sp/>resize<sp/>and<sp/>retry.</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>The<sp/>deferred<sp/>ISR-clear<sp/>store<sp/>(xpm_access.c)<sp/>is<sp/>sized<sp/>SEPARATELY<sp/>from<sp/>a</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*<sp/>hardware<sp/>bound,<sp/>not<sp/>from<sp/>this<sp/>value.<sp/>Overridable<sp/>via<sp/>a<sp/>build<sp/>flag.</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_EVENT_STATUS_REPLY_MAX_WORDS</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_EVENT_STATUS_REPLY_MAX_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(320U)<sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*<sp/>ReadNodes<sp/>range<sp/>descriptor<sp/>bit<sp/>layout<sp/>(request<sp/>&quot;Args&quot;<sp/>words):</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/>*<sp/><sp/><sp/>{<sp/>rsvd[31:16],<sp/>size[15:10],<sp/>offset[9:0]<sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>Offset-unit<sp/>convention:<sp/>the<sp/>REQUEST<sp/>descriptor<sp/>carries<sp/>a<sp/>10-bit</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*<sp/>*word*<sp/>offset<sp/>(units<sp/>of<sp/>4<sp/>bytes)<sp/>giving<sp/>a<sp/>4<sp/>KB<sp/>reach<sp/>from<sp/>the<sp/>RegNode<sp/>base;</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>the<sp/>REPLY<sp/>descriptor<sp/>and<sp/>SET_NODE_ACCESS<sp/>aperture<sp/>carry<sp/>a<sp/>20-bit<sp/>*byte*</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*<sp/>offset.<sp/>All<sp/>DDRMC<sp/>registers<sp/>sit<sp/>&lt;<sp/>4<sp/>KB<sp/>from<sp/>their<sp/>RegNode<sp/>base<sp/>(ECCR<sp/>0xEB0,</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/>*<sp/>ADEC<sp/>0x40),<sp/>so<sp/>the<sp/>10-bit<sp/>word<sp/>offset<sp/>suffices;<sp/>widen<sp/>only<sp/>if<sp/>a<sp/>future<sp/>node</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/>*<sp/>needs<sp/>a<sp/>&gt;<sp/>4<sp/>KB<sp/>reach.</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_READNODES_OFFSET_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XPM_READNODES_OFFSET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FFU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XPM_READNODES_SIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XPM_READNODES_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3FU)<sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XPM_READNODES_OFFSET(Arg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Arg)<sp/>&gt;&gt;<sp/>XPM_READNODES_OFFSET_SHIFT)<sp/>&amp;<sp/>XPM_READNODES_OFFSET_MASK)</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XPM_READNODES_SIZE(Arg)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((Arg)<sp/>&gt;&gt;<sp/>XPM_READNODES_SIZE_SHIFT)<sp/>&amp;<sp/>XPM_READNODES_SIZE_MASK)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="128"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_RESERVED<sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_ANY_RO,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_ANY_RW,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_SEC_RO,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_SEC_RW,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_SEC_NS_SUBSYS_RO,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_SEC_NS_SUBSYS_RW,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_SEC_SUBSYS_RO,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_SEC_SUBSYS_RW,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Always<sp/>keep<sp/>this<sp/>enum<sp/>last<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ACCESS_TYPE_MAX,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/>XPm_NodeAccessTypes;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLEAR_NONE<sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLEAR_W1TC<sp/>=<sp/>1U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLEAR_W0TC<sp/>=<sp/>2U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Always<sp/>keep<sp/>this<sp/>enum<sp/>last<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CLEAR_TYPE_MAX,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158" refid="struct_x_pm___node_aper" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref><sp/>{</highlight></codeline>
+<codeline lineno="159" refid="struct_x_pm___node_aper_1aa57f1a79876a222db06ef9a542e58d48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_aper_1aa57f1a79876a222db06ef9a542e58d48" kindref="member">Offset</ref><sp/>:<sp/>NODE_APER_OFFSET_BIT_FIELD_SIZE;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="struct_x_pm___node_aper_1a3ab3d8d59d9b8b8920991dfde6db523b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_aper_1a3ab3d8d59d9b8b8920991dfde6db523b" kindref="member">Size</ref><sp/>:<sp/>NODE_APER_SIZE_BIT_FIELD_SIZE;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_x_pm___node_aper_1a8a5d5f566609cc4ed2e730feb1728286" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_aper_1a8a5d5f566609cc4ed2e730feb1728286" kindref="member">Access</ref><sp/>:<sp/>NODE_APER_ACCESS_BIT_FIELD_SIZE;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_x_pm___node_aper_1a323ddeb24967170959d5c8ce88fc988b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_aper_1a323ddeb24967170959d5c8ce88fc988b" kindref="member">ClearType</ref><sp/>:<sp/>NODE_APER_CLEAR_TYPE_BIT_FIELD_SIZE;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="struct_x_pm___node_aper_1a9ae755f1912b660f6767c667d1c3d303" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_aper_1a9ae755f1912b660f6767c667d1c3d303" kindref="member">EFlag0</ref><sp/>:<sp/>NODE_APER_EFLAG0_BIT_FIELD_SIZE;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_x_pm___node_aper_1ad75f548d6a701404cb0edc6dc6dafb2e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_aper_1ad75f548d6a701404cb0edc6dc6dafb2e" kindref="member">EFlag1</ref><sp/>:<sp/>NODE_APER_EFLAG1_BIT_FIELD_SIZE;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_x_pm___node_aper_1aab0ada7ffebf0309c7f4523b2379e678" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref><sp/>*<ref refid="struct_x_pm___node_aper_1aab0ada7ffebf0309c7f4523b2379e678" kindref="member">NextAper</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171" refid="struct_x_pm___node_access" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref><sp/>{</highlight></codeline>
+<codeline lineno="172" refid="struct_x_pm___node_access_1ab2be44c5ed614e9d479018c27cac1b42" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_pm___node_access_1ab2be44c5ed614e9d479018c27cac1b42" kindref="member">Id</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_x_pm___node_access_1a1518fbbb8598ed44e6dcd9eea72805bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref><sp/>*<ref refid="struct_x_pm___node_access_1a1518fbbb8598ed44e6dcd9eea72805bb" kindref="member">Aperture</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_x_pm___node_access_1a0122d8a567183c18966be443e5d529c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref><sp/>*<ref refid="struct_x_pm___node_access_1a0122d8a567183c18966be443e5d529c4" kindref="member">NextNode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Add<sp/>regnodes<sp/>to<sp/>pm<sp/>database<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmAccess_RegnodeInit(<ref refid="struct_x_pm___reg_node" kindref="compound">XPm_RegNode</ref><sp/>*RegNode,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NodeId,<sp/>u32<sp/>BaseAddress,<sp/>XPm_Power<sp/>*Power);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Add<sp/>requirements<sp/>on<sp/>a<sp/>regnode<sp/>from<sp/>different<sp/>subsystems<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">XStatus<sp/>XPmAccess_AddRegnodeRequirement(u32<sp/>SubsystemId,<sp/>u32<sp/>RegnodeId);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Set<sp/>node<sp/>access<sp/>handler<sp/>(idempotent;<sp/>updates<sp/>in<sp/>place)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal">XStatus<sp/>XPmAccess_UpdateTable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*Args,<sp/>u32<sp/>NumArgs);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Debug<sp/>only<sp/>function<sp/>meant<sp/>for<sp/>printing<sp/>regnodes<sp/>and<sp/>&quot;Node<sp/>Access<sp/>Table&quot;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>IOCTL<sp/>handlers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal">XStatus<sp/>XPmAccess_ReadReg(u32<sp/>SubsystemId,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset,<sp/>u32<sp/>Count,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Response,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal">XStatus<sp/>XPmAccess_MaskWriteReg(u32<sp/>SubsystemId,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xpm__versal__apis_1gaf60d077a5f0ed79269e8b37cc966713c" kindref="member">pm_ioctl_id</ref><sp/>IoctlId,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset,<sp/>u32<sp/>Mask,<sp/>u32<sp/>Value,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">XStatus<sp/>XPmAccess_GetEventStatusRegs(u32<sp/>SubsystemId,<sp/>u32<sp/>EventNodeId,<sp/>u32<sp/>Mask,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Flags,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*ReqArgs,<sp/>u32<sp/>ReqArgCnt,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Reply,<sp/>u32<sp/>*ReplyUsed,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Apply<sp/>the<sp/>ISR<sp/>clears<sp/>deferred<sp/>by<sp/>the<sp/>last<sp/>XPmAccess_GetEventStatusRegs()<sp/>call<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal">XStatus<sp/>XPmAccess_ApplyEventClears(u32<sp/>SubsystemId,<sp/>u32<sp/>CmdType);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_ACCESS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h"/>
+  </compounddef>
+</doxygen>

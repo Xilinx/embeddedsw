@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__mldsainfo_8h" kind="file">
+    <compoundname>xasu_mldsainfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__keymanager_8c" local="yes">xasu_keymanager.c</includedby>
+    <includedby refid="xasu__mldsa_8h" local="yes">xasu_mldsa.h</includedby>
+    <includedby refid="xasu__keymanager__common_8c" local="yes">xasu_keymanager_common.c</includedby>
+    <includedby refid="xasu__mldsa__common_8h" local="yes">xasu_mldsa_common.h</includedby>
+    <includedby refid="xasu__provisioninfo_8h" local="yes">xasu_provisioninfo.h</includedby>
+    <incdepgraph>
+      <node id="1019">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1018">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1017">
+        <label>xasu_mldsainfo.h</label>
+        <link refid="xasu_mldsainfo.h"/>
+        <childnode refid="1018" relation="include">
+        </childnode>
+        <childnode refid="1019" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1030">
+        <label>xasu_provision.c</label>
+        <link refid="xasu__provision_8c"/>
+      </node>
+      <node id="1029">
+        <label>xasu_provision.h</label>
+        <link refid="xasu__provision_8h"/>
+        <childnode refid="1030" relation="include">
+        </childnode>
+        <childnode refid="1031" relation="include">
+        </childnode>
+        <childnode refid="1032" relation="include">
+        </childnode>
+      </node>
+      <node id="1035">
+        <label>xasu_provision_common.c</label>
+        <link refid="xasu__provision__common_8c"/>
+      </node>
+      <node id="1034">
+        <label>xasu_provision_common.h</label>
+        <link refid="xasu__provision__common_8h"/>
+        <childnode refid="1029" relation="include">
+        </childnode>
+        <childnode refid="1030" relation="include">
+        </childnode>
+        <childnode refid="1035" relation="include">
+        </childnode>
+      </node>
+      <node id="1025">
+        <label>xasu_keymanager_common.c</label>
+        <link refid="xasu__keymanager__common_8c"/>
+      </node>
+      <node id="1027">
+        <label>xasu_mldsa_common.c</label>
+        <link refid="xasu__mldsa__common_8c"/>
+      </node>
+      <node id="1026">
+        <label>xasu_mldsa_common.h</label>
+        <link refid="xasu__mldsa__common_8h"/>
+        <childnode refid="1023" relation="include">
+        </childnode>
+        <childnode refid="1027" relation="include">
+        </childnode>
+      </node>
+      <node id="1028">
+        <label>xasu_provisioninfo.h</label>
+        <link refid="xasu__provisioninfo_8h"/>
+        <childnode refid="1029" relation="include">
+        </childnode>
+        <childnode refid="1030" relation="include">
+        </childnode>
+        <childnode refid="1034" relation="include">
+        </childnode>
+      </node>
+      <node id="1024">
+        <label>xasu_mldsa_example.c</label>
+        <link refid="xasu__mldsa__example_8c"/>
+      </node>
+      <node id="1033">
+        <label>xasu_provision_ude_example.c</label>
+        <link refid="xasu__provision__ude__example_8c"/>
+      </node>
+      <node id="1032">
+        <label>xasu_provision_ude_input_example.h</label>
+        <link refid="xasu__provision__ude__input__example_8h"/>
+        <childnode refid="1033" relation="include">
+        </childnode>
+      </node>
+      <node id="1021">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="1023">
+        <label>xasu_mldsa.c</label>
+        <link refid="xasu__mldsa_8c"/>
+      </node>
+      <node id="1020">
+        <label>xasu_mldsainfo.h</label>
+        <link refid="xasu_mldsainfo.h"/>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1022" relation="include">
+        </childnode>
+        <childnode refid="1025" relation="include">
+        </childnode>
+        <childnode refid="1026" relation="include">
+        </childnode>
+        <childnode refid="1028" relation="include">
+        </childnode>
+      </node>
+      <node id="1022">
+        <label>xasu_mldsa.h</label>
+        <link refid="xasu__mldsa_8h"/>
+        <childnode refid="1023" relation="include">
+        </childnode>
+        <childnode refid="1024" relation="include">
+        </childnode>
+      </node>
+      <node id="1031">
+        <label>xasu_provision_dpc_example.c</label>
+        <link refid="xasu__provision__dpc__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___mldsa_sign_verify_params" prot="public">XAsu_MldsaSignVerifyParams</innerclass>
+    <innerclass refid="struct_x_asu___mldsa_sign_derand_params" prot="public">XAsu_MldsaSignDerandParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf671f36d821cf59dd2157350bdc31d46" prot="public" static="no">
+        <name>XASU_MLDSA_SIGN_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for ML-DSA signature generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__client__apis_1gaeb13299f8abe43cbebabbde90d970d70" compoundref="xasu__mldsa_8c" startline="62" endline="99">XAsu_MldsaSign</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2bcffff1e9baa0c71424f8dd72473c16" prot="public" static="no">
+        <name>XASU_MLDSA_VERIFY_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for ML-DSA signature verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__client__apis_1ga11ebbf80195c5d47d4da4f7e8d3f8ad3" compoundref="xasu__mldsa_8c" startline="181" endline="218">XAsu_MldsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaee5fa0884322b372293871ccb48260ce" prot="public" static="no">
+        <name>XASU_MLDSA_KAT_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for ML-DSA Known Answer Test. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__client__apis_1ga2cfbe6af30d832e5292fb636253c3893" compoundref="xasu__mldsa_8c" startline="236" endline="264">XAsu_MldsaKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga646a143bb8fbd50287309c3e12d410e6" prot="public" static="no">
+        <name>XASU_MLDSA_SIGN_DERAND_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for signing with a supplied rnd. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__client__apis_1ga18c8cf02e218a342838405be0b25ba3c" compoundref="xasu__mldsa_8c" startline="124" endline="162">XAsu_MldsaSignDerand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga756de4b4cadb8e0253bf125354b449f6" prot="public" static="no">
+        <name>XASU_MLDSA_MAX_CMDS</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Maximum commands supported by ML-DSA module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga127a0fa85fed4a24d371746f2c9be46e" prot="public" static="no">
+        <name>XASU_MLDSA_MAX_CTX_LEN</name>
+        <initializer>(255U)</initializer>
+        <briefdescription>
+<para>Maximum context string length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabeb03a1bf85ed11d8fe3923f61469712" prot="public" static="no">
+        <name>XASU_MLDSA_SIGN_MODE_PURE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Pure ML-DSA (message signed directly) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad4456e8e57dae7b1088045ff6eac1ab7" prot="public" static="no">
+        <name>XASU_MLDSA_SIGN_MODE_PREHASH</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>HashML-DSA (pre-hashed message) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga724b3b8428c923225dc1e1626119c93d" prot="public" static="no">
+        <name>XASU_MLDSA_HEDGED</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Hedged/randomized signing (default) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaafd8cdaeea1d4f09d175bb7801ec491a" prot="public" static="no">
+        <name>XASU_MLDSA_DETERMINISTIC</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Deterministic signing (rnd = 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga346034ee448f0d34558d05569f07bef2" prot="public" static="no">
+        <name>XASU_MLDSA_KEYGEN_SEED_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>KeyGen seed (xi) length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" compoundref="xasu__keymanager__common_8c" startline="420" endline="460">XAsu_KmValidateMldsaKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabb0e6eeea94b04ae4a61618c484fb6d3" prot="public" static="no">
+        <name>XASU_MLDSA_SIGN_RND_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Signing randomness (rnd) length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad5a4eaff25b799e3d4074ce00d7a965a" prot="public" static="no">
+        <name>XASU_MLDSA_44_PUB_KEY_LEN</name>
+        <initializer>(1312U)</initializer>
+        <briefdescription>
+<para>ML-DSA-44 public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga58ff90cd15906de697f530cde302b848" prot="public" static="no">
+        <name>XASU_MLDSA_44_PRIV_KEY_LEN</name>
+        <initializer>(2560U)</initializer>
+        <briefdescription>
+<para>ML-DSA-44 secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf385ba639c9d2f1f25b4d324cb4876bc" prot="public" static="no">
+        <name>XASU_MLDSA_44_SIGN_LEN</name>
+        <initializer>(2420U)</initializer>
+        <briefdescription>
+<para>ML-DSA-44 signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4bd0ca108c420fa07b70837e9ba8a7f2" prot="public" static="no">
+        <name>XASU_MLDSA_65_PUB_KEY_LEN</name>
+        <initializer>(1952U)</initializer>
+        <briefdescription>
+<para>ML-DSA-65 public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf947e2b8054732273a96052501830254" prot="public" static="no">
+        <name>XASU_MLDSA_65_PRIV_KEY_LEN</name>
+        <initializer>(4032U)</initializer>
+        <briefdescription>
+<para>ML-DSA-65 secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga660a1a2ba31756e021e2b00f8b142540" prot="public" static="no">
+        <name>XASU_MLDSA_65_SIGN_LEN</name>
+        <initializer>(3309U)</initializer>
+        <briefdescription>
+<para>ML-DSA-65 signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad2bb3a7e61b958872f561f2d46c5263f" prot="public" static="no">
+        <name>XASU_MLDSA_87_PUB_KEY_LEN</name>
+        <initializer>(2592U)</initializer>
+        <briefdescription>
+<para>ML-DSA-87 public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad676510a9cad34fb53246461ce349c96" prot="public" static="no">
+        <name>XASU_MLDSA_87_PRIV_KEY_LEN</name>
+        <initializer>(4896U)</initializer>
+        <briefdescription>
+<para>ML-DSA-87 secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gacbe45fc32cb856475b4476ad95a07753" compoundref="xasu__keymanager__common_8c" startline="291" endline="316">XAsu_KmGetMldsaKeyLengths</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4d7f31358994fd0a90328616eabe2c32" prot="public" static="no">
+        <name>XASU_MLDSA_87_SIGN_LEN</name>
+        <initializer>(4627U)</initializer>
+        <briefdescription>
+<para>ML-DSA-87 signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9669d2723be933befb8d4ba956c1ef81" prot="public" static="no">
+        <name>XASU_MLDSA_MAX_PUB_KEY_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gad2bb3a7e61b958872f561f2d46c5263f" kindref="member">XASU_MLDSA_87_PUB_KEY_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Max public key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga6e33a5c152dea26cb9098074496e653c" prot="public" static="no">
+        <name>XASU_MLDSA_MAX_PRIV_KEY_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gad676510a9cad34fb53246461ce349c96" kindref="member">XASU_MLDSA_87_PRIV_KEY_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Max secret key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga92267ab8f4e9b6c23daa508eab5c2ac0" prot="public" static="no">
+        <name>XASU_MLDSA_MAX_SIGN_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga4d7f31358994fd0a90328616eabe2c32" kindref="member">XASU_MLDSA_87_SIGN_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Max signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xasu__common__defs_1gac4f6617241450cf09b6dbfe56cb4ec45" prot="public" static="no">
+        <name>XAsu_MldsaParamSet</name>
+        <enumvalue id="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a39c230d309ff7e93566994c9d7866631" prot="public">
+          <name>XASU_MLDSA_44</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>ML-DSA-44 (NIST security category 2) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a1e863db7c5c991fcc1dc6bfde5dd1212" prot="public">
+          <name>XASU_MLDSA_65</name>
+          <briefdescription>
+<para>ML-DSA-65 (NIST security category 3) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45afa4ac7963b0db583423a33f683ef87b7" prot="public">
+          <name>XASU_MLDSA_87</name>
+          <briefdescription>
+<para>ML-DSA-87 (NIST security category 5) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enum lists the supported ML-DSA parameter sets (FIPS 204). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="97" bodyend="101"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ML-DSA (FIPS 204) definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/20/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_MLDSAINFO_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSAINFO_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>ML-DSA<sp/>module<sp/>command<sp/>IDs.<sp/>Key<sp/>pair<sp/>generation<sp/>is<sp/>not<sp/>one<sp/>of<sp/>them:<sp/>it<sp/>is<sp/>reached<sp/>only<sp/>through</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>the<sp/>key<sp/>manager&apos;s<sp/>XASU_KM_GEN_MLDSA_KEY_PAIR_CMD_ID,<sp/>so<sp/>that<sp/>a<sp/>generated<sp/>private<sp/>key<sp/>can<sp/>be</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>placed<sp/>in<sp/>the<sp/>key<sp/>vault<sp/>rather<sp/>than<sp/>handed<sp/>back<sp/>to<sp/>the<sp/>caller.</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1gaf671f36d821cf59dd2157350bdc31d46" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_SIGN_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1ga2bcffff1e9baa0c71424f8dd72473c16" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_VERIFY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xasu__common__defs_1gaee5fa0884322b372293871ccb48260ce" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>Signature<sp/>generation<sp/>from<sp/>a<sp/>caller-supplied<sp/>rnd,<sp/>for<sp/>algorithm<sp/>validation<sp/>only.<sp/>Hedged<sp/>signing</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>draws<sp/>rnd<sp/>from<sp/>an<sp/>approved<sp/>RBG,<sp/>so<sp/>reproducing<sp/>the<sp/>ACVP<sp/>hedged<sp/>signature<sp/>vectors<sp/>needs<sp/>an<sp/>rnd</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>that<sp/>comes<sp/>in<sp/>with<sp/>the<sp/>request.<sp/>ASUFW<sp/>therefore<sp/>serves<sp/>this<sp/>command<sp/>only<sp/>when<sp/>built<sp/>with</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>XASU_ENABLE_CAVP_SUPPORT;<sp/>a<sp/>production<sp/>build<sp/>rejects<sp/>it<sp/>with</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED.<sp/>Deterministic<sp/>signing<sp/>(rnd<sp/>=<sp/>0)<sp/>needs<sp/>no<sp/>such</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>command,<sp/>being<sp/>an<sp/>approved<sp/>mode<sp/>reachable<sp/>through<sp/>XASU_MLDSA_SIGN_CMD_ID.<sp/>The<sp/>ID<sp/>is<sp/>defined</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>unconditionally<sp/>so<sp/>that<sp/>both<sp/>builds<sp/>agree<sp/>on<sp/>XASU_MLDSA_MAX_CMDS<sp/>and<sp/>the<sp/>module<sp/>table<sp/>layout.</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="group__xasu__common__defs_1ga646a143bb8fbd50287309c3e12d410e6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_SIGN_DERAND_CMD_ID<sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xasu__common__defs_1ga756de4b4cadb8e0253bf125354b449f6" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>ML-DSA<sp/>context<sp/>string<sp/>length<sp/>in<sp/>bytes<sp/>(FIPS<sp/>204)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="group__xasu__common__defs_1ga127a0fa85fed4a24d371746f2c9be46e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_MAX_CTX_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(255U)<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ML-DSA<sp/>signing<sp/>variants<sp/>(FIPS<sp/>204)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1gabeb03a1bf85ed11d8fe3923f61469712" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_SIGN_MODE_PURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xasu__common__defs_1gad4456e8e57dae7b1088045ff6eac1ab7" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_SIGN_MODE_PREHASH<sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ML-DSA<sp/>signing<sp/>randomness<sp/>selection<sp/>(FIPS<sp/>204)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="group__xasu__common__defs_1ga724b3b8428c923225dc1e1626119c93d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_HEDGED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xasu__common__defs_1gaafd8cdaeea1d4f09d175bb7801ec491a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_DETERMINISTIC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>KeyGen<sp/>seed<sp/>and<sp/>signing<sp/>randomness<sp/>lengths<sp/>(FIPS<sp/>204),<sp/>same<sp/>for<sp/>all<sp/>parameter<sp/>sets<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__common__defs_1ga346034ee448f0d34558d05569f07bef2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_KEYGEN_SEED_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xasu__common__defs_1gabb0e6eeea94b04ae4a61618c484fb6d3" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_SIGN_RND_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Per<sp/>parameter-set<sp/>sizes<sp/>in<sp/>bytes<sp/>(FIPS<sp/>204)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="group__xasu__common__defs_1gad5a4eaff25b799e3d4074ce00d7a965a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_44_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1312U)<sp/></highlight></codeline>
+<codeline lineno="79" refid="group__xasu__common__defs_1ga58ff90cd15906de697f530cde302b848" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_44_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(2560U)<sp/></highlight></codeline>
+<codeline lineno="80" refid="group__xasu__common__defs_1gaf385ba639c9d2f1f25b4d324cb4876bc" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_44_SIGN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2420U)<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__xasu__common__defs_1ga4bd0ca108c420fa07b70837e9ba8a7f2" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_65_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1952U)<sp/></highlight></codeline>
+<codeline lineno="83" refid="group__xasu__common__defs_1gaf947e2b8054732273a96052501830254" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_65_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(4032U)<sp/></highlight></codeline>
+<codeline lineno="84" refid="group__xasu__common__defs_1ga660a1a2ba31756e021e2b00f8b142540" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_65_SIGN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3309U)<sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xasu__common__defs_1gad2bb3a7e61b958872f561f2d46c5263f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_87_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2592U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="group__xasu__common__defs_1gad676510a9cad34fb53246461ce349c96" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_87_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(4896U)<sp/></highlight></codeline>
+<codeline lineno="88" refid="group__xasu__common__defs_1ga4d7f31358994fd0a90328616eabe2c32" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_87_SIGN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4627U)<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>sizes<sp/>across<sp/>all<sp/>supported<sp/>parameter<sp/>sets<sp/>(used<sp/>for<sp/>buffer<sp/>sizing)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91" refid="group__xasu__common__defs_1ga9669d2723be933befb8d4ba956c1ef81" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_MLDSA_MAX_PUB_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(XASU_MLDSA_87_PUB_KEY_LEN)<sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xasu__common__defs_1ga6e33a5c152dea26cb9098074496e653c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_MAX_PRIV_KEY_LEN<sp/><sp/><sp/><sp/><sp/>(XASU_MLDSA_87_PRIV_KEY_LEN)<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__xasu__common__defs_1ga92267ab8f4e9b6c23daa508eab5c2ac0" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MLDSA_MAX_SIGN_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_MLDSA_87_SIGN_LEN)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97" refid="group__xasu__common__defs_1gac4f6617241450cf09b6dbfe56cb4ec45" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98" refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a39c230d309ff7e93566994c9d7866631" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a39c230d309ff7e93566994c9d7866631" kindref="member">XASU_MLDSA_44</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a1e863db7c5c991fcc1dc6bfde5dd1212" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45a1e863db7c5c991fcc1dc6bfde5dd1212" kindref="member">XASU_MLDSA_65</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45afa4ac7963b0db583423a33f683ef87b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ggac4f6617241450cf09b6dbfe56cb4ec45afa4ac7963b0db583423a33f683ef87b7" kindref="member">XASU_MLDSA_87</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}<sp/><ref refid="group__xasu__common__defs_1gac4f6617241450cf09b6dbfe56cb4ec45" kindref="member">XAsu_MldsaParamSet</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="struct_x_asu___mldsa_sign_verify_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="122" refid="struct_x_asu___mldsa_sign_verify_params_1aadc1661ecc0c21993c8719c323083f9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1aadc1661ecc0c21993c8719c323083f9c" kindref="member">KeyAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_asu___mldsa_sign_verify_params_1a57a2e9c694745ebfb987da4ec7bbc4d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a57a2e9c694745ebfb987da4ec7bbc4d0" kindref="member">MsgAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_x_asu___mldsa_sign_verify_params_1a2e56bd935b98275432f771084b5e6f26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a2e56bd935b98275432f771084b5e6f26" kindref="member">SignatureAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="struct_x_asu___mldsa_sign_verify_params_1acf543d8e311b4ee967c922f6a88f05d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1acf543d8e311b4ee967c922f6a88f05d0" kindref="member">ContextAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="struct_x_asu___mldsa_sign_verify_params_1ac19d86066504cfcb6d04aa35cec6aa57" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1ac19d86066504cfcb6d04aa35cec6aa57" kindref="member">KeyLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_x_asu___mldsa_sign_verify_params_1ab40e0d4bd8ce5c505d070c6b69e00f93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1ab40e0d4bd8ce5c505d070c6b69e00f93" kindref="member">MsgLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_x_asu___mldsa_sign_verify_params_1a3e4b10eb4f8755133ee57d120dbf1e7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a3e4b10eb4f8755133ee57d120dbf1e7d" kindref="member">SignatureLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_x_asu___mldsa_sign_verify_params_1a10269382cbb521436e7efd23fb0c932f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a10269382cbb521436e7efd23fb0c932f" kindref="member">ContextLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_asu___mldsa_sign_verify_params_1a4a9561d32575e56b71252d56f80688cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a4a9561d32575e56b71252d56f80688cf" kindref="member">KeyId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_x_asu___mldsa_sign_verify_params_1aed874f7191a0f33fe7148ccdd16d2181" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1aed874f7191a0f33fe7148ccdd16d2181" kindref="member">ParamSet</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_asu___mldsa_sign_verify_params_1aac7cb2d52fc5c55a12c3ce29be26e0bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1aac7cb2d52fc5c55a12c3ce29be26e0bb" kindref="member">SignMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_asu___mldsa_sign_verify_params_1a25d05927f58e028b15e8005e27ea4b42" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a25d05927f58e028b15e8005e27ea4b42" kindref="member">ShaType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_asu___mldsa_sign_verify_params_1a0265c99339ca4cadbe7504f1149dee10" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a0265c99339ca4cadbe7504f1149dee10" kindref="member">ShaMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_x_asu___mldsa_sign_verify_params_1a05b8d27638c9ba934766b71920ca0076" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params_1a05b8d27638c9ba934766b71920ca0076" kindref="member">Deterministic</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_x_asu___mldsa_sign_verify_params_1a703bcd03a3fbfdb3091ea9ba65ab49cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Reserved[7];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}<sp/><ref refid="struct_x_asu___mldsa_sign_verify_params" kindref="compound">XAsu_MldsaSignVerifyParams</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="struct_x_asu___mldsa_sign_derand_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="158" refid="struct_x_asu___mldsa_sign_derand_params_1aaa1530a14866fb3862dac1bd1fe9ecd7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___mldsa_sign_verify_params" kindref="compound">XAsu_MldsaSignVerifyParams</ref><sp/><ref refid="struct_x_asu___mldsa_sign_derand_params_1aaa1530a14866fb3862dac1bd1fe9ecd7" kindref="member">SignParams</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="struct_x_asu___mldsa_sign_derand_params_1a0fd80dc06d8016d5afe1196069445b3e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___mldsa_sign_derand_params_1a0fd80dc06d8016d5afe1196069445b3e" kindref="member">RndAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_x_asu___mldsa_sign_derand_params_1a2d0dfcf0898db0f5cb6fde8ead4a4ca7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___mldsa_sign_derand_params_1a2d0dfcf0898db0f5cb6fde8ead4a4ca7" kindref="member">RndLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_x_asu___mldsa_sign_derand_params_1aaba1ee7ca68a367522982c45e8875319" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Reserved[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}<sp/><ref refid="struct_x_asu___mldsa_sign_derand_params" kindref="compound">XAsu_MldsaSignDerandParams</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_MLDSAINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h"/>
+  </compounddef>
+</doxygen>

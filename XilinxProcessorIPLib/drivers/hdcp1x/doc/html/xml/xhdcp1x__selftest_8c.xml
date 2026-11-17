@@ -12,14 +12,10 @@
     <includes local="yes">xparameters.h</includes>
     <includes local="yes">xstatus.h</includes>
     <incdepgraph>
-      <node id="277">
-        <label>xhdcp1x_cipher.h</label>
-        <link refid="xhdcp1x__cipher_8h"/>
-        <childnode refid="270" relation="include">
-        </childnode>
-        <childnode refid="275" relation="include">
-        </childnode>
-        <childnode refid="272" relation="include">
+      <node id="273">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="274" relation="include">
         </childnode>
       </node>
       <node id="267">
@@ -50,44 +46,11 @@
       <node id="268">
         <label>stdlib.h</label>
       </node>
-      <node id="279">
-        <label>xhdcp1x_port.h</label>
-        <link refid="xhdcp1x__port_8h"/>
-        <childnode refid="270" relation="include">
-        </childnode>
-        <childnode refid="271" relation="include">
-        </childnode>
-        <childnode refid="275" relation="include">
-        </childnode>
-        <childnode refid="272" relation="include">
-        </childnode>
-      </node>
       <node id="278">
         <label>xhdcp1x_debug.h</label>
         <link refid="xhdcp1x__debug_8h"/>
         <childnode refid="270" relation="include">
         </childnode>
-      </node>
-      <node id="269">
-        <label>string.h</label>
-      </node>
-      <node id="276">
-        <label>xtmrctr.h</label>
-      </node>
-      <node id="275">
-        <label>xstatus.h</label>
-      </node>
-      <node id="273">
-        <label>xhdcp1x_hw.h</label>
-        <link refid="xhdcp1x__hw_8h"/>
-        <childnode refid="274" relation="include">
-        </childnode>
-      </node>
-      <node id="272">
-        <label>xil_types.h</label>
-      </node>
-      <node id="271">
-        <label>xparameters.h</label>
       </node>
       <node id="270">
         <label>xhdcp1x.h</label>
@@ -101,6 +64,43 @@
         <childnode refid="275" relation="include">
         </childnode>
         <childnode refid="276" relation="include">
+        </childnode>
+      </node>
+      <node id="269">
+        <label>string.h</label>
+      </node>
+      <node id="276">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="275">
+        <label>xstatus.h</label>
+      </node>
+      <node id="272">
+        <label>xil_types.h</label>
+      </node>
+      <node id="271">
+        <label>xparameters.h</label>
+      </node>
+      <node id="277">
+        <label>xhdcp1x_cipher.h</label>
+        <link refid="xhdcp1x__cipher_8h"/>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="275" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
+        </childnode>
+      </node>
+      <node id="279">
+        <label>xhdcp1x_port.h</label>
+        <link refid="xhdcp1x__port_8h"/>
+        <childnode refid="270" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
+        <childnode refid="275" relation="include">
+        </childnode>
+        <childnode refid="272" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -132,17 +132,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_selftest.c" bodystart="61" bodyend="89"/>
-        <references refid="struct_x_hdcp1x___config_1a5aaf25a566d02c952e4ec39d2ac4c4bc" compoundref="xhdcp1x_8h" startline="902">XHdcp1x_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" compoundref="xhdcp1x_8h" startline="1147">XHdcp1x::Config</references>
-        <references refid="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" compoundref="xhdcp1x_8h" startline="905">XHdcp1x_Config::IsHDMI</references>
-        <references refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" compoundref="xhdcp1x_8h" startline="904">XHdcp1x_Config::IsRx</references>
-        <references refid="group__hdcp1x_1ga45c93818933d05bc03a38d74aaf33721" compoundref="xhdcp1x__hw_8h" startline="51">XHDCP1X_CIPHER_REG_VERSION</references>
-        <references refid="group__hdcp1x_1ga2870575e04b7a20bca6801f47f1f2169" compoundref="xhdcp1x__hw_8h" startline="419">XHdcp1x_IsDP</references>
-        <references refid="group__hdcp1x_1ga43765c1afc08c59a03b619d0c822e8b7" compoundref="xhdcp1x__hw_8h" startline="434">XHdcp1x_IsHDMI</references>
-        <references refid="group__hdcp1x_1gae45c2870e08ccd6d6e51409ede847c80" compoundref="xhdcp1x__hw_8h" startline="449">XHdcp1x_IsRX</references>
-        <references refid="group__hdcp1x_1ga0eb257e3b2af7d84e72e89dd93703d3d" compoundref="xhdcp1x__hw_8h" startline="464">XHdcp1x_IsTX</references>
-        <references refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" compoundref="xhdcp1x__hw_8h" startline="321">XHdcp1x_ReadReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_selftest.c" bodystart="61" bodyend="89"/>
+        <references refid="struct_x_hdcp1x___config_1a5aaf25a566d02c952e4ec39d2ac4c4bc" compoundref="xhdcp1x_8h" startline="896">XHdcp1x_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" compoundref="xhdcp1x_8h" startline="1139">XHdcp1x::Config</references>
+        <references refid="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" compoundref="xhdcp1x_8h" startline="899">XHdcp1x_Config::IsHDMI</references>
+        <references refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" compoundref="xhdcp1x_8h" startline="898">XHdcp1x_Config::IsRx</references>
+        <references refid="group__hdcp1x_1ga45c93818933d05bc03a38d74aaf33721" compoundref="xhdcp1x__hw_8h" startline="49">XHDCP1X_CIPHER_REG_VERSION</references>
+        <references refid="group__hdcp1x_1ga2870575e04b7a20bca6801f47f1f2169" compoundref="xhdcp1x__hw_8h" startline="417">XHdcp1x_IsDP</references>
+        <references refid="group__hdcp1x_1ga43765c1afc08c59a03b619d0c822e8b7" compoundref="xhdcp1x__hw_8h" startline="432">XHdcp1x_IsHDMI</references>
+        <references refid="group__hdcp1x_1gae45c2870e08ccd6d6e51409ede847c80" compoundref="xhdcp1x__hw_8h" startline="447">XHdcp1x_IsRX</references>
+        <references refid="group__hdcp1x_1ga0eb257e3b2af7d84e72e89dd93703d3d" compoundref="xhdcp1x__hw_8h" startline="462">XHdcp1x_IsTX</references>
+        <references refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" compoundref="xhdcp1x__hw_8h" startline="319">XHdcp1x_ReadReg</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -210,6 +210,6 @@
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
 <codeline lineno="89"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_selftest.c"/>
   </compounddef>
 </doxygen>

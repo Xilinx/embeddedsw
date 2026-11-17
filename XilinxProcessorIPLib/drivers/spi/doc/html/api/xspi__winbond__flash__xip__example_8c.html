@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__winbond__flash__xip__example_8c.
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,10 +106,8 @@ $(document).ready(function(){initNavTree('xspi__winbond__flash__xip__example_8c.
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the Spi driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a>) and the Spi device configured in XIP Mode. </p>
-<p>This example reads data from the Flash Memory in the way RAM is accessed.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
+<div class="textblock"><p>Implements a design example using the Spi driver (<a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a>) and the Spi device configured in XIP Mode. </p>
+<p>The example reads data from the Flash Memory in the way RAM is accessed.</p>
 <pre>
   MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
 </p>
@@ -123,85 +121,21 @@ $(document).ready(function(){initNavTree('xspi__winbond__flash__xip__example_8c.
         ms   04/10/17 Modified filename tag to include the file in doxygen
                       examples.
   4.11  sb   07/11/23 Added support for system device-tree flow.
+  4.17  vn   08/26/26 Fix Doxygen warnings.
+  4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a14e73a908f15bcd319e9838bd4023fb5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__winbond__flash__xip__example_8c.html#a14e73a908f15bcd319e9838bd4023fb5">SpiXipExample</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a14e73a908f15bcd319e9838bd4023fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads data from Flash memory in the way any memory is accessed.  <a href="#a14e73a908f15bcd319e9838bd4023fb5">More...</a><br/></td></tr>
-<tr class="separator:a14e73a908f15bcd319e9838bd4023fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__winbond__flash__xip__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Spi XIP example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga14e73a908f15bcd319e9838bd4023fb5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__xip__example.html#ga14e73a908f15bcd319e9838bd4023fb5">SpiXipExample</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiInstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga14e73a908f15bcd319e9838bd4023fb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from Flash memory in the way any memory is accessed.  <a href="group__xspi__winbond__flash__xip__example.html#ga14e73a908f15bcd319e9838bd4023fb5">More...</a><br/></td></tr>
+<tr class="separator:ga14e73a908f15bcd319e9838bd4023fb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__xip__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Spi XIP example.  <a href="group__xspi__winbond__flash__xip__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the Spi XIP example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xspi__winbond__flash__xip__example_8c.html#a14e73a908f15bcd319e9838bd4023fb5">SpiXipExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a14e73a908f15bcd319e9838bd4023fb5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiXipExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads data from Flash memory in the way any memory is accessed. </p>
-<p>The purpose of this function is to illustrate how to use SPI device in XIP Mode.</p>
-<p>This function reads data from Flash in the same way any other memory is accessed</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiInstancePtr</td><td>is a pointer to the instance of Spi component. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
-
-<p>References <a class="el" href="struct_x_spi___config.html#a495ec19a4ab441ea59a0e220f0728dd9">XSpi_Config::BaseAddress</a>, <a class="el" href="struct_x_spi.html#afcb2a94604b619e207e5590328c3531e">XSpi::FlashBaseAddr</a>, <a class="el" href="group__spi.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, and <a class="el" href="group__spi.html#ga59c223b96bc85c1e13bf88a19af91bc3">XSpi_LookupConfig()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__winbond__flash__xip__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

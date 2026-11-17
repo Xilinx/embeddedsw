@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1bd32303401eac2f8bc89bb82783298d" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="xnvm__efuse__common__field_8h">xnvm_efuse_common_field.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/"/>
+  </compounddef>
+</doxygen>

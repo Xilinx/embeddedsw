@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="427" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="427" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___tx___repeat_auth_stream_ready_1a364828e91d728bf7fc04bf61ba50f301" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="429" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="429" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains the RepeaterAuth_Stream_Ready message definition. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="425" bodyend="430"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="425" bodyend="430"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___tx___repeat_auth_stream_ready_1a364828e91d728bf7fc04bf61ba50f301" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RepeatAuthStreamReady</scope><name>MPrime</name></member>
       <member refid="struct_x_hdcp22___tx___repeat_auth_stream_ready_1a281383d08a90eae952dc2ca4dd4705b1" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RepeatAuthStreamReady</scope><name>MsgId</name></member>

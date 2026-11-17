@@ -1,0 +1,599 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__requirement_8c" kind="file">
+    <compoundname>xpm_requirement.c</compoundname>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xplmi_util.h</includes>
+    <includes refid="xpm__requirement_8h" local="yes">xpm_requirement.h</includes>
+    <includes refid="xpm__power_8h" local="yes">xpm_power.h</includes>
+    <includes refid="xpm__api_8h" local="yes">xpm_api.h</includes>
+    <incdepgraph>
+      <node id="8419">
+        <label>xplmi_util.h</label>
+      </node>
+      <node id="8437">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="8446">
+        <label>xpm_requirement_plat.h</label>
+      </node>
+      <node id="8427">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8439">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="8440" relation="include">
+        </childnode>
+        <childnode refid="8433" relation="include">
+        </childnode>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8443" relation="include">
+        </childnode>
+      </node>
+      <node id="8422">
+        <label>xpm_node.h</label>
+        <childnode refid="8423" relation="include">
+        </childnode>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8425" relation="include">
+        </childnode>
+        <childnode refid="8426" relation="include">
+        </childnode>
+      </node>
+      <node id="8429">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="8436">
+        <label>xpm_clock.h</label>
+        <childnode refid="8426" relation="include">
+        </childnode>
+        <childnode refid="8437" relation="include">
+        </childnode>
+        <childnode refid="8422" relation="include">
+        </childnode>
+        <childnode refid="8432" relation="include">
+        </childnode>
+      </node>
+      <node id="8418">
+        <label>xplmi.h</label>
+      </node>
+      <node id="8428">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8430">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="8434">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="8433">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="8443">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="8445">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="8444">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="8424">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8417">
+        <label>xpm_requirement.c</label>
+        <link refid="xpm_requirement.c"/>
+        <childnode refid="8418" relation="include">
+        </childnode>
+        <childnode refid="8419" relation="include">
+        </childnode>
+        <childnode refid="8420" relation="include">
+        </childnode>
+        <childnode refid="8432" relation="include">
+        </childnode>
+        <childnode refid="8440" relation="include">
+        </childnode>
+      </node>
+      <node id="8420">
+        <label>xpm_requirement.h</label>
+        <childnode refid="8421" relation="include">
+        </childnode>
+        <childnode refid="8439" relation="include">
+        </childnode>
+        <childnode refid="8446" relation="include">
+        </childnode>
+      </node>
+      <node id="8421">
+        <label>xpm_device.h</label>
+        <childnode refid="8422" relation="include">
+        </childnode>
+        <childnode refid="8432" relation="include">
+        </childnode>
+        <childnode refid="8436" relation="include">
+        </childnode>
+        <childnode refid="8438" relation="include">
+        </childnode>
+        <childnode refid="8445" relation="include">
+        </childnode>
+      </node>
+      <node id="8425">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="8441">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="8423">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8431">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="8426">
+        <label>xpm_common.h</label>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8427" relation="include">
+        </childnode>
+        <childnode refid="8428" relation="include">
+        </childnode>
+        <childnode refid="8429" relation="include">
+        </childnode>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8431" relation="include">
+        </childnode>
+      </node>
+      <node id="8440">
+        <label>xpm_api.h</label>
+        <childnode refid="8423" relation="include">
+        </childnode>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8433" relation="include">
+        </childnode>
+        <childnode refid="8429" relation="include">
+        </childnode>
+        <childnode refid="8441" relation="include">
+        </childnode>
+        <childnode refid="8442" relation="include">
+        </childnode>
+      </node>
+      <node id="8432">
+        <label>xpm_power.h</label>
+        <childnode refid="8433" relation="include">
+        </childnode>
+        <childnode refid="8422" relation="include">
+        </childnode>
+        <childnode refid="8434" relation="include">
+        </childnode>
+        <childnode refid="8435" relation="include">
+        </childnode>
+      </node>
+      <node id="8435">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="8442">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="8438">
+        <label>xpm_reset.h</label>
+        <childnode refid="8422" relation="include">
+        </childnode>
+        <childnode refid="8426" relation="include">
+        </childnode>
+        <childnode refid="8439" relation="include">
+        </childnode>
+        <childnode refid="8444" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__requirement_8c_1a1533a5eaa3589a2e4a1ae38539cee7bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>static XStatus XPmRequirement_Init</definition>
+        <argsstring>(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 PreallocCaps, u32 PreallocQoS)</argsstring>
+        <name>XPmRequirement_Init</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PreallocCaps</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PreallocQoS</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="13" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8c_1ad42691720aacf73cf2d87d7637de6d6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_Add</definition>
+        <argsstring>(XPm_Subsystem *Subsystem, XPm_Device *Device, u32 Flags, u32 PreallocCaps, u32 PreallocQoS)</argsstring>
+        <name>XPmRequirement_Add</name>
+        <param>
+          <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PreallocCaps</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PreallocQoS</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="52" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8c_1a62a02ddb97fcefa3ac669222d17a1f1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPm_RequiremntUpdate</definition>
+        <argsstring>(XPm_Requirement *Reqm)</argsstring>
+        <name>XPm_RequiremntUpdate</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="74" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8c_1a668ddc95003a13122a6ad3687590b446" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmRequirement_Clear</definition>
+        <argsstring>(XPm_Requirement *Reqm)</argsstring>
+        <name>XPmRequirement_Clear</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="84" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8c_1a6e150ba301fae0557c878a6b5f90048d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_Release</definition>
+        <argsstring>(XPm_Requirement *Reqm, XPm_ReleaseScope Scope)</argsstring>
+        <name>XPmRequirement_Release</name>
+        <param>
+          <type><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <param>
+          <type>XPm_ReleaseScope</type>
+          <declname>Scope</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="99" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8c_1acb2d46c792faa5d6874248298c4c0593" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_UpdateScheduled</definition>
+        <argsstring>(const XPm_Subsystem *Subsystem, u32 Swap)</argsstring>
+        <name>XPmRequirement_UpdateScheduled</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+          <declname>Subsystem</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Swap</declname>
+        </param>
+        <briefdescription>
+<para>Triggers the setting for scheduled requirements. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Subsystem</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Subsystem which changed the state and whose scheduled requirements are triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Swap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag stating should current requirements be saved as next</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>a) swap=false Set scheduled requirements of a subsystem without swapping current and next requirements - means the current requirements will be dropped. Upon every self suspend, subsystem has to explicitly re-request device requirements. b) swap=true Set scheduled requirements of a subsystem with swapping current and next requirements (swapping means the current requirements will be saved as next, and will be configured once subsystem wakes-up). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="162" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__requirement_8c_1a7bdf674f3f4ed504e813f8de42076f29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRequirement_IsExclusive</definition>
+        <argsstring>(const XPm_Requirement *Reqm)</argsstring>
+        <name>XPmRequirement_IsExclusive</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref> *</type>
+          <declname>Reqm</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c" bodystart="203" bodyend="236"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_requirement.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_power.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XStatus<sp/>XPmRequirement_Init(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm,<sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device,<sp/>u32<sp/>Flags,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PreallocCaps,<sp/>u32<sp/>PreallocQoS)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((NULL<sp/>==<sp/>Subsystem)<sp/>||<sp/>(NULL<sp/>==<sp/>Device))<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Prepend<sp/>to<sp/>subsystem&apos;s<sp/>device<sp/>reqm<sp/>list<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a041ff7a5947a5a09c79e04ef13e8b2cc" kindref="member">NextDevice</ref><sp/>=<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1af644163825f57a23f00f7306d4a41cce" kindref="member">Requirements</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1af644163825f57a23f00f7306d4a41cce" kindref="member">Requirements</ref><sp/>=<sp/>Reqm;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1af4f7e5ee43d1c562d56daa9f7947afef" kindref="member">Subsystem</ref><sp/>=<sp/>Subsystem;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Prepend<sp/>to<sp/>device&apos;s<sp/>subsystem<sp/>reqm<sp/>list<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a1398e6507d6479009f0811756137eefd" kindref="member">NextSubsystem</ref><sp/>=<sp/>Device-&gt;Requirements;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Device-&gt;Requirements<sp/>=<sp/>Reqm;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref><sp/>=<sp/>Device;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" kindref="member">Allocated</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1af9161986c0660e1d37282d7295e1bd8d" kindref="member">SetLatReq</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;Flags<sp/>=<sp/>(u16)(Flags<sp/>&amp;<sp/>REG_FLAGS_MASK);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a469da9926fb0ff37b602cb8a7e291a9c" kindref="member">PreallocCaps</ref><sp/>=<sp/>(u8)PreallocCaps;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1aa1fe8509a4711dce0ac02ffd148a50d5" kindref="member">PreallocQoS</ref><sp/>=<sp/>PreallocQoS;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>XPM_MIN_CAPABILITY;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>XPM_MAX_LATENCY;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>XPM_MAX_QOS;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>XPM_MIN_CAPABILITY;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>XPM_MAX_LATENCY;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>XPM_MAX_QOS;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">XStatus<sp/>XPmRequirement_Add(<ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref><sp/>*Device,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Flags,<sp/>u32<sp/>PreallocCaps,<sp/>u32<sp/>PreallocQoS)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm<sp/>=<sp/>(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*)XPm_AllocBytes(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref>));</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_BUFFER_TOO_SMALL;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmRequirement_Init(Reqm,<sp/>Subsystem,<sp/>Device,<sp/>Flags,<sp/>PreallocCaps,<sp/>PreallocQoS);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPm_RequiremntUpdate(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NULL<sp/>!=<sp/>Reqm)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmRequirement_Clear(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref>*<sp/>Reqm)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NULL<sp/>!=<sp/>Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>flag<sp/>-<sp/>master<sp/>is<sp/>not<sp/>using<sp/>slave<sp/>anymore<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" kindref="member">Allocated</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Release<sp/>current<sp/>and<sp/>next<sp/>requirements<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>XPM_MIN_CAPABILITY;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>XPM_MAX_LATENCY;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>XPM_MAX_QOS;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>XPM_MIN_CAPABILITY;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>XPM_MAX_LATENCY;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>XPM_MAX_QOS;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">XStatus<sp/>XPmRequirement_Release(<ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm,<sp/>XPm_ReleaseScope<sp/>Scope)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*NextReqm<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RELEASE_ONE<sp/>==<sp/>Scope)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmDevice_Release(Reqm-&gt;<ref refid="struct_x_pm___reqm_1af4f7e5ee43d1c562d56daa9f7947afef" kindref="member">Subsystem</ref>-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>,<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_CMD_SECURE);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Release<sp/>requirements<sp/>of<sp/>a<sp/>device<sp/>from<sp/>all<sp/>subsystems<sp/>that<sp/>are</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>sharing<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RELEASE_DEVICE<sp/>==<sp/>Scope)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NextReqm<sp/>=<sp/>Reqm;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>NextReqm)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmRequirement_Release(NextReqm,<sp/>RELEASE_ONE);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NextReqm<sp/>=<sp/>NextReqm-&gt;<ref refid="struct_x_pm___reqm_1a1398e6507d6479009f0811756137eefd" kindref="member">NextSubsystem</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((((RELEASE_ALL<sp/>==<sp/>Scope)<sp/>&amp;&amp;<sp/>(1U<sp/>==<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" kindref="member">Allocated</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RELEASE_UNREQUESTED<sp/>==<sp/>Scope)<sp/>&amp;&amp;<sp/>(0U<sp/>==<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" kindref="member">Allocated</ref>)))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPM_NODETYPE_DEV_DDR<sp/>!=<sp/>NODETYPE(Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmDevice_Release(Reqm-&gt;<ref refid="struct_x_pm___reqm_1af4f7e5ee43d1c562d56daa9f7947afef" kindref="member">Subsystem</ref>-&gt;<ref refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" kindref="member">Id</ref>,<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_CMD_SECURE);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm<sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a041ff7a5947a5a09c79e04ef13e8b2cc" kindref="member">NextDevice</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">XStatus<sp/>XPmRequirement_UpdateScheduled(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref><sp/>*Subsystem,<sp/>u32<sp/>Swap)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm<sp/>=<sp/>Subsystem-&gt;<ref refid="struct_x_pm___subsystem_1af644163825f57a23f00f7306d4a41cce" kindref="member">Requirements</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___reqm_info" kindref="compound">XPm_ReqmInfo</ref><sp/>TempReq;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>!=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempReq.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempReq.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempReq.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref>;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>==<sp/>Swap)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a2554e84cb3468a4493456d78036f9282" kindref="member">Next</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref>;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref><sp/>=<sp/>TempReq.<ref refid="struct_x_pm___reqm_info_1ad3a835fb6021d8c2cf4018e8c96abdf6" kindref="member">Capabilities</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref><sp/>=<sp/>TempReq.<ref refid="struct_x_pm___reqm_info_1a6b87d0845089ee045f816a16c63e55cf" kindref="member">Latency</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a23d5d5f071ef4b45f8495c4c4a20d917" kindref="member">Curr</ref>.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref><sp/>=<sp/>TempReq.<ref refid="struct_x_pm___reqm_info_1a72f9f4773e9c571dc4d4c12ddf3b44b2" kindref="member">QoS</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmDevice_UpdateStatus(Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(</highlight><highlight class="stringliteral">&quot;Updating<sp/>%x\r\n&quot;</highlight><highlight class="normal">,<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>-&gt;<ref refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" kindref="member">Node</ref>.<ref refid="struct_x_pm___node_1ae3de6545e03f154939caf6b2fc8928cc" kindref="member">Id</ref>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqm<sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a041ff7a5947a5a09c79e04ef13e8b2cc" kindref="member">NextDevice</ref>;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal">XStatus<sp/>XPmRequirement_IsExclusive(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Reqm)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___reqm" kindref="compound">XPm_Requirement</ref><sp/>*Next_Reqm;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(1U<sp/>!=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" kindref="member">Allocated</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="221"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>New<sp/>requirements<sp/>are<sp/>prepended<sp/>to<sp/>the<sp/>device<sp/>list,<sp/>so<sp/>subsystems</highlight></codeline>
+<codeline lineno="222"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registered<sp/>after<sp/>this<sp/>one<sp/>sit<sp/>ahead<sp/>of<sp/>it.<sp/>Walk<sp/>the<sp/>complete<sp/>list</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>from<sp/>the<sp/>head<sp/>and<sp/>skip<sp/>only<sp/>this<sp/>requirement<sp/>itself.</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Next_Reqm<sp/>=<sp/>Reqm-&gt;<ref refid="struct_x_pm___reqm_1a8c6e5a1740d787f6009d24248f045eae" kindref="member">Device</ref>-&gt;Requirements;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(NULL<sp/>!=<sp/>Next_Reqm)<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Next_Reqm<sp/>!=<sp/>Reqm)<sp/>&amp;&amp;<sp/>(1U<sp/>==<sp/>Next_Reqm-&gt;<ref refid="struct_x_pm___reqm_1a24db517f0bcbaba2d318a490b4fc32a7" kindref="member">Allocated</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Next_Reqm<sp/>=<sp/>Next_Reqm-&gt;<ref refid="struct_x_pm___reqm_1a1398e6507d6479009f0811756137eefd" kindref="member">NextSubsystem</ref>;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c"/>
+  </compounddef>
+</doxygen>

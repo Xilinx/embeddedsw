@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xspi__numonyx__flash__quad__example_8c
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,11 +107,9 @@ $(document).ready(function(){initNavTree('xspi__numonyx__flash__quad__example_8c
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the SPI driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a>) and axi_qspi device with a Numonyx quad serial flash device in the interrupt mode. </p>
-<p>This example erases a Sector, writes to a Page within the Sector, reads back from that Page and compares the data.</p>
-<p>This example has been tested with an N25Q128 device on KC705 and ZC770 board. The bytes per page (PAGE_SIZE) in N25Q128 is 256.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
+<div class="textblock"><p>Implements a design example using the SPI driver (<a class="el" href="struct_x_spi.html" title="Holds the XSpi driver instance data. ">XSpi</a>) and axi_qspi device with a Numonyx quad serial flash device in the interrupt mode. </p>
+<p>The example erases a Sector, writes to a Page within the Sector, reads back from that Page and compares the data.</p>
+<p>The example has been tested with an N25Q128 device on KC705 and ZC770 board. The bytes per page (PAGE_SIZE) in N25Q128 is 256.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -125,6 +123,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     CR-965028.
       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 4.11  sb   07/11/23 Added support for system device-tree flow.
+4.17  vn   08/26/26 Fix Doxygen warnings.
+4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspi_8h.html">xspi.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
@@ -132,453 +132,139 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ab499519eaab61d0f334591c02a7b15f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ab499519eaab61d0f334591c02a7b15f1">READ_WRITE_EXTRA_BYTES</a>&#160;&#160;&#160;4 /* Read/Write extra bytes */</td></tr>
-<tr class="memdesc:ab499519eaab61d0f334591c02a7b15f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This definitions specify the EXTRA bytes in each of the command transactions.  <a href="#ab499519eaab61d0f334591c02a7b15f1">More...</a><br/></td></tr>
-<tr class="separator:ab499519eaab61d0f334591c02a7b15f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cbfcf69bf96053dd0d07fc482d87520"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga5cbfcf69bf96053dd0d07fc482d87520">SPI_SELECT</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga5cbfcf69bf96053dd0d07fc482d87520"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant defines the slave select signal that selects the Flash device on the SPI bus, this signal is typically connected to the chip select of the device.  <a href="group__xspi__numonyx__flash__quad__example.html#ga5cbfcf69bf96053dd0d07fc482d87520">More...</a><br/></td></tr>
+<tr class="separator:ga5cbfcf69bf96053dd0d07fc482d87520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabcf64bfc507150feabf100c17e7849f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gabcf64bfc507150feabf100c17e7849f3">COMMAND_PAGE_PROGRAM</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:gabcf64bfc507150feabf100c17e7849f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page Program command.  <a href="group__xspi__numonyx__flash__quad__example.html#gabcf64bfc507150feabf100c17e7849f3">More...</a><br/></td></tr>
+<tr class="separator:gabcf64bfc507150feabf100c17e7849f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga146a209c5bc4d74b187ed735504ae1da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga146a209c5bc4d74b187ed735504ae1da">COMMAND_QUAD_WRITE</a>&#160;&#160;&#160;0x32</td></tr>
+<tr class="memdesc:ga146a209c5bc4d74b187ed735504ae1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quad Input Fast Program.  <a href="group__xspi__numonyx__flash__quad__example.html#ga146a209c5bc4d74b187ed735504ae1da">More...</a><br/></td></tr>
+<tr class="separator:ga146a209c5bc4d74b187ed735504ae1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4575cac49153c8c4fe0820a3ac85f1a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga4575cac49153c8c4fe0820a3ac85f1a1">COMMAND_RANDOM_READ</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:ga4575cac49153c8c4fe0820a3ac85f1a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random read command.  <a href="group__xspi__numonyx__flash__quad__example.html#ga4575cac49153c8c4fe0820a3ac85f1a1">More...</a><br/></td></tr>
+<tr class="separator:ga4575cac49153c8c4fe0820a3ac85f1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d41fe9d3bf662254ba4cce76b7fe1cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga3d41fe9d3bf662254ba4cce76b7fe1cb">COMMAND_DUAL_READ</a>&#160;&#160;&#160;0x3B</td></tr>
+<tr class="memdesc:ga3d41fe9d3bf662254ba4cce76b7fe1cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual Output Fast Read.  <a href="group__xspi__numonyx__flash__quad__example.html#ga3d41fe9d3bf662254ba4cce76b7fe1cb">More...</a><br/></td></tr>
+<tr class="separator:ga3d41fe9d3bf662254ba4cce76b7fe1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9e217ac24b2e39f56d321051aa8d1a50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga9e217ac24b2e39f56d321051aa8d1a50">COMMAND_DUAL_IO_READ</a>&#160;&#160;&#160;0xBB</td></tr>
+<tr class="memdesc:ga9e217ac24b2e39f56d321051aa8d1a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual IO Fast Read.  <a href="group__xspi__numonyx__flash__quad__example.html#ga9e217ac24b2e39f56d321051aa8d1a50">More...</a><br/></td></tr>
+<tr class="separator:ga9e217ac24b2e39f56d321051aa8d1a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca89ccdb65cb92ad9c9672f6f42f2102"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gaca89ccdb65cb92ad9c9672f6f42f2102">COMMAND_QUAD_READ</a>&#160;&#160;&#160;0x6B</td></tr>
+<tr class="memdesc:gaca89ccdb65cb92ad9c9672f6f42f2102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quad Output Fast Read.  <a href="group__xspi__numonyx__flash__quad__example.html#gaca89ccdb65cb92ad9c9672f6f42f2102">More...</a><br/></td></tr>
+<tr class="separator:gaca89ccdb65cb92ad9c9672f6f42f2102"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaafa87cce64a2c7e7fc81ff95808c4ad7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gaafa87cce64a2c7e7fc81ff95808c4ad7">COMMAND_QUAD_IO_READ</a>&#160;&#160;&#160;0xEB</td></tr>
+<tr class="memdesc:gaafa87cce64a2c7e7fc81ff95808c4ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quad IO Fast Read.  <a href="group__xspi__numonyx__flash__quad__example.html#gaafa87cce64a2c7e7fc81ff95808c4ad7">More...</a><br/></td></tr>
+<tr class="separator:gaafa87cce64a2c7e7fc81ff95808c4ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e7e917c4b1751692e5afeedaeba9665"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga7e7e917c4b1751692e5afeedaeba9665">COMMAND_WRITE_ENABLE</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:ga7e7e917c4b1751692e5afeedaeba9665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write Enable command.  <a href="group__xspi__numonyx__flash__quad__example.html#ga7e7e917c4b1751692e5afeedaeba9665">More...</a><br/></td></tr>
+<tr class="separator:ga7e7e917c4b1751692e5afeedaeba9665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5316b398f7e1e117c4736ed849ed1f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gad5316b398f7e1e117c4736ed849ed1f2">COMMAND_SECTOR_ERASE</a>&#160;&#160;&#160;0xD8</td></tr>
+<tr class="memdesc:gad5316b398f7e1e117c4736ed849ed1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector Erase command.  <a href="group__xspi__numonyx__flash__quad__example.html#gad5316b398f7e1e117c4736ed849ed1f2">More...</a><br/></td></tr>
+<tr class="separator:gad5316b398f7e1e117c4736ed849ed1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga982d23de911e18500dd7f5b4f4f1f6ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga982d23de911e18500dd7f5b4f4f1f6ad">COMMAND_BULK_ERASE</a>&#160;&#160;&#160;0xC7</td></tr>
+<tr class="memdesc:ga982d23de911e18500dd7f5b4f4f1f6ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk Erase command.  <a href="group__xspi__numonyx__flash__quad__example.html#ga982d23de911e18500dd7f5b4f4f1f6ad">More...</a><br/></td></tr>
+<tr class="separator:ga982d23de911e18500dd7f5b4f4f1f6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabdaa697cbf5ca74f25851f3ce37b8975"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gabdaa697cbf5ca74f25851f3ce37b8975">COMMAND_STATUSREG_READ</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:gabdaa697cbf5ca74f25851f3ce37b8975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status read command.  <a href="group__xspi__numonyx__flash__quad__example.html#gabdaa697cbf5ca74f25851f3ce37b8975">More...</a><br/></td></tr>
+<tr class="separator:gabdaa697cbf5ca74f25851f3ce37b8975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab499519eaab61d0f334591c02a7b15f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gab499519eaab61d0f334591c02a7b15f1">READ_WRITE_EXTRA_BYTES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:gab499519eaab61d0f334591c02a7b15f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This definitions specify the EXTRA bytes in each of the command transactions.  <a href="group__xspi__numonyx__flash__quad__example.html#gab499519eaab61d0f334591c02a7b15f1">More...</a><br/></td></tr>
+<tr class="separator:gab499519eaab61d0f334591c02a7b15f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga302de17f621c2289066a9a3df52cca34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga302de17f621c2289066a9a3df52cca34">WRITE_ENABLE_BYTES</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga302de17f621c2289066a9a3df52cca34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write Enable bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#ga302de17f621c2289066a9a3df52cca34">More...</a><br/></td></tr>
+<tr class="separator:ga302de17f621c2289066a9a3df52cca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6574b8dd15d99c44f84789e8cfd1d780"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga6574b8dd15d99c44f84789e8cfd1d780">SECTOR_ERASE_BYTES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga6574b8dd15d99c44f84789e8cfd1d780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector erase extra bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#ga6574b8dd15d99c44f84789e8cfd1d780">More...</a><br/></td></tr>
+<tr class="separator:ga6574b8dd15d99c44f84789e8cfd1d780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadeb5bb04ae73a352d8152efafb7fb246"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gadeb5bb04ae73a352d8152efafb7fb246">BULK_ERASE_BYTES</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gadeb5bb04ae73a352d8152efafb7fb246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk erase extra bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#gadeb5bb04ae73a352d8152efafb7fb246">More...</a><br/></td></tr>
+<tr class="separator:gadeb5bb04ae73a352d8152efafb7fb246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68436d00d706afd24b7b54554bb7ca47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga68436d00d706afd24b7b54554bb7ca47">STATUS_READ_BYTES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga68436d00d706afd24b7b54554bb7ca47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status read bytes count.  <a href="group__xspi__numonyx__flash__quad__example.html#ga68436d00d706afd24b7b54554bb7ca47">More...</a><br/></td></tr>
+<tr class="separator:ga68436d00d706afd24b7b54554bb7ca47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04c34b0de30166935d4513f61ec43e37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga04c34b0de30166935d4513f61ec43e37">STATUS_WRITE_BYTES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga04c34b0de30166935d4513f61ec43e37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status write bytes count.  <a href="group__xspi__numonyx__flash__quad__example.html#ga04c34b0de30166935d4513f61ec43e37">More...</a><br/></td></tr>
+<tr class="separator:ga04c34b0de30166935d4513f61ec43e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga449aea76932294003e1707ac58716858"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga449aea76932294003e1707ac58716858">FLASH_SR_IS_READY_MASK</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga449aea76932294003e1707ac58716858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ready mask.  <a href="group__xspi__numonyx__flash__quad__example.html#ga449aea76932294003e1707ac58716858">More...</a><br/></td></tr>
+<tr class="separator:ga449aea76932294003e1707ac58716858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a>&#160;&#160;&#160;256</td></tr>
+<tr class="memdesc:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes per page in the flash device.  <a href="group__xspi__numonyx__flash__quad__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">More...</a><br/></td></tr>
+<tr class="separator:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbd553e6f5c17bb9e0a513858c426a73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gafbd553e6f5c17bb9e0a513858c426a73">FLASH_TEST_ADDRESS</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:gafbd553e6f5c17bb9e0a513858c426a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address of the page to perform Erase, Write and Read operations.  <a href="group__xspi__numonyx__flash__quad__example.html#gafbd553e6f5c17bb9e0a513858c426a73">More...</a><br/></td></tr>
+<tr class="separator:gafbd553e6f5c17bb9e0a513858c426a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b1468d2755101d28e3b8e7a91109d2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga3b1468d2755101d28e3b8e7a91109d2e">BYTE1</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga3b1468d2755101d28e3b8e7a91109d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 1 position.  <a href="group__xspi__numonyx__flash__quad__example.html#ga3b1468d2755101d28e3b8e7a91109d2e">More...</a><br/></td></tr>
+<tr class="separator:ga3b1468d2755101d28e3b8e7a91109d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1cec78d40bc62e93813cc388997f654f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga1cec78d40bc62e93813cc388997f654f">BYTE2</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga1cec78d40bc62e93813cc388997f654f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 2 position.  <a href="group__xspi__numonyx__flash__quad__example.html#ga1cec78d40bc62e93813cc388997f654f">More...</a><br/></td></tr>
+<tr class="separator:ga1cec78d40bc62e93813cc388997f654f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafce866f3fde25d9e75d531b679c00213"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gafce866f3fde25d9e75d531b679c00213">BYTE3</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gafce866f3fde25d9e75d531b679c00213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 3 position.  <a href="group__xspi__numonyx__flash__quad__example.html#gafce866f3fde25d9e75d531b679c00213">More...</a><br/></td></tr>
+<tr class="separator:gafce866f3fde25d9e75d531b679c00213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91cb164747412f1fb75f5ab9c6c91fd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga91cb164747412f1fb75f5ab9c6c91fd2">BYTE4</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga91cb164747412f1fb75f5ab9c6c91fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 4 position.  <a href="group__xspi__numonyx__flash__quad__example.html#ga91cb164747412f1fb75f5ab9c6c91fd2">More...</a><br/></td></tr>
+<tr class="separator:ga91cb164747412f1fb75f5ab9c6c91fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9037d2e19fd39f4b87d7b2074050d9c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga9037d2e19fd39f4b87d7b2074050d9c1">BYTE5</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga9037d2e19fd39f4b87d7b2074050d9c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 5 position.  <a href="group__xspi__numonyx__flash__quad__example.html#ga9037d2e19fd39f4b87d7b2074050d9c1">More...</a><br/></td></tr>
+<tr class="separator:ga9037d2e19fd39f4b87d7b2074050d9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb988d4d07258b2495f8e0c6e50184aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gadb988d4d07258b2495f8e0c6e50184aa">BYTE6</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gadb988d4d07258b2495f8e0c6e50184aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 6 position.  <a href="group__xspi__numonyx__flash__quad__example.html#gadb988d4d07258b2495f8e0c6e50184aa">More...</a><br/></td></tr>
+<tr class="separator:gadb988d4d07258b2495f8e0c6e50184aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ce5cf241074da1dbf5f42446655290c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga9ce5cf241074da1dbf5f42446655290c">BYTE7</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga9ce5cf241074da1dbf5f42446655290c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 7 position.  <a href="group__xspi__numonyx__flash__quad__example.html#ga9ce5cf241074da1dbf5f42446655290c">More...</a><br/></td></tr>
+<tr class="separator:ga9ce5cf241074da1dbf5f42446655290c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab843d1663e34214d7324e14169aac8cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gab843d1663e34214d7324e14169aac8cd">BYTE8</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:gab843d1663e34214d7324e14169aac8cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte 8 position.  <a href="group__xspi__numonyx__flash__quad__example.html#gab843d1663e34214d7324e14169aac8cd">More...</a><br/></td></tr>
+<tr class="separator:gab843d1663e34214d7324e14169aac8cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga234340145ea729056de88d5db596a44d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga234340145ea729056de88d5db596a44d">DUAL_READ_DUMMY_BYTES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga234340145ea729056de88d5db596a44d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual read dummy bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#ga234340145ea729056de88d5db596a44d">More...</a><br/></td></tr>
+<tr class="separator:ga234340145ea729056de88d5db596a44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0cb4f6b7971c0e7075fb83224c1ce3f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga0cb4f6b7971c0e7075fb83224c1ce3f5">QUAD_READ_DUMMY_BYTES</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga0cb4f6b7971c0e7075fb83224c1ce3f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quad read dummy bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#ga0cb4f6b7971c0e7075fb83224c1ce3f5">More...</a><br/></td></tr>
+<tr class="separator:ga0cb4f6b7971c0e7075fb83224c1ce3f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaddad241034544ea56b22b6ae1859f752"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gaddad241034544ea56b22b6ae1859f752">DUAL_IO_READ_DUMMY_BYTES</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gaddad241034544ea56b22b6ae1859f752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dual IO read dummy bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#gaddad241034544ea56b22b6ae1859f752">More...</a><br/></td></tr>
+<tr class="separator:gaddad241034544ea56b22b6ae1859f752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga08dd8311cce7e6d812069b9b672979c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga08dd8311cce7e6d812069b9b672979c4">QUAD_IO_READ_DUMMY_BYTES</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:ga08dd8311cce7e6d812069b9b672979c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quad IO read dummy bytes.  <a href="group__xspi__numonyx__flash__quad__example.html#ga08dd8311cce7e6d812069b9b672979c4">More...</a><br/></td></tr>
+<tr class="separator:ga08dd8311cce7e6d812069b9b672979c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a48599e715e854c930ad7682db64c5716"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a48599e715e854c930ad7682db64c5716">SpiFlashWriteEnable</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:a48599e715e854c930ad7682db64c5716"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables writes to the Numonyx Serial Flash memory.  <a href="#a48599e715e854c930ad7682db64c5716">More...</a><br/></td></tr>
-<tr class="separator:a48599e715e854c930ad7682db64c5716"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a639435b86afe1f3a18334d679371509b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a639435b86afe1f3a18334d679371509b">SpiFlashWrite</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount, u8 WriteCmd)</td></tr>
-<tr class="memdesc:a639435b86afe1f3a18334d679371509b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes the data to the specified locations in the Numonyx Serial Flash memory.  <a href="#a639435b86afe1f3a18334d679371509b">More...</a><br/></td></tr>
-<tr class="separator:a639435b86afe1f3a18334d679371509b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac94156992ca0662d45a6a79e77ae5469"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ac94156992ca0662d45a6a79e77ae5469">SpiFlashRead</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount, u8 ReadCmd)</td></tr>
-<tr class="memdesc:ac94156992ca0662d45a6a79e77ae5469"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the data from the Numonyx Serial Flash Memory.  <a href="#ac94156992ca0662d45a6a79e77ae5469">More...</a><br/></td></tr>
-<tr class="separator:ac94156992ca0662d45a6a79e77ae5469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86d8ebdee181c36e305d15812df9d774"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a86d8ebdee181c36e305d15812df9d774">SpiFlashBulkErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:a86d8ebdee181c36e305d15812df9d774"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function erases the entire contents of the Numonyx Serial Flash device.  <a href="#a86d8ebdee181c36e305d15812df9d774">More...</a><br/></td></tr>
-<tr class="separator:a86d8ebdee181c36e305d15812df9d774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9756ea6473f94b75dc9c44df1a55705"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ab9756ea6473f94b75dc9c44df1a55705">SpiFlashSectorErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr)</td></tr>
-<tr class="memdesc:ab9756ea6473f94b75dc9c44df1a55705"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function erases the contents of the specified Sector in the Numonyx Serial Flash device.  <a href="#ab9756ea6473f94b75dc9c44df1a55705">More...</a><br/></td></tr>
-<tr class="separator:ab9756ea6473f94b75dc9c44df1a55705"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4007c2150a6cc4c1f0e890fcb784a52e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a4007c2150a6cc4c1f0e890fcb784a52e">SpiFlashGetStatus</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:a4007c2150a6cc4c1f0e890fcb784a52e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Status register of the Numonyx Flash.  <a href="#a4007c2150a6cc4c1f0e890fcb784a52e">More...</a><br/></td></tr>
-<tr class="separator:a4007c2150a6cc4c1f0e890fcb784a52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa80e27c647fe6b86b58019a9af60c1b3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#aa80e27c647fe6b86b58019a9af60c1b3">SpiFlashQuadEnable</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:aa80e27c647fe6b86b58019a9af60c1b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the QuadEnable bit in Winbond flash.  <a href="#aa80e27c647fe6b86b58019a9af60c1b3">More...</a><br/></td></tr>
-<tr class="separator:aa80e27c647fe6b86b58019a9af60c1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29b2b437252838fd655646e018a44fa8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a29b2b437252838fd655646e018a44fa8">SpiFlashEnableHPM</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
-<tr class="memdesc:a29b2b437252838fd655646e018a44fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enabled High Performance Mode in Winbond flash, so that data can be read from the flash using DIO and QIO commands.  <a href="#a29b2b437252838fd655646e018a44fa8">More...</a><br/></td></tr>
-<tr class="separator:a29b2b437252838fd655646e018a44fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler</a> (void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</td></tr>
-<tr class="memdesc:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing for the SPI driver.  <a href="#aacdc7be0761bc23854d5f1b9c6dbe36a">More...</a><br/></td></tr>
-<tr class="separator:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to run the quad flash example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga48599e715e854c930ad7682db64c5716"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#ga48599e715e854c930ad7682db64c5716">SpiFlashWriteEnable</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:ga48599e715e854c930ad7682db64c5716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables writes to the Numonyx Serial Flash memory.  <a href="group__xspi__winbond__flash__quad__example.html#ga48599e715e854c930ad7682db64c5716">More...</a><br/></td></tr>
+<tr class="separator:ga48599e715e854c930ad7682db64c5716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga639435b86afe1f3a18334d679371509b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#ga639435b86afe1f3a18334d679371509b">SpiFlashWrite</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount, u8 WriteCmd)</td></tr>
+<tr class="memdesc:ga639435b86afe1f3a18334d679371509b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the data to the specified locations in the Numonyx Serial Flash memory.  <a href="group__xspi__winbond__flash__quad__example.html#ga639435b86afe1f3a18334d679371509b">More...</a><br/></td></tr>
+<tr class="separator:ga639435b86afe1f3a18334d679371509b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac94156992ca0662d45a6a79e77ae5469"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#gac94156992ca0662d45a6a79e77ae5469">SpiFlashRead</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr, u32 ByteCount, u8 ReadCmd)</td></tr>
+<tr class="memdesc:gac94156992ca0662d45a6a79e77ae5469"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the data from the Numonyx Serial Flash Memory.  <a href="group__xspi__winbond__flash__quad__example.html#gac94156992ca0662d45a6a79e77ae5469">More...</a><br/></td></tr>
+<tr class="separator:gac94156992ca0662d45a6a79e77ae5469"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga86d8ebdee181c36e305d15812df9d774"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#ga86d8ebdee181c36e305d15812df9d774">SpiFlashBulkErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:ga86d8ebdee181c36e305d15812df9d774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the entire contents of the Numonyx Serial Flash device.  <a href="group__xspi__winbond__flash__quad__example.html#ga86d8ebdee181c36e305d15812df9d774">More...</a><br/></td></tr>
+<tr class="separator:ga86d8ebdee181c36e305d15812df9d774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9756ea6473f94b75dc9c44df1a55705"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#gab9756ea6473f94b75dc9c44df1a55705">SpiFlashSectorErase</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr, u32 Addr)</td></tr>
+<tr class="memdesc:gab9756ea6473f94b75dc9c44df1a55705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the contents of the specified Sector in the Numonyx Serial Flash device.  <a href="group__xspi__winbond__flash__quad__example.html#gab9756ea6473f94b75dc9c44df1a55705">More...</a><br/></td></tr>
+<tr class="separator:gab9756ea6473f94b75dc9c44df1a55705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4007c2150a6cc4c1f0e890fcb784a52e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#ga4007c2150a6cc4c1f0e890fcb784a52e">SpiFlashGetStatus</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:ga4007c2150a6cc4c1f0e890fcb784a52e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Status register of the Numonyx Flash.  <a href="group__xspi__winbond__flash__quad__example.html#ga4007c2150a6cc4c1f0e890fcb784a52e">More...</a><br/></td></tr>
+<tr class="separator:ga4007c2150a6cc4c1f0e890fcb784a52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa80e27c647fe6b86b58019a9af60c1b3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#gaa80e27c647fe6b86b58019a9af60c1b3">SpiFlashQuadEnable</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:gaa80e27c647fe6b86b58019a9af60c1b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the QuadEnable bit in Winbond flash.  <a href="group__xspi__winbond__flash__quad__example.html#gaa80e27c647fe6b86b58019a9af60c1b3">More...</a><br/></td></tr>
+<tr class="separator:gaa80e27c647fe6b86b58019a9af60c1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga29b2b437252838fd655646e018a44fa8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__winbond__flash__quad__example.html#ga29b2b437252838fd655646e018a44fa8">SpiFlashEnableHPM</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiPtr)</td></tr>
+<tr class="memdesc:ga29b2b437252838fd655646e018a44fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables High Performance Mode in Winbond flash, so that data can be read from the flash using DIO and QIO commands.  <a href="group__xspi__winbond__flash__quad__example.html#ga29b2b437252838fd655646e018a44fa8">More...</a><br/></td></tr>
+<tr class="separator:ga29b2b437252838fd655646e018a44fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#gaacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler</a> (void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</td></tr>
+<tr class="memdesc:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the status events of the SPI driver.  <a href="group__xspi__numonyx__flash__quad__example.html#gaacdc7be0761bc23854d5f1b9c6dbe36a">More...</a><br/></td></tr>
+<tr class="separator:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspi__numonyx__flash__quad__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the quad flash example.  <a href="group__xspi__numonyx__flash__quad__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="ab499519eaab61d0f334591c02a7b15f1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define READ_WRITE_EXTRA_BYTES&#160;&#160;&#160;4 /* Read/Write extra bytes */</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This definitions specify the EXTRA bytes in each of the command transactions. </p>
-<p>This count includes Command byte, address bytes and any don't care bytes needed. </p>
-
-<p>Referenced by <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ac94156992ca0662d45a6a79e77ae5469">SpiFlashRead()</a>, and <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a639435b86afe1f3a18334d679371509b">SpiFlashWrite()</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to run the quad flash example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="struct_x_spi___config.html#a495ec19a4ab441ea59a0e220f0728dd9">XSpi_Config::BaseAddress</a>, <a class="el" href="struct_x_spi___config.html#a3f6036a8c85e0a81febbc13c358335e0">XSpi_Config::IntrId</a>, <a class="el" href="struct_x_spi___config.html#a8eab103efa3a50b4bbe39d6a002150b2">XSpi_Config::IntrParent</a>, <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ab499519eaab61d0f334591c02a7b15f1">READ_WRITE_EXTRA_BYTES</a>, <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ac94156992ca0662d45a6a79e77ae5469">SpiFlashRead()</a>, <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ab9756ea6473f94b75dc9c44df1a55705">SpiFlashSectorErase()</a>, <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a639435b86afe1f3a18334d679371509b">SpiFlashWrite()</a>, <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a48599e715e854c930ad7682db64c5716">SpiFlashWriteEnable()</a>, <a class="el" href="xspi__atmel__flash__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler()</a>, <a class="el" href="group__spi.html#gac2c043a14b04e38a61b1979ccaa8a200">XSP_MASTER_OPTION</a>, <a class="el" href="group__spi.html#ga858155b42d5a1da8efe06c9098e40b2d">XSpi_CfgInitialize()</a>, <a class="el" href="group__spi.html#gaf3863f11d27469d8797424319601c980">XSpi_InterruptHandler()</a>, <a class="el" href="group__spi.html#ga59c223b96bc85c1e13bf88a19af91bc3">XSpi_LookupConfig()</a>, <a class="el" href="group__spi.html#ga67c2076b133a55b6f80343642a1ace41">XSpi_SetOptions()</a>, <a class="el" href="group__spi.html#ga162523a3e9b29f063701db303ac8cf17">XSpi_SetSlaveSelect()</a>, <a class="el" href="group__spi.html#gabc09f4d503de2a772e5079ac46fc62b6">XSpi_SetStatusHandler()</a>, and <a class="el" href="group__spi.html#ga87fdaad742a2669200c9b2617e5c86ea">XSpi_Start()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a86d8ebdee181c36e305d15812df9d774"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashBulkErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function erases the entire contents of the Numonyx Serial Flash device. </p>
-<p>This function erases the entire contents of the Winbond Serial Flash device.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The erased bytes will read as 0xFF. </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a29b2b437252838fd655646e018a44fa8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashEnableHPM </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function enabled High Performance Mode in Winbond flash, so that data can be read from the flash using DIO and QIO commands. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a48599e715e854c930ad7682db64c5716">SpiFlashWriteEnable()</a>, and <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__winbond__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4007c2150a6cc4c1f0e890fcb784a52e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashGetStatus </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads the Status register of the Numonyx Flash. </p>
-<p>This function reads the Status register of the Winbond Flash.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The status register content is stored at the second byte pointed by the ReadBuffer. </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa80e27c647fe6b86b58019a9af60c1b3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashQuadEnable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function sets the QuadEnable bit in Winbond flash. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a48599e715e854c930ad7682db64c5716">SpiFlashWriteEnable()</a>, and <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__winbond__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac94156992ca0662d45a6a79e77ae5469"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ReadCmd</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads the data from the Numonyx Serial Flash Memory. </p>
-<p>This function reads the data from the Winbond Serial Flash Memory.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the starting address in the Flash Memory from which the data is to be read. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to be read.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the starting address in the Flash Memory from which the data is to be read. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to be read. </td></tr>
-    <tr><td class="paramname">ReadCmd</td><td>is the command used for reading data from flash.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ab499519eaab61d0f334591c02a7b15f1">READ_WRITE_EXTRA_BYTES</a>, and <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab9756ea6473f94b75dc9c44df1a55705"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashSectorErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Addr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function erases the contents of the specified Sector in the Numonyx Serial Flash device. </p>
-<p>This function erases the contents of the specified Sector in the Winbond Serial Flash device.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the address within a sector of the Buffer, which is to be erased.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The erased bytes will be read back as 0xFF. </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a639435b86afe1f3a18334d679371509b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>WriteCmd</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function writes the data to the specified locations in the Numonyx Serial Flash memory. </p>
-<p>This function writes the data to the specified locations in the Winbond Serial Flash memory.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the address in the Buffer, where to write the data. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device. </td></tr>
-    <tr><td class="paramname">Addr</td><td>is the address in the Buffer, where to write the data. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to be written. </td></tr>
-    <tr><td class="paramname">WriteCmd</td><td>is the command used for writing data to flash.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#ab499519eaab61d0f334591c02a7b15f1">READ_WRITE_EXTRA_BYTES</a>, and <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a48599e715e854c930ad7682db64c5716"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiFlashWriteEnable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi.html">XSpi</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function enables writes to the Numonyx Serial Flash memory. </p>
-<p>This function enables writes to the Winbond Serial Flash memory.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the instance of the Spi device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="group__spi.html#ga4c44c082ef2d2b9cf4ba3db8bcebd954">XSpi_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspi__numonyx__flash__quad__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="xspi__winbond__flash__quad__example_8c.html#a29b2b437252838fd655646e018a44fa8">SpiFlashEnableHPM()</a>, and <a class="el" href="xspi__winbond__flash__quad__example_8c.html#aa80e27c647fe6b86b58019a9af60c1b3">SpiFlashQuadEnable()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aacdc7be0761bc23854d5f1b9c6dbe36a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SpiHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>StatusEvent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>ByteCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is the handler which performs processing for the SPI driver. </p>
-<p>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</p>
-<p>This handler provides an example of how to handle SPI interrupts and is application specific.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked. </td></tr>
-    <tr><td class="paramname">StatusEvent</td><td>is the event that just occurred. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes transferred up until the event occurred.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

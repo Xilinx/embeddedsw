@@ -565,6 +565,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function initialize and configures the TRNG into DRNG/HRNG mode of operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">XSecureTrngMode</td><td>Mode of TRNG operation (DRNG/HRNG/PTRNG). </td></tr>
+    <tr><td class="paramname">Seed</td><td>Pointer to the seed used for TRNG initialization. </td></tr>
+    <tr><td class="paramname">SeedLength</td><td>Length of the seed in bytes. </td></tr>
+    <tr><td class="paramname">PersStr</td><td>Pointer to the personalization string.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS - Upon success.</li>
 <li>XST_FAILURE - On failure.</li>
@@ -633,7 +642,7 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga2f4a1a99096821d10b0719a4ded431d5">XSECURE_API</a>, <a class="el" href="group__xsecure__common__apis.html#gaa2f27ea2d621bbdeda76bad8109eb77b">XSECURE_API_ID_MASK</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3">XSECURE_API_TRNG_GENERATE</a>, and <a class="el" href="group__xsecure__trng__client__apis.html#ga7d6de56d442c1199e990cfa01d45411c">XSecure_TrngGenerateRandNum()</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga2f4a1a99096821d10b0719a4ded431d5">XSECURE_API</a>, <a class="el" href="group__xsecure__common__apis.html#gaa2f27ea2d621bbdeda76bad8109eb77b">XSECURE_API_ID_MASK</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a">XSECURE_API_KAT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3">XSECURE_API_TRNG_GENERATE</a>, <a class="el" href="group__xsecure__common__apis.html#gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6">XSECURE_API_TRNG_KAT</a>, <a class="el" href="group__xsecure__trng__client__apis.html#ga7d6de56d442c1199e990cfa01d45411c">XSecure_TrngGenerateRandNum()</a>, and <a class="el" href="group__xsecure__kat__client__apis.html#ga7b74e15ff3cab4a891179ef46efe576f">XSecure_TrngKat()</a>.</p>
 
 </div>
 </div>

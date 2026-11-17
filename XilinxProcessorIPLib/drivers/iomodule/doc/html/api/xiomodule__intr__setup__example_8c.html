@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xiomodule__intr__setup__example_8c.htm
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xiomodule__intr__setup__example_8c.htm
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xiomodule_intr_setup_example.c File Reference</div>  </div>
@@ -121,6 +122,12 @@ $(document).ready(function(){initNavTree('xiomodule__intr__setup__example_8c.htm
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab7c8be360118cc6c9374a723fbc45b97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiomodule__intr__setup__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">IOMODULE_DEVICE_ID</a>&#160;&#160;&#160;XPAR_IOMODULE_0_BASEADDR</td></tr>
+<tr class="memdesc:ab7c8be360118cc6c9374a723fbc45b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device base address for SDT build.  <a href="#ab7c8be360118cc6c9374a723fbc45b97">More...</a><br/></td></tr>
+<tr class="separator:ab7c8be360118cc6c9374a723fbc45b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6339f8de3299aa4330089d886cb41022"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiomodule__intr__setup__example_8c.html#a6339f8de3299aa4330089d886cb41022">IOModuleInterruptSetup</a> (<a class="el" href="struct_x_i_o_module.html">XIOModule</a> *IOModuleInstancePtr, u32 DeviceId)</td></tr>
@@ -130,6 +137,23 @@ Functions</h2></td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the IO Module example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab7c8be360118cc6c9374a723fbc45b97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IOMODULE_DEVICE_ID&#160;&#160;&#160;XPAR_IOMODULE_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device base address for SDT build. </p>
+
+<p>Referenced by <a class="el" href="xiomodule__intr__setup__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a6339f8de3299aa4330089d886cb41022"></a>
 <div class="memitem">
@@ -158,13 +182,12 @@ Functions</h2></td></tr>
 <p>This function is used by the TestAppGen generated application to setup the IO Module interrupts. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">IOModuleInstancePtr</td><td>is the reference to the IO Module instance. </td></tr>
-    <tr><td class="paramname">DeviceId</td><td>is device ID of the IO Module Device , typically XPAR_&lt;IOMODULE_instance&gt;_DEVICE_ID value from xparameters.h</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IOModuleInstancePtr</td><td>is the reference to the IO Module instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DeviceId</td><td>is device ID of the IO Module Device , typically XPAR_&lt;IOMODULE_instance&gt;_DEVICE_ID value from xparameters.h</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE </dd></dl>
 
 <p>References <a class="el" href="xiomodule__intr__example_8c.html#a97fab0e5a0288ca936d98287bdc802ee">IOModuleSetupIntrSystem()</a>, <a class="el" href="group__iomodule.html#ga600331bcb370ad31b8acbb20bacbc694">XIOModule_Initialize()</a>, <a class="el" href="group__iomodule.html#ga4a295427c84e3c7f0cee3440ba119093">XIOModule_SelfTest()</a>, and <a class="el" href="group__iomodule.html#ga2841593e6e312fefe9f190a75e11fdb4">XIOModule_Start()</a>.</p>
 
@@ -188,16 +211,9 @@ Functions</h2></td></tr>
 
 <p>This is the main function for the IO Module example. </p>
 <p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS to indicate success, otherwise XST_FAILURE. </dd></dl>
 
-<p>References <a class="el" href="xiomodule__intr__setup__example_8c.html#a6339f8de3299aa4330089d886cb41022">IOModuleInterruptSetup()</a>.</p>
+<p>References <a class="el" href="xiomodule__intr__setup__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">IOMODULE_DEVICE_ID</a>, and <a class="el" href="xiomodule__intr__setup__example_8c.html#a6339f8de3299aa4330089d886cb41022">IOModuleInterruptSetup()</a>.</p>
 
 </div>
 </div>

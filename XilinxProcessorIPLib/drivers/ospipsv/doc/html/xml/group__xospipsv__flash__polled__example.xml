@@ -1,0 +1,1367 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xospipsv__flash__polled__example" kind="group">
+    <compoundname>xospipsv_flash_polled_example</compoundname>
+    <title>Xospipsv_flash_polled_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1ga6d521daf149f9047dc5d589daaa16d42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Transmit buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gab7437db129dfe4f3b66551d27aa957b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBfrPtr[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>ReadBfrPtr</name>
+        <briefdescription>
+<para>Read buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gaf8ace83e43786ba25b4a81742df92b37" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashMake</definition>
+        <argsstring></argsstring>
+        <name>FlashMake</name>
+        <briefdescription>
+<para>Flash manufacturer ID (first byte of the flash ID). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashType</definition>
+        <argsstring></argsstring>
+        <name>FlashType</name>
+        <briefdescription>
+<para>Flash device type (second byte of the flash ID). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1ga8d80524bb6369924849dee07b6037695" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FCTIndex</definition>
+        <argsstring></argsstring>
+        <name>FCTIndex</name>
+        <briefdescription>
+<para>Flash configuration table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gac657302f5b0964ae2322d7d3a54f3945" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref></type>
+        <definition>XOspiPsv OspiPsvInstance</definition>
+        <argsstring></argsstring>
+        <name>OspiPsvInstance</name>
+        <briefdescription>
+<para>The instances to support the device drivers are global such that they are initialized to zero each time the program runs. </para>        </briefdescription>
+        <detaileddescription>
+<para>They could be local but should at least be static so they are zeroed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gad13128082696c36a6fda3c2598e4567b" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref></type>
+        <definition>XOspiPsv_Msg FlashMsg</definition>
+        <argsstring></argsstring>
+        <name>FlashMsg</name>
+        <briefdescription>
+<para>Flash message used for the transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gab3bcee72bda39943b664463f1df4d211" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Test</definition>
+        <argsstring></argsstring>
+        <name>Test</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>The following variable allows a test value to be added to the values that are written to the Flash such that unique values can be generated to guarantee the writes to the Flash were successful. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1ga9285634c7b4e2bad0120d39c4d378646" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[(PAGE_COUNT *MAX_PAGE_SIZE)]</definition>
+        <argsstring>[(PAGE_COUNT *MAX_PAGE_SIZE)]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>The following variables hold the data read from and written to the flash and they are global to avoid having large buffers on the stack. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1ga45a9b5de155e995a0dd6939cd6a12b76" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[(PAGE_COUNT *MAX_PAGE_SIZE)]</definition>
+        <argsstring>[(PAGE_COUNT *MAX_PAGE_SIZE)]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Buffer holding the data written to the flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gae05983c4f8e4b2d1c912414136eac56c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CmdBfr[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>CmdBfr</name>
+        <briefdescription>
+<para>Command buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gadb76586d04c997f8b79c771199f091be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FSRFlag</definition>
+        <argsstring></argsstring>
+        <name>FSRFlag</name>
+        <briefdescription>
+<para>Flag status register usage flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xospipsv__flash__polled__example_1gab839e91b4279b469bdd2167b7e386fd2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MaxData</definition>
+        <argsstring></argsstring>
+        <name>MaxData</name>
+        <initializer>= <ref refid="group__xospipsv__flash__polled__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kindref="member">PAGE_COUNT</ref> * 256</initializer>
+        <briefdescription>
+<para>The following constants specify the max amount of data and the size of the the buffer required to hold the data and overhead to transfer the data to and from the Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initialized to single flash page size. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int OspiPsvPolledFlashExample</definition>
+        <argsstring>(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>OspiPsvPolledFlashExample</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> device driver using OSPI flash devices greater than or equal to 128Mb. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function reads data in either DMA or DAC mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">OspiPsvInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up by DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="277" bodyend="464"/>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="183">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv___config_1a5ca4fb3ed8b0107599596c5cbf8e8591" compoundref="xospipsv_8h" startline="165">XOspiPsv_Config::ConnectionMode</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga8d80524bb6369924849dee07b6037695" compoundref="xospipsv__flash__intr__example_8c" startline="181">FCTIndex</references>
+        <references refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" compoundref="xospipsv__flash__config_8h" startline="167">Flash_Config_Table</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1433" endline="1601">FlashEnterExit4BAddMode</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="577" endline="635">FlashLinearWrite</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="537" endline="609">FlashReadID</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1984" endline="2184">FlashSetSDRDDRMode</references>
+        <references refid="xospipsv__flash__config_8h_1a9598574a7e817d688b7fb23b720b4038" compoundref="xospipsv__flash__config_8h" startline="116">MACRONIX_OCTAL_ID_BYTE0</references>
+        <references refid="xospipsv__flash__config_8h_1a3aff5aa196b1a4d894cf35ea6d29c996" compoundref="xospipsv__flash__config_8h" startline="119">MACRONIX_OCTAL_ID_BYTE1</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" compoundref="xospipsv__flash__polled__example_8c" startline="80">MAX_PAGE_SIZE</references>
+        <references refid="group__xospipsv__flash__intr__example_1gab839e91b4279b469bdd2167b7e386fd2" compoundref="xospipsv__flash__intr__example_8c" startline="239">MaxData</references>
+        <references refid="xospipsv__flash__config_8h_1a54e00d149efaa69ed20ddd9d9e2790db" compoundref="xospipsv__flash__config_8h" startline="113">MICRON_OCTAL_ID_BYTE0</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</references>
+        <references refid="group__xospipsv__flash__intr__example_1gab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2375" endline="2492">MxConfigDummy</references>
+        <references refid="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" compoundref="xospipsv__flash__config_8h" startline="149">FlashInfo::NumPage</references>
+        <references refid="struct_flash_info_1af97490d94d6769ec426380408695d555" compoundref="xospipsv__flash__config_8h" startline="145">FlashInfo::NumSect</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" compoundref="xospipsv__flash__polled__example_8c" startline="75">PAGE_COUNT</references>
+        <references refid="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" compoundref="xospipsv__flash__config_8h" startline="146">FlashInfo::PageSize</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga9285634c7b4e2bad0120d39c4d378646" compoundref="xospipsv__flash__intr__example_8c" startline="226">ReadBuffer</references>
+        <references refid="xospipsv__flash__config_8h_1afbd9dc9a545164602274a259c1f49dd8" compoundref="xospipsv__flash__config_8h" startline="97">SIXTEENMB</references>
+        <references refid="xospipsv__flash__config_8h_1a4ffae7cc80d3d457218dfd9b75901db5" compoundref="xospipsv__flash__config_8h" startline="117">SPANSION_OCTAL_ID_BYTE0</references>
+        <references refid="group__xospipsv__flash__intr__example_1gaf2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2235" endline="2363">SpansionSetEccMode</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga9376dcef436c7d444fe4d1fd11749101" compoundref="xospipsv__flash__polled__example_8c" startline="85">TEST_ADDRESS</references>
+        <references refid="group__xospipsv__flash__polled__example_1gad922278cd1812d8a566d5b9da390681f" compoundref="xospipsv__flash__polled__example_8c" startline="88">UNIQUE_VALUE</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga45a9b5de155e995a0dd6939cd6a12b76" compoundref="xospipsv__flash__intr__example_8c" startline="228">WriteBuffer</references>
+        <references refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="111" endline="226">XOspiPsv_CfgInitialize</references>
+        <references refid="group__ospipsv_1gad5869a3a26216cc3f44fd48cfa54e885" compoundref="xospipsv_8h" startline="355">XOSPIPSV_CLK_PRESCALE_12</references>
+        <references refid="group__ospipsv_1gad034eceb481f5722918c4313070f56f5" compoundref="xospipsv_8h" startline="475">XOSPIPSV_CONNECTION_MODE_STACKED</references>
+        <references refid="group__ospipsv_1ga15c0973b6b32cee5484231f4b0964024" compoundref="xospipsv_8h" startline="226">XOSPIPSV_DAC_EN_OPTION</references>
+        <references refid="group__ospipsv__api_1ga16fcc38cab80027ea601c99569517067" compoundref="xospipsv_8c" startline="261" endline="309">XOspiPsv_DeviceReset</references>
+        <references refid="group__ospipsv__api_1ga26ffa91c5d5d79028535a2e3381174e6" compoundref="xospipsv_8c" startline="323" endline="355">XOspiPsv_DeviceResetViaOspi</references>
+        <references refid="group__ospipsv_1gab4d86dca4be2a3f0fc6c8ba5aa50ed68" compoundref="xospipsv_8h" startline="413">XOSPIPSV_EDGE_MODE_SDR_NON_PHY</references>
+        <references refid="group__ospipsv_1ga19324f8c6c1156b26c84cc9d413a4801" compoundref="xospipsv__options_8c" startline="238" endline="260">XOspiPsv_GetOptions</references>
+        <references refid="group__ospipsv_1ga1354e2d970f4721642687811112360d1" compoundref="xospipsv_8h" startline="452">XOSPIPSV_HWPIN_RESET</references>
+        <references refid="group__ospipsv_1ga023b5ab25dd6ca3373b732aad21d95da" compoundref="xospipsv_8h" startline="227">XOSPIPSV_IDAC_EN_OPTION</references>
+        <references refid="group__ospipsv_1ga466b35dd2fa531cda25197d883b445d9" compoundref="xospipsv__sinit_8c" startline="88" endline="100">XOspiPsv_LookupConfig</references>
+        <references refid="group__ospipsv_1ga40bc60d265ec996c0327b2ae56f22e93" compoundref="xospipsv_8h" startline="339">XOSPIPSV_SELECT_FLASH_CS0</references>
+        <references refid="group__ospipsv_1ga7e63fb4ca85045a809257dea44e49fff" compoundref="xospipsv_8h" startline="340">XOSPIPSV_SELECT_FLASH_CS1</references>
+        <references refid="group__ospipsv_1ga2d17525a71d9df7268fcc4269f19270c" compoundref="xospipsv__options_8c" startline="427" endline="443">XOspiPsv_SelectFlash</references>
+        <references refid="group__ospipsv_1ga45c51bcfa1e2d996298847c2b7910ba6" compoundref="xospipsv__options_8c" startline="277" endline="319">XOspiPsv_SetClkPrescaler</references>
+        <references refid="group__ospipsv_1gab47df170b16816d4cc11dee6c3008e3c" compoundref="xospipsv__options_8c" startline="109" endline="222">XOspiPsv_SetOptions</references>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xospipsv__flash__polled__example_8c" startline="228" endline="249">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga19dbfab221d6a11c3fa45674c1304f2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashReadID</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr)</argsstring>
+        <name>FlashReadID</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the flash ID and identifies the flash in FCT table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga6d28e30d23e136e4af00a436d43c9923" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashErase</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashErase</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Erases the sectors in the serial Flash connected to the OSPIPSV interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address of the first sector which needs to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The total size to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer (which is to be transmitted)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga8337d4d551570e7ecaa44321605280a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashIoWrite</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashIoWrite</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial Flash connected to the OSPIPSV interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries. This can be used in IO or DMA mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to write data to in the Flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer (which is to be transmitted)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga6fff73aa13d90cd15521ab1f7de503dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashLinearWrite</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashLinearWrite</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial Flash connected to the OSPIPSV interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries. This can be used when controller is in Linear mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to write data to in the Flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer (which is to be transmitted)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_non_blocking_read_example.c" bodystart="577" bodyend="635"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="118">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" compoundref="xospipsv_8h" startline="119">XOspiPsv_Msg::Addrsize</references>
+        <references refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" compoundref="xospipsv_8h" startline="120">XOspiPsv_Msg::Addrvalid</references>
+        <references refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" compoundref="xospipsv_8h" startline="115">XOspiPsv_Msg::ByteCount</references>
+        <references refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" compoundref="xospipsv_8h" startline="200">XOspiPsv::DualByteOpcodeEn</references>
+        <references refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" compoundref="xospipsv_8h" startline="121">XOspiPsv_Msg::Dummy</references>
+        <references refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" compoundref="xospipsv_8h" startline="126">XOspiPsv_Msg::ExtendedOpcode</references>
+        <references refid="struct_x_ospi_psv___msg_1a960350cdb6c3c5dc679c637ca1e21be0" compoundref="xospipsv_8h" startline="116">XOspiPsv_Msg::Flags</references>
+        <references refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" compoundref="xospipsv__flash__config_8h" startline="167">Flash_Config_Table</references>
+        <references refid="struct_x_ospi_psv___msg_1a5a9c4b0b141795207120a3d62c6d5144" compoundref="xospipsv_8h" startline="123">XOspiPsv_Msg::IsDDROpCode</references>
+        <references refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" compoundref="xospipsv_8h" startline="117">XOspiPsv_Msg::Opcode</references>
+        <references refid="struct_x_ospi_psv___msg_1a9d8c2658ecdf8c0e9d7f4196844cccf0" compoundref="xospipsv_8h" startline="122">XOspiPsv_Msg::Proto</references>
+        <references refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::RxBfrPtr</references>
+        <references refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" compoundref="xospipsv_8h" startline="191">XOspiPsv::SdrDdrMode</references>
+        <references refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" compoundref="xospipsv_8h" startline="113">XOspiPsv_Msg::TxBfrPtr</references>
+        <references refid="xospipsv__flash__config_8h_1a778f641f7a12aabbe1ffd0c948f8e1f9" compoundref="xospipsv__flash__config_8h" startline="61">WRITE_ENABLE_CMD</references>
+        <references refid="group__ospipsv_1ga20cee3653bbcb80adcc31f993de12c0d" compoundref="xospipsv_8h" startline="487">XOSPIPSV_DUAL_BYTE_OP_ENABLE</references>
+        <references refid="group__ospipsv_1gad3012f761e6f72f9faa9ccda20f95459" compoundref="xospipsv_8h" startline="489">XOSPIPSV_DUAL_BYTE_OP_SAME</references>
+        <references refid="group__ospipsv_1gac4aa73db6633a7656ac2d1137ebf1046" compoundref="xospipsv_8h" startline="415">XOSPIPSV_EDGE_MODE_DDR_PHY</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga08e2382b1a337e871524e10a23f1b984" compoundref="xospipsv__flash__intr__example_8c" startline="504" endline="525">XOspiPsv_Get_Proto</references>
+        <references refid="group__ospipsv_1gaa63401f44f82909e4e5def344f2fb777" compoundref="xospipsv_8h" startline="297">XOSPIPSV_MSG_FLAG_TX</references>
+        <references refid="group__ospipsv__api_1ga808cc2759798221d0d4f44eef27c0629" compoundref="xospipsv_8c" startline="419" endline="479">XOspiPsv_PollTransfer</references>
+        <references refid="group__ospipsv_1ga702fb393e805b9e61b3f80915ea83651" compoundref="xospipsv_8h" startline="325">XOSPIPSV_WRITE_8_0_0</references>
+        <references refid="group__ospipsv_1ga0e425288167a2f7a8ed1fe2e5a11184a" compoundref="xospipsv_8h" startline="324">XOSPIPSV_WRITE_8_8_8</references>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+        <referencedby refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="268" endline="447">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashRead</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashRead</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a flash read. </para>        </briefdescription>
+        <detaileddescription>
+<para>DMA is the default setting.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flash address to read from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer which contains data to be transmitted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the read buffer to which valid received data should be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="109" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1gae08db22955675661860c9008890b0138" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetRealAddr</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 Address)</argsstring>
+        <name>GetRealAddr</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Translates the address based on the type of interconnection. </para>        </briefdescription>
+        <detaileddescription>
+<para>In case of stacked, the function asserts the corresponding slave select.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Which is to be accessed (for erase, write or read)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RealAddr is the translated address - for single it is unchanged; for stacked, the lower flash size is subtracted;</para></simplesect>
+<simplesect kind="note"><para>In addition to get the actual address to work on flash the function also selects the CS based on the configuration detected. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int BulkErase</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)</argsstring>
+        <name>BulkErase</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a bulk erase operation when the flash device has a single die. </para>        </briefdescription>
+        <detaileddescription>
+<para>Works for both Spansion and Micron</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to command+address to be sent</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DieErase</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)</argsstring>
+        <name>DieErase</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a die erase operation on all the die in the flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function uses the die erase command for Micron 512Mbit and 1Gbit</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to command+address to be sent</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1gab399f8b8371b348eeb16d0a837a12c37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashRegisterRead</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 ByteCount, u8 Command, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashRegisterRead</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads a flash register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register read command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer for the register data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="124" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1gaaef465ce1a897668ec9cc4f5287e3c96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashRegisterWrite</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 WrEn)</argsstring>
+        <name>FlashRegisterWrite</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>WrEn</declname>
+        </param>
+        <briefdescription>
+<para>Writes to a flash register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register write command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the value to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">WrEn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to send a write enable (WREN) before the write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="136" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga799d90a5caee30dd850a6190a6b3efeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 InitCmd</definition>
+        <argsstring>(XOspiPsv *OspiPsvInstancePtr)</argsstring>
+        <name>InitCmd</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the flash commands used by the example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="145" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga929e1c114b2752e00136aa5ebb3cbeda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashEnterExit4BAddMode</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, int Enable)</argsstring>
+        <name>FlashEnterExit4BAddMode</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Enters or exits the 4 bytes addressing mode of the flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>As per the Micron spec, before issuing the command to enter into 4 byte addr mode, a write enable command is issued.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enter 4 byte addressing mode, 0 to exit it.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if it fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="146" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashWriteCfgReg</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u8 Opcode, u8 AddrSize, u32 Address, u8 *Data)</argsstring>
+        <name>FlashWriteCfgReg</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Opcode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AddrSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Writes one byte into a configuration register of the flash device currently selected. </para>        </briefdescription>
+        <detaileddescription>
+<para>A write enable is issued before the write.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Opcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The write register command of the flash device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AddrSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the register address in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to write, duplicated in both bytes as the DDR modes transfer two bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if it fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="147" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga41da7fd71e9af03552fef321f42c19f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashReadCfgReg</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u8 Opcode, u8 AddrSize, u32 Address, u8 Dummy, u8 *ConfigReg)</argsstring>
+        <name>FlashReadCfgReg</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Opcode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AddrSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Dummy</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ConfigReg</declname>
+        </param>
+        <briefdescription>
+<para>Reads a configuration register of the flash device currently selected. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Opcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The read register command of the flash device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">AddrSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the register address in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Dummy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of dummy cycles of the read command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ConfigReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The two byte buffer the register is read into.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if it fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="149" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga92ee697864550c95e476b41c43c0764f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashSetSDRDDRMode</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, int Mode)</argsstring>
+        <name>FlashSetSDRDDRMode</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Enters the flash device into Octal DDR mode or exits from octal DDR mode (switches to Extended SPI mode). </para>        </briefdescription>
+        <detaileddescription>
+<para>In a stacked configuration both devices are switched, the controller is switched once and RX tuning is run only against the lower device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Either 1 or 0 if 1 then enter octal DDR mode if 0 exits.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if it fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The lower flash has to be selected on entry. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SetBlockProtect</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr, u8 BlockProtectionVal, u8 IsBottom)</argsstring>
+        <name>SetBlockProtect</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BlockProtectionVal</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsBottom</declname>
+        </param>
+        <briefdescription>
+<para>Sets the Block Protect bits in the Status register of the device. </para>        </briefdescription>
+        <detaileddescription>
+<para>User has to pass the BP bits[3:0] value as an argument to the function. The function reads the status register and sets the corresponding BP bits as requested by the user and writes back the status register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BlockProtectionVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block protection bits value (4-bit value). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">IsBottom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether the protected memory area defined by the block protect bits starts from the top or bottom of the memory.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The function is tested with the Micron device(MT35XU02G). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="2102" bodyend="2254"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="118">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" compoundref="xospipsv_8h" startline="119">XOspiPsv_Msg::Addrsize</references>
+        <references refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" compoundref="xospipsv_8h" startline="120">XOspiPsv_Msg::Addrvalid</references>
+        <references refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" compoundref="xospipsv_8h" startline="115">XOspiPsv_Msg::ByteCount</references>
+        <references refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" compoundref="xospipsv_8h" startline="200">XOspiPsv::DualByteOpcodeEn</references>
+        <references refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" compoundref="xospipsv_8h" startline="121">XOspiPsv_Msg::Dummy</references>
+        <references refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" compoundref="xospipsv_8h" startline="126">XOspiPsv_Msg::ExtendedOpcode</references>
+        <references refid="struct_x_ospi_psv_1a3262e9917d4a04314a8a469c390fdbd2" compoundref="xospipsv_8h" startline="198">XOspiPsv::Extra_DummyCycle</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga8d80524bb6369924849dee07b6037695" compoundref="xospipsv__flash__intr__example_8c" startline="181">FCTIndex</references>
+        <references refid="struct_x_ospi_psv___msg_1a960350cdb6c3c5dc679c637ca1e21be0" compoundref="xospipsv_8h" startline="116">XOspiPsv_Msg::Flags</references>
+        <references refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" compoundref="xospipsv__flash__config_8h" startline="167">Flash_Config_Table</references>
+        <references refid="struct_x_ospi_psv___msg_1a5a9c4b0b141795207120a3d62c6d5144" compoundref="xospipsv_8h" startline="123">XOspiPsv_Msg::IsDDROpCode</references>
+        <references refid="xospipsv__flash__config_8h_1a5a709532d87ada9c803ae63d10d1ac6c" compoundref="xospipsv__flash__config_8h" startline="121">MICRON_BP_BITS_MASK</references>
+        <references refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" compoundref="xospipsv_8h" startline="117">XOspiPsv_Msg::Opcode</references>
+        <references refid="struct_x_ospi_psv___msg_1a9d8c2658ecdf8c0e9d7f4196844cccf0" compoundref="xospipsv_8h" startline="122">XOspiPsv_Msg::Proto</references>
+        <references refid="xospipsv__flash__config_8h_1aa3ec262a3f2ab7e77412a7fdab86a011" compoundref="xospipsv__flash__config_8h" startline="67">READ_STATUS_CMD</references>
+        <references refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::RxBfrPtr</references>
+        <references refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" compoundref="xospipsv_8h" startline="191">XOspiPsv::SdrDdrMode</references>
+        <references refid="struct_flash_info_1a0c6cfb0c7d2bce5fc540cbb5e8fca42e" compoundref="xospipsv__flash__config_8h" startline="159">FlashInfo::StatusCmd</references>
+        <references refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" compoundref="xospipsv_8h" startline="113">XOspiPsv_Msg::TxBfrPtr</references>
+        <references refid="xospipsv__flash__config_8h_1a778f641f7a12aabbe1ffd0c948f8e1f9" compoundref="xospipsv__flash__config_8h" startline="61">WRITE_ENABLE_CMD</references>
+        <references refid="xospipsv__flash__config_8h_1a076966d3a1aa7647c294802e9f76bb10" compoundref="xospipsv__flash__config_8h" startline="59">WRITE_STATUS_CMD</references>
+        <references refid="group__ospipsv_1ga20cee3653bbcb80adcc31f993de12c0d" compoundref="xospipsv_8h" startline="487">XOSPIPSV_DUAL_BYTE_OP_ENABLE</references>
+        <references refid="group__ospipsv_1gad3012f761e6f72f9faa9ccda20f95459" compoundref="xospipsv_8h" startline="489">XOSPIPSV_DUAL_BYTE_OP_SAME</references>
+        <references refid="group__ospipsv_1gac4aa73db6633a7656ac2d1137ebf1046" compoundref="xospipsv_8h" startline="415">XOSPIPSV_EDGE_MODE_DDR_PHY</references>
+        <references refid="group__ospipsv_1ga21e9a7cc8b92ff2dcc84fafa3f0c21fa" compoundref="xospipsv_8h" startline="296">XOSPIPSV_MSG_FLAG_RX</references>
+        <references refid="group__ospipsv_1gaa63401f44f82909e4e5def344f2fb777" compoundref="xospipsv_8h" startline="297">XOSPIPSV_MSG_FLAG_TX</references>
+        <references refid="group__ospipsv__api_1ga808cc2759798221d0d4f44eef27c0629" compoundref="xospipsv_8c" startline="419" endline="479">XOspiPsv_PollTransfer</references>
+        <references refid="group__ospipsv_1ga57a366c2ca6fdbc86d36fa6a9fb43a00" compoundref="xospipsv_8h" startline="315">XOSPIPSV_READ_8_0_8</references>
+        <references refid="group__ospipsv_1ga29f8015257e80a1023a8aa170e983954" compoundref="xospipsv_8h" startline="320">XOSPIPSV_WRITE_1_0_1</references>
+        <references refid="group__ospipsv_1ga702fb393e805b9e61b3f80915ea83651" compoundref="xospipsv_8h" startline="325">XOSPIPSV_WRITE_8_0_0</references>
+        <references refid="group__ospipsv_1ga040bc73086a36492271db44e373a33e2" compoundref="xospipsv_8h" startline="327">XOSPIPSV_WRITE_8_0_8</references>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MicronBlockProtectTest</definition>
+        <argsstring>(XOspiPsv *OspiPsvInstancePtr)</argsstring>
+        <name>MicronBlockProtectTest</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+          <defname>OspiPsvInstancePtr</defname>
+        </param>
+        <briefdescription>
+<para>Tests the Block Protect feature for Micron flash by enabling the write protect for the first sector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The function is tested with the Micron device(MT35XU02G). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="2015" bodyend="2080"/>
+        <references refid="xospipsv__flash__config_8h_1a24053649e725f4f56dee2e18b647fc79" compoundref="xospipsv__flash__config_8h" startline="167">Flash_Config_Table</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="801" endline="1028">FlashErase</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="629" endline="783">FlashIoWrite</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="577" endline="635">FlashLinearWrite</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1049" endline="1124">FlashRead</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" compoundref="xospipsv__flash__polled__example_8c" startline="80">MAX_PAGE_SIZE</references>
+        <references refid="group__xospipsv__flash__intr__example_1gab839e91b4279b469bdd2167b7e386fd2" compoundref="xospipsv__flash__intr__example_8c" startline="239">MaxData</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" compoundref="xospipsv__flash__polled__example_8c" startline="75">PAGE_COUNT</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga9285634c7b4e2bad0120d39c4d378646" compoundref="xospipsv__flash__intr__example_8c" startline="226">ReadBuffer</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="2102" endline="2254">SetBlockProtect</references>
+        <references refid="group__xospipsv__flash__polled__example_1ga9376dcef436c7d444fe4d1fd11749101" compoundref="xospipsv__flash__polled__example_8c" startline="85">TEST_ADDRESS</references>
+        <references refid="group__xospipsv__flash__polled__example_1gad922278cd1812d8a566d5b9da390681f" compoundref="xospipsv__flash__polled__example_8c" startline="88">UNIQUE_VALUE</references>
+        <references refid="group__xospipsv__flash__intr__example_1ga45a9b5de155e995a0dd6939cd6a12b76" compoundref="xospipsv__flash__intr__example_8c" startline="228">WriteBuffer</references>
+        <references refid="group__ospipsv_1ga15c0973b6b32cee5484231f4b0964024" compoundref="xospipsv_8h" startline="226">XOSPIPSV_DAC_EN_OPTION</references>
+        <references refid="group__ospipsv_1ga19324f8c6c1156b26c84cc9d413a4801" compoundref="xospipsv__options_8c" startline="238" endline="260">XOspiPsv_GetOptions</references>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1gaf2bad08ca36b22108da68d87e5d29201" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpansionSetEccMode</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr)</argsstring>
+        <name>SpansionSetEccMode</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <briefdescription>
+<para>Configures the ECC mode in Flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>In some flashes by default 2-bit ECC is enabled, which prevents byte-programming( &lt;16-Bytes). The function enables byte-programming by setting the ECC configuration to 1-bit error detection/correction.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The function is specific to some spansion flashes(S28HS02GT). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1gab01ca7bff4098e88b315bd230b948658" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MxConfigDummy</definition>
+        <argsstring>(XOspiPsv *OspiPsvPtr)</argsstring>
+        <name>MxConfigDummy</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvPtr</declname>
+        </param>
+        <briefdescription>
+<para>Configures the Dummy cycles in Flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">OspiPsvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the OSPIPSV Flash Polled example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="228" bodyend="249"/>
+        <references refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xospipsv__flash__polled__example_1ga08e2382b1a337e871524e10a23f1b984" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Get_Proto</definition>
+        <argsstring>(XOspiPsv *OspiPsvInstancePtr, int Read)</argsstring>
+        <name>XOspiPsv_Get_Proto</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>OspiPsvInstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Read</declname>
+        </param>
+        <briefdescription>
+<para>Determines the number of lines used for command, address and data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">OspiPsvInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OSPIPSV driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Read</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nonzero for a read, 0 for a write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value to program the lines for command, address and data. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="477" bodyend="498"/>
+        <references refid="xospipsv__flash__config_8h_1a9598574a7e817d688b7fb23b720b4038" compoundref="xospipsv__flash__config_8h" startline="116">MACRONIX_OCTAL_ID_BYTE0</references>
+        <references refid="struct_x_ospi_psv_1abb16a8f44c9ec93487044060e9fb522e" compoundref="xospipsv_8h" startline="190">XOspiPsv::OpMode</references>
+        <references refid="xospipsv__flash__config_8h_1a4ffae7cc80d3d457218dfd9b75901db5" compoundref="xospipsv__flash__config_8h" startline="117">SPANSION_OCTAL_ID_BYTE0</references>
+        <references refid="group__ospipsv_1gad90cde53aa1c59a7a9a8450c8b109782" compoundref="xospipsv_8h" startline="285">XOSPIPSV_IDAC_MODE</references>
+        <references refid="group__ospipsv_1ga2cadd5891ddc5aaa4344c4c5f04df53f" compoundref="xospipsv_8h" startline="307">XOSPIPSV_READ_1_1_1</references>
+        <references refid="group__ospipsv_1ga36ef23ba15c0bc67f757f5c283d40a3f" compoundref="xospipsv_8h" startline="311">XOSPIPSV_READ_1_8_8</references>
+        <references refid="group__ospipsv_1ga7cf4370e5c08c69a0a17b61ae2154e81" compoundref="xospipsv_8h" startline="319">XOSPIPSV_WRITE_1_1_1</references>
+        <references refid="group__ospipsv_1ga96084590cbdee490499e091766ac5303" compoundref="xospipsv_8h" startline="322">XOSPIPSV_WRITE_1_1_8</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xospipsv__flash__polled__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" prot="public" static="no">
+        <name>PAGE_COUNT</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Number of flash pages to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xospipsv__flash__polled__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" prot="public" static="no">
+        <name>MAX_PAGE_SIZE</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Max page size to initialize write and read buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xospipsv__flash__polled__example_1ga9376dcef436c7d444fe4d1fd11749101" prot="public" static="no">
+        <name>TEST_ADDRESS</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Flash address to which data is to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xospipsv__flash__polled__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+<para>Initial value of the test data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_polled_example.c" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="2015" endline="2080">MicronBlockProtectTest</referencedby>
+        <referencedby refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="277" endline="464">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

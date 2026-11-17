@@ -10,12 +10,14 @@
         <argsstring></argsstring>
         <name>Name</name>
         <briefdescription>
-        </briefdescription>
+<para>Name of the device. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1gae0ca4ef82a0c7ef7a575b30d34299069" compoundref="xcsi2txss__sinit_8c" startline="88" endline="98">XCsi2TxSs_GetDrvIndex</referencedby>
+        <referencedby refid="group__csi2txss_1gaf52da6c284e984b40237f01355e10824" compoundref="xcsi2txss__sinit_8c" startline="63" endline="76">XCsi2TxSs_LookupConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,10 +30,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="218" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="227" bodyend="-1"/>
         <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
-        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="124" endline="147">Csi2TxSs_SelfTestExample</referencedby>
-        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="104" endline="139">XCsi2TxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="114" endline="137">Csi2TxSs_SelfTestExample</referencedby>
+        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="110" endline="159">XCsi2TxSs_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a7e3d185b3246a66d9fa0c87be4d76170" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -44,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="220" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="229" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a39ee5c2c2b06e24f427cf41d4fc9de81" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -57,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="222" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="231" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a339b1d280f88626ea2fd021a9895b4c3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -65,12 +67,12 @@
         <argsstring></argsstring>
         <name>DataType</name>
         <briefdescription>
-        </briefdescription>
+<para>RAW8,RAW10,RAW12,RAW14,RGB888,RGB565,YUV422 8-bit. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="224" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="233" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1aa783a6306cb5026589bc4ea1b100367d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -84,7 +86,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="225" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_Config::NumVC</definition>
+        <argsstring></argsstring>
+        <name>NumVC</name>
+        <briefdescription>
+<para>Number of Virtual Channels supported (4, 8 or 16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="110" endline="159">XCsi2TxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" compoundref="xcsi2txss_8c" startline="210" endline="269">XCsi2TxSs_Configure</referencedby>
+        <referencedby refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" compoundref="xcsi2txss_8c" startline="793" endline="807">XCsi2TxSs_GetLineCountForVC</referencedby>
+        <referencedby refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" compoundref="xcsi2txss_8c" startline="756" endline="770">XCsi2TxSs_SetLineCountForVC</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a941dcb9a60baa61a24bcb28260689183" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -97,7 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="228" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="238" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a8df2677fd796d73da2e0c226ef1d1ef8" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -110,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="229" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="239" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -123,10 +142,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="231" bodyend="-1"/>
-        <referencedby refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" compoundref="xcsi2txss_8c" startline="248" endline="266">XCsi2TxSs_Activate</referencedby>
-        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="104" endline="139">XCsi2TxSs_CfgInitialize</referencedby>
-        <referencedby refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" compoundref="xcsi2txss_8c" startline="311" endline="337">XCsi2TxSs_ReportCoreInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" compoundref="xcsi2txss_8c" startline="288" endline="311">XCsi2TxSs_Activate</referencedby>
+        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="110" endline="159">XCsi2TxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" compoundref="xcsi2txss_8c" startline="354" endline="380">XCsi2TxSs_ReportCoreInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -139,11 +158,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="233" bodyend="-1"/>
-        <referencedby refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" compoundref="xcsi2txss_8c" startline="198" endline="229">XCsi2TxSs_Configure</referencedby>
-        <referencedby refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" compoundref="xcsi2txss_8c" startline="752" endline="762">XCsi2TxSs_GetLineCountForVC</referencedby>
-        <referencedby refid="group__csi2txss_1ga05e607ece4b52c59fa349f5f2e42976f" compoundref="xcsi2txss__intr_8c" startline="150" endline="168">XCsi2TxSs_IntrDisable</referencedby>
-        <referencedby refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" compoundref="xcsi2txss_8c" startline="720" endline="730">XCsi2TxSs_SetLineCountForVC</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" compoundref="xcsi2txss_8c" startline="210" endline="269">XCsi2TxSs_Configure</referencedby>
+        <referencedby refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" compoundref="xcsi2txss_8c" startline="793" endline="807">XCsi2TxSs_GetLineCountForVC</referencedby>
+        <referencedby refid="group__csi2txss_1ga05e607ece4b52c59fa349f5f2e42976f" compoundref="xcsi2txss__intr_8c" startline="146" endline="164">XCsi2TxSs_IntrDisable</referencedby>
+        <referencedby refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" compoundref="xcsi2txss_8c" startline="756" endline="770">XCsi2TxSs_SetLineCountForVC</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" prot="public" static="no" mutable="no">
         <type><ref refid="struct_sub_core_csi2_tx" kindref="compound">SubCoreCsi2Tx</ref></type>
@@ -156,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="234" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="244" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" prot="public" static="no" mutable="no">
         <type><ref refid="struct_sub_core_csi2_tx" kindref="compound">SubCoreCsi2Tx</ref></type>
@@ -169,7 +188,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="235" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1a3913f0a45b30f7856c7a19e162e191db" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_sub_core_csi2_tx" kindref="compound">SubCoreCsi2Tx</ref></type>
+        <definition>SubCoreCsi2Tx XCsi2TxSs_Config::MipiTxPhyInfo</definition>
+        <argsstring></argsstring>
+        <name>MipiTxPhyInfo</name>
+        <briefdescription>
+<para>MIPI TX PHY sub-core configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="246" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1afc1eafac9bf39140ffc38b5e4e9c0a81" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -177,12 +209,12 @@
         <argsstring></argsstring>
         <name>IntrId</name>
         <briefdescription>
-        </briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="237" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="247" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi2_tx_ss___config_1aa597a5975c0b640f59b6f8ef042200a0" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -190,12 +222,12 @@
         <argsstring></argsstring>
         <name>IntrParent</name>
         <briefdescription>
-        </briefdescription>
+<para>Bit[0] Interrupt Parent. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="238" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="248" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -207,6 +239,7 @@
         <label>XCsi2TxSs_Config</label>
         <link refid="struct_x_csi2_tx_ss___config"/>
         <childnode refid="8" relation="usage">
+          <edgelabel>MipiTxPhyInfo</edgelabel>
           <edgelabel>CsiInfo</edgelabel>
           <edgelabel>DphyInfo</edgelabel>
         </childnode>
@@ -216,7 +249,7 @@
         <link refid="struct_sub_core_csi2_tx"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="212" bodyend="240"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="225" bodyend="249"/>
     <listofallmembers>
       <member refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>BaseAddr</name></member>
       <member refid="struct_x_csi2_tx_ss___config_1a941dcb9a60baa61a24bcb28260689183" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>CsiBuffDepth</name></member>
@@ -230,7 +263,9 @@
       <member refid="struct_x_csi2_tx_ss___config_1aa597a5975c0b640f59b6f8ef042200a0" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>IntrParent</name></member>
       <member refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>IsDphyRegIntfcPresent</name></member>
       <member refid="struct_x_csi2_tx_ss___config_1a39ee5c2c2b06e24f427cf41d4fc9de81" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>LanesPresent</name></member>
+      <member refid="struct_x_csi2_tx_ss___config_1a3913f0a45b30f7856c7a19e162e191db" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>MipiTxPhyInfo</name></member>
       <member refid="struct_x_csi2_tx_ss___config_1aa9e7796617d323e739bdf9dbf40a6884" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_csi2_tx_ss___config_1ab0e4c46e03d17a404acec4b80c9c1bb6" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>NumVC</name></member>
       <member refid="struct_x_csi2_tx_ss___config_1aa783a6306cb5026589bc4ea1b100367d" prot="public" virt="non-virtual"><scope>XCsi2TxSs_Config</scope><name>PixelFormat</name></member>
     </listofallmembers>
   </compounddef>

@@ -71,16 +71,16 @@
     <member refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" kind="function"><name>XAxiCdma_DumpRegisters</name></member>
   </compound>
   <compound refid="xaxicdma_8h" kind="file"><name>xaxicdma.h</name>
-    <member refid="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" kind="typedef"><name>XAxiCdma_CallBackFn</name></member>
     <member refid="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" kind="define"><name>XAXICDMA_COALESCE_NO_CHANGE</name></member>
     <member refid="group__axicdma_1gabc7205cc3ca63a53529e9de35491ee0e" kind="define"><name>XAXICDMA_ALL_BDS</name></member>
     <member refid="group__axicdma_1ga91c5de92ad6a33c0eda5c1283e5281d4" kind="define"><name>XAXICDMA_SG_MODE</name></member>
     <member refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" kind="define"><name>XAXICDMA_SIMPLE_MODE</name></member>
-    <member refid="group__axicdma_1gae8226c9464f82e72e2d0043576347c00" kind="define"><name>XAXICDMA_MAXIMUM_MAX_HANDLER</name></member>
     <member refid="group__axicdma_1gaee794b3af79e9784fcaaabc75e7cae6f" kind="define"><name>XAXICDMA_KEYHOLE_READ</name></member>
     <member refid="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" kind="define"><name>XAXICDMA_KEYHOLE_WRITE</name></member>
     <member refid="group__axicdma_1ga920b87736bbfeff00324ef3bc74428d5" kind="define"><name>XAXICDMA_CACHE_FLUSH</name></member>
     <member refid="group__axicdma_1gab1ee176def1394c3bfe82340cc8396f2" kind="define"><name>XAXICDMA_CACHE_INVALIDATE</name></member>
+    <member refid="group__axicdma_1gae8226c9464f82e72e2d0043576347c00" kind="define"><name>XAXICDMA_MAXIMUM_MAX_HANDLER</name></member>
+    <member refid="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" kind="typedef"><name>XAxiCdma_CallBackFn</name></member>
     <member refid="group__axicdma_1ga856f02999291c9c30d44e2c63822c6e8" kind="function"><name>XAxiCdma_LookupConfig</name></member>
     <member refid="group__axicdma_1gab746b095007351c2fb2c1a7cf3693f2c" kind="function"><name>XAxiCdma_CfgInitialize</name></member>
     <member refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" kind="function"><name>XAxiCdma_Reset</name></member>
@@ -115,7 +115,6 @@
     <member refid="group__axicdma_1ga3287c31f1aa41a1e4a535af134324524" kind="function"><name>XAxiCdma_DumpRegisters</name></member>
   </compound>
   <compound refid="xaxicdma__bd_8c" kind="file"><name>xaxicdma_bd.c</name>
-    <member refid="group__axicdma_1ga3f5f37c8146d398d9198748608ce6902" kind="define"><name>XAXICDMA_PAGE_SIZE</name></member>
     <member refid="group__axicdma_1ga594480d7591185014d72869ac15fd490" kind="function"><name>XAxiCdma_BdClear</name></member>
     <member refid="group__axicdma_1gaa16c4a61c0b1b2892ee5869e62546884" kind="function"><name>XAxiCdma_BdClone</name></member>
     <member refid="group__axicdma_1ga2091d8d3a0a4743a557307b1153b4791" kind="function"><name>XAxiCdma_BdGetNextPtr</name></member>
@@ -168,6 +167,7 @@
     <member refid="group__axicdma_1ga18d5a9deaab709c610d32e42c77df952" kind="function"><name>XAxiCdma_BdRingCntCalc</name></member>
     <member refid="group__axicdma_1ga1525cddb18badb5737c1017f2a0d34e1" kind="function"><name>XAxiCdma_BdRingMemCalc</name></member>
     <member refid="group__axicdma_1gae1333cf9309c85b0f620e026c889e01c" kind="function"><name>XAxiCdma_BdSetCurBdPtr</name></member>
+    <member refid="group__axicdma_1gae51c4e0a6a9e2f119ea1704804cf903d" kind="function"><name>XAxiCdma_BdRingGetVirtAddr</name></member>
     <member refid="group__axicdma_1gab6f6efa84ee457f155a4c7a94e4227da" kind="function"><name>XAxiCdma_BdRingGetCurrBd</name></member>
     <member refid="group__axicdma_1ga6dda9c5b4ded0bdbf1e85d6532461ef6" kind="function"><name>XAxiCdma_BdRingGetCnt</name></member>
     <member refid="group__axicdma_1ga07f505ed309a6eb2172e7e8e154fa082" kind="function"><name>XAxiCdma_BdRingGetFreeCnt</name></member>
@@ -186,157 +186,137 @@
     <member refid="group__axicdma_1ga846b6992b84583d1692bf742e15e04fb" kind="function"><name>XAxiCdma_BdRingStartTransfer</name></member>
   </compound>
   <compound refid="xaxicdma__example__hybrid__intr_8c" kind="file"><name>xaxicdma_example_hybrid_intr.c</name>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1aec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a41ae566b831581ce2d544301caed0371" kind="define"><name>BD_SPACE_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a2ccde778eca25b59d995cff37f1c2e0f" kind="define"><name>BD_SPACE_HIGH</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1aca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a34a81baaf5d6dedb310130810ef8c565" kind="define"><name>DELAY_COUNT</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1af6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1adcdb071e81f13e711e94e006e3e854f8" kind="function"><name>SetupSgTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ac96292ed8b34d6edfdeec4391fb528cf" kind="function"><name>Example_SimpleCallBack</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ab05959d1e321294f0265663f15e6ad31" kind="function"><name>Example_SgCallBack</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1ad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a167c25119a4cc7f3bd2ff6ab3b20dc43" kind="function"><name>DoSimpleTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a16f9b347be835e1d94d52c54ea9f8c2c" kind="function"><name>SubmitSgTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a4e612b64fb07ce6ca312d58c428b2330" kind="function"><name>DoSgTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1acd911a5613750742b62bcb5b8de6398f" kind="function"><name>XAxiCdma_HybridIntrExample</name></member>
-    <member refid="xaxicdma__example__hybrid__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group__axicdma_1ga34a81baaf5d6dedb310130810ef8c565" kind="define"><name>DELAY_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1ga2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1gacd911a5613750742b62bcb5b8de6398f" kind="function"><name>XAxiCdma_HybridIntrExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gadcdb071e81f13e711e94e006e3e854f8" kind="function"><name>SetupSgTransfer</name></member>
+    <member refid="group__axicdma_1gac96292ed8b34d6edfdeec4391fb528cf" kind="function"><name>Example_SimpleCallBack</name></member>
+    <member refid="group__axicdma_1gab05959d1e321294f0265663f15e6ad31" kind="function"><name>Example_SgCallBack</name></member>
+    <member refid="group__axicdma_1gad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
+    <member refid="group__axicdma_1ga167c25119a4cc7f3bd2ff6ab3b20dc43" kind="function"><name>DoSimpleTransfer</name></member>
+    <member refid="group__axicdma_1ga16f9b347be835e1d94d52c54ea9f8c2c" kind="function"><name>SubmitSgTransfer</name></member>
+    <member refid="group__axicdma_1ga4e612b64fb07ce6ca312d58c428b2330" kind="function"><name>DoSgTransfer</name></member>
   </compound>
   <compound refid="xaxicdma__example__hybrid__poll_8c" kind="file"><name>xaxicdma_example_hybrid_poll.c</name>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1aec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a41ae566b831581ce2d544301caed0371" kind="define"><name>BD_SPACE_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a2ccde778eca25b59d995cff37f1c2e0f" kind="define"><name>BD_SPACE_HIGH</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1af6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1adcdb071e81f13e711e94e006e3e854f8" kind="function"><name>SetupSgTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a16f9b347be835e1d94d52c54ea9f8c2c" kind="function"><name>SubmitSgTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a8969f0c7e734385893ad5a613e4ccf65" kind="function"><name>CheckSgCompletion</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ae1ef5c8f17b45703c61f942c9902556f" kind="function"><name>DoSimplePollTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a81c787e342a59cd89d44890ddf8a128a" kind="function"><name>DoSgPollTransfer</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1a3e07cf3c4c4ef7c370d4d73675ad0e56" kind="function"><name>XAxiCdma_HybridPollExample</name></member>
-    <member refid="xaxicdma__example__hybrid__poll_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1ga2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1ga3e07cf3c4c4ef7c370d4d73675ad0e56" kind="function"><name>XAxiCdma_HybridPollExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxicdma__example__hybrid__poll_8c_1gadcdb071e81f13e711e94e006e3e854f8" kind="function"><name>SetupSgTransfer</name></member>
+    <member refid="xaxicdma__example__hybrid__poll_8c_1ga16f9b347be835e1d94d52c54ea9f8c2c" kind="function"><name>SubmitSgTransfer</name></member>
+    <member refid="group__axicdma_1ga8969f0c7e734385893ad5a613e4ccf65" kind="function"><name>CheckSgCompletion</name></member>
+    <member refid="xaxicdma__example__hybrid__poll_8c_1gad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
+    <member refid="group__axicdma_1gae1ef5c8f17b45703c61f942c9902556f" kind="function"><name>DoSimplePollTransfer</name></member>
+    <member refid="group__axicdma_1ga81c787e342a59cd89d44890ddf8a128a" kind="function"><name>DoSgPollTransfer</name></member>
   </compound>
   <compound refid="xaxicdma__example__sg__intr_8c" kind="file"><name>xaxicdma_example_sg_intr.c</name>
-    <member refid="xaxicdma__example__sg__intr_8c_1aec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a41ae566b831581ce2d544301caed0371" kind="define"><name>BD_SPACE_BASE</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a2ccde778eca25b59d995cff37f1c2e0f" kind="define"><name>BD_SPACE_HIGH</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1aca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a34a81baaf5d6dedb310130810ef8c565" kind="define"><name>DELAY_COUNT</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ad9e7411f6335be68b4721fc1e45ef47a" kind="function"><name>Example_CallBack</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a674f63139858299533bffbe546c7dcc7" kind="function"><name>SetupTransfer</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ae78efa2a026e1ed9c234d61ec8135975" kind="function"><name>DoTransfer</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1a32d028b789077c63fa5b20b7953c4f67" kind="function"><name>XAxiCdma_SgIntrExample</name></member>
-    <member refid="xaxicdma__example__sg__intr_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group__axicdma_1ga34a81baaf5d6dedb310130810ef8c565" kind="define"><name>DELAY_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1ga2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" kind="function"><name>XAxiCdma_SgIntrExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gad9e7411f6335be68b4721fc1e45ef47a" kind="function"><name>Example_CallBack</name></member>
+    <member refid="group__axicdma_1ga674f63139858299533bffbe546c7dcc7" kind="function"><name>SetupTransfer</name></member>
+    <member refid="group__axicdma_1gae78efa2a026e1ed9c234d61ec8135975" kind="function"><name>DoTransfer</name></member>
+    <member refid="xaxicdma__example__sg__intr_8c_1gad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
   </compound>
   <compound refid="xaxicdma__example__sg__poll_8c" kind="file"><name>xaxicdma_example_sg_poll.c</name>
-    <member refid="xaxicdma__example__sg__poll_8c_1aec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a26c2d5e99be4ff133702e3225fe4091f" kind="define"><name>MEMORY_BASE</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a41ae566b831581ce2d544301caed0371" kind="define"><name>BD_SPACE_BASE</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a2ccde778eca25b59d995cff37f1c2e0f" kind="define"><name>BD_SPACE_HIGH</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a9970741bab57b3d2569f3e6b537f4b8b" kind="variable"><name>Done</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a0b12f25a7314aa1e5c2847df101fb54f" kind="variable"><name>Error</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1aae01e971d52df0bd23ade44135c1ff29" kind="function"><name>CheckCompletion</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a674f63139858299533bffbe546c7dcc7" kind="function"><name>SetupTransfer</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ae78efa2a026e1ed9c234d61ec8135975" kind="function"><name>DoTransfer</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1a181467aa90f99b2abf37424af8373b89" kind="function"><name>XAxiCdma_SgPollExample</name></member>
-    <member refid="xaxicdma__example__sg__poll_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1gab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga9970741bab57b3d2569f3e6b537f4b8b" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga0b12f25a7314aa1e5c2847df101fb54f" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1ga181467aa90f99b2abf37424af8373b89" kind="function"><name>XAxiCdma_SgPollExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaae01e971d52df0bd23ade44135c1ff29" kind="function"><name>CheckCompletion</name></member>
+    <member refid="xaxicdma__example__sg__poll_8c_1ga674f63139858299533bffbe546c7dcc7" kind="function"><name>SetupTransfer</name></member>
+    <member refid="xaxicdma__example__sg__poll_8c_1gae78efa2a026e1ed9c234d61ec8135975" kind="function"><name>DoTransfer</name></member>
+    <member refid="xaxicdma__example__sg__poll_8c_1gad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
   </compound>
   <compound refid="xaxicdma__example__simple__intr_8c" kind="file"><name>xaxicdma_example_simple_intr.c</name>
-    <member refid="xaxicdma__example__simple__intr_8c_1aec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1ab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1ae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1af6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a167c25119a4cc7f3bd2ff6ab3b20dc43" kind="function"><name>DoSimpleTransfer</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a12ce9bd4ad510e73da3f1234bea1b7e7" kind="function"><name>Example_CallBack</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1a594d3f0ffc0da3e2b2b3758a499e21bb" kind="function"><name>XAxiCdma_SimpleIntrExample</name></member>
-    <member refid="xaxicdma__example__simple__intr_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axicdma_1gab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
+    <member refid="group__axicdma_1gae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
+    <member refid="group__axicdma_1gaf6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1ga594d3f0ffc0da3e2b2b3758a499e21bb" kind="function"><name>XAxiCdma_SimpleIntrExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxicdma__example__simple__intr_8c_1ga167c25119a4cc7f3bd2ff6ab3b20dc43" kind="function"><name>DoSimpleTransfer</name></member>
+    <member refid="xaxicdma__example__simple__intr_8c_1gad9e7411f6335be68b4721fc1e45ef47a" kind="function"><name>Example_CallBack</name></member>
   </compound>
   <compound refid="xaxicdma__example__simple__poll_8c" kind="file"><name>xaxicdma_example_simple_poll.c</name>
-    <member refid="xaxicdma__example__simple__poll_8c_1aec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1a6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1a05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1af6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1a44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ae1ef5c8f17b45703c61f942c9902556f" kind="function"><name>DoSimplePollTransfer</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1a87209e4dc5ba9c6092d82623d1af223f" kind="function"><name>XAxiCdma_SimplePollExample</name></member>
-    <member refid="xaxicdma__example__simple__poll_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group__axicdma_1gad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1gab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
+    <member refid="group__axicdma_1gae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
+    <member refid="group__axicdma_1gaf6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1ga87209e4dc5ba9c6092d82623d1af223f" kind="function"><name>XAxiCdma_SimplePollExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxicdma__example__simple__poll_8c_1gae1ef5c8f17b45703c61f942c9902556f" kind="function"><name>DoSimplePollTransfer</name></member>
+    <member refid="xaxicdma__example__simple__poll_8c_1gad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
   </compound>
   <compound refid="xaxicdma__g_8c" kind="file"><name>xaxicdma_g.c</name>
     <member refid="group__axicdma_1gac12cd4f1aec0347a6e96b9686e2e8aa0" kind="variable"><name>XAxiCdma_ConfigTable</name></member>
@@ -355,19 +335,11 @@
     <member refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" kind="define"><name>XAXICDMA_SRCADDR_MSB_OFFSET</name></member>
     <member refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" kind="define"><name>XAXICDMA_DSTADDR_OFFSET</name></member>
     <member refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" kind="define"><name>XAXICDMA_DSTADDR_MSB_OFFSET</name></member>
+    <member refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kind="define"><name>XAXICDMA_BTT_OFFSET</name></member>
     <member refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" kind="define"><name>XAXICDMA_CR_RESET_MASK</name></member>
     <member refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kind="define"><name>XAXICDMA_CR_SGMODE_MASK</name></member>
     <member refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" kind="define"><name>XAXICDMA_CR_KHOLE_RD_MASK</name></member>
     <member refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" kind="define"><name>XAXICDMA_CR_KHOLE_WR_MASK</name></member>
-    <member refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" kind="define"><name>XAXICDMA_CR_RESET_MASK</name></member>
-    <member refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kind="define"><name>XAXICDMA_CR_SGMODE_MASK</name></member>
-    <member refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" kind="define"><name>XAXICDMA_CR_KHOLE_RD_MASK</name></member>
-    <member refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" kind="define"><name>XAXICDMA_CR_KHOLE_WR_MASK</name></member>
-    <member refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kind="define"><name>XAXICDMA_BTT_OFFSET</name></member>
-    <member refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" kind="define"><name>XAXICDMA_SR_IDLE_MASK</name></member>
-    <member refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" kind="define"><name>XAXICDMA_SR_SGINCLD_MASK</name></member>
-    <member refid="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" kind="define"><name>XAXICDMA_SR_ERR_INTERNAL_MASK</name></member>
-    <member refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kind="define"><name>XAXICDMA_BTT_OFFSET</name></member>
     <member refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" kind="define"><name>XAXICDMA_SR_IDLE_MASK</name></member>
     <member refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" kind="define"><name>XAXICDMA_SR_SGINCLD_MASK</name></member>
     <member refid="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" kind="define"><name>XAXICDMA_SR_ERR_INTERNAL_MASK</name></member>
@@ -422,9 +394,6 @@
   </compound>
   <compound refid="xaxicdma__i_8h" kind="file"><name>xaxicdma_i.h</name>
     <member refid="group__axicdma_1gab1b91a2a98e5d8f5d1dc546dadfa60ea" kind="define"><name>XAXICDMA_RESET_LOOP_LIMIT</name></member>
-    <member refid="group__axicdma_1ga54594f4f6f6e171b1b6b395f9155c02a" kind="function"><name>XAxiCdma_IsSimpleMode</name></member>
-    <member refid="group__axicdma_1gad3e8a630132ac5e8e2f71589846f9411" kind="function"><name>XAxiCdma_SwitchMode</name></member>
-    <member refid="group__axicdma_1ga846b6992b84583d1692bf742e15e04fb" kind="function"><name>XAxiCdma_BdRingStartTransfer</name></member>
   </compound>
   <compound refid="xaxicdma__intr_8c" kind="file"><name>xaxicdma_intr.c</name>
     <member refid="group__axicdma_1ga9f146fe224ea4c9a86477de3030dd79a" kind="function"><name>XAxiCdma_IntrEnable</name></member>
@@ -438,7 +407,14 @@
     <member refid="group__axicdma_1ga856f02999291c9c30d44e2c63822c6e8" kind="function"><name>XAxiCdma_LookupConfig</name></member>
   </compound>
   <compound refid="group__axicdma" kind="group"><name>axicdma</name>
-    <member refid="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" kind="typedef"><name>XAxiCdma_CallBackFn</name></member>
+    <member refid="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" kind="define"><name>XAXICDMA_COALESCE_NO_CHANGE</name></member>
+    <member refid="group__axicdma_1gabc7205cc3ca63a53529e9de35491ee0e" kind="define"><name>XAXICDMA_ALL_BDS</name></member>
+    <member refid="group__axicdma_1ga91c5de92ad6a33c0eda5c1283e5281d4" kind="define"><name>XAXICDMA_SG_MODE</name></member>
+    <member refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" kind="define"><name>XAXICDMA_SIMPLE_MODE</name></member>
+    <member refid="group__axicdma_1gaee794b3af79e9784fcaaabc75e7cae6f" kind="define"><name>XAXICDMA_KEYHOLE_READ</name></member>
+    <member refid="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" kind="define"><name>XAXICDMA_KEYHOLE_WRITE</name></member>
+    <member refid="group__axicdma_1ga920b87736bbfeff00324ef3bc74428d5" kind="define"><name>XAXICDMA_CACHE_FLUSH</name></member>
+    <member refid="group__axicdma_1gab1ee176def1394c3bfe82340cc8396f2" kind="define"><name>XAXICDMA_CACHE_INVALIDATE</name></member>
     <member refid="group__axicdma_1gaae822f32753ddd2fec7be5d3c9e9a4ff" kind="define"><name>XAXICDMA_BD_MINIMUM_ALIGNMENT</name></member>
     <member refid="group__axicdma_1gac84f0c20f910716d8f3e48ff23294440" kind="define"><name>XAXICDMA_MAX_TRANSFER_LEN</name></member>
     <member refid="group__axicdma_1gabcf011ecc845a7382ff3ad2271e0677c" kind="define"><name>XAXICDMA_4_1_MAX_TRANSFER_LEN</name></member>
@@ -452,21 +428,13 @@
     <member refid="group__axicdma_1gaeca7eef88c0b04de01219565d5039d93" kind="define"><name>XAXICDMA_SRCADDR_MSB_OFFSET</name></member>
     <member refid="group__axicdma_1ga3064fdc2bc683fa002bedf51498d810c" kind="define"><name>XAXICDMA_DSTADDR_OFFSET</name></member>
     <member refid="group__axicdma_1ga9a61d8801792647638b54afcafbd8a86" kind="define"><name>XAXICDMA_DSTADDR_MSB_OFFSET</name></member>
-    <member refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" kind="define"><name>XAXICDMA_CR_RESET_MASK</name></member>
+    <member refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kind="define"><name>XAXICDMA_BTT_OFFSET</name></member>
     <member refid="group__axicdma_1ga0f6d1104468e9f155a3b9477a84531a6" kind="define"><name>XAXICDMA_CR_RESET_MASK</name></member>
     <member refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kind="define"><name>XAXICDMA_CR_SGMODE_MASK</name></member>
-    <member refid="group__axicdma_1gae0e7fa6cee94c02784164c315268c6a6" kind="define"><name>XAXICDMA_CR_SGMODE_MASK</name></member>
-    <member refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" kind="define"><name>XAXICDMA_CR_KHOLE_RD_MASK</name></member>
     <member refid="group__axicdma_1gac31916a2867c9e47834091131d449f88" kind="define"><name>XAXICDMA_CR_KHOLE_RD_MASK</name></member>
     <member refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" kind="define"><name>XAXICDMA_CR_KHOLE_WR_MASK</name></member>
-    <member refid="group__axicdma_1ga5ddbb13c86e6c75d5dd928447e3ec8bb" kind="define"><name>XAXICDMA_CR_KHOLE_WR_MASK</name></member>
-    <member refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kind="define"><name>XAXICDMA_BTT_OFFSET</name></member>
-    <member refid="group__axicdma_1gaf2b93c5bebf2fdcf9516bcfefc7ae356" kind="define"><name>XAXICDMA_BTT_OFFSET</name></member>
-    <member refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" kind="define"><name>XAXICDMA_SR_IDLE_MASK</name></member>
     <member refid="group__axicdma_1ga73bb174cc046fe8f5d51da6f2d11cfaa" kind="define"><name>XAXICDMA_SR_IDLE_MASK</name></member>
     <member refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" kind="define"><name>XAXICDMA_SR_SGINCLD_MASK</name></member>
-    <member refid="group__axicdma_1gada1a00e54aeb12049cd23a005eb47c52" kind="define"><name>XAXICDMA_SR_SGINCLD_MASK</name></member>
-    <member refid="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" kind="define"><name>XAXICDMA_SR_ERR_INTERNAL_MASK</name></member>
     <member refid="group__axicdma_1ga9c4d04c2dc3d2601d5e63067a7e5e751" kind="define"><name>XAXICDMA_SR_ERR_INTERNAL_MASK</name></member>
     <member refid="group__axicdma_1ga95a6cfba374a96cfc1f899bda9cdc9bc" kind="define"><name>XAXICDMA_SR_ERR_SLAVE_MASK</name></member>
     <member refid="group__axicdma_1ga9bdb5e1000af0d05ba0b9481e71b5d2d" kind="define"><name>XAXICDMA_SR_ERR_DECODE_MASK</name></member>
@@ -512,8 +480,39 @@
     <member refid="group__axicdma_1ga36516a3195bb957d00ef16b9f2ddf671" kind="define"><name>XAXICDMA_BD_STS_INT_ERR_MASK</name></member>
     <member refid="group__axicdma_1gab72e831b0648742189a2623b040166b7" kind="define"><name>XAXICDMA_BD_STS_ALL_ERR_MASK</name></member>
     <member refid="group__axicdma_1gaff5819b9b557b391de8b69c7c730b492" kind="define"><name>XAXICDMA_BD_STS_ALL_MASK</name></member>
+    <member refid="group__axicdma_1ga190041f3a52f247fbc91a93041095aac" kind="typedef"><name>XAxiCdma_CallBackFn</name></member>
     <member refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kind="typedef"><name>XAxiCdma_Bd</name></member>
     <member refid="group__axicdma_1gac12cd4f1aec0347a6e96b9686e2e8aa0" kind="variable"><name>XAxiCdma_ConfigTable</name></member>
+    <member refid="group__axicdma_1ga2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1ga2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1ga2392cc22a046c9ea31f461a993daf6d6" kind="variable"><name>Engine</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
+    <member refid="group__axicdma_1ga3777936bdadd70669914daf2bcfce696" kind="variable"><name>TransmitBufferPtr</name></member>
+    <member refid="group__axicdma_1ga27be1178a7c7eca90ca201a8907cf915" kind="variable"><name>ReceiveBufferPtr</name></member>
+    <member refid="group__axicdma_1ga9970741bab57b3d2569f3e6b537f4b8b" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga0b12f25a7314aa1e5c2847df101fb54f" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
+    <member refid="group__axicdma_1gae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
+    <member refid="group__axicdma_1gaf6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group__axicdma_1gab4aba8ba68a5ff09702b1e03ae4bf2bc" kind="variable"><name>AxiCdmaInstance</name></member>
+    <member refid="group__axicdma_1gae52ef77f51840955e702e0c02b5e9260" kind="variable"><name>SrcBuffer</name></member>
+    <member refid="group__axicdma_1gaf6d29055b4d1fd1d3d1b126685c2ac42" kind="variable"><name>DestBuffer</name></member>
+    <member refid="group__axicdma_1ga44d3e0cda5aeb67509cf94f02c195405" kind="variable"><name>Done</name></member>
+    <member refid="group__axicdma_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
     <member refid="group__axicdma_1gae1fbdb8f7ad8926f744c771e07814f72" kind="function"><name>XAxiCdma_GetError</name></member>
     <member refid="group__axicdma_1gaaf97cc8317af0bf1678973925beff0c5" kind="function"><name>XAxiCdma_Reset</name></member>
     <member refid="group__axicdma_1ga2575375744593bd55425365dde7744e5" kind="function"><name>XAxiCdma_ResetIsDone</name></member>
@@ -567,18 +566,32 @@
     <member refid="group__axicdma_1ga03aff38e0c27e9925e4a79986e351e0d" kind="function"><name>XAxiCdma_BdSetMaxLen</name></member>
     <member refid="group__axicdma_1ga535e9b3301b3227aed27e42961304165" kind="function"><name>XAxiCdma_BdGetPhysAddr</name></member>
     <member refid="group__axicdma_1ga37f4ecb500f691583798662804d5da18" kind="function"><name>XAxiCdma_DumpBd</name></member>
+    <member refid="group__axicdma_1gae51c4e0a6a9e2f119ea1704804cf903d" kind="function"><name>XAxiCdma_BdRingGetVirtAddr</name></member>
     <member refid="group__axicdma_1gad0ad812931abeae30ff7eb4d749372ea" kind="function"><name>StubCallBackFn</name></member>
     <member refid="group__axicdma_1ga846b6992b84583d1692bf742e15e04fb" kind="function"><name>XAxiCdma_BdRingStartTransfer</name></member>
-    <member refid="group__axicdma_1ga6f61cbb8624c65bb64d0012bf24a5284" kind="define"><name>XAXICDMA_COALESCE_NO_CHANGE</name></member>
-    <member refid="group__axicdma_1gabc7205cc3ca63a53529e9de35491ee0e" kind="define"><name>XAXICDMA_ALL_BDS</name></member>
-    <member refid="group__axicdma_1ga91c5de92ad6a33c0eda5c1283e5281d4" kind="define"><name>XAXICDMA_SG_MODE</name></member>
-    <member refid="group__axicdma_1ga57779d0c9c90168a091b83ccd9b44719" kind="define"><name>XAXICDMA_SIMPLE_MODE</name></member>
+    <member refid="group__axicdma_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group__axicdma_1gacd911a5613750742b62bcb5b8de6398f" kind="function"><name>XAxiCdma_HybridIntrExample</name></member>
+    <member refid="group__axicdma_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__axicdma_1gadcdb071e81f13e711e94e006e3e854f8" kind="function"><name>SetupSgTransfer</name></member>
+    <member refid="group__axicdma_1gac96292ed8b34d6edfdeec4391fb528cf" kind="function"><name>Example_SimpleCallBack</name></member>
+    <member refid="group__axicdma_1gab05959d1e321294f0265663f15e6ad31" kind="function"><name>Example_SgCallBack</name></member>
+    <member refid="group__axicdma_1gad75512446d231f2b30c2b315a9477e33" kind="function"><name>CheckData</name></member>
+    <member refid="group__axicdma_1ga167c25119a4cc7f3bd2ff6ab3b20dc43" kind="function"><name>DoSimpleTransfer</name></member>
+    <member refid="group__axicdma_1ga16f9b347be835e1d94d52c54ea9f8c2c" kind="function"><name>SubmitSgTransfer</name></member>
+    <member refid="group__axicdma_1ga4e612b64fb07ce6ca312d58c428b2330" kind="function"><name>DoSgTransfer</name></member>
+    <member refid="group__axicdma_1ga3e07cf3c4c4ef7c370d4d73675ad0e56" kind="function"><name>XAxiCdma_HybridPollExample</name></member>
+    <member refid="group__axicdma_1ga8969f0c7e734385893ad5a613e4ccf65" kind="function"><name>CheckSgCompletion</name></member>
+    <member refid="group__axicdma_1gae1ef5c8f17b45703c61f942c9902556f" kind="function"><name>DoSimplePollTransfer</name></member>
+    <member refid="group__axicdma_1ga81c787e342a59cd89d44890ddf8a128a" kind="function"><name>DoSgPollTransfer</name></member>
+    <member refid="group__axicdma_1ga32d028b789077c63fa5b20b7953c4f67" kind="function"><name>XAxiCdma_SgIntrExample</name></member>
+    <member refid="group__axicdma_1gad9e7411f6335be68b4721fc1e45ef47a" kind="function"><name>Example_CallBack</name></member>
+    <member refid="group__axicdma_1ga674f63139858299533bffbe546c7dcc7" kind="function"><name>SetupTransfer</name></member>
+    <member refid="group__axicdma_1gae78efa2a026e1ed9c234d61ec8135975" kind="function"><name>DoTransfer</name></member>
+    <member refid="group__axicdma_1ga181467aa90f99b2abf37424af8373b89" kind="function"><name>XAxiCdma_SgPollExample</name></member>
+    <member refid="group__axicdma_1gaae01e971d52df0bd23ade44135c1ff29" kind="function"><name>CheckCompletion</name></member>
+    <member refid="group__axicdma_1ga594d3f0ffc0da3e2b2b3758a499e21bb" kind="function"><name>XAxiCdma_SimpleIntrExample</name></member>
+    <member refid="group__axicdma_1ga87209e4dc5ba9c6092d82623d1af223f" kind="function"><name>XAxiCdma_SimplePollExample</name></member>
     <member refid="group__axicdma_1gae8226c9464f82e72e2d0043576347c00" kind="define"><name>XAXICDMA_MAXIMUM_MAX_HANDLER</name></member>
-    <member refid="group__axicdma_1gaee794b3af79e9784fcaaabc75e7cae6f" kind="define"><name>XAXICDMA_KEYHOLE_READ</name></member>
-    <member refid="group__axicdma_1ga2e31a8c43cde3589ce58ce75a8668a1d" kind="define"><name>XAXICDMA_KEYHOLE_WRITE</name></member>
-    <member refid="group__axicdma_1ga920b87736bbfeff00324ef3bc74428d5" kind="define"><name>XAXICDMA_CACHE_FLUSH</name></member>
-    <member refid="group__axicdma_1gab1ee176def1394c3bfe82340cc8396f2" kind="define"><name>XAXICDMA_CACHE_INVALIDATE</name></member>
-    <member refid="group__axicdma_1ga3f5f37c8146d398d9198748608ce6902" kind="define"><name>XAXICDMA_PAGE_SIZE</name></member>
     <member refid="group__axicdma_1ga9e688c62021024cb07d86596c67ab3e5" kind="define"><name>XAxiCdma_BdRead</name></member>
     <member refid="group__axicdma_1ga7020d2ea9eb62249a8eac45eca64b68e" kind="define"><name>XAxiCdma_BdWrite</name></member>
     <member refid="group__axicdma_1ga18a6e421cefe0b95d0d9fb2c9e620938" kind="define"><name>XAxiCdma_BdSetAddrLen</name></member>
@@ -590,6 +603,54 @@
     <member refid="group__axicdma_1ga2f2bfb34c5bfec00baa06b782e7e68a6" kind="define"><name>XAxiCdma_ReadReg</name></member>
     <member refid="group__axicdma_1ga4d7304606411f8ed955c6d930e387c18" kind="define"><name>XAxiCdma_WriteReg</name></member>
     <member refid="group__axicdma_1gab1b91a2a98e5d8f5d1dc546dadfa60ea" kind="define"><name>XAXICDMA_RESET_LOOP_LIMIT</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group__axicdma_1ga34a81baaf5d6dedb310130810ef8c565" kind="define"><name>DELAY_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group__axicdma_1ga34a81baaf5d6dedb310130810ef8c565" kind="define"><name>DELAY_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group__axicdma_1ga3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
+    <member refid="group__axicdma_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group__axicdma_1gad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1gac859c44505b5c95a20e73fc15cd53629" kind="define"><name>BD_SPACE_SIZE</name></member>
+    <member refid="group__axicdma_1gaa97c4bf38dd9a4277e6152c183982b38" kind="define"><name>SG_BUFFER_SIZE</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group__axicdma_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group__axicdma_1gaec41b18a6f8d80ad3f4613c9fe9f12f2" kind="define"><name>AXICDMA_BASE_ADDR</name></member>
+    <member refid="group__axicdma_1ga6faf520721411f52afe51742c18d6a5d" kind="define"><name>BUFFER_BYTESIZE</name></member>
+    <member refid="group__axicdma_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group__axicdma_1gad81d02487b145071d2cc6ac653053e39" kind="define"><name>RESET_LOOP_COUNT</name></member>
+    <member refid="group__axicdma_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>

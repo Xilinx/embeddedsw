@@ -1,12 +1,37 @@
 var NAVTREE =
 [
-  [ "coresightps_dcc", "index.html", [
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "coresightps_dcc",
+    "index.html",
+    [
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('example.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,8 +106,16 @@ $(document).ready(function(){initNavTree('example.html','');});
 <div class="textblock"><p>You can refer to the below stated example applications for more details on how to use clk_wiz driver.</p>
 <h1><a class="anchor" id="ex1"></a>
 xclk_wiz_intr_example.c</h1>
-<p>Contains an example on how to use the XClk_wiz driver directly. This example uses the <a class="el" href="struct_x_clk___wiz.html" title="The XClk_Wiz driver instance data. ">XClk_Wiz</a> driver with interrupts. It will generate interrupt for clok glitch, clock overflow and underflow. The user should have setup with 2 clocking wizard instances, one instance act as clocking monitor (Enable clock monitor in GUI), In another instance enable dynamic clock reconfiguration.</p>
-<p>For details, see <a class="el" href="xclk__wiz__intr__example_8c.html" title="This file contains a design example using the XClk_Wiz driver with interrupts it will generate interr...">xclk_wiz_intr_example.c</a>. </p>
+<p>Contains an example on how to use the XClk_wiz driver directly. This example uses the <a class="el" href="struct_x_clk___wiz.html" title="Holds instance data for a CLK_WIZ device. ">XClk_Wiz</a> driver with interrupts. It will generate interrupt for clok glitch, clock overflow and underflow. The user should have setup with 2 clocking wizard instances, one instance act as clocking monitor (Enable clock monitor in GUI), In another instance enable dynamic clock reconfiguration.</p>
+<p>For details, see <a class="el" href="xclk__wiz__intr__example_8c.html" title="Runs the CLK_WIZ interrupt example. ">xclk_wiz_intr_example.c</a>.</p>
+<h1><a class="anchor" id="ex2"></a>
+xclk_wiz_setrate_example.c</h1>
+<p>Contains an example on how to use the <a class="el" href="struct_x_clk___wiz.html" title="Holds instance data for a CLK_WIZ device. ">XClk_Wiz</a> driver to dynamically reconfigure the clock rate. This example targets ZynqMP platforms.</p>
+<p>For details, see <a class="el" href="xclk__wiz__setrate__example_8c.html" title="Runs the CLK_WIZ set-rate example. ">xclk_wiz_setrate_example.c</a>.</p>
+<h1><a class="anchor" id="ex3"></a>
+xclk_wiz_versal_example.c</h1>
+<p>Contains an example on how to use the <a class="el" href="struct_x_clk___wiz.html" title="Holds instance data for a CLK_WIZ device. ">XClk_Wiz</a> driver to dynamically reconfigure the clock rate. This example targets Versal/Versal2 platforms.</p>
+<p>For details, see <a class="el" href="xclk__wiz__versal__example_8c.html" title="Runs the CLK_WIZ Versal rate example. ">xclk_wiz_versal_example.c</a>. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

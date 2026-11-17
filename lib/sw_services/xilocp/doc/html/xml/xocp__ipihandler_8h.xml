@@ -4,14 +4,14 @@
     <compoundname>xocp_ipihandler.h</compoundname>
     <includes local="yes">xplmi_config.h</includes>
     <incdepgraph>
-      <node id="246">
+      <node id="260">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="259">
         <label>xocp_ipihandler.h</label>
         <link refid="xocp_ipihandler.h"/>
-        <childnode refid="247" relation="include">
+        <childnode refid="260" relation="include">
         </childnode>
-      </node>
-      <node id="247">
-        <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -49,6 +49,6 @@
 <codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XOCP_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/server/xocp_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/server/xocp_ipihandler.h"/>
   </compounddef>
 </doxygen>

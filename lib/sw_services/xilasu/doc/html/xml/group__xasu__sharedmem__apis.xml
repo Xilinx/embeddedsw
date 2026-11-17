@@ -17,10 +17,68 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="60" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga66ba951c48b2dad8b96c08f4a4586493" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>(XASU_MAX_MODULES&lt;=(2U *XASU_RTCA_MODULE_INFO_ENTRIES),&quot;XASU_MAX_MODULES exceeds the two RTCA module info regions&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type><ref refid="group__xasu__common__defs_1ga9b1e1dea8f91d3b33cab489bb2126f38" kindref="member">XASU_MAX_MODULES</ref>&lt;=</type>
+          <array>2U *XASU_RTCA_MODULE_INFO_ENTRIES</array>
+        </param>
+        <param>
+          <type>&quot;XASU_MAX_MODULES exceeds the two RTCA module info regions&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga75f7124232ad840e33a8b447163fb517" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>((XASU_RTCA_MODULE_INFO_ENTRIES *sizeof(XAsu_CryptoAlgInfo))&lt;=(XASU_RTCA_DBG_LOG_BUF_INFO_ADDR-XASU_RTCA_MODULE_INFO_BASEADDR),&quot;RTCA module info region overruns the debug log buffer info at RTCA 0x15C&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type>(<ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref> *sizeof(<ref refid="struct_x_asu___crypto_alg_info" kindref="compound">XAsu_CryptoAlgInfo</ref>))&lt;=(<ref refid="group__xasu__common__defs_1ga7a190d10ccdbcc17e6486c40ec4c377a" kindref="member">XASU_RTCA_DBG_LOG_BUF_INFO_ADDR</ref>-<ref refid="group__xasu__common__defs_1ga57ae609337be0fd7bc3e4cccec16e6d5" kindref="member">XASU_RTCA_MODULE_INFO_BASEADDR</ref>)</type>
+        </param>
+        <param>
+          <type>&quot;RTCA module info region overruns the debug log buffer info at RTCA 0x15C&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1gad5c875808c1f8ce1022d593d61656552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>((XASU_RTCA_MODULE_INFO_ENTRIES *sizeof(XAsu_CryptoAlgInfo))&lt;=(XASU_RTCA_PL_CFG_BASE_ADDR-XASU_RTCA_MODULE_INFO_EXT_BASEADDR),&quot;RTCA module info extension region overruns the PL configuration window&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type>(<ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref> *sizeof(<ref refid="struct_x_asu___crypto_alg_info" kindref="compound">XAsu_CryptoAlgInfo</ref>))&lt;=(<ref refid="group__xasu__common__defs_1ga506ef1847a3cff8eeb38046cfc6226bd" kindref="member">XASU_RTCA_PL_CFG_BASE_ADDR</ref>-<ref refid="group__xasu__common__defs_1ga63d1c5454f4f2152f3b4cc5e1f67f0e2" kindref="member">XASU_RTCA_MODULE_INFO_EXT_BASEADDR</ref>)</type>
+        </param>
+        <param>
+          <type>&quot;RTCA module info extension region overruns the PL configuration window&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="49" column="1"/>
+      </memberdef>
       <memberdef kind="function" id="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
         <definition>u32 XAsu_GetIpiMask</definition>
@@ -47,10 +105,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="58" bodyend="69"/>
-        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
-        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
-        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="78" bodyend="89"/>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="215">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="205">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="214">XAsu_CommChannelInfo::NumOfIpiChannels</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -78,12 +136,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="82" bodyend="96"/>
-        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
-        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
-        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
-        <references refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" compoundref="xasu__sharedmem_8h" startline="169">XAsu_CommChannel::SubsystemId</references>
-        <references refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" compoundref="xasu__sharedmem_8c" startline="34">XASU_INVALID_SUBSYS_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="102" bodyend="118"/>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="215">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="205">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="214">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <references refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" compoundref="xasu__sharedmem_8h" startline="207">XAsu_CommChannel::SubsystemId</references>
+        <references refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" compoundref="xasu__sharedmem_8c" startline="54">XASU_INVALID_SUBSYS_ID</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -96,8 +154,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="34" bodyend="-1"/>
-        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="102" endline="118">XAsu_GetSubsysIdFromIpiMask</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>

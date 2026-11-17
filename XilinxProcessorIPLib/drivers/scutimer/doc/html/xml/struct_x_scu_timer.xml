@@ -15,14 +15,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="130" bodyend="-1"/>
-        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
-        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="62" endline="105">XScuTimer_CfgInitialize</referencedby>
-        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
-        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
-        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
-        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
-        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="161" endline="262">ScuTimerIntrExample</referencedby>
+        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="61" endline="104">XScuTimer_CfgInitialize</referencedby>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="233" endline="251">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="59" endline="111">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="191" endline="221">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="114" endline="142">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="152" endline="180">XScuTimer_Stop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -35,13 +35,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="131" bodyend="-1"/>
-        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="62" endline="105">XScuTimer_CfgInitialize</referencedby>
-        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
-        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
-        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
-        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
-        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="61" endline="104">XScuTimer_CfgInitialize</referencedby>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="233" endline="251">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="59" endline="111">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="191" endline="221">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="114" endline="142">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="152" endline="180">XScuTimer_Stop</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -54,10 +54,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="132" bodyend="-1"/>
-        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="62" endline="105">XScuTimer_CfgInitialize</referencedby>
-        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
-        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="61" endline="104">XScuTimer_CfgInitialize</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="114" endline="142">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="152" endline="180">XScuTimer_Stop</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -77,7 +77,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="129" bodyend="133"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="130" bodyend="134"/>
     <listofallmembers>
       <member refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" prot="public" virt="non-virtual"><scope>XScuTimer</scope><name>Config</name></member>
       <member refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" prot="public" virt="non-virtual"><scope>XScuTimer</scope><name>IsReady</name></member>

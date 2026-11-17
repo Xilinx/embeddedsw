@@ -112,7 +112,9 @@ $(document).ready(function(){initNavTree('2vp_2server_2xplmi__plat_8h.html','');
 <div class="textblock"><p>This file contains declarations of versal_2vp specific APIs. </p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
------ ---- -------- ----------------------------------------------------------------------------
+</p>
+<hr/>
+<p>
 2.3   tvp  07/07/25 Initial release
       kd   09/02/25 Added psm firmware presence check for In-Place PLM Update
       tvp  09/13/25 Add function prototype to get KAT status
@@ -120,8 +122,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       tvp  09/13/25 Added KAT mask for DEVIK/DEVAK/HMAC
 2.4   sk   01/18/26 Added macros for LPD Domain Init Status
       sd   03/03/26 Updated XPlmi_GetSlrType to return SLR type as monolithic
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
-</div><div class="textblock"><code>#include &quot;<a class="el" href="2vp_2server_2xplmi__hw_8h.html">xplmi_hw.h</a>&quot;</code><br/>
+      pre  09/02/26 Added XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR macro to store bit mask of
+                      the DDRMCs for which warm boot is requested in RTCA
+      rama 09/16/26  Removed static inline XPlmi_GetSlrIndex stub to
+                     fix conflicts with the non-static
+                     XPlmi_GetSlrIndex definition in xplmi_plat.c
+      ng   09/25/26 Added XPlmi_VerifyAddrRangeRedundant for address range validation
+      sd   10/27/26 Added XPlmi_RunProc prototype to support RUN_PROC CDO command
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="2vp_2server_2xplmi__hw_8h.html">xplmi_hw.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__dma_8h.html">xplmi_dma.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__event__logging_8h.html">xplmi_event_logging.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__cmd_8h.html">xplmi_cmd.h</a>&quot;</code><br/>
@@ -148,54 +156,57 @@ Macros</h2></td></tr>
 <tr class="memitem:a5ec9ec42c88f293a05b22e166653fafb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a>&#160;&#160;&#160;(0xF2014000U)</td></tr>
 <tr class="memdesc:a5ec9ec42c88f293a05b22e166653fafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime configuration base address.  <a href="#a5ec9ec42c88f293a05b22e166653fafb">More...</a><br/></td></tr>
 <tr class="separator:a5ec9ec42c88f293a05b22e166653fafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a603f4acd2586193bd88906f33f06ed54"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a603f4acd2586193bd88906f33f06ed54">XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x154U)</td></tr>
+<tr class="memitem:a603f4acd2586193bd88906f33f06ed54"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a603f4acd2586193bd88906f33f06ed54">XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x154U)</td></tr>
 <tr class="memdesc:a603f4acd2586193bd88906f33f06ed54"><td class="mdescLeft">&#160;</td><td class="mdescRight">PMC error 1 status address.  <a href="#a603f4acd2586193bd88906f33f06ed54">More...</a><br/></td></tr>
 <tr class="separator:a603f4acd2586193bd88906f33f06ed54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a936681d05aa4cfdefb843ccf623cdb8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a936681d05aa4cfdefb843ccf623cdb8c">XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x15CU)</td></tr>
+<tr class="memitem:a936681d05aa4cfdefb843ccf623cdb8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a936681d05aa4cfdefb843ccf623cdb8c">XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x15CU)</td></tr>
 <tr class="memdesc:a936681d05aa4cfdefb843ccf623cdb8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PSM error 1 status address.  <a href="#a936681d05aa4cfdefb843ccf623cdb8c">More...</a><br/></td></tr>
 <tr class="separator:a936681d05aa4cfdefb843ccf623cdb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad44b70fc0c8c9af68ab7b77b43a90120"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ad44b70fc0c8c9af68ab7b77b43a90120">XPLMI_RTCFG_SECURE_STATE_PLM_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x16CU)</td></tr>
+<tr class="memitem:ad44b70fc0c8c9af68ab7b77b43a90120"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ad44b70fc0c8c9af68ab7b77b43a90120">XPLMI_RTCFG_SECURE_STATE_PLM_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x16CU)</td></tr>
 <tr class="memdesc:ad44b70fc0c8c9af68ab7b77b43a90120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure state PLM address.  <a href="#ad44b70fc0c8c9af68ab7b77b43a90120">More...</a><br/></td></tr>
 <tr class="separator:ad44b70fc0c8c9af68ab7b77b43a90120"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77e644e376e09b22611fd1e6dcf7b411"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a77e644e376e09b22611fd1e6dcf7b411">XPLMI_RTCFG_PLM_MJTAG_WA</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x188U)</td></tr>
+<tr class="memitem:a77e644e376e09b22611fd1e6dcf7b411"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a77e644e376e09b22611fd1e6dcf7b411">XPLMI_RTCFG_PLM_MJTAG_WA</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x188U)</td></tr>
 <tr class="memdesc:a77e644e376e09b22611fd1e6dcf7b411"><td class="mdescLeft">&#160;</td><td class="mdescRight">PLM MJTAG word aligner.  <a href="#a77e644e376e09b22611fd1e6dcf7b411">More...</a><br/></td></tr>
 <tr class="separator:a77e644e376e09b22611fd1e6dcf7b411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a762dffd47a42f27a01795e218436b1f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a762dffd47a42f27a01795e218436b1f8">XPLMI_RTCFG_MIO_WA_BANK_500_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x270U)</td></tr>
+<tr class="memitem:a762dffd47a42f27a01795e218436b1f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a762dffd47a42f27a01795e218436b1f8">XPLMI_RTCFG_MIO_WA_BANK_500_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x270U)</td></tr>
 <tr class="memdesc:a762dffd47a42f27a01795e218436b1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bank 500 address.  <a href="#a762dffd47a42f27a01795e218436b1f8">More...</a><br/></td></tr>
 <tr class="separator:a762dffd47a42f27a01795e218436b1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed8d6d5ddf0125bb367aab43b06e5ece"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#aed8d6d5ddf0125bb367aab43b06e5ece">XPLMI_RTCFG_MIO_WA_BANK_501_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x274U)</td></tr>
+<tr class="memitem:aed8d6d5ddf0125bb367aab43b06e5ece"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#aed8d6d5ddf0125bb367aab43b06e5ece">XPLMI_RTCFG_MIO_WA_BANK_501_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x274U)</td></tr>
 <tr class="memdesc:aed8d6d5ddf0125bb367aab43b06e5ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bank 501 address.  <a href="#aed8d6d5ddf0125bb367aab43b06e5ece">More...</a><br/></td></tr>
 <tr class="separator:aed8d6d5ddf0125bb367aab43b06e5ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfe700f7a751677dfdae3dc98214a8a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#acfe700f7a751677dfdae3dc98214a8a8">XPLMI_RTCFG_MIO_WA_BANK_502_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x278U)</td></tr>
+<tr class="memitem:acfe700f7a751677dfdae3dc98214a8a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#acfe700f7a751677dfdae3dc98214a8a8">XPLMI_RTCFG_MIO_WA_BANK_502_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x278U)</td></tr>
 <tr class="memdesc:acfe700f7a751677dfdae3dc98214a8a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bank 502 address.  <a href="#acfe700f7a751677dfdae3dc98214a8a8">More...</a><br/></td></tr>
 <tr class="separator:acfe700f7a751677dfdae3dc98214a8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a984d4fedf70f18b385ed218a44415475"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a984d4fedf70f18b385ed218a44415475">XPLMI_MIO_FLUSH_ALL_PINS</a>&#160;&#160;&#160;0x3FFFFFFU</td></tr>
 <tr class="memdesc:a984d4fedf70f18b385ed218a44415475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush all pins.  <a href="#a984d4fedf70f18b385ed218a44415475">More...</a><br/></td></tr>
 <tr class="separator:a984d4fedf70f18b385ed218a44415475"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a200ba4d9c3db559ebe64eac12685d8ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a200ba4d9c3db559ebe64eac12685d8ea">XPLMI_RTCFG_RST_PL_POR_WA</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x27CU)</td></tr>
+<tr class="memitem:a200ba4d9c3db559ebe64eac12685d8ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a200ba4d9c3db559ebe64eac12685d8ea">XPLMI_RTCFG_RST_PL_POR_WA</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x27CU)</td></tr>
 <tr class="memdesc:a200ba4d9c3db559ebe64eac12685d8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset PL_POR word aligner.  <a href="#a200ba4d9c3db559ebe64eac12685d8ea">More...</a><br/></td></tr>
 <tr class="separator:a200ba4d9c3db559ebe64eac12685d8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e8611bdeca4d6a241b860add8673594"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a7e8611bdeca4d6a241b860add8673594">XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x280U)</td></tr>
+<tr class="memitem:a7e8611bdeca4d6a241b860add8673594"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a7e8611bdeca4d6a241b860add8673594">XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x280U)</td></tr>
 <tr class="memdesc:a7e8611bdeca4d6a241b860add8673594"><td class="mdescLeft">&#160;</td><td class="mdescRight">HBM temporary configuration.  <a href="#a7e8611bdeca4d6a241b860add8673594">More...</a><br/></td></tr>
 <tr class="separator:a7e8611bdeca4d6a241b860add8673594"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdb1205d19b00acf6650de3892ee8aab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#afdb1205d19b00acf6650de3892ee8aab">XPLMI_RTCFG_HBM_TEMP_VAL</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x284U)</td></tr>
+<tr class="memitem:afdb1205d19b00acf6650de3892ee8aab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#afdb1205d19b00acf6650de3892ee8aab">XPLMI_RTCFG_HBM_TEMP_VAL</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x284U)</td></tr>
 <tr class="memdesc:afdb1205d19b00acf6650de3892ee8aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">HBM temporary value.  <a href="#afdb1205d19b00acf6650de3892ee8aab">More...</a><br/></td></tr>
 <tr class="separator:afdb1205d19b00acf6650de3892ee8aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff5df410700f7a25f282d6908e3cb27e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#aff5df410700f7a25f282d6908e3cb27e">XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x288U)</td></tr>
+<tr class="memitem:aff5df410700f7a25f282d6908e3cb27e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#aff5df410700f7a25f282d6908e3cb27e">XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x288U)</td></tr>
 <tr class="memdesc:aff5df410700f7a25f282d6908e3cb27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image store address high.  <a href="#aff5df410700f7a25f282d6908e3cb27e">More...</a><br/></td></tr>
 <tr class="separator:aff5df410700f7a25f282d6908e3cb27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95f4ca438901c86e839a6e8d18ec5f8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a95f4ca438901c86e839a6e8d18ec5f8b">XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x28CU)</td></tr>
+<tr class="memitem:a95f4ca438901c86e839a6e8d18ec5f8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a95f4ca438901c86e839a6e8d18ec5f8b">XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x28CU)</td></tr>
 <tr class="memdesc:a95f4ca438901c86e839a6e8d18ec5f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image store address low.  <a href="#a95f4ca438901c86e839a6e8d18ec5f8b">More...</a><br/></td></tr>
 <tr class="separator:a95f4ca438901c86e839a6e8d18ec5f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7384f1ec083ef8a5b0f3ed6db679083"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ab7384f1ec083ef8a5b0f3ed6db679083">XPLMI_RTCFG_IMG_STORE_SIZE</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x290U)</td></tr>
+<tr class="memitem:ab7384f1ec083ef8a5b0f3ed6db679083"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ab7384f1ec083ef8a5b0f3ed6db679083">XPLMI_RTCFG_IMG_STORE_SIZE</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x290U)</td></tr>
 <tr class="memdesc:ab7384f1ec083ef8a5b0f3ed6db679083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image store size.  <a href="#ab7384f1ec083ef8a5b0f3ed6db679083">More...</a><br/></td></tr>
 <tr class="separator:ab7384f1ec083ef8a5b0f3ed6db679083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b80736acb10aa71e54062eac880ab10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a8b80736acb10aa71e54062eac880ab10">XPLMI_RTCFG_SSIT_TEMP_PROPAGATION</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x298U)</td></tr>
+<tr class="memitem:a8b80736acb10aa71e54062eac880ab10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a8b80736acb10aa71e54062eac880ab10">XPLMI_RTCFG_SSIT_TEMP_PROPAGATION</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x298U)</td></tr>
 <tr class="memdesc:a8b80736acb10aa71e54062eac880ab10"><td class="mdescLeft">&#160;</td><td class="mdescRight">SSIT temperature prop config.  <a href="#a8b80736acb10aa71e54062eac880ab10">More...</a><br/></td></tr>
 <tr class="separator:a8b80736acb10aa71e54062eac880ab10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a835158beef1bb56a6d72a4e54982a6f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a835158beef1bb56a6d72a4e54982a6f1">XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x300U)</td></tr>
+<tr class="memitem:a835158beef1bb56a6d72a4e54982a6f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a835158beef1bb56a6d72a4e54982a6f1">XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x300U)</td></tr>
 <tr class="memdesc:a835158beef1bb56a6d72a4e54982a6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip DDRMC Calib Check.  <a href="#a835158beef1bb56a6d72a4e54982a6f1">More...</a><br/></td></tr>
 <tr class="separator:a835158beef1bb56a6d72a4e54982a6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adba12c935f9dbebf6ef7b4387bda19b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#adba12c935f9dbebf6ef7b4387bda19b9">XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0xCU)</td></tr>
+<tr class="memdesc:adba12c935f9dbebf6ef7b4387bda19b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask of the DDRMCs for which warm boot is requested, where bit 'n' corresponds to DDRMC 'n'.  <a href="#adba12c935f9dbebf6ef7b4387bda19b9">More...</a><br/></td></tr>
+<tr class="separator:adba12c935f9dbebf6ef7b4387bda19b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bb71c624afbed4eba1520dd24d25be8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a4bb71c624afbed4eba1520dd24d25be8">XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK</a>&#160;&#160;&#160;(0x00000001U)</td></tr>
 <tr class="memdesc:a4bb71c624afbed4eba1520dd24d25be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">MJTAG word aligner enable status check mask.  <a href="#a4bb71c624afbed4eba1520dd24d25be8">More...</a><br/></td></tr>
 <tr class="separator:a4bb71c624afbed4eba1520dd24d25be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -382,10 +393,10 @@ Macros</h2></td></tr>
 <tr class="memitem:ae617628a779c8e1fa230ccf2acb9704d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ae617628a779c8e1fa230ccf2acb9704d">XPLMI_GIC_IPI_INTR_ID</a>&#160;&#160;&#160;(0x1B0010U)</td></tr>
 <tr class="memdesc:ae617628a779c8e1fa230ccf2acb9704d"><td class="mdescLeft">&#160;</td><td class="mdescRight">GIC IPI Interrupt Id.  <a href="#ae617628a779c8e1fa230ccf2acb9704d">More...</a><br/></td></tr>
 <tr class="separator:ae617628a779c8e1fa230ccf2acb9704d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bad6fcbfc399a64ded7a3f75b28395b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a3bad6fcbfc399a64ded7a3f75b28395b">XPLMI_SBI_GICP_INDEX</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a1dbc2d5bc59b3cbfe2277dbeff487943">XPLMI_PMC_GIC_IRQ_GICP4</a>)</td></tr>
+<tr class="memitem:a3bad6fcbfc399a64ded7a3f75b28395b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a3bad6fcbfc399a64ded7a3f75b28395b">XPLMI_SBI_GICP_INDEX</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a1dbc2d5bc59b3cbfe2277dbeff487943">XPLMI_PMC_GIC_IRQ_GICP4</a>)</td></tr>
 <tr class="memdesc:a3bad6fcbfc399a64ded7a3f75b28395b"><td class="mdescLeft">&#160;</td><td class="mdescRight">SBI GICP index.  <a href="#a3bad6fcbfc399a64ded7a3f75b28395b">More...</a><br/></td></tr>
 <tr class="separator:a3bad6fcbfc399a64ded7a3f75b28395b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6611c9fe7e8e056e6b306a69ae6c0cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#af6611c9fe7e8e056e6b306a69ae6c0cb">XPLMI_SBI_GICPX_INDEX</a>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#aa1b346a599eac7c1923637b0ef9c5c15">XPLMI_GICP4_SRC8</a>)</td></tr>
+<tr class="memitem:af6611c9fe7e8e056e6b306a69ae6c0cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#af6611c9fe7e8e056e6b306a69ae6c0cb">XPLMI_SBI_GICPX_INDEX</a>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#aa1b346a599eac7c1923637b0ef9c5c15">XPLMI_GICP4_SRC8</a>)</td></tr>
 <tr class="memdesc:af6611c9fe7e8e056e6b306a69ae6c0cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">SBI GICPX index.  <a href="#af6611c9fe7e8e056e6b306a69ae6c0cb">More...</a><br/></td></tr>
 <tr class="separator:af6611c9fe7e8e056e6b306a69ae6c0cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a256fce6a451c5a9a96e8ae8dc7d0e4ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a256fce6a451c5a9a96e8ae8dc7d0e4ee">MAX_DEV_DDRMC</a>&#160;&#160;&#160;(4U)</td></tr>
@@ -496,9 +507,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ae6380b71354ecf055de8b612310a6489"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ae6380b71354ecf055de8b612310a6489">XPlmi_SetFipsKatMask</a>&#160;&#160;&#160;NULL</td></tr>
 <tr class="memdesc:ae6380b71354ecf055de8b612310a6489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Fip Kat mask.  <a href="#ae6380b71354ecf055de8b612310a6489">More...</a><br/></td></tr>
 <tr class="separator:ae6380b71354ecf055de8b612310a6489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7de94e54a4c24ba9d12dedf05cb0cb2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ad7de94e54a4c24ba9d12dedf05cb0cb2">XPlmi_RunProc</a>&#160;&#160;&#160;NULL</td></tr>
-<tr class="memdesc:ad7de94e54a4c24ba9d12dedf05cb0cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run Proc.  <a href="#ad7de94e54a4c24ba9d12dedf05cb0cb2">More...</a><br/></td></tr>
-<tr class="separator:ad7de94e54a4c24ba9d12dedf05cb0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70ec289730d6922d54076332b35ed2db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a70ec289730d6922d54076332b35ed2db">XPlmi_ListSet</a>&#160;&#160;&#160;NULL</td></tr>
 <tr class="memdesc:a70ec289730d6922d54076332b35ed2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">List Set.  <a href="#a70ec289730d6922d54076332b35ed2db">More...</a><br/></td></tr>
 <tr class="separator:a70ec289730d6922d54076332b35ed2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -511,10 +519,10 @@ Macros</h2></td></tr>
 <tr class="memitem:ab7e318881d2095fe5477e0784cbc7760"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ab7e318881d2095fe5477e0784cbc7760">XPlmi_ListMaskPoll</a>&#160;&#160;&#160;NULL</td></tr>
 <tr class="memdesc:ab7e318881d2095fe5477e0784cbc7760"><td class="mdescLeft">&#160;</td><td class="mdescRight">List Mask Poll.  <a href="#ab7e318881d2095fe5477e0784cbc7760">More...</a><br/></td></tr>
 <tr class="separator:ab7e318881d2095fe5477e0784cbc7760"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f459ed3b414ac713b4fa4f0e3bba68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ae3f459ed3b414ac713b4fa4f0e3bba68">GET_RTCFG_PMC_ERR_ADDR</a>(Index)&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a603f4acd2586193bd88906f33f06ed54">XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR</a> + (Index * 4U))</td></tr>
+<tr class="memitem:ae3f459ed3b414ac713b4fa4f0e3bba68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ae3f459ed3b414ac713b4fa4f0e3bba68">GET_RTCFG_PMC_ERR_ADDR</a>(Index)&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a603f4acd2586193bd88906f33f06ed54">XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR</a> + (Index * 4U))</td></tr>
 <tr class="memdesc:ae3f459ed3b414ac713b4fa4f0e3bba68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime configuration PMC error address.  <a href="#ae3f459ed3b414ac713b4fa4f0e3bba68">More...</a><br/></td></tr>
 <tr class="separator:ae3f459ed3b414ac713b4fa4f0e3bba68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75719e359c2894c38d547b6bcea8c3d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a75719e359c2894c38d547b6bcea8c3d4">GET_RTCFG_PSM_ERR_ADDR</a>(Index)&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a936681d05aa4cfdefb843ccf623cdb8c">XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR</a> + (Index * 4U))</td></tr>
+<tr class="memitem:a75719e359c2894c38d547b6bcea8c3d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a75719e359c2894c38d547b6bcea8c3d4">GET_RTCFG_PSM_ERR_ADDR</a>(Index)&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a936681d05aa4cfdefb843ccf623cdb8c">XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR</a> + (Index * 4U))</td></tr>
 <tr class="memdesc:a75719e359c2894c38d547b6bcea8c3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime configuration PSM error address.  <a href="#a75719e359c2894c38d547b6bcea8c3d4">More...</a><br/></td></tr>
 <tr class="separator:a75719e359c2894c38d547b6bcea8c3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d86566203ebe7ff7bb3b25bb12651de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a8d86566203ebe7ff7bb3b25bb12651de">XPLMI_PMC_IRO_FREQ_320_MHZ</a>&#160;&#160;&#160;(320000000U)</td></tr>
@@ -523,6 +531,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ace78de820414e0880935713d21c654aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#ace78de820414e0880935713d21c654aa">XPLMI_STATUS_GLITCH_DETECT</a>(Status)</td></tr>
 <tr class="memdesc:ace78de820414e0880935713d21c654aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glitch check on Status (excluded for Versal_2vp).  <a href="#ace78de820414e0880935713d21c654aa">More...</a><br/></td></tr>
 <tr class="separator:ace78de820414e0880935713d21c654aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8582f2baf74c807fe548ca25257cbbb5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a8582f2baf74c807fe548ca25257cbbb5">VERIFY_ADDR_DEBUG_PRINT</a>(error)&#160;&#160;&#160;/* do nothing, if debug print is disabled */</td></tr>
+<tr class="memdesc:a8582f2baf74c807fe548ca25257cbbb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the address range validation error code.  <a href="#a8582f2baf74c807fe548ca25257cbbb5">More...</a><br/></td></tr>
+<tr class="separator:a8582f2baf74c807fe548ca25257cbbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7346761d7426c224a57ed56764491ef1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a7346761d7426c224a57ed56764491ef1">XPLMI_VERIFY_ADDR_RANGE</a>(SubsysId, StartAddr, Len, StatusVar, ErrorCode, Label)</td></tr>
 <tr class="memdesc:a7346761d7426c224a57ed56764491ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro calls the registered address validation handler (XPm_IsMemAddressValid) to ensure memory access is within valid bounds for security-critical functions.  <a href="#a7346761d7426c224a57ed56764491ef1">More...</a><br/></td></tr>
 <tr class="separator:a7346761d7426c224a57ed56764491ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -582,17 +593,19 @@ Enumerations</h2></td></tr>
 <a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a7639e8ca8278bee32b86c32e3eb0701d">XPLMI_ERR_WDT_LPD_NOT_INITIALIZED</a>,
 <br/>
 &#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a74eb938b38675cfc509fc2b1bf395151">XPLMI_INVALID_TAMPER_RESPONSE</a>,
-<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a474000d38b1a08dfe6e64e5c0d7ce754">XPLMI_ERR_INVALID_LOG_BUF_TYPE</a>
-, <a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a16331111f380adfe5ef26173c6f94221">XPLMI_ERR_INVALID_ADDR_RANGE</a>,
-<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5aece040f264d83c778fac17945500c69f">XPLMI_ERR_FROM_SSIT_SLAVE</a> = 0x200,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a474000d38b1a08dfe6e64e5c0d7ce754">XPLMI_ERR_INVALID_LOG_BUF_TYPE</a>,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a334d689c5752d45147624515d625c542">XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER</a>,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a16331111f380adfe5ef26173c6f94221">XPLMI_ERR_INVALID_ADDR_RANGE</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5abab859474788188c34e50ac8b707d27f">XPLMI_ERR_SSIT_SLAVE_SYNC</a>,
-<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a6ea88381628caa16fed24bf52c584713">XPLMI_SSIT_INAVLID_DMA</a>,
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5aece040f264d83c778fac17945500c69f">XPLMI_ERR_FROM_SSIT_SLAVE</a> = 0x200,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5abab859474788188c34e50ac8b707d27f">XPLMI_ERR_SSIT_SLAVE_SYNC</a>,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5ad7bfb7f172315641d60e8d1facafa606">XPLMI_SSIT_INVALID_DMA</a>,
 <a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a9e1f9748cf734d9844e00bfb536ed0c6">XPLMI_SSIT_AES_INIT_FAIL</a>,
-<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5abcead5cf3b45acf106e5c96022d52ef8">XPLMI_SSIT_ENCDEC_INIT_FAIL</a>,
 <br/>
-&#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a0055dbada43d363e2fc3317ba9117c21">XPLMI_SSIT_AAD_UPDATE_FAIL</a>,
-<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a1e6a30d0e54bef530ffbedbef3788b4f">XPLMI_SSIT_DATA_UPDATE_FAIL</a>
+&#160;&#160;<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5abcead5cf3b45acf106e5c96022d52ef8">XPLMI_SSIT_ENCDEC_INIT_FAIL</a>,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a0055dbada43d363e2fc3317ba9117c21">XPLMI_SSIT_AAD_UPDATE_FAIL</a>,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5a1e6a30d0e54bef530ffbedbef3788b4f">XPLMI_SSIT_DATA_UPDATE_FAIL</a>,
+<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a99fb83031ce9923c84392b4e92f956b5aa190d2debf5d3191013af5eeda066cc5">XPLMI_SSIT_TAG_GENERATION_FAIL</a>
 <br/>
  }</td></tr>
 <tr class="separator:a99fb83031ce9923c84392b4e92f956b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -614,7 +627,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga843595ffd672681ddbcaa86e138e19ce"><td class="memItemLeft" align="right" valign="top">XPlmi_WaitForDmaDone_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga843595ffd672681ddbcaa86e138e19ce">XPlmi_GetPlmiWaitForDone</a> (u64 DestAddr)</td></tr>
 <tr class="memdesc:ga843595ffd672681ddbcaa86e138e19ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to check and wait for DMA done when sending data to SSIT Slave SLRs.  <a href="group__xilplmi__server__apis.html#ga843595ffd672681ddbcaa86e138e19ce">More...</a><br/></td></tr>
 <tr class="separator:ga843595ffd672681ddbcaa86e138e19ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84e885653f47cf147ac3325e1d07cdc7"><td class="memItemLeft" align="right" valign="top">XPlmi_CircularBuffer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga84e885653f47cf147ac3325e1d07cdc7">XPlmi_GetTraceLogInst</a> (void)</td></tr>
+<tr class="memitem:ga84e885653f47cf147ac3325e1d07cdc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_plmi___circular_buffer.html">XPlmi_CircularBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga84e885653f47cf147ac3325e1d07cdc7">XPlmi_GetTraceLogInst</a> (void)</td></tr>
 <tr class="memdesc:ga84e885653f47cf147ac3325e1d07cdc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides TraceLog instance.  <a href="group__xilplmi__server__apis.html#ga84e885653f47cf147ac3325e1d07cdc7">More...</a><br/></td></tr>
 <tr class="separator:ga84e885653f47cf147ac3325e1d07cdc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7d1120a063f7c78df1b9e6b3fdcb7df2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga7d1120a063f7c78df1b9e6b3fdcb7df2">XPlmi_GetReadbackSrcDest</a> (u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)</td></tr>
@@ -677,10 +690,13 @@ Functions</h2></td></tr>
 <tr class="memitem:adb6295dcb1b39af3741ca698637f5d9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#adb6295dcb1b39af3741ca698637f5d9c">XPlmi_SaveLpdEAMInfo</a> (void)</td></tr>
 <tr class="memdesc:adb6295dcb1b39af3741ca698637f5d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the PSM (Platform System Management) error status info for the LPD (Low Power Domain), reads the error status registers from the PSM, and stores error status values into the RTCFG memory.  <a href="#adb6295dcb1b39af3741ca698637f5d9c">More...</a><br/></td></tr>
 <tr class="separator:adb6295dcb1b39af3741ca698637f5d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga33944fe65566c1e9c670b92e0a81cb45"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga33944fe65566c1e9c670b92e0a81cb45">XPlmi_RunProc</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:ga33944fe65566c1e9c670b92e0a81cb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will run the already stored proc if present.  <a href="group__xilplmi__server__apis.html#ga33944fe65566c1e9c670b92e0a81cb45">More...</a><br/></td></tr>
+<tr class="separator:ga33944fe65566c1e9c670b92e0a81cb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a3f69d50232dc5c7c01788c7646929d9d">XPlmi_IsAddrRangeValid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gac9fe0f9615e3c200512cbd3d92b3c65a">XPlmi_IsAddrRangeValid</a></td></tr>
+<tr class="memitem:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="2vp_2server_2xplmi__plat_8h.html#a3f69d50232dc5c7c01788c7646929d9d">XPlmi_IsAddrRangeValid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gac9fe0f9615e3c200512cbd3d92b3c65a">XPlmi_IsAddrRangeValid</a></td></tr>
 <tr class="memdesc:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Global address range validation handler  <a href="group__xilplmi__server__apis.html#gac9fe0f9615e3c200512cbd3d92b3c65a">More...</a><br/></td></tr>
 <tr class="separator:gac9fe0f9615e3c200512cbd3d92b3c65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -694,7 +710,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">Index</td><td>)</td>
-          <td>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a603f4acd2586193bd88906f33f06ed54">XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR</a> + (Index * 4U))</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a603f4acd2586193bd88906f33f06ed54">XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR</a> + (Index * 4U))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -714,7 +730,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">Index</td><td>)</td>
-          <td>&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a936681d05aa4cfdefb843ccf623cdb8c">XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR</a> + (Index * 4U))</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a936681d05aa4cfdefb843ccf623cdb8c">XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR</a> + (Index * 4U))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -738,6 +754,31 @@ Variables</h2></td></tr>
 <p>Maximum device for Double Data Rate Memory Controller. </p>
 
 <p>Referenced by <a class="el" href="group__xilplmi__server__apis.html#ga995858beb8dd1dcab824b66f5d633f45">XPlmi_SetDDRMCMainRegSts()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8582f2baf74c807fe548ca25257cbbb5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VERIFY_ADDR_DEBUG_PRINT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">error</td><td>)</td>
+          <td>&#160;&#160;&#160;/* do nothing, if debug print is disabled */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prints the address range validation error code. </p>
+<p>Expands to a no-op when PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT is not defined. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">error</td><td>is the status returned by the address range check. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1630,11 +1671,11 @@ Variables</h2></td></tr>
 <div class="line"><a class="code" href="2vp_2server_2xplmi__plat_8h.html#ad670ee3d5b2c8f5975a5d7550da27b1b">					 XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK</a> | <a class="code" href="2vp_2server_2xplmi__plat_8h.html#a50b97d5319817b55c17407077200c380">\</a></div>
 <div class="line"><a class="code" href="2vp_2server_2xplmi__plat_8h.html#a50b97d5319817b55c17407077200c380">					 XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK</a> | <a class="code" href="2vp_2server_2xplmi__plat_8h.html#ad685b204f8081861f84335264165f6ec">\</a></div>
 <div class="line"><a class="code" href="2vp_2server_2xplmi__plat_8h.html#ad685b204f8081861f84335264165f6ec">					 XPLMI_SECURE_ECC_PWCT_KAT_MASK</a>)</div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a86be39ae056ed986a109e7f7b6f9c24e"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a86be39ae056ed986a109e7f7b6f9c24e">XPLMI_SECURE_AES_ENC_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_AES_ENC_KAT_MASK</div><div class="ttdoc">AES encrypt KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:239</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a0dcbd77f0bc65ccf175514d2684adea4"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a0dcbd77f0bc65ccf175514d2684adea4">XPLMI_ROM_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_ROM_KAT_MASK</div><div class="ttdoc">ROM KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:248</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_ad685b204f8081861f84335264165f6ec"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#ad685b204f8081861f84335264165f6ec">XPLMI_SECURE_ECC_PWCT_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_ECC_PWCT_KAT_MASK</div><div class="ttdoc">ECC PWCT KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:242</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_ad670ee3d5b2c8f5975a5d7550da27b1b"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#ad670ee3d5b2c8f5975a5d7550da27b1b">XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK</div><div class="ttdoc">RSA private decrypt KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:240</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a50b97d5319817b55c17407077200c380"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a50b97d5319817b55c17407077200c380">XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK</div><div class="ttdoc">ECC sign generation SHA3_384 KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:241</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a86be39ae056ed986a109e7f7b6f9c24e"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a86be39ae056ed986a109e7f7b6f9c24e">XPLMI_SECURE_AES_ENC_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_AES_ENC_KAT_MASK</div><div class="ttdoc">AES encrypt KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:247</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a0dcbd77f0bc65ccf175514d2684adea4"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a0dcbd77f0bc65ccf175514d2684adea4">XPLMI_ROM_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_ROM_KAT_MASK</div><div class="ttdoc">ROM KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:256</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_ad685b204f8081861f84335264165f6ec"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#ad685b204f8081861f84335264165f6ec">XPLMI_SECURE_ECC_PWCT_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_ECC_PWCT_KAT_MASK</div><div class="ttdoc">ECC PWCT KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:250</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_ad670ee3d5b2c8f5975a5d7550da27b1b"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#ad670ee3d5b2c8f5975a5d7550da27b1b">XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK</div><div class="ttdoc">RSA private decrypt KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:248</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a50b97d5319817b55c17407077200c380"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a50b97d5319817b55c17407077200c380">XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK</div><div class="ttdoc">ECC sign generation SHA3_384 KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:249</div></div>
 </div><!-- fragment -->
 <p>KAT mask. </p>
 
@@ -1915,11 +1956,11 @@ Variables</h2></td></tr>
 <div class="line"><a class="code" href="2vp_2server_2xplmi__plat_8h.html#aac26f45b4758c8fc163ca11dfd8ee712">					 XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK</a> | <a class="code" href="2vp_2server_2xplmi__plat_8h.html#ad16b9073cd0d71e4b5e60ce411a51030">\</a></div>
 <div class="line"><a class="code" href="2vp_2server_2xplmi__plat_8h.html#ad16b9073cd0d71e4b5e60ce411a51030">					 XPLMI_SECURE_AES_DEC_KAT_MASK</a> | <a class="code" href="2vp_2server_2xplmi__plat_8h.html#a7df7dd63cb5587adeed1a00b4a818701">\</a></div>
 <div class="line"><a class="code" href="2vp_2server_2xplmi__plat_8h.html#a7df7dd63cb5587adeed1a00b4a818701">					 XPLMI_SECURE_AES_CMKAT_MASK</a>)</div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_ad16b9073cd0d71e4b5e60ce411a51030"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#ad16b9073cd0d71e4b5e60ce411a51030">XPLMI_SECURE_AES_DEC_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_AES_DEC_KAT_MASK</div><div class="ttdoc">AES decrypt KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:237</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a8d8ec056e81ee565745af07e7f0079a8"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a8d8ec056e81ee565745af07e7f0079a8">XPLMI_SECURE_SHA3_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_SHA3_KAT_MASK</div><div class="ttdoc">SHA3 KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:234</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_aac26f45b4758c8fc163ca11dfd8ee712"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#aac26f45b4758c8fc163ca11dfd8ee712">XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK</div><div class="ttdoc">ECC sign verify SHA3_384 KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:236</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a7df7dd63cb5587adeed1a00b4a818701"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a7df7dd63cb5587adeed1a00b4a818701">XPLMI_SECURE_AES_CMKAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_AES_CMKAT_MASK</div><div class="ttdoc">AES decrypt CMKAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:238</div></div>
-<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a0fe9b7b6ff818b11b91a3b6eed1f040d"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a0fe9b7b6ff818b11b91a3b6eed1f040d">XPLMI_SECURE_RSA_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_RSA_KAT_MASK</div><div class="ttdoc">RSA KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:235</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_ad16b9073cd0d71e4b5e60ce411a51030"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#ad16b9073cd0d71e4b5e60ce411a51030">XPLMI_SECURE_AES_DEC_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_AES_DEC_KAT_MASK</div><div class="ttdoc">AES decrypt KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:245</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a8d8ec056e81ee565745af07e7f0079a8"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a8d8ec056e81ee565745af07e7f0079a8">XPLMI_SECURE_SHA3_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_SHA3_KAT_MASK</div><div class="ttdoc">SHA3 KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:242</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_aac26f45b4758c8fc163ca11dfd8ee712"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#aac26f45b4758c8fc163ca11dfd8ee712">XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK</div><div class="ttdoc">ECC sign verify SHA3_384 KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:244</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a7df7dd63cb5587adeed1a00b4a818701"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a7df7dd63cb5587adeed1a00b4a818701">XPLMI_SECURE_AES_CMKAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_AES_CMKAT_MASK</div><div class="ttdoc">AES decrypt CMKAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:246</div></div>
+<div class="ttc" id="2vp_2server_2xplmi__plat_8h_html_a0fe9b7b6ff818b11b91a3b6eed1f040d"><div class="ttname"><a href="2vp_2server_2xplmi__plat_8h.html#a0fe9b7b6ff818b11b91a3b6eed1f040d">XPLMI_SECURE_RSA_KAT_MASK</a></div><div class="ttdeci">#define XPLMI_SECURE_RSA_KAT_MASK</div><div class="ttdoc">RSA KAT mask. </div><div class="ttdef"><b>Definition:</b> 2vp/server/xplmi_plat.h:243</div></div>
 </div><!-- fragment -->
 <p>ROM KAT mask. </p>
 
@@ -1948,7 +1989,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x300U)</td>
+          <td class="memname">#define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x300U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1959,12 +2000,26 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="adba12c935f9dbebf6ef7b4387bda19b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0xCU)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit mask of the DDRMCs for which warm boot is requested, where bit 'n' corresponds to DDRMC 'n'. </p>
+
+</div>
+</div>
 <a class="anchor" id="a7e8611bdeca4d6a241b860add8673594"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x280U)</td>
+          <td class="memname">#define XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x280U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1978,7 +2033,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_HBM_TEMP_VAL&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x284U)</td>
+          <td class="memname">#define XPLMI_RTCFG_HBM_TEMP_VAL&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x284U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1992,7 +2047,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x288U)</td>
+          <td class="memname">#define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x288U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2008,7 +2063,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x28CU)</td>
+          <td class="memname">#define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x28CU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2024,7 +2079,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_IMG_STORE_SIZE&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x290U)</td>
+          <td class="memname">#define XPLMI_RTCFG_IMG_STORE_SIZE&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x290U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2040,7 +2095,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_MIO_WA_BANK_500_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x270U)</td>
+          <td class="memname">#define XPLMI_RTCFG_MIO_WA_BANK_500_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x270U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2054,7 +2109,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_MIO_WA_BANK_501_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x274U)</td>
+          <td class="memname">#define XPLMI_RTCFG_MIO_WA_BANK_501_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x274U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2068,7 +2123,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x278U)</td>
+          <td class="memname">#define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x278U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2082,7 +2137,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_PLM_MJTAG_WA&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x188U)</td>
+          <td class="memname">#define XPLMI_RTCFG_PLM_MJTAG_WA&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x188U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2138,7 +2193,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x154U)</td>
+          <td class="memname">#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x154U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2152,7 +2207,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x15CU)</td>
+          <td class="memname">#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x15CU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2166,7 +2221,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_RST_PL_POR_WA&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x27CU)</td>
+          <td class="memname">#define XPLMI_RTCFG_RST_PL_POR_WA&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x27CU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2180,7 +2235,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x16CU)</td>
+          <td class="memname">#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x16CU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2196,7 +2251,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_RTCFG_SSIT_TEMP_PROPAGATION&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x298U)</td>
+          <td class="memname">#define XPLMI_RTCFG_SSIT_TEMP_PROPAGATION&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a5ec9ec42c88f293a05b22e166653fafb">XPLMI_RTCFG_BASEADDR</a> + 0x298U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2205,26 +2260,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad7de94e54a4c24ba9d12dedf05cb0cb2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XPlmi_RunProc&#160;&#160;&#160;NULL</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Run Proc. </p>
-
-</div>
-</div>
 <a class="anchor" id="a3bad6fcbfc399a64ded7a3f75b28395b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_SBI_GICP_INDEX&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#a1dbc2d5bc59b3cbfe2277dbeff487943">XPLMI_PMC_GIC_IRQ_GICP4</a>)</td>
+          <td class="memname">#define XPLMI_SBI_GICP_INDEX&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#a1dbc2d5bc59b3cbfe2277dbeff487943">XPLMI_PMC_GIC_IRQ_GICP4</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2240,7 +2281,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPLMI_SBI_GICPX_INDEX&#160;&#160;&#160;(<a class="el" href="2vp__p_2server_2xplmi__plat_8h.html#aa1b346a599eac7c1923637b0ef9c5c15">XPLMI_GICP4_SRC8</a>)</td>
+          <td class="memname">#define XPLMI_SBI_GICPX_INDEX&#160;&#160;&#160;(<a class="el" href="2vp_2server_2xplmi__plat_8h.html#aa1b346a599eac7c1923637b0ef9c5c15">XPLMI_GICP4_SRC8</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2658,12 +2699,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div>
-<div class="line">                <span class="comment">/* Address range validation is disabled for Versal by default */</span> \</div>
+<div class="line">                <span class="comment">/* Address range validation disabled; if(FALSE) references Label (unused-label). */</span> \</div>
 <div class="line">                (void)(SubsysId); \</div>
 <div class="line">                (void)(StartAddr); \</div>
 <div class="line">                (void)(Len); \</div>
 <div class="line">                (void)(StatusVar); \</div>
 <div class="line">                (void)(ErrorCode); \</div>
+<div class="line">                if (FALSE) { \</div>
+<div class="line">                        goto Label; \</div>
+<div class="line">                } \</div>
 <div class="line">        } <span class="keywordflow">while</span>(0)</div>
 </div><!-- fragment -->
 <p>This macro calls the registered address validation handler (XPm_IsMemAddressValid) to ensure memory access is within valid bounds for security-critical functions. </p>
@@ -2675,11 +2719,10 @@ Variables</h2></td></tr>
     <tr><td class="paramname">Len</td><td>Length of the address range to verify </td></tr>
     <tr><td class="paramname">StatusVar</td><td>Status variable to be updated </td></tr>
     <tr><td class="paramname">ErrorCode</td><td>Error code to set on failure </td></tr>
-    <tr><td class="paramname">Label</td><td>Label to jump to on error</td></tr>
+    <tr><td class="paramname">Label</td><td>Label to jump to on error </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 <p>Referenced by <a class="el" href="group__xilplmi__server__apis.html#ga55386f16ba285aad19581e39570e17e7">XPlmi_SsitCfgSecComm()</a>.</p>
 
@@ -2826,6 +2869,8 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a474000d38b1a08dfe6e64e5c0d7ce754"></a>XPLMI_ERR_INVALID_LOG_BUF_TYPE</em>&nbsp;</td><td class="fielddoc">
 <p>0x26 - Error when invalid log buffer type is received in Logging command. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a334d689c5752d45147624515d625c542"></a>XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER</em>&nbsp;</td><td class="fielddoc">
 <p>0x27 - Error when registering the address range handler </p>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a16331111f380adfe5ef26173c6f94221"></a>XPLMI_ERR_INVALID_ADDR_RANGE</em>&nbsp;</td><td class="fielddoc">
@@ -2836,21 +2881,23 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5abab859474788188c34e50ac8b707d27f"></a>XPLMI_ERR_SSIT_SLAVE_SYNC</em>&nbsp;</td><td class="fielddoc">
 <p>0x201 - Error when SSIT master times out waiting for slaves sync point </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5ad7bfb7f172315641d60e8d1facafa606"></a>XPLMI_SSIT_INVALID_DMA</em>&nbsp;</td><td class="fielddoc">
 <p>0x202 - Minor error if DMA initialization returns NULL during secure plm to plm communication </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a6ea88381628caa16fed24bf52c584713"></a>XPLMI_SSIT_INAVLID_DMA</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a9e1f9748cf734d9844e00bfb536ed0c6"></a>XPLMI_SSIT_AES_INIT_FAIL</em>&nbsp;</td><td class="fielddoc">
 <p>0x203 - Minor error if AES initialization fails during secure plm to plm communication </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a9e1f9748cf734d9844e00bfb536ed0c6"></a>XPLMI_SSIT_AES_INIT_FAIL</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5abcead5cf3b45acf106e5c96022d52ef8"></a>XPLMI_SSIT_ENCDEC_INIT_FAIL</em>&nbsp;</td><td class="fielddoc">
 <p>0x204 - Minor error if encryption/decryption initialization fails during secure plm to plm communication </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5abcead5cf3b45acf106e5c96022d52ef8"></a>XPLMI_SSIT_ENCDEC_INIT_FAIL</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a0055dbada43d363e2fc3317ba9117c21"></a>XPLMI_SSIT_AAD_UPDATE_FAIL</em>&nbsp;</td><td class="fielddoc">
 <p>0x205 - Minor error if AAD updation fails during encryption/decryption operation </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a0055dbada43d363e2fc3317ba9117c21"></a>XPLMI_SSIT_AAD_UPDATE_FAIL</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a1e6a30d0e54bef530ffbedbef3788b4f"></a>XPLMI_SSIT_DATA_UPDATE_FAIL</em>&nbsp;</td><td class="fielddoc">
 <p>0x206 - Minor error if data updation fails during encryption/decryption operation </p>
 </td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5a1e6a30d0e54bef530ffbedbef3788b4f"></a>XPLMI_SSIT_DATA_UPDATE_FAIL</em>&nbsp;</td><td class="fielddoc">
+<tr><td class="fieldname"><em><a class="anchor" id="a99fb83031ce9923c84392b4e92f956b5aa190d2debf5d3191013af5eeda066cc5"></a>XPLMI_SSIT_TAG_GENERATION_FAIL</em>&nbsp;</td><td class="fielddoc">
 <p>0x207 - Minor error if tag generation fails during encryption/decryption operation </p>
 </td></tr>
 </table>

@@ -16,6 +16,7 @@ var searchData=
   ['drvhpdeventhandler',['DrvHpdEventHandler',['../struct_x_dp___tx.html#ae45a90a87a306554c23c49e25d1cab8c',1,'XDp_Tx']]],
   ['drvhpdpulsecallbackref',['DrvHpdPulseCallbackRef',['../struct_x_dp___tx.html#a2c40ae42193e6ebca87420dd04052d24',1,'XDp_Tx']]],
   ['drvhpdpulsehandler',['DrvHpdPulseHandler',['../struct_x_dp___tx.html#a8ae147b0aaca037acf88df569a89c451',1,'XDp_Tx']]],
+  ['dscen',['DscEn',['../struct_x_dp___config.html#ae022940b28789e7260b1fd852f0c29fb',1,'XDp_Config']]],
   ['dualpixelen',['DualPixelEn',['../struct_x_dp___config.html#a8bd1f6452601ab45a534e5e567cef1e6',1,'XDp_Config']]],
   ['dynamicrange',['DynamicRange',['../struct_x_dp___main_stream_attributes.html#a7f6480bdc32ee41d82fb5173cbe405bd',1,'XDp_MainStreamAttributes::DynamicRange()'],['../struct_x_dp___tx_vsc_ext_packet.html#aa1fb2aaa52c0fa1f799d07bde894a76d',1,'XDp_TxVscExtPacket::DynamicRange()']]]
 ];

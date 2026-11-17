@@ -48,6 +48,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -93,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_ldpc_parameters.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,19 +105,311 @@ $(document).ready(function(){initNavTree('struct_x_sd_fec_ldpc_parameters.html',
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XSdFecLdpcParameters Struct Reference</div>  </div>
+<div class="title">XSdFecLdpcParameters Struct Reference<div class="ingroups"><a class="el" href="group__sd__fec.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Struct defining LDPC code parameters.
+<p>Holds LDPC code parameters.
  <a href="struct_x_sd_fec_ldpc_parameters.html#details">More...</a></p>
 
 <p><code>#include &lt;xsdfec.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:ad5c4ce0e72f27b80372f308600096844"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#ad5c4ce0e72f27b80372f308600096844">N</a></td></tr>
+<tr class="memdesc:ad5c4ce0e72f27b80372f308600096844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codeword length N.  <a href="#ad5c4ce0e72f27b80372f308600096844">More...</a><br/></td></tr>
+<tr class="separator:ad5c4ce0e72f27b80372f308600096844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af39820883562c8735a0701dc88e44904"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#af39820883562c8735a0701dc88e44904">K</a></td></tr>
+<tr class="memdesc:af39820883562c8735a0701dc88e44904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Information length K.  <a href="#af39820883562c8735a0701dc88e44904">More...</a><br/></td></tr>
+<tr class="separator:af39820883562c8735a0701dc88e44904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f7c54c0fae14119b4227e7f9a0e12e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a46f7c54c0fae14119b4227e7f9a0e12e">PSize</a></td></tr>
+<tr class="memdesc:a46f7c54c0fae14119b4227e7f9a0e12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sub-matrix size.  <a href="#a46f7c54c0fae14119b4227e7f9a0e12e">More...</a><br/></td></tr>
+<tr class="separator:a46f7c54c0fae14119b4227e7f9a0e12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ec62eeab6f4407167941d381b57ef5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#ae2ec62eeab6f4407167941d381b57ef5">NLayers</a></td></tr>
+<tr class="memdesc:ae2ec62eeab6f4407167941d381b57ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of layers.  <a href="#ae2ec62eeab6f4407167941d381b57ef5">More...</a><br/></td></tr>
+<tr class="separator:ae2ec62eeab6f4407167941d381b57ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa56c0232abdc166de32c2aa206a9db34"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#aa56c0232abdc166de32c2aa206a9db34">NQC</a></td></tr>
+<tr class="memdesc:aa56c0232abdc166de32c2aa206a9db34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of QC entries.  <a href="#aa56c0232abdc166de32c2aa206a9db34">More...</a><br/></td></tr>
+<tr class="separator:aa56c0232abdc166de32c2aa206a9db34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a040ced59607704251d88fd4fafc68d13"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a040ced59607704251d88fd4fafc68d13">NMQC</a></td></tr>
+<tr class="memdesc:a040ced59607704251d88fd4fafc68d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of QC operations.  <a href="#a040ced59607704251d88fd4fafc68d13">More...</a><br/></td></tr>
+<tr class="separator:a040ced59607704251d88fd4fafc68d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89327e7a4d3974c29ba3317a697161fc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a89327e7a4d3974c29ba3317a697161fc">NM</a></td></tr>
+<tr class="memdesc:a89327e7a4d3974c29ba3317a697161fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of circulants.  <a href="#a89327e7a4d3974c29ba3317a697161fc">More...</a><br/></td></tr>
+<tr class="separator:a89327e7a4d3974c29ba3317a697161fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82b60d72f8155a60b4034e1ab8a40150"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a82b60d72f8155a60b4034e1ab8a40150">NormType</a></td></tr>
+<tr class="memdesc:a82b60d72f8155a60b4034e1ab8a40150"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalization type.  <a href="#a82b60d72f8155a60b4034e1ab8a40150">More...</a><br/></td></tr>
+<tr class="separator:a82b60d72f8155a60b4034e1ab8a40150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65c41eda056a7c0756caa3cd069cd319"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a65c41eda056a7c0756caa3cd069cd319">NoPacking</a></td></tr>
+<tr class="memdesc:a65c41eda056a7c0756caa3cd069cd319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable packing.  <a href="#a65c41eda056a7c0756caa3cd069cd319">More...</a><br/></td></tr>
+<tr class="separator:a65c41eda056a7c0756caa3cd069cd319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916fac05723499327fcc7790887d0fc7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a916fac05723499327fcc7790887d0fc7">SpecialQC</a></td></tr>
+<tr class="memdesc:a916fac05723499327fcc7790887d0fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special QC flag.  <a href="#a916fac05723499327fcc7790887d0fc7">More...</a><br/></td></tr>
+<tr class="separator:a916fac05723499327fcc7790887d0fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00d637e1d780bb596e4a9c86fac6e6f7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a00d637e1d780bb596e4a9c86fac6e6f7">NoFinalParity</a></td></tr>
+<tr class="memdesc:a00d637e1d780bb596e4a9c86fac6e6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable final parity check.  <a href="#a00d637e1d780bb596e4a9c86fac6e6f7">More...</a><br/></td></tr>
+<tr class="separator:a00d637e1d780bb596e4a9c86fac6e6f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48e8e6cb3347612b8569a6a3ce034152"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a48e8e6cb3347612b8569a6a3ce034152">MaxSchedule</a></td></tr>
+<tr class="memdesc:a48e8e6cb3347612b8569a6a3ce034152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum schedule value.  <a href="#a48e8e6cb3347612b8569a6a3ce034152">More...</a><br/></td></tr>
+<tr class="separator:a48e8e6cb3347612b8569a6a3ce034152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a536c2840ea6387cee504d54fbadf8f3d"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#a536c2840ea6387cee504d54fbadf8f3d">SCTable</a></td></tr>
+<tr class="memdesc:a536c2840ea6387cee504d54fbadf8f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the scale table.  <a href="#a536c2840ea6387cee504d54fbadf8f3d">More...</a><br/></td></tr>
+<tr class="separator:a536c2840ea6387cee504d54fbadf8f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e3823a39ca9ba5e7f29eb1502176db"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#ad9e3823a39ca9ba5e7f29eb1502176db">LATable</a></td></tr>
+<tr class="memdesc:ad9e3823a39ca9ba5e7f29eb1502176db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the layered architecture table.  <a href="#ad9e3823a39ca9ba5e7f29eb1502176db">More...</a><br/></td></tr>
+<tr class="separator:ad9e3823a39ca9ba5e7f29eb1502176db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af30c48962d9323a4af8e990aa6641f21"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sd_fec_ldpc_parameters.html#af30c48962d9323a4af8e990aa6641f21">QCTable</a></td></tr>
+<tr class="memdesc:af30c48962d9323a4af8e990aa6641f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the QC table.  <a href="#af30c48962d9323a4af8e990aa6641f21">More...</a><br/></td></tr>
+<tr class="separator:af30c48962d9323a4af8e990aa6641f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Struct defining LDPC code parameters. </p>
-<p>Member values are defined in device specific header x&lt;ipinst_name &gt;_&lt;code_id&gt;_params.h. as per IP GUI configuration </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds LDPC code parameters. </p>
+<p>Member values are defined in the device specific header "x&lt;ipinst_name&gt;_&lt;code_id&gt;_params.h" as per IP GUI configuration. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="af39820883562c8735a0701dc88e44904"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::K</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Information length K. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad9e3823a39ca9ba5e7f29eb1502176db"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32* XSdFecLdpcParameters::LATable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the layered architecture table. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a48e8e6cb3347612b8569a6a3ce034152"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::MaxSchedule</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum schedule value. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad5c4ce0e72f27b80372f308600096844"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::N</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Codeword length N. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae2ec62eeab6f4407167941d381b57ef5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NLayers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of layers. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>, and <a class="el" href="group__sd__fec.html#ga7ddc8f4d66431964d816d72e30fa071e">XSdFecShareTableSize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a89327e7a4d3974c29ba3317a697161fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NM</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of circulants. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a040ced59607704251d88fd4fafc68d13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NMQC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of QC operations. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a00d637e1d780bb596e4a9c86fac6e6f7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NoFinalParity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable final parity check. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a65c41eda056a7c0756caa3cd069cd319"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NoPacking</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable packing. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a82b60d72f8155a60b4034e1ab8a40150"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NormType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Normalization type. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa56c0232abdc166de32c2aa206a9db34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::NQC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of QC entries. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>, and <a class="el" href="group__sd__fec.html#ga7ddc8f4d66431964d816d72e30fa071e">XSdFecShareTableSize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a46f7c54c0fae14119b4227e7f9a0e12e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::PSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sub-matrix size. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af30c48962d9323a4af8e990aa6641f21"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32* XSdFecLdpcParameters::QCTable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the QC table. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a536c2840ea6387cee504d54fbadf8f3d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32* XSdFecLdpcParameters::SCTable</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the scale table. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a916fac05723499327fcc7790887d0fc7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSdFecLdpcParameters::SpecialQC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Special QC flag. </p>
+
+<p>Referenced by <a class="el" href="group__sd__fec.html#ga7bee92134cc7d67afc861e55698857ac">XSdFecAddLdpcParams()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

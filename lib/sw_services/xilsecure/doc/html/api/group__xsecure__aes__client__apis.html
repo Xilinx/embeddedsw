@@ -112,12 +112,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ga1ec86d85edf7d28d7581a348f0ec7866"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>&#160;&#160;&#160;(6U)</td></tr>
 <tr class="memdesc:ga1ec86d85edf7d28d7581a348f0ec7866"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLR index shift.  <a href="#ga1ec86d85edf7d28d7581a348f0ec7866">More...</a><br/></td></tr>
 <tr class="separator:ga1ec86d85edf7d28d7581a348f0ec7866"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94c380be37b6e05b4b7ed486f79847f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga94c380be37b6e05b4b7ed486f79847f6">XSECURE_KEY_SIZE_SHIFT</a>&#160;&#160;&#160;(16U)</td></tr>
-<tr class="memdesc:ga94c380be37b6e05b4b7ed486f79847f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key size shift constant.  <a href="#ga94c380be37b6e05b4b7ed486f79847f6">More...</a><br/></td></tr>
-<tr class="separator:ga94c380be37b6e05b4b7ed486f79847f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga273f2c5a7197c99ac107b60772a9b6a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga273f2c5a7197c99ac107b60772a9b6a3">XSECURE_DST_KEY_SRC_SHIFT</a>&#160;&#160;&#160;(8U)</td></tr>
-<tr class="memdesc:ga273f2c5a7197c99ac107b60772a9b6a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination key source shift constant.  <a href="#ga273f2c5a7197c99ac107b60772a9b6a3">More...</a><br/></td></tr>
-<tr class="separator:ga273f2c5a7197c99ac107b60772a9b6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf7eae7e456a1d11d550afb26e22ea199"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>&#160;&#160;&#160;(0x51U)</td></tr>
 <tr class="memdesc:gaf7eae7e456a1d11d550afb26e22ea199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid Argument for AES.  <a href="#gaf7eae7e456a1d11d550afb26e22ea199">More...</a><br/></td></tr>
 <tr class="separator:gaf7eae7e456a1d11d550afb26e22ea199"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,7 +197,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga056f80ac76299a3ed41102b9f21237e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to write the key provided into the specified AES key registers.  <a href="#ga056f80ac76299a3ed41102b9f21237e7">More...</a><br/></td></tr>
 <tr class="separator:ga056f80ac76299a3ed41102b9f21237e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5336eb4fdbdbd4c48776776c4524653e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">XSecure_AesKekDecrypt</a> (XSecure_ClientInstance *InstancePtr, u64 IvAddr, <a class="el" href="group__xsecure__aes__client__apis.html#ga3be7525f93a2e54baa60c3b1a9df262c">XSecure_AesKeySource</a> DstKeySrc, <a class="el" href="group__xsecure__aes__client__apis.html#ga3be7525f93a2e54baa60c3b1a9df262c">XSecure_AesKeySource</a> DecKeySrc, <a class="el" href="group__xsecure__aes__client__apis.html#ga55cd9d64e04cce6a57d729b67a5f0c47">XSecure_AesKeySize</a> Size)</td></tr>
-<tr class="memdesc:ga5336eb4fdbdbd4c48776776c4524653e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to decrypt the key in KEK key form.  <a href="#ga5336eb4fdbdbd4c48776776c4524653e">More...</a><br/></td></tr>
+<tr class="memdesc:ga5336eb4fdbdbd4c48776776c4524653e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is deprecated and no longer decrypts the key in KEK key form.  <a href="#ga5336eb4fdbdbd4c48776776c4524653e">More...</a><br/></td></tr>
 <tr class="separator:ga5336eb4fdbdbd4c48776776c4524653e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2149f38c111ed53eec28fc05ac1afb1e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__aes__client__apis.html#ga2149f38c111ed53eec28fc05ac1afb1e">XSecure_AesSetDpaCm</a> (XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)</td></tr>
 <tr class="memdesc:ga2149f38c111ed53eec28fc05ac1afb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to enable/disable DpaCm in AES.  <a href="#ga2149f38c111ed53eec28fc05ac1afb1e">More...</a><br/></td></tr>
@@ -234,39 +228,7 @@ Functions</h2></td></tr>
 
 <p>Invalid Argument for AES. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__aes__server__apis.html#gabf062a667c2c2204b6e15c1a5dc689dd">XSecure_AesCfgKupKeyNIv()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga42ab2048d7363ba51f6d9c4e9c93d88e">XSecure_AesEcbCfg()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gafc1c2624b3827e83af7c24b2906bb7db">XSecure_AesEncryptUpdate()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga62c2d78201f34ec93974d43035f71794">XSecure_AesGetNxtBlkLen()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga8adf6430b44ff6b7acf7df53a34df9b1">XSecure_AesGmacCfg()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga13b13c404de0b6f918193c4b63198acc">XSecure_AesInitialize()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">XSecure_AesKekDecrypt()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga91032738bf5e54ecd090f802dd30a23e">XSecure_AesKeyWrite()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga951b41e7a8b8a9ce252cdd640f69a8dc">XSecure_AesKeyZero()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga6b5414d0bffdebf14b418d2d05135faa">XSecure_AesKeyZeroize()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga1be5abccbec8cce45963a979c72828e1">XSecure_AesPerformOperation()</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga9224168b6fa6d11f59c50046f2221d11">XSecure_AesPlatPmcDmaCfgAndXfer()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gaf7009ee23d2f452bbcad0b44a7e162bc">XSecure_AesSetDpaCm()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gaeca8eaab9e67f642a1196aa2bc3e9492">XSecure_AesUpdateAadAndValidate()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga23c59319450ef4fac730de6019d36a5a">XSecure_AesWriteKey()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga273f2c5a7197c99ac107b60772a9b6a3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_DST_KEY_SRC_SHIFT&#160;&#160;&#160;(8U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destination key source shift constant. </p>
-
-<p>Referenced by <a class="el" href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">XSecure_AesKekDecrypt()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga94c380be37b6e05b4b7ed486f79847f6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_KEY_SIZE_SHIFT&#160;&#160;&#160;(16U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Key size shift constant. </p>
-
-<p>Referenced by <a class="el" href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">XSecure_AesKekDecrypt()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__aes__server__apis.html#gabf062a667c2c2204b6e15c1a5dc689dd">XSecure_AesCfgKupKeyNIv()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga074dbaf57b453f094f14c6b6c7aca964">XSecure_AesDecryptData()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga49114523757f3b39daf51876ba899e51">XSecure_AesDecryptFinal()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gacea2fc49243f66d0b440a95d1bd6170f">XSecure_AesDecryptInit()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga3150fb8656509ac0217c44c9609776cc">XSecure_AesDecryptUpdate()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga42ab2048d7363ba51f6d9c4e9c93d88e">XSecure_AesEcbCfg()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaa65c921632e25a29b33b883d85cf9058">XSecure_AesEncryptData()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga982cb284b765c652355d9f942798211b">XSecure_AesEncryptFinal()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga23f9b2bfaf978518d82c19d8331c9cb8">XSecure_AesEncryptInit()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gafc1c2624b3827e83af7c24b2906bb7db">XSecure_AesEncryptUpdate()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga62c2d78201f34ec93974d43035f71794">XSecure_AesGetNxtBlkLen()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga8adf6430b44ff6b7acf7df53a34df9b1">XSecure_AesGmacCfg()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga2c662c76ab7afdb97977628d81604ec1">XSecure_AesGmacUpdateAad()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga13b13c404de0b6f918193c4b63198acc">XSecure_AesInitialize()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga91032738bf5e54ecd090f802dd30a23e">XSecure_AesKeyWrite()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga951b41e7a8b8a9ce252cdd640f69a8dc">XSecure_AesKeyZero()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga6b5414d0bffdebf14b418d2d05135faa">XSecure_AesKeyZeroize()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga1be5abccbec8cce45963a979c72828e1">XSecure_AesPerformOperation()</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga9224168b6fa6d11f59c50046f2221d11">XSecure_AesPlatPmcDmaCfgAndXfer()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gaf7009ee23d2f452bbcad0b44a7e162bc">XSecure_AesSetDpaCm()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gab23a3dfb8aadcc94500201af5f25b659">XSecure_AesUpdateAad()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gaeca8eaab9e67f642a1196aa2bc3e9492">XSecure_AesUpdateAadAndValidate()</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga2bd4a79988d4eb7a1612e1ccc6430ca1">XSecure_AesValidateSize()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga23c59319450ef4fac730de6019d36a5a">XSecure_AesWriteKey()</a>.</p>
 
 </div>
 </div>
@@ -282,7 +244,7 @@ Functions</h2></td></tr>
 
 <p>SLR index shift. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__kat__client__apis.html#ga406813136028273d32d55dc2dd9f91c7">XSecure_AesDecryptCmKat()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga074dbaf57b453f094f14c6b6c7aca964">XSecure_AesDecryptData()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga49114523757f3b39daf51876ba899e51">XSecure_AesDecryptFinal()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gacea2fc49243f66d0b440a95d1bd6170f">XSecure_AesDecryptInit()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga1eb14922f650174090f0fdca7345a517">XSecure_AesDecryptKat()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga3150fb8656509ac0217c44c9609776cc">XSecure_AesDecryptUpdate()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaa65c921632e25a29b33b883d85cf9058">XSecure_AesEncryptData()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga982cb284b765c652355d9f942798211b">XSecure_AesEncryptFinal()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga23f9b2bfaf978518d82c19d8331c9cb8">XSecure_AesEncryptInit()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#gaff0e846438561c899db7c1ce4b00817c">XSecure_AesEncryptKat()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga162a8009f9d4983d841b517fe53d14c4">XSecure_AesEncryptUpdate()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga2c662c76ab7afdb97977628d81604ec1">XSecure_AesGmacUpdateAad()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga5336eb4fdbdbd4c48776776c4524653e">XSecure_AesKekDecrypt()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaa3c4b19232e0c5fa8cf14d69410e31e7">XSecure_AesKeyZero()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga1be5abccbec8cce45963a979c72828e1">XSecure_AesPerformOperation()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga2149f38c111ed53eec28fc05ac1afb1e">XSecure_AesSetDpaCm()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga056f80ac76299a3ed41102b9f21237e7">XSecure_AesWriteKey()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga623ff4e3a9216677e7b5abe2767790a8">XSecure_EllipticGenerateKey()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga640d4ab0cd1edb783d2d0a8c2af44ef5">XSecure_EllipticGenerateSign()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga5e9df7a4b6b28b1827cf11be03a97e0d">XSecure_EllipticSignGenKat()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#gaf5996378299f1f95c9a13592febad58a">XSecure_EllipticSignVerifyKat()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga4e7f8b3452f7f23b4591cc21f1806b54">XSecure_EllipticValidateKey()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga88eea76778dab99a54821e2117a3034e">XSecure_EllipticVerifySign()</a>, <a class="el" href="group__xsecure__mldsa__client__apis.html#ga6459e0032debbbfe8536196083c5748e">XSecure_MldsaSignGenerateClient()</a>, <a class="el" href="group__xsecure__mldsa__client__apis.html#gafbec3393033ad7b82ae44b8b8f31aab7">XSecure_MldsaSignVerifyClient()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#gaec9500ffdf3138f3e71404a3bd955972">XSecure_RsaPrivateDecKat()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#gaad026ed28e47be9b59e0444deb3af85a">XSecure_RsaPrivateDecrypt()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga7e00313e2e3f47bfb6dbc463889971c4">XSecure_RsaPublicEncKat()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#gaf2a6250efae11b0bdbfe22e6642dedf4">XSecure_RsaPublicEncrypt()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">XSecure_RsaSignVerification()</a>, <a class="el" href="group__xsecure__sha3__client__apis.html#gab0c12dd15d6024cff8a639da24e4eb72">XSecure_Sha2Kat()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ga08e726488222ad0ba91e822d90e97e1e">XSecure_Sha3Digest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gad9611876471310e83eae5fc2ac640576">XSecure_Sha3Finish()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga0743d577968e560b692122ab03e22d35">XSecure_Sha3Kat()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ga66d0db1bbf860bc2247297ce63f398a2">XSecure_Sha3Update()</a>, and <a class="el" href="group__xsecure__slhdsa__client__apis.html#ga971403d14ffa4f9b062864a62895b2b8">XSecure_SlhdsaSignVerifyClient()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__kat__client__apis.html#ga406813136028273d32d55dc2dd9f91c7">XSecure_AesDecryptCmKat()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga074dbaf57b453f094f14c6b6c7aca964">XSecure_AesDecryptData()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga49114523757f3b39daf51876ba899e51">XSecure_AesDecryptFinal()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gacea2fc49243f66d0b440a95d1bd6170f">XSecure_AesDecryptInit()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga1eb14922f650174090f0fdca7345a517">XSecure_AesDecryptKat()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga3150fb8656509ac0217c44c9609776cc">XSecure_AesDecryptUpdate()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaa65c921632e25a29b33b883d85cf9058">XSecure_AesEncryptData()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga982cb284b765c652355d9f942798211b">XSecure_AesEncryptFinal()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga23f9b2bfaf978518d82c19d8331c9cb8">XSecure_AesEncryptInit()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#gaff0e846438561c899db7c1ce4b00817c">XSecure_AesEncryptKat()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga162a8009f9d4983d841b517fe53d14c4">XSecure_AesEncryptUpdate()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga2c662c76ab7afdb97977628d81604ec1">XSecure_AesGmacUpdateAad()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaa3c4b19232e0c5fa8cf14d69410e31e7">XSecure_AesKeyZero()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga1be5abccbec8cce45963a979c72828e1">XSecure_AesPerformOperation()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga2149f38c111ed53eec28fc05ac1afb1e">XSecure_AesSetDpaCm()</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga056f80ac76299a3ed41102b9f21237e7">XSecure_AesWriteKey()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga623ff4e3a9216677e7b5abe2767790a8">XSecure_EllipticGenerateKey()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga640d4ab0cd1edb783d2d0a8c2af44ef5">XSecure_EllipticGenerateSign()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga5e9df7a4b6b28b1827cf11be03a97e0d">XSecure_EllipticSignGenKat()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#gaf5996378299f1f95c9a13592febad58a">XSecure_EllipticSignVerifyKat()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga4e7f8b3452f7f23b4591cc21f1806b54">XSecure_EllipticValidateKey()</a>, <a class="el" href="group__xsecure__ecdsa__client__apis.html#ga88eea76778dab99a54821e2117a3034e">XSecure_EllipticVerifySign()</a>, <a class="el" href="xsecure__libver_8h.html#ae22d1d0811abf08bad87a6adb01a7620">XSecure_GetServerLibInfo()</a>, <a class="el" href="group__xsecure__mldsa__client__apis.html#ga6459e0032debbbfe8536196083c5748e">XSecure_MldsaSignGenerateClient()</a>, <a class="el" href="group__xsecure__mldsa__client__apis.html#gafbec3393033ad7b82ae44b8b8f31aab7">XSecure_MldsaSignVerifyClient()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#gaec9500ffdf3138f3e71404a3bd955972">XSecure_RsaPrivateDecKat()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#gaad026ed28e47be9b59e0444deb3af85a">XSecure_RsaPrivateDecrypt()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#ga438ec16f016a9d63be18ebbced880bef">XSecure_RsaPssSignVerification()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga7e00313e2e3f47bfb6dbc463889971c4">XSecure_RsaPublicEncKat()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#gaf2a6250efae11b0bdbfe22e6642dedf4">XSecure_RsaPublicEncrypt()</a>, <a class="el" href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">XSecure_RsaSignVerification()</a>, <a class="el" href="group__xsecure__sha3__client__apis.html#gab0c12dd15d6024cff8a639da24e4eb72">XSecure_Sha2Kat()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ga08e726488222ad0ba91e822d90e97e1e">XSecure_Sha3Digest()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#gad9611876471310e83eae5fc2ac640576">XSecure_Sha3Finish()</a>, <a class="el" href="group__xsecure__kat__client__apis.html#ga0743d577968e560b692122ab03e22d35">XSecure_Sha3Kat()</a>, <a class="el" href="group__xsecure__sha__client__apis.html#ga66d0db1bbf860bc2247297ce63f398a2">XSecure_Sha3Update()</a>, and <a class="el" href="group__xsecure__slhdsa__client__apis.html#ga971403d14ffa4f9b062864a62895b2b8">XSecure_SlhdsaSignVerifyClient()</a>.</p>
 
 </div>
 </div>
@@ -474,10 +436,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On success</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>AES Decrypt Init operation</li>
 <li>AES Decrypt Update</li>
 <li>AES Decrypt Final</li>
@@ -487,7 +452,7 @@ Functions</h2></td></tr>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae">XSECURE_DECRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae">XSECURE_DECRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__server__apis.html#ga4dac9d051ab1e5fa765badf3b682a642">XSecure_AesPerformOperation()</a>.</p>
 
@@ -527,17 +492,18 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful encryption of the data</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2">XSECURE_API_AES_DECRYPT_FINAL</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2">XSECURE_API_AES_DECRYPT_FINAL</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__kat__server__apis.html#ga0567b89c7436b6925d6f64ef15b628e0">XSecure_AesDecryptKat()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga4dac9d051ab1e5fa765badf3b682a642">XSecure_AesPerformOperation()</a>.</p>
 
@@ -591,11 +557,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the Decrypt init is successful</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if size of the key is not 128 or 256 bits</li>
 <li>Link shared memory of size AesParams to AesParams structure for IPI usage.</li>
 <li>Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
@@ -603,7 +571,7 @@ Functions</h2></td></tr>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa">XSECURE_API_AES_OP_INIT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae">XSECURE_DECRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3">XSECURE_AES_KEY_SIZE_128</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa">XSECURE_API_AES_OP_INIT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933bea542b57e4f70f61000b962a8a0da83fae">XSECURE_DECRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__zynqmp__apis.html#gabaf0da2dbbd5f793378a8cc3700a8ef7">XSecure_AesDecryptData()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#ga0567b89c7436b6925d6f64ef15b628e0">XSecure_AesDecryptKat()</a>.</p>
 
@@ -664,18 +632,21 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful decryption of the data</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
+<li>Return XSECURE_AES_INVALID_PARAM if IsLast is not TRUE or FALSE</li>
 <li>Link shared memory of size DecInParams to DecInParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436">XSECURE_API_AES_DECRYPT_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436">XSECURE_API_AES_DECRYPT_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__zynqmp__apis.html#gabaf0da2dbbd5f793378a8cc3700a8ef7">XSecure_AesDecryptData()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#ga0567b89c7436b6925d6f64ef15b628e0">XSecure_AesDecryptKat()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga6422d39ce630dc928daba92a65da4c56">XSecure_AesEcbDecrypt()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga4da9ead453ef1dbeebefeebb377eb94d">XSecure_AesKeyUnwrap()</a>.</p>
 
@@ -757,10 +728,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On success</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>AES Init operation</li>
 <li>AES Encrypt Update</li>
 <li>AES Encrypt Final</li>
@@ -770,7 +744,7 @@ Functions</h2></td></tr>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091">XSECURE_ENCRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd">XSECURE_API_AES_PERFORM_OPERATION</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091">XSECURE_ENCRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__server__apis.html#ga4dac9d051ab1e5fa765badf3b682a642">XSecure_AesPerformOperation()</a>.</p>
 
@@ -810,17 +784,18 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful encryption of the data</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65">XSECURE_API_AES_ENCRYPT_FINAL</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65">XSECURE_API_AES_ENCRYPT_FINAL</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__kat__server__apis.html#gafe625810c2509e3d9b490d63c3861807">XSecure_AesEncryptKat()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga4dac9d051ab1e5fa765badf3b682a642">XSecure_AesPerformOperation()</a>.</p>
 
@@ -874,11 +849,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the Encrypt init is successful</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if size of the key is not 128 or 256 bits</li>
 <li>Link shared memory of size AesParams to AesParams structure for IPI usage.</li>
 <li>Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
@@ -886,7 +863,7 @@ Functions</h2></td></tr>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa">XSECURE_API_AES_OP_INIT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091">XSECURE_ENCRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3">XSECURE_AES_KEY_SIZE_128</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa">XSECURE_API_AES_OP_INIT</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggadcb99879df57dfcbb96293bd161933beae6aac4a684081de8c6c970ef364fd091">XSECURE_ENCRYPT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__zynqmp__apis.html#gace1d0dd6146035c42a6ae0add6f0d09a">XSecure_AesEncryptData()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#gafe625810c2509e3d9b490d63c3861807">XSecure_AesEncryptKat()</a>.</p>
 
@@ -947,11 +924,14 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful encryption of the data</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
+<li>Return XSECURE_AES_INVALID_PARAM if IsLast is not TRUE or FALSE</li>
 <li>Link shared memory of size EncInAddr to EncInAddr structure for IPI usage.</li>
 <li>Validates the size of the shared memory whether the required size is available or not.</li>
 <li>Fill Payload</li>
@@ -959,7 +939,7 @@ Functions</h2></td></tr>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2">XSECURE_API_AES_ENCRYPT_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2">XSECURE_API_AES_ENCRYPT_UPDATE</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__zynqmp__apis.html#gace1d0dd6146035c42a6ae0add6f0d09a">XSecure_AesEncryptData()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#gafe625810c2509e3d9b490d63c3861807">XSecure_AesEncryptKat()</a>.</p>
 
@@ -982,11 +962,10 @@ Functions</h2></td></tr>
 <p>This function returns the AES crypto algorithm information. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AlgInfo</td><td>Pointer to memory for holding the crypto algorithm information</td></tr>
+    <tr><td class="paramname">AlgInfo</td><td>Pointer to memory for holding the crypto algorithm information </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 <p>References <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477">XSECURE_API_AES_INIT</a>, and <a class="el" href="xsecure__alghelper_8c.html#aaf53b255cb80926070a852e882a331c9">XSecure_GetAlgInfo()</a>.</p>
 
@@ -1040,18 +1019,21 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the Aad update is successful</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE If there is a failure</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>To generate GMAC, this API must be called by setting IsLastChunkSrc as TRUE for the last update followed by XSecure_AesEncryptFinal or XSecure_AesDecryptFinal API call to generate or validate GMAC tag </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if AadSize is zero</li>
+<li>Return XSECURE_AES_INVALID_PARAM if IsLastChunkSrc is not TRUE or FALSE</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064">XSECURE_API_AES_UPDATE_AAD</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064">XSECURE_API_AES_UPDATE_AAD</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__client__apis.html#gab23a3dfb8aadcc94500201af5f25b659">XSecure_AesUpdateAad()</a>.</p>
 
@@ -1080,11 +1062,17 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the initialization is successful</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
+<ul>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid.</li>
+</ul>
 
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#ga2b8b3f8c925d15be80cff15f248c1532">SecureAesExample()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gaa58a05547f6ae883c23823bf0f3bed7d">XSecure_AesInit()</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga9aa6e139b83f8847145b76986672d29a">XSecure_AesShaInit()</a>.</p>
+<p>References <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>.</p>
+
+<p>Referenced by <a class="el" href="xilsecure__aes__example_8c.html#ga2b8b3f8c925d15be80cff15f248c1532">SecureAesExample()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gaa58a05547f6ae883c23823bf0f3bed7d">XSecure_AesInit()</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga9aa6e139b83f8847145b76986672d29a">XSecure_AesShaInit()</a>.</p>
 
 </div>
 </div>
@@ -1130,7 +1118,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sends IPI request to decrypt the key in KEK key form. </p>
+<p>This function is deprecated and no longer decrypts the key in KEK key form. </p>
+<p>IPI messaging for this API is restricted, hence it always returns an error. This API will be removed in the 2027.2 release.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
@@ -1142,19 +1131,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS On successful key decryption</li>
-<li>XSECURE_AES_INVALID_PARAM On invalid parameter</li>
-<li>XST_FAILURE If there is a failure </li>
+<li>XST_FAILURE Always, as IPI messaging is restricted for this API </li>
 </ul>
 </dd></dl>
-<ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
-<li>Fill Payload</li>
-<li>Send request to PLM through generic request API.</li>
-<li>This internally handles SMC or IPI mailbox based on build configuration.</li>
-</ul>
-
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3">XSECURE_AES_KEY_SIZE_128</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1">XSECURE_API_AES_KEK_DECRYPT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga273f2c5a7197c99ac107b60772a9b6a3">XSECURE_DST_KEY_SRC_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#ga94c380be37b6e05b4b7ed486f79847f6">XSECURE_KEY_SIZE_SHIFT</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -1192,17 +1171,18 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS When key zeroization is success</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb">XSECURE_API_AES_KEY_ZERO</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb">XSECURE_API_AES_KEY_ZERO</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__zynqmp__apis.html#ga9d60cf825dcf6e7eb30d734f01014266">XSecure_AesDecrypt()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gaed0ff5bd2a251e178b5c985cabbd5814">XSecure_AesDecryptCmKat()</a>, <a class="el" href="group__xsecure__aes__zynqmp__apis.html#ga78edf33e47f7a19be135b194af962d2c">XSecure_AesDecryptInit()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#ga0567b89c7436b6925d6f64ef15b628e0">XSecure_AesDecryptKat()</a>, <a class="el" href="group__xsecure__aes__zynqmp__apis.html#ga4db7441166b2271ceaac1ac859a15c60">XSecure_AesDecryptUpdate()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga6422d39ce630dc928daba92a65da4c56">XSecure_AesEcbDecrypt()</a>, <a class="el" href="group__xsecure__aes__zynqmp__apis.html#ga7b2c563fa3324f4f329b775f314b96c4">XSecure_AesEncryptInit()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gafe625810c2509e3d9b490d63c3861807">XSecure_AesEncryptKat()</a>, <a class="el" href="group__xsecure__aes__zynqmp__apis.html#gabdefc1128b9769010e42070e15f06d74">XSecure_AesEncryptUpdate()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga4da9ead453ef1dbeebefeebb377eb94d">XSecure_AesKeyUnwrap()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga6b5414d0bffdebf14b418d2d05135faa">XSecure_AesKeyZeroize()</a>.</p>
 
@@ -1247,6 +1227,8 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <ul>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if AesDataParams is NULL</li>
 <li>AES Encrypt/Decrypt Init operation</li>
 <li>AES Aad Update</li>
 <li>Set GMAC enable flag to TRUE for GMAC operation</li>
@@ -1307,15 +1289,18 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On success</li>
-<li>XST_FAILURE On failure </li>
+<li>XST_FAILURE On failure</li>
+<li>XST_INVALID_PARAM On invalid parameters </li>
 </ul>
 </dd></dl>
 <ul>
+<li>Validate the parameter pointer before the shared-memory bind</li>
+<li>Clear the data-buffer fields on the GMAC path so a reused shared-memory slot never presents stale parameters to the server.</li>
 <li>Fill IPI Payload</li>
 <li>Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey API and returns the status of the IPI response.</li>
 </ul>
 
-<p>References <a class="el" href="struct_x_secure___aes_data_block_params.html#a9ef0690b92cb373e4edba5f737c4e8ec">XSecure_AesDataBlockParams::AadAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a89359753467bd723766dd276a129fb8a">XSecure_AesDataBlockParams::AadSize</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#abba392dfef2cf097328fa01ebdcf4a0b">XSecure_AesDataBlockParams::GcmTagAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#ab305c36cde6d062cb2d9ec684eb884f3">XSecure_AesDataBlockParams::InDataAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a70006cade009be77a4bfd46988dffd07">XSecure_AesDataBlockParams::IsGmacEnable</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a5de1a144f2ca49b828bfd35dfca31098">XSecure_AesDataBlockParams::IsUpdateAadEn</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a32a405aa0b3b7347ea011c06e82112bb">XSecure_AesDataBlockParams::IvAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a5cb25284ffcb35d77f835feba3c80cca">XSecure_AesDataBlockParams::KeySize</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a9feccfc797d95c76df391388198737a7">XSecure_AesDataBlockParams::KeySrc</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a01bac95e3068af0ce8456da0be15ee99">XSecure_AesDataBlockParams::OperationId</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a0a399c993534db75688840d98da985ff">XSecure_AesDataBlockParams::OutDataAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a15ca86870bbcfea76408b68684b8fb39">XSecure_AesDataBlockParams::Size</a>, <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, and <a class="el" href="group__xsecure__mailbox__apis.html#ga6ac5f0da32dd8fb5fcd15a7e65b492bb">XSecure_ProcessMailbox()</a>.</p>
+<p>References <a class="el" href="struct_x_secure___aes_data_block_params.html#a9ef0690b92cb373e4edba5f737c4e8ec">XSecure_AesDataBlockParams::AadAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a89359753467bd723766dd276a129fb8a">XSecure_AesDataBlockParams::AadSize</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#abba392dfef2cf097328fa01ebdcf4a0b">XSecure_AesDataBlockParams::GcmTagAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#ab305c36cde6d062cb2d9ec684eb884f3">XSecure_AesDataBlockParams::InDataAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a70006cade009be77a4bfd46988dffd07">XSecure_AesDataBlockParams::IsGmacEnable</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a5de1a144f2ca49b828bfd35dfca31098">XSecure_AesDataBlockParams::IsUpdateAadEn</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a32a405aa0b3b7347ea011c06e82112bb">XSecure_AesDataBlockParams::IvAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a5cb25284ffcb35d77f835feba3c80cca">XSecure_AesDataBlockParams::KeySize</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a9feccfc797d95c76df391388198737a7">XSecure_AesDataBlockParams::KeySrc</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a01bac95e3068af0ce8456da0be15ee99">XSecure_AesDataBlockParams::OperationId</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a0a399c993534db75688840d98da985ff">XSecure_AesDataBlockParams::OutDataAddr</a>, <a class="el" href="struct_x_secure___aes_data_block_params.html#a15ca86870bbcfea76408b68684b8fb39">XSecure_AesDataBlockParams::Size</a>, <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</a>, <a class="el" href="group__xsecure__common__apis.html#ga4dc28d692c8e56b1837e73a956ddec26">XSecure_DCacheFlushRange</a>, and <a class="el" href="group__xsecure__mailbox__apis.html#ga172d3381387b4ba9fdec420f63e64b17">XSecure_ProcessMailbox()</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__aes__server__apis.html#ga1471a9dc9965ae80577a09aadafeeb53">XSecure_PlatAesIpiHandler()</a>.</p>
 
@@ -1355,17 +1340,19 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If configuration is success</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
 <ul>
 <li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if DpaCmCfg is not TRUE or FALSE</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de">XSECURE_API_AES_SET_DPA_CM</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -1410,14 +1397,16 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If the Aad update is successful</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE If there is a failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Send an IPI request to update AAD to AES engine with LastChunk as FALSE </li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
 </ul>
+<p>Send an IPI request to update AAD to AES engine with LastChunk as FALSE </p>
 
-<p>References <a class="el" href="group__xsecure__aes__client__apis.html#ga2c662c76ab7afdb97977628d81604ec1">XSecure_AesGmacUpdateAad()</a>.</p>
+<p>References <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga2c662c76ab7afdb97977628d81604ec1">XSecure_AesGmacUpdateAad()</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__kat__server__apis.html#ga0567b89c7436b6925d6f64ef15b628e0">XSecure_AesDecryptKat()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#gafe625810c2509e3d9b490d63c3861807">XSecure_AesEncryptKat()</a>.</p>
 
@@ -1471,17 +1460,19 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful key written on AES registers</li>
+<li>XSECURE_AES_INVALID_PARAM If any input parameter is invalid</li>
 <li>XST_FAILURE On failure </li>
 </ul>
 </dd></dl>
 <ul>
-<li>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</li>
+<li>Perform input parameter validation on InstancePtr. Return XSECURE_AES_INVALID_PARAM if input parameters are invalid</li>
+<li>Return XSECURE_AES_INVALID_PARAM if key size is not 128 or 256</li>
 <li>Fill Payload</li>
 <li>Send request to PLM through generic request API.</li>
 <li>This internally handles SMC or IPI mailbox based on build configuration.</li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>, <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="group__xsecure__aes__server__apis.html#gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3">XSECURE_AES_KEY_SIZE_128</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c">XSECURE_API_AES_WRITE_KEY</a>, <a class="el" href="group__xsecure__client__apis.html#ga05fa5011bc86e79725370a660a7172a1">XSecure_SendRequest()</a>, and <a class="el" href="group__xsecure__aes__client__apis.html#ga1ec86d85edf7d28d7581a348f0ec7866">XSECURE_SLR_INDEX_SHIFT</a>.</p>
 
 <p>Referenced by <a class="el" href="group__xsecure__kat__server__apis.html#ga0567b89c7436b6925d6f64ef15b628e0">XSecure_AesDecryptKat()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga6422d39ce630dc928daba92a65da4c56">XSecure_AesEcbDecrypt()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gafe625810c2509e3d9b490d63c3861807">XSecure_AesEncryptKat()</a>, <a class="el" href="group__xsecure__aes__server__apis.html#ga4da9ead453ef1dbeebefeebb377eb94d">XSecure_AesKeyUnwrap()</a>, and <a class="el" href="group__xsecure__aes__server__apis.html#ga91032738bf5e54ecd090f802dd30a23e">XSecure_AesKeyWrite()</a>.</p>
 

@@ -71,6 +71,7 @@
   <compound refid="diskio_8c" kind="file"><name>diskio.c</name>
     <member refid="diskio_8c_1a6a4641fe53e931f300c4d2c76b3729a0" kind="define"><name>XSDPS_NUM_INSTANCES</name></member>
     <member refid="diskio_8c_1ae78c57957d7a0cd5922d35610b0831d6" kind="define"><name>XUFSPSXC_START_INDEX</name></member>
+    <member refid="diskio_8c_1ad96dfc66eb1b59b5ffdf73106f75299d" kind="define"><name>XFFS_NUM_DRIVES</name></member>
     <member refid="diskio_8c_1a8dfaac5fa73d8318b3b3a51995ce96a3" kind="variable"><name>Stat</name></member>
     <member refid="diskio_8c_1a8348ac5ee6d709420c02e45c111f4793" kind="function"><name>disk_status</name></member>
     <member refid="diskio_8c_1a09cdaa6f36fa409bdf002727bff98eb1" kind="function"><name>disk_initialize</name></member>
@@ -280,8 +281,6 @@
     <member refid="xilffs__polled__example_8c_1a70f41bf48240360443fe8f178ccc3c83" kind="variable"><name>fatfs</name></member>
     <member refid="xilffs__polled__example_8c_1a2a2b85108f187506c7b12ed865c89077" kind="variable"><name>FileName</name></member>
     <member refid="xilffs__polled__example_8c_1a68d33c399ccb4786abaa66c067f2465f" kind="variable"><name>SD_File</name></member>
-    <member refid="xilffs__polled__example_8c_1a32ec4e981a41b5f94a1a4ee9de2d3f2b" kind="variable"><name>DestinationAddress</name></member>
-    <member refid="xilffs__polled__example_8c_1ab5e01f16f4a8dc07fb673679defd351e" kind="variable"><name>SourceAddress</name></member>
     <member refid="xilffs__polled__example_8c_1a8215107e5aafac2ca35ca5c5d42ec0c3" kind="variable"><name>mkfs_parm</name></member>
     <member refid="xilffs__polled__example_8c_1ab4afdccb37f4e35ed20d61a4a244fd5c" kind="function"><name>FfsSdPolledExample</name></member>
     <member refid="xilffs__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
@@ -296,16 +295,14 @@
     <member refid="xilffs__polled__ufs__example_8c_1a70f41bf48240360443fe8f178ccc3c83" kind="variable"><name>fatfs</name></member>
     <member refid="xilffs__polled__ufs__example_8c_1a2a2b85108f187506c7b12ed865c89077" kind="variable"><name>FileName</name></member>
     <member refid="xilffs__polled__ufs__example_8c_1a4fa43ad400ef753374676ec780cf2765" kind="variable"><name>UFS_File</name></member>
-    <member refid="xilffs__polled__ufs__example_8c_1a5ef1d2d32ac4c79b24622a4c5141d611" kind="variable"><name>DestinationAddress</name></member>
-    <member refid="xilffs__polled__ufs__example_8c_1ae655742e7d58b1b843b818ad5f6c937c" kind="variable"><name>SourceAddress</name></member>
     <member refid="xilffs__polled__ufs__example_8c_1a8215107e5aafac2ca35ca5c5d42ec0c3" kind="variable"><name>mkfs_parm</name></member>
     <member refid="xilffs__polled__ufs__example_8c_1a205ea75d4bbf0295d75ff8ad42683c4d" kind="function"><name>FfsUfsPolledExample</name></member>
     <member refid="xilffs__polled__ufs__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="group__xilffs" kind="group"><name>xilffs</name>
-    <member refid="group__xilffs_1gac16172136a2a99fda0d447e65516dac5" kind="function"><name>Xilffs_GetLibVersion</name></member>
     <member refid="group__xilffs_1gafe5177cb19123df9d8083d5071c44235" kind="define"><name>XILFFS_MAJOR_VERSION</name></member>
     <member refid="group__xilffs_1gabfed463ce178f869932d22a95d2554e7" kind="define"><name>XILFFS_MINOR_VERSION</name></member>
+    <member refid="group__xilffs_1gac16172136a2a99fda0d447e65516dac5" kind="function"><name>Xilffs_GetLibVersion</name></member>
   </compound>
   <compound refid="dir_c7696c030942893204f55df0cca1facc" kind="dir"><name>examples</name>
   </compound>

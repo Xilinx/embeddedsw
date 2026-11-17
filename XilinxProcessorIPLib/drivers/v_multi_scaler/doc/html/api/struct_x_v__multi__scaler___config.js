@@ -3,6 +3,7 @@ var struct_x_v__multi__scaler___config =
     [ "Ctrl_BaseAddress", "struct_x_v__multi__scaler___config.html#a193a23e3c0ef46725012db9d612b16a1", null ],
     [ "IntrId", "struct_x_v__multi__scaler___config.html#aee2ee849e0ec8d1bf83e0297fd1088c8", null ],
     [ "IntrParent", "struct_x_v__multi__scaler___config.html#ab960bcb609cd379cf99d519d9eda9b5e", null ],
+    [ "IsTileFormat", "struct_x_v__multi__scaler___config.html#a54aa600779eacdd8390f12c4b3441856", null ],
     [ "MaxCols", "struct_x_v__multi__scaler___config.html#aae036f12650c0b88be0c3b860eebfd7d", null ],
     [ "MaxDataWidth", "struct_x_v__multi__scaler___config.html#a92958a30478cdfb7a97f58fdfdb9ba7d", null ],
     [ "MaxOuts", "struct_x_v__multi__scaler___config.html#a74c17b5c445c6bdc29b2f28af5f4e6c5", null ],

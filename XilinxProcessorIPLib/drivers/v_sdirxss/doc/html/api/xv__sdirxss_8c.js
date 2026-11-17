@@ -23,5 +23,5 @@ var xv__sdirxss_8c =
     [ "XV_SdiRxSs_StreamFlowDisable", "xv__sdirxss_8c.html#a3843cd72bcb3260ba7002756dcda7eeb", null ],
     [ "XV_SdiRxSs_StreamFlowEnable", "xv__sdirxss_8c.html#ac1f60e4d77b72e3b6e7b24d9ead04947", null ],
     [ "XV_SdiRxSs_WaitforPayLoad", "xv__sdirxss_8c.html#aeef26d7216e3d1be32c040ad486d64aa", null ],
-    [ "XV_SdiRxSs_SubCoreRepo", "xv__sdirxss_8c.html#a8848e8f69becf28012b0fd22b743cdef", null ]
+    [ "XV_SdiRxSs_SubCoreRepo", "xv__sdirxss_8c.html#a27cf73475bf4b5fc52d9e876253370e6", null ]
 ];

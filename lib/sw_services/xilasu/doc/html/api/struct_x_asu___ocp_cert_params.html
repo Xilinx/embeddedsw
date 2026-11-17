@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -122,33 +123,30 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a51c1c6fa4113b532ca44fff879eab74e"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ocp_cert_params.html#a51c1c6fa4113b532ca44fff879eab74e">CertBufAddr</a></td></tr>
 <tr class="memdesc:a51c1c6fa4113b532ca44fff879eab74e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Certificate buffer address.  <a href="#a51c1c6fa4113b532ca44fff879eab74e">More...</a><br/></td></tr>
 <tr class="separator:a51c1c6fa4113b532ca44fff879eab74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11170b8674a8de5387a04058700a8c83"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ocp_cert_params.html#a11170b8674a8de5387a04058700a8c83">CertActualSizeAddr</a></td></tr>
+<tr class="memdesc:a11170b8674a8de5387a04058700a8c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address at which the actual size of the generated certificate is written.  <a href="#a11170b8674a8de5387a04058700a8c83">More...</a><br/></td></tr>
+<tr class="separator:a11170b8674a8de5387a04058700a8c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92f93e1c17fe3d3844afda84fb033303"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ocp_cert_params.html#a92f93e1c17fe3d3844afda84fb033303">CertBufLen</a></td></tr>
 <tr class="memdesc:a92f93e1c17fe3d3844afda84fb033303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Certificate buffer length.  <a href="#a92f93e1c17fe3d3844afda84fb033303">More...</a><br/></td></tr>
 <tr class="separator:a92f93e1c17fe3d3844afda84fb033303"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7da40094426fa29654155aa00a764e85"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ocp_cert_params.html#a7da40094426fa29654155aa00a764e85">CertActualSize</a></td></tr>
-<tr class="memdesc:a7da40094426fa29654155aa00a764e85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Certificate actual size.  <a href="#a7da40094426fa29654155aa00a764e85">More...</a><br/></td></tr>
-<tr class="separator:a7da40094426fa29654155aa00a764e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac399fb1b25745f8c06a56cb6eae1ef29"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ocp_cert_params.html#ac399fb1b25745f8c06a56cb6eae1ef29">DevKeySel</a></td></tr>
 <tr class="memdesc:ac399fb1b25745f8c06a56cb6eae1ef29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device key type.  <a href="#ac399fb1b25745f8c06a56cb6eae1ef29">More...</a><br/></td></tr>
 <tr class="separator:ac399fb1b25745f8c06a56cb6eae1ef29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7fea5b416ad637ee18f765217805777"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_asu___ocp_cert_params.html#ae7fea5b416ad637ee18f765217805777">Reserved</a> [4]</td></tr>
-<tr class="memdesc:ae7fea5b416ad637ee18f765217805777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit padding to ensure consistent struct size across architectures.  <a href="#ae7fea5b416ad637ee18f765217805777">More...</a><br/></td></tr>
-<tr class="separator:ae7fea5b416ad637ee18f765217805777"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This structure contains OCP params info. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a7da40094426fa29654155aa00a764e85"></a>
+<a class="anchor" id="a11170b8674a8de5387a04058700a8c83"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XAsu_OcpCertParams::CertActualSize</td>
+          <td class="memname">u64 XAsu_OcpCertParams::CertActualSizeAddr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Certificate actual size. </p>
+<p>Address at which the actual size of the generated certificate is written. </p>
 
 <p>Referenced by <a class="el" href="group__xasu__ocp__common__apis.html#ga14a22333993f81451f6060e6432b5608">XAsu_OcpValidateCertParams()</a>.</p>
 
@@ -199,20 +197,6 @@ Data Fields</h2></td></tr>
 <p>Device key type. </p>
 
 <p>Referenced by <a class="el" href="group__xasu__ocp__common__apis.html#ga14a22333993f81451f6060e6432b5608">XAsu_OcpValidateCertParams()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae7fea5b416ad637ee18f765217805777"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 XAsu_OcpCertParams::Reserved[4]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Explicit padding to ensure consistent struct size across architectures. </p>
 
 </div>
 </div>

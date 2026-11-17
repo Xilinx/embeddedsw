@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsdps__raw__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,14 +100,16 @@ $(document).ready(function(){initNavTree('xsdps__raw__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xsdps_raw_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This example is used to test read and write transfers on SD/eMMC interface. </p>
-<p>Please note that running this example will modify the card contents and file system information will be erased in the card. Card will need to be re-formatted.</p>
+<div class="textblock"><p>Tests read and write transfers on the SD/eMMC interface. </p>
+<p>Running this example modifies the card contents and erases the file system information in the card. The card needs to be re-formatted.</p>
 <p>Modify the offset and Size macros to test different SD memory offset and size.</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver    Who     Date     Changes
@@ -116,14 +118,80 @@ $(document).ready(function(){initNavTree('xsdps__raw__example_8c.html','');});
 <p>
  3.9    mn  12/02/19 First release
  3.10   mn  09/17/20 Fix sector offset issue with Non-HCS SD cards
- 4.2   ro     06/12/23 Added support for system device-tree flow.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsdps_8h.html">xsdps.h</a>&quot;</code><br/>
+ 4.2   ro     06/12/23 Added support for system device-tree flow.
+ 4.7   vn     07/30/26 Fix Doxygen warnings
+ 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsdps_8h.html">xsdps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab946e2e7f7679350627acfded8e2658b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsdps__raw__example_8c.html#ab946e2e7f7679350627acfded8e2658b">TEST</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:ab946e2e7f7679350627acfded8e2658b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base value of the test data pattern.  <a href="#ab946e2e7f7679350627acfded8e2658b">More...</a><br/></td></tr>
+<tr class="separator:ab946e2e7f7679350627acfded8e2658b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a622293b32ccc06f19e7f568ba80a2390"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsdps__raw__example_8c.html#a622293b32ccc06f19e7f568ba80a2390">NUM_BLOCKS</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:a622293b32ccc06f19e7f568ba80a2390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of SD blocks to test.  <a href="#a622293b32ccc06f19e7f568ba80a2390">More...</a><br/></td></tr>
+<tr class="separator:a622293b32ccc06f19e7f568ba80a2390"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1c25cd3dcc7137056f351bb4bae70a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsdps__raw__example_8c.html#afe1c25cd3dcc7137056f351bb4bae70a">SECTOR_OFFSET</a>&#160;&#160;&#160;204800</td></tr>
+<tr class="memdesc:afe1c25cd3dcc7137056f351bb4bae70a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sector offset to test.  <a href="#afe1c25cd3dcc7137056f351bb4bae70a">More...</a><br/></td></tr>
+<tr class="separator:afe1c25cd3dcc7137056f351bb4bae70a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsdps__raw__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the SD example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the SD example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a32ec4e981a41b5f94a1a4ee9de2d3f2b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsdps__raw__example_8c.html#a32ec4e981a41b5f94a1a4ee9de2d3f2b">DestinationAddress</a> [10 *1024]</td></tr>
+<tr class="memdesc:a32ec4e981a41b5f94a1a4ee9de2d3f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for the read data.  <a href="#a32ec4e981a41b5f94a1a4ee9de2d3f2b">More...</a><br/></td></tr>
+<tr class="separator:a32ec4e981a41b5f94a1a4ee9de2d3f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e01f16f4a8dc07fb673679defd351e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsdps__raw__example_8c.html#ab5e01f16f4a8dc07fb673679defd351e">SourceAddress</a> [10 *1024]</td></tr>
+<tr class="memdesc:ab5e01f16f4a8dc07fb673679defd351e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for the write data.  <a href="#ab5e01f16f4a8dc07fb673679defd351e">More...</a><br/></td></tr>
+<tr class="separator:ab5e01f16f4a8dc07fb673679defd351e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a622293b32ccc06f19e7f568ba80a2390"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_BLOCKS&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of SD blocks to test. </p>
+
+</div>
+</div>
+<a class="anchor" id="afe1c25cd3dcc7137056f351bb4bae70a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SECTOR_OFFSET&#160;&#160;&#160;204800</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sector offset to test. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab946e2e7f7679350627acfded8e2658b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base value of the test data pattern. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -139,9 +207,37 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the SD example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Calls the SD example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a32ec4e981a41b5f94a1a4ee9de2d3f2b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 DestinationAddress[10 *1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for the read data. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab5e01f16f4a8dc07fb673679defd351e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 SourceAddress[10 *1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for the write data. </p>
 
 </div>
 </div>

@@ -775,7 +775,6 @@
     <member refid="group__usb_1gad80065db5208ca261e05b1ce684fb641" kind="define"><name>XUSB_HSIC_STROBE_READY_MASK</name></member>
     <member refid="group__usb_1ga9266234122ad344a3d22723a1e6d8bca" kind="define"><name>XUSB_HSIC_DATA_IDELAY_MASK</name></member>
     <member refid="group__usb_1ga417ed5a79e71f945c61e872411741321" kind="define"><name>XUSB_HSIC_DATA_READY_MASK</name></member>
-    <member refid="group__usb_1ga9bf6fbcc39e08ac37722f7d6345e56ed" kind="define"><name>XUSB_L_H</name></member>
     <member refid="group__usb_1gad96832ef1a60271be6b8d06fb61d471c" kind="define"><name>XUSB_DMA_BRR_CTRL</name></member>
     <member refid="group__usb_1gabbc435cf0dfcac7df9fed79644333a32" kind="define"><name>XUsb_In32</name></member>
     <member refid="group__usb_1gafaaf289ae1bd886c47cc1e8db49f9c83" kind="define"><name>XUsb_Out32</name></member>
@@ -876,6 +875,28 @@
     <member refid="xusb__mouse_8h_1a1b632d7604a436480eab5de753e49792" kind="function"><name>EpIntrHandler</name></member>
     <member refid="xusb__mouse_8h_1a243967b329b332dc3503adfc2950fceb" kind="function"><name>Ep0IntrHandler</name></member>
     <member refid="xusb__mouse_8h_1a386bfc503aaebdfd92028284d6fb63f0" kind="function"><name>Ep1IntrHandler</name></member>
+  </compound>
+  <compound refid="xusb__msc_8c" kind="file"><name>xusb_msc.c</name>
+    <member refid="xusb__msc_8c_1a9d923a3c2e527279267bc7e04fb3d999" kind="define"><name>SENSE_RESPONSE_CODE_OFFSET</name></member>
+    <member refid="xusb__msc_8c_1ae21584f3b25c8831365374209db3dd65" kind="define"><name>SENSE_KEY_OFFSET</name></member>
+    <member refid="xusb__msc_8c_1aa348f3d83bb805302effc8189858a3dc" kind="define"><name>SENSE_ADDITIONAL_LENGTH_OFFSET</name></member>
+    <member refid="xusb__msc_8c_1a821e4f3d68f738a0783a3fff391c1c31" kind="define"><name>SENSE_ASC_OFFSET</name></member>
+    <member refid="xusb__msc_8c_1abf3dff72affb2f98475a8b5094ab6aa8" kind="define"><name>SENSE_ASCQ_OFFSET</name></member>
+    <member refid="xusb__msc_8c_1afa5035ca63983d98ca7ce8db7511b8fa" kind="define"><name>SENSE_RESPONSE_CODE</name></member>
+    <member refid="xusb__msc_8c_1ab93db1e1c4186e7168d324288ef88c2e" kind="define"><name>SENSE_ADDITIONAL_LENGTH</name></member>
+    <member refid="xusb__msc_8c_1ac92528d9ca5362f261319f90c279935f" kind="function"><name>XUsb_MsRejectCommand</name></member>
+    <member refid="xusb__msc_8c_1a885bed3c7959d70f572aca1b04b7f42d" kind="function"><name>XUsb_MsSetSense</name></member>
+  </compound>
+  <compound refid="xusb__msc_8h" kind="file"><name>xusb_msc.h</name>
+    <member refid="xusb__msc_8h_1a7fcb23023a09b18269aa671811d05e3c" kind="define"><name>XUSB_MSC_CSW_FAILED</name></member>
+    <member refid="xusb__msc_8h_1a447653c7915c7b5e12e5ba45e1b2a0f4" kind="define"><name>XUSB_MSC_SENSE_LEN</name></member>
+    <member refid="xusb__msc_8h_1a09de40e3547a6cbc54f070cfc81ab5ef" kind="define"><name>XUSB_MSC_SENSE_KEY_NO_SENSE</name></member>
+    <member refid="xusb__msc_8h_1aa95196e7093679465e201e69968a79bd" kind="define"><name>XUSB_MSC_SENSE_KEY_ILLEGAL_REQUEST</name></member>
+    <member refid="xusb__msc_8h_1aee607a5e4c56c8fedd3f5af3a1341f33" kind="define"><name>XUSB_MSC_SENSE_ASC_INVALID_OPCODE</name></member>
+    <member refid="xusb__msc_8h_1aa895e975ee7cd9bec061f1408df425a1" kind="define"><name>XUSB_MSC_SENSE_ASC_LBA_OUT_OF_RANGE</name></member>
+    <member refid="xusb__msc_8h_1a1511c49fe468e9b7b07c58d93c9345e2" kind="define"><name>XUSB_MSC_SENSE_ASC_INVALID_CDB_FIELD</name></member>
+    <member refid="xusb__msc_8h_1ac92528d9ca5362f261319f90c279935f" kind="function"><name>XUsb_MsRejectCommand</name></member>
+    <member refid="xusb__msc_8h_1a885bed3c7959d70f572aca1b04b7f42d" kind="function"><name>XUsb_MsSetSense</name></member>
   </compound>
   <compound refid="xusb__phy__read__write_8c" kind="file"><name>xusb_phy_read_write.c</name>
     <member refid="xusb__phy__read__write_8c_1a4a0163f17a6a9cf0cb2a7d51aef9f521" kind="define"><name>XUSB_BASEADDRESS</name></member>
@@ -1030,6 +1051,7 @@
     <member refid="xusb__storage__polled__mode_8c_1a9da1b8e3e706a5c1451b6fc1221d7c3f" kind="variable"><name>RdIndex</name></member>
     <member refid="xusb__storage__polled__mode_8c_1a7b56ae8d7870abac9b69f6be89efaa48" kind="variable"><name>WrIndex</name></member>
     <member refid="xusb__storage__polled__mode_8c_1adef2e1f5f3afd0af4734457d99dd76e6" kind="variable"><name>IntrStatus</name></member>
+    <member refid="xusb__storage__polled__mode_8c_1a2dfc62201c9c9939b786c019f6dd4101" kind="variable"><name>SendStatus</name></member>
     <member refid="xusb__storage__polled__mode_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
     <member refid="xusb__storage__polled__mode_8c_1a3b40155d0d9fa44133905dd9f6f02ee7" kind="function"><name>InitUsbInterface</name></member>
     <member refid="xusb__storage__polled__mode_8c_1a8bd3ecc4e2acd07b864ea2392a0394f4" kind="function"><name>UsbIfIntrHandler</name></member>
@@ -1287,7 +1309,6 @@
     <member refid="group__usb_1ga6fbf5a1ddbca576e8c1e7d235da878ab" kind="function"><name>XUsb_DmaIntrSetHandler</name></member>
     <member refid="group__usb_1ga0573097a6ec999bac0f865dc18113df3" kind="function"><name>XUsb_UlpiIntrSetHandler</name></member>
     <member refid="group__usb_1ga83ca5d56b85bf4f28c99338a05c9a856" kind="function"><name>XUsb_LookupConfig</name></member>
-    <member refid="group__usb_1ga9bf6fbcc39e08ac37722f7d6345e56ed" kind="define"><name>XUSB_L_H</name></member>
     <member refid="group__usb_1gad96832ef1a60271be6b8d06fb61d471c" kind="define"><name>XUSB_DMA_BRR_CTRL</name></member>
     <member refid="group__usb_1gabbc435cf0dfcac7df9fed79644333a32" kind="define"><name>XUsb_In32</name></member>
     <member refid="group__usb_1gafaaf289ae1bd886c47cc1e8db49f9c83" kind="define"><name>XUsb_Out32</name></member>

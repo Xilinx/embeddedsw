@@ -8,6 +8,15 @@
       <node id="35">
         <label>xil_assert.h</label>
       </node>
+      <node id="36">
+        <label>xstatus.h</label>
+      </node>
+      <node id="34">
+        <label>xil_types.h</label>
+      </node>
+      <node id="37">
+        <label>xparameters.h</label>
+      </node>
       <node id="33">
         <label>xtmr_manager.h</label>
         <link refid="xtmr__manager_8h"/>
@@ -17,15 +26,6 @@
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
-      </node>
-      <node id="36">
-        <label>xstatus.h</label>
-      </node>
-      <node id="34">
-        <label>xil_types.h</label>
-      </node>
-      <node id="37">
-        <label>xparameters.h</label>
       </node>
       <node id="32">
         <label>xtmr_manager_g.c</label>
@@ -75,7 +75,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga19df82d2bc220d9855e5eaed3fc42b67" compoundref="xtmr__manager__sinit_8c" startline="85" endline="98">XTMR_Manager_LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -85,7 +86,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -139,6 +140,6 @@
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c"/>
   </compounddef>
 </doxygen>

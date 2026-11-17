@@ -7,73 +7,73 @@
     <includes refid="xsecure__slhdsa__wots_8h" local="yes">xsecure_slhdsa_wots.h</includes>
     <includes refid="xsecure__slhdsa__fors_8h" local="yes">xsecure_slhdsa_fors.h</includes>
     <incdepgraph>
-      <node id="4533">
+      <node id="4780">
         <label>xsecure_slhdsa_addr.h</label>
         <link refid="xsecure__slhdsa__addr_8h"/>
-        <childnode refid="4534" relation="include">
+        <childnode refid="4781" relation="include">
         </childnode>
-        <childnode refid="4535" relation="include">
+        <childnode refid="4782" relation="include">
         </childnode>
-        <childnode refid="4536" relation="include">
+        <childnode refid="4783" relation="include">
         </childnode>
       </node>
-      <node id="4535">
+      <node id="4782">
         <label>xil_io.h</label>
       </node>
-      <node id="4538">
-        <label>xsecure_slhdsa_instance.h</label>
-        <link refid="xsecure__slhdsa__instance_8h"/>
-        <childnode refid="4533" relation="include">
-        </childnode>
-        <childnode refid="4534" relation="include">
-        </childnode>
-        <childnode refid="4539" relation="include">
-        </childnode>
-      </node>
-      <node id="4539">
+      <node id="4786">
         <label>xsecure_sha.h</label>
       </node>
-      <node id="4532">
-        <label>xsecure_slhdsa_wots.c</label>
-        <link refid="xsecure_slhdsa_wots.c"/>
-        <childnode refid="4533" relation="include">
-        </childnode>
-        <childnode refid="4537" relation="include">
-        </childnode>
-        <childnode refid="4540" relation="include">
-        </childnode>
-        <childnode refid="4541" relation="include">
-        </childnode>
-      </node>
-      <node id="4540">
-        <label>xsecure_slhdsa_wots.h</label>
-        <link refid="xsecure__slhdsa__wots_8h"/>
-        <childnode refid="4538" relation="include">
-        </childnode>
-        <childnode refid="4534" relation="include">
-        </childnode>
-      </node>
-      <node id="4536">
-        <label>xsecure_utils.h</label>
-      </node>
-      <node id="4534">
-        <label>xil_types.h</label>
-      </node>
-      <node id="4541">
+      <node id="4788">
         <label>xsecure_slhdsa_fors.h</label>
         <link refid="xsecure__slhdsa__fors_8h"/>
-        <childnode refid="4534" relation="include">
+        <childnode refid="4781" relation="include">
         </childnode>
-        <childnode refid="4538" relation="include">
+        <childnode refid="4785" relation="include">
         </childnode>
       </node>
-      <node id="4537">
+      <node id="4785">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4780" relation="include">
+        </childnode>
+        <childnode refid="4781" relation="include">
+        </childnode>
+        <childnode refid="4786" relation="include">
+        </childnode>
+      </node>
+      <node id="4784">
         <label>xsecure_slhdsa_hash.h</label>
         <link refid="xsecure__slhdsa__hash_8h"/>
-        <childnode refid="4538" relation="include">
+        <childnode refid="4785" relation="include">
         </childnode>
-        <childnode refid="4534" relation="include">
+        <childnode refid="4781" relation="include">
         </childnode>
+      </node>
+      <node id="4779">
+        <label>xsecure_slhdsa_wots.c</label>
+        <link refid="xsecure_slhdsa_wots.c"/>
+        <childnode refid="4780" relation="include">
+        </childnode>
+        <childnode refid="4784" relation="include">
+        </childnode>
+        <childnode refid="4787" relation="include">
+        </childnode>
+        <childnode refid="4788" relation="include">
+        </childnode>
+      </node>
+      <node id="4787">
+        <label>xsecure_slhdsa_wots.h</label>
+        <link refid="xsecure__slhdsa__wots_8h"/>
+        <childnode refid="4785" relation="include">
+        </childnode>
+        <childnode refid="4781" relation="include">
+        </childnode>
+      </node>
+      <node id="4783">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4781">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -124,7 +124,7 @@
 <para><itemizedlist>
 <listitem><para>Buffer to hold checksum as bytes (max 4 bytes needed)</para></listitem><listitem><para>Step 2: msg &lt;- base_2b(M, lgw, len1) - Convert message to base-w</para></listitem><listitem><para>Step 3-5: Compute checksum</para></listitem><listitem><para>for i from 0 to len1 - 1 do</para></listitem><listitem><para>Step 4: csum &lt;- csum + w - 1 - msg[i]</para></listitem><listitem><para>w = 2^lgw, so w-1 = (1 &lt;&lt; lgw) - 1</para></listitem><listitem><para>Step 5: end for</para></listitem><listitem><para>Step 6: csum &lt;- csum &lt;&lt; ((8 - ((len2 * lgw) mod 8)) mod 8)</para></listitem><listitem><para>For lgw=4, this shifts left by 4 bits</para></listitem><listitem><para>Convert checksum to bytes for base_2b conversion</para></listitem><listitem><para>toByte(csum, ceil(len2*lgw/8))</para></listitem><listitem><para>Store checksum in big-endian format</para></listitem><listitem><para>Step 7: msg &lt;- msg || base_2b(toByte(csum, ceil(len2*lgw/8)), lgw, len2)</para></listitem><listitem><para>Convert checksum to base-w and append to message array </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" bodystart="55" bodyend="92"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" bodystart="55" bodyend="92"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -196,7 +196,7 @@ Given: M=FORS_PK (32 bytes), WotsSign=WOTS_signature (2144 bytes) Input message:
 <para><itemizedlist>
 <listitem><para>Step 1: csum &lt;- 0 (handled inside WotsCheckSum)</para></listitem><listitem><para>Step 2: msg &lt;- base_2b(M, lgw, len1) (handled inside WotsCheckSum)</para></listitem><listitem><para>Step 3-7: Compute checksum and append to msg (handled inside WotsCheckSum)</para></listitem><listitem><para>Step 8: for i from 0 to len-1 do</para></listitem><listitem><para>Use embedded parameter for total length instead of direct Param-&gt;len</para></listitem><listitem><para>Step 9: ADRS.setChainAddress(i)</para></listitem><listitem><para>Step 11: end for</para></listitem><listitem><para>Step 12: wotspkADRS &lt;- ADRS (current ADRS used)</para></listitem><listitem><para>Step 13: wotspkADRS.setTypeAndClear(WOTS_PK)</para></listitem><listitem><para>Step 16: return pksig </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" bodystart="214" bodyend="282"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" bodystart="214" bodyend="282"/>
         <references refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" compoundref="xsecure__slhdsa__instance_8h" startline="222">XSecure_SlhdsaInstance::Addr</references>
         <references refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" compoundref="xsecure__slhdsa__instance_8h" startline="177">XSecure_ChecksumParam::ChecksumLenInDigits</references>
         <references refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" compoundref="xsecure__slhdsa__instance_8h" startline="210">XSecure_SlhdsaParam::ChecksumParams</references>
@@ -209,8 +209,8 @@ Given: M=FORS_PK (32 bytes), WotsSign=WOTS_signature (2144 bytes) Input message:
         <references refid="struct_x_secure___slhdsa_chain_config_1a6f07310e601a00ebbfda4382dc31fafe" compoundref="xsecure__slhdsa__hash_8h" startline="46">XSecure_SlhdsaChainConfig::StartIdx</references>
         <references refid="struct_x_secure___slhdsa_chain_config_1a1a8026f972031d204b1f91187a44f25a" compoundref="xsecure__slhdsa__hash_8h" startline="47">XSecure_SlhdsaChainConfig::Steps</references>
         <references refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</references>
-        <references refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</references>
-        <references refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="259">XSecure_SlhdsaShake256sChain</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="277" endline="324">XSecure_SlhdsaShake256sHashTl</references>
         <references refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" compoundref="core_2util_2xsecure__utils_8h" startline="63">XSECURE_ZERO</references>
         <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
       </memberdef>
@@ -330,6 +330,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="282"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c"/>
   </compounddef>
 </doxygen>

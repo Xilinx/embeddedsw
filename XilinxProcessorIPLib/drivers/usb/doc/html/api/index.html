@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>2 Ping Pong Buffers for all the endpoints except the Control Endpoint</li>
 </ul>
 <p><b>Initialization &amp; Configuration</b></p>
-<p>The device driver enables higher layer software (e.g., an application) to communicate to the USB device. Apart from transmission and reception of USB frames the driver also handles the configuration of the device. A single device driver can support multiple USB devices.</p>
+<p>The device driver enables higher layer software (for example, an application) to communicate to the USB device. Apart from transmission and reception of USB frames the driver also handles the configuration of the device. A single device driver can support multiple USB devices.</p>
 <p><a class="el" href="group__usb.html#gaeab13bf4d5ed84b5b9e0c1c651f50aaa" title="This function initializes a XUsb instance/driver. ">XUsb_CfgInitialize()</a> API is used to initialize the USB device. The user needs to first call the <a class="el" href="group__usb.html#ga83ca5d56b85bf4f28c99338a05c9a856" title="Looks up the device configuration based on the unique device ID/BaseAddress. ">XUsb_LookupConfig()</a> API which returns the Configuration structure pointer which is passed as a parameter to the <a class="el" href="group__usb.html#gaeab13bf4d5ed84b5b9e0c1c651f50aaa" title="This function initializes a XUsb instance/driver. ">XUsb_CfgInitialize()</a> API.</p>
 <ul>
 <li>Configuration of the DEVICE endpoints: The endpoints of the device need to be configured using the <a class="el" href="group__usb.html#ga265f540fba1a12b0e310052d4cfa5a2d" title="This function configures a specific end point with the given configuration data. ">XUsb_EpConfigure()</a> function call. After configuration is complete, the endpoints need to be initialized using the XUsb_EpInitializeAll() function call.</li>
@@ -199,7 +199,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.3   asa  02/05/19 Added dependencies.props in data folder for
                     importing examples in SDK.
 5.6   pm   07/05/23 Added support for system device-tree flow.
-5.8   ka   11/09/25 Added 64-bit addressing support.</pre><pre></pre> </div></div><!-- contents -->
+5.8   ka   11/09/25 Added 64-bit addressing support.</pre><pre>5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+</pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

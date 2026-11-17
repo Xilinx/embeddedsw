@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -160,6 +160,12 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>checksum_failures
 : <a class="el" href="struct_x_dp_tx_ss___sink___a_v___capabilities.html#a00e86bd0622a9a65ed21d333a16088d4">XDpTxSs_Sink_AV_Capabilities</a>
 </li>
+<li>ClkWizConfig
+: <a class="el" href="struct_x_dp_tx_ss___clk_wiz_sub_core.html#a6d7825d52b08ccfaafa4e6421b066d15">XDpTxSs_ClkWizSubCore</a>
+</li>
+<li>ClkWizSubCore
+: <a class="el" href="struct_x_dp_tx_ss___config.html#af19b6ec768c165a039c6ea559e98b29d">XDpTxSs_Config</a>
+</li>
 <li>Config
 : <a class="el" href="struct_x_dp_tx_ss.html#a9469d77acb349ab8c6672fb9338ea5fc">XDpTxSs</a>
 </li>
@@ -175,6 +181,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>DpSubCore
 : <a class="el" href="struct_x_dp_tx_ss___config.html#abe63ec9d971507c261ee11161217c311">XDpTxSs_Config</a>
+</li>
+<li>DscEn
+: <a class="el" href="struct_x_dp_tx_ss___config.html#a8e89e4fbf9e7389876bc04577c60a6f2">XDpTxSs_Config</a>
 </li>
 <li>DsConfig
 : <a class="el" href="struct_x_dp_tx_ss___ds_sub_core.html#a7fdb326633cbe38afc008a2c2b790e6b">XDpTxSs_DsSubCore</a>
@@ -270,16 +279,20 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>IncludeClkWiz
+: <a class="el" href="struct_x_dp_tx_ss___config.html#acb43974f64b7c889d228803c7f5810cd">XDpTxSs_Config</a>
+</li>
 <li>InvalidBlockCount
 : <a class="el" href="struct_x_dp_tx_ss___parse_result.html#a3a325ef1a2db872881772b9844d59ef2">XDpTxSs_ParseResult</a>
 </li>
 <li>IsPresent
-: <a class="el" href="struct_x_dp_tx_ss___vtc_sub_core.html#ab522e4042f6ee45201342a6de3299dd8">XDpTxSs_VtcSubCore</a>
-, <a class="el" href="struct_x_dp_tx_ss___hdcp22_sub_core.html#ad1cc81acfc3112f8f68e0c8f01287f3b">XDpTxSs_Hdcp22SubCore</a>
+: <a class="el" href="struct_x_dp_tx_ss___hdcp22_sub_core.html#ad1cc81acfc3112f8f68e0c8f01287f3b">XDpTxSs_Hdcp22SubCore</a>
+, <a class="el" href="struct_x_dp_tx_ss___ds_sub_core.html#abd0339d4571ffd2e6aad647abf9ba934">XDpTxSs_DsSubCore</a>
 , <a class="el" href="struct_x_dp_tx_ss___tmr_ctr_sub_core.html#a2652aedaf78ad628e5de1dcf00e87b0c">XDpTxSs_TmrCtrSubCore</a>
 , <a class="el" href="struct_x_dp_tx_ss___hdcp1x_sub_core.html#a04849f2c9b4ca123accd1272ab733246">XDpTxSs_Hdcp1xSubCore</a>
 , <a class="el" href="struct_x_dp_tx_ss___dp_sub_core.html#adbbe1dd0fa95a53eba075e752a5797a5">XDpTxSs_DpSubCore</a>
-, <a class="el" href="struct_x_dp_tx_ss___ds_sub_core.html#abd0339d4571ffd2e6aad647abf9ba934">XDpTxSs_DsSubCore</a>
+, <a class="el" href="struct_x_dp_tx_ss___clk_wiz_sub_core.html#ae07ac1179883117db9f941c8c8d9f44c">XDpTxSs_ClkWizSubCore</a>
+, <a class="el" href="struct_x_dp_tx_ss___vtc_sub_core.html#ab522e4042f6ee45201342a6de3299dd8">XDpTxSs_VtcSubCore</a>
 </li>
 <li>IsReady
 : <a class="el" href="struct_x_dp_tx_ss.html#a857039d17c9fd0590ae5bd7a034a67ef">XDpTxSs</a>

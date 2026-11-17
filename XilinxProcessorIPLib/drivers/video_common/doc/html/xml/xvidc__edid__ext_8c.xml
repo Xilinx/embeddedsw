@@ -11,44 +11,25 @@
     <includes local="yes">xil_exception.h</includes>
     <includes refid="xvidc__edid__ext_8h" local="yes">xvidc_edid_ext.h</includes>
     <incdepgraph>
-      <node id="56">
+      <node id="54">
         <label>xil_assert.h</label>
       </node>
-      <node id="49">
+      <node id="47">
         <label>stdbool.h</label>
       </node>
-      <node id="48">
-        <label>stdlib.h</label>
-      </node>
-      <node id="54">
-        <label>xvidc.h</label>
-        <link refid="xvidc_8h"/>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-      </node>
-      <node id="47">
-        <label>string.h</label>
-      </node>
-      <node id="51">
-        <label>xstatus.h</label>
-      </node>
-      <node id="52">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="50">
-        <label>xil_types.h</label>
-      </node>
-      <node id="57">
+      <node id="55">
         <label>xvidc_cea861.h</label>
       </node>
-      <node id="55">
-        <label>xil_printf.h</label>
+      <node id="46">
+        <label>stdlib.h</label>
       </node>
-      <node id="45">
+      <node id="43">
         <label>xvidc_edid_ext.c</label>
         <link refid="xvidc_edid_ext.c"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
         <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="47" relation="include">
@@ -61,23 +42,42 @@
         </childnode>
         <childnode refid="51" relation="include">
         </childnode>
+      </node>
+      <node id="51">
+        <label>xvidc_edid_ext.h</label>
+        <childnode refid="47" relation="include">
+        </childnode>
         <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xvidc.h</label>
+        <link refid="xvidc_8h"/>
+        <childnode refid="48" relation="include">
         </childnode>
         <childnode refid="53" relation="include">
         </childnode>
       </node>
-      <node id="53">
-        <label>xvidc_edid_ext.h</label>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="54" relation="include">
-        </childnode>
-        <childnode refid="56" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
+      <node id="45">
+        <label>string.h</label>
       </node>
-      <node id="46">
+      <node id="49">
+        <label>xstatus.h</label>
+      </node>
+      <node id="50">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="48">
+        <label>xil_types.h</label>
+      </node>
+      <node id="53">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="44">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="71" column="9"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="71" column="9"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -132,7 +132,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Macro to check if horizontal/vertical resolution matches specified aspect ratio </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" bodystart="68" bodyend="97"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" bodystart="68" bodyend="97"/>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__ext_8c_1ac20a98f4f7539a00141bf1f84c380692" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -157,7 +157,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>&lt; HDMI or DVI mode flag</para><para>&lt; YCbCr 4:4:4 color space support</para><para>&lt; YCbCr 4:2:0 color space support</para><para>&lt; YCbCr 4:2:2 color space support</para><para>&lt; Deep color support for YCbCr 4:4:4</para><para>&lt; 30 bits per pixel support</para><para>&lt; 36 bits per pixel support</para><para>&lt; 48 bits per pixel support</para><para>&lt; YCbCr 4:2:0 30bpp deep color support</para><para>&lt; YCbCr 4:2:0 36bpp deep color support</para><para>&lt; YCbCr 4:2:0 48bpp deep color support</para><para>&lt; Maximum Fixed Rate Link line rate</para><para>&lt; Maximum FRL lanes supported</para><para>&lt; SCDC read request ready flag</para><para>&lt; SCDC presence flag</para><para>&lt; Maximum supported frame rate</para><para>&lt; Maximum TMDS clock in MHz</para><para>&lt; DisplayID presence flag</para><para>&lt; DisplayID version number</para><para>&lt; DisplayID product type</para><para>&lt; DisplayID extension count</para><para>&lt; DisplayID manufacturer ID</para><para>&lt; DisplayID product code</para><para>&lt; DisplayID serial number</para><para>&lt; DisplayID model year</para><para>&lt; DisplayID model week</para><para>&lt; DisplayID product name string</para><para>&lt; Product string length</para><para>&lt; Display image width in mm</para><para>&lt; Display image height in mm</para><para>&lt; Native horizontal resolution</para><para>&lt; Native vertical resolution</para><para>&lt; Feature support flags</para><para>&lt; Gamma value (0xFF = not defined)</para><para>&lt; Display aspect ratio</para><para>&lt; Native bit depth</para><para>&lt; Overall bit depth</para><para>&lt; Scan orientation</para><para>&lt; Display technology type</para><para>&lt; Audio support flag</para><para>&lt; Separate audio inputs flag</para><para>&lt; Audio input override flag</para><para>&lt; Power management sequence required</para><para>&lt; Fixed pixel format flag</para><para>&lt; Deinterlacing support</para><para>&lt; Color depth</para><para>&lt; Color encoding format</para><para>&lt; RGB interface color depth (default 8 bpc)</para><para>&lt; YCbCr 4:4:4 interface color depth (default 8 bpc)</para><para>&lt; YCbCr 4:2:2 interface color depth (default 8 bpc)</para><para>&lt; YCbCr 4:2:0 interface color depth (default 8 bpc)</para><para>&lt; Red primary chromaticity X</para><para>&lt; Red primary chromaticity Y</para><para>&lt; Green primary chromaticity X</para><para>&lt; Green primary chromaticity Y</para><para>&lt; Blue primary chromaticity X</para><para>&lt; Blue primary chromaticity Y</para><para>&lt; White point chromaticity X</para><para>&lt; White point chromaticity Y</para><para>&lt; Minimum luminance</para><para>&lt; Maximum luminance</para><para>&lt; Maximum full frame luminance</para><para>&lt; Timing range minimum horizontal frequency</para><para>&lt; Timing range maximum horizontal frequency</para><para>&lt; Timing range minimum vertical frequency</para><para>&lt; Timing range maximum vertical frequency</para><para>&lt; Timing range maximum pixel clock</para><para>&lt; Timing range flags</para><para>&lt; DisplayID serial number string</para><para>&lt; Serial string length</para><para>&lt; DisplayID ASCII string</para><para>&lt; ASCII string length</para><para>&lt; Device type</para><para>&lt; Device color space</para><para>&lt; Device horizontal size</para><para>&lt; Device vertical size</para><para>&lt; Power sequence timing T1</para><para>&lt; Power sequence timing T2</para><para>&lt; Power sequence timing T3</para><para>&lt; Power sequence timing T4</para><para>&lt; Transfer characteristics type</para><para>&lt; Transfer characteristics flags</para><para>&lt; OECF/EOTF data byte 0</para><para>&lt; OECF/EOTF data byte 1</para><para>&lt; DisplayID short timing descriptors</para><para>&lt; Number of short timing descriptors</para><para>&lt; DisplayID DMT timing codes</para><para>&lt; Number of DMT timing codes</para><para>&lt; DisplayID CVT timing codes</para><para>&lt; Number of CVT timing codes</para><para>&lt; Total number of video timing modes</para><para>&lt; DisplayID Type VI timing descriptors</para><para>&lt; Number of Type VI timing descriptors</para><para>&lt; DisplayID Type VII timing descriptors</para><para>&lt; Number of Type VII timing descriptors</para><para>&lt; DisplayID Type VIII timing descriptors</para><para>&lt; Number of Type VIII timing descriptors</para><para>&lt; DisplayID Type IX timing descriptors</para><para>&lt; Number of Type IX timing descriptors</para><para>&lt; DisplayID Type X timing descriptors</para><para>&lt; Number of Type X timing descriptors</para><para>&lt; Display interface type</para><para>&lt; Number of interface lanes</para><para>&lt; Interface version</para><para>&lt; Content protection support</para><para>&lt; Spread spectrum clocking support</para><para>&lt; Supported color formats</para><para>&lt; Minimum pixel clock in MHz</para><para>&lt; Maximum pixel clock in MHz</para><para>&lt; Stereo display interface type</para><para>&lt; Stereo polarity</para><para>&lt; Tiled display flag</para><para>&lt; Number of tile rows</para><para>&lt; Number of tile columns</para><para>&lt; Tile horizontal location</para><para>&lt; Tile vertical location</para><para>&lt; Tile width in pixels</para><para>&lt; Tile height in pixels</para><para>&lt; Tile bezel width - top</para><para>&lt; Tile bezel width - bottom</para><para>&lt; Tile bezel width - left</para><para>&lt; Tile bezel width - right</para><para>&lt; Tile capabilities</para><para>&lt; Tile serial number</para><para>&lt; Container ID UUID</para><para>&lt; Vendor-specific data block tag</para><para>&lt; Vendor-specific data</para><para>&lt; Vendor data length</para><para>&lt; CTA DisplayID presence flag</para><para>&lt; CTA Video Identification Codes</para><para>&lt; Number of CTA VICs</para><para>&lt; CTA data block tag</para><para>&lt; CTA data block payload size</para><para>&lt; Adaptive refresh rate flags</para><para>&lt; Unicode string</para><para>&lt; Unicode string length</para><para>&lt; Detailed timing type 7 data</para><para>&lt; Detailed timing type 7 data length </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" bodystart="100" bodyend="271"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" bodystart="100" bodyend="271"/>
         <references refid="struct_x_v___vid_c___edid_cntrl_param_1ac8fb5edcacee3ca346b9d7d5f10ba09c" compoundref="xvidc__edid__ext_8h" startline="1076">XV_VidC_EdidCntrlParam::DispIdAdaptiveRefreshFlags</references>
         <references refid="struct_x_v___vid_c___edid_cntrl_param_1a31d11fbe52cdd3765c4521c6d981c0b3" compoundref="xvidc__edid__ext_8h" startline="984">XV_VidC_EdidCntrlParam::DispIdAsciiString</references>
         <references refid="struct_x_v___vid_c___edid_cntrl_param_1ac29ff4f718d8fd6629d84660421646a2" compoundref="xvidc__edid__ext_8h" startline="985">XV_VidC_EdidCntrlParam::DispIdAsciiStringLen</references>
@@ -295,8 +295,8 @@
         <references refid="struct_x_v___vid_c___edid_cntrl_param_1a15041650b2123f5cd9796706840f59aa" compoundref="xvidc__edid__ext_8h" startline="897">XV_VidC_EdidCntrlParam::MaxFrlLanesSupp</references>
         <references refid="struct_x_v___vid_c___edid_cntrl_param_1ad7e5d5df21f83a102ab5fe5d563752e1" compoundref="xvidc__edid__ext_8h" startline="896">XV_VidC_EdidCntrlParam::MaxFrlLineRateSupp</references>
         <references refid="struct_x_v___vid_c___edid_cntrl_param_1a182816abb1cb352e01762370f71d20af" compoundref="xvidc__edid__ext_8h" startline="894">XV_VidC_EdidCntrlParam::MaxTmdsMhz</references>
-        <referencedby refid="xvidc__parse__edid_8c_1a6374cbb06c87ce3f8939224cf1f48061" compoundref="xvidc__parse__edid_8c" startline="1876" endline="1904">XV_VidC_parse_edid</referencedby>
-        <referencedby refid="xvidc__parse__edid_8c_1a64f3ce83f54001237c5ef62b85b98be4" compoundref="xvidc__parse__edid_8c" startline="1939" endline="1967">XV_VidC_parse_edid_extension</referencedby>
+        <referencedby refid="xvidc__parse__edid_8c_1a6374cbb06c87ce3f8939224cf1f48061" compoundref="xvidc__parse__edid_8c" startline="1887" endline="1915">XV_VidC_parse_edid</referencedby>
+        <referencedby refid="xvidc__parse__edid_8c_1a64f3ce83f54001237c5ef62b85b98be4" compoundref="xvidc__parse__edid_8c" startline="1993" endline="2026">XV_VidC_parse_edid_extension</referencedby>
       </memberdef>
       <memberdef kind="function" id="xvidc__edid__ext_8c_1a7844c648ac0f97deb45794091f7faf65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="struct_x_v___vid_c___timing_param" kindref="compound">XV_VidC_TimingParam</ref></type>
@@ -322,7 +322,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" bodystart="275" bodyend="300"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c" bodystart="275" bodyend="300"/>
         <references refid="struct_x_v___vid_c___timing_param_1a35cdc8178ab801f514c6f65c42abac70" compoundref="xvidc__edid__ext_8h" startline="865">XV_VidC_TimingParam::aspect_ratio</references>
         <references refid="struct_x_v___vid_c___timing_param_1ad72fcc532e6bfa00aaca7b0c1ff2f77c" compoundref="xvidc__edid__ext_8h" startline="862">XV_VidC_TimingParam::hfp</references>
         <references refid="struct_x_v___vid_c___timing_param_1aae8e74492cf6d7a9e9c8298d91f99d51" compoundref="xvidc__edid__ext_8h" startline="854">XV_VidC_TimingParam::hres</references>
@@ -613,6 +613,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="322"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="323"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.c"/>
   </compounddef>
 </doxygen>

@@ -4,48 +4,48 @@
     <compoundname>xplmi_plat_client.c</compoundname>
     <includes refid="xplmi__plat__client_8h" local="yes">xplmi_plat_client.h</includes>
     <incdepgraph>
-      <node id="2399">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="2398">
-        <label>xplmi_mailbox.h</label>
-        <link refid="xplmi__mailbox_8h"/>
-        <childnode refid="2399" relation="include">
-        </childnode>
-        <childnode refid="2400" relation="include">
-        </childnode>
-      </node>
-      <node id="2397">
-        <label>xil_types.h</label>
-      </node>
-      <node id="2400">
-        <label>xparameters.h</label>
-      </node>
-      <node id="2402">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="2401">
+      <node id="2521">
         <label>xplmi_defs.h</label>
         <link refid="xplmi__defs_8h"/>
-        <childnode refid="2402" relation="include">
+        <childnode refid="2522" relation="include">
         </childnode>
-        <childnode refid="2397" relation="include">
+        <childnode refid="2517" relation="include">
         </childnode>
       </node>
-      <node id="2395">
+      <node id="2519">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="2515">
         <label>xplmi_plat_client.c</label>
         <link refid="xplmi_plat_client.c"/>
-        <childnode refid="2396" relation="include">
+        <childnode refid="2516" relation="include">
         </childnode>
       </node>
-      <node id="2396">
+      <node id="2516">
         <label>xplmi_plat_client.h</label>
         <link refid="xplmi__plat__client_8h"/>
-        <childnode refid="2397" relation="include">
+        <childnode refid="2517" relation="include">
         </childnode>
-        <childnode refid="2398" relation="include">
+        <childnode refid="2518" relation="include">
         </childnode>
-        <childnode refid="2401" relation="include">
+        <childnode refid="2521" relation="include">
+        </childnode>
+      </node>
+      <node id="2517">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2520">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2522">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2518">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="2519" relation="include">
+        </childnode>
+        <childnode refid="2520" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -98,7 +98,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Prepare payload for In-Place ASU update command</para><para>Send an IPI request to the PLM for In-Place ASU update </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="57" bodyend="70"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="57" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga4626d920c560e654f0b82b03048adfac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -148,7 +148,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="85" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="85" bodyend="91"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga40bae5d3fd442d68e557b2fb07047389" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -198,7 +198,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="106" bodyend="112"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="106" bodyend="112"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -263,6 +263,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="112"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c"/>
   </compounddef>
 </doxygen>

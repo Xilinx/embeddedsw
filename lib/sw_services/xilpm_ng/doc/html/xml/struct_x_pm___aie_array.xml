@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_array" kind="struct" prot="public">
+    <compoundname>XPm_AieArray</compoundname>
+    <includes local="no">xpm_aie.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1aa57cf43b6f95b0f6b05941212145bb7b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPm_AieArray::NocAddress</definition>
+        <argsstring></argsstring>
+        <name>NocAddress</name>
+        <briefdescription>
+<para>NoC Address of AIE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1a8965106552d36c7c1a576fecf534c876" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::GenVersion</definition>
+        <argsstring></argsstring>
+        <name>GenVersion</name>
+        <briefdescription>
+<para>AIE Gen: 1, 2 etc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1aa2654b8f1477f06ce8d65437f34eda78" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumCols</definition>
+        <argsstring></argsstring>
+        <name>NumCols</name>
+        <briefdescription>
+<para>Total number of columns. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1af7a21401fa844e4183be5c7d079309bd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumRows</definition>
+        <argsstring></argsstring>
+        <name>NumRows</name>
+        <briefdescription>
+<para>Total number of rows (excluding shim) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1a8a567b53d683623a1222f9f9b8396622" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumColsAdjusted</definition>
+        <argsstring></argsstring>
+        <name>NumColsAdjusted</name>
+        <briefdescription>
+<para>Total number of columns (adjusted after offset) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1aaadcec938e5a8e81a0d02b63f25b7727" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumRowsAdjusted</definition>
+        <argsstring></argsstring>
+        <name>NumRowsAdjusted</name>
+        <briefdescription>
+<para>Total number of rows (adjusted after offset) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1aba75c38ea3f9d33d33bd104b8794ab3c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumAieRows</definition>
+        <argsstring></argsstring>
+        <name>NumAieRows</name>
+        <briefdescription>
+<para>Total number of AieTile rows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1a0bc4e1909ff07d667f723d1af6e2568d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumMemRows</definition>
+        <argsstring></argsstring>
+        <name>NumMemRows</name>
+        <briefdescription>
+<para>Total number of MemTile rows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1ad30ed37625824eeeb16d959c81361367" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::NumShimRows</definition>
+        <argsstring></argsstring>
+        <name>NumShimRows</name>
+        <briefdescription>
+<para>Total number of Shim rows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1afaf64f3636dd96d879aa64a350a177c0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::StartCol</definition>
+        <argsstring></argsstring>
+        <name>StartCol</name>
+        <briefdescription>
+<para>Start col. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1abf2c63d46d49a243053ebcd40823b7c8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_AieArray::StartRow</definition>
+        <argsstring></argsstring>
+        <name>StartRow</name>
+        <briefdescription>
+<para>Start row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1a247423ba2bdf9111fa658db8473a763e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_AieArray::LColOffset</definition>
+        <argsstring></argsstring>
+        <name>LColOffset</name>
+        <briefdescription>
+<para>Offset for start col (i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>left col offset) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1a7351624cb423cd2b8a1151f5446c2949" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_AieArray::RColOffset</definition>
+        <argsstring></argsstring>
+        <name>RColOffset</name>
+        <briefdescription>
+<para>Offset for end col (i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>right col offset) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_array_1aafdfe6741270365254a6bf3b7cab5b2b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_AieArray::TRowOffset</definition>
+        <argsstring></argsstring>
+        <name>TRowOffset</name>
+        <briefdescription>
+<para>Offset for end row (i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>top row offset) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>AI Engine array. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="39" bodyend="54"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_array_1a8965106552d36c7c1a576fecf534c876" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>GenVersion</name></member>
+      <member refid="struct_x_pm___aie_array_1a247423ba2bdf9111fa658db8473a763e" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>LColOffset</name></member>
+      <member refid="struct_x_pm___aie_array_1aa57cf43b6f95b0f6b05941212145bb7b" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NocAddress</name></member>
+      <member refid="struct_x_pm___aie_array_1aba75c38ea3f9d33d33bd104b8794ab3c" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumAieRows</name></member>
+      <member refid="struct_x_pm___aie_array_1aa2654b8f1477f06ce8d65437f34eda78" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumCols</name></member>
+      <member refid="struct_x_pm___aie_array_1a8a567b53d683623a1222f9f9b8396622" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumColsAdjusted</name></member>
+      <member refid="struct_x_pm___aie_array_1a0bc4e1909ff07d667f723d1af6e2568d" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumMemRows</name></member>
+      <member refid="struct_x_pm___aie_array_1af7a21401fa844e4183be5c7d079309bd" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumRows</name></member>
+      <member refid="struct_x_pm___aie_array_1aaadcec938e5a8e81a0d02b63f25b7727" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumRowsAdjusted</name></member>
+      <member refid="struct_x_pm___aie_array_1ad30ed37625824eeeb16d959c81361367" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>NumShimRows</name></member>
+      <member refid="struct_x_pm___aie_array_1a7351624cb423cd2b8a1151f5446c2949" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>RColOffset</name></member>
+      <member refid="struct_x_pm___aie_array_1afaf64f3636dd96d879aa64a350a177c0" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>StartCol</name></member>
+      <member refid="struct_x_pm___aie_array_1abf2c63d46d49a243053ebcd40823b7c8" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>StartRow</name></member>
+      <member refid="struct_x_pm___aie_array_1aafdfe6741270365254a6bf3b7cab5b2b" prot="public" virt="non-virtual"><scope>XPm_AieArray</scope><name>TRowOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

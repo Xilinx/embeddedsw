@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___rpu_core" kind="struct" prot="public">
+    <compoundname>XPm_RpuCore</compoundname>
+    <includes local="no">xpm_rpucore.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___rpu_core_1ae0e3ca0e76c558408eb97acd23a64b1c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___core" kindref="compound">XPm_Core</ref></type>
+        <definition>XPm_Core XPm_RpuCore::Core</definition>
+        <argsstring></argsstring>
+        <name>Core</name>
+        <briefdescription>
+<para>Processor core devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rpu_core_1aec2ca335890d3a2317290dc8ecd64362" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RpuCore::ResumeCfg</definition>
+        <argsstring></argsstring>
+        <name>ResumeCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rpu_core_1a3008945481ee5e11db03a8eb2dd4a429" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RpuCore::RpuBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>RpuBaseAddr</name>
+        <briefdescription>
+<para>Base address of RPU module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rpu_core_1a0e6748575fcb9f9b888e30dcd32e1a87" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RpuCore::ClusterBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>ClusterBaseAddr</name>
+        <briefdescription>
+<para>Base address of RPU module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rpu_core_1a3e7d025ee0069aacec1cee2a1301ec31" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_RpuCore::PcilIsr</definition>
+        <argsstring></argsstring>
+        <name>PcilIsr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The RPU core class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="291">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="289" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="290" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="288">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="289" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="290" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="292" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="292">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="288" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="293" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="292" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="293">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="289" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="292" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="290">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="288" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="291" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="290" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="286">
+        <label>XPm_RpuCore</label>
+        <link refid="struct_x_pm___rpu_core"/>
+        <childnode refid="287" relation="usage">
+          <edgelabel>Core</edgelabel>
+        </childnode>
+      </node>
+      <node id="289">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="287">
+        <label>XPm_Core</label>
+        <link refid="struct_x_pm___core"/>
+        <childnode refid="288" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h" bodystart="30" bodyend="36"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___rpu_core_1a0e6748575fcb9f9b888e30dcd32e1a87" prot="public" virt="non-virtual"><scope>XPm_RpuCore</scope><name>ClusterBaseAddr</name></member>
+      <member refid="struct_x_pm___rpu_core_1ae0e3ca0e76c558408eb97acd23a64b1c" prot="public" virt="non-virtual"><scope>XPm_RpuCore</scope><name>Core</name></member>
+      <member refid="struct_x_pm___rpu_core_1a3e7d025ee0069aacec1cee2a1301ec31" prot="public" virt="non-virtual"><scope>XPm_RpuCore</scope><name>PcilIsr</name></member>
+      <member refid="struct_x_pm___rpu_core_1aec2ca335890d3a2317290dc8ecd64362" prot="public" virt="non-virtual"><scope>XPm_RpuCore</scope><name>ResumeCfg</name></member>
+      <member refid="struct_x_pm___rpu_core_1a3008945481ee5e11db03a8eb2dd4a429" prot="public" virt="non-virtual"><scope>XPm_RpuCore</scope><name>RpuBaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

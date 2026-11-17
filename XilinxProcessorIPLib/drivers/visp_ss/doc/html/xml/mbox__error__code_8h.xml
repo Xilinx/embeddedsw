@@ -4,71 +4,134 @@
     <compoundname>mbox_error_code.h</compoundname>
     <includedby refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includedby>
     <includedby refid="mbox__api_8c" local="yes">mbox_api.c</includedby>
-    <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
     <includedby refid="mbox__fifo_8c" local="yes">mbox_fifo.c</includedby>
+    <includedby refid="mbox__integrity_8c" local="yes">mbox_integrity.c</includedby>
+    <includedby refid="mbox__interface_8c" local="yes">mbox_interface.c</includedby>
+    <includedby refid="mbox__phy_8c" local="yes">mbox_phy.c</includedby>
+    <includedby refid="mbox__seq_8c" local="yes">mbox_seq.c</includedby>
     <invincdepgraph>
-      <node id="6447">
-        <label>mbox_api.c</label>
+      <node id="6536">
+        <label>mbox_integrity.h</label>
+        <childnode refid="6537" relation="include">
+        </childnode>
+        <childnode refid="6535" relation="include">
+        </childnode>
       </node>
-      <node id="6439">
-        <label>apu_to_rpu_ipi.c</label>
-      </node>
-      <node id="6441">
+      <node id="6542">
         <label>sensor_drv.c</label>
         <link refid="sensor__drv_8c"/>
       </node>
-      <node id="6448">
-        <label>mbox_fifo.c</label>
-      </node>
-      <node id="6437">
+      <node id="6531">
         <label>mbox_error_code.h</label>
         <link refid="mbox_error_code.h"/>
-        <childnode refid="6438" relation="include">
+        <childnode refid="6532" relation="include">
         </childnode>
-        <childnode refid="6447" relation="include">
+        <childnode refid="6549" relation="include">
         </childnode>
-        <childnode refid="6440" relation="include">
+        <childnode refid="6550" relation="include">
         </childnode>
-        <childnode refid="6448" relation="include">
+        <childnode refid="6537" relation="include">
         </childnode>
-      </node>
-      <node id="6443">
-        <label>visp_common.c</label>
-      </node>
-      <node id="6442">
-        <label>visp_common.h</label>
-        <childnode refid="6443" relation="include">
+        <childnode refid="6535" relation="include">
+        </childnode>
+        <childnode refid="6540" relation="include">
+        </childnode>
+        <childnode refid="6551" relation="include">
         </childnode>
       </node>
-      <node id="6446">
-        <label>oba.c</label>
+      <node id="6541">
+        <label>apu_to_rpu_ipi.c</label>
       </node>
-      <node id="6445">
-        <label>cam_device_api.c</label>
-      </node>
-      <node id="6444">
-        <label>iba.c</label>
-      </node>
-      <node id="6438">
+      <node id="6532">
         <label>mbox_cmd.h</label>
         <link refid="mbox__cmd_8h"/>
-        <childnode refid="6439" relation="include">
+        <childnode refid="6533" relation="include">
         </childnode>
-        <childnode refid="6440" relation="include">
+        <childnode refid="6536" relation="include">
         </childnode>
-        <childnode refid="6441" relation="include">
+        <childnode refid="6538" relation="include">
         </childnode>
-        <childnode refid="6442" relation="include">
+        <childnode refid="6539" relation="include">
         </childnode>
-        <childnode refid="6444" relation="include">
+        <childnode refid="6541" relation="include">
         </childnode>
-        <childnode refid="6445" relation="include">
+        <childnode refid="6534" relation="include">
         </childnode>
-        <childnode refid="6446" relation="include">
+        <childnode refid="6542" relation="include">
+        </childnode>
+        <childnode refid="6543" relation="include">
+        </childnode>
+        <childnode refid="6545" relation="include">
+        </childnode>
+        <childnode refid="6546" relation="include">
+        </childnode>
+        <childnode refid="6547" relation="include">
+        </childnode>
+        <childnode refid="6548" relation="include">
         </childnode>
       </node>
-      <node id="6440">
+      <node id="6550">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="6535">
+        <label>mbox_interface.c</label>
+      </node>
+      <node id="6538">
+        <label>mbox_interface.h</label>
+        <childnode refid="6534" relation="include">
+        </childnode>
+        <childnode refid="6535" relation="include">
+        </childnode>
+      </node>
+      <node id="6548">
+        <label>wdt_notifier.c</label>
+      </node>
+      <node id="6534">
         <label>mbox_cmd.c</label>
+      </node>
+      <node id="6549">
+        <label>mbox_api.c</label>
+      </node>
+      <node id="6537">
+        <label>mbox_integrity.c</label>
+      </node>
+      <node id="6545">
+        <label>iba.c</label>
+      </node>
+      <node id="6551">
+        <label>mbox_seq.c</label>
+        <link refid="mbox__seq_8c"/>
+      </node>
+      <node id="6547">
+        <label>oba.c</label>
+      </node>
+      <node id="6546">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="6540">
+        <label>mbox_phy.c</label>
+      </node>
+      <node id="6539">
+        <label>mbox_phy.h</label>
+        <childnode refid="6535" relation="include">
+        </childnode>
+        <childnode refid="6540" relation="include">
+        </childnode>
+      </node>
+      <node id="6544">
+        <label>visp_common.c</label>
+      </node>
+      <node id="6543">
+        <label>visp_common.h</label>
+        <childnode refid="6544" relation="include">
+        </childnode>
+      </node>
+      <node id="6533">
+        <label>mbox_command.h</label>
+        <childnode refid="6534" relation="include">
+        </childnode>
+        <childnode refid="6535" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="enum">
@@ -188,6 +251,20 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da86680c6ee16045c57546e235eff8642c" prot="public">
+          <name>VPI_ERR_CHECKSUM</name>
+          <briefdescription>
+<para>Mailbox checksum mismatch. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da2aac132113b76dfbc84886cad9f4edb7" prot="public">
+          <name>VPI_ERR_SEQ_MISMATCH</name>
+          <briefdescription>
+<para>Mailbox sequence counter mismatch. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="mbox__error__code_8h_1ae8f8dac0be32f3c09fd0266ddca0883da1612fe0c972a288601e747c87bc559e2" prot="public">
           <name>DUMMY_VPI_ERR</name>
           <initializer>= 0xDEADFEED</initializer>
@@ -202,7 +279,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" bodystart="14" bodyend="32"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" bodystart="14" bodyend="34"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -217,7 +294,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" line="32" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h" line="34" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -225,7 +302,7 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*copyright<sp/>(C)<sp/>2020<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
 <codeline lineno="4"><highlight class="comment"><sp/>*<sp/>@file<sp/>vpi_error_code.h</highlight></codeline>
@@ -254,11 +331,13 @@
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_NOT_READY,<sp/></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_LACK,<sp/></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_IOCTL,</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_VPI_ERR<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
-<codeline lineno="32"><highlight class="normal">}<sp/>VpiError;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>_MBOX_ERROR_CODE_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_CHECKSUM,<sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPI_ERR_SEQ_MISMATCH,<sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_VPI_ERR<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}<sp/>VpiError;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>_MBOX_ERROR_CODE_H_</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_error_code.h"/>
   </compounddef>
 </doxygen>

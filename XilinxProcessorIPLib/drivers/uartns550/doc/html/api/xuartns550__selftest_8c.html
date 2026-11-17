@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,15 +105,37 @@ $(document).ready(function(){initNavTree('xuartns550__selftest_8c.html','');});
 <div class="title">xuartns550_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Self-test functions for the 16450/16550 UART driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
+</p>
+<hr/>
+<p>
+1.00a ecm  08/16/01 First release
+1.00b jhl  03/11/02 Repartitioned driver for smaller files.
+1.11a sv   03/20/07 Updated to use the new coding guidelines.
+2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
+              Updated to use HAL Processor APIs. _m is removed from the
+              name of all the macro definitions.
+2.01a bss  01/13/12 Updated the XUartNs550_SelfTest to use Xil_AssertNonvoid
+              in place of XASSERT_NONVOID for CR 641344.
+3.15  vn   09/09/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550__i_8h.html">xuartns550_i.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Self-test constants</div></td></tr>
+<tr class="memitem:gaf60af6bcba36728fc6ba35120acfe403"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gaf60af6bcba36728fc6ba35120acfe403">XUN_TOTAL_BYTES</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:gaf60af6bcba36728fc6ba35120acfe403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total bytes used in loopback self-test.  <a href="group__uartns550.html#gaf60af6bcba36728fc6ba35120acfe403">More...</a><br/></td></tr>
+<tr class="separator:gaf60af6bcba36728fc6ba35120acfe403"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga2ec86252a3b83b8d7b4815ffb960562d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga2ec86252a3b83b8d7b4815ffb960562d">XUartNs550_SelfTest</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga2ec86252a3b83b8d7b4815ffb960562d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions runs a self-test on the driver and hardware device.  <a href="group__uartns550.html#ga2ec86252a3b83b8d7b4815ffb960562d">More...</a><br/></td></tr>
+<tr class="memdesc:ga2ec86252a3b83b8d7b4815ffb960562d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver and hardware device.  <a href="group__uartns550.html#ga2ec86252a3b83b8d7b4815ffb960562d">More...</a><br/></td></tr>
 <tr class="separator:ga2ec86252a3b83b8d7b4815ffb960562d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

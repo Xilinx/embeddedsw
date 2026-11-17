@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__common_2server_2_c_make_lists_8txt" kind="file">
+    <compoundname>versal_common/server/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_access.c)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_access.h)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_api.c)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_api.h)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_apucore.c)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_apucore.h)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_bisr.c)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_bisr.h)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_clock.c)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_clock.h)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_common.c)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_common.h)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_core.c)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_core.h)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_debug.h)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_device.c)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_device.h)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_device_idle.c)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_device_idle.h)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_gic_proxy.c)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_gic_proxy.h)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_ioctl.c)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_ioctl.h)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_ipi.c)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_ipi.h)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_mem.c)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_mem.h)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_node.c)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_node.h)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_notifier.c)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_notifier.h)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_periph.c)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_periph.h)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_pldevice.c)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_pldevice.h)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_pldomain.c)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_pldomain.h)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_pll.c)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_pll.h)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_pmc.c)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_pmc.h)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_power.c)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_power.h)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_psm.c)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_psm.h)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_psm_api.c)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_psm_api.h)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_rail.c)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_rail.h)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_regulator.c)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_regulator.h)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_requirement.c)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_requirement.h)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_reset.c)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_reset.h)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_rpucore.c)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_rpucore.h)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_subsystem.c)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_subsystem.h)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_pin.c)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_pin.h)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_pinfunc.h)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_pinfunc.c)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_requirement_info.h)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xpm_ams_trim.c)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xpm_ams_trim.h)</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

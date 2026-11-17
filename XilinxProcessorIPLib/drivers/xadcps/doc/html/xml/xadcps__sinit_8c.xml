@@ -7,13 +7,25 @@
       <node id="87">
         <label>xil_assert.h</label>
       </node>
-      <node id="90">
-        <label>xil_io.h</label>
-      </node>
       <node id="84">
         <label>xadcps_sinit.c</label>
         <link refid="xadcps_sinit.c"/>
         <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xil_io.h</label>
+      </node>
+      <node id="85">
+        <label>xadcps.h</label>
+        <link refid="xadcps_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
         </childnode>
       </node>
       <node id="88">
@@ -32,18 +44,6 @@
         <childnode refid="90" relation="include">
         </childnode>
       </node>
-      <node id="85">
-        <label>xadcps.h</label>
-        <link refid="xadcps_8h"/>
-        <childnode refid="86" relation="include">
-        </childnode>
-        <childnode refid="87" relation="include">
-        </childnode>
-        <childnode refid="88" relation="include">
-        </childnode>
-        <childnode refid="89" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
       <sectiondef kind="var">
       <memberdef kind="variable" id="group___overview_1ga2846df3afc348d4b4fe43748290ff7f0" prot="public" static="no" mutable="no">
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_sinit.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_sinit.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_g.c" bodystart="53" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -88,7 +88,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_sinit.c" bodystart="84" bodyend="98"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_sinit.c" bodystart="84" bodyend="98"/>
         <referencedby refid="xadcps__intr__example_8c_1a1c6d46393cad7397e19d5978f448d60c" compoundref="xadcps__intr__example_8c" startline="174" endline="290">XAdcIntrExample</referencedby>
       </memberdef>
       </sectiondef>
@@ -157,6 +157,6 @@
 <codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_sinit.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps_sinit.c"/>
   </compounddef>
 </doxygen>

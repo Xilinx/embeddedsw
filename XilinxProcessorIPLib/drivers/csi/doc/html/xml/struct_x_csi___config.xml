@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="198" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="195" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="200" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="196" bodyend="-1"/>
         <referencedby refid="xcsi__example__selftest_8c_1a5458a8d8bab84547078ef5d7f4f3db86" compoundref="xcsi__example__selftest_8c" startline="115" endline="136">CsiSelfTestExample</referencedby>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
@@ -37,7 +37,7 @@
         <referencedby refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" compoundref="xcsi__intr_8c" startline="112" endline="122">XCsi_GetIntrEnable</referencedby>
         <referencedby refid="group__csi_1gad685546b6515977cc8149620ef3298bd" compoundref="xcsi__intr_8c" startline="137" endline="147">XCsi_GetIntrStatus</referencedby>
         <referencedby refid="group__csi_1ga9a4ced8d01b40c64ed467ff71ed4533c" compoundref="xcsi_8c" startline="345" endline="364">XCsi_GetShortPacket</referencedby>
-        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="498">XCsi_GetVCInfo</referencedby>
+        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="502">XCsi_GetVCInfo</referencedby>
         <referencedby refid="group__csi_1ga20061dc4d29af4f28937f3791e12b282" compoundref="xcsi_8c" startline="316" endline="329">XCsi_GetVCSelection</referencedby>
         <referencedby refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" compoundref="xcsi__intr_8c" startline="163" endline="174">XCsi_InterruptClear</referencedby>
         <referencedby refid="group__csi_1ga9cc5750f241d74489ee972978f99ec74" compoundref="xcsi__intr_8c" startline="89" endline="98">XCsi_IntrDisable</referencedby>
@@ -57,8 +57,8 @@
 <para>Range 1 - 4 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="201" bodyend="-1"/>
-        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="516" endline="544">XCsi_IsActiveLaneCountValid</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="520" endline="548">XCsi_IsActiveLaneCountValid</referencedby>
         <referencedby refid="group__csi_1gab06eaea50112054c5a19ea52976d00e9" compoundref="xcsi__selftest_8c" startline="64" endline="82">XCsi_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi___config_1a17b4bf76caf75e273b89864f0c062937" prot="public" static="no" mutable="no">
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="202" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi___config_1ac2462348edd2df6b07e6d9b833ff4913" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="204" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="200" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi___config_1ab2955c3f4739b1696a1ec4cb93b0734d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="205" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="201" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi___config_1ae768bd302d0e55bcf4e73ad077e1b146" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -111,16 +111,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="206" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="202" bodyend="-1"/>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
-        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="516" endline="544">XCsi_IsActiveLaneCountValid</referencedby>
+        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="520" endline="548">XCsi_IsActiveLaneCountValid</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Configuration structure for CSI Controller. </para>    </briefdescription>
     <detaileddescription>
 <para>This structure passes the hardware building information to the driver. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="194" bodyend="207"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="194" bodyend="203"/>
     <listofallmembers>
       <member refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" prot="public" virt="non-virtual"><scope>XCsi_Config</scope><name>BaseAddr</name></member>
       <member refid="struct_x_csi___config_1ae768bd302d0e55bcf4e73ad077e1b146" prot="public" virt="non-virtual"><scope>XCsi_Config</scope><name>FixedLanes</name></member>

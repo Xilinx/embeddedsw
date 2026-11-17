@@ -1,5 +1,6 @@
 var xdcsub_8h =
 [
+    [ "XDCSUB_AUDIO_FREQ_MAX", "xdcsub_8h.html#a65e6a502a143e97cc356e8fbaa027bdb", null ],
     [ "XDCSUB_LIVVID_ALPHA_DIS", "xdcsub_8h.html#a6cd078ee51178b2ae54f203929324e5f", null ],
     [ "XDCSUB_LIVVID_ALPHA_EN", "xdcsub_8h.html#aaae2d2a674f56c1d1c3855ad55e2b895", null ],
     [ "XDCSUB_LIVVID_SDP_DIS", "xdcsub_8h.html#aef22b3cfc8aa3b8246d0d90ff616cf16", null ],
@@ -38,6 +39,7 @@ var xdcsub_8h =
     [ "XDcSub_Initialize", "xdcsub_8h.html#a2f68f49cec96f2a3fa4cbd27a348b89a", null ],
     [ "XDcSub_SetAudInterfaceMode", "xdcsub_8h.html#a07fc65a4683cb3628ab9932881012920", null ],
     [ "XDcSub_SetAudioChCtrl", "xdcsub_8h.html#a0e50ad340f27139f5ab79eb47a8da4a1", null ],
+    [ "XDcSub_SetAudioSampleFrequency", "xdcsub_8h.html#a9902e784683b8896b6aab08d9e992b4f", null ],
     [ "XDcSub_SetAudioSegmentedMode", "xdcsub_8h.html#a8c1912d44869a6693d0b3f9ef4afd68e", null ],
     [ "XDcSub_SetAudioVideoClkSrc", "xdcsub_8h.html#a7cb7b43274aa1990e06e1897dce495ad", null ],
     [ "XDcSub_SetBlenderBgColor", "xdcsub_8h.html#a14c4f7a4fa8ddd73f3156b5f0b0a9d92", null ],

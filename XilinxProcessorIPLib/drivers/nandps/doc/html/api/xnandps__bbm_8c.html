@@ -105,26 +105,44 @@ $(document).ready(function(){initNavTree('xnandps__bbm_8c.html','');});
 <div class="title">xnandps_bbm.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the Bad Block Management (BBM) functionality. </p>
+<p>This file implements the Bad Block Management (BBM) functionality. See <a class="el" href="xnandps__bbm_8h.html" title="Declares the Bad Block Management (BBM) interface. ">xnandps_bbm.h</a> for more details.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date          Changes
+</p>
+<hr/>
+<p>
+1.00a nm     12/10/2010  First release
+1.03a nm     10/22/2012  Fixed CR# 683787.
+2.4   nsk    06/20/2018  Fixed BBT offset overflow in XNandPs_WriteBbt()
+                   and XNandPs_ReadBbt(), overflow causes incorrect
+                   BBT writes.
+2.9   sb     01/03/2024  Use FlashBbt array of nandps structure instead
+                         of local Buf array in XNandPs_WriteBbt() and XNandPs_ReadBbt(),
+                         to avoid stack overflow.
+2.12  vn     07/30/26    Fix Doxygen warnings
+2.12  vn     09/29/26    Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xnandps__bbm_8h.html">xnandps_bbm.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaf9857df5e1359875e429f66e46ca5a86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#gaf9857df5e1359875e429f66e46ca5a86">XNandPs_ReadSpareBytes</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr, u32 Page, u8 *Buf)</td></tr>
-<tr class="memdesc:gaf9857df5e1359875e429f66e46ca5a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the spare area of a page.  <a href="group__nandps.html#gaf9857df5e1359875e429f66e46ca5a86">More...</a><br/></td></tr>
+<tr class="memdesc:gaf9857df5e1359875e429f66e46ca5a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the spare area of a page.  <a href="group__nandps.html#gaf9857df5e1359875e429f66e46ca5a86">More...</a><br/></td></tr>
 <tr class="separator:gaf9857df5e1359875e429f66e46ca5a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga92acb0aedbfa7e76759062d70a2c4a67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga92acb0aedbfa7e76759062d70a2c4a67">XNandPs_InitBbtDesc</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga92acb0aedbfa7e76759062d70a2c4a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the Bad Block Table(BBT) descriptors with a predefined pattern for searching Bad Block Table(BBT) in flash.  <a href="group__nandps.html#ga92acb0aedbfa7e76759062d70a2c4a67">More...</a><br/></td></tr>
+<tr class="memdesc:ga92acb0aedbfa7e76759062d70a2c4a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Bad Block Table (BBT) descriptors.  <a href="group__nandps.html#ga92acb0aedbfa7e76759062d70a2c4a67">More...</a><br/></td></tr>
 <tr class="separator:ga92acb0aedbfa7e76759062d70a2c4a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga454c0738c0ffe28c49ba8fced47e8d9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga454c0738c0ffe28c49ba8fced47e8d9c">XNandPs_ScanBbt</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga454c0738c0ffe28c49ba8fced47e8d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the Bad Block Table(BBT) if present in flash.  <a href="group__nandps.html#ga454c0738c0ffe28c49ba8fced47e8d9c">More...</a><br/></td></tr>
+<tr class="memdesc:ga454c0738c0ffe28c49ba8fced47e8d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the Bad Block Table (BBT) or creates it when absent.  <a href="group__nandps.html#ga454c0738c0ffe28c49ba8fced47e8d9c">More...</a><br/></td></tr>
 <tr class="separator:ga454c0738c0ffe28c49ba8fced47e8d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga5744d2e6e03eb2b815771cf660ab2e11">XNandPs_IsBlockBad</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr, u32 Block)</td></tr>
-<tr class="memdesc:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether a block is bad or not.  <a href="group__nandps.html#ga5744d2e6e03eb2b815771cf660ab2e11">More...</a><br/></td></tr>
+<tr class="memdesc:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a block is bad.  <a href="group__nandps.html#ga5744d2e6e03eb2b815771cf660ab2e11">More...</a><br/></td></tr>
 <tr class="separator:ga5744d2e6e03eb2b815771cf660ab2e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga65ec4f2496ae641d1306089dff5416b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nandps.html#ga65ec4f2496ae641d1306089dff5416b2">XNandPs_MarkBlockBad</a> (<a class="el" href="group__nandps.html#gaf0def4ad29325b821b3fd4127740dfbe">XNandPs</a> *InstancePtr, u32 Block)</td></tr>
-<tr class="memdesc:ga65ec4f2496ae641d1306089dff5416b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function marks a block as bad in the RAM based Bad Block Table(BBT).  <a href="group__nandps.html#ga65ec4f2496ae641d1306089dff5416b2">More...</a><br/></td></tr>
+<tr class="memdesc:ga65ec4f2496ae641d1306089dff5416b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a block as bad in the RAM based Bad Block Table (BBT).  <a href="group__nandps.html#ga65ec4f2496ae641d1306089dff5416b2">More...</a><br/></td></tr>
 <tr class="separator:ga65ec4f2496ae641d1306089dff5416b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

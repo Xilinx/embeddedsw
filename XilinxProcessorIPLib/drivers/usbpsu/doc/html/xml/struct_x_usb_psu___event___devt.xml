@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="649" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="649" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="648" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="648" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___devt_1aeb32e173d44e3c8de415c0b7f91dfa5e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="650" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="649" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="649" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___devt_1a3c7cc7cec916ba22e1b2f791daabd1e5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -44,8 +44,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="651" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="651" bodyend="-1"/>
-        <referencedby refid="group__usbpsu__api_1gab9c5e8289701e82cf940fd2d0c239fd1" compoundref="xusbpsu__event_8c" startline="101" endline="158">XUsbPsu_DeviceEvent</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="650" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gab9c5e8289701e82cf940fd2d0c239fd1" compoundref="xusbpsu__event_8c" startline="95" endline="152">XUsbPsu_DeviceEvent</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___devt_1a001af4046763f226cbc22ccdb141634d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="652" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="652" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="651" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="651" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___devt_1aea9a8e943da3c685a7f23c44788fdc69" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -73,8 +73,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="653" bodyend="-1"/>
-        <referencedby refid="group__usbpsu__api_1gab9c5e8289701e82cf940fd2d0c239fd1" compoundref="xusbpsu__event_8c" startline="101" endline="158">XUsbPsu_DeviceEvent</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="652" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="652" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gab9c5e8289701e82cf940fd2d0c239fd1" compoundref="xusbpsu__event_8c" startline="95" endline="152">XUsbPsu_DeviceEvent</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___devt_1a3ad07375a84f31cca1f03f45eaa13661" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="654" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="654" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="653" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -96,55 +96,55 @@
     <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>Is_DevEvt</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Is_DevEvt</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>indicates this is a non-endpoint event </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Device_Event</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Device_Event</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>indicates it&apos;s a device event. Should read as 0x00 </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Type</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Type</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>indicates the type of device event. 0 - DisconnEvt 1 - USBRst 2 - ConnectDone 3 - ULStChng 4 - WkUpEvt 5 - Reserved 6 - EOPF 7 - SOF 8 - Reserved 9 - ErrticErr 10 - CmdCmplt 11 - EvntOverflow 12 - VndrDevTstRcved </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Reserved15_12</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Reserved15_12</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Reserved, not used </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Event_Info</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Event_Info</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Information about this event </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Reserved31_25</parametername>
-<parametername>:</parametername>
+<parametername direction="in">Reserved31_25</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Reserved, not used </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="648" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="648" bodyend="659"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="647" bodyend="658"/>
     <listofallmembers>
       <member refid="struct_x_usb_psu___event___devt_1aeb32e173d44e3c8de415c0b7f91dfa5e" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Devt</scope><name>Device_Event</name></member>
       <member refid="struct_x_usb_psu___event___devt_1aea9a8e943da3c685a7f23c44788fdc69" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Devt</scope><name>Event_Info</name></member>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="425" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="411" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___tx___revocation_list_1a1dd8bead75ad344bb7b84786ae5466cb" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="426" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="412" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This structure contains the HDCP2 Revocation information. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="423" bodyend="427"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="409" bodyend="413"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___tx___revocation_list_1a518f83ca71e73427c28e989da0920629" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RevocationList</scope><name>NumDevices</name></member>
       <member refid="struct_x_hdcp22___tx___revocation_list_1a1dd8bead75ad344bb7b84786ae5466cb" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RevocationList</scope><name>ReceiverId</name></member>

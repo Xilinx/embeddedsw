@@ -189,7 +189,7 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:aeb9281a032b40152f1bc10e483bfe954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels per clock.  <a href="#aeb9281a032b40152f1bc10e483bfe954">More...</a><br/></td></tr>
 <tr class="separator:aeb9281a032b40152f1bc10e483bfe954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dcb790be7d6e267162fe3c907e25cec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895">XDc_VideoFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a9dcb790be7d6e267162fe3c907e25cec">Stream1Format</a></td></tr>
-<tr class="memdesc:a9dcb790be7d6e267162fe3c907e25cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream 1 video format.  <a href="#a9dcb790be7d6e267162fe3c907e25cec">More...</a><br/></td></tr>
+<tr class="memdesc:a9dcb790be7d6e267162fe3c907e25cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream 1 video format; in bypass SST mode this describes AVPG stream 0 (DP MSA stream 1)  <a href="#a9dcb790be7d6e267162fe3c907e25cec">More...</a><br/></td></tr>
 <tr class="separator:a9dcb790be7d6e267162fe3c907e25cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9684f9c86831c32d790b11e6aefe170f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xdc_8h.html#ad45e6a818b9bcacc05e58b69ac140895">XDc_VideoFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a9684f9c86831c32d790b11e6aefe170f">Stream2Format</a></td></tr>
 <tr class="memdesc:a9684f9c86831c32d790b11e6aefe170f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream 2 video format.  <a href="#a9684f9c86831c32d790b11e6aefe170f">More...</a><br/></td></tr>
@@ -206,6 +206,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ad7e69b12358de7a878851be16bb2aeaa"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#ad7e69b12358de7a878851be16bb2aeaa">AudioChannels</a></td></tr>
 <tr class="memdesc:ad7e69b12358de7a878851be16bb2aeaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of audio channels.  <a href="#ad7e69b12358de7a878851be16bb2aeaa">More...</a><br/></td></tr>
 <tr class="separator:ad7e69b12358de7a878851be16bb2aeaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66e7936e11ecf14e5de99f12629caec4"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a66e7936e11ecf14e5de99f12629caec4">AudioFrequency</a></td></tr>
+<tr class="memdesc:a66e7936e11ecf14e5de99f12629caec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio sample frequency.  <a href="#a66e7936e11ecf14e5de99f12629caec4">More...</a><br/></td></tr>
+<tr class="separator:a66e7936e11ecf14e5de99f12629caec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a032bc36376350b1ba5419e18d1f357ec"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a032bc36376350b1ba5419e18d1f357ec">SdpEnable</a></td></tr>
 <tr class="memdesc:a032bc36376350b1ba5419e18d1f357ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDP enable.  <a href="#a032bc36376350b1ba5419e18d1f357ec">More...</a><br/></td></tr>
 <tr class="separator:a032bc36376350b1ba5419e18d1f357ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,9 +272,12 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aff52ebeac2ec54f6ebc4be06dbd9f4c7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#aff52ebeac2ec54f6ebc4be06dbd9f4c7">byp_streams</a></td></tr>
 <tr class="memdesc:aff52ebeac2ec54f6ebc4be06dbd9f4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bypass streams.  <a href="#aff52ebeac2ec54f6ebc4be06dbd9f4c7">More...</a><br/></td></tr>
 <tr class="separator:aff52ebeac2ec54f6ebc4be06dbd9f4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa58560df211387b3a1831ea7cb143fc2"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#aa58560df211387b3a1831ea7cb143fc2">byp_stream_pix_mode</a> [4]</td></tr>
-<tr class="memdesc:aa58560df211387b3a1831ea7cb143fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bypass stream PPC: 1, 2, 4.  <a href="#aa58560df211387b3a1831ea7cb143fc2">More...</a><br/></td></tr>
-<tr class="separator:aa58560df211387b3a1831ea7cb143fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae24ddc2a166bd8d14610866a55dd65"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a9ae24ddc2a166bd8d14610866a55dd65">DesignMstEn</a></td></tr>
+<tr class="memdesc:a9ae24ddc2a166bd8d14610866a55dd65"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDT mst-mode-en: 1=MST design, 0=SST-only.  <a href="#a9ae24ddc2a166bd8d14610866a55dd65">More...</a><br/></td></tr>
+<tr class="separator:a9ae24ddc2a166bd8d14610866a55dd65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8389dc7f16112a7de107908efabf0907"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a8389dc7f16112a7de107908efabf0907">MstMode</a></td></tr>
+<tr class="memdesc:a8389dc7f16112a7de107908efabf0907"><td class="mdescLeft">&#160;</td><td class="mdescRight">1=MST link, 0=SST (set from DesignMstEn+MST_CAP)  <a href="#a8389dc7f16112a7de107908efabf0907">More...</a><br/></td></tr>
+<tr class="separator:a8389dc7f16112a7de107908efabf0907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50cbf3aaeda34e448ac04e7099a14f71"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_run_config.html#a50cbf3aaeda34e448ac04e7099a14f71">byp_stream_sdp_en</a> [4]</td></tr>
 <tr class="memdesc:a50cbf3aaeda34e448ac04e7099a14f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bypass stream SDP enable.  <a href="#a50cbf3aaeda34e448ac04e7099a14f71">More...</a><br/></td></tr>
 <tr class="separator:a50cbf3aaeda34e448ac04e7099a14f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -316,7 +322,23 @@ Data Fields</h2></td></tr>
 
 <p>Audio enable. </p>
 
-<p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#a73abe61ea2c8dcfb0e0188cc2a072ca5">XDpDc_HpdHotplugHandler()</a>, <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz()</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, and <a class="el" href="mmi__dc__setup__frames_8h.html#af01b016c00245f21541974c6dab538aa">XDpDc_InitFrames()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dpdc__platform_8h.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz()</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, <a class="el" href="mmi__dc__setup__frames_8h.html#af01b016c00245f21541974c6dab538aa">XDpDc_InitFrames()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66e7936e11ecf14e5de99f12629caec4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 RunConfig::AudioFrequency</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio sample frequency. </p>
+
+<p>Referenced by <a class="el" href="mmi__dpdc__platform_8h.html#a1acaf857e04799cc985d19389fe5ea3f">XDpDc_InitClkWiz()</a>, and <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>.</p>
 
 </div>
 </div>
@@ -331,20 +353,6 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>AV pattern generator configs. </p>
-
-</div>
-</div>
-<a class="anchor" id="aa58560df211387b3a1831ea7cb143fc2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u8 RunConfig::byp_stream_pix_mode[4]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Bypass stream PPC: 1, 2, 4. </p>
 
 </div>
 </div>
@@ -387,6 +395,8 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Number of bypass streams. </p>
+
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#ad62d612a7ac65d0636766a23be209c87">XDpDc_CheckMstSupport()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -614,6 +624,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9ae24ddc2a166bd8d14610866a55dd65"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 RunConfig::DesignMstEn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SDT mst-mode-en: 1=MST design, 0=SST-only. </p>
+
+<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="mmi__dp__init_8h.html#ad62d612a7ac65d0636766a23be209c87">XDpDc_CheckMstSupport()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="af9e1945098c92c6e03c086ac3d0c4a3c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -626,7 +652,7 @@ Data Fields</h2></td></tr>
 
 <p>Pointer to DP instance. </p>
 
-<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="mmi__dp__intr_8h.html#a73abe61ea2c8dcfb0e0188cc2a072ca5">XDpDc_HpdHotplugHandler()</a>, <a class="el" href="mmi__dp__intr_8h.html#ab9d0c9085b15a70c514ac40836fec9cb">XDpDc_HpdHotunplugHandler()</a>, <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>, <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#a9350eba050dae42216947bd4cd8d36c8">XDpDc_InitializeRunConfig()</a>, <a class="el" href="mmi__dp__intr_8h.html#ad5a8cd4236c7a991497612d68cbd6a95">XDpDc_SetupDpInterrupts()</a>, <a class="el" href="mmi__dp__init_8h.html#a04602a40acdc79b6203e0add5c7774d5">XMmiDp_SetupAudioStream()</a>, and <a class="el" href="mmi__dp__init_8h.html#a71d704d64c98127c07711223063b8a1f">XMmiDp_SetupVideoStream()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="mmi__dp__init_8h.html#ad62d612a7ac65d0636766a23be209c87">XDpDc_CheckMstSupport()</a>, <a class="el" href="mmi__dp__intr_8h.html#ab9d0c9085b15a70c514ac40836fec9cb">XDpDc_HpdHotunplugHandler()</a>, <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>, <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#a9350eba050dae42216947bd4cd8d36c8">XDpDc_InitializeRunConfig()</a>, <a class="el" href="mmi__dp__init_8h.html#a57a8c2b47b0449d74aa22ca0f5ca7145">XDpDc_PrepareVideoStream()</a>, <a class="el" href="mmi__dp__init_8h.html#a2366205c7a4ee18ac1833bc71e721ad7">XDpDc_RunConnectSequence()</a>, <a class="el" href="mmi__dp__init_8h.html#a1470b14f1f340b5a19a2048effd086e5">XDpDc_RunLinkPolicySetup()</a>, <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>, <a class="el" href="mmi__dp__intr_8h.html#ad5a8cd4236c7a991497612d68cbd6a95">XDpDc_SetupDpInterrupts()</a>, and <a class="el" href="mmi__dp__init_8h.html#a04602a40acdc79b6203e0add5c7774d5">XMmiDp_SetupAudioStream()</a>.</p>
 
 </div>
 </div>
@@ -728,7 +754,7 @@ Data Fields</h2></td></tr>
 
 <p>0=auto, 1, 2, or 4 </p>
 
-<p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#a73abe61ea2c8dcfb0e0188cc2a072ca5">XDpDc_HpdHotplugHandler()</a>, and <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#a790255c83a7235287d2099ccdb16b716">XDpDc_CheckMstBandwidth()</a>, and <a class="el" href="mmi__dp__init_8h.html#a1470b14f1f340b5a19a2048effd086e5">XDpDc_RunLinkPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -744,7 +770,23 @@ Data Fields</h2></td></tr>
 
 <p>0=auto, 6=RBR, 10=HBR, 20=HBR2, 30=HBR3 </p>
 
-<p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#a73abe61ea2c8dcfb0e0188cc2a072ca5">XDpDc_HpdHotplugHandler()</a>, and <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#a790255c83a7235287d2099ccdb16b716">XDpDc_CheckMstBandwidth()</a>, and <a class="el" href="mmi__dp__init_8h.html#a1470b14f1f340b5a19a2048effd086e5">XDpDc_RunLinkPolicySetup()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8389dc7f16112a7de107908efabf0907"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 RunConfig::MstMode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1=MST link, 0=SST (set from DesignMstEn+MST_CAP) </p>
+
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#ad62d612a7ac65d0636766a23be209c87">XDpDc_CheckMstSupport()</a>, <a class="el" href="mmi__dp__init_8h.html#a57a8c2b47b0449d74aa22ca0f5ca7145">XDpDc_PrepareVideoStream()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -760,7 +802,7 @@ Data Fields</h2></td></tr>
 
 <p>0=DC_Functional, 1=DC_Bypass </p>
 
-<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dpdc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, <a class="el" href="mmi__dp__init_8h.html#a57a8c2b47b0449d74aa22ca0f5ca7145">XDpDc_PrepareVideoStream()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -904,6 +946,8 @@ Data Fields</h2></td></tr>
 
 <p>Pixels per clock. </p>
 
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#a57a8c2b47b0449d74aa22ca0f5ca7145">XDpDc_PrepareVideoStream()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9983481d9e3ae8274b831da8fc715586"></a>
@@ -950,7 +994,7 @@ Data Fields</h2></td></tr>
 
 <p>SDP enable. </p>
 
-<p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#a73abe61ea2c8dcfb0e0188cc2a072ca5">XDpDc_HpdHotplugHandler()</a>, <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, and <a class="el" href="mmi__dc__setup__frames_8h.html#af01b016c00245f21541974c6dab538aa">XDpDc_InitFrames()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, <a class="el" href="mmi__dc__setup__frames_8h.html#af01b016c00245f21541974c6dab538aa">XDpDc_InitFrames()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -964,7 +1008,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Stream 1 video format. </p>
+<p>Stream 1 video format; in bypass SST mode this describes AVPG stream 0 (DP MSA stream 1) </p>
 
 <p>Referenced by <a class="el" href="mmi__dc__generate__frames_8h.html#ab05cca9b31f824de34720ae09717ee3e">XDpDc_GenerateFrames()</a>, <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, <a class="el" href="mmi__dpdc__platform_8h.html#a36260594d61926e44fbd3c2d0913ccd8">XDpDc_InitDcSubsystem()</a>, and <a class="el" href="mmi__dc__setup__frames_8h.html#aebd7ac73b079a58f72ecacdc1bfef5f1">XDpDc_SetupStream1Descriptors()</a>.</p>
 
@@ -1126,7 +1170,7 @@ Data Fields</h2></td></tr>
 
 <p>Video mode. </p>
 
-<p>Referenced by <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, and <a class="el" href="mmi__dp__init_8h.html#a71d704d64c98127c07711223063b8a1f">XMmiDp_SetupVideoStream()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dc__nonlive__test_8h.html#aecb963c6bffb8a2e2488d46545822052">XDpDc_InitDcSubPtr()</a>, and <a class="el" href="mmi__dp__init_8h.html#a57a8c2b47b0449d74aa22ca0f5ca7145">XDpDc_PrepareVideoStream()</a>.</p>
 
 </div>
 </div>

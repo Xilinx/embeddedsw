@@ -116,6 +116,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga70adfd9ae96a869e8adbbc1d01f70916"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">XLoader_AesKatTest</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr)</td></tr>
 <tr class="memdesc:ga70adfd9ae96a869e8adbbc1d01f70916"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs KAT test on AES crypto Engine.  <a href="#ga70adfd9ae96a869e8adbbc1d01f70916">More...</a><br/></td></tr>
 <tr class="separator:ga70adfd9ae96a869e8adbbc1d01f70916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7f8a05533623425c11d0c61ae684c27e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga7f8a05533623425c11d0c61ae684c27e">XLoader_RsaKat</a> (void)</td></tr>
+<tr class="memdesc:ga7f8a05533623425c11d0c61ae684c27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs the KAT for RSA.  <a href="#ga7f8a05533623425c11d0c61ae684c27e">More...</a><br/></td></tr>
+<tr class="separator:ga7f8a05533623425c11d0c61ae684c27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ba46d8e0c55427374c37e0d5543113d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga1ba46d8e0c55427374c37e0d5543113d">XLoader_EccKat</a> (XSecure_EllipticCrvClass CrvClass)</td></tr>
+<tr class="memdesc:ga1ba46d8e0c55427374c37e0d5543113d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs the KAT for ECDSA sign verification.  <a href="#ga1ba46d8e0c55427374c37e0d5543113d">More...</a><br/></td></tr>
+<tr class="separator:ga1ba46d8e0c55427374c37e0d5543113d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat</a> (<a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *SecurePtr)</td></tr>
+<tr class="memdesc:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs RSA or Ecdsa KAT based on pdi.  <a href="#ga3f29d3cad49bb5f8f75792c853e235bc">More...</a><br/></td></tr>
+<tr class="separator:ga3f29d3cad49bb5f8f75792c853e235bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga70adfd9ae96a869e8adbbc1d01f70916"></a>
@@ -158,6 +167,44 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga3f29d3cad49bb5f8f75792c853e235bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLoader_AuthKat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_loader___secure_params.html">XLoader_SecureParams</a> *&#160;</td>
+          <td class="paramname"><em>SecurePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function runs RSA or Ecdsa KAT based on pdi. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SecurePtr</td><td>is pointer to the <a class="el" href="struct_x_loader___secure_params.html" title="Structure to hold secure parameters. ">XLoader_SecureParams</a> instance</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS on success.</li>
+<li>XLOADER_SEC_INVALID_AUTH on invalid authentication type.</li>
+<li>XLOADER_ERR_RSA_NOT_ENABLED if RSA is not enabled.</li>
+<li>XLOADER_ERR_ECDSA_NOT_ENABLED if ECDSA is not enabled. </li>
+</ul>
+</dd></dl>
+<p>Get the Authentication type.</p>
+<ul>
+<li>Update KAT status based on the user configuration.</li>
+<li>Skip running the KAT for ECDSA or RSA if it is already run. KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set. If KAT fails device will go into a secure lockdown state. For AUTH JTAG KAT will be run every time when request is made.</li>
+</ul>
+
+<p>References <a class="el" href="struct_x_loader___secure_params.html#ac0dfc922987bb3eff336ce50996027b4">XLoader_SecureParams::AcPtr</a>, <a class="el" href="struct_x_loader___auth_certificate.html#a6422388a5f39db38f49da3fd094cce3c">XLoader_AuthCertificate::AuthHdr</a>, <a class="el" href="struct_x_loader___auth_jtag_message.html#aa9d68ed5c256db6935dd939f2e09a256">XLoader_AuthJtagMessage::AuthHdr</a>, <a class="el" href="struct_x_loader___secure_params.html#a80869a11ef99165debd75a2fe9d34ad1">XLoader_SecureParams::AuthJtagMessagePtr</a>, <a class="el" href="struct_x_loader___secure_params.html#a52a99323f052ec7000d558dd6125357d">XLoader_SecureParams::PdiPtr</a>, <a class="el" href="struct_xil_pdi.html#a8ed51e3954f76687de0b4e0528598dcf">XilPdi::PlmKatStatus</a>, <a class="el" href="group__xloader__kat__apis.html#ga43a415ea9b49abb198cae9ba6f9eb0b5">XLoader_ClearKatOnPPDI()</a>, <a class="el" href="group__xloader__kat__apis.html#ga1ba46d8e0c55427374c37e0d5543113d">XLoader_EccKat()</a>, <a class="el" href="xloader__auth__enc_8h.html#a395a2b8a7f651bca9e42fa81367d3f8c">XLOADER_PUB_STRENGTH_ECDSA_P384</a>, <a class="el" href="xloader__auth__enc_8h.html#a68fd614af4b4a8c019eabb4213393cea">XLOADER_PUB_STRENGTH_ECDSA_P521</a>, <a class="el" href="xloader__auth__enc_8h.html#a2b346985e32de1eff6ef6a29db4ac388">XLOADER_PUB_STRENGTH_RSA_4096</a>, <a class="el" href="group__xloader__kat__apis.html#ga7f8a05533623425c11d0c61ae684c27e">XLoader_RsaKat()</a>, <a class="el" href="group__xloader__apis.html#ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27">XLOADER_SEC_CURVE_NOT_SUPPORTED</a>, and <a class="el" href="group__xloader__apis.html#ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896">XLOADER_SEC_INVALID_AUTH</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga43a415ea9b49abb198cae9ba6f9eb0b5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +240,61 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="struct_xil_pdi.html#abfb2bdf4aada2ee8b70475e9dc179edc">XilPdi::PdiType</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">XLoader_AesKatTest()</a>, and <a class="el" href="group__xloader__kat__apis.html#ga4fdf03478ad3c8bf86deac1e28d4ddda">XLoader_Sha3Kat()</a>.</p>
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga70adfd9ae96a869e8adbbc1d01f70916">XLoader_AesKatTest()</a>, <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>, and <a class="el" href="group__xloader__kat__apis.html#ga4fdf03478ad3c8bf86deac1e28d4ddda">XLoader_Sha3Kat()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga1ba46d8e0c55427374c37e0d5543113d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLoader_EccKat </td>
+          <td>(</td>
+          <td class="paramtype">XSecure_EllipticCrvClass&#160;</td>
+          <td class="paramname"><em>CrvClass</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function runs the KAT for ECDSA sign verification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CrvClass</td><td>is the elliptic curve class (prime/binary) for which KAT is to be run</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS on success and error code on failure </li>
+</ul>
+</dd></dl>
+
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga7f8a05533623425c11d0c61ae684c27e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLoader_RsaKat </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function runs the KAT for RSA. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS on success and error code on failure </li>
+</ul>
+</dd></dl>
+
+<p>Referenced by <a class="el" href="group__xloader__kat__apis.html#ga3f29d3cad49bb5f8f75792c853e235bc">XLoader_AuthKat()</a>.</p>
 
 </div>
 </div>

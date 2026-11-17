@@ -14,5 +14,8 @@ var searchData=
   ['num_5fof_5fsectors64',['NUM_OF_SECTORS64',['../group__qspipsu__api.html#ga68349ca2530e582759ebed4d3c059715',1,'xqspipsu.h']]],
   ['num_5fof_5fsectors8',['NUM_OF_SECTORS8',['../group__qspipsu__api.html#gae76ed1fab4655b7f431ccbbd3507c24b',1,'xqspipsu.h']]],
   ['num_5fof_5fsectors8192',['NUM_OF_SECTORS8192',['../group__qspipsu__api.html#gaf0c1bb203cfb920a65ed1bf7658a592c',1,'xqspipsu.h']]],
-  ['nummsg',['NumMsg',['../struct_x_qspi_psu.html#af6710ef68edf3ff0a833c088207ba227',1,'XQspiPsu']]]
+  ['numdie',['NumDie',['../struct_flash_info.html#a4e29ea9c35a5ea6ea72dceb8ab2d4611',1,'FlashInfo']]],
+  ['nummsg',['NumMsg',['../struct_x_qspi_psu.html#af6710ef68edf3ff0a833c088207ba227',1,'XQspiPsu']]],
+  ['numpage',['NumPage',['../struct_flash_info.html#a445fd36e36f3128345ad43e5e9886186',1,'FlashInfo']]],
+  ['numsect',['NumSect',['../struct_flash_info.html#af97490d94d6769ec426380408695d555',1,'FlashInfo']]]
 ];

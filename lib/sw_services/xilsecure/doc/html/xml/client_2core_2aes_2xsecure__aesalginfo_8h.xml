@@ -7,49 +7,49 @@
     <includedby refid="xsecure__aesalginfo_8c" local="yes">xsecure_aesalginfo.c</includedby>
     <includedby refid="xsecure__aesclient_8h" local="yes">xsecure_aesclient.h</includedby>
     <incdepgraph>
-      <node id="722">
+      <node id="729">
         <label>xil_sutil.h</label>
       </node>
-      <node id="721">
+      <node id="728">
         <label>xil_cryptoalginfo.h</label>
       </node>
-      <node id="720">
+      <node id="727">
         <label>xsecure_aesalginfo.h</label>
         <link refid="client/core/aes/xsecure_aesalginfo.h"/>
-        <childnode refid="721" relation="include">
+        <childnode refid="728" relation="include">
         </childnode>
-        <childnode refid="722" relation="include">
+        <childnode refid="729" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="727">
-        <label>xilsecure_versal_aes_client_example.c</label>
-        <link refid="xilsecure__versal__aes__client__example_8c"/>
-      </node>
-      <node id="724">
-        <label>xsecure_aesalginfo.c</label>
-        <link refid="xsecure__aesalginfo_8c"/>
-      </node>
-      <node id="723">
-        <label>xsecure_aesalginfo.h</label>
-        <link refid="client/core/aes/xsecure_aesalginfo.h"/>
-        <childnode refid="724" relation="include">
-        </childnode>
-        <childnode refid="725" relation="include">
-        </childnode>
-      </node>
-      <node id="726">
+      <node id="733">
         <label>xsecure_aesclient.c</label>
         <link refid="xsecure__aesclient_8c"/>
       </node>
-      <node id="725">
+      <node id="732">
         <label>xsecure_aesclient.h</label>
         <link refid="xsecure__aesclient_8h"/>
-        <childnode refid="726" relation="include">
+        <childnode refid="733" relation="include">
         </childnode>
-        <childnode refid="727" relation="include">
+        <childnode refid="734" relation="include">
         </childnode>
+      </node>
+      <node id="731">
+        <label>xsecure_aesalginfo.c</label>
+        <link refid="xsecure__aesalginfo_8c"/>
+      </node>
+      <node id="730">
+        <label>xsecure_aesalginfo.h</label>
+        <link refid="client/core/aes/xsecure_aesalginfo.h"/>
+        <childnode refid="731" relation="include">
+        </childnode>
+        <childnode refid="732" relation="include">
+        </childnode>
+      </node>
+      <node id="734">
+        <label>xilsecure_versal_aes_client_example.c</label>
+        <link refid="xilsecure__versal__aes__client__example_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -70,16 +70,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" compoundref="xsecure__plat__defs_8h" startline="63">XSECURE_API_AES_INIT</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" compoundref="xsecure__plat__defs_8h" startline="69">XSECURE_API_AES_INIT</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -129,6 +128,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_AESALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesalginfo.h"/>
   </compounddef>
 </doxygen>

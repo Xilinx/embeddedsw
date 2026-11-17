@@ -95,7 +95,7 @@
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
 <codeline lineno="105"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Initialize(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName)<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xhdcp22__mmult__sinit_8c_1a135634219c127344183f1e124c5324b2" kindref="member">XHdcp22_mmult_Initialize</ref>(<ref refid="struct_x_hdcp22__mmult" kindref="compound">XHdcp22_mmult</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName)<sp/>{</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult_uio_info<sp/>*InfoPtr<sp/>=<sp/>&amp;uio_info;</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">dirent<sp/>**namelist;</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/>n;</highlight></codeline>
@@ -135,21 +135,21 @@
 <codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
 <codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>NOTE:<sp/>slave<sp/>interface<sp/>&apos;Ctrl&apos;<sp/>should<sp/>be<sp/>mapped<sp/>to<sp/>uioX/map0</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.BaseAddress<sp/>=<sp/>(u32)mmap(NULL,<sp/>InfoPtr-&gt;maps[0].size,<sp/>PROT_READ|PROT_WRITE,<sp/>MAP_SHARED,<sp/>InfoPtr-&gt;uio_fd,<sp/>0<sp/>*<sp/>getpagesize());</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(InstancePtr-&gt;Config.BaseAddress);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_hdcp22__mmult_1a6a6e0b501c6c1284534a8f7486357de4" kindref="member">Config</ref>.<ref refid="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" kindref="member">BaseAddress</ref><sp/>=<sp/>(u32)mmap(NULL,<sp/>InfoPtr-&gt;maps[0].size,<sp/>PROT_READ|PROT_WRITE,<sp/>MAP_SHARED,<sp/>InfoPtr-&gt;uio_fd,<sp/>0<sp/>*<sp/>getpagesize());</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(InstancePtr-&gt;<ref refid="struct_x_hdcp22__mmult_1a6a6e0b501c6c1284534a8f7486357de4" kindref="member">Config</ref>.<ref refid="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" kindref="member">BaseAddress</ref>);</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsReady<sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_hdcp22__mmult_1a67fbd087ff8010772a2c8e014db89b4a" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
 <codeline lineno="151"><highlight class="normal"></highlight></codeline>
 <codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="153"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Release(XHdcp22_mmult<sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Release(<ref refid="struct_x_hdcp22__mmult" kindref="compound">XHdcp22_mmult</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult_uio_info<sp/>*InfoPtr<sp/>=<sp/>&amp;uio_info;</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"></highlight></codeline>
 <codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(InstancePtr-&gt;<ref refid="struct_x_hdcp22__mmult_1a67fbd087ff8010772a2c8e014db89b4a" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>munmap((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)InstancePtr-&gt;Config.BaseAddress,<sp/>InfoPtr-&gt;maps[0].size);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>munmap((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)InstancePtr-&gt;<ref refid="struct_x_hdcp22__mmult_1a6a6e0b501c6c1284534a8f7486357de4" kindref="member">Config</ref>.<ref refid="struct_x_hdcp22__mmult___config_1a414d2630751fe29f9d30040fdf0c0493" kindref="member">BaseAddress</ref>,<sp/>InfoPtr-&gt;maps[0].size);</highlight></codeline>
 <codeline lineno="162"><highlight class="normal"></highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>close(InfoPtr-&gt;uio_fd);</highlight></codeline>
 <codeline lineno="164"><highlight class="normal"></highlight></codeline>
@@ -158,6 +158,6 @@
 <codeline lineno="167"><highlight class="normal"></highlight></codeline>
 <codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_linux.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_linux.c"/>
   </compounddef>
 </doxygen>

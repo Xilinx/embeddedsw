@@ -5,75 +5,80 @@
     <includes refid="xsecure__lmsclient_8h" local="yes">xsecure_lmsclient.h</includes>
     <includes refid="xsecure__generic_8h" local="yes">xsecure_generic.h</includes>
     <incdepgraph>
-      <node id="2069">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="2070">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="2065">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="2072">
-        <label>xsecure_generic.h</label>
-        <link refid="xsecure__generic_8h"/>
-        <childnode refid="2063" relation="include">
-        </childnode>
-        <childnode refid="2064" relation="include">
-        </childnode>
-      </node>
-      <node id="2067">
+      <node id="2149">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="2068" relation="include">
+        <childnode refid="2150" relation="include">
         </childnode>
-        <childnode refid="2063" relation="include">
+        <childnode refid="2145" relation="include">
         </childnode>
-        <childnode refid="2069" relation="include">
+        <childnode refid="2151" relation="include">
         </childnode>
-        <childnode refid="2070" relation="include">
+        <childnode refid="2152" relation="include">
         </childnode>
-        <childnode refid="2071" relation="include">
+        <childnode refid="2153" relation="include">
         </childnode>
-      </node>
-      <node id="2061">
-        <label>xsecure_lmsclient.c</label>
-        <link refid="xsecure_lmsclient.c"/>
-        <childnode refid="2062" relation="include">
-        </childnode>
-        <childnode refid="2072" relation="include">
+        <childnode refid="2154" relation="include">
         </childnode>
       </node>
-      <node id="2062">
-        <label>xsecure_lmsclient.h</label>
-        <link refid="xsecure__lmsclient_8h"/>
-        <childnode refid="2063" relation="include">
+      <node id="2152">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2155">
+        <label>xsecure_generic.h</label>
+        <link refid="xsecure__generic_8h"/>
+        <childnode refid="2145" relation="include">
         </childnode>
-        <childnode refid="2064" relation="include">
-        </childnode>
-        <childnode refid="2067" relation="include">
-        </childnode>
-        <childnode refid="2070" relation="include">
+        <childnode refid="2146" relation="include">
         </childnode>
       </node>
-      <node id="2071">
-        <label>xsecure_config.h</label>
+      <node id="2151">
+        <label>xil_cache.h</label>
       </node>
-      <node id="2063">
-        <label>xil_types.h</label>
+      <node id="2154">
+        <label>xsecure_plat_defs.h</label>
       </node>
-      <node id="2066">
-        <label>xparameters.h</label>
+      <node id="2147">
+        <label>xilmailbox.h</label>
       </node>
-      <node id="2068">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="2064">
+      <node id="2146">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="2065" relation="include">
+        <childnode refid="2147" relation="include">
         </childnode>
-        <childnode refid="2066" relation="include">
+        <childnode refid="2148" relation="include">
+        </childnode>
+      </node>
+      <node id="2153">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2145">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2148">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2150">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2143">
+        <label>xsecure_lmsclient.c</label>
+        <link refid="xsecure_lmsclient.c"/>
+        <childnode refid="2144" relation="include">
+        </childnode>
+        <childnode refid="2155" relation="include">
+        </childnode>
+      </node>
+      <node id="2144">
+        <label>xsecure_lmsclient.h</label>
+        <link refid="xsecure__lmsclient_8h"/>
+        <childnode refid="2145" relation="include">
+        </childnode>
+        <childnode refid="2146" relation="include">
+        </childnode>
+        <childnode refid="2149" relation="include">
+        </childnode>
+        <childnode refid="2154" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -115,10 +120,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" bodystart="67" bodyend="87"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="162">XSECURE_API_LMS_SIGN_VERIFY</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c" bodystart="67" bodyend="87"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="164">XSECURE_API_LMS_SIGN_VERIFY</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -173,6 +178,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="87"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsclient.c"/>
   </compounddef>
 </doxygen>

@@ -109,11 +109,11 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p><b>Software Initialization &amp; Configuration</b></p>
 <p>The application needs to do following steps in order for preparing the MIPI CSI2 Tx Subsystem core to be ready.</p>
 <ul>
-<li>Call XCsi2TxSs_LookupConfig using a device ID to find the core configuration.</li>
+<li>Call XCsi2TxSs_LookupConfig using a base address to find the core configuration.</li>
 <li>Call XCsi2TxSs_CfgInitialize to initialize the device and the driver instance associated with it.</li>
 </ul>
 <p><b>Interrupts</b></p>
-<p>The <a class="el" href="group__csi2txss.html#ga445feeebfebea8ae0119be48a4a27ede" title="This routine installs an asynchronous callback function for the given HandlerType: ...">XCsi2TxSs_SetCallBack()</a> is used to register the call back functions for MIPI CSI2 Tx Subsystem driver with the corresponding handles</p>
+<p>The <a class="el" href="group__csi2txss.html#ga445feeebfebea8ae0119be48a4a27ede" title="Register a user callback for the given handler type. ">XCsi2TxSs_SetCallBack()</a> is used to register the call back functions for MIPI CSI2 Tx Subsystem driver with the corresponding handles</p>
 <p><b> Virtual Memory </b></p>
 <p>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</p>
 <p><b> Threads </b></p>
@@ -136,6 +136,9 @@ $(document).ready(function(){initNavTree('index.html','');});
                    generation.
       vsa 15/12/17 Add support for Clock Mode
   1.2 vsa 02/28/18 Add Frame End Generation feature
+  1.3 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) support with per-VC line
+                   count handlers and 8 pixels-per-clock mode reporting for
+                   the CSI2 TX subsystem v3.0 IP
   </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e" kind="struct" prot="public">
     <compoundname>SCSI_READ_WRITE</compoundname>
+    <includes local="no">xusbps_class_storage.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1a3b8e240ee1872132dcd88a5409d0851b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,12 @@
         <argsstring></argsstring>
         <name>opCode</name>
         <briefdescription>
-        </briefdescription>
+<para>SCSI operation code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="204" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1a2564880279e9f9ac7483ac221523c4c3" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +23,12 @@
         <argsstring></argsstring>
         <name>reserved1</name>
         <briefdescription>
-        </briefdescription>
+<para>Reserved byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="159" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="205" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1a20421b4601cf56e6624b127a04dd5f35" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -35,12 +36,12 @@
         <argsstring></argsstring>
         <name>block</name>
         <briefdescription>
-        </briefdescription>
+<para>Logical block address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="160" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="206" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1aac10b2c9e7ccef2fa0007a74bdf1fdaa" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,12 +49,12 @@
         <argsstring></argsstring>
         <name>reserved2</name>
         <briefdescription>
-        </briefdescription>
+<para>Reserved byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="161" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1afda8cf9ec7cad39eced1853d27dc8558" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -61,12 +62,12 @@
         <argsstring></argsstring>
         <name>length</name>
         <briefdescription>
-        </briefdescription>
+<para>Transfer length in blocks. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="162" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1a1be5741e2c4d3aaadd1ab658755d2bdb" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,19 +75,19 @@
         <argsstring></argsstring>
         <name>control</name>
         <briefdescription>
-        </briefdescription>
+<para>Control byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="163" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>SCSI READ(10)/WRITE(10) command block structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="157" bodyend="168"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="203" bodyend="214"/>
     <listofallmembers>
       <member refid="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1a20421b4601cf56e6624b127a04dd5f35" prot="public" virt="non-virtual"><scope>SCSI_READ_WRITE</scope><name>block</name></member>
       <member refid="struct_s_c_s_i___r_e_a_d___w_r_i_t_e_1a1be5741e2c4d3aaadd1ab658755d2bdb" prot="public" virt="non-virtual"><scope>SCSI_READ_WRITE</scope><name>control</name></member>

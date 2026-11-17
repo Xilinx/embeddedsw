@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="386" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -30,9 +30,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="387" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -45,10 +45,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="388" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
-        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
+        <referencedby refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="300" endline="365">XIOModule_SendBuffer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -61,10 +61,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="389" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
-        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
+        <referencedby refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="397" endline="465">XIOModule_ReceiveBuffer</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i_o_module___uart___stats_1a8c4abe366c5215270523d5df0d9e1b71" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -77,9 +77,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="390" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i_o_module___uart___stats_1a8c46d3426903c6709de209550b6286c3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -92,9 +92,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="391" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="392" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_i_o_module___uart___stats_1af4fe5a6370521fcd8eb7cad5644f84a1" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -107,16 +107,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="392" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</referencedby>
-        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="61" endline="86">XIOModule_GetStats</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="94" endline="109">XIOModule_ClearStats</referencedby>
+        <referencedby refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" compoundref="xiomodule__stats_8c" startline="59" endline="84">XIOModule_GetStats</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Statistics for the UART. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="385" bodyend="393"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="386" bodyend="394"/>
     <listofallmembers>
       <member refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" prot="public" virt="non-virtual"><scope>XIOModule_Uart_Stats</scope><name>CharactersReceived</name></member>
       <member refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" prot="public" virt="non-virtual"><scope>XIOModule_Uart_Stats</scope><name>CharactersTransmitted</name></member>

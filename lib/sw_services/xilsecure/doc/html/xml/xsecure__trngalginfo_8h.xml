@@ -6,30 +6,30 @@
     <includes local="yes">xil_sutil.h</includes>
     <includedby refid="xsecure__trngalginfo_8c" local="yes">xsecure_trngalginfo.c</includedby>
     <incdepgraph>
-      <node id="4873">
-        <label>xsecure_trngalginfo.h</label>
-        <link refid="xsecure_trngalginfo.h"/>
-        <childnode refid="4874" relation="include">
-        </childnode>
-        <childnode refid="4875" relation="include">
-        </childnode>
-      </node>
-      <node id="4875">
+      <node id="5124">
         <label>xil_sutil.h</label>
       </node>
-      <node id="4874">
+      <node id="5122">
+        <label>xsecure_trngalginfo.h</label>
+        <link refid="xsecure_trngalginfo.h"/>
+        <childnode refid="5123" relation="include">
+        </childnode>
+        <childnode refid="5124" relation="include">
+        </childnode>
+      </node>
+      <node id="5123">
         <label>xil_cryptoalginfo.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4877">
+      <node id="5126">
         <label>xsecure_trngalginfo.c</label>
         <link refid="xsecure__trngalginfo_8c"/>
       </node>
-      <node id="4876">
+      <node id="5125">
         <label>xsecure_trngalginfo.h</label>
         <link refid="xsecure_trngalginfo.h"/>
-        <childnode refid="4877" relation="include">
+        <childnode refid="5126" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -51,16 +51,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="155">XSECURE_API_TRNG_GENERATE</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="156">XSECURE_API_TRNG_GENERATE</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -104,6 +103,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_TRNGALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.h"/>
   </compounddef>
 </doxygen>

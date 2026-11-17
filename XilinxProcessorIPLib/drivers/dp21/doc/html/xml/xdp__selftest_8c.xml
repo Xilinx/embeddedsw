@@ -4,53 +4,63 @@
     <compoundname>xdp_selftest.c</compoundname>
     <includes refid="xdp_8h" local="yes">xdp.h</includes>
     <incdepgraph>
-      <node id="78">
+      <node id="160">
         <label>xil_assert.h</label>
       </node>
-      <node id="81">
+      <node id="163">
         <label>xil_io.h</label>
       </node>
-      <node id="80">
-        <label>xdp_hw.h</label>
-        <link refid="xdp__hw_8h"/>
-        <childnode refid="81" relation="include">
-        </childnode>
-        <childnode refid="77" relation="include">
-        </childnode>
-      </node>
-      <node id="75">
+      <node id="157">
         <label>xdp_selftest.c</label>
         <link refid="xdp_selftest.c"/>
-        <childnode refid="76" relation="include">
+        <childnode refid="158" relation="include">
         </childnode>
       </node>
-      <node id="82">
+      <node id="166">
+        <label>xdp21_dsc.h</label>
+        <link refid="xdp21__dsc_8h"/>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+      </node>
+      <node id="164">
         <label>xstatus.h</label>
       </node>
-      <node id="83">
+      <node id="165">
         <label>xvidc.h</label>
       </node>
-      <node id="76">
-        <label>xdp.h</label>
-        <link refid="xdp_8h"/>
-        <childnode refid="77" relation="include">
-        </childnode>
-        <childnode refid="78" relation="include">
-        </childnode>
-        <childnode refid="79" relation="include">
-        </childnode>
-        <childnode refid="80" relation="include">
-        </childnode>
-        <childnode refid="82" relation="include">
-        </childnode>
-        <childnode refid="83" relation="include">
-        </childnode>
-      </node>
-      <node id="79">
+      <node id="161">
         <label>xil_types.h</label>
       </node>
-      <node id="77">
+      <node id="159">
         <label>xparameters.h</label>
+      </node>
+      <node id="162">
+        <label>xdp_hw.h</label>
+        <link refid="xdp__hw_8h"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+      </node>
+      <node id="158">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -81,9 +91,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1818" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp_selftest.c" bodystart="117" bodyend="140"/>
-        <references refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" compoundref="xdp_8h" startline="1593">XDp::IsReady</references>
-        <references refid="group__dp_1gaa3afd37e5bb042c2a75443eaadb79998" compoundref="xdp_8h" startline="1883">XDp_GetCoreType</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="1832" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp_selftest.c" bodystart="117" bodyend="140"/>
+        <references refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" compoundref="xdp_8h" startline="1611">XDp::IsReady</references>
+        <references refid="group__dp_1gaa3afd37e5bb042c2a75443eaadb79998" compoundref="xdp_8h" startline="1902">XDp_GetCoreType</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -257,6 +267,6 @@
 <codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XDPRXSS_NUM_INSTANCES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="243"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp_selftest.c"/>
   </compounddef>
 </doxygen>

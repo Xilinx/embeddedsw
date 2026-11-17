@@ -11,9 +11,9 @@ var files =
     [ "xaxicdma_example_sg_poll.c", "xaxicdma__example__sg__poll_8c.html", "xaxicdma__example__sg__poll_8c" ],
     [ "xaxicdma_example_simple_intr.c", "xaxicdma__example__simple__intr_8c.html", "xaxicdma__example__simple__intr_8c" ],
     [ "xaxicdma_example_simple_poll.c", "xaxicdma__example__simple__poll_8c.html", "xaxicdma__example__simple__poll_8c" ],
-    [ "xaxicdma_g.c", "xaxicdma__g_8c.html", null ],
+    [ "xaxicdma_g.c", "xaxicdma__g_8c.html", "xaxicdma__g_8c" ],
     [ "xaxicdma_hw.h", "xaxicdma__hw_8h.html", "xaxicdma__hw_8h" ],
-    [ "xaxicdma_i.h", "xaxicdma__i_8h.html", null ],
+    [ "xaxicdma_i.h", "xaxicdma__i_8h.html", "xaxicdma__i_8h" ],
     [ "xaxicdma_intr.c", "xaxicdma__intr_8c.html", "xaxicdma__intr_8c" ],
     [ "xaxicdma_porting_guide.h", "xaxicdma__porting__guide_8h.html", null ],
     [ "xaxicdma_sinit.c", "xaxicdma__sinit_8c.html", "xaxicdma__sinit_8c" ]

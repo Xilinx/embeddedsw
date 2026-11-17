@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="167" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a3465714e442307d99eabf8d32fcb319b" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="169" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="165" bodyend="-1"/>
         <referencedby refid="xv__mix_8h_1a6fc61d43c6597005181b4fe0207e5a92" compoundref="xv__mix_8c" startline="30" endline="45">XV_mix_CfgInitialize</referencedby>
         <referencedby refid="xv__mix_8h_1afa0cb113ca68156bed7d969159ed7592" compoundref="xv__mix_8c" startline="168" endline="173">XV_mix_DisableAutoRestart</referencedby>
         <referencedby refid="xv__mix_8h_1ac5a34d3f2411445a01fc0756f464820b" compoundref="xv__mix_8c" startline="147" endline="152">XV_mix_EnableAutoRestart</referencedby>
@@ -245,7 +245,7 @@
         <referencedby refid="xv__mix_8h_1abc073c32e44306d5fca71cf41f68deb8" compoundref="xv__mix_8c" startline="7045" endline="7053">XV_mix_Get_HwReg_reserve</referencedby>
         <referencedby refid="xv__mix_8h_1ab951c4f8a972d543a1982a7701d5f6d3" compoundref="xv__mix_8c" startline="330" endline="338">XV_mix_Get_HwReg_video_format</referencedby>
         <referencedby refid="xv__mix_8h_1ab67a77fdc39340c5ce5812e3ad15eedf" compoundref="xv__mix_8c" startline="253" endline="261">XV_mix_Get_HwReg_width</referencedby>
-        <referencedby refid="xv__mix__sinit_8c_1ad959040ffe1f5dfe7b50fd3bc44ae049" compoundref="xv__mix__sinit_8c" startline="126" endline="140">XV_mix_Initialize</referencedby>
+        <referencedby refid="xv__mix__sinit_8c_1ad959040ffe1f5dfe7b50fd3bc44ae049" compoundref="xv__mix__sinit_8c" startline="63" endline="77">XV_mix_Initialize</referencedby>
         <referencedby refid="xv__mix_8h_1adc3df9baaa7847de23ef2e024bfe6297" compoundref="xv__mix_8c" startline="8436" endline="8441">XV_mix_InterruptClear</referencedby>
         <referencedby refid="xv__mix_8h_1aab5f91166c838d8885499b4b47be0083" compoundref="xv__mix_8c" startline="8415" endline="8423">XV_mix_InterruptDisable</referencedby>
         <referencedby refid="xv__mix_8h_1ae9315fc9bf4da3e66d5e9ef9837a74d2" compoundref="xv__mix_8c" startline="8391" endline="8399">XV_mix_InterruptEnable</referencedby>
@@ -470,24 +470,24 @@
         <referencedby refid="xv__mix_8h_1a86a96d22922f4e8b9562ab31fc981330" compoundref="xv__mix_8c" startline="7840" endline="7853">XV_mix_Write_HwReg_logoG_V_Words</referencedby>
         <referencedby refid="xv__mix_8h_1a6bc958b8efa0cc6f648e7939ab9c02b1" compoundref="xv__mix_8c" startline="7693" endline="7706">XV_mix_Write_HwReg_logoR_V_Bytes</referencedby>
         <referencedby refid="xv__mix_8h_1a3fdd70d16c23c4a84fff021ba2d4fa7f" compoundref="xv__mix_8c" startline="7636" endline="7649">XV_mix_Write_HwReg_logoR_V_Words</referencedby>
-        <referencedby refid="group__v__mix_1ga723b99028777cdecd1a2f4102ce9b792" compoundref="xv__mix__l2_8c" startline="1739" endline="1859">XVMix_DbgLayerInfo</referencedby>
-        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1683" endline="1717">XVMix_DbgReportStatus</referencedby>
-        <referencedby refid="group__v__mix_1ga5cc8135e34ef1c998256c207a80dd8a8" compoundref="xv__mix__l2_8c" startline="1034" endline="1064">XVMix_GetLayerAlpha</referencedby>
-        <referencedby refid="group__v__mix_1ga72b288cda2c49d1fb09245622d9e58c6" compoundref="xv__mix__l2_8c" startline="1226" endline="1245">XVMix_GetLayerBufferAddr</referencedby>
-        <referencedby refid="group__v__mix_1ga3279f35b6a870f57e9d89a013bcf28fc" compoundref="xv__mix__l2_8c" startline="1414" endline="1434">XVMix_GetLayerChromaBuffer2Addr</referencedby>
-        <referencedby refid="group__v__mix_1ga3056dab3a16bc61cffee350544b862fa" compoundref="xv__mix__l2_8c" startline="1315" endline="1335">XVMix_GetLayerChromaBufferAddr</referencedby>
-        <referencedby refid="group__v__mix_1gaba881e5eeabde22ab7c02aee78d320a0" compoundref="xv__mix__l2_8c" startline="1125" endline="1160">XVMix_GetLayerColorFormat</referencedby>
-        <referencedby refid="group__v__mix_1ga694fb356c5458509b2ceb615a0cb4008" compoundref="xv__mix__l2_8c" startline="936" endline="966">XVMix_GetLayerScaleFactor</referencedby>
-        <referencedby refid="group__v__mix_1ga7294d87809e7c940e83234bf6d0730db" compoundref="xv__mix__l2_8c" startline="711" endline="770">XVMix_GetLayerWindow</referencedby>
-        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1544" endline="1606">XVMix_LoadLogo</referencedby>
-        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1622" endline="1662">XVMix_LoadLogoPixelAlpha</referencedby>
-        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="787" endline="857">XVMix_MoveLayerWindow</referencedby>
-        <referencedby refid="group__v__mix_1ga283cb29bb936ce5d0539782422ff3c3e" compoundref="xv__mix__l2_8c" startline="981" endline="1020">XVMix_SetLayerAlpha</referencedby>
-        <referencedby refid="group__v__mix_1ga8d317845835bcbcc2b9f877ce0274691" compoundref="xv__mix__l2_8c" startline="1175" endline="1212">XVMix_SetLayerBufferAddr</referencedby>
-        <referencedby refid="group__v__mix_1gaaf18b72d5323b64b3c7d58703918bb2c" compoundref="xv__mix__l2_8c" startline="1360" endline="1397">XVMix_SetLayerChromaBuffer2Addr</referencedby>
-        <referencedby refid="group__v__mix_1ga7be832e27e45da5630205217381207a3" compoundref="xv__mix__l2_8c" startline="1262" endline="1299">XVMix_SetLayerChromaBufferAddr</referencedby>
-        <referencedby refid="group__v__mix_1ga8ed68eed5c7d6441ef98894f658deb1d" compoundref="xv__mix__l2_8c" startline="872" endline="922">XVMix_SetLayerScaleFactor</referencedby>
-        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga723b99028777cdecd1a2f4102ce9b792" compoundref="xv__mix__l2_8c" startline="1706" endline="1826">XVMix_DbgLayerInfo</referencedby>
+        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1650" endline="1684">XVMix_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__mix_1ga5cc8135e34ef1c998256c207a80dd8a8" compoundref="xv__mix__l2_8c" startline="1001" endline="1031">XVMix_GetLayerAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga72b288cda2c49d1fb09245622d9e58c6" compoundref="xv__mix__l2_8c" startline="1193" endline="1212">XVMix_GetLayerBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1ga3279f35b6a870f57e9d89a013bcf28fc" compoundref="xv__mix__l2_8c" startline="1381" endline="1401">XVMix_GetLayerChromaBuffer2Addr</referencedby>
+        <referencedby refid="group__v__mix_1ga3056dab3a16bc61cffee350544b862fa" compoundref="xv__mix__l2_8c" startline="1282" endline="1302">XVMix_GetLayerChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaba881e5eeabde22ab7c02aee78d320a0" compoundref="xv__mix__l2_8c" startline="1092" endline="1127">XVMix_GetLayerColorFormat</referencedby>
+        <referencedby refid="group__v__mix_1ga694fb356c5458509b2ceb615a0cb4008" compoundref="xv__mix__l2_8c" startline="903" endline="933">XVMix_GetLayerScaleFactor</referencedby>
+        <referencedby refid="group__v__mix_1ga7294d87809e7c940e83234bf6d0730db" compoundref="xv__mix__l2_8c" startline="678" endline="737">XVMix_GetLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1511" endline="1573">XVMix_LoadLogo</referencedby>
+        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1589" endline="1629">XVMix_LoadLogoPixelAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="754" endline="824">XVMix_MoveLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga283cb29bb936ce5d0539782422ff3c3e" compoundref="xv__mix__l2_8c" startline="948" endline="987">XVMix_SetLayerAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga8d317845835bcbcc2b9f877ce0274691" compoundref="xv__mix__l2_8c" startline="1142" endline="1179">XVMix_SetLayerBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaaf18b72d5323b64b3c7d58703918bb2c" compoundref="xv__mix__l2_8c" startline="1327" endline="1364">XVMix_SetLayerChromaBuffer2Addr</referencedby>
+        <referencedby refid="group__v__mix_1ga7be832e27e45da5630205217381207a3" compoundref="xv__mix__l2_8c" startline="1229" endline="1266">XVMix_SetLayerChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1ga8ed68eed5c7d6441ef98894f658deb1d" compoundref="xv__mix__l2_8c" startline="839" endline="889">XVMix_SetLayerScaleFactor</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="550" endline="663">XVMix_SetLayerWindow</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a6e937d235d6dfc668f73624c2098675a" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -500,15 +500,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="170" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1683" endline="1717">XVMix_DbgReportStatus</referencedby>
-        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1544" endline="1606">XVMix_LoadLogo</referencedby>
-        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1622" endline="1662">XVMix_LoadLogoPixelAlpha</referencedby>
-        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="787" endline="857">XVMix_MoveLayerWindow</referencedby>
-        <referencedby refid="group__v__mix_1ga8d317845835bcbcc2b9f877ce0274691" compoundref="xv__mix__l2_8c" startline="1175" endline="1212">XVMix_SetLayerBufferAddr</referencedby>
-        <referencedby refid="group__v__mix_1gaaf18b72d5323b64b3c7d58703918bb2c" compoundref="xv__mix__l2_8c" startline="1360" endline="1397">XVMix_SetLayerChromaBuffer2Addr</referencedby>
-        <referencedby refid="group__v__mix_1ga7be832e27e45da5630205217381207a3" compoundref="xv__mix__l2_8c" startline="1262" endline="1299">XVMix_SetLayerChromaBufferAddr</referencedby>
-        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1650" endline="1684">XVMix_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1511" endline="1573">XVMix_LoadLogo</referencedby>
+        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1589" endline="1629">XVMix_LoadLogoPixelAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="754" endline="824">XVMix_MoveLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga8d317845835bcbcc2b9f877ce0274691" compoundref="xv__mix__l2_8c" startline="1142" endline="1179">XVMix_SetLayerBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaaf18b72d5323b64b3c7d58703918bb2c" compoundref="xv__mix__l2_8c" startline="1327" endline="1364">XVMix_SetLayerChromaBuffer2Addr</referencedby>
+        <referencedby refid="group__v__mix_1ga7be832e27e45da5630205217381207a3" compoundref="xv__mix__l2_8c" startline="1229" endline="1266">XVMix_SetLayerChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="550" endline="663">XVMix_SetLayerWindow</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ac83103aa80b226a9a5013e35f55f1f35" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -521,8 +521,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="171" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1ga372774be70d11a2e394d8f0d7d8c1b1e" compoundref="xv__mix__l2_8c" startline="390" endline="407">XVMix_SetVidStream</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga372774be70d11a2e394d8f0d7d8c1b1e" compoundref="xv__mix__l2_8c" startline="357" endline="374">XVMix_SetVidStream</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a856cafed5e2fbfd25dc92173f0d14d44" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -535,9 +535,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="172" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
-        <referencedby refid="group__v__mix_1ga372774be70d11a2e394d8f0d7d8c1b1e" compoundref="xv__mix__l2_8c" startline="390" endline="407">XVMix_SetVidStream</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="550" endline="663">XVMix_SetLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga372774be70d11a2e394d8f0d7d8c1b1e" compoundref="xv__mix__l2_8c" startline="357" endline="374">XVMix_SetVidStream</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ad940170590dd4268c420fdf1e7c30eec" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -550,8 +550,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="173" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1683" endline="1717">XVMix_DbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1650" endline="1684">XVMix_DbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a3e8abea176bf7f3743cd1a1e2b1855d0" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -564,8 +564,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="174" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1gaba881e5eeabde22ab7c02aee78d320a0" compoundref="xv__mix__l2_8c" startline="1125" endline="1160">XVMix_GetLayerColorFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1gaba881e5eeabde22ab7c02aee78d320a0" compoundref="xv__mix__l2_8c" startline="1092" endline="1127">XVMix_GetLayerColorFormat</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a020eb905775ddd02664d8572bab81c5e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -578,8 +578,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="175" bodyend="-1"/>
-        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="1055" endline="1212">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="912" endline="1065">main</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ad1d70993de89193d9d614f38f435a47b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -592,7 +592,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="176" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="172" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ae6f18d9777c7b781fcd91974fa884319" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -605,10 +605,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="177" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1544" endline="1606">XVMix_LoadLogo</referencedby>
-        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1622" endline="1662">XVMix_LoadLogoPixelAlpha</referencedby>
-        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1511" endline="1573">XVMix_LoadLogo</referencedby>
+        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1589" endline="1629">XVMix_LoadLogoPixelAlpha</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="550" endline="663">XVMix_SetLayerWindow</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a210dbafd352c1d65c64eb0e60b5e3337" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -621,10 +621,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="178" bodyend="-1"/>
-        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1544" endline="1606">XVMix_LoadLogo</referencedby>
-        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1622" endline="1662">XVMix_LoadLogoPixelAlpha</referencedby>
-        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1511" endline="1573">XVMix_LoadLogo</referencedby>
+        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1589" endline="1629">XVMix_LoadLogoPixelAlpha</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="550" endline="663">XVMix_SetLayerWindow</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a2842e1f1e4f2b6079d645786f677d148" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -637,7 +637,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="175" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a6390324b5dd3e9b85c0339d7b950af47" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -650,7 +650,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="180" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="176" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1aadbd2cb197aeed0b11df5e65130a9317" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -663,7 +663,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="181" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="177" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a089b882d106a9ff6049ad74bb75442b1" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v_mix___alpha_flag" kindref="compound">XVMix_AlphaFlag</ref></type>
@@ -676,7 +676,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="183" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ad819c9fbf12db33432dadcfc6968006d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -689,7 +689,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="184" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a017720732b95d11f002173582d1ed14a" prot="public" static="no" mutable="no">
         <type>union XV_mix_Config::@0</type>
@@ -702,7 +702,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="185" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="181" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1aef0971fef936224cf1505f46eb6d62d7" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v_mix___scale_flag" kindref="compound">XVMix_ScaleFlag</ref></type>
@@ -715,7 +715,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="187" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="183" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1afdfe859a4fe957396aea9d6cf07404bc" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -728,7 +728,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="188" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1aa82572459605695760f8918c368e9292" prot="public" static="no" mutable="no">
         <type>union XV_mix_Config::@2</type>
@@ -741,7 +741,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="189" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="185" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1adfbad9baf83a7efac5bf92bf13796fb5" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v_mix___layer_max_width" kindref="compound">XVMix_LayerMaxWidth</ref></type>
@@ -754,7 +754,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="187" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a48432f1fb0c319cb26f1a605ffbb13b3" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -767,7 +767,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="192" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="188" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ad6699f4b9f8287c8624c7784c3226238" prot="public" static="no" mutable="no">
         <type>union XV_mix_Config::@4</type>
@@ -780,7 +780,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="193" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="189" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a16ebb191e06ed705684ba852435b3389" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v_mix___layer_intf_type" kindref="compound">XVMix_LayerIntfType</ref></type>
@@ -793,7 +793,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="195" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1abcc33ea8a7a142749f85c4ab22eab42d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -806,7 +806,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="196" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a690d309dc7e3cb58e89cdc3708bb16c9" prot="public" static="no" mutable="no">
         <type>union XV_mix_Config::@6</type>
@@ -819,7 +819,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="197" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="193" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a0fd770de7b0f41978665817fcec96594" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_v_mix___layer_color_format" kindref="compound">XVMix_LayerColorFormat</ref></type>
@@ -832,7 +832,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="199" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="195" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1aa85ca2ea19088a61bdd8ea505cfca82c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -845,7 +845,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="200" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="196" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a82b8737a91af8c729fca024f40e787b6" prot="public" static="no" mutable="no">
         <type>union XV_mix_Config::@8</type>
@@ -858,7 +858,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="201" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="197" column="1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ae75f0a6e19054180682a7bab37dd836f" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -871,7 +871,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="202" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="198" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1a9e7897ee79794c0a804a9f9940247fda" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -884,8 +884,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="204" bodyend="-1"/>
-        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="1055" endline="1212">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="912" endline="1065">main</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v__mix___config_1ad66419e4d07d16610497f6f18efc072e" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -898,8 +898,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="205" bodyend="-1"/>
-        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="1055" endline="1212">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="912" endline="1065">main</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -947,7 +947,7 @@
         <link refid="struct_x_v_mix___layer_color_format"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="163" bodyend="207"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="163" bodyend="201"/>
     <listofallmembers>
       <member refid="struct_x_v__mix___config_1ad819c9fbf12db33432dadcfc6968006d" prot="public" virt="non-virtual"><scope>XV_mix_Config</scope><name>AlphaEn</name></member>
       <member refid="struct_x_v__mix___config_1a089b882d106a9ff6049ad74bb75442b1" prot="public" virt="non-virtual"><scope>XV_mix_Config</scope><name>AlphaFlag</name></member>

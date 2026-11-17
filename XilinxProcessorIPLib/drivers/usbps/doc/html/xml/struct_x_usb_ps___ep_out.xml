@@ -5,7 +5,7 @@
     <includes local="no">xusbps.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a25529ccf4a095d2704dc7dc02ee6d7de" prot="public" static="no" mutable="no">
-        <type>XUsbPs_dQH *</type>
+        <type><ref refid="group__usbps_1ga5c6f9d3b7850e3256d48c037bdd713fd" kindref="member">XUsbPs_dQH</ref> *</type>
         <definition>XUsbPs_dQH* XUsbPs_EpOut::dQH</definition>
         <argsstring></argsstring>
         <name>dQH</name>
@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="374" bodyend="-1"/>
-        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="380" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="805" endline="885">XUsbPs_EpGetSetupData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1af6d60c79e713a15dbdf233cfaee0679a" prot="public" static="no" mutable="no">
-        <type>XUsbPs_dTD *</type>
+        <type><ref refid="group__usbps_1ga7c5399f5d7978baf54eed460d1099d48" kindref="member">XUsbPs_dTD</ref> *</type>
         <definition>XUsbPs_dTD* XUsbPs_EpOut::dTDs</definition>
         <argsstring></argsstring>
         <name>dTDs</name>
@@ -29,11 +29,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="377" bodyend="-1"/>
-        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1385" endline="1442">XUsbPs_ReconfigureEp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1372" endline="1429">XUsbPs_ReconfigureEp</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a07bb77bd265570152d71877ebb60d0a6" prot="public" static="no" mutable="no">
-        <type>XUsbPs_dTD *</type>
+        <type><ref refid="group__usbps_1ga7c5399f5d7978baf54eed460d1099d48" kindref="member">XUsbPs_dTD</ref> *</type>
         <definition>XUsbPs_dTD* XUsbPs_EpOut::dTDCurr</definition>
         <argsstring></argsstring>
         <name>dTDCurr</name>
@@ -43,11 +43,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="381" bodyend="-1"/>
-        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="506" endline="566">XUsbPs_EpBufferReceive</referencedby>
-        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
-        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1385" endline="1442">XUsbPs_ReconfigureEp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="504" endline="564">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1372" endline="1429">XUsbPs_ReconfigureEp</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a6b2cdb5074182d7f0f4b6d3e9dbf622c" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -60,36 +60,37 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="384" bodyend="-1"/>
-        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1385" endline="1442">XUsbPs_ReconfigureEp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1372" endline="1429">XUsbPs_ReconfigureEp</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1acfee56e582f2c6774f458209d6771b25" prot="public" static="no" mutable="no">
-        <type>XUsbPs_EpHandlerFunc</type>
+        <type><ref refid="group__usbps_1gae8ddd7172b8cd5bb0059d6f3c42707d9" kindref="member">XUsbPs_EpHandlerFunc</ref></type>
         <definition>XUsbPs_EpHandlerFunc XUsbPs_EpOut::HandlerFunc</definition>
         <argsstring></argsstring>
         <name>HandlerFunc</name>
         <briefdescription>
-        </briefdescription>
+<para>Endpoint event handler function. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="388" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga04fb0b564bcd01cdf33e29ca2732656a" compoundref="xusbps__endpoint_8c" startline="671" endline="694">XUsbPs_EpSetHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a5f2e123ca0992c0d40db15e33cf260a6" prot="public" static="no" mutable="no">
-        <type>XUsbPs_EpIsoHandlerFunc</type>
+        <type><ref refid="group__usbps_1gaafd1c517a116f092434b5ebeb6e05ee1" kindref="member">XUsbPs_EpIsoHandlerFunc</ref></type>
         <definition>XUsbPs_EpIsoHandlerFunc XUsbPs_EpOut::HandlerIsoFunc</definition>
         <argsstring></argsstring>
         <name>HandlerIsoFunc</name>
         <briefdescription>
-<para>Handler function for this endpoint. </para>        </briefdescription>
+<para>Isochronous transfer handler function. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="389" bodyend="-1"/>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
-        <referencedby refid="group__usbps_1ga5eb603906d381d4a426a3d24fc2082a0" compoundref="xusbps__endpoint_8c" startline="723" endline="746">XUsbPs_EpSetIsoHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+        <referencedby refid="group__usbps_1ga5eb603906d381d4a426a3d24fc2082a0" compoundref="xusbps__endpoint_8c" startline="719" endline="742">XUsbPs_EpSetIsoHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1aa0c6dbda53f80bd6998e0bce4b81d2a0" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -102,10 +103,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="391" bodyend="-1"/>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
-        <referencedby refid="group__usbps_1ga04fb0b564bcd01cdf33e29ca2732656a" compoundref="xusbps__endpoint_8c" startline="675" endline="698">XUsbPs_EpSetHandler</referencedby>
-        <referencedby refid="group__usbps_1ga5eb603906d381d4a426a3d24fc2082a0" compoundref="xusbps__endpoint_8c" startline="723" endline="746">XUsbPs_EpSetIsoHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
+        <referencedby refid="group__usbps_1ga04fb0b564bcd01cdf33e29ca2732656a" compoundref="xusbps__endpoint_8c" startline="671" endline="694">XUsbPs_EpSetHandler</referencedby>
+        <referencedby refid="group__usbps_1ga5eb603906d381d4a426a3d24fc2082a0" compoundref="xusbps__endpoint_8c" startline="719" endline="742">XUsbPs_EpSetIsoHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a7b94e8c1b66b1e609702a7fa4606aefd" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -118,9 +119,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="393" bodyend="-1"/>
-        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="398" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a0778b4d9789c44e4ad86f4f699285999" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -133,9 +134,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="394" bodyend="-1"/>
-        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a1d7d48fe21178688b886f1bc2ce7acb4" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -148,9 +149,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="395" bodyend="-1"/>
-        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a536f58da53e3d0617b13ffa50334fcfa" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -158,14 +159,14 @@
         <argsstring></argsstring>
         <name>MemAlloted</name>
         <briefdescription>
-<para>Mem alloted and data is not received. </para>        </briefdescription>
+<para>Mem allotted and data is not received. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="396" bodyend="-1"/>
-        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
-        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="617" endline="644">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="391" endline="476">XUsbPs_EpGetData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_ps___ep_out_1a356ebab0c889dc2dc7720921e022d79d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -178,14 +179,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="397" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="402" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>The following data structures are used internally by the L0/L1 driver. </para>    </briefdescription>
     <detaileddescription>
 <para>Their contents MUST NOT be changed by the upper layers. The following data structure represents OUT endpoint. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="373" bodyend="398"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="379" bodyend="403"/>
     <listofallmembers>
       <member refid="struct_x_usb_ps___ep_out_1a1d7d48fe21178688b886f1bc2ce7acb4" prot="public" virt="non-virtual"><scope>XUsbPs_EpOut</scope><name>BufferPtr</name></member>
       <member refid="struct_x_usb_ps___ep_out_1a0778b4d9789c44e4ad86f4f699285999" prot="public" virt="non-virtual"><scope>XUsbPs_EpOut</scope><name>BytesTxed</name></member>

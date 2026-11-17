@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xilmailbox__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -98,19 +98,24 @@ $(document).ready(function(){initNavTree('xilmailbox__example_8c.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xilmailbox_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This example demonstrates the usage of mailbox library API's. </p>
-<p>Each IPI channel can trigger an interrupt to itself and can exchange messages through the message buffer. This feature is used here to exercise the library APIs. Example control flow:</p>
+<div class="textblock"><p>Demonstrates the XilMailbox library by sending an IPI to self. </p>
+<p>This example demonstrates the usage of the mailbox library APIs. Each IPI channel can trigger an interrupt to itself and can exchange messages through the message buffer. The example uses this feature to exercise the library APIs.</p>
+<p>Example control flow:</p>
 <ul>
-<li>Initialize the XMailbox instance</li>
-<li>Write a Message and Trigger IPI to Self in Blocing mode.</li>
-<li>Interrupt handler receives IPI and Sends back response.</li>
-<li>Read the received response and do a sanity check.</li>
-<li>Print PASS or FAIL based on sanity check of response message</li>
+<li>Initializes the XMailbox instance.</li>
+<li>Writes a message and triggers an IPI to self in blocking mode.</li>
+<li>The interrupt handler receives the IPI and sends back the response.</li>
+<li>Reads the received response and does a sanity check.</li>
+<li>Prints PASS or FAIL based on the sanity check of the response message.</li>
 </ul>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
@@ -126,12 +131,178 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
         ht      11/25/24  Update Message length to accommodate for CRC bytes when
                           IPI CRC is enabled
       ht        01/02/25  Fix GCC warnings.
+1.14    vn      09/30/26  Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
 <code>#include &quot;xdebug.h&quot;</code><br/>
 <code>#include &quot;xilmailbox_hwconfig.h&quot;</code><br/>
-</div></div><!-- contents -->
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a1181e341f145c505d57d22f58cfbd1bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilmailbox__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">TEST_MSG_LEN</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a1181e341f145c505d57d22f58cfbd1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of messages (each message is 4 bytes).  <a href="#a1181e341f145c505d57d22f58cfbd1bc">More...</a><br/></td></tr>
+<tr class="separator:a1181e341f145c505d57d22f58cfbd1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">IPI device to use for this test</div></td></tr>
+<tr class="memitem:a1aca91e30eaed544f18d93780b2f4066"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilmailbox__example_8c.html#a1aca91e30eaed544f18d93780b2f4066">TEST_CHANNEL_BASEADDRESS</a>&#160;&#160;&#160;XMAILBOX_IPI_BASEADDRESS</td></tr>
+<tr class="memdesc:a1aca91e30eaed544f18d93780b2f4066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the IPI channel to use for this test.  <a href="#a1aca91e30eaed544f18d93780b2f4066">More...</a><br/></td></tr>
+<tr class="separator:a1aca91e30eaed544f18d93780b2f4066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab425367fb53bf4df5288b24636685cc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilmailbox__example_8c.html#ab425367fb53bf4df5288b24636685cc2">REMOTE_CHANNEL_ID</a>&#160;&#160;&#160;XMAILBOX_IPI_CHANNEL_ID</td></tr>
+<tr class="memdesc:ab425367fb53bf4df5288b24636685cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote IPI channel ID.  <a href="#ab425367fb53bf4df5288b24636685cc2">More...</a><br/></td></tr>
+<tr class="separator:ab425367fb53bf4df5288b24636685cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:addd368c43de7b39b14e97fc7a8b61551"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilmailbox__example_8c.html#addd368c43de7b39b14e97fc7a8b61551">XMailbox_Example</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:addd368c43de7b39b14e97fc7a8b61551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges IPI messages with self using the XilMailbox APIs.  <a href="#addd368c43de7b39b14e97fc7a8b61551">More...</a><br/></td></tr>
+<tr class="separator:addd368c43de7b39b14e97fc7a8b61551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilmailbox__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the XilMailbox example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a247b7f784a4fb97426ecff4a0a39ad99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilmailbox__example_8c.html#a247b7f784a4fb97426ecff4a0a39ad99">XMboxInstance</a></td></tr>
+<tr class="memdesc:a247b7f784a4fb97426ecff4a0a39ad99"><td class="mdescLeft">&#160;</td><td class="mdescRight">XMailbox instance.  <a href="#a247b7f784a4fb97426ecff4a0a39ad99">More...</a><br/></td></tr>
+<tr class="separator:a247b7f784a4fb97426ecff4a0a39ad99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab425367fb53bf4df5288b24636685cc2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REMOTE_CHANNEL_ID&#160;&#160;&#160;XMAILBOX_IPI_CHANNEL_ID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remote IPI channel ID. </p>
+
+<p>Referenced by <a class="el" href="xilmailbox__example_8c.html#addd368c43de7b39b14e97fc7a8b61551">XMailbox_Example()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1aca91e30eaed544f18d93780b2f4066"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_CHANNEL_BASEADDRESS&#160;&#160;&#160;XMAILBOX_IPI_BASEADDRESS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the IPI channel to use for this test. </p>
+
+<p>Referenced by <a class="el" href="xilmailbox__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1181e341f145c505d57d22f58cfbd1bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_MSG_LEN&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of messages (each message is 4 bytes). </p>
+<p>The maximum number of messages is eight. </p>
+
+<p>Referenced by <a class="el" href="xilmailbox__example_8c.html#addd368c43de7b39b14e97fc7a8b61551">XMailbox_Example()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs the XilMailbox example. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the example runs successfully.</li>
+<li>XST_FAILURE if the example fails. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="xilmailbox__example_8c.html#a1aca91e30eaed544f18d93780b2f4066">TEST_CHANNEL_BASEADDRESS</a>, and <a class="el" href="xilmailbox__example_8c.html#addd368c43de7b39b14e97fc7a8b61551">XMailbox_Example()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="addd368c43de7b39b14e97fc7a8b61551"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XMailbox_Example </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exchanges IPI messages with self using the XilMailbox APIs. </p>
+<p>Initializes the mailbox, registers the callbacks, and sends a request message. Reads the request, sends back its bitwise inverse as the response, and then reads and compares the response.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">InstancePtr</td><td>Pointer to the XMailbox instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the IPI instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>An error code if an API call or the IPI transfer fails. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="struct_x_mbox_tag.html#a94ad8c15322f8aa87898da64c12d680c">XMboxTag::ErrorHandler</a>, <a class="el" href="xilmailbox__example_8c.html#ab425367fb53bf4df5288b24636685cc2">REMOTE_CHANNEL_ID</a>, <a class="el" href="xilmailbox__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">TEST_MSG_LEN</a>, <a class="el" href="group__xilmailbox.html#gab916c58f41e76689faa0d2ca46df0427">XILMBOX_MSG_TYPE_REQ</a>, <a class="el" href="group__xilmailbox.html#ga499095c8a6320e4eff3871d739cfafd2">XILMBOX_MSG_TYPE_RESP</a>, <a class="el" href="group__xilmailbox.html#gga143f24a7eb4d52ae8289dd2a76104b5ea4bb156987a17b1507eff3df3e601c716">XMAILBOX_ERROR_HANDLER</a>, <a class="el" href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">XMailbox_Initialize()</a>, <a class="el" href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">XMailbox_Recv()</a>, <a class="el" href="group__xilmailbox.html#gga143f24a7eb4d52ae8289dd2a76104b5ea875addbc928be95ae410ab219c1cfcd3">XMAILBOX_RECV_HANDLER</a>, <a class="el" href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">XMailbox_SendData()</a>, and <a class="el" href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">XMailbox_SetCallBack()</a>.</p>
+
+<p>Referenced by <a class="el" href="xilmailbox__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a247b7f784a4fb97426ecff4a0a39ad99"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> XMboxInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>XMailbox instance. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

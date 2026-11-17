@@ -8,44 +8,44 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="xloader__defs_8h" local="yes">xloader_defs.h</includes>
     <incdepgraph>
-      <node id="58">
-        <label>xilloader_configure_jtag_status_client_example.c</label>
-        <link refid="xilloader_configure_jtag_status_client_example.c"/>
-        <childnode refid="59" relation="include">
-        </childnode>
-        <childnode refid="60" relation="include">
-        </childnode>
-        <childnode refid="61" relation="include">
-        </childnode>
-        <childnode refid="62" relation="include">
-        </childnode>
-        <childnode refid="63" relation="include">
-        </childnode>
-      </node>
-      <node id="62">
+      <node id="68">
         <label>xil_cache.h</label>
       </node>
-      <node id="61">
+      <node id="67">
         <label>xil_util.h</label>
       </node>
-      <node id="63">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="64" relation="include">
-        </childnode>
-        <childnode refid="65" relation="include">
-        </childnode>
-      </node>
-      <node id="60">
+      <node id="66">
         <label>xloader_plat_client.h</label>
       </node>
-      <node id="65">
+      <node id="64">
+        <label>xilloader_configure_jtag_status_client_example.c</label>
+        <link refid="xilloader_configure_jtag_status_client_example.c"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
         <label>xil_types.h</label>
       </node>
-      <node id="64">
+      <node id="70">
         <label>xil_printf.h</label>
       </node>
-      <node id="59">
+      <node id="69">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
         <label>xloader_bsp_config.h</label>
       </node>
     </incdepgraph>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__example__apis_1ga54a66135ff7bec4d95638e6e6901b158" prot="public" static="no">
         <name>JTAG_DISABLE</name>
@@ -70,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -85,7 +85,7 @@
         <briefdescription>
 <para>Main function to call the Add image store PDI function. </para>        </briefdescription>
         <detaileddescription>
-<para>Main function.</para><para>Removes the registered PDI (PDI_ID) from the PLM Image Store (PDI List) via XLoader_RemoveImageStorePdi.</para><para>Main function to call the versalnet or versal_2ve_2vm example functions.</para><para>Main function to call the Load pdi example function.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the Add image store pdi example function.</para><para>Main function to call the Image info example functions.</para><para>Main function to call the Get image info example functions.</para><para>Main function to call the get ATF handoff params example function.</para><para>Main function to call the ExtractMetaheader example function.</para><para>Main function to call the verssalnet example functions.</para><para>Main function to call the cfi selective readback function.</para><para><verbatim>            where it Sends a request to add the PDI which is downloaded to DDR into the Image Store (PDI List) using XLoader_AddImageStorePdi.
+<para>Main function.</para><para>Main function that initializes the mailbox and loader client, then sends the XLoader_SetDdrAddrForRestartImage IPI command to configure the DDR PDI address in PLM.</para><para>Removes the registered PDI (PDI_ID) from the PLM Image Store (PDI List) via XLoader_RemoveImageStorePdi.</para><para>Main function to call the versalnet or versal_2ve_2vm example functions.</para><para>Main function to call the Load pdi example function.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the Add image store pdi example function.</para><para>Main function to configure selected glitch detectors via Loader IPI, then optionally generate a test glitch via direct MMIO.</para><para>Main function to call the Image info example functions.</para><para>Main function to call the Get image info example functions.</para><para>Main function to call the get ATF handoff params example function.</para><para>Main function to call the ExtractMetaheader example function.</para><para>Main function to call the verssalnet example functions.</para><para>Main function to call the cfi selective readback function.</para><para><verbatim>            where it Sends a request to add the PDI which is downloaded to DDR into the Image Store (PDI List) using XLoader_AddImageStorePdi.
 </verbatim></para><para><simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
 </para><simplesectsep/><para><itemizedlist>
@@ -95,12 +95,12 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" bodystart="82" bodyend="120"/>
+<para>Pack one config word per selected detector, then send a single XLoader_ConfigureGlitchDetector IPI. PMC calibration is applied live in GD_FUSE_CTRL, while the ASU and LPD detectors are held in reset by the PLM while calibration is written and released afterwards. Enabling / test-glitch are left to the application (optional TEST_GLITCH_* path below).</para><para>Configure the DDR address of the PDI for the next image load. PLM validates the address range and stores it if valid. On failure the address is marked invalid and PLM falls back to the Image Store PDI list.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_add_pdi_to_image_store_client_example.c" bodystart="82" bodyend="120"/>
         <references refid="group__xloader__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="60">PDI_ID</references>
         <references refid="group__xloader__client__example__apis_1ga16ace37f7b732061b0144e81f9cae4e9" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="62">PDI_LOW_ADDRESS</references>
         <references refid="group__xloader__client__example__apis_1ga8d375fa48781630123b41ee18fef838b" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="61">PDI_SIZE_IN_WORDS</references>
-        <references refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="293" endline="307">XLoader_AddImageStorePdi</references>
+        <references refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="299" endline="313">XLoader_AddImageStorePdi</references>
         <references refid="group__xloader__client__apis_1ga93256553f94e9123e1e0cddfb57be60f" compoundref="xloader__mailbox_8c" startline="103" endline="117">XLoader_ClientInit</references>
       </memberdef>
       </sectiondef>
@@ -170,7 +170,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xloader__plat_8h_1a29e4550c196dd134eb5b971b06987fd4" kindref="member">XLoader_ConfigureJtagState</ref>(&amp;LoaderClientInstance,<sp/><ref refid="group__xloader__client__example__apis_1ga912b92f992b435b16cc072776f70c7e1" kindref="member">JTAG_UNLOCK</ref>);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kindref="member">XLoader_ConfigureJtagState</ref>(&amp;LoaderClientInstance,<sp/><ref refid="group__xloader__client__example__apis_1ga912b92f992b435b16cc072776f70c7e1" kindref="member">JTAG_UNLOCK</ref>);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal">END:</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
@@ -183,6 +183,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="110"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_configure_jtag_status_client_example.c"/>
   </compounddef>
 </doxygen>

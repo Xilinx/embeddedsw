@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_m_o_d_e_s_e_n_s_e___m_p_l" kind="struct" prot="public">
     <compoundname>MODESENSE_MPL</compoundname>
+    <includes local="no">xusb_storage.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a69ba202e1f8dfe1992311d2df507ba56" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,13 @@
         <argsstring></argsstring>
         <name>mode_data_length</name>
         <briefdescription>
-        </briefdescription>
+<para>Mode data length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="248" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="655" endline="863">ProcessRxCmd</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5ce8fac4dae2b713ddaf6a51a0612c08" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +24,12 @@
         <argsstring></argsstring>
         <name>medium_type_code</name>
         <briefdescription>
-        </briefdescription>
+<para>Medium type code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="249" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="232" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5074d4c5f4c7adf5fe3b027e43e39c47" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +37,12 @@
         <argsstring></argsstring>
         <name>device_spec_params</name>
         <briefdescription>
-        </briefdescription>
+<para>Device-specific parameters. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="250" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="233" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1ae06ee808bc28c4434b9eb6986cfd524a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,19 +50,19 @@
         <argsstring></argsstring>
         <name>block_desc_length</name>
         <briefdescription>
-        </briefdescription>
+<para>Block descriptor length. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="251" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="234" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>SCSI mode sense mode parameter list header structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="247" bodyend="252"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="230" bodyend="235"/>
     <listofallmembers>
       <member refid="struct_m_o_d_e_s_e_n_s_e___m_p_l_1ae06ee808bc28c4434b9eb6986cfd524a" prot="public" virt="non-virtual"><scope>MODESENSE_MPL</scope><name>block_desc_length</name></member>
       <member refid="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5074d4c5f4c7adf5fe3b027e43e39c47" prot="public" virt="non-virtual"><scope>MODESENSE_MPL</scope><name>device_spec_params</name></member>

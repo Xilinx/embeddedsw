@@ -84,15 +84,7 @@
     <member refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" kind="function"><name>XAxiDma_SimpleTransfer</name></member>
   </compound>
   <compound refid="xaxidma_8h" kind="file"><name>xaxidma.h</name>
-    <member refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" kind="define"><name>XAxiDma_GetTxRing</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6373ac3baa5365607f6727f4e2ece7a5" kind="define"><name>XAxiDma_GetRxRing</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" kind="define"><name>XAxiDma_GetRxIndexRing</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" kind="define"><name>XAxiDma_HasSg</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadac28afa26e2cb55bdada1ee3c016c52" kind="define"><name>XAxiDma_IntrEnable</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadba63ad7c0a784d569736a8d1eb7c367" kind="define"><name>XAxiDma_IntrGetEnabled</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1936b497c0fa61d326807e5ed8dd572b" kind="define"><name>XAxiDma_IntrDisable</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6a0eb17bcfcaf3331e01855d302f5f0e" kind="define"><name>XAxiDma_IntrGetIrq</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga9ff0d2e5b50846e4b6a2d683283c10d5" kind="define"><name>XAxiDma_IntrAckIrq</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga1058ef07107625fc8a91e0f1d4cc8a23" kind="define"><name>XAXIDMA_H_</name></member>
     <member refid="group___a_x_i_d_m_a_1gac08fe7cb6508a133a7ef036bba7df5b5" kind="typedef"><name>XAxiDma</name></member>
     <member refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" kind="function"><name>XAxiDma_LookupConfig</name></member>
     <member refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" kind="function"><name>XAxiDma_CfgInitialize</name></member>
@@ -154,10 +146,10 @@
     <member refid="group___a_x_i_d_m_a_1ga53983f629aba5b4ebf27f803a7a9284e" kind="function"><name>XAxiDma_DumpBd</name></member>
   </compound>
   <compound refid="xaxidma__bdring_8c" kind="file"><name>xaxidma_bdring.c</name>
-    <member refid="group___a_x_i_d_m_a_1ga8b60749d5a2bfdd8fc0c7a007d832498" kind="define"><name>XAXIDMA_STOP_TIMEOUT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4df2f97f51b475b5c785fc2da2fc7b5d" kind="define"><name>XAXIDMA_VIRT_TO_PHYS</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaff38d47fd5fb6f1783846fa0120c2fab" kind="define"><name>XAXIDMA_RING_SEEKAHEAD</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaad1001294e7cbcf392090922424b68cb" kind="define"><name>XAXIDMA_RING_SEEKBACK</name></member>
+    <member refid="xaxidma__bdring_8c_1a8b60749d5a2bfdd8fc0c7a007d832498" kind="define"><name>XAXIDMA_STOP_TIMEOUT</name></member>
+    <member refid="xaxidma__bdring_8c_1a4df2f97f51b475b5c785fc2da2fc7b5d" kind="define"><name>XAXIDMA_VIRT_TO_PHYS</name></member>
+    <member refid="xaxidma__bdring_8c_1aff38d47fd5fb6f1783846fa0120c2fab" kind="define"><name>XAXIDMA_RING_SEEKAHEAD</name></member>
+    <member refid="xaxidma__bdring_8c_1aad1001294e7cbcf392090922424b68cb" kind="define"><name>XAXIDMA_RING_SEEKBACK</name></member>
     <member refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" kind="function"><name>XAxiDma_UpdateBdRingCDesc</name></member>
     <member refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" kind="function"><name>XAxiDma_BdRingCreate</name></member>
     <member refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" kind="function"><name>XAxiDma_BdRingClone</name></member>
@@ -212,268 +204,212 @@
     <member refid="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" kind="function"><name>XAxiDma_BdRingDumpRegs</name></member>
   </compound>
   <compound refid="xaxidma__example__poll__multi__pkts_8c" kind="file"><name>xaxidma_example_poll_multi_pkts.c</name>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1ac042cf56128e2d79e25efaa77e1cbeba" kind="define"><name>TX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a06bc15184ce5e6708777e34bde5d9610" kind="define"><name>TX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a5f4b38298cc7e97a070bfc199c3d025c" kind="define"><name>RX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a2648de6386a940bec3e6fa851a6ddc3b" kind="define"><name>RX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1aee509546ca357ad2aa3b67a821e32dc6" kind="define"><name>NUMBER_OF_PACKETS</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1acf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a6f5238f0e85b26afe61a79f1ca8d8435" kind="variable"><name>Packet</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a8928484466c64db3c3c0fe840c711dad" kind="variable"><name>LastRxBdPtr</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1ad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a7d48a83e1d9b0b4820b58424e3781e2d" kind="function"><name>SendPackets</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1adea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1aee4d00fd7eb3dcde94ac1f7d9d4d3e9a" kind="function"><name>CheckDmaResult</name></member>
-    <member refid="xaxidma__example__poll__multi__pkts_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga8928484466c64db3c3c0fe840c711dad" kind="variable"><name>LastRxBdPtr</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga7d48a83e1d9b0b4820b58424e3781e2d" kind="function"><name>SendPackets</name></member>
+    <member refid="group___a_x_i_d_m_a_1gadea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaee4d00fd7eb3dcde94ac1f7d9d4d3e9a" kind="function"><name>CheckDmaResult</name></member>
   </compound>
   <compound refid="xaxidma__example__selftest_8c" kind="file"><name>xaxidma_example_selftest.c</name>
-    <member refid="xaxidma__example__selftest_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__selftest_8c_1a95abf69118f4f7a08c4c6e264a39982b" kind="function"><name>AxiDMASelfTestExample</name></member>
-    <member refid="xaxidma__example__selftest_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga95abf69118f4f7a08c4c6e264a39982b" kind="function"><name>AxiDMASelfTestExample</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xaxidma__example__sg__intr_8c" kind="file"><name>xaxidma_example_sg_intr.c</name>
-    <member refid="xaxidma__example__sg__intr_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a5f4b38298cc7e97a070bfc199c3d025c" kind="define"><name>RX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a2648de6386a940bec3e6fa851a6ddc3b" kind="define"><name>RX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1ac042cf56128e2d79e25efaa77e1cbeba" kind="define"><name>TX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a06bc15184ce5e6708777e34bde5d9610" kind="define"><name>TX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a4c850c92fe393b5099dcf0cefe24173e" kind="define"><name>NUMBER_OF_BDS_PER_PKT</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a014a3adba0cfa2dc2faced4a68114fbe" kind="define"><name>NUMBER_OF_PKTS_TO_TRANSFER</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1ad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1aca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a2e4ace81a47e8546df7b794320761272" kind="define"><name>DELAY_TIMER_COUNT</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a6f5238f0e85b26afe61a79f1ca8d8435" kind="variable"><name>Packet</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1aab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a8fdc1d0ca9d79acff4df504ca9c02064" kind="function"><name>TxCallBack</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1aebfe5db946af941dff1aff2e4b03394a" kind="function"><name>RxCallBack</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1ad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
-    <member refid="xaxidma__example__sg__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4c850c92fe393b5099dcf0cefe24173e" kind="define"><name>NUMBER_OF_BDS_PER_PKT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga014a3adba0cfa2dc2faced4a68114fbe" kind="define"><name>NUMBER_OF_PKTS_TO_TRANSFER</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga2e4ace81a47e8546df7b794320761272" kind="define"><name>DELAY_TIMER_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga8fdc1d0ca9d79acff4df504ca9c02064" kind="function"><name>TxCallBack</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaebfe5db946af941dff1aff2e4b03394a" kind="function"><name>RxCallBack</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
+    <member refid="xaxidma__example__sg__intr_8c_1ga11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
+    <member refid="xaxidma__example__sg__intr_8c_1gad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
   </compound>
   <compound refid="xaxidma__example__sg__poll_8c" kind="file"><name>xaxidma_example_sg_poll.c</name>
-    <member refid="xaxidma__example__sg__poll_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1ac042cf56128e2d79e25efaa77e1cbeba" kind="define"><name>TX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a06bc15184ce5e6708777e34bde5d9610" kind="define"><name>TX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a5f4b38298cc7e97a070bfc199c3d025c" kind="define"><name>RX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a2648de6386a940bec3e6fa851a6ddc3b" kind="define"><name>RX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1acf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a6f5238f0e85b26afe61a79f1ca8d8435" kind="variable"><name>Packet</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1ad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1adea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1aee4d00fd7eb3dcde94ac1f7d9d4d3e9a" kind="function"><name>CheckDmaResult</name></member>
-    <member refid="xaxidma__example__sg__poll_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxidma__example__sg__poll_8c_1ga11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
+    <member refid="xaxidma__example__sg__poll_8c_1gad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
+    <member refid="xaxidma__example__sg__poll_8c_1ga3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
+    <member refid="xaxidma__example__sg__poll_8c_1gadea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
+    <member refid="xaxidma__example__sg__poll_8c_1gaee4d00fd7eb3dcde94ac1f7d9d4d3e9a" kind="function"><name>CheckDmaResult</name></member>
   </compound>
   <compound refid="xaxidma__example__sgcyclic__intr_8c" kind="file"><name>xaxidma_example_sgcyclic_intr.c</name>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a5f4b38298cc7e97a070bfc199c3d025c" kind="define"><name>RX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a2648de6386a940bec3e6fa851a6ddc3b" kind="define"><name>RX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1ac042cf56128e2d79e25efaa77e1cbeba" kind="define"><name>TX_BD_SPACE_BASE</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a06bc15184ce5e6708777e34bde5d9610" kind="define"><name>TX_BD_SPACE_HIGH</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a3d3d08ac7e14972de42a210ee15b7216" kind="define"><name>MARK_UNCACHEABLE</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a4c850c92fe393b5099dcf0cefe24173e" kind="define"><name>NUMBER_OF_BDS_PER_PKT</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a014a3adba0cfa2dc2faced4a68114fbe" kind="define"><name>NUMBER_OF_PKTS_TO_TRANSFER</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1ad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a7ad585dd566d0ffe16684c554e0fc5fd" kind="define"><name>NUMBER_OF_CYCLIC_TRANSFERS</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1aca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a2e4ace81a47e8546df7b794320761272" kind="define"><name>DELAY_TIMER_COUNT</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a6f5238f0e85b26afe61a79f1ca8d8435" kind="variable"><name>Packet</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1aab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a8fdc1d0ca9d79acff4df504ca9c02064" kind="function"><name>TxCallBack</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1aebfe5db946af941dff1aff2e4b03394a" kind="function"><name>RxCallBack</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1ad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
-    <member refid="xaxidma__example__sgcyclic__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga2e4ace81a47e8546df7b794320761272" kind="define"><name>DELAY_TIMER_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1gaab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1ga8fdc1d0ca9d79acff4df504ca9c02064" kind="function"><name>TxCallBack</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1ga8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1gaebfe5db946af941dff1aff2e4b03394a" kind="function"><name>RxCallBack</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1ga73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1ga11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1gad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
+    <member refid="xaxidma__example__sgcyclic__intr_8c_1ga3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
   </compound>
   <compound refid="xaxidma__example__simple__intr_8c" kind="file"><name>xaxidma_example_simple_intr.c</name>
-    <member refid="xaxidma__example__simple__intr_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1acf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1aab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
-    <member refid="xaxidma__example__simple__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxidma__example__simple__intr_8c_1gaab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
+    <member refid="xaxidma__example__simple__intr_8c_1ga8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
+    <member refid="xaxidma__example__simple__intr_8c_1ga73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
   </compound>
   <compound refid="xaxidma__example__simple__poll_8c" kind="file"><name>xaxidma_example_simple_poll.c</name>
-    <member refid="xaxidma__example__simple__poll_8c_1a4f2d87307e70466c4fae03a069fe9195" kind="define"><name>MEM_BASE_ADDR</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1a21c7ab0233ec781d5ed4bd61bcc27ad6" kind="define"><name>TX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1abd40075f9ebd69d344db57858e63a744" kind="define"><name>RX_BUFFER_BASE</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1ab6edc88e5140241a95184cc6f926b734" kind="define"><name>RX_BUFFER_HIGH</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1aa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1acf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1a05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1a168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1a19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1ad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1a74235d148637c91d12901cc99d930ff4" kind="function"><name>XAxiDma_SimplePollExample</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1adea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
-    <member refid="xaxidma__example__simple__poll_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kind="function"><name>XAxiDma_SimplePollExample</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="xaxidma__example__simple__poll_8c_1gadea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
   </compound>
   <compound refid="xaxidma__g_8c" kind="file"><name>xaxidma_g.c</name>
     <member refid="group___a_x_i_d_m_a_1ga7501e52fb48e501b8116016c23f5e2b9" kind="define"><name>XPAR_AXIDMA_0_INCLUDE_SG</name></member>
     <member refid="group___a_x_i_d_m_a_1ga03f35763215a8553e7020d4ee19ab174" kind="variable"><name>XAxiDma_ConfigTable</name></member>
   </compound>
   <compound refid="xaxidma__hw_8h" kind="file"><name>xaxidma_hw.h</name>
-    <member refid="group___a_x_i_d_m_a_1ga6d21b8539047064dabb29f2019631d7a" kind="define"><name>XAXIDMA_DMA_TO_DEVICE</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8d084cfadd0109365865418e7cde7729" kind="define"><name>XAXIDMA_DEVICE_TO_DMA</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7957d90570574e9c7a7ee308b290ecab" kind="define"><name>XAXIDMA_BD_MINIMUM_ALIGNMENT</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaf0f7e862f42d26800868816eea2a949b" kind="define"><name>XAXIDMA_MICROMODE_MIN_BUF_ALIGN</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga58140e7d518a5cec1c601b60c5b9adec" kind="define"><name>XAXIDMA_MCHAN_MAX_TRANSFER_LEN</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga88232281611059fd669f0339888cd44e" kind="define"><name>XAXIDMA_TX_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kind="define"><name>XAXIDMA_RX_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kind="define"><name>XAXIDMA_CR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kind="define"><name>XAXIDMA_SR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga24b47801eed2ab0ba326b8b40d24f2b1" kind="define"><name>XAXIDMA_CDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga00ee7a235750d8795961223455407051" kind="define"><name>XAXIDMA_CDESC_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac8626fb2bed7230a2c82a7e1db0ddd35" kind="define"><name>XAXIDMA_TDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6063ffb7cb46cdca589e6f31069f7758" kind="define"><name>XAXIDMA_TDESC_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga386fad6446792679302b362ed34022cf" kind="define"><name>XAXIDMA_SRCADDR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gafaafc49751e690d818d604efe368c481" kind="define"><name>XAXIDMA_SRCADDR_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4e98e82ed389c23918315d833b457ea9" kind="define"><name>XAXIDMA_DESTADDR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga3a54e372851dbae81c33997ef2ba8d2f" kind="define"><name>XAXIDMA_DESTADDR_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa7ede468ba17bf106101d4850184dc74" kind="define"><name>XAXIDMA_BUFFLEN_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gab26580f9b4a94b3ab1d373ddeab7b3b6" kind="define"><name>XAXIDMA_SGCTL_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga79d2eca90f2554b8c893b2f9a70c795c" kind="define"><name>XAXIDMA_RX_CDESC0_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gad80414a88feceb1da4b9f77096d1d590" kind="define"><name>XAXIDMA_RX_CDESC0_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadfa4d02f0dd1fd005c695e9977457722" kind="define"><name>XAXIDMA_RX_TDESC0_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa9b5991af857e7bac763311fd917978d" kind="define"><name>XAXIDMA_RX_TDESC0_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6fc559cbc93b62195de6ecaf25492467" kind="define"><name>XAXIDMA_RX_NDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gab0ebdf6b7776e79941efe1325aac5aa9" kind="define"><name>XAXIDMA_CR_RUNSTOP_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga33fda61f0837d37da36d3b72b90b0fba" kind="define"><name>XAXIDMA_CR_RESET_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8bdf83c8ba16d8217a2a6486a9b5b521" kind="define"><name>XAXIDMA_CR_KEYHOLE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga2d34bf268de2f2ef4d32351043835f68" kind="define"><name>XAXIDMA_CR_CYCLIC_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga70671c3d8cd1e51c56723e298d268cce" kind="define"><name>XAXIDMA_HALTED_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa3538e8c2a6e024641259c85368667f0" kind="define"><name>XAXIDMA_IDLE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga87ac559811703a8ca33fc6b427913f2b" kind="define"><name>XAXIDMA_ERR_INTERNAL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6d50743f6c9d6474561f6727eb956915" kind="define"><name>XAXIDMA_ERR_SLAVE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa19b93d226e97afd08d3869dc530b692" kind="define"><name>XAXIDMA_ERR_DECODE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1f9ef0d10a7456a25a4b244955659d65" kind="define"><name>XAXIDMA_ERR_SG_INT_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga0f0d25fd68716e868742115c9a28c18c" kind="define"><name>XAXIDMA_ERR_SG_SLV_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga43ecb16ea8e8d09a33364a17610d8909" kind="define"><name>XAXIDMA_ERR_SG_DEC_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4102192c408420feb5b7db14d47c6d5c" kind="define"><name>XAXIDMA_ERR_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae420f2ad87e1e00456a6ee3a80d2480d" kind="define"><name>XAXIDMA_IRQ_IOC_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadc4a45d09bcbf852f29b880935d607dc" kind="define"><name>XAXIDMA_IRQ_DELAY_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6ceb68e74761910e4253795a9b4992cf" kind="define"><name>XAXIDMA_IRQ_ERROR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kind="define"><name>XAXIDMA_IRQ_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae3ad7ae6b5814b99de67bba06ec77ed1" kind="define"><name>XAXIDMA_DELAY_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga280fd988ea7ec3fadfe7cf1293f39e36" kind="define"><name>XAXIDMA_COALESCE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7152d174fbce44a674e0872a3d82c320" kind="define"><name>XAXIDMA_DELAY_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1628424aed5e5be66b41756c4f5eab04" kind="define"><name>XAXIDMA_COALESCE_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga64e86b7df328bc7209a28152f86fd609" kind="define"><name>XAXIDMA_BD_NDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga730aa200407e3c7e38e6fad914ad1eb0" kind="define"><name>XAXIDMA_BD_NDESC_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8bb69f2401305faa1d89fb8dc31e770f" kind="define"><name>XAXIDMA_BD_BUFA_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaccd48ccba559728721eac77a4acc23d1" kind="define"><name>XAXIDMA_BD_BUFA_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6daf74c6d99207a0d8ba91a049e661c6" kind="define"><name>XAXIDMA_BD_MCCTL_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga83d7d4d6e88ab44910242b61fcd7f8fe" kind="define"><name>XAXIDMA_BD_STRIDE_VSIZE_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac3372d0a1625537d5b637f40ca20f52c" kind="define"><name>XAXIDMA_BD_CTRL_LEN_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac71ad6cd79fc11e699bc10e3736fa08c" kind="define"><name>XAXIDMA_BD_STS_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gace0f0376ed9e0aad3d3e3c80254b20b4" kind="define"><name>XAXIDMA_BD_USR0_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7d9d62be0e0ed11b18f185b62dc72f67" kind="define"><name>XAXIDMA_BD_USR1_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadc83ff22099fdf61a5237965ce082504" kind="define"><name>XAXIDMA_BD_USR2_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae1c5981447fe5ac113a6da3c1e19d6ed" kind="define"><name>XAXIDMA_BD_USR3_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1ccae584923d0b6d0851a8bbae4528c9" kind="define"><name>XAXIDMA_BD_USR4_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga117e266cba3edbd1fd2f1e29305dcfc8" kind="define"><name>XAXIDMA_BD_ID_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga819b1b14cd4d386e588679105a8738a6" kind="define"><name>XAXIDMA_BD_HAS_STSCNTRL_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga932a4ab54f38046e6635b9b87a584c79" kind="define"><name>XAXIDMA_BD_HAS_DRE_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gad40d36cf3371ad3d176835933dc85e4b" kind="define"><name>XAXIDMA_BD_HAS_DRE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gafcbd1a131c650a5d6ceee6be15008a77" kind="define"><name>XAXIDMA_BD_WORDLEN_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac15dd4e956aa14d53a6f92544db468d1" kind="define"><name>XAXIDMA_BD_HAS_DRE_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga3db5b1d09deab9660ff65c06136acbc5" kind="define"><name>XAXIDMA_BD_WORDLEN_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga9eac2b100bcdf0aa763d1575f43c822b" kind="define"><name>XAXIDMA_BD_START_CLEAR</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga97ec6974f990aef9ea2298c1df5d72c3" kind="define"><name>XAXIDMA_BD_BYTES_TO_CLEAR</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga751f6662ab9baed908685eef30d322b8" kind="define"><name>XAXIDMA_BD_NUM_WORDS</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae8ddf1d33d85b0a7508b9a072d95bf14" kind="define"><name>XAXIDMA_BD_HW_NUM_BYTES</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga60de0663a52d2daeee3aaad1f663716c" kind="define"><name>XAXIDMA_LAST_APPWORD</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac279d381208f7f123ac07736702f8ff1" kind="define"><name>XAXIDMA_BD_CTRL_TXSOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae9f4d328b9fb0bbdcadd6dc4c09fd4fa" kind="define"><name>XAXIDMA_BD_CTRL_TXEOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa409dba5ec46ad5a31953e22c4d3333f" kind="define"><name>XAXIDMA_BD_CTRL_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadb7c73caf5e5007dcb56ea029d7390ba" kind="define"><name>XAXIDMA_BD_STS_COMPLETE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae79c77f87a9887510ea53480c1e9a998" kind="define"><name>XAXIDMA_BD_STS_DEC_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1f7727fc139a6b3100a5a17cb110efa6" kind="define"><name>XAXIDMA_BD_STS_SLV_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga09e502148e375f2d695d6d5d6e1797d2" kind="define"><name>XAXIDMA_BD_STS_INT_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8018932d7e9b743c4c5c76ab3d373de1" kind="define"><name>XAXIDMA_BD_STS_ALL_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga29915484fd9f840a8ab727cf83bbfe81" kind="define"><name>XAXIDMA_BD_STS_RXSOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga91b0504c621f6c06b0df4752fe65ee3a" kind="define"><name>XAXIDMA_BD_STS_RXEOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac433a776854849cbeaadcbed14132cb6" kind="define"><name>XAXIDMA_BD_STS_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4ea9159938fe936dea123b19fb183eb8" kind="define"><name>XAXIDMA_BD_TDEST_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8b971868c3a489967f9e0a464b1dd57c" kind="define"><name>XAXIDMA_BD_TID_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaf471f34da8477719021d6d4b6a556d9b" kind="define"><name>XAXIDMA_BD_TUSER_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga07e72e534b1395058f8e520291dae3ff" kind="define"><name>XAXIDMA_BD_ARCACHE_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga0e3414556458d79e8b9df51836633b16" kind="define"><name>XAXIDMA_BD_ARUSER_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaafc25bc10cd15e818a1d2f8b95f86cfb" kind="define"><name>XAXIDMA_BD_TDEST_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga78adf110257e059fe493d8f2dfa69b6a" kind="define"><name>XAXIDMA_BD_TID_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga88c7229708879df93f1505113d2658c1" kind="define"><name>XAXIDMA_BD_TUSER_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1c9c664e370859c1792146f98c76c34b" kind="define"><name>XAXIDMA_BD_ARCACHE_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaedace57317c6fe9a72a6dcbff50955ca" kind="define"><name>XAXIDMA_BD_ARUSER_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1gabb6120d7369559e9ee19611387d5a123" kind="define"><name>XAXIDMA_BD_STRIDE_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7c64f4da6fa4a20c9e277bfffda69e3d" kind="define"><name>XAXIDMA_BD_VSIZE_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga3206729ffb0431fd3b7f405d1146ec4a" kind="define"><name>XAXIDMA_BD_STRIDE_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga36e1ba2852b6f1311b1a68eb9e33a40d" kind="define"><name>XAXIDMA_BD_VSIZE_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga170ce0e12eb12686a03e006610e2acd2" kind="define"><name>XAXIDMA_DESC_LSB_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga72fb349658447c76f6a58fdcc9ef8332" kind="define"><name>XAxiDma_In32</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga67ce053696200c5a5273e5f62201c081" kind="define"><name>XAxiDma_Out32</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kind="define"><name>XAxiDma_ReadReg</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kind="define"><name>XAxiDma_WriteReg</name></member>
+    <member refid="xaxidma__hw_8h_1a6d21b8539047064dabb29f2019631d7a" kind="define"><name>XAXIDMA_DMA_TO_DEVICE</name></member>
+    <member refid="xaxidma__hw_8h_1a8d084cfadd0109365865418e7cde7729" kind="define"><name>XAXIDMA_DEVICE_TO_DMA</name></member>
+    <member refid="xaxidma__hw_8h_1a7957d90570574e9c7a7ee308b290ecab" kind="define"><name>XAXIDMA_BD_MINIMUM_ALIGNMENT</name></member>
+    <member refid="xaxidma__hw_8h_1af0f7e862f42d26800868816eea2a949b" kind="define"><name>XAXIDMA_MICROMODE_MIN_BUF_ALIGN</name></member>
+    <member refid="xaxidma__hw_8h_1a58140e7d518a5cec1c601b60c5b9adec" kind="define"><name>XAXIDMA_MCHAN_MAX_TRANSFER_LEN</name></member>
+    <member refid="xaxidma__hw_8h_1a88232281611059fd669f0339888cd44e" kind="define"><name>XAXIDMA_TX_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1adfdc083e0b249c04624a66e700d7a7c4" kind="define"><name>XAXIDMA_RX_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a8534b07ed878f92d2062dc1680fb0391" kind="define"><name>XAXIDMA_CR_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a50d6957f8447d4eab9e444666730f692" kind="define"><name>XAXIDMA_SR_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a24b47801eed2ab0ba326b8b40d24f2b1" kind="define"><name>XAXIDMA_CDESC_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a00ee7a235750d8795961223455407051" kind="define"><name>XAXIDMA_CDESC_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ac8626fb2bed7230a2c82a7e1db0ddd35" kind="define"><name>XAXIDMA_TDESC_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a6063ffb7cb46cdca589e6f31069f7758" kind="define"><name>XAXIDMA_TDESC_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a386fad6446792679302b362ed34022cf" kind="define"><name>XAXIDMA_SRCADDR_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1afaafc49751e690d818d604efe368c481" kind="define"><name>XAXIDMA_SRCADDR_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a4e98e82ed389c23918315d833b457ea9" kind="define"><name>XAXIDMA_DESTADDR_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a3a54e372851dbae81c33997ef2ba8d2f" kind="define"><name>XAXIDMA_DESTADDR_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1aa7ede468ba17bf106101d4850184dc74" kind="define"><name>XAXIDMA_BUFFLEN_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ab26580f9b4a94b3ab1d373ddeab7b3b6" kind="define"><name>XAXIDMA_SGCTL_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a79d2eca90f2554b8c893b2f9a70c795c" kind="define"><name>XAXIDMA_RX_CDESC0_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ad80414a88feceb1da4b9f77096d1d590" kind="define"><name>XAXIDMA_RX_CDESC0_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1adfa4d02f0dd1fd005c695e9977457722" kind="define"><name>XAXIDMA_RX_TDESC0_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1aa9b5991af857e7bac763311fd917978d" kind="define"><name>XAXIDMA_RX_TDESC0_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a6fc559cbc93b62195de6ecaf25492467" kind="define"><name>XAXIDMA_RX_NDESC_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ab0ebdf6b7776e79941efe1325aac5aa9" kind="define"><name>XAXIDMA_CR_RUNSTOP_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a33fda61f0837d37da36d3b72b90b0fba" kind="define"><name>XAXIDMA_CR_RESET_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a8bdf83c8ba16d8217a2a6486a9b5b521" kind="define"><name>XAXIDMA_CR_KEYHOLE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a2d34bf268de2f2ef4d32351043835f68" kind="define"><name>XAXIDMA_CR_CYCLIC_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a70671c3d8cd1e51c56723e298d268cce" kind="define"><name>XAXIDMA_HALTED_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1aa3538e8c2a6e024641259c85368667f0" kind="define"><name>XAXIDMA_IDLE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a87ac559811703a8ca33fc6b427913f2b" kind="define"><name>XAXIDMA_ERR_INTERNAL_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a6d50743f6c9d6474561f6727eb956915" kind="define"><name>XAXIDMA_ERR_SLAVE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1aa19b93d226e97afd08d3869dc530b692" kind="define"><name>XAXIDMA_ERR_DECODE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a1f9ef0d10a7456a25a4b244955659d65" kind="define"><name>XAXIDMA_ERR_SG_INT_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a0f0d25fd68716e868742115c9a28c18c" kind="define"><name>XAXIDMA_ERR_SG_SLV_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a43ecb16ea8e8d09a33364a17610d8909" kind="define"><name>XAXIDMA_ERR_SG_DEC_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a4102192c408420feb5b7db14d47c6d5c" kind="define"><name>XAXIDMA_ERR_ALL_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ae420f2ad87e1e00456a6ee3a80d2480d" kind="define"><name>XAXIDMA_IRQ_IOC_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1adc4a45d09bcbf852f29b880935d607dc" kind="define"><name>XAXIDMA_IRQ_DELAY_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a6ceb68e74761910e4253795a9b4992cf" kind="define"><name>XAXIDMA_IRQ_ERROR_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a8347e41a5c01bdabefce9c8484a7ced1" kind="define"><name>XAXIDMA_IRQ_ALL_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ae3ad7ae6b5814b99de67bba06ec77ed1" kind="define"><name>XAXIDMA_DELAY_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a280fd988ea7ec3fadfe7cf1293f39e36" kind="define"><name>XAXIDMA_COALESCE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a7152d174fbce44a674e0872a3d82c320" kind="define"><name>XAXIDMA_DELAY_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a1628424aed5e5be66b41756c4f5eab04" kind="define"><name>XAXIDMA_COALESCE_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a64e86b7df328bc7209a28152f86fd609" kind="define"><name>XAXIDMA_BD_NDESC_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a730aa200407e3c7e38e6fad914ad1eb0" kind="define"><name>XAXIDMA_BD_NDESC_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a8bb69f2401305faa1d89fb8dc31e770f" kind="define"><name>XAXIDMA_BD_BUFA_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1accd48ccba559728721eac77a4acc23d1" kind="define"><name>XAXIDMA_BD_BUFA_MSB_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a6daf74c6d99207a0d8ba91a049e661c6" kind="define"><name>XAXIDMA_BD_MCCTL_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a83d7d4d6e88ab44910242b61fcd7f8fe" kind="define"><name>XAXIDMA_BD_STRIDE_VSIZE_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ac3372d0a1625537d5b637f40ca20f52c" kind="define"><name>XAXIDMA_BD_CTRL_LEN_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ac71ad6cd79fc11e699bc10e3736fa08c" kind="define"><name>XAXIDMA_BD_STS_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ace0f0376ed9e0aad3d3e3c80254b20b4" kind="define"><name>XAXIDMA_BD_USR0_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a7d9d62be0e0ed11b18f185b62dc72f67" kind="define"><name>XAXIDMA_BD_USR1_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1adc83ff22099fdf61a5237965ce082504" kind="define"><name>XAXIDMA_BD_USR2_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ae1c5981447fe5ac113a6da3c1e19d6ed" kind="define"><name>XAXIDMA_BD_USR3_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a1ccae584923d0b6d0851a8bbae4528c9" kind="define"><name>XAXIDMA_BD_USR4_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a117e266cba3edbd1fd2f1e29305dcfc8" kind="define"><name>XAXIDMA_BD_ID_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a819b1b14cd4d386e588679105a8738a6" kind="define"><name>XAXIDMA_BD_HAS_STSCNTRL_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1a932a4ab54f38046e6635b9b87a584c79" kind="define"><name>XAXIDMA_BD_HAS_DRE_OFFSET</name></member>
+    <member refid="xaxidma__hw_8h_1ad40d36cf3371ad3d176835933dc85e4b" kind="define"><name>XAXIDMA_BD_HAS_DRE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1afcbd1a131c650a5d6ceee6be15008a77" kind="define"><name>XAXIDMA_BD_WORDLEN_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ac15dd4e956aa14d53a6f92544db468d1" kind="define"><name>XAXIDMA_BD_HAS_DRE_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a3db5b1d09deab9660ff65c06136acbc5" kind="define"><name>XAXIDMA_BD_WORDLEN_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a9eac2b100bcdf0aa763d1575f43c822b" kind="define"><name>XAXIDMA_BD_START_CLEAR</name></member>
+    <member refid="xaxidma__hw_8h_1a97ec6974f990aef9ea2298c1df5d72c3" kind="define"><name>XAXIDMA_BD_BYTES_TO_CLEAR</name></member>
+    <member refid="xaxidma__hw_8h_1a751f6662ab9baed908685eef30d322b8" kind="define"><name>XAXIDMA_BD_NUM_WORDS</name></member>
+    <member refid="xaxidma__hw_8h_1ae8ddf1d33d85b0a7508b9a072d95bf14" kind="define"><name>XAXIDMA_BD_HW_NUM_BYTES</name></member>
+    <member refid="xaxidma__hw_8h_1a60de0663a52d2daeee3aaad1f663716c" kind="define"><name>XAXIDMA_LAST_APPWORD</name></member>
+    <member refid="xaxidma__hw_8h_1a170ce0e12eb12686a03e006610e2acd2" kind="define"><name>XAXIDMA_DESC_LSB_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ac279d381208f7f123ac07736702f8ff1" kind="define"><name>XAXIDMA_BD_CTRL_TXSOF_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ae9f4d328b9fb0bbdcadd6dc4c09fd4fa" kind="define"><name>XAXIDMA_BD_CTRL_TXEOF_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1aa409dba5ec46ad5a31953e22c4d3333f" kind="define"><name>XAXIDMA_BD_CTRL_ALL_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1adb7c73caf5e5007dcb56ea029d7390ba" kind="define"><name>XAXIDMA_BD_STS_COMPLETE_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ae79c77f87a9887510ea53480c1e9a998" kind="define"><name>XAXIDMA_BD_STS_DEC_ERR_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a1f7727fc139a6b3100a5a17cb110efa6" kind="define"><name>XAXIDMA_BD_STS_SLV_ERR_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a09e502148e375f2d695d6d5d6e1797d2" kind="define"><name>XAXIDMA_BD_STS_INT_ERR_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a8018932d7e9b743c4c5c76ab3d373de1" kind="define"><name>XAXIDMA_BD_STS_ALL_ERR_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a29915484fd9f840a8ab727cf83bbfe81" kind="define"><name>XAXIDMA_BD_STS_RXSOF_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a91b0504c621f6c06b0df4752fe65ee3a" kind="define"><name>XAXIDMA_BD_STS_RXEOF_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1ac433a776854849cbeaadcbed14132cb6" kind="define"><name>XAXIDMA_BD_STS_ALL_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a4ea9159938fe936dea123b19fb183eb8" kind="define"><name>XAXIDMA_BD_TDEST_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a8b971868c3a489967f9e0a464b1dd57c" kind="define"><name>XAXIDMA_BD_TID_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1af471f34da8477719021d6d4b6a556d9b" kind="define"><name>XAXIDMA_BD_TUSER_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a07e72e534b1395058f8e520291dae3ff" kind="define"><name>XAXIDMA_BD_ARCACHE_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a0e3414556458d79e8b9df51836633b16" kind="define"><name>XAXIDMA_BD_ARUSER_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1aafc25bc10cd15e818a1d2f8b95f86cfb" kind="define"><name>XAXIDMA_BD_TDEST_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a78adf110257e059fe493d8f2dfa69b6a" kind="define"><name>XAXIDMA_BD_TID_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a88c7229708879df93f1505113d2658c1" kind="define"><name>XAXIDMA_BD_TUSER_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a1c9c664e370859c1792146f98c76c34b" kind="define"><name>XAXIDMA_BD_ARCACHE_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1aedace57317c6fe9a72a6dcbff50955ca" kind="define"><name>XAXIDMA_BD_ARUSER_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1abb6120d7369559e9ee19611387d5a123" kind="define"><name>XAXIDMA_BD_STRIDE_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a7c64f4da6fa4a20c9e277bfffda69e3d" kind="define"><name>XAXIDMA_BD_VSIZE_FIELD_MASK</name></member>
+    <member refid="xaxidma__hw_8h_1a3206729ffb0431fd3b7f405d1146ec4a" kind="define"><name>XAXIDMA_BD_STRIDE_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a36e1ba2852b6f1311b1a68eb9e33a40d" kind="define"><name>XAXIDMA_BD_VSIZE_FIELD_SHIFT</name></member>
+    <member refid="xaxidma__hw_8h_1a72fb349658447c76f6a58fdcc9ef8332" kind="define"><name>XAxiDma_In32</name></member>
+    <member refid="xaxidma__hw_8h_1a67ce053696200c5a5273e5f62201c081" kind="define"><name>XAxiDma_Out32</name></member>
+    <member refid="xaxidma__hw_8h_1adea426ef26fc5473a78723cd2b92aba5" kind="define"><name>XAxiDma_ReadReg</name></member>
+    <member refid="xaxidma__hw_8h_1a73dabf09bac8a209e0cc367f6ccdf44b" kind="define"><name>XAxiDma_WriteReg</name></member>
   </compound>
   <compound refid="xaxidma__porting__guide_8h" kind="file"><name>xaxidma_porting_guide.h</name>
   </compound>
@@ -485,104 +421,26 @@
     <member refid="group___a_x_i_d_m_a_1ga8a31868280befe559084a39d4505d624" kind="function"><name>XAxiDma_LookupConfig</name></member>
   </compound>
   <compound refid="group___a_x_i_d_m_a" kind="group"><name>AXIDMA</name>
-    <member refid="group___a_x_i_d_m_a_1ga6d21b8539047064dabb29f2019631d7a" kind="define"><name>XAXIDMA_DMA_TO_DEVICE</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8d084cfadd0109365865418e7cde7729" kind="define"><name>XAXIDMA_DEVICE_TO_DMA</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7957d90570574e9c7a7ee308b290ecab" kind="define"><name>XAXIDMA_BD_MINIMUM_ALIGNMENT</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaf0f7e862f42d26800868816eea2a949b" kind="define"><name>XAXIDMA_MICROMODE_MIN_BUF_ALIGN</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga58140e7d518a5cec1c601b60c5b9adec" kind="define"><name>XAXIDMA_MCHAN_MAX_TRANSFER_LEN</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga88232281611059fd669f0339888cd44e" kind="define"><name>XAXIDMA_TX_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadfdc083e0b249c04624a66e700d7a7c4" kind="define"><name>XAXIDMA_RX_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kind="define"><name>XAXIDMA_CR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kind="define"><name>XAXIDMA_SR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga24b47801eed2ab0ba326b8b40d24f2b1" kind="define"><name>XAXIDMA_CDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga00ee7a235750d8795961223455407051" kind="define"><name>XAXIDMA_CDESC_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac8626fb2bed7230a2c82a7e1db0ddd35" kind="define"><name>XAXIDMA_TDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6063ffb7cb46cdca589e6f31069f7758" kind="define"><name>XAXIDMA_TDESC_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga386fad6446792679302b362ed34022cf" kind="define"><name>XAXIDMA_SRCADDR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gafaafc49751e690d818d604efe368c481" kind="define"><name>XAXIDMA_SRCADDR_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4e98e82ed389c23918315d833b457ea9" kind="define"><name>XAXIDMA_DESTADDR_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga3a54e372851dbae81c33997ef2ba8d2f" kind="define"><name>XAXIDMA_DESTADDR_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa7ede468ba17bf106101d4850184dc74" kind="define"><name>XAXIDMA_BUFFLEN_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gab26580f9b4a94b3ab1d373ddeab7b3b6" kind="define"><name>XAXIDMA_SGCTL_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga79d2eca90f2554b8c893b2f9a70c795c" kind="define"><name>XAXIDMA_RX_CDESC0_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gad80414a88feceb1da4b9f77096d1d590" kind="define"><name>XAXIDMA_RX_CDESC0_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadfa4d02f0dd1fd005c695e9977457722" kind="define"><name>XAXIDMA_RX_TDESC0_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa9b5991af857e7bac763311fd917978d" kind="define"><name>XAXIDMA_RX_TDESC0_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6fc559cbc93b62195de6ecaf25492467" kind="define"><name>XAXIDMA_RX_NDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gab0ebdf6b7776e79941efe1325aac5aa9" kind="define"><name>XAXIDMA_CR_RUNSTOP_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga33fda61f0837d37da36d3b72b90b0fba" kind="define"><name>XAXIDMA_CR_RESET_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8bdf83c8ba16d8217a2a6486a9b5b521" kind="define"><name>XAXIDMA_CR_KEYHOLE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga2d34bf268de2f2ef4d32351043835f68" kind="define"><name>XAXIDMA_CR_CYCLIC_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga70671c3d8cd1e51c56723e298d268cce" kind="define"><name>XAXIDMA_HALTED_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa3538e8c2a6e024641259c85368667f0" kind="define"><name>XAXIDMA_IDLE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga87ac559811703a8ca33fc6b427913f2b" kind="define"><name>XAXIDMA_ERR_INTERNAL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6d50743f6c9d6474561f6727eb956915" kind="define"><name>XAXIDMA_ERR_SLAVE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa19b93d226e97afd08d3869dc530b692" kind="define"><name>XAXIDMA_ERR_DECODE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1f9ef0d10a7456a25a4b244955659d65" kind="define"><name>XAXIDMA_ERR_SG_INT_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga0f0d25fd68716e868742115c9a28c18c" kind="define"><name>XAXIDMA_ERR_SG_SLV_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga43ecb16ea8e8d09a33364a17610d8909" kind="define"><name>XAXIDMA_ERR_SG_DEC_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4102192c408420feb5b7db14d47c6d5c" kind="define"><name>XAXIDMA_ERR_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae420f2ad87e1e00456a6ee3a80d2480d" kind="define"><name>XAXIDMA_IRQ_IOC_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadc4a45d09bcbf852f29b880935d607dc" kind="define"><name>XAXIDMA_IRQ_DELAY_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6ceb68e74761910e4253795a9b4992cf" kind="define"><name>XAXIDMA_IRQ_ERROR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kind="define"><name>XAXIDMA_IRQ_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae3ad7ae6b5814b99de67bba06ec77ed1" kind="define"><name>XAXIDMA_DELAY_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga280fd988ea7ec3fadfe7cf1293f39e36" kind="define"><name>XAXIDMA_COALESCE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7152d174fbce44a674e0872a3d82c320" kind="define"><name>XAXIDMA_DELAY_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1628424aed5e5be66b41756c4f5eab04" kind="define"><name>XAXIDMA_COALESCE_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga64e86b7df328bc7209a28152f86fd609" kind="define"><name>XAXIDMA_BD_NDESC_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga730aa200407e3c7e38e6fad914ad1eb0" kind="define"><name>XAXIDMA_BD_NDESC_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8bb69f2401305faa1d89fb8dc31e770f" kind="define"><name>XAXIDMA_BD_BUFA_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaccd48ccba559728721eac77a4acc23d1" kind="define"><name>XAXIDMA_BD_BUFA_MSB_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6daf74c6d99207a0d8ba91a049e661c6" kind="define"><name>XAXIDMA_BD_MCCTL_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga83d7d4d6e88ab44910242b61fcd7f8fe" kind="define"><name>XAXIDMA_BD_STRIDE_VSIZE_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac3372d0a1625537d5b637f40ca20f52c" kind="define"><name>XAXIDMA_BD_CTRL_LEN_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac71ad6cd79fc11e699bc10e3736fa08c" kind="define"><name>XAXIDMA_BD_STS_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gace0f0376ed9e0aad3d3e3c80254b20b4" kind="define"><name>XAXIDMA_BD_USR0_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7d9d62be0e0ed11b18f185b62dc72f67" kind="define"><name>XAXIDMA_BD_USR1_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadc83ff22099fdf61a5237965ce082504" kind="define"><name>XAXIDMA_BD_USR2_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae1c5981447fe5ac113a6da3c1e19d6ed" kind="define"><name>XAXIDMA_BD_USR3_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1ccae584923d0b6d0851a8bbae4528c9" kind="define"><name>XAXIDMA_BD_USR4_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga117e266cba3edbd1fd2f1e29305dcfc8" kind="define"><name>XAXIDMA_BD_ID_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga819b1b14cd4d386e588679105a8738a6" kind="define"><name>XAXIDMA_BD_HAS_STSCNTRL_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga932a4ab54f38046e6635b9b87a584c79" kind="define"><name>XAXIDMA_BD_HAS_DRE_OFFSET</name></member>
-    <member refid="group___a_x_i_d_m_a_1gad40d36cf3371ad3d176835933dc85e4b" kind="define"><name>XAXIDMA_BD_HAS_DRE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gafcbd1a131c650a5d6ceee6be15008a77" kind="define"><name>XAXIDMA_BD_WORDLEN_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac15dd4e956aa14d53a6f92544db468d1" kind="define"><name>XAXIDMA_BD_HAS_DRE_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga3db5b1d09deab9660ff65c06136acbc5" kind="define"><name>XAXIDMA_BD_WORDLEN_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga9eac2b100bcdf0aa763d1575f43c822b" kind="define"><name>XAXIDMA_BD_START_CLEAR</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga97ec6974f990aef9ea2298c1df5d72c3" kind="define"><name>XAXIDMA_BD_BYTES_TO_CLEAR</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga751f6662ab9baed908685eef30d322b8" kind="define"><name>XAXIDMA_BD_NUM_WORDS</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae8ddf1d33d85b0a7508b9a072d95bf14" kind="define"><name>XAXIDMA_BD_HW_NUM_BYTES</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga60de0663a52d2daeee3aaad1f663716c" kind="define"><name>XAXIDMA_LAST_APPWORD</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac279d381208f7f123ac07736702f8ff1" kind="define"><name>XAXIDMA_BD_CTRL_TXSOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae9f4d328b9fb0bbdcadd6dc4c09fd4fa" kind="define"><name>XAXIDMA_BD_CTRL_TXEOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaa409dba5ec46ad5a31953e22c4d3333f" kind="define"><name>XAXIDMA_BD_CTRL_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadb7c73caf5e5007dcb56ea029d7390ba" kind="define"><name>XAXIDMA_BD_STS_COMPLETE_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gae79c77f87a9887510ea53480c1e9a998" kind="define"><name>XAXIDMA_BD_STS_DEC_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1f7727fc139a6b3100a5a17cb110efa6" kind="define"><name>XAXIDMA_BD_STS_SLV_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga09e502148e375f2d695d6d5d6e1797d2" kind="define"><name>XAXIDMA_BD_STS_INT_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8018932d7e9b743c4c5c76ab3d373de1" kind="define"><name>XAXIDMA_BD_STS_ALL_ERR_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga29915484fd9f840a8ab727cf83bbfe81" kind="define"><name>XAXIDMA_BD_STS_RXSOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga91b0504c621f6c06b0df4752fe65ee3a" kind="define"><name>XAXIDMA_BD_STS_RXEOF_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gac433a776854849cbeaadcbed14132cb6" kind="define"><name>XAXIDMA_BD_STS_ALL_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4ea9159938fe936dea123b19fb183eb8" kind="define"><name>XAXIDMA_BD_TDEST_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8b971868c3a489967f9e0a464b1dd57c" kind="define"><name>XAXIDMA_BD_TID_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaf471f34da8477719021d6d4b6a556d9b" kind="define"><name>XAXIDMA_BD_TUSER_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga07e72e534b1395058f8e520291dae3ff" kind="define"><name>XAXIDMA_BD_ARCACHE_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga0e3414556458d79e8b9df51836633b16" kind="define"><name>XAXIDMA_BD_ARUSER_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaafc25bc10cd15e818a1d2f8b95f86cfb" kind="define"><name>XAXIDMA_BD_TDEST_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga78adf110257e059fe493d8f2dfa69b6a" kind="define"><name>XAXIDMA_BD_TID_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga88c7229708879df93f1505113d2658c1" kind="define"><name>XAXIDMA_BD_TUSER_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1c9c664e370859c1792146f98c76c34b" kind="define"><name>XAXIDMA_BD_ARCACHE_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaedace57317c6fe9a72a6dcbff50955ca" kind="define"><name>XAXIDMA_BD_ARUSER_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1gabb6120d7369559e9ee19611387d5a123" kind="define"><name>XAXIDMA_BD_STRIDE_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7c64f4da6fa4a20c9e277bfffda69e3d" kind="define"><name>XAXIDMA_BD_VSIZE_FIELD_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga3206729ffb0431fd3b7f405d1146ec4a" kind="define"><name>XAXIDMA_BD_STRIDE_FIELD_SHIFT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga36e1ba2852b6f1311b1a68eb9e33a40d" kind="define"><name>XAXIDMA_BD_VSIZE_FIELD_SHIFT</name></member>
     <member refid="group___a_x_i_d_m_a_1gac08fe7cb6508a133a7ef036bba7df5b5" kind="typedef"><name>XAxiDma</name></member>
     <member refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kind="typedef"><name>XAxiDma_Bd</name></member>
     <member refid="group___a_x_i_d_m_a_1ga03f35763215a8553e7020d4ee19ab174" kind="variable"><name>XAxiDma_ConfigTable</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga8928484466c64db3c3c0fe840c711dad" kind="variable"><name>LastRxBdPtr</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga36e3cb0464f198ceb9030f87bba28f7c" kind="variable"><name>TxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga35a748876d5d163df05929778dd09dad" kind="variable"><name>RxDone</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga50fcf0a79311e5d8011c92ce68450764" kind="variable"><name>Error</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga19e117de53f70f4391bf2e1d876a1af5" kind="variable"><name>AxiDma</name></member>
     <member refid="group___a_x_i_d_m_a_1gac1468dc45215c9fd8c2407b2181d0373" kind="function"><name>XAxiDma_Start</name></member>
     <member refid="group___a_x_i_d_m_a_1gabe7d4cde76a3b3324bda5c9aabbd2b24" kind="function"><name>XAxiDma_Started</name></member>
     <member refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" kind="function"><name>XAxiDma_CfgInitialize</name></member>
@@ -603,30 +461,37 @@
     <member refid="group___a_x_i_d_m_a_1ga9d2814e4249884e68fe9e6f370920ca4" kind="function"><name>XAxiDma_BdGetAppWord</name></member>
     <member refid="group___a_x_i_d_m_a_1ga4eb2615ac89054e982c3f3c37f0ddb52" kind="function"><name>XAxiDma_BdSetCtrl</name></member>
     <member refid="group___a_x_i_d_m_a_1ga53983f629aba5b4ebf27f803a7a9284e" kind="function"><name>XAxiDma_DumpBd</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" kind="function"><name>XAxiDma_StartBdRingHw</name></member>
     <member refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" kind="function"><name>XAxiDma_UpdateBdRingCDesc</name></member>
     <member refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" kind="function"><name>XAxiDma_BdRingCreate</name></member>
     <member refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" kind="function"><name>XAxiDma_BdRingClone</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" kind="function"><name>XAxiDma_StartBdRingHw</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" kind="function"><name>XAxiDma_BdRingStart</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaaebba5c661e04485582e887e74dbeb94" kind="function"><name>XAxiDma_BdRingSetCoalesce</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga0d3794bbccf028da8e94407d061dfc68" kind="function"><name>XAxiDma_BdRingGetCoalesce</name></member>
     <member refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kind="function"><name>XAxiDma_BdRingAlloc</name></member>
     <member refid="group___a_x_i_d_m_a_1gac58b1ab7a89890142baf67211772d3ce" kind="function"><name>XAxiDma_BdRingUnAlloc</name></member>
     <member refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" kind="function"><name>XAxiDma_BdRingToHw</name></member>
     <member refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" kind="function"><name>XAxiDma_BdRingFromHw</name></member>
     <member refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" kind="function"><name>XAxiDma_BdRingFree</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" kind="function"><name>XAxiDma_BdRingStart</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaaebba5c661e04485582e887e74dbeb94" kind="function"><name>XAxiDma_BdRingSetCoalesce</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga0d3794bbccf028da8e94407d061dfc68" kind="function"><name>XAxiDma_BdRingGetCoalesce</name></member>
     <member refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" kind="function"><name>XAxiDma_BdRingCheck</name></member>
     <member refid="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" kind="function"><name>XAxiDma_BdRingDumpRegs</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad29568bf33fe85cabeb0615ae8ebc67b" kind="function"><name>xil_printf</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga11e7d3c905a770e4d80e6b1de1230251" kind="function"><name>RxSetup</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad24114876b1a1623adf0bd9eb58f67fb" kind="function"><name>TxSetup</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga7d48a83e1d9b0b4820b58424e3781e2d" kind="function"><name>SendPackets</name></member>
+    <member refid="group___a_x_i_d_m_a_1gadea49e34c87f65dfbc139a534e5c5781" kind="function"><name>CheckData</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaee4d00fd7eb3dcde94ac1f7d9d4d3e9a" kind="function"><name>CheckDmaResult</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga95abf69118f4f7a08c4c6e264a39982b" kind="function"><name>AxiDMASelfTestExample</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaab2d34243737176bb346663bd6e2f718" kind="function"><name>CheckData</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga8fdc1d0ca9d79acff4df504ca9c02064" kind="function"><name>TxCallBack</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga8df95e847066198f4a17c02029a55272" kind="function"><name>TxIntrHandler</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaebfe5db946af941dff1aff2e4b03394a" kind="function"><name>RxCallBack</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga73b2653103957de93c772169364cdfa2" kind="function"><name>RxIntrHandler</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga3778543d92d0e1613a9da66317554a65" kind="function"><name>SendPacket</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga74235d148637c91d12901cc99d930ff4" kind="function"><name>XAxiDma_SimplePollExample</name></member>
     <member refid="group___a_x_i_d_m_a_1gabe69b65d3c4422df39418eb2a64f435f" kind="define"><name>XAXIDMA_RESET_TIMEOUT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga9d91f29c6dc41f2106e097f1f9957a6e" kind="define"><name>XAxiDma_GetTxRing</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6373ac3baa5365607f6727f4e2ece7a5" kind="define"><name>XAxiDma_GetRxRing</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaf03e87b58cf2f9800e6260fda3745631" kind="define"><name>XAxiDma_GetRxIndexRing</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga18dd03026dd6c0ebd13526116c09ccae" kind="define"><name>XAxiDma_HasSg</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadac28afa26e2cb55bdada1ee3c016c52" kind="define"><name>XAxiDma_IntrEnable</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadba63ad7c0a784d569736a8d1eb7c367" kind="define"><name>XAxiDma_IntrGetEnabled</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga1936b497c0fa61d326807e5ed8dd572b" kind="define"><name>XAxiDma_IntrDisable</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga6a0eb17bcfcaf3331e01855d302f5f0e" kind="define"><name>XAxiDma_IntrGetIrq</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga9ff0d2e5b50846e4b6a2d683283c10d5" kind="define"><name>XAxiDma_IntrAckIrq</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga1058ef07107625fc8a91e0f1d4cc8a23" kind="define"><name>XAXIDMA_H_</name></member>
     <member refid="group___a_x_i_d_m_a_1gabec3033a105916da4fab14789e42d8fe" kind="define"><name>XAXIDMA_CACHE_FLUSH</name></member>
     <member refid="group___a_x_i_d_m_a_1ga6c49b65edb2b1a59af236bfec55ef6ef" kind="define"><name>XAXIDMA_CACHE_INVALIDATE</name></member>
     <member refid="group___a_x_i_d_m_a_1gaa738ffd392c7ae1e844fab340ba50fee" kind="define"><name>XAxiDma_BdRead</name></member>
@@ -655,10 +520,6 @@
     <member refid="group___a_x_i_d_m_a_1ga29a75b8f1de16a347544e37b48d8129c" kind="define"><name>XAxiDma_BdGetStride</name></member>
     <member refid="group___a_x_i_d_m_a_1ga383b2c0667bf5bafa22922168895bd5e" kind="define"><name>XAxiDma_BdSetVSize</name></member>
     <member refid="group___a_x_i_d_m_a_1gad9f48ceb5b30d66bab23337edc35d2fe" kind="define"><name>XAxiDma_BdGetVSize</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga8b60749d5a2bfdd8fc0c7a007d832498" kind="define"><name>XAXIDMA_STOP_TIMEOUT</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga4df2f97f51b475b5c785fc2da2fc7b5d" kind="define"><name>XAXIDMA_VIRT_TO_PHYS</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaff38d47fd5fb6f1783846fa0120c2fab" kind="define"><name>XAXIDMA_RING_SEEKAHEAD</name></member>
-    <member refid="group___a_x_i_d_m_a_1gaad1001294e7cbcf392090922424b68cb" kind="define"><name>XAXIDMA_RING_SEEKBACK</name></member>
     <member refid="group___a_x_i_d_m_a_1ga94d376725afa0b373e31e85f69081271" kind="define"><name>AXIDMA_CHANNEL_NOT_HALTED</name></member>
     <member refid="group___a_x_i_d_m_a_1gac281cf1898e8266f428beb61cc11fa89" kind="define"><name>AXIDMA_CHANNEL_HALTED</name></member>
     <member refid="group___a_x_i_d_m_a_1gad2e258eb7a32ca9200f4a62656d2a308" kind="define"><name>XAXIDMA_NO_CHANGE</name></member>
@@ -682,12 +543,33 @@
     <member refid="group___a_x_i_d_m_a_1ga9e782e3715c1d2dd03e5d03434f47319" kind="define"><name>XAxiDma_BdRingAckIrq</name></member>
     <member refid="group___a_x_i_d_m_a_1gaa44d5f8239080614bb5c180c169e2334" kind="define"><name>XAxiDma_BdRingEnableCyclicDMA</name></member>
     <member refid="group___a_x_i_d_m_a_1ga7501e52fb48e501b8116016c23f5e2b9" kind="define"><name>XPAR_AXIDMA_0_INCLUDE_SG</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga170ce0e12eb12686a03e006610e2acd2" kind="define"><name>XAXIDMA_DESC_LSB_MASK</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga72fb349658447c76f6a58fdcc9ef8332" kind="define"><name>XAxiDma_In32</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga67ce053696200c5a5273e5f62201c081" kind="define"><name>XAxiDma_Out32</name></member>
-    <member refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kind="define"><name>XAxiDma_ReadReg</name></member>
-    <member refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kind="define"><name>XAxiDma_WriteReg</name></member>
     <member refid="group___a_x_i_d_m_a_1gabe69b65d3c4422df39418eb2a64f435f" kind="define"><name>XAXIDMA_RESET_TIMEOUT</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4c850c92fe393b5099dcf0cefe24173e" kind="define"><name>NUMBER_OF_BDS_PER_PKT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga014a3adba0cfa2dc2faced4a68114fbe" kind="define"><name>NUMBER_OF_PKTS_TO_TRANSFER</name></member>
+    <member refid="group___a_x_i_d_m_a_1gad145c274adf210cacf11db6de650c93d" kind="define"><name>NUMBER_OF_BDS_TO_TRANSFER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga2e4ace81a47e8546df7b794320761272" kind="define"><name>DELAY_TIMER_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaca7eb78ffe9c1c90d6aadffd9c832501" kind="define"><name>COALESCING_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga2e4ace81a47e8546df7b794320761272" kind="define"><name>DELAY_TIMER_COUNT</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga4152919e50ca8a7f89d0c981eabd0593" kind="define"><name>RESET_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga697928dda71fa389068d6060162ae1ef" kind="define"><name>NUMBER_OF_EVENTS</name></member>
+    <member refid="group___a_x_i_d_m_a_1gaa2cbdec5743bbebc99afa6729c5b98f1" kind="define"><name>MAX_PKT_LEN</name></member>
+    <member refid="group___a_x_i_d_m_a_1gacf460349d2a6f5f1d11c77701b56ca3e" kind="define"><name>TEST_START_VALUE</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga05eeee025125be2f9a2ee761b5678e94" kind="define"><name>NUMBER_OF_TRANSFERS</name></member>
+    <member refid="group___a_x_i_d_m_a_1ga168b51be2ff0434d9e606cd81a36a989" kind="define"><name>POLL_TIMEOUT_COUNTER</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>
@@ -696,7 +578,5 @@
   <compound refid="dir_23133cb58aa7b8bfce2ebdf8410b5482" kind="dir"><name>examples</name>
   </compound>
   <compound refid="dir_7ae7bf4c0de0a8970eca632890d14c92" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

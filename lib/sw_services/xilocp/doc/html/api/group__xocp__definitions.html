@@ -299,6 +299,17 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:gaa2429504100aa2ea3c8f7a11bdd6c503"><td class="mdescLeft">&#160;</td><td class="mdescRight">OCP Error Status enumeration.  <a href="group__xocp__definitions.html#gaa2429504100aa2ea3c8f7a11bdd6c503">More...</a><br/></td></tr>
 <tr class="separator:gaa2429504100aa2ea3c8f7a11bdd6c503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br/>
+&#160;&#160;<a class="el" href="group__xocp__definitions.html#gga06fc87d81c62e9abb8790b6e5713c55ba5fee71ba9d3b6081dd917d28e7a5c085">XOCP_CAP_HW_PCR_BIT</a> = 0,
+<a class="el" href="group__xocp__definitions.html#gga06fc87d81c62e9abb8790b6e5713c55bad68f6ce2a2f6227f7221401ec1c8c21c">XOCP_CAP_KEY_MGMT_BIT</a> = 1,
+<a class="el" href="group__xocp__definitions.html#gga06fc87d81c62e9abb8790b6e5713c55ba21fee0c993bf6794a0647b0b232bcafb">XOCP_CAP_NATIVE_KEY_MGMT_BIT</a> = 2,
+<a class="el" href="group__xocp__definitions.html#gga06fc87d81c62e9abb8790b6e5713c55ba4a65bce0e2da62bc6d1afa20f147dd37">XOCP_CAP_KEY_WRAP_BIT</a> = 3,
+<br/>
+&#160;&#160;<a class="el" href="group__xocp__definitions.html#gga06fc87d81c62e9abb8790b6e5713c55ba40406a91b2dee6340889826105b17701">XOCP_CAP_ASUFW_KEY_MGMT_BIT</a> = 4
+<br/>
+ }</td></tr>
+<tr class="memdesc:ga06fc87d81c62e9abb8790b6e5713c55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">XilOcp capability bits in Xil_LibInfo.Capability[0] returned by the library-info query.  <a href="group__xocp__definitions.html#ga06fc87d81c62e9abb8790b6e5713c55b">More...</a><br/></td></tr>
+<tr class="separator:ga06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 XOcp API ids</h2></td></tr>
@@ -718,6 +729,38 @@ XOcp API ids</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga06fc87d81c62e9abb8790b6e5713c55b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>XilOcp capability bits in Xil_LibInfo.Capability[0] returned by the library-info query. </p>
+<p>Each enumerator is a bit position. Do not reorder. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba5fee71ba9d3b6081dd917d28e7a5c085"></a>XOCP_CAP_HW_PCR_BIT</em>&nbsp;</td><td class="fielddoc">
+<p>PLM_HW_PCR. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55bad68f6ce2a2f6227f7221401ec1c8c21c"></a>XOCP_CAP_KEY_MGMT_BIT</em>&nbsp;</td><td class="fielddoc">
+<p>PLM_OCP_KEY_MGMT. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba21fee0c993bf6794a0647b0b232bcafb"></a>XOCP_CAP_NATIVE_KEY_MGMT_BIT</em>&nbsp;</td><td class="fielddoc">
+<p>PLM_OCP_NATIVE_KEY_MGMT. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba4a65bce0e2da62bc6d1afa20f147dd37"></a>XOCP_CAP_KEY_WRAP_BIT</em>&nbsp;</td><td class="fielddoc">
+<p>PLM_OCP_KEY_WRAP. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga06fc87d81c62e9abb8790b6e5713c55ba40406a91b2dee6340889826105b17701"></a>XOCP_CAP_ASUFW_KEY_MGMT_BIT</em>&nbsp;</td><td class="fielddoc">
+<p>PLM_OCP_ASUFW_KEY_MGMT. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="gae95d465df2996596afe4dd4e5f669667"></a>
 <div class="memitem">
 <div class="memproto">

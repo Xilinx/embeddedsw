@@ -105,15 +105,26 @@ $(document).ready(function(){initNavTree('xiicps__hw_8h.html','');});
 <div class="title">xiicps_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Provides the hardware definitions for the IIC device. </p>
+<p>The <a class="el" href="xiicps__hw_8h.html" title="Provides the hardware definitions for the IIC device. ">xiicps_hw.h</a> header file contains the hardware definition for an IIC device. It includes register definitions and interface functions to read and write the registers.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
+</p>
+<hr/>
+<p>
+1.00a drg/jz  01/30/10 First release
+1.04a kpc               11/07/13 Added function prototype.
+3.0     sk              11/03/14 Modified the TimeOut Register value to 0xFF
+                        01/31/15 Modified the code according to MISRAC 2012 Compliant.
+3.10  sg                06/24/19 Added timeout macro for polled transfer.
+3.24  tb                09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga985ef58212940c666ada245d3e83a17d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga985ef58212940c666ada245d3e83a17d">XIICPS_HW_H</a></td></tr>
-<tr class="memdesc:ga985ef58212940c666ada245d3e83a17d"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="group__iicps__api.html#ga985ef58212940c666ada245d3e83a17d">More...</a><br/></td></tr>
-<tr class="separator:ga985ef58212940c666ada245d3e83a17d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabcc20fce80c1e8dff27be4e584c2cc27"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gabcc20fce80c1e8dff27be4e584c2cc27">XIicPs_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XIicPs_In32((BaseAddress) + (u32)(RegOffset))</td></tr>
 <tr class="memdesc:gabcc20fce80c1e8dff27be4e584c2cc27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an IIC register.  <a href="group__iicps__api.html#gabcc20fce80c1e8dff27be4e584c2cc27">More...</a><br/></td></tr>
 <tr class="separator:gabcc20fce80c1e8dff27be4e584c2cc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +147,7 @@ Macros</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Register offsets for the IIC. </p>
 </div></td></tr>
 <tr class="memitem:ga0c96ab97015c857822df599608ba9c10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga0c96ab97015c857822df599608ba9c10">XIICPS_CR_OFFSET</a>&#160;&#160;&#160;0x00U</td></tr>
-<tr class="memdesc:ga0c96ab97015c857822df599608ba9c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">32-bit Control  <a href="group__iicps__api.html#ga0c96ab97015c857822df599608ba9c10">More...</a><br/></td></tr>
+<tr class="memdesc:ga0c96ab97015c857822df599608ba9c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">32-bit Control.  <a href="group__iicps__api.html#ga0c96ab97015c857822df599608ba9c10">More...</a><br/></td></tr>
 <tr class="separator:ga0c96ab97015c857822df599608ba9c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga12b4d0ee4dce6172ba78a0dec5666a72"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga12b4d0ee4dce6172ba78a0dec5666a72">XIICPS_SR_OFFSET</a>&#160;&#160;&#160;0x04U</td></tr>
 <tr class="memdesc:ga12b4d0ee4dce6172ba78a0dec5666a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status.  <a href="group__iicps__api.html#ga12b4d0ee4dce6172ba78a0dec5666a72">More...</a><br/></td></tr>
@@ -170,17 +181,14 @@ Macros</h2></td></tr>
 <tr class="separator:gac95b4e2bd04257b322e5bf66f956bdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">IIC Interrupt Registers</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p><b>IIC Interrupt Status Register</b></p>
-<p>This register holds the interrupt status flags for the IIC controller. Some of the flags are level triggered</p>
-<ul>
-<li>i.e. are set as long as the interrupt condition exists. Other flags are edge triggered, which means they are set one the interrupt condition occurs then remain set until they are cleared by software. The interrupts are cleared by writing a one to the interrupt bit position in the Interrupt Status Register. Read/Write.</li>
-</ul>
+<p>This register holds the interrupt status flags for the IIC controller. Some of the flags are level triggered, that is, they are set as long as the interrupt condition exists. Other flags are edge triggered, which means they are set once the interrupt condition occurs and remain set until software clears them. Writing a one to the interrupt bit position in the Interrupt Status Register clears the interrupt. Read/Write.</p>
 <p><b>IIC Interrupt Enable Register</b></p>
-<p>This register is used to enable interrupt sources for the IIC controller. Writing a '1' to a bit in this register clears the corresponding bit in the IIC Interrupt Mask register. Write only.</p>
+<p>This register enables interrupt sources for the IIC controller. Writing a '1' to a bit in this register clears the corresponding bit in the IIC Interrupt Mask register. Write only.</p>
 <p><b>IIC Interrupt Disable Register </b></p>
-<p>This register is used to disable interrupt sources for the IIC controller. Writing a '1' to a bit in this register sets the corresponding bit in the IIC Interrupt Mask register. Write only.</p>
+<p>This register disables interrupt sources for the IIC controller. Writing a '1' to a bit in this register sets the corresponding bit in the IIC Interrupt Mask register. Write only.</p>
 <p><b>IIC Interrupt Mask Register</b></p>
-<p>This register shows the enabled/disabled status of each IIC controller interrupt source. A bit set to 1 will ignore the corresponding interrupt in the status register. A bit set to 0 means the interrupt is enabled. All mask bits are set and all interrupts are disabled after reset. Read only.</p>
-<p>All four registers have the same bit definitions. They are only defined once for each of the Interrupt Enable Register, Interrupt Disable Register, Interrupt Mask Register, and Interrupt Status Register </p>
+<p>This register shows the enabled or disabled status of each IIC controller interrupt source. A bit set to 1 ignores the corresponding interrupt in the status register. A bit set to 0 means the interrupt is enabled. All mask bits are set and all interrupts are disabled after reset. Read only.</p>
+<p>All four registers have the same bit definitions. They are only defined once for each of the Interrupt Enable Register, Interrupt Disable Register, Interrupt Mask Register, and Interrupt Status Register. </p>
 </div></td></tr>
 <tr class="memitem:ga88441aea66e1ef8f1fd211756b1d1630"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga88441aea66e1ef8f1fd211756b1d1630">XIICPS_IXR_ARB_LOST_MASK</a>&#160;&#160;&#160;0x00000200U</td></tr>
 <tr class="memdesc:ga88441aea66e1ef8f1fd211756b1d1630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitration Lost Interrupt mask.  <a href="group__iicps__api.html#ga88441aea66e1ef8f1fd211756b1d1630">More...</a><br/></td></tr>

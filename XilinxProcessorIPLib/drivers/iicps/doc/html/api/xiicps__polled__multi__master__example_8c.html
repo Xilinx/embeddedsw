@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xiicps__polled__multi__master__example
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -107,28 +108,45 @@ $(document).ready(function(){initNavTree('xiicps__polled__multi__master__example
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Design example is to demonstrate multi-master support in polled mode. </p>
-<p>In case arbitration lost there will be retry..</p>
-<p>The <a class="el" href="group__iicps__api.html#ga71584f1a7e675cde41cfd9d1bd4320b4" title="Initiates a polled mode send in master mode. ">XIicPs_MasterSendPolled()</a> API is used to transmit the data and the <a class="el" href="group__iicps__api.html#ga21bdb2f8a1f09e027aa8b0e9d6648d75" title="Initiates a polled mode receive in master mode. ">XIicPs_MasterRecvPolled()</a> API is used to receive the data. This example tested on ZCU102 board and slave address needs to be changed based on board design</p>
+<div class="textblock"><p>Demonstrates multi-master support in polled mode. </p>
+<p>Design example is to demonstrate multi-master support in polled mode. In case of arbitration lost, the example retries the transfer.</p>
+<p>The <a class="el" href="group__iicps__api.html#ga71584f1a7e675cde41cfd9d1bd4320b4" title="Initiates a polled mode send in master mode. ">XIicPs_MasterSendPolled()</a> API is used to transmit the data and the <a class="el" href="group__iicps__api.html#ga21bdb2f8a1f09e027aa8b0e9d6648d75" title="Initiates a polled mode receive in master mode. ">XIicPs_MasterRecvPolled()</a> API is used to receive the data. This example is tested on ZCU102 board and slave address needs to be changed based on board design.</p>
 <p>This example can run on zynqmp / versal IIC device as master in polled mode and Aardvark test hardware used as slave.</p>
-<p>It uses buffer size 132. Please set the send buffer of the Aardvark device to be continuous 64 bytes from 0x00 to 0x3F.</p>
+<p>It uses buffer size 132. Set the send buffer of the Aardvark device to be continuous 64 bytes from 0x00 to 0x3F.</p>
 <pre> MODIFICATION HISTORY:</pre><pre> Ver   Who Date     Changes
 </p>
 <hr/>
 <p>
  1.00a sg  03/09/19 First release
  3.18  gm  07/14/23 Added SDT support.
- 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.</pre><pre> </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+ 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ 3.24  tb  09/30/26 Align Doxygen comments with AMD standards</pre><pre> </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab8a417bcd1481342d0ff31c50cf97ab6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#ab8a417bcd1481342d0ff31c50cf97ab6">XIICPS_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XIICPS_0_BASEADDR</td></tr>
+<tr class="memdesc:ab8a417bcd1481342d0ff31c50cf97ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address.  <a href="#ab8a417bcd1481342d0ff31c50cf97ab6">More...</a><br/></td></tr>
+<tr class="separator:ab8a417bcd1481342d0ff31c50cf97ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b71e527200033092ab1ebd5c0c077ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>&#160;&#160;&#160;132</td></tr>
+<tr class="memdesc:a0b71e527200033092ab1ebd5c0c077ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant controls the length of the buffers to be sent and received with the IIC.  <a href="#a0b71e527200033092ab1ebd5c0c077ed">More...</a><br/></td></tr>
+<tr class="separator:a0b71e527200033092ab1ebd5c0c077ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">IIC bus settings</div></td></tr>
+<tr class="memitem:a709b03962769714690547d1d17268708"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a709b03962769714690547d1d17268708">IIC_SLAVE_ADDR</a>&#160;&#160;&#160;0x55</td></tr>
+<tr class="memdesc:a709b03962769714690547d1d17268708"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slave address to send to and receive from.  <a href="#a709b03962769714690547d1d17268708">More...</a><br/></td></tr>
+<tr class="separator:a709b03962769714690547d1d17268708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34f6b11bc914bc005cf3f302a394c026"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a34f6b11bc914bc005cf3f302a394c026">IIC_SCLK_RATE</a>&#160;&#160;&#160;100000</td></tr>
+<tr class="memdesc:a34f6b11bc914bc005cf3f302a394c026"><td class="mdescLeft">&#160;</td><td class="mdescRight">IIC serial clock rate in Hz.  <a href="#a34f6b11bc914bc005cf3f302a394c026">More...</a><br/></td></tr>
+<tr class="separator:a34f6b11bc914bc005cf3f302a394c026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5b57ca40c957274f180dda79c1731101"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101">IicPsMultiMasterPolledExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a5b57ca40c957274f180dda79c1731101"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> driver.  <a href="#a5b57ca40c957274f180dda79c1731101">More...</a><br/></td></tr>
+<tr class="memdesc:a5b57ca40c957274f180dda79c1731101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Illustrates multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver.  <a href="#a5b57ca40c957274f180dda79c1731101">More...</a><br/></td></tr>
 <tr class="separator:a5b57ca40c957274f180dda79c1731101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the polled master example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the polled master example from the main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
@@ -136,13 +154,78 @@ Variables</h2></td></tr>
 <tr class="memitem:ac16e1350ea077cddfa26851a6e7ead7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic_ps.html">XIicPs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#ac16e1350ea077cddfa26851a6e7ead7c">Iic</a></td></tr>
 <tr class="memdesc:ac16e1350ea077cddfa26851a6e7ead7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the IIC Device.  <a href="#ac16e1350ea077cddfa26851a6e7ead7c">More...</a><br/></td></tr>
 <tr class="separator:ac16e1350ea077cddfa26851a6e7ead7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a34b7f8d09398f53237562bd1f579b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a> [TEST_BUFFER_SIZE]</td></tr>
+<tr class="memitem:a21a34b7f8d09398f53237562bd1f579b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a> [<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td></tr>
 <tr class="memdesc:a21a34b7f8d09398f53237562bd1f579b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for Transmitting Data.  <a href="#a21a34b7f8d09398f53237562bd1f579b">More...</a><br/></td></tr>
 <tr class="separator:a21a34b7f8d09398f53237562bd1f579b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a> [TEST_BUFFER_SIZE]</td></tr>
+<tr class="memitem:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__polled__multi__master__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a> [<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td></tr>
 <tr class="memdesc:a97ff43d2dc0c58afc33efc1304f40b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for Receiving Data.  <a href="#a97ff43d2dc0c58afc33efc1304f40b09">More...</a><br/></td></tr>
 <tr class="separator:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a34f6b11bc914bc005cf3f302a394c026"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IIC_SCLK_RATE&#160;&#160;&#160;100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IIC serial clock rate in Hz. </p>
+
+<p>Referenced by <a class="el" href="xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101">IicPsMultiMasterPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a709b03962769714690547d1d17268708"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IIC_SLAVE_ADDR&#160;&#160;&#160;0x55</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The slave address to send to and receive from. </p>
+
+<p>Referenced by <a class="el" href="xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101">IicPsMultiMasterPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b71e527200033092ab1ebd5c0c077ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BUFFER_SIZE&#160;&#160;&#160;132</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The following constant controls the length of the buffers to be sent and received with the IIC. </p>
+
+<p>Referenced by <a class="el" href="xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101">IicPsMultiMasterPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab8a417bcd1481342d0ff31c50cf97ab6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XIICPS_BASEADDRESS&#160;&#160;&#160;XPAR_XIICPS_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address. </p>
+
+<p>Referenced by <a class="el" href="xiicps__polled__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a5b57ca40c957274f180dda79c1731101"></a>
 <div class="memitem">
@@ -158,19 +241,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The purpose of this function is to illustrate multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> driver. </p>
-<p>This function sends data and expects to receive data from slave device</p>
-<p>This function uses polled transfer functions to send and receive from device. In case arbitration lost status will re-initiate the transfer</p>
+<p>Illustrates multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>This function sends data and expects to receive data from slave device.</p>
+<p>This function uses polled transfer functions to send and receive from device. In case of arbitration lost status, it re-initiates the transfer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_iic_ps___config.html#a2bdee49f560d4a22a433c6c327d6d912">XIicPs_Config::BaseAddress</a>, <a class="el" href="group__iicps__api.html#ga5b67ad96b8c40bdd47c2c2f8a57f170c">XIicPs_BusIsBusy()</a>, <a class="el" href="group__iicps__api.html#gae97ad9c202953c7e49bfb56533c47079">XIicPs_CfgInitialize()</a>, <a class="el" href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">XIicPs_LookupConfig()</a>, <a class="el" href="group__iicps__api.html#ga21bdb2f8a1f09e027aa8b0e9d6648d75">XIicPs_MasterRecvPolled()</a>, <a class="el" href="group__iicps__api.html#ga71584f1a7e675cde41cfd9d1bd4320b4">XIicPs_MasterSendPolled()</a>, <a class="el" href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">XIicPs_SelfTest()</a>, and <a class="el" href="group__iicps__api.html#gafb24cfdacf6cf28d80126862dc1cfbe5">XIicPs_SetSClk()</a>.</p>
+<p>References <a class="el" href="struct_x_iic_ps___config.html#a2bdee49f560d4a22a433c6c327d6d912">XIicPs_Config::BaseAddress</a>, <a class="el" href="xiicps__polled__multi__master__example_8c.html#a34f6b11bc914bc005cf3f302a394c026">IIC_SCLK_RATE</a>, <a class="el" href="xiicps__polled__multi__master__example_8c.html#a709b03962769714690547d1d17268708">IIC_SLAVE_ADDR</a>, <a class="el" href="xiicps__intr__master__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a>, <a class="el" href="xiicps__intr__master__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a>, <a class="el" href="xiicps__polled__multi__master__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>, <a class="el" href="group__iicps__api.html#ga5b67ad96b8c40bdd47c2c2f8a57f170c">XIicPs_BusIsBusy()</a>, <a class="el" href="group__iicps__api.html#gae97ad9c202953c7e49bfb56533c47079">XIicPs_CfgInitialize()</a>, <a class="el" href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">XIicPs_LookupConfig()</a>, <a class="el" href="group__iicps__api.html#ga21bdb2f8a1f09e027aa8b0e9d6648d75">XIicPs_MasterRecvPolled()</a>, <a class="el" href="group__iicps__api.html#ga71584f1a7e675cde41cfd9d1bd4320b4">XIicPs_MasterSendPolled()</a>, <a class="el" href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">XIicPs_SelfTest()</a>, and <a class="el" href="group__iicps__api.html#gafb24cfdacf6cf28d80126862dc1cfbe5">XIicPs_SetSClk()</a>.</p>
 
 <p>Referenced by <a class="el" href="xiicps__polled__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -190,11 +273,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the polled master example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Calls the polled master example from the main function. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
-<p>References <a class="el" href="xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101">IicPsMultiMasterPolledExample()</a>.</p>
+<p>References <a class="el" href="xiicps__polled__multi__master__example_8c.html#a5b57ca40c957274f180dda79c1731101">IicPsMultiMasterPolledExample()</a>, and <a class="el" href="xiicps__polled__multi__master__example_8c.html#ab8a417bcd1481342d0ff31c50cf97ab6">XIICPS_BASEADDRESS</a>.</p>
 
 </div>
 </div>
@@ -218,7 +300,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u8 RecvBuffer[TEST_BUFFER_SIZE]</td>
+          <td class="memname">u8 RecvBuffer[<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -232,7 +314,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u8 SendBuffer[TEST_BUFFER_SIZE]</td>
+          <td class="memname">u8 SendBuffer[<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -21,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="587" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="587" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xrfclk___l_m_x__conf__v1__2_1gad53b987d5bd0179851c6c943d8d4ac33" prot="public" static="no" mutable="no">
         <type>const u8</type>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="595" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="595" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xrfclk___l_m_x__conf__v1__2_1gad26311ca77d6e42ed6ab9b247da44183" prot="public" static="no" mutable="no">
         <type>const u32</type>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="617" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="617" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -8,32 +8,8 @@
       <node id="38">
         <label>xil_assert.h</label>
       </node>
-      <node id="34">
-        <label>xuartpsv_g.c</label>
-        <link refid="xuartpsv_g.c"/>
-        <childnode refid="35" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-      </node>
       <node id="41">
         <label>xil_io.h</label>
-      </node>
-      <node id="36">
-        <label>xuartpsv.h</label>
-        <link refid="xuartpsv_8h"/>
-        <childnode refid="37" relation="include">
-        </childnode>
-        <childnode refid="38" relation="include">
-        </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
       </node>
       <node id="42">
         <label>xplatform_info.h</label>
@@ -51,6 +27,22 @@
         <childnode refid="41" relation="include">
         </childnode>
       </node>
+      <node id="36">
+        <label>xuartpsv.h</label>
+        <link refid="xuartpsv_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
       <node id="39">
         <label>xstatus.h</label>
       </node>
@@ -59,6 +51,14 @@
       </node>
       <node id="35">
         <label>xparameters.h</label>
+      </node>
+      <node id="34">
+        <label>xuartpsv_g.c</label>
+        <link refid="xuartpsv_g.c"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -77,44 +77,40 @@
 	}
 }</initializer>
         <briefdescription>
-<para>Config structure. </para>        </briefdescription>
+<para>Configuration table for <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> devices. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Holds the configuration entry for each UartPsv instance. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_g.c" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_g.c" bodystart="15" bodyend="-1"/>
-        <referencedby refid="group__uartpsv_1ga1ae9af89fa7aaab4c02d937d5ce520f7" compoundref="xuartpsv__sinit_8c" startline="85" endline="99">XUartPsv_LookupConfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_g.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_g.c" bodystart="26" bodyend="-1"/>
+        <referencedby refid="group__uartpsv_1ga1ae9af89fa7aaab4c02d937d5ce520f7" compoundref="xuartpsv__sinit_8c" startline="89" endline="103">XUartPsv_LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Contains the configuration table for the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> driver. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
-<codeline lineno="13"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="group__uartpsv_1gaed365c02539b1452e590d0123f858c30" refkind="member"><highlight class="normal"><ref refid="struct_x_uart_psv___config" kindref="compound">XUartPsv_Config</ref><sp/><ref refid="group__uartpsv_1gaed365c02539b1452e590d0123f858c30" kindref="member">XUartPsv_ConfigTable</ref>[]<sp/>=</highlight></codeline>
-<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_DEVICE_ID,</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_BASEADDR,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_CLK_FREQ_HZ,</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_HAS_MODEM</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="23"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="group__uartpsv_1gaed365c02539b1452e590d0123f858c30" refkind="member"><highlight class="normal"><ref refid="struct_x_uart_psv___config" kindref="compound">XUartPsv_Config</ref><sp/><ref refid="group__uartpsv_1gaed365c02539b1452e590d0123f858c30" kindref="member">XUartPsv_ConfigTable</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_DEVICE_ID,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_BASEADDR,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_CLK_FREQ_HZ,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SBSA_UART_HAS_MODEM</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_g.c"/>
   </compounddef>
 </doxygen>

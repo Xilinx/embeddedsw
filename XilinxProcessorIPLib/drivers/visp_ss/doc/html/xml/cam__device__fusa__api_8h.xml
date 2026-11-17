@@ -6,216 +6,221 @@
     <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
     <includedby refid="vvbench__fusa__api_8h" local="yes">vvbench_fusa_api.h</includedby>
     <incdepgraph>
-      <node id="3257">
+      <node id="3262">
         <label>stdbool.h</label>
       </node>
-      <node id="3251">
-        <label>return_codes.h</label>
-        <link refid="return__codes_8h"/>
+      <node id="3264">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="3262" relation="include">
+        </childnode>
+        <childnode refid="3265" relation="include">
+        </childnode>
       </node>
-      <node id="3258">
+      <node id="3263">
         <label>stdint.h</label>
       </node>
-      <node id="3248">
+      <node id="3253">
         <label>stdlib.h</label>
       </node>
-      <node id="3255">
-        <label>sensor_cmd.h</label>
-        <childnode refid="3256" relation="include">
-        </childnode>
-        <childnode refid="3251" relation="include">
-        </childnode>
-      </node>
-      <node id="3243">
-        <label>cam_device_fusa_api.h</label>
-        <link refid="cam_device_fusa_api.h"/>
-        <childnode refid="3244" relation="include">
-        </childnode>
-      </node>
       <node id="3250">
-        <label>stddef.h</label>
-      </node>
-      <node id="3249">
-        <label>limits.h</label>
-      </node>
-      <node id="3244">
-        <label>cam_device_common.h</label>
-        <childnode refid="3245" relation="include">
-        </childnode>
+        <label>types.h</label>
+        <link refid="types_8h"/>
         <childnode refid="3251" relation="include">
-        </childnode>
-        <childnode refid="3252" relation="include">
         </childnode>
         <childnode refid="3254" relation="include">
         </childnode>
         <childnode refid="3255" relation="include">
         </childnode>
       </node>
+      <node id="3255">
+        <label>stddef.h</label>
+      </node>
       <node id="3254">
-        <label>buf_defs.h</label>
-        <childnode refid="3245" relation="include">
-        </childnode>
+        <label>limits.h</label>
       </node>
       <node id="3256">
-        <label>mbox_api.h</label>
-        <childnode refid="3257" relation="include">
-        </childnode>
-        <childnode refid="3258" relation="include">
-        </childnode>
-        <childnode refid="3259" relation="include">
-        </childnode>
-      </node>
-      <node id="3253">
-        <label>string.h</label>
-      </node>
-      <node id="3259">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="3257" relation="include">
-        </childnode>
-        <childnode refid="3260" relation="include">
-        </childnode>
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
       </node>
       <node id="3260">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="3245">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="3246" relation="include">
+        <label>sensor_cmd.h</label>
+        <childnode refid="3261" relation="include">
         </childnode>
-        <childnode refid="3249" relation="include">
-        </childnode>
-        <childnode refid="3250" relation="include">
+        <childnode refid="3256" relation="include">
         </childnode>
       </node>
-      <node id="3252">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="3245" relation="include">
+      <node id="3251">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="3252" relation="include">
         </childnode>
         <childnode refid="3253" relation="include">
         </childnode>
       </node>
-      <node id="3247">
-        <label>stdio.h</label>
+      <node id="3258">
+        <label>string.h</label>
       </node>
-      <node id="3246">
-        <label>linux_compat.h</label>
-        <link refid="linux__compat_8h"/>
-        <childnode refid="3247" relation="include">
+      <node id="3249">
+        <label>cam_device_common.h</label>
+        <childnode refid="3250" relation="include">
         </childnode>
-        <childnode refid="3248" relation="include">
+        <childnode refid="3256" relation="include">
         </childnode>
+        <childnode refid="3257" relation="include">
+        </childnode>
+        <childnode refid="3259" relation="include">
+        </childnode>
+        <childnode refid="3260" relation="include">
+        </childnode>
+      </node>
+      <node id="3261">
+        <label>mbox_api.h</label>
+        <childnode refid="3262" relation="include">
+        </childnode>
+        <childnode refid="3263" relation="include">
+        </childnode>
+        <childnode refid="3264" relation="include">
+        </childnode>
+      </node>
+      <node id="3248">
+        <label>cam_device_fusa_api.h</label>
+        <link refid="cam_device_fusa_api.h"/>
+        <childnode refid="3249" relation="include">
+        </childnode>
+      </node>
+      <node id="3257">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="3250" relation="include">
+        </childnode>
+        <childnode refid="3258" relation="include">
+        </childnode>
+      </node>
+      <node id="3265">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="3259">
+        <label>buf_defs.h</label>
+        <childnode refid="3250" relation="include">
+        </childnode>
+      </node>
+      <node id="3252">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3295">
-        <label>cam_device_rgbir_api_v2.c</label>
-      </node>
-      <node id="3293">
-        <label>cam_device_hist64_api.c</label>
-      </node>
-      <node id="3292">
-        <label>cam_device_hist256_api.c</label>
-      </node>
-      <node id="3296">
-        <label>cam_device_tpg_api.c</label>
-      </node>
-      <node id="3262">
-        <label>cam_device_module_api.h</label>
-        <childnode refid="3263" relation="include">
-        </childnode>
-      </node>
-      <node id="3300">
-        <label>vvdevice.c</label>
-      </node>
-      <node id="3264">
-        <label>control.h</label>
-        <childnode refid="3265" relation="include">
-        </childnode>
-      </node>
-      <node id="3290">
-        <label>cam_device_ge_api.c</label>
-      </node>
-      <node id="3298">
-        <label>cam_device_wdr_api_v5_2.c</label>
-      </node>
-      <node id="3276">
-        <label>cam_device_cpd_api.c</label>
-      </node>
-      <node id="3284">
-        <label>cam_device_cnr_api.c</label>
-      </node>
-      <node id="3278">
-        <label>cam_device_dg_api.c</label>
-      </node>
-      <node id="3282">
-        <label>cam_device_af_api.c</label>
-      </node>
-      <node id="3306">
+      <node id="3311">
         <label>vvbench_fusa_api.c</label>
       </node>
-      <node id="3304">
-        <label>submodule_def.h</label>
-        <childnode refid="3305" relation="include">
-        </childnode>
-        <childnode refid="3300" relation="include">
-        </childnode>
-      </node>
-      <node id="3274">
-        <label>cam_device_bls_api.c</label>
-      </node>
-      <node id="3270">
-        <label>cam_device_sensor_api.c</label>
-      </node>
-      <node id="3261">
-        <label>cam_device_fusa_api.h</label>
-        <link refid="cam_device_fusa_api.h"/>
-        <childnode refid="3262" relation="include">
-        </childnode>
-        <childnode refid="3303" relation="include">
-        </childnode>
-      </node>
-      <node id="3269">
-        <label>cam_device_buffer_api.c</label>
-      </node>
-      <node id="3305">
-        <label>vvbparser.c</label>
-      </node>
-      <node id="3285">
-        <label>cam_device_hdr_api.c</label>
-      </node>
-      <node id="3277">
-        <label>cam_device_cproc_api.c</label>
+      <node id="3299">
+        <label>cam_device_lsc_api_v3.c</label>
       </node>
       <node id="3280">
-        <label>cam_device_dpcc_api.c</label>
+        <label>cam_device_ccm_api.c</label>
       </node>
-      <node id="3283">
+      <node id="3301">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="3279">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="3284">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="3298">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="3288">
         <label>cam_device_afm_api.c</label>
       </node>
       <node id="3267">
-        <label>cam_device.c</label>
-      </node>
-      <node id="3275">
-        <label>cam_device_ccm_api.c</label>
-      </node>
-      <node id="3273">
-        <label>cam_device_awb_api.c</label>
-      </node>
-      <node id="3263">
-        <label>cam_device_app.h</label>
-        <childnode refid="3264" relation="include">
-        </childnode>
-        <childnode refid="3265" relation="include">
-        </childnode>
-        <childnode refid="3266" relation="include">
-        </childnode>
-        <childnode refid="3267" relation="include">
-        </childnode>
+        <label>cam_device_module_api.h</label>
         <childnode refid="3268" relation="include">
         </childnode>
+      </node>
+      <node id="3286">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="3308">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="3309" relation="include">
+        </childnode>
+        <childnode refid="3311" relation="include">
+        </childnode>
+      </node>
+      <node id="3295">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="3297">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="3270">
+        <label>control.c</label>
+      </node>
+      <node id="3310">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="3278">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="3277">
+        <label>cam_device_ae_api.c</label>
+      </node>
+      <node id="3296">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="3307">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="3306">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="3307" relation="include">
+        </childnode>
+      </node>
+      <node id="3274">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="3271">
+        <label>iba.c</label>
+      </node>
+      <node id="3285">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="3290">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="3304">
+        <label>oba.c</label>
+      </node>
+      <node id="3282">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="3292">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="3273">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="3291">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="3266">
+        <label>cam_device_fusa_api.h</label>
+        <link refid="cam_device_fusa_api.h"/>
+        <childnode refid="3267" relation="include">
+        </childnode>
+        <childnode refid="3308" relation="include">
+        </childnode>
+      </node>
+      <node id="3303">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="3305">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="3268">
+        <label>cam_device_app.h</label>
         <childnode refid="3269" relation="include">
         </childnode>
         <childnode refid="3270" relation="include">
@@ -282,66 +287,61 @@
         </childnode>
         <childnode refid="3301" relation="include">
         </childnode>
-      </node>
-      <node id="3265">
-        <label>control.c</label>
-      </node>
-      <node id="3303">
-        <label>vvbench_fusa_api.h</label>
+        <childnode refid="3302" relation="include">
+        </childnode>
+        <childnode refid="3303" relation="include">
+        </childnode>
         <childnode refid="3304" relation="include">
+        </childnode>
+        <childnode refid="3305" relation="include">
         </childnode>
         <childnode refid="3306" relation="include">
         </childnode>
       </node>
-      <node id="3297">
-        <label>cam_device_wb_api.c</label>
-      </node>
-      <node id="3294">
-        <label>cam_device_lsc_api_v3.c</label>
-      </node>
-      <node id="3286">
-        <label>cam_device_ee_api_v2.c</label>
-      </node>
-      <node id="3287">
-        <label>cam_device_exp_api_v2.c</label>
-      </node>
-      <node id="3288">
-        <label>cam_device_fusa_api.c</label>
-      </node>
-      <node id="3299">
-        <label>oba.c</label>
-      </node>
-      <node id="3268">
-        <label>cam_device_api.c</label>
-      </node>
-      <node id="3289">
-        <label>cam_device_gc_api.c</label>
-      </node>
-      <node id="3291">
-        <label>cam_device_gtm_api_v1.c</label>
-      </node>
-      <node id="3266">
-        <label>iba.c</label>
-      </node>
-      <node id="3279">
-        <label>cam_device_dmsc_api_v2.c</label>
-      </node>
-      <node id="3271">
-        <label>cam_device_2dnr_api_v5_2.c</label>
+      <node id="3272">
+        <label>cam_device.c</label>
       </node>
       <node id="3281">
-        <label>cam_device_3dnr_api.c</label>
+        <label>cam_device_cpd_api.c</label>
       </node>
-      <node id="3302">
-        <label>xvisp_ss_example.c</label>
+      <node id="3275">
+        <label>cam_device_sensor_api.c</label>
       </node>
-      <node id="3301">
-        <label>xvisp_ss_example.h</label>
-        <childnode refid="3302" relation="include">
+      <node id="3269">
+        <label>control.h</label>
+        <childnode refid="3270" relation="include">
         </childnode>
       </node>
-      <node id="3272">
-        <label>cam_device_ae_api.c</label>
+      <node id="3294">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="3287">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="3276">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="3293">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="3289">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="3302">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="3283">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="3309">
+        <label>submodule_def.h</label>
+        <childnode refid="3310" relation="include">
+        </childnode>
+        <childnode refid="3305" relation="include">
+        </childnode>
+      </node>
+      <node id="3300">
+        <label>cam_device_rgbir_api_v2.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_cam_device_fu_sa_mis_val__s" prot="public">CamDeviceFuSaMisVal_s</innerclass>
@@ -386,7 +386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="51" bodyend="56"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="51" bodyend="56"/>
       </memberdef>
       <memberdef kind="enum" id="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" prot="public" static="no">
         <name>CamDeviceFusaCrcLevel_e</name>
@@ -420,7 +420,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="92" bodyend="97"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="92" bodyend="97"/>
       </memberdef>
       <memberdef kind="enum" id="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" prot="public" static="no">
         <name>CamDeviceFusaCrcReverseMode_e</name>
@@ -454,7 +454,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="104" bodyend="109"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="104" bodyend="109"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -469,7 +469,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="56" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="56" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gad98ba8a08f5d0a8a5ba8e5b3901dfaae" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_s</ref></type>
@@ -482,7 +482,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="73" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="73" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" prot="public" static="no">
         <type>void(*</type>
@@ -495,7 +495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gaa9a1a78d01d147950e7ae0e165f509e5" prot="public" static="no">
         <type>enum <ref refid="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" kindref="member">CamDeviceFusaCrcLevel_e</ref></type>
@@ -508,7 +508,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="97" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="97" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gaf788bf45b56488599fb357905beb116b" prot="public" static="no">
         <type>enum <ref refid="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" kindref="member">CamDeviceFusaCrcReverseMode_e</ref></type>
@@ -521,7 +521,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="109" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="109" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gae55363337927f03651cdee9e79b77051" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_s</ref></type>
@@ -534,7 +534,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="122" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="122" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_s</ref></type>
@@ -547,7 +547,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="134" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="134" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_s</ref></type>
@@ -560,7 +560,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="151" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="151" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1ga6692915875673c3ddb95086577c17587" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_s</ref></type>
@@ -573,7 +573,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="161" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="161" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1ga0bc04bec2384d5d1e29faa268028251d" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_s</ref></type>
@@ -586,7 +586,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="173" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="173" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gacb5d6bca9752dbcc0aef0dc3b78cfca2" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_bist_size__s" kindref="compound">CamDeviceFusaBistSize_s</ref></type>
@@ -599,7 +599,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="186" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="186" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1gae0698da3016707e452349daebdbd9c46" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_s</ref></type>
@@ -612,7 +612,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="197" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="197" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__fusa_1ga7f6ba65e694d3ca36d7e63511077d1da" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_s</ref></type>
@@ -625,7 +625,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="211" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="211" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -648,7 +648,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="32" bodyend="70"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="32" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga94b7c49dafe0258afefc1345939425ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -665,7 +665,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="73" bodyend="105"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="73" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gaf2e2ba9e6a44ccaf182d59cab05663a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -682,7 +682,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="108" bodyend="140"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="108" bodyend="140"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga7857fc422809e37c49f42c0ddd204570" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -699,7 +699,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="143" bodyend="175"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="143" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga314f568553b88f30f950c7ba3626ebc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -716,7 +716,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="178" bodyend="210"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="178" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga9ba25dcd42a1f6e119df5349b65baa16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -733,7 +733,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="213" bodyend="246"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="213" bodyend="246"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga0e788bbac2f1b01e5279a60af6e101a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -754,7 +754,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="249" bodyend="288"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="249" bodyend="288"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga972fd730d41e24fd1a51c5c4a39d6c08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -775,7 +775,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="291" bodyend="327"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="291" bodyend="327"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga4d25268dd8d3c322b401879f89ced9f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -792,7 +792,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="330" bodyend="363"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="330" bodyend="363"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga54e8a549f29a952ef1f150fa8f2c418b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -809,7 +809,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="366" bodyend="399"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="366" bodyend="399"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gac56eb23aa655e2a69064c4d6ad4b4c2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -826,7 +826,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="402" bodyend="434"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="402" bodyend="434"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga60b66f0a11e3a80db08b22149ac38425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -843,7 +843,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="437" bodyend="470"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="437" bodyend="470"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga0a217e0c15cc3a56a6a2fba6ca8be4dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -860,7 +860,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="473" bodyend="506"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="473" bodyend="506"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga0e02cd9e197a594526bf111b2f5206f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -877,7 +877,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="509" bodyend="540"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="509" bodyend="540"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga77191135171a003a93c624a34af56e39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -894,7 +894,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="543" bodyend="575"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="543" bodyend="575"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gaebcc576c7597dc1a80e02be0c0090f50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -915,7 +915,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="578" bodyend="616"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="578" bodyend="616"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga08f4034201bc6bf20f0a6609c2d581dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -936,7 +936,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="619" bodyend="658"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="619" bodyend="658"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gaea6b8d783be30b2a0c462a81b720fff6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -957,7 +957,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="661" bodyend="700"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="661" bodyend="700"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1ga14516d3304910ca8ba87573e7862f7c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -982,7 +982,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="703" bodyend="738"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="703" bodyend="738"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gaae3b9bb42b5bf2cfefc1d31b2e2b309d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -999,7 +999,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="664" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="664" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gad013e8e1cbfb0be88eed56bf56687d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1016,7 +1016,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="741" bodyend="772"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="741" bodyend="772"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__fusa_1gae4688a1e2d4a49e02ffe7f71225fb865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1037,7 +1037,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="774" bodyend="813"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="774" bodyend="813"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1342,6 +1342,6 @@
 <codeline lineno="716"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="717"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h"/>
   </compounddef>
 </doxygen>

@@ -12,6 +12,7 @@
     <includedby refid="xloader__auth__enc_8c" local="yes">xloader_auth_enc.c</includedby>
     <includedby refid="xloader__cmd_8c" local="yes">xloader_cmd.c</includedby>
     <includedby refid="xloader__intr_8c" local="yes">xloader_intr.c</includedby>
+    <includedby refid="xloader__ppk_8c" local="yes">xloader_ppk.c</includedby>
     <includedby refid="xloader__prtn__load_8c" local="yes">xloader_prtn_load.c</includedby>
     <includedby refid="xloader__secure_8c" local="yes">xloader_secure.c</includedby>
     <includedby refid="server_2xloader__plat__secure_8c" local="yes">xloader_plat_secure.c</includedby>
@@ -21,203 +22,214 @@
     <includedby refid="2vp__p_2server_2xloader__plat__secure_8c" local="yes">xloader_plat_secure.c</includedby>
     <includedby refid="net_2server_2xloader__plat__secure_8c" local="yes">xloader_plat_secure.c</includedby>
     <incdepgraph>
-      <node id="1498">
+      <node id="1717">
         <label>xplmi_util.h</label>
       </node>
-      <node id="1496">
+      <node id="1714">
         <label>xsecure_rsa.h</label>
       </node>
-      <node id="1482">
+      <node id="1700">
         <label>xsecure_sha.h</label>
       </node>
-      <node id="1489">
+      <node id="1707">
         <label>xcfupmc.h</label>
       </node>
-      <node id="1502">
+      <node id="1721">
         <label>xloader_plat_secure.h</label>
       </node>
-      <node id="1488">
+      <node id="1706">
         <label>xplmi_dma.h</label>
       </node>
-      <node id="1495">
+      <node id="1713">
         <label>xsecure_sha_common.h</label>
       </node>
-      <node id="1481">
-        <label>xloader_secure.h</label>
-        <link refid="xloader_secure.h"/>
-        <childnode refid="1482" relation="include">
-        </childnode>
-        <childnode refid="1483" relation="include">
-        </childnode>
-        <childnode refid="1484" relation="include">
-        </childnode>
-        <childnode refid="1498" relation="include">
-        </childnode>
-        <childnode refid="1499" relation="include">
-        </childnode>
-        <childnode refid="1493" relation="include">
-        </childnode>
-      </node>
-      <node id="1499">
+      <node id="1718">
         <label>xil_util.h</label>
       </node>
-      <node id="1487">
+      <node id="1705">
         <label>xplmi_debug.h</label>
       </node>
-      <node id="1490">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="1491" relation="include">
-        </childnode>
-        <childnode refid="1492" relation="include">
-        </childnode>
-      </node>
-      <node id="1485">
-        <label>xilpdi.h</label>
-      </node>
-      <node id="1494">
-        <label>xsecure_init.h</label>
-      </node>
-      <node id="1497">
-        <label>xsecure_aes.h</label>
-      </node>
-      <node id="1500">
-        <label>xplmi_tamper.h</label>
-      </node>
-      <node id="1483">
+      <node id="1701">
         <label>xloader_auth_enc.h</label>
         <link refid="xloader__auth__enc_8h"/>
-        <childnode refid="1484" relation="include">
+        <childnode refid="1702" relation="include">
         </childnode>
-        <childnode refid="1495" relation="include">
+        <childnode refid="1713" relation="include">
         </childnode>
-        <childnode refid="1485" relation="include">
+        <childnode refid="1703" relation="include">
         </childnode>
-        <childnode refid="1496" relation="include">
+        <childnode refid="1714" relation="include">
         </childnode>
-        <childnode refid="1497" relation="include">
+        <childnode refid="1715" relation="include">
         </childnode>
-        <childnode refid="1498" relation="include">
+        <childnode refid="1716" relation="include">
         </childnode>
-        <childnode refid="1499" relation="include">
+        <childnode refid="1717" relation="include">
         </childnode>
-        <childnode refid="1493" relation="include">
+        <childnode refid="1718" relation="include">
         </childnode>
-        <childnode refid="1500" relation="include">
+        <childnode refid="1711" relation="include">
         </childnode>
-        <childnode refid="1501" relation="include">
+        <childnode refid="1719" relation="include">
         </childnode>
-        <childnode refid="1502" relation="include">
+        <childnode refid="1720" relation="include">
+        </childnode>
+        <childnode refid="1721" relation="include">
         </childnode>
       </node>
-      <node id="1492">
+      <node id="1703">
+        <label>xilpdi.h</label>
+      </node>
+      <node id="1712">
+        <label>xsecure_init.h</label>
+      </node>
+      <node id="1716">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1719">
+        <label>xplmi_tamper.h</label>
+      </node>
+      <node id="1715">
+        <label>xsecure_rsa_pss.h</label>
+      </node>
+      <node id="1710">
         <label>xil_types.h</label>
       </node>
-      <node id="1484">
-        <label>xloader.h</label>
-        <link refid="xloader_8h"/>
-        <childnode refid="1485" relation="include">
+      <node id="1699">
+        <label>xloader_secure.h</label>
+        <link refid="xloader_secure.h"/>
+        <childnode refid="1700" relation="include">
         </childnode>
-        <childnode refid="1486" relation="include">
+        <childnode refid="1701" relation="include">
         </childnode>
-        <childnode refid="1487" relation="include">
+        <childnode refid="1702" relation="include">
         </childnode>
-        <childnode refid="1488" relation="include">
+        <childnode refid="1717" relation="include">
         </childnode>
-        <childnode refid="1489" relation="include">
+        <childnode refid="1718" relation="include">
         </childnode>
-        <childnode refid="1490" relation="include">
-        </childnode>
-        <childnode refid="1493" relation="include">
-        </childnode>
-        <childnode refid="1494" relation="include">
+        <childnode refid="1711" relation="include">
         </childnode>
       </node>
-      <node id="1491">
+      <node id="1709">
         <label>xil_printf.h</label>
       </node>
-      <node id="1493">
+      <node id="1702">
+        <label>xloader.h</label>
+        <link refid="xloader_8h"/>
+        <childnode refid="1703" relation="include">
+        </childnode>
+        <childnode refid="1704" relation="include">
+        </childnode>
+        <childnode refid="1705" relation="include">
+        </childnode>
+        <childnode refid="1706" relation="include">
+        </childnode>
+        <childnode refid="1707" relation="include">
+        </childnode>
+        <childnode refid="1708" relation="include">
+        </childnode>
+        <childnode refid="1711" relation="include">
+        </childnode>
+        <childnode refid="1712" relation="include">
+        </childnode>
+      </node>
+      <node id="1708">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1709" relation="include">
+        </childnode>
+        <childnode refid="1710" relation="include">
+        </childnode>
+      </node>
+      <node id="1711">
         <label>xplmi_hw.h</label>
       </node>
-      <node id="1486">
+      <node id="1704">
         <label>xplmi_status.h</label>
       </node>
-      <node id="1501">
+      <node id="1720">
         <label>xpuf.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1506">
+      <node id="1725">
         <label>xloader_cmd.c</label>
         <link refid="xloader__cmd_8c"/>
       </node>
-      <node id="1504">
+      <node id="1723">
         <label>xloader.c</label>
         <link refid="xloader_8c"/>
       </node>
-      <node id="1508">
-        <label>xloader_prtn_load.c</label>
-        <link refid="xloader__prtn__load_8c"/>
-      </node>
-      <node id="1509">
-        <label>xloader_secure.c</label>
-        <link refid="xloader__secure_8c"/>
-      </node>
-      <node id="1503">
-        <label>xloader_secure.h</label>
-        <link refid="xloader_secure.h"/>
-        <childnode refid="1504" relation="include">
-        </childnode>
-        <childnode refid="1505" relation="include">
-        </childnode>
-        <childnode refid="1506" relation="include">
-        </childnode>
-        <childnode refid="1507" relation="include">
-        </childnode>
-        <childnode refid="1508" relation="include">
-        </childnode>
-        <childnode refid="1509" relation="include">
-        </childnode>
-        <childnode refid="1510" relation="include">
-        </childnode>
-        <childnode refid="1511" relation="include">
-        </childnode>
-        <childnode refid="1512" relation="include">
-        </childnode>
-        <childnode refid="1513" relation="include">
-        </childnode>
-        <childnode refid="1514" relation="include">
-        </childnode>
-        <childnode refid="1515" relation="include">
-        </childnode>
-      </node>
-      <node id="1513">
+      <node id="1730">
         <label>xloader_plat_secure.c</label>
-        <link refid="2vp_2server_2xloader__plat__secure_8c"/>
       </node>
-      <node id="1511">
-        <label>xloader_plat.c</label>
-        <link refid="2ve__2vm_2server_2xloader__plat_8c"/>
+      <node id="1735">
+        <label>xloader_plat_secure.c</label>
       </node>
-      <node id="1507">
+      <node id="1726">
         <label>xloader_intr.c</label>
         <link refid="xloader__intr_8c"/>
       </node>
-      <node id="1510">
-        <label>xloader_plat_secure.c</label>
-      </node>
-      <node id="1505">
+      <node id="1724">
         <label>xloader_auth_enc.c</label>
         <link refid="xloader__auth__enc_8c"/>
       </node>
-      <node id="1515">
+      <node id="1733">
+        <label>xloader_plat_secure.c</label>
+        <link refid="2vp_2server_2xloader__plat__secure_8c"/>
+      </node>
+      <node id="1732">
         <label>xloader_plat_secure.c</label>
       </node>
-      <node id="1512">
+      <node id="1734">
         <label>xloader_plat_secure.c</label>
       </node>
-      <node id="1514">
-        <label>xloader_plat_secure.c</label>
+      <node id="1728">
+        <label>xloader_prtn_load.c</label>
+        <link refid="xloader__prtn__load_8c"/>
+      </node>
+      <node id="1729">
+        <label>xloader_secure.c</label>
+        <link refid="xloader__secure_8c"/>
+      </node>
+      <node id="1722">
+        <label>xloader_secure.h</label>
+        <link refid="xloader_secure.h"/>
+        <childnode refid="1723" relation="include">
+        </childnode>
+        <childnode refid="1724" relation="include">
+        </childnode>
+        <childnode refid="1725" relation="include">
+        </childnode>
+        <childnode refid="1726" relation="include">
+        </childnode>
+        <childnode refid="1727" relation="include">
+        </childnode>
+        <childnode refid="1728" relation="include">
+        </childnode>
+        <childnode refid="1729" relation="include">
+        </childnode>
+        <childnode refid="1730" relation="include">
+        </childnode>
+        <childnode refid="1731" relation="include">
+        </childnode>
+        <childnode refid="1732" relation="include">
+        </childnode>
+        <childnode refid="1733" relation="include">
+        </childnode>
+        <childnode refid="1734" relation="include">
+        </childnode>
+        <childnode refid="1735" relation="include">
+        </childnode>
+      </node>
+      <node id="1731">
+        <label>xloader_plat.c</label>
+        <link refid="2ve__2vm_2server_2xloader__plat_8c"/>
+      </node>
+      <node id="1727">
+        <label>xloader_ppk.c</label>
+        <link refid="xloader__ppk_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_loader___secure_temp_params" prot="public">XLoader_SecureTempParams</innerclass>
@@ -231,9 +243,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="90" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" compoundref="xloader__secure_8c" startline="941" endline="970">XLoader_CheckNonZeroPpk</referencedby>
-        <referencedby refid="group__xloader__server__apis_1gacdc253920da8decda6028f77d6d79cb6" compoundref="xloader__auth__enc_8c" startline="5440" endline="5521">XLoader_GetPpkInvalidMaskAndOffset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" compoundref="xloader__secure_8c" startline="968" endline="997">XLoader_CheckNonZeroPpk</referencedby>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1a0281b00807125a658c2dde0ccc8f7925" prot="public" static="no">
         <name>XLOADER_EFUSE_PPK1_START_OFFSET</name>
@@ -244,8 +255,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="93" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1gacdc253920da8decda6028f77d6d79cb6" compoundref="xloader__auth__enc_8c" startline="5440" endline="5521">XLoader_GetPpkInvalidMaskAndOffset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1a54f0e6680ef984f607e3c90dbc869f0e" prot="public" static="no">
         <name>XLOADER_EFUSE_PPK2_START_OFFSET</name>
@@ -256,8 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="95" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1gacdc253920da8decda6028f77d6d79cb6" compoundref="xloader__auth__enc_8c" startline="5440" endline="5521">XLoader_GetPpkInvalidMaskAndOffset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1a37961c447b4a134f280d82ef4e8b542e" prot="public" static="no">
         <name>XLOADER_EFUSE_PPK2_END_OFFSET</name>
@@ -268,8 +277,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="97" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" compoundref="xloader__secure_8c" startline="941" endline="970">XLoader_CheckNonZeroPpk</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" compoundref="xloader__secure_8c" startline="968" endline="997">XLoader_CheckNonZeroPpk</referencedby>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1a97c1c4a75d3823f9ecaa3d6eb2294e9c" prot="public" static="no">
         <name>XLOADER_EFUSE_SEC_MISC0_OFFSET</name>
@@ -280,8 +289,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="121" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="121" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1109" endline="1185">XLoader_SetSecureState</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="123" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1136" endline="1217">XLoader_SetSecureState</referencedby>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1a483a3cd071fb861c4ce0ab0174c8b829" prot="public" static="no">
         <name>XLOADER_EFUSE_SEC_DEC_MASK</name>
@@ -292,8 +301,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="123" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1109" endline="1185">XLoader_SetSecureState</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1136" endline="1217">XLoader_SetSecureState</referencedby>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1aa233d1265392f76e260ac09c0d16c8f8" prot="public" static="no">
         <name>XLOADER_EFUSE_MISC_CTRL_OFFSET</name>
@@ -304,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="127" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1ac1a5aaf74405026b6bae569bc422bace" prot="public" static="no">
         <name>XLOADER_BBRAM_CL_INCREMENT_COUNT</name>
@@ -315,7 +324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xloader__secure_8h_1a4bad464b42af8b211d6354872c0cb265" prot="public" static="no">
         <name>XLOADER_BBRAM_CL_DECREMENT_COUNT</name>
@@ -326,18 +335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="128" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="xloader__secure_8h_1aa0c2619b66b85993f7396174f8344adb" prot="public" static="no">
-        <name>XLOADER_ENTRY_SIZE_IN_HASHBLOCK</name>
-        <initializer>(52U)</initializer>
-        <briefdescription>
-<para>Each entry size in HashBlock. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -389,24 +387,24 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Initialize XLoader_SecureParms instance with zeros.</para></listitem><listitem><para>Initialize <ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref> instance with zeros.</para></listitem><listitem><para>Read partition header from meta header.</para></listitem><listitem><para>The following initialization is crucial as the authentication certificate and PUF data are now stored in the PMC RAM instead of the PPU1 RAM. During the processing of the first chunk of any partition, the second 32K chunk of the PMC RAM, starting from 0xf2008120, contains the authentication certificate and PUF data as applicable. As a result, the second chunk of the partition must be loaded at 0xf2000020, not at 0xf2008120. Therefore, double buffering is disabled when processing the first chunk, and only enabled from the second chunk onwards. The third chunk is loaded at 0xf2008120, and from then on, the chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.</para></listitem><listitem><para>Get DMA instance</para></listitem><listitem><para>Verify revoke ID if encryption is enabled</para></listitem><listitem><para>Initialize the checksum.</para></listitem><listitem><para>Initialize the authentication.</para></listitem><listitem><para>Initialize the encryption. </para></listitem></itemizedlist>
+<listitem><para>Initialize XLoader_SecureParms instance with zeros.</para></listitem><listitem><para>Initialize <ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref> instance with zeros.</para></listitem><listitem><para>Read partition header from meta header.</para></listitem><listitem><para>The following initialization is crucial as the authentication certificate and PUF data are now stored in the PMC RAM instead of the PPU1 RAM. During the processing of the first chunk of any partition, the second 32K chunk of the PMC RAM, starting from XPLMI_PMCRAM_CHUNK_MEMORY_1, contains the authentication certificate and PUF data as applicable. As a result, the second chunk of the partition must be loaded at XPLMI_PMCRAM_CHUNK_MEMORY, not at XPLMI_PMCRAM_CHUNK_MEMORY_1. Therefore, double buffering is disabled when processing the first chunk, and only enabled from the second chunk onwards. The third chunk is loaded at XPLMI_PMCRAM_CHUNK_MEMORY_1, and from then on, the chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.</para></listitem><listitem><para>Get DMA instance</para></listitem><listitem><para>Verify revoke ID if encryption is enabled</para></listitem><listitem><para>Initialize the checksum.</para></listitem><listitem><para>Initialize the authentication.</para></listitem><listitem><para>Initialize the encryption. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="243" bodyend="384"/>
-        <references refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" compoundref="xloader__secure_8c" startline="1194" endline="1198">XLoader_GetTempParams</references>
-        <references refid="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" compoundref="xloader__secure_8c" startline="1078" endline="1091">XLoader_GetSHWRoT</references>
-        <references refid="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" compoundref="xloader__secure_8c" startline="1049" endline="1062">XLoader_GetAHWRoT</references>
-        <references refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" compoundref="xloader_8h" startline="368">XilPdi::MetaHdr</references>
-        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="773">XLoader_SecureParams::PdiPtr</references>
-        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="775">XLoader_SecureParams::ChunkAddr</references>
-        <references refid="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" compoundref="xloader__auth__enc_8h" startline="778">XLoader_SecureParams::NextChunkAddr</references>
-        <references refid="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" compoundref="xloader__auth__enc_8h" startline="785">XLoader_SecureParams::BlockNum</references>
-        <references refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" compoundref="xloader__auth__enc_8h" startline="782">XLoader_SecureParams::ProcessedLen</references>
-        <references refid="struct_x_loader___secure_params_1a98c7731b90ea1ec4414f6c29e2ecfb42" compoundref="xloader__auth__enc_8h" startline="776">XLoader_SecureParams::PrtnHdr</references>
-        <references refid="struct_x_loader___secure_params_1ad981312860b9bebe52c771fd0abfb75e" compoundref="xloader__auth__enc_8h" startline="788">XLoader_SecureParams::PmcDmaInstPtr</references>
-        <references refid="group__xloader__server__apis_1gacb572c209348e5ec41f2e15c92de9c36" compoundref="xloader__auth__enc_8c" startline="3039" endline="3048">XLoader_CheckSecureState</references>
-        <references refid="group__xloader__server__apis_1gab6898ef045d13b406a9ac80d1c8d0d11" compoundref="xloader__auth__enc_8c" startline="1157" endline="1197">XLoader_VerifyRevokeId</references>
-        <references refid="group__xloader__server__apis_1ga5aef75ed3205f50c75189b7c46099856" compoundref="xloader__auth__enc_8c" startline="364" endline="435">XLoader_SecureAuthInit</references>
-        <references refid="group__xloader__server__apis_1ga9df696fd17dec50576f817a1cd1f7105" compoundref="xloader__auth__enc_8c" startline="457" endline="596">XLoader_SecureEncInit</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="262" bodyend="405"/>
+        <references refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" compoundref="xloader__secure_8c" startline="1226" endline="1230">XLoader_GetTempParams</references>
+        <references refid="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" compoundref="xloader__secure_8c" startline="1105" endline="1118">XLoader_GetSHWRoT</references>
+        <references refid="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" compoundref="xloader__secure_8c" startline="1076" endline="1089">XLoader_GetAHWRoT</references>
+        <references refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" compoundref="xloader_8h" startline="419">XilPdi::MetaHdr</references>
+        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="795">XLoader_SecureParams::PdiPtr</references>
+        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="797">XLoader_SecureParams::ChunkAddr</references>
+        <references refid="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" compoundref="xloader__auth__enc_8h" startline="800">XLoader_SecureParams::NextChunkAddr</references>
+        <references refid="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" compoundref="xloader__auth__enc_8h" startline="807">XLoader_SecureParams::BlockNum</references>
+        <references refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" compoundref="xloader__auth__enc_8h" startline="804">XLoader_SecureParams::ProcessedLen</references>
+        <references refid="struct_x_loader___secure_params_1a98c7731b90ea1ec4414f6c29e2ecfb42" compoundref="xloader__auth__enc_8h" startline="798">XLoader_SecureParams::PrtnHdr</references>
+        <references refid="struct_x_loader___secure_params_1ad981312860b9bebe52c771fd0abfb75e" compoundref="xloader__auth__enc_8h" startline="810">XLoader_SecureParams::PmcDmaInstPtr</references>
+        <references refid="group__xloader__server__apis_1gacb572c209348e5ec41f2e15c92de9c36" compoundref="xloader__auth__enc_8c" startline="2809" endline="2818">XLoader_CheckSecureState</references>
+        <references refid="group__xloader__server__apis_1ga963ef65f3c5ee69a62d55459b4454ed1" compoundref="xloader__auth__enc_8c" startline="1254" endline="1294">XLoader_VerifyRevokeId</references>
+        <references refid="group__xloader__server__apis_1ga5aef75ed3205f50c75189b7c46099856" compoundref="xloader__auth__enc_8c" startline="380" endline="459">XLoader_SecureAuthInit</references>
+        <references refid="group__xloader__server__apis_1ga9df696fd17dec50576f817a1cd1f7105" compoundref="xloader__auth__enc_8c" startline="481" endline="620">XLoader_SecureEncInit</references>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -458,15 +456,15 @@
 <para><itemizedlist>
 <listitem><para>Update the length for last chunk</para></listitem><listitem><para>Process the partition.</para></listitem><listitem><para>Update variables for next chunk</para></listitem><listitem><para>On failure clear data at destination address </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="398" bodyend="441"/>
-        <references refid="group__xloader__client__apis_1ga3944db2060fd83c89b79580dd0caa0de" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="59">XLOADER_SECURE_CHUNK_SIZE</references>
-        <references refid="struct_x_loader___secure_params_1a1fe8808a895081bf96663603c0500393" compoundref="xloader__auth__enc_8h" startline="783">XLoader_SecureParams::RemainingDataLen</references>
-        <references refid="struct_x_loader___secure_params_1a72675da875a77e68ee27f62d18038482" compoundref="xloader__auth__enc_8h" startline="789">XLoader_SecureParams::ProcessPrtn</references>
-        <references refid="struct_x_loader___secure_params_1aa8068957063ef08e9a529c406e700a50" compoundref="xloader__auth__enc_8h" startline="781">XLoader_SecureParams::SecureDataLen</references>
-        <references refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" compoundref="xloader__auth__enc_8h" startline="782">XLoader_SecureParams::ProcessedLen</references>
-        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="775">XLoader_SecureParams::ChunkAddr</references>
-        <references refid="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" compoundref="xloader__auth__enc_8h" startline="778">XLoader_SecureParams::NextChunkAddr</references>
-        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="419" bodyend="462"/>
+        <references refid="group__xloader__client__apis_1ga3944db2060fd83c89b79580dd0caa0de" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="66">XLOADER_SECURE_CHUNK_SIZE</references>
+        <references refid="struct_x_loader___secure_params_1a1fe8808a895081bf96663603c0500393" compoundref="xloader__auth__enc_8h" startline="805">XLoader_SecureParams::RemainingDataLen</references>
+        <references refid="struct_x_loader___secure_params_1a72675da875a77e68ee27f62d18038482" compoundref="xloader__auth__enc_8h" startline="811">XLoader_SecureParams::ProcessPrtn</references>
+        <references refid="struct_x_loader___secure_params_1aa8068957063ef08e9a529c406e700a50" compoundref="xloader__auth__enc_8h" startline="803">XLoader_SecureParams::SecureDataLen</references>
+        <references refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" compoundref="xloader__auth__enc_8h" startline="804">XLoader_SecureParams::ProcessedLen</references>
+        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="797">XLoader_SecureParams::ChunkAddr</references>
+        <references refid="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" compoundref="xloader__auth__enc_8h" startline="800">XLoader_SecureParams::NextChunkAddr</references>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="423" endline="517">XLoader_PrtnCopy</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga9171035e129091fbaddbc27756381f76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -485,10 +483,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Place SHA3 in reset </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="504" bodyend="536"/>
-        <references refid="group__xloader__server__apis_1ga22f293db863b881993077e17fc892007" compoundref="xloader__auth__enc_8c" startline="2722" endline="2764">XLoader_AuthEncClear</references>
-        <references refid="group__xloader__server__apis_1gae1ad484f4b4344573008a1fa138ad597" compoundref="xloader__secure_8c" startline="174">XLOADER_SHA3_RESET_REG</references>
-        <references refid="group__xloader__server__apis_1ga18a802ef19167e4a011890ac7bf61f7d" compoundref="xloader__secure_8c" startline="176">XLOADER_SHA3_RESET_VAL</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="525" bodyend="557"/>
+        <references refid="group__xloader__server__apis_1ga22f293db863b881993077e17fc892007" compoundref="xloader__auth__enc_8c" startline="2492" endline="2534">XLoader_AuthEncClear</references>
+        <references refid="group__xloader__server__apis_1gae1ad484f4b4344573008a1fa138ad597" compoundref="xloader__secure_8c" startline="184">XLOADER_SHA3_RESET_REG</references>
+        <references refid="group__xloader__server__apis_1ga18a802ef19167e4a011890ac7bf61f7d" compoundref="xloader__secure_8c" startline="186">XLOADER_SHA3_RESET_VAL</references>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -560,16 +558,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Copy the next chunk securely, and then wait for the process to be completed.</para></listitem><listitem><para>The following initialization is crucial as the authentication certificate and PUF data are now stored in the PMC RAM instead of the PPU1 RAM. During the processing of the first chunk of any partition, the second 32K chunk of the PMC RAM, starting from 0xf2008120, contains the authentication certificate and PUF data as applicable. As a result, the second chunk of the partition must be loaded at 0xf2000020, not at 0xf2008120. Therefore, double buffering is disabled when processing the first chunk, and only enabled from the second chunk onwards. The third chunk is loaded at 0xf2008120, and from then on, the chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.</para></listitem></itemizedlist>
+<listitem><para>Copy the next chunk securely, and then wait for the process to be completed.</para></listitem><listitem><para>The following initialization is crucial as the authentication certificate and PUF data are now stored in the PMC RAM instead of the PPU1 RAM. During the processing of the first chunk of any partition, the second 32K chunk of the PMC RAM, starting from XPLMI_PMCRAM_CHUNK_MEMORY_1, contains the authentication certificate and PUF data as applicable. As a result, the second chunk of the partition must be loaded at XPLMI_PMCRAM_CHUNK_MEMORY, not at XPLMI_PMCRAM_CHUNK_MEMORY_1. Therefore, double buffering is disabled when processing the first chunk, and only enabled from the second chunk onwards. The third chunk is loaded at XPLMI_PMCRAM_CHUNK_MEMORY_1, and from then on, the chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="885" bodyend="928"/>
-        <references refid="struct_x_loader___secure_params_1aa328a2478f236bcdd18a05fc09c63d1f" compoundref="xloader__auth__enc_8h" startline="770">XLoader_SecureParams::IsNextChunkCopyStarted</references>
-        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="773">XLoader_SecureParams::PdiPtr</references>
-        <references refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" compoundref="xloader_8h" startline="368">XilPdi::MetaHdr</references>
-        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="775">XLoader_SecureParams::ChunkAddr</references>
-        <references refid="struct_x_loader___secure_params_1a85cbcc73bb33dc8b8cd16141eafc1e6b" compoundref="xloader__auth__enc_8h" startline="796">XLoader_SecureParams::DmaFlags</references>
-        <references refid="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" compoundref="xloader__auth__enc_8h" startline="785">XLoader_SecureParams::BlockNum</references>
-        <references refid="struct_x_loader___secure_params_1a1fe8808a895081bf96663603c0500393" compoundref="xloader__auth__enc_8h" startline="783">XLoader_SecureParams::RemainingDataLen</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="910" bodyend="955"/>
+        <references refid="struct_x_loader___secure_params_1aa328a2478f236bcdd18a05fc09c63d1f" compoundref="xloader__auth__enc_8h" startline="792">XLoader_SecureParams::IsNextChunkCopyStarted</references>
+        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="795">XLoader_SecureParams::PdiPtr</references>
+        <references refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" compoundref="xloader_8h" startline="419">XilPdi::MetaHdr</references>
+        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="797">XLoader_SecureParams::ChunkAddr</references>
+        <references refid="struct_x_loader___secure_params_1a85cbcc73bb33dc8b8cd16141eafc1e6b" compoundref="xloader__auth__enc_8h" startline="818">XLoader_SecureParams::DmaFlags</references>
+        <references refid="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" compoundref="xloader__auth__enc_8h" startline="807">XLoader_SecureParams::BlockNum</references>
+        <references refid="struct_x_loader___secure_params_1a1fe8808a895081bf96663603c0500393" compoundref="xloader__auth__enc_8h" startline="805">XLoader_SecureParams::RemainingDataLen</references>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -590,10 +588,10 @@
 <para><itemizedlist>
 <listitem><para>Check if any of the PPK efuses are not programmed. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="941" bodyend="970"/>
-        <references refid="xloader__secure_8h_1a9c37bf573525769b2821bf9c45858c08" compoundref="xloader__secure_8h" startline="90">XLOADER_EFUSE_PPK0_START_OFFSET</references>
-        <references refid="xloader__secure_8h_1a37961c447b4a134f280d82ef4e8b542e" compoundref="xloader__secure_8h" startline="97">XLOADER_EFUSE_PPK2_END_OFFSET</references>
-        <referencedby refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" compoundref="server_2xloader__plat__secure_8c" startline="265" endline="312">XLoader_CheckSecureStateAuth</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="968" bodyend="997"/>
+        <references refid="xloader__secure_8h_1a9c37bf573525769b2821bf9c45858c08" compoundref="xloader__secure_8h" startline="92">XLOADER_EFUSE_PPK0_START_OFFSET</references>
+        <references refid="xloader__secure_8h_1a37961c447b4a134f280d82ef4e8b542e" compoundref="xloader__secure_8h" startline="99">XLOADER_EFUSE_PPK2_END_OFFSET</references>
+        <referencedby refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" compoundref="server_2xloader__plat__secure_8c" startline="143" endline="190">XLoader_CheckSecureStateAuth</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -623,11 +621,11 @@
 <para><itemizedlist>
 <listitem><para>If AHWRoTPtr is not NULL, then set the SecureStateSHWRoT. Otherwise return the previous stored Secure state.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1049" bodyend="1062"/>
-        <referencedby refid="group__xloader__server__apis_1ga39e3983708ba469e91b85a555434f61e" compoundref="server_2xloader__plat_8c" startline="608" endline="654">XLoader_MeasureRomAndPlm</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="185" endline="236">XLoader_AddDeviceStateChangeToScheduler</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
-        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1109" endline="1185">XLoader_SetSecureState</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1076" bodyend="1089"/>
+        <referencedby refid="group__xloader__server__apis_1ga39e3983708ba469e91b85a555434f61e" compoundref="server_2xloader__plat_8c" startline="613" endline="660">XLoader_MeasureRomAndPlm</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="187" endline="238">XLoader_AddDeviceStateChangeToScheduler</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1136" endline="1217">XLoader_SetSecureState</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -657,10 +655,10 @@
 <para><itemizedlist>
 <listitem><para>If SHWRoTPtr is not NULL, then set the SecureStateSHWRoT. Otherwise return the previous stored Secure state.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1078" bodyend="1091"/>
-        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="185" endline="236">XLoader_AddDeviceStateChangeToScheduler</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
-        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1109" endline="1185">XLoader_SetSecureState</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1105" bodyend="1118"/>
+        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="187" endline="238">XLoader_AddDeviceStateChangeToScheduler</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" compoundref="xloader__secure_8c" startline="1136" endline="1217">XLoader_SetSecureState</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -682,13 +680,13 @@
 <para><itemizedlist>
 <listitem><para>Check secure state for authentication</para></listitem><listitem><para>Set the secure state for authentication in register and global variable.</para></listitem><listitem><para>Check secure state for encryption.</para></listitem><listitem><para>Read DEC_ONLY efuse bits.</para></listitem><listitem><para>If more than one DEC_ONLY efuse bits are programmed, then set the SHWRoT register.</para></listitem><listitem><para>If none of the DEC_ONLY efuse bits are programmed and PLM is encrypted, then set the SHWRoT register.</para></listitem><listitem><para>If none of the DEC_ONLY efuse bits are programmed and PLM is not encrypted, then set the SHWRoT register.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1109" bodyend="1185"/>
-        <references refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="655" endline="694">XLoader_CheckSecureStateAuth</references>
-        <references refid="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" compoundref="xloader__secure_8c" startline="1049" endline="1062">XLoader_GetAHWRoT</references>
-        <references refid="xloader__secure_8h_1a97c1c4a75d3823f9ecaa3d6eb2294e9c" compoundref="xloader__secure_8h" startline="121">XLOADER_EFUSE_SEC_MISC0_OFFSET</references>
-        <references refid="xloader__secure_8h_1a483a3cd071fb861c4ce0ab0174c8b829" compoundref="xloader__secure_8h" startline="123">XLOADER_EFUSE_SEC_DEC_MASK</references>
-        <references refid="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" compoundref="xloader__secure_8c" startline="1078" endline="1091">XLoader_GetSHWRoT</references>
-        <referencedby refid="group__xloader__server__apis_1gacb10f2e97fecfb15aae4fed081b02502" compoundref="xloader_8c" startline="350" endline="403">XLoader_Init</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1136" bodyend="1217"/>
+        <references refid="group__xloader__server__apis_1gab971c3f4e75170b57d1f5fdcd51cc092" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="581" endline="620">XLoader_CheckSecureStateAuth</references>
+        <references refid="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" compoundref="xloader__secure_8c" startline="1076" endline="1089">XLoader_GetAHWRoT</references>
+        <references refid="xloader__secure_8h_1a97c1c4a75d3823f9ecaa3d6eb2294e9c" compoundref="xloader__secure_8h" startline="123">XLOADER_EFUSE_SEC_MISC0_OFFSET</references>
+        <references refid="xloader__secure_8h_1a483a3cd071fb861c4ce0ab0174c8b829" compoundref="xloader__secure_8h" startline="125">XLOADER_EFUSE_SEC_DEC_MASK</references>
+        <references refid="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" compoundref="xloader__secure_8c" startline="1105" endline="1118">XLoader_GetSHWRoT</references>
+        <referencedby refid="group__xloader__server__apis_1gacb10f2e97fecfb15aae4fed081b02502" compoundref="xloader_8c" startline="390" endline="436">XLoader_Init</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref> *</type>
@@ -705,9 +703,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1194" bodyend="1198"/>
-        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
-        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="243" endline="384">XLoader_SecureInit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="1226" bodyend="1230"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="423" endline="517">XLoader_PrtnCopy</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" compoundref="xloader__secure_8c" startline="262" endline="405">XLoader_SecureInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -769,14 +767,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Set the data context of previous SHA operation</para><para>Update the next expected hash and data location </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="555" bodyend="670"/>
-        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="775">XLoader_SecureParams::ChunkAddr</references>
-        <references refid="struct_x_loader___secure_params_1a7afa5d4ff6734f20aa5cc22c1c8aa533" compoundref="xloader__auth__enc_8h" startline="786">XLoader_SecureParams::Sha3Hash</references>
-        <references refid="struct_x_loader___secure_params_1ad981312860b9bebe52c771fd0abfb75e" compoundref="xloader__auth__enc_8h" startline="788">XLoader_SecureParams::PmcDmaInstPtr</references>
-        <references refid="struct_x_loader___secure_params_1abbc93e51cf3060638961a99bb93946f9" compoundref="xloader__auth__enc_8h" startline="772">XLoader_SecureParams::IsCdo</references>
-        <references refid="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" compoundref="xloader__auth__enc_8h" startline="785">XLoader_SecureParams::BlockNum</references>
-        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="773">XLoader_SecureParams::PdiPtr</references>
-        <references refid="struct_xil_pdi_1a2a42cd776cf3b5b4bcb422e651c9619d" compoundref="xloader_8h" startline="385">XilPdi::ImagePrtnId</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.c" bodystart="576" bodyend="695"/>
+        <references refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" compoundref="xloader__auth__enc_8h" startline="797">XLoader_SecureParams::ChunkAddr</references>
+        <references refid="struct_x_loader___secure_params_1a7afa5d4ff6734f20aa5cc22c1c8aa533" compoundref="xloader__auth__enc_8h" startline="808">XLoader_SecureParams::Sha3Hash</references>
+        <references refid="struct_x_loader___secure_params_1ad981312860b9bebe52c771fd0abfb75e" compoundref="xloader__auth__enc_8h" startline="810">XLoader_SecureParams::PmcDmaInstPtr</references>
+        <references refid="struct_x_loader___secure_params_1abbc93e51cf3060638961a99bb93946f9" compoundref="xloader__auth__enc_8h" startline="794">XLoader_SecureParams::IsCdo</references>
+        <references refid="struct_x_loader___secure_params_1a9e3ac372ab7a14f06ca75b9dd6444b02" compoundref="xloader__auth__enc_8h" startline="807">XLoader_SecureParams::BlockNum</references>
+        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="795">XLoader_SecureParams::PdiPtr</references>
+        <references refid="struct_xil_pdi_1a2a42cd776cf3b5b4bcb422e651c9619d" compoundref="xloader_8h" startline="436">XilPdi::ImagePrtnId</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -830,111 +828,113 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 1.08  dc   07/12/22 Moved error codes related to buffer clear to xplmi_status.h
       obs  09/30/2024 Fixed Doxygen Warnings
 2.4   tvp  02/04/26 Define register addresses for efuse ppk hash only for
-                    platforms other than Versal_2vp_p</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+                    platforms other than Versal_2vp_p
+      sri  08/14/26 Updated XLoader_CopyHashBlock to add destination HashBlock parameter
+2.5   tbk  09/07/26 Added XLoader_ValidateHashBlockSize</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
 </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="72"><highlight class="preprocessor">#ifndef<sp/>XLOADER_SECURE_H</highlight></codeline>
-<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SECURE_H</highlight></codeline>
-<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__auth__enc_8h" kindref="compound">xloader_auth_enc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader_8h" kindref="compound">xloader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#ifndef<sp/>XLOADER_SECURE_H</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SECURE_H</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__auth__enc_8h" kindref="compound">xloader_auth_enc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader_8h" kindref="compound">xloader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="90" refid="xloader__secure_8h_1a9c37bf573525769b2821bf9c45858c08" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK0_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250100U)</highlight></codeline>
-<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="92"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VP_P</highlight></codeline>
-<codeline lineno="93" refid="xloader__secure_8h_1a0281b00807125a658c2dde0ccc8f7925" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK1_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250120U)</highlight></codeline>
-<codeline lineno="94"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="95" refid="xloader__secure_8h_1a54f0e6680ef984f607e3c90dbc869f0e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK2_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250140U)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="xloader__secure_8h_1a9c37bf573525769b2821bf9c45858c08" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK0_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250100U)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VP_P</highlight></codeline>
+<codeline lineno="95" refid="xloader__secure_8h_1a0281b00807125a658c2dde0ccc8f7925" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK1_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250120U)</highlight></codeline>
 <codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="97" refid="xloader__secure_8h_1a37961c447b4a134f280d82ef4e8b542e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK2_END_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125015CU)</highlight></codeline>
+<codeline lineno="97" refid="xloader__secure_8h_1a54f0e6680ef984f607e3c90dbc869f0e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK2_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250140U)</highlight></codeline>
 <codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="99"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK1_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250130U)</highlight></codeline>
-<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK2_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125037CU)</highlight></codeline>
+<codeline lineno="99" refid="xloader__secure_8h_1a37961c447b4a134f280d82ef4e8b542e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK2_END_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125015CU)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK1_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1250130U)</highlight></codeline>
 <codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK3_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12503ACU)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK2_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125037CU)</highlight></codeline>
 <codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK4_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12503DCU)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK3_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12503ACU)</highlight></codeline>
 <codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK5_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125040CU)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK4_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12503DCU)</highlight></codeline>
 <codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK6_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125043CU)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK5_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125040CU)</highlight></codeline>
 <codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK7_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125046CU)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK6_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125043CU)</highlight></codeline>
 <codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK8_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125049CU)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK7_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125046CU)</highlight></codeline>
 <codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK1_END_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125015CU)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK8_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125049CU)</highlight></codeline>
 <codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK8_END_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12504C8U)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK1_END_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF125015CU)</highlight></codeline>
 <codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="121" refid="xloader__secure_8h_1a97c1c4a75d3823f9ecaa3d6eb2294e9c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_SEC_MISC0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12500E4U)</highlight></codeline>
-<codeline lineno="122"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="123" refid="xloader__secure_8h_1a483a3cd071fb861c4ce0ab0174c8b829" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_SEC_DEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000FFFFU)</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_PPK8_END_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12504C8U)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="123" refid="xloader__secure_8h_1a97c1c4a75d3823f9ecaa3d6eb2294e9c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_SEC_MISC0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12500E4U)</highlight></codeline>
 <codeline lineno="124"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="125" refid="xloader__secure_8h_1aa233d1265392f76e260ac09c0d16c8f8" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_MISC_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12500A0U)</highlight></codeline>
+<codeline lineno="125" refid="xloader__secure_8h_1a483a3cd071fb861c4ce0ab0174c8b829" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_SEC_DEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000FFFFU)</highlight></codeline>
 <codeline lineno="126"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="127" refid="xloader__secure_8h_1ac1a5aaf74405026b6bae569bc422bace" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_INCREMENT_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/><sp/></highlight></codeline>
-<codeline lineno="128" refid="xloader__secure_8h_1a4bad464b42af8b211d6354872c0cb265" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_DECREMENT_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
-<codeline lineno="129" refid="xloader__secure_8h_1aa0c2619b66b85993f7396174f8344adb" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_ENTRY_SIZE_IN_HASHBLOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(52U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="135" refid="struct_x_loader___secure_temp_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="136" refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" kindref="member">SecureEn</ref>;<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="137"><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
-<codeline lineno="138" refid="struct_x_loader___secure_temp_params_1a71747d3aebb739a0095d15b14562ba22" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_loader___secure_temp_params_1a71747d3aebb739a0095d15b14562ba22" kindref="member">IsEncrypted</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="139" refid="struct_x_loader___secure_temp_params_1afa0dd0456ed63b9f8e15924c47e00d35" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_loader___secure_temp_params_1afa0dd0456ed63b9f8e15924c47e00d35" kindref="member">IsAuthenticated</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="140"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref>;</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" kindref="member">XLoader_SecureInit</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,<sp/><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref><sp/>*PdiPtr,</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnNum);</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" kindref="member">XLoader_SecureCopy</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,<sp/>u64<sp/>DestAddr,<sp/>u32<sp/>Size);</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga9171035e129091fbaddbc27756381f76" kindref="member">XLoader_SecureClear</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" kindref="member">XLoader_SecureChunkCopy</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,<sp/>u64<sp/>SrcAddr,</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Last,<sp/>u32<sp/>BlockSize,<sp/>u32<sp/>TotalSize);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" kindref="member">XLoader_CheckNonZeroPpk</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal">u32<sp/><ref refid="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" kindref="member">XLoader_GetAHWRoT</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>AHWRoTPtr);</highlight></codeline>
-<codeline lineno="152"><highlight class="normal">u32<sp/><ref refid="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" kindref="member">XLoader_GetSHWRoT</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>SHWRoTPtr);</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" kindref="member">XLoader_SetSecureState</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref>*<sp/><ref refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" kindref="member">XLoader_GetTempParams</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" kindref="member">XLoader_VerifyHashNUpdateNext</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr,<sp/>u32<sp/>Size,<sp/>u8<sp/>Last);</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
-<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ValidateMHHashBlockIntegrity(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ValidateMetaHdrIntegrity(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><ref refid="struct_x_loader___hash_block" kindref="compound">XLoader_HashBlock</ref>*<sp/>XLoader_GetHashBlockInstance(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_CopyHashBlock(u32<sp/>TotalHBSize,<sp/>XilPdi_HashBlock<sp/>*SrcHB);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XLOADER_SECURE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127" refid="xloader__secure_8h_1aa233d1265392f76e260ac09c0d16c8f8" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_MISC_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12500A0U)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="129" refid="xloader__secure_8h_1ac1a5aaf74405026b6bae569bc422bace" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_INCREMENT_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="xloader__secure_8h_1a4bad464b42af8b211d6354872c0cb265" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_DECREMENT_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136" refid="struct_x_loader___secure_temp_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137" refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" kindref="member">SecureEn</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="139" refid="struct_x_loader___secure_temp_params_1a71747d3aebb739a0095d15b14562ba22" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_loader___secure_temp_params_1a71747d3aebb739a0095d15b14562ba22" kindref="member">IsEncrypted</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_loader___secure_temp_params_1afa0dd0456ed63b9f8e15924c47e00d35" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="struct_x_loader___secure_temp_params_1afa0dd0456ed63b9f8e15924c47e00d35" kindref="member">IsAuthenticated</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" kindref="member">XLoader_SecureInit</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,<sp/><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref><sp/>*PdiPtr,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnNum);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" kindref="member">XLoader_SecureCopy</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,<sp/>u64<sp/>DestAddr,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga9171035e129091fbaddbc27756381f76" kindref="member">XLoader_SecureClear</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga5054d79a7dcc052ae83d997f183c8779" kindref="member">XLoader_SecureChunkCopy</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,<sp/>u64<sp/>SrcAddr,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Last,<sp/>u32<sp/>BlockSize,<sp/>u32<sp/>TotalSize);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga4e5d053bbf2e5283aac4b2a1e860b44d" kindref="member">XLoader_CheckNonZeroPpk</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">u32<sp/><ref refid="group__xloader__server__apis_1ga3e99458db1239a8f1bcb70eee9025232" kindref="member">XLoader_GetAHWRoT</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>AHWRoTPtr);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">u32<sp/><ref refid="group__xloader__server__apis_1ga27d4a7f2cecd7b051a5418ad7586cac3" kindref="member">XLoader_GetSHWRoT</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>SHWRoTPtr);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1gade5fc1ce6a279c921672d5692df5cf56" kindref="member">XLoader_SetSecureState</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref>*<sp/><ref refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" kindref="member">XLoader_GetTempParams</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga88fdae4e3fe98e871dd93c7cb31ce387" kindref="member">XLoader_VerifyHashNUpdateNext</ref>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr,<sp/>u32<sp/>Size,<sp/>u8<sp/>Last);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ValidateMHHashBlockIntegrity(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ValidateMetaHdrIntegrity(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecurePtr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><ref refid="struct_x_loader___hash_block" kindref="compound">XLoader_HashBlock</ref>*<sp/>XLoader_GetHashBlockInstance(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ValidateHashBlockSize(u32<sp/>HashBlockSizeInWords);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_CopyHashBlock(u32<sp/>TotalHBSize,<sp/>XilPdi_HashBlock<sp/>*SrcHB,<sp/><ref refid="struct_x_loader___hash_block" kindref="compound">XLoader_HashBlock</ref><sp/>*DestHB);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XLOADER_SECURE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h"/>
   </compounddef>
 </doxygen>

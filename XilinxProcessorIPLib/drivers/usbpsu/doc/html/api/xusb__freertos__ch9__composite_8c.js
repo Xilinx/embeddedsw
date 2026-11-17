@@ -6,5 +6,7 @@ var xusb__freertos__ch9__composite_8c =
     [ "Usb_Ch9SetupStrDescReply", "xusb__freertos__ch9__composite_8c.html#a36f6da36a86aeccc3ffd45b8d20b72c2", null ],
     [ "Usb_GetDescReply", "xusb__freertos__ch9__composite_8c.html#a043075687afdf64ad9382236bd155e60", null ],
     [ "Usb_SetConfiguration", "xusb__freertos__ch9__composite_8c.html#af99800b04544fe0bfa385de154d79087", null ],
-    [ "Usb_SetConfigurationApp", "xusb__freertos__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be", null ]
+    [ "Usb_SetConfigurationApp", "xusb__freertos__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be", null ],
+    [ "deviceDesc", "xusb__freertos__ch9__composite_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53", null ],
+    [ "hid_desc", "xusb__freertos__ch9__composite_8c.html#a1e97e995b0e3f7380e9161aa094e21f5", null ]
 ];

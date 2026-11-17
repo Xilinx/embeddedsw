@@ -15,6 +15,8 @@ var searchData=
   ['xusb_5fmicrophone_2eh',['xusb_microphone.h',['../xusb__microphone_8h.html',1,'']]],
   ['xusb_5fmouse_2ec',['xusb_mouse.c',['../xusb__mouse_8c.html',1,'']]],
   ['xusb_5fmouse_2eh',['xusb_mouse.h',['../xusb__mouse_8h.html',1,'']]],
+  ['xusb_5fmsc_2ec',['xusb_msc.c',['../xusb__msc_8c.html',1,'']]],
+  ['xusb_5fmsc_2eh',['xusb_msc.h',['../xusb__msc_8h.html',1,'']]],
   ['xusb_5fphy_5fread_5fwrite_2ec',['xusb_phy_read_write.c',['../xusb__phy__read__write_8c.html',1,'']]],
   ['xusb_5fsinit_2ec',['xusb_sinit.c',['../xusb__sinit_8c.html',1,'']]],
   ['xusb_5fstorage_2ec',['xusb_storage.c',['../xusb__storage_8c.html',1,'']]],

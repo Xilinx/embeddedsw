@@ -2,9 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_plmi___ds_hdr" kind="struct" prot="public">
     <compoundname>XPlmi_DsHdr</compoundname>
+    <includes local="no">xplmi_update.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_plmi___ds_hdr_1a4969d693181733454f5e01d139b1a2cb" prot="public" static="no" mutable="no">
-        <type>XPlmi_DsVer</type>
+        <type><ref refid="union_x_plmi___ds_ver" kindref="compound">XPlmi_DsVer</ref></type>
         <definition>XPlmi_DsVer XPlmi_DsHdr::Ver</definition>
         <argsstring></argsstring>
         <name>Ver</name>
@@ -14,7 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gae804925f6b45d1685a010c2d1d3e842f" compoundref="xplmi__update_8c" startline="326" endline="390">XPlmi_DsOps</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga133542368f05623ddf052d283f4bf2d1" compoundref="xplmi__update_8c" startline="404" endline="424">XPlmi_GetDsEntry</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_plmi___ds_hdr_1a403b308b3b7b1bd5647269871f3ee669" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,14 +30,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gae804925f6b45d1685a010c2d1d3e842f" compoundref="xplmi__update_8c" startline="326" endline="390">XPlmi_DsOps</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga18c18ecfe4d08c8da4dc0bec5218cb59" compoundref="xplmi__update_8c" startline="445" endline="492">XPlmi_RestoreDataBackup</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Data Structure Header used in DsEntry and also as the header of each data structure in DB. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="69" bodyend="72"/>
+    <collaborationgraph>
+      <node id="21">
+        <label>XPlmi_DsVer</label>
+        <link refid="union_x_plmi___ds_ver"/>
+      </node>
+      <node id="20">
+        <label>XPlmi_DsHdr</label>
+        <link refid="struct_x_plmi___ds_hdr"/>
+        <childnode refid="21" relation="usage">
+          <edgelabel>Ver</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="68" bodyend="71"/>
     <listofallmembers>
       <member refid="struct_x_plmi___ds_hdr_1a403b308b3b7b1bd5647269871f3ee669" prot="public" virt="non-virtual"><scope>XPlmi_DsHdr</scope><name>Len</name></member>
       <member refid="struct_x_plmi___ds_hdr_1a4969d693181733454f5e01d139b1a2cb" prot="public" virt="non-virtual"><scope>XPlmi_DsHdr</scope><name>Ver</name></member>

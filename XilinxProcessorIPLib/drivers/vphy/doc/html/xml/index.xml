@@ -592,6 +592,7 @@
     <member refid="group__vphy_1gad3a2e6ba3f7b44e59ac3852136d9762d" kind="define"><name>XVPHY_TX_STATUS_REG</name></member>
     <member refid="group__vphy_1gab418e02e6dc1913346dbc38bc07a6dfc" kind="define"><name>XVPHY_TX_DRIVER_CH12_REG</name></member>
     <member refid="group__vphy_1ga53fd0433c17e0cced2b30825e4ffb131" kind="define"><name>XVPHY_TX_DRIVER_CH34_REG</name></member>
+    <member refid="group__vphy_1gae0cdb3843b85563d1ea0322e519a1ce6" kind="define"><name>XVPHY_TX_DRIVER_EXT_REG</name></member>
     <member refid="group__vphy_1ga45862082a13bb28446cdf952463166ad" kind="define"><name>XVPHY_RX_CONTROL_REG</name></member>
     <member refid="group__vphy_1ga35922334716c982d1ee5379587d27579" kind="define"><name>XVPHY_RX_STATUS_REG</name></member>
     <member refid="group__vphy_1ga533eef35bbe86222f147a763e7408562" kind="define"><name>XVPHY_RX_EQ_CDR_REG</name></member>
@@ -759,6 +760,8 @@
     <member refid="group__vphy_1gae55e51487e5085dff41d7bcffb05c10d" kind="define"><name>XVPHY_TX_DRIVER_TXPOSTCURSOR_SHIFT</name></member>
     <member refid="group__vphy_1gaad87a6f4e2aa7e181ce25aad667080c7" kind="define"><name>XVPHY_TX_DRIVER_TXPRECURSOR_MASK</name></member>
     <member refid="group__vphy_1ga2904e4700c6af2f72ea313de60f1896e" kind="define"><name>XVPHY_TX_DRIVER_TXPRECURSOR_SHIFT</name></member>
+    <member refid="group__vphy_1ga87c6567d2383cd6b8d208ae5670bd44c" kind="define"><name>XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_MASK</name></member>
+    <member refid="group__vphy_1ga75e23653d9efb7d1ffd6483d8d857cad" kind="define"><name>XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT</name></member>
     <member refid="group__vphy_1ga5bb2aca234ba12249270f060756042a3" kind="define"><name>XVPHY_RX_CONTROL_RX8B10BEN_MASK</name></member>
     <member refid="group__vphy_1ga428cb73344bd349cbcb6be76ee9dd306" kind="define"><name>XVPHY_RX_CONTROL_RX8B10BEN_ALL_MASK</name></member>
     <member refid="group__vphy_1ga632f1cde7ee0e608e7a162be4070833c" kind="define"><name>XVPHY_RX_CONTROL_RXPOLARITY_MASK</name></member>
@@ -983,6 +986,7 @@
     <member refid="group__vphy_1gad3a2e6ba3f7b44e59ac3852136d9762d" kind="define"><name>XVPHY_TX_STATUS_REG</name></member>
     <member refid="group__vphy_1gab418e02e6dc1913346dbc38bc07a6dfc" kind="define"><name>XVPHY_TX_DRIVER_CH12_REG</name></member>
     <member refid="group__vphy_1ga53fd0433c17e0cced2b30825e4ffb131" kind="define"><name>XVPHY_TX_DRIVER_CH34_REG</name></member>
+    <member refid="group__vphy_1gae0cdb3843b85563d1ea0322e519a1ce6" kind="define"><name>XVPHY_TX_DRIVER_EXT_REG</name></member>
     <member refid="group__vphy_1ga45862082a13bb28446cdf952463166ad" kind="define"><name>XVPHY_RX_CONTROL_REG</name></member>
     <member refid="group__vphy_1ga35922334716c982d1ee5379587d27579" kind="define"><name>XVPHY_RX_STATUS_REG</name></member>
     <member refid="group__vphy_1ga533eef35bbe86222f147a763e7408562" kind="define"><name>XVPHY_RX_EQ_CDR_REG</name></member>
@@ -1270,6 +1274,8 @@
     <member refid="group__vphy_1gae55e51487e5085dff41d7bcffb05c10d" kind="define"><name>XVPHY_TX_DRIVER_TXPOSTCURSOR_SHIFT</name></member>
     <member refid="group__vphy_1gaad87a6f4e2aa7e181ce25aad667080c7" kind="define"><name>XVPHY_TX_DRIVER_TXPRECURSOR_MASK</name></member>
     <member refid="group__vphy_1ga2904e4700c6af2f72ea313de60f1896e" kind="define"><name>XVPHY_TX_DRIVER_TXPRECURSOR_SHIFT</name></member>
+    <member refid="group__vphy_1ga87c6567d2383cd6b8d208ae5670bd44c" kind="define"><name>XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_MASK</name></member>
+    <member refid="group__vphy_1ga75e23653d9efb7d1ffd6483d8d857cad" kind="define"><name>XVPHY_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT</name></member>
     <member refid="group__vphy_1ga5bb2aca234ba12249270f060756042a3" kind="define"><name>XVPHY_RX_CONTROL_RX8B10BEN_MASK</name></member>
     <member refid="group__vphy_1ga428cb73344bd349cbcb6be76ee9dd306" kind="define"><name>XVPHY_RX_CONTROL_RX8B10BEN_ALL_MASK</name></member>
     <member refid="group__vphy_1ga632f1cde7ee0e608e7a162be4070833c" kind="define"><name>XVPHY_RX_CONTROL_RXPOLARITY_MASK</name></member>

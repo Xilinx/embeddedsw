@@ -9,6 +9,7 @@ var struct_x_dsi_tx_ss___config =
     [ "DsiInfo", "struct_x_dsi_tx_ss___config.html#ae37e75593d8c004c2a745b25a503f9c4", null ],
     [ "DsiLanes", "struct_x_dsi_tx_ss___config.html#a577c288549941ba5f8278307b62f1377", null ],
     [ "DsiPixel", "struct_x_dsi_tx_ss___config.html#a1e7abd1f22f0673c4620ac24c0bd75f4", null ],
+    [ "EnEscMode", "struct_x_dsi_tx_ss___config.html#a3b36814b5678d9b1afb98454324e05a5", null ],
     [ "HighAddr", "struct_x_dsi_tx_ss___config.html#ad5bca47e3d8c2b12165513646ecb2a04", null ],
     [ "IsDphyRegIntfcPresent", "struct_x_dsi_tx_ss___config.html#aa773bef1fcc5616169b86d4a4d559eb8", null ]
 ];

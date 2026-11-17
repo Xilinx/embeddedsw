@@ -47,6 +47,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -86,7 +88,7 @@ $(document).ready(function(){initNavTree('group__xil__certapis.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,22 +110,59 @@ Macros</h2></td></tr>
 <tr class="memitem:ga757161cc6105137b1bbc3e183054b646"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xil__certapis.html#ga757161cc6105137b1bbc3e183054b646">XOCP_SECURE_SHA_KAT_MASK</a>&#160;&#160;&#160;XPLMI_SECURE_SHA3_KAT_MASK</td></tr>
 <tr class="memdesc:ga757161cc6105137b1bbc3e183054b646"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3 kat mask.  <a href="#ga757161cc6105137b1bbc3e183054b646">More...</a><br/></td></tr>
 <tr class="separator:ga757161cc6105137b1bbc3e183054b646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga757161cc6105137b1bbc3e183054b646"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xil__certapis.html#ga757161cc6105137b1bbc3e183054b646">XOCP_SECURE_SHA_KAT_MASK</a>&#160;&#160;&#160;XPLMI_SECURE_SHA3_KAT_MASK</td></tr>
+<tr class="memdesc:ga757161cc6105137b1bbc3e183054b646"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA3 KAT mask.  <a href="#ga757161cc6105137b1bbc3e183054b646">More...</a><br/></td></tr>
+<tr class="separator:ga757161cc6105137b1bbc3e183054b646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e0457e6629fc5a505cecceffd4d8c3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xil__certapis.html#ga0e0457e6629fc5a505cecceffd4d8c3c">XCERT_SHA_HASH_LEN</a>&#160;&#160;&#160;XSECURE_SHA1_HASH_SIZE</td></tr>
+<tr class="memdesc:ga0e0457e6629fc5a505cecceffd4d8c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SKI/AKI hash: SHA-1 on Versal Net for backward compatibility with existing certs.  <a href="#ga0e0457e6629fc5a505cecceffd4d8c3c">More...</a><br/></td></tr>
+<tr class="separator:ga0e0457e6629fc5a505cecceffd4d8c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6a236565e962793c1d0c212b43fe5e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xil__certapis.html#gaf6a236565e962793c1d0c212b43fe5e7">XCERT_SHA_KEY_ID_OFFSET</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:gaf6a236565e962793c1d0c212b43fe5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte offset within SHA digest used for SKI/AKI key identifier.  <a href="#gaf6a236565e962793c1d0c212b43fe5e7">More...</a><br/></td></tr>
+<tr class="separator:gaf6a236565e962793c1d0c212b43fe5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga757161cc6105137b1bbc3e183054b646"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xil__certapis.html#ga757161cc6105137b1bbc3e183054b646">XOCP_SECURE_SHA_KAT_MASK</a>&#160;&#160;&#160;XPLMI_SECURE_SHA384_KAT_MASK</td></tr>
 <tr class="memdesc:ga757161cc6105137b1bbc3e183054b646"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHA384 kat mask.  <a href="#ga757161cc6105137b1bbc3e183054b646">More...</a><br/></td></tr>
 <tr class="separator:ga757161cc6105137b1bbc3e183054b646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga0e0457e6629fc5a505cecceffd4d8c3c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_SHA_HASH_LEN&#160;&#160;&#160;XSECURE_SHA1_HASH_SIZE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SKI/AKI hash: SHA-1 on Versal Net for backward compatibility with existing certs. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf6a236565e962793c1d0c212b43fe5e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCERT_SHA_KEY_ID_OFFSET&#160;&#160;&#160;(0U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte offset within SHA digest used for SKI/AKI key identifier. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga757161cc6105137b1bbc3e183054b646"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XOCP_SECURE_SHA_KAT_MASK&#160;&#160;&#160;XPLMI_SECURE_SHA384_KAT_MASK</td>
+          <td class="memname">#define XOCP_SECURE_SHA_KAT_MASK&#160;&#160;&#160;XPLMI_SECURE_SHA3_KAT_MASK</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>SHA384 kat mask. </p>
+<p>SHA3 KAT mask. </p>
 
 </div>
 </div>
@@ -138,6 +177,22 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SHA3 kat mask. </p>
+
+<p>Referenced by <a class="el" href="group__xcert__apis.html#gafc17a8e6c3a9c36de72923ddf5ec9a84">XCert_GenerateX509Cert()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga757161cc6105137b1bbc3e183054b646"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XOCP_SECURE_SHA_KAT_MASK&#160;&#160;&#160;XPLMI_SECURE_SHA384_KAT_MASK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SHA384 kat mask. </p>
 
 </div>
 </div>

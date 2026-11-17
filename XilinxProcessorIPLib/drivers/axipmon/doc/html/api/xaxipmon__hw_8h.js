@@ -34,6 +34,7 @@ var xaxipmon__hw_8h =
     [ "XAPM_INC8_OFFSET", "xaxipmon__hw_8h.html#ga0c48e3658f96547e17995698cbc8999f", null ],
     [ "XAPM_INC9_OFFSET", "xaxipmon__hw_8h.html#ga98c49539526dd152883372129b844c82", null ],
     [ "XAPM_IS_OFFSET", "xaxipmon__hw_8h.html#ga69159b99f1e781791a995986c52f29a4", null ],
+    [ "XAPM_IXR_ALL_MASK", "xaxipmon__hw_8h.html#gac900b305a62f2816b11493a501543f12", null ],
     [ "XAPM_IXR_FIFO_FULL_MASK", "xaxipmon__hw_8h.html#ga717341be557ee87e62e7d8e5cf33cc0f", null ],
     [ "XAPM_IXR_GCC_OVERFLOW_MASK", "xaxipmon__hw_8h.html#ga69ea91f067c2c82aaad6d3c3e519a71b", null ],
     [ "XAPM_IXR_MC0_OVERFLOW_MASK", "xaxipmon__hw_8h.html#ga9a98d01e06db6301e01e69d84eb03d15", null ],

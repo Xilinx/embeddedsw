@@ -10,16 +10,6 @@
       <node id="7">
         <label>xil_io.h</label>
       </node>
-      <node id="6">
-        <label>xstatus.h</label>
-      </node>
-      <node id="4">
-        <label>xil_types.h</label>
-      </node>
-      <node id="8">
-        <label>xv_hscaler_hw.h</label>
-        <link refid="xv__hscaler__hw_8h"/>
-      </node>
       <node id="2">
         <label>xv_hscaler.c</label>
         <link refid="xv_hscaler.c"/>
@@ -39,6 +29,16 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+      </node>
+      <node id="8">
+        <label>xv_hscaler_hw.h</label>
+        <link refid="xv__hscaler__hw_8h"/>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -118,11 +118,11 @@ Preconditions:<itemizedlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="54" bodyend="69"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="137" endline="151">XV_hscaler_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="54" bodyend="69"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="72" endline="86">XV_hscaler_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a8c6d07fe34c3f3c7c54806a69b1c76a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -148,10 +148,10 @@ Preconditions:<itemizedlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="82" bodyend="94"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="82" bodyend="94"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
         <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__hscaler_1ga6b1d1d8a20f69d2cee85e6897e9e9224" compoundref="xv__hscaler__l2_8c" startline="113" endline="119">XV_HScalerStart</referencedby>
       </memberdef>
@@ -179,12 +179,12 @@ This function reads the control register and checks the ap_done bit (bit 1) to d
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="106" bodyend="116"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="106" bodyend="116"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
         <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a10e8034f617beb44377a8e7d0a9419c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -210,12 +210,12 @@ This function reads the control register and checks the ap_idle bit (bit 2) to d
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="129" bodyend="139"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="129" bodyend="139"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
         <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a9c646387ef49b919ff45e3d6972a9d44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -241,12 +241,12 @@ This function reads the control register and checks the ap_start bit (bit 0) to 
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="153" bodyend="164"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="153" bodyend="164"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
         <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1ae0d2437aa5d0f104aa9f8ea08d3e6211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -272,10 +272,10 @@ This function reads the control register and checks the ap_start bit (bit 0) to 
 This function sets the auto-restart bit (bit 7) in the control register, enabling the hardware to automatically restart after completing an operation. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="177" bodyend="184"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="177" bodyend="184"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
         <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__hscaler_1ga6b1d1d8a20f69d2cee85e6897e9e9224" compoundref="xv__hscaler__l2_8c" startline="113" endline="119">XV_HScalerStart</referencedby>
       </memberdef>
@@ -303,10 +303,10 @@ This function sets the auto-restart bit (bit 7) in the control register, enablin
 This function clears the auto-restart bit (bit 7) in the control register, disabling the hardware from automatically restarting after completing an operation. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="197" bodyend="204"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="197" bodyend="204"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
         <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
         <referencedby refid="group__v__hscaler_1ga6af3378b35ee6e260a553a47debb1231" compoundref="xv__hscaler__l2_8c" startline="130" endline="135">XV_HScalerStop</referencedby>
       </memberdef>
@@ -345,11 +345,11 @@ This function clears the auto-restart bit (bit 7) in the control register, disab
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="217" bodyend="224"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="217" bodyend="224"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="604" endline="661">XV_HScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1ac190df8dce38c64114270927fdac8f7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -375,11 +375,11 @@ This function reads the HWREG_HEIGHT register from the HScaler hardware and retu
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="237" bodyend="249"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="237" bodyend="249"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a612846a6bdddf446da065874f5686bec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -416,11 +416,11 @@ This function reads the HWREG_HEIGHT register from the HScaler hardware and retu
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="262" bodyend="271"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="262" bodyend="271"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="604" endline="661">XV_HScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a1fc1fada8eef0ec2cf40826a5d9aa8c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -446,11 +446,11 @@ This function reads the HWREG_WIDTHIN register from the HScaler hardware and ret
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="283" bodyend="295"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="283" bodyend="295"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a06e278f308d4923c8859d8a2679fdeb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -487,11 +487,11 @@ This function reads the HWREG_WIDTHIN register from the HScaler hardware and ret
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="308" bodyend="317"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="308" bodyend="317"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="604" endline="661">XV_HScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a47d66f0357445ffe3752f78d302a2b39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -517,11 +517,11 @@ This function reads the HWREG_WIDTHOUT register from the HScaler hardware and re
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="330" bodyend="342"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="330" bodyend="342"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a715cce4654d3329eb225723337022bda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -558,11 +558,11 @@ This function reads the HWREG_WIDTHOUT register from the HScaler hardware and re
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="355" bodyend="364"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="355" bodyend="364"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="604" endline="661">XV_HScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a79190851fa4145de7d1c29ab857cac57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -588,11 +588,11 @@ This function reads the HWREG_COLORMODE register from the HScaler hardware and r
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="377" bodyend="389"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="377" bodyend="389"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a9b136b4250b89f0ab859b80ed8b08054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -629,11 +629,11 @@ This function reads the HWREG_COLORMODE register from the HScaler hardware and r
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="402" bodyend="411"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="402" bodyend="411"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="604" endline="661">XV_HScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a08c9bcc7a731476d88da89f2deb936d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -659,11 +659,11 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="423" bodyend="435"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="423" bodyend="435"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1adc83c87e2c16e1e2109c13caa6a50bd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -700,11 +700,11 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="444" bodyend="449"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="444" bodyend="449"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="604" endline="661">XV_HScalerSetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1adab95db7c44af21bf6a75d2c9ba775f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -730,11 +730,11 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="457" bodyend="465"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="457" bodyend="465"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a67bc579c834cf0a9c8ec4b91798ed277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -760,11 +760,11 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="473" bodyend="478"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
-        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="473" bodyend="478"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="674" endline="757">XV_HScalerDbgReportStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a9dd38d3ec68c6a24373e2258bb230801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -790,10 +790,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="486" bodyend="491"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="486" bodyend="491"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a90f47d3afdcb958c1f7082f12f099f1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -819,8 +819,8 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="499" bodyend="504"/>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="499" bodyend="504"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a20194c817d458ecc451c979aba353cd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -846,8 +846,8 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="512" bodyend="517"/>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="512" bodyend="517"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1abc51de334949b8964b3366833061931d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -873,8 +873,8 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="525" bodyend="530"/>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="525" bodyend="530"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1aa290c0d38d0e82b944b38cf9f81a1f60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -933,10 +933,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="541" bodyend="554"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="541" bodyend="554"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a76df144d2c4bbf3ebc583cc8e22ee087" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -995,10 +995,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="565" bodyend="578"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="565" bodyend="578"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1ae874af417c8808478e58e61442bac5c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1057,10 +1057,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="589" bodyend="602"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="589" bodyend="602"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a05e8fd58fafd88170c2dc8003670e3db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1119,10 +1119,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="613" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="613" bodyend="626"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="613" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="613" bodyend="626"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a36eb6b3dd64414ce9d68d00112df8172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -1148,10 +1148,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="633" bodyend="638"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="633" bodyend="638"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a605973db41319b380b0041c3c0d5a107" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -1177,10 +1177,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="646" bodyend="651"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="646" bodyend="651"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1aa83934864e6c11c891b51d14fbe8576f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1206,8 +1206,8 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="659" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="659" bodyend="664"/>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="659" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="659" bodyend="664"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a8208826091c04cbac03e9f5f889874e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1233,8 +1233,8 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="672" bodyend="677"/>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="672" bodyend="677"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a577a9f7144f10f16463b47854ea4eb1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1260,8 +1260,8 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="685" bodyend="690"/>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="685" bodyend="690"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1af65f59bef917becda7af8812e260a9e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1320,10 +1320,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="701" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="701" bodyend="714"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="701" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="701" bodyend="714"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1aa0ad3a0a80c4c4c48c7ad3afa83d92b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1382,10 +1382,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="725" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="725" bodyend="738"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="725" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="725" bodyend="738"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a0a7a5d85bddc374983b20b66d9d0e1f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1444,10 +1444,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="749" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="749" bodyend="762"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="749" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="749" bodyend="762"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a5e035c5e7c7b4ccbc4071374ef70fb1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1506,10 +1506,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="773" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="773" bodyend="786"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="773" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="773" bodyend="786"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a0c1461ec110c3848ebd17e3f522b1a8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1535,10 +1535,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="794" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="794" bodyend="799"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="794" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="794" bodyend="799"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1abaf7bf955ac699e839aba79c662b5797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1564,10 +1564,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="807" bodyend="812"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="807" bodyend="812"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a47a48f9ec15578d32aa409fe06fea3a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1604,10 +1604,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="821" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="821" bodyend="829"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="821" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="821" bodyend="829"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1ae522d137b8398bfc2c9706319c821747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1644,10 +1644,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="838" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="838" bodyend="846"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="838" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="838" bodyend="846"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a2c492d985fc6df4cb4ce858dd35617a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1684,10 +1684,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="855" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="855" bodyend="860"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="855" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="855" bodyend="860"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a36467e08c522877a0f4a1d521ec3543f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1713,10 +1713,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="868" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="868" bodyend="873"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="868" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="868" bodyend="873"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       <memberdef kind="function" id="xv__hscaler_8c_1a5def33610cf1c5899547cf03cef0dc25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1742,10 +1742,10 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="881" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="881" bodyend="886"/>
-        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
-        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
-        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" line="881" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="881" bodyend="886"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="52">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="71">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="72">XV_hscaler::IsReady</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2248,6 +2248,6 @@ This function reads the HWREG_COLORMODEOUT register from the HScaler hardware an
 <codeline lineno="885"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XV_hscaler_ReadReg(InstancePtr-&gt;<ref refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" kindref="member">Config</ref>.<ref refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" kindref="member">BaseAddress</ref>,<sp/>XV_HSCALER_CTRL_ADDR_ISR);</highlight></codeline>
 <codeline lineno="886"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c"/>
   </compounddef>
 </doxygen>

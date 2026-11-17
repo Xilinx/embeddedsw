@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___overview_1ga8a61282858a738c808d91233f8f0af74" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___overview_1ga41320fdef04b4d33b04655d17bf11483" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___overview_1gaf66f3a5b2476574e293150fa731a1135" prot="public" static="no" mutable="no">
         <type>char</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___overview_1ga3b4861efa46030705194d7bdc2f62db2" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="147" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="147" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -132,7 +132,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="677" bodyend="713"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="677" bodyend="713"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga884df701398dacae928fced010121323" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -195,7 +195,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="617" bodyend="653"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="617" bodyend="653"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gae7bbed0564266eb700571b2dcd74b7ef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -223,7 +223,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="185" bodyend="257"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="185" bodyend="257"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga9748e2757136a4db8f91633770a3fb63" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -251,7 +251,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="273" bodyend="320"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="273" bodyend="320"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga17cf6f519ff155e7bdb22b998f556303" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -276,7 +276,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="336" bodyend="343"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="336" bodyend="343"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gaecef7efa748f6bca584bc0fc6fddcfd4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -305,7 +305,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="360" bodyend="422"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="360" bodyend="422"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga8884e11f46f4fe01dd2a7bfb49d70783" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -367,7 +367,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="502" bodyend="517"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="502" bodyend="517"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga0b82ea0c8979f00e50c1e543f9eb5750" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -429,7 +429,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="536" bodyend="551"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="536" bodyend="551"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga5b9983eb84c622813eb7489876fb6cd2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -458,7 +458,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="568" bodyend="578"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="568" bodyend="578"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga7537a8ef9a66c0655022ce5e640552a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -471,7 +471,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="580" bodyend="593"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="580" bodyend="593"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga169f903c2585f46d505d165972ab2c63" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -500,7 +500,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="731" bodyend="763"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="731" bodyend="763"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gab83aa29e5ed3e7e11cf0db05ae279d7e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -529,7 +529,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="780" bodyend="799"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="780" bodyend="799"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga02dab3acd290a218e441d08199454338" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -569,7 +569,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="898" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="898" bodyend="921"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="898" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="898" bodyend="921"/>
         <referencedby refid="group__xrfclk_1ga91a0033a744f217741b6bf0125914407" compoundref="xrfclk_8c" startline="1478" endline="1553">XRFClk_ConfigOutputDividerAndMUXOnLMK</referencedby>
         <referencedby refid="group__xrfclk_1gaa084685a70d719dd933f735cb350fb95" compoundref="xrfclk_8c" startline="1433" endline="1456">XRFClk_ControlOutputPortLMK</referencedby>
         <referencedby refid="group__xrfclk_1gae0b716c787b95513649b2fcba33b3b95" compoundref="xrfclk_8c" startline="1068" endline="1086">XRFClk_ResetChip</referencedby>
@@ -613,7 +613,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="948" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="948" bodyend="987"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="948" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="948" bodyend="987"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga5a7296352a6f5ff2b511184ee95f496b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -640,7 +640,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1010" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1010" bodyend="1029"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1010" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1010" bodyend="1029"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga355749ea0ace53f613f5225eda186a55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -666,7 +666,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1043" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1043" bodyend="1052"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1043" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1043" bodyend="1052"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gae0b716c787b95513649b2fcba33b3b95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -695,7 +695,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1068" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1068" bodyend="1086"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1068" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1068" bodyend="1086"/>
         <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga047f4f8726dcfb5ecb83e6e7d4069e8b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -725,7 +725,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1102" bodyend="1112"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1102" bodyend="1112"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga0cbb9663778b1dc307c3da13771e5d07" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -765,7 +765,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1129" bodyend="1139"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1129" bodyend="1139"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga64c1af6644e83e169033afab6abcf344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -805,7 +805,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1158" bodyend="1169"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1158" bodyend="1169"/>
         <referencedby refid="group__xrfclk_1ga70661f1623b48f8230135120ab764eca" compoundref="xrfclk_8c" startline="1223" endline="1259">XRFClk_SetConfigOnAllChipsFromConfigId</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga094020b0514371f05b8848e1454f0345" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -857,7 +857,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1189" bodyend="1203"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1189" bodyend="1203"/>
         <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga7820c4fffaa739e2c61e0ad2442e38d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -916,7 +916,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1223" bodyend="1259"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1223" bodyend="1259"/>
         <references refid="group___overview_1ga64c1af6644e83e169033afab6abcf344" compoundref="xrfclk_8c" startline="1158" endline="1169">XRFClk_SetConfigOnOneChipFromConfigId</references>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga3e3ca8e07fc849ca40c7a2a088182205" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -968,7 +968,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1277" bodyend="1320"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1277" bodyend="1320"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga7fd8dc85395c9eeea703ed98c7e09c3a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1008,7 +1008,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1337" bodyend="1367"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1337" bodyend="1367"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gadb22b9c390457253f2bfdf773791d270" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1048,7 +1048,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1385" bodyend="1414"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1385" bodyend="1414"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gafcd7bee4fa0f626f4d5ae3db8c8adea7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1088,7 +1088,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1433" bodyend="1456"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1433" bodyend="1456"/>
         <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga91a0033a744f217741b6bf0125914407" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1162,7 +1162,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1478" bodyend="1553"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="1478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1478" bodyend="1553"/>
         <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
       </memberdef>
       </sectiondef>
@@ -1177,7 +1177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gae1649fc947ca37a86917a08354f48d1a" prot="public" static="no">
         <name>PRINTF</name>
@@ -1188,7 +1188,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga9d421ab70c23d9a90dd89f176ffeb875" prot="public" static="no">
         <name>RFCLK_I2C1_DEVICE_PATH</name>
@@ -1199,7 +1199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gaa9fe637ae0a5bfaabec8d19ce11adf86" prot="public" static="no">
         <name>RFCLK_I2C_I2C2SPI_BRIDGE_DEVICE_PATH</name>
@@ -1210,7 +1210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gae83caab0ad82e78ab71452427952420b" prot="public" static="no">
         <name>FD_BRIDGE</name>
@@ -1221,7 +1221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga522c15c84f7693d74468d9acfb622674" prot="public" static="no">
         <name>FD_I2C1</name>
@@ -1232,7 +1232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gae650092dd9e6c887c70dd101e1c50ea4" prot="public" static="no">
         <name>LOG</name>
@@ -1244,7 +1244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga6e782e053460309f70bbf7725c92281d" prot="public" static="no">
         <name>SELECT_SPI_SDO</name>
@@ -1256,7 +1256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga2249249f336230523efb8f581095b276" prot="public" static="no">
         <name>RF_DATA_READ_BIT</name>
@@ -1267,7 +1267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gad760f894ea78fdd87d8958da6b2dc9e4" prot="public" static="no">
         <name>LMX_RESET_VAL</name>
@@ -1278,7 +1278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gaf3491c4539b425c3bb33bfad029d4491" prot="public" static="no">
         <name>LMK_RESET_VAL</name>
@@ -1289,7 +1289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="109" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="109" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga38573c1f83e13cf354635394560b9f9e" prot="public" static="no">
         <name>LMK_ADDRESS_STEP</name>
@@ -1300,7 +1300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga821e3ca79f0a3e3eb38c2b3d3aa37dc0" prot="public" static="no">
         <name>LMK_PORT_ID_MAX</name>
@@ -1311,7 +1311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="113" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gabbd5b805727ec32a83e63a3a0f27b08f" prot="public" static="no">
         <name>LMK_PORT_STATE_MAX</name>
@@ -1322,7 +1322,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="114" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gaa00643a1e4fc122bed7f7ac4c79c6e04" prot="public" static="no">
         <name>LMK_DCLKOUTX_DIV_MAX</name>
@@ -1333,7 +1333,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="115" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga44b71c38ade8a657f5117fe3bed93074" prot="public" static="no">
         <name>LMK_DCLKOUTX_MUX_MAX</name>
@@ -1344,7 +1344,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="116" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="116" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga73197961e6c72a99472e9e60925b7924" prot="public" static="no">
         <name>LMK_SDCLKOUTY_MUX_MAX</name>
@@ -1355,7 +1355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga2766616360915a2c5230cf5a62461cd4" prot="public" static="no">
         <name>LMK_SYSREF_DIV_MIN</name>
@@ -1366,7 +1366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga0198cc68d474c65e241e0edb93427562" prot="public" static="no">
         <name>LMK_SYSREF_DIV_MAX</name>
@@ -1377,7 +1377,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="119" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="119" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga421b4a4a14896dc71e8564e62accd11c" prot="public" static="no">
         <name>LMX_ADDRESS_SHIFT</name>
@@ -1388,7 +1388,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga181b843d95b7dfb2e74070bc30c96b9b" prot="public" static="no">
         <name>LMX_ADDRESS_BITFIELD</name>
@@ -1399,7 +1399,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga99f7171e61ee7778676d411acfbe5242" prot="public" static="no">
         <name>LMK_ADDRESS_SHIFT</name>
@@ -1410,7 +1410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gab69c4da775f646d960a9d4877f6b1b9e" prot="public" static="no">
         <name>LMK_ADDRESS_BITFIELD</name>
@@ -1421,7 +1421,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga2e7da5d749ce70ca99d5e8e9c9289618" prot="public" static="no">
         <name>I2C_ADDR_BUS_SWITCH</name>
@@ -1432,7 +1432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="126" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gaeacba92e86ff257afc585aa691089c88" prot="public" static="no">
         <name>I2C_ADDR_I2C2SPI_BRIDGE</name>
@@ -1443,7 +1443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="127" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gadc490f5393949370024b755969479460" prot="public" static="no">
         <name>I2C_ADDR_I2C_IO_EXPANDER</name>
@@ -1454,7 +1454,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gad072316a43aa15bccb567e269c3fbc8d" prot="public" static="no">
         <name>I2C_SWITCH_SELECT_I2C2SPI_BRIDGE</name>
@@ -1465,7 +1465,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gad30e99d36439ea2a4596f90d5d0440d5" prot="public" static="no">
         <name>I2C_MUX_SEL_0</name>
@@ -1476,7 +1476,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga0547d8dda688d7b36423c6df6e74fce6" prot="public" static="no">
         <name>I2C_MUX_SEL_1</name>
@@ -1487,7 +1487,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga3f6839ffe80223d0e661473c73c3c54f" prot="public" static="no">
         <name>NUM_IIC_RETRIES</name>
@@ -1498,7 +1498,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gafb88bf12d8a1611b7cc40a6fe0c35140" prot="public" static="no">
         <name>DELAY_100uS</name>
@@ -1509,7 +1509,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="133" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga118527b5c8cda635218915c83276c9d4" prot="public" static="no">
         <name>LMX_MUXOUT_REG_ADDR</name>
@@ -1520,7 +1520,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gaf10cad502479e2b11abdb905a7cbfdca" prot="public" static="no">
         <name>LMX_MUXOUT_REG_VAL</name>
@@ -1531,7 +1531,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gaa4e2d4a0093c6013ed7445f42afab525" prot="public" static="no">
         <name>LMK_MUXOUT_REG_ADDR</name>
@@ -1542,7 +1542,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga4d10bf1403114c22fec7597e9088c6e2" prot="public" static="no">
         <name>LMK_MUXOUT_REG_VAL</name>
@@ -1553,7 +1553,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="138" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="138" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga574988a6b9cf6b6daa6d851c4933ff09" prot="public" static="no">
         <name>MUXOUT_LD_SEL_BIT</name>
@@ -1564,7 +1564,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="139" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="139" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga7a2c24df8bba3fa360fe0676c6e7db25" prot="public" static="no">
         <name>LMK_CFG_OUTPUT_PORT0_ADDR</name>
@@ -1575,7 +1575,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="140" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga816a7b52f62252f0dea31b69551f0ba1" prot="public" static="no">
         <name>LMK_DCLKOUTX_DIV_PORT0_ADDR</name>
@@ -1586,7 +1586,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="141" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="141" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga496cb58cb17d5e0cccc722b056a5784c" prot="public" static="no">
         <name>LMK_DCLKOUTX_MUX_PORT0_ADDR</name>
@@ -1597,7 +1597,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga8386fd77cf99442289094c243ae66561" prot="public" static="no">
         <name>LMK_SDCLKOUTY_MUX_PORT0_ADDR</name>
@@ -1608,7 +1608,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="143" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga28985ae4d29b844b64617e7eee061c96" prot="public" static="no">
         <name>LMK_SYSREF_DIV_MSB_PORT0_ADDR</name>
@@ -1619,7 +1619,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga08d6543b64a4e98b906aa36b8f1c6735" prot="public" static="no">
         <name>LMK_SYSREF_DIV_LSB_PORT0_ADDR</name>
@@ -1630,7 +1630,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="145" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gac0186290ce61498d93bc07c95ab42aa3" prot="public" static="no">
         <name>GPIO_DATA_REG</name>
@@ -1641,7 +1641,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="155" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="155" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="155" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1gac87c51d2be32b398ab284cf20b6e780c" prot="public" static="no">
         <name>GPIO_CONTROL_REG</name>
@@ -1652,7 +1652,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="156" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="156" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___overview_1ga9b9a0897e16e2c7f537ce8460865df10" prot="public" static="no">
         <name>GPIO_REG_MASK</name>
@@ -1663,7 +1663,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="157" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

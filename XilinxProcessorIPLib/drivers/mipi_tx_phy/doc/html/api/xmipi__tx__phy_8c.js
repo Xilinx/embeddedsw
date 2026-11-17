@@ -6,6 +6,7 @@ var xmipi__tx__phy_8c =
     [ "XMipi_Tx_Phy_ClearDataLane", "xmipi__tx__phy_8c.html#ga0e324919c833e8a3044f5807a4e88a6f", null ],
     [ "XMipi_Tx_Phy_Configure", "xmipi__tx__phy_8c.html#ga0edf3de0af6e081ab9ec6ba03bcb029d", null ],
     [ "XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl", "xmipi__tx__phy_8c.html#ga7f6c18e9dd2eef7c55eef23816c6dbe4", null ],
+    [ "XMipi_Tx_Phy_DynamicLineRateConfig", "xmipi__tx__phy_8c.html#ga706c8c6b8813626eaccfa857577b4faa", null ],
     [ "XMipi_Tx_Phy_En_Prog_Seq_Ctrl", "xmipi__tx__phy_8c.html#ga5c275c8e3a30477d7ff543a063e51092", null ],
     [ "XMipi_Tx_Phy_Get_Prog_Seq_Ctrl", "xmipi__tx__phy_8c.html#gafb2a651e2b9700aa1052e69b04187b1a", null ],
     [ "XMipi_Tx_Phy_Get_Seq_Data", "xmipi__tx__phy_8c.html#ga83eeee796bbf6191c38c715f586fe653", null ],

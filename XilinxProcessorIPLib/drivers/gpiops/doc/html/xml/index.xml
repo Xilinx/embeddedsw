@@ -46,7 +46,6 @@
     <member refid="group__gpiops_1gaaa0415781a99043db06849daa027d5c5" kind="define"><name>XGPIOPS_IRQ_TYPE_EDGE_BOTH</name></member>
     <member refid="group__gpiops_1ga09bf1d6e818f6f442ba61535f8e855ea" kind="define"><name>XGPIOPS_IRQ_TYPE_LEVEL_HIGH</name></member>
     <member refid="group__gpiops_1ga84b599940b75f6e1d6920c7b33fc2789" kind="define"><name>XGPIOPS_IRQ_TYPE_LEVEL_LOW</name></member>
-    <member refid="group__gpiops_1ga5e68d2ebc1ac8f1b759c0945ad6ef78b" kind="define"><name>XGPIOPS_H</name></member>
     <member refid="group__gpiops_1ga1e440e05bbea534ebf6939e88eb1455f" kind="define"><name>XGPIOPS_BANK_MAX_PINS</name></member>
     <member refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kind="define"><name>XGPIOPS_BANK0</name></member>
     <member refid="group__gpiops_1ga88ebd56b0defc49ebd308951df1eaf0e" kind="define"><name>XGPIOPS_BANK1</name></member>
@@ -123,7 +122,6 @@
     <member refid="group__gpiops_1gafa809c9d03d6939520e98babf4361100" kind="define"><name>XGPIOPS_INTTYPE_BANK3_RESET</name></member>
     <member refid="group__gpiops_1ga514054481f5f916ee70f5d8ea40d926b" kind="define"><name>XGPIOPS_INTTYPE_BANK4_RESET</name></member>
     <member refid="group__gpiops_1gae5904f463885a5fda6141f578da35bea" kind="define"><name>XGPIOPS_INTTYPE_BANK5_RESET</name></member>
-    <member refid="group__gpiops_1gae9716887ddbdd1ac6093380b90d0eb57" kind="define"><name>XGPIOPS_HW_H</name></member>
     <member refid="group__gpiops_1gac021029c611041a62843fbf68caa22de" kind="define"><name>XGPIOPS_BYPM_MASK_OFFSET</name></member>
     <member refid="group__gpiops_1ga4d0720a82ffbc02f22a5a2483415687a" kind="define"><name>XGPIOPS_PS_GPIO_BASEADDR</name></member>
     <member refid="group__gpiops_1ga7bd601d046958f33b4fcd879f4fd6e5d" kind="define"><name>XGPIOPS_ZERO</name></member>
@@ -250,7 +248,6 @@
     <member refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" kind="function"><name>XGpioPs_IntrClearPin</name></member>
     <member refid="group__gpiops_1gaa868b1653edcba528a6f4d5d70334a29" kind="function"><name>XGpioPs_LookupConfig</name></member>
     <member refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" kind="function"><name>XGpioPs_ResetHw</name></member>
-    <member refid="group__gpiops_1ga5e68d2ebc1ac8f1b759c0945ad6ef78b" kind="define"><name>XGPIOPS_H</name></member>
     <member refid="group__gpiops_1ga1e440e05bbea534ebf6939e88eb1455f" kind="define"><name>XGPIOPS_BANK_MAX_PINS</name></member>
     <member refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kind="define"><name>XGPIOPS_BANK0</name></member>
     <member refid="group__gpiops_1ga88ebd56b0defc49ebd308951df1eaf0e" kind="define"><name>XGPIOPS_BANK1</name></member>
@@ -263,7 +260,6 @@
     <member refid="group__gpiops_1ga2a4b2e730c0c6dee73b64f9914de6861" kind="define"><name>XGPIOPS_MAX_BANKS_CNT</name></member>
     <member refid="group__gpiops_1ga8f80173cb28cbac5bab53c4fc7c7dd96" kind="define"><name>XGPIOPS_DEVICE_MAX_PIN_NUM_ZYNQMP</name></member>
     <member refid="group__gpiops_1ga6d70822b76e1dd3fda458ed693a082af" kind="define"><name>XGPIOPS_DEVICE_MAX_PIN_NUM</name></member>
-    <member refid="group__gpiops_1gae9716887ddbdd1ac6093380b90d0eb57" kind="define"><name>XGPIOPS_HW_H</name></member>
     <member refid="group__gpiops_1gac021029c611041a62843fbf68caa22de" kind="define"><name>XGPIOPS_BYPM_MASK_OFFSET</name></member>
     <member refid="group__gpiops_1ga4d0720a82ffbc02f22a5a2483415687a" kind="define"><name>XGPIOPS_PS_GPIO_BASEADDR</name></member>
     <member refid="group__gpiops_1ga7bd601d046958f33b4fcd879f4fd6e5d" kind="define"><name>XGPIOPS_ZERO</name></member>

@@ -1,0 +1,659 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__update_8h" kind="file">
+    <compoundname>xpm_update.h</compoundname>
+    <includes refid="xpm__debug_8h" local="yes">xpm_debug.h</includes>
+    <includes refid="xpm__common_8h" local="yes">xpm_common.h</includes>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includedby refid="xpm__update_8c" local="yes">xpm_update.c</includedby>
+    <incdepgraph>
+      <node id="9733">
+        <label>xpm_debug.h</label>
+        <childnode refid="9734" relation="include">
+        </childnode>
+      </node>
+      <node id="9736">
+        <label>xil_io.h</label>
+      </node>
+      <node id="9741">
+        <label>xpm_node.h</label>
+        <childnode refid="9742" relation="include">
+        </childnode>
+        <childnode refid="9735" relation="include">
+        </childnode>
+        <childnode refid="9743" relation="include">
+        </childnode>
+        <childnode refid="9734" relation="include">
+        </childnode>
+      </node>
+      <node id="9738">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="9737">
+        <label>xil_util.h</label>
+      </node>
+      <node id="9739">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="9735">
+        <label>xstatus.h</label>
+      </node>
+      <node id="9732">
+        <label>xpm_update.h</label>
+        <link refid="xpm_update.h"/>
+        <childnode refid="9733" relation="include">
+        </childnode>
+        <childnode refid="9734" relation="include">
+        </childnode>
+        <childnode refid="9741" relation="include">
+        </childnode>
+      </node>
+      <node id="9743">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="9742">
+        <label>xil_types.h</label>
+      </node>
+      <node id="9740">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="9734">
+        <label>xpm_common.h</label>
+        <childnode refid="9735" relation="include">
+        </childnode>
+        <childnode refid="9736" relation="include">
+        </childnode>
+        <childnode refid="9737" relation="include">
+        </childnode>
+        <childnode refid="9738" relation="include">
+        </childnode>
+        <childnode refid="9739" relation="include">
+        </childnode>
+        <childnode refid="9740" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9745">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="9744">
+        <label>xpm_update.h</label>
+        <link refid="xpm_update.h"/>
+        <childnode refid="9745" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___save_region_info" prot="public">XPm_SaveRegionInfo</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__update_8h_1af89f4d2d8177557601d0ebd71d4500bf" prot="public" static="no">
+        <name>member_size</name>
+        <param><defname>type</defname></param>
+        <param><defname>member</defname></param>
+        <initializer>sizeof(((type *)0)-&gt;member)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="11" column="20" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a800c3f346e26deaf6b3aef460f9055ba" prot="public" static="no">
+        <name>PSM_UPDATE_REG_STATE</name>
+        <initializer>(0xF20142C0U) /** Register to store state of PSM update*/</initializer>
+        <briefdescription>
+<para>PSM update related definition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a6db7285bd784deec8479f1e2bc3fb058" prot="public" static="no">
+        <name>PSM_UPDATE_STATE_INIT</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>States of PSM update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1aee13eb99b73acd664440479bea6a539c" prot="public" static="no">
+        <name>PSM_UPDATE_STATE_SHUTDOWN_START</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1ac13aec200aa67f2e068270e9e72efa9b" prot="public" static="no">
+        <name>PSM_UPDATE_STATE_SHUTDOWN_DONE</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a39af09315cc3a5f739ffcb38020e730a" prot="public" static="no">
+        <name>PSM_UPDATE_STATE_LOAD_ELF_DONE</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a9e638faf0a0be9d3cd084560b0e0c4c6" prot="public" static="no">
+        <name>PSM_UPDATE_STATE_FINISHED</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a796e914eb87a1d95b8d9d2970361b13e" prot="public" static="no">
+        <name>LIST_OF_XPM_TYPE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1acedba8da84a2ba2bad785f2855ef47d4" prot="public" static="no">
+        <name>INDEX</name>
+        <param><defname>T</defname></param>
+        <initializer>Index_##T</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1adca1c983a98dba734ec82a49766ac278" prot="public" static="no">
+        <name>X</name>
+        <param><defname>T</defname></param>
+        <initializer>INDEX(T),</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a842f1804ab6214d6cbbe7d60c91472a5" prot="public" static="no">
+        <name>RoundToWordAddr</name>
+        <param><defname>Addr</defname></param>
+        <initializer>(((Addr)+3)&amp;(~0x03U))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a5f37fe768a95cc663d6ac2974122abfe" prot="public" static="no">
+        <name>RESTORE_REGION</name>
+        <param><defname>SavedNode</defname></param>
+        <param><defname>SrInfo</defname></param>
+        <param><defname>Node</defname></param>
+        <initializer>XPmUpdate_RegionRestore(\
+			(u8*)((u32)SavedNode + SrInfo.Offset), SrInfo.Size,\
+			(u8*)(&amp;((Node)-&gt;save)), sizeof((Node)-&gt;save));</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a74ddb6bfe74b22ff37d0ab90c539dbbe" prot="public" static="no">
+        <name>XPM_UPDATE_THROW_IF_ERROR</name>
+        <param><defname>Status</defname></param>
+        <param><defname>NodeData</defname></param>
+        <initializer>{ \
+	if (XST_SUCCESS != Status) { \
+		PmErr(&quot;Error:[%s %d] NodeId=0x%x Status = 0x%x\n\r&quot;, __func__, __LINE__,NodeData?((XPm_Node*)NodeData)-&gt;Id:0, Status); \
+	} \
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1aec9d0ed11ca648aecfbd9d5cae0c0a91" prot="public" static="no">
+        <name>RESTORE</name>
+        <param><defname>TYPE</defname></param>
+        <param><defname>SAVED_OBJ</defname></param>
+        <param><defname>OBJ</defname></param>
+        <initializer>TYPE##_Restore((TYPE*)SAVED_OBJ,(TYPE*)OBJ);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a1a61628410bf2c993dd5f42b8b520a12" prot="public" static="no">
+        <name>GENERIC_RESTORE</name>
+        <param><defname>TYPE</defname></param>
+        <param><defname>SAVED_OBJ</defname></param>
+        <param><defname>OBJ</defname></param>
+        <initializer>TYPE##_Generic_Restore((TYPE*)SAVED_OBJ,(TYPE*)OBJ);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a5238ef01c6eab1b5c0a50d282cdf115c" prot="public" static="no">
+        <name>MAKE_GENERIC_RESTORE_FUNC</name>
+        <param><defname>Type</defname></param>
+        <param><defname>BaseType</defname></param>
+        <param><defname>BaseName</defname></param>
+        <initializer>static XStatus Type##_Generic_Restore(Type *SavedNode, Type *Node) {\
+	XStatus Status = XST_FAILURE; \
+	Status = BaseType## _Restore(&amp;(SavedNode-&gt;BaseName), &amp;(Node-&gt;BaseName));\
+	if (XST_SUCCESS != Status) {\
+		    goto done;\
+	}\
+	XPm_SaveRegionInfo SrInfo = AllSaveRegionsInfo[Index_##Type];\
+	Status = RESTORE_REGION(SavedNode, SrInfo, Node);\
+	if (XST_SUCCESS != Status) {\
+		goto done;\
+	}\
+	Status = XST_SUCCESS;\
+done:\
+	return Status;\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__update_8h_1a44a904054c14b707d3c25cf3d6acda9f" prot="public" static="no">
+        <name>MAKE_RESTORE_FUNC</name>
+        <param><defname>Type</defname></param>
+        <param><defname>BaseType</defname></param>
+        <param><defname>BaseName</defname></param>
+        <initializer>MAKE_GENERIC_RESTORE_FUNC(Type, BaseType, BaseName) \
+static XStatus Type##_Restore(Type *SavedNode, Type *Node) {\
+	XStatus Status = XST_FAILURE; \
+	Status = Type##_Generic_Restore(SavedNode, Node);\
+	if (XST_SUCCESS != Status) {\
+		goto done;\
+	}\
+	Status = XST_SUCCESS;\
+done:\
+	return Status;\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__update_8h_1a99fb83031ce9923c84392b4e92f956b5" prot="public" static="no">
+        <name>@2</name>
+        <enumvalue id="xpm__update_8h_1a99fb83031ce9923c84392b4e92f956b5a5f0c05bad71a7b0dd266aae7ce4b3579" prot="public">
+          <name>INDEX</name>
+          <initializer>=(XPm_Invalid)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__update_8h_1a99fb83031ce9923c84392b4e92f956b5a7fe960ea14ef456f8fe00d4e8d707c79" prot="public">
+          <name>LIST_OF_XPM_TYPE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" bodystart="61" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__update_8h_1a41524b210e81f8351456494a67aba4df" prot="public" static="no">
+        <type>struct XPm_SaveRegionInfo</type>
+        <definition>typedef struct XPm_SaveRegionInfo  XPm_SaveRegionInfo</definition>
+        <argsstring></argsstring>
+        <name>XPm_SaveRegionInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="73" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__update_8h_1ab7e63c21eaabfc0dfadf04034ee9704c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmUpdate_AllNodes_Add</definition>
+        <argsstring>(XPm_Node *Node)</argsstring>
+        <name>XPmUpdate_AllNodes_Add</name>
+        <param>
+          <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref> *</type>
+          <declname>Node</declname>
+        </param>
+        <briefdescription>
+<para>Add a node to AllNodes array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Node</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to a Node to be added </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="250" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1a6222a619fab5701f1ab75c09a4aed62b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmUpdate_RestoreAllNodes</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmUpdate_RestoreAllNodes</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Restore all nodes. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the top level function call for restoring ByteBuffer</para><para><simplesect kind="return"><para>XST_SUCCESS if there&apos;s no error. XST_NO_FEATURE if there&apos;s no implementation of restore function for given nodeID </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="870" bodyend="956"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1a970f1332d2b870d93d2f4bebee23f2db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmUpdate_ShutdownPsm</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmUpdate_ShutdownPsm</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Disable all PSM interrupts </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="990" bodyend="1030"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1a094c116135768cd6420670773f48da50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmUpdate_ResetPsm</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmUpdate_ResetPsm</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="958" bodyend="978"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1ab929ea9337b2f0ac3eb9de684ac1b7c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmUpdate_PsmUpdateSetState</definition>
+        <argsstring>(u32 State)</argsstring>
+        <name>XPmUpdate_PsmUpdateSetState</name>
+        <param>
+          <type>u32</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="980" bodyend="983"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1a6edc87917418ff1d2e745f0427e44470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmUpdate_PsmUpdateGetState</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmUpdate_PsmUpdateGetState</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="985" bodyend="988"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1a6e7f0e3d3f4c4ff12057695f7e9f04c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmUpdate_LoadPsmElf</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPmUpdate_LoadPsmElf</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="125" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8h_1a420b821a5b568af8078b67602e381f12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPmUpdate_ShutdownHandler</definition>
+        <argsstring>(XPlmi_ModuleOp Op)</argsstring>
+        <name>XPmUpdate_ShutdownHandler</name>
+        <param>
+          <type>XPlmi_ModuleOp</type>
+          <declname>Op</declname>
+        </param>
+        <briefdescription>
+<para>This function provides update handler for xilpm. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the module operation variable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success and error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.c" bodystart="1041" bodyend="1092"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_UPDATE_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_UPDATE_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>member_size(type,<sp/>member)<sp/>sizeof(((type<sp/>*)0)-&gt;member)</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor">#define<sp/>PSM_UPDATE_REG_STATE<sp/>(0xF20142C0U)<sp/></highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor">#define<sp/>PSM_UPDATE_STATE_INIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_UPDATE_STATE_SHUTDOWN_START<sp/>0x1U</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_UPDATE_STATE_SHUTDOWN_DONE<sp/><sp/>0x2U</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_UPDATE_STATE_LOAD_ELF_DONE<sp/><sp/>0x3U</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PSM_UPDATE_STATE_FINISHED<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="comment">/*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>is<sp/>the<sp/>List<sp/>of<sp/><sp/>of<sp/>type<sp/>that<sp/>we<sp/>use<sp/>to<sp/>save<sp/>and<sp/>restore*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIST_OF_XPM_TYPE\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Node)\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Subsystem)\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Power)\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_ClockNode)\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_ResetNode)\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PinNode)\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Device)\</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Iso)\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PowerDomain)\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PmcDomain)\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PsFpDomain)\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PsLpDomain)\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_NpDomain)\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_CpmDomain)\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PlDomain)\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_HnicxDomain)\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Rail)\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Regulator)\</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PllClockNode)\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_OutClockNode)\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_PlDevice)\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_MemCtrlrDevice)\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_MemRegnDevice)\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Core)\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Pmc)\</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Psm)\</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_ApuCore)\</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_RpuCore)\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_MemDevice)\</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Periph)\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>X(XPm_Requirement)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INDEX(T)<sp/>Index_##T</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>X(T)<sp/>INDEX(T),</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INDEX(XPm_Invalid),</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIST_OF_XPM_TYPE</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INDEX(XPm_Max)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#undef<sp/>X</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RoundToWordAddr(Addr)<sp/>(((Addr)+3)&amp;(~0x03U))</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPm_SaveRegionInfo<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/>XPm_SaveRegionInfo;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESTORE_REGION(SavedNode,<sp/>SrInfo,<sp/>Node)<sp/>\</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmUpdate_RegionRestore(\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8*)((u32)SavedNode<sp/>+<sp/>SrInfo.Offset),<sp/>SrInfo.Size,\</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8*)(&amp;((Node)-&gt;save)),<sp/>sizeof((Node)-&gt;save));</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmUpdate_AllNodes_Add(<ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref>*<sp/>Node);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">XStatus<sp/>XPmUpdate_RestoreAllNodes(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPM_UPDATE_THROW_IF_ERROR(Status,<sp/>NodeData)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmErr(&quot;Error:[%s<sp/>%d]<sp/>NodeId=0x%x<sp/>Status<sp/>=<sp/>0x%x\n\r&quot;,<sp/>__func__,<sp/>__LINE__,NodeData?((XPm_Node*)NodeData)-&gt;Id:0,<sp/>Status);<sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Calling<sp/>restore<sp/>of<sp/>type<sp/>on<sp/>2<sp/>params<sp/>:<sp/>saved<sp/>and<sp/>current<sp/>objects*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESTORE(TYPE,<sp/>SAVED_OBJ,<sp/>OBJ)<sp/>TYPE##_Restore((TYPE*)SAVED_OBJ,(TYPE*)OBJ);</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GENERIC_RESTORE(TYPE,<sp/>SAVED_OBJ,<sp/>OBJ)<sp/>TYPE##_Generic_Restore((TYPE*)SAVED_OBJ,(TYPE*)OBJ);</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAKE_GENERIC_RESTORE_FUNC(Type,<sp/>BaseType,<sp/>BaseName)<sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">static<sp/>XStatus<sp/>Type##_Generic_Restore(Type<sp/>*SavedNode,<sp/>Type<sp/>*Node)<sp/>{\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;<sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>BaseType##<sp/>_Restore(&amp;(SavedNode-&gt;BaseName),<sp/>&amp;(Node-&gt;BaseName));\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>goto<sp/>done;\</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPm_SaveRegionInfo<sp/>SrInfo<sp/>=<sp/>AllSaveRegionsInfo[Index_##Type];\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>RESTORE_REGION(SavedNode,<sp/>SrInfo,<sp/>Node);\</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{\</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>goto<sp/>done;\</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}\</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;\</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">done:\</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>Status;\</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAKE_RESTORE_FUNC(Type,<sp/>BaseType,<sp/>BaseName)<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">MAKE_GENERIC_RESTORE_FUNC(Type,<sp/>BaseType,<sp/>BaseName)<sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">static<sp/>XStatus<sp/>Type##_Restore(Type<sp/>*SavedNode,<sp/>Type<sp/>*Node)<sp/>{\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Type##_Generic_Restore(SavedNode,<sp/>Node);\</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{\</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>goto<sp/>done;\</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}\</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;\</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">done:\</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>Status;\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal">XStatus<sp/>XPmUpdate_ShutdownPsm(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">XStatus<sp/>XPmUpdate_ResetPsm(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPmUpdate_PsmUpdateSetState(u32<sp/>State);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">u32<sp/>XPmUpdate_PsmUpdateGetState(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">XStatus<sp/>XPmUpdate_LoadPsmElf(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPmUpdate_ShutdownHandler(XPlmi_ModuleOp<sp/>Op);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_UPDATE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_update.h"/>
+  </compounddef>
+</doxygen>

@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_mbox_tag.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,54 +112,241 @@ $(document).ready(function(){initNavTree('struct_x_mbox_tag.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Data structure used to refer XilMailbox.
+<p>Stores the XilMailbox instance data.
  <a href="struct_x_mbox_tag.html#details">More...</a></p>
 
 <p><code>#include &lt;xilmailbox.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:gac988653f4102330b66dffc80008e5947"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gac988653f4102330b66dffc80008e5947">XMbox_IPI_Send</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, u8 Is_Blocking)</td></tr>
-<tr class="memdesc:gac988653f4102330b66dffc80008e5947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="group__xilmailbox.html#gac988653f4102330b66dffc80008e5947">More...</a><br/></td></tr>
-<tr class="separator:gac988653f4102330b66dffc80008e5947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad2979174f02c95bba9e1a9a82da86eb6"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gad2979174f02c95bba9e1a9a82da86eb6">XMbox_IPI_SendData</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</td></tr>
-<tr class="memdesc:gad2979174f02c95bba9e1a9a82da86eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an IPI message to a destination CPU.  <a href="group__xilmailbox.html#gad2979174f02c95bba9e1a9a82da86eb6">More...</a><br/></td></tr>
-<tr class="separator:gad2979174f02c95bba9e1a9a82da86eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacfc620b1b6bee8a53e35bd937d01ef9a"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gacfc620b1b6bee8a53e35bd937d01ef9a">XMbox_IPI_Recv</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType)</td></tr>
-<tr class="memdesc:gacfc620b1b6bee8a53e35bd937d01ef9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an IPI message.  <a href="group__xilmailbox.html#gacfc620b1b6bee8a53e35bd937d01ef9a">More...</a><br/></td></tr>
-<tr class="separator:gacfc620b1b6bee8a53e35bd937d01ef9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1687a2438f51998be0cafbc559e09186"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga1687a2438f51998be0cafbc559e09186">XMbox_IPI_SendById</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, u32 RemoteId, u8 Is_Blocking)</td></tr>
-<tr class="memdesc:ga1687a2438f51998be0cafbc559e09186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="group__xilmailbox.html#ga1687a2438f51998be0cafbc559e09186">More...</a><br/></td></tr>
-<tr class="separator:ga1687a2438f51998be0cafbc559e09186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf9d549f3ca388507298b27e82a714130"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gaf9d549f3ca388507298b27e82a714130">XMbox_IPI_SendDataById</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking)</td></tr>
-<tr class="memdesc:gaf9d549f3ca388507298b27e82a714130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an IPI message to a destination CPU.  <a href="group__xilmailbox.html#gaf9d549f3ca388507298b27e82a714130">More...</a><br/></td></tr>
-<tr class="separator:gaf9d549f3ca388507298b27e82a714130"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3f752913cc2e1c824a969a5a0703066"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gaf3f752913cc2e1c824a969a5a0703066">XMbox_IPI_RecvById</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u32 SourceId, u8 BufferType)</td></tr>
-<tr class="memdesc:gaf3f752913cc2e1c824a969a5a0703066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an IPI message.  <a href="group__xilmailbox.html#gaf3f752913cc2e1c824a969a5a0703066">More...</a><br/></td></tr>
-<tr class="separator:gaf3f752913cc2e1c824a969a5a0703066"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga19abe88291a590c4043f0c14f3abbea6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xilmailbox.html#ga8c6dc8e77b4ca1440fff62efadefa502">XMailbox_RecvHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga19abe88291a590c4043f0c14f3abbea6">RecvHandler</a></td></tr>
-<tr class="memdesc:ga19abe88291a590c4043f0c14f3abbea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive handler.  <a href="group__xilmailbox.html#ga19abe88291a590c4043f0c14f3abbea6">More...</a><br/></td></tr>
-<tr class="separator:ga19abe88291a590c4043f0c14f3abbea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94ad8c15322f8aa87898da64c12d680c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xilmailbox.html#ga2dd8ee990e164df828207776499cf9bc">XMailbox_ErrorHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga94ad8c15322f8aa87898da64c12d680c">ErrorHandler</a></td></tr>
-<tr class="memdesc:ga94ad8c15322f8aa87898da64c12d680c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for rx IPI event.  <a href="group__xilmailbox.html#ga94ad8c15322f8aa87898da64c12d680c">More...</a><br/></td></tr>
-<tr class="separator:ga94ad8c15322f8aa87898da64c12d680c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga28ee974b8253aed6cd98a41d017e92b5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga28ee974b8253aed6cd98a41d017e92b5">ErrorRefPtr</a></td></tr>
-<tr class="memdesc:ga28ee974b8253aed6cd98a41d017e92b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be passed to the error interrupt callback.  <a href="group__xilmailbox.html#ga28ee974b8253aed6cd98a41d017e92b5">More...</a><br/></td></tr>
-<tr class="separator:ga28ee974b8253aed6cd98a41d017e92b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacd81ebeec1ff8eb6bbd4b62922688353"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gacd81ebeec1ff8eb6bbd4b62922688353">RecvRefPtr</a></td></tr>
-<tr class="memdesc:gacd81ebeec1ff8eb6bbd4b62922688353"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be passed to the receive interrupt callback.  <a href="group__xilmailbox.html#gacd81ebeec1ff8eb6bbd4b62922688353">More...</a><br/></td></tr>
-<tr class="separator:gacd81ebeec1ff8eb6bbd4b62922688353"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga74c5b640e4fca80f8de65a5c516f6674"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_mailbox___agent.html">XMailbox_Agent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga74c5b640e4fca80f8de65a5c516f6674">Agent</a></td></tr>
-<tr class="memdesc:ga74c5b640e4fca80f8de65a5c516f6674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agent to store IPI channel information.  <a href="group__xilmailbox.html#ga74c5b640e4fca80f8de65a5c516f6674">More...</a><br/></td></tr>
-<tr class="separator:ga74c5b640e4fca80f8de65a5c516f6674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7807e734780a6c78cf0129b065d8a0b3"><td class="memItemLeft" align="right" valign="top">XMailbox_IpiSharedMem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga7807e734780a6c78cf0129b065d8a0b3">SharedMem</a></td></tr>
-<tr class="memdesc:ga7807e734780a6c78cf0129b065d8a0b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">shared memory segment  <a href="group__xilmailbox.html#ga7807e734780a6c78cf0129b065d8a0b3">More...</a><br/></td></tr>
-<tr class="separator:ga7807e734780a6c78cf0129b065d8a0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac988653f4102330b66dffc80008e5947"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#ac988653f4102330b66dffc80008e5947">XMbox_IPI_Send</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, u8 Is_Blocking)</td></tr>
+<tr class="memdesc:ac988653f4102330b66dffc80008e5947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="#ac988653f4102330b66dffc80008e5947">More...</a><br/></td></tr>
+<tr class="separator:ac988653f4102330b66dffc80008e5947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2979174f02c95bba9e1a9a82da86eb6"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#ad2979174f02c95bba9e1a9a82da86eb6">XMbox_IPI_SendData</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</td></tr>
+<tr class="memdesc:ad2979174f02c95bba9e1a9a82da86eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an IPI message to a destination CPU.  <a href="#ad2979174f02c95bba9e1a9a82da86eb6">More...</a><br/></td></tr>
+<tr class="separator:ad2979174f02c95bba9e1a9a82da86eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc620b1b6bee8a53e35bd937d01ef9a"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#acfc620b1b6bee8a53e35bd937d01ef9a">XMbox_IPI_Recv</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType)</td></tr>
+<tr class="memdesc:acfc620b1b6bee8a53e35bd937d01ef9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an IPI message.  <a href="#acfc620b1b6bee8a53e35bd937d01ef9a">More...</a><br/></td></tr>
+<tr class="separator:acfc620b1b6bee8a53e35bd937d01ef9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1687a2438f51998be0cafbc559e09186"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#a1687a2438f51998be0cafbc559e09186">XMbox_IPI_SendById</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, u32 RemoteId, u8 Is_Blocking)</td></tr>
+<tr class="memdesc:a1687a2438f51998be0cafbc559e09186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an IPI to a destination CPU.  <a href="#a1687a2438f51998be0cafbc559e09186">More...</a><br/></td></tr>
+<tr class="separator:a1687a2438f51998be0cafbc559e09186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d549f3ca388507298b27e82a714130"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#af9d549f3ca388507298b27e82a714130">XMbox_IPI_SendDataById</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking)</td></tr>
+<tr class="memdesc:af9d549f3ca388507298b27e82a714130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an IPI message to a destination CPU.  <a href="#af9d549f3ca388507298b27e82a714130">More...</a><br/></td></tr>
+<tr class="separator:af9d549f3ca388507298b27e82a714130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3f752913cc2e1c824a969a5a0703066"><td class="memItemLeft" align="right" valign="top">u32(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#af3f752913cc2e1c824a969a5a0703066">XMbox_IPI_RecvById</a> )(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u32 SourceId, u8 BufferType)</td></tr>
+<tr class="memdesc:af3f752913cc2e1c824a969a5a0703066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an IPI message.  <a href="#af3f752913cc2e1c824a969a5a0703066">More...</a><br/></td></tr>
+<tr class="separator:af3f752913cc2e1c824a969a5a0703066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19abe88291a590c4043f0c14f3abbea6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xilmailbox.html#ga8c6dc8e77b4ca1440fff62efadefa502">XMailbox_RecvHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#a19abe88291a590c4043f0c14f3abbea6">RecvHandler</a></td></tr>
+<tr class="memdesc:a19abe88291a590c4043f0c14f3abbea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive handler.  <a href="#a19abe88291a590c4043f0c14f3abbea6">More...</a><br/></td></tr>
+<tr class="separator:a19abe88291a590c4043f0c14f3abbea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94ad8c15322f8aa87898da64c12d680c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xilmailbox.html#ga2dd8ee990e164df828207776499cf9bc">XMailbox_ErrorHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#a94ad8c15322f8aa87898da64c12d680c">ErrorHandler</a></td></tr>
+<tr class="memdesc:a94ad8c15322f8aa87898da64c12d680c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for rx IPI event.  <a href="#a94ad8c15322f8aa87898da64c12d680c">More...</a><br/></td></tr>
+<tr class="separator:a94ad8c15322f8aa87898da64c12d680c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ee974b8253aed6cd98a41d017e92b5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#a28ee974b8253aed6cd98a41d017e92b5">ErrorRefPtr</a></td></tr>
+<tr class="memdesc:a28ee974b8253aed6cd98a41d017e92b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference passed to the error interrupt callback.  <a href="#a28ee974b8253aed6cd98a41d017e92b5">More...</a><br/></td></tr>
+<tr class="separator:a28ee974b8253aed6cd98a41d017e92b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd81ebeec1ff8eb6bbd4b62922688353"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#acd81ebeec1ff8eb6bbd4b62922688353">RecvRefPtr</a></td></tr>
+<tr class="memdesc:acd81ebeec1ff8eb6bbd4b62922688353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference passed to the receive interrupt callback.  <a href="#acd81ebeec1ff8eb6bbd4b62922688353">More...</a><br/></td></tr>
+<tr class="separator:acd81ebeec1ff8eb6bbd4b62922688353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c5b640e4fca80f8de65a5c516f6674"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_mailbox___agent.html">XMailbox_Agent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#a74c5b640e4fca80f8de65a5c516f6674">Agent</a></td></tr>
+<tr class="memdesc:a74c5b640e4fca80f8de65a5c516f6674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agent that stores the IPI channel information.  <a href="#a74c5b640e4fca80f8de65a5c516f6674">More...</a><br/></td></tr>
+<tr class="separator:a74c5b640e4fca80f8de65a5c516f6674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7807e734780a6c78cf0129b065d8a0b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_mailbox___ipi_shared_mem.html">XMailbox_IpiSharedMem</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mbox_tag.html#a7807e734780a6c78cf0129b065d8a0b3">SharedMem</a></td></tr>
+<tr class="memdesc:a7807e734780a6c78cf0129b065d8a0b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared memory segment.  <a href="#a7807e734780a6c78cf0129b065d8a0b3">More...</a><br/></td></tr>
+<tr class="separator:a7807e734780a6c78cf0129b065d8a0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data structure used to refer XilMailbox. </p>
-<dl class="section attention"><dt>Attention</dt><dd>: The following function pointers XMbox_IPI_Send, XMbox_IPI_SendData, XMbox_IPI_Recv will be deprecated in 2026.2 and will be made obsolete in 2027.1 release. </dd></dl>
-</div></div><!-- contents -->
+<div class="textblock"><p>Stores the XilMailbox instance data. </p>
+<dl class="section attention"><dt>Attention</dt><dd>The XMbox_IPI_Send, XMbox_IPI_SendData, and XMbox_IPI_Recv function pointers are deprecated in 2026.2 and become obsolete in the 2027.1 release. </dd></dl>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a74c5b640e4fca80f8de65a5c516f6674"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_mailbox___agent.html">XMailbox_Agent</a> XMboxTag::Agent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Agent that stores the IPI channel information. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga3ec66bb2a5cd007668bd5096471f691d">XIpiPs_Init()</a>, <a class="el" href="group__xilmailbox.html#ga4f8f4f223ac7cab8c35b259803256e50">XIpiPs_IntrHandler()</a>, <a class="el" href="group__xilmailbox.html#gadb81c93bcb13ef48d004b89eb27ecc6c">XIpiPs_PollforDone()</a>, <a class="el" href="group__xilmailbox.html#ga8102ed0d9a2448e2754d4036b0aeebac">XIpiPs_PollforDoneById()</a>, <a class="el" href="group__xilmailbox.html#ga56a6cdab3dba08f469f27b341aa3c178">XIpiPs_RecvData()</a>, <a class="el" href="group__xilmailbox.html#ga76681a9ebd3706299aa0fa85874c0b40">XIpiPs_RecvDataById()</a>, <a class="el" href="group__xilmailbox.html#ga4da6358addbe4237f3982d5b5b06c228">XIpiPs_RegisterIrq()</a>, <a class="el" href="group__xilmailbox.html#gafe03d42ebcf3d3e93c2fb709de6e9142">XIpiPs_Send()</a>, <a class="el" href="group__xilmailbox.html#ga0fd5f2755e0951d389b6b83c619e21c6">XIpiPs_SendById()</a>, <a class="el" href="group__xilmailbox.html#gae6a5843a165afbc782fb45ab48e8b77d">XIpiPs_SendData()</a>, <a class="el" href="group__xilmailbox.html#gaecaec4da5fe63fb55a3a71eba12b8e05">XIpiPs_SendDataById()</a>, <a class="el" href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">XMailbox_Recv()</a>, <a class="el" href="group__xilmailbox.html#ga3b1215935d7ba605846e3a13f015e956">XMailbox_Send()</a>, and <a class="el" href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">XMailbox_SendData()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a94ad8c15322f8aa87898da64c12d680c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__xilmailbox.html#ga2dd8ee990e164df828207776499cf9bc">XMailbox_ErrorHandler</a> XMboxTag::ErrorHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for rx IPI event. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga3f7e6c0a58db61bda83ef28be9acba71">XIpiPs_ErrorIntrHandler()</a>, <a class="el" href="xilmailbox__example_8c.html#addd368c43de7b39b14e97fc7a8b61551">XMailbox_Example()</a>, and <a class="el" href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">XMailbox_SetCallBack()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a28ee974b8253aed6cd98a41d017e92b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XMboxTag::ErrorRefPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reference passed to the error interrupt callback. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga3f7e6c0a58db61bda83ef28be9acba71">XIpiPs_ErrorIntrHandler()</a>, and <a class="el" href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">XMailbox_SetCallBack()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a19abe88291a590c4043f0c14f3abbea6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__xilmailbox.html#ga8c6dc8e77b4ca1440fff62efadefa502">XMailbox_RecvHandler</a> XMboxTag::RecvHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive handler. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga4f8f4f223ac7cab8c35b259803256e50">XIpiPs_IntrHandler()</a>, and <a class="el" href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">XMailbox_SetCallBack()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acd81ebeec1ff8eb6bbd4b62922688353"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XMboxTag::RecvRefPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reference passed to the receive interrupt callback. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga4f8f4f223ac7cab8c35b259803256e50">XIpiPs_IntrHandler()</a>, and <a class="el" href="group__xilmailbox.html#gafbc26a4d8f0d4cff937f88b125defe01">XMailbox_SetCallBack()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7807e734780a6c78cf0129b065d8a0b3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_mailbox___ipi_shared_mem.html">XMailbox_IpiSharedMem</a> XMboxTag::SharedMem</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shared memory segment. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga4c4631ec46d933f1fff9ce944c3b82d6">XMailbox_GetSharedMem()</a>, <a class="el" href="group__xilmailbox.html#gae18bdfda3723a66063211be38ad0a541">XMailbox_ReleaseSharedMem()</a>, and <a class="el" href="group__xilmailbox.html#ga5a04406fa4d00d2acad6a32ff7a4230b">XMailbox_SetSharedMem()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acfc620b1b6bee8a53e35bd937d01ef9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32(* XMboxTag::XMbox_IPI_Recv)(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads an IPI message. </p>
+
+</div>
+</div>
+<a class="anchor" id="af3f752913cc2e1c824a969a5a0703066"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32(* XMboxTag::XMbox_IPI_RecvById)(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u32 SourceId, u8 BufferType)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads an IPI message. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">XMailbox_Initialize()</a>, and <a class="el" href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">XMailbox_Recv()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac988653f4102330b66dffc80008e5947"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32(* XMboxTag::XMbox_IPI_Send)(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, u8 Is_Blocking)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers an IPI to a destination CPU. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1687a2438f51998be0cafbc559e09186"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32(* XMboxTag::XMbox_IPI_SendById)(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, u32 RemoteId, u8 Is_Blocking)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers an IPI to a destination CPU. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">XMailbox_Initialize()</a>, and <a class="el" href="group__xilmailbox.html#ga3b1215935d7ba605846e3a13f015e956">XMailbox_Send()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad2979174f02c95bba9e1a9a82da86eb6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32(* XMboxTag::XMbox_IPI_SendData)(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends an IPI message to a destination CPU. </p>
+
+</div>
+</div>
+<a class="anchor" id="af9d549f3ca388507298b27e82a714130"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32(* XMboxTag::XMbox_IPI_SendDataById)(struct <a class="el" href="struct_x_mbox_tag.html">XMboxTag</a> *InstancePtr, void *BufferPtr, u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends an IPI message to a destination CPU. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">XMailbox_Initialize()</a>, and <a class="el" href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">XMailbox_SendData()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

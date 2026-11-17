@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xgpio__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,14 +100,16 @@ $(document).ready(function(){initNavTree('xgpio__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xgpio_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the AXI GPIO driver (<a class="el" href="struct_x_gpio.html" title="The XGpio driver instance data. ">XGpio</a>) and hardware device. </p>
-<p>It only uses channel 1 of a GPIO device and assumes that the bit 0 of the GPIO is connected to the LED on the HW board.</p>
+<div class="textblock"><p>Demonstrates usage of the AXI GPIO driver (<a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a>) and hardware device. </p>
+<p>This file contains a design example using the AXI GPIO driver (<a class="el" href="struct_x_gpio.html" title="Holds the XGpio driver instance data. ">XGpio</a>) and hardware device. It only uses channel 1 of a GPIO device. It assumes that bit 0 of the GPIO is connected to the LED on the hardware board.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -127,16 +129,110 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     are available in all examples. This is a fix for
                     CR-965028.
 4.5  sne   06/12/19 Fixed IAR compiler warning.
-4.10 gm    07/11/23 Added SDT support.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+4.10 gm    07/11/23 Added SDT support.
+4.14  vn   09/10/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xgpio_8h.html">xgpio.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aeb7a7ba1ab7e0406f1b5ab36d579f585"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpio__example_8c.html#aeb7a7ba1ab7e0406f1b5ab36d579f585">LED</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:aeb7a7ba1ab7e0406f1b5ab36d579f585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assumes bit 0 of GPIO is connected to an LED.  <a href="#aeb7a7ba1ab7e0406f1b5ab36d579f585">More...</a><br/></td></tr>
+<tr class="separator:aeb7a7ba1ab7e0406f1b5ab36d579f585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12a46d6ff86950784521c2446d84b2fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpio__example_8c.html#a12a46d6ff86950784521c2446d84b2fc">LED_DELAY</a>&#160;&#160;&#160;10000000</td></tr>
+<tr class="memdesc:a12a46d6ff86950784521c2446d84b2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">LED visibility delay count.  <a href="#a12a46d6ff86950784521c2446d84b2fc">More...</a><br/></td></tr>
+<tr class="separator:a12a46d6ff86950784521c2446d84b2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e917f20402c4bc2dacf745cbdfdd14e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpio__example_8c.html#a9e917f20402c4bc2dacf745cbdfdd14e">LED_CHANNEL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a9e917f20402c4bc2dacf745cbdfdd14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">LED channel selection.  <a href="#a9e917f20402c4bc2dacf745cbdfdd14e">More...</a><br/></td></tr>
+<tr class="separator:a9e917f20402c4bc2dacf745cbdfdd14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Device parameters</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constants map to the XPAR parameters created in the xparameters.h file.</p>
+<p>They are defined here so that all the needed parameters can be easily changed in one place. </p>
+</div></td></tr>
+<tr class="memitem:a9895f0e20af4073d17c7e7428174344c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpio__example_8c.html#a9895f0e20af4073d17c7e7428174344c">XGPIO_AXI_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XGPIO_0_BASEADDR</td></tr>
+<tr class="memdesc:a9895f0e20af4073d17c7e7428174344c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address.  <a href="#a9895f0e20af4073d17c7e7428174344c">More...</a><br/></td></tr>
+<tr class="separator:a9895f0e20af4073d17c7e7428174344c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate how to use the GPIO driver to turn on and off an LED.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates turning on and off an LED using the GPIO driver.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4c2be13b82a762e15861ea1a10d34b61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_gpio.html">XGpio</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xgpio__example_8c.html#a4c2be13b82a762e15861ea1a10d34b61">Gpio</a></td></tr>
+<tr class="memdesc:a4c2be13b82a762e15861ea1a10d34b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the global GPIO driver instance.  <a href="#a4c2be13b82a762e15861ea1a10d34b61">More...</a><br/></td></tr>
+<tr class="separator:a4c2be13b82a762e15861ea1a10d34b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="aeb7a7ba1ab7e0406f1b5ab36d579f585"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LED&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assumes bit 0 of GPIO is connected to an LED. </p>
+
+<p>Referenced by <a class="el" href="xgpio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e917f20402c4bc2dacf745cbdfdd14e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LED_CHANNEL&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LED channel selection. </p>
+<p>The following constant is used to determine which channel of the GPIO is used for the LED if there are two channels supported. </p>
+
+<p>Referenced by <a class="el" href="xgpio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a12a46d6ff86950784521c2446d84b2fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LED_DELAY&#160;&#160;&#160;10000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LED visibility delay count. </p>
+<p>The following constant is used to wait after an LED is turned on to make sure that it is visible to the human eye. This constant might need to be tuned for faster or slower processor speeds. </p>
+
+<p>Referenced by <a class="el" href="xgpio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9895f0e20af4073d17c7e7428174344c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XGPIO_AXI_BASEADDRESS&#160;&#160;&#160;XPAR_XGPIO_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address. </p>
+
+<p>Referenced by <a class="el" href="xgpio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -152,11 +248,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The purpose of this function is to illustrate how to use the GPIO driver to turn on and off an LED. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_FAILURE to indicate that the GPIO Initialization had failed.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function will not return if the test is running. </dd></dl>
+<p>Demonstrates turning on and off an LED using the GPIO driver. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_FAILURE if GPIO initialization fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function does not return if the test is running. </dd></dl>
 
-<p>References <a class="el" href="group__gpio__api.html#gae430718af9f347c91be42aad580b216c">XGpio_DiscreteClear()</a>, <a class="el" href="group__gpio__api.html#gae188a28725318c991ac45afb2452ad9b">XGpio_DiscreteWrite()</a>, <a class="el" href="group__gpio__api.html#ga5b6948513889f043a40494dba1904828">XGpio_Initialize()</a>, and <a class="el" href="group__gpio__api.html#gabee6bcad28382ef5ecd336887647c238">XGpio_SetDataDirection()</a>.</p>
+<p>References <a class="el" href="xgpio__example_8c.html#aeb7a7ba1ab7e0406f1b5ab36d579f585">LED</a>, <a class="el" href="xgpio__example_8c.html#a9e917f20402c4bc2dacf745cbdfdd14e">LED_CHANNEL</a>, <a class="el" href="xgpio__example_8c.html#a12a46d6ff86950784521c2446d84b2fc">LED_DELAY</a>, <a class="el" href="xgpio__example_8c.html#a9895f0e20af4073d17c7e7428174344c">XGPIO_AXI_BASEADDRESS</a>, <a class="el" href="group__gpio__api.html#gae430718af9f347c91be42aad580b216c">XGpio_DiscreteClear()</a>, <a class="el" href="group__gpio__api.html#gae188a28725318c991ac45afb2452ad9b">XGpio_DiscreteWrite()</a>, <a class="el" href="group__gpio__api.html#ga5b6948513889f043a40494dba1904828">XGpio_Initialize()</a>, and <a class="el" href="group__gpio__api.html#gabee6bcad28382ef5ecd336887647c238">XGpio_SetDataDirection()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a4c2be13b82a762e15861ea1a10d34b61"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_gpio.html">XGpio</a> Gpio</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Holds the global GPIO driver instance. </p>
+<p>The instance is declared globally so it is zeroed and easily accessible from a debugger. </p>
 
 </div>
 </div>

@@ -74,7 +74,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_h"><span>h</span></a></li>
+      <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -97,7 +106,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,11 +116,17 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
+&#160;
+
+<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
 <li>Handler()
 : <a class="el" href="xi3c__intr__example_8c.html#aaffcbc6e824beea448fe0c4a4ffe15c8">xi3c_intr_example.c</a>
 , <a class="el" href="xi3c__slave__intr__example_8c.html#aaffcbc6e824beea448fe0c4a4ffe15c8">xi3c_slave_intr_example.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>I3cMasterDaaExample()
 : <a class="el" href="xi3c__daa__example_8c.html#a5bd66a6a4087eae244cffceab25badea">xi3c_daa_example.c</a>
 </li>
@@ -127,6 +142,10 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <li>I3cSlavePolledExample()
 : <a class="el" href="xi3c__slave__polled__example_8c.html#a928815ed4ddc4a8fa2fe0eb0c6a23c05">xi3c_slave_polled_example.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
 : <a class="el" href="xi3c__daa__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xi3c_daa_example.c</a>
 , <a class="el" href="xi3c__slave__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xi3c_slave_polled_example.c</a>
@@ -134,26 +153,100 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 , <a class="el" href="xi3c__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xi3c_polled_example.c</a>
 , <a class="el" href="xi3c__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xi3c_intr_example.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
 <li>XI3C_BusInit()
-: <a class="el" href="group___overview.html#gaa01a28908016aac835dd4493a0c6413e">xi3c.c</a>
+: <a class="el" href="group__i3c__api.html#gaa01a28908016aac835dd4493a0c6413e">xi3c.c</a>
+, <a class="el" href="group__i3c.html#gaa01a28908016aac835dd4493a0c6413e">xi3c.h</a>
 </li>
 <li>XI3c_CfgInitialize()
-: <a class="el" href="group___overview.html#ga3a6f3237b5eecb5d9144c3254dbab088">xi3c.c</a>
+: <a class="el" href="group__i3c.html#ga3a6f3237b5eecb5d9144c3254dbab088">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga3a6f3237b5eecb5d9144c3254dbab088">xi3c.c</a>
 </li>
 <li>XI3c_ConfigIbi()
-: <a class="el" href="group___overview.html#ga52d0b05e4f81129c7a75cefdf0ef5621">xi3c.c</a>
+: <a class="el" href="group__i3c__api.html#ga52d0b05e4f81129c7a75cefdf0ef5621">xi3c.c</a>
 </li>
 <li>XI3c_DynaAddrAssign()
-: <a class="el" href="group___overview.html#ga87d285dd413cf579d43a6eda306619ce">xi3c.c</a>
+: <a class="el" href="group__i3c__api.html#ga87d285dd413cf579d43a6eda306619ce">xi3c.c</a>
+, <a class="el" href="group__i3c.html#ga87d285dd413cf579d43a6eda306619ce">xi3c.h</a>
 </li>
 <li>XI3c_FillCmdFifo()
-: <a class="el" href="group___overview.html#gafb601913b993b4c23cb89306aa630be5">xi3c.c</a>
+: <a class="el" href="group__i3c__api.html#gafb601913b993b4c23cb89306aa630be5">xi3c.c</a>
+, <a class="el" href="group__i3c.html#gafb601913b993b4c23cb89306aa630be5">xi3c.h</a>
+</li>
+<li>XI3c_IbiRecv()
+: <a class="el" href="group__i3c.html#gae0d7f9bd9e10d5de348154d823d7bea0">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#gae0d7f9bd9e10d5de348154d823d7bea0">xi3c_master.c</a>
+</li>
+<li>XI3c_IbiRecvPolled()
+: <a class="el" href="group__i3c.html#ga09a7b530e37d1df22d1373966e826cf2">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga09a7b530e37d1df22d1373966e826cf2">xi3c_master.c</a>
+</li>
+<li>XI3c_LookupConfig()
+: <a class="el" href="group__i3c.html#ga85e2fea7891bf3031056070e48e13010">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga85e2fea7891bf3031056070e48e13010">xi3c_sinit.c</a>
+</li>
+<li>XI3c_MasterInterruptHandler()
+: <a class="el" href="group__i3c.html#ga8c4e3e321553508d75097bebe04d0cf5">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga8c4e3e321553508d75097bebe04d0cf5">xi3c_master.c</a>
+</li>
+<li>XI3c_MasterRecv()
+: <a class="el" href="group__i3c.html#ga65bbec96638b9e2f5627452ac9a9ae48">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga65bbec96638b9e2f5627452ac9a9ae48">xi3c_master.c</a>
+</li>
+<li>XI3c_MasterRecvPolled()
+: <a class="el" href="group__i3c.html#ga838caa68513d3391c4f3e85705671f46">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga838caa68513d3391c4f3e85705671f46">xi3c_master.c</a>
+</li>
+<li>XI3c_MasterSend()
+: <a class="el" href="group__i3c.html#gab0d816198d0abc6dabb332390fbe5c79">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#gab0d816198d0abc6dabb332390fbe5c79">xi3c_master.c</a>
+</li>
+<li>XI3c_MasterSendPolled()
+: <a class="el" href="group__i3c.html#ga268011500642adc668ce75abbe555a6a">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga268011500642adc668ce75abbe555a6a">xi3c_master.c</a>
 </li>
 <li>XI3c_ReadRxFifo()
-: <a class="el" href="group___overview.html#gad2aab26f4e34599f22921e263af12e0d">xi3c.c</a>
+: <a class="el" href="group__i3c.html#gad2aab26f4e34599f22921e263af12e0d">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#gad2aab26f4e34599f22921e263af12e0d">xi3c.c</a>
+</li>
+<li>XI3c_SendTransferCmd()
+: <a class="el" href="group__i3c.html#ga822775f0526bd47739bdf842954d874f">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga822775f0526bd47739bdf842954d874f">xi3c_master.c</a>
+</li>
+<li>XI3c_SetSClk()
+: <a class="el" href="group__i3c__api.html#ga8bdcc22a96e0b2be5e806b29761cc83a">xi3c_options.c</a>
+, <a class="el" href="group__i3c.html#ga8bdcc22a96e0b2be5e806b29761cc83a">xi3c.h</a>
+</li>
+<li>XI3c_SetStatusHandler()
+: <a class="el" href="group__i3c.html#gaa8b632c4926c7125ffe178ec72a167db">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#gaa8b632c4926c7125ffe178ec72a167db">xi3c_master.c</a>
+</li>
+<li>XI3c_SlaveInterruptHandler()
+: <a class="el" href="group__i3c.html#ga64fba1f66dc69a20b21f414cccb90752">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga64fba1f66dc69a20b21f414cccb90752">xi3c_slave.c</a>
+</li>
+<li>XI3c_SlaveRecv()
+: <a class="el" href="group__i3c.html#ga9808772192d0f16adaf33e61b784e3a3">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga9808772192d0f16adaf33e61b784e3a3">xi3c_slave.c</a>
+</li>
+<li>XI3c_SlaveRecvPolled()
+: <a class="el" href="group__i3c.html#gac5999cb023a2ac9ca5dea7a9ed3edda5">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#gac5999cb023a2ac9ca5dea7a9ed3edda5">xi3c_slave.c</a>
+</li>
+<li>XI3c_SlaveSend()
+: <a class="el" href="group__i3c.html#ga28021172cfe5d1d3dfb20e8f3f58c94f">xi3c.h</a>
+, <a class="el" href="group__i3c__api.html#ga28021172cfe5d1d3dfb20e8f3f58c94f">xi3c_slave.c</a>
+</li>
+<li>XI3c_SlaveSendPolled()
+: <a class="el" href="group__i3c__api.html#ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a">xi3c_slave.c</a>
+, <a class="el" href="group__i3c.html#ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a">xi3c.h</a>
 </li>
 <li>XI3c_WriteTxFifo()
-: <a class="el" href="group___overview.html#ga58e612565bbd976e98eac6753ad1ed9f">xi3c.c</a>
+: <a class="el" href="group__i3c__api.html#ga58e612565bbd976e98eac6753ad1ed9f">xi3c.c</a>
+, <a class="el" href="group__i3c.html#ga58e612565bbd976e98eac6753ad1ed9f">xi3c.h</a>
 </li>
 </ul>
 </div><!-- contents -->

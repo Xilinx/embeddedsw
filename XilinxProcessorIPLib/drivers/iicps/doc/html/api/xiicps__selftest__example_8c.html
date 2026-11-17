@@ -100,33 +100,66 @@ $(document).ready(function(){initNavTree('xiicps__selftest__example_8c.html','')
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xiicps_selftest_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This example runs on zynqmp / versal evaluation boards using the IIC hardware device and <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<div class="textblock"><p>Runs a self-test on the IIC device using the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>This example runs on zynqmp / versal evaluation boards using the IIC hardware device and <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver.</p>
 <pre> MODIFICATION HISTORY:</pre><pre>Ver      Who Date       Changes
 </p>
 <hr/>
 <p>
 1.00a sdm 05/30/11      First release
-3.13  rna 02/05/21   Changed <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> global variable name
+3.13  rna 02/05/21   Changed <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> global variable name
 3.18  gm  07/14/23   Added SDT support.
-3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+3.24  tb  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab8a417bcd1481342d0ff31c50cf97ab6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__selftest__example_8c.html#ab8a417bcd1481342d0ff31c50cf97ab6">XIICPS_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XIICPS_0_BASEADDR</td></tr>
+<tr class="memdesc:ab8a417bcd1481342d0ff31c50cf97ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address.  <a href="#ab8a417bcd1481342d0ff31c50cf97ab6">More...</a><br/></td></tr>
+<tr class="separator:ab8a417bcd1481342d0ff31c50cf97ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7b902a14156eabb2c294c08061c5db95"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__selftest__example_8c.html#a7b902a14156eabb2c294c08061c5db95">IicPsSelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a7b902a14156eabb2c294c08061c5db95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the Iic device and driver as a design example.  <a href="#a7b902a14156eabb2c294c08061c5db95">More...</a><br/></td></tr>
+<tr class="memdesc:a7b902a14156eabb2c294c08061c5db95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a minimal test on the Iic device and driver as a design example.  <a href="#a7b902a14156eabb2c294c08061c5db95">More...</a><br/></td></tr>
 <tr class="separator:a7b902a14156eabb2c294c08061c5db95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Self Test example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the Self Test example from the main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a43f20b834607d263b1635566484121c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic_ps.html">XIicPs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__selftest__example_8c.html#a43f20b834607d263b1635566484121c6">IicPsInstance</a></td></tr>
+<tr class="memdesc:a43f20b834607d263b1635566484121c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the IIC Device.  <a href="#a43f20b834607d263b1635566484121c6">More...</a><br/></td></tr>
+<tr class="separator:a43f20b834607d263b1635566484121c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab8a417bcd1481342d0ff31c50cf97ab6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XIICPS_BASEADDRESS&#160;&#160;&#160;XPAR_XIICPS_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address. </p>
+
+<p>Referenced by <a class="el" href="xiicps__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a7b902a14156eabb2c294c08061c5db95"></a>
 <div class="memitem">
@@ -142,11 +175,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the Iic device and driver as a design example. </p>
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> component.</p>
+<p>Runs a minimal test on the Iic device and driver as a design example. </p>
+<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> component.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -173,11 +206,25 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the Self Test example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Calls the Self Test example from the main function. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
-<p>References <a class="el" href="xiicps__selftest__example_8c.html#a7b902a14156eabb2c294c08061c5db95">IicPsSelfTestExample()</a>.</p>
+<p>References <a class="el" href="xiicps__selftest__example_8c.html#a7b902a14156eabb2c294c08061c5db95">IicPsSelfTestExample()</a>, and <a class="el" href="xiicps__selftest__example_8c.html#ab8a417bcd1481342d0ff31c50cf97ab6">XIICPS_BASEADDRESS</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a43f20b834607d263b1635566484121c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_iic_ps.html">XIicPs</a> IicPsInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the IIC Device. </p>
 
 </div>
 </div>

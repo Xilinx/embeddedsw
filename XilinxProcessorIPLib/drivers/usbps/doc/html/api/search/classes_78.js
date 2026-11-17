@@ -8,5 +8,6 @@ var searchData=
   ['xusbps_5fepin',['XUsbPs_EpIn',['../struct_x_usb_ps___ep_in.html',1,'']]],
   ['xusbps_5fepout',['XUsbPs_EpOut',['../struct_x_usb_ps___ep_out.html',1,'']]],
   ['xusbps_5fepsetup',['XUsbPs_EpSetup',['../struct_x_usb_ps___ep_setup.html',1,'']]],
+  ['xusbps_5flocal',['XUsbPs_Local',['../struct_x_usb_ps___local.html',1,'']]],
   ['xusbps_5fsetupdata',['XUsbPs_SetupData',['../struct_x_usb_ps___setup_data.html',1,'']]]
 ];

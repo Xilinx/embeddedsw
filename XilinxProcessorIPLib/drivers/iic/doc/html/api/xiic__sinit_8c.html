@@ -105,17 +105,37 @@ $(document).ready(function(){initNavTree('xiic__sinit_8c.html','');});
 <div class="title">xiic_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements IIC static initialization. </p>
+<p>The implementation of the Xiic component's static initialization functionality.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.02a jvb  10/13/05 release
+1.13a wgr  03/22/07 Converted to new coding style.
+2.00a ktn  10/22/09 Converted all register accesses to 32 bit access.
+              Updated to use the HAL APIs/macros.
+              Some of the macros have been renamed to remove _m from
+              the name and some of the macros have been renamed to be
+              consistent, see the <a class="el" href="xiic__i_8h.html" title="Defines IIC internal driver data and macros. ">xiic_i.h</a> and <a class="el" href="xiic__l_8h.html" title="Defines IIC low-level register offsets and access macros. ">xiic_l.h</a> files for further
+              information
+3.10  gm   07/09/23 Added SDT support.
+3.15  vlt  11/05/25 Add 64-bit Addressing support.
+3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic__i_8h.html">xiic_i.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga7e448669953bf36074837f174726814d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic___config.html">XIic_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7e448669953bf36074837f174726814d">XIic_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga7e448669953bf36074837f174726814d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group___overview.html#ga7e448669953bf36074837f174726814d">More...</a><br/></td></tr>
-<tr class="separator:ga7e448669953bf36074837f174726814d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga96f409bb662ff9aaf349002ced83aaac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga96f409bb662ff9aaf349002ced83aaac">XIic_Initialize</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga96f409bb662ff9aaf349002ced83aaac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_iic.html" title="The XIic driver instance data. ">XIic</a> instance.  <a href="group___overview.html#ga96f409bb662ff9aaf349002ced83aaac">More...</a><br/></td></tr>
+<tr class="memitem:ga9a97d3d56689e80a6773701e1bf0e808"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic___config.html">XIic_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga9a97d3d56689e80a6773701e1bf0e808">XIic_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga9a97d3d56689e80a6773701e1bf0e808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration by unique device ID or base address.  <a href="group__iic__api.html#ga9a97d3d56689e80a6773701e1bf0e808">More...</a><br/></td></tr>
+<tr class="separator:ga9a97d3d56689e80a6773701e1bf0e808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96f409bb662ff9aaf349002ced83aaac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga96f409bb662ff9aaf349002ced83aaac">XIic_Initialize</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga96f409bb662ff9aaf349002ced83aaac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> instance.  <a href="group__iic__api.html#ga96f409bb662ff9aaf349002ced83aaac">More...</a><br/></td></tr>
 <tr class="separator:ga96f409bb662ff9aaf349002ced83aaac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

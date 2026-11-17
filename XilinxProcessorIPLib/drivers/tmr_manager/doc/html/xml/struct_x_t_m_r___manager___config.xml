@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>Name</name>
         <briefdescription>
-        </briefdescription>
+<para>Peripheral name in device tree. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga19df82d2bc220d9855e5eaed3fc42b67" compoundref="xtmr__manager__sinit_8c" startline="85" endline="98">XTMR_Manager_LookupConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a9956aa0740b61010392479fbace5a73d" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="125" bodyend="-1"/>
         <referencedby refid="group___overview_1gaa1feb2cff60ea2b09f42a1fe6ad1a9df" compoundref="xtmr__manager__sinit_8c" startline="122" endline="147">XTMR_Manager_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1ab5028443b50f20268cdbaa3505434587" prot="public" static="no" mutable="no">
@@ -42,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="125" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -56,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="126" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -70,9 +71,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="127" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="72" endline="92">XTMR_Manager_BreakHandler</referencedby>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8eda042057cb93a92372914efcc95370" compoundref="xtmr__manager__recover_8c" startline="69" endline="89">XTMR_Manager_BreakHandler</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a30d66a419e6d060f07c78ead0d13fda5" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -85,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1afe055c79087d60f4253a5526a5221f9b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -98,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1aab9f2d1641f5eb5e10e329336f65dec0" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -111,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a783d573bc3f692c7fb96b6b48bbf5026" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -124,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a5638cd043ab056eab8ac0f3b1e86f6cd" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -137,8 +138,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="132" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a2c9dda9d2f991b19c70cec9866a3a9ad" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -151,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a82905a239c4b562ca6c0c7924067b417" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -164,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1ab1be7d71a20060985cf8d28e0f29735a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -177,8 +178,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="135" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a8a14f58f179fc22fac2f73c5cc75850f" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -191,7 +192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1aa7b1868791bcafe5b19908cf279fec63" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -204,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="138" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="139" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1aea5febd4b3d76611b3ead50ba72cc664" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -217,8 +218,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="140" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a0769b049535b3b235f80f286e63bc685" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -231,7 +232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="141" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a94861f845e23a09e1e96a8f976325b6e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -244,8 +245,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="142" bodyend="-1"/>
-        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="89" endline="155">XTMR_Manager_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1aad4d5a303d1ad1457ed6e28b4108f902" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -258,7 +259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="143" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1ac668457c1b005b3f6427d60653adb1de" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -271,7 +272,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="145" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1ac7b91a7d5abf2ed5f169fddac0c32c2a" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -284,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="146" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1a7af3688caf0ba497d9adf870b5e8c2cd" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -292,12 +293,14 @@
         <argsstring></argsstring>
         <name>IntrId</name>
         <briefdescription>
-        </briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="147" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="xtmr__manager__intr__example_8c_1afac56f7c06b7f49ccc240019cd8db0fe" compoundref="xtmr__manager__intr__example_8c" startline="153" endline="208">TMR_ManagerIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_t_m_r___manager___config_1ad762ee0355ec7220ee1c1b11912ba4e5" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -305,19 +308,21 @@
         <argsstring></argsstring>
         <name>IntrParent</name>
         <briefdescription>
-        </briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="148" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="xtmr__manager__intr__example_8c_1afac56f7c06b7f49ccc240019cd8db0fe" compoundref="xtmr__manager__intr__example_8c" startline="153" endline="208">TMR_ManagerIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains configuration information for the device. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="118" bodyend="150"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h" bodystart="119" bodyend="151"/>
     <listofallmembers>
       <member refid="struct_x_t_m_r___manager___config_1ab5028443b50f20268cdbaa3505434587" prot="public" virt="non-virtual"><scope>XTMR_Manager_Config</scope><name>BrkDelayRstValue</name></member>
       <member refid="struct_x_t_m_r___manager___config_1aea5febd4b3d76611b3ead50ba72cc664" prot="public" virt="non-virtual"><scope>XTMR_Manager_Config</scope><name>BrkDelayWidth</name></member>

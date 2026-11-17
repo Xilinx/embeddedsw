@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="123" bodyend="-1"/>
         <referencedby refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" compoundref="xprd_8c" startline="64" endline="85">XPrd_CfgInitialize</referencedby>
         <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
         <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="124" bodyend="-1"/>
         <referencedby refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" compoundref="xprd_8c" startline="64" endline="85">XPrd_CfgInitialize</referencedby>
         <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
         <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
@@ -43,7 +43,7 @@
 <para>The <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance data structure. </para>    </briefdescription>
     <detaileddescription>
 <para>A pointer to an instance data structure is passed around by functions to refer to a specific instance. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="122" bodyend="125"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="122" bodyend="125"/>
     <listofallmembers>
       <member refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" prot="public" virt="non-virtual"><scope>XPrd</scope><name>Config</name></member>
       <member refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" prot="public" virt="non-virtual"><scope>XPrd</scope><name>IsReady</name></member>

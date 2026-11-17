@@ -55,6 +55,9 @@
     <member refid="group__uartpsv_1gaf1cde67fba29b14f65e5abe2dd7d2066" kind="function"><name>XUartPsv_CleanupTx</name></member>
   </compound>
   <compound refid="xuartpsv_8h" kind="file"><name>xuartpsv.h</name>
+    <member refid="group__uartpsv_1ga1028700cf5e97e64b72165616914a84a" kind="define"><name>XUARTPSV_MAX_RATE</name></member>
+    <member refid="group__uartpsv_1gaa2e96fa49febeff396414ae7c25eff69" kind="define"><name>XUARTPSV_MIN_RATE</name></member>
+    <member refid="group__uartpsv_1gad4202f2666ae178cd380f2232bb96486" kind="define"><name>XUARTPSV_DFT_BAUDRATE</name></member>
     <member refid="group__uartpsv_1gae157cd3f31c13e33436f6654eca55689" kind="define"><name>XUARTPSV_OPTION_SET_BREAK</name></member>
     <member refid="group__uartpsv_1ga35ba2a04fa86e12f35aeb76e49ac3032" kind="define"><name>XUARTPSV_OPTION_STOP_BREAK</name></member>
     <member refid="group__uartpsv_1ga224860d3a833ec537e6b6869b0d06929" kind="define"><name>XUARTPSV_OPTION_RESET_TMOUT</name></member>
@@ -87,10 +90,6 @@
     <member refid="group__uartpsv_1ga76a511ea3a1140df5f5c682b19d8b0ce" kind="define"><name>XUARTPSV_EVENT_MODEM</name></member>
     <member refid="group__uartpsv_1ga85a13c60627c82f2cede7deab0926d5a" kind="define"><name>XUARTPSV_EVENT_PARE_FRAME_BRKE</name></member>
     <member refid="group__uartpsv_1ga262c69ea932231fe45ae6ed2e3210215" kind="define"><name>XUARTPSV_EVENT_RECV_ORERR</name></member>
-    <member refid="group__uartpsv_1ga1995466148aa5c669d92e37642452c55" kind="define"><name>XUARTPSV_H</name></member>
-    <member refid="group__uartpsv_1ga1028700cf5e97e64b72165616914a84a" kind="define"><name>XUARTPSV_MAX_RATE</name></member>
-    <member refid="group__uartpsv_1gaa2e96fa49febeff396414ae7c25eff69" kind="define"><name>XUARTPSV_MIN_RATE</name></member>
-    <member refid="group__uartpsv_1gad4202f2666ae178cd380f2232bb96486" kind="define"><name>XUARTPSV_DFT_BAUDRATE</name></member>
     <member refid="group__uartpsv_1ga199da98d8ddcd495482b436d294ec75d" kind="define"><name>TIMEOUT_COUNTER</name></member>
     <member refid="group__uartpsv_1gaf9269e5132e023fb82ccbb97dc9b955a" kind="define"><name>XUartPsv_GetChannelStatus</name></member>
     <member refid="group__uartpsv_1gae536abc24f8139cc11c7136ea0010019" kind="define"><name>XUartPsv_GetModeControl</name></member>
@@ -299,7 +298,6 @@
     <member refid="group__uartpsv_1ga99af1e795dcd2a309121ab431402e8e5" kind="define"><name>XUARTPSV_RXBS_BYTE0_FRME</name></member>
     <member refid="group__uartpsv_1gafd3e849759fc39c8dd3cbd14252d547b" kind="define"><name>XUARTPSV_RXBS_BYTE0_PARE</name></member>
     <member refid="group__uartpsv_1ga5591fe90f5f7e0d1c44ad924c5579d46" kind="define"><name>XUARTPSV_RXBS_MASK</name></member>
-    <member refid="group__uartpsv_1ga2742ac56c471a4ac8c605979d3bb0665" kind="define"><name>XUARTPSV_HW_H</name></member>
     <member refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kind="define"><name>XUartPsv_ReadReg</name></member>
     <member refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kind="define"><name>XUartPsv_WriteReg</name></member>
     <member refid="group__uartpsv_1ga72e127b91f03728e0b58b2b3b6373dd9" kind="define"><name>XUartPsv_IsReceiveData</name></member>
@@ -321,13 +319,13 @@
   </compound>
   <compound refid="xuartpsv__intr__example_8c" kind="file"><name>xuartpsv_intr_example.c</name>
     <member refid="xuartpsv__intr__example_8c_1a867537e5de23f439a6f87dd7ec0b52a1" kind="define"><name>XUARTPSV_BASEADDRESS</name></member>
-    <member refid="xuartpsv__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xuartpsv__intr__example_8c_1a1f701fd4e369648b02b01ef23bdf732d" kind="variable"><name>UartPsv</name></member>
     <member refid="xuartpsv__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xuartpsv__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
     <member refid="xuartpsv__intr__example_8c_1a91504b2b83f558d49de403298d4ea9c3" kind="variable"><name>TotalReceivedCount</name></member>
     <member refid="xuartpsv__intr__example_8c_1a9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
     <member refid="xuartpsv__intr__example_8c_1a75ec25052fcbff7fd7bfbea7bd47df7d" kind="variable"><name>TotalErrorCount</name></member>
+    <member refid="xuartpsv__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartpsv__intr__example_8c_1a1f701fd4e369648b02b01ef23bdf732d" kind="variable"><name>UartPsv</name></member>
     <member refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" kind="function"><name>UartPsvIntrExample</name></member>
     <member refid="xuartpsv__intr__example_8c_1afc3b6076857bc201b736289712d9ae05" kind="function"><name>Handler</name></member>
     <member refid="xuartpsv__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
@@ -375,6 +373,9 @@
   <compound refid="xuartpsv__xfer_8h" kind="file"><name>xuartpsv_xfer.h</name>
   </compound>
   <compound refid="group__uartpsv" kind="group"><name>uartpsv</name>
+    <member refid="group__uartpsv_1ga1028700cf5e97e64b72165616914a84a" kind="define"><name>XUARTPSV_MAX_RATE</name></member>
+    <member refid="group__uartpsv_1gaa2e96fa49febeff396414ae7c25eff69" kind="define"><name>XUARTPSV_MIN_RATE</name></member>
+    <member refid="group__uartpsv_1gad4202f2666ae178cd380f2232bb96486" kind="define"><name>XUARTPSV_DFT_BAUDRATE</name></member>
     <member refid="group__uartpsv_1gae157cd3f31c13e33436f6654eca55689" kind="define"><name>XUARTPSV_OPTION_SET_BREAK</name></member>
     <member refid="group__uartpsv_1ga35ba2a04fa86e12f35aeb76e49ac3032" kind="define"><name>XUARTPSV_OPTION_STOP_BREAK</name></member>
     <member refid="group__uartpsv_1ga224860d3a833ec537e6b6869b0d06929" kind="define"><name>XUARTPSV_OPTION_RESET_TMOUT</name></member>
@@ -567,6 +568,7 @@
     <member refid="group__uartpsv_1ga5591fe90f5f7e0d1c44ad924c5579d46" kind="define"><name>XUARTPSV_RXBS_MASK</name></member>
     <member refid="group__uartpsv_1gab83b4279762a2b3f20b1c50998a709d3" kind="typedef"><name>XUartPsv_Handler</name></member>
     <member refid="group__uartpsv_1gaed365c02539b1452e590d0123f858c30" kind="variable"><name>XUartPsv_ConfigTable</name></member>
+    <member refid="group__uartpsv_1gaed365c02539b1452e590d0123f858c30" kind="variable"><name>XUartPsv_ConfigTable</name></member>
     <member refid="group__uartpsv_1ga573a42d6379efb48b36edbf5411aa8b3" kind="variable"><name>XUartPsv_OptionsTable</name></member>
     <member refid="group__uartpsv_1ga3eecdfa6a08201d6613c1e81154f07cf" kind="variable"><name>TestString</name></member>
     <member refid="group__uartpsv_1gaa58d0421bc24d251bc3d620a9e181aab" kind="variable"><name>ReturnString</name></member>
@@ -608,10 +610,6 @@
     <member refid="group__uartpsv_1gae671249b882e19f12abc5d571b004074" kind="function"><name>XUartPsv_SendDataHandler</name></member>
     <member refid="group__uartpsv_1gadd601046018c3b86b13c89fc3eacedef" kind="function"><name>XUartPsv_ModemHandler</name></member>
     <member refid="group__uartpsv_1ga8dc8acae0282012aa1a20d979be436a6" kind="define"><name>XUARTPSV_MAX_BAUD_ERROR_RATE</name></member>
-    <member refid="group__uartpsv_1ga1995466148aa5c669d92e37642452c55" kind="define"><name>XUARTPSV_H</name></member>
-    <member refid="group__uartpsv_1ga1028700cf5e97e64b72165616914a84a" kind="define"><name>XUARTPSV_MAX_RATE</name></member>
-    <member refid="group__uartpsv_1gaa2e96fa49febeff396414ae7c25eff69" kind="define"><name>XUARTPSV_MIN_RATE</name></member>
-    <member refid="group__uartpsv_1gad4202f2666ae178cd380f2232bb96486" kind="define"><name>XUARTPSV_DFT_BAUDRATE</name></member>
     <member refid="group__uartpsv_1ga199da98d8ddcd495482b436d294ec75d" kind="define"><name>TIMEOUT_COUNTER</name></member>
     <member refid="group__uartpsv_1gaf9269e5132e023fb82ccbb97dc9b955a" kind="define"><name>XUartPsv_GetChannelStatus</name></member>
     <member refid="group__uartpsv_1gae536abc24f8139cc11c7136ea0010019" kind="define"><name>XUartPsv_GetModeControl</name></member>
@@ -619,7 +617,6 @@
     <member refid="group__uartpsv_1gaf2e92c20719d5f1930c3e8d3ad98e06b" kind="define"><name>XUartPsv_EnableUart</name></member>
     <member refid="group__uartpsv_1ga2a6ad86de9f65f8f859ab32a3286c919" kind="define"><name>XUartPsv_DisableUart</name></member>
     <member refid="group__uartpsv_1ga05a61d255ef608f38a4a03dce92cda75" kind="define"><name>XUartPsv_IsTransmitEmpty</name></member>
-    <member refid="group__uartpsv_1ga2742ac56c471a4ac8c605979d3bb0665" kind="define"><name>XUARTPSV_HW_H</name></member>
     <member refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kind="define"><name>XUartPsv_ReadReg</name></member>
     <member refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kind="define"><name>XUartPsv_WriteReg</name></member>
     <member refid="group__uartpsv_1ga72e127b91f03728e0b58b2b3b6373dd9" kind="define"><name>XUartPsv_IsReceiveData</name></member>
@@ -633,7 +630,5 @@
   <compound refid="dir_22a21abd0eaf61e66e2954331df2902d" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_3bc33a80b5e01bc8e42755070dd50e02" kind="dir"><name>uartpsv</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

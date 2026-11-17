@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_i3c_psx.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,11 +108,11 @@ $(document).ready(function(){initNavTree('struct_x_i3c_psx.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XI3cPsx Struct Reference</div>  </div>
+<div class="title">XI3cPsx Struct Reference<div class="ingroups"><a class="el" href="group__i3cpsx.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_i3c_psx.html" title="The XI3cPsx driver instance data. ">XI3cPsx</a> driver instance data.
+<p>Holds per-instance I3C driver state.
  <a href="struct_x_i3c_psx.html#details">More...</a></p>
 
 <p><code>#include &lt;xi3cpsx.h&gt;</code></p>
@@ -128,9 +128,15 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a466106bde98899bbceaa552e6b682aa9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a466106bde98899bbceaa552e6b682aa9">Options</a></td></tr>
 <tr class="memdesc:a466106bde98899bbceaa552e6b682aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options set in the device.  <a href="#a466106bde98899bbceaa552e6b682aa9">More...</a><br/></td></tr>
 <tr class="separator:a466106bde98899bbceaa552e6b682aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba221defc59197aa0d024c3205a951e9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#aba221defc59197aa0d024c3205a951e9">Addr</a> [XI3CPSX_MAX_DAT_ENTRIES]</td></tr>
+<tr class="memitem:aba221defc59197aa0d024c3205a951e9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#aba221defc59197aa0d024c3205a951e9">Addr</a> [<a class="el" href="group__i3cpsx.html#ga214e3db6f3330a2c0a9f4b3798d79264">XI3CPSX_MAX_DAT_ENTRIES</a>]</td></tr>
 <tr class="memdesc:aba221defc59197aa0d024c3205a951e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamic Addresses to be assigned.  <a href="#aba221defc59197aa0d024c3205a951e9">More...</a><br/></td></tr>
 <tr class="separator:aba221defc59197aa0d024c3205a951e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0104ae98144e21f7c2944bd7e8c45235"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a0104ae98144e21f7c2944bd7e8c45235">DatStartAddr</a></td></tr>
+<tr class="memdesc:a0104ae98144e21f7c2944bd7e8c45235"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAT base, read from DEVICE_ADDR_TABLE_POINTER.  <a href="#a0104ae98144e21f7c2944bd7e8c45235">More...</a><br/></td></tr>
+<tr class="separator:a0104ae98144e21f7c2944bd7e8c45235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5637819056fca4187543641383332a22"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a5637819056fca4187543641383332a22">MaxDevs</a></td></tr>
+<tr class="memdesc:a5637819056fca4187543641383332a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAT depth, capped at XI3CPSX_MAX_DAT_ENTRIES.  <a href="#a5637819056fca4187543641383332a22">More...</a><br/></td></tr>
+<tr class="separator:a5637819056fca4187543641383332a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4e86515848799d66d49b9fd7300817b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_i3c_psx___master___caps.html">XI3cPsx_Master_Caps</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#aa4e86515848799d66d49b9fd7300817b">Caps</a></td></tr>
 <tr class="memdesc:aa4e86515848799d66d49b9fd7300817b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cmd, Data fifo depths.  <a href="#aa4e86515848799d66d49b9fd7300817b">More...</a><br/></td></tr>
 <tr class="separator:aa4e86515848799d66d49b9fd7300817b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,6 +155,21 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a1a18bf66f27f4972a09b8f9cd4ec3831"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a1a18bf66f27f4972a09b8f9cd4ec3831">CurrByteCount</a></td></tr>
 <tr class="memdesc:a1a18bf66f27f4972a09b8f9cd4ec3831"><td class="mdescLeft">&#160;</td><td class="mdescRight">No.  <a href="#a1a18bf66f27f4972a09b8f9cd4ec3831">More...</a><br/></td></tr>
 <tr class="separator:a1a18bf66f27f4972a09b8f9cd4ec3831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a419112939f80272ad5a70489c1656b3b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a419112939f80272ad5a70489c1656b3b">Error</a></td></tr>
+<tr class="memdesc:a419112939f80272ad5a70489c1656b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error status of last transfer, set by the ISR.  <a href="#a419112939f80272ad5a70489c1656b3b">More...</a><br/></td></tr>
+<tr class="separator:a419112939f80272ad5a70489c1656b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be1601b168fa554545a59c45dfe7071"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a8be1601b168fa554545a59c45dfe7071">LastDatIndex</a></td></tr>
+<tr class="memdesc:a8be1601b168fa554545a59c45dfe7071"><td class="mdescLeft">&#160;</td><td class="mdescRight">DAT index of the most recently issued command.  <a href="#a8be1601b168fa554545a59c45dfe7071">More...</a><br/></td></tr>
+<tr class="separator:a8be1601b168fa554545a59c45dfe7071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a934fd17ef23b6b30182ae21353037e86"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a934fd17ef23b6b30182ae21353037e86">LastTransCmd</a></td></tr>
+<tr class="memdesc:a934fd17ef23b6b30182ae21353037e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command word of the most recently issued command.  <a href="#a934fd17ef23b6b30182ae21353037e86">More...</a><br/></td></tr>
+<tr class="separator:a934fd17ef23b6b30182ae21353037e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae77b90c920004816b1f99f71110bfe7c"><td class="memItemLeft" align="right" valign="top">volatile u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#ae77b90c920004816b1f99f71110bfe7c">OvfPending</a></td></tr>
+<tr class="memdesc:ae77b90c920004816b1f99f71110bfe7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target latched an overflow; cleared with GETSTATUS before the next transfer.  <a href="#ae77b90c920004816b1f99f71110bfe7c">More...</a><br/></td></tr>
+<tr class="separator:ae77b90c920004816b1f99f71110bfe7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1766438cd6f1cc868ce777ef8e4c56e6"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a1766438cd6f1cc868ce777ef8e4c56e6">RespDone</a></td></tr>
+<tr class="memdesc:a1766438cd6f1cc868ce777ef8e4c56e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set by the master ISR after it consumes a command response.  <a href="#a1766438cd6f1cc868ce777ef8e4c56e6">More...</a><br/></td></tr>
+<tr class="separator:a1766438cd6f1cc868ce777ef8e4c56e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207548b6a916d69a8179fb0eefaa0220"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a207548b6a916d69a8179fb0eefaa0220">UpdateTxSize</a></td></tr>
 <tr class="memdesc:a207548b6a916d69a8179fb0eefaa0220"><td class="mdescLeft">&#160;</td><td class="mdescRight">If tx size register has to be updated.  <a href="#a207548b6a916d69a8179fb0eefaa0220">More...</a><br/></td></tr>
 <tr class="separator:a207548b6a916d69a8179fb0eefaa0220"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,7 +182,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a8d9a61e2e101066fd2cfb31209b1a721"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a8d9a61e2e101066fd2cfb31209b1a721">Is10BitAddr</a></td></tr>
 <tr class="memdesc:a8d9a61e2e101066fd2cfb31209b1a721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates if user set 10 bit address.  <a href="#a8d9a61e2e101066fd2cfb31209b1a721">More...</a><br/></td></tr>
 <tr class="separator:a8d9a61e2e101066fd2cfb31209b1a721"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bcee9228169f21f0be5293d59dc5831"><td class="memItemLeft" align="right" valign="top">XI3cPsx_IntrHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a6bcee9228169f21f0be5293d59dc5831">StatusHandler</a></td></tr>
+<tr class="memitem:a6bcee9228169f21f0be5293d59dc5831"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__i3cpsx.html#gad89d4a708ceb38f96d43043c41e7a801">XI3cPsx_IntrHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a6bcee9228169f21f0be5293d59dc5831">StatusHandler</a></td></tr>
 <tr class="memdesc:a6bcee9228169f21f0be5293d59dc5831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler function.  <a href="#a6bcee9228169f21f0be5293d59dc5831">More...</a><br/></td></tr>
 <tr class="separator:a6bcee9228169f21f0be5293d59dc5831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a855ecd26bd9e9dca3795b45626f618ef"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a855ecd26bd9e9dca3795b45626f618ef">CallBackRef</a></td></tr>
@@ -170,22 +191,62 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a542fb415ac2abc918643d91f4703cdc1"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a542fb415ac2abc918643d91f4703cdc1">SclkHz</a></td></tr>
 <tr class="memdesc:a542fb415ac2abc918643d91f4703cdc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">SCL clock frequency.  <a href="#a542fb415ac2abc918643d91f4703cdc1">More...</a><br/></td></tr>
 <tr class="separator:a542fb415ac2abc918643d91f4703cdc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af78c9ce6740a3ea7de8bc26db131f673"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#af78c9ce6740a3ea7de8bc26db131f673">Bcr</a> [<a class="el" href="group__i3cpsx.html#ga214e3db6f3330a2c0a9f4b3798d79264">XI3CPSX_MAX_DAT_ENTRIES</a>]</td></tr>
+<tr class="memdesc:af78c9ce6740a3ea7de8bc26db131f673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-device BCR captured during DAA.  <a href="#af78c9ce6740a3ea7de8bc26db131f673">More...</a><br/></td></tr>
+<tr class="separator:af78c9ce6740a3ea7de8bc26db131f673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa796de29e55156bd19a4e6effceb47"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a8aa796de29e55156bd19a4e6effceb47">SirRejectMask</a></td></tr>
+<tr class="memdesc:a8aa796de29e55156bd19a4e6effceb47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shadow of IBI_SIR_REQ_REJECT (1 = reject)  <a href="#a8aa796de29e55156bd19a4e6effceb47">More...</a><br/></td></tr>
+<tr class="separator:a8aa796de29e55156bd19a4e6effceb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588aa0284d94c7e5d5f048ba1773c7eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__i3cpsx.html#gae329b25af5afb2313a1d619e08bcdd29">XI3cPsx_IbiHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a588aa0284d94c7e5d5f048ba1773c7eb">IbiHandler</a></td></tr>
+<tr class="memdesc:a588aa0284d94c7e5d5f048ba1773c7eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">IBI (SIR) event handler function.  <a href="#a588aa0284d94c7e5d5f048ba1773c7eb">More...</a><br/></td></tr>
+<tr class="separator:a588aa0284d94c7e5d5f048ba1773c7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8503c3fe3880fef466db6d31895b7c36"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a8503c3fe3880fef466db6d31895b7c36">IbiCallBackRef</a></td></tr>
+<tr class="memdesc:a8503c3fe3880fef466db6d31895b7c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback reference for the IBI handler.  <a href="#a8503c3fe3880fef466db6d31895b7c36">More...</a><br/></td></tr>
+<tr class="separator:a8503c3fe3880fef466db6d31895b7c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5a917ff683b01acf2e54b9b2ef357a6"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#af5a917ff683b01acf2e54b9b2ef357a6">IbiData</a> [<a class="el" href="group__i3cpsx.html#ga09f5bbb07aca4f9449f8ce5eaa9974a6">XI3CPSX_IBI_MAX_PAYLOAD</a>]</td></tr>
+<tr class="memdesc:af5a917ff683b01acf2e54b9b2ef357a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scratch buffer for IBI payload.  <a href="#af5a917ff683b01acf2e54b9b2ef357a6">More...</a><br/></td></tr>
+<tr class="separator:af5a917ff683b01acf2e54b9b2ef357a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae966db36143a1332b3e143a9405dd69c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__i3cpsx.html#gae4d2debd4b17b8fc0e5869ba3a8a3110">XI3cPsx_HjHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#ae966db36143a1332b3e143a9405dd69c">HjHandler</a></td></tr>
+<tr class="memdesc:ae966db36143a1332b3e143a9405dd69c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hot-Join notification handler function.  <a href="#ae966db36143a1332b3e143a9405dd69c">More...</a><br/></td></tr>
+<tr class="separator:ae966db36143a1332b3e143a9405dd69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51343997a64c311bce9d75466a3a5563"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a51343997a64c311bce9d75466a3a5563">HjCallBackRef</a></td></tr>
+<tr class="memdesc:a51343997a64c311bce9d75466a3a5563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback reference for the Hot-Join handler.  <a href="#a51343997a64c311bce9d75466a3a5563">More...</a><br/></td></tr>
+<tr class="separator:a51343997a64c311bce9d75466a3a5563"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a8c0da2985e177528207c688fca0a36"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_i3c_psx.html#a3a8c0da2985e177528207c688fca0a36">HotJoinPending</a></td></tr>
+<tr class="memdesc:a3a8c0da2985e177528207c688fca0a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set by the ISR on a Hot-Join; the application enrols the target via <a class="el" href="group__i3cpsx.html#ga301f59216dd5f3c6a2547c1cb86c1225" title="Services a Hot-Join request by re-running ENTDAA. ">XI3cPsx_HotJoinDaa()</a>  <a href="#a3a8c0da2985e177528207c688fca0a36">More...</a><br/></td></tr>
+<tr class="separator:a3a8c0da2985e177528207c688fca0a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_i3c_psx.html" title="The XI3cPsx driver instance data. ">XI3cPsx</a> driver instance data. </p>
-<p>The user is required to allocate a variable of this type for each IIC device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
+<div class="textblock"><p>Holds per-instance I3C driver state. </p>
+<p>The application must allocate a variable of this type for each I3C device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="aba221defc59197aa0d024c3205a951e9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 XI3cPsx::Addr[XI3CPSX_MAX_DAT_ENTRIES]</td>
+          <td class="memname">u32 XI3cPsx::Addr[<a class="el" href="group__i3cpsx.html#ga214e3db6f3330a2c0a9f4b3798d79264">XI3CPSX_MAX_DAT_ENTRIES</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Dynamic Addresses to be assigned. </p>
+
+</div>
+</div>
+<a class="anchor" id="af78c9ce6740a3ea7de8bc26db131f673"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XI3cPsx::Bcr[<a class="el" href="group__i3cpsx.html#ga214e3db6f3330a2c0a9f4b3798d79264">XI3CPSX_MAX_DAT_ENTRIES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Per-device BCR captured during DAA. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#gaa9839ccffc6576b507ddc99f50b08203">XI3cPsx_EnableIbi()</a>.</p>
 
 </div>
 </div>
@@ -201,7 +262,7 @@ Data Fields</h2></td></tr>
 
 <p>Callback reference for event handler. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, and <a class="el" href="group___overview.html#ga49588a527df3275f36af02d46caa8dad">XI3cPsx_SetStatusHandler()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga49588a527df3275f36af02d46caa8dad">XI3cPsx_SetStatusHandler()</a>, and <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>.</p>
 
 </div>
 </div>
@@ -231,7 +292,7 @@ Data Fields</h2></td></tr>
 
 <p>Configuration structure. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group___overview.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group___overview.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group___overview.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group___overview.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group___overview.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, <a class="el" href="group___overview.html#ga72475e850e3677acf4a32c3a6ba58141">XI3cPsx_Reset()</a>, <a class="el" href="group___overview.html#ga5f5337ebb6a45588fd6c72aeaa87ecc0">XI3cPsx_ResetFifos()</a>, <a class="el" href="group___overview.html#ga8a69288d43feb7b4b08a025f240c7d3d">XI3cPsx_SendAddrAssignCmd()</a>, <a class="el" href="xi3cpsx__options_8c.html#a840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, <a class="el" href="group___overview.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave()</a>, <a class="el" href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>, <a class="el" href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, <a class="el" href="group___overview.html#ga620be974fe2a6fd52a390ce36cc1a300">XI3cPsx_WrCmdFifo()</a>, and <a class="el" href="group___overview.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga67bf66f817a77e2f0853503e6b5b4289">XI3cPsx_DisableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c01e1c25170142147ca03dc67e8252f">XI3cPsx_DisableIbi()</a>, <a class="el" href="group__i3cpsx__api.html#ga3070017e3f8c720a473fa4ff97e01eae">XI3cPsx_EnableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#gaa9839ccffc6576b507ddc99f50b08203">XI3cPsx_EnableIbi()</a>, <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group__i3cpsx__api.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group__i3cpsx.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, <a class="el" href="group__i3cpsx__api.html#ga72475e850e3677acf4a32c3a6ba58141">XI3cPsx_Reset()</a>, <a class="el" href="group__i3cpsx__api.html#ga5f5337ebb6a45588fd6c72aeaa87ecc0">XI3cPsx_ResetFifos()</a>, <a class="el" href="group__i3cpsx.html#ga8a69288d43feb7b4b08a025f240c7d3d">XI3cPsx_SendAddrAssignCmd()</a>, <a class="el" href="group__i3cpsx__api.html#ga840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, <a class="el" href="group__i3cpsx__api.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend()</a>, <a class="el" href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, <a class="el" href="group__i3cpsx.html#ga620be974fe2a6fd52a390ce36cc1a300">XI3cPsx_WrCmdFifo()</a>, and <a class="el" href="group__i3cpsx.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
 
 </div>
 </div>
@@ -246,7 +307,135 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>No. </p>
-<p>of bytes expected in current transfer </p>
+<p>of bytes received in the last transfer </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, and <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0104ae98144e21f7c2944bd7e8c45235"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XI3cPsx::DatStartAddr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DAT base, read from DEVICE_ADDR_TABLE_POINTER. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a419112939f80272ad5a70489c1656b3b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XI3cPsx::Error</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Error status of last transfer, set by the ISR. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga10dedaf409b8b5c149dd04b5d082769e">XI3cPsx_BusInit()</a>, <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, and <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a51343997a64c311bce9d75466a3a5563"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XI3cPsx::HjCallBackRef</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback reference for the Hot-Join handler. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#ga2870b36d2cb7180da265b1b07fa01262">XI3cPsx_SetHjHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae966db36143a1332b3e143a9405dd69c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__i3cpsx.html#gae4d2debd4b17b8fc0e5869ba3a8a3110">XI3cPsx_HjHandler</a> XI3cPsx::HjHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hot-Join notification handler function. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#ga2870b36d2cb7180da265b1b07fa01262">XI3cPsx_SetHjHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a8c0da2985e177528207c688fca0a36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 XI3cPsx::HotJoinPending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set by the ISR on a Hot-Join; the application enrols the target via <a class="el" href="group__i3cpsx.html#ga301f59216dd5f3c6a2547c1cb86c1225" title="Services a Hot-Join request by re-running ENTDAA. ">XI3cPsx_HotJoinDaa()</a> </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8503c3fe3880fef466db6d31895b7c36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XI3cPsx::IbiCallBackRef</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback reference for the IBI handler. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#gaf440dfeb97ee3ad092172852360dca12">XI3cPsx_SetIbiHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af5a917ff683b01acf2e54b9b2ef357a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XI3cPsx::IbiData[<a class="el" href="group__i3cpsx.html#ga09f5bbb07aca4f9449f8ce5eaa9974a6">XI3CPSX_IBI_MAX_PAYLOAD</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scratch buffer for IBI payload. </p>
+
+</div>
+</div>
+<a class="anchor" id="a588aa0284d94c7e5d5f048ba1773c7eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__i3cpsx.html#gae329b25af5afb2313a1d619e08bcdd29">XI3cPsx_IbiHandler</a> XI3cPsx::IbiHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IBI (SIR) event handler function. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx__api.html#gaf440dfeb97ee3ad092172852360dca12">XI3cPsx_SetIbiHandler()</a>.</p>
 
 </div>
 </div>
@@ -276,7 +465,7 @@ Data Fields</h2></td></tr>
 
 <p>Device is initialized and ready. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="xi3cpsx__options_8c.html#a59995b0b867d7aa6d315f17c4202d227">XI3cPsx_GetSClk()</a>, <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga5f5337ebb6a45588fd6c72aeaa87ecc0">XI3cPsx_ResetFifos()</a>, <a class="el" href="xi3cpsx__options_8c.html#a840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, <a class="el" href="group___overview.html#ga49588a527df3275f36af02d46caa8dad">XI3cPsx_SetStatusHandler()</a>, <a class="el" href="group___overview.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave()</a>, <a class="el" href="group___overview.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group___overview.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, <a class="el" href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>, and <a class="el" href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga67bf66f817a77e2f0853503e6b5b4289">XI3cPsx_DisableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c01e1c25170142147ca03dc67e8252f">XI3cPsx_DisableIbi()</a>, <a class="el" href="group__i3cpsx__api.html#ga3070017e3f8c720a473fa4ff97e01eae">XI3cPsx_EnableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#gaa9839ccffc6576b507ddc99f50b08203">XI3cPsx_EnableIbi()</a>, <a class="el" href="group__i3cpsx__api.html#ga59995b0b867d7aa6d315f17c4202d227">XI3cPsx_GetSClk()</a>, <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#gabd02b8629475df4910710b6f3ab6c73b">XI3cPsx_RecoverFromError()</a>, <a class="el" href="group__i3cpsx__api.html#ga5f5337ebb6a45588fd6c72aeaa87ecc0">XI3cPsx_ResetFifos()</a>, <a class="el" href="group__i3cpsx__api.html#ga2870b36d2cb7180da265b1b07fa01262">XI3cPsx_SetHjHandler()</a>, <a class="el" href="group__i3cpsx__api.html#gaf440dfeb97ee3ad092172852360dca12">XI3cPsx_SetIbiHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, <a class="el" href="group__i3cpsx__api.html#ga49588a527df3275f36af02d46caa8dad">XI3cPsx_SetStatusHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend()</a>, and <a class="el" href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>.</p>
 
 </div>
 </div>
@@ -306,6 +495,56 @@ Data Fields</h2></td></tr>
 
 <p>Whether master is sending or receiving. </p>
 
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, and <a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8be1601b168fa554545a59c45dfe7071"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XI3cPsx::LastDatIndex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DAT index of the most recently issued command. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, and <a class="el" href="group__i3cpsx.html#ga620be974fe2a6fd52a390ce36cc1a300">XI3cPsx_WrCmdFifo()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a934fd17ef23b6b30182ae21353037e86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XI3cPsx::LastTransCmd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command word of the most recently issued command. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, and <a class="el" href="group__i3cpsx.html#ga620be974fe2a6fd52a390ce36cc1a300">XI3cPsx_WrCmdFifo()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5637819056fca4187543641383332a22"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XI3cPsx::MaxDevs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DAT depth, capped at XI3CPSX_MAX_DAT_ENTRIES. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c01e1c25170142147ca03dc67e8252f">XI3cPsx_DisableIbi()</a>, and <a class="el" href="group__i3cpsx__api.html#gaa9839ccffc6576b507ddc99f50b08203">XI3cPsx_EnableIbi()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a466106bde98899bbceaa552e6b682aa9"></a>
@@ -322,6 +561,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae77b90c920004816b1f99f71110bfe7c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u8 XI3cPsx::OvfPending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Target latched an overflow; cleared with GETSTATUS before the next transfer. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx__api.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, and <a class="el" href="group__i3cpsx__api.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6c7e8bbb027d3b3db6bcc75d0159ed07"></a>
 <div class="memitem">
 <div class="memproto">
@@ -334,7 +589,7 @@ Data Fields</h2></td></tr>
 
 <p>Pointer to recv buffer. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group___overview.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group___overview.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, and <a class="el" href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, and <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>.</p>
 
 </div>
 </div>
@@ -350,7 +605,23 @@ Data Fields</h2></td></tr>
 
 <p>Number of bytes still expected to receive. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group___overview.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group___overview.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, and <a class="el" href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga858ac6e2e7491133b6781a3ad9a80a20">XI3cPsx_MasterRecv()</a>, <a class="el" href="group__i3cpsx__api.html#ga759bdfcbba7cff4248e1a490f9b2b8c2">XI3cPsx_MasterRecvPolled()</a>, <a class="el" href="group__i3cpsx.html#ga93a8a74ad0e713a3a76a39b0fd4c116e">XI3cPsx_RdRxFifo()</a>, <a class="el" href="group__i3cpsx__api.html#gabd02b8629475df4910710b6f3ab6c73b">XI3cPsx_RecoverFromError()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv()</a>, and <a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1766438cd6f1cc868ce777ef8e4c56e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 XI3cPsx::RespDone</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set by the master ISR after it consumes a command response. </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga301f59216dd5f3c6a2547c1cb86c1225">XI3cPsx_HotJoinDaa()</a>, and <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>.</p>
 
 </div>
 </div>
@@ -366,7 +637,7 @@ Data Fields</h2></td></tr>
 
 <p>SCL clock frequency. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="xi3cpsx__options_8c.html#a59995b0b867d7aa6d315f17c4202d227">XI3cPsx_GetSClk()</a>, <a class="el" href="xi3cpsx__options_8c.html#a840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, and <a class="el" href="xi3cpsx__options_8c.html#a6576725f77627078c11a0310cc223f67">XI3cPsx_SetSClkRate()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga59995b0b867d7aa6d315f17c4202d227">XI3cPsx_GetSClk()</a>, <a class="el" href="group__i3cpsx__api.html#ga840d94794f4297389476a8db3bc8b1e1">XI3cPsx_SetSClk()</a>, and <a class="el" href="group__i3cpsx__api.html#ga6576725f77627078c11a0310cc223f67">XI3cPsx_SetSClkRate()</a>.</p>
 
 </div>
 </div>
@@ -382,7 +653,7 @@ Data Fields</h2></td></tr>
 
 <p>Pointer to send buffer. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group___overview.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, and <a class="el" href="group___overview.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group__i3cpsx__api.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend()</a>, <a class="el" href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, and <a class="el" href="group__i3cpsx.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
 
 </div>
 </div>
@@ -398,7 +669,23 @@ Data Fields</h2></td></tr>
 
 <p>Number of bytes still expected to send. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group___overview.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, and <a class="el" href="group___overview.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga4f245bce33f80afa0f5458bae59b8da9">XI3cPsx_MasterSend()</a>, <a class="el" href="group__i3cpsx__api.html#gaaaf31be44492b9baf96f0fc8659af975">XI3cPsx_MasterSendPolled()</a>, <a class="el" href="group__i3cpsx__api.html#gabd02b8629475df4910710b6f3ab6c73b">XI3cPsx_RecoverFromError()</a>, <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend()</a>, <a class="el" href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled()</a>, and <a class="el" href="group__i3cpsx.html#gaeed5de7c301b766489abd94c062953c4">XI3cPsx_WrTxFifo()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8aa796de29e55156bd19a4e6effceb47"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XI3cPsx::SirRejectMask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shadow of IBI_SIR_REQ_REJECT (1 = reject) </p>
+
+<p>Referenced by <a class="el" href="group__i3cpsx.html#gac782c97edc12d91318ab4984cc34d842">XI3cPsx_CfgInitialize()</a>, <a class="el" href="group__i3cpsx__api.html#ga67bf66f817a77e2f0853503e6b5b4289">XI3cPsx_DisableHotJoin()</a>, <a class="el" href="group__i3cpsx__api.html#ga1c01e1c25170142147ca03dc67e8252f">XI3cPsx_DisableIbi()</a>, and <a class="el" href="group__i3cpsx__api.html#gaa9839ccffc6576b507ddc99f50b08203">XI3cPsx_EnableIbi()</a>.</p>
 
 </div>
 </div>
@@ -407,14 +694,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XI3cPsx_IntrHandler XI3cPsx::StatusHandler</td>
+          <td class="memname"><a class="el" href="group__i3cpsx.html#gad89d4a708ceb38f96d43043c41e7a801">XI3cPsx_IntrHandler</a> XI3cPsx::StatusHandler</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Event handler function. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, and <a class="el" href="group___overview.html#ga49588a527df3275f36af02d46caa8dad">XI3cPsx_SetStatusHandler()</a>.</p>
+<p>Referenced by <a class="el" href="group__i3cpsx__api.html#ga804fd6fec118ef2902d1a3cf8893a3b2">XI3cPsx_MasterInterruptHandler()</a>, <a class="el" href="group__i3cpsx__api.html#ga49588a527df3275f36af02d46caa8dad">XI3cPsx_SetStatusHandler()</a>, and <a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler()</a>.</p>
 
 </div>
 </div>

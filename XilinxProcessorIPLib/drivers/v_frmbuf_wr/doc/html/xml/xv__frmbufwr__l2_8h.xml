@@ -8,19 +8,60 @@
     <includedby refid="xv__frmbufwr__l2__intr_8c" local="yes">xv_frmbufwr_l2_intr.c</includedby>
     <includedby refid="xv__frmbufwr__example_8c" local="yes">xv_frmbufwr_example.c</includedby>
     <incdepgraph>
-      <node id="86">
+      <node id="82">
         <label>xil_assert.h</label>
       </node>
-      <node id="88">
+      <node id="84">
         <label>xil_io.h</label>
       </node>
-      <node id="84">
+      <node id="80">
         <label>xv_frmbufwr.h</label>
         <link refid="xv__frmbufwr_8h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
         <childnode refid="85" relation="include">
         </childnode>
-        <childnode refid="86" relation="include">
+      </node>
+      <node id="85">
+        <label>xv_frmbufwr_hw.h</label>
+        <link refid="xv__frmbufwr__hw_8h"/>
+      </node>
+      <node id="83">
+        <label>xstatus.h</label>
+      </node>
+      <node id="79">
+        <label>xvidc.h</label>
+      </node>
+      <node id="81">
+        <label>xil_types.h</label>
+      </node>
+      <node id="78">
+        <label>xv_frmbufwr_l2.h</label>
+        <link refid="xv_frmbufwr_l2.h"/>
+        <childnode refid="79" relation="include">
         </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="89">
+        <label>xv_frmbufwr_example.c</label>
+        <link refid="xv__frmbufwr__example_8c"/>
+      </node>
+      <node id="87">
+        <label>xv_frmbufwr_l2.c</label>
+        <link refid="xv__frmbufwr__l2_8c"/>
+      </node>
+      <node id="86">
+        <label>xv_frmbufwr_l2.h</label>
+        <link refid="xv_frmbufwr_l2.h"/>
         <childnode refid="87" relation="include">
         </childnode>
         <childnode refid="88" relation="include">
@@ -28,50 +69,9 @@
         <childnode refid="89" relation="include">
         </childnode>
       </node>
-      <node id="89">
-        <label>xv_frmbufwr_hw.h</label>
-        <link refid="xv__frmbufwr__hw_8h"/>
-      </node>
-      <node id="87">
-        <label>xstatus.h</label>
-      </node>
-      <node id="83">
-        <label>xvidc.h</label>
-      </node>
-      <node id="85">
-        <label>xil_types.h</label>
-      </node>
-      <node id="82">
-        <label>xv_frmbufwr_l2.h</label>
-        <link refid="xv_frmbufwr_l2.h"/>
-        <childnode refid="83" relation="include">
-        </childnode>
-        <childnode refid="84" relation="include">
-        </childnode>
-      </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="93">
-        <label>xv_frmbufwr_example.c</label>
-        <link refid="xv__frmbufwr__example_8c"/>
-      </node>
-      <node id="92">
+      <node id="88">
         <label>xv_frmbufwr_l2_intr.c</label>
         <link refid="xv__frmbufwr__l2__intr_8c"/>
-      </node>
-      <node id="91">
-        <label>xv_frmbufwr_l2.c</label>
-        <link refid="xv__frmbufwr__l2_8c"/>
-      </node>
-      <node id="90">
-        <label>xv_frmbufwr_l2.h</label>
-        <link refid="xv_frmbufwr_l2.h"/>
-        <childnode refid="91" relation="include">
-        </childnode>
-        <childnode refid="92" relation="include">
-        </childnode>
-        <childnode refid="93" relation="include">
-        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_v___frmbuf_wr__l2" prot="public">XV_FrmbufWr_l2</innerclass>
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__v__frmbuf__wr_1gac44f0a493915315499e0ca23bc305d74" prot="public" static="no">
         <name>XVFRMBUFWR_IRQ_DONE_MASK</name>
@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__v__frmbuf__wr_1gaf15bd92ad1d06d3cefa92a0afd41ffc3" prot="public" static="no">
         <name>XVFRMBUFWR_IRQ_READY_MASK</name>
@@ -107,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a19aa6a466e3ade4418a6aaa1d347b26c" prot="public" static="no">
         <name>XVFrmbufWr_IsRGBX8Enabled</name>
@@ -129,8 +129,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="190" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a417e541e7cb4be763f8cce44e3839fdd" prot="public" static="no">
         <name>XVFrmbufWr_IsYUVX8Enabled</name>
@@ -152,8 +152,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="205" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a30d57ef8f9b7a9b5f592dfccdd2b4db2" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V8Enabled</name>
@@ -175,8 +175,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="220" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1abe23878ea66a281da4f2d821ed9a2d65" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V10Enabled</name>
@@ -198,8 +198,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="235" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a03a0cc58d98dfc4da5afbca59a4056e4" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V12Enabled</name>
@@ -221,8 +221,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="250" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a09e410360830349a5bca4514100c5545" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V8_420Enabled</name>
@@ -244,8 +244,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="265" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1ace6c2de36a55c6fb4a000609a88c8348" prot="public" static="no">
         <name>XVFrmbufWr_IsYUYV8Enabled</name>
@@ -267,8 +267,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="280" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a3ddcf48750784db3ed9e3657574fbfa3" prot="public" static="no">
         <name>XVFrmbufWr_IsRGBA8Enabled</name>
@@ -290,8 +290,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="295" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a822a5f30db2ef890e73c1708b3f969f8" prot="public" static="no">
         <name>XVFrmbufWr_IsYUVA8Enabled</name>
@@ -313,8 +313,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="310" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a06298cf0035199d4636e12983f085b22" prot="public" static="no">
         <name>XVFrmbufWr_IsBGRA8Enabled</name>
@@ -336,8 +336,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="325" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a1f483e2f3d75e138566163021144ac6a" prot="public" static="no">
         <name>XVFrmbufWr_IsRGBX10Enabled</name>
@@ -359,8 +359,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="340" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="340" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1ae3a212bbac15f70252c90abde8b945c7" prot="public" static="no">
         <name>XVFrmbufWr_IsYUVX10Enabled</name>
@@ -382,8 +382,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="355" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1adf587e3fcdfc069da29ea00b1723208b" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV8Enabled</name>
@@ -405,8 +405,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="370" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a452143cc276f467abcd82f6e6fd18477" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV8_420Enabled</name>
@@ -428,8 +428,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="385" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="385" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1ae801db647299b33a32690e944c71144c" prot="public" static="no">
         <name>XVFrmbufWr_IsRGB8Enabled</name>
@@ -451,8 +451,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="400" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a33f7a0ee2961e09ad812606492b19486" prot="public" static="no">
         <name>XVFrmbufWr_IsYUV8Enabled</name>
@@ -474,8 +474,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="415" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="415" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="415" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a4c43d86c33361db3072a00a0f196dbea" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV10Enabled</name>
@@ -497,8 +497,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="430" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="430" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="430" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="430" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a545f80fb4a287747fa9d6dc835841779" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV10_420Enabled</name>
@@ -520,8 +520,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="445" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="445" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="445" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1aa1e55cb22cc4068c537c46a90ac92780" prot="public" static="no">
         <name>XVFrmbufWr_IsY8Enabled</name>
@@ -543,8 +543,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="460" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1af1770374c9e79b957c4c5da9985ddca1" prot="public" static="no">
         <name>XVFrmbufWr_IsY10Enabled</name>
@@ -566,8 +566,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="475" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="475" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="475" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="475" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1acbb8fda38bfa532d79d357c930fbd710" prot="public" static="no">
         <name>XVFrmbufWr_IsBGRX8Enabled</name>
@@ -589,8 +589,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="490" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="490" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="490" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="490" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a914c6863bc6772d35dbb8e706f9135b7" prot="public" static="no">
         <name>XVFrmbufWr_IsUYVY8Enabled</name>
@@ -612,8 +612,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="505" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="505" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a3ffa5d2dc950fdff081a42ad961dd161" prot="public" static="no">
         <name>XVFrmbufWr_IsBGR8Enabled</name>
@@ -635,8 +635,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="520" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="520" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1af55f5df3f123465de72b53caa4a34e4b" prot="public" static="no">
         <name>XVFrmbufWr_IsRGBX12Enabled</name>
@@ -658,8 +658,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="535" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="535" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="535" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="535" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a3c7d4d87d74782c6db765abad80c625e" prot="public" static="no">
         <name>XVFrmbufWr_IsRGB16Enabled</name>
@@ -681,8 +681,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="550" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="550" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="550" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="550" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a1c2b64db6af3f69c6dade2f84cba18f6" prot="public" static="no">
         <name>XVFrmbufWr_IsYUVX12Enabled</name>
@@ -704,8 +704,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="565" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="565" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="565" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="565" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a41a8ea3874374bd7703cbc26c0171da5" prot="public" static="no">
         <name>XVFrmbufWr_IsYUV16Enabled</name>
@@ -727,8 +727,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="580" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="580" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="580" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="580" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a394705c264fe5d43663a824dfbede5a8" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV12Enabled</name>
@@ -750,8 +750,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="595" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="595" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="595" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="595" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1ad5e7ff34825a3fe149b5f43f6b882d3e" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV16Enabled</name>
@@ -773,8 +773,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="610" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="610" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="610" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="610" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a76ec6759bf3524942f26f59fe48a8e94" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV12_420Enabled</name>
@@ -796,8 +796,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="625" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="625" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="625" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="625" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a25f61b4550f870bd9735b682beb871d0" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV16_420Enabled</name>
@@ -819,8 +819,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="640" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="640" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="640" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="640" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1ae7e66b039f58a353c128e09a25008806" prot="public" static="no">
         <name>XVFrmbufWr_IsY12Enabled</name>
@@ -842,8 +842,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="655" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="655" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="655" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="655" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a1ca50a2b60ee7ba60504c6321efe1e78" prot="public" static="no">
         <name>XVFrmbufWr_IsY16Enabled</name>
@@ -865,8 +865,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="670" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="670" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="670" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="670" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1aec592e6be6795ef489e4e5508f0526d3" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V10_L16LEEnabled</name>
@@ -888,8 +888,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="685" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="685" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="685" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="685" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a2d6e1634aa29c4f3315710804d188d56" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV10_L16LEEnabled</name>
@@ -911,8 +911,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="700" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="700" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="700" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="700" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a67eac472dacbd9f19769a54cd08b4314" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV10_420_L16LEEnabled</name>
@@ -934,8 +934,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="715" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="715" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="715" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="715" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a58a5f7922b9900fd37ee7b0debe21c18" prot="public" static="no">
         <name>XVFrmbufWr_IsY10_L16LEEnabled</name>
@@ -957,8 +957,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="730" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="730" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="730" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="730" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a1771ab196c1cd00cda44bd51e6e34cea" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V12_L16LEEnabled</name>
@@ -980,8 +980,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="745" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="745" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="745" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="745" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a7c43bc2e6d9fdb6ad255431a70ed6037" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV12_L16LEEnabled</name>
@@ -1003,8 +1003,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="760" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="760" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="760" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="760" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a93ae15d75466d41a925ded64940e1de6" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV12_420_L16LEEnabled</name>
@@ -1026,8 +1026,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="775" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="775" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="775" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="775" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1abf30efde1badf5f8e0921b0420616cdd" prot="public" static="no">
         <name>XVFrmbufWr_IsY12_L16LEEnabled</name>
@@ -1049,8 +1049,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="790" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="790" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="790" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="790" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1aaa848d458065ddf2a1c9b21a0eede1ad" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V10_M16LEEnabled</name>
@@ -1072,8 +1072,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="805" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="805" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="805" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="805" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1aa39c768c193539c996d7e023dbd6b761" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV10_M16LEEnabled</name>
@@ -1095,8 +1095,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="820" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="820" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="820" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="820" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a7e5e56a58e88c9fdff99ad5a8e0dbc30" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV10_420_M16LEEnabled</name>
@@ -1118,8 +1118,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="835" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="835" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="835" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="835" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a69956aea12a964c67456f5d4e352110d" prot="public" static="no">
         <name>XVFrmbufWr_IsY10_M16LEEnabled</name>
@@ -1141,8 +1141,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="850" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="850" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="850" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="850" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a949d7e619b62a62c63cf1a8bbf372bbf" prot="public" static="no">
         <name>XVFrmbufWr_IsY_U_V12_M16LEEnabled</name>
@@ -1164,8 +1164,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="865" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="865" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="865" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="865" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1ad858be63fbe31f9b00d42b41246baa3e" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV12_M16LEEnabled</name>
@@ -1187,8 +1187,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="880" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="880" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="880" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="880" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a04a52a87993de6fe8f62cfb42224ce4e" prot="public" static="no">
         <name>XVFrmbufWr_IsY_UV12_420_M16LEEnabled</name>
@@ -1210,8 +1210,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="895" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="895" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="895" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="895" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a24ce5cd18fde4cdeb5af9e6392ed8bc8" prot="public" static="no">
         <name>XVFrmbufWr_IsY12_M16LEEnabled</name>
@@ -1233,8 +1233,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="910" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="910" bodyend="-1"/>
-        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="910" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="910" bodyend="-1"/>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="466" endline="772">XVFrmbufWr_SetMemFormat</referencedby>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1af1c1f6becc743bf969e23fcb3beeb138" prot="public" static="no">
         <name>XVFrmbufWr_InterlacedEnabled</name>
@@ -1256,7 +1256,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="925" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="925" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="925" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="925" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a117565ff1e2a1f51b7761da20d3e84cf" prot="public" static="no">
         <name>XVFrmbufWr_IsTileFormatEnabled</name>
@@ -1278,7 +1278,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="940" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="940" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="940" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="940" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a47323597d6c93aad6acaa9c8bee72dd6" prot="public" static="no">
         <name>XVFrmbufWr_IsEnSyncSignals</name>
@@ -1300,7 +1300,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="955" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="955" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="955" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="955" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__frmbufwr__l2_8h_1a7a21e01e53ac547cf7ee087236823df0" prot="public" static="no">
         <name>XVFrmbufWr_IsEnPartialFrm</name>
@@ -1322,7 +1322,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="970" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="970" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="970" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="970" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -1381,7 +1381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="123" bodyend="130"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="123" bodyend="130"/>
       </memberdef>
       <memberdef kind="enum" id="group__v__frmbuf__wr_1gaf6ba82d79d84ccc4ee6b505eb629c045" prot="public" static="no">
         <name>XVFrmbufWr_HandlerType</name>
@@ -1406,7 +1406,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="136" bodyend="139"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="136" bodyend="139"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -1431,7 +1431,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="154" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" bodystart="154" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -1472,8 +1472,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="244" bodyend="262"/>
-        <references refid="xv__frmbufwr_8h_1a49b9da16a2a97c7850ad631220a64efa" compoundref="xv__frmbufwr__sinit_8c" startline="125" endline="139">XV_frmbufwr_Initialize</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="975" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="241" bodyend="254"/>
+        <references refid="xv__frmbufwr_8h_1a49b9da16a2a97c7850ad631220a64efa" compoundref="xv__frmbufwr__sinit_8c" startline="64" endline="78">XV_frmbufwr_Initialize</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga62c170ef332a536b7461b3ce81def351" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1499,10 +1499,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="980" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="368" bodyend="373"/>
-        <references refid="xv__frmbufwr_8c_1a1fa08ab807087c53eae5cda44cafd616" compoundref="xv__frmbufwr_8c" startline="64" endline="72">XV_frmbufwr_Start</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="976" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="360" bodyend="365"/>
+        <references refid="xv__frmbufwr_8c_1a1fa08ab807087c53eae5cda44cafd616" compoundref="xv__frmbufwr_8c" startline="62" endline="70">XV_frmbufwr_Start</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <referencedby refid="xv__frmbufwr__example_8c_1a93fa7cae040aad5d80e3f895d64631ce" compoundref="xv__frmbufwr__example_8c" startline="730" endline="734">XVFrameBufferWrCallback</referencedby>
+        <referencedby refid="xv__frmbufwr__example_8c_1a93fa7cae040aad5d80e3f895d64631ce" compoundref="xv__frmbufwr__example_8c" startline="574" endline="578">XVFrameBufferWrCallback</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga0cfe9c77cc5534a27e613e5fc87a8ab4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1530,12 +1530,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="981" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="389" bodyend="413"/>
-        <references refid="xv__frmbufwr_8c_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="170" endline="175">XV_frmbufwr_DisableAutoRestart</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="977" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="381" bodyend="405"/>
+        <references refid="xv__frmbufwr_8c_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="168" endline="173">XV_frmbufwr_DisableAutoRestart</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="xv__frmbufwr_8c_1aec97449765908eeabc6e2b5fd4153297" compoundref="xv__frmbufwr_8c" startline="189" endline="200">XV_frmbufwr_SetFlushbit</references>
-        <references refid="xv__frmbufwr_8c_1aec8603446c416ffcd590fb1dacc766d8" compoundref="xv__frmbufwr_8c" startline="213" endline="222">XV_frmbufwr_Get_FlushDone</references>
-        <referencedby refid="xv__frmbufwr__example_8c_1a1404ec37649e5775142431036025c57a" compoundref="xv__frmbufwr__example_8c" startline="782" endline="793">resetIp</referencedby>
+        <references refid="xv__frmbufwr_8c_1aec97449765908eeabc6e2b5fd4153297" compoundref="xv__frmbufwr_8c" startline="187" endline="198">XV_frmbufwr_SetFlushbit</references>
+        <references refid="xv__frmbufwr_8c_1aec8603446c416ffcd590fb1dacc766d8" compoundref="xv__frmbufwr_8c" startline="211" endline="220">XV_frmbufwr_Get_FlushDone</references>
+        <referencedby refid="xv__frmbufwr__example_8c_1a1404ec37649e5775142431036025c57a" compoundref="xv__frmbufwr__example_8c" startline="626" endline="637">resetIp</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga28dc4f189245f3c9e8152ff270a40813" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1563,8 +1563,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="982" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="429" bodyend="445"/>
-        <references refid="xv__frmbufwr_8c_1a1c126d44d62c2308a2c68a3b7a64046b" compoundref="xv__frmbufwr_8c" startline="108" endline="116">XV_frmbufwr_IsIdle</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="421" bodyend="437"/>
+        <references refid="xv__frmbufwr_8c_1a1c126d44d62c2308a2c68a3b7a64046b" compoundref="xv__frmbufwr_8c" startline="106" endline="114">XV_frmbufwr_IsIdle</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1629,11 +1629,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="983" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="474" bodyend="780"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="979" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="466" bodyend="772"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1af870fc8343e9486ded17e4094e4eb0c0" compoundref="xv__frmbufwr__l2_8h" startline="174">XV_FrmbufWr_l2::Stream</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="127">XV_frmbufwr::Config</references>
-        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="57">XV_frmbufwr_Config::PixPerClk</references>
+        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="121">XV_frmbufwr::Config</references>
+        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="53">XV_frmbufwr_Config::PixPerClk</references>
         <references refid="group__v__frmbuf__wr_1ga6f9c9835e23af3fdd01c837846daa6ce" compoundref="xv__frmbufwr__l2_8c" startline="67" endline="224">WrMemory2Live</references>
         <references refid="xv__frmbufwr__l2_8h_1a19aa6a466e3ade4418a6aaa1d347b26c" compoundref="xv__frmbufwr__l2_8h" startline="190">XVFrmbufWr_IsRGBX8Enabled</references>
         <references refid="xv__frmbufwr__l2_8h_1a417e541e7cb4be763f8cce44e3839fdd" compoundref="xv__frmbufwr__l2_8h" startline="205">XVFrmbufWr_IsYUVX8Enabled</references>
@@ -1684,10 +1684,10 @@
         <references refid="xv__frmbufwr__l2_8h_1ad858be63fbe31f9b00d42b41246baa3e" compoundref="xv__frmbufwr__l2_8h" startline="880">XVFrmbufWr_IsY_UV12_M16LEEnabled</references>
         <references refid="xv__frmbufwr__l2_8h_1a04a52a87993de6fe8f62cfb42224ce4e" compoundref="xv__frmbufwr__l2_8h" startline="895">XVFrmbufWr_IsY_UV12_420_M16LEEnabled</references>
         <references refid="xv__frmbufwr__l2_8h_1a24ce5cd18fde4cdeb5af9e6392ed8bc8" compoundref="xv__frmbufwr__l2_8h" startline="910">XVFrmbufWr_IsY12_M16LEEnabled</references>
-        <references refid="xv__frmbufwr_8c_1a358b23884dce32646c0307ac9aab5ab2" compoundref="xv__frmbufwr_8c" startline="234" endline="239">XV_frmbufwr_Set_HwReg_width</references>
-        <references refid="xv__frmbufwr_8c_1a223c96f00aeb45b5a4d6264f517fd54e" compoundref="xv__frmbufwr_8c" startline="273" endline="278">XV_frmbufwr_Set_HwReg_height</references>
-        <references refid="xv__frmbufwr_8c_1a0895ffe348089ae1a845a3399326f775" compoundref="xv__frmbufwr_8c" startline="312" endline="317">XV_frmbufwr_Set_HwReg_stride</references>
-        <references refid="xv__frmbufwr_8c_1a3979eb5235e31e4d611a2cbb2ab5a3a1" compoundref="xv__frmbufwr_8c" startline="354" endline="359">XV_frmbufwr_Set_HwReg_video_format</references>
+        <references refid="xv__frmbufwr_8c_1a358b23884dce32646c0307ac9aab5ab2" compoundref="xv__frmbufwr_8c" startline="232" endline="237">XV_frmbufwr_Set_HwReg_width</references>
+        <references refid="xv__frmbufwr_8c_1a223c96f00aeb45b5a4d6264f517fd54e" compoundref="xv__frmbufwr_8c" startline="271" endline="276">XV_frmbufwr_Set_HwReg_height</references>
+        <references refid="xv__frmbufwr_8c_1a0895ffe348089ae1a845a3399326f775" compoundref="xv__frmbufwr_8c" startline="310" endline="315">XV_frmbufwr_Set_HwReg_stride</references>
+        <references refid="xv__frmbufwr_8c_1a3979eb5235e31e4d611a2cbb2ab5a3a1" compoundref="xv__frmbufwr_8c" startline="352" endline="357">XV_frmbufwr_Set_HwReg_video_format</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga628707a22dc9888af5371e4e7fc82b68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XVidC_VideoStream *</type>
@@ -1713,7 +1713,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="987" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="789" bodyend="792"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="983" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="781" bodyend="784"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1af870fc8343e9486ded17e4094e4eb0c0" compoundref="xv__frmbufwr__l2_8h" startline="174">XV_FrmbufWr_l2::Stream</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga65a4ff585ac85c574eb6111848e3b2c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1756,11 +1756,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="988" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="815" bodyend="839"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="984" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="807" bodyend="831"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="127">XV_frmbufwr::Config</references>
-        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="57">XV_frmbufwr_Config::PixPerClk</references>
-        <references refid="xv__frmbufwr_8c_1aa8ac854d44f035497782ec71d7199c31" compoundref="xv__frmbufwr_8c" startline="398" endline="404">XV_frmbufwr_Set_HwReg_frm_buffer_V</references>
+        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="121">XV_frmbufwr::Config</references>
+        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="53">XV_frmbufwr_Config::PixPerClk</references>
+        <references refid="xv__frmbufwr_8c_1aa8ac854d44f035497782ec71d7199c31" compoundref="xv__frmbufwr_8c" startline="396" endline="402">XV_frmbufwr_Set_HwReg_frm_buffer_V</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gafd87229d20fa2601db7c527f10d4425f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -1787,8 +1787,8 @@
 This function asserts that the provided instance pointer is not NULL, then reads and returns the hardware register value corresponding to the frame buffer address. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="990" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="853" bodyend="861"/>
-        <references refid="xv__frmbufwr_8c_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="418" endline="427">XV_frmbufwr_Get_HwReg_frm_buffer_V</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="986" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="845" bodyend="853"/>
+        <references refid="xv__frmbufwr_8c_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="416" endline="425">XV_frmbufwr_Get_HwReg_frm_buffer_V</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gae3ad3f1fa2f369041d8e9ab7683a05b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1829,11 +1829,11 @@ This function asserts that the provided instance pointer is not NULL, then reads
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="883" bodyend="907"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="987" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="875" bodyend="899"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="127">XV_frmbufwr::Config</references>
-        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="57">XV_frmbufwr_Config::PixPerClk</references>
-        <references refid="xv__frmbufwr_8c_1a7dd03b1adcd69e1d316efe8404bd30dc" compoundref="xv__frmbufwr_8c" startline="443" endline="449">XV_frmbufwr_Set_HwReg_frm_buffer2_V</references>
+        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="121">XV_frmbufwr::Config</references>
+        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="53">XV_frmbufwr_Config::PixPerClk</references>
+        <references refid="xv__frmbufwr_8c_1a7dd03b1adcd69e1d316efe8404bd30dc" compoundref="xv__frmbufwr_8c" startline="441" endline="447">XV_frmbufwr_Set_HwReg_frm_buffer2_V</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gaeea208892ad56d1c83915b753f15d6f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -1859,8 +1859,8 @@ This function asserts that the provided instance pointer is not NULL, then reads
 This function asserts that the provided instance pointer is not NULL, then reads and returns the chroma buffer address from the hardware register. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="993" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="918" bodyend="926"/>
-        <references refid="xv__frmbufwr_8c_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="461" endline="470">XV_frmbufwr_Get_HwReg_frm_buffer2_V</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="989" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="910" bodyend="918"/>
+        <references refid="xv__frmbufwr_8c_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="459" endline="468">XV_frmbufwr_Get_HwReg_frm_buffer2_V</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gaf68f85db7571469e49626a9483567a50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1901,11 +1901,11 @@ This function asserts that the provided instance pointer is not NULL, then reads
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="947" bodyend="967"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="990" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="939" bodyend="959"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="127">XV_frmbufwr::Config</references>
-        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="57">XV_frmbufwr_Config::PixPerClk</references>
-        <references refid="xv__frmbufwr_8c_1a8cd85b1598a44028e8df3d35660516a0" compoundref="xv__frmbufwr_8c" startline="486" endline="491">XV_frmbufwr_Set_HwReg_frm_buffer3_V</references>
+        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="121">XV_frmbufwr::Config</references>
+        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="53">XV_frmbufwr_Config::PixPerClk</references>
+        <references refid="xv__frmbufwr_8c_1a8cd85b1598a44028e8df3d35660516a0" compoundref="xv__frmbufwr_8c" startline="484" endline="489">XV_frmbufwr_Set_HwReg_frm_buffer3_V</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gaf5b5f5abec7d6763bd3333f3ef4df008" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>UINTPTR</type>
@@ -1932,8 +1932,8 @@ This function asserts that the provided instance pointer is not NULL, then reads
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="996" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="977" bodyend="983"/>
-        <references refid="xv__frmbufwr_8c_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="504" endline="511">XV_frmbufwr_Get_HwReg_frm_buffer3_V</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="992" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="969" bodyend="975"/>
+        <references refid="xv__frmbufwr_8c_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="502" endline="509">XV_frmbufwr_Get_HwReg_frm_buffer3_V</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga02ac61b5da119e29efb4fcb6bb0a8340" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1961,11 +1961,11 @@ This function asserts that the provided instance pointer is not NULL and that th
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="997" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="997" bodyend="1006"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="993" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="989" bodyend="998"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="127">XV_frmbufwr::Config</references>
-        <references refid="struct_x_v__frmbufwr___config_1afafb31ab816487c4ea1c6917877d4756" compoundref="xv__frmbufwr_8h" startline="112">XV_frmbufwr_Config::Interlaced</references>
-        <references refid="xv__frmbufwr_8c_1a89f7402d7cbb640a3c9c465d58625016" compoundref="xv__frmbufwr_8c" startline="526" endline="535">XV_frmbufwr_Get_HwReg_field_id</references>
+        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="121">XV_frmbufwr::Config</references>
+        <references refid="struct_x_v__frmbufwr___config_1afafb31ab816487c4ea1c6917877d4756" compoundref="xv__frmbufwr_8h" startline="108">XV_frmbufwr_Config::Interlaced</references>
+        <references refid="xv__frmbufwr_8c_1a89f7402d7cbb640a3c9c465d58625016" compoundref="xv__frmbufwr_8c" startline="524" endline="533">XV_frmbufwr_Get_HwReg_field_id</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga7aa0fd061e4c759a245ec57b551d8d21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1993,74 +1993,74 @@ This function prints a detailed debug report of the Frame Buffer Write (FrmbufWr
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="998" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="1029" bodyend="1105"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="1021" bodyend="1097"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="127">XV_frmbufwr::Config</references>
-        <references refid="struct_x_v__frmbufwr___config_1aeb8502aaff6a176ce7e341aaee9d9e5b" compoundref="xv__frmbufwr_8h" startline="56">XV_frmbufwr_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" compoundref="xv__frmbufwr_8h" startline="121">XV_frmbufwr::Config</references>
+        <references refid="struct_x_v__frmbufwr___config_1aeb8502aaff6a176ce7e341aaee9d9e5b" compoundref="xv__frmbufwr_8h" startline="52">XV_frmbufwr_Config::BaseAddress</references>
         <references refid="xv__frmbufwr__hw_8h_1a3c2185d52ba2cbd93358bece1ed1d17e" compoundref="xv__frmbufwr__hw_8h" startline="77">XV_FRMBUFWR_CTRL_ADDR_AP_CTRL</references>
-        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="57">XV_frmbufwr_Config::PixPerClk</references>
-        <references refid="struct_x_v__frmbufwr___config_1a55eb9329a50385463b2ffee562d7a412" compoundref="xv__frmbufwr_8h" startline="60">XV_frmbufwr_Config::MaxDataWidth</references>
-        <references refid="struct_x_v__frmbufwr___config_1a2d873c1229a4efdfb3b132febf4e6054" compoundref="xv__frmbufwr_8h" startline="61">XV_frmbufwr_Config::AXIMMDataWidth</references>
-        <references refid="struct_x_v__frmbufwr___config_1ac548249d4fb2d38cbeb7ed827ea0406b" compoundref="xv__frmbufwr_8h" startline="63">XV_frmbufwr_Config::RGBX8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1affabcb9afaae10e168f41c86bb65a5e4" compoundref="xv__frmbufwr_8h" startline="79">XV_frmbufwr_Config::BGRX8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1ac748ffbcfd0366d78166463be3da9d25" compoundref="xv__frmbufwr_8h" startline="64">XV_frmbufwr_Config::YUVX8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a95974beb075b3efe207f9e1dafb4f2e6" compoundref="xv__frmbufwr_8h" startline="66">XV_frmbufwr_Config::RGBA8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a1244f566a1a1b59fb78cd8ff67546d9f" compoundref="xv__frmbufwr_8h" startline="68">XV_frmbufwr_Config::BGRA8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1af470e3e1051588fa101a8a2d66a41f98" compoundref="xv__frmbufwr_8h" startline="67">XV_frmbufwr_Config::YUVA8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1aa5956711c68040c3aefe3ad6bfda14f7" compoundref="xv__frmbufwr_8h" startline="65">XV_frmbufwr_Config::YUYV8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a5fb22c767589f7ac9907658e794410bd" compoundref="xv__frmbufwr_8h" startline="80">XV_frmbufwr_Config::UYVY8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1acc0d8d95810220131ae2fd05bfea510b" compoundref="xv__frmbufwr_8h" startline="69">XV_frmbufwr_Config::RGBX10En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a11846c69aa1f47eb12feca413f52b4d4" compoundref="xv__frmbufwr_8h" startline="70">XV_frmbufwr_Config::YUVX10En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a7097af5d0a0ccade82a0b46390a58e90" compoundref="xv__frmbufwr_8h" startline="71">XV_frmbufwr_Config::Y_UV8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a572639ec51d3fa31d68db3b6858efb58" compoundref="xv__frmbufwr_8h" startline="72">XV_frmbufwr_Config::Y_UV8_420En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a4a70d8a48b279f47454c31ace3d98537" compoundref="xv__frmbufwr_8h" startline="73">XV_frmbufwr_Config::RGB8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1af7418f3cef2a522d8a07de17f27beaf0" compoundref="xv__frmbufwr_8h" startline="81">XV_frmbufwr_Config::BGR8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1af3f6c4be98b97d0eccc8e369ffc7a075" compoundref="xv__frmbufwr_8h" startline="74">XV_frmbufwr_Config::YUV8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a5651ac036c199d567fbfc959b45ab851" compoundref="xv__frmbufwr_8h" startline="75">XV_frmbufwr_Config::Y_UV10En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a6343b4718c758a936f88260b75fdb9d8" compoundref="xv__frmbufwr_8h" startline="76">XV_frmbufwr_Config::Y_UV10_420En</references>
-        <references refid="struct_x_v__frmbufwr___config_1abb9d8670bacdb461826280d4b4d0ca58" compoundref="xv__frmbufwr_8h" startline="77">XV_frmbufwr_Config::Y8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a484d8c15d711cbdfb6e6300b30cd86ac" compoundref="xv__frmbufwr_8h" startline="78">XV_frmbufwr_Config::Y10En</references>
-        <references refid="struct_x_v__frmbufwr___config_1ae156ad4718023fca2082c142af8d41cd" compoundref="xv__frmbufwr_8h" startline="82">XV_frmbufwr_Config::RGBX12En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a0eb86933af24e047d9d788911d392a59" compoundref="xv__frmbufwr_8h" startline="83">XV_frmbufwr_Config::RGB16En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a7450b05b1587fea637ebcb6fda9fea65" compoundref="xv__frmbufwr_8h" startline="84">XV_frmbufwr_Config::YUVX12En</references>
-        <references refid="struct_x_v__frmbufwr___config_1aa3c18b07cb491e9291fe51cb1d7a7d8e" compoundref="xv__frmbufwr_8h" startline="88">XV_frmbufwr_Config::YUV16En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a349670d3d649db955c67c2568cb46ea5" compoundref="xv__frmbufwr_8h" startline="85">XV_frmbufwr_Config::Y_UV12En</references>
-        <references refid="struct_x_v__frmbufwr___config_1ab1f1518f054922be6d8182ee800ef2be" compoundref="xv__frmbufwr_8h" startline="89">XV_frmbufwr_Config::Y_UV16En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a2b040d207d56e4bcd25bc14f3c7ada6a" compoundref="xv__frmbufwr_8h" startline="86">XV_frmbufwr_Config::Y_UV12_420En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a672d02f25d386c7be4440dba913e3dd5" compoundref="xv__frmbufwr_8h" startline="90">XV_frmbufwr_Config::Y_UV16_420En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a8ca1895a8e8e6efac3f7a43afef4e70d" compoundref="xv__frmbufwr_8h" startline="87">XV_frmbufwr_Config::Y12En</references>
-        <references refid="struct_x_v__frmbufwr___config_1aaa2568bb221210bc9ec40f50728ccdeb" compoundref="xv__frmbufwr_8h" startline="91">XV_frmbufwr_Config::Y16En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a02cb5132600b415cf96413e670a48fb7" compoundref="xv__frmbufwr_8h" startline="92">XV_frmbufwr_Config::Y_U_V8En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a976b7966d720ef9c3715e3a15aa4ad9f" compoundref="xv__frmbufwr_8h" startline="93">XV_frmbufwr_Config::Y_U_V10En</references>
-        <references refid="struct_x_v__frmbufwr___config_1aa4f0f0ff5f962f0cf226c5a0a81ffcc3" compoundref="xv__frmbufwr_8h" startline="94">XV_frmbufwr_Config::Y_U_V8_420En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a5a49842833f295dc487194669b7e7b26" compoundref="xv__frmbufwr_8h" startline="95">XV_frmbufwr_Config::Y_U_V12En</references>
-        <references refid="struct_x_v__frmbufwr___config_1a047da7aa376e49d77d69f4f09807bfbf" compoundref="xv__frmbufwr_8h" startline="96">XV_frmbufwr_Config::Y_U_V10_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1ac270d80e6d2b06cd28d0fd20aa5d78e9" compoundref="xv__frmbufwr_8h" startline="97">XV_frmbufwr_Config::Y_UV10_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a3d23195b1da136686710ea9a356652cd" compoundref="xv__frmbufwr_8h" startline="98">XV_frmbufwr_Config::Y_UV10_420_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1ac74742b82ef6b8ecb1592957bd773a56" compoundref="xv__frmbufwr_8h" startline="99">XV_frmbufwr_Config::Y10_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1af248cd1dd6f87c0645e38f7a8f93e9b5" compoundref="xv__frmbufwr_8h" startline="100">XV_frmbufwr_Config::Y_U_V12_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1ab217ef29ce9f50c620088d236bcbe07e" compoundref="xv__frmbufwr_8h" startline="101">XV_frmbufwr_Config::Y_UV12_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a2c3ef2f06f89d5fa0da22967fef4364a" compoundref="xv__frmbufwr_8h" startline="102">XV_frmbufwr_Config::Y_UV12_420_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a26e9c5bb801ae5cc7a27e3cbae46bb20" compoundref="xv__frmbufwr_8h" startline="103">XV_frmbufwr_Config::Y12_L16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1af9b55e34092a92d4d6f6959d3f79add1" compoundref="xv__frmbufwr_8h" startline="104">XV_frmbufwr_Config::Y_U_V10_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a18d1158a6a5bc31dda4d15879a7b155e" compoundref="xv__frmbufwr_8h" startline="105">XV_frmbufwr_Config::Y_UV10_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1afffec223207edca54e623fbb81321eb2" compoundref="xv__frmbufwr_8h" startline="106">XV_frmbufwr_Config::Y_UV10_420_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1ac78806f0b411ae1a688a0015bc0621e8" compoundref="xv__frmbufwr_8h" startline="107">XV_frmbufwr_Config::Y10_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a9682c1ecf467eccc9c2143481d859ee0" compoundref="xv__frmbufwr_8h" startline="108">XV_frmbufwr_Config::Y_U_V12_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a0231da7e412b8fbe6aa9473e18d664b1" compoundref="xv__frmbufwr_8h" startline="109">XV_frmbufwr_Config::Y_UV12_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a27f7d61d8c76f9fb7c43f052b0653f50" compoundref="xv__frmbufwr_8h" startline="110">XV_frmbufwr_Config::Y_UV12_420_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1a5977bf605aac32121cf76811f3ce35c4" compoundref="xv__frmbufwr_8h" startline="111">XV_frmbufwr_Config::Y12_M16LEEn</references>
-        <references refid="struct_x_v__frmbufwr___config_1afafb31ab816487c4ea1c6917877d4756" compoundref="xv__frmbufwr_8h" startline="112">XV_frmbufwr_Config::Interlaced</references>
-        <references refid="struct_x_v__frmbufwr___config_1ac574dd89449209b1554a4ef8ef5910d2" compoundref="xv__frmbufwr_8h" startline="113">XV_frmbufwr_Config::IsTileFormat</references>
-        <references refid="struct_x_v__frmbufwr___config_1abed9e63f5f814e80bef26fa983b2fec0" compoundref="xv__frmbufwr_8h" startline="114">XV_frmbufwr_Config::EnSyncSignals</references>
-        <references refid="struct_x_v__frmbufwr___config_1aec5e53349c7a82b59aed04e89dc6dacc" compoundref="xv__frmbufwr_8h" startline="115">XV_frmbufwr_Config::EnPartialFrm</references>
-        <references refid="xv__frmbufwr_8c_1a52dd135d5e0ee9f1d8d4aa7470b453d7" compoundref="xv__frmbufwr_8c" startline="252" endline="260">XV_frmbufwr_Get_HwReg_width</references>
-        <references refid="xv__frmbufwr_8c_1a8e1b6040c53f4a53fe8abe58e57f86bd" compoundref="xv__frmbufwr_8c" startline="289" endline="297">XV_frmbufwr_Get_HwReg_height</references>
-        <references refid="xv__frmbufwr_8c_1a713dc15464e73f63f32ae6d2a102e60f" compoundref="xv__frmbufwr_8c" startline="334" endline="342">XV_frmbufwr_Get_HwReg_stride</references>
-        <references refid="xv__frmbufwr_8c_1a8b8c974ce85abb60f3cbd9d8d9da8e0e" compoundref="xv__frmbufwr_8c" startline="374" endline="382">XV_frmbufwr_Get_HwReg_video_format</references>
-        <references refid="xv__frmbufwr_8c_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="418" endline="427">XV_frmbufwr_Get_HwReg_frm_buffer_V</references>
-        <references refid="xv__frmbufwr_8c_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="461" endline="470">XV_frmbufwr_Get_HwReg_frm_buffer2_V</references>
-        <references refid="xv__frmbufwr_8c_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="504" endline="511">XV_frmbufwr_Get_HwReg_frm_buffer3_V</references>
+        <references refid="struct_x_v__frmbufwr___config_1a067ead64f4f249d893081d4626bdb7a1" compoundref="xv__frmbufwr_8h" startline="53">XV_frmbufwr_Config::PixPerClk</references>
+        <references refid="struct_x_v__frmbufwr___config_1a55eb9329a50385463b2ffee562d7a412" compoundref="xv__frmbufwr_8h" startline="56">XV_frmbufwr_Config::MaxDataWidth</references>
+        <references refid="struct_x_v__frmbufwr___config_1a2d873c1229a4efdfb3b132febf4e6054" compoundref="xv__frmbufwr_8h" startline="57">XV_frmbufwr_Config::AXIMMDataWidth</references>
+        <references refid="struct_x_v__frmbufwr___config_1ac548249d4fb2d38cbeb7ed827ea0406b" compoundref="xv__frmbufwr_8h" startline="59">XV_frmbufwr_Config::RGBX8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1affabcb9afaae10e168f41c86bb65a5e4" compoundref="xv__frmbufwr_8h" startline="75">XV_frmbufwr_Config::BGRX8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1ac748ffbcfd0366d78166463be3da9d25" compoundref="xv__frmbufwr_8h" startline="60">XV_frmbufwr_Config::YUVX8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a95974beb075b3efe207f9e1dafb4f2e6" compoundref="xv__frmbufwr_8h" startline="62">XV_frmbufwr_Config::RGBA8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a1244f566a1a1b59fb78cd8ff67546d9f" compoundref="xv__frmbufwr_8h" startline="64">XV_frmbufwr_Config::BGRA8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1af470e3e1051588fa101a8a2d66a41f98" compoundref="xv__frmbufwr_8h" startline="63">XV_frmbufwr_Config::YUVA8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1aa5956711c68040c3aefe3ad6bfda14f7" compoundref="xv__frmbufwr_8h" startline="61">XV_frmbufwr_Config::YUYV8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a5fb22c767589f7ac9907658e794410bd" compoundref="xv__frmbufwr_8h" startline="76">XV_frmbufwr_Config::UYVY8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1acc0d8d95810220131ae2fd05bfea510b" compoundref="xv__frmbufwr_8h" startline="65">XV_frmbufwr_Config::RGBX10En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a11846c69aa1f47eb12feca413f52b4d4" compoundref="xv__frmbufwr_8h" startline="66">XV_frmbufwr_Config::YUVX10En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a7097af5d0a0ccade82a0b46390a58e90" compoundref="xv__frmbufwr_8h" startline="67">XV_frmbufwr_Config::Y_UV8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a572639ec51d3fa31d68db3b6858efb58" compoundref="xv__frmbufwr_8h" startline="68">XV_frmbufwr_Config::Y_UV8_420En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a4a70d8a48b279f47454c31ace3d98537" compoundref="xv__frmbufwr_8h" startline="69">XV_frmbufwr_Config::RGB8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1af7418f3cef2a522d8a07de17f27beaf0" compoundref="xv__frmbufwr_8h" startline="77">XV_frmbufwr_Config::BGR8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1af3f6c4be98b97d0eccc8e369ffc7a075" compoundref="xv__frmbufwr_8h" startline="70">XV_frmbufwr_Config::YUV8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a5651ac036c199d567fbfc959b45ab851" compoundref="xv__frmbufwr_8h" startline="71">XV_frmbufwr_Config::Y_UV10En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a6343b4718c758a936f88260b75fdb9d8" compoundref="xv__frmbufwr_8h" startline="72">XV_frmbufwr_Config::Y_UV10_420En</references>
+        <references refid="struct_x_v__frmbufwr___config_1abb9d8670bacdb461826280d4b4d0ca58" compoundref="xv__frmbufwr_8h" startline="73">XV_frmbufwr_Config::Y8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a484d8c15d711cbdfb6e6300b30cd86ac" compoundref="xv__frmbufwr_8h" startline="74">XV_frmbufwr_Config::Y10En</references>
+        <references refid="struct_x_v__frmbufwr___config_1ae156ad4718023fca2082c142af8d41cd" compoundref="xv__frmbufwr_8h" startline="78">XV_frmbufwr_Config::RGBX12En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a0eb86933af24e047d9d788911d392a59" compoundref="xv__frmbufwr_8h" startline="79">XV_frmbufwr_Config::RGB16En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a7450b05b1587fea637ebcb6fda9fea65" compoundref="xv__frmbufwr_8h" startline="80">XV_frmbufwr_Config::YUVX12En</references>
+        <references refid="struct_x_v__frmbufwr___config_1aa3c18b07cb491e9291fe51cb1d7a7d8e" compoundref="xv__frmbufwr_8h" startline="84">XV_frmbufwr_Config::YUV16En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a349670d3d649db955c67c2568cb46ea5" compoundref="xv__frmbufwr_8h" startline="81">XV_frmbufwr_Config::Y_UV12En</references>
+        <references refid="struct_x_v__frmbufwr___config_1ab1f1518f054922be6d8182ee800ef2be" compoundref="xv__frmbufwr_8h" startline="85">XV_frmbufwr_Config::Y_UV16En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a2b040d207d56e4bcd25bc14f3c7ada6a" compoundref="xv__frmbufwr_8h" startline="82">XV_frmbufwr_Config::Y_UV12_420En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a672d02f25d386c7be4440dba913e3dd5" compoundref="xv__frmbufwr_8h" startline="86">XV_frmbufwr_Config::Y_UV16_420En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a8ca1895a8e8e6efac3f7a43afef4e70d" compoundref="xv__frmbufwr_8h" startline="83">XV_frmbufwr_Config::Y12En</references>
+        <references refid="struct_x_v__frmbufwr___config_1aaa2568bb221210bc9ec40f50728ccdeb" compoundref="xv__frmbufwr_8h" startline="87">XV_frmbufwr_Config::Y16En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a02cb5132600b415cf96413e670a48fb7" compoundref="xv__frmbufwr_8h" startline="88">XV_frmbufwr_Config::Y_U_V8En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a976b7966d720ef9c3715e3a15aa4ad9f" compoundref="xv__frmbufwr_8h" startline="89">XV_frmbufwr_Config::Y_U_V10En</references>
+        <references refid="struct_x_v__frmbufwr___config_1aa4f0f0ff5f962f0cf226c5a0a81ffcc3" compoundref="xv__frmbufwr_8h" startline="90">XV_frmbufwr_Config::Y_U_V8_420En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a5a49842833f295dc487194669b7e7b26" compoundref="xv__frmbufwr_8h" startline="91">XV_frmbufwr_Config::Y_U_V12En</references>
+        <references refid="struct_x_v__frmbufwr___config_1a047da7aa376e49d77d69f4f09807bfbf" compoundref="xv__frmbufwr_8h" startline="92">XV_frmbufwr_Config::Y_U_V10_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1ac270d80e6d2b06cd28d0fd20aa5d78e9" compoundref="xv__frmbufwr_8h" startline="93">XV_frmbufwr_Config::Y_UV10_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a3d23195b1da136686710ea9a356652cd" compoundref="xv__frmbufwr_8h" startline="94">XV_frmbufwr_Config::Y_UV10_420_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1ac74742b82ef6b8ecb1592957bd773a56" compoundref="xv__frmbufwr_8h" startline="95">XV_frmbufwr_Config::Y10_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1af248cd1dd6f87c0645e38f7a8f93e9b5" compoundref="xv__frmbufwr_8h" startline="96">XV_frmbufwr_Config::Y_U_V12_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1ab217ef29ce9f50c620088d236bcbe07e" compoundref="xv__frmbufwr_8h" startline="97">XV_frmbufwr_Config::Y_UV12_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a2c3ef2f06f89d5fa0da22967fef4364a" compoundref="xv__frmbufwr_8h" startline="98">XV_frmbufwr_Config::Y_UV12_420_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a26e9c5bb801ae5cc7a27e3cbae46bb20" compoundref="xv__frmbufwr_8h" startline="99">XV_frmbufwr_Config::Y12_L16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1af9b55e34092a92d4d6f6959d3f79add1" compoundref="xv__frmbufwr_8h" startline="100">XV_frmbufwr_Config::Y_U_V10_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a18d1158a6a5bc31dda4d15879a7b155e" compoundref="xv__frmbufwr_8h" startline="101">XV_frmbufwr_Config::Y_UV10_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1afffec223207edca54e623fbb81321eb2" compoundref="xv__frmbufwr_8h" startline="102">XV_frmbufwr_Config::Y_UV10_420_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1ac78806f0b411ae1a688a0015bc0621e8" compoundref="xv__frmbufwr_8h" startline="103">XV_frmbufwr_Config::Y10_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a9682c1ecf467eccc9c2143481d859ee0" compoundref="xv__frmbufwr_8h" startline="104">XV_frmbufwr_Config::Y_U_V12_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a0231da7e412b8fbe6aa9473e18d664b1" compoundref="xv__frmbufwr_8h" startline="105">XV_frmbufwr_Config::Y_UV12_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a27f7d61d8c76f9fb7c43f052b0653f50" compoundref="xv__frmbufwr_8h" startline="106">XV_frmbufwr_Config::Y_UV12_420_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1a5977bf605aac32121cf76811f3ce35c4" compoundref="xv__frmbufwr_8h" startline="107">XV_frmbufwr_Config::Y12_M16LEEn</references>
+        <references refid="struct_x_v__frmbufwr___config_1afafb31ab816487c4ea1c6917877d4756" compoundref="xv__frmbufwr_8h" startline="108">XV_frmbufwr_Config::Interlaced</references>
+        <references refid="struct_x_v__frmbufwr___config_1ac574dd89449209b1554a4ef8ef5910d2" compoundref="xv__frmbufwr_8h" startline="109">XV_frmbufwr_Config::IsTileFormat</references>
+        <references refid="struct_x_v__frmbufwr___config_1abed9e63f5f814e80bef26fa983b2fec0" compoundref="xv__frmbufwr_8h" startline="110">XV_frmbufwr_Config::EnSyncSignals</references>
+        <references refid="struct_x_v__frmbufwr___config_1aec5e53349c7a82b59aed04e89dc6dacc" compoundref="xv__frmbufwr_8h" startline="111">XV_frmbufwr_Config::EnPartialFrm</references>
+        <references refid="xv__frmbufwr_8c_1a52dd135d5e0ee9f1d8d4aa7470b453d7" compoundref="xv__frmbufwr_8c" startline="250" endline="258">XV_frmbufwr_Get_HwReg_width</references>
+        <references refid="xv__frmbufwr_8c_1a8e1b6040c53f4a53fe8abe58e57f86bd" compoundref="xv__frmbufwr_8c" startline="287" endline="295">XV_frmbufwr_Get_HwReg_height</references>
+        <references refid="xv__frmbufwr_8c_1a713dc15464e73f63f32ae6d2a102e60f" compoundref="xv__frmbufwr_8c" startline="332" endline="340">XV_frmbufwr_Get_HwReg_stride</references>
+        <references refid="xv__frmbufwr_8c_1a8b8c974ce85abb60f3cbd9d8d9da8e0e" compoundref="xv__frmbufwr_8c" startline="372" endline="380">XV_frmbufwr_Get_HwReg_video_format</references>
+        <references refid="xv__frmbufwr_8c_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="416" endline="425">XV_frmbufwr_Get_HwReg_frm_buffer_V</references>
+        <references refid="xv__frmbufwr_8c_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="459" endline="468">XV_frmbufwr_Get_HwReg_frm_buffer2_V</references>
+        <references refid="xv__frmbufwr_8c_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="502" endline="509">XV_frmbufwr_Get_HwReg_frm_buffer3_V</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gadea6cdf3f0eca400d18bf3b31b87e9c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2086,15 +2086,16 @@ This function prints a detailed debug report of the Frame Buffer Write (FrmbufWr
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2_intr.c" bodystart="111" bodyend="142"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="997" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2_intr.c" bodystart="111" bodyend="142"/>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="struct_x_v__frmbufwr_1a0af44aae5b925aac2e6441f51ff132c7" compoundref="xv__frmbufwr_8h" startline="128">XV_frmbufwr::IsReady</references>
-        <references refid="xv__frmbufwr_8c_1a34eec22513f730be9a0740c7fffc9142" compoundref="xv__frmbufwr_8c" startline="741" endline="746">XV_frmbufwr_InterruptGetStatus</references>
-        <references refid="xv__frmbufwr_8c_1a0d5ef16a3e39045cf9170304fb67b96e" compoundref="xv__frmbufwr_8c" startline="705" endline="710">XV_frmbufwr_InterruptClear</references>
+        <references refid="struct_x_v__frmbufwr_1a0af44aae5b925aac2e6441f51ff132c7" compoundref="xv__frmbufwr_8h" startline="122">XV_frmbufwr::IsReady</references>
+        <references refid="xv__frmbufwr_8c_1a34eec22513f730be9a0740c7fffc9142" compoundref="xv__frmbufwr_8c" startline="739" endline="744">XV_frmbufwr_InterruptGetStatus</references>
+        <references refid="xv__frmbufwr_8c_1a0d5ef16a3e39045cf9170304fb67b96e" compoundref="xv__frmbufwr_8c" startline="703" endline="708">XV_frmbufwr_InterruptClear</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a5ded8485566f62544d2a15261c691a8e" compoundref="xv__frmbufwr__l2_8h" startline="165">XV_FrmbufWr_l2::FrameDoneCallback</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a4d9228cc09b69f5b3446732f67f280d2" compoundref="xv__frmbufwr__l2_8h" startline="167">XV_FrmbufWr_l2::CallbackDoneRef</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a028f3b4708b36fb313634a0f8133ce14" compoundref="xv__frmbufwr__l2_8h" startline="169">XV_FrmbufWr_l2::FrameReadyCallback</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1ad3cdab83426b12f82f5fe0ae3eaeb6b5" compoundref="xv__frmbufwr__l2_8h" startline="171">XV_FrmbufWr_l2::CallbackReadyRef</references>
+        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="649" endline="805">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gaaef29cb5e2485c63e589f6f0621eac9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -2161,14 +2162,14 @@ HandlerType                     Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="1002" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2_intr.c" bodystart="60" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="998" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2_intr.c" bodystart="60" bodyend="89"/>
         <references refid="group__v__frmbuf__wr_1ggaf6ba82d79d84ccc4ee6b505eb629c045a3cc801c2a0990cf5bde03a385fd993d0" compoundref="xv__frmbufwr__l2_8h" startline="137">XVFRMBUFWR_HANDLER_DONE</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a5ded8485566f62544d2a15261c691a8e" compoundref="xv__frmbufwr__l2_8h" startline="165">XV_FrmbufWr_l2::FrameDoneCallback</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a4d9228cc09b69f5b3446732f67f280d2" compoundref="xv__frmbufwr__l2_8h" startline="167">XV_FrmbufWr_l2::CallbackDoneRef</references>
         <references refid="group__v__frmbuf__wr_1ggaf6ba82d79d84ccc4ee6b505eb629c045a651f28f6436d0d5ae6be2581e6871ca7" compoundref="xv__frmbufwr__l2_8h" startline="138">XVFRMBUFWR_HANDLER_READY</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a028f3b4708b36fb313634a0f8133ce14" compoundref="xv__frmbufwr__l2_8h" startline="169">XV_FrmbufWr_l2::FrameReadyCallback</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1ad3cdab83426b12f82f5fe0ae3eaeb6b5" compoundref="xv__frmbufwr__l2_8h" startline="171">XV_FrmbufWr_l2::CallbackReadyRef</references>
-        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="805" endline="969">main</referencedby>
+        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="649" endline="805">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1ga918ae9aa7c4a277140c79880b91b5217" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2204,11 +2205,11 @@ HandlerType                     Callback Function Type
 This function asserts that the provided instance pointer is not NULL, enables the specified interrupts, globally enables interrupts for the core, and clears the auto-restart bit to prevent automatic restarts. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="322" bodyend="332"/>
-        <references refid="xv__frmbufwr_8c_1a99d1cb6b86e24d84059be2d1a90fc9f4" compoundref="xv__frmbufwr_8c" startline="661" endline="669">XV_frmbufwr_InterruptEnable</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="1002" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="314" bodyend="324"/>
+        <references refid="xv__frmbufwr_8c_1a99d1cb6b86e24d84059be2d1a90fc9f4" compoundref="xv__frmbufwr_8c" startline="659" endline="667">XV_frmbufwr_InterruptEnable</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="xv__frmbufwr_8c_1a54d671ea4a8f8f0b7643f122cc4d0206" compoundref="xv__frmbufwr_8c" startline="626" endline="631">XV_frmbufwr_InterruptGlobalEnable</references>
-        <references refid="xv__frmbufwr_8c_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="170" endline="175">XV_frmbufwr_DisableAutoRestart</references>
+        <references refid="xv__frmbufwr_8c_1a54d671ea4a8f8f0b7643f122cc4d0206" compoundref="xv__frmbufwr_8c" startline="624" endline="629">XV_frmbufwr_InterruptGlobalEnable</references>
+        <references refid="xv__frmbufwr_8c_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="168" endline="173">XV_frmbufwr_DisableAutoRestart</references>
       </memberdef>
       <memberdef kind="function" id="group__v__frmbuf__wr_1gacb9da6afd1c85b903b5d19048f2079f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2245,11 +2246,11 @@ This function asserts that the provided instance pointer is not NULL, enables th
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="1007" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="347" bodyend="357"/>
-        <references refid="xv__frmbufwr_8c_1a4566cdad05f19ee21c92150343677c7b" compoundref="xv__frmbufwr_8c" startline="684" endline="692">XV_frmbufwr_InterruptDisable</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h" line="1003" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.c" bodystart="339" bodyend="349"/>
+        <references refid="xv__frmbufwr_8c_1a4566cdad05f19ee21c92150343677c7b" compoundref="xv__frmbufwr_8c" startline="682" endline="690">XV_frmbufwr_InterruptDisable</references>
         <references refid="struct_x_v___frmbuf_wr__l2_1a82fac99cfaebc558120fd4b5060fc146" compoundref="xv__frmbufwr__l2_8h" startline="162">XV_FrmbufWr_l2::FrmbufWr</references>
-        <references refid="xv__frmbufwr_8c_1a8a20fdb5eda4f9e0776dbd061df04e19" compoundref="xv__frmbufwr_8c" startline="642" endline="647">XV_frmbufwr_InterruptGlobalDisable</references>
-        <references refid="xv__frmbufwr_8c_1ac37a689a78739317839929d7cba96cff" compoundref="xv__frmbufwr_8c" startline="153" endline="158">XV_frmbufwr_EnableAutoRestart</references>
+        <references refid="xv__frmbufwr_8c_1a8a20fdb5eda4f9e0776dbd061df04e19" compoundref="xv__frmbufwr_8c" startline="640" endline="645">XV_frmbufwr_InterruptGlobalDisable</references>
+        <references refid="xv__frmbufwr_8c_1ac37a689a78739317839929d7cba96cff" compoundref="xv__frmbufwr_8c" startline="151" endline="156">XV_frmbufwr_EnableAutoRestart</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2521,46 +2522,42 @@ This function asserts that the provided instance pointer is not NULL, enables th
 <codeline lineno="972"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="973"><highlight class="normal"></highlight></codeline>
 <codeline lineno="974"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="975"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="976"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga7168bd4d28a15731f7c8c64d00785464" kindref="member">XVFrmbufWr_Initialize</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="977"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="978"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga7168bd4d28a15731f7c8c64d00785464" kindref="member">XVFrmbufWr_Initialize</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="979"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="980"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga62c170ef332a536b7461b3ce81def351" kindref="member">XVFrmbufWr_Start</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="981"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga0cfe9c77cc5534a27e613e5fc87a8ab4" kindref="member">XVFrmbufWr_Stop</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="982"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga28dc4f189245f3c9e8152ff270a40813" kindref="member">XVFrmbufWr_WaitForIdle</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="983"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" kindref="member">XVFrmbufWr_SetMemFormat</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="984"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StrideInBytes,</highlight></codeline>
-<codeline lineno="985"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>MemFmt,</highlight></codeline>
-<codeline lineno="986"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoStream<sp/>*StrmIn);</highlight></codeline>
-<codeline lineno="987"><highlight class="normal">XVidC_VideoStream<sp/>*<ref refid="group__v__frmbuf__wr_1ga628707a22dc9888af5371e4e7fc82b68" kindref="member">XVFrmbufWr_GetVideoStream</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="988"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga65a4ff585ac85c574eb6111848e3b2c9" kindref="member">XVFrmbufWr_SetBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="989"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr);</highlight></codeline>
-<codeline lineno="990"><highlight class="normal">UINTPTR<sp/><ref refid="group__v__frmbuf__wr_1gafd87229d20fa2601db7c527f10d4425f" kindref="member">XVFrmbufWr_GetBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="991"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gae3ad3f1fa2f369041d8e9ab7683a05b0" kindref="member">XVFrmbufWr_SetChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="992"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr);</highlight></codeline>
-<codeline lineno="993"><highlight class="normal">UINTPTR<sp/><ref refid="group__v__frmbuf__wr_1gaeea208892ad56d1c83915b753f15d6f3" kindref="member">XVFrmbufWr_GetChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="994"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gaf68f85db7571469e49626a9483567a50" kindref="member">XVFrmbufWr_SetVChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="995"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr);</highlight></codeline>
-<codeline lineno="996"><highlight class="normal">UINTPTR<sp/><ref refid="group__v__frmbuf__wr_1gaf5b5f5abec7d6763bd3333f3ef4df008" kindref="member">XVFrmbufWr_GetVChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="997"><highlight class="normal">u32<sp/><ref refid="group__v__frmbuf__wr_1ga02ac61b5da119e29efb4fcb6bb0a8340" kindref="member">XVFrmbufWr_GetFieldID</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="998"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga7aa0fd061e4c759a245ec57b551d8d21" kindref="member">XVFrmbufWr_DbgReportStatus</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="999"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1000"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="1001"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gadea6cdf3f0eca400d18bf3b31b87e9c7" kindref="member">XVFrmbufWr_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="1002"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gaaef29cb5e2485c63e589f6f0621eac9d" kindref="member">XVFrmbufWr_SetCallback</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="1003"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HandlerType,</highlight></codeline>
-<codeline lineno="1004"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,</highlight></codeline>
-<codeline lineno="1005"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="1006"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga918ae9aa7c4a277140c79880b91b5217" kindref="member">XVFrmbufWr_InterruptEnable</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>u32<sp/>IrqMask);</highlight></codeline>
-<codeline lineno="1007"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gacb9da6afd1c85b903b5d19048f2079f4" kindref="member">XVFrmbufWr_InterruptDisable</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>u32<sp/>IrqMask);</highlight></codeline>
-<codeline lineno="1008"><highlight class="normal"></highlight></codeline>
-<codeline lineno="1009"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="1010"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="1011"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="1012"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="1013"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="975"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga7168bd4d28a15731f7c8c64d00785464" kindref="member">XVFrmbufWr_Initialize</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="976"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga62c170ef332a536b7461b3ce81def351" kindref="member">XVFrmbufWr_Start</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="977"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga0cfe9c77cc5534a27e613e5fc87a8ab4" kindref="member">XVFrmbufWr_Stop</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="978"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga28dc4f189245f3c9e8152ff270a40813" kindref="member">XVFrmbufWr_WaitForIdle</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="979"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" kindref="member">XVFrmbufWr_SetMemFormat</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="980"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StrideInBytes,</highlight></codeline>
+<codeline lineno="981"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>MemFmt,</highlight></codeline>
+<codeline lineno="982"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoStream<sp/>*StrmIn);</highlight></codeline>
+<codeline lineno="983"><highlight class="normal">XVidC_VideoStream<sp/>*<ref refid="group__v__frmbuf__wr_1ga628707a22dc9888af5371e4e7fc82b68" kindref="member">XVFrmbufWr_GetVideoStream</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="984"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga65a4ff585ac85c574eb6111848e3b2c9" kindref="member">XVFrmbufWr_SetBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="985"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr);</highlight></codeline>
+<codeline lineno="986"><highlight class="normal">UINTPTR<sp/><ref refid="group__v__frmbuf__wr_1gafd87229d20fa2601db7c527f10d4425f" kindref="member">XVFrmbufWr_GetBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="987"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gae3ad3f1fa2f369041d8e9ab7683a05b0" kindref="member">XVFrmbufWr_SetChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="988"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr);</highlight></codeline>
+<codeline lineno="989"><highlight class="normal">UINTPTR<sp/><ref refid="group__v__frmbuf__wr_1gaeea208892ad56d1c83915b753f15d6f3" kindref="member">XVFrmbufWr_GetChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="990"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gaf68f85db7571469e49626a9483567a50" kindref="member">XVFrmbufWr_SetVChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="991"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr);</highlight></codeline>
+<codeline lineno="992"><highlight class="normal">UINTPTR<sp/><ref refid="group__v__frmbuf__wr_1gaf5b5f5abec7d6763bd3333f3ef4df008" kindref="member">XVFrmbufWr_GetVChromaBufferAddr</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="993"><highlight class="normal">u32<sp/><ref refid="group__v__frmbuf__wr_1ga02ac61b5da119e29efb4fcb6bb0a8340" kindref="member">XVFrmbufWr_GetFieldID</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="994"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga7aa0fd061e4c759a245ec57b551d8d21" kindref="member">XVFrmbufWr_DbgReportStatus</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="995"><highlight class="normal"></highlight></codeline>
+<codeline lineno="996"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="997"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gadea6cdf3f0eca400d18bf3b31b87e9c7" kindref="member">XVFrmbufWr_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="998"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gaaef29cb5e2485c63e589f6f0621eac9d" kindref="member">XVFrmbufWr_SetCallback</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="999"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="1000"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,</highlight></codeline>
+<codeline lineno="1001"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="1002"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1ga918ae9aa7c4a277140c79880b91b5217" kindref="member">XVFrmbufWr_InterruptEnable</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>u32<sp/>IrqMask);</highlight></codeline>
+<codeline lineno="1003"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__frmbuf__wr_1gacb9da6afd1c85b903b5d19048f2079f4" kindref="member">XVFrmbufWr_InterruptDisable</ref>(<ref refid="struct_x_v___frmbuf_wr__l2" kindref="compound">XV_FrmbufWr_l2</ref><sp/>*InstancePtr,<sp/>u32<sp/>IrqMask);</highlight></codeline>
+<codeline lineno="1004"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1005"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="1006"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1007"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1008"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1009"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_l2.h"/>
   </compounddef>
 </doxygen>

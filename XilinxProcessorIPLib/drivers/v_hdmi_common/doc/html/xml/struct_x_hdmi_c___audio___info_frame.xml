@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="515" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="515" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a91dab7738207d0f7ce09658fd6145003" prot="public" static="no" mutable="no">
         <type>XHdmiC_AudioChannelCount</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="516" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="516" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a0f9c806b5ea0a0a277b62d52fc9a7045" prot="public" static="no" mutable="no">
         <type>XHdmiC_AudioCodingType</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="517" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="517" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a80be9c5d9aade43e5c3cb434b98dc527" prot="public" static="no" mutable="no">
         <type>XHdmiC_SampleSize</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="518" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="518" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a8f998129e49e39e6a9b43fbdcb638839" prot="public" static="no" mutable="no">
         <type>XHdmiC_SamplingFrequency</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="519" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="519" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a55eccb85157080b9ed2205fca8a11621" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="520" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="520" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1af785964db9a351fc14880077909947be" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="521" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="521" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1ab5fea3d44b54dd1fbaee401b15871199" prot="public" static="no" mutable="no">
         <type>XHdmiC_LFEPlaybackLevel</type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="522" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="522" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a85af77cb893d6b37722fad5cc4a35bf9" prot="public" static="no" mutable="no">
         <type>XHdmiC_LevelShiftValue</type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="523" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="523" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdmi_c___audio___info_frame_1a3945350ba63c26768a171b563917a58c" prot="public" static="no" mutable="no">
         <type>unsigned char</type>
@@ -132,14 +132,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="524" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="524" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains the data structure for Audio Infoframe. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="514" bodyend="525"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="514" bodyend="525"/>
     <listofallmembers>
       <member refid="struct_x_hdmi_c___audio___info_frame_1af785964db9a351fc14880077909947be" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>ChannelAllocation</name></member>
       <member refid="struct_x_hdmi_c___audio___info_frame_1a91dab7738207d0f7ce09658fd6145003" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_InfoFrame</scope><name>ChannelCount</name></member>

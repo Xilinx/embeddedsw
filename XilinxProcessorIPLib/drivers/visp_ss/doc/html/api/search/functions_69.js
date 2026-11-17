@@ -5,6 +5,7 @@ var searchData=
   ['idt_5f8t49n24x_5finit',['IDT_8T49N24x_Init',['../group___i_d_t__8_t49_n24x.html#ga010071f43bdf166d05455910f96ad7a2',1,'idt_8t49n24x.c']]],
   ['idt_5f8t49n24x_5fregisterdump',['IDT_8T49N24x_RegisterDump',['../group___i_d_t__8_t49_n24x.html#ga018e7060eee80071535581ec5509606b',1,'idt_8t49n24x.c']]],
   ['idt_5f8t49n24x_5fsetclock',['IDT_8T49N24x_SetClock',['../group___i_d_t__8_t49_n24x.html#ga780a9a896b104060488d0c32b00b2958',1,'idt_8t49n24x.c']]],
+  ['init_5fmailbox_5fipi',['init_mailbox_ipi',['../mbox__cmd_8h.html#a3eef9cfc651b6e05fc8c36fe2c087ca1',1,'mbox_cmd.c']]],
   ['isicheckconnectioniss',['IsiCheckConnectionIss',['../group__isi.html#ga1252b913bb884882436ee78ca34a7bf5',1,'IsiCheckConnectionIss(IsiSensorHandle_t handle):&#160;isi.c'],['../group__isi.html#ga1252b913bb884882436ee78ca34a7bf5',1,'IsiCheckConnectionIss(IsiSensorHandle_t handle):&#160;isi.c']]],
   ['isicloseiss',['IsiCloseIss',['../group__isi.html#gac7f86ed7e3602f2c33c1d7770b1511b2',1,'IsiCloseIss(IsiSensorHandle_t handle):&#160;isi.c'],['../group__isi.html#gac7f86ed7e3602f2c33c1d7770b1511b2',1,'IsiCloseIss(IsiSensorHandle_t handle):&#160;isi.c']]],
   ['isienummodeiss',['IsiEnumModeIss',['../group__isi.html#ga1de8858e4298abd251148bcd25f891f8',1,'IsiEnumModeIss(IsiSensorHandle_t handle, IsiSensorEnumMode_t *pEnumMode):&#160;isi.c'],['../group__isi.html#ga1de8858e4298abd251148bcd25f891f8',1,'IsiEnumModeIss(IsiSensorHandle_t handle, IsiSensorEnumMode_t *pEnumMode):&#160;isi.c']]],

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___aie_domain" kind="struct" prot="public">
+    <compoundname>XPm_AieDomain</compoundname>
+    <includes local="no">xpm_aie.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___aie_domain_1a6cc0df1eb6631def4002f22341410241" prot="public" static="no" mutable="no">
+        <type>XPm_PowerDomain</type>
+        <definition>XPm_PowerDomain XPm_AieDomain::Domain</definition>
+        <argsstring></argsstring>
+        <name>Domain</name>
+        <briefdescription>
+<para>Power domain node base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_domain_1a32c164356365b9db9c3b1a76bc3bea83" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___aie_array" kindref="compound">XPm_AieArray</ref></type>
+        <definition>XPm_AieArray XPm_AieDomain::Array</definition>
+        <argsstring></argsstring>
+        <name>Array</name>
+        <briefdescription>
+<para>AIE device instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_domain_1ae7e9041930cd72349143281c3b39e68c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_AieDomain::AieNpiAddress</definition>
+        <argsstring></argsstring>
+        <name>AieNpiAddress</name>
+        <briefdescription>
+<para>NPI base address of AIE domain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___aie_domain_1abd590c9d81dd5598419a88453f8a0e04" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_AieDomain::DefaultClockDiv</definition>
+        <argsstring></argsstring>
+        <name>DefaultClockDiv</name>
+        <briefdescription>
+<para>Default AIE clock divider at boot. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>AI Engine domain node class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="27">
+        <label>XPm_AieDomain</label>
+        <link refid="struct_x_pm___aie_domain"/>
+        <childnode refid="28" relation="usage">
+          <edgelabel>Array</edgelabel>
+        </childnode>
+      </node>
+      <node id="28">
+        <label>XPm_AieArray</label>
+        <link refid="struct_x_pm___aie_array"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h" bodystart="60" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___aie_domain_1ae7e9041930cd72349143281c3b39e68c" prot="public" virt="non-virtual"><scope>XPm_AieDomain</scope><name>AieNpiAddress</name></member>
+      <member refid="struct_x_pm___aie_domain_1a32c164356365b9db9c3b1a76bc3bea83" prot="public" virt="non-virtual"><scope>XPm_AieDomain</scope><name>Array</name></member>
+      <member refid="struct_x_pm___aie_domain_1abd590c9d81dd5598419a88453f8a0e04" prot="public" virt="non-virtual"><scope>XPm_AieDomain</scope><name>DefaultClockDiv</name></member>
+      <member refid="struct_x_pm___aie_domain_1a6cc0df1eb6631def4002f22341410241" prot="public" virt="non-virtual"><scope>XPm_AieDomain</scope><name>Domain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

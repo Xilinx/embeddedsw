@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___mldsa_sign_verify_params" kind="struct" prot="public">
+    <compoundname>XAsu_MldsaSignVerifyParams</compoundname>
+    <includes local="no">xasu_mldsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1aadc1661ecc0c21993c8719c323083f9c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MldsaSignVerifyParams::KeyAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyAddr</name>
+        <briefdescription>
+<para>Address of the input key (secret key for sign, public key for verify); 0 when the key is taken from the key vault via KeyId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a57a2e9c694745ebfb987da4ec7bbc4d0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MldsaSignVerifyParams::MsgAddr</definition>
+        <argsstring></argsstring>
+        <name>MsgAddr</name>
+        <briefdescription>
+<para>Address of the message to be signed/verified; must be a valid (non-zero) buffer pointer even when MsgLen is 0 (empty message) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a2e56bd935b98275432f771084b5e6f26" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MldsaSignVerifyParams::SignatureAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureAddr</name>
+        <briefdescription>
+<para>Address of the signature (output for sign, input for verify) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1acf543d8e311b4ee967c922f6a88f05d0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MldsaSignVerifyParams::ContextAddr</definition>
+        <argsstring></argsstring>
+        <name>ContextAddr</name>
+        <briefdescription>
+<para>Address of the context string (0 if unused) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1ac19d86066504cfcb6d04aa35cec6aa57" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MldsaSignVerifyParams::KeyLen</definition>
+        <argsstring></argsstring>
+        <name>KeyLen</name>
+        <briefdescription>
+<para>Length of the key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1ab40e0d4bd8ce5c505d070c6b69e00f93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MldsaSignVerifyParams::MsgLen</definition>
+        <argsstring></argsstring>
+        <name>MsgLen</name>
+        <briefdescription>
+<para>Length of the message in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a3e4b10eb4f8755133ee57d120dbf1e7d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MldsaSignVerifyParams::SignatureLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureLen</name>
+        <briefdescription>
+<para>Length of the signature in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a10269382cbb521436e7efd23fb0c932f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MldsaSignVerifyParams::ContextLen</definition>
+        <argsstring></argsstring>
+        <name>ContextLen</name>
+        <briefdescription>
+<para>Length of the context string in bytes (0..255) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a4a9561d32575e56b71252d56f80688cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MldsaSignVerifyParams::KeyId</definition>
+        <argsstring></argsstring>
+        <name>KeyId</name>
+        <briefdescription>
+<para>Composite key vault identifier of the key to operate with; 0 when the key is supplied directly through KeyAddr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1aed874f7191a0f33fe7148ccdd16d2181" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignVerifyParams::ParamSet</definition>
+        <argsstring></argsstring>
+        <name>ParamSet</name>
+        <briefdescription>
+<para>Parameter set (XAsu_MldsaParamSet) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1aac7cb2d52fc5c55a12c3ce29be26e0bb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignVerifyParams::SignMode</definition>
+        <argsstring></argsstring>
+        <name>SignMode</name>
+        <briefdescription>
+<para>Pure or pre-hash mode (XASU_MLDSA_SIGN_MODE_PURE/_PREHASH); required for verify too, and must match how the signature was produced. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a25d05927f58e028b15e8005e27ea4b42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignVerifyParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Pre-hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE), for PREHASH mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a0265c99339ca4cadbe7504f1149dee10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignVerifyParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para>Pre-hash SHA mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 type, for PREHASH mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a05b8d27638c9ba934766b71920ca0076" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignVerifyParams::Deterministic</definition>
+        <argsstring></argsstring>
+        <name>Deterministic</name>
+        <briefdescription>
+<para>Randomness mode (XASU_MLDSA_HEDGED/_DETERMINISTIC); read on sign only and must be left zero for verify. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga157ddf135e67ddfd7dd51031fa65ee36" compoundref="xasu__mldsa__common_8c" startline="58" endline="132">XAsu_MldsaValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_verify_params_1a703bcd03a3fbfdb3091ea9ba65ab49cd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignVerifyParams::Reserved[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved to pad the structure to 64 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains ML-DSA signature generation/verification parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>Both operations share the same layout and are mutually exclusive, so a single generic parameter set is used:<itemizedlist>
+<listitem><para>For signing, KeyAddr/KeyLen refer to the input secret key and SignatureAddr is the output signature; Deterministic selects the randomness mode.</para></listitem><listitem><para>For verification, KeyAddr/KeyLen refer to the input public key and SignatureAddr is the input signature; Deterministic is unused and must be left zero. The key is supplied either directly through KeyAddr/KeyLen or from the ASU key vault through KeyId. Exactly one of the two must be non-zero, as enforced by XAsu_KmValidateKeyAddrNdKeyId. ShaType and ShaMode select the HashML-DSA pre-hash function and are used only when SignMode is XASU_MLDSA_SIGN_MODE_PREHASH; they must be left zero for pure ML-DSA. The pair encodes 7 of the 12 pre-hash functions FIPS 204 approves: SHA2-256, SHA2-384 and SHA2-512 with XASU_SHA2_TYPE, and SHA3-256, SHA3-384, SHA3-512 and SHAKE256 with XASU_SHA3_TYPE. The remaining five, SHA2-224, SHA2-512/224, SHA2-512/256, SHA3-224 and SHAKE128, cannot be requested: the SHA mode encoding defines only XASU_SHA_MODE_256/_384/_512/_SHAKE256, and the ASU SHA hardware offers no programmable initial value for the truncated SHA-2 variants nor a programmable rate for the remaining Keccak ones. </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="121" bodyend="145"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1acf543d8e311b4ee967c922f6a88f05d0" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>ContextAddr</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a10269382cbb521436e7efd23fb0c932f" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>ContextLen</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a05b8d27638c9ba934766b71920ca0076" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>Deterministic</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1aadc1661ecc0c21993c8719c323083f9c" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>KeyAddr</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a4a9561d32575e56b71252d56f80688cf" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>KeyId</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1ac19d86066504cfcb6d04aa35cec6aa57" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>KeyLen</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a57a2e9c694745ebfb987da4ec7bbc4d0" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>MsgAddr</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1ab40e0d4bd8ce5c505d070c6b69e00f93" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>MsgLen</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1aed874f7191a0f33fe7148ccdd16d2181" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>ParamSet</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a703bcd03a3fbfdb3091ea9ba65ab49cd" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a0265c99339ca4cadbe7504f1149dee10" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a25d05927f58e028b15e8005e27ea4b42" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>ShaType</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a2e56bd935b98275432f771084b5e6f26" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>SignatureAddr</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1a3e4b10eb4f8755133ee57d120dbf1e7d" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>SignatureLen</name></member>
+      <member refid="struct_x_asu___mldsa_sign_verify_params_1aac7cb2d52fc5c55a12c3ce29be26e0bb" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignVerifyParams</scope><name>SignMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

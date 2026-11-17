@@ -10,11 +10,6 @@
       <node id="1096">
         <label>xuartps_hw.h</label>
       </node>
-      <node id="1104">
-        <label>idt_8t49n24x.h</label>
-        <childnode refid="1094" relation="include">
-        </childnode>
-      </node>
       <node id="1099">
         <label>xvphy_hw.h</label>
       </node>
@@ -44,6 +39,16 @@
       <node id="1075">
         <label>xdp_hw.h</label>
       </node>
+      <node id="1112">
+        <label>xhdcp22_example.h</label>
+        <childnode refid="1076" relation="include">
+        </childnode>
+        <childnode refid="1077" relation="include">
+        </childnode>
+      </node>
+      <node id="1107">
+        <label>xgpio.h</label>
+      </node>
       <node id="1085">
         <label>xdptxss_dualsplitter.h</label>
         <link refid="xdptxss__dualsplitter_8h"/>
@@ -51,12 +56,6 @@
         </childnode>
         <childnode refid="1074" relation="include">
         </childnode>
-      </node>
-      <node id="1103">
-        <label>videofmc_defs.h</label>
-      </node>
-      <node id="1107">
-        <label>xgpio.h</label>
       </node>
       <node id="1076">
         <label>xdprxss.h</label>
@@ -69,6 +68,11 @@
       </node>
       <node id="1074">
         <label>xdp.h</label>
+      </node>
+      <node id="1104">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="1094" relation="include">
+        </childnode>
       </node>
       <node id="1091">
         <label>xiic_l.h</label>
@@ -83,24 +87,6 @@
         </childnode>
         <childnode refid="1086" relation="include">
         </childnode>
-      </node>
-      <node id="1084">
-        <label>xdptxss_dptx.h</label>
-        <link refid="xdptxss__dptx_8h"/>
-        <childnode refid="1074" relation="include">
-        </childnode>
-      </node>
-      <node id="1078">
-        <label>xdptxss_hw.h</label>
-        <link refid="xdptxss__hw_8h"/>
-        <childnode refid="1079" relation="include">
-        </childnode>
-      </node>
-      <node id="1095">
-        <label>xtmrctr.h</label>
-      </node>
-      <node id="1108">
-        <label>xhdcp1x_debug.h</label>
       </node>
       <node id="1072">
         <label>main.h</label>
@@ -165,11 +151,20 @@
         <childnode refid="1112" relation="include">
         </childnode>
       </node>
-      <node id="1071">
-        <label>menus.c</label>
-        <link refid="zcu_pt_dp14_hdcp/menus.c"/>
-        <childnode refid="1072" relation="include">
+      <node id="1084">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="1074" relation="include">
         </childnode>
+      </node>
+      <node id="1078">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="1079" relation="include">
+        </childnode>
+      </node>
+      <node id="1095">
+        <label>xtmrctr.h</label>
       </node>
       <node id="1081">
         <label>xstatus.h</label>
@@ -177,25 +172,11 @@
       <node id="1082">
         <label>xvidc.h</label>
       </node>
-      <node id="1109">
-        <label>xhdcp1x_example.h</label>
-        <childnode refid="1086" relation="include">
-        </childnode>
-      </node>
       <node id="1092">
         <label>xil_exception.h</label>
       </node>
       <node id="1089">
         <label>xdprxss_mcdp6000.h</label>
-      </node>
-      <node id="1102">
-        <label>xiicps.h</label>
-      </node>
-      <node id="1094">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1106">
-        <label>xv_frmbufwr_l2.h</label>
       </node>
       <node id="1077">
         <label>xdptxss.h</label>
@@ -217,6 +198,15 @@
         <childnode refid="1087" relation="include">
         </childnode>
       </node>
+      <node id="1102">
+        <label>xiicps.h</label>
+      </node>
+      <node id="1094">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1106">
+        <label>xv_frmbufwr_l2.h</label>
+      </node>
       <node id="1105">
         <label>xv_frmbufrd_l2.h</label>
       </node>
@@ -226,8 +216,22 @@
       <node id="1093">
         <label>xil_printf.h</label>
       </node>
+      <node id="1109">
+        <label>xhdcp1x_example.h</label>
+        <childnode refid="1086" relation="include">
+        </childnode>
+      </node>
       <node id="1090">
         <label>xiic.h</label>
+      </node>
+      <node id="1103">
+        <label>videofmc_defs.h</label>
+      </node>
+      <node id="1088">
+        <label>xvtc.h</label>
+      </node>
+      <node id="1108">
+        <label>xhdcp1x_debug.h</label>
       </node>
       <node id="1110">
         <label>keymgmt.h</label>
@@ -238,14 +242,10 @@
         <childnode refid="1081" relation="include">
         </childnode>
       </node>
-      <node id="1088">
-        <label>xvtc.h</label>
-      </node>
-      <node id="1112">
-        <label>xhdcp22_example.h</label>
-        <childnode refid="1076" relation="include">
-        </childnode>
-        <childnode refid="1077" relation="include">
+      <node id="1071">
+        <label>menus.c</label>
+        <link refid="zcu_pt_dp14_hdcp/menus.c"/>
+        <childnode refid="1072" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -281,7 +281,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 1.00 KI  07/13/17 Initial release.</preformatted></para><para><preformatted></preformatted> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2menus_8c_1acfdb8f3462c18fb43035843977f1ec94" prot="public" static="no" mutable="no">
         <type>XVidC_VideoMode</type>
@@ -294,7 +294,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/menus.c" bodystart="191" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/menus.c" bodystart="191" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -312,7 +312,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="139" bodyend="143"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="139" bodyend="143"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2menus_8c_1a1980e4a59b5e053f6caaf3d86e2e84c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -341,7 +341,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="159" bodyend="178"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/pt_only/menus.c" bodystart="159" bodyend="178"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2menus_8c_1aadb092d2b2a18c5bc7ac0ca37cd497c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -354,10 +354,34 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 KU  02/05/19 Initial release.
+1.01 KU  09/09/19 Added support for unplug, enhanced audio check
+1.02 ND  02/14/19 mcdp related function call now need dprxss instance address
+                  instead of base address  as first parameter
+1.03 ND  09/11/20 Added support for New AV pattern generator
+1.04 ND  02/12/21 Added case &apos;z&apos; to display menu in PT mode.
+                                        Added support to set the MSA values for the tx according to
+                                        the selected stream to be displayed front the menu.
+                                        Added the enabling of vblank interrupts for all streams in
+                                        Dprx_InterruptHandlerActRx() handler.
+1.05 ND  04/03/21 Moved all global variables declaration from .h to .c
+                                    files due to gcc compiler compilation error.
+1.06 ND  04/15/21 Added support for stream 2,3 and 4 handler interrupts
+1.07 ND  02/25/22 Modified the code for de-asserting longer hpd for some
+                                        gpu&apos;s to retrain our rx.
+1.08 ND  07/18/22 Added support to the app for branch topology.
+                                        Disabling the av pat gen before start of new training
+                                        sequence.
+                                        Updation of the LMK03318 address.
+1.09 ND  08/26/22 Added DELAY macro to increase delay in <ref refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" kindref="member">IDT_8T49N24x_SetClock()</ref>
+                                        if encountering iic race condition.</preformatted></para><para><preformatted></preformatted> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="47" bodyend="66"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="47" bodyend="66"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2menus_8c_1a76a1fc2e7f293c94a2338ee498293cbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -373,7 +397,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="68" bodyend="88"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="68" bodyend="88"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2menus_8c_1aff8ea8208be8761861f5d20825789688" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -386,7 +410,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="90" bodyend="119"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="90" bodyend="119"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2menus_8c_1a9fbf159f45136cd32bfb242f5bdc4a9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -402,7 +426,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="121" bodyend="135"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="121" bodyend="135"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2menus_8c_1ad673f235f7cfedfa92f5e7b76e1dc6c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char</type>
@@ -441,7 +465,7 @@ This function to get uart input from user</para><para><parameterlist kind="param
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="215" bodyend="245"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c" bodystart="215" bodyend="245"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -645,6 +669,6 @@ This function to get uart input from user</para><para><parameterlist kind="param
 <codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
 <codeline lineno="245"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/menus.c"/>
   </compounddef>
 </doxygen>

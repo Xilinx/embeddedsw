@@ -1,5 +1,8 @@
 var xdmaps_8h =
 [
+    [ "XDMAPS_CHAN_BUF_LEN", "xdmaps_8h.html#ga613828e13c594a40ae338295bbfbb600", null ],
+    [ "XDMAPS_H", "xdmaps_8h.html#a6ab74fe5c8b354d102039817429abb2d", null ],
+    [ "XDMAPS_MAX_CHAN_BUFS", "xdmaps_8h.html#ga50bf5d327febf45741ae10b8fff7ab45", null ],
     [ "XDmaPsDoneHandler", "xdmaps_8h.html#gad59232da2016e1a60744cc6e11a04a98", null ],
     [ "XDmaPsFaultHandler", "xdmaps_8h.html#ga5dba8cc7cd39c53eed1dabac803ce74f", null ],
     [ "XDmaPs_CfgInitialize", "xdmaps_8h.html#ga2fed90dfba1ff9f472b40ed492d78b4c", null ],
@@ -14,6 +17,7 @@ var xdmaps_8h =
     [ "XDmaPs_FaultISR", "xdmaps_8h.html#gae1f2b39fb5e2e8d369c3286aeada67be", null ],
     [ "XDmaPs_FreeDmaProg", "xdmaps_8h.html#ga96c4c2e45ab31a22f05767c24db425ea", null ],
     [ "XDmaPs_GenDmaProg", "xdmaps_8h.html#gabc2e04f69037f0bdba33275ae017af8a", null ],
+    [ "XDmaPs_GetDrvIndex", "xdmaps_8h.html#ga04311967e37755770921dd9f0e8f68b8", null ],
     [ "XDmaPs_Instr_DMARMB", "xdmaps_8h.html#gaa69b5ac5fd75de6d5d0b1039d7151573", null ],
     [ "XDmaPs_Instr_DMAWMB", "xdmaps_8h.html#ga92af9b1850b76f149a716a3f6907e951", null ],
     [ "XDmaPs_IsActive", "xdmaps_8h.html#ga05047e523efd0dcc0e1f3ba16a32a796", null ],

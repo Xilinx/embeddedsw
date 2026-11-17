@@ -7,60 +7,60 @@
     <includes local="yes">xsecure_shaclient.h</includes>
     <includes local="yes">xsecure_katclient.h</includes>
     <incdepgraph>
-      <node id="1094">
+      <node id="1234">
         <label>xloader_mailbox.h</label>
         <link refid="xloader__mailbox_8h"/>
-        <childnode refid="1095" relation="include">
+        <childnode refid="1235" relation="include">
         </childnode>
-        <childnode refid="1096" relation="include">
+        <childnode refid="1236" relation="include">
         </childnode>
-        <childnode refid="1097" relation="include">
-        </childnode>
-      </node>
-      <node id="1100">
-        <label>xsecure_katclient.h</label>
-      </node>
-      <node id="1097">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="1098" relation="include">
-        </childnode>
-        <childnode refid="1093" relation="include">
+        <childnode refid="1237" relation="include">
         </childnode>
       </node>
-      <node id="1099">
-        <label>xsecure_shaclient.h</label>
-      </node>
-      <node id="1095">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="1091">
+      <node id="1231">
         <label>xloader_plat_client.c</label>
         <link refid="versal_net/client/xloader_plat_client.c"/>
-        <childnode refid="1092" relation="include">
+        <childnode refid="1232" relation="include">
         </childnode>
-        <childnode refid="1097" relation="include">
+        <childnode refid="1237" relation="include">
         </childnode>
-        <childnode refid="1099" relation="include">
+        <childnode refid="1239" relation="include">
         </childnode>
-        <childnode refid="1100" relation="include">
+        <childnode refid="1240" relation="include">
         </childnode>
       </node>
-      <node id="1092">
+      <node id="1232">
         <label>xloader_plat_client.h</label>
-        <childnode refid="1093" relation="include">
+        <childnode refid="1233" relation="include">
         </childnode>
-        <childnode refid="1094" relation="include">
+        <childnode refid="1234" relation="include">
         </childnode>
       </node>
-      <node id="1093">
+      <node id="1240">
+        <label>xsecure_katclient.h</label>
+      </node>
+      <node id="1239">
+        <label>xsecure_shaclient.h</label>
+      </node>
+      <node id="1235">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1233">
         <label>xil_types.h</label>
       </node>
-      <node id="1096">
+      <node id="1236">
         <label>xparameters.h</label>
       </node>
-      <node id="1098">
+      <node id="1238">
         <label>xil_printf.h</label>
+      </node>
+      <node id="1237">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1238" relation="include">
+        </childnode>
+        <childnode refid="1233" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <innerclass refid="struct_xil_loader___boot_hdr_fw_rsvd" prot="public">XilLoader_BootHdrFwRsvd</innerclass>
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gaf27661c555a6b2443ee26f1d09d74021" prot="public" static="no">
         <name>XLOADER_BH_SIZE_WO_PADDING</name>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga62da55ade4828f8c589dc23c689e5d9b" prot="public" static="no">
         <name>XLOADER_BH_SIZE</name>
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga04ec63dddbf3945d73f5b13ae83c626b" prot="public" static="no">
         <name>XLOADER_IHT_SIZE</name>
@@ -112,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gaed13bc3bfa56faca0e417afec731555a" prot="public" static="no">
         <name>XLOADER_BH_IMG_ATTRB_SIGNED_IMG_MASK</name>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gafbdf54191dd393c034b847dd0095914c" prot="public" static="no">
         <name>XLOADER_RSA_4096_KEY_SIZE</name>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gada3870608958846c88bbc2c3ca422387" prot="public" static="no">
         <name>XLOADER_SPK_SIZE</name>
@@ -147,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gaec332f880130dc2f0d0c3a9c07261ac4" prot="public" static="no">
         <name>XLOADER_PPK_SIZE</name>
@@ -160,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gacf46ce13aa8109d72eda1b6b83704b40" prot="public" static="no">
         <name>XLOADER_SPK_SIG_SIZE</name>
@@ -171,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga41b13831d9ea337f7c7b8f73b79325d5" prot="public" static="no">
         <name>XLOADER_BHDR_SIG_SIZE</name>
@@ -182,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga6bcff18daf58c88499df452799e7bcd5" prot="public" static="no">
         <name>XLOADER_PARTITION_SIG_SIZE</name>
@@ -193,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga65d0ca31c1d9fbfdcd311ac3ddee8ac0" prot="public" static="no">
         <name>XLOADER_AUTH_HEADER_SIZE</name>
@@ -204,7 +204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga7bf457303595bc8756e416ecd599f144" prot="public" static="no">
         <name>XLOADER_AUTH_CERT_USER_DATA</name>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gabf854bbd429c87a80e3a56f61abfd265" prot="public" static="no">
         <name>XLOADER_AUTH_CERT_MIN_SIZE</name>
@@ -233,7 +233,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gad1dabcc51048e8c2c771ea0020a7160e" prot="public" static="no">
         <name>XIH_MAX_PRTNS</name>
@@ -244,8 +244,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="88" bodyend="-1"/>
-        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3ea4300bb5e4bd5116c3d2bf72902824" compoundref="xloader_8c" startline="2746" endline="2784">XLoader_GetImageAndPrtnInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="192" endline="337">XLoader_LoadImagePrtns</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="484" endline="602">XLoader_MeasureNLoad</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga3944db2060fd83c89b79580dd0caa0de" prot="public" static="no">
         <name>XLOADER_SECURE_CHUNK_SIZE</name>
@@ -256,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga914daf045d31271ce5849a2f00bedde2" prot="public" static="no">
         <name>XLOADER_SHA3_HASH_LEN_IN_BYTES</name>
@@ -267,7 +269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga55995140f37e6aa2511c68d6bf230471" prot="public" static="no">
         <name>XLOADER_WORD_LEN</name>
@@ -278,7 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga7a25bbff08f68862ab8bc39e15f08fd4" prot="public" static="no">
         <name>XLOADER_WORD_LEN_SHIFT</name>
@@ -289,7 +291,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="92" bodyend="-1"/>
         <referencedby refid="group__xloader__client__apis_1gab4c3e9ff1b65c5d9280c330ae57c0e9f" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="309" endline="326">XLoader_SearchOptionalData</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga4dff5c4ce13c782cec4d52af47c8da62" prot="public" static="no">
@@ -301,7 +303,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga8bb992d390bbd733a03942ddc8c5846e" prot="public" static="no">
         <name>XIH_OPT_DATA_HDR_ID_MASK</name>
@@ -312,7 +314,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="95" bodyend="-1"/>
         <referencedby refid="group__xloader__client__apis_1gab4c3e9ff1b65c5d9280c330ae57c0e9f" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="309" endline="326">XLoader_SearchOptionalData</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gae37402b4315b63479194093c831d9265" prot="public" static="no">
@@ -324,7 +326,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="96" bodyend="-1"/>
         <referencedby refid="group__xloader__client__apis_1gab4c3e9ff1b65c5d9280c330ae57c0e9f" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="309" endline="326">XLoader_SearchOptionalData</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gaf2f56fba2000b2c0b7279749742d8d5d" prot="public" static="no">
@@ -336,7 +338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="97" bodyend="-1"/>
         <referencedby refid="group__xloader__client__apis_1gab4c3e9ff1b65c5d9280c330ae57c0e9f" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="309" endline="326">XLoader_SearchOptionalData</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga9f595c1a8ad758d2b9549ce67e3a2fe0" prot="public" static="no">
@@ -348,7 +350,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1gaf8e08c471121c3abd129037f00c0c937" prot="public" static="no">
         <name>XIH_OPT_DATA_DEF_LEN</name>
@@ -359,7 +361,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__client__apis_1ga7f761c62949ba33caf853c0dee736a5a" prot="public" static="no">
         <name>XIH_OPT_HASH_TBL_DATA_ID</name>
@@ -370,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="100" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -385,7 +387,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="207" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xloader__client__apis_1ga1ff66969db3f61e078385ffdf9161ab8" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -398,7 +400,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="208" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xloader__client__apis_1gaa368e4e92e996a9d06b829558d1b2b38" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -411,7 +413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="210" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="210" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -496,7 +498,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="722" bodyend="810"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="722" bodyend="810"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1ga89324bc30f2d1f9371bf9952c55d414e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -559,7 +561,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Fill IPI Payload </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="970" bodyend="982"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="970" bodyend="982"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1ga5c0df5eb5bb51432a51dbdd333d671fb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -609,7 +611,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="377" bodyend="428"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="377" bodyend="428"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gab09c9c466657f065349c911a5b08c936" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -670,7 +672,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="488" bodyend="624"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="488" bodyend="624"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gae85671d419a4809b4ad4de92b61ff2d6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -720,7 +722,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="825" bodyend="952"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="825" bodyend="952"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gab4c3e9ff1b65c5d9280c330ae57c0e9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u64</type>
@@ -770,7 +772,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="309" bodyend="326"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="309" bodyend="326"/>
         <references refid="group__xloader__client__apis_1ga8bb992d390bbd733a03942ddc8c5846e" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="95">XIH_OPT_DATA_HDR_ID_MASK</references>
         <references refid="group__xloader__client__apis_1gae37402b4315b63479194093c831d9265" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="96">XIH_OPT_DATA_HDR_LEN_MASK</references>
         <references refid="group__xloader__client__apis_1gaf2f56fba2000b2c0b7279749742d8d5d" compoundref="versal__net_2client_2xloader__plat__client_8c" startline="97">XIH_OPT_DATA_HDR_LEN_SHIFT</references>
@@ -822,7 +824,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="444" bodyend="472"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="444" bodyend="472"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -856,6 +858,24 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To enable/disable jtag.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
 <listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
@@ -865,11 +885,15 @@
 </para><para>Fill IPI Payload</para><para><itemizedlist>
 <listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
 </para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
 <listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="256" bodyend="281"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="304" bodyend="329"/>
         <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
-        <references refid="xloader__defs_8h_1aea387e976d038867ece679f4524f266f" compoundref="xloader__defs_8h" startline="59">XLOADER_CMD_ID_CONFIG_JTAG_STATE</references>
+        <references refid="xloader__defs_8h_1aea387e976d038867ece679f4524f266f" compoundref="xloader__defs_8h" startline="65">XLOADER_CMD_ID_CONFIG_JTAG_STATE</references>
         <references refid="group__xloader__client__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</references>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -926,15 +950,15 @@
 </para><para>Fill IPI Payload</para><para><itemizedlist>
 <listitem><para>Send an IPI request to the PLM by using the XLoader_ReadDdrCryptoPerfCounters CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="296" bodyend="326"/>
-        <references refid="struct_x_loader___d_d_r_counters_1adbd31efe7b49dc75aa6ba53b0e8047bf" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="44">XLoader_DDRCounters::DDRCounter0</references>
-        <references refid="struct_x_loader___d_d_r_counters_1ad68ee807f5dd25fabb2fdf9aa768c329" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="45">XLoader_DDRCounters::DDRCounter1</references>
-        <references refid="struct_x_loader___d_d_r_counters_1ac2f0ad90270f7cc5999949c23e491db6" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="46">XLoader_DDRCounters::DDRCounter2</references>
-        <references refid="struct_x_loader___d_d_r_counters_1a42efe31bd40c709885dfb64810e3857c" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="47">XLoader_DDRCounters::DDRCounter3</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="344" bodyend="374"/>
+        <references refid="struct_x_loader___d_d_r_counters_1adbd31efe7b49dc75aa6ba53b0e8047bf" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="47">XLoader_DDRCounters::DDRCounter0</references>
+        <references refid="struct_x_loader___d_d_r_counters_1ad68ee807f5dd25fabb2fdf9aa768c329" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="48">XLoader_DDRCounters::DDRCounter1</references>
+        <references refid="struct_x_loader___d_d_r_counters_1ac2f0ad90270f7cc5999949c23e491db6" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="49">XLoader_DDRCounters::DDRCounter2</references>
+        <references refid="struct_x_loader___d_d_r_counters_1a42efe31bd40c709885dfb64810e3857c" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8h" startline="50">XLoader_DDRCounters::DDRCounter3</references>
         <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
         <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
         <references refid="struct_x_loader___client_instance_1a1660f547b4a77019d9c99b65dc5cd314" compoundref="xloader__mailbox_8h" startline="99">XLoader_ClientInstance::Response</references>
-        <references refid="xloader__defs_8h_1aba5da2a1b431a83403a932becc341775" compoundref="xloader__defs_8h" startline="60">XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS</references>
+        <references refid="xloader__defs_8h_1aba5da2a1b431a83403a932becc341775" compoundref="xloader__defs_8h" startline="66">XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS</references>
         <references refid="group__xloader__client__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</references>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gadf54532156252d3d453243a96ec2ac38" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -987,7 +1011,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="342" bodyend="362"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c" bodystart="342" bodyend="362"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1063,12 +1087,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>For full PDI Partition 0 is PLM. Hence Idx starts from 1 for PLM loadable partitions</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="878" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="878" bodyend="943"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="940" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="940" bodyend="1005"/>
         <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
-        <references refid="xloader__defs_8h_1aa3a03f1321ef0a65dcb897a996c89293" compoundref="xloader__defs_8h" startline="109">XLoader_Client_Printf</references>
-        <references refid="xloader__defs_8h_1a9573907a95c55d62457f4518c4c12614" compoundref="xloader__defs_8h" startline="107">XLOADER_DEBUG_GENERAL</references>
-        <references refid="xloader_8h_1a1652b4d0eb7aed02ead9dc01a2308f01" compoundref="xloader_8h" startline="192">XLOADER_PDI_TYPE_FULL</references>
-        <references refid="group__xloader__client__apis_1gafdae4141f4f8a677bb78c5aada121372" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="45">XLOADER_SMAP_WD_PATTERN_SIZE</references>
+        <references refid="xloader__defs_8h_1aa3a03f1321ef0a65dcb897a996c89293" compoundref="xloader__defs_8h" startline="127">XLoader_Client_Printf</references>
+        <references refid="xloader__defs_8h_1a9573907a95c55d62457f4518c4c12614" compoundref="xloader__defs_8h" startline="125">XLOADER_DEBUG_GENERAL</references>
+        <references refid="xloader_8h_1a1652b4d0eb7aed02ead9dc01a2308f01" compoundref="xloader_8h" startline="202">XLOADER_PDI_TYPE_FULL</references>
+        <references refid="group__xloader__client__apis_1gafdae4141f4f8a677bb78c5aada121372" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="51">XLOADER_SMAP_WD_PATTERN_SIZE</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1239,7 +1263,7 @@
 <codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__<sp/>((section<sp/>(&quot;.data.Sha3Hash&quot;)));</highlight></codeline>
 <codeline lineno="211"><highlight class="normal"></highlight></codeline>
 <codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
-<codeline lineno="224"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="2vp_2server_2xloader__plat_8h_1a29e4550c196dd134eb5b971b06987fd4" kindref="member">XLoader_ConfigureJtagState</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>Flag)</highlight></codeline>
+<codeline lineno="224"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" kindref="member">XLoader_ConfigureJtagState</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>Flag)</highlight></codeline>
 <codeline lineno="225"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>];</highlight></codeline>
@@ -1846,6 +1870,6 @@
 <codeline lineno="982"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="983"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c"/>
   </compounddef>
 </doxygen>

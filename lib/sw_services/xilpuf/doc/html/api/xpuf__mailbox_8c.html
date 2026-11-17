@@ -116,16 +116,18 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 2.1   skg  11/07/22 Added In Body comments
       am   02/17/23 Fixed HIS_COMF violations
       kpt  08/03/23 Fix security review comments
-2.4   ng   04/30/24 Fixed doxygen comments</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+2.4   ng   04/30/24 Fixed doxygen comments
+2.8   tbk  06/22/26 Added input parameter validation
+      tus  08/07/26 Added optional IPI response argument to XPuf_ProcessMailbox</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xpuf__mailbox_8h.html">xpuf_mailbox.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2052fd116d6e086ca703c3518eafd887"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__mailbox__apis.html#ga2052fd116d6e086ca703c3518eafd887">XPuf_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga2052fd116d6e086ca703c3518eafd887"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="group__xpuf__mailbox__apis.html#ga2052fd116d6e086ca703c3518eafd887">More...</a><br/></td></tr>
-<tr class="separator:ga2052fd116d6e086ca703c3518eafd887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f20e5b50966261f896c0e5ea7ec6f1d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__mailbox__apis.html#ga2f20e5b50966261f896c0e5ea7ec6f1d">XPuf_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:ga2f20e5b50966261f896c0e5ea7ec6f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="group__xpuf__mailbox__apis.html#ga2f20e5b50966261f896c0e5ea7ec6f1d">More...</a><br/></td></tr>
+<tr class="separator:ga2f20e5b50966261f896c0e5ea7ec6f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

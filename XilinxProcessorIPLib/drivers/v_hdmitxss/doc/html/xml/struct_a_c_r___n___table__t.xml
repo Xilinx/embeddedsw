@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_a_c_r___n___table__t_1a369872a4f5b21d8c0cae659753299ec3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,14 +27,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="47" bodyend="50"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="47" bodyend="50"/>
     <listofallmembers>
       <member refid="struct_a_c_r___n___table__t_1a369872a4f5b21d8c0cae659753299ec3" prot="public" virt="non-virtual"><scope>ACR_N_Table_t</scope><name>ACR_NVal</name></member>
       <member refid="struct_a_c_r___n___table__t_1a7d9afbbf4c1b69c52fe8688ba80e146b" prot="public" virt="non-virtual"><scope>ACR_N_Table_t</scope><name>TMDSCharRate</name></member>

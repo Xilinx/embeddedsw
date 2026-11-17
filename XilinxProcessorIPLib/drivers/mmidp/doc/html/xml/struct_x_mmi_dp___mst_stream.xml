@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___mst_stream" kind="struct" prot="public">
+    <compoundname>XMmiDp_MstStream</compoundname>
+    <includes local="no">xmmidp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_stream_1a57d76dede6dda29973280215a03733bb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_MstStream::MstPbn</definition>
+        <argsstring></argsstring>
+        <name>MstPbn</name>
+        <briefdescription>
+<para>Payload bandwidth number for MST allocation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" compoundref="xmmidp__stream_8c" startline="2872" endline="2901">XMmiDp_AllocatePayloadStream</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" compoundref="xmmidp__stream_8c" startline="2507" endline="2573">XMmiDp_ComputeTimeSlot</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf94b814b5fe5d3155d7920dd31d86b43" compoundref="xmmidp__stream_8c" startline="2919" endline="3123">XMmiDp_ComputeTuParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_stream_1ad6ff59926a2920e1900b0c11918b58c8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstStream::TimeSlots</definition>
+        <argsstring></argsstring>
+        <name>TimeSlots</name>
+        <briefdescription>
+<para>Allocated VC payload time slots for this stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" compoundref="xmmidp__stream_8c" startline="2507" endline="2573">XMmiDp_ComputeTimeSlot</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga28b8a293ece904a674e3c45b2ad592ba" compoundref="xmmidp__stream_8c" startline="2682" endline="2765">XMmiDp_DistributeMstPayloadSlots</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gafe77bc22c82563d0ff294dc96f77740b" compoundref="xmmidp__stream_8c" startline="2789" endline="2844">XMmiDp_SetSinkVcPayloadTable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf08de325c6163c2ebff2c9ac6c898d2f" compoundref="xmmidp__stream_8c" startline="2281" endline="2320">XMmiDp_SetTxVcPayloadTable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_stream_1a2f691b4c0b1542627d4f478f90b8a003" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstStream::StartSlot</definition>
+        <argsstring></argsstring>
+        <name>StartSlot</name>
+        <briefdescription>
+<para>Starting MTP time slot in sink VC payload table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="369" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1ga201c5cfe6b195d1f214a706f41c0fe22" compoundref="xmmidp__stream_8c" startline="2507" endline="2573">XMmiDp_ComputeTimeSlot</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga28b8a293ece904a674e3c45b2ad592ba" compoundref="xmmidp__stream_8c" startline="2682" endline="2765">XMmiDp_DistributeMstPayloadSlots</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gafe77bc22c82563d0ff294dc96f77740b" compoundref="xmmidp__stream_8c" startline="2789" endline="2844">XMmiDp_SetSinkVcPayloadTable</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1gaf08de325c6163c2ebff2c9ac6c898d2f" compoundref="xmmidp__stream_8c" startline="2281" endline="2320">XMmiDp_SetTxVcPayloadTable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_stream_1aab1a34be76dbbbe30a262f46c58722ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstStream::LinkCountTotal</definition>
+        <argsstring></argsstring>
+        <name>LinkCountTotal</name>
+        <briefdescription>
+<para>Sink LCT; 0 = no sideband routing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" compoundref="xmmidp__stream_8c" startline="2872" endline="2901">XMmiDp_AllocatePayloadStream</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___mst_stream_1afc1176cfa84462a7decf1e1ff7cbb32a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_MstStream::RelativeAddress[XMMIDP_MST_MAX_RAD]</definition>
+        <argsstring>[XMMIDP_MST_MAX_RAD]</argsstring>
+        <name>RelativeAddress</name>
+        <briefdescription>
+<para>Sink RAD (port per hop). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="group__mmi__dppsu14_1gaeff3308ad4eedd26fe06b70c7b36e48b" compoundref="xmmidp__stream_8c" startline="2872" endline="2901">XMmiDp_AllocatePayloadStream</referencedby>
+        <referencedby refid="group__mmi__dppsu14_1ga025150b2b7700952c53e12927875873c" compoundref="xmmidp__mst_8c" startline="822" endline="841">XMmiDp_MstSetStreamSink</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MST stream configuration (PBN, slots and the sink it is routed to). </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="366" bodyend="372"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___mst_stream_1aab1a34be76dbbbe30a262f46c58722ce" prot="public" virt="non-virtual"><scope>XMmiDp_MstStream</scope><name>LinkCountTotal</name></member>
+      <member refid="struct_x_mmi_dp___mst_stream_1a57d76dede6dda29973280215a03733bb" prot="public" virt="non-virtual"><scope>XMmiDp_MstStream</scope><name>MstPbn</name></member>
+      <member refid="struct_x_mmi_dp___mst_stream_1afc1176cfa84462a7decf1e1ff7cbb32a" prot="public" virt="non-virtual"><scope>XMmiDp_MstStream</scope><name>RelativeAddress</name></member>
+      <member refid="struct_x_mmi_dp___mst_stream_1a2f691b4c0b1542627d4f478f90b8a003" prot="public" virt="non-virtual"><scope>XMmiDp_MstStream</scope><name>StartSlot</name></member>
+      <member refid="struct_x_mmi_dp___mst_stream_1ad6ff59926a2920e1900b0c11918b58c8" prot="public" virt="non-virtual"><scope>XMmiDp_MstStream</scope><name>TimeSlots</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

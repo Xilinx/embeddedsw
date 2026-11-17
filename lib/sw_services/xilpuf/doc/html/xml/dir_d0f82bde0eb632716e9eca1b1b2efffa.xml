@@ -11,12 +11,13 @@
     <innerfile refid="xilpuf__spartan__ultrascale__plus__example_8c">xilpuf_spartan_ultrascale_plus_example.c</innerfile>
     <innerfile refid="xilpuf__spartan__ultrascale__plus__example_8h">xilpuf_spartan_ultrascale_plus_example.h</innerfile>
     <innerfile refid="xilpuf__ssit__client__example_8c">xilpuf_ssit_client_example.c</innerfile>
+    <innerfile refid="xilpuf__versal__2vp__p__client__example_8c">xilpuf_versal_2vp_p_client_example.c</innerfile>
     <innerfile refid="xilpuf__versal__net__example_8c">xilpuf_versal_net_example.c</innerfile>
     <innerfile refid="xilpuf__versal__net__example_8h">xilpuf_versal_net_example.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/examples/"/>
   </compounddef>
 </doxygen>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="78" bodyend="-1"/>
         <referencedby refid="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" compoundref="xhdcp22__cipher__dp_8c" startline="71" endline="98">XHdcp22Cipher_Dp_CfgInitialize</referencedby>
         <referencedby refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" compoundref="xhdcp22__cipher__dp__selftest_8c" startline="59" endline="78">XHdcp22Cipher_Dp_SelfTest</referencedby>
         <referencedby refid="group__hdcp22__cipher__dp_1gad3b96d930adc7d8a73282ab68a5b9056" compoundref="xhdcp22__cipher__dp_8c" startline="112" endline="137">XHdcp22Cipher_Dp_SetKs</referencedby>
@@ -42,7 +42,7 @@
 <para>This typedef contains configuration information for the HDCP22 Cipher core. </para>    </briefdescription>
     <detaileddescription>
 <para>Each HDCP22 Cipher device should have a configuration structure associated. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="76" bodyend="83"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="76" bodyend="79"/>
     <listofallmembers>
       <member refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" prot="public" virt="non-virtual"><scope>XHdcp22_Cipher_Dp_Config</scope><name>BaseAddress</name></member>
       <member refid="struct_x_hdcp22___cipher___dp___config_1a17fca9f6962e1d2b5a3d7e19a761e331" prot="public" virt="non-virtual"><scope>XHdcp22_Cipher_Dp_Config</scope><name>Name</name></member>

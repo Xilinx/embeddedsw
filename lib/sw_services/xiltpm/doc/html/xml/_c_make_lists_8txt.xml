@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/CMakeLists.txt" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/CMakeLists.txt" bodystart="11" bodyend="51"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/CMakeLists.txt" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/CMakeLists.txt" bodystart="11" bodyend="51"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -77,6 +77,6 @@
 <codeline lineno="50"><highlight class="stringliteral">install(TARGETS<sp/>xiltpm<sp/>LIBRARY<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH}<sp/>ARCHIVE<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH})</highlight></codeline>
 <codeline lineno="51"><highlight class="stringliteral">install(DIRECTORY<sp/>${CMAKE_BINARY_DIR}/include/<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH})</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

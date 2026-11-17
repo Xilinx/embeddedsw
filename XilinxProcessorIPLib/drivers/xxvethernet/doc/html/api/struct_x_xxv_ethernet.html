@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_xxv_ethernet.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_xxv_ethernet.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>struct <a class="el" href="struct_x_xxv_ethernet.html" title="struct XXxvEthernet is the type for Xxv Ethernet driver instance data. ">XXxvEthernet</a> is the type for Xxv Ethernet driver instance data.
+<p>Holds Xxv Ethernet driver instance data.
  <a href="struct_x_xxv_ethernet.html#details">More...</a></p>
 
 <p><code>#include &lt;xxxvethernet.h&gt;</code></p>
@@ -136,8 +137,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a5bbf3707a0062638aa7c4c07adb26741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>struct <a class="el" href="struct_x_xxv_ethernet.html" title="struct XXxvEthernet is the type for Xxv Ethernet driver instance data. ">XXxvEthernet</a> is the type for Xxv Ethernet driver instance data. </p>
-<p>The calling code is required to use a unique instance of this structure for every Xxv Ethernet device used in the system. A reference to a structure of this type is then passed to the driver API functions. </p>
+<div class="textblock"><p>Holds Xxv Ethernet driver instance data. </p>
+<p>The calling code must use a unique instance of this structure for every Xxv Ethernet device used in the system. A reference to a structure of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a59619b2a855f14b1fb7970acdce87206"></a>
 <div class="memitem">
@@ -151,7 +152,7 @@ Data Fields</h2></td></tr>
 
 <p>Hardware configuration. </p>
 
-<p>Referenced by <a class="el" href="xxxvethernet__example__util_8c.html#abb5bc0fd706a832742ca65487e6687af">XxvEthernetUtilEnterLocalLoopback()</a>, <a class="el" href="xxxvethernet__example__util_8c.html#ad48448f068a15369349deec579b8fc38">XxvEthernetUtilUsxgmiiSetup()</a>, <a class="el" href="xxxvethernet__example__util_8c.html#a80999962d45ad1ec4e8dcb68df838cdf">XxvEthernetUtilUsxgmiiSetupBypassAN()</a>, <a class="el" href="group__xxvethernet.html#gad071a1cb807ee930634dac763c9d8227">XXxvEthernet_CfgInitialize()</a>, <a class="el" href="group__xxvethernet.html#ga03c42c411753d0fd0373094c420516dd">XXxvEthernet_ClearOptions()</a>, <a class="el" href="group__xxvethernet.html#gaab034ac98398a6d6851db98a76b4e010">XXxvEthernet_GetAutoNegSpeed()</a>, <a class="el" href="group__xxvethernet.html#ga0460b90bd3cebb8df32d3197bca2abb4">XXxvEthernet_Initialize()</a>, <a class="el" href="group__xxvethernet.html#gaf38776edab53749b9204fe1abf45d87a">XXxvEthernet_SetAutoNegSpeed()</a>, <a class="el" href="group__xxvethernet.html#gabcf02a5b2b0ee38739bbe4fdc5691a59">XXxvEthernet_SetOptions()</a>, <a class="el" href="group__xxvethernet.html#ga09e63e61d122a4f18d3dcd51456a1924">XXxvEthernet_SetUsxgmiiRateAndDuplex()</a>, <a class="el" href="group__xxvethernet.html#ga6e4b05d1a7db9def0f688bb3f12839f1">XXxvEthernet_Start()</a>, <a class="el" href="group__xxvethernet.html#gacd8a86e3ca2431a4181de0d75fd58759">XXxvEthernet_Stop()</a>, <a class="el" href="group__xxvethernet.html#ga341ba96f890e5ca0f3af58c52cfd05b9">XXxvEthernet_UsxgmiiAnMainReset()</a>, and <a class="el" href="group__xxvethernet.html#ga3b0404e1d23019f56969ed3747175b44">XXxvEthernet_UsxgmiiAnMainRestart()</a>.</p>
+<p>Referenced by <a class="el" href="group__xxvethernet.html#gabb5bc0fd706a832742ca65487e6687af">XxvEthernetUtilEnterLocalLoopback()</a>, <a class="el" href="group__xxvethernet.html#gad48448f068a15369349deec579b8fc38">XxvEthernetUtilUsxgmiiSetup()</a>, <a class="el" href="group__xxvethernet.html#ga80999962d45ad1ec4e8dcb68df838cdf">XxvEthernetUtilUsxgmiiSetupBypassAN()</a>, <a class="el" href="group__xxvethernet.html#gad071a1cb807ee930634dac763c9d8227">XXxvEthernet_CfgInitialize()</a>, <a class="el" href="group__xxvethernet.html#ga03c42c411753d0fd0373094c420516dd">XXxvEthernet_ClearOptions()</a>, <a class="el" href="group__xxvethernet.html#gaab034ac98398a6d6851db98a76b4e010">XXxvEthernet_GetAutoNegSpeed()</a>, <a class="el" href="group__xxvethernet.html#ga0460b90bd3cebb8df32d3197bca2abb4">XXxvEthernet_Initialize()</a>, <a class="el" href="group__xxvethernet.html#gaf38776edab53749b9204fe1abf45d87a">XXxvEthernet_SetAutoNegSpeed()</a>, <a class="el" href="group__xxvethernet.html#gabcf02a5b2b0ee38739bbe4fdc5691a59">XXxvEthernet_SetOptions()</a>, <a class="el" href="group__xxvethernet.html#ga09e63e61d122a4f18d3dcd51456a1924">XXxvEthernet_SetUsxgmiiRateAndDuplex()</a>, <a class="el" href="group__xxvethernet.html#ga6e4b05d1a7db9def0f688bb3f12839f1">XXxvEthernet_Start()</a>, <a class="el" href="group__xxvethernet.html#gacd8a86e3ca2431a4181de0d75fd58759">XXxvEthernet_Stop()</a>, <a class="el" href="group__xxvethernet.html#ga341ba96f890e5ca0f3af58c52cfd05b9">XXxvEthernet_UsxgmiiAnMainReset()</a>, and <a class="el" href="group__xxvethernet.html#ga3b0404e1d23019f56969ed3747175b44">XXxvEthernet_UsxgmiiAnMainRestart()</a>.</p>
 
 </div>
 </div>

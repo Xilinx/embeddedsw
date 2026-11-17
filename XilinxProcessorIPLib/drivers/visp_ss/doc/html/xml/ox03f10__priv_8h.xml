@@ -11,155 +11,155 @@
     <includedby refid="ms__fw_8c" local="yes">ms_fw.c</includedby>
     <includedby refid="ox03f10_8c" local="yes">ox03f10.c</includedby>
     <incdepgraph>
-      <node id="7124">
-        <label>hal_api.h</label>
-        <childnode refid="7125" relation="include">
-        </childnode>
-        <childnode refid="7126" relation="include">
-        </childnode>
-        <childnode refid="7127" relation="include">
-        </childnode>
-        <childnode refid="7128" relation="include">
-        </childnode>
-        <childnode refid="7129" relation="include">
-        </childnode>
-      </node>
-      <node id="7125">
+      <node id="7540">
         <label>stdbool.h</label>
       </node>
-      <node id="7116">
-        <label>ox03f10_priv.h</label>
-        <link refid="ox03f10_priv.h"/>
-        <childnode refid="7117" relation="include">
+      <node id="7535">
+        <label>stdlib.h</label>
+      </node>
+      <node id="7532">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7533" relation="include">
         </childnode>
-        <childnode refid="7123" relation="include">
+        <childnode refid="7536" relation="include">
         </childnode>
-        <childnode refid="7124" relation="include">
-        </childnode>
-        <childnode refid="7130" relation="include">
-        </childnode>
-        <childnode refid="7131" relation="include">
-        </childnode>
-        <childnode refid="7132" relation="include">
+        <childnode refid="7537" relation="include">
         </childnode>
       </node>
-      <node id="7123">
+      <node id="7531">
+        <label>ox03f10_priv.h</label>
+        <link refid="ox03f10_priv.h"/>
+        <childnode refid="7532" relation="include">
+        </childnode>
+        <childnode refid="7538" relation="include">
+        </childnode>
+        <childnode refid="7539" relation="include">
+        </childnode>
+        <childnode refid="7545" relation="include">
+        </childnode>
+        <childnode refid="7546" relation="include">
+        </childnode>
+        <childnode refid="7547" relation="include">
+        </childnode>
+      </node>
+      <node id="7544">
+        <label>dct_assert.h</label>
+        <link refid="dct__assert_8h"/>
+        <childnode refid="7532" relation="include">
+        </childnode>
+      </node>
+      <node id="7537">
+        <label>stddef.h</label>
+      </node>
+      <node id="7536">
+        <label>limits.h</label>
+      </node>
+      <node id="7538">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="7120">
-        <label>stdlib.h</label>
-      </node>
-      <node id="7122">
-        <label>stddef.h</label>
-      </node>
-      <node id="7132">
-        <label>isi_priv.h</label>
-        <link refid="isi__priv_8h"/>
-        <childnode refid="7117" relation="include">
+      <node id="7551">
+        <label>isi_metadata.h</label>
+        <childnode refid="7532" relation="include">
         </childnode>
-        <childnode refid="7133" relation="include">
+        <childnode refid="7546" relation="include">
         </childnode>
       </node>
-      <node id="7121">
-        <label>limits.h</label>
-      </node>
-      <node id="7134">
-        <label>buf_defs.h</label>
-        <childnode refid="7117" relation="include">
+      <node id="7533">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="7534" relation="include">
+        </childnode>
+        <childnode refid="7535" relation="include">
         </childnode>
       </node>
-      <node id="7131">
+      <node id="7546">
         <label>isi_vvsensor.h</label>
         <link refid="isi__vvsensor_8h"/>
-        <childnode refid="7130" relation="include">
+        <childnode refid="7545" relation="include">
         </childnode>
       </node>
-      <node id="7133">
-        <label>isi.h</label>
-        <link refid="isi_8h"/>
-        <childnode refid="7117" relation="include">
-        </childnode>
-        <childnode refid="7123" relation="include">
-        </childnode>
-        <childnode refid="7134" relation="include">
-        </childnode>
-        <childnode refid="7131" relation="include">
-        </childnode>
-        <childnode refid="7135" relation="include">
-        </childnode>
-        <childnode refid="7136" relation="include">
-        </childnode>
-      </node>
-      <node id="7136">
-        <label>isi_metadata.h</label>
-        <childnode refid="7117" relation="include">
-        </childnode>
-        <childnode refid="7131" relation="include">
-        </childnode>
-      </node>
-      <node id="7135">
-        <label>isi_otp.h</label>
-        <childnode refid="7117" relation="include">
-        </childnode>
-        <childnode refid="7130" relation="include">
-        </childnode>
-      </node>
-      <node id="7128">
-        <label>xil_types.h</label>
-      </node>
-      <node id="7126">
-        <label>xiicps.h</label>
-      </node>
-      <node id="7130">
+      <node id="7545">
         <label>isi_common.h</label>
         <link refid="isi__common_8h"/>
       </node>
-      <node id="7127">
+      <node id="7547">
+        <label>isi_priv.h</label>
+        <link refid="isi__priv_8h"/>
+        <childnode refid="7532" relation="include">
+        </childnode>
+        <childnode refid="7548" relation="include">
+        </childnode>
+      </node>
+      <node id="7543">
+        <label>xil_types.h</label>
+      </node>
+      <node id="7541">
+        <label>xiicps.h</label>
+      </node>
+      <node id="7550">
+        <label>isi_otp.h</label>
+        <childnode refid="7532" relation="include">
+        </childnode>
+        <childnode refid="7545" relation="include">
+        </childnode>
+      </node>
+      <node id="7542">
         <label>xil_printf.h</label>
       </node>
-      <node id="7117">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="7118" relation="include">
+      <node id="7548">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="7532" relation="include">
         </childnode>
-        <childnode refid="7121" relation="include">
+        <childnode refid="7538" relation="include">
         </childnode>
-        <childnode refid="7122" relation="include">
+        <childnode refid="7549" relation="include">
+        </childnode>
+        <childnode refid="7546" relation="include">
+        </childnode>
+        <childnode refid="7550" relation="include">
+        </childnode>
+        <childnode refid="7551" relation="include">
         </childnode>
       </node>
-      <node id="7119">
+      <node id="7549">
+        <label>buf_defs.h</label>
+        <childnode refid="7532" relation="include">
+        </childnode>
+      </node>
+      <node id="7539">
+        <label>hal_api.h</label>
+        <childnode refid="7540" relation="include">
+        </childnode>
+        <childnode refid="7541" relation="include">
+        </childnode>
+        <childnode refid="7542" relation="include">
+        </childnode>
+        <childnode refid="7543" relation="include">
+        </childnode>
+        <childnode refid="7544" relation="include">
+        </childnode>
+      </node>
+      <node id="7534">
         <label>stdio.h</label>
-      </node>
-      <node id="7129">
-        <label>dct_assert.h</label>
-        <link refid="dct__assert_8h"/>
-        <childnode refid="7117" relation="include">
-        </childnode>
-      </node>
-      <node id="7118">
-        <label>linux_compat.h</label>
-        <link refid="linux__compat_8h"/>
-        <childnode refid="7119" relation="include">
-        </childnode>
-        <childnode refid="7120" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="7137">
+      <node id="7552">
         <label>ox03f10_priv.h</label>
         <link refid="ox03f10_priv.h"/>
-        <childnode refid="7138" relation="include">
+        <childnode refid="7553" relation="include">
         </childnode>
-        <childnode refid="7139" relation="include">
+        <childnode refid="7554" relation="include">
         </childnode>
       </node>
-      <node id="7139">
-        <label>ox03f10.c</label>
-      </node>
-      <node id="7138">
+      <node id="7553">
         <label>ms_fw.c</label>
+      </node>
+      <node id="7554">
+        <label>ox03f10.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_ox03f10___context__s" prot="public">Ox03f10_Context_s</innerclass>
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__ox03f10__priv_1gaa24b423028bd9be8262b18ab8b3abe80" prot="public" static="no">
         <name>OX03F10_TABLE_WAIT</name>
@@ -184,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__ox03f10__priv_1ga484563fb224e3d8891a4de092674e56a" prot="public" static="no">
         <name>OX03F10_TABLE_WAIT_MS</name>
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__ox03f10__priv_1ga2fde3a529209ddf5f6be80fddb3a6336" prot="public" static="no">
         <name>DSER_ADDR</name>
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__ox03f10__priv_1ga7692168878a0468b9b4d6566817bd661" prot="public" static="no">
         <name>SER_ADDR</name>
@@ -217,7 +217,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -232,7 +232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="109" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="109" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -247,7 +247,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__ox03f10__priv_1gae9b1506d0e65fc777935791389eb5286" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="1795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="1795" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="1795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="1795" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__ox03f10__priv_1gacb5fc62d10f14970f7acbdc716d10968" prot="public" static="yes" mutable="no">
         <type>uint16_t</type>
@@ -273,7 +273,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="3462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="3462" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="3462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" bodystart="3462" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -296,7 +296,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="111" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="111" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga420c5500ae5f83b270235f1991c94f62" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -317,7 +317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="112" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="112" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1gad8380882168c6ce2fb7c514da3de2310" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -334,7 +334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="113" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="113" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1gaa13a95f61d65c56c5e8034c8b34527ca" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -351,7 +351,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="114" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="114" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1gad4b68926cb55a361d3d166e3dce7a91a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -372,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="115" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="115" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga1104b0976a402d5f63f69362e0d2bec3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -393,7 +393,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="116" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="116" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga9b0112f73b23860ba9ee639ac2f47be2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -414,7 +414,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="117" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="117" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga8d0b3fb7938e8077d5afff68790d10a0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -435,7 +435,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="118" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="118" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1gabecfe778b7ba8b2ce832f497e73e3514" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -456,7 +456,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="720" bodyend="738"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="756" bodyend="774"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga6998ed14a4d777f75716306f00e6ed13" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -477,7 +477,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="740" bodyend="758"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="776" bodyend="794"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga39b36cd1376852f0c3b02f5f7f86aade" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -498,7 +498,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="616" bodyend="662"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="652" bodyend="698"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga0eac1c8ed9bf220ea29127fe1e93badd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -519,7 +519,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="664" bodyend="718"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="700" bodyend="754"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga433ba63e3128a4d9a5d792a6d5da302e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -540,19 +540,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="835" bodyend="861"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="871" bodyend="897"/>
       </memberdef>
-      <memberdef kind="function" id="group__ox03f10__priv_1gabc11943eb5f5af41dd60e339ed38a9b3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__ox03f10__priv_1ga1671b1fa23c99fd39017c58241b74335" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
         <definition>static RESULT Ox03f10_IsiSetIntTimeIss</definition>
-        <argsstring>(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <argsstring>(IsiSensorHandle_t handle, const IsiSensorIntTime_t *pSensorIntTime)</argsstring>
         <name>Ox03f10_IsiSetIntTimeIss</name>
         <param>
           <type>IsiSensorHandle_t</type>
           <declname>handle</declname>
         </param>
         <param>
-          <type>IsiSensorIntTime_t *</type>
+          <type>const IsiSensorIntTime_t *</type>
           <declname>pSensorIntTime</declname>
         </param>
         <briefdescription>
@@ -561,7 +561,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="760" bodyend="785"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="796" bodyend="821"/>
       </memberdef>
       <memberdef kind="function" id="group__ox03f10__priv_1ga98fa5ce00abbdf7be1b317462bf3ec32" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -582,7 +582,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="127" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h" line="127" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -591,7 +591,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************\</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">|*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">|*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">|*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>by<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.<sp/>(&quot;VeriSilicon&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">|*<sp/>All<sp/>Rights<sp/>Reserved.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
@@ -696,7 +696,7 @@
 <codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>RESULT<sp/>Ox03f10_IsiGetIntTimeIss(IsiSensorHandle_t<sp/>handle,</highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorIntTime_t<sp/>*pSensorIntTime);</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>RESULT<sp/>Ox03f10_IsiSetIntTimeIss(IsiSensorHandle_t<sp/>handle,</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiSensorIntTime_t<sp/>*pSensorIntTime);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>IsiSensorIntTime_t<sp/>*pSensorIntTime);</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>RESULT<sp/>Ox03f10_SetIntTime(IsiSensorHandle_t<sp/>handle,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>newIntegrationTime);</highlight></codeline>
 <codeline lineno="128"><highlight class="normal"></highlight></codeline>
 <codeline lineno="129"><highlight class="normal"></highlight></codeline>
@@ -5708,6 +5708,6 @@
 <codeline lineno="5135"><highlight class="normal"></highlight></codeline>
 <codeline lineno="5136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>__Ox03f10PRIV_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox03f10_priv.h"/>
   </compounddef>
 </doxygen>

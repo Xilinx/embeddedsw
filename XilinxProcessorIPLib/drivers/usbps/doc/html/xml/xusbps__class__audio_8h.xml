@@ -14,15 +14,46 @@
       <node id="159">
         <label>xil_io.h</label>
       </node>
-      <node id="154">
-        <label>xusbps_class_audio.h</label>
-        <link refid="xusbps_class_audio.h"/>
-        <childnode refid="155" relation="include">
+      <node id="161">
+        <label>xusbps.h</label>
+        <link refid="xusbps_8h"/>
+        <childnode refid="156" relation="include">
         </childnode>
-        <childnode refid="162" relation="include">
+        <childnode refid="157" relation="include">
         </childnode>
-        <childnode refid="163" relation="include">
+        <childnode refid="160" relation="include">
         </childnode>
+      </node>
+      <node id="155">
+        <label>xusbps_ch9.h</label>
+        <link refid="xusbps__ch9_8h"/>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>xusbps_hw.h</label>
+        <link refid="xusbps__hw_8h"/>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+      </node>
+      <node id="164">
+        <label>string.h</label>
+      </node>
+      <node id="160">
+        <label>xstatus.h</label>
+      </node>
+      <node id="157">
+        <label>xil_types.h</label>
       </node>
       <node id="162">
         <label>xusbps_ch9_audio.h</label>
@@ -40,52 +71,25 @@
         <childnode refid="161" relation="include">
         </childnode>
       </node>
-      <node id="164">
-        <label>string.h</label>
-      </node>
-      <node id="160">
-        <label>xstatus.h</label>
-      </node>
-      <node id="157">
-        <label>xil_types.h</label>
-      </node>
-      <node id="155">
-        <label>xusbps_ch9.h</label>
-        <link refid="xusbps__ch9_8h"/>
-        <childnode refid="156" relation="include">
+      <node id="154">
+        <label>xusbps_class_audio.h</label>
+        <link refid="xusbps_class_audio.h"/>
+        <childnode refid="155" relation="include">
         </childnode>
-        <childnode refid="157" relation="include">
+        <childnode refid="162" relation="include">
         </childnode>
-        <childnode refid="160" relation="include">
-        </childnode>
-        <childnode refid="161" relation="include">
+        <childnode refid="163" relation="include">
         </childnode>
       </node>
       <node id="163">
         <label>xparameters.h</label>
       </node>
-      <node id="156">
-        <label>xusbps_hw.h</label>
-        <link refid="xusbps__hw_8h"/>
-        <childnode refid="157" relation="include">
-        </childnode>
-        <childnode refid="158" relation="include">
-        </childnode>
-        <childnode refid="159" relation="include">
-        </childnode>
-      </node>
-      <node id="161">
-        <label>xusbps.h</label>
-        <link refid="xusbps_8h"/>
-        <childnode refid="156" relation="include">
-        </childnode>
-        <childnode refid="157" relation="include">
-        </childnode>
-        <childnode refid="160" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="166">
+        <label>xusbps_audio_example.c</label>
+        <link refid="xusbps__audio__example_8c"/>
+      </node>
       <node id="167">
         <label>xusbps_class_audio.c</label>
         <link refid="xusbps__class__audio_8c"/>
@@ -98,66 +102,67 @@
         <childnode refid="167" relation="include">
         </childnode>
       </node>
-      <node id="166">
-        <label>xusbps_audio_example.c</label>
-        <link refid="xusbps__audio__example_8c"/>
-      </node>
     </invincdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="xusbps__class__audio_8h_1a638f3c6121bcfac7f9d9978f83288716" prot="public" static="no">
         <name>UAC1_SET_CUR</name>
         <initializer>0x01</initializer>
         <briefdescription>
-        </briefdescription>
+<para>UAC1 SET_CUR request code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="47" endline="407">XUsbPs_ClassReq</referencedby>
       </memberdef>
       <memberdef kind="define" id="xusbps__class__audio_8h_1a1a38d28bfa0b0807e198682f337d3389" prot="public" static="no">
         <name>UAC1_GET_CUR</name>
         <initializer>0x81</initializer>
         <briefdescription>
-        </briefdescription>
+<para>UAC1 GET_CUR request code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="47" endline="407">XUsbPs_ClassReq</referencedby>
       </memberdef>
       <memberdef kind="define" id="xusbps__class__audio_8h_1ac8ef05de83109f86981d0c47829ce661" prot="public" static="no">
         <name>UAC1_GET_MIN</name>
         <initializer>0x82</initializer>
         <briefdescription>
-        </briefdescription>
+<para>UAC1 GET_MIN request code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="47" endline="407">XUsbPs_ClassReq</referencedby>
       </memberdef>
       <memberdef kind="define" id="xusbps__class__audio_8h_1a34af2b0a6e88dca4858d69d625e70434" prot="public" static="no">
         <name>UAC1_GET_MAX</name>
         <initializer>0x83</initializer>
         <briefdescription>
-        </briefdescription>
+<para>UAC1 GET_MAX request code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="47" endline="407">XUsbPs_ClassReq</referencedby>
       </memberdef>
       <memberdef kind="define" id="xusbps__class__audio_8h_1a4d155ebb3f8b6780009d3a2f76b0003a" prot="public" static="no">
         <name>UAC1_GET_RES</name>
         <initializer>0x84</initializer>
         <briefdescription>
-        </briefdescription>
+<para>UAC1 GET_RES request code. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="xusbps__class__storage_8h_1a8665f21d5cd56ddd1983b110d15f7d25" compoundref="xusbps__class__audio_8c" startline="47" endline="407">XUsbPs_ClassReq</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -179,41 +184,23 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is pointer to Usb_DevData instance. </para></parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> controller instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>SetupData</parametername>
+<parametername direction="in">SetupData</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the setup packet received from Host.</para></parameterdescription>
+<para>is the setup packet received from Host. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="note"><para>None.</para></simplesect>
-This function is called by Chapter9 handler when class request is received from Host.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>InstancePtr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is a pointer to <ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> instance of the controller. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>SetupData</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the setup data structure containing the setup request.</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.c" bodystart="49" bodyend="409"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.c" bodystart="47" bodyend="407"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -227,7 +214,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       D
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -248,13 +235,12 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       D
 <codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XUSBPS_UAC1</highlight></codeline>
 <codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Audio<sp/>Class-Specific<sp/>Request<sp/>Codes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC1_SET_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
-<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC1_GET_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x81</highlight></codeline>
-<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC1_GET_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x82</highlight></codeline>
-<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC1_GET_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x83</highlight></codeline>
-<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC1_GET_RES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x84</highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XUSBPS_UAC2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41" refid="xusbps__class__audio_8h_1a638f3c6121bcfac7f9d9978f83288716" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC1_SET_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/></highlight></codeline>
+<codeline lineno="42" refid="xusbps__class__audio_8h_1a1a38d28bfa0b0807e198682f337d3389" refkind="member"><highlight class="preprocessor">#define<sp/>UAC1_GET_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x81<sp/></highlight></codeline>
+<codeline lineno="43" refid="xusbps__class__audio_8h_1ac8ef05de83109f86981d0c47829ce661" refkind="member"><highlight class="preprocessor">#define<sp/>UAC1_GET_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x82<sp/></highlight></codeline>
+<codeline lineno="44" refid="xusbps__class__audio_8h_1a34af2b0a6e88dca4858d69d625e70434" refkind="member"><highlight class="preprocessor">#define<sp/>UAC1_GET_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x83<sp/></highlight></codeline>
+<codeline lineno="45" refid="xusbps__class__audio_8h_1a4d155ebb3f8b6780009d3a2f76b0003a" refkind="member"><highlight class="preprocessor">#define<sp/>UAC1_GET_RES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x84<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#else<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XUSBPS_UAC2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A.14<sp/>Audio<sp/>Class-Specific<sp/>Request<sp/>Codes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
@@ -289,6 +275,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       D
 <codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSB_CLASS_AUDIO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_audio.h"/>
   </compounddef>
 </doxygen>

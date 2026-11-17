@@ -1,0 +1,761 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__qspips__dual__flash__stack__lqspi__example" kind="group">
+    <compoundname>qspips_dual_flash_stack_lqspi_example</compoundname>
+    <title>Qspips_dual_flash_stack_lqspi_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__qspips__dual__flash__stack__lqspi__example_1gaf39c789226d0925308cca8b83dcd87a9" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref></type>
+        <definition>XQspiPs QspiInstance</definition>
+        <argsstring></argsstring>
+        <name>QspiInstance</name>
+        <briefdescription>
+<para>The instances to support the device drivers are global such that they are initialized to zero each time the program runs. </para>        </briefdescription>
+        <detaileddescription>
+<para>They could be local but should at least be static so they are zeroed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__dual__flash__stack__lqspi__example_1gab3bcee72bda39943b664463f1df4d211" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Test</definition>
+        <argsstring></argsstring>
+        <name>Test</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+<para>The following variable allows a test value to be added to the values that are written to the Flash such that unique values can be generated to guarantee the writes to the Flash were successful. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__dual__flash__stack__lqspi__example_1ga0e3a1c0ddcfc3450d79fb432ce9b8812" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[MAX_DATA+DATA_OFFSET+DUMMY_SIZE]</definition>
+        <argsstring>[MAX_DATA+DATA_OFFSET+DUMMY_SIZE]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Read buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__dual__flash__stack__lqspi__example_1ga53aefd16c5a7bda6489a4afcd1503584" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[PAGE_SIZE+DATA_OFFSET]</definition>
+        <argsstring>[PAGE_SIZE+DATA_OFFSET]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Write buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__qspips__dual__flash__stack__lqspi__example_1ga1cb26e7de1e53fe8bd6c4e1d3a9e8ecc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FlashErase</definition>
+        <argsstring>(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)</argsstring>
+        <name>FlashErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Erases the sectors in the serial Flash connected to the QSPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address of the first sector which needs to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The total size to be erased. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="193" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__dual__flash__stack__lqspi__example_1gaa4691616d85f33bb068a7e9740249b86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FlashWrite</definition>
+        <argsstring>(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)</argsstring>
+        <name>FlashWrite</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial Flash connected to the QSPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to write data to in the Flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command used to write data to the flash. QSPI device supports only Page Program command to write data to the flash. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="195" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__dual__flash__stack__lqspi__example_1gaa424c9f6fee5f08746f8f3233b7467ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashReadID</definition>
+        <argsstring>(void)</argsstring>
+        <name>FlashReadID</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Reads serial FLASH ID connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if read id, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="197" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__dual__flash__stack__lqspi__example_1ga6682571380b6d4dee70c0db72199278c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FlashQuadEnable</definition>
+        <argsstring>(XQspiPs *QspiPtr)</argsstring>
+        <name>FlashQuadEnable</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables quad mode in the serial flash connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__dual__flash__stack__lqspi__example_1ga696e25af996b9d0106ac7529e9e72472" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DualStackExample</definition>
+        <argsstring>(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>DualStackExample</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> device driver with two Flash devices in Stacked mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function writes data to the serial Flash in QSPI mode and reads data in Linear QSPI mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">QspiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPS driver to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up based on DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="285" bodyend="474"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__dual__flash__stack__lqspi__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the QSPI Dual Stack example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="238" bodyend="257"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga076966d3a1aa7647c294802e9f76bb10" prot="public" static="no">
+        <name>WRITE_STATUS_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" prot="public" static="no">
+        <name>WRITE_CMD</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Write (page program) command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga21623e2a5501c821da54dd76ffc1d077" prot="public" static="no">
+        <name>READ_CMD</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Normal read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga12fe83d74a765a1b4ae033e22a23dafe" prot="public" static="no">
+        <name>WRITE_DISABLE_CMD</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Write disable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" prot="public" static="no">
+        <name>READ_STATUS_CMD</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Read status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" prot="public" static="no">
+        <name>WRITE_ENABLE_CMD</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gad86cd5806516fb265953d7131f4d09ad" prot="public" static="no">
+        <name>FAST_READ_CMD</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+<para>Fast read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gae0a72c7619ef5b2a95ab266c5ec91a52" prot="public" static="no">
+        <name>DUAL_READ_CMD</name>
+        <initializer>0x3B</initializer>
+        <briefdescription>
+<para>Dual read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga94af169751fa1931ce12752054751b17" prot="public" static="no">
+        <name>QUAD_READ_CMD</name>
+        <initializer>0x6B</initializer>
+        <briefdescription>
+<para>Quad read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga66456d73cb4185955c6c7e663a85c8da" prot="public" static="no">
+        <name>BULK_ERASE_CMD</name>
+        <initializer>0xC7</initializer>
+        <briefdescription>
+<para>Bulk erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga0eec2203a85fcd7f55550651809df5f0" prot="public" static="no">
+        <name>SEC_ERASE_CMD</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+<para>Sector erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gae90b7e8c7fe9d94c5c156a07e57fc27c" prot="public" static="no">
+        <name>READ_ID</name>
+        <initializer>0x9F</initializer>
+        <briefdescription>
+<para>Read ID command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gacb580804a74967764090e0200ec1ead7" prot="public" static="no">
+        <name>READ_CONFIG_CMD</name>
+        <initializer>0x35</initializer>
+        <briefdescription>
+<para>Read config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga677a2f55503c1b4abe80a4f47a62d17a" prot="public" static="no">
+        <name>WRITE_CONFIG_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gadb83c033ee492824badb77fa8ebd5c5d" prot="public" static="no">
+        <name>COMMAND_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Flash instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gacb3f014bb2edc22968015d7c94fc50e7" prot="public" static="no">
+        <name>ADDRESS_1_OFFSET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>MSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga78eeefaa529edaa16698434814f12882" prot="public" static="no">
+        <name>ADDRESS_2_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Middle byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga7a5adf9cc2e2cfa409fb6746d5b22ef6" prot="public" static="no">
+        <name>ADDRESS_3_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>LSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga11faa4c105a137b8edaa096de5063835" prot="public" static="no">
+        <name>DATA_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Start of Data for Read/Write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gadb783614ffde5c436ef41d8d5851f7ad" prot="public" static="no">
+        <name>DUMMY_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Dummy byte offset for fast, dual and quad reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gad33594c6ec0a6e6830b2ae30fcf2b926" prot="public" static="no">
+        <name>DUMMY_SIZE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Number of dummy bytes for fast, dual and quad reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gab70178b04d2917335da4565bbb9e9bf4" prot="public" static="no">
+        <name>RD_ID_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Read ID command + 3 bytes ID response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gae684d0413cc3a0dfe84ea9914dc9df34" prot="public" static="no">
+        <name>BULK_ERASE_SIZE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bulk Erase command size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga2c806bebfe8737b36450c53bd4eb112c" prot="public" static="no">
+        <name>SEC_ERASE_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Sector Erase command + Sector address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga9b6c495ca75dd1ca39a08ac19a306aae" prot="public" static="no">
+        <name>RD_CFG_SIZE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>1 byte Configuration register + RD CFG command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga808e0eed38ca0add1716bfc3eafb7900" prot="public" static="no">
+        <name>WR_CFG_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>WRR command + 1 byte each Status and Config Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga635c69a613273e533212c0bf3c15b8c4" prot="public" static="no">
+        <name>OVERHEAD_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Command and address byte count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gaa35bad1e92008da628f27b2f6bb270aa" prot="public" static="no">
+        <name>SECTOR_SIZE</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+<para>Sector size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gac5656d686c3863cc1e0f1533c3f6c685" prot="public" static="no">
+        <name>NUM_SECTORS</name>
+        <initializer>0x200</initializer>
+        <briefdescription>
+<para>100 sectors from each flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gae12c40b3b2496ea64cbd1f626d4a5817" prot="public" static="no">
+        <name>NUM_PAGES</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+<para>10000 pages from each flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" prot="public" static="no">
+        <name>PAGE_SIZE</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>Page size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gad01773d6d4e813ca3ab93a5654491bcb" prot="public" static="no">
+        <name>LQSPI_CR_FAST_QUAD_READ</name>
+        <initializer>0x0000006B</initializer>
+        <briefdescription>
+<para>Fast Quad Read output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga8fcc17a327c339c2bd038e9869f0bef1" prot="public" static="no">
+        <name>LQSPI_CR_1_DUMMY_BYTE</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>1 Dummy Byte between address and return data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga5ff46fb450219069738176f381d68fd0" prot="public" static="no">
+        <name>LQSPI_CR_FAST_READ</name>
+        <initializer>0x0000000B</initializer>
+        <briefdescription>
+<para>Fast Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga65ec8bba1912af15a87f03326380ec34" prot="public" static="no">
+        <name>LQSPI_CR_NORMAL_READ</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>Normal Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga44c9b7dadde974cc25ecf3b25b56b8f6" prot="public" static="no">
+        <name>DUAL_STACK_CONFIG_WRITE</name>
+        <initializer>(<ref refid="group__qspips__api_1ga2dad6e5df54b9e6cf4a276eaf92c6dd2" kindref="member">XQSPIPS_LQSPI_CR_TWO_MEM_MASK</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1ga8fcc17a327c339c2bd038e9869f0bef1" kindref="member">LQSPI_CR_1_DUMMY_BYTE</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1gad01773d6d4e813ca3ab93a5654491bcb" kindref="member">LQSPI_CR_FAST_QUAD_READ</ref>)</initializer>
+        <briefdescription>
+<para>LQSPI configuration register value for writing to the stacked flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gacfda3abaa00a79c3c0a24b190c79f1cd" prot="public" static="no">
+        <name>DUAL_STACK_CONFIG_QUAD_READ</name>
+        <initializer>(<ref refid="group__qspips__api_1gafc4b03f8705c7c19693225d718546118" kindref="member">XQSPIPS_LQSPI_CR_LINEAR_MASK</ref> | \
+					 <ref refid="group__qspips__api_1ga2dad6e5df54b9e6cf4a276eaf92c6dd2" kindref="member">XQSPIPS_LQSPI_CR_TWO_MEM_MASK</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1ga8fcc17a327c339c2bd038e9869f0bef1" kindref="member">LQSPI_CR_1_DUMMY_BYTE</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1gad01773d6d4e813ca3ab93a5654491bcb" kindref="member">LQSPI_CR_FAST_QUAD_READ</ref>)</initializer>
+        <briefdescription>
+<para>LQSPI configuration register value for quad reads of stacked flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" prot="public" static="no">
+        <name>PAGE_COUNT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Number of flash pages to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga9376dcef436c7d444fe4d1fd11749101" prot="public" static="no">
+        <name>TEST_ADDRESS</name>
+        <initializer>0xFFF800</initializer>
+        <briefdescription>
+<para>Flash address to which data is to be written. </para>        </briefdescription>
+        <detaileddescription>
+<para>Test address defined so as to cover both flash devices </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Start value of the data pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" prot="public" static="no">
+        <name>MAX_DATA</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kindref="member">PAGE_COUNT</ref> * <ref refid="group__qspips__flash__polled__example_1ga7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Maximum amount of data transferred to and from the Flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1ga6b2d75a2b1b02ae81f756f700b98b4fc" prot="public" static="no">
+        <name>FLASH1BASE</name>
+        <initializer>0x0000000</initializer>
+        <briefdescription>
+<para>Base address of Flash1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gae8e61c3a6eeddec854d99721c09d0d2c" prot="public" static="no">
+        <name>FLASH2BASE</name>
+        <initializer>0x1000000</initializer>
+        <briefdescription>
+<para>Base address of Flash2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__dual__flash__stack__lqspi__example_1gaff9240de8423045bfa08cd5716428a4e" prot="public" static="no">
+        <name>SECTORMASK</name>
+        <initializer>0xFFF0000</initializer>
+        <briefdescription>
+<para>Mask for sector start address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_dual_flash_stack_lqspi_example.c" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

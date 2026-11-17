@@ -105,55 +105,59 @@ $(document).ready(function(){initNavTree('xwdttb__hw_8h.html','');});
 <div class="title">xwdttb_hw.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the register interface of the AXI Timebase and Window WDT. </p>
+<p>The <a class="el" href="xwdttb__hw_8h.html" title="Defines the register interface of the AXI Timebase and Window WDT. ">xwdttb_hw.h</a> header file contains identifiers and register-level core functions (or macros) that can be used to access the AXI Timebase and Window Watchdog Timer core.</p>
+<p>For more information about the operation of this core see the hardware specification and documentation in the higher level driver <a class="el" href="xwdttb_8h.html">xwdttb.h</a> file.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver  Who Date     Changes
+</p>
+<hr/>
+<p>
+1.00 sha 12/17/15 First release.
+4.0  sha 01/29/16 Updated version to 4.0 as it is newly added file in driver
+                  version 4.0.
+                  Added following macros for Window WDT:
+                  XWT_MWR_OFFSET, XWT_ESR_OFFSET, XWT_FCR_OFFSET,
+                  XWT_FWR_OFFSET, XWT_SWR_OFFSET, XWT_TSR0_OFFSET,
+                  XWT_TSR1_OFFSET, XWT_STR_OFFSET.</pre><pre>                  Added following masks and shifts macros for Window WDT:
+                  XWT_MWR_AEN_MASK, XWT_MWR_MWC_MASK, XWT_ESR_LBE_MASK,
+                  XWT_ESR_FCV_MASK, XWT_ESR_WRP_MASK, XWT_ESR_WINT_MASK,
+                  XWT_ESR_WSW_MASK, XWT_ESR_WCFG_MASK, XWT_ESR_WEN_MASK,
+                  XWT_FCR_SBC_MASK, XWT_FCR_BSS_MASK, XWT_FCR_SSTE_MASK,
+                  XWT_FCR_PSME_MASK, XWT_FCR_FCE_MASK, XWT_FCR_WM_MASK,
+                  XWT_FCR_WDP_MASK.</pre><pre>                  XWT_ESR_LBE_SHIFT, XWT_ESR_FCV_SHIFT, XWT_ESR_WRP_SHIFT,
+                  XWT_ESR_WINT_SHIFT, XWT_ESR_WSW_SHIFT, XWT_ESR_WCFG_SHIFT,
+                  XWT_FCR_SBC_SHIFT, XWT_FCR_BSS_SHIFT, XWT_FCR_SSTE_SHIFT,
+                  XWT_FCR_WM_SHIFT.
+4.3 srm  01/30/18 Added doxygen tags
+4.4 sne  03/04/19 Added Support for Versal (Generic Watchdog and Window
+                  Watchdog Timer).
+                  Added following macros for Generic WDT:
+                  XWT_TFR_OFFSET,XWT_TRR_OFFSET,XWT_IENR_OFFSET,
+                  XWT_IDR_OFFSET,XWT_IMR_OFFSET,XWT_GWRR_OFFSET,
+                  XWT_GWCSR_OFFSET,XWT_GWOR_OFFSET,XWT_GWCVR0_OFFSET,
+                  XWT_GWCVR1_OFFSET,XWT_GW_WR_OFFSET,XWT_GWCSR_GWEN_MASK,
+                  XWT_GWCSR_GWS1_MASK,XWT_GWCSR_GWS2_MASK,XWT_GWCSR_MASK,
+                  XWT_GW_WR_MASK,XWT_GWRR_MASK.
+                  Added following macro for Win WDT:
+                  XWT_SSTWR_OFFSET.
+4.5 sne  09/27/19 Added common driver support for WWDT and AXI Timebase WDT.
+            Removed versal flag. Removed AXI Timebase WDT offsets.
+            Added following macros for WWDT
+            XWT_TSR0_WWDT_OFFSET,XWT_TSR1_WWDT_OFFSET,
+            XWT_STR_WWDT_OFFSET.
+5.0 sne  03/11/20 Added XWT_GWDT and XWT_WWDT macros.
+5.13 vn  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gab5ddc5730a86f3cbab203b333b01595e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gab5ddc5730a86f3cbab203b333b01595e">XWDTTB_HW_H_</a></td></tr>
-<tr class="memdesc:gab5ddc5730a86f3cbab203b333b01595e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="group__wdttb__api.html#gab5ddc5730a86f3cbab203b333b01595e">More...</a><br/></td></tr>
-<tr class="separator:gab5ddc5730a86f3cbab203b333b01595e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga633f04f09e1b0d8d960aba46ce522b07"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga633f04f09e1b0d8d960aba46ce522b07">XWT_GW_WR_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
-<tr class="memdesc:ga633f04f09e1b0d8d960aba46ce522b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable Generic Watchdog Warm Reset Register.  <a href="group__wdttb__api.html#ga633f04f09e1b0d8d960aba46ce522b07">More...</a><br/></td></tr>
-<tr class="separator:ga633f04f09e1b0d8d960aba46ce522b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae0376d1045bc05ff11e88769414398d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gae0376d1045bc05ff11e88769414398d4">XWT_GWRR_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
-<tr class="memdesc:gae0376d1045bc05ff11e88769414398d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic watchdog Refresh Register.  <a href="group__wdttb__api.html#gae0376d1045bc05ff11e88769414398d4">More...</a><br/></td></tr>
-<tr class="separator:gae0376d1045bc05ff11e88769414398d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1045f4bb88112232e39975b1344a55ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a1045f4bb88112232e39975b1344a55ff">XWT_START_VALUE</a>&#160;&#160;&#160;8U</td></tr>
-<tr class="memdesc:a1045f4bb88112232e39975b1344a55ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of Win WDT values between 8-31.  <a href="#a1045f4bb88112232e39975b1344a55ff">More...</a><br/></td></tr>
-<tr class="separator:a1045f4bb88112232e39975b1344a55ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ac0486680dc34b383a5ad7012d893a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a4ac0486680dc34b383a5ad7012d893a3">XWT_END_VALUE</a>&#160;&#160;&#160;31U</td></tr>
-<tr class="memdesc:a4ac0486680dc34b383a5ad7012d893a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of Win WDT values between 8-31.  <a href="#a4ac0486680dc34b383a5ad7012d893a3">More...</a><br/></td></tr>
-<tr class="separator:a4ac0486680dc34b383a5ad7012d893a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa828d0d77eb5c2cb562cb0316e50c70c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#aa828d0d77eb5c2cb562cb0316e50c70c">XWT_ZERO</a>&#160;&#160;&#160;0U</td></tr>
-<tr class="memdesc:aa828d0d77eb5c2cb562cb0316e50c70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for 0 value.  <a href="#aa828d0d77eb5c2cb562cb0316e50c70c">More...</a><br/></td></tr>
-<tr class="separator:aa828d0d77eb5c2cb562cb0316e50c70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fc90576f0dea11b4fad40d6624f3b8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a6fc90576f0dea11b4fad40d6624f3b8b">XWT_ONE</a>&#160;&#160;&#160;1U</td></tr>
-<tr class="memdesc:a6fc90576f0dea11b4fad40d6624f3b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for 1 value.  <a href="#a6fc90576f0dea11b4fad40d6624f3b8b">More...</a><br/></td></tr>
-<tr class="separator:a6fc90576f0dea11b4fad40d6624f3b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a628225259674e506919317cc28a9db79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a628225259674e506919317cc28a9db79">XWT_MAX_BYTE_SEGMENT</a>&#160;&#160;&#160;4U</td></tr>
-<tr class="memdesc:a628225259674e506919317cc28a9db79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Byte segment value.  <a href="#a628225259674e506919317cc28a9db79">More...</a><br/></td></tr>
-<tr class="separator:a628225259674e506919317cc28a9db79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a86d14c65c5a4aef740c3d70a34331"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#ab4a86d14c65c5a4aef740c3d70a34331">XWT_GWDT</a>&#160;&#160;&#160;0U</td></tr>
-<tr class="memdesc:ab4a86d14c65c5a4aef740c3d70a34331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for GWDT.  <a href="#ab4a86d14c65c5a4aef740c3d70a34331">More...</a><br/></td></tr>
-<tr class="separator:ab4a86d14c65c5a4aef740c3d70a34331"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a812114b38de6dd94691113164c16bf26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a812114b38de6dd94691113164c16bf26">XWT_WWDT</a>&#160;&#160;&#160;1U</td></tr>
-<tr class="memdesc:a812114b38de6dd94691113164c16bf26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for WWDT.  <a href="#a812114b38de6dd94691113164c16bf26">More...</a><br/></td></tr>
-<tr class="separator:a812114b38de6dd94691113164c16bf26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18937c99fdc7fba503e6d4195899d2cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a18937c99fdc7fba503e6d4195899d2cb">XWT_ENABLE_QA_MODE</a>&#160;&#160;&#160;0x2U</td></tr>
-<tr class="memdesc:a18937c99fdc7fba503e6d4195899d2cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for WWDT.  <a href="#a18937c99fdc7fba503e6d4195899d2cb">More...</a><br/></td></tr>
-<tr class="separator:a18937c99fdc7fba503e6d4195899d2cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae66e3f35ddde61da7b413d343470b97f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#ae66e3f35ddde61da7b413d343470b97f">XWT_MAX_TIMEOUT</a>&#160;&#160;&#160;30000U</td></tr>
-<tr class="memdesc:ae66e3f35ddde61da7b413d343470b97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">GWDT max timeout.  <a href="#ae66e3f35ddde61da7b413d343470b97f">More...</a><br/></td></tr>
-<tr class="separator:ae66e3f35ddde61da7b413d343470b97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae790420ef49bf994030317fab83977b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#ae790420ef49bf994030317fab83977b9">XWT_KILO_HZ</a>&#160;&#160;&#160;1000U</td></tr>
-<tr class="memdesc:ae790420ef49bf994030317fab83977b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for Kilo Hz.  <a href="#ae790420ef49bf994030317fab83977b9">More...</a><br/></td></tr>
-<tr class="separator:ae790420ef49bf994030317fab83977b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa6b4b0d4c816cd9bd6da3c9fe7caac3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#afa6b4b0d4c816cd9bd6da3c9fe7caac3">XWdtTb_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="xwdttb__hw_8h.html#adf392cff302c8ea88ba33c545e757d4b">XWdtTb_In32</a>((BaseAddress) + ((u32)RegOffset))</td></tr>
-<tr class="memdesc:afa6b4b0d4c816cd9bd6da3c9fe7caac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads from the specified WdtTb core register.  <a href="#afa6b4b0d4c816cd9bd6da3c9fe7caac3">More...</a><br/></td></tr>
-<tr class="separator:afa6b4b0d4c816cd9bd6da3c9fe7caac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36d539f7262d0267924d2ef5612f0cc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a36d539f7262d0267924d2ef5612f0cc2">XWdtTb_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;<a class="el" href="xwdttb__hw_8h.html#a64a7b4a2766f990ebafeed1978593308">XWdtTb_Out32</a>((BaseAddress) + ((u32)RegOffset), (u32)(RegisterValue))</td></tr>
-<tr class="memdesc:a36d539f7262d0267924d2ef5612f0cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the specified WdtTb core register.  <a href="#a36d539f7262d0267924d2ef5612f0cc2">More...</a><br/></td></tr>
-<tr class="separator:a36d539f7262d0267924d2ef5612f0cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafa6b4b0d4c816cd9bd6da3c9fe7caac3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gafa6b4b0d4c816cd9bd6da3c9fe7caac3">XWdtTb_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__wdttb__api.html#gadf392cff302c8ea88ba33c545e757d4b">XWdtTb_In32</a>((BaseAddress) + ((u32)RegOffset))</td></tr>
+<tr class="memdesc:gafa6b4b0d4c816cd9bd6da3c9fe7caac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads from the specified WdtTb core register.  <a href="group__wdttb__api.html#gafa6b4b0d4c816cd9bd6da3c9fe7caac3">More...</a><br/></td></tr>
+<tr class="separator:gafa6b4b0d4c816cd9bd6da3c9fe7caac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36d539f7262d0267924d2ef5612f0cc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga36d539f7262d0267924d2ef5612f0cc2">XWdtTb_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;<a class="el" href="group__wdttb__api.html#ga64a7b4a2766f990ebafeed1978593308">XWdtTb_Out32</a>((BaseAddress) + ((u32)RegOffset), (u32)(RegisterValue))</td></tr>
+<tr class="memdesc:ga36d539f7262d0267924d2ef5612f0cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the specified WdtTb core register.  <a href="group__wdttb__api.html#ga36d539f7262d0267924d2ef5612f0cc2">More...</a><br/></td></tr>
+<tr class="separator:ga36d539f7262d0267924d2ef5612f0cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register offsets for the WWDT core with Generic &amp; windowing</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>feature with basic mode.</p>
 <p>Each register is 32 bits. </p>
@@ -165,7 +169,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga3479cb274c0cfc1e467737608d3de88b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable &amp; Status Register Offset.  <a href="group__wdttb__api.html#ga3479cb274c0cfc1e467737608d3de88b">More...</a><br/></td></tr>
 <tr class="separator:ga3479cb274c0cfc1e467737608d3de88b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7bb4b18a3b560ebc5b08216880f84e71"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga7bb4b18a3b560ebc5b08216880f84e71">XWT_FCR_OFFSET</a>&#160;&#160;&#160;0x0008U</td></tr>
-<tr class="memdesc:ga7bb4b18a3b560ebc5b08216880f84e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function Control Register Register Offset.  <a href="group__wdttb__api.html#ga7bb4b18a3b560ebc5b08216880f84e71">More...</a><br/></td></tr>
+<tr class="memdesc:ga7bb4b18a3b560ebc5b08216880f84e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function Control Register Offset.  <a href="group__wdttb__api.html#ga7bb4b18a3b560ebc5b08216880f84e71">More...</a><br/></td></tr>
 <tr class="separator:ga7bb4b18a3b560ebc5b08216880f84e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga82d67efeaf5c58cebc1966fd96e4fac0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga82d67efeaf5c58cebc1966fd96e4fac0">XWT_FWR_OFFSET</a>&#160;&#160;&#160;0x000CU</td></tr>
 <tr class="memdesc:ga82d67efeaf5c58cebc1966fd96e4fac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">First Window Configuration Register Offset.  <a href="group__wdttb__api.html#ga82d67efeaf5c58cebc1966fd96e4fac0">More...</a><br/></td></tr>
@@ -198,7 +202,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gad0b6d483e017403deb63431d2e9cce0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Token Feedback Register Offset.  <a href="group__wdttb__api.html#gad0b6d483e017403deb63431d2e9cce0d">More...</a><br/></td></tr>
 <tr class="separator:gad0b6d483e017403deb63431d2e9cce0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga13d62168f37b4ae3d29356f2d62a9fbb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga13d62168f37b4ae3d29356f2d62a9fbb">XWT_TRR_OFFSET</a>&#160;&#160;&#160;0x0028U</td></tr>
-<tr class="memdesc:ga13d62168f37b4ae3d29356f2d62a9fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Token Response Register offset.  <a href="group__wdttb__api.html#ga13d62168f37b4ae3d29356f2d62a9fbb">More...</a><br/></td></tr>
+<tr class="memdesc:ga13d62168f37b4ae3d29356f2d62a9fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Token Response Register Offset.  <a href="group__wdttb__api.html#ga13d62168f37b4ae3d29356f2d62a9fbb">More...</a><br/></td></tr>
 <tr class="separator:ga13d62168f37b4ae3d29356f2d62a9fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6b1478459ca075fa6b7ac277b67222fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga6b1478459ca075fa6b7ac277b67222fa">XWT_IENR_OFFSET</a>&#160;&#160;&#160;0x0030U</td></tr>
 <tr class="memdesc:ga6b1478459ca075fa6b7ac277b67222fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Enable Register Offset.  <a href="group__wdttb__api.html#ga6b1478459ca075fa6b7ac277b67222fa">More...</a><br/></td></tr>
@@ -348,13 +352,13 @@ Macros</h2></td></tr>
 <tr class="separator:gac9d1b7fbe234fd6e358d922f596386c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Token feedback register bits</div></td></tr>
 <tr class="memitem:ga3df5c3afa6c542ab46d5a72947a60e2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga3df5c3afa6c542ab46d5a72947a60e2b">XWT_TFR_FDBK_MASK</a>&#160;&#160;&#160;0x00000F00U</td></tr>
-<tr class="memdesc:ga3df5c3afa6c542ab46d5a72947a60e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">feedback bit  <a href="group__wdttb__api.html#ga3df5c3afa6c542ab46d5a72947a60e2b">More...</a><br/></td></tr>
+<tr class="memdesc:ga3df5c3afa6c542ab46d5a72947a60e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feedback bit.  <a href="group__wdttb__api.html#ga3df5c3afa6c542ab46d5a72947a60e2b">More...</a><br/></td></tr>
 <tr class="separator:ga3df5c3afa6c542ab46d5a72947a60e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga05df06e63ccbf7ff0a851e345b7672c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga05df06e63ccbf7ff0a851e345b7672c3">XWT_TFR_SEED_MASK</a>&#160;&#160;&#160;0x0000000FU</td></tr>
-<tr class="memdesc:ga05df06e63ccbf7ff0a851e345b7672c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">seed bit  <a href="group__wdttb__api.html#ga05df06e63ccbf7ff0a851e345b7672c3">More...</a><br/></td></tr>
+<tr class="memdesc:ga05df06e63ccbf7ff0a851e345b7672c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seed bit.  <a href="group__wdttb__api.html#ga05df06e63ccbf7ff0a851e345b7672c3">More...</a><br/></td></tr>
 <tr class="separator:ga05df06e63ccbf7ff0a851e345b7672c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4aecd879ffb8efc1c2b889a061870699"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga4aecd879ffb8efc1c2b889a061870699">XWT_TFR_FDBK_SHIFT</a>&#160;&#160;&#160;8U</td></tr>
-<tr class="memdesc:ga4aecd879ffb8efc1c2b889a061870699"><td class="mdescLeft">&#160;</td><td class="mdescRight">feedback bit shift  <a href="group__wdttb__api.html#ga4aecd879ffb8efc1c2b889a061870699">More...</a><br/></td></tr>
+<tr class="memdesc:ga4aecd879ffb8efc1c2b889a061870699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Feedback bit shift.  <a href="group__wdttb__api.html#ga4aecd879ffb8efc1c2b889a061870699">More...</a><br/></td></tr>
 <tr class="separator:ga4aecd879ffb8efc1c2b889a061870699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Token response register bits</div></td></tr>
 <tr class="memitem:gad12b3f1e63f2b47de3c984fcffd9f81c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gad12b3f1e63f2b47de3c984fcffd9f81c">XWT_TRR_ANS_MASK</a>&#160;&#160;&#160;0x000000FFU</td></tr>
@@ -370,284 +374,52 @@ Macros</h2></td></tr>
 <tr class="memitem:ga35aee12ed837e66b135d65407b3ff23e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga35aee12ed837e66b135d65407b3ff23e">XWT_GWCSR_GWS2_MASK</a>&#160;&#160;&#160;0x00000004U</td></tr>
 <tr class="memdesc:ga35aee12ed837e66b135d65407b3ff23e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic_wdt_reset bit.  <a href="group__wdttb__api.html#ga35aee12ed837e66b135d65407b3ff23e">More...</a><br/></td></tr>
 <tr class="separator:ga35aee12ed837e66b135d65407b3ff23e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Generic Watchdog Warm Reset Register bits</div></td></tr>
+<tr class="memitem:ga633f04f09e1b0d8d960aba46ce522b07"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga633f04f09e1b0d8d960aba46ce522b07">XWT_GW_WR_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
+<tr class="memdesc:ga633f04f09e1b0d8d960aba46ce522b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable Generic Watchdog Warm Reset Register.  <a href="group__wdttb__api.html#ga633f04f09e1b0d8d960aba46ce522b07">More...</a><br/></td></tr>
+<tr class="separator:ga633f04f09e1b0d8d960aba46ce522b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0376d1045bc05ff11e88769414398d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gae0376d1045bc05ff11e88769414398d4">XWT_GWRR_MASK</a>&#160;&#160;&#160;0x00000001U</td></tr>
+<tr class="memdesc:gae0376d1045bc05ff11e88769414398d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic watchdog Refresh Register.  <a href="group__wdttb__api.html#gae0376d1045bc05ff11e88769414398d4">More...</a><br/></td></tr>
+<tr class="separator:gae0376d1045bc05ff11e88769414398d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Useful macros</div></td></tr>
+<tr class="memitem:ga1045f4bb88112232e39975b1344a55ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga1045f4bb88112232e39975b1344a55ff">XWT_START_VALUE</a>&#160;&#160;&#160;8U</td></tr>
+<tr class="memdesc:ga1045f4bb88112232e39975b1344a55ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of Win WDT values between 8-31.  <a href="group__wdttb__api.html#ga1045f4bb88112232e39975b1344a55ff">More...</a><br/></td></tr>
+<tr class="separator:ga1045f4bb88112232e39975b1344a55ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ac0486680dc34b383a5ad7012d893a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga4ac0486680dc34b383a5ad7012d893a3">XWT_END_VALUE</a>&#160;&#160;&#160;31U</td></tr>
+<tr class="memdesc:ga4ac0486680dc34b383a5ad7012d893a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of Win WDT values between 8-31.  <a href="group__wdttb__api.html#ga4ac0486680dc34b383a5ad7012d893a3">More...</a><br/></td></tr>
+<tr class="separator:ga4ac0486680dc34b383a5ad7012d893a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa828d0d77eb5c2cb562cb0316e50c70c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gaa828d0d77eb5c2cb562cb0316e50c70c">XWT_ZERO</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:gaa828d0d77eb5c2cb562cb0316e50c70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for 0 value.  <a href="group__wdttb__api.html#gaa828d0d77eb5c2cb562cb0316e50c70c">More...</a><br/></td></tr>
+<tr class="separator:gaa828d0d77eb5c2cb562cb0316e50c70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6fc90576f0dea11b4fad40d6624f3b8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga6fc90576f0dea11b4fad40d6624f3b8b">XWT_ONE</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memdesc:ga6fc90576f0dea11b4fad40d6624f3b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for 1 value.  <a href="group__wdttb__api.html#ga6fc90576f0dea11b4fad40d6624f3b8b">More...</a><br/></td></tr>
+<tr class="separator:ga6fc90576f0dea11b4fad40d6624f3b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga628225259674e506919317cc28a9db79"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga628225259674e506919317cc28a9db79">XWT_MAX_BYTE_SEGMENT</a>&#160;&#160;&#160;4U</td></tr>
+<tr class="memdesc:ga628225259674e506919317cc28a9db79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max Byte segment value.  <a href="group__wdttb__api.html#ga628225259674e506919317cc28a9db79">More...</a><br/></td></tr>
+<tr class="separator:ga628225259674e506919317cc28a9db79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4a86d14c65c5a4aef740c3d70a34331"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gab4a86d14c65c5a4aef740c3d70a34331">XWT_GWDT</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:gab4a86d14c65c5a4aef740c3d70a34331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for GWDT.  <a href="group__wdttb__api.html#gab4a86d14c65c5a4aef740c3d70a34331">More...</a><br/></td></tr>
+<tr class="separator:gab4a86d14c65c5a4aef740c3d70a34331"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga812114b38de6dd94691113164c16bf26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga812114b38de6dd94691113164c16bf26">XWT_WWDT</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memdesc:ga812114b38de6dd94691113164c16bf26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for WWDT.  <a href="group__wdttb__api.html#ga812114b38de6dd94691113164c16bf26">More...</a><br/></td></tr>
+<tr class="separator:ga812114b38de6dd94691113164c16bf26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18937c99fdc7fba503e6d4195899d2cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga18937c99fdc7fba503e6d4195899d2cb">XWT_ENABLE_QA_MODE</a>&#160;&#160;&#160;0x2U</td></tr>
+<tr class="memdesc:ga18937c99fdc7fba503e6d4195899d2cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for WWDT.  <a href="group__wdttb__api.html#ga18937c99fdc7fba503e6d4195899d2cb">More...</a><br/></td></tr>
+<tr class="separator:ga18937c99fdc7fba503e6d4195899d2cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae66e3f35ddde61da7b413d343470b97f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gae66e3f35ddde61da7b413d343470b97f">XWT_MAX_TIMEOUT</a>&#160;&#160;&#160;30000U</td></tr>
+<tr class="memdesc:gae66e3f35ddde61da7b413d343470b97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">GWDT max timeout.  <a href="group__wdttb__api.html#gae66e3f35ddde61da7b413d343470b97f">More...</a><br/></td></tr>
+<tr class="separator:gae66e3f35ddde61da7b413d343470b97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae790420ef49bf994030317fab83977b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gae790420ef49bf994030317fab83977b9">XWT_KILO_HZ</a>&#160;&#160;&#160;1000U</td></tr>
+<tr class="memdesc:gae790420ef49bf994030317fab83977b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for Kilo Hz.  <a href="group__wdttb__api.html#gae790420ef49bf994030317fab83977b9">More...</a><br/></td></tr>
+<tr class="separator:gae790420ef49bf994030317fab83977b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register access macro definition</div></td></tr>
-<tr class="memitem:adf392cff302c8ea88ba33c545e757d4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#adf392cff302c8ea88ba33c545e757d4b">XWdtTb_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
-<tr class="memdesc:adf392cff302c8ea88ba33c545e757d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Operations.  <a href="#adf392cff302c8ea88ba33c545e757d4b">More...</a><br/></td></tr>
-<tr class="separator:adf392cff302c8ea88ba33c545e757d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64a7b4a2766f990ebafeed1978593308"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__hw_8h.html#a64a7b4a2766f990ebafeed1978593308">XWdtTb_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
-<tr class="memdesc:a64a7b4a2766f990ebafeed1978593308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output Operations.  <a href="#a64a7b4a2766f990ebafeed1978593308">More...</a><br/></td></tr>
-<tr class="separator:a64a7b4a2766f990ebafeed1978593308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf392cff302c8ea88ba33c545e757d4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#gadf392cff302c8ea88ba33c545e757d4b">XWdtTb_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
+<tr class="memdesc:gadf392cff302c8ea88ba33c545e757d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input Operations.  <a href="group__wdttb__api.html#gadf392cff302c8ea88ba33c545e757d4b">More...</a><br/></td></tr>
+<tr class="separator:gadf392cff302c8ea88ba33c545e757d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64a7b4a2766f990ebafeed1978593308"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wdttb__api.html#ga64a7b4a2766f990ebafeed1978593308">XWdtTb_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
+<tr class="memdesc:ga64a7b4a2766f990ebafeed1978593308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output Operations.  <a href="group__wdttb__api.html#ga64a7b4a2766f990ebafeed1978593308">More...</a><br/></td></tr>
+<tr class="separator:ga64a7b4a2766f990ebafeed1978593308"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="adf392cff302c8ea88ba33c545e757d4b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWdtTb_In32&#160;&#160;&#160;Xil_In32</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Input Operations. </p>
-
-</div>
-</div>
-<a class="anchor" id="a64a7b4a2766f990ebafeed1978593308"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWdtTb_Out32&#160;&#160;&#160;Xil_Out32</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Output Operations. </p>
-
-</div>
-</div>
-<a class="anchor" id="afa6b4b0d4c816cd9bd6da3c9fe7caac3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWdtTb_ReadReg</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">BaseAddress, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RegOffset&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xwdttb__hw_8h.html#adf392cff302c8ea88ba33c545e757d4b">XWdtTb_In32</a>((BaseAddress) + ((u32)RegOffset))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads from the specified WdtTb core register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Contains the base address of the core. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Contains the offset from the first register of the core to select the specific register.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The value read from the register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="xwdttb__hw_8h.html#afa6b4b0d4c816cd9bd6da3c9fe7caac3" title="Reads from the specified WdtTb core register. ">XWdtTb_ReadReg(u32 BaseAddress, u32 RegOffset)</a>; </dd></dl>
-
-<p>Referenced by <a class="el" href="xwdttb__example_8c.html#aba68c6bcda83b7e5394221562daacb40">WdtTbExample()</a>, <a class="el" href="group__wdttb__api.html#ga9b3e984acc19cf7d0f45eaa09298e0a7">XWdtTb_AlwaysEnable()</a>, <a class="el" href="group__wdttb__api.html#ga043f754323225b43513c2f7a2f71aedb">XWdtTb_ClearLastEvent()</a>, <a class="el" href="group__wdttb__api.html#gafbd0c485e4a716fd1c6dc5cea084f759">XWdtTb_ClearResetPending()</a>, <a class="el" href="group__wdttb__api.html#ga31311c4f3e1f921ab55d005e0a0ff028">XWdtTb_DisableExtraProtection()</a>, <a class="el" href="group__wdttb__api.html#ga3ec7a898566961227074db888ab4e222">XWdtTb_DisableFailCounter()</a>, <a class="el" href="group__wdttb__api.html#ga12faff17b943f0cbf70a6d639280a630">XWdtTb_DisablePsm()</a>, <a class="el" href="group__wdttb__api.html#ga3fbc0d643f910953abf6e476cf13c5e8">XWdtTb_DisableSst()</a>, <a class="el" href="group__wdttb__api.html#gadfcdf4e7e38ec7aba993e838ce541720">XWdtTb_DisableTimebaseWdt()</a>, <a class="el" href="group__wdttb__api.html#ga0303dd42c4ffa7c10d60ec487b2c8f4b">XWdtTb_DisableWinWdt()</a>, <a class="el" href="group__wdttb__api.html#ga8eacf75d4a475f687640902f5219f4de">XWdtTb_EnableExtraProtection()</a>, <a class="el" href="group__wdttb__api.html#ga595c530371577b29e0a5e090d9967205">XWdtTb_EnableFailCounter()</a>, <a class="el" href="group__wdttb__api.html#ga29cdd15b771748985524abd19a1aead0">XWdtTb_EnablePsm()</a>, <a class="el" href="group__wdttb__api.html#ga4c9f9d6df6c3c96c579ab7c2f1c350ec">XWdtTb_EnableSst()</a>, <a class="el" href="group__wdttb__api.html#gaba28c63af933ee36e715218b7c0137ae">XWdtTb_EnableTimebaseWdt()</a>, <a class="el" href="group__wdttb__api.html#ga8e3a836964ef56168668f3d26307dfc7">XWdtTb_GetByteCount()</a>, <a class="el" href="group__wdttb__api.html#ga2e1e6ee60443c503144572bd00fc8589">XWdtTb_GetByteSegment()</a>, <a class="el" href="group__wdttb__api.html#gaf2b1b1175aac0974fa1c9c1c7c50550c">XWdtTb_IntrClear()</a>, <a class="el" href="group__wdttb__api.html#ga24e80e9f7fb7d427513e7fe03833dc1e">XWdtTb_IsGenericWdtFWExpired()</a>, <a class="el" href="group__wdttb__api.html#gaa1ec9f43580e5497f47960d47a231cb1">XWdtTb_IsWdtExpired()</a>, <a class="el" href="xwdttb__low__level__example_8c.html#afd8217ef0bf003a5bee3c5cc91a1f115">XWdtTb_LowLevelExample()</a>, <a class="el" href="group__wdttb__api.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01">XWdtTb_RestartWdt()</a>, <a class="el" href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">XWdtTb_SelfTest()</a>, <a class="el" href="group__wdttb__api.html#gaa1e121c7e6b69d7b10fedf92d91b5396">XWdtTb_SetByteCount()</a>, and <a class="el" href="group__wdttb__api.html#ga26519cefd97128dca8d1f147f5364945">XWdtTb_SetByteSegment()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a36d539f7262d0267924d2ef5612f0cc2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWdtTb_WriteReg</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">BaseAddress, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RegOffset, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RegisterValue&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xwdttb__hw_8h.html#a64a7b4a2766f990ebafeed1978593308">XWdtTb_Out32</a>((BaseAddress) + ((u32)RegOffset), (u32)(RegisterValue))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes to the specified WdtTb core register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Contains the base address of the core. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Contains the offset from the 1st register of the core to select the specific register. </td></tr>
-    <tr><td class="paramname">RegisterValue</td><td>Value to be written to the register.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: void XWdtTb_WriteReg(u32 BaseAddress, u32 RegOffset, u32 RegisterValue); </dd></dl>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#ga9b3e984acc19cf7d0f45eaa09298e0a7">XWdtTb_AlwaysEnable()</a>, <a class="el" href="group__wdttb__api.html#gadf3c428b985d77e28b5df5cd5d82dff3">XWdtTb_CfgInitialize()</a>, <a class="el" href="group__wdttb__api.html#ga043f754323225b43513c2f7a2f71aedb">XWdtTb_ClearLastEvent()</a>, <a class="el" href="group__wdttb__api.html#gafbd0c485e4a716fd1c6dc5cea084f759">XWdtTb_ClearResetPending()</a>, <a class="el" href="group__wdttb__api.html#ga31311c4f3e1f921ab55d005e0a0ff028">XWdtTb_DisableExtraProtection()</a>, <a class="el" href="group__wdttb__api.html#ga3ec7a898566961227074db888ab4e222">XWdtTb_DisableFailCounter()</a>, <a class="el" href="group__wdttb__api.html#ga12faff17b943f0cbf70a6d639280a630">XWdtTb_DisablePsm()</a>, <a class="el" href="group__wdttb__api.html#ga3fbc0d643f910953abf6e476cf13c5e8">XWdtTb_DisableSst()</a>, <a class="el" href="group__wdttb__api.html#gadfcdf4e7e38ec7aba993e838ce541720">XWdtTb_DisableTimebaseWdt()</a>, <a class="el" href="group__wdttb__api.html#ga0303dd42c4ffa7c10d60ec487b2c8f4b">XWdtTb_DisableWinWdt()</a>, <a class="el" href="group__wdttb__api.html#ga8eacf75d4a475f687640902f5219f4de">XWdtTb_EnableExtraProtection()</a>, <a class="el" href="group__wdttb__api.html#ga595c530371577b29e0a5e090d9967205">XWdtTb_EnableFailCounter()</a>, <a class="el" href="group__wdttb__api.html#ga29cdd15b771748985524abd19a1aead0">XWdtTb_EnablePsm()</a>, <a class="el" href="group__wdttb__api.html#ga4c9f9d6df6c3c96c579ab7c2f1c350ec">XWdtTb_EnableSst()</a>, <a class="el" href="group__wdttb__api.html#gaba28c63af933ee36e715218b7c0137ae">XWdtTb_EnableTimebaseWdt()</a>, <a class="el" href="group__wdttb__api.html#gaf2b1b1175aac0974fa1c9c1c7c50550c">XWdtTb_IntrClear()</a>, <a class="el" href="xwdttb__low__level__example_8c.html#afd8217ef0bf003a5bee3c5cc91a1f115">XWdtTb_LowLevelExample()</a>, <a class="el" href="group__wdttb__api.html#ga86133d7e1b0053409d5c743746a129fc">XWdtTb_ProgramWDTWidth()</a>, <a class="el" href="group__wdttb__api.html#gaf1baa5a1d69ac6c61ecc62d5df1a0c01">XWdtTb_RestartWdt()</a>, <a class="el" href="group__wdttb__api.html#gaa9e410506154d92a551b6261742d98b1">XWdtTb_SelfTest()</a>, <a class="el" href="group__wdttb__api.html#gaa1e121c7e6b69d7b10fedf92d91b5396">XWdtTb_SetByteCount()</a>, <a class="el" href="group__wdttb__api.html#ga26519cefd97128dca8d1f147f5364945">XWdtTb_SetByteSegment()</a>, <a class="el" href="group__wdttb__api.html#ga160723502d4b5b8797e358f96cc902c1">XWdtTb_SetGenericWdtWindow()</a>, <a class="el" href="group__wdttb__api.html#gaf297a0071482bd7a767360d6bd265cd9">XWdtTb_SetGenericWdtWindowTimeOut()</a>, and <a class="el" href="group__wdttb__api.html#ga924185ce28862e06ea62fa4f51bfed8d">XWdtTb_SetWindowCount()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a18937c99fdc7fba503e6d4195899d2cb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_ENABLE_QA_MODE&#160;&#160;&#160;0x2U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag for WWDT. </p>
-
-</div>
-</div>
-<a class="anchor" id="a4ac0486680dc34b383a5ad7012d893a3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_END_VALUE&#160;&#160;&#160;31U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Width of Win WDT values between 8-31. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#ga86133d7e1b0053409d5c743746a129fc">XWdtTb_ProgramWDTWidth()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab4a86d14c65c5a4aef740c3d70a34331"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_GWDT&#160;&#160;&#160;0U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag for GWDT. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae790420ef49bf994030317fab83977b9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_KILO_HZ&#160;&#160;&#160;1000U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag for Kilo Hz. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#gaf297a0071482bd7a767360d6bd265cd9">XWdtTb_SetGenericWdtWindowTimeOut()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a628225259674e506919317cc28a9db79"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_MAX_BYTE_SEGMENT&#160;&#160;&#160;4U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Max Byte segment value. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#ga26519cefd97128dca8d1f147f5364945">XWdtTb_SetByteSegment()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae66e3f35ddde61da7b413d343470b97f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_MAX_TIMEOUT&#160;&#160;&#160;30000U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>GWDT max timeout. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#gaf297a0071482bd7a767360d6bd265cd9">XWdtTb_SetGenericWdtWindowTimeOut()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6fc90576f0dea11b4fad40d6624f3b8b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_ONE&#160;&#160;&#160;1U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag for 1 value. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#ga043f754323225b43513c2f7a2f71aedb">XWdtTb_ClearLastEvent()</a>, <a class="el" href="group__wdttb__api.html#ga0303dd42c4ffa7c10d60ec487b2c8f4b">XWdtTb_DisableWinWdt()</a>, and <a class="el" href="group__wdttb__api.html#gaf2b1b1175aac0974fa1c9c1c7c50550c">XWdtTb_IntrClear()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1045f4bb88112232e39975b1344a55ff"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_START_VALUE&#160;&#160;&#160;8U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Width of Win WDT values between 8-31. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#ga86133d7e1b0053409d5c743746a129fc">XWdtTb_ProgramWDTWidth()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a812114b38de6dd94691113164c16bf26"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_WWDT&#160;&#160;&#160;1U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag for WWDT. </p>
-
-<p>Referenced by <a class="el" href="xwdttb__selftest__example_8c.html#abf14d811dc1e193cc7053819cf1ad827">WdtTbSelfTestExample()</a>, and <a class="el" href="xwdttb__winwdt__intr__example_8c.html#a493438d0854982efd7719e9ffe2d6da8">WinWdtIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa828d0d77eb5c2cb562cb0316e50c70c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XWT_ZERO&#160;&#160;&#160;0U</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag for 0 value. </p>
-
-<p>Referenced by <a class="el" href="group__wdttb__api.html#gadfcdf4e7e38ec7aba993e838ce541720">XWdtTb_DisableTimebaseWdt()</a>, and <a class="el" href="group__wdttb__api.html#ga0303dd42c4ffa7c10d60ec487b2c8f4b">XWdtTb_DisableWinWdt()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

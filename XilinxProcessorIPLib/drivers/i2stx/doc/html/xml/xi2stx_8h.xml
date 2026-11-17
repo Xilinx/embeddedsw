@@ -24,6 +24,34 @@
       <node id="14">
         <label>xil_io.h</label>
       </node>
+      <node id="19">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xi2stx_hw.h</label>
+        <link refid="xi2stx__hw_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xstatus.h</label>
+      </node>
+      <node id="17">
+        <label>xil_types.h</label>
+      </node>
+      <node id="15">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx__debug_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
       <node id="12">
         <label>xi2stx.h</label>
         <link refid="xi2stx.h"/>
@@ -38,46 +66,46 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="15">
-        <label>xi2stx_debug.h</label>
-        <link refid="xi2stx__debug_8h"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>xstatus.h</label>
-      </node>
-      <node id="19">
-        <label>xi2stx_chsts.h</label>
-        <link refid="xi2stx__chsts_8h"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-      </node>
-      <node id="17">
-        <label>xil_types.h</label>
-      </node>
-      <node id="13">
-        <label>xi2stx_hw.h</label>
-        <link refid="xi2stx__hw_8h"/>
-        <childnode refid="14" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="23">
+        <label>xi2stx_chsts.c</label>
+        <link refid="xi2stx__chsts_8c"/>
+      </node>
+      <node id="22">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>xi2stx_sinit.c</label>
+        <link refid="xi2stx__sinit_8c"/>
+      </node>
       <node id="25">
         <label>xi2stx_g.c</label>
       </node>
-      <node id="29">
-        <label>xi2stx_intr_example.c</label>
-        <link refid="xi2stx__intr__example_8c"/>
+      <node id="27">
+        <label>xi2stx_selftest.c</label>
+        <link refid="xi2stx__selftest_8c"/>
+      </node>
+      <node id="24">
+        <label>xi2stx_debug.c</label>
+        <link refid="xi2stx__debug_8c"/>
       </node>
       <node id="21">
         <label>xi2stx.c</label>
         <link refid="xi2stx_8c"/>
+      </node>
+      <node id="30">
+        <label>xi2stx_selftest_example.c</label>
+        <link refid="xi2stx__selftest__example_8c"/>
       </node>
       <node id="20">
         <label>xi2stx.h</label>
@@ -103,41 +131,13 @@
         <childnode refid="30" relation="include">
         </childnode>
       </node>
-      <node id="24">
-        <label>xi2stx_debug.c</label>
-        <link refid="xi2stx__debug_8c"/>
-      </node>
-      <node id="27">
-        <label>xi2stx_selftest.c</label>
-        <link refid="xi2stx__selftest_8c"/>
-      </node>
-      <node id="30">
-        <label>xi2stx_selftest_example.c</label>
-        <link refid="xi2stx__selftest__example_8c"/>
-      </node>
       <node id="26">
         <label>xi2stx_intr.c</label>
         <link refid="xi2stx__intr_8c"/>
       </node>
-      <node id="23">
-        <label>xi2stx_chsts.c</label>
-        <link refid="xi2stx__chsts_8c"/>
-      </node>
-      <node id="22">
-        <label>xi2stx_chsts.h</label>
-        <link refid="xi2stx__chsts_8h"/>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-      </node>
-      <node id="28">
-        <label>xi2stx_sinit.c</label>
-        <link refid="xi2stx__sinit_8c"/>
+      <node id="29">
+        <label>xi2stx_intr_example.c</label>
+        <link refid="xi2stx__intr__example_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_i2stx___config" prot="public">XI2stx_Config</innerclass>
@@ -188,7 +188,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="64" bodyend="70"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="64" bodyend="70"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="179" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="173" bodyend="180"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -292,7 +292,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="76" bodyend="82"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="76" bodyend="82"/>
       </memberdef>
       <memberdef kind="enum" id="group__i2stx_1ga2530845dc4c6c409a2cb7025beda590f" prot="public" static="no">
         <name>XI2s_Tx_Justification</name>
@@ -317,7 +317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="88" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="88" bodyend="91"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -342,7 +342,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -370,7 +370,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="201" bodyend="208"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="195" bodyend="202"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga891b0b3270845a893f12a1f1d38dbfc6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -408,7 +408,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="221" bodyend="228"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="215" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga6aef1f17ffc07f8aede6d2b42c27dfe4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -434,7 +434,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="239" bodyend="243"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="233" bodyend="237"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga9471d594dd9ed87a3b73b9fcdc77daf6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -460,7 +460,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="255" bodyend="259"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" bodystart="249" bodyend="253"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -489,10 +489,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="124" bodyend="166"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_selftest.c" bodystart="124" bodyend="166"/>
         <references refid="group__i2stx_1gab2803f3bdda4dec91e86a6f95c3ad7be" compoundref="xi2stx__selftest_8c" startline="55">XI2s_Tx_GetMaxChannels</references>
         <references refid="group__i2stx_1ga5d785135b55f2d7fc8b26defaa45798b" compoundref="xi2stx__selftest_8c" startline="74">XI2s_Tx_IsI2sMaster</references>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
         <referencedby refid="group__i2stx_1gab33cb9b421dbb85cef8a75a0dbf8a1dd" compoundref="xi2stx_8c" startline="79" endline="105">XI2s_Tx_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga881a1d81d9245fa57dcc316c025b79a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -521,8 +521,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_sinit.c" bodystart="82" bodyend="101"/>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_sinit.c" bodystart="61" bodyend="80"/>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gab33cb9b421dbb85cef8a75a0dbf8a1dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -573,13 +573,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="79" bodyend="105"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="140">XI2s_Tx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="79" bodyend="105"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="134">XI2s_Tx::IsReady</references>
         <references refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" compoundref="xi2stx_8c" startline="117" endline="135">XI2s_Tx_Enable</references>
         <references refid="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" compoundref="xi2stx__selftest_8c" startline="124" endline="166">XI2s_Tx_SelfTest</references>
-        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="115" endline="147">I2sSelfTestExample</referencedby>
+        <referencedby refid="xi2stx__selftest__example_8c_1ab1691e02d77d6b999cd194c8f98dc7a1" compoundref="xi2stx__selftest__example_8c" startline="99" endline="126">I2sSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -615,10 +615,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="117" bodyend="135"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" compoundref="xi2stx_8h" startline="141">XI2s_Tx::IsStarted</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="117" bodyend="135"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" compoundref="xi2stx_8h" startline="135">XI2s_Tx::IsStarted</references>
         <references refid="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" compoundref="xi2stx__hw_8h" startline="47">XI2S_TX_CORE_CTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1ga1b2c881b163a551e9a2e691b2efbf298" compoundref="xi2stx__hw_8h" startline="92">XI2S_TX_REG_CTRL_EN_MASK</references>
@@ -673,15 +673,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="199" bodyend="239"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="199" bodyend="239"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1gab099dec92b378872d40f46d5d37bfce3" compoundref="xi2stx__hw_8h" startline="54">XI2S_TX_CH01_OFFSET</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" compoundref="xi2stx_8h" startline="181">XI2S_TX_CHMUX_AXIS_01</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" compoundref="xi2stx_8h" startline="182">XI2S_TX_CHMUX_AXIS_23</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" compoundref="xi2stx_8h" startline="183">XI2S_TX_CHMUX_AXIS_45</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" compoundref="xi2stx_8h" startline="184">XI2S_TX_CHMUX_AXIS_67</references>
-        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" compoundref="xi2stx_8h" startline="185">XI2S_TX_CHMUX_WAVEGEN</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" compoundref="xi2stx_8h" startline="175">XI2S_TX_CHMUX_AXIS_01</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" compoundref="xi2stx_8h" startline="176">XI2S_TX_CHMUX_AXIS_23</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" compoundref="xi2stx_8h" startline="177">XI2S_TX_CHMUX_AXIS_45</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" compoundref="xi2stx_8h" startline="178">XI2S_TX_CHMUX_AXIS_67</references>
+        <references refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" compoundref="xi2stx_8h" startline="179">XI2S_TX_CHMUX_WAVEGEN</references>
         <references refid="group__i2stx_1gga5aae612901765b9ea6bb107e5b66b619a252275e8db08efabd78dbe0c652605f4" compoundref="xi2stx_8h" startline="81">XI2S_TX_NUM_CHANNELS</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
       </memberdef>
@@ -733,10 +733,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="259" bodyend="281"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" compoundref="xi2stx_8h" startline="124">XI2stx_Config::DWidth</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="259" bodyend="281"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" compoundref="xi2stx_8h" startline="120">XI2stx_Config::DWidth</references>
         <references refid="group__i2stx_1ga0a514342cc0cc00eb2d5de77f1c35831" compoundref="xi2stx__hw_8h" startline="52">XI2S_TX_TMR_CTRL_OFFSET</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
       </memberdef>
@@ -775,9 +775,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="147" bodyend="159"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="147" bodyend="159"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" compoundref="xi2stx__hw_8h" startline="214">XI2s_Tx_WriteReg</references>
@@ -817,7 +817,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="298" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="287" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gae5c7f651728493e9ca5a13d824f47893" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -853,9 +853,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="344" bodyend="358"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="344" bodyend="358"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" compoundref="xi2stx__hw_8h" startline="47">XI2S_TX_CORE_CTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1ga1ea8f32a59f2631f40ae16a73ae81049" compoundref="xi2stx__hw_8h" startline="96">XI2S_TX_REG_CTRL_JFE_MASK</references>
@@ -897,9 +897,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="369" bodyend="383"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="369" bodyend="383"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1ga5433601a320e6d1725885e7311c0bab4" compoundref="xi2stx__hw_8h" startline="47">XI2S_TX_CORE_CTRL_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
         <references refid="group__i2stx_1ga079cf019c32c23a6c9d4de4a1d3f79d7" compoundref="xi2stx__hw_8h" startline="100">XI2S_TX_REG_CTRL_LORJF_MASK</references>
@@ -929,13 +929,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
-        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
-        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
-        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
-        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="140">XI2s_Tx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="141">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="143">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="148">XI2s_Tx::AudUndrflwHandler</references>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="134">XI2s_Tx::IsReady</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" compoundref="xi2stx__debug_8h" startline="59">XI2S_TX_AES_BLKCMPLT_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" compoundref="xi2stx__debug_8h" startline="60">XI2S_TX_AES_BLKSYNCERR_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" compoundref="xi2stx__debug_8h" startline="61">XI2S_TX_AES_CHSTSUPD_EVT</references>
@@ -946,7 +946,7 @@
         <references refid="group__i2stx_1ga1389efbbe1bf1f0d834324564556f221" compoundref="xi2stx__hw_8h" startline="134">XI2S_TX_INTR_AUDUNDRFLW_MASK</references>
         <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
         <references refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" compoundref="xi2stx__hw_8h" startline="50">XI2S_TX_IRQSTS_OFFSET</references>
-        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</references>
+        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="85">XI2s_Tx_LogWrite</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1016,10 +1016,10 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
-        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
-        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
-        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="141">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="143">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="148">XI2s_Tx::AudUndrflwHandler</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3aee14491aed8a040a938a4a67e74bc6bd" compoundref="xi2stx_8h" startline="65">XI2S_TX_HANDLER_AES_BLKCMPLT</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a8172cb6e2a0d147df0f06a0eada66f8d" compoundref="xi2stx_8h" startline="66">XI2S_TX_HANDLER_AES_BLKSYNCERR</references>
         <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3ab9374d0904c4cd4ac730b17fff220107" compoundref="xi2stx_8h" startline="67">XI2S_TX_HANDLER_AES_CHSTSUPD</references>
@@ -1060,9 +1060,9 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="292" bodyend="306"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="292" bodyend="306"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="group__i2stx_1ga4c3299df5616dd53e12403b0c50332b4" compoundref="xi2stx__hw_8h" startline="59">XI2S_TX_AES_CHSTS0_OFFSET</references>
         <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
       </memberdef>
@@ -1089,7 +1089,7 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="317" bodyend="333"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.c" bodystart="317" bodyend="333"/>
         <references refid="group__i2stx_1ga4c3299df5616dd53e12403b0c50332b4" compoundref="xi2stx__hw_8h" startline="59">XI2S_TX_AES_CHSTS0_OFFSET</references>
         <references refid="group__i2stx_1ga1b7803271c5d40b4131f36985ca44d7c" compoundref="xi2stx__hw_8h" startline="60">XI2S_TX_AES_CHSTS1_OFFSET</references>
         <references refid="group__i2stx_1ga5f71faf4e090ca874ebdd6faf8d45c58" compoundref="xi2stx__hw_8h" startline="61">XI2S_TX_AES_CHSTS2_OFFSET</references>
@@ -1122,16 +1122,16 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="155" bodyend="218"/>
-        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
-        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="157" bodyend="215"/>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="119">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="136">XI2s_Tx::Config</references>
         <references refid="struct_x_i2s___tx___log_item_1a33c4f8732bfee9f467439c89af42043e" compoundref="xi2stx__debug_8h" startline="71">XI2s_Tx_LogItem::Event</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" compoundref="xi2stx__debug_8h" startline="59">XI2S_TX_AES_BLKCMPLT_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" compoundref="xi2stx__debug_8h" startline="60">XI2S_TX_AES_BLKSYNCERR_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" compoundref="xi2stx__debug_8h" startline="61">XI2S_TX_AES_CHSTSUPD_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0c8694f12ae4d34ddb805f6b4658a71d" compoundref="xi2stx__debug_8h" startline="62">XI2S_TX_AUD_UNDRFLW_EVT</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0de22b2a681cf072923f5be2f0ab542d" compoundref="xi2stx__debug_8h" startline="63">XI2S_TX_LOG_EVT_INVALID</references>
-        <references refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="101" endline="125">XI2s_Tx_LogRead</references>
+        <references refid="group__i2stx_1ga471345b36b573630d3881047d9558962" compoundref="xi2stx__debug_8c" startline="100" endline="127">XI2s_Tx_LogRead</references>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1179,13 +1179,13 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="59" bodyend="86"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="59" bodyend="85"/>
         <references refid="struct_x_i2s___tx___log_item_1a9c5069bf23673203a835dedfd62a319b" compoundref="xi2stx__debug_8h" startline="72">XI2s_Tx_LogItem::Data</references>
         <references refid="struct_x_i2s___tx___log_item_1a33c4f8732bfee9f467439c89af42043e" compoundref="xi2stx__debug_8h" startline="71">XI2s_Tx_LogItem::Event</references>
         <references refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" compoundref="xi2stx__debug_8h" startline="81">XI2s_Tx_Log::Head</references>
         <references refid="struct_x_i2s___tx___log_1af465a471fb7d599165cb7265bb0c4f51" compoundref="xi2stx__debug_8h" startline="83">XI2s_Tx_Log::IsEnabled</references>
         <references refid="struct_x_i2s___tx___log_1a1bd37896c4071876e22a70c6b695cba4" compoundref="xi2stx__debug_8h" startline="79">XI2s_Tx_Log::Items</references>
-        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="144">XI2s_Tx::Log</references>
+        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="138">XI2s_Tx::Log</references>
         <references refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" compoundref="xi2stx__debug_8h" startline="82">XI2s_Tx_Log::Tail</references>
         <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0de22b2a681cf072923f5be2f0ab542d" compoundref="xi2stx__debug_8h" startline="63">XI2S_TX_LOG_EVT_INVALID</references>
         <referencedby refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" compoundref="xi2stx__intr_8c" startline="59" endline="118">XI2s_Tx_IntrHandler</referencedby>
@@ -1215,12 +1215,12 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="101" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="100" bodyend="127"/>
         <references refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" compoundref="xi2stx__debug_8h" startline="81">XI2s_Tx_Log::Head</references>
         <references refid="struct_x_i2s___tx___log_1a1bd37896c4071876e22a70c6b695cba4" compoundref="xi2stx__debug_8h" startline="79">XI2s_Tx_Log::Items</references>
-        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="144">XI2s_Tx::Log</references>
+        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="138">XI2s_Tx::Log</references>
         <references refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" compoundref="xi2stx__debug_8h" startline="82">XI2s_Tx_Log::Tail</references>
-        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="155" endline="218">XI2s_Tx_LogDisplay</referencedby>
+        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="157" endline="215">XI2s_Tx_LogDisplay</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1246,10 +1246,10 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="137" bodyend="145"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.c" bodystart="139" bodyend="147"/>
         <references refid="struct_x_i2s___tx___log_1a2211221b99c6181cc2c7452bf5d5a685" compoundref="xi2stx__debug_8h" startline="81">XI2s_Tx_Log::Head</references>
         <references refid="struct_x_i2s___tx___log_1af465a471fb7d599165cb7265bb0c4f51" compoundref="xi2stx__debug_8h" startline="83">XI2s_Tx_Log::IsEnabled</references>
-        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="144">XI2s_Tx::Log</references>
+        <references refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" compoundref="xi2stx_8h" startline="138">XI2s_Tx::Log</references>
         <references refid="struct_x_i2s___tx___log_1a3b70e490297285e54c527723213cf66a" compoundref="xi2stx__debug_8h" startline="82">XI2s_Tx_Log::Tail</references>
       </memberdef>
       </sectiondef>
@@ -1309,146 +1309,135 @@ HandlerType                              Callback Function
 <codeline lineno="112" refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
 <codeline lineno="117" refid="struct_x_i2stx___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="123" refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" kindref="member">BaseAddress</ref>;<sp/></highlight></codeline>
-<codeline lineno="124" refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" kindref="member">DWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="125" refid="struct_x_i2stx___config_1a859e555af49b28a0fc21cc78001654e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_i2stx___config_1a859e555af49b28a0fc21cc78001654e5" kindref="member">IsMaster</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="126" refid="struct_x_i2stx___config_1a43a22f65a31208715277ffd61dc2d3fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_i2stx___config_1a43a22f65a31208715277ffd61dc2d3fe" kindref="member">MaxNumChannels</ref>;<sp/></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Is32BitLR;<sp/></highlight><highlight class="comment">/*<sp/>Indicates<sp/>if<sp/>the<sp/>core<sp/>is<sp/>32bitwidth<sp/>or<sp/>not<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
-<codeline lineno="129" refid="struct_x_i2stx___config_1a4bacb2d7f6fb18f6c29c60bb5338c8f2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_i2stx___config_1a4bacb2d7f6fb18f6c29c60bb5338c8f2" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="130" refid="struct_x_i2stx___config_1a4c296cb693b8783b0f1ce06f22567a5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_i2stx___config_1a4c296cb693b8783b0f1ce06f22567a5c" kindref="member">IntrParent</ref>;</highlight></codeline>
-<codeline lineno="132"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref>;</highlight></codeline>
-<codeline lineno="138" refid="struct_x_i2s___tx" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight></codeline>
-<codeline lineno="140" refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" kindref="member">IsReady</ref>;<sp/></highlight></codeline>
-<codeline lineno="141" refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" kindref="member">IsStarted</ref>;<sp/></highlight></codeline>
-<codeline lineno="142" refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/><ref refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" kindref="member">Config</ref>;<sp/></highlight></codeline>
-<codeline lineno="144" refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___tx___log" kindref="compound">XI2s_Tx_Log</ref><sp/><ref refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" kindref="member">Log</ref>;<sp/></highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>backs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147" refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/><ref refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" kindref="member">AesBlkCmpltHandler</ref>;<sp/><sp/></highlight></codeline>
-<codeline lineno="149" refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/><ref refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" kindref="member">AesBlkSyncErrHandler</ref>;<sp/></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/>AesChStsUpdHandler;<sp/></highlight><highlight class="comment">/*<sp/>AES<sp/>Channel<sp/>Status<sp/>Updated</highlight></codeline>
-<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Handler</highlight></codeline>
-<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="119" refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" kindref="member">BaseAddress</ref>;<sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_i2stx___config_1a3490395f577210a6eddf197e4466923a" kindref="member">DWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_i2stx___config_1a859e555af49b28a0fc21cc78001654e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_i2stx___config_1a859e555af49b28a0fc21cc78001654e5" kindref="member">IsMaster</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_i2stx___config_1a43a22f65a31208715277ffd61dc2d3fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_i2stx___config_1a43a22f65a31208715277ffd61dc2d3fe" kindref="member">MaxNumChannels</ref>;<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Is32BitLR;<sp/></highlight><highlight class="comment">/*<sp/>Indicates<sp/>if<sp/>the<sp/>core<sp/>is<sp/>32bitwidth<sp/>or<sp/>not<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="struct_x_i2stx___config_1a4bacb2d7f6fb18f6c29c60bb5338c8f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_i2stx___config_1a4bacb2d7f6fb18f6c29c60bb5338c8f2" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_x_i2stx___config_1a4c296cb693b8783b0f1ce06f22567a5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_i2stx___config_1a4c296cb693b8783b0f1ce06f22567a5c" kindref="member">IntrParent</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}<sp/><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref>;</highlight></codeline>
+<codeline lineno="132" refid="struct_x_i2s___tx" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" kindref="member">IsReady</ref>;<sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_i2s___tx_1a904fc449f5c73cdb770020af91f97dce" kindref="member">IsStarted</ref>;<sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/><ref refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" kindref="member">Config</ref>;<sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___tx___log" kindref="compound">XI2s_Tx_Log</ref><sp/><ref refid="struct_x_i2s___tx_1ad9ddb0184a08d6edd31d5ba71535b2be" kindref="member">Log</ref>;<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>backs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/><ref refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" kindref="member">AesBlkCmpltHandler</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/><ref refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" kindref="member">AesBlkSyncErrHandler</ref>;<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/>AesChStsUpdHandler;<sp/></highlight><highlight class="comment">/*<sp/>AES<sp/>Channel<sp/>Status<sp/>Updated</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Handler</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/><ref refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" kindref="member">AudUndrflwHandler</ref>;<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AesChStsUpdRef;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>AES<sp/>Channel<sp/>Status</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Updated<sp/>Handler</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="153"><highlight class="normal"></highlight></codeline>
-<codeline lineno="154" refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/><ref refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" kindref="member">AudUndrflwHandler</ref>;<sp/></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AesChStsUpdRef;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>AES<sp/>Channel<sp/>Status</highlight></codeline>
-<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Updated<sp/>Handler</highlight></codeline>
-<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AesBlkCmpltRef;<sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>AES<sp/>Block</highlight></codeline>
-<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Complete<sp/>Handler</highlight></codeline>
-<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AesBlkSyncErrRef;<sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>AES<sp/>Block</highlight></codeline>
-<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Sync<sp/>Error<sp/>Handler</highlight></codeline>
-<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AudUndrflwRef;<sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>Audio</highlight></codeline>
-<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Underflow<sp/>Handler</highlight></codeline>
-<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal">}<sp/><ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref>;</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179" refid="group__i2stx_1ga986ff4cc8196e017c2a11b5784cfa410" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="180" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410aedc2b482cf243d4fce159e5d37a18f89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410aedc2b482cf243d4fce159e5d37a18f89" kindref="member">XI2S_TX_CHMUX_DISABLED</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
-<codeline lineno="181" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" kindref="member">XI2S_TX_CHMUX_AXIS_01</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="182" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" kindref="member">XI2S_TX_CHMUX_AXIS_23</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="183" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" kindref="member">XI2S_TX_CHMUX_AXIS_45</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="184" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" kindref="member">XI2S_TX_CHMUX_AXIS_67</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="185" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" kindref="member">XI2S_TX_CHMUX_WAVEGEN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="186"><highlight class="normal">}<sp/><ref refid="group__i2stx_1ga986ff4cc8196e017c2a11b5784cfa410" kindref="member">XI2s_Tx_ChMuxInput</ref>;</highlight></codeline>
-<codeline lineno="189"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="201"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XI2s_Tx_GetVersion(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="202"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2sTx_Version;</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2sTx_Version<sp/>=<sp/><ref refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" kindref="member">XI2s_Tx_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2stx_1ga71367f64a4d88ca4a118a76fdb9ad3c2" kindref="member">XI2S_TX_CORE_VER_OFFSET</ref>));</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>I2sTx_Version;</highlight></codeline>
-<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="221"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XI2s_Tx_IntrClear(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"></highlight></codeline>
-<codeline lineno="223"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" kindref="member">XI2s_Tx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" kindref="member">XI2S_TX_IRQSTS_OFFSET</ref>),<sp/>Mask);</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"></highlight></codeline>
-<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="239"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XI2s_Tx_LogEnable(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="240"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr)-&gt;Log.IsEnabled<sp/>=<sp/>TRUE;</highlight></codeline>
-<codeline lineno="243"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="255"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XI2s_Tx_LogDisable(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="256"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr)-&gt;Log.IsEnabled<sp/>=<sp/>FALSE;</highlight></codeline>
-<codeline lineno="259"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="260"><highlight class="normal"></highlight></codeline>
-<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Self-test<sp/>function<sp/>in<sp/>xi2stx_selftest.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="263"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" kindref="member">XI2s_Tx_SelfTest</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AesBlkCmpltRef;<sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>AES<sp/>Block</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Complete<sp/>Handler</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AesBlkSyncErrRef;<sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>AES<sp/>Block</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Sync<sp/>Error<sp/>Handler</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*AudUndrflwRef;<sp/></highlight><highlight class="comment">/*<sp/>Callback<sp/>reference<sp/>for<sp/>Audio</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Underflow<sp/>Handler</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}<sp/><ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173" refid="group__i2stx_1ga986ff4cc8196e017c2a11b5784cfa410" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="174" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410aedc2b482cf243d4fce159e5d37a18f89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410aedc2b482cf243d4fce159e5d37a18f89" kindref="member">XI2S_TX_CHMUX_DISABLED</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="175" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a6f972c1a8f40e982c18bd08a568bb566" kindref="member">XI2S_TX_CHMUX_AXIS_01</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a64201d5cdf20350b03a6e6e93da13173" kindref="member">XI2S_TX_CHMUX_AXIS_23</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410affaf08c53c7afa2b8d788dced78a32bc" kindref="member">XI2S_TX_CHMUX_AXIS_45</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410a84dfb423929256e872592e9c921fd099" kindref="member">XI2S_TX_CHMUX_AXIS_67</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gga986ff4cc8196e017c2a11b5784cfa410ae563eb5c2611dddc3b40f94aa619b991" kindref="member">XI2S_TX_CHMUX_WAVEGEN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}<sp/><ref refid="group__i2stx_1ga986ff4cc8196e017c2a11b5784cfa410" kindref="member">XI2s_Tx_ChMuxInput</ref>;</highlight></codeline>
+<codeline lineno="183"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="195"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XI2s_Tx_GetVersion(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2sTx_Version;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2sTx_Version<sp/>=<sp/><ref refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" kindref="member">XI2s_Tx_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2stx_1ga71367f64a4d88ca4a118a76fdb9ad3c2" kindref="member">XI2S_TX_CORE_VER_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>I2sTx_Version;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="215"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XI2s_Tx_IntrClear(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gabc89f508a120762f9abfd61105622c06" kindref="member">XI2s_Tx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" kindref="member">XI2S_TX_IRQSTS_OFFSET</ref>),<sp/>Mask);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="233"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XI2s_Tx_LogEnable(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr)-&gt;Log.IsEnabled<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="249"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XI2s_Tx_LogDisable(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr)-&gt;Log.IsEnabled<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Self-test<sp/>function<sp/>in<sp/>xi2stx_selftest.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga4efbba75f40c33ec9a37a033c2592bd8" kindref="member">XI2s_Tx_SelfTest</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xi2stx_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/>*<ref refid="group__i2stx_1ga881a1d81d9245fa57dcc316c025b79a9" kindref="member">XI2s_Tx_LookupConfig</ref>(UINTPTR<sp/>BaseAddresss);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xi2stx.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gab33cb9b421dbb85cef8a75a0dbf8a1dd" kindref="member">XI2s_Tx_CfgInitialize</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/>*CfgPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
 <codeline lineno="264"><highlight class="normal"></highlight></codeline>
-<codeline lineno="265"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xi2stx_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/>*<ref refid="group__i2stx_1ga881a1d81d9245fa57dcc316c025b79a9" kindref="member">XI2s_Tx_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xi2stx_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/>*<ref refid="group__i2stx_1ga881a1d81d9245fa57dcc316c025b79a9" kindref="member">XI2s_Tx_LookupConfig</ref>(UINTPTR<sp/>BaseAddresss);</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xi2stx.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="272"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gab33cb9b421dbb85cef8a75a0dbf8a1dd" kindref="member">XI2s_Tx_CfgInitialize</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2stx___config" kindref="compound">XI2stx_Config</ref><sp/>*CfgPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"></highlight></codeline>
-<codeline lineno="276"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" kindref="member">XI2s_Tx_Enable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"></highlight></codeline>
-<codeline lineno="278"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga265a3458a6fd3232bba3df9f9341e3cd" kindref="member">XI2s_Tx_SetChMux</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga5aae612901765b9ea6bb107e5b66b619" kindref="member">XI2s_Tx_ChannelId</ref><sp/>ChID,</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga986ff4cc8196e017c2a11b5784cfa410" kindref="member">XI2s_Tx_ChMuxInput</ref><sp/>InputSource);</highlight></codeline>
-<codeline lineno="280"><highlight class="normal">u32<sp/><ref refid="group__i2stx_1gacdd2c6678f1038ca76099cbcaebe1fde" kindref="member">XI2s_Tx_SetSclkOutDiv</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>MClk,<sp/>u32<sp/>Fs);</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"></highlight></codeline>
-<codeline lineno="283"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga8d2df1eb8affcff7f6b1eacad5016b39" kindref="member">XI2s_Tx_IntrEnable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight></codeline>
-<codeline lineno="298"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga16570218ac4aef4cf9cc22bdd6ebedef" kindref="member">XI2S_Tx_IntrDisable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"></highlight></codeline>
-<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Justification<sp/>related<sp/>functions<sp/>in<sp/>XI2stx.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gae5c7f651728493e9ca5a13d824f47893" kindref="member">XI2s_Tx_JustifyEnable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gab101d38c979a17b2bd4540a3b418933d" kindref="member">XI2s_Tx_Justify</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga2530845dc4c6c409a2cb7025beda590f" kindref="member">XI2s_Tx_Justification</ref><sp/>Justify);</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"></highlight></codeline>
-<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>functions<sp/>in<sp/>xi2stx_intr.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="305"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" kindref="member">XI2s_Tx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" kindref="member">XI2s_Tx_SetHandler</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga826ab5acb6a522281f46f358fc908bf3" kindref="member">XI2s_Tx_HandlerType</ref><sp/>HandlerType,</highlight></codeline>
-<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gac4321c85028de0ddb48f966d80325b10" kindref="member">XI2s_Tx_Enable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga265a3458a6fd3232bba3df9f9341e3cd" kindref="member">XI2s_Tx_SetChMux</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga5aae612901765b9ea6bb107e5b66b619" kindref="member">XI2s_Tx_ChannelId</ref><sp/>ChID,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga986ff4cc8196e017c2a11b5784cfa410" kindref="member">XI2s_Tx_ChMuxInput</ref><sp/>InputSource);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">u32<sp/><ref refid="group__i2stx_1gacdd2c6678f1038ca76099cbcaebe1fde" kindref="member">XI2s_Tx_SetSclkOutDiv</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>MClk,<sp/>u32<sp/>Fs);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga8d2df1eb8affcff7f6b1eacad5016b39" kindref="member">XI2s_Tx_IntrEnable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga16570218ac4aef4cf9cc22bdd6ebedef" kindref="member">XI2S_Tx_IntrDisable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Justification<sp/>related<sp/>functions<sp/>in<sp/>XI2stx.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gae5c7f651728493e9ca5a13d824f47893" kindref="member">XI2s_Tx_JustifyEnable</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gab101d38c979a17b2bd4540a3b418933d" kindref="member">XI2s_Tx_Justify</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga2530845dc4c6c409a2cb7025beda590f" kindref="member">XI2s_Tx_Justification</ref><sp/>Justify);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>functions<sp/>in<sp/>xi2stx_intr.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" kindref="member">XI2s_Tx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" kindref="member">XI2s_Tx_SetHandler</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga826ab5acb6a522281f46f358fc908bf3" kindref="member">XI2s_Tx_HandlerType</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AES<sp/>related<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gab68c1f16ccac1a678e93bd9c3bcdaed0" kindref="member">XI2s_Tx_GetAesChStatus</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*AesChStatusBuf);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" kindref="member">XI2s_Tx_ClrAesChStatRegs</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Logging<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" kindref="member">XI2s_Tx_LogDisplay</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" kindref="member">XI2s_Tx_LogWrite</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga6aae04d874f9b352d54806ffba47b000" kindref="member">XI2s_Tx_LogEvt</ref><sp/>Event,<sp/>u8<sp/>Data);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><ref refid="struct_x_i2s___tx___log_item" kindref="compound">XI2s_Tx_LogItem</ref>*<sp/><ref refid="group__i2stx_1ga471345b36b573630d3881047d9558962" kindref="member">XI2s_Tx_LogRead</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" kindref="member">XI2s_Tx_LogReset</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AES<sp/>related<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="310"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gab68c1f16ccac1a678e93bd9c3bcdaed0" kindref="member">XI2s_Tx_GetAesChStatus</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*AesChStatusBuf);</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gae1ee6ead0b1745ef400ec3e5198068aa" kindref="member">XI2s_Tx_ClrAesChStatRegs</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"></highlight></codeline>
-<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Logging<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="314"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" kindref="member">XI2s_Tx_LogDisplay</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" kindref="member">XI2s_Tx_LogWrite</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2stx_1ga6aae04d874f9b352d54806ffba47b000" kindref="member">XI2s_Tx_LogEvt</ref><sp/>Event,<sp/>u8<sp/>Data);</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><ref refid="struct_x_i2s___tx___log_item" kindref="compound">XI2s_Tx_LogItem</ref>*<sp/><ref refid="group__i2stx_1ga471345b36b573630d3881047d9558962" kindref="member">XI2s_Tx_LogRead</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gaaa1a03db44d1813c7632b95ec83765d5" kindref="member">XI2s_Tx_LogReset</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="319"><highlight class="normal"></highlight></codeline>
-<codeline lineno="320"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2STX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="325"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2STX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h"/>
   </compounddef>
 </doxygen>

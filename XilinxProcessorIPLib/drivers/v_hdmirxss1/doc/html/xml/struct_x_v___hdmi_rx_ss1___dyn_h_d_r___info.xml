@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="571" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="558" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a192f875a9a9b461b896440249c1bfe0b" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="572" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="559" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1ae3b7e35745ed5d8ea2f39512314471e7" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="573" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="560" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a2401b1c865593591fac6ca07cdfd01a0" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -54,14 +54,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="574" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="561" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains HDMI RX stream specific Dynamic HDR info. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="570" bodyend="575"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="557" bodyend="562"/>
     <listofallmembers>
       <member refid="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1adc3cb048aba809d76e5914ee9527efe7" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_DynHDR_Info</scope><name>err</name></member>
       <member refid="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a2401b1c865593591fac6ca07cdfd01a0" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_DynHDR_Info</scope><name>gof</name></member>

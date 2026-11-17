@@ -20,6 +20,9 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     
                  for doxygen generation of examples.
     vsa 15/12/17 Add support for Clock Mode
 1.1 vsa 02/28/18 Added Frame End Generation feature
+1.2 ai  09/17/26 Added multi-VC (NUM_VC 4/8/16) support with per-VC line
+                 count handlers, bank-select helpers and 8 pixels-per-clock
+                 mode for CSI2 TX subsystem v3.0
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

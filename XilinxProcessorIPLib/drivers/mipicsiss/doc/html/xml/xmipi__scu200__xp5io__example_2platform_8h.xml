@@ -6,36 +6,36 @@
     <includedby refid="xmipi__scu200__xp5io__example_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
     <includedby refid="xmipi__scu200__xp5io__example_8c" local="yes">xmipi_scu200_xp5io_example.c</includedby>
     <incdepgraph>
-      <node id="522">
-        <label>platform_config.h</label>
-      </node>
-      <node id="521">
+      <node id="556">
         <label>platform.h</label>
         <link refid="xmipi_scu200_xp5io_example/platform.h"/>
-        <childnode refid="522" relation="include">
+        <childnode refid="557" relation="include">
         </childnode>
+      </node>
+      <node id="557">
+        <label>platform_config.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="526">
-        <label>xmipi_scu200_xp5io_example.c</label>
-      </node>
-      <node id="525">
+      <node id="560">
         <label>xhdmi_example.c</label>
       </node>
-      <node id="524">
+      <node id="559">
         <label>xhdmi_example.h</label>
-        <childnode refid="525" relation="include">
+        <childnode refid="560" relation="include">
         </childnode>
-        <childnode refid="526" relation="include">
+        <childnode refid="561" relation="include">
         </childnode>
       </node>
-      <node id="523">
+      <node id="561">
+        <label>xmipi_scu200_xp5io_example.c</label>
+      </node>
+      <node id="558">
         <label>platform.h</label>
         <link refid="xmipi_scu200_xp5io_example/platform.h"/>
-        <childnode refid="524" relation="include">
+        <childnode refid="559" relation="include">
         </childnode>
-        <childnode refid="526" relation="include">
+        <childnode refid="561" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -51,7 +51,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="52" bodyend="56"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="52" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__scu200__xp5io__example_2platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="59" bodyend="62"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="59" bodyend="62"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -89,6 +89,6 @@
 <codeline lineno="15"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform.h"/>
   </compounddef>
 </doxygen>

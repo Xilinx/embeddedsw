@@ -117,7 +117,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1bb8e00546877e519810bbfe8cf40915"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_v___sdi_rx___config.html">XV_SdiRx_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx__sinit_8c.html#a1bb8e00546877e519810bbfe8cf40915">XV_SdiRx_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a1bb8e00546877e519810bbfe8cf40915"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a reference to an <a class="el" href="struct_x_v___sdi_rx___config.html" title="This typedef contains configuration information for the SDI RX core. ">XV_SdiRx_Config</a> structure based on the core id, <em>DeviceId</em>.  <a href="#a1bb8e00546877e519810bbfe8cf40915">More...</a><br/></td></tr>
+<tr class="memdesc:a1bb8e00546877e519810bbfe8cf40915"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the configuration for an SDI Rx device based on its base address.  <a href="#a1bb8e00546877e519810bbfe8cf40915">More...</a><br/></td></tr>
 <tr class="separator:a1bb8e00546877e519810bbfe8cf40915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -135,17 +135,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns a reference to an <a class="el" href="struct_x_v___sdi_rx___config.html" title="This typedef contains configuration information for the SDI RX core. ">XV_SdiRx_Config</a> structure based on the core id, <em>DeviceId</em>. </p>
+<p>Look up the configuration for an SDI Rx device based on its base address. </p>
 <p>Looks up the device configuration for a SDI Rx core based on its base address.</p>
-<p>The return value will refer to an entry in the device configuration table defined in the xv_sdirx_g.c file.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique core ID of the SDI RX core for the lookup operation.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XV_SdiRx_LookupConfig returns a reference to a config record in the configuration table (in xv_sdirx_g.c) corresponding to <em>DeviceId</em>, or NULL if no match is found.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. Look up the configuration for an SDI Rx device based on its base address.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">BaseAddress</td><td>The base address of the SDI Rx device to look up.</td></tr>

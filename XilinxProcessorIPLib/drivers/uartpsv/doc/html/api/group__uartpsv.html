@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('group__uartpsv.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,70 +112,58 @@ $(document).ready(function(){initNavTree('group__uartpsv.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_psv___config.html">XUartPsv_Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains configuration information for the device.  <a href="struct_x_uart_psv___config.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains configuration information for the device.  <a href="struct_x_uart_psv___config.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_psv_buffer.html">XUartPsvBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keep track of state information about a data buffer in the interrupt mode.  <a href="struct_x_uart_psv_buffer.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks state information about a data buffer in interrupt mode.  <a href="struct_x_uart_psv_buffer.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_psv_format.html">XUartPsvFormat</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keep track of data format setting of a device.  <a href="struct_x_uart_psv_format.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks data format settings of a device.  <a href="struct_x_uart_psv_format.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_psv.html">XUartPsv</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> driver instance data structure.  <a href="struct_x_uart_psv.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver instance data structure.  <a href="struct_x_uart_psv.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga8dc8acae0282012aa1a20d979be436a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga8dc8acae0282012aa1a20d979be436a6">XUARTPSV_MAX_BAUD_ERROR_RATE</a>&#160;&#160;&#160;3U</td></tr>
-<tr class="memdesc:ga8dc8acae0282012aa1a20d979be436a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">max % error allowed  <a href="#ga8dc8acae0282012aa1a20d979be436a6">More...</a><br/></td></tr>
+<tr class="memdesc:ga8dc8acae0282012aa1a20d979be436a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum baud rate error percentage allowed.  <a href="#ga8dc8acae0282012aa1a20d979be436a6">More...</a><br/></td></tr>
 <tr class="separator:ga8dc8acae0282012aa1a20d979be436a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1995466148aa5c669d92e37642452c55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1995466148aa5c669d92e37642452c55">XUARTPSV_H</a></td></tr>
-<tr class="memdesc:ga1995466148aa5c669d92e37642452c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="#ga1995466148aa5c669d92e37642452c55">More...</a><br/></td></tr>
-<tr class="separator:ga1995466148aa5c669d92e37642452c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1028700cf5e97e64b72165616914a84a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1028700cf5e97e64b72165616914a84a">XUARTPSV_MAX_RATE</a>&#160;&#160;&#160;921600U</td></tr>
-<tr class="memdesc:ga1028700cf5e97e64b72165616914a84a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum baud rate.  <a href="#ga1028700cf5e97e64b72165616914a84a">More...</a><br/></td></tr>
-<tr class="separator:ga1028700cf5e97e64b72165616914a84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2e96fa49febeff396414ae7c25eff69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaa2e96fa49febeff396414ae7c25eff69">XUARTPSV_MIN_RATE</a>&#160;&#160;&#160;110U</td></tr>
-<tr class="memdesc:gaa2e96fa49febeff396414ae7c25eff69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum baud rate.  <a href="#gaa2e96fa49febeff396414ae7c25eff69">More...</a><br/></td></tr>
-<tr class="separator:gaa2e96fa49febeff396414ae7c25eff69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad4202f2666ae178cd380f2232bb96486"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gad4202f2666ae178cd380f2232bb96486">XUARTPSV_DFT_BAUDRATE</a>&#160;&#160;&#160;115200U</td></tr>
-<tr class="memdesc:gad4202f2666ae178cd380f2232bb96486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default baud rate.  <a href="#gad4202f2666ae178cd380f2232bb96486">More...</a><br/></td></tr>
-<tr class="separator:gad4202f2666ae178cd380f2232bb96486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga199da98d8ddcd495482b436d294ec75d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga199da98d8ddcd495482b436d294ec75d">TIMEOUT_COUNTER</a>&#160;&#160;&#160;1000000U</td></tr>
+<tr class="memdesc:ga199da98d8ddcd495482b436d294ec75d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for 1 sec.  <a href="#ga199da98d8ddcd495482b436d294ec75d">More...</a><br/></td></tr>
+<tr class="separator:ga199da98d8ddcd495482b436d294ec75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf9269e5132e023fb82ccbb97dc9b955a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaf9269e5132e023fb82ccbb97dc9b955a">XUartPsv_GetChannelStatus</a>(InstancePtr)</td></tr>
-<tr class="memdesc:gaf9269e5132e023fb82ccbb97dc9b955a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UART Channel Status Register.  <a href="#gaf9269e5132e023fb82ccbb97dc9b955a">More...</a><br/></td></tr>
+<tr class="memdesc:gaf9269e5132e023fb82ccbb97dc9b955a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the UART Channel Status Register.  <a href="#gaf9269e5132e023fb82ccbb97dc9b955a">More...</a><br/></td></tr>
 <tr class="separator:gaf9269e5132e023fb82ccbb97dc9b955a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae536abc24f8139cc11c7136ea0010019"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gae536abc24f8139cc11c7136ea0010019">XUartPsv_GetModeControl</a>(InstancePtr)</td></tr>
-<tr class="memdesc:gae536abc24f8139cc11c7136ea0010019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UART Mode Control Register.  <a href="#gae536abc24f8139cc11c7136ea0010019">More...</a><br/></td></tr>
+<tr class="memdesc:gae536abc24f8139cc11c7136ea0010019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the UART Mode Control Register.  <a href="#gae536abc24f8139cc11c7136ea0010019">More...</a><br/></td></tr>
 <tr class="separator:gae536abc24f8139cc11c7136ea0010019"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4f4c2d249d106dd8eb5ea31bfa31899f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga4f4c2d249d106dd8eb5ea31bfa31899f">XUartPsv_SetModeControl</a>(InstancePtr, RegisterValue)</td></tr>
-<tr class="memdesc:ga4f4c2d249d106dd8eb5ea31bfa31899f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the UART Mode Control Register.  <a href="#ga4f4c2d249d106dd8eb5ea31bfa31899f">More...</a><br/></td></tr>
+<tr class="memdesc:ga4f4c2d249d106dd8eb5ea31bfa31899f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the UART Mode Control Register.  <a href="#ga4f4c2d249d106dd8eb5ea31bfa31899f">More...</a><br/></td></tr>
 <tr class="separator:ga4f4c2d249d106dd8eb5ea31bfa31899f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf2e92c20719d5f1930c3e8d3ad98e06b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaf2e92c20719d5f1930c3e8d3ad98e06b">XUartPsv_EnableUart</a>(InstancePtr)</td></tr>
-<tr class="memdesc:gaf2e92c20719d5f1930c3e8d3ad98e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the transmitter and receiver of the UART.  <a href="#gaf2e92c20719d5f1930c3e8d3ad98e06b">More...</a><br/></td></tr>
+<tr class="memdesc:gaf2e92c20719d5f1930c3e8d3ad98e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the transmitter and receiver of the UART.  <a href="#gaf2e92c20719d5f1930c3e8d3ad98e06b">More...</a><br/></td></tr>
 <tr class="separator:gaf2e92c20719d5f1930c3e8d3ad98e06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2a6ad86de9f65f8f859ab32a3286c919"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga2a6ad86de9f65f8f859ab32a3286c919">XUartPsv_DisableUart</a>(InstancePtr)</td></tr>
-<tr class="memdesc:ga2a6ad86de9f65f8f859ab32a3286c919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the transmitter and receiver of the UART.  <a href="#ga2a6ad86de9f65f8f859ab32a3286c919">More...</a><br/></td></tr>
+<tr class="memdesc:ga2a6ad86de9f65f8f859ab32a3286c919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the transmitter and receiver of the UART.  <a href="#ga2a6ad86de9f65f8f859ab32a3286c919">More...</a><br/></td></tr>
 <tr class="separator:ga2a6ad86de9f65f8f859ab32a3286c919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga05a61d255ef608f38a4a03dce92cda75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga05a61d255ef608f38a4a03dce92cda75">XUartPsv_IsTransmitEmpty</a>(InstancePtr)</td></tr>
-<tr class="memdesc:ga05a61d255ef608f38a4a03dce92cda75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the transmitter FIFO is empty.  <a href="#ga05a61d255ef608f38a4a03dce92cda75">More...</a><br/></td></tr>
+<tr class="memdesc:ga05a61d255ef608f38a4a03dce92cda75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the transmitter FIFO is empty.  <a href="#ga05a61d255ef608f38a4a03dce92cda75">More...</a><br/></td></tr>
 <tr class="separator:ga05a61d255ef608f38a4a03dce92cda75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2742ac56c471a4ac8c605979d3bb0665"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga2742ac56c471a4ac8c605979d3bb0665">XUARTPSV_HW_H</a></td></tr>
-<tr class="memdesc:ga2742ac56c471a4ac8c605979d3bb0665"><td class="mdescLeft">&#160;</td><td class="mdescRight">by using protection macros  <a href="#ga2742ac56c471a4ac8c605979d3bb0665">More...</a><br/></td></tr>
-<tr class="separator:ga2742ac56c471a4ac8c605979d3bb0665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6272b3263e840a8218fc070c1656b9b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;Xil_In32((BaseAddress) + (u32)(RegOffset))</td></tr>
-<tr class="memdesc:ga6272b3263e840a8218fc070c1656b9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a UART register.  <a href="#ga6272b3263e840a8218fc070c1656b9b9">More...</a><br/></td></tr>
+<tr class="memdesc:ga6272b3263e840a8218fc070c1656b9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a UART register.  <a href="#ga6272b3263e840a8218fc070c1656b9b9">More...</a><br/></td></tr>
 <tr class="separator:ga6272b3263e840a8218fc070c1656b9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)</td></tr>
-<tr class="memdesc:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a UART register.  <a href="#ga1fcbc3ad3fd4949b016ae362929ee344">More...</a><br/></td></tr>
+<tr class="memdesc:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a UART register.  <a href="#ga1fcbc3ad3fd4949b016ae362929ee344">More...</a><br/></td></tr>
 <tr class="separator:ga1fcbc3ad3fd4949b016ae362929ee344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9">XUartPsv_IsReceiveData</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if there is receive data in the receiver and/or FIFO.  <a href="#ga72e127b91f03728e0b58b2b3b6373dd9">More...</a><br/></td></tr>
+<tr class="memdesc:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if there is receive data in the receiver and/or FIFO.  <a href="#ga72e127b91f03728e0b58b2b3b6373dd9">More...</a><br/></td></tr>
 <tr class="separator:ga72e127b91f03728e0b58b2b3b6373dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga04b62e0a1ad868d0a75238356c973336"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">XUartPsv_IsTransmitFull</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga04b62e0a1ad868d0a75238356c973336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a byte of data can be sent with the transmitter.  <a href="#ga04b62e0a1ad868d0a75238356c973336">More...</a><br/></td></tr>
+<tr class="memdesc:ga04b62e0a1ad868d0a75238356c973336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a byte of data can be sent with the transmitter.  <a href="#ga04b62e0a1ad868d0a75238356c973336">More...</a><br/></td></tr>
 <tr class="separator:ga04b62e0a1ad868d0a75238356c973336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">XUartPsv_IsTransmitbusy</a>(BaseAddress)</td></tr>
-<tr class="memdesc:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if a byte of data can be sent with the transmitter.  <a href="#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">More...</a><br/></td></tr>
+<tr class="memdesc:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the transmitter is busy.  <a href="#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">More...</a><br/></td></tr>
 <tr class="separator:ga9ff4c2f51e7f3e9a5d0b017c841a7ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga085455aa637fa6865bfdf3f6765336fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga085455aa637fa6865bfdf3f6765336fc">XUARTPSV_NUM_OPTIONS</a>&#160;&#160;&#160;(sizeof(XUartPsv_OptionsTable) / sizeof(Mapping))</td></tr>
 <tr class="memdesc:ga085455aa637fa6865bfdf3f6765336fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">No.  <a href="#ga085455aa637fa6865bfdf3f6765336fc">More...</a><br/></td></tr>
@@ -187,113 +175,128 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:gab83b4279762a2b3f20b1c50998a709d3"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gab83b4279762a2b3f20b1c50998a709d3">XUartPsv_Handler</a> )(void *CallBackRef, u32 Event, u32 EventData)</td></tr>
-<tr class="memdesc:gab83b4279762a2b3f20b1c50998a709d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This data type defines a handler that an application defines to communicate with interrupt system to retrieve state information about an application.  <a href="#gab83b4279762a2b3f20b1c50998a709d3">More...</a><br/></td></tr>
+<tr class="memdesc:gab83b4279762a2b3f20b1c50998a709d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a handler that an application defines to communicate with the interrupt system to retrieve state information about an application.  <a href="#gab83b4279762a2b3f20b1c50998a709d3">More...</a><br/></td></tr>
 <tr class="separator:gab83b4279762a2b3f20b1c50998a709d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gae977262c7eae574f573fe4122ac6c0ab"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gae977262c7eae574f573fe4122ac6c0ab">XUartPsv_CfgInitialize</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, <a class="el" href="struct_x_uart_psv___config.html">XUartPsv_Config</a> *Config, UINTPTR EffectiveAddr)</td></tr>
-<tr class="memdesc:gae977262c7eae574f573fe4122ac6c0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance such that it is ready to be used.  <a href="#gae977262c7eae574f573fe4122ac6c0ab">More...</a><br/></td></tr>
+<tr class="memdesc:gae977262c7eae574f573fe4122ac6c0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance for use.  <a href="#gae977262c7eae574f573fe4122ac6c0ab">More...</a><br/></td></tr>
 <tr class="separator:gae977262c7eae574f573fe4122ac6c0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga71a962de4963e15f1c38e7831e825f7c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga71a962de4963e15f1c38e7831e825f7c">XUartPsv_Send</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 *BufferPtr, u32 NumBytes)</td></tr>
-<tr class="memdesc:ga71a962de4963e15f1c38e7831e825f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sends the specified buffer using the device in either polled or interrupt driven mode.  <a href="#ga71a962de4963e15f1c38e7831e825f7c">More...</a><br/></td></tr>
+<tr class="memdesc:ga71a962de4963e15f1c38e7831e825f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the specified buffer in polled or interrupt driven mode.  <a href="#ga71a962de4963e15f1c38e7831e825f7c">More...</a><br/></td></tr>
 <tr class="separator:ga71a962de4963e15f1c38e7831e825f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac551c919a38424e6d23298256a9d1141"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gac551c919a38424e6d23298256a9d1141">XUartPsv_Send_NoWait</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 *BufferPtr, u32 NumBytes)</td></tr>
-<tr class="memdesc:gac551c919a38424e6d23298256a9d1141"><td class="mdescLeft">&#160;</td><td class="mdescRight"><ul>
-<li></li>
-</ul>
- <a href="#gac551c919a38424e6d23298256a9d1141">More...</a><br/></td></tr>
+<tr class="memdesc:gac551c919a38424e6d23298256a9d1141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the specified buffer in polled mode without waiting.  <a href="#gac551c919a38424e6d23298256a9d1141">More...</a><br/></td></tr>
 <tr class="separator:gac551c919a38424e6d23298256a9d1141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4d4d20bbcedb1de2adbe2644b821d12d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga4d4d20bbcedb1de2adbe2644b821d12d">XUartPsv_Recv</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 *BufferPtr, u32 NumBytes)</td></tr>
-<tr class="memdesc:ga4d4d20bbcedb1de2adbe2644b821d12d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function attempts to receive a specified number of bytes of data from the device and store it into the specified buffer.  <a href="#ga4d4d20bbcedb1de2adbe2644b821d12d">More...</a><br/></td></tr>
+<tr class="memdesc:ga4d4d20bbcedb1de2adbe2644b821d12d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to receive a specified number of bytes of data from the device and store it into the specified buffer.  <a href="#ga4d4d20bbcedb1de2adbe2644b821d12d">More...</a><br/></td></tr>
 <tr class="separator:ga4d4d20bbcedb1de2adbe2644b821d12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2236ec3fe4acd721566be3025554826b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga2236ec3fe4acd721566be3025554826b">XUartPsv_SendBuffer</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga2236ec3fe4acd721566be3025554826b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="#ga2236ec3fe4acd721566be3025554826b">More...</a><br/></td></tr>
+<tr class="memdesc:ga2236ec3fe4acd721566be3025554826b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a buffer previously specified by setting up the instance variables of the instance.  <a href="#ga2236ec3fe4acd721566be3025554826b">More...</a><br/></td></tr>
 <tr class="separator:ga2236ec3fe4acd721566be3025554826b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab7c628a4fd29e1f9d1d4cb9cbe672279"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gab7c628a4fd29e1f9d1d4cb9cbe672279">XUartPsv_ReceiveBuffer</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gab7c628a4fd29e1f9d1d4cb9cbe672279"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="#gab7c628a4fd29e1f9d1d4cb9cbe672279">More...</a><br/></td></tr>
+<tr class="memdesc:gab7c628a4fd29e1f9d1d4cb9cbe672279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a buffer previously specified by setting up the instance variables of the instance.  <a href="#gab7c628a4fd29e1f9d1d4cb9cbe672279">More...</a><br/></td></tr>
 <tr class="separator:gab7c628a4fd29e1f9d1d4cb9cbe672279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c73264d5304f3187edb896bab76dcb0"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga8c73264d5304f3187edb896bab76dcb0">XUartPsv_SetBaudRate</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u32 BaudRate)</td></tr>
 <tr class="memdesc:ga8c73264d5304f3187edb896bab76dcb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the baud rate for the device.  <a href="#ga8c73264d5304f3187edb896bab76dcb0">More...</a><br/></td></tr>
 <tr class="separator:ga8c73264d5304f3187edb896bab76dcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa19ed118438249d9c56cd3afcfa8898c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u32 CtrlRegister)</td></tr>
-<tr class="memdesc:gaa19ed118438249d9c56cd3afcfa8898c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reprograms the control register according to the following sequence mentioned in the TRM.  <a href="#gaa19ed118438249d9c56cd3afcfa8898c">More...</a><br/></td></tr>
+<tr class="memdesc:gaa19ed118438249d9c56cd3afcfa8898c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reprograms the control register per the TRM sequence.  <a href="#gaa19ed118438249d9c56cd3afcfa8898c">More...</a><br/></td></tr>
 <tr class="separator:gaa19ed118438249d9c56cd3afcfa8898c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga048adc3a5ea0979d28266476fa3960db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga048adc3a5ea0979d28266476fa3960db">XUartPsv_CleanupRx</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga048adc3a5ea0979d28266476fa3960db"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is a cleanup function to allow resetting Rx NextBytePtr, RemainingBytes and RequestedBytes.  <a href="#ga048adc3a5ea0979d28266476fa3960db">More...</a><br/></td></tr>
+<tr class="memdesc:ga048adc3a5ea0979d28266476fa3960db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the Rx NextBytePtr, RemainingBytes and RequestedBytes.  <a href="#ga048adc3a5ea0979d28266476fa3960db">More...</a><br/></td></tr>
 <tr class="separator:ga048adc3a5ea0979d28266476fa3960db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf1cde67fba29b14f65e5abe2dd7d2066"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaf1cde67fba29b14f65e5abe2dd7d2066">XUartPsv_CleanupTx</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf1cde67fba29b14f65e5abe2dd7d2066"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is a cleanup function to allow resetting Tx NextBytePtr, RemainingBytes and RequestedBytes.  <a href="#gaf1cde67fba29b14f65e5abe2dd7d2066">More...</a><br/></td></tr>
+<tr class="memdesc:gaf1cde67fba29b14f65e5abe2dd7d2066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the Tx NextBytePtr, RemainingBytes and RequestedBytes.  <a href="#gaf1cde67fba29b14f65e5abe2dd7d2066">More...</a><br/></td></tr>
 <tr class="separator:gaf1cde67fba29b14f65e5abe2dd7d2066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ae9af89fa7aaab4c02d937d5ce520f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_psv___config.html">XUartPsv_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1ae9af89fa7aaab4c02d937d5ce520f7">XUartPsv_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga1ae9af89fa7aaab4c02d937d5ce520f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="#ga1ae9af89fa7aaab4c02d937d5ce520f7">More...</a><br/></td></tr>
+<tr class="memdesc:ga1ae9af89fa7aaab4c02d937d5ce520f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID or base address.  <a href="#ga1ae9af89fa7aaab4c02d937d5ce520f7">More...</a><br/></td></tr>
 <tr class="separator:ga1ae9af89fa7aaab4c02d937d5ce520f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada7b7128f09873d46fc19d0d9cf91751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gada7b7128f09873d46fc19d0d9cf91751">XUartPsv_SetOptions</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u16 Options)</td></tr>
 <tr class="memdesc:gada7b7128f09873d46fc19d0d9cf91751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the specified driver instance.  <a href="#gada7b7128f09873d46fc19d0d9cf91751">More...</a><br/></td></tr>
 <tr class="separator:gada7b7128f09873d46fc19d0d9cf91751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30dc7c90e0cc1a859ae286f1bb4fb3cf"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga30dc7c90e0cc1a859ae286f1bb4fb3cf">XUartPsv_GetOptions</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga30dc7c90e0cc1a859ae286f1bb4fb3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the options for the specified driver instance.  <a href="#ga30dc7c90e0cc1a859ae286f1bb4fb3cf">More...</a><br/></td></tr>
+<tr class="memdesc:ga30dc7c90e0cc1a859ae286f1bb4fb3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the current options for the specified driver instance.  <a href="#ga30dc7c90e0cc1a859ae286f1bb4fb3cf">More...</a><br/></td></tr>
 <tr class="separator:ga30dc7c90e0cc1a859ae286f1bb4fb3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab2c5afc9fe98688f68d1eb52e5014401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gab2c5afc9fe98688f68d1eb52e5014401">XUartPsv_SetFifoThreshold</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 TriggerLevel)</td></tr>
-<tr class="memdesc:gab2c5afc9fe98688f68d1eb52e5014401"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sets the Tx and Rx FIFO trigger level to the 'TriggerLevel' argument.  <a href="#gab2c5afc9fe98688f68d1eb52e5014401">More...</a><br/></td></tr>
+<tr class="memdesc:gab2c5afc9fe98688f68d1eb52e5014401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Tx and Rx FIFO trigger level.  <a href="#gab2c5afc9fe98688f68d1eb52e5014401">More...</a><br/></td></tr>
 <tr class="separator:gab2c5afc9fe98688f68d1eb52e5014401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga43c4fde1105e2505e10c684622be1d13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga43c4fde1105e2505e10c684622be1d13">XUartPsv_SetTxFifoThreshold</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 TriggerLevel)</td></tr>
-<tr class="memdesc:ga43c4fde1105e2505e10c684622be1d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sets the Tx FIFO trigger level to the 'TriggerLevel' argument.  <a href="#ga43c4fde1105e2505e10c684622be1d13">More...</a><br/></td></tr>
+<tr class="memdesc:ga43c4fde1105e2505e10c684622be1d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Tx FIFO trigger level.  <a href="#ga43c4fde1105e2505e10c684622be1d13">More...</a><br/></td></tr>
 <tr class="separator:ga43c4fde1105e2505e10c684622be1d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8bc7523050515544bb2823a9254ac8f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga8bc7523050515544bb2823a9254ac8f5">XUartPsv_SetRxFifoThreshold</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 TriggerLevel)</td></tr>
-<tr class="memdesc:ga8bc7523050515544bb2823a9254ac8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sets the Rx FIFO trigger level to the 'TriggerLevel' argument.  <a href="#ga8bc7523050515544bb2823a9254ac8f5">More...</a><br/></td></tr>
+<tr class="memdesc:ga8bc7523050515544bb2823a9254ac8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Rx FIFO trigger level.  <a href="#ga8bc7523050515544bb2823a9254ac8f5">More...</a><br/></td></tr>
 <tr class="separator:ga8bc7523050515544bb2823a9254ac8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf3802ebc7d644ab9f80bb20060394e0"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaaf3802ebc7d644ab9f80bb20060394e0">XUartPsv_GetFifoThreshold</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaaf3802ebc7d644ab9f80bb20060394e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the Tx and Rx FIFO trigger level.  <a href="#gaaf3802ebc7d644ab9f80bb20060394e0">More...</a><br/></td></tr>
+<tr class="memdesc:gaaf3802ebc7d644ab9f80bb20060394e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the Tx and Rx FIFO trigger level.  <a href="#gaaf3802ebc7d644ab9f80bb20060394e0">More...</a><br/></td></tr>
 <tr class="separator:gaaf3802ebc7d644ab9f80bb20060394e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9563569d26dcdc486b2fc9d2d18ec918"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga9563569d26dcdc486b2fc9d2d18ec918">XUartPsv_GetModemStatus</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga9563569d26dcdc486b2fc9d2d18ec918"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the modem status from the specified UART.  <a href="#ga9563569d26dcdc486b2fc9d2d18ec918">More...</a><br/></td></tr>
+<tr class="memdesc:ga9563569d26dcdc486b2fc9d2d18ec918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the modem status from the specified UART.  <a href="#ga9563569d26dcdc486b2fc9d2d18ec918">More...</a><br/></td></tr>
 <tr class="separator:ga9563569d26dcdc486b2fc9d2d18ec918"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa335aef95c763728b0d179ddc3e8b209"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaa335aef95c763728b0d179ddc3e8b209">XUartPsv_IsSending</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaa335aef95c763728b0d179ddc3e8b209"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the specified UART is sending data.  <a href="#gaa335aef95c763728b0d179ddc3e8b209">More...</a><br/></td></tr>
+<tr class="memdesc:gaa335aef95c763728b0d179ddc3e8b209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the specified UART is sending data.  <a href="#gaa335aef95c763728b0d179ddc3e8b209">More...</a><br/></td></tr>
 <tr class="separator:gaa335aef95c763728b0d179ddc3e8b209"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d87a5b4f9a733d6471c29080fddc7aa"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga2d87a5b4f9a733d6471c29080fddc7aa">XUartPsv_GetOperMode</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga2d87a5b4f9a733d6471c29080fddc7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the operational mode of the UART.  <a href="#ga2d87a5b4f9a733d6471c29080fddc7aa">More...</a><br/></td></tr>
+<tr class="memdesc:ga2d87a5b4f9a733d6471c29080fddc7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the operational mode of the UART.  <a href="#ga2d87a5b4f9a733d6471c29080fddc7aa">More...</a><br/></td></tr>
 <tr class="separator:ga2d87a5b4f9a733d6471c29080fddc7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0ea310ea61d052f2c4f5cce2dfadfc46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga0ea310ea61d052f2c4f5cce2dfadfc46">XUartPsv_SetOperMode</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u8 OperationMode)</td></tr>
-<tr class="memdesc:ga0ea310ea61d052f2c4f5cce2dfadfc46"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the operational mode of the UART.  <a href="#ga0ea310ea61d052f2c4f5cce2dfadfc46">More...</a><br/></td></tr>
+<tr class="memdesc:ga0ea310ea61d052f2c4f5cce2dfadfc46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the operational mode of the UART.  <a href="#ga0ea310ea61d052f2c4f5cce2dfadfc46">More...</a><br/></td></tr>
 <tr class="separator:ga0ea310ea61d052f2c4f5cce2dfadfc46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5947dc8794a2d6d1b5cfb7558a83ac4a"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga5947dc8794a2d6d1b5cfb7558a83ac4a">XUartPsv_SetDataFormat</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, <a class="el" href="struct_x_uart_psv_format.html">XUartPsvFormat</a> *FormatPtr)</td></tr>
 <tr class="memdesc:ga5947dc8794a2d6d1b5cfb7558a83ac4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data format for the device.  <a href="#ga5947dc8794a2d6d1b5cfb7558a83ac4a">More...</a><br/></td></tr>
 <tr class="separator:ga5947dc8794a2d6d1b5cfb7558a83ac4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad9a82725de555ca0e6414d95afb4fb2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gad9a82725de555ca0e6414d95afb4fb2a">XUartPsv_GetDataFormat</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, <a class="el" href="struct_x_uart_psv_format.html">XUartPsvFormat</a> *FormatPtr)</td></tr>
-<tr class="memdesc:gad9a82725de555ca0e6414d95afb4fb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data format for the specified UART.  <a href="#gad9a82725de555ca0e6414d95afb4fb2a">More...</a><br/></td></tr>
+<tr class="memdesc:gad9a82725de555ca0e6414d95afb4fb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the data format for the specified UART.  <a href="#gad9a82725de555ca0e6414d95afb4fb2a">More...</a><br/></td></tr>
 <tr class="separator:gad9a82725de555ca0e6414d95afb4fb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga049a65e8d28c43b51ce4c67b15a2d07e">XUartPsv_GetInterruptMask</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the interrupt mask.  <a href="#ga049a65e8d28c43b51ce4c67b15a2d07e">More...</a><br/></td></tr>
+<tr class="memdesc:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the current interrupt mask.  <a href="#ga049a65e8d28c43b51ce4c67b15a2d07e">More...</a><br/></td></tr>
 <tr class="separator:ga049a65e8d28c43b51ce4c67b15a2d07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga09b94a490c696d7ff7b1c6bbec42b226">XUartPsv_SetInterruptMask</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the interrupt mask.  <a href="#ga09b94a490c696d7ff7b1c6bbec42b226">More...</a><br/></td></tr>
+<tr class="memdesc:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt mask.  <a href="#ga09b94a490c696d7ff7b1c6bbec42b226">More...</a><br/></td></tr>
 <tr class="separator:ga09b94a490c696d7ff7b1c6bbec42b226"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga869ac0531d2e16457706d013d7f0a0cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga869ac0531d2e16457706d013d7f0a0cc">XUartPsv_InterruptHandler</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga869ac0531d2e16457706d013d7f0a0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the driver.  <a href="#ga869ac0531d2e16457706d013d7f0a0cc">More...</a><br/></td></tr>
+<tr class="memdesc:ga869ac0531d2e16457706d013d7f0a0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver.  <a href="#ga869ac0531d2e16457706d013d7f0a0cc">More...</a><br/></td></tr>
 <tr class="separator:ga869ac0531d2e16457706d013d7f0a0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gafc24dc61fc253a957ba631fb53b5dfc8">XUartPsv_SetHandler</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr, <a class="el" href="group__uartpsv.html#gab83b4279762a2b3f20b1c50998a709d3">XUartPsv_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs that needs application's attention.  <a href="#gafc24dc61fc253a957ba631fb53b5dfc8">More...</a><br/></td></tr>
+<tr class="memdesc:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler called when an event (interrupt) occurs that needs the application's attention.  <a href="#gafc24dc61fc253a957ba631fb53b5dfc8">More...</a><br/></td></tr>
 <tr class="separator:gafc24dc61fc253a957ba631fb53b5dfc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5dba5d9d345ab578b8410113968ffaa6"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga5dba5d9d345ab578b8410113968ffaa6">XUartPsv_SelfTest</a> (<a class="el" href="struct_x_uart_psv.html">XUartPsv</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga5dba5d9d345ab578b8410113968ffaa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the driver and hardware device.  <a href="#ga5dba5d9d345ab578b8410113968ffaa6">More...</a><br/></td></tr>
+<tr class="memdesc:ga5dba5d9d345ab578b8410113968ffaa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver and hardware device.  <a href="#ga5dba5d9d345ab578b8410113968ffaa6">More...</a><br/></td></tr>
 <tr class="separator:ga5dba5d9d345ab578b8410113968ffaa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga24308126daae7b67de1790b345933598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">XUartPsv_SendByte</a> (UINTPTR BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:ga24308126daae7b67de1790b345933598"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends one byte using the device.  <a href="#ga24308126daae7b67de1790b345933598">More...</a><br/></td></tr>
+<tr class="memdesc:ga24308126daae7b67de1790b345933598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends one byte using the device in polled mode.  <a href="#ga24308126daae7b67de1790b345933598">More...</a><br/></td></tr>
 <tr class="separator:ga24308126daae7b67de1790b345933598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">XUartPsv_RecvByte</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a byte from the device.  <a href="#ga6d764b77ee5e8f535ce523a9df1f2ddc">More...</a><br/></td></tr>
+<tr class="memdesc:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a byte from the device in polled mode.  <a href="#ga6d764b77ee5e8f535ce523a9df1f2ddc">More...</a><br/></td></tr>
 <tr class="separator:ga6d764b77ee5e8f535ce523a9df1f2ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga99e7a45fe3e00b94d58f540acf6328af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga99e7a45fe3e00b94d58f540acf6328af">XUartPsv_ResetHw</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga99e7a45fe3e00b94d58f540acf6328af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resets UART.  <a href="#ga99e7a45fe3e00b94d58f540acf6328af">More...</a><br/></td></tr>
+<tr class="memdesc:ga99e7a45fe3e00b94d58f540acf6328af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the UART.  <a href="#ga99e7a45fe3e00b94d58f540acf6328af">More...</a><br/></td></tr>
 <tr class="separator:ga99e7a45fe3e00b94d58f540acf6328af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:gaed365c02539b1452e590d0123f858c30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_psv___config.html">XUartPsv_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaed365c02539b1452e590d0123f858c30">XUartPsv_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gaed365c02539b1452e590d0123f858c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Config structure.  <a href="#gaed365c02539b1452e590d0123f858c30">More...</a><br/></td></tr>
+<tr class="memdesc:gaed365c02539b1452e590d0123f858c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration entry for each UartPsv instance.  <a href="#gaed365c02539b1452e590d0123f858c30">More...</a><br/></td></tr>
 <tr class="separator:gaed365c02539b1452e590d0123f858c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed365c02539b1452e590d0123f858c30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_psv___config.html">XUartPsv_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaed365c02539b1452e590d0123f858c30">XUartPsv_ConfigTable</a> []</td></tr>
+<tr class="memdesc:gaed365c02539b1452e590d0123f858c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration table for <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> devices.  <a href="#gaed365c02539b1452e590d0123f858c30">More...</a><br/></td></tr>
+<tr class="separator:gaed365c02539b1452e590d0123f858c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Baud rate limits</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpfe7f15319cf93eb3cb25df83d6d43ccf"></a>The following constants indicate the max and min baud rates and these numbers are based only on the testing that has been done.</p>
+<p>The hardware is capable of other baud rates. </p>
+</td></tr>
+<tr class="memitem:ga1028700cf5e97e64b72165616914a84a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1028700cf5e97e64b72165616914a84a">XUARTPSV_MAX_RATE</a>&#160;&#160;&#160;921600U</td></tr>
+<tr class="memdesc:ga1028700cf5e97e64b72165616914a84a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum baud rate.  <a href="#ga1028700cf5e97e64b72165616914a84a">More...</a><br/></td></tr>
+<tr class="separator:ga1028700cf5e97e64b72165616914a84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2e96fa49febeff396414ae7c25eff69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaa2e96fa49febeff396414ae7c25eff69">XUARTPSV_MIN_RATE</a>&#160;&#160;&#160;110U</td></tr>
+<tr class="memdesc:gaa2e96fa49febeff396414ae7c25eff69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum baud rate.  <a href="#gaa2e96fa49febeff396414ae7c25eff69">More...</a><br/></td></tr>
+<tr class="separator:gaa2e96fa49febeff396414ae7c25eff69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4202f2666ae178cd380f2232bb96486"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gad4202f2666ae178cd380f2232bb96486">XUARTPSV_DFT_BAUDRATE</a>&#160;&#160;&#160;115200U</td></tr>
+<tr class="memdesc:gad4202f2666ae178cd380f2232bb96486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default baud rate.  <a href="#gad4202f2666ae178cd380f2232bb96486">More...</a><br/></td></tr>
+<tr class="separator:gad4202f2666ae178cd380f2232bb96486"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Configuration options</h2></td></tr>
@@ -627,43 +630,43 @@ Interrupt FIFO Level Select Register</h2></td></tr>
 <tr class="memdesc:ga3149c045f35eae100cb9f39765796327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive interrupt FIFO level select mask.  <a href="#ga3149c045f35eae100cb9f39765796327">More...</a><br/></td></tr>
 <tr class="separator:ga3149c045f35eae100cb9f39765796327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga62086b945a7d3da80892a619abe3671b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga62086b945a7d3da80892a619abe3671b">XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT</a>&#160;&#160;&#160;0x00000003U</td></tr>
-<tr class="memdesc:ga62086b945a7d3da80892a619abe3671b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit interrupt FIFO level select shift.  <a href="#ga62086b945a7d3da80892a619abe3671b">More...</a><br/></td></tr>
+<tr class="memdesc:ga62086b945a7d3da80892a619abe3671b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive interrupt FIFO level select shift.  <a href="#ga62086b945a7d3da80892a619abe3671b">More...</a><br/></td></tr>
 <tr class="separator:ga62086b945a7d3da80892a619abe3671b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</a>&#160;&#160;&#160;0x00000007U</td></tr>
-<tr class="memdesc:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive interrupt FIFO level select mask.  <a href="#ga1fc7d66bafa6dd862f0bbb2648721aa9">More...</a><br/></td></tr>
+<tr class="memdesc:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit interrupt FIFO level select mask.  <a href="#ga1fc7d66bafa6dd862f0bbb2648721aa9">More...</a><br/></td></tr>
 <tr class="separator:ga1fc7d66bafa6dd862f0bbb2648721aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30b5d2120c2571ea1102e12ff4d322b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga30b5d2120c2571ea1102e12ff4d322b1">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</a>&#160;&#160;&#160;0x00000000U</td></tr>
 <tr class="memdesc:ga30b5d2120c2571ea1102e12ff4d322b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit interrupt FIFO level select shift.  <a href="#ga30b5d2120c2571ea1102e12ff4d322b1">More...</a><br/></td></tr>
 <tr class="separator:ga30b5d2120c2571ea1102e12ff4d322b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gac2f2edef72d9b490c98d2dd8a86986ab">XUARTPSV_UARTIFLS_RXIFLSEL_1_8</a>&#160;&#160;&#160;0x00000000U</td></tr>
-<tr class="memdesc:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes .  <a href="#gac2f2edef72d9b490c98d2dd8a86986ab">More...</a><br/></td></tr>
+<tr class="memdesc:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 1/8 full.  <a href="#gac2f2edef72d9b490c98d2dd8a86986ab">More...</a><br/></td></tr>
 <tr class="separator:gac2f2edef72d9b490c98d2dd8a86986ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafdfa0dbb23e485a516ca374f17188afc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gafdfa0dbb23e485a516ca374f17188afc">XUARTPSV_UARTIFLS_RXIFLSEL_1_4</a>&#160;&#160;&#160;0x00000008U</td></tr>
-<tr class="memdesc:gafdfa0dbb23e485a516ca374f17188afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes .  <a href="#gafdfa0dbb23e485a516ca374f17188afc">More...</a><br/></td></tr>
+<tr class="memdesc:gafdfa0dbb23e485a516ca374f17188afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 1/4 full.  <a href="#gafdfa0dbb23e485a516ca374f17188afc">More...</a><br/></td></tr>
 <tr class="separator:gafdfa0dbb23e485a516ca374f17188afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaa8188b89d0ce92a1f44a6567f36697a0">XUARTPSV_UARTIFLS_RXIFLSEL_1_2</a>&#160;&#160;&#160;0x00000010U</td></tr>
-<tr class="memdesc:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes * .  <a href="#gaa8188b89d0ce92a1f44a6567f36697a0">More...</a><br/></td></tr>
+<tr class="memdesc:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 1/2 full.  <a href="#gaa8188b89d0ce92a1f44a6567f36697a0">More...</a><br/></td></tr>
 <tr class="separator:gaa8188b89d0ce92a1f44a6567f36697a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga47b47523cca78afa6e52a9502027a37c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga47b47523cca78afa6e52a9502027a37c">XUARTPSV_UARTIFLS_RXIFLSEL_3_4</a>&#160;&#160;&#160;0x00000018U</td></tr>
-<tr class="memdesc:ga47b47523cca78afa6e52a9502027a37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes * .  <a href="#ga47b47523cca78afa6e52a9502027a37c">More...</a><br/></td></tr>
+<tr class="memdesc:ga47b47523cca78afa6e52a9502027a37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 3/4 full.  <a href="#ga47b47523cca78afa6e52a9502027a37c">More...</a><br/></td></tr>
 <tr class="separator:ga47b47523cca78afa6e52a9502027a37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga5c032ea161c7f4c3b0f324fbaac3f5c3">XUARTPSV_UARTIFLS_RXIFLSEL_7_8</a>&#160;&#160;&#160;0x00000020U</td></tr>
-<tr class="memdesc:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes * .  <a href="#ga5c032ea161c7f4c3b0f324fbaac3f5c3">More...</a><br/></td></tr>
+<tr class="memdesc:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive FIFO becomes 7/8 full.  <a href="#ga5c032ea161c7f4c3b0f324fbaac3f5c3">More...</a><br/></td></tr>
 <tr class="separator:ga5c032ea161c7f4c3b0f324fbaac3f5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga6a1f2150559e66e8dc7dc3a6302e9f73">XUARTPSV_UARTIFLS_TXIFLSEL_1_8</a>&#160;&#160;&#160;0x00000000U</td></tr>
-<tr class="memdesc:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="#ga6a1f2150559e66e8dc7dc3a6302e9f73">More...</a><br/></td></tr>
+<tr class="memdesc:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 1/8 full.  <a href="#ga6a1f2150559e66e8dc7dc3a6302e9f73">More...</a><br/></td></tr>
 <tr class="separator:ga6a1f2150559e66e8dc7dc3a6302e9f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga531cc265bba0a0fa20238cccebfafc22"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga531cc265bba0a0fa20238cccebfafc22">XUARTPSV_UARTIFLS_TXIFLSEL_1_4</a>&#160;&#160;&#160;0x00000001U</td></tr>
-<tr class="memdesc:ga531cc265bba0a0fa20238cccebfafc22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="#ga531cc265bba0a0fa20238cccebfafc22">More...</a><br/></td></tr>
+<tr class="memdesc:ga531cc265bba0a0fa20238cccebfafc22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 1/4 full.  <a href="#ga531cc265bba0a0fa20238cccebfafc22">More...</a><br/></td></tr>
 <tr class="separator:ga531cc265bba0a0fa20238cccebfafc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga9dcd25c0d3978163c3f86f84bf9842ee">XUARTPSV_UARTIFLS_TXIFLSEL_1_2</a>&#160;&#160;&#160;0x00000002U</td></tr>
-<tr class="memdesc:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="#ga9dcd25c0d3978163c3f86f84bf9842ee">More...</a><br/></td></tr>
+<tr class="memdesc:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 1/2 full.  <a href="#ga9dcd25c0d3978163c3f86f84bf9842ee">More...</a><br/></td></tr>
 <tr class="separator:ga9dcd25c0d3978163c3f86f84bf9842ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac105b9cbc51795e15c03a933bef1aaae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gac105b9cbc51795e15c03a933bef1aaae">XUARTPSV_UARTIFLS_TXIFLSEL_3_4</a>&#160;&#160;&#160;0x00000003U</td></tr>
-<tr class="memdesc:gac105b9cbc51795e15c03a933bef1aaae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="#gac105b9cbc51795e15c03a933bef1aaae">More...</a><br/></td></tr>
+<tr class="memdesc:gac105b9cbc51795e15c03a933bef1aaae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 3/4 full.  <a href="#gac105b9cbc51795e15c03a933bef1aaae">More...</a><br/></td></tr>
 <tr class="separator:gac105b9cbc51795e15c03a933bef1aaae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaba65dd48c679c42014b22e3218f9ae03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#gaba65dd48c679c42014b22e3218f9ae03">XUARTPSV_UARTIFLS_TXIFLSEL_7_8</a>&#160;&#160;&#160;0x00000004U</td></tr>
-<tr class="memdesc:gaba65dd48c679c42014b22e3218f9ae03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes * .  <a href="#gaba65dd48c679c42014b22e3218f9ae03">More...</a><br/></td></tr>
+<tr class="memdesc:gaba65dd48c679c42014b22e3218f9ae03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit FIFO becomes 7/8 full.  <a href="#gaba65dd48c679c42014b22e3218f9ae03">More...</a><br/></td></tr>
 <tr class="separator:gaba65dd48c679c42014b22e3218f9ae03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -955,7 +958,7 @@ Modem Status Register</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Flow Delay Register</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp0e7c6822e790681d528d1f92e684efb8"></a>Operation of the flow delay register (FLOWDEL) is very similar to the receive FIFO trigger register.</p>
-<p>An internal trigger signal activates when the FIFO is filled to the level set by this register. This trigger will not cause an interrupt, although it can be read through the channel status register. In hardware flow control mode, RTS is deactivated when the trigger becomes active. RTS only resets when the FIFO level is four less than the level of the flow delay trigger and the flow delay trigger is not activated. A value less than 4 disables the flow delay. </p>
+<p>An internal trigger signal activates when the FIFO is filled to the level set by this register. This trigger does not cause an interrupt, although it can be read through the channel status register. In hardware flow control mode, RTS is deactivated when the trigger becomes active. RTS only resets when the FIFO level is four less than the level of the flow delay trigger and the flow delay trigger is not activated. A value less than 4 disables the flow delay. </p>
 </td></tr>
 <tr class="memitem:ga5f215e3b57a0c0cf69b85241fcd4d226"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartpsv.html#ga5f215e3b57a0c0cf69b85241fcd4d226">XUARTPSV_FLOWDEL_MASK</a>&#160;&#160;&#160;<a class="el" href="group__uartpsv.html#gaafbbddd771bc593e516b514a95efc26b">XUARTPSV_RXWM_MASK</a></td></tr>
 <tr class="memdesc:ga5f215e3b57a0c0cf69b85241fcd4d226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valid bit mask.  <a href="#ga5f215e3b57a0c0cf69b85241fcd4d226">More...</a><br/></td></tr>
@@ -1008,6 +1011,22 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <tr class="separator:ga5591fe90f5f7e0d1c44ad924c5579d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga199da98d8ddcd495482b436d294ec75d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIMEOUT_COUNTER&#160;&#160;&#160;1000000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait for 1 sec. </p>
+
+<p>Referenced by <a class="el" href="group__uartpsv.html#ga5dba5d9d345ab578b8410113968ffaa6">XUartPsv_SelfTest()</a>, and <a class="el" href="group__uartpsv.html#ga2236ec3fe4acd721566be3025554826b">XUartPsv_SendBuffer()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="gad4202f2666ae178cd380f2232bb96486"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1042,18 +1061,17 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <div class="line">                        (Xil_In32((InstancePtr)-&gt;Config. \</div>
 <div class="line">                        BaseAddress + (u32)XUARTPSV_UARTCR_OFFSET) &amp; \</div>
 <div class="line">                        ~(u32)<a class="code" href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a>))</div>
-<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:55</div></div>
-<div class="ttc" id="group__uartpsv_html_gad2f1a7f666dec76a2673c6c7dbb2be2f"><div class="ttname"><a href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_UARTEN</div><div class="ttdoc">UART enable. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:149</div></div>
+<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:68</div></div>
+<div class="ttc" id="group__uartpsv_html_gad2f1a7f666dec76a2673c6c7dbb2be2f"><div class="ttname"><a href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_UARTEN</div><div class="ttdoc">UART enable. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:195</div></div>
 </div><!-- fragment -->
-<p>Disable the transmitter and receiver of the UART. </p>
+<p>Disables the transmitter and receiver of the UART. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group__uartpsv.html#ga2a6ad86de9f65f8f859ab32a3286c919" title="Disable the transmitter and receiver of the UART. ">XUartPsv_DisableUart(XUartPsv *InstancePtr)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group__uartpsv.html#ga2a6ad86de9f65f8f859ab32a3286c919" title="Disables the transmitter and receiver of the UART. ">XUartPsv_DisableUart(XUartPsv *InstancePtr)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga8c73264d5304f3187edb896bab76dcb0">XUartPsv_SetBaudRate()</a>.</p>
 
@@ -1077,18 +1095,17 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <div class="line">                        (Xil_In32((InstancePtr)-&gt;Config. \</div>
 <div class="line">                        BaseAddress + (u32)XUARTPSV_UARTCR_OFFSET) | \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a>))</div>
-<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:55</div></div>
-<div class="ttc" id="group__uartpsv_html_gad2f1a7f666dec76a2673c6c7dbb2be2f"><div class="ttname"><a href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_UARTEN</div><div class="ttdoc">UART enable. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:149</div></div>
+<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:68</div></div>
+<div class="ttc" id="group__uartpsv_html_gad2f1a7f666dec76a2673c6c7dbb2be2f"><div class="ttname"><a href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_UARTEN</div><div class="ttdoc">UART enable. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:195</div></div>
 </div><!-- fragment -->
-<p>Enable the transmitter and receiver of the UART. </p>
+<p>Enables the transmitter and receiver of the UART. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group__uartpsv.html#gaf2e92c20719d5f1930c3e8d3ad98e06b" title="Enable the transmitter and receiver of the UART. ">XUartPsv_EnableUart(XUartPsv *InstancePtr)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: void <a class="el" href="group__uartpsv.html#gaf2e92c20719d5f1930c3e8d3ad98e06b" title="Enables the transmitter and receiver of the UART. ">XUartPsv_EnableUart(XUartPsv *InstancePtr)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga8c73264d5304f3187edb896bab76dcb0">XUartPsv_SetBaudRate()</a>.</p>
 
@@ -1459,17 +1476,17 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">Xil_In32(((InstancePtr)-&gt;Config.BaseAddress) + \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>)</div>
-<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:50</div></div>
+<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:58</div></div>
 </div><!-- fragment -->
-<p>Get the UART Channel Status Register. </p>
+<p>Reads the UART Channel Status Register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value read from the register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u16 <a class="el" href="group__uartpsv.html#gaf9269e5132e023fb82ccbb97dc9b955a" title="Get the UART Channel Status Register. ">XUartPsv_GetChannelStatus(XUartPsv *InstancePtr)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u16 <a class="el" href="group__uartpsv.html#gaf9269e5132e023fb82ccbb97dc9b955a" title="Reads the UART Channel Status Register. ">XUartPsv_GetChannelStatus(XUartPsv *InstancePtr)</a> </dd></dl>
 
 </div>
 </div>
@@ -1488,45 +1505,17 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">Xil_In32(((InstancePtr)-&gt;Config.BaseAddress) + \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>)</div>
-<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:55</div></div>
+<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:68</div></div>
 </div><!-- fragment -->
-<p>Get the UART Mode Control Register. </p>
+<p>Reads the UART Mode Control Register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value read from the register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 XUartPsv_GetControl(XUartPsv *InstancePtr) </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ga1995466148aa5c669d92e37642452c55"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XUARTPSV_H</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>by using protection macros </p>
-
-</div>
-</div>
-<a class="anchor" id="ga2742ac56c471a4ac8c605979d3bb0665"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XUARTPSV_HW_H</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>by using protection macros </p>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#gae536abc24f8139cc11c7136ea0010019" title="Reads the UART Mode Control Register. ">XUartPsv_GetModeControl(XUartPsv *InstancePtr)</a> </dd></dl>
 
 </div>
 </div>
@@ -1547,18 +1536,18 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <div class="line">                        <a class="code" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>) &amp; \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a>) == \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a>)</div>
-<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:50</div></div>
-<div class="ttc" id="group__uartpsv_html_ga52d6f333914d8bde4a32dff6022edcf7"><div class="ttname"><a href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_RXFE</div><div class="ttdoc">Receive FIFO empty. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:86</div></div>
+<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:58</div></div>
+<div class="ttc" id="group__uartpsv_html_ga52d6f333914d8bde4a32dff6022edcf7"><div class="ttname"><a href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_RXFE</div><div class="ttdoc">Receive FIFO empty. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:105</div></div>
 </div><!-- fragment -->
-<p>Determine if there is receive data in the receiver and/or FIFO. </p>
+<p>Determines if there is receive data in the receiver and/or FIFO. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if there is receive data, FALSE otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9" title="Determine if there is receive data in the receiver and/or FIFO. ">XUartPsv_IsReceiveData(UINTPTR BaseAddress)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9" title="Determines if there is receive data in the receiver and/or FIFO. ">XUartPsv_IsReceiveData(UINTPTR BaseAddress)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">XUartPsv_RecvByte()</a>.</p>
 
@@ -1580,18 +1569,18 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">((Xil_In32((BaseAddress) + <a class="code" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>) &amp; \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a>) == \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a>)</div>
-<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:50</div></div>
-<div class="ttc" id="group__uartpsv_html_ga9ad13f5d5d544fb2ba1df04f5b02d2b5"><div class="ttname"><a href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_BUSY</div><div class="ttdoc">UART Busy. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:87</div></div>
+<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:58</div></div>
+<div class="ttc" id="group__uartpsv_html_ga9ad13f5d5d544fb2ba1df04f5b02d2b5"><div class="ttname"><a href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_BUSY</div><div class="ttdoc">UART Busy. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:106</div></div>
 </div><!-- fragment -->
-<p>Determine if a byte of data can be sent with the transmitter. </p>
+<p>Determines if the transmitter is busy. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the TX is busy, FALSE if a byte can be put in the FIFO.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336" title="Determine if a byte of data can be sent with the transmitter. ">XUartPsv_IsTransmitFull(UINTPTR BaseAddress)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3" title="Determines if the transmitter is busy. ">XUartPsv_IsTransmitbusy(UINTPTR BaseAddress)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="xuartpsv__polled__example_8c.html#a1eb8c4c9967695faad8a5928908b6a04">UartPsvPolledExample()</a>, <a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg()</a>, and <a class="el" href="group__uartpsv.html#gac551c919a38424e6d23298256a9d1141">XUartPsv_Send_NoWait()</a>.</p>
 
@@ -1613,22 +1602,22 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">((Xil_In32(((InstancePtr)-&gt;Config.BaseAddress) + \</div>
 <div class="line">                (u32)<a class="code" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>) &amp; (u32)<a class="code" href="group__uartpsv.html#gac52469fbe1e3bb8ce53bf2c61833389d">XUARTPSV_UARTFR_TXFE</a>) \</div>
 <div class="line">                == (u32)<a class="code" href="group__uartpsv.html#gac52469fbe1e3bb8ce53bf2c61833389d">XUARTPSV_UARTFR_TXFE</a>)</div>
-<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:50</div></div>
-<div class="ttc" id="group__uartpsv_html_gac52469fbe1e3bb8ce53bf2c61833389d"><div class="ttname"><a href="group__uartpsv.html#gac52469fbe1e3bb8ce53bf2c61833389d">XUARTPSV_UARTFR_TXFE</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_TXFE</div><div class="ttdoc">Transmit FIFO empty. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:83</div></div>
+<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:58</div></div>
+<div class="ttc" id="group__uartpsv_html_gac52469fbe1e3bb8ce53bf2c61833389d"><div class="ttname"><a href="group__uartpsv.html#gac52469fbe1e3bb8ce53bf2c61833389d">XUARTPSV_UARTFR_TXFE</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_TXFE</div><div class="ttdoc">Transmit FIFO empty. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:102</div></div>
 </div><!-- fragment -->
-<p>Determine if the transmitter FIFO is empty. </p>
+<p>Determines if the transmitter FIFO is empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>TRUE if a byte can be sent</li>
-<li>FALSE if the Transmitter Fifo is not empty</li>
+<li>TRUE if a byte can be sent.</li>
+<li>FALSE if the Transmitter Fifo is not empty.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga05a61d255ef608f38a4a03dce92cda75" title="Determine if the transmitter FIFO is empty. ">XUartPsv_IsTransmitEmpty(XUartPsv InstancePtr)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga05a61d255ef608f38a4a03dce92cda75" title="Determines if the transmitter FIFO is empty. ">XUartPsv_IsTransmitEmpty(XUartPsv *InstancePtr)</a> </dd></dl>
 
 </div>
 </div>
@@ -1648,18 +1637,18 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">((Xil_In32((BaseAddress) + <a class="code" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>) &amp; \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga41a86bcc1a37151cff70ef6d9c8779c1">XUARTPSV_UARTFR_TXFF</a>) == \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga41a86bcc1a37151cff70ef6d9c8779c1">XUARTPSV_UARTFR_TXFF</a>)</div>
-<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:50</div></div>
-<div class="ttc" id="group__uartpsv_html_ga41a86bcc1a37151cff70ef6d9c8779c1"><div class="ttname"><a href="group__uartpsv.html#ga41a86bcc1a37151cff70ef6d9c8779c1">XUARTPSV_UARTFR_TXFF</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_TXFF</div><div class="ttdoc">Transmit FIFO full. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:85</div></div>
+<div class="ttc" id="group__uartpsv_html_ga3f04dd68cd110b79baf2076b0564eadd"><div class="ttname"><a href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_OFFSET</div><div class="ttdoc">Flag Register. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:58</div></div>
+<div class="ttc" id="group__uartpsv_html_ga41a86bcc1a37151cff70ef6d9c8779c1"><div class="ttname"><a href="group__uartpsv.html#ga41a86bcc1a37151cff70ef6d9c8779c1">XUARTPSV_UARTFR_TXFF</a></div><div class="ttdeci">#define XUARTPSV_UARTFR_TXFF</div><div class="ttdoc">Transmit FIFO full. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:104</div></div>
 </div><!-- fragment -->
-<p>Determine if a byte of data can be sent with the transmitter. </p>
+<p>Determines if a byte of data can be sent with the transmitter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TRUE if the TX FIFO is full, FALSE if a byte can be put in the FIFO.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336" title="Determine if a byte of data can be sent with the transmitter. ">XUartPsv_IsTransmitFull(UINTPTR BaseAddress)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336" title="Determines if a byte of data can be sent with the transmitter. ">XUartPsv_IsTransmitFull(UINTPTR BaseAddress)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga2236ec3fe4acd721566be3025554826b">XUartPsv_SendBuffer()</a>, and <a class="el" href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">XUartPsv_SendByte()</a>.</p>
 
@@ -1675,7 +1664,8 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>max % error allowed </p>
+<p>Maximum baud rate error percentage allowed. </p>
+<p>The following constant defines the amount of error allowed for a specified baud rate. This error is the difference between the actual baud rate generated using the specified clock and the desired baud rate. </p>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga8c73264d5304f3187edb896bab76dcb0">XUartPsv_SetBaudRate()</a>.</p>
 
@@ -2067,16 +2057,16 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read a UART register. </p>
+<p>Reads a UART register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>contains the offset from the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>Offset from the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The value read from the register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9" title="Read a UART register. ">XUartPsv_ReadReg(UINTPTR BaseAddress, int RegOffset)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: u32 <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9" title="Reads a UART register. ">XUartPsv_ReadReg(UINTPTR BaseAddress, int RegOffset)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#gae977262c7eae574f573fe4122ac6c0ab">XUartPsv_CfgInitialize()</a>, <a class="el" href="group__uartpsv.html#gad9a82725de555ca0e6414d95afb4fb2a">XUartPsv_GetDataFormat()</a>, <a class="el" href="group__uartpsv.html#gaaf3802ebc7d644ab9f80bb20060394e0">XUartPsv_GetFifoThreshold()</a>, <a class="el" href="group__uartpsv.html#ga049a65e8d28c43b51ce4c67b15a2d07e">XUartPsv_GetInterruptMask()</a>, <a class="el" href="group__uartpsv.html#ga9563569d26dcdc486b2fc9d2d18ec918">XUartPsv_GetModemStatus()</a>, <a class="el" href="group__uartpsv.html#ga2d87a5b4f9a733d6471c29080fddc7aa">XUartPsv_GetOperMode()</a>, <a class="el" href="group__uartpsv.html#ga30dc7c90e0cc1a859ae286f1bb4fb3cf">XUartPsv_GetOptions()</a>, <a class="el" href="group__uartpsv.html#ga869ac0531d2e16457706d013d7f0a0cc">XUartPsv_InterruptHandler()</a>, <a class="el" href="group__uartpsv.html#gaa335aef95c763728b0d179ddc3e8b209">XUartPsv_IsSending()</a>, <a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg()</a>, <a class="el" href="group__uartpsv.html#gab7c628a4fd29e1f9d1d4cb9cbe672279">XUartPsv_ReceiveBuffer()</a>, <a class="el" href="group__uartpsv.html#ga6d764b77ee5e8f535ce523a9df1f2ddc">XUartPsv_RecvByte()</a>, <a class="el" href="group__uartpsv.html#ga5dba5d9d345ab578b8410113968ffaa6">XUartPsv_SelfTest()</a>, <a class="el" href="group__uartpsv.html#ga8c73264d5304f3187edb896bab76dcb0">XUartPsv_SetBaudRate()</a>, <a class="el" href="group__uartpsv.html#ga5947dc8794a2d6d1b5cfb7558a83ac4a">XUartPsv_SetDataFormat()</a>, <a class="el" href="group__uartpsv.html#gab2c5afc9fe98688f68d1eb52e5014401">XUartPsv_SetFifoThreshold()</a>, <a class="el" href="group__uartpsv.html#ga0ea310ea61d052f2c4f5cce2dfadfc46">XUartPsv_SetOperMode()</a>, <a class="el" href="group__uartpsv.html#gada7b7128f09873d46fc19d0d9cf91751">XUartPsv_SetOptions()</a>, <a class="el" href="group__uartpsv.html#ga8bc7523050515544bb2823a9254ac8f5">XUartPsv_SetRxFifoThreshold()</a>, and <a class="el" href="group__uartpsv.html#ga43c4fde1105e2505e10c684622be1d13">XUartPsv_SetTxFifoThreshold()</a>.</p>
 
@@ -2359,18 +2349,17 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">Xil_Out32(((InstancePtr)-&gt;Config.BaseAddress) + \</div>
 <div class="line">                        (u32)<a class="code" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>, (u32)(RegisterValue))</div>
-<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:55</div></div>
+<div class="ttc" id="group__uartpsv_html_ga107036ece577d1e34edf6c01eb83305e"><div class="ttname"><a href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a></div><div class="ttdeci">#define XUARTPSV_UARTCR_OFFSET</div><div class="ttdoc">Control. </div><div class="ttdef"><b>Definition:</b> xuartpsv_hw.h:68</div></div>
 </div><!-- fragment -->
-<p>Set the UART Mode Control Register. </p>
+<p>Writes the UART Mode Control Register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">RegisterValue</td><td>is the value to be written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegisterValue</td><td>Value to write to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-Style signature: void XUartPsv_SetModeControl(<a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> *InstancePtr, u16 RegisterValue) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-Style signature: void XUartPsv_SetModeControl(<a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> *InstancePtr, u16 RegisterValue) </dd></dl>
 
 </div>
 </div>
@@ -3159,8 +3148,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Receive FIFO becomes * . </p>
-<p>1/2 full </p>
+<p>Receive FIFO becomes 1/2 full. </p>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#gae977262c7eae574f573fe4122ac6c0ab">XUartPsv_CfgInitialize()</a>.</p>
 
@@ -3176,8 +3164,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Receive FIFO becomes . </p>
-<p>1/4 full </p>
+<p>Receive FIFO becomes 1/4 full. </p>
 
 <p>Referenced by <a class="el" href="xuartpsv__intr__example_8c.html#a1d007e6ca11ccbd17910903ff771b3a5">UartPsvIntrExample()</a>.</p>
 
@@ -3193,8 +3180,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Receive FIFO becomes . </p>
-<p>1/8 full </p>
+<p>Receive FIFO becomes 1/8 full. </p>
 
 </div>
 </div>
@@ -3208,8 +3194,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Receive FIFO becomes * . </p>
-<p>3/4 full </p>
+<p>Receive FIFO becomes 3/4 full. </p>
 
 </div>
 </div>
@@ -3223,8 +3208,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Receive FIFO becomes * . </p>
-<p>7/8 full </p>
+<p>Receive FIFO becomes 7/8 full. </p>
 
 </div>
 </div>
@@ -3254,7 +3238,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit interrupt FIFO level select shift. </p>
+<p>Receive interrupt FIFO level select shift. </p>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#gab2c5afc9fe98688f68d1eb52e5014401">XUartPsv_SetFifoThreshold()</a>.</p>
 
@@ -3270,8 +3254,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit FIFO becomes * . </p>
-<p>1/2 full </p>
+<p>Transmit FIFO becomes 1/2 full. </p>
 
 <p>Referenced by <a class="el" href="xuartpsv__intr__example_8c.html#a1d007e6ca11ccbd17910903ff771b3a5">UartPsvIntrExample()</a>, and <a class="el" href="group__uartpsv.html#gae977262c7eae574f573fe4122ac6c0ab">XUartPsv_CfgInitialize()</a>.</p>
 
@@ -3287,8 +3270,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit FIFO becomes * . </p>
-<p>1/4 full </p>
+<p>Transmit FIFO becomes 1/4 full. </p>
 
 </div>
 </div>
@@ -3302,8 +3284,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit FIFO becomes * . </p>
-<p>1/8 full </p>
+<p>Transmit FIFO becomes 1/8 full. </p>
 
 </div>
 </div>
@@ -3317,8 +3298,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit FIFO becomes * . </p>
-<p>3/4 full </p>
+<p>Transmit FIFO becomes 3/4 full. </p>
 
 </div>
 </div>
@@ -3332,8 +3312,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transmit FIFO becomes * . </p>
-<p>7/8 full </p>
+<p>Transmit FIFO becomes 7/8 full. </p>
 
 </div>
 </div>
@@ -3347,7 +3326,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Receive interrupt FIFO level select mask. </p>
+<p>Transmit interrupt FIFO level select mask. </p>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#gaaf3802ebc7d644ab9f80bb20060394e0">XUartPsv_GetFifoThreshold()</a>, <a class="el" href="group__uartpsv.html#gab2c5afc9fe98688f68d1eb52e5014401">XUartPsv_SetFifoThreshold()</a>, and <a class="el" href="group__uartpsv.html#ga43c4fde1105e2505e10c684622be1d13">XUartPsv_SetTxFifoThreshold()</a>.</p>
 
@@ -4319,16 +4298,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">Xil_Out32((BaseAddress) + (u32)(RegOffset), \</div>
 <div class="line">                        (u32)(RegisterValue))</div>
 </div><!-- fragment -->
-<p>Write a UART register. </p>
+<p>Writes a UART register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>contains the offset from the base address of the device. </td></tr>
-    <tr><td class="paramname">RegisterValue</td><td>is the value to be written to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>Offset from the base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegisterValue</td><td>Value to write to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-Style signature: void XUartPsv_WriteReg(UINTPTR BaseAddress, int RegOffset, u16 RegisterValue) </dd></dl>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#gae977262c7eae574f573fe4122ac6c0ab">XUartPsv_CfgInitialize()</a>, <a class="el" href="group__uartpsv.html#ga869ac0531d2e16457706d013d7f0a0cc">XUartPsv_InterruptHandler()</a>, <a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg()</a>, <a class="el" href="group__uartpsv.html#ga2236ec3fe4acd721566be3025554826b">XUartPsv_SendBuffer()</a>, <a class="el" href="group__uartpsv.html#ga24308126daae7b67de1790b345933598">XUartPsv_SendByte()</a>, <a class="el" href="group__uartpsv.html#ga8c73264d5304f3187edb896bab76dcb0">XUartPsv_SetBaudRate()</a>, <a class="el" href="group__uartpsv.html#ga5947dc8794a2d6d1b5cfb7558a83ac4a">XUartPsv_SetDataFormat()</a>, <a class="el" href="group__uartpsv.html#gab2c5afc9fe98688f68d1eb52e5014401">XUartPsv_SetFifoThreshold()</a>, <a class="el" href="group__uartpsv.html#ga09b94a490c696d7ff7b1c6bbec42b226">XUartPsv_SetInterruptMask()</a>, <a class="el" href="group__uartpsv.html#gada7b7128f09873d46fc19d0d9cf91751">XUartPsv_SetOptions()</a>, <a class="el" href="group__uartpsv.html#ga8bc7523050515544bb2823a9254ac8f5">XUartPsv_SetRxFifoThreshold()</a>, and <a class="el" href="group__uartpsv.html#ga43c4fde1105e2505e10c684622be1d13">XUartPsv_SetTxFifoThreshold()</a>.</p>
@@ -4346,12 +4324,12 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This data type defines a handler that an application defines to communicate with interrupt system to retrieve state information about an application. </p>
+<p>Defines a handler that an application defines to communicate with the interrupt system to retrieve state information about an application. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is a callback reference passed in by the upper layer when setting the handler, and is passed back to the upper layer when the handler is called. It is used to find the device driver instance. </td></tr>
-    <tr><td class="paramname">Event</td><td>contains one of the event constants indicating events that have occurred. </td></tr>
-    <tr><td class="paramname">EventData</td><td>contains the number of bytes sent or received at the time of the call for send and receive events and contains the modem status for modem events. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Callback reference passed in by the upper layer when setting the handler, and is passed back to the upper layer when the handler is called. It is used to find the device driver instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Event</td><td>One of the event constants indicating events that have occurred. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EventData</td><td>Number of bytes sent or received at the time of the call for send and receive events and contains the modem status for modem events. </td></tr>
   </table>
   </dd>
 </dl>
@@ -4389,19 +4367,19 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a specific <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance such that it is ready to be used. </p>
+<p>Initializes a specific <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance for use. </p>
 <p>The data format of the device is setup for 8 data bits, 1 stop bit, and no parity by default. The baud rate is set to a default value specified by Config-&gt;DefaultBaudRate if set, otherwise it is set to 19.2K baud. The receive FIFO threshold is set for 8 bytes. The default operating mode of the driver is polled mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">Config</td><td>is a reference to a structure containing information about a specific <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> driver. </td></tr>
-    <tr><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Config</td><td>Reference to a structure containing information about a specific <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddr</td><td>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if initialization was successful</li>
-<li>XST_UART_BAUD_ERROR if the baud rate is not possible because the inputclock frequency is not divisible with an acceptable amount of error</li>
+<li>XST_SUCCESS if initialization was successful.</li>
+<li>XST_UART_BAUD_ERROR if the baud rate is not possible because the inputclock frequency is not divisible with an acceptable amount of error.</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The default configuration for the UART after initialization is:</dd></dl>
@@ -4410,7 +4388,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <li>8 data bits</li>
 <li>1 stop bit</li>
 <li>no parity</li>
-<li><p class="startli">FIFO's are enabled with a threshold of 16 ytes</p>
+<li><p class="startli">FIFO's are enabled with a threshold of 16 bytes</p>
 <p class="startli">All interrupts are disabled. </p>
 </li>
 </ul>
@@ -4435,9 +4413,13 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is a cleanup function to allow resetting Rx NextBytePtr, RemainingBytes and RequestedBytes. </p>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Resets the Rx NextBytePtr, RemainingBytes and RequestedBytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>References <a class="el" href="struct_x_uart_psv_buffer.html#ae6466922ee28d721351afc83bc8b84f4">XUartPsvBuffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_psv.html#aeee14c65e38a5fa3dc2eeaf6d60281ab">XUartPsv::ReceiveBuffer</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a606a38ec3c1bb6656084bb1c106ad895">XUartPsvBuffer::RemainingBytes</a>, and <a class="el" href="struct_x_uart_psv_buffer.html#a4d70a13255d768fc2f870aa6eac05f5f">XUartPsvBuffer::RequestedBytes</a>.</p>
 
@@ -4457,9 +4439,13 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is a cleanup function to allow resetting Tx NextBytePtr, RemainingBytes and RequestedBytes. </p>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Resets the Tx NextBytePtr, RemainingBytes and RequestedBytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>References <a class="el" href="struct_x_uart_psv_buffer.html#ae6466922ee28d721351afc83bc8b84f4">XUartPsvBuffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a606a38ec3c1bb6656084bb1c106ad895">XUartPsvBuffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a4d70a13255d768fc2f870aa6eac05f5f">XUartPsvBuffer::RequestedBytes</a>, and <a class="el" href="struct_x_uart_psv.html#a52503eea4d30a82b0036bf8ee40980a2">XUartPsv::SendBuffer</a>.</p>
 
@@ -4489,17 +4475,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the data format for the specified UART. </p>
+<p>Retrieves the data format for the specified UART. </p>
 <p>The data format includes the baud rate, number of data bits, number of stop bits, and parity.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">FormatPtr</td><td>is a pointer to a format structure that will contain the data format after this call completes.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">FormatPtr</td><td>Pointer to a format structure that contains the data format after this call completes. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv_format.html#a710c7759c468d53d77fc8bd3fa5b8b37">XUartPsvFormat::BaudRate</a>, <a class="el" href="struct_x_uart_psv.html#a4ac2e57dee932612cdc9eed25f025955">XUartPsv::BaudRate</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv_format.html#a6a1664ca6b7271ad33b58b128d462dd9">XUartPsvFormat::DataBits</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="struct_x_uart_psv_format.html#a3d43837c0b3d6bb47322503ace817c9d">XUartPsvFormat::Parity</a>, <a class="el" href="struct_x_uart_psv_format.html#aa5b4911ebade83ca74edd5acc235c484">XUartPsvFormat::StopBits</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga08c3dd57fdf59ae1e0cf866476e81c38">XUARTPSV_UARTLCR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga0b94a4115ed1352d692b6c7edb1c328a">XUARTPSV_UARTLCR_PARITY_MASK</a>, <a class="el" href="group__uartpsv.html#gacc334d01b7ef2ffd237cd0ebc0e24877">XUARTPSV_UARTLCR_PARITY_SHIFT</a>, <a class="el" href="group__uartpsv.html#ga2a5c571c8766fc2ab6843a2c6e8bbca1">XUARTPSV_UARTLCR_STP_MASK</a>, <a class="el" href="group__uartpsv.html#gac5ae863cb8547fdc9d63183cd44ae1ff">XUARTPSV_UARTLCR_STP_SHIFT</a>, <a class="el" href="group__uartpsv.html#ga1023547ed388849703da403fe34b2bcb">XUARTPSV_UARTLCR_WLEN_MASK</a>, and <a class="el" href="group__uartpsv.html#gafef090600c5845be229c5767c8fbfec2">XUARTPSV_UARTLCR_WLEN_SHIFT</a>.</p>
 
@@ -4519,16 +4503,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function gets the Tx and Rx FIFO trigger level. </p>
-<p>The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated. </p>
+<p>Retrieves the Tx and Rx FIFO trigger level. </p>
+<p>The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current receive FIFO trigger level. This is a value from 0-63.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current receive FIFO trigger level. This is a value from 0-63. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#gacd10d435731ec271f5316110cde0c6e9">XUARTPSV_UARTIFLS_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga3149c045f35eae100cb9f39765796327">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</a>, and <a class="el" href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</a>.</p>
 
@@ -4548,15 +4531,14 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function gets the interrupt mask. </p>
+<p>Retrieves the current interrupt mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current interrupt mask. The mask indicates which interrupts are enabled.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current interrupt mask. The mask indicates which interrupts are enabled. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, and <a class="el" href="group__uartpsv.html#ga0cb9a381f2ea7582c0f361fbe2a77246">XUARTPSV_UARTIMSC_OFFSET</a>.</p>
 
@@ -4578,11 +4560,11 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function gets the modem status from the specified UART. </p>
-<p>The modem status indicates any changes of the modem signals. This function allows the modem status to be read in a polled mode. The modem status is updated whenever it is read such that reading it twice may not yield the same results.</p>
+<p>Retrieves the modem status from the specified UART. </p>
+<p>The modem status indicates any changes of the modem signals. This function allows the modem status to be read in polled mode. The modem status is updated whenever it is read such that reading it twice may not yield the same results.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
@@ -4607,16 +4589,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function gets the operational mode of the UART. </p>
+<p>Retrieves the operational mode of the UART. </p>
 <p>The UART can operate in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic echo.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The operational mode is specified by constants defined in <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a>. The constants are named XUARTPSV_OPER_MODE_*</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The operational mode is specified by constants defined in <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a>. The constants are named XUARTPSV_OPER_MODE_*. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga1697d029413b91344628690b465814e9">XUARTPSV_OPER_MODE_LOCAL_LOOP</a>, <a class="el" href="group__uartpsv.html#ga85a2c3e9c12a5e5df66a3be084243937">XUARTPSV_OPER_MODE_NORMAL</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#gae2e178647eee834f64b7f478fdd23cfa">XUARTPSV_UARTCR_LBE</a>, <a class="el" href="group__uartpsv.html#ga1a0baa260d70d4282cdb57ed1b678e33">XUARTPSV_UARTCR_MODE_MASK</a>, <a class="el" href="group__uartpsv.html#ga1fcf5d1f1e8b57514f6538f89ce7bfd5">XUARTPSV_UARTCR_MODE_NORMAL</a>, <a class="el" href="group__uartpsv.html#ga3cb7344a223ea2c7dc3d4bc6be3d387d">XUARTPSV_UARTCR_MODE_SHIFT</a>, and <a class="el" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>.</p>
 
@@ -4636,16 +4617,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the options for the specified driver instance. </p>
+<p>Retrieves the current options for the specified driver instance. </p>
 <p>The options are implemented as bit masks such that multiple options may be enabled or disabled simultaneously.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current options for the UART. The options are bit masks that are contained in the file <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a> and named XUARTPSV_OPTION_*.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current options for the UART. The options are bit masks that are contained in the file <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a> and named XUARTPSV_OPTION_*. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga085455aa637fa6865bfdf3f6765336fc">XUARTPSV_NUM_OPTIONS</a>, and <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>.</p>
 
@@ -4665,16 +4645,14 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the interrupt handler for the driver. </p>
-<p>It must be connected to an interrupt system by the application such that it can be called when an interrupt occurs.</p>
+<p>Handles interrupts for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver. </p>
+<p>Must be connected to an interrupt system by the application such that it can be called when an interrupt occurs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>contains a pointer to the driver instance</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the driver instance. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#af86e00e608392fe594cb87d10dd3686e">XUartPsv::CallBackRef</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#aa64939340dd16487202fa1cc9a0af657">XUartPsv::Handler</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga85a13c60627c82f2cede7deab0926d5a">XUARTPSV_EVENT_PARE_FRAME_BRKE</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga57aee99ed20e8b0a6c2529abe80d8a62">XUARTPSV_UARTICR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga0cb9a381f2ea7582c0f361fbe2a77246">XUARTPSV_UARTIMSC_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga39f7fe6bb088a17ff3c3aae55bdb83e5">XUARTPSV_UARTRIS_BERIS</a>, <a class="el" href="group__uartpsv.html#ga212984492952ed44c8cc5f1f2c21b88b">XUARTPSV_UARTRIS_CTSRMIS</a>, <a class="el" href="group__uartpsv.html#ga6af359ea5edadfcc8336579bdc117996">XUARTPSV_UARTRIS_DCDRMIS</a>, <a class="el" href="group__uartpsv.html#ga25fffe7167abcd67778afa4c408e6010">XUARTPSV_UARTRIS_DSRRMIS</a>, <a class="el" href="group__uartpsv.html#ga0a42968f9e1b0c8e51a0557160a0594b">XUARTPSV_UARTRIS_FERIS</a>, <a class="el" href="group__uartpsv.html#gad8e6dbbb885dc5746daeefd03576fd64">XUARTPSV_UARTRIS_OERIS</a>, <a class="el" href="group__uartpsv.html#gae409fde818bb1e9093340a7713c416ee">XUARTPSV_UARTRIS_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga21cda2af097b5f20a56ed916234fc94a">XUARTPSV_UARTRIS_PERIS</a>, <a class="el" href="group__uartpsv.html#gabdd920d80d9cc6482c1a3895d73ae53b">XUARTPSV_UARTRIS_RIRMIS</a>, <a class="el" href="group__uartpsv.html#gab9429289524c4c6a407444f5585bb380">XUARTPSV_UARTRIS_RTRIS</a>, <a class="el" href="group__uartpsv.html#ga17fbfe1af8b3e0afeebb101d38831356">XUARTPSV_UARTRIS_RXRIS</a>, <a class="el" href="group__uartpsv.html#ga06182e2897e64336bcab44a0012f8711">XUARTPSV_UARTRIS_TXRIS</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -4696,19 +4674,18 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function determines if the specified UART is sending data. </p>
+<p>Determines if the specified UART is sending data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>TRUE if the UART is sending data</li>
-<li>FALSE if UART is not sending data</li>
+<li>TRUE if the UART is sending data.</li>
+<li>FALSE if UART is not sending data. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a>, <a class="el" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#gac52469fbe1e3bb8ce53bf2c61833389d">XUARTPSV_UARTFR_TXFE</a>.</p>
 
@@ -4728,15 +4705,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Looks up the device configuration based on the unique device ID/BaseAddress. </p>
+<p>Looks up the device configuration based on the unique device ID or base address. </p>
 <p>The XUartPsv_ConfigTable[] contains the configuration info for each device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a> for the definition of <a class="el" href="struct_x_uart_psv___config.html" title="This typedef contains configuration information for the device. ">XUartPsv_Config</a>.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a> for the definition of <a class="el" href="struct_x_uart_psv___config.html" title="Contains configuration information for the device. ">XUartPsv_Config</a>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#a0e55e6061fd9d48bdf66df73dceffe4e">XUartPsv_Config::Name</a>, and <a class="el" href="group__uartpsv.html#gaed365c02539b1452e590d0123f858c30">XUartPsv_ConfigTable</a>.</p>
@@ -4769,24 +4746,22 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function reprograms the control register according to the following sequence mentioned in the TRM. </p>
-<p>Sequence to Program Control Register.</p>
+<p>Reprograms the control register per the TRM sequence. </p>
+<p>Sequence to Program Control Register:</p>
 <ol type="1">
 <li>Disable UART</li>
 <li>Check if Busy</li>
 <li>Flush the transmit FIFO</li>
 <li>Program the Control Register</li>
-<li>Enable the Uart</li>
+<li>Enable the UART</li>
 </ol>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance </td></tr>
-    <tr><td class="paramname">CtrlRegister</td><td>value to be written</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CtrlRegister</td><td>Value to write. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">XUartPsv_IsTransmitbusy</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>, <a class="el" href="group__uartpsv.html#gad2f1a7f666dec76a2673c6c7dbb2be2f">XUARTPSV_UARTCR_UARTEN</a>, <a class="el" href="group__uartpsv.html#ga452535571ef19b6c387d2823040ba3da">XUARTPSV_UARTLCR_FEN</a>, <a class="el" href="group__uartpsv.html#ga08c3dd57fdf59ae1e0cf866476e81c38">XUARTPSV_UARTLCR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -4808,19 +4783,18 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function receives a buffer that has been previously specified by setting up the instance variables of the instance. </p>
-<p>This function is an internal function, and it may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
-<p>This function attempts to receive a specified number of bytes from the device and store it into the specified buffer. This function works for either polled or interrupt driven modes. It is non-blocking.</p>
+<p>Receives a buffer previously specified by setting up the instance variables of the instance. </p>
+<p>This is an internal function. It may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
+<p>Attempts to receive a specified number of bytes from the device and store them into the specified buffer. Works for either polled or interrupt driven modes. It is non-blocking.</p>
 <p>In polled mode, this function only receives as much data as in the RX FIFO. The application may need to call it repeatedly to receive the entire buffer. Polled mode is the default mode for the driver.</p>
-<p>In interrupt mode, this function starts the receiving, if not the entire buffer has been received, the interrupt handler will continue until the entire buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of the receiving or error conditions.</p>
+<p>In interrupt mode, this function starts the receiving. If not the entire buffer has been received, the interrupt handler continues until the entire buffer has been received. A callback function, as specified by the application, is called to indicate the completion of the receiving or error conditions.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes received.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes received. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv_buffer.html#ae6466922ee28d721351afc83bc8b84f4">XUartPsvBuffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_psv.html#aeee14c65e38a5fa3dc2eeaf6d60281ab">XUartPsv::ReceiveBuffer</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a606a38ec3c1bb6656084bb1c106ad895">XUartPsvBuffer::RemainingBytes</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga101fd40e38eabc4ac374e9f332a71b46">XUARTPSV_UARTDR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a>.</p>
 
@@ -4858,15 +4832,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function attempts to receive a specified number of bytes of data from the device and store it into the specified buffer. </p>
-<p>This function works for both polled or interrupt driven modes. It is non-blocking.</p>
-<p>In a polled mode, this function will only receive the data already in the RX FIFO. The application may need to call it repeatedly to receive the entire buffer. Polled mode is the default mode of operation for the device.</p>
-<p>In interrupt mode, this function will start the receiving, if not the entire buffer has been received, the interrupt handler will continue receiving data until the entire buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of the receiving or error conditions.</p>
+<p>Attempts to receive a specified number of bytes of data from the device and store it into the specified buffer. </p>
+<p>Works for both polled and interrupt driven modes. It is non-blocking.</p>
+<p>In polled mode, this function only receives the data already in the RX FIFO. The application may need to call it repeatedly to receive the entire buffer. Polled mode is the default mode of operation for the device.</p>
+<p>In interrupt mode, this function starts the receiving. If not the entire buffer has been received, the interrupt handler continues receiving data until the entire buffer has been received. A callback function, as specified by the application, is called to indicate completion of the receiving or error conditions.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance </td></tr>
-    <tr><td class="paramname">BufferPtr</td><td>is pointer to buffer for data to be received into </td></tr>
-    <tr><td class="paramname">NumBytes</td><td>is the number of bytes to be received. A value of zero will stop a previous receive operation that is in progress in interrupt mode.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufferPtr</td><td>Pointer to buffer to receive data into. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBytes</td><td>Number of bytes to receive. A value of zero stops a previous receive operation that is in progress in interrupt mode.</td></tr>
   </table>
   </dd>
 </dl>
@@ -4893,16 +4867,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function receives a byte from the device. </p>
-<p>It operates in polled mode and blocks until a byte has received.</p>
+<p>Receives a byte from the device in polled mode. </p>
+<p>Blocks until a byte has been received.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The data byte received.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The data byte received. </dd></dl>
 
 <p>References <a class="el" href="group__uartpsv.html#ga72e127b91f03728e0b58b2b3b6373dd9">XUartPsv_IsReceiveData</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, and <a class="el" href="group__uartpsv.html#ga101fd40e38eabc4ac374e9f332a71b46">XUARTPSV_UARTDR_OFFSET</a>.</p>
 
@@ -4922,16 +4895,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function resets UART. </p>
-<p>(To be implemented if needed)</p>
+<p>Resets the UART. </p>
+<p>This function is to be implemented if needed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Not implemented. </dd></dl>
 
 </div>
 </div>
@@ -4949,24 +4921,24 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function runs a self-test on the driver and hardware device. </p>
-<p>This self test performs a local loopback and verifies data can be sent and received.</p>
+<p>Runs a self-test on the driver and hardware device. </p>
+<p>Performs a local loopback and verifies data can be sent and received.</p>
 <p>The time for this test is proportional to the baud rate that has been set prior to calling this function.</p>
 <p>The mode and control registers are restored before return.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the test was successful</li>
-<li>XST_UART_TEST_FAIL if the test failed looping back the data</li>
+<li>XST_SUCCESS if the test was successful.</li>
+<li>XST_UART_TEST_FAIL if the test failed looping back the data.</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function can hang if the hardware is not functioning properly. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga1697d029413b91344628690b465814e9">XUARTPSV_OPER_MODE_LOCAL_LOOP</a>, <a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg()</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga4d4d20bbcedb1de2adbe2644b821d12d">XUartPsv_Recv()</a>, <a class="el" href="group__uartpsv.html#ga71a962de4963e15f1c38e7831e825f7c">XUartPsv_Send()</a>, <a class="el" href="group__uartpsv.html#ga0ea310ea61d052f2c4f5cce2dfadfc46">XUartPsv_SetOperMode()</a>, <a class="el" href="group__uartpsv.html#ga65b918b2177ca36aa056eb73f7cb5f09">XUARTPSV_TOTAL_BYTES</a>, <a class="el" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a>.</p>
+<p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga199da98d8ddcd495482b436d294ec75d">TIMEOUT_COUNTER</a>, <a class="el" href="group__uartpsv.html#ga1697d029413b91344628690b465814e9">XUARTPSV_OPER_MODE_LOCAL_LOOP</a>, <a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg()</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga4d4d20bbcedb1de2adbe2644b821d12d">XUartPsv_Recv()</a>, <a class="el" href="group__uartpsv.html#ga71a962de4963e15f1c38e7831e825f7c">XUartPsv_Send()</a>, <a class="el" href="group__uartpsv.html#ga0ea310ea61d052f2c4f5cce2dfadfc46">XUartPsv_SetOperMode()</a>, <a class="el" href="group__uartpsv.html#ga65b918b2177ca36aa056eb73f7cb5f09">XUARTPSV_TOTAL_BYTES</a>, <a class="el" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga52d6f333914d8bde4a32dff6022edcf7">XUARTPSV_UARTFR_RXFE</a>.</p>
 
 <p>Referenced by <a class="el" href="xuartpsv__hello__world__example_8c.html#af3a7876a493931a8e88dd16c35d7e8c4">UartPsvHelloWorldExample()</a>, <a class="el" href="xuartpsv__intr__example_8c.html#a1d007e6ca11ccbd17910903ff771b3a5">UartPsvIntrExample()</a>, <a class="el" href="xuartpsv__polled__example_8c.html#a1eb8c4c9967695faad8a5928908b6a04">UartPsvPolledExample()</a>, and <a class="el" href="xuartpsv__selftest__example_8c.html#a84bfc77dedcd89648c6cf8ce19253afd">UartPsvSelfTestExample()</a>.</p>
 
@@ -5002,15 +4974,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sends the specified buffer using the device in either polled or interrupt driven mode. </p>
-<p>This function is non-blocking, if the device is busy sending data, it will return and indicate zero bytes were sent. Otherwise, it fills the TX FIFO as much as it can, and return the number of bytes sent.</p>
-<p>In a polled mode, this function will only send as much data as TX FIFO can buffer. The application may need to call it repeatedly to send the entire buffer.</p>
-<p>In interrupt mode, this function will start sending the specified buffer, then the interrupt handler will continue sending data until the entire buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending.</p>
+<p>Sends the specified buffer in polled or interrupt driven mode. </p>
+<p>This function is non-blocking. If the device is busy sending data, it returns and indicates zero bytes were sent. Otherwise, it fills the TX FIFO as much as it can, and returns the number of bytes sent.</p>
+<p>In polled mode, this function only sends as much data as the TX FIFO can buffer. The application may need to call it repeatedly to send the entire buffer.</p>
+<p>In interrupt mode, this function starts sending the specified buffer, then the interrupt handler continues sending data until the entire buffer has been sent. A callback function, as specified by the application, is called to indicate the completion of sending.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">BufferPtr</td><td>is pointer to a buffer of data to be sent. </td></tr>
-    <tr><td class="paramname">NumBytes</td><td>contains the number of bytes to be sent. A value of zero will stop a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO will be sent.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>Pointer to a buffer of data to send. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBytes</td><td>Number of bytes to send. A value of zero stops a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO is sent.</td></tr>
   </table>
   </dd>
 </dl>
@@ -5055,60 +5027,25 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><ul>
-<li></li>
+<p>Sends the specified buffer in polled mode without waiting. </p>
+<p>This function is non-blocking. If the device is busy sending data, it returns and indicates zero bytes were sent. Otherwise, it fills the TX FIFO as much as it can, and returns the number of bytes sent. The application may need to call it repeatedly to send the entire buffer.</p>
+<p>Implemented for RTOS environment. It checks status and returns without waiting. The caller of XUartPsv_Send_NoWait can wait based on the return value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufferPtr</td><td>Pointer to a buffer of data to send. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBytes</td><td>Number of bytes to send. A value of zero stops a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO is sent.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>The number of bytes actually sent, if data successfully sent.</li>
+<li>0, if TX is busy. The caller of XUartPsv_Send_NoWait can wait if return is 0.</li>
 </ul>
-</p>
-<ul>
-<li>This functions sends the specified buffer using the device in polled mode.</li>
-<li>This function is non-blocking, if the device is busy sending data, it will</li>
-<li>return and indicate zero bytes were sent. Otherwise, it fills the TX FIFO</li>
-<li>as much as it can, and return the number of bytes sent. The application may</li>
-<li>need to call it repeatedly to send the entire buffer.</li>
-<li></li>
-<li>This function implemented for RTOS environment, it will check status and</li>
-<li>return without waiting. The caller of XUartPsv_Send_NoWait can wait</li>
-<li>based on return value.</li>
-<li></li>
-<li><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-</li>
-<li><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BufferPtr</td><td>is pointer to a buffer of data to be sent.</td></tr>
-  </table>
-  </dd>
-</dl>
-</li>
-<li><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">NumBytes</td><td>contains the number of bytes to be sent. A value of</td></tr>
-  </table>
-  </dd>
-</dl>
-</li>
-<li>zero will stop a previous send operation that is in progress</li>
-<li>in interrupt mode. Any data that was already put into the</li>
-<li>transmit FIFO will be sent.</li>
-<li></li>
-<li><dl class="section return"><dt>Returns</dt><dd>- The number of bytes actually sent, if data successfully sent</dd></dl>
-</li>
-<li>- 0, if TX is busy. The caller of XUartPsv_Send_NoWait can</li>
-<li>wait if return 0.</li>
-<li></li>
-<li><dl class="section note"><dt>Note</dt><dd></dd></dl>
-</li>
-<li>The number of bytes is not asserted so that this function may be called with</li>
-<li>a value of zero to stop an operation that is already in progress.</li>
-<li><br/>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. <br/>
 <br/>
-</li>
-<li></li>
-</ul>
+ </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="struct_x_uart_psv_buffer.html#ae6466922ee28d721351afc83bc8b84f4">XUartPsvBuffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a606a38ec3c1bb6656084bb1c106ad895">XUartPsvBuffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a4d70a13255d768fc2f870aa6eac05f5f">XUartPsvBuffer::RequestedBytes</a>, <a class="el" href="struct_x_uart_psv.html#a52503eea4d30a82b0036bf8ee40980a2">XUartPsv::SendBuffer</a>, and <a class="el" href="group__uartpsv.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3">XUartPsv_IsTransmitbusy</a>.</p>
 
@@ -5128,21 +5065,20 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sends a buffer that has been previously specified by setting up the instance variables of the instance. </p>
-<p>This function is an internal function for the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> driver such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</p>
-<p>This function sends the specified buffer in either polled or interrupt driven modes. This function is non-blocking.</p>
-<p>In a polled mode, this function only sends as much data as the TX FIFO can buffer. The application may need to call it repeatedly to send the entire buffer.</p>
-<p>In interrupt mode, this function starts the sending of the buffer, if not the entire buffer has been sent, then the interrupt handler continues the sending until the entire buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending.</p>
+<p>Sends a buffer previously specified by setting up the instance variables of the instance. </p>
+<p>This function sends the buffer in either polled or interrupt driven modes.</p>
+<p>This is an internal function for the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> driver. It may be called from a shell function that sets up the buffer or from an interrupt handler. This function is non-blocking.</p>
+<p>In polled mode, this function only sends as much data as the TX FIFO can buffer. The application may need to call it repeatedly to send the entire buffer.</p>
+<p>In interrupt mode, this function starts the sending of the buffer. If not the entire buffer has been sent, then the interrupt handler continues the sending until the entire buffer has been sent. A callback function, as specified by the application, is called to indicate the completion of sending.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of bytes actually sent</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of bytes actually sent. </dd></dl>
 
-<p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv_buffer.html#ae6466922ee28d721351afc83bc8b84f4">XUartPsvBuffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a606a38ec3c1bb6656084bb1c106ad895">XUartPsvBuffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_psv.html#a52503eea4d30a82b0036bf8ee40980a2">XUartPsv::SendBuffer</a>, <a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">XUartPsv_IsTransmitFull</a>, <a class="el" href="group__uartpsv.html#ga101fd40e38eabc4ac374e9f332a71b46">XUARTPSV_UARTDR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a>, <a class="el" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv_buffer.html#ae6466922ee28d721351afc83bc8b84f4">XUartPsvBuffer::NextBytePtr</a>, <a class="el" href="struct_x_uart_psv_buffer.html#a606a38ec3c1bb6656084bb1c106ad895">XUartPsvBuffer::RemainingBytes</a>, <a class="el" href="struct_x_uart_psv.html#a52503eea4d30a82b0036bf8ee40980a2">XUartPsv::SendBuffer</a>, <a class="el" href="group__uartpsv.html#ga199da98d8ddcd495482b436d294ec75d">TIMEOUT_COUNTER</a>, <a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">XUartPsv_IsTransmitFull</a>, <a class="el" href="group__uartpsv.html#ga101fd40e38eabc4ac374e9f332a71b46">XUARTPSV_UARTDR_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga9ad13f5d5d544fb2ba1df04f5b02d2b5">XUARTPSV_UARTFR_BUSY</a>, <a class="el" href="group__uartpsv.html#ga3f04dd68cd110b79baf2076b0564eadd">XUARTPSV_UARTFR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga71a962de4963e15f1c38e7831e825f7c">XUartPsv_Send()</a>.</p>
 
@@ -5172,17 +5108,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sends one byte using the device. </p>
-<p>This function operates in polled mode and blocks until the data has been put into the TX FIFO register.</p>
+<p>Sends one byte using the device in polled mode. </p>
+<p>Blocks until the data has been put into the TX FIFO register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device. </td></tr>
-    <tr><td class="paramname">Data</td><td>contains the byte to be sent.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>Byte to send. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="group__uartpsv.html#ga04b62e0a1ad868d0a75238356c973336">XUartPsv_IsTransmitFull</a>, <a class="el" href="group__uartpsv.html#ga101fd40e38eabc4ac374e9f332a71b46">XUARTPSV_UARTDR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5216,17 +5150,16 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <p>Checks the input value for validity and also verifies that the requested rate can be configured to within the maximum error range specified by XUARTPSV_MAX_BAUD_ERROR_RATE. If the provided rate is not possible, the current setting is unchanged.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance </td></tr>
-    <tr><td class="paramname">BaudRate</td><td>to be set</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaudRate</td><td>Baud rate to set.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if everything configured as expected</li>
-<li>XST_UART_BAUD_ERROR if the requested rate is not available because there was too much error</li>
+<li>XST_SUCCESS if everything configured as expected.</li>
+<li>XST_UART_BAUD_ERROR if the requested rate is not available because there was too much error. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a4ac2e57dee932612cdc9eed25f025955">XUartPsv::BaudRate</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv___config.html#a587bd90d21168aad32ee93bf1163eaf6">XUartPsv_Config::InputClockHz</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga2a6ad86de9f65f8f859ab32a3286c919">XUartPsv_DisableUart</a>, <a class="el" href="group__uartpsv.html#gaf2e92c20719d5f1930c3e8d3ad98e06b">XUartPsv_EnableUart</a>, <a class="el" href="group__uartpsv.html#ga8dc8acae0282012aa1a20d979be436a6">XUARTPSV_MAX_BAUD_ERROR_RATE</a>, <a class="el" href="group__uartpsv.html#ga1028700cf5e97e64b72165616914a84a">XUARTPSV_MAX_RATE</a>, <a class="el" href="group__uartpsv.html#gaa2e96fa49febeff396414ae7c25eff69">XUARTPSV_MIN_RATE</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#ga5cbf5b3dfdfd11d7e9f62d1fabba3cd7">XUARTPSV_UARTFBRD_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga773416a8d139d13f464660701a96b091">XUARTPSV_UARTIBRD_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga08c3dd57fdf59ae1e0cf866476e81c38">XUARTPSV_UARTLCR_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5262,8 +5195,8 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <p>The data format includes the baud rate, number of data bits, number of stop bits, and parity. It is the caller's responsibility to ensure that the UART is not sending or receiving data when this function is called.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">FormatPtr</td><td>is a pointer to a format structure containing the data format to be set.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FormatPtr</td><td>Pointer to a format structure containing the data format to be set.</td></tr>
   </table>
   </dd>
 </dl>
@@ -5273,7 +5206,7 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <li>XST_INVALID_PARAM if one of the parameters was not valid.</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The data types in the format type, data bits and parity, are 32 bit fields to prevent a compiler warning. The asserts in this function will cause a warning if these fields are bytes. <br/>
+<dl class="section note"><dt>Note</dt><dd>The data types in the format type, data bits and parity, are 32 bit fields to prevent a compiler warning. The asserts in this function cause a warning if these fields are bytes. <br/>
 <br/>
  </dd></dl>
 
@@ -5305,17 +5238,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sets the Tx and Rx FIFO trigger level to the 'TriggerLevel' argument. </p>
+<p>Sets the Tx and Rx FIFO trigger level. </p>
 <p>The same value is set for Tx and Rx FIFOs. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">TriggerLevel</td><td>contains the trigger level to set. This is a value from 0-7</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TriggerLevel</td><td>Trigger level to set. This is a value from 0-7. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#gacd10d435731ec271f5316110cde0c6e9">XUARTPSV_UARTIFLS_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga3149c045f35eae100cb9f39765796327">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</a>, <a class="el" href="group__uartpsv.html#ga62086b945a7d3da80892a619abe3671b">XUARTPSV_UARTIFLS_RXIFLSEL_SHIFT</a>, <a class="el" href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</a>, <a class="el" href="group__uartpsv.html#ga30b5d2120c2571ea1102e12ff4d322b1">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5351,17 +5282,16 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the handler that will be called when an event (interrupt) occurs that needs application's attention. </p>
+<p>Sets the handler called when an event (interrupt) occurs that needs the application's attention. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance </td></tr>
-    <tr><td class="paramname">FuncPtr</td><td>is the pointer to the callback function. </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>is the upper layer callback reference passed back when the callback function is invoked.</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">FuncPtr</td><td>Pointer to the callback function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Upper layer callback reference passed back when the callback function is invoked.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver doesn't know what it is (nor should it) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>There is no assert on the CallBackRef since the driver does not know what it is (nor should it) </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv.html#af86e00e608392fe594cb87d10dd3686e">XUartPsv::CallBackRef</a>, <a class="el" href="struct_x_uart_psv.html#aa64939340dd16487202fa1cc9a0af657">XUartPsv::Handler</a>, and <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>.</p>
 
@@ -5393,16 +5323,14 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the interrupt mask. </p>
+<p>Sets the interrupt mask. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance </td></tr>
-    <tr><td class="paramname">Mask</td><td>contains the interrupts to be enabled or disabled. A '1' enables an interrupt, and a '0' disables.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>Interrupts to enable or disable. A '1' enables an interrupt, and a '0' disables. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="group__uartpsv.html#gaaa9d0a0700b98c4852bc4658d2feca61">XUARTPSV_UARTIMSC_MASK</a>, <a class="el" href="group__uartpsv.html#ga0cb9a381f2ea7582c0f361fbe2a77246">XUARTPSV_UARTIMSC_OFFSET</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5434,17 +5362,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the operational mode of the UART. </p>
+<p>Sets the operational mode of the UART. </p>
 <p>The UART can operate in one of four modes: Normal, Local Loopback, Remote Loopback, or automatic echo.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">OperationMode</td><td>is the mode of the UART.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">OperationMode</td><td>Mode of the UART. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga1697d029413b91344628690b465814e9">XUARTPSV_OPER_MODE_LOCAL_LOOP</a>, <a class="el" href="group__uartpsv.html#ga85a2c3e9c12a5e5df66a3be084243937">XUARTPSV_OPER_MODE_NORMAL</a>, <a class="el" href="group__uartpsv.html#gaa19ed118438249d9c56cd3afcfa8898c">XUartPsv_ProgramCtrlReg()</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#gae2e178647eee834f64b7f478fdd23cfa">XUARTPSV_UARTCR_LBE</a>, <a class="el" href="group__uartpsv.html#ga1a0baa260d70d4282cdb57ed1b678e33">XUARTPSV_UARTCR_MODE_MASK</a>, <a class="el" href="group__uartpsv.html#ga1fcf5d1f1e8b57514f6538f89ce7bfd5">XUARTPSV_UARTCR_MODE_NORMAL</a>, and <a class="el" href="group__uartpsv.html#ga107036ece577d1e34edf6c01eb83305e">XUARTPSV_UARTCR_OFFSET</a>.</p>
 
@@ -5481,13 +5407,11 @@ Receiver FIFO Byte Status Register</h2></td></tr>
 <p>The GetOptions function may be called to retrieve the currently enabled options. The result is ORed in the desired new settings to be enabled and ANDed with the inverse to clear the settings to be disabled. The resulting value is then used as the options for the SetOption function call.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">Options</td><td>contains the options to be set which are bit masks contained in the file <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a> and named XUARTPSV_OPTION_*.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Options</td><td>Options to set which are bit masks contained in the file <a class="el" href="xuartpsv_8h.html">xuartpsv.h</a> and named XUARTPSV_OPTION_*. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga085455aa637fa6865bfdf3f6765336fc">XUARTPSV_NUM_OPTIONS</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5517,17 +5441,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sets the Rx FIFO trigger level to the 'TriggerLevel' argument. </p>
-<p>This value is set for Rx FIFO. Tx FIFO trigger level is unchanged. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</p>
+<p>Sets the Rx FIFO trigger level. </p>
+<p>This value is set for Rx FIFO. The Tx FIFO trigger level is unchanged. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">TriggerLevel</td><td>contains the trigger level to set. This is a value from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 - XUARTPSV_UARTIFLS_RXIFLSEL_7_8)</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TriggerLevel</td><td>Trigger level to set. This is a value from 0-32 (XUARTPSV_UARTIFLS_RXIFLSEL_1_8 - XUARTPSV_UARTIFLS_RXIFLSEL_7_8). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#gacd10d435731ec271f5316110cde0c6e9">XUARTPSV_UARTIFLS_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga3149c045f35eae100cb9f39765796327">XUARTPSV_UARTIFLS_RXIFLSEL_MASK</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5559,17 +5481,15 @@ Receiver FIFO Byte Status Register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This functions sets the Tx FIFO trigger level to the 'TriggerLevel' argument. </p>
-<p>This value is set for Tx FIFO. Rx FIFO trigger level is unchanged. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</p>
+<p>Sets the Tx FIFO trigger level. </p>
+<p>This value is set for Tx FIFO. The Rx FIFO trigger level is unchanged. The receive or transmit trigger level specifies the number of bytes in the FIFO that cause a receive or transmit data event (interrupt) to be generated.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_uart_psv.html" title="The XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
-    <tr><td class="paramname">TriggerLevel</td><td>contains the trigger level to set. This is a value from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 - XUARTPSV_UARTIFLS_TXIFLSEL_7_8)</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TriggerLevel</td><td>Trigger level to set. This is a value from 0-4 (XUARTPSV_UARTIFLS_TXIFLSEL_1_8 - XUARTPSV_UARTIFLS_TXIFLSEL_7_8). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_uart_psv___config.html#ad3fc1852bc0fda04d7db7887d20f3ce2">XUartPsv_Config::BaseAddress</a>, <a class="el" href="struct_x_uart_psv.html#a28f121775b342f18caae6f39331d1079">XUartPsv::Config</a>, <a class="el" href="struct_x_uart_psv.html#a4dd385478a1d6f6dcbff3d0642ac1904">XUartPsv::IsReady</a>, <a class="el" href="group__uartpsv.html#ga6272b3263e840a8218fc070c1656b9b9">XUartPsv_ReadReg</a>, <a class="el" href="group__uartpsv.html#gacd10d435731ec271f5316110cde0c6e9">XUARTPSV_UARTIFLS_OFFSET</a>, <a class="el" href="group__uartpsv.html#ga1fc7d66bafa6dd862f0bbb2648721aa9">XUARTPSV_UARTIFLS_TXIFLSEL_MASK</a>, <a class="el" href="group__uartpsv.html#ga30b5d2120c2571ea1102e12ff4d322b1">XUARTPSV_UARTIFLS_TXIFLSEL_SHIFT</a>, and <a class="el" href="group__uartpsv.html#ga1fcbc3ad3fd4949b016ae362929ee344">XUartPsv_WriteReg</a>.</p>
 
@@ -5587,8 +5507,35 @@ Receiver FIFO Byte Status Register</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                XPAR_SBSA_UART_DEVICE_ID,</div>
+<div class="line">                XPAR_SBSA_UART_BASEADDR,</div>
+<div class="line">                XPAR_SBSA_UART_CLK_FREQ_HZ,</div>
+<div class="line">                XPAR_SBSA_UART_HAS_MODEM</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Configuration table for <a class="el" href="struct_x_uart_psv.html" title="Represents the XUartPsv driver instance data structure. ">XUartPsv</a> devices. </p>
+<p>Holds the configuration entry for each UartPsv instance. </p>
 
-<p>Config structure. </p>
+<p>Referenced by <a class="el" href="group__uartpsv.html#ga1ae9af89fa7aaab4c02d937d5ce520f7">XUartPsv_LookupConfig()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaed365c02539b1452e590d0123f858c30"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_uart_psv___config.html">XUartPsv_Config</a> XUartPsv_ConfigTable[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Holds the configuration entry for each UartPsv instance. </p>
+<p>Holds the configuration entry for each UartPsv instance. </p>
 
 <p>Referenced by <a class="el" href="group__uartpsv.html#ga1ae9af89fa7aaab4c02d937d5ce520f7">XUartPsv_LookupConfig()</a>.</p>
 

@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_passthrough___audio___i2_s___a53_8txt_1a3947d1eb2a2e4d896ec7d0a9f18f23f5" prot="public" static="no" mutable="no">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDMI</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_passthrough___audio___i2_s___a53_8txt_1a749afa201478dcacaf248c63df0866ec" prot="public" static="no" mutable="no">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDMI and the PMOD I2S Audio running on the same hardware For</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_passthrough___audio___i2_s___a53_8txt_1a53878af2953e8afe912e3d92298aadd2" prot="public" static="no" mutable="no">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDMI and the PMOD I2S Audio running on the same hardware For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_passthrough___audio___i2_s___a53_8txt_1a737db2e088797ea06d7daed71de45fea" prot="public" static="no" mutable="no">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDMI and the PMOD I2S Audio running on the same hardware For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *If the the application will supports HDCP handling in both HDMI TX and RX *Demonstrate Audio PMOD I2S HDMI capability For please refer to</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="29" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" bodystart="29" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -85,7 +85,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="25" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="25" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_passthrough___audio___i2_s___a53_8txt_1a3c58cde9b8a08b5c373b4371da6a0d48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDMI and the PMOD I2S Audio running on the same hardware For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user</type>
@@ -102,7 +102,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="25" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="25" column="1"/>
       </memberdef>
       <memberdef kind="function" id="_passthrough___audio___i2_s___a53_8txt_1a9166fa29e2081d84beb79fd453efdc76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI HDMI and the PMOD I2S Audio running on the same hardware For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *If the</type>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="26" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt" line="26" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -211,6 +211,6 @@
 <codeline lineno="78"><highlight class="normal">h<sp/>-<sp/>HDCP</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Goto<sp/>HDCP<sp/>menu.</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/dummy/Passthrough_Audio_I2S_A53.txt"/>
   </compounddef>
 </doxygen>

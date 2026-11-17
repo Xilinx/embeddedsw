@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="314" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="307" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" compoundref="xsdiaud_8c" startline="86" endline="110">XSdiAud_CfgInitialize</referencedby>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
       </memberdef>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="316" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="309" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" prot="public" static="no" mutable="no">
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="318" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="311" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" compoundref="xsdiaud_8c" startline="86" endline="110">XSdiAud_CfgInitialize</referencedby>
         <referencedby refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" compoundref="xsdiaud_8c" startline="568" endline="580">XSdiAud_ConfigReset</referencedby>
         <referencedby refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" compoundref="xsdiaud_8c" startline="592" endline="611">XSdiAud_CoreReset</referencedby>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="320" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="313" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -95,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="322" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="315" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -110,7 +110,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="324" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="317" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -125,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="326" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="319" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="328" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="321" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="330" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="323" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="332" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="325" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -185,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="334" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="327" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -200,7 +200,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="336" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="329" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="338" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="331" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -230,7 +230,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="340" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="333" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -245,7 +245,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="342" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="335" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="344" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="337" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -275,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="346" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="339" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -290,7 +290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="348" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="341" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -305,7 +305,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="350" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="343" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -320,7 +320,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="352" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="345" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -335,7 +335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="354" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="347" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -350,7 +350,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="356" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="349" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -365,7 +365,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="358" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="351" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -380,7 +380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="360" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="353" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -395,7 +395,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="362" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="355" bodyend="-1"/>
         <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
         <referencedby refid="group__sdiaud_1ga3eb68f3851a68fafdd411b242983e7b7" compoundref="xsdiaud__intr_8c" startline="230" endline="302">XSdiAud_SetHandler</referencedby>
       </memberdef>
@@ -410,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="364" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="357" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sdi_aud_1a471887a3276a4ef1d1259d780c05de71" prot="public" static="no" mutable="no">
         <type><ref refid="group__sdiaud_1gadeb9e98fc70874d3c92b69580f1c1f81" kindref="member">XSdiAud_NumOfCh</ref></type>
@@ -423,7 +423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="366" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="359" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -443,7 +443,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="313" bodyend="368"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="306" bodyend="361"/>
     <listofallmembers>
       <member refid="struct_x_sdi_aud_1aa392887fe5c17854f21a7f3b58fb21b1" prot="public" virt="non-virtual"><scope>XSdiAud</scope><name>ActiveChannelChangeDetHandler</name></member>
       <member refid="struct_x_sdi_aud_1a27fb79de853d8428e254dfbe81197308" prot="public" virt="non-virtual"><scope>XSdiAud</scope><name>ActiveChannelChangeDetHandlerRef</name></member>

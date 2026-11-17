@@ -99,19 +99,34 @@ $(document).ready(function(){initNavTree('xiicps__sinit_8c.html','');});
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xiicps_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static initialization functions of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>The <a class="el" href="xiicps__sinit_8c.html" title="Implements the static initialization functions of the XIicPs driver. ">xiicps_sinit.c</a> file contains implementation of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> component's static initialization functionality.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a drg/jz 01/30/10 First release
+3.00    sk     01/31/15 Modified the code according to MISRAC 2012 Compliant.
+3.18  gm     07/14/23 Added SDT support.
+3.23  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+3.23  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+3.24  tb     09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Configuration lookup function</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Provides the function for configuration lookup, in <a class="el" href="xiicps__sinit_8c.html" title="Implements the static initialization functions of the XIicPs driver. ">xiicps_sinit.c</a>. </p>
+</div></td></tr>
 <tr class="memitem:gafaf109c7bf0040c29f861d439bd6613f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic_ps___config.html">XIicPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">XIicPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gafaf109c7bf0040c29f861d439bd6613f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for configuration lookup, in <a class="el" href="xiicps__sinit_8c.html">xiicps_sinit.c</a>.  <a href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">More...</a><br/></td></tr>
+<tr class="memdesc:gafaf109c7bf0040c29f861d439bd6613f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration by device ID or base address.  <a href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">More...</a><br/></td></tr>
 <tr class="separator:gafaf109c7bf0040c29f861d439bd6613f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

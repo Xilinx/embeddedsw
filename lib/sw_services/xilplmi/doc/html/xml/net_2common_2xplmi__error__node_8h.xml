@@ -8,179 +8,176 @@
     <includedby refid="2vp__p_2server_2xplmi__err_8h" local="yes">xplmi_err.h</includedby>
     <includedby refid="net_2server_2xplmi__err_8h" local="yes">xplmi_err.h</includedby>
     <invincdepgraph>
-      <node id="1345">
-        <label>xplmi_proc.c</label>
-        <link refid="xplmi__proc_8c"/>
+      <node id="1442">
+        <label>xplmi_err.c</label>
       </node>
-      <node id="1349">
+      <node id="1443">
+        <label>xplmi_err.h</label>
+        <childnode refid="1422" relation="include">
+        </childnode>
+        <childnode refid="1423" relation="include">
+        </childnode>
+        <childnode refid="1424" relation="include">
+        </childnode>
+        <childnode refid="1425" relation="include">
+        </childnode>
+        <childnode refid="1442" relation="include">
+        </childnode>
+        <childnode refid="1444" relation="include">
+        </childnode>
+        <childnode refid="1445" relation="include">
+        </childnode>
+      </node>
+      <node id="1431">
+        <label>xplmi_ssit.c</label>
+        <link refid="xplmi__ssit_8c"/>
+      </node>
+      <node id="1441">
         <label>xplmi_plat.c</label>
       </node>
-      <node id="1351">
-        <label>xplmi_asu_update.c</label>
-        <link refid="xplmi__asu__update_8c"/>
-      </node>
-      <node id="1358">
+      <node id="1439">
         <label>xplmi_err.c</label>
-        <link refid="2vp__p_2server_2xplmi__err_8c"/>
       </node>
-      <node id="1359">
+      <node id="1440">
         <label>xplmi_err.h</label>
         <link refid="2vp__p_2server_2xplmi__err_8h"/>
-        <childnode refid="1358" relation="include">
+        <childnode refid="1439" relation="include">
         </childnode>
       </node>
-      <node id="1352">
-        <label>xplmi_err.c</label>
-      </node>
-      <node id="1353">
-        <label>xplmi_err.h</label>
-        <childnode refid="1352" relation="include">
-        </childnode>
-        <childnode refid="1354" relation="include">
-        </childnode>
-      </node>
-      <node id="1346">
-        <label>xplmi_tamper.c</label>
-        <link refid="xplmi__tamper_8c"/>
-      </node>
-      <node id="1357">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="1354">
+      <node id="1438">
         <label>xplmi_plat.c</label>
       </node>
-      <node id="1341">
-        <label>xplmi.c</label>
-        <link refid="xplmi_8c"/>
+      <node id="1423">
+        <label>xplmi_err_cmd.c</label>
+        <link refid="xplmi__err__cmd_8c"/>
       </node>
-      <node id="1360">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp__p_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="1347">
-        <label>xplmi_err.c</label>
-      </node>
-      <node id="1348">
-        <label>xplmi_err.h</label>
-        <childnode refid="1347" relation="include">
-        </childnode>
-      </node>
-      <node id="1343">
-        <label>xplmi_err_common.c</label>
-        <link refid="xplmi__err__common_8c"/>
-      </node>
-      <node id="1340">
-        <label>xplmi_err_common.h</label>
-        <link refid="xplmi__err__common_8h"/>
-        <childnode refid="1341" relation="include">
-        </childnode>
-        <childnode refid="1342" relation="include">
-        </childnode>
-        <childnode refid="1343" relation="include">
-        </childnode>
-        <childnode refid="1344" relation="include">
-        </childnode>
-        <childnode refid="1345" relation="include">
-        </childnode>
-        <childnode refid="1346" relation="include">
-        </childnode>
-        <childnode refid="1347" relation="include">
-        </childnode>
-        <childnode refid="1348" relation="include">
-        </childnode>
-        <childnode refid="1349" relation="include">
-        </childnode>
-        <childnode refid="1350" relation="include">
-        </childnode>
-        <childnode refid="1351" relation="include">
-        </childnode>
-        <childnode refid="1352" relation="include">
-        </childnode>
-        <childnode refid="1353" relation="include">
-        </childnode>
-        <childnode refid="1354" relation="include">
-        </childnode>
-        <childnode refid="1355" relation="include">
-        </childnode>
-        <childnode refid="1356" relation="include">
-        </childnode>
-        <childnode refid="1357" relation="include">
-        </childnode>
-        <childnode refid="1358" relation="include">
-        </childnode>
-        <childnode refid="1359" relation="include">
-        </childnode>
-        <childnode refid="1360" relation="include">
-        </childnode>
-        <childnode refid="1361" relation="include">
-        </childnode>
-        <childnode refid="1362" relation="include">
-        </childnode>
-        <childnode refid="1363" relation="include">
-        </childnode>
-      </node>
-      <node id="1364">
-        <label>xplmi_update.c</label>
-        <link refid="xplmi__update_8c"/>
-      </node>
-      <node id="1350">
-        <label>xplmi_ssit.c</label>
-      </node>
-      <node id="1344">
+      <node id="1425">
         <label>xplmi_err_psm.c</label>
         <link refid="xplmi__err__psm_8c"/>
       </node>
-      <node id="1355">
-        <label>xplmi_err.c</label>
-        <link refid="2vp_2server_2xplmi__err_8c"/>
-      </node>
-      <node id="1356">
-        <label>xplmi_err.h</label>
-        <link refid="2vp_2server_2xplmi__err_8h"/>
-        <childnode refid="1355" relation="include">
-        </childnode>
-      </node>
-      <node id="1339">
-        <label>xplmi_error_node.h</label>
-        <link refid="net/common/xplmi_error_node.h"/>
-        <childnode refid="1340" relation="include">
-        </childnode>
-        <childnode refid="1348" relation="include">
-        </childnode>
-        <childnode refid="1356" relation="include">
-        </childnode>
-        <childnode refid="1359" relation="include">
-        </childnode>
-        <childnode refid="1362" relation="include">
-        </childnode>
-      </node>
-      <node id="1361">
-        <label>xplmi_err.c</label>
-      </node>
-      <node id="1362">
-        <label>xplmi_err.h</label>
-        <childnode refid="1341" relation="include">
-        </childnode>
-        <childnode refid="1342" relation="include">
-        </childnode>
-        <childnode refid="1343" relation="include">
-        </childnode>
-        <childnode refid="1344" relation="include">
-        </childnode>
-        <childnode refid="1361" relation="include">
-        </childnode>
-        <childnode refid="1363" relation="include">
-        </childnode>
-        <childnode refid="1364" relation="include">
-        </childnode>
-      </node>
-      <node id="1363">
+      <node id="1430">
         <label>xplmi_plat.c</label>
       </node>
-      <node id="1342">
-        <label>xplmi_err_cmd.c</label>
-        <link refid="xplmi__err__cmd_8c"/>
+      <node id="1433">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="1434">
+        <label>xplmi_err.h</label>
+        <childnode refid="1433" relation="include">
+        </childnode>
+        <childnode refid="1435" relation="include">
+        </childnode>
+      </node>
+      <node id="1428">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="1429">
+        <label>xplmi_err.h</label>
+        <childnode refid="1428" relation="include">
+        </childnode>
+      </node>
+      <node id="1444">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="1424">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="1421">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="1422" relation="include">
+        </childnode>
+        <childnode refid="1423" relation="include">
+        </childnode>
+        <childnode refid="1424" relation="include">
+        </childnode>
+        <childnode refid="1425" relation="include">
+        </childnode>
+        <childnode refid="1426" relation="include">
+        </childnode>
+        <childnode refid="1427" relation="include">
+        </childnode>
+        <childnode refid="1428" relation="include">
+        </childnode>
+        <childnode refid="1429" relation="include">
+        </childnode>
+        <childnode refid="1430" relation="include">
+        </childnode>
+        <childnode refid="1431" relation="include">
+        </childnode>
+        <childnode refid="1432" relation="include">
+        </childnode>
+        <childnode refid="1433" relation="include">
+        </childnode>
+        <childnode refid="1434" relation="include">
+        </childnode>
+        <childnode refid="1435" relation="include">
+        </childnode>
+        <childnode refid="1436" relation="include">
+        </childnode>
+        <childnode refid="1437" relation="include">
+        </childnode>
+        <childnode refid="1438" relation="include">
+        </childnode>
+        <childnode refid="1439" relation="include">
+        </childnode>
+        <childnode refid="1440" relation="include">
+        </childnode>
+        <childnode refid="1441" relation="include">
+        </childnode>
+        <childnode refid="1442" relation="include">
+        </childnode>
+        <childnode refid="1443" relation="include">
+        </childnode>
+        <childnode refid="1444" relation="include">
+        </childnode>
+      </node>
+      <node id="1435">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="1420">
+        <label>xplmi_error_node.h</label>
+        <link refid="net/common/xplmi_error_node.h"/>
+        <childnode refid="1421" relation="include">
+        </childnode>
+        <childnode refid="1429" relation="include">
+        </childnode>
+        <childnode refid="1437" relation="include">
+        </childnode>
+        <childnode refid="1440" relation="include">
+        </childnode>
+        <childnode refid="1443" relation="include">
+        </childnode>
+      </node>
+      <node id="1426">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi__proc_8c"/>
+      </node>
+      <node id="1436">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="1437">
+        <label>xplmi_err.h</label>
+        <link refid="2vp_2server_2xplmi__err_8h"/>
+        <childnode refid="1436" relation="include">
+        </childnode>
+      </node>
+      <node id="1427">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
+      </node>
+      <node id="1422">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="1432">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi__asu__update_8c"/>
+      </node>
+      <node id="1445">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -190,7 +187,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -464,6 +461,6 @@
 <codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="308"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_ERROR_NODE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/common/xplmi_error_node.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/common/xplmi_error_node.h"/>
   </compounddef>
 </doxygen>

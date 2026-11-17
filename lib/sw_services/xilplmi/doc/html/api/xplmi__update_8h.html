@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('xplmi__update_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -124,6 +125,21 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       kd   08/22/2025 Added psm firmware presence check for In-Place PLM Update
 2.4   abh  10/14/2025 Fixed MISRAC Violations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__cmd_8h.html">xplmi_cmd.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_plmi___ds_ver.html">XPlmi_DsVer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Structure Version Info is used in DsHdr and also used in creating a list of data structure versions which is stored in .struct_versions section of elf.  <a href="union_x_plmi___ds_ver.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_plmi___ds_hdr.html">XPlmi_DsHdr</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Structure Header used in DsEntry and also as the header of each data structure in DB.  <a href="struct_x_plmi___ds_hdr.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Structure Entry is used to export data structure information into the .struct_entries section of the elf.  <a href="struct_x_plmi___ds_entry.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_plmi___db_hdr.html">XPlmi_DbHdr</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Database Header is header of the database of structures which are stored during the update.  <a href="struct_x_plmi___db_hdr.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:adc52051101d78046b36f52b59cc8c2ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#adc52051101d78046b36f52b59cc8c2ee">XPLMI_STORE_DATABASE</a>&#160;&#160;&#160;(0x1U)</td></tr>
@@ -147,28 +163,28 @@ Macros</h2></td></tr>
 <tr class="memitem:aad1666794607b5631b631737b75a6297"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#a0a5cc6733372518536376643cbc7a1d1">EXPORT_DS_W_HANDLER</a>(__VA_ARGS__, <a class="el" href="group__xilplmi__server__apis.html#gae804925f6b45d1685a010c2d1d3e842f">XPlmi_DsOps</a>)</td></tr>
 <tr class="memdesc:aad1666794607b5631b631737b75a6297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure with default write handler.  <a href="#aad1666794607b5631b631737b75a6297">More...</a><br/></td></tr>
 <tr class="separator:aad1666794607b5631b631737b75a6297"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91fd0d84ee97680391784c1de290b21e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a91fd0d84ee97680391784c1de290b21e">EXPORT_GENERIC_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_GENERIC_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:a91fd0d84ee97680391784c1de290b21e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a91fd0d84ee97680391784c1de290b21e">EXPORT_GENERIC_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_GENERIC_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a91fd0d84ee97680391784c1de290b21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic data structure.  <a href="#a91fd0d84ee97680391784c1de290b21e">More...</a><br/></td></tr>
 <tr class="separator:a91fd0d84ee97680391784c1de290b21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e0a6917c59ecedd4313045680a24254"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a9e0a6917c59ecedd4313045680a24254">EXPORT_LOADER_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_LOADER_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:a9e0a6917c59ecedd4313045680a24254"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a9e0a6917c59ecedd4313045680a24254">EXPORT_LOADER_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_LOADER_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a9e0a6917c59ecedd4313045680a24254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loader data structure.  <a href="#a9e0a6917c59ecedd4313045680a24254">More...</a><br/></td></tr>
 <tr class="separator:a9e0a6917c59ecedd4313045680a24254"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1a7873f7fc5e1acd341aa98a271adcf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#ab1a7873f7fc5e1acd341aa98a271adcf">EXPORT_SEM_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_SEM_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:ab1a7873f7fc5e1acd341aa98a271adcf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#ab1a7873f7fc5e1acd341aa98a271adcf">EXPORT_SEM_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_SEM_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:ab1a7873f7fc5e1acd341aa98a271adcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semaphore data structure.  <a href="#ab1a7873f7fc5e1acd341aa98a271adcf">More...</a><br/></td></tr>
 <tr class="separator:ab1a7873f7fc5e1acd341aa98a271adcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90620d8cbf3bc809f993285b390a513a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a90620d8cbf3bc809f993285b390a513a">EXPORT_XILSECURE_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_XILSECURE_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:a90620d8cbf3bc809f993285b390a513a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a90620d8cbf3bc809f993285b390a513a">EXPORT_XILSECURE_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_XILSECURE_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a90620d8cbf3bc809f993285b390a513a"><td class="mdescLeft">&#160;</td><td class="mdescRight">XilSecure data structure.  <a href="#a90620d8cbf3bc809f993285b390a513a">More...</a><br/></td></tr>
 <tr class="separator:a90620d8cbf3bc809f993285b390a513a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1e7f9d77dd19b092ac3542affa04e1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#ad1e7f9d77dd19b092ac3542affa04e1a">EXPORT_XILPSM_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:ad1e7f9d77dd19b092ac3542affa04e1a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#ad1e7f9d77dd19b092ac3542affa04e1a">EXPORT_XILPSM_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:ad1e7f9d77dd19b092ac3542affa04e1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">XilPSM data structure.  <a href="#ad1e7f9d77dd19b092ac3542affa04e1a">More...</a><br/></td></tr>
 <tr class="separator:ad1e7f9d77dd19b092ac3542affa04e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0195d4494052fcefaf1a7d1b7facda60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a0195d4494052fcefaf1a7d1b7facda60">EXPORT_ERROR_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:a0195d4494052fcefaf1a7d1b7facda60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a0195d4494052fcefaf1a7d1b7facda60">EXPORT_ERROR_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a0195d4494052fcefaf1a7d1b7facda60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error data structure.  <a href="#a0195d4494052fcefaf1a7d1b7facda60">More...</a><br/></td></tr>
 <tr class="separator:a0195d4494052fcefaf1a7d1b7facda60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af870e6c5b171c11fe8340a11668407b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#af870e6c5b171c11fe8340a11668407b5">EXPORT_STL_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:af870e6c5b171c11fe8340a11668407b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#af870e6c5b171c11fe8340a11668407b5">EXPORT_STL_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:af870e6c5b171c11fe8340a11668407b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">STL data structure.  <a href="#af870e6c5b171c11fe8340a11668407b5">More...</a><br/></td></tr>
 <tr class="separator:af870e6c5b171c11fe8340a11668407b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a174ace25a5ff8bf12c533153e5d31de4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a174ace25a5ff8bf12c533153e5d31de4">EXPORT_OCP_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_XILOCP_ID, __VA_ARGS__)</td></tr>
+<tr class="memitem:a174ace25a5ff8bf12c533153e5d31de4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xplmi__update_8h.html#a174ace25a5ff8bf12c533153e5d31de4">EXPORT_OCP_DS</a>(Name,...)&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_XILOCP_ID, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a174ace25a5ff8bf12c533153e5d31de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">OCP data structure.  <a href="#a174ace25a5ff8bf12c533153e5d31de4">More...</a><br/></td></tr>
 <tr class="separator:a174ace25a5ff8bf12c533153e5d31de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -186,7 +202,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ga536288bdae9b622940b7152cbaff1eef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga536288bdae9b622940b7152cbaff1eef">XPlmi_UpdateInit</a> (XPlmi_CompatibilityCheck_t CompatibilityHandler, XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler, XPlmi_CheckPsmPresenceInOD_t CheckPsmPresenceHandler)</td></tr>
 <tr class="memdesc:ga536288bdae9b622940b7152cbaff1eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Db End Address.  <a href="group__xilplmi__server__apis.html#ga536288bdae9b622940b7152cbaff1eef">More...</a><br/></td></tr>
 <tr class="separator:ga536288bdae9b622940b7152cbaff1eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga133542368f05623ddf052d283f4bf2d1"><td class="memItemLeft" align="right" valign="top">XPlmi_DsEntry *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga133542368f05623ddf052d283f4bf2d1">XPlmi_GetDsEntry</a> (XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *DsVer)</td></tr>
+<tr class="memitem:ga133542368f05623ddf052d283f4bf2d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga133542368f05623ddf052d283f4bf2d1">XPlmi_GetDsEntry</a> (<a class="el" href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a> *DsList, u32 DsCnt, <a class="el" href="union_x_plmi___ds_ver.html">XPlmi_DsVer</a> *DsVer)</td></tr>
 <tr class="memdesc:ga133542368f05623ddf052d283f4bf2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns DsEntry found after searching in the provided DsList.  <a href="group__xilplmi__server__apis.html#ga133542368f05623ddf052d283f4bf2d1">More...</a><br/></td></tr>
 <tr class="separator:ga133542368f05623ddf052d283f4bf2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7a521fc3a1af82f10f161af3e9b00bb3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga7a521fc3a1af82f10f161af3e9b00bb3">XPlmi_GetUpdatePdiAddr</a> (void)</td></tr>
@@ -309,16 +325,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">static</span> XPlmi_DsVer Name##_DsInfo <a class="code" href="xplmi__update_8h.html#a70da396c3a765357080f7f4d07816014">DSVER_ATTR</a> = <a class="code" href="xplmi__update_8h.html#abaf0a69520e59343331dca667f5c21ce">\</a></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code" href="union_x_plmi___ds_ver.html">XPlmi_DsVer</a> Name##_DsInfo <a class="code" href="xplmi__update_8h.html#a70da396c3a765357080f7f4d07816014">DSVER_ATTR</a> = <a class="code" href="xplmi__update_8h.html#abaf0a69520e59343331dca667f5c21ce">\</a></div>
 <div class="line"><a class="code" href="xplmi__update_8h.html#abaf0a69520e59343331dca667f5c21ce">			XPLMI_INIT_DS_VER_HDR</a>(Mid, Did, ver, LCVer);\</div>
-<div class="line">        static XPlmi_DsEntry Name##_DsEntry <a class="code" href="xplmi__update_8h.html#accb20009c92fac982f4176c9ea80c1a6">DSENTRY_ATTR</a> = {\</div>
+<div class="line">        static <a class="code" href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a> Name##_DsEntry <a class="code" href="xplmi__update_8h.html#accb20009c92fac982f4176c9ea80c1a6">DSENTRY_ATTR</a> = {\</div>
 <div class="line">                .DsHdr.Ver = <a class="code" href="xplmi__update_8h.html#abaf0a69520e59343331dca667f5c21ce">XPLMI_INIT_DS_VER_HDR</a>(Mid, Did, ver, LCVer),\</div>
 <div class="line">                .DsHdr.Len = (Size),\</div>
 <div class="line">                .Addr = (Address),\</div>
 <div class="line">                .Handler = (handler)}</div>
-<div class="ttc" id="xplmi__update_8h_html_a70da396c3a765357080f7f4d07816014"><div class="ttname"><a href="xplmi__update_8h.html#a70da396c3a765357080f7f4d07816014">DSVER_ATTR</a></div><div class="ttdeci">#define DSVER_ATTR</div><div class="ttdoc">Data structure versions section attribute. </div><div class="ttdef"><b>Definition:</b> xplmi_update.h:106</div></div>
-<div class="ttc" id="xplmi__update_8h_html_accb20009c92fac982f4176c9ea80c1a6"><div class="ttname"><a href="xplmi__update_8h.html#accb20009c92fac982f4176c9ea80c1a6">DSENTRY_ATTR</a></div><div class="ttdeci">#define DSENTRY_ATTR</div><div class="ttdoc">Data structure entries section attribute. </div><div class="ttdef"><b>Definition:</b> xplmi_update.h:109</div></div>
-<div class="ttc" id="xplmi__update_8h_html_abaf0a69520e59343331dca667f5c21ce"><div class="ttname"><a href="xplmi__update_8h.html#abaf0a69520e59343331dca667f5c21ce">XPLMI_INIT_DS_VER_HDR</a></div><div class="ttdeci">#define XPLMI_INIT_DS_VER_HDR(MId, DId, Ver, LCVer)</div><div class="ttdoc">Data structure version header initialization. </div><div class="ttdef"><b>Definition:</b> xplmi_update.h:112</div></div>
+<div class="ttc" id="union_x_plmi___ds_ver_html"><div class="ttname"><a href="union_x_plmi___ds_ver.html">XPlmi_DsVer</a></div><div class="ttdoc">Data Structure Version Info is used in DsHdr and also used in creating a list of data structure versi...</div><div class="ttdef"><b>Definition:</b> xplmi_update.h:54</div></div>
+<div class="ttc" id="xplmi__update_8h_html_a70da396c3a765357080f7f4d07816014"><div class="ttname"><a href="xplmi__update_8h.html#a70da396c3a765357080f7f4d07816014">DSVER_ATTR</a></div><div class="ttdeci">#define DSVER_ATTR</div><div class="ttdoc">Data structure versions section attribute. </div><div class="ttdef"><b>Definition:</b> xplmi_update.h:105</div></div>
+<div class="ttc" id="xplmi__update_8h_html_accb20009c92fac982f4176c9ea80c1a6"><div class="ttname"><a href="xplmi__update_8h.html#accb20009c92fac982f4176c9ea80c1a6">DSENTRY_ATTR</a></div><div class="ttdeci">#define DSENTRY_ATTR</div><div class="ttdoc">Data structure entries section attribute. </div><div class="ttdef"><b>Definition:</b> xplmi_update.h:108</div></div>
+<div class="ttc" id="xplmi__update_8h_html_abaf0a69520e59343331dca667f5c21ce"><div class="ttname"><a href="xplmi__update_8h.html#abaf0a69520e59343331dca667f5c21ce">XPLMI_INIT_DS_VER_HDR</a></div><div class="ttdeci">#define XPLMI_INIT_DS_VER_HDR(MId, DId, Ver, LCVer)</div><div class="ttdoc">Data structure version header initialization. </div><div class="ttdef"><b>Definition:</b> xplmi_update.h:111</div></div>
+<div class="ttc" id="struct_x_plmi___ds_entry_html"><div class="ttname"><a href="struct_x_plmi___ds_entry.html">XPlmi_DsEntry</a></div><div class="ttdoc">Data Structure Entry is used to export data structure information into the .struct_entries section of...</div><div class="ttdef"><b>Definition:</b> xplmi_update.h:78</div></div>
 </div><!-- fragment -->
 <p>Data structure with custom write handler. </p>
 
@@ -343,7 +361,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -371,12 +389,14 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_GENERIC_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_GENERIC_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Generic data structure. </p>
+
+<p>Referenced by <a class="el" href="group__xilplmi__server__apis.html#ga1c4574be04f5ca926144b402fdea536f">XPlmi_GetBoardParams()</a>, <a class="el" href="group__xilplmi__server__apis.html#gaa20a30af40d98defadfd64c26242fe54">XPlmi_GetBufferList()</a>, <a class="el" href="group__xilplmi__server__apis.html#gafbd32dda25e76814d70f118312de4301">XPlmi_GetErrLinkPool()</a>, and <a class="el" href="group__xilplmi__server__apis.html#gaf94908f3a2143476cc7e8729844b2da4">XPlmi_GetErrLinkTable()</a>.</p>
 
 </div>
 </div>
@@ -399,7 +419,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_LOADER_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_LOADER_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -427,7 +447,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_XILOCP_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_XILOCP_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -455,7 +475,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_SEM_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_SEM_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -483,7 +503,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -511,7 +531,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -539,7 +559,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="xplmi__update_8h.html#aad1666794607b5631b631737b75a6297">EXPORT_DS</a>(Name, XPLMI_MODULE_XILSECURE_ID, __VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__xilplmi__server__apis.html#gabde25a1cb99cc79bd46919f15d75c666">EXPORT_DS</a>(Name, XPLMI_MODULE_XILSECURE_ID, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">

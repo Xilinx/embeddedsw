@@ -100,13 +100,25 @@ $(document).ready(function(){initNavTree('xiicps__selftest_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">xiicps_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the self-test function of the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>The <a class="el" href="xiicps__selftest_8c.html" title="Implements the self-test function of the XIicPs driver. ">xiicps_selftest.c</a> file component contains the implementation of selftest functions for the <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver component.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a drg/jz 01/30/10 First release
+1.00a sdm    09/22/11 Removed unused code
+3.0     sk         11/03/14 Removed TimeOut Register value check
+                   01/31/15     Modified the code according to MISRAC 2012 Compliant.
+3.24    tb         09/30/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -116,8 +128,11 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Self-test function</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Provides the function for self-test, in <a class="el" href="xiicps__selftest_8c.html" title="Implements the self-test function of the XIicPs driver. ">xiicps_selftest.c</a>. </p>
+</div></td></tr>
 <tr class="memitem:ga6f9db7651cd6ee0232dc9fdaca3f976a"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">XIicPs_SelfTest</a> (<a class="el" href="struct_x_iic_ps.html">XIicPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga6f9db7651cd6ee0232dc9fdaca3f976a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions for selftest, in <a class="el" href="xiicps__selftest_8c.html">xiicps_selftest.c</a>.  <a href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">More...</a><br/></td></tr>
+<tr class="memdesc:ga6f9db7651cd6ee0232dc9fdaca3f976a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">More...</a><br/></td></tr>
 <tr class="separator:ga6f9db7651cd6ee0232dc9fdaca3f976a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

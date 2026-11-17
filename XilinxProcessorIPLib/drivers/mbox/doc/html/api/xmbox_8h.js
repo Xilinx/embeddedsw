@@ -8,7 +8,7 @@ var xmbox_8h =
     [ "XMbox_GetStatus", "xmbox_8h.html#ga8620711a04da0032b216e3f57a80570d", null ],
     [ "XMbox_IsEmpty", "xmbox_8h.html#gabb01fe466ffcd0da315ffee115f4cd60", null ],
     [ "XMbox_IsFull", "xmbox_8h.html#gaa9db05bc2935bcc2230ff023b5c9cbcc", null ],
-    [ "XMbox_LookupConfig", "xmbox_8h.html#gafe477f8e46421e3752c5c1b92a8fec61", null ],
+    [ "XMbox_LookupConfig", "xmbox_8h.html#gabc2f9793e2d1b538fc041e7a82c0b53d", null ],
     [ "XMbox_Read", "xmbox_8h.html#gaa1f68405027d147c68aa53bcb49fbd5a", null ],
     [ "XMbox_ReadBlocking", "xmbox_8h.html#gab14511b623c1d3c191cdc441b8909006", null ],
     [ "XMbox_ResetFifos", "xmbox_8h.html#gacf8d6e720149452270eac0493537a233", null ],

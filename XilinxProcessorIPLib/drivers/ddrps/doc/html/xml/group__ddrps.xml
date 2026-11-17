@@ -4,8 +4,8 @@
     <compoundname>ddrps</compoundname>
     <title>Overview</title>
     <briefdescription>
-<para>} </para>    </briefdescription>
+<para>Declares the DdrPs driver for the Xilinx ddrps IP core. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para>} </para>    </detaileddescription>
   </compounddef>
 </doxygen>

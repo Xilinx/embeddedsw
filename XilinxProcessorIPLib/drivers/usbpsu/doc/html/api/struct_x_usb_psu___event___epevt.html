@@ -143,12 +143,12 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>struct XUsbPsu_event_depvt - Device Endpoint Events Device Endpoint Events </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Is_EpEvt,:</td><td>indicates this is an endpoint event </td></tr>
-    <tr><td class="paramname">endpoint_number,:</td><td>number of the endpoint </td></tr>
-    <tr><td class="paramname">endpoint_event,:</td><td>The event we have: 0x00 - Reserved 0x01 - XferComplete 0x02 - XferInProgress 0x03 - XferNotReady 0x04 - RxTxFifoEvt (IN-&gt;Underrun, OUT-&gt;Overrun) 0x05 - Reserved 0x06 - StreamEvt 0x07 - EPCmdCmplt </td></tr>
-    <tr><td class="paramname">Reserved11_10,:</td><td>Reserved, don't use. </td></tr>
-    <tr><td class="paramname">Status,:</td><td>Indicates the status of the event. Refer to databook for more information. </td></tr>
-    <tr><td class="paramname">Parameters,:</td><td>Parameters of the current event. Refer to databook for more information. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Is_EpEvt,:</td><td>indicates this is an endpoint event </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">endpoint_number,:</td><td>number of the endpoint </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">endpoint_event,:</td><td>The event we have: 0x00 - Reserved 0x01 - XferComplete 0x02 - XferInProgress 0x03 - XferNotReady 0x04 - RxTxFifoEvt (IN-&gt;Underrun, OUT-&gt;Overrun) 0x05 - Reserved 0x06 - StreamEvt 0x07 - EPCmdCmplt </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Reserved11_10,:</td><td>Reserved, don't use. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Status,:</td><td>Indicates the status of the event. Refer to databook for more information. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Parameters,:</td><td>Parameters of the current event. Refer to databook for more information. </td></tr>
   </table>
   </dd>
 </dl>

@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_ipi_psu___config.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_ipi_psu___config.html','');})
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for the device.
+<p>Holds the configuration information for one IPI device.
  <a href="struct_x_ipi_psu___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xipipsu.h&gt;</code></p>
@@ -127,23 +127,26 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a0d87ebd028051d4a05ab03410aadbc00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the device.  <a href="#a0d87ebd028051d4a05ab03410aadbc00">More...</a><br/></td></tr>
 <tr class="separator:a0d87ebd028051d4a05ab03410aadbc00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2057231c9bccf22dadbb50ae9ef93222"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">BitMask</a></td></tr>
-<tr class="memdesc:a2057231c9bccf22dadbb50ae9ef93222"><td class="mdescLeft">&#160;</td><td class="mdescRight">BitMask to be used to identify this CPU.  <a href="#a2057231c9bccf22dadbb50ae9ef93222">More...</a><br/></td></tr>
+<tr class="memdesc:a2057231c9bccf22dadbb50ae9ef93222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit mask that identifies this CPU.  <a href="#a2057231c9bccf22dadbb50ae9ef93222">More...</a><br/></td></tr>
 <tr class="separator:a2057231c9bccf22dadbb50ae9ef93222"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05cc5c627e65d8e37754913d0fc90470"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ipi_psu___config.html#a05cc5c627e65d8e37754913d0fc90470">BufferIndex</a></td></tr>
-<tr class="memdesc:a05cc5c627e65d8e37754913d0fc90470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of the IPI Message Buffer.  <a href="#a05cc5c627e65d8e37754913d0fc90470">More...</a><br/></td></tr>
+<tr class="memdesc:a05cc5c627e65d8e37754913d0fc90470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of the IPI message buffer.  <a href="#a05cc5c627e65d8e37754913d0fc90470">More...</a><br/></td></tr>
 <tr class="separator:a05cc5c627e65d8e37754913d0fc90470"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3382d79fc242c571c9649aa91629689f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f">IntId</a></td></tr>
-<tr class="memdesc:a3382d79fc242c571c9649aa91629689f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt ID on GIC.  <a href="#a3382d79fc242c571c9649aa91629689f">More...</a><br/></td></tr>
+<tr class="memdesc:a3382d79fc242c571c9649aa91629689f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt ID on the Generic Interrupt Controller (GIC).  <a href="#a3382d79fc242c571c9649aa91629689f">More...</a><br/></td></tr>
 <tr class="separator:a3382d79fc242c571c9649aa91629689f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac77f391158f02bcfb7f38200f5a97b7a"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ipi_psu___config.html#ac77f391158f02bcfb7f38200f5a97b7a">IntrParent</a></td></tr>
+<tr class="memdesc:ac77f391158f02bcfb7f38200f5a97b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] holds the interrupt parent type.  <a href="#ac77f391158f02bcfb7f38200f5a97b7a">More...</a><br/></td></tr>
+<tr class="separator:ac77f391158f02bcfb7f38200f5a97b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8df4537dada42c7a73d1072ad59d2626"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626">TargetCount</a></td></tr>
-<tr class="memdesc:a8df4537dada42c7a73d1072ad59d2626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1] Parent base address.  <a href="#a8df4537dada42c7a73d1072ad59d2626">More...</a><br/></td></tr>
+<tr class="memdesc:a8df4537dada42c7a73d1072ad59d2626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of available IPI targets, up to XIPIPSU_MAX_TARGETS.  <a href="#a8df4537dada42c7a73d1072ad59d2626">More...</a><br/></td></tr>
 <tr class="separator:a8df4537dada42c7a73d1072ad59d2626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7eb9b8148ebf278905b19dbd404b727"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ipi_psu___target.html">XIpiPsu_Target</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727">TargetList</a> [<a class="el" href="group__ipipsu__api.html#ga47ff7fda69269789f8a32d6be7357712">XIPIPSU_MAX_TARGETS</a>]</td></tr>
-<tr class="memdesc:af7eb9b8148ebf278905b19dbd404b727"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of IPI Targets.  <a href="#af7eb9b8148ebf278905b19dbd404b727">More...</a><br/></td></tr>
+<tr class="memdesc:af7eb9b8148ebf278905b19dbd404b727"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPI target list.  <a href="#af7eb9b8148ebf278905b19dbd404b727">More...</a><br/></td></tr>
 <tr class="separator:af7eb9b8148ebf278905b19dbd404b727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for the device. </p>
+<div class="textblock"><p>Holds the configuration information for one IPI device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a0d87ebd028051d4a05ab03410aadbc00"></a>
 <div class="memitem">
@@ -171,7 +174,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>BitMask to be used to identify this CPU. </p>
+<p>Bit mask that identifies this CPU. </p>
 
 <p>Referenced by <a class="el" href="group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>, <a class="el" href="group__ipipsu.html#ga64113249dac23760b5cc0e9d038f8361">XIpiPsu_ReadMessage()</a>, and <a class="el" href="group__ipipsu.html#ga429d934e93e38c71d92ad98775b9cd92">XIpiPsu_WriteMessage()</a>.</p>
 
@@ -187,7 +190,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Index of the IPI Message Buffer. </p>
+<p>Index of the IPI message buffer. </p>
 
 <p>Referenced by <a class="el" href="group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>.</p>
 
@@ -203,7 +206,24 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Interrupt ID on GIC. </p>
+<p>Interrupt ID on the Generic Interrupt Controller (GIC). </p>
+
+<p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac77f391158f02bcfb7f38200f5a97b7a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XIpiPsu_Config::IntrParent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit[0] holds the interrupt parent type. </p>
+<p>Bits[64/32:1] hold the parent base address. </p>
 
 <p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>, and <a class="el" href="group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>.</p>
 
@@ -235,8 +255,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
-<p>Number of available IPI Targets </p>
+<p>Number of available IPI targets, up to XIPIPSU_MAX_TARGETS. </p>
 
 <p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#a2dc7058c8f10506fd4279462d399d33a">IpiIntrHandler()</a>, <a class="el" href="group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>, and <a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex()</a>.</p>
 
@@ -252,7 +271,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>List of IPI Targets. </p>
+<p>IPI target list. </p>
 
 <p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#a2dc7058c8f10506fd4279462d399d33a">IpiIntrHandler()</a>, <a class="el" href="group__ipipsu.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>, and <a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex()</a>.</p>
 

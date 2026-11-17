@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcan__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,30 +105,47 @@ $(document).ready(function(){initNavTree('xcan__intr_8c.html','');});
 <div class="title">xcan_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xcan_8h.html">xcan.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements CAN interrupt handling functions. </p>
+<p>This file contains functions related to CAN interrupt handling.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a xd   04/12/05  First release
+1.10a mta  05/13/07 Updated to new coding style
+2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
+              The macros have been renamed to remove _m from the name.
+3.8   ht   12/13/23 Modify XCan_InterruptEnable to enable the interrupts.
+3.8     ht   12/13/23 Added support for ECC.
+3.13  vn   07/30/26 Fix Doxygen warnings
+3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+3.13  vn   09/30/26 Update Doxygen comments to AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xcan_8h.html">xcan.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga1abd3a018094fd4d586599d708c33e4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga1abd3a018094fd4d586599d708c33e4f">XCan_InterruptEnable</a> (<a class="el" href="struct_x_can.html">XCan</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga1abd3a018094fd4d586599d708c33e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine enables interrupt(s).  <a href="group__can.html#ga1abd3a018094fd4d586599d708c33e4f">More...</a><br/></td></tr>
+<tr class="memdesc:ga1abd3a018094fd4d586599d708c33e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the specified CAN interrupts.  <a href="group__can.html#ga1abd3a018094fd4d586599d708c33e4f">More...</a><br/></td></tr>
 <tr class="separator:ga1abd3a018094fd4d586599d708c33e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga163cd737c7421ddbd0ff492883e32558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga163cd737c7421ddbd0ff492883e32558">XCan_InterruptDisable</a> (<a class="el" href="struct_x_can.html">XCan</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga163cd737c7421ddbd0ff492883e32558"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine disables interrupt(s).  <a href="group__can.html#ga163cd737c7421ddbd0ff492883e32558">More...</a><br/></td></tr>
+<tr class="memdesc:ga163cd737c7421ddbd0ff492883e32558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the specified CAN interrupts.  <a href="group__can.html#ga163cd737c7421ddbd0ff492883e32558">More...</a><br/></td></tr>
 <tr class="separator:ga163cd737c7421ddbd0ff492883e32558"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5670f843250e65969ce6ef36d0e06e24"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga5670f843250e65969ce6ef36d0e06e24">XCan_InterruptGetEnabled</a> (<a class="el" href="struct_x_can.html">XCan</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga5670f843250e65969ce6ef36d0e06e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine returns enabled interrupt(s).  <a href="group__can.html#ga5670f843250e65969ce6ef36d0e06e24">More...</a><br/></td></tr>
+<tr class="memdesc:ga5670f843250e65969ce6ef36d0e06e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently enabled CAN interrupts.  <a href="group__can.html#ga5670f843250e65969ce6ef36d0e06e24">More...</a><br/></td></tr>
 <tr class="separator:ga5670f843250e65969ce6ef36d0e06e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga26bb19c641bfce1cb3dac4f5c0b7f71d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga26bb19c641bfce1cb3dac4f5c0b7f71d">XCan_InterruptGetStatus</a> (<a class="el" href="struct_x_can.html">XCan</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga26bb19c641bfce1cb3dac4f5c0b7f71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine returns interrupt status read from Interrupt Status Register.  <a href="group__can.html#ga26bb19c641bfce1cb3dac4f5c0b7f71d">More...</a><br/></td></tr>
+<tr class="memdesc:ga26bb19c641bfce1cb3dac4f5c0b7f71d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interrupt status from the Interrupt Status Register.  <a href="group__can.html#ga26bb19c641bfce1cb3dac4f5c0b7f71d">More...</a><br/></td></tr>
 <tr class="separator:ga26bb19c641bfce1cb3dac4f5c0b7f71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac53101769980d4aa036844100ac732af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#gac53101769980d4aa036844100ac732af">XCan_InterruptClear</a> (<a class="el" href="struct_x_can.html">XCan</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:gac53101769980d4aa036844100ac732af"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears interrupt(s).  <a href="group__can.html#gac53101769980d4aa036844100ac732af">More...</a><br/></td></tr>
+<tr class="memdesc:gac53101769980d4aa036844100ac732af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the specified pending CAN interrupts.  <a href="group__can.html#gac53101769980d4aa036844100ac732af">More...</a><br/></td></tr>
 <tr class="separator:gac53101769980d4aa036844100ac732af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaafc4a0e025e8e3eb800778eba5a00c66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler</a> (void *InstancePtr)</td></tr>
-<tr class="memdesc:gaafc4a0e025e8e3eb800778eba5a00c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine is the interrupt handler for the CAN driver.  <a href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">More...</a><br/></td></tr>
+<tr class="memdesc:gaafc4a0e025e8e3eb800778eba5a00c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles CAN interrupts.  <a href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">More...</a><br/></td></tr>
 <tr class="separator:gaafc4a0e025e8e3eb800778eba5a00c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3a7838a033b61a842b06e3ee4b06a614"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler</a> (<a class="el" href="struct_x_can.html">XCan</a> *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga3a7838a033b61a842b06e3ee4b06a614"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine installs an asynchronous callback function for the given HandlerType:  <a href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">More...</a><br/></td></tr>
+<tr class="memdesc:ga3a7838a033b61a842b06e3ee4b06a614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Installs an asynchronous callback for the specified handler type.  <a href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">More...</a><br/></td></tr>
 <tr class="separator:ga3a7838a033b61a842b06e3ee4b06a614"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

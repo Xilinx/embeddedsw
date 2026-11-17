@@ -1,10 +1,43 @@
 var xclockps_8h =
 [
+    [ "BIT", "xclockps_8h.html#ga3a8ea58898cb58fc96013383d39f482c", null ],
+    [ "CLK_ARRAY_SIZE", "xclockps_8h.html#ga9b211fa2e7185ea7e1c7b8c85b515337", null ],
+    [ "XCLOCK_CEIL_DIV", "xclockps_8h.html#ga8f0f8ffaa9feeae85b5453e626c30d4e", null ],
     [ "XCLOCK_CLOCK_IS_CRITICAL", "xclockps_8h.html#ga6cda4fabd5f7b992e0b2a45c0556cd77", null ],
+    [ "XCLOCK_DIVIDERS_BITWIDTH", "xclockps_8h.html#gad42ccb0946bbc95ff1fcb094b584f20d", null ],
+    [ "XCLOCK_FETCH_PARENT_INDEX", "xclockps_8h.html#ga891341e810aad37063561610ff5eb97b", null ],
+    [ "XCLOCK_FETCH_PARENT_TYPE", "xclockps_8h.html#ga9764b7035ef13b942d2b89788d7e1942", null ],
+    [ "XCLOCK_FIX_RATE_AUX_REF_CLK", "xclockps_8h.html#gaa5bfedd94b4c84144d9b4a5e14c3edf9", null ],
+    [ "XCLOCK_FIX_RATE_DP_ACLK", "xclockps_8h.html#ga553ed9700eb6e68611fc084640e29460", null ],
+    [ "XCLOCK_FIX_RATE_GT_CRX_REF_CLK", "xclockps_8h.html#ga6427745229b97f7f051090b08817210f", null ],
+    [ "XCLOCK_FIX_RATE_PSS_ALT_REF_CLK", "xclockps_8h.html#ga863e63fc1961751d498aa540c96a978f", null ],
+    [ "XCLOCK_FIX_RATE_VIDEO_CLK", "xclockps_8h.html#ga12ccba73d277b89b5bfd26b9e6029e22", null ],
     [ "XCLOCK_GENERATE_PARENT_ID", "xclockps_8h.html#ga429b045b6d81ec1debc79067c79060ca", null ],
+    [ "XCLOCK_INVALID_DIV_INDEX", "xclockps_8h.html#gaf202178b389d8ee2a51903fe054989d5", null ],
+    [ "XCLOCK_INVALID_PARENT", "xclockps_8h.html#gaadc24d9e08b4cbf71697bd90e45b9271", null ],
+    [ "XCLOCK_INVALID_PLL_INDEX", "xclockps_8h.html#gaba9c0a56a4b3194ca3fb9ea412ac8dc4", null ],
+    [ "XCLOCK_INVALID_RATE", "xclockps_8h.html#ga9d7072e433d90a64ad4c833a7914e7ae", null ],
+    [ "XCLOCK_LIMIT_VALUE", "xclockps_8h.html#gad19095fdafaa2a82a42cd4f7449591db", null ],
+    [ "XCLOCK_MAX_DIV_VAL", "xclockps_8h.html#gadbc2d236b95031a7f274ad0c5093f1b4", null ],
     [ "XCLOCK_MAX_VALUE_UNSIGNED_TYPE", "xclockps_8h.html#ga3a109d64a6a1b7d2fbaf4292a2f29275", null ],
+    [ "XCLOCK_PARENT_IDX_MASK", "xclockps_8h.html#ga739d2509ae764639525978cf31f944ec", null ],
+    [ "XCLOCK_PARENT_TYPE_MASK", "xclockps_8h.html#gad8239a1a38a633391a602a5adce16045", null ],
+    [ "XCLOCK_ROUND_DIV", "xclockps_8h.html#ga4f818232e7cd2594f74ac7e015d5d105", null ],
     [ "XCLOCK_VALIDATE_INDEX", "xclockps_8h.html#ga12b92e4e0c80adce9aa2a68bb515b738", null ],
-    [ "XCLOCK_VALIDATE_INDEX_WARN", "xclockps_8h.html#ga306a77c915989b9d672d9c4a938e505d", [
+    [ "XCLOCK_VALIDATE_INDEX_WARN", "xclockps_8h.html#ga306a77c915989b9d672d9c4a938e505d", null ],
+    [ "XCLOCK_VALIDATE_PTR", "xclockps_8h.html#ga196214f02fa449866bd1c7169e85ee67", null ],
+    [ "XCLOCK_VALUE_MASK", "xclockps_8h.html#ga64f1c1931f5ce3817da880b01c703c87", null ],
+    [ "XClock_DisableNodeFuncPtr", "xclockps_8h.html#gab40d80bcaeffe1552a49942d3539fb6d", null ],
+    [ "XClock_EnableNodeFuncPtr", "xclockps_8h.html#ga3e4b95441e52a692857fedbcd2a2333f", null ],
+    [ "XClock_FetchIdxFuncPtr", "xclockps_8h.html#ga1ccc0afe2e4234a264a8f4f4ec33fe14", null ],
+    [ "XClock_FetchParentFuncPtr", "xclockps_8h.html#gace079a21b1ba0616e50c26aa5b03b181", null ],
+    [ "XClock_FetchRateFuncPtr", "xclockps_8h.html#ga44b261ce1f17200aaaa8400f3e4c00b8", null ],
+    [ "XClock_InitClkFuncPtr", "xclockps_8h.html#ga625cf036363b98d8880ba181e923668d", null ],
+    [ "XClock_SetParentFuncPtr", "xclockps_8h.html#ga28caa843ef4cb456885c1acba0b2e630", null ],
+    [ "XClock_SetRateFuncPtr", "xclockps_8h.html#ga2478eef3d5d1345688ae7430339eabba", null ],
+    [ "XClock_UpdateRateFuncPtr", "xclockps_8h.html#ga22738aa4eb1ba2849f52070ae8e2b7d8", null ],
+    [ "XClockRate", "xclockps_8h.html#gaf55785e68481a5b3236a81a4f02c10dc", null ],
+    [ "XClock_DivIndices", "xclockps_8h.html#gad28e67775a6a35b325701bc7415c01a3", [
       [ "MIN_DIVIDER", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3a3ea1328268ce223d55fc187770ad577a", null ],
       [ "PL0_DIV0", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3a7024c7881da46eae310358d04181d3cd", null ],
       [ "PL0_DIV1", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3ab102411883b2e1e7a26f366981693e93", null ],
@@ -89,7 +122,9 @@ var xclockps_8h =
       [ "I2C0_REF_DIV1", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3aa2edf7b9c02ef58f7d63b70346ece12c", null ],
       [ "I2C1_REF_DIV0", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3aae6e8949bb7deac67ffc02220b13e290", null ],
       [ "I2C1_REF_DIV1", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3a3478ce451d1116d38d3c865bc8fd1cca", null ],
-      [ "MAX_DIVIDER", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3a193807b8835c656f99b5e436b8825ae5", null ],
+      [ "MAX_DIVIDER", "xclockps_8h.html#ggad28e67775a6a35b325701bc7415c01a3a193807b8835c656f99b5e436b8825ae5", null ]
+    ] ],
+    [ "XClock_FixFactIndices", "xclockps_8h.html#gae1471f069482d370d259c70ae4f4d05e", [
       [ "MIN_FIXEDFACTOR", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05eadb44828272ec06439b59673de89e4fa1", null ],
       [ "IOPLL_INT_HALF_FF", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05eaf05349dd6de27d72d149e377cfc7ec62", null ],
       [ "RPLL_INT_HALF_FF", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05ea09aa084820acd7112c800c9cdf73feb4", null ],
@@ -97,7 +132,9 @@ var xclockps_8h =
       [ "DPLL_INT_HALF_FF", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05eaad2b9ab2265398ec8934eb73d19b39ac", null ],
       [ "VPLL_INT_HALF_FF", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05ea61da313bdc12ba6f350d202be32ce192", null ],
       [ "ACPU_HALF_DIV_FF", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05ea4b5cf4ce296f97237c349ffbb2af4e1e", null ],
-      [ "MAX_FIXEDFACTOR", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05eabb3128e21883c1f8b40843a557ab1a70", null ],
+      [ "MAX_FIXEDFACTOR", "xclockps_8h.html#ggae1471f069482d370d259c70ae4f4d05eabb3128e21883c1f8b40843a557ab1a70", null ]
+    ] ],
+    [ "XClock_GateIndices", "xclockps_8h.html#ga44ca0efcaae97b06e9de8c033f088cd5", [
       [ "MIN_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5a06440803df88cd909b9db52f33cbc7c7", null ],
       [ "ACPU_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5a9db843022179f3eba645ee1fd539b385", null ],
       [ "ACPU_HALF_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5ac9ac968848f4b5010efede797f8552e7", null ],
@@ -155,7 +192,9 @@ var xclockps_8h =
       [ "I2C0_REF_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5ac64f7a1203b47f91335ce6632c72c744", null ],
       [ "I2C1_REF_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5a5c2672e2d2746546ac9922f0f6099fa7", null ],
       [ "TIMESTAMP_REF_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5a1936ecd30041a33772f4938f7c01d0ae", null ],
-      [ "MAX_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5af90dda1f2693e047ae003adaf0a3ac9e", null ],
+      [ "MAX_GATE", "xclockps_8h.html#gga44ca0efcaae97b06e9de8c033f088cd5af90dda1f2693e047ae003adaf0a3ac9e", null ]
+    ] ],
+    [ "XClock_InputClks", "xclockps_8h.html#ga3cc41a8d59d535e9e186ace53c337280", [
       [ "MIN_IP", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280ac5aaa8787b2752b35144a15258e3ca1b", null ],
       [ "PSS_REF_CLK", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280a389e355261c656a91b38dcea9893e14d", null ],
       [ "VIDEO_CLK", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280ab259d4f395afce217142228eb531d151", null ],
@@ -163,7 +202,9 @@ var xclockps_8h =
       [ "GT_CRX_REF_CLK", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280a6d65a494ad2f84385025c4cb4fa366fc", null ],
       [ "AUX_REF_CLK", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280a6cf0c04bbceeceed9d1f22d878e213f3", null ],
       [ "DP_ACLK", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280a11ee56b0c610e208dfe5883b922ea152", null ],
-      [ "MAX_IP", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280a3eae225aee057e1a4165b7a1cb9aa97b", null ],
+      [ "MAX_IP", "xclockps_8h.html#gga3cc41a8d59d535e9e186ace53c337280a3eae225aee057e1a4165b7a1cb9aa97b", null ]
+    ] ],
+    [ "XClock_MuxIndices", "xclockps_8h.html#gaf2691d2a7c2db3fef7eddf9e2062ec64", [
       [ "MIN_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a227bb59c4d1384a716a93cfd7d3e88a8", null ],
       [ "IOPLL_PRE_SRC_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64aa7d45d2a4c8f0a924594ad86e8f7e8f8", null ],
       [ "IOPLL_INT_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64acfeca4867f0b4ae40cdb6b6d3995b30b", null ],
@@ -246,7 +287,9 @@ var xclockps_8h =
       [ "I2C0_REF_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a20758184d01c121df09f4bdff841de88", null ],
       [ "I2C1_REF_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a6bb23257136ded40d87ad5b24d5d6925", null ],
       [ "TIMESTAMP_REF_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a591a82e019fb37a67b8252b42993c388", null ],
-      [ "MAX_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a3b325905f3d91bbe10947cbd18bca588", null ],
+      [ "MAX_MUX", "xclockps_8h.html#ggaf2691d2a7c2db3fef7eddf9e2062ec64a3b325905f3d91bbe10947cbd18bca588", null ]
+    ] ],
+    [ "XClock_OutputClks", "xclockps_8h.html#ga474490e4890cee518764e6986cea21e2", [
       [ "MIN_OP", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a7d1874d818494fc2d28ef21a677ecff7", null ],
       [ "IOPLL", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2abe18a9746d212f3128192d09b8a50b52", null ],
       [ "RPLL", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a97c111f89bc701e65edf71a91ae5eb01", null ],
@@ -324,14 +367,18 @@ var xclockps_8h =
       [ "PL2", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a52dfeab536f010bdac0e6cd216f4c964", null ],
       [ "PL3", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a4497b5d6f0abbac65dceeeea9f1fa8ed", null ],
       [ "WDT", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a6ce2d701234f0fff39874d496fd30313", null ],
-      [ "MAX_OP", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a1df89e8bc6bb595361e067303a6a938f", null ],
+      [ "MAX_OP", "xclockps_8h.html#gga474490e4890cee518764e6986cea21e2a1df89e8bc6bb595361e067303a6a938f", null ]
+    ] ],
+    [ "XClock_PllIndices", "xclockps_8h.html#gad2313883ea84fc47b117e07483489dda", [
       [ "MIN_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaaaa50ad1d2041329fec0c735e193e4768", null ],
       [ "IOPLL_INT_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaae5c9da74887cafcfc3ef5497786372d3", null ],
       [ "RPLL_INT_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaa0fe1138f9469d3bc0c3ff3c9d225e15a", null ],
       [ "APLL_INT_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaaecf0179e958b8970d9196e612ed39ba8", null ],
       [ "DPLL_INT_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaa3d9763bc8c94936bc8f383aa58fb28a2", null ],
       [ "VPLL_INT_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaa22b3bdba9c7e35dd363a826f244bba14", null ],
-      [ "MAX_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaa8960a8afd712bb3fe0032659141a652b", null ],
+      [ "MAX_PLL", "xclockps_8h.html#ggad2313883ea84fc47b117e07483489ddaa8960a8afd712bb3fe0032659141a652b", null ]
+    ] ],
+    [ "XClock_Types", "xclockps_8h.html#ga27ee342ef73604418931cd810442e4f7", [
       [ "XCLOCK_TYPE_IP", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7a6f9810aff5a71d14776ae880cba7cb1c", null ],
       [ "XCLOCK_TYPE_PLL", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7aaf41c10a0f3b3ae030e4998102119c7f", null ],
       [ "XCLOCK_TYPE_MUX", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7ae76c62f0a003fd177e0cc4d5c2a14656", null ],
@@ -340,5 +387,27 @@ var xclockps_8h =
       [ "XCLOCK_TYPE_FIXEDFACTOR", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7ab0c0e7d4c382e0817157812a991e84fb", null ],
       [ "XCLOCK_TYPE_MAX", "xclockps_8h.html#gga27ee342ef73604418931cd810442e4f7a00e30c33fe37dafe2627dff4647a5342", null ]
     ] ],
-    [ "XClock_LookupConfig", "xclockps_8h.html#ga07d8407d52c6b095f5830f9883565fd7", null ]
+    [ "XClock_CfgInitialize", "xclockps_8h.html#ga27a346cef56805f43f1bd2251402189c", null ],
+    [ "XClock_DisableClkNode", "xclockps_8h.html#gaa19d43155684eaa65ca62214fa1daf23", null ],
+    [ "XClock_DisableClock", "xclockps_8h.html#ga5b1a403586ac1434604e6b6cad10ef9d", null ],
+    [ "XClock_DivBeginInit", "xclockps_8h.html#gae9740376a5b40cdaae54486d6137e838", null ],
+    [ "XClock_DivRegisterFuncs", "xclockps_8h.html#gaf3ce7dcf24a9bfc649a614a5fa981e6c", null ],
+    [ "XClock_EnableClkNode", "xclockps_8h.html#ga1b155c730be862ca970d7955a416c144", null ],
+    [ "XClock_EnableClock", "xclockps_8h.html#gae8ce76ddaea20e6e0a87309402b873bd", null ],
+    [ "XClock_FetchRate", "xclockps_8h.html#ga66c5ca9d5d0eb9d441dd5502e8ac5a99", null ],
+    [ "XClock_FixedFactorBeginInit", "xclockps_8h.html#gaa8f54ff80703b7041c084ce0a174dad6", null ],
+    [ "XClock_FixedFactorRegisterFuncs", "xclockps_8h.html#ga7235fef42d502c672bfb5ce79b4f19a5", null ],
+    [ "XClock_GateBeginInit", "xclockps_8h.html#gaa811c24f3d158aad8cf4d00930688543", null ],
+    [ "XClock_GateRegisterFuncs", "xclockps_8h.html#ga483db4df68e0f1c2dbbec2ab4435b78b", null ],
+    [ "XClock_GetParent", "xclockps_8h.html#gabcb827e01cf8cc8569ad8ba19f6751d6", null ],
+    [ "XClock_GetRate", "xclockps_8h.html#ga9a9ec600b2cd8a06b7f204d21f3a69f8", null ],
+    [ "XClock_InitClk", "xclockps_8h.html#gaa6261f129328bc75be06f8ec9fea6928", null ],
+    [ "XClock_LookupConfig", "xclockps_8h.html#gaaf64099292484b2eb2d6b8c1d5926585", null ],
+    [ "XClock_MuxBeginInit", "xclockps_8h.html#ga2f9479ad77a8896050b792b065435563", null ],
+    [ "XClock_MuxRegisterFuncs", "xclockps_8h.html#ga8c98e4062a87be10e400de9c5eb59cf6", null ],
+    [ "XClock_PllBeginInit", "xclockps_8h.html#ga91c35b1be776b47a8976b89039e3eb78", null ],
+    [ "XClock_PllRegisterFuncs", "xclockps_8h.html#ga02d5ee42a569febd738f35c8f5ceaba8", null ],
+    [ "XClock_SetParent", "xclockps_8h.html#gabb78e72aeac129983e846bc6d9b56c38", null ],
+    [ "XClock_SetRate", "xclockps_8h.html#ga93aed14dac8c32fba1804206dd773b8e", null ],
+    [ "XClock_UpdateRate", "xclockps_8h.html#ga2a27ed3448516742e318e9c5c91f3c8e", null ]
 ];

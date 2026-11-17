@@ -5,6 +5,8 @@ var xnandps__example_8c =
     [ "NAND_TEST_START_BLOCK", "xnandps__example_8c.html#a7db05d815b66eacb631170259b85d4e0", null ],
     [ "main", "xnandps__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "NandReadWriteExample", "xnandps__example_8c.html#a6167b15359b8a941a3701b9ff1f3d218", null ],
+    [ "NandInstance", "xnandps__example_8c.html#ae0370985f5d5c0e2ea51a72937fd5266", null ],
+    [ "NandInstPtr", "xnandps__example_8c.html#a2776ea286ffa275fdeb3139d0d61731a", null ],
     [ "ReadBuffer", "xnandps__example_8c.html#aaa747f224cb3f776fb6ecafded15e090", null ],
     [ "WriteBuffer", "xnandps__example_8c.html#a61d7712760b0620e08f131bb16df45cd", null ]
 ];

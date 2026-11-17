@@ -9,108 +9,154 @@
     <includedby refid="xasu__ecies_8c" local="yes">xasu_ecies.c</includedby>
     <includedby refid="xasu__ecc__example_8c" local="yes">xasu_ecc_example.c</includedby>
     <includedby refid="xasu__ecdh__example_8c" local="yes">xasu_ecdh_example.c</includedby>
+    <includedby refid="xasu__keymanager__example_8c" local="yes">xasu_keymanager_example.c</includedby>
     <includedby refid="xasu__multi__crypto__example_8c" local="yes">xasu_multi_crypto_example.c</includedby>
     <incdepgraph>
-      <node id="250">
+      <node id="323">
         <label>xasu_def.h</label>
         <link refid="xasu__def_8h"/>
-        <childnode refid="243" relation="include">
+        <childnode refid="320" relation="include">
         </childnode>
       </node>
-      <node id="245">
-        <label>xasu_sharedmem.h</label>
-        <link refid="xasu__sharedmem_8h"/>
-        <childnode refid="243" relation="include">
-        </childnode>
-      </node>
-      <node id="244">
-        <label>xasu_client.h</label>
-        <link refid="xasu__client_8h"/>
-        <childnode refid="245" relation="include">
-        </childnode>
-        <childnode refid="246" relation="include">
-        </childnode>
-        <childnode refid="247" relation="include">
-        </childnode>
-        <childnode refid="249" relation="include">
-        </childnode>
-        <childnode refid="250" relation="include">
-        </childnode>
-      </node>
-      <node id="242">
+      <node id="319">
         <label>xasu_ecc.h</label>
         <link refid="xasu_ecc.h"/>
-        <childnode refid="243" relation="include">
+        <childnode refid="320" relation="include">
         </childnode>
-        <childnode refid="244" relation="include">
+        <childnode refid="321" relation="include">
         </childnode>
-        <childnode refid="251" relation="include">
+        <childnode refid="328" relation="include">
         </childnode>
       </node>
-      <node id="248">
+      <node id="332">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+      </node>
+      <node id="322">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="323" relation="include">
+        </childnode>
+      </node>
+      <node id="330">
+        <label>xil_util.h</label>
+      </node>
+      <node id="326">
         <label>xasu_bsp_config.h</label>
       </node>
-      <node id="246">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="247">
-        <label>xasu_perf.h</label>
-        <link refid="xasu__perf_8h"/>
-        <childnode refid="243" relation="include">
-        </childnode>
-        <childnode refid="248" relation="include">
-        </childnode>
-      </node>
-      <node id="243">
-        <label>xil_types.h</label>
-      </node>
-      <node id="251">
+      <node id="328">
         <label>xasu_eccinfo.h</label>
         <link refid="xasu__eccinfo_8h"/>
-        <childnode refid="243" relation="include">
+        <childnode refid="320" relation="include">
         </childnode>
-        <childnode refid="248" relation="include">
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
         </childnode>
       </node>
-      <node id="249">
+      <node id="321">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="322" relation="include">
+        </childnode>
+        <childnode refid="324" relation="include">
+        </childnode>
+        <childnode refid="325" relation="include">
+        </childnode>
+        <childnode refid="327" relation="include">
+        </childnode>
+        <childnode refid="323" relation="include">
+        </childnode>
+      </node>
+      <node id="324">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="325">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+      </node>
+      <node id="320">
+        <label>xil_types.h</label>
+      </node>
+      <node id="329">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="330" relation="include">
+        </childnode>
+        <childnode refid="331" relation="include">
+        </childnode>
+        <childnode refid="332" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+      </node>
+      <node id="331">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="330" relation="include">
+        </childnode>
+        <childnode refid="326" relation="include">
+        </childnode>
+      </node>
+      <node id="327">
         <label>xasu_status.h</label>
         <link refid="xasu__status_8h"/>
-        <childnode refid="243" relation="include">
+        <childnode refid="320" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="255">
-        <label>xasu_ecc_example.c</label>
-        <link refid="xasu__ecc__example_8c"/>
-      </node>
-      <node id="257">
-        <label>xasu_multi_crypto_example.c</label>
-        <link refid="xasu__multi__crypto__example_8c"/>
-      </node>
-      <node id="253">
+      <node id="334">
         <label>xasu_ecc.c</label>
         <link refid="xasu__ecc_8c"/>
       </node>
-      <node id="252">
+      <node id="333">
         <label>xasu_ecc.h</label>
         <link refid="xasu_ecc.h"/>
-        <childnode refid="253" relation="include">
+        <childnode refid="334" relation="include">
         </childnode>
-        <childnode refid="254" relation="include">
+        <childnode refid="335" relation="include">
         </childnode>
-        <childnode refid="255" relation="include">
+        <childnode refid="336" relation="include">
         </childnode>
-        <childnode refid="256" relation="include">
+        <childnode refid="337" relation="include">
         </childnode>
-        <childnode refid="257" relation="include">
+        <childnode refid="338" relation="include">
+        </childnode>
+        <childnode refid="339" relation="include">
         </childnode>
       </node>
-      <node id="254">
+      <node id="338">
+        <label>xasu_keymanager_example.c</label>
+        <link refid="xasu__keymanager__example_8c"/>
+      </node>
+      <node id="336">
+        <label>xasu_ecc_example.c</label>
+        <link refid="xasu__ecc__example_8c"/>
+      </node>
+      <node id="339">
+        <label>xasu_multi_crypto_example.c</label>
+        <link refid="xasu__multi__crypto__example_8c"/>
+      </node>
+      <node id="335">
         <label>xasu_ecies.c</label>
         <link refid="xasu__ecies_8c"/>
       </node>
-      <node id="256">
+      <node id="337">
         <label>xasu_ecdh_example.c</label>
         <link refid="xasu__ecdh__example_8c"/>
       </node>
@@ -153,20 +199,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="303" bodyend="338"/>
-        <references refid="group__xasu__common__defs_1ga9a001666cbead1c0995a30c81d3cf705" compoundref="xasu__eccinfo_8h" startline="52">XASU_ECC_KAT_CMD_ID</references>
-        <references refid="group__xasu__common__defs_1gaa2b7c60491a82de1e957abc66e6a299d" compoundref="xasu__eccinfo_8h" startline="69">XASU_ECC_NIST_ED25519</references>
-        <references refid="group__xasu__common__defs_1ga165bdfeb12775565e04c4f325b658e93" compoundref="xasu__eccinfo_8h" startline="70">XASU_ECC_NIST_ED448</references>
-        <references refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" compoundref="xasu__eccinfo_8h" startline="60">XASU_ECC_NIST_P256</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="304" bodyend="339"/>
+        <references refid="group__xasu__common__defs_1ga9a001666cbead1c0995a30c81d3cf705" compoundref="xasu__eccinfo_8h" startline="55">XASU_ECC_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gaa2b7c60491a82de1e957abc66e6a299d" compoundref="xasu__eccinfo_8h" startline="72">XASU_ECC_NIST_ED25519</references>
+        <references refid="group__xasu__common__defs_1ga165bdfeb12775565e04c4f325b658e93" compoundref="xasu__eccinfo_8h" startline="73">XASU_ECC_NIST_ED448</references>
+        <references refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" compoundref="xasu__eccinfo_8h" startline="63">XASU_ECC_NIST_P256</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__ecc__client__apis_1gaaabcb4485412f47df39713bd5df6a544" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -205,16 +251,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="71" bodyend="106"/>
-        <references refid="group__xasu__common__defs_1ga549a33ccfc02a7609c2f7868db91aecd" compoundref="xasu__eccinfo_8h" startline="50">XASU_ECC_GEN_SIGNATURE_CMD_ID</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="71" bodyend="106"/>
+        <references refid="group__xasu__common__defs_1ga549a33ccfc02a7609c2f7868db91aecd" compoundref="xasu__eccinfo_8h" startline="53">XASU_ECC_GEN_SIGNATURE_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga4b8e73d2c2143da5c419680e6a1d6c59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -253,16 +299,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="124" bodyend="159"/>
-        <references refid="group__xasu__common__defs_1ga169bc6365e7267e189aef9fcf1bacf81" compoundref="xasu__eccinfo_8h" startline="51">XASU_ECC_VERIFY_SIGNATURE_CMD_ID</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="124" bodyend="159"/>
+        <references refid="group__xasu__common__defs_1ga169bc6365e7267e189aef9fcf1bacf81" compoundref="xasu__eccinfo_8h" startline="54">XASU_ECC_VERIFY_SIGNATURE_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga48e7b1ccb5585cef9da33497b4ddecd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -301,17 +347,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="179" bodyend="215"/>
-        <references refid="group__xasu__common__defs_1ga6ae858dda9f5299a42254dfa7c9cc73f" compoundref="xasu__eccinfo_8h" startline="55">XASU_ECC_GEN_PUBKEY_CMD_ID</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" compoundref="xasu__status_8h" startline="60">XASU_INVALID_CURVEINFO</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="179" bodyend="215"/>
+        <references refid="group__xasu__common__defs_1ga6ae858dda9f5299a42254dfa7c9cc73f" compoundref="xasu__eccinfo_8h" startline="58">XASU_ECC_GEN_PUBKEY_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" compoundref="xasu__status_8h" startline="61">XASU_INVALID_CURVEINFO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga479b14161470bf8787e6f265bb4d23d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -349,18 +395,21 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="357" bodyend="392"/>
-        <references refid="group__xasu__common__defs_1ga10dae1a65991613bacadcdafe44a7c79" compoundref="xasu__eccinfo_8h" startline="53">XASU_ECDH_SHARED_SECRET_CMD_ID</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
-        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+<para>Validate input parameters.</para><para>When the secret is stored in the vault, the response carries its object ID.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="358" bodyend="401"/>
+        <references refid="struct_x_asu___ecdh_params_1a77b25cca0a3a21a3eec0468331f5e535" compoundref="xasu__eccinfo_8h" startline="148">XAsu_EcdhParams::SharedSecretAddr</references>
+        <references refid="struct_x_asu___ecdh_params_1a59d424489b7387dcdedb2c5d3eeb9ea3" compoundref="xasu__eccinfo_8h" startline="150">XAsu_EcdhParams::SharedSecretObjIdAddr</references>
+        <references refid="group__xasu__common__defs_1ga10dae1a65991613bacadcdafe44a7c79" compoundref="xasu__eccinfo_8h" startline="56">XASU_ECDH_SHARED_SECRET_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" compoundref="xasu__keymanagerinfo_8h" startline="79">XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="102" endline="237">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga856dd75948e7f1643841339257eade80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -388,16 +437,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="406" bodyend="434"/>
-        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
-        <references refid="group__xasu__common__defs_1ga88d456387e78867dfe712550898b9f6e" compoundref="xasu__eccinfo_8h" startline="54">XASU_ECDH_KAT_CMD_ID</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="415" bodyend="443"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="52">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__common__defs_1ga88d456387e78867dfe712550898b9f6e" compoundref="xasu__eccinfo_8h" startline="57">XASU_ECDH_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -436,24 +485,24 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters.</para><para>Key manager is not supported for ECC validate public key; KeyId must be 0.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="234" bodyend="286"/>
-        <references refid="struct_x_asu___ecc_key_params_1a0d0ce8eef9e2961c1b392c827d3caba7" compoundref="xasu__eccinfo_8h" startline="132">XAsu_EccKeyParams::CurveType</references>
-        <references refid="struct_x_asu___ecc_key_object_1a02196f5aadc4a8e9a43a6e2d767306c0" compoundref="xasu__eccinfo_8h" startline="115">XAsu_EccKeyObject::KeyId</references>
-        <references refid="struct_x_asu___ecc_key_object_1ac7340774e8e250d8d2712cc5eaad1690" compoundref="xasu__eccinfo_8h" startline="116">XAsu_EccKeyObject::KeyLen</references>
-        <references refid="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" compoundref="xasu__eccinfo_8h" startline="131">XAsu_EccKeyParams::PubKeyAddr</references>
-        <references refid="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" compoundref="xasu__eccinfo_8h" startline="130">XAsu_EccKeyParams::PvtKey</references>
-        <references refid="group__xasu__common__defs_1gae1a496679846654aac02da3220276642" compoundref="xasu__eccinfo_8h" startline="56">XASU_ECC_VAL_PUBKEY_CMD_ID</references>
-        <references refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" compoundref="xasu__status_8h" startline="60">XASU_INVALID_CURVEINFO</references>
-        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
-        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
-        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
-        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
-        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
-        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
-        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
-        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="234" bodyend="287"/>
+        <references refid="struct_x_asu___ecc_key_object_1aca3d4f92c45add7b6161211b42c8d69d" compoundref="xasu__eccinfo_8h" startline="125">XAsu_EccKeyObject::CurveType</references>
+        <references refid="struct_x_asu___ecc_key_object_1a02196f5aadc4a8e9a43a6e2d767306c0" compoundref="xasu__eccinfo_8h" startline="120">XAsu_EccKeyObject::KeyId</references>
+        <references refid="struct_x_asu___ecc_key_object_1ac7340774e8e250d8d2712cc5eaad1690" compoundref="xasu__eccinfo_8h" startline="121">XAsu_EccKeyObject::KeyLen</references>
+        <references refid="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" compoundref="xasu__eccinfo_8h" startline="141">XAsu_EccKeyParams::PubKeyAddr</references>
+        <references refid="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" compoundref="xasu__eccinfo_8h" startline="140">XAsu_EccKeyParams::PvtKey</references>
+        <references refid="group__xasu__common__defs_1gae1a496679846654aac02da3220276642" compoundref="xasu__eccinfo_8h" startline="59">XASU_ECC_VAL_PUBKEY_CMD_ID</references>
+        <references refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="126" endline="175">XAsu_EccValidateCurveInfo</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="50">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" compoundref="xasu__status_8h" startline="61">XASU_INVALID_CURVEINFO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="54">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="55">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="353" endline="378">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="265" endline="333">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="45">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="69">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="212" endline="245">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="53">XASU_WORD_LEN_IN_BYTES</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -510,6 +559,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_ECC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.h"/>
   </compounddef>
 </doxygen>

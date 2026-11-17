@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_sfl___interface.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,26 +112,75 @@ $(document).ready(function(){initNavTree('struct_x_sfl___interface.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains interface information for a sfl library.
+<p>Holds the interface information for the SFL library.
  <a href="struct_x_sfl___interface.html#details">More...</a></p>
 
 <p><code>#include &lt;xilsfl.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:gac82ef8bb1b4d6639ed17518cdfc6e395"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sfl___cntrl_info.html">XSfl_CntrlInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gac82ef8bb1b4d6639ed17518cdfc6e395">CntrlInfo</a></td></tr>
-<tr class="memdesc:gac82ef8bb1b4d6639ed17518cdfc6e395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controller specific information.  <a href="group__xilsfl.html#gac82ef8bb1b4d6639ed17518cdfc6e395">More...</a><br/></td></tr>
-<tr class="separator:gac82ef8bb1b4d6639ed17518cdfc6e395"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf6fcc947f54fa33e7d30718c13e3fef8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sfl___flash_info.html">XSfl_FlashInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gaf6fcc947f54fa33e7d30718c13e3fef8">SflFlashInfo</a></td></tr>
-<tr class="memdesc:gaf6fcc947f54fa33e7d30718c13e3fef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash Specific information.  <a href="group__xilsfl.html#gaf6fcc947f54fa33e7d30718c13e3fef8">More...</a><br/></td></tr>
-<tr class="separator:gaf6fcc947f54fa33e7d30718c13e3fef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga63eff4dd6fc25bcc1519051e1ab61f50"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga63eff4dd6fc25bcc1519051e1ab61f50">Quirks</a></td></tr>
-<tr class="memdesc:ga63eff4dd6fc25bcc1519051e1ab61f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quirks to handle specific use cases.  <a href="group__xilsfl.html#ga63eff4dd6fc25bcc1519051e1ab61f50">More...</a><br/></td></tr>
-<tr class="separator:ga63eff4dd6fc25bcc1519051e1ab61f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac82ef8bb1b4d6639ed17518cdfc6e395"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sfl___cntrl_info.html">XSfl_CntrlInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___interface.html#ac82ef8bb1b4d6639ed17518cdfc6e395">CntrlInfo</a></td></tr>
+<tr class="memdesc:ac82ef8bb1b4d6639ed17518cdfc6e395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controller-specific information.  <a href="#ac82ef8bb1b4d6639ed17518cdfc6e395">More...</a><br/></td></tr>
+<tr class="separator:ac82ef8bb1b4d6639ed17518cdfc6e395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6fcc947f54fa33e7d30718c13e3fef8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sfl___flash_info.html">XSfl_FlashInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___interface.html#af6fcc947f54fa33e7d30718c13e3fef8">SflFlashInfo</a></td></tr>
+<tr class="memdesc:af6fcc947f54fa33e7d30718c13e3fef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash-specific information.  <a href="#af6fcc947f54fa33e7d30718c13e3fef8">More...</a><br/></td></tr>
+<tr class="separator:af6fcc947f54fa33e7d30718c13e3fef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63eff4dd6fc25bcc1519051e1ab61f50"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___interface.html#a63eff4dd6fc25bcc1519051e1ab61f50">Quirks</a></td></tr>
+<tr class="memdesc:a63eff4dd6fc25bcc1519051e1ab61f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quirks to handle specific use cases.  <a href="#a63eff4dd6fc25bcc1519051e1ab61f50">More...</a><br/></td></tr>
+<tr class="separator:a63eff4dd6fc25bcc1519051e1ab61f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains interface information for a sfl library. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds the interface information for the SFL library. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="ac82ef8bb1b4d6639ed17518cdfc6e395"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_sfl___cntrl_info.html">XSfl_CntrlInfo</a> XSfl_Interface::CntrlInfo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Controller-specific information. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#ga2e882d98094018d1a45d549c6e9ef119">XSfl_FlashEnableQuadMode()</a>, <a class="el" href="group__xilsfl.html#gab1ba16e9c7b118d9436d779c254916ca">XSfl_FlashEnterExit4BAddMode()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga91e56d8af1dd4e5d1b5d614be6b123ec">XSfl_FlashInit()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#ga34e14f3a74f1e2cf6f8b659449453522">XSfl_FlashSetSDRDDRMode()</a>, <a class="el" href="group__xilsfl.html#ga13d18f695b6fbba7a9c799d6f036cb05">XSfl_FlashTransferDone()</a>, <a class="el" href="group__xilsfl.html#ga5db7bb11b2fc937b06a37b5e0e4b29a7">XSfl_GetRealAddr()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a63eff4dd6fc25bcc1519051e1ab61f50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSfl_Interface::Quirks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Quirks to handle specific use cases. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, and <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af6fcc947f54fa33e7d30718c13e3fef8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_sfl___flash_info.html">XSfl_FlashInfo</a> XSfl_Interface::SflFlashInfo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flash-specific information. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#ga2e882d98094018d1a45d549c6e9ef119">XSfl_FlashEnableQuadMode()</a>, <a class="el" href="group__xilsfl.html#gab1ba16e9c7b118d9436d779c254916ca">XSfl_FlashEnterExit4BAddMode()</a>, <a class="el" href="group__xilsfl.html#ga49eeaf1569748d56e0fa1742a50ee291">XSfl_FlashErase()</a>, <a class="el" href="group__xilsfl.html#ga2dc535e80a4fa46f52380b8ece695826">XSfl_FlashGetInfo()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga91e56d8af1dd4e5d1b5d614be6b123ec">XSfl_FlashInit()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#ga34e14f3a74f1e2cf6f8b659449453522">XSfl_FlashSetSDRDDRMode()</a>, <a class="el" href="group__xilsfl.html#ga826c63730a917b8de42d41d634a1b30f">XSfl_FlashWrite()</a>, <a class="el" href="group__xilsfl.html#ga5db7bb11b2fc937b06a37b5e0e4b29a7">XSfl_GetRealAddr()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

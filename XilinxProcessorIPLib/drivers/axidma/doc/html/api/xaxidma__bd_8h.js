@@ -26,6 +26,8 @@ var xaxidma__bd_8h =
     [ "XAxiDma_BdSetVSize", "xaxidma__bd_8h.html#ga383b2c0667bf5bafa22922168895bd5e", null ],
     [ "XAxiDma_BdWrite", "xaxidma__bd_8h.html#gab3b7d771208c01701b35bce165332a9f", null ],
     [ "XAxiDma_BdWrite64", "xaxidma__bd_8h.html#ga273953f607ecfa92d879c4ee3660f954", null ],
+    [ "XAXIDMA_CACHE_FLUSH", "xaxidma__bd_8h.html#gabec3033a105916da4fab14789e42d8fe", null ],
+    [ "XAXIDMA_CACHE_INVALIDATE", "xaxidma__bd_8h.html#ga6c49b65edb2b1a59af236bfec55ef6ef", null ],
     [ "XAxiDma_Bd", "xaxidma__bd_8h.html#ga5faf4d844b10fc577f3a75a170f11867", null ],
     [ "XAxiDma_BdGetAppWord", "xaxidma__bd_8h.html#ga9d2814e4249884e68fe9e6f370920ca4", null ],
     [ "XAxiDma_BdSetAppWord", "xaxidma__bd_8h.html#gafc6434a23594c20c2b601f010a979e48", null ],

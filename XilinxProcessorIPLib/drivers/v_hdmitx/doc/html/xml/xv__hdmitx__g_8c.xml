@@ -26,14 +26,19 @@
       <node id="40">
         <label>xdebug.h</label>
       </node>
-      <node id="36">
-        <label>xv_hdmitx_hw.h</label>
-        <link refid="xv__hdmitx__hw_8h"/>
-        <childnode refid="37" relation="include">
+      <node id="33">
+        <label>xv_hdmitx_g.c</label>
+        <link refid="xv_hdmitx_g.c"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
       <node id="39">
         <label>xstatus.h</label>
+      </node>
+      <node id="41">
+        <label>xvidc.h</label>
       </node>
       <node id="35">
         <label>xv_hdmitx.h</label>
@@ -53,9 +58,6 @@
         <childnode refid="44" relation="include">
         </childnode>
       </node>
-      <node id="41">
-        <label>xvidc.h</label>
-      </node>
       <node id="43">
         <label>xil_types.h</label>
       </node>
@@ -65,12 +67,10 @@
       <node id="34">
         <label>xparameters.h</label>
       </node>
-      <node id="33">
-        <label>xv_hdmitx_g.c</label>
-        <link refid="xv_hdmitx_g.c"/>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
+      <node id="36">
+        <label>xv_hdmitx_hw.h</label>
+        <link refid="xv__hdmitx__hw_8h"/>
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_g.c" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_g.c" bodystart="15" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_g.c" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_g.c" bodystart="15" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -123,6 +123,6 @@
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="21"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_g.c"/>
   </compounddef>
 </doxygen>

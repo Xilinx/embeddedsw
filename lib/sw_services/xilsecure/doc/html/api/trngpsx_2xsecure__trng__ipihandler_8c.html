@@ -122,7 +122,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       ss   04/05/24 Fixed doxygen warnings
 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
       mb   07/31/2024 Added the check to validate Payload for NULL pointer
-      tvp  05/13/25 Code refactoring for Platform specific TRNG functions</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_dma.h&quot;</code><br/>
+      tvp  05/13/25 Code refactoring for Platform specific TRNG functions
+5.8   mb   09/24/26 Moved XSecure_TrngKat here from core xsecure_trng.c</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_dma.h&quot;</code><br/>
+<code>#include &quot;xplmi.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__defs_8h.html">xsecure_defs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="trngpsx_2xsecure__trng_8h.html">xsecure_trng.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="trngpsx_2xsecure__trng__ipihandler_8h.html">xsecure_trng_ipihandler.h</a>&quot;</code><br/>

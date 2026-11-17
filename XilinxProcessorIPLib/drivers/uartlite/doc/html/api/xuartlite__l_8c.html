@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartlite__l_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,15 +105,35 @@ $(document).ready(function(){initNavTree('xuartlite__l_8c.html','');});
 <div class="title">xuartlite_l.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartlite__l_8h.html">xuartlite_l.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Low-level driver functions for the UART Lite device. </p>
+<p>Refer to the hardware device specification for more details of the device operation.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00b rpm  04/25/02 First release
+1.12a rpm  07/16/07 Fixed arg type for RecvByte
+2.00a ktn  10/20/09 The macros have been renamed to remove _m from the name.
+3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototypes of XUartLite_SendByte,
+                    XUartLite_RecvByte APIs.
+3.11  adk  12/09/24 Since PLM has custom implementation of outbyte() API
+              don't pull it for PLM template app case.
+      ss   07/11/25 Add define for ASUFW as outbyte() specific implementation
+                    for ASUFW is added
+3.14  vn   08/26/26 Fix Doxygen warnings
+3.14  vn   09/09/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartlite__l_8h.html">xuartlite_l.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">XUartLite_SendByte</a> (UINTPTR BaseAddress, u8 Data)</td></tr>
-<tr class="memdesc:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sends a single byte using the UART.  <a href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">More...</a><br/></td></tr>
+<tr class="memdesc:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a single byte using the UART.  <a href="group__uartlite.html#gaac1bc87a3b2b3873eff73cc3b93c153d">More...</a><br/></td></tr>
 <tr class="separator:gaac1bc87a3b2b3873eff73cc3b93c153d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">XUartLite_RecvByte</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions receives a single byte using the UART.  <a href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">More...</a><br/></td></tr>
+<tr class="memdesc:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a single byte using the UART.  <a href="group__uartlite.html#ga2cccdf9978fb4d1f7fab69a4b39e6e26">More...</a><br/></td></tr>
 <tr class="separator:ga2cccdf9978fb4d1f7fab69a4b39e6e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

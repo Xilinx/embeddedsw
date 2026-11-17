@@ -2,6 +2,7 @@ var files =
 [
     [ "xuartpsv.c", "xuartpsv_8c.html", "xuartpsv_8c" ],
     [ "xuartpsv.h", "xuartpsv_8h.html", "xuartpsv_8h" ],
+    [ "xuartpsv_g.c", "xuartpsv__g_8c.html", "xuartpsv__g_8c" ],
     [ "xuartpsv_hello_world_example.c", "xuartpsv__hello__world__example_8c.html", "xuartpsv__hello__world__example_8c" ],
     [ "xuartpsv_hw.c", "xuartpsv__hw_8c.html", "xuartpsv__hw_8c" ],
     [ "xuartpsv_hw.h", "xuartpsv__hw_8h.html", "xuartpsv__hw_8h" ],

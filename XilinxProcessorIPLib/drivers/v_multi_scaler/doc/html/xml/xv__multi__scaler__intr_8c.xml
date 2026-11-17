@@ -6,47 +6,47 @@
     <includes refid="xv__multi__scaler__hw_8h" local="yes">xv_multi_scaler_hw.h</includes>
     <includes refid="xv__multi__scaler_8h" local="yes">xv_multi_scaler.h</includes>
     <incdepgraph>
-      <node id="75">
+      <node id="74">
         <label>xil_assert.h</label>
       </node>
-      <node id="73">
+      <node id="76">
+        <label>xil_io.h</label>
+      </node>
+      <node id="71">
+        <label>xv_multi_scaler_hw.h</label>
+        <link refid="xv__multi__scaler__hw_8h"/>
+      </node>
+      <node id="72">
         <label>xv_multi_scaler.h</label>
         <link refid="xv__multi__scaler_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
         <childnode refid="74" relation="include">
         </childnode>
         <childnode refid="75" relation="include">
         </childnode>
         <childnode refid="76" relation="include">
         </childnode>
-        <childnode refid="77" relation="include">
-        </childnode>
-        <childnode refid="72" relation="include">
+        <childnode refid="71" relation="include">
         </childnode>
       </node>
-      <node id="77">
-        <label>xil_io.h</label>
-      </node>
-      <node id="72">
-        <label>xv_multi_scaler_hw.h</label>
-        <link refid="xv__multi__scaler__hw_8h"/>
-      </node>
-      <node id="76">
+      <node id="75">
         <label>xstatus.h</label>
       </node>
-      <node id="74">
+      <node id="73">
         <label>xil_types.h</label>
       </node>
-      <node id="70">
+      <node id="69">
         <label>xv_multi_scaler_intr.c</label>
         <link refid="xv_multi_scaler_intr.c"/>
+        <childnode refid="70" relation="include">
+        </childnode>
         <childnode refid="71" relation="include">
         </childnode>
         <childnode refid="72" relation="include">
         </childnode>
-        <childnode refid="73" relation="include">
-        </childnode>
       </node>
-      <node id="71">
+      <node id="70">
         <label>xil_printf.h</label>
       </node>
     </incdepgraph>
@@ -98,10 +98,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" bodystart="44" bodyend="54"/>
-        <references refid="struct_x_v__multi__scaler_1a4dcdc9b8086f59643462608251154f55" compoundref="xv__multi__scaler_8h" startline="161">XV_multi_scaler::CallbackRef</references>
-        <references refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" compoundref="xv__multi__scaler_8h" startline="160">XV_multi_scaler::FrameDoneCallback</references>
-        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" bodystart="44" bodyend="54"/>
+        <references refid="struct_x_v__multi__scaler_1a4dcdc9b8086f59643462608251154f55" compoundref="xv__multi__scaler_8h" startline="162">XV_multi_scaler::CallbackRef</references>
+        <references refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" compoundref="xv__multi__scaler_8h" startline="161">XV_multi_scaler::FrameDoneCallback</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="365" endline="517">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__v__multi__scaler_1ga5e677dc070c124e1d19c6fbd07cf3c8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -128,14 +128,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" bodystart="75" bodyend="90"/>
-        <references refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" compoundref="xv__multi__scaler_8h" startline="160">XV_multi_scaler::FrameDoneCallback</references>
-        <references refid="struct_x_v__multi__scaler_1af1df2f8837a2ec5a25292418558a1c70" compoundref="xv__multi__scaler_8h" startline="151">XV_multi_scaler::IsReady</references>
-        <references refid="xv__multi__scaler_8c_1a5f8f32c168b31b403968db34f9178d6e" compoundref="xv__multi__scaler_8c" startline="10118" endline="10125">XV_multi_scaler_InterruptClear</references>
-        <references refid="xv__multi__scaler_8c_1a58473ded57839bdeaed8eb2400466786" compoundref="xv__multi__scaler_8c" startline="10158" endline="10165">XV_multi_scaler_InterruptGetStatus</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" bodystart="75" bodyend="92"/>
+        <references refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" compoundref="xv__multi__scaler_8h" startline="161">XV_multi_scaler::FrameDoneCallback</references>
+        <references refid="struct_x_v__multi__scaler_1af1df2f8837a2ec5a25292418558a1c70" compoundref="xv__multi__scaler_8h" startline="152">XV_multi_scaler::IsReady</references>
+        <references refid="xv__multi__scaler_8c_1a5f8f32c168b31b403968db34f9178d6e" compoundref="xv__multi__scaler_8c" startline="10948" endline="10955">XV_multi_scaler_InterruptClear</references>
+        <references refid="xv__multi__scaler_8c_1a58473ded57839bdeaed8eb2400466786" compoundref="xv__multi__scaler_8c" startline="10988" endline="10995">XV_multi_scaler_InterruptGetStatus</references>
         <references refid="xv__multi__scaler_8h_1a19f9095f82df48af37e2ecb250ab3523" compoundref="xv__multi__scaler_8h" startline="68">XV_MULTI_SCALER_ISR_DONE_BIT_MASK</references>
         <references refid="xv__multi__scaler_8h_1a09cb096510d86fa51edb4b142113155a" compoundref="xv__multi__scaler_8h" startline="72">XV_MULTI_SCALER_ISR_READY_BIT_MASK</references>
-        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="365" endline="517">main</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -175,8 +175,8 @@
 <codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref><sp/>*MscPtr<sp/>=<sp/>(<ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(MscPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(MscPtr-&gt;<ref refid="struct_x_v__multi__scaler_1af1df2f8837a2ec5a25292418558a1c70" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MscPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MscPtr-&gt;<ref refid="struct_x_v__multi__scaler_1af1df2f8837a2ec5a25292418558a1c70" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xv__multi__scaler_8c_1a58473ded57839bdeaed8eb2400466786" kindref="member">XV_multi_scaler_InterruptGetStatus</ref>(MscPtr))<sp/>{</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__multi__scaler_8c_1a5f8f32c168b31b403968db34f9178d6e" kindref="member">XV_multi_scaler_InterruptClear</ref>(MscPtr,</highlight></codeline>
@@ -185,8 +185,10 @@
 <codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MscPtr-&gt;<ref refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" kindref="member">FrameDoneCallback</ref>)</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MscPtr-&gt;<ref refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" kindref="member">FrameDoneCallback</ref>(MscPtr);</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c"/>
   </compounddef>
 </doxygen>

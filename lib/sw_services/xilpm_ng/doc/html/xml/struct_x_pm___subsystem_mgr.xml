@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___subsystem_mgr" kind="struct" prot="public">
+    <compoundname>XPm_SubsystemMgr</compoundname>
+    <includes local="no">xpm_subsystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___subsystem_mgr_1a2148f2da89a0c539bb5790bcd1e9c255" prot="public" static="no" mutable="no">
+        <type>XPm_SubsystemList</type>
+        <definition>XPm_SubsystemList XPm_SubsystemMgr::Subsystems</definition>
+        <argsstring></argsstring>
+        <name>Subsystems</name>
+        <briefdescription>
+<para>List of subsystem objects. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_mgr_1ad1abd550cb9f9fdcb06106ea313e4cab" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___subsystem_ops" kindref="compound">XPm_SubsystemOps</ref></type>
+        <definition>XPm_SubsystemOps XPm_SubsystemMgr::SubsysOps[SUBSYS_OPS_MAX]</definition>
+        <argsstring>[SUBSYS_OPS_MAX]</argsstring>
+        <name>SubsysOps</name>
+        <briefdescription>
+<para>Subsystem operations supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_mgr_1a30ba7582b2f8ff0453b48ca34e3c3c67" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_SubsystemMgr::NumSubsystems</definition>
+        <argsstring></argsstring>
+        <name>NumSubsystems</name>
+        <briefdescription>
+<para>Total number of subsystems. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_mgr_1ae43b6694fadff08e625171beec63e060" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_SubsystemMgr::MaxSubsystemIdx</definition>
+        <argsstring></argsstring>
+        <name>MaxSubsystemIdx</name>
+        <briefdescription>
+<para>Maximum subsystem index present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The subsystem manager. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="299">
+        <label>XPm_SubsystemOps</label>
+        <link refid="struct_x_pm___subsystem_ops"/>
+      </node>
+      <node id="298">
+        <label>XPm_SubsystemMgr</label>
+        <link refid="struct_x_pm___subsystem_mgr"/>
+        <childnode refid="299" relation="usage">
+          <edgelabel>SubsysOps</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="142" bodyend="147"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___subsystem_mgr_1ae43b6694fadff08e625171beec63e060" prot="public" virt="non-virtual"><scope>XPm_SubsystemMgr</scope><name>MaxSubsystemIdx</name></member>
+      <member refid="struct_x_pm___subsystem_mgr_1a30ba7582b2f8ff0453b48ca34e3c3c67" prot="public" virt="non-virtual"><scope>XPm_SubsystemMgr</scope><name>NumSubsystems</name></member>
+      <member refid="struct_x_pm___subsystem_mgr_1ad1abd550cb9f9fdcb06106ea313e4cab" prot="public" virt="non-virtual"><scope>XPm_SubsystemMgr</scope><name>SubsysOps</name></member>
+      <member refid="struct_x_pm___subsystem_mgr_1a2148f2da89a0c539bb5790bcd1e9c255" prot="public" virt="non-virtual"><scope>XPm_SubsystemMgr</scope><name>Subsystems</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

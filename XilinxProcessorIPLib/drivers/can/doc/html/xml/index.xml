@@ -69,7 +69,6 @@
     <member refid="group__can_1gac3819485b065f3726f30fab00768891a" kind="define"><name>XCAN_HANDLER_RECV</name></member>
     <member refid="group__can_1ga95c42c89b517eab2aa63b584178e19d7" kind="define"><name>XCAN_HANDLER_ERROR</name></member>
     <member refid="group__can_1ga2b8a36e69531ded498ee4aae48144703" kind="define"><name>XCAN_HANDLER_EVENT</name></member>
-    <member refid="group__can_1ga210cbde2b1f30faf704c052508e57202" kind="define"><name>XCAN_H</name></member>
     <member refid="group__can_1ga5d6a612e7746553fce2ca0685595deee" kind="define"><name>XCan_IsTxDone</name></member>
     <member refid="group__can_1ga16bf9b91c18418196abe8271eed806ce" kind="define"><name>XCan_IsTxFifoFull</name></member>
     <member refid="group__can_1ga2092c4148ae5c6498597afc619bb4261" kind="define"><name>XCan_IsHighPriorityBufFull</name></member>
@@ -134,13 +133,13 @@
   </compound>
   <compound refid="xcan__intr__example_8c" kind="file"><name>xcan_intr_example.c</name>
     <member refid="xcan__intr__example_8c_1af846c356b4c52e30457c153e257a8ef1" kind="define"><name>XCAN_BASEADDRESS</name></member>
-    <member refid="xcan__intr__example_8c_1aaa965b01a6ce77f27ed848bcd393450b" kind="define"><name>XCAN_MAX_FRAME_SIZE_IN_WORDS</name></member>
-    <member refid="xcan__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
-    <member refid="xcan__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcan__intr__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcan__intr__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcan__intr__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
     <member refid="xcan__intr__example_8c_1a413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="xcan__intr__example_8c_1aaa965b01a6ce77f27ed848bcd393450b" kind="define"><name>XCAN_MAX_FRAME_SIZE_IN_WORDS</name></member>
+    <member refid="xcan__intr__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
+    <member refid="xcan__intr__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcan__intr__example_8c_1a9fbcb8a956d5a0f3442cf1b8c0366a5f" kind="variable"><name>Can</name></member>
     <member refid="xcan__intr__example_8c_1a47c71cdeb6dae97da95027e7cc805db5" kind="variable"><name>TxFrame</name></member>
     <member refid="xcan__intr__example_8c_1a342ca01a6b104c7d57680d4db1d52de2" kind="variable"><name>RxFrame</name></member>
@@ -280,19 +279,18 @@
     <member refid="group__can_1ga0d49049d96621520fa9afe22db2a8a34" kind="define"><name>XCAN_MAX_FRAME_SIZE</name></member>
     <member refid="group__can_1ga1f4ae13d03284afb0c4574d52d139e10" kind="define"><name>XCAN_MASK_LOW_16BITS</name></member>
     <member refid="group__can_1gac9b2db5b4abc4a1ee2154108702776d1" kind="define"><name>XCAN_MASK_HIGH_16BITS</name></member>
-    <member refid="group__can_1gac65cec1791cdaa6d0b68a80936f25c1a" kind="define"><name>XCAN_L_H</name></member>
     <member refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" kind="define"><name>XCan_ReadReg</name></member>
     <member refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" kind="define"><name>XCan_WriteReg</name></member>
   </compound>
   <compound refid="xcan__polled__example_8c" kind="file"><name>xcan_polled_example.c</name>
-    <member refid="xcan__polled__example_8c_1af846c356b4c52e30457c153e257a8ef1" kind="define"><name>XCAN_BASEADDRESS</name></member>
-    <member refid="xcan__polled__example_8c_1aaa965b01a6ce77f27ed848bcd393450b" kind="define"><name>XCAN_MAX_FRAME_SIZE_IN_WORDS</name></member>
-    <member refid="xcan__polled__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
-    <member refid="xcan__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcan__polled__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" kind="define"><name>TEST_BRPR_BAUD_PRESCALAR</name></member>
     <member refid="xcan__polled__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" kind="define"><name>TEST_BTR_SYNCJUMPWIDTH</name></member>
     <member refid="xcan__polled__example_8c_1a963822e22ff13542adf1ca249fb11e1e" kind="define"><name>TEST_BTR_SECOND_TIMESEGMENT</name></member>
     <member refid="xcan__polled__example_8c_1a413d190032b595cee3eaad35f5ff0f95" kind="define"><name>TEST_BTR_FIRST_TIMESEGMENT</name></member>
+    <member refid="xcan__polled__example_8c_1af846c356b4c52e30457c153e257a8ef1" kind="define"><name>XCAN_BASEADDRESS</name></member>
+    <member refid="xcan__polled__example_8c_1aaa965b01a6ce77f27ed848bcd393450b" kind="define"><name>XCAN_MAX_FRAME_SIZE_IN_WORDS</name></member>
+    <member refid="xcan__polled__example_8c_1a3317b62fb7f445865d6d8288847a6dac" kind="define"><name>FRAME_DATA_LENGTH</name></member>
+    <member refid="xcan__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" kind="define"><name>TEST_MESSAGE_ID</name></member>
     <member refid="xcan__polled__example_8c_1a47c71cdeb6dae97da95027e7cc805db5" kind="variable"><name>TxFrame</name></member>
     <member refid="xcan__polled__example_8c_1a342ca01a6b104c7d57680d4db1d52de2" kind="variable"><name>RxFrame</name></member>
     <member refid="xcan__polled__example_8c_1a9fbcb8a956d5a0f3442cf1b8c0366a5f" kind="variable"><name>Can</name></member>
@@ -483,7 +481,6 @@
     <member refid="group__can_1gac53101769980d4aa036844100ac732af" kind="function"><name>XCan_InterruptClear</name></member>
     <member refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" kind="function"><name>XCan_IntrHandler</name></member>
     <member refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" kind="function"><name>XCan_SetHandler</name></member>
-    <member refid="group__can_1ga210cbde2b1f30faf704c052508e57202" kind="define"><name>XCAN_H</name></member>
     <member refid="group__can_1ga5d6a612e7746553fce2ca0685595deee" kind="define"><name>XCan_IsTxDone</name></member>
     <member refid="group__can_1ga16bf9b91c18418196abe8271eed806ce" kind="define"><name>XCan_IsTxFifoFull</name></member>
     <member refid="group__can_1ga2092c4148ae5c6498597afc619bb4261" kind="define"><name>XCan_IsHighPriorityBufFull</name></member>
@@ -491,7 +488,6 @@
     <member refid="group__can_1gadcfdfbba7de0499f02921ab6b5626c9b" kind="define"><name>XCan_IsAcceptFilterBusy</name></member>
     <member refid="group__can_1ga874d1b170d939f5ab18bf88fbad00b43" kind="define"><name>XCan_CreateIdValue</name></member>
     <member refid="group__can_1ga2389175edaafb057e5a5cf089f6cdec1" kind="define"><name>XCan_CreateDlcValue</name></member>
-    <member refid="group__can_1gac65cec1791cdaa6d0b68a80936f25c1a" kind="define"><name>XCAN_L_H</name></member>
     <member refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" kind="define"><name>XCan_ReadReg</name></member>
     <member refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" kind="define"><name>XCan_WriteReg</name></member>
     <member refid="group__can_1gaaa965b01a6ce77f27ed848bcd393450b" kind="define"><name>XCAN_MAX_FRAME_SIZE_IN_WORDS</name></member>

@@ -46,6 +46,10 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
                   done interrupt.
 6.4  rg  09/26/20 Added support for YUV420 color format.
 6.5  pam 03/18/26 Added Function prototype for XDpTxSs_SendAudioInfoFrame API
+6.5  dk  07/21/26 Added XDpTxSs_AuxRead and XDpTxSs_AuxWrite APIs to perform
+                  AUX channel transactions at subsystem level.
+     dnk 09/15/26 Program the link Clocking Wizard from the driver on
+                  link-rate change using clk_wiz APIs.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

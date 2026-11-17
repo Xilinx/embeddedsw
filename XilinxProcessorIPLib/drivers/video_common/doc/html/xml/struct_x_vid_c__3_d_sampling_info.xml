@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="589" bodyend="-1"/>
-        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="589" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="1156" endline="1197">XVidC_SetVideoStream</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_vid_c__3_d_sampling_info_1a71b8cde9e0806930ba040e6360867966" prot="public" static="no" mutable="no">
         <type><ref refid="group__video__common_1ga58c9217723db2f22f7d57c97b2cae8e1" kindref="member">XVidC_3DSamplingPosition</ref></type>
@@ -29,15 +29,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="590" bodyend="-1"/>
-        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="590" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="1156" endline="1197">XVidC_SetVideoStream</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>3D Sampling info structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="588" bodyend="591"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="588" bodyend="591"/>
     <listofallmembers>
       <member refid="struct_x_vid_c__3_d_sampling_info_1a158448766837590db14f5c6c00060de8" prot="public" virt="non-virtual"><scope>XVidC_3DSamplingInfo</scope><name>Method</name></member>
       <member refid="struct_x_vid_c__3_d_sampling_info_1a71b8cde9e0806930ba040e6360867966" prot="public" virt="non-virtual"><scope>XVidC_3DSamplingInfo</scope><name>Position</name></member>

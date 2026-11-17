@@ -15,8 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="982" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="982" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="974" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="974" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="918" endline="984">XHdcp1x_TxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1ad10ad43ee79a9bd6920a50ce02225f60" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -29,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="983" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="983" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="975" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="975" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="918" endline="984">XHdcp1x_TxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1a580dab1b002765c851ead593af8c3c98" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -43,8 +43,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="984" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="984" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="976" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="976" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="918" endline="984">XHdcp1x_TxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1aac1925f5af13ab1e81df715b06394c06" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -57,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="985" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="985" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="977" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="977" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="918" endline="984">XHdcp1x_TxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1addbf1a011f13ce22d5118c661a332b44" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -71,8 +71,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="986" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="986" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="978" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="918" endline="984">XHdcp1x_TxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1ab1b6f9d07408de0e2b7b14c641d6fc61" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -85,15 +85,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="987" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="987" bodyend="-1"/>
-        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="979" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="979" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="918" endline="984">XHdcp1x_TxInfo</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef defines the statistics collected transmit port instance. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="981" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="981" bodyend="988"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="973" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="973" bodyend="980"/>
     <listofallmembers>
       <member refid="struct_x_hdcp1x___tx_stats_1a3525721564be4f40c49527d3c4819d93" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>AuthFailed</name></member>
       <member refid="struct_x_hdcp1x___tx_stats_1ad10ad43ee79a9bd6920a50ce02225f60" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>AuthPassed</name></member>

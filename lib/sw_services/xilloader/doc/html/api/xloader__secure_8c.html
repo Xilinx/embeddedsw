@@ -234,7 +234,17 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       sd   11/10/25 Added support for VERSAL_2VP_P devices.
 2.4   tvp  02/04/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
       pre  03/12/26 Disabled partition hash table update for VERSAL_2VE_2VM devices
-                    as the partition hash is not stored in the table for these devices.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xloader__secure_8h.html">xloader_secure.h</a>&quot;</code><br/>
+                    as the partition hash is not stored in the table for these devices.
+      ng   07/13/26 Reduced debug print levels on error paths
+2.5   tvp  07/29/26 Defeature Symmetric HWRoT boot mode for new devices
+      pre  07/31/26 Enabled TPM feature for VERSAL_2VP devices
+      sri  08/14/26 Updated XLoader_CopyHashBlock to support caller-supplied
+                    destination HashBlock for client auth PDI validation
+      tbk  09/07/26 Bound HashBlockSize before DeviceCopy
+      gnr  10/08/2026 Defined XLOADER_ENTRY_SIZE_IN_HASHBLOCK only for
+                      VERSAL_2VE_2VM and VERSAL_2VP_P, and declared ReadReg
+                      and ReadRegTmp only when the DEC_ONLY efuse check
+                      is compiled</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xloader__secure_8h.html">xloader_secure.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__enc_8h.html">xloader_auth_enc.h</a>&quot;</code><br/>
 <code>#include &quot;xilpdi.h&quot;</code><br/>
 <code>#include &quot;xplmi_dma.h&quot;</code><br/>

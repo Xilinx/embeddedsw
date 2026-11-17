@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__efuse__common_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xnvm__efuse__common_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -116,9 +117,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 3.0   kal  07/16/2022 Initial release
 3.1   skg  10/25/2022 Added comments for macros and enums
 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
-      vss  09/19/2023   Fixed MISRA-C Rule 8.7 violation
+          vss  09/19/2023       Fixed MISRA-C Rule 8.7 violation
 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
-      ng   11/22/2023 Fixed doxygen grouping</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
+      ng   11/22/2023 Fixed doxygen grouping
+3.7   obs  03/26/2026 Updated function signatures to use XNvm_SysmonPsv type
+                      Added XNVM_SYSMON_* macros and XNvm_SysMon_*() inline
+                      wrappers using proper XNVM namespace</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xsysmonpsv.h&quot;</code><br/>
@@ -197,6 +201,28 @@ Macros</h2></td></tr>
 <tr class="memitem:ga74faa9fa5d5986815f72088ddb2a9278"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga74faa9fa5d5986815f72088ddb2a9278">XNVM_EFUSE_VCC_PMC_HP_MAX</a>&#160;&#160;&#160;(0.906f)</td></tr>
 <tr class="memdesc:ga74faa9fa5d5986815f72088ddb2a9278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum voltage for high power range check.  <a href="group__xnvm__efuse__server__apis.html#ga74faa9fa5d5986815f72088ddb2a9278">More...</a><br/></td></tr>
 <tr class="separator:ga74faa9fa5d5986815f72088ddb2a9278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">SysMon register offset aliases for XilNvm</div></td></tr>
+<tr class="memitem:ga337eee2ac865de877fd12536dd5e1df6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga337eee2ac865de877fd12536dd5e1df6">XNVM_SYSMON_PCSR_LOCK</a>&#160;&#160;&#160;XSYSMONPSV_PCSR_LOCK</td></tr>
+<tr class="memdesc:ga337eee2ac865de877fd12536dd5e1df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PCSR Lock register offset.  <a href="group__xnvm__efuse__server__apis.html#ga337eee2ac865de877fd12536dd5e1df6">More...</a><br/></td></tr>
+<tr class="separator:ga337eee2ac865de877fd12536dd5e1df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad17e6e75f77a845a5d374bd494ace3c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gad17e6e75f77a845a5d374bd494ace3c6">XNVM_SYSMON_NEW_DATA_FLAG0</a>&#160;&#160;&#160;XSYSMONPSV_NEW_DATA_FLAG0</td></tr>
+<tr class="memdesc:gad17e6e75f77a845a5d374bd494ace3c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">New Data Flag 0 register offset (Supply[0-31])  <a href="group__xnvm__efuse__server__apis.html#gad17e6e75f77a845a5d374bd494ace3c6">More...</a><br/></td></tr>
+<tr class="separator:gad17e6e75f77a845a5d374bd494ace3c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae2abbe72e0a23a8c3526a206f4359e40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gae2abbe72e0a23a8c3526a206f4359e40">XNVM_SYSMON_NEW_DATA_FLAG1</a>&#160;&#160;&#160;XSYSMONPSV_NEW_DATA_FLAG1</td></tr>
+<tr class="memdesc:gae2abbe72e0a23a8c3526a206f4359e40"><td class="mdescLeft">&#160;</td><td class="mdescRight">New Data Flag 1 register offset (Supply[32-63])  <a href="group__xnvm__efuse__server__apis.html#gae2abbe72e0a23a8c3526a206f4359e40">More...</a><br/></td></tr>
+<tr class="separator:gae2abbe72e0a23a8c3526a206f4359e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf0dee8f973b143aa1d8a2096c04e3b68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gaf0dee8f973b143aa1d8a2096c04e3b68">XNVM_SYSMON_SUPPLY_OFFSET</a>&#160;&#160;&#160;XSYSMONPSV_SUPPLY</td></tr>
+<tr class="memdesc:gaf0dee8f973b143aa1d8a2096c04e3b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supply register base offset.  <a href="group__xnvm__efuse__server__apis.html#gaf0dee8f973b143aa1d8a2096c04e3b68">More...</a><br/></td></tr>
+<tr class="separator:gaf0dee8f973b143aa1d8a2096c04e3b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0cdecaa3d476b0f61c73f467a2a3c02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gaa0cdecaa3d476b0f61c73f467a2a3c02">XNVM_SYSMON_TEMP_SAT</a>&#160;&#160;&#160;XSYSMONPSV_TEMP_SAT</td></tr>
+<tr class="memdesc:gaa0cdecaa3d476b0f61c73f467a2a3c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal temperature register offset.  <a href="group__xnvm__efuse__server__apis.html#gaa0cdecaa3d476b0f61c73f467a2a3c02">More...</a><br/></td></tr>
+<tr class="separator:gaa0cdecaa3d476b0f61c73f467a2a3c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga0da3096084d96372961ec1068e895cd6"><td class="memItemLeft" align="right" valign="top">typedef XSysMonPsv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga0da3096084d96372961ec1068e895cd6">XNvm_SysmonPsv</a></td></tr>
+<tr class="memdesc:ga0da3096084d96372961ec1068e895cd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">SysMon PSV instance type.  <a href="group__xnvm__efuse__server__apis.html#ga0da3096084d96372961ec1068e895cd6">More...</a><br/></td></tr>
+<tr class="separator:ga0da3096084d96372961ec1068e895cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -214,9 +240,15 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga626bd515d5b319991d9b6b337ac3eafa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read mode.  <a href="group__xnvm__efuse__server__apis.html#ga626bd515d5b319991d9b6b337ac3eafa">More...</a><br/></td></tr>
 <tr class="separator:ga626bd515d5b319991d9b6b337ac3eafa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga545e370d65dd5455a7292c721c9bd578"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga545e370d65dd5455a7292c721c9bd578">XNvm_EfuseType</a> { <a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578a4331fac23f7b2fc9210f52578aca0873">XNVM_EFUSE_PAGE_0</a> = 0,
+<tr class="memitem:ga545e370d65dd5455a7292c721c9bd578"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga545e370d65dd5455a7292c721c9bd578">XNvm_EfuseType</a> { <br/>
+&#160;&#160;<a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578a4331fac23f7b2fc9210f52578aca0873">XNVM_EFUSE_PAGE_0</a> = 0,
 <a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578a93b3ce45e3bed96a04dd25fd7267d3ee">XNVM_EFUSE_PAGE_1</a>,
-<a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578af42a55e305604ef7abe0da7829d74b0c">XNVM_EFUSE_PAGE_2</a>
+<a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578af42a55e305604ef7abe0da7829d74b0c">XNVM_EFUSE_PAGE_2</a>,
+<a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578ab43f680ee3e89199604b6bac11ffc5c7">XNVM_EFUSE_PAGE_3</a>,
+<br/>
+&#160;&#160;<a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578a0fa66511ddfd28793596984767a57d0f">XNVM_EFUSE_PAGE_4</a>,
+<a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578aa8ca3b3ca578f11978bd4a0f3190f167">XNVM_EFUSE_PAGE_5</a>
+<br/>
  }</td></tr>
 <tr class="memdesc:ga545e370d65dd5455a7292c721c9bd578"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFuse Page  <a href="group__xnvm__efuse__server__apis.html#ga545e370d65dd5455a7292c721c9bd578">More...</a><br/></td></tr>
 <tr class="separator:ga545e370d65dd5455a7292c721c9bd578"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -256,9 +288,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac3c8a8519db111050a86072af33a7f9d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">XNvm_GetSysmonSupplyRegId</a> (UINTPTR SysmonpsvSatBaseAddr)</td></tr>
 <tr class="memdesc:gac3c8a8519db111050a86072af33a7f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads root register ID where measurement is stored in Root SysMon.  <a href="group__xnvm__efuse__server__apis.html#gac3c8a8519db111050a86072af33a7f9d">More...</a><br/></td></tr>
 <tr class="separator:gac3c8a8519db111050a86072af33a7f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8c865ce6cd02be72da8d08eae8f6030"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">XNvm_EfuseTempAndVoltChecks</a> (const XSysMonPsv *SysMonInstPtr)</td></tr>
-<tr class="memdesc:gaf8c865ce6cd02be72da8d08eae8f6030"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the Temperature and Voltage checks to ensure that they are in limits before eFuse programming.  <a href="group__xnvm__efuse__server__apis.html#gaf8c865ce6cd02be72da8d08eae8f6030">More...</a><br/></td></tr>
-<tr class="separator:gaf8c865ce6cd02be72da8d08eae8f6030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9ac5a370fbe5c453948e7205ecb5ed13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">XNvm_EfuseTempAndVoltChecks</a> (const <a class="el" href="group__xnvm__efuse__server__apis.html#ga0da3096084d96372961ec1068e895cd6">XNvm_SysmonPsv</a> *SysMonInstPtr)</td></tr>
+<tr class="memdesc:ga9ac5a370fbe5c453948e7205ecb5ed13"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs the Temperature and Voltage checks to ensure that they are in limits before eFuse programming.  <a href="group__xnvm__efuse__server__apis.html#ga9ac5a370fbe5c453948e7205ecb5ed13">More...</a><br/></td></tr>
+<tr class="separator:ga9ac5a370fbe5c453948e7205ecb5ed13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga15d0a0989ba278e28edaaf2cd9d7bf7f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__efuse__server__apis.html#ga15d0a0989ba278e28edaaf2cd9d7bf7f">XNvm_EfuseReadProtectionBits</a> (u32 Mask)</td></tr>
 <tr class="memdesc:ga15d0a0989ba278e28edaaf2cd9d7bf7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the corresponding eFuse protection bits.  <a href="group__xnvm__efuse__server__apis.html#ga15d0a0989ba278e28edaaf2cd9d7bf7f">More...</a><br/></td></tr>
 <tr class="separator:ga15d0a0989ba278e28edaaf2cd9d7bf7f"><td class="memSeparator" colspan="2">&#160;</td></tr>

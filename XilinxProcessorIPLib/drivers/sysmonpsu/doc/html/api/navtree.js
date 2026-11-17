@@ -1,35 +1,116 @@
 var NAVTREE =
 [
-  [ "sysmonpsu", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xsysmonpsu_intr_example.c", "example.html#ex1", null ],
-      [ "xsysmonpsu_low_level_example.c", "example.html#ex2", null ],
-      [ "xsysmonpsu_polled_example.c", "example.html#ex3", null ],
-      [ "xsysmonpsu_single_ch_intr_example.c", "example.html#ex4", null ]
-    ] ]
-  ] ]
+  [
+    "sysmonpsu",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xsysmonpsu_intr_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xsysmonpsu_low_level_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xsysmonpsu_polled_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xsysmonpsu_single_ch_intr_example.c",
+            "example.html#ex4",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xsysmonpsu__hw_8h.html#a145c992baa843c59a01bd22f3d301399"
+"xsysmonpsu_8h.html#gafb6d48e6d815558d6c56a57c2fd16cdd",
+"xsysmonpsu__hw_8h.html#ga2fd4f6d4b6bd6721ab46e1961cc88a5b",
+"xsysmonpsu__hw_8h.html#ga5cf994cf61803381863cd19cf833183e",
+"xsysmonpsu__hw_8h.html#ga8ab4c0d9ed340b96fd1e0a454ab606c6",
+"xsysmonpsu__hw_8h.html#gabba17d1b761fb37adf1877ebe35454a3",
+"xsysmonpsu__hw_8h.html#gaefa7b3b1696151fb6039ccc4fc697269"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

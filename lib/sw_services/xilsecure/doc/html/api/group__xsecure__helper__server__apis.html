@@ -120,6 +120,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga49179f0283044223009c733e01b79d5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga49179f0283044223009c733e01b79d5a">XSECURE_ADDR_HIGH_SHIFT</a>&#160;&#160;&#160;(32U)</td></tr>
 <tr class="memdesc:ga49179f0283044223009c733e01b79d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">High address shift for 64-bit addresses.  <a href="#ga49179f0283044223009c733e01b79d5a">More...</a><br/></td></tr>
 <tr class="separator:ga49179f0283044223009c733e01b79d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga693c54d224d1fa8ca68b215023b2b359"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>(DebugType,...)&#160;&#160;&#160;if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}</td></tr>
+<tr class="memdesc:ga693c54d224d1fa8ca68b215023b2b359"><td class="mdescLeft">&#160;</td><td class="mdescRight">For prints in XilSecure library.  <a href="#ga693c54d224d1fa8ca68b215023b2b359">More...</a><br/></td></tr>
+<tr class="separator:ga693c54d224d1fa8ca68b215023b2b359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae33ca0e2e1894653442fee4c63c611f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gae33ca0e2e1894653442fee4c63c611f7">XSECURE_AES_BASEADDR</a>&#160;&#160;&#160;(0x040F0000U)</td></tr>
 <tr class="memdesc:gae33ca0e2e1894653442fee4c63c611f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES base address.  <a href="#gae33ca0e2e1894653442fee4c63c611f7">More...</a><br/></td></tr>
 <tr class="separator:gae33ca0e2e1894653442fee4c63c611f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,9 +225,12 @@ Macros</h2></td></tr>
 <tr class="memitem:ga07bc4757b01ab47ce923b28bef13f5d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga07bc4757b01ab47ce923b28bef13f5d2">XSECURE_AES_KEY_DEC_SEL_EFUSE_RED</a>&#160;&#160;&#160;(0x2U)</td></tr>
 <tr class="memdesc:ga07bc4757b01ab47ce923b28bef13f5d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE Red Key Decryption Source Select  <a href="#ga07bc4757b01ab47ce923b28bef13f5d2">More...</a><br/></td></tr>
 <tr class="separator:ga07bc4757b01ab47ce923b28bef13f5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5d6acf733aceb2fdb872f874beb1f86a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga5d6acf733aceb2fdb872f874beb1f86a">XSECURE_AES_INVALID_CFG</a>&#160;&#160;&#160;(0xFFFFFFFFU)</td></tr>
+<tr class="memitem:ga5d6acf733aceb2fdb872f874beb1f86a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga5d6acf733aceb2fdb872f874beb1f86a">XSECURE_AES_INVALID_CFG</a>&#160;&#160;&#160;(0xFFU)</td></tr>
 <tr class="memdesc:ga5d6acf733aceb2fdb872f874beb1f86a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalid Configuration.  <a href="#ga5d6acf733aceb2fdb872f874beb1f86a">More...</a><br/></td></tr>
 <tr class="separator:ga5d6acf733aceb2fdb872f874beb1f86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8756243bb69fa1b4e8a8025ced5bcf16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga8756243bb69fa1b4e8a8025ced5bcf16">XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK</a>(BitPos)&#160;&#160;&#160;((u32)1U &lt;&lt; (BitPos))</td></tr>
+<tr class="memdesc:ga8756243bb69fa1b4e8a8025ced5bcf16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a stored AesKeyLookupTbl bit position into the corresponding AES_KEY_CLEAR register mask.  <a href="#ga8756243bb69fa1b4e8a8025ced5bcf16">More...</a><br/></td></tr>
+<tr class="separator:ga8756243bb69fa1b4e8a8025ced5bcf16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga957ffaf3197a7cf9549ab9b9f701e56f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga957ffaf3197a7cf9549ab9b9f701e56f">XSECURE_MAX_KEY_SOURCES</a>&#160;&#160;&#160;<a class="el" href="group__xsecure__helper__server__apis.html#ggac18d312794ff692037e63183f8f9343fac1b2dfac9fa33633ef8a335b121716ea">XSECURE_AES_EXPANDED_KEYS</a></td></tr>
 <tr class="memdesc:ga957ffaf3197a7cf9549ab9b9f701e56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max key source value.  <a href="#ga957ffaf3197a7cf9549ab9b9f701e56f">More...</a><br/></td></tr>
 <tr class="separator:ga957ffaf3197a7cf9549ab9b9f701e56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -333,6 +339,9 @@ Macros</h2></td></tr>
 <tr class="memitem:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaabad70194ca8d8f8a4ed207eb2bc4af9">XSECURE_DISABLE_BYTE_SWAP</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables data swap in AES.  <a href="#gaabad70194ca8d8f8a4ed207eb2bc4af9">More...</a><br/></td></tr>
 <tr class="separator:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga203836953b3ca9627470e847af378cc4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga203836953b3ca9627470e847af378cc4">XSECURE_AES_DMA_BYTE_SWAP</a></td></tr>
+<tr class="memdesc:ga203836953b3ca9627470e847af378cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this platform uses the common AES DMA byte-swap policy, used by the shared core/loader/KAT code.  <a href="#ga203836953b3ca9627470e847af378cc4">More...</a><br/></td></tr>
+<tr class="separator:ga203836953b3ca9627470e847af378cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8bd38df529b235dd05c88b7d0612e142"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga8bd38df529b235dd05c88b7d0612e142">XSECURE_TRNG_USER_CFG_SEED_LIFE</a>&#160;&#160;&#160;XTRNGPSX_USER_CFG_SEED_LIFE</td></tr>
 <tr class="memdesc:ga8bd38df529b235dd05c88b7d0612e142"><td class="mdescLeft">&#160;</td><td class="mdescRight">User configuration seed life.  <a href="#ga8bd38df529b235dd05c88b7d0612e142">More...</a><br/></td></tr>
 <tr class="separator:ga8bd38df529b235dd05c88b7d0612e142"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -486,6 +495,9 @@ Macros</h2></td></tr>
 <tr class="memitem:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaabad70194ca8d8f8a4ed207eb2bc4af9">XSECURE_DISABLE_BYTE_SWAP</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables data swap in AES.  <a href="#gaabad70194ca8d8f8a4ed207eb2bc4af9">More...</a><br/></td></tr>
 <tr class="separator:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga203836953b3ca9627470e847af378cc4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga203836953b3ca9627470e847af378cc4">XSECURE_AES_DMA_BYTE_SWAP</a></td></tr>
+<tr class="memdesc:ga203836953b3ca9627470e847af378cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this platform uses the common AES DMA byte-swap policy, used by the shared core/loader/KAT code.  <a href="#ga203836953b3ca9627470e847af378cc4">More...</a><br/></td></tr>
+<tr class="separator:ga203836953b3ca9627470e847af378cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf76f0708eae2bc4b2bc887737c797dc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaf76f0708eae2bc4b2bc887737c797dc2">XSECURE_SSS_SBI_MASK</a>&#160;&#160;&#160;(0xF00000U)</td></tr>
 <tr class="memdesc:gaf76f0708eae2bc4b2bc887737c797dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">SSS SBI mask.  <a href="#gaf76f0708eae2bc4b2bc887737c797dc2">More...</a><br/></td></tr>
 <tr class="separator:gaf76f0708eae2bc4b2bc887737c797dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -543,6 +555,9 @@ Macros</h2></td></tr>
 <tr class="memitem:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaabad70194ca8d8f8a4ed207eb2bc4af9">XSECURE_DISABLE_BYTE_SWAP</a>&#160;&#160;&#160;(0x0U)</td></tr>
 <tr class="memdesc:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables data swap in AES.  <a href="#gaabad70194ca8d8f8a4ed207eb2bc4af9">More...</a><br/></td></tr>
 <tr class="separator:gaabad70194ca8d8f8a4ed207eb2bc4af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga203836953b3ca9627470e847af378cc4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga203836953b3ca9627470e847af378cc4">XSECURE_AES_DMA_BYTE_SWAP</a></td></tr>
+<tr class="memdesc:ga203836953b3ca9627470e847af378cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this platform uses the common AES DMA byte-swap policy, used by the shared core/loader/KAT code.  <a href="#ga203836953b3ca9627470e847af378cc4">More...</a><br/></td></tr>
+<tr class="separator:ga203836953b3ca9627470e847af378cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8bd38df529b235dd05c88b7d0612e142"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga8bd38df529b235dd05c88b7d0612e142">XSECURE_TRNG_USER_CFG_SEED_LIFE</a>&#160;&#160;&#160;XTRNGPSX_USER_CFG_SEED_LIFE</td></tr>
 <tr class="memdesc:ga8bd38df529b235dd05c88b7d0612e142"><td class="mdescLeft">&#160;</td><td class="mdescRight">User configuration seed life.  <a href="#ga8bd38df529b235dd05c88b7d0612e142">More...</a><br/></td></tr>
 <tr class="separator:ga8bd38df529b235dd05c88b7d0612e142"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -555,33 +570,6 @@ Macros</h2></td></tr>
 <tr class="memitem:ga8edbf17e808f894baa0883b2caa97b2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga8edbf17e808f894baa0883b2caa97b2c">XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF</a>&#160;&#160;&#160;XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</td></tr>
 <tr class="memdesc:ga8edbf17e808f894baa0883b2caa97b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rep test cutoff.  <a href="#ga8edbf17e808f894baa0883b2caa97b2c">More...</a><br/></td></tr>
 <tr class="separator:ga8edbf17e808f894baa0883b2caa97b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gade9e298d32f699b950940e64b49a51cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gade9e298d32f699b950940e64b49a51cc">XSECURE_AES_KTE_GO_ADDRESS</a>&#160;&#160;&#160;(0xF11E0234U)</td></tr>
-<tr class="memdesc:gade9e298d32f699b950940e64b49a51cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES KTE GO address.  <a href="#gade9e298d32f699b950940e64b49a51cc">More...</a><br/></td></tr>
-<tr class="separator:gade9e298d32f699b950940e64b49a51cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68f68575d7a80e6cf98ea20360679f8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga68f68575d7a80e6cf98ea20360679f8d">XSECURE_AES_KTE_RESTART_ADDRESS</a>&#160;&#160;&#160;(0xF11E0238U)</td></tr>
-<tr class="memdesc:ga68f68575d7a80e6cf98ea20360679f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key Transfer Engine Restart register.  <a href="#ga68f68575d7a80e6cf98ea20360679f8d">More...</a><br/></td></tr>
-<tr class="separator:ga68f68575d7a80e6cf98ea20360679f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4bcc4be9ab1a405d81749d9cbb0fa4e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga4bcc4be9ab1a405d81749d9cbb0fa4e7">XSECURE_AES_KTE_DONE_ADDRESS</a>&#160;&#160;&#160;(0xF11E023CU)</td></tr>
-<tr class="memdesc:ga4bcc4be9ab1a405d81749d9cbb0fa4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key Transfer Engine Done.  <a href="#ga4bcc4be9ab1a405d81749d9cbb0fa4e7">More...</a><br/></td></tr>
-<tr class="separator:ga4bcc4be9ab1a405d81749d9cbb0fa4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga039bd63622cb99bf5718096ecf3df028"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga039bd63622cb99bf5718096ecf3df028">XSECURE_AES_KTE_CNT_ADDRESS</a>&#160;&#160;&#160;(0xF11E0240U)</td></tr>
-<tr class="memdesc:ga039bd63622cb99bf5718096ecf3df028"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key Transfer Engine Count address.  <a href="#ga039bd63622cb99bf5718096ecf3df028">More...</a><br/></td></tr>
-<tr class="separator:ga039bd63622cb99bf5718096ecf3df028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9d686b048c78f15c24ad0087779c7a35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9d686b048c78f15c24ad0087779c7a35">XSECURE_AES_KTE_GO_ENABLE</a>&#160;&#160;&#160;(0x1U)</td></tr>
-<tr class="memdesc:ga9d686b048c78f15c24ad0087779c7a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES KTE GO enable.  <a href="#ga9d686b048c78f15c24ad0087779c7a35">More...</a><br/></td></tr>
-<tr class="separator:ga9d686b048c78f15c24ad0087779c7a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga85c8d4d287bdcb0bcacf720c5de1ddf2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga85c8d4d287bdcb0bcacf720c5de1ddf2">XSECURE_AES_KTE_GO_DISABLE</a>&#160;&#160;&#160;(0x0U)</td></tr>
-<tr class="memdesc:ga85c8d4d287bdcb0bcacf720c5de1ddf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES KTE GO disable.  <a href="#ga85c8d4d287bdcb0bcacf720c5de1ddf2">More...</a><br/></td></tr>
-<tr class="separator:ga85c8d4d287bdcb0bcacf720c5de1ddf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11e29435ecf84dd1364d901454c1748b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga11e29435ecf84dd1364d901454c1748b">XSECURE_AES_KTE_DONE_MASK</a>&#160;&#160;&#160;(0x1U)</td></tr>
-<tr class="memdesc:ga11e29435ecf84dd1364d901454c1748b"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key Transfer Engine Done mask.  <a href="#ga11e29435ecf84dd1364d901454c1748b">More...</a><br/></td></tr>
-<tr class="separator:ga11e29435ecf84dd1364d901454c1748b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga37af1a569f10294493a3309a350cb290"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga37af1a569f10294493a3309a350cb290">XSECURE_AES_KTE_CNT_MASK</a>&#160;&#160;&#160;(0x6U)</td></tr>
-<tr class="memdesc:ga37af1a569f10294493a3309a350cb290"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key Transfer Engine Count value.  <a href="#ga37af1a569f10294493a3309a350cb290">More...</a><br/></td></tr>
-<tr class="separator:ga37af1a569f10294493a3309a350cb290"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga02d30e5270b61a009fa6791924dbea52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga02d30e5270b61a009fa6791924dbea52">XSECURE_AES_KTE_DONE_POLL_TIMEOUT</a>&#160;&#160;&#160;(4000U)</td></tr>
-<tr class="memdesc:ga02d30e5270b61a009fa6791924dbea52"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES Key Transfer complete poll timeout.  <a href="#ga02d30e5270b61a009fa6791924dbea52">More...</a><br/></td></tr>
-<tr class="separator:ga02d30e5270b61a009fa6791924dbea52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf76f0708eae2bc4b2bc887737c797dc2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaf76f0708eae2bc4b2bc887737c797dc2">XSECURE_SSS_SBI_MASK</a>&#160;&#160;&#160;(0xF00000U)</td></tr>
 <tr class="memdesc:gaf76f0708eae2bc4b2bc887737c797dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">SSS SBI mask.  <a href="#gaf76f0708eae2bc4b2bc887737c797dc2">More...</a><br/></td></tr>
 <tr class="separator:gaf76f0708eae2bc4b2bc887737c797dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1294,54 +1282,102 @@ Variables</h2></td></tr>
 <tr class="memitem:gac6efe63aacf1344cf51d1d2d20706d7d"><td class="memItemLeft" align="right" valign="top">const XSecure_AesKeyLookup&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gac6efe63aacf1344cf51d1d2d20706d7d">AesKeyLookupTbl</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga957ffaf3197a7cf9549ab9b9f701e56f">XSECURE_MAX_KEY_SOURCES</a>]</td></tr>
 <tr class="memdesc:gac6efe63aacf1344cf51d1d2d20706d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TRNG related macros for SPARTANUPLUSAES1 device.  <a href="#gac6efe63aacf1344cf51d1d2d20706d7d">More...</a><br/></td></tr>
 <tr class="separator:gac6efe63aacf1344cf51d1d2d20706d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure Stream Switch (SSS) configuration lookup table.  <a href="#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">XSecure_SssLookupTable[Input source][Resource].  <a href="#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">XSecure_SssLookupTable[Input source][Resource].  <a href="#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure Stream Switch (SSS) configuration lookup table.  <a href="#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure Stream Switch (SSS) configuration lookup table.  <a href="#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0754b069dacca3c371fce4754b2d0a38"><td class="memItemLeft" align="right" valign="top">const u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga0754b069dacca3c371fce4754b2d0a38">XSecure_SssLookupTable</a> [<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td></tr>
+<tr class="memdesc:ga0754b069dacca3c371fce4754b2d0a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Secure Stream Switch (SSS) configuration lookup table  <a href="#ga0754b069dacca3c371fce4754b2d0a38">More...</a><br/></td></tr>
+<tr class="separator:ga0754b069dacca3c371fce4754b2d0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cb7e9f1a05151630a24de795653b695"><td class="memItemLeft" align="right" valign="top">const XSecure_ShaConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga9cb7e9f1a05151630a24de795653b695">ShaConfigTable</a> [<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td></tr>
+<tr class="memdesc:ga9cb7e9f1a05151630a24de795653b695"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for devices.  <a href="#ga9cb7e9f1a05151630a24de795653b695">More...</a><br/></td></tr>
+<tr class="separator:ga9cb7e9f1a05151630a24de795653b695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Debug related macros</h2></td></tr>
+<tr class="memitem:gadab2e360fc5b40845c9d4f1128075ea6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gadab2e360fc5b40845c9d4f1128075ea6">XSECURE_DEBUG</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:gadab2e360fc5b40845c9d4f1128075ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Enable printfs by setting XSECURE_DEBUG to 1  <a href="#gadab2e360fc5b40845c9d4f1128075ea6">More...</a><br/></td></tr>
+<tr class="separator:gadab2e360fc5b40845c9d4f1128075ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad317bd5f7cf522c602b9f00246d34d97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:gad317bd5f7cf522c602b9f00246d34d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable general debug prints.  <a href="#gad317bd5f7cf522c602b9f00246d34d97">More...</a><br/></td></tr>
+<tr class="separator:gad317bd5f7cf522c602b9f00246d34d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 AES_KEY_CLEAR register</h2></td></tr>
 <tr class="memitem:ga2fa0b0a3c91c523e31c2ed3aa11cd89a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga2fa0b0a3c91c523e31c2ed3aa11cd89a">XSECURE_AES_KEY_CLEAR_OFFSET</a>&#160;&#160;&#160;(0x00000014U)</td></tr>
 <tr class="memdesc:ga2fa0b0a3c91c523e31c2ed3aa11cd89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; AES_KEY_CLEAR register offset and definitions  <a href="#ga2fa0b0a3c91c523e31c2ed3aa11cd89a">More...</a><br/></td></tr>
 <tr class="separator:ga2fa0b0a3c91c523e31c2ed3aa11cd89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabd84b3f8c7cc8779e95b93f97cefad8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gabd84b3f8c7cc8779e95b93f97cefad8b">XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK</a>&#160;&#160;&#160;(0x00200000U)</td></tr>
-<tr class="memdesc:gabd84b3f8c7cc8779e95b93f97cefad8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PUF key clear mask.  <a href="#gabd84b3f8c7cc8779e95b93f97cefad8b">More...</a><br/></td></tr>
-<tr class="separator:gabd84b3f8c7cc8779e95b93f97cefad8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga95f8b6f17ef405ef82d5878abefb8ab8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga95f8b6f17ef405ef82d5878abefb8ab8">XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK</a>&#160;&#160;&#160;(0x00080000U)</td></tr>
-<tr class="memdesc:ga95f8b6f17ef405ef82d5878abefb8ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">BH Red key clear mask.  <a href="#ga95f8b6f17ef405ef82d5878abefb8ab8">More...</a><br/></td></tr>
-<tr class="separator:ga95f8b6f17ef405ef82d5878abefb8ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafe6dcf27e787fc78783ecc1cc23734ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gafe6dcf27e787fc78783ecc1cc23734ef">XSECURE_AES_KEY_CLEAR_BH_KEY_MASK</a>&#160;&#160;&#160;(0x00040000U)</td></tr>
-<tr class="memdesc:gafe6dcf27e787fc78783ecc1cc23734ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">BH key clear mask.  <a href="#gafe6dcf27e787fc78783ecc1cc23734ef">More...</a><br/></td></tr>
-<tr class="separator:gafe6dcf27e787fc78783ecc1cc23734ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga197b7d82f3672c3134c16986f88b8055"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga197b7d82f3672c3134c16986f88b8055">XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK</a>&#160;&#160;&#160;(0x00008000U)</td></tr>
-<tr class="memdesc:ga197b7d82f3672c3134c16986f88b8055"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE Red key clear mask  <a href="#ga197b7d82f3672c3134c16986f88b8055">More...</a><br/></td></tr>
-<tr class="separator:ga197b7d82f3672c3134c16986f88b8055"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga76f15973a4af50291c1a7874379cce34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga76f15973a4af50291c1a7874379cce34">XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK</a>&#160;&#160;&#160;(0x00001000U)</td></tr>
-<tr class="memdesc:ga76f15973a4af50291c1a7874379cce34"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE key clear mask  <a href="#ga76f15973a4af50291c1a7874379cce34">More...</a><br/></td></tr>
-<tr class="separator:ga76f15973a4af50291c1a7874379cce34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac7d5a7384f5cd63547de379b029a142f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gac7d5a7384f5cd63547de379b029a142f">XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK</a>&#160;&#160;&#160;(0x00000800U)</td></tr>
-<tr class="memdesc:gac7d5a7384f5cd63547de379b029a142f"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 7 clear mask.  <a href="#gac7d5a7384f5cd63547de379b029a142f">More...</a><br/></td></tr>
-<tr class="separator:gac7d5a7384f5cd63547de379b029a142f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafe0205f407a5a200ce3842a835618cac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gafe0205f407a5a200ce3842a835618cac">XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK</a>&#160;&#160;&#160;(0x00000400U)</td></tr>
-<tr class="memdesc:gafe0205f407a5a200ce3842a835618cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 6 clear mask.  <a href="#gafe0205f407a5a200ce3842a835618cac">More...</a><br/></td></tr>
-<tr class="separator:gafe0205f407a5a200ce3842a835618cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1bb7bac2a8eefc88b898cff728f7595a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga1bb7bac2a8eefc88b898cff728f7595a">XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK</a>&#160;&#160;&#160;(0x00000200U)</td></tr>
-<tr class="memdesc:ga1bb7bac2a8eefc88b898cff728f7595a"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 5 clear mask.  <a href="#ga1bb7bac2a8eefc88b898cff728f7595a">More...</a><br/></td></tr>
-<tr class="separator:ga1bb7bac2a8eefc88b898cff728f7595a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5fcec8e0660101185b385ce9a1159174"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga5fcec8e0660101185b385ce9a1159174">XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK</a>&#160;&#160;&#160;(0x00000100U)</td></tr>
-<tr class="memdesc:ga5fcec8e0660101185b385ce9a1159174"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 4 clear mask.  <a href="#ga5fcec8e0660101185b385ce9a1159174">More...</a><br/></td></tr>
-<tr class="separator:ga5fcec8e0660101185b385ce9a1159174"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga69ebc0ae6a3844f1d1d9f0781acf078e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga69ebc0ae6a3844f1d1d9f0781acf078e">XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK</a>&#160;&#160;&#160;(0x00000080U)</td></tr>
-<tr class="memdesc:ga69ebc0ae6a3844f1d1d9f0781acf078e"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 3 clear mask.  <a href="#ga69ebc0ae6a3844f1d1d9f0781acf078e">More...</a><br/></td></tr>
-<tr class="separator:ga69ebc0ae6a3844f1d1d9f0781acf078e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga279bc71965001241f8f29f66e582c179"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga279bc71965001241f8f29f66e582c179">XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK</a>&#160;&#160;&#160;(0x00000040U)</td></tr>
-<tr class="memdesc:ga279bc71965001241f8f29f66e582c179"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 2 clear mask.  <a href="#ga279bc71965001241f8f29f66e582c179">More...</a><br/></td></tr>
-<tr class="separator:ga279bc71965001241f8f29f66e582c179"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga38e782789e1cc7cdd12793feb5418a83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga38e782789e1cc7cdd12793feb5418a83">XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK</a>&#160;&#160;&#160;(0x00000020U)</td></tr>
-<tr class="memdesc:ga38e782789e1cc7cdd12793feb5418a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 1 clear mask.  <a href="#ga38e782789e1cc7cdd12793feb5418a83">More...</a><br/></td></tr>
-<tr class="separator:ga38e782789e1cc7cdd12793feb5418a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaea60ed52265e03a9cab4bfcb70f34301"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaea60ed52265e03a9cab4bfcb70f34301">XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK</a>&#160;&#160;&#160;(0x00000010U)</td></tr>
-<tr class="memdesc:gaea60ed52265e03a9cab4bfcb70f34301"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 0 clear mask.  <a href="#gaea60ed52265e03a9cab4bfcb70f34301">More...</a><br/></td></tr>
-<tr class="separator:gaea60ed52265e03a9cab4bfcb70f34301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac882cb497e8e8cf96ba58080a50aa668"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gac882cb497e8e8cf96ba58080a50aa668">XSECURE_AES_KEY_CLEAR_PUF_KEY_BIT_POS</a>&#160;&#160;&#160;(21U)</td></tr>
+<tr class="memdesc:gac882cb497e8e8cf96ba58080a50aa668"><td class="mdescLeft">&#160;</td><td class="mdescRight">PUF key clear bit position.  <a href="#gac882cb497e8e8cf96ba58080a50aa668">More...</a><br/></td></tr>
+<tr class="separator:gac882cb497e8e8cf96ba58080a50aa668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12bb1331270dbf3b73c1fcd6f9ba3275"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga12bb1331270dbf3b73c1fcd6f9ba3275">XSECURE_AES_KEY_CLEAR_BH_RED_KEY_BIT_POS</a>&#160;&#160;&#160;(19U)</td></tr>
+<tr class="memdesc:ga12bb1331270dbf3b73c1fcd6f9ba3275"><td class="mdescLeft">&#160;</td><td class="mdescRight">BH Red key clear bit position.  <a href="#ga12bb1331270dbf3b73c1fcd6f9ba3275">More...</a><br/></td></tr>
+<tr class="separator:ga12bb1331270dbf3b73c1fcd6f9ba3275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c609c2aaefe549e3e562092336ccdad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga7c609c2aaefe549e3e562092336ccdad">XSECURE_AES_KEY_CLEAR_BH_KEY_BIT_POS</a>&#160;&#160;&#160;(18U)</td></tr>
+<tr class="memdesc:ga7c609c2aaefe549e3e562092336ccdad"><td class="mdescLeft">&#160;</td><td class="mdescRight">BH key clear bit position.  <a href="#ga7c609c2aaefe549e3e562092336ccdad">More...</a><br/></td></tr>
+<tr class="separator:ga7c609c2aaefe549e3e562092336ccdad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc14fee76aa08a160a724fca79652afb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gacc14fee76aa08a160a724fca79652afb">XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_BIT_POS</a>&#160;&#160;&#160;(15U)</td></tr>
+<tr class="memdesc:gacc14fee76aa08a160a724fca79652afb"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE Red key clear bit position  <a href="#gacc14fee76aa08a160a724fca79652afb">More...</a><br/></td></tr>
+<tr class="separator:gacc14fee76aa08a160a724fca79652afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd4ef7ce47ff84c5aefc0b7e225632bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gacd4ef7ce47ff84c5aefc0b7e225632bd">XSECURE_AES_KEY_CLEAR_EFUSE_KEY_BIT_POS</a>&#160;&#160;&#160;(12U)</td></tr>
+<tr class="memdesc:gacd4ef7ce47ff84c5aefc0b7e225632bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">eFUSE key clear bit position  <a href="#gacd4ef7ce47ff84c5aefc0b7e225632bd">More...</a><br/></td></tr>
+<tr class="separator:gacd4ef7ce47ff84c5aefc0b7e225632bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga62027537ea2bc8132a99420aa1a58662"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga62027537ea2bc8132a99420aa1a58662">XSECURE_AES_KEY_CLEAR_USER_KEY_7_BIT_POS</a>&#160;&#160;&#160;(11U)</td></tr>
+<tr class="memdesc:ga62027537ea2bc8132a99420aa1a58662"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 7 clear bit position.  <a href="#ga62027537ea2bc8132a99420aa1a58662">More...</a><br/></td></tr>
+<tr class="separator:ga62027537ea2bc8132a99420aa1a58662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97602b9bebc52e9e122c352b82468f09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga97602b9bebc52e9e122c352b82468f09">XSECURE_AES_KEY_CLEAR_USER_KEY_6_BIT_POS</a>&#160;&#160;&#160;(10U)</td></tr>
+<tr class="memdesc:ga97602b9bebc52e9e122c352b82468f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 6 clear bit position.  <a href="#ga97602b9bebc52e9e122c352b82468f09">More...</a><br/></td></tr>
+<tr class="separator:ga97602b9bebc52e9e122c352b82468f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga419f3c9b6bcfa0c281af34fe8f4beda3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga419f3c9b6bcfa0c281af34fe8f4beda3">XSECURE_AES_KEY_CLEAR_USER_KEY_5_BIT_POS</a>&#160;&#160;&#160;(9U)</td></tr>
+<tr class="memdesc:ga419f3c9b6bcfa0c281af34fe8f4beda3"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 5 clear bit position.  <a href="#ga419f3c9b6bcfa0c281af34fe8f4beda3">More...</a><br/></td></tr>
+<tr class="separator:ga419f3c9b6bcfa0c281af34fe8f4beda3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15b27374cf78e317a9f9c382e9054fcd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga15b27374cf78e317a9f9c382e9054fcd">XSECURE_AES_KEY_CLEAR_USER_KEY_4_BIT_POS</a>&#160;&#160;&#160;(8U)</td></tr>
+<tr class="memdesc:ga15b27374cf78e317a9f9c382e9054fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 4 clear bit position.  <a href="#ga15b27374cf78e317a9f9c382e9054fcd">More...</a><br/></td></tr>
+<tr class="separator:ga15b27374cf78e317a9f9c382e9054fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa21119787c98d194809816e46c6ee392"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaa21119787c98d194809816e46c6ee392">XSECURE_AES_KEY_CLEAR_USER_KEY_3_BIT_POS</a>&#160;&#160;&#160;(7U)</td></tr>
+<tr class="memdesc:gaa21119787c98d194809816e46c6ee392"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 3 clear bit position.  <a href="#gaa21119787c98d194809816e46c6ee392">More...</a><br/></td></tr>
+<tr class="separator:gaa21119787c98d194809816e46c6ee392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa38f6abbec3ecc74495837bfaa6649b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gaa38f6abbec3ecc74495837bfaa6649b3">XSECURE_AES_KEY_CLEAR_USER_KEY_2_BIT_POS</a>&#160;&#160;&#160;(6U)</td></tr>
+<tr class="memdesc:gaa38f6abbec3ecc74495837bfaa6649b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 2 clear bit position.  <a href="#gaa38f6abbec3ecc74495837bfaa6649b3">More...</a><br/></td></tr>
+<tr class="separator:gaa38f6abbec3ecc74495837bfaa6649b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gade850111f367a155254faabf54295d47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gade850111f367a155254faabf54295d47">XSECURE_AES_KEY_CLEAR_USER_KEY_1_BIT_POS</a>&#160;&#160;&#160;(5U)</td></tr>
+<tr class="memdesc:gade850111f367a155254faabf54295d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 1 clear bit position.  <a href="#gade850111f367a155254faabf54295d47">More...</a><br/></td></tr>
+<tr class="separator:gade850111f367a155254faabf54295d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd067e3bc8e3e20eb24aa1d91f4f6d61"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#gacd067e3bc8e3e20eb24aa1d91f4f6d61">XSECURE_AES_KEY_CLEAR_USER_KEY_0_BIT_POS</a>&#160;&#160;&#160;(4U)</td></tr>
+<tr class="memdesc:gacd067e3bc8e3e20eb24aa1d91f4f6d61"><td class="mdescLeft">&#160;</td><td class="mdescRight">User key 0 clear bit position.  <a href="#gacd067e3bc8e3e20eb24aa1d91f4f6d61">More...</a><br/></td></tr>
+<tr class="separator:gacd067e3bc8e3e20eb24aa1d91f4f6d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5735a791160430c5939be29fd94333e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga5735a791160430c5939be29fd94333e1">XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</a>&#160;&#160;&#160;(0x00000002U)</td></tr>
 <tr class="memdesc:ga5735a791160430c5939be29fd94333e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">KUP key clear mask.  <a href="#ga5735a791160430c5939be29fd94333e1">More...</a><br/></td></tr>
 <tr class="separator:ga5735a791160430c5939be29fd94333e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55e3e0ff14a8f65b4fb184617cb78c04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga55e3e0ff14a8f65b4fb184617cb78c04">XSECURE_AES_KEY_CLEAR_KUP_KEY_BIT_POS</a>&#160;&#160;&#160;(1U)</td></tr>
+<tr class="memdesc:ga55e3e0ff14a8f65b4fb184617cb78c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">KUP key clear bit position.  <a href="#ga55e3e0ff14a8f65b4fb184617cb78c04">More...</a><br/></td></tr>
+<tr class="separator:ga55e3e0ff14a8f65b4fb184617cb78c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga79483b38cc1188110a2f6addb67fbd2a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__helper__server__apis.html#ga79483b38cc1188110a2f6addb67fbd2a">XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</a>&#160;&#160;&#160;(0x00000001U)</td></tr>
 <tr class="memdesc:ga79483b38cc1188110a2f6addb67fbd2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">AES key zeroize mask.  <a href="#ga79483b38cc1188110a2f6addb67fbd2a">More...</a><br/></td></tr>
 <tr class="separator:ga79483b38cc1188110a2f6addb67fbd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1459,7 +1495,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>SHA512 mode. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
 
 </div>
 </div>
@@ -1503,7 +1539,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>SHAKE256 mode. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#ga7a3f9d4fcb7292b40c9d91a0e82d1b22">XSecure_ExtendedShaFinish()</a>, and <a class="el" href="group__xsecure__helper__server__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
 
 </div>
 </div>
@@ -1518,8 +1554,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SHAKE256 SLH-DSA Chain mode. </p>
-
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#ga7a3f9d4fcb7292b40c9d91a0e82d1b22">XSecure_ExtendedShaFinish()</a>.</p>
 
 </div>
 </div>
@@ -1625,6 +1659,51 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga203836953b3ca9627470e847af378cc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_AES_DMA_BYTE_SWAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that this platform uses the common AES DMA byte-swap policy, used by the shared core/loader/KAT code. </p>
+<p>The platform layer interprets XSecure_Aes instance's DmaSwapEn (set via <a class="el" href="group__xsecure__helper__server__apis.html#ga557eeba8aca187788ae1d41a4e255f0d" title="This function configures DMA Byte Swap based on the user input. ">XSecure_ConfigureDmaByteSwap()</a>) to select the appropriate endianness handling (PMC DMA channel EndianType and/or AES core DATA_SWAP) and avoid double swap. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga203836953b3ca9627470e847af378cc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_AES_DMA_BYTE_SWAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that this platform uses the common AES DMA byte-swap policy, used by the shared core/loader/KAT code. </p>
+<p>The platform layer interprets XSecure_Aes instance's DmaSwapEn (set via <a class="el" href="group__xsecure__helper__server__apis.html#ga557eeba8aca187788ae1d41a4e255f0d" title="This function configures DMA Byte Swap based on the user input. ">XSecure_ConfigureDmaByteSwap()</a>) to select the appropriate endianness handling (PMC DMA channel EndianType and/or AES core DATA_SWAP) and avoid double swap. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga203836953b3ca9627470e847af378cc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_AES_DMA_BYTE_SWAP</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that this platform uses the common AES DMA byte-swap policy, used by the shared core/loader/KAT code. </p>
+<p>The platform layer interprets XSecure_Aes instance's DmaSwapEn (set via <a class="el" href="group__xsecure__helper__server__apis.html#ga557eeba8aca187788ae1d41a4e255f0d" title="This function configures DMA Byte Swap based on the user input. ">XSecure_ConfigureDmaByteSwap()</a>) to select the appropriate endianness handling (PMC DMA channel EndianType and/or AES core DATA_SWAP) and avoid double swap. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga48aafede9c9ae68ab7f9e4b6b49d6be2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1646,7 +1725,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_INVALID_CFG&#160;&#160;&#160;(0xFFFFFFFFU)</td>
+          <td class="memname">#define XSECURE_AES_INVALID_CFG&#160;&#160;&#160;(0xFFU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1683,59 +1762,77 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gafe6dcf27e787fc78783ecc1cc23734ef"></a>
+<a class="anchor" id="ga7c609c2aaefe549e3e562092336ccdad"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_BH_KEY_MASK&#160;&#160;&#160;(0x00040000U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_BH_KEY_BIT_POS&#160;&#160;&#160;(18U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>BH key clear mask. </p>
+<p>BH key clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga95f8b6f17ef405ef82d5878abefb8ab8"></a>
+<a class="anchor" id="ga12bb1331270dbf3b73c1fcd6f9ba3275"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK&#160;&#160;&#160;(0x00080000U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_BH_RED_KEY_BIT_POS&#160;&#160;&#160;(19U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>BH Red key clear mask. </p>
+<p>BH Red key clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga76f15973a4af50291c1a7874379cce34"></a>
+<a class="anchor" id="ga8756243bb69fa1b4e8a8025ced5bcf16"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK&#160;&#160;&#160;(0x00001000U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">BitPos</td><td>)</td>
+          <td>&#160;&#160;&#160;((u32)1U &lt;&lt; (BitPos))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>eFUSE key clear mask </p>
+<p>Convert a stored AesKeyLookupTbl bit position into the corresponding AES_KEY_CLEAR register mask. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga197b7d82f3672c3134c16986f88b8055"></a>
+<a class="anchor" id="gacd4ef7ce47ff84c5aefc0b7e225632bd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK&#160;&#160;&#160;(0x00008000U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_EFUSE_KEY_BIT_POS&#160;&#160;&#160;(12U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>eFUSE Red key clear mask </p>
+<p>eFUSE key clear bit position </p>
+
+</div>
+</div>
+<a class="anchor" id="gacc14fee76aa08a160a724fca79652afb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_BIT_POS&#160;&#160;&#160;(15U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>eFUSE Red key clear bit position </p>
 
 </div>
 </div>
@@ -1750,10 +1847,24 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="group__xsecure__helper__server__apis.html#ga5735a791160430c5939be29fd94333e1">XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</a> | <a class="code" href="group__xsecure__helper__server__apis.html#ga79483b38cc1188110a2f6addb67fbd2a">\</a></div>
 <div class="line"><a class="code" href="group__xsecure__helper__server__apis.html#ga79483b38cc1188110a2f6addb67fbd2a">							 XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</a>)</div>
-<div class="ttc" id="group__xsecure__helper__server__apis_html_ga79483b38cc1188110a2f6addb67fbd2a"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ga79483b38cc1188110a2f6addb67fbd2a">XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</a></div><div class="ttdeci">#define XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</div><div class="ttdoc">AES key zeroize mask. </div><div class="ttdef"><b>Definition:</b> spartanup/xsecure_plat.h:136</div></div>
-<div class="ttc" id="group__xsecure__helper__server__apis_html_ga5735a791160430c5939be29fd94333e1"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ga5735a791160430c5939be29fd94333e1">XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</a></div><div class="ttdeci">#define XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</div><div class="ttdoc">KUP key clear mask. </div><div class="ttdef"><b>Definition:</b> spartanup/xsecure_plat.h:133</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ga79483b38cc1188110a2f6addb67fbd2a"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ga79483b38cc1188110a2f6addb67fbd2a">XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</a></div><div class="ttdeci">#define XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</div><div class="ttdoc">AES key zeroize mask. </div><div class="ttdef"><b>Definition:</b> spartanup/xsecure_plat.h:165</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ga5735a791160430c5939be29fd94333e1"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ga5735a791160430c5939be29fd94333e1">XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</a></div><div class="ttdeci">#define XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</div><div class="ttdoc">KUP key clear mask. </div><div class="ttdef"><b>Definition:</b> spartanup/xsecure_plat.h:160</div></div>
 </div><!-- fragment -->
 <p>Combined mask to clear KUP key and expanded (zeroize) key simultaneously. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga55e3e0ff14a8f65b4fb184617cb78c04"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_KUP_KEY_BIT_POS&#160;&#160;&#160;(1U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>KUP key clear bit position. </p>
 
 </div>
 </div>
@@ -1786,17 +1897,17 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gabd84b3f8c7cc8779e95b93f97cefad8b"></a>
+<a class="anchor" id="gac882cb497e8e8cf96ba58080a50aa668"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK&#160;&#160;&#160;(0x00200000U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_PUF_KEY_BIT_POS&#160;&#160;&#160;(21U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>PUF key clear mask. </p>
+<p>PUF key clear bit position. </p>
 
 </div>
 </div>
@@ -1814,115 +1925,115 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gaea60ed52265e03a9cab4bfcb70f34301"></a>
+<a class="anchor" id="gacd067e3bc8e3e20eb24aa1d91f4f6d61"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK&#160;&#160;&#160;(0x00000010U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_0_BIT_POS&#160;&#160;&#160;(4U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 0 clear mask. </p>
+<p>User key 0 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga38e782789e1cc7cdd12793feb5418a83"></a>
+<a class="anchor" id="gade850111f367a155254faabf54295d47"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK&#160;&#160;&#160;(0x00000020U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_1_BIT_POS&#160;&#160;&#160;(5U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 1 clear mask. </p>
+<p>User key 1 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga279bc71965001241f8f29f66e582c179"></a>
+<a class="anchor" id="gaa38f6abbec3ecc74495837bfaa6649b3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK&#160;&#160;&#160;(0x00000040U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_2_BIT_POS&#160;&#160;&#160;(6U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 2 clear mask. </p>
+<p>User key 2 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga69ebc0ae6a3844f1d1d9f0781acf078e"></a>
+<a class="anchor" id="gaa21119787c98d194809816e46c6ee392"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK&#160;&#160;&#160;(0x00000080U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_3_BIT_POS&#160;&#160;&#160;(7U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 3 clear mask. </p>
+<p>User key 3 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga5fcec8e0660101185b385ce9a1159174"></a>
+<a class="anchor" id="ga15b27374cf78e317a9f9c382e9054fcd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK&#160;&#160;&#160;(0x00000100U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_4_BIT_POS&#160;&#160;&#160;(8U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 4 clear mask. </p>
+<p>User key 4 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="ga1bb7bac2a8eefc88b898cff728f7595a"></a>
+<a class="anchor" id="ga419f3c9b6bcfa0c281af34fe8f4beda3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK&#160;&#160;&#160;(0x00000200U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_5_BIT_POS&#160;&#160;&#160;(9U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 5 clear mask. </p>
+<p>User key 5 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="gafe0205f407a5a200ce3842a835618cac"></a>
+<a class="anchor" id="ga97602b9bebc52e9e122c352b82468f09"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK&#160;&#160;&#160;(0x00000400U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_6_BIT_POS&#160;&#160;&#160;(10U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 6 clear mask. </p>
+<p>User key 6 clear bit position. </p>
 
 </div>
 </div>
-<a class="anchor" id="gac7d5a7384f5cd63547de379b029a142f"></a>
+<a class="anchor" id="ga62027537ea2bc8132a99420aa1a58662"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK&#160;&#160;&#160;(0x00000800U)</td>
+          <td class="memname">#define XSECURE_AES_KEY_CLEAR_USER_KEY_7_BIT_POS&#160;&#160;&#160;(11U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>User key 7 clear mask. </p>
+<p>User key 7 clear bit position. </p>
 
 </div>
 </div>
@@ -2190,20 +2301,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>AES Key Transfer Engine Count address. </p>
 
-</div>
-</div>
-<a class="anchor" id="ga039bd63622cb99bf5718096ecf3df028"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_CNT_ADDRESS&#160;&#160;&#160;(0xF11E0240U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES Key Transfer Engine Count address. </p>
-
 <p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#ga6966629c7ceb7a8ff7bbb8438c8b0771">XSecure_InitiateASUKeyTransfer()</a>.</p>
 
 </div>
@@ -2219,34 +2316,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>AES Key Transfer Engine Count value. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga37af1a569f10294493a3309a350cb290"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_CNT_MASK&#160;&#160;&#160;(0x6U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES Key Transfer Engine Count value. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga4bcc4be9ab1a405d81749d9cbb0fa4e7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_DONE_ADDRESS&#160;&#160;&#160;(0xF11E023CU)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES Key Transfer Engine Done. </p>
 
 </div>
 </div>
@@ -2278,35 +2347,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>AES Key Transfer Engine Done mask. </p>
 
-</div>
-</div>
-<a class="anchor" id="ga11e29435ecf84dd1364d901454c1748b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_DONE_MASK&#160;&#160;&#160;(0x1U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES Key Transfer Engine Done mask. </p>
-
 <p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#ga6966629c7ceb7a8ff7bbb8438c8b0771">XSecure_InitiateASUKeyTransfer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga02d30e5270b61a009fa6791924dbea52"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_DONE_POLL_TIMEOUT&#160;&#160;&#160;(4000U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES Key Transfer complete poll timeout. </p>
 
 </div>
 </div>
@@ -2338,20 +2379,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>AES KTE GO address. </p>
 
-</div>
-</div>
-<a class="anchor" id="gade9e298d32f699b950940e64b49a51cc"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_GO_ADDRESS&#160;&#160;&#160;(0xF11E0234U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES KTE GO address. </p>
-
 <p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#ga6966629c7ceb7a8ff7bbb8438c8b0771">XSecure_InitiateASUKeyTransfer()</a>.</p>
 
 </div>
@@ -2368,35 +2395,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>AES KTE GO disable. </p>
 
-</div>
-</div>
-<a class="anchor" id="ga85c8d4d287bdcb0bcacf720c5de1ddf2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_GO_DISABLE&#160;&#160;&#160;(0x0U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES KTE GO disable. </p>
-
 <p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#ga6966629c7ceb7a8ff7bbb8438c8b0771">XSecure_InitiateASUKeyTransfer()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga9d686b048c78f15c24ad0087779c7a35"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_AES_KTE_GO_ENABLE&#160;&#160;&#160;(0x1U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>AES KTE GO enable. </p>
 
 </div>
 </div>
@@ -2430,17 +2429,17 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga68f68575d7a80e6cf98ea20360679f8d"></a>
+<a class="anchor" id="ga3263636461cfef82330983351e80ba5c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_KTE_RESTART_ADDRESS&#160;&#160;&#160;(0xF11E0238U)</td>
+          <td class="memname">#define XSECURE_AES_NO_CFG_DST_DMA&#160;&#160;&#160;(0xFFFFFFFFU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>AES Key Transfer Engine Restart register. </p>
+<p>Not to configure Dst DMA at this address in AES. </p>
 
 </div>
 </div>
@@ -2488,17 +2487,31 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga3263636461cfef82330983351e80ba5c"></a>
+<a class="anchor" id="gadab2e360fc5b40845c9d4f1128075ea6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_AES_NO_CFG_DST_DMA&#160;&#160;&#160;(0xFFFFFFFFU)</td>
+          <td class="memname">#define XSECURE_DEBUG&#160;&#160;&#160;(0U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Not to configure Dst DMA at this address in AES. </p>
+<p>&lt; Enable printfs by setting XSECURE_DEBUG to 1 </p>
+
+</div>
+</div>
+<a class="anchor" id="gad317bd5f7cf522c602b9f00246d34d97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_DEBUG_GENERAL&#160;&#160;&#160;(0U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disable general debug prints. </p>
 
 </div>
 </div>
@@ -2708,6 +2721,34 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga693c54d224d1fa8ca68b215023b2b359"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSecure_Printf</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">DebugType, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>For prints in XilSecure library. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga4ac531a239c723c1f2fd3c94c30cb411"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2860,7 +2901,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>SHA2_256 hash length. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__lms__server__apis.html#ga292e1e3bc9bd3759b76c98cfd8196deb">XSecure_LmsLookupParamSet()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gad5b378b529d087505726876fcf3e8b79">XSecure_Sha2256Kat()</a>, and <a class="el" href="group__xsecure__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__lms__server__apis.html#ga292e1e3bc9bd3759b76c98cfd8196deb">XSecure_LmsLookupParamSet()</a>, <a class="el" href="group__xsecure__kat__server__apis.html#gad5b378b529d087505726876fcf3e8b79">XSecure_Sha2256Kat()</a>, and <a class="el" href="group__xsecure__helper__server__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
 
 </div>
 </div>
@@ -2946,7 +2987,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>SHA2_384 hash length. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
 
 </div>
 </div>
@@ -3136,7 +3177,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>SHA_512 block length. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#gaf4fe7931a3c30dedeb0b314ae921b2dd">XSecure_ShaValidateModeAndCfgInstance()</a>.</p>
 
 </div>
 </div>
@@ -3345,14 +3386,12 @@ AES_KEY_CLEAR register</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_SSS_ADDRESS&#160;&#160;&#160;(0x040A0090U)</td>
+          <td class="memname">#define XSECURE_SSS_ADDRESS&#160;&#160;&#160;(0xF1110500U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>SSS base address. </p>
-
-<p>Referenced by <a class="el" href="group__xsecure__generic__server__apis.html#gac44d78314f59033c8bee53a3f1dee58b">XSecure_SssInitialize()</a>.</p>
 
 </div>
 </div>
@@ -3361,12 +3400,28 @@ AES_KEY_CLEAR register</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_SSS_ADDRESS&#160;&#160;&#160;(0xF1110500U)</td>
+          <td class="memname">#define XSECURE_SSS_ADDRESS&#160;&#160;&#160;(0x040A0090U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>SSS base address. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__sss__apis.html#gac44d78314f59033c8bee53a3f1dee58b">XSecure_SssInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaaf3e7bf563253ea992e8e7929067e821"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SSS_AES_DMA0_VAL&#160;&#160;&#160;(0xE000U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SSS AES DMA0 value. </p>
 
 </div>
 </div>
@@ -3442,20 +3497,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gaaf3e7bf563253ea992e8e7929067e821"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_SSS_AES_DMA0_VAL&#160;&#160;&#160;(0xE000U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>SSS AES DMA0 value. </p>
-
-</div>
-</div>
 <a class="anchor" id="gae5cc984ad9e3350a3a890f5894c664ab"></a>
 <div class="memitem">
 <div class="memproto">
@@ -3523,6 +3564,20 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SSS AES DMA1 value. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab357c8f8f68636180ba63c9a932e47e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SSS_AES_MASK&#160;&#160;&#160;(0xF000U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SSS AES mask. </p>
 
 </div>
 </div>
@@ -3598,17 +3653,17 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gab357c8f8f68636180ba63c9a932e47e5"></a>
+<a class="anchor" id="gac7499c67413d7c6ef12b77d12c9ea08e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_SSS_AES_MASK&#160;&#160;&#160;(0xF000U)</td>
+          <td class="memname">#define XSECURE_SSS_DMA0_MASK&#160;&#160;&#160;(0xFU)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>SSS AES mask. </p>
+<p>SSS DMA0 mask. </p>
 
 </div>
 </div>
@@ -3639,20 +3694,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 <p>SSS DMA0 mask. </p>
 
 <p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#ga98bc3453d87d63579b5f60c19d2676c2">XSecure_SssMask()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="gac7499c67413d7c6ef12b77d12c9ea08e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_SSS_DMA0_MASK&#160;&#160;&#160;(0xFU)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>SSS DMA0 mask. </p>
 
 </div>
 </div>
@@ -3807,6 +3848,20 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SSS Maximum resources. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5b3d5ffcbedbf1152a60c7b9d4fce8ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SSS_MAX_SRCS&#160;&#160;&#160;(8U)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum resources. </p>
 
 </div>
 </div>
@@ -3838,17 +3893,17 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga5b3d5ffcbedbf1152a60c7b9d4fce8ad"></a>
+<a class="anchor" id="gac94aaf5af67ffa8b4913cc97275a7117"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSECURE_SSS_MAX_SRCS&#160;&#160;&#160;(8U)</td>
+          <td class="memname">#define XSECURE_SSS_SBI_DMA0_VAL&#160;&#160;&#160;(0x500000U)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Maximum resources. </p>
+<p>SSS SBI DMA0 value. </p>
 
 </div>
 </div>
@@ -3879,20 +3934,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 <p>SSS SBI DMA0 value. </p>
 
 <p>Referenced by <a class="el" href="group__xsecure__helper__server__apis.html#ga98bc3453d87d63579b5f60c19d2676c2">XSecure_SssMask()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="gac94aaf5af67ffa8b4913cc97275a7117"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_SSS_SBI_DMA0_VAL&#160;&#160;&#160;(0x500000U)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>SSS SBI DMA0 value. </p>
 
 </div>
 </div>
@@ -4486,20 +4527,6 @@ AES_KEY_CLEAR register</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>SSS Source select mask. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga62057ed779b0e67ade3d35e51ce5d76c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSECURE_SSS_SRC_SEL_MASK&#160;&#160;&#160;(0xFU)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
 <p>SSS Source Select mask. </p>
 
 </div>
@@ -4529,6 +4556,20 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>SSS Source Select mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga62057ed779b0e67ade3d35e51ce5d76c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSECURE_SSS_SRC_SEL_MASK&#160;&#160;&#160;(0xFU)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SSS Source select mask. </p>
 
 </div>
 </div>
@@ -6125,7 +6166,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 <li>Acknowledge the transfer has completed</li>
 <li>Wait for the DEST DMA completion.</li>
 <li>Acknowledge the transfer has completed</li>
-<li>Enable PMC DMA Src and Dst channels for byte swapping.</li>
+<li>Enable PMC DMA Src and Dst channel byte swapping only when InstancePtr-&gt;DmaSwapEn == XSECURE_DISABLE_BYTE_SWAP. Note the intentional inverted polarity: when DmaSwapEn is XSECURE_ENABLE_BYTE_SWAP the required endianness handling is done by the AES core DATA_SWAP register and this per-channel PMC DMA swap must be skipped to avoid a double swap. Callers must not assume that XSECURE_ENABLE_BYTE_SWAP triggers this path.</li>
 <li>Sets the start address and size for both src and dest channels as per the configuration</li>
 <li>Wait for the SRC DMA completion.</li>
 <li>Acknowledge the transfer has completed</li>
@@ -6259,6 +6300,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful valdation</li>
+<li>XSECURE_AES_INVALID_PARAM If Size is zero</li>
 <li>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input</li>
 </ul>
 </dd></dl>
@@ -6271,6 +6313,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS - On success</li>
+<li>XSECURE_AES_INVALID_PARAM - Size is zero</li>
 <li>XSECURE_AES_UNALIGNED_SIZE_ERROR - Size is not 16-byte aligned for non-last chunk</li>
 </ul>
 </dd></dl>
@@ -6283,6 +6326,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS On successful valdation.</li>
+<li>XSECURE_AES_INVALID_PARAM If Size is zero.</li>
 <li>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input.</li>
 </ul>
 </dd></dl>
@@ -6295,6 +6339,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS If update is 16-bytes aligned.</li>
+<li>XSECURE_AES_INVALID_PARAM If Size is zero.</li>
 <li>XSECURE_AES_UNALIGNED_SIZE_ERROR If update is not 16-bytes aligned.</li>
 </ul>
 </dd></dl>
@@ -6307,18 +6352,24 @@ AES_KEY_CLEAR register</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS If the data is q-word aligned for intermediate updates XST_FAILURE If the data is not q-word aligned for intermediate updates </dd></dl>
 <ul>
-<li>Validate the Size</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
+<li>Validate the Size is 4-byte aligned or not</li>
 <li>Validate the size based on last chunk</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>Validate the size is 4-byte aligned or not</li>
 <li>Validate the size is 16-byte aligned when it is last chunk</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>Validate the size is 4-byte aligned or not</li>
 <li>Validate the size is 16-byte aligned when it is last chunk</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</li>
+<li>Return XSECURE_AES_INVALID_PARAM if Size is zero</li>
 <li>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</li>
 </ul>
 
-<p>References <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f">XSECURE_AES_UNALIGNED_SIZE_ERROR</a>, <a class="el" href="group__xsecure__generic__server__apis.html#gac1a4435f3c1d7f6ca90c1b5838ee6b27">XSECURE_QWORD_SIZE</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
+<p>References <a class="el" href="group__xsecure__aes__client__apis.html#gaf7eae7e456a1d11d550afb26e22ea199">XSECURE_AES_INVALID_PARAM</a>, <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f">XSECURE_AES_UNALIGNED_SIZE_ERROR</a>, <a class="el" href="group__xsecure__generic__server__apis.html#gac1a4435f3c1d7f6ca90c1b5838ee6b27">XSECURE_QWORD_SIZE</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
 
 </div>
 </div>
@@ -6381,6 +6432,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 <p>This function configures DMA Byte Swap based on the user input. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">Op</td><td>DMA Byte Swap configuration value</td></tr>
     <tr><td class="paramname">Op</td><td>Enable/Disable byte swapping. </td></tr>
   </table>
   </dd>
@@ -6605,7 +6657,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 <li>Disable the key transfer </li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__helper__server__apis.html#ga039bd63622cb99bf5718096ecf3df028">XSECURE_AES_KTE_CNT_ADDRESS</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga4bcc4be9ab1a405d81749d9cbb0fa4e7">XSECURE_AES_KTE_DONE_ADDRESS</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga11e29435ecf84dd1364d901454c1748b">XSECURE_AES_KTE_DONE_MASK</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga02d30e5270b61a009fa6791924dbea52">XSECURE_AES_KTE_DONE_POLL_TIMEOUT</a>, <a class="el" href="group__xsecure__helper__server__apis.html#gade9e298d32f699b950940e64b49a51cc">XSECURE_AES_KTE_GO_ADDRESS</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga85c8d4d287bdcb0bcacf720c5de1ddf2">XSECURE_AES_KTE_GO_DISABLE</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga9d686b048c78f15c24ad0087779c7a35">XSECURE_AES_KTE_GO_ENABLE</a>, <a class="el" href="group__xsecure__utils__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="versal__2ve__2vm_2xsecure__error_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a99c7ed438a4582bb9c1aab17fae9d233">XSECURE_ERR_ASU_KTE_DONE_NOT_SET</a>, <a class="el" href="group__xsecure__generic__server__apis.html#ga4e695dfc0e718c61fc93d707a9578f54">XSecure_In32</a>, <a class="el" href="group__xsecure__generic__server__apis.html#gae500e79a22c37a14027ce0ad88a8cafe">XSecure_Out32</a>, and <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>.</p>
+<p>References <a class="el" href="group__xsecure__helper__server__apis.html#ga039bd63622cb99bf5718096ecf3df028">XSECURE_AES_KTE_CNT_ADDRESS</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga4bcc4be9ab1a405d81749d9cbb0fa4e7">XSECURE_AES_KTE_DONE_ADDRESS</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga11e29435ecf84dd1364d901454c1748b">XSECURE_AES_KTE_DONE_MASK</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga02d30e5270b61a009fa6791924dbea52">XSECURE_AES_KTE_DONE_POLL_TIMEOUT</a>, <a class="el" href="group__xsecure__helper__server__apis.html#gade9e298d32f699b950940e64b49a51cc">XSECURE_AES_KTE_GO_ADDRESS</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga85c8d4d287bdcb0bcacf720c5de1ddf2">XSECURE_AES_KTE_GO_DISABLE</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga9d686b048c78f15c24ad0087779c7a35">XSECURE_AES_KTE_GO_ENABLE</a>, <a class="el" href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, <a class="el" href="versal__2ve__2vm_2xsecure__error_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a99c7ed438a4582bb9c1aab17fae9d233">XSECURE_ERR_ASU_KTE_DONE_NOT_SET</a>, <a class="el" href="group__xsecure__generic__server__apis.html#ga4e695dfc0e718c61fc93d707a9578f54">XSecure_In32</a>, <a class="el" href="group__xsecure__generic__server__apis.html#gae500e79a22c37a14027ce0ad88a8cafe">XSecure_Out32</a>, and <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>.</p>
 
 </div>
 </div>
@@ -6754,7 +6806,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 <li>XSecure_RsaDecrypt </li>
 </ul>
 
-<p>References <a class="el" href="group__xsecure__common__apis.html#ga2f4a1a99096821d10b0719a4ded431d5">XSECURE_API</a>, <a class="el" href="group__xsecure__common__apis.html#gaa2f27ea2d621bbdeda76bad8109eb77b">XSECURE_API_ID_MASK</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b">XSECURE_API_RSA_PRIVATE_DECRYPT</a>, <a class="el" href="group__xsecure__utils__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, and <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>.</p>
+<p>References <a class="el" href="group__xsecure__common__apis.html#ga2f4a1a99096821d10b0719a4ded431d5">XSECURE_API</a>, <a class="el" href="group__xsecure__common__apis.html#gaa2f27ea2d621bbdeda76bad8109eb77b">XSECURE_API_ID_MASK</a>, <a class="el" href="group__xsecure__common__apis.html#gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b">XSECURE_API_RSA_PRIVATE_DECRYPT</a>, <a class="el" href="group__xsecure__common__apis.html#gad317bd5f7cf522c602b9f00246d34d97">XSECURE_DEBUG_GENERAL</a>, and <a class="el" href="group__xsecure__common__apis.html#ga693c54d224d1fa8ca68b215023b2b359">XSecure_Printf</a>.</p>
 
 </div>
 </div>
@@ -6870,7 +6922,7 @@ AES_KEY_CLEAR register</h2></td></tr>
 <li>Acknowledge the transfer has completed. </li>
 </ul>
 
-<p>References <a class="el" href="struct_x_secure___sha_plat_config.html#ade16cec2869a9f44274030a759eb71bc">XSecure_ShaPlatConfig::HashAlgo</a>, <a class="el" href="group__xsecure__utils__apis.html#ga0e0f4c7d8c32b8c6d680553e068f4614">XSecure_MemCpy64()</a>, <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875">XSECURE_SHA_INVALID_PARAM</a>, <a class="el" href="group__xsecure__apis.html#ga0204d6babc12872e9be472c0d4645901">XSecure_ShaGetBlockLen()</a>, <a class="el" href="group__xsecure__generic__server__apis.html#ga5d090a399a2fe568bea608504ae2b586">XSECURE_WORD_ALIGN_MASK</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
+<p>References <a class="el" href="struct_x_secure___sha_plat_config.html#ade16cec2869a9f44274030a759eb71bc">XSecure_ShaPlatConfig::HashAlgo</a>, <a class="el" href="spartanup_2xsecure__error_8h.html#a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875">XSECURE_SHA_INVALID_PARAM</a>, <a class="el" href="group__xsecure__apis.html#ga0204d6babc12872e9be472c0d4645901">XSecure_ShaGetBlockLen()</a>, <a class="el" href="group__xsecure__generic__server__apis.html#ga5d090a399a2fe568bea608504ae2b586">XSECURE_WORD_ALIGN_MASK</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga014b8298824e67a2e9fe8a5c8719f59a">XSECURE_WORD_SIZE</a>.</p>
 
 </div>
 </div>
@@ -7065,8 +7117,6 @@ AES_KEY_CLEAR register</h2></td></tr>
 
 <p>References <a class="el" href="group__xsecure__helper__server__apis.html#gaaf3e7bf563253ea992e8e7929067e821">XSECURE_SSS_AES_DMA0_VAL</a>, <a class="el" href="group__xsecure__helper__server__apis.html#gab357c8f8f68636180ba63c9a932e47e5">XSECURE_SSS_AES_MASK</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09">XSECURE_SSS_DMA0</a>, <a class="el" href="group__xsecure__helper__server__apis.html#gac7499c67413d7c6ef12b77d12c9ea08e">XSECURE_SSS_DMA0_MASK</a>, <a class="el" href="group__xsecure__helper__server__apis.html#gac94aaf5af67ffa8b4913cc97275a7117">XSECURE_SSS_SBI_DMA0_VAL</a>, <a class="el" href="group__xsecure__helper__server__apis.html#gaf76f0708eae2bc4b2bc887737c797dc2">XSECURE_SSS_SBI_MASK</a>, <a class="el" href="group__xsecure__helper__server__apis.html#ga190a14f5596f1c93530cd7ae6c343654">XSECURE_SSS_SHA_DMA0_VAL</a>, and <a class="el" href="group__xsecure__helper__server__apis.html#ga91c0023f5b12cef7db133302607b3dfc">XSECURE_SSS_SHA_MASK</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xsecure__generic__server__apis.html#ga149d2122c6b082fafda37d6f20b013e3">XSecure_SssAes()</a>, and <a class="el" href="group__xsecure__generic__server__apis.html#ga9fd733a169850268505e89c96636a584">XSecure_SssSha()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ga0ecbeca74fb66d967b6872c46aac2a44"></a>
@@ -7086,8 +7136,8 @@ AES_KEY_CLEAR register</h2></td></tr>
 <p>This function updates TRNG crypto indicator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Op</td><td>To set or clear the bit.</td></tr>
-    <tr><td class="paramname">Op</td><td>To set or clear the bit </td></tr>
+    <tr><td class="paramname">Op</td><td>To set or clear the bit</td></tr>
+    <tr><td class="paramname">Op</td><td>To set or clear the bit. </td></tr>
   </table>
   </dd>
 </dl>
@@ -7111,6 +7161,328 @@ AES_KEY_CLEAR register</h2></td></tr>
 </div><div class="memdoc">
 
 <p>TRNG related macros for SPARTANUPLUSAES1 device. </p>
+<p>This structure holds the AES key lookup table </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9cb7e9f1a05151630a24de795653b695"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const XSecure_ShaConfig ShaConfigTable[<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83">XSECURE_SSS_SHA3</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a50161b8e88f045cd64b1006996fc211d">XSECURE_SHA3_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a12b9b222631fbbfb489a916396a91d3a">XSECURE_SHA3_DEVICE_ID</a>,</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66">XSECURE_SSS_SHA2</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a0be7c3cd72d07e9799cf4e5883b881f7">XSECURE_SHA2_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a9010a1c041352786e2818216b999006a">XSECURE_SHA2_DEVICE_ID</a>,</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a50161b8e88f045cd64b1006996fc211d"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a50161b8e88f045cd64b1006996fc211d">XSECURE_SHA3_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA3_BASE_ADDRESS</div><div class="ttdoc">SHA3 base address. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:47</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66">XSECURE_SSS_SHA2</a></div><div class="ttdoc">SHA2. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_plat.h:155</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83">XSECURE_SSS_SHA3</a></div><div class="ttdoc">SHA3. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_plat.h:153</div></div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a9010a1c041352786e2818216b999006a"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a9010a1c041352786e2818216b999006a">XSECURE_SHA2_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA2_DEVICE_ID</div><div class="ttdoc">SHA2 device id. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:45</div></div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a0be7c3cd72d07e9799cf4e5883b881f7"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a0be7c3cd72d07e9799cf4e5883b881f7">XSECURE_SHA2_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA2_BASE_ADDRESS</div><div class="ttdoc">SHA2 base address. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:49</div></div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a12b9b222631fbbfb489a916396a91d3a"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a12b9b222631fbbfb489a916396a91d3a">XSECURE_SHA3_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA3_DEVICE_ID</div><div class="ttdoc">SHA3 device id. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:43</div></div>
+</div><!-- fragment -->
+<p>The configuration table for devices. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9cb7e9f1a05151630a24de795653b695"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const XSecure_ShaConfig ShaConfigTable[<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739">XSECURE_SSS_SHA3_0</a>,</div>
+<div class="line">                <a class="code" href="versal_2xsecure__sha__hw_8h.html#adcfcf6879b0181b7016d27ac4e1ffe76">XSECURE_SHA3_0_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal_2xsecure__sha__hw_8h.html#ab8429394a569eeb59dba721688b00a49">XSECURE_SHA3_0_DEVICE_ID</a>,</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739">XSECURE_SSS_SHA3_0</a></div><div class="ttdoc">SHA3_0. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_plat.h:80</div></div>
+<div class="ttc" id="versal_2xsecure__sha__hw_8h_html_ab8429394a569eeb59dba721688b00a49"><div class="ttname"><a href="versal_2xsecure__sha__hw_8h.html#ab8429394a569eeb59dba721688b00a49">XSECURE_SHA3_0_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA3_0_DEVICE_ID</div><div class="ttdoc">SHA3 0 device id. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_sha_hw.h:48</div></div>
+<div class="ttc" id="versal_2xsecure__sha__hw_8h_html_adcfcf6879b0181b7016d27ac4e1ffe76"><div class="ttname"><a href="versal_2xsecure__sha__hw_8h.html#adcfcf6879b0181b7016d27ac4e1ffe76">XSECURE_SHA3_0_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA3_0_BASE_ADDRESS</div><div class="ttdoc">SHA3 base address. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_sha_hw.h:46</div></div>
+</div><!-- fragment -->
+<p>The configuration table for devices. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9cb7e9f1a05151630a24de795653b695"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const XSecure_ShaConfig ShaConfigTable[<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739">XSECURE_SSS_SHA3_0</a>,</div>
+<div class="line">                <a class="code" href="versal_2xsecure__sha__hw_8h.html#adcfcf6879b0181b7016d27ac4e1ffe76">XSECURE_SHA3_0_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal_2xsecure__sha__hw_8h.html#ab8429394a569eeb59dba721688b00a49">XSECURE_SHA3_0_DEVICE_ID</a>,</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739">XSECURE_SSS_SHA3_0</a></div><div class="ttdoc">SHA3_0. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_plat.h:80</div></div>
+<div class="ttc" id="versal_2xsecure__sha__hw_8h_html_ab8429394a569eeb59dba721688b00a49"><div class="ttname"><a href="versal_2xsecure__sha__hw_8h.html#ab8429394a569eeb59dba721688b00a49">XSECURE_SHA3_0_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA3_0_DEVICE_ID</div><div class="ttdoc">SHA3 0 device id. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_sha_hw.h:48</div></div>
+<div class="ttc" id="versal_2xsecure__sha__hw_8h_html_adcfcf6879b0181b7016d27ac4e1ffe76"><div class="ttname"><a href="versal_2xsecure__sha__hw_8h.html#adcfcf6879b0181b7016d27ac4e1ffe76">XSECURE_SHA3_0_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA3_0_BASE_ADDRESS</div><div class="ttdoc">SHA3 base address. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_sha_hw.h:46</div></div>
+</div><!-- fragment -->
+<p>The configuration table for devices. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9cb7e9f1a05151630a24de795653b695"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const XSecure_ShaConfig ShaConfigTable[<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83">XSECURE_SSS_SHA3</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a50161b8e88f045cd64b1006996fc211d">XSECURE_SHA3_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a12b9b222631fbbfb489a916396a91d3a">XSECURE_SHA3_DEVICE_ID</a>,</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66">XSECURE_SSS_SHA2</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a0be7c3cd72d07e9799cf4e5883b881f7">XSECURE_SHA2_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a9010a1c041352786e2818216b999006a">XSECURE_SHA2_DEVICE_ID</a>,</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a50161b8e88f045cd64b1006996fc211d"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a50161b8e88f045cd64b1006996fc211d">XSECURE_SHA3_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA3_BASE_ADDRESS</div><div class="ttdoc">SHA3 base address. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:47</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66">XSECURE_SSS_SHA2</a></div><div class="ttdoc">SHA2. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_plat.h:155</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83">XSECURE_SSS_SHA3</a></div><div class="ttdoc">SHA3. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_plat.h:153</div></div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a9010a1c041352786e2818216b999006a"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a9010a1c041352786e2818216b999006a">XSECURE_SHA2_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA2_DEVICE_ID</div><div class="ttdoc">SHA2 device id. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:45</div></div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a0be7c3cd72d07e9799cf4e5883b881f7"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a0be7c3cd72d07e9799cf4e5883b881f7">XSECURE_SHA2_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA2_BASE_ADDRESS</div><div class="ttdoc">SHA2 base address. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:49</div></div>
+<div class="ttc" id="versal__2ve__2vm_2xsecure__sha__hw_8h_html_a12b9b222631fbbfb489a916396a91d3a"><div class="ttname"><a href="versal__2ve__2vm_2xsecure__sha__hw_8h.html#a12b9b222631fbbfb489a916396a91d3a">XSECURE_SHA3_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA3_DEVICE_ID</div><div class="ttdoc">SHA3 device id. </div><div class="ttdef"><b>Definition:</b> versal_2ve_2vm/xsecure_sha_hw.h:43</div></div>
+</div><!-- fragment -->
+<p>The configuration table for devices. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9cb7e9f1a05151630a24de795653b695"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const XSecure_ShaConfig ShaConfigTable[<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739">XSECURE_SSS_SHA3_0</a>,</div>
+<div class="line">                <a class="code" href="versal_2xsecure__sha__hw_8h.html#adcfcf6879b0181b7016d27ac4e1ffe76">XSECURE_SHA3_0_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal_2xsecure__sha__hw_8h.html#ab8429394a569eeb59dba721688b00a49">XSECURE_SHA3_0_DEVICE_ID</a>,</div>
+<div class="line">        },</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa65987c2c0b8c32adc9186a7c44963e1">XSECURE_SSS_SHA3_1</a>,</div>
+<div class="line">                <a class="code" href="versal__net_2xsecure__sha__hw_8h.html#af79a1c27cb514c731ad63272a74c0434">XSECURE_SHA3_1_BASE_ADDRESS</a>,</div>
+<div class="line">                <a class="code" href="versal__net_2xsecure__sha__hw_8h.html#a160be019698487306a0f44524305e261">XSECURE_SHA3_1_DEVICE_ID</a>,</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa65987c2c0b8c32adc9186a7c44963e1"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa65987c2c0b8c32adc9186a7c44963e1">XSECURE_SSS_SHA3_1</a></div><div class="ttdoc">SHA3_1. </div><div class="ttdef"><b>Definition:</b> versal_net/xsecure_plat.h:113</div></div>
+<div class="ttc" id="versal__net_2xsecure__sha__hw_8h_html_af79a1c27cb514c731ad63272a74c0434"><div class="ttname"><a href="versal__net_2xsecure__sha__hw_8h.html#af79a1c27cb514c731ad63272a74c0434">XSECURE_SHA3_1_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA3_1_BASE_ADDRESS</div><div class="ttdoc">SHA3 1 base address. </div><div class="ttdef"><b>Definition:</b> versal_net/xsecure_sha_hw.h:46</div></div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739">XSECURE_SSS_SHA3_0</a></div><div class="ttdoc">SHA3_0. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_plat.h:80</div></div>
+<div class="ttc" id="versal__net_2xsecure__sha__hw_8h_html_a160be019698487306a0f44524305e261"><div class="ttname"><a href="versal__net_2xsecure__sha__hw_8h.html#a160be019698487306a0f44524305e261">XSECURE_SHA3_1_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA3_1_DEVICE_ID</div><div class="ttdoc">SHA3 1 device id. </div><div class="ttdef"><b>Definition:</b> versal_net/xsecure_sha_hw.h:48</div></div>
+<div class="ttc" id="versal_2xsecure__sha__hw_8h_html_ab8429394a569eeb59dba721688b00a49"><div class="ttname"><a href="versal_2xsecure__sha__hw_8h.html#ab8429394a569eeb59dba721688b00a49">XSECURE_SHA3_0_DEVICE_ID</a></div><div class="ttdeci">#define XSECURE_SHA3_0_DEVICE_ID</div><div class="ttdoc">SHA3 0 device id. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_sha_hw.h:48</div></div>
+<div class="ttc" id="versal_2xsecure__sha__hw_8h_html_adcfcf6879b0181b7016d27ac4e1ffe76"><div class="ttname"><a href="versal_2xsecure__sha__hw_8h.html#adcfcf6879b0181b7016d27ac4e1ffe76">XSECURE_SHA3_0_BASE_ADDRESS</a></div><div class="ttdeci">#define XSECURE_SHA3_0_BASE_ADDRESS</div><div class="ttdoc">SHA3 base address. </div><div class="ttdef"><b>Definition:</b> versal/xsecure_sha_hw.h:46</div></div>
+</div><!-- fragment -->
+<p>The configuration table for devices. </p>
+
+<p>Referenced by <a class="el" href="group__xsecure__sha__server__apis.html#ga0db5b730ee240be5572d03124c08120b">XSecure_Sha3LookupConfig()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga9cb7e9f1a05151630a24de795653b695"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const XSecure_ShaConfig ShaConfigTable[<a class="el" href="versal__net_2xsecure__sha__hw_8h.html#a20b9a0d810aec45fb949b752d3540a1a">XSECURE_SHA_NUM_OF_INSTANCES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">        {</div>
+<div class="line">                <a class="code" href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a3f38942f010bb3b3747b6bd831ab88b0">XSECURE_SSS_SHA</a>,</div>
+<div class="line">                XSECURE_SHA_BASE_ADDRESS,</div>
+<div class="line">                XSECURE_SHA_DEVICE_ID,</div>
+<div class="line">        }</div>
+<div class="line">}</div>
+<div class="ttc" id="group__xsecure__helper__server__apis_html_ggab4e2a6423dfb2e446d7dc1ee602c6ea5a3f38942f010bb3b3747b6bd831ab88b0"><div class="ttname"><a href="group__xsecure__helper__server__apis.html#ggab4e2a6423dfb2e446d7dc1ee602c6ea5a3f38942f010bb3b3747b6bd831ab88b0">XSECURE_SSS_SHA</a></div><div class="ttdoc">SHA. </div><div class="ttdef"><b>Definition:</b> spartanup/xsecure_plat.h:247</div></div>
+</div><!-- fragment -->
+<p>The configuration table for devices. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0754b069dacca3c371fce4754b2d0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const u8 XSecure_SssLookupTable[<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        {0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U}, </div>
+<div class="line">        {0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0AU, 0x0FU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Secure Stream Switch (SSS) configuration lookup table. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0754b069dacca3c371fce4754b2d0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const u8 XSecure_SssLookupTable[<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        {0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U}, </div>
+<div class="line">        {0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>XSecure_SssLookupTable[Input source][Resource]. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0754b069dacca3c371fce4754b2d0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const u8 XSecure_SssLookupTable[<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        {0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U}, </div>
+<div class="line">        {0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Secure Stream Switch (SSS) configuration lookup table. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0754b069dacca3c371fce4754b2d0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const u8 XSecure_SssLookupTable[<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        {0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U}, </div>
+<div class="line">        {0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0AU, 0x0FU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>XSecure_SssLookupTable[Input source][Resource]. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0754b069dacca3c371fce4754b2d0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const u8 XSecure_SssLookupTable[<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        {0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U}, </div>
+<div class="line">        {0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x0AU, 0x0FU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>&lt; Secure Stream Switch (SSS) configuration lookup table </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0754b069dacca3c371fce4754b2d0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const u8 XSecure_SssLookupTable[<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>][<a class="el" href="group__xsecure__helper__server__apis.html#ga5b3d5ffcbedbf1152a60c7b9d4fce8ad">XSECURE_SSS_MAX_SRCS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        </div>
+<div class="line">        {0x05U, 0x09U, 0x00U, 0x0AU, 0x00U}, </div>
+<div class="line">        {0x05U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x05U, 0x00U, 0x00U, 0x0AU, 0x00U}, </div>
+<div class="line">        {0x05U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">        {0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Secure Stream Switch (SSS) configuration lookup table. </p>
 
 </div>
 </div>

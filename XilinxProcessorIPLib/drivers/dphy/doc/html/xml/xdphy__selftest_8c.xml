@@ -9,14 +9,12 @@
       <node id="48">
         <label>xil_io.h</label>
       </node>
-      <node id="47">
-        <label>xdphy_selftest.c</label>
-        <link refid="xdphy_selftest.c"/>
-        <childnode refid="48" relation="include">
+      <node id="50">
+        <label>xdphy.h</label>
+        <link refid="xdphy_8h"/>
+        <childnode refid="51" relation="include">
         </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="52" relation="include">
         </childnode>
       </node>
       <node id="52">
@@ -33,12 +31,14 @@
       <node id="51">
         <label>xil_types.h</label>
       </node>
-      <node id="50">
-        <label>xdphy.h</label>
-        <link refid="xdphy_8h"/>
-        <childnode refid="51" relation="include">
+      <node id="47">
+        <label>xdphy_selftest.c</label>
+        <link refid="xdphy_selftest.c"/>
+        <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="52" relation="include">
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -72,9 +72,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy_selftest.c" bodystart="62" bodyend="74"/>
-        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="316">XDphy::Config</references>
-        <references refid="struct_x_dphy___config_1a1d0c94e530f0bcd66d703b6572c41a82" compoundref="xdphy_8h" startline="300">XDphy_Config::HSTimeOut</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy_selftest.c" bodystart="62" bodyend="74"/>
+        <references refid="struct_x_dphy_1af74d9d469cc4c07e98bd47f77885dd87" compoundref="xdphy_8h" startline="311">XDphy::Config</references>
+        <references refid="struct_x_dphy___config_1a1d0c94e530f0bcd66d703b6572c41a82" compoundref="xdphy_8h" startline="295">XDphy_Config::HSTimeOut</references>
         <references refid="group__dphy_1ga08901fa94d34b59883610d1590165919" compoundref="xdphy_8c" startline="295" endline="446">XDphy_GetInfo</references>
         <references refid="group__dphy_1ga15385f55f404bccfe3e4e278ce70a16a" compoundref="xdphy_8h" startline="144">XDPHY_HANDLE_HSTIMEOUT</references>
         <referencedby refid="xdphy__example__selftest_8c_1a238975c776a9aeeea1049a2071f28b7b" compoundref="xdphy__example__selftest_8c" startline="114" endline="140">DphySelfTestExample</referencedby>
@@ -127,6 +127,6 @@
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="74"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/xdphy_selftest.c"/>
   </compounddef>
 </doxygen>

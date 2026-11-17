@@ -1,5 +1,11 @@
 var searchData=
 [
+  ['get_5fdrvdata',['Get_DrvData',['../xusb__wrapper_8c.html#ad850f272d507d36f74a55bb96211b85b',1,'Get_DrvData(void *InstancePtr):&#160;xusb_wrapper.c'],['../xusb__wrapper_8h.html#ad850f272d507d36f74a55bb96211b85b',1,'Get_DrvData(void *InstancePtr):&#160;xusb_wrapper.c']]],
+  ['get_5fidle_5frequest',['GET_IDLE_REQUEST',['../xusb__class__composite_8h.html#ab9c44b05036da5d2adbe56da76bf7612',1,'GET_IDLE_REQUEST():&#160;xusb_class_composite.h'],['../xusb__freertos__class__composite_8h.html#ab9c44b05036da5d2adbe56da76bf7612',1,'GET_IDLE_REQUEST():&#160;xusb_freertos_class_composite.h'],['../xusb__freertos__class__keyboard_8h.html#ab9c44b05036da5d2adbe56da76bf7612',1,'GET_IDLE_REQUEST():&#160;xusb_freertos_class_keyboard.h']]],
+  ['get_5fprotocol_5frequest',['GET_PROTOCOL_REQUEST',['../xusb__class__composite_8h.html#a8dfffa0018e5286b97504f4b5ccf7463',1,'GET_PROTOCOL_REQUEST():&#160;xusb_class_composite.h'],['../xusb__freertos__class__composite_8h.html#a8dfffa0018e5286b97504f4b5ccf7463',1,'GET_PROTOCOL_REQUEST():&#160;xusb_freertos_class_composite.h'],['../xusb__freertos__class__keyboard_8h.html#a8dfffa0018e5286b97504f4b5ccf7463',1,'GET_PROTOCOL_REQUEST():&#160;xusb_freertos_class_keyboard.h']]],
+  ['get_5freport_5frequest',['GET_REPORT_REQUEST',['../xusb__class__composite_8h.html#afa03608beb1b25ad637d718c1c895c61',1,'GET_REPORT_REQUEST():&#160;xusb_class_composite.h'],['../xusb__freertos__class__composite_8h.html#afa03608beb1b25ad637d718c1c895c61',1,'GET_REPORT_REQUEST():&#160;xusb_freertos_class_composite.h'],['../xusb__freertos__class__keyboard_8h.html#afa03608beb1b25ad637d718c1c895c61',1,'GET_REPORT_REQUEST():&#160;xusb_freertos_class_keyboard.h']]],
   ['getconfigdone',['GetConfigDone',['../xusb__wrapper_8c.html#a30882c23a359d37202d4096f8e278a69',1,'GetConfigDone(void *InstancePtr):&#160;xusb_wrapper.c'],['../xusb__wrapper_8h.html#a30882c23a359d37202d4096f8e278a69',1,'GetConfigDone(void *InstancePtr):&#160;xusb_wrapper.c']]],
-  ['gevt',['Gevt',['../union_x_usb_psu___event.html#a30b4571bddf9e8db77dd42da9d99aecd',1,'XUsbPsu_Event']]]
+  ['gevt',['Gevt',['../union_x_usb_psu___event.html#a30b4571bddf9e8db77dd42da9d99aecd',1,'XUsbPsu_Event']]],
+  ['got_5fdnload_5frqst',['got_dnload_rqst',['../structdfu__if.html#aa94f76e9ed40fc02f4d38a74ce0ce595',1,'dfu_if']]],
+  ['got_5freset',['got_reset',['../structdfu__if.html#abedb699cf19cfd96dc4b617b2b45ba0c',1,'dfu_if']]]
 ];

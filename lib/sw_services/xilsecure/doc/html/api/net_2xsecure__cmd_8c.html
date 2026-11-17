@@ -133,7 +133,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       mb   07/31/2024 Added the check to validate Payload for NULL pointer
       pre  03/02/2025 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
 5.7   tbk  04/09/2026 Added support for getting crypto algorithm's version
-      tvp  04/29/2026 Added IPI for HMAC</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+      tvp  04/29/2026 Added IPI for HMAC
+5.8   tus  08/20/2026 Reported server library version and capability bitmap
+                      in the Features command response
+      ks   09/22/2026 Removed the AES KEK decrypt IPI command
+      mb   09/24/26 Route XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="versal__net_2xsecure__error_8h.html">xsecure_error.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_cmd.h&quot;</code><br/>
 <code>#include &quot;xplmi_generic.h&quot;</code><br/>
@@ -162,6 +166,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <code>#include &quot;xtrngpsx_alginfo.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__server__keyunwrapalginfo_8h.html">xsecure_server_keyunwrapalginfo.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__hmac__ipihandler_8h.html">xsecure_hmac_ipihandler.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xsecure__ver_8h.html">xsecure_ver.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xsecure__server__libcaps_8h.html">xsecure_server_libcaps.h</a>&quot;</code><br/>
+<code>#include &quot;xil_util.h&quot;</code><br/>
 <code>#include &quot;xsecure_config.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

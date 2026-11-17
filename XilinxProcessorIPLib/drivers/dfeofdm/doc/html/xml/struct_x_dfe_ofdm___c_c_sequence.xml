@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="249" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="249" bodyend="-1"/>
         <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
         <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
         <referencedby refid="group__dfeofdm_1ga0f253b33e1be8d4b37bbddf681669a13" compoundref="xdfeofdm_8c" startline="1322" endline="1338">XDfeOfdm_GetEmptyCCCfg</referencedby>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="250" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="250" bodyend="-1"/>
         <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
         <referencedby refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</referencedby>
         <referencedby refid="group__dfeofdm_1ga0f253b33e1be8d4b37bbddf681669a13" compoundref="xdfeofdm_8c" startline="1322" endline="1338">XDfeOfdm_GetEmptyCCCfg</referencedby>
@@ -43,7 +43,7 @@
 <para>Defines a CCID sequence. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="248" bodyend="252"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="248" bodyend="252"/>
     <listofallmembers>
       <member refid="struct_x_dfe_ofdm___c_c_sequence_1aaab78fa8bb86d61092ca378481dabe8b" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCSequence</scope><name>CCID</name></member>
       <member refid="struct_x_dfe_ofdm___c_c_sequence_1ad10a1708e5beb766fa2407c3758b1a42" prot="public" virt="non-virtual"><scope>XDfeOfdm_CCSequence</scope><name>Length</name></member>

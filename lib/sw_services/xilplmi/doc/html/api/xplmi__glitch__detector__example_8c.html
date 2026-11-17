@@ -121,7 +121,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 1.00  pre  06/09/2024 Initial release
       pre  07/15/2024 Added support for SDT flow and fixed misrac warnings
       pre  07/26/2024 Corrected base address for SDT flow
-      pre  10/19/2024 Added support for PL microblaze</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__glitchdetector_8h.html">xplmi_glitchdetector.h</a>&quot;</code><br/>
+      pre  10/19/2024 Added support for PL microblaze
+2.5   rap  08/18/2026 Added explicit void to function definitions and
+                      declarations with empty parameter lists.
+      pre  10/16/2026 Treat the glitch interrupt as detection since PLM
+                      clears GD status before the ISR runs.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__glitchdetector_8h.html">xplmi_glitchdetector.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
@@ -130,9 +134,6 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gada1b772f34f400391e857ce8189e9efe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__client__example__apis.html#gada1b772f34f400391e857ce8189e9efe">GD_STATUS_OFFSET</a>&#160;&#160;&#160;0x00004</td></tr>
-<tr class="memdesc:gada1b772f34f400391e857ce8189e9efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">GD_STATUS register offset.  <a href="group__xplmi__client__example__apis.html#gada1b772f34f400391e857ce8189e9efe">More...</a><br/></td></tr>
-<tr class="separator:gada1b772f34f400391e857ce8189e9efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf114951489d482a90a9f58ff288984e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xplmi__client__example__apis.html#gaf114951489d482a90a9f58ff288984e9">RESET_GD_STATUS_VAL</a>&#160;&#160;&#160;0x02000200U</td></tr>
 <tr class="memdesc:gaf114951489d482a90a9f58ff288984e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to reset glitch detectors.  <a href="group__xplmi__client__example__apis.html#gaf114951489d482a90a9f58ff288984e9">More...</a><br/></td></tr>
 <tr class="separator:gaf114951489d482a90a9f58ff288984e9"><td class="memSeparator" colspan="2">&#160;</td></tr>

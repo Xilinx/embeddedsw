@@ -17,22 +17,19 @@
       <node id="73">
         <label>xil_assert.h</label>
       </node>
-      <node id="78">
-        <label>xil_io.h</label>
-      </node>
-      <node id="79">
-        <label>xi2srx_chsts.h</label>
-        <childnode refid="76" relation="include">
-        </childnode>
-      </node>
       <node id="77">
         <label>xi2srx_hw.h</label>
         <link refid="xi2srx__hw_8h"/>
         <childnode refid="78" relation="include">
         </childnode>
       </node>
-      <node id="75">
-        <label>xstatus.h</label>
+      <node id="79">
+        <label>xi2srx_chsts.h</label>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>xil_io.h</label>
       </node>
       <node id="76">
         <label>xi2srx.h</label>
@@ -47,9 +44,6 @@
         </childnode>
         <childnode refid="74" relation="include">
         </childnode>
-      </node>
-      <node id="74">
-        <label>xil_types.h</label>
       </node>
       <node id="72">
         <label>xi2srx_debug.h</label>
@@ -67,20 +61,14 @@
         <childnode refid="79" relation="include">
         </childnode>
       </node>
+      <node id="75">
+        <label>xstatus.h</label>
+      </node>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="88">
-        <label>xi2srx_selftest.c</label>
-        <link refid="xi2srx__selftest_8c"/>
-      </node>
-      <node id="91">
-        <label>xi2srx_selftest_example.c</label>
-        <link refid="xi2srx__selftest__example_8c"/>
-      </node>
-      <node id="89">
-        <label>xi2srx_sinit.c</label>
-        <link refid="xi2srx__sinit_8c"/>
-      </node>
       <node id="84">
         <label>xi2srx_chsts.c</label>
         <link refid="xi2srx__chsts_8c"/>
@@ -96,12 +84,9 @@
         <childnode refid="85" relation="include">
         </childnode>
       </node>
-      <node id="87">
-        <label>xi2srx_intr.c</label>
-        <link refid="xi2srx__intr_8c"/>
-      </node>
-      <node id="86">
-        <label>xi2srx_g.c</label>
+      <node id="91">
+        <label>xi2srx_selftest_example.c</label>
+        <link refid="xi2srx__selftest__example_8c"/>
       </node>
       <node id="82">
         <label>xi2srx.c</label>
@@ -133,9 +118,16 @@
         <childnode refid="91" relation="include">
         </childnode>
       </node>
+      <node id="86">
+        <label>xi2srx_g.c</label>
+      </node>
       <node id="90">
         <label>xi2srx_intr_example.c</label>
         <link refid="xi2srx__intr__example_8c"/>
+      </node>
+      <node id="87">
+        <label>xi2srx_intr.c</label>
+        <link refid="xi2srx__intr_8c"/>
       </node>
       <node id="85">
         <label>xi2srx_debug.c</label>
@@ -155,6 +147,14 @@
         <childnode refid="88" relation="include">
         </childnode>
       </node>
+      <node id="89">
+        <label>xi2srx_sinit.c</label>
+        <link refid="xi2srx__sinit_8c"/>
+      </node>
+      <node id="88">
+        <label>xi2srx_selftest.c</label>
+        <link refid="xi2srx__selftest_8c"/>
+      </node>
     </invincdepgraph>
     <innerclass refid="struct_x_i2s___rx___log_item" prot="public">XI2s_Rx_LogItem</innerclass>
     <innerclass refid="struct_x_i2s___rx___log" prot="public">XI2s_Rx_Log</innerclass>
@@ -168,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -202,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="55" bodyend="59"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="55" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -267,6 +267,6 @@
 <codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2SRX_DEBUG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h"/>
   </compounddef>
 </doxygen>

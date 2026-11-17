@@ -9,20 +9,38 @@
       <node id="95">
         <label>xil_assert.h</label>
       </node>
+      <node id="98">
+        <label>xv_hdmirx.h</label>
+        <link refid="xv__hdmirx_8h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
       <node id="100">
         <label>xil_io.h</label>
+      </node>
+      <node id="99">
+        <label>xv_hdmirx_hw.h</label>
+        <link refid="xv__hdmirx__hw_8h"/>
+        <childnode refid="100" relation="include">
+        </childnode>
       </node>
       <node id="101">
         <label>xdebug.h</label>
       </node>
       <node id="92">
         <label>string.h</label>
-      </node>
-      <node id="96">
-        <label>xstatus.h</label>
-      </node>
-      <node id="97">
-        <label>xvidc.h</label>
       </node>
       <node id="91">
         <label>xv_hdmirx_vsif.c</label>
@@ -46,35 +64,17 @@
         <childnode refid="97" relation="include">
         </childnode>
       </node>
-      <node id="99">
-        <label>xv_hdmirx_hw.h</label>
-        <link refid="xv__hdmirx__hw_8h"/>
-        <childnode refid="100" relation="include">
-        </childnode>
+      <node id="96">
+        <label>xstatus.h</label>
+      </node>
+      <node id="97">
+        <label>xvidc.h</label>
       </node>
       <node id="94">
         <label>xil_types.h</label>
       </node>
       <node id="102">
         <label>xv_hdmic.h</label>
-      </node>
-      <node id="98">
-        <label>xv_hdmirx.h</label>
-        <link refid="xv__hdmirx_8h"/>
-        <childnode refid="99" relation="include">
-        </childnode>
-        <childnode refid="95" relation="include">
-        </childnode>
-        <childnode refid="96" relation="include">
-        </childnode>
-        <childnode refid="101" relation="include">
-        </childnode>
-        <childnode refid="97" relation="include">
-        </childnode>
-        <childnode refid="93" relation="include">
-        </childnode>
-        <childnode refid="102" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -115,7 +115,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="334" bodyend="414"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="334" bodyend="414"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1ab668e7b23f1d44a9ff7182334cd5baff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="xv__hdmirx__vsif_8h_1a0804c4b2c1d7846715d10dca7665cd08" kindref="member">XV_HdmiRx_3D_Struct_Field</ref></type>
@@ -141,7 +141,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="63" bodyend="87"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="63" bodyend="87"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1a2b211821e5ec6669f9d5bd1137e7416f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="xv__hdmirx__vsif_8h_1a0f8402ed96ba4988fb8b8fa13498144a" kindref="member">XV_HdmiRx_3D_Sampling_Method</ref></type>
@@ -167,7 +167,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="100" bodyend="112"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="100" bodyend="112"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1aba081047645ba2c555a9a6e87cbb457e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="xv__hdmirx__vsif_8h_1a9ce01f691591f627759d1a800d49b32d" kindref="member">XV_HdmiRx_3D_Sampling_Position</ref></type>
@@ -193,7 +193,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="125" bodyend="143"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="125" bodyend="143"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1a1b61d392fe00d6c2df761f5ffc8f53aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XVidC_3DFormat</type>
@@ -219,7 +219,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="156" bodyend="180"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="156" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1a624b092f08f6931a7ded1dfdee7f02d0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XVidC_3DSamplingMethod</type>
@@ -245,7 +245,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="193" bodyend="208"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="193" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1a4461ab10e9c6e5ec88aa9b0b54b38417" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XVidC_3DSamplingPosition</type>
@@ -271,7 +271,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="221" bodyend="244"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="221" bodyend="244"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__vsif_8c_1a0a8f0bf42fc0d27cdd42c29ef10e2f93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -310,7 +310,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="260" bodyend="317"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="260" bodyend="317"/>
         <references refid="struct_x_v___hdmi_rx___v_s_i_f_1abc075490990afc7f7a762de3908b5a1c" compoundref="xv__hdmirx__vsif_8h" startline="154">XV_HdmiRx_VSIF::Format</references>
         <references refid="struct_x_v___hdmi_rx___v_s_i_f_1a25b969e1d7be8ecdec93d2e698ee5ca8" compoundref="xv__hdmirx__vsif_8h" startline="157">XV_HdmiRx_VSIF::HDMI_VIC</references>
         <references refid="struct_x_v___hdmi_rx___v_s_i_f_1a46841dd105d94c7cacf4d4eefb0e6136" compoundref="xv__hdmirx__vsif_8h" startline="153">XV_HdmiRx_VSIF::IEEE_ID</references>
@@ -346,7 +346,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="426" bodyend="460"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="426" bodyend="460"/>
         <references refid="struct_x_v___hdmi_rx___v_s_i_f_1abc075490990afc7f7a762de3908b5a1c" compoundref="xv__hdmirx__vsif_8h" startline="154">XV_HdmiRx_VSIF::Format</references>
         <references refid="struct_x_v___hdmi_rx___v_s_i_f_1a25b969e1d7be8ecdec93d2e698ee5ca8" compoundref="xv__hdmirx__vsif_8h" startline="157">XV_HdmiRx_VSIF::HDMI_VIC</references>
         <references refid="struct_x_v___hdmi_rx___v_s_i_f_1a1da48508973634c5dcf888b90da18838" compoundref="xv__hdmirx__vsif_8h" startline="158">XV_HdmiRx_VSIF::Info_3D</references>
@@ -383,7 +383,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="473" bodyend="503"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="473" bodyend="503"/>
         <references refid="xv__hdmirx__vsif_8h_1a0804c4b2c1d7846715d10dca7665cd08a17a114d9d09220707ac29dabf8ae2ce8" compoundref="xv__hdmirx__vsif_8h" startline="86">XV_HDMIRX_3D_STRUCT_FIELD_ALTERNATIVE</references>
         <references refid="xv__hdmirx__vsif_8h_1a0804c4b2c1d7846715d10dca7665cd08add3474ab60cd7e2de0623499a71cbef6" compoundref="xv__hdmirx__vsif_8h" startline="85">XV_HDMIRX_3D_STRUCT_FRAME_PACKING</references>
         <references refid="xv__hdmirx__vsif_8h_1a0804c4b2c1d7846715d10dca7665cd08af6864d102ce1ee771cba280708776f02" compoundref="xv__hdmirx__vsif_8h" startline="89">XV_HDMIRX_3D_STRUCT_L_DEPTH</references>
@@ -418,7 +418,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="516" bodyend="528"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="516" bodyend="528"/>
         <references refid="xv__hdmirx__vsif_8h_1a0f8402ed96ba4988fb8b8fa13498144aa28c9b35fa2fb73e1841881cea9a5a0a6" compoundref="xv__hdmirx__vsif_8h" startline="101">XV_HDMIRX_3D_SAMPLING_HORIZONTAL</references>
         <references refid="xv__hdmirx__vsif_8h_1a0f8402ed96ba4988fb8b8fa13498144aab0fe04c41a6319216ceb1fcacf46987d" compoundref="xv__hdmirx__vsif_8h" startline="102">XV_HDMIRX_3D_SAMPLING_QUINCUNX</references>
         <referencedby refid="xv__hdmirx__vsif_8c_1a5a55c2e6ac024e6c5e2e164b7d8eb0f0" compoundref="xv__hdmirx__vsif_8c" startline="426" endline="460">XV_HdmiRx_VSIF_DisplayInfo</referencedby>
@@ -447,7 +447,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="541" bodyend="559"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c" bodystart="541" bodyend="559"/>
         <references refid="xv__hdmirx__vsif_8h_1a9ce01f691591f627759d1a800d49b32da68d72363c77be5d00078374ea94744ca" compoundref="xv__hdmirx__vsif_8h" startline="113">XV_HDMIRX_3D_SAMPPOS_ELER</references>
         <references refid="xv__hdmirx__vsif_8h_1a9ce01f691591f627759d1a800d49b32da55b6b7ed99280b740b0c0b24ae8a7fd9" compoundref="xv__hdmirx__vsif_8h" startline="112">XV_HDMIRX_3D_SAMPPOS_ELOR</references>
         <references refid="xv__hdmirx__vsif_8h_1a9ce01f691591f627759d1a800d49b32daad4b0606dbb100caeffb18f4360b3ff4" compoundref="xv__hdmirx__vsif_8h" startline="111">XV_HDMIRX_3D_SAMPPOS_OLER</references>
@@ -882,6 +882,6 @@ X.XX  XX  YYYY/MM/DD   ...
 <codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="559"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.c"/>
   </compounddef>
 </doxygen>

@@ -6,32 +6,32 @@
     <includedby refid="net_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <includedby refid="net_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
     <incdepgraph>
-      <node id="2881">
+      <node id="3004">
         <label>xplmi_cmd.h</label>
       </node>
-      <node id="2880">
+      <node id="3003">
         <label>xsecure_plat_ipihandler.h</label>
         <link refid="net/xsecure_plat_ipihandler.h"/>
-        <childnode refid="2881" relation="include">
+        <childnode refid="3004" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2883">
-        <label>xsecure_cmd.c</label>
-        <link refid="net_2xsecure__cmd_8c"/>
-      </node>
-      <node id="2884">
+      <node id="3007">
         <label>xsecure_plat_ipihandler.c</label>
         <link refid="net_2xsecure__plat__ipihandler_8c"/>
       </node>
-      <node id="2882">
+      <node id="3005">
         <label>xsecure_plat_ipihandler.h</label>
         <link refid="net/xsecure_plat_ipihandler.h"/>
-        <childnode refid="2883" relation="include">
+        <childnode refid="3006" relation="include">
         </childnode>
-        <childnode refid="2884" relation="include">
+        <childnode refid="3007" relation="include">
         </childnode>
+      </node>
+      <node id="3006">
+        <label>xsecure_cmd.c</label>
+        <link refid="net_2xsecure__cmd_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -96,12 +96,12 @@
 <para><itemizedlist>
 <listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_RsaDecrypt</para></listitem><listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_RsaDecrypt </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" bodystart="63" bodyend="89"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="57">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
-        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
-        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c" bodystart="63" bodyend="89"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="63">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -144,6 +144,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_ipihandler.h"/>
   </compounddef>
 </doxygen>

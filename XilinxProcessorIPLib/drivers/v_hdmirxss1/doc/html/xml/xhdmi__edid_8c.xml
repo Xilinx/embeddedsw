@@ -4,34 +4,34 @@
     <compoundname>xhdmi_edid.c</compoundname>
     <includes refid="xhdmi__edid_8h" local="yes">xhdmi_edid.h</includes>
     <incdepgraph>
-      <node id="404">
+      <node id="406">
         <label>stdlib.h</label>
       </node>
-      <node id="405">
+      <node id="407">
         <label>xvidc_edid_ext.h</label>
       </node>
-      <node id="400">
+      <node id="404">
+        <label>xparameters.h</label>
+      </node>
+      <node id="402">
         <label>xhdmi_edid.c</label>
         <link refid="xhdmi_edid.c"/>
-        <childnode refid="401" relation="include">
-        </childnode>
-      </node>
-      <node id="401">
-        <label>xhdmi_edid.h</label>
-        <link refid="xhdmi__edid_8h"/>
-        <childnode refid="402" relation="include">
-        </childnode>
         <childnode refid="403" relation="include">
         </childnode>
+      </node>
+      <node id="403">
+        <label>xhdmi_edid.h</label>
+        <link refid="xhdmi__edid_8h"/>
         <childnode refid="404" relation="include">
         </childnode>
         <childnode refid="405" relation="include">
         </childnode>
+        <childnode refid="406" relation="include">
+        </childnode>
+        <childnode refid="407" relation="include">
+        </childnode>
       </node>
-      <node id="402">
-        <label>xparameters.h</label>
-      </node>
-      <node id="403">
+      <node id="405">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
@@ -325,6 +325,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="361"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="362"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_edid.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_edid.c"/>
   </compounddef>
 </doxygen>

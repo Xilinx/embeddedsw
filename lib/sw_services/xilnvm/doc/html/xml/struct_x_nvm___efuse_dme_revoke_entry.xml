@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_dme_revoke_entry" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseDmeRevokeEntry</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_revoke_entry_1a5a009464b1c59720951d9dde0a5e5b01" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDmeRevokeEntry::Row</definition>
+        <argsstring></argsstring>
+        <name>Row</name>
+        <briefdescription>
+<para>Fuse row for this revoke slot. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_dme_revoke_entry_1a90c1873752e5d4fa15d4f866c5e7eefc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDmeRevokeEntry::Col[2U]</definition>
+        <argsstring>[2U]</argsstring>
+        <name>Col</name>
+        <briefdescription>
+<para>Glitch-check column pair. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines one DME revoke table entry. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="332" bodyend="335"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_dme_revoke_entry_1a90c1873752e5d4fa15d4f866c5e7eefc" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeRevokeEntry</scope><name>Col</name></member>
+      <member refid="struct_x_nvm___efuse_dme_revoke_entry_1a5a009464b1c59720951d9dde0a5e5b01" prot="public" virt="non-virtual"><scope>XNvm_EfuseDmeRevokeEntry</scope><name>Row</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

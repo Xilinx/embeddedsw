@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasufw__provision__ude__client__example" kind="group">
+    <compoundname>xasufw_provision_ude_client_example</compoundname>
+    <title>Provisioning UDE API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasufw__provision__ude__client__example_1gac963d0c1b80aeca6b6e55ba70c619d67" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 CertOut[XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES]</argsstring>
+        <name>CertOut</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__provision__ude__client__example_1ga8f877f31c8a14dbe7b101d29c30fc879" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 CertSizeOut</definition>
+        <argsstring></argsstring>
+        <name>CertSizeOut</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__provision__ude__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__provision__ude__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasufw__provision__ude__client__example_1gabad7ac14ed63401dfd0b14772c60e5aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_ProvisionUdeCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_ProvisionUdeCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="220" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasufw__provision__ude__client__example_1gaa6c8a3f7751bdde7868feaa78d93617c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ProvUdeKey</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, u8 ProvFlag, u8 UdeSlot)</argsstring>
+        <name>XAsu_ProvUdeKey</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ProvFlag</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UdeSlot</declname>
+        </param>
+        <briefdescription>
+<para>This function provisions a UDE key pair into the requested eFUSE slot and prints the returned self-signed X.509 certificate, if the slot is enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ProvFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to indicate whether to provision the slot (TRUE/FALSE). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UdeSlot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target UDE eFUSE slot to program.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the slot is disabled or provisioned successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Skip provisioning if the slot is not enabled. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="163" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasufw__provision__ude__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the <ref refid="group__xasu__provision__client__apis_1ga0a67b6effa75ba432c9cfbb4985ad6f4" kindref="member">XAsu_ProvisionUde()</ref> API for the enabled UDE slots. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully.</para></listitem><listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Provision UDE key into slot 0, if enabled.</para><para>Provision UDE key into slot 1, if enabled.</para><para>Provision UDE key into slot 2, if enabled. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="80" bodyend="146"/>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="140" endline="196">XAsu_ClientInit</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="48">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__common__defs_1gad880d89ca1a89bc2c2ff4fac497c3265" compoundref="xasu__ocpinfo_8h" startline="81">XASU_OCP_UDE_USER_KEY_0_ID</references>
+        <references refid="group__xasu__common__defs_1ga470f236563fb84db2eaef155ccded4d7" compoundref="xasu__ocpinfo_8h" startline="82">XASU_OCP_UDE_USER_KEY_1_ID</references>
+        <references refid="group__xasu__common__defs_1gad14e623466c119d4d421f9bf9f7d0b71" compoundref="xasu__ocpinfo_8h" startline="83">XASU_OCP_UDE_USER_KEY_2_ID</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="51">XASU_PRIORITY_HIGH</references>
+        <references refid="xasu__provision__ude__input__example_8h_1ad66a146bc944a42a7443318f5eadd804" compoundref="xasu__provision__ude__input__example_8h" startline="57">XASU_PROVISION_UDE_KEY_0</references>
+        <references refid="xasu__provision__ude__input__example_8h_1a2f4a623b27bfd356ddfd654c0b71553e" compoundref="xasu__provision__ude__input__example_8h" startline="61">XASU_PROVISION_UDE_KEY_1</references>
+        <references refid="xasu__provision__ude__input__example_8h_1a7a35310c424fadf268caf3a1adc2be59" compoundref="xasu__provision__ude__input__example_8h" startline="65">XASU_PROVISION_UDE_KEY_2</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasufw__provision__ude__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_provision_ude_example.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of the ASU Provisioning UDE API. For every UDE eFUSE slot enabled in <ref refid="xasu__provision__ude__input__example_8h" kindref="compound">xasu_provision_ude_input_example.h</ref>, a Unique Device Endorsement (UDE) key pair (ECC NIST P-384) is provisioned. The UDE key pair is generated inside the ASU (the private key never leaves the ASU), the private key is encrypted with the PUF KEK and programmed into the requested eFUSE slot, and a self-signed X.509 certificate over the generated public key is returned to the caller and printed on the console.</para></simplesect>
+The slots to be provisioned and the UDE key type are selected using the macros defined in <ref refid="xasu__provision__ude__input__example_8h" kindref="compound">xasu_provision_ude_input_example.h</ref>.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between the client running on A78/R52/PL and the server running on ASU should be placed in an area which is accessible to both client and server.</para><para>To keep things simple, by default the cache is disabled in this example using the XASU_CACHE_DISABLE macro.</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   yog     08/25/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

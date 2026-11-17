@@ -8,161 +8,161 @@
     <includes local="yes">mb_interface.h</includes>
     <includes refid="xplmi__proc_8h" local="yes">xplmi_proc.h</includes>
     <incdepgraph>
-      <node id="2873">
+      <node id="3064">
         <label>xil_assert.h</label>
       </node>
-      <node id="2886">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="2887" relation="include">
-        </childnode>
-        <childnode refid="2888" relation="include">
-        </childnode>
-        <childnode refid="2889" relation="include">
-        </childnode>
-        <childnode refid="2885" relation="include">
-        </childnode>
-        <childnode refid="2884" relation="include">
-        </childnode>
-      </node>
-      <node id="2894">
-        <label>xil_hw.h</label>
-      </node>
-      <node id="2878">
-        <label>stdlib.h</label>
-      </node>
-      <node id="2882">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi__event__logging_8h"/>
-        <childnode refid="2883" relation="include">
-        </childnode>
-        <childnode refid="2885" relation="include">
-        </childnode>
-      </node>
-      <node id="2890">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="2891" relation="include">
-        </childnode>
-        <childnode refid="2892" relation="include">
-        </childnode>
-        <childnode refid="2883" relation="include">
-        </childnode>
-        <childnode refid="2873" relation="include">
-        </childnode>
-        <childnode refid="2894" relation="include">
-        </childnode>
-      </node>
-      <node id="2871">
-        <label>xplmi_task.c</label>
-        <link refid="xplmi_task.c"/>
-        <childnode refid="2872" relation="include">
-        </childnode>
-        <childnode refid="2879" relation="include">
-        </childnode>
-        <childnode refid="2895" relation="include">
-        </childnode>
-        <childnode refid="2874" relation="include">
-        </childnode>
-        <childnode refid="2886" relation="include">
-        </childnode>
-      </node>
-      <node id="2872">
-        <label>xplmi_task.h</label>
-        <link refid="xplmi__task_8h"/>
-        <childnode refid="2873" relation="include">
-        </childnode>
-        <childnode refid="2874" relation="include">
-        </childnode>
-        <childnode refid="2875" relation="include">
-        </childnode>
-        <childnode refid="2876" relation="include">
-        </childnode>
-        <childnode refid="2877" relation="include">
-        </childnode>
-      </node>
-      <node id="2879">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="2880" relation="include">
-        </childnode>
-        <childnode refid="2881" relation="include">
-        </childnode>
-        <childnode refid="2882" relation="include">
-        </childnode>
-        <childnode refid="2886" relation="include">
-        </childnode>
-      </node>
-      <node id="2885">
+      <node id="3076">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="2875" relation="include">
+        <childnode refid="3066" relation="include">
         </childnode>
       </node>
-      <node id="2874">
-        <label>mb_interface.h</label>
+      <node id="3085">
+        <label>xil_hw.h</label>
       </node>
-      <node id="2892">
+      <node id="3069">
+        <label>stdlib.h</label>
+      </node>
+      <node id="3083">
         <label>xplmi_modules.h</label>
         <link refid="xplmi__modules_8h"/>
-        <childnode refid="2883" relation="include">
+        <childnode refid="3074" relation="include">
         </childnode>
-        <childnode refid="2893" relation="include">
+        <childnode refid="3084" relation="include">
         </childnode>
-        <childnode refid="2891" relation="include">
+        <childnode refid="3082" relation="include">
         </childnode>
-        <childnode refid="2875" relation="include">
+        <childnode refid="3066" relation="include">
         </childnode>
       </node>
-      <node id="2876">
-        <label>xstatus.h</label>
+      <node id="3081">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="3082" relation="include">
+        </childnode>
+        <childnode refid="3083" relation="include">
+        </childnode>
+        <childnode refid="3074" relation="include">
+        </childnode>
+        <childnode refid="3064" relation="include">
+        </childnode>
+        <childnode refid="3085" relation="include">
+        </childnode>
       </node>
-      <node id="2881">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="2888">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="2875">
-        <label>xil_types.h</label>
-      </node>
-      <node id="2883">
+      <node id="3074">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="2884" relation="include">
+        <childnode refid="3075" relation="include">
         </childnode>
-        <childnode refid="2881" relation="include">
+        <childnode refid="3072" relation="include">
         </childnode>
       </node>
-      <node id="2891">
+      <node id="3065">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="3067">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3068">
+        <label>list.h</label>
+        <childnode refid="3069" relation="include">
+        </childnode>
+      </node>
+      <node id="3072">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="3062">
+        <label>xplmi_task.c</label>
+        <link refid="xplmi_task.c"/>
+        <childnode refid="3063" relation="include">
+        </childnode>
+        <childnode refid="3070" relation="include">
+        </childnode>
+        <childnode refid="3086" relation="include">
+        </childnode>
+        <childnode refid="3065" relation="include">
+        </childnode>
+        <childnode refid="3077" relation="include">
+        </childnode>
+      </node>
+      <node id="3063">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="3064" relation="include">
+        </childnode>
+        <childnode refid="3065" relation="include">
+        </childnode>
+        <childnode refid="3066" relation="include">
+        </childnode>
+        <childnode refid="3067" relation="include">
+        </childnode>
+        <childnode refid="3068" relation="include">
+        </childnode>
+      </node>
+      <node id="3079">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="3077">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="3078" relation="include">
+        </childnode>
+        <childnode refid="3079" relation="include">
+        </childnode>
+        <childnode refid="3080" relation="include">
+        </childnode>
+        <childnode refid="3076" relation="include">
+        </childnode>
+        <childnode refid="3075" relation="include">
+        </childnode>
+      </node>
+      <node id="3066">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3082">
         <label>xparameters.h</label>
       </node>
-      <node id="2880">
+      <node id="3071">
         <label>xil_printf.h</label>
       </node>
-      <node id="2877">
-        <label>list.h</label>
-        <childnode refid="2878" relation="include">
+      <node id="3070">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="3071" relation="include">
+        </childnode>
+        <childnode refid="3072" relation="include">
+        </childnode>
+        <childnode refid="3073" relation="include">
+        </childnode>
+        <childnode refid="3077" relation="include">
         </childnode>
       </node>
-      <node id="2889">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="2890" relation="include">
-        </childnode>
-        <childnode refid="2872" relation="include">
-        </childnode>
-      </node>
-      <node id="2887">
+      <node id="3078">
         <label>xiomodule.h</label>
       </node>
-      <node id="2893">
+      <node id="3084">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="2884">
+      <node id="3075">
         <label>xplmi_status.h</label>
       </node>
-      <node id="2895">
+      <node id="3080">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="3081" relation="include">
+        </childnode>
+        <childnode refid="3063" relation="include">
+        </childnode>
+      </node>
+      <node id="3073">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="3074" relation="include">
+        </childnode>
+        <childnode refid="3076" relation="include">
+        </childnode>
+      </node>
+      <node id="3086">
         <label>xplmi_wdt.h</label>
       </node>
     </incdepgraph>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="75" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -228,14 +228,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="90" bodyend="114"/>
-        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="128" endline="154">XPlmi_GetTaskInstance</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga52698f2cbe4f9754ce0bdb5640989ef9" compoundref="xplmi__asu__update_8c" startline="114" endline="141">XPlmi_AsuUpdateInit</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1273" endline="1369">XPlmi_EmInit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="91" bodyend="120"/>
+        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="134" endline="160">XPlmi_GetTaskInstance</references>
+        <referencedby refid="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" compoundref="xplmi__asufw__keepalive_8c" startline="157" endline="179">XPlmi_AsufwKeepAliveInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gad5ad1b7e25adf63b5503df028f76e55c" compoundref="xplmi__asu__update_8c" startline="114" endline="151">XPlmi_AsuUpdateInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1272" endline="1368">XPlmi_EmInit</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga72a0125ca6a1fe2243397fe59a912f73" compoundref="xplmi__gic__interrupts_8c" startline="77" endline="97">XPlmi_GicRegisterHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga2f22c870cebbe3123b9eb458336bc4ed" compoundref="xplmi__tamper_8c" startline="256" endline="291">XPlmi_RegisterTamperIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga2f22c870cebbe3123b9eb458336bc4ed" compoundref="xplmi__tamper_8c" startline="261" endline="296">XPlmi_RegisterTamperIntrHandler</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga536288bdae9b622940b7152cbaff1eef" compoundref="xplmi__update_8c" startline="138" endline="190">XPlmi_UpdateInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga536288bdae9b622940b7152cbaff1eef" compoundref="xplmi__update_8c" startline="140" endline="192">XPlmi_UpdateInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XPlmi_TaskNode *</type>
@@ -283,16 +284,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="128" bodyend="154"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1273" endline="1369">XPlmi_EmInit</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="586" endline="615">XPlmi_ErrIntrHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="134" bodyend="160"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="164" endline="268">XPlmi_AsuUpdate</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1272" endline="1368">XPlmi_EmInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="585" endline="614">XPlmi_ErrIntrHandler</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1gaa8a338ceafbc2b9234ebcdaa80c7f5a1" compoundref="xplmi__gic__interrupts_8c" startline="240" endline="253">XPlmi_GicIntrAddTask</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="505" endline="540">XPlmi_IpiIntrHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gaaadab5133cb40cbaa1113c26036ca0e3" compoundref="xplmi__update_8c" startline="618" endline="769">XPlmi_PlmUpdate</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga2f22c870cebbe3123b9eb458336bc4ed" compoundref="xplmi__tamper_8c" startline="256" endline="291">XPlmi_RegisterTamperIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="510" endline="548">XPlmi_IpiIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaadab5133cb40cbaa1113c26036ca0e3" compoundref="xplmi__update_8c" startline="620" endline="775">XPlmi_PlmUpdate</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga2f22c870cebbe3123b9eb458336bc4ed" compoundref="xplmi__tamper_8c" startline="261" endline="296">XPlmi_RegisterTamperIntrHandler</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="90" endline="114">XPlmi_TaskCreate</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" compoundref="xplmi__asufw__keepalive_8c" startline="190" endline="232">XPlmi_StartAsufwKeepAliveMonitor</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="91" endline="120">XPlmi_TaskCreate</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -317,14 +319,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="164" bodyend="171"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="154" endline="244">XPlmi_AsuUpdate</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="586" endline="615">XPlmi_ErrIntrHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="170" bodyend="177"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga348a995549ee09c5970a8063534f97f6" compoundref="xplmi__asu__update_8c" startline="164" endline="268">XPlmi_AsuUpdate</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="585" endline="614">XPlmi_ErrIntrHandler</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1gaa8a338ceafbc2b9234ebcdaa80c7f5a1" compoundref="xplmi__gic__interrupts_8c" startline="240" endline="253">XPlmi_GicIntrAddTask</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="505" endline="540">XPlmi_IpiIntrHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gaaadab5133cb40cbaa1113c26036ca0e3" compoundref="xplmi__update_8c" startline="618" endline="769">XPlmi_PlmUpdate</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="510" endline="548">XPlmi_IpiIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaadab5133cb40cbaa1113c26036ca0e3" compoundref="xplmi__update_8c" startline="620" endline="775">XPlmi_PlmUpdate</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="125" endline="154">XPlmi_TriggerTamperResponse</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga409ca4e187fb02b456319b706ea01e1f" compoundref="xplmi__tamper_8c" startline="130" endline="159">XPlmi_TriggerTamperResponse</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga9a8fa5b2fda2c5639ec63f6a75dc54a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -340,7 +342,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="178" bodyend="187"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="184" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -358,8 +360,10 @@
 <para>Perform Priority based task handling</para><para>If no pending tasks are present, go to sleep</para><para><itemizedlist>
 <listitem><para>Get the next task in round robin</para></listitem></itemizedlist>
 </para><para>Goto sleep when all queues are empty</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="196" bodyend="274"/>
-        <references refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" compoundref="xplmi__err__common_8c" startline="240" endline="336">XPlmi_ErrMgr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c" bodystart="202" bodyend="280"/>
+        <references refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" compoundref="xplmi__proc_8h" startline="98">XPlmi_PerfTime::TPerfMs</references>
+        <references refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" compoundref="xplmi__proc_8h" startline="99">XPlmi_PerfTime::TPerfMsFrac</references>
+        <references refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" compoundref="xplmi__err__common_8c" startline="241" endline="337">XPlmi_ErrMgr</references>
         <references refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" compoundref="xplmi__proc_8c" startline="152" endline="174">XPlmi_GetTimerValue</references>
         <references refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" compoundref="xplmi__proc_8c" startline="209" endline="213">XPlmi_MeasurePerfTime</references>
         <references refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" compoundref="server_2xplmi__wdt_8c" startline="175" endline="178">XPlmi_SetPlmLiveStatus</references>
@@ -399,7 +403,8 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                       previous patch
 1.08  ng   11/11/2022 Updated doxygen comments
 2.00  ng   12/27/2023 Reduced log level for less frequent prints
-      ng   01/28/2024 optimized u8 variables</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+      ng   01/28/2024 optimized u8 variables
+2.50  obs  07/14/2026 Rejected out-of-range priority in XPlmi_TaskCreate</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
@@ -409,174 +414,179 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="58"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__task_8h" kindref="compound">xplmi_task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mb_interface.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__proc_8h" kindref="compound">xplmi_proc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_list<sp/>TaskQueue[XPLMI_TASK_PRIORITIES];</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="90" refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" refkind="member"><highlight class="normal">XPlmi_TaskNode*<sp/><ref refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" kindref="member">XPlmi_TaskCreate</ref>(TaskPriority_t<sp/>Priority,</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*Handler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg),<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*PrivData)</highlight></codeline>
-<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Handler<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>a<sp/>free<sp/>task<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" kindref="member">XPlmi_GetTaskInstance</ref>(NULL,<sp/>NULL,<sp/>XPLMI_INVALID_INTR_ID);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Task<sp/>creation<sp/>failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;Priority<sp/>=<sp/>Priority;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;Delay<sp/>=<sp/>0U;</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_init(&amp;Task-&gt;TaskNode);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;Handler<sp/>=<sp/>Handler;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;PrivData<sp/>=<sp/>PrivData;</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;State<sp/>=<sp/>(u8)0x0U;</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Task;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="128" refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" refkind="member"><highlight class="normal">XPlmi_TaskNode*<sp/><ref refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" kindref="member">XPlmi_GetTaskInstance</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*Handler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg),</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*PrivData,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>IntrId)</highlight></codeline>
-<codeline lineno="130"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_TaskNode<sp/>Tasks[XPLMI_TASK_MAX];</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(u32<sp/>Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_MAX;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>&amp;Tasks[Index];</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrId<sp/>!=<sp/>XPLMI_INVALID_INTR_ID)<sp/>{</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>task<sp/>whose<sp/>interrupt<sp/>id<sp/>is<sp/>matching<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Task-&gt;Handler<sp/>!=<sp/>NULL)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Task-&gt;IntrId<sp/>==<sp/>IntrId))<sp/>{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>free<sp/>task<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Task-&gt;Handler<sp/>==<sp/>Handler)<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Task-&gt;PrivData<sp/>==<sp/>PrivData))<sp/>{</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Task;</highlight></codeline>
-<codeline lineno="154"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="164" refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" kindref="member">XPlmi_TaskTriggerNow</ref>(XPlmi_TaskNode<sp/>*Task)</highlight></codeline>
-<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Task-&gt;Handler<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(metal_list_is_empty(&amp;Task-&gt;TaskNode)<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>{</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_add_tail(&amp;TaskQueue[Task-&gt;Priority],</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Task-&gt;TaskNode);</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="178" refid="group__xilplmi__server__apis_1ga9a8fa5b2fda2c5639ec63f6a75dc54a9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga9a8fa5b2fda2c5639ec63f6a75dc54a9" kindref="member">XPlmi_TaskInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;%s\n\r&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>list<sp/>pointers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_PRIORITIES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_init(&amp;TaskQueue[Index]);</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="196" refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" kindref="member">XPlmi_TaskDispatchLoop</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="197"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_list<sp/>*Node[XPLMI_TASK_PRIORITIES];</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task;</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
-<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TaskStartTime;</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>PerfTime<sp/>=<sp/>{0U};</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;%s\n\r&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_PRIORITIES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node[Index]<sp/>=<sp/>&amp;TaskQueue[Index];</highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"></highlight></codeline>
-<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TRUE)<sp/>{</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>();</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_disable_interrupts();</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_PRIORITIES;<sp/>Index++)<sp/>{</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(metal_list_is_empty(&amp;TaskQueue[Index])<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>{</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;No<sp/>pending<sp/>tasks<sp/>in<sp/>Priority%d<sp/>Queue\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index);</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Skip<sp/>the<sp/>first<sp/>element<sp/>as<sp/>it</highlight></codeline>
-<codeline lineno="231"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>not<sp/>proper<sp/>task</highlight></codeline>
-<codeline lineno="232"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((metal_list_is_empty(Node[Index])<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>||</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Node[Index]<sp/>==<sp/>&amp;TaskQueue[Index]))<sp/>{</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node[Index]<sp/>=<sp/>TaskQueue[Index].next;</highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>metal_container_of(Node[Index],</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode,<sp/>TaskNode);</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node[Index]<sp/>=<sp/>Node[Index]-&gt;next;</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
-<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>task<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskStartTime<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" kindref="member">XPlmi_GetTimerValue</ref>();</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Task-&gt;Handler<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_del(&amp;Task-&gt;TaskNode);</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_enable_interrupts();</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Task-&gt;Handler(Task-&gt;PrivData);</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
-<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" kindref="member">XPlmi_MeasurePerfTime</ref>(TaskStartTime,<sp/>&amp;PerfTime);</highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_PERF,<sp/></highlight><highlight class="stringliteral">&quot;%u.%03u<sp/>ms:<sp/>Task<sp/>Time\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)PerfTime.TPerfMs,<sp/>(u32)PerfTime.TPerfMsFrac);</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" kindref="member">XPlmi_ErrMgr</ref>(Status);</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"></highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,</highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;No<sp/>pending<sp/>tasks..Going<sp/>to<sp/>sleep\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mb_sleep();</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_enable_interrupts();</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="274"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__task_8h" kindref="compound">xplmi_task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;mb_interface.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__proc_8h" kindref="compound">xplmi_proc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_list<sp/>TaskQueue[XPLMI_TASK_PRIORITIES];</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="91" refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" refkind="member"><highlight class="normal">XPlmi_TaskNode*<sp/><ref refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" kindref="member">XPlmi_TaskCreate</ref>(TaskPriority_t<sp/>Priority,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*Handler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg),<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*PrivData)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Handler<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reject<sp/>out-of-range<sp/>priority<sp/>to<sp/>avoid<sp/>OOB<sp/>TaskQueue[]<sp/>indexing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Priority<sp/>&gt;=<sp/>XPLMI_TASK_PRIORITIES)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>a<sp/>free<sp/>task<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" kindref="member">XPlmi_GetTaskInstance</ref>(NULL,<sp/>NULL,<sp/>XPLMI_INVALID_INTR_ID);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Task<sp/>creation<sp/>failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;Priority<sp/>=<sp/>Priority;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;Delay<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_init(&amp;Task-&gt;TaskNode);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;Handler<sp/>=<sp/>Handler;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;PrivData<sp/>=<sp/>PrivData;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task-&gt;State<sp/>=<sp/>(u8)0x0U;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Task;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" refkind="member"><highlight class="normal">XPlmi_TaskNode*<sp/><ref refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" kindref="member">XPlmi_GetTaskInstance</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*Handler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg),</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*PrivData,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>IntrId)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_TaskNode<sp/>Tasks[XPLMI_TASK_MAX];</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(u32<sp/>Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_MAX;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>&amp;Tasks[Index];</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrId<sp/>!=<sp/>XPLMI_INVALID_INTR_ID)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>task<sp/>whose<sp/>interrupt<sp/>id<sp/>is<sp/>matching<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Task-&gt;Handler<sp/>!=<sp/>NULL)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Task-&gt;IntrId<sp/>==<sp/>IntrId))<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>free<sp/>task<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Task-&gt;Handler<sp/>==<sp/>Handler)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Task-&gt;PrivData<sp/>==<sp/>PrivData))<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Task;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="170" refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" kindref="member">XPlmi_TaskTriggerNow</ref>(XPlmi_TaskNode<sp/>*Task)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Task-&gt;Handler<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(metal_list_is_empty(&amp;Task-&gt;TaskNode)<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_add_tail(&amp;TaskQueue[Task-&gt;Priority],</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Task-&gt;TaskNode);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="184" refid="group__xilplmi__server__apis_1ga9a8fa5b2fda2c5639ec63f6a75dc54a9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga9a8fa5b2fda2c5639ec63f6a75dc54a9" kindref="member">XPlmi_TaskInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;%s\n\r&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>list<sp/>pointers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_PRIORITIES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_init(&amp;TaskQueue[Index]);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202" refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" kindref="member">XPlmi_TaskDispatchLoop</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_list<sp/>*Node[XPLMI_TASK_PRIORITIES];</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TaskStartTime;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_plmi___perf_time" kindref="compound">XPlmi_PerfTime</ref><sp/>PerfTime<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,<sp/></highlight><highlight class="stringliteral">&quot;%s\n\r&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_PRIORITIES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node[Index]<sp/>=<sp/>&amp;TaskQueue[Index];</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_disable_interrupts();</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPLMI_TASK_PRIORITIES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(metal_list_is_empty(&amp;TaskQueue[Index])<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;No<sp/>pending<sp/>tasks<sp/>in<sp/>Priority%d<sp/>Queue\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Skip<sp/>the<sp/>first<sp/>element<sp/>as<sp/>it</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>not<sp/>proper<sp/>task</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((metal_list_is_empty(Node[Index])<sp/>!=<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)FALSE)<sp/>||</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Node[Index]<sp/>==<sp/>&amp;TaskQueue[Index]))<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node[Index]<sp/>=<sp/>TaskQueue[Index].next;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Task<sp/>=<sp/>metal_container_of(Node[Index],</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode,<sp/>TaskNode);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node[Index]<sp/>=<sp/>Node[Index]-&gt;next;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Task<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>task<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskStartTime<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" kindref="member">XPlmi_GetTimerValue</ref>();</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Task-&gt;Handler<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>metal_list_del(&amp;Task-&gt;TaskNode);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_enable_interrupts();</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Task-&gt;Handler(Task-&gt;PrivData);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" kindref="member">XPlmi_MeasurePerfTime</ref>(TaskStartTime,<sp/>&amp;PerfTime);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_PERF,<sp/></highlight><highlight class="stringliteral">&quot;%u.%03u<sp/>ms:<sp/>Task<sp/>Time\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)PerfTime.<ref refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" kindref="member">TPerfMs</ref>,<sp/>(u32)PerfTime.<ref refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" kindref="member">TPerfMsFrac</ref>);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" kindref="member">XPlmi_ErrMgr</ref>(Status);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;No<sp/>pending<sp/>tasks..Going<sp/>to<sp/>sleep\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mb_sleep();</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_enable_interrupts();</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_task.c"/>
   </compounddef>
 </doxygen>

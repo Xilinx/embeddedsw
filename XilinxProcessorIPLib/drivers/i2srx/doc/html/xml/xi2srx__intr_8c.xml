@@ -7,28 +7,19 @@
       <node id="123">
         <label>xil_assert.h</label>
       </node>
-      <node id="121">
-        <label>xil_io.h</label>
-      </node>
-      <node id="126">
-        <label>xi2srx_chsts.h</label>
-        <childnode refid="119" relation="include">
-        </childnode>
-      </node>
       <node id="120">
         <label>xi2srx_hw.h</label>
         <link refid="xi2srx__hw_8h"/>
         <childnode refid="121" relation="include">
         </childnode>
       </node>
-      <node id="118">
-        <label>xi2srx_intr.c</label>
-        <link refid="xi2srx_intr.c"/>
+      <node id="126">
+        <label>xi2srx_chsts.h</label>
         <childnode refid="119" relation="include">
         </childnode>
       </node>
-      <node id="125">
-        <label>xstatus.h</label>
+      <node id="121">
+        <label>xil_io.h</label>
       </node>
       <node id="119">
         <label>xi2srx.h</label>
@@ -44,8 +35,11 @@
         <childnode refid="124" relation="include">
         </childnode>
       </node>
-      <node id="124">
-        <label>xil_types.h</label>
+      <node id="118">
+        <label>xi2srx_intr.c</label>
+        <link refid="xi2srx_intr.c"/>
+        <childnode refid="119" relation="include">
+        </childnode>
       </node>
       <node id="122">
         <label>xi2srx_debug.h</label>
@@ -62,6 +56,12 @@
         </childnode>
         <childnode refid="126" relation="include">
         </childnode>
+      </node>
+      <node id="125">
+        <label>xstatus.h</label>
+      </node>
+      <node id="124">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -89,17 +89,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c" bodystart="56" bodyend="94"/>
-        <references refid="struct_x_i2s___rx_1a0e284b134511282b0e3402dc679b057d" compoundref="xi2srx_8h" startline="139">XI2s_Rx::AudOverflowHandler</references>
-        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
-        <references refid="struct_x_i2s___rx_1af37339d572a56a98e696f0dec19b0c74" compoundref="xi2srx_8h" startline="129">XI2s_Rx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c" bodystart="56" bodyend="94"/>
+        <references refid="struct_x_i2s___rx_1a0e284b134511282b0e3402dc679b057d" compoundref="xi2srx_8h" startline="133">XI2s_Rx::AudOverflowHandler</references>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="125">XI2s_Rx::Config</references>
+        <references refid="struct_x_i2s___rx_1af37339d572a56a98e696f0dec19b0c74" compoundref="xi2srx_8h" startline="123">XI2s_Rx::IsReady</references>
         <references refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816cafcbc177f865f01745336004358d4479e" compoundref="xi2srx__debug_8h" startline="56">XI2S_RX_AES_BLKCMPLT_EVT</references>
         <references refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816caac11c46eda786e90c37a6bc1dac96897" compoundref="xi2srx__debug_8h" startline="57">XI2S_RX_AUD_OVERFLOW_EVT</references>
         <references refid="group__i2srx_1gafa37ac42887b7ca3d17a5a48af43c3d1" compoundref="xi2srx__hw_8h" startline="109">XI2S_RX_INTR_AES_BLKCMPLT_MASK</references>
         <references refid="group__i2srx_1gacf7d542116f93c176f729165c0c0ab46" compoundref="xi2srx__hw_8h" startline="114">XI2S_RX_INTR_AUDOVRFLW_MASK</references>
         <references refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" compoundref="xi2srx__hw_8h" startline="46">XI2S_RX_IRQCTRL_OFFSET</references>
         <references refid="group__i2srx_1ga10ebd12832c0df2b25d86e1c426917a2" compoundref="xi2srx__hw_8h" startline="47">XI2S_RX_IRQSTS_OFFSET</references>
-        <references refid="group__i2srx_1gad797c77106bcc4da0a72e65e5620fa02" compoundref="xi2srx__debug_8c" startline="50" endline="78">XI2s_Rx_LogWrite</references>
+        <references refid="group__i2srx_1gad797c77106bcc4da0a72e65e5620fa02" compoundref="xi2srx__debug_8c" startline="50" endline="77">XI2s_Rx_LogWrite</references>
         <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="group__i2srx_1gac365d1ba8ad9aca6ed6ebde4be5da1be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -167,8 +167,8 @@ HandlerType                              Callback Function
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c" bodystart="122" bodyend="149"/>
-        <references refid="struct_x_i2s___rx_1a0e284b134511282b0e3402dc679b057d" compoundref="xi2srx_8h" startline="139">XI2s_Rx::AudOverflowHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c" bodystart="122" bodyend="149"/>
+        <references refid="struct_x_i2s___rx_1a0e284b134511282b0e3402dc679b057d" compoundref="xi2srx_8h" startline="133">XI2s_Rx::AudOverflowHandler</references>
         <references refid="group__i2srx_1gga73cea697b9b2b7edb411ac4ecf01b349ad5a32351d829855baf3f691a3718d176" compoundref="xi2srx_8h" startline="57">XI2S_RX_HANDLER_AES_BLKCMPLT</references>
         <references refid="group__i2srx_1gga73cea697b9b2b7edb411ac4ecf01b349adbc31f3ef63cffa075c18ad2a1288b0d" compoundref="xi2srx_8h" startline="58">XI2S_RX_HANDLER_AUD_OVRFLW</references>
         <references refid="group__i2srx_1gga73cea697b9b2b7edb411ac4ecf01b349a743f017dc379e345fa2511aa81fc3621" compoundref="xi2srx_8h" startline="59">XI2S_RX_NUM_HANDLERS</references>
@@ -271,6 +271,6 @@ HandlerType                              Callback Function
 <codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="149"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c"/>
   </compounddef>
 </doxygen>

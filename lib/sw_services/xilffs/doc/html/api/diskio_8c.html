@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li>
@@ -87,7 +88,7 @@ $(document).ready(function(){initNavTree('diskio_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,28 +106,14 @@ $(document).ready(function(){initNavTree('diskio_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file is the glue layer between file system and driver. </p>
-<pre class="fragment">    Description related to SD driver:
-    Process to use file system with SD
-    Select xilffs in SDK when creating a BSP
-    In SDK, set "fs_interface" to 1 to select SD interface.
-    This glue layer can currently be used only with one
-    SD controller enabled.
-    In order to use eMMC, in SDK set "Enable MMC" to 1. If not,
-    SD support is enabled by default.
-
-    Description:
-    This glue layer initializes the host controller and SD card
-    in disk_initialize. If SD card supports it, 4-bit mode and
-    high speed mode will be enabled.
-    The default block size is 512 bytes.
-    disk_read and disk_write functions are used to read and
-    write files using ADMA2 in polled mode.
-    The file system can be used to read from and write to an
-    SD card that is already formatted as FATFS.
-</pre><pre>
+<div class="textblock"><p>Implements the glue layer between the file system and the driver. </p>
+<p>Description related to the SD driver: To use the file system with SD, select xilffs in the Software Development Kit (SDK) when creating a board support package (BSP). In SDK, set "fs_interface" to 1 to select the SD interface. You can currently use this glue layer with only one SD controller enabled. To use an embedded MultiMediaCard (eMMC), set "Enable MMC" to 1 in SDK. Otherwise, the glue layer uses SD by default.</p>
+<p>Description: This glue layer initializes the host controller and SD card in disk_initialize. If the SD card supports them, it enables 4-bit mode and high speed mode. The default block size is 512 bytes. The disk_read and disk_write functions read and write files using Advanced DMA version 2 (ADMA2) in polled mode. The file system can read from and write to an SD card that is already formatted as <a class="el" href="struct_f_a_t_f_s.html">FATFS</a>.</p>
+<pre>
 MODIFICATION HISTORY:</pre><pre>Ver     Who     Date            Changes
------ ---- -------- -------------------------------------------------------
+</p>
+<hr/>
+<p>
 1.00a hk   10/17/13 First release
 2.0   hk   02/12/14 Corrected status check in disk initialize. CR# 772072.
 2.1   hk   04/16/14 Move check for ExtCSD high speed bit set inside if
@@ -161,8 +148,8 @@ MODIFICATION HISTORY:</pre><pre>Ver     Who     Date            Changes
 5.1   ro   06/12/23 Added support for system device-tree flow.
 5.2   ap   12/05/23 Add SDT check to fix bug in disk_initialize.
       ap   01/11/24 Fix Doxygen warnings.
-      sk   07/11/24 Add UFS interface support.</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
-</div><div class="textblock"><code>#include &quot;diskio.h&quot;</code><br/>
+      sk   07/11/24 Add UFS interface support.
+5.7   vn   09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;diskio.h&quot;</code><br/>
 <code>#include &quot;ff.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
@@ -179,6 +166,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ae78c57957d7a0cd5922d35610b0831d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="diskio_8c.html#ae78c57957d7a0cd5922d35610b0831d6">XUFSPSXC_START_INDEX</a>&#160;&#160;&#160;3</td></tr>
 <tr class="memdesc:ae78c57957d7a0cd5922d35610b0831d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start index of UFS instances.  <a href="#ae78c57957d7a0cd5922d35610b0831d6">More...</a><br/></td></tr>
 <tr class="separator:ae78c57957d7a0cd5922d35610b0831d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad96dfc66eb1b59b5ffdf73106f75299d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="diskio_8c.html#ad96dfc66eb1b59b5ffdf73106f75299d">XFFS_NUM_DRIVES</a>&#160;&#160;&#160;((u32)(sizeof(Stat) / sizeof(Stat[0])))</td></tr>
+<tr class="memdesc:ad96dfc66eb1b59b5ffdf73106f75299d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of physical drive slots tracked by Stat[].  <a href="#ad96dfc66eb1b59b5ffdf73106f75299d">More...</a><br/></td></tr>
+<tr class="separator:ad96dfc66eb1b59b5ffdf73106f75299d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -189,19 +179,35 @@ Functions</h2></td></tr>
 <tr class="memdesc:a09cdaa6f36fa409bdf002727bff98eb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the drive.  <a href="#a09cdaa6f36fa409bdf002727bff98eb1">More...</a><br/></td></tr>
 <tr class="separator:a09cdaa6f36fa409bdf002727bff98eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0711b1d03b833e9d73b3be1a6397f461"><td class="memItemLeft" align="right" valign="top">DRESULT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="diskio_8c.html#a0711b1d03b833e9d73b3be1a6397f461">disk_read</a> (BYTE pdrv, BYTE *buff, LBA_t sector, UINT count)</td></tr>
-<tr class="memdesc:a0711b1d03b833e9d73b3be1a6397f461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the drive In case of SD, it reads the SD card using ADMA2 in polled mode.  <a href="#a0711b1d03b833e9d73b3be1a6397f461">More...</a><br/></td></tr>
+<tr class="memdesc:a0711b1d03b833e9d73b3be1a6397f461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the drive.  <a href="#a0711b1d03b833e9d73b3be1a6397f461">More...</a><br/></td></tr>
 <tr class="separator:a0711b1d03b833e9d73b3be1a6397f461"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab00fa450a811dbdabe3c655c1a36fab4"><td class="memItemLeft" align="right" valign="top">DRESULT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="diskio_8c.html#ab00fa450a811dbdabe3c655c1a36fab4">disk_ioctl</a> (BYTE pdrv, BYTE cmd, void *buff)</td></tr>
-<tr class="memdesc:ab00fa450a811dbdabe3c655c1a36fab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List specific features and do miscellaneous functions on device.  <a href="#ab00fa450a811dbdabe3c655c1a36fab4">More...</a><br/></td></tr>
+<tr class="memdesc:ab00fa450a811dbdabe3c655c1a36fab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls device-specific features and miscellaneous functions.  <a href="#ab00fa450a811dbdabe3c655c1a36fab4">More...</a><br/></td></tr>
 <tr class="separator:ab00fa450a811dbdabe3c655c1a36fab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af58b536abfd30f77213f4ecaf2ac52f5"><td class="memItemLeft" align="right" valign="top">DWORD&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="diskio_8c.html#af58b536abfd30f77213f4ecaf2ac52f5">get_fattime</a> (void)</td></tr>
-<tr class="memdesc:af58b536abfd30f77213f4ecaf2ac52f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is User Provided Timer Function for FatFs module.  <a href="#af58b536abfd30f77213f4ecaf2ac52f5">More...</a><br/></td></tr>
+<tr class="memdesc:af58b536abfd30f77213f4ecaf2ac52f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the timer function that the application provides to FatFs.  <a href="#af58b536abfd30f77213f4ecaf2ac52f5">More...</a><br/></td></tr>
 <tr class="separator:af58b536abfd30f77213f4ecaf2ac52f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac24448955ef914f54a499df1fb45689d"><td class="memItemLeft" align="right" valign="top">DRESULT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="diskio_8c.html#ac24448955ef914f54a499df1fb45689d">disk_write</a> (BYTE pdrv, const BYTE *buff, LBA_t sector, UINT count)</td></tr>
-<tr class="memdesc:ac24448955ef914f54a499df1fb45689d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the drive In case of SD, it reads the SD card using ADMA2 in polled mode.  <a href="#ac24448955ef914f54a499df1fb45689d">More...</a><br/></td></tr>
+<tr class="memdesc:ac24448955ef914f54a499df1fb45689d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the drive.  <a href="#ac24448955ef914f54a499df1fb45689d">More...</a><br/></td></tr>
 <tr class="separator:ac24448955ef914f54a499df1fb45689d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ad96dfc66eb1b59b5ffdf73106f75299d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XFFS_NUM_DRIVES&#160;&#160;&#160;((u32)(sizeof(Stat) / sizeof(Stat[0])))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of physical drive slots tracked by Stat[]. </p>
+
+<p>Referenced by <a class="el" href="diskio_8c.html#a8348ac5ee6d709420c02e45c111f4793">disk_status()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6a4641fe53e931f300c4d2c76b3729a0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -250,15 +256,19 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the drive. </p>
-<p>In case of SD, it initializes the host controller and the card. This function also selects additional settings such as bus width, speed and block size.</p>
+<p>For SD, this function initializes the host controller and the card. This function also selects additional settings such as bus width, speed, and block size.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pdrv</td><td>- Drive number</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pdrv</td><td>Drive number.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>s - which contains an OR of the following information STA_NODISK Disk is not present STA_NOINIT Drive not initialized STA_PROTECT Drive is write protected 0 or only STA_PROTECT both indicate successful initialization.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Drive status. A value of 0 or STA_PROTECT alone indicates successful initialization. The status is a bitwise OR of the following flags.<ul>
+<li>STA_NODISK if the disk is not present.</li>
+<li>STA_NOINIT if the drive is not initialized.</li>
+<li>STA_PROTECT if the drive is write protected. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="diskio_8c.html#a8348ac5ee6d709420c02e45c111f4793">disk_status()</a>, and <a class="el" href="diskio_8c.html#a6a4641fe53e931f300c4d2c76b3729a0">XSDPS_NUM_INSTANCES</a>.</p>
 
@@ -294,18 +304,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>List specific features and do miscellaneous functions on device. </p>
-<p>In case of SD, it control device specific features and miscellaneous functions other than generic read/write.</p>
+<p>Controls device-specific features and miscellaneous functions. </p>
+<p>Lists specific features and performs miscellaneous functions on the device. For SD, this function controls device-specific features and miscellaneous functions other than generic read and write.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pdrv</td><td>- Drive number </td></tr>
-    <tr><td class="paramname">cmd</td><td>- Command code </td></tr>
-    <tr><td class="paramname">buff</td><td>- Pointer to the parameter depends on the command code.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pdrv</td><td>Drive number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cmd</td><td>Command code. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">buff</td><td>Pointer to the parameter, which depends on the command code.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>RES_OK Command successful RES_PARERR Command is invalid RES_NOTRDY Drive not initialized RES_ERROR Error occurred</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>RES_OK if the command is successful.</li>
+<li>RES_PARERR if the command is invalid.</li>
+<li>RES_NOTRDY if the drive is not initialized.</li>
+<li>RES_ERROR if an error occurs. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="diskio_8c.html#a8348ac5ee6d709420c02e45c111f4793">disk_status()</a>, <a class="el" href="diskio_8c.html#a6a4641fe53e931f300c4d2c76b3729a0">XSDPS_NUM_INSTANCES</a>, and <a class="el" href="diskio_8c.html#ae78c57957d7a0cd5922d35610b0831d6">XUFSPSXC_START_INDEX</a>.</p>
 
@@ -347,18 +362,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads the drive In case of SD, it reads the SD card using ADMA2 in polled mode. </p>
+<p>Reads the drive. </p>
+<p>For SD, this function reads the SD card using ADMA2 in polled mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pdrv</td><td>- Drive number </td></tr>
-    <tr><td class="paramname">buff</td><td>- Pointer to the data buffer to store read data </td></tr>
-    <tr><td class="paramname">sector</td><td>- Start sector number </td></tr>
-    <tr><td class="paramname">count</td><td>- Sector count</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pdrv</td><td>Drive number. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">buff</td><td>Pointer to the data buffer that stores the read data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>Start sector number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Sector count.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>RES_OK Read successful STA_NOINIT Drive not initialized RES_ERROR Read not successful</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>RES_OK if the read is successful.</li>
+<li>STA_NOINIT if the drive is not initialized.</li>
+<li>RES_ERROR if the read is not successful. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="diskio_8c.html#a8348ac5ee6d709420c02e45c111f4793">disk_status()</a>, <a class="el" href="diskio_8c.html#a6a4641fe53e931f300c4d2c76b3729a0">XSDPS_NUM_INSTANCES</a>, and <a class="el" href="diskio_8c.html#ae78c57957d7a0cd5922d35610b0831d6">XUFSPSXC_START_INDEX</a>.</p>
 
@@ -379,17 +399,23 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the status of the disk. </p>
-<p>In case of SD, it checks whether card is present or not.</p>
+<p>For SD, this function checks whether the card is present.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pdrv</td><td>- Drive number</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pdrv</td><td>Drive number.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 Status ok STA_NOINIT Drive not initialized STA_NODISK No medium in the drive STA_PROTECT Write protected</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In case Card detect signal is not connected, this function will not be able to check if card is present. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>0 if the status is OK.</li>
+<li>STA_NOINIT if the drive is not initialized.</li>
+<li>STA_NODISK if there is no medium in the drive.</li>
+<li>STA_PROTECT if the drive is write protected.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the card detect signal is not connected, this function cannot check whether the card is present. </dd></dl>
 
-<p>References <a class="el" href="diskio_8c.html#a6a4641fe53e931f300c4d2c76b3729a0">XSDPS_NUM_INSTANCES</a>.</p>
+<p>References <a class="el" href="diskio_8c.html#ad96dfc66eb1b59b5ffdf73106f75299d">XFFS_NUM_DRIVES</a>, and <a class="el" href="diskio_8c.html#a6a4641fe53e931f300c4d2c76b3729a0">XSDPS_NUM_INSTANCES</a>.</p>
 
 <p>Referenced by <a class="el" href="diskio_8c.html#a09cdaa6f36fa409bdf002727bff98eb1">disk_initialize()</a>, <a class="el" href="diskio_8c.html#ab00fa450a811dbdabe3c655c1a36fab4">disk_ioctl()</a>, <a class="el" href="diskio_8c.html#a0711b1d03b833e9d73b3be1a6397f461">disk_read()</a>, and <a class="el" href="diskio_8c.html#ac24448955ef914f54a499df1fb45689d">disk_write()</a>.</p>
 
@@ -431,18 +457,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads the drive In case of SD, it reads the SD card using ADMA2 in polled mode. </p>
+<p>Writes to the drive. </p>
+<p>For SD, this function writes to the SD card using ADMA2 in polled mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pdrv</td><td>- Drive number </td></tr>
-    <tr><td class="paramname">buff</td><td>- Pointer to the data to be written </td></tr>
-    <tr><td class="paramname">sector</td><td>- Sector address </td></tr>
-    <tr><td class="paramname">count</td><td>- Sector count</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pdrv</td><td>Drive number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buff</td><td>Pointer to the data to write. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>Sector address. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">count</td><td>Sector count.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>RES_OK Read successful STA_NOINIT Drive not initialized RES_ERROR Read not successful</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>RES_OK if the write is successful.</li>
+<li>STA_NOINIT if the drive is not initialized.</li>
+<li>RES_ERROR if the write is not successful. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="diskio_8c.html#a8348ac5ee6d709420c02e45c111f4793">disk_status()</a>, <a class="el" href="diskio_8c.html#a6a4641fe53e931f300c4d2c76b3729a0">XSDPS_NUM_INSTANCES</a>, and <a class="el" href="diskio_8c.html#ae78c57957d7a0cd5922d35610b0831d6">XUFSPSXC_START_INDEX</a>.</p>
 
@@ -462,9 +493,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is User Provided Timer Function for FatFs module. </p>
-<dl class="section return"><dt>Returns</dt><dd>DWORD</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p>Implements the timer function that the application provides to FatFs. </p>
+<dl class="section return"><dt>Returns</dt><dd>Timestamp packed into a DWORD value. </dd></dl>
 
 </div>
 </div>

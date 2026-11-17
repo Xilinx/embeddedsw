@@ -9,9 +9,18 @@
       <node id="51">
         <label>xil_assert.h</label>
       </node>
-      <node id="48">
-        <label>xhwicap_i.h</label>
-        <link refid="xhwicap__i_8h"/>
+      <node id="49">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap__l_8h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xil_io.h</label>
       </node>
       <node id="46">
         <label>xhwicap_device_write_frame.c</label>
@@ -35,18 +44,9 @@
         <childnode refid="54" relation="include">
         </childnode>
       </node>
-      <node id="52">
-        <label>xil_io.h</label>
-      </node>
-      <node id="49">
-        <label>xhwicap_l.h</label>
-        <link refid="xhwicap__l_8h"/>
-        <childnode refid="50" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
-        <childnode refid="52" relation="include">
-        </childnode>
+      <node id="48">
+        <label>xhwicap_i.h</label>
+        <link refid="xhwicap__i_8h"/>
       </node>
       <node id="53">
         <label>xstatus.h</label>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -163,7 +163,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="683" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c" bodystart="86" bodyend="246"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="683" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c" bodystart="86" bodyend="246"/>
         <references refid="struct_x_hw_icap_1a1e2e190f1bd74c7aa6fbe31288ee6619" compoundref="xhwicap_8h" startline="258">XHwIcap::DeviceIdCode</references>
         <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
         <references refid="struct_x_hw_icap_1a3f9285b94c87fa0052336a7fdeb75bf4" compoundref="xhwicap_8h" startline="261">XHwIcap::WordsPerFrame</references>
@@ -370,6 +370,6 @@
 <codeline lineno="247"><highlight class="normal"></highlight></codeline>
 <codeline lineno="248"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_device_write_frame.c"/>
   </compounddef>
 </doxygen>

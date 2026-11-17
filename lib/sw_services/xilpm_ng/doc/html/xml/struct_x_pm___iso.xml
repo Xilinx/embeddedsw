@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___iso" kind="struct" prot="public">
+    <compoundname>XPm_Iso</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___iso_1a724032439b992cb06d4ec00543ec2f8f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_Iso::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+<para>Node: Node base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___iso_1a2fea4cc308dfc4210637b39105419148" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Iso::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___iso_1a1222ac463de810c8b99b38f988a6ebc2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Iso::Format</definition>
+        <argsstring></argsstring>
+        <name>Format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___iso_1ab7f0a2a005758b592b3a2ec27454b29d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Iso::NumDependencies</definition>
+        <argsstring></argsstring>
+        <name>NumDependencies</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___iso_1a955e20748a570afd08e8e597a2af5e1b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Iso::Dependencies[PM_ISO_MAX_NUM_DEPENDENCIES]</definition>
+        <argsstring>[PM_ISO_MAX_NUM_DEPENDENCIES]</argsstring>
+        <name>Dependencies</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="131">
+        <label>XPm_Iso</label>
+        <childnode refid="132" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+      </node>
+      <node id="132">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h" bodystart="37" bodyend="43"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___iso_1a955e20748a570afd08e8e597a2af5e1b" prot="public" virt="non-virtual"><scope>XPm_Iso</scope><name>Dependencies</name></member>
+      <member refid="struct_x_pm___iso_1a1222ac463de810c8b99b38f988a6ebc2" prot="public" virt="non-virtual"><scope>XPm_Iso</scope><name>Format</name></member>
+      <member refid="struct_x_pm___iso_1a2fea4cc308dfc4210637b39105419148" prot="public" virt="non-virtual"><scope>XPm_Iso</scope><name>Mask</name></member>
+      <member refid="struct_x_pm___iso_1a724032439b992cb06d4ec00543ec2f8f" prot="public" virt="non-virtual"><scope>XPm_Iso</scope><name>Node</name></member>
+      <member refid="struct_x_pm___iso_1ab7f0a2a005758b592b3a2ec27454b29d" prot="public" virt="non-virtual"><scope>XPm_Iso</scope><name>NumDependencies</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

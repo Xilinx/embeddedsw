@@ -6,9 +6,6 @@
     <includes local="yes">xstatus.h</includes>
     <includes refid="xcsi_8h" local="yes">xcsi.h</includes>
     <incdepgraph>
-      <node id="61">
-        <label>xil_io.h</label>
-      </node>
       <node id="63">
         <label>xcsi.h</label>
         <link refid="xcsi_8h"/>
@@ -19,18 +16,11 @@
         <childnode refid="65" relation="include">
         </childnode>
       </node>
+      <node id="61">
+        <label>xil_io.h</label>
+      </node>
       <node id="62">
         <label>xstatus.h</label>
-      </node>
-      <node id="60">
-        <label>xcsi_selftest.c</label>
-        <link refid="xcsi_selftest.c"/>
-        <childnode refid="61" relation="include">
-        </childnode>
-        <childnode refid="62" relation="include">
-        </childnode>
-        <childnode refid="63" relation="include">
-        </childnode>
       </node>
       <node id="64">
         <label>xil_types.h</label>
@@ -41,6 +31,16 @@
         <childnode refid="64" relation="include">
         </childnode>
         <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xcsi_selftest.c</label>
+        <link refid="xcsi_selftest.c"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -86,11 +86,11 @@ This test checks if the LaneCount present in register matches the one from the g
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="915" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_selftest.c" bodystart="64" bodyend="82"/>
-        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
-        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
-        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
-        <references refid="struct_x_csi___config_1a0ac18a90247b18004fbe69473f3f88c6" compoundref="xcsi_8h" startline="201">XCsi_Config::MaxLanesPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="892" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_selftest.c" bodystart="64" bodyend="82"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="196">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="228">XCsi::Config</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="260">XCsi::IsReady</references>
+        <references refid="struct_x_csi___config_1a0ac18a90247b18004fbe69473f3f88c6" compoundref="xcsi_8h" startline="197">XCsi_Config::MaxLanesPresent</references>
         <references refid="group__csi_1gaa6d342b075b0d33fdb5f14ed50bb293d" compoundref="xcsi__hw_8h" startline="209">XCSI_PCR_MAXLANES_MASK</references>
         <references refid="group__csi_1gad58f3b3b77f7eb5ccab7f6a2fe9b064e" compoundref="xcsi__hw_8h" startline="212">XCSI_PCR_MAXLANES_SHIFT</references>
         <references refid="group__csi_1gaf8101fc57292094f5402ea935b981511" compoundref="xcsi__hw_8h" startline="54">XCSI_PCR_OFFSET</references>
@@ -153,6 +153,6 @@ This test checks if the LaneCount present in register matches the one from the g
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="82"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi_selftest.c"/>
   </compounddef>
 </doxygen>

@@ -80,6 +80,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_l"><span>l</span></a></li>
+      <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
@@ -103,7 +106,7 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -114,6 +117,30 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 
 <div class="contents">
 &#160;
+
+<h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
+<li>GPIO_BANK
+: <a class="el" href="xgpiops__intr__example_8c.html#a5c770da14f801d2da7fac0cb73e62f43">xgpiops_intr_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>LED_DELAY
+: <a class="el" href="xgpiops__polled__example_8c.html#a12a46d6ff86950784521c2446d84b2fc">xgpiops_polled_example.c</a>
+</li>
+<li>LED_MAX_BLINK
+: <a class="el" href="xgpiops__polled__example_8c.html#a547a74fc8dcd314417bd6d99bc306210">xgpiops_polled_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>printf
+: <a class="el" href="xgpiops__polled__example_8c.html#a3cb9f0894fab1c8fbb0753c9c7c2a8d9">xgpiops_polled_example.c</a>
+</li>
+</ul>
+
 
 <h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
 <li>XGPIOPS_BANK0
@@ -136,6 +163,10 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </li>
 <li>XGPIOPS_BANK_MAX_PINS
 : <a class="el" href="group__gpiops.html#ga1e440e05bbea534ebf6939e88eb1455f">xgpiops.h</a>
+</li>
+<li>XGPIOPS_BASEADDR
+: <a class="el" href="xgpiops__intr__example_8c.html#aa7f1ef680c757f6ec326bdc062ed8fbc">xgpiops_intr_example.c</a>
+, <a class="el" href="xgpiops__polled__example_8c.html#aa7f1ef680c757f6ec326bdc062ed8fbc">xgpiops_polled_example.c</a>
 </li>
 <li>XGPIOPS_BYPM_MASK_OFFSET
 : <a class="el" href="group__gpiops.html#gac021029c611041a62843fbf68caa22de">xgpiops_hw.h</a>
@@ -169,12 +200,6 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </li>
 <li>XGPIOPS_FOUR
 : <a class="el" href="group__gpiops.html#ga5e6bff389611d55cc6ca4d3f21a7e4d2">xgpiops_hw.h</a>
-</li>
-<li>XGPIOPS_H
-: <a class="el" href="group__gpiops.html#ga5e68d2ebc1ac8f1b759c0945ad6ef78b">xgpiops.h</a>
-</li>
-<li>XGPIOPS_HW_H
-: <a class="el" href="group__gpiops.html#gae9716887ddbdd1ac6093380b90d0eb57">xgpiops_hw.h</a>
 </li>
 <li>XGPIOPS_INTANY_OFFSET
 : <a class="el" href="group__gpiops.html#ga9ba60ac847a2c6ad66240cf1a849afba">xgpiops_hw.h</a>

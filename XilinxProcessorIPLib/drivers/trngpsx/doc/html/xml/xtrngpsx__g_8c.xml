@@ -5,6 +5,9 @@
     <includes local="yes">xparameters.h</includes>
     <includes refid="xtrngpsx_8h" local="yes">xtrngpsx.h</includes>
     <incdepgraph>
+      <node id="52">
+        <label>xil_sutil.h</label>
+      </node>
       <node id="50">
         <label>xtrngpsx_alginfo.h</label>
         <link refid="xtrngpsx__alginfo_8h"/>
@@ -13,16 +16,13 @@
         <childnode refid="52" relation="include">
         </childnode>
       </node>
-      <node id="46">
-        <label>xtrngpsx_g.c</label>
-        <link refid="xtrngpsx_g.c"/>
-        <childnode refid="47" relation="include">
+      <node id="48">
+        <label>xtrngpsx.h</label>
+        <link refid="xtrngpsx_8h"/>
+        <childnode refid="49" relation="include">
         </childnode>
-        <childnode refid="48" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
-      </node>
-      <node id="52">
-        <label>xil_sutil.h</label>
       </node>
       <node id="51">
         <label>xil_cryptoalginfo.h</label>
@@ -30,12 +30,12 @@
       <node id="49">
         <label>xil_types.h</label>
       </node>
-      <node id="48">
-        <label>xtrngpsx.h</label>
-        <link refid="xtrngpsx_8h"/>
-        <childnode refid="49" relation="include">
+      <node id="46">
+        <label>xtrngpsx_g.c</label>
+        <link refid="xtrngpsx_g.c"/>
+        <childnode refid="47" relation="include">
         </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="48" relation="include">
         </childnode>
       </node>
       <node id="47">
@@ -56,12 +56,13 @@
 	}
 }</initializer>
         <briefdescription>
-        </briefdescription>
+<para>TRNG configuration table. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c" bodystart="24" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga585c8fe9159bad7d022d6ffe54743149" compoundref="xtrngpsx__sinit_8c" startline="91" endline="105">XTrngpsx_LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -92,7 +93,7 @@
 <codeline lineno="21"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
 <codeline lineno="22"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref><sp/>XTrngpsx_ConfigTable[XPAR_XTRNGPSX_NUM_INSTANCES]<sp/>=</highlight></codeline>
+<codeline lineno="24" refid="group__trngpsx__api_1ga8a9a86209f21795b5c59ea97229d04a3" refkind="member"><highlight class="normal"><ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref><sp/><ref refid="group__trngpsx__api_1ga8a9a86209f21795b5c59ea97229d04a3" kindref="member">XTrngpsx_ConfigTable</ref>[XPAR_XTRNGPSX_NUM_INSTANCES]<sp/>=</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSX_WIZARD_0_PSXL_0_PSX_PMC_TRNG_DEVICE_ID,</highlight></codeline>
@@ -100,6 +101,6 @@
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="30"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c"/>
   </compounddef>
 </doxygen>

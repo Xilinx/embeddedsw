@@ -1,5 +1,9 @@
 var xspi_8h =
 [
+    [ "XSP_CLK_ACTIVE_LOW_OPTION", "xspi_8h.html#gaae8f6e43593b5e57c47c4834f69a01a9", null ],
+    [ "XSP_CLK_PHASE_1_OPTION", "xspi_8h.html#gabac3788ad6ebce692e4b3382c623c329", null ],
+    [ "XSP_LOOPBACK_OPTION", "xspi_8h.html#ga1124f7ede8e4ebe96f2c764b0dadfea1", null ],
+    [ "XSP_MANUAL_SSELECT_OPTION", "xspi_8h.html#gaeb7ff246ee212e9fa1379769aae76f47", null ],
     [ "XSP_MASTER_OPTION", "xspi_8h.html#gac2c043a14b04e38a61b1979ccaa8a200", null ],
     [ "XSpi_Disable", "xspi_8h.html#ga642e3f4be4784f5823c368a0afdfe078", null ],
     [ "XSpi_Enable", "xspi_8h.html#ga1ddf2c25474dac11bd30c9f938bd753d", null ],
@@ -27,7 +31,7 @@ var xspi_8h =
     [ "XSpi_GetStats", "xspi_8h.html#ga8a40aee30eb6f0240b75e6ccd7596a53", null ],
     [ "XSpi_Initialize", "xspi_8h.html#gad6f255861fd0fe028f13c35abc55260a", null ],
     [ "XSpi_InterruptHandler", "xspi_8h.html#gaf3863f11d27469d8797424319601c980", null ],
-    [ "XSpi_LookupConfig", "xspi_8h.html#ga59c223b96bc85c1e13bf88a19af91bc3", null ],
+    [ "XSpi_LookupConfig", "xspi_8h.html#ga89a706debf1603a19b95d8e556f04f68", null ],
     [ "XSpi_Reset", "xspi_8h.html#ga343938fcdf672bec329d876a146178cd", null ],
     [ "XSpi_SelfTest", "xspi_8h.html#ga11b6ebdb6f69c6939176e05600b10e3e", null ],
     [ "XSpi_SetOptions", "xspi_8h.html#ga67c2076b133a55b6f80343642a1ace41", null ],

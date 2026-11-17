@@ -114,10 +114,16 @@ Macros</h2></td></tr>
 <tr class="memitem:gad96832ef1a60271be6b8d06fb61d471c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gad96832ef1a60271be6b8d06fb61d471c">XUSB_DMA_BRR_CTRL</a>&#160;&#160;&#160;0x40000000</td></tr>
 <tr class="memdesc:gad96832ef1a60271be6b8d06fb61d471c"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA bufready ctrl bit.  <a href="group__usb.html#gad96832ef1a60271be6b8d06fb61d471c">More...</a><br/></td></tr>
 <tr class="separator:gad96832ef1a60271be6b8d06fb61d471c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacd33f4473000380669cb9147110cac62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gacd33f4473000380669cb9147110cac62">XUsb_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;XUsb_In32((BaseAddress) + (RegOffset))</td></tr>
+<tr class="memitem:gabbc435cf0dfcac7df9fed79644333a32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gabbc435cf0dfcac7df9fed79644333a32">XUsb_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
+<tr class="memdesc:gabbc435cf0dfcac7df9fed79644333a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB 32-bit memory-mapped input accessor.  <a href="group__usb.html#gabbc435cf0dfcac7df9fed79644333a32">More...</a><br/></td></tr>
+<tr class="separator:gabbc435cf0dfcac7df9fed79644333a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafaaf289ae1bd886c47cc1e8db49f9c83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gafaaf289ae1bd886c47cc1e8db49f9c83">XUsb_Out32</a>&#160;&#160;&#160;Xil_Out32</td></tr>
+<tr class="memdesc:gafaaf289ae1bd886c47cc1e8db49f9c83"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB 32-bit memory-mapped output accessor.  <a href="group__usb.html#gafaaf289ae1bd886c47cc1e8db49f9c83">More...</a><br/></td></tr>
+<tr class="separator:gafaaf289ae1bd886c47cc1e8db49f9c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd33f4473000380669cb9147110cac62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gacd33f4473000380669cb9147110cac62">XUsb_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__usb.html#gabbc435cf0dfcac7df9fed79644333a32">XUsb_In32</a>((BaseAddress) + (RegOffset))</td></tr>
 <tr class="memdesc:gacd33f4473000380669cb9147110cac62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read from the specified USB device register.  <a href="group__usb.html#gacd33f4473000380669cb9147110cac62">More...</a><br/></td></tr>
 <tr class="separator:gacd33f4473000380669cb9147110cac62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7598429f7ba0bb7f052da4eb95d0908b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga7598429f7ba0bb7f052da4eb95d0908b">XUsb_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;XUsb_Out32((BaseAddress) + (RegOffset), (RegisterValue))</td></tr>
+<tr class="memitem:ga7598429f7ba0bb7f052da4eb95d0908b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga7598429f7ba0bb7f052da4eb95d0908b">XUsb_WriteReg</a>(BaseAddress, RegOffset, RegisterValue)&#160;&#160;&#160;<a class="el" href="group__usb.html#gafaaf289ae1bd886c47cc1e8db49f9c83">XUsb_Out32</a>((BaseAddress) + (RegOffset), (RegisterValue))</td></tr>
 <tr class="memdesc:ga7598429f7ba0bb7f052da4eb95d0908b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to the specified USB device register.  <a href="group__usb.html#ga7598429f7ba0bb7f052da4eb95d0908b">More...</a><br/></td></tr>
 <tr class="separator:ga7598429f7ba0bb7f052da4eb95d0908b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Register Map</div></td></tr>
@@ -365,17 +371,17 @@ Macros</h2></td></tr>
 <tr class="memitem:ga9e9f2e36d2904d4dbc6879fc4702924a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga9e9f2e36d2904d4dbc6879fc4702924a">XUSB_BUFFREADY_EP0_BUFF_MASK</a>&#160;&#160;&#160;0x00000001</td></tr>
 <tr class="memdesc:ga9e9f2e36d2904d4dbc6879fc4702924a"><td class="mdescLeft">&#160;</td><td class="mdescRight">EP 0 Buffer Ready.  <a href="group__usb.html#ga9e9f2e36d2904d4dbc6879fc4702924a">More...</a><br/></td></tr>
 <tr class="separator:ga9e9f2e36d2904d4dbc6879fc4702924a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae0d2afe244ddda11cefb7aa51c836fc9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gae0d2afe244ddda11cefb7aa51c836fc9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_STATUS_INTR_EVENT_MASK</b></td></tr>
+<tr class="memitem:gae0d2afe244ddda11cefb7aa51c836fc9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gae0d2afe244ddda11cefb7aa51c836fc9">XUSB_STATUS_INTR_EVENT_MASK</a></td></tr>
+<tr class="memdesc:gae0d2afe244ddda11cefb7aa51c836fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite mask of all USB event interrupt status bits.  <a href="group__usb.html#gae0d2afe244ddda11cefb7aa51c836fc9">More...</a><br/></td></tr>
 <tr class="separator:gae0d2afe244ddda11cefb7aa51c836fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga87ac260601716ec96e6647312752c1e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga87ac260601716ec96e6647312752c1e2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_STATUS_INTR_BUFF_COMP_ALL_MASK</b></td></tr>
+<tr class="memitem:ga87ac260601716ec96e6647312752c1e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga87ac260601716ec96e6647312752c1e2">XUSB_STATUS_INTR_BUFF_COMP_ALL_MASK</a></td></tr>
+<tr class="memdesc:ga87ac260601716ec96e6647312752c1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite mask of all endpoint buffer completion interrupt bits.  <a href="group__usb.html#ga87ac260601716ec96e6647312752c1e2">More...</a><br/></td></tr>
 <tr class="separator:ga87ac260601716ec96e6647312752c1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6d0af440667f05d15610e4fefa998336"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6d0af440667f05d15610e4fefa998336"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_STATUS_DMA_EVENT_MASK</b></td></tr>
+<tr class="memitem:ga6d0af440667f05d15610e4fefa998336"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga6d0af440667f05d15610e4fefa998336">XUSB_STATUS_DMA_EVENT_MASK</a></td></tr>
+<tr class="memdesc:ga6d0af440667f05d15610e4fefa998336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite mask for all DMA event interrupt status bits.  <a href="group__usb.html#ga6d0af440667f05d15610e4fefa998336">More...</a><br/></td></tr>
 <tr class="separator:ga6d0af440667f05d15610e4fefa998336"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6c508b35a9accce8e03a753c10bb3391"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga6c508b35a9accce8e03a753c10bb3391"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_STATUS_ERROR_EVENT_MASK</b></td></tr>
+<tr class="memitem:ga6c508b35a9accce8e03a753c10bb3391"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga6c508b35a9accce8e03a753c10bb3391">XUSB_STATUS_ERROR_EVENT_MASK</a></td></tr>
+<tr class="memdesc:ga6c508b35a9accce8e03a753c10bb3391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composite mask for all USB error event interrupt status bits.  <a href="group__usb.html#ga6c508b35a9accce8e03a753c10bb3391">More...</a><br/></td></tr>
 <tr class="separator:ga6c508b35a9accce8e03a753c10bb3391"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe7ecfedb9f22e7f6360b0498afa1ff1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gafe7ecfedb9f22e7f6360b0498afa1ff1">XUSB_STATUS_INTR_ALL_MASK</a>&#160;&#160;&#160;0xFFFFFEFF</td></tr>
 <tr class="memdesc:gafe7ecfedb9f22e7f6360b0498afa1ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">All Interrupts Mask.  <a href="group__usb.html#gafe7ecfedb9f22e7f6360b0498afa1ff1">More...</a><br/></td></tr>
@@ -403,14 +409,14 @@ Macros</h2></td></tr>
 <tr class="memitem:gac1ec35d6a613cc0a64e60007a31ef227"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gac1ec35d6a613cc0a64e60007a31ef227">XUSB_ECR_CRC_ERRCNT_MASK</a>&#160;&#160;&#160;0x0000FF00</td></tr>
 <tr class="memdesc:gac1ec35d6a613cc0a64e60007a31ef227"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC error counter.  <a href="group__usb.html#gac1ec35d6a613cc0a64e60007a31ef227">More...</a><br/></td></tr>
 <tr class="separator:gac1ec35d6a613cc0a64e60007a31ef227"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1a59b4d15063dc0e3ad6c086967a0cae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1a59b4d15063dc0e3ad6c086967a0cae"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_ECR_BITSTUFF_ERRCNT_SHIFT</b>&#160;&#160;&#160;24</td></tr>
+<tr class="memitem:ga1a59b4d15063dc0e3ad6c086967a0cae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga1a59b4d15063dc0e3ad6c086967a0cae">XUSB_ECR_BITSTUFF_ERRCNT_SHIFT</a>&#160;&#160;&#160;24</td></tr>
+<tr class="memdesc:ga1a59b4d15063dc0e3ad6c086967a0cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit stuff error count shift.  <a href="group__usb.html#ga1a59b4d15063dc0e3ad6c086967a0cae">More...</a><br/></td></tr>
 <tr class="separator:ga1a59b4d15063dc0e3ad6c086967a0cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8d6768b3b32186f4ed730f00499fdd4d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga8d6768b3b32186f4ed730f00499fdd4d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_ECR_PID_ERRCNT_SHIFT</b>&#160;&#160;&#160;16</td></tr>
+<tr class="memitem:ga8d6768b3b32186f4ed730f00499fdd4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga8d6768b3b32186f4ed730f00499fdd4d">XUSB_ECR_PID_ERRCNT_SHIFT</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga8d6768b3b32186f4ed730f00499fdd4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PID error count shift.  <a href="group__usb.html#ga8d6768b3b32186f4ed730f00499fdd4d">More...</a><br/></td></tr>
 <tr class="separator:ga8d6768b3b32186f4ed730f00499fdd4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2407278f3383ce065175fc2376e7cc46"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga2407278f3383ce065175fc2376e7cc46"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_ECR_CRC_ERRCNT_SHIFT</b>&#160;&#160;&#160;8</td></tr>
+<tr class="memitem:ga2407278f3383ce065175fc2376e7cc46"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#ga2407278f3383ce065175fc2376e7cc46">XUSB_ECR_CRC_ERRCNT_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ga2407278f3383ce065175fc2376e7cc46"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRC error count shift.  <a href="group__usb.html#ga2407278f3383ce065175fc2376e7cc46">More...</a><br/></td></tr>
 <tr class="separator:ga2407278f3383ce065175fc2376e7cc46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">ULPI PHY Access Register</div></td></tr>
 <tr class="memitem:gac404489464dc1654f950c1bc4e1b0456"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gac404489464dc1654f950c1bc4e1b0456">XUSB_UPAR_REG_DATA_MASK</a>&#160;&#160;&#160;0x0000FF00</td></tr>
@@ -425,8 +431,8 @@ Macros</h2></td></tr>
 <tr class="memitem:gab38b6708b11d3e0e39a35046c18ee786"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gab38b6708b11d3e0e39a35046c18ee786">XUSB_UPAR_BUSY_MASK</a>&#160;&#160;&#160;0x80000000</td></tr>
 <tr class="memdesc:gab38b6708b11d3e0e39a35046c18ee786"><td class="mdescLeft">&#160;</td><td class="mdescRight">PHY access enable.  <a href="group__usb.html#gab38b6708b11d3e0e39a35046c18ee786">More...</a><br/></td></tr>
 <tr class="separator:gab38b6708b11d3e0e39a35046c18ee786"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabf07c9ef4094130e4f57806c524846db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="gabf07c9ef4094130e4f57806c524846db"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSB_UPAR_REG_DATA_SHIFT</b>&#160;&#160;&#160;8</td></tr>
+<tr class="memitem:gabf07c9ef4094130e4f57806c524846db"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gabf07c9ef4094130e4f57806c524846db">XUSB_UPAR_REG_DATA_SHIFT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:gabf07c9ef4094130e4f57806c524846db"><td class="mdescLeft">&#160;</td><td class="mdescRight">ULPI PHY data register shift.  <a href="group__usb.html#gabf07c9ef4094130e4f57806c524846db">More...</a><br/></td></tr>
 <tr class="separator:gabf07c9ef4094130e4f57806c524846db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Endpoint Configuration Space offsets</div></td></tr>
 <tr class="memitem:gab68802a5691c5238c1feed201acd8493"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__usb.html#gab68802a5691c5238c1feed201acd8493">XUSB_EP_CFGSTATUS_OFFSET</a>&#160;&#160;&#160;0x00</td></tr>

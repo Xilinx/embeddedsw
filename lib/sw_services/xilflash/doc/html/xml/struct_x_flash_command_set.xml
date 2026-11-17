@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_flash_command_set_1a77e5ff5d2fee3818bec520b51c73dfe4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="107" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="107" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Flash Specific Command Set. </para>    </briefdescription>
+<para>Holds the flash specific command set. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="105" bodyend="108"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="105" bodyend="108"/>
     <listofallmembers>
       <member refid="struct_x_flash_command_set_1a77e5ff5d2fee3818bec520b51c73dfe4" prot="public" virt="non-virtual"><scope>XFlashCommandSet</scope><name>ProgramCommand</name></member>
       <member refid="struct_x_flash_command_set_1af46cab5abe7f7407fee3240fe6b46634" prot="public" virt="non-virtual"><scope>XFlashCommandSet</scope><name>WriteBufferCommand</name></member>

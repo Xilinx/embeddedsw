@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__bbram_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,7 +99,6 @@ $(document).ready(function(){initNavTree('xnvm__bbram_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xnvm_bbram.c File Reference</div>  </div>
@@ -130,24 +129,23 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       ng   09/20/2024 Fixed doxygen grouping
 3.5   pre  11/21/2024 Removed zeroization before writing key
 3.5   hj   26/03/2025 Return explicit error code on General Purpose BBRAM8 write request in SB
-      har  04/10/2025 Modified to read user data from XNVM_BBRAM_8_MEM_REG for versal_2ve_2vm</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
+      har  04/10/2025 Modified to read user data from XNVM_BBRAM_8_MEM_REG for versal_2ve_2vm
+3.8   mkr  07/20/2026 Removed XNVM_CL_MAX_COUNT_VAL definition and added in common to make it
+                      available for both client and server.
+3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
+      mkr  10/03/2026 Widened KeyLen parameter of XNvm_BbramWriteAesKey from
+                      u16 to u32 to match the size type used by the callers</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xnvm__bbram_8h.html">xnvm_bbram.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xnvm__bbram__hw_8h.html">xnvm_bbram_hw.h</a>&quot;</code><br/>
 <code>#include &quot;xnvm_utils.h&quot;</code><br/>
 <code>#include &quot;xnvm_defs.h&quot;</code><br/>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ga6ebc086461092546789c62ddbd362948"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__bbram__server__apis.html#ga6ebc086461092546789c62ddbd362948">REVERSE_POLYNOMIAL</a>&#160;&#160;&#160;(0x82F63B78U)</td></tr>
-<tr class="memdesc:ga6ebc086461092546789c62ddbd362948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polynomial used for CRC calculation.  <a href="group__xnvm__bbram__server__apis.html#ga6ebc086461092546789c62ddbd362948">More...</a><br/></td></tr>
-<tr class="separator:ga6ebc086461092546789c62ddbd362948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga85d604d634dbf207503a9128fee84a50"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__bbram__server__apis.html#ga85d604d634dbf207503a9128fee84a50">XNvm_BbramWriteAesKey</a> (const u8 *Key, u16 KeyLen)</td></tr>
-<tr class="memdesc:ga85d604d634dbf207503a9128fee84a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does programming of key provided into BBRAM and validates CRC of the key stored in BBRAM with CRC of input key.  <a href="group__xnvm__bbram__server__apis.html#ga85d604d634dbf207503a9128fee84a50">More...</a><br/></td></tr>
-<tr class="separator:ga85d604d634dbf207503a9128fee84a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga632eec83c61050915d7c9952ca85af60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__bbram__server__apis.html#ga632eec83c61050915d7c9952ca85af60">XNvm_BbramWriteAesKey</a> (const u8 *Key, u32 KeyLen)</td></tr>
+<tr class="memdesc:ga632eec83c61050915d7c9952ca85af60"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does programming of key provided into BBRAM and validates CRC of the key stored in BBRAM with CRC of input key.  <a href="group__xnvm__bbram__server__apis.html#ga632eec83c61050915d7c9952ca85af60">More...</a><br/></td></tr>
+<tr class="separator:ga632eec83c61050915d7c9952ca85af60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3d264db9b87c4fe29a755a02f0bad72f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__bbram__server__apis.html#ga3d264db9b87c4fe29a755a02f0bad72f">XNvm_BbramLockUsrDataWrite</a> (void)</td></tr>
 <tr class="memdesc:ga3d264db9b87c4fe29a755a02f0bad72f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function locks the user data written in BBRAM_8 that is making user data written in BBRAM as read only.  <a href="group__xnvm__bbram__server__apis.html#ga3d264db9b87c4fe29a755a02f0bad72f">More...</a><br/></td></tr>
 <tr class="separator:ga3d264db9b87c4fe29a755a02f0bad72f"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -9,6 +9,16 @@
     <member refid="structaes256__context_1a8d65061ae36212efbd8137f3525c9e87" kind="variable"><name>enckey</name></member>
     <member refid="structaes256__context_1a92465a74eda0595f5c4ed86c39f5fd89" kind="variable"><name>deckey</name></member>
   </compound>
+  <compound refid="struct_exdes___hdcp_repeater_topology" kind="struct"><name>Exdes_HdcpRepeaterTopology</name>
+    <member refid="struct_exdes___hdcp_repeater_topology_1ae12432f6c14d79f0edb1583158d473ed" kind="variable"><name>DeviceCnt</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1af9b1ead3c9c43b9782134928348d136c" kind="variable"><name>Depth</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1a198abde851932f95bdfcefe6eb274822" kind="variable"><name>DeviceList</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1a23f35daa3aeb61e6ae792b5e3326e9eb" kind="variable"><name>MaxDevsExceeded</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1a54baaa853b79fc5b1e401c36ef3f6bde" kind="variable"><name>MaxCascadeExceeded</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1a61903117094972af722ff091a28c5bfb" kind="variable"><name>Hdcp2LegacyDeviceDownstream</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1ac9fd96717f98a9c8355dbb52d527412f" kind="variable"><name>Hdcp1DeviceDownstream</name></member>
+    <member refid="struct_exdes___hdcp_repeater_topology_1a409814670212e87f6c442d5529190c3a" kind="variable"><name>Valid</name></member>
+  </compound>
   <compound refid="struct_i_d_t__8_t49_n24x___settings" kind="struct"><name>IDT_8T49N24x_Settings</name>
     <member refid="struct_i_d_t__8_t49_n24x___settings_1a2c5460415b93e872233b9b384eff4757" kind="variable"><name>NS1_Qx</name></member>
     <member refid="struct_i_d_t__8_t49_n24x___settings_1ada188025528dec7a67878a02b5f14b02" kind="variable"><name>NS2_Qx</name></member>
@@ -890,6 +900,14 @@
     <member refid="_passthrough___microblaze_8txt_1a8f0e8ccc2aba7691814608fd97cb25bf" kind="function"><name>selection</name></member>
     <member refid="_passthrough___microblaze_8txt_1aab45c1fef5b1f5c2d53b80c1e7ccdb43" kind="function"><name>HDCP</name></member>
   </compound>
+  <compound refid="_passthrough___microblaze___s_c_u200_8txt" kind="file"><name>Passthrough_Microblaze_SCU200.txt</name>
+    <member refid="_passthrough___microblaze___s_c_u200_8txt_1ac24a6e5ddbbdea2dc207d4cb77906200" kind="variable"><name>details</name></member>
+    <member refid="_passthrough___microblaze___s_c_u200_8txt_1ac5fff72184caf8bcd8f3f5bff995946b" kind="variable"><name>default</name></member>
+    <member refid="_passthrough___microblaze___s_c_u200_8txt_1a7bfec5b6a5eff25099f9570c4a8723dd" kind="variable"><name>PG235</name></member>
+    <member refid="_passthrough___microblaze___s_c_u200_8txt_1a18f592a20598f3b72df24abceb55de44" kind="function"><name>colorbar</name></member>
+    <member refid="_passthrough___microblaze___s_c_u200_8txt_1abcdf461326351fd75e33bdae1ee38fbf" kind="function"><name>selection</name></member>
+    <member refid="_passthrough___microblaze___s_c_u200_8txt_1ad94aed5d66c51a2bfd29c88a6e45929e" kind="function"><name>HDCP</name></member>
+  </compound>
   <compound refid="_passthrough___r5_8txt" kind="file"><name>Passthrough_R5.txt</name>
     <member refid="_passthrough___r5_8txt_1a33dffc93248998b417af8a8bb78df8ae" kind="variable"><name>details</name></member>
     <member refid="_passthrough___r5_8txt_1ac5fff72184caf8bcd8f3f5bff995946b" kind="variable"><name>default</name></member>
@@ -1323,6 +1341,11 @@
   </compound>
   <compound refid="xhdmi__example_8c" kind="file"><name>xhdmi_example.c</name>
     <member refid="xhdmi__example_8c_1a41473cd83e9b35dadf4fdb95f83ab9e3" kind="define"><name>AUX_FIFO_CLEAR</name></member>
+    <member refid="xhdmi__example_8c_1a2be3511943ed51ef638dfa864501484b" kind="define"><name>EXDES_HDCP_DEVICE_ID_SIZE</name></member>
+    <member refid="xhdmi__example_8c_1a831616f50e013748832cdead1c94c74e" kind="define"><name>EXDES_HDCP_MAX_DEVICE_CNT_HDCP14</name></member>
+    <member refid="xhdmi__example_8c_1a1dd021b0e516273484e0245ad0c07d5b" kind="define"><name>EXDES_HDCP_MAX_DEVICE_CNT_HDCP22</name></member>
+    <member refid="xhdmi__example_8c_1a28300934057c6826525aad741fb5103a" kind="define"><name>EXDES_HDCP_MAX_DEPTH_HDCP14</name></member>
+    <member refid="xhdmi__example_8c_1ada308d208207932b78204502f53b5484" kind="define"><name>EXDES_HDCP_MAX_DEPTH_HDCP22</name></member>
     <member refid="xhdmi__example_8c_1af5e7e40b565ee65c58ce04b2b2eb20d5" kind="variable"><name>Hdmiphy1</name></member>
     <member refid="xhdmi__example_8c_1a0c3638adae2033ce92988fe0b2a7d255" kind="variable"><name>Hdmiphy1ErrorFlag</name></member>
     <member refid="xhdmi__example_8c_1ac02f430322b20f9fdecf31dae7a05415" kind="variable"><name>Hdmiphy1PllLayoutErrorFlag</name></member>

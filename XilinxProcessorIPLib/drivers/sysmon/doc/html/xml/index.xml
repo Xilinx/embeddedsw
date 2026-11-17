@@ -142,7 +142,6 @@
     <member refid="group___overview_1ga3c4487fa8b08f41c807433ef456abc75" kind="define"><name>XSM_SEQ_MODE_SINGCHAN</name></member>
     <member refid="group___overview_1gacac995b84cec0748dde6c82998337b72" kind="define"><name>XSM_SEQ_MODE_SIMUL</name></member>
     <member refid="group___overview_1gaa1b34b548ae9f0d95c1cd3185b6d84b4" kind="define"><name>XSM_SEQ_MODE_INDEPENDENT</name></member>
-    <member refid="group___overview_1ga2983383ca62ff3388c03837f5fa59e64" kind="define"><name>XSYSMON_H</name></member>
     <member refid="group___overview_1ga6107e293b2406555e93aaec74b2581c5" kind="define"><name>XSM_CH_CALIBRATION</name></member>
     <member refid="group___overview_1gacf2d376d1cb081da16ed3bb9082819c9" kind="define"><name>XSM_ATR_BRAM_UPPER</name></member>
     <member refid="group___overview_1ga9379c9f0bf54792abbe6557caf05c531" kind="define"><name>XSM_ATR_BRAM_LOWER</name></member>
@@ -225,6 +224,10 @@
     <member refid="group___overview_1ga27dd3fd2c51165263f630571a82c3324" kind="variable"><name>XSysMon_ConfigTable</name></member>
   </compound>
   <compound refid="xsysmon__hw_8h" kind="file"><name>xsysmon_hw.h</name>
+    <member refid="group___overview_1ga8775f2b8e969bd6c1d8dfbf05ca8a5dc" kind="define"><name>SYSTEM_MANAGEMENT</name></member>
+    <member refid="group___overview_1gaa7063bca866793ee560c0ffd5f09a353" kind="define"><name>XADC</name></member>
+    <member refid="group___overview_1gab5df5b0265ad6eea7eba2fe1ec1023f0" kind="define"><name>XSM_IP_TYPE</name></member>
+    <member refid="group___overview_1ga22296e681b0b9093bd0a1bfbb286de9e" kind="define"><name>XSM_IP_OFFSET</name></member>
     <member refid="group___overview_1gadd7076ff49ebebb01d1e16560a766438" kind="define"><name>XSM_SRR_OFFSET</name></member>
     <member refid="group___overview_1gaaba7d7c2a7407d9c762149d5f0baeb42" kind="define"><name>XSM_SR_OFFSET</name></member>
     <member refid="group___overview_1gafa412d1b4a44c7bd90f0a680c9560f9e" kind="define"><name>XSM_AOR_OFFSET</name></member>
@@ -481,11 +484,6 @@
     <member refid="group___overview_1ga11658b4528e680cd39b2a72bc05c7d67" kind="define"><name>XSM_ATR_OT_UPPER_VAL_SHIFT</name></member>
     <member refid="group___overview_1gac10c01b130262bcb027c21c83ad80944" kind="define"><name>XSM_ATR_OT_UPPER_ENB_VAL</name></member>
     <member refid="group___overview_1gab5dda69e2296476fe1e333bc8dc318ab" kind="define"><name>XSM_ATR_OT_UPPER_VAL_MAX</name></member>
-    <member refid="group___overview_1ga0b83dff467f78b828da95552a34b27ae" kind="define"><name>XSYSMON_HW_H</name></member>
-    <member refid="group___overview_1ga8775f2b8e969bd6c1d8dfbf05ca8a5dc" kind="define"><name>SYSTEM_MANAGEMENT</name></member>
-    <member refid="group___overview_1gaa7063bca866793ee560c0ffd5f09a353" kind="define"><name>XADC</name></member>
-    <member refid="group___overview_1gab5df5b0265ad6eea7eba2fe1ec1023f0" kind="define"><name>XSM_IP_TYPE</name></member>
-    <member refid="group___overview_1ga22296e681b0b9093bd0a1bfbb286de9e" kind="define"><name>XSM_IP_OFFSET</name></member>
     <member refid="group___overview_1ga9c287afa2245c955bd1fbcd8ed4f9b02" kind="define"><name>XSysMon_ReadReg</name></member>
     <member refid="group___overview_1ga145c5d79fcbe0223c3427d91f03c95e5" kind="define"><name>XSysMon_WriteReg</name></member>
   </compound>
@@ -649,6 +647,13 @@
     <member refid="group___overview_1ga3c4487fa8b08f41c807433ef456abc75" kind="define"><name>XSM_SEQ_MODE_SINGCHAN</name></member>
     <member refid="group___overview_1gacac995b84cec0748dde6c82998337b72" kind="define"><name>XSM_SEQ_MODE_SIMUL</name></member>
     <member refid="group___overview_1gaa1b34b548ae9f0d95c1cd3185b6d84b4" kind="define"><name>XSM_SEQ_MODE_INDEPENDENT</name></member>
+    <member refid="group___overview_1ga6107e293b2406555e93aaec74b2581c5" kind="define"><name>XSM_CH_CALIBRATION</name></member>
+    <member refid="group___overview_1gacf2d376d1cb081da16ed3bb9082819c9" kind="define"><name>XSM_ATR_BRAM_UPPER</name></member>
+    <member refid="group___overview_1ga9379c9f0bf54792abbe6557caf05c531" kind="define"><name>XSM_ATR_BRAM_LOWER</name></member>
+    <member refid="group___overview_1ga8775f2b8e969bd6c1d8dfbf05ca8a5dc" kind="define"><name>SYSTEM_MANAGEMENT</name></member>
+    <member refid="group___overview_1gaa7063bca866793ee560c0ffd5f09a353" kind="define"><name>XADC</name></member>
+    <member refid="group___overview_1gab5df5b0265ad6eea7eba2fe1ec1023f0" kind="define"><name>XSM_IP_TYPE</name></member>
+    <member refid="group___overview_1ga22296e681b0b9093bd0a1bfbb286de9e" kind="define"><name>XSM_IP_OFFSET</name></member>
     <member refid="group___overview_1gadd7076ff49ebebb01d1e16560a766438" kind="define"><name>XSM_SRR_OFFSET</name></member>
     <member refid="group___overview_1gaaba7d7c2a7407d9c762149d5f0baeb42" kind="define"><name>XSM_SR_OFFSET</name></member>
     <member refid="group___overview_1gafa412d1b4a44c7bd90f0a680c9560f9e" kind="define"><name>XSM_AOR_OFFSET</name></member>
@@ -955,10 +960,6 @@
     <member refid="group___overview_1ga1b3e61dde34a23c6c906ddde3aabcce3" kind="function"><name>XSysMon_IntrGetEnabled</name></member>
     <member refid="group___overview_1ga49bbe691a17f0d77753754fb18cfadb4" kind="function"><name>XSysMon_IntrGetStatus</name></member>
     <member refid="group___overview_1ga27b30e66ba4301e6cb02d1cc6a478a2b" kind="function"><name>XSysMon_IntrClear</name></member>
-    <member refid="group___overview_1ga2983383ca62ff3388c03837f5fa59e64" kind="define"><name>XSYSMON_H</name></member>
-    <member refid="group___overview_1ga6107e293b2406555e93aaec74b2581c5" kind="define"><name>XSM_CH_CALIBRATION</name></member>
-    <member refid="group___overview_1gacf2d376d1cb081da16ed3bb9082819c9" kind="define"><name>XSM_ATR_BRAM_UPPER</name></member>
-    <member refid="group___overview_1ga9379c9f0bf54792abbe6557caf05c531" kind="define"><name>XSM_ATR_BRAM_LOWER</name></member>
     <member refid="group___overview_1ga1d57ea7cf0aa423dc29cf14d8a45ddcf" kind="define"><name>XSysMon_IsEventSamplingModeSet</name></member>
     <member refid="group___overview_1ga3b2cfa1e10636a54c490f2e43d19d599" kind="define"><name>XSysMon_IsDrpBusy</name></member>
     <member refid="group___overview_1ga63f1a8eed662201ee54f733d5ff64632" kind="define"><name>XSysMon_IsDrpLocked</name></member>
@@ -966,11 +967,6 @@
     <member refid="group___overview_1ga2b75d20fe44358333e528a14340568ce" kind="define"><name>XSysMon_RawToVoltage</name></member>
     <member refid="group___overview_1ga5564a9bf0b8fe67202118178139209c1" kind="define"><name>XSysMon_TemperatureToRaw</name></member>
     <member refid="group___overview_1gaca23c289a4caa9f1ef31206e680216a4" kind="define"><name>XSysMon_VoltageToRaw</name></member>
-    <member refid="group___overview_1ga0b83dff467f78b828da95552a34b27ae" kind="define"><name>XSYSMON_HW_H</name></member>
-    <member refid="group___overview_1ga8775f2b8e969bd6c1d8dfbf05ca8a5dc" kind="define"><name>SYSTEM_MANAGEMENT</name></member>
-    <member refid="group___overview_1gaa7063bca866793ee560c0ffd5f09a353" kind="define"><name>XADC</name></member>
-    <member refid="group___overview_1gab5df5b0265ad6eea7eba2fe1ec1023f0" kind="define"><name>XSM_IP_TYPE</name></member>
-    <member refid="group___overview_1ga22296e681b0b9093bd0a1bfbb286de9e" kind="define"><name>XSM_IP_OFFSET</name></member>
     <member refid="group___overview_1ga9c287afa2245c955bd1fbcd8ed4f9b02" kind="define"><name>XSysMon_ReadReg</name></member>
     <member refid="group___overview_1ga145c5d79fcbe0223c3427d91f03c95e5" kind="define"><name>XSysMon_WriteReg</name></member>
     <member refid="group___overview_1gadede42b163bc7f23c95e7007fa336b9a" kind="define"><name>XSM_ATR_TEST_VALUE</name></member>
@@ -982,7 +978,5 @@
   <compound refid="dir_e3eb25fdb863d309faae8f5b2c199b9c" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_6fab7843e203ad57d1eeaf3f01799ad5" kind="dir"><name>sysmon</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

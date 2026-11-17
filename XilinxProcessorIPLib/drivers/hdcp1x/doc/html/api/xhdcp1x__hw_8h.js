@@ -73,5 +73,6 @@ var xhdcp1x__hw_8h =
     [ "XHdcp1x_IsTX", "xhdcp1x__hw_8h.html#ga0eb257e3b2af7d84e72e89dd93703d3d", null ],
     [ "XHdcp1x_Out32", "xhdcp1x__hw_8h.html#ga4797628ed0ce1674c0e34d410185e29c", null ],
     [ "XHdcp1x_ReadReg", "xhdcp1x__hw_8h.html#ga5477e830e157f72072a2a7f470365682", null ],
-    [ "XHdcp1x_WriteReg", "xhdcp1x__hw_8h.html#ga8e356b098ccbcf8c2a851425e884ac00", null ]
+    [ "XHdcp1x_WriteReg", "xhdcp1x__hw_8h.html#ga8e356b098ccbcf8c2a851425e884ac00", null ],
+    [ "XPAR_XDPTXSS_NUM_INSTANCES", "xhdcp1x__hw_8h.html#gaae5186441608522aa26ea269b028545d", null ]
 ];

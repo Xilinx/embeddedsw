@@ -129,6 +129,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gae8d5cc63e59e2c814c2181043759fb9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__client__api.html#gae8d5cc63e59e2c814c2181043759fb9d">XPuf_ClearPufID</a> (const <a class="el" href="struct_x_puf___client_instance.html">XPuf_ClientInstance</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gae8d5cc63e59e2c814c2181043759fb9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request for clearing PUF ID.  <a href="#gae8d5cc63e59e2c814c2181043759fb9d">More...</a><br/></td></tr>
 <tr class="separator:gae8d5cc63e59e2c814c2181043759fb9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2834ea2d1e70119bc740382865dadb6a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__client__api.html#ga2834ea2d1e70119bc740382865dadb6a">XPuf_GetClientLibVersion</a> (u32 *Version)</td></tr>
+<tr class="memdesc:ga2834ea2d1e70119bc740382865dadb6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the XilPuf library version that the client is built with.  <a href="#ga2834ea2d1e70119bc740382865dadb6a">More...</a><br/></td></tr>
+<tr class="separator:ga2834ea2d1e70119bc740382865dadb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03926d586e353bb459b3da51ae7e4e8b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__client__api.html#ga03926d586e353bb459b3da51ae7e4e8b">XPuf_GetServerLibInfo</a> (<a class="el" href="struct_x_puf___client_instance.html">XPuf_ClientInstance</a> *InstancePtr, Xil_LibInfo *LibInfo)</td></tr>
+<tr class="memdesc:ga03926d586e353bb459b3da51ae7e4e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI request to get the XilPuf library version and capability bits running on the PLM.  <a href="#ga03926d586e353bb459b3da51ae7e4e8b">More...</a><br/></td></tr>
+<tr class="separator:ga03926d586e353bb459b3da51ae7e4e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad52ef96e7928d55f964e2169dfb527de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xpuf__client__api.html#gad52ef96e7928d55f964e2169dfb527de">XPuf_SendRequest</a> (const <a class="el" href="struct_x_puf___client_instance.html">XPuf_ClientInstance</a> *InstancePtr, u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)</td></tr>
 <tr class="memdesc:gad52ef96e7928d55f964e2169dfb527de"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends request to PLM through either SMC or IPI mailbox based on the execution environment.  <a href="#gad52ef96e7928d55f964e2169dfb527de">More...</a><br/></td></tr>
 <tr class="separator:gad52ef96e7928d55f964e2169dfb527de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,7 +168,7 @@ Functions</h2></td></tr>
 
 <p>Shift value to get SLR index in the header of the IPI request. </p>
 
-<p>Referenced by <a class="el" href="group__xpuf__client__api.html#gae8d5cc63e59e2c814c2181043759fb9d">XPuf_ClearPufID()</a>, <a class="el" href="group__xpuf__client__api.html#ga1b42ac41fa42710bb134fd1f1325c397">XPuf_Regeneration()</a>, and <a class="el" href="group__xpuf__client__api.html#ga773b36e5066bc5cea6d6d400327c1ba1">XPuf_Registration()</a>.</p>
+<p>Referenced by <a class="el" href="group__xpuf__client__api.html#gae8d5cc63e59e2c814c2181043759fb9d">XPuf_ClearPufID()</a>, <a class="el" href="group__xpuf__client__api.html#ga03926d586e353bb459b3da51ae7e4e8b">XPuf_GetServerLibInfo()</a>, <a class="el" href="group__xpuf__client__api.html#ga1b42ac41fa42710bb134fd1f1325c397">XPuf_Regeneration()</a>, and <a class="el" href="group__xpuf__client__api.html#ga773b36e5066bc5cea6d6d400327c1ba1">XPuf_Registration()</a>.</p>
 
 </div>
 </div>
@@ -245,6 +251,83 @@ Functions</h2></td></tr>
 </ul>
 
 <p>References <a class="el" href="struct_x_puf___client_instance.html#a91ea2a4589c09bc2ec99ffab36fa3ed8">XPuf_ClientInstance::MailboxPtr</a>, and <a class="el" href="struct_x_puf___client_instance.html#a7143b439788b58016d427e58f4c9333d">XPuf_ClientInstance::SlrIndex</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga2834ea2d1e70119bc740382865dadb6a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XPuf_GetClientLibVersion </td>
+          <td>(</td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>Version</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function returns the XilPuf library version that the client is built with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Version</td><td>Pointer to hold the 32-bit library version, where the upper 16 bits hold the major version and the lower 16 bits hold the minor version</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the library version is read successfully</li>
+<li>XST_INVALID_PARAM if Version is NULL </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga03926d586e353bb459b3da51ae7e4e8b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XPuf_GetServerLibInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_puf___client_instance.html">XPuf_ClientInstance</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Xil_LibInfo *&#160;</td>
+          <td class="paramname"><em>LibInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function sends an IPI request to get the XilPuf library version and capability bits running on the PLM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
+    <tr><td class="paramname">LibInfo</td><td>Pointer to Xil_LibInfo. LibVersion and Capability are filled on success. The Version and NistStatus fields are reserved for XilPuf and must be ignored.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the library information is read successfully</li>
+<li>XST_INVALID_PARAM if any input parameter is invalid</li>
+<li>XST_FAILURE if there is a failure </li>
+</ul>
+</dd></dl>
+<ul>
+<li>Perform input parameter validation. Return XST_INVALID_PARAM if input parameters are invalid.</li>
+<li>Query library info via the Features command using a valid PUF api-id as the selector, so the command succeeds and the server returns the library version/capability at fixed indices.</li>
+<li>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</li>
+</ul>
+
+<p>References <a class="el" href="xpuf__mailbox_8h.html#a4b6c33d928a245e03965396fdde7ceea">PAYLOAD_ARG_CNT</a>, <a class="el" href="xpuf__mailbox_8h.html#aff9dc4f696e94fbe988997c3a4ba60c3">RESPONSE_ARG_CNT</a>, <a class="el" href="struct_x_puf___client_instance.html#a7143b439788b58016d427e58f4c9333d">XPuf_ClientInstance::SlrIndex</a>, <a class="el" href="xpuf__defs_8h.html#a2e19f3b163a88acd0d435dbb8f3e6980a6b2a951369bb1914dc8d535fc14f79f5">XPUF_API_FEATURES</a>, <a class="el" href="xpuf__defs_8h.html#a2e19f3b163a88acd0d435dbb8f3e6980a811924cbfc83968c698b096d31214a80">XPUF_PUF_REGISTRATION</a>, <a class="el" href="group__xpuf__client__api.html#gad52ef96e7928d55f964e2169dfb527de">XPuf_SendRequest()</a>, and <a class="el" href="group__xpuf__client__api.html#gab83919b4e338ae14a1ea949eefc6d87f">XPUF_SLR_INDEX_SHIFT</a>.</p>
 
 </div>
 </div>
@@ -391,8 +474,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
     <tr><td class="paramname">PayloadBuf</td><td>Pointer to the payload message </td></tr>
     <tr><td class="paramname">PayloadLen</td><td>Length of the payload message </td></tr>
-    <tr><td class="paramname">ResponseBuf</td><td>Pointer to store response values (can be NULL) </td></tr>
-    <tr><td class="paramname">ResponseLen</td><td>Length of response buffer (number of u32 elements)</td></tr>
+    <tr><td class="paramname">ResponseBuf</td><td>Pointer to the caller buffer that receives the response data words. When non-NULL, it must hold RESPONSE_ARG_CNT words: the IPI receive path fills the whole response frame before the status word is shifted out. May be NULL when no response data is needed. </td></tr>
+    <tr><td class="paramname">ResponseLen</td><td>Number of response data words the caller consumes (0..RESPONSE_ARG_CNT - 1). This is the count of returned words, not the required buffer size (see ResponseBuf).</td></tr>
   </table>
   </dd>
 </dl>
@@ -404,16 +487,18 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a generic API that internally handles SMC or Mailbox communication based on the build configuration. </dd></dl>
 <ul>
-<li>Validate input parameters.</li>
+<li>A non-zero ResponseLen requires a non-NULL ResponseBuf. ResponseLen is clamped below to the reachable data words before the mailbox shift.</li>
 <li>For other environments, use IPI mailbox communication.</li>
 <li>Validate mailbox pointer for IPI communication</li>
 <li>Send request through IPI mailbox</li>
-<li>Note: For communication via IPI mailbox, response is not directly returned. The caller should handle response retrieval if needed.</li>
+<li>On failure, return without shifting/mutating ResponseBuf.</li>
+<li>Cap ResponseLen: the mailbox shift below consumes Response[0], leaving RESPONSE_ARG_CNT - 1 data slots reachable via ResponseBuf[Idx + 1U].</li>
+<li>Shift IPI response data in ResponseBuf to skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0] holds the first data word, matching the SMC path layout. <a class="el" href="group__xpuf__mailbox__apis.html#ga2f20e5b50966261f896c0e5ea7ec6f1d" title="This function sends IPI request to the target module and gets the response from it. ">XPuf_ProcessMailbox()</a> writes RESPONSE_ARG_CNT words when ResponseBuf is non-NULL.</li>
 </ul>
 
-<p>References <a class="el" href="struct_x_puf___client_instance.html#a91ea2a4589c09bc2ec99ffab36fa3ed8">XPuf_ClientInstance::MailboxPtr</a>, and <a class="el" href="group__xpuf__mailbox__apis.html#ga2052fd116d6e086ca703c3518eafd887">XPuf_ProcessMailbox()</a>.</p>
+<p>References <a class="el" href="struct_x_puf___client_instance.html#a91ea2a4589c09bc2ec99ffab36fa3ed8">XPuf_ClientInstance::MailboxPtr</a>, <a class="el" href="xpuf__mailbox_8h.html#aff9dc4f696e94fbe988997c3a4ba60c3">RESPONSE_ARG_CNT</a>, and <a class="el" href="group__xpuf__mailbox__apis.html#ga2f20e5b50966261f896c0e5ea7ec6f1d">XPuf_ProcessMailbox()</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xpuf__client__api.html#gae8d5cc63e59e2c814c2181043759fb9d">XPuf_ClearPufID()</a>, <a class="el" href="group__xpuf__client__api.html#ga1b42ac41fa42710bb134fd1f1325c397">XPuf_Regeneration()</a>, and <a class="el" href="group__xpuf__client__api.html#ga773b36e5066bc5cea6d6d400327c1ba1">XPuf_Registration()</a>.</p>
+<p>Referenced by <a class="el" href="group__xpuf__client__api.html#gae8d5cc63e59e2c814c2181043759fb9d">XPuf_ClearPufID()</a>, <a class="el" href="group__xpuf__client__api.html#ga03926d586e353bb459b3da51ae7e4e8b">XPuf_GetServerLibInfo()</a>, <a class="el" href="group__xpuf__client__api.html#ga1b42ac41fa42710bb134fd1f1325c397">XPuf_Regeneration()</a>, and <a class="el" href="group__xpuf__client__api.html#ga773b36e5066bc5cea6d6d400327c1ba1">XPuf_Registration()</a>.</p>
 
 </div>
 </div>

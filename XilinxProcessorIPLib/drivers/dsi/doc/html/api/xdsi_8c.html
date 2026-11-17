@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('xdsi_8c.html','');});
 <div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xdsi_8h.html">xdsi.h</a>&quot;</code><br/>
 <code>#include &quot;xvidc.h&quot;</code><br/>
+<code>#include &quot;sleep.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -135,6 +136,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga445dc0c1ca405f81b367d7e556e83f8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga445dc0c1ca405f81b367d7e556e83f8c">XDsi_SetMode</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="group__dsi.html#gaea217ff22790ee5e53f51470f67b94a0">XDsi_DsiModeType</a> mode)</td></tr>
 <tr class="memdesc:ga445dc0c1ca405f81b367d7e556e83f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch DSI controller between video and command modes.  <a href="group__dsi.html#ga445dc0c1ca405f81b367d7e556e83f8c">More...</a><br/></td></tr>
 <tr class="separator:ga445dc0c1ca405f81b367d7e556e83f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4f329420e8d5f885fd7d9adad9489c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gab4f329420e8d5f885fd7d9adad9489c7">XDsi_SetLpdtMode</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="group__dsi.html#ga429e17d80c609f1e07b8b61bb442f221">XDsi_CmdLpdtType</a> Mode)</td></tr>
+<tr class="memdesc:gab4f329420e8d5f885fd7d9adad9489c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the DCS command mode or LPDT transport.  <a href="group__dsi.html#gab4f329420e8d5f885fd7d9adad9489c7">More...</a><br/></td></tr>
+<tr class="separator:gab4f329420e8d5f885fd7d9adad9489c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga195ca1c404968f10c578a0e282cdbd71"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga195ca1c404968f10c578a0e282cdbd71">XDsi_SendLpdtPacket</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html">XDsiTx_CmdModePkt</a> *CmdPktData)</td></tr>
+<tr class="memdesc:ga195ca1c404968f10c578a0e282cdbd71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a command packet over LPDT.  <a href="group__dsi.html#ga195ca1c404968f10c578a0e282cdbd71">More...</a><br/></td></tr>
+<tr class="separator:ga195ca1c404968f10c578a0e282cdbd71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37a2f766b23c8e06f9bc35b839f994a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9">XDsi_SetUlpsMode</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, u32 Enable)</td></tr>
+<tr class="memdesc:ga37a2f766b23c8e06f9bc35b839f994a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enters or exits the Ultra-Low Power State (ULPS).  <a href="group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9">More...</a><br/></td></tr>
+<tr class="separator:ga37a2f766b23c8e06f9bc35b839f994a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef3bbf8bd7a39e7154eb3ce1129fdda7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gaef3bbf8bd7a39e7154eb3ce1129fdda7">XDsi_GetConfigParams</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="struct_x_dsi___config_parameters.html">XDsi_ConfigParameters</a> *ConfigInfo)</td></tr>
 <tr class="memdesc:gaef3bbf8bd7a39e7154eb3ce1129fdda7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read current DSI controller configuration parameters.  <a href="group__dsi.html#gaef3bbf8bd7a39e7154eb3ce1129fdda7">More...</a><br/></td></tr>
 <tr class="separator:gaef3bbf8bd7a39e7154eb3ce1129fdda7"><td class="memSeparator" colspan="2">&#160;</td></tr>

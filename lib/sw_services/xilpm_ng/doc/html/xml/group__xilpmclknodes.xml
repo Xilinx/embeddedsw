@@ -1,0 +1,2578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilpmclknodes" kind="group">
+    <compoundname>xilpmclknodes</compoundname>
+    <title>Clock Nodes</title>
+    <innergroup refid="group__xilpmmionodes">MIO Nodes</innergroup>
+      <sectiondef kind="user-defined">
+      <header>Versal Clock Nodes</header>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4b71ca556e6404791cdf253cbef0655d" prot="public" static="no">
+        <name>PM_CLK_PMC_PLL</name>
+        <initializer>(0x8104001U)</initializer>
+        <briefdescription>
+<para>Versal Clock Nodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="456" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga15bc0c59280f7261613d35cf6d8d1e8a" prot="public" static="no">
+        <name>PM_CLK_APU_PLL</name>
+        <initializer>(0x8104002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="457" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga0039f4a0e8444f90d2737bfd1e5af94c" prot="public" static="no">
+        <name>PM_CLK_RPU_PLL</name>
+        <initializer>(0x8104003U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="458" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga116099df969a0c711f8de4e674ad5952" prot="public" static="no">
+        <name>PM_CLK_CPM_PLL</name>
+        <initializer>(0x8104004U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="459" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga941a263c47b927a4349794590e1b4194" prot="public" static="no">
+        <name>PM_CLK_NOC_PLL</name>
+        <initializer>(0x8104005U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad07f4811a0640f840f4c1cd4c1b5dd34" prot="public" static="no">
+        <name>PM_CLK_PMC_PRESRC</name>
+        <initializer>(0x8208007U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="461" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="461" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab34d2b6712dcecbe569282013a912cf6" prot="public" static="no">
+        <name>PM_CLK_PMC_POSTCLK</name>
+        <initializer>(0x8208008U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="462" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac32a34364776d67d39542330feb7beac" prot="public" static="no">
+        <name>PM_CLK_PMC_PLL_OUT</name>
+        <initializer>(0x8208009U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="463" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="463" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9c665e1a646f994d3f2d62f7f23499f3" prot="public" static="no">
+        <name>PM_CLK_PPLL</name>
+        <initializer>(0x820800AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="464" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaa57a970275f1ea14dd32d4b2f7fd3eba" prot="public" static="no">
+        <name>PM_CLK_NOC_PRESRC</name>
+        <initializer>(0x820800BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="465" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="465" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga66f3fcb976f1521b4d32c66cc7b09227" prot="public" static="no">
+        <name>PM_CLK_NOC_POSTCLK</name>
+        <initializer>(0x820800CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="466" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7d2563d6e559972b8eb371bfe6c95b47" prot="public" static="no">
+        <name>PM_CLK_NOC_PLL_OUT</name>
+        <initializer>(0x820800DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="467" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="467" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac55c88be5c0afc41ac10b9e33e7f3dcb" prot="public" static="no">
+        <name>PM_CLK_NPLL</name>
+        <initializer>(0x820800EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="468" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga693f50ca1698c3dec093a17e1e44cdad" prot="public" static="no">
+        <name>PM_CLK_APU_PRESRC</name>
+        <initializer>(0x820800FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="469" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="469" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8066f3757184d051f14865051acb7ff8" prot="public" static="no">
+        <name>PM_CLK_APU_POSTCLK</name>
+        <initializer>(0x8208010U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="470" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae497bcbdaf8a7e7949df0066527417c9" prot="public" static="no">
+        <name>PM_CLK_APU_PLL_OUT</name>
+        <initializer>(0x8208011U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="471" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabfb7228c7b8e477d108ea8ce7ce9f05b" prot="public" static="no">
+        <name>PM_CLK_APLL</name>
+        <initializer>(0x8208012U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="472" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadf6f5c81a116f640e2834c7dde17d6d0" prot="public" static="no">
+        <name>PM_CLK_RPU_PRESRC</name>
+        <initializer>(0x8208013U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="473" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac5b7a01df768dae47330f0e87152fd74" prot="public" static="no">
+        <name>PM_CLK_RPU_POSTCLK</name>
+        <initializer>(0x8208014U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="474" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga84d9a7b743b3f8d914d9f4388b3d3ef6" prot="public" static="no">
+        <name>PM_CLK_RPU_PLL_OUT</name>
+        <initializer>(0x8208015U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="475" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad35d3bfde18ee8b6d931d2d313614d8b" prot="public" static="no">
+        <name>PM_CLK_RPLL</name>
+        <initializer>(0x8208016U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="476" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadc9636ba52c0d9e7ed148a66f4562a0b" prot="public" static="no">
+        <name>PM_CLK_CPM_PRESRC</name>
+        <initializer>(0x8208017U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="477" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="477" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac9cf6d680f7330b54ab13432dd5a3e90" prot="public" static="no">
+        <name>PM_CLK_CPM_POSTCLK</name>
+        <initializer>(0x8208018U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="478" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="478" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5f91c8f32c0cd07d71927588640c93ab" prot="public" static="no">
+        <name>PM_CLK_CPM_PLL_OUT</name>
+        <initializer>(0x8208019U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="479" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8958b11df3943ad90e34adc8066cbb9f" prot="public" static="no">
+        <name>PM_CLK_CPLL</name>
+        <initializer>(0x820801AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="480" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafbbc46a3d227b26232e86b6189606810" prot="public" static="no">
+        <name>PM_CLK_PPLL_TO_XPD</name>
+        <initializer>(0x820801BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="481" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9b61c21f100f09914bd680639680cb16" prot="public" static="no">
+        <name>PM_CLK_NPLL_TO_XPD</name>
+        <initializer>(0x820801CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="482" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabc886f05ca70358b9adf0df699a0ede3" prot="public" static="no">
+        <name>PM_CLK_APLL_TO_XPD</name>
+        <initializer>(0x820801DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="483" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga69a2fdc8a97c8cb60c920950feb8d67e" prot="public" static="no">
+        <name>PM_CLK_RPLL_TO_XPD</name>
+        <initializer>(0x820801EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="484" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaaa181e83b32517b73bdb17ae2fceb2f1" prot="public" static="no">
+        <name>PM_CLK_EFUSE_REF</name>
+        <initializer>(0x820801FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="485" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gada8340971a85fc33660e83d5c201e497" prot="public" static="no">
+        <name>PM_CLK_SYSMON_REF</name>
+        <initializer>(0x8208020U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="486" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga58d15111932ac1356cb4c7671c0f2933" prot="public" static="no">
+        <name>PM_CLK_IRO_SUSPEND_REF</name>
+        <initializer>(0x8208021U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="487" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga3d3304e6099ac44c5b81012c4cf299e1" prot="public" static="no">
+        <name>PM_CLK_USB_SUSPEND</name>
+        <initializer>(0x8208022U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="488" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae804581e89df563bffc1bf1bcbf367b7" prot="public" static="no">
+        <name>PM_CLK_SWITCH_TIMEOUT</name>
+        <initializer>(0x8208023U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="489" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9cc1ca5b9b191589e019a6d5b87a32dd" prot="public" static="no">
+        <name>PM_CLK_RCLK_PMC</name>
+        <initializer>(0x8208024U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="490" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga211c79d5f5c014efbd48037227836240" prot="public" static="no">
+        <name>PM_CLK_RCLK_LPD</name>
+        <initializer>(0x8208025U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="491" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf68ee41138a79c5a685effbce3e44443" prot="public" static="no">
+        <name>PM_CLK_WDT</name>
+        <initializer>(0x8208026U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="492" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="492" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5f0f96b6cc6d8152ce6fdc16785b6e8a" prot="public" static="no">
+        <name>PM_CLK_TTC0</name>
+        <initializer>(0x8208027U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="493" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae46edec97b24e51ba22382bd4236d14e" prot="public" static="no">
+        <name>PM_CLK_TTC1</name>
+        <initializer>(0x8208028U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="494" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga839a46b90b031e65b1002917b81c012a" prot="public" static="no">
+        <name>PM_CLK_TTC2</name>
+        <initializer>(0x8208029U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="495" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad603822b5784cfac62c03ae4b1ce333d" prot="public" static="no">
+        <name>PM_CLK_TTC3</name>
+        <initializer>(0x820802AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="496" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaeba3bece22badf3129d3833f51e39586" prot="public" static="no">
+        <name>PM_CLK_GEM_TSU</name>
+        <initializer>(0x820802BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="497" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga1732f8e8d2f79c91fd3e05df0ce78f41" prot="public" static="no">
+        <name>PM_CLK_GEM_TSU_LB</name>
+        <initializer>(0x820802CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="498" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="498" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafbfaf3530ba99a5bfc9846a57448464d" prot="public" static="no">
+        <name>PM_CLK_MUXED_IRO_DIV2</name>
+        <initializer>(0x820802DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="499" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2bf6acacdf3eadf3d2cd919e89e5ef0d" prot="public" static="no">
+        <name>PM_CLK_MUXED_IRO_DIV4</name>
+        <initializer>(0x820802EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="500" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="500" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga692842129a58f5007f2c22d4e1b18ffe" prot="public" static="no">
+        <name>PM_CLK_PSM_REF</name>
+        <initializer>(0x820802FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="501" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad8a0723789f3b007f12bb67e8fc45953" prot="public" static="no">
+        <name>PM_CLK_GEM0_RX</name>
+        <initializer>(0x8208030U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="502" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac8ab0cb5e2fc3dd5e828ef421a9479b0" prot="public" static="no">
+        <name>PM_CLK_GEM0_TX</name>
+        <initializer>(0x8208031U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="503" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafc758368a39212d268c72a8818e33bf5" prot="public" static="no">
+        <name>PM_CLK_GEM1_RX</name>
+        <initializer>(0x8208032U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="504" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadb70a8eea42b8399ea74b398e55c864b" prot="public" static="no">
+        <name>PM_CLK_GEM1_TX</name>
+        <initializer>(0x8208033U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaacb8e96b221709981a7004e9bc09a37e" prot="public" static="no">
+        <name>PM_CLK_CPM_CORE_REF</name>
+        <initializer>(0x8208034U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="506" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7e754b057b07009a2f680023cf1238b7" prot="public" static="no">
+        <name>PM_CLK_CPM_LSBUS_REF</name>
+        <initializer>(0x8208035U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="507" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga68abb52af8ae23a5d1501f63da2e4c64" prot="public" static="no">
+        <name>PM_CLK_CPM_DBG_REF</name>
+        <initializer>(0x8208036U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="508" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabed36ce4e967c5019c867fe9800d0726" prot="public" static="no">
+        <name>PM_CLK_CPM_AUX0_REF</name>
+        <initializer>(0x8208037U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="509" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac2d7c1a596d98708ae038d60d3b19cc6" prot="public" static="no">
+        <name>PM_CLK_CPM_AUX1_REF</name>
+        <initializer>(0x8208038U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="510" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4de8726391a203267b10fdb1c1bb2415" prot="public" static="no">
+        <name>PM_CLK_QSPI_REF</name>
+        <initializer>(0x8208039U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="511" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga07a112708f852c5034c7296c24547af4" prot="public" static="no">
+        <name>PM_CLK_OSPI_REF</name>
+        <initializer>(0x820803AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="512" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaa66dbb01f74752c5d89e0e30cdf156f0" prot="public" static="no">
+        <name>PM_CLK_SDIO0_REF</name>
+        <initializer>(0x820803BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="513" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac7ed9519819eb45a3e451f6a496632f6" prot="public" static="no">
+        <name>PM_CLK_SDIO1_REF</name>
+        <initializer>(0x820803CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="514" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaea35e04c7e8bac106c9b931df8576548" prot="public" static="no">
+        <name>PM_CLK_PMC_LSBUS_REF</name>
+        <initializer>(0x820803DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="515" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga3b7ba49ef108cd28cadad8fef20c212b" prot="public" static="no">
+        <name>PM_CLK_I2C_REF</name>
+        <initializer>(0x820803EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="516" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga08a699e5a8161faf4c018aea7f36eebf" prot="public" static="no">
+        <name>PM_CLK_TEST_PATTERN_REF</name>
+        <initializer>(0x820803FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="517" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad103d69d140cc390327265dc3b16c9ac" prot="public" static="no">
+        <name>PM_CLK_DFT_OSC_REF</name>
+        <initializer>(0x8208040U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="518" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga1b6d526a1a858cf6c003dc111f656d1a" prot="public" static="no">
+        <name>PM_CLK_PMC_PL0_REF</name>
+        <initializer>(0x8208041U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="519" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7c886e9dd6c9e180784bb03c4e1881cc" prot="public" static="no">
+        <name>PM_CLK_PMC_PL1_REF</name>
+        <initializer>(0x8208042U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="520" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaad7ce99b806aad14140c94c30fdd4016" prot="public" static="no">
+        <name>PM_CLK_PMC_PL2_REF</name>
+        <initializer>(0x8208043U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="521" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="521" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2efc8ad1f376040169208e98681a725f" prot="public" static="no">
+        <name>PM_CLK_PMC_PL3_REF</name>
+        <initializer>(0x8208044U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="522" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae8c46e61b73d517ecd4dfe4b8b662623" prot="public" static="no">
+        <name>PM_CLK_CFU_REF</name>
+        <initializer>(0x8208045U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="523" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga85bd205d47c0597c0eedd90e5995a489" prot="public" static="no">
+        <name>PM_CLK_SPARE_REF</name>
+        <initializer>(0x8208046U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="524" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaae810bd27ddf74703df3c652b08a175b" prot="public" static="no">
+        <name>PM_CLK_NPI_REF</name>
+        <initializer>(0x8208047U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="525" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="525" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga6714ddbfe1ee0c02e648f6ed341c1865" prot="public" static="no">
+        <name>PM_CLK_HSM0_REF</name>
+        <initializer>(0x8208048U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="526" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf996a5a419daa44d6a519254ce37ead1" prot="public" static="no">
+        <name>PM_CLK_HSM1_REF</name>
+        <initializer>(0x8208049U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="527" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7285898727e23790bfb5542c5c2f7b26" prot="public" static="no">
+        <name>PM_CLK_SD_DLL_REF</name>
+        <initializer>(0x820804AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="528" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="528" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad598b32bd576d2ae52319ed72db6e920" prot="public" static="no">
+        <name>PM_CLK_FPD_TOP_SWITCH</name>
+        <initializer>(0x820804BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="529" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="529" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae47f1a2bc563f7d6c3bd335ceddc3f39" prot="public" static="no">
+        <name>PM_CLK_FPD_LSBUS</name>
+        <initializer>(0x820804CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="530" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="530" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga46aca85758ed9050f531f5b764fab277" prot="public" static="no">
+        <name>PM_CLK_ACPU</name>
+        <initializer>(0x820804DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="531" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="531" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4234bb9d46293941302af2a08164d3d8" prot="public" static="no">
+        <name>PM_CLK_DBG_TRACE</name>
+        <initializer>(0x820804EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="532" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gacb03e92a1ee119e14ef96922e4fb32e9" prot="public" static="no">
+        <name>PM_CLK_DBG_FPD</name>
+        <initializer>(0x820804FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="533" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="533" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga010dbc5e70d1a412238c84789ceb130a" prot="public" static="no">
+        <name>PM_CLK_LPD_TOP_SWITCH</name>
+        <initializer>(0x8208050U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="534" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="534" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga49716908488503d63c9693f550683b6a" prot="public" static="no">
+        <name>PM_CLK_ADMA</name>
+        <initializer>(0x8208051U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="535" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafc4405814f1d709aa4b57f926330cbf3" prot="public" static="no">
+        <name>PM_CLK_LPD_LSBUS</name>
+        <initializer>(0x8208052U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="536" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="536" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga322f263733b510b6c021bc3423136241" prot="public" static="no">
+        <name>PM_CLK_CPU_R5</name>
+        <initializer>(0x8208053U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="537" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="537" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga70e43dc79f0cca4df84f0c22c1228de8" prot="public" static="no">
+        <name>PM_CLK_CPU_R5_CORE</name>
+        <initializer>(0x8208054U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="538" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga3e88e986c89d47e16ba3230689f51afe" prot="public" static="no">
+        <name>PM_CLK_CPU_R5_OCM</name>
+        <initializer>(0x8208055U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="539" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="539" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga66c7c934de877c56872badc878028eca" prot="public" static="no">
+        <name>PM_CLK_CPU_R5_OCM2</name>
+        <initializer>(0x8208056U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="540" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="540" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga03d62dad5c91c786d57a60502ca590b5" prot="public" static="no">
+        <name>PM_CLK_IOU_SWITCH</name>
+        <initializer>(0x8208057U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="541" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="541" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaabf2b56fca79ea3a3a0f4f4f79376a9a" prot="public" static="no">
+        <name>PM_CLK_GEM0_REF</name>
+        <initializer>(0x8208058U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="542" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7094bd1b27beed0a3c72ac5a4157c949" prot="public" static="no">
+        <name>PM_CLK_GEM1_REF</name>
+        <initializer>(0x8208059U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="543" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="543" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafe70965fe61e3e45de3b40b13b7e05ca" prot="public" static="no">
+        <name>PM_CLK_GEM_TSU_REF</name>
+        <initializer>(0x820805AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="544" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="544" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab369a7442713b99db0ce1b9f811bcbc6" prot="public" static="no">
+        <name>PM_CLK_USB0_BUS_REF</name>
+        <initializer>(0x820805BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="545" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="545" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gacd505e4447d8db0bec742e5cf50e706f" prot="public" static="no">
+        <name>PM_CLK_UART0_REF</name>
+        <initializer>(0x820805CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="546" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga844b7a5071ff20b3c03a753834f76dda" prot="public" static="no">
+        <name>PM_CLK_UART1_REF</name>
+        <initializer>(0x820805DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="547" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga6fea1ebef5e2d9539c5764beae1c9657" prot="public" static="no">
+        <name>PM_CLK_SPI0_REF</name>
+        <initializer>(0x820805EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="548" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="548" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf58df99c1e86e43d8f7631cb1ae660a0" prot="public" static="no">
+        <name>PM_CLK_SPI1_REF</name>
+        <initializer>(0x820805FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="549" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="549" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5cbb122b857b7f0e4ae77ab21befa579" prot="public" static="no">
+        <name>PM_CLK_CAN0_REF</name>
+        <initializer>(0x8208060U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="550" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="550" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9d67df9ba55dc1395f12c9fb7f6ba9f9" prot="public" static="no">
+        <name>PM_CLK_CAN1_REF</name>
+        <initializer>(0x8208061U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="551" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="551" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga59b4276fc5131eddb4a1bd1f78c4857a" prot="public" static="no">
+        <name>PM_CLK_I2C0_REF</name>
+        <initializer>(0x8208062U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="552" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaef45ca959ca9c9fac91e71d477af0772" prot="public" static="no">
+        <name>PM_CLK_I2C1_REF</name>
+        <initializer>(0x8208063U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="553" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabee0cbe87d8fc7a24750430a343d5ad9" prot="public" static="no">
+        <name>PM_CLK_DBG_LPD</name>
+        <initializer>(0x8208064U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="554" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="554" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5d9b506447734ccdb17b69746f89df49" prot="public" static="no">
+        <name>PM_CLK_TIMESTAMP_REF</name>
+        <initializer>(0x8208065U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="555" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae9346d0d657ebc4f170cafebcb648b3e" prot="public" static="no">
+        <name>PM_CLK_DBG_TSTMP</name>
+        <initializer>(0x8208066U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="556" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gacb77c488dfa98062be4d540b22d04dd3" prot="public" static="no">
+        <name>PM_CLK_CPM_TOPSW_REF</name>
+        <initializer>(0x8208067U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="557" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9e890079df18efea90994c8aa7430833" prot="public" static="no">
+        <name>PM_CLK_USB3_DUAL_REF</name>
+        <initializer>(0x8208068U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="558" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae492c0724e371e92127a0fd78be63e58" prot="public" static="no">
+        <name>PM_CLK_REF_CLK</name>
+        <initializer>(0x830C06AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="559" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga21a0f51eb05881b703108792d2bafc78" prot="public" static="no">
+        <name>PM_CLK_PL_ALT_REF_CLK</name>
+        <initializer>(0x830C06BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="560" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="560" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga232c2a36eb02ee6a54ade40e18fad95d" prot="public" static="no">
+        <name>PM_CLK_MUXED_IRO</name>
+        <initializer>(0x830C06CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="561" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga1756e345836cd95c88147a798eac90aa" prot="public" static="no">
+        <name>PM_CLK_PL_EXT</name>
+        <initializer>(0x830C06DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="562" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8d7d49ac0b88969573ae53e9bd55a652" prot="public" static="no">
+        <name>PM_CLK_PL_LB</name>
+        <initializer>(0x830C06EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="563" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga11ef2a96eabfc2ff55386005e28672be" prot="public" static="no">
+        <name>PM_CLK_MIO_50_OR_51</name>
+        <initializer>(0x830C06FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="564" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="564" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga350984decb34ee7b3bc457f4f5d1232b" prot="public" static="no">
+        <name>PM_CLK_MIO_24_OR_25</name>
+        <initializer>(0x830C070U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="565" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="565" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga3558c5024f0f3e1b105c65e5365a29dd" prot="public" static="no">
+        <name>PM_CLK_EMIO</name>
+        <initializer>(0x830C071U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="566" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="566" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga188625e510374c8510a3ffeacf0c9e4d" prot="public" static="no">
+        <name>PM_CLK_MIO</name>
+        <initializer>(0x830C072U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="567" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="567" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabe8e4a8efa70324588a0b68e5e3a89f0" prot="public" static="no">
+        <name>PM_CLK_PL_PMC_ALT_REF_CLK</name>
+        <initializer>(0x830C076U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="572" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga1f11b6d6a9d4f3d8f65da9c3741c1cd6" prot="public" static="no">
+        <name>PM_CLK_PL_LPD_ALT_REF_CLK</name>
+        <initializer>(0x830C077U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="573" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab61cce9bc2e811638cff0b4853f35db5" prot="public" static="no">
+        <name>PM_CLK_PL_FPD_ALT_REF_CLK</name>
+        <initializer>(0x830C078U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="574" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabf39f2a97f24fb403576e3f476e3d4d9" prot="public" static="no">
+        <name>PM_CLK_CPM5N_PRESRC</name>
+        <initializer>(0x820807BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="579" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="579" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga61158b39be63745f8bc977ba67d55e0a" prot="public" static="no">
+        <name>PM_CLK_CPM5N_POSTCLK</name>
+        <initializer>(0x820807CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="580" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="580" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8c9bbc60aec69d58ed91e36ce4299fc6" prot="public" static="no">
+        <name>PM_CLK_CPM5N_PLL_OUT</name>
+        <initializer>(0x820807DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="581" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="581" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9f0beaa149a580c8393a50784c5d672c" prot="public" static="no">
+        <name>PM_CLK_APU1_PRESRC</name>
+        <initializer>(0x820807EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="582" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="582" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2d4256564ac36b34564b4ec647c5bc16" prot="public" static="no">
+        <name>PM_CLK_APU1_POSTCLK</name>
+        <initializer>(0x820807FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="583" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="583" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5d379dae690fb7e8a2bd1de45dccd443" prot="public" static="no">
+        <name>PM_CLK_APU_PLL1_OUT</name>
+        <initializer>(0x8208080U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="584" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="584" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadb473cc9f69d7861653cc4c616ac0c09" prot="public" static="no">
+        <name>PM_CLK_APLL1</name>
+        <initializer>(0x8208081U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="585" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="585" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga6a46155caa4afe7b419d95716fdf381b" prot="public" static="no">
+        <name>PM_CLK_APU2_PRESRC</name>
+        <initializer>(0x8208082U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="586" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="586" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaec265ddba1e7a467d5b0f51489e7708f" prot="public" static="no">
+        <name>PM_CLK_APU2_POSTCLK</name>
+        <initializer>(0x8208083U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="587" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="587" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga73c6483e34028f5635905f115f252589" prot="public" static="no">
+        <name>PM_CLK_APU_PLL2_OUT</name>
+        <initializer>(0x8208084U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="588" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="588" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga44824ae5aafa894779cf4d093e2959e2" prot="public" static="no">
+        <name>PM_CLK_APLL2</name>
+        <initializer>(0x8208085U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="589" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="589" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4e3b69d64f7017ae12711f597601b4a0" prot="public" static="no">
+        <name>PM_CLK_FLX_PRESRC</name>
+        <initializer>(0x8208086U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="590" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="590" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadbbc065f493ebc42c64698bd586a8a5e" prot="public" static="no">
+        <name>PM_CLK_FLX_POSTCLK</name>
+        <initializer>(0x8208087U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="591" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="591" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga6d7319eae5c9a755c572cf19bc6bc023" prot="public" static="no">
+        <name>PM_CLK_FLX_PLL_OUT</name>
+        <initializer>(0x8208088U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="592" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga37eca00e2978c72e474b306f4020806d" prot="public" static="no">
+        <name>PM_CLK_FLXPLL</name>
+        <initializer>(0x8208089U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="593" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="593" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafd2359a2cce5e184e88343166e41378f" prot="public" static="no">
+        <name>PM_CLK_IRO</name>
+        <initializer>(0x830C08AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="594" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="594" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad7957ec55627c12cfa61cf8add4dfa8d" prot="public" static="no">
+        <name>PM_CLK_IN_REF</name>
+        <initializer>(0x830C08BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="595" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga89add49f47784ec76aa920e645395bc0" prot="public" static="no">
+        <name>PM_CLK_OSCCLK_DIV2</name>
+        <initializer>(0x830C08CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="596" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="596" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga99f2005e16cf1b24443f28bdff2a95b4" prot="public" static="no">
+        <name>PM_CLK_CPM5N_DBG_REF</name>
+        <initializer>(0x820808DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="597" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="597" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9aa2c96b07efb652425f75eedb31c269" prot="public" static="no">
+        <name>PM_CLK_CPM5N_AUX1_REF</name>
+        <initializer>(0x820808EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="598" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="598" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9c6ace65c5a3dbc83cee76d3d2679839" prot="public" static="no">
+        <name>PM_CLK_CPM5N_TOPSW_REF</name>
+        <initializer>(0x820808FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="599" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="599" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga16d8721ec4c77f0865a68bad1c74196e" prot="public" static="no">
+        <name>PM_CLK_CPM5N_AUX0_REF</name>
+        <initializer>(0x8208090U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="600" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="600" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga132a91d869deb76080811cd365418e18" prot="public" static="no">
+        <name>PM_CLK_CPM5N_DMA_ALT</name>
+        <initializer>(0x8208091U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="601" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac25725372f024ed572671986ac765b0b" prot="public" static="no">
+        <name>PM_CLK_CPM5N_AUX2_REF</name>
+        <initializer>(0x8208092U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="602" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae06512b9cb652f9841f2a204ec5cf0e1" prot="public" static="no">
+        <name>PM_CLK_CPM5N_CORE_REF</name>
+        <initializer>(0x8208093U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="603" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="603" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae441f2cdeb5a3513de122fa5e4275b87" prot="public" static="no">
+        <name>PM_CLK_PMC_RCLK</name>
+        <initializer>(0x8208094U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="604" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9eb44efe9d6c68514241ee366a636c5c" prot="public" static="no">
+        <name>PM_CLK_FPD_RCLK</name>
+        <initializer>(0x8208095U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="605" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="605" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf942ebdacb4c2b5757b654b87d5c14c7" prot="public" static="no">
+        <name>PM_CLK_FPD_WWDT_PLL</name>
+        <initializer>(0x8208096U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="606" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2d21fdc40f2fbdc003aba0f87353c9e0" prot="public" static="no">
+        <name>PM_CLK_PERIPH</name>
+        <initializer>(0x8208097U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="607" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac4726e1e4b9a03c107e9e9be3328caf2" prot="public" static="no">
+        <name>PM_CLK_ACPU0</name>
+        <initializer>(0x8208098U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="608" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga3aa36c573380334eb9f8d8a0da669240" prot="public" static="no">
+        <name>PM_CLK_ACPU3</name>
+        <initializer>(0x8208099U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="609" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="609" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaa95636a0d1afd3104163314be22cd070" prot="public" static="no">
+        <name>PM_CLK_ACPU2</name>
+        <initializer>(0x820809AU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="610" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad1c0d65b45a1f07e3fc22af06b4709fb" prot="public" static="no">
+        <name>PM_CLK_ACPU1</name>
+        <initializer>(0x820809BU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="611" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="611" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad56d4f025c9f8558d972c65599dcabc6" prot="public" static="no">
+        <name>PM_CLK_FPD_PKI_DIV</name>
+        <initializer>(0x820809CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="612" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="612" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gabe69055b4959ec10b5781c88990217b7" prot="public" static="no">
+        <name>PM_CLK_I3C0_REF</name>
+        <initializer>(0x820809DU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="613" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8c8166f6f5c732533b0dd217556d2f08" prot="public" static="no">
+        <name>PM_CLK_CAN0_REF_2X</name>
+        <initializer>(0x820809EU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="614" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="614" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga935f41a81bafaa9ae9e854ba1f3f4338" prot="public" static="no">
+        <name>PM_CLK_I3C1_REF</name>
+        <initializer>(0x820809FU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="615" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga41065ab6930096def1ba9e66def82b85" prot="public" static="no">
+        <name>PM_CLK_LPD_RCLK</name>
+        <initializer>(0x82080A0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="616" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7d37523db52a76ea6bc5722b74d5f0f5" prot="public" static="no">
+        <name>PM_CLK_GEM1_REF_TX</name>
+        <initializer>(0x82080A1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="617" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9548dfa31f53d3dde0eb5744f4016f83" prot="public" static="no">
+        <name>PM_CLK_GEM1_REF_RX</name>
+        <initializer>(0x82080A2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="618" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga47352c157d2b28800d90cd7e698e4122" prot="public" static="no">
+        <name>PM_CLK_RPU</name>
+        <initializer>(0x82080A3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="619" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae62c4181362ab134864170070d87419f" prot="public" static="no">
+        <name>PM_CLK_RPU_OCM</name>
+        <initializer>(0x82080A4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="620" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="620" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaeefe82fac1948041382b37835c6085f9" prot="public" static="no">
+        <name>PM_CLK_RPU_XRAM</name>
+        <initializer>(0x82080A5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="621" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="621" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae91a071baa4591c35573661586051706" prot="public" static="no">
+        <name>PM_CLK_RPU_CLUSTERB</name>
+        <initializer>(0x82080A6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="622" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="622" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae6f01d2b99b945403fd1fa1a98dfcebd" prot="public" static="no">
+        <name>PM_CLK_RPU_CLUSTERA</name>
+        <initializer>(0x82080A7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="623" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="623" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad0bf969e05e100b7c9932ecdcde380dc" prot="public" static="no">
+        <name>PM_CLK_GEM0_REF_TX</name>
+        <initializer>(0x82080A8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="624" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8920d5cbab7a1517b4b621911448eb09" prot="public" static="no">
+        <name>PM_CLK_GEM0_REF_RX</name>
+        <initializer>(0x82080A9U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="625" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gacca79ffedd37b05467a6495bb030a7e1" prot="public" static="no">
+        <name>PM_CLK_PSM</name>
+        <initializer>(0x82080AAU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="626" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="626" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga22cf21a7433cd2fecbda7b1d6ae197fb" prot="public" static="no">
+        <name>PM_CLK_CPM_TOPSW</name>
+        <initializer>(0x82080ABU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="627" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="627" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga139fc4d5a3a2b48c5ab7ee824da9021b" prot="public" static="no">
+        <name>PM_CLK_CAN1_REF_2X</name>
+        <initializer>(0x82080ACU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="628" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="628" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5109003aa9a279e15eec2584a7adb9e3" prot="public" static="no">
+        <name>PM_CLK_LPD_WWDT_PLL</name>
+        <initializer>(0x82080ADU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="629" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="629" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga28f47c2ad6f1d5344bde40b643973c11" prot="public" static="no">
+        <name>PM_CLK_USB1_BUS_REF</name>
+        <initializer>(0x82080AEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="630" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="630" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab1a82915fa22058da6901a2f83f9e876" prot="public" static="no">
+        <name>PM_CLK_FPD_TOPSW_MUX</name>
+        <initializer>(0x82080B0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="631" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga560f0c29d16e9d6027629b47692a124c" prot="public" static="no">
+        <name>PM_CLK_CPM5N_PLL</name>
+        <initializer>(0x81040B1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="632" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="632" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga01c9a3f7dd7ba49fff594c74ad18d7c3" prot="public" static="no">
+        <name>PM_CLK_APU_PLL1</name>
+        <initializer>(0x81040B2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="633" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaee6e1a91cc9696dd9bcf2d7a5124ed55" prot="public" static="no">
+        <name>PM_CLK_APU_PLL2</name>
+        <initializer>(0x81040B3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="634" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="634" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga541565d6164c371702a5c1a103a44939" prot="public" static="no">
+        <name>PM_CLK_FLX_PLL</name>
+        <initializer>(0x81040B4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="635" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="635" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab9076343fcd48648b26cba93e1a27a49" prot="public" static="no">
+        <name>PM_CLK_FPD_WWDT0</name>
+        <initializer>(0x82080B5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="636" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="636" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7977ba72c05cab30317fd2f17e18da11" prot="public" static="no">
+        <name>PM_CLK_FPD_WWDT1</name>
+        <initializer>(0x82080B6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="637" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="637" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga6dc81c3bfed7333ef657c93c4790487f" prot="public" static="no">
+        <name>PM_CLK_FPD_WWDT2</name>
+        <initializer>(0x82080B7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="638" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="638" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadc39070d8e0134f16a851684c11e52f5" prot="public" static="no">
+        <name>PM_CLK_FPD_WWDT3</name>
+        <initializer>(0x82080B8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="639" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="639" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga5c2a92e709c18bad21b1104fbc3b43a8" prot="public" static="no">
+        <name>PM_CLK_LPD_WWDT0</name>
+        <initializer>(0x82080B9U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="640" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="640" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4dcaea82224df71564ebe059acb926be" prot="public" static="no">
+        <name>PM_CLK_LPD_WWDT1</name>
+        <initializer>(0x82080BAU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="641" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="641" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac48fa05a1b050e9462d0a6265771f0c4" prot="public" static="no">
+        <name>PM_CLK_I3C4_REF</name>
+        <initializer>(0x82080BBU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="642" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="642" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gafca8879aa5d15255fdfb0dc2996a94b0" prot="public" static="no">
+        <name>PM_CLK_I3C3_REF</name>
+        <initializer>(0x82080BCU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="643" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="643" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga1dbf4c0fe492df783a592a7d0ba5ef63" prot="public" static="no">
+        <name>PM_CLK_I3C2_REF</name>
+        <initializer>(0x82080BDU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="644" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="644" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8e0b1a1ecc7f2ec760950f53277a1076" prot="public" static="no">
+        <name>PM_CLK_RPU_CLUSTERC</name>
+        <initializer>(0x82080BEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="645" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="645" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gade03de8e2b4a851fa19611f59fd708fb" prot="public" static="no">
+        <name>PM_CLK_RPU_CLUSTERD</name>
+        <initializer>(0x82080BFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="646" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga53eec73dbcf79a2c0e84eb50f1047469" prot="public" static="no">
+        <name>PM_CLK_RPU_CLUSTERE</name>
+        <initializer>(0x82080C0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="647" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="647" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4c60fd54f2c53d5e6b801bcd2cf16b71" prot="public" static="no">
+        <name>PM_CLK_CAN2_REF_2X</name>
+        <initializer>(0x82080C1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="648" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="648" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaeceae6c836f188e628e80ad37af6d8fd" prot="public" static="no">
+        <name>PM_CLK_LPD_TOP_SWITCH_SDMA</name>
+        <initializer>(0x82080C2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="649" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="649" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7c78d3909c02b317b98ef78ded9813d7" prot="public" static="no">
+        <name>PM_CLK_I3C7_REF</name>
+        <initializer>(0x82080C3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="650" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="650" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaef1e90bf1c617fcd71b520d97c024153" prot="public" static="no">
+        <name>PM_CLK_I3C6_REF</name>
+        <initializer>(0x82080C4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="651" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="651" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga29b40ad668fd130828aae65009e57bf1" prot="public" static="no">
+        <name>PM_CLK_ASU</name>
+        <initializer>(0x82080C5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="652" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="652" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga08f03120642d92cf7fd7629e5b408b3d" prot="public" static="no">
+        <name>PM_CLK_CAN3_REF_2X</name>
+        <initializer>(0x82080C6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="653" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="653" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga9b2eab1d310d5e28a96b57a308a218f0" prot="public" static="no">
+        <name>PM_CLK_I3C5_REF</name>
+        <initializer>(0x82080C7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="654" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="654" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae48a2d82f8a515a5351bff62e88083de" prot="public" static="no">
+        <name>PM_CLK_UFS_REF</name>
+        <initializer>(0x82080C8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="655" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="655" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga287b0fecb5c9fec7e10529519772f834" prot="public" static="no">
+        <name>PM_CLK_LPD_WWDT2</name>
+        <initializer>(0x82080C9U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="656" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="656" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae4081e290a94bb3818add4fb00208543" prot="public" static="no">
+        <name>PM_CLK_LPD_WWDT3</name>
+        <initializer>(0x82080CAU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="657" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="657" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga76027eceae50788c10d8ba30d06cab76" prot="public" static="no">
+        <name>PM_CLK_LPD_WWDT4</name>
+        <initializer>(0x82080CBU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="658" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="658" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga09858d30d5d556a191301f5c423ddc3c" prot="public" static="no">
+        <name>PM_CLK_TTC4</name>
+        <initializer>(0x82080CCU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="659" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="659" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaaba906ae57e938404725041a5b009fde" prot="public" static="no">
+        <name>PM_CLK_TTC5</name>
+        <initializer>(0x82080CDU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="660" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="660" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga0868fcfdd3f4769212620147a5fccf0c" prot="public" static="no">
+        <name>PM_CLK_TTC6</name>
+        <initializer>(0x82080CEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="661" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="661" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga26d17bf4ded116d2ced4f090a3db7318" prot="public" static="no">
+        <name>PM_CLK_TTC7</name>
+        <initializer>(0x82080CFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="662" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="662" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga30e7ea472187694adb814f73d16af791" prot="public" static="no">
+        <name>PM_CLK_MMI_DRD_REF_CLK</name>
+        <initializer>(0x82080D0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="663" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="663" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab67dc9969bdc15754b7c49320a4772b1" prot="public" static="no">
+        <name>PM_CLK_UDH_PRESRC</name>
+        <initializer>(0x82080D1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="664" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="664" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga7315f68536e9ba04a0d6609ef92f615a" prot="public" static="no">
+        <name>PM_CLK_UDHPLL</name>
+        <initializer>(0x82080D2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="665" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="665" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf0ece8694050ec60154da19aef896b5a" prot="public" static="no">
+        <name>PM_CLK_UDH_PLL</name>
+        <initializer>(0x81040D3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="666" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="666" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga34d16e267e78836f1fedb9cc2db6a47b" prot="public" static="no">
+        <name>PM_CLK_MMI_PRESRC</name>
+        <initializer>(0x82080D4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="667" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="667" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga81352b1e166ffd6d42b7a058dd8ef747" prot="public" static="no">
+        <name>PM_CLK_MMI_POSTCLK</name>
+        <initializer>(0x82080D5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="668" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="668" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad29538424124855492bfaac9b324a4cf" prot="public" static="no">
+        <name>PM_CLK_MMI_PLL_OUT</name>
+        <initializer>(0x82080D6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="669" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="669" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gab6cff7c1c080aa6cc8b93b3789e7bae9" prot="public" static="no">
+        <name>PM_CLK_MMIPLL</name>
+        <initializer>(0x82080D7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="670" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="670" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga4866faa3dd08d29a67e4577274a0981c" prot="public" static="no">
+        <name>PM_CLK_PL_PIXEL</name>
+        <initializer>(0x830C0D8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="671" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="671" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaa8046668ae0b6bbd7f7b5991c8793666" prot="public" static="no">
+        <name>PM_CLK_GPU_PLL</name>
+        <initializer>(0x82080D9U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="672" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="672" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaeb6aad48eddc4ea4a144fa51341e3518" prot="public" static="no">
+        <name>PM_CLK_DC_PIXEL</name>
+        <initializer>(0x82080DAU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="673" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="673" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga0a554328ac7db1e81aaa6ecbb3b1cf0d" prot="public" static="no">
+        <name>PM_CLK_MMI_GPU_REF</name>
+        <initializer>(0x82080DBU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="674" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="674" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gad2b091f22b4e0e8459efa1fbfac68854" prot="public" static="no">
+        <name>PM_CLK_MMI_AUX0_REF</name>
+        <initializer>(0x82080DCU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="675" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="675" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga59243505825f24b78d50e416c9fade65" prot="public" static="no">
+        <name>PM_CLK_PS_AXI_DMA</name>
+        <initializer>(0x82080DDU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="676" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="676" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf073f1e604819baf7209a68198104d53" prot="public" static="no">
+        <name>PM_CLK_MMI_PLL</name>
+        <initializer>(0x81040DEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="677" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="677" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2e563306c55a250632d874744408b6bb" prot="public" static="no">
+        <name>PM_CLK_MMI_AUX1_REF</name>
+        <initializer>(0x82080DFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="678" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="678" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2cb3fb5c4632aee4878364c83897e979" prot="public" static="no">
+        <name>PM_CLK_MMI_GEM_HCLK</name>
+        <initializer>(0x82080E0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="679" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="679" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga8f7048417e1162454b66720a548e5ffa" prot="public" static="no">
+        <name>PM_CLK_SOCDMA</name>
+        <initializer>(0x82080E1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="680" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="680" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gaf129edd44b0dccff129c7fcdeb29d3d6" prot="public" static="no">
+        <name>PM_CLK_DC_REF</name>
+        <initializer>(0x82080E2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="681" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="681" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga400dc258409766c2e77d250bc582ca4f" prot="public" static="no">
+        <name>PM_CLK_DC_27M</name>
+        <initializer>(0x82080E3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="682" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="682" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga3cf1ee4d3d378abfdf23155a5a528b6a" prot="public" static="no">
+        <name>PM_CLK_CAN5_REF_2X</name>
+        <initializer>(0x82080E4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="683" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="683" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga062e5f1a843ecd74c8bfebf1c8d7c3a6" prot="public" static="no">
+        <name>PM_CLK_CAN4_REF_2X</name>
+        <initializer>(0x82080E5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="684" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="684" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga79fce88eda94944248e60d3039282e71" prot="public" static="no">
+        <name>PM_CLK_EIO_UART0_REF</name>
+        <initializer>(0x82080E6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="685" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="685" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga2cb6ce3578900d9c5b8a60e667b080b8" prot="public" static="no">
+        <name>PM_CLK_EIO_UART1_REF</name>
+        <initializer>(0x82080E7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="686" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="686" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gadf9b678c710842898ce7d6349113658e" prot="public" static="no">
+        <name>PM_CLK_EIO_UART2_REF</name>
+        <initializer>(0x82080E8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="687" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="687" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga29afb155d9a20263d719dd3d843e9264" prot="public" static="no">
+        <name>PM_CLK_EIO_SPI0_REF</name>
+        <initializer>(0x82080E9U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="688" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="688" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga39d7e9bcae371636a8836489d411c8fb" prot="public" static="no">
+        <name>PM_CLK_EIO_SPI1_REF</name>
+        <initializer>(0x82080EAU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="689" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="689" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga89425e8a6d7a5ab020e1ba827f1af78d" prot="public" static="no">
+        <name>PM_CLK_EIO_SPI2_REF</name>
+        <initializer>(0x82080EBU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="690" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="690" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga71bf62f874f364f263d6e3739e078510" prot="public" static="no">
+        <name>PM_CLK_EIO_SPI3_REF</name>
+        <initializer>(0x82080ECU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="691" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="691" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac5418428638b10792ca8e1aee7ab2cf5" prot="public" static="no">
+        <name>PM_CLK_EIO_PRESRC</name>
+        <initializer>(0x82080EDU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="692" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="692" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gac97bed7108ee02a3512cafb5a38fecc4" prot="public" static="no">
+        <name>PM_CLK_EIO_POSTCLK</name>
+        <initializer>(0x82080EEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="693" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="693" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga08e7af19cafddba27eb7504baa247157" prot="public" static="no">
+        <name>PM_CLK_EIO_PLL_OUT</name>
+        <initializer>(0x82080EFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="694" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="694" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1gae60bd7599ccc6acd08e6fdbb6bf6ae17" prot="public" static="no">
+        <name>PM_CLK_EPLL</name>
+        <initializer>(0x82080F0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="695" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="695" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmclknodes_1ga99b3e9cefc32a53f9555c40fb398f851" prot="public" static="no">
+        <name>PM_CLK_EIO_PLL</name>
+        <initializer>(0x81040F1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" line="696" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_common/xpm_nodeid.h" bodystart="696" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

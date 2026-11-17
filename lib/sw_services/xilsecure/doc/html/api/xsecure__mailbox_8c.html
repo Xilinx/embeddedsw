@@ -126,14 +126,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.4   yog  04/29/24 Fixed doxygen warnings.
       pre  08/16/24 Added API to use SSIT support
       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
-                    XSecure_SetSlrIndex</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+                    XSecure_SetSlrIndex
+5.8   tus  08/21/26 Added optional Response argument to XSecure_ProcessMailbox
+      rap  07/20/26 Updated input parameter validations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__mailbox_8h.html">xsecure_mailbox.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga6ac5f0da32dd8fb5fcd15a7e65b492bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mailbox__apis.html#ga6ac5f0da32dd8fb5fcd15a7e65b492bb">XSecure_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga6ac5f0da32dd8fb5fcd15a7e65b492bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="group__xsecure__mailbox__apis.html#ga6ac5f0da32dd8fb5fcd15a7e65b492bb">More...</a><br/></td></tr>
-<tr class="separator:ga6ac5f0da32dd8fb5fcd15a7e65b492bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga172d3381387b4ba9fdec420f63e64b17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mailbox__apis.html#ga172d3381387b4ba9fdec420f63e64b17">XSecure_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:ga172d3381387b4ba9fdec420f63e64b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="group__xsecure__mailbox__apis.html#ga172d3381387b4ba9fdec420f63e64b17">More...</a><br/></td></tr>
+<tr class="separator:ga172d3381387b4ba9fdec420f63e64b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga14ac66445aa924c4c0bd9b91b9744af9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__mailbox__apis.html#ga14ac66445aa924c4c0bd9b91b9744af9">XSecure_ClientInit</a> (XSecure_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</td></tr>
 <tr class="memdesc:ga14ac66445aa924c4c0bd9b91b9744af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the instance of mailbox.  <a href="group__xsecure__mailbox__apis.html#ga14ac66445aa924c4c0bd9b91b9744af9">More...</a><br/></td></tr>
 <tr class="separator:ga14ac66445aa924c4c0bd9b91b9744af9"><td class="memSeparator" colspan="2">&#160;</td></tr>

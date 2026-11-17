@@ -10,12 +10,20 @@
         <argsstring></argsstring>
         <name>Config</name>
         <briefdescription>
-        </briefdescription>
+<para>BRAM configuration structure. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="178" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="167" endline="247">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="84" endline="127">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram__api_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" compoundref="xbram__intr_8c" startline="134" endline="155">XBram_InterruptClear</referencedby>
+        <referencedby refid="group__bram__api_1ga9ce680e885511fdd26b6818b71b145c4" compoundref="xbram__intr_8c" startline="101" endline="118">XBram_InterruptDisable</referencedby>
+        <referencedby refid="group__bram__api_1ga4210a263bd85db259a74c20cd0b0176c" compoundref="xbram__intr_8c" startline="67" endline="84">XBram_InterruptEnable</referencedby>
+        <referencedby refid="group__bram__api_1gafec7418ceae662672c03a938290da9dd" compoundref="xbram__intr_8c" startline="171" endline="179">XBram_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__bram__api_1ga3880bb684ad362c6bd289f3e76a98b59" compoundref="xbram__intr_8c" startline="200" endline="208">XBram_InterruptGetStatus</referencedby>
+        <referencedby refid="group__bram__api_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="239" endline="502">XBram_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_bram_1a31af5cffa2b544a32d71c224ba6f2390" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -23,18 +31,25 @@
         <argsstring></argsstring>
         <name>IsReady</name>
         <briefdescription>
-        </briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="84" endline="127">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram__api_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" compoundref="xbram__intr_8c" startline="134" endline="155">XBram_InterruptClear</referencedby>
+        <referencedby refid="group__bram__api_1ga9ce680e885511fdd26b6818b71b145c4" compoundref="xbram__intr_8c" startline="101" endline="118">XBram_InterruptDisable</referencedby>
+        <referencedby refid="group__bram__api_1ga4210a263bd85db259a74c20cd0b0176c" compoundref="xbram__intr_8c" startline="67" endline="84">XBram_InterruptEnable</referencedby>
+        <referencedby refid="group__bram__api_1gafec7418ceae662672c03a938290da9dd" compoundref="xbram__intr_8c" startline="171" endline="179">XBram_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__bram__api_1ga3880bb684ad362c6bd289f3e76a98b59" compoundref="xbram__intr_8c" startline="200" endline="208">XBram_InterruptGetStatus</referencedby>
+        <referencedby refid="group__bram__api_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="239" endline="502">XBram_SelfTest</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_bram" kindref="compound">XBram</ref> driver instance data. </para>    </briefdescription>
+<para>Holds instance data for a BRAM device. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for every BRAM device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+<para>The <ref refid="struct_x_bram" kindref="compound">XBram</ref> driver instance data. Allocate a variable of this type for every BRAM device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="2">
         <label>XBram_Config</label>
@@ -48,7 +63,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="177" bodyend="180"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="180" bodyend="183"/>
     <listofallmembers>
       <member refid="struct_x_bram_1aa67b80ce75d89ebfc2c65c5300ac3253" prot="public" virt="non-virtual"><scope>XBram</scope><name>Config</name></member>
       <member refid="struct_x_bram_1a31af5cffa2b544a32d71c224ba6f2390" prot="public" virt="non-virtual"><scope>XBram</scope><name>IsReady</name></member>

@@ -129,7 +129,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who       Date        Changes
 0.4   gam     08/29/2025  Updated IPI driver initialization &amp; interrupts
                           for SDT support.
 0.5   anv     02/11/2026  Cleared IPI interrupts after calling the
-                          IPI interrupt handler</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
+                          IPI interrupt handler
+0.6   gam     09/21/2026  Updated to restore NPI golden SHA after error
+                          injection.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsem__client__api_8h.html">xsem_client_api.h</a>&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>

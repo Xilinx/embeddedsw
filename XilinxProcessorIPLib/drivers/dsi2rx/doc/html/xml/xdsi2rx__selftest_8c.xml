@@ -5,36 +5,41 @@
     <includes local="yes">xstatus.h</includes>
     <includes refid="xdsi2rx_8h" local="yes">xdsi2rx.h</includes>
     <incdepgraph>
-      <node id="55">
-        <label>xdsi2rx.h</label>
-        <link refid="xdsi2rx_8h"/>
-        <childnode refid="56" relation="include">
-        </childnode>
-        <childnode refid="57" relation="include">
-        </childnode>
-        <childnode refid="58" relation="include">
-        </childnode>
-      </node>
-      <node id="53">
-        <label>xdsi2rx_selftest.c</label>
-        <link refid="xdsi2rx_selftest.c"/>
-        <childnode refid="54" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-      </node>
-      <node id="54">
-        <label>xstatus.h</label>
-      </node>
-      <node id="58">
-        <label>xvidc.h</label>
-      </node>
-      <node id="56">
-        <label>xil_types.h</label>
-      </node>
-      <node id="57">
+      <node id="63">
         <label>xdsi2rx_hw.h</label>
         <link refid="xdsi2rx__hw_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xdsi2rx_selftest.c</label>
+        <link refid="xdsi2rx_selftest.c"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xil_io.h</label>
+      </node>
+      <node id="61">
+        <label>xdsi2rx.h</label>
+        <link refid="xdsi2rx_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="65">
+        <label>xvidc.h</label>
+      </node>
+      <node id="62">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -65,10 +70,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c" bodystart="62" bodyend="80"/>
-        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="79">XDsi2Rx_Config::BaseAddr</references>
-        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="116">XDsi2Rx::Config</references>
-        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="168">XDsi2Rx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c" bodystart="62" bodyend="80"/>
+        <references refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" compoundref="xdsi2rx_8h" startline="89">XDsi2Rx_Config::BaseAddr</references>
+        <references refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" compoundref="xdsi2rx_8h" startline="126">XDsi2Rx::Config</references>
+        <references refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" compoundref="xdsi2rx_8h" startline="190">XDsi2Rx::IsReady</references>
+        <references refid="group__dsi2rx_1ga16cf3380173e61542d797f0b9c4a883a" compoundref="xdsi2rx__hw_8h" startline="73">XDSI2RX_CCR_COREENB_MASK</references>
+        <references refid="group__dsi2rx_1ga1aa2477d51817223016084e383df9a27" compoundref="xdsi2rx__hw_8h" startline="84">XDSI2RX_CCR_COREENB_SHIFT</references>
+        <references refid="group__dsi2rx_1ga414878c04061bbb96896259e36fb1334" compoundref="xdsi2rx__hw_8h" startline="42">XDSI2RX_CCR_OFFSET</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -115,7 +123,7 @@
 <codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1a57889229cf2847a9a249edb2f05213fd" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XDsi2Rx_GetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi2_rx_1ad839d6712558a4ba874bdbd23a277b07" kindref="member">Config</ref>.<ref refid="struct_x_dsi2_rx___config_1a07d0063d512e6ffd4582b60b3a07f884" kindref="member">BaseAddr</ref>,</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDSI2RX_CCR_OFFSET,<sp/>XDSI2RX_CCR_COREENB_MASK,<sp/>XDSI2RX_CCR_COREENB_SHIFT);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi2rx_1ga414878c04061bbb96896259e36fb1334" kindref="member">XDSI2RX_CCR_OFFSET</ref>,<sp/><ref refid="group__dsi2rx_1ga16cf3380173e61542d797f0b9c4a883a" kindref="member">XDSI2RX_CCR_COREENB_MASK</ref>,<sp/><ref refid="group__dsi2rx_1ga1aa2477d51817223016084e383df9a27" kindref="member">XDSI2RX_CCR_COREENB_SHIFT</ref>);</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result)<sp/>{</highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -125,6 +133,6 @@
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="80"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_selftest.c"/>
   </compounddef>
 </doxygen>

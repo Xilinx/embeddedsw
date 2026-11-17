@@ -6,31 +6,48 @@
     <includes local="yes">xil_types.h</includes>
     <includes refid="xnvm__common__defs_8h" local="yes">xnvm_common_defs.h</includes>
     <incdepgraph>
-      <node id="232">
+      <node id="292">
         <label>xnvm_defs.h</label>
         <link refid="common/xnvm_defs.h"/>
-        <childnode refid="233" relation="include">
+        <childnode refid="293" relation="include">
         </childnode>
-        <childnode refid="234" relation="include">
+        <childnode refid="294" relation="include">
         </childnode>
-        <childnode refid="235" relation="include">
+        <childnode refid="295" relation="include">
         </childnode>
       </node>
-      <node id="234">
-        <label>xil_types.h</label>
+      <node id="298">
+        <label>xil_io.h</label>
       </node>
-      <node id="235">
+      <node id="296">
+        <label>xnvm_utils.h</label>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+      </node>
+      <node id="297">
+        <label>xil_util.h</label>
+      </node>
+      <node id="295">
         <label>xnvm_common_defs.h</label>
         <link refid="xnvm__common__defs_8h"/>
-        <childnode refid="234" relation="include">
+        <childnode refid="294" relation="include">
         </childnode>
-        <childnode refid="236" relation="include">
+        <childnode refid="296" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
         </childnode>
       </node>
-      <node id="236">
+      <node id="294">
+        <label>xil_types.h</label>
+      </node>
+      <node id="299">
         <label>xilnvm_bsp_config.h</label>
       </node>
-      <node id="233">
+      <node id="293">
         <label>xil_printf.h</label>
       </node>
     </incdepgraph>
@@ -571,6 +588,20 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5c6d55522a71887849c7fbd814a3b2d1" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF_USER_FUSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af16899e93ea381ffc3b39046cec6d036" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" prot="public">
           <name>XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</name>
           <briefdescription>
@@ -591,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" bodystart="146" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" bodystart="146" bodyend="186"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -753,6 +784,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h"/>
   </compounddef>
 </doxygen>

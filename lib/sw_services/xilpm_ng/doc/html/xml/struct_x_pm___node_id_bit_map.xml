@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___node_id_bit_map" kind="struct" prot="public">
+    <compoundname>XPm_NodeIdBitMap</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___node_id_bit_map_1a5e077165a4ae9230118e55d4ebbb6c74" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XPm_NodeIdBitMap::BitMask</definition>
+        <argsstring></argsstring>
+        <name>BitMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_id_bit_map_1ac7a17be1b454c53a2dddf8b0ad29e1fb" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XPm_NodeIdBitMap::NodeId</definition>
+        <argsstring></argsstring>
+        <name>NodeId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c" bodystart="30" bodyend="33"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___node_id_bit_map_1a5e077165a4ae9230118e55d4ebbb6c74" prot="public" virt="non-virtual"><scope>XPm_NodeIdBitMap</scope><name>BitMask</name></member>
+      <member refid="struct_x_pm___node_id_bit_map_1ac7a17be1b454c53a2dddf8b0ad29e1fb" prot="public" virt="non-virtual"><scope>XPm_NodeIdBitMap</scope><name>NodeId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

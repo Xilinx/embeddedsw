@@ -6,6 +6,12 @@
     <includes refid="xhdcp1x__platform_8h" local="yes">xhdcp1x_platform.h</includes>
     <includes local="yes">xil_types.h</includes>
     <incdepgraph>
+      <node id="159">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="160" relation="include">
+        </childnode>
+      </node>
       <node id="160">
         <label>xil_io.h</label>
       </node>
@@ -27,24 +33,6 @@
         <childnode refid="158" relation="include">
         </childnode>
       </node>
-      <node id="162">
-        <label>xtmrctr.h</label>
-      </node>
-      <node id="161">
-        <label>xstatus.h</label>
-      </node>
-      <node id="159">
-        <label>xhdcp1x_hw.h</label>
-        <link refid="xhdcp1x__hw_8h"/>
-        <childnode refid="160" relation="include">
-        </childnode>
-      </node>
-      <node id="158">
-        <label>xil_types.h</label>
-      </node>
-      <node id="157">
-        <label>xparameters.h</label>
-      </node>
       <node id="156">
         <label>xhdcp1x.h</label>
         <link refid="xhdcp1x_8h"/>
@@ -59,6 +47,18 @@
         <childnode refid="162" relation="include">
         </childnode>
       </node>
+      <node id="162">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="161">
+        <label>xstatus.h</label>
+      </node>
+      <node id="158">
+        <label>xil_types.h</label>
+      </node>
+      <node id="157">
+        <label>xparameters.h</label>
+      </node>
     </incdepgraph>
       <sectiondef kind="var">
       <memberdef kind="variable" id="group__hdcp1x_1ga8669f2b83df6c835492036a201fbae27" prot="public" static="no" mutable="no">
@@ -72,9 +72,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.c" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.c" bodystart="102" bodyend="-1"/>
         <referencedby refid="group__hdcp1x_1gaceb8746cc60b1628b4df76d155f0b6a5" compoundref="xhdcp1x__platform_8c" startline="62" endline="75">XHdcp1x_PlatformIsKsvRevoked</referencedby>
-        <referencedby refid="group__hdcp1x_1ga4dc3ae5f39d71120d46f7dacf1f61b4e" compoundref="xhdcp1x_8c" startline="1209" endline="1212">XHdcp1x_SetKsvRevokeCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1ga4dc3ae5f39d71120d46f7dacf1f61b4e" compoundref="xhdcp1x_8c" startline="1208" endline="1211">XHdcp1x_SetKsvRevokeCheck</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -114,7 +114,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="62" bodyend="75"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="62" bodyend="75"/>
         <references refid="group__hdcp1x_1ga8669f2b83df6c835492036a201fbae27" compoundref="xhdcp1x_8c" startline="102">XHdcp1xKsvRevokeCheck</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga702d5623fb869e3454ce5557b79cca1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -155,8 +155,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="91" bodyend="105"/>
-        <references refid="struct_x_hdcp1x_1a72c9f45f22ce6f84365adebdb31f3211" compoundref="xhdcp1x_8h" startline="1165">XHdcp1x::XHdcp1xTimerStart</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="91" bodyend="105"/>
+        <references refid="struct_x_hdcp1x_1a72c9f45f22ce6f84365adebdb31f3211" compoundref="xhdcp1x_8h" startline="1157">XHdcp1x::XHdcp1xTimerStart</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga1c5ac368d276bfd8e6a017b64c90cbf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -185,8 +185,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="120" bodyend="133"/>
-        <references refid="struct_x_hdcp1x_1a4d8be50f6a3e7200a1a09af3ecc2aa2f" compoundref="xhdcp1x_8h" startline="1169">XHdcp1x::XHdcp1xTimerStop</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="120" bodyend="133"/>
+        <references refid="struct_x_hdcp1x_1a4d8be50f6a3e7200a1a09af3ecc2aa2f" compoundref="xhdcp1x_8h" startline="1161">XHdcp1x::XHdcp1xTimerStop</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp1x_1ga0f5e4cf832a1dd14f902a2e25043a56e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -226,8 +226,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="149" bodyend="163"/>
-        <references refid="struct_x_hdcp1x_1aff7bd50973bcc42ab5540bd9c9d8a709" compoundref="xhdcp1x_8h" startline="1173">XHdcp1x::XHdcp1xTimerDelay</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="149" bodyend="163"/>
+        <references refid="struct_x_hdcp1x_1aff7bd50973bcc42ab5540bd9c9d8a709" compoundref="xhdcp1x_8h" startline="1165">XHdcp1x::XHdcp1xTimerDelay</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -325,6 +325,6 @@
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Status);</highlight></codeline>
 <codeline lineno="163"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c"/>
   </compounddef>
 </doxygen>

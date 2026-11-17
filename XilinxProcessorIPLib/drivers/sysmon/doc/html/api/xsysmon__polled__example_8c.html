@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmon__polled__example_8c.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,16 +100,16 @@ $(document).ready(function(){initNavTree('xsysmon__polled__example_8c.html','');
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xsysmon_polled_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the driver functions of the System Monitor driver. </p>
-<p>The example here shows the driver/device in polled mode to check the on-chip temperature and voltages.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>The values of the on-chip temperature and the on-chip Vccaux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</p>
+<div class="textblock"><p>Demonstrates polled-mode monitoring of on-chip temperature and voltage. </p>
+<p>This file contains a design example using the driver functions of the System Monitor driver. The example here shows the driver/device in polled mode to check the on-chip temperature and voltages.</p>
+<dl class="section note"><dt>Note</dt><dd>The values of the on-chip temperature and the on-chip Vccaux voltage are read from the device and then the alarm thresholds are set in such a manner that the alarms occur.</dd></dl>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 </p>
 <hr/>
@@ -128,19 +128,44 @@ $(document).ready(function(){initNavTree('xsysmon__polled__example_8c.html','');
                     are available in all examples. This is a fix for
                     CR-965028.
 7.8   cog  07/20/23 Added support for SDT flow
+8.1   vn   07/30/26 Fix Doxygen warnings
+8.1   vn   09/29/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsysmon_8h.html">xsysmon.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a84f7428db805800241676dd836763f43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__polled__example_8c.html#a84f7428db805800241676dd836763f43">SYSMON_DEVICE_ID</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a84f7428db805800241676dd836763f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device ID.  <a href="#a84f7428db805800241676dd836763f43">More...</a><br/></td></tr>
+<tr class="separator:a84f7428db805800241676dd836763f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a61263d0e8e0dcc83b57e5620d0cd4d72"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__polled__example_8c.html#a61263d0e8e0dcc83b57e5620d0cd4d72">SysMonPolledExample</a> (u16 SysMonDeviceId, int *Temp)</td></tr>
-<tr class="memdesc:a61263d0e8e0dcc83b57e5620d0cd4d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a test on the System Monitor/ADC device using the driver APIs.  <a href="#a61263d0e8e0dcc83b57e5620d0cd4d72">More...</a><br/></td></tr>
+<tr class="memdesc:a61263d0e8e0dcc83b57e5620d0cd4d72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a polled-mode test on the System Monitor/ADC device.  <a href="#a61263d0e8e0dcc83b57e5620d0cd4d72">More...</a><br/></td></tr>
 <tr class="separator:a61263d0e8e0dcc83b57e5620d0cd4d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmon__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the polled example in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the polled example in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a84f7428db805800241676dd836763f43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSMON_DEVICE_ID&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device ID. </p>
+
+<p>Referenced by <a class="el" href="xsysmon__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -156,21 +181,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the polled example in this file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Invokes the polled example in this file. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xsysmon__polled__example_8c.html#a61263d0e8e0dcc83b57e5620d0cd4d72">SysMonPolledExample()</a>.</p>
+<p>References <a class="el" href="xsysmon__polled__example_8c.html#a84f7428db805800241676dd836763f43">SYSMON_DEVICE_ID</a>, and <a class="el" href="xsysmon__polled__example_8c.html#a61263d0e8e0dcc83b57e5620d0cd4d72">SysMonPolledExample()</a>.</p>
 
 </div>
 </div>
@@ -198,7 +216,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function runs a test on the System Monitor/ADC device using the driver APIs. </p>
+<p>Runs a polled-mode test on the System Monitor/ADC device. </p>
 <p>This function does the following tasks:</p>
 <ul>
 <li>Initiate the System Monitor device driver instance</li>
@@ -210,17 +228,16 @@ Functions</h2></td></tr>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">SysMonDeviceId</td><td>is the XPAR_&lt;SYSMON_ADC_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">Temp</td><td>is an output parameter, it is a pointer through which the current temperature value is returned to the main function.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SysMonDeviceId</td><td>XPAR_&lt;SYSMON_ADC_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">Temp</td><td>Output parameter, it is a pointer through which the current temperature value is returned to the main function.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p>References <a class="el" href="struct_x_sys_mon___config.html#a0c21814e1533c922ccbb0a70bf60261f">XSysMon_Config::BaseAddress</a>, <a class="el" href="group___overview.html#gac40645b74aaa13f5a98f54766d9867c2">XSM_AOR_TEMP_MASK</a>, <a class="el" href="group___overview.html#ga3298749348791ea76d1e35a9a1ab1b93">XSM_AOR_VCCAUX_MASK</a>, <a class="el" href="group___overview.html#ga138ea63ae47cd1478f188045792a5aef">XSM_ATR_TEMP_LOWER</a>, <a class="el" href="group___overview.html#ga7e041ad6a624c7014aad8803d2f9667a">XSM_ATR_TEMP_UPPER</a>, <a class="el" href="group___overview.html#ga6e1a39ae23bf829dbb3eb27f95582cea">XSM_ATR_VCCAUX_LOWER</a>, <a class="el" href="group___overview.html#gaf1f02865999885b46b1b1fdd64f71098">XSM_ATR_VCCAUX_UPPER</a>, <a class="el" href="group___overview.html#ga7cd77d90e7456614726390476f3636c8">XSM_AVG_16_SAMPLES</a>, <a class="el" href="group___overview.html#ga52a6fb60ad44e0e4b95c4c54e331bc5c">XSM_CFR1_ALM_TEMP_MASK</a>, <a class="el" href="group___overview.html#ga426292488bb2aee0969e533223757104">XSM_CFR1_ALM_VCCAUX_MASK</a>, <a class="el" href="group___overview.html#gaf2f79c54dddbdf090934f80f315b2e60">XSM_CH_TEMP</a>, <a class="el" href="group___overview.html#ga1c6a2517306958c69f3259057d3649a9">XSM_CH_VCCAUX</a>, <a class="el" href="group___overview.html#ga35d9814abedb2943f4a84ecff66351e5">XSM_MAX_TEMP</a>, <a class="el" href="group___overview.html#ga0318391019767d409a0df13f82003999">XSM_MAX_VCCAUX</a>, <a class="el" href="group___overview.html#gaf3acf3098ee563aa1cc3e35555d4e801">XSM_MIN_TEMP</a>, <a class="el" href="group___overview.html#gabf3015adb8b42e4b09d5ef8634558852">XSM_MIN_VCCAUX</a>, <a class="el" href="group___overview.html#ga7a2f95ce30a1155b39edd9384e6d898a">XSM_SEQ_CH_AUX00</a>, <a class="el" href="group___overview.html#gaee1c4b7f6daf995c00e384a844581230">XSM_SEQ_CH_AUX15</a>, <a class="el" href="group___overview.html#ga4fed5630d5bcefd6b2c8b4692a5cb579">XSM_SEQ_CH_TEMP</a>, <a class="el" href="group___overview.html#ga5426b215d0d905d01876ba679f08fbe5">XSM_SEQ_CH_VCCAUX</a>, <a class="el" href="group___overview.html#ga090e870886f3ed8d58efc57c763772f2">XSM_SEQ_MODE_CONTINPASS</a>, <a class="el" href="group___overview.html#ga223c74befcd8a6710ea7a7acbaf41636">XSM_SEQ_MODE_SAFE</a>, <a class="el" href="group___overview.html#gac10ed891373f4799aa33110441cb5595">XSM_SR_EOS_MASK</a>, <a class="el" href="group___overview.html#ga04de4a4efc9fab7a41b88166bbffc615">XSysMon_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga07ab2025481799032cd40ff62f4b10f6">XSysMon_GetAdcData()</a>, <a class="el" href="group___overview.html#ga2220b73838f1d10b79b688d1a8ce4c03">XSysMon_GetAlarmOutputStatus()</a>, <a class="el" href="group___overview.html#ga15022394c1ba90705c3227f6cfa0f892">XSysMon_GetMinMaxMeasurement()</a>, <a class="el" href="group___overview.html#ga34d731dace546db3397741f0d229cb3b">XSysMon_GetStatus()</a>, <a class="el" href="group___overview.html#ga54b145e1592c8df09b3041eb12cd283a">XSysMon_LookupConfig()</a>, <a class="el" href="group___overview.html#ga251f2e509945b445a655fbc885f6a934">XSysMon_RawToTemperature</a>, <a class="el" href="group___overview.html#ga23b6bce798cabbee7cb637d36edd54da">XSysMon_SelfTest()</a>, <a class="el" href="group___overview.html#ga3c119682ea951295d41462e329da881a">XSysMon_SetAdcClkDivisor()</a>, <a class="el" href="group___overview.html#ga458e2807135bef154d249e80b145520a">XSysMon_SetAlarmEnables()</a>, <a class="el" href="group___overview.html#gaf9d2de8d4141ae1e7e073ea296df739d">XSysMon_SetAlarmThreshold()</a>, <a class="el" href="group___overview.html#gaf3504732dccf017f38fa7ffd7483f358">XSysMon_SetAvg()</a>, <a class="el" href="group___overview.html#gaeafd06e40eff4807b362edf043d725e8">XSysMon_SetSeqAcqTime()</a>, <a class="el" href="group___overview.html#gae7072bfa213b7318fcc29408a459c0bb">XSysMon_SetSeqAvgEnables()</a>, <a class="el" href="group___overview.html#ga60d92b3a70aab326364319b3d1f1a7cc">XSysMon_SetSeqChEnables()</a>, <a class="el" href="group___overview.html#ga3d3d8052fae049f4ca772b5956ced31f">XSysMon_SetSeqInputMode()</a>, and <a class="el" href="group___overview.html#ga433e353cd5a25454ce2a6da51494e478">XSysMon_SetSequencerMode()</a>.</p>
 

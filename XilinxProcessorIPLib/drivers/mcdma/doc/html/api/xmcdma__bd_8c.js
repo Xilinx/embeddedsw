@@ -1,5 +1,6 @@
 var xmcdma__bd_8c =
 [
+    [ "XMCDMA_CHAN_SEEKAHEAD", "xmcdma__bd_8c.html#gaa3015f0159afd5c8c52aed4752fc1d49", null ],
     [ "XMcdma_BdChainFree", "xmcdma__bd_8c.html#gac503b02c1b13e908931f84facd8eae44", null ],
     [ "XMcdma_BdChainFromHW", "xmcdma__bd_8c.html#gaab94e04161d34aae300d76dd51948117", null ],
     [ "XMcDma_BdGetAppWord", "xmcdma__bd_8c.html#ga9295d5a6e89fe6a6471371191078b7fc", null ],

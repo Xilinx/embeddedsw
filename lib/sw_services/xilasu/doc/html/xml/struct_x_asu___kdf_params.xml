@@ -15,10 +15,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="62" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -31,9 +31,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="63" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -46,9 +46,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="64" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -61,9 +61,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="65" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -73,12 +73,12 @@
         <briefdescription>
 <para>Length of the keying material output to be generated from KDF. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Limited to XASU_KDF_MAX_ITERATIONS PRF output blocks </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="66" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -91,11 +91,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="68" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
         <referencedby refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</referencedby>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -109,9 +109,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="69" bodyend="-1"/>
         <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
-        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="104">XAsu_ValidateKdfParameters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___kdf_params_1a6352cf5d53f2830193473973264d6cef" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -124,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -132,19 +132,19 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="76">
+      <node id="80">
         <label>XAsu_KdfHmacKeyObject</label>
         <link refid="struct_x_asu___kdf_hmac_key_object"/>
       </node>
-      <node id="75">
+      <node id="79">
         <label>XAsu_KdfParams</label>
         <link refid="struct_x_asu___kdf_params"/>
-        <childnode refid="76" relation="usage">
+        <childnode refid="80" relation="usage">
           <edgelabel>KeyObject</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="60" bodyend="71"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="61" bodyend="73"/>
     <listofallmembers>
       <member refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" prot="public" virt="non-virtual"><scope>XAsu_KdfParams</scope><name>ContextAddr</name></member>
       <member refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" prot="public" virt="non-virtual"><scope>XAsu_KdfParams</scope><name>ContextLen</name></member>

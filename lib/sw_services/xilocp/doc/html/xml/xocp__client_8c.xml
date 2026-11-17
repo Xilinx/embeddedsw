@@ -3,71 +3,93 @@
   <compounddef id="xocp__client_8c" kind="file">
     <compoundname>xocp_client.c</compoundname>
     <includes refid="xocp__client_8h" local="yes">xocp_client.h</includes>
+    <includes refid="xocp__ver_8h" local="yes">xocp_ver.h</includes>
+    <includes local="yes">xil_util.h</includes>
     <incdepgraph>
-      <node id="85">
-        <label>xocp_common.h</label>
-        <link refid="xocp__common_8h"/>
-        <childnode refid="86" relation="include">
-        </childnode>
-      </node>
-      <node id="83">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="84">
-        <label>xilocp_bsp_config.h</label>
-      </node>
-      <node id="79">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="86">
-        <label>xstatus.h</label>
-      </node>
-      <node id="77">
-        <label>xil_types.h</label>
-      </node>
-      <node id="78">
-        <label>xocp_mailbox.h</label>
-        <link refid="xocp__mailbox_8h"/>
-        <childnode refid="79" relation="include">
-        </childnode>
-        <childnode refid="80" relation="include">
-        </childnode>
-      </node>
       <node id="80">
-        <label>xparameters.h</label>
-      </node>
-      <node id="82">
-        <label>xil_printf.h</label>
+        <label>xocp_client.c</label>
+        <link refid="xocp_client.c"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
       </node>
       <node id="81">
-        <label>xocp_def.h</label>
-        <link refid="xocp__def_8h"/>
+        <label>xocp_client.h</label>
+        <link refid="xocp__client_8h"/>
         <childnode refid="82" relation="include">
-        </childnode>
-        <childnode refid="77" relation="include">
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
         <childnode refid="84" relation="include">
         </childnode>
-      </node>
-      <node id="75">
-        <label>xocp_client.c</label>
-        <link refid="xocp_client.c"/>
-        <childnode refid="76" relation="include">
-        </childnode>
-      </node>
-      <node id="76">
-        <label>xocp_client.h</label>
-        <link refid="xocp__client_8h"/>
-        <childnode refid="77" relation="include">
-        </childnode>
-        <childnode refid="78" relation="include">
-        </childnode>
-        <childnode refid="81" relation="include">
-        </childnode>
         <childnode refid="85" relation="include">
         </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xocp_ver.h</label>
+        <link refid="xocp__ver_8h"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="83">
+        <label>xil_util.h</label>
+      </node>
+      <node id="85">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp__mailbox_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+      </node>
+      <node id="91">
+        <label>xilocp_bsp_config.h</label>
+      </node>
+      <node id="86">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="84">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="92">
+        <label>xocp_common.h</label>
+        <link refid="xocp__common_8h"/>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xocp_def.h</label>
+        <link refid="xocp__def_8h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>xstatus.h</label>
+      </node>
+      <node id="82">
+        <label>xil_types.h</label>
+      </node>
+      <node id="87">
+        <label>xparameters.h</label>
+      </node>
+      <node id="89">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -110,9 +132,82 @@
 <para><itemizedlist>
 <listitem><para>Uses XMailbox instance to initiate the communication between client and server.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" bodystart="65" bodyend="80"/>
-        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" bodystart="69" bodyend="84"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="96">XOcp_ClientInstance::MailboxPtr</references>
         <referencedby refid="group__xocp__dev_keyexample__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__devicekey__example_8c" startline="130" endline="174">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__mailbox__apis_1ga0c2f2c908935183bd19e2149fa4e525f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetClientLibVersion</definition>
+        <argsstring>(u32 *Version)</argsstring>
+        <name>XOcp_GetClientLibVersion</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Version</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the XilOcp library version that the client is built with. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to hold the 32-bit library version, where the upper 16 bits hold the major version and the lower 16 bits hold the minor version</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the library version is read successfully</para></listitem><listitem><para>XST_INVALID_PARAM - If Version is NULL </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" bodystart="98" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__mailbox__apis_1ga82ae11459dd1b356925ec2277e541de9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetServerLibInfo</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, Xil_LibInfo *LibInfo)</argsstring>
+        <name>XOcp_GetServerLibInfo</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>Xil_LibInfo *</type>
+          <declname>LibInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function sends an IPI request to get the XilOcp library version and capability bits running on the PLM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LibInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to Xil_LibInfo. LibVersion and Capability are filled on success. The Version and NistStatus fields are reserved for XilOcp and must be ignored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the library information is read successfully</para></listitem><listitem><para>XST_INVALID_PARAM - If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs input parameter validation.</para></listitem><listitem><para>Query library info via the Features command using a valid OCP api-id as the selector, so the command succeeds and the server returns the library version/capability at fixed indices.</para></listitem><listitem><para>Sends the request to the server and copies the IPI payload after the status word.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" bodystart="130" bodyend="175"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="96">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" compoundref="xocp__def_8h" startline="117">XOCP_API_FEATURES</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" compoundref="xocp__def_8h" startline="121">XOCP_API_GENDMERESP</references>
+        <references refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" compoundref="xocp__mailbox_8c" startline="68" endline="101">XOcp_ProcessMailbox</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -128,6 +223,8 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 1.3   kal  12/09/23 Added a check for DataAddr if size &gt; 48 bytes SWPCR
       am   02/06/24 Fixed Doxygen warning
 1.7   rpu  02/18/26 Refactor OCP client library
+1.8   tus  08/07/26 Added XOcp_GetClientLibVersion and
+                    XOcp_GetServerLibInfo
 </preformatted></para><para><simplesect kind="note"><para></para></simplesect>
 </para>    </detaileddescription>
     <programlisting>
@@ -138,35 +235,91 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="38"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__client_8h" kindref="compound">xocp_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__client_8h" kindref="compound">xocp_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__ver_8h" kindref="compound">xocp_ver.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="65" refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kindref="member">XOcp_ClientInit</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MailboxPtr)</highlight></codeline>
-<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>=<sp/>MailboxPtr;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kindref="member">XOcp_ClientInit</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MailboxPtr)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>=<sp/>MailboxPtr;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="98" refid="group__xocp__mailbox__apis_1ga0c2f2c908935183bd19e2149fa4e525f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__mailbox__apis_1ga0c2f2c908935183bd19e2149fa4e525f" kindref="member">XOcp_GetClientLibVersion</ref>(u32<sp/>*Version)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Version<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Version<sp/>=<sp/>XOcp_GetLibVersion();</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="group__xocp__mailbox__apis_1ga82ae11459dd1b356925ec2277e541de9" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__mailbox__apis_1ga82ae11459dd1b356925ec2277e541de9" kindref="member">XOcp_GetServerLibInfo</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/>Xil_LibInfo<sp/>*LibInfo)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[RESPONSE_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(LibInfo<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD1(Payload,<sp/>(u32)<ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" kindref="member">XOCP_API_FEATURES</ref>,<sp/>(u32)<ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" kindref="member">XOCP_API_GENDMERESP</ref>);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" kindref="member">XOcp_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref>,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT,<sp/>Response);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>transport<sp/>does<sp/>not<sp/>shift<sp/>the<sp/>response<sp/>(status<sp/>stays<sp/>at<sp/>Response[0]),</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>the<sp/>data<sp/>starts<sp/>at<sp/>Response[1]<sp/>and<sp/>matches<sp/>Xil_LibInfo.<sp/>Copy<sp/>it<sp/>in<sp/>one</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>shot;<sp/>the<sp/>server<sp/>does<sp/>not<sp/>emit<sp/>Capability[1],<sp/>so<sp/>zero<sp/>it<sp/>afterwards.</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Version/NistStatus<sp/>are<sp/>reserved<sp/>for<sp/>XilOcp.</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy(LibInfo,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Xil_LibInfo),<sp/>&amp;Response[XIL_LIBINFO_RAW_RESP_BASE],</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(XIL_LIBINFO_RESP_WORDS<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(u32)),</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(XIL_LIBINFO_RESP_WORDS<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(u32)));</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LibInfo-&gt;Capability[1U]<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c"/>
   </compounddef>
 </doxygen>

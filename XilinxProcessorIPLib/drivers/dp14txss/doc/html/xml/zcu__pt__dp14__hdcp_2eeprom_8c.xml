@@ -11,36 +11,6 @@
       <node id="283">
         <label>stdint.h</label>
       </node>
-      <node id="280">
-        <label>xiic_l.h</label>
-      </node>
-      <node id="284">
-        <label>xstatus.h</label>
-      </node>
-      <node id="286">
-        <label>keygen_config.h</label>
-      </node>
-      <node id="281">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="277">
-        <label>xil_types.h</label>
-      </node>
-      <node id="278">
-        <label>xparameters.h</label>
-      </node>
-      <node id="279">
-        <label>xiic.h</label>
-      </node>
-      <node id="282">
-        <label>keymgmt.h</label>
-        <childnode refid="283" relation="include">
-        </childnode>
-        <childnode refid="277" relation="include">
-        </childnode>
-        <childnode refid="284" relation="include">
-        </childnode>
-      </node>
       <node id="275">
         <label>eeprom.c</label>
         <link refid="zcu_pt_dp14_hdcp/eeprom.c"/>
@@ -72,6 +42,36 @@
         <childnode refid="285" relation="include">
         </childnode>
       </node>
+      <node id="280">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="284">
+        <label>xstatus.h</label>
+      </node>
+      <node id="281">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="277">
+        <label>xil_types.h</label>
+      </node>
+      <node id="278">
+        <label>xparameters.h</label>
+      </node>
+      <node id="286">
+        <label>keygen_config.h</label>
+      </node>
+      <node id="279">
+        <label>xiic.h</label>
+      </node>
+      <node id="282">
+        <label>keymgmt.h</label>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+      </node>
       <node id="285">
         <label>xscugic.h</label>
       </node>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -101,7 +101,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="254" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="254" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a301b988b2453fda0d2780ed4d82c8450" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="23" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1ac9f1e37be3ecae9166bcead02cd09300" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a55261a92cf00056c6f862f5f3cc3775a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1af87b2a3712f19c0723e6b945b30cd2cc" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -153,7 +153,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="26" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1ab54133dd79ea7da7c11dfe4abc725ba2" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -166,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="27" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a7aa7887e7275ae0c1230bb34be10a0c4" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -179,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="28" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a628a6daf223f52f5bfb69f6ceabf7fa7" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -192,7 +192,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="30" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a19d9dd848a431a459bff8db6e3eb2985" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -205,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a9f1fae969d865449aacad8208e70ce16" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -218,7 +218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="42" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="42" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -246,16 +246,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="478" bodyend="501"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="483" bodyend="506"/>
       </memberdef>
-      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a61a535cf27c5876e3f252b5d7385af62" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>static void SendHandler</definition>
-        <argsstring>(XIic *InstancePtr)</argsstring>
+        <argsstring>(void *CallBackRef, int ByteCount)</argsstring>
         <name>SendHandler</name>
         <param>
-          <type>XIic *</type>
-          <declname>InstancePtr</declname>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
         </param>
         <briefdescription>
 <para>This Send handler is called asynchronously from an interrupt context and indicates that data in the specified buffer has been sent. </para>        </briefdescription>
@@ -273,16 +277,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="424" bodyend="427"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="424" bodyend="429"/>
       </memberdef>
-      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1aeb4d9908e1386a13b35e6eb21b80e577" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a2dc42043eaab1d3701336fda406b9dab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>static void ReceiveHandler</definition>
-        <argsstring>(XIic *InstancePtr)</argsstring>
+        <argsstring>(void *CallBackRef, int ByteCount)</argsstring>
         <name>ReceiveHandler</name>
         <param>
-          <type>XIic *</type>
-          <declname>InstancePtr</declname>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
         </param>
         <briefdescription>
 <para>This Receive handler is called asynchronously from an interrupt context and indicates that data in the specified buffer has been Received. </para>        </briefdescription>
@@ -300,16 +308,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="442" bodyend="445"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="444" bodyend="449"/>
       </memberdef>
-      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a781f83a72ac373b2b192ec99f4561084" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1aa1007a298e18b3920fde0e9f1799aa19" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>static void StatusHandler</definition>
-        <argsstring>(XIic *InstancePtr, int Event)</argsstring>
+        <argsstring>(void *CallBackRef, int Event)</argsstring>
         <name>StatusHandler</name>
         <param>
-          <type>XIic *</type>
-          <declname>InstancePtr</declname>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
         </param>
         <param>
           <type>int</type>
@@ -338,7 +346,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="461" bodyend="464"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="465" bodyend="469"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a178f6cd4a20d49159eb68e86416a5767" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>XStatus</type>
@@ -351,7 +359,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="58" bodyend="88"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="58" bodyend="88"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a15f523f6b78a5402f1bbc903091b6d91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -368,7 +376,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="94" bodyend="97"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="94" bodyend="97"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a8c66068fe4bc27172483e0172d877b64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -381,7 +389,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="103" bodyend="134"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="103" bodyend="134"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a40d92867ead2dc8efe06207b8b0f3494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -408,7 +416,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="150" bodyend="224"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="150" bodyend="224"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -446,7 +454,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="238" bodyend="316"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="238" bodyend="316"/>
       </memberdef>
       <memberdef kind="function" id="zcu__pt__dp14__hdcp_2eeprom_8c_1a3879abe3fc3ba5bf274394c467d5be57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -471,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="318" bodyend="408"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c" bodystart="318" bodyend="408"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -530,9 +538,9 @@
 <codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_EEPROM_READ_SETADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
 <codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(XIic<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(XIic<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(XIic<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
@@ -590,11 +598,11 @@
 <codeline lineno="109"><highlight class="normal"></highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Handlers<sp/>for<sp/>transmit<sp/>and<sp/>reception.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_SetSendHandler(&amp;IicInstance,<sp/>&amp;IicInstance,</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XIic_Handler)<sp/>SendHandler);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SendHandler);</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_SetRecvHandler(&amp;IicInstance,<sp/>&amp;IicInstance,</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XIic_Handler)<sp/>ReceiveHandler);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveHandler);</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_SetStatusHandler(&amp;IicInstance,<sp/>&amp;IicInstance,</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XIic_StatusHandler)<sp/>StatusHandler);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusHandler);</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"></highlight></codeline>
 <codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bring<sp/>the<sp/>MUX<sp/>out<sp/>of<sp/>Reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SetGPOMuxReset(mux_resetn);</highlight></codeline>
@@ -867,51 +875,56 @@
 <codeline lineno="409"><highlight class="normal"></highlight></codeline>
 <codeline lineno="410"><highlight class="normal"></highlight></codeline>
 <codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="424"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(XIic<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="424"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
 <codeline lineno="425"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransmitComplete<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="427"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="428"><highlight class="normal"></highlight></codeline>
-<codeline lineno="429"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="442"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(XIic<sp/>*InstancePtr)</highlight></codeline>
-<codeline lineno="443"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveComplete<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="445"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="446"><highlight class="normal"></highlight></codeline>
-<codeline lineno="447"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="461"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(XIic<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event)</highlight></codeline>
-<codeline lineno="462"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="463"><highlight class="normal"></highlight></codeline>
-<codeline lineno="464"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="465"><highlight class="normal"></highlight></codeline>
-<codeline lineno="466"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
-<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="478"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="479"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="480"><highlight class="normal"></highlight></codeline>
-<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="483"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>Slave<sp/>address<sp/>to<sp/>the<sp/>IIC<sp/>MUC<sp/>-<sp/>PCA9543A.</highlight></codeline>
-<codeline lineno="484"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIic_SetAddress(&amp;IicInstance,<sp/>XII_ADDR_TO_SEND_TYPE,</highlight></codeline>
-<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IIC_MUX_ADDRESS);</highlight></codeline>
-<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="490"><highlight class="normal"></highlight></codeline>
-<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="492"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enabling<sp/>all<sp/>the<sp/>channels</highlight></codeline>
-<codeline lineno="493"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteBuffer[0]<sp/>=<sp/>IIC_EEPROM_CHANNEL;</highlight></codeline>
-<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>EepromWriteData(1);</highlight></codeline>
-<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="499"><highlight class="normal"></highlight></codeline>
-<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="501"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="502"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TransmitComplete<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="444"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
+<codeline lineno="445"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveComplete<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="465"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event)</highlight></codeline>
+<codeline lineno="466"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Event;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="472"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="483"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="484"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="488"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>Slave<sp/>address<sp/>to<sp/>the<sp/>IIC<sp/>MUC<sp/>-<sp/>PCA9543A.</highlight></codeline>
+<codeline lineno="489"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIic_SetAddress(&amp;IicInstance,<sp/>XII_ADDR_TO_SEND_TYPE,</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IIC_MUX_ADDRESS);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="497"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enabling<sp/>all<sp/>the<sp/>channels</highlight></codeline>
+<codeline lineno="498"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteBuffer[0]<sp/>=<sp/>IIC_EEPROM_CHANNEL;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>EepromWriteData(1);</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="506"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/eeprom.c"/>
   </compounddef>
 </doxygen>

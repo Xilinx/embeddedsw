@@ -1,5 +1,6 @@
 var xemacps__bdring_8h =
 [
+    [ "XEMACPS_BDRING_H", "xemacps__bdring_8h.html#aba0ead5d4e585baf6e3d03209968c413", null ],
     [ "XEmacPs_BdRingCntCalc", "xemacps__bdring_8h.html#gaf634277466b3d759cf1770ef4e263886", null ],
     [ "XEmacPs_BdRingGetCnt", "xemacps__bdring_8h.html#ga668214818403599166ca19be2c2e7a6b", null ],
     [ "XEmacPs_BdRingGetFreeCnt", "xemacps__bdring_8h.html#ga2206d6117c95bb46b85ee4d45dcafb00", null ],

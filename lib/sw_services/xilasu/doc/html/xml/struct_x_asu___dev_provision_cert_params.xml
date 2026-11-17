@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___dev_provision_cert_params" kind="struct" prot="public">
+    <compoundname>XAsu_DevProvisionCertParams</compoundname>
+    <includes local="no">xasu_provisioninfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___dev_provision_cert_params_1ad5a2869c61c811c78937789176bf9e86" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_DevProvisionCertParams::DpcBufAddr</definition>
+        <argsstring></argsstring>
+        <name>DpcBufAddr</name>
+        <briefdescription>
+<para>Address of the caller buffer that receives the assembled DPC (DER encoded X.509 certificates inside the container). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gafed2d44df8f1c6f4557eb6a0710d3e0c" compoundref="xasu__provision__common_8c" startline="197" endline="219">XAsu_ProvisionValidateDpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___dev_provision_cert_params_1a2c646e432555b95f7b938e62708d0e54" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_DevProvisionCertParams::DpcActualSizeAddr</definition>
+        <argsstring></argsstring>
+        <name>DpcActualSizeAddr</name>
+        <briefdescription>
+<para>Address of the caller u32 that receives the actual size in bytes of the assembled DPC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga7ebdaac74b923c5bf29414940c9f0606" compoundref="xasu__provision_8c" startline="677" endline="730">XAsu_GetDevProvisionCert</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1gafed2d44df8f1c6f4557eb6a0710d3e0c" compoundref="xasu__provision__common_8c" startline="197" endline="219">XAsu_ProvisionValidateDpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___dev_provision_cert_params_1a48852f2d73594cb9f8001aff2e814694" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_DevProvisionCertParams::DpcBufSize</definition>
+        <argsstring></argsstring>
+        <name>DpcBufSize</name>
+        <briefdescription>
+<para>Size in bytes of the caller DPC buffer at DpcBufAddr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gafed2d44df8f1c6f4557eb6a0710d3e0c" compoundref="xasu__provision__common_8c" startline="197" endline="219">XAsu_ProvisionValidateDpcParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___dev_provision_cert_params_1af94e02b1e3a7b8f0a6835439087c7edd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_DevProvisionCertParams::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the parameters for the Get Device Provisioning Certificate command (SAS section 12.16.2). </para>    </briefdescription>
+    <detaileddescription>
+<para>The ASU checks the internal exportable key vault for the calling subsystem&apos;s provisioning authentication key pair (ECC NIST P-384) and provisioning wrapping key pair (ECIES over NIST P-384); any pair that is missing is generated with the TRNG and stored in the exportable vault. A UDE-signed X.509 certificate is generated over each public key, the DPC container (Device DNA, both certificates and a UDE signature over them) is assembled and returned to the caller at DpcBufAddr, and its actual size is written to DpcActualSizeAddr. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="253" bodyend="260"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___dev_provision_cert_params_1a2c646e432555b95f7b938e62708d0e54" prot="public" virt="non-virtual"><scope>XAsu_DevProvisionCertParams</scope><name>DpcActualSizeAddr</name></member>
+      <member refid="struct_x_asu___dev_provision_cert_params_1ad5a2869c61c811c78937789176bf9e86" prot="public" virt="non-virtual"><scope>XAsu_DevProvisionCertParams</scope><name>DpcBufAddr</name></member>
+      <member refid="struct_x_asu___dev_provision_cert_params_1a48852f2d73594cb9f8001aff2e814694" prot="public" virt="non-virtual"><scope>XAsu_DevProvisionCertParams</scope><name>DpcBufSize</name></member>
+      <member refid="struct_x_asu___dev_provision_cert_params_1af94e02b1e3a7b8f0a6835439087c7edd" prot="public" virt="non-virtual"><scope>XAsu_DevProvisionCertParams</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

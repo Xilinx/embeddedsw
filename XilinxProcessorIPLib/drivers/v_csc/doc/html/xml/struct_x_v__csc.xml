@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="66" bodyend="-1"/>
         <referencedby refid="xv__csc_8h_1a7d1bf5c029b6abffdda8a20fb976b1a3" compoundref="xv__csc_8c" startline="44" endline="59">XV_csc_CfgInitialize</referencedby>
         <referencedby refid="xv__csc_8h_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</referencedby>
         <referencedby refid="xv__csc_8h_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</referencedby>
@@ -115,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="67" bodyend="-1"/>
         <referencedby refid="xv__csc_8h_1a7d1bf5c029b6abffdda8a20fb976b1a3" compoundref="xv__csc_8c" startline="44" endline="59">XV_csc_CfgInitialize</referencedby>
         <referencedby refid="xv__csc_8h_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</referencedby>
         <referencedby refid="xv__csc_8h_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</referencedby>
@@ -155,7 +155,7 @@
         <referencedby refid="xv__csc_8h_1a477a37e00231d7173258fc57d86a0a93" compoundref="xv__csc_8c" startline="524" endline="532">XV_csc_Get_HwReg_RowEnd</referencedby>
         <referencedby refid="xv__csc_8h_1a1be2750d8f4806b9f5e71af55ede8d26" compoundref="xv__csc_8c" startline="485" endline="493">XV_csc_Get_HwReg_RowStart</referencedby>
         <referencedby refid="xv__csc_8h_1ad890d086dca06e33581d16e10d0826f2" compoundref="xv__csc_8c" startline="320" endline="328">XV_csc_Get_HwReg_width</referencedby>
-        <referencedby refid="xv__csc__sinit_8c_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="136" endline="150">XV_csc_Initialize</referencedby>
+        <referencedby refid="xv__csc__sinit_8c_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="69" endline="83">XV_csc_Initialize</referencedby>
         <referencedby refid="xv__csc_8h_1aca45147d34961b4d866d6a15d4fa190c" compoundref="xv__csc_8c" startline="1507" endline="1512">XV_csc_InterruptClear</referencedby>
         <referencedby refid="xv__csc_8h_1a08c4f1066698a587c5c308423fa26627" compoundref="xv__csc_8c" startline="1489" endline="1497">XV_csc_InterruptDisable</referencedby>
         <referencedby refid="xv__csc_8h_1af54ab89dd3a75bc9b9fcd4818a98bb10" compoundref="xv__csc_8c" startline="1461" endline="1469">XV_csc_InterruptEnable</referencedby>
@@ -222,7 +222,7 @@
         <link refid="struct_x_v__csc___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="69" bodyend="72"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc.h" bodystart="65" bodyend="68"/>
     <listofallmembers>
       <member refid="struct_x_v__csc_1aa5c39284c336caccb3d700680b1f73ed" prot="public" virt="non-virtual"><scope>XV_csc</scope><name>Config</name></member>
       <member refid="struct_x_v__csc_1a8a829eb36e97a948d285c064206a1f2c" prot="public" virt="non-virtual"><scope>XV_csc</scope><name>IsReady</name></member>

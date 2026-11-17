@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pll_topology" kind="struct" prot="public">
+    <compoundname>XPm_PllTopology</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1a0144f5607d6103b3a8748df6a7ae0bcb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t XPm_PllTopology::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1a21cef043b788fed6134f22b128eafad7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___pll_param" kindref="compound">XPm_PllParam</ref></type>
+        <definition>XPm_PllParam XPm_PllTopology::ConfigParams[PM_PLL_PARAM_MAX]</definition>
+        <argsstring>[PM_PLL_PARAM_MAX]</argsstring>
+        <name>ConfigParams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1adff5bc7212df328cf434ca879c34b2a4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_PllTopology::ResetShift</definition>
+        <argsstring></argsstring>
+        <name>ResetShift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1ab8dbb9cbb19c0b49d012742eb57cb7d6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_PllTopology::BypassShift</definition>
+        <argsstring></argsstring>
+        <name>BypassShift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1a808da00cc72e57b788aac931668353ff" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_PllTopology::LockShift</definition>
+        <argsstring></argsstring>
+        <name>LockShift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1a87e8d99f80588e60385a2b5dbdd0de2b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_PllTopology::StableShift</definition>
+        <argsstring></argsstring>
+        <name>StableShift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pll_topology_1ae3bbf1d1c86c4ed36d3a643724374bca" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_PllTopology::PllReg3Offset</definition>
+        <argsstring></argsstring>
+        <name>PllReg3Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="236">
+        <label>XPm_PllTopology</label>
+        <childnode refid="237" relation="usage">
+          <edgelabel>ConfigParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="237">
+        <label>XPm_PllParam</label>
+        <link refid="struct_x_pm___pll_param"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h" bodystart="26" bodyend="34"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pll_topology_1ab8dbb9cbb19c0b49d012742eb57cb7d6" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>BypassShift</name></member>
+      <member refid="struct_x_pm___pll_topology_1a21cef043b788fed6134f22b128eafad7" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>ConfigParams</name></member>
+      <member refid="struct_x_pm___pll_topology_1a0144f5607d6103b3a8748df6a7ae0bcb" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>Id</name></member>
+      <member refid="struct_x_pm___pll_topology_1a808da00cc72e57b788aac931668353ff" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>LockShift</name></member>
+      <member refid="struct_x_pm___pll_topology_1ae3bbf1d1c86c4ed36d3a643724374bca" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>PllReg3Offset</name></member>
+      <member refid="struct_x_pm___pll_topology_1adff5bc7212df328cf434ca879c34b2a4" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>ResetShift</name></member>
+      <member refid="struct_x_pm___pll_topology_1a87e8d99f80588e60385a2b5dbdd0de2b" prot="public" virt="non-virtual"><scope>XPm_PllTopology</scope><name>StableShift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

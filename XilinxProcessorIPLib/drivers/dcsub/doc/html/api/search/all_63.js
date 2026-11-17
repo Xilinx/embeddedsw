@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['clk_5fwiz_5faud_5fbaseaddr',['CLK_WIZ_AUD_BASEADDR',['../mmi__dc__nonlive__test_8h.html#a070e483b9d83f8d8be4a1a02dbcafdda',1,'mmi_dc_nonlive_test.h']]],
+  ['clk_5fwiz_5fbaseaddr',['CLK_WIZ_BASEADDR',['../mmi__dc__nonlive__test_8h.html#aa01bf8f08a073e0134bf577c645959db',1,'mmi_dc_nonlive_test.h']]],
   ['colorimetry',['colorimetry',['../struct_avpg_run_config.html#a9f05f549a896b4a4c9906122fae858bf',1,'AvpgRunConfig']]],
   ['cursor_5fcoord_5fx',['cursor_coord_x',['../struct_init_run_config.html#a1f775c283ff2c8e0888e8f0f69ce4ef0',1,'InitRunConfig']]],
   ['cursor_5fcoord_5fy',['cursor_coord_y',['../struct_init_run_config.html#a38b61e9c2250bdbd14abcf164101e45e',1,'InitRunConfig']]],

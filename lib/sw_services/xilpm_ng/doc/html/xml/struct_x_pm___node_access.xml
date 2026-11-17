@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___node_access" kind="struct" prot="public">
+    <compoundname>XPm_NodeAccess</compoundname>
+    <includes local="no">xpm_access.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___node_access_1ab2be44c5ed614e9d479018c27cac1b42" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_NodeAccess::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Node Id for given node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_access_1a1518fbbb8598ed44e6dcd9eea72805bb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node_aper" kindref="compound">XPm_NodeAper</ref> *</type>
+        <definition>XPm_NodeAper* XPm_NodeAccess::Aperture</definition>
+        <argsstring></argsstring>
+        <name>Aperture</name>
+        <briefdescription>
+<para>Node aperture attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___node_access_1a0122d8a567183c18966be443e5d529c4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node_access" kindref="compound">XPm_NodeAccess</ref> *</type>
+        <definition>XPm_NodeAccess* XPm_NodeAccess::NextNode</definition>
+        <argsstring></argsstring>
+        <name>NextNode</name>
+        <briefdescription>
+<para>Link to next entry in the table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Node access table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="162">
+        <label>XPm_NodeAccess</label>
+        <link refid="struct_x_pm___node_access"/>
+        <childnode refid="163" relation="usage">
+          <edgelabel>Aperture</edgelabel>
+        </childnode>
+        <childnode refid="162" relation="usage">
+          <edgelabel>NextNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="163">
+        <label>XPm_NodeAper</label>
+        <link refid="struct_x_pm___node_aper"/>
+        <childnode refid="163" relation="usage">
+          <edgelabel>NextAper</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h" bodystart="171" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___node_access_1a1518fbbb8598ed44e6dcd9eea72805bb" prot="public" virt="non-virtual"><scope>XPm_NodeAccess</scope><name>Aperture</name></member>
+      <member refid="struct_x_pm___node_access_1ab2be44c5ed614e9d479018c27cac1b42" prot="public" virt="non-virtual"><scope>XPm_NodeAccess</scope><name>Id</name></member>
+      <member refid="struct_x_pm___node_access_1a0122d8a567183c18966be443e5d529c4" prot="public" virt="non-virtual"><scope>XPm_NodeAccess</scope><name>NextNode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

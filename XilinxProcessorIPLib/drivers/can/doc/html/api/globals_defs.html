@@ -80,6 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
       <li><a href="#index_x"><span>x</span></a></li>
     </ul>
@@ -104,7 +105,7 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -116,12 +117,38 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <div class="contents">
 &#160;
 
+<h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>FRAME_DATA_LENGTH
+: <a class="el" href="xcan__intr__example_8c.html#a3317b62fb7f445865d6d8288847a6dac">xcan_intr_example.c</a>
+, <a class="el" href="xcan__polled__example_8c.html#a3317b62fb7f445865d6d8288847a6dac">xcan_polled_example.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TEST_BRPR_BAUD_PRESCALAR
+: <a class="el" href="xcan__intr__example_8c.html#a40b93f102dc8a0ae0f87092bc96087f1">xcan_intr_example.c</a>
+, <a class="el" href="xcan__polled__example_8c.html#a40b93f102dc8a0ae0f87092bc96087f1">xcan_polled_example.c</a>
+</li>
+<li>TEST_BTR_FIRST_TIMESEGMENT
+: <a class="el" href="xcan__polled__example_8c.html#a413d190032b595cee3eaad35f5ff0f95">xcan_polled_example.c</a>
+, <a class="el" href="xcan__intr__example_8c.html#a413d190032b595cee3eaad35f5ff0f95">xcan_intr_example.c</a>
+</li>
+<li>TEST_BTR_SECOND_TIMESEGMENT
+: <a class="el" href="xcan__intr__example_8c.html#a963822e22ff13542adf1ca249fb11e1e">xcan_intr_example.c</a>
+, <a class="el" href="xcan__polled__example_8c.html#a963822e22ff13542adf1ca249fb11e1e">xcan_polled_example.c</a>
+</li>
+<li>TEST_BTR_SYNCJUMPWIDTH
+: <a class="el" href="xcan__polled__example_8c.html#aa2f0504cb1cf0584ff8d7532b91d17f3">xcan_polled_example.c</a>
+, <a class="el" href="xcan__intr__example_8c.html#aa2f0504cb1cf0584ff8d7532b91d17f3">xcan_intr_example.c</a>
+</li>
 <li>TEST_CAN_DLC
 : <a class="el" href="group__can.html#gad5fc0782d81797d868c6a0f86e56d1a6">xcan_selftest.c</a>
 </li>
 <li>TEST_MESSAGE_ID
-: <a class="el" href="group__can.html#ga8402ffb273c0d8a8e72f2a845d96b269">xcan_selftest.c</a>
+: <a class="el" href="xcan__polled__example_8c.html#a8402ffb273c0d8a8e72f2a845d96b269">xcan_polled_example.c</a>
+, <a class="el" href="group__can.html#ga8402ffb273c0d8a8e72f2a845d96b269">xcan_selftest.c</a>
+, <a class="el" href="xcan__intr__example_8c.html#a8402ffb273c0d8a8e72f2a845d96b269">xcan_intr_example.c</a>
 </li>
 </ul>
 
@@ -168,6 +195,10 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 </li>
 <li>XCAN_AFR_UAF_ALL_MASK
 : <a class="el" href="group__can.html#gac441a14e138a5e9828289afbe87e97ad">xcan_l.h</a>
+</li>
+<li>XCAN_BASEADDRESS
+: <a class="el" href="xcan__polled__example_8c.html#af846c356b4c52e30457c153e257a8ef1">xcan_polled_example.c</a>
+, <a class="el" href="xcan__intr__example_8c.html#af846c356b4c52e30457c153e257a8ef1">xcan_intr_example.c</a>
 </li>
 <li>XCAN_BRPR_BRP_MASK
 : <a class="el" href="group__can.html#ga7734840994c22426e0d4bfd47cc11df2">xcan_l.h</a>
@@ -295,9 +326,6 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XCAN_ESR_STER_MASK
 : <a class="el" href="group__can.html#ga118328341a73c8b0d602c3f38b9eb587">xcan_l.h</a>
 </li>
-<li>XCAN_H
-: <a class="el" href="group__can.html#ga210cbde2b1f30faf704c052508e57202">xcan.h</a>
-</li>
 <li>XCAN_HANDLER_ERROR
 : <a class="el" href="group__can.html#ga95c42c89b517eab2aa63b584178e19d7">xcan.h</a>
 </li>
@@ -421,9 +449,6 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 <li>XCAN_IXR_WKUP_MASK
 : <a class="el" href="group__can.html#gaea1b2f81446269b8b30267bf840b3c31">xcan_l.h</a>
 </li>
-<li>XCAN_L_H
-: <a class="el" href="group__can.html#gac65cec1791cdaa6d0b68a80936f25c1a">xcan_l.h</a>
-</li>
 <li>XCAN_MASK_HIGH_16BITS
 : <a class="el" href="group__can.html#gac9b2db5b4abc4a1ee2154108702776d1">xcan_l.h</a>
 </li>
@@ -434,7 +459,9 @@ $(document).ready(function(){initNavTree('globals_defs.html','');});
 : <a class="el" href="group__can.html#ga0d49049d96621520fa9afe22db2a8a34">xcan_l.h</a>
 </li>
 <li>XCAN_MAX_FRAME_SIZE_IN_WORDS
-: <a class="el" href="group__can.html#gaaa965b01a6ce77f27ed848bcd393450b">xcan_selftest.c</a>
+: <a class="el" href="xcan__polled__example_8c.html#aaa965b01a6ce77f27ed848bcd393450b">xcan_polled_example.c</a>
+, <a class="el" href="group__can.html#gaaa965b01a6ce77f27ed848bcd393450b">xcan_selftest.c</a>
+, <a class="el" href="xcan__intr__example_8c.html#aaa965b01a6ce77f27ed848bcd393450b">xcan_intr_example.c</a>
 </li>
 <li>XCAN_MODE_CONFIG
 : <a class="el" href="group__can.html#gac2ff2f17841fcf789f5e214205aa844a">xcan.h</a>

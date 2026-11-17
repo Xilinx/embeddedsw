@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xdptxss__dp21__tx_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -122,6 +122,8 @@ MODIFICATION HISTORY:</pre><pre>Ver  Who      Date      Changes
 <code>#include &quot;<a class="el" href="xvidframe__crc_8h.html">xvidframe_crc.h</a>&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xdptxss__edid__parser_8h.html">xdptxss_edid_parser.h</a>&quot;</code><br/>
+<code>#include &lt;inttypes.h&gt;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -148,9 +150,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af99c567e691516d9f53489f1c81d3b6a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#af99c567e691516d9f53489f1c81d3b6a">DpTxSs_PhyInit</a> (UINTPTR BaseAddress)</td></tr>
 <tr class="memdesc:af99c567e691516d9f53489f1c81d3b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures Video Phy.  <a href="#af99c567e691516d9f53489f1c81d3b6a">More...</a><br/></td></tr>
 <tr class="separator:af99c567e691516d9f53489f1c81d3b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1531c0baa2d3390d97f70db53fdb4fe3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#a1531c0baa2d3390d97f70db53fdb4fe3">DpTxSs_Setup</a> (u8 *LineRate_init, u8 *LaneCount_init, u8 Edid_org[128], u8 Edid1_org[128])</td></tr>
-<tr class="memdesc:a1531c0baa2d3390d97f70db53fdb4fe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets up DPTxSubsystem.  <a href="#a1531c0baa2d3390d97f70db53fdb4fe3">More...</a><br/></td></tr>
-<tr class="separator:a1531c0baa2d3390d97f70db53fdb4fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1693c544f8b12ff5e49c4748731cc939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#a1693c544f8b12ff5e49c4748731cc939">DpTxSs_Setup</a> (void)</td></tr>
+<tr class="memdesc:a1693c544f8b12ff5e49c4748731cc939"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets up DPTxSubsystem.  <a href="#a1693c544f8b12ff5e49c4748731cc939">More...</a><br/></td></tr>
+<tr class="separator:a1693c544f8b12ff5e49c4748731cc939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ccb1a121c5b1cf57777452c8ff6fde4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#a1ccb1a121c5b1cf57777452c8ff6fde4">PLLRefClkSel</a> (XVphy *InstancePtr, u8 link_rate, XVphy_ChannelId Tx_Channel)</td></tr>
 <tr class="memdesc:a1ccb1a121c5b1cf57777452c8ff6fde4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets proper ref clk frequency and line rate.  <a href="#a1ccb1a121c5b1cf57777452c8ff6fde4">More...</a><br/></td></tr>
 <tr class="separator:a1ccb1a121c5b1cf57777452c8ff6fde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,12 +176,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for <a class="el" href="struct_x_dp_tx_ss.html" title="The DisplayPort TX Subsystem driver instance data. ">XDpTxSs</a> interrupt example.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32ccec3f1704b7b291ce7def5d63ad6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6">DpTxSs_SafeMode</a> (<a class="el" href="struct_x_dp_tx_ss.html">XDpTxSs</a> *InstancePtr, u8 MaxCapNew, u8 MaxCapLanesNew)</td></tr>
+<tr class="separator:ac32ccec3f1704b7b291ce7def5d63ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3117a55422e550a0ce3fa03ef562393"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx</a> (u8 line_rate, u8 lane_count, user_config_struct user_config)</td></tr>
 <tr class="memdesc:af3117a55422e550a0ce3fa03ef562393"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function starts tx process.  <a href="#af3117a55422e550a0ce3fa03ef562393">More...</a><br/></td></tr>
 <tr class="separator:af3117a55422e550a0ce3fa03ef562393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa68f758c57e64c4f7e64d0b26577f9fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#aa68f758c57e64c4f7e64d0b26577f9fa">DpTxSs_HpdCon</a> (<a class="el" href="struct_x_dp_tx_ss.html">XDpTxSs</a> *InstancePtr, u8 Edid_org[128], u16 ResUpdate)</td></tr>
-<tr class="memdesc:aa68f758c57e64c4f7e64d0b26577f9fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called when a Hot-Plug-Detect (HPD) event is received by the DisplayPort TX Subsystem core.  <a href="#aa68f758c57e64c4f7e64d0b26577f9fa">More...</a><br/></td></tr>
-<tr class="separator:aa68f758c57e64c4f7e64d0b26577f9fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf3afc3c0aed9f17e481c43374dbcf1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#afcf3afc3c0aed9f17e481c43374dbcf1">DpTxSs_HpdCon</a> (<a class="el" href="struct_x_dp_tx_ss.html">XDpTxSs</a> *InstancePtr, u8 Edid_org[128])</td></tr>
+<tr class="memdesc:afcf3afc3c0aed9f17e481c43374dbcf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called when a Hot-Plug-Detect (HPD) event is received by the DisplayPort TX Subsystem core.  <a href="#afcf3afc3c0aed9f17e481c43374dbcf1">More...</a><br/></td></tr>
+<tr class="separator:afcf3afc3c0aed9f17e481c43374dbcf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a874ccb1f5f04bfdd4d747ac001a646b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdptxss__dp21__tx_8c.html#a874ccb1f5f04bfdd4d747ac001a646b9">DpTxSs_Sink_PowerDown</a> (void)</td></tr>
 <tr class="memdesc:a874ccb1f5f04bfdd4d747ac001a646b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function powers down sink.  <a href="#a874ccb1f5f04bfdd4d747ac001a646b9">More...</a><br/></td></tr>
 <tr class="separator:a874ccb1f5f04bfdd4d747ac001a646b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,8 +261,6 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>&lt; timer for timeout. No need to be specific time. As long as long enough to wait lock </p>
 
-<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a911a781336cfbd1cd6e978bdb40fd7b2"></a>
@@ -280,7 +282,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa68f758c57e64c4f7e64d0b26577f9fa"></a>
+<a class="anchor" id="afcf3afc3c0aed9f17e481c43374dbcf1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -294,13 +296,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Edid_org</em>[128], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>ResUpdate</em>&#160;</td>
+          <td class="paramname"><em>Edid_org</em>[128]&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -319,12 +315,14 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Use the XDpTxSs_SetCallback driver function to set this function as the handler for HPD event. </dd></dl>
+<p>&lt; Sink capabilities</p>
 <p>&lt; supports 128/132b hence UHBR rates</p>
-<p>&lt; supports 128/132b hence UHBR rates</p>
-<p>&lt; Supports 128/132b hence UHBR rates</p>
-<p>&lt; Fail Safe mode </p>
+<p>&lt; Sink Edid don't have bpc, set 10 as default</p>
+<p>&lt; Interlaced</p>
+<p>&lt; Progressive</p>
+<p>&lt; RGB is the default/mandatory format. </p>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a9dcb8e2bf0d7742080dc7c33cbdf507c">DpTxSs_PhyConfig()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a099f55fa400e5564104ff0b564a0803e">GetPreferredVm()</a>, and <a class="el" href="struct_x_dp_tx_ss.html#aeaeedce84e436b47f1cf68bb025662dc">XDpTxSs::UsrHpdEventData</a>.</p>
+<p>References <a class="el" href="xdptxss__dp21__tx_8c.html#a9dcb8e2bf0d7742080dc7c33cbdf507c">DpTxSs_PhyConfig()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6">DpTxSs_SafeMode()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, <a class="el" href="group__dptxss.html#gab6d29c1b096fa035b61076bba5778185">EDID_MAX_TIMINGS</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#ace6fa5f428804751a9a95a62ab9bd431">XDpTxSs_VideoTimingParam::F0PVBackPorch</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#af56b406007bc5b68c185aa222b9ecaee">XDpTxSs_VideoTimingParam::F0PVFrontPorch</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a55de4df65077480a7a8b71c208e18af0">XDpTxSs_VideoTimingParam::F0PVSyncWidth</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a06cc7d7bcea4d32f272d01d6bf0d038b">XDpTxSs_VideoTimingParam::F0PVTotal</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#aa6930e26af330079a57c185d8419d499">XDpTxSs_VideoTimingParam::F1VBackPorch</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a1d5a08ed7ab1b869f33333a21cb0a786">XDpTxSs_VideoTimingParam::F1VFrontPorch</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a66da5b4b09e72a7712d2ab48d9c2ded7">XDpTxSs_VideoTimingParam::F1VSyncWidth</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#af6f8d23ef0c3f6bd45b65e0f74174965">XDpTxSs_VideoTimingParam::F1VTotal</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a7d9616359216d6594cf79c7929bca564">XDpTxSs_VideoTimingParam::HActive</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a4ff9f111fcf44f2d8b9937a6b56647c9">XDpTxSs_VideoTimingParam::HBackPorch</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#af7f47fd3b7c45a9a14194167c6f9179a">XDpTxSs_VideoTimingParam::HFrontPorch</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a5cbb4a7d6ea188363dd9ebefddb2d56c">XDpTxSs_VideoTimingParam::HSyncPolarity</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#aaa295103f7a18bcb2c77ed28aacd1f55">XDpTxSs_VideoTimingParam::HSyncWidth</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#aadeebfa9051f56d8360b7c6f15cf31ed">XDpTxSs_VideoTimingParam::HTotal</a>, <a class="el" href="struct_x_dp_tx_ss___sink___a_v___capabilities.html#ade4c1ac768603256a94481518f4a007e">XDpTxSs_Sink_AV_Capabilities::MaxBpc</a>, <a class="el" href="struct_x_dp_tx_ss___sink___a_v___capabilities.html#a0ee20a3beb20c2c62f19201f8923c3df">XDpTxSs_Sink_AV_Capabilities::SupportedColorFormats</a>, <a class="el" href="struct_x_dp_tx_ss___sink___a_v___capabilities.html#a5b6cd37c1a24b9a5d51ec8955844d127">XDpTxSs_Sink_AV_Capabilities::TimingList</a>, <a class="el" href="struct_x_dp_tx_ss.html#aeaeedce84e436b47f1cf68bb025662dc">XDpTxSs::UsrHpdEventData</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a4ef8e89dcbe4699c1a04c0dcf265f695">XDpTxSs_VideoTimingParam::VActive</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>, <a class="el" href="struct_x_dp_tx_ss___video_timing_param.html#a399355c0f936e6c55fcf6667a2517a25">XDpTxSs_VideoTimingParam::VSyncPolarity</a>, and <a class="el" href="group__dptxss.html#gae80dc4211286efca6ebd10bb5b17e67b">XDpTxSs_AuxRead()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
 
@@ -453,10 +451,9 @@ Variables</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If system setup was successful, this function is blocking in order to illustrate interrupt handling taking place for HPD events. </dd></dl>
-<p>&lt; Color Ramp (Default)</p>
 <p>&lt; For menu loop </p>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss___config.html#aee6c9866e032c7e70e399bc0dac84aa6">XDpTxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a9dcb8e2bf0d7742080dc7c33cbdf507c">DpTxSs_PhyConfig()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af99c567e691516d9f53489f1c81d3b6a">DpTxSs_PhyInit()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a77566cbc37f750518218986d3d37c4f4">DpTxSs_PlatformInit()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a1531c0baa2d3390d97f70db53fdb4fe3">DpTxSs_Setup()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a580b1ce673353caf117185940232783e">DpTxSs_SetupIntrSystem()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a1a6410ddf9e096e4eacb26a5f6ad14fe">XDpTxSs_UsrOpt::MstSupport</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a83b1170da398be3c53b87955c0a5b6a3">VideoFMC_Init()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>, <a class="el" href="group__dptxss.html#gafb7b3b467a12177fb0c8053f4b7d70a1">XDpTxSs_CfgInitialize()</a>, <a class="el" href="group__dptxss.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>, <a class="el" href="group__dptxss.html#ga9226edf6b20349ca2b871d714720d7cc">XDpTxSs_LookupConfig()</a>, <a class="el" href="group__dptxss.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, and <a class="el" href="group__dptxss.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss___config.html#aee6c9866e032c7e70e399bc0dac84aa6">XDpTxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af99c567e691516d9f53489f1c81d3b6a">DpTxSs_PhyInit()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a77566cbc37f750518218986d3d37c4f4">DpTxSs_PlatformInit()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a1693c544f8b12ff5e49c4748731cc939">DpTxSs_Setup()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a580b1ce673353caf117185940232783e">DpTxSs_SetupIntrSystem()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a1a6410ddf9e096e4eacb26a5f6ad14fe">XDpTxSs_UsrOpt::MstSupport</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a83b1170da398be3c53b87955c0a5b6a3">VideoFMC_Init()</a>, <a class="el" href="group__dptxss.html#gafb7b3b467a12177fb0c8053f4b7d70a1">XDpTxSs_CfgInitialize()</a>, <a class="el" href="group__dptxss.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>, <a class="el" href="group__dptxss.html#ga9226edf6b20349ca2b871d714720d7cc">XDpTxSs_LookupConfig()</a>, and <a class="el" href="xdptxss__vtc_8c.html#a9af8888ba49aa5c603c26e1f99d45787">XDpTxSs_SetVtcSetupCallback()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
 
@@ -502,9 +499,9 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Status.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xdptxss__dp21__tx_8c.html#a1ccb1a121c5b1cf57777452c8ff6fde4">PLLRefClkSel()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4459333c8f1aa5c550d4dd4958b1797b">VPHY_TX_REFCLK_SEL_270</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a1ccb1a121c5b1cf57777452c8ff6fde4">PLLRefClkSel()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4459333c8f1aa5c550d4dd4958b1797b">VPHY_TX_REFCLK_SEL_270</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>.</p>
 
-<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#a8ec01cdb3e41fff7c52f53c52e4e4813">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a5ca22ccfb289f96075996909fc521750">DpTxSs_LinkrateChgHandler()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>.</p>
+<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#afcf3afc3c0aed9f17e481c43374dbcf1">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a5ca22ccfb289f96075996909fc521750">DpTxSs_LinkrateChgHandler()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6">DpTxSs_SafeMode()</a>.</p>
 
 </div>
 </div>
@@ -536,7 +533,7 @@ Variables</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xdptxss__dp21__tx_8c.html#a1ccb1a121c5b1cf57777452c8ff6fde4">PLLRefClkSel()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a46db76a6e981be8c9428a83a5323b924">PrevLineRate</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4459333c8f1aa5c550d4dd4958b1797b">VPHY_TX_REFCLK_SEL_270</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a1ccb1a121c5b1cf57777452c8ff6fde4">PLLRefClkSel()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a46db76a6e981be8c9428a83a5323b924">PrevLineRate</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4459333c8f1aa5c550d4dd4958b1797b">VPHY_TX_REFCLK_SEL_270</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>.</p>
 
 <p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>.</p>
 
@@ -576,38 +573,53 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1531c0baa2d3390d97f70db53fdb4fe3"></a>
+<a class="anchor" id="ac32ccec3f1704b7b291ce7def5d63ad6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DpTxSs_SafeMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dp_tx_ss.html">XDpTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>MaxCapNew</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>MaxCapLanesNew</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>&lt; Color Ramp (Default) </p>
+
+<p>References <a class="el" href="xdptxss__dp21__tx_8c.html#a9dcb8e2bf0d7742080dc7c33cbdf507c">DpTxSs_PhyConfig()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>.</p>
+
+<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#afcf3afc3c0aed9f17e481c43374dbcf1">DpTxSs_HpdCon()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1693c544f8b12ff5e49c4748731cc939"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void DpTxSs_Setup </td>
           <td>(</td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>LineRate_init</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>LaneCount_init</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Edid_org</em>[128], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Edid1_org</em>[128]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -624,11 +636,6 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>&lt; if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled</p>
-<p>&lt; read maxLineRate</p>
-<p>&lt; Give another chance to monitor.</p>
-<p>&lt; if EXTENDED_RECEIVER_CAPABILITY_FIELD is enabled</p>
-<p>&lt; read maxLineRate </p>
 
 <p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, and <a class="el" href="group__dptxss.html#ga84de784579ceabd123fdf1136dde0c7d">XDpTxSs_IsConnected()</a>.</p>
 
@@ -698,7 +705,7 @@ Variables</h2></td></tr>
 
 <p>References <a class="el" href="xdptxss__dp21__tx_8c.html#a874ccb1f5f04bfdd4d747ac001a646b9">DpTxSs_Sink_PowerDown()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a2225c38c6dfc1c636c25acfc3b2a0f78">DpTxSs_Sink_PowerUp()</a>.</p>
 
-<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a1531c0baa2d3390d97f70db53fdb4fe3">DpTxSs_Setup()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
+<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6">DpTxSs_SafeMode()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a1693c544f8b12ff5e49c4748731cc939">DpTxSs_Setup()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
 
 </div>
 </div>
@@ -726,7 +733,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>.</p>
+<p>References <a class="el" href="group__dptxss.html#gaffc229baa138e9bea24cf95f70daee85">XDpTxSs_AuxWrite()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#a43bfef1afb72a74517979ca8d98b62c3">DpTxSs_HpdEventHandler()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
 
@@ -756,7 +763,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>.</p>
+<p>References <a class="el" href="group__dptxss.html#gaffc229baa138e9bea24cf95f70daee85">XDpTxSs_AuxWrite()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#a43bfef1afb72a74517979ca8d98b62c3">DpTxSs_HpdEventHandler()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
 
@@ -811,9 +818,9 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>&lt; Duplicate </p>
 
-<p>References <a class="el" href="xdptxss__dp21__tx_8c.html#a40db3a1befdd0b153debbb04049ccc70">ClkWiz_Locked()</a>, <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="struct_x_dp_tx_ss.html#a1dccdffc912017829be08ef808b5923f">XDpTxSs::UsrOpt</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a6e5b492b075584802d8e448341ad463c">Vpg_StreamSrcConfigure()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#aae950e5381749a4972645f73cfa8c478">Vpg_VidgenSetUserPattern()</a>, <a class="el" href="struct_x_dp_tx_ss___usr_opt.html#a212975289ac5ab6ddd4974c5d236c8f9">XDpTxSs_UsrOpt::VtcAdjustBs</a>, <a class="el" href="struct_x_dp_tx_ss.html#add09119ff74df49fec0c006814c86da9">XDpTxSs::VtcPtr</a>, <a class="el" href="group__dptxss.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss.html#ga8edde5017977263b22afd3abb4ad6a10">XDpTxSs_SetBpc()</a>, <a class="el" href="group__dptxss.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, <a class="el" href="group__dptxss.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>, <a class="el" href="group__dptxss.html#gac94df5d299e1a088c159a2be61840680">XDpTxSs_SetVidMode()</a>, <a class="el" href="group__dptxss.html#ga883ba3d77b48aaaee5858de1e5620c76">XDpTxSs_Start()</a>, <a class="el" href="xdptxss__vtc_8c.html#ab2e0f13f1f5cbd8904c67cc63f2df32d">XDpTxSs_VtcSetup()</a>, and <a class="el" href="xvidframe__crc_8c.html#a321d0f59b714c72d6e62ac1a1b1a32f1">XVidFrameCrc_Reset()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a6e5b492b075584802d8e448341ad463c">Vpg_StreamSrcConfigure()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#aae950e5381749a4972645f73cfa8c478">Vpg_VidgenSetUserPattern()</a>, <a class="el" href="group__dptxss.html#gae80dc4211286efca6ebd10bb5b17e67b">XDpTxSs_AuxRead()</a>, <a class="el" href="group__dptxss.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss.html#ga8edde5017977263b22afd3abb4ad6a10">XDpTxSs_SetBpc()</a>, <a class="el" href="group__dptxss.html#ga47d0bbf83c92e4f29846002480bf57b0">XDpTxSs_SetLaneCount()</a>, <a class="el" href="group__dptxss.html#ga6525a2e8e00c2f836e500241e0d45a6f">XDpTxSs_SetLinkRate()</a>, <a class="el" href="group__dptxss.html#gac94df5d299e1a088c159a2be61840680">XDpTxSs_SetVidMode()</a>, <a class="el" href="group__dptxss.html#ga883ba3d77b48aaaee5858de1e5620c76">XDpTxSs_Start()</a>, and <a class="el" href="xvidframe__crc_8c.html#a321d0f59b714c72d6e62ac1a1b1a32f1">XVidFrameCrc_Reset()</a>.</p>
 
-<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#a8ec01cdb3e41fff7c52f53c52e4e4813">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
+<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#afcf3afc3c0aed9f17e481c43374dbcf1">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6">DpTxSs_SafeMode()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
 
 </div>
 </div>
@@ -919,8 +926,6 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Video Mode ID</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8h.html#a8ec01cdb3e41fff7c52f53c52e4e4813">DpTxSs_HpdCon()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
@@ -970,7 +975,7 @@ Variables</h2></td></tr>
 <p>&lt; Duplicate</p>
 <p>&lt; for menu loop </p>
 
-<p>References <a class="el" href="struct_x_dp_tx_ss.html#a9469d77acb349ab8c6672fb9338ea5fc">XDpTxSs::Config</a>, <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#aa68f758c57e64c4f7e64d0b26577f9fa">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a874ccb1f5f04bfdd4d747ac001a646b9">DpTxSs_Sink_PowerDown()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a2225c38c6dfc1c636c25acfc3b2a0f78">DpTxSs_Sink_PowerUp()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#abf092dfbac92af19a16428c3ce5f0a4d">get_Lanecounts()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4f08b7f747aa871c3bf0347e7a97a014">get_LineRate()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ac150a5c20e23175e1421433dae74d77d">HpdPulseConEvent</a>, <a class="el" href="struct_x_dp_tx_ss___config.html#a76c53ab2a931220726a76cb0fc26e909">XDpTxSs_Config::MaxLaneCount</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a46db76a6e981be8c9428a83a5323b924">PrevLineRate</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a306e207aa67909d2660b4d99c74d6518">Vpg_Audio_start()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a7a23d7ce2380ce84a5b92fbeb9c1c565">Vpg_Audio_stop()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#aae950e5381749a4972645f73cfa8c478">Vpg_VidgenSetUserPattern()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>, <a class="el" href="group__dptxss.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss.html#gae6b65b3bbfc9c6ed157e2bf3f7f936db">XDpTxSs_ReportLinkInfo()</a>, <a class="el" href="group__dptxss.html#gab2b141a2d345ff278a2ff908bdaa8699">XDpTxSs_ReportMsaInfo()</a>, <a class="el" href="group__dptxss.html#ga544f5ca44dedcc54623d5dc03ca0f90e">XDpTxSs_ReportSinkCapInfo()</a>, <a class="el" href="group__dptxss.html#ga5f08a664600d4530051557ba18c86f13">XDpTxSs_ReportVtcInfo()</a>, <a class="el" href="group__dptxss.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, <a class="el" href="group__dptxss.html#ga67dc4e76afb21f9bbe3d7b77f6574360">XDpTxSs_SendAudioInfoFrame()</a>, <a class="el" href="group__dptxss.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#ad673f235f7cfedfa92f5e7b76e1dc6c8">xil_getc()</a>, and <a class="el" href="xvidframe__crc_8c.html#a732c2a4829be922ca9620dc2748dfd4b">XVidFrameCrc_Report()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_tx_ss.html#a9469d77acb349ab8c6672fb9338ea5fc">XDpTxSs::Config</a>, <a class="el" href="struct_x_dp_tx_ss.html#a5191770fa4cf23ff0d1ed4c9c367af94">XDpTxSs::DpPtr</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#afcf3afc3c0aed9f17e481c43374dbcf1">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a44a8aa5aff665254f8ecd7d70f31cf25">DpTxSs_Sink_PowerCycle()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a874ccb1f5f04bfdd4d747ac001a646b9">DpTxSs_Sink_PowerDown()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a2225c38c6dfc1c636c25acfc3b2a0f78">DpTxSs_Sink_PowerUp()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af3117a55422e550a0ce3fa03ef562393">DpTxSs_StartTx()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#abf092dfbac92af19a16428c3ce5f0a4d">get_Lanecounts()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a4f08b7f747aa871c3bf0347e7a97a014">get_LineRate()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ac150a5c20e23175e1421433dae74d77d">HpdPulseConEvent</a>, <a class="el" href="struct_x_dp_tx_ss___config.html#a76c53ab2a931220726a76cb0fc26e909">XDpTxSs_Config::MaxLaneCount</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a46db76a6e981be8c9428a83a5323b924">PrevLineRate</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a306e207aa67909d2660b4d99c74d6518">Vpg_Audio_start()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a7a23d7ce2380ce84a5b92fbeb9c1c565">Vpg_Audio_stop()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#aae950e5381749a4972645f73cfa8c478">Vpg_VidgenSetUserPattern()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>, <a class="el" href="group__dptxss.html#gae80dc4211286efca6ebd10bb5b17e67b">XDpTxSs_AuxRead()</a>, <a class="el" href="group__dptxss.html#ga50fc785403847b8c3932a2213553e28d">XDpTxSs_CheckLinkStatus()</a>, <a class="el" href="group__dptxss.html#gae6b65b3bbfc9c6ed157e2bf3f7f936db">XDpTxSs_ReportLinkInfo()</a>, <a class="el" href="group__dptxss.html#gab2b141a2d345ff278a2ff908bdaa8699">XDpTxSs_ReportMsaInfo()</a>, <a class="el" href="group__dptxss.html#ga544f5ca44dedcc54623d5dc03ca0f90e">XDpTxSs_ReportSinkCapInfo()</a>, <a class="el" href="group__dptxss.html#ga5f08a664600d4530051557ba18c86f13">XDpTxSs_ReportVtcInfo()</a>, <a class="el" href="group__dptxss.html#ga2d3af2f5793e806f2e63a39d1055568c">XDpTxSs_Reset()</a>, <a class="el" href="group__dptxss.html#ga67dc4e76afb21f9bbe3d7b77f6574360">XDpTxSs_SendAudioInfoFrame()</a>, <a class="el" href="group__dptxss.html#gaf70f2f11d0e48e80c92673f3e208fc23">XDpTxSs_Stop()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#ad673f235f7cfedfa92f5e7b76e1dc6c8">xil_getc()</a>, and <a class="el" href="xvidframe__crc_8c.html#a732c2a4829be922ca9620dc2748dfd4b">XVidFrameCrc_Report()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>.</p>
 
@@ -1278,7 +1283,7 @@ MODIFICATION HISTORY:</pre><pre>Ver  Who      Date      Changes
 
 <p>The DPRX Subsystem instance. </p>
 
-<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#a911a781336cfbd1cd6e978bdb40fd7b2">DpTxSs_Ffe_AdjustHandler()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a43bfef1afb72a74517979ca8d98b62c3">DpTxSs_HpdEventHandler()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ad0783ef552d510a2741928fc4a59cc7b">DpTxSs_Main()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a9dcb8e2bf0d7742080dc7c33cbdf507c">DpTxSs_PhyConfig()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af99c567e691516d9f53489f1c81d3b6a">DpTxSs_PhyInit()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
+<p>Referenced by <a class="el" href="xdptxss__dp21__tx_8c.html#a911a781336cfbd1cd6e978bdb40fd7b2">DpTxSs_Ffe_AdjustHandler()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#afcf3afc3c0aed9f17e481c43374dbcf1">DpTxSs_HpdCon()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#a43bfef1afb72a74517979ca8d98b62c3">DpTxSs_HpdEventHandler()</a>, <a class="el" href="xdptxss__dp21__tx_8h.html#a9dcb8e2bf0d7742080dc7c33cbdf507c">DpTxSs_PhyConfig()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#af99c567e691516d9f53489f1c81d3b6a">DpTxSs_PhyInit()</a>, <a class="el" href="xdptxss__dp21__tx_8c.html#ac32ccec3f1704b7b291ce7def5d63ad6">DpTxSs_SafeMode()</a>, and <a class="el" href="xdptxss__dp21__tx_8c.html#a4aa2d6078cb7f20cad91adb07fdcb5ae">main_loop()</a>.</p>
 
 </div>
 </div>

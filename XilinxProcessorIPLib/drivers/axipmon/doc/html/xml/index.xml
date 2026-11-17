@@ -161,7 +161,6 @@
     <member refid="group__axipmon_1ga95ba22062090976f64920369030d0cde" kind="define"><name>XAPM_MODE_TRACE</name></member>
     <member refid="group__axipmon_1ga62b1d2daed7aefbfa0a008d2958ee08d" kind="define"><name>XAPM_MODE_PROFILE</name></member>
     <member refid="group__axipmon_1gad74a5853d9b857668bdc9fa0b905a5ea" kind="define"><name>XAPM_MODE_ADVANCED</name></member>
-    <member refid="group__axipmon_1ga4af09ea68ae997ed2d0cfebaf0a4762e" kind="define"><name>XAXIPMON_H</name></member>
     <member refid="group__axipmon_1ga5506283945b4bd9feb8f4492bfdbf09f" kind="define"><name>XAxiPmon_IntrGlobalEnable</name></member>
     <member refid="group__axipmon_1ga6a00508e92448eb5af39041cacb59a72" kind="define"><name>XAxiPmon_IntrGlobalDisable</name></member>
     <member refid="group__axipmon_1ga18e103d1b81cf0083cdb820e5cf593af" kind="define"><name>XAxiPmon_IntrEnable</name></member>
@@ -423,7 +422,6 @@
     <member refid="group__axipmon_1gab843bc96ee0d14d133a20992abcd3fbe" kind="define"><name>XAPM_ID_WID_MASK</name></member>
     <member refid="group__axipmon_1ga8e33680a6abcd0d352c601c8e66b2edd" kind="define"><name>XAPM_MASKID_RID_MASK</name></member>
     <member refid="group__axipmon_1ga125073bb55dc527e3d79af5d9d34ac62" kind="define"><name>XAPM_MASKID_WID_MASK</name></member>
-    <member refid="group__axipmon_1ga311a5b8206cb4be8e7dc626b82f1c491" kind="define"><name>XAXIPMON_HW_H</name></member>
     <member refid="group__axipmon_1gab9c1c9b68b79063bea8213b96a3b752a" kind="define"><name>XAxiPmon_ReadReg</name></member>
     <member refid="group__axipmon_1ga9c0856dc12c7ee0ab4c289b809c8c4b9" kind="define"><name>XAxiPmon_WriteReg</name></member>
   </compound>
@@ -435,9 +433,9 @@
     <member refid="xaxipmon__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xaxipmon__ocm__example_8c" kind="file"><name>xaxipmon_ocm_example.c</name>
-    <member refid="xaxipmon__ocm__example_8c_1a93f97e455a4335f7c2b6cff3716e2691" kind="define"><name>SAMPLE_INTERVAL</name></member>
     <member refid="xaxipmon__ocm__example_8c_1af17b49739eba5a6dbf7caf7481c71991" kind="define"><name>OCM_WRITE_ADDRESS</name></member>
     <member refid="xaxipmon__ocm__example_8c_1a0753a2c84687dc17094c1962dff3aad6" kind="define"><name>OCM_READ_ADDRESS</name></member>
+    <member refid="xaxipmon__ocm__example_8c_1a93f97e455a4335f7c2b6cff3716e2691" kind="define"><name>SAMPLE_INTERVAL</name></member>
     <member refid="xaxipmon__ocm__example_8c_1a127f5b305da5b49b7907994bfa2e7dc3" kind="variable"><name>AxiPmonInst</name></member>
     <member refid="xaxipmon__ocm__example_8c_1a47c5759a179275fc06e7bb53db38aac7" kind="variable"><name>MetricsBuffer</name></member>
     <member refid="xaxipmon__ocm__example_8c_1affabe0f236da72ce614eb1327a0663d3" kind="function"><name>ApmCheck</name></member>
@@ -729,6 +727,8 @@
     <member refid="group__axipmon_1gab843bc96ee0d14d133a20992abcd3fbe" kind="define"><name>XAPM_ID_WID_MASK</name></member>
     <member refid="group__axipmon_1ga8e33680a6abcd0d352c601c8e66b2edd" kind="define"><name>XAPM_MASKID_RID_MASK</name></member>
     <member refid="group__axipmon_1ga125073bb55dc527e3d79af5d9d34ac62" kind="define"><name>XAPM_MASKID_WID_MASK</name></member>
+    <member refid="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" kind="define"><name>XAPM_TEST_RANGEUPPER_VALUE</name></member>
+    <member refid="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" kind="define"><name>XAPM_TEST_RANGELOWER_VALUE</name></member>
     <member refid="group__axipmon_1gaa4c96b9dd59077a92ff5eaf793b217af" kind="variable"><name>XAxiPmon_ConfigTable</name></member>
     <member refid="group__axipmon_1gaae1bd1b996820c76f12b503eb4e298db" kind="variable"><name>XAxiPmon_ConfigTable</name></member>
     <member refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" kind="function"><name>XAxiPmon_CfgInitialize</name></member>
@@ -780,7 +780,6 @@
     <member refid="group__axipmon_1ga626c97b8b159047052b6ca6308c43c7a" kind="function"><name>XAxiPmon_GetReadIdMask</name></member>
     <member refid="group__axipmon_1ga5e458d0ea6c0a458eb3bdd4b638be748" kind="function"><name>XAxiPmon_LookupConfig</name></member>
     <member refid="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" kind="function"><name>XAxiPmon_SelfTest</name></member>
-    <member refid="group__axipmon_1ga4af09ea68ae997ed2d0cfebaf0a4762e" kind="define"><name>XAXIPMON_H</name></member>
     <member refid="group__axipmon_1ga5506283945b4bd9feb8f4492bfdbf09f" kind="define"><name>XAxiPmon_IntrGlobalEnable</name></member>
     <member refid="group__axipmon_1ga6a00508e92448eb5af39041cacb59a72" kind="define"><name>XAxiPmon_IntrGlobalDisable</name></member>
     <member refid="group__axipmon_1ga18e103d1b81cf0083cdb820e5cf593af" kind="define"><name>XAxiPmon_IntrEnable</name></member>
@@ -799,11 +798,8 @@
     <member refid="group__axipmon_1gaad3b91661484bba1f7ac3cbe8feebde2" kind="define"><name>XAxiPmon_EnableIDFilter</name></member>
     <member refid="group__axipmon_1gaeaaee52aa169760e025b02186ab43585" kind="define"><name>XAxiPmon_DisableIDFilter</name></member>
     <member refid="group__axipmon_1gae4e632d933ed51e8a273ef7cc42cb950" kind="define"><name>XAxiPmon_SampleMetrics</name></member>
-    <member refid="group__axipmon_1ga311a5b8206cb4be8e7dc626b82f1c491" kind="define"><name>XAXIPMON_HW_H</name></member>
     <member refid="group__axipmon_1gab9c1c9b68b79063bea8213b96a3b752a" kind="define"><name>XAxiPmon_ReadReg</name></member>
     <member refid="group__axipmon_1ga9c0856dc12c7ee0ab4c289b809c8c4b9" kind="define"><name>XAxiPmon_WriteReg</name></member>
-    <member refid="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" kind="define"><name>XAPM_TEST_RANGEUPPER_VALUE</name></member>
-    <member refid="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" kind="define"><name>XAPM_TEST_RANGELOWER_VALUE</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>

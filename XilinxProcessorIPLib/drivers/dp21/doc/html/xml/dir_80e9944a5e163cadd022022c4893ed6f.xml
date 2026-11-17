@@ -4,6 +4,13 @@
     <compoundname>src</compoundname>
     <innerfile refid="xdp_8c">xdp.c</innerfile>
     <innerfile refid="xdp_8h">xdp.h</innerfile>
+    <innerfile refid="xdp21__dsc_8c">xdp21_dsc.c</innerfile>
+    <innerfile refid="xdp21__dsc_8h">xdp21_dsc.h</innerfile>
+    <innerfile refid="xdp21__dsc__fec__utils_8c">xdp21_dsc_fec_utils.c</innerfile>
+    <innerfile refid="xdp21__dsc__fec__vbid__pps__extraction_8c">xdp21_dsc_fec_vbid_pps_extraction.c</innerfile>
+    <innerfile refid="xdp21__dsc__fec__vbid__pps__extraction_8h">xdp21_dsc_fec_vbid_pps_extraction.h</innerfile>
+    <innerfile refid="xdp21__dsc__tu_8c">xdp21_dsc_tu.c</innerfile>
+    <innerfile refid="xdp21__dsc__tu_8h">xdp21_dsc_tu.h</innerfile>
     <innerfile refid="xdp__edid_8c">xdp_edid.c</innerfile>
     <innerfile refid="xdp__hw_8h">xdp_hw.h</innerfile>
     <innerfile refid="xdp__intr_8c">xdp_intr.c</innerfile>
@@ -15,6 +22,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/"/>
   </compounddef>
 </doxygen>

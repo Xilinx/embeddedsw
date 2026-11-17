@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_uart_ps_format.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_uart_ps_format.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Keep track of data format setting of a device.
+<p>Tracks the data format setting of a device.
  <a href="struct_x_uart_ps_format.html#details">More...</a></p>
 
 <p><code>#include &lt;xuartps.h&gt;</code></p>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('struct_x_uart_ps_format.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a267c8cfe489f4bedda2f746bae10091a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_ps_format.html#a267c8cfe489f4bedda2f746bae10091a">BaudRate</a></td></tr>
-<tr class="memdesc:a267c8cfe489f4bedda2f746bae10091a"><td class="mdescLeft">&#160;</td><td class="mdescRight">In bps, ie 1200.  <a href="#a267c8cfe489f4bedda2f746bae10091a">More...</a><br/></td></tr>
+<tr class="memdesc:a267c8cfe489f4bedda2f746bae10091a"><td class="mdescLeft">&#160;</td><td class="mdescRight">In bps, for example 1200.  <a href="#a267c8cfe489f4bedda2f746bae10091a">More...</a><br/></td></tr>
 <tr class="separator:a267c8cfe489f4bedda2f746bae10091a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a965929f6a567dffcbce97adba720ab60"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_ps_format.html#a965929f6a567dffcbce97adba720ab60">DataBits</a></td></tr>
 <tr class="memdesc:a965929f6a567dffcbce97adba720ab60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data bits.  <a href="#a965929f6a567dffcbce97adba720ab60">More...</a><br/></td></tr>
@@ -134,7 +134,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a79b08626f18007181dbc8a6e99ce0d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Keep track of data format setting of a device. </p>
+<div class="textblock"><p>Tracks the data format setting of a device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a267c8cfe489f4bedda2f746bae10091a"></a>
 <div class="memitem">
@@ -146,7 +146,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>In bps, ie 1200. </p>
+<p>In bps, for example 1200. </p>
 
 <p>Referenced by <a class="el" href="group__uartps.html#ga3de8ab4e4aca0ba939bc547b5592726c">XUartPs_GetDataFormat()</a>, and <a class="el" href="group__uartps.html#ga249eaf3cd4be5242d4143a88bab1add0">XUartPs_SetDataFormat()</a>.</p>
 

@@ -6,42 +6,42 @@
     <includes refid="xsecure__alghelper_8h" local="yes">xsecure_alghelper.h</includes>
     <includes local="yes">xsecure_plat_defs.h</includes>
     <incdepgraph>
-      <node id="1665">
+      <node id="1712">
         <label>xil_sutil.h</label>
       </node>
-      <node id="1668">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1664">
-        <label>xil_cryptoalginfo.h</label>
-      </node>
-      <node id="1662">
-        <label>xsecure_hmacalginfo.c</label>
-        <link refid="xsecure_hmacalginfo.c"/>
-        <childnode refid="1663" relation="include">
-        </childnode>
-        <childnode refid="1666" relation="include">
-        </childnode>
-        <childnode refid="1668" relation="include">
-        </childnode>
-      </node>
-      <node id="1663">
-        <label>xsecure_hmacalginfo.h</label>
-        <link refid="xsecure__hmacalginfo_8h"/>
-        <childnode refid="1664" relation="include">
-        </childnode>
-        <childnode refid="1665" relation="include">
-        </childnode>
-      </node>
-      <node id="1667">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1666">
+      <node id="1713">
         <label>xsecure_alghelper.h</label>
         <link refid="xsecure__alghelper_8h"/>
-        <childnode refid="1664" relation="include">
+        <childnode refid="1711" relation="include">
         </childnode>
-        <childnode refid="1667" relation="include">
+        <childnode refid="1714" relation="include">
+        </childnode>
+      </node>
+      <node id="1715">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1711">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="1714">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1709">
+        <label>xsecure_hmacalginfo.c</label>
+        <link refid="xsecure_hmacalginfo.c"/>
+        <childnode refid="1710" relation="include">
+        </childnode>
+        <childnode refid="1713" relation="include">
+        </childnode>
+        <childnode refid="1715" relation="include">
+        </childnode>
+      </node>
+      <node id="1710">
+        <label>xsecure_hmacalginfo.h</label>
+        <link refid="xsecure__hmacalginfo_8h"/>
+        <childnode refid="1711" relation="include">
+        </childnode>
+        <childnode refid="1712" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -63,16 +63,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="161">XSECURE_API_HMAC_OPERATION</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_HMAC_OPERATION</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -107,12 +106,12 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
-<codeline lineno="52" refid="group__xsecure__hmac__client__apis_1ga2d440e9d0a0a6cbfff2854aa2385f713" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__hmac__client__apis_1ga2d440e9d0a0a6cbfff2854aa2385f713" kindref="member">XSecure_HmacGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
-<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" kindref="member">XSECURE_API_HMAC_OPERATION</ref>);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__xsecure__hmac__client__apis_1ga2d440e9d0a0a6cbfff2854aa2385f713" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__hmac__client__apis_1ga2d440e9d0a0a6cbfff2854aa2385f713" kindref="member">XSecure_HmacGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" kindref="member">XSECURE_API_HMAC_OPERATION</ref>);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c"/>
   </compounddef>
 </doxygen>

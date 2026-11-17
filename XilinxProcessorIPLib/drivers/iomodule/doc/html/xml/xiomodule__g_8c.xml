@@ -8,6 +8,22 @@
       <node id="52">
         <label>xil_io.h</label>
       </node>
+      <node id="50">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xiomodule_g.c</label>
+        <link refid="xiomodule_g.c"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
       <node id="48">
         <label>xiomodule.h</label>
         <link refid="xiomodule_8h"/>
@@ -21,27 +37,11 @@
       <node id="49">
         <label>xstatus.h</label>
       </node>
-      <node id="47">
-        <label>xiomodule_g.c</label>
-        <link refid="xiomodule_g.c"/>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="54" relation="include">
-        </childnode>
-      </node>
       <node id="53">
         <label>xil_types.h</label>
       </node>
       <node id="54">
         <label>xparameters.h</label>
-      </node>
-      <node id="50">
-        <label>xiomodule_l.h</label>
-        <link refid="xiomodule__l_8h"/>
-        <childnode refid="49" relation="include">
-        </childnode>
-        <childnode refid="51" relation="include">
-        </childnode>
       </node>
       <node id="51">
         <label>xiomodule_io.h</label>
@@ -62,9 +62,9 @@
 <para>The <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> driver must know when to acknowledge the interrupt. The entry which specifies this as a bit mask where each bit corresponds to a specific interrupt. A bit set indicates to ack it before servicing it. Generally, acknowledge before service is used when the interrupt signal is edge-sensitive, and after when the signal is level-sensitive.</para><para>Refer to the <ref refid="struct_x_i_o_module___config" kindref="compound">XIOModule_Config</ref> data structure in <ref refid="xiomodule_8h" kindref="compound">xiomodule.h</ref> for details on how this table should be initialized. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_g.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_g.c" bodystart="70" bodyend="-1"/>
-        <referencedby refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" compoundref="xiomodule__l_8c" startline="143" endline="219">XIOModule_DeviceInterruptHandler</referencedby>
-        <referencedby refid="group__iomodule_1gac0e5cd3943ba88de83a21021e31ace85" compoundref="xiomodule_8c" startline="649" endline="663">XIOModule_LookupConfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_g.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_g.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" compoundref="xiomodule__l_8c" startline="140" endline="216">XIOModule_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__iomodule_1gac0e5cd3943ba88de83a21021e31ace85" compoundref="xiomodule_8c" startline="617" endline="631">XIOModule_LookupConfig</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -134,6 +134,6 @@
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="105"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_g.c"/>
   </compounddef>
 </doxygen>

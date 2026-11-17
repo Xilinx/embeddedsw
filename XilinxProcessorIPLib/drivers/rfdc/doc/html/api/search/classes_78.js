@@ -19,6 +19,8 @@ var searchData=
   ['xrfdc_5fdacblock_5fdigitaldatapath_5fconfig',['XRFdc_DACBlock_DigitalDataPath_Config',['../struct_x_r_fdc___d_a_c_block___digital_data_path___config.html',1,'']]],
   ['xrfdc_5fdactile_5fconfig',['XRFdc_DACTile_Config',['../struct_x_r_fdc___d_a_c_tile___config.html',1,'']]],
   ['xrfdc_5fdistribution_5finfo',['XRFdc_Distribution_Info',['../struct_x_r_fdc___distribution___info.html',1,'']]],
+  ['xrfdc_5fdistribution_5fsettings',['XRFdc_Distribution_Settings',['../struct_x_r_fdc___distribution___settings.html',1,'']]],
+  ['xrfdc_5fdistribution_5fsystem_5fsettings',['XRFdc_Distribution_System_Settings',['../struct_x_r_fdc___distribution___system___settings.html',1,'']]],
   ['xrfdc_5fdsa_5fsettings',['XRFdc_DSA_Settings',['../struct_x_r_fdc___d_s_a___settings.html',1,'']]],
   ['xrfdc_5fipstatus',['XRFdc_IPStatus',['../struct_x_r_fdc___i_p_status.html',1,'']]],
   ['xrfdc_5fmixer_5fsettings',['XRFdc_Mixer_Settings',['../struct_x_r_fdc___mixer___settings.html',1,'']]],

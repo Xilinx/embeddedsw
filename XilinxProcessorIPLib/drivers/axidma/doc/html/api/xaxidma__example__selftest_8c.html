@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxidma__example__selftest_8c.html',''
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,104 +100,31 @@ $(document).ready(function(){initNavTree('xaxidma__example__selftest_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xaxidma_example_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file demonstrates the example to do selftest on the device. </p>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
------ ---- -------- -------------------------------------------------------
-9.3   ms   01/23/17 Modified xil_printf statement in main function to
-                    ensure that "Successfully ran" and "Failed" strings are
-                    available in all examples. This is a fix for CR-965028.
-      ms   04/05/17 Modified Comment lines in functions to
-                    recognize it as documentation block for doxygen
-                    generation of examples.
-</pre><hr/>
-</div><div class="textblock"><code>#include &quot;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xdebug.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a95abf69118f4f7a08c4c6e264a39982b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__example__selftest_8c.html#a95abf69118f4f7a08c4c6e264a39982b">AxiDMASelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a95abf69118f4f7a08c4c6e264a39982b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performance a reset of the DMA device and checks the device is coming out of reset or not.  <a href="#a95abf69118f4f7a08c4c6e264a39982b">More...</a><br/></td></tr>
-<tr class="separator:a95abf69118f4f7a08c4c6e264a39982b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__example__selftest_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entry point for this example.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
-<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga95abf69118f4f7a08c4c6e264a39982b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga95abf69118f4f7a08c4c6e264a39982b">AxiDMASelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga95abf69118f4f7a08c4c6e264a39982b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the DMA device and verifies idle state and checks the device is.  <a href="group___a_x_i_d_m_a.html#ga95abf69118f4f7a08c4c6e264a39982b">More...</a><br/></td></tr>
+<tr class="separator:ga95abf69118f4f7a08c4c6e264a39982b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the example entry point.  <a href="group___a_x_i_d_m_a.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga19e117de53f70f4391bf2e1d876a1af5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma.html">XAxiDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga19e117de53f70f4391bf2e1d876a1af5">AxiDma</a></td></tr>
+<tr class="memdesc:ga19e117de53f70f4391bf2e1d876a1af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver instance for the AXI DMA under test.  <a href="group___a_x_i_d_m_a.html#ga19e117de53f70f4391bf2e1d876a1af5">More...</a><br/></td></tr>
+<tr class="separator:ga19e117de53f70f4391bf2e1d876a1af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a95abf69118f4f7a08c4c6e264a39982b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AxiDMASelfTestExample </td>
-          <td>(</td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function performance a reset of the DMA device and checks the device is coming out of reset or not. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if channel reset is successful</li>
-<li>XST_FAILURE if channel reset fails.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group___a_x_i_d_m_a.html#ga8026e76c90d891d21c9c355ff776cb77">XAxiDma_CfgInitialize()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga8a31868280befe559084a39d4505d624">XAxiDma_LookupConfig()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#gad4ea3039216916336ae1c7598ff26afc">XAxiDma_Selftest()</a>.</p>
-
-<p>Referenced by <a class="el" href="xaxidma__example__selftest_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The entry point for this example. </p>
-<p>It invokes the example function, and reports the execution status.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if example finishes successfully</li>
-<li>XST_FAILURE if example fails.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xaxidma__example__selftest_8c.html#a95abf69118f4f7a08c4c6e264a39982b">AxiDMASelfTestExample()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

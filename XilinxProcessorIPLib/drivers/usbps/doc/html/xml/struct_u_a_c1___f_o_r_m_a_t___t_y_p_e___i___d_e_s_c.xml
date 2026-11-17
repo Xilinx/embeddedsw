@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c" kind="struct" prot="public">
     <compoundname>UAC1_FORMAT_TYPE_I_DESC</compoundname>
+    <includes local="no">xusbps_ch9_audio.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1ac326ab212a38366ad902e18f39738316" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -9,12 +10,12 @@
         <argsstring></argsstring>
         <name>bLength</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor length in bytes. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="376" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="389" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a442447a8ca5fcc846ea9715d4bd113b1" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -22,12 +23,12 @@
         <argsstring></argsstring>
         <name>bDescriptorType</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor type identifier. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="377" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="390" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1af7ee5c70497b3c23de12cfa2cbaebfb2" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +36,12 @@
         <argsstring></argsstring>
         <name>bDescriptorSubtype</name>
         <briefdescription>
-        </briefdescription>
+<para>Descriptor subtype for class-specific descriptor. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="378" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="391" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a0f0c274ea5f455995cdf8235290a6f0b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -48,12 +49,12 @@
         <argsstring></argsstring>
         <name>bFormatType</name>
         <briefdescription>
-        </briefdescription>
+<para>Audio format type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="379" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="392" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a23e43a6c1b3c02464d4d38e8cc3a511b" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +62,12 @@
         <argsstring></argsstring>
         <name>bNrChannels</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of logical output channels. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="380" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="393" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a2bb33be5ae1ef4522dc6ba4c588f1f2e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -74,12 +75,12 @@
         <argsstring></argsstring>
         <name>bSubFrameSize</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of bytes per audio subframe. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="381" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="394" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a1ad06b870e08d4b824b595f2b5fd997e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -87,12 +88,12 @@
         <argsstring></argsstring>
         <name>bBitResolution</name>
         <briefdescription>
-        </briefdescription>
+<para>Effective number of bits per sample. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="382" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="395" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a083c72f7140dd41fb2da562471d23929" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -100,12 +101,12 @@
         <argsstring></argsstring>
         <name>bSamFreqType</name>
         <briefdescription>
-        </briefdescription>
+<para>Number of supported sampling frequencies. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="383" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="396" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a650ad78b143cf65b6b3e4b2aa8411575" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -113,12 +114,12 @@
         <argsstring></argsstring>
         <name>tSamFreByteOneL</name>
         <briefdescription>
-        </briefdescription>
+<para>LSB of the three bytes data. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="384" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="397" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a13e15daa22e68dd1da6a37c5876b3cca" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -126,12 +127,12 @@
         <argsstring></argsstring>
         <name>tSamFreByteTwo</name>
         <briefdescription>
-        </briefdescription>
+<para>Sampling frequency middle byte. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="385" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="398" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a3059725d6573803c09aaffd01ad2aded" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -139,19 +140,19 @@
         <argsstring></argsstring>
         <name>tSamFreByteThreeH</name>
         <briefdescription>
-        </briefdescription>
+<para>MSB of the three bytes data. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="386" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="399" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>UAC1 FORMAT TYPE I DESC structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="375" bodyend="387"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="388" bodyend="400"/>
     <listofallmembers>
       <member refid="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1a1ad06b870e08d4b824b595f2b5fd997e" prot="public" virt="non-virtual"><scope>UAC1_FORMAT_TYPE_I_DESC</scope><name>bBitResolution</name></member>
       <member refid="struct_u_a_c1___f_o_r_m_a_t___t_y_p_e___i___d_e_s_c_1af7ee5c70497b3c23de12cfa2cbaebfb2" prot="public" virt="non-virtual"><scope>UAC1_FORMAT_TYPE_I_DESC</scope><name>bDescriptorSubtype</name></member>

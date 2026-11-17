@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="92" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1a5a0de48591458d070ce5f6b1c897559a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1adcc428a51e933174237232aababa82d9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_tpm___pcr_log_info__t_1a887bf2b13c46927d5363140164668e78" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -53,14 +53,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="91" bodyend="96"/>
+    <collaborationgraph>
+      <node id="10">
+        <label>XTpm_PcrLogInfo_t</label>
+        <link refid="struct_x_tpm___pcr_log_info__t"/>
+        <childnode refid="11" relation="usage">
+          <edgelabel>OverflowCntSinceLastRd</edgelabel>
+          <edgelabel>TotalPcrLogEvents</edgelabel>
+          <edgelabel>PcrEventsRead</edgelabel>
+          <edgelabel>RemainingPcrEvents</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>u32</label>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="91" bodyend="96"/>
     <listofallmembers>
       <member refid="struct_x_tpm___pcr_log_info__t_1adcc428a51e933174237232aababa82d9" prot="public" virt="non-virtual"><scope>XTpm_PcrLogInfo_t</scope><name>OverflowCntSinceLastRd</name></member>
       <member refid="struct_x_tpm___pcr_log_info__t_1a887bf2b13c46927d5363140164668e78" prot="public" virt="non-virtual"><scope>XTpm_PcrLogInfo_t</scope><name>PcrEventsRead</name></member>

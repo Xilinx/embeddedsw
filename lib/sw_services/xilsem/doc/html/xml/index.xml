@@ -131,6 +131,24 @@
     <member refid="xsem__client__api_8h_1afdeb9be3fb0531467fe29cb8f70b3d9c" kind="define"><name>PMC_RAM_SEM_CRAMERR_ADDRL0</name></member>
     <member refid="xsem__client__api_8h_1aef301aacc998d1a27fb3ed51688a728a" kind="define"><name>PMC_RAM_SEM_CRAMERR_ADDRH0</name></member>
     <member refid="xsem__client__api_8h_1a8d464c27800a055938fc7bfee75e5e61" kind="define"><name>PMC_RAM_SEM_CRAM_COR_BITCNT</name></member>
+    <member refid="xsem__client__api_8h_1a30793e6c4cca22cae67a658a2662a7bd" kind="define"><name>XSEM_CFR_ERRCODE_MASK</name></member>
+    <member refid="xsem__client__api_8h_1a115bf43d7976af4ae84735018cc5e0e2" kind="define"><name>XSEM_ERR_CFR_SWECC_ERR</name></member>
+    <member refid="xsem__client__api_8h_1a3a62b96e4d824672cbab1e2f44fa7d72" kind="define"><name>XSEM_CFR_SW_CALIB_MAX_DETAILS</name></member>
+    <member refid="xsem__client__api_8h_1a2960bbdbf97897b6778721725f4f6eda" kind="define"><name>XSEM_CFR_SW_CALIB_CRC_ROW_MAX_DETAILS</name></member>
+    <member refid="xsem__client__api_8h_1ad11175d5068ca08ccea2a0046c12308e" kind="define"><name>XSEM_CFR_SW_CALIB_CRC_ROW_OFFSET</name></member>
+    <member refid="xsem__client__api_8h_1a655c765eb5430178b2ac692915a1b766" kind="define"><name>XSEM_CFR_SW_CALIB_CRC_ROW_REG_SIZE</name></member>
+    <member refid="xsem__client__api_8h_1a9ecf20845d889c1bdccc43be8447e536" kind="define"><name>XSEM_CFR_SW_CALIB_VALID_MASK</name></member>
+    <member refid="xsem__client__api_8h_1aee44be1ce7abe96e19e9321802f71169" kind="define"><name>XSEM_CFR_SW_CALIB_VALID</name></member>
+    <member refid="xsem__client__api_8h_1acc4c9ff69f2de899e2780381e91e00d7" kind="define"><name>XSEM_CFR_SW_CALIB_ECC_TYPE_SHIFT</name></member>
+    <member refid="xsem__client__api_8h_1a0851908c798835fa9c05059bda6f028b" kind="define"><name>XSEM_CFR_SW_CALIB_ECC_TYPE_MASK</name></member>
+    <member refid="xsem__client__api_8h_1a0fd4cb2f63e2d87a4cf3ac5522ee4491" kind="define"><name>XSEM_CFR_SW_CALIB_ECC_TYPE_CE</name></member>
+    <member refid="xsem__client__api_8h_1a5d3c7161e116e36f2eefba4155d326e9" kind="define"><name>XSEM_CFR_SW_CALIB_ECC_TYPE_UE</name></member>
+    <member refid="xsem__client__api_8h_1ad88d4b104930c89af097d07c89ddec62" kind="define"><name>XSEM_CFR_SW_CALIB_ECC_TYPE_CRC</name></member>
+    <member refid="xsem__client__api_8h_1a477680b58a7c49f22a26916caf92caeb" kind="define"><name>XSEM_CFR_SW_CALIB_BIT_SHIFT</name></member>
+    <member refid="xsem__client__api_8h_1a1bde8d3d60cfbecf696867c03e945cb7" kind="define"><name>XSEM_CFR_SW_CALIB_BIT_MASK</name></member>
+    <member refid="xsem__client__api_8h_1a95a52a1bd72890dec91f47887090b727" kind="define"><name>XSEM_CFR_SW_CALIB_QWORD_SHIFT</name></member>
+    <member refid="xsem__client__api_8h_1a98fe50699363aeb69585340f21a61bb3" kind="define"><name>XSEM_CFR_SW_CALIB_ROW_SHIFT</name></member>
+    <member refid="xsem__client__api_8h_1abb553926d500b55595a0c3801e3f17c2" kind="define"><name>XSEM_CFR_SW_CALIB_EFAR_MASK</name></member>
     <member refid="xsem__client__api_8h_1a3799e4e04c0e264dd4c641b3c83ff772" kind="define"><name>CMD_ID_CFR_INIT</name></member>
     <member refid="xsem__client__api_8h_1a4ae7ee4caa1c070afe0abb2db78cd91f" kind="define"><name>CMD_ID_CFR_START_SCAN</name></member>
     <member refid="xsem__client__api_8h_1a9cbf382ac9d472a65ba10de162fe0512" kind="define"><name>CMD_ID_CFR_STOP_SCAN</name></member>
@@ -168,6 +186,7 @@
     <member refid="xsem__client__api_8h_1ac01d878e9a63bb5435ec33c2e7272993" kind="define"><name>XSEM_EVENT_CRAM_CRC_ERR</name></member>
     <member refid="xsem__client__api_8h_1acd915960bd4cf933dc0213ab831209aa" kind="define"><name>XSEM_EVENT_CRAM_INT_ERR</name></member>
     <member refid="xsem__client__api_8h_1a01a199cf4f7afa8d91742dc5f5042c54" kind="define"><name>XSEM_EVENT_CRAM_COR_ECC_ERR</name></member>
+    <member refid="xsem__client__api_8h_1adc67be67676cfdf1da42fe963db2c030" kind="define"><name>XSEM_EVENT_CRAM_CALIB_ERR</name></member>
     <member refid="xsem__client__api_8h_1a2ac00694828f0b0c66c3bbdf94a48bfa" kind="define"><name>XSEM_EVENT_NPI_CRC_ERR</name></member>
     <member refid="xsem__client__api_8h_1adb9a80ae72424960404fece6c4e9d987" kind="define"><name>XSEM_EVENT_NPI_DESC_FMT_ERR</name></member>
     <member refid="xsem__client__api_8h_1ab363c2cb6b313fae8a6cc9398a0c3323" kind="define"><name>XSEM_EVENT_NPI_DESC_ABSNT_ERR</name></member>
@@ -221,10 +240,12 @@
     <member refid="xsem__cram__example_8c_1a47e72e2102d3653cacc97e22e85b4e29" kind="variable"><name>GicInst</name></member>
     <member refid="xsem__cram__example_8c_1ab124202214a27708cecc0d2ce11439c4" kind="variable"><name>Notifier</name></member>
     <member refid="xsem__cram__example_8c_1accc4a7602d84f3c09ba41241ef55efaa" kind="variable"><name>FailCnt</name></member>
-    <member refid="xsem__cram__example_8c_1a2a83bbfb68b682992ff9ce824812789e" kind="variable"><name>EventCnt_UnCorEcc</name></member>
-    <member refid="xsem__cram__example_8c_1a0c330711eeefc5d84a421627056221e8" kind="variable"><name>EventCnt_Crc</name></member>
-    <member refid="xsem__cram__example_8c_1aa175784c1d9858fe166d3999cbf333b3" kind="variable"><name>EventCnt_CorEcc</name></member>
-    <member refid="xsem__cram__example_8c_1a0b53a517bb4e09f796e152040d0ceedc" kind="variable"><name>EventCnt_IntErr</name></member>
+    <member refid="xsem__cram__example_8c_1ac2a60c75c5318a01c3b7781bc2538a4f" kind="variable"><name>Sem_EventCnt_UnCorEcc</name></member>
+    <member refid="xsem__cram__example_8c_1a6ea13325d1fc6192449ccf89682575bf" kind="variable"><name>Sem_EventCnt_Crc</name></member>
+    <member refid="xsem__cram__example_8c_1a7c2025a7f51ae8b71361337b71604c5e" kind="variable"><name>Sem_EventCnt_CorEcc</name></member>
+    <member refid="xsem__cram__example_8c_1ac7441f4f0d7004fec24fe5a54411b9d2" kind="variable"><name>Sem_EventCnt_IntErr</name></member>
+    <member refid="xsem__cram__example_8c_1a96c3fb6cd8ba8809568b8135fb39e4fd" kind="variable"><name>Sem_EventCnt_CalibErr</name></member>
+    <member refid="xsem__cram__example_8c_1a3e984101fe4d42b1d4d505c4d4f15f40" kind="function"><name>XSem_PrintSwCalibErrDetails</name></member>
     <member refid="xsem__cram__example_8c_1a285526f9c120000273afb938a7d4a78a" kind="function"><name>XSem_IpiInitApi</name></member>
     <member refid="xsem__cram__example_8c_1a5396036bfa2984811452a1de8c324644" kind="function"><name>XSem_CfrApiInitCram</name></member>
     <member refid="xsem__cram__example_8c_1ad32f69d8826893c1d5f8ff873cb460da" kind="function"><name>XSem_CfrApiStartScan</name></member>
@@ -251,6 +272,8 @@
     <member refid="xsem__cram__example__pl__mb_8c_1a0c330711eeefc5d84a421627056221e8" kind="variable"><name>EventCnt_Crc</name></member>
     <member refid="xsem__cram__example__pl__mb_8c_1aa175784c1d9858fe166d3999cbf333b3" kind="variable"><name>EventCnt_CorEcc</name></member>
     <member refid="xsem__cram__example__pl__mb_8c_1a0b53a517bb4e09f796e152040d0ceedc" kind="variable"><name>EventCnt_IntErr</name></member>
+    <member refid="xsem__cram__example__pl__mb_8c_1aceee1dad171742b53f86a7c5eb978009" kind="variable"><name>EventCnt_CalibErr</name></member>
+    <member refid="xsem__cram__example__pl__mb_8c_1a3e984101fe4d42b1d4d505c4d4f15f40" kind="function"><name>XSem_PrintSwCalibErrDetails</name></member>
     <member refid="xsem__cram__example__pl__mb_8c_1a5396036bfa2984811452a1de8c324644" kind="function"><name>XSem_CfrApiInitCram</name></member>
     <member refid="xsem__cram__example__pl__mb_8c_1ad32f69d8826893c1d5f8ff873cb460da" kind="function"><name>XSem_CfrApiStartScan</name></member>
     <member refid="xsem__cram__example__pl__mb_8c_1a9519a79b146143391b770f571071c51e" kind="function"><name>XSem_CfrApiStopScan</name></member>
@@ -402,7 +425,7 @@
     <member refid="xsem__npi__example_8c_1a409f31c722d09b6120328065b5df1fe5" kind="variable"><name>IpiInst</name></member>
     <member refid="xsem__npi__example_8c_1a47e72e2102d3653cacc97e22e85b4e29" kind="variable"><name>GicInst</name></member>
     <member refid="xsem__npi__example_8c_1ab124202214a27708cecc0d2ce11439c4" kind="variable"><name>Notifier</name></member>
-    <member refid="xsem__npi__example_8c_1adde2f40f94828409d58fab456ccf0a95" kind="variable"><name>NpiEvents</name></member>
+    <member refid="xsem__npi__example_8c_1a7d6b65ab12f26fb34aecdb33fbf781eb" kind="variable"><name>Sem_NpiEvents</name></member>
     <member refid="xsem__npi__example_8c_1acb8a6bd4ad4ab40af88c7417c795bd64" kind="variable"><name>DescData_PreInj</name></member>
     <member refid="xsem__npi__example_8c_1ad5911c83ee4f7ccd15f714be401a324f" kind="variable"><name>DescData_PostInj</name></member>
     <member refid="xsem__npi__example_8c_1a8fd4eb760de8aae125ea952827200156" kind="variable"><name>TotalDescCnt</name></member>

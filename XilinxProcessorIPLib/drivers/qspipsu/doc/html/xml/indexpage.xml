@@ -83,7 +83,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
 1.9  nsk 03/27/19 Update 64bit dma support
              (CR#1018102).
 1.9  akm 04/03/19 Fixed data alignment warnings on IAR compiler.
-1.9  akm 04/03/19 Fixed compilation error in <ref refid="xqspipsu__generic__flash__lqspi__example_8c_1aa6bbd1c49467adb12326f1d14b849a97" kindref="member">XQspiPsu_LqspiRead()</ref>
+1.9  akm 04/03/19 Fixed compilation error in <ref refid="group__xqspipsu__generic__flash__lqspi__example_1gaa6bbd1c49467adb12326f1d14b849a97" kindref="member">XQspiPsu_LqspiRead()</ref>
                     function on IAR compiler.
 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
@@ -117,6 +117,9 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date   
 1.20 ht  09/27/24 Fix IAR warning.
 1.23 vlt 12/16/25 Update Doxygen comments to include SDT flow details.
 1.23 vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
-                  to support 64-bit addressing.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+                  to support 64-bit addressing.
+1.24 tb  09/30/26 Align Doxygen comments with AMD standards
+1.24 zm  09/30/26 Add XQspiPsu_ValidateMsgParams and XQspiPsu_CheckDmaByteCount
+                  functions.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xusbps__audio__example_8c.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xusbps__audio__example_8c.html','');})
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusbps_audio_example.c File Reference</div>  </div>
 </div><!--header-->
@@ -124,15 +126,190 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who       Date     Changes
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusbps__audiodata_8h.html">xusbps_audiodata.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae664e7492e37d324831caf2321ddda37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#ae664e7492e37d324831caf2321ddda37">DIV_ROUND_UP</a>(n, d)&#160;&#160;&#160;(((n) + (d) - 1) / (d))</td></tr>
+<tr class="memdesc:ae664e7492e37d324831caf2321ddda37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer ceiling division: round (n / d) up to the nearest integer.  <a href="#ae664e7492e37d324831caf2321ddda37">More...</a><br/></td></tr>
+<tr class="separator:ae664e7492e37d324831caf2321ddda37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58070a01669124f3f6692703b2b7db7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a58070a01669124f3f6692703b2b7db7f">RAMDISKSECTORS</a>&#160;&#160;&#160;0x400</td></tr>
+<tr class="memdesc:a58070a01669124f3f6692703b2b7db7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of sectors in the ramdisk (1K).  <a href="#a58070a01669124f3f6692703b2b7db7f">More...</a><br/></td></tr>
+<tr class="separator:a58070a01669124f3f6692703b2b7db7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2017db239ba3a65f9ede9e7a873057ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a2017db239ba3a65f9ede9e7a873057ee">RAMBLOCKS</a>&#160;&#160;&#160;4096</td></tr>
+<tr class="memdesc:a2017db239ba3a65f9ede9e7a873057ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of 32-bit words per ramdisk sector.  <a href="#a2017db239ba3a65f9ede9e7a873057ee">More...</a><br/></td></tr>
+<tr class="separator:a2017db239ba3a65f9ede9e7a873057ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ad3f75a4e38fd9bbed917c71ca4e9e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a5ad3f75a4e38fd9bbed917c71ca4e9e0">MEMORY_SIZE</a>&#160;&#160;&#160;(64 * 1024)</td></tr>
+<tr class="memdesc:a5ad3f75a4e38fd9bbed917c71ca4e9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total memory buffer size in bytes (64 KB).  <a href="#a5ad3f75a4e38fd9bbed917c71ca4e9e0">More...</a><br/></td></tr>
+<tr class="separator:a5ad3f75a4e38fd9bbed917c71ca4e9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecb8957bb59a9457cec1df28b26c9b35"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#aecb8957bb59a9457cec1df28b26c9b35">CUR_AUDIOFREQ</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:aecb8957bb59a9457cec1df28b26c9b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default audio frequency index (UAC1: 8000 Hz).  <a href="#aecb8957bb59a9457cec1df28b26c9b35">More...</a><br/></td></tr>
+<tr class="separator:aecb8957bb59a9457cec1df28b26c9b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80926c978b855240e1d9d1f0884e8c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#aa80926c978b855240e1d9d1f0884e8c2">USBPS_BASEADDR</a>&#160;&#160;&#160;XPS_USB0_BASEADDR</td></tr>
+<tr class="memdesc:aa80926c978b855240e1d9d1f0884e8c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">USBPS base address.  <a href="#aa80926c978b855240e1d9d1f0884e8c2">More...</a><br/></td></tr>
+<tr class="separator:aa80926c978b855240e1d9d1f0884e8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a151422305b638ea9418bbd8d0639f93d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d">XUsbPs_CfgInit</a> (struct Usb_DevData *InstancePtr, <a class="el" href="struct_x_usb_ps___config.html">Usb_Config</a> *ConfigPtr, u32 BaseAddress)</td></tr>
-<tr class="memdesc:a151422305b638ea9418bbd8d0639f93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function setups the interrupt system such that interrupts can occur.  <a href="#a151422305b638ea9418bbd8d0639f93d">More...</a><br/></td></tr>
+<tr class="memitem:a151422305b638ea9418bbd8d0639f93d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d">XUsbPs_CfgInit</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="group__usbps.html#ga2f20fcba6655b94809e70931361fb6ba">Usb_Config</a> *ConfigPtr, u32 BaseAddress)</td></tr>
+<tr class="memdesc:a151422305b638ea9418bbd8d0639f93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes a <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance/driver.  <a href="#a151422305b638ea9418bbd8d0639f93d">More...</a><br/></td></tr>
 <tr class="separator:a151422305b638ea9418bbd8d0639f93d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the USB audio example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af8a218469831b07d43523f639ebe648c"><td class="memItemLeft" align="right" valign="top">u8 Buffer[<a class="el" href="xusbps__intr__example_8c.html#a5ad3f75a4e38fd9bbed917c71ca4e9e0">MEMORY_SIZE</a>]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#af8a218469831b07d43523f639ebe648c">ALIGNMENT_CACHELINE</a></td></tr>
+<tr class="memdesc:af8a218469831b07d43523f639ebe648c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data buffer for USB audio transfer operations.  <a href="#af8a218469831b07d43523f639ebe648c">More...</a><br/></td></tr>
+<tr class="separator:af8a218469831b07d43523f639ebe648c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b6a61151282f1695a33ba48778b541"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a35b6a61151282f1695a33ba48778b541">UsbInstance</a></td></tr>
+<tr class="memdesc:a35b6a61151282f1695a33ba48778b541"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device runtime data instance.  <a href="#a35b6a61151282f1695a33ba48778b541">More...</a><br/></td></tr>
+<tr class="separator:a35b6a61151282f1695a33ba48778b541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a46af61df28d52dfa260f3e35387eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__usbps.html#ga2f20fcba6655b94809e70931361fb6ba">Usb_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#ad8a46af61df28d52dfa260f3e35387eb">UsbConfigPtr</a></td></tr>
+<tr class="memdesc:ad8a46af61df28d52dfa260f3e35387eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to USB hardware configuration.  <a href="#ad8a46af61df28d52dfa260f3e35387eb">More...</a><br/></td></tr>
+<tr class="separator:ad8a46af61df28d52dfa260f3e35387eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eaf1459b662084ad66e4c8a1bcdabf8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps.html">XUsbPs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a8eaf1459b662084ad66e4c8a1bcdabf8">PrivateData</a></td></tr>
+<tr class="memdesc:a8eaf1459b662084ad66e4c8a1bcdabf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB controller driver instance.  <a href="#a8eaf1459b662084ad66e4c8a1bcdabf8">More...</a><br/></td></tr>
+<tr class="separator:a8eaf1459b662084ad66e4c8a1bcdabf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41079ea5f43773b72f02eaa3e270b91a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps___device_config.html">XUsbPs_DeviceConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a41079ea5f43773b72f02eaa3e270b91a">DeviceConfig</a></td></tr>
+<tr class="memdesc:a41079ea5f43773b72f02eaa3e270b91a"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device endpoint configuration.  <a href="#a41079ea5f43773b72f02eaa3e270b91a">More...</a><br/></td></tr>
+<tr class="separator:a41079ea5f43773b72f02eaa3e270b91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4735984aee206f4be757912a3c60f02"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#ab4735984aee206f4be757912a3c60f02">RamDisk</a> [<a class="el" href="xusbps__audio__example_8c.html#a58070a01669124f3f6692703b2b7db7f">RAMDISKSECTORS</a> *<a class="el" href="xusbps__audio__example_8c.html#a2017db239ba3a65f9ede9e7a873057ee">RAMBLOCKS</a>]</td></tr>
+<tr class="memdesc:ab4735984aee206f4be757912a3c60f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">RAM-backed virtual disk.  <a href="#ab4735984aee206f4be757912a3c60f02">More...</a><br/></td></tr>
+<tr class="separator:ab4735984aee206f4be757912a3c60f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c8f2bd88e52421cdd12d857c424eee"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a22c8f2bd88e52421cdd12d857c424eee">WrRamDiskPtr</a> = (u8 *) &amp; (<a class="el" href="xusbps__audio__example_8c.html#ab4735984aee206f4be757912a3c60f02">RamDisk</a>[0])</td></tr>
+<tr class="memdesc:a22c8f2bd88e52421cdd12d857c424eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write pointer into ramdisk.  <a href="#a22c8f2bd88e52421cdd12d857c424eee">More...</a><br/></td></tr>
+<tr class="separator:a22c8f2bd88e52421cdd12d857c424eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f946c7d2b74571706ecb53626f2fa19"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a1f946c7d2b74571706ecb53626f2fa19">BufferPtrTemp</a> [1024]</td></tr>
+<tr class="memdesc:a1f946c7d2b74571706ecb53626f2fa19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporary data transfer buffer.  <a href="#a1f946c7d2b74571706ecb53626f2fa19">More...</a><br/></td></tr>
+<tr class="separator:a1f946c7d2b74571706ecb53626f2fa19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae015863885aec059536758b1a3fffb87"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#ae015863885aec059536758b1a3fffb87">Index</a> = 0</td></tr>
+<tr class="memdesc:ae015863885aec059536758b1a3fffb87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current audio data index.  <a href="#ae015863885aec059536758b1a3fffb87">More...</a><br/></td></tr>
+<tr class="separator:ae015863885aec059536758b1a3fffb87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca71b1f96a92142d9ee89511138e54d9"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#aca71b1f96a92142d9ee89511138e54d9">FirstPktFrame</a> = 1</td></tr>
+<tr class="memdesc:aca71b1f96a92142d9ee89511138e54d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating first packet frame.  <a href="#aca71b1f96a92142d9ee89511138e54d9">More...</a><br/></td></tr>
+<tr class="separator:aca71b1f96a92142d9ee89511138e54d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb4a1d183567e8c092e96d3b14250cbe"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#adb4a1d183567e8c092e96d3b14250cbe">Framesize</a> = 0</td></tr>
+<tr class="memdesc:adb4a1d183567e8c092e96d3b14250cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio frame size in bytes.  <a href="#adb4a1d183567e8c092e96d3b14250cbe">More...</a><br/></td></tr>
+<tr class="separator:adb4a1d183567e8c092e96d3b14250cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95236f13662ead86d06423103950e825"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a95236f13662ead86d06423103950e825">Interval</a> = 0</td></tr>
+<tr class="memdesc:a95236f13662ead86d06423103950e825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of isochronous service intervals per second.  <a href="#a95236f13662ead86d06423103950e825">More...</a><br/></td></tr>
+<tr class="separator:a95236f13662ead86d06423103950e825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a5d9627e475658ede68b4b4ae9f9f0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a65a5d9627e475658ede68b4b4ae9f9f0">PacketSize</a> = 0</td></tr>
+<tr class="memdesc:a65a5d9627e475658ede68b4b4ae9f9f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculated packet size per interval.  <a href="#a65a5d9627e475658ede68b4b4ae9f9f0">More...</a><br/></td></tr>
+<tr class="separator:a65a5d9627e475658ede68b4b4ae9f9f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a026146bba85464df240db43d3d573648"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a026146bba85464df240db43d3d573648">PacketResidue</a> = 0</td></tr>
+<tr class="memdesc:a026146bba85464df240db43d3d573648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-interval fractional-byte residue.  <a href="#a026146bba85464df240db43d3d573648">More...</a><br/></td></tr>
+<tr class="separator:a026146bba85464df240db43d3d573648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c474c16eab5b4dc8baf76c3be90f989"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a5c474c16eab5b4dc8baf76c3be90f989">Residue</a> = 0</td></tr>
+<tr class="memdesc:a5c474c16eab5b4dc8baf76c3be90f989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumulated fractional-byte residue across service intervals.  <a href="#a5c474c16eab5b4dc8baf76c3be90f989">More...</a><br/></td></tr>
+<tr class="separator:a5c474c16eab5b4dc8baf76c3be90f989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a89895affe26a393b45a5ebd506564"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__audio__example_8c.html#a34a89895affe26a393b45a5ebd506564">AudioFreq</a> [<a class="el" href="xusbps__ch9__audio_8h.html#a26b97c01792871b3dbdc8c6f4b3d10c7">MAX_AUDIO_FREQ</a>][3]</td></tr>
+<tr class="memdesc:a34a89895affe26a393b45a5ebd506564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported audio sampling frequencies (3-byte little-endian values).  <a href="#a34a89895affe26a393b45a5ebd506564">More...</a><br/></td></tr>
+<tr class="separator:a34a89895affe26a393b45a5ebd506564"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="aecb8957bb59a9457cec1df28b26c9b35"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CUR_AUDIOFREQ&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default audio frequency index (UAC1: 8000 Hz). </p>
+
+</div>
+</div>
+<a class="anchor" id="ae664e7492e37d324831caf2321ddda37"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DIV_ROUND_UP</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">n, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">d&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((n) + (d) - 1) / (d))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Integer ceiling division: round (n / d) up to the nearest integer. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5ad3f75a4e38fd9bbed917c71ca4e9e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MEMORY_SIZE&#160;&#160;&#160;(64 * 1024)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total memory buffer size in bytes (64 KB). </p>
+
+<p>Referenced by <a class="el" href="xusbps__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2017db239ba3a65f9ede9e7a873057ee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RAMBLOCKS&#160;&#160;&#160;4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of 32-bit words per ramdisk sector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a58070a01669124f3f6692703b2b7db7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RAMDISKSECTORS&#160;&#160;&#160;0x400</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of sectors in the ramdisk (1K). </p>
+
+</div>
+</div>
+<a class="anchor" id="aa80926c978b855240e1d9d1f0884e8c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USBPS_BASEADDR&#160;&#160;&#160;XPS_USB0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USBPS base address. </p>
+
+<p>Referenced by <a class="el" href="xusbps__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -149,20 +326,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the main function of the USB audio example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful,</li>
-<li>XST_FAILURE if unsuccessful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_ps___config.html#a0fc8018ea01456a111464cf7d9f7ed04">XUsbPs_Config::BaseAddress</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#a256d341fe10df4647516600022afa2a3">XUsbPs_EpSetup::BufSize</a>, <a class="el" href="struct_x_usb_ps___device_config.html#a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e">XUsbPs_DeviceConfig::DMAMemPhys</a>, <a class="el" href="struct_x_usb_ps___device_config.html#afd60a9334300a134f4027be0bef9c6c4">XUsbPs_DeviceConfig::EpCfg</a>, <a class="el" href="struct_x_usb_ps___ep_config.html#adf5b934788f53cbdb6c23371c0e88e53">XUsbPs_EpConfig::In</a>, <a class="el" href="struct_x_usb_ps___config.html#a921451bc39dd190d4f756f7e90b962be">XUsbPs_Config::IntrParent</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#ab6896a844582da8978f89a4245c055a9">XUsbPs_EpSetup::MaxPacketSize</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#a55577027dc17083887a0fd818a80f453">XUsbPs_EpSetup::NumBufs</a>, <a class="el" href="struct_x_usb_ps___device_config.html#aeb059166762916b8b5776f4afba26315">XUsbPs_DeviceConfig::NumEndpoints</a>, <a class="el" href="struct_x_usb_ps___ep_config.html#afb05276ac16ab82fc798fdb0cb2ed3b5">XUsbPs_EpConfig::Out</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#a3d73546dc7146b2695f001901763bff9">XUsbPs_EpSetup::Type</a>, <a class="el" href="xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d">XUsbPs_CfgInit()</a>, <a class="el" href="group__usbps.html#ga6daace32113a806a6822a6d5943a93f4">XUsbPs_ConfigureDevice()</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#gad8b727ed129801690a987d1e475bc1d5">XUSBPS_EP_TYPE_CONTROL</a>, <a class="el" href="group__usbps.html#gae012590baed99e88cd4a92ff3f65faa0">XUSBPS_EP_TYPE_ISOCHRONOUS</a>, <a class="el" href="group__usbps.html#ga04fb0b564bcd01cdf33e29ca2732656a">XUsbPs_EpSetHandler()</a>, <a class="el" href="group__usbps.html#ga5eb603906d381d4a426a3d24fc2082a0">XUsbPs_EpSetIsoHandler()</a>, <a class="el" href="xusbps_8h.html#af88d5cf6ea7f26426bf40b8ca330a416">XUsbPs_IntrEnable</a>, <a class="el" href="group__usbps.html#ga60e2b0f6fabc24cdf785d704ab2585d1">XUsbPs_IntrHandler()</a>, <a class="el" href="group__usbps.html#ga6dcda0bc8640b4ab5cc9640fdfaead17">XUSBPS_IXR_UI_MASK</a>, <a class="el" href="group__usbps.html#ga8c0544cefd69591cbf14e39dab946bd0">XUSBPS_IXR_UR_MASK</a>, <a class="el" href="group__usbps.html#gac79e39dc62c743463e360c400f33d194">XUsbPs_LookupConfig()</a>, and <a class="el" href="xusbps_8h.html#af222df779ee9f9dc1d681701a979f3d1">XUsbPs_Start</a>.</p>
+<p>References <a class="el" href="struct_x_usb_ps___config.html#a0fc8018ea01456a111464cf7d9f7ed04">XUsbPs_Config::BaseAddress</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#a256d341fe10df4647516600022afa2a3">XUsbPs_EpSetup::BufSize</a>, <a class="el" href="struct_x_usb_ps___device_config.html#a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e">XUsbPs_DeviceConfig::DMAMemPhys</a>, <a class="el" href="struct_x_usb_ps___device_config.html#afd60a9334300a134f4027be0bef9c6c4">XUsbPs_DeviceConfig::EpCfg</a>, <a class="el" href="struct_x_usb_ps___ep_config.html#adf5b934788f53cbdb6c23371c0e88e53">XUsbPs_EpConfig::In</a>, <a class="el" href="struct_x_usb_ps___config.html#adaa27f8890d2b2b4cbae8adaf2b0094a">XUsbPs_Config::IntrId</a>, <a class="el" href="struct_x_usb_ps___config.html#a921451bc39dd190d4f756f7e90b962be">XUsbPs_Config::IntrParent</a>, <a class="el" href="xusbps__ch9__audio_8h.html#aab8f5bc9518d1611092d31d8212bc06b">ISO_EP</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#ab6896a844582da8978f89a4245c055a9">XUsbPs_EpSetup::MaxPacketSize</a>, <a class="el" href="xusbps__audio__example_8c.html#a5ad3f75a4e38fd9bbed917c71ca4e9e0">MEMORY_SIZE</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#a55577027dc17083887a0fd818a80f453">XUsbPs_EpSetup::NumBufs</a>, <a class="el" href="struct_x_usb_ps___device_config.html#aeb059166762916b8b5776f4afba26315">XUsbPs_DeviceConfig::NumEndpoints</a>, <a class="el" href="struct_x_usb_ps___ep_config.html#afb05276ac16ab82fc798fdb0cb2ed3b5">XUsbPs_EpConfig::Out</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="struct_x_usb_ps___ep_setup.html#a3d73546dc7146b2695f001901763bff9">XUsbPs_EpSetup::Type</a>, <a class="el" href="xusbps__audio__example_8c.html#a35b6a61151282f1695a33ba48778b541">UsbInstance</a>, <a class="el" href="xusbps__audio__example_8c.html#aa80926c978b855240e1d9d1f0884e8c2">USBPS_BASEADDR</a>, <a class="el" href="xusbps__audio__example_8c.html#a151422305b638ea9418bbd8d0639f93d">XUsbPs_CfgInit()</a>, <a class="el" href="group__usbps.html#ga6daace32113a806a6822a6d5943a93f4">XUsbPs_ConfigureDevice()</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#gad8b727ed129801690a987d1e475bc1d5">XUSBPS_EP_TYPE_CONTROL</a>, <a class="el" href="group__usbps.html#gae012590baed99e88cd4a92ff3f65faa0">XUSBPS_EP_TYPE_ISOCHRONOUS</a>, <a class="el" href="group__usbps.html#ga04fb0b564bcd01cdf33e29ca2732656a">XUsbPs_EpSetHandler()</a>, <a class="el" href="group__usbps.html#ga5eb603906d381d4a426a3d24fc2082a0">XUsbPs_EpSetIsoHandler()</a>, <a class="el" href="group__usbps.html#gaf88d5cf6ea7f26426bf40b8ca330a416">XUsbPs_IntrEnable</a>, <a class="el" href="group__usbps.html#ga60e2b0f6fabc24cdf785d704ab2585d1">XUsbPs_IntrHandler()</a>, <a class="el" href="group__usbps.html#ga6dcda0bc8640b4ab5cc9640fdfaead17">XUSBPS_IXR_UI_MASK</a>, <a class="el" href="group__usbps.html#ga8c0544cefd69591cbf14e39dab946bd0">XUSBPS_IXR_UR_MASK</a>, <a class="el" href="group__usbps.html#ga8cb10ce201abc0315bc3a74d6af52f64">XUsbPs_LookupConfig()</a>, and <a class="el" href="group__usbps.html#gaf222df779ee9f9dc1d681701a979f3d1">XUsbPs_Start</a>.</p>
 
 </div>
 </div>
@@ -173,13 +343,13 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">s32 XUsbPs_CfgInit </td>
           <td>(</td>
-          <td class="paramtype">struct Usb_DevData *&#160;</td>
+          <td class="paramtype">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *&#160;</td>
           <td class="paramname"><em>InstancePtr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_x_usb_ps___config.html">Usb_Config</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="group__usbps.html#ga2f20fcba6655b94809e70931361fb6ba">Usb_Config</a> *&#160;</td>
           <td class="paramname"><em>ConfigPtr</em>, </td>
         </tr>
         <tr>
@@ -196,28 +366,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function setups the interrupt system such that interrupts can occur. </p>
-<p>This function is application specific since the actual system may or may not have an interrupt controller. The USB controller could be directly connected to aprocessor without an interrupt controller. The user should modify this function to fit the application.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance. </td></tr>
-    <tr><td class="paramname">IntcDeviceID</td><td>is the unique ID of the interrupt controller </td></tr>
-    <tr><td class="paramname">IntcInstacePtr</td><td>is a pointer to the interrupt controller instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function initializes a <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance/driver.</p>
+<p>This function initializes a <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance/driver. </p>
 <p>The initialization entails:</p>
 <ul>
 <li>Initialize all members of the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> structure.</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">ConfigPtr</td><td>is a pointer to a <a class="el" href="struct_x_usb_ps___config.html" title="The XUsbPs_Config structure contains configuration information for the USB controller. ">XUsbPs_Config</a> configuration structure. This structure will contain the requested configuration for the device. Typically, this is a local structure and the content of which will be copied into the configuration structure within <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a>. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigPtr</td><td>is a pointer to a <a class="el" href="struct_x_usb_ps___config.html" title="The XUsbPs_Config structure contains configuration information for the USB controller. ">XUsbPs_Config</a> configuration structure. This structure will contain the requested configuration for the device. Typically, this is a local structure and the content of which will be copied into the configuration structure within <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>is the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -228,9 +386,252 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
 
-<p>References <a class="el" href="group__usbps.html#ga1a3417695facf9eff86ce6a1e14a9bbc">XUsbPs_CfgInitialize()</a>.</p>
+<p>References <a class="el" href="struct_x_usb_ps.html#a9613ff3e4ceb977b76e2b849e0fdb1c8">XUsbPs::AppData</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, and <a class="el" href="group__usbps.html#ga1a3417695facf9eff86ce6a1e14a9bbc">XUsbPs_CfgInitialize()</a>.</p>
 
 <p>Referenced by <a class="el" href="xusbps__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="af8a218469831b07d43523f639ebe648c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 Buffer [<a class="el" href="xusbps__intr__example_8c.html#a5ad3f75a4e38fd9bbed917c71ca4e9e0">MEMORY_SIZE</a>] ALIGNMENT_CACHELINE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data buffer for USB audio transfer operations. </p>
+
+</div>
+</div>
+<a class="anchor" id="a34a89895affe26a393b45a5ebd506564"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 AudioFreq[<a class="el" href="xusbps__ch9__audio_8h.html#a26b97c01792871b3dbdc8c6f4b3d10c7">MAX_AUDIO_FREQ</a>][3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        { 0x40, 0x1F, 0x00 },   </div>
+<div class="line">        { 0x44, 0xAC, 0x00 },   </div>
+<div class="line">        { 0x80, 0xBB, 0x00 },   </div>
+<div class="line">        { 0x00, 0x77, 0x01,},   </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Supported audio sampling frequencies (3-byte little-endian values). </p>
+
+</div>
+</div>
+<a class="anchor" id="a1f946c7d2b74571706ecb53626f2fa19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 BufferPtrTemp[1024]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temporary data transfer buffer. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9__storage_8h.html#a4942a94ee10ae5832b33125aa184f9ab">XUsbPs_SetInterfaceHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a41079ea5f43773b72f02eaa3e270b91a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_usb_ps___device_config.html">XUsbPs_DeviceConfig</a> DeviceConfig</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device endpoint configuration. </p>
+
+<p>Referenced by <a class="el" href="group__usbps.html#gac27a9d64ddf33a2400d7493e301a7192">XUsbPs_EpBufferReceive()</a>, <a class="el" href="group__usbps.html#ga6bfe53ec45a998d5673b80e11ab4d292">XUsbPs_EpBufferSend()</a>, <a class="el" href="group__usbps.html#ga1e4c0735be24ea24b73404db8d18133e">XUsbPs_EpBufferSendWithZLT()</a>, <a class="el" href="group__usbps.html#gadbe72ae98e3bc73150a650f5f8e5c34f">XUsbPs_EpDataBufferReceive()</a>, <a class="el" href="group__usbps.html#ga91c44ff9dcae2e47ed8112c8a0779fa1">XUsbPs_EpGetSetupData()</a>, <a class="el" href="group__usbps.html#gaba0ae2eac9c6b402e32e401333a5b105">XUsbPs_EpPrime()</a>, <a class="el" href="group__usbps.html#ga04fb0b564bcd01cdf33e29ca2732656a">XUsbPs_EpSetHandler()</a>, and <a class="el" href="group__usbps.html#ga5eb603906d381d4a426a3d24fc2082a0">XUsbPs_EpSetIsoHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aca71b1f96a92142d9ee89511138e54d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 FirstPktFrame = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag indicating first packet frame. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9__storage_8h.html#a4942a94ee10ae5832b33125aa184f9ab">XUsbPs_SetInterfaceHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adb4a1d183567e8c092e96d3b14250cbe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 Framesize = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio frame size in bytes. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae015863885aec059536758b1a3fffb87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 Index = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current audio data index. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9__storage_8c.html#a6c178fd005bf89027556067cd952cc62">XUsbPs_Ch9SetupStrDescReply()</a>, <a class="el" href="group__usbps.html#ga8cb10ce201abc0315bc3a74d6af52f64">XUsbPs_LookupConfig()</a>, and <a class="el" href="xusbps__ch9__storage_8h.html#a4942a94ee10ae5832b33125aa184f9ab">XUsbPs_SetInterfaceHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95236f13662ead86d06423103950e825"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 Interval = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of isochronous service intervals per second. </p>
+
+</div>
+</div>
+<a class="anchor" id="a026146bba85464df240db43d3d573648"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 PacketResidue = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Per-interval fractional-byte residue. </p>
+
+</div>
+</div>
+<a class="anchor" id="a65a5d9627e475658ede68b4b4ae9f9f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 PacketSize = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculated packet size per interval. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8eaf1459b662084ad66e4c8a1bcdabf8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_usb_ps.html">XUsbPs</a> PrivateData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB controller driver instance. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab4735984aee206f4be757912a3c60f02"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 RamDisk[<a class="el" href="xusbps__audio__example_8c.html#a58070a01669124f3f6692703b2b7db7f">RAMDISKSECTORS</a> *<a class="el" href="xusbps__audio__example_8c.html#a2017db239ba3a65f9ede9e7a873057ee">RAMBLOCKS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RAM-backed virtual disk. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5c474c16eab5b4dc8baf76c3be90f989"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 Residue = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accumulated fractional-byte residue across service intervals. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9__storage_8h.html#a4942a94ee10ae5832b33125aa184f9ab">XUsbPs_SetInterfaceHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad8a46af61df28d52dfa260f3e35387eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__usbps.html#ga2f20fcba6655b94809e70931361fb6ba">Usb_Config</a>* UsbConfigPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to USB hardware configuration. </p>
+
+</div>
+</div>
+<a class="anchor" id="a35b6a61151282f1695a33ba48778b541"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> UsbInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device runtime data instance. </p>
+
+<p>Referenced by <a class="el" href="xusbps__audio__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a22c8f2bd88e52421cdd12d857c424eee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* WrRamDiskPtr = (u8 *) &amp; (<a class="el" href="xusbps__audio__example_8c.html#ab4735984aee206f4be757912a3c60f02">RamDisk</a>[0])</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write pointer into ramdisk. </p>
 
 </div>
 </div>

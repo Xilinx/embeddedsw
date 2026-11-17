@@ -1,36 +1,121 @@
 var NAVTREE =
 [
-  [ "uartps", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xuartps_selftest_example.c", "example.html#ex1", null ],
-      [ "xuartps_hello_world_example.c", "example.html#ex2", null ],
-      [ "xuartps_intr_example.c", "example.html#ex3", null ],
-      [ "xuartps_low_echo_example.c", "example.html#ex4", null ],
-      [ "xuartps_polled_example.c", "example.html#ex5", null ]
-    ] ]
-  ] ]
+  [
+    "uartps",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xuartps_selftest_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xuartps_hello_world_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xuartps_intr_example.c",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xuartps_low_echo_example.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xuartps_polled_example.c",
+            "example.html#ex5",
+            null
+          ]
+        ]
+      ],
+      [
+        "Deprecated List",
+        "deprecated.html",
+        null
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xuartps__options_8c.html#ga6c7c0ef55459866990d4a17fbb620ba6"
+"xuartps__intr__example_8c.html#ga0b71e527200033092ab1ebd5c0c077ed"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

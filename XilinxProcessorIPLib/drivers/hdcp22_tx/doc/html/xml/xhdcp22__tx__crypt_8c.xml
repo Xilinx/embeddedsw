@@ -12,6 +12,25 @@
       <node id="42">
         <label>xhdcp22_rng.h</label>
       </node>
+      <node id="43">
+        <label>xhdcp22_common.h</label>
+      </node>
+      <node id="44">
+        <label>stdlib.h</label>
+      </node>
+      <node id="31">
+        <label>xhdcp22_tx_crypt.c</label>
+        <link refid="xhdcp22_tx_crypt.c"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xdebug.h</label>
+      </node>
       <node id="33">
         <label>xhdcp22_tx.h</label>
         <link refid="xhdcp22__tx_8h"/>
@@ -34,23 +53,10 @@
         <childnode refid="42" relation="include">
         </childnode>
       </node>
-      <node id="43">
-        <label>xhdcp22_common.h</label>
-      </node>
-      <node id="44">
-        <label>stdlib.h</label>
-      </node>
-      <node id="39">
-        <label>xdebug.h</label>
-      </node>
-      <node id="31">
-        <label>xhdcp22_tx_crypt.c</label>
-        <link refid="xhdcp22_tx_crypt.c"/>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
+      <node id="32">
+        <label>xhdcp22_tx_i.h</label>
+        <link refid="xhdcp22__tx__i_8h"/>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
       <node id="35">
@@ -71,12 +77,6 @@
       <node id="34">
         <label>stdio.h</label>
       </node>
-      <node id="32">
-        <label>xhdcp22_tx_i.h</label>
-        <link refid="xhdcp22__tx__i_8h"/>
-        <childnode refid="33" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
       <sectiondef kind="define">
       <memberdef kind="define" id="group__hdcp22__tx_1ga7a717834c039b332d4b7d67c5e3edd24" prot="public" static="no">
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="44" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -150,7 +150,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="86" bodyend="129"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="86" bodyend="129"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga40c0f697b9494235e59ead0296c1682e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -247,7 +247,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="276" bodyend="311"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="276" bodyend="311"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga631b4b207fa43820961a6895b6a5b092" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -307,7 +307,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="147" bodyend="206"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="147" bodyend="206"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1gaec4cc205d83dcdaa1363399b61ba8751" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -402,7 +402,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="230" bodyend="252"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="230" bodyend="252"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga07cf7d6ec3151c98ae89d2287d611561" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -497,7 +497,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="337" bodyend="409"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="337" bodyend="409"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga172503f210cc3f3d731ee899dca90cd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -545,8 +545,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="423" bodyend="431"/>
-        <references refid="struct_x_hdcp22___tx_1a7ac906a703afc6bd1a861d6eaae753c9" compoundref="xhdcp22__tx_8h" startline="538">XHdcp22_Tx::Rng</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="423" bodyend="431"/>
+        <references refid="struct_x_hdcp22___tx_1a7ac906a703afc6bd1a861d6eaae753c9" compoundref="xhdcp22__tx_8h" startline="524">XHdcp22_Tx::Rng</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1gab6f0ccef5894587b65989682bf443bf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -619,7 +619,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="451" bodyend="472"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="451" bodyend="472"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga8102aaabfbedcd63e8ab869709dfe334" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -703,9 +703,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="492" bodyend="514"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="492" bodyend="518"/>
         <references refid="group__hdcp22__tx_1ga594ca29581002c93df6707c4a15ae575" compoundref="xhdcp22__tx__i_8h" startline="157">XHDCP22_TX_SRM_SIGNATURE_SIZE</references>
-        <referencedby refid="group__hdcp22__tx_1ga14fbb52d5b5e9707008aafc7e49bc41a" compoundref="xhdcp22__tx_8c" startline="578" endline="737">XHdcp22Tx_LoadRevocationTable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga14fbb52d5b5e9707008aafc7e49bc41a" compoundref="xhdcp22__tx_8c" startline="566" endline="725">XHdcp22Tx_LoadRevocationTable</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga85fbd02cdb937e97dbf03ff5f704f667" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -786,7 +786,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="532" bodyend="579"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="536" bodyend="583"/>
         <references refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" compoundref="xhdcp22__tx__i_8h" startline="139">XHDCP22_TX_AES128_SIZE</references>
         <references refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" compoundref="xhdcp22__tx__i_8h" startline="143">XHDCP22_TX_RRX_SIZE</references>
         <references refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" compoundref="xhdcp22__tx__i_8h" startline="142">XHDCP22_TX_RTX_SIZE</references>
@@ -872,14 +872,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="600" bodyend="640"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="604" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="604" bodyend="644"/>
         <references refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" compoundref="xhdcp22__tx__i_8h" startline="139">XHDCP22_TX_AES128_SIZE</references>
         <references refid="group__hdcp22__tx_1gac73c16517ae6ab99a3277a8c35efd92e" compoundref="xhdcp22__tx__i_8h" startline="153">XHDCP22_TX_EDKEY_KS_SIZE</references>
         <references refid="group__hdcp22__tx_1ga45bf83726d19068fd6434820afb4cc7a" compoundref="xhdcp22__tx__i_8h" startline="152">XHDCP22_TX_KS_SIZE</references>
         <references refid="group__hdcp22__tx_1ga660cdaa086436b17ff2f653c5c3e4905" compoundref="xhdcp22__tx__i_8h" startline="149">XHDCP22_TX_RN_SIZE</references>
         <references refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" compoundref="xhdcp22__tx__i_8h" startline="143">XHDCP22_TX_RRX_SIZE</references>
         <references refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" compoundref="xhdcp22__tx__i_8h" startline="142">XHDCP22_TX_RTX_SIZE</references>
-        <references refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" compoundref="xhdcp22__tx__crypt_8c" startline="905" endline="917">XHdcp22Tx_MemXor</references>
+        <references refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" compoundref="xhdcp22__tx__crypt_8c" startline="909" endline="921">XHdcp22Tx_MemXor</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -949,13 +949,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="658" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="658" bodyend="703"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="662" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="662" bodyend="707"/>
         <references refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" compoundref="xhdcp22__tx__i_8h" startline="139">XHDCP22_TX_AES128_SIZE</references>
         <references refid="group__hdcp22__tx_1ga660cdaa086436b17ff2f653c5c3e4905" compoundref="xhdcp22__tx__i_8h" startline="149">XHDCP22_TX_RN_SIZE</references>
         <references refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" compoundref="xhdcp22__tx__i_8h" startline="143">XHDCP22_TX_RRX_SIZE</references>
         <references refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" compoundref="xhdcp22__tx__i_8h" startline="142">XHDCP22_TX_RTX_SIZE</references>
         <references refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" compoundref="xhdcp22__tx__i_8h" startline="138">XHDCP22_TX_SHA256_HASH_SIZE</references>
-        <references refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" compoundref="xhdcp22__tx__crypt_8c" startline="905" endline="917">XHdcp22Tx_MemXor</references>
+        <references refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" compoundref="xhdcp22__tx__crypt_8c" startline="909" endline="921">XHdcp22Tx_MemXor</references>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1ga645b2b98b755b1402cdcdc99451fa7ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1004,7 +1004,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="726" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="726" bodyend="774"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="730" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="730" bodyend="778"/>
       </memberdef>
       <memberdef kind="function" id="group__hdcp22__tx_1gad07fe56bcdd42bd5d1825f75af460786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1107,7 +1107,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="798" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="798" bodyend="857"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="802" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="802" bodyend="861"/>
         <references refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" compoundref="xhdcp22__tx__i_8h" startline="139">XHDCP22_TX_AES128_SIZE</references>
         <references refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" compoundref="xhdcp22__tx__i_8h" startline="51">XHDCP22_TX_RCVID_SIZE</references>
         <references refid="group__hdcp22__tx_1gae9cbf44dfb3436d5314e3bd43bb3e915" compoundref="xhdcp22__tx__i_8h" startline="53">XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT</references>
@@ -1178,7 +1178,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="877" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="877" bodyend="890"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="881" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="881" bodyend="894"/>
         <references refid="group__hdcp22__tx_1gad55447c27b85fc687f9832ee151bb4d0" compoundref="xhdcp22__tx__i_8h" startline="122">XHDCP22_TX_CERT_PUB_KEY_E_SIZE</references>
         <references refid="group__hdcp22__tx_1ga30f53c64b7c8a44f495eadb30b0f15de" compoundref="xhdcp22__tx__i_8h" startline="121">XHDCP22_TX_CERT_PUB_KEY_N_SIZE</references>
       </memberdef>
@@ -1239,9 +1239,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="905" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="905" bodyend="917"/>
-        <referencedby refid="group__hdcp22__tx_1gadec8c25632b395b2382e1503e8c79b2b" compoundref="xhdcp22__tx__crypt_8c" startline="600" endline="640">XHdcp22Tx_ComputeEdkeyKs</referencedby>
-        <referencedby refid="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" compoundref="xhdcp22__tx__crypt_8c" startline="658" endline="703">XHdcp22Tx_ComputeLPrime</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" line="909" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c" bodystart="909" bodyend="921"/>
+        <referencedby refid="group__hdcp22__tx_1gadec8c25632b395b2382e1503e8c79b2b" compoundref="xhdcp22__tx__crypt_8c" startline="604" endline="644">XHdcp22Tx_ComputeEdkeyKs</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" compoundref="xhdcp22__tx__crypt_8c" startline="662" endline="707">XHdcp22Tx_ComputeLPrime</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1589,322 +1589,326 @@
 <codeline lineno="503"><highlight class="normal"></highlight></codeline>
 <codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Result<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="505"><highlight class="normal"></highlight></codeline>
-<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XHdcp22Tx_RsaSignatureVerify<sp/>(</highlight></codeline>
-<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)SrmPtr,</highlight></codeline>
-<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrmSize<sp/>-<sp/><ref refid="group__hdcp22__tx_1ga594ca29581002c93df6707c4a15ae575" kindref="member">XHDCP22_TX_SRM_SIGNATURE_SIZE</ref>,</highlight></codeline>
-<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrmPtr<sp/>+<sp/>(SrmSize<sp/>-<sp/><ref refid="group__hdcp22__tx_1ga594ca29581002c93df6707c4a15ae575" kindref="member">XHDCP22_TX_SRM_SIGNATURE_SIZE</ref>),</highlight></codeline>
-<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KpubDcpNPtr,<sp/>KpubDcpNSize,</highlight></codeline>
-<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KpubDcpEPtr,<sp/>KpubDcpESize);</highlight></codeline>
-<codeline lineno="512"><highlight class="normal"></highlight></codeline>
-<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
-<codeline lineno="514"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="515"><highlight class="normal"></highlight></codeline>
-<codeline lineno="516"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="532" refid="group__hdcp22__tx_1ga85fbd02cdb937e97dbf03ff5f704f667" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1ga85fbd02cdb937e97dbf03ff5f704f667" kindref="member">XHdcp22Tx_ComputeHPrime</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RxCaps,</highlight></codeline>
-<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rtx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*TxCaps,</highlight></codeline>
-<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Km,<sp/>u8<sp/>*HPrime)</highlight></codeline>
-<codeline lineno="535"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(RxCaps<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TxCaps<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HPrime<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="543"><highlight class="normal"></highlight></codeline>
-<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SrmSize<sp/>&lt;<sp/><ref refid="group__hdcp22__tx_1ga594ca29581002c93df6707c4a15ae575" kindref="member">XHDCP22_TX_SRM_SIGNATURE_SIZE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XHdcp22Tx_RsaSignatureVerify<sp/>(</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)SrmPtr,</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrmSize<sp/>-<sp/><ref refid="group__hdcp22__tx_1ga594ca29581002c93df6707c4a15ae575" kindref="member">XHDCP22_TX_SRM_SIGNATURE_SIZE</ref>,</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrmPtr<sp/>+<sp/>(SrmSize<sp/>-<sp/><ref refid="group__hdcp22__tx_1ga594ca29581002c93df6707c4a15ae575" kindref="member">XHDCP22_TX_SRM_SIGNATURE_SIZE</ref>),</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KpubDcpNPtr,<sp/>KpubDcpNSize,</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KpubDcpEPtr,<sp/>KpubDcpESize);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="518"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="536" refid="group__hdcp22__tx_1ga85fbd02cdb937e97dbf03ff5f704f667" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1ga85fbd02cdb937e97dbf03ff5f704f667" kindref="member">XHdcp22Tx_ComputeHPrime</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*RxCaps,</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rtx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*TxCaps,</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Km,<sp/>u8<sp/>*HPrime)</highlight></codeline>
+<codeline lineno="539"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(RxCaps<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TxCaps<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HPrime<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="547"><highlight class="normal"></highlight></codeline>
-<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashInput[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref><sp/>+<sp/><ref refid="group__hdcp22__tx_1ga67a5c02dc298abf0403ebdbd247e5009" kindref="member">XHDCP22_TX_RXCAPS_SIZE</ref><sp/>+</highlight></codeline>
-<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga99ba015f0f69f72a0a1a294963a39276" kindref="member">XHDCP22_TX_TXCAPS_SIZE</ref>];</highlight></codeline>
-<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Idx<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="551"><highlight class="normal"></highlight></codeline>
-<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do:<sp/>Key<sp/>XOR<sp/>with<sp/>Rn,<sp/>but<sp/>Rn<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
-<codeline lineno="554"><highlight class="normal"></highlight></codeline>
-<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do<sp/>Rrx<sp/>XOR<sp/>with<sp/>Ctr0,<sp/>but<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
-<codeline lineno="561"><highlight class="normal"></highlight></codeline>
-<codeline lineno="562"><highlight class="normal"></highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey1,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashInput[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref><sp/>+<sp/><ref refid="group__hdcp22__tx_1ga67a5c02dc298abf0403ebdbd247e5009" kindref="member">XHDCP22_TX_RXCAPS_SIZE</ref><sp/>+</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga99ba015f0f69f72a0a1a294963a39276" kindref="member">XHDCP22_TX_TXCAPS_SIZE</ref>];</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Idx<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"></highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do:<sp/>Key<sp/>XOR<sp/>with<sp/>Rn,<sp/>but<sp/>Rn<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do<sp/>Rrx<sp/>XOR<sp/>with<sp/>Ctr0,<sp/>but<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
 <codeline lineno="566"><highlight class="normal"></highlight></codeline>
-<codeline lineno="567"><highlight class="normal"></highlight></codeline>
-<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>Rtx<sp/>||<sp/>RxCaps<sp/>||<sp/>TxCaps.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(HashInput,<sp/>Rtx,<sp/>XHDCP22_TX_RTX_SIZE);</highlight></codeline>
-<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>;</highlight></codeline>
-<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>RxCaps,<sp/><ref refid="group__hdcp22__tx_1ga67a5c02dc298abf0403ebdbd247e5009" kindref="member">XHDCP22_TX_RXCAPS_SIZE</ref>);</highlight></codeline>
-<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1ga67a5c02dc298abf0403ebdbd247e5009" kindref="member">XHDCP22_TX_RXCAPS_SIZE</ref>;</highlight></codeline>
-<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>TxCaps,<sp/><ref refid="group__hdcp22__tx_1ga99ba015f0f69f72a0a1a294963a39276" kindref="member">XHDCP22_TX_TXCAPS_SIZE</ref>);</highlight></codeline>
-<codeline lineno="575"><highlight class="normal"></highlight></codeline>
-<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HashKey:<sp/><sp/><sp/><sp/><sp/>Kd*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(HashInput,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(HashInput),<sp/>Kd,</highlight></codeline>
-<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Kd),<sp/>HPrime);</highlight></codeline>
-<codeline lineno="579"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="580"><highlight class="normal"></highlight></codeline>
-<codeline lineno="581"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="600" refid="group__hdcp22__tx_1gadec8c25632b395b2382e1503e8c79b2b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1gadec8c25632b395b2382e1503e8c79b2b" kindref="member">XHdcp22Tx_ComputeEdkeyKs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Km,</highlight></codeline>
-<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Ks,</highlight></codeline>
-<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rtx,</highlight></codeline>
-<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*EdkeyKs)</highlight></codeline>
-<codeline lineno="604"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Ks<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(EdkeyKs<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="612"><highlight class="normal"></highlight></codeline>
-<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dkey2[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey1,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>Rtx<sp/>||<sp/>RxCaps<sp/>||<sp/>TxCaps.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(HashInput,<sp/>Rtx,<sp/>XHDCP22_TX_RTX_SIZE);</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>RxCaps,<sp/><ref refid="group__hdcp22__tx_1ga67a5c02dc298abf0403ebdbd247e5009" kindref="member">XHDCP22_TX_RXCAPS_SIZE</ref>);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1ga67a5c02dc298abf0403ebdbd247e5009" kindref="member">XHDCP22_TX_RXCAPS_SIZE</ref>;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>TxCaps,<sp/><ref refid="group__hdcp22__tx_1ga99ba015f0f69f72a0a1a294963a39276" kindref="member">XHDCP22_TX_TXCAPS_SIZE</ref>);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HashKey:<sp/><sp/><sp/><sp/><sp/>Kd*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(HashInput,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(HashInput),<sp/>Kd,</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Kd),<sp/>HPrime);</highlight></codeline>
+<codeline lineno="583"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="604" refid="group__hdcp22__tx_1gadec8c25632b395b2382e1503e8c79b2b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1gadec8c25632b395b2382e1503e8c79b2b" kindref="member">XHdcp22Tx_ComputeEdkeyKs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Km,</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Ks,</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rtx,</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*EdkeyKs)</highlight></codeline>
+<codeline lineno="608"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Ks<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(EdkeyKs<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="616"><highlight class="normal"></highlight></codeline>
-<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Key<sp/>XOR<sp/>with<sp/>Rn.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>Rn<sp/>to<sp/>least<sp/>significant<sp/>64-bits.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(Aes_Key,<sp/>0x0,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
-<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Key[<ref refid="group__hdcp22__tx_1ga660cdaa086436b17ff2f653c5c3e4905" kindref="member">XHDCP22_TX_RN_SIZE</ref>],<sp/>Rn,<sp/>XHDCP22_TX_RN_SIZE);</highlight></codeline>
-<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(Aes_Key,<sp/>Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
-<codeline lineno="622"><highlight class="normal"></highlight></codeline>
-<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x02;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Dkey2);</highlight></codeline>
-<codeline lineno="629"><highlight class="normal"></highlight></codeline>
-<codeline lineno="630"><highlight class="normal"></highlight></codeline>
-<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>EdkeyKs<sp/>=<sp/>Ks<sp/>XOR<sp/>(Dkey2<sp/>XOR<sp/>Rrx).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rrx<sp/>XOR<sp/>Dkey2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(EdkeyKs,<sp/>0x00,<sp/><ref refid="group__hdcp22__tx_1gac73c16517ae6ab99a3277a8c35efd92e" kindref="member">XHDCP22_TX_EDKEY_KS_SIZE</ref>);</highlight></codeline>
-<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>Rrx<sp/>to<sp/>the<sp/>least<sp/>significant<sp/>64<sp/>bits.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;EdkeyKs[<ref refid="group__hdcp22__tx_1gac73c16517ae6ab99a3277a8c35efd92e" kindref="member">XHDCP22_TX_EDKEY_KS_SIZE</ref><sp/>-<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>],<sp/>Rrx,</highlight></codeline>
-<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(EdkeyKs,<sp/>EdkeyKs,<sp/>Dkey2,<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>);</highlight></codeline>
-<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XOR<sp/>with<sp/>Ks.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(EdkeyKs,<sp/>EdkeyKs,<sp/>Ks,<sp/><ref refid="group__hdcp22__tx_1ga45bf83726d19068fd6434820afb4cc7a" kindref="member">XHDCP22_TX_KS_SIZE</ref>);</highlight></codeline>
-<codeline lineno="640"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="641"><highlight class="normal"></highlight></codeline>
-<codeline lineno="642"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="658" refid="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" kindref="member">XHdcp22Tx_ComputeLPrime</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Km,</highlight></codeline>
-<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rtx,</highlight></codeline>
-<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*LPrime)</highlight></codeline>
-<codeline lineno="661"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(LPrime<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="668"><highlight class="normal"></highlight></codeline>
-<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashKey[<ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>];</highlight></codeline>
-<codeline lineno="673"><highlight class="normal"></highlight></codeline>
-<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>key<sp/>derivation,<sp/>use<sp/>Km<sp/>XOR<sp/>Rn<sp/>as<sp/>AES<sp/>key<sp/>where<sp/>Rn=0<sp/>during<sp/>AKE.</highlight></codeline>
-<codeline lineno="675"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>Protocol<sp/>says<sp/>we<sp/>should<sp/>use<sp/>incoming<sp/>Rn<sp/>and<sp/>XOR<sp/>it<sp/>with<sp/>Km,</highlight></codeline>
-<codeline lineno="676"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>then<sp/>the<sp/>output<sp/>does<sp/>not<sp/>match<sp/>the<sp/>errata<sp/>output.</highlight></codeline>
-<codeline lineno="677"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>now<sp/>we<sp/>use<sp/>for<sp/>Rn<sp/>0,<sp/>which<sp/>matches<sp/>the<sp/>test<sp/>vectors.</highlight></codeline>
-<codeline lineno="678"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
-<codeline lineno="680"><highlight class="normal"></highlight></codeline>
-<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>Dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rrx<sp/>XOR<sp/>Ctr0,<sp/>where<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
-<codeline lineno="687"><highlight class="normal"></highlight></codeline>
-<codeline lineno="688"><highlight class="normal"></highlight></codeline>
-<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>Dkey0<sp/>,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dkey2[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Key<sp/>XOR<sp/>with<sp/>Rn.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>Rn<sp/>to<sp/>least<sp/>significant<sp/>64-bits.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(Aes_Key,<sp/>0x0,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Key[<ref refid="group__hdcp22__tx_1ga660cdaa086436b17ff2f653c5c3e4905" kindref="member">XHDCP22_TX_RN_SIZE</ref>],<sp/>Rn,<sp/>XHDCP22_TX_RN_SIZE);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(Aes_Key,<sp/>Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x02;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Dkey2);</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"></highlight></codeline>
+<codeline lineno="634"><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>EdkeyKs<sp/>=<sp/>Ks<sp/>XOR<sp/>(Dkey2<sp/>XOR<sp/>Rrx).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rrx<sp/>XOR<sp/>Dkey2.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(EdkeyKs,<sp/>0x00,<sp/><ref refid="group__hdcp22__tx_1gac73c16517ae6ab99a3277a8c35efd92e" kindref="member">XHDCP22_TX_EDKEY_KS_SIZE</ref>);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>Rrx<sp/>to<sp/>the<sp/>least<sp/>significant<sp/>64<sp/>bits.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;EdkeyKs[<ref refid="group__hdcp22__tx_1gac73c16517ae6ab99a3277a8c35efd92e" kindref="member">XHDCP22_TX_EDKEY_KS_SIZE</ref><sp/>-<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>],<sp/>Rrx,</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(EdkeyKs,<sp/>EdkeyKs,<sp/>Dkey2,<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>);</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XOR<sp/>with<sp/>Ks.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(EdkeyKs,<sp/>EdkeyKs,<sp/>Ks,<sp/><ref refid="group__hdcp22__tx_1ga45bf83726d19068fd6434820afb4cc7a" kindref="member">XHDCP22_TX_KS_SIZE</ref>);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="662" refid="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1ga62fcf5c75a92762ee2fb4b1c622b9e49" kindref="member">XHdcp22Tx_ComputeLPrime</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Km,</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Rtx,</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*LPrime)</highlight></codeline>
+<codeline lineno="665"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(LPrime<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashKey[<ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>];</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"></highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>key<sp/>derivation,<sp/>use<sp/>Km<sp/>XOR<sp/>Rn<sp/>as<sp/>AES<sp/>key<sp/>where<sp/>Rn=0<sp/>during<sp/>AKE.</highlight></codeline>
+<codeline lineno="679"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>Protocol<sp/>says<sp/>we<sp/>should<sp/>use<sp/>incoming<sp/>Rn<sp/>and<sp/>XOR<sp/>it<sp/>with<sp/>Km,</highlight></codeline>
+<codeline lineno="680"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>then<sp/>the<sp/>output<sp/>does<sp/>not<sp/>match<sp/>the<sp/>errata<sp/>output.</highlight></codeline>
+<codeline lineno="681"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>now<sp/>we<sp/>use<sp/>for<sp/>Rn<sp/>0,<sp/>which<sp/>matches<sp/>the<sp/>test<sp/>vectors.</highlight></codeline>
+<codeline lineno="682"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"></highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>Dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rrx<sp/>XOR<sp/>Ctr0,<sp/>where<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"></highlight></codeline>
 <codeline lineno="692"><highlight class="normal"></highlight></codeline>
-<codeline lineno="693"><highlight class="normal"></highlight></codeline>
-<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>Rn.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Key:<sp/>Kd<sp/>XOR<sp/>Rrx<sp/>(least<sp/>sign.<sp/>64<sp/>bits).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(HashKey,<sp/>0x00,<sp/><ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>);</highlight></codeline>
-<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashKey[<ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>-<ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>],<sp/>Rrx,</highlight></codeline>
-<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(HashKey,<sp/>HashKey,<sp/>Kd,<sp/><ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>);</highlight></codeline>
-<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(Rn,<sp/><ref refid="group__hdcp22__tx_1ga660cdaa086436b17ff2f653c5c3e4905" kindref="member">XHDCP22_TX_RN_SIZE</ref>,<sp/>HashKey,</highlight></codeline>
-<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>,<sp/>LPrime);</highlight></codeline>
-<codeline lineno="703"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="704"><highlight class="normal"></highlight></codeline>
-<codeline lineno="705"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
-<codeline lineno="706"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Computes<sp/>the<sp/>V<sp/>hash<sp/>value<sp/>for<sp/>HDCP<sp/>2.2<sp/>transmitter<sp/>authentication.</highlight></codeline>
-<codeline lineno="707"><highlight class="comment"><sp/>*</highlight></codeline>
-<codeline lineno="708"><highlight class="comment"><sp/>*<sp/>This<sp/>function<sp/>calculates<sp/>the<sp/>V<sp/>parameter<sp/>used<sp/>in<sp/>HDCP<sp/>2.2<sp/>content<sp/>protection</highlight></codeline>
-<codeline lineno="709"><highlight class="comment"><sp/>*<sp/>protocol<sp/>for<sp/>receiver<sp/>authentication<sp/>and<sp/>repeater<sp/>topology<sp/>verification.</highlight></codeline>
-<codeline lineno="710"><highlight class="comment"><sp/>*</highlight></codeline>
-<codeline lineno="711"><highlight class="comment"><sp/>*<sp/>@param<sp/>Rn<sp/>Pointer<sp/>to<sp/>the<sp/>random<sp/>nonce<sp/>value.</highlight></codeline>
-<codeline lineno="712"><highlight class="comment"><sp/>*<sp/>@param<sp/>Rrx<sp/>Pointer<sp/>to<sp/>the<sp/>receiver&apos;s<sp/>random<sp/>value.</highlight></codeline>
-<codeline lineno="713"><highlight class="comment"><sp/>*<sp/>@param<sp/>RxInfo<sp/>Pointer<sp/>to<sp/>the<sp/>receiver<sp/>information<sp/>structure.</highlight></codeline>
-<codeline lineno="714"><highlight class="comment"><sp/>*<sp/>@param<sp/>Rtx<sp/>Pointer<sp/>to<sp/>the<sp/>transmitter&apos;s<sp/>random<sp/>value.</highlight></codeline>
-<codeline lineno="715"><highlight class="comment"><sp/>*<sp/>@param<sp/>RecvIDList<sp/>Pointer<sp/>to<sp/>the<sp/>list<sp/>of<sp/>connected<sp/>receiver<sp/>IDs.</highlight></codeline>
-<codeline lineno="716"><highlight class="comment"><sp/>*<sp/>@param<sp/>RecvIDCount<sp/>Number<sp/>of<sp/>receivers<sp/>in<sp/>the<sp/>RecvIDList.</highlight></codeline>
-<codeline lineno="717"><highlight class="comment"><sp/>*<sp/>@param<sp/>SeqNum_V<sp/>Pointer<sp/>to<sp/>the<sp/>sequence<sp/>number<sp/>for<sp/>V<sp/>computation.</highlight></codeline>
-<codeline lineno="718"><highlight class="comment"><sp/>*<sp/>@param<sp/>Km<sp/>Pointer<sp/>to<sp/>the<sp/>master<sp/>key<sp/>used<sp/>in<sp/>computation.</highlight></codeline>
-<codeline lineno="719"><highlight class="comment"><sp/>*<sp/>@param<sp/>V<sp/>Pointer<sp/>to<sp/>the<sp/>output<sp/>buffer<sp/>where<sp/>computed<sp/>V<sp/>hash<sp/>will<sp/>be<sp/>stored.</highlight></codeline>
-<codeline lineno="720"><highlight class="comment"><sp/>*</highlight></codeline>
-<codeline lineno="721"><highlight class="comment"><sp/>*<sp/>@return<sp/>None.</highlight></codeline>
-<codeline lineno="722"><highlight class="comment"><sp/>*</highlight></codeline>
-<codeline lineno="723"><highlight class="comment"><sp/>*<sp/>@note<sp/>All<sp/>input<sp/>pointers<sp/>must<sp/>be<sp/>valid<sp/>and<sp/>point<sp/>to<sp/>properly<sp/>initialized<sp/>data.</highlight></codeline>
-<codeline lineno="724"><highlight class="comment"><sp/>*<sp/>@note<sp/>The<sp/>V<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>pre-allocated<sp/>with<sp/>sufficient<sp/>size.</highlight></codeline>
-<codeline lineno="725"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="726"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22Tx_ComputeV(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>RxInfo,</highlight></codeline>
-<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rtx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>RecvIDList,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>RecvIDCount,</highlight></codeline>
-<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>SeqNum_V,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Km,<sp/>u8*<sp/>V)</highlight></codeline>
-<codeline lineno="729"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(RxInfo<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SeqNum_V<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(V<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="737"><highlight class="normal"></highlight></codeline>
-<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>Dkey0<sp/>,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"></highlight></codeline>
+<codeline lineno="697"><highlight class="normal"></highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>Rn.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Key:<sp/>Kd<sp/>XOR<sp/>Rrx<sp/>(least<sp/>sign.<sp/>64<sp/>bits).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(HashKey,<sp/>0x00,<sp/><ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>);</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashKey[<ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>-<ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>],<sp/>Rrx,</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(HashKey,<sp/>HashKey,<sp/>Kd,<sp/><ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>);</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(Rn,<sp/><ref refid="group__hdcp22__tx_1ga660cdaa086436b17ff2f653c5c3e4905" kindref="member">XHDCP22_TX_RN_SIZE</ref>,<sp/>HashKey,</highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>,<sp/>LPrime);</highlight></codeline>
+<codeline lineno="707"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight></codeline>
+<codeline lineno="709"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="710"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Computes<sp/>the<sp/>V<sp/>hash<sp/>value<sp/>for<sp/>HDCP<sp/>2.2<sp/>transmitter<sp/>authentication.</highlight></codeline>
+<codeline lineno="711"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="712"><highlight class="comment"><sp/>*<sp/>This<sp/>function<sp/>calculates<sp/>the<sp/>V<sp/>parameter<sp/>used<sp/>in<sp/>HDCP<sp/>2.2<sp/>content<sp/>protection</highlight></codeline>
+<codeline lineno="713"><highlight class="comment"><sp/>*<sp/>protocol<sp/>for<sp/>receiver<sp/>authentication<sp/>and<sp/>repeater<sp/>topology<sp/>verification.</highlight></codeline>
+<codeline lineno="714"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="715"><highlight class="comment"><sp/>*<sp/>@param<sp/>Rn<sp/>Pointer<sp/>to<sp/>the<sp/>random<sp/>nonce<sp/>value.</highlight></codeline>
+<codeline lineno="716"><highlight class="comment"><sp/>*<sp/>@param<sp/>Rrx<sp/>Pointer<sp/>to<sp/>the<sp/>receiver&apos;s<sp/>random<sp/>value.</highlight></codeline>
+<codeline lineno="717"><highlight class="comment"><sp/>*<sp/>@param<sp/>RxInfo<sp/>Pointer<sp/>to<sp/>the<sp/>receiver<sp/>information<sp/>structure.</highlight></codeline>
+<codeline lineno="718"><highlight class="comment"><sp/>*<sp/>@param<sp/>Rtx<sp/>Pointer<sp/>to<sp/>the<sp/>transmitter&apos;s<sp/>random<sp/>value.</highlight></codeline>
+<codeline lineno="719"><highlight class="comment"><sp/>*<sp/>@param<sp/>RecvIDList<sp/>Pointer<sp/>to<sp/>the<sp/>list<sp/>of<sp/>connected<sp/>receiver<sp/>IDs.</highlight></codeline>
+<codeline lineno="720"><highlight class="comment"><sp/>*<sp/>@param<sp/>RecvIDCount<sp/>Number<sp/>of<sp/>receivers<sp/>in<sp/>the<sp/>RecvIDList.</highlight></codeline>
+<codeline lineno="721"><highlight class="comment"><sp/>*<sp/>@param<sp/>SeqNum_V<sp/>Pointer<sp/>to<sp/>the<sp/>sequence<sp/>number<sp/>for<sp/>V<sp/>computation.</highlight></codeline>
+<codeline lineno="722"><highlight class="comment"><sp/>*<sp/>@param<sp/>Km<sp/>Pointer<sp/>to<sp/>the<sp/>master<sp/>key<sp/>used<sp/>in<sp/>computation.</highlight></codeline>
+<codeline lineno="723"><highlight class="comment"><sp/>*<sp/>@param<sp/>V<sp/>Pointer<sp/>to<sp/>the<sp/>output<sp/>buffer<sp/>where<sp/>computed<sp/>V<sp/>hash<sp/>will<sp/>be<sp/>stored.</highlight></codeline>
+<codeline lineno="724"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="725"><highlight class="comment"><sp/>*<sp/>@return<sp/>None.</highlight></codeline>
+<codeline lineno="726"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="727"><highlight class="comment"><sp/>*<sp/>@note<sp/>All<sp/>input<sp/>pointers<sp/>must<sp/>be<sp/>valid<sp/>and<sp/>point<sp/>to<sp/>properly<sp/>initialized<sp/>data.</highlight></codeline>
+<codeline lineno="728"><highlight class="comment"><sp/>*<sp/>@note<sp/>The<sp/>V<sp/>output<sp/>buffer<sp/>must<sp/>be<sp/>pre-allocated<sp/>with<sp/>sufficient<sp/>size.</highlight></codeline>
+<codeline lineno="729"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="730"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22Tx_ComputeV(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>RxInfo,</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rtx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>RecvIDList,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>RecvIDCount,</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>SeqNum_V,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Km,<sp/>u8*<sp/>V)</highlight></codeline>
+<codeline lineno="733"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(RxInfo<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SeqNum_V<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(V<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="741"><highlight class="normal"></highlight></codeline>
-<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashInput[(<ref refid="group__hdcp22__tx_1gae9cbf44dfb3436d5314e3bd43bb3e915" kindref="member">XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT</ref><sp/>*<sp/><ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>)<sp/>+</highlight></codeline>
-<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref><sp/>+<sp/><ref refid="group__hdcp22__tx_1gaaf02584286a878b64d4474f1ad777673" kindref="member">XHDCP22_TX_SEQ_NUM_V_SIZE</ref>];</highlight></codeline>
-<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Idx<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="745"><highlight class="normal"></highlight></codeline>
-<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>key<sp/>derivation,<sp/>use<sp/>Km<sp/>XOR<sp/>Rn<sp/>as<sp/>AES<sp/>key<sp/>where<sp/>Rn=0<sp/>during<sp/>AKE.</highlight></codeline>
-<codeline lineno="747"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>Protocol<sp/>says<sp/>we<sp/>should<sp/>use<sp/>incoming<sp/>Rn<sp/>and<sp/>XOR<sp/>it<sp/>with<sp/>Km,</highlight></codeline>
-<codeline lineno="748"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>then<sp/>the<sp/>output<sp/>does<sp/>not<sp/>match<sp/>the<sp/>errata<sp/>output.</highlight></codeline>
-<codeline lineno="749"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>now<sp/>we<sp/>use<sp/>for<sp/>Rn<sp/>0,<sp/>which<sp/>matches<sp/>the<sp/>test<sp/>vectors.</highlight></codeline>
-<codeline lineno="750"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
-<codeline lineno="752"><highlight class="normal"></highlight></codeline>
-<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do<sp/>Rrx<sp/>XOR<sp/>with<sp/>Ctr0,<sp/>but<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
-<codeline lineno="759"><highlight class="normal"></highlight></codeline>
-<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey1,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashInput[(<ref refid="group__hdcp22__tx_1gae9cbf44dfb3436d5314e3bd43bb3e915" kindref="member">XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT</ref><sp/>*<sp/><ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref><sp/>+<sp/><ref refid="group__hdcp22__tx_1gaaf02584286a878b64d4474f1ad777673" kindref="member">XHDCP22_TX_SEQ_NUM_V_SIZE</ref>];</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Idx<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"></highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>key<sp/>derivation,<sp/>use<sp/>Km<sp/>XOR<sp/>Rn<sp/>as<sp/>AES<sp/>key<sp/>where<sp/>Rn=0<sp/>during<sp/>AKE.</highlight></codeline>
+<codeline lineno="751"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>Protocol<sp/>says<sp/>we<sp/>should<sp/>use<sp/>incoming<sp/>Rn<sp/>and<sp/>XOR<sp/>it<sp/>with<sp/>Km,</highlight></codeline>
+<codeline lineno="752"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>then<sp/>the<sp/>output<sp/>does<sp/>not<sp/>match<sp/>the<sp/>errata<sp/>output.</highlight></codeline>
+<codeline lineno="753"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>now<sp/>we<sp/>use<sp/>for<sp/>Rn<sp/>0,<sp/>which<sp/>matches<sp/>the<sp/>test<sp/>vectors.</highlight></codeline>
+<codeline lineno="754"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"></highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do<sp/>Rrx<sp/>XOR<sp/>with<sp/>Ctr0,<sp/>but<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
 <codeline lineno="763"><highlight class="normal"></highlight></codeline>
-<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>ReceiverID<sp/>list<sp/>||<sp/>RxInfo<sp/>||<sp/>seq_num_V.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(HashInput,<sp/>RecvIDList,<sp/>(RecvIDCount*<ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>));</highlight></codeline>
-<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/>(RecvIDCount*<ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>);</highlight></codeline>
-<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>RxInfo,<sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref>);</highlight></codeline>
-<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref>;</highlight></codeline>
-<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>SeqNum_V,<sp/><ref refid="group__hdcp22__tx_1gaaf02584286a878b64d4474f1ad777673" kindref="member">XHDCP22_TX_SEQ_NUM_V_SIZE</ref>);</highlight></codeline>
-<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1gaaf02584286a878b64d4474f1ad777673" kindref="member">XHDCP22_TX_SEQ_NUM_V_SIZE</ref>;</highlight></codeline>
-<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HashKey:<sp/><sp/><sp/><sp/><sp/>Kd*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(HashInput,<sp/>Idx,<sp/>Kd,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Kd),<sp/>V);</highlight></codeline>
-<codeline lineno="774"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="775"><highlight class="normal"></highlight></codeline>
-<codeline lineno="776"><highlight class="normal"><sp/></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="798" refid="group__hdcp22__tx_1gad07fe56bcdd42bd5d1825f75af460786" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1gad07fe56bcdd42bd5d1825f75af460786" kindref="member">XHdcp22Tx_ComputeM</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rtx,</highlight></codeline>
-<codeline lineno="799"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>StreamIDType,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>k,</highlight></codeline>
-<codeline lineno="800"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>SeqNum_M,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Km,<sp/>u8*<sp/>M)</highlight></codeline>
-<codeline lineno="801"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="802"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="803"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="804"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="805"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="806"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StreamIDType<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="807"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(k<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="808"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SeqNum_M<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="809"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(M<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="811"><highlight class="normal"></highlight></codeline>
-<codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="813"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
-<codeline lineno="814"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey1,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="767"><highlight class="normal"></highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>ReceiverID<sp/>list<sp/>||<sp/>RxInfo<sp/>||<sp/>seq_num_V.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(HashInput,<sp/>RecvIDList,<sp/>(RecvIDCount*<ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>));</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/>(RecvIDCount*<ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>);</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>RxInfo,<sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref>);</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref>;</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>SeqNum_V,<sp/><ref refid="group__hdcp22__tx_1gaaf02584286a878b64d4474f1ad777673" kindref="member">XHDCP22_TX_SEQ_NUM_V_SIZE</ref>);</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1gaaf02584286a878b64d4474f1ad777673" kindref="member">XHDCP22_TX_SEQ_NUM_V_SIZE</ref>;</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HashKey:<sp/><sp/><sp/><sp/><sp/>Kd*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(HashInput,<sp/>Idx,<sp/>Kd,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Kd),<sp/>V);</highlight></codeline>
+<codeline lineno="778"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"></highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="802" refid="group__hdcp22__tx_1gad07fe56bcdd42bd5d1825f75af460786" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1gad07fe56bcdd42bd5d1825f75af460786" kindref="member">XHdcp22Tx_ComputeM</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rn,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rrx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Rtx,</highlight></codeline>
+<codeline lineno="803"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>StreamIDType,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>k,</highlight></codeline>
+<codeline lineno="804"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>SeqNum_M,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Km,<sp/>u8*<sp/>M)</highlight></codeline>
+<codeline lineno="805"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="806"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="807"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rn<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="808"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rrx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="809"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Rtx<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StreamIDType<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="811"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(k<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SeqNum_M<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="813"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Km<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="814"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(M<sp/>!=<sp/>NULL);</highlight></codeline>
 <codeline lineno="815"><highlight class="normal"></highlight></codeline>
-<codeline lineno="816"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SHA256_Kd[<ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>];</highlight></codeline>
-<codeline lineno="817"><highlight class="normal"></highlight></codeline>
-<codeline lineno="818"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>StreamIDCount;</highlight></codeline>
+<codeline lineno="816"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Iv[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="817"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Aes_Key[<ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];</highlight></codeline>
+<codeline lineno="818"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Kd[2<sp/>*<sp/><ref refid="group__hdcp22__tx_1ga27ed7fd62cc8a44a0601801cd13e95eb" kindref="member">XHDCP22_TX_AES128_SIZE</ref>];<sp/></highlight><highlight class="comment">/*<sp/>Dkey0<sp/>||<sp/>Dkey<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="819"><highlight class="normal"></highlight></codeline>
-<codeline lineno="820"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>K<sp/>value<sp/>is<sp/>in<sp/>big<sp/>endian<sp/>format<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="821"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIDCount<sp/><sp/>=<sp/>k[0]<sp/>&lt;&lt;<sp/>8;<sp/></highlight><highlight class="comment">//<sp/>MSB</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="822"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIDCount<sp/>|=<sp/>k[1];<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LSB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="820"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SHA256_Kd[<ref refid="group__hdcp22__tx_1gaa056fc449660e83960a9f96cda827287" kindref="member">XHDCP22_TX_SHA256_HASH_SIZE</ref>];</highlight></codeline>
+<codeline lineno="821"><highlight class="normal"></highlight></codeline>
+<codeline lineno="822"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>StreamIDCount;</highlight></codeline>
 <codeline lineno="823"><highlight class="normal"></highlight></codeline>
-<codeline lineno="824"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashInput[(<ref refid="group__hdcp22__tx_1gae9cbf44dfb3436d5314e3bd43bb3e915" kindref="member">XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT</ref><sp/>*<sp/><ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>)<sp/>+</highlight></codeline>
-<codeline lineno="825"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref><sp/>+<sp/><ref refid="group__hdcp22__tx_1gaa72d29a23dd59da90fbd3e5112e898f9" kindref="member">XHDCP22_TX_SEQ_NUM_M_SIZE</ref>];</highlight></codeline>
-<codeline lineno="826"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Idx<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="824"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>K<sp/>value<sp/>is<sp/>in<sp/>big<sp/>endian<sp/>format<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="825"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIDCount<sp/><sp/>=<sp/>k[0]<sp/>&lt;&lt;<sp/>8;<sp/></highlight><highlight class="comment">//<sp/>MSB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="826"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamIDCount<sp/>|=<sp/>k[1];<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>LSB</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="827"><highlight class="normal"></highlight></codeline>
-<codeline lineno="828"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>key<sp/>derivation,<sp/>use<sp/>Km<sp/>XOR<sp/>Rn<sp/>as<sp/>AES<sp/>key<sp/>where<sp/>Rn=0<sp/>during<sp/>AKE.</highlight></codeline>
-<codeline lineno="829"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>Protocol<sp/>says<sp/>we<sp/>should<sp/>use<sp/>incoming<sp/>Rn<sp/>and<sp/>XOR<sp/>it<sp/>with<sp/>Km,</highlight></codeline>
-<codeline lineno="830"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>then<sp/>the<sp/>output<sp/>does<sp/>not<sp/>match<sp/>the<sp/>errata<sp/>output.</highlight></codeline>
-<codeline lineno="831"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>now<sp/>we<sp/>use<sp/>for<sp/>Rn<sp/>0,<sp/>which<sp/>matches<sp/>the<sp/>test<sp/>vectors.</highlight></codeline>
-<codeline lineno="832"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="833"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
-<codeline lineno="834"><highlight class="normal"></highlight></codeline>
-<codeline lineno="835"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="836"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="837"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="838"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do<sp/>Rrx<sp/>XOR<sp/>with<sp/>Ctr0,<sp/>but<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="839"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
-<codeline lineno="840"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
-<codeline lineno="841"><highlight class="normal"></highlight></codeline>
-<codeline lineno="842"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey1,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="843"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="828"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HashInput[(<ref refid="group__hdcp22__tx_1gae9cbf44dfb3436d5314e3bd43bb3e915" kindref="member">XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT</ref><sp/>*<sp/><ref refid="group__hdcp22__tx_1ga4a9b54e83f7ca231409c76c32e98f99c" kindref="member">XHDCP22_TX_RCVID_SIZE</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="829"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga064a0100ac5e03a5125ccf7e5cfdf60e" kindref="member">XHDCP22_TX_RXINFO_SIZE</ref><sp/>+<sp/><ref refid="group__hdcp22__tx_1gaa72d29a23dd59da90fbd3e5112e898f9" kindref="member">XHDCP22_TX_SEQ_NUM_M_SIZE</ref>];</highlight></codeline>
+<codeline lineno="830"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Idx<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="831"><highlight class="normal"></highlight></codeline>
+<codeline lineno="832"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>key<sp/>derivation,<sp/>use<sp/>Km<sp/>XOR<sp/>Rn<sp/>as<sp/>AES<sp/>key<sp/>where<sp/>Rn=0<sp/>during<sp/>AKE.</highlight></codeline>
+<codeline lineno="833"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>Protocol<sp/>says<sp/>we<sp/>should<sp/>use<sp/>incoming<sp/>Rn<sp/>and<sp/>XOR<sp/>it<sp/>with<sp/>Km,</highlight></codeline>
+<codeline lineno="834"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>then<sp/>the<sp/>output<sp/>does<sp/>not<sp/>match<sp/>the<sp/>errata<sp/>output.</highlight></codeline>
+<codeline lineno="835"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>For<sp/>now<sp/>we<sp/>use<sp/>for<sp/>Rn<sp/>0,<sp/>which<sp/>matches<sp/>the<sp/>test<sp/>vectors.</highlight></codeline>
+<codeline lineno="836"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="837"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Key,<sp/>Km,<sp/>XHDCP22_TX_KM_SIZE);</highlight></codeline>
+<codeline lineno="838"><highlight class="normal"></highlight></codeline>
+<codeline lineno="839"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="840"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>m<sp/>=<sp/>Rtx<sp/>||<sp/>Rrx.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="841"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Aes_Iv,<sp/>Rtx,<sp/><ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="842"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Normally<sp/>we<sp/>should<sp/>do<sp/>Rrx<sp/>XOR<sp/>with<sp/>Ctr0,<sp/>but<sp/>Ctr0<sp/>is<sp/>0.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="843"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;Aes_Iv[<ref refid="group__hdcp22__tx_1ga01ffe6c05d2fc2699005b74095f732b6" kindref="member">XHDCP22_TX_RTX_SIZE</ref>],<sp/>Rrx,<sp/><ref refid="group__hdcp22__tx_1ga267e55ed32f462d88957aff00f4c35c8" kindref="member">XHDCP22_TX_RRX_SIZE</ref>);</highlight></codeline>
+<codeline lineno="844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>Kd);</highlight></codeline>
 <codeline lineno="845"><highlight class="normal"></highlight></codeline>
-<codeline lineno="846"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>SHA256<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="847"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Sha256Hash(Kd,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Kd),<sp/>SHA256_Kd);</highlight></codeline>
-<codeline lineno="848"><highlight class="normal"></highlight></codeline>
-<codeline lineno="849"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="850"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>StreamID_Type<sp/>list<sp/>||<sp/>seq_num_M.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="851"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(HashInput,<sp/>StreamIDType,<sp/>(StreamIDCount*<ref refid="group__hdcp22__tx_1ga502eeba24409e3f79d98139ec430d3e1" kindref="member">XHDCP22_TX_STREAMID_TYPE_SIZE</ref>));</highlight></codeline>
-<codeline lineno="852"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/>(StreamIDCount*<ref refid="group__hdcp22__tx_1ga502eeba24409e3f79d98139ec430d3e1" kindref="member">XHDCP22_TX_STREAMID_TYPE_SIZE</ref>);</highlight></codeline>
-<codeline lineno="853"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>SeqNum_M,<sp/><ref refid="group__hdcp22__tx_1gaa72d29a23dd59da90fbd3e5112e898f9" kindref="member">XHDCP22_TX_SEQ_NUM_M_SIZE</ref>);</highlight></codeline>
-<codeline lineno="854"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1gaa72d29a23dd59da90fbd3e5112e898f9" kindref="member">XHDCP22_TX_SEQ_NUM_M_SIZE</ref>;</highlight></codeline>
-<codeline lineno="855"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HashKey:<sp/><sp/><sp/><sp/><sp/>SHA256(Kd)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="856"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(HashInput,<sp/>Idx,<sp/>SHA256_Kd,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SHA256_Kd),<sp/>M);</highlight></codeline>
-<codeline lineno="857"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="858"><highlight class="normal"></highlight></codeline>
-<codeline lineno="859"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="877" refid="group__hdcp22__tx_1ga72688f3315910efdda36a2fe5795df7f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1ga72688f3315910efdda36a2fe5795df7f" kindref="member">XHdcp22Tx_EncryptKm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___tx___cert_rx" kindref="compound">XHdcp22_Tx_CertRx</ref>*<sp/>CertificatePtr,</highlight></codeline>
-<codeline lineno="878"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>KmPtr,<sp/>u8<sp/>*MaskingSeedPtr,<sp/>u8*<sp/>EncryptedKmPtr)</highlight></codeline>
-<codeline lineno="879"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="880"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="881"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CertificatePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="882"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(KmPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="883"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MaskingSeedPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="884"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EncryptedKmPtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="885"><highlight class="normal"></highlight></codeline>
-<codeline lineno="886"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XHdcp22Tx_RsaOaepEncrypt(CertificatePtr-&gt;N,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga30f53c64b7c8a44f495eadb30b0f15de" kindref="member">XHDCP22_TX_CERT_PUB_KEY_N_SIZE</ref>,</highlight></codeline>
-<codeline lineno="887"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CertificatePtr-&gt;e,<sp/><ref refid="group__hdcp22__tx_1gad55447c27b85fc687f9832ee151bb4d0" kindref="member">XHDCP22_TX_CERT_PUB_KEY_E_SIZE</ref>,</highlight></codeline>
-<codeline lineno="888"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KmPtr,<sp/>XHDCP22_TX_KM_SIZE,</highlight></codeline>
-<codeline lineno="889"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskingSeedPtr,<sp/>EncryptedKmPtr);</highlight></codeline>
-<codeline lineno="890"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="891"><highlight class="normal"></highlight></codeline>
-<codeline lineno="892"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="905" refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(u8<sp/>*Output,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*InputA,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*InputB,</highlight></codeline>
-<codeline lineno="906"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Size)</highlight></codeline>
-<codeline lineno="907"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="908"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="909"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Output<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="910"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InputA<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="911"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InputB<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="912"><highlight class="normal"></highlight></codeline>
-<codeline lineno="913"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i=0;</highlight></codeline>
-<codeline lineno="914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i=0;<sp/>i&lt;Size;<sp/>i++)<sp/>{</highlight></codeline>
-<codeline lineno="915"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Output[i]<sp/>=<sp/>InputA[i]<sp/>^<sp/>InputB[i];</highlight></codeline>
-<codeline lineno="916"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="917"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="918"><highlight class="normal"></highlight></codeline>
+<codeline lineno="846"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>dkey1,<sp/>counter<sp/>is<sp/>1:<sp/>Rrx<sp/>|<sp/>0x01.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="847"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Aes_Iv[15]<sp/>^=<sp/>0x01;<sp/></highlight><highlight class="comment">/*<sp/>big<sp/>endian!<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="848"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Aes128Encrypt(Aes_Iv,<sp/>Aes_Key,<sp/>&amp;Kd[XHDCP22_TX_KM_SIZE]);</highlight></codeline>
+<codeline lineno="849"><highlight class="normal"></highlight></codeline>
+<codeline lineno="850"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>SHA256<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="851"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_Sha256Hash(Kd,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Kd),<sp/>SHA256_Kd);</highlight></codeline>
+<codeline lineno="852"><highlight class="normal"></highlight></codeline>
+<codeline lineno="853"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>hash<sp/>with<sp/>HMAC-SHA256.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="854"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input:<sp/>StreamID_Type<sp/>list<sp/>||<sp/>seq_num_M.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="855"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(HashInput,<sp/>StreamIDType,<sp/>(StreamIDCount*<ref refid="group__hdcp22__tx_1ga502eeba24409e3f79d98139ec430d3e1" kindref="member">XHDCP22_TX_STREAMID_TYPE_SIZE</ref>));</highlight></codeline>
+<codeline lineno="856"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/>(StreamIDCount*<ref refid="group__hdcp22__tx_1ga502eeba24409e3f79d98139ec430d3e1" kindref="member">XHDCP22_TX_STREAMID_TYPE_SIZE</ref>);</highlight></codeline>
+<codeline lineno="857"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;HashInput[Idx],<sp/>SeqNum_M,<sp/><ref refid="group__hdcp22__tx_1gaa72d29a23dd59da90fbd3e5112e898f9" kindref="member">XHDCP22_TX_SEQ_NUM_M_SIZE</ref>);</highlight></codeline>
+<codeline lineno="858"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx<sp/>+=<sp/><ref refid="group__hdcp22__tx_1gaa72d29a23dd59da90fbd3e5112e898f9" kindref="member">XHDCP22_TX_SEQ_NUM_M_SIZE</ref>;</highlight></codeline>
+<codeline lineno="859"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HashKey:<sp/><sp/><sp/><sp/><sp/>SHA256(Kd)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="860"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22Cmn_HmacSha256Hash(HashInput,<sp/>Idx,<sp/>SHA256_Kd,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SHA256_Kd),<sp/>M);</highlight></codeline>
+<codeline lineno="861"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="862"><highlight class="normal"></highlight></codeline>
+<codeline lineno="863"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="881" refid="group__hdcp22__tx_1ga72688f3315910efdda36a2fe5795df7f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1ga72688f3315910efdda36a2fe5795df7f" kindref="member">XHdcp22Tx_EncryptKm</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp22___tx___cert_rx" kindref="compound">XHdcp22_Tx_CertRx</ref>*<sp/>CertificatePtr,</highlight></codeline>
+<codeline lineno="882"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>KmPtr,<sp/>u8<sp/>*MaskingSeedPtr,<sp/>u8*<sp/>EncryptedKmPtr)</highlight></codeline>
+<codeline lineno="883"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="884"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="885"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CertificatePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="886"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(KmPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="887"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MaskingSeedPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="888"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EncryptedKmPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="889"><highlight class="normal"></highlight></codeline>
+<codeline lineno="890"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XHdcp22Tx_RsaOaepEncrypt(CertificatePtr-&gt;N,<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp22__tx_1ga30f53c64b7c8a44f495eadb30b0f15de" kindref="member">XHDCP22_TX_CERT_PUB_KEY_N_SIZE</ref>,</highlight></codeline>
+<codeline lineno="891"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CertificatePtr-&gt;e,<sp/><ref refid="group__hdcp22__tx_1gad55447c27b85fc687f9832ee151bb4d0" kindref="member">XHDCP22_TX_CERT_PUB_KEY_E_SIZE</ref>,</highlight></codeline>
+<codeline lineno="892"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KmPtr,<sp/>XHDCP22_TX_KM_SIZE,</highlight></codeline>
+<codeline lineno="893"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaskingSeedPtr,<sp/>EncryptedKmPtr);</highlight></codeline>
+<codeline lineno="894"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="895"><highlight class="normal"></highlight></codeline>
+<codeline lineno="896"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="909" refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp22__tx_1gada532a9fbcf4f92d5b987c9e0ea853ab" kindref="member">XHdcp22Tx_MemXor</ref>(u8<sp/>*Output,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*InputA,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*InputB,</highlight></codeline>
+<codeline lineno="910"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Size)</highlight></codeline>
+<codeline lineno="911"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="912"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="913"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Output<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InputA<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="915"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InputB<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="916"><highlight class="normal"></highlight></codeline>
+<codeline lineno="917"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i=0;</highlight></codeline>
+<codeline lineno="918"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i=0;<sp/>i&lt;Size;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="919"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Output[i]<sp/>=<sp/>InputA[i]<sp/>^<sp/>InputB[i];</highlight></codeline>
+<codeline lineno="920"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="921"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="922"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_crypt.c"/>
   </compounddef>
 </doxygen>

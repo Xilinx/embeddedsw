@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="274" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="274" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1a7c83ea10306a01f63996acb058378b47" prot="public" static="no" mutable="no">
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="276" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="276" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1a18299f02890be420ebcb646435bca36f" prot="public" static="no" mutable="no">
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="279" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="279" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1af26b5325f41da9dce51fa92eb5acdecf" prot="public" static="no" mutable="no">
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="282" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="282" bodyend="-1"/>
         <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
         <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
         <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="284" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="284" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1a387389e1af990ccab60474ec2f86b106" prot="public" static="no" mutable="no">
@@ -91,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="285" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="285" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1ab5d74453fa3a1174a6cae4833968d6e5" prot="public" static="no" mutable="no">
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="286" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="286" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1a326b6bbf7981158027c835f24f351c83" prot="public" static="no" mutable="no">
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="287" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="287" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1a5718829bd3f793168c5932ed2b596b40" prot="public" static="no" mutable="no">
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="288" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="288" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dfe_prach___model_parameters_1a6dfb4da5a1b0fcd545d5e8630cc65c4b" prot="public" static="no" mutable="no">
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="289" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="289" bodyend="-1"/>
         <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
       </memberdef>
       </sectiondef>
@@ -156,7 +156,7 @@
 <para>PRACH model parameters. </para>    </briefdescription>
     <detaileddescription>
 <para>Data defined in Device tree/xparameters.h </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="272" bodyend="291"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="272" bodyend="291"/>
     <listofallmembers>
       <member refid="struct_x_dfe_prach___model_parameters_1ab5d74453fa3a1174a6cae4833968d6e5" prot="public" virt="non-virtual"><scope>XDfePrach_ModelParameters</scope><name>HasAxisCtrl</name></member>
       <member refid="struct_x_dfe_prach___model_parameters_1a6dfb4da5a1b0fcd545d5e8630cc65c4b" prot="public" virt="non-virtual"><scope>XDfePrach_ModelParameters</scope><name>HasContinuousSched</name></member>

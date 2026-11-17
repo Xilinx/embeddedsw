@@ -7,12 +7,14 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(c)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl.h)</highlight></codeline>
-<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl_control.h)</highlight></codeline>
-<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl_flashconfig.h)</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl_asp.h)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl_control.h)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl_flashconfig.h)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilsfl_micron_asp.h)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

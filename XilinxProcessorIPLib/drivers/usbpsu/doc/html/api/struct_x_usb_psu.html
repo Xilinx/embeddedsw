@@ -213,35 +213,35 @@ Data Fields</h2></td></tr>
 <p>struct <a class="el" href="struct_x_usb_psu.html" title="USB Device Controller representation USB Device Controller representation. ">XUsbPsu</a> - USB Device Controller representation </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">SetupData,:</td><td>Setup data packet </td></tr>
-    <tr><td class="paramname">Ep0_Trb,:</td><td>TRB for control transfers </td></tr>
-    <tr><td class="paramname">ConfigPtr,:</td><td>Configuration info pointer </td></tr>
-    <tr><td class="paramname">eps,:</td><td>Endpoints array </td></tr>
-    <tr><td class="paramname">Evt,:</td><td>Usb event buffer </td></tr>
-    <tr><td class="paramname">EpParams,:</td><td>Endpoint Parameters </td></tr>
-    <tr><td class="paramname">BaseAddress,:</td><td>Core register base address </td></tr>
-    <tr><td class="paramname">DevDescSize,:</td><td>Device descriptor size </td></tr>
-    <tr><td class="paramname">ConfigDescSize,:</td><td>Config descriptor size </td></tr>
-    <tr><td class="paramname">AppData,:</td><td>Application data </td></tr>
-    <tr><td class="paramname">*Chapter9,:</td><td>USB Chapter9 function handler </td></tr>
-    <tr><td class="paramname">*ResetIntrHandler,:</td><td>Reset function handler </td></tr>
-    <tr><td class="paramname">*DisconnectIntrHandler,:</td><td>Disconnect function handler </td></tr>
-    <tr><td class="paramname">*DevDesc,:</td><td>Device descriptor pointer </td></tr>
-    <tr><td class="paramname">*ConfigDesc,:</td><td>Config descriptor pointer </td></tr>
-    <tr><td class="paramname">EventBuffer,:</td><td>Event buffer array </td></tr>
-    <tr><td class="paramname">NumOutEps,:</td><td>Number of out endpoints </td></tr>
-    <tr><td class="paramname">NumInEps,:</td><td>Number of in endpoint </td></tr>
-    <tr><td class="paramname">ControlDir,:</td><td>Control endpoint direction </td></tr>
-    <tr><td class="paramname">IsInTestMode,:</td><td>USB test mode flag </td></tr>
-    <tr><td class="paramname">TestMode,:</td><td>Test Mode </td></tr>
-    <tr><td class="paramname">Ep0State,:</td><td>Control EP state </td></tr>
-    <tr><td class="paramname">LinkState,:</td><td>USB link state </td></tr>
-    <tr><td class="paramname">UnalignedTx,:</td><td>Unaligned transfer flag </td></tr>
-    <tr><td class="paramname">IsConfigDone,:</td><td>Flag - Check config is done or not </td></tr>
-    <tr><td class="paramname">IsThreeStage,:</td><td>USB three stage communication </td></tr>
-    <tr><td class="paramname">IsHibernated,:</td><td>Flag - Hibernated state </td></tr>
-    <tr><td class="paramname">HasHibernation,:</td><td>Has hibernation support </td></tr>
-    <tr><td class="paramname">*data_ptr,:</td><td>pointer for storing applications data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData,:</td><td>Setup data packet </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ep0_Trb,:</td><td>TRB for control transfers </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigPtr,:</td><td>Configuration info pointer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">eps,:</td><td>Endpoints array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Evt,:</td><td>Usb event buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EpParams,:</td><td>Endpoint Parameters </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress,:</td><td>Core register base address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DevDescSize,:</td><td>Device descriptor size </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigDescSize,:</td><td>Config descriptor size </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">AppData,:</td><td>Application data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*Chapter9,:</td><td>USB Chapter9 function handler </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*ResetIntrHandler,:</td><td>Reset function handler </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*DisconnectIntrHandler,:</td><td>Disconnect function handler </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*DevDesc,:</td><td>Device descriptor pointer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*ConfigDesc,:</td><td>Config descriptor pointer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EventBuffer,:</td><td>Event buffer array </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumOutEps,:</td><td>Number of out endpoints </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumInEps,:</td><td>Number of in endpoint </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ControlDir,:</td><td>Control endpoint direction </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IsInTestMode,:</td><td>USB test mode flag </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TestMode,:</td><td>Test Mode </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ep0State,:</td><td>Control EP state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LinkState,:</td><td>USB link state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">UnalignedTx,:</td><td>Unaligned transfer flag </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IsConfigDone,:</td><td>Flag - Check config is done or not </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IsThreeStage,:</td><td>USB three stage communication </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IsHibernated,:</td><td>Flag - Hibernated state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">HasHibernation,:</td><td>Has hibernation support </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*data_ptr,:</td><td>pointer for storing applications data </td></tr>
   </table>
   </dd>
 </dl>
@@ -286,7 +286,7 @@ Data Fields</h2></td></tr>
 
 <p>Allication Data. </p>
 
-<p>Referenced by <a class="el" href="group__usbpsu__api.html#ga5d44b4cfe8de7ab1fa6b98710bd7836f">XUsbPsu_ConnDoneIntr()</a>, <a class="el" href="group__usbpsu__api.html#ga9cf34b2d4e41f0b0b02b5dee88cd5e6e">XUsbPsu_DisconnectIntr()</a>, <a class="el" href="group__usbpsu__api.html#gaee37aa4d612811db703893d777308e3e">XUsbPsu_Ep0DataDone()</a>, <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>, <a class="el" href="group__usbpsu__api.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, <a class="el" href="group__usbpsu__api.html#ga2d7229b7b3d937ed82f79c3ec35e97f8">XUsbPsu_EpXferNotReady()</a>, <a class="el" href="group__usbpsu__api.html#ga7e0a64e9adf5e221b4bd8386ad38055e">XUsbPsu_IsSuperSpeed()</a>, <a class="el" href="group__usbpsu__api.html#gaefd17a7722d63d1afe8fb6d1815000ed">XUsbPsu_ResetIntr()</a>, <a class="el" href="group__usbpsu__api.html#ga12567217fd7112e7d8fc4c6d91b20e11">XUsbPsu_SetDeviceAddress()</a>, and <a class="el" href="group__usbpsu__api.html#ga41fcbddbefdf6f9534c188255a0d61c1">XUsbPsu_SetEpConfig()</a>.</p>
+<p>Referenced by <a class="el" href="xusb__wrapper_8h.html#a7409a4956ffb20a9407c497fd8f1c832">CfgInitialize()</a>, <a class="el" href="group__usbpsu__api.html#ga5d44b4cfe8de7ab1fa6b98710bd7836f">XUsbPsu_ConnDoneIntr()</a>, <a class="el" href="group__usbpsu__api.html#ga9cf34b2d4e41f0b0b02b5dee88cd5e6e">XUsbPsu_DisconnectIntr()</a>, <a class="el" href="group__usbpsu__api.html#gaee37aa4d612811db703893d777308e3e">XUsbPsu_Ep0DataDone()</a>, <a class="el" href="group__usbpsu__api.html#ga12ed169a9dd7d4138c1b2b6e32078f73">XUsbPsu_Ep0XferComplete()</a>, <a class="el" href="group__usbpsu__api.html#ga5fdd7c08c30d46a9c3024ebe404d877e">XUsbPsu_EpXferComplete()</a>, <a class="el" href="group__usbpsu__api.html#ga2d7229b7b3d937ed82f79c3ec35e97f8">XUsbPsu_EpXferNotReady()</a>, <a class="el" href="group__usbpsu__api.html#ga7e0a64e9adf5e221b4bd8386ad38055e">XUsbPsu_IsSuperSpeed()</a>, <a class="el" href="group__usbpsu__api.html#gaefd17a7722d63d1afe8fb6d1815000ed">XUsbPsu_ResetIntr()</a>, <a class="el" href="group__usbpsu__api.html#ga12567217fd7112e7d8fc4c6d91b20e11">XUsbPsu_SetDeviceAddress()</a>, and <a class="el" href="group__usbpsu__api.html#ga41fcbddbefdf6f9534c188255a0d61c1">XUsbPsu_SetEpConfig()</a>.</p>
 
 </div>
 </div>

@@ -173,7 +173,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       pre  03/23/2026 Added support to extend to TPM PCRs
       sk   04/02/2026 Added unlock and lock before TAP register access
       vns  04/04/2026 Lock DAP during PLM update via XLoader_DisableJtagIfOpenedByAuthJtag
-      pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_update.h&quot;</code><br/>
+      pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
+      pre  07/14/2026 Removed XLoader_GetI2CDeviceID function definition
+      vm   07/14/2026 Start ASUFW keep-alive monitor on ASU handoff
+      pre  07/24/2026 Updated code to return error if extension to TPM PCR gets failed
+      ng   08/22/2026 Added Configure Glitch Detector command handler
+      pre  08/19/2026 Implemented DDRMC calibration skip flag clearing if PComplete is not set
+      vss  09/09/2026 Added ECDSA P-521 to XLoader_SpkMeasurement for VERSAL_2VP_P
+      pre  10/21/2026 DDRMC calibration restore operation is always enabled and
+                   the calibration check is kept off the deferred CDO error</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_update.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>
 <code>#include &quot;xpm_device.h&quot;</code><br/>
 <code>#include &quot;xpm_api.h&quot;</code><br/>
@@ -181,6 +189,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <code>#include &quot;xpm_rpucore.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="2ve__2vm_2server_2xloader__plat_8h.html">xloader_plat.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_asu_update.h&quot;</code><br/>
+<code>#include &quot;xplmi_asufw_keepalive.h&quot;</code><br/>
 <code>#include &quot;xplmi.h&quot;</code><br/>
 <code>#include &quot;xilpdi.h&quot;</code><br/>
 <code>#include &quot;xplmi_gic_interrupts.h&quot;</code><br/>
@@ -193,6 +202,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <code>#include &quot;xpm_apucore.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__jtag_8h.html">xloader_auth_jtag.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__secure_8h.html">xloader_secure.h</a>&quot;</code><br/>
+<code>#include &quot;xil_sutil.h&quot;</code><br/>
+<code>#include &quot;xplmi_err_common.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -337,6 +348,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8ceadff6112bda923ba5f400913f04d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga8ceadff6112bda923ba5f400913f04d0">XLoader_LoadAsuImage</a> (void)</td></tr>
 <tr class="memdesc:ga8ceadff6112bda923ba5f400913f04d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function loads the ASU firmware image from DDR during In-Place ASU Update.  <a href="group__xloader__server__apis.html#ga8ceadff6112bda923ba5f400913f04d0">More...</a><br/></td></tr>
 <tr class="separator:ga8ceadff6112bda923ba5f400913f04d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99cb23eeabc014f2214b0abe45dfa3c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga99cb23eeabc014f2214b0abe45dfa3c9">XLoader_ConfigureGlitchDetector</a> (XPlmi_Cmd *Cmd)</td></tr>
+<tr class="memdesc:ga99cb23eeabc014f2214b0abe45dfa3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the glitch detectors.  <a href="group__xloader__server__apis.html#ga99cb23eeabc014f2214b0abe45dfa3c9">More...</a><br/></td></tr>
+<tr class="separator:ga99cb23eeabc014f2214b0abe45dfa3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -99,15 +99,21 @@ $(document).ready(function(){initNavTree('xilflash__readwrite__example_8c.html',
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xilflash_readwrite_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the Flash Library. </p>
-<p>This example tests the Erase, Read and Write features. The Page is erased and data is written to the page. The data is read back and compared with the data written for correctness.</p>
-<dl class="section note"><dt>Note</dt><dd>The Erase operation on a CFI compliant Flash device will result in an error if the block is locked. This example performs an Unlock operation before Erase operation only on the Intel CFI compliant Flash device. The AMD CFI compliant Flash devices require the user to apply a 12V DC voltage on the RP pin while performing the Lock and Unlock operations. This example will not work with the AMD compliant Flash devices if the block is locked and the user doesn't perform an Unlock operation. Change the value of XFL_TO_ASYNCMODE to 1, inorder to operate the Micron Flash in async mode,if it was set to sync mode.</dd></dl>
+<div class="textblock"><p>Tests the Erase, Read and Write features of the Flash Library. </p>
+<p>This file contains a design example using the Flash Library. This example tests the Erase, Read and Write features. The Page is erased and data is written to the page. The data is read back and compared with the data written for correctness.</p>
+<dl class="section note"><dt>Note</dt><dd>The Erase operation on a CFI compliant Flash device results in an error if the block is locked. <br/>
+<br/>
+ This example performs an Unlock operation before the Erase operation only on the Intel CFI compliant Flash device. The AMD CFI compliant Flash devices require a 12V DC voltage on the RP pin while performing the Lock and Unlock operations. This example does not work with the AMD compliant Flash devices if the block is locked and no Unlock operation is performed. <br/>
+<br/>
+ Set XFL_TO_ASYNCMODE to 1 to operate the Micron Flash in async mode if it was set to sync mode.</dd></dl>
 <pre>
   MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
 </p>
@@ -127,20 +133,138 @@ $(document).ready(function(){initNavTree('xilflash__readwrite__example_8c.html',
                       Modified FLASH_BASE_ADDRESS to canonical name.
   4.2   nsk  01/27/16 Added check to unlock the Micron G18 Flash.
   4.7   akm  07/23/19 Initialized Status variable to XST_FAILURE.
-  4.10  akm  07/14/23 Added support for system device-tree flow.</pre><pre>*</pre> </div><div class="textblock"><code>#include &lt;<a class="el" href="xilflash_8h.html">xilflash.h</a>&gt;</code><br/>
+  4.10  akm  07/14/23 Added support for system device-tree flow.
+  4.14 vn   08/26/26 Fix Doxygen warnings.
+  4.14  vn   09/30/26 Align Doxygen comments with AMD standards</pre><pre>*</pre> </div><div class="textblock"><code>#include &lt;<a class="el" href="xilflash_8h.html">xilflash.h</a>&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;xil_types.h&gt;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:abf7e9f0f2ffa9fb65654d7c8b072d1d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#abf7e9f0f2ffa9fb65654d7c8b072d1d4">FLASH_BASE_ADDRESS</a>&#160;&#160;&#160;XPAR_XEMC_0_BASEADDR</td></tr>
+<tr class="memdesc:abf7e9f0f2ffa9fb65654d7c8b072d1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash memory base address.  <a href="#abf7e9f0f2ffa9fb65654d7c8b072d1d4">More...</a><br/></td></tr>
+<tr class="separator:abf7e9f0f2ffa9fb65654d7c8b072d1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd346aac8d1fd3bf588a406a56b85d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#a1dd346aac8d1fd3bf588a406a56b85d9">FLASH_MEM_WIDTH</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a1dd346aac8d1fd3bf588a406a56b85d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant defines the total byte width of the flash memory.  <a href="#a1dd346aac8d1fd3bf588a406a56b85d9">More...</a><br/></td></tr>
+<tr class="separator:a1dd346aac8d1fd3bf588a406a56b85d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Test parameters</div></td></tr>
+<tr class="memitem:aade5f053d5f6755dae0043e512f7bfbc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#aade5f053d5f6755dae0043e512f7bfbc">FLASH_TEST_SIZE</a>&#160;&#160;&#160;4048</td></tr>
+<tr class="memdesc:aade5f053d5f6755dae0043e512f7bfbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes to test.  <a href="#aade5f053d5f6755dae0043e512f7bfbc">More...</a><br/></td></tr>
+<tr class="separator:aade5f053d5f6755dae0043e512f7bfbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0db2fa7d0c61fadd68de06d7ea2489d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#ad0db2fa7d0c61fadd68de06d7ea2489d">START_ADDRESS</a>&#160;&#160;&#160;0x060000</td></tr>
+<tr class="memdesc:ad0db2fa7d0c61fadd68de06d7ea2489d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test start offset.  <a href="#ad0db2fa7d0c61fadd68de06d7ea2489d">More...</a><br/></td></tr>
+<tr class="separator:ad0db2fa7d0c61fadd68de06d7ea2489d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23ba7349469d9f4da10702e166ce4ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#ab23ba7349469d9f4da10702e166ce4ce">BLOCK_OFFSET_ADDR</a>&#160;&#160;&#160;0x068000</td></tr>
+<tr class="memdesc:ab23ba7349469d9f4da10702e166ce4ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Block to lock/unlock.  <a href="#ab23ba7349469d9f4da10702e166ce4ce">More...</a><br/></td></tr>
+<tr class="separator:ab23ba7349469d9f4da10702e166ce4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a69bd7230f7feb6b13978ff0cd4cd0888"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample</a> (void)</td></tr>
-<tr class="memdesc:a69bd7230f7feb6b13978ff0cd4cd0888"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes, reads, and verifies the data to the Flash device.  <a href="#a69bd7230f7feb6b13978ff0cd4cd0888">More...</a><br/></td></tr>
+<tr class="memdesc:a69bd7230f7feb6b13978ff0cd4cd0888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes, reads, and verifies the data to the Flash device.  <a href="#a69bd7230f7feb6b13978ff0cd4cd0888">More...</a><br/></td></tr>
 <tr class="separator:a69bd7230f7feb6b13978ff0cd4cd0888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to execute the Flash read write example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Flash read write example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5f574aab681d208efb22c085fc7c766f"><td class="memItemLeft" align="right" valign="top">XFlash&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#a5f574aab681d208efb22c085fc7c766f">FlashInstance</a></td></tr>
+<tr class="memdesc:a5f574aab681d208efb22c085fc7c766f"><td class="mdescLeft">&#160;</td><td class="mdescRight">XFlash Instance.  <a href="#a5f574aab681d208efb22c085fc7c766f">More...</a><br/></td></tr>
+<tr class="separator:a5f574aab681d208efb22c085fc7c766f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad98ca0f9264cb2e7ca6aa7a020fbdd07"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#ad98ca0f9264cb2e7ca6aa7a020fbdd07">ReadBuffer</a> [<a class="el" href="xilflash__readwrite__example_8c.html#aade5f053d5f6755dae0043e512f7bfbc">FLASH_TEST_SIZE</a>]</td></tr>
+<tr class="memdesc:ad98ca0f9264cb2e7ca6aa7a020fbdd07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer used to store the data read.  <a href="#ad98ca0f9264cb2e7ca6aa7a020fbdd07">More...</a><br/></td></tr>
+<tr class="separator:ad98ca0f9264cb2e7ca6aa7a020fbdd07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a49abfe15aca48ed41ceb8d1750115c"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__readwrite__example_8c.html#a1a49abfe15aca48ed41ceb8d1750115c">WriteBuffer</a> [<a class="el" href="xilflash__readwrite__example_8c.html#aade5f053d5f6755dae0043e512f7bfbc">FLASH_TEST_SIZE</a>]</td></tr>
+<tr class="memdesc:a1a49abfe15aca48ed41ceb8d1750115c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer.  <a href="#a1a49abfe15aca48ed41ceb8d1750115c">More...</a><br/></td></tr>
+<tr class="separator:a1a49abfe15aca48ed41ceb8d1750115c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab23ba7349469d9f4da10702e166ce4ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLOCK_OFFSET_ADDR&#160;&#160;&#160;0x068000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Block to lock/unlock. </p>
+
+<p>Referenced by <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abf7e9f0f2ffa9fb65654d7c8b072d1d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_BASE_ADDRESS&#160;&#160;&#160;XPAR_XEMC_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flash memory base address. </p>
+
+<p>Referenced by <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1dd346aac8d1fd3bf588a406a56b85d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_MEM_WIDTH&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The following constant defines the total byte width of the flash memory. </p>
+<p>Update this width based on the flash width in the design/board. The total flash width on some of the Xilinx boards is listed below. &lt;</p>
+<h2>pre&gt; </h2>
+<h2>Board Width </h2>
+<p>ML403 4 (32 bit) ML5xx 2 (16 bit) Spartan3S 1600E 2 (16 bit) Spartan-3A DSP 2 (16 bit) Spartan-3A 2 (16 bit) Spartan-3AN 2 (16 bit) ML605 2 (16 bit) SP605 2 (16 bit) SP601 1 (8 bit)  </p>
+
+<p>Referenced by <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aade5f053d5f6755dae0043e512f7bfbc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_TEST_SIZE&#160;&#160;&#160;4048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of bytes to test. </p>
+
+<p>Referenced by <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad0db2fa7d0c61fadd68de06d7ea2489d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define START_ADDRESS&#160;&#160;&#160;0x060000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test start offset. </p>
+
+<p>Referenced by <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a69bd7230f7feb6b13978ff0cd4cd0888"></a>
 <div class="memitem">
@@ -156,17 +280,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function writes, reads, and verifies the data to the Flash device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Writes, reads, and verifies the data to the Flash device. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 
-<p>References <a class="el" href="group__xilflash__apis.html#ga13e5d44757867a2f424f885ac51890c2">XFlash_Erase()</a>, <a class="el" href="group__xilflash__apis.html#gab4c908ad78f6ded9407d0dc7ed611370">XFlash_Initialize()</a>, <a class="el" href="group__xilflash__apis.html#ga2b079c7388012f6bdbda754ea0d62641">XFlash_Read()</a>, <a class="el" href="group__xilflash__apis.html#gacef8005e70142f8113fa163cb5a187f5">XFlash_Reset()</a>, <a class="el" href="group__xilflash__apis.html#gad42077db3972cee5f052a5a5063fe538">XFlash_Unlock()</a>, and <a class="el" href="group__xilflash__apis.html#gadeef4a4805428c7a14578bc0790d6bdc">XFlash_Write()</a>.</p>
+<p>References <a class="el" href="xilflash__platform__flash__example_8c.html#a5f781322fdb3400311c5f35159526176">ASYNC_ADDR</a>, <a class="el" href="xilflash__readwrite__example_8c.html#ab23ba7349469d9f4da10702e166ce4ce">BLOCK_OFFSET_ADDR</a>, <a class="el" href="xilflash__readwrite__example_8c.html#abf7e9f0f2ffa9fb65654d7c8b072d1d4">FLASH_BASE_ADDRESS</a>, <a class="el" href="xilflash__readwrite__example_8c.html#a1dd346aac8d1fd3bf588a406a56b85d9">FLASH_MEM_WIDTH</a>, <a class="el" href="xilflash__readwrite__example_8c.html#aade5f053d5f6755dae0043e512f7bfbc">FLASH_TEST_SIZE</a>, <a class="el" href="xilflash__devicecontrol__example_8c.html#a5f574aab681d208efb22c085fc7c766f">FlashInstance</a>, <a class="el" href="xilflash__platform__flash__example_8c.html#ad98ca0f9264cb2e7ca6aa7a020fbdd07">ReadBuffer</a>, <a class="el" href="xilflash__readwrite__example_8c.html#ad0db2fa7d0c61fadd68de06d7ea2489d">START_ADDRESS</a>, <a class="el" href="xilflash__platform__flash__example_8c.html#a1a49abfe15aca48ed41ceb8d1750115c">WriteBuffer</a>, <a class="el" href="group__xilflash__apis.html#ga13e5d44757867a2f424f885ac51890c2">XFlash_Erase()</a>, <a class="el" href="group__xilflash__apis.html#gab4c908ad78f6ded9407d0dc7ed611370">XFlash_Initialize()</a>, <a class="el" href="group__xilflash__apis.html#ga2b079c7388012f6bdbda754ea0d62641">XFlash_Read()</a>, <a class="el" href="group__xilflash__apis.html#gacef8005e70142f8113fa163cb5a187f5">XFlash_Reset()</a>, <a class="el" href="group__xilflash__apis.html#gad42077db3972cee5f052a5a5063fe538">XFlash_Unlock()</a>, and <a class="el" href="group__xilflash__apis.html#gadeef4a4805428c7a14578bc0790d6bdc">XFlash_Write()</a>.</p>
 
 <p>Referenced by <a class="el" href="xilflash__readwrite__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -186,17 +307,57 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to execute the Flash read write example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Runs the Flash read write example. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a5f574aab681d208efb22c085fc7c766f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XFlash FlashInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>XFlash Instance. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad98ca0f9264cb2e7ca6aa7a020fbdd07"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 ReadBuffer[<a class="el" href="xilflash__readwrite__example_8c.html#aade5f053d5f6755dae0043e512f7bfbc">FLASH_TEST_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer used to store the data read. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1a49abfe15aca48ed41ceb8d1750115c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 WriteBuffer[<a class="el" href="xilflash__readwrite__example_8c.html#aade5f053d5f6755dae0043e512f7bfbc">FLASH_TEST_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write buffer. </p>
 
 </div>
 </div>

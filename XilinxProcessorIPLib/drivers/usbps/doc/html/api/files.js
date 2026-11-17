@@ -3,7 +3,7 @@ var files =
     [ "xusbps.c", "xusbps_8c.html", "xusbps_8c" ],
     [ "xusbps.h", "xusbps_8h.html", "xusbps_8h" ],
     [ "xusbps_audio_example.c", "xusbps__audio__example_8c.html", "xusbps__audio__example_8c" ],
-    [ "xusbps_audiodata.h", "xusbps__audiodata_8h.html", null ],
+    [ "xusbps_audiodata.h", "xusbps__audiodata_8h.html", "xusbps__audiodata_8h" ],
     [ "xusbps_ch9.c", "xusbps__ch9_8c.html", "xusbps__ch9_8c" ],
     [ "xusbps_ch9.h", "xusbps__ch9_8h.html", "xusbps__ch9_8h" ],
     [ "xusbps_ch9_audio.c", "xusbps__ch9__audio_8c.html", "xusbps__ch9__audio_8c" ],

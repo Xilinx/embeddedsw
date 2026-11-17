@@ -9,6 +9,7 @@
     <includes local="yes">xtrngpsx.h</includes>
     <includes local="yes">xsecure_trng.h</includes>
     <includes refid="xsecure__core_8h" local="yes">xsecure_core.h</includes>
+    <includedby refid="xsecure__plat__elliptic__ipihandler_8c" local="yes">xsecure_plat_elliptic_ipihandler.c</includedby>
     <includedby refid="xsecure__elliptic_8c" local="yes">xsecure_elliptic.c</includedby>
     <includedby refid="xsecure__plat__rsa_8c" local="yes">xsecure_plat_rsa.c</includedby>
     <includedby refid="xsecure__mldsa_8c" local="yes">xsecure_mldsa.c</includedby>
@@ -20,184 +21,195 @@
     <includedby refid="core_2util_2xsecure__sss_8h" local="yes">xsecure_sss.h</includedby>
     <includedby refid="core_2util_2xsecure__utils_8c" local="yes">xsecure_utils.c</includedby>
     <includedby refid="net_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
-    <includedby refid="xilsecure__spartanup__lms__hss__server__example_8c" local="yes">xilsecure_spartanup_lms_hss_server_example.c</includedby>
-    <includedby refid="xilsecure__spartanup__sha__server__example_8c" local="yes">xilsecure_spartanup_sha_server_example.c</includedby>
+    <includedby refid="xilsecure__spartan__ultrascale__plus__lms__hss__server__example_8c" local="yes">xilsecure_spartan_ultrascale_plus_lms_hss_server_example.c</includedby>
+    <includedby refid="xilsecure__spartan__ultrascale__plus__sha__server__example_8c" local="yes">xilsecure_spartan_ultrascale_plus_sha_server_example.c</includedby>
     <incdepgraph>
-      <node id="2420">
-        <label>xsecure_core.h</label>
-        <link refid="xsecure__core_8h"/>
-        <childnode refid="2421" relation="include">
-        </childnode>
-        <childnode refid="2422" relation="include">
-        </childnode>
-        <childnode refid="2423" relation="include">
-        </childnode>
-      </node>
-      <node id="2425">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="2417">
-        <label>xsecure_error.h</label>
-        <link refid="versal__net_2xsecure__error_8h"/>
-      </node>
-      <node id="2422">
-        <label>xsecure_cryptochk.h</label>
-      </node>
-      <node id="2412">
-        <label>xsecure_plat.h</label>
-        <link refid="versal_net/xsecure_plat.h"/>
-        <childnode refid="2413" relation="include">
-        </childnode>
-        <childnode refid="2415" relation="include">
-        </childnode>
-        <childnode refid="2416" relation="include">
-        </childnode>
-        <childnode refid="2417" relation="include">
-        </childnode>
-        <childnode refid="2418" relation="include">
-        </childnode>
-        <childnode refid="2419" relation="include">
-        </childnode>
-        <childnode refid="2420" relation="include">
-        </childnode>
-      </node>
-      <node id="2418">
-        <label>xtrngpsx.h</label>
-      </node>
-      <node id="2426">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="2423">
+      <node id="2524">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="2424" relation="include">
+        <childnode refid="2525" relation="include">
         </childnode>
-        <childnode refid="2421" relation="include">
+        <childnode refid="2522" relation="include">
         </childnode>
-        <childnode refid="2425" relation="include">
+        <childnode refid="2526" relation="include">
         </childnode>
-        <childnode refid="2426" relation="include">
+        <childnode refid="2527" relation="include">
         </childnode>
-        <childnode refid="2427" relation="include">
+        <childnode refid="2528" relation="include">
+        </childnode>
+        <childnode refid="2529" relation="include">
         </childnode>
       </node>
-      <node id="2419">
-        <label>xsecure_trng.h</label>
+      <node id="2514">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__net_2xsecure__sha__hw_8h"/>
+        <childnode refid="2515" relation="include">
+        </childnode>
       </node>
-      <node id="2414">
-        <label>xsecure_utils.h</label>
+      <node id="2527">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="2427">
-        <label>xsecure_config.h</label>
+      <node id="2526">
+        <label>xil_cache.h</label>
       </node>
-      <node id="2421">
-        <label>xil_types.h</label>
+      <node id="2523">
+        <label>xsecure_cryptochk.h</label>
       </node>
-      <node id="2415">
-        <label>xpmcdma.h</label>
+      <node id="2519">
+        <label>xtrngpsx.h</label>
       </node>
-      <node id="2416">
+      <node id="2529">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2521">
+        <label>xsecure_core.h</label>
+        <link refid="xsecure__core_8h"/>
+        <childnode refid="2522" relation="include">
+        </childnode>
+        <childnode refid="2523" relation="include">
+        </childnode>
+        <childnode refid="2524" relation="include">
+        </childnode>
+      </node>
+      <node id="2517">
         <label>xsecure_aes_core_hw.h</label>
         <link refid="xsecure__aes__core__hw_8h"/>
       </node>
-      <node id="2424">
-        <label>xil_printf.h</label>
+      <node id="2520">
+        <label>xsecure_trng.h</label>
       </node>
-      <node id="2413">
-        <label>xsecure_sha_hw.h</label>
-        <link refid="versal__net_2xsecure__sha__hw_8h"/>
-        <childnode refid="2414" relation="include">
+      <node id="2515">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="2518">
+        <label>xsecure_error.h</label>
+        <link refid="versal__net_2xsecure__error_8h"/>
+      </node>
+      <node id="2528">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2522">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2516">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="2513">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_net/xsecure_plat.h"/>
+        <childnode refid="2514" relation="include">
         </childnode>
+        <childnode refid="2516" relation="include">
+        </childnode>
+        <childnode refid="2517" relation="include">
+        </childnode>
+        <childnode refid="2518" relation="include">
+        </childnode>
+        <childnode refid="2519" relation="include">
+        </childnode>
+        <childnode refid="2520" relation="include">
+        </childnode>
+        <childnode refid="2521" relation="include">
+        </childnode>
+      </node>
+      <node id="2525">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2430">
-        <label>xsecure_plat_rsa.c</label>
-        <link refid="xsecure__plat__rsa_8c"/>
-      </node>
-      <node id="2441">
-        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
-        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
-      </node>
-      <node id="2433">
-        <label>xsecure_rsa_core.c</label>
-        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
-      </node>
-      <node id="2429">
-        <label>xsecure_elliptic.c</label>
-        <link refid="xsecure__elliptic_8c"/>
-      </node>
-      <node id="2432">
-        <label>xsecure_rsa_q.c</label>
-        <link refid="xsecure__rsa__q_8c"/>
-      </node>
-      <node id="2439">
-        <label>xsecure_utils.c</label>
-        <link refid="core_2util_2xsecure__utils_8c"/>
-      </node>
-      <node id="2428">
-        <label>xsecure_plat.h</label>
-        <link refid="versal_net/xsecure_plat.h"/>
-        <childnode refid="2429" relation="include">
-        </childnode>
-        <childnode refid="2430" relation="include">
-        </childnode>
-        <childnode refid="2431" relation="include">
-        </childnode>
-        <childnode refid="2432" relation="include">
-        </childnode>
-        <childnode refid="2433" relation="include">
-        </childnode>
-        <childnode refid="2434" relation="include">
-        </childnode>
-        <childnode refid="2435" relation="include">
-        </childnode>
-        <childnode refid="2436" relation="include">
-        </childnode>
-        <childnode refid="2437" relation="include">
-        </childnode>
-        <childnode refid="2439" relation="include">
-        </childnode>
-        <childnode refid="2440" relation="include">
-        </childnode>
-        <childnode refid="2441" relation="include">
-        </childnode>
-        <childnode refid="2442" relation="include">
-        </childnode>
-      </node>
-      <node id="2431">
-        <label>xsecure_mldsa.c</label>
-        <link refid="xsecure__mldsa_8c"/>
-      </node>
-      <node id="2436">
-        <label>xsecure_trng.c</label>
-        <link refid="trngpsx_2xsecure__trng_8c"/>
-      </node>
-      <node id="2434">
-        <label>xsecure_sha.c</label>
-        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
-      </node>
-      <node id="2435">
-        <label>xsecure_trng.c</label>
-        <link refid="trngpsv_2xsecure__trng_8c"/>
-      </node>
-      <node id="2438">
+      <node id="2541">
         <label>xsecure_sss.c</label>
         <link refid="core_2util_2xsecure__sss_8c"/>
       </node>
-      <node id="2437">
+      <node id="2540">
         <label>xsecure_sss.h</label>
         <link refid="core_2util_2xsecure__sss_8h"/>
-        <childnode refid="2438" relation="include">
+        <childnode refid="2541" relation="include">
         </childnode>
       </node>
-      <node id="2440">
+      <node id="2536">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="2537">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="2535">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="2532">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="2543">
         <label>xsecure_plat_ipihandler.c</label>
         <link refid="net_2xsecure__plat__ipihandler_8c"/>
       </node>
-      <node id="2442">
-        <label>xilsecure_spartanup_sha_server_example.c</label>
-        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      <node id="2531">
+        <label>xsecure_plat_elliptic_ipihandler.c</label>
+        <link refid="xsecure__plat__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="2542">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="2539">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="2530">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_net/xsecure_plat.h"/>
+        <childnode refid="2531" relation="include">
+        </childnode>
+        <childnode refid="2532" relation="include">
+        </childnode>
+        <childnode refid="2533" relation="include">
+        </childnode>
+        <childnode refid="2534" relation="include">
+        </childnode>
+        <childnode refid="2535" relation="include">
+        </childnode>
+        <childnode refid="2536" relation="include">
+        </childnode>
+        <childnode refid="2537" relation="include">
+        </childnode>
+        <childnode refid="2538" relation="include">
+        </childnode>
+        <childnode refid="2539" relation="include">
+        </childnode>
+        <childnode refid="2540" relation="include">
+        </childnode>
+        <childnode refid="2542" relation="include">
+        </childnode>
+        <childnode refid="2543" relation="include">
+        </childnode>
+        <childnode refid="2544" relation="include">
+        </childnode>
+        <childnode refid="2545" relation="include">
+        </childnode>
+      </node>
+      <node id="2534">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="2544">
+        <label>xilsecure_spartan_ultrascale_plus_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartan__ultrascale__plus__lms__hss__server__example_8c"/>
+      </node>
+      <node id="2538">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="2545">
+        <label>xilsecure_spartan_ultrascale_plus_sha_server_example.c</label>
+        <link refid="xilsecure__spartan__ultrascale__plus__sha__server__example_8c"/>
+      </node>
+      <node id="2533">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_secure___aes_dma_cfg" prot="public">XSecure_AesDmaCfg</innerclass>
@@ -211,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" prot="public" static="no">
         <name>XSECURE_SSS_MAX_SRCS</name>
@@ -222,7 +234,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga5529afe5bbe60a89690a77196f21755f" prot="public" static="no">
         <name>XSECURE_SSS_SHA3_0_MASK</name>
@@ -233,7 +245,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gad2ddf68445b8f0c208dcaa8e194864f1" prot="public" static="no">
         <name>XSECURE_SSS_SHA3_1_MASK</name>
@@ -244,7 +256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga0b49dfea206b16404c2a9ec0124bb2da" prot="public" static="no">
         <name>XSECURE_SSS_SHA3_0_DMA0_VAL</name>
@@ -255,7 +267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga9a22d9fa405a676e438cf522e96a57f7" prot="public" static="no">
         <name>XSECURE_SSS_SHA3_0_DMA1_VAL</name>
@@ -266,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga8a97472f615c0871850a409d382bed7f" prot="public" static="no">
         <name>XSECURE_SSS_SHA3_1_DMA0_VAL</name>
@@ -277,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga0caa08d51ffe3b6c4e5d628de55d3a46" prot="public" static="no">
         <name>XSECURE_SSS_SHA3_1_DMA1_VAL</name>
@@ -288,7 +300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" prot="public" static="no">
         <name>XSECURE_AES_NO_CFG_DST_DMA</name>
@@ -299,7 +311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" prot="public" static="no">
         <name>XSECURE_ENABLE_BYTE_SWAP</name>
@@ -310,7 +322,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gaabad70194ca8d8f8a4ed207eb2bc4af9" prot="public" static="no">
         <name>XSECURE_DISABLE_BYTE_SWAP</name>
@@ -321,7 +333,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga48aafede9c9ae68ab7f9e4b6b49d6be2" prot="public" static="no">
         <name>XSECURE_AES_ECB_OFFSET</name>
@@ -332,10 +344,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="71" bodyend="-1"/>
         <referencedby refid="group__xsecure__aes__server__apis_1ga42ab2048d7363ba51f6d9c4e9c93d88e" compoundref="xsecure__plat__aes_8c" startline="96" endline="123">XSecure_AesEcbCfg</referencedby>
         <referencedby refid="group__xsecure__aes__server__apis_1ga6422d39ce630dc928daba92a65da4c56" compoundref="xsecure__plat__aes_8c" startline="148" endline="185">XSecure_AesEcbDecrypt</referencedby>
-        <referencedby refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="351">XSecure_AesKeyUnwrap</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga8bd38df529b235dd05c88b7d0612e142" prot="public" static="no">
         <name>XSECURE_TRNG_USER_CFG_SEED_LIFE</name>
@@ -346,7 +358,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="74" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga12335333c965a31ad19c796ecb92b5da" prot="public" static="no">
         <name>XSECURE_TRNG_USER_CFG_DF_LENGTH</name>
@@ -357,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga451f206f3be7a8a15db7b8f8b6d6d2eb" prot="public" static="no">
         <name>XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF</name>
@@ -368,7 +380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga8edbf17e808f894baa0883b2caa97b2c" prot="public" static="no">
         <name>XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF</name>
@@ -379,7 +391,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" prot="public" static="no">
         <name>XSECURE_SSS_SBI_MASK</name>
@@ -390,7 +402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" prot="public" static="no">
         <name>XSECURE_SSS_AES_MASK</name>
@@ -401,7 +413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga2ef9d561ab24c0c49b3012c247729612" prot="public" static="no">
         <name>XSECURE_SSS_DMA1_MASK</name>
@@ -412,7 +424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gac7499c67413d7c6ef12b77d12c9ea08e" prot="public" static="no">
         <name>XSECURE_SSS_DMA0_MASK</name>
@@ -423,7 +435,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga62057ed779b0e67ade3d35e51ce5d76c" prot="public" static="no">
         <name>XSECURE_SSS_SRC_SEL_MASK</name>
@@ -434,7 +446,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gac94aaf5af67ffa8b4913cc97275a7117" prot="public" static="no">
         <name>XSECURE_SSS_SBI_DMA0_VAL</name>
@@ -445,7 +457,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gab8289ec5862579296b264af809a12203" prot="public" static="no">
         <name>XSECURE_SSS_SBI_DMA1_VAL</name>
@@ -456,7 +468,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gaaf3e7bf563253ea992e8e7929067e821" prot="public" static="no">
         <name>XSECURE_SSS_AES_DMA0_VAL</name>
@@ -467,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__helper__server__apis_1gae5cc984ad9e3350a3a890f5894c664ab" prot="public" static="no">
         <name>XSECURE_SSS_AES_DMA1_VAL</name>
@@ -478,7 +490,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -827,7 +839,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="106" bodyend="115"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h" bodystart="106" bodyend="115"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -847,7 +859,7 @@
 <para><itemizedlist>
 <listitem><para>Not applicable for Versal_2vp_p </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat.h" bodystart="129" bodyend="132"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat.h" bodystart="129" bodyend="132"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga6cc30d83b5001a45d7b743f8c4f2b734" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -863,7 +875,7 @@
           <declname>Op</declname>
         </param>
         <briefdescription>
-<para>This function is not applicable for versal. </para>        </briefdescription>
+<para>This function is not applicable for Spartan Ultrascale Plus. </para>        </briefdescription>
         <detaileddescription>
 <para>This function updates the crypto indicator bit of AES, SHA and ECC.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -897,7 +909,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat.h" bodystart="117" bodyend="122"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="295" bodyend="300"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga0ecbeca74fb66d967b6872c46aac2a44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -916,14 +928,14 @@
 <parametername>Op</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>To set or clear the bit.</para></parameterdescription>
+<para>To set or clear the bit</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>Op</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>To set or clear the bit </para></parameterdescription>
+<para>To set or clear the bit. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
@@ -931,8 +943,8 @@
 <para><itemizedlist>
 <listitem><para>Not applicable for Versal_2vp_p </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="154" bodyend="161"/>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="159" bodyend="166"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="88" endline="173">XSecure_EllipticPrvtKeyGenerate</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1063,19 +1075,19 @@
 <para><itemizedlist>
 <listitem><para>Enable PMC DMA Src and Dst channels for byte swapping.</para></listitem><listitem><para>Wait for the SRC DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for the DEST DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Enable PMC DMA Src and Dst channels for byte swapping.</para></listitem><listitem><para>Wait for the SRC DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for the DEST DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Validate input parameters</para></listitem><listitem><para>Transfers QWord aligned data</para></listitem><listitem><para>Set the src lastchunk to 0 if size of data is non-qword aligned</para></listitem><listitem><para>Transfers remaining extra bytes when size of the data(AAD/Paylod) is non-qword aligned</para></listitem><listitem><para>Wait for the DEST DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Change the endianness of extra bytes if data(AAD/Payload) is non-qword aligned</para></listitem><listitem><para>If Payload size is non-qword aligned</para></listitem><listitem><para>Change the endianness for GCM Tag </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="296" bodyend="360"/>
-        <references refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" compoundref="spartanup_2xsecure__plat_8h" startline="233">XSecure_AesDmaCfg::DestChannelCfg</references>
-        <references refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" compoundref="spartanup_2xsecure__plat_8h" startline="231">XSecure_AesDmaCfg::DestDataAddr</references>
-        <references refid="struct_x_secure___aes_dma_cfg_1a1400e7b647c5a5835f78999f6634272d" compoundref="spartanup_2xsecure__plat_8h" startline="235">XSecure_AesDmaCfg::IsLastChunkDest</references>
-        <references refid="struct_x_secure___aes_dma_cfg_1ad6d3b3ad5e06cb4e78275514f64ca5a7" compoundref="spartanup_2xsecure__plat_8h" startline="234">XSecure_AesDmaCfg::IsLastChunkSrc</references>
-        <references refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" compoundref="spartanup_2xsecure__plat_8h" startline="232">XSecure_AesDmaCfg::SrcChannelCfg</references>
-        <references refid="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" compoundref="spartanup_2xsecure__plat_8h" startline="230">XSecure_AesDmaCfg::SrcDataAddr</references>
-        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="87">XSECURE_AES_INVALID_PARAM</references>
-        <references refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" compoundref="spartanup_2xsecure__plat_8h" startline="60">XSECURE_AES_NO_CFG_DST_DMA</references>
-        <references refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" compoundref="spartanup_2xsecure__plat_8c" startline="391" endline="404">XSecure_AesPmcDmaCfgEndianness</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="310" bodyend="374"/>
+        <references refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" compoundref="spartanup_2xsecure__plat_8h" startline="266">XSecure_AesDmaCfg::DestChannelCfg</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" compoundref="spartanup_2xsecure__plat_8h" startline="264">XSecure_AesDmaCfg::DestDataAddr</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1a1400e7b647c5a5835f78999f6634272d" compoundref="spartanup_2xsecure__plat_8h" startline="268">XSecure_AesDmaCfg::IsLastChunkDest</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1ad6d3b3ad5e06cb4e78275514f64ca5a7" compoundref="spartanup_2xsecure__plat_8h" startline="267">XSecure_AesDmaCfg::IsLastChunkSrc</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" compoundref="spartanup_2xsecure__plat_8h" startline="265">XSecure_AesDmaCfg::SrcChannelCfg</references>
+        <references refid="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" compoundref="spartanup_2xsecure__plat_8h" startline="263">XSecure_AesDmaCfg::SrcDataAddr</references>
+        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="88">XSECURE_AES_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" compoundref="spartanup_2xsecure__plat_8h" startline="87">XSECURE_AES_NO_CFG_DST_DMA</references>
+        <references refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" compoundref="spartanup_2xsecure__plat_8c" startline="393" endline="406">XSecure_AesPmcDmaCfgEndianness</references>
         <references refid="group__xsecure__helper__server__apis_1gaabad70194ca8d8f8a4ed207eb2bc4af9" compoundref="versal_2xsecure__plat_8h" startline="60">XSECURE_DISABLE_BYTE_SWAP</references>
         <references refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" compoundref="versal_2xsecure__plat_8h" startline="58">XSECURE_ENABLE_BYTE_SWAP</references>
-        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="222" endline="227">XSecure_GetAesInstance</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1166,10 +1178,10 @@
 <para><itemizedlist>
 <listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Updates the XPmcDma_Configure structure with PmcDma&apos;s channel values</para></listitem><listitem><para>Updates the PmcDma&apos;s channel with XPmcDma_Configure structure values </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="391" bodyend="404"/>
-        <references refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" compoundref="core_2util_2xsecure__utils_8h" startline="86">XSecure_AssertVoid</references>
-        <referencedby refid="group__xsecure__aes__server__apis_1gafc1c2624b3827e83af7c24b2906bb7db" compoundref="core_2aes_2xsecure__aes_8c" startline="948" endline="952">XSecure_AesEncryptUpdate</referencedby>
-        <referencedby refid="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="296" endline="360">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="393" bodyend="406"/>
+        <references refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" compoundref="core_2util_2xsecure__utils_8h" startline="87">XSecure_AssertVoid</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1gafc1c2624b3827e83af7c24b2906bb7db" compoundref="core_2aes_2xsecure__aes_8c" startline="1036" endline="1040">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="310" endline="374">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga2bd4a79988d4eb7a1612e1ccc6430ca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1221,7 +1233,7 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On successful valdation</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input</para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS On successful valdation</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM If Size is zero</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input</para></listitem></itemizedlist>
 </para></simplesect>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -1239,7 +1251,7 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR - Size is not 16-byte aligned for non-last chunk</para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM - Size is zero</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR - Size is not 16-byte aligned for non-last chunk</para></listitem></itemizedlist>
 </para></simplesect>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -1257,7 +1269,7 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On successful valdation.</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input.</para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS On successful valdation.</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM If Size is zero.</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If unaligned size is given as input.</para></listitem></itemizedlist>
 </para></simplesect>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -1275,7 +1287,7 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS If update is 16-bytes aligned.</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If update is not 16-bytes aligned.</para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS If update is 16-bytes aligned.</para></listitem><listitem><para>XSECURE_AES_INVALID_PARAM If Size is zero.</para></listitem><listitem><para>XSECURE_AES_UNALIGNED_SIZE_ERROR If update is not 16-bytes aligned.</para></listitem></itemizedlist>
 </para></simplesect>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -1296,10 +1308,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Validate the Size</para></listitem><listitem><para>Validate the size based on last chunk</para></listitem><listitem><para>Validate the size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size is 16-byte aligned when it is last chunk</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem><listitem><para>Validate the size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size is 16-byte aligned when it is last chunk</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem></itemizedlist>
+<listitem><para>Return XSECURE_AES_INVALID_PARAM if Size is zero</para></listitem><listitem><para>Validate the Size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size based on last chunk</para></listitem><listitem><para>Return XSECURE_AES_INVALID_PARAM if Size is zero</para></listitem><listitem><para>Validate the size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size is 16-byte aligned when it is last chunk</para></listitem><listitem><para>Return XSECURE_AES_INVALID_PARAM if Size is zero</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem><listitem><para>Return XSECURE_AES_INVALID_PARAM if Size is zero</para></listitem><listitem><para>Validate the size is 4-byte aligned or not</para></listitem><listitem><para>Validate the size is 16-byte aligned when it is last chunk</para></listitem><listitem><para>Return XSECURE_AES_INVALID_PARAM if Size is zero</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem><listitem><para>Return XSECURE_AES_INVALID_PARAM if Size is zero</para></listitem><listitem><para>AES engine expect all intermediate updates shall be 16-byte aligned when it is not last chunk of data. Throw an error if it is not 16 byte aligned.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="291" bodyend="310"/>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f" compoundref="spartanup_2xsecure__error_8h" startline="90">XSECURE_AES_UNALIGNED_SIZE_ERROR</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c" bodystart="287" bodyend="312"/>
+        <references refid="group__xsecure__aes__client__apis_1gaf7eae7e456a1d11d550afb26e22ea199" compoundref="xsecure__aesclient_8h" startline="88">XSECURE_AES_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da0cedb5e8d4017361b2bb2a5dffba006f" compoundref="spartanup_2xsecure__error_8h" startline="89">XSECURE_AES_UNALIGNED_SIZE_ERROR</references>
         <references refid="group__xsecure__generic__server__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" compoundref="core_2util_2xsecure__utils_8h" startline="53">XSECURE_QWORD_SIZE</references>
         <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
       </memberdef>
@@ -1324,17 +1337,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="478" bodyend="510"/>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3c1f331839ddf7c640d82b3e386b56ae" compoundref="spartanup_2xsecure__error_8h" startline="250">XSECURE_ERR_IN_TRNG_SELF_TESTS</references>
-        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8c7cd84b41f1e78398e90ed2841d644f" compoundref="spartanup_2xsecure__error_8h" startline="251">XSECURE_ERR_TRNG_INIT_N_CONFIG</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="492" bodyend="524"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3c1f331839ddf7c640d82b3e386b56ae" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_IN_TRNG_SELF_TESTS</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8c7cd84b41f1e78398e90ed2841d644f" compoundref="spartanup_2xsecure__error_8h" startline="250">XSECURE_ERR_TRNG_INIT_N_CONFIG</references>
         <references refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" compoundref="trngpsv_2xsecure__trng_8c" startline="62" endline="67">XSecure_GetTrngInstance</references>
-        <references refid="group__xsecure__trng__server__apis_1gaa644702ed555bd453f0837a5d12abc97" compoundref="trngpsv_2xsecure__trng_8c" startline="161" endline="185">XSecure_PreOperationalSelfTests</references>
+        <references refid="group__xsecure__trng__server__apis_1gaa644702ed555bd453f0837a5d12abc97" compoundref="trngpsv_2xsecure__trng_8c" startline="166" endline="190">XSecure_PreOperationalSelfTests</references>
         <references refid="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" compoundref="trngpsv_2xsecure__trng_8h" startline="74">XSECURE_TRNG_HRNG_MODE</references>
-        <references refid="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" compoundref="trngpsv_2xsecure__trng_8c" startline="78" endline="148">XSecure_TrngInitNCfgMode</references>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
-        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
-        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="402" endline="464">XSecure_GetRandomNum</referencedby>
+        <references refid="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" compoundref="trngpsv_2xsecure__trng_8c" startline="83" endline="153">XSecure_TrngInitNCfgMode</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="327" endline="417">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="120" endline="205">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="280" endline="401">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="416" endline="478">XSecure_GetRandomNum</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1434,8 +1447,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="684" bodyend="699"/>
-        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="705" bodyend="716"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="282">XSecure_KeyUnwrap</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1562,6 +1575,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat.h"/>
   </compounddef>
 </doxygen>

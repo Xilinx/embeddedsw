@@ -1,33 +1,101 @@
 var NAVTREE =
 [
-  [ "axipmon", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Macros", "globals_defs.html", "globals_defs" ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xaxipmon_intr_example.c", "example.html#ex1", null ],
-      [ "xaxipmon_ocm_example.c", "example.html#ex2", null ],
-      [ "xaxipmon_polled_example.c", "example.html#ex3", null ]
-    ] ]
-  ] ]
+  [
+    "axipmon",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xaxipmon_intr_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xaxipmon_ocm_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xaxipmon_polled_example.c",
+            "example.html#ex3",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xaxipmon__hw_8h.html#ga2f725ddd29d28f07caaefcc89a56a257"
+"xaxipmon__hw_8h.html#ga2a6aa6e3d933c1ea73e5facbbf2b0c18"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

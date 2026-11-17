@@ -1,11 +1,14 @@
 var xscugic_8h =
 [
     [ "ARMA9", "xscugic_8h.html#ga3dde6ae31d569b01dc88903a5340d744", null ],
+    [ "EFUSE_STATUS_CPU_MASK", "xscugic_8h.html#gabf7f61958eba005dd02a7014a664def5", null ],
+    [ "EFUSE_STATUS_OFFSET", "xscugic_8h.html#ga07d27bd67c789603a7130283855f0c53", null ],
+    [ "XSCUGIC500_DCTLR_ARE_NS_ENABLE", "xscugic_8h.html#ga8fe68480cb749450b3b8df5af1fb5198", null ],
+    [ "XSCUGIC500_DCTLR_ARE_S_ENABLE", "xscugic_8h.html#ga28dd6678d0630c07191a41b8f5af0950", null ],
     [ "XScuGic_CPUReadReg", "xscugic_8h.html#ga2f3bba7c5247812158ef4fde7a0e7dfe", null ],
     [ "XScuGic_CPUWriteReg", "xscugic_8h.html#ga2a4ba236ff7bfeab20b5ca81082f2b13", null ],
     [ "XScuGic_DistReadReg", "xscugic_8h.html#ga3d639fe1851f9d833367fb4322390eeb", null ],
     [ "XScuGic_DistWriteReg", "xscugic_8h.html#ga22e9f81ed00f7cc39df1c6e76988fdb1", null ],
-    [ "XSCUGIC_H", "xscugic_8h.html#ga9f2c28f54da589ba1000235cfb0929ba", null ],
     [ "XScuGic_CfgInitialize", "xscugic_8h.html#gaf8e0bfe31c0fa2ca654c36715a3c13f8", null ],
     [ "XScuGic_Connect", "xscugic_8h.html#ga48f9dd531aa861a74e6bd627943573ea", null ],
     [ "XScuGic_Disable", "xscugic_8h.html#gaafd153e16238a1189c513846675e096a", null ],

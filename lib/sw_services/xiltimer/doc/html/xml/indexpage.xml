@@ -10,6 +10,12 @@
   1.0  adk   24/11/21 Initial release.
          adk   07/02/22 Updated the IntrHandler as per <ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler()</ref> API.
   1.1    adk   08/08/22 Added doxygen tags.
+  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
+  2.5  vmt   09/24/26 Initialize the AXI tick timer from SetIntrHandler
+                      when IsReady is not set so the handler can be
+                      installed before the tick interval is programmed.
+  2.5  vmt   09/24/26 Added AXI timer tick configuration from frequency.
+  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted></para><para><simplesect kind="note"><para></para></simplesect>
 </para>    </detaileddescription>
   </compounddef>

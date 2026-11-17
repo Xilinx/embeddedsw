@@ -1,6 +1,5 @@
 var xqspipsu_8c =
 [
-    [ "MAX_DELAY_CNT", "xqspipsu_8c.html#ga02055aef4b0f9a801005ebdc7b556157", null ],
     [ "XQspiPsu_Abort", "xqspipsu_8c.html#gaaa69ec6da90deb760954ea3dcfd55d7f", null ],
     [ "XQspiPsu_CfgInitialize", "xqspipsu_8c.html#ga803eccd67d1dfde416b54488865c1e9d", null ],
     [ "XQspiPsu_CheckDmaDone", "xqspipsu_8c.html#ga6be41fd692a96516b0ce22591510c73d", null ],

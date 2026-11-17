@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xstreamer_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,53 +101,123 @@ $(document).ready(function(){initNavTree('xstreamer_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xstreamer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xenv.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines the <a class="el" href="struct_x_ll_fifo.html" title="Defines the XLlFifo driver instance. ">XLlFifo</a> byte-streamer API. </p>
+<p>The Xilinx byte streamer for packet FIFOs.</p>
+<h2>Driver Description</h2>
+<p>This driver enables higher layer software to access a hardware FIFO using any alignment in the data buffers while preserving alignment for the hardware FIFO access.</p>
+<p>This driver treats send and receive channels separately, using different types of instance objects for each.</p>
+<p>This driver makes use of another FIFO driver to access the specific FIFO hardware through use of the routines passed into the Tx/RxInitialize routines.</p>
+<h2>Initialization</h2>
+<p>Send and receive channels are initialized separately. The receive channel is initiailzed using <a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a" title="Initializes a receive byte-streamer instance. ">XStrm_RxInitialize()</a>. The send channel is initialized using <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964" title="Initializes a transmit byte-streamer instance. ">XStrm_TxInitialize()</a>.</p>
+<h2>Usage</h2>
+<p>It is fairly simple to use the API provided by this byte streamer driver. The only somewhat tricky part is that the calling code must correctly call a couple routines in the right sequence for receive and transmit. </p>
+<pre class="fragment">   This sequence is described here. Check the routine functional
+</pre><p> descriptions for information on how to use a specific API routine.</p>
+<h3>Receive</h3>
+<p>A frame is received by using the following sequence:<br/>
+ 1) call <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381" title="Returns the next receive frame length in bytes. ">XStrm_RxGetLen()</a> to get the length of the next incoming frame.<br/>
+ 2) call <a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a" title="Reads bytes from the receive streamer. ">XStrm_Read()</a> one or more times to read the number of bytes reported by <a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381" title="Returns the next receive frame length in bytes. ">XStrm_RxGetLen()</a>.<br/>
+</p>
+<p>For example: </p>
+<pre>
+        frame_len = XStrm_RxGetLen(&amp;RxInstance);
+        while (frame_len) {
+                unsigned bytes = min(sizeof(buffer), frame_len);
+                XStrm_Read(&amp;RxInstance, buffer, bytes);
+                // do something with buffer here
+                frame_len -= bytes;
+        }
+ </pre><p>Other restrictions on the sequence of API calls may apply depending on the specific FIFO driver used by this byte streamer driver.</p>
+<h3>Transmit</h3>
+<p>A frame is transmittted by using the following sequence:<br/>
+ 1) call <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666" title="Writes bytes to the transmit streamer. ">XStrm_Write()</a> one or more times to write all the of bytes in the next frame.<br/>
+ 2) call <a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c" title="Flushes the streamer and starts a transmit. ">XStrm_TxSetLen()</a> to begin the transmission of frame just written.<br/>
+</p>
+<p>For example: </p>
+<pre>
+        frame_left = frame_len;
+        while (frame_left) {
+                unsigned bytes = min(sizeof(buffer), frame_left);
+                XStrm_Write(&amp;TxInstance, buffer, bytes);
+                // do something here to refill buffer
+        }
+        XStrm_TxSetLen(&amp;RxInstance, frame_len);
+ </pre><p>Other restrictions on the sequence of API calls may apply depending on the specific FIFO driver used by this byte streamer driver.</p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+ 1.00a jvb  10/12/06 First release
+ 1.02a jz   12/04/09  Hal phase 1 support
+ 2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
+ 2.02a asa  12/28/11  The macro XStrm_IsRxInternalEmpty is changed to use
+                        FrmByteCnt instead of HeadIndex.
+ 6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
+ </pre> </div><div class="textblock"><code>#include &quot;xenv.h&quot;</code><br/>
 <code>#include &quot;xdebug.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a receive byte-streamer.  <a href="struct_x_strm___rx_fifo_streamer.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the receive byte-streamer instance.  <a href="struct_x_strm___rx_fifo_streamer.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a transmit byte-streamer.  <a href="struct_x_strm___tx_fifo_streamer.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the transmit byte-streamer instance.  <a href="struct_x_strm___tx_fifo_streamer.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga4a3e97b47b47ea3b883952f58cb9deb9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga4a3e97b47b47ea3b883952f58cb9deb9">LARGEST_FIFO_KEYHOLE_SIZE_WORDS</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga4a3e97b47b47ea3b883952f58cb9deb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO keyhole size in 32-bit words.  <a href="group__llfifo__api.html#ga4a3e97b47b47ea3b883952f58cb9deb9">More...</a><br/></td></tr>
+<tr class="separator:ga4a3e97b47b47ea3b883952f58cb9deb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c2fa1c0b560f90b656aaac27721769c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga7c2fa1c0b560f90b656aaac27721769c">XStrm_TxVacancy</a>(InstancePtr)</td></tr>
+<tr class="memdesc:ga7c2fa1c0b560f90b656aaac27721769c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns transmit vacancy in 32-bit words.  <a href="group__llfifo__api.html#ga7c2fa1c0b560f90b656aaac27721769c">More...</a><br/></td></tr>
+<tr class="separator:ga7c2fa1c0b560f90b656aaac27721769c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga52d6c5d159859cfcf8e43daf7d54ad07"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga52d6c5d159859cfcf8e43daf7d54ad07">XStrm_RxOccupancy</a>(InstancePtr)</td></tr>
+<tr class="memdesc:ga52d6c5d159859cfcf8e43daf7d54ad07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns receive occupancy in 32-bit words.  <a href="group__llfifo__api.html#ga52d6c5d159859cfcf8e43daf7d54ad07">More...</a><br/></td></tr>
+<tr class="separator:ga52d6c5d159859cfcf8e43daf7d54ad07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2357fcad0c03d6b706d5ad71c4d7b749"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga2357fcad0c03d6b706d5ad71c4d7b749">XStrm_IsRxInternalEmpty</a>(InstancePtr)&#160;&#160;&#160;(((InstancePtr)-&gt;FrmByteCnt == 0) ? TRUE : FALSE)</td></tr>
+<tr class="memdesc:ga2357fcad0c03d6b706d5ad71c4d7b749"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports whether the streamer holding buffer is empty.  <a href="group__llfifo__api.html#ga2357fcad0c03d6b706d5ad71c4d7b749">More...</a><br/></td></tr>
+<tr class="separator:ga2357fcad0c03d6b706d5ad71c4d7b749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga4f27ac6f38ad77d7b92014a52eb5c16b">XStrm_RxFifoStreamer</a></td></tr>
-<tr class="memdesc:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a receive byte-streamer.  <a href="group__llfifo.html#ga4f27ac6f38ad77d7b92014a52eb5c16b">More...</a><br/></td></tr>
+<tr class="memitem:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga4f27ac6f38ad77d7b92014a52eb5c16b">XStrm_RxFifoStreamer</a></td></tr>
+<tr class="memdesc:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the receive byte-streamer instance.  <a href="group__llfifo__api.html#ga4f27ac6f38ad77d7b92014a52eb5c16b">More...</a><br/></td></tr>
 <tr class="separator:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3d1351f115d97cbce95da390d0ea4033"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga3d1351f115d97cbce95da390d0ea4033">XStrm_TxFifoStreamer</a></td></tr>
-<tr class="memdesc:ga3d1351f115d97cbce95da390d0ea4033"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a transmit byte-streamer.  <a href="group__llfifo.html#ga3d1351f115d97cbce95da390d0ea4033">More...</a><br/></td></tr>
+<tr class="memitem:ga3d1351f115d97cbce95da390d0ea4033"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga3d1351f115d97cbce95da390d0ea4033">XStrm_TxFifoStreamer</a></td></tr>
+<tr class="memdesc:ga3d1351f115d97cbce95da390d0ea4033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the transmit byte-streamer instance.  <a href="group__llfifo__api.html#ga3d1351f115d97cbce95da390d0ea4033">More...</a><br/></td></tr>
 <tr class="separator:ga3d1351f115d97cbce95da390d0ea4033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga52ec29cc3b758b6a2b857d883ac69d4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr, unsigned FifoWidth, void *FifoInstance, XStrm_XferFnType ReadFn, XStrm_GetLenFnType GetLenFn, XStrm_GetOccupancyFnType GetOccupancyFn)</td></tr>
-<tr class="memdesc:ga52ec29cc3b758b6a2b857d883ac69d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_RxInitialize initializes the <a class="el" href="struct_x_strm___rx_fifo_streamer.html" title="This typedef defines a run-time instance of a receive byte-streamer. ">XStrm_RxFifoStreamer</a> object referenced by <em>InstancePtr</em>.  <a href="group__llfifo.html#ga52ec29cc3b758b6a2b857d883ac69d4a">More...</a><br/></td></tr>
+<tr class="memitem:ga52ec29cc3b758b6a2b857d883ac69d4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">XStrm_RxInitialize</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr, unsigned FifoWidth, void *<a class="el" href="xllfifo__polling__example_8c.html#ac7d6c1c667ef727925950b132f04c3ef">FifoInstance</a>, XStrm_XferFnType ReadFn, XStrm_GetLenFnType GetLenFn, XStrm_GetOccupancyFnType GetOccupancyFn)</td></tr>
+<tr class="memdesc:ga52ec29cc3b758b6a2b857d883ac69d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a receive byte-streamer instance.  <a href="group__llfifo__api.html#ga52ec29cc3b758b6a2b857d883ac69d4a">More...</a><br/></td></tr>
 <tr class="separator:ga52ec29cc3b758b6a2b857d883ac69d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a67c77f811a505b658e06642eb9c964"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, unsigned FifoWidth, void *FifoInstance, XStrm_XferFnType WriteFn, XStrm_SetLenFnType SetLenFn, XStrm_GetVacancyFnType GetVacancyFn)</td></tr>
-<tr class="memdesc:ga8a67c77f811a505b658e06642eb9c964"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_TxInitialize initializes the <a class="el" href="struct_x_strm___tx_fifo_streamer.html" title="This typedef defines a run-time instance of a transmit byte-streamer. ">XStrm_TxFifoStreamer</a> object referenced by <em>InstancePtr</em>.  <a href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">More...</a><br/></td></tr>
+<tr class="memitem:ga8a67c77f811a505b658e06642eb9c964"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, unsigned FifoWidth, void *<a class="el" href="xllfifo__polling__example_8c.html#ac7d6c1c667ef727925950b132f04c3ef">FifoInstance</a>, XStrm_XferFnType WriteFn, XStrm_SetLenFnType SetLenFn, XStrm_GetVacancyFnType GetVacancyFn)</td></tr>
+<tr class="memdesc:ga8a67c77f811a505b658e06642eb9c964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a transmit byte-streamer instance.  <a href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">More...</a><br/></td></tr>
 <tr class="separator:ga8a67c77f811a505b658e06642eb9c964"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, u32 Bytes)</td></tr>
-<tr class="memdesc:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_TxSetLen flushes to the FIFO, specified by <em>InstancePtr</em>, any bytes remaining in internal buffers and begins a hardware transfer of data out of the transmit channel of the FIFO.  <a href="group__llfifo.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">More...</a><br/></td></tr>
+<tr class="memitem:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, u32 Bytes)</td></tr>
+<tr class="memdesc:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the streamer and starts a transmit.  <a href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">More...</a><br/></td></tr>
 <tr class="separator:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1f43ea833af99162745ceef66849b666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, void *BufPtr, unsigned Bytes)</td></tr>
-<tr class="memdesc:ga1f43ea833af99162745ceef66849b666"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_Write writes <em>Bytes</em> bytes of the block of memory, referenced by <em>BufPtr</em>, to the transmit channel of the FIFO referenced by <em>InstancePtr</em>.  <a href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">More...</a><br/></td></tr>
+<tr class="memitem:ga1f43ea833af99162745ceef66849b666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, void *BufPtr, unsigned Bytes)</td></tr>
+<tr class="memdesc:ga1f43ea833af99162745ceef66849b666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes bytes to the transmit streamer.  <a href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">More...</a><br/></td></tr>
 <tr class="separator:ga1f43ea833af99162745ceef66849b666"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_RxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="group__llfifo.html#ga479d2eb3193ad0a5efc3c3b432a78381">More...</a><br/></td></tr>
+<tr class="memitem:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next receive frame length in bytes.  <a href="group__llfifo__api.html#ga479d2eb3193ad0a5efc3c3b432a78381">More...</a><br/></td></tr>
 <tr class="separator:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga915d68a9cce0f2464fc7644383cb887a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr, void *BufPtr, unsigned Bytes)</td></tr>
-<tr class="memdesc:ga915d68a9cce0f2464fc7644383cb887a"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_Read reads <em>Bytes</em> bytes from the FIFO specified by <em>InstancePtr</em> to the block of memory, referenced by <em>BufPtr</em>.  <a href="group__llfifo.html#ga915d68a9cce0f2464fc7644383cb887a">More...</a><br/></td></tr>
+<tr class="memitem:ga915d68a9cce0f2464fc7644383cb887a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr, void *BufPtr, unsigned Bytes)</td></tr>
+<tr class="memdesc:ga915d68a9cce0f2464fc7644383cb887a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads bytes from the receive streamer.  <a href="group__llfifo__api.html#ga915d68a9cce0f2464fc7644383cb887a">More...</a><br/></td></tr>
 <tr class="separator:ga915d68a9cce0f2464fc7644383cb887a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

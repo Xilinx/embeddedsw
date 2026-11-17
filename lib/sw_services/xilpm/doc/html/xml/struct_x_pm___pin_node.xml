@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pin_node" kind="struct" prot="public">
+    <compoundname>XPm_PinNode</compoundname>
+    <includes local="no">xpm_pin_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_PinNode::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+<para>Node: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1aea79e63b3a690a7925f318b42e942102" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinNode::FuncId</definition>
+        <argsstring></argsstring>
+        <name>FuncId</name>
+        <briefdescription>
+<para>Function unique ID of the pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1a0d519dd9b1c1f6f8908d3c0e9bd7b222" prot="public" static="no" mutable="no">
+        <type>u16 *</type>
+        <definition>u16* XPm_PinNode::Groups</definition>
+        <argsstring></argsstring>
+        <name>Groups</name>
+        <briefdescription>
+<para>Array of group identifier supported by this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1aab547510a5981ab117fb74bd1c691aa4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_PinNode::SubsysIdx</definition>
+        <argsstring></argsstring>
+        <name>SubsysIdx</name>
+        <briefdescription>
+<para>Subsystem Idx of the owner who is using this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1a7d0986ce7038173a240e5c14ea3cebae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinNode::NumGroups</definition>
+        <argsstring></argsstring>
+        <name>NumGroups</name>
+        <briefdescription>
+<para>Number of function groups allocated to this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1a03f1b21af33e7ff3d7b1dadc5f78f227" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinNode::Bank</definition>
+        <argsstring></argsstring>
+        <name>Bank</name>
+        <bitfield>PIN_NODE_BANK_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>Specifies the bank number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1ab7c7653f63c5823abb3d6e345b5c5e0c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinNode::BiasStatus</definition>
+        <argsstring></argsstring>
+        <name>BiasStatus</name>
+        <bitfield>PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>BiasStatus: 0 – Disable; 1 – Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1a9a3d5e58cf6f15c6f1b18daf43d203c2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinNode::PullCtrl</definition>
+        <argsstring></argsstring>
+        <name>PullCtrl</name>
+        <bitfield>PIN_NODE_PULLCTRL_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>PullCtrl: 0 – Pull Down; 1 – Pull Up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1a05a7a345ff1ebfbd73ee96461caf2676" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_PinNode::TriState</definition>
+        <argsstring></argsstring>
+        <name>TriState</name>
+        <bitfield>PIN_NODE_TRISTATE_BIT_FIELD_SIZE</bitfield>
+        <briefdescription>
+<para>TriState: 0 – Disable; 1 – Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_x_pm___pin_node_1af4bbde4b7514b1cd7e0f071ab920456d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>XPm_PinNode::SAVE_REGION</definition>
+        <argsstring>(u16 SubsysIdx;u8 Bank:PIN_NODE_BANK_BIT_FIELD_SIZE;u8 BiasStatus:PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE;u8 PullCtrl:PIN_NODE_PULLCTRL_BIT_FIELD_SIZE;u8 TriState:PIN_NODE_TRISTATE_BIT_FIELD_SIZE;u8 FuncId;) u16 *Groups</argsstring>
+        <name>SAVE_REGION</name>
+        <param>
+          <type>u16 <ref refid="struct_x_pm___pin_node_1aab547510a5981ab117fb74bd1c691aa4" kindref="member">SubsysIdx</ref>;u8 Bank:PIN_NODE_BANK_BIT_FIELD_SIZE;u8 BiasStatus:PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE;u8 PullCtrl:PIN_NODE_PULLCTRL_BIT_FIELD_SIZE;u8 TriState:PIN_NODE_TRISTATE_BIT_FIELD_SIZE;u8 <ref refid="struct_x_pm___pin_node_1aea79e63b3a690a7925f318b42e942102" kindref="member">FuncId</ref>;</type>
+        </param>
+        <briefdescription>
+<para>Array of group identifier supported by this pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_pin_plat.h" line="26" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Pin class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="209">
+        <label>XPm_PinNode</label>
+        <link refid="struct_x_pm___pin_node"/>
+        <childnode refid="210" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+      </node>
+      <node id="210">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pin_plat.h" bodystart="23" bodyend="33"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pin_node_1a03f1b21af33e7ff3d7b1dadc5f78f227" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>Bank</name></member>
+      <member refid="struct_x_pm___pin_node_1ab7c7653f63c5823abb3d6e345b5c5e0c" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>BiasStatus</name></member>
+      <member refid="struct_x_pm___pin_node_1aea79e63b3a690a7925f318b42e942102" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>FuncId</name></member>
+      <member refid="struct_x_pm___pin_node_1a0d519dd9b1c1f6f8908d3c0e9bd7b222" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>Groups</name></member>
+      <member refid="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>Node</name></member>
+      <member refid="struct_x_pm___pin_node_1a7d0986ce7038173a240e5c14ea3cebae" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>NumGroups</name></member>
+      <member refid="struct_x_pm___pin_node_1a9a3d5e58cf6f15c6f1b18daf43d203c2" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>PullCtrl</name></member>
+      <member refid="struct_x_pm___pin_node_1af4bbde4b7514b1cd7e0f071ab920456d" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>SAVE_REGION</name></member>
+      <member refid="struct_x_pm___pin_node_1aab547510a5981ab117fb74bd1c691aa4" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>SubsysIdx</name></member>
+      <member refid="struct_x_pm___pin_node_1a05a7a345ff1ebfbd73ee96461caf2676" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>TriState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

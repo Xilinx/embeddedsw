@@ -22,6 +22,20 @@
         <childnode refid="11" relation="include">
         </childnode>
       </node>
+      <node id="9">
+        <label>xtmr_manager_i.h</label>
+        <link refid="xtmr__manager__i_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xstatus.h</label>
+      </node>
+      <node id="6">
+        <label>xil_types.h</label>
+      </node>
       <node id="4">
         <label>xtmr_manager.c</label>
         <link refid="xtmr_manager.c"/>
@@ -42,20 +56,6 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="9">
-        <label>xtmr_manager_i.h</label>
-        <link refid="xtmr__manager__i_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>xstatus.h</label>
-      </node>
-      <node id="6">
-        <label>xil_types.h</label>
-      </node>
     </incdepgraph>
       <sectiondef kind="func">
       <memberdef kind="function" id="group___overview_1ga9277979a616076ffb7f7ee793bbbf452" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -68,12 +68,21 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Perform low-level hardware initialization of the TMR Manager. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="50" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="58" column="1"/>
+        <referencedby refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" compoundref="xtmr__manager_8c" startline="96" endline="166">XTMR_Manager_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gafda8c0d108cc122f2137138f734e757b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -85,12 +94,20 @@
           <declname>CallBackRef</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>This function provides a stub handler such that if the application does not define a handler but enables interrupts, this function will be called. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>has no purpose but is necessary to match the interface for a handler. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" bodystart="171" bodyend="179"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" bodystart="178" bodyend="186"/>
       </memberdef>
       <memberdef kind="function" id="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -114,21 +131,21 @@
         <detaileddescription>
 <para>The receive and transmit FIFOs of the core are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the core interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Config</parametername>
+<parametername direction="in">Config</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a reference to a structure containing information about a specific TMR Manager device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>EffectiveAddr</parametername>
+<parametername direction="in">EffectiveAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
@@ -141,16 +158,35 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" bodystart="89" bodyend="155"/>
-        <references refid="struct_x_t_m_r___manager___config_1ab5028443b50f20268cdbaa3505434587" compoundref="xtmr__manager_8h" startline="125">XTMR_Manager_Config::BrkDelayRstValue</references>
-        <references refid="struct_x_t_m_r___manager___config_1aea5febd4b3d76611b3ead50ba72cc664" compoundref="xtmr__manager_8h" startline="140">XTMR_Manager_Config::BrkDelayWidth</references>
-        <references refid="struct_x_t_m_r___manager___config_1a5638cd043ab056eab8ac0f3b1e86f6cd" compoundref="xtmr__manager_8h" startline="132">XTMR_Manager_Config::ComparatorsMask</references>
-        <references refid="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" compoundref="xtmr__manager_8h" startline="127">XTMR_Manager_Config::Magic1</references>
-        <references refid="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" compoundref="xtmr__manager_8h" startline="126">XTMR_Manager_Config::MaskRstValue</references>
-        <references refid="struct_x_t_m_r___manager___config_1ab1be7d71a20060985cf8d28e0f29735a" compoundref="xtmr__manager_8h" startline="135">XTMR_Manager_Config::SemInterface</references>
-        <references refid="struct_x_t_m_r___manager___config_1a94861f845e23a09e1e96a8f976325b6e" compoundref="xtmr__manager_8h" startline="142">XTMR_Manager_Config::TestComparator</references>
-        <references refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" compoundref="xtmr__manager__stats_8c" startline="90" endline="100">XTMR_Manager_ClearStats</references>
-        <references refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" compoundref="xtmr__manager__l_8h" startline="140">XTMR_Manager_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" bodystart="96" bodyend="166"/>
+        <references refid="group___overview_1ga9277979a616076ffb7f7ee793bbbf452">_xtmr_manager_initialize</references>
+        <references refid="struct_x_t_m_r___manager_1affe67f7e583533cfd95180e0fda40065" compoundref="xtmr__manager_8h" startline="169">XTMR_Manager::Bdir</references>
+        <references refid="struct_x_t_m_r___manager___config_1ab5028443b50f20268cdbaa3505434587" compoundref="xtmr__manager_8h" startline="126">XTMR_Manager_Config::BrkDelayRstValue</references>
+        <references refid="struct_x_t_m_r___manager___config_1aea5febd4b3d76611b3ead50ba72cc664" compoundref="xtmr__manager_8h" startline="141">XTMR_Manager_Config::BrkDelayWidth</references>
+        <references refid="struct_x_t_m_r___manager_1abc84d4a956b1ebdb7b20b053f1a5c482" compoundref="xtmr__manager_8h" startline="171">XTMR_Manager::Cfir</references>
+        <references refid="struct_x_t_m_r___manager_1a9fee1a4c60dfd49105fe50b150768a10" compoundref="xtmr__manager_8h" startline="167">XTMR_Manager::Cmr0</references>
+        <references refid="struct_x_t_m_r___manager_1a3ce2d8e35325aa85054196aa48647978" compoundref="xtmr__manager_8h" startline="168">XTMR_Manager::Cmr1</references>
+        <references refid="struct_x_t_m_r___manager___config_1a5638cd043ab056eab8ac0f3b1e86f6cd" compoundref="xtmr__manager_8h" startline="133">XTMR_Manager_Config::ComparatorsMask</references>
+        <references refid="struct_x_t_m_r___manager_1a742af92f46cbd48043582f2f1fac1586" compoundref="xtmr__manager_8h" startline="161">XTMR_Manager::Config</references>
+        <references refid="struct_x_t_m_r___manager_1a5900b2ad4493f3b1cac896e93f7a134b" compoundref="xtmr__manager_8h" startline="166">XTMR_Manager::Cr</references>
+        <references refid="struct_x_t_m_r___manager_1aaf6e0ead681cf5b466c1cb5cbc1817bc" compoundref="xtmr__manager_8h" startline="180">XTMR_Manager::Handler</references>
+        <references refid="struct_x_t_m_r___manager___config_1a7af3688caf0ba497d9adf870b5e8c2cd" compoundref="xtmr__manager_8h" startline="148">XTMR_Manager_Config::IntrId</references>
+        <references refid="struct_x_t_m_r___manager___config_1ad762ee0355ec7220ee1c1b11912ba4e5" compoundref="xtmr__manager_8h" startline="149">XTMR_Manager_Config::IntrParent</references>
+        <references refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" compoundref="xtmr__manager_8h" startline="164">XTMR_Manager::IsReady</references>
+        <references refid="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" compoundref="xtmr__manager_8h" startline="128">XTMR_Manager_Config::Magic1</references>
+        <references refid="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" compoundref="xtmr__manager_8h" startline="127">XTMR_Manager_Config::MaskRstValue</references>
+        <references refid="struct_x_t_m_r___manager_1a1318c3215d2d8636bd93babee7c5a5d6" compoundref="xtmr__manager_8h" startline="177">XTMR_Manager::PostResetHandler</references>
+        <references refid="struct_x_t_m_r___manager_1a2dfd3181c6a6e135645b9e094dac2da7" compoundref="xtmr__manager_8h" startline="175">XTMR_Manager::PreResetHandler</references>
+        <references refid="struct_x_t_m_r___manager_1ac2332ba307f2df6127ee6c182c559918" compoundref="xtmr__manager_8h" startline="173">XTMR_Manager::RecoveryHandler</references>
+        <references refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" compoundref="xtmr__manager_8h" startline="163">XTMR_Manager::RegBaseAddress</references>
+        <references refid="struct_x_t_m_r___manager_1ac5fd5d597db81fc4b33df4ccf308c1ed" compoundref="xtmr__manager_8h" startline="170">XTMR_Manager::SemImr</references>
+        <references refid="struct_x_t_m_r___manager___config_1ab1be7d71a20060985cf8d28e0f29735a" compoundref="xtmr__manager_8h" startline="136">XTMR_Manager_Config::SemInterface</references>
+        <references refid="struct_x_t_m_r___manager___config_1a94861f845e23a09e1e96a8f976325b6e" compoundref="xtmr__manager_8h" startline="143">XTMR_Manager_Config::TestComparator</references>
+        <references refid="group___overview_1ga3c24f1d8ef07f0d90b8bd2330e821ea7" compoundref="xtmr__manager__l_8h" startline="48">XTM_CR_OFFSET</references>
+        <references refid="group___overview_1gab7e8e2723802889e6e06c675f8f8c58a" compoundref="xtmr__manager__l_8h" startline="65">XTM_CR_RIR</references>
+        <references refid="group___overview_1ga2a0bf4e75668b4ed345b443b18e95ad3" compoundref="xtmr__manager__l_8h" startline="55">XTM_SEMIMR_OFFSET</references>
+        <references refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" compoundref="xtmr__manager__stats_8c" startline="80" endline="90">XTMR_Manager_ClearStats</references>
+        <references refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" compoundref="xtmr__manager__l_8h" startline="137">XTMR_Manager_WriteReg</references>
         <referencedby refid="group___overview_1gaa1feb2cff60ea2b09f42a1fe6ad1a9df" compoundref="xtmr__manager__sinit_8c" startline="122" endline="147">XTMR_Manager_Initialize</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___overview_1gad39bb96c73a9cfee8367f01565d02b7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -167,12 +203,31 @@
           <declname>BrkDelay</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>This function configures the break delay value in Break Delay Initialization Register. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BrkDelay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the break delay value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" bodystart="194" bodyend="200"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c" bodystart="197" bodyend="203"/>
+        <references refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" compoundref="xtmr__manager_8h" startline="163">XTMR_Manager::RegBaseAddress</references>
+        <references refid="group___overview_1gad9f9825608068c2cffab46e5b68dd726" compoundref="xtmr__manager__l_8h" startline="52">XTM_BDIR_OFFSET</references>
+        <references refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" compoundref="xtmr__manager__l_8h" startline="137">XTMR_Manager_WriteReg</references>
+        <referencedby refid="xtmr__manager__recovery__example_8c_1a6870457be2d38ba96bf040dbe6a5307b" compoundref="xtmr__manager__recovery__example_8c" startline="153" endline="224">TMR_ManagerRecoveryExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -182,151 +237,131 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmr__manager_8h" kindref="compound">xtmr_manager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmr__manager__i_8h" kindref="compound">xtmr_manager_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmr__manager_8h" kindref="compound">xtmr_manager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmr__manager__i_8h" kindref="compound">xtmr_manager_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>_xtmr_manager_initialize(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="89" refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" kindref="member">XTMR_Manager_CfgInitialize</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_t_m_r___manager___config" kindref="compound">XTMR_Manager_Config</ref><sp/>*Config,</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
-<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>Config;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>cr;</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
-<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="101"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>low-level<sp/>initialization</highlight></codeline>
-<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_xtmr_manager_initialize(InstancePtr);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>some<sp/>default<sp/>values,<sp/>including<sp/>setting<sp/>the<sp/>callback</highlight></codeline>
-<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>handlers<sp/>to<sp/>stubs.</highlight></codeline>
-<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a5638cd043ab056eab8ac0f3b1e86f6cd" kindref="member">ComparatorsMask</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Cmr0<sp/>=<sp/>(u32)(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" kindref="member">MaskRstValue</ref><sp/>&amp;<sp/>0xffffffff);</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Cmr1<sp/>=<sp/>(u32)(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" kindref="member">MaskRstValue</ref><sp/>&gt;&gt;<sp/>32);</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1aea5febd4b3d76611b3ead50ba72cc664" kindref="member">BrkDelayWidth</ref><sp/>&gt;<sp/>0)</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Bdir<sp/>=<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1ab5028443b50f20268cdbaa3505434587" kindref="member">BrkDelayRstValue</ref>;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1ab1be7d71a20060985cf8d28e0f29735a" kindref="member">SemInterface</ref><sp/>&gt;<sp/>0)</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SemImr<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a94861f845e23a09e1e96a8f976325b6e" kindref="member">TestComparator</ref><sp/>==<sp/>2)</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Cfir<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;PreResetHandler<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecoveryHandler<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;PostResetHandler<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsReady<sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RegBaseAddress<sp/>=<sp/>EffectiveAddr;</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Handler<sp/>=<sp/>StubHandler;</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
-<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.IntrId<sp/>=<sp/>Config-&gt;IntrId;</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.IntrParent<sp/>=<sp/>Config-&gt;IntrParent;</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>SEM<sp/>interrupt<sp/>mask<sp/>register<sp/>to<sp/>disable<sp/>the<sp/>interrupts</highlight></codeline>
-<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;RegBaseAddress,</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTM_SEMIMR_OFFSET,<sp/>0);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>Control<sp/>Register<sp/>to<sp/>set<sp/>RIR<sp/>and<sp/>MACGI1<sp/>to<sp/>allow</highlight></codeline>
-<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>recovery<sp/>reset<sp/>by<sp/>default.</highlight></codeline>
-<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cr<sp/>=<sp/>(1<sp/>&lt;&lt;<sp/>XTM_CR_RIR)<sp/>|<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" kindref="member">Magic1</ref>;</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;RegBaseAddress,</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTM_CR_OFFSET,<sp/>cr);</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Cr<sp/>=<sp/>cr;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>statistics<sp/>for<sp/>this<sp/>driver</highlight></codeline>
-<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" kindref="member">XTMR_Manager_ClearStats</ref>(InstancePtr);</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
-<codeline lineno="159"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="160"><highlight class="comment">*<sp/>This<sp/>function<sp/>provides<sp/>a<sp/>stub<sp/>handler<sp/>such<sp/>that<sp/>if<sp/>the<sp/>application<sp/>does<sp/>not</highlight></codeline>
-<codeline lineno="161"><highlight class="comment">*<sp/>define<sp/>a<sp/>handler<sp/>but<sp/>enables<sp/>interrupts,<sp/>this<sp/>function<sp/>will<sp/>be<sp/>called.</highlight></codeline>
-<codeline lineno="162"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="163"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBackRef<sp/>has<sp/>no<sp/>purpose<sp/>but<sp/>is<sp/>necessary<sp/>to<sp/>match<sp/>the</highlight></codeline>
-<codeline lineno="164"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>interface<sp/>for<sp/>a<sp/>handler.</highlight></codeline>
-<codeline lineno="165"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="166"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
-<codeline lineno="167"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="168"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
-<codeline lineno="169"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="170"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
-<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>CallBackRef;</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>occurs<sp/>always<sp/>since<sp/>this<sp/>is<sp/>a<sp/>stub<sp/>and<sp/>should<sp/>never<sp/>be<sp/>called</highlight></codeline>
-<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
-<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
-<codeline lineno="182"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="183"><highlight class="comment">*<sp/>This<sp/>function<sp/>configures<sp/>the<sp/>break<sp/>delay<sp/>value<sp/>in<sp/>Break<sp/>Delay</highlight></codeline>
-<codeline lineno="184"><highlight class="comment">*<sp/>Initialization<sp/>Register.</highlight></codeline>
-<codeline lineno="185"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="186"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>XTMR_Manager<sp/>instance.</highlight></codeline>
-<codeline lineno="187"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BrkDelay<sp/>is<sp/>the<sp/>break<sp/>delay<sp/>value.</highlight></codeline>
-<codeline lineno="188"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="189"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
-<codeline lineno="190"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="191"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
-<codeline lineno="192"><highlight class="comment">*</highlight></codeline>
-<codeline lineno="193"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XTMR_Manager_Configure_BrkDelay(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/>u32<sp/>BrkDelay)</highlight></codeline>
-<codeline lineno="195"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"></highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;RegBaseAddress,<sp/>XTM_BDIR_OFFSET,</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BrkDelay);</highlight></codeline>
-<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga9277979a616076ffb7f7ee793bbbf452" kindref="member">_xtmr_manager_initialize</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga09e58678fd2da7ffea2012d1f25ee42e" kindref="member">XTMR_Manager_CfgInitialize</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_t_m_r___manager___config" kindref="compound">XTMR_Manager_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>Config;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>cr;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>low-level<sp/>initialization</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga9277979a616076ffb7f7ee793bbbf452" kindref="member">_xtmr_manager_initialize</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>some<sp/>default<sp/>values,<sp/>including<sp/>setting<sp/>the<sp/>callback</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>handlers<sp/>to<sp/>stubs.</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a5638cd043ab056eab8ac0f3b1e86f6cd" kindref="member">ComparatorsMask</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a9fee1a4c60dfd49105fe50b150768a10" kindref="member">Cmr0</ref><sp/>=<sp/>(u32)(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" kindref="member">MaskRstValue</ref><sp/>&amp;<sp/>0xffffffff);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a3ce2d8e35325aa85054196aa48647978" kindref="member">Cmr1</ref><sp/>=<sp/>(u32)(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a401aee407942cb10d557e9fc482359f0" kindref="member">MaskRstValue</ref><sp/>&gt;&gt;<sp/>32);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1aea5febd4b3d76611b3ead50ba72cc664" kindref="member">BrkDelayWidth</ref><sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1affe67f7e583533cfd95180e0fda40065" kindref="member">Bdir</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1ab5028443b50f20268cdbaa3505434587" kindref="member">BrkDelayRstValue</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1ab1be7d71a20060985cf8d28e0f29735a" kindref="member">SemInterface</ref><sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1ac5fd5d597db81fc4b33df4ccf308c1ed" kindref="member">SemImr</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a94861f845e23a09e1e96a8f976325b6e" kindref="member">TestComparator</ref><sp/>==<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1abc84d4a956b1ebdb7b20b053f1a5c482" kindref="member">Cfir</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a2dfd3181c6a6e135645b9e094dac2da7" kindref="member">PreResetHandler</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1ac2332ba307f2df6127ee6c182c559918" kindref="member">RecoveryHandler</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a1318c3215d2d8636bd93babee7c5a5d6" kindref="member">PostResetHandler</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1af1d89c01a7a69b3e9a8b7a6d970132c6" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" kindref="member">RegBaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1aaf6e0ead681cf5b466c1cb5cbc1817bc" kindref="member">Handler</ref><sp/>=<sp/>StubHandler;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a742af92f46cbd48043582f2f1fac1586" kindref="member">Config</ref>.<ref refid="struct_x_t_m_r___manager___config_1a7af3688caf0ba497d9adf870b5e8c2cd" kindref="member">IntrId</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a7af3688caf0ba497d9adf870b5e8c2cd" kindref="member">IntrId</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a742af92f46cbd48043582f2f1fac1586" kindref="member">Config</ref>.<ref refid="struct_x_t_m_r___manager___config_1ad762ee0355ec7220ee1c1b11912ba4e5" kindref="member">IntrParent</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1ad762ee0355ec7220ee1c1b11912ba4e5" kindref="member">IntrParent</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a742af92f46cbd48043582f2f1fac1586" kindref="member">Config</ref>.<ref refid="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" kindref="member">Magic1</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" kindref="member">Magic1</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>SEM<sp/>interrupt<sp/>mask<sp/>register<sp/>to<sp/>disable<sp/>the<sp/>interrupts</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" kindref="member">RegBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2a0bf4e75668b4ed345b443b18e95ad3" kindref="member">XTM_SEMIMR_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>Control<sp/>Register<sp/>to<sp/>set<sp/>RIR<sp/>and<sp/>MACGI1<sp/>to<sp/>allow</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>recovery<sp/>reset<sp/>by<sp/>default.</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cr<sp/>=<sp/>(1<sp/>&lt;&lt;<sp/><ref refid="group___overview_1gab7e8e2723802889e6e06c675f8f8c58a" kindref="member">XTM_CR_RIR</ref>)<sp/>|<sp/>Config-&gt;<ref refid="struct_x_t_m_r___manager___config_1a2c2492ecb0c3e378b52e354cb96e4889" kindref="member">Magic1</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" kindref="member">RegBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga3c24f1d8ef07f0d90b8bd2330e821ea7" kindref="member">XTM_CR_OFFSET</ref>,<sp/>cr);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a5900b2ad4493f3b1cac896e93f7a134b" kindref="member">Cr</ref><sp/>=<sp/>cr;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>statistics<sp/>for<sp/>this<sp/>driver</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6328ba6cbb2bab523942eb82a3515a8d" kindref="member">XTMR_Manager_ClearStats</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="178"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>occurs<sp/>always<sp/>since<sp/>this<sp/>is<sp/>a<sp/>stub<sp/>and<sp/>should<sp/>never<sp/>be<sp/>called</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="197" refid="group___overview_1gad39bb96c73a9cfee8367f01565d02b7a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gad39bb96c73a9cfee8367f01565d02b7a" kindref="member">XTMR_Manager_Configure_BrkDelay</ref>(<ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref><sp/>*InstancePtr,<sp/>u32<sp/>BrkDelay)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaed2dede73cee6aea5d17d5a417807d99" kindref="member">XTMR_Manager_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_t_m_r___manager_1a96959d8b1b4f7fa0382fdb0dc8a3c63f" kindref="member">RegBaseAddress</ref>,<sp/><ref refid="group___overview_1gad9f9825608068c2cffab46e5b68dd726" kindref="member">XTM_BDIR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BrkDelay);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c"/>
   </compounddef>
 </doxygen>

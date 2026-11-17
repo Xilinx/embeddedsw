@@ -4,13 +4,13 @@
     <compoundname>xnvm_bbram_cdohandler.h</compoundname>
     <includes local="yes">xplmi_config.h</includes>
     <incdepgraph>
-      <node id="158">
+      <node id="180">
         <label>xnvm_bbram_cdohandler.h</label>
         <link refid="xnvm_bbram_cdohandler.h"/>
-        <childnode refid="159" relation="include">
+        <childnode refid="181" relation="include">
         </childnode>
       </node>
-      <node id="159">
+      <node id="181">
         <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
@@ -51,6 +51,6 @@
 <codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XNVM_BBRAM_CDOHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_bbram_cdohandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/xnvm_bbram_cdohandler.h"/>
   </compounddef>
 </doxygen>

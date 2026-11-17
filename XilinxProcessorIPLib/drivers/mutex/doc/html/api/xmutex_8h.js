@@ -5,7 +5,7 @@ var xmutex_8h =
     [ "XMutex_GetUser", "xmutex_8h.html#gad7d5c5cd3b24ffee6dcc093b98c8546a", null ],
     [ "XMutex_IsLocked", "xmutex_8h.html#ga37302270d3c1c86dc0bffdfc7043b902", null ],
     [ "XMutex_Lock", "xmutex_8h.html#ga1255fbeea64f519d8def63e542ce8703", null ],
-    [ "XMutex_LookupConfig", "xmutex_8h.html#ga08913f199dc5f5ce55779aea1c987ab0", null ],
+    [ "XMutex_LookupConfig", "xmutex_8h.html#ga67380a56993df3471d48e6858369d391", null ],
     [ "XMutex_SelfTest", "xmutex_8h.html#ga1599a86dd180f3bd789a2fc472e9aa29", null ],
     [ "XMutex_SetUser", "xmutex_8h.html#ga941e13d2534884adf4926f05bae3966e", null ],
     [ "XMutex_Trylock", "xmutex_8h.html#gaf1857cffa94ba8b3bdf491f1a0096340", null ],

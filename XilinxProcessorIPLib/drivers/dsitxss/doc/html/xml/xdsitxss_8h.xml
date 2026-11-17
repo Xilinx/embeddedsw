@@ -14,6 +14,9 @@
     <includedby refid="xdsitxss__selftest__example_8c" local="yes">xdsitxss_selftest_example.c</includedby>
     <includedby refid="xdsitxss__video__test__example_8c" local="yes">xdsitxss_video_test_example.c</includedby>
     <incdepgraph>
+      <node id="14">
+        <label>xdsi.h</label>
+      </node>
       <node id="12">
         <label>xdsitxss.h</label>
         <link refid="xdsitxss.h"/>
@@ -24,9 +27,6 @@
         <childnode refid="15" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>xdsi.h</label>
-      </node>
       <node id="13">
         <label>xil_types.h</label>
       </node>
@@ -35,6 +35,22 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="19">
+        <label>xdsitxss_intr.c</label>
+        <link refid="xdsitxss__intr_8c"/>
+      </node>
+      <node id="23">
+        <label>xdsitxss_selftest_example.c</label>
+        <link refid="xdsitxss__selftest__example_8c"/>
+      </node>
+      <node id="22">
+        <label>xdsitxss_intr_example.c</label>
+        <link refid="xdsitxss__intr__example_8c"/>
+      </node>
+      <node id="21">
+        <label>xdsitxss_sinit.c</label>
+        <link refid="xdsitxss__sinit_8c"/>
+      </node>
       <node id="17">
         <label>xdsitxss.c</label>
         <link refid="xdsitxss_8c"/>
@@ -59,29 +75,13 @@
         <childnode refid="24" relation="include">
         </childnode>
       </node>
-      <node id="21">
-        <label>xdsitxss_sinit.c</label>
-        <link refid="xdsitxss__sinit_8c"/>
-      </node>
-      <node id="22">
-        <label>xdsitxss_intr_example.c</label>
-        <link refid="xdsitxss__intr__example_8c"/>
-      </node>
-      <node id="19">
-        <label>xdsitxss_intr.c</label>
-        <link refid="xdsitxss__intr_8c"/>
-      </node>
-      <node id="20">
-        <label>xdsitxss_selftest.c</label>
-        <link refid="xdsitxss__selftest_8c"/>
-      </node>
       <node id="24">
         <label>xdsitxss_video_test_example.c</label>
         <link refid="xdsitxss__video__test__example_8c"/>
       </node>
-      <node id="23">
-        <label>xdsitxss_selftest_example.c</label>
-        <link refid="xdsitxss__selftest__example_8c"/>
+      <node id="20">
+        <label>xdsitxss_selftest.c</label>
+        <link refid="xdsitxss__selftest_8c"/>
       </node>
       <node id="18">
         <label>xdsitxss_g.c</label>
@@ -115,7 +115,7 @@
 <para>Specifies whether to enable or disable the DSI TX Subsystem core. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="164" bodyend="167"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="159" bodyend="162"/>
       </memberdef>
       <memberdef kind="enum" id="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" prot="public" static="no">
         <name>XDsiSS_Subcore</name>
@@ -141,7 +141,7 @@
 <para>Specifies which sub-core (DSI or DPHY) within the subsystem to operate on. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="174" bodyend="177"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="169" bodyend="172"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -173,7 +173,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="236" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="225" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -187,35 +187,31 @@
           <declname>BaseAddress</declname>
         </param>
         <briefdescription>
-<para>This function looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+<para>This function looks for the device configuration based on the base address. </para>        </briefdescription>
         <detaileddescription>
 <para>The table XDsiTxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>DeviceId</parametername>
+<parametername>BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the unique device ID of the device being looked up</para></parameterdescription>
+<para>is the base address of the device being looked up</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found</para></simplesect>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found</para></simplesect>
 <simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_sinit.c" bodystart="85" bodyend="99"/>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
-        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="123" endline="148">DsiTxSs_SelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_sinit.c" bodystart="69" bodyend="83"/>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
+        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="115" endline="140">DsiTxSs_SelfTestExample</referencedby>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
-      <memberdef kind="function" id="group__dsitxss_1ga9761cc5f1111900fc4a6667526529004" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__dsitxss_1ga1455252e790ed3a2b2a63e93cc9a4e34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
         <definition>u32 XDsiTxSs_GetDrvIndex</definition>
-        <argsstring>(XDsiTxSs *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
         <name>XDsiTxSs_GetDrvIndex</name>
-        <param>
-          <type><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> *</type>
-          <declname>InstancePtr</declname>
-        </param>
         <param>
           <type>UINTPTR</type>
           <declname>BaseAddress</declname>
@@ -224,13 +220,6 @@
 <para>This function returns the Index number of config table using BaseAddress. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>InstancePtr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>pointer to the instance structure</para></parameterdescription>
-</parameteritem>
-<parameteritem>
 <parameternamelist>
 <parametername>BaseAddress</parametername>
 </parameternamelist>
@@ -242,7 +231,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_sinit.c" bodystart="113" bodyend="124"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_sinit.c" bodystart="95" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -293,13 +282,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="119" bodyend="164"/>
-        <references refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" compoundref="xdsitxss_8h" startline="191">XDsiTxSs_Config::BaseAddr</references>
-        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="244">XDsiTxSs::Config</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <references refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" compoundref="xdsitxss_8h" startline="245">XDsiTxSs::IsReady</references>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
-        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="123" endline="148">DsiTxSs_SelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="112" bodyend="159"/>
+        <references refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" compoundref="xdsitxss_8h" startline="181">XDsiTxSs_Config::BaseAddr</references>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" compoundref="xdsitxss_8h" startline="234">XDsiTxSs::IsReady</references>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
+        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="115" endline="140">DsiTxSs_SelfTestExample</referencedby>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -329,8 +318,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="181" bodyend="194"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="176" bodyend="189"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga3587a6254bc3f3d8e9f9dd9ef6c71126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -379,12 +368,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="212" bodyend="236"/>
-        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="244">XDsiTxSs::Config</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <references refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6" compoundref="xdsitxss_8h" startline="175">XDSITXSS_DSI</references>
-        <references refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2" compoundref="xdsitxss_8h" startline="166">XDSITXSS_ENABLE</references>
-        <references refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" compoundref="xdsitxss_8h" startline="176">XDSITXSS_PHY</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="207" bodyend="231"/>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6" compoundref="xdsitxss_8h" startline="170">XDSITXSS_DSI</references>
+        <references refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2" compoundref="xdsitxss_8h" startline="161">XDSITXSS_ENABLE</references>
+        <references refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" compoundref="xdsitxss_8h" startline="171">XDSITXSS_PHY</references>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -411,10 +400,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="248" bodyend="260"/>
-        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="244">XDsiTxSs::Config</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <references refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" compoundref="xdsitxss_8h" startline="203">XDsiTxSs_Config::IsDphyRegIntfcPresent</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="243" bodyend="255"/>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" compoundref="xdsitxss_8h" startline="194">XDsiTxSs_Config::IsDphyRegIntfcPresent</references>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -441,10 +430,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="272" bodyend="310"/>
-        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="244">XDsiTxSs::Config</references>
-        <references refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" compoundref="xdsitxss_8h" startline="205">XDsiTxSs_Config::DphyInfo</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="267" bodyend="305"/>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" compoundref="xdsitxss_8h" startline="196">XDsiTxSs_Config::DphyInfo</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
         <references refid="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" compoundref="xdsitxss_8h" startline="149">DsiTxSsSubCore::IsPresent</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -474,13 +463,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_selftest.c" bodystart="64" bodyend="98"/>
-        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="244">XDsiTxSs::Config</references>
-        <references refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" compoundref="xdsitxss_8h" startline="205">XDsiTxSs_Config::DphyInfo</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_selftest.c" bodystart="64" bodyend="98"/>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" compoundref="xdsitxss_8h" startline="196">XDsiTxSs_Config::DphyInfo</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
         <references refid="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" compoundref="xdsitxss_8h" startline="149">DsiTxSsSubCore::IsPresent</references>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
-        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="123" endline="148">DsiTxSs_SelfTestExample</referencedby>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
+        <referencedby refid="xdsitxss__selftest__example_8c_1a45fd3120f2e09254f53e6181be47269c" compoundref="xdsitxss__selftest__example_8c" startline="115" endline="140">DsiTxSs_SelfTestExample</referencedby>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -507,9 +496,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="364" bodyend="370"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <references refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" compoundref="xdsitxss_8h" startline="254">XDsiTxSs::SpktData</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="480" bodyend="486"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" compoundref="xdsitxss_8h" startline="243">XDsiTxSs::SpktData</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -550,8 +539,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="324" bodyend="329"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="319" bodyend="324"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -582,9 +571,182 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="345" bodyend="350"/>
-        <references refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" compoundref="xdsitxss_8h" startline="256">XDsiTxSs::CmdPkt</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="340" bodyend="345"/>
+        <references refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" compoundref="xdsitxss_8h" startline="245">XDsiTxSs::CmdPkt</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsiTxSs_IsEscModeEnabled</definition>
+        <argsstring>(XDsiTxSs *InstancePtr)</argsstring>
+        <name>XDsiTxSs_IsEscModeEnabled</name>
+        <param>
+          <type><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reports whether escape mode (LPDT/ULPS) is available. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-zero if escape mode is available, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="356" bodyend="362"/>
+        <references refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" compoundref="xdsitxss_8h" startline="233">XDsiTxSs::Config</references>
+        <references refid="struct_x_dsi_tx_ss___config_1a3b36814b5678d9b1afb98454324e05a5" compoundref="xdsitxss_8h" startline="192">XDsiTxSs_Config::EnEscMode</references>
+        <referencedby refid="group__dsitxss_1ga93f44f5a03cc37ffdff5f4856afb3a28" compoundref="xdsitxss_8c" startline="410" endline="419">XDsiTxSs_SendLpdtPacket</referencedby>
+        <referencedby refid="group__dsitxss_1ga18327366981b03ec0dcf47b46adf85c7" compoundref="xdsitxss_8c" startline="381" endline="390">XDsiTxSs_SetLpdtMode</referencedby>
+        <referencedby refid="group__dsitxss_1gaa5ccb4e2ae14b0f12ad892c0ab4c7816" compoundref="xdsitxss_8c" startline="440" endline="449">XDsiTxSs_SetUlpsMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsitxss_1ga18327366981b03ec0dcf47b46adf85c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDsiTxSs_SetLpdtMode</definition>
+        <argsstring>(XDsiTxSs *InstancePtr, XDsi_CmdLpdtType Mode)</argsstring>
+        <name>XDsiTxSs_SetLpdtMode</name>
+        <param>
+          <type><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDsi_CmdLpdtType</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Selects the DCS command mode or LPDT transport. </para>        </briefdescription>
+        <detaileddescription>
+<para>Chooses LPDT or DCS command mode for command packets. Returns XST_NO_FEATURE on designs without escape mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>XDSI_DCS_CMD_MODE or XDSI_LPDT_MODE.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the transport was selected.</para></listitem><listitem><para>XST_NO_FEATURE if escape-mode logic is not present in hardware.</para></listitem><listitem><para>XST_FAILURE if the controller is not in command mode, or a previous command never completed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="381" bodyend="390"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" compoundref="xdsitxss_8c" startline="356" endline="362">XDsiTxSs_IsEscModeEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsitxss_1ga93f44f5a03cc37ffdff5f4856afb3a28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDsiTxSs_SendLpdtPacket</definition>
+        <argsstring>(XDsiTxSs *InstancePtr)</argsstring>
+        <name>XDsiTxSs_SendLpdtPacket</name>
+        <param>
+          <type><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sends a command packet over LPDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sends the command packet held in the subsystem structure over LPDT. Returns XST_NO_FEATURE on designs without escape mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the packet was accepted for transmission.</para></listitem><listitem><para>XST_NO_FEATURE if escape-mode logic is not present in hardware.</para></listitem><listitem><para>XST_INVALID_PARAM if a long-packet payload exceeds 251 bytes.</para></listitem><listitem><para>XST_FAILURE on failure in packet transmission.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The transport must already be selected via XDsiTxSs_SetLpdtMode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="410" bodyend="419"/>
+        <references refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" compoundref="xdsitxss_8h" startline="245">XDsiTxSs::CmdPkt</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" compoundref="xdsitxss_8c" startline="356" endline="362">XDsiTxSs_IsEscModeEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsitxss_1gaa5ccb4e2ae14b0f12ad892c0ab4c7816" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDsiTxSs_SetUlpsMode</definition>
+        <argsstring>(XDsiTxSs *InstancePtr, u32 Enable)</argsstring>
+        <name>XDsiTxSs_SetUlpsMode</name>
+        <param>
+          <type><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Enters or exits the Ultra-Low Power State (ULPS). </para>        </briefdescription>
+        <detaileddescription>
+<para>Puts the DSI link into ULPS, or brings it back out. Returns XST_NO_FEATURE on designs without escape mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enter ULPS, 0 to exit ULPS.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the requested ULPS transition completed.</para></listitem><listitem><para>XST_NO_FEATURE if escape-mode logic is not present in hardware.</para></listitem><listitem><para>XST_FAILURE if ULPS entry or exit was not observed in time.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>ULPS entry resets the controller image FIFOs; the caller must re-arm the video output from a fresh frame after exit. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="440" bodyend="449"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" compoundref="xdsitxss_8c" startline="356" endline="362">XDsiTxSs_IsEscModeEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsitxss_1gac32b7e8b09624965b57d6b7aa4ed4d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsiTxSs_IsUlps</definition>
+        <argsstring>(XDsiTxSs *InstancePtr)</argsstring>
+        <name>XDsiTxSs_IsUlps</name>
+        <param>
+          <type><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reports whether the DSI lanes are in ULPS. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-zero if the lanes are in ULPS, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="460" bodyend="466"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -610,9 +772,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="381" bodyend="387"/>
-        <references refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" compoundref="xdsitxss_8h" startline="258">XDsiTxSs::ConfigInfo</references>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="497" bodyend="503"/>
+        <references refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::ConfigInfo</references>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -639,8 +801,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="400" bodyend="406"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="516" bodyend="522"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga6d071b004409f448e6fb61a523063084" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -667,8 +829,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="425" bodyend="431"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="541" bodyend="547"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga55a4510207c1994cf296b4cf3ccb05c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -695,8 +857,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="447" bodyend="453"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="563" bodyend="569"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gab4c4ef25cc3f604f21ce98446cdfe482" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -758,8 +920,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="474" bodyend="491"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="590" bodyend="607"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga1b9246c8e349c6dac5aa6c7f40a69bf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>s32</type>
@@ -810,8 +972,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="509" bodyend="525"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.c" bodystart="625" bodyend="641"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
         <referencedby refid="xdsitxss__video__test__example_8c_1a17e686b9a365a72175c35bd7be2566ac" compoundref="xdsitxss__video__test__example_8c" startline="358" endline="482">DsiTxSs_VideoTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -884,10 +1046,10 @@ XDSI_HANDLER_CMDQ_FIFOFULL      Command queue FIFO Full</preformatted></para><pa
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="160" bodyend="174"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
-        <references refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" compoundref="xdsitxss_8h" startline="245">XDsiTxSs::IsReady</references>
-        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="275" endline="347">DsiTxSs_IntrExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="160" bodyend="174"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <references refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" compoundref="xdsitxss_8h" startline="234">XDsiTxSs::IsReady</references>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__dsitxss_1gac0b25d125200252072df7ccfc5931bb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -913,8 +1075,9 @@ XDSI_HANDLER_CMDQ_FIFOFULL      Command queue FIFO Full</preformatted></para><pa
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="73" bodyend="82"/>
-        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="247">XDsiTxSs::DsiPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c" bodystart="73" bodyend="82"/>
+        <references refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" compoundref="xdsitxss_8h" startline="236">XDsiTxSs::DsiPtr</references>
+        <referencedby refid="xdsitxss__intr__example_8c_1af332a23bd0cd610cf1e95df34b70c998" compoundref="xdsitxss__intr__example_8c" startline="180" endline="244">DsiTxSs_IntrExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -959,113 +1122,104 @@ XDSI_HANDLER_CMDQ_FIFOFULL      Command queue FIFO Full</preformatted></para><pa
 <codeline lineno="141"><highlight class="normal"></highlight></codeline>
 <codeline lineno="148" refid="struct_dsi_tx_ss_sub_core" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="149" refid="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" kindref="member">IsPresent</ref>;<sp/><sp/></highlight></codeline>
-<codeline lineno="151"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId;<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AddrOffset;<sp/></highlight></codeline>
-<codeline lineno="154"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="155" refid="struct_dsi_tx_ss_sub_core_1a56ffcc262f9e2ae2d5a91a7eed3177e5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_dsi_tx_ss_sub_core_1a56ffcc262f9e2ae2d5a91a7eed3177e5" kindref="member">AddrOffset</ref>;<sp/></highlight></codeline>
-<codeline lineno="156"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref>;</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164" refid="group__dsitxss_1gab21c5c6cf1bc849ac9912ad16b8003ad" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="165" refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003ada91e63edb167a393c0ca63f4436ada209" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003ada91e63edb167a393c0ca63f4436ada209" kindref="member">XDSITXSS_DISABLE</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
-<codeline lineno="166" refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2" kindref="member">XDSITXSS_ENABLE</ref><sp/>=<sp/>1<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="167"><highlight class="normal">}<sp/><ref refid="group__dsitxss_1gab21c5c6cf1bc849ac9912ad16b8003ad" kindref="member">XDsiSS_Selection</ref>;</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight></codeline>
-<codeline lineno="174" refid="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="175" refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6" kindref="member">XDSITXSS_DSI</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
-<codeline lineno="176" refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" kindref="member">XDSITXSS_PHY</ref><sp/>=<sp/>1<sp/><sp/></highlight></codeline>
-<codeline lineno="177"><highlight class="normal">}<sp/><ref refid="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" kindref="member">XDsiSS_Subcore</ref>;</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="184" refid="struct_x_dsi_tx_ss___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DeviceId;<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="188"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="191" refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" kindref="member">BaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="194" refid="struct_x_dsi_tx_ss___config_1ad5bca47e3d8c2b12165513646ecb2a04" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_dsi_tx_ss___config_1ad5bca47e3d8c2b12165513646ecb2a04" kindref="member">HighAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="196" refid="struct_x_dsi_tx_ss___config_1a577c288549941ba5f8278307b62f1377" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1a577c288549941ba5f8278307b62f1377" kindref="member">DsiLanes</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="197" refid="struct_x_dsi_tx_ss___config_1ae486561e1280ecbae8d0eed9899e897a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1ae486561e1280ecbae8d0eed9899e897a" kindref="member">DataType</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="198" refid="struct_x_dsi_tx_ss___config_1a5a11c849e71447b1fb262c771e62b705" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss___config_1a5a11c849e71447b1fb262c771e62b705" kindref="member">DsiByteFifo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="200" refid="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" kindref="member">CrcGen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="201" refid="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" kindref="member">DsiPixel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="202" refid="struct_x_dsi_tx_ss___config_1a51f7855b03e97c7106fed916fa842e72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss___config_1a51f7855b03e97c7106fed916fa842e72" kindref="member">DphyLinerate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="203" refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" kindref="member">IsDphyRegIntfcPresent</ref>;<sp/></highlight></codeline>
-<codeline lineno="205" refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref><sp/><ref refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" kindref="member">DphyInfo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="206" refid="struct_x_dsi_tx_ss___config_1ae37e75593d8c004c2a745b25a503f9c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref><sp/><ref refid="struct_x_dsi_tx_ss___config_1ae37e75593d8c004c2a745b25a503f9c4" kindref="member">DsiInfo</ref>;<sp/></highlight></codeline>
-<codeline lineno="207"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
-<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bit[0]<sp/>Interrupt<sp/>Parent<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XMIPI_TX_PHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
-<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsMipiTxPhyRegIntfcPresent;<sp/></highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MipiTxPhyLineRate;<sp/><sp/></highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref><sp/>MipiTxPhyInfo;<sp/></highlight><highlight class="comment">/*<sp/>MIPI<sp/>TX<sp/>PHY<sp/>sub-core<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref>;</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"></highlight></codeline>
-<codeline lineno="236" refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" kindref="member">XDsiTxSs_Callback</ref>)<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="237"><highlight class="normal"></highlight></codeline>
-<codeline lineno="243" refid="struct_x_dsi_tx_ss" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="244" refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref><sp/><ref refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" kindref="member">Config</ref>;<sp/></highlight></codeline>
-<codeline lineno="245" refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="247" refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi<sp/><sp/>*<ref refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" kindref="member">DsiPtr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="248"><highlight class="preprocessor">#if<sp/>(XPAR_XMIPI_TX_PHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
-<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy<sp/>*MipiTxPhyPtr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="250"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
-<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy<sp/>*DphyPtr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="253"><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="254" refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_ShortPacket<sp/><ref refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" kindref="member">SpktData</ref>;<sp/></highlight></codeline>
-<codeline lineno="256" refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsiTx_CmdModePkt<sp/><ref refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" kindref="member">CmdPkt</ref>;<sp/></highlight></codeline>
-<codeline lineno="258" refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_ConfigParameters<sp/><ref refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" kindref="member">ConfigInfo</ref>;<sp/><sp/></highlight></codeline>
-<codeline lineno="262" refid="struct_x_dsi_tx_ss_1aae702b5f85a7351a4a4d1375337751e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" kindref="member">XDsiTxSs_Callback</ref><sp/><ref refid="struct_x_dsi_tx_ss_1aae702b5f85a7351a4a4d1375337751e0" kindref="member">ErrorCallback</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="264" refid="struct_x_dsi_tx_ss_1aa0dff2e6ce61fef06a07ad8d15fc6aaa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_dsi_tx_ss_1aa0dff2e6ce61fef06a07ad8d15fc6aaa" kindref="member">ErrRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="266"><highlight class="normal">}<sp/><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref>;</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"></highlight></codeline>
-<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="269"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref>*<sp/><ref refid="group__dsitxss_1gac260062bd2dc932558a7d5664f717bb0" kindref="member">XDsiTxSs_LookupConfig</ref>(u32<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref>*<sp/><ref refid="group__dsitxss_1gac260062bd2dc932558a7d5664f717bb0" kindref="member">XDsiTxSs_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="273"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga9761cc5f1111900fc4a6667526529004" kindref="member">XDsiTxSs_GetDrvIndex</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="276"><highlight class="normal">s32<sp/><ref refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" kindref="member">XDsiTxSs_CfgInitialize</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref><sp/>*CfgPtr,</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="278"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" kindref="member">XDsiTxSs_DefaultConfigure</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga3587a6254bc3f3d8e9f9dd9ef6c71126" kindref="member">XDsiTxSs_Activate</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/><ref refid="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" kindref="member">XDsiSS_Subcore</ref><sp/>core,<sp/>u8<sp/>Flag);</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" kindref="member">XDsiTxSs_Reset</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" kindref="member">XDsiTxSs_ReportCoreInfo</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="282"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" kindref="member">XDsiTxSs_SelfTest</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" kindref="member">XDsiTxSs_SendShortPacket</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" kindref="member">XDsiTxSs_SetDSIMode</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>XDsi_DsiModeType<sp/>mode);</highlight></codeline>
-<codeline lineno="285"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" kindref="member">XDsiTxSs_SendCmdModePacket</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" kindref="member">XDsiTxSs_GetConfigParams</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="287"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" kindref="member">XDsiTxSs_IsControllerReady</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="288"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga6d071b004409f448e6fb61a523063084" kindref="member">XDsiTxSs_GetPixelFormat</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="289"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga55a4510207c1994cf296b4cf3ccb05c4" kindref="member">XDsiTxSs_GetCmdQVacancy</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="290"><highlight class="normal">s32<sp/><ref refid="group__dsitxss_1gab4c4ef25cc3f604f21ce98446cdfe482" kindref="member">XDsiTxSs_SetVideoInterfaceTiming</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_VideoMode<sp/>VideoMode,</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>Resolution,</highlight></codeline>
-<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>BurstPacketSize);</highlight></codeline>
-<codeline lineno="294"><highlight class="normal">s32<sp/><ref refid="group__dsitxss_1ga1b9246c8e349c6dac5aa6c7f40a69bf8" kindref="member">XDsiTxSs_SetCustomVideoInterfaceTiming</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_VideoMode<sp/>VideoMode,<sp/>XDsi_VideoTiming<sp/><sp/>*Timing);</highlight></codeline>
-<codeline lineno="296"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" kindref="member">XDsiTxSs_SetCallback</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
-<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="298"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gac0b25d125200252072df7ccfc5931bb7" kindref="member">XDsiTxSs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="299"><highlight class="normal"></highlight></codeline>
-<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="301"><highlight class="normal"></highlight></codeline>
-<codeline lineno="302"><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="308"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151" refid="struct_dsi_tx_ss_sub_core_1a56ffcc262f9e2ae2d5a91a7eed3177e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_dsi_tx_ss_sub_core_1a56ffcc262f9e2ae2d5a91a7eed3177e5" kindref="member">AddrOffset</ref>;<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref>;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="group__dsitxss_1gab21c5c6cf1bc849ac9912ad16b8003ad" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="160" refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003ada91e63edb167a393c0ca63f4436ada209" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003ada91e63edb167a393c0ca63f4436ada209" kindref="member">XDSITXSS_DISABLE</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="161" refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggab21c5c6cf1bc849ac9912ad16b8003adab870fa67b07d52ca0d9c580fdfb25dd2" kindref="member">XDSITXSS_ENABLE</ref><sp/>=<sp/>1<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}<sp/><ref refid="group__dsitxss_1gab21c5c6cf1bc849ac9912ad16b8003ad" kindref="member">XDsiSS_Selection</ref>;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169" refid="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="170" refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07aaf074857e7b3c8f5994da89befa9d4a6" kindref="member">XDSITXSS_DSI</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="171" refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ggadef8b5375269dee0a06de275d2140e07a2ea51dc27a911f5bdd8f9e13a53ec8b6" kindref="member">XDSITXSS_PHY</ref><sp/>=<sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}<sp/><ref refid="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" kindref="member">XDsiSS_Subcore</ref>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="struct_x_dsi_tx_ss___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="181" refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_dsi_tx_ss___config_1a7d585195086fad6ffb7623bbf1881d43" kindref="member">BaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="struct_x_dsi_tx_ss___config_1ad5bca47e3d8c2b12165513646ecb2a04" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_dsi_tx_ss___config_1ad5bca47e3d8c2b12165513646ecb2a04" kindref="member">HighAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186" refid="struct_x_dsi_tx_ss___config_1a577c288549941ba5f8278307b62f1377" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1a577c288549941ba5f8278307b62f1377" kindref="member">DsiLanes</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="struct_x_dsi_tx_ss___config_1ae486561e1280ecbae8d0eed9899e897a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1ae486561e1280ecbae8d0eed9899e897a" kindref="member">DataType</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="struct_x_dsi_tx_ss___config_1a5a11c849e71447b1fb262c771e62b705" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss___config_1a5a11c849e71447b1fb262c771e62b705" kindref="member">DsiByteFifo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1aa0ed323752a5c083372f5c56e4c2aaea" kindref="member">CrcGen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1a1e7abd1f22f0673c4620ac24c0bd75f4" kindref="member">DsiPixel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="struct_x_dsi_tx_ss___config_1a3b36814b5678d9b1afb98454324e05a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dsi_tx_ss___config_1a3b36814b5678d9b1afb98454324e05a5" kindref="member">EnEscMode</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="struct_x_dsi_tx_ss___config_1a51f7855b03e97c7106fed916fa842e72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss___config_1a51f7855b03e97c7106fed916fa842e72" kindref="member">DphyLinerate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss___config_1aa773bef1fcc5616169b86d4a4d559eb8" kindref="member">IsDphyRegIntfcPresent</ref>;<sp/></highlight></codeline>
+<codeline lineno="196" refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref><sp/><ref refid="struct_x_dsi_tx_ss___config_1a726206548f75b4e56967dfd6523b3485" kindref="member">DphyInfo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197" refid="struct_x_dsi_tx_ss___config_1ae37e75593d8c004c2a745b25a503f9c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref><sp/><ref refid="struct_x_dsi_tx_ss___config_1ae37e75593d8c004c2a745b25a503f9c4" kindref="member">DsiInfo</ref>;<sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bit[0]<sp/>Interrupt<sp/>Parent<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XMIPI_TX_PHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsMipiTxPhyRegIntfcPresent;<sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MipiTxPhyLineRate;<sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_dsi_tx_ss_sub_core" kindref="compound">DsiTxSsSubCore</ref><sp/>MipiTxPhyInfo;<sp/></highlight><highlight class="comment">/*<sp/>MIPI<sp/>TX<sp/>PHY<sp/>sub-core<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref>;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225" refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" kindref="member">XDsiTxSs_Callback</ref>)<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="struct_x_dsi_tx_ss" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="233" refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref><sp/><ref refid="struct_x_dsi_tx_ss_1a49d3024dba5f4f6f426dced0188178fb" kindref="member">Config</ref>;<sp/></highlight></codeline>
+<codeline lineno="234" refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dsi_tx_ss_1afe55de0431fee218724eb07119206029" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi<sp/><sp/>*<ref refid="struct_x_dsi_tx_ss_1a8319cf976bece8bd99c78b6486d80c20" kindref="member">DsiPtr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#if<sp/>(XPAR_XMIPI_TX_PHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Tx_Phy<sp/>*MipiTxPhyPtr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy<sp/>*DphyPtr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="243" refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_ShortPacket<sp/><ref refid="struct_x_dsi_tx_ss_1ab4392a033c5a934630f07dfba8a332de" kindref="member">SpktData</ref>;<sp/></highlight></codeline>
+<codeline lineno="245" refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsiTx_CmdModePkt<sp/><ref refid="struct_x_dsi_tx_ss_1add8507786c84296e2422fe2ec7e11a1a" kindref="member">CmdPkt</ref>;<sp/></highlight></codeline>
+<codeline lineno="247" refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_ConfigParameters<sp/><ref refid="struct_x_dsi_tx_ss_1a5bc253f8edcad83ef7d20816147b175b" kindref="member">ConfigInfo</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="251" refid="struct_x_dsi_tx_ss_1aae702b5f85a7351a4a4d1375337751e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsitxss_1ga4d6aa8e420d12ef8d8e9ab27d399cb19" kindref="member">XDsiTxSs_Callback</ref><sp/><ref refid="struct_x_dsi_tx_ss_1aae702b5f85a7351a4a4d1375337751e0" kindref="member">ErrorCallback</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253" refid="struct_x_dsi_tx_ss_1aa0dff2e6ce61fef06a07ad8d15fc6aaa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_dsi_tx_ss_1aa0dff2e6ce61fef06a07ad8d15fc6aaa" kindref="member">ErrRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="normal">}<sp/><ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref>*<sp/><ref refid="group__dsitxss_1gac260062bd2dc932558a7d5664f717bb0" kindref="member">XDsiTxSs_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga1455252e790ed3a2b2a63e93cc9a4e34" kindref="member">XDsiTxSs_GetDrvIndex</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal">s32<sp/><ref refid="group__dsitxss_1gaa4193394015188a834eeeee8e5da3e40" kindref="member">XDsiTxSs_CfgInitialize</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dsi_tx_ss___config" kindref="compound">XDsiTxSs_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga8cd432c1d79f544b4da07563cadaf39e" kindref="member">XDsiTxSs_DefaultConfigure</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga3587a6254bc3f3d8e9f9dd9ef6c71126" kindref="member">XDsiTxSs_Activate</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/><ref refid="group__dsitxss_1gadef8b5375269dee0a06de275d2140e07" kindref="member">XDsiSS_Subcore</ref><sp/>core,<sp/>u8<sp/>Flag);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga72465c9ad620c0103bfdc2055f4db426" kindref="member">XDsiTxSs_Reset</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" kindref="member">XDsiTxSs_ReportCoreInfo</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" kindref="member">XDsiTxSs_SelfTest</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga8792189e4eb55d1bd09b2f60c4dcae3f" kindref="member">XDsiTxSs_SendShortPacket</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga8412315a375f8096c48c24be87cc09fb" kindref="member">XDsiTxSs_SetDSIMode</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>XDsi_DsiModeType<sp/>mode);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gaa327e5adf508da3fec9e669c2110da1b" kindref="member">XDsiTxSs_SendCmdModePacket</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1gad3510c4989ab120ed55d7585a809bce0" kindref="member">XDsiTxSs_IsEscModeEnabled</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga18327366981b03ec0dcf47b46adf85c7" kindref="member">XDsiTxSs_SetLpdtMode</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>XDsi_CmdLpdtType<sp/>Mode);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1ga93f44f5a03cc37ffdff5f4856afb3a28" kindref="member">XDsiTxSs_SendLpdtPacket</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gaa5ccb4e2ae14b0f12ad892c0ab4c7816" kindref="member">XDsiTxSs_SetUlpsMode</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Enable);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1gac32b7e8b09624965b57d6b7aa4ed4d6a" kindref="member">XDsiTxSs_IsUlps</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gac93ca99af9ece26def34b60fb799d987" kindref="member">XDsiTxSs_GetConfigParams</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1gadf12e1fbe0e429e5874b882919d18fa9" kindref="member">XDsiTxSs_IsControllerReady</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga6d071b004409f448e6fb61a523063084" kindref="member">XDsiTxSs_GetPixelFormat</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga55a4510207c1994cf296b4cf3ccb05c4" kindref="member">XDsiTxSs_GetCmdQVacancy</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">s32<sp/><ref refid="group__dsitxss_1gab4c4ef25cc3f604f21ce98446cdfe482" kindref="member">XDsiTxSs_SetVideoInterfaceTiming</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_VideoMode<sp/>VideoMode,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>Resolution,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>BurstPacketSize);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">s32<sp/><ref refid="group__dsitxss_1ga1b9246c8e349c6dac5aa6c7f40a69bf8" kindref="member">XDsiTxSs_SetCustomVideoInterfaceTiming</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_VideoMode<sp/>VideoMode,<sp/>XDsi_VideoTiming<sp/><sp/>*Timing);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">u32<sp/><ref refid="group__dsitxss_1ga4b5639796dfc2bd954a848268daa116d" kindref="member">XDsiTxSs_SetCallback</ref>(<ref refid="struct_x_dsi_tx_ss" kindref="compound">XDsiTxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsitxss_1gac0b25d125200252072df7ccfc5931bb7" kindref="member">XDsiTxSs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h"/>
   </compounddef>
 </doxygen>

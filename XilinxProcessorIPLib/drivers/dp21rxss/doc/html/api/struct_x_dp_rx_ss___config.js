@@ -4,6 +4,7 @@ var struct_x_dp_rx_ss___config =
     [ "ClkWizSubCore", "struct_x_dp_rx_ss___config.html#a15d2addc73d0929beb2fc7ce90556cf8", null ],
     [ "ColorFormat", "struct_x_dp_rx_ss___config.html#a1783e6e0b59b36314ec3a874cd58d6e7", null ],
     [ "DpSubCore", "struct_x_dp_rx_ss___config.html#abb687e5c8ca0d9f94d97f302b65f9427", null ],
+    [ "DscEn", "struct_x_dp_rx_ss___config.html#a5a757ff1ac053e7eaf6015e2a2157f6e", null ],
     [ "Hdcp1xSubCore", "struct_x_dp_rx_ss___config.html#abf642266c739030387a1ef4706c0508b", null ],
     [ "Hdcp22Enable", "struct_x_dp_rx_ss___config.html#a32ebe7a54d610bfbc6c1940bc30cb889", null ],
     [ "Hdcp22SubCore", "struct_x_dp_rx_ss___config.html#ac8fbf819318a0cf6ade435cba51e23f3", null ],

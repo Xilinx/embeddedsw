@@ -10,12 +10,12 @@
         <argsstring></argsstring>
         <name>Version</name>
         <briefdescription>
-<para>Version of the cryptographic algorithm. </para>        </briefdescription>
+<para>Algorithm version. </para>        </briefdescription>
         <detaileddescription>
-<para>[15:0]: Algorithm minor version [31:16]: Algorithm major version </para>        </detaileddescription>
+<para>0 means the module is not available [15:0]: Algorithm minor version [31:16]: Algorithm major version </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1ab24ef0fa3e2d8ca18d3956aac6a333d1" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,7 +28,7 @@
 <para>0xFF: Algorithm is NIST compliant 0x00: Algorithm is not NIST compliant or NIST compliance is not applicable </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1ac2bd19fe1a7646eb60f244bedb572388" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -41,59 +41,45 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="122" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1a186b8cb0aa7dbfc1940a94d3f1b80ced" prot="public" static="no" mutable="no">
-        <type>u8</type>
-        <definition>u8 XAsu_CryptoAlgInfo::Reserved2</definition>
+      <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1a8992f4437db65b92fcd5492d627c4b03" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_CryptoAlgInfo::FeatureCaps</definition>
         <argsstring></argsstring>
-        <name>Reserved2</name>
+        <name>FeatureCaps</name>
         <briefdescription>
-<para>Reserved. </para>        </briefdescription>
+<para>Feature capabilities bitmask. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Each bit indicates an enabled feature for this module. Clients read this to determine available capabilities </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="123" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1a85236e28676a7392030081ebb7e7aeb7" prot="public" static="no" mutable="no">
-        <type>u8</type>
-        <definition>u8 XAsu_CryptoAlgInfo::Reserved3</definition>
-        <argsstring></argsstring>
-        <name>Reserved3</name>
-        <briefdescription>
-<para>Reserved. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="95" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1a94022d4d5d710c1ff98a21489758244f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_asu___crypto_alg_info_1adddfb7d7581ea014f0550c62c086f27f" prot="public" static="no" mutable="no">
         <type>u32</type>
-        <definition>u32 XAsu_CryptoAlgInfo::Reserved4</definition>
+        <definition>u32 XAsu_CryptoAlgInfo::Reserved</definition>
         <argsstring></argsstring>
-        <name>Reserved4</name>
+        <name>Reserved</name>
         <briefdescription>
 <para>Reserved. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This structure contains data for cryptographic algorithms, including versioning and NIST compliance status, for up to maximum modules in ASUFW. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="85" bodyend="97"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_def.h" bodystart="114" bodyend="127"/>
     <listofallmembers>
+      <member refid="struct_x_asu___crypto_alg_info_1a8992f4437db65b92fcd5492d627c4b03" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>FeatureCaps</name></member>
       <member refid="struct_x_asu___crypto_alg_info_1ac2bd19fe1a7646eb60f244bedb572388" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>KatStatus</name></member>
       <member refid="struct_x_asu___crypto_alg_info_1ab24ef0fa3e2d8ca18d3956aac6a333d1" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>NistStatus</name></member>
-      <member refid="struct_x_asu___crypto_alg_info_1a186b8cb0aa7dbfc1940a94d3f1b80ced" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>Reserved2</name></member>
-      <member refid="struct_x_asu___crypto_alg_info_1a85236e28676a7392030081ebb7e7aeb7" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>Reserved3</name></member>
-      <member refid="struct_x_asu___crypto_alg_info_1a94022d4d5d710c1ff98a21489758244f" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>Reserved4</name></member>
+      <member refid="struct_x_asu___crypto_alg_info_1adddfb7d7581ea014f0550c62c086f27f" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>Reserved</name></member>
       <member refid="struct_x_asu___crypto_alg_info_1a287b6874001429136e8ef2de320eef1a" prot="public" virt="non-virtual"><scope>XAsu_CryptoAlgInfo</scope><name>Version</name></member>
     </listofallmembers>
   </compounddef>

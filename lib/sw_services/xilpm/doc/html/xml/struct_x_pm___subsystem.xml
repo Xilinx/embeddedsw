@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___subsystem" kind="struct" prot="public">
+    <compoundname>XPm_Subsystem</compoundname>
+    <includes local="no">xpm_subsystem_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Subsystem::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Subsystem ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1ad901bc053c5a2ca7cfc5d6f734b26a1d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Subsystem::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>Subsystem state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1a5b01a36c3b810c669229d2c0a90d2fc1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Subsystem::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Subsystem specific flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1afa3950a11c422ea9b3bfb1c4de155ea1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Subsystem::IpiMask</definition>
+        <argsstring></argsstring>
+        <name>IpiMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1ae6c9076362f3c2d68c319b88d632281b" prot="public" static="no" mutable="no">
+        <type>struct XPm_Permissions</type>
+        <definition>struct XPm_Permissions XPm_Subsystem::Perms</definition>
+        <argsstring></argsstring>
+        <name>Perms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1ab24ba859120a732acd8d4191c914f03e" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_pm___pend_susp_cb" kindref="compound">XPm_PendSuspCb</ref></type>
+        <definition>struct XPm_PendSuspCb XPm_Subsystem::PendCb</definition>
+        <argsstring></argsstring>
+        <name>PendCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1a143da1a5f10c3625d495b3a4fa034032" prot="public" static="no" mutable="no">
+        <type>struct XPm_FrcPwrDwnReq</type>
+        <definition>struct XPm_FrcPwrDwnReq XPm_Subsystem::FrcPwrDwnReq</definition>
+        <argsstring></argsstring>
+        <name>FrcPwrDwnReq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1af644163825f57a23f00f7306d4a41cce" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_pm___reqm" kindref="compound">XPm_Reqm</ref> *</type>
+        <definition>struct XPm_Reqm* XPm_Subsystem::Requirements</definition>
+        <argsstring></argsstring>
+        <name>Requirements</name>
+        <briefdescription>
+<para>Head of the requirement list for all devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1ac872ec80dd4417a7f9ab1c5d22638d47" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XPm_Subsystem::NotifyCb)(u32 SubsystemId, const u32 EventId)</definition>
+        <argsstring>)(u32 SubsystemId, const u32 EventId)</argsstring>
+        <name>NotifyCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_1ab5b48b20950b1b2c7988001a86bbc9a5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___subsystem" kindref="compound">XPm_Subsystem</ref> *</type>
+        <definition>XPm_Subsystem * XPm_Subsystem::NextSubsystem</definition>
+        <argsstring></argsstring>
+        <name>NextSubsystem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_x_pm___subsystem_1a86cd7c57382fa387b9a591bfb976dd57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>XPm_Subsystem::SAVE_REGION</definition>
+        <argsstring>(u8 State;u8 Flags;u32 IpiMask;struct XPm_PendSuspCb PendCb;struct XPm_FrcPwrDwnReq FrcPwrDwnReq;struct XPm_Permissions Perms;) struct XPm_Reqm *Requirements</argsstring>
+        <name>SAVE_REGION</name>
+        <param>
+          <type>u8 <ref refid="struct_x_pm___subsystem_1ad901bc053c5a2ca7cfc5d6f734b26a1d" kindref="member">State</ref>;u8 <ref refid="struct_x_pm___subsystem_1a5b01a36c3b810c669229d2c0a90d2fc1" kindref="member">Flags</ref>;u32 IpiMask;struct <ref refid="struct_x_pm___pend_susp_cb" kindref="compound">XPm_PendSuspCb</ref> PendCb;struct XPm_FrcPwrDwnReq FrcPwrDwnReq;struct XPm_Permissions Perms;</type>
+        </param>
+        <briefdescription>
+<para>Head of the requirement list for all devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_subsystem_plat.h" line="44" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The subsystem class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="361">
+        <label>XPm_PendSuspCb</label>
+        <link refid="struct_x_pm___pend_susp_cb"/>
+      </node>
+      <node id="360">
+        <label>XPm_ReqmInfo</label>
+        <link refid="struct_x_pm___reqm_info"/>
+      </node>
+      <node id="351">
+        <label>XPm_Subsystem</label>
+        <link refid="struct_x_pm___subsystem"/>
+        <childnode refid="351" relation="usage">
+          <edgelabel>NextSubsystem</edgelabel>
+        </childnode>
+        <childnode refid="352" relation="usage">
+          <edgelabel>Requirements</edgelabel>
+        </childnode>
+        <childnode refid="361" relation="usage">
+          <edgelabel>PendCb</edgelabel>
+        </childnode>
+      </node>
+      <node id="357">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="354" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="355" relation="usage">
+          <edgelabel>PwrDomain</edgelabel>
+        </childnode>
+      </node>
+      <node id="353">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="354" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="355" relation="usage">
+          <edgelabel>Power</edgelabel>
+        </childnode>
+        <childnode refid="352" relation="usage">
+          <edgelabel>PendingReqm</edgelabel>
+        </childnode>
+        <childnode refid="356" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="358" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="352">
+        <label>XPm_Reqm</label>
+        <link refid="struct_x_pm___reqm"/>
+        <childnode refid="353" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="360" relation="usage">
+          <edgelabel>Next</edgelabel>
+          <edgelabel>Curr</edgelabel>
+        </childnode>
+        <childnode refid="351" relation="usage">
+          <edgelabel>Subsystem</edgelabel>
+        </childnode>
+        <childnode refid="352" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextSubsystem</edgelabel>
+        </childnode>
+      </node>
+      <node id="358">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="353" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="359" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="358" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="359">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="354" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="358" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="355">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="354" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="355" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="356">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="353" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="357" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="356" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="354">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h" bodystart="43" bodyend="55"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___subsystem_1a5b01a36c3b810c669229d2c0a90d2fc1" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>Flags</name></member>
+      <member refid="struct_x_pm___subsystem_1a143da1a5f10c3625d495b3a4fa034032" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>FrcPwrDwnReq</name></member>
+      <member refid="struct_x_pm___subsystem_1ae31c535b40cd34d4cd946e9037316b0c" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>Id</name></member>
+      <member refid="struct_x_pm___subsystem_1afa3950a11c422ea9b3bfb1c4de155ea1" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>IpiMask</name></member>
+      <member refid="struct_x_pm___subsystem_1ab5b48b20950b1b2c7988001a86bbc9a5" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>NextSubsystem</name></member>
+      <member refid="struct_x_pm___subsystem_1ac872ec80dd4417a7f9ab1c5d22638d47" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>NotifyCb</name></member>
+      <member refid="struct_x_pm___subsystem_1ab24ba859120a732acd8d4191c914f03e" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>PendCb</name></member>
+      <member refid="struct_x_pm___subsystem_1ae6c9076362f3c2d68c319b88d632281b" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>Perms</name></member>
+      <member refid="struct_x_pm___subsystem_1af644163825f57a23f00f7306d4a41cce" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>Requirements</name></member>
+      <member refid="struct_x_pm___subsystem_1a86cd7c57382fa387b9a591bfb976dd57" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>SAVE_REGION</name></member>
+      <member refid="struct_x_pm___subsystem_1ad901bc053c5a2ca7cfc5d6f734b26a1d" prot="public" virt="non-virtual"><scope>XPm_Subsystem</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

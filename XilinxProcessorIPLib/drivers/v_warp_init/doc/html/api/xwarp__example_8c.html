@@ -133,6 +133,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aeae79e8d109d94839dab3134e3f1adcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwarp__example_8c.html#aeae79e8d109d94839dab3134e3f1adcb">ResetWarpInit</a> (void)</td></tr>
+<tr class="memdesc:aeae79e8d109d94839dab3134e3f1adcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset Warp Initializer IP.  <a href="#aeae79e8d109d94839dab3134e3f1adcb">More...</a><br/></td></tr>
+<tr class="separator:aeae79e8d109d94839dab3134e3f1adcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45fc896dee9ad80fd6040487eebcac56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwarp__example_8c.html#a45fc896dee9ad80fd6040487eebcac56">ResetFilter</a> (void)</td></tr>
 <tr class="memdesc:a45fc896dee9ad80fd6040487eebcac56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset Warp Filter IP.  <a href="#a45fc896dee9ad80fd6040487eebcac56">More...</a><br/></td></tr>
 <tr class="separator:a45fc896dee9ad80fd6040487eebcac56"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -223,7 +226,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE or error code</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="xwarp__input__configs_8h.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a>, <a class="el" href="xwarp__input__configs_8c.html#abca1da10f59dbbedfea288b1adf12b6b">get_init_vect_input_configs()</a>, <a class="el" href="xwarp__example_8c.html#a45fc896dee9ad80fd6040487eebcac56">ResetFilter()</a>, <a class="el" href="xwarp__input__configs_8h.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a>, <a class="el" href="xv__warp__init_8h.html#a0ddc4ba708f5f4e98c83439c636cf26d">XV_warp_init_Initialize()</a>, <a class="el" href="xv__warp__init__hw_8h.html#adaff63549b3b993fb0483f337ad79615">XV_WARP_INIT_INTR_AP_DONE_MASK</a>, <a class="el" href="xv__warp__init__l2_8c.html#a56d0a250385807fb881c9c449cb702ba">XVWarpInit_ClearNumOfDescriptors()</a>, <a class="el" href="xv__warp__init__l2_8c.html#a3cb1069708424d686d2a1937a71acb4f">XVWarpInit_EnableInterrupts()</a>, <a class="el" href="group__v__warp__init.html#gac958c5e19267cda8b1f5cdb37b09117e">XVWarpInit_IntrHandler()</a>, <a class="el" href="xv__warp__init__l2_8c.html#a912662f3c8acfec1e8fda7fc3a5721fe">XVWarpInit_ProgramDescriptor()</a>, <a class="el" href="group__v__warp__init.html#ga3d4df0723b540b430d51d69c20a6eb3a">XVWarpInit_SetCallback()</a>, <a class="el" href="xv__warp__init__l2_8c.html#a7f7121c5283c16c47d2a72efeb04e2bd">XVWarpInit_SetNumOfDescriptors()</a>, and <a class="el" href="xv__warp__init__l2_8c.html#ac6232e2fd0a2cccf6c5e902d2c27c729">XVWarpInit_start_with_desc()</a>.</p>
+<p>References <a class="el" href="struct_x_v__warp__init.html#afda5f7950287dab6390d34044ecd5082">XV_warp_init::config</a>, <a class="el" href="xwarp__input__configs_8h.html#a799965409e6a785083e57ef01d4e6930">DST_BUF_START_ADDR</a>, <a class="el" href="structwarp__driver___configs.html#ad3d9ede18ec69c8bce625aad2671c557">warp_driver_Configs::filterConfigs</a>, <a class="el" href="xwarp__input__configs_8c.html#abca1da10f59dbbedfea288b1adf12b6b">get_init_vect_input_configs()</a>, <a class="el" href="structwarp__driver___configs.html#aea6b2a040cb69d214f056082c7e070b6">warp_driver_Configs::initVectConfigs</a>, <a class="el" href="struct_x_v__warp__init___config.html#a6e6499b02ff7be4005953e69d666a33a">XV_warp_init_Config::IntrId</a>, <a class="el" href="struct_x_v__warp__init___config.html#a70ac35eb0c2ae6e07d75f67a4b405b23">XV_warp_init_Config::IntrParent</a>, <a class="el" href="struct_x_v__warp__init.html#a2148e59eaae842e7ded78fa8a8e3eb69">XV_warp_init::RemapVectorDesc_BaseAddr</a>, <a class="el" href="xwarp__example_8c.html#a45fc896dee9ad80fd6040487eebcac56">ResetFilter()</a>, <a class="el" href="xwarp__example_8c.html#aeae79e8d109d94839dab3134e3f1adcb">ResetWarpInit()</a>, <a class="el" href="xwarp__input__configs_8h.html#a8244199ec97f768b97c85794c23b2342">SRC_BUF_START_ADDR</a>, <a class="el" href="xv__warp__init_8h.html#a0ddc4ba708f5f4e98c83439c636cf26d">XV_warp_init_Initialize()</a>, <a class="el" href="xv__warp__init__hw_8h.html#adaff63549b3b993fb0483f337ad79615">XV_WARP_INIT_INTR_AP_DONE_MASK</a>, <a class="el" href="xv__warp__init__l2_8c.html#a56d0a250385807fb881c9c449cb702ba">XVWarpInit_ClearNumOfDescriptors()</a>, <a class="el" href="xv__warp__init__l2_8c.html#a3cb1069708424d686d2a1937a71acb4f">XVWarpInit_EnableInterrupts()</a>, <a class="el" href="group__v__warp__init.html#gac958c5e19267cda8b1f5cdb37b09117e">XVWarpInit_IntrHandler()</a>, <a class="el" href="xv__warp__init__l2_8c.html#a912662f3c8acfec1e8fda7fc3a5721fe">XVWarpInit_ProgramDescriptor()</a>, <a class="el" href="group__v__warp__init.html#ga3d4df0723b540b430d51d69c20a6eb3a">XVWarpInit_SetCallback()</a>, <a class="el" href="xv__warp__init__l2_8c.html#a7f7121c5283c16c47d2a72efeb04e2bd">XVWarpInit_SetNumOfDescriptors()</a>, and <a class="el" href="xv__warp__init__l2_8c.html#ac6232e2fd0a2cccf6c5e902d2c27c729">XVWarpInit_start_with_desc()</a>.</p>
 
 </div>
 </div>
@@ -243,6 +246,29 @@ Functions</h2></td></tr>
 
 <p>Reset Warp Filter IP. </p>
 <p>This function performs a hardware reset of the Warp Filter IP by toggling the GPIO reset signal.</p>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+<p>Referenced by <a class="el" href="xwarp__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeae79e8d109d94839dab3134e3f1adcb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ResetWarpInit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset Warp Initializer IP. </p>
+<p>This function performs a hardware reset of the Warp Initializer IP by toggling the GPIO reset signal.</p>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 

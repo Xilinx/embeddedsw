@@ -83,6 +83,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 3.21  ml   04/03/25 Added a global structure to store all handlers in a table.
 3.23  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
                     documentation.
+3.24  ml    09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

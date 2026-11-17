@@ -4,6 +4,12 @@
     <compoundname>xdsi2rxss_g.c</compoundname>
     <includes refid="xdsi2rxss_8h" local="yes">xdsi2rxss.h</includes>
     <incdepgraph>
+      <node id="23">
+        <label>xdsi2rxss_g.c</label>
+        <link refid="xdsi2rxss_g.c"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
       <node id="24">
         <label>xdsi2rxss.h</label>
         <link refid="xdsi2rxss_8h"/>
@@ -22,12 +28,6 @@
       </node>
       <node id="27">
         <label>xparameters.h</label>
-      </node>
-      <node id="23">
-        <label>xdsi2rxss_g.c</label>
-        <link refid="xdsi2rxss_g.c"/>
-        <childnode refid="24" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c" line="7" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c" bodystart="7" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c" line="7" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c" bodystart="7" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -99,6 +99,6 @@
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="27"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss_g.c"/>
   </compounddef>
 </doxygen>

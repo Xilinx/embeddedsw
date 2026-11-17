@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xilmailbox__ipips_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,15 +102,46 @@ $(document).ready(function(){initNavTree('xilmailbox__ipips_8c.html','');});
 <div class="title">xilmailbox_ipips.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements XilMailbox initialization for the ZynqMP and Versal IPI. </p>
+<p>This file contains the definitions for the ZynqMP and Versal IPI implementation.</p>
+<pre>
+ MODIFICATION HISTORY:</pre><pre> Ver   Who  Date        Changes
+</p>
+<hr/>
+<p>
+ 1.0   adk  14/02/19    Initial Release
+ 1.1   sd   16/08/19    Initialise status variable
+ 1.3   sd   03/03/21    Doxygen Fixes
+ 1.4   sd   23/06/21    Fix MISRA-C warnings
+ 1.5   dp   22/11/21    Update <a class="el" href="group__xilmailbox.html#ga4da6358addbe4237f3982d5b5b06c228" title="Registers an IRQ. ">XIpiPs_RegisterIrq()</a> to check whether GIC has
+                        already been setup or not and if it was setup skip
+                        initializing GIC again and just register handlers.
+ 1.6   sd   28/02/21    Add support for microblaze
+       kpt  03/16/21    Fixed compilation warning on microblaze
+ 1.7   sd   01/04/22    Replace memset with Xil_SMemSet
+ 1.8   ana  05/02/23      Updated XIpiPs_PollforDone logic to improve
+                                                  AES client performance
+         ht   05/30/23    Added support for system device-tree flow.
+         ht   06/12/23    Fix MISRA-C warnings
+         ht   07/24/23    Restructure the code for more modularity
+ 1.12  ht   09/02/25      IPI operation relied on the RemoteId stored in XMailbox
+                          Instance, which could lead to race conditions and data
+                          corruption when handling multiple requests from
+                          different IPI channels concurrently.
+                          Use RemoteId based APIs to support concurrent IPI
+                          channel requests.
+ 1.14  vn   08/26/26   Fix Doxygen warnings.
+ 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilmailbox_8h.html">xilmailbox.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xilmailbox__ipips__control_8h.html">xilmailbox_ipips_control.h</a>&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Functions for xilmailbox.c</div></td></tr>
 <tr class="memitem:gaea8c673aaab09a69201956d63b49c008"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">XMailbox_Initialize</a> (<a class="el" href="group__xilmailbox.html#gade56a2dd883b18d7ae9a891483c90b40">XMailbox</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gaea8c673aaab09a69201956d63b49c008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the XMailbox Instance.  <a href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">More...</a><br/></td></tr>
+<tr class="memdesc:gaea8c673aaab09a69201956d63b49c008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the XMailbox instance.  <a href="group__xilmailbox.html#gaea8c673aaab09a69201956d63b49c008">More...</a><br/></td></tr>
 <tr class="separator:gaea8c673aaab09a69201956d63b49c008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

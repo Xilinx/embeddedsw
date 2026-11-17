@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___xfer___req_desc.ht
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___xfer___req_desc.ht
 </div><!--header-->
 <div class="contents">
 
-<p>UTP Transfer request Descriptor Structure - 1KB aligned.
+<p>Holds a UTP transfer request descriptor.
  <a href="struct_x_ufs_psxc___xfer___req_desc.html#details">More...</a></p>
 
 <p><code>#include &lt;xufspsxc.h&gt;</code></p>
@@ -120,32 +120,33 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___xfer___req_desc.ht
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr class="memitem:a41e3862a0060c4a9ed7f915f343307e2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#a41e3862a0060c4a9ed7f915f343307e2">DW0_Config</a></td></tr>
-<tr class="memdesc:a41e3862a0060c4a9ed7f915f343307e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">[7:0]-CCI, [23]-CE, [24]-I, [26:25]-DD, [31:28]-CT  <a href="#a41e3862a0060c4a9ed7f915f343307e2">More...</a><br/></td></tr>
+<tr class="memdesc:a41e3862a0060c4a9ed7f915f343307e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">[7:0]-CCI, [23]-CE, [24]-I, [26:25]-DD, [31:28]-CT.  <a href="#a41e3862a0060c4a9ed7f915f343307e2">More...</a><br/></td></tr>
 <tr class="separator:a41e3862a0060c4a9ed7f915f343307e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1aac3c96237061051b5b1a59d8d6fe6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#ab1aac3c96237061051b5b1a59d8d6fe6">DW1_Dunl</a></td></tr>
 <tr class="memdesc:ab1aac3c96237061051b5b1a59d8d6fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Unit Number Lower 32 bits.  <a href="#ab1aac3c96237061051b5b1a59d8d6fe6">More...</a><br/></td></tr>
 <tr class="separator:ab1aac3c96237061051b5b1a59d8d6fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abca8317dcaf712479f79c9bcc8bbcea9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#abca8317dcaf712479f79c9bcc8bbcea9">DW2_Ocs</a></td></tr>
-<tr class="memdesc:abca8317dcaf712479f79c9bcc8bbcea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">[7:0]-Overall Command Status  <a href="#abca8317dcaf712479f79c9bcc8bbcea9">More...</a><br/></td></tr>
+<tr class="memdesc:abca8317dcaf712479f79c9bcc8bbcea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">[7:0]-Overall Command Status.  <a href="#abca8317dcaf712479f79c9bcc8bbcea9">More...</a><br/></td></tr>
 <tr class="separator:abca8317dcaf712479f79c9bcc8bbcea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a4ae21b300f48bfe611226a7d9bcb05"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#a6a4ae21b300f48bfe611226a7d9bcb05">DW3_Dunu</a></td></tr>
 <tr class="memdesc:a6a4ae21b300f48bfe611226a7d9bcb05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Unit Number Upper 32 bits.  <a href="#a6a4ae21b300f48bfe611226a7d9bcb05">More...</a><br/></td></tr>
 <tr class="separator:a6a4ae21b300f48bfe611226a7d9bcb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3705c32e55e84d90d9276c4df4c3eee"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#aa3705c32e55e84d90d9276c4df4c3eee">DW4_UTPCmdDesc_BaseAddressLow</a></td></tr>
-<tr class="memdesc:aa3705c32e55e84d90d9276c4df4c3eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:7]-UTP Command Descriptor BaseAddress  <a href="#aa3705c32e55e84d90d9276c4df4c3eee">More...</a><br/></td></tr>
+<tr class="memdesc:aa3705c32e55e84d90d9276c4df4c3eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:7]-UTP Command Descriptor BaseAddress.  <a href="#aa3705c32e55e84d90d9276c4df4c3eee">More...</a><br/></td></tr>
 <tr class="separator:aa3705c32e55e84d90d9276c4df4c3eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5c6b4b99b44b34e704b59a9e10329e5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#ae5c6b4b99b44b34e704b59a9e10329e5">DW5_UTPCmdDesc_BaseAddressUpp</a></td></tr>
-<tr class="memdesc:ae5c6b4b99b44b34e704b59a9e10329e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:0]-UTP Command Descriptor BaseAddress Upper 32-bits  <a href="#ae5c6b4b99b44b34e704b59a9e10329e5">More...</a><br/></td></tr>
+<tr class="memdesc:ae5c6b4b99b44b34e704b59a9e10329e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:0]-UTP Command Descriptor BaseAddress Upper 32-bits.  <a href="#ae5c6b4b99b44b34e704b59a9e10329e5">More...</a><br/></td></tr>
 <tr class="separator:ae5c6b4b99b44b34e704b59a9e10329e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a851c4abb137eab065ab0e475cb3f9c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#a8a851c4abb137eab065ab0e475cb3f9c">DW6_RespUpiuInfo</a></td></tr>
-<tr class="memdesc:a8a851c4abb137eab065ab0e475cb3f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:16]-Resp UPIU Offset, [15:0]-Resp UPIU Length  <a href="#a8a851c4abb137eab065ab0e475cb3f9c">More...</a><br/></td></tr>
+<tr class="memdesc:a8a851c4abb137eab065ab0e475cb3f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:16]-Resp UPIU Offset, [15:0]-Resp UPIU Length.  <a href="#a8a851c4abb137eab065ab0e475cb3f9c">More...</a><br/></td></tr>
 <tr class="separator:a8a851c4abb137eab065ab0e475cb3f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac82f4b2c569fa367e5930c234e3e72f8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___xfer___req_desc.html#ac82f4b2c569fa367e5930c234e3e72f8">DW7_PrdtInfo</a></td></tr>
-<tr class="memdesc:ac82f4b2c569fa367e5930c234e3e72f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:16]-PRDT Offset, [15:0]-PRDT Length  <a href="#ac82f4b2c569fa367e5930c234e3e72f8">More...</a><br/></td></tr>
+<tr class="memdesc:ac82f4b2c569fa367e5930c234e3e72f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[31:16]-PRDT Offset, [15:0]-PRDT Length.  <a href="#ac82f4b2c569fa367e5930c234e3e72f8">More...</a><br/></td></tr>
 <tr class="separator:ac82f4b2c569fa367e5930c234e3e72f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>UTP Transfer request Descriptor Structure - 1KB aligned. </p>
+<div class="textblock"><p>Holds a UTP transfer request descriptor. </p>
+<p>UTP Transfer request Descriptor Structure - 1KB aligned </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a41e3862a0060c4a9ed7f915f343307e2"></a>
 <div class="memitem">
@@ -157,7 +158,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[7:0]-CCI, [23]-CE, [24]-I, [26:25]-DD, [31:28]-CT </p>
+<p>[7:0]-CCI, [23]-CE, [24]-I, [26:25]-DD, [31:28]-CT. </p>
 
 </div>
 </div>
@@ -185,9 +186,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[7:0]-Overall Command Status </p>
+<p>[7:0]-Overall Command Status. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc__api.html#ga5f290332136d2b1496f06f1b0ba72312">XUfsPsxc_EvaluateUpiuResponse()</a>.</p>
 
 </div>
 </div>
@@ -215,7 +216,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[31:7]-UTP Command Descriptor BaseAddress </p>
+<p>[31:7]-UTP Command Descriptor BaseAddress. </p>
 
 </div>
 </div>
@@ -229,7 +230,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[31:0]-UTP Command Descriptor BaseAddress Upper 32-bits </p>
+<p>[31:0]-UTP Command Descriptor BaseAddress Upper 32-bits. </p>
 
 </div>
 </div>
@@ -243,7 +244,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[31:16]-Resp UPIU Offset, [15:0]-Resp UPIU Length </p>
+<p>[31:16]-Resp UPIU Offset, [15:0]-Resp UPIU Length. </p>
 
 </div>
 </div>
@@ -257,7 +258,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>[31:16]-PRDT Offset, [15:0]-PRDT Length </p>
+<p>[31:16]-PRDT Offset, [15:0]-PRDT Length. </p>
 
 </div>
 </div>

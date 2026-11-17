@@ -7,11 +7,13 @@ var searchData=
   ['xintc_5fdisable',['XIntc_Disable',['../group__intc.html#gaea44ec361097925f2994558d402988ab',1,'xintc.c']]],
   ['xintc_5fdisconnect',['XIntc_Disconnect',['../group__intc.html#ga8f7caaeb26b6b264fffefbd32f90f855',1,'xintc.c']]],
   ['xintc_5fenable',['XIntc_Enable',['../group__intc.html#gac7f59192d3b3ba2e2283a264677577b8',1,'xintc.c']]],
+  ['xintc_5fgetchainroot',['XIntc_GetChainRoot',['../group__intc.html#ga2126cc6ab67d2a9262564ddf40fd3357',1,'xintc.c']]],
   ['xintc_5fgetoptions',['XIntc_GetOptions',['../group__intc.html#ga6fdbe96b1db87f0c78e68da8bc767a69',1,'xintc_options.c']]],
   ['xintc_5fgetprimarycontroller',['XIntc_GetPrimaryController',['../group__intc.html#gaa6e69276f3923a7d61d366c98269d750',1,'xintc.c']]],
   ['xintc_5finitialize',['XIntc_Initialize',['../group__intc.html#gaf005b035ffd9bfd042b3e85aada2d104',1,'xintc.c']]],
   ['xintc_5finterrupthandler',['XIntc_InterruptHandler',['../group__intc.html#ga635187ed756cee70b4b4051560cbd7bc',1,'xintc_intr.c']]],
   ['xintc_5flookupconfig',['XIntc_LookupConfig',['../group__intc.html#ga29cc03aa40679a199de65e7657280dab',1,'xintc.c']]],
+  ['xintc_5flowlevelinterrupthandler',['XIntc_LowLevelInterruptHandler',['../group__intc.html#gabf91e27eb2cc036f84df2e15d14343a8',1,'xintc_l.h']]],
   ['xintc_5fregisterfasthandler',['XIntc_RegisterFastHandler',['../group__intc.html#ga999a50f24a9ac9a4a2623d950978f1bb',1,'xintc_l.c']]],
   ['xintc_5fregisterhandler',['XIntc_RegisterHandler',['../group__intc.html#ga4bd1d34885340943143c8fd2f98a3963',1,'xintc_l.c']]],
   ['xintc_5fselftest',['XIntc_SelfTest',['../group__intc.html#gaf9a9a16180b363930d21bc94dfe71147',1,'xintc_selftest.c']]],
@@ -21,5 +23,6 @@ var searchData=
   ['xintc_5fsimulateintr',['XIntc_SimulateIntr',['../group__intc.html#ga17972363ab5a1a8f5f1d135c5b3c22c7',1,'xintc_selftest.c']]],
   ['xintc_5fstart',['XIntc_Start',['../group__intc.html#ga863eb58a3ae9419c7ac5da7c9fa9cb50',1,'xintc.c']]],
   ['xintc_5fstop',['XIntc_Stop',['../group__intc.html#gafabb05cf2e5b62031524a33d1f88f405',1,'xintc.c']]],
-  ['xintc_5ftriggerswintr',['XIntc_TriggerSwIntr',['../group__intc.html#ga7eb4ea6d2f66a5b3ca32b12ec68bc151',1,'xintc.c']]]
+  ['xintc_5ftriggerswintr',['XIntc_TriggerSwIntr',['../group__intc.html#ga7eb4ea6d2f66a5b3ca32b12ec68bc151',1,'xintc.c']]],
+  ['xintc_5fvoidinterrupthandler',['XIntc_VoidInterruptHandler',['../group__intc.html#ga9c6dc6e838193da3ce51c8cdb3b88943',1,'xintc.h']]]
 ];

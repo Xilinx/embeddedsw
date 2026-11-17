@@ -7,28 +7,28 @@
     <includes local="yes">xil_printf.h</includes>
     <includes local="yes">sleep.h</includes>
     <incdepgraph>
-      <node id="75">
-        <label>xdmapcie_i2c.c</label>
-        <link refid="xdmapcie_i2c.c"/>
-        <childnode refid="76" relation="include">
-        </childnode>
-        <childnode refid="77" relation="include">
-        </childnode>
-        <childnode refid="78" relation="include">
-        </childnode>
-        <childnode refid="79" relation="include">
-        </childnode>
-      </node>
-      <node id="79">
+      <node id="84">
         <label>sleep.h</label>
       </node>
-      <node id="76">
+      <node id="80">
+        <label>xdmapcie_i2c.c</label>
+        <link refid="xdmapcie_i2c.c"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
         <label>xparameters.h</label>
       </node>
-      <node id="78">
+      <node id="83">
         <label>xil_printf.h</label>
       </node>
-      <node id="77">
+      <node id="82">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c" bodystart="174" bodyend="229"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c" bodystart="174" bodyend="229"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -276,6 +276,6 @@
 <codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="229"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c"/>
   </compounddef>
 </doxygen>

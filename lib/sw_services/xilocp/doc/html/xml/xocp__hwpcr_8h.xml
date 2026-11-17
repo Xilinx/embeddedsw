@@ -8,75 +8,75 @@
     <includes refid="xocp__common_8h" local="yes">xocp_common.h</includes>
     <includedby refid="xocp__hwpcr_8c" local="yes">xocp_hwpcr.c</includedby>
     <incdepgraph>
-      <node id="233">
-        <label>xocp_common.h</label>
-        <link refid="xocp__common_8h"/>
-        <childnode refid="234" relation="include">
-        </childnode>
-      </node>
-      <node id="231">
+      <node id="244">
         <label>xil_cache.h</label>
       </node>
-      <node id="232">
-        <label>xilocp_bsp_config.h</label>
-      </node>
-      <node id="227">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="234">
-        <label>xstatus.h</label>
-      </node>
-      <node id="225">
-        <label>xil_types.h</label>
-      </node>
-      <node id="226">
-        <label>xocp_mailbox.h</label>
-        <link refid="xocp__mailbox_8h"/>
-        <childnode refid="227" relation="include">
-        </childnode>
-        <childnode refid="228" relation="include">
-        </childnode>
-      </node>
-      <node id="228">
-        <label>xparameters.h</label>
-      </node>
-      <node id="230">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="224">
+      <node id="237">
         <label>xocp_hwpcr.h</label>
         <link refid="xocp_hwpcr.h"/>
-        <childnode refid="225" relation="include">
+        <childnode refid="238" relation="include">
         </childnode>
-        <childnode refid="226" relation="include">
+        <childnode refid="239" relation="include">
         </childnode>
-        <childnode refid="229" relation="include">
+        <childnode refid="242" relation="include">
         </childnode>
-        <childnode refid="233" relation="include">
+        <childnode refid="246" relation="include">
         </childnode>
       </node>
-      <node id="229">
+      <node id="239">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp__mailbox_8h"/>
+        <childnode refid="240" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+      </node>
+      <node id="245">
+        <label>xilocp_bsp_config.h</label>
+      </node>
+      <node id="240">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="246">
+        <label>xocp_common.h</label>
+        <link refid="xocp__common_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="242">
         <label>xocp_def.h</label>
         <link refid="xocp__def_8h"/>
-        <childnode refid="230" relation="include">
+        <childnode refid="243" relation="include">
         </childnode>
-        <childnode refid="225" relation="include">
+        <childnode refid="238" relation="include">
         </childnode>
-        <childnode refid="231" relation="include">
+        <childnode refid="244" relation="include">
         </childnode>
-        <childnode refid="232" relation="include">
+        <childnode refid="245" relation="include">
         </childnode>
+      </node>
+      <node id="247">
+        <label>xstatus.h</label>
+      </node>
+      <node id="238">
+        <label>xil_types.h</label>
+      </node>
+      <node id="241">
+        <label>xparameters.h</label>
+      </node>
+      <node id="243">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="236">
+      <node id="249">
         <label>xocp_hwpcr.c</label>
         <link refid="xocp__hwpcr_8c"/>
       </node>
-      <node id="235">
+      <node id="248">
         <label>xocp_hwpcr.h</label>
         <link refid="xocp_hwpcr.h"/>
-        <childnode refid="236" relation="include">
+        <childnode refid="249" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -142,14 +142,14 @@
 <para><itemizedlist>
 <listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_EXTEND_HWPCR command and send the request to Server </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="63" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="64" bodyend="90"/>
         <references refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" compoundref="xocp__common_8h" startline="92">XOCP_PCR_1</references>
         <references refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" compoundref="xocp__common_8h" startline="98">XOCP_PCR_7</references>
         <references refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" compoundref="xocp__common_8h" startline="54">XOCP_PCR_SIZE_BYTES</references>
-        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
-        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" compoundref="xocp__def_8h" startline="104">XOCP_API_EXTEND_HWPCR</references>
-        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="96">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" compoundref="xocp__def_8h" startline="118">XOCP_API_EXTEND_HWPCR</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="85">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" compoundref="xocp__mailbox_8c" startline="68" endline="101">XOcp_ProcessMailbox</references>
       </memberdef>
       <memberdef kind="function" id="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -212,11 +212,11 @@
 <para><itemizedlist>
 <listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_HWPCR command and send the request to Server </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="109" bodyend="134"/>
-        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
-        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" compoundref="xocp__def_8h" startline="105">XOCP_API_GET_HWPCR</references>
-        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="110" bodyend="135"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="96">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" compoundref="xocp__def_8h" startline="119">XOCP_API_GET_HWPCR</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="85">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" compoundref="xocp__mailbox_8c" startline="68" endline="101">XOcp_ProcessMailbox</references>
       </memberdef>
       <memberdef kind="function" id="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -279,12 +279,12 @@
 <para><itemizedlist>
 <listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="150" bodyend="176"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="151" bodyend="177"/>
         <references refid="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" compoundref="xocp__common_8h" startline="69">XOCP_MAX_NUM_OF_HWPCR_EVENTS</references>
-        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
-        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" compoundref="xocp__def_8h" startline="106">XOCP_API_GET_HWPCRLOG</references>
-        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="96">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" compoundref="xocp__def_8h" startline="120">XOCP_API_GET_HWPCRLOG</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="85">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga9f7c2c1f66a38ca1ae974bb1d7640812" compoundref="xocp__mailbox_8c" startline="68" endline="101">XOcp_ProcessMailbox</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -335,6 +335,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XOCP_HWPCR_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.h"/>
   </compounddef>
 </doxygen>

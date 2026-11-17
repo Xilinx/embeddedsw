@@ -208,7 +208,12 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 2.3   ng   07/17/2025 Implemented partition copy when boot copy optimization is disabled
       tvp  07/28/2025 Refactor platform specific code.
       obs  08/26/2025 Added support for address range checks
-2.4   pre  04/17/2026 Made updates to process optee partition as ELF.</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+2.4   pre  04/17/2026 Made updates to process optee partition as ELF.
+      ng   07/13/2026 Reduced debug print levels on error paths
+      obs  08/21/2026 Bounded partition index in XLoader_LoadImagePrtns
+      ng   09/09/2026 Store tlbin partition load address for ATF IPI on
+                      versal_2ve_2vm
+      obs  09/20/2026 Reduced partition count validation code size</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;xpm_nodeid.h&quot;</code><br/>
 <code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>

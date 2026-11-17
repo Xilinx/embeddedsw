@@ -1,0 +1,753 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__bypass__test_8h" kind="file">
+    <compoundname>mmi_dc_bypass_test.h</compoundname>
+    <includes refid="mmi__dpdc__example_8h" local="yes">mmi_dpdc_example.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="mmi__dc__bypass__test_8c" local="yes">mmi_dc_bypass_test.c</includedby>
+    <includedby refid="mmi__dp__init_8c" local="yes">mmi_dp_init.c</includedby>
+    <includedby refid="mmi__dpdc__example_8c" local="yes">mmi_dpdc_example.c</includedby>
+    <includedby refid="mmi__dpdc__menus_8c" local="yes">mmi_dpdc_menus.c</includedby>
+    <incdepgraph>
+      <node id="21">
+        <label>xil_io.h</label>
+      </node>
+      <node id="20">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>mmi_dc_bypass_test.h</label>
+        <link refid="mmi_dc_bypass_test.h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="23">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xparameters.h</label>
+      </node>
+      <node id="22">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="31">
+        <label>mmi_dpdc_menus.c</label>
+        <link refid="mmi__dpdc__menus_8c"/>
+      </node>
+      <node id="28">
+        <label>mmi_dc_bypass_test.c</label>
+        <link refid="mmi__dc__bypass__test_8c"/>
+      </node>
+      <node id="27">
+        <label>mmi_dc_bypass_test.h</label>
+        <link refid="mmi_dc_bypass_test.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>mmi_dpdc_example.c</label>
+        <link refid="mmi__dpdc__example_8c"/>
+      </node>
+      <node id="29">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1af1b10f4d6a1c748e08a74a137d76ea17" prot="public" static="no">
+        <name>BYPASS_LIVE_IN_GPIO_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="49" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a6894ba514f70260d7e717dd8e4a5fddc" prot="public" static="no">
+        <name>BYPASS_GPIO_DATA_OFFSET</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a0e427e24eff844afc0907e5ccce72aac" prot="public" static="no">
+        <name>BYPASS_GPIO_TRI_OFFSET</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1ab1deda05af5b864dbe5724ea36fd4b3a" prot="public" static="no">
+        <name>BYPASS_GPIO_HOLD</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a79ad47ff14679b41031b331753b2c353" prot="public" static="no">
+        <name>BYPASS_GPIO_RELEASE</name>
+        <initializer>0x00010001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1ad46ec270fdbdfa038dc874eb7d964fb0" prot="public" static="no">
+        <name>BYPASS_ALPHA_EN_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="73" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1aede185c4f510f094700dbf44c7603dd4" prot="public" static="no">
+        <name>BYPASS_ALPHA_GPIO_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="83" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1af8dd2f3819d9ce4b1bfd9613face9f9d" prot="public" static="no">
+        <name>BYPASS_LV_AVTPG_PM_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="91" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1ac54ce492a13a5ae7ec8bf34af13b74ad" prot="public" static="no">
+        <name>BYPASS_ALPHA_GPIO_TRI_VAL</name>
+        <initializer>0xa5a5a5a5U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a1c468a2142165ad2816e06d4fe704a95" prot="public" static="no">
+        <name>BYPASS_LV_AVTPG_PM_VAL</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a42a8c70d90c727997d687928481a2b60" prot="public" static="no">
+        <name>BYPASS_ALPHA_EN_TRI_SETUP</name>
+        <initializer>0x00000023U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a22e98eb578d7956a0aede4e34d5c6c95" prot="public" static="no">
+        <name>BYPASS_ALPHA_EN_TRI_FINAL</name>
+        <initializer>0x00000013U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a6afae58ff339c335ed1830bcdabfcb40" prot="public" static="no">
+        <name>BYPASS_VTC_CTRL_ENABLE</name>
+        <initializer>0x03f7ef06</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a53e27bb083c80b560d7491d40b148c47" prot="public" static="no">
+        <name>BYPASS_DC_FRAME_SWITCH_VAL</name>
+        <initializer>0x3F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a6da3b36ea64c92e3ef01bb582d8a8ea3" prot="public" static="no">
+        <name>XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>XSA PPC for bypass stream 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a6dbed2b7fd0e381fb307396ac5818e3a" prot="public" static="no">
+        <name>XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>XSA PPC for bypass stream 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1ad1167c50330179b5726a9c5db1ac2915" prot="public" static="no">
+        <name>XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>XSA PPC for bypass stream 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a1c4fcb2f96c7959730621c98774d908d" prot="public" static="no">
+        <name>XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>XSA PPC for bypass stream 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1ac38e67d4ea61cacefb79e9ba6514e953" prot="public" static="no">
+        <name>BYPASS_AVPG_0_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="135" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" prot="public" static="no">
+        <name>BYPASS_AVPG_1_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>No PL AVPG for bypass stream 1 in the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" prot="public" static="no">
+        <name>BYPASS_AVPG_2_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>No PL AVPG for bypass stream 2 in the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" prot="public" static="no">
+        <name>BYPASS_AVPG_3_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>No PL AVPG for bypass stream 3 in the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a6fbd7c163bef94bd3936a727381e83b7" prot="public" static="no">
+        <name>BYPASS_VTC_0_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="178" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" prot="public" static="no">
+        <name>BYPASS_VTC_1_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>No PL VTC for bypass stream 1 in the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" prot="public" static="no">
+        <name>BYPASS_VTC_2_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>No PL VTC for bypass stream 2 in the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" prot="public" static="no">
+        <name>BYPASS_VTC_3_BASEADDR</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>No PL VTC for bypass stream 3 in the XSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" prot="public" static="no">
+        <name>BYPASS_MAX_STREAMS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Max bypass streams (matches XSA DC stream count / AVPG table size). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" compoundref="mmi__dc__bypass__test_8c" startline="67" endline="88">XDpDc_BypassPlStreamMax</referencedby>
+        <referencedby refid="mmi__dc__bypass__test_8h_1acb69a8f744bcab7620b2b9c7fc9c19e2" compoundref="mmi__dc__bypass__test_8c" startline="53" endline="58">XDpDc_BypassPpcFromXsa</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__bypass__test_8h_1acb69a8f744bcab7620b2b9c7fc9c19e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDpDc_BypassPpcFromXsa</definition>
+        <argsstring>(u8 StreamIdx)</argsstring>
+        <name>XDpDc_BypassPpcFromXsa</name>
+        <param>
+          <type>u8</type>
+          <declname>StreamIdx</declname>
+        </param>
+        <briefdescription>
+<para>Return XSA-fixed PPC (1, 2, or 4) for a bypass stream from xparameters. </para>        </briefdescription>
+        <detaileddescription>
+<para>Return XSA-fixed PPC (1, 2, or 4) for a bypass stream from xparameters.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>StreamIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 0-based bypass stream index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>PPC (1, 2, or 4) for that stream. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" bodystart="53" bodyend="58"/>
+        <references refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" compoundref="mmi__dc__bypass__test_8h" startline="215">BYPASS_MAX_STREAMS</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a2af7a16a1477080a2c04e72635d3d146" compoundref="mmi__dpdc__menus_8c" startline="1580" endline="1628">XDpDc_BypassConfigureStream</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="513" endline="616">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="2091" endline="2342">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a57a8c2b47b0449d74aa22ca0f5ca7145" compoundref="mmi__dp__init_8c" startline="864" endline="918">XDpDc_PrepareVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__bypass__test_8h_1a53e47599ceadded20c619af704c831e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDpDc_BypassPlStreamMax</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_BypassPlStreamMax</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Count contiguous PL AVPG+VTC pairs with non-zero bases (stream 0 upward). </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Usable PL stream count (at least 1 if stream 0 is present, else 0).</para></simplesect>
+Count contiguous PL AVPG+VTC pairs with non-zero bases (stream 0 upward).</para><para><simplesect kind="return"><para>Usable PL stream count, 0 if stream 0 has no AVPG or VTC base. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.c" bodystart="67" bodyend="88"/>
+        <references refid="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" compoundref="mmi__dc__bypass__test_8h" startline="146">BYPASS_AVPG_1_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" compoundref="mmi__dc__bypass__test_8h" startline="157">BYPASS_AVPG_2_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" compoundref="mmi__dc__bypass__test_8h" startline="168">BYPASS_AVPG_3_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" compoundref="mmi__dc__bypass__test_8h" startline="215">BYPASS_MAX_STREAMS</references>
+        <references refid="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" compoundref="mmi__dc__bypass__test_8h" startline="189">BYPASS_VTC_1_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" compoundref="mmi__dc__bypass__test_8h" startline="200">BYPASS_VTC_2_BASEADDR</references>
+        <references refid="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" compoundref="mmi__dc__bypass__test_8h" startline="211">BYPASS_VTC_3_BASEADDR</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="2091" endline="2342">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__bypass__test_8h_1a9eab0db24ce7b3fa480024dd8071066c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_BypassConfigureLiveGenerator</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_BypassConfigureLiveGenerator</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="229" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__bypass__test_8h_1a46cf98bf7493a5d740b8cfb4d1466eca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_BypassDisableStreamsFrom</definition>
+        <argsstring>(u8 FirstStream)</argsstring>
+        <name>XDpDc_BypassDisableStreamsFrom</name>
+        <param>
+          <type>u8</type>
+          <declname>FirstStream</declname>
+        </param>
+        <briefdescription>
+<para>Stop the AVPG and VTC of bypass streams from FirstStream upward. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FirstStream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the first stream index to stop (0 based). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="235" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__bypass__test_8h_1ae004a354784edc8347b69e1fedc09048" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_MmiDcBypassTest</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_MmiDcBypassTest</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h" line="236" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file declares the interface for the DC Bypass mode test. </para>    </briefdescription>
+    <detaileddescription>
+<para>In bypass mode the DC block is bypassed and video from the PL (AVPG) is routed directly to the DP TX block.</para><para>Multi-stream bypass (MST) programs per-stream AVPG and VTC bases from xparameters.h for each active bypass stream (up to 4).</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ck   07/15/26  Initial release
+1.1   ck   07/29/26  Add alpha/PM bypass GPIO path from reference
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>__MMI_DC_BYPASS_TEST_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__MMI_DC_BYPASS_TEST_H__</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dpdc__example_8h" kindref="compound">mmi_dpdc_example.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Live<sp/>input<sp/>GPIO<sp/>hold/release<sp/>â€”<sp/>base<sp/>address<sp/>from<sp/>xparameters.h<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_LIVE_INPUT_GPIO_BASEADDR)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LIVE_IN_GPIO_BASEADDR<sp/><sp/><sp/><sp/>XPAR_LIVE_INPUT_GPIO_BASEADDR</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_XGPIO_0_BASEADDR)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LIVE_IN_GPIO_BASEADDR<sp/><sp/><sp/><sp/>XPAR_XGPIO_0_BASEADDR</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LIVE_IN_GPIO_BASEADDR<sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>GPIO<sp/>register<sp/>offsets<sp/>(AXI<sp/>GPIO)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_GPIO_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_GPIO_TRI_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>GPIO<sp/>data<sp/>path<sp/>control<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_GPIO_HOLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_GPIO_RELEASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010001</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>Alpha<sp/>bypass<sp/>/<sp/>live<sp/>AVTPG<sp/>power-management<sp/>GPIO<sp/>bases.</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>Prefer<sp/>xparameters<sp/>names;<sp/>fall<sp/>back<sp/>to<sp/>the<sp/>legacy<sp/>bypass<sp/>PL<sp/>map<sp/>when<sp/>the</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*<sp/>DC<sp/>subsystem<sp/>reports<sp/>live-video<sp/>alpha<sp/>support<sp/>but<sp/>GPIO<sp/>names<sp/>are<sp/>absent.</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_AXI_GPIO_ALPHA_BYPASS_EN_BASEADDR)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_EN_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AXI_GPIO_ALPHA_BYPASS_EN_BASEADDR</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_XGPIO_4_BASEADDR)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_EN_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XGPIO_4_BASEADDR</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_XDCSUB_0_DC_LIVE_VIDEO_ALPHA_EN)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XDCSUB_0_DC_LIVE_VIDEO_ALPHA_EN<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_EN_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB05C0000U</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_EN_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_AXI_GPIO_3_BASEADDR)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_GPIO_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AXI_GPIO_3_BASEADDR</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_CLK_WIZARD_ENABLE_BASEADDR)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_GPIO_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_CLK_WIZARD_ENABLE_BASEADDR</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>(BYPASS_ALPHA_EN_BASEADDR<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_GPIO_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>0xB0560000U</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_GPIO_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(BYPASS_LIVE_IN_GPIO_BASEADDR<sp/>!=<sp/>0U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LV_AVTPG_PM_BASEADDR<sp/><sp/><sp/><sp/><sp/>(BYPASS_LIVE_IN_GPIO_BASEADDR<sp/>+<sp/>0x8U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AXI_GPIO_1_BASEADDR)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LV_AVTPG_PM_BASEADDR<sp/><sp/><sp/><sp/><sp/>(XPAR_AXI_GPIO_1_BASEADDR<sp/>+<sp/>0x8U)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LV_AVTPG_PM_BASEADDR<sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Alpha<sp/>bypass<sp/>GPIO<sp/>programming<sp/>values<sp/>(reference<sp/>bypass<sp/>example)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_GPIO_TRI_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa5a5a5a5U</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_LV_AVTPG_PM_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_EN_TRI_SETUP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000023U</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_ALPHA_EN_TRI_FINAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000013U</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VTC<sp/>control<sp/>register<sp/>value:<sp/>enable<sp/>generator<sp/>+<sp/>all<sp/>features<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_VTC_CTRL_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03f7ef06</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DC<sp/>Video<sp/>Frame<sp/>Switch<sp/>register<sp/>value<sp/>for<sp/>bypass<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_DC_FRAME_SWITCH_VAL<sp/><sp/><sp/><sp/><sp/><sp/>0x3F</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/>*<sp/>Per-stream<sp/>PPC<sp/>from<sp/>xparameters.h<sp/>(fixed<sp/>by<sp/>XSA;<sp/>not<sp/>menu-editable).</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>Fallback<sp/>is<sp/>single-PPC<sp/>(1),<sp/>not<sp/>quad<sp/>(4):<sp/>designs<sp/>without<sp/>these<sp/>XPARs</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>must<sp/>not<sp/>silently<sp/>run<sp/>the<sp/>whole<sp/>bypass<sp/>datapath<sp/>at<sp/>PPC4.</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*<sp/>Missing<sp/>STREAMn<sp/>macros<sp/>default<sp/>independently<sp/>(not<sp/>aliased<sp/>to<sp/>STREAM0).</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114" refid="mmi__dc__bypass__test_8h_1a6da3b36ea64c92e3ef01bb582d8a8ea3" refkind="member"><highlight class="preprocessor">#define<sp/>XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118" refid="mmi__dc__bypass__test_8h_1a6dbed2b7fd0e381fb307396ac5818e3a" refkind="member"><highlight class="preprocessor">#define<sp/>XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="mmi__dc__bypass__test_8h_1ad1167c50330179b5726a9c5db1ac2915" refkind="member"><highlight class="preprocessor">#define<sp/>XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126" refid="mmi__dc__bypass__test_8h_1a1c4fcb2f96c7959730621c98774d908d" refkind="member"><highlight class="preprocessor">#define<sp/>XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_PSDPDC_AV_PAT_GEN_0_BASEADDR)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSDPDC_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S0_AV_PAT_GEN_0_BASEADDR)</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S0_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_PSDPDC_AV_PAT_GEN_1_BASEADDR)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_1_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSDPDC_AV_PAT_GEN_1_BASEADDR</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S1_AV_PAT_GEN_0_BASEADDR)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_1_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S1_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146" refid="mmi__dc__bypass__test_8h_1a6fee482f46b05b6d2f1a1ea346ccdc55" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_1_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_PSDPDC_AV_PAT_GEN_2_BASEADDR)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_2_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSDPDC_AV_PAT_GEN_2_BASEADDR</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S2_AV_PAT_GEN_0_BASEADDR)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_2_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S2_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157" refid="mmi__dc__bypass__test_8h_1a711e9a7465c5a1384550d262b89f5dbc" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_2_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_PSDPDC_AV_PAT_GEN_3_BASEADDR)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_3_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSDPDC_AV_PAT_GEN_3_BASEADDR</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S3_AV_PAT_GEN_0_BASEADDR)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_3_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S3_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168" refid="mmi__dc__bypass__test_8h_1a1b75d049a409239fd3578914404aaca9" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_AVPG_3_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XVTC_0_BASEADDR)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XVTC_0_BASEADDR</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S0_V_TC_0_BASEADDR)</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S0_V_TC_0_BASEADDR</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS_VTC_0_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XVTC_1_BASEADDR)</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_1_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XVTC_1_BASEADDR</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S1_V_TC_0_BASEADDR)</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_1_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S1_V_TC_0_BASEADDR</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="189" refid="mmi__dc__bypass__test_8h_1abff1d7d005395d4988090c26895f121c" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_1_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XVTC_2_BASEADDR)</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_2_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XVTC_2_BASEADDR</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S2_V_TC_0_BASEADDR)</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_2_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S2_V_TC_0_BASEADDR</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="200" refid="mmi__dc__bypass__test_8h_1a19c1a45e4bfe10977411d87f186b70d6" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_2_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XVTC_3_BASEADDR)</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_3_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XVTC_3_BASEADDR</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(XPAR_AVTPG_S3_V_TC_0_BASEADDR)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_3_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AVTPG_S3_V_TC_0_BASEADDR</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="211" refid="mmi__dc__bypass__test_8h_1abec9e3b26a4d5135ff2e7eaa3f1d9a51" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_VTC_3_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215" refid="mmi__dc__bypass__test_8h_1a8db318ca7daac51de0934c6b0462a7ad" refkind="member"><highlight class="preprocessor">#define<sp/>BYPASS_MAX_STREAMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal">u8<sp/><ref refid="mmi__dc__bypass__test_8c_1acb69a8f744bcab7620b2b9c7fc9c19e2" kindref="member">XDpDc_BypassPpcFromXsa</ref>(u8<sp/>StreamIdx);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">u8<sp/><ref refid="mmi__dc__bypass__test_8c_1a53e47599ceadded20c619af704c831e2" kindref="member">XDpDc_BypassPlStreamMax</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">u32<sp/>XDpDc_BypassConfigureLiveGenerator(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="235"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__bypass__test_8h_1a46cf98bf7493a5d740b8cfb4d1466eca" kindref="member">XDpDc_BypassDisableStreamsFrom</ref>(u8<sp/>FirstStream);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">u32<sp/>XDpDc_MmiDcBypassTest(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__MMI_DC_BYPASS_TEST_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_bypass_test.h"/>
+  </compounddef>
+</doxygen>

@@ -29,7 +29,6 @@
     <member refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" kind="function"><name>XGpio_DiscreteWrite</name></member>
   </compound>
   <compound refid="xgpio_8h" kind="file"><name>xgpio.h</name>
-    <member refid="group__gpio__api_1ga00bfede0e6dcb1bac3e63d0e35d993f0" kind="define"><name>XGPIO_H</name></member>
     <member refid="group__gpio__api_1ga5b6948513889f043a40494dba1904828" kind="function"><name>XGpio_Initialize</name></member>
     <member refid="group__gpio__api_1ga5f931df205651784cd60091a3775fb4c" kind="function"><name>XGpio_LookupConfig</name></member>
     <member refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" kind="function"><name>XGpio_CfgInitialize</name></member>
@@ -49,8 +48,8 @@
     <member refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" kind="function"><name>XGpio_InterruptGetStatus</name></member>
   </compound>
   <compound refid="xgpio__example_8c" kind="file"><name>xgpio_example.c</name>
-    <member refid="xgpio__example_8c_1aeb7a7ba1ab7e0406f1b5ab36d579f585" kind="define"><name>LED</name></member>
     <member refid="xgpio__example_8c_1a9895f0e20af4073d17c7e7428174344c" kind="define"><name>XGPIO_AXI_BASEADDRESS</name></member>
+    <member refid="xgpio__example_8c_1aeb7a7ba1ab7e0406f1b5ab36d579f585" kind="define"><name>LED</name></member>
     <member refid="xgpio__example_8c_1a12a46d6ff86950784521c2446d84b2fc" kind="define"><name>LED_DELAY</name></member>
     <member refid="xgpio__example_8c_1a9e917f20402c4bc2dacf745cbdfdd14e" kind="define"><name>LED_CHANNEL</name></member>
     <member refid="xgpio__example_8c_1a4c2be13b82a762e15861ea1a10d34b61" kind="variable"><name>Gpio</name></member>
@@ -64,7 +63,6 @@
     <member refid="group__gpio__api_1gae056125811a82e494e01d590523fdd00" kind="variable"><name>XGpio_ConfigTable</name></member>
   </compound>
   <compound refid="xgpio__i_8h" kind="file"><name>xgpio_i.h</name>
-    <member refid="group__gpio__api_1ga589ca56533d5e3c602a47dae9dd03473" kind="define"><name>XGPIO_I_H</name></member>
     <member refid="group__gpio__api_1gae056125811a82e494e01d590523fdd00" kind="variable"><name>XGpio_ConfigTable</name></member>
   </compound>
   <compound refid="xgpio__intr_8c" kind="file"><name>xgpio_intr.c</name>
@@ -106,7 +104,6 @@
     <member refid="group__gpio__api_1ga216177d9cad31a8fa22c4114c754f3ae" kind="define"><name>XGPIO_IR_CH1_MASK</name></member>
     <member refid="group__gpio__api_1ga202cdf1a14179cd31df27346a55dced4" kind="define"><name>XGPIO_IR_CH2_MASK</name></member>
     <member refid="group__gpio__api_1ga0b576e472f8ad06f166d9107de3b0348" kind="define"><name>XGPIO_GIE_GINTR_ENABLE_MASK</name></member>
-    <member refid="group__gpio__api_1gada15711b613febaabed053cffec66e57" kind="define"><name>XGPIO_L_H</name></member>
     <member refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kind="define"><name>XGPIO_CHAN_OFFSET</name></member>
     <member refid="group__gpio__api_1gaac0c290f448e3f86b01f5fcbaa2fff08" kind="define"><name>XGpio_In32</name></member>
     <member refid="group__gpio__api_1ga2d9bfd9cb86f240e7c57a6f9f0728ba7" kind="define"><name>XGpio_Out32</name></member>
@@ -114,8 +111,8 @@
     <member refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kind="define"><name>XGpio_ReadReg</name></member>
   </compound>
   <compound refid="xgpio__low__level__example_8c" kind="file"><name>xgpio_low_level_example.c</name>
-    <member refid="xgpio__low__level__example_8c_1aeb7a7ba1ab7e0406f1b5ab36d579f585" kind="define"><name>LED</name></member>
     <member refid="xgpio__low__level__example_8c_1a292491de8641ec2d6f803fa4fd6463ab" kind="define"><name>GPIO_REG_BASEADDR</name></member>
+    <member refid="xgpio__low__level__example_8c_1aeb7a7ba1ab7e0406f1b5ab36d579f585" kind="define"><name>LED</name></member>
     <member refid="xgpio__low__level__example_8c_1a12a46d6ff86950784521c2446d84b2fc" kind="define"><name>LED_DELAY</name></member>
     <member refid="xgpio__low__level__example_8c_1a9e917f20402c4bc2dacf745cbdfdd14e" kind="define"><name>LED_CHANNEL</name></member>
     <member refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
@@ -129,17 +126,16 @@
     <member refid="group__gpio__api_1ga5b6948513889f043a40494dba1904828" kind="function"><name>XGpio_Initialize</name></member>
   </compound>
   <compound refid="xgpio__tapp__example_8c" kind="file"><name>xgpio_tapp_example.c</name>
+    <member refid="xgpio__tapp__example_8c_1a1fc7f79cb523c73e63b76852701b05d8" kind="define"><name>XGPIO_BASEADDRESS</name></member>
+    <member refid="xgpio__tapp__example_8c_1a352c6814791c4d31fe886f3e94fe52ef" kind="variable"><name>GpioOutput</name></member>
+    <member refid="xgpio__tapp__example_8c_1a18f8ce23429080ab6771982ef348b179" kind="variable"><name>GpioInput</name></member>
     <member refid="xgpio__tapp__example_8c_1a12a46d6ff86950784521c2446d84b2fc" kind="define"><name>LED_DELAY</name></member>
     <member refid="xgpio__tapp__example_8c_1a9e917f20402c4bc2dacf745cbdfdd14e" kind="define"><name>LED_CHANNEL</name></member>
     <member refid="xgpio__tapp__example_8c_1a547a74fc8dcd314417bd6d99bc306210" kind="define"><name>LED_MAX_BLINK</name></member>
     <member refid="xgpio__tapp__example_8c_1a28fa10af37aeb87556d900b681ae38f0" kind="define"><name>GPIO_BITWIDTH</name></member>
     <member refid="xgpio__tapp__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kind="define"><name>printf</name></member>
-    <member refid="xgpio__tapp__example_8c_1a1fc7f79cb523c73e63b76852701b05d8" kind="define"><name>XGPIO_BASEADDRESS</name></member>
-    <member refid="xgpio__tapp__example_8c_1a352c6814791c4d31fe886f3e94fe52ef" kind="variable"><name>GpioOutput</name></member>
-    <member refid="xgpio__tapp__example_8c_1a18f8ce23429080ab6771982ef348b179" kind="variable"><name>GpioInput</name></member>
     <member refid="xgpio__tapp__example_8c_1a0cd49ca5f68b75a19570222fa1e68e98" kind="function"><name>GpioOutputExample</name></member>
     <member refid="xgpio__tapp__example_8c_1adae87cf82266222b55aa820b7cdbfecc" kind="function"><name>GpioInputExample</name></member>
-    <member refid="xgpio__tapp__example_8c_1aaddab245a30d4f9c2042ee758b892731" kind="function"><name>GpioDriverHandler</name></member>
     <member refid="xgpio__tapp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="group__gpio__api" kind="group"><name>gpio_api</name>
@@ -173,9 +169,6 @@
     <member refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" kind="function"><name>XGpio_InterruptClear</name></member>
     <member refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" kind="function"><name>XGpio_InterruptGetEnabled</name></member>
     <member refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" kind="function"><name>XGpio_InterruptGetStatus</name></member>
-    <member refid="group__gpio__api_1ga00bfede0e6dcb1bac3e63d0e35d993f0" kind="define"><name>XGPIO_H</name></member>
-    <member refid="group__gpio__api_1ga589ca56533d5e3c602a47dae9dd03473" kind="define"><name>XGPIO_I_H</name></member>
-    <member refid="group__gpio__api_1gada15711b613febaabed053cffec66e57" kind="define"><name>XGPIO_L_H</name></member>
     <member refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kind="define"><name>XGPIO_CHAN_OFFSET</name></member>
     <member refid="group__gpio__api_1gaac0c290f448e3f86b01f5fcbaa2fff08" kind="define"><name>XGpio_In32</name></member>
     <member refid="group__gpio__api_1ga2d9bfd9cb86f240e7c57a6f9f0728ba7" kind="define"><name>XGpio_Out32</name></member>

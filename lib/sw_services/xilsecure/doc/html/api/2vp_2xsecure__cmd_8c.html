@@ -114,7 +114,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.6   tvp  07/07/25 Initial release
 5.7   tvp  11/18/25 Added support for generating shared secret
       tvp  11/18/25 Added support for trng operations
-      mb   04/17/26 Update XSecure_CryptoCheck API definition</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
+      mb   04/17/26 Update XSecure_CryptoCheck API definition
+5.8   tbk  06/17/26 Added support for getting crypto algorithm's version
+      ks   09/22/26 Removed the AES KEK decrypt IPI command
+      mb   09/24/26 Route XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler
+      ank  10/07/26 Updated TRNG algorithm version to use trngpsv driver version</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_config.h&quot;</code><br/>
 <code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;xplmi.h&quot;</code><br/>
 <code>#include &quot;xplmi_tamper.h&quot;</code><br/>
@@ -132,6 +136,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;<a class="el" href="xsecure__cmd_8h.html">xsecure_cmd.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_cryptochk.h&quot;</code><br/>
 <code>#include &quot;xsecure_trng_ipihandler.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xsecure__defs_8h.html">xsecure_defs.h</a>&quot;</code><br/>
+<code>#include &quot;xil_cryptoalginfo.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp_2xsecure__server__aesalginfo_8h.html">xsecure_server_aesalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp_2xsecure__server__rsaalginfo_8h.html">xsecure_server_rsaalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp_2xsecure__server__ellipticalginfo_8h.html">xsecure_server_ellipticalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="2vp_2xsecure__server__shaalginfo_8h.html">xsecure_server_shaalginfo.h</a>&quot;</code><br/>
+<code>#include &quot;xtrngpsv_alginfo.h&quot;</code><br/>
 <code>#include &quot;xsecure_config.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>

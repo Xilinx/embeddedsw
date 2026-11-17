@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspips__selftest__example" kind="group">
+    <compoundname>xspips_selftest_example</compoundname>
+    <title>Xspips_selftest_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspips__selftest__example_1ga8c8cc31cc0f035ac6d37abba6349caa5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref></type>
+        <definition>XSpiPs SpiPs</definition>
+        <argsstring></argsstring>
+        <name>SpiPs</name>
+        <briefdescription>
+<para>The instance of the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_selftest_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_selftest_example.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspips__selftest__example_1ga78ca9c2607cd3ea29c908634e0877a8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsSelfTestExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>SpiPsSelfTestExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Runs a selftest on the SPIPS device and <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> driver as an example. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the function is to illustrate the usage of the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up based on DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_selftest_example.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_selftest_example.c" bodystart="128" bodyend="160"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="group__spips__api_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</references>
+        <references refid="group__spips_1gaec4120d0ba36c1bcf7b17520ea43d761" compoundref="xspips__sinit_8c" startline="94" endline="108">XSpiPs_LookupConfig</references>
+        <references refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</references>
+        <referencedby refid="group__xspips__selftest__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspips__selftest__example_8c" startline="79" endline="101">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__selftest__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the SPI SelfTest example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_selftest_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_selftest_example.c" bodystart="79" bodyend="101"/>
+        <references refid="group__xspips__selftest__example_1ga78ca9c2607cd3ea29c908634e0877a8c" compoundref="xspips__selftest__example_8c" startline="128" endline="160">SpiPsSelfTestExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

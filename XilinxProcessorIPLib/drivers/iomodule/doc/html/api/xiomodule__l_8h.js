@@ -9,6 +9,7 @@ var xiomodule__l_8h =
     [ "XIOModule_IsTransmitFull", "xiomodule__l_8h.html#ga93c23372164e627f79da9488ea43161a", null ],
     [ "XIOModule_ReadReg", "xiomodule__l_8h.html#ga4eaff234e65f369a870fca3b92215df4", null ],
     [ "XIOModule_WriteReg", "xiomodule__l_8h.html#ga829c77e3efe996211599f9a2a6bb4890", null ],
+    [ "XFastInterruptHandler", "xiomodule__l_8h.html#gab333e5826535071fe60f13b70b6e56dd", null ],
     [ "XIOModule_DeviceInterruptHandler", "xiomodule__l_8h.html#ga2e47bfda481c3ceab60d758f049758ef", null ],
     [ "XIOModule_RecvByte", "xiomodule__l_8h.html#gaae5eea17f7c7533affa36870f94f6299", null ],
     [ "XIOModule_RegisterHandler", "xiomodule__l_8h.html#gab55e07c2159c0c0b469503bfac8e20b0", null ],

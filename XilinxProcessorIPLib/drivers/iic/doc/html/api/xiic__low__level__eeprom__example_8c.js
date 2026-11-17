@@ -12,6 +12,7 @@ var xiic__low__level__eeprom__example_8c =
     [ "main", "xiic__low__level__eeprom__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "ReadWriteVerify", "xiic__low__level__eeprom__example_8c.html#ad3c29e4ee8b1f6749a579636a178c069", null ],
     [ "EepromIicAddr", "xiic__low__level__eeprom__example_8c.html#a76e91838aa728d2227d7a2f3107616a9", null ],
+    [ "ErrorCount", "xiic__low__level__eeprom__example_8c.html#a7abe7b17ce48d24409e2a49aa35d9842", null ],
     [ "ReadBuffer", "xiic__low__level__eeprom__example_8c.html#af87b2a3712f19c0723e6b945b30cd2cc", null ],
     [ "ReadBufferAll", "xiic__low__level__eeprom__example_8c.html#a0c5379de75c1e96d09d4dcfa9a0f858e", null ],
     [ "WriteBuffer", "xiic__low__level__eeprom__example_8c.html#aa8a83ca9bc94c3ab5ce460fb03d9da07", null ]

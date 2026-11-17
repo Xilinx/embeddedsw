@@ -4,7 +4,7 @@ var searchData=
   ['xdsi2rxss_5fcfginitialize',['XDsi2RxSs_CfgInitialize',['../group__dsirxss.html#gacf02fba1186dd59ea301c448f21c6cce',1,'xdsi2rxss.c']]],
   ['xdsi2rxss_5fdefaultconfigure',['XDsi2RxSs_DefaultConfigure',['../group__dsirxss.html#gaa289941e9d71e4d0d890e7f8b3d51a37',1,'xdsi2rxss.c']]],
   ['xdsi2rxss_5fgetconfigparams',['XDsi2RxSs_GetConfigParams',['../group__dsirxss.html#ga77c35b7c60f267e093374252444b5f5f',1,'xdsi2rxss.c']]],
-  ['xdsi2rxss_5fgetdrvindex',['XDsi2RxSs_GetDrvIndex',['../group__dsirxss.html#ga007151e6775d2507f0988046b69e1b07',1,'xdsi2rxss_sinit.c']]],
+  ['xdsi2rxss_5fgetdrvindex',['XDsi2RxSs_GetDrvIndex',['../group__dsirxss.html#ga28690c5facb8d33a5bea2e476eb67660',1,'xdsi2rxss_sinit.c']]],
   ['xdsi2rxss_5fgetpixelformat',['XDsi2RxSs_GetPixelFormat',['../group__dsirxss.html#ga2cf031088593839d8ea59b5a490033c4',1,'xdsi2rxss.c']]],
   ['xdsi2rxss_5finterruptenable',['XDsi2RxSs_InterruptEnable',['../group__dsirxss.html#gac03f22679082c95cb49fb34c0980034d',1,'xdsi2rxss_intr.c']]],
   ['xdsi2rxss_5fintrhandler',['XDsi2RxSs_IntrHandler',['../group__dsirxss.html#gae21d03381f99fe44f81736b43a3dfd9f',1,'xdsi2rxss_intr.c']]],

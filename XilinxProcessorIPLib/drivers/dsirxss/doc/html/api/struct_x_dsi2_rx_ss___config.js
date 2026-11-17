@@ -7,5 +7,8 @@ var struct_x_dsi2_rx_ss___config =
     [ "Dsi2RxInfo", "struct_x_dsi2_rx_ss___config.html#ae5bda84d926823f372d40496afea493c", null ],
     [ "DsiPixel", "struct_x_dsi2_rx_ss___config.html#a32b721fb312e0477e645127b162c9968", null ],
     [ "HighAddr", "struct_x_dsi2_rx_ss___config.html#a05ffa17e949fc526b6e804f84f004a0c", null ],
-    [ "IsDphyRegIntfcPresent", "struct_x_dsi2_rx_ss___config.html#a990e7b739eaf7b9cca5d69346756afc9", null ]
+    [ "IntrId", "struct_x_dsi2_rx_ss___config.html#a150c541b2e4be5a5063cb3626e9df228", null ],
+    [ "IntrParent", "struct_x_dsi2_rx_ss___config.html#abb4a96d93dea5aac9e871ba3d8024e56", null ],
+    [ "IsDphyRegIntfcPresent", "struct_x_dsi2_rx_ss___config.html#a990e7b739eaf7b9cca5d69346756afc9", null ],
+    [ "Name", "struct_x_dsi2_rx_ss___config.html#a3de6da00bf49f1f2bcc986d6593832c1", null ]
 ];

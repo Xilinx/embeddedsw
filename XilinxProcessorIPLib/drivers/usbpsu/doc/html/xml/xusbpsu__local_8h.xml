@@ -13,6 +13,38 @@
     <includedby refid="xusbpsu__hibernation_8c" local="yes">xusbpsu_hibernation.c</includedby>
     <includedby refid="xusbpsu__intr_8c" local="yes">xusbpsu_intr.c</includedby>
     <invincdepgraph>
+      <node id="1155">
+        <label>xusbpsu_ephandler.c</label>
+        <link refid="xusbpsu__ephandler_8c"/>
+      </node>
+      <node id="1156">
+        <label>xusbpsu_event.c</label>
+        <link refid="xusbpsu__event_8c"/>
+      </node>
+      <node id="1150">
+        <label>xusbpsu_command.c</label>
+        <link refid="xusbpsu__command_8c"/>
+      </node>
+      <node id="1152">
+        <label>xusbpsu_device.c</label>
+        <link refid="xusbpsu__device_8c"/>
+      </node>
+      <node id="1151">
+        <label>xusbpsu_controltransfers.c</label>
+        <link refid="xusbpsu__controltransfers_8c"/>
+      </node>
+      <node id="1154">
+        <label>xusbpsu_ep0handler.c</label>
+        <link refid="xusbpsu__ep0handler_8c"/>
+      </node>
+      <node id="1158">
+        <label>xusbpsu_intr.c</label>
+        <link refid="xusbpsu__intr_8c"/>
+      </node>
+      <node id="1157">
+        <label>xusbpsu_hibernation.c</label>
+        <link refid="xusbpsu__hibernation_8c"/>
+      </node>
       <node id="1148">
         <label>xusbpsu_local.h</label>
         <link refid="xusbpsu_local.h"/>
@@ -37,41 +69,9 @@
         <childnode refid="1158" relation="include">
         </childnode>
       </node>
-      <node id="1157">
-        <label>xusbpsu_hibernation.c</label>
-        <link refid="xusbpsu__hibernation_8c"/>
-      </node>
-      <node id="1158">
-        <label>xusbpsu_intr.c</label>
-        <link refid="xusbpsu__intr_8c"/>
-      </node>
-      <node id="1156">
-        <label>xusbpsu_event.c</label>
-        <link refid="xusbpsu__event_8c"/>
-      </node>
-      <node id="1154">
-        <label>xusbpsu_ep0handler.c</label>
-        <link refid="xusbpsu__ep0handler_8c"/>
-      </node>
-      <node id="1155">
-        <label>xusbpsu_ephandler.c</label>
-        <link refid="xusbpsu__ephandler_8c"/>
-      </node>
       <node id="1149">
         <label>xusbpsu.c</label>
         <link refid="xusbpsu_8c"/>
-      </node>
-      <node id="1152">
-        <label>xusbpsu_device.c</label>
-        <link refid="xusbpsu__device_8c"/>
-      </node>
-      <node id="1150">
-        <label>xusbpsu_command.c</label>
-        <link refid="xusbpsu__command_8c"/>
-      </node>
-      <node id="1151">
-        <label>xusbpsu_controltransfers.c</label>
-        <link refid="xusbpsu__controltransfers_8c"/>
       </node>
       <node id="1153">
         <label>xusbpsu_endpoint.c</label>
@@ -85,14 +85,15 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
 <codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XUSBPSU_LOCAL_H<sp/><sp/></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_LOCAL_H<sp/><sp/></highlight></codeline>
-<codeline lineno="31"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_LOCAL_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
 <codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
@@ -229,6 +230,6 @@
 <codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="167"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_local.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_local.h"/>
   </compounddef>
 </doxygen>

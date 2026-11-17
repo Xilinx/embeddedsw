@@ -20,6 +20,11 @@
     <member refid="struct_i_d_t__8_t49_n24x___settings_1a6f62c4ba8db91ef1eb13ef69d3c902b3" kind="variable"><name>PRE_x</name></member>
     <member refid="struct_i_d_t__8_t49_n24x___settings_1af1457b3c287f3412d9f3f29067834b9b" kind="variable"><name>LOS_x</name></member>
   </compound>
+  <compound refid="struct_i_l_i9881_c___instr" kind="struct"><name>ILI9881C_Instr</name>
+    <member refid="struct_i_l_i9881_c___instr_1a52d5f542f9aad011b5c54e53aee7d05e" kind="variable"><name>is_page_switch</name></member>
+    <member refid="struct_i_l_i9881_c___instr_1a807eb4c02eb8fbc65a5e2952a964b0c5" kind="variable"><name>reg</name></member>
+    <member refid="struct_i_l_i9881_c___instr_1a92f1c26b9bcf004a2e66119ab1151704" kind="variable"><name>val</name></member>
+  </compound>
   <compound refid="struct_onsemi___register_field" kind="struct"><name>Onsemi_RegisterField</name>
     <member refid="struct_onsemi___register_field_1aa8b46fd988783ab83ab0acbd4b1b1beb" kind="variable"><name>DeviceType</name></member>
     <member refid="struct_onsemi___register_field_1abdd8025b3189d5c2e43c70f0b50c824c" kind="variable"><name>Address</name></member>
@@ -200,6 +205,134 @@
     <member refid="dp159_8h_1a69847c793fd3d7007bbe965818b3cfa8" kind="function"><name>i2c_dp159_write</name></member>
     <member refid="dp159_8h_1aff83478d5c199656866ba3227a428816" kind="function"><name>i2c_dp159_dump</name></member>
   </compound>
+  <compound refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c" kind="file"><name>xmipi_scu200_hpio_example/dsi_txss_display.c</name>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ae4ae056b5429abb60bfd1c5bbc748a49" kind="define"><name>PANEL_IIC_BASEADDR</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1aaf8389cfa700b34313537297d39f38cd" kind="define"><name>RPI_MCU_I2C_ADDR</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1adea8a2f3712a6fffa54d82975dfca1ce" kind="define"><name>RPI_MCU_REG_ID</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a17883ab9cd5cc1f308c867deca41ffc1" kind="define"><name>RPI_MCU_REG_POWERON</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1aab2d5a6e3cd23594288b97b37815907c" kind="define"><name>RPI_MCU_REG_PWM</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a6950167abf2aac1de71fd7bee0d637b2" kind="define"><name>RPI_MCU_LCD_RESET_BIT</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1acb155a14d5a39b7bb502a68a616fa13d" kind="define"><name>RPI_MCU_CTP_RESET_BIT</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a1abafb02fe1a1daa89b4ec0ff2d5335f" kind="define"><name>RPI_MCU_PWM_BL_ENABLE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a962ac064297f2e6593028938b60197ff" kind="define"><name>RPI_MCU_PWM_MAX_BRIGHTNESS</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a11740d87b273423aee9a290f008b1f4d" kind="define"><name>DSI_DCS_SHORT_WRITE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a79a15404339a4cf970711d0e02062431" kind="define"><name>DSI_DCS_SHORT_WRITE_PARAM</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a075e3887a4e978d906df7acdab4977a4" kind="define"><name>DSI_DCS_LONG_WRITE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a47ce228018b8ded49cb747c64f7394bb" kind="define"><name>DCS_EXIT_SLEEP_MODE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a97230ce5243ede8a17c096cf401b5a71" kind="define"><name>DCS_SET_DISPLAY_ON</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a0e530371cc0aa0b3c9d067a556750bb0" kind="define"><name>DCS_SET_TEAR_ON</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a7ba9c618735c10fcd83738e49271efae" kind="define"><name>ILI9881C_PAGE_CMD</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1abd462401f1e35956193278cf96a81276" kind="define"><name>ILI9881C_PAGE_MAGIC0</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1af04be309af5f191c0e40a45e6b837b67" kind="define"><name>ILI9881C_PAGE_MAGIC1</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a8b0bf47f93488d9b21019f429b9749f4" kind="define"><name>DSI_TX_BASEADDR</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1af1683b4178687239c68d484438da25ad" kind="define"><name>NO_BYTES_PER_PIXEL</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a05cbaf2f117b5d41f2ac52539859ca44" kind="define"><name>HORIZONTAL_RESOLUTION</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a2c8644f1e59434606be888e5d2fda013" kind="define"><name>HORIZONTAL_RESOLUTION_BYTES</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ae398296acf43f2d6a58bba193422a12c" kind="define"><name>VERTICAL_RESOLUTION</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1aeb971847d9eb68afa5c1110e95132735" kind="define"><name>HACT_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a4014e22bf4d6a85eabef6ab0d404440d" kind="define"><name>HSA_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a7dd4ff903f47b017ea9da8c0ef1e892e" kind="define"><name>HFP_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ae6f8a9de4f8c8fa3192f8fa0c256da54" kind="define"><name>HBP_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a408aa1bde364a5475c08d371e2e018e8" kind="define"><name>VACT_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a3e26298667e185b4cbe4d90ebb07253c" kind="define"><name>VSA_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ae06a21e3248f4ac215d7c54f004e7f6e" kind="define"><name>VFP_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a45b1e1913c037450cc380a0008b5d43e" kind="define"><name>VBP_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a7869478a87c2c8c8f85fa679c3da7541" kind="define"><name>BLLP_BURST_VALUE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1abc1efd340240bb9382e71b25dc60b808" kind="define"><name>ILI9881C_SWITCH_PAGE</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a2d822803a977715117e5d1c5f8b70ded" kind="define"><name>ILI9881C_COMMAND</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a8bc999ab27713f8f6bb7f4eafe01d722" kind="define"><name>RPI_7INCH_INIT_LEN</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a13b4cff8b8c7dfd4bed37a3b8790b9f2" kind="variable"><name>PanelIic</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a27d468f077bdbbdf0c8818eb1ca0310b" kind="variable"><name>DsiTxSsInst</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a653a017fb02d434257dd53a6e0ee704e" kind="variable"><name>rpi_7inch_init</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a287ef7cf194e34b28452d08213423cd6" kind="function"><name>RpiMcu_I2cWrite</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1af7b92e3329a273537e44b4c81a9aff3f" kind="function"><name>RpiMcu_I2cRead</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ada03ceb1f4eed1baf2dbdfc76dc5973b" kind="function"><name>RpiMcu_Init</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a3128bada2412190d7fc7faf466180388" kind="function"><name>RpiMcu_PanelPowerOn</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a403c0a8e2e702ab56708ac0ea3962a0d" kind="function"><name>RpiMcu_TouchEnable</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a4bf63ba8bcd36fc8a57443b559d49f40" kind="function"><name>RpiMcu_SetBacklight</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a71910a2a39846320ff0628a70463cfcd" kind="function"><name>RpiMcu_EnableBacklight</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1adf1a00738b7b7d0cd64b27f521015d60" kind="function"><name>ILI9881C_SwitchPage</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1affeb1e093c6b7268c1636f87cf8371e2" kind="function"><name>ILI9881C_WriteReg</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a63ea799e480d7c5a60edf6afcc025eff" kind="function"><name>ILI9881C_RunInitSequence</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ab0852c42b8c6bb3c0b87b79d62471b48" kind="function"><name>ILI9881C_PanelInit</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1aaecccc92c717ff5a1a76a52d7d1339e4" kind="function"><name>InitPanelIic</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a11797aaaab21448853f35bf2f9795aa7" kind="function"><name>DsiPath_Init</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1af8d6a41f3dd8603219aeb97d1f48d6cc" kind="function"><name>DsiPath_StartVideo</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1a9656bb8bc26fd48353098543d440b152" kind="function"><name>DsiPath_StopVideo</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8c_1ac8c31c00913fa51695ad87917187a665" kind="function"><name>DsiPath_Reinit</name></member>
+  </compound>
+  <compound refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c" kind="file"><name>xmipi_scu200_xp5io_example/dsi_txss_display.c</name>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ae4ae056b5429abb60bfd1c5bbc748a49" kind="define"><name>PANEL_IIC_BASEADDR</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1aaf8389cfa700b34313537297d39f38cd" kind="define"><name>RPI_MCU_I2C_ADDR</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1adea8a2f3712a6fffa54d82975dfca1ce" kind="define"><name>RPI_MCU_REG_ID</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a17883ab9cd5cc1f308c867deca41ffc1" kind="define"><name>RPI_MCU_REG_POWERON</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1aab2d5a6e3cd23594288b97b37815907c" kind="define"><name>RPI_MCU_REG_PWM</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a6950167abf2aac1de71fd7bee0d637b2" kind="define"><name>RPI_MCU_LCD_RESET_BIT</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1acb155a14d5a39b7bb502a68a616fa13d" kind="define"><name>RPI_MCU_CTP_RESET_BIT</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a1abafb02fe1a1daa89b4ec0ff2d5335f" kind="define"><name>RPI_MCU_PWM_BL_ENABLE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a962ac064297f2e6593028938b60197ff" kind="define"><name>RPI_MCU_PWM_MAX_BRIGHTNESS</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a11740d87b273423aee9a290f008b1f4d" kind="define"><name>DSI_DCS_SHORT_WRITE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a79a15404339a4cf970711d0e02062431" kind="define"><name>DSI_DCS_SHORT_WRITE_PARAM</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a075e3887a4e978d906df7acdab4977a4" kind="define"><name>DSI_DCS_LONG_WRITE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a47ce228018b8ded49cb747c64f7394bb" kind="define"><name>DCS_EXIT_SLEEP_MODE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a97230ce5243ede8a17c096cf401b5a71" kind="define"><name>DCS_SET_DISPLAY_ON</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a0e530371cc0aa0b3c9d067a556750bb0" kind="define"><name>DCS_SET_TEAR_ON</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a7ba9c618735c10fcd83738e49271efae" kind="define"><name>ILI9881C_PAGE_CMD</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1abd462401f1e35956193278cf96a81276" kind="define"><name>ILI9881C_PAGE_MAGIC0</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1af04be309af5f191c0e40a45e6b837b67" kind="define"><name>ILI9881C_PAGE_MAGIC1</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a8b0bf47f93488d9b21019f429b9749f4" kind="define"><name>DSI_TX_BASEADDR</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1af1683b4178687239c68d484438da25ad" kind="define"><name>NO_BYTES_PER_PIXEL</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a05cbaf2f117b5d41f2ac52539859ca44" kind="define"><name>HORIZONTAL_RESOLUTION</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a2c8644f1e59434606be888e5d2fda013" kind="define"><name>HORIZONTAL_RESOLUTION_BYTES</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ae398296acf43f2d6a58bba193422a12c" kind="define"><name>VERTICAL_RESOLUTION</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1aeb971847d9eb68afa5c1110e95132735" kind="define"><name>HACT_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a4014e22bf4d6a85eabef6ab0d404440d" kind="define"><name>HSA_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a7dd4ff903f47b017ea9da8c0ef1e892e" kind="define"><name>HFP_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ae6f8a9de4f8c8fa3192f8fa0c256da54" kind="define"><name>HBP_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a408aa1bde364a5475c08d371e2e018e8" kind="define"><name>VACT_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a3e26298667e185b4cbe4d90ebb07253c" kind="define"><name>VSA_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ae06a21e3248f4ac215d7c54f004e7f6e" kind="define"><name>VFP_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a45b1e1913c037450cc380a0008b5d43e" kind="define"><name>VBP_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a7869478a87c2c8c8f85fa679c3da7541" kind="define"><name>BLLP_BURST_VALUE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1abc1efd340240bb9382e71b25dc60b808" kind="define"><name>ILI9881C_SWITCH_PAGE</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a2d822803a977715117e5d1c5f8b70ded" kind="define"><name>ILI9881C_COMMAND</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a8bc999ab27713f8f6bb7f4eafe01d722" kind="define"><name>RPI_7INCH_INIT_LEN</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a13b4cff8b8c7dfd4bed37a3b8790b9f2" kind="variable"><name>PanelIic</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a27d468f077bdbbdf0c8818eb1ca0310b" kind="variable"><name>DsiTxSsInst</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a653a017fb02d434257dd53a6e0ee704e" kind="variable"><name>rpi_7inch_init</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a287ef7cf194e34b28452d08213423cd6" kind="function"><name>RpiMcu_I2cWrite</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1af7b92e3329a273537e44b4c81a9aff3f" kind="function"><name>RpiMcu_I2cRead</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ada03ceb1f4eed1baf2dbdfc76dc5973b" kind="function"><name>RpiMcu_Init</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a3128bada2412190d7fc7faf466180388" kind="function"><name>RpiMcu_PanelPowerOn</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a403c0a8e2e702ab56708ac0ea3962a0d" kind="function"><name>RpiMcu_TouchEnable</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a4bf63ba8bcd36fc8a57443b559d49f40" kind="function"><name>RpiMcu_SetBacklight</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a71910a2a39846320ff0628a70463cfcd" kind="function"><name>RpiMcu_EnableBacklight</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1adf1a00738b7b7d0cd64b27f521015d60" kind="function"><name>ILI9881C_SwitchPage</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1affeb1e093c6b7268c1636f87cf8371e2" kind="function"><name>ILI9881C_WriteReg</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a63ea799e480d7c5a60edf6afcc025eff" kind="function"><name>ILI9881C_RunInitSequence</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ab0852c42b8c6bb3c0b87b79d62471b48" kind="function"><name>ILI9881C_PanelInit</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1aaecccc92c717ff5a1a76a52d7d1339e4" kind="function"><name>InitPanelIic</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a11797aaaab21448853f35bf2f9795aa7" kind="function"><name>DsiPath_Init</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1af8d6a41f3dd8603219aeb97d1f48d6cc" kind="function"><name>DsiPath_StartVideo</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1a9656bb8bc26fd48353098543d440b152" kind="function"><name>DsiPath_StopVideo</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8c_1ac8c31c00913fa51695ad87917187a665" kind="function"><name>DsiPath_Reinit</name></member>
+  </compound>
+  <compound refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h" kind="file"><name>xmipi_scu200_hpio_example/dsi_txss_display.h</name>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h_1a0dabd7a8b3b074741c71533ae3bb32a6" kind="define"><name>DSI_PANEL_H_RES</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h_1a2305faf6da4cd801f9c4f2202720fe1c" kind="define"><name>DSI_PANEL_V_RES</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h_1a11797aaaab21448853f35bf2f9795aa7" kind="function"><name>DsiPath_Init</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h_1af8d6a41f3dd8603219aeb97d1f48d6cc" kind="function"><name>DsiPath_StartVideo</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h_1a9656bb8bc26fd48353098543d440b152" kind="function"><name>DsiPath_StopVideo</name></member>
+    <member refid="xmipi__scu200__hpio__example_2dsi__txss__display_8h_1ac8c31c00913fa51695ad87917187a665" kind="function"><name>DsiPath_Reinit</name></member>
+  </compound>
+  <compound refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h" kind="file"><name>xmipi_scu200_xp5io_example/dsi_txss_display.h</name>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a0dabd7a8b3b074741c71533ae3bb32a6" kind="define"><name>DSI_PANEL_H_RES</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a2305faf6da4cd801f9c4f2202720fe1c" kind="define"><name>DSI_PANEL_V_RES</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a11797aaaab21448853f35bf2f9795aa7" kind="function"><name>DsiPath_Init</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1af8d6a41f3dd8603219aeb97d1f48d6cc" kind="function"><name>DsiPath_StartVideo</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1a9656bb8bc26fd48353098543d440b152" kind="function"><name>DsiPath_StopVideo</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2dsi__txss__display_8h_1ac8c31c00913fa51695ad87917187a665" kind="function"><name>DsiPath_Reinit</name></member>
+  </compound>
   <compound refid="function__prototype_8c" kind="file"><name>function_prototype.c</name>
     <member refid="function__prototype_8c_1aa28f16012526f369b357c9e5ae5bf1ec" kind="define"><name>IIC_FMC_BASE</name></member>
     <member refid="function__prototype_8c_1a77342e505035ac2d03b9f4a520d03870" kind="define"><name>IIC_ADAPTER_BASE</name></member>
@@ -271,7 +404,7 @@
     <member refid="function__prototype_8c_1a1e58339925ad17e607bada3d9c9c1eb7" kind="variable"><name>IicAdapter</name></member>
     <member refid="function__prototype_8c_1afc5b3042025c8c68eb9def9a826fa30e" kind="variable"><name>IicFmcInstPtr</name></member>
     <member refid="function__prototype_8c_1a34e77853a255a647d9aea5533be17aef" kind="variable"><name>IicAdapterInstPtr</name></member>
-    <member refid="function__prototype_8c_1a301b988b2453fda0d2780ed4d82c8450" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="function__prototype_8c_1a0a3605b73c120b5251205f732325ca8e" kind="variable"><name>WriteBuffer</name></member>
     <member refid="function__prototype_8c_1af87b2a3712f19c0723e6b945b30cd2cc" kind="variable"><name>ReadBuffer</name></member>
     <member refid="function__prototype_8c_1a19d9dd848a431a459bff8db6e3eb2985" kind="variable"><name>TransmitComplete</name></member>
     <member refid="function__prototype_8c_1a9f1fae969d865449aacad8208e70ce16" kind="variable"><name>ReceiveComplete</name></member>
@@ -5040,6 +5173,7 @@
   </compound>
   <compound refid="xmipi__scu200__hpio__example_2xhdmi__example_8c" kind="file"><name>xmipi_scu200_hpio_example/xhdmi_example.c</name>
     <member refid="xmipi__scu200__hpio__example_2xhdmi__example_8c_1a41473cd83e9b35dadf4fdb95f83ab9e3" kind="define"><name>AUX_FIFO_CLEAR</name></member>
+    <member refid="xmipi__scu200__hpio__example_2xhdmi__example_8c_1ac4dd6d9df67f4f44e5299925dd1cbdbf" kind="variable"><name>Pipeline_Cfg</name></member>
     <member refid="xmipi__scu200__hpio__example_2xhdmi__example_8c_1a14d02b412c24ae2c20dc7cfc843f7274" kind="variable"><name>Iic</name></member>
     <member refid="xmipi__scu200__hpio__example_2xhdmi__example_8c_1af5e7e40b565ee65c58ce04b2b2eb20d5" kind="variable"><name>Hdmiphy1</name></member>
     <member refid="xmipi__scu200__hpio__example_2xhdmi__example_8c_1a0c3638adae2033ce92988fe0b2a7d255" kind="variable"><name>Hdmiphy1ErrorFlag</name></member>
@@ -5079,6 +5213,7 @@
   </compound>
   <compound refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c" kind="file"><name>xmipi_scu200_xp5io_example/xhdmi_example.c</name>
     <member refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c_1a41473cd83e9b35dadf4fdb95f83ab9e3" kind="define"><name>AUX_FIFO_CLEAR</name></member>
+    <member refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c_1ac4dd6d9df67f4f44e5299925dd1cbdbf" kind="variable"><name>Pipeline_Cfg</name></member>
     <member refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c_1a14d02b412c24ae2c20dc7cfc843f7274" kind="variable"><name>Iic</name></member>
     <member refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c_1af5e7e40b565ee65c58ce04b2b2eb20d5" kind="variable"><name>Hdmiphy1</name></member>
     <member refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c_1a0c3638adae2033ce92988fe0b2a7d255" kind="variable"><name>Hdmiphy1ErrorFlag</name></member>
@@ -6519,6 +6654,7 @@
     <member refid="xmipi__scu200__hpio__example_8c_1a9698d142e2ca5e8ef2fc0a39521abdb2" kind="function"><name>DisableImageProcessingPipe</name></member>
     <member refid="xmipi__scu200__hpio__example_8c_1a8d1ddee894f9c7bdc47514763010ebe2" kind="function"><name>InitImageProcessingPipe</name></member>
     <member refid="xmipi__scu200__hpio__example_8c_1a56f64108083ce8ee138d8f0448b28fd9" kind="function"><name>SelectHDMIOutput</name></member>
+    <member refid="xmipi__scu200__hpio__example_8c_1afcfc70f9d157a135796b76f00bef36c4" kind="function"><name>SelectDSIOutput</name></member>
     <member refid="xmipi__scu200__hpio__example_8c_1a4dce91041c96d24627182e29908c4b77" kind="function"><name>Xil_AssertCallbackRoutine</name></member>
     <member refid="xmipi__scu200__hpio__example_8c_1ac399b86e23efdbd8b01b82a38cb84824" kind="function"><name>xpio_dci_fix</name></member>
     <member refid="xmipi__scu200__hpio__example_8c_1a84801a8d475a349593d88d1a5e82c9e0" kind="function"><name>xpio_equalization_fix</name></member>
@@ -6581,6 +6717,7 @@
     <member refid="xmipi__scu200__xp5io__example_8c_1a9698d142e2ca5e8ef2fc0a39521abdb2" kind="function"><name>DisableImageProcessingPipe</name></member>
     <member refid="xmipi__scu200__xp5io__example_8c_1a8d1ddee894f9c7bdc47514763010ebe2" kind="function"><name>InitImageProcessingPipe</name></member>
     <member refid="xmipi__scu200__xp5io__example_8c_1a56f64108083ce8ee138d8f0448b28fd9" kind="function"><name>SelectHDMIOutput</name></member>
+    <member refid="xmipi__scu200__xp5io__example_8c_1afcfc70f9d157a135796b76f00bef36c4" kind="function"><name>SelectDSIOutput</name></member>
     <member refid="xmipi__scu200__xp5io__example_8c_1a4dce91041c96d24627182e29908c4b77" kind="function"><name>Xil_AssertCallbackRoutine</name></member>
     <member refid="xmipi__scu200__xp5io__example_8c_1ac399b86e23efdbd8b01b82a38cb84824" kind="function"><name>xpio_dci_fix</name></member>
     <member refid="xmipi__scu200__xp5io__example_8c_1a84801a8d475a349593d88d1a5e82c9e0" kind="function"><name>xpio_equalization_fix</name></member>

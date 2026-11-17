@@ -73,6 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
@@ -104,7 +105,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -118,20 +119,14 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
 <li>AxiDMASelfTestExample()
-: <a class="el" href="xaxidma__example__selftest_8c.html#a95abf69118f4f7a08c4c6e264a39982b">xaxidma_example_selftest.c</a>
+: <a class="el" href="group___a_x_i_d_m_a.html#ga95abf69118f4f7a08c4c6e264a39982b">xaxidma_example_selftest.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
-: <a class="el" href="xaxidma__example__poll__multi__pkts_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxidma_example_poll_multi_pkts.c</a>
-, <a class="el" href="xaxidma__example__simple__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxidma_example_simple_poll.c</a>
-, <a class="el" href="xaxidma__example__simple__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxidma_example_simple_intr.c</a>
-, <a class="el" href="xaxidma__example__sgcyclic__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxidma_example_sgcyclic_intr.c</a>
-, <a class="el" href="xaxidma__example__sg__poll_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxidma_example_sg_poll.c</a>
-, <a class="el" href="xaxidma__example__sg__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxidma_example_sg_intr.c</a>
-, <a class="el" href="xaxidma__example__selftest_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxidma_example_selftest.c</a>
+: <a class="el" href="group___a_x_i_d_m_a.html#ga840291bc02cba5474a4cb46a9b9566fe">xaxidma_example_poll_multi_pkts.c</a>
 </li>
 </ul>
 
@@ -142,39 +137,51 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XAxiDma_BdRingAlloc()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingCheck()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga64cf3c732bc803da742c256ab6372e0e">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga64cf3c732bc803da742c256ab6372e0e">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingClone()
 : <a class="el" href="group___a_x_i_d_m_a.html#gad044df5bd676a71226411ba7f78ef20b">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gad044df5bd676a71226411ba7f78ef20b">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingCreate()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga5c6d6f492642dd355478c3a853556d6b">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga5c6d6f492642dd355478c3a853556d6b">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingDumpRegs()
 : <a class="el" href="group___a_x_i_d_m_a.html#gaffa661a9a2467c1e274842c147531cea">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gaffa661a9a2467c1e274842c147531cea">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingFree()
 : <a class="el" href="group___a_x_i_d_m_a.html#gad2ac76e5a39486896cd484e51d2898c7">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gad2ac76e5a39486896cd484e51d2898c7">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingFromHw()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga1e5d328b4d4a247d1530fac3efe4c59c">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga1e5d328b4d4a247d1530fac3efe4c59c">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingGetCoalesce()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga0d3794bbccf028da8e94407d061dfc68">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga0d3794bbccf028da8e94407d061dfc68">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingSetCoalesce()
 : <a class="el" href="group___a_x_i_d_m_a.html#gaaebba5c661e04485582e887e74dbeb94">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gaaebba5c661e04485582e887e74dbeb94">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingStart()
 : <a class="el" href="group___a_x_i_d_m_a.html#gaafd18a1df185c30b4745c147e3295ac3">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gaafd18a1df185c30b4745c147e3295ac3">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingToHw()
 : <a class="el" href="group___a_x_i_d_m_a.html#gaac81111b373e373be7dd3989fffffe7b">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gaac81111b373e373be7dd3989fffffe7b">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdRingUnAlloc()
 : <a class="el" href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_BdSetAppWord()
 : <a class="el" href="group___a_x_i_d_m_a.html#gafc6434a23594c20c2b601f010a979e48">xaxidma_bd.c</a>
@@ -225,16 +232,21 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="group___a_x_i_d_m_a.html#gad4ea3039216916336ae1c7598ff26afc">xaxidma.h</a>
 </li>
 <li>XAxiDma_SimplePollExample()
-: <a class="el" href="xaxidma__example__simple__poll_8c.html#a74235d148637c91d12901cc99d930ff4">xaxidma_example_simple_poll.c</a>
+: <a class="el" href="group___a_x_i_d_m_a.html#ga74235d148637c91d12901cc99d930ff4">xaxidma_example_simple_poll.c</a>
 </li>
 <li>XAxiDma_SimpleTransfer()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga32ca6099d7926297a4c17cdb4a19511b">xaxidma.c</a>
 </li>
 <li>XAxiDma_StartBdRingHw()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga7b38bc9220c391823219937580bd816f">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga7b38bc9220c391823219937580bd816f">xaxidma_bdring.h</a>
 </li>
 <li>XAxiDma_UpdateBdRingCDesc()
 : <a class="el" href="group___a_x_i_d_m_a.html#ga39ee7d89e4453276d615849acad27fde">xaxidma_bdring.c</a>
+, <a class="el" href="group___a_x_i_d_m_a.html#ga39ee7d89e4453276d615849acad27fde">xaxidma_bdring.h</a>
+</li>
+<li>xil_printf()
+: <a class="el" href="group___a_x_i_d_m_a.html#gad29568bf33fe85cabeb0615ae8ebc67b">xaxidma_example_poll_multi_pkts.c</a>
 </li>
 </ul>
 </div><!-- contents -->

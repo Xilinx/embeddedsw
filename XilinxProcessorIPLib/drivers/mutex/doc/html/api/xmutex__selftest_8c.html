@@ -105,15 +105,28 @@ $(document).ready(function(){initNavTree('xmutex__selftest_8c.html','');});
 <div class="title">xmutex_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements Mutex self-test. </p>
+<p>Contains <a class="el" href="struct_x_mutex.html" title="The XMutex driver instance data. ">XMutex</a> driver selftest code.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a va            First release
+1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
+                and xil_assert.
+4.12  tb   09/11/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xmutex_8h.html">xmutex.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1599a86dd180f3bd789a2fc472e9aa29"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mutex.html#ga1599a86dd180f3bd789a2fc472e9aa29">XMutex_SelfTest</a> (<a class="el" href="struct_x_mutex.html">XMutex</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga1599a86dd180f3bd789a2fc472e9aa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selftest a particular Mutex hardware core.  <a href="group__mutex.html#ga1599a86dd180f3bd789a2fc472e9aa29">More...</a><br/></td></tr>
+<tr class="memitem:ga1599a86dd180f3bd789a2fc472e9aa29"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mutex__api.html#ga1599a86dd180f3bd789a2fc472e9aa29">XMutex_SelfTest</a> (<a class="el" href="struct_x_mutex.html">XMutex</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga1599a86dd180f3bd789a2fc472e9aa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a destructive self-test on a Mutex core.  <a href="group__mutex__api.html#ga1599a86dd180f3bd789a2fc472e9aa29">More...</a><br/></td></tr>
 <tr class="separator:ga1599a86dd180f3bd789a2fc472e9aa29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

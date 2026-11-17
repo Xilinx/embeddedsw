@@ -1,27 +1,92 @@
 var NAVTREE =
 [
-  [ "i3cpsx", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ]
-  ] ]
+  [
+    "i3cpsx",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                null
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                null
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"xi3cpsx__hw_8h.html#ga11551c5f760e787996b4d26ec17ae606",
+"xi3cpsx__hw_8h.html#ga360cac00b2dbd0f0fc03e36fbe2771ef",
+"xi3cpsx__hw_8h.html#ga54af3fe35056b6e9bc118f9feb902e6f",
+"xi3cpsx__hw_8h.html#ga759c83d2004fb33f32eda4763e71a4ed",
+"xi3cpsx__hw_8h.html#ga960ec2a8d46f63c3dafb0ae85fb01cbb",
+"xi3cpsx__hw_8h.html#gaba126c07b9065b3497a0db01f6e4c056",
+"xi3cpsx__hw_8h.html#gadf958ac609f96b134abf899744d26fc9",
+"xi3cpsx__hw_8h.html#gaffb159031a1f83aac5cb672bff69a0eb"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

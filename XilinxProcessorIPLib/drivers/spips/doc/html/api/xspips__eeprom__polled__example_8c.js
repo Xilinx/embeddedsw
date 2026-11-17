@@ -1,7 +1,29 @@
 var xspips__eeprom__polled__example_8c =
 [
-    [ "EepromRead", "xspips__eeprom__polled__example_8c.html#a1d9197ec4b9bd96eae501456b5b12cd5", null ],
-    [ "EepromWrite", "xspips__eeprom__polled__example_8c.html#a2f23357b0cfe111d80824b3bfacb8b22", null ],
-    [ "main", "xspips__eeprom__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
-    [ "SpiPsEepromPolledExample", "xspips__eeprom__polled__example_8c.html#af156542e10fb69ebb3a0760a22f77fbb", null ]
+    [ "ADDRESS_LSB_OFFSET", "xspips__eeprom__polled__example_8c.html#gabb162281f5a7d62f2acc8d091a97ba52", null ],
+    [ "ADDRESS_MSB_OFFSET", "xspips__eeprom__polled__example_8c.html#ga47e17a2c44fb806fc1ff6d3e9397e253", null ],
+    [ "BUFFER_SIZE", "xspips__eeprom__polled__example_8c.html#ga6b20d41d6252e9871430c242cb1a56e7", null ],
+    [ "COMMAND_OFFSET", "xspips__eeprom__polled__example_8c.html#gadb83c033ee492824badb77fa8ebd5c5d", null ],
+    [ "DATA_OFFSET", "xspips__eeprom__polled__example_8c.html#ga11faa4c105a137b8edaa096de5063835", null ],
+    [ "EEPROM_SPI_SELECT", "xspips__eeprom__polled__example_8c.html#ga94474f1a5d490fada274141f8ce7f5b5", null ],
+    [ "MAX_DATA", "xspips__eeprom__polled__example_8c.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9", null ],
+    [ "OVERHEAD_SIZE", "xspips__eeprom__polled__example_8c.html#ga635c69a613273e533212c0bf3c15b8c4", null ],
+    [ "PAGE_COUNT", "xspips__eeprom__polled__example_8c.html#ga782f22e23dde7fc39ed8d5e1f4c9b141", null ],
+    [ "PAGE_SIZE", "xspips__eeprom__polled__example_8c.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e", null ],
+    [ "READ_CMD", "xspips__eeprom__polled__example_8c.html#ga21623e2a5501c821da54dd76ffc1d077", null ],
+    [ "READ_DATA_OFFSET", "xspips__eeprom__polled__example_8c.html#gae81191a53faa3dd6f1218212910f55dd", null ],
+    [ "READ_STATUS_CMD", "xspips__eeprom__polled__example_8c.html#gaa3ec262a3f2ab7e77412a7fdab86a011", null ],
+    [ "WRITE_CMD", "xspips__eeprom__polled__example_8c.html#gaf792feb13ae0c1eab8f95f64c8baa96d", null ],
+    [ "WRITE_DATA_OFFSET", "xspips__eeprom__polled__example_8c.html#ga39cfafaf06548fe0f678d193a1c2ec00", null ],
+    [ "WRITE_DISABLE_CMD", "xspips__eeprom__polled__example_8c.html#ga12fe83d74a765a1b4ae033e22a23dafe", null ],
+    [ "WRITE_ENABLE_CMD", "xspips__eeprom__polled__example_8c.html#ga778f641f7a12aabbe1ffd0c948f8e1f9", null ],
+    [ "WRITE_STATUS_CMD", "xspips__eeprom__polled__example_8c.html#ga076966d3a1aa7647c294802e9f76bb10", null ],
+    [ "EepromBuffer", "xspips__eeprom__polled__example_8c.html#gaa4e3dacd5dff65e71d69eed321c4d7bf", null ],
+    [ "EepromRead", "xspips__eeprom__polled__example_8c.html#ga1d9197ec4b9bd96eae501456b5b12cd5", null ],
+    [ "EepromWrite", "xspips__eeprom__polled__example_8c.html#ga2f23357b0cfe111d80824b3bfacb8b22", null ],
+    [ "main", "xspips__eeprom__polled__example_8c.html#ga840291bc02cba5474a4cb46a9b9566fe", null ],
+    [ "SpiPsEepromPolledExample", "xspips__eeprom__polled__example_8c.html#gaf156542e10fb69ebb3a0760a22f77fbb", null ],
+    [ "ReadBuffer", "xspips__eeprom__polled__example_8c.html#ga5faf644bedc2f77c4dc8631d5a5a0482", null ],
+    [ "Test", "xspips__eeprom__polled__example_8c.html#gab3bcee72bda39943b664463f1df4d211", null ],
+    [ "WriteBuffer", "xspips__eeprom__polled__example_8c.html#gaaf9b16ecdabdeade00c3e9616cd7e560", null ]
 ];

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc__mts__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,13 +100,15 @@ $(document).ready(function(){initNavTree('xrfdc__mts__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xrfdc_mts_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>RFSoC MultiTile Sync Example test application. </p>
+<div class="textblock"><p>Demonstrates the RFdc multi-tile synchronization API. </p>
+<p>RFSoC MultiTile Sync Example test application</p>
 <p>This example calls the RFdc Multi-tile-sync (MTS) API with the following configuration: Tiles to Sync: DAC0, DAC1, ADC0, ADC1, ADC2, ADC3.</p>
 <p>MTS expects the PL clock, the AXI stream clock and the FS to all be compatible for it to function correctly. More information surrounding this can be found in PG269. </p>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
@@ -125,17 +127,59 @@ $(document).ready(function(){initNavTree('xrfdc__mts__example_8c.html','');});
 8.1   cog    08/28/20 Make the example toatally generic, updated information.
 10.0  cog    11/26/20 xrfdc_mts.h is now integrated to <a class="el" href="xrfdc_8h.html">xrfdc.h</a>.
       cog    03/08/21 MTS now scans reference tile first. This has required a
-                      change to the prototype of XRFdc_MultiConverter_Init.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
+                      change to the prototype of XRFdc_MultiConverter_Init.
+13.2  vn     08/11/26 Fix Doxygen warnings.
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a13b977065c58cdcbeca514fb6a9caf8e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__mts__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e">RFDC_DEVICE_ID</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a13b977065c58cdcbeca514fb6a9caf8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device ID.  <a href="#a13b977065c58cdcbeca514fb6a9caf8e">More...</a><br/></td></tr>
+<tr class="separator:a13b977065c58cdcbeca514fb6a9caf8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdd3353539455c931a508bce8abd9de2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__mts__example_8c.html#afdd3353539455c931a508bce8abd9de2">I2CBUS</a>&#160;&#160;&#160;12</td></tr>
+<tr class="memdesc:afdd3353539455c931a508bce8abd9de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C bus ID used to configure the clock devices.  <a href="#afdd3353539455c931a508bce8abd9de2">More...</a><br/></td></tr>
+<tr class="separator:afdd3353539455c931a508bce8abd9de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad715e4bd581993df1ad8add6b078331b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__mts__example_8c.html#ad715e4bd581993df1ad8add6b078331b">RFdcMTS_Example</a> (u16 RFdcDeviceId)</td></tr>
-<tr class="memdesc:ad715e4bd581993df1ad8add6b078331b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a MTS test on the RFSoC data converter device using the driver APIs.  <a href="#ad715e4bd581993df1ad8add6b078331b">More...</a><br/></td></tr>
+<tr class="memitem:ad715e4bd581993df1ad8add6b078331b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__mts__example_8c.html#ad715e4bd581993df1ad8add6b078331b">RFdcMTS_Example</a> (<a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> RFdcDeviceId)</td></tr>
+<tr class="memdesc:ad715e4bd581993df1ad8add6b078331b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs an MTS test on the RFSoC data converter device using driver APIs.  <a href="#ad715e4bd581993df1ad8add6b078331b">More...</a><br/></td></tr>
 <tr class="separator:ad715e4bd581993df1ad8add6b078331b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xrfdc__mts__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function that invokes the MTS example in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the MTS example in this file.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="afdd3353539455c931a508bce8abd9de2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CBUS&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I2C bus ID used to configure the clock devices. </p>
+
+</div>
+</div>
+<a class="anchor" id="a13b977065c58cdcbeca514fb6a9caf8e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RFDC_DEVICE_ID&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device ID. </p>
+
+<p>Referenced by <a class="el" href="xrfdc__mts__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -151,21 +195,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function that invokes the MTS example in this file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Invokes the MTS example in this file. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XRFDC_SUCCESS if the example has completed successfully.</li>
-<li>XRFDC_FAILURE if the example has failed.</li>
+<li>XRFDC_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xrfdc__mts__example_8c.html#ad715e4bd581993df1ad8add6b078331b">RFdcMTS_Example()</a>.</p>
+<p>References <a class="el" href="xrfdc__mts__example_8c.html#a13b977065c58cdcbeca514fb6a9caf8e">RFDC_DEVICE_ID</a>, <a class="el" href="xrfdc__mts__example_8c.html#ad715e4bd581993df1ad8add6b078331b">RFdcMTS_Example()</a>, <a class="el" href="group___overview.html#ga891869fce59865c77088c684e3ea35be">XRFDC_FAILURE</a>, and <a class="el" href="group___overview.html#gaf1b1ee3f8865a8b448387d20f472c80c">XRFDC_SUCCESS</a>.</p>
 
 </div>
 </div>
@@ -176,14 +213,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int RFdcMTS_Example </td>
           <td>(</td>
-          <td class="paramtype">u16&#160;</td>
+          <td class="paramtype"><a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a>&#160;</td>
           <td class="paramname"><em>RFdcDeviceId</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function runs a MTS test on the RFSoC data converter device using the driver APIs. </p>
+<p>Runs an MTS test on the RFSoC data converter device using driver APIs. </p>
 <p>This function does the following tasks:</p>
 <ul>
 <li>Initialize the RFdc device driver instance</li>
@@ -191,18 +228,17 @@ Functions</h2></td></tr>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">RFdcDeviceId</td><td>is the XPAR_&lt;XRFDC_instance&gt;_DEVICE_ID value from xparameters.h.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RFdcDeviceId</td><td>XPAR_&lt;XRFDC_instance&gt;_DEVICE_ID value from xparameters.h.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XRFDC_SUCCESS if the example has completed successfully.</li>
-<li>XRFDC_FAILURE if the example has failed.</li>
+<li>XRFDC_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">XRFdc_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga1299f0dcedca852a5a37e7bb1aa4d646">XRFdc_GetDecimationFactor()</a>, <a class="el" href="group___overview.html#ga24bd6bd466b879bbccb7795cc7bce579">XRFdc_GetInterpolationFactor()</a>, <a class="el" href="group___overview.html#gaef734b9d6e7cb7cb2bbacfd74ed51dd1">XRFdc_LookupConfig()</a>, <a class="el" href="group___overview.html#gaccab0c774a971a73089115245cfe1865">XRFdc_MultiConverter_Init()</a>, <a class="el" href="group___overview.html#ga032b44b96776ed88ed58464b1d014d63">XRFdc_MultiConverter_Sync()</a>, and <a class="el" href="group___overview.html#ga415b909c08102db406ea819a6c744add">XRFdc_RegisterMetal()</a>.</p>
+<p>References <a class="el" href="xrfdc__gen2__or__below__clocked__example_8c.html#ae68416658b416b1e5bdbdcf69cd0e617">deviceptr</a>, <a class="el" href="struct_x_r_fdc___multi_converter___sync___config.html#ab1095ea1186a68e2cd95f66d05d9778d">XRFdc_MultiConverter_Sync_Config::Latency</a>, <a class="el" href="struct_x_r_fdc___multi_converter___sync___config.html#af5f6aacfc36cba7c15845d70a5e822fb">XRFdc_MultiConverter_Sync_Config::Offset</a>, <a class="el" href="struct_x_r_fdc___multi_converter___sync___config.html#aa3e61b2889a55420e0172f5eef439a39">XRFdc_MultiConverter_Sync_Config::Tiles</a>, <a class="el" href="group___overview.html#ga41305e22872fdf8e4dddad663413e378">XRFDC_ADC_TILE</a>, <a class="el" href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">XRFdc_CfgInitialize()</a>, <a class="el" href="group___overview.html#gabf00384e1cf1b0da50ae02be2366a9cd">XRFDC_DAC_TILE</a>, <a class="el" href="group___overview.html#ga891869fce59865c77088c684e3ea35be">XRFDC_FAILURE</a>, <a class="el" href="group___overview.html#ga1299f0dcedca852a5a37e7bb1aa4d646">XRFdc_GetDecimationFactor()</a>, <a class="el" href="group___overview.html#ga24bd6bd466b879bbccb7795cc7bce579">XRFdc_GetInterpolationFactor()</a>, <a class="el" href="group___overview.html#gae69667ff995e4439ad6e6af1b1a34448">XRFdc_LookupConfig()</a>, <a class="el" href="group___overview.html#ga41164dfb998a4b59d25ddb2802f62310">XRFDC_MTS_OK</a>, <a class="el" href="group___overview.html#gaccab0c774a971a73089115245cfe1865">XRFdc_MultiConverter_Init()</a>, <a class="el" href="group___overview.html#ga032b44b96776ed88ed58464b1d014d63">XRFdc_MultiConverter_Sync()</a>, <a class="el" href="group___overview.html#ga415b909c08102db406ea819a6c744add">XRFdc_RegisterMetal()</a>, <a class="el" href="group___overview.html#gaf1b1ee3f8865a8b448387d20f472c80c">XRFDC_SUCCESS</a>, and <a class="el" href="group___overview.html#ga42a6d85d71f762135cad19b57e434c77">XRFDC_TILE_ID0</a>.</p>
 
 <p>Referenced by <a class="el" href="xrfdc__mts__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

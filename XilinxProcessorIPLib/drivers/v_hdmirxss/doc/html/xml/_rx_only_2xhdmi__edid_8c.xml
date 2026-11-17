@@ -9,6 +9,9 @@
       <node id="633">
         <label>stdlib.h</label>
       </node>
+      <node id="636">
+        <label>xvidc_edid_ext.h</label>
+      </node>
       <node id="631">
         <label>xhdmi_edid.c</label>
         <link refid="RxOnly/xhdmi_edid.c"/>
@@ -18,9 +21,6 @@
         </childnode>
         <childnode refid="634" relation="include">
         </childnode>
-      </node>
-      <node id="636">
-        <label>xvidc_edid_ext.h</label>
       </node>
       <node id="634">
         <label>xhdmi_edid.h</label>
@@ -62,6 +62,6 @@
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/RxOnly/xhdmi_edid.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/RxOnly/xhdmi_edid.c"/>
   </compounddef>
 </doxygen>

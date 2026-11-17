@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__validate_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,14 +120,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 3.5   har  12/04/2024 Split check for AES disable and key write lock in XNvm_EfuseValidateAesKeyWriteReq
 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
 3.6   vss  08/08/2025 Added required OCP support for versal_2ve_2vm.
-3.7   nik  01/29/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+3.7   nik  01/29/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xnvm__validate_8h.html">xnvm_validate.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xnvm__common__defs_8h.html">xnvm_common_defs.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="net_2common_2xnvm__defs_8h.html">xnvm_defs.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="next_2common_2xnvm__defs_8h.html">xnvm_defs.h</a>&quot;</code><br/>
 <code>#include &quot;xnvm_utils.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xnvm__efuse__error_8h.html">xnvm_efuse_error.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="versal__gen_2versal__net_2common_2xnvm__efuse__hw_8h.html">xnvm_efuse_hw.h</a>&quot;</code><br/>
+<code>#include &quot;xnvm_efuse_hw.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xnvm__efuse__common__hw_8h.html">xnvm_efuse_common_hw.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -137,6 +139,9 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gab168260b0e63bf5c31d908bba94e5a9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gab168260b0e63bf5c31d908bba94e5a9a">XNvm_EfuseGetAesKeyCrcRegs</a> (<a class="el" href="group__xnvm__def__api__ids.html#ga3b0258a29c1f095e8949ab58e45e9540">XNvm_AesKeyType</a> KeyType, u32 *CrcRegOffset, u32 *CrcDoneMask, u32 *CrcPassMask)</td></tr>
+<tr class="memdesc:gab168260b0e63bf5c31d908bba94e5a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the eFUSE controller CRC registers of an AES-class key type.  <a href="group__xnvm__versal__net__validate__api__ids.html#gab168260b0e63bf5c31d908bba94e5a9a">More...</a><br/></td></tr>
+<tr class="separator:gab168260b0e63bf5c31d908bba94e5a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa35f9d7952af5fccaed74ba5ae579191"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">XNvm_EfuseValidateAesKeyWriteReq</a> (<a class="el" href="group__xnvm__def__api__ids.html#ga3b0258a29c1f095e8949ab58e45e9540">XNvm_AesKeyType</a> KeyType)</td></tr>
 <tr class="memdesc:gaa35f9d7952af5fccaed74ba5ae579191"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates AES key/User Key 0/User key 1 requested for programming into eFUSEs.  <a href="group__xnvm__versal__net__validate__api__ids.html#gaa35f9d7952af5fccaed74ba5ae579191">More...</a><br/></td></tr>
 <tr class="separator:gaa35f9d7952af5fccaed74ba5ae579191"><td class="memSeparator" colspan="2">&#160;</td></tr>

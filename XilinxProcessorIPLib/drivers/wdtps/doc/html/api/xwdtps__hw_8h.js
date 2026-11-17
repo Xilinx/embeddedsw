@@ -10,7 +10,6 @@ var xwdtps__hw_8h =
     [ "XWDTPS_CCR_PSCALE_0064", "xwdtps__hw_8h.html#ga77aab579ac71f7ac44d785ff35564c05", null ],
     [ "XWDTPS_CCR_PSCALE_0512", "xwdtps__hw_8h.html#ga5a1088e125265e83d8f75a4e39110ee6", null ],
     [ "XWDTPS_CCR_PSCALE_4096", "xwdtps__hw_8h.html#gac45a97f7c45ce5c10365a27c199d8d2c", null ],
-    [ "XWDTPS_HW_H", "xwdtps__hw_8h.html#gaa55483ea4e4979700111be19b03d06e7", null ],
     [ "XWdtPs_ReadReg", "xwdtps__hw_8h.html#gae41b46b220ba0da6a9f28e594c3c0a47", null ],
     [ "XWDTPS_RESTART_KEY_VAL", "xwdtps__hw_8h.html#ga798fcec0eac576d8309e3995e3597b3e", null ],
     [ "XWDTPS_RESTART_OFFSET", "xwdtps__hw_8h.html#gaa8bb5ca85ad74f2e5601444673e6ed09", null ],

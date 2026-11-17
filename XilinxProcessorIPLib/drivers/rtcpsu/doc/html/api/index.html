@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,8 +103,9 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">rtcpsu Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The Xilinx RTC driver component. This component supports the Xilinx RTC Controller. RTC Core and RTC controller are the two main important sub- components for this RTC module. RTC core can run even in the battery powered domain when the power from auxiliary source is down.Because of this, RTC core latches the calibration,programmed time.This core interfaces with the crystal oscillator and maintains current time in seconds.Calibration circuitry calculates a second with maximum 1 PPM inaccuracy using a crystal oscillator with arbitrary static inaccuracy. Core also responsible to maintain control value used by the oscillator and power switching circuitry.</p>
-<p>RTC controller includes an APB interface responsible for register access with in controller and core.It contains alarm generation logic including the alarm register to hold alarm time in seconds.Interrupt management using Interrupt status, Interrupt mask, Interrupt enable, Interrupt disable registers are included to manage alarm and seconds interrupts.Address Slave error interrupts are not being handled by this driver component.</p>
+<div class="textblock"><p>The Xilinx RTC driver component supports the Xilinx RTC Controller. RTC Core and RTC controller are the two main important sub-components for this RTC module.</p>
+<p>RTC core can run even in the battery powered domain when the power from auxiliary source is down. Because of this, RTC core latches the calibration and programmed time. This core interfaces with the crystal oscillator and maintains current time in seconds. Calibration circuitry calculates a second with maximum 1 PPM inaccuracy using a crystal oscillator with arbitrary static inaccuracy. The core is also responsible for maintaining the control value used by the oscillator and power switching circuitry.</p>
+<p>RTC controller includes an APB interface responsible for register access within the controller and core. It contains alarm generation logic including the alarm register to hold alarm time in seconds. Interrupt status, Interrupt mask, Interrupt enable, and Interrupt disable registers manage the alarm and seconds interrupts. This driver component does not handle Address Slave error interrupts.</p>
 <p>This driver supports the following features:</p>
 <ul>
 <li>Setting the RTC time.</li>
@@ -112,20 +113,20 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>Modifying the calibration value.</li>
 </ul>
 <p><b>Initialization &amp; Configuration</b></p>
-<p>The <a class="el" href="struct_x_rtc_psu___config.html" title="This typedef contains configuration information for a device. ">XRtcPsu_Config</a> structure is used by the driver to configure itself. Fields inside this structure are properties of <a class="el" href="struct_x_rtc_psu.html" title="The XRtcPsu driver instance data. ">XRtcPsu</a> based on its hardware build.</p>
+<p>The driver uses the <a class="el" href="struct_x_rtc_psu___config.html" title="Holds the configuration information for a device. ">XRtcPsu_Config</a> structure to configure itself. Fields inside this structure are properties of <a class="el" href="struct_x_rtc_psu.html" title="Stores the XRtcPsu driver instance data. ">XRtcPsu</a> based on its hardware build.</p>
 <p>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way: </p>
 <pre class="fragment"> - XRtcPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
  configuration structure provided by the caller. If running in a system
- with address translation, the parameter EffectiveAddr should be the
+ with address translation, the parameter EffectiveAddr must be the
  virtual address.
 </pre><p><b>Interrupts</b></p>
-<p>The driver defaults to no interrupts at initialization such that interrupts must be enabled if desired. An interrupt is generated for one of the following conditions.</p>
+<p>The driver defaults to no interrupts at initialization, so enable interrupts if required. An interrupt is generated for one of the following conditions.</p>
 <ul>
 <li>Alarm is generated.</li>
 <li>A new second is generated.</li>
 </ul>
-<p>The application can control which interrupts are enabled using the <a class="el" href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367" title="This function sets the interrupt mask. ">XRtcPsu_SetInterruptMask()</a> function.</p>
-<p>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <a class="el" href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7" title="This function is the interrupt handler for the driver. ">XRtcPsu_InterruptHandler()</a>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <a class="el" href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4" title="This function sets the handler that will be called when an event (interrupt) occurs that needs applic...">XRtcPsu_SetHandler()</a> function.</p>
+<p>The application can control which interrupts are enabled using the <a class="el" href="group__rtcpsu.html#ga645920d3519722e8dc815d07db527367" title="Sets the interrupt mask. ">XRtcPsu_SetInterruptMask()</a> function.</p>
+<p>To use interrupts, connect the driver interrupt handler, <a class="el" href="group__rtcpsu.html#ga01ca03d23194687c8026dc2f38da6ff7" title="Handles interrupts for the driver. ">XRtcPsu_InterruptHandler()</a>, to the interrupt system of the application. The application provides a separate handler to communicate with the interrupt system and conduct application-specific interrupt handling. An application registers its own handler through the <a class="el" href="group__rtcpsu.html#ga40b45bedf590e3e65eb525f1827768e4" title="Sets the handler that the driver calls when an event occurs. ">XRtcPsu_SetHandler()</a> function.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
 </p>
@@ -141,7 +142,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
                       generation.
       ms     04/10/17 Modified filename tag in examples to include them in
                       doxygen examples.
-1.5   ms     08/27/17 Fixed compilation warnings in <a class="el" href="xrtcpsu_8c.html">xrtcpsu.c</a> file.
+1.5   ms     08/27/17 Fixed compilation warnings in <a class="el" href="xrtcpsu_8c.html" title="Implements the core functions of the XRtcPsu RTC driver. ">xrtcpsu.c</a> file.
       ms     08/29/17 Updated the code as per source code style.
 1.6   aru    06/25/18 Modified logic to handle
                  the last day of month cotrrecly.(CR#1004282)
@@ -162,6 +163,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
 1.13  ht        06/22/23 Added support for system device-tree flow.
 1.17  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 1.17  ht     01/19/26 Add 3 macros (EPOCH_YEAR, EPOCH_WDAY, IS_LEAP_YEAR).
+1.18  vn     09/30/26 Align Doxygen comments with AMD standards
+1.18  vn     10/03/26 Fix MISRA C:2025 Rule 12.1 violation in IS_LEAP_YEAR.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

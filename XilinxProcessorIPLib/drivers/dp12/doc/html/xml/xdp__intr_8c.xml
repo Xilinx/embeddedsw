@@ -18,11 +18,20 @@
         <childnode refid="77" relation="include">
         </childnode>
       </node>
+      <node id="75">
+        <label>xdp_intr.c</label>
+        <link refid="xdp_intr.c"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
       <node id="82">
         <label>xstatus.h</label>
       </node>
       <node id="83">
         <label>xvidc.h</label>
+      </node>
+      <node id="79">
+        <label>xil_types.h</label>
       </node>
       <node id="76">
         <label>xdp.h</label>
@@ -40,17 +49,8 @@
         <childnode refid="83" relation="include">
         </childnode>
       </node>
-      <node id="79">
-        <label>xil_types.h</label>
-      </node>
       <node id="77">
         <label>xparameters.h</label>
-      </node>
-      <node id="75">
-        <label>xdp_intr.c</label>
-        <link refid="xdp_intr.c"/>
-        <childnode refid="76" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -78,9 +78,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_intr.c" bodystart="68" bodyend="87"/>
-        <references refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" compoundref="xdp_8h" startline="1156">XDp::IsReady</references>
-        <references refid="group__dp_1gaa3afd37e5bb042c2a75443eaadb79998" compoundref="xdp_8h" startline="1410">XDp_GetCoreType</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_intr.c" bodystart="68" bodyend="87"/>
+        <references refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" compoundref="xdp_8h" startline="1150">XDp::IsReady</references>
+        <references refid="group__dp_1gaa3afd37e5bb042c2a75443eaadb79998" compoundref="xdp_8h" startline="1399">XDp_GetCoreType</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -708,6 +708,6 @@
 <codeline lineno="758"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XDPRXSS_NUM_INSTANCES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="759"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_intr.c"/>
   </compounddef>
 </doxygen>

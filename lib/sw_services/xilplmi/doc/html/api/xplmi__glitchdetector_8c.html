@@ -119,7 +119,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
       tbk  02/24/26 Added SMC support for client applications
       tbk  05/19/26 Unified response indexing; helper now handles SMC/mailbox shift
-</pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
+      pre  07/15/26 Added input parameter validation at required places
+      pre  10/16/26 Added FMEA checks for register range, sensitivity bounds,
+                    masked GD_FUSE_CTRL readback, and enable-state validation.
+                    XPlmi_ReadReg32 and XPlmi_WriteReg32 now accept only
+                    glitch detector registers. Pack PM IOCTLs with the
+                    xilpm module id.
+</pre><dl class="section note"><dt>Note</dt><dd>XPlmi_ReadReg32 and XPlmi_WriteReg32 are exported. They now return XST_FAILURE for every PMC analog offset except the glitch detector registers. Read accepts GD_CTRL, GD_STATUS, GD_FUSE_CTRL0, and GD_FUSE_CTRL1. Write accepts GD_CTRL, GD_FUSE_CTRL0, and GD_FUSE_CTRL1. GD_STATUS is read only. No in-tree caller is affected. An out-of-tree caller that used these APIs for another PMC_ANALOG register now fails. In secure mode the PLM already enforces register access through the node access table. </dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__glitchdetector_8h.html">xplmi_glitchdetector.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
@@ -158,14 +164,32 @@ Macros</h2></td></tr>
 <tr class="memitem:gae0aaba8765423cf60f7e2d289da39824"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gae0aaba8765423cf60f7e2d289da39824">XPLMI_GD1_STATUS_POS</a>&#160;&#160;&#160;(16U)</td></tr>
 <tr class="memdesc:gae0aaba8765423cf60f7e2d289da39824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit position of glitch detector1 status.  <a href="group__xilplmi__client__apis.html#gae0aaba8765423cf60f7e2d289da39824">More...</a><br/></td></tr>
 <tr class="separator:gae0aaba8765423cf60f7e2d289da39824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa7c1fd55db4a06ebc0b574033f688c86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gaa7c1fd55db4a06ebc0b574033f688c86">XPLMI_GLITCHDETECTOR1</a>&#160;&#160;&#160;(1U)</td></tr>
+<tr class="memdesc:gaa7c1fd55db4a06ebc0b574033f688c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glitch detector1 number.  <a href="group__xilplmi__client__apis.html#gaa7c1fd55db4a06ebc0b574033f688c86">More...</a><br/></td></tr>
+<tr class="separator:gaa7c1fd55db4a06ebc0b574033f688c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a61a5ddad1f0576280b700830bf49ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga9a61a5ddad1f0576280b700830bf49ec">XPLMI_WIDTH_MAX</a>&#160;&#160;&#160;(0x0FU)</td></tr>
+<tr class="memdesc:ga9a61a5ddad1f0576280b700830bf49ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width is 4 bits; larger values overlap reference voltage.  <a href="group__xilplmi__client__apis.html#ga9a61a5ddad1f0576280b700830bf49ec">More...</a><br/></td></tr>
+<tr class="separator:ga9a61a5ddad1f0576280b700830bf49ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac652460b942d09eeebb98f46e4155cff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gac652460b942d09eeebb98f46e4155cff">XPLMI_USERREG_MAX</a>&#160;&#160;&#160;(0x01U)</td></tr>
+<tr class="memdesc:gac652460b942d09eeebb98f46e4155cff"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-register select is a single bit.  <a href="group__xilplmi__client__apis.html#gac652460b942d09eeebb98f46e4155cff">More...</a><br/></td></tr>
+<tr class="separator:gac652460b942d09eeebb98f46e4155cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafdfd328a7f67fcb4068d4d96c9010ae6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gafdfd328a7f67fcb4068d4d96c9010ae6">XPLMI_DEPTH_MAX</a>&#160;&#160;&#160;(0x1FU)</td></tr>
+<tr class="memdesc:gafdfd328a7f67fcb4068d4d96c9010ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Depth field is 5 bits.  <a href="group__xilplmi__client__apis.html#gafdfd328a7f67fcb4068d4d96c9010ae6">More...</a><br/></td></tr>
+<tr class="separator:gafdfd328a7f67fcb4068d4d96c9010ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga739d51e30a58b9f706faf888f10a7c1c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga739d51e30a58b9f706faf888f10a7c1c">XPLMI_REFVOL_MAX</a>&#160;&#160;&#160;(0x0FU)</td></tr>
+<tr class="memdesc:ga739d51e30a58b9f706faf888f10a7c1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference voltage field is 4 bits.  <a href="group__xilplmi__client__apis.html#ga739d51e30a58b9f706faf888f10a7c1c">More...</a><br/></td></tr>
+<tr class="separator:ga739d51e30a58b9f706faf888f10a7c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba5376a538b776e1225e3048c29c75df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gaba5376a538b776e1225e3048c29c75df">XPLMI_GD_FUSE_CTRL_MASK</a></td></tr>
+<tr class="memdesc:gaba5376a538b776e1225e3048c29c75df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits programmed in GD_FUSE_CTRL.  <a href="group__xilplmi__client__apis.html#gaba5376a538b776e1225e3048c29c75df">More...</a><br/></td></tr>
+<tr class="separator:gaba5376a538b776e1225e3048c29c75df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga38c3851f0289fdaf921b7ad554f2c290"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga38c3851f0289fdaf921b7ad554f2c290">XPlmi_WriteReg32</a> (u32 Offset, u32 Data)</td></tr>
-<tr class="memdesc:ga38c3851f0289fdaf921b7ad554f2c290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes value to register.  <a href="group__xilplmi__client__apis.html#ga38c3851f0289fdaf921b7ad554f2c290">More...</a><br/></td></tr>
+<tr class="memdesc:ga38c3851f0289fdaf921b7ad554f2c290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes value to a glitch detector register.  <a href="group__xilplmi__client__apis.html#ga38c3851f0289fdaf921b7ad554f2c290">More...</a><br/></td></tr>
 <tr class="separator:ga38c3851f0289fdaf921b7ad554f2c290"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga71e07b36be5081d644cd6a660fedbf92"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#ga71e07b36be5081d644cd6a660fedbf92">XPlmi_ReadReg32</a> (u32 Offset, u32 *Data)</td></tr>
-<tr class="memdesc:ga71e07b36be5081d644cd6a660fedbf92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads register value.  <a href="group__xilplmi__client__apis.html#ga71e07b36be5081d644cd6a660fedbf92">More...</a><br/></td></tr>
+<tr class="memdesc:ga71e07b36be5081d644cd6a660fedbf92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a glitch detector register.  <a href="group__xilplmi__client__apis.html#ga71e07b36be5081d644cd6a660fedbf92">More...</a><br/></td></tr>
 <tr class="separator:ga71e07b36be5081d644cd6a660fedbf92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae0d04c7416d6b05c9ad8866b2bc85075"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__client__apis.html#gae0d04c7416d6b05c9ad8866b2bc85075">XPlmi_ConfigureGlitchDetector</a> (u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegVal, u8 GlitchDetectorNum)</td></tr>
 <tr class="memdesc:gae0d04c7416d6b05c9ad8866b2bc85075"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures desired glitch detector.  <a href="group__xilplmi__client__apis.html#gae0d04c7416d6b05c9ad8866b2bc85075">More...</a><br/></td></tr>

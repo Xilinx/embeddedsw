@@ -4,24 +4,24 @@
     <compoundname>xsem_gic_setup.c</compoundname>
     <includes refid="xsem__gic__setup_8h" local="yes">xsem_gic_setup.h</includes>
     <incdepgraph>
-      <node id="100">
+      <node id="102">
         <label>xsem_gic_setup.c</label>
         <link refid="xsem_gic_setup.c"/>
-        <childnode refid="101" relation="include">
-        </childnode>
-      </node>
-      <node id="101">
-        <label>xsem_gic_setup.h</label>
-        <link refid="xsem__gic__setup_8h"/>
-        <childnode refid="102" relation="include">
-        </childnode>
         <childnode refid="103" relation="include">
         </childnode>
       </node>
       <node id="103">
+        <label>xsem_gic_setup.h</label>
+        <link refid="xsem__gic__setup_8h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
         <label>xscugic_hw.h</label>
       </node>
-      <node id="102">
+      <node id="104">
         <label>xscugic.h</label>
       </node>
     </incdepgraph>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" bodystart="27" bodyend="59"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" bodystart="27" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -95,6 +95,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="59"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c"/>
   </compounddef>
 </doxygen>

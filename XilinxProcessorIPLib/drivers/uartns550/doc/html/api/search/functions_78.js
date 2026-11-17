@@ -21,6 +21,7 @@ var searchData=
   ['xuartns550_5fsendbuffer',['XUartNs550_SendBuffer',['../group__uartns550.html#ga9046228564fdafeb5715dce1c0b46766',1,'xuartns550.c']]],
   ['xuartns550_5fsendbyte',['XUartNs550_SendByte',['../group__uartns550.html#ga39973a1a14e9e66e4bd3a8e90320c982',1,'xuartns550_l.c']]],
   ['xuartns550_5fsetbaud',['XUartNs550_SetBaud',['../group__uartns550.html#ga5aa56fa41ef620d2199925f22f2ca21f',1,'xuartns550_l.c']]],
+  ['xuartns550_5fsetbaudrate',['XUartNs550_SetBaudRate',['../group__uartns550.html#gab8e499e36ea8619d0a2ffba8a2ecd0c0',1,'xuartns550.c']]],
   ['xuartns550_5fsetdataformat',['XUartNs550_SetDataFormat',['../group__uartns550.html#ga4b3eb97421a6a66e7029e9afafd8a74b',1,'xuartns550_format.c']]],
   ['xuartns550_5fsetfifothreshold',['XUartNs550_SetFifoThreshold',['../group__uartns550.html#gaedd1056b9f1283ee15c1a3c349acb845',1,'xuartns550_options.c']]],
   ['xuartns550_5fsethandler',['XUartNs550_SetHandler',['../group__uartns550.html#gadf7c4826f92d5e8fd70763f4448a360d',1,'xuartns550_intr.c']]],

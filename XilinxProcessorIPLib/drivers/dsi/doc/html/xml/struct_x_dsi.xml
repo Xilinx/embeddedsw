@@ -15,14 +15,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="203" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
-        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="610" endline="685">XDsi_GetConfigParams</referencedby>
         <referencedby refid="group__dsi_1ga58a27f9f1a507863325082e43595b4b9" compoundref="xdsi__selftest_8c" startline="63" endline="81">XDsi_SelfTest</referencedby>
-        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</referencedby>
-        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</referencedby>
-        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
-        <referencedby refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" compoundref="xdsi_8c" startline="568" endline="630">XDsi_SetVideoInterfaceTiming</referencedby>
+        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="302" endline="326">XDsi_SendLongPacket</referencedby>
+        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="260" endline="276">XDsi_SendShortPacket</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="821" endline="891">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+        <referencedby refid="group__dsi_1ga37a2f766b23c8e06f9bc35b839f994a9" compoundref="xdsi_8c" startline="545" endline="578">XDsi_SetUlpsMode</referencedby>
+        <referencedby refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" compoundref="xdsi_8c" startline="721" endline="783">XDsi_SetVideoInterfaceTiming</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1aca7763799081d967ef5067b325a9bab0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -35,8 +36,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="205" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="156" endline="184">XDsi_DefaultConfigure</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="158" endline="186">XDsi_DefaultConfigure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1abe4ea811e93c542ba12f6317cbc822d9" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -49,8 +50,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="207" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="156" endline="184">XDsi_DefaultConfigure</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="158" endline="186">XDsi_DefaultConfigure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1a33228b83b0f5f4b1ef6f7811d15d087e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -63,8 +64,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="209" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="156" endline="184">XDsi_DefaultConfigure</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="158" endline="186">XDsi_DefaultConfigure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1adaae19c5dae3ac66934afc5cd823490d" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -77,8 +78,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="211" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="156" endline="184">XDsi_DefaultConfigure</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="158" endline="186">XDsi_DefaultConfigure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" prot="public" static="no" mutable="no">
         <type><ref refid="group__dsi_1ga4ccdb1dbc5d315cd9db62064c668a1e0" kindref="member">XDsi_Callback</ref></type>
@@ -92,8 +93,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="213" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</referencedby>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
@@ -109,7 +110,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="215" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="220" bodyend="-1"/>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
@@ -124,8 +125,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="218" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</referencedby>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
@@ -140,7 +141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="222" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="227" bodyend="-1"/>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
@@ -155,8 +156,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="224" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</referencedby>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
@@ -171,7 +172,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="226" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="231" bodyend="-1"/>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
@@ -186,8 +187,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="228" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1a66cf1526618ca4310e53ac9c53d8bd27" prot="public" static="no" mutable="no">
@@ -201,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="230" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="235" bodyend="-1"/>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" prot="public" static="no" mutable="no">
@@ -215,10 +216,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="231" bodyend="-1"/>
-        <referencedby refid="group__dsi_1ga96a76baa5b141b35af0d7cc697ade584" compoundref="xdsi_8c" startline="213" endline="230">XDsi_Activate</referencedby>
-        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
-        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="156" endline="184">XDsi_DefaultConfigure</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga96a76baa5b141b35af0d7cc697ade584" compoundref="xdsi_8c" startline="215" endline="232">XDsi_Activate</referencedby>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" compoundref="xdsi_8c" startline="158" endline="186">XDsi_DefaultConfigure</referencedby>
         <referencedby refid="group__dsi_1ga925b34dea84b254a23db6570082c70fe" compoundref="xdsi__intr_8c" startline="259" endline="298">XDsi_IntrHandler</referencedby>
         <referencedby refid="group__dsi_1ga58a27f9f1a507863325082e43595b4b9" compoundref="xdsi__selftest_8c" startline="63" endline="81">XDsi_SelfTest</referencedby>
         <referencedby refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" compoundref="xdsi__intr_8c" startline="202" endline="237">XDsi_SetCallback</referencedby>
@@ -241,7 +242,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="202" bodyend="232"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="207" bodyend="237"/>
     <listofallmembers>
       <member refid="struct_x_dsi_1abe4ea811e93c542ba12f6317cbc822d9" prot="public" virt="non-virtual"><scope>XDsi</scope><name>BlankPacketType</name></member>
       <member refid="struct_x_dsi_1a33228b83b0f5f4b1ef6f7811d15d087e" prot="public" virt="non-virtual"><scope>XDsi</scope><name>BLLPMode</name></member>

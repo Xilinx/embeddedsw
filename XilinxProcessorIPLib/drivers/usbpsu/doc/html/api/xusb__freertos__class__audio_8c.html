@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('xusb__freertos__class__audio_8c.html',
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a32b6f95139e55ff73c71303408094577"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577">Usb_ClassReq</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
-<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by Chapter9 handler when class request is received from Host.  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
+<tr class="memdesc:a32b6f95139e55ff73c71303408094577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle USB class request for the composite device.  <a href="#a32b6f95139e55ff73c71303408094577">More...</a><br/></td></tr>
 <tr class="separator:a32b6f95139e55ff73c71303408094577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b7cf32bf38cd19d9b38c52b52ebd9c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__class__audio_8c.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4">prvRecordTask</a> (void *pvParameters)</td></tr>
 <tr class="memdesc:a3b7cf32bf38cd19d9b38c52b52ebd9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This task implements audio record functionality.  <a href="#a3b7cf32bf38cd19d9b38c52b52ebd9c4">More...</a><br/></td></tr>
@@ -147,11 +147,10 @@ Functions</h2></td></tr>
 <p>This task implements audio playback functionality. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pvParameters</td><td>private parameters.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pvParameters</td><td>private parameters. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -172,11 +171,10 @@ Functions</h2></td></tr>
 <p>This task implements audio record functionality. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pvParameters</td><td>private parameters.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pvParameters</td><td>private parameters. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -204,18 +202,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is called by Chapter9 handler when class request is received from Host. </p>
-<p>This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request)</p>
+<p>Handle USB class request for the composite device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the USB device data instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is a pointer to the setup packet data. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_setup_packet.html#a4b5748b09c8ef33113a504c825244d9f">SetupPacket::bRequest</a>, <a class="el" href="struct_setup_packet.html#ab4ac3a31f3a946827610d7785f029d21">SetupPacket::bRequestType</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="struct_setup_packet.html#a18206c45fd8c7d39a81ff4fc428518c1">SetupPacket::wIndex</a>, <a class="el" href="struct_setup_packet.html#a482f5e5a9456ad4b80e1e56d1612062d">SetupPacket::wLength</a>, and <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket::wValue</a>.</p>
+<p>References <a class="el" href="xusb__freertos__audio__example_8c.html#a958a9e1a8dc436299c935c1243201112">ALIGNMENT_CACHELINE</a>, <a class="el" href="struct_setup_packet.html#a4b5748b09c8ef33113a504c825244d9f">SetupPacket::bRequest</a>, <a class="el" href="struct_setup_packet.html#ab4ac3a31f3a946827610d7785f029d21">SetupPacket::bRequestType</a>, <a class="el" href="xusb__wrapper_8c.html#a151fcc4b98bf4d667303c36a47e83407">Ep0StallRestart()</a>, <a class="el" href="xusb__wrapper_8c.html#ab01491c228aee667027315c8d539d8c5">EpBufferRecv()</a>, <a class="el" href="xusb__wrapper_8c.html#a0bebffade70d4d3276e743f7d3db8a6b">EpBufferSend()</a>, <a class="el" href="xusb__ch9__audio__dfu_8h.html#aa1ba6dfa3c683533649a4fa0d59819f3">IN_FETR_UNT_ID</a>, <a class="el" href="xusb__ch9__audio__dfu_8h.html#a7ade7ed0c333be2421f1c46843b241fc">OUT_FETR_UNT_ID</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#af761a3c529272768675db42bfb39ed9b">UAC2_CS_CONTROL_CLOCK_VALID</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#a0af347650d747729e3bd81179d135f34">UAC2_CS_CONTROL_SAM_FREQ</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#a8b2a8445191e4e509153c74bb9f9dbec">UAC2_CS_CUR</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#a618edb4d50d3e1d435a1421eebc050e1">UAC2_CS_RANGE</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#a50195a810e6b38e7381f36d9e63a5192">UAC2_FU_MUTE_CONTROL</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#af6995a9c0bcc3c0d52f9af100cabecee">UAC2_FU_VOLUME_CONTROL</a>, <a class="el" href="xusb__ch9__audio__dfu_8h.html#ac78aea6b6f3f42b0bb041e221cbb8a9a">USB_CLK_SEL_ID</a>, <a class="el" href="xusb__ch9__audio__dfu_8h.html#ad3565ac0bf66b9bb36aa98228a352763">USB_CLK_SRC_ID</a>, <a class="el" href="xusb__ch9_8h.html#a93a6aa5841b4ff46167822362add046d">USB_ENDPOINT_DIR_MASK</a>, <a class="el" href="xusb__wrapper_8h.html#a1cb799bc3681d264572505e0179aa8cc">USB_REQ_REPLY_LEN</a>, <a class="el" href="struct_setup_packet.html#a18206c45fd8c7d39a81ff4fc428518c1">SetupPacket::wIndex</a>, <a class="el" href="struct_setup_packet.html#a482f5e5a9456ad4b80e1e56d1612062d">SetupPacket::wLength</a>, and <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket::wValue</a>.</p>
 
 </div>
 </div>

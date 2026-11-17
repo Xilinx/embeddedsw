@@ -5,43 +5,43 @@
     <includes local="yes">xil_types.h</includes>
     <includes refid="xloader__mailbox_8h" local="yes">xloader_mailbox.h</includes>
     <incdepgraph>
-      <node id="708">
+      <node id="794">
         <label>xloader_mailbox.c</label>
         <link refid="xloader_mailbox.c"/>
-        <childnode refid="709" relation="include">
+        <childnode refid="795" relation="include">
         </childnode>
-        <childnode refid="710" relation="include">
+        <childnode refid="796" relation="include">
         </childnode>
       </node>
-      <node id="710">
+      <node id="796">
         <label>xloader_mailbox.h</label>
         <link refid="xloader__mailbox_8h"/>
-        <childnode refid="711" relation="include">
+        <childnode refid="797" relation="include">
         </childnode>
-        <childnode refid="712" relation="include">
+        <childnode refid="798" relation="include">
         </childnode>
-        <childnode refid="713" relation="include">
-        </childnode>
-      </node>
-      <node id="713">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="714" relation="include">
-        </childnode>
-        <childnode refid="709" relation="include">
+        <childnode refid="799" relation="include">
         </childnode>
       </node>
-      <node id="711">
+      <node id="797">
         <label>xilmailbox.h</label>
       </node>
-      <node id="709">
+      <node id="795">
         <label>xil_types.h</label>
       </node>
-      <node id="712">
+      <node id="798">
         <label>xparameters.h</label>
       </node>
-      <node id="714">
+      <node id="800">
         <label>xil_printf.h</label>
+      </node>
+      <node id="799">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="800" relation="include">
+        </childnode>
+        <childnode refid="795" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -95,13 +95,13 @@
         <inbodydescription>
 <para>Send IPI CDO to PLM. Return XST_FAILURE if sending data failed</para><para><verbatim>- Wait for IPI response from PLM  with a default timeout of 2 seconds.
 </verbatim> If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="61" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="61" bodyend="89"/>
         <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
         <references refid="struct_x_loader___client_instance_1a1660f547b4a77019d9c99b65dc5cd314" compoundref="xloader__mailbox_8h" startline="99">XLoader_ClientInstance::Response</references>
         <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
         <references refid="group__xloader__mailbox__apis_1gacb2810d42f9b5a2853259fe6a5372c92" compoundref="xloader__mailbox_8h" startline="54">XLOADER_TARGET_IPI_INT_MASK</references>
-        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="256" endline="281">XLoader_ConfigureJtagState</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="304" endline="329">XLoader_ConfigureJtagState</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
         <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__client__apis_1ga93256553f94e9123e1e0cddfb57be60f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -143,7 +143,7 @@
 <para><itemizedlist>
 <listitem><para>Perform input parameter validation on InstancePtr,if not NULL initialize the InstancePtr. Return XST_FAILURE if NULL.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="103" bodyend="117"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="103" bodyend="117"/>
         <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
         <referencedby refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="82" endline="120">main</referencedby>
       </memberdef>
@@ -218,6 +218,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="117"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c"/>
   </compounddef>
 </doxygen>

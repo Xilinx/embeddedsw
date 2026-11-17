@@ -5,37 +5,41 @@
     <includes local="no">xrfdc.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_r_fdc___coarse_delay___settings_1a67e51d393b8ae1118cf820c1903ad614" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_CoarseDelay_Settings::CoarseDelay</definition>
         <argsstring></argsstring>
         <name>CoarseDelay</name>
         <briefdescription>
-        </briefdescription>
+<para>Coarse delay value. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="484" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="536" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4d2d3b2f00ceb30d72b3ab1ece00be82" compoundref="xrfdc__ap_8c" startline="537" endline="576">XRFdc_GetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc___coarse_delay___settings_1ae2fc832b47a808a8015d10967d49f7d3" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc_CoarseDelay_Settings::EventSource</definition>
         <argsstring></argsstring>
         <name>EventSource</name>
         <briefdescription>
-        </briefdescription>
+<para>Event source that triggers the update. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="485" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="537" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4d2d3b2f00ceb30d72b3ab1ece00be82" compoundref="xrfdc__ap_8c" startline="537" endline="576">XRFdc_GetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Coarse delay settings. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="483" bodyend="486"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="535" bodyend="538"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc___coarse_delay___settings_1a67e51d393b8ae1118cf820c1903ad614" prot="public" virt="non-virtual"><scope>XRFdc_CoarseDelay_Settings</scope><name>CoarseDelay</name></member>
       <member refid="struct_x_r_fdc___coarse_delay___settings_1ae2fc832b47a808a8015d10967d49f7d3" prot="public" virt="non-virtual"><scope>XRFdc_CoarseDelay_Settings</scope><name>EventSource</name></member>

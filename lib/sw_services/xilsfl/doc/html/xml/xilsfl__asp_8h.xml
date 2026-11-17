@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsfl__asp_8h" kind="file">
+    <compoundname>xilsfl_asp.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xilsfl_config.h</includes>
+    <incdepgraph>
+      <node id="38">
+        <label>xilsfl_config.h</label>
+      </node>
+      <node id="37">
+        <label>xil_types.h</label>
+      </node>
+      <node id="36">
+        <label>xilsfl_asp.h</label>
+        <link refid="xilsfl_asp.h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+<para>Declares the Advanced Sector Protection (ASP) interface of the SFL. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file defines the ASP XSfl_AspVendorOps vendor dispatch table of the serial flash library (SFL). It also declares the vendor-neutral XSfl_Flash* ASP APIs. The implementations are in <ref refid="xilsfl__asp_8c" kindref="compound">xilsfl_asp.c</ref>.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.3   sb  07/20/26  Initial support for Advanced Sector Protection.
+1.4   vn  09/30/26  Align Doxygen comments with AMD standards</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XILSFL_ASP_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSFL_ASP_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilsfl_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>CONFIG_ADVANCED_SECTOR_PROTECTION</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_CMD_SET_PASSWORD<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0U,<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_CMD_LOCK_SECTORS<sp/><sp/><sp/><sp/><sp/>=<sp/>1U,<sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_CMD_UNLOCK_SECTORS<sp/><sp/><sp/>=<sp/>2U,<sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_CMD_READ_SECTOR_LOCK<sp/>=<sp/>3U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}<sp/>XSfl_AspCmd;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_RESULT_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0U,<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_RESULT_INVALID_PASSWORD<sp/><sp/>=<sp/>2U,<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_RESULT_PASSWORD_MISMATCH<sp/>=<sp/>3U,<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_RESULT_PASSWORD_LOCKED<sp/><sp/><sp/>=<sp/>4U,<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_RESULT_INVALID_RANGE<sp/><sp/><sp/><sp/><sp/>=<sp/>5U,<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_ASP_RESULT_OP_FAILED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>6U<sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/>XSfl_AspResult;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Password;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PasswordLen;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartSector;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>EndSector;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*LockStatusOut;<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>LockStatusCap;<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<sp/>XSfl_AspParams;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#ifndef<sp/>XSFL_ASP_PASSWORD_MAX_BYTES</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSFL_ASP_PASSWORD_MAX_BYTES<sp/><sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XSFL_ASP_PASSWORD_PROT_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*SectorProtectionRead)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u16<sp/>*SprWord);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*SectorProtectionWrite)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u16<sp/>SprWord);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*EraseNVLockBits)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>);<sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*NVSectorLock)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u32<sp/>SectorAddress);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*NVLockRead)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u32<sp/>SectorAddress,<sp/>u8<sp/>*IsLocked);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*PasswordProgram)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Password[XSFL_ASP_PASSWORD_MAX_BYTES]);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*PasswordRead)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PasswordOut[XSFL_ASP_PASSWORD_MAX_BYTES]);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*PasswordUnlock)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Password[XSFL_ASP_PASSWORD_MAX_BYTES]);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*GlobalFreezeWrite)(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AspPasswordLenBytes;<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/>XSfl_AspVendorOps;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>ASP<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">u32<sp/>XSfl_FlashAspGetPasswordByteLen(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u8<sp/>*LenBytesOut);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">u32<sp/>XSfl_FlashPasswordProgram(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Password[XSFL_ASP_PASSWORD_MAX_BYTES]);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">u32<sp/>XSfl_FlashPasswordRead(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PasswordOut[XSFL_ASP_PASSWORD_MAX_BYTES]);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">u32<sp/>XSfl_FlashPasswordUnlock(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Password[XSFL_ASP_PASSWORD_MAX_BYTES]);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal">u32<sp/>XSfl_FlashSectorProtectionRead(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u16<sp/>*SprWord);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">u32<sp/>XSfl_FlashSectorProtectionWrite(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u16<sp/>SprWord);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">u32<sp/>XSfl_FlashEraseNVLockBits(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">u32<sp/>XSfl_FlashNVSectorLock(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u32<sp/>SectorAddress);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">u32<sp/>XSfl_FlashNVLockRead(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u32<sp/>SectorAddress,<sp/>u8<sp/>*IsLocked);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">u32<sp/>XSfl_AspValidateSectorRange(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>,<sp/>u32<sp/>StartSector,<sp/>u32<sp/>EndSector);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">u32<sp/>XSfl_FlashAspWriteGlobalFreeze(u8<sp/><ref refid="xilsfl__ospi__flash__readwrite__example_8c_1a276408463792b09f5484d454f6ae498c" kindref="member">SflHandler</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CONFIG_ADVANCED_SECTOR_PROTECTION<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSFL_ASP_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_asp.h"/>
+  </compounddef>
+</doxygen>

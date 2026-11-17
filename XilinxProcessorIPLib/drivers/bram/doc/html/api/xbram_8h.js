@@ -6,6 +6,6 @@ var xbram_8h =
     [ "XBram_InterruptEnable", "xbram_8h.html#ga4210a263bd85db259a74c20cd0b0176c", null ],
     [ "XBram_InterruptGetEnabled", "xbram_8h.html#gafec7418ceae662672c03a938290da9dd", null ],
     [ "XBram_InterruptGetStatus", "xbram_8h.html#ga3880bb684ad362c6bd289f3e76a98b59", null ],
-    [ "XBram_LookupConfig", "xbram_8h.html#ga08f91d2ae010f1a11667b587f582b654", null ],
+    [ "XBram_LookupConfig", "xbram_8h.html#gab2056c1f9272b35a37e7f20ac2fd0af9", null ],
     [ "XBram_SelfTest", "xbram_8h.html#gaedbdefb6cda5c212f03271143ccf7a98", null ]
 ];

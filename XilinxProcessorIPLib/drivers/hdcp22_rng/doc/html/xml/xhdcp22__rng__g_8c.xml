@@ -11,24 +11,14 @@
       <node id="24">
         <label>xil_io.h</label>
       </node>
-      <node id="22">
-        <label>xhdcp22_rng.h</label>
-        <link refid="xhdcp22__rng_8h"/>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-      </node>
-      <node id="26">
-        <label>xstatus.h</label>
-      </node>
       <node id="23">
         <label>xhdcp22_rng_hw.h</label>
         <link refid="xhdcp22__rng__hw_8h"/>
         <childnode refid="24" relation="include">
         </childnode>
+      </node>
+      <node id="26">
+        <label>xstatus.h</label>
       </node>
       <node id="21">
         <label>xparameters.h</label>
@@ -39,6 +29,16 @@
         <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>xhdcp22_rng.h</label>
+        <link refid="xhdcp22__rng_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_g.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_g.c" bodystart="14" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_g.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_g.c" bodystart="14" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -94,6 +94,6 @@
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng_g.c"/>
   </compounddef>
 </doxygen>

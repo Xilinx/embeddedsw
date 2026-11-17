@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0070b29ca30c5d64d481cc47a05067e8" kind="dir">
+    <compoundname>apu</compoundname>
+    <innerfile refid="pm__apu_8h">pm_apu.h</innerfile>
+    <innerfile refid="zynqmp_2client_2apu_2pm__client_8c">zynqmp/client/apu/pm_client.c</innerfile>
+    <innerfile refid="zynqmp_2client_2apu_2pm__client_8h">zynqmp/client/apu/pm_client.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/zynqmp/client/apu/"/>
+  </compounddef>
+</doxygen>

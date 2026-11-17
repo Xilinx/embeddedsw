@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_mailbox___agent.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,29 +112,94 @@ $(document).ready(function(){initNavTree('struct_x_mailbox___agent.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Data structure used to refer Xilmailbox agents.
+<p>Holds the data used to refer to XilMailbox agents.
  <a href="struct_x_mailbox___agent.html#details">More...</a></p>
 
 <p><code>#include &lt;xilmailbox_ipips.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ga626145fbf006cb062b91ef47889a49ed"><td class="memItemLeft" align="right" valign="top">XIpiPsu&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga626145fbf006cb062b91ef47889a49ed">IpiInst</a></td></tr>
-<tr class="memdesc:ga626145fbf006cb062b91ef47889a49ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ipi instance.  <a href="group__xilmailbox.html#ga626145fbf006cb062b91ef47889a49ed">More...</a><br/></td></tr>
-<tr class="separator:ga626145fbf006cb062b91ef47889a49ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5697f39a913b178ec64c6cff4575bb0e"><td class="memItemLeft" align="right" valign="top">XScuGic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga5697f39a913b178ec64c6cff4575bb0e">GicInst</a></td></tr>
-<tr class="memdesc:ga5697f39a913b178ec64c6cff4575bb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt instance.  <a href="group__xilmailbox.html#ga5697f39a913b178ec64c6cff4575bb0e">More...</a><br/></td></tr>
-<tr class="separator:ga5697f39a913b178ec64c6cff4575bb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a6fb8ef4ca25e40d3640a37ae80704c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga4a6fb8ef4ca25e40d3640a37ae80704c">SourceId</a></td></tr>
-<tr class="memdesc:ga4a6fb8ef4ca25e40d3640a37ae80704c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source id.  <a href="group__xilmailbox.html#ga4a6fb8ef4ca25e40d3640a37ae80704c">More...</a><br/></td></tr>
-<tr class="separator:ga4a6fb8ef4ca25e40d3640a37ae80704c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5de32cff7d1fe5e482d0e3d75b528e6f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilmailbox.html#ga5de32cff7d1fe5e482d0e3d75b528e6f">RemoteId</a></td></tr>
-<tr class="memdesc:ga5de32cff7d1fe5e482d0e3d75b528e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote id.  <a href="group__xilmailbox.html#ga5de32cff7d1fe5e482d0e3d75b528e6f">More...</a><br/></td></tr>
-<tr class="separator:ga5de32cff7d1fe5e482d0e3d75b528e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626145fbf006cb062b91ef47889a49ed"><td class="memItemLeft" align="right" valign="top">XIpiPsu&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mailbox___agent.html#a626145fbf006cb062b91ef47889a49ed">IpiInst</a></td></tr>
+<tr class="memdesc:a626145fbf006cb062b91ef47889a49ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPI instance.  <a href="#a626145fbf006cb062b91ef47889a49ed">More...</a><br/></td></tr>
+<tr class="separator:a626145fbf006cb062b91ef47889a49ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5697f39a913b178ec64c6cff4575bb0e"><td class="memItemLeft" align="right" valign="top">XScuGic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mailbox___agent.html#a5697f39a913b178ec64c6cff4575bb0e">GicInst</a></td></tr>
+<tr class="memdesc:a5697f39a913b178ec64c6cff4575bb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt instance.  <a href="#a5697f39a913b178ec64c6cff4575bb0e">More...</a><br/></td></tr>
+<tr class="separator:a5697f39a913b178ec64c6cff4575bb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6fb8ef4ca25e40d3640a37ae80704c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mailbox___agent.html#a4a6fb8ef4ca25e40d3640a37ae80704c">SourceId</a></td></tr>
+<tr class="memdesc:a4a6fb8ef4ca25e40d3640a37ae80704c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source ID.  <a href="#a4a6fb8ef4ca25e40d3640a37ae80704c">More...</a><br/></td></tr>
+<tr class="separator:a4a6fb8ef4ca25e40d3640a37ae80704c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5de32cff7d1fe5e482d0e3d75b528e6f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_mailbox___agent.html#a5de32cff7d1fe5e482d0e3d75b528e6f">RemoteId</a></td></tr>
+<tr class="memdesc:a5de32cff7d1fe5e482d0e3d75b528e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote ID.  <a href="#a5de32cff7d1fe5e482d0e3d75b528e6f">More...</a><br/></td></tr>
+<tr class="separator:a5de32cff7d1fe5e482d0e3d75b528e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data structure used to refer Xilmailbox agents. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds the data used to refer to XilMailbox agents. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5697f39a913b178ec64c6cff4575bb0e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XScuGic XMailbox_Agent::GicInst</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt instance. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga3ec66bb2a5cd007668bd5096471f691d">XIpiPs_Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a626145fbf006cb062b91ef47889a49ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XIpiPsu XMailbox_Agent::IpiInst</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IPI instance. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga3ec66bb2a5cd007668bd5096471f691d">XIpiPs_Init()</a>, <a class="el" href="group__xilmailbox.html#ga4f8f4f223ac7cab8c35b259803256e50">XIpiPs_IntrHandler()</a>, <a class="el" href="group__xilmailbox.html#gadb81c93bcb13ef48d004b89eb27ecc6c">XIpiPs_PollforDone()</a>, <a class="el" href="group__xilmailbox.html#ga8102ed0d9a2448e2754d4036b0aeebac">XIpiPs_PollforDoneById()</a>, <a class="el" href="group__xilmailbox.html#ga56a6cdab3dba08f469f27b341aa3c178">XIpiPs_RecvData()</a>, <a class="el" href="group__xilmailbox.html#ga76681a9ebd3706299aa0fa85874c0b40">XIpiPs_RecvDataById()</a>, <a class="el" href="group__xilmailbox.html#ga4da6358addbe4237f3982d5b5b06c228">XIpiPs_RegisterIrq()</a>, <a class="el" href="group__xilmailbox.html#gafe03d42ebcf3d3e93c2fb709de6e9142">XIpiPs_Send()</a>, <a class="el" href="group__xilmailbox.html#ga0fd5f2755e0951d389b6b83c619e21c6">XIpiPs_SendById()</a>, <a class="el" href="group__xilmailbox.html#gae6a5843a165afbc782fb45ab48e8b77d">XIpiPs_SendData()</a>, and <a class="el" href="group__xilmailbox.html#gaecaec4da5fe63fb55a3a71eba12b8e05">XIpiPs_SendDataById()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5de32cff7d1fe5e482d0e3d75b528e6f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XMailbox_Agent::RemoteId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remote ID. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#gadb81c93bcb13ef48d004b89eb27ecc6c">XIpiPs_PollforDone()</a>, <a class="el" href="group__xilmailbox.html#gafe03d42ebcf3d3e93c2fb709de6e9142">XIpiPs_Send()</a>, <a class="el" href="group__xilmailbox.html#gae6a5843a165afbc782fb45ab48e8b77d">XIpiPs_SendData()</a>, <a class="el" href="group__xilmailbox.html#ga3b1215935d7ba605846e3a13f015e956">XMailbox_Send()</a>, and <a class="el" href="group__xilmailbox.html#ga4c8296024494f03b6e33a54fe80ba3da">XMailbox_SendData()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4a6fb8ef4ca25e40d3640a37ae80704c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XMailbox_Agent::SourceId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Source ID. </p>
+
+<p>Referenced by <a class="el" href="group__xilmailbox.html#ga56a6cdab3dba08f469f27b341aa3c178">XIpiPs_RecvData()</a>, and <a class="el" href="group__xilmailbox.html#ga1e5da60f7c2fc80ec54209fc4031c03b">XMailbox_Recv()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -10,96 +10,98 @@
     <includedby refid="xilsecure__versal__ecdsa__client__example_8c" local="yes">xilsecure_versal_ecdsa_client_example.c</includedby>
     <includedby refid="xilsecure__versal__net__ecdh__client__example_8c" local="yes">xilsecure_versal_net_ecdh_client_example.c</includedby>
     <incdepgraph>
-      <node id="1423">
-        <label>xsecure_ellipticalginfo.h</label>
-        <link refid="client_2core_2ecdsa_2xsecure__ellipticalginfo_8h"/>
-        <childnode refid="1424" relation="include">
-        </childnode>
-        <childnode refid="1425" relation="include">
-        </childnode>
-      </node>
-      <node id="1425">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="1420">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="1421">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1416">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="1424">
-        <label>xil_cryptoalginfo.h</label>
-      </node>
-      <node id="1413">
-        <label>xsecure_ellipticclient.h</label>
-        <link refid="xsecure_ellipticclient.h"/>
-        <childnode refid="1414" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1418" relation="include">
-        </childnode>
-        <childnode refid="1423" relation="include">
-        </childnode>
-      </node>
-      <node id="1418">
+      <node id="1462">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="1419" relation="include">
+        <childnode refid="1463" relation="include">
         </childnode>
-        <childnode refid="1414" relation="include">
+        <childnode refid="1458" relation="include">
         </childnode>
-        <childnode refid="1420" relation="include">
+        <childnode refid="1464" relation="include">
         </childnode>
-        <childnode refid="1421" relation="include">
+        <childnode refid="1465" relation="include">
         </childnode>
-        <childnode refid="1422" relation="include">
+        <childnode refid="1466" relation="include">
+        </childnode>
+        <childnode refid="1467" relation="include">
         </childnode>
       </node>
-      <node id="1422">
-        <label>xsecure_config.h</label>
+      <node id="1465">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="1414">
-        <label>xil_types.h</label>
+      <node id="1468">
+        <label>xsecure_ellipticalginfo.h</label>
+        <link refid="client_2core_2ecdsa_2xsecure__ellipticalginfo_8h"/>
+        <childnode refid="1469" relation="include">
+        </childnode>
+        <childnode refid="1465" relation="include">
+        </childnode>
       </node>
-      <node id="1417">
-        <label>xparameters.h</label>
+      <node id="1464">
+        <label>xil_cache.h</label>
       </node>
-      <node id="1419">
-        <label>xil_printf.h</label>
+      <node id="1457">
+        <label>xsecure_ellipticclient.h</label>
+        <link refid="xsecure_ellipticclient.h"/>
+        <childnode refid="1458" relation="include">
+        </childnode>
+        <childnode refid="1459" relation="include">
+        </childnode>
+        <childnode refid="1462" relation="include">
+        </childnode>
+        <childnode refid="1468" relation="include">
+        </childnode>
       </node>
-      <node id="1415">
+      <node id="1467">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1460">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1469">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="1459">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="1416" relation="include">
+        <childnode refid="1460" relation="include">
         </childnode>
-        <childnode refid="1417" relation="include">
+        <childnode refid="1461" relation="include">
         </childnode>
+      </node>
+      <node id="1466">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1458">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1461">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1463">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1428">
+      <node id="1472">
         <label>xilsecure_versal_ecdsa_client_example.c</label>
         <link refid="xilsecure__versal__ecdsa__client__example_8c"/>
       </node>
-      <node id="1427">
+      <node id="1471">
         <label>xsecure_ellipticclient.c</label>
         <link refid="xsecure__ellipticclient_8c"/>
       </node>
-      <node id="1426">
+      <node id="1470">
         <label>xsecure_ellipticclient.h</label>
         <link refid="xsecure_ellipticclient.h"/>
-        <childnode refid="1427" relation="include">
+        <childnode refid="1471" relation="include">
         </childnode>
-        <childnode refid="1428" relation="include">
+        <childnode refid="1472" relation="include">
         </childnode>
-        <childnode refid="1429" relation="include">
+        <childnode refid="1473" relation="include">
         </childnode>
       </node>
-      <node id="1429">
+      <node id="1473">
         <label>xilsecure_versal_net_ecdh_client_example.c</label>
         <link refid="xilsecure__versal__net__ecdh__client__example_8c"/>
       </node>
@@ -153,7 +155,7 @@
 <parametername>CurveType</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Type of elliptic curve </para></parameterdescription>
+<para>The value shall be from XSecure_EllipticCrvTyp </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
@@ -192,19 +194,22 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</para></listitem><listitem><para>Return XST_INVALID_PARAM if CurveType is invalid enumeration range</para></listitem><listitem><para>Return XST_INVALID_PARAM if Size is zero or exceeds the maximum supported hash size</para></listitem><listitem><para>Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="66" bodyend="117"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" compoundref="xsecure__plat__defs_8h" startline="60">XSECURE_API_ELLIPTIC_GENERATE_SIGN</references>
-        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
-        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="68" bodyend="131"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" compoundref="xsecure__plat__defs_8h" startline="66">XSECURE_API_ELLIPTIC_GENERATE_SIGN</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="281">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__defs_8h" startline="139">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__ecdsa__client__apis_1ga623ff4e3a9216677e7b5abe2767790a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -260,19 +265,21 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr is NULL. MailboxPtr may be NULL for AArch64 EL1 non-secure (SMC) clients; XSecure_SendRequest validates the mailbox on the IPI path.</para></listitem><listitem><para>Return XST_INVALID_PARAM if CurveType is invalid enumeration range</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="135" bodyend="165"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" compoundref="xsecure__plat__defs_8h" startline="59">XSECURE_API_ELLIPTIC_GENERATE_KEY</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
-        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
-        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="150" bodyend="188"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" compoundref="xsecure__plat__defs_8h" startline="65">XSECURE_API_ELLIPTIC_GENERATE_KEY</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="281">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -317,20 +324,22 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr is NULL</para></listitem><listitem><para>Return XST_INVALID_PARAM if CurveType is invalid enumeration range</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="181" bodyend="208"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" compoundref="xsecure__plat__defs_8h" startline="61">XSECURE_API_ELLIPTIC_VALIDATE_KEY</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
-        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="205" bodyend="238"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" compoundref="xsecure__plat__defs_8h" startline="67">XSECURE_API_ELLIPTIC_VALIDATE_KEY</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="281">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
         <referencedby refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</referencedby>
-        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -408,21 +417,24 @@
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_INVALID_PARAM On invalid input parameter</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if InstancePtr or its MailboxPtr is NULL</para></listitem><listitem><para>Return XST_INVALID_PARAM if CurveType is invalid enumeration range</para></listitem><listitem><para>Return XST_INVALID_PARAM if Size is zero or exceeds the maximum supported hash size</para></listitem><listitem><para>Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="228" bodyend="277"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" compoundref="xsecure__plat__defs_8h" startline="62">XSECURE_API_ELLIPTIC_VERIFY_SIGN</references>
-        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
-        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c" bodystart="259" bodyend="321"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" compoundref="xsecure__plat__defs_8h" startline="68">XSECURE_API_ELLIPTIC_VERIFY_SIGN</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="281">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__common__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__defs_8h" startline="139">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="57">XSECURE_SLR_INDEX_SHIFT</references>
         <referencedby refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</referencedby>
-        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1ac543bf1e63c659a99243e3ebdeea4aaf" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -479,6 +491,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ELLIPTIC_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.h"/>
   </compounddef>
 </doxygen>

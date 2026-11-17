@@ -67,11 +67,11 @@ HandlerType                     Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" bodystart="58" bodyend="85"/>
-        <references refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" compoundref="xv__gamma__lut_8h" startline="102">XV_gamma_lut::CallbackDoneRef</references>
-        <references refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" compoundref="xv__gamma__lut_8h" startline="104">XV_gamma_lut::CallbackReadyRef</references>
-        <references refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" compoundref="xv__gamma__lut_8h" startline="101">XV_gamma_lut::FrameDoneCallback</references>
-        <references refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" compoundref="xv__gamma__lut_8h" startline="103">XV_gamma_lut::FrameReadyCallback</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" bodystart="58" bodyend="85"/>
+        <references refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" compoundref="xv__gamma__lut_8h" startline="96">XV_gamma_lut::CallbackDoneRef</references>
+        <references refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" compoundref="xv__gamma__lut_8h" startline="98">XV_gamma_lut::CallbackReadyRef</references>
+        <references refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" compoundref="xv__gamma__lut_8h" startline="95">XV_gamma_lut::FrameDoneCallback</references>
+        <references refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" compoundref="xv__gamma__lut_8h" startline="97">XV_gamma_lut::FrameReadyCallback</references>
         <references refid="xv__gamma__lut_8h_1a9349eb9fd215456ccc229c5a99d9fb3aab8cc3dd26fb66ea918d70c96f8c3d096" compoundref="xv__gamma__lut_8h" startline="69">XVGAMMA_LUT_HANDLER_DONE</references>
         <references refid="xv__gamma__lut_8h_1a9349eb9fd215456ccc229c5a99d9fb3aab931fa533b2a615d3019628e1e3b8001" compoundref="xv__gamma__lut_8h" startline="70">XVGAMMA_LUT_HANDLER_READY</references>
       </memberdef>
@@ -100,14 +100,14 @@ HandlerType                     Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" bodystart="109" bodyend="139"/>
-        <references refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" compoundref="xv__gamma__lut_8h" startline="102">XV_gamma_lut::CallbackDoneRef</references>
-        <references refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" compoundref="xv__gamma__lut_8h" startline="104">XV_gamma_lut::CallbackReadyRef</references>
-        <references refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" compoundref="xv__gamma__lut_8h" startline="101">XV_gamma_lut::FrameDoneCallback</references>
-        <references refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" compoundref="xv__gamma__lut_8h" startline="103">XV_gamma_lut::FrameReadyCallback</references>
-        <references refid="struct_x_v__gamma__lut_1ad1109f4bcf245a6f77ae977604913234" compoundref="xv__gamma__lut_8h" startline="100">XV_gamma_lut::IsReady</references>
-        <references refid="xv__gamma__lut_8c_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1114" endline="1119">XV_gamma_lut_InterruptClear</references>
-        <references refid="xv__gamma__lut_8c_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1156" endline="1161">XV_gamma_lut_InterruptGetStatus</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_intr.c" bodystart="109" bodyend="139"/>
+        <references refid="struct_x_v__gamma__lut_1a99f00f7240a0431a48672e15024b50b8" compoundref="xv__gamma__lut_8h" startline="96">XV_gamma_lut::CallbackDoneRef</references>
+        <references refid="struct_x_v__gamma__lut_1ac8f00b765668a356561988c2b440f763" compoundref="xv__gamma__lut_8h" startline="98">XV_gamma_lut::CallbackReadyRef</references>
+        <references refid="struct_x_v__gamma__lut_1a5b68749e2bdb765acae6ea6da98a342b" compoundref="xv__gamma__lut_8h" startline="95">XV_gamma_lut::FrameDoneCallback</references>
+        <references refid="struct_x_v__gamma__lut_1ab8a335dcb1fedbe9edea7467dd0a5c23" compoundref="xv__gamma__lut_8h" startline="97">XV_gamma_lut::FrameReadyCallback</references>
+        <references refid="struct_x_v__gamma__lut_1ad1109f4bcf245a6f77ae977604913234" compoundref="xv__gamma__lut_8h" startline="94">XV_gamma_lut::IsReady</references>
+        <references refid="xv__gamma__lut_8c_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1162" endline="1167">XV_gamma_lut_InterruptClear</references>
+        <references refid="xv__gamma__lut_8c_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1204" endline="1209">XV_gamma_lut_InterruptGetStatus</references>
         <references refid="xv__gamma__lut_8h_1acdc6221944e134567420f29fbdc26643" compoundref="xv__gamma__lut_8h" startline="56">XVGAMMA_LUT_IRQ_DONE_MASK</references>
         <references refid="xv__gamma__lut_8h_1a1cd655917f72020af5eb74cfe45e0f30" compoundref="xv__gamma__lut_8h" startline="61">XVGAMMA_LUT_IRQ_READY_MASK</references>
       </memberdef>

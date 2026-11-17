@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="94" bodyend="-1"/>
         <referencedby refid="xv__demosaic_8h_1a602f8a7aadb48c2e10b3748a9d33de06" compoundref="xv__demosaic_8c" startline="35" endline="50">XV_demosaic_CfgInitialize</referencedby>
         <referencedby refid="xv__demosaic_8h_1af01e921cbe12a3628cc237f090ac0bcd" compoundref="xv__demosaic_8c" startline="188" endline="193">XV_demosaic_DisableAutoRestart</referencedby>
         <referencedby refid="xv__demosaic_8h_1a5f0761b2c3d98c221e6b3d1a3153bd23" compoundref="xv__demosaic_8c" startline="166" endline="171">XV_demosaic_EnableAutoRestart</referencedby>
@@ -48,14 +48,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="95" bodyend="-1"/>
         <referencedby refid="xv__demosaic_8h_1a602f8a7aadb48c2e10b3748a9d33de06" compoundref="xv__demosaic_8c" startline="35" endline="50">XV_demosaic_CfgInitialize</referencedby>
         <referencedby refid="xv__demosaic_8h_1af01e921cbe12a3628cc237f090ac0bcd" compoundref="xv__demosaic_8c" startline="188" endline="193">XV_demosaic_DisableAutoRestart</referencedby>
         <referencedby refid="xv__demosaic_8h_1a5f0761b2c3d98c221e6b3d1a3153bd23" compoundref="xv__demosaic_8c" startline="166" endline="171">XV_demosaic_EnableAutoRestart</referencedby>
         <referencedby refid="xv__demosaic_8h_1aad5daf24f3e5183eb540c7e9558f0345" compoundref="xv__demosaic_8c" startline="324" endline="332">XV_demosaic_Get_HwReg_bayer_phase</referencedby>
         <referencedby refid="xv__demosaic_8h_1a8cad5ce63900772b821e46d6c60ead88" compoundref="xv__demosaic_8c" startline="277" endline="285">XV_demosaic_Get_HwReg_height</referencedby>
         <referencedby refid="xv__demosaic_8h_1a21bc9ff12055b15575178d906a131e31" compoundref="xv__demosaic_8c" startline="231" endline="239">XV_demosaic_Get_HwReg_width</referencedby>
-        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="152" endline="165">XV_demosaic_Initialize</referencedby>
+        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="82" endline="95">XV_demosaic_Initialize</referencedby>
         <referencedby refid="xv__demosaic_8h_1a7158f8e24e9a182c264a876013681193" compoundref="xv__demosaic_8c" startline="448" endline="453">XV_demosaic_InterruptClear</referencedby>
         <referencedby refid="xv__demosaic_8h_1a4f0de1734d2a54e682d620f06514049f" compoundref="xv__demosaic_8c" startline="421" endline="429">XV_demosaic_InterruptDisable</referencedby>
         <referencedby refid="xv__demosaic_8h_1a69fa1f851aa2f2d43ad537ccbdb9260d" compoundref="xv__demosaic_8c" startline="395" endline="403">XV_demosaic_InterruptEnable</referencedby>
@@ -83,7 +83,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="96" bodyend="-1"/>
         <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
         <referencedby refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" compoundref="xv__demosaic__intr_8c" startline="50" endline="77">XVDemosaic_SetCallback</referencedby>
       </memberdef>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="97" bodyend="-1"/>
         <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
         <referencedby refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" compoundref="xv__demosaic__intr_8c" startline="50" endline="77">XVDemosaic_SetCallback</referencedby>
       </memberdef>
@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="98" bodyend="-1"/>
         <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
         <referencedby refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" compoundref="xv__demosaic__intr_8c" startline="50" endline="77">XVDemosaic_SetCallback</referencedby>
       </memberdef>
@@ -128,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="105" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="99" bodyend="-1"/>
         <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
         <referencedby refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" compoundref="xv__demosaic__intr_8c" startline="50" endline="77">XVDemosaic_SetCallback</referencedby>
       </memberdef>
@@ -150,7 +150,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="99" bodyend="106"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="93" bodyend="100"/>
     <listofallmembers>
       <member refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" prot="public" virt="non-virtual"><scope>XV_demosaic</scope><name>CallbackDoneRef</name></member>
       <member refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" prot="public" virt="non-virtual"><scope>XV_demosaic</scope><name>CallbackReadyRef</name></member>

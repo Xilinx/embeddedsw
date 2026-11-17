@@ -20,18 +20,18 @@
         <childnode refid="46" relation="include">
         </childnode>
       </node>
-      <node id="40">
-        <label>xhdcp22_cipher_selftest.c</label>
-        <link refid="xhdcp22_cipher_selftest.c"/>
-        <childnode refid="41" relation="include">
-        </childnode>
-      </node>
       <node id="42">
         <label>xhdcp22_cipher_hw.h</label>
         <link refid="xhdcp22__cipher__hw_8h"/>
         <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xhdcp22_cipher_selftest.c</label>
+        <link refid="xhdcp22_cipher_selftest.c"/>
+        <childnode refid="41" relation="include">
         </childnode>
       </node>
       <node id="46">
@@ -69,9 +69,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_selftest.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_selftest.c" bodystart="57" bodyend="76"/>
-        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="85">XHdcp22_Cipher_Config::BaseAddress</references>
-        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="93">XHdcp22_Cipher::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_selftest.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_selftest.c" bodystart="57" bodyend="76"/>
+        <references refid="struct_x_hdcp22___cipher___config_1ac7d005bdb474513a59cd54b44e5f5d7c" compoundref="xhdcp22__cipher_8h" startline="81">XHdcp22_Cipher_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher_1a81994acd26e6c6a2536737e6080f9c23" compoundref="xhdcp22__cipher_8h" startline="89">XHdcp22_Cipher::Config</references>
         <references refid="group__hdcp22__cipher_1gacce7070e4d4e8c1dc04c517862c7417b" compoundref="xhdcp22__cipher__hw_8h" startline="107">XHDCP22_CIPHER_MASK_16</references>
         <references refid="group__hdcp22__cipher_1ga386adc1b38325505ded478f4d40fa692" compoundref="xhdcp22__cipher__hw_8h" startline="106">XHDCP22_CIPHER_SHIFT_16</references>
         <references refid="group__hdcp22__cipher_1ga6bae35ace045d9b076fa767511f7d5b9" compoundref="xhdcp22__cipher__hw_8h" startline="108">XHDCP22_CIPHER_VER_ID</references>
@@ -129,6 +129,6 @@
 <codeline lineno="76"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher/src/xhdcp22_cipher_selftest.c"/>
   </compounddef>
 </doxygen>

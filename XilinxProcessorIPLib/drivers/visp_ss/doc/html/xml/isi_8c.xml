@@ -9,151 +9,151 @@
     <includes refid="isi__iss_8h" local="yes">isi_iss.h</includes>
     <includes refid="isi__priv_8h" local="yes">isi_priv.h</includes>
     <incdepgraph>
-      <node id="5617">
+      <node id="5643">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5658">
         <label>isi_iss.h</label>
         <link refid="isi__iss_8h"/>
-        <childnode refid="5599" relation="include">
+        <childnode refid="5640" relation="include">
         </childnode>
-        <childnode refid="5611" relation="include">
+        <childnode refid="5652" relation="include">
         </childnode>
-        <childnode refid="5610" relation="include">
+        <childnode refid="5651" relation="include">
         </childnode>
       </node>
-      <node id="5611">
+      <node id="5640">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5641" relation="include">
+        </childnode>
+        <childnode refid="5644" relation="include">
+        </childnode>
+        <childnode refid="5645" relation="include">
+        </childnode>
+      </node>
+      <node id="5645">
+        <label>stddef.h</label>
+      </node>
+      <node id="5644">
+        <label>limits.h</label>
+      </node>
+      <node id="5652">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="5605">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="5606" relation="include">
+      <node id="5657">
+        <label>isi_metadata.h</label>
+        <childnode refid="5640" relation="include">
         </childnode>
-        <childnode refid="5608" relation="include">
-        </childnode>
-      </node>
-      <node id="5602">
-        <label>stdlib.h</label>
-      </node>
-      <node id="5604">
-        <label>stddef.h</label>
-      </node>
-      <node id="5618">
-        <label>isi_priv.h</label>
-        <link refid="isi__priv_8h"/>
-        <childnode refid="5599" relation="include">
-        </childnode>
-        <childnode refid="5610" relation="include">
+        <childnode refid="5654" relation="include">
         </childnode>
       </node>
-      <node id="5609">
-        <label>misc.h</label>
-        <link refid="misc_8h"/>
-      </node>
-      <node id="5603">
-        <label>limits.h</label>
-      </node>
-      <node id="5612">
-        <label>buf_defs.h</label>
-        <childnode refid="5599" relation="include">
+      <node id="5641">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5642" relation="include">
+        </childnode>
+        <childnode refid="5643" relation="include">
         </childnode>
       </node>
-      <node id="5613">
-        <label>isi_vvsensor.h</label>
-        <link refid="isi__vvsensor_8h"/>
-        <childnode refid="5614" relation="include">
-        </childnode>
-      </node>
-      <node id="5607">
+      <node id="5648">
         <label>string.h</label>
       </node>
-      <node id="5610">
-        <label>isi.h</label>
-        <link refid="isi_8h"/>
-        <childnode refid="5599" relation="include">
-        </childnode>
-        <childnode refid="5611" relation="include">
-        </childnode>
-        <childnode refid="5612" relation="include">
-        </childnode>
-        <childnode refid="5613" relation="include">
-        </childnode>
-        <childnode refid="5615" relation="include">
-        </childnode>
-        <childnode refid="5616" relation="include">
+      <node id="5654">
+        <label>isi_vvsensor.h</label>
+        <link refid="isi__vvsensor_8h"/>
+        <childnode refid="5655" relation="include">
         </childnode>
       </node>
-      <node id="5616">
-        <label>isi_metadata.h</label>
-        <childnode refid="5599" relation="include">
-        </childnode>
-        <childnode refid="5613" relation="include">
-        </childnode>
-      </node>
-      <node id="5615">
-        <label>isi_otp.h</label>
-        <childnode refid="5599" relation="include">
-        </childnode>
-        <childnode refid="5614" relation="include">
-        </childnode>
-      </node>
-      <node id="5608">
-        <label>ff.h</label>
-      </node>
-      <node id="5598">
-        <label>trace.h</label>
-        <link refid="trace_8h"/>
-        <childnode refid="5599" relation="include">
-        </childnode>
-        <childnode refid="5605" relation="include">
-        </childnode>
-      </node>
-      <node id="5597">
-        <label>isi.c</label>
-        <link refid="isi.c"/>
-        <childnode refid="5598" relation="include">
-        </childnode>
-        <childnode refid="5606" relation="include">
-        </childnode>
-        <childnode refid="5609" relation="include">
-        </childnode>
-        <childnode refid="5610" relation="include">
-        </childnode>
-        <childnode refid="5617" relation="include">
-        </childnode>
-        <childnode refid="5618" relation="include">
-        </childnode>
-      </node>
-      <node id="5614">
+      <node id="5655">
         <label>isi_common.h</label>
         <link refid="isi__common_8h"/>
       </node>
-      <node id="5599">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="5600" relation="include">
+      <node id="5659">
+        <label>isi_priv.h</label>
+        <link refid="isi__priv_8h"/>
+        <childnode refid="5640" relation="include">
         </childnode>
-        <childnode refid="5603" relation="include">
-        </childnode>
-        <childnode refid="5604" relation="include">
+        <childnode refid="5651" relation="include">
         </childnode>
       </node>
-      <node id="5606">
+      <node id="5638">
+        <label>isi.c</label>
+        <link refid="isi.c"/>
+        <childnode refid="5639" relation="include">
+        </childnode>
+        <childnode refid="5647" relation="include">
+        </childnode>
+        <childnode refid="5650" relation="include">
+        </childnode>
+        <childnode refid="5651" relation="include">
+        </childnode>
+        <childnode refid="5658" relation="include">
+        </childnode>
+        <childnode refid="5659" relation="include">
+        </childnode>
+      </node>
+      <node id="5647">
         <label>builtins.h</label>
         <link refid="builtins_8h"/>
-        <childnode refid="5599" relation="include">
+        <childnode refid="5640" relation="include">
         </childnode>
-        <childnode refid="5607" relation="include">
+        <childnode refid="5648" relation="include">
         </childnode>
       </node>
-      <node id="5601">
+      <node id="5650">
+        <label>misc.h</label>
+        <link refid="misc_8h"/>
+      </node>
+      <node id="5649">
+        <label>ff.h</label>
+      </node>
+      <node id="5656">
+        <label>isi_otp.h</label>
+        <childnode refid="5640" relation="include">
+        </childnode>
+        <childnode refid="5655" relation="include">
+        </childnode>
+      </node>
+      <node id="5651">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="5640" relation="include">
+        </childnode>
+        <childnode refid="5652" relation="include">
+        </childnode>
+        <childnode refid="5653" relation="include">
+        </childnode>
+        <childnode refid="5654" relation="include">
+        </childnode>
+        <childnode refid="5656" relation="include">
+        </childnode>
+        <childnode refid="5657" relation="include">
+        </childnode>
+      </node>
+      <node id="5653">
+        <label>buf_defs.h</label>
+        <childnode refid="5640" relation="include">
+        </childnode>
+      </node>
+      <node id="5646">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="5647" relation="include">
+        </childnode>
+        <childnode refid="5649" relation="include">
+        </childnode>
+      </node>
+      <node id="5642">
         <label>stdio.h</label>
       </node>
-      <node id="5600">
-        <label>linux_compat.h</label>
-        <link refid="linux__compat_8h"/>
-        <childnode refid="5601" relation="include">
+      <node id="5639">
+        <label>trace.h</label>
+        <link refid="trace_8h"/>
+        <childnode refid="5640" relation="include">
         </childnode>
-        <childnode refid="5602" relation="include">
+        <childnode refid="5646" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -215,7 +215,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="51" bodyend="94"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="51" bodyend="94"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
         <references refid="return__codes_8h_1ac01db30295cc8ad4475f7e0a90b59c2a" compoundref="return__codes_8h" startline="57">RET_WRONG_CONFIG</references>
@@ -271,7 +271,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="111" bodyend="134"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="111" bodyend="134"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -328,7 +328,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="152" bodyend="174"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="152" bodyend="174"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -379,7 +379,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="191" bodyend="212"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="191" bodyend="212"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -427,7 +427,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="229" bodyend="265"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="229" bodyend="265"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -489,7 +489,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="284" bodyend="309"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="284" bodyend="309"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -545,7 +545,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="327" bodyend="350"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="327" bodyend="350"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -625,7 +625,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="370" bodyend="396"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="370" bodyend="396"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -699,7 +699,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="417" bodyend="440"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="417" bodyend="440"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -750,7 +750,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="458" bodyend="479"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="458" bodyend="479"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -812,7 +812,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="498" bodyend="523"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="498" bodyend="523"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -882,7 +882,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="543" bodyend="565"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="543" bodyend="565"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -984,7 +984,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="587" bodyend="616"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="586" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="587" bodyend="616"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga52b594db8df809e15ae7d75ba2514a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1010,7 +1010,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="624" bodyend="650"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="624" bodyend="650"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1039,7 +1039,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="658" bodyend="684"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="658" bodyend="684"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1102,7 +1102,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="703" bodyend="728"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="703" bodyend="728"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1127,7 +1127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="735" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="736" bodyend="761"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="735" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="736" bodyend="761"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1152,7 +1152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="768" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="769" bodyend="794"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="768" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="769" bodyend="794"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1177,7 +1177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="801" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="802" bodyend="827"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="801" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="802" bodyend="827"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1201,7 +1201,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="834" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="835" bodyend="860"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="834" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="835" bodyend="860"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1225,7 +1225,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="868" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="869" bodyend="894"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="868" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="869" bodyend="894"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1250,7 +1250,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="901" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="902" bodyend="927"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="901" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="902" bodyend="927"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1312,7 +1312,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="945" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="946" bodyend="971"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="945" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="946" bodyend="971"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -1375,7 +1375,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="989" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="990" bodyend="1014"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="989" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="990" bodyend="1014"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1437,7 +1437,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1031" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1032" bodyend="1056"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1031" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1032" bodyend="1056"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1492,7 +1492,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1074" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1075" bodyend="1097"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1074" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1075" bodyend="1097"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1547,7 +1547,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1115" bodyend="1137"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1115" bodyend="1137"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1602,7 +1602,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1156" bodyend="1178"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1156" bodyend="1178"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1657,7 +1657,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1196" bodyend="1218"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1196" bodyend="1218"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1712,7 +1712,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1236" bodyend="1258"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1236" bodyend="1258"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1767,7 +1767,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1275" bodyend="1297"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1275" bodyend="1297"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1822,7 +1822,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1313" bodyend="1335"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1313" bodyend="1335"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1877,7 +1877,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1353" bodyend="1375"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1353" bodyend="1375"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -1939,7 +1939,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1394" bodyend="1419"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1394" bodyend="1419"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -2002,7 +2002,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1438" bodyend="1463"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1438" bodyend="1463"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -2054,7 +2054,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1480" bodyend="1501"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1480" bodyend="1501"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -2105,7 +2105,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1519" bodyend="1540"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1519" bodyend="1540"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
@@ -2167,7 +2167,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1559" bodyend="1584"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1559" bodyend="1584"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -2230,7 +2230,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1603" bodyend="1628"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1602" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1603" bodyend="1628"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -2293,7 +2293,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1648" bodyend="1673"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1648" bodyend="1673"/>
         <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
         <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
         <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
@@ -2318,7 +2318,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1675" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1676" bodyend="1698"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1675" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1676" bodyend="1698"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga4033c68577e46223217e13044d12813a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -2339,7 +2339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1701" bodyend="1723"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1701" bodyend="1723"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga2e5e812d6e5b3408ac560d4dcf19ef23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -2360,7 +2360,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1726" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1727" bodyend="1752"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1726" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1727" bodyend="1752"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga8307fa92de3bd960335221d466c5172f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -2381,7 +2381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1754" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1755" bodyend="1777"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1754" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1755" bodyend="1777"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gaf7af387f909973943073935a551985db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -2402,7 +2402,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1780" bodyend="1805"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1780" bodyend="1805"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1ga48ff568fc6e4f698ad179f45bb0f560c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -2423,7 +2423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1808" bodyend="1833"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1808" bodyend="1833"/>
       </memberdef>
       <memberdef kind="function" id="group__isi_1gaa19e1f7fc81267f32c276c30c1d9a82a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -2448,7 +2448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1835" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1836" bodyend="1862"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" line="1835" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1836" bodyend="1862"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -3834,6 +3834,6 @@
 <codeline lineno="1861"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(result);</highlight></codeline>
 <codeline lineno="1862"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c"/>
   </compounddef>
 </doxygen>

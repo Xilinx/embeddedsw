@@ -3,7 +3,6 @@ var xcanps_8h =
     [ "XCanPs_ClearTimestamp", "xcanps_8h.html#ga7ab3760eb2d37d0385cf930fd1cba230", null ],
     [ "XCanPs_CreateDlcValue", "xcanps_8h.html#ga8c9bf6d887f01a9726ef73fa9c3da816", null ],
     [ "XCanPs_CreateIdValue", "xcanps_8h.html#gada077a3bb7d30a6bca23529ee48ceb42", null ],
-    [ "XCANPS_H", "xcanps_8h.html#ga71176de5a3984478078d46c61727518b", null ],
     [ "XCANPS_HANDLER_ERROR", "xcanps_8h.html#ga60962a646bcd90fd768f78ff34f17ba5", null ],
     [ "XCANPS_HANDLER_EVENT", "xcanps_8h.html#gad64733c5ddd21a972fc93a8d43f52d74", null ],
     [ "XCANPS_HANDLER_RECV", "xcanps_8h.html#ga6393e21002da8517ac35ae9c1be58681", null ],

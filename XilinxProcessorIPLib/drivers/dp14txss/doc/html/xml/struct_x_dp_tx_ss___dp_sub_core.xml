@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="270" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="263" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_dp_tx_ss___dp_sub_core_1ac507f803d7d83a2b9206b9d07a4428cd" prot="public" static="no" mutable="no">
         <type>XDp_Config</type>
@@ -28,16 +28,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="272" bodyend="-1"/>
-        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="142" endline="434">XDpTxSs_CfgInitialize</referencedby>
-        <referencedby refid="group__dptxss_1ga2d3af2f5793e806f2e63a39d1055568c" compoundref="xdptxss_8c" startline="448" endline="487">XDpTxSs_Reset</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="138" endline="404">XDpTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dptxss_1ga2d3af2f5793e806f2e63a39d1055568c" compoundref="xdptxss_8c" startline="418" endline="457">XDpTxSs_Reset</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>DisplayPort Sub-core structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="269" bodyend="274"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="262" bodyend="267"/>
     <listofallmembers>
       <member refid="struct_x_dp_tx_ss___dp_sub_core_1ac507f803d7d83a2b9206b9d07a4428cd" prot="public" virt="non-virtual"><scope>XDpTxSs_DpSubCore</scope><name>DpConfig</name></member>
       <member refid="struct_x_dp_tx_ss___dp_sub_core_1adbbe1dd0fa95a53eba075e752a5797a5" prot="public" virt="non-virtual"><scope>XDpTxSs_DpSubCore</scope><name>IsPresent</name></member>

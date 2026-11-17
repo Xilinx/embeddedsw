@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___config.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('struct_x_ufs_psxc___config.html','');}
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for the device.
+<p>Holds UFSPSXC device configuration data.
  <a href="struct_x_ufs_psxc___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xufspsxc.h&gt;</code></p>
@@ -129,7 +129,7 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:ab6fd32d5fd25f5b32edf2b4f69875e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input clock frequency.  <a href="#ab6fd32d5fd25f5b32edf2b4f69875e67">More...</a><br/></td></tr>
 <tr class="separator:ab6fd32d5fd25f5b32edf2b4f69875e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e08ed8c5c8ba0b3b67ce267134a9ee4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___config.html#a9e08ed8c5c8ba0b3b67ce267134a9ee4">CfgClkFreqHz</a></td></tr>
-<tr class="memdesc:a9e08ed8c5c8ba0b3b67ce267134a9ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">M-PHY Config clock frequency (external clock)  <a href="#a9e08ed8c5c8ba0b3b67ce267134a9ee4">More...</a><br/></td></tr>
+<tr class="memdesc:a9e08ed8c5c8ba0b3b67ce267134a9ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">M-PHY Config clock frequency (external clock).  <a href="#a9e08ed8c5c8ba0b3b67ce267134a9ee4">More...</a><br/></td></tr>
 <tr class="separator:a9e08ed8c5c8ba0b3b67ce267134a9ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3e9e067157d1afa16f87784578dd1f9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___config.html#ac3e9e067157d1afa16f87784578dd1f9">RefPadClk</a></td></tr>
 <tr class="memdesc:ac3e9e067157d1afa16f87784578dd1f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">UFS Reference Pad clock.  <a href="#ac3e9e067157d1afa16f87784578dd1f9">More...</a><br/></td></tr>
@@ -138,14 +138,15 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a9ca68c44716762c73f53c17f35cf7eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">If UFS is Cache Coherent or not.  <a href="#a9ca68c44716762c73f53c17f35cf7eea">More...</a><br/></td></tr>
 <tr class="separator:a9ca68c44716762c73f53c17f35cf7eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbc5e6c3535aad9294bdcbb420c617da"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___config.html#acbc5e6c3535aad9294bdcbb420c617da">IntrId</a></td></tr>
-<tr class="memdesc:acbc5e6c3535aad9294bdcbb420c617da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags.  <a href="#acbc5e6c3535aad9294bdcbb420c617da">More...</a><br/></td></tr>
+<tr class="memdesc:acbc5e6c3535aad9294bdcbb420c617da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] interrupt ID.  <a href="#acbc5e6c3535aad9294bdcbb420c617da">More...</a><br/></td></tr>
 <tr class="separator:acbc5e6c3535aad9294bdcbb420c617da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12826ecb87695efb3ea2dd824a23bfbc"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ufs_psxc___config.html#a12826ecb87695efb3ea2dd824a23bfbc">IntrParent</a></td></tr>
-<tr class="memdesc:a12826ecb87695efb3ea2dd824a23bfbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1] Parent base address.  <a href="#a12826ecb87695efb3ea2dd824a23bfbc">More...</a><br/></td></tr>
+<tr class="memdesc:a12826ecb87695efb3ea2dd824a23bfbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] interrupt parent type.  <a href="#a12826ecb87695efb3ea2dd824a23bfbc">More...</a><br/></td></tr>
 <tr class="separator:a12826ecb87695efb3ea2dd824a23bfbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for the device. </p>
+<div class="textblock"><p>Holds UFSPSXC device configuration data. </p>
+<p>This typedef contains configuration information for the device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a4a3f9ad972b6dcab5ae62033e59571a1"></a>
 <div class="memitem">
@@ -159,7 +160,7 @@ Data Fields</h2></td></tr>
 
 <p>Base address of the device. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, <a class="el" href="group__ufspsxc.html#ga76dd7620ac6f336d4a9aaa5108e009d6">XUfsPsxc_ConfigureSpeedGear()</a>, <a class="el" href="group__ufspsxc.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>, <a class="el" href="group__ufspsxc.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga3466d6c88ad459aef56d2d686ff077c8">XUfsPsxc_SendUICCmd()</a>, and <a class="el" href="group__ufspsxc.html#ga9d2af8ff970bc14578e9b35d1969d460">XUfsPsxc_SetHce()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, <a class="el" href="group__ufspsxc.html#ga76dd7620ac6f336d4a9aaa5108e009d6">XUfsPsxc_ConfigureSpeedGear()</a>, <a class="el" href="group__ufspsxc__api.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>, <a class="el" href="group__ufspsxc__api.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc__api.html#ga3466d6c88ad459aef56d2d686ff077c8">XUfsPsxc_SendUICCmd()</a>, <a class="el" href="group__ufspsxc__api.html#ga9d2af8ff970bc14578e9b35d1969d460">XUfsPsxc_SetHce()</a>, and <a class="el" href="group__ufspsxc__api.html#ga4678a94ab35c54ebf278434eee49a02c">XUfsPsxc_WaitForPowerModeChange()</a>.</p>
 
 </div>
 </div>
@@ -173,9 +174,9 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>M-PHY Config clock frequency (external clock) </p>
+<p>M-PHY Config clock frequency (external clock). </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, and <a class="el" href="group__ufspsxc.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, and <a class="el" href="group__ufspsxc__api.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>.</p>
 
 </div>
 </div>
@@ -191,7 +192,7 @@ Data Fields</h2></td></tr>
 
 <p>Input clock frequency. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, and <a class="el" href="group__ufspsxc.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, and <a class="el" href="group__ufspsxc__api.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>.</p>
 
 </div>
 </div>
@@ -205,7 +206,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </p>
+<p>Bits[11:0] interrupt ID. </p>
+<p>Bits[15:12] trigger type and level flags. </p>
 
 </div>
 </div>
@@ -219,7 +221,8 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
+<p>Bit[0] interrupt parent type. </p>
+<p>Bit[64/32:1] parent base address. </p>
 
 </div>
 </div>
@@ -235,7 +238,7 @@ Data Fields</h2></td></tr>
 
 <p>If UFS is Cache Coherent or not. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, <a class="el" href="group__ufspsxc.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga7c68d7e7d43d9d3f3c327c4ea3d58dd6">XUfsPsxc_ReadPolled()</a>, and <a class="el" href="group__ufspsxc.html#ga5b503a6cef357e029c87ab07e4354763">XUfsPsxc_WritePolled()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, <a class="el" href="group__ufspsxc__api.html#ga5c93689c07193dfa1a85d9b093596b0e">XUfsPsxc_ProcessUpiu()</a>, <a class="el" href="group__ufspsxc.html#ga7c68d7e7d43d9d3f3c327c4ea3d58dd6">XUfsPsxc_ReadPolled()</a>, and <a class="el" href="group__ufspsxc.html#ga5b503a6cef357e029c87ab07e4354763">XUfsPsxc_WritePolled()</a>.</p>
 
 </div>
 </div>
@@ -251,7 +254,7 @@ Data Fields</h2></td></tr>
 
 <p>Compatible string of the device. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#ga2002c7351a5cac41c7a0bea8c1bf8ed9">XUfsPsxc_LookupConfig()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc__api.html#ga2aa0df1edb5747863d5be2d9058356fe">XUfsPsxc_LookupConfig()</a>.</p>
 
 </div>
 </div>
@@ -267,7 +270,7 @@ Data Fields</h2></td></tr>
 
 <p>UFS Reference Pad clock. </p>
 
-<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, and <a class="el" href="group__ufspsxc.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__ufspsxc.html#gaa67843f95526f7c11553c1f125004374">XUfsPsxc_CfgInitialize()</a>, <a class="el" href="group__ufspsxc__api.html#gae0db9d094adbe197913f6c107e0f02ef">XUfsPsxc_HostInitialize()</a>, and <a class="el" href="group__ufspsxc__api.html#ga30216e9b993a9aa77c9f21fedc9e6728">XUfsPsxc_SetbRefClkFreq()</a>.</p>
 
 </div>
 </div>

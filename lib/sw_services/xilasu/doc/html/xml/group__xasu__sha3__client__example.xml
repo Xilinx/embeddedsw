@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga4cafaaf3f51cd5199df9e44f9604b609" prot="public" static="yes" mutable="no">
         <type>char</type>
@@ -30,7 +30,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1gacd02af52f9fe17e262e2c14048ad91e2" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Shake256Xof[ASU_SHAKE256_XOF_OUTPUT_LEN]</definition>
+        <argsstring>[ASU_SHAKE256_XOF_OUTPUT_LEN]</argsstring>
+        <name>Shake256Xof</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga7970d6d5b860de9bfd5da4fc047b041f" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -38,9 +51,10 @@
         <argsstring>[ASU_SHA3_HASH_LEN_IN_BYTES]</argsstring>
         <name>ExpHash</name>
         <initializer>= {
-	0x07, 0x99, 0x8B, 0xA4, 0x19, 0xE8, 0x54, 0x6F, 0xAE, 0x0D, 0x5B, 0x66, 0x43, 0xC8, 0x2B, 0x92,
-	0xDE, 0x5F, 0x8E, 0x85, 0x3A, 0xC8, 0xBE, 0x82, 0xDD, 0x85, 0x54, 0x82, 0x72, 0x9F, 0xA0, 0xAC,
-	0x0A, 0xF1, 0xF0, 0xB9, 0x22, 0xF2, 0xCF, 0xEF, 0x80, 0x74, 0x21, 0x63, 0x79, 0x0A, 0xF1, 0x36
+	0x07, 0x99, 0x8B, 0xA4, 0x19, 0xE8, 0x54, 0x6F, 0xAE, 0x0D, 0x5B, 0x66,
+	0x43, 0xC8, 0x2B, 0x92, 0xDE, 0x5F, 0x8E, 0x85, 0x3A, 0xC8, 0xBE, 0x82,
+	0xDD, 0x85, 0x54, 0x82, 0x72, 0x9F, 0xA0, 0xAC, 0x0A, 0xF1, 0xF0, 0xB9,
+	0x22, 0xF2, 0xCF, 0xEF, 0x80, 0x74, 0x21, 0x63, 0x79, 0x0A, 0xF1, 0x36
 }</initializer>
         <briefdescription>
         </briefdescription>
@@ -48,11 +62,43 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="100" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga5102fd7f8196dce937ad562c0ad1da54" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpShake256Xof[ASU_SHAKE256_XOF_OUTPUT_LEN]</definition>
+        <argsstring>[ASU_SHAKE256_XOF_OUTPUT_LEN]</argsstring>
+        <name>ExpShake256Xof</name>
+        <initializer>= {
+	0x08, 0x01, 0xA6, 0xA3, 0xAB, 0x3C, 0x19, 0x96, 0x97, 0xCF, 0x87, 0x4B,
+	0xCD, 0xEB, 0xF6, 0xB3, 0x22, 0x6D, 0xFA, 0x0D, 0x71, 0x3D, 0x11, 0xA9,
+	0xD1, 0x29, 0x93, 0x88, 0x61, 0x95, 0x59, 0xA6, 0xA4, 0xFA, 0x5A, 0xBA,
+	0x88, 0x5D, 0x8E, 0x9C, 0xFE, 0xDD, 0xCF, 0x01, 0x68, 0xC6, 0xCF, 0xC3,
+	0x30, 0xB3, 0xA6, 0xE6, 0x49, 0x40, 0xBB, 0xFD, 0x34, 0x90, 0x59, 0xAA,
+	0x9D, 0x4A, 0x23, 0x46, 0xDA, 0xFE, 0x04, 0x0A, 0x15, 0x84, 0x7E, 0xBD,
+	0xD6, 0x32, 0x4D, 0x1A, 0xAB, 0xC5, 0xF8, 0xE7, 0x26, 0x17, 0xBF, 0xB4,
+	0xD0, 0xC8, 0x69, 0x2F, 0x12, 0xE6, 0xCE, 0x21, 0x58, 0x65, 0xC2, 0x39,
+	0x3C, 0xD4, 0xBC, 0x73, 0x15, 0xAC, 0xBF, 0x12, 0x73, 0x42, 0x14, 0xBD,
+	0xCB, 0xE5, 0x17, 0x77, 0x27, 0x40, 0x53, 0x7E, 0xDE, 0xBB, 0x6A, 0x74,
+	0x39, 0x45, 0xAE, 0x1A, 0xE1, 0x9E, 0x13, 0xFB, 0x89, 0x56, 0x64, 0xD2,
+	0xCD, 0x0B, 0x76, 0xFD, 0xDD, 0x0F, 0xE8, 0xF1, 0xF8, 0x1A, 0xE3, 0xB2,
+	0x9B, 0x76, 0xE4, 0x20, 0xF5, 0x2F, 0x4F, 0x26, 0x2C, 0xB6, 0xF4, 0x50,
+	0x9F, 0x67, 0x75, 0x73, 0x8D, 0x80, 0x91, 0x93, 0xBC, 0x7D, 0x52, 0x6E,
+	0xA3, 0xF9, 0x0C, 0xC9, 0x6A, 0x31, 0x9F, 0x28, 0x0B, 0x8C, 0xE8, 0xA0,
+	0x14, 0xE5, 0x9D, 0x7A, 0x81, 0x12, 0x7A, 0x03, 0xE3, 0xBE, 0x75, 0x5E,
+	0x4A, 0x06, 0x58, 0x19, 0x45, 0x2A, 0x67, 0x4B
+}</initializer>
+        <briefdescription>
+<para>Known-answer SHAKE256 XOF output of the &apos;HELLO&apos; string, squeezed to ASU_SHAKE256_XOF_OUTPUT_LEN bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="yes" mutable="no">
         <type>u8</type>
-        <definition>u8 Notify</definition>
+        <definition>volatile u8 Notify</definition>
         <argsstring></argsstring>
         <name>Notify</name>
         <initializer>= 0</initializer>
@@ -62,7 +108,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="130" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -84,7 +144,26 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Initialize mailbox instance. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="136" bodyend="194"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="180" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1ga361e40edf5657c8ca3e8e786873f8c9e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 Asu_Shake256XofExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>Asu_Shake256XofExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function demonstrates a multi-block SHAKE256 XOF (extendable-output function) squeeze. </para>        </briefdescription>
+        <detaileddescription>
+<para>It absorbs the &apos;HELLO&apos; string once and then squeezes ASU_SHAKE256_XOF_OUTPUT_LEN bytes of output across multiple 136-byte rate blocks by issuing repeated FINISH requests through <ref refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" kindref="member">XAsu_Sha3Operation()</ref> with XofEnableFlag set on every block except the last. The SHA3 engine is kept alive between blocks, and the same client priority is reused so the same context (and hence the same engine) is retained across the squeeze. A failed server FINISH already releases the engine on ASUFW. If the client cannot send a request after a successful continuation, ASUFW reclaim/timeout releases the held engine.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the multi-block SHAKE256 XOF squeeze completes successfully.</para></listitem><listitem><para>XST_FAILURE, if the squeeze fails.//! [SHAKE256 XOF example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Initialize the client instance.</para><para>Common client request inputs. The same priority is reused for every block so that the same context (and hence the same SHA3 engine) is retained across the squeeze.</para><para>All squeeze blocks run in SHA3 SHAKE256 mode.</para><para>Squeeze the output in 136-byte rate blocks. The first block also absorbs the message (INIT | UPDATE | FINISH); subsequent blocks are FINISH-only continuations. The final block (IsLastHashBlock = TRUE) may be shorter than a full rate block and releases the engine.</para><para>Request another block on every squeeze except the last.</para><para>The first block (Offset == 0) also absorbs the message; the rest are FINISH-only.</para><para>Wait for the response of this block before issuing the next squeeze.</para><para>Verify the squeezed output against the known-answer SHAKE256 XOF of the &apos;HELLO&apos; string.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="261" bodyend="393"/>
       </memberdef>
       <memberdef kind="function" id="group__xasu__sha3__client__example_1gafd42a3b091494e696ac9ea95b0d45514" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -96,7 +175,32 @@
           <declname>Hash</declname>
         </param>
         <briefdescription>
-<para>This function prints the given hash on the console. </para>        </briefdescription>
+<para>//! [SHAKE256 XOF example] </para>        </briefdescription>
+        <detaileddescription>
+<para>This function prints the given hash on the console.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to given array. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="403" bodyend="411"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1gabab7659276cb435ef2284574fe95d4f2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Asu_Shake256PrintHash</definition>
+        <argsstring>(const u8 *Hash)</argsstring>
+        <name>Asu_Shake256PrintHash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given SHAKE256 XOF hash on the console. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -109,7 +213,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="203" bodyend="211"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="420" bodyend="428"/>
       </memberdef>
       <memberdef kind="function" id="group__xasu__sha3__client__example_1ga501fdf1cb08dc41fc604a672fffbdeab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -147,7 +251,45 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="224" bodyend="246"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="441" bodyend="465"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1gab7744b531375a8d8a4207381b9ae28e8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_Shake256CallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_Shake256CallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function registered with the library to notify the completion of a SHAKE256 XOF squeeze block. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each squeeze block writes its output directly to the caller-provided hash address, so this callback only records the status and notifies the waiting loop.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="480" bodyend="490"/>
       </memberdef>
       <memberdef kind="function" id="group__xasu__sha3__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -158,15 +300,15 @@
           <type>void</type>
         </param>
         <briefdescription>
-<para>Main function to call the Asu_Sha3Example. </para>        </briefdescription>
+<para>Main function to call the Asu_Sha3Example and Asu_Shake256XofExample. </para>        </briefdescription>
         <detaileddescription>
 <para><simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS, if SHA3 hash successfully generated for given input data string.</para></listitem><listitem><para>XST_FAILURE, if the SHA3 hash generation fails. </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS, if the SHA3 hash and the multi-block SHAKE256 XOF squeeze both complete successfully.</para></listitem><listitem><para>XST_FAILURE, if either the SHA3 hash generation or the SHAKE256 XOF squeeze fails. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="106" bodyend="123"/>
+<para>Demonstrate a multi-block SHAKE256 XOF squeeze. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="142" bodyend="167"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -178,7 +320,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xasu__sha3__client__example_1gacdba6bf7f52f1f51441ecb8b9c9f7c93" prot="public" static="no">
         <name>ASU_SHA3_HASH_LEN_IN_BYTES</name>
@@ -189,7 +331,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xasu__sha3__client__example_1gadc1b9f4efa9855c48af82feeb4e286bb" prot="public" static="no">
         <name>ASU_SHA3_INPUT_DATA_LEN</name>
@@ -200,7 +342,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__sha3__client__example_1ga312cdd8399cd4a9084345e0b59dcf9f9" prot="public" static="no">
+        <name>ASU_SHAKE256_XOF_OUTPUT_LEN</name>
+        <initializer>(200U)</initializer>
+        <briefdescription>
+<para>Total SHAKE256 XOF output length to squeeze in bytes (spans 2 blocks: 136 + 64) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="79" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

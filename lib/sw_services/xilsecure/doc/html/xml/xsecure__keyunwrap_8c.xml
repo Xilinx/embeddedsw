@@ -14,130 +14,130 @@
     <includes local="yes">xplmi_dma.h</includes>
     <includes local="yes">xsecure_plat_defs.h</includes>
     <incdepgraph>
-      <node id="1892">
-        <label>xsecure_plat_rsa.h</label>
-        <link refid="xsecure__plat__rsa_8h"/>
-        <childnode refid="1890" relation="include">
-        </childnode>
-        <childnode refid="1893" relation="include">
-        </childnode>
-        <childnode refid="1894" relation="include">
-        </childnode>
-        <childnode refid="1895" relation="include">
-        </childnode>
-        <childnode refid="1897" relation="include">
-        </childnode>
-        <childnode refid="1896" relation="include">
-        </childnode>
-      </node>
-      <node id="1899">
+      <node id="1952">
         <label>xsecure_rsa.h</label>
       </node>
-      <node id="1898">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="1889">
-        <label>xsecure_keyunwrap.c</label>
-        <link refid="xsecure_keyunwrap.c"/>
-        <childnode refid="1890" relation="include">
-        </childnode>
-        <childnode refid="1891" relation="include">
-        </childnode>
-        <childnode refid="1892" relation="include">
-        </childnode>
-        <childnode refid="1899" relation="include">
-        </childnode>
-        <childnode refid="1900" relation="include">
-        </childnode>
-        <childnode refid="1902" relation="include">
-        </childnode>
-        <childnode refid="1905" relation="include">
-        </childnode>
-        <childnode refid="1906" relation="include">
-        </childnode>
-        <childnode refid="1907" relation="include">
-        </childnode>
-        <childnode refid="1908" relation="include">
-        </childnode>
-        <childnode refid="1904" relation="include">
-        </childnode>
-      </node>
-      <node id="1902">
-        <label>xsecure_keyunwrap.h</label>
-        <link refid="xsecure__keyunwrap_8h"/>
-        <childnode refid="1903" relation="include">
-        </childnode>
-        <childnode refid="1904" relation="include">
-        </childnode>
-      </node>
-      <node id="1908">
-        <label>xplmi_dma.h</label>
-      </node>
-      <node id="1896">
-        <label>Rsa.h</label>
-      </node>
-      <node id="1895">
-        <label>xsecure_rsa_q.h</label>
-        <link refid="xsecure__rsa__q_8h"/>
-        <childnode refid="1890" relation="include">
-        </childnode>
-        <childnode refid="1893" relation="include">
-        </childnode>
-        <childnode refid="1894" relation="include">
-        </childnode>
-        <childnode refid="1896" relation="include">
-        </childnode>
-      </node>
-      <node id="1900">
+      <node id="1953">
         <label>xsecure_plat_aes.h</label>
         <link refid="xsecure__plat__aes_8h"/>
-        <childnode refid="1901" relation="include">
+        <childnode refid="1954" relation="include">
         </childnode>
       </node>
-      <node id="1904">
+      <node id="1951">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1961">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="1949">
+        <label>Rsa.h</label>
+      </node>
+      <node id="1948">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure__rsa__q_8h"/>
+        <childnode refid="1943" relation="include">
+        </childnode>
+        <childnode refid="1946" relation="include">
+        </childnode>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1949" relation="include">
+        </childnode>
+      </node>
+      <node id="1957">
         <label>xsecure_plat_defs.h</label>
       </node>
-      <node id="1905">
-        <label>xsecure_init.h</label>
-        <link refid="xsecure__init_8h"/>
-        <childnode refid="1901" relation="include">
+      <node id="1942">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure_keyunwrap.c"/>
+        <childnode refid="1943" relation="include">
         </childnode>
-        <childnode refid="1894" relation="include">
+        <childnode refid="1944" relation="include">
         </childnode>
-        <childnode refid="1898" relation="include">
+        <childnode refid="1945" relation="include">
+        </childnode>
+        <childnode refid="1952" relation="include">
+        </childnode>
+        <childnode refid="1953" relation="include">
+        </childnode>
+        <childnode refid="1955" relation="include">
+        </childnode>
+        <childnode refid="1958" relation="include">
+        </childnode>
+        <childnode refid="1959" relation="include">
+        </childnode>
+        <childnode refid="1960" relation="include">
+        </childnode>
+        <childnode refid="1961" relation="include">
+        </childnode>
+        <childnode refid="1957" relation="include">
         </childnode>
       </node>
-      <node id="1901">
+      <node id="1955">
+        <label>xsecure_keyunwrap.h</label>
+        <link refid="xsecure__keyunwrap_8h"/>
+        <childnode refid="1956" relation="include">
+        </childnode>
+        <childnode refid="1957" relation="include">
+        </childnode>
+      </node>
+      <node id="1954">
         <label>xsecure_aes.h</label>
       </node>
-      <node id="1890">
+      <node id="1943">
         <label>xsecure_config.h</label>
       </node>
-      <node id="1893">
+      <node id="1946">
         <label>xil_types.h</label>
       </node>
-      <node id="1903">
+      <node id="1958">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="1954" relation="include">
+        </childnode>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1951" relation="include">
+        </childnode>
+      </node>
+      <node id="1956">
         <label>xpmcdma.h</label>
       </node>
-      <node id="1891">
+      <node id="1944">
         <label>xparameters.h</label>
       </node>
-      <node id="1906">
+      <node id="1959">
         <label>xsecure_error.h</label>
       </node>
-      <node id="1897">
+      <node id="1950">
         <label>xsecure_mgf.h</label>
         <link refid="xsecure__mgf_8h"/>
-        <childnode refid="1893" relation="include">
+        <childnode refid="1946" relation="include">
         </childnode>
-        <childnode refid="1898" relation="include">
+        <childnode refid="1951" relation="include">
         </childnode>
       </node>
-      <node id="1907">
+      <node id="1960">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="1894">
+      <node id="1947">
         <label>xsecure_rsa_core.h</label>
+      </node>
+      <node id="1945">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="1943" relation="include">
+        </childnode>
+        <childnode refid="1946" relation="include">
+        </childnode>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1948" relation="include">
+        </childnode>
+        <childnode refid="1950" relation="include">
+        </childnode>
+        <childnode refid="1949" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <innerclass refid="struct_x_secure___key_store_hdr" prot="public">XSecure_KeyStoreHdr</innerclass>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1gaacb4b7c562037f76ce135fd2659024b4" prot="public" static="no">
         <name>XSECURE_SHARED_KEY_STORE_SIZE_OFFSET</name>
@@ -162,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" prot="public" static="no">
         <name>XSECURE_KEY_STORE_KEY_OFFSET</name>
@@ -173,8 +173,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="63" bodyend="-1"/>
-        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="282">XSecure_KeyUnwrap</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" prot="public" static="no">
         <name>XSECURE_AES_256BIT_KEY_BLOCK_SIZE</name>
@@ -185,8 +185,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="64" bodyend="-1"/>
-        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="282">XSecure_KeyUnwrap</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1gaaa701b146b5ca0fcc10c4540285282dd" prot="public" static="no">
         <name>XSECURE_AES_128BIT_KEY_BLOCK_SIZE</name>
@@ -197,8 +197,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="65" bodyend="-1"/>
-        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="282">XSecure_KeyUnwrap</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga6e1d11a69ab8605cea40a370c6bacb07" prot="public" static="no">
         <name>XSECURE_AES_KEY_SLOT_STATUS_FULL</name>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1gaf5933fbb351b26d7031309c0faa02f74" prot="public" static="no">
         <name>XSECURE_KEY_SLOT_KEY_STATUS_ADDR</name>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga2efa8fafebaafb641f8472d5b840b032" prot="public" static="no">
         <name>XSECURE_KEY_SLOT_KEY_ADDR</name>
@@ -233,8 +233,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="70" bodyend="-1"/>
-        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="282">XSecure_KeyUnwrap</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga5aef52db2a9ff32fb8d525f20fef1d2f" prot="public" static="no">
         <name>XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE</name>
@@ -247,7 +247,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="73" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -263,7 +263,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="91" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -286,7 +286,7 @@
 <para><itemizedlist>
 <listitem><para>Check if the key store size is valid</para></listitem><listitem><para>Calculate the starting address of the free key slot status</para></listitem><listitem><para>Iterate through the key slots to find a free slot</para></listitem><listitem><para>Move to the next slot</para></listitem><listitem><para>Wrap around if the end of the key store is reached </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="106" bodyend="150"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="106" bodyend="150"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__keyunwrap__server__apis_1ga452b64be2eecb9bcc03842ae7a715c92" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -311,7 +311,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="159" bodyend="168"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="159" bodyend="168"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -341,31 +341,30 @@
 <para><itemizedlist>
 <listitem><para>Check for free key slot and update Key slot status address</para></listitem><listitem><para>Get destination key slot address by using free key slot value</para></listitem><listitem><para>Copy wrapped rsa key to local buffer</para></listitem><listitem><para>Update the key slot with metadata</para></listitem><listitem><para>Clear the ephemeral AES key after the usage</para></listitem><listitem><para>Clear the ephemeral AES key after the usage </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="185" bodyend="283"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="185" bodyend="282"/>
         <references refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" compoundref="xsecure__plat__rsa_8h" startline="109">XSecure_RsaOaepParam::InputDataAddr</references>
-        <references refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" compoundref="net_2xsecure__plat__defs_8h" startline="325">XSecure_KeyWrapData::KeyMetaData</references>
-        <references refid="struct_x_secure___key_wrap_data_1a857f11d7fff5dfda00d6720ca658fdd4" compoundref="net_2xsecure__plat__defs_8h" startline="326">XSecure_KeyWrapData::KeyWrapAddr</references>
+        <references refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" compoundref="net_2xsecure__plat__defs_8h" startline="326">XSecure_KeyWrapData::KeyMetaData</references>
+        <references refid="struct_x_secure___key_wrap_data_1a857f11d7fff5dfda00d6720ca658fdd4" compoundref="net_2xsecure__plat__defs_8h" startline="327">XSecure_KeyWrapData::KeyWrapAddr</references>
         <references refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" compoundref="xsecure__plat__rsa_8h" startline="110">XSecure_RsaOaepParam::OutputDataAddr</references>
         <references refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" compoundref="xsecure__plat__rsa_8h" startline="113">XSecure_RsaOaepParam::OutputDataSize</references>
-        <references refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" compoundref="xsecure__plat__rsa_8h" startline="115">XSecure_RsaOaepParam::ShaInstancePtr</references>
-        <references refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" compoundref="xsecure__plat__rsa_8h" startline="116">XSecure_RsaOaepParam::ShaType</references>
-        <references refid="struct_x_secure___key_wrap_data_1ae0859090b231e6cdb8541514ace52cff" compoundref="net_2xsecure__plat__defs_8h" startline="327">XSecure_KeyWrapData::TotalWrappedKeySize</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" compoundref="xsecure__plat__rsa_8h" startline="117">XSecure_RsaOaepParam::ShaInstancePtr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" compoundref="xsecure__plat__rsa_8h" startline="118">XSecure_RsaOaepParam::ShaType</references>
+        <references refid="struct_x_secure___key_wrap_data_1ae0859090b231e6cdb8541514ace52cff" compoundref="net_2xsecure__plat__defs_8h" startline="328">XSecure_KeyWrapData::TotalWrappedKeySize</references>
         <references refid="group__xsecure__keyunwrap__server__apis_1gaaa701b146b5ca0fcc10c4540285282dd" compoundref="xsecure__keyunwrap_8c" startline="65">XSECURE_AES_128BIT_KEY_BLOCK_SIZE</references>
         <references refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" compoundref="xsecure__keyunwrap_8c" startline="64">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</references>
         <references refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" compoundref="xsecure__plat__aes_8h" startline="44">XSECURE_AES_64BIT_BLOCK_SIZE</references>
-        <references refid="group__xsecure__aes__server__apis_1gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3" compoundref="xsecure__aesclient_8h" startline="82">XSECURE_AES_KEY_SIZE_128</references>
-        <references refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</references>
-        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="353">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</references>
-        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae88263cbf5cdde15b1c36b2a6b4f069c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="351">XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH</references>
-        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
-        <references refid="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" compoundref="xsecure__plat__rsa_8c" startline="542" endline="551">XSecure_GetRsaKeyInUseIdx</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" compoundref="xsecure__plat__rsa_8c" startline="731" endline="741">XSecure_GetRsaPrivateKey</references>
+        <references refid="group__xsecure__aes__server__apis_1gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3" compoundref="xsecure__aesclient_8h" startline="83">XSECURE_AES_KEY_SIZE_128</references>
+        <references refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="351">XSecure_AesKeyUnwrap</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="351">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae88263cbf5cdde15b1c36b2a6b4f069c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="349">XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="222" endline="227">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" compoundref="xsecure__plat__rsa_8c" startline="561" endline="570">XSecure_GetRsaKeyInUseIdx</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" compoundref="xsecure__plat__rsa_8c" startline="752" endline="762">XSecure_GetRsaPrivateKey</references>
         <references refid="group__xsecure__keyunwrap__server__apis_1ga2efa8fafebaafb641f8472d5b840b032" compoundref="xsecure__keyunwrap_8c" startline="70">XSECURE_KEY_SLOT_KEY_ADDR</references>
         <references refid="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" compoundref="xsecure__keyunwrap_8c" startline="63">XSECURE_KEY_STORE_KEY_OFFSET</references>
-        <references refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" compoundref="spartanup_2xsecure__utils_8c" startline="74" endline="95">XSecure_MemCpy64</references>
-        <references refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="684" endline="699">XSecure_MemCpyAndChangeEndianness</references>
+        <references refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="705" endline="716">XSecure_MemCpyAndChangeEndianness</references>
         <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
-        <references refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="359" endline="397">XSecure_RsaOaepDecrypt</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -554,54 +553,53 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="234"><highlight class="normal"></highlight></codeline>
 <codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" kindref="member">InputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)WrapRsaKey;</highlight></codeline>
 <codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" kindref="member">OutputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)EphAesKey;</highlight></codeline>
-<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" kindref="member">ShaInstancePtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" kindref="member">ShaType</ref><sp/>=<sp/>XSECURE_SHA2_384;</highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" kindref="member">XSecure_RsaOaepDecrypt</ref>,<sp/>PrivKey,<sp/>&amp;OaepParam);</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref><sp/>==<sp/>XSECURE_AES_KEY_SIZE_256BIT_BYTES)<sp/>{</highlight></codeline>
-<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKeySize<sp/>=<sp/>XSECURE_AES_KEY_SIZE_256;</highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref><sp/>==<sp/>XSECURE_AES_KEY_SIZE_128BIT_BYTES)<sp/>{</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKeySize<sp/>=<sp/><ref refid="group__xsecure__aes__server__apis_1gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3" kindref="member">XSECURE_AES_KEY_SIZE_128</ref>;</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" kindref="member">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</ref>;</highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyWrapAddr<sp/>=<sp/>KeyWrapAddr<sp/>+<sp/><ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>;</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_MemCpy64((u64)(UINTPTR)WrapAesKey,<sp/>KeyWrapAddr,<sp/><ref refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" kindref="member">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</ref>);</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/><ref refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" kindref="member">XSecure_AesKeyUnwrap</ref>,<sp/>AesInstPtr,<sp/>EphAesKey,</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKeySize,<sp/>WrapAesKey,<sp/>DstKeySlotAddr,<sp/>EncryptedKeySize);</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"></highlight></codeline>
-<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DstKeySlotAddr<sp/>+=<sp/>(u64)(EncryptedKeySize<sp/>-<sp/><ref refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" kindref="member">XSECURE_AES_64BIT_BLOCK_SIZE</ref>);</highlight></codeline>
-<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" kindref="member">XSecure_MemCpy64</ref>(DstKeySlotAddr,<sp/>(u64)(UINTPTR)&amp;KeyWrapData-&gt;<ref refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" kindref="member">KeyMetaData</ref>,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___key_meta_data" kindref="compound">XSecure_KeyMetaData</ref>));</highlight></codeline>
-<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_MarkKeySlotOccupied(KeySlotStatusAddr);</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"></highlight></codeline>
-<codeline lineno="265"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(SStatus,<sp/>SStatusTmp,<sp/>Xil_SecureZeroize,<sp/>EphAesKey,<sp/>XSECURE_AES_KEY_SIZE_256BIT_BYTES);</highlight></codeline>
-<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(SStatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
-<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(SStatus<sp/>|<sp/>SStatusTmp);</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"></highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(SStatus,<sp/>SStatusTmp,<sp/>Xil_SecureZeroize,<sp/>WrapAesKey,<sp/><ref refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" kindref="member">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</ref>);</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(SStatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(SStatus<sp/>|<sp/>SStatusTmp);</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="283"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight></codeline>
-<codeline lineno="285"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="286"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref><sp/>=<sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(EphAesKey);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" kindref="member">ShaInstancePtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" kindref="member">ShaType</ref><sp/>=<sp/>XSECURE_SHA2_384;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" kindref="member">XSecure_RsaOaepDecrypt</ref>,<sp/>PrivKey,<sp/>&amp;OaepParam);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref><sp/>==<sp/>XSECURE_AES_KEY_SIZE_256BIT_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKeySize<sp/>=<sp/>XSECURE_AES_KEY_SIZE_256;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OaepParam.<ref refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" kindref="member">OutputDataSize</ref><sp/>==<sp/>XSECURE_AES_KEY_SIZE_128BIT_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKeySize<sp/>=<sp/><ref refid="group__xsecure__aes__server__apis_1gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3" kindref="member">XSECURE_AES_KEY_SIZE_128</ref>;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" kindref="member">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</ref>;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyWrapAddr<sp/>=<sp/>KeyWrapAddr<sp/>+<sp/><ref refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" kindref="member">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)WrapAesKey,<sp/>KeyWrapAddr,<sp/><ref refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" kindref="member">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,<sp/>Status,<sp/><ref refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" kindref="member">XSecure_AesKeyUnwrap</ref>,<sp/>AesInstPtr,<sp/>EphAesKey,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKeySize,<sp/>WrapAesKey,<sp/>DstKeySlotAddr,<sp/>EncryptedKeySize);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DstKeySlotAddr<sp/>+=<sp/>(u64)(EncryptedKeySize<sp/>-<sp/><ref refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" kindref="member">XSECURE_AES_64BIT_BLOCK_SIZE</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpyFrom32To64Addr(DstKeySlotAddr,<sp/>(u32)(UINTPTR)&amp;KeyWrapData-&gt;<ref refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" kindref="member">KeyMetaData</ref>,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___key_meta_data" kindref="compound">XSecure_KeyMetaData</ref>));</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_MarkKeySlotOccupied(KeySlotStatusAddr);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(SStatus,<sp/>SStatusTmp,<sp/>Xil_SecureZeroize,<sp/>EphAesKey,<sp/>XSECURE_AES_KEY_SIZE_256BIT_BYTES);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(SStatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(SStatus<sp/>|<sp/>SStatusTmp);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(SStatus,<sp/>SStatusTmp,<sp/>Xil_SecureZeroize,<sp/>WrapAesKey,<sp/><ref refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" kindref="member">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</ref>);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(SStatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(SStatus<sp/>|<sp/>SStatusTmp);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c"/>
   </compounddef>
 </doxygen>

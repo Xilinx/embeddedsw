@@ -100,14 +100,15 @@ $(document).ready(function(){initNavTree('xiicps__intr__multi__master__example_8
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xiicps_intr_multi_master_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Design example is to demonstrate multi-master support in interrupt mode. </p>
-<p>In case of arbitration lost interrupt there will be retry in example. The <a class="el" href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011" title="Functions for device as master, in xiicps_master.c. ">XIicPs_MasterSend()</a> API is used to transmit the data and the <a class="el" href="group__iicps__api.html#ga4817f45c28341cea4ab8960dc1203acb" title="Initiates an interrupt-driven receive in master mode. ">XIicPs_MasterRecv()</a> API is used to receive the data. This example tested on ZCU102 board and slave address needs to be changed based on board design</p>
+<div class="textblock"><p>Demonstrates multi-master support in interrupt mode. </p>
+<p>Design example is to demonstrate multi-master support in interrupt mode. In case of arbitration lost interrupt, the example retries the transfer. The <a class="el" href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011" title="Initiates an interrupt-driven send in master mode. ">XIicPs_MasterSend()</a> API is used to transmit the data and the <a class="el" href="group__iicps__api.html#ga4817f45c28341cea4ab8960dc1203acb" title="Initiates an interrupt-driven receive in master mode. ">XIicPs_MasterRecv()</a> API is used to receive the data. This example tested on ZCU102 board and slave address needs to be changed based on board design</p>
 <p>This example can run on zynqmp / versal IIC device as master and Aardvark test hardware used as slave. It sends 18 buffers of data to slave and expects to receive the same data through the IIC.</p>
 <pre> MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 </p>
@@ -115,25 +116,136 @@ $(document).ready(function(){initNavTree('xiicps__intr__multi__master__example_8
 <p>
 1.00a sg  03/09/19 First release
 3.18   gm   07/14/23 Added SDT support.
-3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+3.24  vn  08/26/26 Fix Doxygen warnings
+3.24  vn  08/26/26 Fix GCC Warnings
+3.24  tb  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiicps_8h.html">xiicps.h</a>&quot;</code><br/>
 <code>#include &quot;xscugic.h&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">IIC bus settings</div></td></tr>
+<tr class="memitem:a709b03962769714690547d1d17268708"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a709b03962769714690547d1d17268708">IIC_SLAVE_ADDR</a>&#160;&#160;&#160;0x55</td></tr>
+<tr class="memdesc:a709b03962769714690547d1d17268708"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slave address to send to and receive from.  <a href="#a709b03962769714690547d1d17268708">More...</a><br/></td></tr>
+<tr class="separator:a709b03962769714690547d1d17268708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34f6b11bc914bc005cf3f302a394c026"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a34f6b11bc914bc005cf3f302a394c026">IIC_SCLK_RATE</a>&#160;&#160;&#160;100000</td></tr>
+<tr class="memdesc:a34f6b11bc914bc005cf3f302a394c026"><td class="mdescLeft">&#160;</td><td class="mdescRight">IIC serial clock rate in Hz.  <a href="#a34f6b11bc914bc005cf3f302a394c026">More...</a><br/></td></tr>
+<tr class="separator:a34f6b11bc914bc005cf3f302a394c026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Buffer sizes</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>The following constant controls the length of the buffers to be sent and received with the IIC. </p>
+</div></td></tr>
+<tr class="memitem:a0b71e527200033092ab1ebd5c0c077ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>&#160;&#160;&#160;250</td></tr>
+<tr class="memdesc:a0b71e527200033092ab1ebd5c0c077ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the test buffers.  <a href="#a0b71e527200033092ab1ebd5c0c077ed">More...</a><br/></td></tr>
+<tr class="separator:a0b71e527200033092ab1ebd5c0c077ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fbae19f5a536db7c07329420e11d611"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a9fbae19f5a536db7c07329420e11d611">NUMBER_OF_SIZES</a>&#160;&#160;&#160;18</td></tr>
+<tr class="memdesc:a9fbae19f5a536db7c07329420e11d611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of transfer sizes tested.  <a href="#a9fbae19f5a536db7c07329420e11d611">More...</a><br/></td></tr>
+<tr class="separator:a9fbae19f5a536db7c07329420e11d611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad89822fcda696e386a1877920c19147d"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ad89822fcda696e386a1877920c19147d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> driver.  <a href="#ad89822fcda696e386a1877920c19147d">More...</a><br/></td></tr>
+<tr class="memdesc:ad89822fcda696e386a1877920c19147d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Illustrates multi-master arbitration lost support in interrupt mode.  <a href="#ad89822fcda696e386a1877920c19147d">More...</a><br/></td></tr>
 <tr class="separator:ad89822fcda696e386a1877920c19147d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec9a48698a06b521d36fbec8793119ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler</a> (void *CallBackRef, u32 Event)</td></tr>
-<tr class="memdesc:aec9a48698a06b521d36fbec8793119ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing to handle data events from the IIC.  <a href="#aec9a48698a06b521d36fbec8793119ec">More...</a><br/></td></tr>
+<tr class="memdesc:aec9a48698a06b521d36fbec8793119ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles data events from the IIC.  <a href="#aec9a48698a06b521d36fbec8793119ec">More...</a><br/></td></tr>
 <tr class="separator:aec9a48698a06b521d36fbec8793119ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the example from the main function.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac16e1350ea077cddfa26851a6e7ead7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic_ps.html">XIicPs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#ac16e1350ea077cddfa26851a6e7ead7c">Iic</a></td></tr>
+<tr class="memdesc:ac16e1350ea077cddfa26851a6e7ead7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the IIC Device.  <a href="#ac16e1350ea077cddfa26851a6e7ead7c">More...</a><br/></td></tr>
+<tr class="separator:ac16e1350ea077cddfa26851a6e7ead7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a34b7f8d09398f53237562bd1f579b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a> [<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:a21a34b7f8d09398f53237562bd1f579b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for Transmitting Data.  <a href="#a21a34b7f8d09398f53237562bd1f579b">More...</a><br/></td></tr>
+<tr class="separator:a21a34b7f8d09398f53237562bd1f579b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a> [<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:a97ff43d2dc0c58afc33efc1304f40b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for Receiving Data.  <a href="#a97ff43d2dc0c58afc33efc1304f40b09">More...</a><br/></td></tr>
+<tr class="separator:a97ff43d2dc0c58afc33efc1304f40b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a203dc5c61441441728825d33c3c57df8"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a203dc5c61441441728825d33c3c57df8">SendComplete</a></td></tr>
+<tr class="memdesc:a203dc5c61441441728825d33c3c57df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send complete flag.  <a href="#a203dc5c61441441728825d33c3c57df8">More...</a><br/></td></tr>
+<tr class="separator:a203dc5c61441441728825d33c3c57df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91229cc193c3ec2a3a1ce2c09be6c9c9"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a91229cc193c3ec2a3a1ce2c09be6c9c9">RecvComplete</a></td></tr>
+<tr class="memdesc:a91229cc193c3ec2a3a1ce2c09be6c9c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive complete flag.  <a href="#a91229cc193c3ec2a3a1ce2c09be6c9c9">More...</a><br/></td></tr>
+<tr class="separator:a91229cc193c3ec2a3a1ce2c09be6c9c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa443a47eeb2dc837aa355392c701f05e"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#aa443a47eeb2dc837aa355392c701f05e">TotalErrorCount</a></td></tr>
+<tr class="memdesc:aa443a47eeb2dc837aa355392c701f05e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total error count.  <a href="#aa443a47eeb2dc837aa355392c701f05e">More...</a><br/></td></tr>
+<tr class="separator:aa443a47eeb2dc837aa355392c701f05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a328f248a8c1b56934dd5cd30939280b9"><td class="memItemLeft" align="right" valign="top">volatile u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xiicps__intr__multi__master__example_8c.html#a328f248a8c1b56934dd5cd30939280b9">ArbitrationLost</a></td></tr>
+<tr class="memdesc:a328f248a8c1b56934dd5cd30939280b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitration lost flag.  <a href="#a328f248a8c1b56934dd5cd30939280b9">More...</a><br/></td></tr>
+<tr class="separator:a328f248a8c1b56934dd5cd30939280b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a34f6b11bc914bc005cf3f302a394c026"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IIC_SCLK_RATE&#160;&#160;&#160;100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IIC serial clock rate in Hz. </p>
+
+<p>Referenced by <a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a709b03962769714690547d1d17268708"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IIC_SLAVE_ADDR&#160;&#160;&#160;0x55</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The slave address to send to and receive from. </p>
+
+<p>Referenced by <a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9fbae19f5a536db7c07329420e11d611"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUMBER_OF_SIZES&#160;&#160;&#160;18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of transfer sizes tested. </p>
+
+<p>Referenced by <a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b71e527200033092ab1ebd5c0c077ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BUFFER_SIZE&#160;&#160;&#160;250</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of the test buffers. </p>
+
+<p>Referenced by <a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="aec9a48698a06b521d36fbec8793119ec"></a>
 <div class="memitem">
@@ -159,18 +271,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the handler which performs processing to handle data events from the IIC. </p>
-<p>It is called from an interrupt context such that the amount of processing performed should be minimized.</p>
+<p>Handles data events from the IIC. </p>
+<p>This function is the handler which performs processing to handle data events from the IIC. It is called from an interrupt context such that the amount of processing performed should be minimized.</p>
 <p>This handler provides an example of how to handle data for the IIC and is application specific.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>contains a callback reference from the driver, in this case it is the instance pointer for the IIC driver. </td></tr>
-    <tr><td class="paramname">Event</td><td>contains the specific kind of event that has occurred.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>Contains a callback reference from the driver, in this case it is the instance pointer for the IIC driver. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Event</td><td>Contains the specific kind of event that has occurred. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -188,21 +298,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The purpose of this function is to illustrate multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="The XIicPs driver instance data. ">XIicPs</a> driver. </p>
+<p>Illustrates multi-master arbitration lost support in interrupt mode. </p>
+<p>The purpose of this function is to illustrate multi-master arbitration lost support in <a class="el" href="struct_x_iic_ps.html" title="Stores the XIicPs driver instance data. ">XIicPs</a> driver.</p>
 <p>This function sends data and expects to receive the same data through the IIC using the Aardvark test hardware.</p>
 <p>This function uses interrupt driver mode of the IIC.</p>
-<p>This function uses interrupt transfer functions to send buffers with different length and receive the same from device. In case arbitration lost status will re-initiate the transfer BufferSizes array contains length information</p>
+<p>This function uses interrupt transfer functions to send buffers with different length and receive the same from device. In case of arbitration lost status, the function re-initiates the transfer. The BufferSizes array contains length information.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration.</dd></dl>
-<p>This function contains an infinite loop such that if interrupts are not working it may never return. </p>
+<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. <br/>
+<br/>
+ This function contains an infinite loop such that if interrupts are not working it may never return. </dd></dl>
 
-<p>References <a class="el" href="struct_x_iic_ps___config.html#a2bdee49f560d4a22a433c6c327d6d912">XIicPs_Config::BaseAddress</a>, <a class="el" href="xiicps__intr__master__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler()</a>, <a class="el" href="struct_x_iic_ps___config.html#aac4a2b177bf71750540642399d4ab5ba">XIicPs_Config::IntrId</a>, <a class="el" href="struct_x_iic_ps___config.html#a34721ad5430aa06799e1e89e79f77f53">XIicPs_Config::IntrParent</a>, <a class="el" href="xiicps__eeprom__intr__example_8c.html#aa443a47eeb2dc837aa355392c701f05e">TotalErrorCount</a>, <a class="el" href="group__iicps__api.html#ga5b67ad96b8c40bdd47c2c2f8a57f170c">XIicPs_BusIsBusy()</a>, <a class="el" href="group__iicps__api.html#gae97ad9c202953c7e49bfb56533c47079">XIicPs_CfgInitialize()</a>, <a class="el" href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">XIicPs_LookupConfig()</a>, <a class="el" href="group__iicps__api.html#gad64f0389aa694ecf21ca8a39e44cf13f">XIicPs_MasterInterruptHandler()</a>, <a class="el" href="group__iicps__api.html#ga4817f45c28341cea4ab8960dc1203acb">XIicPs_MasterRecv()</a>, <a class="el" href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011">XIicPs_MasterSend()</a>, <a class="el" href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">XIicPs_SelfTest()</a>, <a class="el" href="group__iicps__api.html#gafb24cfdacf6cf28d80126862dc1cfbe5">XIicPs_SetSClk()</a>, and <a class="el" href="group__iicps__api.html#gab2581047e7d5607fe96fe0dac9673527">XIicPs_SetStatusHandler()</a>.</p>
+<p>References <a class="el" href="xiicps__intr__multi__master__example_8c.html#a328f248a8c1b56934dd5cd30939280b9">ArbitrationLost</a>, <a class="el" href="struct_x_iic_ps___config.html#a2bdee49f560d4a22a433c6c327d6d912">XIicPs_Config::BaseAddress</a>, <a class="el" href="xiicps__intr__master__example_8c.html#aec9a48698a06b521d36fbec8793119ec">Handler()</a>, <a class="el" href="xiicps__intr__multi__master__example_8c.html#a34f6b11bc914bc005cf3f302a394c026">IIC_SCLK_RATE</a>, <a class="el" href="xiicps__intr__multi__master__example_8c.html#a709b03962769714690547d1d17268708">IIC_SLAVE_ADDR</a>, <a class="el" href="struct_x_iic_ps___config.html#aac4a2b177bf71750540642399d4ab5ba">XIicPs_Config::IntrId</a>, <a class="el" href="struct_x_iic_ps___config.html#a34721ad5430aa06799e1e89e79f77f53">XIicPs_Config::IntrParent</a>, <a class="el" href="xiicps__intr__multi__master__example_8c.html#a9fbae19f5a536db7c07329420e11d611">NUMBER_OF_SIZES</a>, <a class="el" href="xiicps__intr__master__example_8c.html#a97ff43d2dc0c58afc33efc1304f40b09">RecvBuffer</a>, <a class="el" href="xiicps__intr__master__example_8c.html#a91229cc193c3ec2a3a1ce2c09be6c9c9">RecvComplete</a>, <a class="el" href="xiicps__intr__master__example_8c.html#a21a34b7f8d09398f53237562bd1f579b">SendBuffer</a>, <a class="el" href="xiicps__intr__master__example_8c.html#a203dc5c61441441728825d33c3c57df8">SendComplete</a>, <a class="el" href="xiicps__intr__multi__master__example_8c.html#a0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>, <a class="el" href="xiicps__eeprom__intr__example_8c.html#aa443a47eeb2dc837aa355392c701f05e">TotalErrorCount</a>, <a class="el" href="group__iicps__api.html#ga5b67ad96b8c40bdd47c2c2f8a57f170c">XIicPs_BusIsBusy()</a>, <a class="el" href="group__iicps__api.html#gae97ad9c202953c7e49bfb56533c47079">XIicPs_CfgInitialize()</a>, <a class="el" href="group__iicps__api.html#gafaf109c7bf0040c29f861d439bd6613f">XIicPs_LookupConfig()</a>, <a class="el" href="group__iicps__api.html#gad64f0389aa694ecf21ca8a39e44cf13f">XIicPs_MasterInterruptHandler()</a>, <a class="el" href="group__iicps__api.html#ga4817f45c28341cea4ab8960dc1203acb">XIicPs_MasterRecv()</a>, <a class="el" href="group__iicps__api.html#ga3027c1eb6ece3193a978a2da8e06c011">XIicPs_MasterSend()</a>, <a class="el" href="group__iicps__api.html#ga6f9db7651cd6ee0232dc9fdaca3f976a">XIicPs_SelfTest()</a>, <a class="el" href="group__iicps__api.html#gafb24cfdacf6cf28d80126862dc1cfbe5">XIicPs_SetSClk()</a>, and <a class="el" href="group__iicps__api.html#gab2581047e7d5607fe96fe0dac9673527">XIicPs_SetStatusHandler()</a>.</p>
 
 <p>Referenced by <a class="el" href="xiicps__intr__multi__master__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -222,11 +334,111 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Calls the example from the main function. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
 <p>References <a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a328f248a8c1b56934dd5cd30939280b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 ArbitrationLost</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Arbitration lost flag. </p>
+
+<p>Referenced by <a class="el" href="xiicps__intr__multi__master__example_8c.html#ad89822fcda696e386a1877920c19147d">IicPsMultiMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac16e1350ea077cddfa26851a6e7ead7c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_iic_ps.html">XIicPs</a> Iic</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the IIC Device. </p>
+
+</div>
+</div>
+<a class="anchor" id="a97ff43d2dc0c58afc33efc1304f40b09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 RecvBuffer[<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for Receiving Data. </p>
+
+</div>
+</div>
+<a class="anchor" id="a91229cc193c3ec2a3a1ce2c09be6c9c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 RecvComplete</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Receive complete flag. </p>
+
+</div>
+</div>
+<a class="anchor" id="a21a34b7f8d09398f53237562bd1f579b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 SendBuffer[<a class="el" href="group__xiicps__smbus__polled__master__example.html#ga0b71e527200033092ab1ebd5c0c077ed">TEST_BUFFER_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer for Transmitting Data. </p>
+
+</div>
+</div>
+<a class="anchor" id="a203dc5c61441441728825d33c3c57df8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 SendComplete</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send complete flag. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa443a47eeb2dc837aa355392c701f05e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile u32 TotalErrorCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total error count. </p>
 
 </div>
 </div>

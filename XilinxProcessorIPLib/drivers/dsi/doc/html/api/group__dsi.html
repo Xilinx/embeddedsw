@@ -148,6 +148,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gad6f67fc0e23e30f9883030463b146a43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gad6f67fc0e23e30f9883030463b146a43">NUM_PACKETS</a>&#160;&#160;&#160;64</td></tr>
 <tr class="memdesc:gad6f67fc0e23e30f9883030463b146a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of packets for long packet data in command mode.  <a href="#gad6f67fc0e23e30f9883030463b146a43">More...</a><br/></td></tr>
 <tr class="separator:gad6f67fc0e23e30f9883030463b146a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06ec34bb8109923411b595ad111b5e67"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga06ec34bb8109923411b595ad111b5e67">XDSI_ULPS_TIMEOUT</a>&#160;&#160;&#160;50000U</td></tr>
+<tr class="memdesc:ga06ec34bb8109923411b595ad111b5e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll iterations to await ULPS entry.  <a href="#ga06ec34bb8109923411b595ad111b5e67">More...</a><br/></td></tr>
+<tr class="separator:ga06ec34bb8109923411b595ad111b5e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4629e9a0dc79f89123364e7dd499425"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gaa4629e9a0dc79f89123364e7dd499425">XDSI_CMD_TIMEOUT</a>&#160;&#160;&#160;50000U</td></tr>
+<tr class="memdesc:gaa4629e9a0dc79f89123364e7dd499425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Poll iterations to await command completion.  <a href="#gaa4629e9a0dc79f89123364e7dd499425">More...</a><br/></td></tr>
+<tr class="separator:gaa4629e9a0dc79f89123364e7dd499425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -172,6 +178,11 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga0fa6b406aaf37b7635a6ba53740fa9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the type of Command mode Packet.  <a href="group__dsi.html#ga0fa6b406aaf37b7635a6ba53740fa9de">More...</a><br/></td></tr>
 <tr class="separator:ga0fa6b406aaf37b7635a6ba53740fa9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga429e17d80c609f1e07b8b61bb442f221"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga429e17d80c609f1e07b8b61bb442f221">XDsi_CmdLpdtType</a> { <a class="el" href="group__dsi.html#gga429e17d80c609f1e07b8b61bb442f221a614125147695a67490c72da7832284f5">XDSI_DCS_CMD_MODE</a> = 0,
+<a class="el" href="group__dsi.html#gga429e17d80c609f1e07b8b61bb442f221a3c2252fab8edd38f3316ea8c8cdadf5f">XDSI_LPDT_MODE</a>
+ }</td></tr>
+<tr class="memdesc:ga429e17d80c609f1e07b8b61bb442f221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the command-packet transport options for escape mode.  <a href="group__dsi.html#ga429e17d80c609f1e07b8b61bb442f221">More...</a><br/></td></tr>
+<tr class="separator:ga429e17d80c609f1e07b8b61bb442f221"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7931c0f0d26ec1b2bc681f2efe0cf62f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga7931c0f0d26ec1b2bc681f2efe0cf62f">XDsi_VideoMode</a> { <a class="el" href="group__dsi.html#gga7931c0f0d26ec1b2bc681f2efe0cf62fa1de7ce3f917ed41375764b1a65abdfa3">XDSI_VM_NON_BURST_SYNC_PULSES</a>,
 <a class="el" href="group__dsi.html#gga7931c0f0d26ec1b2bc681f2efe0cf62fad51b4ecf02160c62ba24b997fd459e89">XDSI_VM_NON_BURST_SYNC_EVENT</a>,
 <a class="el" href="group__dsi.html#gga7931c0f0d26ec1b2bc681f2efe0cf62fa1fdb665221676fcc52a3f4a2e89c0fb2">XDSI_VM_BURST_MODE</a>,
@@ -206,6 +217,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga445dc0c1ca405f81b367d7e556e83f8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga445dc0c1ca405f81b367d7e556e83f8c">XDsi_SetMode</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="group__dsi.html#gaea217ff22790ee5e53f51470f67b94a0">XDsi_DsiModeType</a> mode)</td></tr>
 <tr class="memdesc:ga445dc0c1ca405f81b367d7e556e83f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch DSI controller between video and command modes.  <a href="#ga445dc0c1ca405f81b367d7e556e83f8c">More...</a><br/></td></tr>
 <tr class="separator:ga445dc0c1ca405f81b367d7e556e83f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4f329420e8d5f885fd7d9adad9489c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gab4f329420e8d5f885fd7d9adad9489c7">XDsi_SetLpdtMode</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="group__dsi.html#ga429e17d80c609f1e07b8b61bb442f221">XDsi_CmdLpdtType</a> Mode)</td></tr>
+<tr class="memdesc:gab4f329420e8d5f885fd7d9adad9489c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the DCS command mode or LPDT transport.  <a href="#gab4f329420e8d5f885fd7d9adad9489c7">More...</a><br/></td></tr>
+<tr class="separator:gab4f329420e8d5f885fd7d9adad9489c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga195ca1c404968f10c578a0e282cdbd71"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga195ca1c404968f10c578a0e282cdbd71">XDsi_SendLpdtPacket</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html">XDsiTx_CmdModePkt</a> *CmdPktData)</td></tr>
+<tr class="memdesc:ga195ca1c404968f10c578a0e282cdbd71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a command packet over LPDT.  <a href="#ga195ca1c404968f10c578a0e282cdbd71">More...</a><br/></td></tr>
+<tr class="separator:ga195ca1c404968f10c578a0e282cdbd71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37a2f766b23c8e06f9bc35b839f994a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9">XDsi_SetUlpsMode</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, u32 Enable)</td></tr>
+<tr class="memdesc:ga37a2f766b23c8e06f9bc35b839f994a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enters or exits the Ultra-Low Power State (ULPS).  <a href="#ga37a2f766b23c8e06f9bc35b839f994a9">More...</a><br/></td></tr>
+<tr class="separator:ga37a2f766b23c8e06f9bc35b839f994a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef3bbf8bd7a39e7154eb3ce1129fdda7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gaef3bbf8bd7a39e7154eb3ce1129fdda7">XDsi_GetConfigParams</a> (<a class="el" href="struct_x_dsi.html">XDsi</a> *InstancePtr, <a class="el" href="struct_x_dsi___config_parameters.html">XDsi_ConfigParameters</a> *ConfigInfo)</td></tr>
 <tr class="memdesc:gaef3bbf8bd7a39e7154eb3ce1129fdda7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read current DSI controller configuration parameters.  <a href="#gaef3bbf8bd7a39e7154eb3ce1129fdda7">More...</a><br/></td></tr>
 <tr class="separator:gaef3bbf8bd7a39e7154eb3ce1129fdda7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,6 +335,12 @@ Core configuration register masks and shifts</h2></td></tr>
 <tr class="memitem:ga293abcb77d98384a12dd86ea038bd50c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga293abcb77d98384a12dd86ea038bd50c">XDSI_CCR_CORECMDMODE_MASK</a>&#160;&#160;&#160;0x00000008</td></tr>
 <tr class="memdesc:ga293abcb77d98384a12dd86ea038bd50c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/Disable Command/video mode Mask.  <a href="#ga293abcb77d98384a12dd86ea038bd50c">More...</a><br/></td></tr>
 <tr class="separator:ga293abcb77d98384a12dd86ea038bd50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaec0403b6af0af59b3cdab123292c4d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gaaec0403b6af0af59b3cdab123292c4d4">XDSI_CCR_ULPS_MASK</a>&#160;&#160;&#160;0x00000040</td></tr>
+<tr class="memdesc:gaaec0403b6af0af59b3cdab123292c4d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">ULPS mode: 1=entry, 0=exit.  <a href="#gaaec0403b6af0af59b3cdab123292c4d4">More...</a><br/></td></tr>
+<tr class="separator:gaaec0403b6af0af59b3cdab123292c4d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6644fa7352421f5ea4799966ffa1a75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gae6644fa7352421f5ea4799966ffa1a75">XDSI_CCR_ULPS_SHIFT</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:gae6644fa7352421f5ea4799966ffa1a75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for ULPS mode.  <a href="#gae6644fa7352421f5ea4799966ffa1a75">More...</a><br/></td></tr>
+<tr class="separator:gae6644fa7352421f5ea4799966ffa1a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf2901893d8342311d6ddb9f507ef7ae2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gaf2901893d8342311d6ddb9f507ef7ae2">XDSI_CCR_CORECMDMODE_SHIFT</a>&#160;&#160;&#160;3</td></tr>
 <tr class="memdesc:gaf2901893d8342311d6ddb9f507ef7ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for selection of command/video mode.  <a href="#gaf2901893d8342311d6ddb9f507ef7ae2">More...</a><br/></td></tr>
 <tr class="separator:gaf2901893d8342311d6ddb9f507ef7ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -332,6 +358,9 @@ Core configuration register masks and shifts</h2></td></tr>
 Bitmasks and shifts of Protocol control register</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpb72629cf182b17cb6ed2a6a31d00ecf0"></a>This register reports the number of lanes configured during core generation and number of lanes actively used. </p>
 </td></tr>
+<tr class="memitem:ga004e27109b707db30d69597de6eadd6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga004e27109b707db30d69597de6eadd6e">XDSI_PCR_CMD_LPDT_MASK</a>&#160;&#160;&#160;0x00004000</td></tr>
+<tr class="memdesc:ga004e27109b707db30d69597de6eadd6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CMD/LPDT mode select: 0=DCS CMD, 1=LPDT.  <a href="#ga004e27109b707db30d69597de6eadd6e">More...</a><br/></td></tr>
+<tr class="separator:ga004e27109b707db30d69597de6eadd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabc0ff6dc79f1ebd472b213955331d771"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gabc0ff6dc79f1ebd472b213955331d771">XDSI_PCR_EOTPENABLE_MASK</a>&#160;&#160;&#160;0x00002000</td></tr>
 <tr class="memdesc:gabc0ff6dc79f1ebd472b213955331d771"><td class="mdescLeft">&#160;</td><td class="mdescRight">End of Transmission Mask bit.  <a href="#gabc0ff6dc79f1ebd472b213955331d771">More...</a><br/></td></tr>
 <tr class="separator:gabc0ff6dc79f1ebd472b213955331d771"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -350,6 +379,9 @@ Bitmasks and shifts of Protocol control register</h2></td></tr>
 <tr class="memitem:gad55a48efbc25b1d31fdd14c855cd4531"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gad55a48efbc25b1d31fdd14c855cd4531">XDSI_PCR_ACTLANES_MASK</a>&#160;&#160;&#160;0x00000003</td></tr>
 <tr class="memdesc:gad55a48efbc25b1d31fdd14c855cd4531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active lanes in core.  <a href="#gad55a48efbc25b1d31fdd14c855cd4531">More...</a><br/></td></tr>
 <tr class="separator:gad55a48efbc25b1d31fdd14c855cd4531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga209abc62f9708e13cb0672693c26680d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga209abc62f9708e13cb0672693c26680d">XDSI_PCR_CMD_LPDT_SHIFT</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:ga209abc62f9708e13cb0672693c26680d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for CMD/LPDT mode select.  <a href="#ga209abc62f9708e13cb0672693c26680d">More...</a><br/></td></tr>
+<tr class="separator:ga209abc62f9708e13cb0672693c26680d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8c2438103e15a67ad1a3d871da9df8c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga8c2438103e15a67ad1a3d871da9df8c3">XDSI_PCR_EOTPENABLE_SHIFT</a>&#160;&#160;&#160;13</td></tr>
 <tr class="memdesc:ga8c2438103e15a67ad1a3d871da9df8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for EOTP Enable.  <a href="#ga8c2438103e15a67ad1a3d871da9df8c3">More...</a><br/></td></tr>
 <tr class="separator:ga8c2438103e15a67ad1a3d871da9df8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -531,6 +563,9 @@ Global interrupt control values</h2></td></tr>
 Bitmasks and offsets of XDSI_ISR_OFFSET register</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpd518398c2314eeaa475318be107a53d6"></a>This register contains the interrupt status. </p>
 </td></tr>
+<tr class="memitem:ga6a3c5533b11decfca7fb14a2ac4355c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga6a3c5533b11decfca7fb14a2ac4355c6">XDSI_ISR_ULPS_MASK</a>&#160;&#160;&#160;0x00000020</td></tr>
+<tr class="memdesc:ga6a3c5533b11decfca7fb14a2ac4355c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lanes are in ULPS.  <a href="#ga6a3c5533b11decfca7fb14a2ac4355c6">More...</a><br/></td></tr>
+<tr class="separator:ga6a3c5533b11decfca7fb14a2ac4355c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga864795811a1e6e6c3aa4e0dfed0c36c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga864795811a1e6e6c3aa4e0dfed0c36c1">XDSI_ISR_CMDQ_FIFO_FULL_MASK</a>&#160;&#160;&#160;0x00000004</td></tr>
 <tr class="memdesc:ga864795811a1e6e6c3aa4e0dfed0c36c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command queue vacancy full.  <a href="#ga864795811a1e6e6c3aa4e0dfed0c36c1">More...</a><br/></td></tr>
 <tr class="separator:ga864795811a1e6e6c3aa4e0dfed0c36c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -543,6 +578,9 @@ Bitmasks and offsets of XDSI_ISR_OFFSET register</h2></td></tr>
 <tr class="memitem:ga0345340d970a5e3a0aaaba31e63bf3b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga0345340d970a5e3a0aaaba31e63bf3b0">XDSI_ISR_ALLINTR_MASK</a>&#160;&#160;&#160;0x00000007</td></tr>
 <tr class="memdesc:ga0345340d970a5e3a0aaaba31e63bf3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">All interrupts mask.  <a href="#ga0345340d970a5e3a0aaaba31e63bf3b0">More...</a><br/></td></tr>
 <tr class="separator:ga0345340d970a5e3a0aaaba31e63bf3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga636e6bee630ea4ee36bd1d59a76d3732"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#ga636e6bee630ea4ee36bd1d59a76d3732">XDSI_ISR_ULPS_SHIFT</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:ga636e6bee630ea4ee36bd1d59a76d3732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for ULPS state.  <a href="#ga636e6bee630ea4ee36bd1d59a76d3732">More...</a><br/></td></tr>
+<tr class="separator:ga636e6bee630ea4ee36bd1d59a76d3732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae1ada138c561395450b3c62bf783457d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsi.html#gae1ada138c561395450b3c62bf783457d">XDSI_ISR_DATA_ID_ERR_SHIFT</a>&#160;&#160;&#160;1</td></tr>
 <tr class="memdesc:gae1ada138c561395450b3c62bf783457d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for Unsupported Data Type.  <a href="#gae1ada138c561395450b3c62bf783457d">More...</a><br/></td></tr>
 <tr class="separator:gae1ada138c561395450b3c62bf783457d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -844,6 +882,50 @@ Core capabilities</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Shift for Soft reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaaec0403b6af0af59b3cdab123292c4d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_CCR_ULPS_MASK&#160;&#160;&#160;0x00000040</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ULPS mode: 1=entry, 0=exit. </p>
+
+</div>
+</div>
+<a class="anchor" id="gae6644fa7352421f5ea4799966ffa1a75"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_CCR_ULPS_SHIFT&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for ULPS mode. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa4629e9a0dc79f89123364e7dd499425"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_CMD_TIMEOUT&#160;&#160;&#160;50000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poll iterations to await command completion. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#gab4f329420e8d5f885fd7d9adad9489c7">XDsi_SetLpdtMode()</a>.</p>
 
 </div>
 </div>
@@ -1299,6 +1381,8 @@ Core capabilities</h2></td></tr>
 
 <p>Interrupt Status Register. </p>
 
+<p>Referenced by <a class="el" href="group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9">XDsi_SetUlpsMode()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="gaa767ee25aa648007b1341d7fcaa492f7"></a>
@@ -1326,6 +1410,36 @@ Core capabilities</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Shift for Pixel under run. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6a3c5533b11decfca7fb14a2ac4355c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_ISR_ULPS_MASK&#160;&#160;&#160;0x00000020</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lanes are in ULPS. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9">XDsi_SetUlpsMode()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga636e6bee630ea4ee36bd1d59a76d3732"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_ISR_ULPS_SHIFT&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for ULPS state. </p>
 
 </div>
 </div>
@@ -1484,6 +1598,34 @@ Core capabilities</h2></td></tr>
 <p>Shift for Blank packet Type. </p>
 
 <p>Referenced by <a class="el" href="group__dsi.html#ga342762351ea237fa26e737d13bcbfcac">XDsi_DefaultConfigure()</a>, and <a class="el" href="group__dsi.html#gaef3bbf8bd7a39e7154eb3ce1129fdda7">XDsi_GetConfigParams()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga004e27109b707db30d69597de6eadd6e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_PCR_CMD_LPDT_MASK&#160;&#160;&#160;0x00004000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CMD/LPDT mode select: 0=DCS CMD, 1=LPDT. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga209abc62f9708e13cb0672693c26680d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_PCR_CMD_LPDT_SHIFT&#160;&#160;&#160;14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shift for CMD/LPDT mode select. </p>
 
 </div>
 </div>
@@ -2183,6 +2325,22 @@ Core capabilities</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga06ec34bb8109923411b595ad111b5e67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDSI_ULPS_TIMEOUT&#160;&#160;&#160;50000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Poll iterations to await ULPS entry. </p>
+
+<p>Referenced by <a class="el" href="group__dsi.html#ga37a2f766b23c8e06f9bc35b839f994a9">XDsi_SetUlpsMode()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga36f238f2ceee886fc755d2a057189b35"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2264,6 +2422,28 @@ Core capabilities</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga429e17d80c609f1e07b8b61bb442f221"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__dsi.html#ga429e17d80c609f1e07b8b61bb442f221">XDsi_CmdLpdtType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the command-packet transport options for escape mode. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="gga429e17d80c609f1e07b8b61bb442f221a614125147695a67490c72da7832284f5"></a>XDSI_DCS_CMD_MODE</em>&nbsp;</td><td class="fielddoc">
+<p>DCS command mode (High-Speed transport). </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="gga429e17d80c609f1e07b8b61bb442f221a3c2252fab8edd38f3316ea8c8cdadf5f"></a>XDSI_LPDT_MODE</em>&nbsp;</td><td class="fielddoc">
+<p>Low-Power Data Transmission (LP escape). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="ga0fa6b406aaf37b7635a6ba53740fa9de"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2762,11 +2942,11 @@ Core capabilities</h2></td></tr>
 <p>Look up the hardware configuration for a device instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device to lookup for</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device to lookup for</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The reference to the configuration record in the configuration table (in xdsi_g.c) corresponding to the Device ID or if not found, a NULL pointer is returned.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The reference to the configuration record in the configuration table (in xdsi_g.c) corresponding to the Base Address or if not found, a NULL pointer is returned.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p>Referenced by <a class="el" href="xdsi__example__selftest_8c.html#abc2bef82a217b4adf700a597eb510ce6">DsiSelfTestExample()</a>.</p>
@@ -2882,6 +3062,8 @@ Core capabilities</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html#a9b74650eccd16e860d82f8f00aaf0dec">XDsiTx_CmdModePkt::CmdPkt</a>, <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html#ae2313ff180089ada9a4c62f0734279fa">XDsiTx_CmdModePkt::SpktData</a>, <a class="el" href="group__dsi.html#gga0fa6b406aaf37b7635a6ba53740fa9deaf93a3007ae08fc6dc80af9d43012959f">XDSI_CMD_MODE_SHORT_PKT</a>, <a class="el" href="group__dsi.html#gad642065adf499f3953713cc5b94a456a">XDsi_SendLongPacket()</a>, and <a class="el" href="group__dsi.html#gab2cf4f33eff4d4e77d083335025c08f9">XDsi_SendShortPacket()</a>.</p>
 
+<p>Referenced by <a class="el" href="group__dsi.html#ga195ca1c404968f10c578a0e282cdbd71">XDsi_SendLpdtPacket()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="gad642065adf499f3953713cc5b94a456a"></a>
@@ -2909,7 +3091,7 @@ Core capabilities</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Send a DSI long packet to the controller. </p>
-<p>Sends a DSI long packet (&gt;2 data bytes, up to 255 bytes) to the DSI controller. The function writes the payload data to the XDSI_DATA_OFFSET register in 32-bit chunks, then sends the packet header as a short packet. Long packets are used for bulk data transfers such as image data or command sequences in command mode.</p>
+<p>Sends a DSI long packet (&gt;2 data bytes, up to 255 bytes) to the DSI controller. The function sends the packet header first, then writes the payload to the XDSI_DATA_OFFSET register in 32-bit chunks. Long packets are used for bulk data transfers such as image data or command sequences in command mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is the <a class="el" href="struct_x_dsi.html" title="The XDsi driver instance data. ">XDsi</a> instance to operate on. The instance must have been initialized and activated. </td></tr>
@@ -2927,6 +3109,51 @@ Core capabilities</h2></td></tr>
 <p>References <a class="el" href="struct_x_dsi___config.html#a4691daa5e5f6b7f829e99c2075f45dcb">XDsi_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi.html#a63fb2a71fdfd1d2d39a2b8827662b7c4">XDsi::Config</a>, <a class="el" href="struct_x_dsi___short_packet.html#a699b7355c6865a7dee80d2e4ac59ebf4">XDsi_ShortPacket::Data0</a>, <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html#a3bc2a87db912e52ba6ae5a2696c46d3b">XDsiTx_CmdModePkt::LongPktData</a>, <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html#ae2313ff180089ada9a4c62f0734279fa">XDsiTx_CmdModePkt::SpktData</a>, <a class="el" href="group__dsi.html#ga8bca0e71c69c9b8dd7b02928754671e1">XDSI_DATA_OFFSET</a>, and <a class="el" href="group__dsi.html#gab2cf4f33eff4d4e77d083335025c08f9">XDsi_SendShortPacket()</a>.</p>
 
 <p>Referenced by <a class="el" href="group__dsi.html#ga7e20d1d932530d9be8987b78136b7864">XDsi_SendCmdModePkt()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga195ca1c404968f10c578a0e282cdbd71"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XDsi_SendLpdtPacket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi.html">XDsi</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html">XDsiTx_CmdModePkt</a> *&#160;</td>
+          <td class="paramname"><em>CmdPktData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends a command packet over LPDT. </p>
+<p>Sends a short or long command packet while the controller is in LPDT mode. Long-packet payloads are limited to 251 bytes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi.html" title="The XDsi driver instance data. ">XDsi</a> instance. The instance must have been initialized via <a class="el" href="group__dsi.html#ga7ee417c05f7b0171f4b5ab732fd92054" title="Initialize the XDsi instance provided by the caller based on the given Config structure. ">XDsi_CfgInitialize()</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CmdPktData</td><td>Pointer to the <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html" title="MIPI DSI Command Mode configuration structure. ">XDsiTx_CmdModePkt</a> structure that specifies the packet type, short-packet header and long-packet payload.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the packet was accepted for transmission.</li>
+<li>XST_INVALID_PARAM if a long-packet payload exceeds 251 bytes.</li>
+<li>XST_FAILURE if the controller is not enabled or not in command mode (propagated from XDsi_SendCmdModePkt).</li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__dsi.html#gab4f329420e8d5f885fd7d9adad9489c7" title="Selects the DCS command mode or LPDT transport. ">XDsi_SetLpdtMode</a>, <a class="el" href="group__dsi.html#ga7e20d1d932530d9be8987b78136b7864" title="Send a DSI command mode packet (short or long). ">XDsi_SendCmdModePkt</a> </dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html#a9b74650eccd16e860d82f8f00aaf0dec">XDsiTx_CmdModePkt::CmdPkt</a>, <a class="el" href="struct_x_dsi___short_packet.html#a699b7355c6865a7dee80d2e4ac59ebf4">XDsi_ShortPacket::Data0</a>, <a class="el" href="struct_x_dsi___short_packet.html#a5b56fab1a76f81ae7b4bcf6d0dab46f8">XDsi_ShortPacket::Data1</a>, <a class="el" href="struct_x_dsi_tx___cmd_mode_pkt.html#ae2313ff180089ada9a4c62f0734279fa">XDsiTx_CmdModePkt::SpktData</a>, <a class="el" href="group__dsi.html#gga0fa6b406aaf37b7635a6ba53740fa9dea39088626f14cfc4818f13d3f540cdf30">XDSI_CMD_MODE_LONG_PKT</a>, and <a class="el" href="group__dsi.html#ga7e20d1d932530d9be8987b78136b7864">XDsi_SendCmdModePkt()</a>.</p>
 
 </div>
 </div>
@@ -3107,6 +3334,55 @@ XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full</pre><pre></pre><dl class="pa
 
 </div>
 </div>
+<a class="anchor" id="gab4f329420e8d5f885fd7d9adad9489c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XDsi_SetLpdtMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi.html">XDsi</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__dsi.html#ga429e17d80c609f1e07b8b61bb442f221">XDsi_CmdLpdtType</a>&#160;</td>
+          <td class="paramname"><em>Mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects the DCS command mode or LPDT transport. </p>
+<p>Chooses whether the next command packets go out in DCS command mode or over LPDT. The controller must already be in command mode.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi.html" title="The XDsi driver instance data. ">XDsi</a> instance. The instance must have been initialized via <a class="el" href="group__dsi.html#ga7ee417c05f7b0171f4b5ab732fd92054" title="Initialize the XDsi instance provided by the caller based on the given Config structure. ">XDsi_CfgInitialize()</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mode</td><td>Desired transport, one of:<ul>
+<li>XDSI_DCS_CMD_MODE: DCS command mode (High-Speed)</li>
+<li>XDSI_LPDT_MODE: Low-Power Data Transmission</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the transport was selected.</li>
+<li>XST_FAILURE if the controller is not in command mode, or a previous command never completed.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The caller must enable command mode (XDsi_SetMode with XDSI_COMMAND_MODE) before selecting LPDT.</dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__dsi.html#ga445dc0c1ca405f81b367d7e556e83f8c" title="Switch DSI controller between video and command modes. ">XDsi_SetMode</a>, <a class="el" href="group__dsi.html#ga195ca1c404968f10c578a0e282cdbd71" title="Sends a command packet over LPDT. ">XDsi_SendLpdtPacket</a> </dd></dl>
+
+<p>References <a class="el" href="group__dsi.html#gaa4629e9a0dc79f89123364e7dd499425">XDSI_CMD_TIMEOUT</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga445dc0c1ca405f81b367d7e556e83f8c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -3153,6 +3429,51 @@ XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full</pre><pre></pre><dl class="pa
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__dsi.html#ga7ee417c05f7b0171f4b5ab732fd92054" title="Initialize the XDsi instance provided by the caller based on the given Config structure. ">XDsi_CfgInitialize</a>, <a class="el" href="group__dsi.html#ga7e20d1d932530d9be8987b78136b7864" title="Send a DSI command mode packet (short or long). ">XDsi_SendCmdModePkt</a> </dd></dl>
 
 <p>References <a class="el" href="group__dsi.html#ggaea217ff22790ee5e53f51470f67b94a0a2a6fb2908e45211e87adca28aa7f5454">XDSI_COMMAND_MODE</a>, and <a class="el" href="group__dsi.html#ggaea217ff22790ee5e53f51470f67b94a0a01e63ec5b9f77bc7d231d2cc2df19c85">XDSI_VIDEO_MODE</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga37a2f766b23c8e06f9bc35b839f994a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XDsi_SetUlpsMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi.html">XDsi</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enters or exits the Ultra-Low Power State (ULPS). </p>
+<p>Puts the DSI link into ULPS to save power, or brings it back out.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi.html" title="The XDsi driver instance data. ">XDsi</a> instance. The instance must have been initialized via <a class="el" href="group__dsi.html#ga7ee417c05f7b0171f4b5ab732fd92054" title="Initialize the XDsi instance provided by the caller based on the given Config structure. ">XDsi_CfgInitialize()</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Enable</td><td>1 to enter ULPS, 0 to exit ULPS.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the requested ULPS transition completed.</li>
+<li>XST_FAILURE if ULPS entry or exit was not observed in time.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>ULPS entry resets the controller image FIFOs; the caller must re-arm the video output from a fresh frame after exit.</dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>XDsi_IsUlps, XDsi_SetUlps </dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi___config.html#a4691daa5e5f6b7f829e99c2075f45dcb">XDsi_Config::BaseAddr</a>, <a class="el" href="struct_x_dsi.html#a63fb2a71fdfd1d2d39a2b8827662b7c4">XDsi::Config</a>, <a class="el" href="group__dsi.html#gacb8fcfb941281bff18fdf99901624f50">XDSI_ISR_OFFSET</a>, <a class="el" href="group__dsi.html#ga6a3c5533b11decfca7fb14a2ac4355c6">XDSI_ISR_ULPS_MASK</a>, and <a class="el" href="group__dsi.html#ga06ec34bb8109923411b595ad111b5e67">XDSI_ULPS_TIMEOUT</a>.</p>
 
 </div>
 </div>

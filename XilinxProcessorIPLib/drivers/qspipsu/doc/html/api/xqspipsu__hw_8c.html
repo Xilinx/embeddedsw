@@ -105,49 +105,70 @@ $(document).ready(function(){initNavTree('xqspipsu__hw_8c.html','');});
 <div class="title">xqspipsu_hw.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the FIFO and DMA access functions of the QSPIPSU driver. </p>
+<p>The <a class="el" href="xqspipsu__hw_8c.html" title="Implements the FIFO and DMA access functions of the QSPIPSU driver. ">xqspipsu_hw.c</a> file contains functions that read the RX FIFO, write the TX FIFO, and set up the RX DMA operation. The <a class="el" href="xqspipsu__control_8c.html" title="Implements the intermediate control functions of the QSPIPSU driver. ">xqspipsu_control.c</a> and xqspipsu_lowlevel.c files use these functions.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
+</p>
+<hr/>
+<p>
+1.11   akm  03/09/20 First release
+        mn  03/30/20 Add xil_smc.h include for Xil_Smc calls
+1.13   akm  01/04/21 Fix MISRA-C violations.
+1.15   akm  10/21/21 Fix MISRA-C violations.
+1.15   akm  11/16/21 Typecast function parameter with appropriate
+                        data type.
+1.15   akm  11/30/21 Fix compilation warnings reported with -Wundef flag
+1.15   akm  03/03/22 Enable tapdelay settings for applications on
+                         Microblaze platform.
+1.22   sb   10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
+       zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
+1.24   vn   08/26/26 Fix Doxygen warnings.
+1.24   tb   09/30/26 Align Doxygen comments with AMD standards
+1.24   zm   09/24/26 Refactor XQspiPsu_TXRXSetup to reduce Cyclomatic complexity.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu_8h.html">xqspipsu.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xqspipsu__control_8h.html">xqspipsu_control.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaf5c0853d67052b9b05af03946e51c4c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gaf5c0853d67052b9b05af03946e51c4c2">XQspiPsu_FillTxFifo</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, u32 Size)</td></tr>
-<tr class="memdesc:gaf5c0853d67052b9b05af03946e51c4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the TX FIFO as long as there is room in the FIFO or the bytes required to be transmitted.  <a href="group__qspipsu__api.html#gaf5c0853d67052b9b05af03946e51c4c2">More...</a><br/></td></tr>
+<tr class="memdesc:gaf5c0853d67052b9b05af03946e51c4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the TX FIFO while there is room and bytes remain to transmit.  <a href="group__qspipsu__api.html#gaf5c0853d67052b9b05af03946e51c4c2">More...</a><br/></td></tr>
 <tr class="separator:gaf5c0853d67052b9b05af03946e51c4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga58406ccb7e182a93cd3a47c060de091e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga58406ccb7e182a93cd3a47c060de091e">XQspiPsu_TXSetup</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga58406ccb7e182a93cd3a47c060de091e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the TX buffer in the message and setup the TX FIFO as required.  <a href="group__qspipsu__api.html#ga58406ccb7e182a93cd3a47c060de091e">More...</a><br/></td></tr>
+<tr class="memdesc:ga58406ccb7e182a93cd3a47c060de091e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the TX buffer in the message and sets up the TX FIFO.  <a href="group__qspipsu__api.html#ga58406ccb7e182a93cd3a47c060de091e">More...</a><br/></td></tr>
 <tr class="separator:ga58406ccb7e182a93cd3a47c060de091e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0467a9580fe9018adfd4302fbd91e404"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga0467a9580fe9018adfd4302fbd91e404">XQspiPsu_SetupRxDma</a> (const <a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg)</td></tr>
 <tr class="memdesc:ga0467a9580fe9018adfd4302fbd91e404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the RX DMA operation.  <a href="group__qspipsu__api.html#ga0467a9580fe9018adfd4302fbd91e404">More...</a><br/></td></tr>
 <tr class="separator:ga0467a9580fe9018adfd4302fbd91e404"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga03fb04c8187cf51d256a9196430c6224"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga03fb04c8187cf51d256a9196430c6224">XQspiPsu_Setup64BRxDma</a> (const <a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga03fb04c8187cf51d256a9196430c6224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the RX DMA operation on a 32-bit Machine For 64-bit DMA transfers.  <a href="group__qspipsu__api.html#ga03fb04c8187cf51d256a9196430c6224">More...</a><br/></td></tr>
+<tr class="memdesc:ga03fb04c8187cf51d256a9196430c6224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the RX DMA operation for 64-bit DMA transfers.  <a href="group__qspipsu__api.html#ga03fb04c8187cf51d256a9196430c6224">More...</a><br/></td></tr>
 <tr class="separator:ga03fb04c8187cf51d256a9196430c6224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga02f2ea05785dff6887625c5ef088a73b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga02f2ea05785dff6887625c5ef088a73b">XQspiPsu_SetIOMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:ga02f2ea05785dff6887625c5ef088a73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads remaining bytes after the completion of a DMA transfer using I/O mode.  <a href="group__qspipsu__api.html#ga02f2ea05785dff6887625c5ef088a73b">More...</a><br/></td></tr>
+<tr class="memdesc:ga02f2ea05785dff6887625c5ef088a73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches to I/O mode to read the bytes left after a DMA transfer.  <a href="group__qspipsu__api.html#ga02f2ea05785dff6887625c5ef088a73b">More...</a><br/></td></tr>
 <tr class="separator:ga02f2ea05785dff6887625c5ef088a73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad77b041e10c03756bd0e3c197a63a2e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gad77b041e10c03756bd0e3c197a63a2e3">XQspiPsu_RXSetup</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg)</td></tr>
-<tr class="memdesc:gad77b041e10c03756bd0e3c197a63a2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the RX buffers in the message and setup the RX DMA as required.  <a href="group__qspipsu__api.html#gad77b041e10c03756bd0e3c197a63a2e3">More...</a><br/></td></tr>
+<tr class="memdesc:gad77b041e10c03756bd0e3c197a63a2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the RX buffers in the message and sets up the RX DMA.  <a href="group__qspipsu__api.html#gad77b041e10c03756bd0e3c197a63a2e3">More...</a><br/></td></tr>
 <tr class="separator:gad77b041e10c03756bd0e3c197a63a2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8b201a022bb63afbaaf9afad23064761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga8b201a022bb63afbaaf9afad23064761">XQspiPsu_TXRXSetup</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, u32 *GenFifoEntry)</td></tr>
-<tr class="memdesc:ga8b201a022bb63afbaaf9afad23064761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the TX/RX buffers in the message and setups up the GENFIFO entries, TX FIFO, or RX DMA as required.  <a href="group__qspipsu__api.html#ga8b201a022bb63afbaaf9afad23064761">More...</a><br/></td></tr>
+<tr class="memdesc:ga8b201a022bb63afbaaf9afad23064761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the TX/RX buffers in the message and sets up the transfer.  <a href="group__qspipsu__api.html#ga8b201a022bb63afbaaf9afad23064761">More...</a><br/></td></tr>
 <tr class="separator:ga8b201a022bb63afbaaf9afad23064761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7fc4cdebc35bb7b5d3ca9128917c131c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga7fc4cdebc35bb7b5d3ca9128917c131c">XQspiPsu_GenFifoEntryDataLen</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, u32 *GenFifoEntry)</td></tr>
-<tr class="memdesc:ga7fc4cdebc35bb7b5d3ca9128917c131c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the data length to GENFIFO entries to be transmitted or received.  <a href="group__qspipsu__api.html#ga7fc4cdebc35bb7b5d3ca9128917c131c">More...</a><br/></td></tr>
+<tr class="memdesc:ga7fc4cdebc35bb7b5d3ca9128917c131c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the data length to GENFIFO entries.  <a href="group__qspipsu__api.html#ga7fc4cdebc35bb7b5d3ca9128917c131c">More...</a><br/></td></tr>
 <tr class="separator:ga7fc4cdebc35bb7b5d3ca9128917c131c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6f3b7fc81ae5c50ee3ea373d80b4b542"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#ga6f3b7fc81ae5c50ee3ea373d80b4b542">XQspiPsu_CreatePollDataConfig</a> (const <a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, const <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *FlashMsg)</td></tr>
-<tr class="memdesc:ga6f3b7fc81ae5c50ee3ea373d80b4b542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates Poll configuration register data to write.  <a href="group__qspipsu__api.html#ga6f3b7fc81ae5c50ee3ea373d80b4b542">More...</a><br/></td></tr>
+<tr class="memdesc:ga6f3b7fc81ae5c50ee3ea373d80b4b542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the poll configuration register data to write.  <a href="group__qspipsu__api.html#ga6f3b7fc81ae5c50ee3ea373d80b4b542">More...</a><br/></td></tr>
 <tr class="separator:ga6f3b7fc81ae5c50ee3ea373d80b4b542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae7bfe0aff5a064a01b0f822f46b26deb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gae7bfe0aff5a064a01b0f822f46b26deb">XQspiPsu_SelectSpiMode</a> (u8 SpiMode)</td></tr>
 <tr class="memdesc:gae7bfe0aff5a064a01b0f822f46b26deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects SPI mode - x1 or x2 or x4.  <a href="group__qspipsu__api.html#gae7bfe0aff5a064a01b0f822f46b26deb">More...</a><br/></td></tr>
 <tr class="separator:gae7bfe0aff5a064a01b0f822f46b26deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae720bdee9a521b160e1e364053b66b61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gae720bdee9a521b160e1e364053b66b61">XQspiPsu_SetDefaultConfig</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gae720bdee9a521b160e1e364053b66b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables and initializes DMA Mode, set little endain, disable poll timeout, clears prescalar bits and reset thresholds.  <a href="group__qspipsu__api.html#gae720bdee9a521b160e1e364053b66b61">More...</a><br/></td></tr>
+<tr class="memdesc:gae720bdee9a521b160e1e364053b66b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables and initializes DMA mode with the default configuration.  <a href="group__qspipsu__api.html#gae720bdee9a521b160e1e364053b66b61">More...</a><br/></td></tr>
 <tr class="separator:gae720bdee9a521b160e1e364053b66b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa04d433c594d66417be2c4f83c092203"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gaa04d433c594d66417be2c4f83c092203">XQspiPsu_ReadRxFifo</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, s32 Size)</td></tr>
 <tr class="memdesc:gaa04d433c594d66417be2c4f83c092203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the specified number of bytes from RX FIFO.  <a href="group__qspipsu__api.html#gaa04d433c594d66417be2c4f83c092203">More...</a><br/></td></tr>
 <tr class="separator:gaa04d433c594d66417be2c4f83c092203"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae7900ea73e245de8f091d4d4c201fe76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__qspipsu__api.html#gae7900ea73e245de8f091d4d4c201fe76">XQspiPsu_IORead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *InstancePtr, <a class="el" href="struct_x_qspi_psu___msg.html">XQspiPsu_Msg</a> *Msg, u32 StatusReg)</td></tr>
-<tr class="memdesc:gae7900ea73e245de8f091d4d4c201fe76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from RXFifo in I/O mode.  <a href="group__qspipsu__api.html#gae7900ea73e245de8f091d4d4c201fe76">More...</a><br/></td></tr>
+<tr class="memdesc:gae7900ea73e245de8f091d4d4c201fe76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from RX FIFO in I/O mode.  <a href="group__qspipsu__api.html#gae7900ea73e245de8f091d4d4c201fe76">More...</a><br/></td></tr>
 <tr class="separator:gae7900ea73e245de8f091d4d4c201fe76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

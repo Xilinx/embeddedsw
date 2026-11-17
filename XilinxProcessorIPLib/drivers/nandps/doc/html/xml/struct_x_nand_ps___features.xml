@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>ProgramCache</name>
         <briefdescription>
-        </briefdescription>
+<para>Program page cache command support. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="343" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="461" endline="640">Onfi_NandInit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nand_ps___features_1a7f600fcb3799137e1edac3af4ba6dae3" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -23,19 +24,21 @@
         <argsstring></argsstring>
         <name>ReadCache</name>
         <briefdescription>
-        </briefdescription>
+<para>Read page cache command support. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="344" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="461" endline="640">Onfi_NandInit</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="593" endline="768">XNandPs_ReadCache</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>ONFI Features and Optional commands supported See parameter page byte 6-7 and 8-9. </para>    </briefdescription>
+<para>Holds ONFI features and optional commands supported. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="342" bodyend="345"/>
+<para>See parameter page byte 6-7 and 8-9. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="345" bodyend="348"/>
     <listofallmembers>
       <member refid="struct_x_nand_ps___features_1a21e1fa3e1a5a60b4c9d1d536ce784850" prot="public" virt="non-virtual"><scope>XNandPs_Features</scope><name>ProgramCache</name></member>
       <member refid="struct_x_nand_ps___features_1a7f600fcb3799137e1edac3af4ba6dae3" prot="public" virt="non-virtual"><scope>XNandPs_Features</scope><name>ReadCache</name></member>

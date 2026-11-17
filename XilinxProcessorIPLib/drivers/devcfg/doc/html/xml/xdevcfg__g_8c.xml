@@ -8,8 +8,22 @@
       <node id="34">
         <label>xil_assert.h</label>
       </node>
+      <node id="30">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg__hw_8h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
       <node id="32">
         <label>xil_io.h</label>
+      </node>
+      <node id="33">
+        <label>xstatus.h</label>
+      </node>
+      <node id="31">
+        <label>xil_types.h</label>
       </node>
       <node id="29">
         <label>xdevcfg.h</label>
@@ -27,20 +41,6 @@
         <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
-        </childnode>
-      </node>
-      <node id="33">
-        <label>xstatus.h</label>
-      </node>
-      <node id="31">
-        <label>xil_types.h</label>
-      </node>
-      <node id="30">
-        <label>xdevcfg_hw.h</label>
-        <link refid="xdevcfg__hw_8h"/>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
         </childnode>
       </node>
       <node id="35">
@@ -65,7 +65,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_g.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_g.c" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_g.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_g.c" bodystart="47" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -102,6 +102,6 @@
 <codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="52"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_g.c"/>
   </compounddef>
 </doxygen>

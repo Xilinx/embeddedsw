@@ -8,16 +8,19 @@
       <node id="245">
         <label>xil_assert.h</label>
       </node>
-      <node id="243">
-        <label>xvphy_intr.c</label>
-        <link refid="xvphy_intr.c"/>
-        <childnode refid="244" relation="include">
-        </childnode>
-        <childnode refid="252" relation="include">
-        </childnode>
-      </node>
       <node id="248">
         <label>xil_io.h</label>
+      </node>
+      <node id="247">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>xvphy_dp.h</label>
       </node>
       <node id="244">
         <label>xvphy.h</label>
@@ -32,26 +35,6 @@
         <childnode refid="251" relation="include">
         </childnode>
       </node>
-      <node id="247">
-        <label>xvphy_hw.h</label>
-        <link refid="xvphy__hw_8h"/>
-        <childnode refid="248" relation="include">
-        </childnode>
-        <childnode refid="249" relation="include">
-        </childnode>
-      </node>
-      <node id="251">
-        <label>xvphy_dp.h</label>
-      </node>
-      <node id="250">
-        <label>xvidc.h</label>
-      </node>
-      <node id="249">
-        <label>xil_types.h</label>
-      </node>
-      <node id="246">
-        <label>xparameters.h</label>
-      </node>
       <node id="252">
         <label>xvphy_i.h</label>
         <link refid="xvphy__i_8h"/>
@@ -65,6 +48,23 @@
         </childnode>
         <childnode refid="251" relation="include">
         </childnode>
+      </node>
+      <node id="243">
+        <label>xvphy_intr.c</label>
+        <link refid="xvphy_intr.c"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="250">
+        <label>xvidc.h</label>
+      </node>
+      <node id="249">
+        <label>xil_types.h</label>
+      </node>
+      <node id="246">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -104,12 +104,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="47" bodyend="54"/>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="group__vphy_1ga692902b883571eda757b9b655c5c83fb" compoundref="xvphy__hw_8h" startline="121">XVPHY_INTR_EN_REG</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="47" bodyend="54"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga692902b883571eda757b9b655c5c83fb" compoundref="xvphy__hw_8h" startline="122">XVPHY_INTR_EN_REG</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga854725cac309c3302a25dbc29927c9f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -147,12 +147,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="69" bodyend="78"/>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="group__vphy_1ga0523c2fe675a15f92df8de41fc4cc8c7" compoundref="xvphy__hw_8h" startline="122">XVPHY_INTR_DIS_REG</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="69" bodyend="78"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga0523c2fe675a15f92df8de41fc4cc8c7" compoundref="xvphy__hw_8h" startline="123">XVPHY_INTR_DIS_REG</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga56237326dcb3ef7cb3b346f7bf561486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -212,31 +212,31 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="96" bodyend="174"/>
-        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="758">XVphy::IntrTxResetDoneHandler</references>
-        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="761">XVphy::IntrTxResetDoneCallbackRef</references>
-        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="765">XVphy::IntrRxResetDoneHandler</references>
-        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="768">XVphy::IntrRxResetDoneCallbackRef</references>
-        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="743">XVphy::IntrCpllLockHandler</references>
-        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="745">XVphy::IntrCpllLockCallbackRef</references>
-        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="748">XVphy::IntrQpllLockHandler</references>
-        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="750">XVphy::IntrQpllLockCallbackRef</references>
-        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="772">XVphy::IntrTxAlignDoneHandler</references>
-        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="775">XVphy::IntrTxAlignDoneCallbackRef</references>
-        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="753">XVphy::IntrQpll1LockHandler</references>
-        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="755">XVphy::IntrQpll1LockCallbackRef</references>
-        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="779">XVphy::IntrTxClkDetFreqChangeHandler</references>
-        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="783">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
-        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="788">XVphy::IntrRxClkDetFreqChangeHandler</references>
-        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="792">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
-        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="797">XVphy::IntrTxMmcmLockHandler</references>
-        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="800">XVphy::IntrTxMmcmLockCallbackRef</references>
-        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="803">XVphy::IntrRxMmcmLockHandler</references>
-        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="806">XVphy::IntrRxMmcmLockCallbackRef</references>
-        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="809">XVphy::IntrTxTmrTimeoutHandler</references>
-        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="812">XVphy::IntrTxTmrTimeoutCallbackRef</references>
-        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="816">XVphy::IntrRxTmrTimeoutHandler</references>
-        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="819">XVphy::IntrRxTmrTimeoutCallbackRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="96" bodyend="174"/>
+        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="752">XVphy::IntrTxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="755">XVphy::IntrTxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="759">XVphy::IntrRxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="762">XVphy::IntrRxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="737">XVphy::IntrCpllLockHandler</references>
+        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="739">XVphy::IntrCpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="742">XVphy::IntrQpllLockHandler</references>
+        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="744">XVphy::IntrQpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="766">XVphy::IntrTxAlignDoneHandler</references>
+        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="769">XVphy::IntrTxAlignDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="747">XVphy::IntrQpll1LockHandler</references>
+        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="749">XVphy::IntrQpll1LockCallbackRef</references>
+        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="773">XVphy::IntrTxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="777">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="782">XVphy::IntrRxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="786">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="791">XVphy::IntrTxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="794">XVphy::IntrTxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="797">XVphy::IntrRxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="800">XVphy::IntrRxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="803">XVphy::IntrTxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="806">XVphy::IntrTxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="810">XVphy::IntrRxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="813">XVphy::IntrRxTmrTimeoutCallbackRef</references>
       </memberdef>
       <memberdef kind="function" id="xvphy__intr_8c_1a75e14bbc2dcc8eeeaaed26371ae1b34c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -263,36 +263,36 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="189" bodyend="249"/>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="745">XVphy::IntrCpllLockCallbackRef</references>
-        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="743">XVphy::IntrCpllLockHandler</references>
-        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="755">XVphy::IntrQpll1LockCallbackRef</references>
-        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="753">XVphy::IntrQpll1LockHandler</references>
-        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="750">XVphy::IntrQpllLockCallbackRef</references>
-        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="748">XVphy::IntrQpllLockHandler</references>
-        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="792">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
-        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="788">XVphy::IntrRxClkDetFreqChangeHandler</references>
-        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="806">XVphy::IntrRxMmcmLockCallbackRef</references>
-        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="803">XVphy::IntrRxMmcmLockHandler</references>
-        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="768">XVphy::IntrRxResetDoneCallbackRef</references>
-        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="765">XVphy::IntrRxResetDoneHandler</references>
-        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="819">XVphy::IntrRxTmrTimeoutCallbackRef</references>
-        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="816">XVphy::IntrRxTmrTimeoutHandler</references>
-        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="775">XVphy::IntrTxAlignDoneCallbackRef</references>
-        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="772">XVphy::IntrTxAlignDoneHandler</references>
-        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="783">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
-        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="779">XVphy::IntrTxClkDetFreqChangeHandler</references>
-        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="800">XVphy::IntrTxMmcmLockCallbackRef</references>
-        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="797">XVphy::IntrTxMmcmLockHandler</references>
-        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="761">XVphy::IntrTxResetDoneCallbackRef</references>
-        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="758">XVphy::IntrTxResetDoneHandler</references>
-        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="812">XVphy::IntrTxTmrTimeoutCallbackRef</references>
-        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="809">XVphy::IntrTxTmrTimeoutHandler</references>
-        <references refid="struct_x_vphy_1a350b0f93bf83f2b3178e46e11936aa7f" compoundref="xvphy_8h" startline="727">XVphy::IsReady</references>
-        <references refid="group__vphy_1ga8fd50c79a67b9ed852fbd70c7e3dde03" compoundref="xvphy__hw_8h" startline="124">XVPHY_INTR_STS_REG</references>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="189" bodyend="249"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="739">XVphy::IntrCpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="737">XVphy::IntrCpllLockHandler</references>
+        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="749">XVphy::IntrQpll1LockCallbackRef</references>
+        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="747">XVphy::IntrQpll1LockHandler</references>
+        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="744">XVphy::IntrQpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="742">XVphy::IntrQpllLockHandler</references>
+        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="786">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="782">XVphy::IntrRxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="800">XVphy::IntrRxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="797">XVphy::IntrRxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="762">XVphy::IntrRxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="759">XVphy::IntrRxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="813">XVphy::IntrRxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="810">XVphy::IntrRxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="769">XVphy::IntrTxAlignDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="766">XVphy::IntrTxAlignDoneHandler</references>
+        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="777">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="773">XVphy::IntrTxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="794">XVphy::IntrTxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="791">XVphy::IntrTxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="755">XVphy::IntrTxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="752">XVphy::IntrTxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="806">XVphy::IntrTxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="803">XVphy::IntrTxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a350b0f93bf83f2b3178e46e11936aa7f" compoundref="xvphy_8h" startline="721">XVphy::IsReady</references>
+        <references refid="group__vphy_1ga8fd50c79a67b9ed852fbd70c7e3dde03" compoundref="xvphy__hw_8h" startline="125">XVPHY_INTR_STS_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="group__xvphy_1ga6955153625236c5779240d2aab90678e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -341,12 +341,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="265" bodyend="284"/>
-        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
-        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
-        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
-        <references refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" compoundref="xvphy__hw_8h" startline="120">XVPHY_ERR_IRQ</references>
-        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="265" bodyend="284"/>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="694">XVphy_ReadReg</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="723">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="678">XVphy_Config::BaseAddr</references>
+        <references refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" compoundref="xvphy__hw_8h" startline="121">XVPHY_ERR_IRQ</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="711">XVphy_WriteReg</references>
         <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
       </memberdef>
       </sectiondef>
@@ -565,6 +565,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" kindref="member">XVPHY_ERR_IRQ</ref>,<sp/>ErrIrqVal);</highlight></codeline>
 <codeline lineno="284"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c"/>
   </compounddef>
 </doxygen>

@@ -97,6 +97,7 @@
     <member refid="group__trngpsv__api_1gaec6efd685b3bfddbcb9b975499fd0015" kind="function"><name>XTrngpsv_ReseedInternal</name></member>
     <member refid="group__trngpsv__api_1ga2fb6f73d921d4d99c40fd86ae07bd697" kind="function"><name>XTrngpsv_WriteRegs</name></member>
     <member refid="group__trngpsv__api_1ga522d1d2eda2344ca7174ca1616a0de3d" kind="function"><name>XTrngpsv_CheckSeedPattern</name></member>
+    <member refid="group__trngpsv__api_1ga68c28d0746126610958cc98829a3e35d" kind="function"><name>XTrngpsv_ClearDFScratch</name></member>
     <member refid="group__trngpsv__api_1ga4ee6bd92bfeb14b7b0c82b21aa0a4e41" kind="function"><name>XTrngpsv_ReadReg</name></member>
     <member refid="group__trngpsv__api_1ga79de00ed3dfc40fc560bac8c515e9ff8" kind="function"><name>XTrngpsv_WriteReg</name></member>
     <member refid="group__trngpsv__api_1ga5c1837645c839ebd1bcde155deb30c76" kind="function"><name>XTrngpsv_RMW32</name></member>
@@ -296,6 +297,7 @@
     <member refid="group__trngpsv__api_1ga9c7a8b296734fb4aeb07646373a2439e" kind="define"><name>HEALTH_TEST_DFLENMUL</name></member>
     <member refid="group__trngpsv__api_1ga88f3194e13581bd1f26e2eed9fdd6776" kind="define"><name>KAT_SEEDLIFE</name></member>
     <member refid="group__trngpsv__api_1ga0174f0e5dcb447dd0375f27eec85e3b6" kind="define"><name>KAT_DFLENMUL</name></member>
+    <member refid="group__trngpsv__api_1gaa2e461b8112fde10fae10f6df95d372f" kind="define"><name>KAT_GUARD_LEN_BYTES</name></member>
     <member refid="group__trngpsv__api_1gab3d40fb1f24910ed5c246968ac462b69" kind="function"><name>XTrngpsv_RunHealthTest</name></member>
     <member refid="group__trngpsv__api_1ga4db54d9685d0ac834bf95023fe659a0d" kind="function"><name>XTrngpsv_RunKAT</name></member>
   </compound>
@@ -323,6 +325,7 @@
     <member refid="group__trngpsv__api_1ga9c7a8b296734fb4aeb07646373a2439e" kind="define"><name>HEALTH_TEST_DFLENMUL</name></member>
     <member refid="group__trngpsv__api_1ga88f3194e13581bd1f26e2eed9fdd6776" kind="define"><name>KAT_SEEDLIFE</name></member>
     <member refid="group__trngpsv__api_1ga0174f0e5dcb447dd0375f27eec85e3b6" kind="define"><name>KAT_DFLENMUL</name></member>
+    <member refid="group__trngpsv__api_1gaa2e461b8112fde10fae10f6df95d372f" kind="define"><name>KAT_GUARD_LEN_BYTES</name></member>
     <member refid="group__trngpsv__api_1ga9f1b86469104145ec6c6065cf0259f56" kind="enum"><name>XTrngpsv_ErrorCodes</name></member>
     <member refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56aca3cf3a52adbdbb2d5827102e1c51db0" kind="enumvalue"><name>XTRNGPSV_ERROR_INVALID_PARAM</name></member>
     <member refid="group__trngpsv__api_1gga9f1b86469104145ec6c6065cf0259f56a06f62a3ac46499f02d2fde257de6b2f3" kind="enumvalue"><name>XTRNGPSV_ERROR_INVALID_STATE</name></member>
@@ -381,6 +384,7 @@
     <member refid="group__trngpsv__api_1gaec6efd685b3bfddbcb9b975499fd0015" kind="function"><name>XTrngpsv_ReseedInternal</name></member>
     <member refid="group__trngpsv__api_1ga2fb6f73d921d4d99c40fd86ae07bd697" kind="function"><name>XTrngpsv_WriteRegs</name></member>
     <member refid="group__trngpsv__api_1ga522d1d2eda2344ca7174ca1616a0de3d" kind="function"><name>XTrngpsv_CheckSeedPattern</name></member>
+    <member refid="group__trngpsv__api_1ga68c28d0746126610958cc98829a3e35d" kind="function"><name>XTrngpsv_ClearDFScratch</name></member>
     <member refid="group__trngpsv__api_1ga4ee6bd92bfeb14b7b0c82b21aa0a4e41" kind="function"><name>XTrngpsv_ReadReg</name></member>
     <member refid="group__trngpsv__api_1ga79de00ed3dfc40fc560bac8c515e9ff8" kind="function"><name>XTrngpsv_WriteReg</name></member>
     <member refid="group__trngpsv__api_1ga5c1837645c839ebd1bcde155deb30c76" kind="function"><name>XTrngpsv_RMW32</name></member>

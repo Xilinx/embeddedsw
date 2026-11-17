@@ -7,110 +7,107 @@
     <includedby refid="mmi__dp__intr_8c" local="yes">mmi_dp_intr.c</includedby>
     <includedby refid="mmi__dpdc__platform_8c" local="yes">mmi_dpdc_platform.c</includedby>
     <incdepgraph>
-      <node id="344">
-        <label>xclk_wiz.h</label>
-      </node>
-      <node id="352">
-        <label>mmi_dpdc_example.h</label>
-        <link refid="mmi__dpdc__example_8h"/>
-        <childnode refid="346" relation="include">
-        </childnode>
-        <childnode refid="349" relation="include">
-        </childnode>
-        <childnode refid="345" relation="include">
-        </childnode>
-        <childnode refid="351" relation="include">
-        </childnode>
-        <childnode refid="353" relation="include">
-        </childnode>
-      </node>
-      <node id="348">
+      <node id="364">
         <label>xil_io.h</label>
       </node>
-      <node id="342">
-        <label>mmi_dc_nonlive_test.h</label>
-        <link refid="mmi__dc__nonlive__test_8h"/>
-        <childnode refid="343" relation="include">
-        </childnode>
-        <childnode refid="344" relation="include">
-        </childnode>
-        <childnode refid="345" relation="include">
-        </childnode>
-        <childnode refid="351" relation="include">
-        </childnode>
-        <childnode refid="352" relation="include">
-        </childnode>
-      </node>
-      <node id="345">
-        <label>xdcsub.h</label>
-        <link refid="xdcsub_8h"/>
-        <childnode refid="346" relation="include">
-        </childnode>
-        <childnode refid="349" relation="include">
-        </childnode>
-      </node>
-      <node id="346">
-        <label>xdc.h</label>
-        <link refid="xdc_8h"/>
-        <childnode refid="347" relation="include">
-        </childnode>
-      </node>
-      <node id="343">
-        <label>xinterrupt_wrap.h</label>
-      </node>
-      <node id="351">
-        <label>xmmidp.h</label>
-      </node>
-      <node id="347">
-        <label>xdc_hw.h</label>
-        <link refid="xdc__hw_8h"/>
-        <childnode refid="348" relation="include">
-        </childnode>
-      </node>
-      <node id="341">
+      <node id="358">
         <label>mmi_dp_intr.h</label>
         <link refid="mmi_dp_intr.h"/>
-        <childnode refid="342" relation="include">
+        <childnode refid="359" relation="include">
         </childnode>
       </node>
-      <node id="353">
-        <label>xparameters.h</label>
+      <node id="363">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="364" relation="include">
+        </childnode>
       </node>
-      <node id="350">
+      <node id="361">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+      </node>
+      <node id="360">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="368">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+      </node>
+      <node id="367">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="359">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+      </node>
+      <node id="366">
         <label>xdcdma_hw.h</label>
         <link refid="xdcdma__hw_8h"/>
-        <childnode refid="348" relation="include">
+        <childnode refid="364" relation="include">
         </childnode>
       </node>
-      <node id="349">
+      <node id="362">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="363" relation="include">
+        </childnode>
+      </node>
+      <node id="369">
+        <label>xparameters.h</label>
+      </node>
+      <node id="365">
         <label>xdcdma.h</label>
         <link refid="xdcdma_8h"/>
-        <childnode refid="350" relation="include">
+        <childnode refid="366" relation="include">
         </childnode>
-        <childnode refid="346" relation="include">
+        <childnode refid="362" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="356">
+      <node id="372">
         <label>mmi_dp_intr.c</label>
         <link refid="mmi__dp__intr_8c"/>
       </node>
-      <node id="354">
+      <node id="370">
         <label>mmi_dp_intr.h</label>
         <link refid="mmi_dp_intr.h"/>
-        <childnode refid="355" relation="include">
+        <childnode refid="371" relation="include">
         </childnode>
-        <childnode refid="356" relation="include">
+        <childnode refid="372" relation="include">
         </childnode>
-        <childnode refid="357" relation="include">
+        <childnode refid="373" relation="include">
         </childnode>
       </node>
-      <node id="357">
+      <node id="373">
         <label>mmi_dpdc_platform.c</label>
         <link refid="mmi__dpdc__platform_8c"/>
       </node>
-      <node id="355">
+      <node id="371">
         <label>mmi_dp_init.c</label>
         <link refid="mmi__dp__init_8c"/>
       </node>
@@ -128,30 +125,20 @@
         <briefdescription>
 <para>This function is the HPD hot plug (connect) callback. </para>        </briefdescription>
         <detaileddescription>
-<para>It reads sink capabilities, runs link training, and sets up the video stream.</para><para><parameterlist kind="param"><parameteritem>
+<para>It runs the connect sequence.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>CallbackRef</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to the <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure.</para></parameterdescription>
+<para>is a pointer to the <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="59" bodyend="85"/>
-        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
-        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
-        <references refid="struct_run_config_1a6c31fb2de76478d7c5a9e545a297866d" compoundref="mmi__dpdc__example_8h" startline="147">RunConfig::MaxLaneCount</references>
-        <references refid="struct_run_config_1ad55f7cc55ffd5f98018cd819f5d09407" compoundref="mmi__dpdc__example_8h" startline="148">RunConfig::MaxLinkRate</references>
-        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
-        <references refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" compoundref="mmi__dp__intr_8c" startline="38" endline="45">XDpDc_DisableDpAudioSdpStreams</references>
-        <references refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" compoundref="mmi__dp__init_8c" startline="352" endline="388">XMmiDp_SetupAudioStream</references>
-        <references refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" compoundref="mmi__dp__init_8c" startline="310" endline="337">XMmiDp_SetupVideoStream</references>
-        <references refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" compoundref="mmi__dp__init_8c" startline="124" endline="132">XMmiDp_SinkPowerUp</references>
-        <references refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" compoundref="mmi__dp__init_8c" startline="515" endline="593">XMmiDp_StartFullLinkTrainingCapped</references>
-        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="62" bodyend="74"/>
+        <references refid="mmi__dp__init_8c_1a2366205c7a4ee18ac1833bc71e721ad7" compoundref="mmi__dp__init_8c" startline="1449" endline="1472">XDpDc_RunConnectSequence</references>
+        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="228" endline="251">XDpDc_SetupDpInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="mmi__dp__intr_8h_1ab9d0c9085b15a70c514ac40836fec9cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -177,9 +164,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="99" bodyend="109"/>
-        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
-        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="88" bodyend="98"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="108">RunConfig::DpPsuPtr</references>
+        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="228" endline="251">XDpDc_SetupDpInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -205,17 +192,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="124" bodyend="190"/>
-        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
-        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
-        <references refid="struct_run_config_1a6c31fb2de76478d7c5a9e545a297866d" compoundref="mmi__dpdc__example_8h" startline="147">RunConfig::MaxLaneCount</references>
-        <references refid="struct_run_config_1ad55f7cc55ffd5f98018cd819f5d09407" compoundref="mmi__dpdc__example_8h" startline="148">RunConfig::MaxLinkRate</references>
-        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
-        <references refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" compoundref="mmi__dp__intr_8c" startline="38" endline="45">XDpDc_DisableDpAudioSdpStreams</references>
-        <references refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" compoundref="mmi__dp__init_8c" startline="352" endline="388">XMmiDp_SetupAudioStream</references>
-        <references refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" compoundref="mmi__dp__init_8c" startline="310" endline="337">XMmiDp_SetupVideoStream</references>
-        <references refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" compoundref="mmi__dp__init_8c" startline="515" endline="593">XMmiDp_StartFullLinkTrainingCapped</references>
-        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="113" bodyend="178"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="108">RunConfig::DpPsuPtr</references>
+        <references refid="mmi__dp__init_8c_1a1470b14f1f340b5a19a2048effd086e5" compoundref="mmi__dp__init_8c" startline="1072" endline="1101">XDpDc_RunLinkPolicySetup</references>
+        <references refid="mmi__dp__init_8c_1a923680a2dbc88cecc68fa2a5bb787c60" compoundref="mmi__dp__init_8c" startline="1278" endline="1435">XDpDc_RunStreamPolicySetup</references>
+        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="228" endline="251">XDpDc_SetupDpInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="mmi__dp__intr_8h_1a7087d4d5edd912c0fdb6e28038643536" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -241,10 +222,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="38" bodyend="45"/>
-        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
-        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
-        <referencedby refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="646" endline="670">XDpDc_InitDpPsuSubsystem</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="44" bodyend="51"/>
+        <referencedby refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="1525" endline="1549">XDpDc_InitDpPsuSubsystem</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a923680a2dbc88cecc68fa2a5bb787c60" compoundref="mmi__dp__init_8c" startline="1278" endline="1435">XDpDc_RunStreamPolicySetup</referencedby>
       </memberdef>
       <memberdef kind="function" id="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -256,7 +236,7 @@
           <declname>RunCfgPtr</declname>
         </param>
         <briefdescription>
-<para>This function registers HPD callbacks and connects the DP interrupt to the GIC. </para>        </briefdescription>
+<para>This function registers HPD callbacks and connects the DP interrupt to the GIC, then runs the connect sequence if a sink is already present. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -270,12 +250,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="203" bodyend="223"/>
-        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
-        <references refid="mmi__dp__intr_8c_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</references>
-        <references refid="mmi__dp__intr_8c_1ab9d0c9085b15a70c514ac40836fec9cb" compoundref="mmi__dp__intr_8c" startline="99" endline="109">XDpDc_HpdHotunplugHandler</references>
-        <references refid="mmi__dp__intr_8c_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</references>
-        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="312" endline="323">XDpDc_SetupInterrupts</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="228" bodyend="251"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="108">RunConfig::DpPsuPtr</references>
+        <references refid="mmi__dp__intr_8c_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="62" endline="74">XDpDc_HpdHotplugHandler</references>
+        <references refid="mmi__dp__intr_8c_1ab9d0c9085b15a70c514ac40836fec9cb" compoundref="mmi__dp__intr_8c" startline="88" endline="98">XDpDc_HpdHotunplugHandler</references>
+        <references refid="mmi__dp__intr_8c_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="113" endline="178">XDpDc_HpdIrqHandler</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="527" endline="538">XDpDc_SetupInterrupts</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -310,6 +290,6 @@
 <codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__MMI_DP_INTR_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h"/>
   </compounddef>
 </doxygen>

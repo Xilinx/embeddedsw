@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xttcps__rtc__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,7 +100,9 @@ $(document).ready(function(){initNavTree('xttcps__rtc__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xttcps_rtc_example.c File Reference</div>  </div>
 </div><!--header-->
@@ -108,31 +110,12 @@ $(document).ready(function(){initNavTree('xttcps__rtc__example_8c.html','');});
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This example uses one timer/counter to make a real time clock. </p>
 <p>The number of minutes and seconds is displayed on the console.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<pre>
- MODIFICATION HISTORY:</pre><pre> Ver  Who    Date     Changes
-</p>
+<dl class="section note"><dt>Note</dt><dd><pre>
+ MODIFICATION HISTORY:</pre></dd></dl>
+<p>Ver Who Date Changes </p>
 <hr/>
-<p>
- 1.00 drg/jz 01/23/10 First release
- 3.01 pkp         01/30/16 Modified SetupTimer to remove XTtcps_Stop before TTC
-                                           configuration as it is added in <a class="el" href="xttcps_8c.html">xttcps.c</a> in
-                                           XTtcPs_CfgInitialize
- 3.2  mus    10/28/16 Updated TmrCntrSetup as per prototype of
-                      XTtcPs_CalcIntervalFromFreq
-      ms     01/23/17 Modified xil_printf statement in main function to
-                      ensure that "Successfully ran" and "Failed" strings
-                      are available in all examples. This is a fix for
-                      CR-965028.
- 3.10 aru    05/30/19 Updated the example to use <a class="el" href="group__ttcps.html#ga30d6a84844676b794d8cf1a43a727bac" title="Handles interrupts by resetting the counter value and clearing the status register. ">XTtcPs_InterruptHandler()</a>.
- 3.16 adk    04/19/22 Fix infinite loop in the example by adding polled
-                       timeout loop.
- 3.18 gm     07/17/23 Invoke XTtcPs_Release to release ttc node.
- 3.18 gm     03/06/24 Added support for system device-tree flow.
- 3.22 ml     07/14/25 Fixed GCC warnings.
- 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
-                      documentation.
-</pre> </div><div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
+<p> 1.00 drg/jz 01/23/10 First release 3.01 pkp 01/30/16 Modified SetupTimer to remove XTtcps_Stop before TTC configuration as it is added in <a class="el" href="xttcps_8c.html">xttcps.c</a> in XTtcPs_CfgInitialize 3.2 mus 10/28/16 Updated TmrCntrSetup as per prototype of XTtcPs_CalcIntervalFromFreq ms 01/23/17 Modified xil_printf statement in main function to ensure that "Successfully ran" and "Failed" strings are available in all examples. This is a fix for CR-965028. 3.10 aru 05/30/19 Updated the example to use <a class="el" href="group__ttcps.html#ga30d6a84844676b794d8cf1a43a727bac" title="Handles interrupts by resetting the counter value and clearing the status register. ">XTtcPs_InterruptHandler()</a>. 3.16 adk 04/19/22 Fix infinite loop in the example by adding polled timeout loop. 3.18 gm 07/17/23 Invoke XTtcPs_Release to release ttc node. 3.18 gm 03/06/24 Added support for system device-tree flow. 3.22 ml 07/14/25 Fixed GCC warnings. 3.23 bdk 12/08/25 Updated comments to support SDT flow for Doxygen documentation. 3.24 ml 09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.  </p>
+</div><div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
@@ -144,12 +127,90 @@ $(document).ready(function(){initNavTree('xttcps__rtc__example_8c.html','');});
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a06c68a93aeb3d477d899a5b6e0fa43d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__rtc__example_8c.html#a06c68a93aeb3d477d899a5b6e0fa43d3">TTC_TICK_BASEADDR</a>&#160;&#160;&#160;XPAR_XTTCPS_0_BASEADDR</td></tr>
+<tr class="memdesc:a06c68a93aeb3d477d899a5b6e0fa43d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of TTC tick timer.  <a href="#a06c68a93aeb3d477d899a5b6e0fa43d3">More...</a><br/></td></tr>
+<tr class="separator:a06c68a93aeb3d477d899a5b6e0fa43d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b1bcc6042af18a7922f7b38a398583"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__rtc__example_8c.html#a69b1bcc6042af18a7922f7b38a398583">TICK_TIMER_FREQ_HZ</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:a69b1bcc6042af18a7922f7b38a398583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tick timer output frequency in Hz.  <a href="#a69b1bcc6042af18a7922f7b38a398583">More...</a><br/></td></tr>
+<tr class="separator:a69b1bcc6042af18a7922f7b38a398583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae61f0c6f9e0d84ad05f17633bf3c121e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__rtc__example_8c.html#ae61f0c6f9e0d84ad05f17633bf3c121e">TICKS_PER_CHANGE_PERIOD</a>&#160;&#160;&#160;<a class="el" href="xttcps__tapp__example_8c.html#a69b1bcc6042af18a7922f7b38a398583">TICK_TIMER_FREQ_HZ</a></td></tr>
+<tr class="memdesc:ae61f0c6f9e0d84ad05f17633bf3c121e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of ticks per update period.  <a href="#ae61f0c6f9e0d84ad05f17633bf3c121e">More...</a><br/></td></tr>
+<tr class="separator:ae61f0c6f9e0d84ad05f17633bf3c121e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69401b493d76da502dd340ad125952ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__rtc__example_8c.html#a69401b493d76da502dd340ad125952ea">XTTCPS_SW_TIMEOUT_VAL</a>&#160;&#160;&#160;180</td></tr>
+<tr class="memdesc:a69401b493d76da502dd340ad125952ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software timeout value in seconds.  <a href="#a69401b493d76da502dd340ad125952ea">More...</a><br/></td></tr>
+<tr class="separator:a69401b493d76da502dd340ad125952ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__rtc__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function that calls the TTC RTC interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a50f23879122d36c5659b812974d2831a"><td class="memItemLeft" align="right" valign="top">XScuGic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xttcps__rtc__example_8c.html#a50f23879122d36c5659b812974d2831a">InterruptController</a></td></tr>
+<tr class="memdesc:a50f23879122d36c5659b812974d2831a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt controller instance.  <a href="#a50f23879122d36c5659b812974d2831a">More...</a><br/></td></tr>
+<tr class="separator:a50f23879122d36c5659b812974d2831a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a69b1bcc6042af18a7922f7b38a398583"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TICK_TIMER_FREQ_HZ&#160;&#160;&#160;100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tick timer output frequency in Hz. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae61f0c6f9e0d84ad05f17633bf3c121e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TICKS_PER_CHANGE_PERIOD&#160;&#160;&#160;<a class="el" href="xttcps__tapp__example_8c.html#a69b1bcc6042af18a7922f7b38a398583">TICK_TIMER_FREQ_HZ</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of ticks per update period. </p>
+
+</div>
+</div>
+<a class="anchor" id="a06c68a93aeb3d477d899a5b6e0fa43d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TTC_TICK_BASEADDR&#160;&#160;&#160;XPAR_XTTCPS_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of TTC tick timer. </p>
+
+</div>
+</div>
+<a class="anchor" id="a69401b493d76da502dd340ad125952ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XTTCPS_SW_TIMEOUT_VAL&#160;&#160;&#160;180</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Software timeout value in seconds. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -166,18 +227,26 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This is the main function that calls the TTC RTC interrupt example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS to indicate Success</li>
-<li>XST_FAILURE to indicate a Failure.</li>
+<li>XST_FAILURE to indicate a Failure. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a50f23879122d36c5659b812974d2831a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XScuGic InterruptController</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt controller instance. </p>
 
 </div>
 </div>

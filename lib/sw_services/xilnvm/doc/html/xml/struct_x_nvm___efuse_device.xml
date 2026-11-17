@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_device" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseDevice</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1aacb2e2677ab0e6657a600d1cbc3d4118" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_field_desc" kindref="compound">XNvm_EfuseFieldDesc</ref> *</type>
+        <definition>const XNvm_EfuseFieldDesc* XNvm_EfuseDevice::CommonFields</definition>
+        <argsstring></argsstring>
+        <name>CommonFields</name>
+        <briefdescription>
+<para>Common field descriptors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1aaf198db238c50db6545aef418fb01280" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDevice::NumCommonFields</definition>
+        <argsstring></argsstring>
+        <name>NumCommonFields</name>
+        <briefdescription>
+<para>Number of common field descriptors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a920a871f1b5bad86b46fdee0bdc9a56b" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_field_desc" kindref="compound">XNvm_EfuseFieldDesc</ref> *</type>
+        <definition>const XNvm_EfuseFieldDesc* XNvm_EfuseDevice::Fields</definition>
+        <argsstring></argsstring>
+        <name>Fields</name>
+        <briefdescription>
+<para>Platform-specific field descriptors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1ab48ef18e51ae16b83f72cf26e0c4b866" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDevice::NumFields</definition>
+        <argsstring></argsstring>
+        <name>NumFields</name>
+        <briefdescription>
+<para>Number of platform field descriptors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a780eff84b2a41703a2005275ef689c82" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_prot_entry" kindref="compound">XNvm_EfuseProtEntry</ref> *</type>
+        <definition>const XNvm_EfuseProtEntry* XNvm_EfuseDevice::Protection</definition>
+        <argsstring></argsstring>
+        <name>Protection</name>
+        <briefdescription>
+<para>Protection trigger table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1ab7b6a47cf23bb123c9782de9eba2c8a0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDevice::NumProtection</definition>
+        <argsstring></argsstring>
+        <name>NumProtection</name>
+        <briefdescription>
+<para>Number of protection entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a7acf3edafc19d39d1941bf17961da9f7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDevice::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Device flags (XNVM_EFUSE_DEVICE_FLAG_*) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="402" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga5007ff4b718185cd53e34eb3fbda1712" compoundref="xnvm__efuse__engine_8c" startline="203" endline="275">XNvm_EfuseEnginePrgmProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a0ba75ba810c714c22b65cdc10557b464" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_device_ops" kindref="compound">XNvm_EfuseDeviceOps</ref> *</type>
+        <definition>XNvm_EfuseDeviceOps* XNvm_EfuseDevice::Ops</definition>
+        <argsstring></argsstring>
+        <name>Ops</name>
+        <briefdescription>
+<para>Platform operation hooks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga75eb5fbb54529b1f6933979351af5cd9" compoundref="xnvm__efuse__engine_8c" startline="136" endline="187">XNvm_EfuseEngineWriteField</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga1e3cc93bc83d64733fffe4e471dd0b9d" compoundref="xnvm__ops_8c" startline="508" endline="513">XNvm_EfuseOpsBindHooks</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga145b15bd5a77655d27b8c993dccb77ca" compoundref="xnvm__ops_8c" startline="524" endline="544">XNvm_EfuseOpsCacheOperations</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa4c82666d93529495da00d27c7f52b37" compoundref="xnvm__ops_8c" startline="328" endline="436">XNvm_EfuseOpsValidateWriteField</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a6e46ea82f1fe99da782a060f8933ff59" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_dme_revoke_map" kindref="compound">XNvm_EfuseDmeRevokeMap</ref> *</type>
+        <definition>const XNvm_EfuseDmeRevokeMap* XNvm_EfuseDevice::DmeRevoke</definition>
+        <argsstring></argsstring>
+        <name>DmeRevoke</name>
+        <briefdescription>
+<para>DME revoke coordinate table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gade3b92169c879227c5c323aad3916c27" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="597" endline="664">XNvm_EfuseWriteDmeRevoke</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1aa07982f09cbd65c4d1b992175db5fc8d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_fips_version_map" kindref="compound">XNvm_EfuseFipsVersionMap</ref> *</type>
+        <definition>const XNvm_EfuseFipsVersionMap* XNvm_EfuseDevice::FipsVersion</definition>
+        <argsstring></argsstring>
+        <name>FipsVersion</name>
+        <briefdescription>
+<para>FIPS version map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9b518b5753573d6f65ba1d15c94fce86" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="462" endline="510">XNvm_EfuseWriteFipsInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a0bb6b957931dc667ff67106a55ce289c" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_nvm___efuse_dme_key_policy" kindref="compound">XNvm_EfuseDmeKeyPolicy</ref> *</type>
+        <definition>const XNvm_EfuseDmeKeyPolicy* XNvm_EfuseDevice::DmeKeys</definition>
+        <argsstring></argsstring>
+        <name>DmeKeys</name>
+        <briefdescription>
+<para>DME key validation policy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_device_1a3d3206d09658c4025a16763985168d0d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseDevice::SupportsDmeMode</definition>
+        <argsstring></argsstring>
+        <name>SupportsDmeMode</name>
+        <briefdescription>
+<para>Non-zero when device supports DME mode field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="407" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga6dfbc852d469426a27978a41ef8b8676" compoundref="versal__gen_2versal__next_2server_2efuse_2core_2xnvm__efuse_8c" startline="719" endline="729">XNvm_EfuseWriteDmeMode</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines the band-engine platform device descriptor. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="46">
+        <label>XNvm_EfuseDmeKeyPolicy</label>
+        <link refid="struct_x_nvm___efuse_dme_key_policy"/>
+      </node>
+      <node id="42">
+        <label>XNvm_EfuseDevice</label>
+        <link refid="struct_x_nvm___efuse_device"/>
+        <childnode refid="43" relation="usage">
+          <edgelabel>DmeRevoke</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>Protection</edgelabel>
+        </childnode>
+        <childnode refid="46" relation="usage">
+          <edgelabel>DmeKeys</edgelabel>
+        </childnode>
+        <childnode refid="47" relation="usage">
+          <edgelabel>Ops</edgelabel>
+        </childnode>
+        <childnode refid="48" relation="usage">
+          <edgelabel>Fields</edgelabel>
+          <edgelabel>CommonFields</edgelabel>
+        </childnode>
+        <childnode refid="50" relation="usage">
+          <edgelabel>FipsVersion</edgelabel>
+        </childnode>
+      </node>
+      <node id="50">
+        <label>XNvm_EfuseFipsVersionMap</label>
+        <link refid="struct_x_nvm___efuse_fips_version_map"/>
+      </node>
+      <node id="48">
+        <label>XNvm_EfuseFieldDesc</label>
+        <link refid="struct_x_nvm___efuse_field_desc"/>
+        <childnode refid="49" relation="usage">
+          <edgelabel>Bands</edgelabel>
+        </childnode>
+      </node>
+      <node id="45">
+        <label>XNvm_EfuseProtEntry</label>
+        <link refid="struct_x_nvm___efuse_prot_entry"/>
+      </node>
+      <node id="44">
+        <label>XNvm_EfuseDmeRevokeEntry</label>
+        <link refid="struct_x_nvm___efuse_dme_revoke_entry"/>
+      </node>
+      <node id="47">
+        <label>XNvm_EfuseDeviceOps</label>
+        <link refid="struct_x_nvm___efuse_device_ops"/>
+        <childnode refid="48" relation="usage">
+          <edgelabel>ValidateField</edgelabel>
+        </childnode>
+      </node>
+      <node id="43">
+        <label>XNvm_EfuseDmeRevokeMap</label>
+        <link refid="struct_x_nvm___efuse_dme_revoke_map"/>
+        <childnode refid="44" relation="usage">
+          <edgelabel>Table</edgelabel>
+        </childnode>
+      </node>
+      <node id="49">
+        <label>XNvm_EfuseBand</label>
+        <link refid="struct_x_nvm___efuse_band"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="395" bodyend="408"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_device_1aacb2e2677ab0e6657a600d1cbc3d4118" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>CommonFields</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a0bb6b957931dc667ff67106a55ce289c" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>DmeKeys</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a6e46ea82f1fe99da782a060f8933ff59" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>DmeRevoke</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a920a871f1b5bad86b46fdee0bdc9a56b" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>Fields</name></member>
+      <member refid="struct_x_nvm___efuse_device_1aa07982f09cbd65c4d1b992175db5fc8d" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>FipsVersion</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a7acf3edafc19d39d1941bf17961da9f7" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>Flags</name></member>
+      <member refid="struct_x_nvm___efuse_device_1aaf198db238c50db6545aef418fb01280" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>NumCommonFields</name></member>
+      <member refid="struct_x_nvm___efuse_device_1ab48ef18e51ae16b83f72cf26e0c4b866" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>NumFields</name></member>
+      <member refid="struct_x_nvm___efuse_device_1ab7b6a47cf23bb123c9782de9eba2c8a0" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>NumProtection</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a0ba75ba810c714c22b65cdc10557b464" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>Ops</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a780eff84b2a41703a2005275ef689c82" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>Protection</name></member>
+      <member refid="struct_x_nvm___efuse_device_1a3d3206d09658c4025a16763985168d0d" prot="public" virt="non-virtual"><scope>XNvm_EfuseDevice</scope><name>SupportsDmeMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

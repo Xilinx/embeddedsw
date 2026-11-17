@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="994" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="986" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="986" bodyend="-1"/>
         <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___rx_stats_1a0413a42e1eef857cca353d47c132ac4c" prot="public" static="no" mutable="no">
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="995" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="995" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="987" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="987" bodyend="-1"/>
         <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_hdcp1x___rx_stats_1ae57022364910875a93bd7019bae98c12" prot="public" static="no" mutable="no">
@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="996" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="996" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="988" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="988" bodyend="-1"/>
         <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
       </memberdef>
       </sectiondef>
@@ -51,7 +51,7 @@
 <para>This typedef defines the statistics collected receive port instance. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="993" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="993" bodyend="997"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="985" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="985" bodyend="989"/>
     <listofallmembers>
       <member refid="struct_x_hdcp1x___rx_stats_1a2aa5dfdc43cab072fb23bea4c44600fe" prot="public" virt="non-virtual"><scope>XHdcp1x_RxStats</scope><name>AuthAttempts</name></member>
       <member refid="struct_x_hdcp1x___rx_stats_1a0413a42e1eef857cca353d47c132ac4c" prot="public" virt="non-virtual"><scope>XHdcp1x_RxStats</scope><name>LinkFailures</name></member>

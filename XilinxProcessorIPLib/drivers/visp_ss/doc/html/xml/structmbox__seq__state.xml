@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structmbox__seq__state" kind="struct" prot="public">
+    <compoundname>mbox_seq_state</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmbox__seq__state_1a07bcc01c41a2a6292bc44b8deed1dc68" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t mbox_seq_state::inbound_seq</definition>
+        <argsstring></argsstring>
+        <name>inbound_seq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmbox__seq__state_1a8f04c0a24b0e581853544072847e1e84" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t mbox_seq_state::outbound_seq</definition>
+        <argsstring></argsstring>
+        <name>outbound_seq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmbox__seq__state_1a94889539444b3312a52c43254ed77ea2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t mbox_seq_state::seq_mismatch_count</definition>
+        <argsstring></argsstring>
+        <name>seq_mismatch_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmbox__seq__state_1a026e98ba20fb8ac18e4ad8cf66e4efb5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool mbox_seq_state::seq_resync_pending</definition>
+        <argsstring></argsstring>
+        <name>seq_resync_pending</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_seq.c" bodystart="29" bodyend="34"/>
+    <listofallmembers>
+      <member refid="structmbox__seq__state_1a07bcc01c41a2a6292bc44b8deed1dc68" prot="public" virt="non-virtual"><scope>mbox_seq_state</scope><name>inbound_seq</name></member>
+      <member refid="structmbox__seq__state_1a8f04c0a24b0e581853544072847e1e84" prot="public" virt="non-virtual"><scope>mbox_seq_state</scope><name>outbound_seq</name></member>
+      <member refid="structmbox__seq__state_1a94889539444b3312a52c43254ed77ea2" prot="public" virt="non-virtual"><scope>mbox_seq_state</scope><name>seq_mismatch_count</name></member>
+      <member refid="structmbox__seq__state_1a026e98ba20fb8ac18e4ad8cf66e4efb5" prot="public" virt="non-virtual"><scope>mbox_seq_state</scope><name>seq_resync_pending</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

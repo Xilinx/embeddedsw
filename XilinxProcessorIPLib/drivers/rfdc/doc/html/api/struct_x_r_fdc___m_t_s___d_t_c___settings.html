@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___m_t_s___d_t_c___setti
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,6 +106,8 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___m_t_s___d_t_c___setti
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XRFdc_MTS_DTC_Settings Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
 </div><!--header-->
@@ -115,9 +117,177 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___m_t_s___d_t_c___setti
  <a href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#details">More...</a></p>
 
 <p><code>#include &lt;xrfdc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a205da479b1d0abc374c8c8f0b8fd0e2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a205da479b1d0abc374c8c8f0b8fd0e2c">RefTile</a></td></tr>
+<tr class="memdesc:a205da479b1d0abc374c8c8f0b8fd0e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference tile for the DTC scan.  <a href="#a205da479b1d0abc374c8c8f0b8fd0e2c">More...</a><br/></td></tr>
+<tr class="separator:a205da479b1d0abc374c8c8f0b8fd0e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b1ded7b87eceff117474a565f7c1b05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a6b1ded7b87eceff117474a565f7c1b05">IsPLL</a></td></tr>
+<tr class="memdesc:a6b1ded7b87eceff117474a565f7c1b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether the scan targets the PLL DTC.  <a href="#a6b1ded7b87eceff117474a565f7c1b05">More...</a><br/></td></tr>
+<tr class="separator:a6b1ded7b87eceff117474a565f7c1b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00917da9606bb5241ee9db05beb96751"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a00917da9606bb5241ee9db05beb96751">Target</a> [4]</td></tr>
+<tr class="memdesc:a00917da9606bb5241ee9db05beb96751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Target DTC code per tile.  <a href="#a00917da9606bb5241ee9db05beb96751">More...</a><br/></td></tr>
+<tr class="separator:a00917da9606bb5241ee9db05beb96751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adadce3ae2d349733d25a5934172e174e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#adadce3ae2d349733d25a5934172e174e">Scan_Mode</a></td></tr>
+<tr class="memdesc:adadce3ae2d349733d25a5934172e174e"><td class="mdescLeft">&#160;</td><td class="mdescRight">DTC scan mode.  <a href="#adadce3ae2d349733d25a5934172e174e">More...</a><br/></td></tr>
+<tr class="separator:adadce3ae2d349733d25a5934172e174e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff6add993bf113220975293d07db7d09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#aff6add993bf113220975293d07db7d09">DTC_Code</a> [4]</td></tr>
+<tr class="memdesc:aff6add993bf113220975293d07db7d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resulting DTC code per tile.  <a href="#aff6add993bf113220975293d07db7d09">More...</a><br/></td></tr>
+<tr class="separator:aff6add993bf113220975293d07db7d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15397d8da3efca31281e155d9a4570de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a15397d8da3efca31281e155d9a4570de">Num_Windows</a> [4]</td></tr>
+<tr class="memdesc:a15397d8da3efca31281e155d9a4570de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of valid windows found per tile.  <a href="#a15397d8da3efca31281e155d9a4570de">More...</a><br/></td></tr>
+<tr class="separator:a15397d8da3efca31281e155d9a4570de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f9f1c4f1c48410b59bc975e3c894d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a54f9f1c4f1c48410b59bc975e3c894d0">Max_Gap</a> [4]</td></tr>
+<tr class="memdesc:a54f9f1c4f1c48410b59bc975e3c894d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum gap between windows per tile.  <a href="#a54f9f1c4f1c48410b59bc975e3c894d0">More...</a><br/></td></tr>
+<tr class="separator:a54f9f1c4f1c48410b59bc975e3c894d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69fd50081ae276acb5d3d235328dd707"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a69fd50081ae276acb5d3d235328dd707">Min_Gap</a> [4]</td></tr>
+<tr class="memdesc:a69fd50081ae276acb5d3d235328dd707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum gap between windows per tile.  <a href="#a69fd50081ae276acb5d3d235328dd707">More...</a><br/></td></tr>
+<tr class="separator:a69fd50081ae276acb5d3d235328dd707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99e24414cb09bc34a25d9dabe9e38fc7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___m_t_s___d_t_c___settings.html#a99e24414cb09bc34a25d9dabe9e38fc7">Max_Overlap</a> [4]</td></tr>
+<tr class="memdesc:a99e24414cb09bc34a25d9dabe9e38fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum window overlap per tile.  <a href="#a99e24414cb09bc34a25d9dabe9e38fc7">More...</a><br/></td></tr>
+<tr class="separator:a99e24414cb09bc34a25d9dabe9e38fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>MTS DTC Settings. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="aff6add993bf113220975293d07db7d09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::DTC_Code[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resulting DTC code per tile. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gaccab0c774a971a73089115245cfe1865">XRFdc_MultiConverter_Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6b1ded7b87eceff117474a565f7c1b05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_MTS_DTC_Settings::IsPLL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates whether the scan targets the PLL DTC. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gaccab0c774a971a73089115245cfe1865">XRFdc_MultiConverter_Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a54f9f1c4f1c48410b59bc975e3c894d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::Max_Gap[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum gap between windows per tile. </p>
+
+</div>
+</div>
+<a class="anchor" id="a99e24414cb09bc34a25d9dabe9e38fc7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::Max_Overlap[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum window overlap per tile. </p>
+
+</div>
+</div>
+<a class="anchor" id="a69fd50081ae276acb5d3d235328dd707"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::Min_Gap[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Minimum gap between windows per tile. </p>
+
+</div>
+</div>
+<a class="anchor" id="a15397d8da3efca31281e155d9a4570de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::Num_Windows[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of valid windows found per tile. </p>
+
+</div>
+</div>
+<a class="anchor" id="a205da479b1d0abc374c8c8f0b8fd0e2c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_MTS_DTC_Settings::RefTile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reference tile for the DTC scan. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga032b44b96776ed88ed58464b1d014d63">XRFdc_MultiConverter_Sync()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adadce3ae2d349733d25a5934172e174e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::Scan_Mode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DTC scan mode. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gaccab0c774a971a73089115245cfe1865">XRFdc_MultiConverter_Init()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a00917da9606bb5241ee9db05beb96751"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XRFdc_MTS_DTC_Settings::Target[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Target DTC code per tile. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#gaccab0c774a971a73089115245cfe1865">XRFdc_MultiConverter_Init()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

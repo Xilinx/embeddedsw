@@ -4,8 +4,11 @@
     <compoundname>xv_sdirxss_log.c</compoundname>
     <includes refid="xv__sdirxss_8h" local="yes">xv_sdirxss.h</includes>
     <incdepgraph>
-      <node id="820">
-        <label>xv_sdivid.h</label>
+      <node id="817">
+        <label>xv_sdirxss_log.c</label>
+        <link refid="xv_sdirxss_log.c"/>
+        <childnode refid="818" relation="include">
+        </childnode>
       </node>
       <node id="818">
         <label>xv_sdirxss.h</label>
@@ -19,6 +22,9 @@
         <childnode refid="822" relation="include">
         </childnode>
       </node>
+      <node id="820">
+        <label>xv_sdivid.h</label>
+      </node>
       <node id="822">
         <label>xv_sdirx.h</label>
       </node>
@@ -27,12 +33,6 @@
       </node>
       <node id="821">
         <label>xvidc.h</label>
-      </node>
-      <node id="817">
-        <label>xv_sdirxss_log.c</label>
-        <link refid="xv_sdirxss_log.c"/>
-        <childnode refid="818" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -60,9 +60,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="42" bodyend="49"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="42" bodyend="49"/>
         <references refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" compoundref="xv__sdirxss_8h" startline="95">XV_SdiRxSs_Log::HeadIndex</references>
-        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="171">XV_SdiRxSs::Log</references>
+        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="160">XV_SdiRxSs::Log</references>
         <references refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" compoundref="xv__sdirxss_8h" startline="97">XV_SdiRxSs_Log::TailIndex</references>
       </memberdef>
       <memberdef kind="function" id="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -111,15 +111,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="61" bodyend="93"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="61" bodyend="93"/>
         <references refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" compoundref="xv__sdirxss_8h" startline="94">XV_SdiRxSs_Log::DataBuffer</references>
         <references refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" compoundref="xv__sdirxss_8h" startline="95">XV_SdiRxSs_Log::HeadIndex</references>
-        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="171">XV_SdiRxSs::Log</references>
+        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="160">XV_SdiRxSs::Log</references>
         <references refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" compoundref="xv__sdirxss_8h" startline="97">XV_SdiRxSs_Log::TailIndex</references>
         <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa51fc4231632e2b7294e582fe600c6ef9" compoundref="xv__sdirxss_8h" startline="87">XV_SDIRXSS_LOG_EVT_DUMMY</references>
-        <referencedby refid="xv__sdirxss_8h_1a691319ac2baf302e4f0b833c0aafc963" compoundref="xv__sdirxss_8c" startline="412" endline="421">XV_SdiRxSs_Start</referencedby>
-        <referencedby refid="xv__sdirxss_8h_1ac4e45bc8ac7c85d1ad5958be34844543" compoundref="xv__sdirxss_8c" startline="432" endline="439">XV_SdiRxSs_Stop</referencedby>
-        <referencedby refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" compoundref="xv__sdirxss__coreinit_8c" startline="51" endline="87">XV_SdiRxSs_SubcoreInitSdiRx</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a691319ac2baf302e4f0b833c0aafc963" compoundref="xv__sdirxss_8c" startline="396" endline="405">XV_SdiRxSs_Start</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ac4e45bc8ac7c85d1ad5958be34844543" compoundref="xv__sdirxss_8c" startline="416" endline="423">XV_SdiRxSs_Stop</referencedby>
+        <referencedby refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" compoundref="xv__sdirxss__coreinit_8c" startline="51" endline="83">XV_SdiRxSs_SubcoreInitSdiRx</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u16</type>
@@ -146,10 +146,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="106" bodyend="129"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="106" bodyend="129"/>
         <references refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" compoundref="xv__sdirxss_8h" startline="94">XV_SdiRxSs_Log::DataBuffer</references>
         <references refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" compoundref="xv__sdirxss_8h" startline="95">XV_SdiRxSs_Log::HeadIndex</references>
-        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="171">XV_SdiRxSs::Log</references>
+        <references refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" compoundref="xv__sdirxss_8h" startline="160">XV_SdiRxSs::Log</references>
         <references refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" compoundref="xv__sdirxss_8h" startline="97">XV_SdiRxSs_Log::TailIndex</references>
         <referencedby refid="xv__sdirxss__log_8c_1a3b2d7ef1aa9533cbc6661da353417cbc" compoundref="xv__sdirxss__log_8c" startline="139" endline="204">XV_SdiRxSs_LogDisplay</referencedby>
       </memberdef>
@@ -177,7 +177,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="139" bodyend="204"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c" bodystart="139" bodyend="204"/>
         <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baac87b23eb6dafee43b46fa934dbe65383" compoundref="xv__sdirxss_8h" startline="75">XV_SDIRXSS_LOG_EVT_NONE</references>
         <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa6cbf56745454fffbcc6154ef9ac79225" compoundref="xv__sdirxss_8h" startline="82">XV_SDIRXSS_LOG_EVT_OVERFLOW</references>
         <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baa827f33ac2529c5f4cf3945835dcb1ce6" compoundref="xv__sdirxss_8h" startline="79">XV_SDIRXSS_LOG_EVT_RESET</references>
@@ -357,6 +357,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="204"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_log.c"/>
   </compounddef>
 </doxygen>

@@ -8,6 +8,9 @@
       <node id="101">
         <label>xil_assert.h</label>
       </node>
+      <node id="98">
+        <label>xil_io.h</label>
+      </node>
       <node id="96">
         <label>xdppsu.h</label>
         <link refid="xdppsu_8h"/>
@@ -18,15 +21,12 @@
         <childnode refid="100" relation="include">
         </childnode>
       </node>
-      <node id="98">
-        <label>xil_io.h</label>
-      </node>
-      <node id="97">
-        <label>xdppsu_hw.h</label>
-        <link refid="xdppsu__hw_8h"/>
-        <childnode refid="98" relation="include">
+      <node id="95">
+        <label>xdppsu_intr.c</label>
+        <link refid="xdppsu_intr.c"/>
+        <childnode refid="96" relation="include">
         </childnode>
-        <childnode refid="99" relation="include">
+        <childnode refid="101" relation="include">
         </childnode>
       </node>
       <node id="100">
@@ -35,12 +35,12 @@
       <node id="99">
         <label>xil_types.h</label>
       </node>
-      <node id="95">
-        <label>xdppsu_intr.c</label>
-        <link refid="xdppsu_intr.c"/>
-        <childnode refid="96" relation="include">
+      <node id="97">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="98" relation="include">
         </childnode>
-        <childnode refid="101" relation="include">
+        <childnode refid="99" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -92,9 +92,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="47" bodyend="57"/>
-        <references refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" compoundref="xdppsu_8h" startline="264">XDpPsu::HpdEventCallbackRef</references>
-        <references refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" compoundref="xdppsu_8h" startline="261">XDpPsu::HpdEventHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="47" bodyend="57"/>
+        <references refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" compoundref="xdppsu_8h" startline="258">XDpPsu::HpdEventCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" compoundref="xdppsu_8h" startline="255">XDpPsu::HpdEventHandler</references>
       </memberdef>
       <memberdef kind="function" id="xdppsu__intr_8c_1a566d5385a4745191d09f43440125d927" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -143,9 +143,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="74" bodyend="84"/>
-        <references refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" compoundref="xdppsu_8h" startline="270">XDpPsu::HpdPulseCallbackRef</references>
-        <references refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" compoundref="xdppsu_8h" startline="267">XDpPsu::HpdPulseHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="74" bodyend="84"/>
+        <references refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" compoundref="xdppsu_8h" startline="264">XDpPsu::HpdPulseCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" compoundref="xdppsu_8h" startline="261">XDpPsu::HpdPulseHandler</references>
       </memberdef>
       <memberdef kind="function" id="xdppsu__intr_8c_1a940393f7b33c36e51ea69d4561630222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -172,20 +172,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="100" bodyend="134"/>
-        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
-        <references refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" compoundref="xdppsu_8h" startline="239">XDpPsu::Config</references>
-        <references refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" compoundref="xdppsu_8h" startline="264">XDpPsu::HpdEventCallbackRef</references>
-        <references refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" compoundref="xdppsu_8h" startline="261">XDpPsu::HpdEventHandler</references>
-        <references refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" compoundref="xdppsu_8h" startline="270">XDpPsu::HpdPulseCallbackRef</references>
-        <references refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" compoundref="xdppsu_8h" startline="267">XDpPsu::HpdPulseHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c" bodystart="100" bodyend="134"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="59">XDpPsu_Config::BaseAddr</references>
+        <references refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" compoundref="xdppsu_8h" startline="233">XDpPsu::Config</references>
+        <references refid="struct_x_dp_psu_1a347b8b6e4f1e7b56f154007cf8039e81" compoundref="xdppsu_8h" startline="258">XDpPsu::HpdEventCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a5260646a635dae6b11a8670785574c66" compoundref="xdppsu_8h" startline="255">XDpPsu::HpdEventHandler</references>
+        <references refid="struct_x_dp_psu_1aed4c24dc998c531cec4674be4d6db3aa" compoundref="xdppsu_8h" startline="264">XDpPsu::HpdPulseCallbackRef</references>
+        <references refid="struct_x_dp_psu_1a128ad832eab2325c3df835f0452b5208" compoundref="xdppsu_8h" startline="261">XDpPsu::HpdPulseHandler</references>
         <references refid="xdppsu__hw_8h_1a728bb80efc84e6cb161e3f04103bf6ed" compoundref="xdppsu__hw_8h" startline="153">XDPPSU_HPD_DURATION</references>
         <references refid="xdppsu__hw_8h_1a3c97c07d18d9c5a39382fb8f8f7518b6" compoundref="xdppsu__hw_8h" startline="712">XDPPSU_INTR_HPD_EVENT_MASK</references>
         <references refid="xdppsu__hw_8h_1a63c73ef7b94ee2b16928d5423226e636" compoundref="xdppsu__hw_8h" startline="724">XDPPSU_INTR_HPD_PULSE_DETECTED_MASK</references>
         <references refid="xdppsu__hw_8h_1a66cf1bc6e98aa546ba11f8a8091b1f8e" compoundref="xdppsu__hw_8h" startline="338">XDPPSU_INTR_STATUS</references>
-        <references refid="xdppsu_8c_1aee45a79c993e3bcad636dddf3121aeab" compoundref="xdppsu_8c" startline="1585" endline="1606">XDpPsu_IsConnected</references>
-        <references refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" compoundref="xdppsu__hw_8h" startline="1424">XDpPsu_ReadReg</references>
-        <references refid="xdppsu__hw_8h_1a823328e4a95aa3ba27553603940a7ba8" compoundref="xdppsu__hw_8h" startline="1441">XDpPsu_WriteReg</references>
+        <references refid="xdppsu_8c_1aee45a79c993e3bcad636dddf3121aeab" compoundref="xdppsu_8c" startline="1582" endline="1603">XDpPsu_IsConnected</references>
+        <references refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" compoundref="xdppsu__hw_8h" startline="1416">XDpPsu_ReadReg</references>
+        <references refid="xdppsu__hw_8h_1a823328e4a95aa3ba27553603940a7ba8" compoundref="xdppsu__hw_8h" startline="1433">XDpPsu_WriteReg</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -275,6 +275,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="134"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_intr.c"/>
   </compounddef>
 </doxygen>

@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__efuse__error_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,7 +120,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       vss  02/23/24 Added IPI support for eFuse read and write
       ng   11/22/23 Fixed doxygen grouping
 3.5   har  12/04/24 Added error code XNVM_EFUSE_ERR_AES_DISABLED
-3.6   hj   04/15/25 Remove zero IV check in dec_only fuse programming</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xnvm_efuse_error_plat.h&quot;</code><br/>
+3.6   hj   04/15/25 Remove zero IV check in dec_only fuse programming
+3.8   mkr  08/26/26 Fixed TMEPERATURE typo and renamed affected error codes
+                    to XNVM_EFUSE_ERR_ prefix</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xnvm_efuse_error_plat.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -198,14 +200,14 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcace0e87d10aefbf259db51b62f4f4cbdc">XNVM_EFUSE_ERR_WRITE_GLITCH_CFG</a> = 0xEC00,
 <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca0da58aab9de6ef9bd411d83291bdd7d2">XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK</a> = 0xED00,
 <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca3a9a956a04c34687c49520e2646fefca">XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</a> = 0xF000,
-<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca6aed89fc61667e4a2784d0099fd4f769">XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE</a> = 0xF100,
+<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcacd86f3ad9f5800c47028da3f657bbd02">XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE</a> = 0xF100,
 <br/>
-&#160;&#160;<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca92857890de785d9496d723d7cbe56ab5">XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE</a> = 0xF200,
-<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca5889e498bb62933e403a7c28332ee064">XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED</a> = 0xF300,
-<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca8f2f820cef391a9e44e23feb978cca50">XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA</a> = 0xF400,
-<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca86ffedf762c2a56f63d1eee2a88c5c17">XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED</a> = 0xFA00,
+&#160;&#160;<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca57589212ada1dd1b766c78e4db4b57ed">XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE</a> = 0xF200,
+<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcad1ae6555dfedac811da6fa7049014034">XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED</a> = 0xF300,
+<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca3199eac8cf3d6dc651f13c7f57bbe96d">XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA</a> = 0xF400,
+<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca9d91497c1119048f9b78493ead76f766">XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED</a> = 0xFA00,
 <br/>
-&#160;&#160;<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca2e67b34114355dcc8f9b6528b3db6f3d">XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE</a> = 0xFB00,
+&#160;&#160;<a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca501aad13c9a5ba0217f16930d45c7702">XNVM_EFUSE_ERR_INVALID_ADDR_RANGE</a> = 0xFB00,
 <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca7ef01e49861cc0ea50b64e8baa298e2f">XNVM_EFUSE_ERR_GLITCH_DETECTED</a> = 0x20000,
 <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcad266d3a6d6afe7285781c476aa586575">XNVM_EFUSE_ERR_FUSE_PROTECTED</a> = 0x40000,
 <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca91e4b12e40ef1fd3a78d16279d51d2d0">XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</a> = 0x80000

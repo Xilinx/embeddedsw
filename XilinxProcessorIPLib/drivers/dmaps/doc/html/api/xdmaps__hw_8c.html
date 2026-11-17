@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xdmaps__hw_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xdmaps__hw_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xdmaps_hw.c File Reference</div>  </div>
@@ -107,10 +108,16 @@ $(document).ready(function(){initNavTree('xdmaps__hw_8c.html','');});
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="xdmaps__hw_8h.html">xdmaps_hw.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga3bab9e663ba55d9f176d60c4a0b5ab33"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga3bab9e663ba55d9f176d60c4a0b5ab33">XDMAPS_MAX_WAIT</a>&#160;&#160;&#160;4000</td></tr>
+<tr class="memdesc:ga3bab9e663ba55d9f176d60c4a0b5ab33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum poll iterations while waiting for DMA debug idle.  <a href="group__dmaps.html#ga3bab9e663ba55d9f176d60c4a0b5ab33">More...</a><br/></td></tr>
+<tr class="separator:ga3bab9e663ba55d9f176d60c4a0b5ab33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga1979923efe3208602a8e4ba6ff2aff32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dmaps.html#ga1979923efe3208602a8e4ba6ff2aff32">XDmaPs_ResetHw</a> (u32 BaseAddress)</td></tr>
-<tr class="memdesc:ga1979923efe3208602a8e4ba6ff2aff32"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function perform the reset sequence to the given dmaps interface by configuring the appropriate control bits in the dmaps specific registers the dmaps reset sequence involves the following steps Disable all the interuupts Clear the pending interrupts Kill all the active channel threads Kill the manager thread.  <a href="group__dmaps.html#ga1979923efe3208602a8e4ba6ff2aff32">More...</a><br/></td></tr>
+<tr class="memdesc:ga1979923efe3208602a8e4ba6ff2aff32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the DMA PS interface to the given dmaps interface by.  <a href="group__dmaps.html#ga1979923efe3208602a8e4ba6ff2aff32">More...</a><br/></td></tr>
 <tr class="separator:ga1979923efe3208602a8e4ba6ff2aff32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -1,5 +1,6 @@
 var xtmr__inject_8c =
 [
+    [ "xor", "xtmr__inject_8c.html#ga4f6e672819e304a484435c1a8b9af5c3", null ],
     [ "XTMR_Inject_CfgInitialize", "xtmr__inject_8c.html#ga5283360c0584dfb4cd8c7be8a8fcb312", null ],
     [ "XTMR_Inject_Disable", "xtmr__inject_8c.html#gaa8895543796c01ea108b2fe355c13d3a", null ],
     [ "XTMR_Inject_Enable", "xtmr__inject_8c.html#ga6ee64c2bc63c5959641f76a24d56b58b", null ],

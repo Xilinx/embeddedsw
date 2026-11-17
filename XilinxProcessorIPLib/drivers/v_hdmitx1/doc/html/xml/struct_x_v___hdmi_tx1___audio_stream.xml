@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="271" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="266" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___audio_stream_1ac4c60675cc3379dfeed0147daa5467fa" prot="public" static="no" mutable="no">
         <type>XHdmiC_SamplingFrequencyVal</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="272" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="267" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___audio_stream_1a464bcdba0034ba2bcfe7c1696aedd3df" prot="public" static="no" mutable="no">
         <type>XHdmiC_SamplingFrequency</type>
@@ -41,14 +41,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="274" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="269" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef contains audio stream specific data structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="270" bodyend="276"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="265" bodyend="271"/>
     <listofallmembers>
       <member refid="struct_x_v___hdmi_tx1___audio_stream_1a6c5f2350bbef920f66a9a674535938af" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_AudioStream</scope><name>Channels</name></member>
       <member refid="struct_x_v___hdmi_tx1___audio_stream_1ac4c60675cc3379dfeed0147daa5467fa" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_AudioStream</scope><name>SampleFrequency</name></member>

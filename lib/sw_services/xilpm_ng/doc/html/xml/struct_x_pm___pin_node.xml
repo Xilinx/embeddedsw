@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___pin_node" kind="struct" prot="public">
+    <compoundname>XPm_PinNode</compoundname>
+    <includes local="no">xpm_pin.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_PinNode::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+<para>Node: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___pin_node_1a6c3361e766171922a8428cf2d0f9f3fc" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm_runtime___pin_ops" kindref="compound">XPmRuntime_PinOps</ref> *</type>
+        <definition>XPmRuntime_PinOps* XPm_PinNode::RuntimeOps</definition>
+        <argsstring></argsstring>
+        <name>RuntimeOps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Pin class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="197">
+        <label>XPm_PinNode</label>
+        <link refid="struct_x_pm___pin_node"/>
+        <childnode refid="198" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="199" relation="usage">
+          <edgelabel>RuntimeOps</edgelabel>
+        </childnode>
+      </node>
+      <node id="198">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+      <node id="199">
+        <label>XPmRuntime_PinOps</label>
+        <link refid="struct_x_pm_runtime___pin_ops"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h" bodystart="47" bodyend="50"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___pin_node_1af7f764438cff1d484f59a381c5855a36" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>Node</name></member>
+      <member refid="struct_x_pm___pin_node_1a6c3361e766171922a8428cf2d0f9f3fc" prot="public" virt="non-virtual"><scope>XPm_PinNode</scope><name>RuntimeOps</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -39,5 +39,5 @@ var xv__hdmirxss_8c =
     [ "XV_HdmiRxSs_ToggleHpd", "xv__hdmirxss_8c.html#a938e999c689d01ff3559e472f21c9757", null ],
     [ "XV_HdmiRxSs_VRST", "xv__hdmirxss_8c.html#a2384155894295c0b4d52c448d3b1119b", null ],
     [ "XV_HdmiRxSs_Write_ScdcRegister", "xv__hdmirxss_8c.html#ac7e11d2a14091bf0cf981ce6db18fc3f", null ],
-    [ "XV_HdmiRxSs_SubCoreRepo", "xv__hdmirxss_8c.html#a98a52cb00d4d1fd8785ceff5f0a36558", null ]
+    [ "XV_HdmiRxSs_SubCoreRepo", "xv__hdmirxss_8c.html#a39a18defddd74705ecd2b99d651db86c", null ]
 ];

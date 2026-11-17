@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" bodystart="66" bodyend="-1"/>
         <referencedby refid="xv__vcresampler_8h_1acf9c225585cfa2ab8800a5463c00e208" compoundref="xv__vcresampler_8c" startline="28" endline="43">XV_vcresampler_CfgInitialize</referencedby>
         <referencedby refid="xv__vcresampler_8h_1a5e2713e1e927461583ef9e0b82f672e4" compoundref="xv__vcresampler_8c" startline="145" endline="151">XV_vcresampler_DisableAutoRestart</referencedby>
         <referencedby refid="xv__vcresampler_8h_1afcfcebe5b588b8a1dfb8761d817c0fc9" compoundref="xv__vcresampler_8c" startline="132" endline="138">XV_vcresampler_EnableAutoRestart</referencedby>
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" bodystart="67" bodyend="-1"/>
         <referencedby refid="xv__vcresampler_8h_1acf9c225585cfa2ab8800a5463c00e208" compoundref="xv__vcresampler_8c" startline="28" endline="43">XV_vcresampler_CfgInitialize</referencedby>
         <referencedby refid="xv__vcresampler_8h_1a5e2713e1e927461583ef9e0b82f672e4" compoundref="xv__vcresampler_8c" startline="145" endline="151">XV_vcresampler_DisableAutoRestart</referencedby>
         <referencedby refid="xv__vcresampler_8h_1afcfcebe5b588b8a1dfb8761d817c0fc9" compoundref="xv__vcresampler_8c" startline="132" endline="138">XV_vcresampler_EnableAutoRestart</referencedby>
@@ -65,7 +65,7 @@
         <referencedby refid="xv__vcresampler_8h_1a66b92c787146f6151e0267a20faf37be" compoundref="xv__vcresampler_8c" startline="232" endline="241">XV_vcresampler_Get_HwReg_input_video_format</referencedby>
         <referencedby refid="xv__vcresampler_8h_1ad90ffa0e7003659e0230f1a7ab435356" compoundref="xv__vcresampler_8c" startline="262" endline="271">XV_vcresampler_Get_HwReg_output_video_format</referencedby>
         <referencedby refid="xv__vcresampler_8h_1a6a8682f6648b031b94cc4d0bb4e788e5" compoundref="xv__vcresampler_8c" startline="172" endline="181">XV_vcresampler_Get_HwReg_width</referencedby>
-        <referencedby refid="xv__vcresampler__sinit_8c_1a4e513f7ffd2e841e9b7ef5f589568781" compoundref="xv__vcresampler__sinit_8c" startline="130" endline="144">XV_vcresampler_Initialize</referencedby>
+        <referencedby refid="xv__vcresampler__sinit_8c_1a4e513f7ffd2e841e9b7ef5f589568781" compoundref="xv__vcresampler__sinit_8c" startline="65" endline="79">XV_vcresampler_Initialize</referencedby>
         <referencedby refid="xv__vcresampler_8h_1a70ad8a9201effb14e50319e9c28ea900" compoundref="xv__vcresampler_8c" startline="388" endline="393">XV_vcresampler_InterruptClear</referencedby>
         <referencedby refid="xv__vcresampler_8h_1a2b23b213f26452cef35f57e65e738e67" compoundref="xv__vcresampler_8c" startline="366" endline="374">XV_vcresampler_InterruptDisable</referencedby>
         <referencedby refid="xv__vcresampler_8h_1a5ddf84a4aa2a43a8e37e722a3537351d" compoundref="xv__vcresampler_8c" startline="335" endline="345">XV_vcresampler_InterruptEnable</referencedby>
@@ -101,7 +101,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" bodystart="69" bodyend="72"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler.h" bodystart="65" bodyend="68"/>
     <listofallmembers>
       <member refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" prot="public" virt="non-virtual"><scope>XV_vcresampler</scope><name>Config</name></member>
       <member refid="struct_x_v__vcresampler_1a5aea4af9232426c70eb4e0cd4c56b40f" prot="public" virt="non-virtual"><scope>XV_vcresampler</scope><name>IsReady</name></member>

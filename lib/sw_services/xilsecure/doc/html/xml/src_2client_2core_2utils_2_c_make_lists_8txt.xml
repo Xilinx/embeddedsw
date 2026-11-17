@@ -10,11 +10,19 @@
 <codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NOT<sp/></highlight><highlight class="stringliteral">&quot;Versal_2VP&quot;</highlight><highlight class="normal"><sp/>IN_LIST<sp/>VARIANT<sp/>AND<sp/>NOT<sp/></highlight><highlight class="stringliteral">&quot;Versal_2VP_P&quot;</highlight><highlight class="normal"><sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
-<codeline lineno="5"><highlight class="normal"><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_alghelper.h)</highlight></codeline>
-<codeline lineno="6"><highlight class="normal"><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_alghelper.c)</highlight></codeline>
-<codeline lineno="7"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_alghelper.h)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_alghelper.c)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>xsecure_libver<sp/>implements<sp/>the<sp/>client-server<sp/>library-info<sp/>query,<sp/>which<sp/>is<sp/>only</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>meaningful<sp/>on<sp/>the<sp/>platforms<sp/>selected<sp/>by<sp/>the<sp/>guard<sp/>below.<sp/>The<sp/>guard<sp/>matches<sp/>the</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Versal-only<sp/>build<sp/>plus<sp/>the<sp/>machine<sp/>that<sp/>is<sp/>neither<sp/>ZynqMP,<sp/>Versal<sp/>nor<sp/>Spartan</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>UltraScalePlus.<sp/>Gate<sp/>collection<sp/>to<sp/>those<sp/>platforms<sp/>to<sp/>avoid<sp/>breaking<sp/>builds</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>where<sp/>the<sp/>feature<sp/>does<sp/>not<sp/>apply.</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(_IS_VERSAL_ONLY<sp/>OR<sp/>(NOT<sp/>_IS_ZYNQMP<sp/>AND<sp/>NOT<sp/>_IS_VERSAL<sp/>AND<sp/>NOT<sp/>_IS_SPARTANUPLUS))</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_libver.h)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_libver.c)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/utils/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

@@ -8,162 +8,162 @@
     <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
     <includes local="yes">xplmi_plat.h</includes>
     <incdepgraph>
-      <node id="1618">
+      <node id="1704">
         <label>xil_assert.h</label>
       </node>
-      <node id="1630">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="1631" relation="include">
-        </childnode>
-        <childnode refid="1632" relation="include">
-        </childnode>
-        <childnode refid="1609" relation="include">
-        </childnode>
-        <childnode refid="1626" relation="include">
-        </childnode>
-        <childnode refid="1614" relation="include">
-        </childnode>
-      </node>
-      <node id="1619">
-        <label>xil_hw.h</label>
-      </node>
-      <node id="1624">
-        <label>stdlib.h</label>
-      </node>
-      <node id="1629">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi__event__logging_8h"/>
-        <childnode refid="1613" relation="include">
-        </childnode>
-        <childnode refid="1626" relation="include">
-        </childnode>
-      </node>
-      <node id="1610">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="1611" relation="include">
-        </childnode>
-        <childnode refid="1612" relation="include">
-        </childnode>
-        <childnode refid="1613" relation="include">
-        </childnode>
-        <childnode refid="1618" relation="include">
-        </childnode>
-        <childnode refid="1619" relation="include">
-        </childnode>
-      </node>
-      <node id="1620">
-        <label>xplmi_task.h</label>
-        <link refid="xplmi__task_8h"/>
-        <childnode refid="1618" relation="include">
-        </childnode>
-        <childnode refid="1621" relation="include">
-        </childnode>
-        <childnode refid="1617" relation="include">
-        </childnode>
-        <childnode refid="1622" relation="include">
-        </childnode>
-        <childnode refid="1623" relation="include">
-        </childnode>
-      </node>
-      <node id="1627">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="1628" relation="include">
-        </childnode>
-        <childnode refid="1615" relation="include">
-        </childnode>
-        <childnode refid="1629" relation="include">
-        </childnode>
-        <childnode refid="1630" relation="include">
-        </childnode>
-      </node>
-      <node id="1626">
+      <node id="1712">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="1617" relation="include">
+        <childnode refid="1703" relation="include">
         </childnode>
       </node>
-      <node id="1621">
-        <label>mb_interface.h</label>
+      <node id="1705">
+        <label>xil_hw.h</label>
       </node>
-      <node id="1612">
+      <node id="1710">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1698">
         <label>xplmi_modules.h</label>
         <link refid="xplmi__modules_8h"/>
-        <childnode refid="1613" relation="include">
+        <childnode refid="1699" relation="include">
         </childnode>
-        <childnode refid="1616" relation="include">
+        <childnode refid="1702" relation="include">
         </childnode>
-        <childnode refid="1611" relation="include">
+        <childnode refid="1697" relation="include">
         </childnode>
-        <childnode refid="1617" relation="include">
+        <childnode refid="1703" relation="include">
         </childnode>
       </node>
-      <node id="1622">
-        <label>xstatus.h</label>
+      <node id="1696">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="1697" relation="include">
+        </childnode>
+        <childnode refid="1698" relation="include">
+        </childnode>
+        <childnode refid="1699" relation="include">
+        </childnode>
+        <childnode refid="1704" relation="include">
+        </childnode>
+        <childnode refid="1705" relation="include">
+        </childnode>
       </node>
-      <node id="1615">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="1632">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="1617">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1613">
+      <node id="1699">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="1614" relation="include">
+        <childnode refid="1700" relation="include">
         </childnode>
-        <childnode refid="1615" relation="include">
+        <childnode refid="1701" relation="include">
         </childnode>
       </node>
-      <node id="1611">
+      <node id="1707">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="1708">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1709">
+        <label>list.h</label>
+        <childnode refid="1710" relation="include">
+        </childnode>
+      </node>
+      <node id="1701">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1706">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="1704" relation="include">
+        </childnode>
+        <childnode refid="1707" relation="include">
+        </childnode>
+        <childnode refid="1703" relation="include">
+        </childnode>
+        <childnode refid="1708" relation="include">
+        </childnode>
+        <childnode refid="1709" relation="include">
+        </childnode>
+      </node>
+      <node id="1718">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="1716">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="1717" relation="include">
+        </childnode>
+        <childnode refid="1718" relation="include">
+        </childnode>
+        <childnode refid="1695" relation="include">
+        </childnode>
+        <childnode refid="1712" relation="include">
+        </childnode>
+        <childnode refid="1700" relation="include">
+        </childnode>
+      </node>
+      <node id="1703">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1697">
         <label>xparameters.h</label>
       </node>
-      <node id="1628">
+      <node id="1714">
         <label>xil_printf.h</label>
       </node>
-      <node id="1623">
-        <label>list.h</label>
-        <childnode refid="1624" relation="include">
+      <node id="1713">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="1714" relation="include">
+        </childnode>
+        <childnode refid="1701" relation="include">
+        </childnode>
+        <childnode refid="1715" relation="include">
+        </childnode>
+        <childnode refid="1716" relation="include">
         </childnode>
       </node>
-      <node id="1608">
-        <label>xplmi_gic_interrupts.c</label>
-        <link refid="xplmi_gic_interrupts.c"/>
-        <childnode refid="1609" relation="include">
-        </childnode>
-        <childnode refid="1625" relation="include">
-        </childnode>
-        <childnode refid="1626" relation="include">
-        </childnode>
-        <childnode refid="1627" relation="include">
-        </childnode>
-        <childnode refid="1616" relation="include">
-        </childnode>
-      </node>
-      <node id="1625">
+      <node id="1711">
         <label>xplmi_hw.h</label>
       </node>
-      <node id="1609">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="1610" relation="include">
-        </childnode>
-        <childnode refid="1620" relation="include">
-        </childnode>
-      </node>
-      <node id="1631">
+      <node id="1717">
         <label>xiomodule.h</label>
       </node>
-      <node id="1616">
+      <node id="1702">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="1614">
+      <node id="1700">
         <label>xplmi_status.h</label>
+      </node>
+      <node id="1694">
+        <label>xplmi_gic_interrupts.c</label>
+        <link refid="xplmi_gic_interrupts.c"/>
+        <childnode refid="1695" relation="include">
+        </childnode>
+        <childnode refid="1711" relation="include">
+        </childnode>
+        <childnode refid="1712" relation="include">
+        </childnode>
+        <childnode refid="1713" relation="include">
+        </childnode>
+        <childnode refid="1702" relation="include">
+        </childnode>
+      </node>
+      <node id="1695">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="1696" relation="include">
+        </childnode>
+        <childnode refid="1706" relation="include">
+        </childnode>
+      </node>
+      <node id="1715">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="1699" relation="include">
+        </childnode>
+        <childnode refid="1712" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -228,10 +228,10 @@
 <para><itemizedlist>
 <listitem><para>Create a Task for the handler.</para></listitem><listitem><para>Set the interrupt ID for the task. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="77" bodyend="97"/>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="240">XPLM_ERR_TASK_CREATE</references>
-        <references refid="group__xilplmi__server__apis_1ga153eb8e930bc13c485bfefe0ad44423c" compoundref="server_2xplmi__plat_8c" startline="623" endline="631">XPlmi_GetGicIntrId</references>
-        <references refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="90" endline="114">XPlmi_TaskCreate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="77" bodyend="97"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="247">XPLM_ERR_TASK_CREATE</references>
+        <references refid="group__xilplmi__server__apis_1ga153eb8e930bc13c485bfefe0ad44423c" compoundref="server_2xplmi__plat_8c" startline="630" endline="638">XPlmi_GetGicIntrId</references>
+        <references refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="91" endline="120">XPlmi_TaskCreate</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga6f140142b7bceccfda3001345ddf7ca4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -269,9 +269,9 @@
 <para><itemizedlist>
 <listitem><para>Get the GicP mask.</para></listitem><listitem><para>Clear interrupt by writing 1 to the interrupt bit. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="107" bodyend="119"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="132">XPLMI_GICPX_LEN</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="107" bodyend="119"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="140">XPLMI_GICPX_LEN</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="408" endline="468">XPlmi_GenericHandler</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga6e2f812d2b40f9c36675ab22ec78192a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -309,8 +309,8 @@
 <para><itemizedlist>
 <listitem><para>Get the GicP mask.</para></listitem><listitem><para>Enable interrupt by writing 1 to the interrupt bit. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="129" bodyend="142"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="132">XPLMI_GICPX_LEN</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="129" bodyend="142"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="140">XPLMI_GICPX_LEN</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga3f6bfa66084293c76ec76b60d018a958" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -348,8 +348,8 @@
 <para><itemizedlist>
 <listitem><para>Get the GicP mask.</para></listitem><listitem><para>Disable interrupt by writing 1 to the interrupt bit. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="152" bodyend="161"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="132">XPLMI_GICPX_LEN</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="152" bodyend="161"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="140">XPLMI_GICPX_LEN</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga181880f216f7b6be3b58b920b2ba89fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -376,12 +376,12 @@
 <para><itemizedlist>
 <listitem><para>Loop across all the GICPx status registers and check for every set bit in them.</para></listitem><listitem><para>Disable the interrputs if the mask bit is set.</para></listitem><listitem><para>Call the corresponding the handler after disabling the interrupt.</para></listitem><listitem><para>After handler returns, clear the interrupt the status bit. </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="170" bodyend="230"/>
-        <references refid="group__xilplmi__server__apis_1ga213b5fa95bdf6f6918c64330613b42f3" compoundref="server_2xplmi__plat_8c" startline="487" endline="517">XPlmi_GicAddTask</references>
-        <references refid="2vp_2server_2xplmi__plat_8h_1a4e54c77a3935aa35152e7aa9ffca14a8" compoundref="2vp_2server_2xplmi__plat_8h" startline="130">XPLMI_GICP_INDEX_SHIFT</references>
-        <references refid="2vp_2server_2xplmi__plat_8h_1a1fb65c45ee821282d8eb0999d45ff057" compoundref="2vp_2server_2xplmi__plat_8h" startline="129">XPLMI_GICP_SOURCE_COUNT</references>
-        <references refid="2vp_2server_2xplmi__plat_8h_1a20d89b6e24c4c68509edc72cea6e1e2e" compoundref="2vp_2server_2xplmi__plat_8h" startline="131">XPLMI_GICPX_INDEX_SHIFT</references>
-        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="132">XPLMI_GICPX_LEN</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="170" bodyend="230"/>
+        <references refid="group__xilplmi__server__apis_1ga213b5fa95bdf6f6918c64330613b42f3" compoundref="server_2xplmi__plat_8c" startline="491" endline="524">XPlmi_GicAddTask</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a4e54c77a3935aa35152e7aa9ffca14a8" compoundref="2vp_2server_2xplmi__plat_8h" startline="138">XPLMI_GICP_INDEX_SHIFT</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a1fb65c45ee821282d8eb0999d45ff057" compoundref="2vp_2server_2xplmi__plat_8h" startline="137">XPLMI_GICP_SOURCE_COUNT</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a20d89b6e24c4c68509edc72cea6e1e2e" compoundref="2vp_2server_2xplmi__plat_8h" startline="139">XPLMI_GICPX_INDEX_SHIFT</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1acf415d04a45304a570d53c87623b529a" compoundref="2vp_2server_2xplmi__plat_8h" startline="140">XPLMI_GICPX_LEN</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gaa8a338ceafbc2b9234ebcdaa80c7f5a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -406,10 +406,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="240" bodyend="253"/>
-        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="128" endline="154">XPlmi_GetTaskInstance</references>
-        <references refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" compoundref="xplmi__task_8c" startline="164" endline="171">XPlmi_TaskTriggerNow</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga213b5fa95bdf6f6918c64330613b42f3" compoundref="server_2xplmi__plat_8c" startline="487" endline="517">XPlmi_GicAddTask</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c" bodystart="240" bodyend="253"/>
+        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="134" endline="160">XPlmi_GetTaskInstance</references>
+        <references refid="group__xilplmi__server__apis_1gadbfc56f5e2b34a2bd07996a3231becb2" compoundref="xplmi__task_8c" startline="170" endline="177">XPlmi_TaskTriggerNow</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -587,6 +586,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="253"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="254"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c"/>
   </compounddef>
 </doxygen>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="283" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="284" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_nvm___efuse_aes_revoke_id_1a55b34a66188f82ce23f98e72503ae2cf" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="284" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="285" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>eFuse AES revoke ID info </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="282" bodyend="285"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="283" bodyend="286"/>
     <listofallmembers>
       <member refid="struct_x_nvm___efuse_aes_revoke_id_1a84cac247ce621707b9ba82d040e1b594" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesRevokeId</scope><name>AesRevokeIdVal</name></member>
       <member refid="struct_x_nvm___efuse_aes_revoke_id_1a55b34a66188f82ce23f98e72503ae2cf" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesRevokeId</scope><name>PrgmAesRevokeId</name></member>

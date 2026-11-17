@@ -7,16 +7,53 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>Ecdsa.h)</highlight></codeline>
 <codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>Rsa.h)</highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal">if(&quot;${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze_riscv</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
-<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/>execute_process(COMMAND<sp/>${CMAKE_COMMAND}<sp/>-E<sp/>copy<sp/>${CMAKE_CURRENT_SOURCE_DIR}/libxilasu.a<sp/>${CMAKE_LIBRARY_PATH}/libxilasu_mbv.a)</highlight></codeline>
-<codeline lineno="9"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>liboqs<sp/>(Open<sp/>Quantum<sp/>Safe)<sp/>prebuilt<sp/>drop<sp/>for<sp/>ML-DSA<sp/>(FIPS<sp/>204)<sp/>and</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>ML-KEM<sp/>(FIPS<sp/>203).<sp/>oqs_mldsa_internal.h<sp/>exposes<sp/>the<sp/>lower-level<sp/>ML-DSA<sp/>entry<sp/>points<sp/>used</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>for<sp/>the<sp/>full<sp/>FIPS<sp/>204<sp/>surface<sp/>(HashML-DSA,<sp/>deterministic<sp/>signing,<sp/>seed-based<sp/>KeyGen).</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>oqs_mlkem_internal.h<sp/>exposes<sp/>the<sp/>native<sp/>ML-KEM<sp/>entry<sp/>points,<sp/>which<sp/>the<sp/>firmware<sp/>calls<sp/>in</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>place<sp/>of<sp/>the<sp/>generic<sp/>OQS_KEM<sp/>API<sp/>so<sp/>that<sp/>the<sp/>ML-KEM<sp/>path<sp/>needs<sp/>no<sp/>allocator.</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XILASU_mldsa_support)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>oqs_mldsa_internal.h)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">if(XILASU_mlkem_support)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>oqs_mlkem_internal.h)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">if(XILASU_IS_ASU)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="preprocessor">#<sp/>A<sp/>single<sp/>liboqs<sp/>drop<sp/>serves<sp/>both<sp/>ML-DSA<sp/>and<sp/>ML-KEM,<sp/>so<sp/>it<sp/>is<sp/>required<sp/>as<sp/>soon<sp/>as<sp/>either</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/>#<sp/>one<sp/>is<sp/>enabled<sp/>and<sp/>must<sp/>not<sp/>be<sp/>demanded<sp/>when<sp/>both<sp/>are<sp/>off.</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>set(asu_required_archives<sp/>libxilasu.a)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>if(XILASU_mldsa_support<sp/>OR<sp/>XILASU_mlkem_support)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>list(APPEND<sp/>asu_required_archives<sp/>liboqs.a)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="preprocessor">#<sp/>cmake<sp/>-E<sp/>copy<sp/>only<sp/>warns<sp/>when<sp/>a<sp/>source<sp/>archive<sp/>is<sp/>absent<sp/>and<sp/>still<sp/>exits<sp/>0,<sp/>so<sp/>the</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/>#<sp/>failure<sp/>would<sp/>otherwise<sp/>surface<sp/>much<sp/>later<sp/>as<sp/>an<sp/>unresolved<sp/>-lxilasu_mbv/-loqs_mbv.</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal">(asu_archive<sp/>${asu_required_archives})</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NOT<sp/>EXISTS<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_CURRENT_SOURCE_DIR}/${asu_archive}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>message(FATAL_ERROR</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;xilasu<sp/>server:<sp/>prebuilt<sp/>archive<sp/>&apos;${asu_archive}&apos;<sp/>not<sp/>found<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_CURRENT_SOURCE_DIR};<sp/>the<sp/>ASU<sp/>firmware<sp/>cannot<sp/>link<sp/>without<sp/>it.&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>endforeach()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="preprocessor">#<sp/>libxilasu_mbv.a:<sp/>historical<sp/>ASUFW<sp/>link<sp/>name<sp/>for<sp/>the<sp/>ASU<sp/>server<sp/>library</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>execute_process(COMMAND<sp/>${CMAKE_COMMAND}<sp/>-E<sp/>copy<sp/>${CMAKE_CURRENT_SOURCE_DIR}/libxilasu.a<sp/>${CMAKE_LIBRARY_PATH}/libxilasu_mbv.a)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XILASU_mldsa_support<sp/>OR<sp/>XILASU_mlkem_support)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>execute_process(COMMAND<sp/>${CMAKE_COMMAND}<sp/>-E<sp/>copy<sp/>${CMAKE_CURRENT_SOURCE_DIR}/liboqs.a<sp/>${CMAKE_LIBRARY_PATH}/liboqs_mbv.a)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">()</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="preprocessor">#<sp/>Drop<sp/>what<sp/>an<sp/>earlier<sp/>PQC<sp/>enabled<sp/>configuration<sp/>left<sp/>behind,<sp/>so<sp/>a<sp/>stale<sp/>archive<sp/>cannot</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#<sp/>be<sp/>picked<sp/>up<sp/>by<sp/>the<sp/>firmware<sp/>link.</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>file(REMOVE<sp/>${CMAKE_LIBRARY_PATH}/liboqs_mbv.a)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">endif()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/server/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

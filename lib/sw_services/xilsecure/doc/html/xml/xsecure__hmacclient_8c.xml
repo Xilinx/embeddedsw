@@ -5,76 +5,81 @@
     <includes refid="xsecure__hmacclient_8h" local="yes">xsecure_hmacclient.h</includes>
     <includes refid="xsecure__generic_8h" local="yes">xsecure_generic.h</includes>
     <incdepgraph>
-      <node id="1675">
-        <label>xsecure_hmacclient.c</label>
-        <link refid="xsecure_hmacclient.c"/>
-        <childnode refid="1676" relation="include">
-        </childnode>
-        <childnode refid="1686" relation="include">
-        </childnode>
-      </node>
-      <node id="1676">
-        <label>xsecure_hmacclient.h</label>
-        <link refid="xsecure__hmacclient_8h"/>
-        <childnode refid="1677" relation="include">
-        </childnode>
-        <childnode refid="1678" relation="include">
-        </childnode>
-        <childnode refid="1681" relation="include">
-        </childnode>
-        <childnode refid="1684" relation="include">
-        </childnode>
-      </node>
-      <node id="1683">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="1684">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1679">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="1686">
-        <label>xsecure_generic.h</label>
-        <link refid="xsecure__generic_8h"/>
-        <childnode refid="1677" relation="include">
-        </childnode>
-        <childnode refid="1678" relation="include">
-        </childnode>
-      </node>
-      <node id="1681">
+      <node id="1728">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="1682" relation="include">
+        <childnode refid="1729" relation="include">
         </childnode>
-        <childnode refid="1677" relation="include">
+        <childnode refid="1724" relation="include">
         </childnode>
-        <childnode refid="1683" relation="include">
+        <childnode refid="1730" relation="include">
         </childnode>
-        <childnode refid="1684" relation="include">
+        <childnode refid="1731" relation="include">
         </childnode>
-        <childnode refid="1685" relation="include">
+        <childnode refid="1732" relation="include">
+        </childnode>
+        <childnode refid="1733" relation="include">
         </childnode>
       </node>
-      <node id="1685">
-        <label>xsecure_config.h</label>
+      <node id="1722">
+        <label>xsecure_hmacclient.c</label>
+        <link refid="xsecure_hmacclient.c"/>
+        <childnode refid="1723" relation="include">
+        </childnode>
+        <childnode refid="1734" relation="include">
+        </childnode>
       </node>
-      <node id="1677">
-        <label>xil_types.h</label>
+      <node id="1723">
+        <label>xsecure_hmacclient.h</label>
+        <link refid="xsecure__hmacclient_8h"/>
+        <childnode refid="1724" relation="include">
+        </childnode>
+        <childnode refid="1725" relation="include">
+        </childnode>
+        <childnode refid="1728" relation="include">
+        </childnode>
+        <childnode refid="1733" relation="include">
+        </childnode>
       </node>
-      <node id="1680">
-        <label>xparameters.h</label>
+      <node id="1731">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="1682">
-        <label>xil_printf.h</label>
+      <node id="1734">
+        <label>xsecure_generic.h</label>
+        <link refid="xsecure__generic_8h"/>
+        <childnode refid="1724" relation="include">
+        </childnode>
+        <childnode refid="1725" relation="include">
+        </childnode>
       </node>
-      <node id="1678">
+      <node id="1730">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1733">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1726">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1725">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="1679" relation="include">
+        <childnode refid="1726" relation="include">
         </childnode>
-        <childnode refid="1680" relation="include">
+        <childnode refid="1727" relation="include">
         </childnode>
+      </node>
+      <node id="1732">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1724">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1727">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1729">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -115,10 +120,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" bodystart="55" bodyend="74"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="161">XSECURE_API_HMAC_OPERATION</references>
-        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c" bodystart="55" bodyend="74"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_HMAC_OPERATION</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="76" endline="140">XSecure_SendRequest</references>
         <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
       </memberdef>
       </sectiondef>
@@ -173,6 +178,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="74"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacclient.c"/>
   </compounddef>
 </doxygen>

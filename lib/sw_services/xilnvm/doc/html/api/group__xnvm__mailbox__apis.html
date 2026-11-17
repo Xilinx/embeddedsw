@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('group__xnvm__mailbox__apis.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,9 +110,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4f3c270f11a9a69fbc46f6a53b700384"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__mailbox__apis.html#ga4f3c270f11a9a69fbc46f6a53b700384">XNvm_SendRequest</a> (const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)</td></tr>
 <tr class="memdesc:ga4f3c270f11a9a69fbc46f6a53b700384"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends request to PLM through either SMC or IPI mailbox based on the execution environment.  <a href="#ga4f3c270f11a9a69fbc46f6a53b700384">More...</a><br/></td></tr>
 <tr class="separator:ga4f3c270f11a9a69fbc46f6a53b700384"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3ce66c6266190912ba2552c2bc1701c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__mailbox__apis.html#ga3ce66c6266190912ba2552c2bc1701c7">XNvm_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</td></tr>
-<tr class="memdesc:ga3ce66c6266190912ba2552c2bc1701c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#ga3ce66c6266190912ba2552c2bc1701c7">More...</a><br/></td></tr>
-<tr class="separator:ga3ce66c6266190912ba2552c2bc1701c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab287947e92e04d51cc5fee7267f377e9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__mailbox__apis.html#gab287947e92e04d51cc5fee7267f377e9">XNvm_ProcessMailbox</a> (XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen, u32 *Response)</td></tr>
+<tr class="memdesc:gab287947e92e04d51cc5fee7267f377e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to the target module and gets the response from it.  <a href="#gab287947e92e04d51cc5fee7267f377e9">More...</a><br/></td></tr>
+<tr class="separator:gab287947e92e04d51cc5fee7267f377e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga051799e29b90346a34e49e8fddfc10e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xnvm__mailbox__apis.html#ga051799e29b90346a34e49e8fddfc10e5">XNvm_ClientInit</a> (XNvm_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</td></tr>
 <tr class="memdesc:ga051799e29b90346a34e49e8fddfc10e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the instance of mailbox.  <a href="#ga051799e29b90346a34e49e8fddfc10e5">More...</a><br/></td></tr>
 <tr class="separator:ga051799e29b90346a34e49e8fddfc10e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,7 +163,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga3ce66c6266190912ba2552c2bc1701c7"></a>
+<a class="anchor" id="gab287947e92e04d51cc5fee7267f377e9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -183,7 +183,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>MsgLen</em>&#160;</td>
+          <td class="paramname"><em>MsgLen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>Response</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -198,7 +204,8 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">MailboxPtr</td><td>Pointer to mailbox instance </td></tr>
     <tr><td class="paramname">MsgPtr</td><td>Pointer to the payload message </td></tr>
-    <tr><td class="paramname">MsgLen</td><td>Length of the message</td></tr>
+    <tr><td class="paramname">MsgLen</td><td>Length of the message </td></tr>
+    <tr><td class="paramname">Response</td><td>Pointer to store the IPI response. When non-NULL, the buffer must hold RESPONSE_ARG_CNT words. Word 0 is the IPI status and the following words are payload data.</td></tr>
   </table>
   </dd>
 </dl>
@@ -207,7 +214,7 @@ Functions</h2></td></tr>
 <li>XST_FAILURE If there is a failure</li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Payload consists of API id and call arguments to be written in IPI buffer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Payload consists of API id and call arguments to be written in IPI buffer. </dd></dl>
 <ul>
 <li>Send IPI CDO to PLM. Return XST_FAILURE, if failure in IPI send request.</li>
 <li>Wait for IPI response from PLM with a default timeout of 2 seconds. If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.</li>
@@ -266,8 +273,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">InstancePtr</td><td>Pointer to the client instance </td></tr>
     <tr><td class="paramname">PayloadBuf</td><td>Pointer to the payload message </td></tr>
     <tr><td class="paramname">PayloadLen</td><td>Length of the payload message </td></tr>
-    <tr><td class="paramname">ResponseBuf</td><td>Pointer to store response values (can be NULL) </td></tr>
-    <tr><td class="paramname">ResponseLen</td><td>Length of response buffer (pass 0U when ResponseBuf is NULL)</td></tr>
+    <tr><td class="paramname">ResponseBuf</td><td>Pointer to the caller buffer that receives the response data words. When non-NULL, it must hold RESPONSE_ARG_CNT words: the IPI receive path fills the whole response frame before the status word is shifted out. May be NULL when no response data is needed. </td></tr>
+    <tr><td class="paramname">ResponseLen</td><td>Number of response data words the caller consumes (0..RESPONSE_ARG_CNT - 1). This is the count of returned words, not the required buffer size (see ResponseBuf).</td></tr>
   </table>
   </dd>
 </dl>
@@ -279,15 +286,17 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a generic API that internally handles SMC or Mailbox communication based on the build configuration. </dd></dl>
 <ul>
-<li>Validate input parameters</li>
+<li>A non-zero ResponseLen requires a non-NULL ResponseBuf. ResponseLen is clamped below to the reachable data words before the mailbox shift.</li>
 <li>Validate mailbox pointer for IPI communication</li>
 <li>Send request through IPI mailbox</li>
 </ul>
-<p>Note: For mailbox path, response is not directly returned. The caller should handle response retrieval if needed.</p>
+<p>On failure, return without shifting/mutating ResponseBuf.</p>
+<p>Cap ResponseLen: the mailbox shift below consumes Response[0], leaving RESPONSE_ARG_CNT - 1 data slots reachable via ResponseBuf[Idx + 1U].</p>
+<p>Shift IPI response data in ResponseBuf to skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0] holds the first data word, matching the SMC path layout. <a class="el" href="group__xnvm__mailbox__apis.html#gab287947e92e04d51cc5fee7267f377e9" title="This function sends IPI request to the target module and gets the response from it. ">XNvm_ProcessMailbox()</a> writes RESPONSE_ARG_CNT words when ResponseBuf is non-NULL.</p>
 
-<p>References <a class="el" href="group__xnvm__mailbox__apis.html#ga3ce66c6266190912ba2552c2bc1701c7">XNvm_ProcessMailbox()</a>.</p>
+<p>References <a class="el" href="group__xnvm__mailbox__apis.html#gab287947e92e04d51cc5fee7267f377e9">XNvm_ProcessMailbox()</a>.</p>
 
-<p>Referenced by <a class="el" href="group__xnvm__bbram__client__api.html#ga5ab6ca734ee3f575632ba1c88164d182">XNvm_BbramLockUsrDataWrite()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#ga8cdf06389845d0a30a2d48ae3373b72b">XNvm_BbramReadUsrData()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#ga3a9878e9a0eb1071cd34c4d14d842f10">XNvm_BbramWriteAesKey()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#ga99bad6a63ce3e2663bd7976371598b4f">XNvm_BbramWriteUsrData()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#gae4085a2c2243377cae4029f3236684e7">XNvm_BbramZeroize()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga016c1951e834a91b6e5b39d2db818977">XNvm_EfuseAesKeyCrcCheck()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gaa14ae0e8b42bf8801a510e2f31e29c88">XNvm_EfuseReadBootEnvCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga15ea0137369d9a81a853a6784c43b29d">XNvm_EfuseReadDecOnly()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gacb7ff4ed433334fd4c7af398a6698be6">XNvm_EfuseReadDna()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gabbff97b78f82ae83002d64c9e4e61964">XNvm_EfuseReadIv()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gaf3ba1177b7892366982f77d32ec7ecf8">XNvm_EfuseReadMiscCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga55a6be49ea504c9e07a532b5e82797c1">XNvm_EfuseReadOffchipRevokeId()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gad7ea5c5b0c9de1c1e6b4c2659a02ddeb">XNvm_EfuseReadPpkHash()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga6a1e538568cd6b7e21084eaf138a3113">XNvm_EfuseReadPuf()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gae98054231a90a3ded1ec82c9a011ac94">XNvm_EfuseReadPufSecCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga32e43ec62893f850f115f3ee0a5434f9">XNvm_EfuseReadRevocationId()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gae6cbda607227cfb4778b66c8c2a8ebf0">XNvm_EfuseReadSecCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gacc863c22d5d7a8f54f7d3cb28781a82e">XNvm_EfuseReadSecMisc1Bits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga1a3da417c5ca5121f4c8d375bf0ea298">XNvm_EfuseReadUserFuses()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga6615e748856e15f3e2169f9413e7cbd1">XNvm_EfuseRevokePpk()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gaefb1c21b807d6bb2cd0725d0bdc473af">XNvm_EfuseWrite()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga7ed0e93e0e8a58ecfc5dd60e42461c15">XNvm_EfuseWriteIVs()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gad260093cbe9bacb6d0f649b84bccd8a0">XNvm_EfuseWritePuf()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gae09868a910eea80203d78873f4de064c">XNvm_EfuseWriteRevocationId()</a>, and <a class="el" href="group__xnvm__efuse__client__apis.html#gab49aedef8afbe4faa8a842b847cece3c">XNvm_EfuseWriteUserFuses()</a>.</p>
+<p>Referenced by <a class="el" href="group__xnvm__bbram__client__api.html#ga5ab6ca734ee3f575632ba1c88164d182">XNvm_BbramLockUsrDataWrite()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#ga8cdf06389845d0a30a2d48ae3373b72b">XNvm_BbramReadUsrData()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#ga3a9878e9a0eb1071cd34c4d14d842f10">XNvm_BbramWriteAesKey()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#ga99bad6a63ce3e2663bd7976371598b4f">XNvm_BbramWriteUsrData()</a>, <a class="el" href="group__xnvm__bbram__client__api.html#gae4085a2c2243377cae4029f3236684e7">XNvm_BbramZeroize()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga016c1951e834a91b6e5b39d2db818977">XNvm_EfuseAesKeyCrcCheck()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gaa14ae0e8b42bf8801a510e2f31e29c88">XNvm_EfuseReadBootEnvCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga15ea0137369d9a81a853a6784c43b29d">XNvm_EfuseReadDecOnly()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gacb7ff4ed433334fd4c7af398a6698be6">XNvm_EfuseReadDna()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gabbff97b78f82ae83002d64c9e4e61964">XNvm_EfuseReadIv()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gaf3ba1177b7892366982f77d32ec7ecf8">XNvm_EfuseReadMiscCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga12186aecc17c0d7a06832afb5b25f75f">XNvm_EfuseReadOffchipRevokeId()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gad7ea5c5b0c9de1c1e6b4c2659a02ddeb">XNvm_EfuseReadPpkHash()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga6a1e538568cd6b7e21084eaf138a3113">XNvm_EfuseReadPuf()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gae98054231a90a3ded1ec82c9a011ac94">XNvm_EfuseReadPufSecCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga32e43ec62893f850f115f3ee0a5434f9">XNvm_EfuseReadRevocationId()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gae6cbda607227cfb4778b66c8c2a8ebf0">XNvm_EfuseReadSecCtrlBits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gacc863c22d5d7a8f54f7d3cb28781a82e">XNvm_EfuseReadSecMisc1Bits()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga1a3da417c5ca5121f4c8d375bf0ea298">XNvm_EfuseReadUserFuses()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga6615e748856e15f3e2169f9413e7cbd1">XNvm_EfuseRevokePpk()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gaefb1c21b807d6bb2cd0725d0bdc473af">XNvm_EfuseWrite()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#ga7ed0e93e0e8a58ecfc5dd60e42461c15">XNvm_EfuseWriteIVs()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gad260093cbe9bacb6d0f649b84bccd8a0">XNvm_EfuseWritePuf()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gae09868a910eea80203d78873f4de064c">XNvm_EfuseWriteRevocationId()</a>, <a class="el" href="group__xnvm__efuse__client__apis.html#gab49aedef8afbe4faa8a842b847cece3c">XNvm_EfuseWriteUserFuses()</a>, and <a class="el" href="group__xnvm__client__apis.html#gab77cfbb4940f3923c7b721175d46f056">XNvm_GetServerLibInfo()</a>.</p>
 
 </div>
 </div>

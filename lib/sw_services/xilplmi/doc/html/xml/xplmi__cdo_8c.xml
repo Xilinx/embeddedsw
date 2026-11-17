@@ -11,207 +11,207 @@
     <includes local="yes">xplmi_wdt.h</includes>
     <includes refid="xplmi__tamper_8h" local="yes">xplmi_tamper.h</includes>
     <incdepgraph>
-      <node id="303">
+      <node id="365">
         <label>xil_assert.h</label>
       </node>
-      <node id="295">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="296" relation="include">
-        </childnode>
-        <childnode refid="297" relation="include">
-        </childnode>
-        <childnode refid="298" relation="include">
-        </childnode>
-        <childnode refid="293" relation="include">
-        </childnode>
-        <childnode refid="288" relation="include">
-        </childnode>
-      </node>
-      <node id="304">
-        <label>xil_hw.h</label>
-      </node>
-      <node id="309">
-        <label>stdlib.h</label>
-      </node>
-      <node id="292">
-        <label>xplmi_event_logging.h</label>
-        <link refid="xplmi__event__logging_8h"/>
-        <childnode refid="287" relation="include">
-        </childnode>
-        <childnode refid="293" relation="include">
-        </childnode>
-      </node>
-      <node id="299">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="300" relation="include">
-        </childnode>
-        <childnode refid="301" relation="include">
-        </childnode>
-        <childnode refid="287" relation="include">
-        </childnode>
-        <childnode refid="303" relation="include">
-        </childnode>
-        <childnode refid="304" relation="include">
-        </childnode>
-      </node>
-      <node id="305">
-        <label>xplmi_task.h</label>
-        <link refid="xplmi__task_8h"/>
-        <childnode refid="303" relation="include">
-        </childnode>
-        <childnode refid="306" relation="include">
-        </childnode>
-        <childnode refid="294" relation="include">
-        </childnode>
-        <childnode refid="307" relation="include">
-        </childnode>
-        <childnode refid="308" relation="include">
-        </childnode>
-      </node>
-      <node id="290">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="291" relation="include">
-        </childnode>
-        <childnode refid="289" relation="include">
-        </childnode>
-        <childnode refid="292" relation="include">
-        </childnode>
-        <childnode refid="295" relation="include">
-        </childnode>
-      </node>
-      <node id="314">
-        <label>xplmi_tamper.h</label>
-        <link refid="xplmi__tamper_8h"/>
-        <childnode refid="311" relation="include">
-        </childnode>
-      </node>
-      <node id="311">
-        <label>xil_util.h</label>
-      </node>
-      <node id="293">
+      <node id="355">
         <label>xplmi_util.h</label>
         <link refid="xplmi__util_8h"/>
-        <childnode refid="294" relation="include">
+        <childnode refid="356" relation="include">
         </childnode>
       </node>
-      <node id="284">
-        <label>xplmi_dma.h</label>
-        <link refid="xplmi__dma_8h"/>
-        <childnode refid="285" relation="include">
-        </childnode>
+      <node id="366">
+        <label>xil_hw.h</label>
       </node>
-      <node id="312">
-        <label>xplmi_generic.h</label>
-        <childnode refid="290" relation="include">
-        </childnode>
-        <childnode refid="284" relation="include">
-        </childnode>
-        <childnode refid="287" relation="include">
-        </childnode>
+      <node id="371">
+        <label>stdlib.h</label>
       </node>
-      <node id="306">
-        <label>mb_interface.h</label>
-      </node>
-      <node id="301">
+      <node id="363">
         <label>xplmi_modules.h</label>
         <link refid="xplmi__modules_8h"/>
-        <childnode refid="287" relation="include">
+        <childnode refid="349" relation="include">
         </childnode>
-        <childnode refid="302" relation="include">
+        <childnode refid="364" relation="include">
         </childnode>
-        <childnode refid="300" relation="include">
+        <childnode refid="362" relation="include">
         </childnode>
-        <childnode refid="294" relation="include">
-        </childnode>
-      </node>
-      <node id="307">
-        <label>xstatus.h</label>
-      </node>
-      <node id="289">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="297">
-        <label>xil_exception.h</label>
-      </node>
-      <node id="283">
-        <label>xplmi_cdo.c</label>
-        <link refid="xplmi_cdo.c"/>
-        <childnode refid="284" relation="include">
-        </childnode>
-        <childnode refid="286" relation="include">
-        </childnode>
-        <childnode refid="295" relation="include">
-        </childnode>
-        <childnode refid="310" relation="include">
-        </childnode>
-        <childnode refid="311" relation="include">
-        </childnode>
-        <childnode refid="312" relation="include">
-        </childnode>
-        <childnode refid="313" relation="include">
-        </childnode>
-        <childnode refid="314" relation="include">
+        <childnode refid="356" relation="include">
         </childnode>
       </node>
-      <node id="286">
-        <label>xplmi_cdo.h</label>
-        <link refid="xplmi__cdo_8h"/>
-        <childnode refid="287" relation="include">
+      <node id="373">
+        <label>xil_util.h</label>
+      </node>
+      <node id="374">
+        <label>xplmi_generic.h</label>
+        <childnode refid="352" relation="include">
         </childnode>
-        <childnode refid="290" relation="include">
+        <childnode refid="346" relation="include">
         </childnode>
-        <childnode refid="288" relation="include">
+        <childnode refid="349" relation="include">
         </childnode>
       </node>
-      <node id="294">
-        <label>xil_types.h</label>
+      <node id="361">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+        <childnode refid="349" relation="include">
+        </childnode>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
       </node>
-      <node id="285">
-        <label>xpmcdma.h</label>
-      </node>
-      <node id="287">
+      <node id="349">
         <label>xplmi_cmd.h</label>
         <link refid="xplmi__cmd_8h"/>
-        <childnode refid="288" relation="include">
+        <childnode refid="350" relation="include">
         </childnode>
-        <childnode refid="289" relation="include">
+        <childnode refid="351" relation="include">
         </childnode>
       </node>
-      <node id="300">
+      <node id="368">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="369">
+        <label>xstatus.h</label>
+      </node>
+      <node id="370">
+        <label>list.h</label>
+        <childnode refid="371" relation="include">
+        </childnode>
+      </node>
+      <node id="351">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="367">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+      </node>
+      <node id="359">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="357">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="358" relation="include">
+        </childnode>
+        <childnode refid="359" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="350" relation="include">
+        </childnode>
+      </node>
+      <node id="356">
+        <label>xil_types.h</label>
+      </node>
+      <node id="347">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="362">
         <label>xparameters.h</label>
       </node>
-      <node id="291">
+      <node id="376">
+        <label>xplmi_tamper.h</label>
+        <link refid="xplmi__tamper_8h"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+      </node>
+      <node id="353">
         <label>xil_printf.h</label>
       </node>
-      <node id="308">
-        <label>list.h</label>
-        <childnode refid="309" relation="include">
+      <node id="352">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="353" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
         </childnode>
       </node>
-      <node id="310">
+      <node id="345">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi_cdo.c"/>
+        <childnode refid="346" relation="include">
+        </childnode>
+        <childnode refid="348" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+      </node>
+      <node id="372">
         <label>xplmi_hw.h</label>
       </node>
-      <node id="298">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="299" relation="include">
+      <node id="348">
+        <label>xplmi_cdo.h</label>
+        <link refid="xplmi__cdo_8h"/>
+        <childnode refid="349" relation="include">
         </childnode>
-        <childnode refid="305" relation="include">
+        <childnode refid="352" relation="include">
+        </childnode>
+        <childnode refid="350" relation="include">
         </childnode>
       </node>
-      <node id="296">
+      <node id="346">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="347" relation="include">
+        </childnode>
+      </node>
+      <node id="358">
         <label>xiomodule.h</label>
       </node>
-      <node id="302">
+      <node id="364">
         <label>xplmi_plat.h</label>
       </node>
-      <node id="288">
+      <node id="350">
         <label>xplmi_status.h</label>
       </node>
-      <node id="313">
+      <node id="360">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="349" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+      </node>
+      <node id="375">
         <label>xplmi_wdt.h</label>
       </node>
     </incdepgraph>
@@ -225,7 +225,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="98" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="98" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="98" bodyend="-1"/>
         <referencedby refid="group__xilplmi__server__apis_1gaaa4e2fe96baa321cd17c045bffb049b5" compoundref="xplmi__cdo_8c" startline="440" endline="590">XPlmi_ProcessCdo</referencedby>
       </memberdef>
       </sectiondef>
@@ -267,7 +267,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="123" bodyend="141"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="123" bodyend="141"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga17dcdd00574c13fa1b024897389b57c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -314,7 +314,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="153" bodyend="173"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="153" bodyend="173"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga5d4889a03dca9912217a9a0309a876d1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -342,7 +342,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="187" bodyend="222"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="187" bodyend="222"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga389d36ee0f3228372494ebe5235b87bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -368,8 +368,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="233" bodyend="264"/>
-        <references refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" compoundref="xplmi__dma_8c" startline="934" endline="983">XPlmi_MemSetBytes</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="233" bodyend="264"/>
+        <references refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" compoundref="xplmi__dma_8c" startline="962" endline="1020">XPlmi_MemSetBytes</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga1a0c577e8983e0c0bfcd1e574358153c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -430,7 +430,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="280" bodyend="316"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="280" bodyend="316"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1ga33665a448e3cb065ab490c1e57c1e86d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -491,7 +491,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Break if CMD says END of commands, irrespective of the CDO length</para><para>Check if Cmd payload is less than buffer size, then copy to the starting of the next chunk address.</para><para>Copy Cmd to temporary buffer</para><para>If size is greater than tempbuf, execute partially and resume the cmd in next iteration</para><para>Copy the image id to cmd subsystem ID</para><para>Execute the command </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="333" bodyend="426"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="333" bodyend="426"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__server__apis_1gaaa4e2fe96baa321cd17c045bffb049b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -521,15 +521,15 @@
 <para><itemizedlist>
 <listitem><para>Verify the header for the first chunk of CDO</para></listitem><listitem><para>Check if BufLen is greater than CdoLen This is required if more buffer is copied than CDO len. Mainly for PLM CDO where BufLen is not present and is given as Max PRAM len.</para></listitem><listitem><para>In case CmdEnd is detected in previous iteration, it just returns</para></listitem><listitem><para>Check if cmd data is copied partially during the last iteration</para></listitem><listitem><para>Handle the break command occurred in previous chunk</para></listitem><listitem><para>If the end is not present in current chunk, skip this chunk</para></listitem><listitem><para>If the end is present in current chunk, jump to end command</para></listitem><listitem><para>Execute the commands in the Cdo Buffer</para></listitem><listitem><para>Check if cmd has to be resumed</para></listitem><listitem><para>In case of any error, check if secure lockdown proc is running and continue executing the proc further without exiting the loop. Otherwise, exit the loop.</para></listitem><listitem><para>If command end is detected, exit the loop</para></listitem><listitem><para>Handle the break command processed in current chunk</para></listitem><listitem><para>If the end is present in current chunk, jump to it</para></listitem><listitem><para>If the end is not present in current chunk, skip processing rest of the chunk</para></listitem><listitem><para>Update the parameters for next iteration </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="440" bodyend="590"/>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a58c911430dff921f81a5d0f87f007b12" compoundref="2vp_2server_2xplmi__status_8h" startline="181">XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS</references>
-        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ab988a65c9848b15344d68233c1535271" compoundref="2vp_2server_2xplmi__status_8h" startline="176">XPLMI_INVALID_BREAK_LENGTH</references>
-        <references refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" compoundref="xplmi__err__common_8c" startline="217" endline="231">XPlmi_LogPlmErr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c" bodystart="440" bodyend="590"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a58c911430dff921f81a5d0f87f007b12" compoundref="2vp_2server_2xplmi__status_8h" startline="187">XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ab988a65c9848b15344d68233c1535271" compoundref="2vp_2server_2xplmi__status_8h" startline="182">XPLMI_INVALID_BREAK_LENGTH</references>
+        <references refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" compoundref="xplmi__err__common_8c" startline="218" endline="232">XPlmi_LogPlmErr</references>
         <references refid="group__xilplmi__server__apis_1ga34a4463cba534592d19ea6012f456298" compoundref="xplmi__cdo_8c" startline="98">XPLMI_MAX_RECURSIVE_CDO_PROCESS</references>
         <references refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" compoundref="server_2xplmi__wdt_8c" startline="175" endline="178">XPlmi_SetPlmLiveStatus</references>
         <references refid="xplmi__tamper_8h_1a73133be49a71a2c1defd387dff0600d4" compoundref="xplmi__tamper_8h" startline="50">XPLMI_SLD_IN_PROGRESS</references>
-        <references refid="group__xilplmi__server__apis_1gaa2236b1a5bcc98eba23dde0ad6939885" compoundref="xplmi__tamper_8c" startline="109" endline="112">XPlmi_SldState</references>
-        <referencedby refid="group__xilplmi__server__apis_1ga053bc9806bfc10856b7617c75da2a864" compoundref="server_2xplmi__generic_8c" startline="1782" endline="1832">XPlmi_ExecuteProc</referencedby>
+        <references refid="group__xilplmi__server__apis_1gaa2236b1a5bcc98eba23dde0ad6939885" compoundref="xplmi__tamper_8c" startline="114" endline="117">XPlmi_SldState</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga053bc9806bfc10856b7617c75da2a864" compoundref="server_2xplmi__generic_8c" startline="1783" endline="1833">XPlmi_ExecuteProc</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -984,6 +984,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="590"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="591"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c"/>
   </compounddef>
 </doxygen>

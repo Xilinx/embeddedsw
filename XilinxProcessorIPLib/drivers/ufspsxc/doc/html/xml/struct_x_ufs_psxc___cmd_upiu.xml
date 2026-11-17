@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>ExpDataXferLen</name>
         <briefdescription>
-        </briefdescription>
+<para>Expected data transfer length (bytes). </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc__api_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="602" endline="674">XUfsPsxc_ProcessUpiu</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ufs_psxc___cmd_upiu_1a227d52a3623e1b21cff8053f001dd318" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -23,19 +24,19 @@
         <argsstring>[16U]</argsstring>
         <name>scsi_cdb</name>
         <briefdescription>
-        </briefdescription>
+<para>SCSI Command Descriptor Block. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Command UPIU Structure. </para>    </briefdescription>
+<para>Holds a SCSI command UPIU payload. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="95" bodyend="98"/>
+<para>Command UPIU Structure </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="112" bodyend="116"/>
     <listofallmembers>
       <member refid="struct_x_ufs_psxc___cmd_upiu_1a5686f280c6ddfc4c7852586d6c4f6eea" prot="public" virt="non-virtual"><scope>XUfsPsxc_CmdUpiu</scope><name>ExpDataXferLen</name></member>
       <member refid="struct_x_ufs_psxc___cmd_upiu_1a227d52a3623e1b21cff8053f001dd318" prot="public" virt="non-virtual"><scope>XUfsPsxc_CmdUpiu</scope><name>scsi_cdb</name></member>

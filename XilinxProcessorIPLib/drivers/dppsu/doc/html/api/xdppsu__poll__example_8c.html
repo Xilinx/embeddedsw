@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('xdppsu__poll__example_8c.html','');});
 <p>Once the polling detects a Hot-Plug-Detect event (HPD - DisplayPort cable is plugged/ unplugged or the monitor is turned on/off), the main link will be trained.</p>
 <dl class="section note"><dt>Note</dt><dd>For this example to display output, the user will need to implement initialization of the system (DpPsu_PlatformInit) and, after training is complete, implement configuration of the video stream source in order to provide the DisplayPort core with input (DpPsu_StreamSrc* - called in <a class="el" href="xdppsu__common__example_8c.html" title="Contains a design example using the XDpPsu driver. ">xdppsu_common_example.c</a>).</dd>
 <dd>
-The functions DpPsu_PlatformInit and DpPsu_StreamSrc* are declared extern in <a class="el" href="xdppsu__common__example_8h.html" title="Contains a design example using the XDpPsu driver. ">xdppsu_common_example.h</a> and are left up to the user to implement.</dd></dl>
+DpPsu_PlatformInit and the DpPsu_StreamSrc* functions are empty stubs in <a class="el" href="xdppsu__common__example_8c.html" title="Contains a design example using the XDpPsu driver. ">xdppsu_common_example.c</a> for the user to fill in as needed.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -168,7 +168,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If system setup was successful, this function is blocking in order to illustrate polling taking place for HPD events. </dd></dl>
 
-<p>References <a class="el" href="xdppsu__common__example_8c.html#a31ed0302fb945e5748d9e7c182533786">DpPsu_SetupExample()</a>.</p>
+<p>References <a class="el" href="xdppsu__common__example_8c.html#a7386e44e956d4e783e345ca361326df0">DpPsu_PlatformInit()</a>, and <a class="el" href="xdppsu__common__example_8c.html#a31ed0302fb945e5748d9e7c182533786">DpPsu_SetupExample()</a>.</p>
 
 <p>Referenced by <a class="el" href="xdppsu__poll__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

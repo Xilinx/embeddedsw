@@ -1168,7 +1168,7 @@
     <member refid="xusb__class__dfu_8c_1ada46ceb1920aa3ccabf8d8a78a88dc73" kind="function"><name>Usb_DfuWaitForReset</name></member>
     <member refid="xusb__class__dfu_8c_1ad1d69266191044d7d27c63bd7c049b7c" kind="function"><name>Usb_DfuSetState</name></member>
     <member refid="xusb__class__dfu_8c_1a4ad7bb0798660879a761038133bf0b80" kind="function"><name>USB_DfuSetDwloadState</name></member>
-    <member refid="xusb__class__dfu_8c_1ad26ab9f7f5e801791e5c04ba9e455247" kind="function"><name>USB_DfuGetStatus</name></member>
+    <member refid="xusb__class__dfu_8c_1a3ade58346ca33654f5138ee9c443610d" kind="function"><name>USB_DfuGetStatus</name></member>
     <member refid="xusb__class__dfu_8c_1a41ee754aa98c010c6598a68967a25337" kind="function"><name>Usb_DfuDisconnect</name></member>
     <member refid="xusb__class__dfu_8c_1a85ada1b41808b8cc819667bdd0c9f2f8" kind="function"><name>Usb_DfuReset</name></member>
     <member refid="xusb__class__dfu_8c_1ae423c2f49364dc3cd9e2cddf6b62541b" kind="function"><name>Usb_DfuSetIntf</name></member>
@@ -1212,7 +1212,7 @@
     <member refid="xusb__class__dfu_8h_1a4146d5ff7ef456a8c2fdef4ef68cfd23" kind="define"><name>DFU_ALT_SETTING</name></member>
     <member refid="xusb__class__dfu_8h_1ad1d69266191044d7d27c63bd7c049b7c" kind="function"><name>Usb_DfuSetState</name></member>
     <member refid="xusb__class__dfu_8h_1a4ad7bb0798660879a761038133bf0b80" kind="function"><name>USB_DfuSetDwloadState</name></member>
-    <member refid="xusb__class__dfu_8h_1ad26ab9f7f5e801791e5c04ba9e455247" kind="function"><name>USB_DfuGetStatus</name></member>
+    <member refid="xusb__class__dfu_8h_1a3ade58346ca33654f5138ee9c443610d" kind="function"><name>USB_DfuGetStatus</name></member>
     <member refid="xusb__class__dfu_8h_1a41ee754aa98c010c6598a68967a25337" kind="function"><name>Usb_DfuDisconnect</name></member>
     <member refid="xusb__class__dfu_8h_1a85ada1b41808b8cc819667bdd0c9f2f8" kind="function"><name>Usb_DfuReset</name></member>
     <member refid="xusb__class__dfu_8h_1ae423c2f49364dc3cd9e2cddf6b62541b" kind="function"><name>Usb_DfuSetIntf</name></member>
@@ -1540,7 +1540,7 @@
   </compound>
   <compound refid="xusb__freertos__class__composite_8c" kind="file"><name>xusb_freertos_class_composite.c</name>
     <member refid="xusb__freertos__class__composite_8c_1ac22d379a546e0b0416abad664966a381" kind="variable"><name>DetachCounter</name></member>
-    <member refid="xusb__freertos__class__composite_8c_1a186980eb40d66ab86003bdc3e44f797b" kind="variable"><name>ALIGNMENT_CACHELINE</name></member>
+    <member refid="xusb__freertos__class__composite_8c_1a32ddc31bc945dc56ce485fc2d12e0b05" kind="variable"><name>ALIGNMENT_CACHELINE</name></member>
     <member refid="xusb__freertos__class__composite_8c_1a7af0aeeed884f57fc6ab8f2cda9fdc46" kind="variable"><name>ClassData</name></member>
     <member refid="xusb__freertos__class__composite_8c_1a1f946c7d2b74571706ecb53626f2fa19" kind="variable"><name>BufferPtrTemp</name></member>
     <member refid="xusb__freertos__class__composite_8c_1ada46ceb1920aa3ccabf8d8a78a88dc73" kind="function"><name>Usb_DfuWaitForReset</name></member>
@@ -1697,7 +1697,7 @@
   </compound>
   <compound refid="xusb__freertos__class__storage_8c" kind="file"><name>xusb_freertos_class_storage.c</name>
     <member refid="xusb__freertos__class__storage_8c_1a71de5b59ddda7908bc86a51ab97948b6" kind="variable"><name>xMainTask</name></member>
-    <member refid="xusb__freertos__class__storage_8c_1afec2e6d6cfddb0b898f67d17eba7c8b0" kind="variable"><name>ALIGNMENT_CACHELINE</name></member>
+    <member refid="xusb__freertos__class__storage_8c_1a32ddc31bc945dc56ce485fc2d12e0b05" kind="variable"><name>ALIGNMENT_CACHELINE</name></member>
     <member refid="xusb__freertos__class__storage_8c_1adabccc59f14f73295d6d3e8ab2a84ed3" kind="function"><name>ClassReq</name></member>
     <member refid="xusb__freertos__class__storage_8c_1af37b1f40a3411e6c6b29f51a110e5a76" kind="function"><name>ParseCBW</name></member>
     <member refid="xusb__freertos__class__storage_8c_1aaa76777f6039d623e412b9182791654b" kind="function"><name>SendCSW</name></member>
@@ -1880,7 +1880,6 @@
     <member refid="xusb__wrapper_8h_1a2a599edc176083ed21c0b6044a5362a4" kind="define"><name>USB_EP_TYPE_ISOCHRONOUS</name></member>
     <member refid="xusb__wrapper_8h_1a89eb27133e7e106c3637039f6f49d187" kind="define"><name>USB_EP_TYPE_BULK</name></member>
     <member refid="xusb__wrapper_8h_1a904b4eef8e7bcab363757e19832617ee" kind="define"><name>USB_EP_TYPE_INTERRUPT</name></member>
-    <member refid="xusb__wrapper_8h_1a3745afb5816dc476644b055b4d22742f" kind="define"><name>XUSB_WRAPPER_H</name></member>
     <member refid="xusb__wrapper_8h_1aa12c76241fcad981769d65754a5f5591" kind="define"><name>USB_DEVICE_ID</name></member>
     <member refid="xusb__wrapper_8h_1aae8411e95f26738326bc25a0161dde99" kind="define"><name>USB_EP_DIR_IN</name></member>
     <member refid="xusb__wrapper_8h_1a0510b0a04d9cef144e4d9793310abccf" kind="define"><name>USB_EP_DIR_OUT</name></member>
@@ -1972,7 +1971,6 @@
     <member refid="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" kind="function"><name>XUsbPsu_IsSuperSpeed</name></member>
   </compound>
   <compound refid="xusbpsu_8h" kind="file"><name>xusbpsu.h</name>
-    <member refid="group__usbpsu__api_1ga957c4c1e84bc2b5c56296ae5a5cb1c26" kind="define"><name>XUSBPSU_H</name></member>
     <member refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" kind="define"><name>XUSBPSU_EP_DIR_IN</name></member>
     <member refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kind="define"><name>XUSBPSU_EP_DIR_OUT</name></member>
     <member refid="group__usbpsu__api_1ga9338e96a71bd29d1d427f6dfc828f40f" kind="define"><name>XUSBPSU_USB_DIR_OUT</name></member>
@@ -2265,7 +2263,6 @@
     <member refid="group__usbpsu__api_1ga5d44b4cfe8de7ab1fa6b98710bd7836f" kind="function"><name>XUsbPsu_ConnDoneIntr</name></member>
     <member refid="group__usbpsu__api_1ga4cf4f7f831c9b7968d7ef0005ea64b50" kind="function"><name>XUsbPsu_LinkStsChangeIntr</name></member>
     <member refid="group__usbpsu__api_1gae4f3c8a44c949edec84f94fc3346e77b" kind="function"><name>XUsbPsu_EventHandler</name></member>
-    <member refid="group__usbpsu__api_1ga957c4c1e84bc2b5c56296ae5a5cb1c26" kind="define"><name>XUSBPSU_H</name></member>
     <member refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" kind="define"><name>XUSBPSU_EP_DIR_IN</name></member>
     <member refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kind="define"><name>XUSBPSU_EP_DIR_OUT</name></member>
     <member refid="group__usbpsu__api_1ga9338e96a71bd29d1d427f6dfc828f40f" kind="define"><name>XUSBPSU_USB_DIR_OUT</name></member>

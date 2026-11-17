@@ -4,7 +4,6 @@ var xrtcpsu_8h =
     [ "EPOCH_YEAR", "xrtcpsu_8h.html#gaa0e47af385cda59b56c1ba71dee795d8", null ],
     [ "IS_LEAP_YEAR", "xrtcpsu_8h.html#ga2e9e3f0230de087bdabd2246a59ba1d1", null ],
     [ "XRTC_CALIBRATION_VALUE", "xrtcpsu_8h.html#gad7a184022ff2ba6eab442bb895f7df30", null ],
-    [ "XRTC_H_", "xrtcpsu_8h.html#ga0dc72bac661426e1056f45a0e3791086", null ],
     [ "XRTC_TYPICAL_OSC_FREQ", "xrtcpsu_8h.html#ga7e8bad01d40368b034d49dfcb4401486", null ],
     [ "XRTCPSU_CRYSTAL_OSC_EN", "xrtcpsu_8h.html#gae7da0eb25a60f80358a637f7a2429216", null ],
     [ "XRTCPSU_EVENT_ALARM_GEN", "xrtcpsu_8h.html#gad594fbf58a112754966cb4ed07a93fa2", null ],

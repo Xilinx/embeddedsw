@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmr__manager__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,7 +100,6 @@ $(document).ready(function(){initNavTree('xtmr__manager__intr_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xtmr_manager_intr.c File Reference</div>  </div>
@@ -110,26 +109,20 @@ $(document).ready(function(){initNavTree('xtmr__manager__intr_8c.html','');});
 <code>#include &quot;<a class="el" href="xtmr__manager__i_8h.html">xtmr_manager_i.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gab0ab64d8a9b6be8268492f2850afe5e5"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab0ab64d8a9b6be8268492f2850afe5e5">Handler</a> )(<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gab0ab64d8a9b6be8268492f2850afe5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing to send data to the TMR_Manager.  <a href="group___overview.html#gab0ab64d8a9b6be8268492f2850afe5e5">More...</a><br/></td></tr>
-<tr class="separator:gab0ab64d8a9b6be8268492f2850afe5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6dc411afbbc8a1bd33eb216be609b57b">XTMR_Manager_SetHandler</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, <a class="el" href="group___overview.html#ga8c9619c50a362b87f1d210c31ef76d15">XTMR_Manager_Handler</a> FuncPtr, void *CallBackRef)</td></tr>
-<tr class="memdesc:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the handler that will be called when an event (interrupt) occurs in the driver.  <a href="group___overview.html#ga6dc411afbbc8a1bd33eb216be609b57b">More...</a><br/></td></tr>
+<tr class="memdesc:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler that will be called when an interrupt event occurs.  <a href="group___overview.html#ga6dc411afbbc8a1bd33eb216be609b57b">More...</a><br/></td></tr>
 <tr class="separator:ga6dc411afbbc8a1bd33eb216be609b57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8f61f159bf5788b191d818190b890673"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga8f61f159bf5788b191d818190b890673">XTMR_Manager_InterruptHandler</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga8f61f159bf5788b191d818190b890673"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the TMR Manager driver.  <a href="group___overview.html#ga8f61f159bf5788b191d818190b890673">More...</a><br/></td></tr>
 <tr class="separator:ga8f61f159bf5788b191d818190b890673"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd9c760a09f6060be524c4724149aeb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">XTMR_Manager_DisableInterrupt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gabd9c760a09f6060be524c4724149aeb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the core interrupt.  <a href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">More...</a><br/></td></tr>
+<tr class="memdesc:gabd9c760a09f6060be524c4724149aeb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the core interrupt.  <a href="group___overview.html#gabd9c760a09f6060be524c4724149aeb1">More...</a><br/></td></tr>
 <tr class="separator:gabd9c760a09f6060be524c4724149aeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3712c905face19b5734a4807ad5e2814"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3712c905face19b5734a4807ad5e2814">XTMR_Manager_EnableInterrupt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, u32 Mask)</td></tr>
-<tr class="memdesc:ga3712c905face19b5734a4807ad5e2814"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the core interrupt such that an interrupt will occur when any of the SEM status signals indicated by the mask are changed.  <a href="group___overview.html#ga3712c905face19b5734a4807ad5e2814">More...</a><br/></td></tr>
-<tr class="separator:ga3712c905face19b5734a4807ad5e2814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae4460868ab0d9ac0f28f4eba203a68a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaae4460868ab0d9ac0f28f4eba203a68a">XTMR_Manager_EnableInterrupt</a> (<a class="el" href="struct_x_t_m_r___manager.html">XTMR_Manager</a> *InstancePtr, u32 mask)</td></tr>
+<tr class="memdesc:gaae4460868ab0d9ac0f28f4eba203a68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the core interrupt such that an interrupt will occur when any of the unmasked SEM status signals change value.  <a href="group___overview.html#gaae4460868ab0d9ac0f28f4eba203a68a">More...</a><br/></td></tr>
+<tr class="separator:gaae4460868ab0d9ac0f28f4eba203a68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

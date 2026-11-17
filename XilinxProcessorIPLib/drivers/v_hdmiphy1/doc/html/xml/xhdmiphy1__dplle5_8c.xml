@@ -10,9 +10,6 @@
       <node id="46">
         <label>xil_assert.h</label>
       </node>
-      <node id="48">
-        <label>xil_io.h</label>
-      </node>
       <node id="42">
         <label>xhdmiphy1_dplle5.c</label>
         <link refid="xhdmiphy1_dplle5.c"/>
@@ -25,16 +22,15 @@
         <childnode refid="51" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>xhdmiphy1.h</label>
-        <link refid="xhdmiphy1_8h"/>
-        <childnode refid="46" relation="include">
+      <node id="48">
+        <label>xil_io.h</label>
+      </node>
+      <node id="47">
+        <label>xhdmiphy1_hw.h</label>
+        <link refid="xhdmiphy1__hw_8h"/>
+        <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="47" relation="include">
-        </childnode>
-        <childnode refid="50" relation="include">
+        <childnode refid="49" relation="include">
         </childnode>
       </node>
       <node id="51">
@@ -55,21 +51,195 @@
       <node id="50">
         <label>xvidc.h</label>
       </node>
+      <node id="45">
+        <label>xhdmiphy1.h</label>
+        <link refid="xhdmiphy1_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
       <node id="49">
         <label>xil_types.h</label>
       </node>
       <node id="43">
         <label>xparameters.h</label>
       </node>
-      <node id="47">
-        <label>xhdmiphy1_hw.h</label>
-        <link refid="xhdmiphy1__hw_8h"/>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1a5d2bba28d3b9a883531810c543967c95" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG</name>
+        <initializer>0x0E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1ac6a4fc203eab7df633aefdd982edfc74" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1af8da06be2b783e2a60bc9fb99d399fa6" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1a8cd2a11a685b8718e2d85f0bd9e8e974" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1ae70c377d266c29d11b4e86339cb33942" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_WRITE_VAL</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1ae4a76754b0bd02ab2c242ffdfbdec3fa" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_MULT_MASK</name>
+        <initializer>0x7FC0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1a47d64ce2bfb87ba94d347bc68e193d5f" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_CLKOUT_MASK</name>
+        <initializer>0x01FF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1ae94a6b86026915e698e26424e1fd45d3" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_CLKOUTEN_MASK</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1a7c364727cace7d8e8c05837cd44e0c6d" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_DIVCLKDIV_MASK</name>
+        <initializer>0x01FF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmiphy1__dplle5_8c_1a98babd192c0e90fbdba2053776baa6b0" prot="public" static="no">
+        <name>XHDMIPHY1_MMCM_Lock_MASK</name>
+        <initializer>0x0001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1_DpllWriteParameters</definition>
+        <argsstring>(XHdmiphy1 *InstancePtr, u8 QuadId, XHdmiphy1_DirectionType Dir)</argsstring>
+        <name>XHdmiphy1_DpllWriteParameters</name>
+        <param>
+          <type><ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XHdmiphy1_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function will write the mixed-mode clock manager (MMCM) values currently stored in the driver&apos;s instance structure to hardware . </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the MMCM write was successful.</para></listitem><listitem><para>XST_FAILURE otherwise, if the configuration success bit did not go low.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c" bodystart="74" bodyend="162"/>
+        <references refid="struct_x_hdmiphy1_1a0204ec609474b091ff494d61ebd2aa80" compoundref="xhdmiphy1_8h" startline="729">XHdmiphy1::Quads</references>
+        <references refid="struct_x_hdmiphy1___quad_1a273c3f14771e7e1ffe24c0a88987dcdd" compoundref="xhdmiphy1_8h" startline="617">XHdmiphy1_Quad::Mmcm</references>
+        <references refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" compoundref="xhdmiphy1_8c" startline="908" endline="922">XHdmiphy1_DrpRd</references>
+        <references refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" compoundref="xhdmiphy1_8c" startline="880" endline="886">XHdmiphy1_DrpWr</references>
+        <referencedby refid="group__xhdmiphy1_1ga5dc7ec503e2e78570719440c12773984" compoundref="xhdmiphy1_8c" startline="982" endline="1080">XHdmiphy1_MmcmStart</referencedby>
+      </memberdef>
+      </sectiondef>
     <briefdescription>
 <para>Contains a minimal set of functions for the <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> driver that allow access to all of the Video PHY core&apos;s functionality. </para>    </briefdescription>
     <detaileddescription>
@@ -85,7 +255,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -96,124 +266,117 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdmiphy1_8h" kindref="compound">xhdmiphy1.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdmiphy1__i_8h" kindref="compound">xhdmiphy1_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE<sp/>==<sp/>1<sp/>||<sp/>\</highlight></codeline>
-<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE<sp/>==<sp/>1)</highlight></codeline>
-<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>((XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>XHDMIPHY1_GTYE5)<sp/>||<sp/>\</highlight></codeline>
-<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>XHDMIPHY1_GTYP))</highlight></codeline>
-<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG<sp/>0x0E//0x38</highlight></codeline>
-<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG<sp/>0x19//0x64</highlight></codeline>
-<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1<sp/>0xF//0x3C</highlight></codeline>
-<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1<sp/>0x11//0x44</highlight></codeline>
-<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_WRITE_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF</highlight></codeline>
-<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_MULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FC0</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_CLKOUT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01FF</highlight></codeline>
-<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_CLKOUTEN_MASK<sp/><sp/><sp/><sp/>0x0800</highlight></codeline>
-<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DIVCLKDIV_MASK<sp/><sp/><sp/>0x01FF</highlight></codeline>
-<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_Lock_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001</highlight></codeline>
-<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG<sp/>0x0E//0x38</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG<sp/>0x19//0x64</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1<sp/>0xF//0x3C</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1<sp/>0x11//0x44</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_WRITE_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_MULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FC0</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_CLKOUT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01FF</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_CLKOUTEN_MASK<sp/><sp/><sp/><sp/>0x0800</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_DIVCLKDIV_MASK<sp/><sp/><sp/>0x01FF</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMIPHY1_MMCM_Lock_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="78"><highlight class="normal">u32<sp/>XHdmiphy1_DpllWriteParameters(<ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmiphy1_DirectionType<sp/>Dir)</highlight></codeline>
-<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ChId;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DrpRdVal;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DrpRdVal_temp;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdmiphy1___mmcm" kindref="compound">XHdmiphy1_Mmcm</ref><sp/>*MmcmParams;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" kindref="member">XHdmiphy1_DpllWriteParameters</ref>(<ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmiphy1_DirectionType<sp/>Dir)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ChId;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DrpRdVal;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DrpRdVal_temp;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdmiphy1___mmcm" kindref="compound">XHdmiphy1_Mmcm</ref><sp/>*MmcmParams;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>ChId<sp/>=<sp/>(Dir<sp/>==<sp/>XHDMIPHY1_DIR_TX)<sp/>?</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMIPHY1_CHANNEL_ID_TXMMCM<sp/>:</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMIPHY1_CHANNEL_ID_RXMMCM;</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>ChId<sp/>=<sp/>(Dir<sp/>==<sp/>XHDMIPHY1_DIR_TX)<sp/>?</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMIPHY1_CHANNEL_ID_TXMMCM<sp/>:</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMIPHY1_CHANNEL_ID_RXMMCM;</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmParams<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_hdmiphy1_1a0204ec609474b091ff494d61ebd2aa80" kindref="member">Quads</ref>[QuadId].<ref refid="struct_x_hdmiphy1___quad_1a273c3f14771e7e1ffe24c0a88987dcdd" kindref="member">Mmcm</ref>[Dir];</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>Parameters<sp/>if<sp/>has<sp/>been<sp/>Initialized<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!MmcmParams-&gt;DivClkDivide<sp/>&amp;&amp;<sp/>!MmcmParams-&gt;ClkFbOutMult<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!MmcmParams-&gt;ClkOut0Div<sp/>&amp;&amp;<sp/>!MmcmParams-&gt;ClkOut1Div<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!MmcmParams-&gt;ClkOut2Div)<sp/>{</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmParams<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_hdmiphy1_1a0204ec609474b091ff494d61ebd2aa80" kindref="member">Quads</ref>[QuadId].<ref refid="struct_x_hdmiphy1___quad_1a273c3f14771e7e1ffe24c0a88987dcdd" kindref="member">Mmcm</ref>[Dir];</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>Parameters<sp/>if<sp/>has<sp/>been<sp/>Initialized<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!MmcmParams-&gt;DivClkDivide<sp/>&amp;&amp;<sp/>!MmcmParams-&gt;ClkFbOutMult<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!MmcmParams-&gt;ClkOut0Div<sp/>&amp;&amp;<sp/>!MmcmParams-&gt;ClkOut1Div<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!MmcmParams-&gt;ClkOut2Div)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
 <codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>CLKFBOUT_1<sp/>&amp;<sp/>CLKFBOUT_2<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;ClkFbOutMult;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>&lt;&lt;=<sp/>6;</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>CLKFBOUT_1<sp/>&amp;<sp/>CLKFBOUT_2<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;ClkFbOutMult;</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>&lt;&lt;=<sp/>6;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG,<sp/>&amp;DrpRdVal);</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG,<sp/>&amp;DrpRdVal);</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_MULT_MASK;</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_MULT_MASK;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)(DrpRdVal));</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG,</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)(DrpRdVal));</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>DIVCLK_DIVIDE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;DivClkDivide;</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
 <codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>DIVCLK_DIVIDE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;DivClkDivide;</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,<sp/>&amp;DrpRdVal);</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_DIVCLKDIV_MASK;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)((DrpRdVal)));</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,<sp/>&amp;DrpRdVal);</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,<sp/>&amp;DrpRdVal);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_DIVCLKDIV_MASK;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)((DrpRdVal)));</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG,<sp/>&amp;DrpRdVal);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>CLKOUT0_1<sp/>&amp;<sp/>CLKOUT0_2<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;ClkOut0Div;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1,<sp/>&amp;DrpRdVal);</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>CLKOUT0_1<sp/>&amp;<sp/>CLKOUT0_2<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;ClkOut0Div;</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1,<sp/>&amp;DrpRdVal);</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_CLKOUT_MASK;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
 <codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_CLKOUT_MASK;</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)(DrpRdVal));</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
 <codeline lineno="144"><highlight class="normal"></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1,</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)(DrpRdVal));</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>CLKOUT1_1<sp/>&amp;<sp/>CLKOUT1_2<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;ClkOut1Div;</highlight></codeline>
 <codeline lineno="147"><highlight class="normal"></highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>CLKOUT1_1<sp/>&amp;<sp/>CLKOUT1_2<sp/>Values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal_temp<sp/>=<sp/>MmcmParams-&gt;ClkOut1Div;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1,<sp/>&amp;DrpRdVal);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
 <codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga55c5c6061828e1f986b64d4c0ae9a57b" kindref="member">XHdmiphy1_DrpRd</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1,<sp/>&amp;DrpRdVal);</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_CLKOUT_MASK;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"></highlight></codeline>
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>&amp;=<sp/>~XHDMIPHY1_MMCM_CLKOUT_MASK;</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DrpRdVal<sp/>|=<sp/>DrpRdVal_temp;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(DrpRdVal));</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"></highlight></codeline>
 <codeline lineno="159"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xhdmiphy1_1ga632197e5f773491cdf96f076e7112e0f" kindref="member">XHdmiphy1_DrpWr</ref>(InstancePtr,<sp/>QuadId,<sp/>ChId,<sp/>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1,</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(DrpRdVal));</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_dplle5.c"/>
   </compounddef>
 </doxygen>

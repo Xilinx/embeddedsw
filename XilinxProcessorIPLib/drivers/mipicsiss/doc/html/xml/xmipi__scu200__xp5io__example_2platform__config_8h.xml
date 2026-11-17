@@ -5,35 +5,35 @@
     <includedby refid="xmipi__scu200__xp5io__example_2platform_8c" local="yes">platform.c</includedby>
     <includedby refid="xmipi__scu200__xp5io__example_2platform_8h" local="yes">platform.h</includedby>
     <invincdepgraph>
-      <node id="572">
-        <label>xmipi_scu200_xp5io_example.c</label>
-      </node>
-      <node id="571">
+      <node id="606">
         <label>xhdmi_example.c</label>
       </node>
-      <node id="570">
+      <node id="605">
         <label>xhdmi_example.h</label>
-        <childnode refid="571" relation="include">
+        <childnode refid="606" relation="include">
         </childnode>
-        <childnode refid="572" relation="include">
+        <childnode refid="607" relation="include">
         </childnode>
       </node>
-      <node id="568">
+      <node id="607">
+        <label>xmipi_scu200_xp5io_example.c</label>
+      </node>
+      <node id="603">
         <label>platform.c</label>
       </node>
-      <node id="569">
+      <node id="604">
         <label>platform.h</label>
-        <childnode refid="570" relation="include">
+        <childnode refid="605" relation="include">
         </childnode>
-        <childnode refid="572" relation="include">
+        <childnode refid="607" relation="include">
         </childnode>
       </node>
-      <node id="567">
+      <node id="602">
         <label>platform_config.h</label>
         <link refid="xmipi_scu200_xp5io_example/platform_config.h"/>
-        <childnode refid="568" relation="include">
+        <childnode refid="603" relation="include">
         </childnode>
-        <childnode refid="569" relation="include">
+        <childnode refid="604" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" bodystart="11" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xmipi__scu200__xp5io__example_2platform__config_8h_1a0f4ff52ed3a5a46691f6a4d03988923d" prot="public" static="no">
         <name>UART_DEVICE_ID</name>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" bodystart="12" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h" bodystart="12" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -79,6 +79,6 @@
 <codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UART_DEVICE_ID<sp/>0</highlight></codeline>
 <codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/platform_config.h"/>
   </compounddef>
 </doxygen>

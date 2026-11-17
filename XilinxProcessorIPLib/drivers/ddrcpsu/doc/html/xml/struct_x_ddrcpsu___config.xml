@@ -9,12 +9,12 @@
         <argsstring></argsstring>
         <name>Name</name>
         <briefdescription>
-        </briefdescription>
+<para>Device name. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1af6b79d8e85a63e678d25a4676d208cf2" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -22,12 +22,12 @@
         <argsstring></argsstring>
         <name>BaseAddress</name>
         <briefdescription>
-        </briefdescription>
+<para>Device base address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a3787c99c7f27f1478ba91e6403f16c3e" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -35,12 +35,12 @@
         <argsstring></argsstring>
         <name>HasEccEn</name>
         <briefdescription>
-        </briefdescription>
+<para>ECC enable flag. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a522595e32b41f98d80b5fb638889cb5f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -48,12 +48,12 @@
         <argsstring></argsstring>
         <name>InputClockFreq</name>
         <briefdescription>
-        </briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1aa7f67af7805199977006135a6d7661a0" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -61,12 +61,12 @@
         <argsstring></argsstring>
         <name>AddrMapping</name>
         <briefdescription>
-        </briefdescription>
+<para>Address mapping. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a6d57181f1c341f0dd73bf4ce06916418" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -74,12 +74,12 @@
         <argsstring></argsstring>
         <name>DdrFreq</name>
         <briefdescription>
-        </briefdescription>
+<para>DDR frequency in Hz. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a906a2d518ee2d8aa5f32fc8c726de8a0" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -87,12 +87,12 @@
         <argsstring></argsstring>
         <name>VideoBufSize</name>
         <briefdescription>
-        </briefdescription>
+<para>Video buffer size. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1aee1855b94dfae57190cef1bd4d3071d6" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -100,12 +100,12 @@
         <argsstring></argsstring>
         <name>BrcMapping</name>
         <briefdescription>
-        </briefdescription>
+<para>BRC mapping. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1aa9bd23c82b9a15fd09e2991269d7a223" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -113,12 +113,12 @@
         <argsstring></argsstring>
         <name>HasDynamicDDrEn</name>
         <briefdescription>
-        </briefdescription>
+<para>Dynamic DDR enable flag. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a7f192eda0970a40f4f5e3a45165c978c" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -126,12 +126,12 @@
         <argsstring></argsstring>
         <name>Memtype</name>
         <briefdescription>
-        </briefdescription>
+<para>Memory type. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a60c900478b4360df24d4927f347ef0fa" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -139,12 +139,12 @@
         <argsstring></argsstring>
         <name>MemAddrMap</name>
         <briefdescription>
-        </briefdescription>
+<para>Memory address map. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1ab9f8aeb9031b5c62e2a565f19534870d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -152,12 +152,12 @@
         <argsstring></argsstring>
         <name>DataMask_Dbi</name>
         <briefdescription>
-        </briefdescription>
+<para>Data mask and DBI setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a8ff2f7dcf764160831297871ecadc648" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -165,12 +165,12 @@
         <argsstring></argsstring>
         <name>AddressMirror</name>
         <briefdescription>
-        </briefdescription>
+<para>Address mirroring setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a8123d16c32914561fd719decc84a08e2" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -178,12 +178,12 @@
         <argsstring></argsstring>
         <name>Secondclk</name>
         <briefdescription>
-        </briefdescription>
+<para>Second clock setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a3478bd5082f5e6b0880c6267fb31cdd5" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -191,12 +191,12 @@
         <argsstring></argsstring>
         <name>Parity</name>
         <briefdescription>
-        </briefdescription>
+<para>Parity setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1ab461decf66dddac8c45c580b475d4e5b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -204,12 +204,12 @@
         <argsstring></argsstring>
         <name>PwrDnEn</name>
         <briefdescription>
-        </briefdescription>
+<para>Power-down enable. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a5495405e3fd7793b41fd5fe12a70f428" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -217,12 +217,12 @@
         <argsstring></argsstring>
         <name>ClockStopEn</name>
         <briefdescription>
-        </briefdescription>
+<para>Clock-stop enable. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1ad8fd43980691af97539cff00db71c4be" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -230,12 +230,12 @@
         <argsstring></argsstring>
         <name>LpAsr</name>
         <briefdescription>
-        </briefdescription>
+<para>LPASR setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1ae3607b44de918295477ec6b556cd1dde" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -243,12 +243,12 @@
         <argsstring></argsstring>
         <name>TRefMode</name>
         <briefdescription>
-        </briefdescription>
+<para>Refresh mode. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a60716d16a5645f7dc1136996278a4fb9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -256,12 +256,12 @@
         <argsstring></argsstring>
         <name>Fgrm</name>
         <briefdescription>
-        </briefdescription>
+<para>FGRM setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a96cf5b31bdc8de7da63e18b025d6e193" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -269,12 +269,12 @@
         <argsstring></argsstring>
         <name>SelfRefAbort</name>
         <briefdescription>
-        </briefdescription>
+<para>Self-refresh abort setting. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ddrcpsu___config_1a01a277e500fd84efad468ac9a89e234e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -282,19 +282,19 @@
         <argsstring></argsstring>
         <name>TRefRange</name>
         <briefdescription>
-        </briefdescription>
+<para>Refresh range. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="48" bodyend="71"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="47" bodyend="70"/>
     <listofallmembers>
       <member refid="struct_x_ddrcpsu___config_1a8ff2f7dcf764160831297871ecadc648" prot="public" virt="non-virtual"><scope>XDdrcpsu_Config</scope><name>AddressMirror</name></member>
       <member refid="struct_x_ddrcpsu___config_1aa7f67af7805199977006135a6d7661a0" prot="public" virt="non-virtual"><scope>XDdrcpsu_Config</scope><name>AddrMapping</name></member>

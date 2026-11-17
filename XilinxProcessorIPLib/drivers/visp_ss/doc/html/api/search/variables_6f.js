@@ -13,6 +13,7 @@ var searchData=
   ['oba1spdataformat',['Oba1SpDataFormat',['../structxvisp__ss___config.html#af35fa90bd2401bb5fb20f496f5fcb182',1,'xvisp_ss_Config']]],
   ['oba1spppc',['Oba1SpPpc',['../structxvisp__ss___config.html#a14ea5cd80b92a57c22a72f2a61a26dbd',1,'xvisp_ss_Config']]],
   ['onsemiregisterfields',['OnsemiRegisterFields',['../group___o_n_s_e_m_i___n_b7_n_q621_m.html#gaf765b2cbc5bdae5de39f3290253f1e4f',1,'onsemi_nb7nq621m.c']]],
+  ['operatingmode',['operatingmode',['../struct_run_config.html#a975268f253882e0520fa0cfc7695f233',1,'RunConfig']]],
   ['outbit',['outBit',['../struct_cam_device_sensor_compand_curve__s.html#a58eedb0382846f98354baaeaabb9cfee',1,'CamDeviceSensorCompandCurve_s']]],
   ['outformat',['outFormat',['../struct_cam_device_pipe_out_fmt__s.html#a1bd408f7a4b60c058909218e0326bb76',1,'CamDevicePipeOutFmt_s']]],
   ['outh',['outH',['../struct_cam_device_fusa_pixel_count_size__s.html#af0dd6c452e6a3b2b85092df487c48a0f',1,'CamDeviceFusaPixelCountSize_s']]],
@@ -21,6 +22,7 @@ var searchData=
   ['outpathenable',['outPathEnable',['../struct_cam_device_path_streaming_cfg__s.html#a842343e19a382c0464a851617a60cbba',1,'CamDevicePathStreamingCfg_s']]],
   ['outputcfg',['outputCfg',['../struct_cam_device_config__s.html#ae8aaba42523ef9ff56332ef237a97bfa',1,'CamDeviceConfig_s']]],
   ['outputtype',['outputType',['../struct_cam_device_output_config__s.html#a094ee0cb1cfc7f1cba88ec174fd1554e',1,'CamDeviceOutputConfig_s']]],
+  ['outstreamformat',['OutStreamFormat',['../struct_run_config.html#af4cad423a1cf363a0c140c3d59a63b1c',1,'RunConfig']]],
   ['outv',['outV',['../struct_cam_device_fusa_pixel_count_size__s.html#a21c8a9fcdaf8067d5c4439508031c86d',1,'CamDeviceFusaPixelCountSize_s']]],
   ['outwidth',['outWidth',['../struct_cam_device_pipe_out_fmt__s.html#a7a84f56912487db3ce25aa9778de08eb',1,'CamDevicePipeOutFmt_s']]]
 ];

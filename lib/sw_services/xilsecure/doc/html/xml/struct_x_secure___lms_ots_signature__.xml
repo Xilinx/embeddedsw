@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="429" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="430" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___lms_ots_signature___1ae7a8ff1d691fb9e20704be1eca661858" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="434" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="435" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Partial LMS OTS Signature structure. </para>    </briefdescription>
     <detaileddescription>
 <para>struct Size = 4 + 32 Sign size = 4 + 32 + (p * n) = 4 + n * (p+1) </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="424" bodyend="436"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="425" bodyend="437"/>
     <listofallmembers>
       <member refid="struct_x_secure___lms_ots_signature___1ae7a8ff1d691fb9e20704be1eca661858" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsSignature_</scope><name>C</name></member>
       <member refid="struct_x_secure___lms_ots_signature___1ac67a0026cfd8958fc01c687921e5bc32" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsSignature_</scope><name>Type</name></member>

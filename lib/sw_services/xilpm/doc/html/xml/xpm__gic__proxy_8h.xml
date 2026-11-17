@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__gic__proxy_8h" kind="file">
+    <compoundname>xpm_gic_proxy.h</compoundname>
+    <includes refid="xpm__periph_8h" local="yes">xpm_periph.h</includes>
+    <includedby refid="server_2xpm__powerdomain_8c" local="yes">xpm_powerdomain.c</includedby>
+    <includedby refid="xpm__gic__proxy_8c" local="yes">xpm_gic_proxy.c</includedby>
+    <includedby refid="xpm__periph_8c" local="yes">xpm_periph.c</includedby>
+    <incdepgraph>
+      <node id="4028">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="4010">
+        <label>xpm_gic_proxy.h</label>
+        <link refid="xpm_gic_proxy.h"/>
+        <childnode refid="4011" relation="include">
+        </childnode>
+      </node>
+      <node id="4018">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4030">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="4031" relation="include">
+        </childnode>
+        <childnode refid="4024" relation="include">
+        </childnode>
+        <childnode refid="4015" relation="include">
+        </childnode>
+        <childnode refid="4034" relation="include">
+        </childnode>
+      </node>
+      <node id="4013">
+        <label>xpm_node.h</label>
+        <childnode refid="4014" relation="include">
+        </childnode>
+        <childnode refid="4015" relation="include">
+        </childnode>
+        <childnode refid="4016" relation="include">
+        </childnode>
+        <childnode refid="4017" relation="include">
+        </childnode>
+      </node>
+      <node id="4020">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="4027">
+        <label>xpm_clock.h</label>
+        <childnode refid="4017" relation="include">
+        </childnode>
+        <childnode refid="4028" relation="include">
+        </childnode>
+        <childnode refid="4013" relation="include">
+        </childnode>
+        <childnode refid="4023" relation="include">
+        </childnode>
+      </node>
+      <node id="4011">
+        <label>xpm_periph.h</label>
+        <childnode refid="4012" relation="include">
+        </childnode>
+      </node>
+      <node id="4019">
+        <label>xil_util.h</label>
+      </node>
+      <node id="4021">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="4025">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="4024">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="4034">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="4036">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="4035">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="4015">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4012">
+        <label>xpm_device.h</label>
+        <childnode refid="4013" relation="include">
+        </childnode>
+        <childnode refid="4023" relation="include">
+        </childnode>
+        <childnode refid="4027" relation="include">
+        </childnode>
+        <childnode refid="4029" relation="include">
+        </childnode>
+        <childnode refid="4036" relation="include">
+        </childnode>
+      </node>
+      <node id="4016">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="4032">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="4014">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4022">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="4017">
+        <label>xpm_common.h</label>
+        <childnode refid="4015" relation="include">
+        </childnode>
+        <childnode refid="4018" relation="include">
+        </childnode>
+        <childnode refid="4019" relation="include">
+        </childnode>
+        <childnode refid="4020" relation="include">
+        </childnode>
+        <childnode refid="4021" relation="include">
+        </childnode>
+        <childnode refid="4022" relation="include">
+        </childnode>
+      </node>
+      <node id="4031">
+        <label>xpm_api.h</label>
+        <childnode refid="4014" relation="include">
+        </childnode>
+        <childnode refid="4015" relation="include">
+        </childnode>
+        <childnode refid="4024" relation="include">
+        </childnode>
+        <childnode refid="4020" relation="include">
+        </childnode>
+        <childnode refid="4032" relation="include">
+        </childnode>
+        <childnode refid="4033" relation="include">
+        </childnode>
+      </node>
+      <node id="4023">
+        <label>xpm_power.h</label>
+        <childnode refid="4024" relation="include">
+        </childnode>
+        <childnode refid="4013" relation="include">
+        </childnode>
+        <childnode refid="4025" relation="include">
+        </childnode>
+        <childnode refid="4026" relation="include">
+        </childnode>
+      </node>
+      <node id="4026">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="4033">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="4029">
+        <label>xpm_reset.h</label>
+        <childnode refid="4013" relation="include">
+        </childnode>
+        <childnode refid="4017" relation="include">
+        </childnode>
+        <childnode refid="4030" relation="include">
+        </childnode>
+        <childnode refid="4035" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4039">
+        <label>xpm_gic_proxy.c</label>
+      </node>
+      <node id="4037">
+        <label>xpm_gic_proxy.h</label>
+        <link refid="xpm_gic_proxy.h"/>
+        <childnode refid="4038" relation="include">
+        </childnode>
+        <childnode refid="4039" relation="include">
+        </childnode>
+        <childnode refid="4040" relation="include">
+        </childnode>
+      </node>
+      <node id="4038">
+        <label>xpm_powerdomain.c</label>
+      </node>
+      <node id="4040">
+        <label>xpm_periph.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___gic_proxy_group" prot="public">XPm_GicProxyGroup</innerclass>
+    <innerclass refid="struct_x_pm___gic_proxy__t" prot="public">XPm_GicProxy_t</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__gic__proxy_8h_1a65494a7d55ff63875440946390a4a452" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref></type>
+        <definition>XPm_GicProxy_t XPm_GicProxy</definition>
+        <argsstring></argsstring>
+        <name>XPm_GicProxy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.c" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__gic__proxy_8h_1ad01e3a94c68229de399161c012f70108" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmGicProxy_WakeEventSet</definition>
+        <argsstring>(const XPm_Periph *Periph, u8 Enable)</argsstring>
+        <name>XPmGicProxy_WakeEventSet</name>
+        <param>
+          <type>const <ref refid="struct_x_pm___periph" kindref="compound">XPm_Periph</ref> *</type>
+          <declname>Periph</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>Configure a peripheral interrupt as a GIC Proxy wake source. </para>        </briefdescription>
+        <detaileddescription>
+<para>A zero interrupt mask succeeds without changing GIC Proxy routing. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Periph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Peripheral supplying the interrupt mask and group. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nonzero to enable the wake source, zero to disable it. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success, or an error for invalid routing or missing PMC. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.c" bodystart="21" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_GIC_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_GIC_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_periph.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22" refid="struct_x_pm___gic_proxy_group" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SetMask;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}<sp/><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="struct_x_pm___gic_proxy__t" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_pm___gic_proxy_group" kindref="compound">XPm_GicProxyGroup</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Groups;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Clear)(void);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Enable)(void);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>GroupsCnt;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Flags;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}<sp/><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*********************************************************************</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>Global<sp/>data<sp/>declarations</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___gic_proxy__t" kindref="compound">XPm_GicProxy_t</ref><sp/>XPm_GicProxy;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">XStatus<sp/>XPmGicProxy_WakeEventSet(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___periph" kindref="compound">XPm_Periph</ref><sp/>*Periph,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*XPM_GIC_H_*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.h"/>
+  </compounddef>
+</doxygen>

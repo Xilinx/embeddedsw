@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,99 +105,304 @@ $(document).ready(function(){initNavTree('xrfdc_8c.html','');});
 <div class="title">xrfdc.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interface functions of the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. </p>
+<p>Contains the interface functions of the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. See <a class="el" href="xrfdc_8h.html">xrfdc.h</a> for a detailed description of the device and driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.0   sk     05/16/17 Initial release
+2.0   sk     08/09/17 Fixed coarse Mixer configuration settings
+                      CR# 977266, 977872.
+                      Return error for Slice Event on 4G ADC Block.
+             08/16/17 Add support for SYSREF and PL event sources.
+             08/18/17 Add API to enable and disable FIFO.
+             08/23/17 Add API to configure Nyquist zone.
+             08/30/17 Add additional info to BlockStatus.
+             08/30/17 Add support for Coarse Mixer BYPASS mode.
+             08/31/17 Removed Tile Reset Assert and Deassert.
+             09/07/17 Add support for negative NCO freq.
+             09/15/17 Fixed NCO freq precision issue.
+             09/15/17 Fixed Immediate Event source issue and also
+                      updated the Immediate Macro value to 0.
+2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
+      sk     09/25/17 Modified XRFdc_GetBlockStatus API to give
+                      correct information and also updates the
+                      description for Vector Param in intr handler
+                      Add API to get Output current and removed
+                      GetTermVoltage and GetOutputCurr inline functions.
+2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
+                      Enable the decoder clock based on decoder mode.
+                      Add API to get the current FIFO status.
+                      Updated XRFdc_DumpRegs API for better readability
+                      of output register dump.
+                      Add support for 4GSPS CoarseMixer frequency.
+             10/11/17 Modify float types to double to increase precision.
+             10/12/17 Update BlockStatus API to give current status.
+                      In BYPASS mode, input datatype can be Real or IQ,
+                      hence checked both while reading the mixer mode.
+             10/17/17 Fixed Set Threshold API Issue.
+2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
+                      Provide user configurability for FineMixerScale.
+             11/08/17 Return error for DAC R2C mode and ADC C2R mode.
+             11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
+             11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
+3.0   sk     12/11/17 Added DDC and DUC support.
+             12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
+             12/15/17 Add support to switch calibration modes.
+             12/15/17 Add support for mixer frequencies &gt; Fs/2 and &lt; -Fs/2.
+      sg     13/01/18 Added PLL and external clock switch support.
+                      Added API to get PLL lock status.
+                      Added API to get clock source.
+3.1   jm     01/24/18 Add Multi-tile sync support.
+      sk     01/25/18 Updated Set and Get Interpolation/Decimation factor
+                      API's to consider the actual factor value.
+3.2   sk     02/02/18 Add API's to configure inverse-sinc.
+      sk     02/27/18 Add API's to configure Multiband.
+      sk     03/09/18 Update PLL structure in XRFdc_DynamicPLLConfig API.
+      sk     03/09/18 Update ADC and DAC datatypes in Mixer API and use
+                      input datatype for ADC in threshold and QMC APIs.
+      sk     03/09/18 Removed FIFO disable check in DDC and DUC APIs.
+      sk     03/09/18 Add support for Marker event source for DAC block.
+      sk     03/22/18 Updated PLL settings based on latest IP values.
+4.0   sk     04/17/18 Corrected Set/Get MixerSettings API description for
+                      FineMixerScale parameter.
+      sk     04/19/18 Enable VCO Auto selection while configuring the clock.
+      sk     04/24/18 Add API to get PLL Configurations.
+      sk     04/24/18 Add API to get the Link Coupling mode.
+      sk     04/28/18 Implement timeouts for PLL Lock, Startup and shutdown.
+      sk     05/30/18 Removed CalibrationMode check for DAC.
+      sk     06/05/18 Updated minimum Ref clock value to 102.40625MHz.
+5.0   sk     06/25/18 Update DAC min sampling rate to 500MHz and also update
+                      VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
+      sk     06/25/18 Add <a class="el" href="group___overview.html#gaee66e0a82e88de2ca82db20b0aa869dd" title="Gets the divider for the clock fabric out. ">XRFdc_GetFabClkOutDiv()</a> API to read fabric clk div.
+                      Add Inline APIs <a class="el" href="group___overview.html#ga21d64e03d2ee900cfa8310ceb2e4e063" title="Checks whether ADC/DAC block is enabled or not. ">XRFdc_CheckBlockEnabled()</a>,
+                      <a class="el" href="group___overview.html#gab2d605d73ee9704981ba1acaab920797" title="Checks whether ADC/DAC tile is enabled or not. ">XRFdc_CheckTileEnabled()</a>.
+      sk     07/06/18 Add support to dump HSCOM regs in <a class="el" href="group___overview.html#gadfcff833fb9078071546a872f78b03a1" title="Prints the register offset along with its content. ">XRFdc_DumpRegs()</a> API
+      sk     07/12/18 Fixed Multiband crossbar settings in C2C mode.
+      sk     07/19/18 Add MixerType member to MixerSettings structure and
+                      Update Mixer Settings APIs to consider the MixerType
+                      variable.
+      sk     07/19/18 Add <a class="el" href="group___overview.html#ga317443e7984605e39a1637e362ccdb90" title="Gets the multiband configuration data. ">XRFdc_GetMultibandConfig()</a> API to read Multiband
+                      configuration.
+      sk     07/20/18 Update the APIs to check the corresponding section
+                      (Digital/Analog)enable/disable.
+      sk     07/26/18 Fixed Doxygen, coverity warnings.
+      sk     08/03/18 Fixed MISRAC warnings.
+      sk     08/24/18 Move mixer related APIs to <a class="el" href="xrfdc__mixer_8c.html" title="Implements the mixer settings functions of the XRFdc driver. ">xrfdc_mixer.c</a> file.
+                      Define asserts for Linux, Re-arranged XRFdc_RestartIPSM,
+                      <a class="el" href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9" title="Initializes a specific XRFdc instance so the driver is ready to use. ">XRFdc_CfgInitialize()</a> and <a class="el" href="group___overview.html#gad7e3cba3e05ff50ddfe105a36f81fb80" title="Sets up the multiband configuration. ">XRFdc_MultiBand()</a>  APIs.
+                      Reorganize the code to improve readability and
+                      optimization.
+      sk     09/24/18 Update powerup-state value based on PLL mode in
+                      <a class="el" href="group___overview.html#ga2390330eaf525d57a9500d298d712db1" title="Switches between the internal PLL and external clock source. ">XRFdc_DynamicPLLConfig()</a> API.
+      sk     10/10/18 Check for DigitalPath enable in <a class="el" href="group___overview.html#ga7ab226b7c257253e4976343b3744e190" title="Gets the Nyquist zone. ">XRFdc_GetNyquistZone()</a>
+                      and <a class="el" href="group___overview.html#gaab11b20e3aadaf71a627350a447e6f98" title="Gets the calibration mode. ">XRFdc_GetCalibrationMode()</a> APIs for Multiband.
+      sk     10/13/18 Add support to read the REFCLKDIV param from design.
+                      Update XRFdc_SetPLLConfig() API to support range of
+                      REF_CLK_DIV values(1 to 4).
+5.1   cog    01/29/19 Replace structure reference ADC checks with
+                      function.
+      cog    01/29/19 Added <a class="el" href="group___overview.html#gad6be9864ab48f0d17d713c2b9a9cab8e" title="Sets the IM3 dither mode. ">XRFdc_SetDither()</a> and <a class="el" href="group___overview.html#gae00a323c43fe30c6ccc7cdde28b612f5" title="Gets the IM3 dither mode. ">XRFdc_GetDither()</a> APIs.
+      cog    01/29/19 Rename DataType for mixer input to MixerInputDataType
+                      for readability.
+      cog    01/29/19 Refactoring of interpolation and decimation APIs and
+                      changed fabric rate for decimation X8 for non-high speed ADCs.
+      cog    01/29/19 New inline functions to determine max &amp; min sampling rates
+                      rates in PLL range checking.
+6.0   cog    02/17/19 Added decimation &amp; interpolation modes
+             02/17/19 Added Inverse-Sinc Second Nyquist Zone Support
+      cog    02/17/19 Added new clock Distribution functionality.
+      cog    02/17/19 Refactored to improve delay balancing in clock
+                      distribution.
+      cog    02/17/19 Added delay calculation &amp; metal log messages.
+      cog    02/17/19 Added intratile clock settings.
+      cog    02/17/19 Moved multiband to a new file <a class="el" href="xrfdc__mb_8c.html" title="Implements the multiband settings functions of the XRFdc driver. ">xrfdc_mb.c</a>
+      cog    02/17/19 Moved clocking functionality to a new file <a class="el" href="xrfdc__clock_8c.html" title="Implements the clock settings functions of the XRFdc driver. ">xrfdc_clock.c</a>
+      cog    02/17/19 Added <a class="el" href="group___overview.html#gaa6645c553a75a5c6321035a3df183692" title="Sets the DAC image reject filter pass mode. ">XRFdc_SetIMRPassMode()</a> and <a class="el" href="group___overview.html#gaa6645c553a75a5c6321035a3df183692" title="Sets the DAC image reject filter pass mode. ">XRFdc_SetIMRPassMode()</a> APIs
+      cog    02/17/19 Added XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs
+      cog    02/17/19   Added <a class="el" href="group___overview.html#gab72bb5191c688bb173b676e931dcacb2" title="Sets the ADC signal detector settings. ">XRFdc_SetSignalDetector()</a> and <a class="el" href="group___overview.html#gaf778581f9357f82d55bb4ddd4c8936c6" title="Gets the ADC signal detector settings. ">XRFdc_GetSignalDetector()</a> APIs.
+      cog    02/17/19 Added <a class="el" href="group___overview.html#gadd43c4d3f675553864148accac53099f" title="Disables the calibration coefficients override. ">XRFdc_DisableCoefficientsOverride()</a>, XRFdc_SetCalCoefficients
+                      and XRFdc_GetCalCoefficients APIs.
+      cog    02/21/19 Added <a class="el" href="group___overview.html#gaee1e547d4a3e8316e1d5a0bc723dae72" title="Sets the calibration freeze settings. ">XRFdc_SetCalFreeze()</a> and <a class="el" href="group___overview.html#gae6e2aadc0f82e6a454d06e5e324974e5" title="Gets the calibration freeze settings and status. ">XRFdc_GetCalFreeze()</a> APIs.
+      cog    04/09/19 Changed calibration coefficient override control register for OCB1.
+      cog    04/15/19 Rename XRFdc_SetDACMode() and XRFdc_GetDACMode() APIs to
+                      <a class="el" href="group___overview.html#ga32b26582f802cbabc390adcf56f064f6" title="Sets the DAC datapath mode. ">XRFdc_SetDataPathMode()</a> and <a class="el" href="group___overview.html#gad0ee4a76a0f85109a41af7ef74f351f3" title="Gets the DAC datapath mode. ">XRFdc_GetDataPathMode()</a> respectively.
+      cog    04/30/19 Made Changes to the bypass calibration functionality to support Gen2
+                      and below.
+7.0   cog    05/13/19 Formatting changes.
+      cog    07/16/19 Added XRFdc_SetDACOpCurr() API.
+      cog    07/18/19 Added XRFdc_S/GetDigitalStepAttenuator() APIs.
+      cog    07/25/19 Baremetal Region mapping now taken care of in <a class="el" href="group___overview.html#ga415b909c08102db406ea819a6c744add" title="Registers and opens the device and maps RFDC to the IO region. ">XRFdc_RegisterMetal()</a>.
+      cog    07/25/19 Moved XRFDC_PLL_LOCK_DLY_CNT macro to header file.
+      cog    07/26/19 Added new XRFdc_S/GetLegacyCompatibilityMode() APIs.
+      cog    08/02/19 Formatting changes and added a MACRO for the IP generation.
+      cog    09/01/19 Renamed XRFdc_SetDACOpCurr() to <a class="el" href="group___overview.html#gacda6cd61031f30a5ff4fee7fbff9bf47" title="Sets the output current for a DAC block. ">XRFdc_SetDACVOP()</a>. Also explicitly set
+                      API to use register values rather than from fabric.
+      cog    09/01/19 Added support for VOP in <a class="el" href="group___overview.html#ga5e8fd98f1aee41330fe156a68dfdebf1" title="Gets the output current for a DAC block. ">XRFdc_GetOutputCurr()</a>.
+      cog    09/01/19 Rename new XRFdc_S/GetLegacyCompatibilityMode() APIs to
+                      XRFdc_S/GetDACCompMode().
+      cog    09/01/19 Rename XRFdc_S/GetDigitalStepAttenuator() APIs to XRFdc_S/GetDSA().
+                      Also, refactored DSA to use struct and absolute value for Attenuation.
+      cog    09/18/19 Wider mask now needed for DAC Fabric Rate.
+      cog    09/19/19 Calibration mode 1 does not need the frequency shifting workaround
+                      for Gen 3 devices.
+      cog    10/02/19 Added explicit clock divider for datapath modes.
+      cog    10/02/19 The register value for the link coupling is inverted in Gen 3 Devices.
+      cog    10/18/19 DSA was checking DAC tile rather than ADC.
+      cog    10/18/19 Fix GCB read indexing issue with HSADC devices &amp; TSCB coefficients.
+7.1   cog    11/14/19 Increased ADC fabric read rate to 12 words per cycle for Gen 3 devices.
+      cog    11/15/19 Added calibration mode support for Gen 3 devices and fixed issue with going
+                      to calibration mode 1 when in real mode.
+      cog    11/28/19 Datapath "Mode 2" is now half bandwidth with low pass IMR (previously it was
+                      full bandwidth, no IMR, even Nyquist zone).
+      cog    11/28/19 Set defalult compatibility setting when moving to Bypass Mode (Mode 4).
+      cog    11/28/19 Prevent setting non compliant interpolation rates when in the bypass
+                      datapath mode.
+      cog    12/19/19 Update FIFO widths for higher interpolation &amp; decimation factors.
+      cog    12/20/19 Metal log messages are now more descriptive.
+      cog    01/08/20 Added programmable hysteresis for counters ADC signal detector.
+      cog    01/23/20 Calibration modes for Gen 3 were inverted.
+      cog    01/23/20 Fixed offset and bit for GCB calibration override operations in Gen 3 Devices.
+      cog    01/29/20 Fixed metal log typos.
+8.0   cog    02/10/20 Updated addtogroup.
+      cog    02/20/20 Adjust FIFO delays for clock gated interpolation/decimation rates.
+      cog    03/13/20 Fixed issue where over threshold flag was asserting as soon as the threshold
+                      settings are applied.
+8.1   cog    06/24/20 Upversion.
+      cog    06/24/20 Expand range of DSA for production Si.
+      cog    06/24/20 Expand range of VOP for production Si.
+      cog    06/24/20 Support for Dual Band IQ for new bondout.
+      cog    06/24/20 Added observation FIFO and decimation functionality.
+      cog    06/24/20 Added channel powerdon functionality.
+      cog    06/24/20 Refactor to functionaize the FIFO width setting.
+      cog    07/01/20 Fixed metal log print error in XRFdc_SetQMCSettings.
+      cog    08/04/20 Fixed issues with the connected data initialization for multiband.
+      cog    08/28/20 Allow non bypass datapath modes if digital path is enabled.
+      cog    09/01/20 Added warning message if trying to incorrectly set QMC phase and
+                      QMC phase should only be allowed to be set in IQ pair.
+      cog    09/08/20 The Four LSBs of the BLDR Bias Current should be the same as the
+                      four LSBs of the CS Gain.
+      cog    10/05/20 Change shutdown end state for Gen 3 Quad ADCs to reduce power
+                      consumption.
+9.0   cog    11/25/20 Upversion.
+      cog    11/25/20 Added autocalibration mode for Gen 3 devices.
+10.0  cog    11/26/20 Refactor and split files.
+      cog    02/10/21 Added custom startup API.
+      cog    05/05/21 Fixed issue where driver was attempting to start ADC 3
+                      for DFE variants.
+      cog    05/05/21 Some dividers and delays need to be set to run caliration at
+                      high sampling rates.
+11.0  cog    05/26/21 Fixed issue where any end state could be selected in custom
+                      startup API if a start state of 1 was supplied.
+      cog    05/31/21 Upversion information.
+      cog    06/10/21 When setting the powermode, the IP now takes care of the
+                      configuration registers.
+11.1  cog    11/16/21 Upversion.
+      cog    01/18/22 Refactor connected data components.
+      cog    01/18/22 Added safety checks.
+12.0  cog    09/01/22 Upversion.
+12.1  cog    07/04/23 Add support for SDT.
+      cog    07/27/23 Add NCO frequency to config structures.
+12.2  cog    01/29/24 Yocto SDT support.
+13.1  dc     02/18/26 Correct spelling errors
+      dc     03/08/26 Correct compiler warnings
+13.2  vn     08/11/26 Fix Doxygen warnings.
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga259ea2f270f0ce46ac06912cd7dcdfb9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">XRFdc_CfgInitialize</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="struct_x_r_fdc___config.html">XRFdc_Config</a> *ConfigPtr)</td></tr>
-<tr class="memdesc:ga259ea2f270f0ce46ac06912cd7dcdfb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> instance such that the driver is ready to use.  <a href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">More...</a><br/></td></tr>
+<tr class="memitem:ga259ea2f270f0ce46ac06912cd7dcdfb9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">XRFdc_CfgInitialize</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="struct_x_r_fdc___config.html">XRFdc_Config</a> *ConfigPtr)</td></tr>
+<tr class="memdesc:ga259ea2f270f0ce46ac06912cd7dcdfb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a specific <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> instance so the driver is ready to use.  <a href="group___overview.html#ga259ea2f270f0ce46ac06912cd7dcdfb9">More...</a><br/></td></tr>
 <tr class="separator:ga259ea2f270f0ce46ac06912cd7dcdfb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0441d93b399e5178606bf5dcf7481551"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga0441d93b399e5178606bf5dcf7481551">XRFdc_StartUp</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id)</td></tr>
-<tr class="memdesc:ga0441d93b399e5178606bf5dcf7481551"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API Restarts the requested tile.  <a href="group___overview.html#ga0441d93b399e5178606bf5dcf7481551">More...</a><br/></td></tr>
+<tr class="memitem:ga0441d93b399e5178606bf5dcf7481551"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga0441d93b399e5178606bf5dcf7481551">XRFdc_StartUp</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, int Tile_Id)</td></tr>
+<tr class="memdesc:ga0441d93b399e5178606bf5dcf7481551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts the requested tile or all tiles.  <a href="group___overview.html#ga0441d93b399e5178606bf5dcf7481551">More...</a><br/></td></tr>
 <tr class="separator:ga0441d93b399e5178606bf5dcf7481551"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac6a79b8a22618e638b7d8f6632437963"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac6a79b8a22618e638b7d8f6632437963">XRFdc_Shutdown</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id)</td></tr>
-<tr class="memdesc:gac6a79b8a22618e638b7d8f6632437963"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API stops the tile as requested.  <a href="group___overview.html#gac6a79b8a22618e638b7d8f6632437963">More...</a><br/></td></tr>
+<tr class="memitem:gac6a79b8a22618e638b7d8f6632437963"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac6a79b8a22618e638b7d8f6632437963">XRFdc_Shutdown</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, int Tile_Id)</td></tr>
+<tr class="memdesc:gac6a79b8a22618e638b7d8f6632437963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the requested tile or all tiles.  <a href="group___overview.html#gac6a79b8a22618e638b7d8f6632437963">More...</a><br/></td></tr>
 <tr class="separator:gac6a79b8a22618e638b7d8f6632437963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa7e0f063f24927037b37fbfcf01e55c2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa7e0f063f24927037b37fbfcf01e55c2">XRFdc_Reset</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id)</td></tr>
-<tr class="memdesc:gaa7e0f063f24927037b37fbfcf01e55c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API resets the requested tile.  <a href="group___overview.html#gaa7e0f063f24927037b37fbfcf01e55c2">More...</a><br/></td></tr>
+<tr class="memitem:gaa7e0f063f24927037b37fbfcf01e55c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa7e0f063f24927037b37fbfcf01e55c2">XRFdc_Reset</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, int Tile_Id)</td></tr>
+<tr class="memdesc:gaa7e0f063f24927037b37fbfcf01e55c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the requested tile or all tiles.  <a href="group___overview.html#gaa7e0f063f24927037b37fbfcf01e55c2">More...</a><br/></td></tr>
 <tr class="separator:gaa7e0f063f24927037b37fbfcf01e55c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3a6973a9df60d0842bb27c9da5414c08"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3a6973a9df60d0842bb27c9da5414c08">XRFdc_CustomStartUp</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id, u32 StartState, u32 EndState)</td></tr>
-<tr class="memdesc:ga3a6973a9df60d0842bb27c9da5414c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API starts the requested tile from a provided state and runs to the given end state.  <a href="group___overview.html#ga3a6973a9df60d0842bb27c9da5414c08">More...</a><br/></td></tr>
+<tr class="memitem:ga3a6973a9df60d0842bb27c9da5414c08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3a6973a9df60d0842bb27c9da5414c08">XRFdc_CustomStartUp</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, int Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> StartState, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> EndState)</td></tr>
+<tr class="memdesc:ga3a6973a9df60d0842bb27c9da5414c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the requested tile from a provided state to the given end state.  <a href="group___overview.html#ga3a6973a9df60d0842bb27c9da5414c08">More...</a><br/></td></tr>
 <tr class="separator:ga3a6973a9df60d0842bb27c9da5414c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7ae16eeeaaaf2e568559939aa925c736"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7ae16eeeaaaf2e568559939aa925c736">XRFdc_WaitForState</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 State)</td></tr>
-<tr class="memdesc:ga7ae16eeeaaaf2e568559939aa925c736"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to wait for a tile to reach a given state.  <a href="group___overview.html#ga7ae16eeeaaaf2e568559939aa925c736">More...</a><br/></td></tr>
+<tr class="memitem:ga7ae16eeeaaaf2e568559939aa925c736"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7ae16eeeaaaf2e568559939aa925c736">XRFdc_WaitForState</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> State)</td></tr>
+<tr class="memdesc:ga7ae16eeeaaaf2e568559939aa925c736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for a tile to reach a given state.  <a href="group___overview.html#ga7ae16eeeaaaf2e568559939aa925c736">More...</a><br/></td></tr>
 <tr class="separator:ga7ae16eeeaaaf2e568559939aa925c736"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga03c20d025edfa68bd5149f3eeb0c5a16"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="struct_x_r_fdc___i_p_status.html">XRFdc_IPStatus</a> *IPStatusPtr)</td></tr>
-<tr class="memdesc:ga03c20d025edfa68bd5149f3eeb0c5a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API returns the IP status.  <a href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">More...</a><br/></td></tr>
+<tr class="memitem:ga03c20d025edfa68bd5149f3eeb0c5a16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">XRFdc_GetIPStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="struct_x_r_fdc___i_p_status.html">XRFdc_IPStatus</a> *IPStatusPtr)</td></tr>
+<tr class="memdesc:ga03c20d025edfa68bd5149f3eeb0c5a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the IP status.  <a href="group___overview.html#ga03c20d025edfa68bd5149f3eeb0c5a16">More...</a><br/></td></tr>
 <tr class="separator:ga03c20d025edfa68bd5149f3eeb0c5a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga89b677cb830fd202087220a23b609067"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga89b677cb830fd202087220a23b609067">XRFdc_GetBlockStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, <a class="el" href="struct_x_r_fdc___block_status.html">XRFdc_BlockStatus</a> *BlockStatusPtr)</td></tr>
-<tr class="memdesc:ga89b677cb830fd202087220a23b609067"><td class="mdescLeft">&#160;</td><td class="mdescRight">The API returns the requested block status.  <a href="group___overview.html#ga89b677cb830fd202087220a23b609067">More...</a><br/></td></tr>
+<tr class="memitem:ga89b677cb830fd202087220a23b609067"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga89b677cb830fd202087220a23b609067">XRFdc_GetBlockStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="struct_x_r_fdc___block_status.html">XRFdc_BlockStatus</a> *BlockStatusPtr)</td></tr>
+<tr class="memdesc:ga89b677cb830fd202087220a23b609067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the requested block status.  <a href="group___overview.html#ga89b677cb830fd202087220a23b609067">More...</a><br/></td></tr>
 <tr class="separator:ga89b677cb830fd202087220a23b609067"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga32b26582f802cbabc390adcf56f064f6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga32b26582f802cbabc390adcf56f064f6">XRFdc_SetDataPathMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)</td></tr>
-<tr class="memdesc:ga32b26582f802cbabc390adcf56f064f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API is to set the DAC Datapath mode.  <a href="group___overview.html#ga32b26582f802cbabc390adcf56f064f6">More...</a><br/></td></tr>
+<tr class="memitem:ga32b26582f802cbabc390adcf56f064f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga32b26582f802cbabc390adcf56f064f6">XRFdc_SetDataPathMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Mode)</td></tr>
+<tr class="memdesc:ga32b26582f802cbabc390adcf56f064f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the DAC datapath mode.  <a href="group___overview.html#ga32b26582f802cbabc390adcf56f064f6">More...</a><br/></td></tr>
 <tr class="separator:ga32b26582f802cbabc390adcf56f064f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad0ee4a76a0f85109a41af7ef74f351f3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad0ee4a76a0f85109a41af7ef74f351f3">XRFdc_GetDataPathMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)</td></tr>
-<tr class="memdesc:gad0ee4a76a0f85109a41af7ef74f351f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API is to get the DAC Datapath mode.  <a href="group___overview.html#gad0ee4a76a0f85109a41af7ef74f351f3">More...</a><br/></td></tr>
+<tr class="memitem:gad0ee4a76a0f85109a41af7ef74f351f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad0ee4a76a0f85109a41af7ef74f351f3">XRFdc_GetDataPathMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> *ModePtr)</td></tr>
+<tr class="memdesc:gad0ee4a76a0f85109a41af7ef74f351f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the DAC datapath mode.  <a href="group___overview.html#gad0ee4a76a0f85109a41af7ef74f351f3">More...</a><br/></td></tr>
 <tr class="separator:gad0ee4a76a0f85109a41af7ef74f351f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa6645c553a75a5c6321035a3df183692"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa6645c553a75a5c6321035a3df183692">XRFdc_SetIMRPassMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 Mode)</td></tr>
-<tr class="memdesc:gaa6645c553a75a5c6321035a3df183692"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API is to set the DAC Image Reject Filter Pass mode.  <a href="group___overview.html#gaa6645c553a75a5c6321035a3df183692">More...</a><br/></td></tr>
+<tr class="memitem:gaa6645c553a75a5c6321035a3df183692"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa6645c553a75a5c6321035a3df183692">XRFdc_SetIMRPassMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Mode)</td></tr>
+<tr class="memdesc:gaa6645c553a75a5c6321035a3df183692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the DAC image reject filter pass mode.  <a href="group___overview.html#gaa6645c553a75a5c6321035a3df183692">More...</a><br/></td></tr>
 <tr class="separator:gaa6645c553a75a5c6321035a3df183692"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeff6d2ebe289bfd6169e3c8944cdae34"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaeff6d2ebe289bfd6169e3c8944cdae34">XRFdc_GetIMRPassMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *ModePtr)</td></tr>
-<tr class="memdesc:gaeff6d2ebe289bfd6169e3c8944cdae34"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API is to get the DAC Image Reject Filter Pass mode.  <a href="group___overview.html#gaeff6d2ebe289bfd6169e3c8944cdae34">More...</a><br/></td></tr>
+<tr class="memitem:gaeff6d2ebe289bfd6169e3c8944cdae34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaeff6d2ebe289bfd6169e3c8944cdae34">XRFdc_GetIMRPassMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> *ModePtr)</td></tr>
+<tr class="memdesc:gaeff6d2ebe289bfd6169e3c8944cdae34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the DAC image reject filter pass mode.  <a href="group___overview.html#gaeff6d2ebe289bfd6169e3c8944cdae34">More...</a><br/></td></tr>
 <tr class="separator:gaeff6d2ebe289bfd6169e3c8944cdae34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadfcff833fb9078071546a872f78b03a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadfcff833fb9078071546a872f78b03a1">XRFdc_DumpRegs</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, int Tile_Id)</td></tr>
-<tr class="memdesc:gadfcff833fb9078071546a872f78b03a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This Prints the offset of the register along with the content.  <a href="group___overview.html#gadfcff833fb9078071546a872f78b03a1">More...</a><br/></td></tr>
+<tr class="memitem:gadfcff833fb9078071546a872f78b03a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadfcff833fb9078071546a872f78b03a1">XRFdc_DumpRegs</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, int Tile_Id)</td></tr>
+<tr class="memdesc:gadfcff833fb9078071546a872f78b03a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the register offset along with its content.  <a href="group___overview.html#gadfcff833fb9078071546a872f78b03a1">More...</a><br/></td></tr>
 <tr class="separator:gadfcff833fb9078071546a872f78b03a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad428455c40bba3ac0b3b7d15ff6b726f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad428455c40bba3ac0b3b7d15ff6b726f">XRFdc_SetPwrMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, <a class="el" href="struct_x_r_fdc___pwr___mode___settings.html">XRFdc_Pwr_Mode_Settings</a> *SettingsPtr)</td></tr>
-<tr class="memdesc:gad428455c40bba3ac0b3b7d15ff6b726f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set The Power up/down mode of a given converter.  <a href="group___overview.html#gad428455c40bba3ac0b3b7d15ff6b726f">More...</a><br/></td></tr>
+<tr class="memitem:gad428455c40bba3ac0b3b7d15ff6b726f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad428455c40bba3ac0b3b7d15ff6b726f">XRFdc_SetPwrMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="struct_x_r_fdc___pwr___mode___settings.html">XRFdc_Pwr_Mode_Settings</a> *SettingsPtr)</td></tr>
+<tr class="memdesc:gad428455c40bba3ac0b3b7d15ff6b726f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the power up or down mode of a given converter.  <a href="group___overview.html#gad428455c40bba3ac0b3b7d15ff6b726f">More...</a><br/></td></tr>
 <tr class="separator:gad428455c40bba3ac0b3b7d15ff6b726f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga988457a61856845ec98129b9d83076c4"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga988457a61856845ec98129b9d83076c4">XRFdc_GetPwrMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, <a class="el" href="struct_x_r_fdc___pwr___mode___settings.html">XRFdc_Pwr_Mode_Settings</a> *SettingsPtr)</td></tr>
-<tr class="memdesc:ga988457a61856845ec98129b9d83076c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get The Power up/down mode of a given converter.  <a href="group___overview.html#ga988457a61856845ec98129b9d83076c4">More...</a><br/></td></tr>
+<tr class="memitem:ga988457a61856845ec98129b9d83076c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga988457a61856845ec98129b9d83076c4">XRFdc_GetPwrMode</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="struct_x_r_fdc___pwr___mode___settings.html">XRFdc_Pwr_Mode_Settings</a> *SettingsPtr)</td></tr>
+<tr class="memdesc:ga988457a61856845ec98129b9d83076c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the power up or down mode of a given converter.  <a href="group___overview.html#ga988457a61856845ec98129b9d83076c4">More...</a><br/></td></tr>
 <tr class="separator:ga988457a61856845ec98129b9d83076c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab86de4ac4494565e373e0039bcefc914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab86de4ac4494565e373e0039bcefc914">XRFdc_ClrSetReg</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u16 Data)</td></tr>
-<tr class="memdesc:gab86de4ac4494565e373e0039bcefc914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute Read modify Write.  <a href="group___overview.html#gab86de4ac4494565e373e0039bcefc914">More...</a><br/></td></tr>
+<tr class="memitem:gab86de4ac4494565e373e0039bcefc914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab86de4ac4494565e373e0039bcefc914">XRFdc_ClrSetReg</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> BaseAddr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> RegAddr, <a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> Mask, <a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> Data)</td></tr>
+<tr class="memdesc:gab86de4ac4494565e373e0039bcefc914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a read-modify-write operation.  <a href="group___overview.html#gab86de4ac4494565e373e0039bcefc914">More...</a><br/></td></tr>
 <tr class="separator:gab86de4ac4494565e373e0039bcefc914"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga46ba546f8d4a4428c159bba354983dc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga46ba546f8d4a4428c159bba354983dc3">XRFdc_ClrReg</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)</td></tr>
-<tr class="memdesc:ga46ba546f8d4a4428c159bba354983dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute Read and clear.  <a href="group___overview.html#ga46ba546f8d4a4428c159bba354983dc3">More...</a><br/></td></tr>
+<tr class="memitem:ga46ba546f8d4a4428c159bba354983dc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga46ba546f8d4a4428c159bba354983dc3">XRFdc_ClrReg</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> BaseAddr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> RegAddr, <a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> Mask)</td></tr>
+<tr class="memdesc:ga46ba546f8d4a4428c159bba354983dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a read and clear operation.  <a href="group___overview.html#ga46ba546f8d4a4428c159bba354983dc3">More...</a><br/></td></tr>
 <tr class="separator:ga46ba546f8d4a4428c159bba354983dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gada94b454ebfa6c06d6591352ca57f3f1"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gada94b454ebfa6c06d6591352ca57f3f1">XRFdc_RDReg</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)</td></tr>
-<tr class="memdesc:gada94b454ebfa6c06d6591352ca57f3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute Read and mask with the value.  <a href="group___overview.html#gada94b454ebfa6c06d6591352ca57f3f1">More...</a><br/></td></tr>
+<tr class="memitem:gada94b454ebfa6c06d6591352ca57f3f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gada94b454ebfa6c06d6591352ca57f3f1">XRFdc_RDReg</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> BaseAddr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> RegAddr, <a class="el" href="group___overview.html#ga511bb645f13930f9dfb7378323c18d8c">u16</a> Mask)</td></tr>
+<tr class="memdesc:gada94b454ebfa6c06d6591352ca57f3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a read and mask with the value.  <a href="group___overview.html#gada94b454ebfa6c06d6591352ca57f3f1">More...</a><br/></td></tr>
 <tr class="separator:gada94b454ebfa6c06d6591352ca57f3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab0e915848a69e9133dab0cd0d2a4aa58"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab0e915848a69e9133dab0cd0d2a4aa58">XRFdc_IsHighSpeedADC</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile)</td></tr>
-<tr class="memdesc:gab0e915848a69e9133dab0cd0d2a4aa58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get ADC type is High Speed or Medium Speed.  <a href="group___overview.html#gab0e915848a69e9133dab0cd0d2a4aa58">More...</a><br/></td></tr>
+<tr class="memitem:gab0e915848a69e9133dab0cd0d2a4aa58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab0e915848a69e9133dab0cd0d2a4aa58">XRFdc_IsHighSpeedADC</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile)</td></tr>
+<tr class="memdesc:gab0e915848a69e9133dab0cd0d2a4aa58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether the ADC type is high speed or medium speed.  <a href="group___overview.html#gab0e915848a69e9133dab0cd0d2a4aa58">More...</a><br/></td></tr>
 <tr class="separator:gab0e915848a69e9133dab0cd0d2a4aa58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8d47e1a51ffa02a3dd2ba5181a30e9a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf8d47e1a51ffa02a3dd2ba5181a30e9a">XRFdc_Get_IPBaseAddr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaf8d47e1a51ffa02a3dd2ba5181a30e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get IP BaseAddress.  <a href="group___overview.html#gaf8d47e1a51ffa02a3dd2ba5181a30e9a">More...</a><br/></td></tr>
+<tr class="memitem:gaf8d47e1a51ffa02a3dd2ba5181a30e9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaf8d47e1a51ffa02a3dd2ba5181a30e9a">XRFdc_Get_IPBaseAddr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaf8d47e1a51ffa02a3dd2ba5181a30e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the IP base address.  <a href="group___overview.html#gaf8d47e1a51ffa02a3dd2ba5181a30e9a">More...</a><br/></td></tr>
 <tr class="separator:gaf8d47e1a51ffa02a3dd2ba5181a30e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga04f8c86023a675e8ac123043956f0e9c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga04f8c86023a675e8ac123043956f0e9c">XRFdc_Get_TileBaseAddr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id)</td></tr>
-<tr class="memdesc:ga04f8c86023a675e8ac123043956f0e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Tile BaseAddress.  <a href="group___overview.html#ga04f8c86023a675e8ac123043956f0e9c">More...</a><br/></td></tr>
+<tr class="memitem:ga04f8c86023a675e8ac123043956f0e9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga04f8c86023a675e8ac123043956f0e9c">XRFdc_Get_TileBaseAddr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id)</td></tr>
+<tr class="memdesc:ga04f8c86023a675e8ac123043956f0e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the tile base address.  <a href="group___overview.html#ga04f8c86023a675e8ac123043956f0e9c">More...</a><br/></td></tr>
 <tr class="separator:ga04f8c86023a675e8ac123043956f0e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7cc346794b66e3ee2e0f085aa9b8d64a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7cc346794b66e3ee2e0f085aa9b8d64a">XRFdc_Get_BlockBaseAddr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)</td></tr>
-<tr class="memdesc:ga7cc346794b66e3ee2e0f085aa9b8d64a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Block BaseAddress.  <a href="group___overview.html#ga7cc346794b66e3ee2e0f085aa9b8d64a">More...</a><br/></td></tr>
+<tr class="memitem:ga7cc346794b66e3ee2e0f085aa9b8d64a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7cc346794b66e3ee2e0f085aa9b8d64a">XRFdc_Get_BlockBaseAddr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id)</td></tr>
+<tr class="memdesc:ga7cc346794b66e3ee2e0f085aa9b8d64a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the block base address.  <a href="group___overview.html#ga7cc346794b66e3ee2e0f085aa9b8d64a">More...</a><br/></td></tr>
 <tr class="separator:ga7cc346794b66e3ee2e0f085aa9b8d64a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad2a9eeeb86bd1bc0e4aba438a6fe1f3d"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad2a9eeeb86bd1bc0e4aba438a6fe1f3d">XRFdc_GetNoOfDACBlock</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile_Id)</td></tr>
-<tr class="memdesc:gad2a9eeeb86bd1bc0e4aba438a6fe1f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Number of DAC Blocks enabled.  <a href="group___overview.html#gad2a9eeeb86bd1bc0e4aba438a6fe1f3d">More...</a><br/></td></tr>
+<tr class="memitem:gad2a9eeeb86bd1bc0e4aba438a6fe1f3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gad2a9eeeb86bd1bc0e4aba438a6fe1f3d">XRFdc_GetNoOfDACBlock</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id)</td></tr>
+<tr class="memdesc:gad2a9eeeb86bd1bc0e4aba438a6fe1f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of DAC blocks enabled.  <a href="group___overview.html#gad2a9eeeb86bd1bc0e4aba438a6fe1f3d">More...</a><br/></td></tr>
 <tr class="separator:gad2a9eeeb86bd1bc0e4aba438a6fe1f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6cfe0edf86c1230df312d4ab3a593532"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6cfe0edf86c1230df312d4ab3a593532">XRFdc_GetNoOfADCBlocks</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Tile_Id)</td></tr>
-<tr class="memdesc:ga6cfe0edf86c1230df312d4ab3a593532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Number of ADC Blocks enabled.  <a href="group___overview.html#ga6cfe0edf86c1230df312d4ab3a593532">More...</a><br/></td></tr>
+<tr class="memitem:ga6cfe0edf86c1230df312d4ab3a593532"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6cfe0edf86c1230df312d4ab3a593532">XRFdc_GetNoOfADCBlocks</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id)</td></tr>
+<tr class="memdesc:ga6cfe0edf86c1230df312d4ab3a593532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of ADC blocks enabled.  <a href="group___overview.html#ga6cfe0edf86c1230df312d4ab3a593532">More...</a><br/></td></tr>
 <tr class="separator:ga6cfe0edf86c1230df312d4ab3a593532"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6c7abc983e35e136a2b6c570604f5ac2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6c7abc983e35e136a2b6c570604f5ac2">XRFdc_GetDataWidth</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)</td></tr>
-<tr class="memdesc:ga6c7abc983e35e136a2b6c570604f5ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Data Width for ADC/DAC block.  <a href="group___overview.html#ga6c7abc983e35e136a2b6c570604f5ac2">More...</a><br/></td></tr>
+<tr class="memitem:ga6c7abc983e35e136a2b6c570604f5ac2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga6c7abc983e35e136a2b6c570604f5ac2">XRFdc_GetDataWidth</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id)</td></tr>
+<tr class="memdesc:ga6c7abc983e35e136a2b6c570604f5ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data width for an ADC or DAC block.  <a href="group___overview.html#ga6c7abc983e35e136a2b6c570604f5ac2">More...</a><br/></td></tr>
 <tr class="separator:ga6c7abc983e35e136a2b6c570604f5ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2d605d73ee9704981ba1acaab920797"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab2d605d73ee9704981ba1acaab920797">XRFdc_CheckTileEnabled</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id)</td></tr>
+<tr class="memitem:gab2d605d73ee9704981ba1acaab920797"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gab2d605d73ee9704981ba1acaab920797">XRFdc_CheckTileEnabled</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id)</td></tr>
 <tr class="memdesc:gab2d605d73ee9704981ba1acaab920797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether ADC/DAC tile is enabled or not.  <a href="group___overview.html#gab2d605d73ee9704981ba1acaab920797">More...</a><br/></td></tr>
 <tr class="separator:gab2d605d73ee9704981ba1acaab920797"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7530ece50716f0a969940368e597db2b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7530ece50716f0a969940368e597db2b">XRFdc_GetMaxSampleRate</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, double *MaxSampleRatePtr)</td></tr>
+<tr class="memitem:ga7530ece50716f0a969940368e597db2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7530ece50716f0a969940368e597db2b">XRFdc_GetMaxSampleRate</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, double *MaxSampleRatePtr)</td></tr>
 <tr class="memdesc:ga7530ece50716f0a969940368e597db2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets ADC/DAC tile maximum sampling rate.  <a href="group___overview.html#ga7530ece50716f0a969940368e597db2b">More...</a><br/></td></tr>
 <tr class="separator:ga7530ece50716f0a969940368e597db2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa14f39248ab7bee237a69ece243d93c8"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa14f39248ab7bee237a69ece243d93c8">XRFdc_GetMinSampleRate</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, double *MinSampleRatePtr)</td></tr>
+<tr class="memitem:gaa14f39248ab7bee237a69ece243d93c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaa14f39248ab7bee237a69ece243d93c8">XRFdc_GetMinSampleRate</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, double *MinSampleRatePtr)</td></tr>
 <tr class="memdesc:gaa14f39248ab7bee237a69ece243d93c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets ADC/DAC tile minimum sampling rate.  <a href="group___overview.html#gaa14f39248ab7bee237a69ece243d93c8">More...</a><br/></td></tr>
 <tr class="separator:gaa14f39248ab7bee237a69ece243d93c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81f57de8de394ff1498bab6c3b46837e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga81f57de8de394ff1498bab6c3b46837e">XRFdc_GetTileLayout</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr)</td></tr>
+<tr class="memitem:ga81f57de8de394ff1498bab6c3b46837e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga10801722996ad842da66f2e8410abbfd">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga81f57de8de394ff1498bab6c3b46837e">XRFdc_GetTileLayout</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga81f57de8de394ff1498bab6c3b46837e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether the device is a DFE variant or not.  <a href="group___overview.html#ga81f57de8de394ff1498bab6c3b46837e">More...</a><br/></td></tr>
 <tr class="separator:ga81f57de8de394ff1498bab6c3b46837e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab0e040dfa599046ab0f0a69907abb0e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaab0e040dfa599046ab0f0a69907abb0e">XRFdc_GetDriverVersion</a> (void)</td></tr>
-<tr class="memdesc:gaab0e040dfa599046ab0f0a69907abb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API is used to get the driver version.  <a href="group___overview.html#gaab0e040dfa599046ab0f0a69907abb0e">More...</a><br/></td></tr>
+<tr class="memdesc:gaab0e040dfa599046ab0f0a69907abb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the driver version.  <a href="group___overview.html#gaab0e040dfa599046ab0f0a69907abb0e">More...</a><br/></td></tr>
 <tr class="separator:gaab0e040dfa599046ab0f0a69907abb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

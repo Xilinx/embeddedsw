@@ -100,37 +100,13 @@ $(document).ready(function(){initNavTree('xaxiethernet__example__intr__mcdma_8c.
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xaxiethernet_example_intr_mcdma.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Implements examples that utilize the Axi Ethernet's interrupt driven MCDMA packet transfer mode to send and receive frames. </p>
-<p>These examples demonstrate:</p>
-<ul>
-<li>How to perform simple send and receive</li>
-<li>Checksum offload</li>
-<li>Error handling</li>
-<li>Device reset</li>
-<li>How to perform multiple frames send and receive</li>
-</ul>
-<p>Functional guide to example:</p>
-<ul>
-<li>AxiEthernetSgDmaIntrSingleFrameExample demonstrates the simplest way to send and receive frames in interrupt driven mode.</li>
-<li>AxiEthernetSgDmaIntrMultiFrameExample demonstrates the way to send and recv Multiple frames in polling mode.</li>
-<li>AxiEthernetSgDmaPartialChecksumOffloadExample demonstrates the partial checksum offloading. The HW must be setup for partial checksum offloading for this example to execute.</li>
-<li>AxiEthernetSgDmaFullChecksumOffloadExample demonstrates the full checksum offloading. The HW must be setup for full checksum offloading for this example to execute.</li>
-<li>AxiEthernetAxiEthernetErrorHandler() demonstrates how to manage asynchronous errors.</li>
-<li><a class="el" href="xaxiethernet__example__polled_8c.html#a56e626d72ffba0a50d6c992df0f5eb6a" title="This function resets the device but preserves the options set by the user. ">AxiEthernetResetDevice()</a> demonstrates how to reset the driver/HW without losing all configuration settings.</li>
-</ul>
-<pre>
-MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
-</p>
-<hr/>
-<p>
-5.5   adk           Initial Release.
-</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
+<div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xaxiethernet__example_8h.html">xaxiethernet_example.h</a>&quot;</code><br/>
 <code>#include &quot;xmcdma.h&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
@@ -139,328 +115,132 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;stdlib.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gafd3e27d5a8b9008344974d1e9233f3ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gafd3e27d5a8b9008344974d1e9233f3ea">XAXIETHERNET_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XAXIETHERNET_0_BASEADDR</td></tr>
+<tr class="memdesc:gafd3e27d5a8b9008344974d1e9233f3ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">AXI Ethernet base address.  <a href="group__axiethernet.html#gafd3e27d5a8b9008344974d1e9233f3ea">More...</a><br/></td></tr>
+<tr class="separator:gafd3e27d5a8b9008344974d1e9233f3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0004d764dd3a78de535ddb8a400d97d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga0004d764dd3a78de535ddb8a400d97d9">RXBD_CNT</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:ga0004d764dd3a78de535ddb8a400d97d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of RxBDs to use.  <a href="group__axiethernet.html#ga0004d764dd3a78de535ddb8a400d97d9">More...</a><br/></td></tr>
+<tr class="separator:ga0004d764dd3a78de535ddb8a400d97d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b8777c106b3892e84513c5584f09ce3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga7b8777c106b3892e84513c5584f09ce3">TXBD_CNT</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:ga7b8777c106b3892e84513c5584f09ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of TxBDs to use.  <a href="group__axiethernet.html#ga7b8777c106b3892e84513c5584f09ce3">More...</a><br/></td></tr>
+<tr class="separator:ga7b8777c106b3892e84513c5584f09ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabab2a46249fbb3757e55d84df589df7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gabab2a46249fbb3757e55d84df589df7d">BD_ALIGNMENT</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:gabab2a46249fbb3757e55d84df589df7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte alignment of BDs.  <a href="group__axiethernet.html#gabab2a46249fbb3757e55d84df589df7d">More...</a><br/></td></tr>
+<tr class="separator:gabab2a46249fbb3757e55d84df589df7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3fb2dea7d964f6ed95dfac2897c4001d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga3fb2dea7d964f6ed95dfac2897c4001d">PAYLOAD_SIZE</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:ga3fb2dea7d964f6ed95dfac2897c4001d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload size used in examples.  <a href="group__axiethernet.html#ga3fb2dea7d964f6ed95dfac2897c4001d">More...</a><br/></td></tr>
+<tr class="separator:ga3fb2dea7d964f6ed95dfac2897c4001d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac4c1ffee6ec3d7e3bf0043c1aa572d93"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gac4c1ffee6ec3d7e3bf0043c1aa572d93">BD_USR0_OFFSET</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gac4c1ffee6ec3d7e3bf0043c1aa572d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">AXI4-Stream Control Word offset from the start of app user words in BD.  <a href="group__axiethernet.html#gac4c1ffee6ec3d7e3bf0043c1aa572d93">More...</a><br/></td></tr>
+<tr class="separator:gac4c1ffee6ec3d7e3bf0043c1aa572d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc47212888209b51c1ac4d8aea4e281a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gadc47212888209b51c1ac4d8aea4e281a">BD_USR1_OFFSET</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gadc47212888209b51c1ac4d8aea4e281a"><td class="mdescLeft">&#160;</td><td class="mdescRight">AXI4-Stream Control Word offset from the start of app user words in BD.  <a href="group__axiethernet.html#gadc47212888209b51c1ac4d8aea4e281a">More...</a><br/></td></tr>
+<tr class="separator:gadc47212888209b51c1ac4d8aea4e281a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0bdb05232ca870effea359d82e87126a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga0bdb05232ca870effea359d82e87126a">BD_USR2_OFFSET</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga0bdb05232ca870effea359d82e87126a"><td class="mdescLeft">&#160;</td><td class="mdescRight">AXI4-Stream Control Word offset from the start of app user words in BD.  <a href="group__axiethernet.html#ga0bdb05232ca870effea359d82e87126a">More...</a><br/></td></tr>
+<tr class="separator:ga0bdb05232ca870effea359d82e87126a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31edfcea944f2f87936ad5263f6cf936"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga31edfcea944f2f87936ad5263f6cf936">PARTIAL_CSUM_ENABLE</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:ga31edfcea944f2f87936ad5263f6cf936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option for partial csum enable.  <a href="group__axiethernet.html#ga31edfcea944f2f87936ad5263f6cf936">More...</a><br/></td></tr>
+<tr class="separator:ga31edfcea944f2f87936ad5263f6cf936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb6e4f6bf7b02fe5e9349ce44241bf8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gafb6e4f6bf7b02fe5e9349ce44241bf8d">FULL_CSUM_ENABLE</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:gafb6e4f6bf7b02fe5e9349ce44241bf8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option for full csum enable.  <a href="group__axiethernet.html#gafb6e4f6bf7b02fe5e9349ce44241bf8d">More...</a><br/></td></tr>
+<tr class="separator:gafb6e4f6bf7b02fe5e9349ce44241bf8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f80914fb94cbccaba3b568b5033fcfa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga8f80914fb94cbccaba3b568b5033fcfa">TX_CS_INIT_OFFSET</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga8f80914fb94cbccaba3b568b5033fcfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset in the control word where byte offset in the ethernet frame to start CSUM calculation need to be inserted.  <a href="group__axiethernet.html#ga8f80914fb94cbccaba3b568b5033fcfa">More...</a><br/></td></tr>
+<tr class="separator:ga8f80914fb94cbccaba3b568b5033fcfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad30829c8af13e92ca3990444015c103a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gad30829c8af13e92ca3990444015c103a">RCV_FRM_NOT_CORRUPTED</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:gad30829c8af13e92ca3990444015c103a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the received frame is not corrupted, for partial csum offloading case, the control word 3 would return 0xFFFF.  <a href="group__axiethernet.html#gad30829c8af13e92ca3990444015c103a">More...</a><br/></td></tr>
+<tr class="separator:gad30829c8af13e92ca3990444015c103a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21d3389819b6b281a246e001219e40a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga21d3389819b6b281a246e001219e40a9">IP_VERSION_4</a>&#160;&#160;&#160;0x800</td></tr>
+<tr class="memdesc:ga21d3389819b6b281a246e001219e40a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">For IPV4, the Ethernet frame type/length field will have a value of 0x800.  <a href="group__axiethernet.html#ga21d3389819b6b281a246e001219e40a9">More...</a><br/></td></tr>
+<tr class="separator:ga21d3389819b6b281a246e001219e40a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf3254144adcb49fc04fbfe9e6ade04d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gabf3254144adcb49fc04fbfe9e6ade04d">IP_HEADER_VERSION</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:gabf3254144adcb49fc04fbfe9e6ade04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">For IPv4, the version entry in IP header is always 4.  <a href="group__axiethernet.html#gabf3254144adcb49fc04fbfe9e6ade04d">More...</a><br/></td></tr>
+<tr class="separator:gabf3254144adcb49fc04fbfe9e6ade04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae35e31715134fcf4cdd0fcd26cc0ae2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gae35e31715134fcf4cdd0fcd26cc0ae2b">IP_HEADER_LEN_IN_WORDS</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:gae35e31715134fcf4cdd0fcd26cc0ae2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">For our case, the header length is always 20 bytes (5 words.  <a href="group__axiethernet.html#gae35e31715134fcf4cdd0fcd26cc0ae2b">More...</a><br/></td></tr>
+<tr class="separator:gae35e31715134fcf4cdd0fcd26cc0ae2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga294612afcb62d33531f390a08f0c3209"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga294612afcb62d33531f390a08f0c3209">IP_HEADER_LENGTH</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ga294612afcb62d33531f390a08f0c3209"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header length in bytes.  <a href="group__axiethernet.html#ga294612afcb62d33531f390a08f0c3209">More...</a><br/></td></tr>
+<tr class="separator:ga294612afcb62d33531f390a08f0c3209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c6ebeebceb2352481dd42bfe3580fcb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga4c6ebeebceb2352481dd42bfe3580fcb">IP_HEADER_PROTOCOL_TCP</a>&#160;&#160;&#160;0x6</td></tr>
+<tr class="memdesc:ga4c6ebeebceb2352481dd42bfe3580fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header protocol entry.  <a href="group__axiethernet.html#ga4c6ebeebceb2352481dd42bfe3580fcb">More...</a><br/></td></tr>
+<tr class="separator:ga4c6ebeebceb2352481dd42bfe3580fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4f249419477b372d04767eb2093bb58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gaf4f249419477b372d04767eb2093bb58">IP_HEADER_PROTOCOL_UDP</a>&#160;&#160;&#160;0x17</td></tr>
+<tr class="memdesc:gaf4f249419477b372d04767eb2093bb58"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header protocol entry.  <a href="group__axiethernet.html#gaf4f249419477b372d04767eb2093bb58">More...</a><br/></td></tr>
+<tr class="separator:gaf4f249419477b372d04767eb2093bb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68bfededdafe838f9982d3d2fa20d3b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga68bfededdafe838f9982d3d2fa20d3b0">TCP_HEADER_LEN_IN_WORDS</a>&#160;&#160;&#160;0x5</td></tr>
+<tr class="memdesc:ga68bfededdafe838f9982d3d2fa20d3b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">For our case, the header length is always 20 bytes (5 words).  <a href="group__axiethernet.html#ga68bfededdafe838f9982d3d2fa20d3b0">More...</a><br/></td></tr>
+<tr class="separator:ga68bfededdafe838f9982d3d2fa20d3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8aaf93f719395dfd0b720265ae29bef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gad8aaf93f719395dfd0b720265ae29bef">TCP_HEADER_LENGTH</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:gad8aaf93f719395dfd0b720265ae29bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP header length in bytes.  <a href="group__axiethernet.html#gad8aaf93f719395dfd0b720265ae29bef">More...</a><br/></td></tr>
+<tr class="separator:gad8aaf93f719395dfd0b720265ae29bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaab344a76deae9f15613e1290f77ca6da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gaab344a76deae9f15613e1290f77ca6da">FULL_CSUM_STATUS_MASK</a>&#160;&#160;&#160;0x00000038</td></tr>
+<tr class="memdesc:gaab344a76deae9f15613e1290f77ca6da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask to extract full checksum status field from AXI4 Stream Status Word 2.  <a href="group__axiethernet.html#gaab344a76deae9f15613e1290f77ca6da">More...</a><br/></td></tr>
+<tr class="separator:gaab344a76deae9f15613e1290f77ca6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2cd9f5ddbfed77743b1900820581e377"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga2cd9f5ddbfed77743b1900820581e377">FULL_CSUM_VALIDATED</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:ga2cd9f5ddbfed77743b1900820581e377"><td class="mdescLeft">&#160;</td><td class="mdescRight">If bits 3-5 in AXI4 Status word have a value of 0x010, it means both IP and TCP checksums have been found to be correct.  <a href="group__axiethernet.html#ga2cd9f5ddbfed77743b1900820581e377">More...</a><br/></td></tr>
+<tr class="separator:ga2cd9f5ddbfed77743b1900820581e377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga121eec6c504f03219832b69676a53da5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga121eec6c504f03219832b69676a53da5">IP_TCP_CSUMS_NOT_CHECKED</a>&#160;&#160;&#160;0x00000000</td></tr>
+<tr class="memdesc:ga121eec6c504f03219832b69676a53da5"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP TCP CSUMS NOT CHECKED.  <a href="group__axiethernet.html#ga121eec6c504f03219832b69676a53da5">More...</a><br/></td></tr>
+<tr class="separator:ga121eec6c504f03219832b69676a53da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2937e8aba224aac8de70dddda05d66b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga2937e8aba224aac8de70dddda05d66b2">IP_CSUM_OK_TCP_NOT_CHECKED</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:ga2937e8aba224aac8de70dddda05d66b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP CSUM OK TCP NOT CHECKED.  <a href="group__axiethernet.html#ga2937e8aba224aac8de70dddda05d66b2">More...</a><br/></td></tr>
+<tr class="separator:ga2937e8aba224aac8de70dddda05d66b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae61e2fc89b405063221afeecd3e0d2c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gae61e2fc89b405063221afeecd3e0d2c1">TCP_CSUM_NOT_CHECKED_IP_NOT_OK</a>&#160;&#160;&#160;0x00000005</td></tr>
+<tr class="memdesc:gae61e2fc89b405063221afeecd3e0d2c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP CSUM NOT CHECKED IP NOT OK.  <a href="group__axiethernet.html#gae61e2fc89b405063221afeecd3e0d2c1">More...</a><br/></td></tr>
+<tr class="separator:gae61e2fc89b405063221afeecd3e0d2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabd6ace6f57588ae58f17e3f20326433d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gabd6ace6f57588ae58f17e3f20326433d">IP_CSUM_OK_TCP_NOT_OK</a>&#160;&#160;&#160;0x00000006</td></tr>
+<tr class="memdesc:gabd6ace6f57588ae58f17e3f20326433d"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP CSUM OK TCP NOT OK.  <a href="group__axiethernet.html#gabd6ace6f57588ae58f17e3f20326433d">More...</a><br/></td></tr>
+<tr class="separator:gabd6ace6f57588ae58f17e3f20326433d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2632236b8b6d382c7abefad6f5e8288c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga2632236b8b6d382c7abefad6f5e8288c">DUMMY_TCP_PORT_1</a>&#160;&#160;&#160;0x1111</td></tr>
+<tr class="memdesc:ga2632236b8b6d382c7abefad6f5e8288c"><td class="mdescLeft">&#160;</td><td class="mdescRight">DUMMY TCP PORT 1.  <a href="group__axiethernet.html#ga2632236b8b6d382c7abefad6f5e8288c">More...</a><br/></td></tr>
+<tr class="separator:ga2632236b8b6d382c7abefad6f5e8288c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7cc15dd7e77c17a2e836fd6db3b03c55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga7cc15dd7e77c17a2e836fd6db3b03c55">DUMMY_TCP_PORT_2</a>&#160;&#160;&#160;0x1112</td></tr>
+<tr class="memdesc:ga7cc15dd7e77c17a2e836fd6db3b03c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">DUMMY TCP PORT 2.  <a href="group__axiethernet.html#ga7cc15dd7e77c17a2e836fd6db3b03c55">More...</a><br/></td></tr>
+<tr class="separator:ga7cc15dd7e77c17a2e836fd6db3b03c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga822c7cd26afe49b62c9125633b54eae0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga822c7cd26afe49b62c9125633b54eae0">RXBD_SPACE_BYTES</a>&#160;&#160;&#160;<a class="el" href="group__axiethernet.html#ga0004d764dd3a78de535ddb8a400d97d9">RXBD_CNT</a> * 64 * 16</td></tr>
+<tr class="memdesc:ga822c7cd26afe49b62c9125633b54eae0"><td class="mdescLeft">&#160;</td><td class="mdescRight">RXBD SPACE BYTES.  <a href="group__axiethernet.html#ga822c7cd26afe49b62c9125633b54eae0">More...</a><br/></td></tr>
+<tr class="separator:ga822c7cd26afe49b62c9125633b54eae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga93ec935470cf2aa3eb8cc9a8dc06eb05">TXBD_SPACE_BYTES</a>&#160;&#160;&#160;<a class="el" href="group__axiethernet.html#ga7b8777c106b3892e84513c5584f09ce3">TXBD_CNT</a> * 64 * 16</td></tr>
+<tr class="memdesc:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXBD SPACE BYTES.  <a href="group__axiethernet.html#ga93ec935470cf2aa3eb8cc9a8dc06eb05">More...</a><br/></td></tr>
+<tr class="separator:ga93ec935470cf2aa3eb8cc9a8dc06eb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga69d6714be441102515074342e287197a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga69d6714be441102515074342e287197a">BLOCK_SIZE_2MB</a>&#160;&#160;&#160;0x200000U</td></tr>
+<tr class="memdesc:ga69d6714be441102515074342e287197a"><td class="mdescLeft">&#160;</td><td class="mdescRight">BLOCK SIZE 2MB.  <a href="group__axiethernet.html#ga69d6714be441102515074342e287197a">More...</a><br/></td></tr>
+<tr class="separator:ga69d6714be441102515074342e287197a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a13518944182994cba8511c654fff7e52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, UINTPTR AxiEthernetBaseAddress)</td></tr>
-<tr class="memdesc:a13518944182994cba8511c654fff7e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage usage of the Axi Ethernet by sending and receiving frames in interrupt driven MCDMA mode.  <a href="#a13518944182994cba8511c654fff7e52">More...</a><br/></td></tr>
-<tr class="separator:a13518944182994cba8511c654fff7e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3af031a9217ca954e3f9b659b369364"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#aa3af031a9217ca954e3f9b659b369364">AxiEthernetSgDmaIntrSingleFrameExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
-<tr class="memdesc:aa3af031a9217ca954e3f9b659b369364"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in SGDMA interrupt mode.  <a href="#aa3af031a9217ca954e3f9b659b369364">More...</a><br/></td></tr>
-<tr class="separator:aa3af031a9217ca954e3f9b659b369364"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c113c7eca611c0a086606b3b95e4fa6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a1c113c7eca611c0a086606b3b95e4fa6">AxiEthernetSgDmaIntrMultiFrameExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
-<tr class="memdesc:a1c113c7eca611c0a086606b3b95e4fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage of the Axi Ethernet by sending and receiving a multiple frames in MCDMA interrupt mode.  <a href="#a1c113c7eca611c0a086606b3b95e4fa6">More...</a><br/></td></tr>
-<tr class="separator:a1c113c7eca611c0a086606b3b95e4fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb9ed140372759970208ccdc305f7d88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#aeb9ed140372759970208ccdc305f7d88">AxiEthernetSgDmaPartialChecksumOffloadExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
-<tr class="memdesc:aeb9ed140372759970208ccdc305f7d88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example sends and receives a single packet in loopback mode with checksum offloading support.  <a href="#aeb9ed140372759970208ccdc305f7d88">More...</a><br/></td></tr>
-<tr class="separator:aeb9ed140372759970208ccdc305f7d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5672898160ec7b5618a841f2ec55393e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a5672898160ec7b5618a841f2ec55393e">AxiEthernetSgDmaFullChecksumOffloadExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
-<tr class="memdesc:a5672898160ec7b5618a841f2ec55393e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example sends and receives a single packet in loopback mode with full checksum offloading support.  <a href="#a5672898160ec7b5618a841f2ec55393e">More...</a><br/></td></tr>
-<tr class="separator:a5672898160ec7b5618a841f2ec55393e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the Axi Ethernet example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13518944182994cba8511c654fff7e52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, UINTPTR AxiEthernetBaseAddress)</td></tr>
+<tr class="memdesc:ga13518944182994cba8511c654fff7e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the usage of the Axi Ethernet by sending.  <a href="group__axiethernet.html#ga13518944182994cba8511c654fff7e52">More...</a><br/></td></tr>
+<tr class="separator:ga13518944182994cba8511c654fff7e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3af031a9217ca954e3f9b659b369364"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gaa3af031a9217ca954e3f9b659b369364">AxiEthernetSgDmaIntrSingleFrameExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
+<tr class="memdesc:gaa3af031a9217ca954e3f9b659b369364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the usage of the Axi Ethernet by sending and.  <a href="group__axiethernet.html#gaa3af031a9217ca954e3f9b659b369364">More...</a><br/></td></tr>
+<tr class="separator:gaa3af031a9217ca954e3f9b659b369364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c113c7eca611c0a086606b3b95e4fa6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga1c113c7eca611c0a086606b3b95e4fa6">AxiEthernetSgDmaIntrMultiFrameExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
+<tr class="memdesc:ga1c113c7eca611c0a086606b3b95e4fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the usage of the Axi Ethernet by sending and.  <a href="group__axiethernet.html#ga1c113c7eca611c0a086606b3b95e4fa6">More...</a><br/></td></tr>
+<tr class="separator:ga1c113c7eca611c0a086606b3b95e4fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeb9ed140372759970208ccdc305f7d88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gaeb9ed140372759970208ccdc305f7d88">AxiEthernetSgDmaPartialChecksumOffloadExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
+<tr class="memdesc:gaeb9ed140372759970208ccdc305f7d88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example sends and receives a single packet in loopback mode with.  <a href="group__axiethernet.html#gaeb9ed140372759970208ccdc305f7d88">More...</a><br/></td></tr>
+<tr class="separator:gaeb9ed140372759970208ccdc305f7d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5672898160ec7b5618a841f2ec55393e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga5672898160ec7b5618a841f2ec55393e">AxiEthernetSgDmaFullChecksumOffloadExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XMcdma *DmaInstancePtr, u8 ChanId)</td></tr>
+<tr class="memdesc:ga5672898160ec7b5618a841f2ec55393e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example sends and receives a single packet in loopback mode with.  <a href="group__axiethernet.html#ga5672898160ec7b5618a841f2ec55393e">More...</a><br/></td></tr>
+<tr class="separator:ga5672898160ec7b5618a841f2ec55393e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9e29bd9e5703fef673c3c201bbdc53c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga9e29bd9e5703fef673c3c201bbdc53c6">AxiEthernetPHYRegistersDump</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr)</td></tr>
+<tr class="memdesc:ga9e29bd9e5703fef673c3c201bbdc53c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints PHY register values for debugging.  <a href="group__axiethernet.html#ga9e29bd9e5703fef673c3c201bbdc53c6">More...</a><br/></td></tr>
+<tr class="separator:ga9e29bd9e5703fef673c3c201bbdc53c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memdesc:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main entry point for the AVB example.  <a href="group__axiethernet.html#gae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
+<tr class="separator:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacfcc3ebbded7524aed513b941a5a51c4"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#gacfcc3ebbded7524aed513b941a5a51c4">Swap8</a> (u8 Data)</td></tr>
+<tr class="memdesc:gacfcc3ebbded7524aed513b941a5a51c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps bytes within an 8-byte value.  <a href="group__axiethernet.html#gacfcc3ebbded7524aed513b941a5a51c4">More...</a><br/></td></tr>
+<tr class="separator:gacfcc3ebbded7524aed513b941a5a51c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6198cd0497c65bd69e04ccd3c498df46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet.html#ga6198cd0497c65bd69e04ccd3c498df46">AxiEnthernetSetMAC</a> (char *MacAddr, u8 ChanId)</td></tr>
+<tr class="memdesc:ga6198cd0497c65bd69e04ccd3c498df46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Programs the AXI Ethernet MAC address.  <a href="group__axiethernet.html#ga6198cd0497c65bd69e04ccd3c498df46">More...</a><br/></td></tr>
+<tr class="separator:ga6198cd0497c65bd69e04ccd3c498df46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a5672898160ec7b5618a841f2ec55393e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AxiEthernetSgDmaFullChecksumOffloadExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
-          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ChanId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This example sends and receives a single packet in loopback mode with full checksum offloading support. </p>
-<p>An Ethernet frame is formed with IP header, TCP header and payload. The hardware calculates the IP Header checksum and populates it at the appropriate location in the IP header. Similarly, the hardware calculates the TCP Pseudo header from IP header and calculates TCP checksum for TCP Pseudo header, TCP header and TCP payload. It then populates the checksum in the TCP header. The Ethernet frame is then looped back and received. The hardware validates the IP header checksum and the TCP checksum. The example retrieves the checksum validation information from the AXI4- Stream Appword2.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component. </td></tr>
-    <tr><td class="paramname">ChanId</td><td>is the MCDMA Channel number to be operate on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>An Ethernet frame is formed with IP header, TCP header and payload. The hardware calculates the IP Header checksum and populates it at the appropriate location in the IP header. Similarly, the hardware calculates the TCP Pseudo header from IP header and calculates TCP checksum for TCP Pseudo header, TCP header and TCP payload. It then populates the checksum in the TCP header. The Ethernet frame is then looped back and received. The hardware validates the IP header checksum and the TCP checksum. The example retrieves the checksum validation information from the AXI4- Stream Appword2.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>, <a class="el" href="xaxiethernet__example_8h.html#a1eb6d3a3d578519d065f1e674d00f144">AxiEthernetUtilFrameHdrFormatMAC()</a>, <a class="el" href="xaxiethernet__example_8h.html#aa8c4f8ca2870764a5708ae0458d2b96a">AxiEthernetUtilFrameHdrFormatType()</a>, <a class="el" href="xaxiethernet__example_8h.html#a5b2b391e4495ed818546c7ec695a724a">AxiEthernetUtilFrameSetPayloadData()</a>, <a class="el" href="group__axiethernet.html#ga28f85be33530a1bf741db5f9738e3a14">XAE_INT_RECV_ERROR_MASK</a>, <a class="el" href="group__axiethernet.html#ga027d60f8fd28b519cad51e450b71c07b">XAE_RECEIVER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#ga1e81b6f5f677ed0370507c117b565b20">XAE_TRANSMITTER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#gab5476b0e04b0ecd8f9fd027f90ea648f">XAxiEthernet_IntEnable</a>, <a class="el" href="group__axiethernet.html#gae3265620b9d9b86643abe5ff5e2b7d79">XAxiEthernet_SetOptions()</a>, <a class="el" href="group__axiethernet.html#ga2cfa48d42e55238f6f30aff6d658e4fe">XAxiEthernet_Start()</a>, and <a class="el" href="group__axiethernet.html#ga4e952a55f342f176ba9ec2b49e2e47cb">XAxiEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample()</a>, and <a class="el" href="xaxiethernet__example__mcdma__poll_8c.html#af23ca5b1a1cae5f593a8e28d41ad91c0">AxiEthernetSgDmaPollExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a13518944182994cba8511c654fff7e52"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AxiEthernetSgDmaIntrExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
-          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>AxiEthernetBaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage usage of the Axi Ethernet by sending and receiving frames in interrupt driven MCDMA mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the AXI MCDMA component. </td></tr>
-    <tr><td class="paramname">AxiEthernetBaseAddress</td><td>contains the base address of the AxiEthernet device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>AxiMcdma hardware must be initialized before initializing AxiEthernet. Since AxiMcdma reset line is connected to the AxiEthernet reset line, a reset of AxiMcdma hardware during its initialization would reset AxiEthernet.</dd>
-<dd>
-In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
-
-<p>References <a class="el" href="struct_x_axi_ethernet___config.html#a34b00c1ae0534cb0e956feb2a834e820">XAxiEthernet_Config::AxiDevBaseAddress</a>, <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a5672898160ec7b5618a841f2ec55393e">AxiEthernetSgDmaFullChecksumOffloadExample()</a>, <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a1c113c7eca611c0a086606b3b95e4fa6">AxiEthernetSgDmaIntrMultiFrameExample()</a>, <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#aa3af031a9217ca954e3f9b659b369364">AxiEthernetSgDmaIntrSingleFrameExample()</a>, <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#aeb9ed140372759970208ccdc305f7d88">AxiEthernetSgDmaPartialChecksumOffloadExample()</a>, <a class="el" href="xaxiethernet__example_8h.html#ac864e2449120d62d81370b033fc89c42">AxiEthernetUtilEnterLoopback()</a>, <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>, <a class="el" href="xaxiethernet__example_8h.html#a561ef796435e1aa0b0eb5013bfb54cea">AxiEthernetUtilFrameVerify()</a>, <a class="el" href="xaxiethernet__example_8h.html#a0ab0dcd0f95007ddcc441c7cbc5f45dc">AxiEthernetUtilPhyDelay()</a>, <a class="el" href="struct_x_axi_ethernet___config.html#ae3fc04787ba28bb14e6c2add45c0c086">XAxiEthernet_Config::BaseAddress</a>, <a class="el" href="struct_x_axi_ethernet.html#adda2f024038f99905bb2ca8ab85854eb">XAxiEthernet::Config</a>, <a class="el" href="struct_x_axi_ethernet___config.html#a2f7746d5503d4aa101cc463706466b3d">XAxiEthernet_Config::Enable_1588</a>, <a class="el" href="struct_x_axi_ethernet___config.html#a3a8b2bbf622365dc6f171f3a0971de0f">XAxiEthernet_Config::IntrId</a>, <a class="el" href="struct_x_axi_ethernet___config.html#a6f8799da535d973f849bbe19f480d18e">XAxiEthernet_Config::IntrParent</a>, <a class="el" href="struct_x_axi_ethernet___config.html#ab32e0ce8a1d825dbee5e949522a134bf">XAxiEthernet_Config::Speed</a>, <a class="el" href="group__axiethernet.html#gadf2299b3e254b7915b0b951ad3490f7e">XAE_INT_RXFIFOOVR_MASK</a>, <a class="el" href="group__axiethernet.html#gaa5ac7291090f44c1a2057589f2660b6c">XAE_INT_RXRJECT_MASK</a>, <a class="el" href="group__axiethernet.html#gabe257efe600df43d8148c772ea3878f9">XAxiEthernet_CfgInitialize()</a>, <a class="el" href="group__axiethernet.html#ga49152815615aff9b24094b35820e0d02">XAxiEthernet_Get_Phy_Interface()</a>, <a class="el" href="group__axiethernet.html#gaaaef83a7f1fe4d8ca117cf6bc80500a8">XAxiEthernet_IntClear</a>, <a class="el" href="group__axiethernet.html#ga492b674e8d7584ed5e73e2b1a886bcc3">XAxiEthernet_IntPending</a>, <a class="el" href="group__axiethernet.html#ga70ae7bc7e8d22aa1c7be7076c83d4015">XAxiEthernet_IsRxFullCsum</a>, <a class="el" href="group__axiethernet.html#gae21c088294f79359ed1ee74468100e9a">XAxiEthernet_IsRxPartialCsum</a>, <a class="el" href="group__axiethernet.html#ga4764b3156c37e0b505c4df69b105b770">XAxiEthernet_IsRxVlanStrp</a>, <a class="el" href="group__axiethernet.html#ga16debcb3a008c09bc8c4e29764310cae">XAxiEthernet_IsRxVlanTag</a>, <a class="el" href="group__axiethernet.html#ga04ad5f292476ee8d62a2cacc66bf8767">XAxiEthernet_IsRxVlanTran</a>, <a class="el" href="group__axiethernet.html#ga8d1defd403ed40f023650e1e44651c88">XAxiEthernet_IsTxFullCsum</a>, <a class="el" href="group__axiethernet.html#ga6e44788bbc239e6cea83d1e07ddb65ed">XAxiEthernet_IsTxPartialCsum</a>, <a class="el" href="group__axiethernet.html#ga92ea2563addd13a5d3008a0bd9d069bc">XAxiEthernet_IsTxVlanStrp</a>, <a class="el" href="group__axiethernet.html#ga2d75475a1e85f44562fd614960744b23">XAxiEthernet_IsTxVlanTag</a>, <a class="el" href="group__axiethernet.html#gaac1bbeb5294915665aae439a33e3b887">XAxiEthernet_IsTxVlanTran</a>, <a class="el" href="group__axiethernet.html#ga1f7e70f7c050349e7c4b97188be840c6">XAxiEthernet_LookupConfig()</a>, <a class="el" href="group__axiethernet.html#gab2d0106f26a1a2e1f2b902dc0a2822c9">XAxiEthernet_SetOperatingSpeed()</a>, and <a class="el" href="group__axiethernet.html#ga4e952a55f342f176ba9ec2b49e2e47cb">XAxiEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1c113c7eca611c0a086606b3b95e4fa6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AxiEthernetSgDmaIntrMultiFrameExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
-          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ChanId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage of the Axi Ethernet by sending and receiving a multiple frames in MCDMA interrupt mode. </p>
-<p>Each source packet will be described by two descriptors. It will be received into a buffer described by a single descriptor.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the Axi Ethernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component. </td></tr>
-    <tr><td class="paramname">ChanId</td><td>is the MCDMA Channel number to be operate on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>, <a class="el" href="xaxiethernet__example_8h.html#a1eb6d3a3d578519d065f1e674d00f144">AxiEthernetUtilFrameHdrFormatMAC()</a>, <a class="el" href="xaxiethernet__example_8h.html#aa8c4f8ca2870764a5708ae0458d2b96a">AxiEthernetUtilFrameHdrFormatType()</a>, <a class="el" href="xaxiethernet__example_8h.html#a69500ccf415291fc54dfc53333f98a07">AxiEthernetUtilFrameMemClear()</a>, <a class="el" href="xaxiethernet__example_8h.html#a5b2b391e4495ed818546c7ec695a724a">AxiEthernetUtilFrameSetPayloadData()</a>, <a class="el" href="group__axiethernet.html#ga027d60f8fd28b519cad51e450b71c07b">XAE_RECEIVER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#ga1e81b6f5f677ed0370507c117b565b20">XAE_TRANSMITTER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#gab2298b2b1af89cf0f0a78d4fda03ed7f">XAxiEthernet_SetMacAddress()</a>, <a class="el" href="group__axiethernet.html#gae3265620b9d9b86643abe5ff5e2b7d79">XAxiEthernet_SetOptions()</a>, <a class="el" href="group__axiethernet.html#ga2cfa48d42e55238f6f30aff6d658e4fe">XAxiEthernet_Start()</a>, and <a class="el" href="group__axiethernet.html#ga4e952a55f342f176ba9ec2b49e2e47cb">XAxiEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa3af031a9217ca954e3f9b659b369364"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AxiEthernetSgDmaIntrSingleFrameExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
-          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ChanId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in SGDMA interrupt mode. </p>
-<p>The source packet will be described by two descriptors. It will be received into a buffer described by a single descriptor.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the Axi Ethernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component. </td></tr>
-    <tr><td class="paramname">ChanId</td><td>is the MCDMA Channel number to be operate on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>, <a class="el" href="xaxiethernet__example_8h.html#a1eb6d3a3d578519d065f1e674d00f144">AxiEthernetUtilFrameHdrFormatMAC()</a>, <a class="el" href="xaxiethernet__example_8h.html#aa8c4f8ca2870764a5708ae0458d2b96a">AxiEthernetUtilFrameHdrFormatType()</a>, <a class="el" href="xaxiethernet__example_8h.html#a69500ccf415291fc54dfc53333f98a07">AxiEthernetUtilFrameMemClear()</a>, <a class="el" href="xaxiethernet__example_8h.html#a5b2b391e4495ed818546c7ec695a724a">AxiEthernetUtilFrameSetPayloadData()</a>, <a class="el" href="group__axiethernet.html#ga027d60f8fd28b519cad51e450b71c07b">XAE_RECEIVER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#ga1e81b6f5f677ed0370507c117b565b20">XAE_TRANSMITTER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#gab2298b2b1af89cf0f0a78d4fda03ed7f">XAxiEthernet_SetMacAddress()</a>, <a class="el" href="group__axiethernet.html#gae3265620b9d9b86643abe5ff5e2b7d79">XAxiEthernet_SetOptions()</a>, <a class="el" href="group__axiethernet.html#ga2cfa48d42e55238f6f30aff6d658e4fe">XAxiEthernet_Start()</a>, and <a class="el" href="group__axiethernet.html#ga4e952a55f342f176ba9ec2b49e2e47cb">XAxiEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aeb9ed140372759970208ccdc305f7d88"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AxiEthernetSgDmaPartialChecksumOffloadExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
-          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">XMcdma *&#160;</td>
-          <td class="paramname"><em>DmaInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ChanId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This example sends and receives a single packet in loopback mode with checksum offloading support. </p>
-<p>The transmit frame will be che cksummed over the entire Ethernet payload and inserted into the last 2 bytes of the frame.</p>
-<p>On receive, HW should calculate the Ethernet payload checksum and return a value of 0xFFFF which means the payload data was likely not corrupted.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component. </td></tr>
-    <tr><td class="paramname">ChanId</td><td>is the MCDMA Channel number to be operate on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>The transmit frame will be che cksummed over the entire Ethernet payload and inserted into the last 2 bytes of the frame.</p>
-<p>On receive, HW should calculate the Ethernet payload checksum and return a value of 0xFFFF which means the payload data was likely not corrupted.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">DmaInstancePtr</td><td>is a pointer to the instance of the Dma component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>, <a class="el" href="xaxiethernet__example_8h.html#a1eb6d3a3d578519d065f1e674d00f144">AxiEthernetUtilFrameHdrFormatMAC()</a>, <a class="el" href="xaxiethernet__example_8h.html#aa8c4f8ca2870764a5708ae0458d2b96a">AxiEthernetUtilFrameHdrFormatType()</a>, <a class="el" href="xaxiethernet__example_8h.html#a69500ccf415291fc54dfc53333f98a07">AxiEthernetUtilFrameMemClear()</a>, <a class="el" href="xaxiethernet__example_8h.html#a5b2b391e4495ed818546c7ec695a724a">AxiEthernetUtilFrameSetPayloadData()</a>, <a class="el" href="group__axiethernet.html#ga28f85be33530a1bf741db5f9738e3a14">XAE_INT_RECV_ERROR_MASK</a>, <a class="el" href="group__axiethernet.html#ga027d60f8fd28b519cad51e450b71c07b">XAE_RECEIVER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#ga1e81b6f5f677ed0370507c117b565b20">XAE_TRANSMITTER_ENABLE_OPTION</a>, <a class="el" href="group__axiethernet.html#gab5476b0e04b0ecd8f9fd027f90ea648f">XAxiEthernet_IntEnable</a>, <a class="el" href="group__axiethernet.html#gae21c088294f79359ed1ee74468100e9a">XAxiEthernet_IsRxPartialCsum</a>, <a class="el" href="group__axiethernet.html#ga6e44788bbc239e6cea83d1e07ddb65ed">XAxiEthernet_IsTxPartialCsum</a>, <a class="el" href="group__axiethernet.html#gae3265620b9d9b86643abe5ff5e2b7d79">XAxiEthernet_SetOptions()</a>, <a class="el" href="group__axiethernet.html#ga2cfa48d42e55238f6f30aff6d658e4fe">XAxiEthernet_Start()</a>, and <a class="el" href="group__axiethernet.html#ga4e952a55f342f176ba9ec2b49e2e47cb">XAxiEthernet_Stop()</a>.</p>
-
-<p>Referenced by <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample()</a>, and <a class="el" href="xaxiethernet__example__mcdma__poll_8c.html#af23ca5b1a1cae5f593a8e28d41ad91c0">AxiEthernetSgDmaPollExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This is the main function for the Axi Ethernet example. </p>
-<p>This function is not included if the example is generated from the TestAppGen test tool.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS to indicate success.<ul>
-<li>XST_FAILURE to indicate failure</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xavb__example_8c.html#a249ec82daff032bfe981d21980bae55c">AXIETHERNET_DEVICE_ID</a>, <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html#a13518944182994cba8511c654fff7e52">AxiEthernetSgDmaIntrExample()</a>, and <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

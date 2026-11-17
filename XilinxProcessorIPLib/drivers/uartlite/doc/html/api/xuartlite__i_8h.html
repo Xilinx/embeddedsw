@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartlite__i_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,31 +100,55 @@ $(document).ready(function(){initNavTree('xuartlite__i_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xuartlite_i.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartlite_8h.html">xuartlite.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Internal data shared between files of the <a class="el" href="struct_x_uart_lite.html" title="Driver instance data for the UART Lite. ">XUartLite</a> component. </p>
+<p>It is intended for internal use only.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a ecm  08/31/01 First release
+1.00b jhl  02/21/02 Reparitioned the driver for smaller files
+1.00b rpm  04/24/02 Moved register definitions to <a class="el" href="xuartlite__l_8h.html" title="Low-level driver identifiers and functions for the UART Lite device. ">xuartlite_l.h</a> and
+                    updated macro naming convention
+2.00a ktn  10/20/09 The macros have been renamed to remove _m from
+              the name. XUartLite_mClearStats macro is removed and
+              XUartLite_ClearStats function should be used in its place.
+3.6   rna  02/19/21 Added 'XUartLite_GetSR' internal API.
+3.14  vn   09/09/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartlite_8h.html">xuartlite.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartlite__l_8h.html">xuartlite_l.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga9a29be78566c773a9f1ad81bd3fddb5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga9a29be78566c773a9f1ad81bd3fddb5e">XUartLite_UpdateStats</a>(InstancePtr, StatusRegister)</td></tr>
+<tr class="memdesc:ga9a29be78566c773a9f1ad81bd3fddb5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the statistics of the instance.  <a href="group__uartlite.html#ga9a29be78566c773a9f1ad81bd3fddb5e">More...</a><br/></td></tr>
+<tr class="separator:ga9a29be78566c773a9f1ad81bd3fddb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga155b5a1fba111533992e283445ad8f73"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga155b5a1fba111533992e283445ad8f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">More...</a><br/></td></tr>
+<tr class="memdesc:ga155b5a1fba111533992e283445ad8f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a previously specified buffer of data to the UART.  <a href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">More...</a><br/></td></tr>
 <tr class="separator:ga155b5a1fba111533992e283445ad8f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a buffer that has been previously specified by setting up the instance variables of the instance.  <a href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">More...</a><br/></td></tr>
+<tr class="memdesc:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a previously specified buffer of data from the UART.  <a href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">More...</a><br/></td></tr>
 <tr class="separator:ga74efaecba1b6b1406c8c82abbb628cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga52107358628671b9c39beb81183b7365"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">XUartLite_GetSR</a> (<a class="el" href="struct_x_uart_lite.html">XUartLite</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga52107358628671b9c39beb81183b7365"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the status register and updates the error stats, before returning the status register value.  <a href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">More...</a><br/></td></tr>
+<tr class="memdesc:ga52107358628671b9c39beb81183b7365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the status register and updates the error stats before returning the status register value.  <a href="group__uartlite.html#ga52107358628671b9c39beb81183b7365">More...</a><br/></td></tr>
 <tr class="separator:ga52107358628671b9c39beb81183b7365"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_uart_lite___config.html">XUartLite_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartlite.html#gaa00e4300e2ccd4b82fd4414b054a589e">XUartLite_ConfigTable</a> []</td></tr>
-<tr class="memdesc:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration table for UART Lite devices.  <a href="group__uartlite.html#gaa00e4300e2ccd4b82fd4414b054a589e">More...</a><br/></td></tr>
+<tr class="memdesc:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the configuration entry for each UART Lite instance.  <a href="group__uartlite.html#gaa00e4300e2ccd4b82fd4414b054a589e">More...</a><br/></td></tr>
 <tr class="separator:gaa00e4300e2ccd4b82fd4414b054a589e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -5,29 +5,29 @@
     <includes refid="xdptxss__vtc_8h" local="yes">xdptxss_vtc.h</includes>
     <includes local="yes">string.h</includes>
     <incdepgraph>
-      <node id="1159">
+      <node id="1169">
         <label>xdp.h</label>
       </node>
-      <node id="1160">
+      <node id="1170">
         <label>string.h</label>
       </node>
-      <node id="1156">
+      <node id="1166">
         <label>xdptxss_vtc.c</label>
         <link refid="xdptxss_vtc.c"/>
-        <childnode refid="1157" relation="include">
+        <childnode refid="1167" relation="include">
         </childnode>
-        <childnode refid="1160" relation="include">
+        <childnode refid="1170" relation="include">
         </childnode>
       </node>
-      <node id="1157">
+      <node id="1167">
         <label>xdptxss_vtc.h</label>
         <link refid="xdptxss__vtc_8h"/>
-        <childnode refid="1158" relation="include">
+        <childnode refid="1168" relation="include">
         </childnode>
-        <childnode refid="1159" relation="include">
+        <childnode refid="1169" relation="include">
         </childnode>
       </node>
-      <node id="1158">
+      <node id="1168">
         <label>xvtc.h</label>
       </node>
     </incdepgraph>
@@ -81,8 +81,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/xdptxss_vtc.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/xdptxss_vtc.c" bodystart="70" bodyend="215"/>
-        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/xdptxss_vtc.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/xdptxss_vtc.c" bodystart="70" bodyend="215"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="117" endline="336">XDpTxSs_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -227,7 +227,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>interlaced<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoTiming.Interlaced<sp/>=</highlight></codeline>
 <codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MsaConfig-&gt;Vtm.VmId<sp/>==<sp/>XVIDC_VM_CUSTOM<sp/>||</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!XVidC_GetVideoModeData(MsaConfig-&gt;Vtm.VmId)-&gt;Timing.F1VTotal)<sp/>?</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!XVidC_IsInterlaced(MsaConfig-&gt;Vtm.VmId))<sp/>?</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>:<sp/>1;</highlight></codeline>
 <codeline lineno="168"><highlight class="normal"></highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>timing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -278,6 +278,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 <codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="215"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/xdptxss_vtc.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/vtc/xdptxss_vtc.c"/>
   </compounddef>
 </doxygen>

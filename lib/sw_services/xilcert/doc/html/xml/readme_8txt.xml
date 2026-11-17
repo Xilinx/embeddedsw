@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/readme.txt" line="1" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/readme.txt" bodystart="1" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/readme.txt" line="1" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/readme.txt" bodystart="1" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -24,6 +24,6 @@
     <programlisting>
 <codeline lineno="1"><highlight class="normal">XilCert<sp/>library<sp/>is<sp/>applicable<sp/>only<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>Versal<sp/>Net<sp/>platforms,<sp/>please<sp/>ignore<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>folder<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>other<sp/>platforms.</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/readme.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/readme.txt"/>
   </compounddef>
 </doxygen>

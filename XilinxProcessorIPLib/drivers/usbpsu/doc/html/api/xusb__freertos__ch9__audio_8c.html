@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('xusb__freertos__ch9__audio_8c.html',''
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xusb_freertos_ch9_audio.c File Reference</div>  </div>
 </div><!--header-->
@@ -140,6 +141,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a06fd1c18a2cedf35d6632f9eeac3b970"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__ch9__audio_8c.html#a06fd1c18a2cedf35d6632f9eeac3b970">Usb_SetInterfaceHandler</a> (struct <a class="el" href="struct_usb___dev_data.html">Usb_DevData</a> *InstancePtr, <a class="el" href="struct_setup_packet.html">SetupPacket</a> *SetupData)</td></tr>
 <tr class="memdesc:a06fd1c18a2cedf35d6632f9eeac3b970"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by Chapter9 handler when SET_CONFIGURATION command or SET_INTERFACE command is received from Host.  <a href="#a06fd1c18a2cedf35d6632f9eeac3b970">More...</a><br/></td></tr>
 <tr class="separator:a06fd1c18a2cedf35d6632f9eeac3b970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a804f2b8d24af70d2d64e9403aa7c6d53"><td class="memItemLeft" align="right" valign="top">USB_STD_DEV_DESC&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusb__freertos__ch9__audio_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53">deviceDesc</a> []</td></tr>
+<tr class="memdesc:a804f2b8d24af70d2d64e9403aa7c6d53"><td class="mdescLeft">&#160;</td><td class="mdescRight">USB device descriptor array (16-byte aligned).  <a href="#a804f2b8d24af70d2d64e9403aa7c6d53">More...</a><br/></td></tr>
+<tr class="separator:a804f2b8d24af70d2d64e9403aa7c6d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a6b9c8f0b5b4de1072d44ca05f15d3601"></a>
@@ -169,12 +176,14 @@ Functions</h2></td></tr>
 <p>This function returns the BOS descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error. </dd></dl>
+
+<p>References <a class="el" href="xusb__ch9_8h.html#a6c73097a46352acad1f2c123b5ed5ff4">USB_TYPE_BOS_DESC</a>.</p>
 
 </div>
 </div>
@@ -211,9 +220,9 @@ Functions</h2></td></tr>
 <p>This function returns the configuration descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is the pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
@@ -256,15 +265,15 @@ Functions</h2></td></tr>
 <p>This function returns the device descriptor for the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Length of the descriptor in the buffer on success. 0 on error. </dd></dl>
 
-<p>References <a class="el" href="xusb__wrapper_8c.html#a02e8ef492f6fb18133f23f90205cc573">IsSuperSpeed()</a>.</p>
+<p>References <a class="el" href="xusb__ch9__audio__dfu_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53">deviceDesc</a>, and <a class="el" href="xusb__wrapper_8c.html#a02e8ef492f6fb18133f23f90205cc573">IsSuperSpeed()</a>.</p>
 
 </div>
 </div>
@@ -307,10 +316,10 @@ Functions</h2></td></tr>
 <p>This function returns a string descriptor for the given index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
-    <tr><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
-    <tr><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BufPtr</td><td>is a pointer to the buffer that is to be filled with the descriptor. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BufLen</td><td>is the size of the provided buffer. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Index</td><td>is the index of the string for which the descriptor is requested.</td></tr>
   </table>
   </dd>
 </dl>
@@ -347,15 +356,14 @@ Functions</h2></td></tr>
 <p>Changes State of Core to USB configured State. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Ctrl</td><td>is a pointer to the Setup packet data.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS else XST_FAILURE </dd></dl>
 
-<p>References <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__wrapper_8c.html#a806fa9a72091f47fa04844f988166e70">SetConfigDone()</a>, and <a class="el" href="struct_usb___dev_data.html#ae6b25681fad0c3686de251a7e611f00f">Usb_DevData::State</a>.</p>
+<p>References <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__wrapper_8c.html#a806fa9a72091f47fa04844f988166e70">SetConfigDone()</a>, <a class="el" href="struct_usb___dev_data.html#ae6b25681fad0c3686de251a7e611f00f">Usb_DevData::State</a>, <a class="el" href="xusb__wrapper_8h.html#a4af0ac695f410a6e4d4ea71df55d36d6">USB_STATE_ADDRESS</a>, <a class="el" href="xusb__wrapper_8h.html#a6a3f44fe842ff1655596eba1321d0b80">USB_STATE_CONFIGURED</a>, and <a class="el" href="xusb__wrapper_8h.html#ae07e1b6cee441e8eb185c8d654a3f48e">USB_STATE_DEFAULT</a>.</p>
 
 </div>
 </div>
@@ -384,10 +392,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </p>
+<p>Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
   </table>
   </dd>
 </dl>
@@ -398,7 +407,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Non control endpoints must be enabled after SET_CONFIGURATION command since hardware clears all previously enabled endpoints except control endpoints when this command is received. </dd></dl>
 
-<p>References <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__wrapper_8c.html#a806fa9a72091f47fa04844f988166e70">SetConfigDone()</a>, and <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket::wValue</a>.</p>
+<p>References <a class="el" href="xusb__wrapper_8c.html#a89213a25f15867eff5fa1c41b0a1a5bf">EpDisable()</a>, <a class="el" href="xusb__class__audio__dfu_8h.html#aab8f5bc9518d1611092d31d8212bc06b">ISO_EP</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__wrapper_8c.html#a806fa9a72091f47fa04844f988166e70">SetConfigDone()</a>, <a class="el" href="xusb__wrapper_8h.html#aae8411e95f26738326bc25a0161dde99">USB_EP_DIR_IN</a>, <a class="el" href="xusb__wrapper_8h.html#a0510b0a04d9cef144e4d9793310abccf">USB_EP_DIR_OUT</a>, and <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket::wValue</a>.</p>
 
 </div>
 </div>
@@ -427,16 +436,32 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is called by Chapter9 handler when SET_CONFIGURATION command or SET_INTERFACE command is received from Host. </p>
+<p>Handles USB SET_INTERFACE standard request.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is pointer to <a class="el" href="struct_usb___dev_data.html" title="struct Usb_DevData - Application device data Application Data ">Usb_DevData</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the setup packet received from Host.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Non control endpoints must be enabled after SET_INTERFACE command since hardware clears all previously enabled endpoints except control endpoints when this command is received. </dd></dl>
 
-<p>References <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="struct_setup_packet.html#a18206c45fd8c7d39a81ff4fc428518c1">SetupPacket::wIndex</a>, and <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket::wValue</a>.</p>
+<p>References <a class="el" href="xusb__wrapper_8c.html#ad850f272d507d36f74a55bb96211b85b">Get_DrvData()</a>, <a class="el" href="xusb__freertos__ch9__composite_8h.html#aff021684340cd326ef94a7e509e6a7a8">PLAY_START</a>, <a class="el" href="xusb__freertos__ch9__composite_8h.html#adfa6a9e47040d791d57dc7fd49357f3c">PLAY_STOP</a>, <a class="el" href="struct_usb___dev_data.html#a35624c7f1dbe7a05bd61f4abf44d5cd8">Usb_DevData::PrivateData</a>, <a class="el" href="xusb__freertos__ch9__composite_8h.html#aed22abbdf1b0c9bc125e04fdf3aad76d">RECORD_START</a>, <a class="el" href="xusb__freertos__ch9__composite_8h.html#a1fb2854ebfa867ab704b3bc469a4097c">RECORD_STOP</a>, <a class="el" href="struct_setup_packet.html#a18206c45fd8c7d39a81ff4fc428518c1">SetupPacket::wIndex</a>, <a class="el" href="struct_setup_packet.html#a2d0d690e5847745025e5655c533338fa">SetupPacket::wValue</a>, and <a class="el" href="structaudio__dev.html#aa2dd3acacc11e344ba392ad457fc022e">audio_dev::xMainTask</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a804f2b8d24af70d2d64e9403aa7c6d53"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">USB_STD_DEV_DESC deviceDesc[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>USB device descriptor array (16-byte aligned). </p>
 
 </div>
 </div>

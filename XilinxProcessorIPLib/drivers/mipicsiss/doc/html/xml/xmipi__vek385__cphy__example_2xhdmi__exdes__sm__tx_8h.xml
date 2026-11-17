@@ -5,25 +5,25 @@
     <includes local="yes">xparameters.h</includes>
     <includedby refid="xmipi__vek385__cphy__example_2xhdmi__exdes__sm__tx_8c" local="yes">xhdmi_exdes_sm_tx.c</includedby>
     <incdepgraph>
-      <node id="2128">
+      <node id="2167">
         <label>xparameters.h</label>
       </node>
-      <node id="2127">
+      <node id="2166">
         <label>xhdmi_exdes_sm_tx.h</label>
         <link refid="xmipi_vek385_cphy_example/xhdmi_exdes_sm_tx.h"/>
-        <childnode refid="2128" relation="include">
+        <childnode refid="2167" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2130">
+      <node id="2169">
         <label>xhdmi_exdes_sm_tx.c</label>
         <link refid="xmipi__vek385__cphy__example_2xhdmi__exdes__sm__tx_8c"/>
       </node>
-      <node id="2129">
+      <node id="2168">
         <label>xhdmi_exdes_sm_tx.h</label>
         <link refid="xmipi_vek385_cphy_example/xhdmi_exdes_sm_tx.h"/>
-        <childnode refid="2130" relation="include">
+        <childnode refid="2169" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -40,7 +40,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -277,61 +277,56 @@
 <codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="301"><highlight class="normal"></highlight></codeline>
 <codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XV_Tx_Hdmi_Initialize(XV_Tx<sp/>*InstancePtr,<sp/>u32<sp/>HdmiTxSsDevId,</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VPhyDevId,<sp/>XV_Tx_IntrVecId<sp/>IntrVecIds);</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XV_Tx_Hdmi_Initialize(XV_Tx<sp/>*InstancePtr,<sp/>u32<sp/>HdmiTxSsDevId,</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VPhyDevId);</highlight></codeline>
-<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDebugPrints(XV_Tx_Debug_Printf<sp/>PrintFunc);</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDebugStateMachinePrints(XV_Tx_Debug_Printf<sp/>PrintFunc);</highlight></codeline>
-<codeline lineno="312"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDebugTxNewStreamSetupPrints(XV_Tx_Debug_Printf<sp/>PrintFunc);</highlight></codeline>
-<codeline lineno="313"><highlight class="normal"></highlight></codeline>
-<codeline lineno="314"><highlight class="normal">u32<sp/>XV_Tx_SetTriggerCallbacks(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_Tx_Trigger_CallbackHandler<sp/>Handler,</highlight></codeline>
-<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Callback,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="317"><highlight class="normal"></highlight></codeline>
-<codeline lineno="318"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_Hdcp_Poll(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetHdcpAuthReqExclusion(XV_Tx<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
-<codeline lineno="320"><highlight class="normal">u8<sp/>XV_Tx_GetHdcpAuthReqExclusion(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>USE_HDCP_HDMI_TX</highlight></codeline>
-<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_Hdcp_Authenticate(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_Hdcp_SetCapability(XV_Tx<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Protocol);</highlight></codeline>
-<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="326"><highlight class="normal">u8<sp/>XV_Tx_IsConnected(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="327"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetAudioFormatAndChannels(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_AudioFormatType<sp/>AudioFormat,</highlight></codeline>
-<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AudioChannels);</highlight></codeline>
-<codeline lineno="330"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetVic(XV_Tx<sp/>*InstancePtr,<sp/>u8<sp/>Vic);</highlight></codeline>
-<codeline lineno="331"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetHdmiFrlMode(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetHdmiTmdsMode(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDviMode(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetLineRate(XV_Tx<sp/>*InstancePtr,<sp/>u64<sp/>LineRate);</highlight></codeline>
-<codeline lineno="335"><highlight class="normal">u64<sp/>XV_Tx_GetLineRate(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="336"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetEdidParsingDone(XV_Tx<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
-<codeline lineno="337"><highlight class="normal">u32<sp/>XV_Tx_StartFrlTraining(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VidC_Supp<sp/>IsSCDCPresent,</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxFrlRate);</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFrlEdidInfo(XV_Tx<sp/>*InstancePtr,<sp/>XV_VidC_Supp<sp/>IsSCDCPresent,</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxFrlRateSupp);</highlight></codeline>
-<codeline lineno="342"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFrlIntVidCkeGen(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="343"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFrlExtVidCkeGen(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetUseInternalACR(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="345"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetUseExternalACR(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="346"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetAudSamplingFreq(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmiC_SamplingFrequencyVal<sp/>AudSampleFreqVal);</highlight></codeline>
-<codeline lineno="348"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFRLCkeSrcToExternal(XV_Tx<sp/>*InstancePtr,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">u32<sp/>XV_Tx_Hdmi_Initialize(XV_Tx<sp/>*InstancePtr,<sp/>u32<sp/>HdmiTxSsDevId,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VPhyDevId);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDebugPrints(XV_Tx_Debug_Printf<sp/>PrintFunc);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDebugStateMachinePrints(XV_Tx_Debug_Printf<sp/>PrintFunc);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDebugTxNewStreamSetupPrints(XV_Tx_Debug_Printf<sp/>PrintFunc);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal">u32<sp/>XV_Tx_SetTriggerCallbacks(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_Tx_Trigger_CallbackHandler<sp/>Handler,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Callback,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_Hdcp_Poll(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetHdcpAuthReqExclusion(XV_Tx<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal">u8<sp/>XV_Tx_GetHdcpAuthReqExclusion(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>USE_HDCP_HDMI_TX</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_Hdcp_Authenticate(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_Hdcp_SetCapability(XV_Tx<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Protocol);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal">u8<sp/>XV_Tx_IsConnected(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetAudioFormatAndChannels(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_AudioFormatType<sp/>AudioFormat,</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AudioChannels);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetVic(XV_Tx<sp/>*InstancePtr,<sp/>u8<sp/>Vic);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetHdmiFrlMode(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetHdmiTmdsMode(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetDviMode(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetLineRate(XV_Tx<sp/>*InstancePtr,<sp/>u64<sp/>LineRate);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">u64<sp/>XV_Tx_GetLineRate(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetEdidParsingDone(XV_Tx<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal">u32<sp/>XV_Tx_StartFrlTraining(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VidC_Supp<sp/>IsSCDCPresent,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxFrlRate);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFrlEdidInfo(XV_Tx<sp/>*InstancePtr,<sp/>XV_VidC_Supp<sp/>IsSCDCPresent,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxFrlRateSupp);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFrlIntVidCkeGen(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFrlExtVidCkeGen(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetUseInternalACR(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetUseExternalACR(XV_Tx<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetAudSamplingFreq(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmiC_SamplingFrequencyVal<sp/>AudSampleFreqVal);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_Tx_SetFRLCkeSrcToExternal(XV_Tx<sp/>*InstancePtr,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal">u32<sp/>XV_Tx_VideoSetupAndStart(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoStream<sp/>*HdmiTxSsVidStreamPtr);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">u32<sp/>XV_Tx_GetNVal(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmiC_SamplingFrequencyVal<sp/>SampFreqVal);</highlight></codeline>
 <codeline lineno="349"><highlight class="normal"></highlight></codeline>
-<codeline lineno="350"><highlight class="normal">u32<sp/>XV_Tx_VideoSetupAndStart(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoStream<sp/>*HdmiTxSsVidStreamPtr);</highlight></codeline>
-<codeline lineno="352"><highlight class="normal">u32<sp/>XV_Tx_GetNVal(XV_Tx<sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmiC_SamplingFrequencyVal<sp/>SampFreqVal);</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"></highlight></codeline>
-<codeline lineno="355"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="356"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDMI_EXDES_SM_TX_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDMI_EXDES_SM_TX_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/xhdmi_exdes_sm_tx.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/xhdmi_exdes_sm_tx.h"/>
   </compounddef>
 </doxygen>

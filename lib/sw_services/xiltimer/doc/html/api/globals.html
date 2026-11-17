@@ -72,10 +72,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
       <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -108,7 +119,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div><ul>
+<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div>
+
+<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>MAX_COUNT
 : <a class="el" href="group__xiltimer__api.html#gae14eaaed1fe7cdf491da54a714c426b3">scutimer.c</a>
 </li>
@@ -116,17 +129,41 @@ $(document).ready(function(){initNavTree('globals.html','');});
 : <a class="el" href="group__xiltimer__api.html#ga5b18907cf69292caad8910f3667e48fd">xiltimer.c</a>
 , <a class="el" href="group__xiltimer__api.html#ga5b18907cf69292caad8910f3667e48fd">sleep.h</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
 <li>REG_SHIFT
 : <a class="el" href="group__xiltimer__api.html#gaca6f06685ab6904b49da2f41d3c7b46b">ttcps.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>sleep()
 : <a class="el" href="group__xiltimer__api.html#gafc060fb73e66e0f4493f7417ef6e4047">sleep.h</a>
 , <a class="el" href="group__xiltimer__api.html#gafc060fb73e66e0f4493f7417ef6e4047">xiltimer.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>TimerInst
+: <a class="el" href="group__xiltimer__api.html#gad566619236e065d2120ff35bf4069666">xiltimer.c</a>
+, <a class="el" href="group__xiltimer__api.html#gad566619236e065d2120ff35bf4069666">xiltimer.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
 <li>usleep()
 : <a class="el" href="group__xiltimer__api.html#ga068447b060a14715c07173bba411eb75">sleep.h</a>
 , <a class="el" href="group__xiltimer__api.html#ga068447b060a14715c07173bba411eb75">xiltimer.c</a>
 </li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
 <li>XCntrVal
 : <a class="el" href="group__xiltimer__api.html#ga82aee0f8087831dfc46f2d5c884d1b0e">ttcps.c</a>
 </li>
@@ -141,6 +178,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XilTimer_Sleep()
 : <a class="el" href="group__xiltimer__api.html#ga3bf4c88807bba962c75976fed3c217d9">xiltimer.c</a>
+</li>
+<li>XTime
+: <a class="el" href="xiltimer_8h.html#ab09e5fc8d3f2b44bee5841db91a81913">xiltimer.h</a>
 </li>
 <li>XTime_GetTime()
 : <a class="el" href="xiltimer_8h.html#a6d069e6cf82031c469818523a5d7ab82">xiltimer.h</a>
@@ -175,8 +215,15 @@ $(document).ready(function(){initNavTree('globals.html','');});
 , <a class="el" href="group__xiltimer__api.html#ga6395671177518353e3ab5ded9609eb1e">xiltimer.h</a>
 </li>
 <li>XTimer_SetInterval()
-: <a class="el" href="group__xiltimer__api.html#gac2d61518eafb79f1bad01cecb9503d6c">xiltimer.c</a>
-, <a class="el" href="group__xiltimer__api.html#gac2d61518eafb79f1bad01cecb9503d6c">xiltimer.h</a>
+: <a class="el" href="group__xiltimer__api.html#gac2d61518eafb79f1bad01cecb9503d6c">xiltimer.h</a>
+, <a class="el" href="group__xiltimer__api.html#gac2d61518eafb79f1bad01cecb9503d6c">xiltimer.c</a>
+</li>
+<li>XTimer_SetIntervalHz()
+: <a class="el" href="group__xiltimer__api.html#ga4381a7c988933521223d057ac235cc91">xiltimer.h</a>
+, <a class="el" href="group__xiltimer__api.html#ga4381a7c988933521223d057ac235cc91">xiltimer.c</a>
+</li>
+<li>XTimer_TickHandler
+: <a class="el" href="xiltimer_8h.html#adf78c896aa8018bb63e6aa315e24223b">xiltimer.h</a>
 </li>
 <li>xtimerinit()
 : <a class="el" href="group__xiltimer__api.html#gaf69e1968c5c23ab54bbe16685f28eec2">xiltimer.c</a>

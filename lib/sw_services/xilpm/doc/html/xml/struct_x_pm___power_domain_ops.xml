@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___power_domain_ops" kind="struct" prot="public">
+    <compoundname>XPm_PowerDomainOps</compoundname>
+    <includes local="no">xpm_powerdomain.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a61ecf1e919ff253e6e07e31338da2bd4" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::InitStart)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>InitStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1acb0c2564b5131fc612bd262c7afd4dce" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::InitFinish)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>InitFinish</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a561e0063c22d69e2056e9365c1e3a52a" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::ScanClear)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>ScanClear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a6936c8ea5642d3fb77aaa33cc693c293" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::Mbist)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>Mbist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a1d9fb08abddd732b1cc7cd6c917d6b6a" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::Lbist)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>Lbist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a389ab66a6715a70b1f1846ec84a2830d" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::Bisr)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>Bisr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a75503ed42522f9546949bb0907498b8d" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::PlHouseclean)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>PlHouseclean</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a5ee71c94ec98b3ddf4ac797f74d0f8d6" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::MemInit)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>MemInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1aa8730e454b9ecdffcc069d3e19602a9e" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::HcComplete)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>HcComplete</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a13adf86cf95c241790b73266047d6a6a" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::MioFlush)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>MioFlush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1a8d6bd6b7bb4cca2d414780a2eeb2ba41" prot="public" static="no" mutable="no">
+        <type>const u16</type>
+        <definition>const u16 XPm_PowerDomainOps::InitMask</definition>
+        <argsstring></argsstring>
+        <name>InitMask</name>
+        <briefdescription>
+<para>Mask to indicate which Ops are present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___power_domain_ops_1af5fd9b46f16c6633ee51c08f34f5312b" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_PowerDomainOps::TrimAms)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</definition>
+        <argsstring>)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs)</argsstring>
+        <name>TrimAms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The power domain node class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all the power domain classes. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.h" bodystart="79" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___power_domain_ops_1a389ab66a6715a70b1f1846ec84a2830d" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>Bisr</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1aa8730e454b9ecdffcc069d3e19602a9e" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>HcComplete</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1acb0c2564b5131fc612bd262c7afd4dce" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>InitFinish</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a8d6bd6b7bb4cca2d414780a2eeb2ba41" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>InitMask</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a61ecf1e919ff253e6e07e31338da2bd4" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>InitStart</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a1d9fb08abddd732b1cc7cd6c917d6b6a" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>Lbist</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a6936c8ea5642d3fb77aaa33cc693c293" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>Mbist</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a5ee71c94ec98b3ddf4ac797f74d0f8d6" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>MemInit</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a13adf86cf95c241790b73266047d6a6a" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>MioFlush</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a75503ed42522f9546949bb0907498b8d" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>PlHouseclean</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1a561e0063c22d69e2056e9365c1e3a52a" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>ScanClear</name></member>
+      <member refid="struct_x_pm___power_domain_ops_1af5fd9b46f16c6633ee51c08f34f5312b" prot="public" virt="non-virtual"><scope>XPm_PowerDomainOps</scope><name>TrimAms</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="301" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="301" bodyend="-1"/>
         <referencedby refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" compoundref="xdfeequ__intr_8c" startline="93" endline="113">XDfeEqu_ClearEventStatus</referencedby>
         <referencedby refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" compoundref="xdfeequ__intr_8c" startline="56" endline="77">XDfeEqu_GetEventStatus</referencedby>
       </memberdef>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="303" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="303" bodyend="-1"/>
         <referencedby refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" compoundref="xdfeequ__intr_8c" startline="93" endline="113">XDfeEqu_ClearEventStatus</referencedby>
         <referencedby refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" compoundref="xdfeequ__intr_8c" startline="56" endline="77">XDfeEqu_GetEventStatus</referencedby>
       </memberdef>
@@ -41,7 +41,7 @@
 <para>Equalizer Status. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="300" bodyend="305"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="300" bodyend="305"/>
     <listofallmembers>
       <member refid="struct_x_dfe_equ___status_1aac90a3055325556a5a182f0ab95eda04" prot="public" virt="non-virtual"><scope>XDfeEqu_Status</scope><name>IStatus</name></member>
       <member refid="struct_x_dfe_equ___status_1a2f0e6d4693e3e6e0a2493e5c88036087" prot="public" virt="non-virtual"><scope>XDfeEqu_Status</scope><name>QStatus</name></member>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xipipsu__buf_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,10 +99,36 @@ $(document).ready(function(){initNavTree('xipipsu__buf_8h.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xipipsu_buf.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Declares the buffer-address and CRC helper functions of the driver. </p>
+<p>The Inter-Processor Interrupt (IPI) provides communication between processors.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver  Who Date     Changes
+</p>
+<hr/>
+<p>
+2.6     sd      04/02/20        Restructured the code for more readability and modularity
+2.14    ht      06/13/23        Restructured the code for more modularity
+        ht      07/28/23        Fix MISRA-C warnings
+2.20 vn      07/30/26        Fix Doxygen warnings
+2.20 vn      09/10/26        Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_io.h&quot;</code><br/>
+<code>#include &quot;xstatus.h&quot;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga09ecec5ff12505d68ceebf1914b8b30f"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">XIpiPsu_GetBufferAddress</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 SrcCpuMask, u32 DestCpuMask, u32 BufferType)</td></tr>
+<tr class="memdesc:ga09ecec5ff12505d68ceebf1914b8b30f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the buffer address for a given pair of CPUs.  <a href="group__ipipsu__api.html#ga09ecec5ff12505d68ceebf1914b8b30f">More...</a><br/></td></tr>
+<tr class="separator:ga09ecec5ff12505d68ceebf1914b8b30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d429daed621ef6c33656d873e31d9b3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">XIpiPsu_GetBufferIndex</a> (const <a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 CpuMask)</td></tr>
+<tr class="memdesc:ga7d429daed621ef6c33656d873e31d9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the buffer index for a CPU specified by the mask.  <a href="group__ipipsu__api.html#ga7d429daed621ef6c33656d873e31d9b3">More...</a><br/></td></tr>
+<tr class="separator:ga7d429daed621ef6c33656d873e31d9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

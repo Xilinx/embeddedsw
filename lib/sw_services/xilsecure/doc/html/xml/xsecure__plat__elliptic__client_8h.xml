@@ -9,76 +9,81 @@
     <includedby refid="xsecure__plat__elliptic__client_8c" local="yes">xsecure_plat_elliptic_client.c</includedby>
     <includedby refid="xilsecure__versal__net__ecdh__client__example_8c" local="yes">xilsecure_versal_net_ecdh_client_example.c</includedby>
     <incdepgraph>
-      <node id="2704">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="2697">
-        <label>xsecure_plat_elliptic_client.h</label>
-        <link refid="xsecure_plat_elliptic_client.h"/>
-        <childnode refid="2698" relation="include">
-        </childnode>
-        <childnode refid="2699" relation="include">
-        </childnode>
-        <childnode refid="2702" relation="include">
-        </childnode>
-        <childnode refid="2705" relation="include">
-        </childnode>
-      </node>
-      <node id="2705">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="2700">
-        <label>xilmailbox.h</label>
-      </node>
-      <node id="2702">
+      <node id="2821">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="2703" relation="include">
+        <childnode refid="2822" relation="include">
         </childnode>
-        <childnode refid="2698" relation="include">
+        <childnode refid="2817" relation="include">
         </childnode>
-        <childnode refid="2704" relation="include">
+        <childnode refid="2823" relation="include">
         </childnode>
-        <childnode refid="2705" relation="include">
+        <childnode refid="2824" relation="include">
         </childnode>
-        <childnode refid="2706" relation="include">
+        <childnode refid="2825" relation="include">
+        </childnode>
+        <childnode refid="2826" relation="include">
         </childnode>
       </node>
-      <node id="2706">
-        <label>xsecure_config.h</label>
+      <node id="2824">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="2698">
-        <label>xil_types.h</label>
+      <node id="2823">
+        <label>xil_cache.h</label>
       </node>
-      <node id="2701">
-        <label>xparameters.h</label>
+      <node id="2826">
+        <label>xsecure_plat_defs.h</label>
       </node>
-      <node id="2703">
-        <label>xil_printf.h</label>
+      <node id="2819">
+        <label>xilmailbox.h</label>
       </node>
-      <node id="2699">
+      <node id="2818">
         <label>xsecure_mailbox.h</label>
         <link refid="xsecure__mailbox_8h"/>
-        <childnode refid="2700" relation="include">
+        <childnode refid="2819" relation="include">
         </childnode>
-        <childnode refid="2701" relation="include">
+        <childnode refid="2820" relation="include">
         </childnode>
+      </node>
+      <node id="2816">
+        <label>xsecure_plat_elliptic_client.h</label>
+        <link refid="xsecure_plat_elliptic_client.h"/>
+        <childnode refid="2817" relation="include">
+        </childnode>
+        <childnode refid="2818" relation="include">
+        </childnode>
+        <childnode refid="2821" relation="include">
+        </childnode>
+        <childnode refid="2826" relation="include">
+        </childnode>
+      </node>
+      <node id="2825">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2817">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2820">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2822">
+        <label>xil_printf.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2708">
+      <node id="2828">
         <label>xsecure_plat_elliptic_client.c</label>
         <link refid="xsecure__plat__elliptic__client_8c"/>
       </node>
-      <node id="2707">
+      <node id="2827">
         <label>xsecure_plat_elliptic_client.h</label>
         <link refid="xsecure_plat_elliptic_client.h"/>
-        <childnode refid="2708" relation="include">
+        <childnode refid="2828" relation="include">
         </childnode>
-        <childnode refid="2709" relation="include">
+        <childnode refid="2829" relation="include">
         </childnode>
       </node>
-      <node id="2709">
+      <node id="2829">
         <label>xilsecure_versal_net_ecdh_client_example.c</label>
         <link refid="xilsecure__versal__net__ecdh__client__example_8c"/>
       </node>
@@ -124,7 +129,7 @@
 <parametername>CrvType</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Type of elliptic curve </para></parameterdescription>
+<para>Type of elliptic curve (P-256, P-384 or P-521) </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
@@ -154,13 +159,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><itemizedlist>
-<listitem><para>Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_GenSharedSecret API and returns the status of the IPI response.</para></listitem></itemizedlist>
+<listitem><para>Return XST_INVALID_PARAM if CrvType is not a server-supported ECDH curve (P-256, P-384 or P-521)</para></listitem><listitem><para>Return XST_INVALID_PARAM if PrivateKey, PublicKey or SharedSecret is NULL</para></listitem><listitem><para>Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_GenSharedSecret API and returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" bodystart="69" bodyend="119"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="157">XSECURE_API_GEN_SHARED_SECRET</references>
-        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
-        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" bodystart="71" bodyend="138"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="158">XSECURE_API_GEN_SHARED_SECRET</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="102">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="283">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="284">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="285">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" compoundref="xsecure__mailbox_8c" startline="84" endline="127">XSecure_ProcessMailbox</references>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__ecdsa__client__apis_1gae0cc9893171617fe1a2d07501a84ecb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -199,10 +207,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" bodystart="136" bodyend="158"/>
-        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</references>
-        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.c" bodystart="155" bodyend="177"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="126">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="165">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</references>
+        <references refid="group__xsecure__mailbox__apis_1ga172d3381387b4ba9fdec420f63e64b17" compoundref="xsecure__mailbox_8c" startline="84" endline="127">XSecure_ProcessMailbox</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -254,6 +262,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_ELLIPTIC_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/ecc_keypair/xsecure_plat_elliptic_client.h"/>
   </compounddef>
 </doxygen>

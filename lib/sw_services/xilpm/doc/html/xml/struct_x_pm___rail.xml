@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___rail" kind="struct" prot="public">
+    <compoundname>XPm_Rail</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___rail_1ae0652be410645e6d118ad22190c515ed" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___power" kindref="compound">XPm_Power</ref></type>
+        <definition>XPm_Power XPm_Rail::Power</definition>
+        <argsstring></argsstring>
+        <name>Power</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1ad1a198b90210c34ea8d9d540e7061f35" prot="public" static="no" mutable="no">
+        <type>XPm_PgoodSource</type>
+        <definition>XPm_PgoodSource XPm_Rail::Source</definition>
+        <argsstring></argsstring>
+        <name>Source</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1a982ee0a3a16300bf83a6e8ccfbbe7bdf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Rail::ParentIds[MAX_PARENTS]</definition>
+        <argsstring>[MAX_PARENTS]</argsstring>
+        <name>ParentIds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1a15399d28dd552626c3c79e40a4be7b15" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_Rail::ControlType[MAX_PARENTS][MAX_MODES]</definition>
+        <argsstring>[MAX_PARENTS][MAX_MODES]</argsstring>
+        <name>ControlType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1abd37207b89055a108ad5c845474d7842" prot="public" static="no" mutable="no">
+        <type>XPm_I2cCmd</type>
+        <definition>XPm_I2cCmd XPm_Rail::I2cModes[MAX_PARENTS][MAX_MODES]</definition>
+        <argsstring>[MAX_PARENTS][MAX_MODES]</argsstring>
+        <name>I2cModes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___rail_1acffe56e60bb974e1ec1d7e985220da6d" prot="public" static="no" mutable="no">
+        <type>XPm_GPIOCmd</type>
+        <definition>XPm_GPIOCmd XPm_Rail::GPIOModes[MAX_MODES]</definition>
+        <argsstring>[MAX_MODES]</argsstring>
+        <name>GPIOModes</name>
+        <briefdescription>
+<para>Modes information if parent regulator is controlled by I2C. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="283">
+        <label>XPm_Rail</label>
+        <childnode refid="284" relation="usage">
+          <edgelabel>Power</edgelabel>
+        </childnode>
+      </node>
+      <node id="284">
+        <label>XPm_Power</label>
+        <link refid="struct_x_pm___power"/>
+        <childnode refid="285" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="284" relation="usage">
+          <edgelabel>Parent</edgelabel>
+        </childnode>
+      </node>
+      <node id="285">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h" bodystart="56" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___rail_1a15399d28dd552626c3c79e40a4be7b15" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>ControlType</name></member>
+      <member refid="struct_x_pm___rail_1acffe56e60bb974e1ec1d7e985220da6d" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>GPIOModes</name></member>
+      <member refid="struct_x_pm___rail_1abd37207b89055a108ad5c845474d7842" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>I2cModes</name></member>
+      <member refid="struct_x_pm___rail_1a982ee0a3a16300bf83a6e8ccfbbe7bdf" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>ParentIds</name></member>
+      <member refid="struct_x_pm___rail_1ae0652be410645e6d118ad22190c515ed" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>Power</name></member>
+      <member refid="struct_x_pm___rail_1ad1a198b90210c34ea8d9d540e7061f35" prot="public" virt="non-virtual"><scope>XPm_Rail</scope><name>Source</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

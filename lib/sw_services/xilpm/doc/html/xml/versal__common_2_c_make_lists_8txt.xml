@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__common_2_c_make_lists_8txt" kind="file">
+    <compoundname>versal_common/CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="versal__common_2_c_make_lists_8txt_1a6aca96972dad0a85ac7c52e1df53fcdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>((&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblaze&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblazeel&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;plm_microblaze&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;pmu_microblaze&quot;)) elseif((&quot;$</argsstring>
+        <name>if</name>
+        <param>
+          <type>(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblaze&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblazeel&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;plm_microblaze&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;pmu_microblaze&quot;)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/CMakeLists.txt" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/CMakeLists.txt" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="versal__common_2_c_make_lists_8txt_1ab96770cc0e3aae1744fbc3be3396ecb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL cortexa72</type>
+        <definition>STREQUAL cortexa72 OR</definition>
+        <argsstring>(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;cortexr5&quot;) OR(&quot;$</argsstring>
+        <name>OR</name>
+        <param>
+          <type>&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;cortexr5&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/CMakeLists.txt" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/CMakeLists.txt" bodystart="19" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>For<sp/>Versal_2VE_2VM<sp/>the<sp/>platform<sp/>headers<sp/>(including<sp/>xpm_nodeid.h)</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>are<sp/>provided<sp/>by<sp/>versal_2ve_2vm/client,<sp/>so<sp/>the<sp/>shared<sp/>copy<sp/>under</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>versal_common/common<sp/>must<sp/>NOT<sp/>be<sp/>pulled<sp/>in<sp/>here.<sp/>Versal_2VE_2VM<sp/>is</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>identified<sp/>by<sp/>CMAKE_SUBMACHINE.</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NOT<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_SUBMACHINE}&quot;</highlight><highlight class="normal"><sp/>STREQUAL<sp/></highlight><highlight class="stringliteral">&quot;Versal_2VE_2VM&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>add_subdirectory(common)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">if((&quot;${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblazeel</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">plm_microblaze</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">pmu_microblaze</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>add_subdirectory(server)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">elseif((&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa72</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexr5</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa78</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexr52</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>add_subdirectory(client)</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral">else()</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>message(FATAL_ERROR<sp/>&quot;</highlight><highlight class="normal">Wrong<sp/>system<sp/>processor<sp/>${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

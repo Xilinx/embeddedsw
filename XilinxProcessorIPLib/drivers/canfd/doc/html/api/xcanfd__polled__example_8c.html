@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanfd__polled__example_8c.html','');}
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,16 +100,15 @@ $(document).ready(function(){initNavTree('xcanfd__polled__example_8c.html','');}
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xcanfd_polled_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Contains an example of how to use the XCan driver directly. </p>
-<p>The example here shows using the driver/device in polled mode.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are setup such that CAN baud rate equals 40Kbps, assuming that the the CAN clock frequency is 24MHz. The user needs to modify these values based on the desired baud rate and the CAN clock frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.</p>
+<div class="textblock"><p>Demonstrates using the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver and device in polled mode. </p>
+<dl class="section note"><dt>Note</dt><dd>The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set up for a CAN baud rate of 40Kbps. This setting assumes a CAN clock frequency of 24MHz. Modify these values based on the desired baud rate and the CAN clock frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
 </p>
@@ -127,19 +126,288 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
 2.8   gm     06/22/23 Call XCanFd_stop to release canfd node.
 2.10  ht     01/09/25 Fix C++ warning.
 2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+2.13  vn   09/30/26 Update Doxygen comments to AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a768a4fc7cda3cb12ab502e4e6977cb50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a768a4fc7cda3cb12ab502e4e6977cb50">XCANFD_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XCANFD_0_BASEADDR</td></tr>
+<tr class="memdesc:a768a4fc7cda3cb12ab502e4e6977cb50"><td class="mdescLeft">&#160;</td><td class="mdescRight">CAN FD base address.  <a href="#a768a4fc7cda3cb12ab502e4e6977cb50">More...</a><br/></td></tr>
+<tr class="separator:a768a4fc7cda3cb12ab502e4e6977cb50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8402ffb273c0d8a8e72f2a845d96b269"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a8402ffb273c0d8a8e72f2a845d96b269">TEST_MESSAGE_ID</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:a8402ffb273c0d8a8e72f2a845d96b269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message Id Constant.  <a href="#a8402ffb273c0d8a8e72f2a845d96b269">More...</a><br/></td></tr>
+<tr class="separator:a8402ffb273c0d8a8e72f2a845d96b269"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad826e8327ae2f1e333992795523c1a31"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#ad826e8327ae2f1e333992795523c1a31">TEST_MAILBOX_MASK</a>&#160;&#160;&#160;0xFFFFFFFF</td></tr>
+<tr class="memdesc:ad826e8327ae2f1e333992795523c1a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for MailBox.  <a href="#ad826e8327ae2f1e333992795523c1a31">More...</a><br/></td></tr>
+<tr class="separator:ad826e8327ae2f1e333992795523c1a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a308d6d407e58de28e1ceb8eb2ae38c39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a308d6d407e58de28e1ceb8eb2ae38c39">TESTMSG_DLC</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:a308d6d407e58de28e1ceb8eb2ae38c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test Message Dlc.  <a href="#a308d6d407e58de28e1ceb8eb2ae38c39">More...</a><br/></td></tr>
+<tr class="separator:a308d6d407e58de28e1ceb8eb2ae38c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Frame length definitions</div></td></tr>
+<tr class="memitem:a7b689d14c47ec2af170f1fdbd3fd547a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a7b689d14c47ec2af170f1fdbd3fd547a">XCANFD_MAX_FRAME_SIZE_IN_BYTES</a>&#160;&#160;&#160;72</td></tr>
+<tr class="memdesc:a7b689d14c47ec2af170f1fdbd3fd547a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum CAN frame length in bytes.  <a href="#a7b689d14c47ec2af170f1fdbd3fd547a">More...</a><br/></td></tr>
+<tr class="separator:a7b689d14c47ec2af170f1fdbd3fd547a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3317b62fb7f445865d6d8288847a6dac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a3317b62fb7f445865d6d8288847a6dac">FRAME_DATA_LENGTH</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memdesc:a3317b62fb7f445865d6d8288847a6dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame Data field length.  <a href="#a3317b62fb7f445865d6d8288847a6dac">More...</a><br/></td></tr>
+<tr class="separator:a3317b62fb7f445865d6d8288847a6dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Baud Rate Prescaler and Bit Timing Register values</div></td></tr>
+<tr class="memitem:a40b93f102dc8a0ae0f87092bc96087f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a40b93f102dc8a0ae0f87092bc96087f1">TEST_BRPR_BAUD_PRESCALAR</a>&#160;&#160;&#160;29</td></tr>
+<tr class="memdesc:a40b93f102dc8a0ae0f87092bc96087f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Baud Rate Prescaler Register (BRPR) value.  <a href="#a40b93f102dc8a0ae0f87092bc96087f1">More...</a><br/></td></tr>
+<tr class="separator:a40b93f102dc8a0ae0f87092bc96087f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f0504cb1cf0584ff8d7532b91d17f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#aa2f0504cb1cf0584ff8d7532b91d17f3">TEST_BTR_SYNCJUMPWIDTH</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:aa2f0504cb1cf0584ff8d7532b91d17f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Timing Register (BTR) synchronization jump width.  <a href="#aa2f0504cb1cf0584ff8d7532b91d17f3">More...</a><br/></td></tr>
+<tr class="separator:aa2f0504cb1cf0584ff8d7532b91d17f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963822e22ff13542adf1ca249fb11e1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a963822e22ff13542adf1ca249fb11e1e">TEST_BTR_SECOND_TIMESEGMENT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a963822e22ff13542adf1ca249fb11e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Timing Register (BTR) second time segment.  <a href="#a963822e22ff13542adf1ca249fb11e1e">More...</a><br/></td></tr>
+<tr class="separator:a963822e22ff13542adf1ca249fb11e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413d190032b595cee3eaad35f5ff0f95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a413d190032b595cee3eaad35f5ff0f95">TEST_BTR_FIRST_TIMESEGMENT</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:a413d190032b595cee3eaad35f5ff0f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit Timing Register (BTR) first time segment.  <a href="#a413d190032b595cee3eaad35f5ff0f95">More...</a><br/></td></tr>
+<tr class="separator:a413d190032b595cee3eaad35f5ff0f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Fast Baud Rate Prescaler and Fast Bit Timing Register values</div></td></tr>
+<tr class="memitem:a474988275e3a9563fd011d79425deb90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a474988275e3a9563fd011d79425deb90">TEST_FBRPR_BAUD_PRESCALAR</a>&#160;&#160;&#160;29</td></tr>
+<tr class="memdesc:a474988275e3a9563fd011d79425deb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast Baud Rate Prescaler Register (F_BRPR) value.  <a href="#a474988275e3a9563fd011d79425deb90">More...</a><br/></td></tr>
+<tr class="separator:a474988275e3a9563fd011d79425deb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d1f49839781fd8c867b2ff25bf54705"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a5d1f49839781fd8c867b2ff25bf54705">TEST_FBTR_SYNCJUMPWIDTH</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a5d1f49839781fd8c867b2ff25bf54705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast Bit Timing Register (F_BTR) synchronization jump width.  <a href="#a5d1f49839781fd8c867b2ff25bf54705">More...</a><br/></td></tr>
+<tr class="separator:a5d1f49839781fd8c867b2ff25bf54705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcd8382bc86aa05dd490d5ccdd3878c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#adcd8382bc86aa05dd490d5ccdd3878c8">TEST_FBTR_SECOND_TIMESEGMENT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:adcd8382bc86aa05dd490d5ccdd3878c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast Bit Timing Register (F_BTR) second time segment.  <a href="#adcd8382bc86aa05dd490d5ccdd3878c8">More...</a><br/></td></tr>
+<tr class="separator:adcd8382bc86aa05dd490d5ccdd3878c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad96e9ba070cc4dd19846492c373ba0b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#ad96e9ba070cc4dd19846492c373ba0b9">TEST_FBTR_FIRST_TIMESEGMENT</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memdesc:ad96e9ba070cc4dd19846492c373ba0b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast Bit Timing Register (F_BTR) first time segment.  <a href="#ad96e9ba070cc4dd19846492c373ba0b9">More...</a><br/></td></tr>
+<tr class="separator:ad96e9ba070cc4dd19846492c373ba0b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4e9e09ef664aee1dcef0dfb56e5fc93b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a4e9e09ef664aee1dcef0dfb56e5fc93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entry point for showing the XCan driver in polled mode.  <a href="#a4e9e09ef664aee1dcef0dfb56e5fc93b">More...</a><br/></td></tr>
+<tr class="memdesc:a4e9e09ef664aee1dcef0dfb56e5fc93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver in polled mode as the entry point.  <a href="#a4e9e09ef664aee1dcef0dfb56e5fc93b">More...</a><br/></td></tr>
 <tr class="separator:a4e9e09ef664aee1dcef0dfb56e5fc93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xcanfd__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the CAN FD polled-mode example as the application entry point.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a3317b62fb7f445865d6d8288847a6dac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FRAME_DATA_LENGTH&#160;&#160;&#160;64</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frame Data field length. </p>
+
+</div>
+</div>
+<a class="anchor" id="a40b93f102dc8a0ae0f87092bc96087f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BRPR_BAUD_PRESCALAR&#160;&#160;&#160;29</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Baud Rate Prescaler Register (BRPR) value. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a413d190032b595cee3eaad35f5ff0f95"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BTR_FIRST_TIMESEGMENT&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Timing Register (BTR) first time segment. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a963822e22ff13542adf1ca249fb11e1e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BTR_SECOND_TIMESEGMENT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Timing Register (BTR) second time segment. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa2f0504cb1cf0584ff8d7532b91d17f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_BTR_SYNCJUMPWIDTH&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bit Timing Register (BTR) synchronization jump width. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a474988275e3a9563fd011d79425deb90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_FBRPR_BAUD_PRESCALAR&#160;&#160;&#160;29</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fast Baud Rate Prescaler Register (F_BRPR) value. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad96e9ba070cc4dd19846492c373ba0b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_FBTR_FIRST_TIMESEGMENT&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fast Bit Timing Register (F_BTR) first time segment. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adcd8382bc86aa05dd490d5ccdd3878c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_FBTR_SECOND_TIMESEGMENT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fast Bit Timing Register (F_BTR) second time segment. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d1f49839781fd8c867b2ff25bf54705"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_FBTR_SYNCJUMPWIDTH&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fast Bit Timing Register (F_BTR) synchronization jump width. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad826e8327ae2f1e333992795523c1a31"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_MAILBOX_MASK&#160;&#160;&#160;0xFFFFFFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask for MailBox. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8402ffb273c0d8a8e72f2a845d96b269"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_MESSAGE_ID&#160;&#160;&#160;1024</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Message Id Constant. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a308d6d407e58de28e1ceb8eb2ae38c39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TESTMSG_DLC&#160;&#160;&#160;15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test Message Dlc. </p>
+
+</div>
+</div>
+<a class="anchor" id="a768a4fc7cda3cb12ab502e4e6977cb50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCANFD_BASEADDRESS&#160;&#160;&#160;XPAR_XCANFD_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CAN FD base address. </p>
+
+<p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7b689d14c47ec2af170f1fdbd3fd547a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCANFD_MAX_FRAME_SIZE_IN_BYTES&#160;&#160;&#160;72</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum CAN frame length in bytes. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -155,16 +423,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the example. </p>
+<p>Runs the CAN FD polled-mode example as the application entry point. </p>
 <p>This function is not included if the example is generated from the TestAppGen test tool.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the example has completed successfully.</li>
-<li>XST_FAILURE if the example has failed.</li>
+<li>XST_FAILURE if the example has failed. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p>References <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
+<p>References <a class="el" href="xcanfd__polled__example_8c.html#a768a4fc7cda3cb12ab502e4e6977cb50">XCANFD_BASEADDRESS</a>, and <a class="el" href="xcanfd__polled__example_8c.html#a4e9e09ef664aee1dcef0dfb56e5fc93b">XCanFdPolledExample()</a>.</p>
 
 </div>
 </div>
@@ -182,21 +449,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The entry point for showing the XCan driver in polled mode. </p>
+<p>Shows the <a class="el" href="struct_x_can_fd.html" title="Holds the XCanFd driver instance data. ">XCanFd</a> driver in polled mode as the entry point. </p>
 <p>The example configures the device for internal loopback mode, then sends a Can frame, receives the same Can frame, and verifies the frame contents.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise driver-specific error code.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<ul>
-<li>If the device is not working correctly, this function may enter an infinite loop and will never return to the caller. </li>
+<li>If the device is not working correctly, this function may enter an infinite loop and never returns to the caller. </li>
 </ul>
 </dd></dl>
 
-<p>References <a class="el" href="struct_x_can_fd___config.html#ab68c671c8e2b191d8bae1247f70898ee">XCanFd_Config::BaseAddress</a>, <a class="el" href="group__canfd.html#ga40b93f102dc8a0ae0f87092bc96087f1">TEST_BRPR_BAUD_PRESCALAR</a>, <a class="el" href="group__canfd.html#ga413d190032b595cee3eaad35f5ff0f95">TEST_BTR_FIRST_TIMESEGMENT</a>, <a class="el" href="group__canfd.html#ga963822e22ff13542adf1ca249fb11e1e">TEST_BTR_SECOND_TIMESEGMENT</a>, <a class="el" href="group__canfd.html#gaa2f0504cb1cf0584ff8d7532b91d17f3">TEST_BTR_SYNCJUMPWIDTH</a>, <a class="el" href="group__canfd.html#ga474988275e3a9563fd011d79425deb90">TEST_FBRPR_BAUD_PRESCALAR</a>, <a class="el" href="group__canfd.html#gad96e9ba070cc4dd19846492c373ba0b9">TEST_FBTR_FIRST_TIMESEGMENT</a>, <a class="el" href="group__canfd.html#gadcd8382bc86aa05dd490d5ccdd3878c8">TEST_FBTR_SECOND_TIMESEGMENT</a>, <a class="el" href="group__canfd.html#ga5d1f49839781fd8c867b2ff25bf54705">TEST_FBTR_SYNCJUMPWIDTH</a>, <a class="el" href="group__canfd.html#ga8402ffb273c0d8a8e72f2a845d96b269">TEST_MESSAGE_ID</a>, <a class="el" href="group__canfd.html#ga065604ddf0525f05cd46ad81ccb4cd12">XCanFd_AcceptFilterDisable()</a>, <a class="el" href="group__canfd.html#gaf03fb5fddc1f4f5ff4c3307dfbe2094a">XCanFd_AcceptFilterEnable()</a>, <a class="el" href="group__canfd.html#gae9152191cec53a4346c385e50b689560">XCANFD_AFR_UAF_ALL_MASK</a>, <a class="el" href="group__canfd.html#gaa9040324632e8051fb846d49f0c358d4">XCanFd_CfgInitialize()</a>, <a class="el" href="group__canfd.html#gadd7b8b6d9a5c527ed796bec8ba7106b8">XCanFd_CreateIdValue</a>, <a class="el" href="group__canfd.html#gaaa893768ea4f0db5796f31ab3d8ca431">XCanFd_EnterMode()</a>, <a class="el" href="group__canfd.html#gafd5be1bd2849b2f4679095d713679bb8">XCANFD_GET_RX_MODE</a>, <a class="el" href="group__canfd.html#ga02d64d90bf4ecd474f96a220fc2e709c">XCanFd_Get_RxBuffers</a>, <a class="el" href="group__canfd.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5">XCanFd_GetMode()</a>, <a class="el" href="group__canfd.html#gaf25c50ab9ef473c52c127d3ef586ced8">XCanFd_LookupConfig()</a>, <a class="el" href="group__canfd.html#ga6197f9c8450e02a85e4c3bf046d43895">XCANFD_MODE_CONFIG</a>, <a class="el" href="group__canfd.html#ga4255701f478b2b8fe95dc9db289a7a22">XCANFD_MODE_LOOPBACK</a>, <a class="el" href="group__canfd.html#ga6aecf5e7b51a04d10ff8db6a87095fe0">XCanFd_RxBuff_MailBox_Active()</a>, <a class="el" href="group__canfd.html#ga1118faee933e64e921cf0bbc38f9a1dd">XCanFd_RxBuff_MailBox_DeActive()</a>, <a class="el" href="group__canfd.html#gad1bbb72c208cf3330dc27a32b2546999">XCanFd_SelfTest()</a>, <a class="el" href="group__canfd.html#ga79f6caa236d0d46a4ec82664b3ff2da1">XCanFd_Set_MailBox_IdMask()</a>, <a class="el" href="group__canfd.html#ga0816bd655bd4460034d67b6ee7481be4">XCanFd_SetBaudRatePrescaler()</a>, <a class="el" href="group__canfd.html#ga8875718facd2632f0d1c82a9d0ce2c27">XCanFd_SetBitRateSwitch_DisableNominal()</a>, <a class="el" href="group__canfd.html#gaa17ba1328e0830d24fb6e4f0be805478">XCanFd_SetBitTiming()</a>, <a class="el" href="group__canfd.html#ga9bb4859d5023d5fd72ccdcf8603ac484">XCanFd_SetFBaudRatePrescaler()</a>, <a class="el" href="group__canfd.html#gac7c6d1176e31abbe2e7e3f429c70be11">XCanFd_SetFBitTiming()</a>, and <a class="el" href="group__canfd.html#gadb3b0ba459b2c4dd17bc9ae471f766ad">XCanFd_stop()</a>.</p>
+<p>References <a class="el" href="struct_x_can_fd___config.html#ab68c671c8e2b191d8bae1247f70898ee">XCanFd_Config::BaseAddress</a>, <a class="el" href="xcanfd__polled__example_8c.html#a40b93f102dc8a0ae0f87092bc96087f1">TEST_BRPR_BAUD_PRESCALAR</a>, <a class="el" href="xcanfd__polled__example_8c.html#a413d190032b595cee3eaad35f5ff0f95">TEST_BTR_FIRST_TIMESEGMENT</a>, <a class="el" href="xcanfd__polled__example_8c.html#a963822e22ff13542adf1ca249fb11e1e">TEST_BTR_SECOND_TIMESEGMENT</a>, <a class="el" href="xcanfd__polled__example_8c.html#aa2f0504cb1cf0584ff8d7532b91d17f3">TEST_BTR_SYNCJUMPWIDTH</a>, <a class="el" href="xcanfd__polled__example_8c.html#a474988275e3a9563fd011d79425deb90">TEST_FBRPR_BAUD_PRESCALAR</a>, <a class="el" href="xcanfd__polled__example_8c.html#ad96e9ba070cc4dd19846492c373ba0b9">TEST_FBTR_FIRST_TIMESEGMENT</a>, <a class="el" href="xcanfd__polled__example_8c.html#adcd8382bc86aa05dd490d5ccdd3878c8">TEST_FBTR_SECOND_TIMESEGMENT</a>, <a class="el" href="xcanfd__polled__example_8c.html#a5d1f49839781fd8c867b2ff25bf54705">TEST_FBTR_SYNCJUMPWIDTH</a>, <a class="el" href="xcanfd__polled__example_8c.html#ad826e8327ae2f1e333992795523c1a31">TEST_MAILBOX_MASK</a>, <a class="el" href="xcanfd__polled__example_8c.html#a8402ffb273c0d8a8e72f2a845d96b269">TEST_MESSAGE_ID</a>, <a class="el" href="group__canfd.html#ga065604ddf0525f05cd46ad81ccb4cd12">XCanFd_AcceptFilterDisable()</a>, <a class="el" href="group__canfd.html#gaf03fb5fddc1f4f5ff4c3307dfbe2094a">XCanFd_AcceptFilterEnable()</a>, <a class="el" href="group__canfd.html#gae9152191cec53a4346c385e50b689560">XCANFD_AFR_UAF_ALL_MASK</a>, <a class="el" href="group__canfd.html#gaa9040324632e8051fb846d49f0c358d4">XCanFd_CfgInitialize()</a>, <a class="el" href="group__canfd.html#gadd7b8b6d9a5c527ed796bec8ba7106b8">XCanFd_CreateIdValue</a>, <a class="el" href="group__canfd.html#gaaa893768ea4f0db5796f31ab3d8ca431">XCanFd_EnterMode()</a>, <a class="el" href="group__canfd.html#gafd5be1bd2849b2f4679095d713679bb8">XCANFD_GET_RX_MODE</a>, <a class="el" href="group__canfd.html#ga02d64d90bf4ecd474f96a220fc2e709c">XCanFd_Get_RxBuffers</a>, <a class="el" href="group__canfd.html#ga8e1df3e2b6ed809dda14de08d8b6d0a5">XCanFd_GetMode()</a>, <a class="el" href="group__canfd.html#gaf25c50ab9ef473c52c127d3ef586ced8">XCanFd_LookupConfig()</a>, <a class="el" href="group__canfd.html#ga6197f9c8450e02a85e4c3bf046d43895">XCANFD_MODE_CONFIG</a>, <a class="el" href="group__canfd.html#ga4255701f478b2b8fe95dc9db289a7a22">XCANFD_MODE_LOOPBACK</a>, <a class="el" href="group__canfd.html#ga6aecf5e7b51a04d10ff8db6a87095fe0">XCanFd_RxBuff_MailBox_Active()</a>, <a class="el" href="group__canfd.html#ga1118faee933e64e921cf0bbc38f9a1dd">XCanFd_RxBuff_MailBox_DeActive()</a>, <a class="el" href="group__canfd.html#gad1bbb72c208cf3330dc27a32b2546999">XCanFd_SelfTest()</a>, <a class="el" href="group__canfd.html#ga79f6caa236d0d46a4ec82664b3ff2da1">XCanFd_Set_MailBox_IdMask()</a>, <a class="el" href="group__canfd.html#ga0816bd655bd4460034d67b6ee7481be4">XCanFd_SetBaudRatePrescaler()</a>, <a class="el" href="group__canfd.html#ga8875718facd2632f0d1c82a9d0ce2c27">XCanFd_SetBitRateSwitch_DisableNominal()</a>, <a class="el" href="group__canfd.html#gaa17ba1328e0830d24fb6e4f0be805478">XCanFd_SetBitTiming()</a>, <a class="el" href="group__canfd.html#ga9bb4859d5023d5fd72ccdcf8603ac484">XCanFd_SetFBaudRatePrescaler()</a>, <a class="el" href="group__canfd.html#gac7c6d1176e31abbe2e7e3f429c70be11">XCanFd_SetFBitTiming()</a>, and <a class="el" href="group__canfd.html#gadb3b0ba459b2c4dd17bc9ae471f766ad">XCanFd_stop()</a>.</p>
 
 <p>Referenced by <a class="el" href="xcanfd__polled__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsdps__options_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,12 +105,67 @@ $(document).ready(function(){initNavTree('xsdps__options_8c.html','');});
 <div class="title">xsdps_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xsdps__core_8h.html">xsdps_core.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the APIs for changing the various options in host and card. </p>
+<p>See <a class="el" href="xsdps_8h.html">xsdps.h</a> for a detailed description of the device and driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a hk/sg  10/17/13 Initial release
+2.1   hk     04/18/14 Increase sleep for eMMC switch command.
+                      Add sleep for microblaze designs. CR# 781117.
+2.3   sk     09/23/14 Use XSdPs_Change_ClkFreq API whenever changing
+                                        clock.CR# 816586.
+2.5     sg         07/09/15 Added SD 3.0 features
+      kvn    07/15/15 Modified the code according to MISRAC-2012.
+2.7   sk     01/08/16 Added workaround for issue in auto tuning mode
+                      of SDR50, SDR104 and HS200.
+      sk     02/16/16 Corrected the Tuning logic.
+      sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
+2.8   sk     04/20/16 Added new workaround for auto tuning.
+3.0   sk     07/07/16 Used usleep API for both arm and microblaze.
+      sk     07/16/16 Added support for UHS modes.
+      sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
+                      operating modes.
+3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
+      sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
+      sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
+3.2   sk     02/01/17 Added HSD and DDR mode support for eMMC.
+      sk     02/01/17 Consider bus width parameter from design for switching
+      vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
+      vns    03/13/17 Fixed MISRAC mandatory violation
+      sk     03/20/17 Add support for EL1 non-secure mode.
+3.3   mn     07/25/17 Removed SD0_OTAPDLYENA and SD1_OTAPDLYENA bits
+      mn     08/07/17   Properly set OTAPDLY value by clearing previous bit
+                        settings
+      mn     08/17/17 Added CCI support for A53 and disabled data cache
+                      operations when it is enabled.
+      mn     08/22/17 Updated for Word Access System support
+3.4   mn     01/22/18 Separated out SDR104 and HS200 clock defines
+3.6   mn     07/06/18 Fix Cppcheck warnings for sdps driver
+3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
+      mn     03/27/19 Disable calls to dll_reset API for versal SPP Platforms
+3.8   mn     04/12/19 Modified TapDelay code for supporting ZynqMP and Versal
+      mn     05/21/19 Set correct tap delays for Versal
+      mn     05/21/19 Disable DLL Reset code for Versal
+      mn     08/29/19 Add call to Cache Invalidation API in XSdPs_Get_BusWidth
+3.9   mn     03/03/20 Restructured the code for more readability and modularity
+      mn     03/16/20 Move XSdPs_Select_Card API to User APIs
+3.10  mn     06/05/20 Modified code for SD Non-Blocking Read support
+3.12  sk     01/28/21 Added support for non-blocking write.
+3.14  mn     11/28/21 Fix MISRA-C violations.
+4.0   sk     02/25/22 Add support for eMMC5.1.
+4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
+4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
+4.6   vlt    01/28/26 Fixed codespell issues
+4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsdps__core_8h.html">xsdps_core.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga1f8661e4ae53a7c29b3fd44cc56a3673"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">XSdPs_Change_ClkFreq</a> (<a class="el" href="struct_x_sd_ps.html">XSdPs</a> *InstancePtr, u32 SelFreq)</td></tr>
-<tr class="memdesc:ga1f8661e4ae53a7c29b3fd44cc56a3673"><td class="mdescLeft">&#160;</td><td class="mdescRight">API to change clock frequency to a given value.  <a href="group__sdps__api.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">More...</a><br/></td></tr>
+<tr class="memdesc:ga1f8661e4ae53a7c29b3fd44cc56a3673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the clock frequency to a given value.  <a href="group__sdps__api.html#ga1f8661e4ae53a7c29b3fd44cc56a3673">More...</a><br/></td></tr>
 <tr class="separator:ga1f8661e4ae53a7c29b3fd44cc56a3673"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1af3178b4b24c991b431eb7a0aa3b23b"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#ga1af3178b4b24c991b431eb7a0aa3b23b">XSdPs_SetBlkSize</a> (<a class="el" href="struct_x_sd_ps.html">XSdPs</a> *InstancePtr, u16 BlkSize)</td></tr>
 <tr class="memdesc:ga1af3178b4b24c991b431eb7a0aa3b23b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates Block size for read/write operations.  <a href="group__sdps__api.html#ga1af3178b4b24c991b431eb7a0aa3b23b">More...</a><br/></td></tr>
@@ -137,13 +192,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaee773eef8e260b4498dc607061eb18f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes EXT_CSD register of eMMC.  <a href="group__sdps__api.html#gaee773eef8e260b4498dc607061eb18f6">More...</a><br/></td></tr>
 <tr class="separator:gaee773eef8e260b4498dc607061eb18f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0be8518af877aa1fe5f7c6b86ac4f7f8"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">XSdPs_Pullup</a> (<a class="el" href="struct_x_sd_ps.html">XSdPs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga0be8518af877aa1fe5f7c6b86ac4f7f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends pullup command to card before using DAT line 3(using 4-bit bus).  <a href="group__sdps__api.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">More...</a><br/></td></tr>
+<tr class="memdesc:ga0be8518af877aa1fe5f7c6b86ac4f7f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends pullup command to card before using DAT line 3 (using 4-bit bus).  <a href="group__sdps__api.html#ga0be8518af877aa1fe5f7c6b86ac4f7f8">More...</a><br/></td></tr>
 <tr class="separator:ga0be8518af877aa1fe5f7c6b86ac4f7f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17d43f52a8948d5ec4f315641336d115"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#ga17d43f52a8948d5ec4f315641336d115">XSdPs_Select_Card</a> (<a class="el" href="struct_x_sd_ps.html">XSdPs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga17d43f52a8948d5ec4f315641336d115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects card and sets default block size.  <a href="group__sdps__api.html#ga17d43f52a8948d5ec4f315641336d115">More...</a><br/></td></tr>
 <tr class="separator:ga17d43f52a8948d5ec4f315641336d115"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4910d9a9023501be9878c9bf02d3970f"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#ga4910d9a9023501be9878c9bf02d3970f">XSdPs_StartReadTransfer</a> (<a class="el" href="struct_x_sd_ps.html">XSdPs</a> *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)</td></tr>
-<tr class="memdesc:ga4910d9a9023501be9878c9bf02d3970f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs SD read in polled mode.  <a href="group__sdps__api.html#ga4910d9a9023501be9878c9bf02d3970f">More...</a><br/></td></tr>
+<tr class="memdesc:ga4910d9a9023501be9878c9bf02d3970f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts SD read transfer.  <a href="group__sdps__api.html#ga4910d9a9023501be9878c9bf02d3970f">More...</a><br/></td></tr>
 <tr class="separator:ga4910d9a9023501be9878c9bf02d3970f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6f7763ba81207cc125a3da437b140b58"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#ga6f7763ba81207cc125a3da437b140b58">XSdPs_StartWriteTransfer</a> (<a class="el" href="struct_x_sd_ps.html">XSdPs</a> *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)</td></tr>
 <tr class="memdesc:ga6f7763ba81207cc125a3da437b140b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts SD write transfer.  <a href="group__sdps__api.html#ga6f7763ba81207cc125a3da437b140b58">More...</a><br/></td></tr>

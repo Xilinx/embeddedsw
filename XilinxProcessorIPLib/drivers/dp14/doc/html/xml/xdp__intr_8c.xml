@@ -30,12 +30,6 @@
       <node id="83">
         <label>xvidc.h</label>
       </node>
-      <node id="79">
-        <label>xil_types.h</label>
-      </node>
-      <node id="77">
-        <label>xparameters.h</label>
-      </node>
       <node id="76">
         <label>xdp.h</label>
         <link refid="xdp_8h"/>
@@ -51,6 +45,12 @@
         </childnode>
         <childnode refid="83" relation="include">
         </childnode>
+      </node>
+      <node id="79">
+        <label>xil_types.h</label>
+      </node>
+      <node id="77">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -78,9 +78,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="1554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_intr.c" bodystart="75" bodyend="94"/>
-        <references refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" compoundref="xdp_8h" startline="1442">XDp::IsReady</references>
-        <references refid="group__dp_1gaa3afd37e5bb042c2a75443eaadb79998" compoundref="xdp_8h" startline="1718">XDp_GetCoreType</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp.h" line="1543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_intr.c" bodystart="75" bodyend="94"/>
+        <references refid="struct_x_dp_1acd280866d275718d5ee5345d91f3770e" compoundref="xdp_8h" startline="1436">XDp::IsReady</references>
+        <references refid="group__dp_1gaa3afd37e5bb042c2a75443eaadb79998" compoundref="xdp_8h" startline="1707">XDp_GetCoreType</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1429,6 +1429,6 @@
 <codeline lineno="1514"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XDPRXSS_NUM_INSTANCES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="1515"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/xdp_intr.c"/>
   </compounddef>
 </doxygen>

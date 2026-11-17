@@ -7,46 +7,46 @@
     <includedby refid="xplmi__client_8c" local="yes">xplmi_client.c</includedby>
     <includedby refid="client_2xplmi__generic_8c" local="yes">xplmi_generic.c</includedby>
     <incdepgraph>
-      <node id="1521">
+      <node id="1604">
         <label>xilmailbox.h</label>
       </node>
-      <node id="1518">
-        <label>xplmi_generic.h</label>
-        <link refid="client/xplmi_generic.h"/>
-        <childnode refid="1519" relation="include">
-        </childnode>
-        <childnode refid="1520" relation="include">
-        </childnode>
-      </node>
-      <node id="1520">
-        <label>xplmi_mailbox.h</label>
-        <link refid="xplmi__mailbox_8h"/>
-        <childnode refid="1521" relation="include">
-        </childnode>
-        <childnode refid="1522" relation="include">
-        </childnode>
-      </node>
-      <node id="1519">
+      <node id="1602">
         <label>xil_types.h</label>
       </node>
-      <node id="1522">
+      <node id="1601">
+        <label>xplmi_generic.h</label>
+        <link refid="client/xplmi_generic.h"/>
+        <childnode refid="1602" relation="include">
+        </childnode>
+        <childnode refid="1603" relation="include">
+        </childnode>
+      </node>
+      <node id="1605">
         <label>xparameters.h</label>
+      </node>
+      <node id="1603">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="1604" relation="include">
+        </childnode>
+        <childnode refid="1605" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1524">
+      <node id="1607">
         <label>xplmi_client.c</label>
         <link refid="xplmi__client_8c"/>
       </node>
-      <node id="1525">
+      <node id="1608">
         <label>xplmi_generic.c</label>
       </node>
-      <node id="1523">
+      <node id="1606">
         <label>xplmi_generic.h</label>
         <link refid="client/xplmi_generic.h"/>
-        <childnode refid="1524" relation="include">
+        <childnode refid="1607" relation="include">
         </childnode>
-        <childnode refid="1525" relation="include">
+        <childnode refid="1608" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -122,18 +122,18 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters</para><para>Validate mailbox pointer for IPI communication</para><para>Send IPI request to PLM and wait for response</para><para>Cap ResponseLen: the mailbox shift below consumes Response[0], leaving RESPONSE_ARG_CNT - 1 data slots reachable via Response[Idx + 1U].</para><para>Copy IPI response data from InstancePtr-&gt;Response[] into caller&apos;s ResponseBuf. Skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0] holds the first data word, matching the SMC path layout.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.c" bodystart="68" bodyend="116"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.c" bodystart="68" bodyend="116"/>
         <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
         <references refid="struct_x_plmi___client_instance_1af7f033f627d7374f83dcb651a7ac6271" compoundref="xplmi__mailbox_8h" startline="98">XPlmi_ClientInstance::MailboxPtr</references>
         <references refid="group__xilplmi__mailbox__apis_1ga1cd29e5865f729668d2048de195cf33f" compoundref="xplmi__mailbox_8c" startline="59" endline="87">XPlmi_ProcessMailbox</references>
         <references refid="struct_x_plmi___client_instance_1a49e482f71a9783ca3362e12ae33d85c3" compoundref="xplmi__mailbox_8h" startline="99">XPlmi_ClientInstance::Response</references>
-        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="67" endline="91">XPlmi_GetDeviceID</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="107" endline="130">XPlmi_GetBoard</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" compoundref="xplmi__client_8c" startline="144" endline="156">XPlmi_TamperTrigger</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="175" endline="245">XPlmi_EventLogging</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="259" endline="279">XPlmi_ConfigSecureComm</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" compoundref="xplmi__client_8c" startline="294" endline="317">XPlmi_GetSecureCommStatus</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" compoundref="xplmi__client_8c" startline="332" endline="344">XPlmi_SetDDRMCMainRegSts</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="68" endline="92">XPlmi_GetDeviceID</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="108" endline="131">XPlmi_GetBoard</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" compoundref="xplmi__client_8c" startline="145" endline="157">XPlmi_TamperTrigger</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="176" endline="246">XPlmi_EventLogging</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="260" endline="280">XPlmi_ConfigSecureComm</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" compoundref="xplmi__client_8c" startline="295" endline="318">XPlmi_GetSecureCommStatus</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" compoundref="xplmi__client_8c" startline="333" endline="345">XPlmi_SetDDRMCMainRegSts</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -177,6 +177,6 @@
 <codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_GENERIC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.h"/>
   </compounddef>
 </doxygen>

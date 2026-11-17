@@ -1,6 +1,9 @@
 var xsysmon__hw_8h =
 [
+    [ "SYSTEM_MANAGEMENT", "xsysmon__hw_8h.html#ga8775f2b8e969bd6c1d8dfbf05ca8a5dc", null ],
+    [ "XADC", "xsysmon__hw_8h.html#gaa7063bca866793ee560c0ffd5f09a353", null ],
     [ "XSM_ADC_CALIB_OFFSET", "xsysmon__hw_8h.html#gadb25cc2cc5712cb1146a924ba5c97077", null ],
+    [ "XSM_ADCDATA_MAX_MASK", "xsysmon__hw_8h.html#ga632112d6a177eed12e333d0a461ca127", null ],
     [ "XSM_AOR_ALARM_ALL_MASK", "xsysmon__hw_8h.html#ga64f40c40e423badd22c56b33fd620e23", null ],
     [ "XSM_AOR_ALL_MASK", "xsysmon__hw_8h.html#ga1e41a22a8c7108f33c75ff2013594a3d", null ],
     [ "XSM_AOR_OFFSET", "xsysmon__hw_8h.html#gafa412d1b4a44c7bd90f0a680c9560f9e", null ],
@@ -114,6 +117,7 @@ var xsysmon__hw_8h =
     [ "XSM_CFR3_ALM_VUSR1_MASK", "xsysmon__hw_8h.html#ga742d64c5acd27b7554a5d6f9be9b3e62", null ],
     [ "XSM_CFR3_ALM_VUSR2_MASK", "xsysmon__hw_8h.html#ga8836887d363847f2c4a0f4d52863336c", null ],
     [ "XSM_CFR3_ALM_VUSR3_MASK", "xsysmon__hw_8h.html#ga90710b0221142ff14acbeb695e551136", null ],
+    [ "XSM_CFR_ALM_ALL_MASK", "xsysmon__hw_8h.html#gad3899e551033502286a061d9a92fa0a5", null ],
     [ "XSM_CFR_ALM_TEMP_MASK", "xsysmon__hw_8h.html#ga69ff380ea74c831bcf39a5c46652d056", null ],
     [ "XSM_CFR_ALM_VBRAM_MASK", "xsysmon__hw_8h.html#gacf2cf7536c4777666293e55f72584263", null ],
     [ "XSM_CFR_ALM_VCCAUX_MASK", "xsysmon__hw_8h.html#ga52a8bb4d385e115d82fea47cda13f5ba", null ],
@@ -136,6 +140,8 @@ var xsysmon__hw_8h =
     [ "XSM_GAINERR_CALIB_OFFSET", "xsysmon__hw_8h.html#gac40b51d953d1956b64c2d2442b838bc4", null ],
     [ "XSM_GIER_GIE_MASK", "xsysmon__hw_8h.html#ga8e4d596795120a5bda0b1cf202a57c60", null ],
     [ "XSM_GIER_OFFSET", "xsysmon__hw_8h.html#gac98aa3f8a65b09dd26ca7f131a2e7317", null ],
+    [ "XSM_IP_OFFSET", "xsysmon__hw_8h.html#ga22296e681b0b9093bd0a1bfbb286de9e", null ],
+    [ "XSM_IP_TYPE", "xsysmon__hw_8h.html#gab5df5b0265ad6eea7eba2fe1ec1023f0", null ],
     [ "XSM_IPIER_OFFSET", "xsysmon__hw_8h.html#gadd76d36fcbfb863bfefdbcdaedf8efdb", null ],
     [ "XSM_IPISR_OFFSET", "xsysmon__hw_8h.html#ga8be1549e09ab82732b09234584c08d67", null ],
     [ "XSM_IPIXR_ALL_MASK", "xsysmon__hw_8h.html#ga07e807fa83657aaa040ba09b5e3ed474", null ],

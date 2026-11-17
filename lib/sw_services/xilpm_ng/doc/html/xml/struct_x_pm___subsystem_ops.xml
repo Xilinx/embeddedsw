@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___subsystem_ops" kind="struct" prot="public">
+    <compoundname>XPm_SubsystemOps</compoundname>
+    <includes local="no">xpm_subsystem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a77822a4f52d6015a6e086908905d0615" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::Activate)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>Activate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a4bea512ed5eeabfe0653f9bdffd903c5" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::SetState)(XPm_Subsystem *Subsystem, u32 State)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem, u32 State)</argsstring>
+        <name>SetState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a12abd9315f59afbb55cdaaa2a62e666a" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::InitFinalize)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>InitFinalize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a151430879e67bf23ca5251f4c22d521c" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::GetStatus)(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus)</argsstring>
+        <name>GetStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a1365c275993813a7f03a6d979d4e420a" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::AddRequirement)(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)</argsstring>
+        <name>AddRequirement</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1abb18fee0cdd148b14ca50d438fec190b" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::ShutDown)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>ShutDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1ab453c4961ce8b329e72913a193741ac9" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::WakeUp)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>WakeUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a3d77fc1e9eeb804d7b84a2af18f594b3" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::Suspend)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>Suspend</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a7418adda7c572d9f4d1bf2a8669b3a97" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::Idle)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>Idle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a44498c9c638b31dab9a9dc7c560620c1" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::IsAccessAllowed)(XPm_Subsystem *Subsystem, u32 NodeId)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem, u32 NodeId)</argsstring>
+        <name>IsAccessAllowed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1a3b06aa08a4abfc3239012ba8dbee9fa6" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::StartRecoveryTimer)(XPm_Subsystem *Subsystem, u32 CmdType)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem, u32 CmdType)</argsstring>
+        <name>StartRecoveryTimer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___subsystem_ops_1ab98bf2b2f4e50d53ecb946bf664320dc" prot="public" static="no" mutable="no">
+        <type>XStatus(*</type>
+        <definition>XStatus(* XPm_SubsystemOps::NotifyHealthyBoot)(XPm_Subsystem *Subsystem)</definition>
+        <argsstring>)(XPm_Subsystem *Subsystem)</argsstring>
+        <name>NotifyHealthyBoot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Subsystem Ops. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h" bodystart="108" bodyend="121"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___subsystem_ops_1a77822a4f52d6015a6e086908905d0615" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>Activate</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a1365c275993813a7f03a6d979d4e420a" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>AddRequirement</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a151430879e67bf23ca5251f4c22d521c" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>GetStatus</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a7418adda7c572d9f4d1bf2a8669b3a97" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>Idle</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a12abd9315f59afbb55cdaaa2a62e666a" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>InitFinalize</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a44498c9c638b31dab9a9dc7c560620c1" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>IsAccessAllowed</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1ab98bf2b2f4e50d53ecb946bf664320dc" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>NotifyHealthyBoot</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a4bea512ed5eeabfe0653f9bdffd903c5" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>SetState</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1abb18fee0cdd148b14ca50d438fec190b" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>ShutDown</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a3b06aa08a4abfc3239012ba8dbee9fa6" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>StartRecoveryTimer</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1a3d77fc1e9eeb804d7b84a2af18f594b3" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>Suspend</name></member>
+      <member refid="struct_x_pm___subsystem_ops_1ab453c4961ce8b329e72913a193741ac9" prot="public" virt="non-virtual"><scope>XPm_SubsystemOps</scope><name>WakeUp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

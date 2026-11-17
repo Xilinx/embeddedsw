@@ -1,18 +1,58 @@
 var NAVTREE =
 [
-  [ "pciepsu", "index.html", [
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", null ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xpciepsu_rc_enumerate_example.c", "example.html#ex1", null ],
-      [ "xpciepsu_ingress_ep_enable_example.c", "example.html#ex2", null ],
-      [ "xpciepsu_egress_ep_enable_example.c", "example.html#ex3", null ]
-    ] ]
-  ] ]
+  [
+    "pciepsu",
+    "index.html",
+    [
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xpciepsu_rc_enumerate_example.c",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xpciepsu_ingress_ep_enable_example.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xpciepsu_egress_ep_enable_example.c",
+            "example.html#ex3",
+            null
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =

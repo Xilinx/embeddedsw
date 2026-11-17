@@ -154,8 +154,6 @@
     <member refid="periph_8h_1a5cf2c45686f66190edb39203838e3f61" kind="function"><name>XPeriph_SetTpgParams</name></member>
     <member refid="periph_8h_1a962fee15afc28a586c9608d96b302590" kind="function"><name>XPeriph_TpgDbgReportStatus</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
   <compound refid="system_8c" kind="file"><name>system.c</name>
     <member refid="system_8c_1a40eae6014a6b2eba5be261cfa0235e67" kind="define"><name>DDR_BASEADDR</name></member>
     <member refid="system_8c_1a26b82786de1dded4b28d8898d94dc4ef" kind="define"><name>USR_FRAME_BUF_BASEADDR</name></member>
@@ -171,9 +169,6 @@
     <member refid="system_8h_1adc710a6298515ea6e63a39567010bc75" kind="function"><name>XSys_Init</name></member>
     <member refid="system_8h_1a782ef0a1a4d351df9c125446c81dd1be" kind="function"><name>XSys_ReportSystemInfo</name></member>
     <member refid="system_8h_1a8792e86d543723e45b05f863a9aeeea0" kind="function"><name>XSys_SetStreamParam</name></member>
-  </compound>
-  <compound refid="vpss__example__kc705_8tcl" kind="file"><name>vpss_example_kc705.tcl</name>
-    <member refid="vpss__example__kc705_8tcl_1a75d1c52dfc3af400a22f419a3669da6e" kind="function"><name>vpss_example</name></member>
   </compound>
   <compound refid="xv__procss__example_8c" kind="file"><name>xv_procss_example.c</name>
     <member refid="xv__procss__example_8c_1a01c1f6faea08fa233013c7dfbbb0480e" kind="define"><name>XVPROCSS_SW_VER</name></member>
@@ -484,14 +479,15 @@
   <compound refid="xvprocss__router_8c" kind="file"><name>xvprocss_router.c</name>
     <member refid="group__vprocss_1ga69476a290552b31ce48fd5a5f49ebec2" kind="define"><name>XVPROCSS_AXIS_SWITCH_VIDIN_S0</name></member>
     <member refid="group__vprocss_1ga3472db851c996ec24ebbeff04526cbab" kind="define"><name>XVPROCSS_AXIS_SWITCH_VIDOUT_M0</name></member>
-    <member refid="group__vprocss_1gab38b1e61d4d05b81c19d205672914a8f" kind="function"><name>validateWindowSize</name></member>
     <member refid="group__vprocss_1ga3198d89dc02ce9e304b359335a88cf1a" kind="function"><name>GetScalingMode</name></member>
+    <member refid="group__vprocss_1ga5747793fce7d830cac209ea40327146a" kind="function"><name>validateWindowSize</name></member>
     <member refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" kind="function"><name>XVprocSs_BuildRoutingTable</name></member>
     <member refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" kind="function"><name>XVprocSs_ProgRouterMux</name></member>
     <member refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" kind="function"><name>XVprocSs_SetupRouterDataFlow</name></member>
   </compound>
   <compound refid="xvprocss__router_8h" kind="file"><name>xvprocss_router.h</name>
     <member refid="group__vprocss_1ga72b07907d2ebf3d0154280521da1f10d" kind="define"><name>XVPROCSS_ROUTER_H__</name></member>
+    <member refid="group__vprocss_1ga5747793fce7d830cac209ea40327146a" kind="function"><name>validateWindowSize</name></member>
     <member refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" kind="function"><name>XVprocSs_BuildRoutingTable</name></member>
     <member refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" kind="function"><name>XVprocSs_ProgRouterMux</name></member>
     <member refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" kind="function"><name>XVprocSs_SetupRouterDataFlow</name></member>
@@ -556,8 +552,8 @@
     <member refid="group__vprocss_1ga189ca6f1b0d8bbc9d8a0bdbf3305ca9e" kind="function"><name>XVprocSs_SubcoreInitLetterbox</name></member>
     <member refid="group__vprocss_1gabc2baba55536b58504a6a19d9835b780" kind="function"><name>XVprocSs_SubcoreInitVdma</name></member>
     <member refid="group__vprocss_1ga9daad66c25baa7c1bae1d20cc98f6de6" kind="function"><name>XVprocSs_SubcoreInitDeinterlacer</name></member>
-    <member refid="group__vprocss_1gab38b1e61d4d05b81c19d205672914a8f" kind="function"><name>validateWindowSize</name></member>
     <member refid="group__vprocss_1ga3198d89dc02ce9e304b359335a88cf1a" kind="function"><name>GetScalingMode</name></member>
+    <member refid="group__vprocss_1ga5747793fce7d830cac209ea40327146a" kind="function"><name>validateWindowSize</name></member>
     <member refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" kind="function"><name>XVprocSs_BuildRoutingTable</name></member>
     <member refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" kind="function"><name>XVprocSs_ProgRouterMux</name></member>
     <member refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" kind="function"><name>XVprocSs_SetupRouterDataFlow</name></member>
@@ -571,8 +567,6 @@
     <member refid="group__vprocss_1ga72b07907d2ebf3d0154280521da1f10d" kind="define"><name>XVPROCSS_ROUTER_H__</name></member>
   </compound>
   <compound refid="group__xvprocss" kind="group"><name>xvprocss</name>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_a68c27455ae2247b7138784d31ca3f4d" kind="dir"><name>examples</name>
   </compound>

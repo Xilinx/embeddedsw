@@ -13,147 +13,149 @@
     <includes refid="xsecure__resourcehandling_8h" local="yes">xsecure_resourcehandling.h</includes>
     <includes local="yes">xil_sutil.h</includes>
     <incdepgraph>
-      <node id="1653">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="1641">
-        <label>xsecure_sha.h</label>
-      </node>
-      <node id="1635">
-        <label>xil_cache.h</label>
-      </node>
-      <node id="1644">
-        <label>xplmi.h</label>
-      </node>
-      <node id="1650">
-        <label>xplmi_scheduler.h</label>
-      </node>
-      <node id="1646">
-        <label>xsecure_sha_common.h</label>
-        <link refid="xsecure__sha__common_8h"/>
-        <childnode refid="1647" relation="include">
-        </childnode>
-        <childnode refid="1648" relation="include">
-        </childnode>
-        <childnode refid="1649" relation="include">
-        </childnode>
-      </node>
-      <node id="1648">
-        <label>xsecure_sss.h</label>
-      </node>
-      <node id="1636">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1631">
-        <label>xplmi_cmd.h</label>
-      </node>
-      <node id="1638">
-        <label>xsecure_init.h</label>
-        <link refid="xsecure__init_8h"/>
-        <childnode refid="1639" relation="include">
-        </childnode>
-        <childnode refid="1640" relation="include">
-        </childnode>
-        <childnode refid="1641" relation="include">
-        </childnode>
-      </node>
-      <node id="1645">
-        <label>xsecure_resourcehandling.h</label>
-        <link refid="xsecure__resourcehandling_8h"/>
-        <childnode refid="1639" relation="include">
-        </childnode>
-        <childnode refid="1646" relation="include">
-        </childnode>
-        <childnode refid="1650" relation="include">
-        </childnode>
-        <childnode refid="1651" relation="include">
-        </childnode>
-        <childnode refid="1638" relation="include">
-        </childnode>
-        <childnode refid="1652" relation="include">
-        </childnode>
-      </node>
-      <node id="1633">
+      <node id="1680">
         <label>xsecure_defs.h</label>
         <link refid="xsecure__defs_8h"/>
-        <childnode refid="1634" relation="include">
+        <childnode refid="1681" relation="include">
         </childnode>
-        <childnode refid="1630" relation="include">
+        <childnode refid="1677" relation="include">
         </childnode>
-        <childnode refid="1635" relation="include">
+        <childnode refid="1682" relation="include">
         </childnode>
-        <childnode refid="1636" relation="include">
+        <childnode refid="1683" relation="include">
         </childnode>
-        <childnode refid="1637" relation="include">
+        <childnode refid="1684" relation="include">
+        </childnode>
+        <childnode refid="1685" relation="include">
         </childnode>
       </node>
-      <node id="1639">
-        <label>xsecure_aes.h</label>
+      <node id="1693">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="1687" relation="include">
+        </childnode>
+        <childnode refid="1694" relation="include">
+        </childnode>
+        <childnode refid="1698" relation="include">
+        </childnode>
+        <childnode refid="1699" relation="include">
+        </childnode>
+        <childnode refid="1686" relation="include">
+        </childnode>
+        <childnode refid="1700" relation="include">
+        </childnode>
       </node>
-      <node id="1652">
-        <label>xplmi_config.h</label>
+      <node id="1683">
+        <label>xil_sutil.h</label>
       </node>
-      <node id="1649">
-        <label>xsecure_sha_hw.h</label>
+      <node id="1689">
+        <label>xsecure_sha.h</label>
       </node>
-      <node id="1637">
-        <label>xsecure_config.h</label>
+      <node id="1682">
+        <label>xil_cache.h</label>
       </node>
-      <node id="1630">
-        <label>xil_types.h</label>
+      <node id="1692">
+        <label>xplmi.h</label>
       </node>
-      <node id="1647">
-        <label>xpmcdma.h</label>
+      <node id="1698">
+        <label>xplmi_scheduler.h</label>
       </node>
-      <node id="1642">
-        <label>xsecure_error.h</label>
+      <node id="1696">
+        <label>xsecure_sss.h</label>
       </node>
-      <node id="1634">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="1651">
-        <label>xsecure_sha_ipihandler.h</label>
-      </node>
-      <node id="1643">
-        <label>xplmi_plat.h</label>
-      </node>
-      <node id="1640">
-        <label>xsecure_rsa_core.h</label>
-      </node>
-      <node id="1628">
+      <node id="1675">
         <label>xsecure_hmac_ipihandler.c</label>
         <link refid="xsecure_hmac_ipihandler.c"/>
-        <childnode refid="1629" relation="include">
+        <childnode refid="1676" relation="include">
         </childnode>
-        <childnode refid="1632" relation="include">
+        <childnode refid="1679" relation="include">
         </childnode>
-        <childnode refid="1633" relation="include">
+        <childnode refid="1680" relation="include">
         </childnode>
-        <childnode refid="1636" relation="include">
+        <childnode refid="1685" relation="include">
         </childnode>
-        <childnode refid="1638" relation="include">
+        <childnode refid="1686" relation="include">
         </childnode>
-        <childnode refid="1642" relation="include">
+        <childnode refid="1690" relation="include">
         </childnode>
-        <childnode refid="1643" relation="include">
+        <childnode refid="1691" relation="include">
         </childnode>
-        <childnode refid="1644" relation="include">
+        <childnode refid="1692" relation="include">
         </childnode>
-        <childnode refid="1645" relation="include">
+        <childnode refid="1693" relation="include">
         </childnode>
-        <childnode refid="1653" relation="include">
+        <childnode refid="1683" relation="include">
         </childnode>
       </node>
-      <node id="1632">
+      <node id="1676">
+        <label>xsecure_hmac_ipihandler.h</label>
+        <link refid="xsecure__hmac__ipihandler_8h"/>
+        <childnode refid="1677" relation="include">
+        </childnode>
+        <childnode refid="1678" relation="include">
+        </childnode>
+      </node>
+      <node id="1685">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1678">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="1679">
         <label>xsecure_hmac.h</label>
         <link refid="xsecure__hmac_8h"/>
       </node>
-      <node id="1629">
-        <label>xsecure_hmac_ipihandler.h</label>
-        <link refid="xsecure__hmac__ipihandler_8h"/>
-        <childnode refid="1630" relation="include">
+      <node id="1687">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1700">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1697">
+        <label>xsecure_sha_hw.h</label>
+      </node>
+      <node id="1684">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1677">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1686">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="1687" relation="include">
         </childnode>
-        <childnode refid="1631" relation="include">
+        <childnode refid="1688" relation="include">
+        </childnode>
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+      <node id="1695">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="1690">
+        <label>xsecure_error.h</label>
+      </node>
+      <node id="1681">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1699">
+        <label>xsecure_sha_ipihandler.h</label>
+      </node>
+      <node id="1691">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="1688">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+      <node id="1694">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure__sha__common_8h"/>
+        <childnode refid="1695" relation="include">
+        </childnode>
+        <childnode refid="1696" relation="include">
+        </childnode>
+        <childnode refid="1697" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -219,7 +221,7 @@
 <para><itemizedlist>
 <listitem><para>Validate the size passed by the client matches the expected parameter structure size and is 8-byte aligned</para></listitem><listitem><para>Validate internal address fields in the copied structure</para></listitem><listitem><para>Ensure the client supplied output buffer is large enough to hold the HMAC result before validating its address range</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" bodystart="126" bodyend="208"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" bodystart="126" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -249,16 +251,16 @@
 <para><itemizedlist>
 <listitem><para>SHA IPI event handling</para></listitem><listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_HmacOperation </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" bodystart="63" bodyend="106"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="161">XSECURE_API_HMAC_OPERATION</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
-        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c" bodystart="63" bodyend="106"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_HMAC_OPERATION</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="xsecure__defs_8h" startline="89">XSECURE_DEBUG_GENERAL</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="193" endline="196">XSecure_GetSha3Instance</references>
         <references refid="group__xsecure__hmac__client__apis_1gae944a398b1458933f32f55017f192b0a" compoundref="xsecure__hmacclient_8c" startline="55" endline="74">XSecure_HmacOperation</references>
-        <references refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="443" endline="478">XSecure_IpiEventHandling</references>
-        <references refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="421" endline="427">XSecure_MakeResFree</references>
-        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="459" endline="494">XSecure_IpiEventHandling</references>
+        <references refid="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" compoundref="xsecure__resourcehandling_8c" startline="426" endline="443">XSecure_MakeResFree</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="93">XSecure_Printf</references>
         <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
         <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
       </memberdef>
@@ -329,7 +331,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload[2U]);</highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;CMD:<sp/>INVALID<sp/>PARAM\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__common__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;CMD:<sp/>INVALID<sp/>PARAM\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
@@ -419,6 +421,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="208"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac_ipihandler.c"/>
   </compounddef>
 </doxygen>

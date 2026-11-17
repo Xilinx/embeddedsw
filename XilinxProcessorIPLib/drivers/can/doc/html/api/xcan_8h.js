@@ -2,7 +2,6 @@ var xcan_8h =
 [
     [ "XCan_CreateDlcValue", "xcan_8h.html#ga2389175edaafb057e5a5cf089f6cdec1", null ],
     [ "XCan_CreateIdValue", "xcan_8h.html#ga874d1b170d939f5ab18bf88fbad00b43", null ],
-    [ "XCAN_H", "xcan_8h.html#ga210cbde2b1f30faf704c052508e57202", null ],
     [ "XCAN_HANDLER_ERROR", "xcan_8h.html#ga95c42c89b517eab2aa63b584178e19d7", null ],
     [ "XCAN_HANDLER_EVENT", "xcan_8h.html#ga2b8a36e69531ded498ee4aae48144703", null ],
     [ "XCAN_HANDLER_RECV", "xcan_8h.html#gac3819485b065f3726f30fab00768891a", null ],

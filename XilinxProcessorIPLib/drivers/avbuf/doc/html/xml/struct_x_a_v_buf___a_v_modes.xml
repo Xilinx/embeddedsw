@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a9e183a3adb57152aff58199b928185f8" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a6cad23624c5bd94d8689b4e9dbf255e1" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="180" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a21bea45918b536e8b6b60fb14b7888c9" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="180" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="180" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1ae95f6222040c572c9f1731f1a9302194" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_a_v_buf___audio_attribute" kindref="compound">XAVBuf_AudioAttribute</ref> *</type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="181" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a2f886b40c1df9d60ea5f52696dd6360c" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_a_v_buf___audio_attribute" kindref="compound">XAVBuf_AudioAttribute</ref> *</type>
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="181" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1ac02c0b922a513c5e0a5571f52c80b1ec" prot="public" static="no" mutable="no">
         <type><ref refid="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" kindref="member">XAVBuf_VideoStream</ref></type>
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="182" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="182" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1ab05ec4eaf3d4b75aedbd22e7f70b212d" prot="public" static="no" mutable="no">
         <type><ref refid="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" kindref="member">XAVBuf_GfxStream</ref></type>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="183" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="183" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a3ebb62b863aea39d95e0de4c99b280be" prot="public" static="no" mutable="no">
         <type><ref refid="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" kindref="member">XAVBuf_AudioStream1</ref></type>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="184" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a73a4b054d5f51484d26c3865d7a3cd2f" prot="public" static="no" mutable="no">
         <type><ref refid="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" kindref="member">XAVBuf_AudioStream2</ref></type>
@@ -132,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="185" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="185" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a0a10e58b66cee91fe570a336364625fb" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -145,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="186" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___a_v_modes_1a6db897f6ef81e2d4e8aa0c013589f132" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -158,7 +158,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="186" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -189,7 +189,7 @@
         <link refid="struct_x_a_v_buf___audio_attribute"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="178" bodyend="187"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="178" bodyend="187"/>
     <listofallmembers>
       <member refid="struct_x_a_v_buf___a_v_modes_1ae95f6222040c572c9f1731f1a9302194" prot="public" virt="non-virtual"><scope>XAVBuf_AVModes</scope><name>Audio</name></member>
       <member refid="struct_x_a_v_buf___a_v_modes_1a0a10e58b66cee91fe570a336364625fb" prot="public" virt="non-virtual"><scope>XAVBuf_AVModes</scope><name>AudioClk</name></member>

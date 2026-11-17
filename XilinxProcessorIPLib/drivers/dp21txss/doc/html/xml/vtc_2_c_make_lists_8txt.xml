@@ -12,6 +12,6 @@
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xdptxss_vtc.c)</highlight></codeline>
 <codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xdptxss_vtc.h)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/vtc/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

@@ -31,6 +31,7 @@ var searchData=
   ['tilecfg',['tileCfg',['../struct_cam_device_work_config__s.html#afaa7da7cc11bd26bc50d2dce5e8e873c',1,'CamDeviceWorkConfig_s']]],
   ['tilenum',['tileNum',['../struct_cam_device_tile_mode_config__s.html#a58d93a3c923dc3200c00cb95b156a533',1,'CamDeviceTileModeConfig_s']]],
   ['tileop',['tileOp',['../struct_cam_device_tile_mode_config__s.html#ac9b9407b2e228d975ed6a967db0d3b9b',1,'CamDeviceTileModeConfig_s']]],
+  ['timestamp',['TimeStamp',['../struct_time_stamp.html',1,'']]],
   ['tlensrevision',['tLensRevision',['../struct_cam_device_sensor_otp_module_info__s.html#a926e0ea847476f458a02dad51e309aca',1,'CamDeviceSensorOtpModuleInfo_s']]],
   ['tlensslaveid',['tLensSlaveID',['../struct_cam_device_sensor_otp_module_info__s.html#ae0c253d02e28b365886d2ad07bd28c6f',1,'CamDeviceSensorOtpModuleInfo_s']]],
   ['tolerance',['tolerance',['../struct_cam_device_ae_config__s.html#a2877193cea004ed055d0447602308955',1,'CamDeviceAeConfig_s']]],

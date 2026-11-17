@@ -10,49 +10,59 @@
     <includes refid="xcert__genx509cert_8h" local="yes">xcert_genx509cert.h</includes>
     <includes local="yes">xplmi_tamper.h</includes>
     <incdepgraph>
-      <node id="22">
+      <node id="46">
         <label>xsecure_sha.h</label>
       </node>
-      <node id="26">
+      <node id="50">
         <label>xplmi.h</label>
       </node>
-      <node id="23">
+      <node id="47">
         <label>xsecure_sha_common.h</label>
       </node>
-      <node id="24">
+      <node id="53">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="48">
         <label>xsecure_init.h</label>
       </node>
-      <node id="21">
+      <node id="45">
         <label>xcert_sha.h</label>
         <link refid="versal_2vp/xcert_sha.h"/>
-        <childnode refid="22" relation="include">
+        <childnode refid="46" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="47" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="48" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="49" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="50" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="51" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="55" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="55">
         <label>xplmi_tamper.h</label>
       </node>
-      <node id="28">
+      <node id="52">
         <label>xplmi_config.h</label>
       </node>
-      <node id="27">
+      <node id="51">
         <label>xcert_genx509cert.h</label>
         <link refid="xcert__genx509cert_8h"/>
-        <childnode refid="28" relation="include">
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="54">
+        <label>xsecure_elliptic.h</label>
+      </node>
+      <node id="49">
         <label>xsecure_kat.h</label>
       </node>
     </incdepgraph>
@@ -66,7 +76,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xcert__apis_1gafc17a8e6c3a9c36de72923ddf5ec9a84" compoundref="xcert__genx509cert_8c" startline="286" endline="474">XCert_GenerateX509Cert</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -87,7 +98,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="58" bodyend="63"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="58" bodyend="63"/>
       </memberdef>
       <memberdef kind="function" id="group__xil__certapis_1ga3a698350801995252ac101905d58c010" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -126,7 +137,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="79" bodyend="84"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="79" bodyend="84"/>
       </memberdef>
       <memberdef kind="function" id="group__xil__certapis_1gaee5781caa440808c78b11ae34252cc55" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -154,7 +165,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="97" bodyend="102"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="97" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="group__xil__certapis_1gac5820b027d606bbf3077583b996780df" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -204,7 +215,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="119" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="119" bodyend="125"/>
       </memberdef>
       <memberdef kind="function" id="group__xil__certapis_1gafd39da45c38a4174af72bb341ecfd197" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int</type>
@@ -223,7 +234,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="137" bodyend="153"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h" bodystart="137" bodyend="153"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -232,7 +243,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
@@ -302,7 +313,7 @@
 <codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
 <codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha<sp/>*ShaInstPtr<sp/>=<sp/>XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED,<sp/>Status,<sp/>StatusTmp,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(<ref refid="xcert__genx509cert_8h_1a947655916c12b9177335d80cfdfaee42ae63bdb4dd92d1e90f467ad52ee3548c8" kindref="member">XCERT_ERR_X509_KAT_FAILED</ref>,<sp/>Status,<sp/>StatusTmp,</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha3Kat,<sp/>ShaInstPtr);</highlight></codeline>
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
 <codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
@@ -319,8 +330,9 @@
 <codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
 <codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
 <codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XCERT_SHA_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XCERT_SHA_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/versal_2vp/xcert_sha.h"/>
   </compounddef>
 </doxygen>

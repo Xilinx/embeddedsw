@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('struct_x_timer_tag.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Structure to the XFpga instance.
+<p>XTimer instance structure holding timer operation callbacks and instances.
  <a href="struct_x_timer_tag.html#details">More...</a></p>
 
 <p><code>#include &lt;xiltimer.h&gt;</code></p>
@@ -128,6 +128,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aa0931e9c88867714880e5d22aeca89b0"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#aa0931e9c88867714880e5d22aeca89b0">XTimer_TickInterval</a> )(struct <a class="el" href="struct_x_timer_tag.html">XTimerTag</a> *InstancePtr, u32 Delay)</td></tr>
 <tr class="memdesc:aa0931e9c88867714880e5d22aeca89b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the tick interval.  <a href="#aa0931e9c88867714880e5d22aeca89b0">More...</a><br/></td></tr>
 <tr class="separator:aa0931e9c88867714880e5d22aeca89b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a793bd1f723f0570b86cfdd0802cc46a5"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#a793bd1f723f0570b86cfdd0802cc46a5">XTimer_TickIntervalHz</a> )(struct <a class="el" href="struct_x_timer_tag.html">XTimerTag</a> *InstancePtr, u32 FreqHz)</td></tr>
+<tr class="memdesc:a793bd1f723f0570b86cfdd0802cc46a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the tick interval from a frequency in Hz.  <a href="#a793bd1f723f0570b86cfdd0802cc46a5">More...</a><br/></td></tr>
+<tr class="separator:a793bd1f723f0570b86cfdd0802cc46a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08c800b5458109d2b26ad3b8b82d2582"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#a08c800b5458109d2b26ad3b8b82d2582">XSleepTimer_Stop</a> )(struct <a class="el" href="struct_x_timer_tag.html">XTimerTag</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a08c800b5458109d2b26ad3b8b82d2582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the sleep timer.  <a href="#a08c800b5458109d2b26ad3b8b82d2582">More...</a><br/></td></tr>
 <tr class="separator:a08c800b5458109d2b26ad3b8b82d2582"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,7 +140,7 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a65213463c513915b2057907b0548a7a1"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#a65213463c513915b2057907b0548a7a1">XTickTimer_ClearInterrupt</a> )(struct <a class="el" href="struct_x_timer_tag.html">XTimerTag</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a65213463c513915b2057907b0548a7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the Tick timer interrupt status.  <a href="#a65213463c513915b2057907b0548a7a1">More...</a><br/></td></tr>
 <tr class="separator:a65213463c513915b2057907b0548a7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e4c875a87fc8e4158293010a729bb2f"><td class="memItemLeft" align="right" valign="top">XTimer_TickHandler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#a3e4c875a87fc8e4158293010a729bb2f">Handler</a></td></tr>
+<tr class="memitem:a3e4c875a87fc8e4158293010a729bb2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xiltimer_8h.html#adf78c896aa8018bb63e6aa315e24223b">XTimer_TickHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#a3e4c875a87fc8e4158293010a729bb2f">Handler</a></td></tr>
 <tr class="memdesc:a3e4c875a87fc8e4158293010a729bb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function.  <a href="#a3e4c875a87fc8e4158293010a729bb2f">More...</a><br/></td></tr>
 <tr class="separator:a3e4c875a87fc8e4158293010a729bb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ba807967063169be63cde744354d0a8"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_timer_tag.html#a5ba807967063169be63cde744354d0a8">CallBackRef</a></td></tr>
@@ -145,26 +148,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:a5ba807967063169be63cde744354d0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure to the XFpga instance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">XTimer_ModifyInterval</td><td>Modifies the timer interval </td></tr>
-    <tr><td class="paramname">XTimer_TickIntrHandler</td><td>Tick interrupt handler </td></tr>
-    <tr><td class="paramname">XTimer_TickInterval</td><td>Configures the tick interval </td></tr>
-    <tr><td class="paramname">XSleepTimer_Stop</td><td>Stops the sleep timer </td></tr>
-    <tr><td class="paramname">XTickTimer_Stop</td><td>Stops the tick timer </td></tr>
-    <tr><td class="paramname">XTickTimer_ClearInterrupt</td><td>Clears the Tick timer interrupt status </td></tr>
-    <tr><td class="paramname">Handler</td><td>Tick Handler </td></tr>
-    <tr><td class="paramname">CallBackRef</td><td>Callback reference for handler </td></tr>
-    <tr><td class="paramname">AxiTimer_SleepInst</td><td>Sleep Instance for AxiTimer </td></tr>
-    <tr><td class="paramname">AxiTimer_TickInst</td><td>Tick Instance for AxiTimer </td></tr>
-    <tr><td class="paramname">TtcPs_SleepInst</td><td>Sleep Instance for TTCPS </td></tr>
-    <tr><td class="paramname">TtcPs_TickInst</td><td>Tick Instance for TTCPS </td></tr>
-    <tr><td class="paramname">ScuTimer_SleepInst</td><td>Sleep Instance for Scutimer </td></tr>
-    <tr><td class="paramname">ScuTimer_TickInst</td><td>Tick Instance for Scutimer </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>XTimer instance structure holding timer operation callbacks and instances. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a5ba807967063169be63cde744354d0a8"></a>
 <div class="memitem">
@@ -187,7 +171,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">XTimer_TickHandler XTimerTag::Handler</td>
+          <td class="memname"><a class="el" href="xiltimer_8h.html#adf78c896aa8018bb63e6aa315e24223b">XTimer_TickHandler</a> XTimerTag::Handler</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -270,7 +254,23 @@ Data Fields</h2></td></tr>
 
 <p>Configures the tick interval. </p>
 
-<p>Referenced by <a class="el" href="group__xiltimer__api.html#gac2d61518eafb79f1bad01cecb9503d6c">XTimer_SetInterval()</a>.</p>
+<p>Referenced by <a class="el" href="group__xiltimer__api.html#gac2d61518eafb79f1bad01cecb9503d6c">XTimer_SetInterval()</a>, and <a class="el" href="group__xiltimer__api.html#ga4381a7c988933521223d057ac235cc91">XTimer_SetIntervalHz()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a793bd1f723f0570b86cfdd0802cc46a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* XTimerTag::XTimer_TickIntervalHz)(struct <a class="el" href="struct_x_timer_tag.html">XTimerTag</a> *InstancePtr, u32 FreqHz)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures the tick interval from a frequency in Hz. </p>
+
+<p>Referenced by <a class="el" href="group__xiltimer__api.html#ga4381a7c988933521223d057ac235cc91">XTimer_SetIntervalHz()</a>.</p>
 
 </div>
 </div>

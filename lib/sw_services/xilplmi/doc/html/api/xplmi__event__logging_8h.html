@@ -98,6 +98,8 @@ $(document).ready(function(){initNavTree('xplmi__event__logging_8h.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Data Structures</a>  </div>
   <div class="headertitle">
 <div class="title">xplmi_event_logging.h File Reference</div>  </div>
 </div><!--header-->
@@ -123,7 +125,17 @@ MODIFICATION HISTORY:</pre><pre>Ver     Who     Date            Changes
       pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages</pre><pre></pre><dl class="section note"><dt>Note</dt><dd></dd></dl>
 </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__cmd_8h.html">xplmi_cmd.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__util_8h.html">xplmi_util.h</a>&quot;</code><br/>
-</div></div><!-- contents -->
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_plmi___circular_buffer.html">XPlmi_CircularBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Circular log buffer that tracks a fixed-size memory region and wraps the write offset back to the start when full.  <a href="struct_x_plmi___circular_buffer.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_plmi___log_info.html">XPlmi_LogInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging information structure that contains a circular buffer for logs and configuration settings.  <a href="struct_x_plmi___log_info.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b1a65a1042246ef583768fb1680c1ea2" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xasu__ram__ecc_8h">xasu_ram_ecc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/asu_ram_ecc/src/"/>
+  </compounddef>
+</doxygen>

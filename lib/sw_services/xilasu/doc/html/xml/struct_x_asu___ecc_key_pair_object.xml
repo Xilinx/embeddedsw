@@ -4,10 +4,10 @@
     <compoundname>XAsu_EccKeyPairObject</compoundname>
     <includes local="no">xasu_keymanagerinfo.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="struct_x_asu___ecc_key_pair_object_1aaefca24a04c2e509aa885afaf637d621" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_pair_object_1a117a8db2bf580c81c04f44dd4bb6ce83" prot="public" static="no" mutable="no">
         <type>u8</type>
-        <definition>u8 XAsu_EccKeyPairObject::PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES]</definition>
-        <argsstring>[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES]</argsstring>
+        <definition>u8 XAsu_EccKeyPairObject::PublicKey[XASU_KM_ECC_MAX_PUB_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_ECC_MAX_PUB_KEY_SIZE_IN_BYTES]</argsstring>
         <name>PublicKey</name>
         <briefdescription>
 <para>Public key buffer. </para>        </briefdescription>
@@ -15,12 +15,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="411" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="struct_x_asu___ecc_key_pair_object_1ab885231187f2883e12273e0ce5e4564f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_asu___ecc_key_pair_object_1ad78b2be9bc61bbb40742108462def70f" prot="public" static="no" mutable="no">
         <type>u8</type>
-        <definition>u8 XAsu_EccKeyPairObject::PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]</definition>
-        <argsstring>[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]</argsstring>
+        <definition>u8 XAsu_EccKeyPairObject::PrivateKey[XASU_KM_ECC_MAX_PVT_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KM_ECC_MAX_PVT_KEY_SIZE_IN_BYTES]</argsstring>
         <name>PrivateKey</name>
         <briefdescription>
 <para>Private key buffer. </para>        </briefdescription>
@@ -28,17 +28,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="217" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="412" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This structure contains the ECC key pair object with public and private keys. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="215" bodyend="218"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="410" bodyend="413"/>
     <listofallmembers>
-      <member refid="struct_x_asu___ecc_key_pair_object_1ab885231187f2883e12273e0ce5e4564f" prot="public" virt="non-virtual"><scope>XAsu_EccKeyPairObject</scope><name>PrivateKey</name></member>
-      <member refid="struct_x_asu___ecc_key_pair_object_1aaefca24a04c2e509aa885afaf637d621" prot="public" virt="non-virtual"><scope>XAsu_EccKeyPairObject</scope><name>PublicKey</name></member>
+      <member refid="struct_x_asu___ecc_key_pair_object_1ad78b2be9bc61bbb40742108462def70f" prot="public" virt="non-virtual"><scope>XAsu_EccKeyPairObject</scope><name>PrivateKey</name></member>
+      <member refid="struct_x_asu___ecc_key_pair_object_1a117a8db2bf580c81c04f44dd4bb6ce83" prot="public" virt="non-virtual"><scope>XAsu_EccKeyPairObject</scope><name>PublicKey</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

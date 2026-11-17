@@ -38,6 +38,6 @@
 <codeline lineno="29"><highlight class="stringliteral">install(TARGETS<sp/>xilmailbox<sp/>LIBRARY<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH}<sp/>ARCHIVE<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH})</highlight></codeline>
 <codeline lineno="30"><highlight class="stringliteral">install(DIRECTORY<sp/>${CMAKE_BINARY_DIR}/include/<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH})</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

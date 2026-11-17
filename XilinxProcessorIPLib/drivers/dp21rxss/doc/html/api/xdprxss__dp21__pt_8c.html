@@ -159,6 +159,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:acb030d34760c14a908fe9752f806958a"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdprxss__dp21__pt_8c.html#acb030d34760c14a908fe9752f806958a">use_vsc</a></td></tr>
+<tr class="memdesc:acb030d34760c14a908fe9752f806958a"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 when stream carries colorimetry via VSC SDP  <a href="#acb030d34760c14a908fe9752f806958a">More...</a><br/></td></tr>
+<tr class="separator:acb030d34760c14a908fe9752f806958a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e2b2e80e26666d0dc540c5aea02e08f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdprxss__dp21__pt_8c.html#a9e2b2e80e26666d0dc540c5aea02e08f">infofifo</a> [64]</td></tr>
 <tr class="memdesc:a9e2b2e80e26666d0dc540c5aea02e08f"><td class="mdescLeft">&#160;</td><td class="mdescRight">RX and TX can store up to 4 infoframes each.  <a href="#a9e2b2e80e26666d0dc540c5aea02e08f">More...</a><br/></td></tr>
 <tr class="separator:a9e2b2e80e26666d0dc540c5aea02e08f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,9 +177,6 @@ Variables</h2></td></tr>
 <tr class="memitem:ae762e99802e6c272cb8d5fa6f3a52da7"><td class="memItemLeft" align="right" valign="top">XVphy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdprxss__dp21__pt_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a></td></tr>
 <tr class="memdesc:ae762e99802e6c272cb8d5fa6f3a52da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The DPRX Subsystem instance.  <a href="#ae762e99802e6c272cb8d5fa6f3a52da7">More...</a><br/></td></tr>
 <tr class="separator:ae762e99802e6c272cb8d5fa6f3a52da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a803021a1c07feb8aa2f01c00f651b471"><td class="memItemLeft" align="right" valign="top">XVphy_PllRefClkSelType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdprxss__dp21__pt_8c.html#a803021a1c07feb8aa2f01c00f651b471">VPHY_REFCLK_SEL_270</a> = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0</td></tr>
-<tr class="memdesc:a803021a1c07feb8aa2f01c00f651b471"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0)  <a href="#a803021a1c07feb8aa2f01c00f651b471">More...</a><br/></td></tr>
-<tr class="separator:a803021a1c07feb8aa2f01c00f651b471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d1298820f21d23082d9c0f918e8657"><td class="memItemLeft" align="right" valign="top">XIic_Config *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdprxss__dp21__pt_8c.html#aa1d1298820f21d23082d9c0f918e8657">ConfigPtr_IIC</a></td></tr>
 <tr class="memdesc:aa1d1298820f21d23082d9c0f918e8657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to configuration data.  <a href="#aa1d1298820f21d23082d9c0f918e8657">More...</a><br/></td></tr>
 <tr class="separator:aa1d1298820f21d23082d9c0f918e8657"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -402,7 +402,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Status.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xdprxss__dp21__pt_8c.html#a803021a1c07feb8aa2f01c00f651b471">VPHY_REFCLK_SEL_270</a>.</p>
+<p>References <a class="el" href="struct_x_dp_rx_ss.html#aeaf3eee6d864238c89084759cfe0f6eb">XDpRxSs::DpPtr</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a362bbd25e0f7e6fd42da96f398eac7ff">DpTxSsInst</a>, and <a class="el" href="xdprxss__dp21__rx_8c.html#a803021a1c07feb8aa2f01c00f651b471">VPHY_REFCLK_SEL_270</a>.</p>
 
 <p>Referenced by <a class="el" href="xdprxss__dp21__pt_8c.html#a9338c965ced51b91bc5a5c17ee3935c4">Dp21RxSs_Pt_Setup()</a>.</p>
 
@@ -468,7 +468,7 @@ Variables</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="xdprxss__dp21__pt_8c.html#acba5d3628f36b62266d9ed64022d52dd">Dp21RxSs_Pt_VideoFMC_Init()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#a08701bb14d7f032afd0d35884cbeca8c">PS_IIC_CLK</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#a3cb13cd431d9241af9128b1bdd8a1f59">TIMER_RESET_VALUE</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a52925150cc1fdc72079961624f475c47">TmrCtr</a>, and <a class="el" href="xdprxss__dp21__rx_8c.html#a530b6cf4b2384c4f09985de876acc037">XTIMER0_DEVICE_ID</a>.</p>
+<p>References <a class="el" href="xdprxss__dp21__pt_8c.html#acba5d3628f36b62266d9ed64022d52dd">Dp21RxSs_Pt_VideoFMC_Init()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#a08701bb14d7f032afd0d35884cbeca8c">PS_IIC_CLK</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#a3cb13cd431d9241af9128b1bdd8a1f59">TIMER_RESET_VALUE</a>, and <a class="el" href="xdprxss__dp21__pt_8c.html#a52925150cc1fdc72079961624f475c47">TmrCtr</a>.</p>
 
 </div>
 </div>
@@ -488,7 +488,7 @@ Variables</h2></td></tr>
 <p>&lt; pass-through (Default)</p>
 <p>&lt; Stop frameBuffer if Tx is lost </p>
 
-<p>References <a class="el" href="struct_x_dp_rx_ss___config.html#a51ebda7704c9682d7b8fc8073da88ad8">XDpRxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_dp_rx_ss.html#a38c927311884c9c247ce6bb7299b8f5d">XDpRxSs::Config</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a0ccecac366404d5737f3b7886b56727a">Dp21RxSs_Pt_PhyConfig()</a>, <a class="el" href="struct_x_dp_rx_ss.html#aeaf3eee6d864238c89084759cfe0f6eb">XDpRxSs::DpPtr</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#afcc39f849621b4497c2a71ca4cd127d9">DPRXSS_LANE_COUNT</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#aa22736573c6f820299099357153a5937">DPRXSS_LINK_RATE</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a362bbd25e0f7e6fd42da96f398eac7ff">DpTxSsInst</a>, <a class="el" href="struct_x_dp_rx_ss.html#a14db703fa0e86c3ee3f17276395b04e1">XDpRxSs::HdcpProtocol</a>, <a class="el" href="struct_x_dp_rx_ss___usr_opt.html#a2e5a0e9ec997f440ab0407165160bd5d">XDpRxSs_UsrOpt::LaneCount</a>, <a class="el" href="struct_x_dp_rx_ss.html#a921b9f86d725ac0026bf27ffd37b4164">XDpRxSs::link_up_trigger</a>, <a class="el" href="struct_x_dp_rx_ss___usr_opt.html#a154dd5d14a6c2aea3726ff04c0292a6a">XDpRxSs_UsrOpt::LinkRate</a>, <a class="el" href="struct_x_dp_rx_ss.html#afc12f403a17670fcf650b2056576785d">XDpRxSs::UsrOpt</a>, <a class="el" href="struct_x_dp_rx_ss.html#ac5e4b8314b7628e4f3cc94a8ac0dfadf">XDpRxSs::VBlankCount</a>, <a class="el" href="xvid__pat__gen_8c.html#a7a23d7ce2380ce84a5b92fbeb9c1c565">Vpg_Audio_stop()</a>, <a class="el" href="xvid__pat__gen_8c.html#aae950e5381749a4972645f73cfa8c478">Vpg_VidgenSetUserPattern()</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>, <a class="el" href="group__dprxss.html#gga7b73be64577a646cadafa5a3398a8d3da855e97f6c420537ef5335cbb66f8fcc7">XDPRXSS_HDCP_14</a>, <a class="el" href="group__dprxss.html#gga7b73be64577a646cadafa5a3398a8d3da598641c0b966b1140f1f7030af099646">XDPRXSS_HDCP_22</a>, <a class="el" href="group__dprxss.html#gab0ccd2eb3d6c5633d9ca61961ddc911d">XDpRxSs_ReportHdcpInfo()</a>, <a class="el" href="group__dprxss.html#ga1c18157ed811924d1a2f1dd60a6f3629">XDpRxSs_ReportLinkInfo()</a>, <a class="el" href="group__dprxss.html#ga1db1ad90aab468e882f66cb36a9fcec0">XDpRxSs_ReportMsaInfo()</a>, <a class="el" href="group__dprxss.html#gaf724dbd61d196f9bd1a8060f1f73816d">XDpRxSs_Reset()</a>, <a class="el" href="group__dprxss.html#ga180a0386c25a456d436bbfc9fec05c02">XDpRxSs_SetLaneCount()</a>, <a class="el" href="group__dprxss.html#gae447b427e7616d143f2170881fa79bb1">XDpRxSs_SetLinkRate()</a>, <a class="el" href="group__dprxss.html#ga5ada36b95407b1169e183bbb7b9847d6">XDpRxSs_Start()</a>, and <a class="el" href="xdprxss__dp21__rx_8c.html#ad673f235f7cfedfa92f5e7b76e1dc6c8">xil_getc()</a>.</p>
+<p>References <a class="el" href="struct_x_dp_rx_ss___config.html#a51ebda7704c9682d7b8fc8073da88ad8">XDpRxSs_Config::BaseAddress</a>, <a class="el" href="struct_x_dp_rx_ss.html#a38c927311884c9c247ce6bb7299b8f5d">XDpRxSs::Config</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a0ccecac366404d5737f3b7886b56727a">Dp21RxSs_Pt_PhyConfig()</a>, <a class="el" href="struct_x_dp_rx_ss.html#aeaf3eee6d864238c89084759cfe0f6eb">XDpRxSs::DpPtr</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#afcc39f849621b4497c2a71ca4cd127d9">DPRXSS_LANE_COUNT</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#aa22736573c6f820299099357153a5937">DPRXSS_LINK_RATE</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a362bbd25e0f7e6fd42da96f398eac7ff">DpTxSsInst</a>, <a class="el" href="struct_x_dp_rx_ss.html#a14db703fa0e86c3ee3f17276395b04e1">XDpRxSs::HdcpProtocol</a>, <a class="el" href="struct_x_dp_rx_ss___usr_opt.html#a2e5a0e9ec997f440ab0407165160bd5d">XDpRxSs_UsrOpt::LaneCount</a>, <a class="el" href="struct_x_dp_rx_ss.html#a921b9f86d725ac0026bf27ffd37b4164">XDpRxSs::link_up_trigger</a>, <a class="el" href="struct_x_dp_rx_ss___usr_opt.html#a154dd5d14a6c2aea3726ff04c0292a6a">XDpRxSs_UsrOpt::LinkRate</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#acb030d34760c14a908fe9752f806958a">use_vsc</a>, <a class="el" href="struct_x_dp_rx_ss.html#afc12f403a17670fcf650b2056576785d">XDpRxSs::UsrOpt</a>, <a class="el" href="struct_x_dp_rx_ss.html#ac5e4b8314b7628e4f3cc94a8ac0dfadf">XDpRxSs::VBlankCount</a>, <a class="el" href="xvid__pat__gen_8c.html#a7a23d7ce2380ce84a5b92fbeb9c1c565">Vpg_Audio_stop()</a>, <a class="el" href="xvid__pat__gen_8c.html#aae950e5381749a4972645f73cfa8c478">Vpg_VidgenSetUserPattern()</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#ae762e99802e6c272cb8d5fa6f3a52da7">VPhyInst</a>, <a class="el" href="group__dprxss.html#gga7b73be64577a646cadafa5a3398a8d3da855e97f6c420537ef5335cbb66f8fcc7">XDPRXSS_HDCP_14</a>, <a class="el" href="group__dprxss.html#gga7b73be64577a646cadafa5a3398a8d3da598641c0b966b1140f1f7030af099646">XDPRXSS_HDCP_22</a>, <a class="el" href="group__dprxss.html#gab0ccd2eb3d6c5633d9ca61961ddc911d">XDpRxSs_ReportHdcpInfo()</a>, <a class="el" href="group__dprxss.html#ga1c18157ed811924d1a2f1dd60a6f3629">XDpRxSs_ReportLinkInfo()</a>, <a class="el" href="group__dprxss.html#ga1db1ad90aab468e882f66cb36a9fcec0">XDpRxSs_ReportMsaInfo()</a>, <a class="el" href="group__dprxss.html#gaf724dbd61d196f9bd1a8060f1f73816d">XDpRxSs_Reset()</a>, <a class="el" href="group__dprxss.html#ga180a0386c25a456d436bbfc9fec05c02">XDpRxSs_SetLaneCount()</a>, <a class="el" href="group__dprxss.html#gae447b427e7616d143f2170881fa79bb1">XDpRxSs_SetLinkRate()</a>, <a class="el" href="group__dprxss.html#ga5ada36b95407b1169e183bbb7b9847d6">XDpRxSs_Start()</a>, and <a class="el" href="xdprxss__dp21__rx_8c.html#ad673f235f7cfedfa92f5e7b76e1dc6c8">xil_getc()</a>.</p>
 
 </div>
 </div>
@@ -630,7 +630,7 @@ Variables</h2></td></tr>
 
 <p>The DPTX Subsystem instance. </p>
 
-<p>Referenced by <a class="el" href="xdprxss__dp21__pt_8c.html#a9338c965ced51b91bc5a5c17ee3935c4">Dp21RxSs_Pt_Setup()</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#ae9ec19bf96454ab233bf2e86e80f4a1b">Dp21RxSs_Pt_SetupIntrSystem()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#a1b44ac6b87efbb02046da6924c82ed70">DpRxSs_TrainingLostHandler()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#acb9293004b94de688e83af78d4f10ee1">DpRxSs_UnplugHandler()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#ab8b407dc14e0af7ec22c33d57f03759c">DpRxSs_VerticalBlankHandler()</a>, and <a class="el" href="xdprxss__dp21__pt__hdcp_8c.html#a82296473fccecfdd24d3fc5fcddc714b">DpSs_SetupIntrSystem()</a>.</p>
+<p>Referenced by <a class="el" href="xdprxss__dp21__pt_8c.html#a0ccecac366404d5737f3b7886b56727a">Dp21RxSs_Pt_PhyConfig()</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a9338c965ced51b91bc5a5c17ee3935c4">Dp21RxSs_Pt_Setup()</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#ae9ec19bf96454ab233bf2e86e80f4a1b">Dp21RxSs_Pt_SetupIntrSystem()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#a1b44ac6b87efbb02046da6924c82ed70">DpRxSs_TrainingLostHandler()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#acb9293004b94de688e83af78d4f10ee1">DpRxSs_UnplugHandler()</a>, <a class="el" href="xdprxss__dp21__rx_8c.html#ab8b407dc14e0af7ec22c33d57f03759c">DpRxSs_VerticalBlankHandler()</a>, and <a class="el" href="xdprxss__dp21__pt__hdcp_8c.html#a82296473fccecfdd24d3fc5fcddc714b">DpSs_SetupIntrSystem()</a>.</p>
 
 </div>
 </div>
@@ -698,6 +698,23 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acb030d34760c14a908fe9752f806958a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 use_vsc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1 when stream carries colorimetry via VSC SDP </p>
+<p>1 when stream carries colorimetry via VSC SDP </p>
+
+<p>Referenced by <a class="el" href="xdprxss__dp21__pt_8c.html#a9338c965ced51b91bc5a5c17ee3935c4">Dp21RxSs_Pt_Setup()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a6b5bb90253da74cfe58cf15d0814931d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -709,22 +726,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Video Frame CRC instance. </p>
-
-</div>
-</div>
-<a class="anchor" id="a803021a1c07feb8aa2f01c00f651b471"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>&lt; ZCU102 (270Mhz on REFCLK0, 400Mhz on NORTHREFCLK0) </p>
-
-<p>Referenced by <a class="el" href="xdprxss__dp21__pt__hdcp_8c.html#a06e5faf0259c42e793a9347498c0c3e0">config_phy()</a>, <a class="el" href="xdprxss__dp21__pt_8c.html#a0ccecac366404d5737f3b7886b56727a">Dp21RxSs_Pt_PhyConfig()</a>, and <a class="el" href="xdprxss__dp21__rx_8c.html#af28ddbc5e6a1c3d29724a96599638ccc">PLLRefClkSel()</a>.</p>
 
 </div>
 </div>

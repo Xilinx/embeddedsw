@@ -23,6 +23,14 @@
     <member refid="struct_x_hdmiphy1_1ae2ebcf179c7a4c5122606264c1313254" kind="variable"><name>IntrQpll1LockCallbackRef</name></member>
     <member refid="struct_x_hdmiphy1_1a9f4e3631341fe886a566a1c615109296" kind="variable"><name>IntrTxAlignDoneHandler</name></member>
     <member refid="struct_x_hdmiphy1_1acb9f1f5c38f678dfe435d1872d93c409" kind="variable"><name>IntrTxAlignDoneCallbackRef</name></member>
+    <member refid="struct_x_hdmiphy1_1ae70568fb8b840ea7376d699385cd539b" kind="variable"><name>IntrLcpllLockHandler</name></member>
+    <member refid="struct_x_hdmiphy1_1ae97c0c799895ac6d6941ae0e20b11d3e" kind="variable"><name>IntrLcpllLockCallbackRef</name></member>
+    <member refid="struct_x_hdmiphy1_1a169e6a8769169e11aa64ac9abc88ac0c" kind="variable"><name>IntrRpllLockHandler</name></member>
+    <member refid="struct_x_hdmiphy1_1a19780e3a38d27e0ead24570e6613dd55" kind="variable"><name>IntrRpllLockCallbackRef</name></member>
+    <member refid="struct_x_hdmiphy1_1aed8eb044838fd5828650671ce7c7f675" kind="variable"><name>IntrTxGpoRisingEdgeHandler</name></member>
+    <member refid="struct_x_hdmiphy1_1a786992aa81fe60d7abf87f1fe47708ce" kind="variable"><name>IntrTxGpoRisingEdgeCallbackRef</name></member>
+    <member refid="struct_x_hdmiphy1_1a9fa23c83fa1e8799b82b479ce71bfd7b" kind="variable"><name>IntrRxGpoRisingEdgeHandler</name></member>
+    <member refid="struct_x_hdmiphy1_1a5662fe2b31b0bdbfd676b139772238f7" kind="variable"><name>IntrRxGpoRisingEdgeCallbackRef</name></member>
     <member refid="struct_x_hdmiphy1_1a4f9c49683a90aa9841be70039e7dea31" kind="variable"><name>IntrTxResetDoneHandler</name></member>
     <member refid="struct_x_hdmiphy1_1a6ecd9f63b374c8c8def7c8894f6340ec" kind="variable"><name>IntrTxResetDoneCallbackRef</name></member>
     <member refid="struct_x_hdmiphy1_1afbd86b5dc2ea02eca5f779558c23faaf" kind="variable"><name>IntrRxResetDoneHandler</name></member>
@@ -149,11 +157,15 @@
     <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a8dc1635f39a3c1c97edb8e89d09bb22e" kind="variable"><name>Qpll1RefClkMin</name></member>
     <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1ae845ef57dcd0e5a3b194968d30163818" kind="variable"><name>CpllRefClkMin</name></member>
     <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1aec7f506becab7fcbd26e348986787def" kind="variable"><name>TxMmcmScale</name></member>
-    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1abfda044cca5f3c37a624218f14c7193f" kind="variable"><name>TxMmcmFvcoMin</name></member>
-    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1ab4dee2cf94c948cd226d10eb9d290118" kind="variable"><name>TxMmcmFvcoMax</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1ae53a4f6e62c18206de3bf6fa5b0fcb72" kind="variable"><name>TxMmcmFvcoMinMmcm</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1aecfbda97e545a2d63887e32986d8615b" kind="variable"><name>TxMmcmFvcoMaxMmcm</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1ab3a625255634e108ebc0eb4d9afed2d8" kind="variable"><name>TxMmcmFvcoMinPll</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a9ebb5e1adadff71545e5d777e3b70a39" kind="variable"><name>TxMmcmFvcoMaxPll</name></member>
     <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1aa8cffee45a18e951dc53b21652a9b482" kind="variable"><name>RxMmcmScale</name></member>
-    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a6e2fa2408034a493169788076d4bbfa1" kind="variable"><name>RxMmcmFvcoMin</name></member>
-    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a4fec90e0f8266cf84b831e633e5337f8" kind="variable"><name>RxMmcmFvcoMax</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a764d68d89593159c183fd412a3b5d622" kind="variable"><name>RxMmcmFvcoMinMmcm</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a974192a8ab9588d32a1dec3e9f6c11b0" kind="variable"><name>RxMmcmFvcoMaxMmcm</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a7f55f29c336ad0401140717b1ce2282f" kind="variable"><name>RxMmcmFvcoMinPll</name></member>
+    <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a27e45143c25e65625e1cd26ea1319ef2" kind="variable"><name>RxMmcmFvcoMaxPll</name></member>
   </compound>
   <compound refid="struct_x_hdmiphy1___gt_pll_divs" kind="struct"><name>XHdmiphy1_GtPllDivs</name>
     <member refid="struct_x_hdmiphy1___gt_pll_divs_1afe11fa450cb2f5dc7d82693aa5ed1cc4" kind="variable"><name>M</name></member>
@@ -264,6 +276,10 @@
     <member refid="group__xhdmiphy1_1ga8a56411c7caa7bf53a038ce5d4bcd70c" kind="define"><name>XHdmiphy1_IsRxUsingQpll</name></member>
     <member refid="group__xhdmiphy1_1ga17f7c0f80270c3ac676d59ebac22b116" kind="define"><name>XHdmiphy1_IsTxUsingCpll</name></member>
     <member refid="group__xhdmiphy1_1ga22e4224f5da99f2222a5813e3ac0fb72" kind="define"><name>XHdmiphy1_IsRxUsingCpll</name></member>
+    <member refid="group__xhdmiphy1_1ga8aa1d35a8e1d1596986d73ec6eda927b" kind="define"><name>XHdmiphy1_IsTxUsingLcpll</name></member>
+    <member refid="group__xhdmiphy1_1gaf755e1bafa522358df3367e97431455f" kind="define"><name>XHdmiphy1_IsRxUsingLcpll</name></member>
+    <member refid="group__xhdmiphy1_1ga0962ef795e60e5ebf24dac8da0be91bb" kind="define"><name>XHdmiphy1_IsTxUsingRpll</name></member>
+    <member refid="group__xhdmiphy1_1ga2421837250d768a1caca64a91e846616" kind="define"><name>XHdmiphy1_IsRxUsingRpll</name></member>
     <member refid="group__xhdmiphy1_1ga14aff85d3d062cd34c21b0a1b571a547" kind="enum"><name>XHdmiphy1_GtType</name></member>
     <member refid="group__xhdmiphy1_1gga14aff85d3d062cd34c21b0a1b571a547a5cbb4014f308cb04fbeebf989e359122" kind="enumvalue"><name>XHDMIPHY1_GT_TYPE_GTHE4</name></member>
     <member refid="group__xhdmiphy1_1gga14aff85d3d062cd34c21b0a1b571a547a98faa3846183fa3e2f28a1aa414e6f1e" kind="enumvalue"><name>XHDMIPHY1_GT_TYPE_GTYE4</name></member>
@@ -288,10 +304,14 @@
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a920afda83fe4504afec93924adf7bedc" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_QPLL0_LOCK</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a0fbf77aa70e1ace140700b539bf3e82d" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TXALIGN_DONE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ad8ada93f051d62d2696dd936142fcdcf" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_QPLL1_LOCK</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a3e418185c2d79ab9ca6f32667c47aaf9" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62aec4b74fbeeba62a48f4a6071e4677c51" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62aeb2a3b0bb09ea6ddddd9bbf968f22525" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62aad52d9eb7cc8899bc9146b4ba516ac4c" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a23b22b96c38e64f1c70bc5daa8e92dd0" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a2fea0a4c8908d73dafaa7dbd018e3e36" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ace7746f18ae4a79a5670a80237ac8838" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ad0d8009727d910f76a070053784e0ec4" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ac3358af2c9605bb5b196ae02cc53dcc3" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a30dae291c88ea408dcd695c3a6962441" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT</name></member>
     <member refid="group__xhdmiphy1_1ga8df8a80a15683dd3ffe31d80780f6329" kind="enum"><name>XHdmiphy1_HdmiHandlerType</name></member>
@@ -505,6 +525,17 @@
     <member refid="group__xhdmiphy1_1ga8dc19df05e15d413e62ff62d2c22c023" kind="function"><name>XHdmiphy1_RegisterDebug</name></member>
   </compound>
   <compound refid="xhdmiphy1__dplle5_8c" kind="file"><name>xhdmiphy1_dplle5.c</name>
+    <member refid="xhdmiphy1__dplle5_8c_1a5d2bba28d3b9a883531810c543967c95" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1ac6a4fc203eab7df633aefdd982edfc74" kind="define"><name>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1af8da06be2b783e2a60bc9fb99d399fa6" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1a8cd2a11a685b8718e2d85f0bd9e8e974" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1ae70c377d266c29d11b4e86339cb33942" kind="define"><name>XHDMIPHY1_MMCM_WRITE_VAL</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1ae4a76754b0bd02ab2c242ffdfbdec3fa" kind="define"><name>XHDMIPHY1_MMCM_MULT_MASK</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1a47d64ce2bfb87ba94d347bc68e193d5f" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT_MASK</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1ae94a6b86026915e698e26424e1fd45d3" kind="define"><name>XHDMIPHY1_MMCM_CLKOUTEN_MASK</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1a7c364727cace7d8e8c05837cd44e0c6d" kind="define"><name>XHDMIPHY1_MMCM_DIVCLKDIV_MASK</name></member>
+    <member refid="xhdmiphy1__dplle5_8c_1a98babd192c0e90fbdba2053776baa6b0" kind="define"><name>XHDMIPHY1_MMCM_Lock_MASK</name></member>
+    <member refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" kind="function"><name>XHdmiphy1_DpllWriteParameters</name></member>
   </compound>
   <compound refid="xhdmiphy1__g_8c" kind="file"><name>xhdmiphy1_g.c</name>
     <member refid="xhdmiphy1__g_8c_1ab5e48967ac2874b1a3e24972a590149b" kind="variable"><name>XHdmiphy1_ConfigTable</name></member>
@@ -518,24 +549,504 @@
     <member refid="group__xhdmiphy1_1gadedea91007ee059e507a9a56a60e76f2" kind="define"><name>XHdmiphy1_RxChReconfig</name></member>
     <member refid="group__xhdmiphy1_1gac1b4c572a3696b5151a3b0f55e3d927f" kind="define"><name>XHdmiphy1_TxChReconfig</name></member>
     <member refid="group__xhdmiphy1_1ga5aa22b468929857199125f032faa0c5c" kind="typedef"><name>XHdmiphy1_GtConfig</name></member>
+    <member refid="group__xhdmiphy1_1ga608437a52460adcb9c83fb0417e17a95" kind="variable"><name>XHdmiphy1_Gthe4Config</name></member>
+    <member refid="group__xhdmiphy1_1gaa682389c08bb45cebf87329d61751939" kind="variable"><name>XHdmiphy1_Gtye4Config</name></member>
+    <member refid="group__xhdmiphy1_1ga7e28aaca7b8f8e3e8e3655454a463bc4" kind="variable"><name>Gtye5Config</name></member>
+    <member refid="group__xhdmiphy1_1ga6bc786a51716af5a18db9e71e56a6140" kind="variable"><name>GtypConfig</name></member>
   </compound>
   <compound refid="xhdmiphy1__gthe4_8c" kind="file"><name>xhdmiphy1_gthe4.c</name>
+    <member refid="xhdmiphy1__gthe4_8c_1ad98917074e9e3b18724f06d3c9f43471" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXCDR_CFG</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a3c75911a39497d672fdd8a3c169eace2" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXCDR_CFG_GEN3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a11886bdd84f1f923a5d2b79da8d4c9cd" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXCDR_CFG_GEN4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a058143aefcda761c960a6544e57f7a40" kind="define"><name>XDRP_GTHE4_CHN_REG_0028</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac40596e5f635a66675618cab682722bc" kind="define"><name>XDRP_GTHE4_CHN_REG_002A</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1abf4e1a16dbe75bff4825c5b7acf99785" kind="define"><name>XDRP_GTHE4_CHN_REG_00CB</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a37bdfb44329c4ae42ebb4d0eb5d231d2" kind="define"><name>XDRP_GTHE4_CHN_REG_00CC</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a560a6f8f1dbab79ef8716954dfadc058" kind="define"><name>XDRP_GTHE4_CHN_REG_00BC</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1abb718e32de903fedea1e04c9a521f039" kind="define"><name>XDRP_GTHE4_CHN_REG_0063</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a81367e48b14981ad94cd87680de09e64" kind="define"><name>XDRP_GTHE4_CHN_REG_006D</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a1da72f088621a7e3c2aaeb2e10d242f7" kind="define"><name>XDRP_GTHE4_CHN_REG_007A</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a39062a95672e88946b17612ea5d7ae07" kind="define"><name>XDRP_GTHE4_CHN_REG_007C</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac1c7ed97e563105d042f4375925e86c9" kind="define"><name>XDRP_GTHE4_CHN_REG_000E</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af6e8872c1114da7349f5b33176a44a27" kind="define"><name>XDRP_GTHE4_CHN_REG_000F</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a9cb84cb5236e2a06567bc98f9644f2fe" kind="define"><name>XDRP_GTHE4_CHN_REG_0010</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af57ee678b25828b5b32111b0076328b1" kind="define"><name>XDRP_GTHE4_CHN_REG_0011</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a703ca26de30cd5f981983002011672ab" kind="define"><name>XDRP_GTHE4_CHN_REG_0012</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a2e7a3568633d32a8866df7c77b6305f5" kind="define"><name>XDRP_GTHE4_CHN_REG_00AF</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5f5d7665394e6576f09c39c7bb111254" kind="define"><name>XDRP_GTHE4_CHN_REG_0066</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7ddf84966bbe6e2cf0350adb41ed2930" kind="define"><name>XDRP_GTHE4_CHN_REG_0003</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a03d1994dd98111e6278f8fb0ac2ee682" kind="define"><name>XDRP_GTHE4_CHN_REG_0116</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a15c4f7adbdc1a9c95c9bc66575693db3" kind="define"><name>XDRP_GTHE4_CHN_REG_00FB</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a500285a3676933db17a576bb48408b67" kind="define"><name>XDRP_GTHE4_CHN_REG_009D</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a88c78b1fd2614f3b241b6e8dbff8010c" kind="define"><name>XDRP_GTHE4_CHN_REG_0100</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a9439a5a0cac093faf1367eac7967d917" kind="define"><name>XDRP_GTHE4_CHN_REG_003E</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1adb0d7bb3aacf21680d5da58d7cd8a9c3" kind="define"><name>XDRP_GTHE4_CHN_REG_0085</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a1da72f088621a7e3c2aaeb2e10d242f7" kind="define"><name>XDRP_GTHE4_CHN_REG_007A</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5dd682b42411cf31232e8a74fe35fff3" kind="define"><name>XDRP_GTHE4_CHN_REG_0073</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a6b59d976575b045e8c564e098b09884c" kind="define"><name>XDRP_GTHE4_CHN_REG_00FF</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab4b9a8d5ec48a6fe51504294234e3219" kind="define"><name>XDRP_GTHE4_CHN_REG_009C</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a15c4f7adbdc1a9c95c9bc66575693db3" kind="define"><name>XDRP_GTHE4_CHN_REG_00FB</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a9cc2a65091f9ff1e153880b7df7dd78b" kind="define"><name>XDRP_GTHE4_CMN_REG_0014</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a8fd277bb9bd345a643411a5aa7165d71" kind="define"><name>XDRP_GTHE4_CMN_REG_0018</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac45a65b37c21288b33324153a96f728c" kind="define"><name>XDRP_GTHE4_CMN_REG_0094</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af175ad8fa557768d400cb5b0153312b3" kind="define"><name>XDRP_GTHE4_CMN_REG_0098</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a524ccc07d7f50fd60380fb6663caa6ed" kind="define"><name>XDRP_GTHE4_CMN_REG_008D</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aceff1f46202850bfa5b72f1b4693e950" kind="define"><name>XDRP_GTHE4_CMN_REG_0016</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1add30e2ae76fc6d48eb97f3c3bd5d5cab" kind="define"><name>XDRP_GTHE4_CMN_REG_000D</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab382636b2601be043fe642fa941e60d7" kind="define"><name>XDRP_GTHE4_CMN_REG_0096</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a74182cbe8b6108dc7c4ec87ecf1fa857" kind="define"><name>XDRP_GTHE4_CMN_REG_0019</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a32638481d098de8b5f8511a72c6bdc94" kind="define"><name>XDRP_GTHE4_CMN_REG_0099</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0466842a54e4a6a79497a77b75c0434e" kind="define"><name>XDRP_GTHE4_CMN_REG_0030</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5529b1b8e9e34d5df2439ce7682b25ee" kind="define"><name>XDRP_GTHE4_CMN_REG_00B0</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a72807799d71c64b9a3b4d8b3171c0b87" kind="define"><name>XDRP_GTHE4_CHN_REG_0063_RXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac7ca8bfdd8f4bdcc63c7e80c3ddf79b6" kind="define"><name>XDRP_GTHE4_CHN_REG_0063_FLD_RXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a575e10a8662b7ba3289aef0bb6fc2e79" kind="define"><name>XDRP_GTHE4_CHN_REG_007C_TXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aba476cf6a2f2b00616712edda8b46796" kind="define"><name>XDRP_GTHE4_CHN_REG_007C_FLD_TX_RXDETECT_REF_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1add29585e870929b68ede830212e49c32" kind="define"><name>XDRP_GTHE4_CHN_REG_0028_FLD_CPLL_FBDIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a6eb16e81184087fab438adf82e3974f9" kind="define"><name>XDRP_GTHE4_CHN_REG_0028_FLD_CPLL_FBDIV_45_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a83db5a4a33410d2400fcacc5b4d5b452" kind="define"><name>XDRP_GTHE4_CHN_REG_002A_FLD_A_TXDIFFCTRL_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad2512a40935f90b60e0c95be51cd9ff2" kind="define"><name>XDRP_GTHE4_CHN_REG_0028_CPLL_FBDIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1abc167798932374c5382fea9e6944a6a4" kind="define"><name>XDRP_GTHE4_CHN_REG_002A_CPLL_REFCLK_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac4e749e23733e5e8f5a96bf36743d46e" kind="define"><name>XDRP_GTHE4_CMN_REG_0014_FLD_QPLL0_INIT_CFG1_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a09179a98024e9d2ffda4856f3f8a489e" kind="define"><name>XDRP_GTHE4_CMN_REG_0018_QPLLx_REFCLK_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a79e7bcfad2bffb8b93f535cec2a1f33e" kind="define"><name>XDRP_GTHE4_CMN_REG_0018_QPLLx_REFCLK_DIV_MASK1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a318bf1fca25248a6ec974cfeada95664" kind="define"><name>XDRP_GTHE4_CHN_REG_00AF_RXCDR_CGF2_GEN2_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a4b735cbcf0ff341baec3aea3af147dc8" kind="define"><name>XDRP_GTHE4_CHN_REG_0011_RXCDR_CGF3_GEN2_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a07009a57e34265818de56c4ccccdad59" kind="define"><name>XDRP_GTHE4_CHN_REG_0066_RX_WIDEMODE_CDR_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a1423ac84d36a9d37f970f73f5157f78b" kind="define"><name>XDRP_GTHE4_CMN_REG_000D_PPFx_CFG_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a6c95ee6959fecb154a4b439ed2f880be" kind="define"><name>XDRP_GTHE4_CMN_REG_0019_QPLLx_LPF_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a24ec24db5dd3c35d41e30699b0a445d2" kind="define"><name>XDRP_GTHE4_CMN_REG_0030_QPLLx_CFG4_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0d425830fa09967938389b9a7a795d77" kind="define"><name>XDRP_GTHE4_CHN_REG_0066_RX_INT_DATAWIDTH_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a519f75923e0c173668e9b6b727bfa814" kind="define"><name>XDRP_GTHE4_CHN_REG_0003_RX_DATAWIDTH_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa320754776ab4368aa8b71f968dbf21c" kind="define"><name>XDRP_GTHE4_CHN_REG_0116_CH_RX_HSPMUX_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a372b0f87f23c42e7576907153a2598fe" kind="define"><name>XDRP_GTHE4_CHN_REG_00FB_PREIQ_FREQ_BST_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab1363462fdfa6f74316119eb46b27203" kind="define"><name>XDRP_GTHE4_CHN_REG_00FB_TXPI_BIASSET_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa7a81a179edfa9d1ff07a75cc037151d" kind="define"><name>XDRP_GTHE4_CHN_REG_009C_TXPI_CFG3_CFG4_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1acaa993c5c93cbb611428e85b6b8f6a35" kind="define"><name>XDRP_GTHE4_CHN_REG_0116_CH_TX_HSPMUX_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a8baa5c281e1f59c8969536bfbfe7429c" kind="define"><name>XDRP_GTHE4_CHN_REG_007A_TXCLK25_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ae94be90d0e164b2d4d0ba1ab26e8b368" kind="define"><name>XDRP_GTHE4_CHN_REG_006D_RXCLK25_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac2e735fd4084707a79922eb3ac4bc0c6" kind="define"><name>XDRP_GTHE4_CHN_REG_0066_RX_WIDEMODE_CDR_MASK_VAL</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ae83b7139393032c6bb4087243e20f528" kind="define"><name>XDRP_GTHE4_CHN_REG_007A_TX_DATA_WIDTH_MASK</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ae78e2ca5d2c3cb316a9dd21f71704666" kind="define"><name>XHDMIPHY1_GTHE4_RXCDR_CFG_WORD0</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a9b68aa1add0d032321e798527904f781" kind="define"><name>XHDMIPHY1_GTHE4_RXCDR_CFG_WORD1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5ff2c2c711cb91a65ded35ae955586d6" kind="define"><name>XHDMIPHY1_GTHE4_RXCDR_CFG_WORD2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad4461247afbef56eb2a92a3a694557fd" kind="define"><name>XHDMIPHY1_GTHE4_RXCDR_CFG_WORD2_RXDIV</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac2b6ca251b5c22db8b7453dc0e55967a" kind="define"><name>XHDMIPHY1_GTHE4_RXCDR_CFG_WORD3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a2568516ba42df1cecdb575507745b799" kind="define"><name>XHDMIPHY1_GTHE4_RXCDR_CFG_WORD4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a531f22b398804c3ba273201217209489" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXOUT_OFFSET</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aee09dbf469475eb85bae1bfde4825ab0" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_VCO_RANGE1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1acf19d849279a4153e68899f48eb1d1ed" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_VCO_RANGE2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aed1a053067f147176e680fd3fc704b04" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG0_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a496d99c5cd1c0f82d66d9c5aad528ea0" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG0_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a53390fcfd8690fd96cb0baa2a5c55b23" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG0_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7bbb59647681a196e24fd305919324ba" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG1_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa1f40d58a2a04dad8196be4b32d1ba66" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG1_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a427ad2bb5a14d66d2e99548010efd6b3" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG2_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a3d7aa1fd1e633dc1173d115bfafda4d9" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG2_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa9080fdac2bdc1f989f26de5dbfed012" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CPLL_CFG2_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af49a64ad09b73bf9fde8e125407a7004" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_VCO_RANGE1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a978de4d774af7bfb85fab0761aac9dc6" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_VCO_RANGE2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab8dcbc662f5b6e6e1e3f76f3264f1610" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_VCO_RANGE3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0da440e1ae9a93a04043b766e12d67a9" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_VCO_RANGE4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1afcbc2dd235e7f1e3c808c6da37dcd4f5" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PPF_MUX_CRNT_CTRL0_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a42177bccd6c672b2b884e55bb23ff4a2" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PPF_MUX_CRNT_CTRL0_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1afa6ced7b22222d5b932137bd14fa69c1" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PPF_MUX_CRNT_CTRL0_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a92cc025b7b8db1efd4bd1271ae3931a2" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PPF_MUX_CRNT_CTRL0_VAL4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1abead8066f4e561c54fe8435dacb6ee81" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PPF_MUX_TERM_CTRL0_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aaa1f03f6ae2a42b3a85bd13f56ecfbc8" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PPF_MUX_TERM_CTRL0_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a325731dda9005d6732780c5aab973863" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_CP_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac0f6c6f9ef34773695631fc9d9f5cd00" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_CP_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a34f39e561a5f6d3f1a2efc16e9b8d3f5" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_LPF_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a4ec1cabef294112a8a1200521275f9da" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_LPF_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a64ee40dad8ab853ae5dd28946fe706ef" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_CLKOUT_RANGE1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a8e0bba3252bf85015f64876a6b489a54" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_CLKOUT_RANGE2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aac1cc59c14920d6ace2f2dc1fb3bee07" kind="define"><name>XHDMIPHY1_GTHE4_DRP_QPLLx_CLKOUT_RANGE3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a79ba153a84057965838dab2a79ee2433" kind="define"><name>XHDMIPHY1_GTHE4_DRP_Q_TERM_CLK_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a987f3aecf6688cf6b3e5c76cc72bec83" kind="define"><name>XHDMIPHY1_GTHE4_DRP_Q_TERM_CLK_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aaadf5c1eeafde6f7a34e976731fe4016" kind="define"><name>XHDMIPHY1_GTHE4_DRP_Q_TERM_CLK_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5e72d0c0ad551c4532a61b6dcb3fd070" kind="define"><name>XHDMIPHY1_GTHE4_DRP_Q_DCRNT_CLK_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a3e414d216e4620e81546a83234cd9141" kind="define"><name>XHDMIPHY1_GTHE4_DRP_Q_DCRNT_CLK_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a6448aefc0fa0184a418bb7b9ac509aba" kind="define"><name>XHDMIPHY1_GTHE4_DRP_Q_DCRNT_CLK_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a09128520cc67382be4491b4e48462e54" kind="define"><name>XHDMIPHY1_GTHE4_DRP_LINERATEKHZ_1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a3dff71cdcdbb055d83ba34e30b2e26cd" kind="define"><name>XHDMIPHY1_GTHE4_DRP_LINERATEKHZ_2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a065d14b1d17dfeba04dadf97f26e1d65" kind="define"><name>XHDMIPHY1_GTHE4_DRP_LINERATEKHZ_3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a3c8003cbb222d3c3f50b77eeaf02901f" kind="define"><name>XHDMIPHY1_GTHE4_DRP_LINERATEKHZ_4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aed22423ecc9e4a12aaef3d6bf0bfed45" kind="define"><name>XHDMIPHY1_GTHE4_DRP_LINERATEKHZ_5</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ada5336ae2cdb5aaa24881d9dacbaf52d" kind="define"><name>XHDMIPHY1_GTHE4_DRP_LINERATEKHZ_6</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a791fe215bb338c22c5bf9d43662308b3" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXCDR_CFG_WORD3_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7d9c9e00d521bd773ef97c9f682fdc80" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXCDR_CFG_WORD3_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5fcda2c48ea9d25538006ad384e10a25" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXCDR_CFG_WORD3_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a795929d5f01959835d12a4033787e1fc" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PREIQ_FREQ_BST_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab4a19ee6aa99faae3d33b2154331d0a7" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PREIQ_FREQ_BST_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a6b03542f77c984461cae17e0dc2ff1cf" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PREIQ_FREQ_BST_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af62b431f1555cc918f8edf7659dc7a5e" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ada9d78d0927e63c0106dff6c1fc8f54c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a218fd3afbb87c79c0dc8d48ebc1422d0" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5beffd2fa45acc0e2828d915465e3be5" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a21ebcb36c81ce5c9ee9e4261f5e1ea5d" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE5</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a9ff4c90a788554c7da387c78e0b98ac8" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE6</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac8f947fb21dd0dd9263f387c8570a18c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE7</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ae68c759db9b946b5937a4eee550a329f" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE8</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5c9fa6458c458ae357f4caf95567304b" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE9</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa4aedfb3a0b4fb724a14c073efe922b9" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE10</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1abf918e1cd4414c7c5af718ca7f2cd742" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE11</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af15e54ec62d77c5bcd583fe8f98b1dd4" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE12</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a80b35d50712de6acf0f08e93db8d1e80" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE13</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1abe0e69d2ce7bd68c3e9f36bc74eef39e" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE14</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a4b8f0cfd668c316f8146203503b7f816" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE15</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af0fef4ab88b5b11c0638feea4a4203ce" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE16</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0a5285eaadb4b590ce5495143c3f56a0" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE17</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac1bda761d760101ab39ffcf30c365edf" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_RANGE18</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7a1c72eec92c4f34fd05f6c9c4ba38fa" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0e7b5addc4711fd92a0edc092edb7259" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a87e1fbb039c6b6bdd9f95dbe6d4a6635" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad01fc2c6d28aa1ed502afb21b36c7839" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a2f80bcdc916cdda31c94c33220464ece" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL5</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5648eaa589cc35733a91b547199034dc" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL6</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab588d3414e2415ec75ee6376e0a1fe9d" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL7</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a5b25f6d0da7fda3b271f61c990814b03" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL8</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a2120ced42b05651f5150db3ab84fd6b6" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL9</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7a5016eafca7895b14b6c61f55a6af2c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG0_VAL10</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a66f9e17163515a09053ef91cac1b07e5" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG1_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac8bf9bdea8e4f667719e2ae7bbeb7e6c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG1_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a841a59b9245d54e4932cd186eb26c864" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG1_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af65a38b741001be730f7e35422d4630b" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG1_VAL4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af2c5d8fb510dfe4188a8e4f16d30ba1d" kind="define"><name>XHDMIPHY1_GTHE4_DRP_RXPI_CFG1_VAL5</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab269a6e4cf650b2d86a5bb2eeaf7b015" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPH_CFG_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa0f04b1a1226f79ffe9ffffbe0ad55af" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPH_CFG_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ab345598c87c0af63bffad876f254547f" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a65b08d74b5b670469de96763c5cf0d1e" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1af6b6495f3378c933c01427f00d19cdf1" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a91dc2d0131038783806637b36f49c87d" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG3_CFG4_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad4caa6301414bfcb628ea55387fb037d" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG3_CFG4_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a142f68fea31998e16d86c24b8db9958c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG3_CFG4_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a09a9da3f912a1903e7c32d74e7b11f70" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_CFG3_CFG4_VAL4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7f01dc393a294bd638fa49e12af2809c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_BIASSET_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a3d05ee322a5a2388688a766606258a19" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_BIASSET_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a84e522effd49e43baaefaf4cae187d19" kind="define"><name>XHDMIPHY1_GTHE4_DRP_TXPI_BIASSET_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a223f55d723a3fd78f0ab6a7cc636c49c" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CH_HSPMUX_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a251595ef64b2fc3de1e4e53b6a506ad8" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CH_HSPMUX_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a43ad197e1c372d615a101bbff344e510" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CH_HSPMUX_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad8dfba6d753f5e2cec2d40342736c968" kind="define"><name>XHDMIPHY1_GTHE4_DRP_CH_HSPMUX_VAL4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a65f3cd4074d32fecd05d26f65e71e177" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLL_CLKOUT_DIV_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aff3a991cf66f31973444b288ef1f1272" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLL_CLKOUT_DIV_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7e825650d34d88a2420da972e6913b42" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_VAL1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0c568a438241d84c8e3d7012fc854849" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_VAL2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a59b1b76c931ddd8663429cb1a43671b8" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_VAL3</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1acbbe119934946454f2313709b6b3bedf" kind="define"><name>XHDMIPHY1_GTHE4_DRP_PLLx_CLKOUT_VAL4</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a04974e5f60aea3ea3a351da5eb846d03" kind="define"><name>XHDMIPHY1_QPLL0_MIN</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a41d0ed4ada08807ef3966c80f255200e" kind="define"><name>XHDMIPHY1_QPLL0_MAX</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a990184647889d91ebdbb620fc34d9724" kind="define"><name>XHDMIPHY1_QPLL1_MIN</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a42bc4bb224b270b309add2c06353f382" kind="define"><name>XHDMIPHY1_QPLL1_MAX</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a94aa712008871d0a9021f83c5800c1bc" kind="define"><name>XHDMIPHY1_CPLL_MIN</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac064df427cf6fa9f3e6d4018295dc268" kind="define"><name>XHDMIPHY1_CPLL_MAX</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7908b8c393c8eb7bfe413d751598a01f" kind="variable"><name>XHdmiphy1_Gthe4CpllDivsM</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7375775f4c83c771e460081e01cac1f0" kind="variable"><name>XHdmiphy1_Gthe4CpllDivsN1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a81d6225a4801ff48f9e5c468f68a2739" kind="variable"><name>XHdmiphy1_Gthe4CpllDivsN2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a121158f0549f3bd6cf8f4d5e6a6e70df" kind="variable"><name>XHdmiphy1_Gthe4CpllDivsD</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a1203a5abe8746d1b8a28470b27af65b8" kind="variable"><name>XHdmiphy1_Gthe4QpllDivsM</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a4e395a3a89bc83727b4f929f540d1120" kind="variable"><name>XHdmiphy1_Gthe4QpllDivsN1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a651aa78d6465d96ef185648e30ebb074" kind="variable"><name>XHdmiphy1_Gthe4QpllDivsN2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a8391487a8908e92ae2e303aead9db709" kind="variable"><name>XHdmiphy1_Gthe4QpllDivsD</name></member>
+    <member refid="group__xhdmiphy1_1ga608437a52460adcb9c83fb0417e17a95" kind="variable"><name>XHdmiphy1_Gthe4Config</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a0f6430a3d9e4441b5604bbf5640ed317" kind="function"><name>XHdmiphy1_MToDrpEncoding</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a50ab62d162277caba9bcd9355134bd55" kind="function"><name>XHdmiphy1_NToDrpEncoding</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a8cab3df22ee56279fd2830773a144de8" kind="function"><name>XHdmiphy1_DToDrpEncoding</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad11cca47f2850ea23bce8fc41995b28d" kind="function"><name>XHdmiphy1_DrpEncodeQpllMCpllMN2</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a07803c767b1d0eb2b4595b26996b26ed" kind="function"><name>XHdmiphy1_DrpEncodeCpllN1</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a40257bea521d15b274da0baa7df5ad30" kind="function"><name>XHdmiphy1_DrpEncodeCpllTxRxD</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a05e9991a4e89005baf640d7fa08ee9e2" kind="function"><name>XHdmiphy1_DrpEncodeQpllN</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a102289966a9fed2bd70ff1007e5d98c1" kind="function"><name>XHdmiphy1_DrpEncodeDataWidth</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1aa7bd9e00aa5c3f94545c6f6e30dba9be" kind="function"><name>XHdmiphy1_DrpEncodeIntDataWidth</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a7f32d648d6ffdb2c97284dcebc39dc1b" kind="function"><name>XHdmiphy1_DrpEncodeClk25</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a8995efc4116877ab5ce5a473a614ab20" kind="function"><name>XHdmiphy1_Gthe4CfgSetCdr</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1adc7020538f5d05def280dbcea1744416" kind="function"><name>XHdmiphy1_Gthe4CheckPllOpRange</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a262eb966803baec8062404095e060d68" kind="function"><name>XHdmiphy1_Gthe4OutDivChReconfig</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a33a45c7fbabcd4bd071a09e616e7cba0" kind="function"><name>XHdmiphy1_Gthe4ClkChReconfig</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a141a02f2f009a559f151667b0f333d12" kind="function"><name>XHdmiphy1_Gthe4ClkCmnReconfig</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ac5178dd25f80435558a1d57a623f969c" kind="function"><name>XHdmiphy1_Gthe4RxChReconfig</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ad66c428a45d39b510565161bead5350b" kind="function"><name>XHdmiphy1_Gthe4TxChReconfig</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1a813c86ed499d6d5d4f10a6ca1592ccfe" kind="function"><name>XHdmiphy1_Gthe4TxPllRefClkDiv1Reconfig</name></member>
+    <member refid="xhdmiphy1__gthe4_8c_1ae9adb4e8b04ce590215a9e6bd2aabd89" kind="function"><name>XHdmiphy1_Gthe4RxPllRefClkDiv1Reconfig</name></member>
+    <member refid="group__xhdmiphy1_1gaa7e1f1d8d20f17c34f32d7a026081696" kind="function"><name>XHdmiphy1_Gthe4CfgCpllCalPeriodandTol</name></member>
   </compound>
   <compound refid="xhdmiphy1__gtye4_8c" kind="file"><name>xhdmiphy1_gtye4.c</name>
+    <member refid="xhdmiphy1__gtye4_8c_1a33fc2f9b234a9d08a593697fff3351b6" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a5cab246c589cf293d6369272a7c20b10" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG_GEN3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aafc0bc35d22ce4c58b41dd492cd9d53c" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG2_GEN2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a78a5277fc0152b5f0be24161f31424be" kind="define"><name>XDRP_GTYE4_CHN_REG_0028</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac32f0e0b4cc5f11da8bc5196e6c3dbca" kind="define"><name>XDRP_GTYE4_CHN_REG_002A</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a498f58752ea4bb213d009f691cc588a7" kind="define"><name>XDRP_GTYE4_CHN_REG_0063</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1affce0041df3bf1342728b85fbc79af01" kind="define"><name>XDRP_GTYE4_CHN_REG_006D</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a9db1d048c28300fcae0ece5aa84a046e" kind="define"><name>XDRP_GTYE4_CHN_REG_007A</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8258f9c865a3157c185e5e09fd5386a2" kind="define"><name>XDRP_GTYE4_CHN_REG_007C</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a2e84555e6b81210b9ec5d0f1d365d4e0" kind="define"><name>XDRP_GTYE4_CMN_REG_0094</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1acccb94aea239c2dd6555f326c7a90a04" kind="define"><name>XDRP_GTYE4_CMN_REG_0098</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a49fcf824317baf69ad2a9bc20ff3a7c5" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG_WORD0</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a642aa1b208b48e81cc428c62d61391dc" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG_WORD1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a358efbaf07f4f51568506d92ef023c72" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG_WORD2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a20484e7cc3ed62bf389bf12f3a967358" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG_WORD3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4387ba7973fc0465a657df3208676dcf" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXCDR_CFG_WORD4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1afddd83553716e266d9004f469fc74ec4" kind="define"><name>XDRP_GTYE4_CHN_REG_009F</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4e3a16ba5c99ec04cef28d3344ab8c69" kind="define"><name>XDRP_GTYE4_CHN_REG_00A0</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a07e526e5ed2072f24b4838e979b62e7b" kind="define"><name>XDRP_GTYE4_CHN_REG_00B5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac760fd55bb73df98e1bb1e153b031e23" kind="define"><name>XDRP_GTYE4_CHN_REG_00DD</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1adb38a7195eff44e4cb0819aa3f11a34c" kind="define"><name>XDRP_GTYE4_CHN_REG_0092</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a863ef056178ea09ef43f41e16a4ccb6a" kind="define"><name>XDRP_GTYE4_CHN_REG_00D3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a5dec3f27a6524ac6f6ac9ff51f67e2ce" kind="define"><name>XDRP_GTYE4_CHN_REG_0066</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1f42c9c2f72a17023b0b6e9ee332756c" kind="define"><name>XDRP_GTYE4_CHN_REG_0003</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4b9d3ff9b965c8e28500e629691aa8f7" kind="define"><name>XDRP_GTYE4_CHN_REG_0116</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad442189679880308f689e3fb8b1d971d" kind="define"><name>XDRP_GTYE4_CHN_REG_00FB</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1afe0f2949857788643d7359aa12364e" kind="define"><name>XDRP_GTYE4_CHN_REG_0075</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3a85ba9605cb81e2ca10174c50eef649" kind="define"><name>XDRP_GTYE4_CHN_REG_00D2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a372930b6b2aae60c577045eccb58008f" kind="define"><name>XDRP_GTYE4_CHN_REG_0057</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab421f23bf2e0ef945e4f7792b7a98e95" kind="define"><name>XDRP_GTYE4_CHN_REG_0085</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a9db1d048c28300fcae0ece5aa84a046e" kind="define"><name>XDRP_GTYE4_CHN_REG_007A</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a99f8f6783813b4d9579973f4b6313654" kind="define"><name>XDRP_GTYE4_CHN_REG_008F</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a36814870d9b319836e5b60448ca284e6" kind="define"><name>XDRP_GTYE4_CHN_REG_00A7</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aeb3aad791780ae96c180bbccaccc1e22" kind="define"><name>XDRP_GTYE4_CHN_REG_00A8</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad442189679880308f689e3fb8b1d971d" kind="define"><name>XDRP_GTYE4_CHN_REG_00FB</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1198875833c7edfce6ec161fdd5ab82f" kind="define"><name>XDRP_GTYE4_CMN_REG_0014</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ada024dfd72587b02295cbd1fe53c976e" kind="define"><name>XDRP_GTYE4_CMN_REG_0018</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1c21f18bb6d03a32036cf717aadb3850" kind="define"><name>XDRP_GTYE4_CMN_REG_000D</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1eff4f56beee2391c0498b545df8272c" kind="define"><name>XDRP_GTYE4_CMN_REG_008D</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aab36850caf37fca39411a892c4b14edd" kind="define"><name>XDRP_GTYE4_CMN_REG_0008</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aad790e8af6702f8d0e41fc8863cb0aa9" kind="define"><name>XDRP_GTYE4_CMN_REG_0088</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a06ea9c4f3ecb125f1a77cb1185cca064" kind="define"><name>XDRP_GTYE4_CMN_REG_0011</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aadb3f1114de1d4d243ad61d9ff06fbc0" kind="define"><name>XDRP_GTYE4_CMN_REG_0091</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a209ac9d8f2cd9d8aa193e995dc89771f" kind="define"><name>XDRP_GTYE4_CMN_REG_001B</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab648ecd5d0d3290c6bf547e7c3ef339d" kind="define"><name>XDRP_GTYE4_CMN_REG_009B</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab3b6ca270d4bd823a46f899edbe21221" kind="define"><name>XDRP_GTYE4_CMN_REG_0019</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac3bfb410c1aa3cd39ff802e7b08eed72" kind="define"><name>XDRP_GTYE4_CMN_REG_0099</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a249467ecdcceea38dac1ae024f94a8b8" kind="define"><name>XDRP_GTYE4_CMN_REG_0030</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ace5960c726a43dff19a79e611502e54a" kind="define"><name>XDRP_GTYE4_CMN_REG_00B0</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1afffc01cc2458078f5fe263781127264f" kind="define"><name>XDRP_GTYE4_CHN_REG_0063_RXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1c27fbb2171f31059b8ac5a19eab6e70" kind="define"><name>XDRP_GTYE4_CHN_REG_0063_FLD_RXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a0c762e7d21922c4171e5c55110355fc9" kind="define"><name>XDRP_GTYE4_CHN_REG_007C_TXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab43b24470536c5f5f9582a4669f1b860" kind="define"><name>XDRP_GTYE4_CHN_REG_007C_FLD_TXOUT_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8d5b4d4243f8325ea37c01db0e7243f8" kind="define"><name>XDRP_GTYE4_CHN_REG_0028_FLD_CPLL_FBDIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a416aad086a3e805b6fcf42757052b0fb" kind="define"><name>XDRP_GTYE4_CHN_REG_0028_CPLL_FBDIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac9a75ccab0a6220b17ab138bbd7d0078" kind="define"><name>XDRP_GTYE4_CHN_REG_0028_FLD_CPLL_FBDIV_45_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8a98538e88edfad1e5ae0da94a250345" kind="define"><name>XDRP_GTYE4_CHN_REG_002A_CPLL_REFCLK_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a39225f7feed983486af54e63fa47f357" kind="define"><name>XDRP_GTYE4_CHN_REG_002A_FLD_A_TXDIFFCTRL_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a7b5e46e61ff418b6d281150d16840ff0" kind="define"><name>XDRP_GTYE4_CMN_REG_0014_QPLLx_FBDIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a613430cdca95a48066c5a6b154d7b0d4" kind="define"><name>XDRP_GTYE4_CMN_REG_0014_FLD_QPLL0_INIT_CFG1_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aaf78e6aa9f1877fbf03730ef5764efdf" kind="define"><name>XDRP_GTYE4_CMN_REG_0018_QPLLx_REFCLK_DIV_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1adece7cd068afee1288d2329d320bc8d9" kind="define"><name>XDRP_GTYE4_CHN_REG_0116_CH_RX_HSPMUX_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a638a996d1bb263fce79960f59e44b01e" kind="define"><name>XDRP_GTYE4_CHN_REG_0066_RX_INT_DATAWIDTH_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a307eb7b9589007f60d30d9377223bbb5" kind="define"><name>XDRP_GTYE4_CHN_REG_0066_RX_WIDEMODE_CDR_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a42ba5b53cac2fbbf8d3ba2bc65e1dae9" kind="define"><name>XDRP_GTYE4_CHN_REG_0011_RXCDR_CGF2_GEN2_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3a76556b6ac9099fd76615794687a7d4" kind="define"><name>XDRP_GTYE4_CHN_REG_0003_RX_DATAWIDTH_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ae379591126fa0fcfe0e3ea092ff6025d" kind="define"><name>XDRP_GTYE4_CHN_REG_00FB_PREIQ_FREQ_BST_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a6565955984d5a114c311f158c9785755" kind="define"><name>XDRP_GTYE4_CHN_REG_00FB_TXPI_BIASSET_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac2ceff0534c38a6fe7b8cf358508e702" kind="define"><name>XDRP_GTYE4_CHN_REG_0116_CH_TX_HSPMUX_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab5063f25bed7f9b1b8e296d105f69fb4" kind="define"><name>XDRP_GTYE4_CHN_REG_007A_TXCLK25_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a2267374a4f81d925eb57f8759722e776" kind="define"><name>XDRP_GTYE4_CHN_REG_006D_RXCLK25_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a74736a12b5f710709dfa9eca3e85e5b7" kind="define"><name>XDRP_GTYE4_CHN_REG_00DD_RTX_BUF_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa067c62592c706f296ab3bd58b4e0e0c" kind="define"><name>XDRP_GTYE4_CMN_REG_0018_QPLLx_REFCLK_DIV_VAL</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a11b6fe61fca804b91b759b596f400c7f" kind="define"><name>XDRP_GTYE4_CHN_REG_00D3_RX_MODE_SEL_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1adf034e2a268c3556f7484a8e1a1890f9" kind="define"><name>XDRP_GTYE4_CHN_REG_0066_RX_WIDEMODE_CDR_MASK_VAL</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aeba2fbc1d212a7a3a3444992cf2e2e7a" kind="define"><name>XDRP_GTYE4_CHN_REG_007A_TX_DATA_WIDTH_MASK</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a523830824740ce77a5651bed2de722d7" kind="define"><name>XHDMIPHY1_GTYE4_RXCDR_CFG_WORD0</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac7d95e0ae758f1ce956af1862e5e2e97" kind="define"><name>XHDMIPHY1_GTYE4_RXCDR_CFG_WORD1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3f88f6aae272b2a3e9c47d8af85e4f79" kind="define"><name>XHDMIPHY1_GTYE4_RXCDR_CFG_WORD2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ace19a3fdc2d237cb8e49c74232b744c4" kind="define"><name>XHDMIPHY1_GTYE4_RXCDR_CFG_WORD2_RXDIV</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a2a06876e38c3b7fbc807f7bf69edf947" kind="define"><name>XHDMIPHY1_GTYE4_RXCDR_CFG_WORD3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a63bd6c843b91c70549ddb6f2fbcf6663" kind="define"><name>XHDMIPHY1_GTYE4_RXCDR_CFG_WORD4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1abf635ddc298f8c6ba872a12dd64084e9" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_VCO_RANGE1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad6f72f11afea290b7ad1896f733ab192" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_VCO_RANGE2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa6b0de1bdf20d5296856021cb60eff3c" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG0_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af9bbe5a3c37f34f0aa2c19828bc1ee71" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG0_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ae71eab12d2eeeb5ea4fa98a8074f4f52" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG0_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a03726152031291fe800ade6f997b4547" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG1_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a035ed61477ec4cc71c4f4a4cd573cc26" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG1_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a97f816df4be4e35f348606a72931e9ef" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG1_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a33d6748f91a7d8453658f572e49da80c" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG2_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4aa45b7d3cbc32ed9d918e7bd2c23edd" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG2_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a2904e401d8e498ad50c099049cd85861" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CPLL_CFG2_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a83051a8560e63ee3bce44f6a2c49a98d" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8f979ddcc9d06ee0d79149c6ee620431" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad33c1e5c52ac86b1656bb9d6481f6d2b" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a89af7e32e276315949045c2c447256bf" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac63db1656b466233e16561984a0e6cd6" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a46909c5f2977c8bcd5344bd4f6f14049" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a839ea3a0e18ae9e6536f54df594dcc3b" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE7</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1096567352ed1aa049c670f55c9b27de" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE8</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a840a327efb0570c468c719cf3796f999" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE9</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a139552b37af384d27bae5192a593ca72" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE10</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1add5bd5c4a933e73c4e441e6aaee5d202" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE11</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3b1830e5245e47f7fad11fba553653ba" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE12</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aebdbec6e35cc31bce82528ced7d420b0" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_RANGE13</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a46e098c8eaae3dec2a4c12724814051e" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a6adacde9feab201f5a2e1b882f814dad" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a2a07fafefb71dcc6d3bf42bbf7279c4b" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab2779e35569c32a93e20a438ce354adf" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4041320773bc2155429f26156eb33a63" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ae7ae3c14386185c2ed6073c476225501" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aeb710eab8b8c6bd4806dba133377b23e" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE7</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a50c12a8ab6c267930474f1802d1f620a" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_VCO_RANGE8</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a701257a03c2b6f0c293e1448f8b58a8a" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PPFx_CFG_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a65cc27cb430f17e63bc81d1ed7c062e2" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PPFx_CFG_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a9c25e5aa147f73ba528a898800862fa9" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PPFx_CFG_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a7c056b934fa4da052bfb25fd2151f130" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PPFx_CFG_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac330aee38f8fc3c88ba90bae3782ac62" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PPFx_CFG_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af0ddf30f131260e9d8b42ea83878dfd5" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PPFx_CFG_VAL6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab9420389e6ff121cb81c200a2ca09de9" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG0_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac84c9b62081711ebbb08f678d9b9b7ca" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG0_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac435d5f6f293d527bf308313561c1b53" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG23_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8c40d373ade04796dd800d15bcf4d6aa" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG23_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af0081d934b264ed74747d590aa23b410" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG23_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4d3e368f72196939352ffeabb9be7db5" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a71458dffb728353731f554e2285a8662" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a44cdf29eaa618bd271751cd2eeea672b" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a29358506840b9b2c860cfbb63f777c8e" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a505195341b42cb889587fb0e7693e0ec" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a882884f56c5fc7b6bac040b0f877e6b9" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a84bae63e76bf31ae5a5caebee44ffdd8" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL7</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a21f3509bb35c2b3f0546674226fc9fe1" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL8</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa86ddd3cbf25d1673ac950374bd295aa" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_LPF_VAL9</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3b6b0c1b2c8b9cfe9262adc508ec9ec6" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CLKOUT_RANGE1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8fdacf8a5b6682780992d9b95b97e051" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CLKOUT_RANGE2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8b398a335da866e79416d1b8073bb98b" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CLKOUT_RANGE3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a92a766e0dadd77739b683957146e439a" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CLKOUT_RANGE4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a882438e7505f21513a7a843a7b60faf6" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG4_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad08132aad57bd336a15d2f361bf20809" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG4_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a874d74ea8c20073db6229c6f3b01e113" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG4_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a6c068a7b0832df8ee234bbe3ab3a2971" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG4_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af1778c52e46c9ce33838d6dc216a6920" kind="define"><name>XHDMIPHY1_GTYE4_DRP_QPLLx_CFG4_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a746c36f0bb3b79f811a0d114303dcb7c" kind="define"><name>XHDMIPHY1_GTYE4_DRP_LINERATEKHZ_1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a19e05d80fd64e4be1a81a601aa3d7957" kind="define"><name>XHDMIPHY1_GTYE4_DRP_LINERATEKHZ_2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a9ea39a5e72395817418815c321b105fa" kind="define"><name>XHDMIPHY1_GTYE4_DRP_LINERATEKHZ_3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4d6c1aee220f4afb9640af8d5f924488" kind="define"><name>XHDMIPHY1_GTYE4_DRP_ADAPT_CFG1_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a25224f747de8fc0385cf60a24c3a866d" kind="define"><name>XHDMIPHY1_GTYE4_DRP_ADAPT_CFG1_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa38e3c277e4619071a37698c20a6d364" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_HSPMUX_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a1b8daeafd381227fd073dc3cb6920e5e" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_HSPMUX_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8c9bb32daa522070a0cedbc9e36e9740" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_HSPMUX_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3f193c28be97a82fa4d87b3190192626" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_HSPMUX_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ae35fb73cd1b2b9a7255cd82eb50d3cae" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_HSPMUX_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a474328355051cfab0b51b9a83c3b6d4f" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8611e574508d52c9467304c2c01012c5" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aeb72048893c180b971bd59b5e540ec73" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a59afa05b9403cc1507a07ef1fecd28d9" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a5f44bc6cd67f0eeb7ab1ddd24f525027" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a0303cd5348cacac3599c0a807741a3d4" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af0373360521dea9250bf61ac56c8761f" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL7</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a167247029cb261db4d4f1c57579d3c3d" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL8</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a0a81c61b5890c5151f2a8d57601c64fa" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL9</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa02f8d42ea2a422c011f11bbfda49cc7" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL10</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a93436e43212de3d434f00f9f8e21fe05" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL11</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1abc53952ce017b1f5244c0d5381b88a62" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL12</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad76b7b8cc8b78ebc37a943e65a786fc3" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL13</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af9b69f5cbac819afae43f4301a058891" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL14</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3dbcfa6260a52b2a52962fb85f0911b5" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL15</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a31cebd8a1239b0ebcb97fc6956ae78ad" kind="define"><name>XHDMIPHY1_GTYE4_DRP_RXPI_CFG0_VAL16</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a391fcc287152ce7a654df164209e3c93" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af95b9d99bce8407a4a6f766fb9e89c87" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a559b907feb14fb144b8cd6151f30807b" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG0_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a42b3ef657bd38a75b9eb1d537588c38e" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG0_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a5a88f7e216ea7887bcaf2f5e75760518" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG0_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a4eb2ada01a0f2ed12f45f7b319a6afd6" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG0_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1adc0accc28a4f38e4b87c5e46fd90cc52" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG0_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1adc02d357435dbee28cd3d229e408d123" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPH_CFG0_VAL6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8797f97163898bed2522f01103343373" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a85aca91aa28fcc0a00097386895a0072" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1abf51eb5ff6784ecb052379a67abf98a0" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a93ba44783ea0e901a8cffc03a245b688" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aac7f3997fe949c51e0c07a2acdc5c126" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aaf32f928dd281c2c19685f475bc0320d" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL6</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a5fb923512c7764d30adc0bd66b3633db" kind="define"><name>XHDMIPHY1_GTYE4_DRP_TXPI_CFG1_VAL7</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1af5939e670a63e5619d2eef10c6168406" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_TX_HSPMUX_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1acaef6faf6cbd9f6f83897688ad898359" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_TX_HSPMUX_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a17b83a0611e0719029b09e3bddff44b8" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_TX_HSPMUX_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3e46a8ec4aedef14a937db3240fd183d" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_TX_HSPMUX_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a124eb5190a4d52f86c43aabb79a8d645" kind="define"><name>XHDMIPHY1_GTYE4_DRP_CH_TX_HSPMUX_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a049dac73ce66eb885a05a7ddefb4d7b5" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLL_CLKOUT_DIV_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac85bd336240d78200622e2a7a0f2ea3e" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLL_CLKOUT_DIV_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a563abbfdd27ca8eb6cad2993daf2ec46" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_VAL1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a457e0381b246a2a8cefca84319399fd0" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_VAL2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab3a7d128cd60e0a6d963771d0ea5840a" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_VAL3</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ae49978f5ac49c5b97affb8aa51ba0c40" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_VAL4</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a642e6631de7fdc4f615efa774267e63c" kind="define"><name>XHDMIPHY1_GTYE4_DRP_PLLx_CLKOUT_VAL5</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a04974e5f60aea3ea3a351da5eb846d03" kind="define"><name>XHDMIPHY1_QPLL0_MIN</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a41d0ed4ada08807ef3966c80f255200e" kind="define"><name>XHDMIPHY1_QPLL0_MAX</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a990184647889d91ebdbb620fc34d9724" kind="define"><name>XHDMIPHY1_QPLL1_MIN</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a42bc4bb224b270b309add2c06353f382" kind="define"><name>XHDMIPHY1_QPLL1_MAX</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a94aa712008871d0a9021f83c5800c1bc" kind="define"><name>XHDMIPHY1_CPLL_MIN</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ac064df427cf6fa9f3e6d4018295dc268" kind="define"><name>XHDMIPHY1_CPLL_MAX</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a60229cb367c073230f71f66bac15a974" kind="variable"><name>XHdmiphy1_Gtye4CpllDivsM</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a9f040c497f5f6cd0d74434312f37fd58" kind="variable"><name>XHdmiphy1_Gtye4CpllDivsN1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa030b850cece72f78dc7ced51fada60c" kind="variable"><name>XHdmiphy1_Gtye4CpllDivsN2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a78a8d1fb07f25a46fad3e8af0dfde221" kind="variable"><name>XHdmiphy1_Gtye4CpllDivsD</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ab666ee4f0ad975f58b3da65b59ef4682" kind="variable"><name>XHdmiphy1_Gtye4QpllDivsM</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a00dc5d056759a6d3e1fb170b5928a86a" kind="variable"><name>XHdmiphy1_Gtye4QpllDivsN1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad7f3f3e299af2b507d9a30da7057718b" kind="variable"><name>XHdmiphy1_Gtye4QpllDivsN2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3299e3a174ae9358cf80b94b53551967" kind="variable"><name>XHdmiphy1_Gtye4QpllDivsD</name></member>
+    <member refid="group__xhdmiphy1_1gaa682389c08bb45cebf87329d61751939" kind="variable"><name>XHdmiphy1_Gtye4Config</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a0f6430a3d9e4441b5604bbf5640ed317" kind="function"><name>XHdmiphy1_MToDrpEncoding</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a50ab62d162277caba9bcd9355134bd55" kind="function"><name>XHdmiphy1_NToDrpEncoding</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8cab3df22ee56279fd2830773a144de8" kind="function"><name>XHdmiphy1_DToDrpEncoding</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1ad11cca47f2850ea23bce8fc41995b28d" kind="function"><name>XHdmiphy1_DrpEncodeQpllMCpllMN2</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a07803c767b1d0eb2b4595b26996b26ed" kind="function"><name>XHdmiphy1_DrpEncodeCpllN1</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a40257bea521d15b274da0baa7df5ad30" kind="function"><name>XHdmiphy1_DrpEncodeCpllTxRxD</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a05e9991a4e89005baf640d7fa08ee9e2" kind="function"><name>XHdmiphy1_DrpEncodeQpllN</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a102289966a9fed2bd70ff1007e5d98c1" kind="function"><name>XHdmiphy1_DrpEncodeDataWidth</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1aa7bd9e00aa5c3f94545c6f6e30dba9be" kind="function"><name>XHdmiphy1_DrpEncodeIntDataWidth</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a7f32d648d6ffdb2c97284dcebc39dc1b" kind="function"><name>XHdmiphy1_DrpEncodeClk25</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1afa024a6d7df6cc801eaa00bdb503c422" kind="function"><name>XHdmiphy1_Gtye4CfgSetCdr</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a7d5c98698165cdd2af41e63101dae5d1" kind="function"><name>XHdmiphy1_Gtye4CheckPllOpRange</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1addc85fe8b76f999d95d96221ec41d356" kind="function"><name>XHdmiphy1_Gtye4OutDivChReconfig</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a5915f9ff27b8e0183268a410d46a6ada" kind="function"><name>XHdmiphy1_Gtye4ClkChReconfig</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a77cc5b174e73fe6bed3d3d0a208832f4" kind="function"><name>XHdmiphy1_Gtye4ClkCmnReconfig</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a3243c88d37a60dc005b8db9bd36239ea" kind="function"><name>XHdmiphy1_Gtye4RxChReconfig</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a8eb1353647eaaae99b3549cefba088ff" kind="function"><name>XHdmiphy1_Gtye4TxChReconfig</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1a158e5a059539c81b1ad21eab4e722c50" kind="function"><name>XHdmiphy1_Gtye4TxPllRefClkDiv1Reconfig</name></member>
+    <member refid="xhdmiphy1__gtye4_8c_1abc20bc03ff4b99355255ee719552ea18" kind="function"><name>XHdmiphy1_Gtye4RxPllRefClkDiv1Reconfig</name></member>
+    <member refid="group__xhdmiphy1_1ga97c464a7ee31e018574dc69b97ff06da" kind="function"><name>XHdmiphy1_Gtye4CfgCpllCalPeriodandTol</name></member>
   </compound>
   <compound refid="xhdmiphy1__gtye5_8c" kind="file"><name>xhdmiphy1_gtye5.c</name>
+    <member refid="xhdmiphy1__gtye5_8c_1aeefd17fe6fb8045a24378d382f4c014e" kind="define"><name>XHDMIPHY1_LCPLL_MIN</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a7a6fdae6406768b486d0f7e65c7ae9a1" kind="define"><name>XHDMIPHY1_LCPLL_MAX</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1aff3362a49f40391bc3c34ed4ea11ed65" kind="define"><name>XHDMIPHY1_LCPLL_MIN_REFCLK</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a3ad8974492a626748ce32a099e45a0db" kind="define"><name>XHDMIPHY1_RPLL_MIN</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a523cef88f5df44f448c9a4b0d41ef76d" kind="define"><name>XHDMIPHY1_RPLL_MAX</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a0d6dd3cb95c1e7b1b872014911a8ca23" kind="define"><name>XHDMIPHY1_RPLL_MIN_REFCLK</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a2fe1561af30374e9e6ce54a49d8f4509" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_DRU_LRATE</name></member>
+    <member refid="group__xhdmiphy1_1ga7e28aaca7b8f8e3e8e3655454a463bc4" kind="variable"><name>Gtye5Config</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a32562d59f20b28527e47d52bb3471f95" kind="function"><name>XHdmiphy1_Gtye5RxChReconfig</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a47230036e3003338176d66eb2210fe32" kind="function"><name>XHdmiphy1_Gtye5TxChReconfig</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a74c259d6034c7d35f6559c6340326a11" kind="function"><name>XHdmiphy1_HdmiLcpllParam</name></member>
+    <member refid="xhdmiphy1__gtye5_8c_1a1ef3656db85c166a69ffc1da5182a433" kind="function"><name>XHdmiphy1_HdmiRpllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga52b36604d6bf80c9374b9c4a02222b5d" kind="function"><name>XHdmiphy1_Gtye5HdmiTxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga917ec6850c46daeeee11075e1abf4753" kind="function"><name>XHdmiphy1_Gtye5HdmiRxPllParam</name></member>
   </compound>
   <compound refid="xhdmiphy1__gtyp_8c" kind="file"><name>xhdmiphy1_gtyp.c</name>
+    <member refid="xhdmiphy1__gtyp_8c_1aeefd17fe6fb8045a24378d382f4c014e" kind="define"><name>XHDMIPHY1_LCPLL_MIN</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a7a6fdae6406768b486d0f7e65c7ae9a1" kind="define"><name>XHDMIPHY1_LCPLL_MAX</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1aff3362a49f40391bc3c34ed4ea11ed65" kind="define"><name>XHDMIPHY1_LCPLL_MIN_REFCLK</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a3ad8974492a626748ce32a099e45a0db" kind="define"><name>XHDMIPHY1_RPLL_MIN</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a523cef88f5df44f448c9a4b0d41ef76d" kind="define"><name>XHDMIPHY1_RPLL_MAX</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a0d6dd3cb95c1e7b1b872014911a8ca23" kind="define"><name>XHDMIPHY1_RPLL_MIN_REFCLK</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a9127759ea343d267ea9d3851c14bba5c" kind="define"><name>XHDMIPHY1_HDMI_GTYP_DRU_LRATE</name></member>
+    <member refid="group__xhdmiphy1_1ga6bc786a51716af5a18db9e71e56a6140" kind="variable"><name>GtypConfig</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1ae51c0726142f8ed4bf8c1fd5c88abda2" kind="function"><name>XHdmiphy1_GtypRxChReconfig</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1ab943ab5c2851141ca4f725d752df1627" kind="function"><name>XHdmiphy1_GtypTxChReconfig</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a74c259d6034c7d35f6559c6340326a11" kind="function"><name>XHdmiphy1_HdmiLcpllParam</name></member>
+    <member refid="xhdmiphy1__gtyp_8c_1a1ef3656db85c166a69ffc1da5182a433" kind="function"><name>XHdmiphy1_HdmiRpllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga1462e8fed128b5600a187d95c49432fe" kind="function"><name>XHdmiphy1_GtypHdmiTxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1gaf937fef39ec4a690dfa40d00e4ef994c" kind="function"><name>XHdmiphy1_GtypHdmiRxPllParam</name></member>
   </compound>
   <compound refid="xhdmiphy1__hdmi_8c" kind="file"><name>xhdmiphy1_hdmi.c</name>
+    <member refid="xhdmiphy1__hdmi_8c_1ac88c4792020f3df5b567b803750fff5a" kind="variable"><name>Gthe4HdmiChars</name></member>
+    <member refid="xhdmiphy1__hdmi_8c_1a8829bc3fd8463db05f63921f49d4f13f" kind="variable"><name>Gtye4HdmiChars</name></member>
+    <member refid="xhdmiphy1__hdmi_8c_1afa190773f34fa055c721cc1757ed9a62" kind="variable"><name>Gtye5HdmiChars</name></member>
     <member refid="xhdmiphy1__hdmi_8c_1a70ecb3c5614ea8c97c0bc56bd395ac2c" kind="function"><name>XHdmiphy1_Ch2Ids</name></member>
     <member refid="xhdmiphy1__hdmi_8c_1a5a4d1a9bb998b1299ae01a94115117a4" kind="function"><name>GetGtHdmiPtr</name></member>
     <member refid="xhdmiphy1__hdmi_8c_1a09c4088fdb96daa40fcbe7c0c2a79337" kind="function"><name>XHdmiphy1_HdmiSetSystemClockSelection</name></member>
     <member refid="xhdmiphy1__hdmi_8c_1a5ff5e5e04f684f7b45bac7fc9c05f850" kind="function"><name>XHdmiphy1_MmcmParam</name></member>
     <member refid="group__xhdmiphy1_1gaa15dd35a9b1670aab091738d3ecca9df" kind="function"><name>XHdmiphy1_Hdmi_CfgInitialize</name></member>
     <member refid="group__xhdmiphy1_1ga1d8702f582054727e5bafc4e6cf32739" kind="function"><name>XHdmiphy1_HdmiUpdateClockSelection</name></member>
-    <member refid="xhdmiphy1__hdmi_8c_1a355efb9fbbf8e3d0102738e912971bca" kind="function"><name>XHdmiphy1_TxAlignReset</name></member>
-    <member refid="xhdmiphy1__hdmi_8c_1a579cfbb41fbd51477dd902f9a1758826" kind="function"><name>XHdmiphy1_TxAlignStart</name></member>
+    <member refid="group__xhdmiphy1_1ga355efb9fbbf8e3d0102738e912971bca" kind="function"><name>XHdmiphy1_TxAlignReset</name></member>
+    <member refid="group__xhdmiphy1_1ga579cfbb41fbd51477dd902f9a1758826" kind="function"><name>XHdmiphy1_TxAlignStart</name></member>
     <member refid="group__xhdmiphy1_1gab2369998b0e4635bced93881e51cc8fe" kind="function"><name>XHdmiphy1_ClkDetEnable</name></member>
     <member refid="group__xhdmiphy1_1gac2f877b2581399c3344d1555d05df2df" kind="function"><name>XHdmiphy1_ClkDetTimerClear</name></member>
     <member refid="group__xhdmiphy1_1gac39e0926826a1e127514c8350ddcde21" kind="function"><name>XHdmiphy1_ClkDetFreqReset</name></member>
@@ -555,8 +1066,8 @@
     <member refid="group__xhdmiphy1_1ga4c7a948926fede8a6548c6cffe5fc830" kind="function"><name>XHdmiphy1_DruCalcCenterFreqHz</name></member>
     <member refid="group__xhdmiphy1_1gae9070f7158ccb8538edf80a5ec4c8da6" kind="function"><name>XHdmiphy1_HdmiGtDruModeEnable</name></member>
     <member refid="group__xhdmiphy1_1gafa361514e8315c25876867a1ded2c99b" kind="function"><name>XHdmiphy1_HdmiCfgCalcMmcmParam</name></member>
-    <member refid="xhdmiphy1__hdmi_8c_1a026bd874ba52e36d8f0e770b962543f9" kind="function"><name>XHdmiphy1_HdmiQpllParam</name></member>
-    <member refid="xhdmiphy1__hdmi_8c_1aefc037877ed6316c6995845442a31971" kind="function"><name>XHdmiphy1_HdmiCpllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" kind="function"><name>XHdmiphy1_HdmiQpllParam</name></member>
+    <member refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" kind="function"><name>XHdmiphy1_HdmiCpllParam</name></member>
     <member refid="group__xhdmiphy1_1ga69e679f0c4444350910817be69cde77c" kind="function"><name>XHdmiphy1_SetHdmiTxParam</name></member>
     <member refid="group__xhdmiphy1_1ga2bf27809a22eecc5194a8bad16261280" kind="function"><name>XHdmiphy1_SetHdmiRxParam</name></member>
     <member refid="group__xhdmiphy1_1gafe6529e3429c7199f87f7f8fc7f43fe0" kind="function"><name>XHdmiphy1_PatgenEnable</name></member>
@@ -590,11 +1101,15 @@
     <member refid="group__xhdmiphy1_1ga516448ce92a0250b852c4c66f2407deb" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_LCPLL_REFCLK_MIN</name></member>
     <member refid="group__xhdmiphy1_1gaa5d57573d8783382d640d669c7b9c5e3" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RPLL_REFCLK_MIN</name></member>
     <member refid="group__xhdmiphy1_1ga48db5eee223db776bc9c0f5e5b45cac6" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_SCALE</name></member>
-    <member refid="group__xhdmiphy1_1ga2ea90eaa073cbad4fd123dfa801977fc" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MIN</name></member>
-    <member refid="group__xhdmiphy1_1ga6b1d7c2f8b21fe52ad2bb93f9f5d353d" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MAX</name></member>
+    <member refid="group__xhdmiphy1_1gabc5f73be93460b58ab5a86b7957326e7" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MIN_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gacb29acd24ec69c49f1f8745ecbfb3b9e" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MAX_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga77f90c187d63b1dfa804d710ee0e55a2" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MIN_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga90e94e80dea8e372b3f71f77751c5363" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MAX_MMCM</name></member>
     <member refid="group__xhdmiphy1_1gaee2ba1598d6731a450aea00f1b2d652f" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_SCALE</name></member>
-    <member refid="group__xhdmiphy1_1gaacb48357f5b094786fc0239aa7221309" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MIN</name></member>
-    <member refid="group__xhdmiphy1_1gaf0313d71653f4d616c7a6bae595fd129" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MAX</name></member>
+    <member refid="group__xhdmiphy1_1gacd1649bec73dc5be89589757f8ff1e59" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MIN_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gac554216c3091059991405c6ecd90d660" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MAX_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gabbe30a667828b80a16118a4a9c958918" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MIN_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga31437b8f79df79d590b1e32651625df2" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MAX_MMCM</name></member>
     <member refid="group__xhdmiphy1_1ga8d14bde1620787a5748799eb6ecc6c0a" kind="define"><name>XHDMIPHY1_HDMI_GTYE4_DRU_LRATE</name></member>
     <member refid="group__xhdmiphy1_1ga63e2e6700695b36158f94b538f4fc80f" kind="define"><name>XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK</name></member>
     <member refid="group__xhdmiphy1_1gaa6652419434aac903be99322e28b3dee" kind="define"><name>XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK_MIN</name></member>
@@ -635,38 +1150,104 @@
     <member refid="group__xhdmiphy1_1ga90973dc6d3f8644aa7c30a83432613e2" kind="define"><name>XHDMIPHY1_HDMI_GTHE4_RX_MMCM_SCALE</name></member>
     <member refid="group__xhdmiphy1_1ga12a58310a2dea33f1d64085397c71655" kind="define"><name>XHDMIPHY1_HDMI_GTHE4_RX_MMCM_FVCO_MIN</name></member>
     <member refid="group__xhdmiphy1_1ga79ff8e4ce51eefa6686eac3d853ff01f" kind="define"><name>XHDMIPHY1_HDMI_GTHE4_RX_MMCM_FVCO_MAX</name></member>
-    <member refid="group__xhdmiphy1_1ga94d05ccf7482939ffdbcf0c8e44c47c5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT</name></member>
-    <member refid="group__xhdmiphy1_1ga05a2c9d2782ef530fe3e0ec432072e36" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK</name></member>
-    <member refid="group__xhdmiphy1_1ga34548c75bcebe2a7eb9b39a8ac6aedc4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV</name></member>
-    <member refid="group__xhdmiphy1_1gaef474a4c553f2184ce4d22ac6e0b8822" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV</name></member>
-    <member refid="group__xhdmiphy1_1ga76f59cfc61860c5fc706ede6581ce276" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV</name></member>
-    <member refid="group__xhdmiphy1_1ga90e76d762be9cc150405c0205003d3de" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10</name></member>
-    <member refid="group__xhdmiphy1_1gab7b9b28adb859211bded7c5b4b1b6726" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10</name></member>
-    <member refid="group__xhdmiphy1_1ga96e6d61fc0b50087003855d9c3501913" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10</name></member>
-    <member refid="group__xhdmiphy1_1ga46a75d95f4a447fbc3763cee7f191dbd" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10</name></member>
-    <member refid="group__xhdmiphy1_1gab0292802d3c49b8d5e872621993bcfaa" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10</name></member>
-    <member refid="group__xhdmiphy1_1ga641050e018807b718fc327fe8c765679" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8</name></member>
-    <member refid="group__xhdmiphy1_1gaaf234ba404f3aca3fc923f5a95187f18" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8</name></member>
-    <member refid="group__xhdmiphy1_1gad2f5b09613ba5a6d200fe40d18d708e9" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8</name></member>
-    <member refid="group__xhdmiphy1_1ga9e86a043fb3257457cd6c5d82da6a2ac" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8</name></member>
-    <member refid="group__xhdmiphy1_1ga1d334ffbc7b790b5dfbaca52886b10a9" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8</name></member>
-    <member refid="group__xhdmiphy1_1ga90bee88315e1dd6f6bd20c474a6a6909" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6</name></member>
-    <member refid="group__xhdmiphy1_1ga54a65a6e674e575b861894ba926c5092" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6</name></member>
-    <member refid="group__xhdmiphy1_1ga7b36901ef626eb0a785ef187d68bd7eb" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6</name></member>
-    <member refid="group__xhdmiphy1_1gae247d2f44614e4b86d157bede442edc6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6</name></member>
-    <member refid="group__xhdmiphy1_1ga887f448d6465cb2e5af16f85cafd619f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6</name></member>
-    <member refid="group__xhdmiphy1_1ga201f39bedd7adc432fccf38c3cc38c54" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3</name></member>
-    <member refid="group__xhdmiphy1_1gaa54f75ea623e6976f0cd2ba2d4c0137a" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3</name></member>
-    <member refid="group__xhdmiphy1_1gaff388b065d9208207dddf936c3126f4e" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3</name></member>
-    <member refid="group__xhdmiphy1_1gac157f63e0726f9db556eae3766ab2302" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3</name></member>
-    <member refid="group__xhdmiphy1_1gac64fd783959c4b6111b011cf1ed06df3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3</name></member>
-    <member refid="group__xhdmiphy1_1gabaf80a06c3544a6ea1f06e5db0361062" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3</name></member>
-    <member refid="group__xhdmiphy1_1gaadeb9d32db1bbd6faa1d0fbec5584094" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3</name></member>
-    <member refid="group__xhdmiphy1_1ga0874f3a1295017da8e6dedba12668232" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3</name></member>
-    <member refid="group__xhdmiphy1_1ga4c416a6da2b0d40a42e6eb236a6af23c" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3</name></member>
-    <member refid="group__xhdmiphy1_1ga5067541baac2e4933c8263e940a0be04" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3</name></member>
-    <member refid="group__xhdmiphy1_1gafbfab6075eee10ea59bbc4da163d36bd" kind="function"><name>XHdmiphy1_HdmiTxPllParam</name></member>
-    <member refid="group__xhdmiphy1_1gadf91e80546965bd1c359d25a4ce6d641" kind="function"><name>XHdmiphy1_HdmiRxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga4758b96fb0229099a0ad949ef30a97d3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga05033b45899e72b64656223eae0b1f55" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga103a1aad1d6ce4e76748c51c10b2c52f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga1130114b3bfe285d76be121068e367db" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gabbc3bcaa4b3242eeaf9bf08e500dd654" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga2609eb2d8a171ef1e3393f7aa87c2837" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga3f092771bab1487c5ae86f44ffa1bcd3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga35e70c6cd9d990cc217cee7210ddf9f0" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga367234a0e06ed25e4fb6c66147077734" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga70aa0549a2418d9f3ea2f5d2eff71dc3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga4fe67abf3423cc5d4bf24e5d6708ef29" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga195a91ce62d50d12dd30574b124aecbe" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gaceb1991e1995875864644df95f8128ce" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gaf6efd85269361c3d28c7765854276c1d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga88c46afdb3cbad9b3bff5178ba205d36" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga056ca35aa4acaf7a550306c6a5144e8b" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga02cdfa90ecc6d6f6b9456ea9cfb3dec9" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga8881f3c1ca2a5a30095a39c383b0e2a6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gae34fc37809476cec9af72cc979c76de7" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga5a17445b0faa75f8c78883073cc03c2b" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga3813ace8408b87c459189ee4fef83858" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga3fd3977009f4166669e8c83010dd8816" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga1c6e1579f825d162f6f2cab0892adb33" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga683e8089329631cdf673f61327c942d0" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gac7b32791da34c42804ee2144ef7275c8" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gab93247d396c91977c356415ec8f0f2fa" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga44cca5f36ad4b2cac05d869663d469e4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga140324ca01581afbd023b74e0895bd74" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga31c20eb07aed0491919bb32db574debc" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga913166ecff4f0c8f62d45479e1139822" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gab37f61d8900b3488c76c9613731902e4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga549513c7d714d9c90f68b2ca7cd2f148" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga2eae93ef4663f78dab8ca9607618cd4d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaceb721172e973ab8657a689b3c4d7544" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga6aaa96e67288dc9aa17d635cd840874d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gada7df9b0d98319677afddc3fcacdee29" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga0f638896df6dc79146a99c753d384e2c" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gab6e609a97da7219f8d5b085fe3620a99" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaf0d0abd40d9b8b9c20ffc47d78cc01fd" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga2367f86276f1e14d5927ff24c3922b98" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga558076f6ed4c9b045fd37264acbae2c5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaa22c5a305dd7601c98b0f07351f79ccd" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga6995fb239fccca214fe18d37e63ed5e6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga9cb77922a33a9bd4916ee4f509a6a073" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga417bda71b641aaa3e32f1fbc3befd7ae" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga7f7675a2df011849107ef6bdb3d0563e" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga90fc1c8df146b7246e3089d5f8bcc482" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga61ab386de075a631246c935cba8cbd71" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gab17af223813e6353f38feb31582a8856" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gac668c8e11e195b81c52e06beb8b50339" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga46fb67d32ff1102a2eb95c9569d9ee7b" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gab3a62942a17622aa4c87b4a99a1d0e16" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga00362d79ad13c49f45d792bd8e40ea20" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaa090cdefe29aeeed85eae69c7b39a7bc" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga931c7bdeedff97389fd27cb4d6e1ae76" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gafbc86e456205548fe1c6913e763154c5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga979337823e436f01fb6ffbf25421fcc3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaf6c646f0bbb8f58ee0d5980560844082" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga00555ec8a65b4a53a130c0edd012ebef" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaa099a5d2e094c0522b007bc09e77e75f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gadb77518670441a693ba23403e6143de5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gad9624cf543324bc2c687114b4f5033b8" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gaf61f8da8f917d299ccf9dcec04d706a4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga380076a2a38babf7fceb7b9a18ba6bf6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga87ebb507668f06a0d5b94b25402a2a52" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga4bb811b9df8035cff08182e44bd27ba5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga80463ba6e6a15621da12d72cb16ffe3d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga3a8e204d041f48d1aa90b81b50d475ff" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gad256de92cfc99ecbebf0faaa9af1d644" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gab426325ac44c5c228d041389fee6f1e7" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga5446679ede617d93f19a3d8cd0f2a83a" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga2286fc81cd94dc357550e556ac864416" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga05ea83c9b13facfa8e83d326bb1c6a44" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga90b506021d8c1d652b52d28cefad5875" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gacf962905558d7ef80bbdfef594adf991" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga64165876e609bc118564e4022a83923d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga29a5f80e08ada50ada2f0bc17df5ec1f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga99f87e354a186f7a65c38d28e18a3032" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gae496bf12529523d97049ff95ddb75b64" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga6d027366057c8d74cf682bb10148b3c3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gaac870d61669fccedeeb512b43aa1bf43" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gac3f685fb89fb7913a07293f387fe5c0f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gab499d62c96a491ec3ed65103a6de38b6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga960e234af0d07b6d962a1357cc37f3db" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga79a404f20dfdaf352bdeee22dc8ce53f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga2c17938f54cd76d53571bd5063315c44" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga1c2f527de661d0da291a5c54414ebcb2" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gaa40e06d0ada6484d9dfb781dd3860204" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga8b156e4435a81aa98f57dce5c6b43640" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga81dff8ae3157ff336036c28ce7b02711" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" kind="function"><name>XHdmiphy1_HdmiQpllParam</name></member>
+    <member refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" kind="function"><name>XHdmiphy1_HdmiCpllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga355efb9fbbf8e3d0102738e912971bca" kind="function"><name>XHdmiphy1_TxAlignReset</name></member>
+    <member refid="group__xhdmiphy1_1ga579cfbb41fbd51477dd902f9a1758826" kind="function"><name>XHdmiphy1_TxAlignStart</name></member>
+    <member refid="group__xhdmiphy1_1ga52b36604d6bf80c9374b9c4a02222b5d" kind="function"><name>XHdmiphy1_Gtye5HdmiTxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga917ec6850c46daeeee11075e1abf4753" kind="function"><name>XHdmiphy1_Gtye5HdmiRxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga1462e8fed128b5600a187d95c49432fe" kind="function"><name>XHdmiphy1_GtypHdmiTxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1gaf937fef39ec4a690dfa40d00e4ef994c" kind="function"><name>XHdmiphy1_GtypHdmiRxPllParam</name></member>
     <member refid="group__xhdmiphy1_1gab2369998b0e4635bced93881e51cc8fe" kind="function"><name>XHdmiphy1_ClkDetEnable</name></member>
     <member refid="group__xhdmiphy1_1gac2f877b2581399c3344d1555d05df2df" kind="function"><name>XHdmiphy1_ClkDetTimerClear</name></member>
     <member refid="group__xhdmiphy1_1ga5a055146c6b3aa1da1991a0041dc11f7" kind="function"><name>XHdmiphy1_ClkDetSetFreqLockThreshold</name></member>
@@ -691,6 +1272,10 @@
     <member refid="xhdmiphy1__hdmi__intr_8c_1ab9042f44476e29e8ec9c82a70a7c77df" kind="function"><name>XHdmiphy1_ClkDetHandler</name></member>
     <member refid="group__xhdmiphy1_1ga64e64512cb8f987620763078fe9e796d" kind="function"><name>XHdmiphy1_SetHdmiCallback</name></member>
     <member refid="group__xhdmiphy1_1ga1f26c79a098ddb33f610f5a88efc140e" kind="function"><name>XHdmiphy1_HdmiIntrHandlerCallbackInit</name></member>
+    <member refid="xhdmiphy1__hdmi__intr_8c_1a645cef786ba09f2c0ac31d76212a6b18" kind="function"><name>XHdmiphy1_HdmiTxGpoRisingEdgeHandler</name></member>
+    <member refid="xhdmiphy1__hdmi__intr_8c_1a2e60f02fb9e0e5819c4d208250ff9e02" kind="function"><name>XHdmiphy1_HdmiRxGpoRisingEdgeHandler</name></member>
+    <member refid="xhdmiphy1__hdmi__intr_8c_1afc655a7d483d6d4c98a98f3c27c7d7ea" kind="function"><name>XHdmiphy1_HdmiLcpllLockHandler</name></member>
+    <member refid="xhdmiphy1__hdmi__intr_8c_1ab0e620fca2edf327ee59efe6a39628fa" kind="function"><name>XHdmiphy1_HdmiRpllLockHandler</name></member>
     <member refid="xhdmiphy1__hdmi__intr_8c_1a0dadbdee261d92500f5c3a5f55b76218" kind="function"><name>XHdmiphy1_HdmiQpllLockHandler</name></member>
     <member refid="xhdmiphy1__hdmi__intr_8c_1acc32a98d0cf6cf638c3fe4e3fe057226" kind="function"><name>XHdmiphy1_HdmiCpllLockHandler</name></member>
     <member refid="xhdmiphy1__hdmi__intr_8c_1aa2c97194ee284139b2959025092cc122" kind="function"><name>XHdmiphy1_HdmiGtTxAlignDoneLockHandler</name></member>
@@ -1035,6 +1620,12 @@
     <member refid="group__xhdmiphy1_1gaa91560e5b99db9d90042b548a76da7a6" kind="function"><name>XHdmiphy1_GetSysClkDataSel</name></member>
     <member refid="group__xhdmiphy1_1gabf0e7c8a542401ba275640fabee19940" kind="function"><name>XHdmiphy1_GetSysClkOutSel</name></member>
     <member refid="group__xhdmiphy1_1gaff834a7a15854c09af35144299a4f980" kind="function"><name>XHdmiphy1_GtUserRdyEnable</name></member>
+    <member refid="group__xhdmiphy1_1ga4682e1b831b70f5a8186ebca5cdac08b" kind="function"><name>XHdmiphy1_SetGtLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1gad395cc29c8834fdf90b63d5fc1758e3a" kind="function"><name>XHdmiphy1_GetGtLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1gae76c7ba7cb194a5f57f8e8445186ca59" kind="function"><name>XHdmiphy1_SetGpi</name></member>
+    <member refid="group__xhdmiphy1_1ga3564e4c5d1fec367b92240bf54d7233b" kind="function"><name>XHdmiphy1_GetGpo</name></member>
+    <member refid="group__xhdmiphy1_1ga31253d0211a9d1746507e2e498d049da" kind="function"><name>XHdmiphy1_GtMstReset</name></member>
+    <member refid="group__xhdmiphy1_1ga3de202fbdba62f4b3edd7bd0e9c329d2" kind="function"><name>XHdmiphy1_CheckLineRateCfg</name></member>
     <member refid="group__xhdmiphy1_1ga47707c2203c7788afdfb22fe1ae438db" kind="function"><name>XHdmiphy1_MmcmReset</name></member>
     <member refid="group__xhdmiphy1_1ga6d652ca1a4650bc5a2762d381a110f6b" kind="function"><name>XHdmiphy1_MmcmLockedMaskEnable</name></member>
     <member refid="group__xhdmiphy1_1ga0b46b7c2c9c6d5fbe7e7c2a6d226b985" kind="function"><name>XHdmiphy1_MmcmLocked</name></member>
@@ -1073,7 +1664,14 @@
     <member refid="group__xhdmiphy1_1gaff834a7a15854c09af35144299a4f980" kind="function"><name>XHdmiphy1_GtUserRdyEnable</name></member>
     <member refid="group__xhdmiphy1_1gaa7e1f1d8d20f17c34f32d7a026081696" kind="function"><name>XHdmiphy1_Gthe4CfgCpllCalPeriodandTol</name></member>
     <member refid="group__xhdmiphy1_1ga97c464a7ee31e018574dc69b97ff06da" kind="function"><name>XHdmiphy1_Gtye4CfgCpllCalPeriodandTol</name></member>
-    <member refid="group__xhdmiphy1_1ga2ff6544076194e20fb3600d66a26be63" kind="function"><name>XHdmiphy1_MmcmWriteParameters</name></member>
+    <member refid="group__xhdmiphy1_1ga4682e1b831b70f5a8186ebca5cdac08b" kind="function"><name>XHdmiphy1_SetGtLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1gad395cc29c8834fdf90b63d5fc1758e3a" kind="function"><name>XHdmiphy1_GetGtLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1gae76c7ba7cb194a5f57f8e8445186ca59" kind="function"><name>XHdmiphy1_SetGpi</name></member>
+    <member refid="group__xhdmiphy1_1ga3564e4c5d1fec367b92240bf54d7233b" kind="function"><name>XHdmiphy1_GetGpo</name></member>
+    <member refid="group__xhdmiphy1_1ga31253d0211a9d1746507e2e498d049da" kind="function"><name>XHdmiphy1_GtMstReset</name></member>
+    <member refid="group__xhdmiphy1_1ga3de202fbdba62f4b3edd7bd0e9c329d2" kind="function"><name>XHdmiphy1_CheckLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1ga7a2d1ddf3e20d013d77568020866475b" kind="function"><name>XHdmiphy1_Mmcme4WriteParameters</name></member>
+    <member refid="group__xhdmiphy1_1ga522476df58d41cf648464479c92fbe17" kind="function"><name>XHdmiphy1_Mmcme5WriteParameters</name></member>
     <member refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" kind="function"><name>XHdmiphy1_DpllWriteParameters</name></member>
     <member refid="group__xhdmiphy1_1ga47707c2203c7788afdfb22fe1ae438db" kind="function"><name>XHdmiphy1_MmcmReset</name></member>
     <member refid="group__xhdmiphy1_1ga6d652ca1a4650bc5a2762d381a110f6b" kind="function"><name>XHdmiphy1_MmcmLockedMaskEnable</name></member>
@@ -1112,8 +1710,57 @@
     <member refid="group__xhdmiphy1_1ga9569d5080ff8e2396239ecfb7d1de91d" kind="function"><name>XHdmiphy1_LogDisplay</name></member>
   </compound>
   <compound refid="xhdmiphy1__mmcme4_8c" kind="file"><name>xhdmiphy1_mmcme4.c</name>
+    <member refid="xhdmiphy1__mmcme4_8c_1a3bda670fb6368de42831e277940ce95f" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT0_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a6c1afa32f744b22273ec552785dcb7de" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT0_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a0210ab7a2b46741f34b121244c7b6c7c" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT1_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1ab3bb304ed8ebbb29deee499c93824149" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT1_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a5cd3e2f62ff9eff7b570c7e1089c86d2" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT2_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a0855ef21b36dbe030b3f0b5c8720d8f7" kind="define"><name>XHDMIPHY1_MMCM_CLKOUT2_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1ac5bca0bad06a6b5c822a1dde6988f5c0" kind="define"><name>XHDMIPHY1_MMCM_CLKFBOUT_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1adfb53fd20b3206e4c0c709bed5ba9357" kind="define"><name>XHDMIPHY1_MMCM_CLKFBOUT_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a7bfa33ddbcf7c61bde593c1f8fe0a06e" kind="define"><name>XHDMIPHY1_MMCM_DIVCLK_DIV_REG</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a202bfa9a8da65ec2086b5bfd2e105505" kind="define"><name>XHDMIPHY1_MMCM_DRP_LOCK_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a7117736fcc068a75a47b4bde733c67b1" kind="define"><name>XHDMIPHY1_MMCM_DRP_LOCK_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a83405d5cd1963c5ae3ce4aa4ae7b9626" kind="define"><name>XHDMIPHY1_MMCM_DRP_LOCK_REG3</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1aeba44545281c1fb9f9455e84b4dea8cc" kind="define"><name>XHDMIPHY1_MMCM_DRP_FILTER_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1ad3727d16a15281078376d0c939002290" kind="define"><name>XHDMIPHY1_MMCM_DRP_FILTER_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1aba5c9e699852454d28f86cee8ed67783" kind="define"><name>XHDMIPHY1_MMCM_PWR_REG</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1ae70c377d266c29d11b4e86339cb33942" kind="define"><name>XHDMIPHY1_MMCM_WRITE_VAL</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a4549f9c1a5db5e20a66298078e74b64f" kind="define"><name>XHDMIPHY1_PLL_WRITE_VAL</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1ab6d7f0ae1778af9d4049eda44680ae2e" kind="function"><name>XHdmiphy1_Mmcme4DividerEncoding</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a008f255257182c86f6b8247bcf254220" kind="function"><name>XHdmiphy1_Mmcme4FilterReg1Encoding</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a0bf582efc106d01afe8dacc46109b68d" kind="function"><name>XHdmiphy1_Mmcme4FilterReg2Encoding</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a576fe27bfd8cf30f03822052d4b500c1" kind="function"><name>XHdmiphy1_Mmcme4LockReg1Encoding</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1ac9a0a9b4ad1e17605c90310bff039d67" kind="function"><name>XHdmiphy1_Mmcme4LockReg2Encoding</name></member>
+    <member refid="xhdmiphy1__mmcme4_8c_1a3d88fa4f20e3d3168ef9ae5fdc9b5d69" kind="function"><name>XHdmiphy1_Mmcme4LockReg3Encoding</name></member>
+    <member refid="group__xhdmiphy1_1ga7a2d1ddf3e20d013d77568020866475b" kind="function"><name>XHdmiphy1_Mmcme4WriteParameters</name></member>
   </compound>
   <compound refid="xhdmiphy1__mmcme5_8c" kind="file"><name>xhdmiphy1_mmcme5.c</name>
+    <member refid="xhdmiphy1__mmcme5_8c_1a5d2bba28d3b9a883531810c543967c95" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a928ccc02fc550691b49a4b5563581491" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKFBOUT_2_REG</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1ac6a4fc203eab7df633aefdd982edfc74" kind="define"><name>XHDMIPHY1_MMCM_DRP_DIVCLK_DIVIDE_REG</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a6327bd35fcfb3cde821dc596fbf6e85f" kind="define"><name>XHDMIPHY1_MMCM_DRP_DESKEW_REG</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1af8da06be2b783e2a60bc9fb99d399fa6" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a88a528ae48099d247fca1967932c5380" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT0_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a8cd2a11a685b8718e2d85f0bd9e8e974" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1afc8433cb0d7922dba7f99185b857d622" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT1_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a4c43347da35c98ca2e5def4a1921d66f" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT2_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1ac7c2091a2bca6e83b77867eed6ebd3ed" kind="define"><name>XHDMIPHY1_MMCM_DRP_CLKOUT2_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a2d5ebf1bc6b4b83bfe626c92174a4644" kind="define"><name>XHDMIPHY1_MMCM_DRP_CP_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a6ec1c13a616f9666fb9d5fcb8f4a23d7" kind="define"><name>XHDMIPHY1_MMCM_DRP_RES_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a202bfa9a8da65ec2086b5bfd2e105505" kind="define"><name>XHDMIPHY1_MMCM_DRP_LOCK_REG1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a7117736fcc068a75a47b4bde733c67b1" kind="define"><name>XHDMIPHY1_MMCM_DRP_LOCK_REG2</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1ae70c377d266c29d11b4e86339cb33942" kind="define"><name>XHDMIPHY1_MMCM_WRITE_VAL</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1ae95ba90fbe27255070c6580442b6a022" kind="define"><name>XHDMIPHY1_MMCM_CP_RES_MASK</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a5cc49c37b18f984815075c2ace1f5ccb" kind="define"><name>XHDMIPHY1_MMCM_RES_MASK</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1aeefc0241a67381fd72b457ca84fb26e9" kind="define"><name>XHDMIPHY1_MMCM_LOCK1_MASK1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1ac72901af110ce6eb0b0ec4fb46ce6089" kind="define"><name>XHDMIPHY1_MMCM_LOCK1_MASK2</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1aa85ebc115983c53bce3efe01db3ae2eb" kind="define"><name>XHDMIPHY1_MMCM_DRP_DESKEW_REG_VAL1</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1af4c3df862ce499233891f6ab055d42c6" kind="define"><name>XHDMIPHY1_MMCM_DRP_DESKEW_REG_VAL2</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a06a3ed0b65ed7b006a6c28bad388c450" kind="function"><name>XHdmiphy1_Mmcme5DividerEncoding</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1a1e6d1a07c1d2b639b7c651147846fc8e" kind="function"><name>XHdmiphy1_Mmcme5CpResEncoding</name></member>
+    <member refid="xhdmiphy1__mmcme5_8c_1ab48e909ea4e0d69a659cdfc28f708d81" kind="function"><name>XHdmiphy1_Mmcme5LockReg1Reg2Encoding</name></member>
+    <member refid="group__xhdmiphy1_1ga522476df58d41cf648464479c92fbe17" kind="function"><name>XHdmiphy1_Mmcme5WriteParameters</name></member>
   </compound>
   <compound refid="xhdmiphy1__selftest_8c" kind="file"><name>xhdmiphy1_selftest.c</name>
     <member refid="xhdmiphy1__selftest_8c_1a6d1396f1ec8e1bc2bdc4b306d4e2e94f" kind="variable"><name>ResetValues</name></member>
@@ -1394,10 +2041,14 @@
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a920afda83fe4504afec93924adf7bedc" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_QPLL0_LOCK</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a0fbf77aa70e1ace140700b539bf3e82d" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TXALIGN_DONE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ad8ada93f051d62d2696dd936142fcdcf" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_QPLL1_LOCK</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a3e418185c2d79ab9ca6f32667c47aaf9" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_LCPLL_LOCK</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62aec4b74fbeeba62a48f4a6071e4677c51" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RPLL_LOCK</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62aeb2a3b0bb09ea6ddddd9bbf968f22525" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62aad52d9eb7cc8899bc9146b4ba516ac4c" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a23b22b96c38e64f1c70bc5daa8e92dd0" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a2fea0a4c8908d73dafaa7dbd018e3e36" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ace7746f18ae4a79a5670a80237ac8838" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE</name></member>
+    <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ad0d8009727d910f76a070053784e0ec4" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62ac3358af2c9605bb5b196ae02cc53dcc3" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT</name></member>
     <member refid="group__xhdmiphy1_1gga0babc37b8b55084caeefe57eef4fbd62a30dae291c88ea408dcd695c3a6962441" kind="enumvalue"><name>XHDMIPHY1_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT</name></member>
     <member refid="group__xhdmiphy1_1ga8df8a80a15683dd3ffe31d80780f6329" kind="enum"><name>XHdmiphy1_HdmiHandlerType</name></member>
@@ -1562,6 +2213,10 @@
     <member refid="group__xhdmiphy1_1ga503c2ff79c8d1c28506c02d3be634763" kind="typedef"><name>XHdmiphy1_LogCallback</name></member>
     <member refid="group__xhdmiphy1_1gadcff193d2a45fbd03c48f595fe8fdf55" kind="typedef"><name>XHdmiphy1_ErrorCallback</name></member>
     <member refid="group__xhdmiphy1_1ga5aa22b468929857199125f032faa0c5c" kind="typedef"><name>XHdmiphy1_GtConfig</name></member>
+    <member refid="group__xhdmiphy1_1ga608437a52460adcb9c83fb0417e17a95" kind="variable"><name>XHdmiphy1_Gthe4Config</name></member>
+    <member refid="group__xhdmiphy1_1gaa682389c08bb45cebf87329d61751939" kind="variable"><name>XHdmiphy1_Gtye4Config</name></member>
+    <member refid="group__xhdmiphy1_1ga7e28aaca7b8f8e3e8e3655454a463bc4" kind="variable"><name>Gtye5Config</name></member>
+    <member refid="group__xhdmiphy1_1ga6bc786a51716af5a18db9e71e56a6140" kind="variable"><name>GtypConfig</name></member>
     <member refid="group__xhdmiphy1_1gac17db2af38544c85cb299d147fcdac16" kind="function"><name>XHdmiphy1_CfgInitialize</name></member>
     <member refid="group__xhdmiphy1_1ga82f13f4133bdf9ab03d845c8462dc091" kind="function"><name>XHdmiphy1_PllInitialize</name></member>
     <member refid="group__xhdmiphy1_1gaf6a4e05c5b6141f00bdfa2ae1f30b15a" kind="function"><name>XHdmiphy1_GetVersion</name></member>
@@ -1610,8 +2265,14 @@
     <member refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" kind="function"><name>XHdmiphy1_Hdmi20Config</name></member>
     <member refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" kind="function"><name>XHdmiphy1_Hdmi21Config</name></member>
     <member refid="group__xhdmiphy1_1ga8dc19df05e15d413e62ff62d2c22c023" kind="function"><name>XHdmiphy1_RegisterDebug</name></member>
-    <member refid="group__xhdmiphy1_1gafbfab6075eee10ea59bbc4da163d36bd" kind="function"><name>XHdmiphy1_HdmiTxPllParam</name></member>
-    <member refid="group__xhdmiphy1_1gadf91e80546965bd1c359d25a4ce6d641" kind="function"><name>XHdmiphy1_HdmiRxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga026bd874ba52e36d8f0e770b962543f9" kind="function"><name>XHdmiphy1_HdmiQpllParam</name></member>
+    <member refid="group__xhdmiphy1_1gaefc037877ed6316c6995845442a31971" kind="function"><name>XHdmiphy1_HdmiCpllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga355efb9fbbf8e3d0102738e912971bca" kind="function"><name>XHdmiphy1_TxAlignReset</name></member>
+    <member refid="group__xhdmiphy1_1ga579cfbb41fbd51477dd902f9a1758826" kind="function"><name>XHdmiphy1_TxAlignStart</name></member>
+    <member refid="group__xhdmiphy1_1ga52b36604d6bf80c9374b9c4a02222b5d" kind="function"><name>XHdmiphy1_Gtye5HdmiTxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga917ec6850c46daeeee11075e1abf4753" kind="function"><name>XHdmiphy1_Gtye5HdmiRxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1ga1462e8fed128b5600a187d95c49432fe" kind="function"><name>XHdmiphy1_GtypHdmiTxPllParam</name></member>
+    <member refid="group__xhdmiphy1_1gaf937fef39ec4a690dfa40d00e4ef994c" kind="function"><name>XHdmiphy1_GtypHdmiRxPllParam</name></member>
     <member refid="group__xhdmiphy1_1gab2369998b0e4635bced93881e51cc8fe" kind="function"><name>XHdmiphy1_ClkDetEnable</name></member>
     <member refid="group__xhdmiphy1_1gac2f877b2581399c3344d1555d05df2df" kind="function"><name>XHdmiphy1_ClkDetTimerClear</name></member>
     <member refid="group__xhdmiphy1_1ga5a055146c6b3aa1da1991a0041dc11f7" kind="function"><name>XHdmiphy1_ClkDetSetFreqLockThreshold</name></member>
@@ -1648,7 +2309,14 @@
     <member refid="group__xhdmiphy1_1gaff834a7a15854c09af35144299a4f980" kind="function"><name>XHdmiphy1_GtUserRdyEnable</name></member>
     <member refid="group__xhdmiphy1_1gaa7e1f1d8d20f17c34f32d7a026081696" kind="function"><name>XHdmiphy1_Gthe4CfgCpllCalPeriodandTol</name></member>
     <member refid="group__xhdmiphy1_1ga97c464a7ee31e018574dc69b97ff06da" kind="function"><name>XHdmiphy1_Gtye4CfgCpllCalPeriodandTol</name></member>
-    <member refid="group__xhdmiphy1_1ga2ff6544076194e20fb3600d66a26be63" kind="function"><name>XHdmiphy1_MmcmWriteParameters</name></member>
+    <member refid="group__xhdmiphy1_1ga4682e1b831b70f5a8186ebca5cdac08b" kind="function"><name>XHdmiphy1_SetGtLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1gad395cc29c8834fdf90b63d5fc1758e3a" kind="function"><name>XHdmiphy1_GetGtLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1gae76c7ba7cb194a5f57f8e8445186ca59" kind="function"><name>XHdmiphy1_SetGpi</name></member>
+    <member refid="group__xhdmiphy1_1ga3564e4c5d1fec367b92240bf54d7233b" kind="function"><name>XHdmiphy1_GetGpo</name></member>
+    <member refid="group__xhdmiphy1_1ga31253d0211a9d1746507e2e498d049da" kind="function"><name>XHdmiphy1_GtMstReset</name></member>
+    <member refid="group__xhdmiphy1_1ga3de202fbdba62f4b3edd7bd0e9c329d2" kind="function"><name>XHdmiphy1_CheckLineRateCfg</name></member>
+    <member refid="group__xhdmiphy1_1ga7a2d1ddf3e20d013d77568020866475b" kind="function"><name>XHdmiphy1_Mmcme4WriteParameters</name></member>
+    <member refid="group__xhdmiphy1_1ga522476df58d41cf648464479c92fbe17" kind="function"><name>XHdmiphy1_Mmcme5WriteParameters</name></member>
     <member refid="group__xhdmiphy1_1ga7c8302c5a077280b258a6fa4f97e39c4" kind="function"><name>XHdmiphy1_DpllWriteParameters</name></member>
     <member refid="group__xhdmiphy1_1ga47707c2203c7788afdfb22fe1ae438db" kind="function"><name>XHdmiphy1_MmcmReset</name></member>
     <member refid="group__xhdmiphy1_1ga6d652ca1a4650bc5a2762d381a110f6b" kind="function"><name>XHdmiphy1_MmcmLockedMaskEnable</name></member>
@@ -1681,6 +2349,10 @@
     <member refid="group__xhdmiphy1_1ga8a56411c7caa7bf53a038ce5d4bcd70c" kind="define"><name>XHdmiphy1_IsRxUsingQpll</name></member>
     <member refid="group__xhdmiphy1_1ga17f7c0f80270c3ac676d59ebac22b116" kind="define"><name>XHdmiphy1_IsTxUsingCpll</name></member>
     <member refid="group__xhdmiphy1_1ga22e4224f5da99f2222a5813e3ac0fb72" kind="define"><name>XHdmiphy1_IsRxUsingCpll</name></member>
+    <member refid="group__xhdmiphy1_1ga8aa1d35a8e1d1596986d73ec6eda927b" kind="define"><name>XHdmiphy1_IsTxUsingLcpll</name></member>
+    <member refid="group__xhdmiphy1_1gaf755e1bafa522358df3367e97431455f" kind="define"><name>XHdmiphy1_IsRxUsingLcpll</name></member>
+    <member refid="group__xhdmiphy1_1ga0962ef795e60e5ebf24dac8da0be91bb" kind="define"><name>XHdmiphy1_IsTxUsingRpll</name></member>
+    <member refid="group__xhdmiphy1_1ga2421837250d768a1caca64a91e846616" kind="define"><name>XHdmiphy1_IsRxUsingRpll</name></member>
     <member refid="group__xhdmiphy1_1ga488eab66c3f3f0df0d31236b73a641ff" kind="define"><name>XHdmiphy1_CfgSetCdr</name></member>
     <member refid="group__xhdmiphy1_1gaa83ebd6b75d14f024db15b57bae5cfdc" kind="define"><name>XHdmiphy1_CheckPllOpRange</name></member>
     <member refid="group__xhdmiphy1_1ga2e0f04dd4f6301f2aa64af07d9116b99" kind="define"><name>XHdmiphy1_OutDivChReconfig</name></member>
@@ -1711,11 +2383,15 @@
     <member refid="group__xhdmiphy1_1ga516448ce92a0250b852c4c66f2407deb" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_LCPLL_REFCLK_MIN</name></member>
     <member refid="group__xhdmiphy1_1gaa5d57573d8783382d640d669c7b9c5e3" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RPLL_REFCLK_MIN</name></member>
     <member refid="group__xhdmiphy1_1ga48db5eee223db776bc9c0f5e5b45cac6" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_SCALE</name></member>
-    <member refid="group__xhdmiphy1_1ga2ea90eaa073cbad4fd123dfa801977fc" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MIN</name></member>
-    <member refid="group__xhdmiphy1_1ga6b1d7c2f8b21fe52ad2bb93f9f5d353d" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MAX</name></member>
+    <member refid="group__xhdmiphy1_1gabc5f73be93460b58ab5a86b7957326e7" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MIN_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gacb29acd24ec69c49f1f8745ecbfb3b9e" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MAX_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga77f90c187d63b1dfa804d710ee0e55a2" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MIN_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga90e94e80dea8e372b3f71f77751c5363" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_TX_MMCM_FVCO_MAX_MMCM</name></member>
     <member refid="group__xhdmiphy1_1gaee2ba1598d6731a450aea00f1b2d652f" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_SCALE</name></member>
-    <member refid="group__xhdmiphy1_1gaacb48357f5b094786fc0239aa7221309" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MIN</name></member>
-    <member refid="group__xhdmiphy1_1gaf0313d71653f4d616c7a6bae595fd129" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MAX</name></member>
+    <member refid="group__xhdmiphy1_1gacd1649bec73dc5be89589757f8ff1e59" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MIN_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gac554216c3091059991405c6ecd90d660" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MAX_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gabbe30a667828b80a16118a4a9c958918" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MIN_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga31437b8f79df79d590b1e32651625df2" kind="define"><name>XHDMIPHY1_HDMI_GTYE5_RX_MMCM_FVCO_MAX_MMCM</name></member>
     <member refid="group__xhdmiphy1_1ga8d14bde1620787a5748799eb6ecc6c0a" kind="define"><name>XHDMIPHY1_HDMI_GTYE4_DRU_LRATE</name></member>
     <member refid="group__xhdmiphy1_1ga63e2e6700695b36158f94b538f4fc80f" kind="define"><name>XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK</name></member>
     <member refid="group__xhdmiphy1_1gaa6652419434aac903be99322e28b3dee" kind="define"><name>XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK_MIN</name></member>
@@ -1756,36 +2432,96 @@
     <member refid="group__xhdmiphy1_1ga90973dc6d3f8644aa7c30a83432613e2" kind="define"><name>XHDMIPHY1_HDMI_GTHE4_RX_MMCM_SCALE</name></member>
     <member refid="group__xhdmiphy1_1ga12a58310a2dea33f1d64085397c71655" kind="define"><name>XHDMIPHY1_HDMI_GTHE4_RX_MMCM_FVCO_MIN</name></member>
     <member refid="group__xhdmiphy1_1ga79ff8e4ce51eefa6686eac3d853ff01f" kind="define"><name>XHDMIPHY1_HDMI_GTHE4_RX_MMCM_FVCO_MAX</name></member>
-    <member refid="group__xhdmiphy1_1ga94d05ccf7482939ffdbcf0c8e44c47c5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT</name></member>
-    <member refid="group__xhdmiphy1_1ga05a2c9d2782ef530fe3e0ec432072e36" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK</name></member>
-    <member refid="group__xhdmiphy1_1ga34548c75bcebe2a7eb9b39a8ac6aedc4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV</name></member>
-    <member refid="group__xhdmiphy1_1gaef474a4c553f2184ce4d22ac6e0b8822" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV</name></member>
-    <member refid="group__xhdmiphy1_1ga76f59cfc61860c5fc706ede6581ce276" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV</name></member>
-    <member refid="group__xhdmiphy1_1ga90e76d762be9cc150405c0205003d3de" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10</name></member>
-    <member refid="group__xhdmiphy1_1gab7b9b28adb859211bded7c5b4b1b6726" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10</name></member>
-    <member refid="group__xhdmiphy1_1ga96e6d61fc0b50087003855d9c3501913" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10</name></member>
-    <member refid="group__xhdmiphy1_1ga46a75d95f4a447fbc3763cee7f191dbd" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10</name></member>
-    <member refid="group__xhdmiphy1_1gab0292802d3c49b8d5e872621993bcfaa" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10</name></member>
-    <member refid="group__xhdmiphy1_1ga641050e018807b718fc327fe8c765679" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8</name></member>
-    <member refid="group__xhdmiphy1_1gaaf234ba404f3aca3fc923f5a95187f18" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8</name></member>
-    <member refid="group__xhdmiphy1_1gad2f5b09613ba5a6d200fe40d18d708e9" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8</name></member>
-    <member refid="group__xhdmiphy1_1ga9e86a043fb3257457cd6c5d82da6a2ac" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8</name></member>
-    <member refid="group__xhdmiphy1_1ga1d334ffbc7b790b5dfbaca52886b10a9" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8</name></member>
-    <member refid="group__xhdmiphy1_1ga90bee88315e1dd6f6bd20c474a6a6909" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6</name></member>
-    <member refid="group__xhdmiphy1_1ga54a65a6e674e575b861894ba926c5092" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6</name></member>
-    <member refid="group__xhdmiphy1_1ga7b36901ef626eb0a785ef187d68bd7eb" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6</name></member>
-    <member refid="group__xhdmiphy1_1gae247d2f44614e4b86d157bede442edc6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6</name></member>
-    <member refid="group__xhdmiphy1_1ga887f448d6465cb2e5af16f85cafd619f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6</name></member>
-    <member refid="group__xhdmiphy1_1ga201f39bedd7adc432fccf38c3cc38c54" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3</name></member>
-    <member refid="group__xhdmiphy1_1gaa54f75ea623e6976f0cd2ba2d4c0137a" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3</name></member>
-    <member refid="group__xhdmiphy1_1gaff388b065d9208207dddf936c3126f4e" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3</name></member>
-    <member refid="group__xhdmiphy1_1gac157f63e0726f9db556eae3766ab2302" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3</name></member>
-    <member refid="group__xhdmiphy1_1gac64fd783959c4b6111b011cf1ed06df3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3</name></member>
-    <member refid="group__xhdmiphy1_1gabaf80a06c3544a6ea1f06e5db0361062" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3</name></member>
-    <member refid="group__xhdmiphy1_1gaadeb9d32db1bbd6faa1d0fbec5584094" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3</name></member>
-    <member refid="group__xhdmiphy1_1ga0874f3a1295017da8e6dedba12668232" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3</name></member>
-    <member refid="group__xhdmiphy1_1ga4c416a6da2b0d40a42e6eb236a6af23c" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3</name></member>
-    <member refid="group__xhdmiphy1_1ga5067541baac2e4933c8263e940a0be04" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3</name></member>
+    <member refid="group__xhdmiphy1_1ga4758b96fb0229099a0ad949ef30a97d3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga05033b45899e72b64656223eae0b1f55" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga103a1aad1d6ce4e76748c51c10b2c52f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga1130114b3bfe285d76be121068e367db" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gabbc3bcaa4b3242eeaf9bf08e500dd654" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga2609eb2d8a171ef1e3393f7aa87c2837" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga3f092771bab1487c5ae86f44ffa1bcd3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga35e70c6cd9d990cc217cee7210ddf9f0" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga367234a0e06ed25e4fb6c66147077734" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga70aa0549a2418d9f3ea2f5d2eff71dc3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga4fe67abf3423cc5d4bf24e5d6708ef29" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga195a91ce62d50d12dd30574b124aecbe" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gaceb1991e1995875864644df95f8128ce" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gaf6efd85269361c3d28c7765854276c1d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga88c46afdb3cbad9b3bff5178ba205d36" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga056ca35aa4acaf7a550306c6a5144e8b" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga02cdfa90ecc6d6f6b9456ea9cfb3dec9" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga8881f3c1ca2a5a30095a39c383b0e2a6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gae34fc37809476cec9af72cc979c76de7" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga5a17445b0faa75f8c78883073cc03c2b" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga3813ace8408b87c459189ee4fef83858" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga3fd3977009f4166669e8c83010dd8816" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga1c6e1579f825d162f6f2cab0892adb33" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga683e8089329631cdf673f61327c942d0" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gac7b32791da34c42804ee2144ef7275c8" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gab93247d396c91977c356415ec8f0f2fa" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga44cca5f36ad4b2cac05d869663d469e4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga140324ca01581afbd023b74e0895bd74" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga31c20eb07aed0491919bb32db574debc" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1ga913166ecff4f0c8f62d45479e1139822" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3_GTHE4GTYE4</name></member>
+    <member refid="group__xhdmiphy1_1gab37f61d8900b3488c76c9613731902e4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga549513c7d714d9c90f68b2ca7cd2f148" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga2eae93ef4663f78dab8ca9607618cd4d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaceb721172e973ab8657a689b3c4d7544" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga6aaa96e67288dc9aa17d635cd840874d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gada7df9b0d98319677afddc3fcacdee29" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga0f638896df6dc79146a99c753d384e2c" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gab6e609a97da7219f8d5b085fe3620a99" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaf0d0abd40d9b8b9c20ffc47d78cc01fd" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga2367f86276f1e14d5927ff24c3922b98" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga558076f6ed4c9b045fd37264acbae2c5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaa22c5a305dd7601c98b0f07351f79ccd" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga6995fb239fccca214fe18d37e63ed5e6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga9cb77922a33a9bd4916ee4f509a6a073" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga417bda71b641aaa3e32f1fbc3befd7ae" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga7f7675a2df011849107ef6bdb3d0563e" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga90fc1c8df146b7246e3089d5f8bcc482" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga61ab386de075a631246c935cba8cbd71" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gab17af223813e6353f38feb31582a8856" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gac668c8e11e195b81c52e06beb8b50339" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga46fb67d32ff1102a2eb95c9569d9ee7b" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gab3a62942a17622aa4c87b4a99a1d0e16" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga00362d79ad13c49f45d792bd8e40ea20" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaa090cdefe29aeeed85eae69c7b39a7bc" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga931c7bdeedff97389fd27cb4d6e1ae76" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gafbc86e456205548fe1c6913e763154c5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga979337823e436f01fb6ffbf25421fcc3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaf6c646f0bbb8f58ee0d5980560844082" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1ga00555ec8a65b4a53a130c0edd012ebef" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gaa099a5d2e094c0522b007bc09e77e75f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3_GTYE5GTYP_PLL</name></member>
+    <member refid="group__xhdmiphy1_1gadb77518670441a693ba23403e6143de5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gad9624cf543324bc2c687114b4f5033b8" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gaf61f8da8f917d299ccf9dcec04d706a4" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga380076a2a38babf7fceb7b9a18ba6bf6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga87ebb507668f06a0d5b94b25402a2a52" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga4bb811b9df8035cff08182e44bd27ba5" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga80463ba6e6a15621da12d72cb16ffe3d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga3a8e204d041f48d1aa90b81b50d475ff" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gad256de92cfc99ecbebf0faaa9af1d644" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gab426325ac44c5c228d041389fee6f1e7" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV10_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga5446679ede617d93f19a3d8cd0f2a83a" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga2286fc81cd94dc357550e556ac864416" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga05ea83c9b13facfa8e83d326bb1c6a44" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga90b506021d8c1d652b52d28cefad5875" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gacf962905558d7ef80bbdfef594adf991" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV8_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga64165876e609bc118564e4022a83923d" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga29a5f80e08ada50ada2f0bc17df5ec1f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga99f87e354a186f7a65c38d28e18a3032" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gae496bf12529523d97049ff95ddb75b64" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga6d027366057c8d74cf682bb10148b3c3" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gaac870d61669fccedeeb512b43aa1bf43" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gac3f685fb89fb7913a07293f387fe5c0f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gab499d62c96a491ec3ed65103a6de38b6" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga960e234af0d07b6d962a1357cc37f3db" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga79a404f20dfdaf352bdeee22dc8ce53f" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV6x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga2c17938f54cd76d53571bd5063315c44" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_FBOUTMULT3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga1c2f527de661d0da291a5c54414ebcb2" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_DIVCLK3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1gaa40e06d0ada6484d9dfb781dd3860204" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT0DIV3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga8b156e4435a81aa98f57dce5c6b43640" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT1DIV3x3_GTYE5GTYP_MMCM</name></member>
+    <member refid="group__xhdmiphy1_1ga81dff8ae3157ff336036c28ce7b02711" kind="define"><name>XHDMIPHY1_FRL_VIDCLK_MMCM_CLKOUT2DIV3x3_GTYE5GTYP_MMCM</name></member>
     <member refid="group__xhdmiphy1_1gac56db6d8637b21c88050b3820c84bb90" kind="define"><name>XHDMIPHY1_RX_CONTROL_RXLPMEN_ALL_MASK</name></member>
     <member refid="group__xhdmiphy1_1ga08d7e791a18aa22b2a32d2e8df421751" kind="define"><name>XHDMIPHY1_INTR_TXRESETDONE_MASK</name></member>
     <member refid="group__xhdmiphy1_1ga303c5a714924fc672ac64c791f714711" kind="define"><name>XHDMIPHY1_INTR_RXRESETDONE_MASK</name></member>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xtmr__inject__low__level__example_8c.h
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xtmr__inject__low__level__example_8c.h
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xtmr_inject_low_level_example.c File Reference</div>  </div>
@@ -120,11 +121,18 @@ Ver   Who  Date  Changes
                     from xparameters.h. Previously it was defined as
                     XPAR_TMRINJECT_0_BASEADDR.
 1.7   adk  04/04/25 Ported example to the SDT flow.
+1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xtmr__inject__l_8h.html">xtmr_inject_l.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a8328bc7fdd2f73acde2175be1fee2f0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__inject__low__level__example_8c.html#a8328bc7fdd2f73acde2175be1fee2f0a">TMRINJECT_BASEADDR</a>&#160;&#160;&#160;XPAR_TMR_INJECT_0_BASEADDR</td></tr>
+<tr class="memdesc:a8328bc7fdd2f73acde2175be1fee2f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the TMR Inject device.  <a href="#a8328bc7fdd2f73acde2175be1fee2f0a">More...</a><br/></td></tr>
+<tr class="separator:a8328bc7fdd2f73acde2175be1fee2f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aba9f3d2d85513fe6eee2d836bd97e045"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xtmr__inject__low__level__example_8c.html#aba9f3d2d85513fe6eee2d836bd97e045">TMRInjectLowLevelExample</a> (u32 TMRInjectBaseAddress)</td></tr>
@@ -134,6 +142,23 @@ Functions</h2></td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a8328bc7fdd2f73acde2175be1fee2f0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TMRINJECT_BASEADDR&#160;&#160;&#160;XPAR_TMR_INJECT_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base address of the TMR Inject device. </p>
+
+<p>Referenced by <a class="el" href="xtmr__inject__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -150,16 +175,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Main function to call the example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
-<p>References <a class="el" href="xtmr__inject__low__level__example_8c.html#aba9f3d2d85513fe6eee2d836bd97e045">TMRInjectLowLevelExample()</a>.</p>
+<p>References <a class="el" href="xtmr__inject__low__level__example_8c.html#a8328bc7fdd2f73acde2175be1fee2f0a">TMRINJECT_BASEADDR</a>, and <a class="el" href="xtmr__inject__low__level__example_8c.html#aba9f3d2d85513fe6eee2d836bd97e045">TMRInjectLowLevelExample()</a>.</p>
 
 </div>
 </div>
@@ -180,12 +198,11 @@ Functions</h2></td></tr>
 <p>This function does a minimal test on the TMRInject device using the low-level driver macros and functions. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TMRInjectBaseAddress</td><td>is the base address of the TMRInject device and is the XPAR_&lt;TMRINJECT_instance&gt;_BASEADDR value from xparameters.h.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">TMRInjectBaseAddress</td><td>is the base address of the TMRInject device and is the XPAR_&lt;TMRINJECT_instance&gt;_BASEADDR value from xparameters.h.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful. </dd></dl>
 
 <p>Referenced by <a class="el" href="xtmr__inject__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 

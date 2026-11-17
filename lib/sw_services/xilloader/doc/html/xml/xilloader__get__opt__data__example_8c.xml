@@ -5,60 +5,70 @@
     <includes refid="xloader__client_8h" local="yes">xloader_client.h</includes>
     <includes local="yes">xil_cache.h</includes>
     <incdepgraph>
-      <node id="118">
-        <label>xloader_mailbox.h</label>
-        <link refid="xloader__mailbox_8h"/>
-        <childnode refid="119" relation="include">
-        </childnode>
-        <childnode refid="120" relation="include">
-        </childnode>
-        <childnode refid="121" relation="include">
-        </childnode>
-      </node>
-      <node id="116">
+      <node id="126">
         <label>xloader_client.h</label>
         <link refid="xloader__client_8h"/>
-        <childnode refid="117" relation="include">
+        <childnode refid="127" relation="include">
         </childnode>
-        <childnode refid="118" relation="include">
+        <childnode refid="128" relation="include">
         </childnode>
-        <childnode refid="121" relation="include">
+        <childnode refid="129" relation="include">
         </childnode>
-        <childnode refid="123" relation="include">
+        <childnode refid="130" relation="include">
         </childnode>
-      </node>
-      <node id="115">
-        <label>xilloader_get_opt_data_example.c</label>
-        <link refid="xilloader_get_opt_data_example.c"/>
-        <childnode refid="116" relation="include">
+        <childnode refid="133" relation="include">
         </childnode>
-        <childnode refid="124" relation="include">
+        <childnode refid="135" relation="include">
         </childnode>
       </node>
-      <node id="124">
+      <node id="136">
         <label>xil_cache.h</label>
       </node>
-      <node id="121">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="122" relation="include">
+      <node id="130">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="131" relation="include">
         </childnode>
-        <childnode refid="117" relation="include">
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
         </childnode>
       </node>
-      <node id="119">
+      <node id="128">
+        <label>xil_util.h</label>
+      </node>
+      <node id="131">
         <label>xilmailbox.h</label>
       </node>
-      <node id="117">
+      <node id="129">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="125">
+        <label>xilloader_get_opt_data_example.c</label>
+        <link refid="xilloader_get_opt_data_example.c"/>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="127">
         <label>xil_types.h</label>
       </node>
-      <node id="120">
+      <node id="132">
         <label>xparameters.h</label>
       </node>
-      <node id="122">
+      <node id="134">
         <label>xil_printf.h</label>
       </node>
-      <node id="123">
+      <node id="133">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
         <label>xloader_bsp_config.h</label>
       </node>
     </incdepgraph>
@@ -72,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__apis_1ga55aa586df150c1192826a1c57dd87401" prot="public" static="no">
         <name>DATA_ID</name>
@@ -83,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__apis_1ga50bc47889e36ccd506a9cdf1528b050b" prot="public" static="no">
         <name>PDI_SRC_ADDR</name>
@@ -94,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__apis_1ga26c3bbc23f659d18e5ad594d43639efd" prot="public" static="no">
         <name>PDI_ID</name>
@@ -105,7 +115,7 @@
 <para>Mandatory option when PDI_SRC is selected as Image Store </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__apis_1gabf68dddec126f79c069eb06e007c6c22" prot="public" static="no">
         <name>OPT_DATA_BUFFER_SIZE_IN_BYTES</name>
@@ -116,7 +126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__apis_1gacceb00140e2a0a8443cd8b268538e7f9" prot="public" static="no">
         <name>XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE</name>
@@ -127,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="84" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -142,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xloader__apis_1ga3db62cec88b2643e0eaf2fe1aea01dd1" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -155,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="99" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -185,7 +195,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="165" bodyend="217"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="165" bodyend="217"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -204,7 +214,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="110" bodyend="152"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c" bodystart="110" bodyend="152"/>
         <references refid="group__xloader__client__apis_1ga93256553f94e9123e1e0cddfb57be60f" compoundref="xloader__mailbox_8c" startline="103" endline="117">XLoader_ClientInit</references>
         <references refid="group__xloader__mailbox__apis_1ga23a0e86371657f1a57fbf44236f3c009" compoundref="xloader__mailbox_8h" startline="59">XLOADER_SHARED_MEM_SIZE</references>
       </memberdef>
@@ -349,6 +359,6 @@
 <codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="217"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/examples/xilloader_get_opt_data_example.c"/>
   </compounddef>
 </doxygen>

@@ -6,6 +6,9 @@
     <includes local="yes">xil_cache.h</includes>
     <includes refid="vek385__av__pt_2platform__config_8h" local="yes">platform_config.h</includes>
     <incdepgraph>
+      <node id="317">
+        <label>xil_cache.h</label>
+      </node>
       <node id="315">
         <label>platform.c</label>
         <link refid="vek385_av_pt/platform.c"/>
@@ -15,9 +18,6 @@
         </childnode>
         <childnode refid="318" relation="include">
         </childnode>
-      </node>
-      <node id="317">
-        <label>xil_cache.h</label>
       </node>
       <node id="316">
         <label>xparameters.h</label>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="19" bodyend="32"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="19" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="vek385__av__pt_2platform_8c_1a3cd45da24455dd0c7d139388f50d2857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="35" bodyend="39"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="35" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="vek385__av__pt_2platform_8c_1ac7b3df0fa68526d64c732d5f916e34b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="42" bodyend="49"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="42" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="vek385__av__pt_2platform_8c_1a4b736149688a45152511e1acfeefd8ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="52" bodyend="56"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="52" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="vek385__av__pt_2platform_8c_1a69d3ed8dd8510465bb611c416e6325ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="59" bodyend="62"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c" bodystart="59" bodyend="62"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -176,6 +176,6 @@
 <codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>disable_caches();</highlight></codeline>
 <codeline lineno="62"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vek385_av_pt/platform.c"/>
   </compounddef>
 </doxygen>

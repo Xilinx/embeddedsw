@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -117,7 +118,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       yog  01/02/25 Added macro for HMAC module ID.
       ma   01/15/25 Added macro for KDF module ID.
       rmv  08/11/25 Added macro for PLM event module ID.
-      rmv  07/16/25 Added macro for OCP module ID.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+      rmv  07/16/25 Added macro for OCP module ID.
+      kk   07/10/26 Added macro for SLH-DSA module ID.
+      kp   10/13/26 Added XASU_EFUSE_BLACK_KEY and XASU_EFUSE_RED_KEY</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -181,12 +184,30 @@ Macros</h2></td></tr>
 <tr class="memitem:ga921f56062dec043c010b8f75d4e059da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga921f56062dec043c010b8f75d4e059da">XASU_MODULE_LMS_ID</a>&#160;&#160;&#160;(13U)</td></tr>
 <tr class="memdesc:ga921f56062dec043c010b8f75d4e059da"><td class="mdescLeft">&#160;</td><td class="mdescRight">LMS module ID.  <a href="group__xasu__common__defs.html#ga921f56062dec043c010b8f75d4e059da">More...</a><br/></td></tr>
 <tr class="separator:ga921f56062dec043c010b8f75d4e059da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9b1e1dea8f91d3b33cab489bb2126f38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga9b1e1dea8f91d3b33cab489bb2126f38">XASU_MAX_MODULES</a>&#160;&#160;&#160;(14U)</td></tr>
+<tr class="memitem:ga2cf706ce2959eeecb8923767895c4f98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga2cf706ce2959eeecb8923767895c4f98">XASU_MODULE_PROVISION_ID</a>&#160;&#160;&#160;(14U)</td></tr>
+<tr class="memdesc:ga2cf706ce2959eeecb8923767895c4f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provisioning module ID.  <a href="group__xasu__common__defs.html#ga2cf706ce2959eeecb8923767895c4f98">More...</a><br/></td></tr>
+<tr class="separator:ga2cf706ce2959eeecb8923767895c4f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8749b64d8baeb74ac2545f6abad02d46"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga8749b64d8baeb74ac2545f6abad02d46">XASU_MODULE_MLDSA_ID</a>&#160;&#160;&#160;(15U)</td></tr>
+<tr class="memdesc:ga8749b64d8baeb74ac2545f6abad02d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">ML-DSA module ID.  <a href="group__xasu__common__defs.html#ga8749b64d8baeb74ac2545f6abad02d46">More...</a><br/></td></tr>
+<tr class="separator:ga8749b64d8baeb74ac2545f6abad02d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad61d7ffe77bf8fa61d0bf6d1b30de94a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gad61d7ffe77bf8fa61d0bf6d1b30de94a">XASU_MODULE_MLKEM_ID</a>&#160;&#160;&#160;(16U)</td></tr>
+<tr class="memdesc:gad61d7ffe77bf8fa61d0bf6d1b30de94a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ML-KEM module ID.  <a href="group__xasu__common__defs.html#gad61d7ffe77bf8fa61d0bf6d1b30de94a">More...</a><br/></td></tr>
+<tr class="separator:gad61d7ffe77bf8fa61d0bf6d1b30de94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga780b997bcfa8e07b506e3fc380a2047a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga780b997bcfa8e07b506e3fc380a2047a">XASU_MODULE_PLEXT_ID</a>&#160;&#160;&#160;(17U)</td></tr>
+<tr class="memdesc:ga780b997bcfa8e07b506e3fc380a2047a"><td class="mdescLeft">&#160;</td><td class="mdescRight">PL extension module ID.  <a href="group__xasu__common__defs.html#ga780b997bcfa8e07b506e3fc380a2047a">More...</a><br/></td></tr>
+<tr class="separator:ga780b997bcfa8e07b506e3fc380a2047a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa41edfbf167bd90b0ead37b10c5f5ba9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gaa41edfbf167bd90b0ead37b10c5f5ba9">XASU_MODULE_SLHDSA_ID</a>&#160;&#160;&#160;(18U)</td></tr>
+<tr class="memdesc:gaa41edfbf167bd90b0ead37b10c5f5ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLH-DSA module ID.  <a href="group__xasu__common__defs.html#gaa41edfbf167bd90b0ead37b10c5f5ba9">More...</a><br/></td></tr>
+<tr class="separator:gaa41edfbf167bd90b0ead37b10c5f5ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b1e1dea8f91d3b33cab489bb2126f38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga9b1e1dea8f91d3b33cab489bb2126f38">XASU_MAX_MODULES</a>&#160;&#160;&#160;(19U)</td></tr>
 <tr class="memdesc:ga9b1e1dea8f91d3b33cab489bb2126f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum supported modules in ASU.  <a href="group__xasu__common__defs.html#ga9b1e1dea8f91d3b33cab489bb2126f38">More...</a><br/></td></tr>
 <tr class="separator:ga9b1e1dea8f91d3b33cab489bb2126f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga76ecdcdf1b1ad4bda09eac3baa13282f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga76ecdcdf1b1ad4bda09eac3baa13282f">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</a>&#160;&#160;&#160;(0x1FFFFFFCU)</td></tr>
 <tr class="memdesc:ga76ecdcdf1b1ad4bda09eac3baa13282f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASU DMA maximum transfer length in bytes.  <a href="group__xasu__common__defs.html#ga76ecdcdf1b1ad4bda09eac3baa13282f">More...</a><br/></td></tr>
 <tr class="separator:ga76ecdcdf1b1ad4bda09eac3baa13282f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6f4fe0295e6ffb759f4ba771bc7efec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gae6f4fe0295e6ffb759f4ba771bc7efec">XASU_ASU_DMA_BLOCKING_SIZE</a>&#160;&#160;&#160;(4096U)</td></tr>
+<tr class="memdesc:gae6f4fe0295e6ffb759f4ba771bc7efec"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASU DMA blocking size in bytes.  <a href="group__xasu__common__defs.html#gae6f4fe0295e6ffb759f4ba771bc7efec">More...</a><br/></td></tr>
+<tr class="separator:gae6f4fe0295e6ffb759f4ba771bc7efec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae3a9e9118884ccc0feae9e4728394e3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gae3a9e9118884ccc0feae9e4728394e3d">XASU_INIT</a>&#160;&#160;&#160;(0x1U)</td></tr>
 <tr class="memdesc:gae3a9e9118884ccc0feae9e4728394e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">init operation flag  <a href="group__xasu__common__defs.html#gae3a9e9118884ccc0feae9e4728394e3d">More...</a><br/></td></tr>
 <tr class="separator:gae3a9e9118884ccc0feae9e4728394e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,6 +226,30 @@ Macros</h2></td></tr>
 <tr class="memitem:ga6f39310a907e4add6666b2223d6edd6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga6f39310a907e4add6666b2223d6edd6b">XASU_STATUS_PASS</a>&#160;&#160;&#160;(0x1EU)</td></tr>
 <tr class="memdesc:ga6f39310a907e4add6666b2223d6edd6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Success status.  <a href="group__xasu__common__defs.html#ga6f39310a907e4add6666b2223d6edd6b">More...</a><br/></td></tr>
 <tr class="separator:ga6f39310a907e4add6666b2223d6edd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e0052a1bd6202ce021ef4a539024b86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga0e0052a1bd6202ce021ef4a539024b86">XASU_FW_VERSION_MAJOR_SHIFT</a>&#160;&#160;&#160;(8U)</td></tr>
+<tr class="memdesc:ga0e0052a1bd6202ce021ef4a539024b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift for major version.  <a href="group__xasu__common__defs.html#ga0e0052a1bd6202ce021ef4a539024b86">More...</a><br/></td></tr>
+<tr class="separator:ga0e0052a1bd6202ce021ef4a539024b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51b8800f50f472076236e3cad14a07ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga51b8800f50f472076236e3cad14a07ab">XASU_FW_VERSION_MAJOR_MASK</a>&#160;&#160;&#160;(0x0000FF00U)</td></tr>
+<tr class="memdesc:ga51b8800f50f472076236e3cad14a07ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for major version.  <a href="group__xasu__common__defs.html#ga51b8800f50f472076236e3cad14a07ab">More...</a><br/></td></tr>
+<tr class="separator:ga51b8800f50f472076236e3cad14a07ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga61fcad80386fc0f519c48d1dc97f38d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga61fcad80386fc0f519c48d1dc97f38d2">XASU_FW_VERSION_MINOR_MASK</a>&#160;&#160;&#160;(0x000000FFU)</td></tr>
+<tr class="memdesc:ga61fcad80386fc0f519c48d1dc97f38d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for minor version.  <a href="group__xasu__common__defs.html#ga61fcad80386fc0f519c48d1dc97f38d2">More...</a><br/></td></tr>
+<tr class="separator:ga61fcad80386fc0f519c48d1dc97f38d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c89a2f1ec778aaf76d01abe7d73763b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga7c89a2f1ec778aaf76d01abe7d73763b">XASU_FW_VERSION_MAJOR</a>&#160;&#160;&#160;(2U)</td></tr>
+<tr class="memdesc:ga7c89a2f1ec778aaf76d01abe7d73763b"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASUFW major version.  <a href="group__xasu__common__defs.html#ga7c89a2f1ec778aaf76d01abe7d73763b">More...</a><br/></td></tr>
+<tr class="separator:ga7c89a2f1ec778aaf76d01abe7d73763b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa4334c385082fffef1dbc75acc649c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gaaa4334c385082fffef1dbc75acc649c7">XASU_FW_VERSION_MINOR</a>&#160;&#160;&#160;(0U)</td></tr>
+<tr class="memdesc:gaaa4334c385082fffef1dbc75acc649c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASUFW minor version.  <a href="group__xasu__common__defs.html#gaaa4334c385082fffef1dbc75acc649c7">More...</a><br/></td></tr>
+<tr class="separator:gaaa4334c385082fffef1dbc75acc649c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf31d5b9151acfb3226985674d3869432"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gaf31d5b9151acfb3226985674d3869432">XASU_FW_VERSION_VALUE</a></td></tr>
+<tr class="memdesc:gaf31d5b9151acfb3226985674d3869432"><td class="mdescLeft">&#160;</td><td class="mdescRight">FW version = 0x00000200 (v2.0)  <a href="group__xasu__common__defs.html#gaf31d5b9151acfb3226985674d3869432">More...</a><br/></td></tr>
+<tr class="separator:gaf31d5b9151acfb3226985674d3869432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad59b2787651fc9afea521a3d8db1709d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gad59b2787651fc9afea521a3d8db1709d">XASU_EFUSE_BLACK_KEY</a>&#160;&#160;&#160;(0x00000001U)</td></tr>
+<tr class="memdesc:gad59b2787651fc9afea521a3d8db1709d"><td class="mdescLeft">&#160;</td><td class="mdescRight">USER eFUSE key form encodings.  <a href="group__xasu__common__defs.html#gad59b2787651fc9afea521a3d8db1709d">More...</a><br/></td></tr>
+<tr class="separator:gad59b2787651fc9afea521a3d8db1709d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f1e7cd1072701ef6ce0e6fe62d190d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga5f1e7cd1072701ef6ce0e6fe62d190d5">XASU_EFUSE_RED_KEY</a>&#160;&#160;&#160;(0x00000002U)</td></tr>
+<tr class="memdesc:ga5f1e7cd1072701ef6ce0e6fe62d190d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unencrypted (red) form.  <a href="group__xasu__common__defs.html#ga5f1e7cd1072701ef6ce0e6fe62d190d5">More...</a><br/></td></tr>
+<tr class="separator:ga5f1e7cd1072701ef6ce0e6fe62d190d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="356" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="356" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_calib_cfg__s_1a7126094b4dc67585720291b1e3c98483" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__general_1ga40f4589ca1c9f9718eb0f8c04c421f74" kindref="member">CamDeviceCalibSensor_t</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="357" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="357" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device_calib_cfg__s_1afb9cad4bd7928a14518e038a3f85f632" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__general_1ga0a18e38787b4140132e9a0cb03aef767" kindref="member">CamDeviceCalibSystem_t</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="358" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="358" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -49,131 +49,131 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="144">
+      <node id="146">
         <label>CamDeviceCalibHeaderResolution_s</label>
         <link refid="struct_cam_device_calib_header_resolution__s"/>
-        <childnode refid="145" relation="usage">
+        <childnode refid="147" relation="usage">
           <edgelabel>pFramerate</edgelabel>
         </childnode>
       </node>
-      <node id="133">
+      <node id="135">
         <label>CamDeviceCalibSensorAwb_s</label>
         <link refid="struct_cam_device_calib_sensor_awb__s"/>
-        <childnode refid="134" relation="usage">
+        <childnode refid="136" relation="usage">
           <edgelabel>pGlobals</edgelabel>
         </childnode>
-        <childnode refid="136" relation="usage">
+        <childnode refid="138" relation="usage">
           <edgelabel>pIlluminations</edgelabel>
         </childnode>
       </node>
-      <node id="131">
+      <node id="133">
         <label>CamDeviceCalibSensorBls_s</label>
         <link refid="struct_cam_device_calib_sensor_bls__s"/>
       </node>
-      <node id="132">
+      <node id="134">
         <label>CamDeviceCalibSensorLsc_s</label>
         <link refid="struct_cam_device_calib_sensor_lsc__s"/>
       </node>
-      <node id="140">
+      <node id="142">
         <label>CamDeviceCalibSensorAwbIlluminationAcc_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_illumination_acc__s"/>
       </node>
-      <node id="134">
+      <node id="136">
         <label>CamDeviceCalibSensorAwbGlobal_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_global__s"/>
-        <childnode refid="135" relation="usage">
+        <childnode refid="137" relation="usage">
           <edgelabel>awbIIR</edgelabel>
         </childnode>
       </node>
-      <node id="130">
+      <node id="132">
         <label>CamDeviceCalibSensor_s</label>
         <link refid="struct_cam_device_calib_sensor__s"/>
-        <childnode refid="131" relation="usage">
+        <childnode refid="133" relation="usage">
           <edgelabel>pBls</edgelabel>
         </childnode>
-        <childnode refid="132" relation="usage">
+        <childnode refid="134" relation="usage">
           <edgelabel>pLsc</edgelabel>
         </childnode>
-        <childnode refid="133" relation="usage">
+        <childnode refid="135" relation="usage">
           <edgelabel>awb</edgelabel>
         </childnode>
-        <childnode refid="142" relation="usage">
+        <childnode refid="144" relation="usage">
           <edgelabel>pCc</edgelabel>
         </childnode>
       </node>
-      <node id="137">
+      <node id="139">
         <label>CamDeviceCalibSensorAwbIlluminationVigCt_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s"/>
       </node>
-      <node id="135">
+      <node id="137">
         <label>CamDeviceCalibSensorAwbIIR_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_i_i_r__s"/>
       </node>
-      <node id="143">
+      <node id="145">
         <label>CamDeviceCalibHeader_s</label>
         <link refid="struct_cam_device_calib_header__s"/>
-        <childnode refid="144" relation="usage">
+        <childnode refid="146" relation="usage">
           <edgelabel>pResolutions</edgelabel>
         </childnode>
       </node>
-      <node id="145">
+      <node id="147">
         <label>CamDeviceCalibHeaderResolutionFramerate_s</label>
         <link refid="struct_cam_device_calib_header_resolution_framerate__s"/>
       </node>
-      <node id="146">
+      <node id="148">
         <label>CamDeviceCalibSystem_s</label>
         <link refid="struct_cam_device_calib_system__s"/>
       </node>
-      <node id="141">
+      <node id="143">
         <label>CamDeviceCalibSensorAwbIlluminationAlsc_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s"/>
       </node>
-      <node id="138">
+      <node id="140">
         <label>CamDeviceCalibSensorAwbIlluminationGmm_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s"/>
       </node>
-      <node id="142">
+      <node id="144">
         <label>CamDeviceCalibSensorCc_s</label>
         <link refid="struct_cam_device_calib_sensor_cc__s"/>
       </node>
-      <node id="139">
+      <node id="141">
         <label>CamDeviceCalibSensorAwbIlluminationSatCt_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s"/>
       </node>
-      <node id="136">
+      <node id="138">
         <label>CamDeviceCalibSensorAwbIllumination_s</label>
         <link refid="struct_cam_device_calib_sensor_awb_illumination__s"/>
-        <childnode refid="137" relation="usage">
+        <childnode refid="139" relation="usage">
           <edgelabel>vigCt</edgelabel>
         </childnode>
-        <childnode refid="138" relation="usage">
+        <childnode refid="140" relation="usage">
           <edgelabel>gmm</edgelabel>
         </childnode>
-        <childnode refid="139" relation="usage">
+        <childnode refid="141" relation="usage">
           <edgelabel>satCt</edgelabel>
         </childnode>
-        <childnode refid="140" relation="usage">
+        <childnode refid="142" relation="usage">
           <edgelabel>acc</edgelabel>
         </childnode>
-        <childnode refid="141" relation="usage">
+        <childnode refid="143" relation="usage">
           <edgelabel>alsc</edgelabel>
         </childnode>
       </node>
-      <node id="129">
+      <node id="131">
         <label>CamDeviceCalibCfg_s</label>
         <link refid="struct_cam_device_calib_cfg__s"/>
-        <childnode refid="130" relation="usage">
+        <childnode refid="132" relation="usage">
           <edgelabel>sensor</edgelabel>
         </childnode>
-        <childnode refid="143" relation="usage">
+        <childnode refid="145" relation="usage">
           <edgelabel>header</edgelabel>
         </childnode>
-        <childnode refid="146" relation="usage">
+        <childnode refid="148" relation="usage">
           <edgelabel>system</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="355" bodyend="359"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="355" bodyend="359"/>
     <listofallmembers>
       <member refid="struct_cam_device_calib_cfg__s_1aa1ee3879ff140636447b22df2a9a5dbb" prot="public" virt="non-virtual"><scope>CamDeviceCalibCfg_s</scope><name>header</name></member>
       <member refid="struct_cam_device_calib_cfg__s_1a7126094b4dc67585720291b1e3c98483" prot="public" virt="non-virtual"><scope>CamDeviceCalibCfg_s</scope><name>sensor</name></member>

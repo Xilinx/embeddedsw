@@ -105,6 +105,8 @@ $(document).ready(function(){initNavTree('struct_x_fpga___read.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XFpga_Read Struct Reference<div class="ingroups"><a class="el" href="group__xilfpga__zynq.html">XilFPGA APIs for Zynq UltraScale+ MPSoCs</a></div></div>  </div>
 </div><!--header-->
@@ -114,16 +116,59 @@ $(document).ready(function(){initNavTree('struct_x_fpga___read.html','');});
  <a href="struct_x_fpga___read.html#details">More...</a></p>
 
 <p><code>#include &lt;xilfpga_pcap_common.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a0e110b519fc49ce6808e4c5980677417"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_fpga___read.html#a0e110b519fc49ce6808e4c5980677417">ReadbackAddr</a></td></tr>
+<tr class="memdesc:a0e110b519fc49ce6808e4c5980677417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address used to store the PL readback data.  <a href="#a0e110b519fc49ce6808e4c5980677417">More...</a><br/></td></tr>
+<tr class="separator:a0e110b519fc49ce6808e4c5980677417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22e9adb2868545f4c309e8eefacd0673"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_fpga___read.html#a22e9adb2868545f4c309e8eefacd0673">ConfigReg_NumFrames</a></td></tr>
+<tr class="memdesc:a22e9adb2868545f4c309e8eefacd0673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration register value or number of FPGA frames to read.  <a href="#a22e9adb2868545f4c309e8eefacd0673">More...</a><br/></td></tr>
+<tr class="separator:a22e9adb2868545f4c309e8eefacd0673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure to store the PL Image details. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ReadbackAddr</td><td>Address which is used to store the PL readback data. </td></tr>
-    <tr><td class="paramname">ConfigReg</td><td>Configuration register value to be returned (or) The number of Fpga configuration frames to read </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ReadbackAddr</td><td>Address which is used to store the PL readback data. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ConfigReg</td><td>Configuration register value to be returned (or) The number of Fpga configuration frames to read </td></tr>
   </table>
   </dd>
 </dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a22e9adb2868545f4c309e8eefacd0673"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XFpga_Read::ConfigReg_NumFrames</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration register value or number of FPGA frames to read. </p>
+
+<p>Referenced by <a class="el" href="group__xilfpga__zynq__versal.html#ga5e98e018395a91d666b1bf5322ead85a">XFpga_GetPlConfigData()</a>, and <a class="el" href="group__xilfpga__zynq__versal.html#ga16b3f58643bb4ca44b5f76cb15ca3c27">XFpga_GetPlConfigReg()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0e110b519fc49ce6808e4c5980677417"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XFpga_Read::ReadbackAddr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Address used to store the PL readback data. </p>
+
+<p>Referenced by <a class="el" href="group__xilfpga__zynq__versal.html#ga5e98e018395a91d666b1bf5322ead85a">XFpga_GetPlConfigData()</a>, and <a class="el" href="group__xilfpga__zynq__versal.html#ga16b3f58643bb4ca44b5f76cb15ca3c27">XFpga_GetPlConfigReg()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

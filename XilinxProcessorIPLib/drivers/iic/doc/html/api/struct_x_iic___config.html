@@ -109,11 +109,11 @@ $(document).ready(function(){initNavTree('struct_x_iic___config.html','');});
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XIic_Config Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
+<div class="title">XIic_Config Struct Reference<div class="ingroups"><a class="el" href="group__iic.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for the device.
+<p>Holds configuration information for the device.
  <a href="struct_x_iic___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xiic.h&gt;</code></p>
@@ -133,10 +133,10 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:a65ecc64160873e6910dab26b912f437f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits in general purpose output.  <a href="#a65ecc64160873e6910dab26b912f437f">More...</a><br/></td></tr>
 <tr class="separator:a65ecc64160873e6910dab26b912f437f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab9a6750ed1288bc87868653feaf70e"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_iic___config.html#acab9a6750ed1288bc87868653feaf70e">IntrId</a></td></tr>
-<tr class="memdesc:acab9a6750ed1288bc87868653feaf70e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags.  <a href="#acab9a6750ed1288bc87868653feaf70e">More...</a><br/></td></tr>
+<tr class="memdesc:acab9a6750ed1288bc87868653feaf70e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags.  <a href="#acab9a6750ed1288bc87868653feaf70e">More...</a><br/></td></tr>
 <tr class="separator:acab9a6750ed1288bc87868653feaf70e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30b5d6af72a05a175b7af553f8eef939"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_iic___config.html#a30b5d6af72a05a175b7af553f8eef939">IntrParent</a></td></tr>
-<tr class="memdesc:a30b5d6af72a05a175b7af553f8eef939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] Interrupt parent type Bit[64/32:1] Parent base address.  <a href="#a30b5d6af72a05a175b7af553f8eef939">More...</a><br/></td></tr>
+<tr class="memdesc:a30b5d6af72a05a175b7af553f8eef939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit[0] interrupt parent type; bit[64/32:1] parent base address.  <a href="#a30b5d6af72a05a175b7af553f8eef939">More...</a><br/></td></tr>
 <tr class="separator:a30b5d6af72a05a175b7af553f8eef939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a453f6cc99df76bf1c12293b36e44782c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_iic___config.html#a453f6cc99df76bf1c12293b36e44782c">SerialClkDelay</a></td></tr>
 <tr class="memdesc:a453f6cc99df76bf1c12293b36e44782c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SCL inertial delay.  <a href="#a453f6cc99df76bf1c12293b36e44782c">More...</a><br/></td></tr>
@@ -146,7 +146,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:af821a4e2f518e1351466a870e8089af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for the device. </p>
+<div class="textblock"><p>Holds configuration information for the device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="af821a4e2f518e1351466a870e8089af7"></a>
 <div class="memitem">
@@ -160,7 +160,7 @@ Data Fields</h2></td></tr>
 
 <p>AXI clock frequency in Hz. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__iic.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -176,7 +176,7 @@ Data Fields</h2></td></tr>
 
 <p>Device base address. </p>
 
-<p>Referenced by <a class="el" href="xiic__dynamic__eeprom__example_8c.html#acf73440d825599aa965a161279937fdb">IicDynEepromExample()</a>, <a class="el" href="xiic__eeprom__example_8c.html#aa0f15e4ae2ab31c19f1268a81acdfe23">IicEepromExample()</a>, <a class="el" href="xiic__multi__master__example_8c.html#a1910a4a03c18e6dcc001ad0880af0782">IicMultiMasterExample()</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>, <a class="el" href="xiic__pmbus__polled__example_8c.html#a1cbeb6a6d6f83cb76edb5febefb39caf">IicPmbusPolledExample()</a>, <a class="el" href="xiic__repeated__start__example_8c.html#ad711cc13c49a8ea279600d27dd1148c1">IicRepeatedStartExample()</a>, <a class="el" href="xiic__selftest__example_8c.html#a3c732a0c3f0c51e73fae3f189232bd0b">IicSelfTestExample()</a>, <a class="el" href="xiic__slave__example_8c.html#a7f5dc26ef1947d1825780346d26d5f70">IicSlaveExample()</a>, <a class="el" href="xiic__tenbitaddr__example_8c.html#ab4e612135486e268a4db49b75f625f52">IicTenBitAddrExample()</a>, <a class="el" href="xiic__tempsensor__example_8c.html#a49c0c465f1a78be31e03a2c1a78e6f43">TempSensorExample()</a>, and <a class="el" href="group___overview.html#ga96f409bb662ff9aaf349002ced83aaac">XIic_Initialize()</a>.</p>
+<p>Referenced by <a class="el" href="xiic__dynamic__eeprom__example_8c.html#acf73440d825599aa965a161279937fdb">IicDynEepromExample()</a>, <a class="el" href="xiic__eeprom__example_8c.html#aa0f15e4ae2ab31c19f1268a81acdfe23">IicEepromExample()</a>, <a class="el" href="xiic__multi__master__example_8c.html#a1910a4a03c18e6dcc001ad0880af0782">IicMultiMasterExample()</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>, <a class="el" href="xiic__pmbus__polled__example_8c.html#a1cbeb6a6d6f83cb76edb5febefb39caf">IicPmbusPolledExample()</a>, <a class="el" href="xiic__repeated__start__example_8c.html#ad711cc13c49a8ea279600d27dd1148c1">IicRepeatedStartExample()</a>, <a class="el" href="xiic__selftest__example_8c.html#a3c732a0c3f0c51e73fae3f189232bd0b">IicSelfTestExample()</a>, <a class="el" href="xiic__slave__example_8c.html#a7f5dc26ef1947d1825780346d26d5f70">IicSlaveExample()</a>, <a class="el" href="xiic__tenbitaddr__example_8c.html#ab4e612135486e268a4db49b75f625f52">IicTenBitAddrExample()</a>, <a class="el" href="xiic__tempsensor__example_8c.html#a49c0c465f1a78be31e03a2c1a78e6f43">TempSensorExample()</a>, and <a class="el" href="group__iic__api.html#ga96f409bb662ff9aaf349002ced83aaac">XIic_Initialize()</a>.</p>
 
 </div>
 </div>
@@ -192,7 +192,7 @@ Data Fields</h2></td></tr>
 
 <p>Number of bits in general purpose output. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__iic.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -208,7 +208,7 @@ Data Fields</h2></td></tr>
 
 <p>Does device have 10 bit address decoding. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__iic.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -222,7 +222,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </p>
+<p>Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags. </p>
 
 <p>Referenced by <a class="el" href="xiic__dynamic__eeprom__example_8c.html#acf73440d825599aa965a161279937fdb">IicDynEepromExample()</a>, <a class="el" href="xiic__eeprom__example_8c.html#aa0f15e4ae2ab31c19f1268a81acdfe23">IicEepromExample()</a>, <a class="el" href="xiic__multi__master__example_8c.html#a1910a4a03c18e6dcc001ad0880af0782">IicMultiMasterExample()</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>, <a class="el" href="xiic__repeated__start__example_8c.html#ad711cc13c49a8ea279600d27dd1148c1">IicRepeatedStartExample()</a>, <a class="el" href="xiic__slave__example_8c.html#a7f5dc26ef1947d1825780346d26d5f70">IicSlaveExample()</a>, <a class="el" href="xiic__tenbitaddr__example_8c.html#ab4e612135486e268a4db49b75f625f52">IicTenBitAddrExample()</a>, and <a class="el" href="xiic__tempsensor__example_8c.html#a49c0c465f1a78be31e03a2c1a78e6f43">TempSensorExample()</a>.</p>
 
@@ -238,7 +238,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </p>
+<p>Bit[0] interrupt parent type; bit[64/32:1] parent base address. </p>
 
 <p>Referenced by <a class="el" href="xiic__dynamic__eeprom__example_8c.html#acf73440d825599aa965a161279937fdb">IicDynEepromExample()</a>, <a class="el" href="xiic__eeprom__example_8c.html#aa0f15e4ae2ab31c19f1268a81acdfe23">IicEepromExample()</a>, <a class="el" href="xiic__multi__master__example_8c.html#a1910a4a03c18e6dcc001ad0880af0782">IicMultiMasterExample()</a>, <a class="el" href="xiic__pmbus__intr__example_8c.html#a8db8cb1247e56449840cd1be84b786b2">IicPmbusInterruptSdtExample()</a>, <a class="el" href="xiic__repeated__start__example_8c.html#ad711cc13c49a8ea279600d27dd1148c1">IicRepeatedStartExample()</a>, <a class="el" href="xiic__slave__example_8c.html#a7f5dc26ef1947d1825780346d26d5f70">IicSlaveExample()</a>, <a class="el" href="xiic__tenbitaddr__example_8c.html#ab4e612135486e268a4db49b75f625f52">IicTenBitAddrExample()</a>, and <a class="el" href="xiic__tempsensor__example_8c.html#a49c0c465f1a78be31e03a2c1a78e6f43">TempSensorExample()</a>.</p>
 
@@ -256,7 +256,7 @@ Data Fields</h2></td></tr>
 
 <p>Name of the device. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga7e448669953bf36074837f174726814d">XIic_LookupConfig()</a>.</p>
+<p>Referenced by <a class="el" href="group__iic__api.html#ga9a97d3d56689e80a6773701e1bf0e808">XIic_LookupConfig()</a>.</p>
 
 </div>
 </div>
@@ -272,7 +272,7 @@ Data Fields</h2></td></tr>
 
 <p>SCL inertial delay. </p>
 
-<p>Referenced by <a class="el" href="group___overview.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__iic.html#ga301f08e1fa6e74bf4c2885702bf0ff70">XIic_CfgInitialize()</a>.</p>
 
 </div>
 </div>

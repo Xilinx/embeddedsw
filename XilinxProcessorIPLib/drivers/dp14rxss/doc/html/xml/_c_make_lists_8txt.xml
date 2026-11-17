@@ -38,6 +38,6 @@
 <codeline lineno="29"><highlight class="stringliteral">add_library(dp14rxss<sp/>STATIC<sp/>${_sources})</highlight></codeline>
 <codeline lineno="30"><highlight class="stringliteral">set_target_properties(dp14rxss<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

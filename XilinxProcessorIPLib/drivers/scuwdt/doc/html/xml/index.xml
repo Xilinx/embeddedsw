@@ -21,7 +21,6 @@
     <member refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" kind="function"><name>XScuWdt_Stop</name></member>
   </compound>
   <compound refid="xscuwdt_8h" kind="file"><name>xscuwdt.h</name>
-    <member refid="group___overview_1ga0bc0278a14721ac3733d4080e7a03ee3" kind="define"><name>XSCUWDT_H</name></member>
     <member refid="group___overview_1ga9481fbc75254dd60304af3fd0254e3f6" kind="define"><name>XScuWdt_IsWdtExpired</name></member>
     <member refid="group___overview_1ga551b705d1ebbb530ac7a2a9752c8f5cb" kind="define"><name>XScuWdt_IsTimerExpired</name></member>
     <member refid="group___overview_1ga9487e2c385d8dc9cf5f1f27539ca079f" kind="define"><name>XScuWdt_RestartWdt</name></member>
@@ -58,7 +57,6 @@
     <member refid="group___overview_1ga09ce6fd05a79f896111beab252e792f5" kind="define"><name>XSCUWDT_RST_STS_RESET_FLAG_MASK</name></member>
     <member refid="group___overview_1gaafdd114ae5e1835ff15037e617464de2" kind="define"><name>XSCUWDT_DISABLE_VALUE1</name></member>
     <member refid="group___overview_1ga3637e7d6bc621bbe36942a1bc9543f2f" kind="define"><name>XSCUWDT_DISABLE_VALUE2</name></member>
-    <member refid="group___overview_1ga483f73470c465c0ce9317a14c4546130" kind="define"><name>XSCUWDT_HW_H</name></member>
     <member refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kind="define"><name>XScuWdt_ReadReg</name></member>
     <member refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kind="define"><name>XScuWdt_WriteReg</name></member>
   </compound>
@@ -109,7 +107,6 @@
     <member refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" kind="function"><name>XScuWdt_Stop</name></member>
     <member refid="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" kind="function"><name>XScuWdt_LookupConfig</name></member>
     <member refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" kind="function"><name>XScuWdt_SelfTest</name></member>
-    <member refid="group___overview_1ga0bc0278a14721ac3733d4080e7a03ee3" kind="define"><name>XSCUWDT_H</name></member>
     <member refid="group___overview_1ga9481fbc75254dd60304af3fd0254e3f6" kind="define"><name>XScuWdt_IsWdtExpired</name></member>
     <member refid="group___overview_1ga551b705d1ebbb530ac7a2a9752c8f5cb" kind="define"><name>XScuWdt_IsTimerExpired</name></member>
     <member refid="group___overview_1ga9487e2c385d8dc9cf5f1f27539ca079f" kind="define"><name>XScuWdt_RestartWdt</name></member>
@@ -119,7 +116,6 @@
     <member refid="group___overview_1gaf62532fc29f79a73a2a058d6e81586a6" kind="define"><name>XScuWdt_GetControlReg</name></member>
     <member refid="group___overview_1gaac6e3f570a91434e6e4066a7a6c5d333" kind="define"><name>XScuWdt_SetControlReg</name></member>
     <member refid="group___overview_1ga34698453a13b46c1e87f3a8ff3510f37" kind="define"><name>XScuWdt_EnableAutoReload</name></member>
-    <member refid="group___overview_1ga483f73470c465c0ce9317a14c4546130" kind="define"><name>XSCUWDT_HW_H</name></member>
     <member refid="group___overview_1ga0c00c40fbb11db997a4650ae222ac29f" kind="define"><name>XScuWdt_ReadReg</name></member>
     <member refid="group___overview_1ga396641b45a7213c8c18a19485759fee4" kind="define"><name>XScuWdt_WriteReg</name></member>
   </compound>

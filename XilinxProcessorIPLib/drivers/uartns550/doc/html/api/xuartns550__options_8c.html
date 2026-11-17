@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xuartns550__options_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,10 +105,35 @@ $(document).ready(function(){initNavTree('xuartns550__options_8c.html','');});
 <div class="title">xuartns550_options.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Options functions for the <a class="el" href="struct_x_uart_ns550.html" title="XUartNs550 driver instance data. ">XUartNs550</a> driver. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00b jhl  03/11/02 Repartitioned driver for smaller files.
+1.00b rpm  04/12/05 Added critical section protection in ReadFcrRegister
+1.11a sv   03/20/07 Updated to use the new coding guidelines.
+1.13a sdm  07/10/09 Added receive line interrupt option to OptionsTable[].
+2.00a sdm  09/22/09 Converted all register accesses to 32 bit access.
+2.00a ktn  10/20/09 Converted all register accesses to 32 bit access.
+              Updated to use HAL Processor APIs. _m is removed from the
+              name of all the macro definitions.
+3.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of ReadFcrRegister API.
+3.15  vn   09/09/26 Align Doxygen comments with AMD standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xuartns550_8h.html">xuartns550.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xuartns550__i_8h.html">xuartns550_i.h</a>&quot;</code><br/>
 <code>#include &quot;xil_io.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Options table size</div></td></tr>
+<tr class="memitem:ga0cca097353c3439833fb22f5761ebc3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga0cca097353c3439833fb22f5761ebc3f">XUN_NUM_OPTIONS</a>&#160;&#160;&#160;(sizeof(OptionsTable) / sizeof(Mapping))</td></tr>
+<tr class="memdesc:ga0cca097353c3439833fb22f5761ebc3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of entries in OptionsTable.  <a href="group__uartns550.html#ga0cca097353c3439833fb22f5761ebc3f">More...</a><br/></td></tr>
+<tr class="separator:ga0cca097353c3439833fb22f5761ebc3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga120797e7b4fc719c827c4378e387efe4"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga120797e7b4fc719c827c4378e387efe4">XUartNs550_GetOptions</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
@@ -118,19 +143,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:gac2270082fbb7d7b2c32bd9208dae5be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the options for the specified driver instance.  <a href="group__uartns550.html#gac2270082fbb7d7b2c32bd9208dae5be3">More...</a><br/></td></tr>
 <tr class="separator:gac2270082fbb7d7b2c32bd9208dae5be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4f7c185a91f28f3490fa8ef71dab1059"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga4f7c185a91f28f3490fa8ef71dab1059">XUartNs550_GetFifoThreshold</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga4f7c185a91f28f3490fa8ef71dab1059"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the receive FIFO trigger level.  <a href="group__uartns550.html#ga4f7c185a91f28f3490fa8ef71dab1059">More...</a><br/></td></tr>
+<tr class="memdesc:ga4f7c185a91f28f3490fa8ef71dab1059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the receive FIFO trigger level.  <a href="group__uartns550.html#ga4f7c185a91f28f3490fa8ef71dab1059">More...</a><br/></td></tr>
 <tr class="separator:ga4f7c185a91f28f3490fa8ef71dab1059"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaedd1056b9f1283ee15c1a3c349acb845"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gaedd1056b9f1283ee15c1a3c349acb845">XUartNs550_SetFifoThreshold</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr, u8 TriggerLevel)</td></tr>
-<tr class="memdesc:gaedd1056b9f1283ee15c1a3c349acb845"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions sets the receive FIFO trigger level.  <a href="group__uartns550.html#gaedd1056b9f1283ee15c1a3c349acb845">More...</a><br/></td></tr>
+<tr class="memdesc:gaedd1056b9f1283ee15c1a3c349acb845"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the receive FIFO trigger level.  <a href="group__uartns550.html#gaedd1056b9f1283ee15c1a3c349acb845">More...</a><br/></td></tr>
 <tr class="separator:gaedd1056b9f1283ee15c1a3c349acb845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab5c78c74113daef4f74aefbc57e92b3a"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gab5c78c74113daef4f74aefbc57e92b3a">XUartNs550_GetLastErrors</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gab5c78c74113daef4f74aefbc57e92b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the last errors that have occurred in the specified UART.  <a href="group__uartns550.html#gab5c78c74113daef4f74aefbc57e92b3a">More...</a><br/></td></tr>
+<tr class="memdesc:gab5c78c74113daef4f74aefbc57e92b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last errors that have occurred in the specified UART.  <a href="group__uartns550.html#gab5c78c74113daef4f74aefbc57e92b3a">More...</a><br/></td></tr>
 <tr class="separator:gab5c78c74113daef4f74aefbc57e92b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga541b6125f67b83adfe5f508215d59ea6"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#ga541b6125f67b83adfe5f508215d59ea6">XUartNs550_GetModemStatus</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga541b6125f67b83adfe5f508215d59ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the modem status from the specified UART.  <a href="group__uartns550.html#ga541b6125f67b83adfe5f508215d59ea6">More...</a><br/></td></tr>
+<tr class="memdesc:ga541b6125f67b83adfe5f508215d59ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the modem status from the specified UART.  <a href="group__uartns550.html#ga541b6125f67b83adfe5f508215d59ea6">More...</a><br/></td></tr>
 <tr class="separator:ga541b6125f67b83adfe5f508215d59ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab822fbaed4a57714779e35b6be6f090"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uartns550.html#gaab822fbaed4a57714779e35b6be6f090">XUartNs550_IsSending</a> (<a class="el" href="struct_x_uart_ns550.html">XUartNs550</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gaab822fbaed4a57714779e35b6be6f090"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the specified UART is sending data.  <a href="group__uartns550.html#gaab822fbaed4a57714779e35b6be6f090">More...</a><br/></td></tr>
+<tr class="memdesc:gaab822fbaed4a57714779e35b6be6f090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the specified UART is sending data.  <a href="group__uartns550.html#gaab822fbaed4a57714779e35b6be6f090">More...</a><br/></td></tr>
 <tr class="separator:gaab822fbaed4a57714779e35b6be6f090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

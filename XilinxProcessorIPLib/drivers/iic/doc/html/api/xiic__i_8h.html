@@ -100,20 +100,101 @@ $(document).ready(function(){initNavTree('xiic__i_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xiic_i.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Defines IIC internal driver data and macros. </p>
+<p>This header file contains internal identifiers, which are those shared between <a class="el" href="struct_x_iic.html" title="Holds XIic driver instance data. ">XIic</a> components. The identifiers in this file are not intended for use external to the driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.01a rfp  10/19/01 release
+1.01c ecm  12/05/02 new rev
+1.13a wgr  03/22/07 Converted to new coding style.
+2.00a sdm  10/22/09 Converted all register accesses to 32 bit access.
+              Removed the macro XIIC_CLEAR_STATS, user has to
+              use the the XIic_ClearStats API in its place.
+              Removed the macro XIic_mEnterCriticalRegion,
+              XIic_IntrGlobalDisable should be used in its place.
+              Removed the macro XIic_mExitCriticalRegion,
+              XIic_IntrGlobalEnable should be used in its place.
+              Removed the _m prefix from all the macros
+              XIic_mSend10BitAddrByte1 is now XIic_Send10BitAddrByte1
+              XIic_mSend10BitAddrByte2 is now XIic_Send10BitAddrByte2
+              XIic_mSend7BitAddr is now XIic_Send7BitAddr
+              XIic_mDisableIntr is now XIic_DisableIntr
+              XIic_mEnableIntr is now XIic_EnableIntr
+              XIic_mClearIntr is now XIic_ClearIntr
+              XIic_mClearEnableIntr is now XIic_ClearEnableIntr
+              XIic_mFlushRxFifo is now XIic_FlushRxFifo
+              XIic_mFlushTxFifo is now XIic_FlushTxFifo
+              XIic_mReadRecvByte is now XIic_ReadRecvByte
+              XIic_mWriteSendByte is now XIic_WriteSendByte
+              XIic_mSetControlRegister is now XIic_SetControlRegister
+2.07a adk   18/04/13 Updated the code to avoid unused variable warnings when
+                  compiling with the -Wextra -Wall flags.
+                  Changes done in files <a class="el" href="xiic_8c.html" title="Implements required IIC driver functions. ">xiic.c</a> and <a class="el" href="xiic__i_8h.html" title="Defines IIC internal driver data and macros. ">xiic_i.h</a>. CR:705001
+3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xiic_8h.html">xiic.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga2001584e918a36a4bfdad231b445d99b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga2001584e918a36a4bfdad231b445d99b">XIic_Send10BitAddrByte1</a>(SlaveAddress, Operation)</td></tr>
+<tr class="memdesc:ga2001584e918a36a4bfdad231b445d99b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the first byte of a 10-bit address for reads and writes.  <a href="group__iic__api.html#ga2001584e918a36a4bfdad231b445d99b">More...</a><br/></td></tr>
+<tr class="separator:ga2001584e918a36a4bfdad231b445d99b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19cce81b13c7a687ae09311c79918ee0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga19cce81b13c7a687ae09311c79918ee0">XIic_Send10BitAddrByte2</a>(SlaveAddress)</td></tr>
+<tr class="memdesc:ga19cce81b13c7a687ae09311c79918ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the second byte of a 10-bit address for reads and writes.  <a href="group__iic__api.html#ga19cce81b13c7a687ae09311c79918ee0">More...</a><br/></td></tr>
+<tr class="separator:ga19cce81b13c7a687ae09311c79918ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0479da320de8a400d6d40748655111ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga0479da320de8a400d6d40748655111ac">XIic_Send7BitAddr</a>(SlaveAddress, Operation)</td></tr>
+<tr class="memdesc:ga0479da320de8a400d6d40748655111ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a 7-bit address for reads and writes.  <a href="group__iic__api.html#ga0479da320de8a400d6d40748655111ac">More...</a><br/></td></tr>
+<tr class="separator:ga0479da320de8a400d6d40748655111ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a0957e678ee52796740e343c783ba63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga8a0957e678ee52796740e343c783ba63">XIic_DisableIntr</a>(BaseAddress, InterruptMask)</td></tr>
+<tr class="memdesc:ga8a0957e678ee52796740e343c783ba63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the specified interrupts in the Interrupt Enable register.  <a href="group__iic__api.html#ga8a0957e678ee52796740e343c783ba63">More...</a><br/></td></tr>
+<tr class="separator:ga8a0957e678ee52796740e343c783ba63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4240b23da2af69b3241bfad09012121d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga4240b23da2af69b3241bfad09012121d">XIic_EnableIntr</a>(BaseAddress, InterruptMask)</td></tr>
+<tr class="memdesc:ga4240b23da2af69b3241bfad09012121d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the specified interrupts in the Interrupt Enable register.  <a href="group__iic__api.html#ga4240b23da2af69b3241bfad09012121d">More...</a><br/></td></tr>
+<tr class="separator:ga4240b23da2af69b3241bfad09012121d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabdc7dde7268b381e056c38ebb760fed5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gabdc7dde7268b381e056c38ebb760fed5">XIic_ClearIntr</a>(BaseAddress, InterruptMask)</td></tr>
+<tr class="memdesc:gabdc7dde7268b381e056c38ebb760fed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the specified interrupt in the Interrupt Status register.  <a href="group__iic__api.html#gabdc7dde7268b381e056c38ebb760fed5">More...</a><br/></td></tr>
+<tr class="separator:gabdc7dde7268b381e056c38ebb760fed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga538db75a9a83f1f886fa07d4fcabaf75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga538db75a9a83f1f886fa07d4fcabaf75">XIic_ClearEnableIntr</a>(BaseAddress, InterruptMask)</td></tr>
+<tr class="memdesc:ga538db75a9a83f1f886fa07d4fcabaf75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears and enables the specified interrupt.  <a href="group__iic__api.html#ga538db75a9a83f1f886fa07d4fcabaf75">More...</a><br/></td></tr>
+<tr class="separator:ga538db75a9a83f1f886fa07d4fcabaf75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3bc2f28ee08572ad4b7ee2c60ec1c51f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga3bc2f28ee08572ad4b7ee2c60ec1c51f">XIic_FlushRxFifo</a>(InstancePtr)</td></tr>
+<tr class="memdesc:ga3bc2f28ee08572ad4b7ee2c60ec1c51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the receive FIFO, discarding all bytes in it.  <a href="group__iic__api.html#ga3bc2f28ee08572ad4b7ee2c60ec1c51f">More...</a><br/></td></tr>
+<tr class="separator:ga3bc2f28ee08572ad4b7ee2c60ec1c51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd812aa67876ac9ca0b296b4bb2596bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gadd812aa67876ac9ca0b296b4bb2596bc">XIic_FlushTxFifo</a>(InstancePtr)</td></tr>
+<tr class="memdesc:gadd812aa67876ac9ca0b296b4bb2596bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the transmit FIFO, discarding all bytes in it.  <a href="group__iic__api.html#gadd812aa67876ac9ca0b296b4bb2596bc">More...</a><br/></td></tr>
+<tr class="separator:gadd812aa67876ac9ca0b296b4bb2596bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4f1c072a81640b2ef39e018be0fd1e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gab4f1c072a81640b2ef39e018be0fd1e9">XIic_ReadRecvByte</a>(InstancePtr)</td></tr>
+<tr class="memdesc:gab4f1c072a81640b2ef39e018be0fd1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next available received byte from the receive FIFO.  <a href="group__iic__api.html#gab4f1c072a81640b2ef39e018be0fd1e9">More...</a><br/></td></tr>
+<tr class="separator:gab4f1c072a81640b2ef39e018be0fd1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga82d6f149b715c8f236cd26eeae2efeac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga82d6f149b715c8f236cd26eeae2efeac">XIic_WriteSendByte</a>(InstancePtr)</td></tr>
+<tr class="memdesc:ga82d6f149b715c8f236cd26eeae2efeac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the next byte to be sent to the transmit FIFO.  <a href="group__iic__api.html#ga82d6f149b715c8f236cd26eeae2efeac">More...</a><br/></td></tr>
+<tr class="separator:ga82d6f149b715c8f236cd26eeae2efeac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b8c330e8cacc286d9cd1ddee97bf8b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga5b8c330e8cacc286d9cd1ddee97bf8b0">XIic_SetControlRegister</a>(InstancePtr, ControlRegister, ByteCount)</td></tr>
+<tr class="memdesc:ga5b8c330e8cacc286d9cd1ddee97bf8b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the control register for a master receive operation.  <a href="group__iic__api.html#ga5b8c330e8cacc286d9cd1ddee97bf8b0">More...</a><br/></td></tr>
+<tr class="separator:ga5b8c330e8cacc286d9cd1ddee97bf8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gab68f6a977445ce2895c94be4a0654ec1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#gab68f6a977445ce2895c94be4a0654ec1">XIic_TransmitFifoFill</a> (<a class="el" href="struct_x_iic.html">XIic</a> *InstancePtr, int Role)</td></tr>
+<tr class="memdesc:gab68f6a977445ce2895c94be4a0654ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the FIFO using the occupancy register to find available space.  <a href="group__iic__api.html#gab68f6a977445ce2895c94be4a0654ec1">More...</a><br/></td></tr>
+<tr class="separator:gab68f6a977445ce2895c94be4a0654ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ga1650420711273450b9b406d43f10dd0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic___config.html">XIic_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga1650420711273450b9b406d43f10dd0d">XIic_ConfigTable</a> []</td></tr>
-<tr class="memdesc:ga1650420711273450b9b406d43f10dd0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The IIC configuration table, sized by the number of instances defined in xparameters.h.  <a href="group___overview.html#ga1650420711273450b9b406d43f10dd0d">More...</a><br/></td></tr>
+<tr class="memitem:ga1650420711273450b9b406d43f10dd0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_iic___config.html">XIic_Config</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__iic__api.html#ga1650420711273450b9b406d43f10dd0d">XIic_ConfigTable</a> []</td></tr>
+<tr class="memdesc:ga1650420711273450b9b406d43f10dd0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the IIC configuration table.  <a href="group__iic__api.html#ga1650420711273450b9b406d43f10dd0d">More...</a><br/></td></tr>
 <tr class="separator:ga1650420711273450b9b406d43f10dd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

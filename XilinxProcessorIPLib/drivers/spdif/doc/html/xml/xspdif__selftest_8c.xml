@@ -14,30 +14,6 @@
       <node id="90">
         <label>xil_io.h</label>
       </node>
-      <node id="88">
-        <label>xspdif.h</label>
-        <link refid="xspdif_8h"/>
-        <childnode refid="89" relation="include">
-        </childnode>
-        <childnode refid="91" relation="include">
-        </childnode>
-        <childnode refid="92" relation="include">
-        </childnode>
-        <childnode refid="93" relation="include">
-        </childnode>
-      </node>
-      <node id="89">
-        <label>xspdif_hw.h</label>
-        <link refid="xspdif__hw_8h"/>
-        <childnode refid="90" relation="include">
-        </childnode>
-      </node>
-      <node id="92">
-        <label>xstatus.h</label>
-      </node>
-      <node id="93">
-        <label>xil_types.h</label>
-      </node>
       <node id="87">
         <label>xspdif_selftest.c</label>
         <link refid="xspdif_selftest.c"/>
@@ -50,6 +26,30 @@
         <childnode refid="89" relation="include">
         </childnode>
         <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="92">
+        <label>xstatus.h</label>
+      </node>
+      <node id="93">
+        <label>xil_types.h</label>
+      </node>
+      <node id="89">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif__hw_8h"/>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xspdif.h</label>
+        <link refid="xspdif_8h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -80,10 +80,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_selftest.c" bodystart="54" bodyend="69"/>
-        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
-        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
-        <references refid="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" compoundref="xspdif_8h" startline="107">XSpdif::IsStarted</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_selftest.c" bodystart="54" bodyend="69"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="87">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="103">XSpdif::Config</references>
+        <references refid="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" compoundref="xspdif_8h" startline="101">XSpdif::IsStarted</references>
         <references refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" compoundref="xspdif__hw_8h" startline="53">XSPDIF_CONTROL_REGISTER_OFFSET</references>
         <references refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</references>
         <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
@@ -127,6 +127,6 @@
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="69"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_selftest.c"/>
   </compounddef>
 </doxygen>

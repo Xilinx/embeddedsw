@@ -9,183 +9,223 @@
     <includedby refid="xloader__generic_8h" local="yes">xloader_generic.h</includedby>
     <includedby refid="xloader__mailbox_8c" local="yes">xloader_mailbox.c</includedby>
     <includedby refid="versal__2ve__2vm_2client_2xloader__plat__client_8h" local="yes">xloader_plat_client.h</includedby>
+    <includedby refid="versal__2vp_2client_2xloader__plat__client_8h" local="yes">xloader_plat_client.h</includedby>
+    <includedby refid="versal__2vp__p_2client_2xloader__plat__client_8h" local="yes">xloader_plat_client.h</includedby>
     <includedby refid="versal__net_2client_2xloader__plat__client_8h" local="yes">xloader_plat_client.h</includedby>
     <incdepgraph>
-      <node id="716">
+      <node id="802">
         <label>xloader_mailbox.h</label>
         <link refid="xloader_mailbox.h"/>
-        <childnode refid="717" relation="include">
+        <childnode refid="803" relation="include">
         </childnode>
-        <childnode refid="718" relation="include">
+        <childnode refid="804" relation="include">
         </childnode>
-        <childnode refid="719" relation="include">
-        </childnode>
-      </node>
-      <node id="719">
-        <label>xloader_defs.h</label>
-        <link refid="xloader__defs_8h"/>
-        <childnode refid="720" relation="include">
-        </childnode>
-        <childnode refid="721" relation="include">
+        <childnode refid="805" relation="include">
         </childnode>
       </node>
-      <node id="717">
+      <node id="803">
         <label>xilmailbox.h</label>
       </node>
-      <node id="721">
+      <node id="807">
         <label>xil_types.h</label>
       </node>
-      <node id="718">
+      <node id="804">
         <label>xparameters.h</label>
       </node>
-      <node id="720">
+      <node id="806">
         <label>xil_printf.h</label>
+      </node>
+      <node id="805">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="806" relation="include">
+        </childnode>
+        <childnode refid="807" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="741">
-        <label>xloader_plat_client.h</label>
-        <childnode refid="742" relation="include">
-        </childnode>
-      </node>
-      <node id="739">
-        <label>xloader_generic.c</label>
-        <link refid="xloader__generic_8c"/>
-      </node>
-      <node id="738">
-        <label>xloader_generic.h</label>
-        <link refid="xloader__generic_8h"/>
-        <childnode refid="724" relation="include">
-        </childnode>
-        <childnode refid="739" relation="include">
-        </childnode>
-      </node>
-      <node id="740">
-        <label>xloader_mailbox.c</label>
-        <link refid="xloader__mailbox_8c"/>
-      </node>
-      <node id="722">
-        <label>xloader_mailbox.h</label>
-        <link refid="xloader_mailbox.h"/>
-        <childnode refid="723" relation="include">
-        </childnode>
-        <childnode refid="738" relation="include">
-        </childnode>
-        <childnode refid="740" relation="include">
-        </childnode>
-        <childnode refid="741" relation="include">
-        </childnode>
-        <childnode refid="743" relation="include">
-        </childnode>
-      </node>
-      <node id="745">
-        <label>xilloader_configure_jtag_status_client_example.c</label>
-        <link refid="xilloader__configure__jtag__status__client__example_8c"/>
-      </node>
-      <node id="728">
-        <label>xilloader_get_atf_handoff_params_client_example.c</label>
-        <link refid="xilloader__get__atf__handoff__params__client__example_8c"/>
-      </node>
-      <node id="727">
-        <label>xilloader_extract_metaheader_client_example.c</label>
-        <link refid="xilloader__extract__metaheader__client__example_8c"/>
-      </node>
-      <node id="724">
-        <label>xloader_client.c</label>
-        <link refid="xloader__client_8c"/>
-      </node>
-      <node id="723">
-        <label>xloader_client.h</label>
-        <link refid="xloader__client_8h"/>
-        <childnode refid="724" relation="include">
-        </childnode>
-        <childnode refid="725" relation="include">
-        </childnode>
-        <childnode refid="726" relation="include">
-        </childnode>
-        <childnode refid="727" relation="include">
-        </childnode>
-        <childnode refid="728" relation="include">
-        </childnode>
-        <childnode refid="729" relation="include">
-        </childnode>
-        <childnode refid="730" relation="include">
-        </childnode>
-        <childnode refid="731" relation="include">
-        </childnode>
-        <childnode refid="732" relation="include">
-        </childnode>
-        <childnode refid="733" relation="include">
-        </childnode>
-        <childnode refid="734" relation="include">
-        </childnode>
-        <childnode refid="735" relation="include">
-        </childnode>
-        <childnode refid="736" relation="include">
-        </childnode>
-        <childnode refid="737" relation="include">
-        </childnode>
-      </node>
-      <node id="731">
-        <label>xilloader_get_opt_data_example.c</label>
-        <link refid="xilloader__get__opt__data__example_8c"/>
-      </node>
-      <node id="734">
-        <label>xilloader_load_pdi_client_example.c</label>
-        <link refid="xilloader__load__pdi__client__example_8c"/>
-      </node>
-      <node id="746">
-        <label>xilloader_read_ddr_crypto_perf_counters_client_example.c</label>
-        <link refid="xilloader__read__ddr__crypto__perf__counters__client__example_8c"/>
-      </node>
-      <node id="729">
-        <label>xilloader_get_image_info_client_example.c</label>
-        <link refid="xilloader__get__image__info__client__example_8c"/>
-      </node>
-      <node id="733">
-        <label>xilloader_load_image_client_example.c</label>
-        <link refid="xilloader__load__image__client__example_8c"/>
-      </node>
-      <node id="725">
-        <label>xilloader_add_pdi_to_image_store_client_example.c</label>
-      </node>
-      <node id="735">
-        <label>xilloader_remove_pdi_from_image_store_client_example.c</label>
-      </node>
-      <node id="736">
-        <label>xilloader_update_multiboot_client_example.c</label>
-        <link refid="xilloader__update__multiboot__client__example_8c"/>
-      </node>
-      <node id="730">
+      <node id="816">
         <label>xilloader_get_image_info_list_client_example.c</label>
         <link refid="xilloader__get__image__info__list__client__example_8c"/>
       </node>
-      <node id="744">
+      <node id="822">
+        <label>xilloader_remove_pdi_from_image_store_client_example.c</label>
+      </node>
+      <node id="810">
+        <label>xloader_client.c</label>
+        <link refid="xloader__client_8c"/>
+      </node>
+      <node id="809">
+        <label>xloader_client.h</label>
+        <link refid="xloader__client_8h"/>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="811" relation="include">
+        </childnode>
+        <childnode refid="812" relation="include">
+        </childnode>
+        <childnode refid="813" relation="include">
+        </childnode>
+        <childnode refid="814" relation="include">
+        </childnode>
+        <childnode refid="815" relation="include">
+        </childnode>
+        <childnode refid="816" relation="include">
+        </childnode>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="818" relation="include">
+        </childnode>
+        <childnode refid="819" relation="include">
+        </childnode>
+        <childnode refid="820" relation="include">
+        </childnode>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="824" relation="include">
+        </childnode>
+        <childnode refid="825" relation="include">
+        </childnode>
+      </node>
+      <node id="827">
+        <label>xloader_generic.c</label>
+        <link refid="xloader__generic_8c"/>
+      </node>
+      <node id="826">
+        <label>xloader_generic.h</label>
+        <link refid="xloader__generic_8h"/>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="827" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+      </node>
+      <node id="820">
+        <label>xilloader_load_image_client_example.c</label>
+        <link refid="xilloader__load__image__client__example_8c"/>
+      </node>
+      <node id="824">
+        <label>xilloader_update_multiboot_client_example.c</label>
+        <link refid="xilloader__update__multiboot__client__example_8c"/>
+      </node>
+      <node id="821">
+        <label>xilloader_load_pdi_client_example.c</label>
+        <link refid="xilloader__load__pdi__client__example_8c"/>
+      </node>
+      <node id="838">
+        <label>xilloader_read_ddr_crypto_perf_counters_client_example.c</label>
+        <link refid="xilloader__read__ddr__crypto__perf__counters__client__example_8c"/>
+      </node>
+      <node id="818">
+        <label>xilloader_glitch_detector_example.c</label>
+        <link refid="xilloader__glitch__detector__example_8c"/>
+      </node>
+      <node id="834">
+        <label>xloader_plat_client.c</label>
+        <link refid="versal__2vp__p_2client_2xloader__plat__client_8c"/>
+      </node>
+      <node id="829">
+        <label>xloader_mailbox.c</label>
+        <link refid="xloader__mailbox_8c"/>
+      </node>
+      <node id="833">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal__2vp__p_2client_2xloader__plat__client_8h"/>
+        <childnode refid="834" relation="include">
+        </childnode>
+      </node>
+      <node id="808">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader_mailbox.h"/>
+        <childnode refid="809" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
+        </childnode>
+        <childnode refid="831" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+        <childnode refid="835" relation="include">
+        </childnode>
+      </node>
+      <node id="836">
         <label>xloader_plat_client.c</label>
       </node>
-      <node id="743">
+      <node id="835">
         <label>xloader_plat_client.h</label>
-        <childnode refid="744" relation="include">
+        <childnode refid="836" relation="include">
         </childnode>
-        <childnode refid="745" relation="include">
+        <childnode refid="837" relation="include">
         </childnode>
-        <childnode refid="746" relation="include">
+        <childnode refid="838" relation="include">
         </childnode>
       </node>
-      <node id="737">
+      <node id="815">
+        <label>xilloader_get_image_info_client_example.c</label>
+        <link refid="xilloader__get__image__info__client__example_8c"/>
+      </node>
+      <node id="828">
+        <label>xloader_plat_client.c</label>
+      </node>
+      <node id="830">
+        <label>xloader_plat_client.h</label>
+        <childnode refid="828" relation="include">
+        </childnode>
+      </node>
+      <node id="825">
         <label>xilloader_validate_pdi_auth_example.c</label>
         <link refid="xilloader__validate__pdi__auth__example_8c"/>
       </node>
-      <node id="726">
+      <node id="817">
+        <label>xilloader_get_opt_data_example.c</label>
+        <link refid="xilloader__get__opt__data__example_8c"/>
+      </node>
+      <node id="837">
+        <label>xilloader_configure_jtag_status_client_example.c</label>
+        <link refid="xilloader__configure__jtag__status__client__example_8c"/>
+      </node>
+      <node id="812">
         <label>xilloader_cfi_selective_readback_example.c</label>
         <link refid="xilloader__cfi__selective__readback__example_8c"/>
       </node>
-      <node id="732">
+      <node id="814">
+        <label>xilloader_get_atf_handoff_params_client_example.c</label>
+        <link refid="xilloader__get__atf__handoff__params__client__example_8c"/>
+      </node>
+      <node id="832">
+        <label>xloader_plat_client.c</label>
+        <link refid="versal__2vp_2client_2xloader__plat__client_8c"/>
+      </node>
+      <node id="813">
+        <label>xilloader_extract_metaheader_client_example.c</label>
+        <link refid="xilloader__extract__metaheader__client__example_8c"/>
+      </node>
+      <node id="831">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal__2vp_2client_2xloader__plat__client_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+      </node>
+      <node id="811">
+        <label>xilloader_add_pdi_to_image_store_client_example.c</label>
+      </node>
+      <node id="819">
         <label>xilloader_image_store_pdi_client_example.c</label>
         <link refid="xilloader__image__store__pdi__client__example_8c"/>
       </node>
-      <node id="742">
-        <label>xloader_plat_client.c</label>
+      <node id="823">
+        <label>xilloader_set_ddr_addr_restart_image_client_example.c</label>
+        <link refid="xilloader__set__ddr__addr__restart__image__client__example_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_loader___client_instance" prot="public">XLoader_ClientInstance</innerclass>
@@ -199,7 +239,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" prot="public" static="no">
         <name>PAYLOAD_ARG_CNT</name>
@@ -210,20 +250,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="50" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="293" endline="307">XLoader_AddImageStorePdi</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="256" endline="281">XLoader_ConfigureJtagState</referencedby>
-        <referencedby refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" compoundref="xloader__client_8c" startline="230" endline="246">XLoader_ExtractMetaheader</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="349" endline="372">XLoader_GetATFHandOffParams</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="180" endline="214">XLoader_GetImageInfoList</referencedby>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
-        <referencedby refid="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" compoundref="xloader__client_8c" startline="111" endline="123">XLoader_LoadImage</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="74" endline="96">XLoader_LoadPartialPdi</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
-        <referencedby refid="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" compoundref="xloader__client_8c" startline="321" endline="333">XLoader_RemoveImageStorePdi</referencedby>
-        <referencedby refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" compoundref="xloader__client_8c" startline="263" endline="277">XLoader_UpdateMultiboot</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="299" endline="313">XLoader_AddImageStorePdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="393" endline="422">XLoader_CfiSelectiveReadback</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga3b72ed1bce0c661b7082f291e11fde08" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="1288" endline="1340">XLoader_ConfigureGlitchDetector</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="304" endline="329">XLoader_ConfigureJtagState</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" compoundref="xloader__client_8c" startline="236" endline="252">XLoader_ExtractMetaheader</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="355" endline="378">XLoader_GetATFHandOffParams</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="145" endline="170">XLoader_GetImageInfo</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="186" endline="220">XLoader_GetImageInfoList</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga1b0f922a669106f6a1c6d0df014e5221" compoundref="xloader__client_8c" startline="588" endline="634">XLoader_GetServerLibInfo</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gadfeef36c1fee845ec54f39c8ce9c18c6" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="1358" endline="1381">XLoader_GetTlbinLoadAddr</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" compoundref="xloader__client_8c" startline="117" endline="129">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="80" endline="102">XLoader_LoadPartialPdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" compoundref="xloader__client_8c" startline="327" endline="339">XLoader_RemoveImageStorePdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gad2ea291a5214f42c54ab14c0a394bbaa" compoundref="xloader__client_8c" startline="519" endline="541">XLoader_SetDdrAddrForRestartImage</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" compoundref="xloader__client_8c" startline="269" endline="283">XLoader_UpdateMultiboot</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" prot="public" static="no">
         <name>RESPONSE_ARG_CNT</name>
@@ -234,12 +278,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="52" bodyend="-1"/>
-        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="349" endline="372">XLoader_GetATFHandOffParams</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="180" endline="214">XLoader_GetImageInfoList</referencedby>
-        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="74" endline="96">XLoader_LoadPartialPdi</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="355" endline="378">XLoader_GetATFHandOffParams</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="145" endline="170">XLoader_GetImageInfo</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="186" endline="220">XLoader_GetImageInfoList</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="468" endline="504">XLoader_GetOptionalData</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga1b0f922a669106f6a1c6d0df014e5221" compoundref="xloader__client_8c" startline="588" endline="634">XLoader_GetServerLibInfo</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gadfeef36c1fee845ec54f39c8ce9c18c6" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="1358" endline="1381">XLoader_GetTlbinLoadAddr</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="80" endline="102">XLoader_LoadPartialPdi</referencedby>
         <referencedby refid="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</referencedby>
         <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
       </memberdef>
@@ -252,7 +298,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="54" bodyend="-1"/>
         <referencedby refid="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xloader__mailbox__apis_1gabb6ce8d230ef6e964a2042a485824c66" prot="public" static="no">
@@ -264,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__mailbox__apis_1ga1112cbe4bce4d9fdb379cdc451f53b6e" prot="public" static="no">
         <name>XLOADER_PAYLOAD_LEN_SHIFT</name>
@@ -275,7 +321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__mailbox__apis_1ga4708a03d910fcf36e0d3e9ae5f81cf91" prot="public" static="no">
         <name>XILLOADER_MODULE_ID_MASK</name>
@@ -286,7 +332,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xloader__mailbox__apis_1ga23a0e86371657f1a57fbf44236f3c009" prot="public" static="no">
         <name>XLOADER_SHARED_MEM_SIZE</name>
@@ -297,7 +343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="59" bodyend="-1"/>
         <referencedby refid="group__xloader__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__get__opt__data__example_8c" startline="110" endline="152">main</referencedby>
       </memberdef>
       </sectiondef>
@@ -337,7 +383,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="122" bodyend="125"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="122" bodyend="125"/>
       </memberdef>
       <memberdef kind="function" id="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -389,13 +435,13 @@
         <inbodydescription>
 <para>Send IPI CDO to PLM. Return XST_FAILURE if sending data failed</para><para><verbatim>- Wait for IPI response from PLM  with a default timeout of 2 seconds.
 </verbatim> If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="61" bodyend="89"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="61" bodyend="89"/>
         <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
         <references refid="struct_x_loader___client_instance_1a1660f547b4a77019d9c99b65dc5cd314" compoundref="xloader__mailbox_8h" startline="99">XLoader_ClientInstance::Response</references>
         <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
         <references refid="group__xloader__mailbox__apis_1gacb2810d42f9b5a2853259fe6a5372c92" compoundref="xloader__mailbox_8h" startline="54">XLOADER_TARGET_IPI_INT_MASK</references>
-        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="256" endline="281">XLoader_ConfigureJtagState</referencedby>
-        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="304" endline="329">XLoader_ConfigureJtagState</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="344" endline="374">XLoader_ReadDdrCryptoPerfCounters</referencedby>
         <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xloader__mailbox__apis_1ga349dbfd771fbf6783438c7950ffd088d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -437,7 +483,7 @@
 <para><itemizedlist>
 <listitem><para>Perform input parameter validation on InstancePtr,if not NULL initialize the InstancePtr. Return XST_FAILURE if NULL.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="103" bodyend="117"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="103" bodyend="117"/>
         <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
         <referencedby refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="82" endline="120">main</referencedby>
       </memberdef>
@@ -550,6 +596,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_MAILBOX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h"/>
   </compounddef>
 </doxygen>

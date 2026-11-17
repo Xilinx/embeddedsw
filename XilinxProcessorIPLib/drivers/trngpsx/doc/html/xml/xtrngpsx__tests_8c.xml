@@ -5,6 +5,9 @@
     <includes refid="xtrngpsx_8h" local="yes">xtrngpsx.h</includes>
     <includes local="yes">xil_sutil.h</includes>
     <incdepgraph>
+      <node id="88">
+        <label>xil_sutil.h</label>
+      </node>
       <node id="83">
         <label>xtrngpsx_tests.c</label>
         <link refid="xtrngpsx_tests.c"/>
@@ -21,15 +24,6 @@
         <childnode refid="88" relation="include">
         </childnode>
       </node>
-      <node id="88">
-        <label>xil_sutil.h</label>
-      </node>
-      <node id="87">
-        <label>xil_cryptoalginfo.h</label>
-      </node>
-      <node id="85">
-        <label>xil_types.h</label>
-      </node>
       <node id="84">
         <label>xtrngpsx.h</label>
         <link refid="xtrngpsx_8h"/>
@@ -37,6 +31,12 @@
         </childnode>
         <childnode refid="86" relation="include">
         </childnode>
+      </node>
+      <node id="87">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="85">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="user-defined">
@@ -50,7 +50,7 @@
 <para>DF length </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="43" bodyend="-1"/>
         <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" prot="public" static="no">
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="44" bodyend="-1"/>
         <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" prot="public" static="no">
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="45" bodyend="-1"/>
         <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
       </memberdef>
       </sectiondef>
@@ -105,22 +105,22 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="68" bodyend="164"/>
-        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
-        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
-        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
-        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
-        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="72">XTRNGPSX_DRNG_MODE</references>
-        <references refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</references>
-        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="68" bodyend="164"/>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="94">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="96">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="91">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="73">XTRNGPSX_DRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="631" endline="746">XTrngpsx_Generate</references>
+        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="400" endline="525">XTrngpsx_Instantiate</references>
         <references refid="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" compoundref="xtrngpsx__tests_8c" startline="43">XTRNGPSX_KAT_DEFAULT_DF_lENGTH</references>
         <references refid="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" compoundref="xtrngpsx__tests_8c" startline="44">XTRNGPSX_KAT_DEFAULT_SEED_LIFE</references>
-        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" compoundref="xtrngpsx_8h" startline="157">XTRNGPSX_KAT_FAILED_ERROR</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" compoundref="xtrngpsx_8h" startline="158">XTRNGPSX_KAT_FAILED_ERROR</references>
         <references refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" compoundref="xtrngpsx__tests_8c" startline="45">XTRNGPSX_KAT_SEED_LEN_IN_BYTES</references>
-        <references refid="group__trngpsx__api_1ga3257b88a565d4f7b0fa135f5c24f7fde" compoundref="xtrngpsx_8h" startline="49">XTRNGPSX_PERS_STRING_LEN_IN_BYTES</references>
-        <references refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</references>
-        <references refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" compoundref="xtrngpsx_8h" startline="50">XTRNGPSX_SEC_STRENGTH_IN_BYTES</references>
-        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+        <references refid="group__trngpsx__api_1ga3257b88a565d4f7b0fa135f5c24f7fde" compoundref="xtrngpsx_8h" startline="50">XTRNGPSX_PERS_STRING_LEN_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="551" endline="602">XTrngpsx_Reseed</references>
+        <references refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" compoundref="xtrngpsx_8h" startline="51">XTRNGPSX_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="762" endline="793">XTrngpsx_Uninstantiate</references>
         <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -149,20 +149,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="178" bodyend="198"/>
-        <references refid="struct_x_trngpsx___user_config_1ae55baa3e0c90545ee6ad97a887f375c4" compoundref="xtrngpsx_8h" startline="91">XTrngpsx_UserConfig::AdaptPropTestCutoff</references>
-        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
-        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
-        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
-        <references refid="struct_x_trngpsx___user_config_1a9421e3a61e8bcdf807ba51f61517513b" compoundref="xtrngpsx_8h" startline="92">XTrngpsx_UserConfig::RepCountTestCutoff</references>
-        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
-        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="74">XTRNGPSX_HRNG_MODE</references>
-        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</references>
-        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
-        <references refid="group__trngpsx__api_1gafbb555572f5c0cad2a73379b1aca4eaf" compoundref="xtrngpsx_8h" startline="61">XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF</references>
-        <references refid="group__trngpsx__api_1gafbbe7ca8d2cfa78d527632a011d6e233" compoundref="xtrngpsx_8h" startline="57">XTRNGPSX_USER_CFG_DF_LENGTH</references>
-        <references refid="group__trngpsx__api_1ga823d53c1fbdbe9fe6446be697c506f0c" compoundref="xtrngpsx_8h" startline="65">XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</references>
-        <references refid="group__trngpsx__api_1ga8a7c9b3542de85ba6563a79f4e3e123c" compoundref="xtrngpsx_8h" startline="53">XTRNGPSX_USER_CFG_SEED_LIFE</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="178" bodyend="198"/>
+        <references refid="struct_x_trngpsx___user_config_1ae55baa3e0c90545ee6ad97a887f375c4" compoundref="xtrngpsx_8h" startline="92">XTrngpsx_UserConfig::AdaptPropTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="94">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="96">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a9421e3a61e8bcdf807ba51f61517513b" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::RepCountTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="91">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="75">XTRNGPSX_HRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="400" endline="525">XTrngpsx_Instantiate</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="762" endline="793">XTrngpsx_Uninstantiate</references>
+        <references refid="group__trngpsx__api_1gafbb555572f5c0cad2a73379b1aca4eaf" compoundref="xtrngpsx_8h" startline="62">XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF</references>
+        <references refid="group__trngpsx__api_1gafbbe7ca8d2cfa78d527632a011d6e233" compoundref="xtrngpsx_8h" startline="58">XTRNGPSX_USER_CFG_DF_LENGTH</references>
+        <references refid="group__trngpsx__api_1ga823d53c1fbdbe9fe6446be697c506f0c" compoundref="xtrngpsx_8h" startline="66">XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</references>
+        <references refid="group__trngpsx__api_1ga8a7c9b3542de85ba6563a79f4e3e123c" compoundref="xtrngpsx_8h" startline="54">XTRNGPSX_USER_CFG_SEED_LIFE</references>
         <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -193,10 +193,10 @@
 <para><itemizedlist>
 <listitem><para>Reset the TRNG state </para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="212" bodyend="230"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="212" bodyend="230"/>
         <references refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</references>
         <references refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</references>
-        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="762" endline="793">XTrngpsx_Uninstantiate</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -370,6 +370,6 @@
 <codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="230"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c"/>
   </compounddef>
 </doxygen>

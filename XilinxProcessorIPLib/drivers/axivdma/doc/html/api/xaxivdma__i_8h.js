@@ -1,8 +1,10 @@
 var xaxivdma__i_8h =
 [
+    [ "XAXIVDMA_I_H_", "xaxivdma__i_8h.html#a99faec9839450f1f45b4554599119443", null ],
     [ "XAxiVdma_ChannelConfig", "xaxivdma__i_8h.html#ga74ab4785d21c80a0d4501f0d985213e4", null ],
     [ "XAxiVdma_ChannelDisableIntr", "xaxivdma__i_8h.html#ga2daa8c45a82867bedf786957b4154cdc", null ],
     [ "XAxiVdma_ChannelEnableIntr", "xaxivdma__i_8h.html#ga64d6b39bc9e900efe9f14c9961f4da24", null ],
+    [ "XAxiVdma_ChannelErrors", "xaxivdma__i_8h.html#gaaafba768a4bab25af3aa5eace26dbaa5", null ],
     [ "XAxiVdma_ChannelGetEnabledIntr", "xaxivdma__i_8h.html#gaccc8d62d87870cb43c048938e405d4e6", null ],
     [ "XAxiVdma_ChannelGetFrmCnt", "xaxivdma__i_8h.html#ga3e90ef720feb2a974511d7e2889a2198", null ],
     [ "XAxiVdma_ChannelGetPendingIntr", "xaxivdma__i_8h.html#ga361297a60672ab2552754d8a58d3f7ab", null ],
@@ -10,6 +12,7 @@ var xaxivdma__i_8h =
     [ "XAxiVdma_ChannelInit", "xaxivdma__i_8h.html#ga795e26fb85aa4140db060d731a19efeb", null ],
     [ "XAxiVdma_ChannelIntrClear", "xaxivdma__i_8h.html#ga7a8c557bce703f572d4e2dd9e362f489", null ],
     [ "XAxiVdma_ChannelIsBusy", "xaxivdma__i_8h.html#gaaf57ab476eb91e9f41b6d166d2b2d6bb", null ],
+    [ "XAxiVdma_ChannelIsRunning", "xaxivdma__i_8h.html#ga0e91413b316013db54fe3fab6ece3803", null ],
     [ "XAxiVdma_ChannelRegisterDump", "xaxivdma__i_8h.html#ga13807c40f1f871a6b2f7cbde9eeab9a8", null ],
     [ "XAxiVdma_ChannelReset", "xaxivdma__i_8h.html#ga96e2798de16d738f378458fa2b7b2f1c", null ],
     [ "XAxiVdma_ChannelResetNotDone", "xaxivdma__i_8h.html#ga9b0a1008f3e30f3f031763f108f76405", null ],
@@ -21,5 +24,6 @@ var xaxivdma__i_8h =
     [ "XAxiVdma_ChannelStartParking", "xaxivdma__i_8h.html#ga04f4bf5ac18661ceb9c1ef047949e3d8", null ],
     [ "XAxiVdma_ChannelStartTransfer", "xaxivdma__i_8h.html#ga3b9c24a02c4b4f99d40820a647de811d", null ],
     [ "XAxiVdma_ChannelStop", "xaxivdma__i_8h.html#ga12bb1b451a69ecfc70f55d4fbf7257b0", null ],
-    [ "XAxiVdma_ChannelStopParking", "xaxivdma__i_8h.html#gacd5a402e30c5170d9dab22d16ff01336", null ]
+    [ "XAxiVdma_ChannelStopParking", "xaxivdma__i_8h.html#gacd5a402e30c5170d9dab22d16ff01336", null ],
+    [ "XAxiVdma_ClearChannelErrors", "xaxivdma__i_8h.html#ga6f6dfd45cb15f3c19ff48dcf1de93da5", null ]
 ];

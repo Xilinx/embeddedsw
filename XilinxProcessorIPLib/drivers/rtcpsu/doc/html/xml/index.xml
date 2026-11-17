@@ -49,13 +49,12 @@
   <compound refid="xrtcpsu_8h" kind="file"><name>xrtcpsu.h</name>
     <member refid="group__rtcpsu_1gad594fbf58a112754966cb4ed07a93fa2" kind="define"><name>XRTCPSU_EVENT_ALARM_GEN</name></member>
     <member refid="group__rtcpsu_1gaf214f251bc04f17da88cda3e7f91bd99" kind="define"><name>XRTCPSU_EVENT_SECS_GEN</name></member>
-    <member refid="group__rtcpsu_1ga0dc72bac661426e1056f45a0e3791086" kind="define"><name>XRTC_H_</name></member>
-    <member refid="group__rtcpsu_1gae7da0eb25a60f80358a637f7a2429216" kind="define"><name>XRTCPSU_CRYSTAL_OSC_EN</name></member>
     <member refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" kind="define"><name>EPOCH_YEAR</name></member>
     <member refid="group__rtcpsu_1ga5f20a16494c136368d1754bf5f8f8963" kind="define"><name>EPOCH_WDAY</name></member>
-    <member refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" kind="define"><name>IS_LEAP_YEAR</name></member>
     <member refid="group__rtcpsu_1gad7a184022ff2ba6eab442bb895f7df30" kind="define"><name>XRTC_CALIBRATION_VALUE</name></member>
     <member refid="group__rtcpsu_1ga7e8bad01d40368b034d49dfcb4401486" kind="define"><name>XRTC_TYPICAL_OSC_FREQ</name></member>
+    <member refid="group__rtcpsu_1gae7da0eb25a60f80358a637f7a2429216" kind="define"><name>XRTCPSU_CRYSTAL_OSC_EN</name></member>
+    <member refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" kind="define"><name>IS_LEAP_YEAR</name></member>
     <member refid="group__rtcpsu_1ga2d6afae471b9ad6df9d1ca0ae7c7d16c" kind="define"><name>XRtcPsu_WriteSetTime</name></member>
     <member refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" kind="define"><name>XRtcPsu_GetLastSetTime</name></member>
     <member refid="group__rtcpsu_1ga4464d5485ee8d997454a4eff3c497040" kind="define"><name>XRtcPsu_GetCalibration</name></member>
@@ -249,7 +248,6 @@
     <member refid="group__rtcpsu_1ga80687e7fdee5700f571f7f95087b2726" kind="define"><name>XRTC_ECO_REG_WIDTH</name></member>
     <member refid="group__rtcpsu_1gaa820a6046288fe1daff88a0a760df654" kind="define"><name>XRTC_ECO_REG_MASK</name></member>
     <member refid="group__rtcpsu_1ga1fc7957bf96b8a735626afa3047a16df" kind="define"><name>XRTC_ECO_REG_DEFVAL</name></member>
-    <member refid="group__rtcpsu_1ga2d71a6d87565f9564133c522d8959ad0" kind="define"><name>XRTC_HW_H_</name></member>
     <member refid="group__rtcpsu_1gaf4ce7179e0fe961edf74c804ae1be55f" kind="define"><name>XRTC_BASEADDR</name></member>
     <member refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kind="define"><name>XRtcPsu_ReadReg</name></member>
     <member refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kind="define"><name>XRtcPsu_WriteReg</name></member>
@@ -304,6 +302,10 @@
   <compound refid="group__rtcpsu" kind="group"><name>rtcpsu</name>
     <member refid="group__rtcpsu_1gad594fbf58a112754966cb4ed07a93fa2" kind="define"><name>XRTCPSU_EVENT_ALARM_GEN</name></member>
     <member refid="group__rtcpsu_1gaf214f251bc04f17da88cda3e7f91bd99" kind="define"><name>XRTCPSU_EVENT_SECS_GEN</name></member>
+    <member refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" kind="define"><name>EPOCH_YEAR</name></member>
+    <member refid="group__rtcpsu_1ga5f20a16494c136368d1754bf5f8f8963" kind="define"><name>EPOCH_WDAY</name></member>
+    <member refid="group__rtcpsu_1gad7a184022ff2ba6eab442bb895f7df30" kind="define"><name>XRTC_CALIBRATION_VALUE</name></member>
+    <member refid="group__rtcpsu_1ga7e8bad01d40368b034d49dfcb4401486" kind="define"><name>XRTC_TYPICAL_OSC_FREQ</name></member>
     <member refid="group__rtcpsu_1ga15fe16b0b19b172cc0b43af6c94698df" kind="define"><name>XRTC_SET_TIME_WR_OFFSET</name></member>
     <member refid="group__rtcpsu_1gabdf75ef48e8da2858e1b73a95c4ac494" kind="define"><name>XRTC_SET_TIME_WR_RSTVAL</name></member>
     <member refid="group__rtcpsu_1ga826c1136826a32317d62901f5c06b1ea" kind="define"><name>XRTC_SET_TIME_WR_VAL_SHIFT</name></member>
@@ -472,13 +474,8 @@
     <member refid="group__rtcpsu_1ga40b45bedf590e3e65eb525f1827768e4" kind="function"><name>XRtcPsu_SetHandler</name></member>
     <member refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" kind="function"><name>XRtcPsu_SelfTest</name></member>
     <member refid="group__rtcpsu_1gae061b045472720cb345adc5891a8e652" kind="function"><name>XRtcPsu_LookupConfig</name></member>
-    <member refid="group__rtcpsu_1ga0dc72bac661426e1056f45a0e3791086" kind="define"><name>XRTC_H_</name></member>
     <member refid="group__rtcpsu_1gae7da0eb25a60f80358a637f7a2429216" kind="define"><name>XRTCPSU_CRYSTAL_OSC_EN</name></member>
-    <member refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" kind="define"><name>EPOCH_YEAR</name></member>
-    <member refid="group__rtcpsu_1ga5f20a16494c136368d1754bf5f8f8963" kind="define"><name>EPOCH_WDAY</name></member>
     <member refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" kind="define"><name>IS_LEAP_YEAR</name></member>
-    <member refid="group__rtcpsu_1gad7a184022ff2ba6eab442bb895f7df30" kind="define"><name>XRTC_CALIBRATION_VALUE</name></member>
-    <member refid="group__rtcpsu_1ga7e8bad01d40368b034d49dfcb4401486" kind="define"><name>XRTC_TYPICAL_OSC_FREQ</name></member>
     <member refid="group__rtcpsu_1ga2d6afae471b9ad6df9d1ca0ae7c7d16c" kind="define"><name>XRtcPsu_WriteSetTime</name></member>
     <member refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" kind="define"><name>XRtcPsu_GetLastSetTime</name></member>
     <member refid="group__rtcpsu_1ga4464d5485ee8d997454a4eff3c497040" kind="define"><name>XRtcPsu_GetCalibration</name></member>
@@ -488,7 +485,6 @@
     <member refid="group__rtcpsu_1ga01aef4471440e437100dcefd0cf31c47" kind="define"><name>XRtcPsu_SetSafetyCheck</name></member>
     <member refid="group__rtcpsu_1gaf491d4fa3c779586da882c0c3e75c80e" kind="define"><name>XRtcPsu_ResetAlarm</name></member>
     <member refid="group__rtcpsu_1gab9fa0e5d7c9536a238863272a1e21bfa" kind="define"><name>XRtcPsu_RoundOff</name></member>
-    <member refid="group__rtcpsu_1ga2d71a6d87565f9564133c522d8959ad0" kind="define"><name>XRTC_HW_H_</name></member>
     <member refid="group__rtcpsu_1gaf4ce7179e0fe961edf74c804ae1be55f" kind="define"><name>XRTC_BASEADDR</name></member>
     <member refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kind="define"><name>XRtcPsu_ReadReg</name></member>
     <member refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kind="define"><name>XRtcPsu_WriteReg</name></member>

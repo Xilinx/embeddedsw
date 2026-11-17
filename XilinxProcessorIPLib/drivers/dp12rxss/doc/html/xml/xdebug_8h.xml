@@ -4,29 +4,29 @@
     <compoundname>xdebug.h</compoundname>
     <includedby refid="dppt_8h" local="yes">dppt.h</includedby>
     <invincdepgraph>
-      <node id="522">
-        <label>xdprxss_kc705.c</label>
-      </node>
-      <node id="519">
-        <label>xdebug.h</label>
-        <link refid="xdebug.h"/>
-        <childnode refid="520" relation="include">
-        </childnode>
-      </node>
-      <node id="520">
+      <node id="526">
         <label>dppt.h</label>
-        <childnode refid="521" relation="include">
+        <childnode refid="527" relation="include">
         </childnode>
-        <childnode refid="522" relation="include">
+        <childnode refid="528" relation="include">
         </childnode>
-        <childnode refid="523" relation="include">
+        <childnode refid="529" relation="include">
         </childnode>
       </node>
-      <node id="521">
+      <node id="527">
         <label>menus.c</label>
       </node>
-      <node id="523">
+      <node id="528">
+        <label>xdprxss_kc705.c</label>
+      </node>
+      <node id="529">
         <label>xedid_print_example.c</label>
+      </node>
+      <node id="525">
+        <label>xdebug.h</label>
+        <link refid="xdebug.h"/>
+        <childnode refid="526" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -39,7 +39,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" bodystart="25" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xdebug_8h_1a12060fbd49869828f1554c4ddd071fd5" prot="public" static="no">
         <name>xdbg_stmnt</name>
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xdebug_8h_1ac91e7d6ead432cebc3c8890d9bcbad22" prot="public" static="no">
         <name>xdbg_printf</name>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -71,7 +71,7 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -119,6 +119,6 @@
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDEBUG<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/kc/xdebug.h"/>
   </compounddef>
 </doxygen>

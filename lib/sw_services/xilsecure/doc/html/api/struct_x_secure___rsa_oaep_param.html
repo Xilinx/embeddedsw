@@ -132,7 +132,7 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:abdedfcfe1370c2f75622c5af01166bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input data size.  <a href="#abdedfcfe1370c2f75622c5af01166bcf">More...</a><br/></td></tr>
 <tr class="separator:abdedfcfe1370c2f75622c5af01166bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc732af71d66ec9a66a84abf44c52749"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___rsa_oaep_param.html#abc732af71d66ec9a66a84abf44c52749">OutputDataSize</a></td></tr>
-<tr class="memdesc:abc732af71d66ec9a66a84abf44c52749"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output data size.  <a href="#abc732af71d66ec9a66a84abf44c52749">More...</a><br/></td></tr>
+<tr class="memdesc:abc732af71d66ec9a66a84abf44c52749"><td class="mdescLeft">&#160;</td><td class="mdescRight">On OAEP decrypt, input is the size of the buffer at OutputDataAddr and output is the decoded message length.  <a href="#abc732af71d66ec9a66a84abf44c52749">More...</a><br/></td></tr>
 <tr class="separator:abc732af71d66ec9a66a84abf44c52749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9041bb24d56ea51df16c9b4046ae310"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_secure___rsa_oaep_param.html#ad9041bb24d56ea51df16c9b4046ae310">OptionalLabelSize</a></td></tr>
 <tr class="memdesc:ad9041bb24d56ea51df16c9b4046ae310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional label size.  <a href="#ad9041bb24d56ea51df16c9b4046ae310">More...</a><br/></td></tr>
@@ -233,9 +233,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Output data size. </p>
+<p>On OAEP decrypt, input is the size of the buffer at OutputDataAddr and output is the decoded message length. </p>
+<p>On OAEP encrypt, this field is ignored; use InputDataSize. </p>
 
-<p>Referenced by <a class="el" href="group__xsecure__keyunwrap__server__apis.html#gaf1df351e91ee42e7c281b2e676ffda7b">XSecure_KeyUnwrap()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#gaeef1675ed072c8187d88b630df7204c3">XSecure_RsaPwct()</a>.</p>
+<p>Referenced by <a class="el" href="group__xsecure__keyunwrap__server__apis.html#gaf1df351e91ee42e7c281b2e676ffda7b">XSecure_KeyUnwrap()</a>, <a class="el" href="group__xsecure__rsa__server__apis.html#ga7fe869dab6a634c2866f9ec26ee8cec0">XSecure_RsaOaepDecrypt()</a>, and <a class="el" href="group__xsecure__kat__server__apis.html#gaeef1675ed072c8187d88b630df7204c3">XSecure_RsaPwct()</a>.</p>
 
 </div>
 </div>

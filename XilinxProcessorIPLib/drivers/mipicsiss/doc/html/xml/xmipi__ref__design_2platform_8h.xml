@@ -6,31 +6,31 @@
     <includedby refid="xmipi__ref__design_2si5324drv_8c" local="yes">si5324drv.c</includedby>
     <includedby refid="xmipi__example_8c" local="yes">xmipi_example.c</includedby>
     <incdepgraph>
-      <node id="511">
-        <label>platform_config.h</label>
-      </node>
-      <node id="510">
+      <node id="545">
         <label>platform.h</label>
         <link refid="xmipi_ref_design/platform.h"/>
-        <childnode refid="511" relation="include">
+        <childnode refid="546" relation="include">
         </childnode>
+      </node>
+      <node id="546">
+        <label>platform_config.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="513">
-        <label>si5324drv.c</label>
+      <node id="547">
+        <label>platform.h</label>
+        <link refid="xmipi_ref_design/platform.h"/>
+        <childnode refid="548" relation="include">
+        </childnode>
+        <childnode refid="549" relation="include">
+        </childnode>
       </node>
-      <node id="514">
+      <node id="549">
         <label>xmipi_example.c</label>
         <link refid="xmipi__example_8c"/>
       </node>
-      <node id="512">
-        <label>platform.h</label>
-        <link refid="xmipi_ref_design/platform.h"/>
-        <childnode refid="513" relation="include">
-        </childnode>
-        <childnode refid="514" relation="include">
-        </childnode>
+      <node id="548">
+        <label>si5324drv.c</label>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="52" bodyend="56"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="52" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="xmipi__ref__design_2platform_8h_1a69d3ed8dd8510465bb611c416e6325ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="59" bodyend="62"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.c" bodystart="59" bodyend="62"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -88,6 +88,6 @@
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/platform.h"/>
   </compounddef>
 </doxygen>

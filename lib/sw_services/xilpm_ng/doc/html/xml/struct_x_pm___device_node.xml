@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___device_node" kind="struct" prot="public">
+    <compoundname>XPm_DeviceNode</compoundname>
+    <includes local="no">xpm_device.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_DeviceNode::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+<para>Node: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_node_1a0a55e759bdc88f98c38235cb4c29ab06" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_DeviceNode::WfPwrUseCnt</definition>
+        <argsstring></argsstring>
+        <name>WfPwrUseCnt</name>
+        <briefdescription>
+<para>Pending power use count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_node_1a42e63bef64d7b9a3d8cc39884827a84a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPm_DeviceNode::PmcAllocated</definition>
+        <argsstring></argsstring>
+        <name>PmcAllocated</name>
+        <briefdescription>
+<para>PMC has this device allocated (subsystem-aware flag) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" prot="public" static="no" mutable="no">
+        <type>XPm_Power *</type>
+        <definition>XPm_Power* XPm_DeviceNode::Power</definition>
+        <argsstring></argsstring>
+        <name>Power</name>
+        <briefdescription>
+<para>Device power node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_node_1a1b4bf81c803ef90bba5d22ec391edb05" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___clock_handle" kindref="compound">XPm_ClockHandle</ref> *</type>
+        <definition>XPm_ClockHandle* XPm_DeviceNode::ClkHandles</definition>
+        <argsstring></argsstring>
+        <name>ClkHandles</name>
+        <briefdescription>
+<para>Head of the list of device clocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_node_1a03692dd740cf6526738d7d53c37349c0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref> *</type>
+        <definition>XPm_ResetHandle* XPm_DeviceNode::RstHandles</definition>
+        <argsstring></argsstring>
+        <name>RstHandles</name>
+        <briefdescription>
+<para>Head of the list device resets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___device_node_1ab602f834e28c64d2a255d98a0d2198aa" prot="public" static="no" mutable="no">
+        <type>XPm_DeviceAttr *</type>
+        <definition>XPm_DeviceAttr* XPm_DeviceNode::DevAttr</definition>
+        <argsstring></argsstring>
+        <name>DevAttr</name>
+        <briefdescription>
+<para>Device attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The device class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all the processor core, memory bank and peripheral classes. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="108">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="106" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="107" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="105">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="106" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="107" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="109" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="109">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="105" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="110" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="109" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="110">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="106" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="109" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="107">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="105" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="108" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="107" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="106">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h" bodystart="68" bodyend="76"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___device_node_1a1b4bf81c803ef90bba5d22ec391edb05" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>ClkHandles</name></member>
+      <member refid="struct_x_pm___device_node_1ab602f834e28c64d2a255d98a0d2198aa" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>DevAttr</name></member>
+      <member refid="struct_x_pm___device_node_1a63580d83e117ecc8fe7566480a44c06b" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>Node</name></member>
+      <member refid="struct_x_pm___device_node_1a42e63bef64d7b9a3d8cc39884827a84a" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>PmcAllocated</name></member>
+      <member refid="struct_x_pm___device_node_1a6e1dff27c256630ff68ddb44cd6cd1a2" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>Power</name></member>
+      <member refid="struct_x_pm___device_node_1a03692dd740cf6526738d7d53c37349c0" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>RstHandles</name></member>
+      <member refid="struct_x_pm___device_node_1a0a55e759bdc88f98c38235cb4c29ab06" prot="public" virt="non-virtual"><scope>XPm_DeviceNode</scope><name>WfPwrUseCnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

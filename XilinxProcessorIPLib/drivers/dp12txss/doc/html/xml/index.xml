@@ -343,10 +343,6 @@
     <member refid="_2dppt_8h_1ae899e0648df40d5efc1a4745279b85f2" kind="define"><name>XINTC_DPTXSS_DP_INTERRUPT_ID</name></member>
     <member refid="_2dppt_8h_1a2a5878c68c6bdf608219921c4b9e36df" kind="define"><name>XINTC_DPRXSS_DP_INTERRUPT_ID</name></member>
     <member refid="_2dppt_8h_1a6a717125fbfcb7904c0ac4855397f162" kind="define"><name>XINTC_DPRXSS_IIC_INTERRUPT_ID</name></member>
-    <member refid="_2dppt_8h_1a58c41bc3d12206e620d2820da0a10e34" kind="define"><name>XDPRXSS_DEVICE_ID</name></member>
-    <member refid="_2dppt_8h_1a16136319756e4257975f235e2d6ed24e" kind="define"><name>XINTC_DEVICE_ID</name></member>
-    <member refid="_2dppt_8h_1aaafc1b4297e1aac8e022debe11a21ab0" kind="define"><name>XDPTXSS_DEVICE_ID</name></member>
-    <member refid="_2dppt_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" kind="define"><name>IIC_DEVICE_ID</name></member>
     <member refid="_2dppt_8h_1aa4d190fef4fb09535158fc24c0a3e87e" kind="define"><name>XINTC_TIMER_0</name></member>
     <member refid="_2dppt_8h_1a915dc2dd3c7e0f0d50e7fee7f7acc982" kind="define"><name>XINTC_HDCP_TIMER_ID</name></member>
     <member refid="_2dppt_8h_1a3b0db5f87d3ec0c05db65c4847968481" kind="define"><name>XINTC_IIC_ID</name></member>
@@ -494,8 +490,6 @@
     <member refid="_2dppt__vid__phy__config_8h_1ae896a67d6887a42551d2b78254b2447e" kind="function"><name>lmk</name></member>
   </compound>
   <compound refid="eeprom_8c" kind="file"><name>eeprom.c</name>
-    <member refid="eeprom_8c_1ab7c5e8a4e1c2ac814050c57d1d5c6f50" kind="define"><name>XINTC</name></member>
-    <member refid="eeprom_8c_1a32d851376422212c266649efdc304952" kind="define"><name>INTRCNTRL</name></member>
     <member refid="eeprom_8c_1a0e3bb0a8ecd4e217ea60c74e36c4f010" kind="define"><name>DEBUG_EEPROM_READ_SETADDR</name></member>
     <member refid="eeprom_8c_1a82ac42ea08442144b4d372ff9f7740c0" kind="variable"><name>IicInstance</name></member>
     <member refid="eeprom_8c_1a301b988b2453fda0d2780ed4d82c8450" kind="variable"><name>WriteBuffer</name></member>
@@ -505,13 +499,12 @@
     <member refid="eeprom_8c_1ab54133dd79ea7da7c11dfe4abc725ba2" kind="variable"><name>MasterReadBuffer</name></member>
     <member refid="eeprom_8c_1a7aa7887e7275ae0c1230bb34be10a0c4" kind="variable"><name>MasterReadBufIndex</name></member>
     <member refid="eeprom_8c_1a628a6daf223f52f5bfb69f6ceabf7fa7" kind="variable"><name>EepromIicAddr</name></member>
-    <member refid="eeprom_8c_1ae8b34409d61fe6750deed27d2d2db6d7" kind="variable"><name>Intc</name></member>
     <member refid="eeprom_8c_1a19d9dd848a431a459bff8db6e3eb2985" kind="variable"><name>TransmitComplete</name></member>
     <member refid="eeprom_8c_1a9f1fae969d865449aacad8208e70ce16" kind="variable"><name>ReceiveComplete</name></member>
     <member refid="eeprom_8c_1abb01e2a9be230281dc95655303e9e68f" kind="function"><name>MuxInit</name></member>
-    <member refid="eeprom_8c_1a61a535cf27c5876e3f252b5d7385af62" kind="function"><name>SendHandler</name></member>
-    <member refid="eeprom_8c_1aeb4d9908e1386a13b35e6eb21b80e577" kind="function"><name>ReceiveHandler</name></member>
-    <member refid="eeprom_8c_1a781f83a72ac373b2b192ec99f4561084" kind="function"><name>StatusHandler</name></member>
+    <member refid="eeprom_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" kind="function"><name>SendHandler</name></member>
+    <member refid="eeprom_8c_1a2dc42043eaab1d3701336fda406b9dab" kind="function"><name>ReceiveHandler</name></member>
+    <member refid="eeprom_8c_1a5af50853b8583d2c4b84498ac406a432" kind="function"><name>StatusHandler</name></member>
     <member refid="eeprom_8c_1a178f6cd4a20d49159eb68e86416a5767" kind="function"><name>Init_IIC</name></member>
     <member refid="eeprom_8c_1a15f523f6b78a5402f1bbc903091b6d91" kind="function"><name>SetGPOMuxReset</name></member>
     <member refid="eeprom_8c_1a8c66068fe4bc27172483e0172d877b64" kind="function"><name>IicSetHandler</name></member>
@@ -520,11 +513,7 @@
     <member refid="eeprom_8c_1a3879abe3fc3ba5bf274394c467d5be57" kind="function"><name>EepromReadDataOffset</name></member>
   </compound>
   <compound refid="eeprom_8h" kind="file"><name>eeprom.h</name>
-    <member refid="eeprom_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" kind="define"><name>IIC_DEVICE_ID</name></member>
-    <member refid="eeprom_8h_1a90bc74590962865fc1ab7ee1be0f4b64" kind="define"><name>INTC_DEVICE_ID</name></member>
-    <member refid="eeprom_8h_1aa8093f080084f33c32d5d94f75f0309b" kind="define"><name>IIC_INTR_ID</name></member>
-    <member refid="eeprom_8h_1acbad0bcec47edfd40d1ca213be24408d" kind="define"><name>INTC</name></member>
-    <member refid="eeprom_8h_1a1774a555f3fbdee1c1a31fd1dfda655d" kind="define"><name>INTC_HANDLER</name></member>
+    <member refid="eeprom_8h_1acecc54c9cbd86670a6a8e9801b6d199b" kind="define"><name>IIC_BASEADDR</name></member>
     <member refid="eeprom_8h_1aaa6cf79c8db30749fdc1022ee5f673e5" kind="define"><name>EEPROM_ADDRESS</name></member>
     <member refid="eeprom_8h_1a8ad02ab61f37d20ecedd7acfbc5c42ed" kind="define"><name>IIC_MUX_ADDRESS</name></member>
     <member refid="eeprom_8h_1affa1bfd6b7cfe07fd14c3d559519cd98" kind="define"><name>IIC_EEPROM_CHANNEL</name></member>
@@ -540,6 +529,7 @@
     <member refid="eeprom_8h_1ab54133dd79ea7da7c11dfe4abc725ba2" kind="variable"><name>MasterReadBuffer</name></member>
     <member refid="eeprom_8h_1a7aa7887e7275ae0c1230bb34be10a0c4" kind="variable"><name>MasterReadBufIndex</name></member>
     <member refid="eeprom_8h_1a628a6daf223f52f5bfb69f6ceabf7fa7" kind="variable"><name>EepromIicAddr</name></member>
+    <member refid="eeprom_8h_1a178f6cd4a20d49159eb68e86416a5767" kind="function"><name>Init_IIC</name></member>
     <member refid="eeprom_8h_1a8c66068fe4bc27172483e0172d877b64" kind="function"><name>IicSetHandler</name></member>
     <member refid="eeprom_8h_1ace1105fee94ffb536395ff3746734819" kind="function"><name>IicEepromReadWrite</name></member>
     <member refid="eeprom_8h_1a40d92867ead2dc8efe06207b8b0f3494" kind="function"><name>EepromWriteData</name></member>
@@ -547,13 +537,12 @@
     <member refid="eeprom_8h_1a3879abe3fc3ba5bf274394c467d5be57" kind="function"><name>EepromReadDataOffset</name></member>
   </compound>
   <compound refid="keygen__config_8h" kind="file"><name>keygen_config.h</name>
-    <member refid="keygen__config_8h_1afc2ee0521c442c6f0e6500766327fc00" kind="define"><name>EEPROM_IIC_1_DEVICE_ID</name></member>
+    <member refid="keygen__config_8h_1ae22479bfde0c93aa8b3e8ac032cada58" kind="define"><name>EEPROM_IIC_1_BASEADDR</name></member>
     <member refid="keygen__config_8h_1ab5f0dd88a89cb26feab09c5759bf866f" kind="define"><name>KEYMGMT_ENCDATA_SZ_EEPROM</name></member>
     <member refid="keygen__config_8h_1a95a8626764b7fcbf81fddaa0a197def8" kind="define"><name>EEPROM_ADDR</name></member>
   </compound>
   <compound refid="keymgmt_8c" kind="file"><name>keymgmt.c</name>
     <member refid="keymgmt_8c_1abb223590a8ff8bf2955268e7d8410510" kind="variable"><name>gIsInitialized</name></member>
-    <member refid="keymgmt_8c_1a178f6cd4a20d49159eb68e86416a5767" kind="function"><name>Init_IIC</name></member>
     <member refid="keymgmt_8c_1aeccd65b8f83557db781505f8ed86f31b" kind="function"><name>KEYMGMT_Init</name></member>
     <member refid="keymgmt_8c_1af0ef671a754d0cc159ed5aa96f318c4c" kind="function"><name>KEYMGMT_Poll</name></member>
     <member refid="keymgmt_8c_1ae2a7a08adbaa7a25305a1bf0937f0bd7" kind="function"><name>KEYMGMT_Debug</name></member>
@@ -717,7 +706,7 @@
     <member refid="kc_2_l_m_k04906_8c_1a561f693ac771be3a47d3286d27242b28" kind="function"><name>Get_Option</name></member>
     <member refid="kc_2_l_m_k04906_8c_1ad0626d83b7eb68404ce815d4edb36b86" kind="function"><name>Get_Status</name></member>
     <member refid="kc_2_l_m_k04906_8c_1a05dd77381510c641082a51dfde9907fe" kind="function"><name>Rx_Data_Read</name></member>
-    <member refid="kc_2_l_m_k04906_8c_1adfcef1b1a9ed10792388fc1589377217" kind="function"><name>Tx_Data_Write</name></member>
+    <member refid="kc_2_l_m_k04906_8c_1a1e815dacc4b744b47d8d8864a6b776d0" kind="function"><name>Tx_Data_Write</name></member>
   </compound>
   <compound refid="kcu_2_l_m_k04906_8c" kind="file"><name>kcu/LMK04906.c</name>
     <member refid="kcu_2_l_m_k04906_8c_1a2dd94411694db2d8662ebacc6e880c0a" kind="variable"><name>TransferInProgress</name></member>
@@ -729,7 +718,7 @@
     <member refid="kcu_2_l_m_k04906_8c_1a561f693ac771be3a47d3286d27242b28" kind="function"><name>Get_Option</name></member>
     <member refid="kcu_2_l_m_k04906_8c_1ad0626d83b7eb68404ce815d4edb36b86" kind="function"><name>Get_Status</name></member>
     <member refid="kcu_2_l_m_k04906_8c_1a05dd77381510c641082a51dfde9907fe" kind="function"><name>Rx_Data_Read</name></member>
-    <member refid="kcu_2_l_m_k04906_8c_1adfcef1b1a9ed10792388fc1589377217" kind="function"><name>Tx_Data_Write</name></member>
+    <member refid="kcu_2_l_m_k04906_8c_1a1e815dacc4b744b47d8d8864a6b776d0" kind="function"><name>Tx_Data_Write</name></member>
   </compound>
   <compound refid="zcu__pt_2_l_m_k04906_8c" kind="file"><name>zcu_pt/LMK04906.c</name>
     <member refid="zcu__pt_2_l_m_k04906_8c_1a16c02ac7c0cd5cdfbbd549b75a956838" kind="define"><name>LMK04906_DEVICE_ID</name></member>
@@ -763,6 +752,10 @@
   </compound>
   <compound refid="_l_m_k04906_8h" kind="file"><name>LMK04906.h</name>
     <member refid="_l_m_k04906_8h_1aa3b67530e4200bd275a30527e86a4002" kind="define"><name>LMK04906_DEVICE_BASEADDR</name></member>
+    <member refid="_l_m_k04906_8h_1af01224c6aa5a8f6921a1e56e972da713" kind="define"><name>LMK04906_SPISR_RX_EMPTY</name></member>
+    <member refid="_l_m_k04906_8h_1ae9224b5e45c0fa06d0cdb8acb0163b4a" kind="define"><name>LMK04906_SPISR_TX_EMPTY</name></member>
+    <member refid="_l_m_k04906_8h_1a5f31b6c550ad70cdfffd5cd19f258b86" kind="define"><name>LMK04906_SPISR_TX_FULL</name></member>
+    <member refid="_l_m_k04906_8h_1aa69fbd9597e519605819930a50465864" kind="define"><name>LMK04906_SPI_TIMEOUT</name></member>
     <member refid="_l_m_k04906_8h_1afbc666fe4029293ca7c5c6846fa84562" kind="function"><name>LMK04906_init</name></member>
     <member refid="_l_m_k04906_8h_1a38ae5c71479db55f1707e136071ca33b" kind="function"><name>IF_LoopBack_Test</name></member>
     <member refid="_l_m_k04906_8h_1a206861b7d8fd09708d512325fda6bd37" kind="function"><name>LMK04906_RegWrite</name></member>
@@ -1322,9 +1315,9 @@
     <member refid="xdptxss__kc705_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
     <member refid="xdptxss__kc705_8c_1a747e423e667d70d4751eb7a50693d127" kind="function"><name>XUartLite_RecvByte_local</name></member>
     <member refid="xdptxss__kc705_8c_1a9007dad142c1b782faa9ec5af022bc0e" kind="function"><name>xildpWaitmS</name></member>
-    <member refid="xdptxss__kc705_8c_1aeb4d9908e1386a13b35e6eb21b80e577" kind="function"><name>ReceiveHandler</name></member>
-    <member refid="xdptxss__kc705_8c_1a61a535cf27c5876e3f252b5d7385af62" kind="function"><name>SendHandler</name></member>
-    <member refid="xdptxss__kc705_8c_1a781f83a72ac373b2b192ec99f4561084" kind="function"><name>StatusHandler</name></member>
+    <member refid="xdptxss__kc705_8c_1a2dc42043eaab1d3701336fda406b9dab" kind="function"><name>ReceiveHandler</name></member>
+    <member refid="xdptxss__kc705_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" kind="function"><name>SendHandler</name></member>
+    <member refid="xdptxss__kc705_8c_1a5af50853b8583d2c4b84498ac406a432" kind="function"><name>StatusHandler</name></member>
     <member refid="xdptxss__kc705_8c_1a538bd02c416263e0b9a6393bf4235527" kind="function"><name>iic_write</name></member>
     <member refid="xdptxss__kc705_8c_1a399051f638f11f6559dfc819ab549dd0" kind="function"><name>iic_read</name></member>
   </compound>
@@ -1522,9 +1515,9 @@
     <member refid="xdptxss__kcu105_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
     <member refid="xdptxss__kcu105_8c_1a747e423e667d70d4751eb7a50693d127" kind="function"><name>XUartLite_RecvByte_local</name></member>
     <member refid="xdptxss__kcu105_8c_1a9007dad142c1b782faa9ec5af022bc0e" kind="function"><name>xildpWaitmS</name></member>
-    <member refid="xdptxss__kcu105_8c_1aeb4d9908e1386a13b35e6eb21b80e577" kind="function"><name>ReceiveHandler</name></member>
-    <member refid="xdptxss__kcu105_8c_1a61a535cf27c5876e3f252b5d7385af62" kind="function"><name>SendHandler</name></member>
-    <member refid="xdptxss__kcu105_8c_1a781f83a72ac373b2b192ec99f4561084" kind="function"><name>StatusHandler</name></member>
+    <member refid="xdptxss__kcu105_8c_1a2dc42043eaab1d3701336fda406b9dab" kind="function"><name>ReceiveHandler</name></member>
+    <member refid="xdptxss__kcu105_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" kind="function"><name>SendHandler</name></member>
+    <member refid="xdptxss__kcu105_8c_1a5af50853b8583d2c4b84498ac406a432" kind="function"><name>StatusHandler</name></member>
     <member refid="xdptxss__kcu105_8c_1a538bd02c416263e0b9a6393bf4235527" kind="function"><name>iic_write</name></member>
     <member refid="xdptxss__kcu105_8c_1a399051f638f11f6559dfc819ab549dd0" kind="function"><name>iic_read</name></member>
   </compound>
@@ -2223,35 +2216,35 @@
     <member refid="group__dptxss_1gae787a2608eff783b770b6c572ec9ba4e" kind="define"><name>XDPTXSS_INTERRUPT_MASK_HPD_EVENT_MASK</name></member>
     <member refid="group__dptxss_1ga825f1c8ab7d030cf6903152c5dcf5878" kind="define"><name>XDPTXSS_NUM_STREAMS</name></member>
   </compound>
-  <compound refid="dir_782bf7625e1b864cc56b1a4d92642377" kind="dir"><name>com</name>
+  <compound refid="dir_651eb2cd1784068df166fe1b2b5fe78a" kind="dir"><name>com</name>
   </compound>
-  <compound refid="dir_39118fca7a75a6e65f0c7f7bfb95cd1d" kind="dir"><name>dp</name>
+  <compound refid="dir_1018efaa54ed2d6dc3e42b7da8e3fc63" kind="dir"><name>dp</name>
   </compound>
-  <compound refid="dir_390e0b3b49deb84b5a90471ef291a63f" kind="dir"><name>dp12txss</name>
+  <compound refid="dir_cb4f8f74e5fe26d8aa4d0aa9cd538015" kind="dir"><name>dp12txss</name>
   </compound>
-  <compound refid="dir_31de78c69678d5e52f27398fed5ce2b9" kind="dir"><name>dualsplitter</name>
+  <compound refid="dir_c92c40aa44f733c15a844bf9b95c7aa8" kind="dir"><name>dualsplitter</name>
   </compound>
-  <compound refid="dir_569bcd5091e116e41cda76f3872e79c5" kind="dir"><name>examples</name>
+  <compound refid="dir_9ddd5201cc6288658ce8f6f9415de267" kind="dir"><name>examples</name>
   </compound>
-  <compound refid="dir_d2ed25e54b7d18c15e13105085abec32" kind="dir"><name>hdcp1x</name>
+  <compound refid="dir_2ca0430d0bdb1f3926f9b3ab5d5a1399" kind="dir"><name>hdcp1x</name>
   </compound>
-  <compound refid="dir_ae1ec5c924b57a2b9f2239fdeb1ff409" kind="dir"><name>inc</name>
+  <compound refid="dir_329660850f914fa1a6540c039efccf78" kind="dir"><name>inc</name>
   </compound>
-  <compound refid="dir_3feed4ac2bde566e34bdd8f6f375e0ca" kind="dir"><name>kc</name>
+  <compound refid="dir_2d038b7b6c09b4c775d50843d5b0c859" kind="dir"><name>kc</name>
   </compound>
-  <compound refid="dir_0cdc1624c1528b834da88f31f2096494" kind="dir"><name>kcu</name>
+  <compound refid="dir_251b90c5588f4f9e8d2afeb25c9cbeba" kind="dir"><name>kcu</name>
   </compound>
-  <compound refid="dir_a47cea176a29c106c7fab52edd360f9a" kind="dir"><name>key</name>
+  <compound refid="dir_c37343815a4ea71fb2259e2a3f90aaee" kind="dir"><name>key</name>
   </compound>
-  <compound refid="dir_44dc4b27be7fa7acb33ccdfdb62d47d7" kind="dir"><name>src</name>
+  <compound refid="dir_a0555b824f163e8ce213933cf236ee24" kind="dir"><name>src</name>
   </compound>
-  <compound refid="dir_bdc5808175598279f38212d9a3af2a1d" kind="dir"><name>src</name>
+  <compound refid="dir_a08ae13146872d53504f0353c16c9b87" kind="dir"><name>src</name>
   </compound>
-  <compound refid="dir_6810a758d835aaffffb307910f01c69b" kind="dir"><name>vtc</name>
+  <compound refid="dir_337b331de8565c96f46e92d1ebd75f46" kind="dir"><name>vtc</name>
   </compound>
-  <compound refid="dir_12ec9e1d4a5d1e387fa4d09c6888b4bf" kind="dir"><name>zcu_pt</name>
+  <compound refid="dir_f211afa9ee6b0c7b758b6313f238cf2c" kind="dir"><name>zcu_pt</name>
   </compound>
-  <compound refid="dir_6c98c6528c02db1d785d77241706fcdf" kind="dir"><name>zcu_tx</name>
+  <compound refid="dir_7d834cacfb3f1b918d69b0b945ee982a" kind="dir"><name>zcu_tx</name>
   </compound>
   <compound refid="indexpage" kind="page"><name>index</name>
   </compound>

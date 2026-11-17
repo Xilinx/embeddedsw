@@ -119,8 +119,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       pre  09/30/25 Updated comments for rtf docs
 2.4   tbk  02/10/26 Added SMC call support
       gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
-      vm   03/30/26 Added support for OSPI as pdi source to get the optional data</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xloader__client_8h.html">xloader_client.h</a>&quot;</code><br/>
+      vm   03/30/26 Added support for OSPI as pdi source to get the optional data
+      pre  07/15/26 Added input parameter validation at required places
+      ng   07/09/26 Added XLoader_SetDdrAddrForRestartImage client API
+2.5   tus  07/29/26 Added XLoader_GetClientLibVersion and
+                    XLoader_GetServerLibInfo</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xloader__client_8h.html">xloader_client.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__generic_8h.html">xloader_generic.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xloader__ver_8h.html">xloader_ver.h</a>&quot;</code><br/>
+<code>#include &quot;xil_util.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -184,6 +190,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8960e12865539b0b9a6c2e5f6a705ed7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__client__apis.html#ga8960e12865539b0b9a6c2e5f6a705ed7">XLoader_GetOptionalData</a> (<a class="el" href="struct_x_loader___client_instance.html">XLoader_ClientInstance</a> *InstancePtr, const <a class="el" href="struct_x_loader___optional_data_info.html">XLoader_OptionalDataInfo</a> *OptionalDataInfo, u64 DestAddr, u32 *DestSize)</td></tr>
 <tr class="memdesc:ga8960e12865539b0b9a6c2e5f6a705ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to get optional data from the PDI available in DDR or Image Store.  <a href="group__xloader__client__apis.html#ga8960e12865539b0b9a6c2e5f6a705ed7">More...</a><br/></td></tr>
 <tr class="separator:ga8960e12865539b0b9a6c2e5f6a705ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad2ea291a5214f42c54ab14c0a394bbaa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__client__apis.html#gad2ea291a5214f42c54ab14c0a394bbaa">XLoader_SetDdrAddrForRestartImage</a> (<a class="el" href="struct_x_loader___client_instance.html">XLoader_ClientInstance</a> *InstancePtr, u64 DdrPdiAddr)</td></tr>
+<tr class="memdesc:gad2ea291a5214f42c54ab14c0a394bbaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI request to configure the DDR address from which the PLM will load a subsystem image on the next restart, bypassing the Image Store PDI list.  <a href="group__xloader__client__apis.html#gad2ea291a5214f42c54ab14c0a394bbaa">More...</a><br/></td></tr>
+<tr class="separator:gad2ea291a5214f42c54ab14c0a394bbaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d5910ac3bfbc18dd6d16f68009dfc6c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__client__apis.html#ga4d5910ac3bfbc18dd6d16f68009dfc6c">XLoader_GetClientLibVersion</a> (u32 *Version)</td></tr>
+<tr class="memdesc:ga4d5910ac3bfbc18dd6d16f68009dfc6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the XilLoader library version that the client is built with.  <a href="group__xloader__client__apis.html#ga4d5910ac3bfbc18dd6d16f68009dfc6c">More...</a><br/></td></tr>
+<tr class="separator:ga4d5910ac3bfbc18dd6d16f68009dfc6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b0f922a669106f6a1c6d0df014e5221"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__client__apis.html#ga1b0f922a669106f6a1c6d0df014e5221">XLoader_GetServerLibInfo</a> (<a class="el" href="struct_x_loader___client_instance.html">XLoader_ClientInstance</a> *InstancePtr, Xil_LibInfo *LibInfo)</td></tr>
+<tr class="memdesc:ga1b0f922a669106f6a1c6d0df014e5221"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends an IPI request to get the XilLoader library version and capability bits running on the PLM.  <a href="group__xloader__client__apis.html#ga1b0f922a669106f6a1c6d0df014e5221">More...</a><br/></td></tr>
+<tr class="separator:ga1b0f922a669106f6a1c6d0df014e5221"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

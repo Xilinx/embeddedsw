@@ -123,7 +123,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7087d4d5edd912c0fdb6e28038643536"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables DP-side audio SDP/timestamp streams.  <a href="#a7087d4d5edd912c0fdb6e28038643536">More...</a><br/></td></tr>
 <tr class="separator:a7087d4d5edd912c0fdb6e28038643536"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5a8cd4236c7a991497612d68cbd6a95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmi__dp__intr_8h.html#ad5a8cd4236c7a991497612d68cbd6a95">XDpDc_SetupDpInterrupts</a> (<a class="el" href="struct_run_config.html">RunConfig</a> *RunCfgPtr)</td></tr>
-<tr class="memdesc:ad5a8cd4236c7a991497612d68cbd6a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function registers HPD callbacks and connects the DP interrupt to the GIC.  <a href="#ad5a8cd4236c7a991497612d68cbd6a95">More...</a><br/></td></tr>
+<tr class="memdesc:ad5a8cd4236c7a991497612d68cbd6a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function registers HPD callbacks and connects the DP interrupt to the GIC, then runs the connect sequence if a sink is already present.  <a href="#ad5a8cd4236c7a991497612d68cbd6a95">More...</a><br/></td></tr>
 <tr class="separator:ad5a8cd4236c7a991497612d68cbd6a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -150,7 +150,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
-<p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#a73abe61ea2c8dcfb0e0188cc2a072ca5">XDpDc_HpdHotplugHandler()</a>, <a class="el" href="mmi__dp__intr_8h.html#a472e38536a80269b21c42c25c0a9f65a">XDpDc_HpdIrqHandler()</a>, and <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>.</p>
+<p>Referenced by <a class="el" href="mmi__dp__init_8h.html#ad006bfc4aa600e15be560f77afbe3870">XDpDc_InitDpPsuSubsystem()</a>, and <a class="el" href="mmi__dp__init_8h.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 </div>
 </div>
@@ -169,16 +169,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function is the HPD hot plug (connect) callback. </p>
-<p>It reads sink capabilities, runs link training, and sets up the video stream.</p>
+<p>It runs the connect sequence.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">CallbackRef</td><td>is a pointer to the <a class="el" href="struct_run_config.html" title="This typedef contains the run-time configuration for the DisplayPort Display Controller example appli...">RunConfig</a> structure.</td></tr>
+    <tr><td class="paramname">CallbackRef</td><td>is a pointer to the <a class="el" href="struct_run_config.html" title="This typedef contains the run-time configuration for the DisplayPort Display Controller example appli...">RunConfig</a> structure. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_run_config.html#a0919eff7fd55f675afb7235c6c9936c0">RunConfig::AudioEnable</a>, <a class="el" href="struct_run_config.html#af9e1945098c92c6e03c086ac3d0c4a3c">RunConfig::DpPsuPtr</a>, <a class="el" href="struct_run_config.html#a6c31fb2de76478d7c5a9e545a297866d">RunConfig::MaxLaneCount</a>, <a class="el" href="struct_run_config.html#ad55f7cc55ffd5f98018cd819f5d09407">RunConfig::MaxLinkRate</a>, <a class="el" href="struct_run_config.html#a032bc36376350b1ba5419e18d1f357ec">RunConfig::SdpEnable</a>, <a class="el" href="mmi__dp__intr_8c.html#a7087d4d5edd912c0fdb6e28038643536">XDpDc_DisableDpAudioSdpStreams()</a>, <a class="el" href="mmi__dp__init_8c.html#a04602a40acdc79b6203e0add5c7774d5">XMmiDp_SetupAudioStream()</a>, <a class="el" href="mmi__dp__init_8c.html#a71d704d64c98127c07711223063b8a1f">XMmiDp_SetupVideoStream()</a>, <a class="el" href="mmi__dp__init_8c.html#a80c2b0a6ccdf64ae0b6bc60b7297ee07">XMmiDp_SinkPowerUp()</a>, and <a class="el" href="mmi__dp__init_8c.html#ad5774015fbf8628ffdbb3746da70b28b">XMmiDp_StartFullLinkTrainingCapped()</a>.</p>
+<p>References <a class="el" href="mmi__dp__init_8c.html#a2366205c7a4ee18ac1833bc71e721ad7">XDpDc_RunConnectSequence()</a>.</p>
 
 <p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#ad5a8cd4236c7a991497612d68cbd6a95">XDpDc_SetupDpInterrupts()</a>.</p>
 
@@ -238,7 +237,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_run_config.html#a0919eff7fd55f675afb7235c6c9936c0">RunConfig::AudioEnable</a>, <a class="el" href="struct_run_config.html#af9e1945098c92c6e03c086ac3d0c4a3c">RunConfig::DpPsuPtr</a>, <a class="el" href="struct_run_config.html#a6c31fb2de76478d7c5a9e545a297866d">RunConfig::MaxLaneCount</a>, <a class="el" href="struct_run_config.html#ad55f7cc55ffd5f98018cd819f5d09407">RunConfig::MaxLinkRate</a>, <a class="el" href="struct_run_config.html#a032bc36376350b1ba5419e18d1f357ec">RunConfig::SdpEnable</a>, <a class="el" href="mmi__dp__intr_8c.html#a7087d4d5edd912c0fdb6e28038643536">XDpDc_DisableDpAudioSdpStreams()</a>, <a class="el" href="mmi__dp__init_8c.html#a04602a40acdc79b6203e0add5c7774d5">XMmiDp_SetupAudioStream()</a>, <a class="el" href="mmi__dp__init_8c.html#a71d704d64c98127c07711223063b8a1f">XMmiDp_SetupVideoStream()</a>, and <a class="el" href="mmi__dp__init_8c.html#ad5774015fbf8628ffdbb3746da70b28b">XMmiDp_StartFullLinkTrainingCapped()</a>.</p>
+<p>References <a class="el" href="struct_run_config.html#af9e1945098c92c6e03c086ac3d0c4a3c">RunConfig::DpPsuPtr</a>, <a class="el" href="mmi__dp__init_8c.html#a1470b14f1f340b5a19a2048effd086e5">XDpDc_RunLinkPolicySetup()</a>, and <a class="el" href="mmi__dp__init_8c.html#a923680a2dbc88cecc68fa2a5bb787c60">XDpDc_RunStreamPolicySetup()</a>.</p>
 
 <p>Referenced by <a class="el" href="mmi__dp__intr_8h.html#ad5a8cd4236c7a991497612d68cbd6a95">XDpDc_SetupDpInterrupts()</a>.</p>
 
@@ -258,7 +257,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function registers HPD callbacks and connects the DP interrupt to the GIC. </p>
+<p>This function registers HPD callbacks and connects the DP interrupt to the GIC, then runs the connect sequence if a sink is already present. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">RunCfgPtr</td><td>is a pointer to the application configuration structure.</td></tr>

@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_emac_lite___config.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_emac_lite___config.html','');
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for a device.
+<p>Holds configuration information for a device.
  <a href="struct_x_emac_lite___config.html#details">More...</a></p>
 
 <p><code>#include &lt;xemaclite.h&gt;</code></p>
@@ -127,16 +127,16 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:abd2e9fc4f5ca6eddbd068f8dd08bad4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device base address.  <a href="#abd2e9fc4f5ca6eddbd068f8dd08bad4a">More...</a><br/></td></tr>
 <tr class="separator:abd2e9fc4f5ca6eddbd068f8dd08bad4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d9cbd0922c7f62a9b2f21b2876c043e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite___config.html#a5d9cbd0922c7f62a9b2f21b2876c043e">TxPingPong</a></td></tr>
-<tr class="memdesc:a5d9cbd0922c7f62a9b2f21b2876c043e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if TX Pong buffer configured, 0 otherwise  <a href="#a5d9cbd0922c7f62a9b2f21b2876c043e">More...</a><br/></td></tr>
+<tr class="memdesc:a5d9cbd0922c7f62a9b2f21b2876c043e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if TX Pong buffer configured, 0 otherwise.  <a href="#a5d9cbd0922c7f62a9b2f21b2876c043e">More...</a><br/></td></tr>
 <tr class="separator:a5d9cbd0922c7f62a9b2f21b2876c043e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac62308cd76ce383cd4b895d3cb2cc8ed"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite___config.html#ac62308cd76ce383cd4b895d3cb2cc8ed">RxPingPong</a></td></tr>
-<tr class="memdesc:ac62308cd76ce383cd4b895d3cb2cc8ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if RX Pong buffer configured, 0 otherwise  <a href="#ac62308cd76ce383cd4b895d3cb2cc8ed">More...</a><br/></td></tr>
+<tr class="memdesc:ac62308cd76ce383cd4b895d3cb2cc8ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if RX Pong buffer configured, 0 otherwise.  <a href="#ac62308cd76ce383cd4b895d3cb2cc8ed">More...</a><br/></td></tr>
 <tr class="separator:ac62308cd76ce383cd4b895d3cb2cc8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc01374bac02bda99089de80985a9821"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite___config.html#acc01374bac02bda99089de80985a9821">MdioInclude</a></td></tr>
-<tr class="memdesc:acc01374bac02bda99089de80985a9821"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if MDIO is enabled, 0 otherwise  <a href="#acc01374bac02bda99089de80985a9821">More...</a><br/></td></tr>
+<tr class="memdesc:acc01374bac02bda99089de80985a9821"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if MDIO is enabled, 0 otherwise.  <a href="#acc01374bac02bda99089de80985a9821">More...</a><br/></td></tr>
 <tr class="separator:acc01374bac02bda99089de80985a9821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab06e53383d33ab049495ae049dd6ed82"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite___config.html#ab06e53383d33ab049495ae049dd6ed82">Loopback</a></td></tr>
-<tr class="memdesc:ab06e53383d33ab049495ae049dd6ed82"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if internal loopback is enabled, 0 otherwise  <a href="#ab06e53383d33ab049495ae049dd6ed82">More...</a><br/></td></tr>
+<tr class="memdesc:ab06e53383d33ab049495ae049dd6ed82"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if internal loopback is enabled, 0 otherwise.  <a href="#ab06e53383d33ab049495ae049dd6ed82">More...</a><br/></td></tr>
 <tr class="separator:ab06e53383d33ab049495ae049dd6ed82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf7fbf17f8b8925b0d45e2c290c5ac6d"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_emac_lite___config.html#acf7fbf17f8b8925b0d45e2c290c5ac6d">IntrId</a></td></tr>
 <tr class="memdesc:acf7fbf17f8b8925b0d45e2c290c5ac6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt number.  <a href="#acf7fbf17f8b8925b0d45e2c290c5ac6d">More...</a><br/></td></tr>
@@ -146,7 +146,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:ac5de6290ad27d1c88b7225931de01c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for a device. </p>
+<div class="textblock"><p>Holds configuration information for a device. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="abd2e9fc4f5ca6eddbd068f8dd08bad4a"></a>
 <div class="memitem">
@@ -160,7 +160,7 @@ Data Fields</h2></td></tr>
 
 <p>Device base address. </p>
 
-<p>Referenced by <a class="el" href="xemaclite__intr__example_8c.html#a518017ed22776c127596159fd5c86325">EmacLiteIntrExample()</a>, <a class="el" href="xemaclite__internal__loopback__example_8c.html#abcb2d06b54c6a59779c636ef76417519">EmacLiteIntrLoopbackExample()</a>, <a class="el" href="xemaclite__phy__loopback__example_8c.html#a402b5062f4c7679f905ec9d08ad40463">EmacLitePhyLoopbackExample()</a>, <a class="el" href="xemaclite__polled__example_8c.html#a7ed728b50a7f7b2f563a3726c85a6ebf">EmacLitePolledExample()</a>, <a class="el" href="xemaclite__selftest__example_8c.html#a48a68741704ccbf1d72dbf4051b0d0d1">EMACLiteSelfTestExample()</a>, <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>, <a class="el" href="group__emaclite.html#gacac27172503eee6a171afe1679c20f2c">XEmacLite_DisableInterrupts()</a>, <a class="el" href="group__emaclite.html#ga55c4a0b58c4e35dbf81c4866946f368a">XEmacLite_DisableLoopBack()</a>, <a class="el" href="group__emaclite.html#ga28a0b4547f8b9b8eb675123df8ab8907">XEmacLite_EnableInterrupts()</a>, <a class="el" href="group__emaclite.html#ga1bd8c7361add009208f4c6778644a83c">XEmacLite_EnableLoopBack()</a>, <a class="el" href="group__emaclite.html#gae7ced3b39bd2f06d037660e884c0706b">XEmacLite_FlushReceive()</a>, <a class="el" href="group__emaclite.html#gacff4eab9e90bd34cfb1ccd2338a9e4b1">XEmacLite_Initialize()</a>, <a class="el" href="group__emaclite.html#ga72db0e7e81077c3ad3947009a5299fdf">XEmacLite_InterruptHandler()</a>, <a class="el" href="group__emaclite.html#ga444ab091bdc373bf2e1a266d5febecd0">XEmacLite_PhyRead()</a>, <a class="el" href="group__emaclite.html#ga63ef92abf534fcf6f41601e93efa4cc7">XEmacLite_PhyWrite()</a>, <a class="el" href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">XEmacLite_SelfTest()</a>, and <a class="el" href="group__emaclite.html#gaa509977aea023dfeef6bddb10b2597dc">XEmacLite_Send()</a>.</p>
+<p>Referenced by <a class="el" href="group__emaclite.html#ga518017ed22776c127596159fd5c86325">EmacLiteIntrExample()</a>, <a class="el" href="group__emaclite.html#gabcb2d06b54c6a59779c636ef76417519">EmacLiteIntrLoopbackExample()</a>, <a class="el" href="group__emaclite.html#ga402b5062f4c7679f905ec9d08ad40463">EmacLitePhyLoopbackExample()</a>, <a class="el" href="group__emaclite.html#ga7ed728b50a7f7b2f563a3726c85a6ebf">EmacLitePolledExample()</a>, <a class="el" href="group__emaclite.html#ga48a68741704ccbf1d72dbf4051b0d0d1">EMACLiteSelfTestExample()</a>, <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>, <a class="el" href="group__emaclite.html#gacac27172503eee6a171afe1679c20f2c">XEmacLite_DisableInterrupts()</a>, <a class="el" href="group__emaclite.html#ga55c4a0b58c4e35dbf81c4866946f368a">XEmacLite_DisableLoopBack()</a>, <a class="el" href="group__emaclite.html#ga28a0b4547f8b9b8eb675123df8ab8907">XEmacLite_EnableInterrupts()</a>, <a class="el" href="group__emaclite.html#ga1bd8c7361add009208f4c6778644a83c">XEmacLite_EnableLoopBack()</a>, <a class="el" href="group__emaclite.html#gae7ced3b39bd2f06d037660e884c0706b">XEmacLite_FlushReceive()</a>, <a class="el" href="group__emaclite.html#gacff4eab9e90bd34cfb1ccd2338a9e4b1">XEmacLite_Initialize()</a>, <a class="el" href="group__emaclite.html#ga72db0e7e81077c3ad3947009a5299fdf">XEmacLite_InterruptHandler()</a>, <a class="el" href="group__emaclite.html#ga444ab091bdc373bf2e1a266d5febecd0">XEmacLite_PhyRead()</a>, <a class="el" href="group__emaclite.html#ga63ef92abf534fcf6f41601e93efa4cc7">XEmacLite_PhyWrite()</a>, <a class="el" href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">XEmacLite_SelfTest()</a>, and <a class="el" href="group__emaclite.html#gaa509977aea023dfeef6bddb10b2597dc">XEmacLite_Send()</a>.</p>
 
 </div>
 </div>
@@ -176,7 +176,7 @@ Data Fields</h2></td></tr>
 
 <p>Interrupt number. </p>
 
-<p>Referenced by <a class="el" href="xemaclite__intr__example_8c.html#a518017ed22776c127596159fd5c86325">EmacLiteIntrExample()</a>, <a class="el" href="xemaclite__internal__loopback__example_8c.html#abcb2d06b54c6a59779c636ef76417519">EmacLiteIntrLoopbackExample()</a>, <a class="el" href="xemaclite__phy__loopback__example_8c.html#a402b5062f4c7679f905ec9d08ad40463">EmacLitePhyLoopbackExample()</a>, and <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__emaclite.html#ga518017ed22776c127596159fd5c86325">EmacLiteIntrExample()</a>, <a class="el" href="group__emaclite.html#gabcb2d06b54c6a59779c636ef76417519">EmacLiteIntrLoopbackExample()</a>, <a class="el" href="group__emaclite.html#ga402b5062f4c7679f905ec9d08ad40463">EmacLitePhyLoopbackExample()</a>, and <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -192,7 +192,7 @@ Data Fields</h2></td></tr>
 
 <p>Parent interrupt controller address. </p>
 
-<p>Referenced by <a class="el" href="xemaclite__intr__example_8c.html#a518017ed22776c127596159fd5c86325">EmacLiteIntrExample()</a>, <a class="el" href="xemaclite__internal__loopback__example_8c.html#abcb2d06b54c6a59779c636ef76417519">EmacLiteIntrLoopbackExample()</a>, <a class="el" href="xemaclite__phy__loopback__example_8c.html#a402b5062f4c7679f905ec9d08ad40463">EmacLitePhyLoopbackExample()</a>, and <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__emaclite.html#ga518017ed22776c127596159fd5c86325">EmacLiteIntrExample()</a>, <a class="el" href="group__emaclite.html#gabcb2d06b54c6a59779c636ef76417519">EmacLiteIntrLoopbackExample()</a>, <a class="el" href="group__emaclite.html#ga402b5062f4c7679f905ec9d08ad40463">EmacLitePhyLoopbackExample()</a>, and <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -206,7 +206,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>1 if internal loopback is enabled, 0 otherwise </p>
+<p>1 if internal loopback is enabled, 0 otherwise. </p>
 
 <p>Referenced by <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>, <a class="el" href="group__emaclite.html#ga55c4a0b58c4e35dbf81c4866946f368a">XEmacLite_DisableLoopBack()</a>, and <a class="el" href="group__emaclite.html#ga1bd8c7361add009208f4c6778644a83c">XEmacLite_EnableLoopBack()</a>.</p>
 
@@ -222,7 +222,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>1 if MDIO is enabled, 0 otherwise </p>
+<p>1 if MDIO is enabled, 0 otherwise. </p>
 
 <p>Referenced by <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>, <a class="el" href="group__emaclite.html#ga444ab091bdc373bf2e1a266d5febecd0">XEmacLite_PhyRead()</a>, and <a class="el" href="group__emaclite.html#ga63ef92abf534fcf6f41601e93efa4cc7">XEmacLite_PhyWrite()</a>.</p>
 
@@ -254,7 +254,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>1 if RX Pong buffer configured, 0 otherwise </p>
+<p>1 if RX Pong buffer configured, 0 otherwise. </p>
 
 <p>Referenced by <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>, <a class="el" href="group__emaclite.html#gae7ced3b39bd2f06d037660e884c0706b">XEmacLite_FlushReceive()</a>, <a class="el" href="group__emaclite.html#ga6b771b95e193baa02186c6e106c7aefb">XEmacLite_Recv()</a>, and <a class="el" href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">XEmacLite_SelfTest()</a>.</p>
 
@@ -270,7 +270,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>1 if TX Pong buffer configured, 0 otherwise </p>
+<p>1 if TX Pong buffer configured, 0 otherwise. </p>
 
 <p>Referenced by <a class="el" href="group__emaclite.html#ga3c9dd90e02c987b5b3a1dacdcfd057c4">XEmacLite_CfgInitialize()</a>, <a class="el" href="group__emaclite.html#ga0ea2a0f4e13ef174477a3cf2a9f86e69">XEmacLite_SelfTest()</a>, <a class="el" href="group__emaclite.html#gaa509977aea023dfeef6bddb10b2597dc">XEmacLite_Send()</a>, and <a class="el" href="group__emaclite.html#ga3f75e1a5a0b8d0e5e085880919ad693a">XEmacLite_TxBufferAvailable()</a>.</p>
 

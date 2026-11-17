@@ -4,36 +4,36 @@
     <compoundname>xvtc_intr.c</compoundname>
     <includes refid="xvtc_8h" local="yes">xvtc.h</includes>
     <incdepgraph>
-      <node id="54">
+      <node id="52">
         <label>xil_assert.h</label>
       </node>
-      <node id="53">
-        <label>xil_io.h</label>
-      </node>
-      <node id="52">
+      <node id="50">
         <label>xvtc_hw.h</label>
         <link refid="xvtc__hw_8h"/>
-        <childnode refid="53" relation="include">
-        </childnode>
-      </node>
-      <node id="51">
-        <label>xvtc.h</label>
-        <link refid="xvtc_8h"/>
-        <childnode refid="52" relation="include">
-        </childnode>
-        <childnode refid="54" relation="include">
-        </childnode>
-        <childnode refid="55" relation="include">
-        </childnode>
-      </node>
-      <node id="50">
-        <label>xvtc_intr.c</label>
-        <link refid="xvtc_intr.c"/>
         <childnode refid="51" relation="include">
         </childnode>
       </node>
-      <node id="55">
+      <node id="51">
+        <label>xil_io.h</label>
+      </node>
+      <node id="53">
         <label>xstatus.h</label>
+      </node>
+      <node id="48">
+        <label>xvtc_intr.c</label>
+        <link refid="xvtc_intr.c"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xvtc.h</label>
+        <link refid="xvtc_8h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -62,20 +62,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="946" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c" bodystart="145" bodyend="187"/>
-        <references refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" compoundref="xvtc_8h" startline="566">XVtc::DetectorCallBack</references>
-        <references refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" compoundref="xvtc_8h" startline="567">XVtc::DetectorRef</references>
-        <references refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" compoundref="xvtc_8h" startline="575">XVtc::ErrCallBack</references>
-        <references refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" compoundref="xvtc_8h" startline="576">XVtc::ErrRef</references>
-        <references refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" compoundref="xvtc_8h" startline="556">XVtc::FrameSyncCallBack</references>
-        <references refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" compoundref="xvtc_8h" startline="558">XVtc::FrameSyncRef</references>
-        <references refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" compoundref="xvtc_8h" startline="570">XVtc::GeneratorCallBack</references>
-        <references refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" compoundref="xvtc_8h" startline="572">XVtc::GeneratorRef</references>
-        <references refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" compoundref="xvtc_8h" startline="552">XVtc::IsReady</references>
-        <references refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" compoundref="xvtc_8h" startline="561">XVtc::LockCallBack</references>
-        <references refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" compoundref="xvtc_8h" startline="563">XVtc::LockRef</references>
-        <references refid="group__vtc_1gaa7d624fe0b466b99d255440080a28aad" compoundref="xvtc_8h" startline="834">XVtc_IntrClear</references>
-        <references refid="group__vtc_1ga0cf149f9ebe8a249435f004926e1bd48" compoundref="xvtc_8h" startline="811">XVtc_IntrGetPending</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="936" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c" bodystart="145" bodyend="187"/>
+        <references refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" compoundref="xvtc_8h" startline="560">XVtc::DetectorCallBack</references>
+        <references refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" compoundref="xvtc_8h" startline="561">XVtc::DetectorRef</references>
+        <references refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" compoundref="xvtc_8h" startline="569">XVtc::ErrCallBack</references>
+        <references refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" compoundref="xvtc_8h" startline="570">XVtc::ErrRef</references>
+        <references refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" compoundref="xvtc_8h" startline="550">XVtc::FrameSyncCallBack</references>
+        <references refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" compoundref="xvtc_8h" startline="552">XVtc::FrameSyncRef</references>
+        <references refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" compoundref="xvtc_8h" startline="564">XVtc::GeneratorCallBack</references>
+        <references refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" compoundref="xvtc_8h" startline="566">XVtc::GeneratorRef</references>
+        <references refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" compoundref="xvtc_8h" startline="546">XVtc::IsReady</references>
+        <references refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" compoundref="xvtc_8h" startline="555">XVtc::LockCallBack</references>
+        <references refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" compoundref="xvtc_8h" startline="557">XVtc::LockRef</references>
+        <references refid="group__vtc_1gaa7d624fe0b466b99d255440080a28aad" compoundref="xvtc_8h" startline="828">XVtc_IntrClear</references>
+        <references refid="group__vtc_1ga0cf149f9ebe8a249435f004926e1bd48" compoundref="xvtc_8h" startline="805">XVtc_IntrGetPending</references>
         <references refid="group__vtc_1gac82e5b9606f9b7e9c20022d085c22a54" compoundref="xvtc__hw_8h" startline="453">XVTC_IXR_D_ALL_MASK</references>
         <references refid="group__vtc_1ga2222690cdb7738c6c1d64e3c0324f375" compoundref="xvtc__hw_8h" startline="433">XVTC_IXR_FSYNCALL_MASK</references>
         <references refid="group__vtc_1ga59e68ac1be6dff7690d55e220a403e22" compoundref="xvtc__hw_8h" startline="443">XVTC_IXR_G_ALL_MASK</references>
@@ -156,18 +156,18 @@ XVTC_HANDLER_ERROR       An error condition happens
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="947" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c" bodystart="229" bodyend="273"/>
-        <references refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" compoundref="xvtc_8h" startline="566">XVtc::DetectorCallBack</references>
-        <references refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" compoundref="xvtc_8h" startline="567">XVtc::DetectorRef</references>
-        <references refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" compoundref="xvtc_8h" startline="575">XVtc::ErrCallBack</references>
-        <references refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" compoundref="xvtc_8h" startline="576">XVtc::ErrRef</references>
-        <references refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" compoundref="xvtc_8h" startline="556">XVtc::FrameSyncCallBack</references>
-        <references refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" compoundref="xvtc_8h" startline="558">XVtc::FrameSyncRef</references>
-        <references refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" compoundref="xvtc_8h" startline="570">XVtc::GeneratorCallBack</references>
-        <references refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" compoundref="xvtc_8h" startline="572">XVtc::GeneratorRef</references>
-        <references refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" compoundref="xvtc_8h" startline="552">XVtc::IsReady</references>
-        <references refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" compoundref="xvtc_8h" startline="561">XVtc::LockCallBack</references>
-        <references refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" compoundref="xvtc_8h" startline="563">XVtc::LockRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="937" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c" bodystart="229" bodyend="273"/>
+        <references refid="struct_x_vtc_1a211c18a43472d3662aada08224d02fc1" compoundref="xvtc_8h" startline="560">XVtc::DetectorCallBack</references>
+        <references refid="struct_x_vtc_1a39ef314881f4d5a9694a473f8f6fa781" compoundref="xvtc_8h" startline="561">XVtc::DetectorRef</references>
+        <references refid="struct_x_vtc_1a65339fc541d5f64d5c2097737c66abb4" compoundref="xvtc_8h" startline="569">XVtc::ErrCallBack</references>
+        <references refid="struct_x_vtc_1a6083662e87d0418a68134511d63d6741" compoundref="xvtc_8h" startline="570">XVtc::ErrRef</references>
+        <references refid="struct_x_vtc_1afc1d783cc40c73852563d14195c8cec1" compoundref="xvtc_8h" startline="550">XVtc::FrameSyncCallBack</references>
+        <references refid="struct_x_vtc_1af2d20af9a4c67fae06d045205f9c0b46" compoundref="xvtc_8h" startline="552">XVtc::FrameSyncRef</references>
+        <references refid="struct_x_vtc_1a9ca302f40ef88e65cd689dcd3f059654" compoundref="xvtc_8h" startline="564">XVtc::GeneratorCallBack</references>
+        <references refid="struct_x_vtc_1a4219c199623018d841fbf94efe711e81" compoundref="xvtc_8h" startline="566">XVtc::GeneratorRef</references>
+        <references refid="struct_x_vtc_1a5335230298b2e9ab01b10e1eee440ffe" compoundref="xvtc_8h" startline="546">XVtc::IsReady</references>
+        <references refid="struct_x_vtc_1ac2b191b25140fb6c1a47b9f3372845c9" compoundref="xvtc_8h" startline="555">XVtc::LockCallBack</references>
+        <references refid="struct_x_vtc_1ab83385d3fa1d78fea80ca14bf4afec74" compoundref="xvtc_8h" startline="557">XVtc::LockRef</references>
         <references refid="group__vtc_1gaeffb524f951e917ea88ce6432c6c356c" compoundref="xvtc_8h" startline="310">XVTC_HANDLER_DETECTOR</references>
         <references refid="group__vtc_1ga8106454ce9bb2ea337bfcebface2acde" compoundref="xvtc_8h" startline="316">XVTC_HANDLER_ERROR</references>
         <references refid="group__vtc_1gab7b04f247733b1e0ff2e970a765d15c1" compoundref="xvtc_8h" startline="304">XVTC_HANDLER_FRAMESYNC</references>
@@ -301,6 +301,6 @@ XVTC_HANDLER_ERROR       An error condition happens
 <codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="273"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc_intr.c"/>
   </compounddef>
 </doxygen>

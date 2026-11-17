@@ -1,0 +1,3315 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pinfunc_8h" kind="file">
+    <compoundname>xpm_pinfunc.h</compoundname>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includedby refid="xpm__pin__groups_8c" local="yes">xpm_pin_groups.c</includedby>
+    <includedby refid="xpm__runtime__pin_8h" local="yes">xpm_runtime_pin.h</includedby>
+    <includedby refid="xpm__pinfunc_8c" local="yes">xpm_pinfunc.c</includedby>
+    <incdepgraph>
+      <node id="2546">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="2538" relation="include">
+        </childnode>
+        <childnode refid="2547" relation="include">
+        </childnode>
+      </node>
+      <node id="2536">
+        <label>xpm_device.h</label>
+        <childnode refid="2537" relation="include">
+        </childnode>
+        <childnode refid="2548" relation="include">
+        </childnode>
+        <childnode refid="2549" relation="include">
+        </childnode>
+        <childnode refid="2550" relation="include">
+        </childnode>
+      </node>
+      <node id="2542">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2544">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="2539" relation="include">
+        </childnode>
+      </node>
+      <node id="2547">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="2543">
+        <label>xil_util.h</label>
+      </node>
+      <node id="2541">
+        <label>xpm_common.h</label>
+        <childnode refid="2539" relation="include">
+        </childnode>
+        <childnode refid="2542" relation="include">
+        </childnode>
+        <childnode refid="2543" relation="include">
+        </childnode>
+        <childnode refid="2544" relation="include">
+        </childnode>
+        <childnode refid="2545" relation="include">
+        </childnode>
+        <childnode refid="2546" relation="include">
+        </childnode>
+      </node>
+      <node id="2545">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="2550">
+        <label>xpm_reset.h</label>
+        <childnode refid="2537" relation="include">
+        </childnode>
+        <childnode refid="2541" relation="include">
+        </childnode>
+      </node>
+      <node id="2537">
+        <label>xpm_node.h</label>
+        <childnode refid="2538" relation="include">
+        </childnode>
+        <childnode refid="2539" relation="include">
+        </childnode>
+        <childnode refid="2540" relation="include">
+        </childnode>
+        <childnode refid="2541" relation="include">
+        </childnode>
+      </node>
+      <node id="2548">
+        <label>xpm_power.h</label>
+        <childnode refid="2546" relation="include">
+        </childnode>
+        <childnode refid="2537" relation="include">
+        </childnode>
+      </node>
+      <node id="2539">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2549">
+        <label>xpm_clock.h</label>
+        <childnode refid="2541" relation="include">
+        </childnode>
+        <childnode refid="2537" relation="include">
+        </childnode>
+        <childnode refid="2548" relation="include">
+        </childnode>
+      </node>
+      <node id="2538">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2540">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="2535">
+        <label>xpm_pinfunc.h</label>
+        <link refid="xpm_pinfunc.h"/>
+        <childnode refid="2536" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2552">
+        <label>xpm_pin_groups.c</label>
+      </node>
+      <node id="2557">
+        <label>xpm_runtime_pin.c</label>
+      </node>
+      <node id="2553">
+        <label>xpm_runtime_pin.h</label>
+        <childnode refid="2554" relation="include">
+        </childnode>
+        <childnode refid="2552" relation="include">
+        </childnode>
+        <childnode refid="2555" relation="include">
+        </childnode>
+        <childnode refid="2556" relation="include">
+        </childnode>
+        <childnode refid="2557" relation="include">
+        </childnode>
+      </node>
+      <node id="2555">
+        <label>xpm_runtime_api.c</label>
+      </node>
+      <node id="2554">
+        <label>xpm_runtime_subsys.c</label>
+      </node>
+      <node id="2556">
+        <label>xpm_runtime_eemi.c</label>
+      </node>
+      <node id="2558">
+        <label>xpm_pinfunc.c</label>
+      </node>
+      <node id="2551">
+        <label>xpm_pinfunc.h</label>
+        <link refid="xpm_pinfunc.h"/>
+        <childnode refid="2552" relation="include">
+        </childnode>
+        <childnode refid="2553" relation="include">
+        </childnode>
+        <childnode refid="2558" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___pin_func" prot="public">XPm_PinFunc</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__pinfunc_8h_1adbfbf17505e88e7a485bb537decfafd9" prot="public" static="no">
+        <name>FUNC_NAME_SIZE</name>
+        <initializer>(16U)		/* Function name string size */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1a1f546fe41d11d1701352784ef9ce04c0" prot="public" static="no">
+        <name>MAX_GROUPS_PER_RES</name>
+        <initializer>(6U)		/* Max No. of groups per query response */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1a8e6db14846e966311428e752e2947416" prot="public" static="no">
+        <name>INVALID_FUNC_ID</name>
+        <initializer>(0xFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1ac3cfda21c2d514c6169ea46547e45b8b" prot="public" static="no">
+        <name>END_OF_GRP</name>
+        <initializer>(0xFFU)		/* -1 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1ad2865fc5ebdce87688e5add4780d9320" prot="public" static="no">
+        <name>RESERVED_GRP</name>
+        <initializer>(0xFFFEU)	/* -2 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035d" prot="public" static="no">
+        <name>@11</name>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1b77874a1d62799988dd1ec971c0d9b8" prot="public">
+          <name>PIN_GRP_SD0_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9911eca34f4a003251253cbb5bd4cbe6" prot="public">
+          <name>PIN_GRP_SD0_1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da40652883caa8d4e05a983668b962942d" prot="public">
+          <name>PIN_GRP_SD1_0</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4e0837723882f24e56ded8a758e70886" prot="public">
+          <name>PIN_GRP_SD1_1</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7d9ff9a30755f89c85d33bb352a09f35" prot="public">
+          <name>PIN_GRP_UFS_0</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da67fb28f1fe66db42f6a40d225ee0229b" prot="public">
+          <name>PIN_GRP_UFS_1</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da550bd0d624db63e8cb06a5f96690869d" prot="public">
+          <name>PIN_GRP_UFS_2</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae1ba53785174df3889003a2740907a41" prot="public">
+          <name>PIN_GRP_UFS_3</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4ee4ddcd439087797589768061cb9c91" prot="public">
+          <name>PIN_GRP_CAN0_0</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da443cd56d8dc9e4f66e2454fe0afba440" prot="public">
+          <name>PIN_GRP_CAN0_1</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3f0b5958bbbf0b78ffe580d7f39a2d85" prot="public">
+          <name>PIN_GRP_CAN0_2</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab1098fa32f50451468dc18e028ef9b00" prot="public">
+          <name>PIN_GRP_CAN0_3</name>
+          <initializer>= 11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf39e1eab369e3e6e564e469790f197b7" prot="public">
+          <name>PIN_GRP_CAN0_4</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da47e08003dc9a0822bc6b05003bc3951e" prot="public">
+          <name>PIN_GRP_CAN0_5</name>
+          <initializer>= 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0756e03a917b567633fb5f2fec5ad191" prot="public">
+          <name>PIN_GRP_CAN0_6</name>
+          <initializer>= 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab2c76d58fe137b86f9f7633c3d489811" prot="public">
+          <name>PIN_GRP_CAN0_7</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad627d069cdff9d7b7e957609c19d3d48" prot="public">
+          <name>PIN_GRP_CAN0_8</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab26ffa133e432bab419434c2e9c17197" prot="public">
+          <name>PIN_GRP_CAN0_9</name>
+          <initializer>= 17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5bf83d694a57316a0cf78ff329aff89e" prot="public">
+          <name>PIN_GRP_CAN1_0</name>
+          <initializer>= 18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da420c67aaf38d1a7e14e7de3bcb705dd4" prot="public">
+          <name>PIN_GRP_CAN1_1</name>
+          <initializer>= 19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da71e5c472953ddeab6668991992c0bc17" prot="public">
+          <name>PIN_GRP_CAN1_2</name>
+          <initializer>= 20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7252ef628e687eac04a010061ebb79b2" prot="public">
+          <name>PIN_GRP_CAN1_3</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae03d5423ea261ac1bf1e31302433bb06" prot="public">
+          <name>PIN_GRP_CAN1_4</name>
+          <initializer>= 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0160da4223045410e96bb7f215241089" prot="public">
+          <name>PIN_GRP_CAN1_5</name>
+          <initializer>= 23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da71814f4acff91e198efd72c6f9068a4a" prot="public">
+          <name>PIN_GRP_CAN1_6</name>
+          <initializer>= 24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa7fd3599c3baa38e7e4d09810b78777f" prot="public">
+          <name>PIN_GRP_CAN1_7</name>
+          <initializer>= 25</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da79f9924839e74dcc920ff858b7c3ff1e" prot="public">
+          <name>PIN_GRP_CAN1_8</name>
+          <initializer>= 26</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1f9b8185b493d53d1e7ac5f518c732c4" prot="public">
+          <name>PIN_GRP_CAN1_9</name>
+          <initializer>= 27</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da258cee0adcdb5428764f4f43b157cbfd" prot="public">
+          <name>PIN_GRP_CAN2_0</name>
+          <initializer>= 28</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daabcba96d1ae8052e6b144de0d4b2a7cc" prot="public">
+          <name>PIN_GRP_CAN2_1</name>
+          <initializer>= 29</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daea5fe4083b0a92ea11ccac9c3d7ab8ca" prot="public">
+          <name>PIN_GRP_CAN2_2</name>
+          <initializer>= 30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabbf482b0fab306e8372d0ac980a829ca" prot="public">
+          <name>PIN_GRP_CAN2_3</name>
+          <initializer>= 31</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3f7c94269c6532c7d710f36019995c85" prot="public">
+          <name>PIN_GRP_CAN2_4</name>
+          <initializer>= 32</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5afb48115377f33ee6a3ad9a1006fdf8" prot="public">
+          <name>PIN_GRP_CAN2_5</name>
+          <initializer>= 33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabb511e4dae88ec1c0a57637218a2fd2f" prot="public">
+          <name>PIN_GRP_CAN2_6</name>
+          <initializer>= 34</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dadfe18f7bd7d15f3ef125a823b40ddf9f" prot="public">
+          <name>PIN_GRP_CAN2_7</name>
+          <initializer>= 35</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9b74a709b8c08f52e30e26c39f5eea48" prot="public">
+          <name>PIN_GRP_CAN3_0</name>
+          <initializer>= 36</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1cddc473cb7b9e25737b3ad2ce02a32f" prot="public">
+          <name>PIN_GRP_CAN3_1</name>
+          <initializer>= 37</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da43d04d070ebe96de7ae8270a91e77294" prot="public">
+          <name>PIN_GRP_CAN3_2</name>
+          <initializer>= 38</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da089277502db934461c3b75c5cff8211e" prot="public">
+          <name>PIN_GRP_CAN3_3</name>
+          <initializer>= 39</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da04423a2b18b8935c1d9f35a68e148328" prot="public">
+          <name>PIN_GRP_CAN3_4</name>
+          <initializer>= 40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab1f8aac35ce6ecc08e91e908b0d2ab7d" prot="public">
+          <name>PIN_GRP_CAN3_5</name>
+          <initializer>= 41</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9823aff264137ffa7054234bccafc9fc" prot="public">
+          <name>PIN_GRP_CAN3_6</name>
+          <initializer>= 42</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da636de0ca07659b97fa87bc60938c89bb" prot="public">
+          <name>PIN_GRP_CAN3_7</name>
+          <initializer>= 43</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabb8c49adb32463fe8ae3f457108c9909" prot="public">
+          <name>PIN_GRP_GEM0_0</name>
+          <initializer>= 44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da588abcc74a69aacff0202e22ad249970" prot="public">
+          <name>PIN_GRP_GEM0_1</name>
+          <initializer>= 45</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1c50bee805d547abf0559cf927802107" prot="public">
+          <name>PIN_GRP_GEM1_0</name>
+          <initializer>= 46</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daecaced8fbe06652751fd6b700236f9bf" prot="public">
+          <name>PIN_GRP_GEM1_1</name>
+          <initializer>= 47</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4bd8a7d641a9bbf69219ad2176a241c4" prot="public">
+          <name>PIN_GRP_I2C0_0</name>
+          <initializer>= 48</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daafe8174e4bea3674217a572f7d391093" prot="public">
+          <name>PIN_GRP_I2C0_1</name>
+          <initializer>= 49</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daef83039dbf8020f341d7f31250e68610" prot="public">
+          <name>PIN_GRP_I2C0_2</name>
+          <initializer>= 50</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da176c19ca071605bab6d103857d725678" prot="public">
+          <name>PIN_GRP_I2C0_3</name>
+          <initializer>= 51</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae9b7215aad0ae715946cbf0e3b031d1b" prot="public">
+          <name>PIN_GRP_I2C0_4</name>
+          <initializer>= 52</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa11fc5a3d304b7f314ecadbb342df54d" prot="public">
+          <name>PIN_GRP_I2C0_5</name>
+          <initializer>= 53</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac9867ed90b95b0cfba6763632a3482e9" prot="public">
+          <name>PIN_GRP_I2C1_0</name>
+          <initializer>= 54</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da001996189b127c465e21ccbc7da05507" prot="public">
+          <name>PIN_GRP_I2C1_1</name>
+          <initializer>= 55</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6166a69121b4a436ae1abb559174e4e2" prot="public">
+          <name>PIN_GRP_I2C1_2</name>
+          <initializer>= 56</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa62020d2af390e0e85fca4ce0134547d" prot="public">
+          <name>PIN_GRP_I2C1_3</name>
+          <initializer>= 57</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab6062e165848bbe8100f5a44fe7fc986" prot="public">
+          <name>PIN_GRP_I2C1_4</name>
+          <initializer>= 58</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad4e72b848b52f9b3162c3ad95d6181e4" prot="public">
+          <name>PIN_GRP_I2C1_5</name>
+          <initializer>= 59</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabfc48b1c08ca10c08f430bfbf67f1b76" prot="public">
+          <name>PIN_GRP_I2C1_6</name>
+          <initializer>= 60</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da66034834a23538b66b69c2cec58019dd" prot="public">
+          <name>PIN_GRP_OSPI_0</name>
+          <initializer>= 61</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5eb2aedfbd0ed4e90d891566bc3e64ea" prot="public">
+          <name>PIN_GRP_PCIE_0</name>
+          <initializer>= 62</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1f37958038e97c992ebef47fc43d6872" prot="public">
+          <name>PIN_GRP_PCIE_1</name>
+          <initializer>= 63</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa1580a81b80004cb76d984b214ddb3fe" prot="public">
+          <name>PIN_GRP_PCIE_2</name>
+          <initializer>= 64</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac8a10ad0f55d029cb968c81674e40950" prot="public">
+          <name>PIN_GRP_QSPI_0</name>
+          <initializer>= 65</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dafd0e89b9aee85d74b5e69ac353a98172" prot="public">
+          <name>PIN_GRP_SMAP_0</name>
+          <initializer>= 66</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf5d1fb28e272d0fbc0b1257bdb1c85fe" prot="public">
+          <name>PIN_GRP_SPI0_0</name>
+          <initializer>= 67</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dacd24a73eeda9d44e35eaf49578a6a15b" prot="public">
+          <name>PIN_GRP_SPI0_1</name>
+          <initializer>= 68</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac9d14dd88d50f2374698174d27d04b0e" prot="public">
+          <name>PIN_GRP_SPI0_2</name>
+          <initializer>= 69</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8cc2c167c2387df0059e1639dce98feb" prot="public">
+          <name>PIN_GRP_SPI0_3</name>
+          <initializer>= 70</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da813d1080318a4f966ae62d38c33e5aa2" prot="public">
+          <name>PIN_GRP_SPI0_4</name>
+          <initializer>= 71</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da899f8a59d6b0f6ea9d1a3804fef1d6ff" prot="public">
+          <name>PIN_GRP_SPI0_5</name>
+          <initializer>= 72</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1dfd7819ea8d952ccce7c46864306f8c" prot="public">
+          <name>PIN_GRP_SPI1_0</name>
+          <initializer>= 73</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0aebabb35ee718354a31de566a01c0a6" prot="public">
+          <name>PIN_GRP_SPI1_1</name>
+          <initializer>= 74</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da09f0708a4efc9b8b99fbe967c7d62815" prot="public">
+          <name>PIN_GRP_SPI1_2</name>
+          <initializer>= 75</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7a905a1f211b41af220147564528beeb" prot="public">
+          <name>PIN_GRP_SPI1_3</name>
+          <initializer>= 76</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab8c7f2d7ecdc0b408aefa55ed8cdd5c7" prot="public">
+          <name>PIN_GRP_SPI1_4</name>
+          <initializer>= 77</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daafc09e49d842ecece7e8eee06f1f6a4d" prot="public">
+          <name>PIN_GRP_SPI1_5</name>
+          <initializer>= 78</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da42afd567f1ed733a9dd98e17a8a2aa8e" prot="public">
+          <name>PIN_GRP_USB0_0</name>
+          <initializer>= 79</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da717eea5028a7444dd478c9648a1fe596" prot="public">
+          <name>PIN_GRP_USB1_0</name>
+          <initializer>= 80</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6a9eb30d8fdb4d838ff2a3e40d7eddad" prot="public">
+          <name>PIN_GRP_WWDT_0</name>
+          <initializer>= 81</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6383c7b098aa28af0653128e4f7023f2" prot="public">
+          <name>PIN_GRP_WWDT_1</name>
+          <initializer>= 82</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2062adc3a9e427003ac1ffecf2c8ffa5" prot="public">
+          <name>PIN_GRP_WWDT_2</name>
+          <initializer>= 83</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae02862f64c9a62a3223e989e4925cdf0" prot="public">
+          <name>PIN_GRP_WWDT_3</name>
+          <initializer>= 84</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0ee8f963574db7ef3a66fc5f979ba41a" prot="public">
+          <name>PIN_GRP_WWDT_4</name>
+          <initializer>= 85</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8aed6910526864f698b7d2e1d0d9a2c5" prot="public">
+          <name>PIN_GRP_CAN1_10</name>
+          <initializer>= 86</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5fcbac68a0a1f3be5cb0a710cd847948" prot="public">
+          <name>PIN_GRP_GPIO0_0</name>
+          <initializer>= 87</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da439dbb497daa8cc15facc1c0f04cad41" prot="public">
+          <name>PIN_GRP_GPIO0_1</name>
+          <initializer>= 88</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4db63412a5e0907966e3149b01199ad3" prot="public">
+          <name>PIN_GRP_GPIO0_2</name>
+          <initializer>= 89</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da562af297eb4228d4193b027d5657150d" prot="public">
+          <name>PIN_GRP_GPIO0_3</name>
+          <initializer>= 90</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac6d95686b30a678cd542ff6556cdec30" prot="public">
+          <name>PIN_GRP_GPIO0_4</name>
+          <initializer>= 91</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daeb774536940c370651f19f3850432a57" prot="public">
+          <name>PIN_GRP_GPIO0_5</name>
+          <initializer>= 92</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da51fe3248842a12d24320687813353c6f" prot="public">
+          <name>PIN_GRP_GPIO0_6</name>
+          <initializer>= 93</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab071dbf0fdecf5d1dc5b6cf8060263eb" prot="public">
+          <name>PIN_GRP_GPIO0_7</name>
+          <initializer>= 94</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1d6738f0e2db01c6a0b4ad6f3795869a" prot="public">
+          <name>PIN_GRP_GPIO0_8</name>
+          <initializer>= 95</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4c32e3d2f5e1b3b0ae123eae0a092ab2" prot="public">
+          <name>PIN_GRP_GPIO0_9</name>
+          <initializer>= 96</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad94e526dbbff53fafb26fd26084c1e4a" prot="public">
+          <name>PIN_GRP_GPIO1_0</name>
+          <initializer>= 97</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1ee39439f2ec27eaefa1a2e0b6935a3b" prot="public">
+          <name>PIN_GRP_GPIO1_1</name>
+          <initializer>= 98</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da69bfc808317c2d05ca8e1fd7d567e608" prot="public">
+          <name>PIN_GRP_GPIO1_2</name>
+          <initializer>= 99</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dafa15df268574035faf561e7676ed0351" prot="public">
+          <name>PIN_GRP_GPIO1_3</name>
+          <initializer>= 100</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da83764d08f514b5bdfa00b5210e9598e9" prot="public">
+          <name>PIN_GRP_GPIO1_4</name>
+          <initializer>= 101</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da91a42f41e49a50474cf5bb2f18a87c6c" prot="public">
+          <name>PIN_GRP_GPIO1_5</name>
+          <initializer>= 102</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5c776b87dff3b8fb7b4a00a14d664e37" prot="public">
+          <name>PIN_GRP_GPIO1_6</name>
+          <initializer>= 103</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7ea8d9381b971ff3316ab04fa06f475c" prot="public">
+          <name>PIN_GRP_GPIO1_7</name>
+          <initializer>= 104</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac4445a4691017170fc0f10d34c31e32c" prot="public">
+          <name>PIN_GRP_GPIO1_8</name>
+          <initializer>= 105</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da627ace11abc93ef7966de2a8226d055e" prot="public">
+          <name>PIN_GRP_GPIO1_9</name>
+          <initializer>= 106</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabe24fe6e60962af3989e12197cbd84a5" prot="public">
+          <name>PIN_GRP_GPIO2_0</name>
+          <initializer>= 107</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da307b4142426565c5904e1020d93997fe" prot="public">
+          <name>PIN_GRP_GPIO2_1</name>
+          <initializer>= 108</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6bc570583d2c401662da752a9da0721b" prot="public">
+          <name>PIN_GRP_GPIO2_2</name>
+          <initializer>= 109</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dacd24f8bc53951c143824fafe8e35c68c" prot="public">
+          <name>PIN_GRP_GPIO2_3</name>
+          <initializer>= 110</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daae3806a12a4258247a213cdacfb894ee" prot="public">
+          <name>PIN_GRP_GPIO2_4</name>
+          <initializer>= 111</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da95588f235e613900396b0aaeb50180d3" prot="public">
+          <name>PIN_GRP_GPIO2_5</name>
+          <initializer>= 112</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da358974b6af529bded33062ed0beb553d" prot="public">
+          <name>PIN_GRP_GPIO2_6</name>
+          <initializer>= 113</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9cbc9de32a40d1d7d273093bd2dcd8ca" prot="public">
+          <name>PIN_GRP_GPIO2_7</name>
+          <initializer>= 114</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabb984dfed903ceb8726a693931fab72b" prot="public">
+          <name>PIN_GRP_GPIO2_8</name>
+          <initializer>= 115</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da30b848bc6783fab179329fd1514a0dca" prot="public">
+          <name>PIN_GRP_GPIO2_9</name>
+          <initializer>= 116</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da61dd3285a2458cf5674b3693fe4ee562" prot="public">
+          <name>PIN_GRP_MDIO0_0</name>
+          <initializer>= 117</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9c5d0063a3e11399c157ded3ab26e30f" prot="public">
+          <name>PIN_GRP_MDIO0_1</name>
+          <initializer>= 118</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da74532c343954ca961f0b4f1a52696453" prot="public">
+          <name>PIN_GRP_MDIO1_0</name>
+          <initializer>= 119</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1d99db5e82cd603a3fab976d6dcb656b" prot="public">
+          <name>PIN_GRP_MDIO1_1</name>
+          <initializer>= 120</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7588a5feb112070c6b005b4ea1916d0a" prot="public">
+          <name>PIN_GRP_MDIO2_0</name>
+          <initializer>= 121</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daba1474b5f362d76c8932bb3af2c6d3ed" prot="public">
+          <name>PIN_GRP_MDIO2_1</name>
+          <initializer>= 122</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae7578308766a53cbb3e248963f691fb4" prot="public">
+          <name>PIN_GRP_MDIO2_2</name>
+          <initializer>= 123</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da581a17dfd229371350f2218c71b203b2" prot="public">
+          <name>PIN_GRP_MDIO2_3</name>
+          <initializer>= 124</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6691aacca47a1df7115b5b4e339f3092" prot="public">
+          <name>PIN_GRP_TRACE_0</name>
+          <initializer>= 125</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae338db3831fa10986d1fbf5eea099450" prot="public">
+          <name>PIN_GRP_TRACE_1</name>
+          <initializer>= 126</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad1abef80c31050e7e0fc8959d6dae302" prot="public">
+          <name>PIN_GRP_TRACE_2</name>
+          <initializer>= 127</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0dd99c156d4853688a05d0b36368d0ad" prot="public">
+          <name>PIN_GRP_UART0_0</name>
+          <initializer>= 128</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4d6a10194fbf84f1272040061e3c5cd4" prot="public">
+          <name>PIN_GRP_UART0_1</name>
+          <initializer>= 129</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da12b0590c426f73265d47f4d8102c6625" prot="public">
+          <name>PIN_GRP_UART0_2</name>
+          <initializer>= 130</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8bf6146d1220b9347ab4aed4900ed647" prot="public">
+          <name>PIN_GRP_UART0_3</name>
+          <initializer>= 131</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa7ca0c3758f62f275ffe2f094bde6fed" prot="public">
+          <name>PIN_GRP_UART0_4</name>
+          <initializer>= 132</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf9ad9358899482586c11b387b656e587" prot="public">
+          <name>PIN_GRP_UART0_5</name>
+          <initializer>= 133</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3fe61a988bff74315e3cececc94cd50b" prot="public">
+          <name>PIN_GRP_UART0_6</name>
+          <initializer>= 134</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad29079f195e516c67343b491c38a0753" prot="public">
+          <name>PIN_GRP_UART0_7</name>
+          <initializer>= 135</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da85955280f5450fe5cfcdd31ce4229a23" prot="public">
+          <name>PIN_GRP_UART0_8</name>
+          <initializer>= 136</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1b3fa2dc92e124770a384ee64e3fdf73" prot="public">
+          <name>PIN_GRP_UART1_0</name>
+          <initializer>= 137</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da779c3a591af46da3c098732ec63d55d2" prot="public">
+          <name>PIN_GRP_UART1_1</name>
+          <initializer>= 138</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da363b88aafca6cebd64daaa4f8b1de587" prot="public">
+          <name>PIN_GRP_UART1_2</name>
+          <initializer>= 139</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac5b80a62be5baacf823c2d442d320ceb" prot="public">
+          <name>PIN_GRP_UART1_3</name>
+          <initializer>= 140</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da94adfc7b04b294165fdea4dea58aa70f" prot="public">
+          <name>PIN_GRP_UART1_4</name>
+          <initializer>= 141</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da35b222231ddf20bacb9466f4247dde25" prot="public">
+          <name>PIN_GRP_UART1_5</name>
+          <initializer>= 142</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad84566f6d4c301917d5e90e89b689c43" prot="public">
+          <name>PIN_GRP_UART1_6</name>
+          <initializer>= 143</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8fe382d7dd0d9ab4547b28fce52d70ac" prot="public">
+          <name>PIN_GRP_UART1_7</name>
+          <initializer>= 144</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8fc908ea60c6d40ddd0af83c6dc1e038" prot="public">
+          <name>PIN_GRP_UART1_8</name>
+          <initializer>= 145</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5a97c71dd9e75fa0cd7788fe035d1cda" prot="public">
+          <name>PIN_GRP_GPIO0_10</name>
+          <initializer>= 146</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da94641cdaf8de1d55813bb36142eaf053" prot="public">
+          <name>PIN_GRP_GPIO0_11</name>
+          <initializer>= 147</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad0e9ebf811db79bc030739abf8d3da74" prot="public">
+          <name>PIN_GRP_GPIO0_12</name>
+          <initializer>= 148</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da27fd6a7507376f92e32e722f46cbbafb" prot="public">
+          <name>PIN_GRP_GPIO0_13</name>
+          <initializer>= 149</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa136bc207e1b12ef365709636ebd0e44" prot="public">
+          <name>PIN_GRP_GPIO0_14</name>
+          <initializer>= 150</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8390d41a5a680fdd82b3e20ba4acf708" prot="public">
+          <name>PIN_GRP_GPIO0_15</name>
+          <initializer>= 151</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad1aafbbda206e05634d72f718eaf3d47" prot="public">
+          <name>PIN_GRP_GPIO0_16</name>
+          <initializer>= 152</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae2f23c99f65ac965a7031ba040e5a7e6" prot="public">
+          <name>PIN_GRP_GPIO0_17</name>
+          <initializer>= 153</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5ad6fe8af1bcb68a700cb88aa9c99576" prot="public">
+          <name>PIN_GRP_GPIO0_18</name>
+          <initializer>= 154</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1180b580f96e360ec0747f8fe032066b" prot="public">
+          <name>PIN_GRP_GPIO0_19</name>
+          <initializer>= 155</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3998061a73f3d9c08b11957337a72730" prot="public">
+          <name>PIN_GRP_GPIO0_20</name>
+          <initializer>= 156</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dacf55ec8e964ea742a4010e11e7970eb1" prot="public">
+          <name>PIN_GRP_GPIO0_21</name>
+          <initializer>= 157</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac10b7c50d44219c3c00b21005b4f8364" prot="public">
+          <name>PIN_GRP_GPIO0_22</name>
+          <initializer>= 158</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daecd29273696e12af4d4f92ea01e6a993" prot="public">
+          <name>PIN_GRP_GPIO0_23</name>
+          <initializer>= 159</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da77f372bcef4109b0761d467bb11edf1e" prot="public">
+          <name>PIN_GRP_GPIO0_24</name>
+          <initializer>= 160</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daddffe67f032f1b5365d4c9ce077b7042" prot="public">
+          <name>PIN_GRP_GPIO0_25</name>
+          <initializer>= 161</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da09b50d453a4fa8b91b7ea84b7bf91a04" prot="public">
+          <name>PIN_GRP_GPIO1_10</name>
+          <initializer>= 162</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac6906c62dbaffb8d3bcb45a974aba638" prot="public">
+          <name>PIN_GRP_GPIO1_11</name>
+          <initializer>= 163</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7f1eb1d0212f27aa3981ec2cfb5f802d" prot="public">
+          <name>PIN_GRP_GPIO1_12</name>
+          <initializer>= 164</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da471c4a88e1bd901a6c7a27b4c6dc74ca" prot="public">
+          <name>PIN_GRP_GPIO1_13</name>
+          <initializer>= 165</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab93767cc05bc9f6a10fa174b615070bd" prot="public">
+          <name>PIN_GRP_GPIO1_14</name>
+          <initializer>= 166</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da01719e0d84a6eeb05462a622774a7e1f" prot="public">
+          <name>PIN_GRP_GPIO1_15</name>
+          <initializer>= 167</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da09fcac6b8de52ed115289a55fcda9d6f" prot="public">
+          <name>PIN_GRP_GPIO1_16</name>
+          <initializer>= 168</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8914ea57f97601c9f59ea53648015f8c" prot="public">
+          <name>PIN_GRP_GPIO1_17</name>
+          <initializer>= 169</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac49e7f7a4932559780f96be4a3b4d5eb" prot="public">
+          <name>PIN_GRP_GPIO1_18</name>
+          <initializer>= 170</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1d7b534ce6b5035a13e00c971f61d2e9" prot="public">
+          <name>PIN_GRP_GPIO1_19</name>
+          <initializer>= 171</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da244d2fe788105d2e0b3244acce104387" prot="public">
+          <name>PIN_GRP_GPIO1_20</name>
+          <initializer>= 172</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da713211e54087406e73eab67876f6ed8d" prot="public">
+          <name>PIN_GRP_GPIO1_21</name>
+          <initializer>= 173</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dafaefb55369d3e1dd95f677fb248af123" prot="public">
+          <name>PIN_GRP_GPIO1_22</name>
+          <initializer>= 174</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3fc27c4215c233238c1422e9a7207f83" prot="public">
+          <name>PIN_GRP_GPIO1_23</name>
+          <initializer>= 175</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5c3c669fe556f877c47ce79de44e2977" prot="public">
+          <name>PIN_GRP_GPIO1_24</name>
+          <initializer>= 176</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae306e2a76d44d534385d5c322d8482e7" prot="public">
+          <name>PIN_GRP_GPIO1_25</name>
+          <initializer>= 177</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dacc32d9182d5dfc81892ac7dc2ac19b7d" prot="public">
+          <name>PIN_GRP_GPIO2_10</name>
+          <initializer>= 178</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2a049a64e4834bf78cf73ab488733a6d" prot="public">
+          <name>PIN_GRP_GPIO2_11</name>
+          <initializer>= 179</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab44e8698995d5978ec7e5bcc4a1cc0c3" prot="public">
+          <name>PIN_GRP_GPIO2_12</name>
+          <initializer>= 180</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8c9f86582a166ec8d4bfd507da521552" prot="public">
+          <name>PIN_GRP_GPIO2_13</name>
+          <initializer>= 181</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9c1e51f38a43b5b4e5a0becdf9c31b4d" prot="public">
+          <name>PIN_GRP_GPIO2_14</name>
+          <initializer>= 182</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf39c05c3cf09765908a80180c6c5c71b" prot="public">
+          <name>PIN_GRP_GPIO2_15</name>
+          <initializer>= 183</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6c93a17bf3305a2efe3b446ac6821385" prot="public">
+          <name>PIN_GRP_GPIO2_16</name>
+          <initializer>= 184</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da415dcb70844a3f41a3f80d93b50887a4" prot="public">
+          <name>PIN_GRP_GPIO2_17</name>
+          <initializer>= 185</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da75541b8c089f1c6946def387c0f81197" prot="public">
+          <name>PIN_GRP_GPIO2_18</name>
+          <initializer>= 186</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da7312a5f41e5f56ab17d7e3231e6c42e3" prot="public">
+          <name>PIN_GRP_GPIO2_19</name>
+          <initializer>= 187</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa4a270931f0db87295b662defe5d8377" prot="public">
+          <name>PIN_GRP_GPIO2_20</name>
+          <initializer>= 188</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da09a2d789bf944e80df69151f7a28da14" prot="public">
+          <name>PIN_GRP_GPIO2_21</name>
+          <initializer>= 189</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae45a276bde5288c2f33799d37e9edf0b" prot="public">
+          <name>PIN_GRP_GPIO2_22</name>
+          <initializer>= 190</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0a20e98e9052dcabbf191acce6fd0002" prot="public">
+          <name>PIN_GRP_GPIO2_23</name>
+          <initializer>= 191</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae7a465ccc49e1f65af38796ee7854a48" prot="public">
+          <name>PIN_GRP_GPIO2_24</name>
+          <initializer>= 192</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daeb3c96edd5cf8b628d3a5e8ee9a5bb8c" prot="public">
+          <name>PIN_GRP_GPIO2_25</name>
+          <initializer>= 193</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae0f5bae9d1815500e7bdfdbdb2b402e6" prot="public">
+          <name>PIN_GRP_SD0_CD_0</name>
+          <initializer>= 194</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa1d04ee74033a04cf5ff6a626ae35215" prot="public">
+          <name>PIN_GRP_SD0_CD_1</name>
+          <initializer>= 195</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daccf98f45d7e42030da680c32b6b3c4f1" prot="public">
+          <name>PIN_GRP_SD0_PC_0</name>
+          <initializer>= 196</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5757a63ad8eac7b4ac62eb790d44598b" prot="public">
+          <name>PIN_GRP_SD0_PC_1</name>
+          <initializer>= 197</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da198e7341053cfa27b983c45f8ac37d1c" prot="public">
+          <name>PIN_GRP_SD0_WP_0</name>
+          <initializer>= 198</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae327fa2142a4dfd051fb66f9dd6099a2" prot="public">
+          <name>PIN_GRP_SD0_WP_1</name>
+          <initializer>= 199</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daec8c2e8bd4192e9b91d86bf518a74b8d" prot="public">
+          <name>PIN_GRP_SD1_PC_0</name>
+          <initializer>= 200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4ac4e128e9f3a9202d7b85c820fba86c" prot="public">
+          <name>PIN_GRP_SD1_PC_1</name>
+          <initializer>= 201</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac51af56c8f9f5e64b6a535aa6eb61877" prot="public">
+          <name>PIN_GRP_GEM_TSU_0</name>
+          <initializer>= 202</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac196ea562228c19ccb8d89e72fcb7204" prot="public">
+          <name>PIN_GRP_GEM_TSU_1</name>
+          <initializer>= 203</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0700f33edfe360b81a6bc0af63c4c83f" prot="public">
+          <name>PIN_GRP_GEM_TSU_2</name>
+          <initializer>= 204</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9e199bcf259ffcdc8040e44943560645" prot="public">
+          <name>PIN_GRP_GEM_TSU_3</name>
+          <initializer>= 205</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dafd839daaab54af3fa9efe3897e82a414" prot="public">
+          <name>PIN_GRP_OSPI_SS_0</name>
+          <initializer>= 206</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa871943b5b262b228d6327f829c881f4" prot="public">
+          <name>PIN_GRP_QSPI_SS_0</name>
+          <initializer>= 207</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf8cde0a1723abdc249e356f9f2f22353" prot="public">
+          <name>PIN_GRP_SPI0_SS_0</name>
+          <initializer>= 208</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da57d619dd6dc51211b18045727fc0622c" prot="public">
+          <name>PIN_GRP_SPI0_SS_1</name>
+          <initializer>= 209</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4fb16f3240f1c696f0d3506bfb38764b" prot="public">
+          <name>PIN_GRP_SPI0_SS_2</name>
+          <initializer>= 210</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da19b2cabe7315c5fb9096af605993fa3d" prot="public">
+          <name>PIN_GRP_SPI0_SS_3</name>
+          <initializer>= 211</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab7e97b850740d5ffc9e192b5f408fcfb" prot="public">
+          <name>PIN_GRP_SPI0_SS_4</name>
+          <initializer>= 212</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9c259fa23832edf8e675b0c743ce9f67" prot="public">
+          <name>PIN_GRP_SPI0_SS_5</name>
+          <initializer>= 213</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac8eefd15963ed65241ab9ab021857144" prot="public">
+          <name>PIN_GRP_SPI1_SS_0</name>
+          <initializer>= 214</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4b82345ae2852f1cfb19510f3af508dc" prot="public">
+          <name>PIN_GRP_SPI1_SS_1</name>
+          <initializer>= 215</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da17d0ec23bea4e26a89b36d7008bc25ac" prot="public">
+          <name>PIN_GRP_SPI1_SS_2</name>
+          <initializer>= 216</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da925a371b542ec02edadeed7ac7c4624d" prot="public">
+          <name>PIN_GRP_SPI1_SS_3</name>
+          <initializer>= 217</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da49f0f1259b7022bf50e8cbb586921ec8" prot="public">
+          <name>PIN_GRP_SPI1_SS_4</name>
+          <initializer>= 218</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae0f4dc12900251b783a167f9a17d2020" prot="public">
+          <name>PIN_GRP_SPI1_SS_5</name>
+          <initializer>= 219</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daac3439c753c270c1340914bdd73e38ad" prot="public">
+          <name>PIN_GRP_TEST_CLK_0</name>
+          <initializer>= 220</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf08e865f34a46bf0bb956cb48be856ae" prot="public">
+          <name>PIN_GRP_TTC0_CLK_0</name>
+          <initializer>= 221</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daab51c1915a9587fea58c55c3f038cab2" prot="public">
+          <name>PIN_GRP_TTC0_CLK_1</name>
+          <initializer>= 222</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da8c74f3d89a9099d7bbe5451823cf09e4" prot="public">
+          <name>PIN_GRP_TTC0_CLK_2</name>
+          <initializer>= 223</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da715fb7c3a464cfed2147a4840bbb5ef5" prot="public">
+          <name>PIN_GRP_TTC0_CLK_3</name>
+          <initializer>= 224</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa3efb69fd3a9682aaf83d6e3335ac75a" prot="public">
+          <name>PIN_GRP_TTC0_CLK_4</name>
+          <initializer>= 225</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da85bc052574b844113ab3d80d59c58940" prot="public">
+          <name>PIN_GRP_TTC0_CLK_5</name>
+          <initializer>= 226</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da5c671fa3c7b38e37e7d8c4775d86be0a" prot="public">
+          <name>PIN_GRP_TTC0_CLK_6</name>
+          <initializer>= 227</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf62bb94d0790a701312500dac339c9d6" prot="public">
+          <name>PIN_GRP_TTC0_CLK_7</name>
+          <initializer>= 228</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6bbd7c5b9b9e0f065f8d7f83fe48fc04" prot="public">
+          <name>PIN_GRP_TTC0_WAV_0</name>
+          <initializer>= 229</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab1ebd970a79deb45f85366477570fc09" prot="public">
+          <name>PIN_GRP_TTC0_WAV_1</name>
+          <initializer>= 230</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da09dc1ebe9d5c8db13c89afea736902ad" prot="public">
+          <name>PIN_GRP_TTC0_WAV_2</name>
+          <initializer>= 231</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa24b701cb59a34066af0a9ac316172c5" prot="public">
+          <name>PIN_GRP_TTC0_WAV_3</name>
+          <initializer>= 232</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0b57fa9a9aed7a04c4cee107db476a00" prot="public">
+          <name>PIN_GRP_TTC0_WAV_4</name>
+          <initializer>= 233</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0069f51eb78216cb98aea67ba3830c78" prot="public">
+          <name>PIN_GRP_TTC0_WAV_5</name>
+          <initializer>= 234</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabe8e09b251346e5062f4d255687b01fd" prot="public">
+          <name>PIN_GRP_TTC0_WAV_6</name>
+          <initializer>= 235</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dafbf2a71308a6df2f90344527c1adc910" prot="public">
+          <name>PIN_GRP_TTC0_WAV_7</name>
+          <initializer>= 236</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da682eeba71a1e92df90e04c7313726811" prot="public">
+          <name>PIN_GRP_TTC1_CLK_0</name>
+          <initializer>= 237</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da65f0a2c45221d6cceaf8e9ea5a1e7cc7" prot="public">
+          <name>PIN_GRP_TTC1_CLK_1</name>
+          <initializer>= 238</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2941216a6ffec8984671ab0caaff94f6" prot="public">
+          <name>PIN_GRP_TTC1_CLK_2</name>
+          <initializer>= 239</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da18c7c4ddcec6a2a8fa2024b5b9fdddc7" prot="public">
+          <name>PIN_GRP_TTC1_CLK_3</name>
+          <initializer>= 240</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da68250be4d31c8155efd1cb6b228e0c6b" prot="public">
+          <name>PIN_GRP_TTC1_CLK_4</name>
+          <initializer>= 241</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6a91f2c275fda06936c6751d83c5cfa2" prot="public">
+          <name>PIN_GRP_TTC1_CLK_5</name>
+          <initializer>= 242</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da27b47015d744e6efa573b78efa6d4ccc" prot="public">
+          <name>PIN_GRP_TTC1_CLK_6</name>
+          <initializer>= 243</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab8516a08e65b8396199fb3b00deefad4" prot="public">
+          <name>PIN_GRP_TTC1_CLK_7</name>
+          <initializer>= 244</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9d84f8ad2723311a2acae331188ed56a" prot="public">
+          <name>PIN_GRP_TTC1_CLK_8</name>
+          <initializer>= 245</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da98e40e4698e5555480eabba542246ed7" prot="public">
+          <name>PIN_GRP_TTC1_WAV_0</name>
+          <initializer>= 246</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3921dc90b8e01f4ddee154f1ffe86632" prot="public">
+          <name>PIN_GRP_TTC1_WAV_1</name>
+          <initializer>= 247</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da48699842fd0acf63beabb5c69025c344" prot="public">
+          <name>PIN_GRP_TTC1_WAV_2</name>
+          <initializer>= 248</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf323dc121d99e800db0df1dc3c015c51" prot="public">
+          <name>PIN_GRP_TTC1_WAV_3</name>
+          <initializer>= 249</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da756006c62fc695a219cdba104d290d6c" prot="public">
+          <name>PIN_GRP_TTC1_WAV_4</name>
+          <initializer>= 250</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac995cb41c2684749dd6f193e4ae6f4f5" prot="public">
+          <name>PIN_GRP_TTC1_WAV_5</name>
+          <initializer>= 251</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dab3ca9d1eaad3aa0f8de33ebc0656c710" prot="public">
+          <name>PIN_GRP_TTC1_WAV_6</name>
+          <initializer>= 252</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2638d7098353a33722947d166eaf28c8" prot="public">
+          <name>PIN_GRP_TTC1_WAV_7</name>
+          <initializer>= 253</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dac4fe4ee93670d38621f77197bb543ba8" prot="public">
+          <name>PIN_GRP_TTC1_WAV_8</name>
+          <initializer>= 254</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa6d36f199c96857fbb2b50ce3d601883" prot="public">
+          <name>PIN_GRP_TTC2_CLK_0</name>
+          <initializer>= 255</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dadc5f98bb430f6668c7445a3f79ade5f2" prot="public">
+          <name>PIN_GRP_TTC2_CLK_1</name>
+          <initializer>= 256</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dacbfefee703a2dfd9b787ffcd10e80025" prot="public">
+          <name>PIN_GRP_TTC2_CLK_2</name>
+          <initializer>= 257</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf97844d238458c13720ae110f0cdb793" prot="public">
+          <name>PIN_GRP_TTC2_WAV_0</name>
+          <initializer>= 258</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad8b01a2a26a25ae4a4cca4693354852f" prot="public">
+          <name>PIN_GRP_TTC2_WAV_1</name>
+          <initializer>= 259</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dacfec8bb39ae62d26d93996a4d26d3d68" prot="public">
+          <name>PIN_GRP_TTC2_WAV_2</name>
+          <initializer>= 260</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daad15820308b90edacfa33ecf2e46f2a2" prot="public">
+          <name>PIN_GRP_TTC3_CLK_0</name>
+          <initializer>= 261</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da6b469a202b7d6dac7ec6ff5fedea0e10" prot="public">
+          <name>PIN_GRP_TTC3_CLK_1</name>
+          <initializer>= 262</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae9508fe60999876ad3509616290d0d8c" prot="public">
+          <name>PIN_GRP_TTC3_WAV_0</name>
+          <initializer>= 263</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa76676d5162cf21f2ba85d38f59b6daf" prot="public">
+          <name>PIN_GRP_TTC3_WAV_1</name>
+          <initializer>= 264</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da06cb194e63caff14a0c6ac0f5b22bf4c" prot="public">
+          <name>PIN_GRP_TEST_SCAN_0</name>
+          <initializer>= 265</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da74cae17f7662726865fd602320f304e0" prot="public">
+          <name>PIN_GRP_TRACE_CLK_0</name>
+          <initializer>= 266</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da75e6ce50a357131d4fe044ccd80a94d0" prot="public">
+          <name>PIN_GRP_TRACE_CLK_1</name>
+          <initializer>= 267</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da3bb66cbfe514cd60e725cfd108513fcd" prot="public">
+          <name>PIN_GRP_TRACE_CLK_2</name>
+          <initializer>= 268</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da242d75a227d129ba786f6c7ef88603e6" prot="public">
+          <name>PIN_GRP_MMI_DP_HPD_0</name>
+          <initializer>= 269</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da72665ab52e4d23453d046c68debceeb2" prot="public">
+          <name>PIN_GRP_MMI_DP_HPD_1</name>
+          <initializer>= 270</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1bb4593d5b34135b0c5e07cddf43d0ee" prot="public">
+          <name>PIN_GRP_MMI_DP_HPD_2</name>
+          <initializer>= 271</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da352214555c65eb21802cc4a9854ffeb7" prot="public">
+          <name>PIN_GRP_MMI_DP_HPD_3</name>
+          <initializer>= 272</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae8509461683c83fe63e8ff2e6e745b08" prot="public">
+          <name>PIN_GRP_OSPI_RST_N_0</name>
+          <initializer>= 273</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daacd6b8fdb16b771b6552fdd01e92d731" prot="public">
+          <name>PIN_GRP_QSPI_FBCLK_0</name>
+          <initializer>= 274</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2dad86cfa346bffc1b90652d62d00d5e" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_0</name>
+          <initializer>= 275</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daab76b9628f81975f271e515e9a3093a5" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_1</name>
+          <initializer>= 276</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad633848308ab33ddc0b39597a996d20d" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_2</name>
+          <initializer>= 277</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2c0a4c1bd853fefe69dd8f5757cd6487" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_3</name>
+          <initializer>= 278</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da39963f9c469f18f8ea7360958592bf84" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_4</name>
+          <initializer>= 279</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da2b10fe9c91eb03403238793a473f13f3" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_5</name>
+          <initializer>= 280</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da1825a3465c4684827250cf0d5513b1b4" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_6</name>
+          <initializer>= 281</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da81a4ebcb9984d3eac4e417a5119e900c" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_7</name>
+          <initializer>= 282</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daeb8d7d18db70ff5d744b804775637194" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_8</name>
+          <initializer>= 283</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4f56137e5c5e916a71b0045649a2b1a6" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_9</name>
+          <initializer>= 284</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da4af09213034b13340b256b71e9360979" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_10</name>
+          <initializer>= 285</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da78c6fe2baedeab4cce4e03c1d7439ec1" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_11</name>
+          <initializer>= 286</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da826b26c9affa2ce6c57d6604f9c7653d" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_12</name>
+          <initializer>= 287</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da936e5f66a56ace59788e4afa83a4dc1b" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_13</name>
+          <initializer>= 288</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daaca199c610e82c37bd5c35b4b3eb0b35" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_14</name>
+          <initializer>= 289</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da741d532cc42fb5537dac7c1f04b731b0" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_15</name>
+          <initializer>= 290</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa6f03980f75d81f03f2337840e6a3c7f" prot="public">
+          <name>PIN_GRP_OSPI_ECC_FAIL_0</name>
+          <initializer>= 291</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da712357b5c0bde4e7b24d342d822d74e3" prot="public">
+          <name>PIN_GRP_OSPI_ECC_FAIL_1</name>
+          <initializer>= 292</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dabfe413ed9acb5582d5be35d951f9eb0a" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_0</name>
+          <initializer>= 293</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da48ac9194c2334875c7cd5e44cb55f3b3" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_1</name>
+          <initializer>= 294</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf3d47b91b5c84515b9a67a75edb31e90" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_2</name>
+          <initializer>= 295</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daf757d895872df57efccff3c5015e1a69" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_3</name>
+          <initializer>= 296</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da833b9b56f53f8867b4f76f034ad87359" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_4</name>
+          <initializer>= 297</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da0d15e77af9bbc910fb5af6e9dbecdf88" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_5</name>
+          <initializer>= 298</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad3401392e32235dba4fe25e07a322457" prot="public">
+          <name>PIN_GRP_EXT_TAMPER_TRIG_6</name>
+          <initializer>= 299</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da062ad84fa6f69a39df1b76c4462c0409" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_0</name>
+          <initializer>= 300</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daab89b38d5cbfe9dde97dbf19c7ca3982" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_1</name>
+          <initializer>= 301</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daccf0ce9837a8ae32aa11d1affb5d92e8" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_2</name>
+          <initializer>= 302</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae5224963843af1833cf343f240879470" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_3</name>
+          <initializer>= 303</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da91c45dcd3bb3e93b133665a67d032f60" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_4</name>
+          <initializer>= 304</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da208e425e51b38040485925cf54c3a927" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_5</name>
+          <initializer>= 305</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dadb5933e3172f3d2ace207b43ef0fc1e2" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_6</name>
+          <initializer>= 306</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9010ddcd4a0cd990a29998118f46f737" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_7</name>
+          <initializer>= 307</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da39fbf4ae92949b1487e2c2e77b9967ba" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_8</name>
+          <initializer>= 308</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da92a4dce3b29d6116c3a13baa1cf30f06" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_9</name>
+          <initializer>= 309</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da308d4fc8484b7086668d6b2b2353f257" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_10</name>
+          <initializer>= 310</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dafbdce9c59eb5b48f15c66f68b2d73689" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_11</name>
+          <initializer>= 311</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dae4e441fcbbbf6e58830a00e942ce8f09" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_12</name>
+          <initializer>= 312</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035dad75eca7cd346f7eb6f5f05afccd5bac0" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_13</name>
+          <initializer>= 313</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035daa5e30cf8dfffe43945167b1554f44a79" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_14</name>
+          <initializer>= 314</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpm__pinfunc_8h_1abc5c98fcc1211af2b80116dd6e0a035da9b274835208535d07159caae6bea25fe" prot="public">
+          <name>PIN_GRP_SYSMON_I2C_ALERT_15</name>
+          <initializer>= 315</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="37" bodyend="354"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__pinfunc_8h_1aa734c0814d6cfbb1e1756bfbc27f5f51" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref></type>
+        <definition>typedef struct XPm_PinFunc XPm_PinFunc</definition>
+        <argsstring></argsstring>
+        <name>XPm_PinFunc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="1080" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pinfunc_8h_1abb6d0ee8da2ad5bb62ee348f434b1444" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref> *</type>
+        <definition>const XPm_PinFunc* XPmPinFunc_GetById</definition>
+        <argsstring>(u32 FuncId)</argsstring>
+        <name>XPmPinFunc_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns handle to requested <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref> struct. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref> if successful, NULL otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.c" bodystart="1080" bodyend="1089"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1aa4a750a5df583aaf8e6f7c97486e46e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetNumFuncs</definition>
+        <argsstring>(u32 *NumFuncs)</argsstring>
+        <name>XPmPinFunc_GetNumFuncs</name>
+        <param>
+          <type>u32 *</type>
+          <declname>NumFuncs</declname>
+        </param>
+        <briefdescription>
+<para>This function returns total number of functions available. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NumFuncs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of functions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.c" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a3532cd8ff9e1e8e857ef1ec65678f423" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetFuncName</definition>
+        <argsstring>(u32 FuncId, char *FuncName)</argsstring>
+        <name>XPmPinFunc_GetFuncName</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>FuncName</declname>
+        </param>
+        <briefdescription>
+<para>This function returns function name based on function ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.c" bodystart="36" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a3068053be05ed358fd155d77da4a56f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetNumFuncGroups</definition>
+        <argsstring>(u32 FuncId, u32 *NumGroups)</argsstring>
+        <name>XPmPinFunc_GetNumFuncGroups</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>NumGroups</declname>
+        </param>
+        <briefdescription>
+<para>This function returns number of groups in function based on function ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumGroups</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of groups.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.c" bodystart="70" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a02066588b216c62a39deb302aea12fa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetFuncGroups</definition>
+        <argsstring>(u32 FuncId, u32 Index, u16 *Groups)</argsstring>
+        <name>XPmPinFunc_GetFuncGroups</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Index</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>Groups</declname>
+        </param>
+        <briefdescription>
+<para>This function returns groups present in function based on function ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>Index 0 returns the first 6 group IDs, index 6 returns the next 6 group IDs, and so forth.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of next function groups </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Groups</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function groups.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.c" bodystart="97" bodyend="131"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PINFUNC_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PINFUNC_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FUNC_NAME_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Function<sp/>name<sp/>string<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_GROUPS_PER_RES<sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>No.<sp/>of<sp/>groups<sp/>per<sp/>query<sp/>response<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INVALID_FUNC_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFU)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>END_OF_GRP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-1<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RESERVED_GRP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFEU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref><sp/><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="struct_x_pm___pin_func" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref><sp/>{</highlight></codeline>
+<codeline lineno="28" refid="struct_x_pm___pin_func_1a0016c280618c364195f3d2fb36eb0c0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((nonstring))<sp/>char<sp/><ref refid="struct_x_pm___pin_func_1a0016c280618c364195f3d2fb36eb0c0a" kindref="member">Name</ref>[FUNC_NAME_SIZE];<sp/></highlight></codeline>
+<codeline lineno="29" refid="struct_x_pm___pin_func_1a7824f6f08d982c3a970362186ca35322" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___pin_func_1a7824f6f08d982c3a970362186ca35322" kindref="member">Id</ref>;<sp/></highlight></codeline>
+<codeline lineno="30" refid="struct_x_pm___pin_func_1a4c2f8ef1731012cb869e19693f0fb125" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___pin_func_1a4c2f8ef1731012cb869e19693f0fb125" kindref="member">NumPins</ref>;<sp/></highlight></codeline>
+<codeline lineno="31" refid="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" kindref="member">NumGroups</ref>;<sp/></highlight></codeline>
+<codeline lineno="32" refid="struct_x_pm___pin_func_1af47bc2dcb9596860e4b20c9c37d0a619" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___pin_func_1af47bc2dcb9596860e4b20c9c37d0a619" kindref="member">DevIdx</ref>;<sp/></highlight></codeline>
+<codeline lineno="33" refid="struct_x_pm___pin_func_1a4fbaa64845b097b204d767da6c0ec35b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___pin_func_1a4fbaa64845b097b204d767da6c0ec35b" kindref="member">LmioRegMask</ref>;<sp/></highlight></codeline>
+<codeline lineno="34" refid="struct_x_pm___pin_func_1a94c98d35ea6117b351fc26c6054d5c38" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___pin_func_1a94c98d35ea6117b351fc26c6054d5c38" kindref="member">PmioRegMask</ref>;<sp/></highlight></codeline>
+<codeline lineno="35" refid="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*<ref refid="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" kindref="member">Groups</ref>;<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">enum<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_1<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD1_0<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD1_1<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UFS_0<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UFS_1<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UFS_2<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UFS_3<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_0<sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_1<sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_2<sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_3<sp/>=<sp/>11,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_4<sp/>=<sp/>12,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_5<sp/>=<sp/>13,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_6<sp/>=<sp/>14,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_7<sp/>=<sp/>15,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_8<sp/>=<sp/>16,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN0_9<sp/>=<sp/>17,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_0<sp/>=<sp/>18,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_1<sp/>=<sp/>19,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_2<sp/>=<sp/>20,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_3<sp/>=<sp/>21,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_4<sp/>=<sp/>22,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_5<sp/>=<sp/>23,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_6<sp/>=<sp/>24,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_7<sp/>=<sp/>25,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_8<sp/>=<sp/>26,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_9<sp/>=<sp/>27,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_0<sp/>=<sp/>28,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_1<sp/>=<sp/>29,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_2<sp/>=<sp/>30,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_3<sp/>=<sp/>31,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_4<sp/>=<sp/>32,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_5<sp/>=<sp/>33,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_6<sp/>=<sp/>34,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN2_7<sp/>=<sp/>35,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_0<sp/>=<sp/>36,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_1<sp/>=<sp/>37,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_2<sp/>=<sp/>38,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_3<sp/>=<sp/>39,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_4<sp/>=<sp/>40,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_5<sp/>=<sp/>41,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_6<sp/>=<sp/>42,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN3_7<sp/>=<sp/>43,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM0_0<sp/>=<sp/>44,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM0_1<sp/>=<sp/>45,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM1_0<sp/>=<sp/>46,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM1_1<sp/>=<sp/>47,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C0_0<sp/>=<sp/>48,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C0_1<sp/>=<sp/>49,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C0_2<sp/>=<sp/>50,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C0_3<sp/>=<sp/>51,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C0_4<sp/>=<sp/>52,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C0_5<sp/>=<sp/>53,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_0<sp/>=<sp/>54,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_1<sp/>=<sp/>55,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_2<sp/>=<sp/>56,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_3<sp/>=<sp/>57,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_4<sp/>=<sp/>58,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_5<sp/>=<sp/>59,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_I2C1_6<sp/>=<sp/>60,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_OSPI_0<sp/>=<sp/>61,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_PCIE_0<sp/>=<sp/>62,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_PCIE_1<sp/>=<sp/>63,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_PCIE_2<sp/>=<sp/>64,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_QSPI_0<sp/>=<sp/>65,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SMAP_0<sp/>=<sp/>66,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_0<sp/>=<sp/>67,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_1<sp/>=<sp/>68,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_2<sp/>=<sp/>69,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_3<sp/>=<sp/>70,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_4<sp/>=<sp/>71,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_5<sp/>=<sp/>72,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_0<sp/>=<sp/>73,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_1<sp/>=<sp/>74,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_2<sp/>=<sp/>75,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_3<sp/>=<sp/>76,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_4<sp/>=<sp/>77,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_5<sp/>=<sp/>78,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_USB0_0<sp/>=<sp/>79,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_USB1_0<sp/>=<sp/>80,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_WWDT_0<sp/>=<sp/>81,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_WWDT_1<sp/>=<sp/>82,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_WWDT_2<sp/>=<sp/>83,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_WWDT_3<sp/>=<sp/>84,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_WWDT_4<sp/>=<sp/>85,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_CAN1_10<sp/>=<sp/>86,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_0<sp/>=<sp/>87,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_1<sp/>=<sp/>88,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_2<sp/>=<sp/>89,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_3<sp/>=<sp/>90,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_4<sp/>=<sp/>91,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_5<sp/>=<sp/>92,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_6<sp/>=<sp/>93,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_7<sp/>=<sp/>94,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_8<sp/>=<sp/>95,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_9<sp/>=<sp/>96,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_0<sp/>=<sp/>97,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_1<sp/>=<sp/>98,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_2<sp/>=<sp/>99,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_3<sp/>=<sp/>100,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_4<sp/>=<sp/>101,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_5<sp/>=<sp/>102,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_6<sp/>=<sp/>103,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_7<sp/>=<sp/>104,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_8<sp/>=<sp/>105,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_9<sp/>=<sp/>106,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_0<sp/>=<sp/>107,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_1<sp/>=<sp/>108,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_2<sp/>=<sp/>109,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_3<sp/>=<sp/>110,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_4<sp/>=<sp/>111,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_5<sp/>=<sp/>112,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_6<sp/>=<sp/>113,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_7<sp/>=<sp/>114,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_8<sp/>=<sp/>115,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_9<sp/>=<sp/>116,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO0_0<sp/>=<sp/>117,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO0_1<sp/>=<sp/>118,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO1_0<sp/>=<sp/>119,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO1_1<sp/>=<sp/>120,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO2_0<sp/>=<sp/>121,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO2_1<sp/>=<sp/>122,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO2_2<sp/>=<sp/>123,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MDIO2_3<sp/>=<sp/>124,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TRACE_0<sp/>=<sp/>125,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TRACE_1<sp/>=<sp/>126,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TRACE_2<sp/>=<sp/>127,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_0<sp/>=<sp/>128,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_1<sp/>=<sp/>129,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_2<sp/>=<sp/>130,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_3<sp/>=<sp/>131,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_4<sp/>=<sp/>132,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_5<sp/>=<sp/>133,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_6<sp/>=<sp/>134,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_7<sp/>=<sp/>135,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART0_8<sp/>=<sp/>136,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_0<sp/>=<sp/>137,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_1<sp/>=<sp/>138,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_2<sp/>=<sp/>139,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_3<sp/>=<sp/>140,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_4<sp/>=<sp/>141,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_5<sp/>=<sp/>142,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_6<sp/>=<sp/>143,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_7<sp/>=<sp/>144,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_UART1_8<sp/>=<sp/>145,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_10<sp/>=<sp/>146,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_11<sp/>=<sp/>147,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_12<sp/>=<sp/>148,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_13<sp/>=<sp/>149,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_14<sp/>=<sp/>150,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_15<sp/>=<sp/>151,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_16<sp/>=<sp/>152,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_17<sp/>=<sp/>153,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_18<sp/>=<sp/>154,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_19<sp/>=<sp/>155,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_20<sp/>=<sp/>156,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_21<sp/>=<sp/>157,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_22<sp/>=<sp/>158,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_23<sp/>=<sp/>159,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_24<sp/>=<sp/>160,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO0_25<sp/>=<sp/>161,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_10<sp/>=<sp/>162,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_11<sp/>=<sp/>163,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_12<sp/>=<sp/>164,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_13<sp/>=<sp/>165,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_14<sp/>=<sp/>166,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_15<sp/>=<sp/>167,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_16<sp/>=<sp/>168,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_17<sp/>=<sp/>169,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_18<sp/>=<sp/>170,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_19<sp/>=<sp/>171,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_20<sp/>=<sp/>172,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_21<sp/>=<sp/>173,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_22<sp/>=<sp/>174,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_23<sp/>=<sp/>175,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_24<sp/>=<sp/>176,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO1_25<sp/>=<sp/>177,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_10<sp/>=<sp/>178,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_11<sp/>=<sp/>179,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_12<sp/>=<sp/>180,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_13<sp/>=<sp/>181,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_14<sp/>=<sp/>182,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_15<sp/>=<sp/>183,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_16<sp/>=<sp/>184,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_17<sp/>=<sp/>185,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_18<sp/>=<sp/>186,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_19<sp/>=<sp/>187,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_20<sp/>=<sp/>188,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_21<sp/>=<sp/>189,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_22<sp/>=<sp/>190,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_23<sp/>=<sp/>191,</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_24<sp/>=<sp/>192,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GPIO2_25<sp/>=<sp/>193,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_CD_0<sp/>=<sp/>194,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_CD_1<sp/>=<sp/>195,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_PC_0<sp/>=<sp/>196,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_PC_1<sp/>=<sp/>197,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_WP_0<sp/>=<sp/>198,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD0_WP_1<sp/>=<sp/>199,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD1_PC_0<sp/>=<sp/>200,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SD1_PC_1<sp/>=<sp/>201,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM_TSU_0<sp/>=<sp/>202,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM_TSU_1<sp/>=<sp/>203,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM_TSU_2<sp/>=<sp/>204,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_GEM_TSU_3<sp/>=<sp/>205,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_OSPI_SS_0<sp/>=<sp/>206,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_QSPI_SS_0<sp/>=<sp/>207,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_SS_0<sp/>=<sp/>208,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_SS_1<sp/>=<sp/>209,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_SS_2<sp/>=<sp/>210,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_SS_3<sp/>=<sp/>211,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_SS_4<sp/>=<sp/>212,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI0_SS_5<sp/>=<sp/>213,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_SS_0<sp/>=<sp/>214,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_SS_1<sp/>=<sp/>215,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_SS_2<sp/>=<sp/>216,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_SS_3<sp/>=<sp/>217,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_SS_4<sp/>=<sp/>218,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SPI1_SS_5<sp/>=<sp/>219,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TEST_CLK_0<sp/>=<sp/>220,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_0<sp/>=<sp/>221,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_1<sp/>=<sp/>222,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_2<sp/>=<sp/>223,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_3<sp/>=<sp/>224,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_4<sp/>=<sp/>225,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_5<sp/>=<sp/>226,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_6<sp/>=<sp/>227,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_CLK_7<sp/>=<sp/>228,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_0<sp/>=<sp/>229,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_1<sp/>=<sp/>230,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_2<sp/>=<sp/>231,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_3<sp/>=<sp/>232,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_4<sp/>=<sp/>233,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_5<sp/>=<sp/>234,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_6<sp/>=<sp/>235,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC0_WAV_7<sp/>=<sp/>236,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_0<sp/>=<sp/>237,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_1<sp/>=<sp/>238,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_2<sp/>=<sp/>239,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_3<sp/>=<sp/>240,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_4<sp/>=<sp/>241,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_5<sp/>=<sp/>242,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_6<sp/>=<sp/>243,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_7<sp/>=<sp/>244,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_CLK_8<sp/>=<sp/>245,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_0<sp/>=<sp/>246,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_1<sp/>=<sp/>247,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_2<sp/>=<sp/>248,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_3<sp/>=<sp/>249,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_4<sp/>=<sp/>250,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_5<sp/>=<sp/>251,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_6<sp/>=<sp/>252,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_7<sp/>=<sp/>253,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC1_WAV_8<sp/>=<sp/>254,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC2_CLK_0<sp/>=<sp/>255,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC2_CLK_1<sp/>=<sp/>256,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC2_CLK_2<sp/>=<sp/>257,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC2_WAV_0<sp/>=<sp/>258,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC2_WAV_1<sp/>=<sp/>259,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC2_WAV_2<sp/>=<sp/>260,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC3_CLK_0<sp/>=<sp/>261,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC3_CLK_1<sp/>=<sp/>262,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC3_WAV_0<sp/>=<sp/>263,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TTC3_WAV_1<sp/>=<sp/>264,</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TEST_SCAN_0<sp/>=<sp/>265,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TRACE_CLK_0<sp/>=<sp/>266,</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TRACE_CLK_1<sp/>=<sp/>267,</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_TRACE_CLK_2<sp/>=<sp/>268,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MMI_DP_HPD_0<sp/>=<sp/>269,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MMI_DP_HPD_1<sp/>=<sp/>270,</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MMI_DP_HPD_2<sp/>=<sp/>271,</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_MMI_DP_HPD_3<sp/>=<sp/>272,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_OSPI_RST_N_0<sp/>=<sp/>273,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_QSPI_FBCLK_0<sp/>=<sp/>274,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_0<sp/>=<sp/>275,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_1<sp/>=<sp/>276,</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_2<sp/>=<sp/>277,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_3<sp/>=<sp/>278,</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_4<sp/>=<sp/>279,</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_5<sp/>=<sp/>280,</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_6<sp/>=<sp/>281,</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_7<sp/>=<sp/>282,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_8<sp/>=<sp/>283,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_9<sp/>=<sp/>284,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_10<sp/>=<sp/>285,</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_11<sp/>=<sp/>286,</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_12<sp/>=<sp/>287,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_13<sp/>=<sp/>288,</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_14<sp/>=<sp/>289,</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_15<sp/>=<sp/>290,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_OSPI_ECC_FAIL_0<sp/>=<sp/>291,</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_OSPI_ECC_FAIL_1<sp/>=<sp/>292,</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_0<sp/>=<sp/>293,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_1<sp/>=<sp/>294,</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_2<sp/>=<sp/>295,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_3<sp/>=<sp/>296,</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_4<sp/>=<sp/>297,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_5<sp/>=<sp/>298,</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_EXT_TAMPER_TRIG_6<sp/>=<sp/>299,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_0<sp/>=<sp/>300,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_1<sp/>=<sp/>301,</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_2<sp/>=<sp/>302,</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_3<sp/>=<sp/>303,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_4<sp/>=<sp/>304,</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_5<sp/>=<sp/>305,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_6<sp/>=<sp/>306,</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_7<sp/>=<sp/>307,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_8<sp/>=<sp/>308,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_9<sp/>=<sp/>309,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_10<sp/>=<sp/>310,</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_11<sp/>=<sp/>311,</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_12<sp/>=<sp/>312,</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_13<sp/>=<sp/>313,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_14<sp/>=<sp/>314,</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PIN_GRP_SYSMON_I2C_ALERT_15<sp/>=<sp/>315,</highlight></codeline>
+<codeline lineno="354"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref><sp/>*XPmPinFunc_GetById(u32<sp/>FuncId);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetNumFuncs(u32<sp/>*NumFuncs);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetFuncName(u32<sp/>FuncId,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*FuncName);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetNumFuncGroups(u32<sp/>FuncId,<sp/>u32<sp/>*<ref refid="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" kindref="member">NumGroups</ref>);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetFuncGroups(u32<sp/>FuncId,<sp/>u32<sp/>Index,<sp/>u16<sp/>*<ref refid="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" kindref="member">Groups</ref>);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PINFUNC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h"/>
+  </compounddef>
+</doxygen>

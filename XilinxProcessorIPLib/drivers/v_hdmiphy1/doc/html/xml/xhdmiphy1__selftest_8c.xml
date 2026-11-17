@@ -5,51 +5,51 @@
     <includes refid="xhdmiphy1_8h" local="yes">xhdmiphy1.h</includes>
     <includes local="yes">xstatus.h</includes>
     <incdepgraph>
-      <node id="260">
+      <node id="264">
         <label>xil_assert.h</label>
       </node>
-      <node id="263">
+      <node id="267">
         <label>xil_io.h</label>
       </node>
-      <node id="259">
+      <node id="266">
+        <label>xhdmiphy1_hw.h</label>
+        <link refid="xhdmiphy1__hw_8h"/>
+        <childnode refid="267" relation="include">
+        </childnode>
+        <childnode refid="268" relation="include">
+        </childnode>
+      </node>
+      <node id="270">
+        <label>xstatus.h</label>
+      </node>
+      <node id="269">
+        <label>xvidc.h</label>
+      </node>
+      <node id="263">
         <label>xhdmiphy1.h</label>
         <link refid="xhdmiphy1_8h"/>
-        <childnode refid="260" relation="include">
-        </childnode>
-        <childnode refid="261" relation="include">
-        </childnode>
-        <childnode refid="262" relation="include">
+        <childnode refid="264" relation="include">
         </childnode>
         <childnode refid="265" relation="include">
         </childnode>
-      </node>
-      <node id="266">
-        <label>xstatus.h</label>
-      </node>
-      <node id="265">
-        <label>xvidc.h</label>
-      </node>
-      <node id="264">
-        <label>xil_types.h</label>
-      </node>
-      <node id="261">
-        <label>xparameters.h</label>
-      </node>
-      <node id="258">
-        <label>xhdmiphy1_selftest.c</label>
-        <link refid="xhdmiphy1_selftest.c"/>
-        <childnode refid="259" relation="include">
-        </childnode>
         <childnode refid="266" relation="include">
         </childnode>
+        <childnode refid="269" relation="include">
+        </childnode>
+      </node>
+      <node id="268">
+        <label>xil_types.h</label>
       </node>
       <node id="262">
-        <label>xhdmiphy1_hw.h</label>
-        <link refid="xhdmiphy1__hw_8h"/>
+        <label>xhdmiphy1_selftest.c</label>
+        <link refid="xhdmiphy1_selftest.c"/>
         <childnode refid="263" relation="include">
         </childnode>
-        <childnode refid="264" relation="include">
+        <childnode refid="270" relation="include">
         </childnode>
+      </node>
+      <node id="265">
+        <label>xparameters.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -99,10 +99,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" bodystart="62" bodyend="79"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" bodystart="62" bodyend="79"/>
         <references refid="xhdmiphy1__hw_8h_1a962d997981e2e284c3c9dd0e8a9a5752" compoundref="xhdmiphy1__hw_8h" startline="1419">XHdmiphy1_ReadReg</references>
-        <references refid="struct_x_hdmiphy1_1ae19e95b6e84e21a988ba6910ceb3f35a" compoundref="xhdmiphy1_8h" startline="736">XHdmiphy1::Config</references>
-        <references refid="struct_x_hdmiphy1___config_1a2bbcc590627355bad185ca417e839a6e" compoundref="xhdmiphy1_8h" startline="689">XHdmiphy1_Config::BaseAddr</references>
+        <references refid="struct_x_hdmiphy1_1ae19e95b6e84e21a988ba6910ceb3f35a" compoundref="xhdmiphy1_8h" startline="723">XHdmiphy1::Config</references>
+        <references refid="struct_x_hdmiphy1___config_1a2bbcc590627355bad185ca417e839a6e" compoundref="xhdmiphy1_8h" startline="678">XHdmiphy1_Config::BaseAddr</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -159,6 +159,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
 <codeline lineno="79"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c"/>
   </compounddef>
 </doxygen>

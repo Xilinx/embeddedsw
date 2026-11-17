@@ -239,8 +239,6 @@
     <member refid="inputs_8h_1a91456fde79b7cd20b44ee1e83578c1f4" kind="variable"><name>ctrl8_1080_nodist</name></member>
     <member refid="inputs_8h_1a729c12992af3456616845005ee17c3fc" kind="variable"><name>input_configs</name></member>
   </compound>
-  <compound refid="_r_e_a_d_m_e_8txt" kind="file"><name>README.txt</name>
-  </compound>
   <compound refid="xv__warp__init_8c" kind="file"><name>xv_warp_init.c</name>
     <member refid="xv__warp__init_8c_1ae18fafb8f603165bc083a8b821c4bd39" kind="function"><name>XV_warp_init_CfgInitialize</name></member>
     <member refid="xv__warp__init_8c_1a894a0392e9fc275220cc8e0f6d89a951" kind="function"><name>XV_warp_init_Start</name></member>
@@ -399,11 +397,30 @@
   <compound refid="xwarp__example_8c" kind="file"><name>xwarp_example.c</name>
     <member refid="xwarp__example_8c_1a882e928023692485ffa35afc5c8ecf7b" kind="define"><name>XHls_IP_WriteReg</name></member>
     <member refid="xwarp__example_8c_1a077c9a18b69690db63a1eb6625a3e19a" kind="define"><name>XHls_IP_ReadReg</name></member>
+    <member refid="xwarp__example_8c_1ae691bcd3c8f1b1909caf281797d9e013" kind="variable"><name>Gpio_WarpInit_resetn</name></member>
+    <member refid="xwarp__example_8c_1abc5a3f3dfef1da69645457d43e195f32" kind="variable"><name>Gpio_WarpInit_resetn_ConfigPtr</name></member>
+    <member refid="xwarp__example_8c_1ae1bba9d9bc109ab0ab84681ba9de2eca" kind="variable"><name>Gpio_Filter_resetn</name></member>
+    <member refid="xwarp__example_8c_1a26eaca772214bc9365b5c256ec610692" kind="variable"><name>Gpio_Filter_resetn_ConfigPtr</name></member>
+    <member refid="xwarp__example_8c_1aac9b9dd3f01c78843949f1b0dd37b80c" kind="variable"><name>Intc</name></member>
+    <member refid="xwarp__example_8c_1aa04b87af5c26a10c01b446c730f2a6a1" kind="variable"><name>WarpInst</name></member>
+    <member refid="xwarp__example_8c_1a89525fed097bab6ee7679d4fe1a4e09a" kind="variable"><name>warp_descriptor</name></member>
+    <member refid="xwarp__example_8c_1a3740fad44a96439daf61da16419ce3d2" kind="variable"><name>WarpInitInst</name></member>
+    <member refid="xwarp__example_8c_1afc58554deca0098dd28aa892f1165722" kind="variable"><name>frame_done_interrupt</name></member>
+    <member refid="xwarp__example_8c_1a9f96510dad8351cedf6b8d6bbfbfb81c" kind="variable"><name>frame_done_intr_count</name></member>
+    <member refid="xwarp__example_8c_1a424d52983e15108e900e70a428a4af52" kind="variable"><name>gen_remap_vec_int</name></member>
+    <member refid="xwarp__example_8c_1ae751034ff2007a29f3b08318c630f0f7" kind="variable"><name>warp_drv_configs</name></member>
+    <member refid="xwarp__example_8c_1a618a0dd6bb46d13509dfc10e274156da" kind="variable"><name>tmrctr_tcsr0_ptr</name></member>
+    <member refid="xwarp__example_8c_1a015d0c4affa1f157d2b6eefcf390c4ab" kind="variable"><name>tmrctr_tlr0_ptr</name></member>
+    <member refid="xwarp__example_8c_1a11945c6c26c0be94491b0672c7d4eb84" kind="variable"><name>tmrctr_tcr0_ptr</name></member>
+    <member refid="xwarp__example_8c_1a9c6ea0408c6b488c33a3929e60954c44" kind="variable"><name>tmrctr_tcr1_ptr</name></member>
+    <member refid="xwarp__example_8c_1ad681b48d8a1b6b8366c97c9b50fcfa44" kind="variable"><name>tmrctr_value</name></member>
+    <member refid="xwarp__example_8c_1ad9a1465011fb5c198f781b88d6e76210" kind="variable"><name>tmrctr_1_value</name></member>
     <member refid="xwarp__example_8c_1a17a9b3699ffbc3196e9a0df79107aca5" kind="function"><name>XBInterruptHandler</name></member>
     <member refid="xwarp__example_8c_1ac5468c202731a00d6293fecf758eaeca" kind="function"><name>SetupInterruptSystem</name></member>
     <member refid="xwarp__example_8c_1a9cd1aa302f7f21a27bca47d4a908fc71" kind="function"><name>XWarpInit_callback</name></member>
     <member refid="xwarp__example_8c_1a02a9485d8c9ef5eece43e33c41e832a5" kind="function"><name>start_timer</name></member>
     <member refid="xwarp__example_8c_1a153eea17e21df47651e681015514e96f" kind="function"><name>stop_timer</name></member>
+    <member refid="xwarp__example_8c_1aeae79e8d109d94839dab3134e3f1adcb" kind="function"><name>ResetWarpInit</name></member>
     <member refid="xwarp__example_8c_1a45fc896dee9ad80fd6040487eebcac56" kind="function"><name>ResetFilter</name></member>
     <member refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>

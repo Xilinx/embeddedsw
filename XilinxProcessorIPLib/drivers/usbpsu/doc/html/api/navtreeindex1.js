@@ -1,253 +1,1242 @@
 var NAVTREEINDEX1 =
 {
-"xusb__freertos__ch9__keyboard_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2":[2,25,3],
-"xusb__freertos__ch9__keyboard_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b":[2,25,6],
-"xusb__freertos__ch9__keyboard_8h.html#a5f71c81f47255ca655c3fe4262b97b68":[2,25,1],
-"xusb__freertos__ch9__keyboard_8h.html#a5fcf44156be6999a0abbc2d4ace707c1":[2,25,4],
-"xusb__freertos__ch9__keyboard_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601":[2,25,0],
-"xusb__freertos__ch9__keyboard_8h.html#a8eaa9363a2026b377cee0a09377f6420":[2,25,2],
-"xusb__freertos__ch9__keyboard_8h.html#af99800b04544fe0bfa385de154d79087":[2,25,5],
-"xusb__freertos__ch9__storage_8c.html":[2,26],
-"xusb__freertos__ch9__storage_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be":[2,26,5],
-"xusb__freertos__ch9__storage_8c.html#a36f6da36a86aeccc3ffd45b8d20b72c2":[2,26,3],
-"xusb__freertos__ch9__storage_8c.html#a5f71c81f47255ca655c3fe4262b97b68":[2,26,1],
-"xusb__freertos__ch9__storage_8c.html#a6b9c8f0b5b4de1072d44ca05f15d3601":[2,26,0],
-"xusb__freertos__ch9__storage_8c.html#a8eaa9363a2026b377cee0a09377f6420":[2,26,2],
-"xusb__freertos__ch9__storage_8c.html#af99800b04544fe0bfa385de154d79087":[2,26,4],
-"xusb__freertos__ch9__storage_8h.html":[2,27],
-"xusb__freertos__ch9__storage_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2":[2,27,3],
-"xusb__freertos__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b":[2,27,5],
-"xusb__freertos__ch9__storage_8h.html#a5f71c81f47255ca655c3fe4262b97b68":[2,27,1],
-"xusb__freertos__ch9__storage_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601":[2,27,0],
-"xusb__freertos__ch9__storage_8h.html#a8eaa9363a2026b377cee0a09377f6420":[2,27,2],
-"xusb__freertos__ch9__storage_8h.html#af99800b04544fe0bfa385de154d79087":[2,27,4],
-"xusb__freertos__class__audio_8c.html":[2,28],
-"xusb__freertos__class__audio_8c.html#a32b6f95139e55ff73c71303408094577":[2,28,2],
-"xusb__freertos__class__audio_8c.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4":[2,28,1],
-"xusb__freertos__class__audio_8c.html#a43a401c19d0503aa6f48746b3cb11721":[2,28,0],
-"xusb__freertos__class__audio_8h.html":[2,29],
-"xusb__freertos__class__audio_8h.html#a32b6f95139e55ff73c71303408094577":[2,29,2],
-"xusb__freertos__class__audio_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4":[2,29,1],
-"xusb__freertos__class__audio_8h.html#a43a401c19d0503aa6f48746b3cb11721":[2,29,0],
-"xusb__freertos__class__composite_8c.html":[2,30],
-"xusb__freertos__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66":[2,30,11],
-"xusb__freertos__class__composite_8c.html#a194a9e11a6d5b86e53384260e2f1a90b":[2,30,10],
-"xusb__freertos__class__composite_8c.html#a32b6f95139e55ff73c71303408094577":[2,30,6],
-"xusb__freertos__class__composite_8c.html#a3ade58346ca33654f5138ee9c443610d":[2,30,7],
-"xusb__freertos__class__composite_8c.html#a3b339129f8d97ba9e8fd4cde9bc8e756":[2,30,5],
-"xusb__freertos__class__composite_8c.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4":[2,30,3],
-"xusb__freertos__class__composite_8c.html#a3dd6b88879ee439db086e2ff6a7664d9":[2,30,4],
-"xusb__freertos__class__composite_8c.html#a43a401c19d0503aa6f48746b3cb11721":[2,30,2],
-"xusb__freertos__class__composite_8c.html#a4ad7bb0798660879a761038133bf0b80":[2,30,8],
-"xusb__freertos__class__composite_8c.html#a787b860ced36f781523ab445c3f0f1e9":[2,30,0],
-"xusb__freertos__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318":[2,30,14],
-"xusb__freertos__class__composite_8c.html#aba8a3fdb3b4fc01587c30bbbdba21246":[2,30,1],
-"xusb__freertos__class__composite_8c.html#acd0aa2711cb840f03df965a2c16dfebf":[2,30,13],
-"xusb__freertos__class__composite_8c.html#ad1d69266191044d7d27c63bd7c049b7c":[2,30,9],
-"xusb__freertos__class__composite_8c.html#af5e188c4250382b042768893417ab321":[2,30,12],
-"xusb__freertos__class__composite_8h.html":[2,31],
-"xusb__freertos__class__composite_8h.html#a194a9e11a6d5b86e53384260e2f1a90b":[2,31,11],
-"xusb__freertos__class__composite_8h.html#a32b6f95139e55ff73c71303408094577":[2,31,7],
-"xusb__freertos__class__composite_8h.html#a3ade58346ca33654f5138ee9c443610d":[2,31,8],
-"xusb__freertos__class__composite_8h.html#a3b339129f8d97ba9e8fd4cde9bc8e756":[2,31,6],
-"xusb__freertos__class__composite_8h.html#a3b7cf32bf38cd19d9b38c52b52ebd9c4":[2,31,4],
-"xusb__freertos__class__composite_8h.html#a3dd6b88879ee439db086e2ff6a7664d9":[2,31,5],
-"xusb__freertos__class__composite_8h.html#a43a401c19d0503aa6f48746b3cb11721":[2,31,3],
-"xusb__freertos__class__composite_8h.html#a4ad7bb0798660879a761038133bf0b80":[2,31,9],
-"xusb__freertos__class__composite_8h.html#a787b860ced36f781523ab445c3f0f1e9":[2,31,1],
-"xusb__freertos__class__composite_8h.html#aba8a3fdb3b4fc01587c30bbbdba21246":[2,31,2],
-"xusb__freertos__class__composite_8h.html#acd0aa2711cb840f03df965a2c16dfebf":[2,31,13],
-"xusb__freertos__class__composite_8h.html#ad1d69266191044d7d27c63bd7c049b7c":[2,31,10],
-"xusb__freertos__class__composite_8h.html#adabccc59f14f73295d6d3e8ab2a84ed3":[2,31,0],
-"xusb__freertos__class__composite_8h.html#af5e188c4250382b042768893417ab321":[2,31,12],
-"xusb__freertos__class__keyboard_8c.html":[2,32],
-"xusb__freertos__class__keyboard_8c.html#a6b4c6d0f1989a268becf04033c4537df":[2,32,1],
-"xusb__freertos__class__keyboard_8c.html#aba8a3fdb3b4fc01587c30bbbdba21246":[2,32,0],
-"xusb__intr__example_8c.html":[2,33],
-"xusb__intr__example_8c.html#a5427b67da8571837c063db309a460d37":[2,33,0],
-"xusb__intr__example_8c.html#a827731c39d2e383df605eccb5864d469":[2,33,1],
-"xusb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[2,33,2],
-"xusb__poll__example_8c.html":[2,34],
-"xusb__poll__example_8c.html#a5427b67da8571837c063db309a460d37":[2,34,0],
-"xusb__poll__example_8c.html#a827731c39d2e383df605eccb5864d469":[2,34,1],
-"xusb__poll__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[2,34,2],
-"xusb__wrapper_8c.html":[2,35],
-"xusb__wrapper_8c.html#a02e8ef492f6fb18133f23f90205cc573":[2,35,1],
-"xusb__wrapper_8c.html#a1c387f7a6cc0e39d1adaaff2d1fd1f00":[2,35,5],
-"xusb__wrapper_8c.html#a30882c23a359d37202d4096f8e278a69":[2,35,0],
-"xusb__wrapper_8c.html#a806fa9a72091f47fa04844f988166e70":[2,35,2],
-"xusb__wrapper_8c.html#ab30ae0bb64c54e1ab61239c495a453d3":[2,35,3],
-"xusb__wrapper_8c.html#af81f75ebda88cd593c5619754286e4ae":[2,35,4],
-"xusb__wrapper_8h.html":[2,36],
-"xusb__wrapper_8h.html#a02e8ef492f6fb18133f23f90205cc573":[2,36,2],
-"xusb__wrapper_8h.html#a1c387f7a6cc0e39d1adaaff2d1fd1f00":[2,36,6],
-"xusb__wrapper_8h.html#a30882c23a359d37202d4096f8e278a69":[2,36,1],
-"xusb__wrapper_8h.html#a806fa9a72091f47fa04844f988166e70":[2,36,3],
-"xusb__wrapper_8h.html#a8fae1ad6c97c621f7505be7bf84b7134":[2,36,0],
-"xusb__wrapper_8h.html#ab30ae0bb64c54e1ab61239c495a453d3":[2,36,4],
-"xusb__wrapper_8h.html#af81f75ebda88cd593c5619754286e4ae":[2,36,5],
-"xusbpsu_8c.html":[2,37],
-"xusbpsu_8c.html#ga314e8d22a5f1a2e0e4bef7f0c7bffe85":[2,37,0],
-"xusbpsu_8c.html#ga35ea7b99952969130f6bc35b088b16a0":[2,37,9],
-"xusbpsu_8c.html#ga4df83ee534df24f4403e51ae9423238a":[2,37,4],
-"xusbpsu_8c.html#ga5340d1fa1682b73d5f4da55eff3b0a0b":[2,37,12],
-"xusbpsu_8c.html#ga55228afff6b16b58790b91efb185eff5":[2,37,1],
-"xusbpsu_8c.html#ga6d7651e8afca56974940464709b8a3ed":[2,37,7],
-"xusbpsu_8c.html#ga7e0a64e9adf5e221b4bd8386ad38055e":[2,37,3],
-"xusbpsu_8c.html#ga7fa4e391a5107c357c314fa5e550e370":[2,37,8],
-"xusbpsu_8c.html#ga8eb71617c93d98325d328d7801bbb6bf":[2,37,2],
-"xusbpsu_8c.html#gaa511f1b4207a9b718f8951e2f3b0ac90":[2,37,5],
-"xusbpsu_8c.html#gab610beaf7a6f5703f123e6682bea8c45":[2,37,10],
-"xusbpsu_8c.html#gace8c49312a72bbabfb622b62d88ffc0a":[2,37,11],
-"xusbpsu_8c.html#gade3b6c0bdb87c504d946212311c04216":[2,37,6],
-"xusbpsu_8h.html":[2,38],
-"xusbpsu_8h.html#ga01b275c406db01f76fc27ce428e859b0":[2,38,29],
-"xusbpsu_8h.html#ga0358f9d4714f7d4e19d429ccf8cc6b26":[2,38,55],
-"xusbpsu_8h.html#ga07f17ab6f8a9e4881fab867ff7e4ecaa":[2,38,41],
-"xusbpsu_8h.html#ga10077a7a78df717317306ba0e42610bd":[2,38,14],
-"xusbpsu_8h.html#ga12567217fd7112e7d8fc4c6d91b20e11":[2,38,47],
-"xusbpsu_8h.html#ga145f43dae5d1d499a02248a306d35d9f":[2,38,24],
-"xusbpsu_8h.html#ga1a566eeb18fcd70e9cf6024f2cf8a35b":[2,38,40],
-"xusbpsu_8h.html#ga1cfed736380199beddc59a5a00a53109":[2,38,27],
-"xusbpsu_8h.html#ga1f081ab527bf9b7a15bd24ebea69138b":[2,38,32],
-"xusbpsu_8h.html#ga29bd4b024c2f53d670ace256dd29b0c7":[2,38,19],
-"xusbpsu_8h.html#ga3126435e75abbfbfdcf3bfdf9d1175a0":[2,38,6],
-"xusbpsu_8h.html#ga314e8d22a5f1a2e0e4bef7f0c7bffe85":[2,38,30],
-"xusbpsu_8h.html#ga35ea7b99952969130f6bc35b088b16a0":[2,38,56],
-"xusbpsu_8h.html#ga428b7d5150df403d2011a466379d4860":[2,38,4],
-"xusbpsu_8h.html#ga48e6e534c10a7a99be5606a0583c2129":[2,38,34],
-"xusbpsu_8h.html#ga4aefce4e996fb276192ce25ece82d56a":[2,38,52],
-"xusbpsu_8h.html#ga4cc1d5f5a9d9499d04de1ff248b1fb50":[2,38,2],
-"xusbpsu_8h.html#ga512f27591b21fe69754687c156ad0c01":[2,38,7],
-"xusbpsu_8h.html#ga5340d1fa1682b73d5f4da55eff3b0a0b":[2,38,59],
-"xusbpsu_8h.html#ga55228afff6b16b58790b91efb185eff5":[2,38,31],
-"xusbpsu_8h.html#ga59f79176f4a1991bf8b9bb1e5b178dc3":[2,38,9],
-"xusbpsu_8h.html#ga5eba683d84892a8eca521da5cc5e1a66":[2,38,28],
-"xusbpsu_8h.html#ga6d7651e8afca56974940464709b8a3ed":[2,38,53],
-"xusbpsu_8h.html#ga78d9a929bbb9036e7eb4ba85b176df0d":[2,38,35],
-"xusbpsu_8h.html#ga7af07f28c5254049183d86942b54d610":[2,38,21],
-"xusbpsu_8h.html#ga7bd0ead386f64199721fdbdaee530e25":[2,38,23],
-"xusbpsu_8h.html#ga7d6e17c324943f3fc70ff60980985ee1":[2,38,17],
-"xusbpsu_8h.html#ga7e0a64e9adf5e221b4bd8386ad38055e":[2,38,45],
-"xusbpsu_8h.html#ga7fa4e391a5107c357c314fa5e550e370":[2,38,54],
-"xusbpsu_8h.html#ga846d0a038155f23633778e0bed4109ff":[2,38,60],
-"xusbpsu_8h.html#ga87fd60823e07b4852b8a8d569121908b":[2,38,46],
-"xusbpsu_8h.html#ga8c15325ffc60b58e561b5e7f874b099b":[2,38,33],
-"xusbpsu_8h.html#ga907197f8e0fa8febbc3c7794c877c147":[2,38,12],
-"xusbpsu_8h.html#ga9338e96a71bd29d1d427f6dfc828f40f":[2,38,26],
-"xusbpsu_8h.html#ga940e5d8d4c56eec4e394507eb0e1ab8b":[2,38,44],
-"xusbpsu_8h.html#ga957c4c1e84bc2b5c56296ae5a5cb1c26":[2,38,8],
-"xusbpsu_8h.html#ga9a977327906f2995960e50d429703687":[2,38,37],
-"xusbpsu_8h.html#ga9b106790d1b007e134bda766af314a9a":[2,38,43],
-"xusbpsu_8h.html#gaa511f1b4207a9b718f8951e2f3b0ac90":[2,38,50],
-"xusbpsu_8h.html#gaa8dc3536c5415d69176f27d3e51f9639":[2,38,25],
-"xusbpsu_8h.html#gaab7f31fa2f463d3ebd2e0635402741f1":[2,38,1],
-"xusbpsu_8h.html#gab099fe68c248d13c86d5c9ff3eb6cc90":[2,38,5],
-"xusbpsu_8h.html#gab0e5e54dfc6c271a215f191f119a9193":[2,38,18],
-"xusbpsu_8h.html#gab3a191b5b5a02738beffd951ce4883d8":[2,38,39],
-"xusbpsu_8h.html#gab610beaf7a6f5703f123e6682bea8c45":[2,38,57],
-"xusbpsu_8h.html#gaba5ac1fc686a1d43125ff1e3550de708":[2,38,22],
-"xusbpsu_8h.html#gac4a7f6cc7385c7af0dfd040d1965e987":[2,38,15],
-"xusbpsu_8h.html#gace8c49312a72bbabfb622b62d88ffc0a":[2,38,58],
-"xusbpsu_8h.html#gacffd9c26017dc32043d88f8a7b85bc19":[2,38,11],
-"xusbpsu_8h.html#gad0102ce2327d084245189584307ecdfe":[2,38,36],
-"xusbpsu_8h.html#gad04774b7c7c7d3c95121208888438b1e":[2,38,13],
-"xusbpsu_8h.html#gad13cbcf5858fa37dcba606bed25ed338":[2,38,42],
-"xusbpsu_8h.html#gad1505139cec9bf7dda6deb3cb292a835":[2,38,10],
-"xusbpsu_8h.html#gad2fd554fef58d4a23dd5e7afa9cb2ee9":[2,38,0],
-"xusbpsu_8h.html#gad585fe1304adfd139727220832c2dcf5":[2,38,48],
-"xusbpsu_8h.html#gade3b6c0bdb87c504d946212311c04216":[2,38,51],
-"xusbpsu_8h.html#gadfc13d0ed152c8a400dba485d2b55d35":[2,38,20],
-"xusbpsu_8h.html#gae18c69e1589fab7cf7bf0202ad9fd870":[2,38,3],
-"xusbpsu_8h.html#gae3a3281573703ad8e23f87108ba00bf9":[2,38,16],
-"xusbpsu_8h.html#gaebd7592c8206e1fa22594cb2e4e44f7f":[2,38,49],
-"xusbpsu_8h.html#gaeff04b67a7a4a8c63da2327c6ae5e81b":[2,38,38],
-"xusbpsu_8h.html#gga01b275c406db01f76fc27ce428e859b0a2e63b0ac26e593eeeb43035224f68192":[2,38,29,0],
-"xusbpsu_8h.html#gga01b275c406db01f76fc27ce428e859b0a313f455261c209436c19838a51a14c79":[2,38,29,3],
-"xusbpsu_8h.html#gga01b275c406db01f76fc27ce428e859b0a6a7b1e6914461c7328a366280bd81e43":[2,38,29,5],
-"xusbpsu_8h.html#gga01b275c406db01f76fc27ce428e859b0abe489953b0c5466e4b739e1d3fdd060b":[2,38,29,2],
-"xusbpsu_8h.html#gga01b275c406db01f76fc27ce428e859b0abecef2ba0ab7d5a3cefbaf6ea9d2ede9":[2,38,29,1],
-"xusbpsu_8h.html#gga01b275c406db01f76fc27ce428e859b0af0d96259a79d7e872d8659f25fd0832a":[2,38,29,4],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a0cc1bb01fca234acc94f396d46ecfeea":[2,38,28,1],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a2af87c85cc425bd3e363ca5ee4b1733c":[2,38,28,13],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a3957d29efbfdbb855a6e6df3528616af":[2,38,28,11],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a421aa73fd4935069574c12a1297c2fe3":[2,38,28,8],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a502bd6e5ef675d832b0bd54929310e81":[2,38,28,12],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a581c120e91cd56b8b313bfb51aae7a90":[2,38,28,7],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66a8cbe3106db027d4b21bc9b5511f97951":[2,38,28,2],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66aa930411d7862a22eec26e564c6a9989a":[2,38,28,9],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66aad93658bbb869a238fc915bf668f2ff4":[2,38,28,10],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66abbd319d56175378745e0ab12ffe89bd3":[2,38,28,6],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66ae05d91dc4a876fa3b72138cb3c87cd1c":[2,38,28,4],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66ae5ba232f78dca288ae89adf43ce93abc":[2,38,28,5],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66af8dfb7366ff2fe04bd0de38f07d6a4a6":[2,38,28,3],
-"xusbpsu_8h.html#gga5eba683d84892a8eca521da5cc5e1a66afe3d6c328c802db5b18dfcdd00505ab0":[2,38,28,0],
-"xusbpsu__command_8c.html":[2,39],
-"xusbpsu__command_8c.html#ga1a566eeb18fcd70e9cf6024f2cf8a35b":[2,39,1],
-"xusbpsu__command_8c.html#ga2053aec2de928aab94f61f1639058b40":[2,39,3],
-"xusbpsu__command_8c.html#ga539653e2157529aeedf78d66aa135a7f":[2,39,2],
-"xusbpsu__command_8c.html#gab3a191b5b5a02738beffd951ce4883d8":[2,39,0],
-"xusbpsu__controltransfers_8c.html":[2,40],
-"xusbpsu__controltransfers_8c.html#ga00919567ace4342c864e3c29cf69e58d":[2,40,0],
-"xusbpsu__controltransfers_8c.html#ga426259ea4430f2bccf744c55e88dcea9":[2,40,1],
-"xusbpsu__controltransfers_8c.html#ga5fbc6f2e5e21efc273d5d44a4bdf21d1":[2,40,5],
-"xusbpsu__controltransfers_8c.html#ga78d9a929bbb9036e7eb4ba85b176df0d":[2,40,3],
-"xusbpsu__controltransfers_8c.html#ga8dcb3237803d60fc90cea8270b6fe1a0":[2,40,4],
-"xusbpsu__controltransfers_8c.html#gaee37aa4d612811db703893d777308e3e":[2,40,2],
-"xusbpsu__device_8c.html":[2,41],
-"xusbpsu__device_8c.html#ga01495a656b7de39f6874390556643a1e":[2,41,0],
-"xusbpsu__device_8c.html#ga12567217fd7112e7d8fc4c6d91b20e11":[2,41,5],
-"xusbpsu__device_8c.html#ga2137782bf79ed3f9148defc507786a9c":[2,41,1],
-"xusbpsu__device_8c.html#ga2616d8b140915fc83ced2c316db3aa16":[2,41,9],
-"xusbpsu__device_8c.html#ga320848a4722e7150a31427f5635bab56":[2,41,4],
-"xusbpsu__device_8c.html#ga4aefce4e996fb276192ce25ece82d56a":[2,41,8],
-"xusbpsu__device_8c.html#ga4c5f57fc85b14ae756481518c5318362":[2,41,3],
-"xusbpsu__device_8c.html#gab04d50803db3b336711a63dfd88de5a1":[2,41,7],
-"xusbpsu__device_8c.html#gad13cbcf5858fa37dcba606bed25ed338":[2,41,2],
-"xusbpsu__device_8c.html#gaebd7592c8206e1fa22594cb2e4e44f7f":[2,41,6],
-"xusbpsu__device_8c.html#gaf75d50db67d1cab7fed1c8738d1b95c9":[2,41,10],
-"xusbpsu__endpoint_8c.html":[2,42],
-"xusbpsu__endpoint_8c.html#ga16d89863a86fe201e813e39f08edaaf9":[2,42,0],
-"xusbpsu__endpoint_8c.html#ga17a07022989463d93396219c70975c2f":[2,42,3],
-"xusbpsu__endpoint_8c.html#ga28df688a0136bd0efa5cc25ea3272610":[2,42,1],
-"xusbpsu__endpoint_8c.html#ga41fcbddbefdf6f9534c188255a0d61c1":[2,42,2],
-"xusbpsu__endpoint_8c.html#gacc29605c0bd7068a2f97c8c2ed0a8ea6":[2,42,5],
-"xusbpsu__endpoint_8c.html#gadda2d8102910024fbfa5bc7a471bea86":[2,42,4],
-"xusbpsu__endpoint_8h.html":[2,43],
-"xusbpsu__ep0handler_8c.html":[2,44],
-"xusbpsu__ep0handler_8c.html#ga057ab0e4a9511055a42e60b92550660d":[2,44,1],
-"xusbpsu__ep0handler_8c.html#ga12ed169a9dd7d4138c1b2b6e32078f73":[2,44,2],
-"xusbpsu__ep0handler_8c.html#ga1cbbfbb1658f7fe29ec7f1b24ba87eeb":[2,44,4],
-"xusbpsu__ep0handler_8c.html#gaa1b5bb2653180e74fb187989bd68ee5c":[2,44,3],
-"xusbpsu__ep0handler_8c.html#gacaefa0abe2036b61d3341ee9232ffb17":[2,44,0],
-"xusbpsu__ephandler_8c.html":[2,45],
-"xusbpsu__ephandler_8c.html#ga0358f9d4714f7d4e19d429ccf8cc6b26":[2,45,11],
-"xusbpsu__ephandler_8c.html#ga07f17ab6f8a9e4881fab867ff7e4ecaa":[2,45,4],
-"xusbpsu__ephandler_8c.html#ga1f081ab527bf9b7a15bd24ebea69138b":[2,45,0],
-"xusbpsu__ephandler_8c.html#ga2d7229b7b3d937ed82f79c3ec35e97f8":[2,45,7],
-"xusbpsu__ephandler_8c.html#ga5fdd7c08c30d46a9c3024ebe404d877e":[2,45,6],
-"xusbpsu__ephandler_8c.html#ga940e5d8d4c56eec4e394507eb0e1ab8b":[2,45,8],
-"xusbpsu__ephandler_8c.html#ga9a977327906f2995960e50d429703687":[2,45,2],
-"xusbpsu__ephandler_8c.html#gac5e91b20aedeff92c9aa7eed229c5c03":[2,45,9],
-"xusbpsu__ephandler_8c.html#gacdbae228fd638ec5e1598c4528a135cf":[2,45,5],
-"xusbpsu__ephandler_8c.html#gad0102ce2327d084245189584307ecdfe":[2,45,1],
-"xusbpsu__ephandler_8c.html#gad585fe1304adfd139727220832c2dcf5":[2,45,10],
-"xusbpsu__ephandler_8c.html#gaeff04b67a7a4a8c63da2327c6ae5e81b":[2,45,3],
-"xusbpsu__event_8c.html":[2,46],
-"xusbpsu__event_8c.html#gaa95e2a0adf788cfa67722243e0c6e803":[2,46,2],
-"xusbpsu__event_8c.html#gab9c5e8289701e82cf940fd2d0c239fd1":[2,46,0],
-"xusbpsu__event_8c.html#gac357a27a8c52267042cd2bc937a92331":[2,46,1],
-"xusbpsu__hibernation_8c.html":[2,47],
-"xusbpsu__hw_8h.html":[2,48],
-"xusbpsu__hw_8h.html#ga105e755bfb3830d1334916cbc95cb4c8":[2,48,4],
-"xusbpsu__hw_8h.html#ga1e135c0d82f35f437fb80427b1caf843":[2,48,0],
-"xusbpsu__hw_8h.html#ga1ef571f8495a685e2128d3691afee75e":[2,48,2],
-"xusbpsu__hw_8h.html#ga31f8bfbbcc6b7c06a7650c6e5562ad6b":[2,48,11],
-"xusbpsu__hw_8h.html#ga3b1344d907f7ae5c9194f79603a2e12f":[2,48,9],
-"xusbpsu__hw_8h.html#gaa3d4a6688e2c52ea5dd11228de1673d8":[2,48,6],
-"xusbpsu__hw_8h.html#gacff30d70dc978fce3f0bd863c90195fe":[2,48,1],
-"xusbpsu__hw_8h.html#gad6365a31a59917692626cfcdfe806fa4":[2,48,3],
-"xusbpsu__hw_8h.html#gad7b4e70ee47462229a243ba71ab98aa1":[2,48,5],
-"xusbpsu__hw_8h.html#gad91516b6d8d74921d7e65988f9a3a4ce":[2,48,7],
-"xusbpsu__hw_8h.html#gaf0d0c97e95ee2e5bf13f6ec19b26f52b":[2,48,10]
+  "xusb__ch9_8h.html#ac0c33c0c20c57a68596e55b00a6302b7": [
+    2,
+    2,
+    17
+  ],
+  "xusb__ch9_8h.html#acacc4de7981ab8e877680cd5a8c3b227": [
+    2,
+    2,
+    7
+  ],
+  "xusb__ch9_8h.html#acd9c941e7cfb86f5b0daf5c8eaee257a": [
+    2,
+    2,
+    8
+  ],
+  "xusb__ch9_8h.html#adb5fc9c9b6ca548466f0a32011098149": [
+    2,
+    2,
+    6
+  ],
+  "xusb__ch9_8h.html#add9273c9db74005320b9b4d2e77323c5": [
+    2,
+    2,
+    38
+  ],
+  "xusb__ch9_8h.html#ae10a1fd5f65d075c17536fd3f7d8472e": [
+    2,
+    2,
+    23
+  ],
+  "xusb__ch9_8h.html#ae2f9c438d0a1d60f3b44772d524953f9": [
+    2,
+    2,
+    47
+  ],
+  "xusb__ch9_8h.html#ae4c9a3af66b1d3203140c45af59de525": [
+    2,
+    2,
+    22
+  ],
+  "xusb__ch9_8h.html#ae787427813c070874ed3493b57f1e5d3": [
+    2,
+    2,
+    28
+  ],
+  "xusb__ch9_8h.html#aeec13d3b5ee8a7e32a936ab1cad81077": [
+    2,
+    2,
+    41
+  ],
+  "xusb__ch9_8h.html#af062e949014bed74a8b5fedcf1705602": [
+    2,
+    2,
+    4
+  ],
+  "xusb__ch9_8h.html#af51a3af3807dd55e340c1ddbc3f2d352": [
+    2,
+    2,
+    18
+  ],
+  "xusb__ch9_8h.html#af8272157df84f3cb8a4b8e159088cb93": [
+    2,
+    2,
+    36
+  ],
+  "xusb__ch9__audio__dfu_8c.html": [
+    2,
+    3
+  ],
+  "xusb__ch9__audio__dfu_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be": [
+    2,
+    3,
+    5
+  ],
+  "xusb__ch9__audio__dfu_8c.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    3,
+    3
+  ],
+  "xusb__ch9__audio__dfu_8c.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    3,
+    1
+  ],
+  "xusb__ch9__audio__dfu_8c.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    3,
+    0
+  ],
+  "xusb__ch9__audio__dfu_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53": [
+    2,
+    3,
+    6
+  ],
+  "xusb__ch9__audio__dfu_8c.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    3,
+    2
+  ],
+  "xusb__ch9__audio__dfu_8c.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    3,
+    4
+  ],
+  "xusb__ch9__audio__dfu_8h.html": [
+    2,
+    4
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a0192bb335e8b6cd2d4a9623cf5660137": [
+    2,
+    4,
+    6
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a0b64bafc8aa00fd27553ffc2f8ad681d": [
+    2,
+    4,
+    14
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a12173ef808bebfeedcd678cdc68a66a1": [
+    2,
+    4,
+    11
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a17b88ec5acbe5c6ca45a3f8afd8ff50d": [
+    2,
+    4,
+    7
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a21157d455a32b1c580e64d1721fca58b": [
+    2,
+    4,
+    18
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a244c96ba30105a9373caf5d2649d3f2b": [
+    2,
+    4,
+    4
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a33dd30f824d8c15a2b4a649a95d22cbd": [
+    2,
+    4,
+    37
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    4,
+    42
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a46bd48334eca2b04fa019db296aef32f": [
+    2,
+    4,
+    13
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b": [
+    2,
+    4,
+    44
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a51799f5ebb4c7228ef7e95c247030f42": [
+    2,
+    4,
+    9
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a59334fe54658f649477891d96683d626": [
+    2,
+    4,
+    33
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    4,
+    40
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    4,
+    39
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a76e226d2445b6075518d1a4f46d5e1c9": [
+    2,
+    4,
+    22
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a79bd164810a1af8ab1067c9b6443f702": [
+    2,
+    4,
+    30
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a7a827faa9e618e80a1e522ed9a6ed3a8": [
+    2,
+    4,
+    3
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a7ade7ed0c333be2421f1c46843b241fc": [
+    2,
+    4,
+    12
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16": [
+    2,
+    4,
+    8
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a81e67d649378e737e28ef388fc13f395": [
+    2,
+    4,
+    19
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a865c8abbba880292b5fef3c4eaed93c8": [
+    2,
+    4,
+    32
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    4,
+    41
+  ],
+  "xusb__ch9__audio__dfu_8h.html#a9a20b85df56c410a24cdc66bfdebdb7a": [
+    2,
+    4,
+    26
+  ],
+  "xusb__ch9__audio__dfu_8h.html#aa00669ab6835bfe8c5a3c7d834723b06": [
+    2,
+    4,
+    21
+  ],
+  "xusb__ch9__audio__dfu_8h.html#aa1ba6dfa3c683533649a4fa0d59819f3": [
+    2,
+    4,
+    10
+  ],
+  "xusb__ch9__audio__dfu_8h.html#aa35d6dde4eb5eda025e87261f27fd3be": [
+    2,
+    4,
+    36
+  ],
+  "xusb__ch9__audio__dfu_8h.html#aa7f2a0848e642b1cadaa6ddd6b6b16dc": [
+    2,
+    4,
+    29
+  ],
+  "xusb__ch9__audio__dfu_8h.html#aac5b8cea39835535d048e8fc5ac06770": [
+    2,
+    4,
+    25
+  ],
+  "xusb__ch9__audio__dfu_8h.html#ab21a5fdbdfaf061b28d46c2da5d3151e": [
+    2,
+    4,
+    20
+  ],
+  "xusb__ch9__audio__dfu_8h.html#abbe5c23ed8fe5b769f9d00ec0165cb8d": [
+    2,
+    4,
+    0
+  ],
+  "xusb__ch9__audio__dfu_8h.html#abe028d460954741a73a62d9e4a1a60da": [
+    2,
+    4,
+    24
+  ],
+  "xusb__ch9__audio__dfu_8h.html#ac78aea6b6f3f42b0bb041e221cbb8a9a": [
+    2,
+    4,
+    27
+  ],
+  "xusb__ch9__audio__dfu_8h.html#acafcefaea68dd16021f0919852570664": [
+    2,
+    4,
+    16
+  ],
+  "xusb__ch9__audio__dfu_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1": [
+    2,
+    4,
+    38
+  ],
+  "xusb__ch9__audio__dfu_8h.html#ad3565ac0bf66b9bb36aa98228a352763": [
+    2,
+    4,
+    28
+  ],
+  "xusb__ch9__audio__dfu_8h.html#adaaddb0f9ed075752dec156699286bb1": [
+    2,
+    4,
+    15
+  ],
+  "xusb__ch9__audio__dfu_8h.html#adaf0dc75902471edbb5aaf804c743169": [
+    2,
+    4,
+    23
+  ],
+  "xusb__ch9__audio__dfu_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c": [
+    2,
+    4,
+    2
+  ],
+  "xusb__ch9__audio__dfu_8h.html#ae064cff24f260cf4197acd04238cb391": [
+    2,
+    4,
+    5
+  ],
+  "xusb__ch9__audio__dfu_8h.html#ae3e6310e994b386686e13ea46dfdd8dc": [
+    2,
+    4,
+    31
+  ],
+  "xusb__ch9__audio__dfu_8h.html#ae4ad75a7f1933dd84023d554f49267d2": [
+    2,
+    4,
+    1
+  ],
+  "xusb__ch9__audio__dfu_8h.html#af14eda366fbfc63142620259d5cd9c25": [
+    2,
+    4,
+    34
+  ],
+  "xusb__ch9__audio__dfu_8h.html#af5eba04431833b3197c3af2d77299fd1": [
+    2,
+    4,
+    35
+  ],
+  "xusb__ch9__audio__dfu_8h.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    4,
+    43
+  ],
+  "xusb__ch9__audio__dfu_8h.html#afb2538b799a93e5e0831724d938d69fb": [
+    2,
+    4,
+    17
+  ],
+  "xusb__ch9__composite_8c.html": [
+    2,
+    5
+  ],
+  "xusb__ch9__composite_8c.html#a043075687afdf64ad9382236bd155e60": [
+    2,
+    5,
+    4
+  ],
+  "xusb__ch9__composite_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be": [
+    2,
+    5,
+    6
+  ],
+  "xusb__ch9__composite_8c.html#a1e97e995b0e3f7380e9161aa094e21f5": [
+    2,
+    5,
+    8
+  ],
+  "xusb__ch9__composite_8c.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    5,
+    3
+  ],
+  "xusb__ch9__composite_8c.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    5,
+    1
+  ],
+  "xusb__ch9__composite_8c.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    5,
+    0
+  ],
+  "xusb__ch9__composite_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53": [
+    2,
+    5,
+    7
+  ],
+  "xusb__ch9__composite_8c.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    5,
+    2
+  ],
+  "xusb__ch9__composite_8c.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    5,
+    5
+  ],
+  "xusb__ch9__composite_8h.html": [
+    2,
+    6
+  ],
+  "xusb__ch9__composite_8h.html#a0192bb335e8b6cd2d4a9623cf5660137": [
+    2,
+    6,
+    6
+  ],
+  "xusb__ch9__composite_8h.html#a043075687afdf64ad9382236bd155e60": [
+    2,
+    6,
+    43
+  ],
+  "xusb__ch9__composite_8h.html#a0b64bafc8aa00fd27553ffc2f8ad681d": [
+    2,
+    6,
+    14
+  ],
+  "xusb__ch9__composite_8h.html#a12173ef808bebfeedcd678cdc68a66a1": [
+    2,
+    6,
+    11
+  ],
+  "xusb__ch9__composite_8h.html#a17b88ec5acbe5c6ca45a3f8afd8ff50d": [
+    2,
+    6,
+    7
+  ],
+  "xusb__ch9__composite_8h.html#a21157d455a32b1c580e64d1721fca58b": [
+    2,
+    6,
+    18
+  ],
+  "xusb__ch9__composite_8h.html#a244c96ba30105a9373caf5d2649d3f2b": [
+    2,
+    6,
+    4
+  ],
+  "xusb__ch9__composite_8h.html#a33dd30f824d8c15a2b4a649a95d22cbd": [
+    2,
+    6,
+    37
+  ],
+  "xusb__ch9__composite_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    6,
+    42
+  ],
+  "xusb__ch9__composite_8h.html#a46bd48334eca2b04fa019db296aef32f": [
+    2,
+    6,
+    13
+  ],
+  "xusb__ch9__composite_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b": [
+    2,
+    6,
+    45
+  ],
+  "xusb__ch9__composite_8h.html#a51799f5ebb4c7228ef7e95c247030f42": [
+    2,
+    6,
+    9
+  ],
+  "xusb__ch9__composite_8h.html#a59334fe54658f649477891d96683d626": [
+    2,
+    6,
+    33
+  ],
+  "xusb__ch9__composite_8h.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    6,
+    40
+  ],
+  "xusb__ch9__composite_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    6,
+    39
+  ],
+  "xusb__ch9__composite_8h.html#a76e226d2445b6075518d1a4f46d5e1c9": [
+    2,
+    6,
+    22
+  ],
+  "xusb__ch9__composite_8h.html#a79bd164810a1af8ab1067c9b6443f702": [
+    2,
+    6,
+    30
+  ],
+  "xusb__ch9__composite_8h.html#a7a827faa9e618e80a1e522ed9a6ed3a8": [
+    2,
+    6,
+    3
+  ],
+  "xusb__ch9__composite_8h.html#a7ade7ed0c333be2421f1c46843b241fc": [
+    2,
+    6,
+    12
+  ],
+  "xusb__ch9__composite_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16": [
+    2,
+    6,
+    8
+  ],
+  "xusb__ch9__composite_8h.html#a81e67d649378e737e28ef388fc13f395": [
+    2,
+    6,
+    19
+  ],
+  "xusb__ch9__composite_8h.html#a865c8abbba880292b5fef3c4eaed93c8": [
+    2,
+    6,
+    32
+  ],
+  "xusb__ch9__composite_8h.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    6,
+    41
+  ],
+  "xusb__ch9__composite_8h.html#a9a20b85df56c410a24cdc66bfdebdb7a": [
+    2,
+    6,
+    26
+  ],
+  "xusb__ch9__composite_8h.html#aa00669ab6835bfe8c5a3c7d834723b06": [
+    2,
+    6,
+    21
+  ],
+  "xusb__ch9__composite_8h.html#aa1ba6dfa3c683533649a4fa0d59819f3": [
+    2,
+    6,
+    10
+  ],
+  "xusb__ch9__composite_8h.html#aa35d6dde4eb5eda025e87261f27fd3be": [
+    2,
+    6,
+    36
+  ],
+  "xusb__ch9__composite_8h.html#aa7f2a0848e642b1cadaa6ddd6b6b16dc": [
+    2,
+    6,
+    29
+  ],
+  "xusb__ch9__composite_8h.html#aac5b8cea39835535d048e8fc5ac06770": [
+    2,
+    6,
+    25
+  ],
+  "xusb__ch9__composite_8h.html#ab21a5fdbdfaf061b28d46c2da5d3151e": [
+    2,
+    6,
+    20
+  ],
+  "xusb__ch9__composite_8h.html#abbe5c23ed8fe5b769f9d00ec0165cb8d": [
+    2,
+    6,
+    0
+  ],
+  "xusb__ch9__composite_8h.html#abe028d460954741a73a62d9e4a1a60da": [
+    2,
+    6,
+    24
+  ],
+  "xusb__ch9__composite_8h.html#ac78aea6b6f3f42b0bb041e221cbb8a9a": [
+    2,
+    6,
+    27
+  ],
+  "xusb__ch9__composite_8h.html#acafcefaea68dd16021f0919852570664": [
+    2,
+    6,
+    16
+  ],
+  "xusb__ch9__composite_8h.html#acd8c428aa0aca973ec78dd2f34c84cf1": [
+    2,
+    6,
+    38
+  ],
+  "xusb__ch9__composite_8h.html#ad3565ac0bf66b9bb36aa98228a352763": [
+    2,
+    6,
+    28
+  ],
+  "xusb__ch9__composite_8h.html#adaaddb0f9ed075752dec156699286bb1": [
+    2,
+    6,
+    15
+  ],
+  "xusb__ch9__composite_8h.html#adaf0dc75902471edbb5aaf804c743169": [
+    2,
+    6,
+    23
+  ],
+  "xusb__ch9__composite_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c": [
+    2,
+    6,
+    2
+  ],
+  "xusb__ch9__composite_8h.html#ae064cff24f260cf4197acd04238cb391": [
+    2,
+    6,
+    5
+  ],
+  "xusb__ch9__composite_8h.html#ae3e6310e994b386686e13ea46dfdd8dc": [
+    2,
+    6,
+    31
+  ],
+  "xusb__ch9__composite_8h.html#ae4ad75a7f1933dd84023d554f49267d2": [
+    2,
+    6,
+    1
+  ],
+  "xusb__ch9__composite_8h.html#af14eda366fbfc63142620259d5cd9c25": [
+    2,
+    6,
+    34
+  ],
+  "xusb__ch9__composite_8h.html#af5eba04431833b3197c3af2d77299fd1": [
+    2,
+    6,
+    35
+  ],
+  "xusb__ch9__composite_8h.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    6,
+    44
+  ],
+  "xusb__ch9__composite_8h.html#afb2538b799a93e5e0831724d938d69fb": [
+    2,
+    6,
+    17
+  ],
+  "xusb__ch9__dfu_8c.html": [
+    2,
+    7
+  ],
+  "xusb__ch9__dfu_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be": [
+    2,
+    7,
+    5
+  ],
+  "xusb__ch9__dfu_8c.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    7,
+    3
+  ],
+  "xusb__ch9__dfu_8c.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    7,
+    1
+  ],
+  "xusb__ch9__dfu_8c.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    7,
+    0
+  ],
+  "xusb__ch9__dfu_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53": [
+    2,
+    7,
+    6
+  ],
+  "xusb__ch9__dfu_8c.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    7,
+    2
+  ],
+  "xusb__ch9__dfu_8c.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    7,
+    4
+  ],
+  "xusb__ch9__dfu_8h.html": [
+    2,
+    8
+  ],
+  "xusb__ch9__dfu_8h.html#a17b88ec5acbe5c6ca45a3f8afd8ff50d": [
+    2,
+    8,
+    2
+  ],
+  "xusb__ch9__dfu_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    8,
+    8
+  ],
+  "xusb__ch9__dfu_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b": [
+    2,
+    8,
+    10
+  ],
+  "xusb__ch9__dfu_8h.html#a51799f5ebb4c7228ef7e95c247030f42": [
+    2,
+    8,
+    4
+  ],
+  "xusb__ch9__dfu_8h.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    8,
+    6
+  ],
+  "xusb__ch9__dfu_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    8,
+    5
+  ],
+  "xusb__ch9__dfu_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16": [
+    2,
+    8,
+    3
+  ],
+  "xusb__ch9__dfu_8h.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    8,
+    7
+  ],
+  "xusb__ch9__dfu_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c": [
+    2,
+    8,
+    1
+  ],
+  "xusb__ch9__dfu_8h.html#ae4ad75a7f1933dd84023d554f49267d2": [
+    2,
+    8,
+    0
+  ],
+  "xusb__ch9__dfu_8h.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    8,
+    9
+  ],
+  "xusb__ch9__storage_8c.html": [
+    2,
+    9
+  ],
+  "xusb__ch9__storage_8c.html#a06c2b2b0fd41a23280a0fde1ef2950be": [
+    2,
+    9,
+    5
+  ],
+  "xusb__ch9__storage_8c.html#a086271cdf5fe6afbcc215f2ee3ab4e48": [
+    2,
+    9,
+    6
+  ],
+  "xusb__ch9__storage_8c.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    9,
+    3
+  ],
+  "xusb__ch9__storage_8c.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    9,
+    1
+  ],
+  "xusb__ch9__storage_8c.html#a61bd56b191638bdedbe5a24715605e43": [
+    2,
+    9,
+    8
+  ],
+  "xusb__ch9__storage_8c.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    9,
+    0
+  ],
+  "xusb__ch9__storage_8c.html#a804f2b8d24af70d2d64e9403aa7c6d53": [
+    2,
+    9,
+    7
+  ],
+  "xusb__ch9__storage_8c.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    9,
+    2
+  ],
+  "xusb__ch9__storage_8c.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    9,
+    4
+  ],
+  "xusb__ch9__storage_8h.html": [
+    2,
+    10
+  ],
+  "xusb__ch9__storage_8h.html#a36f6da36a86aeccc3ffd45b8d20b72c2": [
+    2,
+    10,
+    7
+  ],
+  "xusb__ch9__storage_8h.html#a4e6a99c41d5f094f189a0d4c0ad8b58b": [
+    2,
+    10,
+    9
+  ],
+  "xusb__ch9__storage_8h.html#a51799f5ebb4c7228ef7e95c247030f42": [
+    2,
+    10,
+    3
+  ],
+  "xusb__ch9__storage_8h.html#a5f71c81f47255ca655c3fe4262b97b68": [
+    2,
+    10,
+    5
+  ],
+  "xusb__ch9__storage_8h.html#a6b9c8f0b5b4de1072d44ca05f15d3601": [
+    2,
+    10,
+    4
+  ],
+  "xusb__ch9__storage_8h.html#a8135b2c24ee2a9f4bce9c36060c76d16": [
+    2,
+    10,
+    2
+  ],
+  "xusb__ch9__storage_8h.html#a8eaa9363a2026b377cee0a09377f6420": [
+    2,
+    10,
+    6
+  ],
+  "xusb__ch9__storage_8h.html#adef8521a1dcd1b2e4eaa90c52f502d3c": [
+    2,
+    10,
+    1
+  ],
+  "xusb__ch9__storage_8h.html#ae4ad75a7f1933dd84023d554f49267d2": [
+    2,
+    10,
+    0
+  ],
+  "xusb__ch9__storage_8h.html#af99800b04544fe0bfa385de154d79087": [
+    2,
+    10,
+    8
+  ],
+  "xusb__class__audio__dfu_8c.html": [
+    2,
+    11
+  ],
+  "xusb__class__audio__dfu_8c.html#a194a9e11a6d5b86e53384260e2f1a90b": [
+    2,
+    11,
+    4
+  ],
+  "xusb__class__audio__dfu_8c.html#a32b6f95139e55ff73c71303408094577": [
+    2,
+    11,
+    0
+  ],
+  "xusb__class__audio__dfu_8c.html#a3ade58346ca33654f5138ee9c443610d": [
+    2,
+    11,
+    1
+  ],
+  "xusb__class__audio__dfu_8c.html#a4ad7bb0798660879a761038133bf0b80": [
+    2,
+    11,
+    2
+  ],
+  "xusb__class__audio__dfu_8c.html#ac22d379a546e0b0416abad664966a381": [
+    2,
+    11,
+    7
+  ],
+  "xusb__class__audio__dfu_8c.html#acd0aa2711cb840f03df965a2c16dfebf": [
+    2,
+    11,
+    6
+  ],
+  "xusb__class__audio__dfu_8c.html#ad1d69266191044d7d27c63bd7c049b7c": [
+    2,
+    11,
+    3
+  ],
+  "xusb__class__audio__dfu_8c.html#af5e188c4250382b042768893417ab321": [
+    2,
+    11,
+    5
+  ],
+  "xusb__class__audio__dfu_8h.html": [
+    2,
+    12
+  ],
+  "xusb__class__audio__dfu_8h.html#a06804a5d329eb5f17202c0fcd6baad9c": [
+    2,
+    12,
+    17
+  ],
+  "xusb__class__audio__dfu_8h.html#a0af347650d747729e3bd81179d135f34": [
+    2,
+    12,
+    51
+  ],
+  "xusb__class__audio__dfu_8h.html#a14499b3729ae52272fa5df5975dd3fce": [
+    2,
+    12,
+    27
+  ],
+  "xusb__class__audio__dfu_8h.html#a14adf8ace168a4663a145a3628afe4e7": [
+    2,
+    12,
+    20
+  ],
+  "xusb__class__audio__dfu_8h.html#a1662f078f25f00b88229f1ccef3f037a": [
+    2,
+    12,
+    52
+  ],
+  "xusb__class__audio__dfu_8h.html#a18201acdac101c3ba74670a6c673df79": [
+    2,
+    12,
+    46
+  ],
+  "xusb__class__audio__dfu_8h.html#a1895d554b8e041b905806cfc3049c1b5": [
+    2,
+    12,
+    19
+  ],
+  "xusb__class__audio__dfu_8h.html#a193e7cdfcb2277e98ee9e1ec3822c288": [
+    2,
+    12,
+    9
+  ],
+  "xusb__class__audio__dfu_8h.html#a194a9e11a6d5b86e53384260e2f1a90b": [
+    2,
+    12,
+    64
+  ],
+  "xusb__class__audio__dfu_8h.html#a1dbfcd9de4badc68f1a79720113dfa3d": [
+    2,
+    12,
+    13
+  ],
+  "xusb__class__audio__dfu_8h.html#a249b2f85a059ee807759a5186766e4ca": [
+    2,
+    12,
+    3
+  ],
+  "xusb__class__audio__dfu_8h.html#a26b97c01792871b3dbdc8c6f4b3d10c7": [
+    2,
+    12,
+    38
+  ],
+  "xusb__class__audio__dfu_8h.html#a3080151311398fc9a479a88b697de174": [
+    2,
+    12,
+    57
+  ],
+  "xusb__class__audio__dfu_8h.html#a32b6f95139e55ff73c71303408094577": [
+    2,
+    12,
+    60
+  ],
+  "xusb__class__audio__dfu_8h.html#a3ade58346ca33654f5138ee9c443610d": [
+    2,
+    12,
+    61
+  ],
+  "xusb__class__audio__dfu_8h.html#a408f5b36840adf32284c71c7ad8a74b7": [
+    2,
+    12,
+    49
+  ],
+  "xusb__class__audio__dfu_8h.html#a4146d5ff7ef456a8c2fdef4ef68cfd23": [
+    2,
+    12,
+    11
+  ],
+  "xusb__class__audio__dfu_8h.html#a41912ad6c650bf2df2b730f3d6d07849": [
+    2,
+    12,
+    15
+  ],
+  "xusb__class__audio__dfu_8h.html#a4ad7bb0798660879a761038133bf0b80": [
+    2,
+    12,
+    62
+  ],
+  "xusb__class__audio__dfu_8h.html#a4d32748e71383d08d7a048e0c95b17f5": [
+    2,
+    12,
+    24
+  ],
+  "xusb__class__audio__dfu_8h.html#a4f5caf2d3608013662e481f420112bdb": [
+    2,
+    12,
+    23
+  ],
+  "xusb__class__audio__dfu_8h.html#a4fb3344c4fd61753a3561b760327d691": [
+    2,
+    12,
+    55
+  ],
+  "xusb__class__audio__dfu_8h.html#a50195a810e6b38e7381f36d9e63a5192": [
+    2,
+    12,
+    58
+  ],
+  "xusb__class__audio__dfu_8h.html#a5d2c6876a1806477fca042cd456a75b5": [
+    2,
+    12,
+    43
+  ],
+  "xusb__class__audio__dfu_8h.html#a618edb4d50d3e1d435a1421eebc050e1": [
+    2,
+    12,
+    54
+  ],
+  "xusb__class__audio__dfu_8h.html#a64c259382ba0bc1d606f049ce6edc785": [
+    2,
+    12,
+    40
+  ],
+  "xusb__class__audio__dfu_8h.html#a6632ef52233cb537bc54b0f27f755213": [
+    2,
+    12,
+    36
+  ],
+  "xusb__class__audio__dfu_8h.html#a698ce75398a4cf9f540fd0ad6c519203": [
+    2,
+    12,
+    29
+  ],
+  "xusb__class__audio__dfu_8h.html#a7682da19ba681e067b72dcaaad8c06e0": [
+    2,
+    12,
+    45
+  ],
+  "xusb__class__audio__dfu_8h.html#a8b2a8445191e4e509153c74bb9f9dbec": [
+    2,
+    12,
+    53
+  ],
+  "xusb__class__audio__dfu_8h.html#a90a4672d5084eb120863ab25a0c64b23": [
+    2,
+    12,
+    31
+  ],
+  "xusb__class__audio__dfu_8h.html#a9490d88735e358d2c5d41a86a04051ad": [
+    2,
+    12,
+    21
+  ],
+  "xusb__class__audio__dfu_8h.html#a951312ed14382dabfec369f3e8cebc2e": [
+    2,
+    12,
+    25
+  ],
+  "xusb__class__audio__dfu_8h.html#a9a4baab767198beecf551f0db822ab12": [
+    2,
+    12,
+    6
+  ],
+  "xusb__class__audio__dfu_8h.html#a9db226a634c1d5f31b1964662ebb4dcb": [
+    2,
+    12,
+    56
+  ],
+  "xusb__class__audio__dfu_8h.html#a9e13ccce805358f4caa876b6d7d816d1": [
+    2,
+    12,
+    32
+  ],
+  "xusb__class__audio__dfu_8h.html#a9ec42539a3b1d7a1fcb47383e5ae73b7": [
+    2,
+    12,
+    34
+  ],
+  "xusb__class__audio__dfu_8h.html#a9f0bb6811ae976a2cd8a7b42c19a8390": [
+    2,
+    12,
+    10
+  ],
+  "xusb__class__audio__dfu_8h.html#aa188c82cf7b5d2783953bfc241bb4442": [
+    2,
+    12,
+    26
+  ],
+  "xusb__class__audio__dfu_8h.html#aa3effb770f0314c0352dabcd57e9954c": [
+    2,
+    12,
+    4
+  ],
+  "xusb__class__audio__dfu_8h.html#aa9ab18e8f7f454b4b205b145c2323c72": [
+    2,
+    12,
+    7
+  ],
+  "xusb__class__audio__dfu_8h.html#aaac45da3645c8f37ea2b18de63ff1047": [
+    2,
+    12,
+    44
+  ],
+  "xusb__class__audio__dfu_8h.html#aab84f038b292fbf493645e8410406eb0": [
+    2,
+    12,
+    41
+  ],
+  "xusb__class__audio__dfu_8h.html#aab8f5bc9518d1611092d31d8212bc06b": [
+    2,
+    12,
+    37
+  ],
+  "xusb__class__audio__dfu_8h.html#aabb01f5c3e89ae6a471c5dbb0a38422e": [
+    2,
+    12,
+    42
+  ],
+  "xusb__class__audio__dfu_8h.html#aadb139d7d1b973e19f78b7d2dd4b027f": [
+    2,
+    12,
+    30
+  ],
+  "xusb__class__audio__dfu_8h.html#aaf8b2bc0fa447ec925a47cee00916e4a": [
+    2,
+    12,
+    14
+  ],
+  "xusb__class__audio__dfu_8h.html#abd19e1f5b4164b01f7fed3b9dc498bd6": [
+    2,
+    12,
+    28
+  ],
+  "xusb__class__audio__dfu_8h.html#ac0d9cdec73437db1e0d5ef38d7e326fa": [
+    2,
+    12,
+    18
+  ],
+  "xusb__class__audio__dfu_8h.html#ac0eb94aa682995bf1b298bdd4f6a8723": [
+    2,
+    12,
+    48
+  ],
+  "xusb__class__audio__dfu_8h.html#ac52c09be724fe37647b22cf3e4684e25": [
+    2,
+    12,
+    5
+  ],
+  "xusb__class__audio__dfu_8h.html#acd0aa2711cb840f03df965a2c16dfebf": [
+    2,
+    12,
+    66
+  ],
+  "xusb__class__audio__dfu_8h.html#ad1d69266191044d7d27c63bd7c049b7c": [
+    2,
+    12,
+    63
+  ],
+  "xusb__class__audio__dfu_8h.html#adca1223d97fed104d04df2f13f4e278b": [
+    2,
+    12,
+    33
+  ],
+  "xusb__class__audio__dfu_8h.html#adea9d9ab353da9373e1ae22774b8b296": [
+    2,
+    12,
+    47
+  ],
+  "xusb__class__audio__dfu_8h.html#ae664e7492e37d324831caf2321ddda37": [
+    2,
+    12,
+    35
+  ],
+  "xusb__class__audio__dfu_8h.html#aee6203978efd916bf43ab7659fad0658": [
+    2,
+    12,
+    8
+  ],
+  "xusb__class__audio__dfu_8h.html#af45d9250c3e5dfb12a217bc08828cc06": [
+    2,
+    12,
+    16
+  ],
+  "xusb__class__audio__dfu_8h.html#af49711fa169b5c78a2fd73abfe68b802": [
+    2,
+    12,
+    39
+  ],
+  "xusb__class__audio__dfu_8h.html#af5e188c4250382b042768893417ab321": [
+    2,
+    12,
+    65
+  ],
+  "xusb__class__audio__dfu_8h.html#af6995a9c0bcc3c0d52f9af100cabecee": [
+    2,
+    12,
+    59
+  ],
+  "xusb__class__audio__dfu_8h.html#af761a3c529272768675db42bfb39ed9b": [
+    2,
+    12,
+    50
+  ],
+  "xusb__class__audio__dfu_8h.html#af8e9e63fa5bd689b8d2c3e780597306c": [
+    2,
+    12,
+    22
+  ],
+  "xusb__class__audio__dfu_8h.html#aff6ab40ddfc07a8e873aa4c8dde99fc8": [
+    2,
+    12,
+    12
+  ],
+  "xusb__class__composite_8c.html": [
+    2,
+    13
+  ],
+  "xusb__class__composite_8c.html#a1371377fb6f75a25c4964644525e7f66": [
+    2,
+    13,
+    7
+  ],
+  "xusb__class__composite_8c.html#a194a9e11a6d5b86e53384260e2f1a90b": [
+    2,
+    13,
+    6
+  ],
+  "xusb__class__composite_8c.html#a32b6f95139e55ff73c71303408094577": [
+    2,
+    13,
+    2
+  ],
+  "xusb__class__composite_8c.html#a3ade58346ca33654f5138ee9c443610d": [
+    2,
+    13,
+    3
+  ],
+  "xusb__class__composite_8c.html#a3b339129f8d97ba9e8fd4cde9bc8e756": [
+    2,
+    13,
+    1
+  ],
+  "xusb__class__composite_8c.html#a4ad7bb0798660879a761038133bf0b80": [
+    2,
+    13,
+    4
+  ],
+  "xusb__class__composite_8c.html#a787b860ced36f781523ab445c3f0f1e9": [
+    2,
+    13,
+    0
+  ],
+  "xusb__class__composite_8c.html#a7b5c88f60ef35c935fbaf5cf42228318": [
+    2,
+    13,
+    10
+  ],
+  "xusb__class__composite_8c.html#ac22d379a546e0b0416abad664966a381": [
+    2,
+    13,
+    11
+  ],
+  "xusb__class__composite_8c.html#acd0aa2711cb840f03df965a2c16dfebf": [
+    2,
+    13,
+    9
+  ]
 };

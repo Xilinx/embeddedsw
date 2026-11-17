@@ -2,8 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_mailbox___ipi_shared_mem" kind="struct" prot="public">
     <compoundname>XMailbox_IpiSharedMem</compoundname>
+    <includes local="no">xilmailbox.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="group__xilmailbox_1ga4a9a0371a0256d6ba537a3db7698fb08" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_mailbox___ipi_shared_mem_1a4a9a0371a0256d6ba537a3db7698fb08" prot="public" static="no" mutable="no">
         <type>u64</type>
         <definition>u64 XMailbox_IpiSharedMem::Address</definition>
         <argsstring></argsstring>
@@ -14,9 +15,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga4c4631ec46d933f1fff9ce944c3b82d6" compoundref="xilmailbox_8c" startline="262" endline="275">XMailbox_GetSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1gae18bdfda3723a66063211be38ad0a541" compoundref="xilmailbox_8c" startline="289" endline="302">XMailbox_ReleaseSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1ga5a04406fa4d00d2acad6a32ff7a4230b" compoundref="xilmailbox_8c" startline="233" endline="248">XMailbox_SetSharedMem</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="group__xilmailbox_1gae27eb1bb697a00c85f295ef36cd55632" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_mailbox___ipi_shared_mem_1ae27eb1bb697a00c85f295ef36cd55632" prot="public" static="no" mutable="no">
         <type>u32</type>
         <definition>u32 XMailbox_IpiSharedMem::Size</definition>
         <argsstring></argsstring>
@@ -27,9 +31,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga4c4631ec46d933f1fff9ce944c3b82d6" compoundref="xilmailbox_8c" startline="262" endline="275">XMailbox_GetSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1gae18bdfda3723a66063211be38ad0a541" compoundref="xilmailbox_8c" startline="289" endline="302">XMailbox_ReleaseSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1ga5a04406fa4d00d2acad6a32ff7a4230b" compoundref="xilmailbox_8c" startline="233" endline="248">XMailbox_SetSharedMem</referencedby>
       </memberdef>
-      <memberdef kind="variable" id="group__xilmailbox_1ga73b6a118babef017d2679b59a0410a89" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="struct_x_mailbox___ipi_shared_mem_1a73b6a118babef017d2679b59a0410a89" prot="public" static="no" mutable="no">
         <type><ref refid="group__xilmailbox_1gaa7c3c20ddbc2f808a7520d82d1f1778a" kindref="member">XMailbox_IpiSharedMemState</ref></type>
         <definition>XMailbox_IpiSharedMemState XMailbox_IpiSharedMem::SharedMemState</definition>
         <argsstring></argsstring>
@@ -40,18 +47,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="119" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga4c4631ec46d933f1fff9ce944c3b82d6" compoundref="xilmailbox_8c" startline="262" endline="275">XMailbox_GetSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1gae18bdfda3723a66063211be38ad0a541" compoundref="xilmailbox_8c" startline="289" endline="302">XMailbox_ReleaseSharedMem</referencedby>
+        <referencedby refid="group__xilmailbox_1ga5a04406fa4d00d2acad6a32ff7a4230b" compoundref="xilmailbox_8c" startline="233" endline="248">XMailbox_SetSharedMem</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Describes the shared memory segment used for IPI. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="116" bodyend="120"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="156" bodyend="161"/>
     <listofallmembers>
-      <member refid="group__xilmailbox_1ga4a9a0371a0256d6ba537a3db7698fb08" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>Address</name></member>
-      <member refid="group__xilmailbox_1ga73b6a118babef017d2679b59a0410a89" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>SharedMemState</name></member>
-      <member refid="group__xilmailbox_1gae27eb1bb697a00c85f295ef36cd55632" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>Size</name></member>
+      <member refid="struct_x_mailbox___ipi_shared_mem_1a4a9a0371a0256d6ba537a3db7698fb08" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>Address</name></member>
+      <member refid="struct_x_mailbox___ipi_shared_mem_1a73b6a118babef017d2679b59a0410a89" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>SharedMemState</name></member>
+      <member refid="struct_x_mailbox___ipi_shared_mem_1ae27eb1bb697a00c85f295ef36cd55632" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>Size</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

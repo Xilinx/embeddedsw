@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="171" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="171" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_a_v_buf___audio_attribute_1a926edde394f231c2846668e7b548cc24" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -28,14 +28,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="172" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="172" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This typedef stores the attributes of an audio stream. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="170" bodyend="173"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="170" bodyend="173"/>
     <listofallmembers>
       <member refid="struct_x_a_v_buf___audio_attribute_1a926edde394f231c2846668e7b548cc24" prot="public" virt="non-virtual"><scope>XAVBuf_AudioAttribute</scope><name>SwapLR</name></member>
       <member refid="struct_x_a_v_buf___audio_attribute_1ad1bd1a807b808f1058260f53eb709627" prot="public" virt="non-virtual"><scope>XAVBuf_AudioAttribute</scope><name>Volume</name></member>

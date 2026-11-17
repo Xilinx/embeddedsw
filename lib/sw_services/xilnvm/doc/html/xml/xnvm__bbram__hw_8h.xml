@@ -4,13 +4,13 @@
     <compoundname>xnvm_bbram_hw.h</compoundname>
     <includedby refid="xnvm__bbram_8c" local="yes">xnvm_bbram.c</includedby>
     <invincdepgraph>
-      <node id="169">
+      <node id="191">
         <label>xnvm_bbram_hw.h</label>
         <link refid="xnvm_bbram_hw.h"/>
-        <childnode refid="170" relation="include">
+        <childnode refid="192" relation="include">
         </childnode>
       </node>
-      <node id="170">
+      <node id="192">
         <label>xnvm_bbram.c</label>
         <link refid="xnvm__bbram_8c"/>
       </node>
@@ -26,7 +26,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="45" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
       </memberdef>
       </sectiondef>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="52" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1ac5e2f0fb82509488c3d0e6f0417bc96e" prot="public" static="no">
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="53" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" prot="public" static="no">
@@ -65,7 +65,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1ace11affedc6517e78ab353885dbd46f5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_CRC_REG</name>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1a46ecbf17de00ceb1955a2d0d44412533" prot="public" static="no">
         <name>XNVM_BBRAM_0_REG</name>
@@ -87,8 +87,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="56" bodyend="-1"/>
-        <referencedby refid="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" compoundref="xnvm__bbram_8c" startline="146" endline="214">XNvm_BbramWriteAesKey</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga632eec83c61050915d7c9952ca85af60" compoundref="xnvm__bbram_8c" startline="146" endline="214">XNvm_BbramWriteAesKey</referencedby>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" prot="public" static="no">
         <name>XNVM_BBRAM_8_REG</name>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="57" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1gafcee46d7df5018a118844238cf4e3f65" compoundref="xnvm__bbram_8c" startline="342" endline="353">XNvm_BbramReadUsrData</referencedby>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" prot="public" static="no">
@@ -111,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="58" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" compoundref="xnvm__bbram_8c" startline="226" endline="245">XNvm_BbramLockUsrDataWrite</referencedby>
       </memberdef>
       </sectiondef>
@@ -126,7 +126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="69" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" prot="public" static="no">
         <name>XNVM_BBRAM_STATUS_ZEROIZED</name>
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="70" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1a8a0373f4e0a98947ed17db7a5705d19f" prot="public" static="no">
@@ -149,7 +149,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1adc88865275489175d0b41ffa70d5adda" prot="public" static="no">
         <name>XNVM_BBRAM_STATUS_AES_CRC_PASS</name>
@@ -160,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="79" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
       </memberdef>
       </sectiondef>
@@ -189,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -203,7 +203,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="93" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" compoundref="xnvm__bbram_8c" startline="226" endline="245">XNvm_BbramLockUsrDataWrite</referencedby>
       </memberdef>
       </sectiondef>
@@ -218,7 +218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1afd414f959c99e9ec202ad998ea1a85f4" prot="public" static="no">
         <name>XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL</name>
@@ -229,7 +229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xnvm__bbram__hw_8h_1ae0eba09038fae11350f11f17bd2348f9" prot="public" static="no">
         <name>XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL</name>
@@ -240,7 +240,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h" bodystart="102" bodyend="-1"/>
         <referencedby refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" compoundref="xnvm__bbram_8c" startline="364" endline="384">XNvm_BbramZeroize</referencedby>
       </memberdef>
       </sectiondef>
@@ -311,6 +311,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h"/>
   </compounddef>
 </doxygen>

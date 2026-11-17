@@ -10,14 +10,10 @@
       <node id="64">
         <label>xil_io.h</label>
       </node>
-      <node id="71">
-        <label>xv_hdmitx1_frl.h</label>
-        <link refid="xv__hdmitx1__frl_8h"/>
-        <childnode refid="72" relation="include">
-        </childnode>
-        <childnode refid="65" relation="include">
-        </childnode>
-        <childnode refid="66" relation="include">
+      <node id="63">
+        <label>xv_hdmitx1_hw.h</label>
+        <link refid="xv__hdmitx1__hw_8h"/>
+        <childnode refid="64" relation="include">
         </childnode>
       </node>
       <node id="69">
@@ -25,30 +21,6 @@
       </node>
       <node id="67">
         <label>xdebug.h</label>
-      </node>
-      <node id="66">
-        <label>xstatus.h</label>
-      </node>
-      <node id="63">
-        <label>xv_hdmitx1_hw.h</label>
-        <link refid="xv__hdmitx1__hw_8h"/>
-        <childnode refid="64" relation="include">
-        </childnode>
-      </node>
-      <node id="68">
-        <label>xvidc.h</label>
-      </node>
-      <node id="72">
-        <label>xil_types.h</label>
-      </node>
-      <node id="61">
-        <label>xv_hdmitx1_g.c</label>
-        <link refid="xv_hdmitx1_g.c"/>
-        <childnode refid="62" relation="include">
-        </childnode>
-      </node>
-      <node id="70">
-        <label>xv_hdmic.h</label>
       </node>
       <node id="62">
         <label>xv_hdmitx1.h</label>
@@ -69,6 +41,34 @@
         </childnode>
         <childnode refid="71" relation="include">
         </childnode>
+      </node>
+      <node id="66">
+        <label>xstatus.h</label>
+      </node>
+      <node id="61">
+        <label>xv_hdmitx1_g.c</label>
+        <link refid="xv_hdmitx1_g.c"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xvidc.h</label>
+      </node>
+      <node id="72">
+        <label>xil_types.h</label>
+      </node>
+      <node id="71">
+        <label>xv_hdmitx1_frl.h</label>
+        <link refid="xv__hdmitx1__frl_8h"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xv_hdmic.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="var">
@@ -93,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_g.c" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_g.c" bodystart="17" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_g.c" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_g.c" bodystart="17" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -130,6 +130,6 @@
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_g.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_g.c"/>
   </compounddef>
 </doxygen>

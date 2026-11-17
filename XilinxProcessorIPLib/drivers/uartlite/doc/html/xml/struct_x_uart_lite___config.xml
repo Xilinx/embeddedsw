@@ -15,7 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="195" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga79efa4208bc789a3eb1c7d91ff17671f" compoundref="xuartlite__sinit_8c" startline="88" endline="102">XUartLite_LookupConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -28,8 +29,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="197" bodyend="-1"/>
-        <referencedby refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" compoundref="xuartlite__sinit_8c" startline="133" endline="158">XUartLite_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" compoundref="xuartlite__sinit_8c" startline="137" endline="162">XUartLite_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -42,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="198" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1a581d63c484cae600ecdeb5b05f775a08" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -55,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="199" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1a4265aa3443fe342e8e6a7858ca96ab37" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -68,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="200" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -81,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="202" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1ab90c5e86d516f1f49a14325a0fbe9c33" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -94,8 +95,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="204" bodyend="-1"/>
-        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_uart_lite___config_1a2f57cbe432323d54cd26352bb9d8ce63" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -108,15 +109,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="206" bodyend="-1"/>
-        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__xuartlite__intr__example_1ga8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="228" endline="329">UartLiteIntrExample</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+<para>Holds configuration information for the UART Lite device. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="191" bodyend="209"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="200" bodyend="218"/>
     <listofallmembers>
       <member refid="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>BaudRate</name></member>
       <member refid="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>DataBits</name></member>

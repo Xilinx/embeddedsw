@@ -50,7 +50,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -89,7 +88,7 @@ $(document).ready(function(){initNavTree('group__video__common.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -898,6 +897,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga268ce8ec4d2d07109eb7795073e04cbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__video__common.html#ga562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__video__common.html#ga268ce8ec4d2d07109eb7795073e04cbb">XVidC_GetVideoModeIdExtensive</a> (<a class="el" href="struct_x_vid_c___video_timing.html">XVidC_VideoTiming</a> *Timing, u32 FrameRate, u8 IsInterlaced, u8 IsExtensive)</td></tr>
 <tr class="memdesc:ga268ce8ec4d2d07109eb7795073e04cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the Video Mode ID that matches the detected input timing, frame rate and I/P flag.  <a href="#ga268ce8ec4d2d07109eb7795073e04cbb">More...</a><br/></td></tr>
 <tr class="separator:ga268ce8ec4d2d07109eb7795073e04cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac7887b7dc736ea343c22af7815e5c0fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__video__common.html#ga562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__video__common.html#gac7887b7dc736ea343c22af7815e5c0fa">XVidC_GetVideoModeId_DeepSearch</a> (<a class="el" href="struct_x_vid_c___video_timing.html">XVidC_VideoTiming</a> Timing, u32 FrameRate)</td></tr>
+<tr class="memdesc:gac7887b7dc736ea343c22af7815e5c0fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs a deep search over all known timing modes (built-in and custom) and returns the Video Mode ID whose timing structure and frame rate match exactly all fields of the provided timing structure and frame rate.  <a href="#gac7887b7dc736ea343c22af7815e5c0fa">More...</a><br/></td></tr>
+<tr class="separator:gac7887b7dc736ea343c22af7815e5c0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1960127753fe5103efc7da3f9a291d28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__video__common.html#gaa562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__video__common.html#ga1960127753fe5103efc7da3f9a291d28">XVidC_GetColorFormatForBandwidth</a> (u8 LinkRate, u8 LaneCount, <a class="el" href="struct_x_vid_c___video_timing.html">XVidC_VideoTiming</a> Timing, u32 FrameRate, <a class="el" href="group__video__common.html#ga8006bc80e39c26ee0081647990b9fedc">XVidC_ColorDepth</a> Bpc)</td></tr>
+<tr class="memdesc:ga1960127753fe5103efc7da3f9a291d28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function calculates the available DisplayPort main link bandwidth from the supplied link rate and lane count, computes the bandwidth required by the given video timing and frame rate, and returns the richest color format (from XVidC_ColorFormat) that fits within the available link bandwidth.  <a href="#ga1960127753fe5103efc7da3f9a291d28">More...</a><br/></td></tr>
+<tr class="separator:ga1960127753fe5103efc7da3f9a291d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4377fff1a8e427e5f7bb642c5b115046"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__video__common.html#ga562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__video__common.html#ga4377fff1a8e427e5f7bb642c5b115046">XVidC_GetVideoModeIdRb</a> (u32 Width, u32 Height, u32 FrameRate, u8 IsInterlaced, u8 RbN)</td></tr>
 <tr class="memdesc:ga4377fff1a8e427e5f7bb642c5b115046"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the video mode ID that matches the detected input width, height, frame rate, interlaced or progressive, and reduced blanking.  <a href="#ga4377fff1a8e427e5f7bb642c5b115046">More...</a><br/></td></tr>
 <tr class="separator:ga4377fff1a8e427e5f7bb642c5b115046"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -7353,6 +7358,82 @@ Extended Display Identification Data: Masks, shifts, and values.</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga1960127753fe5103efc7da3f9a291d28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__video__common.html#gaa562703f77eeee8ef4a222f1b99c8633">XVidC_ColorFormat</a> XVidC_GetColorFormatForBandwidth </td>
+          <td>(</td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>LinkRate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>LaneCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_vid_c___video_timing.html">XVidC_VideoTiming</a>&#160;</td>
+          <td class="paramname"><em>Timing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>FrameRate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__video__common.html#ga8006bc80e39c26ee0081647990b9fedc">XVidC_ColorDepth</a>&#160;</td>
+          <td class="paramname"><em>Bpc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function calculates the available DisplayPort main link bandwidth from the supplied link rate and lane count, computes the bandwidth required by the given video timing and frame rate, and returns the richest color format (from XVidC_ColorFormat) that fits within the available link bandwidth. </p>
+<p>The color formats are evaluated from the highest bandwidth requirement to the lowest, so the returned format is the best quality format that can be transported over the link: RGB / YCbCr 4:4:4 (3 * Bpc bits/pixel) -&gt; YCbCr 4:2:2 (2 * Bpc bits/pixel) -&gt; YCbCr 4:2:0 (1.5 * Bpc bits/pixel)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LinkRate</td><td>is the DisplayPort main link rate, encoded using the XDP_TX_LINK_BW_SET_* values:<ul>
+<li>0x06 = 1.62 Gbps (RBR)</li>
+<li>0x0A = 2.70 Gbps (HBR)</li>
+<li>0x14 = 5.40 Gbps (HBR2)</li>
+<li>0x1E = 8.10 Gbps (HBR3)</li>
+<li>0x01 = 10.0 Gbps (UHBR10)</li>
+<li>0x04 = 13.5 Gbps (UHBR13.5)</li>
+<li>0x02 = 20.0 Gbps (UHBR20) </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">LaneCount</td><td>is the number of active main link lanes (1, 2 or 4). </td></tr>
+    <tr><td class="paramname">Timing</td><td>is the video timing to be transported. </td></tr>
+    <tr><td class="paramname">FrameRate</td><td>specifies the refresh rate in Hz. </td></tr>
+    <tr><td class="paramname">Bpc</td><td>is the color depth (bits per color component), e.g. 8/10/12.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The best fitting color format:<ul>
+<li>XVIDC_CSF_RGB if RGB / 4:4:4 fits,</li>
+<li>XVIDC_CSF_YCRCB_422 if only 4:2:2 (or lower) fits,</li>
+<li>XVIDC_CSF_YCRCB_420 if only 4:2:0 fits,</li>
+<li>XVIDC_CSF_UNKNOWN if even 4:2:0 does not fit or an input is invalid.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The available bandwidth accounts for the line-code overhead: 8b/10b (80%) for RBR/HBR/HBR2/HBR3 and 128b/132b (~96.97%) for the UHBR rates. </dd></dl>
+
+<p>References <a class="el" href="struct_x_vid_c___video_timing.html#a61c0c626b5f2eb72614a088c58cefdfe">XVidC_VideoTiming::F0PVTotal</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a500751aa1021ab9583b14b877442e318">XVidC_VideoTiming::F1VTotal</a>, <a class="el" href="struct_x_vid_c___video_timing.html#acaaa9bf4d2623a4d25af02f9ba8f5eef">XVidC_VideoTiming::HTotal</a>, <a class="el" href="group__video__common.html#ggaa562703f77eeee8ef4a222f1b99c8633ad4f3c302a44e6a90a6a669ad801315a6">XVIDC_CSF_RGB</a>, <a class="el" href="group__video__common.html#ggaa562703f77eeee8ef4a222f1b99c8633a9820355b90608323b069e861ba74ced2">XVIDC_CSF_UNKNOWN</a>, <a class="el" href="group__video__common.html#ggaa562703f77eeee8ef4a222f1b99c8633a72552113cfa8b493c770ee535e52ce46">XVIDC_CSF_YCRCB_420</a>, and <a class="el" href="group__video__common.html#ggaa562703f77eeee8ef4a222f1b99c8633aeb324e9e6cf24bc9b3c10315fbfc23c2">XVIDC_CSF_YCRCB_422</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ga8b0d0986815d88136d4ffae6118325e5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -7669,6 +7750,45 @@ Extended Display Identification Data: Masks, shifts, and values.</h2></td></tr>
 <p>References <a class="el" href="struct_x_vid_c___video_timing_mode.html#a49a18969ef2ed7ce9b33018abc2df615">XVidC_VideoTimingMode::FrameRate</a>, <a class="el" href="struct_x_vid_c___video_timing.html#ab54a81d1484f2c87552b1565cbfa469e">XVidC_VideoTiming::HActive</a>, <a class="el" href="struct_x_vid_c___video_timing_mode.html#a13601eb4bde0d026402fa7b05750eec4">XVidC_VideoTimingMode::Timing</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a497b50f5ae89eee52cad7c9457373f06">XVidC_VideoTiming::VActive</a>, <a class="el" href="struct_x_vid_c___video_timing_mode.html#ac2432f8f615705219ca240bf47d87a9c">XVidC_VideoTimingMode::VmId</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53ab44607661b5452a250d8acc83b90594d">XVIDC_VM_INTL_END</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53a08ae2af18fd4207556d1815600f3eb8a">XVIDC_VM_INTL_START</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53aec9d623b41e5c5b25faafcc558e9e48e">XVIDC_VM_NOT_SUPPORTED</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53aac0a525b879e91c24e97506110dbc4bc">XVIDC_VM_PROG_END</a>, and <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53a6967540a3a53a2a68e2d97597af76add">XVIDC_VM_PROG_START</a>.</p>
 
 <p>Referenced by <a class="el" href="group__video__common.html#ga4377fff1a8e427e5f7bb642c5b115046">XVidC_GetVideoModeIdRb()</a>, and <a class="el" href="group__video__common.html#ga562322a65704c3d6a2617b9f5e5d1717">XVidC_GetVideoModeIdWBlanking()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gac7887b7dc736ea343c22af7815e5c0fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__video__common.html#ga562f08faf2fc329b1cd7147b3d66ef53">XVidC_VideoMode</a> XVidC_GetVideoModeId_DeepSearch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_vid_c___video_timing.html">XVidC_VideoTiming</a>&#160;</td>
+          <td class="paramname"><em>Timing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>FrameRate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function performs a deep search over all known timing modes (built-in and custom) and returns the Video Mode ID whose timing structure and frame rate match exactly all fields of the provided timing structure and frame rate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Timing</td><td>is the timing structure to match against the table. </td></tr>
+    <tr><td class="paramname">FrameRate</td><td>specifies the refresh rate in Hz to match.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ID of a supported video mode if an exact timing and frame rate match is found, otherwise XVIDC_VM_NOT_SUPPORTED.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API compares every field in <a class="el" href="struct_x_vid_c___video_timing.html" title="Video timing structure. ">XVidC_VideoTiming</a>, including sync polarities and, when interlaced, all Field 1 parameters, as well as the frame rate from <a class="el" href="struct_x_vid_c___video_timing_mode.html" title="Video timing mode from the video timing table. ">XVidC_VideoTimingMode</a>. </dd></dl>
+
+<p>References <a class="el" href="struct_x_vid_c___video_timing.html#a5f74e298b0f9a325a8befa885ef77791">XVidC_VideoTiming::F0PVBackPorch</a>, <a class="el" href="struct_x_vid_c___video_timing.html#ad17904a2a9d64c58b7b7d91fdba1bbd9">XVidC_VideoTiming::F0PVFrontPorch</a>, <a class="el" href="struct_x_vid_c___video_timing.html#ad850c888c1a3f914c59238ee87d5135d">XVidC_VideoTiming::F0PVSyncWidth</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a61c0c626b5f2eb72614a088c58cefdfe">XVidC_VideoTiming::F0PVTotal</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a08416df9e9331986fd06486516500487">XVidC_VideoTiming::F1VBackPorch</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a6be3d7779e76204b3a1893ef7ab72788">XVidC_VideoTiming::F1VFrontPorch</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a2780cc16d2660326a2f47cd4c40df76d">XVidC_VideoTiming::F1VSyncWidth</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a500751aa1021ab9583b14b877442e318">XVidC_VideoTiming::F1VTotal</a>, <a class="el" href="struct_x_vid_c___video_timing_mode.html#a49a18969ef2ed7ce9b33018abc2df615">XVidC_VideoTimingMode::FrameRate</a>, <a class="el" href="struct_x_vid_c___video_timing.html#ab54a81d1484f2c87552b1565cbfa469e">XVidC_VideoTiming::HActive</a>, <a class="el" href="struct_x_vid_c___video_timing.html#aeb6bf1c2c10600b27d0c274b6ed3246c">XVidC_VideoTiming::HBackPorch</a>, <a class="el" href="struct_x_vid_c___video_timing.html#aaceba502bd74127f7310af857f8ed276">XVidC_VideoTiming::HFrontPorch</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a0594a4f70f3e7407bb7f724e980bf543">XVidC_VideoTiming::HSyncPolarity</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a8a02fc87c92b1e68f97ee68f1f70d875">XVidC_VideoTiming::HSyncWidth</a>, <a class="el" href="struct_x_vid_c___video_timing.html#acaaa9bf4d2623a4d25af02f9ba8f5eef">XVidC_VideoTiming::HTotal</a>, <a class="el" href="struct_x_vid_c___video_timing_mode.html#a13601eb4bde0d026402fa7b05750eec4">XVidC_VideoTimingMode::Timing</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a497b50f5ae89eee52cad7c9457373f06">XVidC_VideoTiming::VActive</a>, <a class="el" href="struct_x_vid_c___video_timing_mode.html#ac2432f8f615705219ca240bf47d87a9c">XVidC_VideoTimingMode::VmId</a>, <a class="el" href="struct_x_vid_c___video_timing.html#a9dba369368f2e0355fae5597d577fb5d">XVidC_VideoTiming::VSyncPolarity</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53ab44607661b5452a250d8acc83b90594d">XVIDC_VM_INTL_END</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53a08ae2af18fd4207556d1815600f3eb8a">XVIDC_VM_INTL_START</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53aec9d623b41e5c5b25faafcc558e9e48e">XVIDC_VM_NOT_SUPPORTED</a>, <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53aac0a525b879e91c24e97506110dbc4bc">XVIDC_VM_PROG_END</a>, and <a class="el" href="group__video__common.html#gga562f08faf2fc329b1cd7147b3d66ef53a6967540a3a53a2a68e2d97597af76add">XVIDC_VM_PROG_START</a>.</p>
 
 </div>
 </div>

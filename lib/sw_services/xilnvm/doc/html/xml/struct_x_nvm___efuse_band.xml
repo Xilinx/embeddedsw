@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_band" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseBand</compoundname>
+    <includes local="no">xnvm_efuse_common_field.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1ae9eae6bfa496cb0f78424560b835c98e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::StartRow</definition>
+        <argsstring></argsstring>
+        <name>StartRow</name>
+        <briefdescription>
+<para>First fuse row on Page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1ae7f17a607bc9e01519a57aa91e8dfa8c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::ColStart</definition>
+        <argsstring></argsstring>
+        <name>ColStart</name>
+        <briefdescription>
+<para>First column (inclusive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="282" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1a67fe16051f38d3cad1306701dc704daf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::ColEnd</definition>
+        <argsstring></argsstring>
+        <name>ColEnd</name>
+        <briefdescription>
+<para>Last column (inclusive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1a7cd813066a5525dc0c52709d45f99b2e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::NumRows</definition>
+        <argsstring></argsstring>
+        <name>NumRows</name>
+        <briefdescription>
+<para>Number of consecutive rows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1a63c8ea11023879feeaaba8d84e16d963" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::Page</definition>
+        <argsstring></argsstring>
+        <name>Page</name>
+        <briefdescription>
+<para>eFuse page select </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1aef4e142c7ba29ffeea744dbacae2d020" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::CacheStartOffset</definition>
+        <argsstring></argsstring>
+        <name>CacheStartOffset</name>
+        <briefdescription>
+<para>Start byte offset in eFuse cache. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1ad49f245da84e029cdec5af16b0ccbb45" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::CacheEndOffset</definition>
+        <argsstring></argsstring>
+        <name>CacheEndOffset</name>
+        <briefdescription>
+<para>End byte offset in eFuse cache. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1aa1d2f070dfac4aa33be82a67203106ec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::SrcWordOffset</definition>
+        <argsstring></argsstring>
+        <name>SrcWordOffset</name>
+        <briefdescription>
+<para>Index into caller Data[] for DIRECT_WRITE/COMPUTE_PRG. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1abfb18313543d540518eebf925a8b14e8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::DataMask</definition>
+        <argsstring></argsstring>
+        <name>DataMask</name>
+        <briefdescription>
+<para>AND mask applied to source word before program. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1a2c8ca13b7fd582d181d8ec01b2bc84d8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::FixedData</definition>
+        <argsstring></argsstring>
+        <name>FixedData</name>
+        <briefdescription>
+<para>Constant value for FIXED_DATA bands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1adf3f0bafd5379641bc35d167e7bcf1fd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Band mode flags (XNVM_EFUSE_BAND_FLAG_*) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gabc452101b3cb7ebbe63fe74c680c8fcf" compoundref="xnvm__efuse__engine_8c" startline="420" endline="533">XNvm_EfuseEngineProgramBand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_band_1a653e7ba8ec2461a4d06b51cfeb9246b8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseBand::ErrWrite</definition>
+        <argsstring></argsstring>
+        <name>ErrWrite</name>
+        <briefdescription>
+<para>Error code returned on program failure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem><para>This structure defines a rectangular eFuse programming band. </para></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_next/server/efuse/field/common/xnvm_efuse_common_field.h" bodystart="280" bodyend="293"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_band_1ad49f245da84e029cdec5af16b0ccbb45" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>CacheEndOffset</name></member>
+      <member refid="struct_x_nvm___efuse_band_1aef4e142c7ba29ffeea744dbacae2d020" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>CacheStartOffset</name></member>
+      <member refid="struct_x_nvm___efuse_band_1a67fe16051f38d3cad1306701dc704daf" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>ColEnd</name></member>
+      <member refid="struct_x_nvm___efuse_band_1ae7f17a607bc9e01519a57aa91e8dfa8c" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>ColStart</name></member>
+      <member refid="struct_x_nvm___efuse_band_1abfb18313543d540518eebf925a8b14e8" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>DataMask</name></member>
+      <member refid="struct_x_nvm___efuse_band_1a653e7ba8ec2461a4d06b51cfeb9246b8" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>ErrWrite</name></member>
+      <member refid="struct_x_nvm___efuse_band_1a2c8ca13b7fd582d181d8ec01b2bc84d8" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>FixedData</name></member>
+      <member refid="struct_x_nvm___efuse_band_1adf3f0bafd5379641bc35d167e7bcf1fd" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>Flags</name></member>
+      <member refid="struct_x_nvm___efuse_band_1a7cd813066a5525dc0c52709d45f99b2e" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>NumRows</name></member>
+      <member refid="struct_x_nvm___efuse_band_1a63c8ea11023879feeaaba8d84e16d963" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>Page</name></member>
+      <member refid="struct_x_nvm___efuse_band_1aa1d2f070dfac4aa33be82a67203106ec" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>SrcWordOffset</name></member>
+      <member refid="struct_x_nvm___efuse_band_1ae9eae6bfa496cb0f78424560b835c98e" prot="public" virt="non-virtual"><scope>XNvm_EfuseBand</scope><name>StartRow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

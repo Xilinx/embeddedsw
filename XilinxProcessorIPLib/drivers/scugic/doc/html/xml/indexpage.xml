@@ -54,7 +54,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                   distributor is left uninitialized for Zynq AMP. It is assumed
             that the distributor will be initialized by Linux master. However
             for CortexR5 case, the earlier code is left unchanged where the
-            the interrupt processor target registers in the distributor is
+            interrupt processor target registers in the distributor is
             initialized with the corresponding CPU ID on which the application
             built over the scugic driver runs.
             These changes fix CR#937243.</para></listitem></itemizedlist>
@@ -111,7 +111,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 4.6     sk   08/05/21 Fix scugic misrac violations.
 4.7   dp   11/22/21 Added new API <ref refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" kindref="member">XScuGic_IsInitialized()</ref> to check and return
                     the GIC initialization status.
-5.0   mus  22/02/22 Add support for VERSAL NET
+5.0   mus  22/02/22 Add support for PSX SoC
         adk  04/18/22 Replace infinite while loops in the examples with
                       Xil_WaitForEventSet() API.
       dp   04/25/22 Correct Trigger index calculation in macro
@@ -120,7 +120,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                     Running Priority registers of Cortex-R52.
 5.1   mus  02/13/23 Updated XScuGic_CfgInitialize, XScuGic_Enable and
                     XScuGic_Disable to support interrupts on each core
-                    of all CortexA78/CortexR52 clusters in VERSAL NET SoC.
+                    of all CortexA78/CortexR52 clusters in PSX SoC.
                     While at it, modified interrupt routing logic to make
                     use of CPU affinity register instead of XPAR_CPU_ID macro.
                     Also, XScuGic_CfgInitialize has been updated to find
@@ -134,6 +134,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                     scugic config structure.
 5.6   ml   07/21/25 Fix GCC warnings
 5.7   bdk  11/29/25 Updated <ref refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kindref="member">XScuGic_LookupConfig()</ref> declaration to fix 8.3 misra-c violation.
+5.8   ml   09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

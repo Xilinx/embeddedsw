@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="282" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="277" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1a2fdc16b8be464514b4d72ddfb947cee9" compoundref="xv__hdmitx1_8c" startline="548" endline="603">XV_HdmiTx1_GetTmdsClk</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1ab0ff2a9927fe900b25456955341dfa31" compoundref="xv__hdmitx1_8c" startline="2340" endline="2352">XV_HdmiTx1_Info</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a25379b09e782626e79fd3b785b671f2e" compoundref="xv__hdmitx1_8c" startline="1514" endline="1558">XV_HdmiTx1_SetColorDepth</referencedby>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="283" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="278" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a606cf8a2a1153de19c66925b9d462636" compoundref="xv__hdmitx1_8c" startline="1362" endline="1389">XV_HdmiTx1_SetPixelRate</referencedby>
       </memberdef>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="284" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="279" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a7f1498e69d193cbd626999414e863558" compoundref="xv__hdmitx1_8c" startline="2638" endline="2700">XV_HdmiTx1_TMDSACRStart</referencedby>
       </memberdef>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="285" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="280" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a8d5bc8d6358c0f2151505ec6d84e0b14" prot="public" static="no" mutable="no">
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="286" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="281" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1afba1e6e6e959c57d1921ecf0f40b7f49" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -90,7 +90,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="288" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="283" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a2409a41b7043003c69d4b2fe75491e32" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -103,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="289" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="284" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a4cee4a4b0708d7e886ab923114753d75" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -116,7 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="290" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="285" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1af8b34671e3735035e8dd68f6bdbb7904" compoundref="xv__hdmitx1_8c" startline="707" endline="764">XV_HdmiTx1_ClockRatio</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1ab2deec246bd2a50733347cdb293e7d59" compoundref="xv__hdmitx1_8c" startline="781" endline="811">XV_HdmiTx1_DetectHdmi20</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="291" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="286" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1a4623f1c32afecde613bfb2c4517597b1" compoundref="xv__hdmitx1_8c" startline="2982" endline="2999">XV_HdmiTx1_GetScdcEdRegisters</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a195ea9a4cc60940fab80604ebb6a2651" prot="public" static="no" mutable="no">
@@ -147,7 +147,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="293" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="288" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ad3a48e290c617a6ede63a42f1d586364" compoundref="xv__hdmitx1_8c" startline="2514" endline="2521">XV_HdmiTx1_IsStreamScrambled</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
@@ -163,7 +163,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="296" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="291" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
       </memberdef>
@@ -178,7 +178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="298" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="293" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a7f1498e69d193cbd626999414e863558" compoundref="xv__hdmitx1_8c" startline="2638" endline="2700">XV_HdmiTx1_TMDSACRStart</referencedby>
@@ -194,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="299" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="294" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1af8b34671e3735035e8dd68f6bdbb7904" compoundref="xv__hdmitx1_8c" startline="707" endline="764">XV_HdmiTx1_ClockRatio</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
       </memberdef>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="301" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="296" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1a2fdc16b8be464514b4d72ddfb947cee9" compoundref="xv__hdmitx1_8c" startline="548" endline="603">XV_HdmiTx1_GetTmdsClk</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a59d80fb969eedd5ca7c59960fe5460a7" prot="public" static="no" mutable="no">
@@ -223,7 +223,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="302" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="297" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1afa7e042159e99edf7f02139af8cba046" prot="public" static="no" mutable="no">
@@ -237,7 +237,7 @@
 <para>This flag is set when the cable is connected </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="303" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="298" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
         <referencedby refid="xv__hdmitx1_8h_1aa0ee62f31bc2ceaa6b7dd92618560a0a" compoundref="xv__hdmitx1_8c" startline="2537" endline="2544">XV_HdmiTx1_IsStreamConnected</referencedby>
       </memberdef>
@@ -252,7 +252,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="306" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="301" bodyend="-1"/>
         <referencedby refid="xv__hdmitx1_8h_1ab1c2a996dc8766605df5df4d6a37eb45" compoundref="xv__hdmitx1_8c" startline="1407" endline="1446">XV_HdmiTx1_SetSampleRate</referencedby>
       </memberdef>
       </sectiondef>
@@ -280,7 +280,7 @@
         <link refid="struct_x_v___hdmi_tx1___frl"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="281" bodyend="307"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="276" bodyend="302"/>
     <listofallmembers>
       <member refid="struct_x_v___hdmi_tx1___stream_1ac110c3e0296b6f95e3647410e3ddadd2" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>Audio</name></member>
       <member refid="struct_x_v___hdmi_tx1___stream_1a7fa66e3baa8894a6c59b3fbc96d18354" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>CorePixPerClk</name></member>

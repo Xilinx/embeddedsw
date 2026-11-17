@@ -1,47 +1,170 @@
 var NAVTREE =
 [
-  [ "usb", "index.html", [
-    [ "Data Structures", null, [
-      [ "Data Structures", "annotated.html", "annotated" ],
-      [ "Data Structure Index", "classes.html", null ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ],
-    [ "APIs", "globals.html", [
-      [ "All", "globals.html", "globals_dup" ],
-      [ "Functions", "globals_func.html", null ],
-      [ "Variables", "globals_vars.html", null ],
-      [ "Typedefs", "globals_type.html", null ],
-      [ "Macros", "globals_defs.html", null ]
-    ] ],
-    [ "File List", "files.html", "files" ],
-    [ "Examples", "example.html", [
-      [ "xusb_types.h", "example.html#ex1", null ],
-      [ "xusb_cp9.c", "example.html#ex2", null ],
-      [ "xusb_cp9.h", "example.html#ex3", null ],
-      [ "xusb_storage.c", "example.html#ex4", null ],
-      [ "xusb_storage.h", "example.html#ex5", null ],
-      [ "xusb_keyboard.c", "example.html#ex6", null ],
-      [ "xusb_keyboard.h", "example.html#ex7", null ],
-      [ "xusb_mouse.c", "example.html#ex8", null ],
-      [ "xusb_mouse.h", "example.html#ex9", null ],
-      [ "xusb_dma_intr_storage.c", "example.html#ex10", null ],
-      [ "xusb_phy_read_write.c", "example.html#ex11", null ],
-      [ "xusb_microphone.c", "example.html#ex12", null ],
-      [ "xusb_microphone.h", "example.html#ex13", null ],
-      [ "xusb_storage_polled_mode.c", "example.html#ex14", [
-        [ "Notes", "example.html#Notes", null ]
-      ] ]
-    ] ]
-  ] ]
+  [
+    "usb",
+    "index.html",
+    [
+      [
+        "Data Structures",
+        null,
+        [
+          [
+            "Data Structures",
+            "annotated.html",
+            "annotated"
+          ],
+          [
+            "Data Structure Index",
+            "classes.html",
+            null
+          ],
+          [
+            "Data Fields",
+            "functions.html",
+            [
+              [
+                "All",
+                "functions.html",
+                "functions_dup"
+              ],
+              [
+                "Variables",
+                "functions_vars.html",
+                "functions_vars"
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "APIs",
+        "globals.html",
+        [
+          [
+            "All",
+            "globals.html",
+            null
+          ],
+          [
+            "Functions",
+            "globals_func.html",
+            null
+          ],
+          [
+            "Variables",
+            "globals_vars.html",
+            null
+          ],
+          [
+            "Typedefs",
+            "globals_type.html",
+            null
+          ],
+          [
+            "Macros",
+            "globals_defs.html",
+            null
+          ]
+        ]
+      ],
+      [
+        "File List",
+        "files.html",
+        "files"
+      ],
+      [
+        "Examples",
+        "example.html",
+        [
+          [
+            "xusb_types.h",
+            "example.html#ex1",
+            null
+          ],
+          [
+            "xusb_cp9.c",
+            "example.html#ex2",
+            null
+          ],
+          [
+            "xusb_cp9.h",
+            "example.html#ex3",
+            null
+          ],
+          [
+            "xusb_storage.c",
+            "example.html#ex4",
+            null
+          ],
+          [
+            "xusb_storage.h",
+            "example.html#ex5",
+            null
+          ],
+          [
+            "xusb_keyboard.c",
+            "example.html#ex6",
+            null
+          ],
+          [
+            "xusb_keyboard.h",
+            "example.html#ex7",
+            null
+          ],
+          [
+            "xusb_mouse.c",
+            "example.html#ex8",
+            null
+          ],
+          [
+            "xusb_mouse.h",
+            "example.html#ex9",
+            null
+          ],
+          [
+            "xusb_dma_intr_storage.c",
+            "example.html#ex10",
+            null
+          ],
+          [
+            "xusb_phy_read_write.c",
+            "example.html#ex11",
+            null
+          ],
+          [
+            "xusb_microphone.c",
+            "example.html#ex12",
+            null
+          ],
+          [
+            "xusb_microphone.h",
+            "example.html#ex13",
+            null
+          ],
+          [
+            "xusb_storage_polled_mode.c",
+            "example.html#ex14",
+            [
+              [
+                "Notes",
+                "example.html#Notes",
+                null
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
 "annotated.html",
-"xusb__l_8h.html#ga7598429f7ba0bb7f052da4eb95d0908b"
+"struct_u_s_b___c_m_d___b_u_f.html#a042bc8ec04d90d07d30985a53082a4f7",
+"xusb_8h.html#gacc119aa9f628ab0cc3fac2f63073e386",
+"xusb__l_8h.html#gad8515a0a01fdb8e04bbbb8f2046540c5",
+"xusb__types_8h.html#a41c76995891c233ec0961e111897ddc2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

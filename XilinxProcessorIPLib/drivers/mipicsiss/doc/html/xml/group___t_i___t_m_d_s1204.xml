@@ -813,7 +813,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
       </memberdef>
       <memberdef kind="enum" id="group___t_i___t_m_d_s1204_1ga6740d0f6c569b8ddcc79e116d87b8826" prot="public" static="no">
         <name>Ti_DeviceType</name>
@@ -1623,7 +1623,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
       </memberdef>
       <memberdef kind="enum" id="group___t_i___t_m_d_s1204_1ga6740d0f6c569b8ddcc79e116d87b8826" prot="public" static="no">
         <name>Ti_DeviceType</name>
@@ -2433,7 +2433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
       </memberdef>
       <memberdef kind="enum" id="group___t_i___t_m_d_s1204_1ga6740d0f6c569b8ddcc79e116d87b8826" prot="public" static="no">
         <name>Ti_DeviceType</name>
@@ -3243,7 +3243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
       </memberdef>
       <memberdef kind="enum" id="group___t_i___t_m_d_s1204_1ga6740d0f6c569b8ddcc79e116d87b8826" prot="public" static="no">
         <name>Ti_DeviceType</name>
@@ -4053,7 +4053,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.h" bodystart="57" bodyend="80"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -4068,7 +4068,7 @@
 <para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
         <referencedby refid="group___t_i___t_m_d_s1204_1ga30bf9464dbee0e98cb92a19ec09c1665" compoundref="xmipi__scu200__hpio__example_2ti__tmds1204_8c" startline="978" endline="991">TI_TMDS1204_RegisterLibraryDump</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group___t_i___t_m_d_s1204_1ga59b89f24ab3e9a8c6e95069ea923cab5" prot="public" static="no" mutable="no">
@@ -4082,7 +4082,7 @@
 <para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___t_i___t_m_d_s1204_1ga59b89f24ab3e9a8c6e95069ea923cab5" prot="public" static="no" mutable="no">
         <type>const <ref refid="struct_ti___register_field" kindref="compound">Ti_RegisterField</ref></type>
@@ -4095,7 +4095,7 @@
 <para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___t_i___t_m_d_s1204_1ga59b89f24ab3e9a8c6e95069ea923cab5" prot="public" static="no" mutable="no">
         <type>const <ref refid="struct_ti___register_field" kindref="compound">Ti_RegisterField</ref></type>
@@ -4108,7 +4108,7 @@
 <para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group___t_i___t_m_d_s1204_1ga59b89f24ab3e9a8c6e95069ea923cab5" prot="public" static="no" mutable="no">
         <type>const <ref refid="struct_ti___register_field" kindref="compound">Ti_RegisterField</ref></type>
@@ -4121,7 +4121,7 @@
 <para>Each entry is of the format: 1) Device Type 2) Register Address 3) Values </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -4194,7 +4194,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="498" bodyend="541"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="498" bodyend="541"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1ga87a6f30be439eba4e23fb7e5b3a5a691" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned</type>
@@ -4265,7 +4265,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="563" bodyend="601"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="563" bodyend="601"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1gabe6fa2ae3a9835a7a61cd383bc7e5153" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8</type>
@@ -4309,7 +4309,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="652" bodyend="663"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="652" bodyend="663"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1ga9f98a82ea95cdf5b1c60312accd4e6cd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -4357,7 +4357,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="618" bodyend="635"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="618" bodyend="635"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1gaee2ddc156782a64f935e46bffd99cd18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -4419,7 +4419,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="723" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="723" bodyend="769"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="723" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="723" bodyend="769"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1ga7b8e24b3dd677866629bfb3ac6e40cd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -4459,7 +4459,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="786" bodyend="803"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="786" bodyend="803"/>
         <referencedby refid="group___t_i___t_m_d_s1204_1gad10cfaf0a4654633625b705a9e0e3ea2" compoundref="xmipi__scu200__hpio__example_2ti__tmds1204_8c" startline="1006" endline="1042">TI_TMDS1204_RegisterDump</referencedby>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1ga70c70694afc3640afb8b2d69e75b5ea5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -4500,7 +4500,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="820" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="820" bodyend="836"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="820" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="820" bodyend="836"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1ga4eda6fc4b9840e12efecdca3b56fd6d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -4588,7 +4588,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="857" bodyend="964"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="857" bodyend="964"/>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1ga30bf9464dbee0e98cb92a19ec09c1665" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -4614,7 +4614,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="978" bodyend="991"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="978" bodyend="991"/>
         <references refid="group___t_i___t_m_d_s1204_1ga59b89f24ab3e9a8c6e95069ea923cab5" compoundref="xmipi__scu200__hpio__example_2ti__tmds1204_8c" startline="49">TiRegisterFields</references>
       </memberdef>
       <memberdef kind="function" id="group___t_i___t_m_d_s1204_1gad10cfaf0a4654633625b705a9e0e3ea2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -4653,7 +4653,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="1006" bodyend="1042"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="1006" bodyend="1042"/>
         <references refid="group___t_i___t_m_d_s1204_1ga7b8e24b3dd677866629bfb3ac6e40cd5" compoundref="xmipi__scu200__hpio__example_2ti__tmds1204_8c" startline="786" endline="803">TI_TMDS1204_CheckDeviceID</references>
       </memberdef>
       </sectiondef>
@@ -4667,7 +4667,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="36" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="36" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="36" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -4678,7 +4678,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
         <name>I2C_REPEATED_START</name>
@@ -4689,7 +4689,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" line="36" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" bodystart="36" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" line="36" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -4700,7 +4700,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/ti_tmds1204.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
         <name>I2C_REPEATED_START</name>
@@ -4711,7 +4711,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" bodystart="33" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -4722,7 +4722,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" bodystart="34" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/ti_tmds1204.c" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
         <name>I2C_REPEATED_START</name>
@@ -4733,7 +4733,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" bodystart="33" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -4744,7 +4744,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" bodystart="34" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/ti_tmds1204.c" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1ga0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
         <name>I2C_REPEATED_START</name>
@@ -4755,7 +4755,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" line="36" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" bodystart="36" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" line="36" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group___t_i___t_m_d_s1204_1gae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
         <name>I2C_STOP</name>
@@ -4766,7 +4766,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/ti_tmds1204.c" bodystart="37" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -1,11 +1,13 @@
 var searchData=
 [
+  ['xfastinterrupthandler',['XFastInterruptHandler',['../group__iomodule.html#gab333e5826535071fe60f13b70b6e56dd',1,'xiomodule_l.h']]],
   ['xiomodel_5ftimer_5fgetoptions',['XIOModel_Timer_GetOptions',['../group__iomodule.html#gae50d24ec7a10fc2b3167d5f3a6070107',1,'xiomodule_options.c']]],
   ['xiomodule',['XIOModule',['../struct_x_i_o_module.html',1,'']]],
   ['xiomodule_2ec',['xiomodule.c',['../xiomodule_8c.html',1,'']]],
   ['xiomodule_2eh',['xiomodule.h',['../xiomodule_8h.html',1,'']]],
   ['xiomodule_5fackintr',['XIOModule_AckIntr',['../group__iomodule.html#gac3f5aa29d205f6221a017a04712c65f0',1,'xiomodule_l.h']]],
   ['xiomodule_5facknowledge',['XIOModule_Acknowledge',['../group__iomodule.html#ga036018140fd9f14af05eec37b3cb2e93',1,'xiomodule.c']]],
+  ['xiomodule_5fbitposmask',['XIOModule_BitPosMask',['../group__iomodule.html#gab021984b27165498eb3edbc9e2cbc939',1,'XIOModule_BitPosMask():&#160;xiomodule.c'],['../group__iomodule.html#ga36499fe673de55638703393cf70e6dd9',1,'XIOModule_BitPosMask():&#160;xiomodule.c']]],
   ['xiomodule_5fbuffer',['XIOModule_Buffer',['../struct_x_i_o_module___buffer.html',1,'']]],
   ['xiomodule_5fcfginitialize',['XIOModule_CfgInitialize',['../group__iomodule.html#gaff025dd804b08ec80047b8b17273da84',1,'xiomodule_uart.c']]],
   ['xiomodule_5fclearstats',['XIOModule_ClearStats',['../group__iomodule.html#ga61a582e9785291f7c6e0b91c19c46bd8',1,'xiomodule_stats.c']]],
@@ -88,6 +90,7 @@ var searchData=
   ['xiomodule_5ftimer_5fstart',['XIOModule_Timer_Start',['../group__iomodule.html#ga622c3a5cd4e43543cfb445071d01e7a9',1,'xiomodule.c']]],
   ['xiomodule_5ftimer_5fstats',['XIOModule_Timer_Stats',['../struct_x_i_o_module___timer___stats.html',1,'']]],
   ['xiomodule_5ftimer_5fstop',['XIOModule_Timer_Stop',['../group__iomodule.html#ga60bd9ef270b0de7440206326ec1fe710',1,'xiomodule.c']]],
+  ['xiomodule_5ftimerbitposmask',['XIOModule_TimerBitPosMask',['../group__iomodule.html#ga09b9d000edbd48e9e166e660383490a1',1,'xiomodule_intr.c']]],
   ['xiomodule_5fuart_2ec',['xiomodule_uart.c',['../xiomodule__uart_8c.html',1,'']]],
   ['xiomodule_5fuart_5fdisableinterrupt',['XIOModule_Uart_DisableInterrupt',['../group__iomodule.html#ga5ec72d0dd352ad42de494821220e3185',1,'xiomodule_uart_intr.c']]],
   ['xiomodule_5fuart_5fenableinterrupt',['XIOModule_Uart_EnableInterrupt',['../group__iomodule.html#gaa805a7f9982d9acc5b3b16849c5d2dfd',1,'xiomodule_uart_intr.c']]],

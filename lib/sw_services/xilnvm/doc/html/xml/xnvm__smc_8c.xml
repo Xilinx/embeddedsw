@@ -4,13 +4,13 @@
     <compoundname>xnvm_smc.c</compoundname>
     <includes local="yes">bspconfig.h</includes>
     <incdepgraph>
-      <node id="549">
+      <node id="869">
         <label>bspconfig.h</label>
       </node>
-      <node id="548">
+      <node id="868">
         <label>xnvm_smc.c</label>
         <link refid="xnvm_smc.c"/>
-        <childnode refid="549" relation="include">
+        <childnode refid="869" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -99,6 +99,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_smc.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_smc.c"/>
   </compounddef>
 </doxygen>

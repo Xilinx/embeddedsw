@@ -8,12 +8,11 @@
     <innerfile refid="xv__scenechange__hw_8h">xv_scenechange_hw.h</innerfile>
     <innerfile refid="xv__scenechange__intr_8c">xv_scenechange_intr.c</innerfile>
     <innerfile refid="xv__scenechange__l2_8c">xv_scenechange_l2.c</innerfile>
-    <innerfile refid="xv__scenechange__linux_8c">xv_scenechange_linux.c</innerfile>
     <innerfile refid="xv__scenechange__sinit_8c">xv_scenechange_sinit.c</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/"/>
   </compounddef>
 </doxygen>

@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xnvm__apis_1ga9b48aa9bd0a6492200707ac867cf70c5" prot="public" static="yes" mutable="no">
         <type>const char</type>
@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xnvm__apis_1ga0a06df1db11674b19b0564fbc7cc09eb" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="159" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xnvm__apis_1gae26398b02f7a59e5206b1f3dffc180a9" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="172" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="168" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -88,7 +88,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="128" bodyend="145"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="135" bodyend="152"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -120,8 +120,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>If any error occurs during programming of any SLR, keys in all the SLRs get zeroized. User has to reload the example</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="82" bodyend="114"/>
-        <references refid="group__xnvm__mailbox__apis_1ga051799e29b90346a34e49e8fddfc10e5" compoundref="xnvm__mailbox_8c" startline="109" endline="123">XNvm_ClientInit</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="85" bodyend="121"/>
+        <references refid="group__xnvm__mailbox__apis_1ga051799e29b90346a34e49e8fddfc10e5" compoundref="xnvm__mailbox_8c" startline="117" endline="131">XNvm_ClientInit</references>
         <references refid="group__xnvm__bbram__client__api_1ga3b6228f47fedbf81e4a4d428a59f2ed4" compoundref="xnvm__bbramclient_8h" startline="52">XNVM_SLR_INDEX_0</references>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1ga1935363de9e8f2bacbe74e339acc63de" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -142,35 +142,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="237" bodyend="260"/>
-      </memberdef>
-      <memberdef kind="function" id="group__xnvm__apis_1gae2abbca8bbb25801c4a6206600252267" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>int</type>
-        <definition>static int XNvm_ValidateAesKey</definition>
-        <argsstring>(const char *Key)</argsstring>
-        <name>XNvm_ValidateAesKey</name>
-        <param>
-          <type>const char *</type>
-          <declname>Key</declname>
-        </param>
-        <briefdescription>
-<para>Validate the input string contains valid AES key. </para>        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>Key</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>- Pointer to AES key.</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>- XST_SUCCESS - On valid input AES key string.<itemizedlist>
-<listitem><para>XST_INVALID_PARAM - On invalid length of the input string.</para></listitem><listitem><para>XST_FAILURE - On non hexadecimal character in string </para></listitem></itemizedlist>
-</para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="137" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="231" bodyend="254"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1ga37c939bbf24266eed81da3b0ed256b67" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -190,7 +162,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="272" bodyend="279"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="266" bodyend="273"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1gae912d38c715af81f0e02e0787f5c1bb1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -210,7 +182,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="290" bodyend="304"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="284" bodyend="298"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1gad834498fc60b0f3a872a750860b9c705" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -230,7 +202,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="315" bodyend="322"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="309" bodyend="316"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1gae41e8f3937d1a0f0f915ea1847f8edbb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -250,7 +222,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="127" bodyend="153"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="127" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1ga40662f27fe674a344b2147e47d35b402" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -289,7 +261,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="293" bodyend="316"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="288" bodyend="311"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1ga950286f7c6395e235755acf6ba6134c7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -328,7 +300,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="331" bodyend="338"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="326" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__apis_1ga2457ee10aee6325e29ffc02dabd61342" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -367,7 +339,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="426" bodyend="436"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="390" bodyend="400"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -380,7 +352,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="56" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga109dd3a8b6cf2b71366ae1ae2748dd31" prot="public" static="no">
         <name>CONFIGURATION_LIMITER_MODE</name>
@@ -391,7 +363,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga0af735e9f957d59442f415ff499e0cab" prot="public" static="no">
         <name>CONFIGURATION_LIMITER_MAX_COUNT_VAL</name>
@@ -402,7 +374,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga90995d1907f5909bcb7f94cf02e8fd79" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY</name>
@@ -413,7 +385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1gab212d1a0749c39be579fa8f10c4f8f07" prot="public" static="no">
         <name>XNVM_BBRAM_USER_DATA</name>
@@ -424,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="101" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="104" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_LEN_IN_BITS</name>
@@ -435,7 +407,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</name>
@@ -446,7 +418,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga8160f563678d1f39b84bb7d30033b824" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_STR_LEN</name>
@@ -457,62 +429,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="109" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gaec82562ab864eeb29b8aabf22976c4d0" prot="public" static="no">
-        <name>XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</name>
-        <initializer>(256U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="112" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gabba99fb12cce6a1d2286f7b0d80d24ce" prot="public" static="no">
-        <name>XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</name>
-        <initializer>(<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="113" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gaa9ef0da2274fe990e3150d2be706f9b0" prot="public" static="no">
-        <name>XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</name>
-        <initializer>(128U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="114" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1ga358c030ad147484ce163feb5216aeed8" prot="public" static="no">
-        <name>XNVM_128_BITS_AES_KEY_LEN_IN_CHARS</name>
-        <initializer>(<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaa9ef0da2274fe990e3150d2be706f9b0" kindref="member">XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="115" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gae4c7451093c061675e604ae3426242a3" prot="public" static="no">
-        <name>XNVM_MAX_AES_KEY_LEN_IN_CHARS</name>
-        <initializer><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</ref></initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1gad06b4f6b23f3d8f9e5f1706df0e95db6" prot="public" static="no">
         <name>XNVM_CACHE_LINE_LEN</name>
@@ -523,18 +440,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="119" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gaea0d7fa1f00d844fe51451c22316b9e8" prot="public" static="no">
-        <name>XNVM_WORD_LEN</name>
-        <initializer>(4U)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="120" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga90995d1907f5909bcb7f94cf02e8fd79" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY</name>
@@ -545,7 +451,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_LEN_IN_BITS</name>
@@ -556,7 +462,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</name>
@@ -567,7 +473,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="68" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga8160f563678d1f39b84bb7d30033b824" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_STR_LEN</name>
@@ -578,7 +484,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="71" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_server_example.c" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga3bea3a3b68aa8115170a9f88ee04baf7" prot="public" static="no">
         <name>XNVM_MAX_SLR_NUM</name>
@@ -589,7 +495,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga62fcf2396cf8d6a3c77d8ed51b2b131c" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_MASTER</name>
@@ -600,7 +506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga1f400d7baa81b16aeccedd2f55bba4f2" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_SLAVE_SLR1</name>
@@ -611,7 +517,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1gac6a85897f8f6de2a46c1db42123baf70" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_SLAVE_SLR2</name>
@@ -622,7 +528,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="115" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga910f874ead1c45a1a4865894a0321893" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_SLAVE_SLR3</name>
@@ -633,7 +539,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="115" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga8e149908b7c6bc7ff1f439cb94a3935c" prot="public" static="no">
         <name>XNVM_BBRAM_USER_DATA_MASTER</name>
@@ -644,7 +550,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="119" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1gac68359900aa59bfc2ea0f454fb8fa26f" prot="public" static="no">
         <name>XNVM_BBRAM_USER_DATA_SLAVE_SLR1</name>
@@ -655,7 +561,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga81863bf5c49c78703addbe94e3b2c043" prot="public" static="no">
         <name>XNVM_BBRAM_USER_DATA_SLAVE_SLR2</name>
@@ -666,7 +572,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga41aa99286ccf5ee776ba891638a380bd" prot="public" static="no">
         <name>XNVM_BBRAM_USER_DATA_SLAVE_SLR3</name>
@@ -677,7 +583,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1gae294ab341c16219d171cb5cdf9e3aca9" prot="public" static="no">
         <name>XNVM_MAX_SLRS</name>
@@ -688,7 +594,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_LEN_IN_BITS</name>
@@ -699,7 +605,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</name>
@@ -710,7 +616,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1ga8160f563678d1f39b84bb7d30033b824" prot="public" static="no">
         <name>XNVM_BBRAM_AES_KEY_STR_LEN</name>
@@ -721,62 +627,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="134" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gaec82562ab864eeb29b8aabf22976c4d0" prot="public" static="no">
-        <name>XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</name>
-        <initializer>(256U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="137" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gabba99fb12cce6a1d2286f7b0d80d24ce" prot="public" static="no">
-        <name>XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</name>
-        <initializer>(<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="138" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gaa9ef0da2274fe990e3150d2be706f9b0" prot="public" static="no">
-        <name>XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</name>
-        <initializer>(128U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="139" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1ga358c030ad147484ce163feb5216aeed8" prot="public" static="no">
-        <name>XNVM_128_BITS_AES_KEY_LEN_IN_CHARS</name>
-        <initializer>(<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaa9ef0da2274fe990e3150d2be706f9b0" kindref="member">XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="140" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group__xnvm__apis_1gae4c7451093c061675e604ae3426242a3" prot="public" static="no">
-        <name>XNVM_MAX_AES_KEY_LEN_IN_CHARS</name>
-        <initializer><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</ref></initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__apis_1gad06b4f6b23f3d8f9e5f1706df0e95db6" prot="public" static="no">
         <name>XNVM_CACHE_LINE_LEN</name>
@@ -787,7 +638,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="140" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -796,8 +647,9 @@
 <para>This file illustrates how to program AES keys of Versal BBRAM.</para><para>This file illustrates how to program AES key of Versal BBRAM.</para><para>To build this application, xilmailbox library must be included in BSP and xilnvm library must be in client mode This example is supported for Versal_2Ve_2Vm devices.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
 ----- ------  -------- ------------------------------------------------------
-1.0   har     08/22/24 First release</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">User configurable parameters </heading>
-</para><para>#define CONFIGURATION_LIMITER_FEATURE_ENABLE (FALSE)</para><para>User must configure this macro to enable the Configuration limiter feature. FALSE means the feature is disabled and TRUE means the feature is enabled. By default the feature is disabled</para><para>#define CONFIGURATION_LIMITER_MODE (XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT)</para><para>User must configure this macro to enable the Configuration limiter mode. The configuration limiter can maintain the count of either the failed configurations or total configurations. XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT means the counter of failed configurations is maintained XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT means the counter of total configurations is maintained By default the counter holds the value of max number of failed configurations.</para><para>#define CONFIGURATION_LIMITER_MAX_COUNT_VAL (0x0) User must configure this macro to a non-zero value which should be less than 0x0FFFFFFFU.</para><para>This example is supported for Versal Gen 2 devices only.</para><para>The key provided by XNVM_BBRAM_AES_KEY macro is written to the BBRAM</para><para>To build this application, xilmailbox library must be included in BSP and xilnvm library must be in client mode This example is supported for Versal, Versal Net and Versal_2Ve_2Vm devices.</para><para><preformatted>
+1.0   har     08/22/24 First release
+3.8   rama 09/17/26 Enable cache by default for client example</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">User configurable parameters </heading>
+</para><para>#define CONFIGURATION_LIMITER_FEATURE_ENABLE (FALSE)</para><para>User must configure this macro to enable the Configuration limiter feature. FALSE means the feature is disabled and TRUE means the feature is enabled. By default the feature is disabled</para><para>#define CONFIGURATION_LIMITER_MODE (XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT)</para><para>User must configure this macro to enable the Configuration limiter mode. The configuration limiter can maintain the count of either the failed configurations or total configurations. XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT means the counter of failed configurations is maintained XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT means the counter of total configurations is maintained By default the counter holds the value of max number of failed configurations.</para><para>#define CONFIGURATION_LIMITER_MAX_COUNT_VAL (0x0) User must configure this macro to a non-zero value which should be less than 0x0FFFFFFFU.</para><para>This example is supported for Versal Gen 2 devices only.</para><para>By default the cache is enabled for this example</para><para>The key provided by XNVM_BBRAM_AES_KEY macro is written to the BBRAM</para><para>To build this application, xilmailbox library must be included in BSP and xilnvm library must be in client mode This example is supported for Versal, Versal Net and Versal_2Ve_2Vm devices.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
 ----- ------  -------- ------------------------------------------------------
 1.0   kal     06/28/21 First release
@@ -806,7 +658,10 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 3.1   skg     10/04/22 Added API to set SlrIndex
 3.2   ng      07/05/23 added support for system device tree flow
       pre     09/11/24 Removed SSIT support for this example
-      pre     11/21/24 Added zeroization before writing key</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">User configurable parameters for BBRAM </heading>
+      pre     11/21/24 Added zeroization before writing key
+3.8     mkr     07/20/26 Removed duplicate XNvm_ValidateAesKey definition
+                       as it is available in xnvm_utils.c
+      mb      09/17/26 Removed unused local AES key length macros.</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">User configurable parameters for BBRAM </heading>
 </para><para>#define XNVM_BBRAM_AES_KEY &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; User should replace zeros with 256 bit AES key in hexadecimal string format. Also should set the key length in bits to macro XNVM_BBRAM_AES_KEY_LEN_IN_BITS.</para><para>#define XNVM_BBRAM_USER_DATA 0x00000000 User should replace zeros with 32 bit value in hexadecimal.</para><para>#define XNVM_BBRAM_AES_KEY_LEN_IN_BITS (256U) User should replace this value based on length of the AES Key defined by macro XNVM_BBRAM_AES_KEY. Supported values - 256</para><para>This example is supported for Versal and Versal Net devices.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
 </para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
             be updated to point all the required sections to shared memory(OCM or TCM)
@@ -832,7 +687,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
                     should be changed to
                     static SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
                                     __attribute__((section(&quot;.sharedmemory.SharedMem&quot;)));
-</verbatim></para><para>To keep things simple, by default the cache is disabled for this example</para><para>The key provided by XNVM_BBRAM_AES_KEY macro is written to the BBRAM</para><para>To build this application, xilnvm library must be in server mode. This example is supported for only Versal devices.</para><para><preformatted>
+</verbatim></para><para>By default the cache is enabled for this example</para><para>The key provided by XNVM_BBRAM_AES_KEY macro is written to the BBRAM</para><para>To build this application, xilnvm library must be in server mode. This example is supported for only Versal devices.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
 ----- ------  -------- ------------------------------------------------------
 1.0   mmd     06/06/19 First release
@@ -845,7 +700,10 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 </para><para>#define XNVM_BBRAM_AES_KEY &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; User should replace zeros with 256 bit AES key in hexadecimal string format. Also should set the key length in bits to macro XNVM_BBRAM_AES_KEY_LEN_IN_BITS.</para><para>#define XNVM_BBRAM_AES_KEY_LEN_IN_BITS (256U) User should replace this value based on length of the AES Key defined by macro XNVM_BBRAM_AES_KEY. Supported values - 256</para><para>The keys provided by XNVM_BBRAM_AES_KEY[XNVM_MAX_SLRS] are written to the BBRAM of master, slave SLR1, slave SLR2 and slave SLR3.</para><para>To build this application, xilmailbox library must be included in BSP and xilnvm library must be in client mode. This example is supported for Versal SSIT devices.</para><para><preformatted>
 MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
 ----- ------  -------- --------------------------------------------------------------------------
-        pre     09/11/24 First release</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">User configurable parameters for BBRAM </heading>
+        pre     09/11/24 First release
+3.8   mkr     07/20/26 Removed duplicate XNvm_ValidateAesKey definition
+                       as it is available in xnvm_utils.c
+      mb      09/17/26 Removed unused local AES key length macros.</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">User configurable parameters for BBRAM </heading>
 </para><para>#define XNVM_BBRAM_AES_KEY_MASTER &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; #define XNVM_BBRAM_AES_KEY_SLAVE_SLR1 &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; #define XNVM_BBRAM_AES_KEY_SLAVE_SLR2 &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; #define XNVM_BBRAM_AES_KEY_SLAVE_SLR3 &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; User should replace zeros with 256 bit AES key of master, slave SLR1, slave SLR2 and slave SLR3 in XNVM_BBRAM_AES_KEY_MASTER, XNVM_BBRAM_AES_KEY_SLAVE_SLR1, XNVM_BBRAM_AES_KEY_SLAVE_SLR2 and XNVM_BBRAM_AES_KEY_SLAVE_SLR3 macros respectively in hexadecimal string format. Also should set the key length in bits to macro XNVM_BBRAM_AES_KEY_LEN_IN_BITS.</para><para>#define XNVM_BBRAM_USER_DATA_MASTER 0x00000000 #define XNVM_BBRAM_USER_DATA_SLAVE_SLR1 0x00000000 #define XNVM_BBRAM_USER_DATA_SLAVE_SLR2 0x00000000 #define XNVM_BBRAM_USER_DATA_SLAVE_SLR3 0x00000000 User should replace zeros with 32 bit value for master, slave SLR1, slave SLR2 and slave SLR3 in XNVM_BBRAM_USER_DATA_MASTER, XNVM_BBRAM_USER_DATA_SLAVE_SLR1, XNVM_BBRAM_USER_DATA_SLAVE_SLR2 and XNVM_BBRAM_USER_DATA_SLAVE_SLR3 macros respectively in hexadecimal.</para><para>#define XNVM_BBRAM_AES_KEY_LEN_IN_BITS (256U) User should replace this value based on length of the AES Key defined by macro XNVM_BBRAM_AES_KEY. Supported values - 256</para><para>This example is supported for Versal devices.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
 </para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>   1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping
     should be updated to point all the required sections to shared memory(OCM or TCM)
@@ -871,6 +729,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
             should be changed to
             static SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
             __attribute__((section(&quot;.sharedmemory.SharedMem&quot;)));
-</verbatim></para><para>To keep things simple, by default the cache is disabled for this example </para>    </detaileddescription>
+</verbatim></para><para>By default the cache is enabled for this example </para>    </detaileddescription>
   </compounddef>
 </doxygen>

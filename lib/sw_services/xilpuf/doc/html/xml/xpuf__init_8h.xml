@@ -4,14 +4,14 @@
     <compoundname>xpuf_init.h</compoundname>
     <includes local="yes">xplmi_config.h</includes>
     <incdepgraph>
-      <node id="252">
-        <label>xplmi_config.h</label>
-      </node>
-      <node id="251">
+      <node id="279">
         <label>xpuf_init.h</label>
         <link refid="xpuf_init.h"/>
-        <childnode refid="252" relation="include">
+        <childnode refid="280" relation="include">
         </childnode>
+      </node>
+      <node id="280">
+        <label>xplmi_config.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -57,6 +57,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPUF_INIT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/server/xpuf_init.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/common/server/xpuf_init.h"/>
   </compounddef>
 </doxygen>

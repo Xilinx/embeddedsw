@@ -1,12 +1,19 @@
 var xintc_8h =
 [
     [ "XIN_CASCADE_IRQ_MASK", "xintc_8h.html#gae719e5a0b6bd6482b86d9240a5226a83", null ],
+    [ "XIN_CONTROLLER_MAX_INTRS", "xintc_8h.html#ga842aea1f6663265412f5618f102e8f18", null ],
+    [ "XIN_INTC_LAST", "xintc_8h.html#ga3805fe4c0c209acc349242d75600646b", null ],
+    [ "XIN_INTC_NOCASCADE", "xintc_8h.html#ga6787fa567536384f6133b8ce90cf22f1", null ],
+    [ "XIN_INTC_PRIMARY", "xintc_8h.html#gad8c8fd384185ceae0a8abe0cd8d4c638", null ],
+    [ "XIN_INTC_SECONDARY", "xintc_8h.html#ga35bc775ed0e234d9b069700f4825cd7d", null ],
     [ "XIN_REAL_MODE", "xintc_8h.html#ga56b4aa3cb483ea5c882e2e36a4800af2", null ],
     [ "XIN_SIMULATION_MODE", "xintc_8h.html#gaefd5527cecdc1a6444b624d1e1a2514f", null ],
+    [ "XIN_SVC_ALL_ISRS_OPTION", "xintc_8h.html#gad043237f658e83b2e8718ddddab12545", null ],
     [ "XIN_SVC_SGL_ISR_OPTION", "xintc_8h.html#gaf4bce8e2035f391b702686e49c66c839", null ],
+    [ "XINTC_H", "xintc_8h.html#ga9e07373b9cba0eafcb65c0dd23f6a4ab", null ],
     [ "XINTC_INTR_PARENT_MASK", "xintc_8h.html#ga023c861e5fa5ddd0f0e6d67dd5aa504b", null ],
-    [ "XINTC_MAX_CASCADE_CONTROLLERS", "xintc_8h.html#ga83c73f41c10e5cb7be5c1fc0b1f05993", null ],
     [ "XINTC_NO_PARENT", "xintc_8h.html#ga2686148d7a9d3f2f214735198506d7d0", null ],
+    [ "XINTC_STANDARD_VECTOR_ADDRESS_WIDTH", "xintc_8h.html#ga9d6cfdfe9914f029b5a88d014400188e", null ],
     [ "LookupConfigByBaseAddress", "xintc_8h.html#gaf8c9b9342d3f4190fe131c29765a1e02", null ],
     [ "XIntc_Acknowledge", "xintc_8h.html#ga8604653ac3a24bbb49c5fecb6a9ebfc7", null ],
     [ "XIntc_Connect", "xintc_8h.html#gaee9ec5873a764994d64b4da35a110084", null ],
@@ -14,6 +21,7 @@ var xintc_8h =
     [ "XIntc_Disable", "xintc_8h.html#gaea44ec361097925f2994558d402988ab", null ],
     [ "XIntc_Disconnect", "xintc_8h.html#ga8f7caaeb26b6b264fffefbd32f90f855", null ],
     [ "XIntc_Enable", "xintc_8h.html#gac7f59192d3b3ba2e2283a264677577b8", null ],
+    [ "XIntc_GetChainRoot", "xintc_8h.html#ga2126cc6ab67d2a9262564ddf40fd3357", null ],
     [ "XIntc_GetOptions", "xintc_8h.html#ga6fdbe96b1db87f0c78e68da8bc767a69", null ],
     [ "XIntc_GetPrimaryController", "xintc_8h.html#gaa6e69276f3923a7d61d366c98269d750", null ],
     [ "XIntc_Initialize", "xintc_8h.html#gaf005b035ffd9bfd042b3e85aada2d104", null ],
@@ -26,5 +34,6 @@ var xintc_8h =
     [ "XIntc_Start", "xintc_8h.html#ga863eb58a3ae9419c7ac5da7c9fa9cb50", null ],
     [ "XIntc_Stop", "xintc_8h.html#gafabb05cf2e5b62031524a33d1f88f405", null ],
     [ "XIntc_TriggerSwIntr", "xintc_8h.html#ga7eb4ea6d2f66a5b3ca32b12ec68bc151", null ],
+    [ "XIntc_VoidInterruptHandler", "xintc_8h.html#ga9c6dc6e838193da3ce51c8cdb3b88943", null ],
     [ "XIntc_ConfigTable", "xintc_8h.html#ga6afbe6b28aa729c753744cba40ecf5b3", null ]
 ];

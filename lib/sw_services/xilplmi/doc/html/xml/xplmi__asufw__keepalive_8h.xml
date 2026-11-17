@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__asufw__keepalive_8h" kind="file">
+    <compoundname>xplmi_asufw_keepalive.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xplmi__asu__update_8h" local="yes">xplmi_asu_update.h</includes>
+    <includedby refid="xplmi__asu__cmd_8c" local="yes">xplmi_asu_cmd.c</includedby>
+    <includedby refid="xplmi__asufw__keepalive_8c" local="yes">xplmi_asufw_keepalive.c</includedby>
+    <incdepgraph>
+      <node id="335">
+        <label>xplmi_asufw_keepalive.h</label>
+        <link refid="xplmi_asufw_keepalive.h"/>
+        <childnode refid="336" relation="include">
+        </childnode>
+        <childnode refid="337" relation="include">
+        </childnode>
+      </node>
+      <node id="338">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="339" relation="include">
+        </childnode>
+        <childnode refid="340" relation="include">
+        </childnode>
+      </node>
+      <node id="340">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="336">
+        <label>xil_types.h</label>
+      </node>
+      <node id="337">
+        <label>xplmi_asu_update.h</label>
+        <link refid="xplmi__asu__update_8h"/>
+        <childnode refid="338" relation="include">
+        </childnode>
+        <childnode refid="336" relation="include">
+        </childnode>
+        <childnode refid="341" relation="include">
+        </childnode>
+      </node>
+      <node id="339">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="341">
+        <label>xplmi_update.h</label>
+        <link refid="xplmi__update_8h"/>
+        <childnode refid="338" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="344">
+        <label>xplmi_asufw_keepalive.c</label>
+        <link refid="xplmi__asufw__keepalive_8c"/>
+      </node>
+      <node id="342">
+        <label>xplmi_asufw_keepalive.h</label>
+        <link refid="xplmi_asufw_keepalive.h"/>
+        <childnode refid="343" relation="include">
+        </childnode>
+        <childnode refid="344" relation="include">
+        </childnode>
+      </node>
+      <node id="343">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi__asu__cmd_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xplmi__asufw__keepalive_8h_1a63a66b7afa2852d35af98c5ac9c1743c" prot="public" static="no">
+        <name>XPLMI_ASU_RTCA_KEEP_ALIVE_COUNTER_ADDR</name>
+        <initializer>(<ref refid="xplmi__asu__update_8h_1a805df7681fe84bc0b1294ae6984dd5df" kindref="member">XPLMI_ASU_RTCA_BASEADDR</ref> + 0x19CU)</initializer>
+        <briefdescription>
+<para>ASUFW keep-alive counter at RTCA 0x19C; must match XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR in xasu_sharedmem.h. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h" bodystart="37" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" compoundref="xplmi__asufw__keepalive_8c" startline="190" endline="232">XPlmi_StartAsufwKeepAliveMonitor</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi__asufw__keepalive_8h_1a303c291f69e631cff0fd2c58a3c9baf2" prot="public" static="no">
+        <name>XPLMI_ASUFW_KEEP_ALIVE_INTERVAL_MS</name>
+        <initializer>(200U)</initializer>
+        <briefdescription>
+<para>ASUFW keep-alive monitor period in ms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" compoundref="xplmi__asufw__keepalive_8c" startline="190" endline="232">XPlmi_StartAsufwKeepAliveMonitor</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_AsufwKeepAliveInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_AsufwKeepAliveInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function creates the ASUFW keep-alive PLM task. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLM_ERR_ASUFW_KEEP_ALIVE_TASK_CREATE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Create ASUFW keep-alive task which will be triggered on start</para><para>Assign task ID for identification </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="157" bodyend="179"/>
+        <references refid="group__xilplmi__server__apis_1ga9a408541546aa1b8c599ce75c1f5c7d9" compoundref="xplmi__task_8c" startline="91" endline="120">XPlmi_TaskCreate</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="247">XPLM_ERR_TASK_CREATE</references>
+        <references refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" compoundref="xplmi__asufw__keepalive_8c" startline="41">XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_StartAsufwKeepAliveMonitor</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_StartAsufwKeepAliveMonitor</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function starts the ASUFW keep-alive monitor. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Does not restart the monitor when keep-alive status is already error. Does not add a duplicate scheduler entry when the monitor is already running. Logs with DEBUG_PRINT_ALWAYS on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Retrieve the pre-created ASUFW keep-alive task</para><para>Set init and start monitor only when keep-alive status is not error.</para><para>Skip add when monitor is already scheduled.</para><para>Register periodic keep-alive health check with scheduler </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.c" bodystart="190" bodyend="232"/>
+        <references refid="group__xilplmi__server__apis_1ga5c2739a1280c0963a4e71cf84aea5204" compoundref="xplmi__task_8c" startline="134" endline="160">XPlmi_GetTaskInstance</references>
+        <references refid="group__xilplmi__server__apis_1ga09b6f741459a3cb715ba4a9ce23a5d19" compoundref="xplmi__asufw__keepalive_8c" startline="41">XPLMI_ASUFW_KEEP_ALIVE_TASK_ID</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a043bfefaaa166dd9d337afb8b13c6b07" compoundref="2vp_2server_2xplmi__status_8h" startline="247">XPLM_ERR_TASK_CREATE</references>
+        <references refid="group__xilplmi__server__apis_1gace36ebdc09af6f857e0861ea4eb7201b" compoundref="xplmi__asufw__keepalive_8c" startline="50">XPLMI_ASUFW_ALIVE_ERR</references>
+        <references refid="xplmi__asufw__keepalive_8h_1a63a66b7afa2852d35af98c5ac9c1743c" compoundref="xplmi__asufw__keepalive_8h" startline="37">XPLMI_ASU_RTCA_KEEP_ALIVE_COUNTER_ADDR</references>
+        <references refid="group__xilplmi__server__apis_1gab0dd1b54334edbbf90ea378c517c5cab" compoundref="xplmi__asufw__keepalive_8c" startline="49">XPLMI_ASUFW_ALIVE_INIT</references>
+        <references refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</references>
+        <references refid="xplmi__asufw__keepalive_8h_1a303c291f69e631cff0fd2c58a3c9baf2" compoundref="xplmi__asufw__keepalive_8h" startline="41">XPLMI_ASUFW_KEEP_ALIVE_INTERVAL_MS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains ASUFW keep-alive monitor APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+====  ==== ======== ==============================================================================
+1.0   vm   07/14/2026 Initial release
+      vm   07/31/2026 Updated Start API and RTCA address comment</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XPLMI_ASUFW_KEEPALIVE_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASUFW_KEEPALIVE_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__asu__update_8h" kindref="compound">xplmi_asu_update.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="xplmi__asufw__keepalive_8h_1a63a66b7afa2852d35af98c5ac9c1743c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_ASU_RTCA_KEEP_ALIVE_COUNTER_ADDR<sp/><sp/>(XPLMI_ASU_RTCA_BASEADDR<sp/>+<sp/>0x19CU)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41" refid="xplmi__asufw__keepalive_8h_1a303c291f69e631cff0fd2c58a3c9baf2" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_ASUFW_KEEP_ALIVE_INTERVAL_MS<sp/><sp/><sp/><sp/><sp/><sp/>(200U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabd85b5e29c95e9c14cf689372916f4f7" kindref="member">XPlmi_AsufwKeepAliveInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gad513e1b55ee8adac55e992324a51e933" kindref="member">XPlmi_StartAsufwKeepAliveMonitor</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_ASUFW_KEEPALIVE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_asufw_keepalive.h"/>
+  </compounddef>
+</doxygen>

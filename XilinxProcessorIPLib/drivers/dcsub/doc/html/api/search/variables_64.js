@@ -8,5 +8,7 @@ var searchData=
   ['desc5',['Desc5',['../struct_run_config.html#aa88ef860111459a6b832446ae5529743',1,'RunConfig']]],
   ['desc6',['Desc6',['../struct_run_config.html#adc0f9a32830fdebfdbc3c279c70487a1',1,'RunConfig']]],
   ['desc7',['Desc7',['../struct_run_config.html#ad979d916c40ccd4fc49755851de358ca',1,'RunConfig']]],
+  ['design_5fmst_5fen',['design_mst_en',['../struct_init_run_config.html#a276f68c0d33f2d6a1e361c83cac7eb2e',1,'InitRunConfig']]],
+  ['designmsten',['DesignMstEn',['../struct_run_config.html#a9ae24ddc2a166bd8d14610866a55dd65',1,'RunConfig']]],
   ['dppsuptr',['DpPsuPtr',['../struct_run_config.html#af9e1945098c92c6e03c086ac3d0c4a3c',1,'RunConfig']]]
 ];

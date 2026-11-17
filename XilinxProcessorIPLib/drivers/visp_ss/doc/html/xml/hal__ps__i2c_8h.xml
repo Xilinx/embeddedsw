@@ -10,147 +10,147 @@
     <includedby refid="hal__i2c_8c" local="yes">hal_i2c.c</includedby>
     <includedby refid="hal__ps__i2c_8c" local="no">hal_ps_i2c.c</includedby>
     <incdepgraph>
-      <node id="5482">
-        <label>hal_api.h</label>
-        <childnode refid="5483" relation="include">
-        </childnode>
-        <childnode refid="5484" relation="include">
-        </childnode>
-        <childnode refid="5485" relation="include">
-        </childnode>
-        <childnode refid="5486" relation="include">
-        </childnode>
-        <childnode refid="5480" relation="include">
-        </childnode>
-      </node>
-      <node id="5483">
+      <node id="5523">
         <label>stdbool.h</label>
       </node>
-      <node id="5467">
-        <label>hal_ps_i2c.h</label>
-        <link refid="hal_ps_i2c.h"/>
-        <childnode refid="5468" relation="include">
+      <node id="5513">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5510">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5511" relation="include">
         </childnode>
-        <childnode refid="5487" relation="include">
+        <childnode refid="5514" relation="include">
         </childnode>
-        <childnode refid="5484" relation="include">
-        </childnode>
-        <childnode refid="5485" relation="include">
-        </childnode>
-        <childnode refid="5486" relation="include">
+        <childnode refid="5515" relation="include">
         </childnode>
       </node>
-      <node id="5469">
+      <node id="5520">
+        <label>dct_assert.h</label>
+        <link refid="dct__assert_8h"/>
+        <childnode refid="5510" relation="include">
+        </childnode>
+      </node>
+      <node id="5515">
+        <label>stddef.h</label>
+      </node>
+      <node id="5514">
+        <label>limits.h</label>
+      </node>
+      <node id="5509">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="5476">
-        <label>oslayer.h</label>
-        <link refid="oslayer_8h"/>
-        <childnode refid="5477" relation="include">
+      <node id="5507">
+        <label>hal_ps_i2c.h</label>
+        <link refid="hal_ps_i2c.h"/>
+        <childnode refid="5508" relation="include">
         </childnode>
-        <childnode refid="5479" relation="include">
+        <childnode refid="5527" relation="include">
         </childnode>
-      </node>
-      <node id="5473">
-        <label>stdlib.h</label>
-      </node>
-      <node id="5475">
-        <label>stddef.h</label>
-      </node>
-      <node id="5474">
-        <label>limits.h</label>
-      </node>
-      <node id="5481">
-        <label>buf_defs.h</label>
-        <childnode refid="5470" relation="include">
+        <childnode refid="5524" relation="include">
+        </childnode>
+        <childnode refid="5525" relation="include">
+        </childnode>
+        <childnode refid="5526" relation="include">
         </childnode>
       </node>
-      <node id="5478">
-        <label>string.h</label>
-      </node>
-      <node id="5486">
-        <label>xil_types.h</label>
-      </node>
-      <node id="5484">
-        <label>xiicps.h</label>
-      </node>
-      <node id="5479">
-        <label>ff.h</label>
-      </node>
-      <node id="5487">
-        <label>xparameters.h</label>
-      </node>
-      <node id="5485">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="5470">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="5471" relation="include">
-        </childnode>
-        <childnode refid="5474" relation="include">
-        </childnode>
-        <childnode refid="5475" relation="include">
-        </childnode>
-      </node>
-      <node id="5468">
-        <label>hal_i2c.h</label>
-        <childnode refid="5469" relation="include">
-        </childnode>
-        <childnode refid="5470" relation="include">
-        </childnode>
-        <childnode refid="5476" relation="include">
-        </childnode>
-        <childnode refid="5480" relation="include">
-        </childnode>
-        <childnode refid="5481" relation="include">
-        </childnode>
-        <childnode refid="5482" relation="include">
-        </childnode>
-        <childnode refid="5487" relation="include">
-        </childnode>
-      </node>
-      <node id="5477">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="5470" relation="include">
-        </childnode>
-        <childnode refid="5478" relation="include">
-        </childnode>
-      </node>
-      <node id="5472">
-        <label>stdio.h</label>
-      </node>
-      <node id="5480">
-        <label>dct_assert.h</label>
-        <link refid="dct__assert_8h"/>
-        <childnode refid="5470" relation="include">
-        </childnode>
-      </node>
-      <node id="5471">
+      <node id="5511">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="5472" relation="include">
+        <childnode refid="5512" relation="include">
         </childnode>
-        <childnode refid="5473" relation="include">
+        <childnode refid="5513" relation="include">
         </childnode>
+      </node>
+      <node id="5518">
+        <label>string.h</label>
+      </node>
+      <node id="5517">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="5510" relation="include">
+        </childnode>
+        <childnode refid="5518" relation="include">
+        </childnode>
+      </node>
+      <node id="5526">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5524">
+        <label>xiicps.h</label>
+      </node>
+      <node id="5508">
+        <label>hal_i2c.h</label>
+        <childnode refid="5509" relation="include">
+        </childnode>
+        <childnode refid="5510" relation="include">
+        </childnode>
+        <childnode refid="5516" relation="include">
+        </childnode>
+        <childnode refid="5520" relation="include">
+        </childnode>
+        <childnode refid="5521" relation="include">
+        </childnode>
+        <childnode refid="5522" relation="include">
+        </childnode>
+        <childnode refid="5527" relation="include">
+        </childnode>
+      </node>
+      <node id="5519">
+        <label>ff.h</label>
+      </node>
+      <node id="5527">
+        <label>xparameters.h</label>
+      </node>
+      <node id="5525">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="5521">
+        <label>buf_defs.h</label>
+        <childnode refid="5510" relation="include">
+        </childnode>
+      </node>
+      <node id="5516">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="5517" relation="include">
+        </childnode>
+        <childnode refid="5519" relation="include">
+        </childnode>
+      </node>
+      <node id="5522">
+        <label>hal_api.h</label>
+        <childnode refid="5523" relation="include">
+        </childnode>
+        <childnode refid="5524" relation="include">
+        </childnode>
+        <childnode refid="5525" relation="include">
+        </childnode>
+        <childnode refid="5526" relation="include">
+        </childnode>
+        <childnode refid="5520" relation="include">
+        </childnode>
+      </node>
+      <node id="5512">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="5488">
+      <node id="5528">
         <label>hal_ps_i2c.h</label>
         <link refid="hal_ps_i2c.h"/>
-        <childnode refid="5489" relation="include">
+        <childnode refid="5529" relation="include">
         </childnode>
-        <childnode refid="5490" relation="include">
+        <childnode refid="5530" relation="include">
         </childnode>
       </node>
-      <node id="5489">
-        <label>hal_i2c.c</label>
-      </node>
-      <node id="5490">
+      <node id="5530">
         <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="5529">
+        <label>hal_i2c.c</label>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -163,7 +163,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="9" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="hal__ps__i2c_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" prot="public" static="no">
         <name>IIC_DEVICE_ID</name>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="11" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="hal__ps__i2c_8h_1a575f1774e36364ebb4ab1d390d052908" prot="public" static="no">
         <name>IIC_MUX_ADDR</name>
@@ -185,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="12" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="hal__ps__i2c_8h_1aa3ae41854bbd298ae79d3e160861e1cc" prot="public" static="no">
         <name>IIC_MUX_FMC_CHANNEL</name>
@@ -196,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="13" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="hal__ps__i2c_8h_1a0b71e527200033092ab1ebd5c0c077ed" prot="public" static="no">
         <name>TEST_BUFFER_SIZE</name>
@@ -207,7 +207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="15" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -237,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="8" bodyend="45"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="8" bodyend="45"/>
       </memberdef>
       <memberdef kind="function" id="hal__ps__i2c_8h_1a35adcb9aef7c4763baca83f4ce498cc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -265,7 +265,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="47" bodyend="80"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="47" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="hal__ps__i2c_8h_1a372d81dbf84f6f449f0f28480fd92bda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -293,7 +293,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="82" bodyend="132"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="82" bodyend="132"/>
       </memberdef>
       <memberdef kind="function" id="hal__ps__i2c_8h_1a751eee695d234bcb5d79d69a25c153e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -321,7 +321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="134" bodyend="186"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_ps_i2c.c" bodystart="134" bodyend="186"/>
       </memberdef>
       <memberdef kind="function" id="hal__ps__i2c_8h_1a548bd5c877daed283282913f9e0fae6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -358,7 +358,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="24" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="24" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__ps__i2c_8h_1a821cd7851b423246d14a2c849fef23cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -395,7 +395,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="26" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h" line="26" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -431,6 +431,6 @@
 <codeline lineno="26"><highlight class="normal">RESULT<sp/>Xil_I2c_HalI2cReadReg(u8<sp/>bus_num,<sp/>u8<sp/>slave_addr,<sp/>u32<sp/>reg_address,</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>reg_addr_size,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*preg_value,<sp/>u8<sp/>datacount);</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_ps_i2c.h"/>
   </compounddef>
 </doxygen>

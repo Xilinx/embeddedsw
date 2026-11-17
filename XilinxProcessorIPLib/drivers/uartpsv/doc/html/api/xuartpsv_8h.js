@@ -1,5 +1,6 @@
 var xuartpsv_8h =
 [
+    [ "TIMEOUT_COUNTER", "xuartpsv_8h.html#ga199da98d8ddcd495482b436d294ec75d", null ],
     [ "XUARTPSV_DFT_BAUDRATE", "xuartpsv_8h.html#gad4202f2666ae178cd380f2232bb96486", null ],
     [ "XUartPsv_DisableUart", "xuartpsv_8h.html#ga2a6ad86de9f65f8f859ab32a3286c919", null ],
     [ "XUartPsv_EnableUart", "xuartpsv_8h.html#gaf2e92c20719d5f1930c3e8d3ad98e06b", null ],
@@ -27,7 +28,6 @@ var xuartpsv_8h =
     [ "XUARTPSV_FORMAT_PARITY_MASK", "xuartpsv_8h.html#gadc59badd95ef3062eab24b8b1bbed46e", null ],
     [ "XUartPsv_GetChannelStatus", "xuartpsv_8h.html#gaf9269e5132e023fb82ccbb97dc9b955a", null ],
     [ "XUartPsv_GetModeControl", "xuartpsv_8h.html#gae536abc24f8139cc11c7136ea0010019", null ],
-    [ "XUARTPSV_H", "xuartpsv_8h.html#ga1995466148aa5c669d92e37642452c55", null ],
     [ "XUartPsv_IsTransmitEmpty", "xuartpsv_8h.html#ga05a61d255ef608f38a4a03dce92cda75", null ],
     [ "XUARTPSV_MAX_RATE", "xuartpsv_8h.html#ga1028700cf5e97e64b72165616914a84a", null ],
     [ "XUARTPSV_MIN_RATE", "xuartpsv_8h.html#gaa2e96fa49febeff396414ae7c25eff69", null ],

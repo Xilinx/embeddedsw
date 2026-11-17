@@ -6,7 +6,7 @@ var files =
     [ "xtrngpsv_df.c", "xtrngpsv__df_8c.html", "xtrngpsv__df_8c" ],
     [ "xtrngpsv_drng_df_example.c", "xtrngpsv__drng__df__example_8c.html", "xtrngpsv__drng__df__example_8c" ],
     [ "xtrngpsv_drng_example.c", "xtrngpsv__drng__example_8c.html", "xtrngpsv__drng__example_8c" ],
-    [ "xtrngpsv_g.c", "xtrngpsv__g_8c.html", null ],
+    [ "xtrngpsv_g.c", "xtrngpsv__g_8c.html", "xtrngpsv__g_8c" ],
     [ "xtrngpsv_hrng_df_example.c", "xtrngpsv__hrng__df__example_8c.html", "xtrngpsv__hrng__df__example_8c" ],
     [ "xtrngpsv_hrng_example.c", "xtrngpsv__hrng__example_8c.html", "xtrngpsv__hrng__example_8c" ],
     [ "xtrngpsv_hw.h", "xtrngpsv__hw_8h.html", "xtrngpsv__hw_8h" ],

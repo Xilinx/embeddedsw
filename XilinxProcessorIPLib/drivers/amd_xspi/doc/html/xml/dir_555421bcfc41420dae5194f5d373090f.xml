@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_555421bcfc41420dae5194f5d373090f" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="amd__xspi__hyperbus__config_8h">amd_xspi_hyperbus_config.h</innerfile>
+    <innerfile refid="amd__xspi__hyperbus__hyperram__intr__example_8c">amd_xspi_hyperbus_hyperram_intr_example.c</innerfile>
+    <innerfile refid="amd__xspi__hyperbus__hyperram__polled__example_8c">amd_xspi_hyperbus_hyperram_polled_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/"/>
+  </compounddef>
+</doxygen>

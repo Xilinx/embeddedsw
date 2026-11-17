@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___ecc_matrix.html','
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,18 +106,127 @@ $(document).ready(function(){initNavTree('struct_x_nand_psu___ecc_matrix.html','
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XNandPsu_EccMatrix Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
+<div class="title">XNandPsu_EccMatrix Struct Reference<div class="ingroups"><a class="el" href="group__nandpsu.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_nand_psu___ecc_matrix.html" title="The XNandPsu_EccMatrix structure contains ECC features information. ">XNandPsu_EccMatrix</a> structure contains ECC features information.
+<p>Holds the ECC features information for a page size.
  <a href="struct_x_nand_psu___ecc_matrix.html#details">More...</a></p>
 
 <p><code>#include &lt;xnandpsu.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a53db2ac8de7624033469d5159ab877bf"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_matrix.html#a53db2ac8de7624033469d5159ab877bf">PageSize</a></td></tr>
+<tr class="memdesc:a53db2ac8de7624033469d5159ab877bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Page size in bytes.  <a href="#a53db2ac8de7624033469d5159ab877bf">More...</a><br/></td></tr>
+<tr class="separator:a53db2ac8de7624033469d5159ab877bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291a991a76ed825e73531a8063baddf4"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_matrix.html#a291a991a76ed825e73531a8063baddf4">CodeWordSize</a></td></tr>
+<tr class="memdesc:a291a991a76ed825e73531a8063baddf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC codeword size.  <a href="#a291a991a76ed825e73531a8063baddf4">More...</a><br/></td></tr>
+<tr class="separator:a291a991a76ed825e73531a8063baddf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e80644943af39103fd9915f4b7a1d46"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_matrix.html#a2e80644943af39103fd9915f4b7a1d46">NumEccBits</a></td></tr>
+<tr class="memdesc:a2e80644943af39103fd9915f4b7a1d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of ECC correctable bits.  <a href="#a2e80644943af39103fd9915f4b7a1d46">More...</a><br/></td></tr>
+<tr class="separator:a2e80644943af39103fd9915f4b7a1d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab77229a05bbe7e892a6d1028899a5e30"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_matrix.html#ab77229a05bbe7e892a6d1028899a5e30">IsBCH</a></td></tr>
+<tr class="memdesc:ab77229a05bbe7e892a6d1028899a5e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC type, Hamming or BCH.  <a href="#ab77229a05bbe7e892a6d1028899a5e30">More...</a><br/></td></tr>
+<tr class="separator:ab77229a05bbe7e892a6d1028899a5e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ff1749b32b20010bb045aa1a6327bd0"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_matrix.html#a5ff1749b32b20010bb045aa1a6327bd0">EccAddr</a></td></tr>
+<tr class="memdesc:a5ff1749b32b20010bb045aa1a6327bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC address.  <a href="#a5ff1749b32b20010bb045aa1a6327bd0">More...</a><br/></td></tr>
+<tr class="separator:a5ff1749b32b20010bb045aa1a6327bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a379a73614b53bff7ec67bf93830c5211"><td class="memItemLeft" align="right" valign="top">u16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_nand_psu___ecc_matrix.html#a379a73614b53bff7ec67bf93830c5211">EccSize</a></td></tr>
+<tr class="memdesc:a379a73614b53bff7ec67bf93830c5211"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC size in bytes.  <a href="#a379a73614b53bff7ec67bf93830c5211">More...</a><br/></td></tr>
+<tr class="separator:a379a73614b53bff7ec67bf93830c5211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_nand_psu___ecc_matrix.html" title="The XNandPsu_EccMatrix structure contains ECC features information. ">XNandPsu_EccMatrix</a> structure contains ECC features information. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds the ECC features information for a page size. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a291a991a76ed825e73531a8063baddf4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccMatrix::CodeWordSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC codeword size. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5ff1749b32b20010bb045aa1a6327bd0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccMatrix::EccAddr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC address. </p>
+
+</div>
+</div>
+<a class="anchor" id="a379a73614b53bff7ec67bf93830c5211"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccMatrix::EccSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC size in bytes. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab77229a05bbe7e892a6d1028899a5e30"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XNandPsu_EccMatrix::IsBCH</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ECC type, Hamming or BCH. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2e80644943af39103fd9915f4b7a1d46"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XNandPsu_EccMatrix::NumEccBits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of ECC correctable bits. </p>
+
+</div>
+</div>
+<a class="anchor" id="a53db2ac8de7624033469d5159ab877bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 XNandPsu_EccMatrix::PageSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Page size in bytes. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

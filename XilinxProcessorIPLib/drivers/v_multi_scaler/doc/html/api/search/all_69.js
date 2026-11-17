@@ -4,5 +4,6 @@ var searchData=
   ['interrupt_5fflag',['interrupt_flag',['../xv__multi__scaler__example_8c.html#a80ffbb375ca66e6fabd67218c312c4da',1,'xv_multi_scaler_example.c']]],
   ['intrid',['IntrId',['../struct_x_v__multi__scaler___config.html#aee2ee849e0ec8d1bf83e0297fd1088c8',1,'XV_multi_scaler_Config']]],
   ['intrparent',['IntrParent',['../struct_x_v__multi__scaler___config.html#ab960bcb609cd379cf99d519d9eda9b5e',1,'XV_multi_scaler_Config']]],
-  ['isready',['IsReady',['../struct_x_v__multi__scaler.html#af1df2f8837a2ec5a25292418558a1c70',1,'XV_multi_scaler']]]
+  ['isready',['IsReady',['../struct_x_v__multi__scaler.html#af1df2f8837a2ec5a25292418558a1c70',1,'XV_multi_scaler']]],
+  ['istileformat',['IsTileFormat',['../struct_x_v__multi__scaler___config.html#a54aa600779eacdd8390f12c4b3441856',1,'XV_multi_scaler_Config']]]
 ];

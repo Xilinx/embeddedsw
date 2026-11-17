@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5ff222e97b7527f4b877012560088a7e" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="versal__2ve__2vm_2client_2pm__client_8c">versal_2ve_2vm/client/pm_client.c</innerfile>
+    <innerfile refid="versal__2ve__2vm_2client_2pm__client_8h">versal_2ve_2vm/client/pm_client.h</innerfile>
+    <innerfile refid="2ve__2vm_2client_2xpm__defs_8h">2ve_2vm/client/xpm_defs.h</innerfile>
+    <innerfile refid="2ve__2vm_2client_2xpm__err_8h">2ve_2vm/client/xpm_err.h</innerfile>
+    <innerfile refid="versal__2ve__2vm_2client_2xpm__error__node_8h">versal_2ve_2vm/client/xpm_error_node.h</innerfile>
+    <innerfile refid="versal__2ve__2vm_2client_2xpm__nodeid_8h">versal_2ve_2vm/client/xpm_nodeid.h</innerfile>
+    <innerfile refid="xpm__ver_8h">xpm_ver.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/"/>
+  </compounddef>
+</doxygen>

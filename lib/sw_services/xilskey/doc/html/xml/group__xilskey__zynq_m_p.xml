@@ -30,7 +30,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="80" bodyend="140"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="80" bodyend="140"/>
         <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="166">XSK_ZYNQMP_BBRAM_0_OFFSET</references>
         <references refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="249">XSK_ZYNQMP_BBRAM_7_OFFSET</references>
         <references refid="xilskey__bbramps__zynqmp__hw_8h_1ac621f36f217dcc74ee918df67cebaa5d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="149">XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET</references>
@@ -57,7 +57,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="150" bodyend="195"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="150" bodyend="195"/>
         <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="166">XSK_ZYNQMP_BBRAM_0_OFFSET</references>
         <references refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="249">XSK_ZYNQMP_BBRAM_7_OFFSET</references>
         <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_BBRAM_BASEADDR</references>

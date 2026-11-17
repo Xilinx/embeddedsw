@@ -118,6 +118,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 5.4   yog  04/29/24 Fixed doxygen grouping.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__mailbox_8h.html">xsecure_mailbox.h</a>&quot;</code><br/>
+<code>#include &quot;xsecure_config.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsecure__defs_8h.html">xsecure_defs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="client_2core_2rsa_2xsecure__rsaalginfo_8h.html">xsecure_rsaalginfo.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
@@ -132,6 +133,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8bdc7108615c89806dae54dd56f428d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">XSecure_RsaSignVerification</a> (XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr, const u32 Size)</td></tr>
 <tr class="memdesc:ga8bdc7108615c89806dae54dd56f428d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to Perform RSA sign verification.  <a href="group__xsecure__rsa__client__apis.html#ga8bdc7108615c89806dae54dd56f428d7">More...</a><br/></td></tr>
 <tr class="separator:ga8bdc7108615c89806dae54dd56f428d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga438ec16f016a9d63be18ebbced880bef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__rsa__client__apis.html#ga438ec16f016a9d63be18ebbced880bef">XSecure_RsaPssSignVerification</a> (XSecure_ClientInstance *InstancePtr, const <a class="el" href="struct_x_secure___rsa_pss_sign_verify_params.html">XSecure_RsaPssSignVerifyParams</a> *Params)</td></tr>
+<tr class="memdesc:ga438ec16f016a9d63be18ebbced880bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends IPI request to perform RSA-PSS sign verification (SHA3-384).  <a href="group__xsecure__rsa__client__apis.html#ga438ec16f016a9d63be18ebbced880bef">More...</a><br/></td></tr>
+<tr class="separator:ga438ec16f016a9d63be18ebbced880bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

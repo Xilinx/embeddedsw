@@ -6,6 +6,7 @@ var xnandpsu__bbm_8h =
     [ "XNANDPSU_BB_PTRN_OFF_LARGE_PAGE", "xnandpsu__bbm_8h.html#ga4756f4b4142832eac6140bec053d3321", null ],
     [ "XNANDPSU_BB_PTRN_OFF_SML_PAGE", "xnandpsu__bbm_8h.html#ga057429ec300b458dc1afa9dd250a35e8", null ],
     [ "XNANDPSU_BBT_BLOCK_SHIFT", "xnandpsu__bbm_8h.html#gad347e168120f24a56851f8c5620c131f", null ],
+    [ "XNANDPSU_BBT_BUF_LENGTH", "xnandpsu__bbm_8h.html#ga28f30bd8c1f5153baad49c9d252f2e8b", null ],
     [ "XNANDPSU_BBT_DESC_MAX_BLOCKS", "xnandpsu__bbm_8h.html#gab8ff4a8ea1edf29af83fc31d5e2daa41", null ],
     [ "XNANDPSU_BBT_DESC_PAGE_OFFSET", "xnandpsu__bbm_8h.html#ga10e75208945a1b28f29b5443b5e065b1", null ],
     [ "XNANDPSU_BBT_DESC_SIG_LEN", "xnandpsu__bbm_8h.html#gad0efed392553c9331ae3fb9baa78836d", null ],
@@ -13,6 +14,8 @@ var xnandpsu__bbm_8h =
     [ "XNANDPSU_BBT_DESC_VER_OFFSET", "xnandpsu__bbm_8h.html#ga9156c2546dd4cacddafd3d7994dd18c0", null ],
     [ "XNANDPSU_BBT_ENTRY_NUM_BLOCKS", "xnandpsu__bbm_8h.html#ga586b68531dbfde53fda300a8c759c331", null ],
     [ "XNANDPSU_BBT_SCAN_2ND_PAGE", "xnandpsu__bbm_8h.html#ga764b27fa4ceeeaa725b270aa67a56f37", null ],
+    [ "XNANDPSU_BBT_SIG_LENGTH", "xnandpsu__bbm_8h.html#gab568ce621762a74d3b063490a978448d", null ],
+    [ "XNANDPSU_BBT_VERSION_LENGTH", "xnandpsu__bbm_8h.html#gad8800942e4ab9b56bd56b226f7a90255", null ],
     [ "XNandPsu_BbtBlockShift", "xnandpsu__bbm_8h.html#gaff73343551dffb555cf517e534367dba", null ],
     [ "XNANDPSU_BLOCK_BAD", "xnandpsu__bbm_8h.html#gac47b1d1d15d7a802c9e1df6fdeef077e", null ],
     [ "XNANDPSU_BLOCK_FACTORY_BAD", "xnandpsu__bbm_8h.html#ga348168c700fc08a01f4e7461411b5990", null ],
@@ -26,6 +29,8 @@ var xnandpsu__bbm_8h =
     [ "XNANDPSU_FLASH_BLOCK_RESERVED", "xnandpsu__bbm_8h.html#ga826c467ea25f101a5f84c16ad7855236", null ],
     [ "XNANDPSU_NO_OOB_BBT_DESC_SIG_OFFSET", "xnandpsu__bbm_8h.html#ga1cced6d5f2de0897b10a63b3053aa396", null ],
     [ "XNANDPSU_NO_OOB_BBT_DESC_VER_OFFSET", "xnandpsu__bbm_8h.html#ga9dbbc1091620f2fd24b645edaee05331", null ],
+    [ "XNANDPSU_ONDIE_SIG_OFFSET", "xnandpsu__bbm_8h.html#ga3d9241aee64dcc99262586deafc427f1", null ],
+    [ "XNANDPSU_ONDIE_VER_OFFSET", "xnandpsu__bbm_8h.html#ga35279551bec0afbb519acfa511240dab", null ],
     [ "XNandPsu_InitBbtDesc", "xnandpsu__bbm_8h.html#ga81efec47413599300b874c98ceffee81", null ],
     [ "XNandPsu_IsBlockBad", "xnandpsu__bbm_8h.html#ga0696c149568a16f2d804da9bf0b16047", null ]
 ];

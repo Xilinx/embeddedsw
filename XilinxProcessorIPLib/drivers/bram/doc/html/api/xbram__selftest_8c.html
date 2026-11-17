@@ -105,13 +105,39 @@ $(document).ready(function(){initNavTree('xbram__selftest_8c.html','');});
 <div class="title">xbram_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> self-test. </p>
+<p>The implementation of the <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> driver's self test function. This SelfTest is only applicable if ECC is enabled. If ECC is not enabled then this function returns XST_SUCCESS. See <a class="el" href="xbram_8h.html">xbram.h</a> for more information about the driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00a sa   11/24/10 First release
+3.01a sa   01/13/12  Changed Selftest API from
+               XBram_SelfTest(XBram *InstancePtr) to
+               <a class="el" href="group__bram__api.html#gaedbdefb6cda5c212f03271143ccf7a98" title="Runs a self-test on the BRAM driver and device. ">XBram_SelfTest(XBram *InstancePtr, u8 IntMask)</a> and
+               fixed a problem with interrupt generation for CR 639274
+               Modified Selftest example to return XST_SUCCESS when
+               ECC is not enabled and return XST_FAILURE when ECC is
+               enabled and Control Base Address is zero (CR 636581)
+               Modified Selftest to use correct CorrectableCounterBits
+               for CR 635655
+               Updated to check CorrectableFailingDataRegs in the case
+               of LMB BRAM.
+3.02a sa  04/16/12   Added test of byte and halfword read-modify-write
+3.03a bss 05/22/13   Added Xil_DCacheFlushRange in InjectErrors API to
+               flush the Cache after writing to BRAM (CR #719011)
+4.3   aru 04/09/19   Used UINTPTR instead of u32 for Addr in <a class="el" href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98" title="Runs a self-test on the BRAM driver and device. ">XBram_SelfTest()</a>
+4.5    mn 04/12/20   Resolve build warnings for ARMCC toolchain
+4.15   vn 07/30/26   Fix Doxygen warnings</pre><pre>4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
 <code>#include &quot;xil_cache.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaedbdefb6cda5c212f03271143ccf7a98"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest</a> (<a class="el" href="struct_x_bram.html">XBram</a> *InstancePtr, u8 IntMask)</td></tr>
-<tr class="memdesc:gaedbdefb6cda5c212f03271143ccf7a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a self-test on the driver/device.  <a href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98">More...</a><br/></td></tr>
+<tr class="memitem:gaedbdefb6cda5c212f03271143ccf7a98"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__bram__api.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest</a> (<a class="el" href="struct_x_bram.html">XBram</a> *InstancePtr, u8 IntMask)</td></tr>
+<tr class="memdesc:gaedbdefb6cda5c212f03271143ccf7a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the BRAM driver and device.  <a href="group__bram__api.html#gaedbdefb6cda5c212f03271143ccf7a98">More...</a><br/></td></tr>
 <tr class="separator:gaedbdefb6cda5c212f03271143ccf7a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

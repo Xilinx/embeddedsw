@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a0555b824f163e8ce213933cf236ee24" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_1018efaa54ed2d6dc3e42b7da8e3fc63">dp</innerdir>
+    <innerdir refid="dir_c92c40aa44f733c15a844bf9b95c7aa8">dualsplitter</innerdir>
+    <innerdir refid="dir_2ca0430d0bdb1f3926f9b3ab5d5a1399">hdcp1x</innerdir>
+    <innerdir refid="dir_337b331de8565c96f46e92d1ebd75f46">vtc</innerdir>
+    <innerfile refid="xdptxss_8c">xdptxss.c</innerfile>
+    <innerfile refid="xdptxss_8h">xdptxss.h</innerfile>
+    <innerfile refid="xdptxss__dbg_8c">xdptxss_dbg.c</innerfile>
+    <innerfile refid="xdptxss__g_8c">xdptxss_g.c</innerfile>
+    <innerfile refid="xdptxss__hw_8h">xdptxss_hw.h</innerfile>
+    <innerfile refid="xdptxss__intr_8c">xdptxss_intr.c</innerfile>
+    <innerfile refid="xdptxss__selftest_8c">xdptxss_selftest.c</innerfile>
+    <innerfile refid="xdptxss__sinit_8c">xdptxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/"/>
+  </compounddef>
+</doxygen>

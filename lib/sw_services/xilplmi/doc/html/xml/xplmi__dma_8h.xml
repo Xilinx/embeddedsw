@@ -16,558 +16,587 @@
     <includedby refid="2vp__p_2server_2xplmi__plat_8h" local="yes">xplmi_plat.h</includedby>
     <includedby refid="net_2server_2xplmi__plat_8h" local="yes">xplmi_plat.h</includedby>
     <incdepgraph>
-      <node id="725">
+      <node id="800">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="799">
         <label>xplmi_dma.h</label>
         <link refid="xplmi_dma.h"/>
-        <childnode refid="726" relation="include">
+        <childnode refid="800" relation="include">
         </childnode>
-      </node>
-      <node id="726">
-        <label>xpmcdma.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="771">
-        <label>xplmi_proc.c</label>
-        <link refid="xplmi__proc_8c"/>
-      </node>
-      <node id="768">
-        <label>xplmi_proc.h</label>
-        <link refid="xplmi__proc_8h"/>
-        <childnode refid="769" relation="include">
-        </childnode>
-        <childnode refid="755" relation="include">
-        </childnode>
-        <childnode refid="756" relation="include">
-        </childnode>
-        <childnode refid="736" relation="include">
-        </childnode>
-        <childnode refid="737" relation="include">
-        </childnode>
-        <childnode refid="771" relation="include">
-        </childnode>
-        <childnode refid="783" relation="include">
-        </childnode>
-        <childnode refid="739" relation="include">
-        </childnode>
-        <childnode refid="743" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
-        </childnode>
-        <childnode refid="754" relation="include">
-        </childnode>
-      </node>
-      <node id="742">
-        <label>xplmi_plat.c</label>
-      </node>
-      <node id="760">
-        <label>xplmi_plat.h</label>
-        <childnode refid="742" relation="include">
-        </childnode>
-        <childnode refid="743" relation="include">
-        </childnode>
-      </node>
-      <node id="781">
-        <label>xplmi_scheduler.c</label>
-        <link refid="xplmi__scheduler_8c"/>
-      </node>
-      <node id="773">
-        <label>xplmi_asu_update.c</label>
-        <link refid="xplmi__asu__update_8c"/>
-      </node>
-      <node id="758">
-        <label>xplmi_err.c</label>
-        <link refid="2vp__p_2server_2xplmi__err_8c"/>
-      </node>
-      <node id="776">
-        <label>xplmi_err.h</label>
-        <link refid="2vp__p_2server_2xplmi__err_8h"/>
-        <childnode refid="758" relation="include">
-        </childnode>
-      </node>
-      <node id="746">
-        <label>xplmi_err.c</label>
-      </node>
-      <node id="774">
-        <label>xplmi_err.h</label>
-        <childnode refid="746" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-      </node>
-      <node id="735">
-        <label>xplmi_event_logging.c</label>
-        <link refid="xplmi__event__logging_8c"/>
-      </node>
-      <node id="745">
-        <label>xplmi_asu_cmd.c</label>
-        <link refid="xplmi__asu__cmd_8c"/>
-      </node>
-      <node id="737">
-        <label>xplmi_ipi.c</label>
-        <link refid="xplmi__ipi_8c"/>
-      </node>
-      <node id="766">
-        <label>xplmi_ipi.h</label>
-        <link refid="xplmi__ipi_8h"/>
-        <childnode refid="767" relation="include">
-        </childnode>
-        <childnode refid="730" relation="include">
-        </childnode>
-        <childnode refid="737" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
-        </childnode>
-        <childnode refid="752" relation="include">
-        </childnode>
-        <childnode refid="753" relation="include">
-        </childnode>
-      </node>
-      <node id="783">
-        <label>xplmi_task.c</label>
-        <link refid="xplmi__task_8c"/>
-      </node>
-      <node id="731">
-        <label>xplmi_debug.c</label>
-        <link refid="xplmi__debug_8c"/>
-      </node>
-      <node id="769">
-        <label>xplmi_debug.h</label>
-        <link refid="xplmi__debug_8h"/>
-        <childnode refid="728" relation="include">
-        </childnode>
-        <childnode refid="730" relation="include">
-        </childnode>
-        <childnode refid="770" relation="include">
-        </childnode>
-        <childnode refid="778" relation="include">
-        </childnode>
-        <childnode refid="779" relation="include">
-        </childnode>
-        <childnode refid="731" relation="include">
-        </childnode>
-        <childnode refid="756" relation="include">
-        </childnode>
-        <childnode refid="732" relation="include">
-        </childnode>
-        <childnode refid="735" relation="include">
-        </childnode>
-        <childnode refid="780" relation="include">
-        </childnode>
-        <childnode refid="771" relation="include">
-        </childnode>
-        <childnode refid="781" relation="include">
-        </childnode>
-        <childnode refid="782" relation="include">
-        </childnode>
-        <childnode refid="783" relation="include">
-        </childnode>
-        <childnode refid="739" relation="include">
-        </childnode>
-        <childnode refid="744" relation="include">
-        </childnode>
-        <childnode refid="745" relation="include">
-        </childnode>
-        <childnode refid="749" relation="include">
-        </childnode>
-        <childnode refid="754" relation="include">
-        </childnode>
-      </node>
-      <node id="738">
-        <label>xplmi_tamper.c</label>
-        <link refid="xplmi__tamper_8c"/>
-      </node>
-      <node id="748">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="762">
-        <label>xplmi_plat.h</label>
-        <link refid="2vp_2server_2xplmi__plat_8h"/>
-        <childnode refid="748" relation="include">
-        </childnode>
-      </node>
-      <node id="747">
-        <label>xplmi_plat.c</label>
-      </node>
-      <node id="761">
-        <label>xplmi_plat.h</label>
-        <childnode refid="746" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-      </node>
-      <node id="782">
-        <label>xplmi_sysmon.c</label>
-        <link refid="xplmi__sysmon_8c"/>
-      </node>
-      <node id="739">
+      <node id="813">
         <label>xplmi_util.c</label>
         <link refid="xplmi__util_8c"/>
       </node>
-      <node id="730">
-        <label>xplmi.c</label>
-        <link refid="xplmi_8c"/>
-      </node>
-      <node id="750">
-        <label>xplmi_plat.c</label>
-        <link refid="2vp__p_2server_2xplmi__plat_8c"/>
-      </node>
-      <node id="729">
-        <label>xplmi.h</label>
-        <link refid="xplmi_8h"/>
-        <childnode refid="730" relation="include">
-        </childnode>
-        <childnode refid="731" relation="include">
-        </childnode>
-        <childnode refid="732" relation="include">
-        </childnode>
-        <childnode refid="733" relation="include">
-        </childnode>
-        <childnode refid="734" relation="include">
-        </childnode>
-        <childnode refid="735" relation="include">
-        </childnode>
-        <childnode refid="736" relation="include">
-        </childnode>
-        <childnode refid="737" relation="include">
-        </childnode>
-        <childnode refid="738" relation="include">
-        </childnode>
-        <childnode refid="739" relation="include">
-        </childnode>
-        <childnode refid="740" relation="include">
-        </childnode>
-        <childnode refid="744" relation="include">
-        </childnode>
-        <childnode refid="745" relation="include">
-        </childnode>
-        <childnode refid="746" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-        <childnode refid="748" relation="include">
-        </childnode>
-        <childnode refid="749" relation="include">
-        </childnode>
-        <childnode refid="750" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
-        </childnode>
-        <childnode refid="752" relation="include">
-        </childnode>
-        <childnode refid="753" relation="include">
-        </childnode>
-        <childnode refid="754" relation="include">
-        </childnode>
-      </node>
-      <node id="763">
-        <label>xplmi_plat.h</label>
-        <link refid="2vp__p_2server_2xplmi__plat_8h"/>
-        <childnode refid="750" relation="include">
-        </childnode>
-      </node>
-      <node id="741">
+      <node id="836">
         <label>xplmi_err.c</label>
       </node>
-      <node id="772">
+      <node id="854">
         <label>xplmi_err.h</label>
-        <childnode refid="741" relation="include">
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="806" relation="include">
+        </childnode>
+        <childnode refid="807" relation="include">
+        </childnode>
+        <childnode refid="808" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
         </childnode>
       </node>
-      <node id="756">
-        <label>xplmi_dma.c</label>
-        <link refid="xplmi__dma_8c"/>
+      <node id="820">
+        <label>xplmi_asufw_keepalive.c</label>
+        <link refid="xplmi__asufw__keepalive_8c"/>
       </node>
-      <node id="733">
-        <label>xplmi_err_common.c</label>
-        <link refid="xplmi__err__common_8c"/>
+      <node id="819">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi__asu__cmd_8c"/>
       </node>
-      <node id="770">
-        <label>xplmi_err_common.h</label>
-        <link refid="xplmi__err__common_8h"/>
-        <childnode refid="730" relation="include">
-        </childnode>
-        <childnode refid="732" relation="include">
-        </childnode>
-        <childnode refid="733" relation="include">
-        </childnode>
-        <childnode refid="734" relation="include">
-        </childnode>
-        <childnode refid="771" relation="include">
-        </childnode>
-        <childnode refid="738" relation="include">
-        </childnode>
-        <childnode refid="741" relation="include">
-        </childnode>
-        <childnode refid="772" relation="include">
-        </childnode>
-        <childnode refid="742" relation="include">
-        </childnode>
-        <childnode refid="743" relation="include">
-        </childnode>
-        <childnode refid="773" relation="include">
-        </childnode>
-        <childnode refid="746" relation="include">
-        </childnode>
-        <childnode refid="774" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-        <childnode refid="757" relation="include">
-        </childnode>
-        <childnode refid="775" relation="include">
-        </childnode>
-        <childnode refid="748" relation="include">
-        </childnode>
-        <childnode refid="758" relation="include">
-        </childnode>
-        <childnode refid="776" relation="include">
-        </childnode>
-        <childnode refid="750" relation="include">
-        </childnode>
-        <childnode refid="759" relation="include">
-        </childnode>
-        <childnode refid="777" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
-        </childnode>
-      </node>
-      <node id="727">
-        <label>xplmi_dma.h</label>
-        <link refid="xplmi_dma.h"/>
-        <childnode refid="728" relation="include">
-        </childnode>
-        <childnode refid="755" relation="include">
-        </childnode>
-        <childnode refid="756" relation="include">
-        </childnode>
-        <childnode refid="735" relation="include">
-        </childnode>
-        <childnode refid="742" relation="include">
-        </childnode>
-        <childnode refid="760" relation="include">
-        </childnode>
-        <childnode refid="761" relation="include">
-        </childnode>
-        <childnode refid="748" relation="include">
-        </childnode>
-        <childnode refid="762" relation="include">
-        </childnode>
-        <childnode refid="750" relation="include">
-        </childnode>
-        <childnode refid="763" relation="include">
-        </childnode>
-        <childnode refid="764" relation="include">
-        </childnode>
-      </node>
-      <node id="753">
-        <label>xplmi_update.c</label>
-        <link refid="xplmi__update_8c"/>
-      </node>
-      <node id="743">
+      <node id="817">
         <label>xplmi_ssit.c</label>
+        <link refid="xplmi__ssit_8c"/>
       </node>
-      <node id="740">
+      <node id="826">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="814">
         <label>xplmi_ssit.h</label>
-        <childnode refid="741" relation="include">
+        <childnode refid="815" relation="include">
         </childnode>
-        <childnode refid="742" relation="include">
+        <childnode refid="816" relation="include">
         </childnode>
-        <childnode refid="743" relation="include">
+        <childnode refid="817" relation="include">
         </childnode>
       </node>
-      <node id="744">
+      <node id="840">
+        <label>xplmi_plat.h</label>
+        <childnode refid="826" relation="include">
+        </childnode>
+      </node>
+      <node id="835">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="853">
+        <label>xplmi_err.h</label>
+        <link refid="2vp__p_2server_2xplmi__err_8h"/>
+        <childnode refid="835" relation="include">
+        </childnode>
+      </node>
+      <node id="825">
         <label>xplmi_wdt.c</label>
       </node>
-      <node id="736">
-        <label>xplmi_generic.c</label>
+      <node id="823">
+        <label>xplmi_plat.c</label>
       </node>
-      <node id="728">
-        <label>xplmi_generic.h</label>
-        <childnode refid="729" relation="include">
-        </childnode>
-        <childnode refid="755" relation="include">
-        </childnode>
-        <childnode refid="756" relation="include">
-        </childnode>
-        <childnode refid="736" relation="include">
-        </childnode>
-        <childnode refid="737" relation="include">
-        </childnode>
-        <childnode refid="742" relation="include">
-        </childnode>
-        <childnode refid="746" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-        <childnode refid="757" relation="include">
-        </childnode>
-        <childnode refid="748" relation="include">
-        </childnode>
-        <childnode refid="758" relation="include">
-        </childnode>
-        <childnode refid="750" relation="include">
-        </childnode>
-        <childnode refid="759" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
-        </childnode>
-        <childnode refid="752" relation="include">
+      <node id="839">
+        <label>xplmi_plat.h</label>
+        <link refid="2vp_2server_2xplmi__plat_8h"/>
+        <childnode refid="823" relation="include">
         </childnode>
       </node>
-      <node id="784">
-        <label>xplmi_modules.c</label>
-        <link refid="xplmi__modules_8c"/>
+      <node id="806">
+        <label>xplmi_err_cmd.c</label>
+        <link refid="xplmi__err__cmd_8c"/>
       </node>
-      <node id="765">
-        <label>xplmi_modules.h</label>
-        <link refid="xplmi__modules_8h"/>
-        <childnode refid="766" relation="include">
-        </childnode>
-        <childnode refid="779" relation="include">
-        </childnode>
-        <childnode refid="732" relation="include">
-        </childnode>
-        <childnode refid="735" relation="include">
-        </childnode>
-        <childnode refid="736" relation="include">
-        </childnode>
-        <childnode refid="784" relation="include">
-        </childnode>
-        <childnode refid="743" relation="include">
-        </childnode>
-        <childnode refid="745" relation="include">
-        </childnode>
-        <childnode refid="752" relation="include">
-        </childnode>
-        <childnode refid="753" relation="include">
-        </childnode>
+      <node id="858">
+        <label>xplmi_scheduler.c</label>
+        <link refid="xplmi__scheduler_8c"/>
       </node>
-      <node id="754">
-        <label>xplmi_wdt.c</label>
-      </node>
-      <node id="734">
+      <node id="808">
         <label>xplmi_err_psm.c</label>
         <link refid="xplmi__err__psm_8c"/>
       </node>
-      <node id="755">
-        <label>xplmi_cdo.c</label>
-        <link refid="xplmi__cdo_8c"/>
+      <node id="861">
+        <label>xplmi_modules.c</label>
+        <link refid="xplmi__modules_8c"/>
       </node>
-      <node id="778">
-        <label>xplmi_cdo.h</label>
-        <link refid="xplmi__cdo_8h"/>
-        <childnode refid="755" relation="include">
+      <node id="842">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="843" relation="include">
         </childnode>
-        <childnode refid="736" relation="include">
+        <childnode refid="856" relation="include">
         </childnode>
-        <childnode refid="752" relation="include">
+        <childnode refid="806" relation="include">
+        </childnode>
+        <childnode refid="809" relation="include">
+        </childnode>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="861" relation="include">
+        </childnode>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="819" relation="include">
+        </childnode>
+        <childnode refid="820" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
         </childnode>
       </node>
-      <node id="757">
+      <node id="816">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="837">
+        <label>xplmi_plat.h</label>
+        <childnode refid="816" relation="include">
+        </childnode>
+        <childnode refid="817" relation="include">
+        </childnode>
+      </node>
+      <node id="821">
         <label>xplmi_err.c</label>
-        <link refid="2vp_2server_2xplmi__err_8c"/>
       </node>
-      <node id="775">
+      <node id="818">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="851">
         <label>xplmi_err.h</label>
-        <link refid="2vp_2server_2xplmi__err_8h"/>
-        <childnode refid="757" relation="include">
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
         </childnode>
       </node>
-      <node id="749">
-        <label>xplmi_wdt.c</label>
-        <link refid="2vp_2server_2xplmi__wdt_8c"/>
+      <node id="810">
+        <label>xplmi_generic.c</label>
       </node>
-      <node id="779">
+      <node id="802">
+        <label>xplmi_generic.h</label>
+        <childnode refid="803" relation="include">
+        </childnode>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="811" relation="include">
+        </childnode>
+        <childnode refid="816" relation="include">
+        </childnode>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="834" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="835" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
+        </childnode>
+      </node>
+      <node id="811">
+        <label>xplmi_ipi.c</label>
+        <link refid="xplmi__ipi_8c"/>
+      </node>
+      <node id="843">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="844" relation="include">
+        </childnode>
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="811" relation="include">
+        </childnode>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
+        </childnode>
+      </node>
+      <node id="856">
         <label>xplmi_cmd.c</label>
         <link refid="xplmi__cmd_8c"/>
       </node>
-      <node id="780">
-        <label>xplmi_gic_interrupts.c</label>
-        <link refid="xplmi__gic__interrupts_8c"/>
-      </node>
-      <node id="767">
-        <label>xplmi_gic_interrupts.h</label>
-        <link refid="xplmi__gic__interrupts_8h"/>
-        <childnode refid="768" relation="include">
-        </childnode>
-        <childnode refid="780" relation="include">
-        </childnode>
-        <childnode refid="742" relation="include">
-        </childnode>
-        <childnode refid="747" relation="include">
-        </childnode>
-        <childnode refid="748" relation="include">
-        </childnode>
-        <childnode refid="750" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
+      <node id="824">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="823" relation="include">
         </childnode>
       </node>
-      <node id="752">
+      <node id="815">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="849">
+        <label>xplmi_err.h</label>
+        <childnode refid="815" relation="include">
+        </childnode>
+      </node>
+      <node id="828">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="841">
+        <label>xplmi_plat.h</label>
+        <childnode refid="842" relation="include">
+        </childnode>
+        <childnode refid="803" relation="include">
+        </childnode>
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+        <childnode refid="807" relation="include">
+        </childnode>
+        <childnode refid="808" relation="include">
+        </childnode>
+        <childnode refid="809" relation="include">
+        </childnode>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="857" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
+        </childnode>
+      </node>
+      <node id="807">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="847">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="806" relation="include">
+        </childnode>
+        <childnode refid="807" relation="include">
+        </childnode>
+        <childnode refid="808" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="812" relation="include">
+        </childnode>
+        <childnode refid="815" relation="include">
+        </childnode>
+        <childnode refid="849" relation="include">
+        </childnode>
+        <childnode refid="816" relation="include">
+        </childnode>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="850" relation="include">
+        </childnode>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="851" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="834" relation="include">
+        </childnode>
+        <childnode refid="852" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="835" relation="include">
+        </childnode>
+        <childnode refid="853" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+        <childnode refid="854" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+      </node>
+      <node id="860">
+        <label>xplmi_task.c</label>
+        <link refid="xplmi__task_8c"/>
+      </node>
+      <node id="822">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="838">
+        <label>xplmi_plat.h</label>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+      </node>
+      <node id="829">
         <label>xplmi_plat_cmd.c</label>
         <link refid="xplmi__plat__cmd_8c"/>
       </node>
-      <node id="759">
+      <node id="848">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi__proc_8c"/>
+      </node>
+      <node id="845">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="846" relation="include">
+        </childnode>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="811" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="860" relation="include">
+        </childnode>
+        <childnode refid="813" relation="include">
+        </childnode>
+        <childnode refid="817" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="831" relation="include">
+        </childnode>
+      </node>
+      <node id="831">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="834">
         <label>xplmi_err.c</label>
       </node>
-      <node id="777">
+      <node id="852">
         <label>xplmi_err.h</label>
-        <childnode refid="730" relation="include">
-        </childnode>
-        <childnode refid="732" relation="include">
-        </childnode>
-        <childnode refid="733" relation="include">
-        </childnode>
-        <childnode refid="734" relation="include">
-        </childnode>
-        <childnode refid="759" relation="include">
-        </childnode>
-        <childnode refid="751" relation="include">
-        </childnode>
-        <childnode refid="753" relation="include">
+        <link refid="2vp_2server_2xplmi__err_8h"/>
+        <childnode refid="834" relation="include">
         </childnode>
       </node>
-      <node id="751">
-        <label>xplmi_plat.c</label>
+      <node id="812">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
       </node>
-      <node id="764">
-        <label>xplmi_plat.h</label>
-        <childnode refid="765" relation="include">
+      <node id="804">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="803">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="804" relation="include">
         </childnode>
-        <childnode refid="729" relation="include">
+        <childnode refid="805" relation="include">
         </childnode>
-        <childnode refid="730" relation="include">
+        <childnode refid="806" relation="include">
         </childnode>
-        <childnode refid="756" relation="include">
+        <childnode refid="807" relation="include">
         </childnode>
-        <childnode refid="733" relation="include">
+        <childnode refid="808" relation="include">
         </childnode>
-        <childnode refid="734" relation="include">
+        <childnode refid="809" relation="include">
         </childnode>
-        <childnode refid="735" relation="include">
+        <childnode refid="810" relation="include">
         </childnode>
-        <childnode refid="736" relation="include">
+        <childnode refid="811" relation="include">
         </childnode>
-        <childnode refid="780" relation="include">
+        <childnode refid="812" relation="include">
         </childnode>
-        <childnode refid="771" relation="include">
+        <childnode refid="813" relation="include">
         </childnode>
-        <childnode refid="759" relation="include">
+        <childnode refid="814" relation="include">
         </childnode>
-        <childnode refid="751" relation="include">
+        <childnode refid="818" relation="include">
         </childnode>
-        <childnode refid="753" relation="include">
+        <childnode refid="819" relation="include">
+        </childnode>
+        <childnode refid="820" relation="include">
+        </childnode>
+        <childnode refid="821" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="824" relation="include">
+        </childnode>
+        <childnode refid="825" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="827" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
+        </childnode>
+        <childnode refid="831" relation="include">
         </childnode>
       </node>
-      <node id="732">
-        <label>xplmi_err_cmd.c</label>
-        <link refid="xplmi__err__cmd_8c"/>
+      <node id="827">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="807" relation="include">
+        </childnode>
+        <childnode refid="808" relation="include">
+        </childnode>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+      </node>
+      <node id="805">
+        <label>xplmi_debug.c</label>
+        <link refid="xplmi__debug_8c"/>
+      </node>
+      <node id="859">
+        <label>xplmi_sysmon.c</label>
+        <link refid="xplmi__sysmon_8c"/>
+      </node>
+      <node id="846">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="802" relation="include">
+        </childnode>
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="855" relation="include">
+        </childnode>
+        <childnode refid="856" relation="include">
+        </childnode>
+        <childnode refid="805" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+        <childnode refid="806" relation="include">
+        </childnode>
+        <childnode refid="809" relation="include">
+        </childnode>
+        <childnode refid="857" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+        <childnode refid="858" relation="include">
+        </childnode>
+        <childnode refid="859" relation="include">
+        </childnode>
+        <childnode refid="860" relation="include">
+        </childnode>
+        <childnode refid="813" relation="include">
+        </childnode>
+        <childnode refid="818" relation="include">
+        </childnode>
+        <childnode refid="819" relation="include">
+        </childnode>
+        <childnode refid="825" relation="include">
+        </childnode>
+        <childnode refid="831" relation="include">
+        </childnode>
+      </node>
+      <node id="832">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi__cdo_8c"/>
+      </node>
+      <node id="855">
+        <label>xplmi_cdo.h</label>
+        <link refid="xplmi__cdo_8h"/>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="810" relation="include">
+        </childnode>
+        <childnode refid="829" relation="include">
+        </childnode>
+      </node>
+      <node id="833">
+        <label>xplmi_dma.c</label>
+        <link refid="xplmi__dma_8c"/>
+      </node>
+      <node id="801">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi_dma.h"/>
+        <childnode refid="802" relation="include">
+        </childnode>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+        <childnode refid="809" relation="include">
+        </childnode>
+        <childnode refid="816" relation="include">
+        </childnode>
+        <childnode refid="837" relation="include">
+        </childnode>
+        <childnode refid="838" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="839" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="840" relation="include">
+        </childnode>
+        <childnode refid="841" relation="include">
+        </childnode>
+      </node>
+      <node id="850">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi__asu__update_8c"/>
+      </node>
+      <node id="857">
+        <label>xplmi_gic_interrupts.c</label>
+        <link refid="xplmi__gic__interrupts_8c"/>
+      </node>
+      <node id="844">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="845" relation="include">
+        </childnode>
+        <childnode refid="857" relation="include">
+        </childnode>
+        <childnode refid="816" relation="include">
+        </childnode>
+        <childnode refid="822" relation="include">
+        </childnode>
+        <childnode refid="823" relation="include">
+        </childnode>
+        <childnode refid="826" relation="include">
+        </childnode>
+        <childnode refid="828" relation="include">
+        </childnode>
+      </node>
+      <node id="830">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+      <node id="809">
+        <label>xplmi_event_logging.c</label>
+        <link refid="xplmi__event__logging_8c"/>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -682,6 +711,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_DMA_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_dma.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_dma.h"/>
   </compounddef>
 </doxygen>

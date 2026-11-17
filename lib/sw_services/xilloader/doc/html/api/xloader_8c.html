@@ -310,7 +310,21 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
                      does not incorrectly remove entries that were legitimately added via Set
                      Image Info commands.
       vm  03/30/2026 Added support for OSPI as pdi source to get the optional data
-      obs 05/20/2026 Add boot PDI guard and ELF partition filter in delayed handoff loop</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+      obs 05/20/2026 Add boot PDI guard and ELF partition filter in delayed handoff loop
+      ng  07/09/2026 Added XLoader_SetDdrPdiAddr for set DDR address for restart image
+      ng  07/13/2026 Reduced debug print levels on error paths
+      pre 08/15/2026 Do not set boot done bit if ROM and PLM measurement fails in case of TPM being enabled.
+2.5   gnr  08/19/2026 Re-arm SMAP sync word detection and drain SBI FIFO before
+                     setting the DONE pin after PDI load
+      dc   09/01/2026 Enable DAP device state change scheduler for VERSAL_2VP_P
+      gnr  09/02/2026 Configure OSPI RX tuning after reading PDI optional data
+      gnr  09/11/2026 Pass PDI source while re-arming SMAP sync word
+                      detection
+      aa   09/15/2026 Added support to skip IDCODE check during Extract Metaheader
+      obs 09/16/2026 Bounded running partition count in
+                     XLoader_GetImageAndPrtnInfo
+      obs 09/20/2026 Reduced partition count validation code size
+       mkr  10/09/2026 Moved CL pre-boot check out of XLoader_Init</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__qspi_8h.html">xloader_qspi.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__sbi_8h.html">xloader_sbi.h</a>&quot;</code><br/>
@@ -338,9 +352,21 @@ Macros</h2></td></tr>
 <tr class="memitem:ga1e7b2ae49b2f41294ba3e4c7403df20b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga1e7b2ae49b2f41294ba3e4c7403df20b">XLOADER_IMAGE_INFO_TBL_MAX_NUM</a></td></tr>
 <tr class="memdesc:ga1e7b2ae49b2f41294ba3e4c7403df20b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of image info tables in the available buffer.  <a href="group__xloader__server__apis.html#ga1e7b2ae49b2f41294ba3e4c7403df20b">More...</a><br/></td></tr>
 <tr class="separator:ga1e7b2ae49b2f41294ba3e4c7403df20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga141333640799672d40890822b7cea2c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga141333640799672d40890822b7cea2c7">XLOADER_IDCODE_BYPASS_ACTIVE</a>&#160;&#160;&#160;(0xA5A5A5A5U)</td></tr>
+<tr class="memdesc:ga141333640799672d40890822b7cea2c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">IDcode bypass enabled.  <a href="group__xloader__server__apis.html#ga141333640799672d40890822b7cea2c7">More...</a><br/></td></tr>
+<tr class="separator:ga141333640799672d40890822b7cea2c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f7cc07d2a5a731d223bc6c06858b578"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga8f7cc07d2a5a731d223bc6c06858b578">XLOADER_IDCODE_BYPASS_INACTIVE</a>&#160;&#160;&#160;(0x5A5A5A5AU)</td></tr>
+<tr class="memdesc:ga8f7cc07d2a5a731d223bc6c06858b578"><td class="mdescLeft">&#160;</td><td class="mdescRight">IDcode bypass disabled.  <a href="group__xloader__server__apis.html#ga8f7cc07d2a5a731d223bc6c06858b578">More...</a><br/></td></tr>
+<tr class="separator:ga8f7cc07d2a5a731d223bc6c06858b578"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gafce3455b5919a1e5be5e6d423e9c25ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gafce3455b5919a1e5be5e6d423e9c25ea">XLoader_SetIdCodeBypassFlag</a> (void)</td></tr>
+<tr class="memdesc:gafce3455b5919a1e5be5e6d423e9c25ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the IDcode bypass flag.  <a href="group__xloader__server__apis.html#gafce3455b5919a1e5be5e6d423e9c25ea">More...</a><br/></td></tr>
+<tr class="separator:gafce3455b5919a1e5be5e6d423e9c25ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga252ce894e9f2b7b730e7684891c2b1a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga252ce894e9f2b7b730e7684891c2b1a6">XLoader_ClearIdCodeBypassFlag</a> (void)</td></tr>
+<tr class="memdesc:ga252ce894e9f2b7b730e7684891c2b1a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the IDcode bypass flag.  <a href="group__xloader__server__apis.html#ga252ce894e9f2b7b730e7684891c2b1a6">More...</a><br/></td></tr>
+<tr class="separator:ga252ce894e9f2b7b730e7684891c2b1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacb10f2e97fecfb15aae4fed081b02502"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#gacb10f2e97fecfb15aae4fed081b02502">XLoader_Init</a> (void)</td></tr>
 <tr class="memdesc:gacb10f2e97fecfb15aae4fed081b02502"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the loader instance and registers loader commands with PLM.  <a href="group__xloader__server__apis.html#gacb10f2e97fecfb15aae4fed081b02502">More...</a><br/></td></tr>
 <tr class="separator:gacb10f2e97fecfb15aae4fed081b02502"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -362,6 +388,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga443aaeef586ee9cefe8509092d99ca17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga443aaeef586ee9cefe8509092d99ca17">XLoader_LoadImage</a> (<a class="el" href="struct_xil_pdi.html">XilPdi</a> *PdiPtr)</td></tr>
 <tr class="memdesc:ga443aaeef586ee9cefe8509092d99ca17"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used load a image in PDI.  <a href="group__xloader__server__apis.html#ga443aaeef586ee9cefe8509092d99ca17">More...</a><br/></td></tr>
 <tr class="separator:ga443aaeef586ee9cefe8509092d99ca17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6dc6297b507b506332f4a2cb8602497a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga6dc6297b507b506332f4a2cb8602497a">XLoader_SetDdrPdiAddr</a> (u32 SubsystemId, u64 Addr)</td></tr>
+<tr class="memdesc:ga6dc6297b507b506332f4a2cb8602497a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates and stores the DDR PDI address used by XLoader_RestartImage to load a subsystem image directly from DDR.  <a href="group__xloader__server__apis.html#ga6dc6297b507b506332f4a2cb8602497a">More...</a><br/></td></tr>
+<tr class="separator:ga6dc6297b507b506332f4a2cb8602497a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3dbbecc3b2545a3e076d421f086715e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xloader__server__apis.html#ga3dbbecc3b2545a3e076d421f086715e6">XLoader_RestartImage</a> (u32 ImageId, u32 *FuncID)</td></tr>
 <tr class="memdesc:ga3dbbecc3b2545a3e076d421f086715e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to restart the image in PDI.  <a href="group__xloader__server__apis.html#ga3dbbecc3b2545a3e076d421f086715e6">More...</a><br/></td></tr>
 <tr class="separator:ga3dbbecc3b2545a3e076d421f086715e6"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -14,6 +14,12 @@
       <node id="89">
         <label>xil_assert.h</label>
       </node>
+      <node id="94">
+        <label>xavbuf_clk.h</label>
+      </node>
+      <node id="87">
+        <label>xil_io.h</label>
+      </node>
       <node id="83">
         <label>xdpdma_video_example.h</label>
         <link refid="xdpdma_video_example.h"/>
@@ -45,12 +51,6 @@
         </childnode>
         <childnode refid="91" relation="include">
         </childnode>
-      </node>
-      <node id="94">
-        <label>xavbuf_clk.h</label>
-      </node>
-      <node id="87">
-        <label>xil_io.h</label>
       </node>
       <node id="93">
         <label>xdppsu.h</label>
@@ -121,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="49" bodyend="52"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="45" bodyend="48"/>
       </memberdef>
       <memberdef kind="enum" id="xdpdma__video__example_8h_1ac0218a064cb0289fa35317cfd64bf1c2" prot="public" static="no">
         <name>LinkRate_t</name>
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="54" bodyend="58"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="50" bodyend="54"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -184,12 +184,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="118" bodyend="141"/>
-        <references refid="xdpdma__video__example_8c_1a470424f6453588dc42fda7e6950f6cf6" compoundref="xdpdma__video__example_8c" startline="348" endline="368">GraphicsOverlay</references>
-        <references refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="186" endline="261">InitDpDmaSubsystem</references>
-        <references refid="xdpdma__video__example_8c_1a1feaf56ba2ce7c1f4770cbab7da31276" compoundref="xdpdma__video__example_8c" startline="155" endline="171">InitRunConfig</references>
-        <references refid="xdpdma__video__example_8c_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="276" endline="331">SetupInterrupts</references>
-        <referencedby refid="xdpdma__video__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xdpdma__video__example_8c" startline="86" endline="103">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="105" bodyend="128"/>
+        <references refid="xdpdma__video__example_8c_1a470424f6453588dc42fda7e6950f6cf6" compoundref="xdpdma__video__example_8c" startline="285" endline="305">GraphicsOverlay</references>
+        <references refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="173" endline="236">InitDpDmaSubsystem</references>
+        <references refid="xdpdma__video__example_8c_1a1feaf56ba2ce7c1f4770cbab7da31276" compoundref="xdpdma__video__example_8c" startline="142" endline="158">InitRunConfig</references>
+        <references refid="xdpdma__video__example_8c_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="251" endline="268">SetupInterrupts</references>
+        <referencedby refid="xdpdma__video__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xdpdma__video__example_8c" startline="73" endline="90">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1a1feaf56ba2ce7c1f4770cbab7da31276" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -216,8 +216,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="155" bodyend="171"/>
-        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="118" endline="141">DpdmaVideoExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="142" bodyend="158"/>
+        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="105" endline="128">DpdmaVideoExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1a80296bbf6ce18bd52a48ac07844ec8ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -244,12 +244,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="186" bodyend="261"/>
-        <references refid="xdpdma_8c_1a644e1a27df9327819d6fce610e97bae1" compoundref="xdpdma_8c" startline="335" endline="357">XDpDma_CfgInitialize</references>
-        <references refid="group__dpdma__v1__4_1ga51811fd3a410bcc4de1edec25b6f328e" compoundref="xdpdma__sinit_8c" startline="67" endline="80">XDpDma_LookupConfig</references>
-        <references refid="xdpdma_8c_1a3307b5795328ef76c76674588918739d" compoundref="xdpdma_8c" startline="472" endline="484">XDpDma_SetGraphicsFormat</references>
-        <references refid="xdpdma_8c_1ac04dd8bf90f181c5ca44af2b0bd1e3d2" compoundref="xdpdma_8c" startline="499" endline="520">XDpDma_SetQOS</references>
-        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="118" endline="141">DpdmaVideoExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="173" bodyend="236"/>
+        <references refid="xdpdma_8c_1a644e1a27df9327819d6fce610e97bae1" compoundref="xdpdma_8c" startline="335" endline="354">XDpDma_CfgInitialize</references>
+        <references refid="group__dpdma__v1__4_1ga51811fd3a410bcc4de1edec25b6f328e" compoundref="xdpdma__sinit_8c" startline="48" endline="61">XDpDma_LookupConfig</references>
+        <references refid="xdpdma_8c_1a3307b5795328ef76c76674588918739d" compoundref="xdpdma_8c" startline="469" endline="481">XDpDma_SetGraphicsFormat</references>
+        <references refid="xdpdma_8c_1ac04dd8bf90f181c5ca44af2b0bd1e3d2" compoundref="xdpdma_8c" startline="496" endline="517">XDpDma_SetQOS</references>
+        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="105" endline="128">DpdmaVideoExample</referencedby>
         <referencedby refid="xdppsu__interrupt_8c_1a51529144f29c6d0db501353f1082d7cd" compoundref="xdppsu__interrupt_8c" startline="147" endline="199">DpPsu_Run</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -277,12 +277,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="276" bodyend="331"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="251" bodyend="268"/>
         <references refid="xdpdma__video__example_8h_1a601d86ab0c289a1eec2bacc241a3df06" compoundref="xdppsu__interrupt_8c" startline="216" endline="221">DpPsu_IsrHpdEvent</references>
         <references refid="xdpdma__video__example_8h_1adbfe5ef0bf4ee5c6cd11a276a48724a2" compoundref="xdppsu__interrupt_8c" startline="237" endline="277">DpPsu_IsrHpdPulse</references>
         <references refid="xdpdma__intr_8c_1a1789f821f2b216d7693514352b300216" compoundref="xdpdma__intr_8c" startline="43" endline="46">XDpDma_InterruptEnable</references>
         <references refid="xdpdma__intr_8c_1a856c484c8e45df996ba6aa97f38392dd" compoundref="xdpdma__intr_8c" startline="60" endline="82">XDpDma_InterruptHandler</references>
-        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="118" endline="141">DpdmaVideoExample</referencedby>
+        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="105" endline="128">DpdmaVideoExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1a470424f6453588dc42fda7e6950f6cf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u8 *</type>
@@ -316,8 +316,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="348" bodyend="368"/>
-        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="118" endline="141">DpdmaVideoExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.c" bodystart="285" bodyend="305"/>
+        <referencedby refid="xdpdma__video__example_8h_1ab82447645e4ec0a18dfe90d74018a8a1" compoundref="xdpdma__video__example_8c" startline="105" endline="128">DpdmaVideoExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -344,7 +344,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="291" bodyend="318"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="291" bodyend="318"/>
         <referencedby refid="xdppsu__interrupt_8c_1adbfe5ef0bf4ee5c6cd11a276a48724a2" compoundref="xdppsu__interrupt_8c" startline="237" endline="277">DpPsu_IsrHpdPulse</referencedby>
         <referencedby refid="xdppsu__interrupt_8c_1a51529144f29c6d0db501353f1082d7cd" compoundref="xdppsu__interrupt_8c" startline="147" endline="199">DpPsu_Run</referencedby>
       </memberdef>
@@ -375,11 +375,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="147" bodyend="199"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="147" bodyend="199"/>
         <references refid="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" compoundref="xdppsu__interrupt_8c" startline="291" endline="318">DpPsu_SetupVideoStream</references>
-        <references refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="186" endline="261">InitDpDmaSubsystem</references>
-        <references refid="xdpdma_8c_1a4b37c9c5a788e141ca8492131af1f980" compoundref="xdpdma_8c" startline="826" endline="840">XDpDma_DisplayGfxFrameBuffer</references>
-        <references refid="xdpdma_8c_1af852eb781100e5f56cb62d9cc9887fb6" compoundref="xdpdma_8c" startline="374" endline="427">XDpDma_SetChannelState</references>
+        <references refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="173" endline="236">InitDpDmaSubsystem</references>
+        <references refid="xdpdma_8c_1a4b37c9c5a788e141ca8492131af1f980" compoundref="xdpdma_8c" startline="823" endline="837">XDpDma_DisplayGfxFrameBuffer</references>
+        <references refid="xdpdma_8c_1af852eb781100e5f56cb62d9cc9887fb6" compoundref="xdpdma_8c" startline="371" endline="424">XDpDma_SetChannelState</references>
         <referencedby refid="xdppsu__interrupt_8c_1a601d86ab0c289a1eec2bacc241a3df06" compoundref="xdppsu__interrupt_8c" startline="216" endline="221">DpPsu_IsrHpdEvent</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1a601d86ab0c289a1eec2bacc241a3df06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -407,9 +407,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="216" bodyend="221"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="216" bodyend="221"/>
         <references refid="xdpdma__video__example_8h_1a51529144f29c6d0db501353f1082d7cd" compoundref="xdppsu__interrupt_8c" startline="147" endline="199">DpPsu_Run</references>
-        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="276" endline="331">SetupInterrupts</referencedby>
+        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="251" endline="268">SetupInterrupts</referencedby>
       </memberdef>
       <memberdef kind="function" id="xdpdma__video__example_8h_1adbfe5ef0bf4ee5c6cd11a276a48724a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -436,9 +436,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="237" bodyend="277"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdppsu_interrupt.c" bodystart="237" bodyend="277"/>
         <references refid="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" compoundref="xdppsu__interrupt_8c" startline="291" endline="318">DpPsu_SetupVideoStream</references>
-        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="276" endline="331">SetupInterrupts</referencedby>
+        <referencedby refid="xdpdma__video__example_8h_1a6be070431bed335091e0e9feb7bea7ac" compoundref="xdpdma__video__example_8c" startline="251" endline="268">SetupInterrupts</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -454,7 +454,7 @@ None.</para><para><preformatted>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -467,67 +467,63 @@ None.</para><para><preformatted>
 <codeline lineno="35"><highlight class="normal"></highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>SDK<sp/>generated<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdpdma_8h" kindref="compound">xdpdma.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DPDMA<sp/>device<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>controller<sp/>device<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdppsu.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DP<sp/>controller<sp/>device<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xavbuf.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AVBUF<sp/>is<sp/>the<sp/>video<sp/>pipeline<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xavbuf_clk.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clock<sp/>Driver<sp/>for<sp/>Video(VPLL)<sp/>and<sp/>Audio(RPLL)<sp/>clocks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LANE_COUNT_1<sp/>=<sp/>1,</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LANE_COUNT_2<sp/>=<sp/>2,</highlight></codeline>
-<codeline lineno="52"><highlight class="normal">}<sp/>LaneCount_t;</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINK_RATE_162GBPS<sp/>=<sp/>0x06,</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINK_RATE_270GBPS<sp/>=<sp/>0x0A,</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINK_RATE_540GBPS<sp/>=<sp/>0x14,</highlight></codeline>
-<codeline lineno="58"><highlight class="normal">}<sp/>LinkRate_t;</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu<sp/><sp/>*DpPsuPtr;</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic<sp/>*IntrPtr;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf<sp/><sp/>*AVBufPtr;</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma<sp/><sp/>*DpDmaPtr;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdppsu.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DP<sp/>controller<sp/>device<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xavbuf.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AVBUF<sp/>is<sp/>the<sp/>video<sp/>pipeline<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xavbuf_clk.h&quot;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clock<sp/>Driver<sp/>for<sp/>Video(VPLL)<sp/>and<sp/>Audio(RPLL)<sp/>clocks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LANE_COUNT_1<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LANE_COUNT_2<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}<sp/>LaneCount_t;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINK_RATE_162GBPS<sp/>=<sp/>0x06,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINK_RATE_270GBPS<sp/>=<sp/>0x0A,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LINK_RATE_540GBPS<sp/>=<sp/>0x14,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/>LinkRate_t;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu<sp/><sp/>*DpPsuPtr;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic<sp/>*IntrPtr;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBuf<sp/><sp/>*AVBufPtr;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDma<sp/><sp/>*DpDmaPtr;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/><sp/><sp/>VideoMode;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/><sp/>Bpc;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_ColorEncoding<sp/>ColorEncode;</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/><sp/><sp/>VideoMode;</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/><sp/>Bpc;</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_ColorEncoding<sp/>ColorEncode;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UseMaxLaneCount;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UseMaxLinkRate;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UseMaxCfgCaps;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EnSynchClkMode;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PixClkHz;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal">}<sp/>Run_Config;</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1ab82447645e4ec0a18dfe90d74018a8a1" kindref="member">DpdmaVideoExample</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1a1feaf56ba2ce7c1f4770cbab7da31276" kindref="member">InitRunConfig</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" kindref="member">InitDpDmaSubsystem</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1a6be070431bed335091e0e9feb7bea7ac" kindref="member">SetupInterrupts</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal">u8*<sp/><ref refid="xdpdma__video__example_8c_1a470424f6453588dc42fda7e6950f6cf6" kindref="member">GraphicsOverlay</ref>(u8*<sp/>Frame);</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DisplayPort<sp/>interrupt<sp/>related<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" kindref="member">DpPsu_SetupVideoStream</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UseMaxLaneCount;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UseMaxLinkRate;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UseMaxCfgCaps;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EnSynchClkMode;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PixClkHz;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}<sp/>Run_Config;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1ab82447645e4ec0a18dfe90d74018a8a1" kindref="member">DpdmaVideoExample</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1a1feaf56ba2ce7c1f4770cbab7da31276" kindref="member">InitRunConfig</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1a80296bbf6ce18bd52a48ac07844ec8ea" kindref="member">InitDpDmaSubsystem</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8c_1a6be070431bed335091e0e9feb7bea7ac" kindref="member">SetupInterrupts</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">u8*<sp/><ref refid="xdpdma__video__example_8c_1a470424f6453588dc42fda7e6950f6cf6" kindref="member">GraphicsOverlay</ref>(u8*<sp/>Frame);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DisplayPort<sp/>interrupt<sp/>related<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1a3512577114546136adebdabdb5d39f8f" kindref="member">DpPsu_SetupVideoStream</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1a51529144f29c6d0db501353f1082d7cd" kindref="member">DpPsu_Run</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1a601d86ab0c289a1eec2bacc241a3df06" kindref="member">DpPsu_IsrHpdEvent</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ref);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1adbfe5ef0bf4ee5c6cd11a276a48724a2" kindref="member">DpPsu_IsrHpdPulse</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ref);</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1a51529144f29c6d0db501353f1082d7cd" kindref="member">DpPsu_Run</ref>(Run_Config<sp/>*RunCfgPtr);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1a601d86ab0c289a1eec2bacc241a3df06" kindref="member">DpPsu_IsrHpdEvent</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ref);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdpdma__video__example_8h_1adbfe5ef0bf4ee5c6cd11a276a48724a2" kindref="member">DpPsu_IsrHpdPulse</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ref);</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SRC_DPDMA_VIDEO_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SRC_DPDMA_VIDEO_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h"/>
   </compounddef>
 </doxygen>

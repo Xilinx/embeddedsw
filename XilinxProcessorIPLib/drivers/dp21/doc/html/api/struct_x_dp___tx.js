@@ -2,7 +2,7 @@ var struct_x_dp___tx =
 [
     [ "AuxDelayUs", "struct_x_dp___tx.html#a9058e0650c07f8bd7edeeb7b410b65cd", null ],
     [ "BoardChar", "struct_x_dp___tx.html#a69e7454dfe4a61f9f4239333723b3ab3", null ],
-    [ "ColorimetryThroughVsc", "struct_x_dp___tx.html#a72ea6b98418c8f87b4cd45439f3f71ed", null ],
+    [ "ColorimetryThroughVsc", "struct_x_dp___tx.html#aaee1e0e6512512b37846c122758a87ac", null ],
     [ "DrvExtPktCallbackHandlerRef", "struct_x_dp___tx.html#a4dc59918901b7b2ff55554cc783ecba1", null ],
     [ "DrvHpdEventCallbackRef", "struct_x_dp___tx.html#a72065824b8f17781bca0cf8e795db9a9", null ],
     [ "DrvHpdEventHandler", "struct_x_dp___tx.html#ae45a90a87a306554c23c49e25d1cab8c", null ],
@@ -34,7 +34,7 @@ var struct_x_dp___tx =
     [ "TrainAdaptive", "struct_x_dp___tx.html#a141a5a1d6d4b6077694e8fe15004bd56", null ],
     [ "TxMsaCallbackRef", "struct_x_dp___tx.html#a52b39ba43df0bba5bbc9d6efbdec5043", null ],
     [ "TxSetMsaCallback", "struct_x_dp___tx.html#a265cbc9453d1024a19d446d4ecbd0b98", null ],
-    [ "VscPacket", "struct_x_dp___tx.html#a4370d36e9c5099db08583113e1b0fe99", null ],
+    [ "VscPacket", "struct_x_dp___tx.html#a2f9fa2acba3790d754a3dc45f812e0a2", null ],
     [ "VsyncCallbackHandler", "struct_x_dp___tx.html#aa97769a7f06b6886781b9149721f7cf2", null ],
     [ "VsyncCallbackHandlerRef", "struct_x_dp___tx.html#a780d5838a23855f0ea370e0418df4a9d", null ]
 ];

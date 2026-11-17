@@ -44,6 +44,6 @@
 <codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_include_directories(${EXAMPLE}.elf<sp/>PUBLIC<sp/>&quot;</highlight><highlight class="normal">${CMAKE_BINARY_DIR}/include</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
 <codeline lineno="36"><highlight class="stringliteral">endforeach()</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/examples/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilmailbox/examples/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

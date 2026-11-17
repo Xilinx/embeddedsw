@@ -8,31 +8,38 @@
     <includedby refid="xvprocss__router_8c" local="yes">xvprocss_router.c</includedby>
     <includedby refid="xv__procss__example_8c" local="yes">xv_procss_example.c</includedby>
     <incdepgraph>
-      <node id="329">
+      <node id="325">
         <label>xv_letterbox_l2.h</label>
       </node>
-      <node id="323">
+      <node id="319">
         <label>xv_csc_l2.h</label>
       </node>
-      <node id="317">
+      <node id="313">
         <label>xgpio.h</label>
       </node>
-      <node id="327">
+      <node id="323">
         <label>xv_hscaler_l2.h</label>
       </node>
-      <node id="321">
-        <label>xvprocss_log.h</label>
-        <link refid="xvprocss__log_8h"/>
-      </node>
-      <node id="318">
+      <node id="314">
         <label>xaxis_switch.h</label>
       </node>
-      <node id="328">
+      <node id="324">
         <label>xv_vscaler_l2.h</label>
       </node>
-      <node id="315">
+      <node id="312">
+        <label>xstatus.h</label>
+      </node>
+      <node id="311">
         <label>xvprocss.h</label>
         <link refid="xvprocss_8h"/>
+        <childnode refid="312" relation="include">
+        </childnode>
+        <childnode refid="313" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+        <childnode refid="315" relation="include">
+        </childnode>
         <childnode refid="316" relation="include">
         </childnode>
         <childnode refid="317" relation="include">
@@ -53,70 +60,63 @@
         </childnode>
         <childnode refid="325" relation="include">
         </childnode>
-        <childnode refid="326" relation="include">
+      </node>
+      <node id="315">
+        <label>xvidc.h</label>
+      </node>
+      <node id="310">
+        <label>xvprocss_vdma.h</label>
+        <link refid="xvprocss_vdma.h"/>
+        <childnode refid="311" relation="include">
         </childnode>
+      </node>
+      <node id="318">
+        <label>xparameters.h</label>
+      </node>
+      <node id="321">
+        <label>xv_hcresampler_l2.h</label>
+      </node>
+      <node id="317">
+        <label>xvprocss_log.h</label>
+        <link refid="xvprocss__log_8h"/>
+      </node>
+      <node id="322">
+        <label>xv_vcresampler_l2.h</label>
+      </node>
+      <node id="316">
+        <label>xaxivdma.h</label>
+      </node>
+      <node id="320">
+        <label>xv_deinterlacer_l2.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="330">
+        <label>xv_procss_example.c</label>
+        <link refid="xv__procss__example_8c"/>
+      </node>
+      <node id="328">
+        <label>xvprocss.c</label>
+        <link refid="xvprocss_8c"/>
+      </node>
+      <node id="329">
+        <label>xvprocss_router.c</label>
+        <link refid="xvprocss__router_8c"/>
+      </node>
+      <node id="327">
+        <label>xvprocss_vdma.c</label>
+        <link refid="xvprocss__vdma_8c"/>
+      </node>
+      <node id="326">
+        <label>xvprocss_vdma.h</label>
+        <link refid="xvprocss_vdma.h"/>
         <childnode refid="327" relation="include">
         </childnode>
         <childnode refid="328" relation="include">
         </childnode>
         <childnode refid="329" relation="include">
         </childnode>
-      </node>
-      <node id="316">
-        <label>xstatus.h</label>
-      </node>
-      <node id="319">
-        <label>xvidc.h</label>
-      </node>
-      <node id="322">
-        <label>xparameters.h</label>
-      </node>
-      <node id="314">
-        <label>xvprocss_vdma.h</label>
-        <link refid="xvprocss_vdma.h"/>
-        <childnode refid="315" relation="include">
-        </childnode>
-      </node>
-      <node id="325">
-        <label>xv_hcresampler_l2.h</label>
-      </node>
-      <node id="326">
-        <label>xv_vcresampler_l2.h</label>
-      </node>
-      <node id="320">
-        <label>xaxivdma.h</label>
-      </node>
-      <node id="324">
-        <label>xv_deinterlacer_l2.h</label>
-      </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="332">
-        <label>xvprocss.c</label>
-        <link refid="xvprocss_8c"/>
-      </node>
-      <node id="334">
-        <label>xv_procss_example.c</label>
-        <link refid="xv__procss__example_8c"/>
-      </node>
-      <node id="333">
-        <label>xvprocss_router.c</label>
-        <link refid="xvprocss__router_8c"/>
-      </node>
-      <node id="331">
-        <label>xvprocss_vdma.c</label>
-        <link refid="xvprocss__vdma_8c"/>
-      </node>
-      <node id="330">
-        <label>xvprocss_vdma.h</label>
-        <link refid="xvprocss_vdma.h"/>
-        <childnode refid="331" relation="include">
-        </childnode>
-        <childnode refid="332" relation="include">
-        </childnode>
-        <childnode refid="333" relation="include">
-        </childnode>
-        <childnode refid="334" relation="include">
+        <childnode refid="330" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -164,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" bodystart="68" bodyend="73"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h" bodystart="68" bodyend="73"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -191,8 +191,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="51" bodyend="58"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="51" bodyend="58"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
       </memberdef>
       <memberdef kind="function" id="group__vprocss_1gaa008524bc41fd7b4c133242cea493ba7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -217,9 +217,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="71" bodyend="78"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
-        <referencedby refid="xvprocss_8h_1a1f28821282af5defa07408d1c00c2bfe" compoundref="xvprocss_8c" startline="693" endline="726">XVprocSs_Stop</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="71" bodyend="78"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
+        <referencedby refid="xvprocss_8h_1a1f28821282af5defa07408d1c00c2bfe" compoundref="xvprocss_8c" startline="666" endline="699">XVprocSs_Stop</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__vprocss_1ga8672772229f2c9fbeac4d0c7a3581008" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -244,11 +244,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="87" bodyend="113"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="87" bodyend="113"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
         <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ae5ccb3686b40801af76a470a6b74b208" compoundref="xvprocss__log_8h" startline="58">XVPROCSS_EVT_OPERR_VDMA</references>
         <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
-        <referencedby refid="xvprocss_8h_1ab65fda7ce63456d82274a463a4d4b72a" compoundref="xvprocss_8c" startline="747" endline="777">XVprocSs_Reset</referencedby>
+        <referencedby refid="xvprocss_8h_1ab65fda7ce63456d82274a463a4d4b72a" compoundref="xvprocss_8c" startline="720" endline="750">XVprocSs_Reset</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__vprocss_1ga5be04ac381555fdf23dff1749a2fdc59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -329,8 +329,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="131" bodyend="216"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="131" bodyend="216"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
         <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa8ac981b143e5cbdd3109631b1788b30" compoundref="xvprocss__log_8h" startline="57">XVPROCSS_EVT_CFGERR_VDMA</references>
         <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
         <referencedby refid="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" compoundref="xvprocss__vdma_8c" startline="374" endline="432">XVprocSs_VdmaSetWinToDnScaleMode</referencedby>
@@ -416,8 +416,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="235" bodyend="325"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="235" bodyend="325"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
         <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa8ac981b143e5cbdd3109631b1788b30" compoundref="xvprocss__log_8h" startline="57">XVPROCSS_EVT_CFGERR_VDMA</references>
         <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
         <referencedby refid="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" compoundref="xvprocss__vdma_8c" startline="374" endline="432">XVprocSs_VdmaSetWinToDnScaleMode</referencedby>
@@ -448,12 +448,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="340" bodyend="364"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="340" bodyend="364"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
         <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ae5ccb3686b40801af76a470a6b74b208" compoundref="xvprocss__log_8h" startline="58">XVPROCSS_EVT_OPERR_VDMA</references>
         <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
-        <referencedby refid="xvprocss_8h_1a0f673d448bb7702661b702519de94fd9" compoundref="xvprocss_8c" startline="643" endline="683">XVprocSs_Start</referencedby>
-        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="874" endline="907">XVprocSs_UpdateZoomPipWindow</referencedby>
+        <referencedby refid="xvprocss_8h_1a0f673d448bb7702661b702519de94fd9" compoundref="xvprocss_8c" startline="616" endline="656">XVprocSs_Start</referencedby>
+        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="847" endline="895">XVprocSs_UpdateZoomPipWindow</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__vprocss_1ga569a5a2939bd864d0297e06330cca44b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -491,9 +491,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="512" bodyend="555"/>
-        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
-        <referencedby refid="xvprocss_8h_1acc2dd89a8c01c86bf6093d842db67262" compoundref="xvprocss_8c" startline="2486" endline="2536">XVprocSs_ReportSubcoreStatus</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="512" bodyend="555"/>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="380">XVprocSs::VdmaPtr</references>
+        <referencedby refid="xvprocss_8h_1acc2dd89a8c01c86bf6093d842db67262" compoundref="xvprocss_8c" startline="2490" endline="2540">XVprocSs_ReportSubcoreStatus</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -529,18 +529,18 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="443" bodyend="498"/>
-        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
-        <references refid="struct_x_vproc_ss_1a57e2cd4a8866527f62302b602121e884" compoundref="xvprocss_8h" startline="400">XVprocSs::FrameBufBaseaddr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="443" bodyend="498"/>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="389">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss_1a57e2cd4a8866527f62302b602121e884" compoundref="xvprocss_8h" startline="391">XVprocSs::FrameBufBaseaddr</references>
         <references refid="struct_x_vproc_ss___context_data_1a1a149725ed4dd88fcff95af968d91239" compoundref="xvprocss_8h" startline="298">XVprocSs_ContextData::PixelWidthInBits</references>
         <references refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" compoundref="xvprocss_8h" startline="307">XVprocSs_ContextData::VidInHeight</references>
         <references refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" compoundref="xvprocss_8h" startline="306">XVprocSs_ContextData::VidInWidth</references>
-        <references refid="xvprocss_8c_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="999" endline="1025">XVprocSs_GetZoomPipWindow</references>
-        <references refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" compoundref="xvprocss_8h" startline="529">XVprocSs_IsZoomModeOn</references>
+        <references refid="xvprocss_8c_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="1003" endline="1029">XVprocSs_GetZoomPipWindow</references>
+        <references refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" compoundref="xvprocss_8h" startline="520">XVprocSs_IsZoomModeOn</references>
         <references refid="group__vprocss_1gaaa0a8e18bb8799dec159efd83ade6f58" compoundref="xvprocss__vdma_8c" startline="235" endline="325">XVprocSs_VdmaReadSetup</references>
         <references refid="group__vprocss_1ga5be04ac381555fdf23dff1749a2fdc59" compoundref="xvprocss__vdma_8c" startline="131" endline="216">XVprocSs_VdmaWriteSetup</references>
-        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
-        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="874" endline="907">XVprocSs_UpdateZoomPipWindow</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="445" endline="685">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="847" endline="895">XVprocSs_UpdateZoomPipWindow</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -576,17 +576,17 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="374" bodyend="432"/>
-        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
-        <references refid="struct_x_vproc_ss_1a57e2cd4a8866527f62302b602121e884" compoundref="xvprocss_8h" startline="400">XVprocSs::FrameBufBaseaddr</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.c" bodystart="374" bodyend="432"/>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="389">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss_1a57e2cd4a8866527f62302b602121e884" compoundref="xvprocss_8h" startline="391">XVprocSs::FrameBufBaseaddr</references>
         <references refid="struct_x_vproc_ss___context_data_1a1a149725ed4dd88fcff95af968d91239" compoundref="xvprocss_8h" startline="298">XVprocSs_ContextData::PixelWidthInBits</references>
-        <references refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" compoundref="xvprocss_8h" startline="396">XVprocSs::VidOut</references>
-        <references refid="xvprocss_8c_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="999" endline="1025">XVprocSs_GetZoomPipWindow</references>
-        <references refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" compoundref="xvprocss_8h" startline="517">XVprocSs_IsPipModeOn</references>
+        <references refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" compoundref="xvprocss_8h" startline="387">XVprocSs::VidOut</references>
+        <references refid="xvprocss_8c_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="1003" endline="1029">XVprocSs_GetZoomPipWindow</references>
+        <references refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" compoundref="xvprocss_8h" startline="508">XVprocSs_IsPipModeOn</references>
         <references refid="group__vprocss_1gaaa0a8e18bb8799dec159efd83ade6f58" compoundref="xvprocss__vdma_8c" startline="235" endline="325">XVprocSs_VdmaReadSetup</references>
         <references refid="group__vprocss_1ga5be04ac381555fdf23dff1749a2fdc59" compoundref="xvprocss__vdma_8c" startline="131" endline="216">XVprocSs_VdmaWriteSetup</references>
-        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="449" endline="689">XVprocSs_SetupRouterDataFlow</referencedby>
-        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="874" endline="907">XVprocSs_UpdateZoomPipWindow</referencedby>
+        <referencedby refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" compoundref="xvprocss__router_8c" startline="445" endline="685">XVprocSs_SetupRouterDataFlow</referencedby>
+        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="847" endline="895">XVprocSs_UpdateZoomPipWindow</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -648,6 +648,6 @@
 <codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/xvprocss_vdma.h"/>
   </compounddef>
 </doxygen>

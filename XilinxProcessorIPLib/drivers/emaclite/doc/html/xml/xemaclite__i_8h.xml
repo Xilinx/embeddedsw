@@ -11,6 +11,15 @@
       <node id="79">
         <label>xil_assert.h</label>
       </node>
+      <node id="82">
+        <label>xil_io.h</label>
+      </node>
+      <node id="77">
+        <label>xenv.h</label>
+      </node>
+      <node id="80">
+        <label>xstatus.h</label>
+      </node>
       <node id="76">
         <label>xemaclite.h</label>
         <link refid="xemaclite_8h"/>
@@ -25,18 +34,6 @@
         <childnode refid="81" relation="include">
         </childnode>
       </node>
-      <node id="82">
-        <label>xil_io.h</label>
-      </node>
-      <node id="77">
-        <label>xenv.h</label>
-      </node>
-      <node id="75">
-        <label>xemaclite_i.h</label>
-        <link refid="xemaclite_i.h"/>
-        <childnode refid="76" relation="include">
-        </childnode>
-      </node>
       <node id="81">
         <label>xemaclite_l.h</label>
         <link refid="xemaclite__l_8h"/>
@@ -47,11 +44,14 @@
         <childnode refid="82" relation="include">
         </childnode>
       </node>
-      <node id="80">
-        <label>xstatus.h</label>
-      </node>
       <node id="78">
         <label>xil_types.h</label>
+      </node>
+      <node id="75">
+        <label>xemaclite_i.h</label>
+        <link refid="xemaclite_i.h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -62,6 +62,10 @@
       <node id="84">
         <label>xemaclite.c</label>
         <link refid="xemaclite_8c"/>
+      </node>
+      <node id="86">
+        <label>xemaclite_l.c</label>
+        <link refid="xemaclite__l_8c"/>
       </node>
       <node id="85">
         <label>xemaclite_intr.c</label>
@@ -79,22 +83,18 @@
         <childnode refid="87" relation="include">
         </childnode>
       </node>
-      <node id="86">
-        <label>xemaclite_l.c</label>
-        <link refid="xemaclite__l_8c"/>
-      </node>
     </invincdepgraph>
       <sectiondef kind="define">
-      <memberdef kind="define" id="group__emaclite_1ga79fd4a4a0d211554fde184f57e791b5c" prot="public" static="no">
+      <memberdef kind="define" id="xemaclite__i_8h_1a79fd4a4a0d211554fde184f57e791b5c" prot="public" static="no">
         <name>XEMACLITE_I_H</name>
         <initializer>/* by using protection macros */</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Include guard for the EmacLite internal header. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" bodystart="37" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__emaclite_1gaf11b44ee01064cec9edddba6ad0673c4" prot="public" static="no">
         <name>XEmacLite_GetTxActive</name>
@@ -105,7 +105,7 @@
         <detaileddescription>
 <para>This is used to check if the TX buffer is currently active. There isn&apos;t any way in the hardware to implement this but the register is fully populated so the driver can set the bit in the send routine and the ISR can clear the bit when the handler is complete. This mimics the correct operation of the hardware if it was possible to do this in hardware.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the base address of the device</para></parameterdescription>
@@ -116,7 +116,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" bodystart="72" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__emaclite_1ga706f363fc35b30595205ded0050a61a6" prot="public" static="no">
         <name>XEmacLite_SetTxActive</name>
@@ -128,25 +128,24 @@
         <detaileddescription>
 <para>This is used to set the bit indicating which TX buffer is currently active. There isn&apos;t any way in the hardware to implement this but the register is fully populated so the driver can set the bit in the send routine and the ISR can clear the bit when the handler is complete. This mimics the correct operation of the hardware if it was possible to do this in hardware.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>BaseAddress</parametername>
+<parametername direction="in">BaseAddress</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the base address of the device </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Mask</parametername>
+<parametername direction="in">Mask</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the data to be written</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
 <simplesect kind="note"><para>C-Style signature: void <ref refid="group__emaclite_1ga706f363fc35b30595205ded0050a61a6" kindref="member">XEmacLite_SetTxActive(u32 BaseAddress, u32 Mask)</ref> </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -161,7 +160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_g.c" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_g.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -183,39 +182,37 @@
           <declname>ByteCount</declname>
         </param>
         <briefdescription>
-<para>This function aligns the incoming data and writes it out to a 32-bit aligned destination address range. </para>        </briefdescription>
+<para>Aligns the incoming data and writes it out to a 32-bit aligned destination address range. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>SrcPtr</parametername>
+<parametername direction="in">SrcPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to incoming data of any alignment. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>DestPtr</parametername>
+<parametername direction="in">DestPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to outgoing data of 32-bit alignment. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>ByteCount</parametername>
+<parametername direction="in">ByteCount</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the number of bytes to write.</para></parameterdescription>
+<para>is the number of bytes to write. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" bodystart="212" bodyend="353"/>
-        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
-        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="172" endline="317">XEmacLite_Send</referencedby>
-        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="90" endline="115">XEmacLite_SendFrame</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" bodystart="206" bodyend="347"/>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="54" endline="175">XEmacLite_SelfTest</referencedby>
+        <referencedby refid="group__emaclite_1gaa509977aea023dfeef6bddb10b2597dc" compoundref="xemaclite_8c" startline="174" endline="319">XEmacLite_Send</referencedby>
+        <referencedby refid="group__emaclite_1ga08f00fcd26d1aad5d76a1b7b0de64780" compoundref="xemaclite__l_8c" startline="88" endline="113">XEmacLite_SendFrame</referencedby>
         <referencedby refid="group__emaclite_1gaaf404b645896f5fb74e87b4ada362809" compoundref="xemaclite_8c" startline="498" endline="538">XEmacLite_SetMacAddress</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__emaclite_1ga5a8fd0fce2b0e6f91cceb863961c3339" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -236,39 +233,37 @@
           <declname>ByteCount</declname>
         </param>
         <briefdescription>
-<para>This function reads from a 32-bit aligned source address range and aligns the writes to the provided destination pointer alignment. </para>        </briefdescription>
+<para>Reads from a 32-bit aligned source address range and aligns the writes to the provided destination pointer alignment. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>SrcPtr</parametername>
+<parametername direction="in">SrcPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to incoming data of 32-bit alignment. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>DestPtr</parametername>
+<parametername direction="in">DestPtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is a pointer to outgoing data of any alignment. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>ByteCount</parametername>
+<parametername direction="in">ByteCount</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the number of bytes to read.</para></parameterdescription>
+<para>is the number of bytes to read. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" bodystart="370" bodyend="484"/>
-        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="346" endline="474">XEmacLite_Recv</referencedby>
-        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="145" endline="195">XEmacLite_RecvFrame</referencedby>
-        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="65" endline="186">XEmacLite_SelfTest</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_l.c" bodystart="360" bodyend="474"/>
+        <referencedby refid="group__emaclite_1ga6b771b95e193baa02186c6e106c7aefb" compoundref="xemaclite_8c" startline="348" endline="476">XEmacLite_Recv</referencedby>
+        <referencedby refid="group__emaclite_1ga6be219c4ba85e928f273845bd69bdeca" compoundref="xemaclite__l_8c" startline="143" endline="193">XEmacLite_RecvFrame</referencedby>
+        <referencedby refid="group__emaclite_1ga0ea2a0f4e13ef174477a3cf2a9f86e69" compoundref="xemaclite__selftest_8c" startline="54" endline="175">XEmacLite_SelfTest</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__emaclite_1ga98577fb052d9327b2c5ed429d3740b97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -284,19 +279,17 @@
         <detaileddescription>
 <para>The stub is here in case the upper layers forget to set the handlers.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>CallBackRef</parametername>
+<parametername direction="in">CallBackRef</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is a pointer to the upper layer callback reference.</para></parameterdescription>
+<para>is a pointer to the upper layer callback reference. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None.</para></simplesect>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.c" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.c" bodystart="553" bodyend="557"/>
-        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="94" endline="147">XEmacLite_CfgInitialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.c" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.c" bodystart="549" bodyend="553"/>
+        <referencedby refid="group__emaclite_1ga3c9dd90e02c987b5b3a1dacdcfd057c4" compoundref="xemaclite_8c" startline="96" endline="149">XEmacLite_CfgInitialize</referencedby>
         <referencedby refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" compoundref="xemaclite__intr_8c" startline="72" endline="117">XEmacLite_EnableInterrupts</referencedby>
       </memberdef>
       </sectiondef>
@@ -307,56 +300,57 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2004<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>XEMACLITE_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XEMACLITE_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XEMACLITE_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="9" refid="xemaclite__i_8h_1a79fd4a4a0d211554fde184f57e791b5c" refkind="member"><highlight class="preprocessor">#define<sp/>XEMACLITE_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemaclite_8h" kindref="compound">xemaclite.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="72" refid="group__emaclite_1gaf11b44ee01064cec9edddba6ad0673c4" refkind="member"><highlight class="preprocessor">#define<sp/>XEmacLite_GetTxActive(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="73"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_ReadReg((BaseAddress),<sp/>XEL_TSR_OFFSET))</highlight></codeline>
-<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="94" refid="group__emaclite_1ga706f363fc35b30595205ded0050a61a6" refkind="member"><highlight class="preprocessor">#define<sp/>XEmacLite_SetTxActive(BaseAddress,<sp/>Mask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
-<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_WriteReg((BaseAddress),<sp/>XEL_TSR_OFFSET,<sp/>(Mask)))</highlight></codeline>
-<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemaclite_8h" kindref="compound">xemaclite.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="group__emaclite_1gaf11b44ee01064cec9edddba6ad0673c4" refkind="member"><highlight class="preprocessor">#define<sp/>XEmacLite_GetTxActive(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_ReadReg((BaseAddress),<sp/>XEL_TSR_OFFSET))</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="87" refid="group__emaclite_1ga706f363fc35b30595205ded0050a61a6" refkind="member"><highlight class="preprocessor">#define<sp/>XEmacLite_SetTxActive(BaseAddress,<sp/>Mask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XEmacLite_WriteReg((BaseAddress),<sp/>XEL_TSR_OFFSET,<sp/>(Mask)))</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_emac_lite___config" kindref="compound">XEmacLite_Config</ref><sp/><ref refid="group__emaclite_1ga8acbf4c2ed2517bb9c37d2281c4ab14d" kindref="member">XEmacLite_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1gaaf4928b3a979321951032462f831ad3b" kindref="member">XEmacLite_AlignedWrite</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*SrcPtr,<sp/>UINTPTR<sp/>*DestPtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga5a8fd0fce2b0e6f91cceb863961c3339" kindref="member">XEmacLite_AlignedRead</ref>(UINTPTR<sp/>*SrcPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*DestPtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_emac_lite___config" kindref="compound">XEmacLite_Config</ref><sp/><ref refid="group__emaclite_1ga8acbf4c2ed2517bb9c37d2281c4ab14d" kindref="member">XEmacLite_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga98577fb052d9327b2c5ed429d3740b97" kindref="member">StubHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1gaaf4928b3a979321951032462f831ad3b" kindref="member">XEmacLite_AlignedWrite</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*SrcPtr,<sp/>UINTPTR<sp/>*DestPtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga5a8fd0fce2b0e6f91cceb863961c3339" kindref="member">XEmacLite_AlignedRead</ref>(UINTPTR<sp/>*SrcPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*DestPtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga98577fb052d9327b2c5ed429d3740b97" kindref="member">StubHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_i.h"/>
   </compounddef>
 </doxygen>

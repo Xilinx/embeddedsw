@@ -54,6 +54,9 @@
     <member refid="group__uartps_1ga9d94f913e0494b532c9f442e1bb14dcc" kind="function"><name>XUartPs_SetBaudRate</name></member>
   </compound>
   <compound refid="xuartps_8h" kind="file"><name>xuartps.h</name>
+    <member refid="group__uartps_1ga724abbd57f14e2ba803f92623f5f8d14" kind="define"><name>XUARTPS_MAX_RATE</name></member>
+    <member refid="group__uartps_1ga1669bf99834935d9d73796552a8b848b" kind="define"><name>XUARTPS_MIN_RATE</name></member>
+    <member refid="group__uartps_1ga29a83258ae29934f5898f9d19b512863" kind="define"><name>XUARTPS_DFT_BAUDRATE</name></member>
     <member refid="group__uartps_1ga5073a0aa7bef53cb44206fa6146b9a86" kind="define"><name>XUARTPS_OPTION_SET_BREAK</name></member>
     <member refid="group__uartps_1ga15a737d7e5baf7a08693aed5599f49c3" kind="define"><name>XUARTPS_OPTION_STOP_BREAK</name></member>
     <member refid="group__uartps_1gaeba0f9aa648285d5e2d56d38d1f77094" kind="define"><name>XUARTPS_OPTION_RESET_TMOUT</name></member>
@@ -84,10 +87,6 @@
     <member refid="group__uartps_1ga9cd187ec1b79c1ec7daf4c7293d2bdd0" kind="define"><name>XUARTPS_EVENT_MODEM</name></member>
     <member refid="group__uartps_1gaeb3a7014313858cc5bc8c0e1a779afd4" kind="define"><name>XUARTPS_EVENT_PARE_FRAME_BRKE</name></member>
     <member refid="group__uartps_1ga1371facb57f230f8c3516c95d50db6f0" kind="define"><name>XUARTPS_EVENT_RECV_ORERR</name></member>
-    <member refid="group__uartps_1ga117291251ba90eccfa7f29ce31521cf9" kind="define"><name>XUARTPS_H</name></member>
-    <member refid="group__uartps_1ga724abbd57f14e2ba803f92623f5f8d14" kind="define"><name>XUARTPS_MAX_RATE</name></member>
-    <member refid="group__uartps_1ga1669bf99834935d9d73796552a8b848b" kind="define"><name>XUARTPS_MIN_RATE</name></member>
-    <member refid="group__uartps_1ga29a83258ae29934f5898f9d19b512863" kind="define"><name>XUARTPS_DFT_BAUDRATE</name></member>
     <member refid="group__uartps_1ga2f0a6417e12aa122e287fe313c03a399" kind="define"><name>TIMEOUT_VAL</name></member>
     <member refid="group__uartps_1ga8c50cd4a1f7a342dcdf6d7ab1640b1b9" kind="define"><name>XUartPs_GetChannelStatus</name></member>
     <member refid="group__uartps_1gacd6fb80e110f22c2d305c3152cbe9e22" kind="define"><name>XUartPs_GetModeControl</name></member>
@@ -252,7 +251,6 @@
     <member refid="group__uartps_1ga5f24c98437ec9ca72a3b9777c5e96a84" kind="define"><name>XUARTPS_RXBS_BYTE0_FRME</name></member>
     <member refid="group__uartps_1gaeb95a2a53d101d8256ffbe8165233307" kind="define"><name>XUARTPS_RXBS_BYTE0_PARE</name></member>
     <member refid="group__uartps_1gad270e6c5e81ad53fe663527ce2292e7c" kind="define"><name>XUARTPS_RXBS_MASK</name></member>
-    <member refid="group__uartps_1gaccbd61357d77bf558cd812207fdcd57c" kind="define"><name>XUARTPS_HW_H</name></member>
     <member refid="group__uartps_1ga265d603a9978cd7629ea5ef465d38b94" kind="define"><name>XUARTPS_MEDEMSR_DCDX</name></member>
     <member refid="group__uartps_1gabf3b4f7a9c4a5d236853f26119c84820" kind="define"><name>XUARTPS_MEDEMSR_RIX</name></member>
     <member refid="group__uartps_1ga1ea7cbbf85cd2215007963355ec6d2b2" kind="define"><name>XUARTPS_MEDEMSR_DSRX</name></member>
@@ -269,7 +267,6 @@
     <member refid="group__uartps_1gaf789b78ee831825f3131f9a016e15044" kind="function"><name>XUartPs_WaitTransmitDone</name></member>
   </compound>
   <compound refid="xuartps__intr_8c" kind="file"><name>xuartps_intr.c</name>
-    <member refid="group__uartps_1ga969a172d07d93e0e25851bd35e50ed09" kind="typedef"><name>Handler</name></member>
     <member refid="group__uartps_1ga1b4524755c739f220751ecc01edbe780" kind="function"><name>ReceiveDataHandler</name></member>
     <member refid="group__uartps_1ga87b5a3f65f8d1f6d70b57e49552a38a2" kind="function"><name>SendDataHandler</name></member>
     <member refid="group__uartps_1ga88321f8192c5e3f50aa9f0ef754b790d" kind="function"><name>ReceiveErrorHandler</name></member>
@@ -283,24 +280,24 @@
     <member refid="group__uartps_1gabf86fb20a58e4a7fbd73afa49f8eb604" kind="function"><name>XUartPs_InterruptHandler</name></member>
   </compound>
   <compound refid="xuartps__intr__example_8c" kind="file"><name>xuartps_intr_example.c</name>
-    <member refid="xuartps__intr__example_8c_1a1978f7e46ae20e71943d4b3c15e8dd0e" kind="define"><name>XUARTPS_BASEADDRESS</name></member>
-    <member refid="xuartps__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xuartps__intr__example_8c_1ab3787fde8ffe5678ebc1a52acb8b2908" kind="variable"><name>UartPs</name></member>
-    <member refid="xuartps__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
-    <member refid="xuartps__intr__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
-    <member refid="xuartps__intr__example_8c_1a91504b2b83f558d49de403298d4ea9c3" kind="variable"><name>TotalReceivedCount</name></member>
-    <member refid="xuartps__intr__example_8c_1a9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
-    <member refid="xuartps__intr__example_8c_1a75ec25052fcbff7fd7bfbea7bd47df7d" kind="variable"><name>TotalErrorCount</name></member>
-    <member refid="xuartps__intr__example_8c_1a9dd4d71bb5ce01cfb07cbfc99b2f8280" kind="function"><name>UartPsIntrExample</name></member>
-    <member refid="xuartps__intr__example_8c_1afc3b6076857bc201b736289712d9ae05" kind="function"><name>Handler</name></member>
-    <member refid="xuartps__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xuartps__intr__example_1ga1978f7e46ae20e71943d4b3c15e8dd0e" kind="define"><name>XUARTPS_BASEADDRESS</name></member>
+    <member refid="group__xuartps__intr__example_1ga21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="group__xuartps__intr__example_1ga97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="group__xuartps__intr__example_1ga91504b2b83f558d49de403298d4ea9c3" kind="variable"><name>TotalReceivedCount</name></member>
+    <member refid="group__xuartps__intr__example_1ga9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
+    <member refid="group__xuartps__intr__example_1ga75ec25052fcbff7fd7bfbea7bd47df7d" kind="variable"><name>TotalErrorCount</name></member>
+    <member refid="group__xuartps__intr__example_1ga0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="group__xuartps__intr__example_1gab3787fde8ffe5678ebc1a52acb8b2908" kind="variable"><name>UartPs</name></member>
+    <member refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" kind="function"><name>UartPsIntrExample</name></member>
+    <member refid="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" kind="function"><name>Handler</name></member>
+    <member refid="group__xuartps__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="xuartps__low__echo__example_8c" kind="file"><name>xuartps_low_echo_example.c</name>
     <member refid="xuartps__low__echo__example_8c_1a304768dcd826d7d65123ff4bafc11050" kind="define"><name>UART_BASEADDR</name></member>
     <member refid="xuartps__low__echo__example_8c_1a746be0f65341dddf1d951e9fcdb698c5" kind="define"><name>UART_CLOCK_HZ</name></member>
+    <member refid="xuartps__low__echo__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xuartps__low__echo__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
     <member refid="xuartps__low__echo__example_8c_1ac763d1de8ee96951064bd7dbb649dfc5" kind="define"><name>CHAR_ESC</name></member>
-    <member refid="xuartps__low__echo__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xuartps__low__echo__example_8c_1a9fafabdc6220aabe922db74483595aa6" kind="function"><name>UartPsEchoExample</name></member>
     <member refid="xuartps__low__echo__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
@@ -324,10 +321,10 @@
   </compound>
   <compound refid="xuartps__polled__example_8c" kind="file"><name>xuartps_polled_example.c</name>
     <member refid="xuartps__polled__example_8c_1a1978f7e46ae20e71943d4b3c15e8dd0e" kind="define"><name>XUARTPS_BASEADDRESS</name></member>
-    <member refid="xuartps__polled__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
-    <member refid="xuartps__polled__example_8c_1aa5c919933dfbfcee95db44acd6b7bf6b" kind="variable"><name>Uart_PS</name></member>
     <member refid="xuartps__polled__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
     <member refid="xuartps__polled__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="xuartps__polled__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartps__polled__example_8c_1aa5c919933dfbfcee95db44acd6b7bf6b" kind="variable"><name>Uart_PS</name></member>
     <member refid="xuartps__polled__example_8c_1afba7dda561e47d0f599533551c193c01" kind="function"><name>UartPsPolledExample</name></member>
     <member refid="xuartps__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
@@ -348,6 +345,9 @@
     <member refid="group__uartps_1ga35a351ea7a51809810dc9da08e2d68ef" kind="function"><name>XUartPs_LookupConfig</name></member>
   </compound>
   <compound refid="group__uartps" kind="group"><name>uartps</name>
+    <member refid="group__uartps_1ga724abbd57f14e2ba803f92623f5f8d14" kind="define"><name>XUARTPS_MAX_RATE</name></member>
+    <member refid="group__uartps_1ga1669bf99834935d9d73796552a8b848b" kind="define"><name>XUARTPS_MIN_RATE</name></member>
+    <member refid="group__uartps_1ga29a83258ae29934f5898f9d19b512863" kind="define"><name>XUARTPS_DFT_BAUDRATE</name></member>
     <member refid="group__uartps_1ga5073a0aa7bef53cb44206fa6146b9a86" kind="define"><name>XUARTPS_OPTION_SET_BREAK</name></member>
     <member refid="group__uartps_1ga15a737d7e5baf7a08693aed5599f49c3" kind="define"><name>XUARTPS_OPTION_STOP_BREAK</name></member>
     <member refid="group__uartps_1gaeba0f9aa648285d5e2d56d38d1f77094" kind="define"><name>XUARTPS_OPTION_RESET_TMOUT</name></member>
@@ -493,8 +493,11 @@
     <member refid="group__uartps_1ga5f24c98437ec9ca72a3b9777c5e96a84" kind="define"><name>XUARTPS_RXBS_BYTE0_FRME</name></member>
     <member refid="group__uartps_1gaeb95a2a53d101d8256ffbe8165233307" kind="define"><name>XUARTPS_RXBS_BYTE0_PARE</name></member>
     <member refid="group__uartps_1gad270e6c5e81ad53fe663527ce2292e7c" kind="define"><name>XUARTPS_RXBS_MASK</name></member>
+    <member refid="group__uartps_1ga265d603a9978cd7629ea5ef465d38b94" kind="define"><name>XUARTPS_MEDEMSR_DCDX</name></member>
+    <member refid="group__uartps_1gabf3b4f7a9c4a5d236853f26119c84820" kind="define"><name>XUARTPS_MEDEMSR_RIX</name></member>
+    <member refid="group__uartps_1ga1ea7cbbf85cd2215007963355ec6d2b2" kind="define"><name>XUARTPS_MEDEMSR_DSRX</name></member>
+    <member refid="group__uartps_1ga5c95471105535328ac929eafd723fb17" kind="define"><name>XUARTPS_MEDEMSR_CTSX</name></member>
     <member refid="group__uartps_1ga5bb8d1f316dacd471a6cd3c976c7b1ca" kind="typedef"><name>XUartPs_Handler</name></member>
-    <member refid="group__uartps_1ga969a172d07d93e0e25851bd35e50ed09" kind="typedef"><name>Handler</name></member>
     <member refid="group__uartps_1ga371812b0c1dbfd7292ea4788b8311e39" kind="variable"><name>XUartPs_ConfigTable</name></member>
     <member refid="group__uartps_1ga58a74a75db033cdfea93f747e22112cc" kind="variable"><name>OptionsTable</name></member>
     <member refid="group__uartps_1ga1e5d5b3d4c3e3d9c4bc8cbbe63c6233e" kind="variable"><name>TestString</name></member>
@@ -537,10 +540,6 @@
     <member refid="group__uartps_1ga91e37f70e2599816d0fb9893a1f388c5" kind="function"><name>ReceiveTimeoutHandler</name></member>
     <member refid="group__uartps_1gae1cb4775558a9efa38814b6d344a448e" kind="function"><name>ModemHandler</name></member>
     <member refid="group__uartps_1gad2ea7cbf13cc424a45c6fa01e436c7dd" kind="define"><name>XUARTPS_MAX_BAUD_ERROR_RATE</name></member>
-    <member refid="group__uartps_1ga117291251ba90eccfa7f29ce31521cf9" kind="define"><name>XUARTPS_H</name></member>
-    <member refid="group__uartps_1ga724abbd57f14e2ba803f92623f5f8d14" kind="define"><name>XUARTPS_MAX_RATE</name></member>
-    <member refid="group__uartps_1ga1669bf99834935d9d73796552a8b848b" kind="define"><name>XUARTPS_MIN_RATE</name></member>
-    <member refid="group__uartps_1ga29a83258ae29934f5898f9d19b512863" kind="define"><name>XUARTPS_DFT_BAUDRATE</name></member>
     <member refid="group__uartps_1ga2f0a6417e12aa122e287fe313c03a399" kind="define"><name>TIMEOUT_VAL</name></member>
     <member refid="group__uartps_1ga8c50cd4a1f7a342dcdf6d7ab1640b1b9" kind="define"><name>XUartPs_GetChannelStatus</name></member>
     <member refid="group__uartps_1gacd6fb80e110f22c2d305c3152cbe9e22" kind="define"><name>XUartPs_GetModeControl</name></member>
@@ -548,11 +547,6 @@
     <member refid="group__uartps_1ga800f448c280504c1c8e3a0e2cea28699" kind="define"><name>XUartPs_EnableUart</name></member>
     <member refid="group__uartps_1gaa8604eeb6cd5c80a3a54ef5510bd46ff" kind="define"><name>XUartPs_DisableUart</name></member>
     <member refid="group__uartps_1ga9a3d03d5794a4d8cdda2fa2c4ba8e174" kind="define"><name>XUartPs_IsTransmitEmpty</name></member>
-    <member refid="group__uartps_1gaccbd61357d77bf558cd812207fdcd57c" kind="define"><name>XUARTPS_HW_H</name></member>
-    <member refid="group__uartps_1ga265d603a9978cd7629ea5ef465d38b94" kind="define"><name>XUARTPS_MEDEMSR_DCDX</name></member>
-    <member refid="group__uartps_1gabf3b4f7a9c4a5d236853f26119c84820" kind="define"><name>XUARTPS_MEDEMSR_RIX</name></member>
-    <member refid="group__uartps_1ga1ea7cbbf85cd2215007963355ec6d2b2" kind="define"><name>XUARTPS_MEDEMSR_DSRX</name></member>
-    <member refid="group__uartps_1ga5c95471105535328ac929eafd723fb17" kind="define"><name>XUARTPS_MEDEMSR_CTSX</name></member>
     <member refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" kind="define"><name>XUartPs_ReadReg</name></member>
     <member refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kind="define"><name>XUartPs_WriteReg</name></member>
     <member refid="group__uartps_1gac8b8f06d10cf178227ce88c140d78eb4" kind="define"><name>XUartPs_IsReceiveData</name></member>
@@ -562,14 +556,27 @@
     <member refid="group__uartps_1ga2a4c8a8bee604bd4cab89c7ec8085b97" kind="define"><name>XUARTPS_NUM_OPTIONS</name></member>
     <member refid="group__uartps_1gaec983d87a53ae636d4ce08768a8f34e8" kind="define"><name>XUARTPS_TOTAL_BYTES</name></member>
   </compound>
+  <compound refid="group__xuartps__intr__example" kind="group"><name>xuartps_intr_example</name>
+    <member refid="group__xuartps__intr__example_1ga1978f7e46ae20e71943d4b3c15e8dd0e" kind="define"><name>XUARTPS_BASEADDRESS</name></member>
+    <member refid="group__xuartps__intr__example_1ga21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="group__xuartps__intr__example_1ga97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="group__xuartps__intr__example_1ga91504b2b83f558d49de403298d4ea9c3" kind="variable"><name>TotalReceivedCount</name></member>
+    <member refid="group__xuartps__intr__example_1ga9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
+    <member refid="group__xuartps__intr__example_1ga75ec25052fcbff7fd7bfbea7bd47df7d" kind="variable"><name>TotalErrorCount</name></member>
+    <member refid="group__xuartps__intr__example_1gab3787fde8ffe5678ebc1a52acb8b2908" kind="variable"><name>UartPs</name></member>
+    <member refid="group__xuartps__intr__example_1ga9dd4d71bb5ce01cfb07cbfc99b2f8280" kind="function"><name>UartPsIntrExample</name></member>
+    <member refid="group__xuartps__intr__example_1gafc3b6076857bc201b736289712d9ae05" kind="function"><name>Handler</name></member>
+    <member refid="group__xuartps__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xuartps__intr__example_1ga0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+  </compound>
   <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="deprecated" kind="page"><name>deprecated</name>
   </compound>
   <compound refid="dir_f31c6a032dafa6ac353b3b5ebd52cc7b" kind="dir"><name>examples</name>
   </compound>
   <compound refid="dir_94f003fcd54988f6f54e260b2e6d7b41" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_d0b51f17bf5752b5fb9788ab0b2b3d4e" kind="dir"><name>uartps</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

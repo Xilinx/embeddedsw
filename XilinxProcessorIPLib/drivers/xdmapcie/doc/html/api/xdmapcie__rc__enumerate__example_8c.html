@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xdmapcie__rc__enumerate__example_8c.ht
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,17 +100,17 @@ $(document).ready(function(){initNavTree('xdmapcie__rc__enumerate__example_8c.ht
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xdmapcie_rc_enumerate_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example for using XDMA PCIe IP and its driver. </p>
-<p>This is an example to show the usage of driver APIs when XDMA PCIe IP is configured as a Root Port.</p>
+<div class="textblock"><p>Demonstrates the use of the XDMA PCIe IP and its driver when the IP is configured as a Root Port. </p>
 <p>The example initializes the XDMA PCIe IP and shows how to enumerate the PCIe system.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This example should be used only when XDMA PCIe IP is configured as root complex.</p>
+<dl class="section note"><dt>Note</dt><dd>This example should be used only when the XDMA PCIe IP is configured as a root complex.</dd></dl>
 <p>This code will illustrate how the <a class="el" href="struct_x_dma_pcie.html" title="The XDmaPcie driver instance data. ">XDmaPcie</a> IP and its standalone driver can be used to:</p>
 <ul>
 <li>Initialize a XDMA PCIe IP core built as a root complex</li>
@@ -119,6 +119,7 @@ $(document).ready(function(){initNavTree('xdmapcie__rc__enumerate__example_8c.ht
 <li>find capabilities on end point</li>
 </ul>
 <p>Please note that this example enumerates and initializes PCIe end points only.</p>
+<p>On CPM6 (versal_2vp) the example also drives the PCIe PERST# fundamental reset before enumerating. PERST# is active low and is routed to two pins per controller: a PS MIO pin, driven through the PS_GPIO registers directly because that device tree node is disabled, and a PMC GPIO pin driven through the XGpioPs driver. The pins for the controller in use are selected from the device tree compatible string.</p>
 <p>We tried to use as much of the driver's API calls as possible to show the reader how each call could be used and that probably made the example not the shortest way of doing the tasks shown as they could be done.</p>
 <pre>
   MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
@@ -126,21 +127,375 @@ $(document).ready(function(){initNavTree('xdmapcie__rc__enumerate__example_8c.ht
 <hr/>
 <p>
   1.0   tk      01/30/2019      Initial version of XDMA PCIe root complex example
+  3.3           10/24/2026      Added the CPM6 (versal_2vp) GPIO PERST# sequence
 *</pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xdmapcie_8h.html">xdmapcie.h</a>&quot;</code><br/>
 <code>#include &quot;stdio.h&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2f9f0613e5af77d4e809851ffdc4798e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a2f9f0613e5af77d4e809851ffdc4798e">XDMAPCIE_LINK_WAIT_MAX_RETRIES</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:a2f9f0613e5af77d4e809851ffdc4798e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum link up poll attempts.  <a href="#a2f9f0613e5af77d4e809851ffdc4798e">More...</a><br/></td></tr>
+<tr class="separator:a2f9f0613e5af77d4e809851ffdc4798e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5837ce25e333a4b369b7f14c8c0bb375"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a5837ce25e333a4b369b7f14c8c0bb375">XDMAPCIE_LINK_WAIT_USLEEP_MIN</a>&#160;&#160;&#160;90000</td></tr>
+<tr class="memdesc:a5837ce25e333a4b369b7f14c8c0bb375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay between link up polls, in microseconds.  <a href="#a5837ce25e333a4b369b7f14c8c0bb375">More...</a><br/></td></tr>
+<tr class="separator:a5837ce25e333a4b369b7f14c8c0bb375"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Command register bit definitions</div></td></tr>
+<tr class="memitem:aa45148bd8829a29d408fbe814ab11bb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#aa45148bd8829a29d408fbe814ab11bb0">PCIE_CFG_CMD_IO_EN</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:aa45148bd8829a29d408fbe814ab11bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">I/O access enable.  <a href="#aa45148bd8829a29d408fbe814ab11bb0">More...</a><br/></td></tr>
+<tr class="separator:aa45148bd8829a29d408fbe814ab11bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e05b0a39588a168b73cb814a941703"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a30e05b0a39588a168b73cb814a941703">PCIE_CFG_CMD_MEM_EN</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:a30e05b0a39588a168b73cb814a941703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory access enable.  <a href="#a30e05b0a39588a168b73cb814a941703">More...</a><br/></td></tr>
+<tr class="separator:a30e05b0a39588a168b73cb814a941703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a172344f442dc2e182b95edb825794"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a40a172344f442dc2e182b95edb825794">PCIE_CFG_CMD_BUSM_EN</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="memdesc:a40a172344f442dc2e182b95edb825794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bus master enable.  <a href="#a40a172344f442dc2e182b95edb825794">More...</a><br/></td></tr>
+<tr class="separator:a40a172344f442dc2e182b95edb825794"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ec41726360a6e5374583d36f5dfdb51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a7ec41726360a6e5374583d36f5dfdb51">PCIE_CFG_CMD_PARITY</a>&#160;&#160;&#160;0x00000040</td></tr>
+<tr class="memdesc:a7ec41726360a6e5374583d36f5dfdb51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parity error response.  <a href="#a7ec41726360a6e5374583d36f5dfdb51">More...</a><br/></td></tr>
+<tr class="separator:a7ec41726360a6e5374583d36f5dfdb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1708d4d30f9a5a75b6fc708e2f614f89"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a1708d4d30f9a5a75b6fc708e2f614f89">PCIE_CFG_CMD_SERR_EN</a>&#160;&#160;&#160;0x00000100</td></tr>
+<tr class="memdesc:a1708d4d30f9a5a75b6fc708e2f614f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">SERR report enable.  <a href="#a1708d4d30f9a5a75b6fc708e2f614f89">More...</a><br/></td></tr>
+<tr class="separator:a1708d4d30f9a5a75b6fc708e2f614f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">PCIe configuration space register offsets, in doublewords</div></td></tr>
+<tr class="memitem:ae5a6f5611352c7fdff4d11f56b5bb92b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#ae5a6f5611352c7fdff4d11f56b5bb92b">PCIE_CFG_ID_REG</a>&#160;&#160;&#160;0x0000</td></tr>
+<tr class="memdesc:ae5a6f5611352c7fdff4d11f56b5bb92b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vendor ID and Device ID.  <a href="#ae5a6f5611352c7fdff4d11f56b5bb92b">More...</a><br/></td></tr>
+<tr class="separator:ae5a6f5611352c7fdff4d11f56b5bb92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1099e47b3b2342217f8e869469a7c11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#ab1099e47b3b2342217f8e869469a7c11">PCIE_CFG_CMD_STATUS_REG</a>&#160;&#160;&#160;0x0001</td></tr>
+<tr class="memdesc:ab1099e47b3b2342217f8e869469a7c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command and Status Register Offset.  <a href="#ab1099e47b3b2342217f8e869469a7c11">More...</a><br/></td></tr>
+<tr class="separator:ab1099e47b3b2342217f8e869469a7c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab86aaf359ded4d52ff903c245a678724"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#ab86aaf359ded4d52ff903c245a678724">PCIE_CFG_PRI_SEC_BUS_REG</a>&#160;&#160;&#160;0x0006</td></tr>
+<tr class="memdesc:ab86aaf359ded4d52ff903c245a678724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary and Secondary Bus Register Offset.  <a href="#ab86aaf359ded4d52ff903c245a678724">More...</a><br/></td></tr>
+<tr class="separator:ab86aaf359ded4d52ff903c245a678724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc37f30ba9e45cb4de712311d45800ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#afc37f30ba9e45cb4de712311d45800ab">PCIE_CFG_CAH_LAT_HD_REG</a>&#160;&#160;&#160;0x0003</td></tr>
+<tr class="memdesc:afc37f30ba9e45cb4de712311d45800ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache Line, Latency Timer, Header Type and BIST Register Offset.  <a href="#afc37f30ba9e45cb4de712311d45800ab">More...</a><br/></td></tr>
+<tr class="separator:afc37f30ba9e45cb4de712311d45800ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51b046a92188c808e8256f8a3e290350"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a51b046a92188c808e8256f8a3e290350">PCIE_CFG_BAR_0_REG</a>&#160;&#160;&#160;0x0004</td></tr>
+<tr class="memdesc:a51b046a92188c808e8256f8a3e290350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base Address Register 0.  <a href="#a51b046a92188c808e8256f8a3e290350">More...</a><br/></td></tr>
+<tr class="separator:a51b046a92188c808e8256f8a3e290350"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Configuration header field masks and enumeration limits</div></td></tr>
+<tr class="memitem:a3db80dd913305b0680bb9af8d041638e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a3db80dd913305b0680bb9af8d041638e">PCIE_CFG_FUN_NOT_IMP_MASK</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:a3db80dd913305b0680bb9af8d041638e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a function that is not implemented.  <a href="#a3db80dd913305b0680bb9af8d041638e">More...</a><br/></td></tr>
+<tr class="separator:a3db80dd913305b0680bb9af8d041638e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c5e2bbdc586d3d74ba0f052f099ad6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a5c5e2bbdc586d3d74ba0f052f099ad6c">PCIE_CFG_HEADER_TYPE_MASK</a>&#160;&#160;&#160;0x00EF0000</td></tr>
+<tr class="memdesc:a5c5e2bbdc586d3d74ba0f052f099ad6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Header type field.  <a href="#a5c5e2bbdc586d3d74ba0f052f099ad6c">More...</a><br/></td></tr>
+<tr class="separator:a5c5e2bbdc586d3d74ba0f052f099ad6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa6ed0e52a1984b26959db071bd096ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#afa6ed0e52a1984b26959db071bd096ff">PCIE_CFG_MUL_FUN_DEV_MASK</a>&#160;&#160;&#160;0x00800000</td></tr>
+<tr class="memdesc:afa6ed0e52a1984b26959db071bd096ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi function device.  <a href="#afa6ed0e52a1984b26959db071bd096ff">More...</a><br/></td></tr>
+<tr class="separator:afa6ed0e52a1984b26959db071bd096ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e7477a52f1096ae16dc60bf4abe57b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a38e7477a52f1096ae16dc60bf4abe57b">PCIE_CFG_MAX_NUM_OF_BUS</a>&#160;&#160;&#160;256</td></tr>
+<tr class="memdesc:a38e7477a52f1096ae16dc60bf4abe57b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of buses.  <a href="#a38e7477a52f1096ae16dc60bf4abe57b">More...</a><br/></td></tr>
+<tr class="separator:a38e7477a52f1096ae16dc60bf4abe57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c438514f29b39f31b1617193a4d51d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a73c438514f29b39f31b1617193a4d51d">PCIE_CFG_MAX_NUM_OF_DEV</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a73c438514f29b39f31b1617193a4d51d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of devices per bus.  <a href="#a73c438514f29b39f31b1617193a4d51d">More...</a><br/></td></tr>
+<tr class="separator:a73c438514f29b39f31b1617193a4d51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada606bba2376fa32f7d052794dc826c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#ada606bba2376fa32f7d052794dc826c7">PCIE_CFG_MAX_NUM_OF_FUN</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ada606bba2376fa32f7d052794dc826c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of functions per device.  <a href="#ada606bba2376fa32f7d052794dc826c7">More...</a><br/></td></tr>
+<tr class="separator:ada606bba2376fa32f7d052794dc826c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cc817e653bdbacc0003e8aacd85551f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a0cc817e653bdbacc0003e8aacd85551f">PCIE_CFG_PRIM_SEC_BUS</a>&#160;&#160;&#160;0x00070100</td></tr>
+<tr class="memdesc:a0cc817e653bdbacc0003e8aacd85551f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary and secondary bus numbers.  <a href="#a0cc817e653bdbacc0003e8aacd85551f">More...</a><br/></td></tr>
+<tr class="separator:a0cc817e653bdbacc0003e8aacd85551f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1729de9a80038d3801ab86992cac02e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a1729de9a80038d3801ab86992cac02e9">PCIE_CFG_BAR_0_ADDR</a>&#160;&#160;&#160;0x00001111</td></tr>
+<tr class="memdesc:a1729de9a80038d3801ab86992cac02e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default address programmed into BAR 0.  <a href="#a1729de9a80038d3801ab86992cac02e9">More...</a><br/></td></tr>
+<tr class="separator:a1729de9a80038d3801ab86992cac02e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0e8ddec2bae30b18b9eaae3e53385138"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a0e8ddec2bae30b18b9eaae3e53385138">PcieInitRootComplex</a> (<a class="el" href="struct_x_dma_pcie.html">XDmaPcie</a> *XdmaPciePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a0e8ddec2bae30b18b9eaae3e53385138"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes a XDMA PCIe IP built as a root complex.  <a href="#a0e8ddec2bae30b18b9eaae3e53385138">More...</a><br/></td></tr>
+<tr class="memdesc:a0e8ddec2bae30b18b9eaae3e53385138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an XDMA PCIe IP that is built as a root complex.  <a href="#a0e8ddec2bae30b18b9eaae3e53385138">More...</a><br/></td></tr>
 <tr class="separator:a0e8ddec2bae30b18b9eaae3e53385138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the entry point for PCIe Root Complex Enumeration Example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the PCIe root complex enumeration example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a615bfcafc2182f6c6ee6bad5a971b5d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_dma_pcie.html">XDmaPcie</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a615bfcafc2182f6c6ee6bad5a971b5d1">XdmaPcieInstance</a></td></tr>
+<tr class="memdesc:a615bfcafc2182f6c6ee6bad5a971b5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the PCIe root complex IP.  <a href="#a615bfcafc2182f6c6ee6bad5a971b5d1">More...</a><br/></td></tr>
+<tr class="separator:a615bfcafc2182f6c6ee6bad5a971b5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a1729de9a80038d3801ab86992cac02e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_BAR_0_ADDR&#160;&#160;&#160;0x00001111</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default address programmed into BAR 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="a51b046a92188c808e8256f8a3e290350"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_BAR_0_REG&#160;&#160;&#160;0x0004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base Address Register 0. </p>
+
+</div>
+</div>
+<a class="anchor" id="afc37f30ba9e45cb4de712311d45800ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CAH_LAT_HD_REG&#160;&#160;&#160;0x0003</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cache Line, Latency Timer, Header Type and BIST Register Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a40a172344f442dc2e182b95edb825794"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CMD_BUSM_EN&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bus master enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa45148bd8829a29d408fbe814ab11bb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CMD_IO_EN&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I/O access enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="a30e05b0a39588a168b73cb814a941703"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CMD_MEM_EN&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Memory access enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7ec41726360a6e5374583d36f5dfdb51"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CMD_PARITY&#160;&#160;&#160;0x00000040</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parity error response. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1708d4d30f9a5a75b6fc708e2f614f89"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CMD_SERR_EN&#160;&#160;&#160;0x00000100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SERR report enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab1099e47b3b2342217f8e869469a7c11"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_CMD_STATUS_REG&#160;&#160;&#160;0x0001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command and Status Register Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3db80dd913305b0680bb9af8d041638e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_FUN_NOT_IMP_MASK&#160;&#160;&#160;0xFFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Marks a function that is not implemented. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5c5e2bbdc586d3d74ba0f052f099ad6c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_HEADER_TYPE_MASK&#160;&#160;&#160;0x00EF0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Header type field. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae5a6f5611352c7fdff4d11f56b5bb92b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_ID_REG&#160;&#160;&#160;0x0000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vendor ID and Device ID. </p>
+
+</div>
+</div>
+<a class="anchor" id="a38e7477a52f1096ae16dc60bf4abe57b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_MAX_NUM_OF_BUS&#160;&#160;&#160;256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum number of buses. </p>
+
+</div>
+</div>
+<a class="anchor" id="a73c438514f29b39f31b1617193a4d51d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_MAX_NUM_OF_DEV&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum number of devices per bus. </p>
+
+</div>
+</div>
+<a class="anchor" id="ada606bba2376fa32f7d052794dc826c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_MAX_NUM_OF_FUN&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum number of functions per device. </p>
+
+</div>
+</div>
+<a class="anchor" id="afa6ed0e52a1984b26959db071bd096ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_MUL_FUN_DEV_MASK&#160;&#160;&#160;0x00800000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multi function device. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab86aaf359ded4d52ff903c245a678724"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_PRI_SEC_BUS_REG&#160;&#160;&#160;0x0006</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Primary and Secondary Bus Register Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0cc817e653bdbacc0003e8aacd85551f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PCIE_CFG_PRIM_SEC_BUS&#160;&#160;&#160;0x00070100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Primary and secondary bus numbers. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2f9f0613e5af77d4e809851ffdc4798e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDMAPCIE_LINK_WAIT_MAX_RETRIES&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum link up poll attempts. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5837ce25e333a4b369b7f14c8c0bb375"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XDMAPCIE_LINK_WAIT_USLEEP_MIN&#160;&#160;&#160;90000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delay between link up polls, in microseconds. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <div class="memitem">
@@ -156,21 +511,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the entry point for PCIe Root Complex Enumeration Example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Runs the PCIe root complex enumeration example. </p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful</li>
-<li>XST_FAILURE if unsuccessful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a0e8ddec2bae30b18b9eaae3e53385138">PcieInitRootComplex()</a>, and <a class="el" href="xdmapcie_8c.html#a6140581d0eb6e4867a18a996e8e91708">XDmaPcie_EnumerateFabric()</a>.</p>
 
 </div>
 </div>
@@ -198,24 +544,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function initializes a XDMA PCIe IP built as a root complex. </p>
+<p>Initializes an XDMA PCIe IP that is built as a root complex. </p>
+<p>When SDT is defined the second parameter is the base address of the IP instead of its device ID.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">XdmaPciePtr</td><td>is a pointer to an instance of <a class="el" href="struct_x_dma_pcie.html" title="The XDmaPcie driver instance data. ">XDmaPcie</a> data structure represents a root complex IP. </td></tr>
-    <tr><td class="paramname">DeviceId</td><td>is XDMA PCIe IP unique ID</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">XdmaPciePtr</td><td>Pointer to an instance of the <a class="el" href="struct_x_dma_pcie.html" title="The XDmaPcie driver instance data. ">XDmaPcie</a> data structure that represents a root complex IP. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DeviceId</td><td>Unique ID of the XDMA PCIe IP.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if unsuccessful.</li>
+<li>XST_FAILURE if unsuccessful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dma_pcie___config.html#a11981cd817dda09fa8ffb1e4b6c524bd">XDmaPcie_Config::BaseAddress</a>, <a class="el" href="struct_x_dma_pcie.html#af5d05276beffe8f09d05bf237cc3d2f5">XDmaPcie::Config</a>, <a class="el" href="struct_x_dma_pcie___config.html#ab67ad06680c60071c889da0a04852a96">XDmaPcie_Config::IncludeRootComplex</a>, <a class="el" href="xdmapcie_8c.html#a557a92506060fd460154426bd8c4870c">XDmaPcie_CfgInitialize()</a>, <a class="el" href="xdmapcie_8h.html#a1ba2488b5b13dfebf7a3df93c300d67e">XDmaPcie_ClearPendingInterrupts()</a>, <a class="el" href="xdmapcie_8h.html#a086244f1e8866721dbb016893814281a">XDmaPcie_DisableInterrupts()</a>, <a class="el" href="xdmapcie_8h.html#a7f0db923538acc2ee66a3011f1abf32c">XDmaPcie_GetEnabledInterrupts()</a>, <a class="el" href="xdmapcie_8h.html#afbcdc92c0afe5f15363ceea6dd2472be">XDmaPcie_GetPendingInterrupts()</a>, <a class="el" href="xdmapcie_8c.html#a5f24eea699cbc956a9705034c5f12607">XDmaPcie_GetRequesterId()</a>, <a class="el" href="xdmapcie__hw_8h.html#a74b7f78c8f8f27be92d422ccfb084e07">XDMAPCIE_ID_CLEAR_ALL_MASK</a>, <a class="el" href="xdmapcie__hw_8h.html#ab18aeb506ecb660c694912cb6935c096">XDMAPCIE_IM_ENABLE_ALL_MASK</a>, <a class="el" href="xdmapcie_8h.html#abb2f08fcc93b4783bec918f9a607fe21">XDmaPcie_IsLinkUp</a>, <a class="el" href="xdmapcie_8h.html#a079b40bdb760e2ade38405dde9011ff5">XDmaPcie_LookupConfig()</a>, <a class="el" href="xdmapcie_8c.html#a0b168437da7bb05a2cdcbc2267df272d">XDmaPcie_ReadLocalConfigSpace()</a>, and <a class="el" href="xdmapcie_8c.html#aeedb6585a8dcbcc40443e7b90932ad6c">XDmaPcie_WriteLocalConfigSpace()</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a615bfcafc2182f6c6ee6bad5a971b5d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_dma_pcie.html">XDmaPcie</a> XdmaPcieInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
-<p>Referenced by <a class="el" href="xdmapcie__rc__enumerate__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+<p>Instance of the PCIe root complex IP. </p>
 
 </div>
 </div>

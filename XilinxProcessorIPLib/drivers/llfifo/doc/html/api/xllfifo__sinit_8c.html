@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xllfifo__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,13 +105,24 @@ $(document).ready(function(){initNavTree('xllfifo__sinit_8c.html','');});
 <div class="title">xllfifo_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xllfifo_8h.html">xllfifo.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements <a class="el" href="struct_x_ll_fifo.html" title="Defines the XLlFifo driver instance. ">XLlFifo</a> static initialization. </p>
+<p>This file contains static initialization functionality for Axi Streaming FIFO driver.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+3.00a adk 9/10/2013 initial release
+6.1   vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+6.2   tb  09/15/26 Align Doxygen comments with AMD standards.
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xllfifo_8h.html">xllfifo.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gaa21dcb81e0c71adba8248cc59d5cf506"><td class="memItemLeft" align="right" valign="top">XLlFifo_Config *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo.html#gaa21dcb81e0c71adba8248cc59d5cf506">XLlFfio_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gaa21dcb81e0c71adba8248cc59d5cf506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__llfifo.html#gaa21dcb81e0c71adba8248cc59d5cf506">More...</a><br/></td></tr>
-<tr class="separator:gaa21dcb81e0c71adba8248cc59d5cf506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad34debf372d0a787c055515216d80e58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ll_fifo___config.html">XLlFifo_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__api.html#gad34debf372d0a787c055515216d80e58">XLlFfio_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gad34debf372d0a787c055515216d80e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the <a class="el" href="struct_x_ll_fifo.html" title="Defines the XLlFifo driver instance. ">XLlFifo</a> configuration.  <a href="group__llfifo__api.html#gad34debf372d0a787c055515216d80e58">More...</a><br/></td></tr>
+<tr class="separator:gad34debf372d0a787c055515216d80e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

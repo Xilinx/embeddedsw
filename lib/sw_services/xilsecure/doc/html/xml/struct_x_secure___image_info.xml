@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_secure___image_info" kind="struct" prot="public">
     <compoundname>XSecure_ImageInfo</compoundname>
+    <includes local="no">xsecure.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_secure___image_info_1adff9b321480489dcfdee2ff86db87883" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -14,7 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="303" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga8edc4da56d93ab6df2072aa149d79344" compoundref="xsecure_8c" startline="799" endline="964">XSecure_AuthenticationHeaders</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga8cf65db24d617af02144836f17aaacab" compoundref="xsecure_8c" startline="985" endline="1139">XSecure_SecureImage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___image_info_1af75c78ac707aa8a773707675aa6c5f8a" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_secure___partition_header" kindref="compound">XSecure_PartitionHeader</ref> *</type>
@@ -28,7 +31,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="304" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga8edc4da56d93ab6df2072aa149d79344" compoundref="xsecure_8c" startline="799" endline="964">XSecure_AuthenticationHeaders</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga8cf65db24d617af02144836f17aaacab" compoundref="xsecure_8c" startline="985" endline="1139">XSecure_SecureImage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___image_info_1a8f4f6c259c24486b1ce41cbb792b4c5d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -41,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="306" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="307" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___image_info_1af2a58b34121c71052fb6507766353a26" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -54,7 +59,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="307" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga8edc4da56d93ab6df2072aa149d79344" compoundref="xsecure_8c" startline="799" endline="964">XSecure_AuthenticationHeaders</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga8cf65db24d617af02144836f17aaacab" compoundref="xsecure_8c" startline="985" endline="1139">XSecure_SecureImage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___image_info_1ac931dc09b3ee9d52f945da4ad8be71ae" prot="public" static="no" mutable="no">
         <type>u32 *</type>
@@ -67,7 +74,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="308" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga8edc4da56d93ab6df2072aa149d79344" compoundref="xsecure_8c" startline="799" endline="964">XSecure_AuthenticationHeaders</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga8cf65db24d617af02144836f17aaacab" compoundref="xsecure_8c" startline="985" endline="1139">XSecure_SecureImage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___image_info_1a582b9704458f48ce1c8b40cf502c82f5" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -80,11 +89,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="310" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="311" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Image info. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
@@ -94,12 +103,13 @@
       </node>
       <node id="55">
         <label>XSecure_ImageInfo</label>
+        <link refid="struct_x_secure___image_info"/>
         <childnode refid="56" relation="usage">
           <edgelabel>PartitionHdr</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="302" bodyend="311"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="303" bodyend="312"/>
     <listofallmembers>
       <member refid="struct_x_secure___image_info_1a582b9704458f48ce1c8b40cf502c82f5" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>AuthCerPtr</name></member>
       <member refid="struct_x_secure___image_info_1a8f4f6c259c24486b1ce41cbb792b4c5d" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>BhdrAuth</name></member>

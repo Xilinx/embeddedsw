@@ -22,7 +22,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                       xtmr_manager_recover_l.S file.
       adk  01/31/22 Updated the interrupt examples independent of SEM IP
               hardware configuration.
-      adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
+      adk  02/23/22 Added new API <ref refid="group___overview_1gad39bb96c73a9cfee8367f01565d02b7a" kindref="member">XTMR_Manager_Configure_BrkDelay()</ref>
               for configuring break delay.
 1.4   adk  27/12/22 Updated addtogroup tag.
 1.5   adk  03/07/23 Added support for system device-tree flow.
@@ -30,6 +30,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
                       declared. It does not exist. Remove the
                       XTMR_Manager_InjectionTest API declaration.
 1.7   adk  04/04/25 Added Interrupt fields in the config struct in SDT flow.
+1.10  ml   25/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 </preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

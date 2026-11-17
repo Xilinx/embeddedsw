@@ -110,7 +110,9 @@ $(document).ready(function(){initNavTree('xplmi__asu__update_8c.html','');});
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 ====  ==== ======== ==============================================================================
-1.0   vm   03/16/26 Initial release</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__asu__update_8h.html">xplmi_asu_update.h</a>&quot;</code><br/>
+1.0   vm   03/16/26 Initial release
+2.5   vm   07/13/26 Abort in-place update on BUSY and shutdown timeout
+      vm   08/22/26 Added compatibility check for ASU update PDI</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xplmi__asu__update_8h.html">xplmi_asu_update.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__scheduler_8h.html">xplmi_scheduler.h</a>&quot;</code><br/>
 <code>#include &quot;xil_error_node.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xplmi__err__common_8h.html">xplmi_err_common.h</a>&quot;</code><br/>
@@ -147,9 +149,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga46390ced7637005f48e1ed0004705824"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga46390ced7637005f48e1ed0004705824">XPlmi_AsuFwIsPresent</a> (void)</td></tr>
 <tr class="memdesc:ga46390ced7637005f48e1ed0004705824"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if ASU firmware is present and running.  <a href="group__xilplmi__server__apis.html#ga46390ced7637005f48e1ed0004705824">More...</a><br/></td></tr>
 <tr class="separator:ga46390ced7637005f48e1ed0004705824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga52698f2cbe4f9754ce0bdb5640989ef9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga52698f2cbe4f9754ce0bdb5640989ef9">XPlmi_AsuUpdateInit</a> (XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler, XPlmi_CheckAsuPresenceInPdi_t CheckAsuPresenceHandler, XPlmi_LoadAsuImage_t LoadAsuImageHandler)</td></tr>
-<tr class="memdesc:ga52698f2cbe4f9754ce0bdb5640989ef9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes ASU in-place update subsystem.  <a href="group__xilplmi__server__apis.html#ga52698f2cbe4f9754ce0bdb5640989ef9">More...</a><br/></td></tr>
-<tr class="separator:ga52698f2cbe4f9754ce0bdb5640989ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5ad1b7e25adf63b5503df028f76e55c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#gad5ad1b7e25adf63b5503df028f76e55c">XPlmi_AsuUpdateInit</a> (XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler, XPlmi_LoadAsuImage_t LoadAsuImageHandler, XPlmi_AsuCompatibilityCheck_t AsuCompatibilityCheckHandler)</td></tr>
+<tr class="memdesc:gad5ad1b7e25adf63b5503df028f76e55c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes ASU in-place update subsystem.  <a href="group__xilplmi__server__apis.html#gad5ad1b7e25adf63b5503df028f76e55c">More...</a><br/></td></tr>
+<tr class="separator:gad5ad1b7e25adf63b5503df028f76e55c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga348a995549ee09c5970a8063534f97f6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilplmi__server__apis.html#ga348a995549ee09c5970a8063534f97f6">XPlmi_AsuUpdate</a> (XPlmi_Cmd *Cmd)</td></tr>
 <tr class="memdesc:ga348a995549ee09c5970a8063534f97f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles In-Place ASU Update.  <a href="group__xilplmi__server__apis.html#ga348a995549ee09c5970a8063534f97f6">More...</a><br/></td></tr>
 <tr class="separator:ga348a995549ee09c5970a8063534f97f6"><td class="memSeparator" colspan="2">&#160;</td></tr>

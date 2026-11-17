@@ -12,77 +12,77 @@
     <includedby refid="xsem__npi__example_8c" local="yes">xsem_npi_example.c</includedby>
     <includedby refid="xsem__npi__ssit__example_8c" local="yes">xsem_npi_ssit_example.c</includedby>
     <incdepgraph>
-      <node id="105">
+      <node id="107">
         <label>xsem_gic_setup.h</label>
         <link refid="xsem_gic_setup.h"/>
-        <childnode refid="106" relation="include">
+        <childnode refid="108" relation="include">
         </childnode>
-        <childnode refid="107" relation="include">
+        <childnode refid="109" relation="include">
         </childnode>
       </node>
-      <node id="107">
+      <node id="109">
         <label>xscugic_hw.h</label>
       </node>
-      <node id="106">
+      <node id="108">
         <label>xscugic.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="115">
-        <label>xsem_gic_setup.c</label>
-        <link refid="xsem__gic__setup_8c"/>
-      </node>
-      <node id="108">
-        <label>xsem_gic_setup.h</label>
-        <link refid="xsem_gic_setup.h"/>
-        <childnode refid="109" relation="include">
-        </childnode>
-        <childnode refid="110" relation="include">
-        </childnode>
-        <childnode refid="111" relation="include">
-        </childnode>
-        <childnode refid="115" relation="include">
-        </childnode>
-        <childnode refid="112" relation="include">
-        </childnode>
-        <childnode refid="113" relation="include">
-        </childnode>
-        <childnode refid="114" relation="include">
-        </childnode>
-      </node>
-      <node id="114">
+      <node id="116">
         <label>xsem_npi_ssit_example.c</label>
         <link refid="xsem__npi__ssit__example_8c"/>
       </node>
-      <node id="110">
+      <node id="112">
         <label>xsem_cram_example.c</label>
         <link refid="xsem__cram__example_8c"/>
       </node>
-      <node id="112">
+      <node id="114">
         <label>xsem_ipi.c</label>
         <link refid="xsem__ipi_8c"/>
       </node>
-      <node id="109">
+      <node id="111">
         <label>xsem_ipi.h</label>
         <link refid="xsem__ipi_8h"/>
-        <childnode refid="110" relation="include">
-        </childnode>
-        <childnode refid="111" relation="include">
-        </childnode>
         <childnode refid="112" relation="include">
         </childnode>
         <childnode refid="113" relation="include">
         </childnode>
         <childnode refid="114" relation="include">
         </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
       </node>
       <node id="113">
+        <label>xsem_cram_ssit_example.c</label>
+        <link refid="xsem__cram__ssit__example_8c"/>
+      </node>
+      <node id="115">
         <label>xsem_npi_example.c</label>
         <link refid="xsem__npi__example_8c"/>
       </node>
-      <node id="111">
-        <label>xsem_cram_ssit_example.c</label>
-        <link refid="xsem__cram__ssit__example_8c"/>
+      <node id="117">
+        <label>xsem_gic_setup.c</label>
+        <link refid="xsem__gic__setup_8c"/>
+      </node>
+      <node id="110">
+        <label>xsem_gic_setup.h</label>
+        <link refid="xsem_gic_setup.h"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -95,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" bodystart="32" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" bodystart="32" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" bodystart="27" bodyend="59"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" bodystart="27" bodyend="59"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -151,6 +151,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSEM_GIC_SETUP_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h"/>
   </compounddef>
 </doxygen>

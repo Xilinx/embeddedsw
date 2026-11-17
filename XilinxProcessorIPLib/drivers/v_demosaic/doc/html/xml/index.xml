@@ -39,11 +39,6 @@
     <member refid="main_8c_1a1404ec37649e5775142431036025c57a" kind="function"><name>resetIp</name></member>
     <member refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-  </compound>
-  <compound refid="vdemosaic__example__kc705_8tcl" kind="file"><name>vdemosaic_example_kc705.tcl</name>
-    <member refid="vdemosaic__example__kc705_8tcl_1a63f1ad5cbeaab70606e68a5deeb7e49a" kind="function"><name>vdemosaic_example</name></member>
-  </compound>
   <compound refid="xv__demosaic_8c" kind="file"><name>xv_demosaic.c</name>
     <member refid="xv__demosaic_8c_1a602f8a7aadb48c2e10b3748a9d33de06" kind="function"><name>XV_demosaic_CfgInitialize</name></member>
     <member refid="xv__demosaic_8c_1a41dc5cdfde882e8bed16965d5f5f5f86" kind="function"><name>XV_demosaic_Start</name></member>
@@ -131,8 +126,6 @@
   <compound refid="group__v__demosaic" kind="group"><name>v_demosaic</name>
     <member refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" kind="function"><name>XVDemosaic_SetCallback</name></member>
     <member refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" kind="function"><name>XVDemosaic_InterruptHandler</name></member>
-  </compound>
-  <compound refid="example" kind="page"><name>example</name>
   </compound>
   <compound refid="dir_b1035d7145b197ff5f8aebc3c67df097" kind="dir"><name>examples</name>
   </compound>

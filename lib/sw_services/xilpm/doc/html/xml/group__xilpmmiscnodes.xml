@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilpmmiscnodes" kind="group">
+    <compoundname>xilpmmiscnodes</compoundname>
+    <title>Miscellaneous Nodes</title>
+    <innergroup refid="group__xilpmregisternodes">Register Nodes</innergroup>
+      <sectiondef kind="user-defined">
+      <header>Versal Miscellaneous Nodes</header>
+      <memberdef kind="define" id="group__xilpmmiscnodes_1ga68ce24d677341a21e009e8b4e070a2fa" prot="public" static="no">
+        <name>PM_MISC_MJTAG_WA_IMG</name>
+        <initializer>(0x34000000U)</initializer>
+        <briefdescription>
+<para>Versal Miscellaneous Nodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_nodeid.h" line="1275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_nodeid.h" bodystart="1275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmmiscnodes_1ga9f1bf81b88db23c2cd1cf515e5f0d0fe" prot="public" static="no">
+        <name>PM_MISC_READBACK_PDI_IMG</name>
+        <initializer>(0x34000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_nodeid.h" line="1276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_2ve_2vm/client/xpm_nodeid.h" bodystart="1276" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Versal Miscellaneous Nodes</header>
+      <memberdef kind="define" id="group__xilpmmiscnodes_1ga68ce24d677341a21e009e8b4e070a2fa" prot="public" static="no">
+        <name>PM_MISC_MJTAG_WA_IMG</name>
+        <initializer>(0x34000000U)</initializer>
+        <briefdescription>
+<para>Versal Miscellaneous Nodes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/common/xpm_nodeid.h" line="1294" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/common/xpm_nodeid.h" bodystart="1294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpmmiscnodes_1ga9f1bf81b88db23c2cd1cf515e5f0d0fe" prot="public" static="no">
+        <name>PM_MISC_READBACK_PDI_IMG</name>
+        <initializer>(0x34000001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/common/xpm_nodeid.h" line="1295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/common/xpm_nodeid.h" bodystart="1295" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

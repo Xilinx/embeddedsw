@@ -120,7 +120,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date       Changes
 1.04   sk  03/13/24 Fixed doxygen comments format
 2.4    aa  04/01/2026 Added DDR address range validation during USB DFU
                      download to prevent buffer overflow
-       aa  04/10/2026 Update DDR overflow check for USB DFU</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+       aa  04/10/2026 Update DDR overflow check for USB DFU
+       obs 08/21/2026 Clamped the DFU GETSTATUS reply length to the size of
+                      the reply buffer</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__dfu__util_8h.html">xloader_dfu_util.h</a>&quot;</code><br/>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

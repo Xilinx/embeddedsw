@@ -7,48 +7,6 @@
       <node id="59">
         <label>xil_assert.h</label>
       </node>
-      <node id="58">
-        <label>xil_io.h</label>
-      </node>
-      <node id="55">
-        <label>xv_hdmirx_intr.c</label>
-        <link refid="xv_hdmirx_intr.c"/>
-        <childnode refid="56" relation="include">
-        </childnode>
-      </node>
-      <node id="61">
-        <label>xdebug.h</label>
-      </node>
-      <node id="60">
-        <label>xstatus.h</label>
-      </node>
-      <node id="62">
-        <label>xvidc.h</label>
-      </node>
-      <node id="63">
-        <label>xv_hdmirx_vsif.h</label>
-        <link refid="xv__hdmirx__vsif_8h"/>
-        <childnode refid="64" relation="include">
-        </childnode>
-        <childnode refid="59" relation="include">
-        </childnode>
-        <childnode refid="60" relation="include">
-        </childnode>
-        <childnode refid="62" relation="include">
-        </childnode>
-      </node>
-      <node id="57">
-        <label>xv_hdmirx_hw.h</label>
-        <link refid="xv__hdmirx__hw_8h"/>
-        <childnode refid="58" relation="include">
-        </childnode>
-      </node>
-      <node id="64">
-        <label>xil_types.h</label>
-      </node>
-      <node id="65">
-        <label>xv_hdmic.h</label>
-      </node>
       <node id="56">
         <label>xv_hdmirx.h</label>
         <link refid="xv__hdmirx_8h"/>
@@ -66,6 +24,48 @@
         </childnode>
         <childnode refid="65" relation="include">
         </childnode>
+      </node>
+      <node id="58">
+        <label>xil_io.h</label>
+      </node>
+      <node id="57">
+        <label>xv_hdmirx_hw.h</label>
+        <link refid="xv__hdmirx__hw_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xdebug.h</label>
+      </node>
+      <node id="55">
+        <label>xv_hdmirx_intr.c</label>
+        <link refid="xv_hdmirx_intr.c"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xv_hdmirx_vsif.h</label>
+        <link refid="xv__hdmirx__vsif_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="62">
+        <label>xvidc.h</label>
+      </node>
+      <node id="64">
+        <label>xil_types.h</label>
+      </node>
+      <node id="65">
+        <label>xv_hdmic.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -94,7 +94,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="587" bodyend="773"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="587" bodyend="773"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1aa2cd6540997db696542f2e9b4726dd8d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -121,7 +121,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="787" bodyend="898"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="787" bodyend="898"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1af3904d7ef4b17002b4f919628ca46bbf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -148,7 +148,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="385" bodyend="480"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="385" bodyend="480"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1a93107b105810abb3367aafc25e2d84ae" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -175,7 +175,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="494" bodyend="573"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="494" bodyend="573"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1a8be648a7daaf9cfa75a59c778d49bd94" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -202,7 +202,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="912" bodyend="961"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="912" bodyend="961"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1a87b76a3de54dc1f17a83adfe46de8fa9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -229,7 +229,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="975" bodyend="1044"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="975" bodyend="1044"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1a6cc10733edabb86aaa97ef7e8535a823" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -256,7 +256,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="1059" bodyend="1065"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="1059" bodyend="1065"/>
       </memberdef>
       <memberdef kind="function" id="xv__hdmirx__intr_8c_1a1af2b06988bf558daf78a4ffb7df8838" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -283,10 +283,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="103" bodyend="174"/>
-        <references refid="struct_x_v___hdmi_rx___config_1af7bfcbc5394a19ebdb89c10cb8622d39" compoundref="xv__hdmirx_8h" startline="229">XV_HdmiRx_Config::BaseAddress</references>
-        <references refid="struct_x_v___hdmi_rx_1ad2b9509ba5aae6678619d0e1845ef09e" compoundref="xv__hdmirx_8h" startline="283">XV_HdmiRx::Config</references>
-        <references refid="struct_x_v___hdmi_rx_1a9676cb93770e2d9a9ad2045ea6494da6" compoundref="xv__hdmirx_8h" startline="284">XV_HdmiRx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="103" bodyend="174"/>
+        <references refid="struct_x_v___hdmi_rx___config_1af7bfcbc5394a19ebdb89c10cb8622d39" compoundref="xv__hdmirx_8h" startline="225">XV_HdmiRx_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_rx_1ad2b9509ba5aae6678619d0e1845ef09e" compoundref="xv__hdmirx_8h" startline="279">XV_HdmiRx::Config</references>
+        <references refid="struct_x_v___hdmi_rx_1a9676cb93770e2d9a9ad2045ea6494da6" compoundref="xv__hdmirx_8h" startline="280">XV_HdmiRx::IsReady</references>
         <references refid="xv__hdmirx__hw_8h_1a95678b96a69da93e8ed300c4d8e75475" compoundref="xv__hdmirx__hw_8h" startline="282">XV_HDMIRX_AUD_STA_IRQ_MASK</references>
         <references refid="xv__hdmirx__hw_8h_1aaeabc64551cfb1c8e0b4451fe5b4bdaf" compoundref="xv__hdmirx__hw_8h" startline="273">XV_HDMIRX_AUD_STA_OFFSET</references>
         <references refid="xv__hdmirx__hw_8h_1aeb2ba5951bb5bc0f1db1840deac5652f" compoundref="xv__hdmirx__hw_8h" startline="246">XV_HDMIRX_AUX_STA_IRQ_MASK</references>
@@ -371,61 +371,61 @@ HandlerType                 Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="206" bodyend="370"/>
-        <references refid="struct_x_v___hdmi_rx_1a2ad34b308129ea9d13355e0bac8f829d" compoundref="xv__hdmirx_8h" startline="295">XV_HdmiRx::AudCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1ad90a011cd393e8ef5c3eb37b9cbf7257" compoundref="xv__hdmirx_8h" startline="296">XV_HdmiRx::AudRef</references>
-        <references refid="struct_x_v___hdmi_rx_1aea31baac027a909bbe3189c2d0ed36a6" compoundref="xv__hdmirx_8h" startline="291">XV_HdmiRx::AuxCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a2aa07d5388ac1ee901940b441ed42918" compoundref="xv__hdmirx_8h" startline="292">XV_HdmiRx::AuxRef</references>
-        <references refid="struct_x_v___hdmi_rx_1ad34f4f68bff925e1ea7d0bb446aad5bc" compoundref="xv__hdmirx_8h" startline="335">XV_HdmiRx::BrdgOverflowCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a37c4366d1df9e3deffe8efd74369880b" compoundref="xv__hdmirx_8h" startline="336">XV_HdmiRx::BrdgOverflowRef</references>
-        <references refid="struct_x_v___hdmi_rx_1ab19565a18843e9dc2e5162ba19112607" compoundref="xv__hdmirx_8h" startline="287">XV_HdmiRx::ConnectCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1af488febbfc741a436dac4b6ff44aadcf" compoundref="xv__hdmirx_8h" startline="288">XV_HdmiRx::ConnectRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a780aa401adc23e90de0864d8896a0b5d" compoundref="xv__hdmirx_8h" startline="303">XV_HdmiRx::DdcCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1af7519c3087b27b537256a07affd2d6c7" compoundref="xv__hdmirx_8h" startline="304">XV_HdmiRx::DdcRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a0adf094898db51c89b2a7f16d6337d62" compoundref="xv__hdmirx_8h" startline="323">XV_HdmiRx::Hdcp14ProtEvtCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a0978cc0ede32d9f4318d8f270de82dd4" compoundref="xv__hdmirx_8h" startline="324">XV_HdmiRx::Hdcp14ProtEvtRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a7469dd0ba77215d51ae399e4964d41d0" compoundref="xv__hdmirx_8h" startline="327">XV_HdmiRx::Hdcp22ProtEvtCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a9d58b29139f8b19c5f5da5dd3a482265" compoundref="xv__hdmirx_8h" startline="328">XV_HdmiRx::Hdcp22ProtEvtRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a7a380f0815c05dd7a216b9b296d799d2" compoundref="xv__hdmirx_8h" startline="319">XV_HdmiRx::HdcpCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a7169a3f83e3ee81d3e8224badb5f6308" compoundref="xv__hdmirx_8h" startline="320">XV_HdmiRx::HdcpRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a16b8220d3d5726ce667fd2126cd77ce1" compoundref="xv__hdmirx_8h" startline="297">XV_HdmiRx::IsAudCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a31d2a9f9c0e677bf93d6170839da126f" compoundref="xv__hdmirx_8h" startline="293">XV_HdmiRx::IsAuxCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a4ddfef9f679173707e39db6763396fff" compoundref="xv__hdmirx_8h" startline="337">XV_HdmiRx::IsBrdgOverflowCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a98be1192a38df457a49b96b8fc4b15f2" compoundref="xv__hdmirx_8h" startline="289">XV_HdmiRx::IsConnectCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1ae59867a2fbf7898eb95b4c2b45d28410" compoundref="xv__hdmirx_8h" startline="305">XV_HdmiRx::IsDdcCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a0269fe1b15528caca4976bd466f966d4" compoundref="xv__hdmirx_8h" startline="325">XV_HdmiRx::IsHdcp14ProtEvtCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a19f0d7e7c3fecd139a63d6917538bd3d" compoundref="xv__hdmirx_8h" startline="329">XV_HdmiRx::IsHdcp22ProtEvtCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1aebf0ba5748af0de838f803bf2225f6f3" compoundref="xv__hdmirx_8h" startline="321">XV_HdmiRx::IsHdcpCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a61c86cd9b5a7a1d1750c0c7bbd758bae" compoundref="xv__hdmirx_8h" startline="333">XV_HdmiRx::IsLinkErrorCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1aa0cb2c8145cd396993c88b73b706a50a" compoundref="xv__hdmirx_8h" startline="301">XV_HdmiRx::IsLnkStaCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a669d513509db7935c313989375d80d41" compoundref="xv__hdmirx_8h" startline="345">XV_HdmiRx::IsModeCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1adcaed9f9d560ebbb5da799f29048c31e" compoundref="xv__hdmirx_8h" startline="357">XV_HdmiRx::IsPhyErrorCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1abec1436490b52a721664e6f532a0810f" compoundref="xv__hdmirx_8h" startline="309">XV_HdmiRx::IsStreamDownCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1ac02d9af178c3238017a0a144d62f03b3" compoundref="xv__hdmirx_8h" startline="313">XV_HdmiRx::IsStreamInitCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1ab0aaa52f119c073b465ad6c3bd80931b" compoundref="xv__hdmirx_8h" startline="317">XV_HdmiRx::IsStreamUpCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1ae04a163494be12bcb9ecade3059a5808" compoundref="xv__hdmirx_8h" startline="341">XV_HdmiRx::IsSyncLossCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1aec543849385f6a23a19f7a985ad17868" compoundref="xv__hdmirx_8h" startline="349">XV_HdmiRx::IsTmdsClkRatioCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a4717cc196bd2c07550b7d1e74cb62b83" compoundref="xv__hdmirx_8h" startline="353">XV_HdmiRx::IsVicErrorCallbackSet</references>
-        <references refid="struct_x_v___hdmi_rx_1a3afe28fcccb6357b4617f0537630981c" compoundref="xv__hdmirx_8h" startline="331">XV_HdmiRx::LinkErrorCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1ab5db24e6c4914a908e485f83104372a3" compoundref="xv__hdmirx_8h" startline="332">XV_HdmiRx::LinkErrorRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a9bc3519cb42839fc78d65e734578877b" compoundref="xv__hdmirx_8h" startline="299">XV_HdmiRx::LnkStaCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1aebe8793a268654c4a053dec49375036b" compoundref="xv__hdmirx_8h" startline="300">XV_HdmiRx::LnkStaRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a0dbd49f78158094d855c94ec14d1be92" compoundref="xv__hdmirx_8h" startline="343">XV_HdmiRx::ModeCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a6c30c66678dfcd91b64c03390d3d74b9" compoundref="xv__hdmirx_8h" startline="344">XV_HdmiRx::ModeRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a71db1f8ca5cb438e646cfe90f2ea303e" compoundref="xv__hdmirx_8h" startline="355">XV_HdmiRx::PhyErrorCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a3e6ac20c0cd3df1d54aed47159a7331f" compoundref="xv__hdmirx_8h" startline="356">XV_HdmiRx::PhyErrorRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a4487a94b3952681506cc3b2700ff68d2" compoundref="xv__hdmirx_8h" startline="307">XV_HdmiRx::StreamDownCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1af057991b7be7e1ac4ea309df7e38587c" compoundref="xv__hdmirx_8h" startline="308">XV_HdmiRx::StreamDownRef</references>
-        <references refid="struct_x_v___hdmi_rx_1afea252919d44c0018cbcd32c91bb8b44" compoundref="xv__hdmirx_8h" startline="311">XV_HdmiRx::StreamInitCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1adadf9a8e53bc33f559a16bd908c439ef" compoundref="xv__hdmirx_8h" startline="312">XV_HdmiRx::StreamInitRef</references>
-        <references refid="struct_x_v___hdmi_rx_1af7af2be88a6f34fe61a23127b05da53e" compoundref="xv__hdmirx_8h" startline="315">XV_HdmiRx::StreamUpCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a201b3f4452b50dd5d52136b2518ac749" compoundref="xv__hdmirx_8h" startline="316">XV_HdmiRx::StreamUpRef</references>
-        <references refid="struct_x_v___hdmi_rx_1abbac689c275d51dc275f3ddae8287956" compoundref="xv__hdmirx_8h" startline="339">XV_HdmiRx::SyncLossCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a46b5b26b3d14ed42965881c7c93e0e20" compoundref="xv__hdmirx_8h" startline="340">XV_HdmiRx::SyncLossRef</references>
-        <references refid="struct_x_v___hdmi_rx_1aeaad76669a3ca9272ae198ab9797a6b8" compoundref="xv__hdmirx_8h" startline="347">XV_HdmiRx::TmdsClkRatioCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1ac7788776866f058296a22ddcd7b1bf16" compoundref="xv__hdmirx_8h" startline="348">XV_HdmiRx::TmdsClkRatioRef</references>
-        <references refid="struct_x_v___hdmi_rx_1a53e7e28d47d0f6815e6ba4346b93e160" compoundref="xv__hdmirx_8h" startline="351">XV_HdmiRx::VicErrorCallback</references>
-        <references refid="struct_x_v___hdmi_rx_1a99a29fb065067226a6e288fb27ec66a2" compoundref="xv__hdmirx_8h" startline="352">XV_HdmiRx::VicErrorRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c" bodystart="206" bodyend="370"/>
+        <references refid="struct_x_v___hdmi_rx_1a2ad34b308129ea9d13355e0bac8f829d" compoundref="xv__hdmirx_8h" startline="291">XV_HdmiRx::AudCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1ad90a011cd393e8ef5c3eb37b9cbf7257" compoundref="xv__hdmirx_8h" startline="292">XV_HdmiRx::AudRef</references>
+        <references refid="struct_x_v___hdmi_rx_1aea31baac027a909bbe3189c2d0ed36a6" compoundref="xv__hdmirx_8h" startline="287">XV_HdmiRx::AuxCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a2aa07d5388ac1ee901940b441ed42918" compoundref="xv__hdmirx_8h" startline="288">XV_HdmiRx::AuxRef</references>
+        <references refid="struct_x_v___hdmi_rx_1ad34f4f68bff925e1ea7d0bb446aad5bc" compoundref="xv__hdmirx_8h" startline="331">XV_HdmiRx::BrdgOverflowCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a37c4366d1df9e3deffe8efd74369880b" compoundref="xv__hdmirx_8h" startline="332">XV_HdmiRx::BrdgOverflowRef</references>
+        <references refid="struct_x_v___hdmi_rx_1ab19565a18843e9dc2e5162ba19112607" compoundref="xv__hdmirx_8h" startline="283">XV_HdmiRx::ConnectCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1af488febbfc741a436dac4b6ff44aadcf" compoundref="xv__hdmirx_8h" startline="284">XV_HdmiRx::ConnectRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a780aa401adc23e90de0864d8896a0b5d" compoundref="xv__hdmirx_8h" startline="299">XV_HdmiRx::DdcCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1af7519c3087b27b537256a07affd2d6c7" compoundref="xv__hdmirx_8h" startline="300">XV_HdmiRx::DdcRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a0adf094898db51c89b2a7f16d6337d62" compoundref="xv__hdmirx_8h" startline="319">XV_HdmiRx::Hdcp14ProtEvtCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a0978cc0ede32d9f4318d8f270de82dd4" compoundref="xv__hdmirx_8h" startline="320">XV_HdmiRx::Hdcp14ProtEvtRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a7469dd0ba77215d51ae399e4964d41d0" compoundref="xv__hdmirx_8h" startline="323">XV_HdmiRx::Hdcp22ProtEvtCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a9d58b29139f8b19c5f5da5dd3a482265" compoundref="xv__hdmirx_8h" startline="324">XV_HdmiRx::Hdcp22ProtEvtRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a7a380f0815c05dd7a216b9b296d799d2" compoundref="xv__hdmirx_8h" startline="315">XV_HdmiRx::HdcpCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a7169a3f83e3ee81d3e8224badb5f6308" compoundref="xv__hdmirx_8h" startline="316">XV_HdmiRx::HdcpRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a16b8220d3d5726ce667fd2126cd77ce1" compoundref="xv__hdmirx_8h" startline="293">XV_HdmiRx::IsAudCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a31d2a9f9c0e677bf93d6170839da126f" compoundref="xv__hdmirx_8h" startline="289">XV_HdmiRx::IsAuxCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a4ddfef9f679173707e39db6763396fff" compoundref="xv__hdmirx_8h" startline="333">XV_HdmiRx::IsBrdgOverflowCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a98be1192a38df457a49b96b8fc4b15f2" compoundref="xv__hdmirx_8h" startline="285">XV_HdmiRx::IsConnectCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1ae59867a2fbf7898eb95b4c2b45d28410" compoundref="xv__hdmirx_8h" startline="301">XV_HdmiRx::IsDdcCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a0269fe1b15528caca4976bd466f966d4" compoundref="xv__hdmirx_8h" startline="321">XV_HdmiRx::IsHdcp14ProtEvtCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a19f0d7e7c3fecd139a63d6917538bd3d" compoundref="xv__hdmirx_8h" startline="325">XV_HdmiRx::IsHdcp22ProtEvtCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1aebf0ba5748af0de838f803bf2225f6f3" compoundref="xv__hdmirx_8h" startline="317">XV_HdmiRx::IsHdcpCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a61c86cd9b5a7a1d1750c0c7bbd758bae" compoundref="xv__hdmirx_8h" startline="329">XV_HdmiRx::IsLinkErrorCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1aa0cb2c8145cd396993c88b73b706a50a" compoundref="xv__hdmirx_8h" startline="297">XV_HdmiRx::IsLnkStaCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a669d513509db7935c313989375d80d41" compoundref="xv__hdmirx_8h" startline="341">XV_HdmiRx::IsModeCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1adcaed9f9d560ebbb5da799f29048c31e" compoundref="xv__hdmirx_8h" startline="353">XV_HdmiRx::IsPhyErrorCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1abec1436490b52a721664e6f532a0810f" compoundref="xv__hdmirx_8h" startline="305">XV_HdmiRx::IsStreamDownCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1ac02d9af178c3238017a0a144d62f03b3" compoundref="xv__hdmirx_8h" startline="309">XV_HdmiRx::IsStreamInitCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1ab0aaa52f119c073b465ad6c3bd80931b" compoundref="xv__hdmirx_8h" startline="313">XV_HdmiRx::IsStreamUpCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1ae04a163494be12bcb9ecade3059a5808" compoundref="xv__hdmirx_8h" startline="337">XV_HdmiRx::IsSyncLossCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1aec543849385f6a23a19f7a985ad17868" compoundref="xv__hdmirx_8h" startline="345">XV_HdmiRx::IsTmdsClkRatioCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a4717cc196bd2c07550b7d1e74cb62b83" compoundref="xv__hdmirx_8h" startline="349">XV_HdmiRx::IsVicErrorCallbackSet</references>
+        <references refid="struct_x_v___hdmi_rx_1a3afe28fcccb6357b4617f0537630981c" compoundref="xv__hdmirx_8h" startline="327">XV_HdmiRx::LinkErrorCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1ab5db24e6c4914a908e485f83104372a3" compoundref="xv__hdmirx_8h" startline="328">XV_HdmiRx::LinkErrorRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a9bc3519cb42839fc78d65e734578877b" compoundref="xv__hdmirx_8h" startline="295">XV_HdmiRx::LnkStaCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1aebe8793a268654c4a053dec49375036b" compoundref="xv__hdmirx_8h" startline="296">XV_HdmiRx::LnkStaRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a0dbd49f78158094d855c94ec14d1be92" compoundref="xv__hdmirx_8h" startline="339">XV_HdmiRx::ModeCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a6c30c66678dfcd91b64c03390d3d74b9" compoundref="xv__hdmirx_8h" startline="340">XV_HdmiRx::ModeRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a71db1f8ca5cb438e646cfe90f2ea303e" compoundref="xv__hdmirx_8h" startline="351">XV_HdmiRx::PhyErrorCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a3e6ac20c0cd3df1d54aed47159a7331f" compoundref="xv__hdmirx_8h" startline="352">XV_HdmiRx::PhyErrorRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a4487a94b3952681506cc3b2700ff68d2" compoundref="xv__hdmirx_8h" startline="303">XV_HdmiRx::StreamDownCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1af057991b7be7e1ac4ea309df7e38587c" compoundref="xv__hdmirx_8h" startline="304">XV_HdmiRx::StreamDownRef</references>
+        <references refid="struct_x_v___hdmi_rx_1afea252919d44c0018cbcd32c91bb8b44" compoundref="xv__hdmirx_8h" startline="307">XV_HdmiRx::StreamInitCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1adadf9a8e53bc33f559a16bd908c439ef" compoundref="xv__hdmirx_8h" startline="308">XV_HdmiRx::StreamInitRef</references>
+        <references refid="struct_x_v___hdmi_rx_1af7af2be88a6f34fe61a23127b05da53e" compoundref="xv__hdmirx_8h" startline="311">XV_HdmiRx::StreamUpCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a201b3f4452b50dd5d52136b2518ac749" compoundref="xv__hdmirx_8h" startline="312">XV_HdmiRx::StreamUpRef</references>
+        <references refid="struct_x_v___hdmi_rx_1abbac689c275d51dc275f3ddae8287956" compoundref="xv__hdmirx_8h" startline="335">XV_HdmiRx::SyncLossCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a46b5b26b3d14ed42965881c7c93e0e20" compoundref="xv__hdmirx_8h" startline="336">XV_HdmiRx::SyncLossRef</references>
+        <references refid="struct_x_v___hdmi_rx_1aeaad76669a3ca9272ae198ab9797a6b8" compoundref="xv__hdmirx_8h" startline="343">XV_HdmiRx::TmdsClkRatioCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1ac7788776866f058296a22ddcd7b1bf16" compoundref="xv__hdmirx_8h" startline="344">XV_HdmiRx::TmdsClkRatioRef</references>
+        <references refid="struct_x_v___hdmi_rx_1a53e7e28d47d0f6815e6ba4346b93e160" compoundref="xv__hdmirx_8h" startline="347">XV_HdmiRx::VicErrorCallback</references>
+        <references refid="struct_x_v___hdmi_rx_1a99a29fb065067226a6e288fb27ec66a2" compoundref="xv__hdmirx_8h" startline="348">XV_HdmiRx::VicErrorRef</references>
         <references refid="xv__hdmirx_8h_1a93574b274899e5038d38e6524eab66fcae3ee274c73f7e931608e72b97b6ccdfa" compoundref="xv__hdmirx_8h" startline="167">XV_HDMIRX_HANDLER_AUD</references>
         <references refid="xv__hdmirx_8h_1a93574b274899e5038d38e6524eab66fca4ac03ad55a4ccc5cdaf9371a0b4f4a0a" compoundref="xv__hdmirx_8h" startline="166">XV_HDMIRX_HANDLER_AUX</references>
         <references refid="xv__hdmirx_8h_1a93574b274899e5038d38e6524eab66fcaa707b35b61c09d516ba79364815fd87e" compoundref="xv__hdmirx_8h" startline="164">XV_HDMIRX_HANDLER_BRDG_OVERFLOW</references>
@@ -1375,6 +1375,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="1064"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1065"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c"/>
   </compounddef>
 </doxygen>

@@ -6,32 +6,32 @@
     <includedby refid="xsecure__mldsa__ipihandler_8c" local="yes">xsecure_mldsa_ipihandler.c</includedby>
     <includedby refid="2vp__p_2xsecure__cmd_8c" local="yes">xsecure_cmd.c</includedby>
     <incdepgraph>
-      <node id="2209">
+      <node id="2297">
         <label>xplmi_cmd.h</label>
       </node>
-      <node id="2208">
+      <node id="2296">
         <label>xsecure_mldsa_ipihandler.h</label>
         <link refid="xsecure_mldsa_ipihandler.h"/>
-        <childnode refid="2209" relation="include">
+        <childnode refid="2297" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2211">
+      <node id="2300">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="2299">
         <label>xsecure_mldsa_ipihandler.c</label>
         <link refid="xsecure__mldsa__ipihandler_8c"/>
       </node>
-      <node id="2210">
+      <node id="2298">
         <label>xsecure_mldsa_ipihandler.h</label>
         <link refid="xsecure_mldsa_ipihandler.h"/>
-        <childnode refid="2211" relation="include">
+        <childnode refid="2299" relation="include">
         </childnode>
-        <childnode refid="2212" relation="include">
+        <childnode refid="2300" relation="include">
         </childnode>
-      </node>
-      <node id="2212">
-        <label>xsecure_cmd.c</label>
-        <link refid="2vp__p_2xsecure__cmd_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -61,11 +61,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_ipihandler.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_ipihandler.c" bodystart="55" bodyend="81"/>
-        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
-        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5cd9b1622e532c4e713eefd055a7b708" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="125">XSECURE_API_MLDSA_SIGN_GENERATE</references>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acae7aac48a1aa0f61534e840a3b737b23d" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="124">XSECURE_API_MLDSA_SIGN_VERIFY</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_ipihandler.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_ipihandler.c" bodystart="55" bodyend="81"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="112">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="116">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5cd9b1622e532c4e713eefd055a7b708" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="132">XSECURE_API_MLDSA_SIGN_GENERATE</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acae7aac48a1aa0f61534e840a3b737b23d" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="131">XSECURE_API_MLDSA_SIGN_VERIFY</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -106,6 +106,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_MLDSA_IPIHANDLER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_ipihandler.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/xsecure_mldsa_ipihandler.h"/>
   </compounddef>
 </doxygen>

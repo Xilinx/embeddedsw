@@ -52,14 +52,6 @@
     <member refid="platform__config_8h_1aaac4a78f0f48a01e433886a90dbded7c" kind="define"><name>STDOUT_IS_PSU_UART</name></member>
     <member refid="platform__config_8h_1a0f4ff52ed3a5a46691f6a4d03988923d" kind="define"><name>UART_DEVICE_ID</name></member>
   </compound>
-  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
-    <member refid="readme_8txt_1a8d4014dcc601e9e6ea7ac6ef84148ac2" kind="variable"><name>mode</name></member>
-    <member refid="readme_8txt_1a2d462cdd528903640f94ff1514cbcb0f" kind="variable"><name>height</name></member>
-    <member refid="readme_8txt_1a207b162564172e3bd9904828baea77d9" kind="variable"><name>width</name></member>
-    <member refid="readme_8txt_1a3348d00d4b0a03ce91cdc0f418790b3a" kind="variable"><name>stride</name></member>
-    <member refid="readme_8txt_1a8c5e394c0b849056efdc2fede8c0d307" kind="variable"><name>address</name></member>
-    <member refid="readme_8txt_1a649b08e4f0f43903922048a2af860d58" kind="function"><name>differences</name></member>
-  </compound>
   <compound refid="xv__scenechange_8c" kind="file"><name>xv_scenechange.c</name>
     <member refid="xv__scenechange_8c_1a579d85108d6b78aa4dcd410993087d02" kind="function"><name>XV_scenechange_CfgInitialize</name></member>
     <member refid="xv__scenechange_8c_1a55471dd370134105c6b6c65b2cc0e656" kind="function"><name>XV_scenechange_Start</name></member>
@@ -478,13 +470,12 @@
     <member refid="group__v__scenechange_1gae6c86fc73f611432fe5e6a5dacf2444b" kind="function"><name>XV_scenechange_WaitForIdle</name></member>
     <member refid="group__v__scenechange_1ga61aa64def88d063b4f41fab97540c8dd" kind="function"><name>XV_scenechange_EnableInterrupts</name></member>
   </compound>
-  <compound refid="xv__scenechange__linux_8c" kind="file"><name>xv_scenechange_linux.c</name>
-  </compound>
   <compound refid="xv__scenechange__memory__mode__ex_8c" kind="file"><name>xv_scenechange_memory_mode_ex.c</name>
     <member refid="xv__scenechange__memory__mode__ex_8c_1aae330e618e2010bc93116fe9048dbffb" kind="define"><name>IP_RESET_MASK</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1a5a7b542415a09f0be89e9b68292e698b" kind="define"><name>SCD_STREAMS_ENABLE</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1a2731654aa7d70f280679b237dfe46aa1" kind="define"><name>SCD_LAYER_0</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1a24c48ef77929deff9e40e141a891dbb8" kind="define"><name>MAX_PATTERNS</name></member>
+    <member refid="xv__scenechange__memory__mode__ex_8c_1a70d2073327a8d81baaa30864df325a46" kind="define"><name>FRAME_BUF_BASE</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1a193fc93837d1fa1cbeafa560f54ddbfb" kind="variable"><name>local_mem</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1a8155692ebdf14a37f43057c8e716bb60" kind="variable"><name>memaddr</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1af98f9c0179891ad72f8b2b9600fdf2bc" kind="variable"><name>scd_height</name></member>
@@ -495,7 +486,6 @@
     <member refid="xv__scenechange__memory__mode__ex_8c_1a49aa04cdc633fd4d740cf8d021f5e340" kind="variable"><name>scd_threshold</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1adc5ea272960eae9572164d348030ab0f" kind="variable"><name>is_detected</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1ab6e54bd6ecb77f6b3665b5ad0c9d9fd9" kind="variable"><name>sc_detected</name></member>
-    <member refid="xv__scenechange__memory__mode__ex_8c_1aac9b9dd3f01c78843949f1b0dd37b80c" kind="variable"><name>Intc</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1aca2b1f901a3f11f067860bd7baa91964" kind="variable"><name>ScdPtr</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1ab49dd7c81808a100489045e0d6bfa03c" kind="function"><name>SceneChangeDetectedCallback</name></member>
     <member refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" kind="function"><name>XV_SceneChange_init</name></member>
@@ -526,7 +516,6 @@
     <member refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" kind="variable"><name>Pattern</name></member>
     <member refid="xv__scenechange__stream__mode__ex_8c_1a822222fb1bdb49d7fc14545665552dc1" kind="variable"><name>Frmbufwr</name></member>
     <member refid="xv__scenechange__stream__mode__ex_8c_1a2649a9bde065747c5b9353c5727c9918" kind="variable"><name>FrmBufWr_ConfigPtr</name></member>
-    <member refid="xv__scenechange__stream__mode__ex_8c_1aac9b9dd3f01c78843949f1b0dd37b80c" kind="variable"><name>Intc</name></member>
     <member refid="xv__scenechange__stream__mode__ex_8c_1aca2b1f901a3f11f067860bd7baa91964" kind="variable"><name>ScdPtr</name></member>
     <member refid="xv__scenechange__stream__mode__ex_8c_1adc5ea272960eae9572164d348030ab0f" kind="variable"><name>is_detected</name></member>
     <member refid="xv__scenechange__stream__mode__ex_8c_1ab6e54bd6ecb77f6b3665b5ad0c9d9fd9" kind="variable"><name>sc_detected</name></member>

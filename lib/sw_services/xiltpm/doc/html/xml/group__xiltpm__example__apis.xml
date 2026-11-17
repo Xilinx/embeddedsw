@@ -15,10 +15,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xiltpm__example__apis_1ga4504f59ccc5ef4a5e25142fe6490dec2" prot="public" static="yes" mutable="no">
-        <type>XTpm_PcrEvent_t</type>
+        <type><ref refid="struct_x_tpm___pcr_event__t" kindref="compound">XTpm_PcrEvent_t</ref></type>
         <definition>XTpm_PcrEvent_t PcrEvents[XTPM_READ_NUM_OF_LOG_ENTRIES]</definition>
         <argsstring>[XTPM_READ_NUM_OF_LOG_ENTRIES]</argsstring>
         <name>PcrEvents</name>
@@ -28,10 +28,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xiltpm__example__apis_1ga56049d7be874d92aa6475a4a2bdb3aca" prot="public" static="yes" mutable="no">
-        <type>XTpm_PcrLogInfo_t</type>
+        <type><ref refid="struct_x_tpm___pcr_log_info__t" kindref="compound">XTpm_PcrLogInfo_t</ref></type>
         <definition>XTpm_PcrLogInfo_t PcrLogInfo</definition>
         <argsstring></argsstring>
         <name>PcrLogInfo</name>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xiltpm__example__apis_1ga422c293028f38a678715417471286aac" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -63,7 +63,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xiltpm__example__apis_1ga6d79f68c3bd186b5003e84c949d6c178" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -97,7 +97,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="136" bodyend="236"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="137" bodyend="237"/>
       </memberdef>
       <memberdef kind="function" id="group__xiltpm__example__apis_1ga44944692632426b188226427319bf023" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -133,7 +133,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="247" bodyend="255"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="248" bodyend="256"/>
       </memberdef>
       <memberdef kind="function" id="group__xiltpm__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -149,7 +149,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="105" bodyend="122"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="106" bodyend="123"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -162,7 +162,7 @@
 <para>PCR0 and PCR1 are reserved. PCR17 to PCR22 are not extendable </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xiltpm__example__apis_1gaafcb9039cee36c17c8a10df096fe385d" prot="public" static="no">
         <name>XTPM_READ_NUM_OF_LOG_ENTRIES</name>
@@ -173,13 +173,13 @@
 <para>Maximum value is up to 24 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/examples/xiltpm_example.c" bodystart="74" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>This example illustrates extension of user data to specified PCR. </para>    </briefdescription>
     <detaileddescription>
-<para>To build this application, xilmailbox library must be included in BSP and xiltpm must be in client mode This example is supported for Versal and Versal_2VE_2VM devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+<para>To build this application, xilmailbox library must be included in BSP and xiltpm must be in client mode This example is supported for Versal, Versal_2VP and Versal_2VE_2VM devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
 </para></simplesect>
 The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/A78/R52 and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
             be updated to point all the required sections to shared memory(OCM or TCM)
@@ -209,6 +209,7 @@ Ver   Who    Date     Changes
 
 1.0     pre    03/13/26 Initial Release
       pre    03/21/26 Added example usage of GetPcrLog API
-      pre    04/24/26 Updated print statement to print PCR number in decimal format.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+      pre    04/24/26 Updated print statement to print PCR number in decimal format.
+      pre    07/24/26 Added info of example support for VERSAL_2VP devices also.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

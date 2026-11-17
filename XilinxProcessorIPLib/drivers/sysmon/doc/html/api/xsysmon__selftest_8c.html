@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsysmon__selftest_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,17 +100,34 @@ $(document).ready(function(){initNavTree('xsysmon__selftest_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xsysmon_selftest.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xsysmon_8h.html">xsysmon.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements a diagnostic self test function for the <a class="el" href="struct_x_sys_mon.html" title="Holds the driver instance data. ">XSysMon</a> driver. </p>
+<p>This file contains a diagnostic self test function for the <a class="el" href="struct_x_sys_mon.html" title="Holds the driver instance data. ">XSysMon</a> driver. The self test function does a simple read/write test of the Alarm Threshold Register.</p>
+<p>See <a class="el" href="xsysmon_8h.html">xsysmon.h</a> for more information.</p>
+<pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a xd/sv  05/22/07 First release
+4.00a ktn    10/22/09 Updated the file to use the HAL APIs/macros.
+8.1   vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xsysmon_8h.html">xsysmon.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:gadede42b163bc7f23c95e7007fa336b9a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gadede42b163bc7f23c95e7007fa336b9a">XSM_ATR_TEST_VALUE</a>&#160;&#160;&#160;0x55</td></tr>
+<tr class="memdesc:gadede42b163bc7f23c95e7007fa336b9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test value written to the Alarm Threshold Register during the self test.  <a href="group___overview.html#gadede42b163bc7f23c95e7007fa336b9a">More...</a><br/></td></tr>
+<tr class="separator:gadede42b163bc7f23c95e7007fa336b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga23b6bce798cabbee7cb637d36edd54da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga23b6bce798cabbee7cb637d36edd54da">XSysMon_SelfTest</a> (<a class="el" href="struct_x_sys_mon.html">XSysMon</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga23b6bce798cabbee7cb637d36edd54da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions in <a class="el" href="xsysmon__selftest_8c.html">xsysmon_selftest.c</a>.  <a href="group___overview.html#ga23b6bce798cabbee7cb637d36edd54da">More...</a><br/></td></tr>
+<tr class="memdesc:ga23b6bce798cabbee7cb637d36edd54da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="group___overview.html#ga23b6bce798cabbee7cb637d36edd54da">More...</a><br/></td></tr>
 <tr class="separator:ga23b6bce798cabbee7cb637d36edd54da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

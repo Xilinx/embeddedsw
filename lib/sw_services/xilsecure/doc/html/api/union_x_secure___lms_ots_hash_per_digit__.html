@@ -119,6 +119,9 @@ $(document).ready(function(){initNavTree('union_x_secure___lms_ots_hash_per_digi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:abbe1376e8d1d932a13f554ffaf423b92"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_x_secure___lms_ots_hash_per_digit__.html#abbe1376e8d1d932a13f554ffaf423b92">Buff</a> [1U+XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE]</td></tr>
+<tr class="memdesc:abbe1376e8d1d932a13f554ffaf423b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte buffer of LMS OTS hash per digit.  <a href="#abbe1376e8d1d932a13f554ffaf423b92">More...</a><br/></td></tr>
+<tr class="separator:abbe1376e8d1d932a13f554ffaf423b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a45ee09c5ec9528261b01cc336727c3"><td class="memItemLeft" >struct {</td></tr>
 <tr class="memitem:a525e441d523576eb8b0665dc115ba60e"><td class="memItemLeft" >&#160;&#160;&#160;u8&#160;&#160;&#160;<a class="el" href="union_x_secure___lms_ots_hash_per_digit__.html#a5e7624a580f45248dcd50cbd949b71ea">Reserved</a></td></tr>
 <tr class="memdesc:a525e441d523576eb8b0665dc115ba60e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 reserved byte added at start of buffer, to manage word aligned sha finish copies to buffer  <a href="#a525e441d523576eb8b0665dc115ba60e">More...</a><br/></td></tr>
@@ -146,6 +149,20 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Temporary buffer, used in LMS OTS signature verification, used in hash chain to arrive at values which will be concatenated and hashed to get public value. </p>
 <p>Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="abbe1376e8d1d932a13f554ffaf423b92"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSecure_LmsOtsHashPerDigit_::Buff[1U+XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Byte buffer of LMS OTS hash per digit. </p>
+
+</div>
+</div>
 <a class="anchor" id="a9a45ee09c5ec9528261b01cc336727c3"></a>
 <div class="memitem">
 <div class="memproto">

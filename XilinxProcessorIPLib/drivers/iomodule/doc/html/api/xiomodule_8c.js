@@ -27,5 +27,6 @@ var xiomodule_8c =
     [ "XIOModule_Stop", "xiomodule_8c.html#ga4cd1ece524eb5fd3d5d255027ad6a01a", null ],
     [ "XIOModule_Timer_Initialize", "xiomodule_8c.html#ga035df6e086b5235a837f8b9d8da14508", null ],
     [ "XIOModule_Timer_Start", "xiomodule_8c.html#ga622c3a5cd4e43543cfb445071d01e7a9", null ],
-    [ "XIOModule_Timer_Stop", "xiomodule_8c.html#ga60bd9ef270b0de7440206326ec1fe710", null ]
+    [ "XIOModule_Timer_Stop", "xiomodule_8c.html#ga60bd9ef270b0de7440206326ec1fe710", null ],
+    [ "XIOModule_BitPosMask", "xiomodule_8c.html#gab021984b27165498eb3edbc9e2cbc939", null ]
 ];

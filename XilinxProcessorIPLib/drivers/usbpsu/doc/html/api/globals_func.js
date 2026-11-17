@@ -1,12 +1,15 @@
 var globals_func =
 [
+    [ "a", "globals_func.html", null ],
     [ "b", "globals_func.html", null ],
-    [ "c", "globals_func_0x63.html", null ],
-    [ "g", "globals_func_0x67.html", null ],
-    [ "i", "globals_func_0x69.html", null ],
-    [ "m", "globals_func_0x6d.html", null ],
-    [ "p", "globals_func_0x70.html", null ],
-    [ "s", "globals_func_0x73.html", null ],
-    [ "u", "globals_func_0x75.html", null ],
-    [ "x", "globals_func_0x78.html", null ]
+    [ "c", "globals_func.html", null ],
+    [ "e", "globals_func.html", null ],
+    [ "g", "globals_func.html", null ],
+    [ "i", "globals_func.html", null ],
+    [ "l", "globals_func.html", null ],
+    [ "m", "globals_func.html", null ],
+    [ "p", "globals_func.html", null ],
+    [ "s", "globals_func.html", null ],
+    [ "u", "globals_func.html", null ],
+    [ "x", "globals_func.html", null ]
 ];

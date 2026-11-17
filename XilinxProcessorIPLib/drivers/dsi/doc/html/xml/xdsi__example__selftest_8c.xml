@@ -7,51 +7,51 @@
     <includes local="yes">xdebug.h</includes>
     <includes local="yes">xstatus.h</includes>
     <incdepgraph>
-      <node id="27">
-        <label>xdsi_hw.h</label>
-        <link refid="xdsi__hw_8h"/>
-        <childnode refid="28" relation="include">
-        </childnode>
-      </node>
-      <node id="28">
+      <node id="29">
         <label>xil_io.h</label>
       </node>
-      <node id="25">
-        <label>xdsi.h</label>
-        <link refid="xdsi_8h"/>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-      </node>
-      <node id="31">
+      <node id="32">
         <label>xdebug.h</label>
       </node>
-      <node id="24">
+      <node id="25">
         <label>xdsi_example_selftest.c</label>
         <link refid="xdsi_example_selftest.c"/>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
       </node>
-      <node id="32">
+      <node id="33">
         <label>xstatus.h</label>
       </node>
-      <node id="29">
+      <node id="30">
         <label>xvidc.h</label>
       </node>
-      <node id="26">
+      <node id="27">
         <label>xil_types.h</label>
       </node>
-      <node id="30">
+      <node id="31">
         <label>xparameters.h</label>
+      </node>
+      <node id="28">
+        <label>xdsi_hw.h</label>
+        <link refid="xdsi__hw_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xdsi.h</label>
+        <link refid="xdsi_8h"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -64,7 +64,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="41" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -79,7 +79,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="57" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -110,10 +110,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="110" bodyend="131"/>
-        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
-        <references refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</references>
-        <references refid="group__dsi_1ga6502735a97215893f7d2053f35e2b965" compoundref="xdsi__sinit_8c" startline="66" endline="80">XDsi_LookupConfig</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="110" bodyend="131"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="159">XDsi_Config::BaseAddr</references>
+        <references refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="84" endline="108">XDsi_CfgInitialize</references>
+        <references refid="group__dsi_1ga6502735a97215893f7d2053f35e2b965" compoundref="xdsi__sinit_8c" startline="46" endline="60">XDsi_LookupConfig</references>
         <references refid="group__dsi_1ga58a27f9f1a507863325082e43595b4b9" compoundref="xdsi__selftest_8c" startline="63" endline="81">XDsi_SelfTest</references>
         <referencedby refid="xdsi__example__selftest_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xdsi__example__selftest_8c" startline="74" endline="94">main</referencedby>
       </memberdef>
@@ -140,7 +140,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="74" bodyend="94"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c" bodystart="74" bodyend="94"/>
         <references refid="xdsi__example__selftest_8c_1abc2bef82a217b4adf700a597eb510ce6" compoundref="xdsi__example__selftest_8c" startline="110" endline="131">DsiSelfTestExample</references>
       </memberdef>
       </sectiondef>
@@ -246,6 +246,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date    
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="131"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dsi/examples/xdsi_example_selftest.c"/>
   </compounddef>
 </doxygen>

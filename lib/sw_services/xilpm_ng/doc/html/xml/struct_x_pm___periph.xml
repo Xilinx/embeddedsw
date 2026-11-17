@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___periph" kind="struct" prot="public">
+    <compoundname>XPm_Periph</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___periph_1a114ac3591516feca8b171ec68023186b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref></type>
+        <definition>XPm_Device XPm_Periph::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Device: Base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___periph_1ab32b9cc93572462c8d5bcfadd4ce2548" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Periph::GicProxyMask</definition>
+        <argsstring></argsstring>
+        <name>GicProxyMask</name>
+        <briefdescription>
+<para>GIC Proxy Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___periph_1af08199288beadcaa3ee80172bdc00a78" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPm_Periph::GicProxyGroup</definition>
+        <argsstring></argsstring>
+        <name>GicProxyGroup</name>
+        <briefdescription>
+<para>GIC Proxy Group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="189">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="187" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="188" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="186">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="187" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="188" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="190" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="185">
+        <label>XPm_Periph</label>
+        <childnode refid="186" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+      </node>
+      <node id="190">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="186" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="191" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="190" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="191">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="187" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="190" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="188">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="186" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="189" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="188" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="187">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h" bodystart="19" bodyend="23"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___periph_1a114ac3591516feca8b171ec68023186b" prot="public" virt="non-virtual"><scope>XPm_Periph</scope><name>Device</name></member>
+      <member refid="struct_x_pm___periph_1af08199288beadcaa3ee80172bdc00a78" prot="public" virt="non-virtual"><scope>XPm_Periph</scope><name>GicProxyGroup</name></member>
+      <member refid="struct_x_pm___periph_1ab32b9cc93572462c8d5bcfadd4ce2548" prot="public" virt="non-virtual"><scope>XPm_Periph</scope><name>GicProxyMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

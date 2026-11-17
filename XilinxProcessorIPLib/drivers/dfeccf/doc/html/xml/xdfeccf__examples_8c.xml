@@ -7,6 +7,12 @@
       <node id="22">
         <label>stdbool.h</label>
       </node>
+      <node id="23">
+        <label>metal/sys.h</label>
+      </node>
+      <node id="21">
+        <label>assert.h</label>
+      </node>
       <node id="19">
         <label>xdfeccf.h</label>
         <link refid="xdfeccf_8h"/>
@@ -18,12 +24,6 @@
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
-      </node>
-      <node id="23">
-        <label>metal/sys.h</label>
-      </node>
-      <node id="21">
-        <label>assert.h</label>
       </node>
       <node id="17">
         <label>xdfeccf_examples.c</label>
@@ -56,12 +56,12 @@
       <node id="25">
         <label>math.h</label>
       </node>
+      <node id="20">
+        <label>linux/types.h</label>
+      </node>
       <node id="24">
         <label>xdfeccf_hw.h</label>
         <link refid="xdfeccf__hw_8h"/>
-      </node>
-      <node id="20">
-        <label>linux/types.h</label>
       </node>
       <node id="26">
         <label>stdio.h</label>
@@ -104,7 +104,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfesi570_mgt.c" bodystart="654" bodyend="665"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfesi570_mgt.c" bodystart="654" bodyend="665"/>
         <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
         <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
         <referencedby refid="xdfeccf__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeccf__examples_8c" startline="85" endline="126">main</referencedby>
@@ -125,7 +125,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c" bodystart="60" bodyend="110"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c" bodystart="60" bodyend="110"/>
         <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
         <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
         <references refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</references>
@@ -159,7 +159,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c" bodystart="61" bodyend="162"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c" bodystart="61" bodyend="162"/>
         <references refid="struct_x_dfe_ccf___trigger_cfg_1a8e0fd292605e716b1e580cca643140f9" compoundref="xdfeccf_8h" startline="250">XDfeCcf_TriggerCfg::Activate</references>
         <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
         <references refid="struct_x_dfe_ccf___trigger_cfg_1ab268b98412be113d4be332409eacb24e" compoundref="xdfeccf_8h" startline="255">XDfeCcf_TriggerCfg::CCUpdate</references>
@@ -210,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="57" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="57" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -228,7 +228,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multiAddCC_1xNR100_3xNR20_example.c" bodystart="118" bodyend="204"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multiAddCC_1xNR100_3xNR20_example.c" bodystart="118" bodyend="204"/>
         <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
         <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
         <references refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</references>
@@ -274,7 +274,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" bodystart="85" bodyend="126"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c" bodystart="85" bodyend="126"/>
         <references refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</references>
         <references refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</references>
         <references refid="xdfeccf__examples_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</references>
@@ -383,6 +383,6 @@
 <codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
 <codeline lineno="126"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_examples.c"/>
   </compounddef>
 </doxygen>

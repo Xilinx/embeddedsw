@@ -81,8 +81,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
       <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_x"><span>x</span></a></li>
     </ul>
@@ -107,7 +109,7 @@ $(document).ready(function(){initNavTree('globals.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -126,7 +128,28 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </ul>
 
 
+<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>Handler
+: <a class="el" href="group__iomodule.html#ga7c7eb802878944c1e915ea06e07679a2">xiomodule_uart_intr.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>IOMODULE_BASEADDR
+: <a class="el" href="xiomodule__low__level__example_8c.html#a40ea874b87b1466e0b159e8baffb33e4">xiomodule_low_level_example.c</a>
+</li>
+<li>IOMODULE_DEVICE_ID
+: <a class="el" href="xiomodule__intr__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">xiomodule_intr_example.c</a>
+, <a class="el" href="xiomodule__selftest__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">xiomodule_selftest_example.c</a>
+, <a class="el" href="xiomodule__intr__setup__example_8c.html#ab7c8be360118cc6c9374a723fbc45b97">xiomodule_intr_setup_example.c</a>
+</li>
+<li>IOMODULE_DEVICE_INT_MASK
+: <a class="el" href="xiomodule__low__level__example_8c.html#ad00fb0fd2f911652b2a47fa326e87d76">xiomodule_low_level_example.c</a>
+</li>
+<li>IOMODULE_DEVICE_INTR_ID
+: <a class="el" href="xiomodule__low__level__example_8c.html#a37919e8ec28bcdc5a76d9df62ad221ff">xiomodule_low_level_example.c</a>
+</li>
 <li>IOModuleDisableIntr()
 : <a class="el" href="xiomodule__intr__example_8c.html#a86fc21e1458de7ebff30e9a959ecd773">xiomodule_intr_example.c</a>
 </li>
@@ -154,9 +177,22 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
 : <a class="el" href="xiomodule__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xiomodule_intr_example.c</a>
+, <a class="el" href="xiomodule__intr__setup__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xiomodule_intr_setup_example.c</a>
 , <a class="el" href="xiomodule__selftest__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xiomodule_selftest_example.c</a>
 , <a class="el" href="xiomodule__low__level__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xiomodule_low_level_example.c</a>
-, <a class="el" href="xiomodule__intr__setup__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xiomodule_intr_setup_example.c</a>
+</li>
+<li>MAX_INTR_COUNT
+: <a class="el" href="xiomodule__intr__example_8c.html#a6e4960a11b314bd269b802af994d0485">xiomodule_intr_example.c</a>
+</li>
+<li>MIN_TIMER_BITS
+: <a class="el" href="xiomodule__intr__example_8c.html#a32fea2b96596f59a8cfd0edbce1eb505">xiomodule_intr_example.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>RESET_VALUE
+: <a class="el" href="xiomodule__intr__example_8c.html#a775fd58f4ab22111c1c8eab10b00fe7b">xiomodule_intr_example.c</a>
 </li>
 </ul>
 
@@ -169,6 +205,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 
 
 <h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
+<li>XFastInterruptHandler
+: <a class="el" href="group__iomodule.html#gab333e5826535071fe60f13b70b6e56dd">xiomodule_l.h</a>
+</li>
 <li>XIOModel_Timer_GetOptions()
 : <a class="el" href="group__iomodule.html#gae50d24ec7a10fc2b3167d5f3a6070107">xiomodule.h</a>
 </li>
@@ -177,6 +216,10 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XIOModule_Acknowledge()
 : <a class="el" href="group__iomodule.html#ga036018140fd9f14af05eec37b3cb2e93">xiomodule.c</a>
+</li>
+<li>XIOModule_BitPosMask
+: <a class="el" href="group__iomodule.html#gab021984b27165498eb3edbc9e2cbc939">xiomodule.c</a>
+, <a class="el" href="group__iomodule.html#ga36499fe673de55638703393cf70e6dd9">xiomodule_i.h</a>
 </li>
 <li>XIOModule_CfgInitialize()
 : <a class="el" href="group__iomodule.html#gaff025dd804b08ec80047b8b17273da84">xiomodule.h</a>
@@ -373,6 +416,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XIOModule_Timer_Stop()
 : <a class="el" href="group__iomodule.html#ga60bd9ef270b0de7440206326ec1fe710">xiomodule.c</a>
+</li>
+<li>XIOModule_TimerBitPosMask
+: <a class="el" href="group__iomodule.html#ga09b9d000edbd48e9e166e660383490a1">xiomodule_intr.c</a>
 </li>
 <li>XIOModule_Uart_DisableInterrupt()
 : <a class="el" href="group__iomodule.html#ga5ec72d0dd352ad42de494821220e3185">xiomodule.h</a>

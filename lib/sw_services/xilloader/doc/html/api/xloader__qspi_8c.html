@@ -138,7 +138,13 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       pre  09/06/2024 Setting the pre-scaler for QSPI clock from CIPS
         prt      04/02/2025 Added support for Infineon QSPI flash parts
       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in QSPI release
-2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
+2.5   aa   07/29/2026 Added support for Macronix 256M flash parts
+      pre  09/04/2026 Added support for QSPI calib data restore operation.
+      pre  10/22/2026 Added QSPI calib data restore under
+                      PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default, and
+                      reset the prefetch and transfer-pending state during
+                      init and release</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__qspi_8h.html">xloader_qspi.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_dma.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xcanfd__config_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,53 +105,72 @@ $(document).ready(function(){initNavTree('xcanfd__config_8c.html','');});
 <div class="title">xcanfd_config.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>CAN Configuration Register access related functions. </p>
+<p>Functions in this file are CAN Configuration Register access related.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.0   nsk  06/04/15 First release
+2.1   ask  06/25/18 Added support for canfd 2.0 spec sequential mode CR# 992606,
+                 CR# 1004222. Added Api: XCanFd_SetRxIntrWatermarkFifo1
+                                                         XCanFd_SetTxEventIntrWatermark
+                                                         XCanFd_SetRxFilterPartition
+                                  Modified Api: XCanFd_SetBitTiming
+                                                XCanFd_SetFBitTiming
+2.1   nsk  01/22/19 Fixed XCanFd_SetFBaudPrescalar(), which is not setting
+              prescalar value properly CR# 1016013
+2.13  vn   07/30/26 Fix Doxygen warnings
+2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+2.13  vn   09/30/26 Update Doxygen comments to AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xil_assert.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xcanfd_8h.html">xcanfd.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga0816bd655bd4460034d67b6ee7481be4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga0816bd655bd4460034d67b6ee7481be4">XCanFd_SetBaudRatePrescaler</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 Prescaler)</td></tr>
-<tr class="memdesc:ga0816bd655bd4460034d67b6ee7481be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets Baud Rate Prescaler value in Arbitration Phse.  <a href="group__canfd.html#ga0816bd655bd4460034d67b6ee7481be4">More...</a><br/></td></tr>
+<tr class="memdesc:ga0816bd655bd4460034d67b6ee7481be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Baud Rate Prescaler value in Arbitration Phase.  <a href="group__canfd.html#ga0816bd655bd4460034d67b6ee7481be4">More...</a><br/></td></tr>
 <tr class="separator:ga0816bd655bd4460034d67b6ee7481be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab34e6273828db6f9f5ef1b88ce094b02"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gab34e6273828db6f9f5ef1b88ce094b02">XCanFd_GetBaudRatePrescaler</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gab34e6273828db6f9f5ef1b88ce094b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine gets Baud Rate Prescaler value.  <a href="group__canfd.html#gab34e6273828db6f9f5ef1b88ce094b02">More...</a><br/></td></tr>
+<tr class="memdesc:gab34e6273828db6f9f5ef1b88ce094b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the Baud Rate Prescaler value.  <a href="group__canfd.html#gab34e6273828db6f9f5ef1b88ce094b02">More...</a><br/></td></tr>
 <tr class="separator:gab34e6273828db6f9f5ef1b88ce094b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa17ba1328e0830d24fb6e4f0be805478"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gaa17ba1328e0830d24fb6e4f0be805478">XCanFd_SetBitTiming</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 SyncJumpWidth, u8 TimeSegment2, u16 TimeSegment1)</td></tr>
-<tr class="memdesc:gaa17ba1328e0830d24fb6e4f0be805478"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets Bit time.  <a href="group__canfd.html#gaa17ba1328e0830d24fb6e4f0be805478">More...</a><br/></td></tr>
+<tr class="memdesc:gaa17ba1328e0830d24fb6e4f0be805478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Bit time for Arbitration Phase.  <a href="group__canfd.html#gaa17ba1328e0830d24fb6e4f0be805478">More...</a><br/></td></tr>
 <tr class="separator:gaa17ba1328e0830d24fb6e4f0be805478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga64393737bf5924aa748fc2bd22604396"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga64393737bf5924aa748fc2bd22604396">XCanFd_GetBitTiming</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 *SyncJumpWidth, u8 *TimeSegment2, u8 *TimeSegment1)</td></tr>
-<tr class="memdesc:ga64393737bf5924aa748fc2bd22604396"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine gets Bit time.  <a href="group__canfd.html#ga64393737bf5924aa748fc2bd22604396">More...</a><br/></td></tr>
+<tr class="memdesc:ga64393737bf5924aa748fc2bd22604396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Bit time for Arbitration Phase.  <a href="group__canfd.html#ga64393737bf5924aa748fc2bd22604396">More...</a><br/></td></tr>
 <tr class="separator:ga64393737bf5924aa748fc2bd22604396"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9bb4859d5023d5fd72ccdcf8603ac484"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga9bb4859d5023d5fd72ccdcf8603ac484">XCanFd_SetFBaudRatePrescaler</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 Prescaler)</td></tr>
-<tr class="memdesc:ga9bb4859d5023d5fd72ccdcf8603ac484"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets Baud Rate Prescaler value in Data Phase.  <a href="group__canfd.html#ga9bb4859d5023d5fd72ccdcf8603ac484">More...</a><br/></td></tr>
+<tr class="memdesc:ga9bb4859d5023d5fd72ccdcf8603ac484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Baud Rate Prescaler value in Data Phase.  <a href="group__canfd.html#ga9bb4859d5023d5fd72ccdcf8603ac484">More...</a><br/></td></tr>
 <tr class="separator:ga9bb4859d5023d5fd72ccdcf8603ac484"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacedd51c2e06c3be7d4b6908c6e235acb"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gacedd51c2e06c3be7d4b6908c6e235acb">XCanFd_GetFBaudRatePrescaler</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gacedd51c2e06c3be7d4b6908c6e235acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine gets Baud Rate Prescaler value in Data Phase.  <a href="group__canfd.html#gacedd51c2e06c3be7d4b6908c6e235acb">More...</a><br/></td></tr>
+<tr class="memdesc:gacedd51c2e06c3be7d4b6908c6e235acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the Baud Rate Prescaler value in Data Phase.  <a href="group__canfd.html#gacedd51c2e06c3be7d4b6908c6e235acb">More...</a><br/></td></tr>
 <tr class="separator:gacedd51c2e06c3be7d4b6908c6e235acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac7c6d1176e31abbe2e7e3f429c70be11"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gac7c6d1176e31abbe2e7e3f429c70be11">XCanFd_SetFBitTiming</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 SyncJumpWidth, u8 TimeSegment2, u8 TimeSegment1)</td></tr>
-<tr class="memdesc:gac7c6d1176e31abbe2e7e3f429c70be11"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets Bit time in Data Phase.  <a href="group__canfd.html#gac7c6d1176e31abbe2e7e3f429c70be11">More...</a><br/></td></tr>
+<tr class="memdesc:gac7c6d1176e31abbe2e7e3f429c70be11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets Bit time in Data Phase.  <a href="group__canfd.html#gac7c6d1176e31abbe2e7e3f429c70be11">More...</a><br/></td></tr>
 <tr class="separator:gac7c6d1176e31abbe2e7e3f429c70be11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadef0243731e4a4f2d83016445fb8dcb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gadef0243731e4a4f2d83016445fb8dcb3">XCanFd_GetFBitTiming</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 *SyncJumpWidth, u8 *TimeSegment2, u8 *TimeSegment1)</td></tr>
-<tr class="memdesc:gadef0243731e4a4f2d83016445fb8dcb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine gets Bit time in Data Phase.  <a href="group__canfd.html#gadef0243731e4a4f2d83016445fb8dcb3">More...</a><br/></td></tr>
+<tr class="memdesc:gadef0243731e4a4f2d83016445fb8dcb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves Bit time in Data Phase.  <a href="group__canfd.html#gadef0243731e4a4f2d83016445fb8dcb3">More...</a><br/></td></tr>
 <tr class="separator:gadef0243731e4a4f2d83016445fb8dcb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2807c709f44b3d761733d3f4ee0013cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga2807c709f44b3d761733d3f4ee0013cb">XCanFd_SetBitRateSwitch_EnableNominal</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga2807c709f44b3d761733d3f4ee0013cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets the Bit Rate Switch with nominal bit rate.  <a href="group__canfd.html#ga2807c709f44b3d761733d3f4ee0013cb">More...</a><br/></td></tr>
+<tr class="memdesc:ga2807c709f44b3d761733d3f4ee0013cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Bit Rate Switch with nominal bit rate.  <a href="group__canfd.html#ga2807c709f44b3d761733d3f4ee0013cb">More...</a><br/></td></tr>
 <tr class="separator:ga2807c709f44b3d761733d3f4ee0013cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8875718facd2632f0d1c82a9d0ce2c27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga8875718facd2632f0d1c82a9d0ce2c27">XCanFd_SetBitRateSwitch_DisableNominal</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga8875718facd2632f0d1c82a9d0ce2c27"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine Disables the BRSD bit, so that Bit Rate Switch can be happen with Nominal or configured rate.  <a href="group__canfd.html#ga8875718facd2632f0d1c82a9d0ce2c27">More...</a><br/></td></tr>
+<tr class="memdesc:ga8875718facd2632f0d1c82a9d0ce2c27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the BRSD bit for Bit Rate Switch.  <a href="group__canfd.html#ga8875718facd2632f0d1c82a9d0ce2c27">More...</a><br/></td></tr>
 <tr class="separator:ga8875718facd2632f0d1c82a9d0ce2c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga30a1745f0967ac96948b137a8adaf15c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga30a1745f0967ac96948b137a8adaf15c">XCanFd_SetRxIntrWatermark</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, s8 Threshold)</td></tr>
-<tr class="memdesc:ga30a1745f0967ac96948b137a8adaf15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets the Rx Full threshold in the Watermark Interrupt Register.  <a href="group__canfd.html#ga30a1745f0967ac96948b137a8adaf15c">More...</a><br/></td></tr>
+<tr class="memdesc:ga30a1745f0967ac96948b137a8adaf15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Rx Full threshold in the Watermark Interrupt Register.  <a href="group__canfd.html#ga30a1745f0967ac96948b137a8adaf15c">More...</a><br/></td></tr>
 <tr class="separator:ga30a1745f0967ac96948b137a8adaf15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa0f9930ac4d2eadeead51c66825c78e7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gaa0f9930ac4d2eadeead51c66825c78e7">XCanFd_SetRxIntrWatermarkFifo1</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, s8 Threshold)</td></tr>
-<tr class="memdesc:gaa0f9930ac4d2eadeead51c66825c78e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets the Rx Full threshold in the Watermark Interrupt Register.  <a href="group__canfd.html#gaa0f9930ac4d2eadeead51c66825c78e7">More...</a><br/></td></tr>
+<tr class="memdesc:gaa0f9930ac4d2eadeead51c66825c78e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Rx Full threshold for FIFO 1 in the Watermark Interrupt Register.  <a href="group__canfd.html#gaa0f9930ac4d2eadeead51c66825c78e7">More...</a><br/></td></tr>
 <tr class="separator:gaa0f9930ac4d2eadeead51c66825c78e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gada4f8e428b96e82d87ed30cf397cfb5e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#gada4f8e428b96e82d87ed30cf397cfb5e">XCanFd_SetTxEventIntrWatermark</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 Threshold)</td></tr>
-<tr class="memdesc:gada4f8e428b96e82d87ed30cf397cfb5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets the TX Events Full threshold in the Watermark Interrupt Register.  <a href="group__canfd.html#gada4f8e428b96e82d87ed30cf397cfb5e">More...</a><br/></td></tr>
+<tr class="memdesc:gada4f8e428b96e82d87ed30cf397cfb5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the TX Events Full threshold in the Watermark Interrupt Register.  <a href="group__canfd.html#gada4f8e428b96e82d87ed30cf397cfb5e">More...</a><br/></td></tr>
 <tr class="separator:gada4f8e428b96e82d87ed30cf397cfb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1499d5291ac1f2c71b31f79b96cfcae5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__canfd.html#ga1499d5291ac1f2c71b31f79b96cfcae5">XCanFd_SetRxFilterPartition</a> (<a class="el" href="struct_x_can_fd.html">XCanFd</a> *InstancePtr, u8 FilterPartition)</td></tr>
-<tr class="memdesc:ga1499d5291ac1f2c71b31f79b96cfcae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine sets the Receive filter partition in the Watermark Interrupt Register.  <a href="group__canfd.html#ga1499d5291ac1f2c71b31f79b96cfcae5">More...</a><br/></td></tr>
+<tr class="memdesc:ga1499d5291ac1f2c71b31f79b96cfcae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Receive filter partition in the Watermark Interrupt Register.  <a href="group__canfd.html#ga1499d5291ac1f2c71b31f79b96cfcae5">More...</a><br/></td></tr>
 <tr class="separator:ga1499d5291ac1f2c71b31f79b96cfcae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

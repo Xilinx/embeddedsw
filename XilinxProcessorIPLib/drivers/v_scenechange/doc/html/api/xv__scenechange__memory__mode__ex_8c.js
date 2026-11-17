@@ -1,5 +1,6 @@
 var xv__scenechange__memory__mode__ex_8c =
 [
+    [ "FRAME_BUF_BASE", "xv__scenechange__memory__mode__ex_8c.html#a70d2073327a8d81baaa30864df325a46", null ],
     [ "IP_RESET_MASK", "xv__scenechange__memory__mode__ex_8c.html#aae330e618e2010bc93116fe9048dbffb", null ],
     [ "MAX_PATTERNS", "xv__scenechange__memory__mode__ex_8c.html#a24c48ef77929deff9e40e141a891dbb8", null ],
     [ "SCD_LAYER_0", "xv__scenechange__memory__mode__ex_8c.html#a2731654aa7d70f280679b237dfe46aa1", null ],

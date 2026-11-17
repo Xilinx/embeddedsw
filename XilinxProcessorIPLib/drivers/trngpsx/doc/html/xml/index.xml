@@ -93,7 +93,6 @@
     <member refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa0ec15ca3bf0e6216ad396aab80cd64db" kind="enumvalue"><name>XTRNGPSX_RESEED_STATE</name></member>
     <member refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fabf5f966ef2781b173f3d0126aa1aa1d3" kind="enumvalue"><name>XTRNGPSX_GENERATE_STATE</name></member>
     <member refid="group__trngpsx__api_1ga2d0ae14b9bbf4f302c87faaa43cb8a79" kind="enum"><name>XTrngpsx_ErrorCodes</name></member>
-    <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" kind="enumvalue"><name>XTRNGPSX_INVALID_PARAM</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a" kind="enumvalue"><name>XTRNGPSX_INVALID_MODE</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944" kind="enumvalue"><name>XTRNGPSX_INVALID_DF_LENGTH</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a75b95f1933476804c7b9aabc342b465f" kind="enumvalue"><name>XTRNGPSX_INVALID_SEED_LIFE</name></member>
@@ -114,6 +113,7 @@
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" kind="enumvalue"><name>XTRNGPSX_KAT_FAILED_ERROR</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a8b29809ecc7cba250e0961eb2e8f4ce6" kind="enumvalue"><name>XTRNGPSX_WRITE_ERROR</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964" kind="enumvalue"><name>XTRNGPSX_INVALID_BLOCKING_MODE</name></member>
+    <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" kind="enumvalue"><name>XTRNGPSX_INVALID_PARAM</name></member>
     <member refid="group__trngpsx__api_1ga8a9a86209f21795b5c59ea97229d04a3" kind="variable"><name>XTrngpsx_ConfigTable</name></member>
     <member refid="group__trngpsx__api_1ga585c8fe9159bad7d022d6ffe54743149" kind="function"><name>XTrngpsx_LookupConfig</name></member>
     <member refid="group__trngpsx__api_1ga6b5653250d7dad396a064b0ba6fa5c34" kind="function"><name>XTrngpsx_CfgInitialize</name></member>
@@ -237,7 +237,6 @@
     <member refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa0ec15ca3bf0e6216ad396aab80cd64db" kind="enumvalue"><name>XTRNGPSX_RESEED_STATE</name></member>
     <member refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fabf5f966ef2781b173f3d0126aa1aa1d3" kind="enumvalue"><name>XTRNGPSX_GENERATE_STATE</name></member>
     <member refid="group__trngpsx__api_1ga2d0ae14b9bbf4f302c87faaa43cb8a79" kind="enum"><name>XTrngpsx_ErrorCodes</name></member>
-    <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" kind="enumvalue"><name>XTRNGPSX_INVALID_PARAM</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a" kind="enumvalue"><name>XTRNGPSX_INVALID_MODE</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944" kind="enumvalue"><name>XTRNGPSX_INVALID_DF_LENGTH</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a75b95f1933476804c7b9aabc342b465f" kind="enumvalue"><name>XTRNGPSX_INVALID_SEED_LIFE</name></member>
@@ -258,6 +257,7 @@
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" kind="enumvalue"><name>XTRNGPSX_KAT_FAILED_ERROR</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a8b29809ecc7cba250e0961eb2e8f4ce6" kind="enumvalue"><name>XTRNGPSX_WRITE_ERROR</name></member>
     <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964" kind="enumvalue"><name>XTRNGPSX_INVALID_BLOCKING_MODE</name></member>
+    <member refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" kind="enumvalue"><name>XTRNGPSX_INVALID_PARAM</name></member>
     <member refid="group__trngpsx__api_1ga8a9a86209f21795b5c59ea97229d04a3" kind="variable"><name>XTrngpsx_ConfigTable</name></member>
     <member refid="group__trngpsx__api_1ga46f5ad83528cc8a14519490289b4aaa5" kind="function"><name>XTrngpsx_ReseedInternal</name></member>
     <member refid="group__trngpsx__api_1ga6b8d4312a4983753f99e0963a52bfbf5" kind="function"><name>XTrngpsx_WritePersString</name></member>

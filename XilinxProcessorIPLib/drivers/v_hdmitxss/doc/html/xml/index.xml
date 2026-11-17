@@ -1624,7 +1624,7 @@
     <member refid="xv__hdmitxss_8c_1ac6b126c1dd3dd86b6cb5031c00e0646b" kind="define"><name>XV_HdmiTxSs_BridgePixelRepeat</name></member>
     <member refid="xv__hdmitxss_8c_1a7afb316da4235de3e2499547a065bf8b" kind="variable"><name>bkgndColorYUV</name></member>
     <member refid="xv__hdmitxss_8c_1a64efd7bb1421a214cb721e519154c074" kind="variable"><name>bkgndColorRGB</name></member>
-    <member refid="xv__hdmitxss_8c_1a4b1337c64285b9e55224dae36500fbe8" kind="variable"><name>XV_HdmiTxSs_SubCoreRepo</name></member>
+    <member refid="xv__hdmitxss_8c_1ab4b2d9d34e7f0fc71c1811f53e0a82f2" kind="variable"><name>XV_HdmiTxSs_SubCoreRepo</name></member>
     <member refid="xv__hdmitxss_8c_1aea82d11ac1086bc38dc7315d7296bc89" kind="function"><name>XV_HdmiTxSs_GetIncludedSubcores</name></member>
     <member refid="xv__hdmitxss_8c_1ac3fe6607fda01111a4d6e657fa28f285" kind="function"><name>XV_HdmiTxSs_RegisterSubsysCallbacks</name></member>
     <member refid="xv__hdmitxss_8c_1a84f12dc3d8f893e70e5fa77d7351a3b0" kind="function"><name>XV_HdmiTxSs_VtcSetup</name></member>

@@ -15,39 +15,23 @@
       <node id="609">
         <label>xil_assert.h</label>
       </node>
-      <node id="617">
-        <label>xusb_freertos_ch9_audio.h</label>
-        <link refid="xusb__freertos__ch9__audio_8h"/>
+      <node id="613">
+        <label>xil_io.h</label>
+      </node>
+      <node id="615">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="605">
+        <label>xusb_ch9.h</label>
+        <link refid="xusb__ch9_8h"/>
+        <childnode refid="606" relation="include">
+        </childnode>
         <childnode refid="608" relation="include">
         </childnode>
         <childnode refid="610" relation="include">
         </childnode>
-        <childnode refid="605" relation="include">
+        <childnode refid="616" relation="include">
         </childnode>
-        <childnode refid="604" relation="include">
-        </childnode>
-      </node>
-      <node id="613">
-        <label>xil_io.h</label>
-      </node>
-      <node id="600">
-        <label>xusb_freertos_class_audio.h</label>
-        <link refid="xusb_freertos_class_audio.h"/>
-        <childnode refid="601" relation="include">
-        </childnode>
-        <childnode refid="602" relation="include">
-        </childnode>
-        <childnode refid="603" relation="include">
-        </childnode>
-        <childnode refid="604" relation="include">
-        </childnode>
-        <childnode refid="605" relation="include">
-        </childnode>
-        <childnode refid="617" relation="include">
-        </childnode>
-      </node>
-      <node id="615">
-        <label>xil_cache.h</label>
       </node>
       <node id="611">
         <label>xusbpsu_hw.h</label>
@@ -58,6 +42,12 @@
       </node>
       <node id="603">
         <label>semphr.h</label>
+      </node>
+      <node id="610">
+        <label>xstatus.h</label>
+      </node>
+      <node id="608">
+        <label>xil_types.h</label>
       </node>
       <node id="607">
         <label>xusbpsu.h</label>
@@ -79,23 +69,9 @@
         <childnode refid="615" relation="include">
         </childnode>
       </node>
-      <node id="610">
-        <label>xstatus.h</label>
-      </node>
-      <node id="608">
-        <label>xil_types.h</label>
-      </node>
-      <node id="605">
-        <label>xusb_ch9.h</label>
-        <link refid="xusb__ch9_8h"/>
-        <childnode refid="606" relation="include">
-        </childnode>
-        <childnode refid="608" relation="include">
-        </childnode>
-        <childnode refid="610" relation="include">
-        </childnode>
-        <childnode refid="616" relation="include">
-        </childnode>
+      <node id="612">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu__endpoint_8h"/>
       </node>
       <node id="604">
         <label>xparameters.h</label>
@@ -103,15 +79,33 @@
       <node id="616">
         <label>xil_printf.h</label>
       </node>
-      <node id="612">
-        <label>xusbpsu_endpoint.h</label>
-        <link refid="xusbpsu__endpoint_8h"/>
+      <node id="600">
+        <label>xusb_freertos_class_audio.h</label>
+        <link refid="xusb_freertos_class_audio.h"/>
+        <childnode refid="601" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="617" relation="include">
+        </childnode>
       </node>
-      <node id="601">
-        <label>FreeRTOS.h</label>
-      </node>
-      <node id="602">
-        <label>task.h</label>
+      <node id="617">
+        <label>xusb_freertos_ch9_audio.h</label>
+        <link refid="xusb__freertos__ch9__audio_8h"/>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
       </node>
       <node id="606">
         <label>xusb_wrapper.h</label>
@@ -119,11 +113,17 @@
         <childnode refid="607" relation="include">
         </childnode>
       </node>
+      <node id="601">
+        <label>FreeRTOS.h</label>
+      </node>
+      <node id="602">
+        <label>task.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="620">
-        <label>xusb_freertos_ch9_audio.c</label>
-        <link refid="xusb__freertos__ch9__audio_8c"/>
+      <node id="619">
+        <label>xusb_freertos_audio_example.c</label>
+        <link refid="xusb__freertos__audio__example_8c"/>
       </node>
       <node id="621">
         <label>xusb_freertos_class_audio.c</label>
@@ -139,8 +139,9 @@
         <childnode refid="621" relation="include">
         </childnode>
       </node>
-      <node id="619">
-        <label>xusb_freertos_audio_example.c</label>
+      <node id="620">
+        <label>xusb_freertos_ch9_audio.c</label>
+        <link refid="xusb__freertos__ch9__audio_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structaudio__dev" prot="public">audio_dev</innerclass>
@@ -149,192 +150,192 @@
         <name>UAC2_CS_CUR</name>
         <initializer>0x01</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cs Cur. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a618edb4d50d3e1d435a1421eebc050e1" prot="public" static="no">
         <name>UAC2_CS_RANGE</name>
         <initializer>0x02</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cs Range. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a1662f078f25f00b88229f1ccef3f037a" prot="public" static="no">
         <name>UAC2_CS_CONTROL_UNDEFINED</name>
         <initializer>0x00</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cs Control Undefined. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a0af347650d747729e3bd81179d135f34" prot="public" static="no">
         <name>UAC2_CS_CONTROL_SAM_FREQ</name>
         <initializer>0x01</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cs Control Sam Freq. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1af761a3c529272768675db42bfb39ed9b" prot="public" static="no">
         <name>UAC2_CS_CONTROL_CLOCK_VALID</name>
         <initializer>0x02</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cs Control Clock Valid. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a9db226a634c1d5f31b1964662ebb4dcb" prot="public" static="no">
         <name>UAC2_CX_CONTROL_UNDEFINED</name>
         <initializer>0x00</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cx Control Undefined. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a4fb3344c4fd61753a3561b760327d691" prot="public" static="no">
         <name>UAC2_CX_CONTROL_CLOCK_SEL</name>
         <initializer>0x01</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Cx Control Clock Sel. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="54" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a3080151311398fc9a479a88b697de174" prot="public" static="no">
         <name>UAC2_FU_CONTROL_UNDEFINED</name>
         <initializer>0x00</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Fu Control Undefined. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="57" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a50195a810e6b38e7381f36d9e63a5192" prot="public" static="no">
         <name>UAC2_FU_MUTE_CONTROL</name>
         <initializer>0x01</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Fu Mute Control. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1af6995a9c0bcc3c0d52f9af100cabecee" prot="public" static="no">
         <name>UAC2_FU_VOLUME_CONTROL</name>
         <initializer>0x02</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Uac2 Fu Volume Control. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a846a20706e8de7ec305d51abc09bb6ad" prot="public" static="no">
         <name>AUDIO_CONFIG</name>
         <initializer>(1 &lt;&lt; 0)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Audio Config. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1abec9479f4a097cf73c83509de24309c6" prot="public" static="no">
         <name>AUDIO_UNCONFIG</name>
         <initializer>(1 &lt;&lt; 1)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Audio Unconfig. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="62" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1aed22abbdf1b0c9bc125e04fdf3aad76d" prot="public" static="no">
         <name>RECORD_START</name>
         <initializer>(1 &lt;&lt; 2)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Record Start. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1a1fb2854ebfa867ab704b3bc469a4097c" prot="public" static="no">
         <name>RECORD_STOP</name>
         <initializer>(1 &lt;&lt; 3)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Record Stop. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1aff021684340cd326ef94a7e509e6a7a8" prot="public" static="no">
         <name>PLAY_START</name>
         <initializer>(1 &lt;&lt; 4)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Play Start. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xusb__freertos__class__audio_8h_1adfa6a9e47040d791d57dc7fd49357f3c" prot="public" static="no">
         <name>PLAY_STOP</name>
         <initializer>(1 &lt;&lt; 5)</initializer>
         <briefdescription>
-        </briefdescription>
+<para>Play Stop. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="66" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
       <memberdef kind="variable" id="xusb__freertos__class__audio_8h_1ae6e48a3d7974463fc50c80db9194f448" prot="public" static="no" mutable="no">
-        <type>struct audio_dev</type>
+        <type>struct <ref refid="structaudio__dev" kindref="compound">audio_dev</ref></type>
         <definition>struct audio_dev audio_dev</definition>
         <argsstring></argsstring>
         <name>audio_dev</name>
         <briefdescription>
-        </briefdescription>
+<para>Audio device instance for this example. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_audio_example.c" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_audio_example.c" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="xusb__freertos__class__audio_8h_1a1f946c7d2b74571706ecb53626f2fa19" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -342,12 +343,14 @@
         <argsstring>[1024]</argsstring>
         <name>BufferPtrTemp</name>
         <briefdescription>
-        </briefdescription>
+<para>Buffer Ptr Temp. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para>Buffer Ptr Temp. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_audio_dfu_example.c" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_audio_dfu_example.c" bodystart="66" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__audio_8c" startline="352" endline="395">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__audio_8c" startline="273" endline="343">prvRecordTask</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -365,45 +368,27 @@
           <declname>SetupData</declname>
         </param>
         <briefdescription>
-<para>This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request) </para>        </briefdescription>
+<para>Handle USB class request for the composite device. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
+<para>is a pointer to the USB device data instance. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>SetupData</parametername>
+<parametername direction="in">SetupData</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is pointer to <ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref> received.</para></parameterdescription>
+<para>is a pointer to the setup packet data. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None</para></simplesect>
-<simplesect kind="note"><para>None.</para></simplesect>
-This function is class request handler for composite device Setup packet received is for Class request(not a Standard Device request)</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>InstancePtr</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is pointer to <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> instance. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>SetupData</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>is the setup packet received from Host.</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.c" bodystart="778" bodyend="798"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.c" bodystart="757" bodyend="777"/>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__class__audio_8h_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -419,17 +404,16 @@ This function is class request handler for composite device Setup packet receive
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pvParameters</parametername>
+<parametername direction="in">pvParameters</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>private parameters.</para></parameterdescription>
+<para>private parameters. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.c" bodystart="287" bodyend="357"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.c" bodystart="273" bodyend="343"/>
       </memberdef>
       <memberdef kind="function" id="xusb__freertos__class__audio_8h_1a43a401c19d0503aa6f48746b3cb11721" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -445,17 +429,16 @@ This function is class request handler for composite device Setup packet receive
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pvParameters</parametername>
+<parametername direction="in">pvParameters</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>private parameters.</para></parameterdescription>
+<para>private parameters. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="note"><para>None. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.c" bodystart="368" bodyend="411"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.c" bodystart="352" bodyend="395"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -469,7 +452,7 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
 <codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
@@ -492,64 +475,64 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A.14<sp/>Audio<sp/>Class-Specific<sp/>Request<sp/>Codes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
-<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_RANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
-<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A.17<sp/>Control<sp/>Selector<sp/>Codes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A.17.1<sp/>Clock<sp/>Source<sp/>Control<sp/>Selectors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CONTROL_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
-<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CONTROL_SAM_FREQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
-<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CONTROL_CLOCK_VALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
-<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A.17.2<sp/>Clock<sp/>Selector<sp/>Control<sp/>Selectors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CX_CONTROL_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
-<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CX_CONTROL_CLOCK_SEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
-<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A.17.7<sp/>Feature<sp/>Unit<sp/>Control<sp/>Selectors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_FU_CONTROL_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
-<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_FU_MUTE_CONTROL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
-<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_FU_VOLUME_CONTROL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
-<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUDIO_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
-<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUDIO_UNCONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
-<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RECORD_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>2)</highlight></codeline>
-<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RECORD_STOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>3)</highlight></codeline>
-<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLAY_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>4)</highlight></codeline>
-<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLAY_STOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>5)</highlight></codeline>
-<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">audio_dev<sp/>{</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*virtualdisk;</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>disksize;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>framesize;</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>interval;</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packetsize;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packetresidue;</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>residue;</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>index;</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>firstpkt;</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bytesRecv;</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xMainTask;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xRecordTask;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xPlayTask;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphoreHandle<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphoreRecord;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphoreHandle<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphorePlay;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">audio_dev<sp/>audio_dev;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>BufferPtrTemp[1024];</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Usb_ClassReq(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*SetupData);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__class__audio_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" kindref="member">prvRecordTask</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters);</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__class__audio_8c_1a43a401c19d0503aa6f48746b3cb11721" kindref="member">prvPlayBackTask</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters);</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSB_CLASS_AUDIO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43" refid="xusb__freertos__class__audio_8h_1a8b2a8445191e4e509153c74bb9f9dbec" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="xusb__freertos__class__audio_8h_1a618edb4d50d3e1d435a1421eebc050e1" refkind="member"><highlight class="preprocessor">#define<sp/>UAC2_CS_RANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>A.17<sp/>Control<sp/>Selector<sp/>Codes<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>A.17.1<sp/>Clock<sp/>Source<sp/>Control<sp/>Selectors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="xusb__freertos__class__audio_8h_1a1662f078f25f00b88229f1ccef3f037a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CS_CONTROL_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="xusb__freertos__class__audio_8h_1a0af347650d747729e3bd81179d135f34" refkind="member"><highlight class="preprocessor">#define<sp/>UAC2_CS_CONTROL_SAM_FREQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="xusb__freertos__class__audio_8h_1af761a3c529272768675db42bfb39ed9b" refkind="member"><highlight class="preprocessor">#define<sp/>UAC2_CS_CONTROL_CLOCK_VALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>A.17.2<sp/>Clock<sp/>Selector<sp/>Control<sp/>Selectors<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53" refid="xusb__freertos__class__audio_8h_1a9db226a634c1d5f31b1964662ebb4dcb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_CX_CONTROL_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="xusb__freertos__class__audio_8h_1a4fb3344c4fd61753a3561b760327d691" refkind="member"><highlight class="preprocessor">#define<sp/>UAC2_CX_CONTROL_CLOCK_SEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>A.17.7<sp/>Feature<sp/>Unit<sp/>Control<sp/>Selectors<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="xusb__freertos__class__audio_8h_1a3080151311398fc9a479a88b697de174" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UAC2_FU_CONTROL_UNDEFINED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="xusb__freertos__class__audio_8h_1a50195a810e6b38e7381f36d9e63a5192" refkind="member"><highlight class="preprocessor">#define<sp/>UAC2_FU_MUTE_CONTROL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="xusb__freertos__class__audio_8h_1af6995a9c0bcc3c0d52f9af100cabecee" refkind="member"><highlight class="preprocessor">#define<sp/>UAC2_FU_VOLUME_CONTROL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="xusb__freertos__class__audio_8h_1a846a20706e8de7ec305d51abc09bb6ad" refkind="member"><highlight class="preprocessor">#define<sp/>AUDIO_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xusb__freertos__class__audio_8h_1abec9479f4a097cf73c83509de24309c6" refkind="member"><highlight class="preprocessor">#define<sp/>AUDIO_UNCONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="xusb__freertos__class__audio_8h_1aed22abbdf1b0c9bc125e04fdf3aad76d" refkind="member"><highlight class="preprocessor">#define<sp/>RECORD_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>2)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="xusb__freertos__class__audio_8h_1a1fb2854ebfa867ab704b3bc469a4097c" refkind="member"><highlight class="preprocessor">#define<sp/>RECORD_STOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>3)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xusb__freertos__class__audio_8h_1aff021684340cd326ef94a7e509e6a7a8" refkind="member"><highlight class="preprocessor">#define<sp/>PLAY_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>4)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="xusb__freertos__class__audio_8h_1adfa6a9e47040d791d57dc7fd49357f3c" refkind="member"><highlight class="preprocessor">#define<sp/>PLAY_STOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>5)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="76" refid="structaudio__dev" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structaudio__dev" kindref="compound">audio_dev</ref><sp/>{</highlight></codeline>
+<codeline lineno="77" refid="structaudio__dev_1ad75322a26f3a527336523dba507e940b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<ref refid="structaudio__dev_1ad75322a26f3a527336523dba507e940b" kindref="member">virtualdisk</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="structaudio__dev_1a8e0f2e5e8f642fcb6d27a9c0e4c4ad43" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a8e0f2e5e8f642fcb6d27a9c0e4c4ad43" kindref="member">disksize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="structaudio__dev_1a29345325a79d28b033efd3a091d5ba01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a29345325a79d28b033efd3a091d5ba01" kindref="member">framesize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="structaudio__dev_1a93b83c11956bda83beafddd1a590bc6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a93b83c11956bda83beafddd1a590bc6e" kindref="member">interval</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="structaudio__dev_1a45f953d7ef17635a6bb8e23662a8306b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a45f953d7ef17635a6bb8e23662a8306b" kindref="member">packetsize</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="structaudio__dev_1a2a1b6e67d201b5f8985d2e8afbc953a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a2a1b6e67d201b5f8985d2e8afbc953a4" kindref="member">packetresidue</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="structaudio__dev_1a194d1799297112a00573fe86db748333" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a194d1799297112a00573fe86db748333" kindref="member">residue</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="structaudio__dev_1a923e16a25d72b19103105ddc25efb210" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a923e16a25d72b19103105ddc25efb210" kindref="member">index</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="structaudio__dev_1a1411efa0859559ca878cbb50a598343b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a1411efa0859559ca878cbb50a598343b" kindref="member">firstpkt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="structaudio__dev_1a349e9b11e642fa56ca01a3183df18f32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a349e9b11e642fa56ca01a3183df18f32" kindref="member">bytesRecv</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="structaudio__dev_1aa2dd3acacc11e344ba392ad457fc022e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1aa2dd3acacc11e344ba392ad457fc022e" kindref="member">xMainTask</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="structaudio__dev_1a59d34afd50db1adec4c620220842891d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a59d34afd50db1adec4c620220842891d" kindref="member">xRecordTask</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="structaudio__dev_1aa6d4e4463de39bba8118d5c16f80dd4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1aa6d4e4463de39bba8118d5c16f80dd4f" kindref="member">xPlayTask</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="structaudio__dev_1afca7ac3cbef7b5624d1734562ac32cf1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphoreHandle<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1afca7ac3cbef7b5624d1734562ac32cf1" kindref="member">xSemaphoreRecord</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="structaudio__dev_1a877c627261d0f09b7266d090628a5b18" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xSemaphoreHandle<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structaudio__dev_1a877c627261d0f09b7266d090628a5b18" kindref="member">xSemaphorePlay</ref>;<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structaudio__dev" kindref="compound">audio_dev</ref><sp/><ref refid="structaudio__dev" kindref="compound">audio_dev</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xusb__audio__dfu__example_8c_1a1f946c7d2b74571706ecb53626f2fa19" kindref="member">BufferPtrTemp</ref>[1024];<sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__class__audio__dfu_8c_1a32b6f95139e55ff73c71303408094577" kindref="member">Usb_ClassReq</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref><sp/>*InstancePtr,<sp/><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref><sp/>*SetupData);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__class__audio_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" kindref="member">prvRecordTask</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__freertos__class__audio_8c_1a43a401c19d0503aa6f48746b3cb11721" kindref="member">prvPlayBackTask</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSB_CLASS_AUDIO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_audio.h"/>
   </compounddef>
 </doxygen>

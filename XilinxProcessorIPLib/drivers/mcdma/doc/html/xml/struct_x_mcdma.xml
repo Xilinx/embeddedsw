@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_mcdma" kind="struct" prot="public">
     <compoundname>XMcdma</compoundname>
+    <includes local="no">xmcdma.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_mcdma_1a330af13ac8e3f1e51bfe40b53d534bc3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -9,12 +10,14 @@
         <argsstring></argsstring>
         <name>IsReady</name>
         <briefdescription>
-        </briefdescription>
+<para>Non-zero when the driver instance is initialized. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="264" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaded8280c89d619daddc45d217358a319" compoundref="xmcdma_8c" startline="52" endline="95">XMcDma_CfgInitialize</referencedby>
+        <referencedby refid="group__mcdma_1gac48d708f62efed396346f941c139bd3d" compoundref="xmcdma_8c" startline="116" endline="195">XMcDma_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a72597a7a3dc97a250fdc54a0cb1e9524" prot="public" static="no" mutable="no">
         <type>XMcdma_Config</type>
@@ -22,38 +25,52 @@
         <argsstring></argsstring>
         <name>Config</name>
         <briefdescription>
-        </briefdescription>
+<para>Copy of the device configuration. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="265" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaded8280c89d619daddc45d217358a319" compoundref="xmcdma_8c" startline="52" endline="95">XMcDma_CfgInitialize</referencedby>
+        <referencedby refid="group__mcdma_1ga7eceaf95d0f2c23ac4e4c5ce0fdf9920" compoundref="xmcdma_8c" startline="462" endline="476">XMcdma_GetChanServiced</referencedby>
+        <referencedby refid="group__mcdma_1gaf5bbe52004ff30b9cab2d3a1bec4c1fa" compoundref="xmcdma_8c" startline="490" endline="504">XMcdma_GetTxChanServiced</referencedby>
+        <referencedby refid="group__mcdma_1gac48d708f62efed396346f941c139bd3d" compoundref="xmcdma_8c" startline="116" endline="195">XMcDma_Initialize</referencedby>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
+        <referencedby refid="group__mcdma_1ga33076a9ec260fdf36a3bcb8517378e4a" compoundref="xmcdma_8c" startline="307" endline="337">XMcdma_ResetIsDone</referencedby>
+        <referencedby refid="group__mcdma_1ga1fc07ce6abf4692ce13eecfde7bdc25e" compoundref="xmcdma_8c" startline="277" endline="292">XMcdma_SetSGARCache</referencedby>
+        <referencedby refid="group__mcdma_1ga55549abc13232f33a4c689b7e490d7ed" compoundref="xmcdma_8c" startline="250" endline="266">XMcdma_SetSGAWCache</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a9434d13e8054bf7be0df02f2eb7c31cc" prot="public" static="no" mutable="no">
-        <type>XMcdma_ChanCtrl</type>
+        <type><ref refid="struct_x_mcdma___chan_ctrl" kindref="compound">XMcdma_ChanCtrl</ref></type>
         <definition>XMcdma_ChanCtrl XMcdma::Tx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE]</definition>
         <argsstring>[XMCDMA_MAX_CHAN_PER_DEVICE]</argsstring>
         <name>Tx_Chan</name>
         <briefdescription>
-        </briefdescription>
+<para>Transmit channel control array. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="266" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gac48d708f62efed396346f941c139bd3d" compoundref="xmcdma_8c" startline="116" endline="195">XMcDma_Initialize</referencedby>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1aa11aa119380b14471d1638fb5ba0bc26" prot="public" static="no" mutable="no">
-        <type>XMcdma_ChanCtrl</type>
+        <type><ref refid="struct_x_mcdma___chan_ctrl" kindref="compound">XMcdma_ChanCtrl</ref></type>
         <definition>XMcdma_ChanCtrl XMcdma::Rx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE]</definition>
         <argsstring>[XMCDMA_MAX_CHAN_PER_DEVICE]</argsstring>
         <name>Rx_Chan</name>
         <briefdescription>
-        </briefdescription>
+<para>Receive channel control array. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="267" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="273" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gac48d708f62efed396346f941c139bd3d" compoundref="xmcdma_8c" startline="116" endline="195">XMcDma_Initialize</referencedby>
+        <referencedby refid="group__mcdma_1ga9e8a276d4f1cc7a87afbc4ee1b2e43e8" compoundref="xmcdma_8c" startline="207" endline="239">XMcDma_Reset</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1aede0ce36816e39f03ac6594a12dd8dfa" prot="public" static="no" mutable="no">
         <type>XMcdma_TxDoneHandler</type>
@@ -66,7 +83,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="268" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="274" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a4093bf24aba998cf601c56138333d94c" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -79,7 +98,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="270" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="276" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a658c930cf558530cab162661e8592d12" prot="public" static="no" mutable="no">
         <type>XMcdma_TxErrorHandler</type>
@@ -92,7 +113,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="273" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a136180016b3ccb4c87642289f59c4026" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -105,7 +128,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="275" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
+        <referencedby refid="group__mcdma_1ga5b50b1e3a32412a7fdfd98de22e9f2a8" compoundref="xmcdma__intr_8c" startline="316" endline="374">XMcdma_TxIntrHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a6cb1aadac01e5708aeb6d094c2487b35" prot="public" static="no" mutable="no">
         <type>XMcdma_DoneHandler</type>
@@ -118,7 +143,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="277" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a64a8059a904fba19eeb6ae35dd4e27e2" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -131,7 +158,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="279" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a405561bda5acc35b216e094ad22b123b" prot="public" static="no" mutable="no">
         <type>XMcdma_ErrorHandler</type>
@@ -144,7 +173,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="282" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1a23127d9d5a208ee1c9d7fa8e1ae9b2b1" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -157,7 +188,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="284" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1aa9a5173bbb2f34b95377d17d0e45d33a" prot="public" static="no" mutable="no">
         <type>XMcdma_PktDropHandler</type>
@@ -170,7 +203,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="286" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_mcdma_1ae649def422736514d84dc50c6a1aaf74" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -183,14 +218,30 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="288" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga0611fd6496b02ad71158a7e9440cf970" compoundref="xmcdma__intr_8c" startline="231" endline="293">XMcdma_IntrHandler</referencedby>
+        <referencedby refid="group__mcdma_1ga324c2be8905eca72caa7111f0ef6b827" compoundref="xmcdma__intr_8c" startline="407" endline="462">XMcdma_SetCallBack</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Driver instance data for an MCDMA device. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="263" bodyend="291"/>
+    <collaborationgraph>
+      <node id="1">
+        <label>XMcdma</label>
+        <link refid="struct_x_mcdma"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Tx_Chan</edgelabel>
+          <edgelabel>Rx_Chan</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XMcdma_ChanCtrl</label>
+        <link refid="struct_x_mcdma___chan_ctrl"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="269" bodyend="297"/>
     <listofallmembers>
       <member refid="struct_x_mcdma_1a72597a7a3dc97a250fdc54a0cb1e9524" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>Config</name></member>
       <member refid="struct_x_mcdma_1a6cb1aadac01e5708aeb6d094c2487b35" prot="public" virt="non-virtual"><scope>XMcdma</scope><name>DoneHandler</name></member>

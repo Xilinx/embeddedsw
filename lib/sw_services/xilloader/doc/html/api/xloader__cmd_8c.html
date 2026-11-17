@@ -190,7 +190,22 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
       gnr  03/12/2026 Fixed integer overflow in length check of <a class="el" href="group__xloader__client__apis.html#ga63d94db8c3d206242d0527631c38c5fa" title="This function sends IPI request to add Image store pdi. ">XLoader_AddImageStorePdi()</a> and XLoader_WriteImageStorePdi()
       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
       sk   04/10/2026 Added implementation for set image info command
-      vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
+      vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command
+      ng   07/09/2026 Added handler for Set DDR address for restart image command
+2.5   tvp  08/03/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2vp_p
+      ng   08/05/2026 Reject reserved Image Store PDI IDs in Add/Remove IPI commands
+      sri  08/14/2026 Updated verify auth HashBlock IPI command to use XLoader_AuthNCopyHashBlock
+      ng   08/17/2026 Added handler for Configure Glitch Detector command
+      tus  08/19/2026 Added support for getting XilLoader library
+                      version and capability bits
+      pre  09/10/2026 Added handler for calibration data restore command
+      ng   09/09/2026 Added handler for Get tlbin Load Address command
+                      for versal_2ve_2vm
+      aa   09/15/2026 Added IDCODE bypass flag handling in Extract Metaheader
+      pre  10/09/2026 Publish Image Store PDI entry only after the full DMA
+                      transfer succeeds in XLoader_WriteImageStorePdi
+      gnr  10/21/2026 Defined XLOADER_HB payload index macros only for
+                      VERSAL_2VE_2VM without VERSAL_2VP_P</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xplmi_hw.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader_8h.html">xloader.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_cmd.h&quot;</code><br/>
 <code>#include &quot;xplmi_generic.h&quot;</code><br/>
@@ -201,12 +216,14 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date        Changes
 <code>#include &quot;xpm_api.h&quot;</code><br/>
 <code>#include &quot;xpm_nodeid.h&quot;</code><br/>
 <code>#include &quot;xil_util.h&quot;</code><br/>
+<code>#include &quot;xil_cryptoalginfo.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__ddr_8h.html">xloader_ddr.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_plat.h&quot;</code><br/>
 <code>#include &quot;xloader_plat.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__defs_8h.html">xloader_defs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__auth__enc_8h.html">xloader_auth_enc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xloader__secure_8h.html">xloader_secure.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xloader__ver_8h.html">xloader_ver.h</a>&quot;</code><br/>
 <code>#include &quot;xplmi_ssit.h&quot;</code><br/>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

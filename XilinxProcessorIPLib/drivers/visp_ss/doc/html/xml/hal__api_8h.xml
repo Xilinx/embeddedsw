@@ -13,180 +13,180 @@
     <includedby refid="ox05b1s__priv_8h" local="no">ox05b1s_priv.h</includedby>
     <includedby refid="ox08b40__priv_8h" local="no">ox08b40_priv.h</includedby>
     <incdepgraph>
-      <node id="5323">
-        <label>hal_api.h</label>
-        <link refid="hal_api.h"/>
-        <childnode refid="5324" relation="include">
-        </childnode>
-        <childnode refid="5325" relation="include">
-        </childnode>
-        <childnode refid="5326" relation="include">
-        </childnode>
-        <childnode refid="5327" relation="include">
-        </childnode>
-        <childnode refid="5328" relation="include">
-        </childnode>
-      </node>
-      <node id="5324">
+      <node id="5364">
         <label>stdbool.h</label>
       </node>
-      <node id="5332">
+      <node id="5372">
         <label>stdlib.h</label>
       </node>
-      <node id="5334">
-        <label>stddef.h</label>
-      </node>
-      <node id="5333">
-        <label>limits.h</label>
-      </node>
-      <node id="5327">
-        <label>xil_types.h</label>
-      </node>
-      <node id="5325">
-        <label>xiicps.h</label>
-      </node>
-      <node id="5326">
-        <label>xil_printf.h</label>
-      </node>
-      <node id="5329">
+      <node id="5369">
         <label>types.h</label>
         <link refid="types_8h"/>
-        <childnode refid="5330" relation="include">
+        <childnode refid="5370" relation="include">
         </childnode>
-        <childnode refid="5333" relation="include">
+        <childnode refid="5373" relation="include">
         </childnode>
-        <childnode refid="5334" relation="include">
+        <childnode refid="5374" relation="include">
         </childnode>
       </node>
-      <node id="5331">
-        <label>stdio.h</label>
-      </node>
-      <node id="5328">
+      <node id="5368">
         <label>dct_assert.h</label>
         <link refid="dct__assert_8h"/>
-        <childnode refid="5329" relation="include">
+        <childnode refid="5369" relation="include">
         </childnode>
       </node>
-      <node id="5330">
+      <node id="5374">
+        <label>stddef.h</label>
+      </node>
+      <node id="5373">
+        <label>limits.h</label>
+      </node>
+      <node id="5370">
         <label>linux_compat.h</label>
         <link refid="linux__compat_8h"/>
-        <childnode refid="5331" relation="include">
+        <childnode refid="5371" relation="include">
         </childnode>
-        <childnode refid="5332" relation="include">
+        <childnode refid="5372" relation="include">
         </childnode>
+      </node>
+      <node id="5367">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5365">
+        <label>xiicps.h</label>
+      </node>
+      <node id="5366">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="5363">
+        <label>hal_api.h</label>
+        <link refid="hal_api.h"/>
+        <childnode refid="5364" relation="include">
+        </childnode>
+        <childnode refid="5365" relation="include">
+        </childnode>
+        <childnode refid="5366" relation="include">
+        </childnode>
+        <childnode refid="5367" relation="include">
+        </childnode>
+        <childnode refid="5368" relation="include">
+        </childnode>
+      </node>
+      <node id="5371">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="5335">
-        <label>hal_api.h</label>
-        <link refid="hal_api.h"/>
-        <childnode refid="5336" relation="include">
-        </childnode>
-        <childnode refid="5337" relation="include">
-        </childnode>
-        <childnode refid="5351" relation="include">
-        </childnode>
-        <childnode refid="5352" relation="include">
-        </childnode>
-        <childnode refid="5353" relation="include">
-        </childnode>
-      </node>
-      <node id="5348">
-        <label>ox05b1s.c</label>
-      </node>
-      <node id="5339">
-        <label>hal_ps_i2c.h</label>
-        <childnode refid="5336" relation="include">
-        </childnode>
-        <childnode refid="5340" relation="include">
-        </childnode>
-      </node>
-      <node id="5351">
-        <label>ox03f10_priv.h</label>
-        <childnode refid="5346" relation="include">
-        </childnode>
-        <childnode refid="5347" relation="include">
-        </childnode>
-      </node>
-      <node id="5352">
-        <label>ox05b1s_priv.h</label>
-        <link refid="ox05b1s__priv_8h"/>
-        <childnode refid="5348" relation="include">
-        </childnode>
-      </node>
-      <node id="5341">
+      <node id="5381">
         <label>max9296.h</label>
-        <childnode refid="5342" relation="include">
+        <childnode refid="5382" relation="include">
         </childnode>
       </node>
-      <node id="5350">
-        <label>vvdevice.c</label>
-      </node>
-      <node id="5338">
-        <label>hal_axi_i2c.h</label>
-        <childnode refid="5336" relation="include">
+      <node id="5384">
+        <label>max9295.h</label>
+        <childnode refid="5385" relation="include">
         </childnode>
       </node>
-      <node id="5353">
+      <node id="5383">
+        <label>isi_fmc.h</label>
+        <childnode refid="5384" relation="include">
+        </childnode>
+        <childnode refid="5381" relation="include">
+        </childnode>
+        <childnode refid="5386" relation="include">
+        </childnode>
+        <childnode refid="5387" relation="include">
+        </childnode>
+        <childnode refid="5388" relation="include">
+        </childnode>
+        <childnode refid="5389" relation="include">
+        </childnode>
+      </node>
+      <node id="5393">
         <label>ox08b40_priv.h</label>
-        <childnode refid="5349" relation="include">
+        <childnode refid="5389" relation="include">
         </childnode>
       </node>
-      <node id="5345">
+      <node id="5385">
         <label>max9295.c</label>
       </node>
-      <node id="5349">
-        <label>ox08b40.c</label>
+      <node id="5391">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5386" relation="include">
+        </childnode>
+        <childnode refid="5387" relation="include">
+        </childnode>
       </node>
-      <node id="5336">
-        <label>hal_i2c.c</label>
+      <node id="5379">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="5376" relation="include">
+        </childnode>
+        <childnode refid="5380" relation="include">
+        </childnode>
       </node>
-      <node id="5342">
+      <node id="5388">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5382">
         <label>max9296.c</label>
       </node>
-      <node id="5343">
-        <label>isi_fmc.h</label>
-        <childnode refid="5344" relation="include">
-        </childnode>
-        <childnode refid="5341" relation="include">
-        </childnode>
-        <childnode refid="5346" relation="include">
-        </childnode>
-        <childnode refid="5347" relation="include">
-        </childnode>
-        <childnode refid="5348" relation="include">
-        </childnode>
-        <childnode refid="5349" relation="include">
+      <node id="5392">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="5388" relation="include">
         </childnode>
       </node>
-      <node id="5340">
+      <node id="5389">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5377">
+        <label>hal_i2c.h</label>
+        <childnode refid="5376" relation="include">
+        </childnode>
+        <childnode refid="5378" relation="include">
+        </childnode>
+        <childnode refid="5379" relation="include">
+        </childnode>
+        <childnode refid="5381" relation="include">
+        </childnode>
+        <childnode refid="5383" relation="include">
+        </childnode>
+        <childnode refid="5390" relation="include">
+        </childnode>
+      </node>
+      <node id="5390">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5380">
         <label>hal_ps_i2c.c</label>
       </node>
-      <node id="5347">
-        <label>ox03f10.c</label>
+      <node id="5378">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="5376" relation="include">
+        </childnode>
       </node>
-      <node id="5346">
+      <node id="5386">
         <label>ms_fw.c</label>
       </node>
-      <node id="5344">
-        <label>max9295.h</label>
-        <childnode refid="5345" relation="include">
+      <node id="5376">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="5375">
+        <label>hal_api.h</label>
+        <link refid="hal_api.h"/>
+        <childnode refid="5376" relation="include">
+        </childnode>
+        <childnode refid="5377" relation="include">
+        </childnode>
+        <childnode refid="5391" relation="include">
+        </childnode>
+        <childnode refid="5392" relation="include">
+        </childnode>
+        <childnode refid="5393" relation="include">
         </childnode>
       </node>
-      <node id="5337">
-        <label>hal_i2c.h</label>
-        <childnode refid="5336" relation="include">
-        </childnode>
-        <childnode refid="5338" relation="include">
-        </childnode>
-        <childnode refid="5339" relation="include">
-        </childnode>
-        <childnode refid="5341" relation="include">
-        </childnode>
-        <childnode refid="5343" relation="include">
-        </childnode>
-        <childnode refid="5350" relation="include">
-        </childnode>
+      <node id="5387">
+        <label>ox03f10.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_hal_irq_ctx__s" prot="public">HalIrqCtx_s</innerclass>
@@ -242,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="19" bodyend="26"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="19" bodyend="26"/>
       </memberdef>
       <memberdef kind="enum" id="hal__api_8h_1a063040ac4a59523304c947d05c56fb73" prot="public" static="no">
         <name>HalMapMemType_s</name>
@@ -276,7 +276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="28" bodyend="32"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="28" bodyend="32"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -291,7 +291,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="15" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="hal__api_8h_1aaab4b8a432cf1624c32abfed5d56364b" prot="public" static="no">
         <type>void *</type>
@@ -304,7 +304,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="16" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="hal__api_8h_1a83586323ab175c3dfcbd7f4704e09743" prot="public" static="no">
         <type>uint16_t</type>
@@ -317,7 +317,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="17" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="hal__api_8h_1a74df8dface67868a9e24854c8385184d" prot="public" static="no">
         <type>enum HalDevType_e</type>
@@ -330,7 +330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="26" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="26" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="hal__api_8h_1ac8a7de8f5d6791271aab6971a23841aa" prot="public" static="no">
         <type>enum HalMapMemType_s</type>
@@ -343,7 +343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="32" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="32" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="hal__api_8h_1a7bb974f185cb9c81331fe0d74263b14b" prot="public" static="no">
         <type>struct HalIrqCtx_s</type>
@@ -356,7 +356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="38" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="38" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -372,7 +372,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="50" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="50" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a78397b47e6c9fad0ec412370e9584acf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -386,7 +386,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="61" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="61" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a2272fe9c11d6a6688c43e0de69009085" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -408,7 +408,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="72" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="72" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a9709f3b996c2256ac16b7c5da435c098" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -422,7 +422,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="83" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="83" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a102ad015f485876d599bcc84a8fb8025" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -448,7 +448,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="96" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="96" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a62198b6aef2808f987680f530edbc477" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -507,7 +507,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="115" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="115" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1aaebee09717d59158f3306d009b6f18cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -555,7 +555,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="132" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="132" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a2d68aad388be0afb25695bb893746e2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -592,7 +592,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="147" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="147" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1adfab66ec666d7660f668d96c87ef2bee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -629,7 +629,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="162" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="162" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1acdf87199edbcbbf9f84b9ba088962c93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -666,7 +666,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="177" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="177" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1aa912682567890f6c86cd0761a8d85782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -692,7 +692,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="190" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="190" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a75e8ac658b93104cd1d10b643110e323" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -728,7 +728,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="203" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="203" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a5aaba6efdff54bb91a51c0a2c743427f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -776,7 +776,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="220" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="220" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a1d617f75471f03fce73a58f30609e978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -834,7 +834,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="237" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="237" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1ab6e28cbd0fc7244a6d824c62e884c6f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -860,7 +860,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="250" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="250" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1aa3e4651ada4cf2a973af2d4b5f0dbbbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -896,7 +896,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="263" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="263" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a2e9c8f72006026cbb1a726e506c996ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -922,7 +922,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="276" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="276" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a52ec0a411293b6344882a45906411e37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -948,7 +948,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="289" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="289" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a6ebffcdb97518ebba9a1e01765ecc519" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -996,7 +996,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="306" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="306" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1aaf2deb29aab1abe4a9af21a7a620dab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1044,7 +1044,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="323" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="323" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1abfdef76c0d40ec73ae7119a19ab3e3ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1103,7 +1103,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="342" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="342" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a5e35682668ac25a1434a943a32da849c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1129,7 +1129,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="356" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="356" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a4266d9d515c850e0674ba35136fe3a67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1210,7 +1210,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="379" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="379" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1a9ba228fe85bbb4bcb503d8d66566012e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1291,7 +1291,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="403" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="403" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1abf93f7eabef91ad9a8e6043226facac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1354,7 +1354,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="438" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="438" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1ae629836fad1b752fbb986f0833e26f82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1435,7 +1435,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="461" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="461" column="1"/>
       </memberdef>
       <memberdef kind="function" id="hal__api_8h_1abd73c63562e451ddc4d5d8e6a6f4fde1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -1516,7 +1516,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="485" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h" line="485" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1709,6 +1709,6 @@
 <codeline lineno="488"><highlight class="normal"></highlight></codeline>
 <codeline lineno="489"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/hal_api.h"/>
   </compounddef>
 </doxygen>

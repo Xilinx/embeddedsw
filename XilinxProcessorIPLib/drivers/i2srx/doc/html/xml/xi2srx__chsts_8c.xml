@@ -13,8 +13,11 @@
       <node id="38">
         <label>xil_assert.h</label>
       </node>
-      <node id="36">
-        <label>xil_io.h</label>
+      <node id="35">
+        <label>xi2srx_hw.h</label>
+        <link refid="xi2srx__hw_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
       </node>
       <node id="32">
         <label>xi2srx_chsts.c</label>
@@ -39,14 +42,8 @@
         <childnode refid="34" relation="include">
         </childnode>
       </node>
-      <node id="35">
-        <label>xi2srx_hw.h</label>
-        <link refid="xi2srx__hw_8h"/>
-        <childnode refid="36" relation="include">
-        </childnode>
-      </node>
-      <node id="40">
-        <label>xstatus.h</label>
+      <node id="36">
+        <label>xil_io.h</label>
       </node>
       <node id="34">
         <label>xi2srx.h</label>
@@ -61,9 +58,6 @@
         </childnode>
         <childnode refid="39" relation="include">
         </childnode>
-      </node>
-      <node id="39">
-        <label>xil_types.h</label>
       </node>
       <node id="37">
         <label>xi2srx_debug.h</label>
@@ -80,6 +74,12 @@
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
+      </node>
+      <node id="40">
+        <label>xstatus.h</label>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -119,7 +119,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c" bodystart="59" bodyend="243"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c" bodystart="59" bodyend="243"/>
         <references refid="group__i2srx_1gad6529e8f84165c7b8199aa117bbd4c2d" compoundref="xi2srx__chsts_8h" startline="118">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE1_MASK</references>
         <references refid="group__i2srx_1gafb8a702e39048d0d35dd23f610a946ec" compoundref="xi2srx__chsts_8h" startline="121">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE1_SHIFT</references>
         <references refid="group__i2srx_1ga27e985a3f61ec3346e34bd796a1436f2" compoundref="xi2srx__chsts_8h" startline="124">XI2S_RX_AES_STS_ALPHANUM_CH_DEST_DATA_BYTE2_MASK</references>
@@ -379,6 +379,6 @@
 <codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2srx_DstBuf[23]<sp/>=<sp/>Data;</highlight></codeline>
 <codeline lineno="243"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_chsts.c"/>
   </compounddef>
 </doxygen>

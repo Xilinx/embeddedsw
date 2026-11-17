@@ -14,7 +14,7 @@
           <declname>InstancePtr</declname>
         </param>
         <param>
-          <type>XLoader_DeviceIdCode *</type>
+          <type><ref refid="struct_x_loader___device_id_code" kindref="compound">XLoader_DeviceIdCode</ref> *</type>
           <declname>DeviceIdCode</declname>
         </param>
         <briefdescription>
@@ -41,7 +41,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="67" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="68" bodyend="92"/>
+        <references refid="struct_x_loader___device_id_code_1ab25ab0707dc91f0af28e4ffcbd1be86c" compoundref="xplmi__client_8h" startline="65">XLoader_DeviceIdCode::ExtIdCode</references>
+        <references refid="struct_x_loader___device_id_code_1a5d870b809c237fd734b8561a71974de9" compoundref="xplmi__client_8h" startline="64">XLoader_DeviceIdCode::IdCode</references>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
         <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
         <references refid="xplmi__defs_8h_1a651b24db1c69490f069924b96d005c94" compoundref="xplmi__defs_8h" startline="63">XPLMI_GET_DEVICE_CMD_ID</references>
@@ -106,10 +108,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="107" bodyend="130"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="108" bodyend="131"/>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
         <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
-        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="45">XPLMI_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="46">XPLMI_ADDR_HIGH_SHIFT</references>
         <references refid="xplmi__defs_8h_1aac351fba6246ff9f83fbf368f345e202" compoundref="xplmi__defs_8h" startline="66">XPLMI_GET_BOARD_CMD_ID</references>
         <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
       </memberdef>
@@ -150,7 +152,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="144" bodyend="156"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="145" bodyend="157"/>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
         <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
         <references refid="xplmi__defs_8h_1a592ed4f8a2aba9571489d28755f7ba1a" compoundref="xplmi__defs_8h" startline="80">XPLMI_TAMPER_TRIGGER_CMD_ID</references>
@@ -205,7 +207,7 @@
 <parametername>Len</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Length of the buffer</para></parameterdescription>
+<para>Length of the buffer in bytes</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -214,11 +216,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Performs input parameters validation. Return error code if input parameters are invalid</para><para>Fill IPI Payload based on sub command</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="175" bodyend="245"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="176" bodyend="246"/>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
         <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
         <references refid="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" compoundref="xplmi__mailbox_8h" startline="100">XPlmi_ClientInstance::SlrIndex</references>
-        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="45">XPLMI_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="46">XPLMI_ADDR_HIGH_SHIFT</references>
         <references refid="xplmi__defs_8h_1ae448e478d11a32abe990938860aa3be6" compoundref="xplmi__defs_8h" startline="64">XPLMI_EVENT_LOGGING_CMD_ID</references>
         <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
         <references refid="xplmi__client_8h_1ab1f20993bdf14a739d6c75cc390d9c92" compoundref="xplmi__client_8h" startline="44">XPLMI_SLR_INDEX_SHIFT</references>
@@ -233,7 +235,7 @@
           <declname>InstancePtr</declname>
         </param>
         <param>
-          <type>XPlmi_SsitSecComm *</type>
+          <type><ref refid="struct_x_plmi___ssit_sec_comm" kindref="compound">XPlmi_SsitSecComm</ref> *</type>
           <declname>SsitSecCommDataPtr</declname>
         </param>
         <briefdescription>
@@ -260,9 +262,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="259" bodyend="279"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="260" bodyend="280"/>
+        <references refid="struct_x_plmi___ssit_sec_comm_1a7187e4d9a1777d9fa9440cf9bbae7fab" compoundref="xplmi__defs_8h" startline="115">XPlmi_SsitSecComm::IVsandKey</references>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
-        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="45">XPLMI_ADDR_HIGH_SHIFT</references>
+        <references refid="struct_x_plmi___ssit_sec_comm_1a360743431372ae4cd7c0cf1ecc2c48d2" compoundref="xplmi__defs_8h" startline="114">XPlmi_SsitSecComm::SlrIndex</references>
+        <references refid="group__xilplmi__client__apis_1ga5af1f3c98663f54ed993cb81c545ae79" compoundref="xplmi__client_8c" startline="46">XPLMI_ADDR_HIGH_SHIFT</references>
         <references refid="xplmi__defs_8h_1ac95cc36b490cf20f84746f656e3a7d83" compoundref="xplmi__defs_8h" startline="88">XPLMI_CONFIG_SECCOMM_CMD_ID</references>
         <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
       </memberdef>
@@ -314,7 +318,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters</para><para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="294" bodyend="317"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="295" bodyend="318"/>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
         <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
         <references refid="xplmi__defs_8h_1aac083acfe6fc852913aab86fb2ae5fcc" compoundref="xplmi__defs_8h" startline="89">XPLMI_GETSECCOMM_STATUS_CMD_ID</references>
@@ -368,7 +372,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Fill IPI Payload</para><para>Send request to PLM using generic API </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="332" bodyend="344"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="333" bodyend="345"/>
         <references refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xplmi__mailbox_8h" startline="49">PAYLOAD_ARG_CNT</references>
         <references refid="xplmi__defs_8h_1a4dd9e69cf7522e4aa5b1a56726ec5481" compoundref="xplmi__defs_8h" startline="90">XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID</references>
         <references refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</references>
@@ -409,8 +413,8 @@
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="357" bodyend="365"/>
+<para>Validate input parameters </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="358" bodyend="373"/>
         <references refid="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" compoundref="xplmi__mailbox_8h" startline="100">XPlmi_ClientInstance::SlrIndex</references>
         <references refid="xplmi__client_8h_1ae1d85fe274333fdd2cfe49fab897df2d" compoundref="xplmi__client_8h" startline="50">XPLMI_SLR_INDEX_3</references>
       </memberdef>
@@ -485,18 +489,70 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Validate input parameters</para><para>Validate mailbox pointer for IPI communication</para><para>Send IPI request to PLM and wait for response</para><para>Cap ResponseLen: the mailbox shift below consumes Response[0], leaving RESPONSE_ARG_CNT - 1 data slots reachable via Response[Idx + 1U].</para><para>Copy IPI response data from InstancePtr-&gt;Response[] into caller&apos;s ResponseBuf. Skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0] holds the first data word, matching the SMC path layout.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.c" bodystart="68" bodyend="116"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_generic.c" bodystart="68" bodyend="116"/>
         <references refid="struct_x_plmi___client_instance_1af7f033f627d7374f83dcb651a7ac6271" compoundref="xplmi__mailbox_8h" startline="98">XPlmi_ClientInstance::MailboxPtr</references>
         <references refid="struct_x_plmi___client_instance_1a49e482f71a9783ca3362e12ae33d85c3" compoundref="xplmi__mailbox_8h" startline="99">XPlmi_ClientInstance::Response</references>
         <references refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xplmi__mailbox_8h" startline="51">RESPONSE_ARG_CNT</references>
         <references refid="group__xilplmi__mailbox__apis_1ga1cd29e5865f729668d2048de195cf33f" compoundref="xplmi__mailbox_8c" startline="59" endline="87">XPlmi_ProcessMailbox</references>
-        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="259" endline="279">XPlmi_ConfigSecureComm</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="175" endline="245">XPlmi_EventLogging</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="107" endline="130">XPlmi_GetBoard</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="67" endline="91">XPlmi_GetDeviceID</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" compoundref="xplmi__client_8c" startline="294" endline="317">XPlmi_GetSecureCommStatus</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" compoundref="xplmi__client_8c" startline="332" endline="344">XPlmi_SetDDRMCMainRegSts</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" compoundref="xplmi__client_8c" startline="144" endline="156">XPlmi_TamperTrigger</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="260" endline="280">XPlmi_ConfigSecureComm</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="176" endline="246">XPlmi_EventLogging</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="108" endline="131">XPlmi_GetBoard</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="68" endline="92">XPlmi_GetDeviceID</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gaf2f52002fc35d8a8b40cb6dbc5bfc7a3" compoundref="xplmi__client_8c" startline="295" endline="318">XPlmi_GetSecureCommStatus</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga73244b8606628c8941215ea3b3e5cc84" compoundref="xplmi__client_8c" startline="333" endline="345">XPlmi_SetDDRMCMainRegSts</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gae746051336f43281004be2537db2c3d8" compoundref="xplmi__client_8c" startline="145" endline="157">XPlmi_TamperTrigger</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gae1f3f99c297f367f1bd6bfb9b7539969" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPlmi_IsGlitchDetectorOffset</definition>
+        <argsstring>(u32 Offset)</argsstring>
+        <name>XPlmi_IsGlitchDetectorOffset</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the offset is one of the readable glitch detector registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the PMC analog base. Valid values are GD_CTRL_OFFSET, GD_STATUS_OFFSET, GD_FUSE_CTRL0_OFFSET, and GD_FUSE_CTRL1_OFFSET.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1U when Offset is a glitch detector register, 0U otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="150" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga22ec4cd45dfe7854277a725a3ededd25" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPlmi_IsGlitchDetectorWriteOffset</definition>
+        <argsstring>(u32 Offset)</argsstring>
+        <name>XPlmi_IsGlitchDetectorWriteOffset</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the offset is one of the writable glitch detector registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the PMC analog base. Valid values are GD_CTRL_OFFSET, GD_FUSE_CTRL0_OFFSET, and GD_FUSE_CTRL1_OFFSET. GD_STATUS_OFFSET is readable only.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1U when Offset may be written, 0U otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="174" bodyend="185"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga38c3851f0289fdaf921b7ad554f2c290" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -512,28 +568,30 @@
           <declname>Data</declname>
         </param>
         <briefdescription>
-<para>Writes value to register. </para>        </briefdescription>
+<para>Writes value to a glitch detector register. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>Offset</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Offset of the register </para></parameterdescription>
+<para>is the register offset from the PMC analog base. Valid values are GD_CTRL_OFFSET, GD_FUSE_CTRL0_OFFSET, and GD_FUSE_CTRL1_OFFSET. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>Data</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Value to be written in register</para></parameterdescription>
+<para>is the value to be written in the register</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS on success error code on failure </para></simplesect>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE when Offset is not a writable glitch detector register, or on transport failure. </para></listitem></itemizedlist>
+</para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="111" bodyend="130"/>
+<para>Reject a register the glitch detector does not write </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="200" bodyend="226"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga47da86988c9f970ff7d173c9f127a493" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -580,8 +638,8 @@
 <simplesect kind="return"><para>XST_SUCCESS on success error code on failure </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="143" bodyend="166"/>
+<para>Reject a register the glitch detector does not write </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="239" bodyend="272"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga71e07b36be5081d644cd6a660fedbf92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -597,28 +655,30 @@
           <declname>Data</declname>
         </param>
         <briefdescription>
-<para>Reads register value. </para>        </briefdescription>
+<para>Reads a glitch detector register. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>Offset</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Offset of the register. </para></parameterdescription>
+<para>is the register offset from the PMC analog base. Valid values are GD_CTRL_OFFSET, GD_STATUS_OFFSET, GD_FUSE_CTRL0_OFFSET, and GD_FUSE_CTRL1_OFFSET. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>Data</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Value to be read.</para></parameterdescription>
+<para>is the destination for the value read.</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>XST_SUCCESS on success error code on failure </para></simplesect>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE when Data is NULL, Offset is not a glitch detector register, or on transport failure. </para></listitem></itemizedlist>
+</para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="178" bodyend="202"/>
+<para>Reject a missing destination or a register the glitch detector does not own </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="288" bodyend="320"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1gae0d04c7416d6b05c9ad8866b2bc85075" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -653,44 +713,45 @@
 <parametername>Depth</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the minimum voltage glitch detection depth </para></parameterdescription>
+<para>is the minimum voltage glitch detection depth, 0 to 0x1F </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>Width</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the minimum glitch detector width </para></parameterdescription>
+<para>is the minimum glitch detector width, 0 to 0x0F </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>RefVoltage</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the reference voltage for the glitch detector comparators </para></parameterdescription>
+<para>is the reference voltage for the glitch detector comparators, 0 to 0x0F </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>UserRegVal</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>indicates to select the register values instead of the eFUSE values to configure the glitch detector </para></parameterdescription>
+<para>selects register values instead of eFUSE values. Valid values are 0 and 1. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>GlitchDetectorNum</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the number of glitch detector to be configured</para></parameterdescription>
+<para>is the glitch detector to configure, 0 or 1</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>error code on failure. </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS when the programmed GD_FUSE_CTRL field bits read back.</para></listitem><listitem><para>XST_FAILURE when an input is out of range or those bits do not read back. A transport failure from the read is returned unchanged.</para></listitem></itemizedlist>
 </para></simplesect>
+<simplesect kind="note"><para>This used to write the whole GD_FUSE_CTRL register, which forced reserved bits [3:1], [7:6], [15], and [31:20] to 0. It now updates only the XPLMI_GD_FUSE_CTRL_MASK bits, so a stale reserved value persists. In direct mode the read-modify-write and the readback are not atomic against other masters, so a concurrent writer can cause a false failure. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="220" bodyend="239"/>
+<para>Reject a detector the device does not have, or a setting that does not fit its field</para><para>Update only the programmed fields so reserved bits stay as they are</para><para>Report failure when the programmed field bits did not read back </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="347" bodyend="392"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1gab0839de08ae5828a40a24fffbb05d104" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -713,23 +774,23 @@
 <parametername>GlitchDetectorNum</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>is the number of glitch detector to be enabled/disabled </para></parameterdescription>
+<para>is the glitch detector to enable or disable, 0 or 1 </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>EnableStatus</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>indicates action i.e., enable/disable</para></parameterdescription>
+<para>is ENABLE or DISABLE</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>error code on failure. </para></listitem></itemizedlist>
+<listitem><para>XST_SUCCESS when the detector bit reads back as requested.</para></listitem><listitem><para>XST_FAILURE when the detector number or enable state is invalid, or the bit does not read back. A transport failure from the read is returned unchanged. </para></listitem></itemizedlist>
 </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="253" bodyend="268"/>
+<para>Reject an unknown detector or an enable state other than ENABLE or DISABLE</para><para>Report failure when the detector bit does not hold the requested state </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="408" bodyend="445"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1gaa1d10e6e53de2b84eb47a4decf72e155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -765,8 +826,8 @@
 <simplesect kind="return"><para>Status of glitch detector </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="281" bodyend="295"/>
+<para>Validate glitch detector number </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="458" bodyend="477"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga8bc5b8d5101431ae70cae441c6bbed87" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -816,7 +877,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Prepare payload for In-Place ASU update command</para><para>Send an IPI request to the PLM for In-Place ASU update </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="57" bodyend="70"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="57" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga4626d920c560e654f0b82b03048adfac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -866,7 +927,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="85" bodyend="91"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="85" bodyend="91"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga40bae5d3fd442d68e557b2fb07047389" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -916,7 +977,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="106" bodyend="112"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/client/xplmi_plat_client.c" bodystart="106" bodyend="112"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga027d7b7faa12783e4f8a3a82c85fc288" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -970,7 +1031,7 @@
 </para><para>Fill IPI Payload</para><para><itemizedlist>
 <listitem><para>Send an IPI request to the PLM by using the XPlmi_InPlacePlmUpdate CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
 </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="61" bodyend="86"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="61" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga312e47feb0264d1df52b0505eef675eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1020,8 +1081,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="101" bodyend="106"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="440">XPlmi_InPlacePlmUpdate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="101" bodyend="106"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="448">XPlmi_InPlacePlmUpdate</references>
       </memberdef>
       <memberdef kind="function" id="group__xilplmi__client__apis_1ga5b26ec2d046651d51851eef8149c511d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1071,8 +1132,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="121" bodyend="126"/>
-        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="440">XPlmi_InPlacePlmUpdate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="121" bodyend="126"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="448">XPlmi_InPlacePlmUpdate</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -1085,10 +1146,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="45" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="259" endline="279">XPlmi_ConfigSecureComm</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="175" endline="245">XPlmi_EventLogging</referencedby>
-        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="107" endline="130">XPlmi_GetBoard</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.c" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga0055868baa98bae19b5d94d65b92189b" compoundref="xplmi__client_8c" startline="260" endline="280">XPlmi_ConfigSecureComm</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="176" endline="246">XPlmi_EventLogging</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga87c129257a8fabebacb9f764a4be628d" compoundref="xplmi__client_8c" startline="108" endline="131">XPlmi_GetBoard</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1ga5e00c55561b7cc044e22c4e08884ef1f" prot="public" static="no">
         <name>XPLMI_REFVOL_3LSBITS_MASK</name>
@@ -1099,7 +1160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1ga56ab06fef0f76da3cfb3f594f000a8ca" prot="public" static="no">
         <name>XPLMI_DEPTH_3LSBITS_MASK</name>
@@ -1110,7 +1171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1gab9d63b0e4e1ca2af77ef1b893ab01eb7" prot="public" static="no">
         <name>XPLMI_REFVOL_MSBIT_MASK</name>
@@ -1121,7 +1182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="55" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1ga991eea6a899f5f3aceb30fc05529db2c" prot="public" static="no">
         <name>XPLMI_DEPTH_2MSBITS_MASK</name>
@@ -1132,7 +1193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1ga435c2870857a6e387b7c55e166ef823f" prot="public" static="no">
         <name>XPLMI_REFVOL_MSBIT_SHIFT</name>
@@ -1143,7 +1204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="61" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1gaed9b3e232820220619e129b4e203c065" prot="public" static="no">
         <name>XPLMI_REFVOL_3LSBITS_SHIFT</name>
@@ -1154,7 +1215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1ga653b4085b49665c7a5e8d7905f80b330" prot="public" static="no">
         <name>XPLMI_DEPTH_2MSBITS_SHIFT</name>
@@ -1165,7 +1226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="67" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1gaefadb2118c33eeaf0db0f8a2c9ef0556" prot="public" static="no">
         <name>XPLMI_DEPTH_3LSBITS_SHIFT</name>
@@ -1176,7 +1237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="70" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1ga427f1b8634081aa748e3e63eef1b43cd" prot="public" static="no">
         <name>XPLMI_WIDTH_BITS_SHIFT</name>
@@ -1187,7 +1248,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1gaafb479cfb18b07b9708ac2d4581bb4d2" prot="public" static="no">
         <name>XPLMI_WORD_LEN</name>
@@ -1198,21 +1259,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="74" bodyend="-1"/>
-        <referencedby refid="group__xilplmi__server__apis_1ga16dfbc95a9bdf0502840e261b8865652" compoundref="server_2xplmi__generic_8c" startline="651" endline="689">XPlmi_DmaTransfer</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gae804925f6b45d1685a010c2d1d3e842f" compoundref="xplmi__update_8c" startline="324" endline="388">XPlmi_DsOps</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga3ca67e4e848d511ee898a666db13464f" compoundref="xplmi__dma_8c" startline="781" endline="795">XPlmi_EccInit</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga166fa6a68d9c4df38fd7d3af77a7b521" compoundref="xplmi__dma_8c" startline="872" endline="904">XPlmi_InitNVerifyMem</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gaadaef02a2e674a71f8c0eeb895b915a8" compoundref="xplmi__dma_8c" startline="1002" endline="1048">XPlmi_MemCpy64</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gab7f5511c526c00a7477c689c3a476e3f" compoundref="xplmi__dma_8c" startline="810" endline="858">XPlmi_MemSet</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" compoundref="xplmi__dma_8c" startline="934" endline="983">XPlmi_MemSetBytes</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga180e0da7c5bf8b67eb38f54c3db12149" compoundref="server_2xplmi__generic_8c" startline="1619" endline="1666">XPlmi_MoveBuffer</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga16dfbc95a9bdf0502840e261b8865652" compoundref="server_2xplmi__generic_8c" startline="652" endline="690">XPlmi_DmaTransfer</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gae804925f6b45d1685a010c2d1d3e842f" compoundref="xplmi__update_8c" startline="326" endline="390">XPlmi_DsOps</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3ca67e4e848d511ee898a666db13464f" compoundref="xplmi__dma_8c" startline="809" endline="823">XPlmi_EccInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga166fa6a68d9c4df38fd7d3af77a7b521" compoundref="xplmi__dma_8c" startline="900" endline="932">XPlmi_InitNVerifyMem</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaadaef02a2e674a71f8c0eeb895b915a8" compoundref="xplmi__dma_8c" startline="1039" endline="1085">XPlmi_MemCpy64</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gab7f5511c526c00a7477c689c3a476e3f" compoundref="xplmi__dma_8c" startline="838" endline="886">XPlmi_MemSet</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" compoundref="xplmi__dma_8c" startline="962" endline="1020">XPlmi_MemSetBytes</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga180e0da7c5bf8b67eb38f54c3db12149" compoundref="server_2xplmi__generic_8c" startline="1620" endline="1667">XPlmi_MoveBuffer</referencedby>
         <referencedby refid="group__xilplmi__server__apis_1ga3bf28338a8becd4ef0e19689fb0a7116" compoundref="xplmi__util_8c" startline="328" endline="349">XPlmi_PrintArray</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="214" endline="270">XPlmi_PsmSequence</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga18c18ecfe4d08c8da4dc0bec5218cb59" compoundref="xplmi__update_8c" startline="443" endline="490">XPlmi_RestoreDataBackup</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1ga1e1cdb534edb8282728567c27ed02bc1" compoundref="xplmi__plat__cmd_8c" startline="345" endline="385">XPlmi_ScatterWrite2</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gabff99cf415b44f557a2d16f59a382b69" compoundref="server_2xplmi__generic_8c" startline="1737" endline="1768">XPlmi_SearchBufferList</referencedby>
-        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1906" endline="1998">XPlmi_StoreBuffer</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="216" endline="272">XPlmi_PsmSequence</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga18c18ecfe4d08c8da4dc0bec5218cb59" compoundref="xplmi__update_8c" startline="445" endline="492">XPlmi_RestoreDataBackup</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga1e1cdb534edb8282728567c27ed02bc1" compoundref="xplmi__plat__cmd_8c" startline="347" endline="387">XPlmi_ScatterWrite2</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabff99cf415b44f557a2d16f59a382b69" compoundref="server_2xplmi__generic_8c" startline="1738" endline="1769">XPlmi_SearchBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1907" endline="1999">XPlmi_StoreBuffer</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xilplmi__client__apis_1gae0aaba8765423cf60f7e2d289da39824" prot="public" static="no">
         <name>XPLMI_GD1_STATUS_POS</name>
@@ -1223,7 +1284,78 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gaa7c1fd55db4a06ebc0b574033f688c86" prot="public" static="no">
+        <name>XPLMI_GLITCHDETECTOR1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Glitch detector1 number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga9a61a5ddad1f0576280b700830bf49ec" prot="public" static="no">
+        <name>XPLMI_WIDTH_MAX</name>
+        <initializer>(0x0FU)</initializer>
+        <briefdescription>
+<para>Width is 4 bits; larger values overlap reference voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gac652460b942d09eeebb98f46e4155cff" prot="public" static="no">
+        <name>XPLMI_USERREG_MAX</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>User-register select is a single bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gafdfd328a7f67fcb4068d4d96c9010ae6" prot="public" static="no">
+        <name>XPLMI_DEPTH_MAX</name>
+        <initializer>(0x1FU)</initializer>
+        <briefdescription>
+<para>Depth field is 5 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga739d51e30a58b9f706faf888f10a7c1c" prot="public" static="no">
+        <name>XPLMI_REFVOL_MAX</name>
+        <initializer>(0x0FU)</initializer>
+        <briefdescription>
+<para>Reference voltage field is 4 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gaba5376a538b776e1225e3048c29c75df" prot="public" static="no">
+        <name>XPLMI_GD_FUSE_CTRL_MASK</name>
+        <initializer>(<ref refid="group__xilplmi__client__apis_1gac652460b942d09eeebb98f46e4155cff" kindref="member">XPLMI_USERREG_MAX</ref> | \
+				(((u32)<ref refid="group__xilplmi__client__apis_1ga991eea6a899f5f3aceb30fc05529db2c" kindref="member">XPLMI_DEPTH_2MSBITS_MASK</ref>) &lt;&lt; <ref refid="group__xilplmi__client__apis_1ga653b4085b49665c7a5e8d7905f80b330" kindref="member">XPLMI_DEPTH_2MSBITS_SHIFT</ref>) | \
+				(((u32)<ref refid="group__xilplmi__client__apis_1ga9a61a5ddad1f0576280b700830bf49ec" kindref="member">XPLMI_WIDTH_MAX</ref>) &lt;&lt; <ref refid="group__xilplmi__client__apis_1ga427f1b8634081aa748e3e63eef1b43cd" kindref="member">XPLMI_WIDTH_BITS_SHIFT</ref>) | \
+				(((u32)<ref refid="group__xilplmi__client__apis_1ga5e00c55561b7cc044e22c4e08884ef1f" kindref="member">XPLMI_REFVOL_3LSBITS_MASK</ref>) &lt;&lt; <ref refid="group__xilplmi__client__apis_1gaed9b3e232820220619e129b4e203c065" kindref="member">XPLMI_REFVOL_3LSBITS_SHIFT</ref>) | \
+				(((u32)<ref refid="group__xilplmi__client__apis_1gab9d63b0e4e1ca2af77ef1b893ab01eb7" kindref="member">XPLMI_REFVOL_MSBIT_MASK</ref>) &lt;&lt; <ref refid="group__xilplmi__client__apis_1ga435c2870857a6e387b7c55e166ef823f" kindref="member">XPLMI_REFVOL_MSBIT_SHIFT</ref>) | \
+				(((u32)<ref refid="group__xilplmi__client__apis_1ga56ab06fef0f76da3cfb3f594f000a8ca" kindref="member">XPLMI_DEPTH_3LSBITS_MASK</ref>) &lt;&lt; <ref refid="group__xilplmi__client__apis_1gaefadb2118c33eeaf0db0f8a2c9ef0556" kindref="member">XPLMI_DEPTH_3LSBITS_SHIFT</ref>))</initializer>
+        <briefdescription>
+<para>Bits programmed in GD_FUSE_CTRL. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reserved gaps are left unchanged. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="97" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

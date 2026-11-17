@@ -39,6 +39,7 @@
     <member refid="struct_x_ospi_psv_1ade8b294559fe3e26e9cc9ae94afa9926" kind="variable"><name>DllMode</name></member>
     <member refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" kind="variable"><name>DualByteOpcodeEn</name></member>
     <member refid="struct_x_ospi_psv_1aa024b5869c092081094478379cc51bc4" kind="variable"><name>UnalignReadBuffer</name></member>
+    <member refid="struct_x_ospi_psv_1a4216146221be743d0f024d1015f87d7b" kind="variable"><name>RxTuning</name></member>
   </compound>
   <compound refid="struct_x_ospi_psv___config" kind="struct"><name>XOspiPsv_Config</name>
     <member refid="struct_x_ospi_psv___config_1ab5a009ae1bfba2b4fe671ec185637fd0" kind="variable"><name>Name</name></member>
@@ -66,6 +67,16 @@
     <member refid="struct_x_ospi_psv___msg_1af3b6091e16d13e4be338d18494c63485" kind="variable"><name>Xfer64bit</name></member>
     <member refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" kind="variable"><name>ExtendedOpcode</name></member>
   </compound>
+  <compound refid="struct_x_ospi_psv___rx_tuning" kind="struct"><name>XOspiPsv_RxTuning</name>
+    <member refid="struct_x_ospi_psv___rx_tuning_1a63b3537f527086caa96d2533fc4ee697" kind="variable"><name>Opcode</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1a8c0c68e689dff579720515934656d56c" kind="variable"><name>Dummy</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1abc359ede4b4380ace685cd39ba7c10b9" kind="variable"><name>Proto</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1a441fbba695135a5c9bccce93294c466b" kind="variable"><name>Addrsize</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1a6a09485feea48ef43f50058a7a2ca8ba" kind="variable"><name>PatternAddr</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1a7715ed763948b62c42347290b8588fa0" kind="variable"><name>PatternSize</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1a81bf73b49c4efcd64dcd4670efd6b713" kind="variable"><name>Pattern</name></member>
+    <member refid="struct_x_ospi_psv___rx_tuning_1abf1b8b2ba1741c562089f780eb126807" kind="variable"><name>ReadBfrPtr</name></member>
+  </compound>
   <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
   </compound>
   <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
@@ -74,7 +85,6 @@
   </compound>
   <compound refid="xospipsv_8c" kind="file"><name>xospipsv.c</name>
     <member refid="group__ospipsv__api_1gae47ce4e107756cbd213bf34e51f8ce21" kind="define"><name>SILICON_VERSION_1</name></member>
-    <member refid="group__ospipsv__api_1gae90b7e8c7fe9d94c5c156a07e57fc27c" kind="define"><name>READ_ID</name></member>
     <member refid="group__ospipsv__api_1ga65dfbc875e9bb2db440b1881db87dc4b" kind="function"><name>XOspiPsv_AssertCS</name></member>
     <member refid="group__ospipsv__api_1ga8275e5a2b6a15e7450cd16cbbb1ab4aa" kind="function"><name>XOspiPsv_DeAssertCS</name></member>
     <member refid="group__ospipsv__api_1gab3bfc24f43ceff3f02cd864b87dc7ea6" kind="function"><name>StubStatusHandler</name></member>
@@ -93,120 +103,120 @@
     <member refid="group__ospipsv__api_1ga96e167a2c7e8917efaf4bcab5c3d561b" kind="function"><name>XOspiPsv_SetStatusHandler</name></member>
   </compound>
   <compound refid="xospipsv_8h" kind="file"><name>xospipsv.h</name>
-    <member refid="group__ospipsv__api_1ga15c0973b6b32cee5484231f4b0964024" kind="define"><name>XOSPIPSV_DAC_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga023b5ab25dd6ca3373b732aad21d95da" kind="define"><name>XOSPIPSV_IDAC_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga3bf46edd088d06ff124f83f99e61b22b" kind="define"><name>XOSPIPSV_STIG_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1gaf98229db3be630304e7f8b0d46045e68" kind="define"><name>XOSPIPSV_CLK_POL_OPTION</name></member>
-    <member refid="group__ospipsv__api_1gab38a95b18f7d35220ca5ba248ee5950a" kind="define"><name>XOSPIPSV_CLK_PHASE_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga34f129a528532fe44b67aad3c65a49ed" kind="define"><name>XOSPIPSV_PHY_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga7ad88ca3e3f223ca80adcd7294288ac0" kind="define"><name>XOSPIPSV_LEGIP_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga020366cf2f76a91dab60c608f55cf6f1" kind="define"><name>XOSPIPSV_DTR_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1gab88917e499c2a91d43d7e521196943d2" kind="define"><name>XOSPIPSV_CRC_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga142e9a89db19668b5ca6d35cbd3f794b" kind="define"><name>XOSPIPSV_DB_OP_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kind="define"><name>XOspiPsv_ReadReg</name></member>
-    <member refid="group__ospipsv__api_1ga3bf3db9e11b5e8efcd0b6fdc17118c25" kind="define"><name>XOspiPsv_WriteReg</name></member>
-    <member refid="group__ospipsv__api_1gad90cde53aa1c59a7a9a8450c8b109782" kind="define"><name>XOSPIPSV_IDAC_MODE</name></member>
-    <member refid="group__ospipsv__api_1ga98ff778e200a5bae12a1724c642166e8" kind="define"><name>XOSPIPSV_DAC_MODE</name></member>
-    <member refid="group__ospipsv__api_1ga21e9a7cc8b92ff2dcc84fafa3f0c21fa" kind="define"><name>XOSPIPSV_MSG_FLAG_RX</name></member>
-    <member refid="group__ospipsv__api_1gaa63401f44f82909e4e5def344f2fb777" kind="define"><name>XOSPIPSV_MSG_FLAG_TX</name></member>
-    <member refid="group__ospipsv__api_1ga2cadd5891ddc5aaa4344c4c5f04df53f" kind="define"><name>XOSPIPSV_READ_1_1_1</name></member>
-    <member refid="group__ospipsv__api_1ga744ef7968b5523d0bbfed984cd919de4" kind="define"><name>XOSPIPSV_READ_1_0_1</name></member>
-    <member refid="group__ospipsv__api_1ga024d721e1ad03dda67019f2f133da549" kind="define"><name>XOSPIPSV_READ_1_1_2</name></member>
-    <member refid="group__ospipsv__api_1gada02296e2fced33fd840b1155900d230" kind="define"><name>XOSPIPSV_READ_1_1_8</name></member>
-    <member refid="group__ospipsv__api_1ga36ef23ba15c0bc67f757f5c283d40a3f" kind="define"><name>XOSPIPSV_READ_1_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga709cdf45a55ca861480297b7003b4276" kind="define"><name>XOSPIPSV_READ_8_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga4e2cbdd635977b71103eba2fd5dfe476" kind="define"><name>XOSPIPSV_READ_8_0_0</name></member>
-    <member refid="group__ospipsv__api_1ga9157fa7259b383771e2fb0e841c686fb" kind="define"><name>XOSPIPSV_READ_8_8_0</name></member>
-    <member refid="group__ospipsv__api_1ga57a366c2ca6fdbc86d36fa6a9fb43a00" kind="define"><name>XOSPIPSV_READ_8_0_8</name></member>
-    <member refid="group__ospipsv__api_1ga32262aa9148824eb4632cb1fb403b03e" kind="define"><name>XOSPIPSV_READ_1_1_4</name></member>
-    <member refid="group__ospipsv__api_1gae77f747885a8eabf1da42c4f6eda1ec4" kind="define"><name>XOSPIPSV_READ_4_4_4</name></member>
-    <member refid="group__ospipsv__api_1ga7cf4370e5c08c69a0a17b61ae2154e81" kind="define"><name>XOSPIPSV_WRITE_1_1_1</name></member>
-    <member refid="group__ospipsv__api_1ga29f8015257e80a1023a8aa170e983954" kind="define"><name>XOSPIPSV_WRITE_1_0_1</name></member>
-    <member refid="group__ospipsv__api_1ga7be00d62e5dffbe8646daa61f57482d9" kind="define"><name>XOSPIPSV_WRITE_1_1_2</name></member>
-    <member refid="group__ospipsv__api_1ga96084590cbdee490499e091766ac5303" kind="define"><name>XOSPIPSV_WRITE_1_1_8</name></member>
-    <member refid="group__ospipsv__api_1gad1353dfaf407584d8ca44a7687056630" kind="define"><name>XOSPIPSV_WRITE_1_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga0e425288167a2f7a8ed1fe2e5a11184a" kind="define"><name>XOSPIPSV_WRITE_8_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga702fb393e805b9e61b3f80915ea83651" kind="define"><name>XOSPIPSV_WRITE_8_0_0</name></member>
-    <member refid="group__ospipsv__api_1ga86847b801b21e04fe26610aa79905b2d" kind="define"><name>XOSPIPSV_WRITE_8_8_0</name></member>
-    <member refid="group__ospipsv__api_1ga040bc73086a36492271db44e373a33e2" kind="define"><name>XOSPIPSV_WRITE_8_0_8</name></member>
-    <member refid="group__ospipsv__api_1gafd1420f3bb913b572a496ae82d082e26" kind="define"><name>XOSPIPSV_WRITE_1_1_4</name></member>
-    <member refid="group__ospipsv__api_1ga7fb313ed7c64e72414189578a533d4ab" kind="define"><name>XOSPIPSV_WRITE_4_4_4</name></member>
-    <member refid="group__ospipsv__api_1ga40bc60d265ec996c0327b2ae56f22e93" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS0</name></member>
-    <member refid="group__ospipsv__api_1ga7e63fb4ca85045a809257dea44e49fff" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS1</name></member>
-    <member refid="group__ospipsv__api_1gafa87a0dae28a8b2927c5c8885f7306ff" kind="define"><name>XOSPIPSV_CLK_PRESCALE_2</name></member>
-    <member refid="group__ospipsv__api_1gacaeaebdb5ff4186e5594516e2811bdc0" kind="define"><name>XOSPIPSV_CLK_PRESCALE_4</name></member>
-    <member refid="group__ospipsv__api_1ga0dbc58401f5e44a06981d9697db2fa71" kind="define"><name>XOSPIPSV_CLK_PRESCALE_6</name></member>
-    <member refid="group__ospipsv__api_1gaecd8ef9b33fad6b7b590e243fe1b971a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_8</name></member>
-    <member refid="group__ospipsv__api_1ga54e41947536783afa4e9df70cb42ca5e" kind="define"><name>XOSPIPSV_CLK_PRESCALE_10</name></member>
-    <member refid="group__ospipsv__api_1gad5869a3a26216cc3f44fd48cfa54e885" kind="define"><name>XOSPIPSV_CLK_PRESCALE_12</name></member>
-    <member refid="group__ospipsv__api_1ga44cc913c83946a445f7bb2b48a2dce95" kind="define"><name>XOSPIPSV_CLK_PRESCALE_14</name></member>
-    <member refid="group__ospipsv__api_1gaa58bf9f9a4eafb248e6883005a19d673" kind="define"><name>XOSPIPSV_CLK_PRESCALE_16</name></member>
-    <member refid="group__ospipsv__api_1gacc0bf7d369703bfe345594943fca6b32" kind="define"><name>XOSPIPSV_CLK_PRESCALE_18</name></member>
-    <member refid="group__ospipsv__api_1ga79c511af64eb9315a9afef1f08c9b4d6" kind="define"><name>XOSPIPSV_CLK_PRESCALE_20</name></member>
-    <member refid="group__ospipsv__api_1ga3000efb8d382f83208de9b626e92aea1" kind="define"><name>XOSPIPSV_CLK_PRESCALE_22</name></member>
-    <member refid="group__ospipsv__api_1ga3bd4e9f6c431cb59314d5cf0389648db" kind="define"><name>XOSPIPSV_CLK_PRESCALE_24</name></member>
-    <member refid="group__ospipsv__api_1ga9eee974acb77e1a655c5febe0101564a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_26</name></member>
-    <member refid="group__ospipsv__api_1gad73c4fb8ab342a52e09f959842874f68" kind="define"><name>XOSPIPSV_CLK_PRESCALE_28</name></member>
-    <member refid="group__ospipsv__api_1ga3c1d523d65dd8db2683f81604184b970" kind="define"><name>XOSPIPSV_CLK_PRESCALE_30</name></member>
-    <member refid="group__ospipsv__api_1gaca300cf75293c8cf444597c5b2397902" kind="define"><name>XOSPIPSV_CLK_PRESCALE_32</name></member>
-    <member refid="group__ospipsv__api_1ga8a91f9d1eaa7c095254cfbf98d984409" kind="define"><name>XOSPIPSV_CR_PRESC_MAXIMUM</name></member>
-    <member refid="group__ospipsv__api_1ga991c187a5fad3e379a163dcd03062869" kind="define"><name>XOSPIPSV_NO_SLAVE_SELCT_VALUE</name></member>
-    <member refid="group__ospipsv__api_1gad2060927f297b9906c849b82b8fe03dd" kind="define"><name>XOSPIPSV_DISABLE_DAC_VALUE</name></member>
-    <member refid="group__ospipsv__api_1ga1548e5a26ceaf7f67cbef21b55e7f8e4" kind="define"><name>XOSPIPSV_SPI_DISABLE_VALUE</name></member>
-    <member refid="group__ospipsv__api_1ga10a7ab6142ef8c47b685ae3a41b3a096" kind="define"><name>XOSPIPSV_CONFIG_INIT_VALUE</name></member>
-    <member refid="group__ospipsv__api_1gae477b3fcff972f679236ad0fe5a7dc2b" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_PHY</name></member>
-    <member refid="group__ospipsv__api_1ga82932f620415768076278db6ae963876" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_NON_PHY</name></member>
-    <member refid="group__ospipsv__api_1gaee85feb1da4d7ee45733a27be339c468" kind="define"><name>XOSPIPSV_MIN_PHY_FREQ</name></member>
-    <member refid="group__ospipsv__api_1ga97bf16593509dbd288b9359189d10187" kind="define"><name>XOSPIPSV_DDR_STATS_REG_DUMMY</name></member>
-    <member refid="group__ospipsv__api_1gacece30f46905dd497b71bb48c547eeee" kind="define"><name>XOSPIPSV_REMAP_ADDR_VAL</name></member>
-    <member refid="group__ospipsv__api_1ga1bd79b3785a971fb4a3334b2eed27219" kind="define"><name>XOSPIPSV_NON_PHY_RD_DLY</name></member>
-    <member refid="group__ospipsv__api_1gaaeb2c46391be17bb6ad395bf2953a63a" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_PHY</name></member>
-    <member refid="group__ospipsv__api_1gab4d86dca4be2a3f0fc6c8ba5aa50ed68" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_NON_PHY</name></member>
-    <member refid="group__ospipsv__api_1gac4aa73db6633a7656ac2d1137ebf1046" kind="define"><name>XOSPIPSV_EDGE_MODE_DDR_PHY</name></member>
-    <member refid="group__ospipsv__api_1gaa2ca88550aec15d0444ecfeede909e96" kind="define"><name>XOSPIPSV_SDR_TX_VAL</name></member>
-    <member refid="group__ospipsv__api_1gaf741c5fd5c724e7830aac4f25a14676f" kind="define"><name>XOSPIPSV_DDR_TX_VAL</name></member>
-    <member refid="group__ospipsv__api_1ga1d6dce932b27b0be2e68ab1a52d4077d" kind="define"><name>XOSPIPSV_DDR_TX_VAL_MASTER</name></member>
-    <member refid="group__ospipsv__api_1ga29493f81269faccd5588508c1d71d2e6" kind="define"><name>XOSPIPSV_SDR_TX_VAL_MASTER</name></member>
-    <member refid="group__ospipsv__api_1ga6fd3f0f8e6e2beccd5d4dd476b7b1f0f" kind="define"><name>XOSPIPSV_DLL_MAX_TAPS</name></member>
-    <member refid="group__ospipsv__api_1ga1354e2d970f4721642687811112360d1" kind="define"><name>XOSPIPSV_HWPIN_RESET</name></member>
-    <member refid="group__ospipsv__api_1ga55adc49e15cf2ea48da37fb42718ed16" kind="define"><name>XOSPIPSV_INBAND_RESET</name></member>
-    <member refid="group__ospipsv__api_1ga000401b5e3c2ecf2b879ca7f95d86535" kind="define"><name>XOSPIPSV_DLL_BYPASS_MODE</name></member>
-    <member refid="group__ospipsv__api_1gace8550a20acf2b80b9f6c2ef6baa3c3e" kind="define"><name>XOSPIPSV_DLL_MASTER_MODE</name></member>
-    <member refid="group__ospipsv__api_1ga95a91c3035b74c7240efd50dcf786b1d" kind="define"><name>XOSPIPSV_CONNECTION_MODE_SINGLE</name></member>
-    <member refid="group__ospipsv__api_1gad034eceb481f5722918c4313070f56f5" kind="define"><name>XOSPIPSV_CONNECTION_MODE_STACKED</name></member>
-    <member refid="group__ospipsv__api_1ga67ed8369dd3e6a8ab7e92952877a1f4d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_DISABLE</name></member>
-    <member refid="group__ospipsv__api_1ga20cee3653bbcb80adcc31f993de12c0d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_ENABLE</name></member>
-    <member refid="group__ospipsv__api_1gad3012f761e6f72f9faa9ccda20f95459" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_SAME</name></member>
-    <member refid="group__ospipsv__api_1ga376253ea2aaf4288368162dd58da2379" kind="define"><name>XOSPIPSV_H_</name></member>
-    <member refid="group__ospipsv__api_1ga5cc34e95babfb307ef694eec5cae4067" kind="define"><name>XOSPIPSV_RXADDR_OVER_32BIT</name></member>
-    <member refid="group__ospipsv__api_1ga231f60eeceeca0fd2afab316c2f30424" kind="define"><name>XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ</name></member>
-    <member refid="group__ospipsv__api_1ga2fded7b6bdbc994e9358fed0cda3a103" kind="typedef"><name>XOspiPsv_StatusHandler</name></member>
-    <member refid="group__ospipsv__api_1ga992d9fa781379e0cc76acdc13cb8b54c" kind="variable"><name>XOspiPsv_ConfigTable</name></member>
-    <member refid="group__ospipsv__api_1gab96043a4ed792c49c8f839b522ac95a1" kind="function"><name>XOspiPsv_LookupConfig</name></member>
-    <member refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" kind="function"><name>XOspiPsv_CfgInitialize</name></member>
-    <member refid="group__ospipsv__api_1gab43ba912b750cce29cef9d5d652e11af" kind="function"><name>XOspiPsv_Reset</name></member>
-    <member refid="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" kind="function"><name>XOspiPsv_SetClkPrescaler</name></member>
-    <member refid="group__ospipsv__api_1ga2d17525a71d9df7268fcc4269f19270c" kind="function"><name>XOspiPsv_SelectFlash</name></member>
-    <member refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" kind="function"><name>XOspiPsv_SetOptions</name></member>
-    <member refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" kind="function"><name>XOspiPsv_GetOptions</name></member>
-    <member refid="group__ospipsv__api_1ga808cc2759798221d0d4f44eef27c0629" kind="function"><name>XOspiPsv_PollTransfer</name></member>
-    <member refid="group__ospipsv__api_1gaaf23d7567b974cfac69ecadd2919999d" kind="function"><name>XOspiPsv_IntrTransfer</name></member>
-    <member refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" kind="function"><name>XOspiPsv_IntrHandler</name></member>
-    <member refid="group__ospipsv__api_1ga96e167a2c7e8917efaf4bcab5c3d561b" kind="function"><name>XOspiPsv_SetStatusHandler</name></member>
-    <member refid="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" kind="function"><name>XOspiPsv_SetSdrDdrMode</name></member>
-    <member refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" kind="function"><name>XOspiPsv_ConfigureAutoPolling</name></member>
-    <member refid="group__ospipsv__api_1ga70d2c317de32d39ddab3b585c9da5d69" kind="function"><name>XOspiPsv_Idle</name></member>
-    <member refid="group__ospipsv__api_1ga16fcc38cab80027ea601c99569517067" kind="function"><name>XOspiPsv_DeviceReset</name></member>
-    <member refid="group__ospipsv__api_1ga26ffa91c5d5d79028535a2e3381174e6" kind="function"><name>XOspiPsv_DeviceResetViaOspi</name></member>
-    <member refid="group__ospipsv__api_1ga4fe1250ba300d83c1acb4291301429f9" kind="function"><name>XOspiPsv_StartDmaTransfer</name></member>
-    <member refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" kind="function"><name>XOspiPsv_CheckDmaDone</name></member>
-    <member refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" kind="function"><name>XOspiPsv_SetDllDelay</name></member>
-    <member refid="group__ospipsv__api_1gabba4009ea62fb0b8c856a8582ed9f77b" kind="function"><name>XOspiPsv_ConfigDualByteOpcode</name></member>
+    <member refid="group__ospipsv_1ga15c0973b6b32cee5484231f4b0964024" kind="define"><name>XOSPIPSV_DAC_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga023b5ab25dd6ca3373b732aad21d95da" kind="define"><name>XOSPIPSV_IDAC_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga3bf46edd088d06ff124f83f99e61b22b" kind="define"><name>XOSPIPSV_STIG_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1gaf98229db3be630304e7f8b0d46045e68" kind="define"><name>XOSPIPSV_CLK_POL_OPTION</name></member>
+    <member refid="group__ospipsv_1gab38a95b18f7d35220ca5ba248ee5950a" kind="define"><name>XOSPIPSV_CLK_PHASE_OPTION</name></member>
+    <member refid="group__ospipsv_1ga34f129a528532fe44b67aad3c65a49ed" kind="define"><name>XOSPIPSV_PHY_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga7ad88ca3e3f223ca80adcd7294288ac0" kind="define"><name>XOSPIPSV_LEGIP_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga020366cf2f76a91dab60c608f55cf6f1" kind="define"><name>XOSPIPSV_DTR_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1gab88917e499c2a91d43d7e521196943d2" kind="define"><name>XOSPIPSV_CRC_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga142e9a89db19668b5ca6d35cbd3f794b" kind="define"><name>XOSPIPSV_DB_OP_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga1101ef0b6b567210a26c9b95e3ef2de5" kind="define"><name>XOspiPsv_ReadReg</name></member>
+    <member refid="group__ospipsv_1ga3bf3db9e11b5e8efcd0b6fdc17118c25" kind="define"><name>XOspiPsv_WriteReg</name></member>
+    <member refid="group__ospipsv_1gad90cde53aa1c59a7a9a8450c8b109782" kind="define"><name>XOSPIPSV_IDAC_MODE</name></member>
+    <member refid="group__ospipsv_1ga98ff778e200a5bae12a1724c642166e8" kind="define"><name>XOSPIPSV_DAC_MODE</name></member>
+    <member refid="group__ospipsv_1ga21e9a7cc8b92ff2dcc84fafa3f0c21fa" kind="define"><name>XOSPIPSV_MSG_FLAG_RX</name></member>
+    <member refid="group__ospipsv_1gaa63401f44f82909e4e5def344f2fb777" kind="define"><name>XOSPIPSV_MSG_FLAG_TX</name></member>
+    <member refid="group__ospipsv_1ga2cadd5891ddc5aaa4344c4c5f04df53f" kind="define"><name>XOSPIPSV_READ_1_1_1</name></member>
+    <member refid="group__ospipsv_1ga744ef7968b5523d0bbfed984cd919de4" kind="define"><name>XOSPIPSV_READ_1_0_1</name></member>
+    <member refid="group__ospipsv_1ga024d721e1ad03dda67019f2f133da549" kind="define"><name>XOSPIPSV_READ_1_1_2</name></member>
+    <member refid="group__ospipsv_1gada02296e2fced33fd840b1155900d230" kind="define"><name>XOSPIPSV_READ_1_1_8</name></member>
+    <member refid="group__ospipsv_1ga36ef23ba15c0bc67f757f5c283d40a3f" kind="define"><name>XOSPIPSV_READ_1_8_8</name></member>
+    <member refid="group__ospipsv_1ga709cdf45a55ca861480297b7003b4276" kind="define"><name>XOSPIPSV_READ_8_8_8</name></member>
+    <member refid="group__ospipsv_1ga4e2cbdd635977b71103eba2fd5dfe476" kind="define"><name>XOSPIPSV_READ_8_0_0</name></member>
+    <member refid="group__ospipsv_1ga9157fa7259b383771e2fb0e841c686fb" kind="define"><name>XOSPIPSV_READ_8_8_0</name></member>
+    <member refid="group__ospipsv_1ga57a366c2ca6fdbc86d36fa6a9fb43a00" kind="define"><name>XOSPIPSV_READ_8_0_8</name></member>
+    <member refid="group__ospipsv_1ga32262aa9148824eb4632cb1fb403b03e" kind="define"><name>XOSPIPSV_READ_1_1_4</name></member>
+    <member refid="group__ospipsv_1gae77f747885a8eabf1da42c4f6eda1ec4" kind="define"><name>XOSPIPSV_READ_4_4_4</name></member>
+    <member refid="group__ospipsv_1ga7cf4370e5c08c69a0a17b61ae2154e81" kind="define"><name>XOSPIPSV_WRITE_1_1_1</name></member>
+    <member refid="group__ospipsv_1ga29f8015257e80a1023a8aa170e983954" kind="define"><name>XOSPIPSV_WRITE_1_0_1</name></member>
+    <member refid="group__ospipsv_1ga7be00d62e5dffbe8646daa61f57482d9" kind="define"><name>XOSPIPSV_WRITE_1_1_2</name></member>
+    <member refid="group__ospipsv_1ga96084590cbdee490499e091766ac5303" kind="define"><name>XOSPIPSV_WRITE_1_1_8</name></member>
+    <member refid="group__ospipsv_1gad1353dfaf407584d8ca44a7687056630" kind="define"><name>XOSPIPSV_WRITE_1_8_8</name></member>
+    <member refid="group__ospipsv_1ga0e425288167a2f7a8ed1fe2e5a11184a" kind="define"><name>XOSPIPSV_WRITE_8_8_8</name></member>
+    <member refid="group__ospipsv_1ga702fb393e805b9e61b3f80915ea83651" kind="define"><name>XOSPIPSV_WRITE_8_0_0</name></member>
+    <member refid="group__ospipsv_1ga86847b801b21e04fe26610aa79905b2d" kind="define"><name>XOSPIPSV_WRITE_8_8_0</name></member>
+    <member refid="group__ospipsv_1ga040bc73086a36492271db44e373a33e2" kind="define"><name>XOSPIPSV_WRITE_8_0_8</name></member>
+    <member refid="group__ospipsv_1gafd1420f3bb913b572a496ae82d082e26" kind="define"><name>XOSPIPSV_WRITE_1_1_4</name></member>
+    <member refid="group__ospipsv_1ga7fb313ed7c64e72414189578a533d4ab" kind="define"><name>XOSPIPSV_WRITE_4_4_4</name></member>
+    <member refid="group__ospipsv_1ga40bc60d265ec996c0327b2ae56f22e93" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS0</name></member>
+    <member refid="group__ospipsv_1ga7e63fb4ca85045a809257dea44e49fff" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS1</name></member>
+    <member refid="group__ospipsv_1gafa87a0dae28a8b2927c5c8885f7306ff" kind="define"><name>XOSPIPSV_CLK_PRESCALE_2</name></member>
+    <member refid="group__ospipsv_1gacaeaebdb5ff4186e5594516e2811bdc0" kind="define"><name>XOSPIPSV_CLK_PRESCALE_4</name></member>
+    <member refid="group__ospipsv_1ga0dbc58401f5e44a06981d9697db2fa71" kind="define"><name>XOSPIPSV_CLK_PRESCALE_6</name></member>
+    <member refid="group__ospipsv_1gaecd8ef9b33fad6b7b590e243fe1b971a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_8</name></member>
+    <member refid="group__ospipsv_1ga54e41947536783afa4e9df70cb42ca5e" kind="define"><name>XOSPIPSV_CLK_PRESCALE_10</name></member>
+    <member refid="group__ospipsv_1gad5869a3a26216cc3f44fd48cfa54e885" kind="define"><name>XOSPIPSV_CLK_PRESCALE_12</name></member>
+    <member refid="group__ospipsv_1ga44cc913c83946a445f7bb2b48a2dce95" kind="define"><name>XOSPIPSV_CLK_PRESCALE_14</name></member>
+    <member refid="group__ospipsv_1gaa58bf9f9a4eafb248e6883005a19d673" kind="define"><name>XOSPIPSV_CLK_PRESCALE_16</name></member>
+    <member refid="group__ospipsv_1gacc0bf7d369703bfe345594943fca6b32" kind="define"><name>XOSPIPSV_CLK_PRESCALE_18</name></member>
+    <member refid="group__ospipsv_1ga79c511af64eb9315a9afef1f08c9b4d6" kind="define"><name>XOSPIPSV_CLK_PRESCALE_20</name></member>
+    <member refid="group__ospipsv_1ga3000efb8d382f83208de9b626e92aea1" kind="define"><name>XOSPIPSV_CLK_PRESCALE_22</name></member>
+    <member refid="group__ospipsv_1ga3bd4e9f6c431cb59314d5cf0389648db" kind="define"><name>XOSPIPSV_CLK_PRESCALE_24</name></member>
+    <member refid="group__ospipsv_1ga9eee974acb77e1a655c5febe0101564a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_26</name></member>
+    <member refid="group__ospipsv_1gad73c4fb8ab342a52e09f959842874f68" kind="define"><name>XOSPIPSV_CLK_PRESCALE_28</name></member>
+    <member refid="group__ospipsv_1ga3c1d523d65dd8db2683f81604184b970" kind="define"><name>XOSPIPSV_CLK_PRESCALE_30</name></member>
+    <member refid="group__ospipsv_1gaca300cf75293c8cf444597c5b2397902" kind="define"><name>XOSPIPSV_CLK_PRESCALE_32</name></member>
+    <member refid="group__ospipsv_1ga8a91f9d1eaa7c095254cfbf98d984409" kind="define"><name>XOSPIPSV_CR_PRESC_MAXIMUM</name></member>
+    <member refid="group__ospipsv_1ga991c187a5fad3e379a163dcd03062869" kind="define"><name>XOSPIPSV_NO_SLAVE_SELCT_VALUE</name></member>
+    <member refid="group__ospipsv_1gad2060927f297b9906c849b82b8fe03dd" kind="define"><name>XOSPIPSV_DISABLE_DAC_VALUE</name></member>
+    <member refid="group__ospipsv_1ga1548e5a26ceaf7f67cbef21b55e7f8e4" kind="define"><name>XOSPIPSV_SPI_DISABLE_VALUE</name></member>
+    <member refid="group__ospipsv_1ga10a7ab6142ef8c47b685ae3a41b3a096" kind="define"><name>XOSPIPSV_CONFIG_INIT_VALUE</name></member>
+    <member refid="group__ospipsv_1gae477b3fcff972f679236ad0fe5a7dc2b" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_PHY</name></member>
+    <member refid="group__ospipsv_1ga82932f620415768076278db6ae963876" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_NON_PHY</name></member>
+    <member refid="group__ospipsv_1gaee85feb1da4d7ee45733a27be339c468" kind="define"><name>XOSPIPSV_MIN_PHY_FREQ</name></member>
+    <member refid="group__ospipsv_1ga97bf16593509dbd288b9359189d10187" kind="define"><name>XOSPIPSV_DDR_STATS_REG_DUMMY</name></member>
+    <member refid="group__ospipsv_1gacece30f46905dd497b71bb48c547eeee" kind="define"><name>XOSPIPSV_REMAP_ADDR_VAL</name></member>
+    <member refid="group__ospipsv_1ga1bd79b3785a971fb4a3334b2eed27219" kind="define"><name>XOSPIPSV_NON_PHY_RD_DLY</name></member>
+    <member refid="group__ospipsv_1gaaeb2c46391be17bb6ad395bf2953a63a" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_PHY</name></member>
+    <member refid="group__ospipsv_1gab4d86dca4be2a3f0fc6c8ba5aa50ed68" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_NON_PHY</name></member>
+    <member refid="group__ospipsv_1gac4aa73db6633a7656ac2d1137ebf1046" kind="define"><name>XOSPIPSV_EDGE_MODE_DDR_PHY</name></member>
+    <member refid="group__ospipsv_1gaa2ca88550aec15d0444ecfeede909e96" kind="define"><name>XOSPIPSV_SDR_TX_VAL</name></member>
+    <member refid="group__ospipsv_1gaf741c5fd5c724e7830aac4f25a14676f" kind="define"><name>XOSPIPSV_DDR_TX_VAL</name></member>
+    <member refid="group__ospipsv_1ga1d6dce932b27b0be2e68ab1a52d4077d" kind="define"><name>XOSPIPSV_DDR_TX_VAL_MASTER</name></member>
+    <member refid="group__ospipsv_1ga29493f81269faccd5588508c1d71d2e6" kind="define"><name>XOSPIPSV_SDR_TX_VAL_MASTER</name></member>
+    <member refid="group__ospipsv_1ga6fd3f0f8e6e2beccd5d4dd476b7b1f0f" kind="define"><name>XOSPIPSV_DLL_MAX_TAPS</name></member>
+    <member refid="group__ospipsv_1ga1354e2d970f4721642687811112360d1" kind="define"><name>XOSPIPSV_HWPIN_RESET</name></member>
+    <member refid="group__ospipsv_1ga55adc49e15cf2ea48da37fb42718ed16" kind="define"><name>XOSPIPSV_INBAND_RESET</name></member>
+    <member refid="group__ospipsv_1ga000401b5e3c2ecf2b879ca7f95d86535" kind="define"><name>XOSPIPSV_DLL_BYPASS_MODE</name></member>
+    <member refid="group__ospipsv_1gace8550a20acf2b80b9f6c2ef6baa3c3e" kind="define"><name>XOSPIPSV_DLL_MASTER_MODE</name></member>
+    <member refid="group__ospipsv_1ga95a91c3035b74c7240efd50dcf786b1d" kind="define"><name>XOSPIPSV_CONNECTION_MODE_SINGLE</name></member>
+    <member refid="group__ospipsv_1gad034eceb481f5722918c4313070f56f5" kind="define"><name>XOSPIPSV_CONNECTION_MODE_STACKED</name></member>
+    <member refid="group__ospipsv_1ga67ed8369dd3e6a8ab7e92952877a1f4d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_DISABLE</name></member>
+    <member refid="group__ospipsv_1ga20cee3653bbcb80adcc31f993de12c0d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_ENABLE</name></member>
+    <member refid="group__ospipsv_1gad3012f761e6f72f9faa9ccda20f95459" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_SAME</name></member>
+    <member refid="group__ospipsv_1ga5cc34e95babfb307ef694eec5cae4067" kind="define"><name>XOSPIPSV_RXADDR_OVER_32BIT</name></member>
+    <member refid="group__ospipsv_1ga231f60eeceeca0fd2afab316c2f30424" kind="define"><name>XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ</name></member>
+    <member refid="group__ospipsv_1ga2fded7b6bdbc994e9358fed0cda3a103" kind="typedef"><name>XOspiPsv_StatusHandler</name></member>
+    <member refid="group__ospipsv_1ga992d9fa781379e0cc76acdc13cb8b54c" kind="variable"><name>XOspiPsv_ConfigTable</name></member>
+    <member refid="group__ospipsv_1ga466b35dd2fa531cda25197d883b445d9" kind="function"><name>XOspiPsv_LookupConfig</name></member>
+    <member refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" kind="function"><name>XOspiPsv_CfgInitialize</name></member>
+    <member refid="group__ospipsv_1gab43ba912b750cce29cef9d5d652e11af" kind="function"><name>XOspiPsv_Reset</name></member>
+    <member refid="group__ospipsv_1ga45c51bcfa1e2d996298847c2b7910ba6" kind="function"><name>XOspiPsv_SetClkPrescaler</name></member>
+    <member refid="group__ospipsv_1ga2d17525a71d9df7268fcc4269f19270c" kind="function"><name>XOspiPsv_SelectFlash</name></member>
+    <member refid="group__ospipsv_1gab47df170b16816d4cc11dee6c3008e3c" kind="function"><name>XOspiPsv_SetOptions</name></member>
+    <member refid="group__ospipsv_1ga19324f8c6c1156b26c84cc9d413a4801" kind="function"><name>XOspiPsv_GetOptions</name></member>
+    <member refid="group__ospipsv_1ga808cc2759798221d0d4f44eef27c0629" kind="function"><name>XOspiPsv_PollTransfer</name></member>
+    <member refid="group__ospipsv_1gaaf23d7567b974cfac69ecadd2919999d" kind="function"><name>XOspiPsv_IntrTransfer</name></member>
+    <member refid="group__ospipsv_1gaa415227de8c6663e478041a82887dd5b" kind="function"><name>XOspiPsv_IntrHandler</name></member>
+    <member refid="group__ospipsv_1ga96e167a2c7e8917efaf4bcab5c3d561b" kind="function"><name>XOspiPsv_SetStatusHandler</name></member>
+    <member refid="group__ospipsv_1ga74efb98d92b16935c3ea41e4f77cecea" kind="function"><name>XOspiPsv_SetSdrDdrMode</name></member>
+    <member refid="group__ospipsv_1gaec5aab7a4cee335804494e31429b53ec" kind="function"><name>XOspiPsv_ConfigureAutoPolling</name></member>
+    <member refid="group__ospipsv_1ga70d2c317de32d39ddab3b585c9da5d69" kind="function"><name>XOspiPsv_Idle</name></member>
+    <member refid="group__ospipsv_1ga16fcc38cab80027ea601c99569517067" kind="function"><name>XOspiPsv_DeviceReset</name></member>
+    <member refid="group__ospipsv_1ga26ffa91c5d5d79028535a2e3381174e6" kind="function"><name>XOspiPsv_DeviceResetViaOspi</name></member>
+    <member refid="group__ospipsv_1ga4fe1250ba300d83c1acb4291301429f9" kind="function"><name>XOspiPsv_StartDmaTransfer</name></member>
+    <member refid="group__ospipsv_1ga816c6bf2a419d38bd2e4d51a266a6d3b" kind="function"><name>XOspiPsv_CheckDmaDone</name></member>
+    <member refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" kind="function"><name>XOspiPsv_SetDllDelay</name></member>
+    <member refid="group__ospipsv_1gabba4009ea62fb0b8c856a8582ed9f77b" kind="function"><name>XOspiPsv_ConfigDualByteOpcode</name></member>
   </compound>
   <compound refid="xospipsv__control_8c" kind="file"><name>xospipsv_control.c</name>
     <member refid="group__ospipsv__api_1ga02055aef4b0f9a801005ebdc7b556157" kind="define"><name>MAX_DELAY_CNT</name></member>
     <member refid="group__ospipsv__api_1ga2837097f3f203eeff26f5cfc61947bcf" kind="define"><name>MAX_IDAC_DELAY_CNT</name></member>
     <member refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" kind="function"><name>XOspiPsv_Stig_Read</name></member>
+    <member refid="group__ospipsv__api_1ga8efded744e18270f71f42fb123f3c607" kind="function"><name>XOspiPsv_CheckStigWriteMsg</name></member>
     <member refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" kind="function"><name>XOspiPsv_Stig_Write</name></member>
     <member refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" kind="function"><name>XOspiPsv_Dma_Read</name></member>
     <member refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" kind="function"><name>XOspiPsv_Dac_Read</name></member>
@@ -217,13 +227,14 @@
     <member refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" kind="function"><name>XOspiPsv_IDac_Write</name></member>
   </compound>
   <compound refid="xospipsv__control_8h" kind="file"><name>xospipsv_control.h</name>
-    <member refid="group__ospipsv__api_1gad5d4884f3757c314991e0d72bf344c59" kind="define"><name>XOSPIPSV_LOWLEVEL_H_</name></member>
+    <member refid="group__ospipsv__api_1gae497ce9d0c3cdf19a06d5159a402c77e" kind="define"><name>XOSPIPSV_STIG_MAX_DATA_BYTES</name></member>
     <member refid="group__ospipsv__api_1ga0b928e367edae3e8ff9fe572ab2460d9" kind="function"><name>XOspiPsv_Disable</name></member>
     <member refid="group__ospipsv__api_1ga4b1efc289b7d2dfbb8c8ddde5f52fa93" kind="function"><name>XOspiPsv_Enable</name></member>
     <member refid="group__ospipsv__api_1gac941ac99b9a1fb6f8c6b77bda5280383" kind="function"><name>XOspiPsv_ConfigureMux_Linear</name></member>
     <member refid="group__ospipsv__api_1ga9a1d81a3f172e5eddb18e0574abcebd4" kind="function"><name>XOspiPsv_ConfigureMux_Dma</name></member>
     <member refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" kind="function"><name>XOspiPsv_Stig_Read</name></member>
     <member refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" kind="function"><name>XOspiPsv_Stig_Write</name></member>
+    <member refid="group__ospipsv__api_1ga8efded744e18270f71f42fb123f3c607" kind="function"><name>XOspiPsv_CheckStigWriteMsg</name></member>
     <member refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" kind="function"><name>XOspiPsv_Dac_Read</name></member>
     <member refid="group__ospipsv__api_1gadb1ae4f737c07e890039cdaf3a006b26" kind="function"><name>XOspiPsv_Dac_Write</name></member>
     <member refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" kind="function"><name>XOspiPsv_Dma_Read</name></member>
@@ -302,122 +313,128 @@
     <member refid="xospipsv__flash__config_8h_1a35c047b9329a29e92595dc930a6ed5ee" kind="function"><name>CalculateFCTIndex</name></member>
   </compound>
   <compound refid="xospipsv__flash__intr__example_8c" kind="file"><name>xospipsv_flash_intr_example.c</name>
-    <member refid="xospipsv__flash__intr__example_8c_1a90bc74590962865fc1ab7ee1be0f4b64" kind="define"><name>INTC_DEVICE_ID</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1abd83fcf72dd3669c53827ef7cf2bf3e3" kind="define"><name>OSPIPSV_INTR_ID</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1af8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a2dd94411694db2d8662ebacc6e880c0a" kind="variable"><name>TransferInProgress</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a97ae9edf79edb0778febfe0c6ffa4d9a" kind="variable"><name>Error</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1adb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" kind="function"><name>OspiPsvInterruptFlashExample</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ae36d48b5186d548ebde0af294ea5ee1f" kind="function"><name>OspiPsvHandler</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1aaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
-    <member refid="xospipsv__flash__intr__example_8c_1a08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga90bc74590962865fc1ab7ee1be0f4b64" kind="define"><name>INTC_DEVICE_ID</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gabd83fcf72dd3669c53827ef7cf2bf3e3" kind="define"><name>OSPIPSV_INTR_ID</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gaf8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga2dd94411694db2d8662ebacc6e880c0a" kind="variable"><name>TransferInProgress</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" kind="variable"><name>Error</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gadb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" kind="function"><name>OspiPsvInterruptFlashExample</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gae36d48b5186d548ebde0af294ea5ee1f" kind="function"><name>OspiPsvHandler</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gaaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" kind="function"><name>FlashWriteCfgReg</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga41da7fd71e9af03552fef321f42c19f1" kind="function"><name>FlashReadCfgReg</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gaf2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
   </compound>
   <compound refid="xospipsv__flash__non__blocking__read__example_8c" kind="file"><name>xospipsv_flash_non_blocking_read_example.c</name>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1af8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1adb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" kind="function"><name>OspiPsvFlashNonBlockingReadExample</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1aaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1af2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1ab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
-    <member refid="xospipsv__flash__non__blocking__read__example_8c_1a08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaf8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gadb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" kind="function"><name>OspiPsvFlashNonBlockingReadExample</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" kind="function"><name>FlashWriteCfgReg</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga41da7fd71e9af03552fef321f42c19f1" kind="function"><name>FlashReadCfgReg</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaf2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
   </compound>
   <compound refid="xospipsv__flash__polled__example_8c" kind="file"><name>xospipsv_flash_polled_example.c</name>
-    <member refid="xospipsv__flash__polled__example_8c_1a782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1af8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1adb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" kind="function"><name>OspiPsvPolledFlashExample</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1aaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" kind="function"><name>SetBlockProtect</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a0a18f01d96728256fb8c63b4916039c0" kind="function"><name>MicronBlockProtectTest</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1af2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1ab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
-    <member refid="xospipsv__flash__polled__example_8c_1a08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gaf8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gadb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" kind="function"><name>OspiPsvPolledFlashExample</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gaaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" kind="function"><name>FlashWriteCfgReg</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga41da7fd71e9af03552fef321f42c19f1" kind="function"><name>FlashReadCfgReg</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" kind="function"><name>SetBlockProtect</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" kind="function"><name>MicronBlockProtectTest</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gaf2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
   </compound>
   <compound refid="xospipsv__g_8c" kind="file"><name>xospipsv_g.c</name>
     <member refid="group__ospipsv__api_1ga5467f4708859cc73f82c31d627bd31b3" kind="variable"><name>XOspiPsv_ConfigTable</name></member>
@@ -454,7 +471,7 @@
     <member refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" kind="function"><name>XOspiPsv_ConfigureAutoPolling</name></member>
   </compound>
   <compound refid="xospipsv__sinit_8c" kind="file"><name>xospipsv_sinit.c</name>
-    <member refid="group__ospipsv__api_1gab96043a4ed792c49c8f839b522ac95a1" kind="function"><name>XOspiPsv_LookupConfig</name></member>
+    <member refid="group__ospipsv__api_1ga466b35dd2fa531cda25197d883b445d9" kind="function"><name>XOspiPsv_LookupConfig</name></member>
   </compound>
   <compound refid="xospipsv__xfer_8c" kind="file"><name>xospipsv_xfer.c</name>
     <member refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" kind="function"><name>XOspiPsv_PollRecvData</name></member>
@@ -463,92 +480,6 @@
     <member refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" kind="function"><name>XOspiPsv_IntrSendData</name></member>
   </compound>
   <compound refid="group__ospipsv__api" kind="group"><name>ospipsv_api</name>
-    <member refid="group__ospipsv__api_1ga15c0973b6b32cee5484231f4b0964024" kind="define"><name>XOSPIPSV_DAC_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga023b5ab25dd6ca3373b732aad21d95da" kind="define"><name>XOSPIPSV_IDAC_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga3bf46edd088d06ff124f83f99e61b22b" kind="define"><name>XOSPIPSV_STIG_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1gaf98229db3be630304e7f8b0d46045e68" kind="define"><name>XOSPIPSV_CLK_POL_OPTION</name></member>
-    <member refid="group__ospipsv__api_1gab38a95b18f7d35220ca5ba248ee5950a" kind="define"><name>XOSPIPSV_CLK_PHASE_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga34f129a528532fe44b67aad3c65a49ed" kind="define"><name>XOSPIPSV_PHY_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga7ad88ca3e3f223ca80adcd7294288ac0" kind="define"><name>XOSPIPSV_LEGIP_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga020366cf2f76a91dab60c608f55cf6f1" kind="define"><name>XOSPIPSV_DTR_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1gab88917e499c2a91d43d7e521196943d2" kind="define"><name>XOSPIPSV_CRC_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga142e9a89db19668b5ca6d35cbd3f794b" kind="define"><name>XOSPIPSV_DB_OP_EN_OPTION</name></member>
-    <member refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kind="define"><name>XOspiPsv_ReadReg</name></member>
-    <member refid="group__ospipsv__api_1ga3bf3db9e11b5e8efcd0b6fdc17118c25" kind="define"><name>XOspiPsv_WriteReg</name></member>
-    <member refid="group__ospipsv__api_1gad90cde53aa1c59a7a9a8450c8b109782" kind="define"><name>XOSPIPSV_IDAC_MODE</name></member>
-    <member refid="group__ospipsv__api_1ga98ff778e200a5bae12a1724c642166e8" kind="define"><name>XOSPIPSV_DAC_MODE</name></member>
-    <member refid="group__ospipsv__api_1ga21e9a7cc8b92ff2dcc84fafa3f0c21fa" kind="define"><name>XOSPIPSV_MSG_FLAG_RX</name></member>
-    <member refid="group__ospipsv__api_1gaa63401f44f82909e4e5def344f2fb777" kind="define"><name>XOSPIPSV_MSG_FLAG_TX</name></member>
-    <member refid="group__ospipsv__api_1ga2cadd5891ddc5aaa4344c4c5f04df53f" kind="define"><name>XOSPIPSV_READ_1_1_1</name></member>
-    <member refid="group__ospipsv__api_1ga744ef7968b5523d0bbfed984cd919de4" kind="define"><name>XOSPIPSV_READ_1_0_1</name></member>
-    <member refid="group__ospipsv__api_1ga024d721e1ad03dda67019f2f133da549" kind="define"><name>XOSPIPSV_READ_1_1_2</name></member>
-    <member refid="group__ospipsv__api_1gada02296e2fced33fd840b1155900d230" kind="define"><name>XOSPIPSV_READ_1_1_8</name></member>
-    <member refid="group__ospipsv__api_1ga36ef23ba15c0bc67f757f5c283d40a3f" kind="define"><name>XOSPIPSV_READ_1_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga709cdf45a55ca861480297b7003b4276" kind="define"><name>XOSPIPSV_READ_8_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga4e2cbdd635977b71103eba2fd5dfe476" kind="define"><name>XOSPIPSV_READ_8_0_0</name></member>
-    <member refid="group__ospipsv__api_1ga9157fa7259b383771e2fb0e841c686fb" kind="define"><name>XOSPIPSV_READ_8_8_0</name></member>
-    <member refid="group__ospipsv__api_1ga57a366c2ca6fdbc86d36fa6a9fb43a00" kind="define"><name>XOSPIPSV_READ_8_0_8</name></member>
-    <member refid="group__ospipsv__api_1ga32262aa9148824eb4632cb1fb403b03e" kind="define"><name>XOSPIPSV_READ_1_1_4</name></member>
-    <member refid="group__ospipsv__api_1gae77f747885a8eabf1da42c4f6eda1ec4" kind="define"><name>XOSPIPSV_READ_4_4_4</name></member>
-    <member refid="group__ospipsv__api_1ga7cf4370e5c08c69a0a17b61ae2154e81" kind="define"><name>XOSPIPSV_WRITE_1_1_1</name></member>
-    <member refid="group__ospipsv__api_1ga29f8015257e80a1023a8aa170e983954" kind="define"><name>XOSPIPSV_WRITE_1_0_1</name></member>
-    <member refid="group__ospipsv__api_1ga7be00d62e5dffbe8646daa61f57482d9" kind="define"><name>XOSPIPSV_WRITE_1_1_2</name></member>
-    <member refid="group__ospipsv__api_1ga96084590cbdee490499e091766ac5303" kind="define"><name>XOSPIPSV_WRITE_1_1_8</name></member>
-    <member refid="group__ospipsv__api_1gad1353dfaf407584d8ca44a7687056630" kind="define"><name>XOSPIPSV_WRITE_1_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga0e425288167a2f7a8ed1fe2e5a11184a" kind="define"><name>XOSPIPSV_WRITE_8_8_8</name></member>
-    <member refid="group__ospipsv__api_1ga702fb393e805b9e61b3f80915ea83651" kind="define"><name>XOSPIPSV_WRITE_8_0_0</name></member>
-    <member refid="group__ospipsv__api_1ga86847b801b21e04fe26610aa79905b2d" kind="define"><name>XOSPIPSV_WRITE_8_8_0</name></member>
-    <member refid="group__ospipsv__api_1ga040bc73086a36492271db44e373a33e2" kind="define"><name>XOSPIPSV_WRITE_8_0_8</name></member>
-    <member refid="group__ospipsv__api_1gafd1420f3bb913b572a496ae82d082e26" kind="define"><name>XOSPIPSV_WRITE_1_1_4</name></member>
-    <member refid="group__ospipsv__api_1ga7fb313ed7c64e72414189578a533d4ab" kind="define"><name>XOSPIPSV_WRITE_4_4_4</name></member>
-    <member refid="group__ospipsv__api_1ga40bc60d265ec996c0327b2ae56f22e93" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS0</name></member>
-    <member refid="group__ospipsv__api_1ga7e63fb4ca85045a809257dea44e49fff" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS1</name></member>
-    <member refid="group__ospipsv__api_1gafa87a0dae28a8b2927c5c8885f7306ff" kind="define"><name>XOSPIPSV_CLK_PRESCALE_2</name></member>
-    <member refid="group__ospipsv__api_1gacaeaebdb5ff4186e5594516e2811bdc0" kind="define"><name>XOSPIPSV_CLK_PRESCALE_4</name></member>
-    <member refid="group__ospipsv__api_1ga0dbc58401f5e44a06981d9697db2fa71" kind="define"><name>XOSPIPSV_CLK_PRESCALE_6</name></member>
-    <member refid="group__ospipsv__api_1gaecd8ef9b33fad6b7b590e243fe1b971a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_8</name></member>
-    <member refid="group__ospipsv__api_1ga54e41947536783afa4e9df70cb42ca5e" kind="define"><name>XOSPIPSV_CLK_PRESCALE_10</name></member>
-    <member refid="group__ospipsv__api_1gad5869a3a26216cc3f44fd48cfa54e885" kind="define"><name>XOSPIPSV_CLK_PRESCALE_12</name></member>
-    <member refid="group__ospipsv__api_1ga44cc913c83946a445f7bb2b48a2dce95" kind="define"><name>XOSPIPSV_CLK_PRESCALE_14</name></member>
-    <member refid="group__ospipsv__api_1gaa58bf9f9a4eafb248e6883005a19d673" kind="define"><name>XOSPIPSV_CLK_PRESCALE_16</name></member>
-    <member refid="group__ospipsv__api_1gacc0bf7d369703bfe345594943fca6b32" kind="define"><name>XOSPIPSV_CLK_PRESCALE_18</name></member>
-    <member refid="group__ospipsv__api_1ga79c511af64eb9315a9afef1f08c9b4d6" kind="define"><name>XOSPIPSV_CLK_PRESCALE_20</name></member>
-    <member refid="group__ospipsv__api_1ga3000efb8d382f83208de9b626e92aea1" kind="define"><name>XOSPIPSV_CLK_PRESCALE_22</name></member>
-    <member refid="group__ospipsv__api_1ga3bd4e9f6c431cb59314d5cf0389648db" kind="define"><name>XOSPIPSV_CLK_PRESCALE_24</name></member>
-    <member refid="group__ospipsv__api_1ga9eee974acb77e1a655c5febe0101564a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_26</name></member>
-    <member refid="group__ospipsv__api_1gad73c4fb8ab342a52e09f959842874f68" kind="define"><name>XOSPIPSV_CLK_PRESCALE_28</name></member>
-    <member refid="group__ospipsv__api_1ga3c1d523d65dd8db2683f81604184b970" kind="define"><name>XOSPIPSV_CLK_PRESCALE_30</name></member>
-    <member refid="group__ospipsv__api_1gaca300cf75293c8cf444597c5b2397902" kind="define"><name>XOSPIPSV_CLK_PRESCALE_32</name></member>
-    <member refid="group__ospipsv__api_1ga8a91f9d1eaa7c095254cfbf98d984409" kind="define"><name>XOSPIPSV_CR_PRESC_MAXIMUM</name></member>
-    <member refid="group__ospipsv__api_1ga991c187a5fad3e379a163dcd03062869" kind="define"><name>XOSPIPSV_NO_SLAVE_SELCT_VALUE</name></member>
-    <member refid="group__ospipsv__api_1gad2060927f297b9906c849b82b8fe03dd" kind="define"><name>XOSPIPSV_DISABLE_DAC_VALUE</name></member>
-    <member refid="group__ospipsv__api_1ga1548e5a26ceaf7f67cbef21b55e7f8e4" kind="define"><name>XOSPIPSV_SPI_DISABLE_VALUE</name></member>
-    <member refid="group__ospipsv__api_1ga10a7ab6142ef8c47b685ae3a41b3a096" kind="define"><name>XOSPIPSV_CONFIG_INIT_VALUE</name></member>
-    <member refid="group__ospipsv__api_1gae477b3fcff972f679236ad0fe5a7dc2b" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_PHY</name></member>
-    <member refid="group__ospipsv__api_1ga82932f620415768076278db6ae963876" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_NON_PHY</name></member>
-    <member refid="group__ospipsv__api_1gaee85feb1da4d7ee45733a27be339c468" kind="define"><name>XOSPIPSV_MIN_PHY_FREQ</name></member>
-    <member refid="group__ospipsv__api_1ga97bf16593509dbd288b9359189d10187" kind="define"><name>XOSPIPSV_DDR_STATS_REG_DUMMY</name></member>
-    <member refid="group__ospipsv__api_1gacece30f46905dd497b71bb48c547eeee" kind="define"><name>XOSPIPSV_REMAP_ADDR_VAL</name></member>
-    <member refid="group__ospipsv__api_1ga1bd79b3785a971fb4a3334b2eed27219" kind="define"><name>XOSPIPSV_NON_PHY_RD_DLY</name></member>
-    <member refid="group__ospipsv__api_1gaaeb2c46391be17bb6ad395bf2953a63a" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_PHY</name></member>
-    <member refid="group__ospipsv__api_1gab4d86dca4be2a3f0fc6c8ba5aa50ed68" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_NON_PHY</name></member>
-    <member refid="group__ospipsv__api_1gac4aa73db6633a7656ac2d1137ebf1046" kind="define"><name>XOSPIPSV_EDGE_MODE_DDR_PHY</name></member>
-    <member refid="group__ospipsv__api_1gaa2ca88550aec15d0444ecfeede909e96" kind="define"><name>XOSPIPSV_SDR_TX_VAL</name></member>
-    <member refid="group__ospipsv__api_1gaf741c5fd5c724e7830aac4f25a14676f" kind="define"><name>XOSPIPSV_DDR_TX_VAL</name></member>
-    <member refid="group__ospipsv__api_1ga1d6dce932b27b0be2e68ab1a52d4077d" kind="define"><name>XOSPIPSV_DDR_TX_VAL_MASTER</name></member>
-    <member refid="group__ospipsv__api_1ga29493f81269faccd5588508c1d71d2e6" kind="define"><name>XOSPIPSV_SDR_TX_VAL_MASTER</name></member>
-    <member refid="group__ospipsv__api_1ga6fd3f0f8e6e2beccd5d4dd476b7b1f0f" kind="define"><name>XOSPIPSV_DLL_MAX_TAPS</name></member>
-    <member refid="group__ospipsv__api_1ga1354e2d970f4721642687811112360d1" kind="define"><name>XOSPIPSV_HWPIN_RESET</name></member>
-    <member refid="group__ospipsv__api_1ga55adc49e15cf2ea48da37fb42718ed16" kind="define"><name>XOSPIPSV_INBAND_RESET</name></member>
-    <member refid="group__ospipsv__api_1ga000401b5e3c2ecf2b879ca7f95d86535" kind="define"><name>XOSPIPSV_DLL_BYPASS_MODE</name></member>
-    <member refid="group__ospipsv__api_1gace8550a20acf2b80b9f6c2ef6baa3c3e" kind="define"><name>XOSPIPSV_DLL_MASTER_MODE</name></member>
-    <member refid="group__ospipsv__api_1ga95a91c3035b74c7240efd50dcf786b1d" kind="define"><name>XOSPIPSV_CONNECTION_MODE_SINGLE</name></member>
-    <member refid="group__ospipsv__api_1gad034eceb481f5722918c4313070f56f5" kind="define"><name>XOSPIPSV_CONNECTION_MODE_STACKED</name></member>
-    <member refid="group__ospipsv__api_1ga67ed8369dd3e6a8ab7e92952877a1f4d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_DISABLE</name></member>
-    <member refid="group__ospipsv__api_1ga20cee3653bbcb80adcc31f993de12c0d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_ENABLE</name></member>
-    <member refid="group__ospipsv__api_1gad3012f761e6f72f9faa9ccda20f95459" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_SAME</name></member>
-    <member refid="group__ospipsv__api_1ga2fded7b6bdbc994e9358fed0cda3a103" kind="typedef"><name>XOspiPsv_StatusHandler</name></member>
-    <member refid="group__ospipsv__api_1ga992d9fa781379e0cc76acdc13cb8b54c" kind="variable"><name>XOspiPsv_ConfigTable</name></member>
     <member refid="group__ospipsv__api_1ga5467f4708859cc73f82c31d627bd31b3" kind="variable"><name>XOspiPsv_ConfigTable</name></member>
     <member refid="group__ospipsv__api_1gabc5db3dcd7184b5e18386c2eec6c9140" kind="variable"><name>OptionsTable</name></member>
     <member refid="group__ospipsv__api_1ga65dfbc875e9bb2db440b1881db87dc4b" kind="function"><name>XOspiPsv_AssertCS</name></member>
@@ -567,14 +498,8 @@
     <member refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" kind="function"><name>XOspiPsv_SetDllDelay</name></member>
     <member refid="group__ospipsv__api_1gabba4009ea62fb0b8c856a8582ed9f77b" kind="function"><name>XOspiPsv_ConfigDualByteOpcode</name></member>
     <member refid="group__ospipsv__api_1ga96e167a2c7e8917efaf4bcab5c3d561b" kind="function"><name>XOspiPsv_SetStatusHandler</name></member>
-    <member refid="group__ospipsv__api_1gab96043a4ed792c49c8f839b522ac95a1" kind="function"><name>XOspiPsv_LookupConfig</name></member>
-    <member refid="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" kind="function"><name>XOspiPsv_SetClkPrescaler</name></member>
-    <member refid="group__ospipsv__api_1ga2d17525a71d9df7268fcc4269f19270c" kind="function"><name>XOspiPsv_SelectFlash</name></member>
-    <member refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" kind="function"><name>XOspiPsv_SetOptions</name></member>
-    <member refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" kind="function"><name>XOspiPsv_GetOptions</name></member>
-    <member refid="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" kind="function"><name>XOspiPsv_SetSdrDdrMode</name></member>
-    <member refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" kind="function"><name>XOspiPsv_ConfigureAutoPolling</name></member>
     <member refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" kind="function"><name>XOspiPsv_Stig_Read</name></member>
+    <member refid="group__ospipsv__api_1ga8efded744e18270f71f42fb123f3c607" kind="function"><name>XOspiPsv_CheckStigWriteMsg</name></member>
     <member refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" kind="function"><name>XOspiPsv_Stig_Write</name></member>
     <member refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" kind="function"><name>XOspiPsv_Dma_Read</name></member>
     <member refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" kind="function"><name>XOspiPsv_Dac_Read</name></member>
@@ -604,19 +529,242 @@
     <member refid="group__ospipsv__api_1ga6b7b4e2f6b2fde2908649918699e86b0" kind="function"><name>XOspiPsv_PollSendData</name></member>
     <member refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" kind="function"><name>XOspiPsv_IntrRecvData</name></member>
     <member refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" kind="function"><name>XOspiPsv_IntrSendData</name></member>
+    <member refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" kind="function"><name>XOspiPsv_SetOptions</name></member>
+    <member refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" kind="function"><name>XOspiPsv_GetOptions</name></member>
+    <member refid="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" kind="function"><name>XOspiPsv_SetClkPrescaler</name></member>
+    <member refid="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" kind="function"><name>XOspiPsv_SetSdrDdrMode</name></member>
+    <member refid="group__ospipsv__api_1ga2d17525a71d9df7268fcc4269f19270c" kind="function"><name>XOspiPsv_SelectFlash</name></member>
+    <member refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" kind="function"><name>XOspiPsv_ConfigureAutoPolling</name></member>
+    <member refid="group__ospipsv__api_1ga466b35dd2fa531cda25197d883b445d9" kind="function"><name>XOspiPsv_LookupConfig</name></member>
     <member refid="group__ospipsv__api_1gae47ce4e107756cbd213bf34e51f8ce21" kind="define"><name>SILICON_VERSION_1</name></member>
-    <member refid="group__ospipsv__api_1gae90b7e8c7fe9d94c5c156a07e57fc27c" kind="define"><name>READ_ID</name></member>
-    <member refid="group__ospipsv__api_1ga376253ea2aaf4288368162dd58da2379" kind="define"><name>XOSPIPSV_H_</name></member>
-    <member refid="group__ospipsv__api_1ga5cc34e95babfb307ef694eec5cae4067" kind="define"><name>XOSPIPSV_RXADDR_OVER_32BIT</name></member>
-    <member refid="group__ospipsv__api_1ga231f60eeceeca0fd2afab316c2f30424" kind="define"><name>XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ</name></member>
     <member refid="group__ospipsv__api_1ga02055aef4b0f9a801005ebdc7b556157" kind="define"><name>MAX_DELAY_CNT</name></member>
     <member refid="group__ospipsv__api_1ga2837097f3f203eeff26f5cfc61947bcf" kind="define"><name>MAX_IDAC_DELAY_CNT</name></member>
-    <member refid="group__ospipsv__api_1gad5d4884f3757c314991e0d72bf344c59" kind="define"><name>XOSPIPSV_LOWLEVEL_H_</name></member>
+    <member refid="group__ospipsv__api_1gae497ce9d0c3cdf19a06d5159a402c77e" kind="define"><name>XOSPIPSV_STIG_MAX_DATA_BYTES</name></member>
     <member refid="group__ospipsv__api_1ga0107e147ea67ea49c4a858a8df7812e5" kind="define"><name>MAX_STIG_DELAY_CNT</name></member>
     <member refid="group__ospipsv__api_1ga8cfa7018351ffa45663961a534fe50b4" kind="define"><name>MAX_DMA_DELAY_CNT</name></member>
     <member refid="group__ospipsv__api_1gacc22319a6b88d36c8eb490a567b618cb" kind="define"><name>LOCK_MAX_DELAY_CNT</name></member>
     <member refid="group__ospipsv__api_1gad7c34af4c3051ee8eb5a3e8dfce2a8b5" kind="define"><name>TERA_MACRO</name></member>
     <member refid="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" kind="define"><name>XOSPIPSV_NUM_OPTIONS</name></member>
+  </compound>
+  <compound refid="group__ospipsv" kind="group"><name>ospipsv</name>
+    <member refid="group__ospipsv_1ga15c0973b6b32cee5484231f4b0964024" kind="define"><name>XOSPIPSV_DAC_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga023b5ab25dd6ca3373b732aad21d95da" kind="define"><name>XOSPIPSV_IDAC_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga3bf46edd088d06ff124f83f99e61b22b" kind="define"><name>XOSPIPSV_STIG_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1gaf98229db3be630304e7f8b0d46045e68" kind="define"><name>XOSPIPSV_CLK_POL_OPTION</name></member>
+    <member refid="group__ospipsv_1gab38a95b18f7d35220ca5ba248ee5950a" kind="define"><name>XOSPIPSV_CLK_PHASE_OPTION</name></member>
+    <member refid="group__ospipsv_1ga34f129a528532fe44b67aad3c65a49ed" kind="define"><name>XOSPIPSV_PHY_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga7ad88ca3e3f223ca80adcd7294288ac0" kind="define"><name>XOSPIPSV_LEGIP_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga020366cf2f76a91dab60c608f55cf6f1" kind="define"><name>XOSPIPSV_DTR_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1gab88917e499c2a91d43d7e521196943d2" kind="define"><name>XOSPIPSV_CRC_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga142e9a89db19668b5ca6d35cbd3f794b" kind="define"><name>XOSPIPSV_DB_OP_EN_OPTION</name></member>
+    <member refid="group__ospipsv_1ga1101ef0b6b567210a26c9b95e3ef2de5" kind="define"><name>XOspiPsv_ReadReg</name></member>
+    <member refid="group__ospipsv_1ga3bf3db9e11b5e8efcd0b6fdc17118c25" kind="define"><name>XOspiPsv_WriteReg</name></member>
+    <member refid="group__ospipsv_1gad90cde53aa1c59a7a9a8450c8b109782" kind="define"><name>XOSPIPSV_IDAC_MODE</name></member>
+    <member refid="group__ospipsv_1ga98ff778e200a5bae12a1724c642166e8" kind="define"><name>XOSPIPSV_DAC_MODE</name></member>
+    <member refid="group__ospipsv_1ga21e9a7cc8b92ff2dcc84fafa3f0c21fa" kind="define"><name>XOSPIPSV_MSG_FLAG_RX</name></member>
+    <member refid="group__ospipsv_1gaa63401f44f82909e4e5def344f2fb777" kind="define"><name>XOSPIPSV_MSG_FLAG_TX</name></member>
+    <member refid="group__ospipsv_1ga2cadd5891ddc5aaa4344c4c5f04df53f" kind="define"><name>XOSPIPSV_READ_1_1_1</name></member>
+    <member refid="group__ospipsv_1ga744ef7968b5523d0bbfed984cd919de4" kind="define"><name>XOSPIPSV_READ_1_0_1</name></member>
+    <member refid="group__ospipsv_1ga024d721e1ad03dda67019f2f133da549" kind="define"><name>XOSPIPSV_READ_1_1_2</name></member>
+    <member refid="group__ospipsv_1gada02296e2fced33fd840b1155900d230" kind="define"><name>XOSPIPSV_READ_1_1_8</name></member>
+    <member refid="group__ospipsv_1ga36ef23ba15c0bc67f757f5c283d40a3f" kind="define"><name>XOSPIPSV_READ_1_8_8</name></member>
+    <member refid="group__ospipsv_1ga709cdf45a55ca861480297b7003b4276" kind="define"><name>XOSPIPSV_READ_8_8_8</name></member>
+    <member refid="group__ospipsv_1ga4e2cbdd635977b71103eba2fd5dfe476" kind="define"><name>XOSPIPSV_READ_8_0_0</name></member>
+    <member refid="group__ospipsv_1ga9157fa7259b383771e2fb0e841c686fb" kind="define"><name>XOSPIPSV_READ_8_8_0</name></member>
+    <member refid="group__ospipsv_1ga57a366c2ca6fdbc86d36fa6a9fb43a00" kind="define"><name>XOSPIPSV_READ_8_0_8</name></member>
+    <member refid="group__ospipsv_1ga32262aa9148824eb4632cb1fb403b03e" kind="define"><name>XOSPIPSV_READ_1_1_4</name></member>
+    <member refid="group__ospipsv_1gae77f747885a8eabf1da42c4f6eda1ec4" kind="define"><name>XOSPIPSV_READ_4_4_4</name></member>
+    <member refid="group__ospipsv_1ga7cf4370e5c08c69a0a17b61ae2154e81" kind="define"><name>XOSPIPSV_WRITE_1_1_1</name></member>
+    <member refid="group__ospipsv_1ga29f8015257e80a1023a8aa170e983954" kind="define"><name>XOSPIPSV_WRITE_1_0_1</name></member>
+    <member refid="group__ospipsv_1ga7be00d62e5dffbe8646daa61f57482d9" kind="define"><name>XOSPIPSV_WRITE_1_1_2</name></member>
+    <member refid="group__ospipsv_1ga96084590cbdee490499e091766ac5303" kind="define"><name>XOSPIPSV_WRITE_1_1_8</name></member>
+    <member refid="group__ospipsv_1gad1353dfaf407584d8ca44a7687056630" kind="define"><name>XOSPIPSV_WRITE_1_8_8</name></member>
+    <member refid="group__ospipsv_1ga0e425288167a2f7a8ed1fe2e5a11184a" kind="define"><name>XOSPIPSV_WRITE_8_8_8</name></member>
+    <member refid="group__ospipsv_1ga702fb393e805b9e61b3f80915ea83651" kind="define"><name>XOSPIPSV_WRITE_8_0_0</name></member>
+    <member refid="group__ospipsv_1ga86847b801b21e04fe26610aa79905b2d" kind="define"><name>XOSPIPSV_WRITE_8_8_0</name></member>
+    <member refid="group__ospipsv_1ga040bc73086a36492271db44e373a33e2" kind="define"><name>XOSPIPSV_WRITE_8_0_8</name></member>
+    <member refid="group__ospipsv_1gafd1420f3bb913b572a496ae82d082e26" kind="define"><name>XOSPIPSV_WRITE_1_1_4</name></member>
+    <member refid="group__ospipsv_1ga7fb313ed7c64e72414189578a533d4ab" kind="define"><name>XOSPIPSV_WRITE_4_4_4</name></member>
+    <member refid="group__ospipsv_1ga40bc60d265ec996c0327b2ae56f22e93" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS0</name></member>
+    <member refid="group__ospipsv_1ga7e63fb4ca85045a809257dea44e49fff" kind="define"><name>XOSPIPSV_SELECT_FLASH_CS1</name></member>
+    <member refid="group__ospipsv_1gafa87a0dae28a8b2927c5c8885f7306ff" kind="define"><name>XOSPIPSV_CLK_PRESCALE_2</name></member>
+    <member refid="group__ospipsv_1gacaeaebdb5ff4186e5594516e2811bdc0" kind="define"><name>XOSPIPSV_CLK_PRESCALE_4</name></member>
+    <member refid="group__ospipsv_1ga0dbc58401f5e44a06981d9697db2fa71" kind="define"><name>XOSPIPSV_CLK_PRESCALE_6</name></member>
+    <member refid="group__ospipsv_1gaecd8ef9b33fad6b7b590e243fe1b971a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_8</name></member>
+    <member refid="group__ospipsv_1ga54e41947536783afa4e9df70cb42ca5e" kind="define"><name>XOSPIPSV_CLK_PRESCALE_10</name></member>
+    <member refid="group__ospipsv_1gad5869a3a26216cc3f44fd48cfa54e885" kind="define"><name>XOSPIPSV_CLK_PRESCALE_12</name></member>
+    <member refid="group__ospipsv_1ga44cc913c83946a445f7bb2b48a2dce95" kind="define"><name>XOSPIPSV_CLK_PRESCALE_14</name></member>
+    <member refid="group__ospipsv_1gaa58bf9f9a4eafb248e6883005a19d673" kind="define"><name>XOSPIPSV_CLK_PRESCALE_16</name></member>
+    <member refid="group__ospipsv_1gacc0bf7d369703bfe345594943fca6b32" kind="define"><name>XOSPIPSV_CLK_PRESCALE_18</name></member>
+    <member refid="group__ospipsv_1ga79c511af64eb9315a9afef1f08c9b4d6" kind="define"><name>XOSPIPSV_CLK_PRESCALE_20</name></member>
+    <member refid="group__ospipsv_1ga3000efb8d382f83208de9b626e92aea1" kind="define"><name>XOSPIPSV_CLK_PRESCALE_22</name></member>
+    <member refid="group__ospipsv_1ga3bd4e9f6c431cb59314d5cf0389648db" kind="define"><name>XOSPIPSV_CLK_PRESCALE_24</name></member>
+    <member refid="group__ospipsv_1ga9eee974acb77e1a655c5febe0101564a" kind="define"><name>XOSPIPSV_CLK_PRESCALE_26</name></member>
+    <member refid="group__ospipsv_1gad73c4fb8ab342a52e09f959842874f68" kind="define"><name>XOSPIPSV_CLK_PRESCALE_28</name></member>
+    <member refid="group__ospipsv_1ga3c1d523d65dd8db2683f81604184b970" kind="define"><name>XOSPIPSV_CLK_PRESCALE_30</name></member>
+    <member refid="group__ospipsv_1gaca300cf75293c8cf444597c5b2397902" kind="define"><name>XOSPIPSV_CLK_PRESCALE_32</name></member>
+    <member refid="group__ospipsv_1ga8a91f9d1eaa7c095254cfbf98d984409" kind="define"><name>XOSPIPSV_CR_PRESC_MAXIMUM</name></member>
+    <member refid="group__ospipsv_1ga991c187a5fad3e379a163dcd03062869" kind="define"><name>XOSPIPSV_NO_SLAVE_SELCT_VALUE</name></member>
+    <member refid="group__ospipsv_1gad2060927f297b9906c849b82b8fe03dd" kind="define"><name>XOSPIPSV_DISABLE_DAC_VALUE</name></member>
+    <member refid="group__ospipsv_1ga1548e5a26ceaf7f67cbef21b55e7f8e4" kind="define"><name>XOSPIPSV_SPI_DISABLE_VALUE</name></member>
+    <member refid="group__ospipsv_1ga10a7ab6142ef8c47b685ae3a41b3a096" kind="define"><name>XOSPIPSV_CONFIG_INIT_VALUE</name></member>
+    <member refid="group__ospipsv_1gae477b3fcff972f679236ad0fe5a7dc2b" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_PHY</name></member>
+    <member refid="group__ospipsv_1ga82932f620415768076278db6ae963876" kind="define"><name>XOSPIPSV_POLL_CNT_FLD_NON_PHY</name></member>
+    <member refid="group__ospipsv_1gaee85feb1da4d7ee45733a27be339c468" kind="define"><name>XOSPIPSV_MIN_PHY_FREQ</name></member>
+    <member refid="group__ospipsv_1ga97bf16593509dbd288b9359189d10187" kind="define"><name>XOSPIPSV_DDR_STATS_REG_DUMMY</name></member>
+    <member refid="group__ospipsv_1gacece30f46905dd497b71bb48c547eeee" kind="define"><name>XOSPIPSV_REMAP_ADDR_VAL</name></member>
+    <member refid="group__ospipsv_1ga1bd79b3785a971fb4a3334b2eed27219" kind="define"><name>XOSPIPSV_NON_PHY_RD_DLY</name></member>
+    <member refid="group__ospipsv_1gaaeb2c46391be17bb6ad395bf2953a63a" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_PHY</name></member>
+    <member refid="group__ospipsv_1gab4d86dca4be2a3f0fc6c8ba5aa50ed68" kind="define"><name>XOSPIPSV_EDGE_MODE_SDR_NON_PHY</name></member>
+    <member refid="group__ospipsv_1gac4aa73db6633a7656ac2d1137ebf1046" kind="define"><name>XOSPIPSV_EDGE_MODE_DDR_PHY</name></member>
+    <member refid="group__ospipsv_1gaa2ca88550aec15d0444ecfeede909e96" kind="define"><name>XOSPIPSV_SDR_TX_VAL</name></member>
+    <member refid="group__ospipsv_1gaf741c5fd5c724e7830aac4f25a14676f" kind="define"><name>XOSPIPSV_DDR_TX_VAL</name></member>
+    <member refid="group__ospipsv_1ga1d6dce932b27b0be2e68ab1a52d4077d" kind="define"><name>XOSPIPSV_DDR_TX_VAL_MASTER</name></member>
+    <member refid="group__ospipsv_1ga29493f81269faccd5588508c1d71d2e6" kind="define"><name>XOSPIPSV_SDR_TX_VAL_MASTER</name></member>
+    <member refid="group__ospipsv_1ga6fd3f0f8e6e2beccd5d4dd476b7b1f0f" kind="define"><name>XOSPIPSV_DLL_MAX_TAPS</name></member>
+    <member refid="group__ospipsv_1ga1354e2d970f4721642687811112360d1" kind="define"><name>XOSPIPSV_HWPIN_RESET</name></member>
+    <member refid="group__ospipsv_1ga55adc49e15cf2ea48da37fb42718ed16" kind="define"><name>XOSPIPSV_INBAND_RESET</name></member>
+    <member refid="group__ospipsv_1ga000401b5e3c2ecf2b879ca7f95d86535" kind="define"><name>XOSPIPSV_DLL_BYPASS_MODE</name></member>
+    <member refid="group__ospipsv_1gace8550a20acf2b80b9f6c2ef6baa3c3e" kind="define"><name>XOSPIPSV_DLL_MASTER_MODE</name></member>
+    <member refid="group__ospipsv_1ga95a91c3035b74c7240efd50dcf786b1d" kind="define"><name>XOSPIPSV_CONNECTION_MODE_SINGLE</name></member>
+    <member refid="group__ospipsv_1gad034eceb481f5722918c4313070f56f5" kind="define"><name>XOSPIPSV_CONNECTION_MODE_STACKED</name></member>
+    <member refid="group__ospipsv_1ga67ed8369dd3e6a8ab7e92952877a1f4d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_DISABLE</name></member>
+    <member refid="group__ospipsv_1ga20cee3653bbcb80adcc31f993de12c0d" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_ENABLE</name></member>
+    <member refid="group__ospipsv_1gad3012f761e6f72f9faa9ccda20f95459" kind="define"><name>XOSPIPSV_DUAL_BYTE_OP_SAME</name></member>
+    <member refid="group__ospipsv_1ga2fded7b6bdbc994e9358fed0cda3a103" kind="typedef"><name>XOspiPsv_StatusHandler</name></member>
+    <member refid="group__ospipsv_1ga992d9fa781379e0cc76acdc13cb8b54c" kind="variable"><name>XOspiPsv_ConfigTable</name></member>
+    <member refid="group__ospipsv_1ga466b35dd2fa531cda25197d883b445d9" kind="function"><name>XOspiPsv_LookupConfig</name></member>
+    <member refid="group__ospipsv_1gae5a31f79cc2df46027e4b9f26cad97ad" kind="function"><name>XOspiPsv_CfgInitialize</name></member>
+    <member refid="group__ospipsv_1gab43ba912b750cce29cef9d5d652e11af" kind="function"><name>XOspiPsv_Reset</name></member>
+    <member refid="group__ospipsv_1ga45c51bcfa1e2d996298847c2b7910ba6" kind="function"><name>XOspiPsv_SetClkPrescaler</name></member>
+    <member refid="group__ospipsv_1ga2d17525a71d9df7268fcc4269f19270c" kind="function"><name>XOspiPsv_SelectFlash</name></member>
+    <member refid="group__ospipsv_1gab47df170b16816d4cc11dee6c3008e3c" kind="function"><name>XOspiPsv_SetOptions</name></member>
+    <member refid="group__ospipsv_1ga19324f8c6c1156b26c84cc9d413a4801" kind="function"><name>XOspiPsv_GetOptions</name></member>
+    <member refid="group__ospipsv_1ga808cc2759798221d0d4f44eef27c0629" kind="function"><name>XOspiPsv_PollTransfer</name></member>
+    <member refid="group__ospipsv_1gaaf23d7567b974cfac69ecadd2919999d" kind="function"><name>XOspiPsv_IntrTransfer</name></member>
+    <member refid="group__ospipsv_1gaa415227de8c6663e478041a82887dd5b" kind="function"><name>XOspiPsv_IntrHandler</name></member>
+    <member refid="group__ospipsv_1ga96e167a2c7e8917efaf4bcab5c3d561b" kind="function"><name>XOspiPsv_SetStatusHandler</name></member>
+    <member refid="group__ospipsv_1ga74efb98d92b16935c3ea41e4f77cecea" kind="function"><name>XOspiPsv_SetSdrDdrMode</name></member>
+    <member refid="group__ospipsv_1gaec5aab7a4cee335804494e31429b53ec" kind="function"><name>XOspiPsv_ConfigureAutoPolling</name></member>
+    <member refid="group__ospipsv_1ga70d2c317de32d39ddab3b585c9da5d69" kind="function"><name>XOspiPsv_Idle</name></member>
+    <member refid="group__ospipsv_1ga16fcc38cab80027ea601c99569517067" kind="function"><name>XOspiPsv_DeviceReset</name></member>
+    <member refid="group__ospipsv_1ga26ffa91c5d5d79028535a2e3381174e6" kind="function"><name>XOspiPsv_DeviceResetViaOspi</name></member>
+    <member refid="group__ospipsv_1ga4fe1250ba300d83c1acb4291301429f9" kind="function"><name>XOspiPsv_StartDmaTransfer</name></member>
+    <member refid="group__ospipsv_1ga816c6bf2a419d38bd2e4d51a266a6d3b" kind="function"><name>XOspiPsv_CheckDmaDone</name></member>
+    <member refid="group__ospipsv_1ga3946ea37da6d9ce478f29eca239b597b" kind="function"><name>XOspiPsv_SetDllDelay</name></member>
+    <member refid="group__ospipsv_1gabba4009ea62fb0b8c856a8582ed9f77b" kind="function"><name>XOspiPsv_ConfigDualByteOpcode</name></member>
+    <member refid="group__ospipsv_1ga5cc34e95babfb307ef694eec5cae4067" kind="define"><name>XOSPIPSV_RXADDR_OVER_32BIT</name></member>
+    <member refid="group__ospipsv_1ga231f60eeceeca0fd2afab316c2f30424" kind="define"><name>XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ</name></member>
+  </compound>
+  <compound refid="group__xospipsv__flash__intr__example" kind="group"><name>xospipsv_flash_intr_example</name>
+    <member refid="group__xospipsv__flash__intr__example_1ga6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gaf8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga2dd94411694db2d8662ebacc6e880c0a" kind="variable"><name>TransferInProgress</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" kind="variable"><name>Error</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gadb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gad601c2031bc6aa962fda586ed44872a9" kind="function"><name>OspiPsvInterruptFlashExample</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gae36d48b5186d548ebde0af294ea5ee1f" kind="function"><name>OspiPsvHandler</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gaaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga90bc74590962865fc1ab7ee1be0f4b64" kind="define"><name>INTC_DEVICE_ID</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gabd83fcf72dd3669c53827ef7cf2bf3e3" kind="define"><name>OSPIPSV_INTR_ID</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1ga9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
+    <member refid="group__xospipsv__flash__intr__example_1gad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
+  </compound>
+  <compound refid="group__xospipsv__flash__non__blocking__read__example" kind="group"><name>xospipsv_flash_non_blocking_read_example</name>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaf8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gadb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaeca8b1ed044f11310838d4e024ca3323" kind="function"><name>OspiPsvFlashNonBlockingReadExample</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" kind="function"><name>FlashWriteCfgReg</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga41da7fd71e9af03552fef321f42c19f1" kind="function"><name>FlashReadCfgReg</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gaf2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1ga9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
+    <member refid="group__xospipsv__flash__non__blocking__read__example_1gad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
+  </compound>
+  <compound refid="group__xospipsv__flash__polled__example" kind="group"><name>xospipsv_flash_polled_example</name>
+    <member refid="group__xospipsv__flash__polled__example_1ga6d521daf149f9047dc5d589daaa16d42" kind="variable"><name>TxBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab7437db129dfe4f3b66551d27aa957b0" kind="variable"><name>ReadBfrPtr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gaf8ace83e43786ba25b4a81742df92b37" kind="variable"><name>FlashMake</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga18032ba8996d2fcfb0fabed1d2d119b6" kind="variable"><name>FlashType</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga8d80524bb6369924849dee07b6037695" kind="variable"><name>FCTIndex</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gac657302f5b0964ae2322d7d3a54f3945" kind="variable"><name>OspiPsvInstance</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gad13128082696c36a6fda3c2598e4567b" kind="variable"><name>FlashMsg</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab3bcee72bda39943b664463f1df4d211" kind="variable"><name>Test</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga9285634c7b4e2bad0120d39c4d378646" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga45a9b5de155e995a0dd6939cd6a12b76" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gae05983c4f8e4b2d1c912414136eac56c" kind="variable"><name>CmdBfr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gadb76586d04c997f8b79c771199f091be" kind="variable"><name>FSRFlag</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab839e91b4279b469bdd2167b7e386fd2" kind="variable"><name>MaxData</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga1fd69bc7caf0af026a8b73f2d51ba479" kind="function"><name>OspiPsvPolledFlashExample</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga19dbfab221d6a11c3fa45674c1304f2e" kind="function"><name>FlashReadID</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga6d28e30d23e136e4af00a436d43c9923" kind="function"><name>FlashErase</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga8337d4d551570e7ecaa44321605280a7" kind="function"><name>FlashIoWrite</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga6fff73aa13d90cd15521ab1f7de503dc" kind="function"><name>FlashLinearWrite</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga1355d0e2c6bb04d1f65ca815d71d5996" kind="function"><name>FlashRead</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gae08db22955675661860c9008890b0138" kind="function"><name>GetRealAddr</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga223a0d4b5dd8fb7fca1b1e42872d3521" kind="function"><name>BulkErase</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga7ceb61abe9a7b767c75ad57929adf3b3" kind="function"><name>DieErase</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab399f8b8371b348eeb16d0a837a12c37" kind="function"><name>FlashRegisterRead</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gaaef465ce1a897668ec9cc4f5287e3c96" kind="function"><name>FlashRegisterWrite</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga799d90a5caee30dd850a6190a6b3efeb" kind="function"><name>InitCmd</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga929e1c114b2752e00136aa5ebb3cbeda" kind="function"><name>FlashEnterExit4BAddMode</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga0a9589429a6f4d85a6df0ff5cee3a2e6" kind="function"><name>FlashWriteCfgReg</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga41da7fd71e9af03552fef321f42c19f1" kind="function"><name>FlashReadCfgReg</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga92ee697864550c95e476b41c43c0764f" kind="function"><name>FlashSetSDRDDRMode</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga48b07e8e007e2da190edcfc0cc1d389b" kind="function"><name>SetBlockProtect</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga0a18f01d96728256fb8c63b4916039c0" kind="function"><name>MicronBlockProtectTest</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gaf2bad08ca36b22108da68d87e5d29201" kind="function"><name>SpansionSetEccMode</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gab01ca7bff4098e88b315bd230b948658" kind="function"><name>MxConfigDummy</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga08e2382b1a337e871524e10a23f1b984" kind="function"><name>XOspiPsv_Get_Proto</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kind="define"><name>PAGE_COUNT</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" kind="define"><name>MAX_PAGE_SIZE</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1ga9376dcef436c7d444fe4d1fd11749101" kind="define"><name>TEST_ADDRESS</name></member>
+    <member refid="group__xospipsv__flash__polled__example_1gad922278cd1812d8a566d5b9da390681f" kind="define"><name>UNIQUE_VALUE</name></member>
   </compound>
   <compound refid="example" kind="page"><name>example</name>
   </compound>
@@ -625,7 +773,5 @@
   <compound refid="dir_228505fe6d4ffcb824c758890c8d95dc" kind="dir"><name>ospipsv</name>
   </compound>
   <compound refid="dir_fef6730629f77ecf3af1c93150c6bdd9" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

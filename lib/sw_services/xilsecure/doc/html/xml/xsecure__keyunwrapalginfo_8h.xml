@@ -8,48 +8,48 @@
     <includes local="yes">xsecure_plat_defs.h</includes>
     <includedby refid="xsecure__keyunwrapalginfo_8c" local="yes">xsecure_keyunwrapalginfo.c</includedby>
     <incdepgraph>
-      <node id="1926">
+      <node id="1979">
         <label>xil_sutil.h</label>
       </node>
-      <node id="1929">
-        <label>xsecure_plat_defs.h</label>
-      </node>
-      <node id="1925">
-        <label>xil_cryptoalginfo.h</label>
-      </node>
-      <node id="1924">
-        <label>xsecure_keyunwrapalginfo.h</label>
-        <link refid="xsecure_keyunwrapalginfo.h"/>
-        <childnode refid="1925" relation="include">
-        </childnode>
-        <childnode refid="1926" relation="include">
-        </childnode>
-        <childnode refid="1927" relation="include">
-        </childnode>
-        <childnode refid="1929" relation="include">
-        </childnode>
-      </node>
-      <node id="1928">
-        <label>xil_types.h</label>
-      </node>
-      <node id="1927">
+      <node id="1980">
         <label>xsecure_alghelper.h</label>
         <link refid="xsecure__alghelper_8h"/>
-        <childnode refid="1925" relation="include">
+        <childnode refid="1978" relation="include">
         </childnode>
-        <childnode refid="1928" relation="include">
+        <childnode refid="1981" relation="include">
         </childnode>
+      </node>
+      <node id="1977">
+        <label>xsecure_keyunwrapalginfo.h</label>
+        <link refid="xsecure_keyunwrapalginfo.h"/>
+        <childnode refid="1978" relation="include">
+        </childnode>
+        <childnode refid="1979" relation="include">
+        </childnode>
+        <childnode refid="1980" relation="include">
+        </childnode>
+        <childnode refid="1982" relation="include">
+        </childnode>
+      </node>
+      <node id="1982">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1978">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="1981">
+        <label>xil_types.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1931">
+      <node id="1984">
         <label>xsecure_keyunwrapalginfo.c</label>
         <link refid="xsecure__keyunwrapalginfo_8c"/>
       </node>
-      <node id="1930">
+      <node id="1983">
         <label>xsecure_keyunwrapalginfo.h</label>
         <link refid="xsecure_keyunwrapalginfo.h"/>
-        <childnode refid="1931" relation="include">
+        <childnode refid="1984" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -71,16 +71,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.c" bodystart="50" bodyend="53"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" compoundref="net_2xsecure__plat__defs_8h" startline="126">XSECURE_API_KEY_UNWRAP</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.c" bodystart="48" bodyend="51"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" compoundref="net_2xsecure__plat__defs_8h" startline="127">XSECURE_API_KEY_UNWRAP</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -130,6 +129,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_KEYUNWRAPALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_keyunwrapalginfo.h"/>
   </compounddef>
 </doxygen>

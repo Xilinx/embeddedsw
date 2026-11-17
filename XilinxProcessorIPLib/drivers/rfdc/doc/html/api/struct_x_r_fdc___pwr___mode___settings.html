@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___pwr___mode___settings
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,6 +106,8 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___pwr___mode___settings
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XRFdc_Pwr_Mode_Settings Struct Reference<div class="ingroups"><a class="el" href="group___overview.html">Overview</a></div></div>  </div>
 </div><!--header-->
@@ -115,9 +117,52 @@ $(document).ready(function(){initNavTree('struct_x_r_fdc___pwr___mode___settings
  <a href="struct_x_r_fdc___pwr___mode___settings.html#details">More...</a></p>
 
 <p><code>#include &lt;xrfdc.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a5b8b7065c922d8ca1384470d2104884e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___pwr___mode___settings.html#a5b8b7065c922d8ca1384470d2104884e">DisableIPControl</a></td></tr>
+<tr class="memdesc:a5b8b7065c922d8ca1384470d2104884e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables IP RTS control of the power mode.  <a href="#a5b8b7065c922d8ca1384470d2104884e">More...</a><br/></td></tr>
+<tr class="separator:a5b8b7065c922d8ca1384470d2104884e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4bda9cac34d2491e1259043a98b608b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_r_fdc___pwr___mode___settings.html#aa4bda9cac34d2491e1259043a98b608b">PwrMode</a></td></tr>
+<tr class="memdesc:aa4bda9cac34d2491e1259043a98b608b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The power mode.  <a href="#aa4bda9cac34d2491e1259043a98b608b">More...</a><br/></td></tr>
+<tr class="separator:aa4bda9cac34d2491e1259043a98b608b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RFSoC Power Mode settings. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5b8b7065c922d8ca1384470d2104884e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Pwr_Mode_Settings::DisableIPControl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables IP RTS control of the power mode. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga988457a61856845ec98129b9d83076c4">XRFdc_GetPwrMode()</a>, and <a class="el" href="group___overview.html#gad428455c40bba3ac0b3b7d15ff6b726f">XRFdc_SetPwrMode()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa4bda9cac34d2491e1259043a98b608b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> XRFdc_Pwr_Mode_Settings::PwrMode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The power mode. </p>
+
+<p>Referenced by <a class="el" href="group___overview.html#ga988457a61856845ec98129b9d83076c4">XRFdc_GetPwrMode()</a>, and <a class="el" href="group___overview.html#gad428455c40bba3ac0b3b7d15ff6b726f">XRFdc_SetPwrMode()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

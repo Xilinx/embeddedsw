@@ -5,7 +5,7 @@
     <includes local="no">xclockps.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_clock_1afc660e49f3583f669e5e63a1204dc1ed" prot="public" static="no" mutable="no">
-        <type>XClockPs_Config</type>
+        <type><ref refid="struct_x_clock_ps___config" kindref="compound">XClockPs_Config</ref></type>
         <definition>XClockPs_Config XClock::Config</definition>
         <argsstring></argsstring>
         <name>Config</name>
@@ -15,14 +15,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="213" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__clockps_1ga27a346cef56805f43f1bd2251402189c" compoundref="xclockps_8c" startline="115" endline="132">XClock_CfgInitialize</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The XClockPs driver instance data. </para>    </briefdescription>
+<para>Holds instance data for a CLOCKPS device. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for every clock controller device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="212" bodyend="214"/>
+<para>Allocate a variable of this type for every clock controller in the system. Pass a pointer to that variable to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XClockPs_Config</label>
+        <link refid="struct_x_clock_ps___config"/>
+      </node>
+      <node id="1">
+        <label>XClock</label>
+        <link refid="struct_x_clock"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps.h" bodystart="297" bodyend="299"/>
     <listofallmembers>
       <member refid="struct_x_clock_1afc660e49f3583f669e5e63a1204dc1ed" prot="public" virt="non-virtual"><scope>XClock</scope><name>Config</name></member>
     </listofallmembers>

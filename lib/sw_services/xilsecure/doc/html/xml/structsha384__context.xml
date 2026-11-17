@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="58" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsha384__context_1aee2976b4cbb36a0b028962816740a306" prot="public" static="no" mutable="no">
         <type>unsigned char</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="59" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structsha384__context_1aad91e2425ff0d0fe67c683c32f7c5d34" prot="public" static="no" mutable="no">
         <type>unsigned long long</type>
@@ -41,14 +41,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="60" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="60" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>SHA-384 context structure Includes SHA-384 state, coalescing buffer to collect the processed strings, and total byte length counter (used both to manage the buffer and for padding) </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="56" bodyend="61"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/SoftSHA.h" bodystart="56" bodyend="61"/>
     <listofallmembers>
       <member refid="structsha384__context_1aee2976b4cbb36a0b028962816740a306" prot="public" virt="non-virtual"><scope>sha384_context</scope><name>buffer</name></member>
       <member refid="structsha384__context_1aad91e2425ff0d0fe67c683c32f7c5d34" prot="public" virt="non-virtual"><scope>sha384_context</scope><name>bytes</name></member>

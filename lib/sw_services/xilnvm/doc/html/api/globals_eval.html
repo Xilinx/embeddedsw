@@ -72,6 +72,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
       <li class="current"><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
@@ -102,7 +104,7 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -232,8 +234,26 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 <li>XNVM_API_MAX
 : <a class="el" href="group__xnvm__def__api__ids.html#ggafefb58b4bc539bff958b4da2dbdfdd15a353dbe511da9f52611b3a6ffd79d099c">common/xnvm_defs.h</a>
 </li>
-<li>XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED
-: <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adaa2a71e6cbe3ab92b745903acaa7922b5">common/xnvm_efuse_error_plat.h</a>
+<li>XNVM_CAP_ACCESS_PUF_USER_DATA_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a37280e2abc558de6b57ad3df042adfa8">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_CAP_EN_ADD_PPKS_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a8f2d2e875126bfe80fb94ef64a9aca45">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_CAP_ENABLE_ENV_MONITOR_CHECKS_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a67dd5f70f8f19375df5b95b643b0b9d9">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_CAP_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7a10ede66949538e1f4c79613bc1104c1a">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_CAP_WRITE_KEY_MANAGEMENT_EFUSE_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7ad84b04e4daa4b39f09d8ced068423abb">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_CAP_WRITE_SECURITY_CRITICAL_EFUSE_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7ad117a11fb4ede7028eb37558d5bb88dd">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_CAP_WRITE_USER_EFUSE_BIT
+: <a class="el" href="group__xnvm__def__api__ids.html#ggadf764cbdea00d65edcd07bb9953ad2b7aadf099f8c2f12d61de269885c3f21084">xnvm_common_defs.h</a>
 </li>
 <li>XNVM_EFUSE_AES_IV_RANGE
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga6615efa385d955cf1a35c58c8822bc85a09d7091709eb8d8a33347919f8c08a90">spartanup/xnvm_efuse.h</a>
@@ -247,6 +267,9 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 </li>
 <li>XNVM_EFUSE_DATA_PARTITION_IV_RANGE
 : <a class="el" href="group__xnvm__def__api__ids.html#gga9b9c488dfe06ff2966d5ded5f5ec76baa592cc63f89e90efd40530464f713d5b0">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED
+: <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada3fedaeed37e50f1d052cefc74b367e8a">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adaba38cd9a9610038633e121e27359783b">common/xnvm_efuse_error_plat.h</a>
@@ -288,8 +311,8 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 , <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcaf2dffe88d7ba95da4c73e9b7b113b73f">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcafdeb6ff2f4fc25f2645e87cdc8d512d1">xnvm_efuse_error.h</a>
-, <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bafdeb6ff2f4fc25f2645e87cdc8d512d1">spartanup/xnvm_efuse.h</a>
+: <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bafdeb6ff2f4fc25f2645e87cdc8d512d1">spartanup/xnvm_efuse.h</a>
+, <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcafdeb6ff2f4fc25f2645e87cdc8d512d1">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_DEC_ONLY_HASH_OR_PUF_KEY_MUST_BE_PRGMD
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba89e3cb9922cacfbac6c37f43a5680f15">spartanup/xnvm_efuse.h</a>
@@ -299,10 +322,13 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 , <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca3c2a740150b50a17409e36446807a068">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa96a99472d9c7ccfc2e3e33cc1097784d">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa96a99472d9c7ccfc2e3e33cc1097784d">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_DME_MODE_SET
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa11e635fec53b03b16ec96459be799402">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa11e635fec53b03b16ec96459be799402">next/common/xnvm_efuse_error_plat.h</a>
+</li>
+<li>XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED
+: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca9d91497c1119048f9b78493ead76f766">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_FUSE_PROTECTED
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bad266d3a6d6afe7285781c476aa586575">spartanup/xnvm_efuse.h</a>
@@ -318,6 +344,9 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 <li>XNVM_EFUSE_ERR_IN_ZEROIZATION
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca1d613bcd068b1a35f323449d19661fe8">xnvm_efuse_error.h</a>
 </li>
+<li>XNVM_EFUSE_ERR_INVALID_ADDR_RANGE
+: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca501aad13c9a5ba0217f16930d45c7702">xnvm_efuse_error.h</a>
+</li>
 <li>XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bae603da147108c813d79399f1c27b0278">spartanup/xnvm_efuse.h</a>
 </li>
@@ -328,6 +357,9 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 <li>XNVM_EFUSE_ERR_LOCK
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba7a2222f3c14c0a6ae0440a002cd16bb2">spartanup/xnvm_efuse.h</a>
 , <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca7a2222f3c14c0a6ae0440a002cd16bb2">xnvm_efuse_error.h</a>
+</li>
+<li>XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED
+: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcad1ae6555dfedac811da6fa7049014034">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_NONE
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca19a74cb8ab3a965c6d0654188d7d19c8">xnvm_efuse_error.h</a>
@@ -353,13 +385,13 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 , <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca218c7ba49b992bc20ea5abb2dab7a0b5">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_PLAT_RSVD_1
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa22da93291030ce7e6407d1d7d9593d52">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa22da93291030ce7e6407d1d7d9593d52">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_PLAT_RSVD_2
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa8429750869af5a79f3cd3a9013cde458">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa8429750869af5a79f3cd3a9013cde458">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_PLAT_RSVD_3
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa82757eac4af0e5c289e46670a797bb4e">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa82757eac4af0e5c289e46670a797bb4e">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba97176d037b4c9b5282639b5702c187b4">spartanup/xnvm_efuse.h</a>
@@ -422,8 +454,8 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada0d5d3ee5b425db249a711fcb95fca3a9">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_RD_PUF_FUSES
-: <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adaaec4a52f30604357af7338e31d42373d">common/xnvm_efuse_error_plat.h</a>
-, <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaaec4a52f30604357af7338e31d42373d">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaaec4a52f30604357af7338e31d42373d">next/common/xnvm_efuse_error_plat.h</a>
+, <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adaaec4a52f30604357af7338e31d42373d">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada6d6568cb5d8762d9e8ff3b544e56d17e">common/xnvm_efuse_error_plat.h</a>
@@ -444,13 +476,18 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 </li>
 <li>XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bacd86f3ad9f5800c47028da3f657bbd02">spartanup/xnvm_efuse.h</a>
+, <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcacd86f3ad9f5800c47028da3f657bbd02">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba57589212ada1dd1b766c78e4db4b57ed">spartanup/xnvm_efuse.h</a>
+, <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca57589212ada1dd1b766c78e4db4b57ed">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_RSVD_1
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bad04bb27fcceb39d7442293876d59f7f5">spartanup/xnvm_efuse.h</a>
 , <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcad04bb27fcceb39d7442293876d59f7f5">xnvm_efuse_error.h</a>
+</li>
+<li>XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA
+: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca3199eac8cf3d6dc651f13c7f57bbe96d">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_SYSMON_NOT_AVAILABLE
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55baaa6777ed5294f2fc270c6536fb29275d">spartanup/xnvm_efuse.h</a>
@@ -510,7 +547,7 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcaf3d8b746fb7cd55d904c13596ebbf448">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_BOOT_MODE_DISABLE
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa8d9407dfebf09d048d7a62d5aff60b19">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa8d9407dfebf09d048d7a62d5aff60b19">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_BOOTENV_WR_LK
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada6654c1e9086e0413bcf2599152273ebd">common/xnvm_efuse_error_plat.h</a>
@@ -519,13 +556,13 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada3f26dcb9d61a003ad043affa67df38b4">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_CRC
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aae2ba51fe45a286560091261788a77fd0">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aae2ba51fe45a286560091261788a77fd0">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_CRC_EN
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba5d3c3e45e4d62a58ef8a8523943428a2">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_CRC_SALT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aac1149a7a7a86242e7ad7ca455c18e311">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aac1149a7a7a86242e7ad7ca455c18e311">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada6b463d239a793d1b3b8d5e656023236e">common/xnvm_efuse_error_plat.h</a>
@@ -549,31 +586,31 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba21c0d51a9b05887a34fb5d47ab6b446c">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_KEY_0
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa4270c335684ddf3f0f8116963f0d2be5">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa4270c335684ddf3f0f8116963f0d2be5">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_KEY_1
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa4195c25056b822003a530d8885b6b8d2">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa4195c25056b822003a530d8885b6b8d2">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_KEY_2
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aab02e97ac53749b3a91f8cdb2d3a0bfd8">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aab02e97ac53749b3a91f8cdb2d3a0bfd8">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_KEY_3
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aae283f5114da79cb1485d023e984e2fe8">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aae283f5114da79cb1485d023e984e2fe8">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_MODE
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa0a7f31ccde9a847cc5a2ce1ad9dc8282">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa0a7f31ccde9a847cc5a2ce1ad9dc8282">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_0
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa1dfef91bb222440d6349d41d62b0f3ba">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa1dfef91bb222440d6349d41d62b0f3ba">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_1
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa593e8b9080f79ba7fb6f99309bbac707">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa593e8b9080f79ba7fb6f99309bbac707">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_2
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaa61974f9fc0c47a878568a9fc2d7c6c1">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaa61974f9fc0c47a878568a9fc2d7c6c1">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_3
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaf80ddb712cf9cdff2deaaf16bc1623b4">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaf80ddb712cf9cdff2deaaf16bc1623b4">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_DNA_WR_LK
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba39140e722c55d83e56c2ff705b7b5ad2">spartanup/xnvm_efuse.h</a>
@@ -644,10 +681,10 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcab47c0ff687faed5330cb07becbabda7b">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_MISC1_CTRL_BITS
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa006c16a2366abe20993fab7dd8263e02">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa006c16a2366abe20993fab7dd8263e02">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_MISC_CTRL_BITS
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa34488f9635226c952a8107df1983203d">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa34488f9635226c952a8107df1983203d">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcabfe628511dad3c04519d501c8f4ea64a">xnvm_efuse_error.h</a>
@@ -662,7 +699,7 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca2757cb23916a28412131210536572097">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_PLM_UPDATE
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aadfd9d95fc65282b25fa4826261a22e1b">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aadfd9d95fc65282b25fa4826261a22e1b">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_0
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada78b52195e5f3dedc7b38a74151e1cc0b">common/xnvm_efuse_error_plat.h</a>
@@ -779,7 +816,7 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcac8098929a508c982f9e570fccc0cde5e">xnvm_efuse_error.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aafcfebaaed17c52382ab7b1420d8f7381">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aafcfebaaed17c52382ab7b1420d8f7381">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA
 : <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca107930798ea8a811da851ef48f4fba32">xnvm_efuse_error.h</a>
@@ -790,6 +827,9 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 <li>XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55bac5bfb84c82e6944bbd9c2be50b570238">spartanup/xnvm_efuse.h</a>
 , <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fcac5bfb84c82e6944bbd9c2be50b570238">xnvm_efuse_error.h</a>
+</li>
+<li>XNVM_EFUSE_ERR_WRITE_PUF_USER_DATA
+: <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada51abf3075d073198dbbb6c9c79af8c54">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_PUFHD_INVLD
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba158f9b36a1e636ef5a87f93970d5ef42">spartanup/xnvm_efuse.h</a>
@@ -822,13 +862,13 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba289da711ef7a7b8fe8641ad0530787b0">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_RO_SWAP
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa1cfe4bfb939b5109fbd2a137f1fcadaf">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa1cfe4bfb939b5109fbd2a137f1fcadaf">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROM_OSPI_CMD_SEQ_CTRL
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba39c17af924ac1e0f52f362fdca811e34">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa29820d6d903178faf158931693bab556">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa29820d6d903178faf158931693bab556">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROM_RSVD_OSPI_DEV_RESET_CHOICE
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba5f99c06d8b1ff3015867796c1c953f21">spartanup/xnvm_efuse.h</a>
@@ -846,40 +886,40 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adad3bde36455e4a2485c18342203ba02a1">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_0_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaf4a98b2b3b281ca85554875598675214">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaf4a98b2b3b281ca85554875598675214">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_1_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa7379bde064b1a5f98f427d5a3bef2468">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa7379bde064b1a5f98f427d5a3bef2468">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_0_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaef4a6d90f5f6cbd20d37e81a6ee3bb14">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaef4a6d90f5f6cbd20d37e81a6ee3bb14">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_1_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa6e726a7f7d843293ded10804701244b0">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa6e726a7f7d843293ded10804701244b0">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_0_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa1d22e8b2eacbd4937f7117f412156b9b">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa1d22e8b2eacbd4937f7117f412156b9b">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_1_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaa9de7a816de638c2ce133d1e1e7aeccb">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaa9de7a816de638c2ce133d1e1e7aeccb">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_PUF_CHASH_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aadcb24a9821e1bba0656a3b7d96b35211">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aadcb24a9821e1bba0656a3b7d96b35211">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa0435ee599fa22d435dd794bfd7f8fd3d">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa0435ee599fa22d435dd794bfd7f8fd3d">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_1_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aafc0f9107bad44bf37b6bf6d67cdc8eb9">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aafc0f9107bad44bf37b6bf6d67cdc8eb9">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_0_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aabb43117ad101bddf72c6be35e83347ce">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aabb43117ad101bddf72c6be35e83347ce">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_1_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaaa1e4a385d62092671ef0ef0cf530d02">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aaaa1e4a385d62092671ef0ef0cf530d02">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC1_PROT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa219cc766f22dca3b240e3db355bc6ff3">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa219cc766f22dca3b240e3db355bc6ff3">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_ROW_37_PROT
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adafef5f66f30d3805efcdf4c37b498b65f">common/xnvm_efuse_error_plat.h</a>
@@ -915,7 +955,7 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba42862c0e3d6ff6c1bd2b4190ca59b593">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_SEC_CTRL_BITS
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aae67e8c981e6e32b2e6ca93311e5f6bad">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aae67e8c981e6e32b2e6ca93311e5f6bad">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada1d4f0fa167736aa81d49d216c58e0fa1">common/xnvm_efuse_error_plat.h</a>
@@ -945,7 +985,7 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47ada27cbaf0c2122e1f185e96dd7630f5df4">common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_UDS
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa411ff2ea6e75095af927d7dc8d15a0a3">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa411ff2ea6e75095af927d7dc8d15a0a3">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERR_WRITE_USER_FUSE
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba4f6245d568eb36b26d8b42cef9313c79">spartanup/xnvm_efuse.h</a>
@@ -972,31 +1012,127 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#gga06fc87d81c62e9abb8790b6e5713c55ba3113a51e6ddbbd07b45731978ea35d4c">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_ERROR_DME_MODE_SET
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa8d569b038be8de9b2f0ec20a11f438e8">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa8d569b038be8de9b2f0ec20a11f438e8">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa04b09447ce5e71f8836f7c8211cc41a7">net/common/xnvm_efuse_error_plat.h</a>
-</li>
-<li>XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca86ffedf762c2a56f63d1eee2a88c5c17">xnvm_efuse_error.h</a>
-</li>
-<li>XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca2e67b34114355dcc8f9b6528b3db6f3d">xnvm_efuse_error.h</a>
-</li>
-<li>XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca5889e498bb62933e403a7c28332ee064">xnvm_efuse_error.h</a>
-</li>
-<li>XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca6aed89fc61667e4a2784d0099fd4f769">xnvm_efuse_error.h</a>
-</li>
-<li>XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca92857890de785d9496d723d7cbe56ab5">xnvm_efuse_error.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa04b09447ce5e71f8836f7c8211cc41a7">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aad7e81cbc8d9ec851bc741918850975ed">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aad7e81cbc8d9ec851bc741918850975ed">next/common/xnvm_efuse_error_plat.h</a>
 </li>
-<li>XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA
-: <a class="el" href="group__xilnvm__error__codes.html#gga00c7dbe244969a974957cec19d29f1fca8f2f820cef391a9e44e23feb978cca50">xnvm_efuse_error.h</a>
+<li>XNVM_EFUSE_FIELD_AES_KEY
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a082a7440bf486a1eb332f83af8b1b325">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_BOOT_ENV_CTRL
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a298970ffb33be23a373f25f6550ab032">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_BOOT_MODE_DIS
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a10d2dac977d301b014582cea620706e6">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_COUNT
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a945a6187c7189f6a59578de58e82637d">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_CRC
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a1281a81421c3b134f55a41bcffa17fb8">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DEC_ONLY
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ae9843ce01309b8eda15f4c9f1cd5469c">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DME_KEY0
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720abd87564088fa154be785ca0b82c220b9">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DME_KEY1
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720aa66e99ceb0ba879d01bbc5bdf612bd69">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DME_KEY2
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720aed99fe375d9a600f2a080f6700b4f404">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DME_KEY3
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a09722f603a55c1f6b99808f821c7d413">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DME_MODE
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a28e3e76e19b2226069378c07b9eb66b9">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_DME_REVOKE
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a9ce65a27cefb56805729011db9984721">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_FIPS_MODE
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a10afbbe20ecb2fc9eca4367d8996511a">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_FIPS_VERSION
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a1df10df0c03d2869e63eb617e325d0c7">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_GLITCH_CONFIG
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a5e5524551f30fac4aed32ddf2d894101">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_GLITCH_WR_LK
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a66798feeefdb6cf792965ece62c0a5b2">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_IV_BLACK
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a1265c2f1b1abd63d0d07df38697dfb2c">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_IV_DATA_PARTITION
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ad75cda52e30bf97bb3503dd18db0d861">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_IV_META_HEADER
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a3b5e8cc56a7db6bc8ee1bc6a73331a6a">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_IV_PLM
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a0544031deaa38adf28dbb7109cd1c9e8">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_MISC_CTRL
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ad104d721f510480c1197dbccdafe9666">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_OFFCHIP_REVOKE_ID
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a18b8a1eb742725b057328fcd07907c3a">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PLM_UPDATE_DISABLE
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a5ebbbcf981387340189a73ae36c3b9cb">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PPK0_HASH
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ad1b0a06be0c6685470845c9bce52d9c0">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PPK1_HASH
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a65f34b75df1081213e401fbdaaf37786">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PPK2_HASH
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ad61cb30f67895961c3142279772dcc14">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PUF_AUX
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a56853b0be31f0ee3b48797fdd118ed8e">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PUF_CHASH
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ae7d6ce0c5b56203fbca9cd97a4d8c7f3">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PUF_RO_SWAP
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a1f1d048be91231770efc3ee394ae9ace">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PUF_SEC_CTRL
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720af991d4a5e02def915f58c4ea9039605c">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_PUF_SYN_DATA
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720aa5dfb589fd6242911e5020b2497f74bc">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_REVOKE_ID
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720ac55e855b53ae1128601dbbb95a994f90">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_ROM_RSVD
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a7df0991d071a5986c476a13725ed433e">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_SEC_CTRL
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a4bd027988be8758d710db95f1f14f989">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_SEC_MISC1
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720aaa23c95528978ec2e67c760ab48cd492">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_UDS
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a5ece424090ad88c39686a2549f60cc8d">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_USER_KEY0
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720a9dfb9af248e84e2d4d5c2431cb6f2f2a">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_FIELD_USER_KEY1
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a1a8f8668ce5e78f8847e18440619b720aea89f0a9ea882bb2b4d4f44558659655">xnvm_efuse_common_field.h</a>
 </li>
 <li>XNVM_EFUSE_INVLD
 : <a class="el" href="group__xnvm__def__api__ids.html#ggaf84fe281e56c68dea0409b055fd2cd26aa3cbf90471d712671bccbc4087811f5c">xnvm_common_defs.h</a>
@@ -1115,6 +1251,15 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 <li>XNVM_EFUSE_PAGE_2
 : <a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578af42a55e305604ef7abe0da7829d74b0c">xnvm_efuse_common.h</a>
 </li>
+<li>XNVM_EFUSE_PAGE_3
+: <a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578ab43f680ee3e89199604b6bac11ffc5c7">xnvm_efuse_common.h</a>
+</li>
+<li>XNVM_EFUSE_PAGE_4
+: <a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578a0fa66511ddfd28793596984767a57d0f">xnvm_efuse_common.h</a>
+</li>
+<li>XNVM_EFUSE_PAGE_5
+: <a class="el" href="group__xnvm__efuse__server__apis.html#gga545e370d65dd5455a7292c721c9bd578aa8ca3b3ca578f11978bd4a0f3190f167">xnvm_efuse_common.h</a>
+</li>
 <li>XNVM_EFUSE_PLM_IV_RANGE
 : <a class="el" href="group__xnvm__def__api__ids.html#gga9b9c488dfe06ff2966d5ded5f5ec76baa17b8b268f9d0ac85d038f82ad662a307">xnvm_common_defs.h</a>
 </li>
@@ -1123,12 +1268,30 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 , <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#ggaf1c02a37ed9053839674b9a9adf3e169a928eb461776b691d01df0067168cbeb2">spartanup/xnvm_efuse.h</a>
 </li>
 <li>XNVM_EFUSE_PPK1
-: <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca6e608e7e460e21c9a60f77fdc8199f01">xnvm_common_defs.h</a>
-, <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#ggaf1c02a37ed9053839674b9a9adf3e169a6e608e7e460e21c9a60f77fdc8199f01">spartanup/xnvm_efuse.h</a>
+: <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#ggaf1c02a37ed9053839674b9a9adf3e169a6e608e7e460e21c9a60f77fdc8199f01">spartanup/xnvm_efuse.h</a>
+, <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca6e608e7e460e21c9a60f77fdc8199f01">xnvm_common_defs.h</a>
 </li>
 <li>XNVM_EFUSE_PPK2
-: <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#ggaf1c02a37ed9053839674b9a9adf3e169acabb8510d521f1f2c81b72a99db4ce07">spartanup/xnvm_efuse.h</a>
-, <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2cacabb8510d521f1f2c81b72a99db4ce07">xnvm_common_defs.h</a>
+: <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2cacabb8510d521f1f2c81b72a99db4ce07">xnvm_common_defs.h</a>
+, <a class="el" href="group__xnvm__spartan__ultrascaleplus__efuse__apis.html#ggaf1c02a37ed9053839674b9a9adf3e169acabb8510d521f1f2c81b72a99db4ce07">spartanup/xnvm_efuse.h</a>
+</li>
+<li>XNVM_EFUSE_PPK3
+: <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2ca317e03f738b958fb3cd8f0fb2e37b3bc">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_EFUSE_PPK4
+: <a class="el" href="group__xnvm__def__api__ids.html#ggaafc5df161f553f1717cbf341bc30cd2caf933249ad1d5d94f19de28a5363af266">xnvm_common_defs.h</a>
+</li>
+<li>XNVM_EFUSE_PRECOND_NONE
+: <a class="el" href="xnvm__efuse__common__field_8h.html#a64e8ef18eac841d6b49b94213bf9b5a0a063709d91ec4d939907708b073bcc73b">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_PROT_TRIGGER_RANGE_NONZERO
+: <a class="el" href="xnvm__efuse__common__field_8h.html#af9636449640eb9cd08a5e7c6c58c2db4a475459d6b5ec7d0d0e7666d46f397fc4">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_PROT_TRIGGER_REG_MASKED_NONZERO
+: <a class="el" href="xnvm__efuse__common__field_8h.html#af9636449640eb9cd08a5e7c6c58c2db4a9f775bbdf88776607da395526ef709e2">xnvm_efuse_common_field.h</a>
+</li>
+<li>XNVM_EFUSE_PROT_TRIGGER_REG_NONZERO
+: <a class="el" href="xnvm__efuse__common__field_8h.html#af9636449640eb9cd08a5e7c6c58c2db4aed4ad32c0796240d4aed2271c856a19f">xnvm_efuse_common_field.h</a>
 </li>
 <li>XNVM_EFUSE_REVOCATION_ID_0
 : <a class="el" href="group__xnvm__def__api__ids.html#gga2d6a5249bee4709d3ab0eccb810e1ee9a708b29fa83735602a96c7e60947f3128">xnvm_common_defs.h</a>
@@ -1254,13 +1417,10 @@ $(document).ready(function(){initNavTree('globals_eval.html','');});
 : <a class="el" href="group__xnvm__def__api__ids.html#gga3b0258a29c1f095e8949ab58e45e9540a47c7cb64fdebf4a557cd33cdb25ab83c">xnvm_common_defs.h</a>
 </li>
 <li>XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa00e58d67dd13be865b06f43684a76f74">net/common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa00e58d67dd13be865b06f43684a76f74">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 <li>XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED
-: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa4f9d8d3dc85d4d8ca922b5c2a79249cd">net/common/xnvm_efuse_error_plat.h</a>
-</li>
-<li>XNVM_ERR_WRITE_PUF_USER_DATA
-: <a class="el" href="group__xilnvm__error__codes.html#gga86e3961e656aebaac884575ef08d47adad40617228ffca822be26187c5b1ec717">common/xnvm_efuse_error_plat.h</a>
+: <a class="el" href="group__xilnvm__error__codes.html#gga30215236c6d8dc87857fb0cee99c658aa4f9d8d3dc85d4d8ca922b5c2a79249cd">next/common/xnvm_efuse_error_plat.h</a>
 </li>
 </ul>
 </div><!-- contents -->

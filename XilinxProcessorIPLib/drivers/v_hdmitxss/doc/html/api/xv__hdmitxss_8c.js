@@ -61,5 +61,6 @@ var xv__hdmitxss_8c =
     [ "XV_HdmiTxSs_SYSRST", "xv__hdmitxss_8c.html#a77923fdc63d61ac02682f01761e22f41", null ],
     [ "XV_HdmiTxSs_TXCore_LRST", "xv__hdmitxss_8c.html#ab460326ed658ca9f78fd4693082bb4a5", null ],
     [ "XV_HdmiTxSs_TXCore_VRST", "xv__hdmitxss_8c.html#a30878ea5353d52555a6afc7a4dacc4d6", null ],
-    [ "XV_HdmiTxSs_VRST", "xv__hdmitxss_8c.html#afc2950cff189fcfb6d92adc93f3ed807", null ]
+    [ "XV_HdmiTxSs_VRST", "xv__hdmitxss_8c.html#afc2950cff189fcfb6d92adc93f3ed807", null ],
+    [ "XV_HdmiTxSs_SubCoreRepo", "xv__hdmitxss_8c.html#ab4b2d9d34e7f0fc71c1811f53e0a82f2", null ]
 ];

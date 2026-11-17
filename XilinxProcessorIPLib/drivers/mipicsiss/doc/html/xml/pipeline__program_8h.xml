@@ -5,21 +5,21 @@
     <includedby refid="xmipi__example_8c" local="yes">xmipi_example.c</includedby>
     <includedby refid="xmipi__menu_8c" local="yes">xmipi_menu.c</includedby>
     <invincdepgraph>
-      <node id="474">
+      <node id="509">
         <label>xmipi_menu.c</label>
         <link refid="xmipi__menu_8c"/>
       </node>
-      <node id="472">
-        <label>pipeline_program.h</label>
-        <link refid="pipeline_program.h"/>
-        <childnode refid="473" relation="include">
-        </childnode>
-        <childnode refid="474" relation="include">
-        </childnode>
-      </node>
-      <node id="473">
+      <node id="508">
         <label>xmipi_example.c</label>
         <link refid="xmipi__example_8c"/>
+      </node>
+      <node id="507">
+        <label>pipeline_program.h</label>
+        <link refid="pipeline_program.h"/>
+        <childnode refid="508" relation="include">
+        </childnode>
+        <childnode refid="509" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -41,8 +41,8 @@ This function programs MIPI DSI SS with the required timing parameters.</para><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="368" bodyend="420"/>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="324" bodyend="372"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a846e1e9bf2b5575fd4dcd158ca6e044b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -60,7 +60,7 @@ This function programs MIPI DSI SS with the required timing parameters.</para><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1475" bodyend="1499"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1429" bodyend="1449"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1ac2faac01ab0a76fcf6d5904f6c8dc5b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -76,7 +76,7 @@ This function programs MIPI DSI SS with the required timing parameters.</para><p
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="33" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="33" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a9af254929ec07e0b8e29ff28e18ec709" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -96,11 +96,11 @@ This function programs MIPI CSI SS with the required timing parameters.</para><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="432" bodyend="456"/>
-        <references refid="struct_x_csi_ss___config_1accf7178f1f7fc0ba40fee2e61ca159bc" compoundref="xcsiss_8h" startline="214">XCsiSs_Config::BaseAddr</references>
-        <references refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</references>
-        <references refid="group__csiss_1ga83324a4361a851f2e393f6d0b2c0c539" compoundref="xcsiss__sinit_8c" startline="79" endline="92">XCsiSs_LookupConfig</references>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="384" bodyend="404"/>
+        <references refid="struct_x_csi_ss___config_1accf7178f1f7fc0ba40fee2e61ca159bc" compoundref="xcsiss_8h" startline="205">XCsiSs_Config::BaseAddr</references>
+        <references refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="117" endline="160">XCsiSs_CfgInitialize</references>
+        <references refid="group__csiss_1ga83324a4361a851f2e393f6d0b2c0c539" compoundref="xcsiss__sinit_8c" startline="63" endline="76">XCsiSs_LookupConfig</references>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a0589a00b45c4e4a39cb95eeb89fe3120" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -116,7 +116,7 @@ This function programs MIPI CSI SS with the required timing parameters.</para><p
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="35" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="35" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a27a98e798ed33a22a64a35485322bbdc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -134,11 +134,11 @@ This function programs MIPI CSI SS with the required timing parameters.</para><p
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1581" bodyend="1588"/>
-        <references refid="struct_x_csi_ss_1a9e11a24b49b049a215fe243afd1e9741" compoundref="xcsiss_8h" startline="253">XCsiSs::Config</references>
-        <references refid="pipeline__program_8c_1af976f4549bce7619166766cf79567e19" compoundref="pipeline__program_8c" startline="1547" endline="1570">GetColorDepth</references>
-        <references refid="struct_x_csi_ss___config_1a7c808fba33fd373f15f4c7e98bea29b9" compoundref="xcsiss_8h" startline="220">XCsiSs_Config::PixelFormat</references>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1527" bodyend="1534"/>
+        <references refid="struct_x_csi_ss_1a9e11a24b49b049a215fe243afd1e9741" compoundref="xcsiss_8h" startline="242">XCsiSs::Config</references>
+        <references refid="pipeline__program_8c_1af976f4549bce7619166766cf79567e19" compoundref="pipeline__program_8c" startline="1493" endline="1516">GetColorDepth</references>
+        <references refid="struct_x_csi_ss___config_1a7c808fba33fd373f15f4c7e98bea29b9" compoundref="xcsiss_8h" startline="211">XCsiSs_Config::PixelFormat</references>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1ac7e2dc72f4d696dd2e05919f1f626af2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -154,7 +154,7 @@ This function programs MIPI CSI SS with the required timing parameters.</para><p
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="38" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="38" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a56f64108083ce8ee138d8f0448b28fd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -174,7 +174,7 @@ This function programs GPIO to &apos;0&apos; to select HDMI Stream path in AXI-S
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1445" bodyend="1447"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1399" bodyend="1401"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a1f5ca95d93d51e6aeaa5b5e53b226ac5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -202,8 +202,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="690" bodyend="746"/>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="599" bodyend="643"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1af24a60bdd8657b70cd5138a7db89ef6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -221,10 +221,10 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="957" bodyend="971"/>
-        <references refid="function__prototype_8c_1a87955d201525bc8c99bfb6a31494fca2" compoundref="function__prototype_8c" startline="1003" endline="1006">ReceiveHandler</references>
-        <references refid="function__prototype_8c_1ab74027af1cdd114fdeadd58f297e9533" compoundref="function__prototype_8c" startline="985" endline="988">SendHandler</references>
-        <references refid="function__prototype_8c_1ae2037c1d561c098886db8a61be2da667" compoundref="function__prototype_8c" startline="1022" endline="1025">StatusHandler</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="648" bodyend="662"/>
+        <references refid="function__prototype_8c_1a87955d201525bc8c99bfb6a31494fca2" compoundref="function__prototype_8c" startline="694" endline="697">ReceiveHandler</references>
+        <references refid="function__prototype_8c_1ab74027af1cdd114fdeadd58f297e9533" compoundref="function__prototype_8c" startline="676" endline="679">SendHandler</references>
+        <references refid="function__prototype_8c_1ae2037c1d561c098886db8a61be2da667" compoundref="function__prototype_8c" startline="713" endline="716">StatusHandler</references>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1abb01e2a9be230281dc95655303e9e68f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -240,7 +240,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="43" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="43" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a6d9214fe9d62dcb11811423c5b57eae4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -256,7 +256,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="44" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="44" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a9909ac1b3c8acfa727d8b5d0bd7eda39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -274,9 +274,9 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="434" bodyend="527"/>
-        <references refid="pipeline__program_8c_1a4e91fc11192ec41418d32f523f3ca435" compoundref="pipeline__program_8c" startline="388" endline="423">SensorReadData</references>
-        <references refid="pipeline__program_8c_1a5029f37b87848470fe3f36f722c75b90" compoundref="pipeline__program_8c" startline="321" endline="372">SensorWriteData</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="410" bodyend="503"/>
+        <references refid="pipeline__program_8c_1a4e91fc11192ec41418d32f523f3ca435" compoundref="pipeline__program_8c" startline="364" endline="399">SensorReadData</references>
+        <references refid="pipeline__program_8c_1a5029f37b87848470fe3f36f722c75b90" compoundref="pipeline__program_8c" startline="297" endline="348">SensorWriteData</references>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a7e1295f0953581a991d356def81e639f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -292,7 +292,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="46" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="46" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a3aea2e2961d7970a2bab30ad376b312b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -310,8 +310,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1094" bodyend="1131"/>
-        <references refid="pipeline__program_8c_1a5029f37b87848470fe3f36f722c75b90" compoundref="pipeline__program_8c" startline="321" endline="372">SensorWriteData</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1056" bodyend="1093"/>
+        <references refid="pipeline__program_8c_1a5029f37b87848470fe3f36f722c75b90" compoundref="pipeline__program_8c" startline="297" endline="348">SensorWriteData</references>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1ac2c548cfd7d61d87e0ce0f07fb520ced" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -327,7 +327,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="48" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="48" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a00c7feeeb4bbe038252d17930bb59acf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -343,7 +343,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="49" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="49" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a983ae30f3270811200b46ddcb9acb097" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -359,7 +359,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="50" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="50" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a98885e1285167958ebaca3b6325dc7ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -375,7 +375,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="52" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="52" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1ae0af0a350e50fea795e63a85a698c2c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -393,8 +393,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1602" bodyend="1676"/>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1548" bodyend="1622"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1af9c3d5144d636d012b7ca70db1290ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -426,8 +426,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="530" bodyend="533"/>
-        <references refid="group__csiss_1ga0436d17627c2acd4ed542efbbb584fab" compoundref="xcsiss_8c" startline="276" endline="290">XCsiSs_Reset</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="478" bodyend="481"/>
+        <references refid="group__csiss_1ga0436d17627c2acd4ed542efbbb584fab" compoundref="xcsiss_8c" startline="267" endline="281">XCsiSs_Reset</references>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1acf294b1de48889033812cd1ff9603747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -443,7 +443,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="56" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="56" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a14d7190f723e9472aa5f5e3c9d6e6029" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -459,7 +459,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="57" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="57" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1abed1e40bcf40b6bb99facbb18904c51f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -475,7 +475,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="58" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="58" column="1"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1aaabb459a43a4fde3d6805e6d53c899c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -493,7 +493,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1458" bodyend="1461"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1412" bodyend="1415"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1ae229cb3a71466b40c2ac44019d6a1795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -525,8 +525,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="545" bodyend="550"/>
-        <referencedby refid="function__prototype_8h_1a56361447f4b2f2b7e4c28bd94e142116" compoundref="function__prototype_8c" startline="561" endline="570">resetIp</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="493" bodyend="498"/>
+        <referencedby refid="function__prototype_8h_1a56361447f4b2f2b7e4c28bd94e142116" compoundref="function__prototype_8c" startline="509" endline="518">resetIp</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a571466dbec30928cd622090965a7ef0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -544,8 +544,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="484" bodyend="518"/>
-        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="432" bodyend="466"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="767" endline="1253">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a3f6ed57e5466f68d54c672459f64f82a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -572,7 +572,7 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="1316" bodyend="1405"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="995" bodyend="1080"/>
       </memberdef>
       <memberdef kind="function" id="pipeline__program_8h_1a34f1d639e40a40f098ceee99ce0857ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -604,8 +604,8 @@ This function writes, reads, and verifies the data to the IIC EEPROM.</para><par
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="468" bodyend="471"/>
-        <references refid="group__csiss_1gaf30fdaf13ba08d8612f8e20ab21d8ff2" compoundref="xcsiss_8c" startline="235" endline="258">XCsiSs_Activate</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="416" bodyend="419"/>
+        <references refid="group__csiss_1gaf30fdaf13ba08d8612f8e20ab21d8ff2" compoundref="xcsiss_8c" startline="226" endline="249">XCsiSs_Activate</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -671,6 +671,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date
 <codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PIPELINE_PROGRAM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.h"/>
   </compounddef>
 </doxygen>

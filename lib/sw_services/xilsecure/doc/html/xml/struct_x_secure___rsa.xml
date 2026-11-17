@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="148" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="144" bodyend="-1"/>
         <referencedby refid="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="111" endline="134">XSecure_RsaCfgInitialize</referencedby>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="518" endline="537">XSecure_RsaZeroize</referencedby>
@@ -31,9 +31,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="149" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="399" endline="451">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="108" endline="136">XSecure_RsaInitialize_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="389" endline="429">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -46,8 +46,8 @@
 <para>R sq. mod N </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="150" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="108" endline="136">XSecure_RsaInitialize_64Bit</referencedby>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1af1962b2e4f9b304470a695e3d5274cff" prot="public" static="no" mutable="no">
@@ -61,8 +61,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="151" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="108" endline="136">XSecure_RsaInitialize_64Bit</referencedby>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" prot="public" static="no" mutable="no">
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="152" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="148" bodyend="-1"/>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" prot="public" static="no" mutable="no">
@@ -90,8 +90,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="153" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="108" endline="136">XSecure_RsaInitialize_64Bit</referencedby>
         <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1a7603af531481b15be95ab6cf74a2dda6" prot="public" static="no" mutable="no">
@@ -102,13 +102,13 @@
         <briefdescription>
 <para>RSA State. </para>        </briefdescription>
         <detaileddescription>
-<para>RSA key size in words. </para>        </detaileddescription>
+<para>RSA state. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="154" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="399" endline="451">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="312" endline="340">XSecure_RsaPublicEncrypt_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="108" endline="136">XSecure_RsaInitialize_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="389" endline="429">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="307" endline="330">XSecure_RsaPublicEncrypt_64Bit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1ac5f1a94bbfba6f2e14f681b55884c378" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -121,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="159" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="159" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1a025de108e57abdfadb4964fac57a0a9f" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -134,9 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="160" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
-        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="399" endline="451">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="160" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1a583c17e11e2eaf4c5eff1376d10b47fe" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -149,8 +147,7 @@
 <para>R sq. mod N </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="161" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="161" bodyend="-1"/>
         <referencedby refid="group__xsecure__rsa__zynqmp__apis_1gad8a4ee12fff481e5d2c7fa5cc8256652" compoundref="zynqmp_2xsecure__rsa__core_8c" startline="127" endline="261">XSecure_RsaOperation</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_secure___rsa_1ae3207b6dd8efa8fa08e253b6b79ecd6f" prot="public" static="no" mutable="no">
@@ -164,15 +161,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="162" bodyend="-1"/>
-        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>The RSA driver instance data structure. </para>    </briefdescription>
     <detaileddescription>
 <para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="147" bodyend="155"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.h" bodystart="143" bodyend="151"/>
     <listofallmembers>
       <member refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" prot="public" virt="non-virtual"><scope>XSecure_Rsa</scope><name>BaseAddress</name></member>
       <member refid="struct_x_secure___rsa_1ac5f1a94bbfba6f2e14f681b55884c378" prot="public" virt="non-virtual"><scope>XSecure_Rsa</scope><name>BaseAddress</name></member>

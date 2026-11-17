@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xrfdc__intr_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,30 +105,76 @@ $(document).ready(function(){initNavTree('xrfdc__intr_8c.html','');});
 <div class="title">xrfdc_intr.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the interrupt handling functions of the <a class="el" href="struct_x_r_fdc.html" title="RFdc Structure. ">XRFdc</a> driver. </p>
+<p>This file contains functions related to RFdc interrupt handling.</p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
+</p>
+<hr/>
+<p>
+1.0   sk     05/16/17 First release
+2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
+             09/18/17 Add API to clear the interrupts.
+      sk     09/21/17 Add support for Over voltage and Over
+                      Range interrupts.
+2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
+5.0   sk     08/24/18 Reorganize the code to improve readability and
+                      optimization.
+5.1   cog    01/29/19 Replace structure reference ADC checks with
+                      function.
+6.0   cog    02/20/19   Added handling for new ADC common mode over/under
+                      voltage interrupts.
+      cog    02/20/19   XRFdc_GetIntrStatus now populates a pointer with the
+                      status and returns an error code.
+      cog          02/20/19     XRFdc_IntrClr, XRFdc_IntrDisable and XRFdc_IntrEnable
+                      now return error codes.
+      cog    03/25/19 The new common mode over/under voltage interrupts mask
+                      bits were clashing with other interrupt bits.
+7.0   cog    05/13/19 Formatting changes.
+      cog    05/13/19 Re-factor of interrupt clear/status handling.
+      cog    05/13/19 Added handling for common power up interrupt.
+      cog    07/29/19 Added <a class="el" href="group___overview.html#ga7989dde4966d0d8f82200488256a0a0b" title="Gets a mask of enabled interrupts. ">XRFdc_GetEnabledInterrupts()</a> API.
+      cog    08/02/19 Formatting changes.
+7.1   aad    12/01/19 Fixed static analysis errors.
+             12/20/19 Metal log messages are now more descriptive.
+      cog    01/29/20 Fixed metal log typos.
+8.0   cog    02/10/20 Updated addtogroup.
+8.1   cog    06/24/20 Upversion.
+      cog    06/24/20 Added observation FIFO interrupts.
+      cog    08/28/20 Only error out if both analogue and digital paths
+                      are disabled.
+      cog    09/28/20 Added more DAC interrupts and fixed issue with
+                      GetEnabledInterrupts.
+9.0   cog    11/25/20 Upversion.
+10.0  cog    11/26/20 Refactor and split files.
+11.0  cog    05/31/21 Upversion.
+11.1  cog    11/16/21 Upversion.
+13.2  vn     08/11/26 Fix Doxygen warnings.
+13.2  vn     09/29/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xrfdc_8h.html">xrfdc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3ec2e5eb1864718966098b75778e8f9b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3ec2e5eb1864718966098b75778e8f9b">XRFdc_IntrEnable</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask)</td></tr>
-<tr class="memdesc:ga3ec2e5eb1864718966098b75778e8f9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the interrupt mask.  <a href="group___overview.html#ga3ec2e5eb1864718966098b75778e8f9b">More...</a><br/></td></tr>
+<tr class="memitem:ga3ec2e5eb1864718966098b75778e8f9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3ec2e5eb1864718966098b75778e8f9b">XRFdc_IntrEnable</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> IntrMask)</td></tr>
+<tr class="memdesc:ga3ec2e5eb1864718966098b75778e8f9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt mask.  <a href="group___overview.html#ga3ec2e5eb1864718966098b75778e8f9b">More...</a><br/></td></tr>
 <tr class="separator:ga3ec2e5eb1864718966098b75778e8f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga13cace3e47a78c717a4f2d70916adf4e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga13cace3e47a78c717a4f2d70916adf4e">XRFdc_IntrDisable</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask)</td></tr>
-<tr class="memdesc:ga13cace3e47a78c717a4f2d70916adf4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the interrupt mask.  <a href="group___overview.html#ga13cace3e47a78c717a4f2d70916adf4e">More...</a><br/></td></tr>
+<tr class="memitem:ga13cace3e47a78c717a4f2d70916adf4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga13cace3e47a78c717a4f2d70916adf4e">XRFdc_IntrDisable</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> IntrMask)</td></tr>
+<tr class="memdesc:ga13cace3e47a78c717a4f2d70916adf4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the interrupt mask.  <a href="group___overview.html#ga13cace3e47a78c717a4f2d70916adf4e">More...</a><br/></td></tr>
 <tr class="separator:ga13cace3e47a78c717a4f2d70916adf4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7989dde4966d0d8f82200488256a0a0b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7989dde4966d0d8f82200488256a0a0b">XRFdc_GetEnabledInterrupts</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrMask)</td></tr>
-<tr class="memdesc:ga7989dde4966d0d8f82200488256a0a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets a mask of enabled interrupts.  <a href="group___overview.html#ga7989dde4966d0d8f82200488256a0a0b">More...</a><br/></td></tr>
+<tr class="memitem:ga7989dde4966d0d8f82200488256a0a0b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga7989dde4966d0d8f82200488256a0a0b">XRFdc_GetEnabledInterrupts</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> *IntrMask)</td></tr>
+<tr class="memdesc:ga7989dde4966d0d8f82200488256a0a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a mask of enabled interrupts.  <a href="group___overview.html#ga7989dde4966d0d8f82200488256a0a0b">More...</a><br/></td></tr>
 <tr class="separator:ga7989dde4966d0d8f82200488256a0a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3b066d0273f3fc1fd24741cfe2cc837c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3b066d0273f3fc1fd24741cfe2cc837c">XRFdc_GetIntrStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 *IntrStsPtr)</td></tr>
-<tr class="memdesc:ga3b066d0273f3fc1fd24741cfe2cc837c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the interrupt status read from Interrupt Status Register(ISR).  <a href="group___overview.html#ga3b066d0273f3fc1fd24741cfe2cc837c">More...</a><br/></td></tr>
+<tr class="memitem:ga3b066d0273f3fc1fd24741cfe2cc837c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga3b066d0273f3fc1fd24741cfe2cc837c">XRFdc_GetIntrStatus</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> *IntrStsPtr)</td></tr>
+<tr class="memdesc:ga3b066d0273f3fc1fd24741cfe2cc837c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interrupt status read from Interrupt Status Register (ISR).  <a href="group___overview.html#ga3b066d0273f3fc1fd24741cfe2cc837c">More...</a><br/></td></tr>
 <tr class="separator:ga3b066d0273f3fc1fd24741cfe2cc837c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafb4999411f07e2bbccde3c466d8ba0da"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gafb4999411f07e2bbccde3c466d8ba0da">XRFdc_IntrClr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, u32 IntrMask)</td></tr>
-<tr class="memdesc:gafb4999411f07e2bbccde3c466d8ba0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clear the interrupts.  <a href="group___overview.html#gafb4999411f07e2bbccde3c466d8ba0da">More...</a><br/></td></tr>
+<tr class="memitem:gafb4999411f07e2bbccde3c466d8ba0da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gafb4999411f07e2bbccde3c466d8ba0da">XRFdc_IntrClr</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Type, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Tile_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Block_Id, <a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> IntrMask)</td></tr>
+<tr class="memdesc:gafb4999411f07e2bbccde3c466d8ba0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the interrupts.  <a href="group___overview.html#gafb4999411f07e2bbccde3c466d8ba0da">More...</a><br/></td></tr>
 <tr class="separator:gafb4999411f07e2bbccde3c466d8ba0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0dcb08bb704e0cb5cfc6440fef2d7fdc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga0dcb08bb704e0cb5cfc6440fef2d7fdc">XRFdc_IntrHandler</a> (u32 Vector, void *XRFdcPtr)</td></tr>
-<tr class="memdesc:ga0dcb08bb704e0cb5cfc6440fef2d7fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the interrupt handler for the driver.  <a href="group___overview.html#ga0dcb08bb704e0cb5cfc6440fef2d7fdc">More...</a><br/></td></tr>
+<tr class="memitem:ga0dcb08bb704e0cb5cfc6440fef2d7fdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga0dcb08bb704e0cb5cfc6440fef2d7fdc">XRFdc_IntrHandler</a> (<a class="el" href="group___overview.html#ga4b24553f052bbb6aae7623e647e703c9">u32</a> Vector, void *XRFdcPtr)</td></tr>
+<tr class="memdesc:ga0dcb08bb704e0cb5cfc6440fef2d7fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the interrupts for the driver.  <a href="group___overview.html#ga0dcb08bb704e0cb5cfc6440fef2d7fdc">More...</a><br/></td></tr>
 <tr class="separator:ga0dcb08bb704e0cb5cfc6440fef2d7fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab67d654d8e0eaa66fbd65c5f1b66823"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gaab67d654d8e0eaa66fbd65c5f1b66823">XRFdc_SetStatusHandler</a> (<a class="el" href="struct_x_r_fdc.html">XRFdc</a> *InstancePtr, void *CallBackRef, <a class="el" href="group___overview.html#ga0bd9f5b019da4efe2af3ac562636d798">XRFdc_StatusHandler</a> FunctionPtr)</td></tr>
-<tr class="memdesc:gaab67d654d8e0eaa66fbd65c5f1b66823"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the status callback function, the status handler, which the driver calls when it encounters conditions that should be reported to the higher layer software.  <a href="group___overview.html#gaab67d654d8e0eaa66fbd65c5f1b66823">More...</a><br/></td></tr>
+<tr class="memdesc:gaab67d654d8e0eaa66fbd65c5f1b66823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the status callback function (the status handler).  <a href="group___overview.html#gaab67d654d8e0eaa66fbd65c5f1b66823">More...</a><br/></td></tr>
 <tr class="separator:gaab67d654d8e0eaa66fbd65c5f1b66823"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

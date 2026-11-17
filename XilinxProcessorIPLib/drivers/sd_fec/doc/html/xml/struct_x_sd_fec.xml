@@ -10,12 +10,16 @@
         <argsstring></argsstring>
         <name>BaseAddress</name>
         <briefdescription>
-        </briefdescription>
+<para>Device base address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="86" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+        <referencedby refid="group__sd__fec_1ga28a130a2d1db759801b12254d0658373" compoundref="xsdfec_8c" startline="42" endline="57">XSdFecCfgInitialize</referencedby>
+        <referencedby refid="group__sd__fec_1ga1b42b68a68aab9b2526c606d9388bf31" compoundref="xsdfec_8c" startline="189" endline="227">XSdFecInterruptClassifier</referencedby>
+        <referencedby refid="group__sd__fec_1ga6a90d9797e3ed8354f8a85a0f19fdd61" compoundref="xsdfec_8c" startline="167" endline="174">XSdFecSetTurboParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_fec_1ab4847bd492aaf03708e00b32f522b6e9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -23,12 +27,16 @@
         <argsstring></argsstring>
         <name>IsReady</name>
         <briefdescription>
-        </briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+        <referencedby refid="group__sd__fec_1ga28a130a2d1db759801b12254d0658373" compoundref="xsdfec_8c" startline="42" endline="57">XSdFecCfgInitialize</referencedby>
+        <referencedby refid="group__sd__fec__api_1ga42a57b16a5401e9719100f2e9fb7d135" compoundref="xsdfec__sinit_8c" startline="134" endline="151">XSdFecInitialize</referencedby>
+        <referencedby refid="group__sd__fec_1ga6a90d9797e3ed8354f8a85a0f19fdd61" compoundref="xsdfec_8c" startline="167" endline="174">XSdFecSetTurboParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_fec_1ac4d121fda8a9af93760a3c40f9413a63" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -36,12 +44,15 @@
         <argsstring></argsstring>
         <name>Standard</name>
         <briefdescription>
-        </briefdescription>
+<para>Configured standard. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
+        <referencedby refid="group__sd__fec_1ga28a130a2d1db759801b12254d0658373" compoundref="xsdfec_8c" startline="42" endline="57">XSdFecCfgInitialize</referencedby>
+        <referencedby refid="group__sd__fec_1ga6a90d9797e3ed8354f8a85a0f19fdd61" compoundref="xsdfec_8c" startline="167" endline="174">XSdFecSetTurboParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_fec_1a9b110edf0c45370934537d65459c9629" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -54,7 +65,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_fec_1ab631183c4d69ec3e140eac641fb5fc0e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -67,7 +79,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_fec_1abc1c4294433bebc819b72453f0a0b760" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -80,14 +93,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga7bee92134cc7d67afc861e55698857ac" compoundref="xsdfec_8c" startline="81" endline="121">XSdFecAddLdpcParams</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>SD-FEC driver instance. </para>    </briefdescription>
+<para>Holds state information for an SD-FEC instance. </para>    </briefdescription>
     <detaileddescription>
 <para>Contains state information for each device. </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="85" bodyend="92"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="113" bodyend="120"/>
     <listofallmembers>
       <member refid="struct_x_sd_fec_1a56530f4b2517d7742b49b0055eb9d467" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>BaseAddress</name></member>
       <member refid="struct_x_sd_fec_1ab4847bd492aaf03708e00b32f522b6e9" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>IsReady</name></member>

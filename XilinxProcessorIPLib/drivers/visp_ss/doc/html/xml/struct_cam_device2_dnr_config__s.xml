@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="97" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device2_dnr_config__s_1a2169a985662ac76f13440ffdd9ac3504" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__2dnr_1ga82cefcbf88c833bfc0b2cc5d9c405fc3" kindref="member">CamDevice2DnrAutoConfig_t</ref></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="98" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_cam_device2_dnr_config__s_1adab37ac4344297a0e24373c625bc0232" prot="public" static="no" mutable="no">
         <type><ref refid="group____cam__device__2dnr_1ga90e6303a051703aa5d4db57885dbc0b6" kindref="member">CamDevice2DnrManualConfig_t</ref></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -49,33 +49,33 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="25">
+      <node id="27">
         <label>CamDevice2DnrCurveConfig_s</label>
         <link refid="struct_cam_device2_dnr_curve_config__s"/>
       </node>
-      <node id="24">
+      <node id="26">
         <label>CamDevice2DnrManualConfig_s</label>
         <link refid="struct_cam_device2_dnr_manual_config__s"/>
-        <childnode refid="25" relation="usage">
+        <childnode refid="27" relation="usage">
           <edgelabel>curveCfg</edgelabel>
         </childnode>
       </node>
-      <node id="23">
+      <node id="25">
         <label>CamDevice2DnrConfig_s</label>
         <link refid="struct_cam_device2_dnr_config__s"/>
-        <childnode refid="24" relation="usage">
+        <childnode refid="26" relation="usage">
           <edgelabel>manualCfg</edgelabel>
         </childnode>
-        <childnode refid="26" relation="usage">
+        <childnode refid="28" relation="usage">
           <edgelabel>autoCfg</edgelabel>
         </childnode>
       </node>
-      <node id="26">
+      <node id="28">
         <label>CamDevice2DnrAutoConfig_s</label>
         <link refid="struct_cam_device2_dnr_auto_config__s"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="96" bodyend="100"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="96" bodyend="100"/>
     <listofallmembers>
       <member refid="struct_cam_device2_dnr_config__s_1a2169a985662ac76f13440ffdd9ac3504" prot="public" virt="non-virtual"><scope>CamDevice2DnrConfig_s</scope><name>autoCfg</name></member>
       <member refid="struct_cam_device2_dnr_config__s_1a0240c2beee1f71b060ecc5a8b133cc5b" prot="public" virt="non-virtual"><scope>CamDevice2DnrConfig_s</scope><name>configMode</name></member>

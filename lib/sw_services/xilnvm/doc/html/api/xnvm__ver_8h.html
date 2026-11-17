@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xnvm__ver_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,14 +112,15 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 <p>
 3.2   mmd     07/04/23 Initial Release
       mb      05/04/26 Updated minor version to 3.7
+3.8   tus     08/10/26 Updated minor version to 3.8
 </pre> </div><div class="textblock"><code>#include &quot;xil_util.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aaf82f4213c4a2138f2bdbd0324f3502d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__ver_8h.html#aaf82f4213c4a2138f2bdbd0324f3502d">XNVM_MAJOR_VERSION</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:aaf82f4213c4a2138f2bdbd0324f3502d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__ver_8h.html#aaf82f4213c4a2138f2bdbd0324f3502d">XNVM_MAJOR_VERSION</a>&#160;&#160;&#160;3U</td></tr>
 <tr class="memdesc:aaf82f4213c4a2138f2bdbd0324f3502d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Major Version of XilNvm.  <a href="#aaf82f4213c4a2138f2bdbd0324f3502d">More...</a><br/></td></tr>
 <tr class="separator:aaf82f4213c4a2138f2bdbd0324f3502d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ac31572bcb59fe58a9ee4701586c8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__ver_8h.html#ab6ac31572bcb59fe58a9ee4701586c8f">XNVM_MINOR_VERSION</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memitem:ab6ac31572bcb59fe58a9ee4701586c8f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xnvm__ver_8h.html#ab6ac31572bcb59fe58a9ee4701586c8f">XNVM_MINOR_VERSION</a>&#160;&#160;&#160;8U</td></tr>
 <tr class="memdesc:ab6ac31572bcb59fe58a9ee4701586c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minor version of XilNvm.  <a href="#ab6ac31572bcb59fe58a9ee4701586c8f">More...</a><br/></td></tr>
 <tr class="separator:ab6ac31572bcb59fe58a9ee4701586c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -129,7 +130,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XNVM_MAJOR_VERSION&#160;&#160;&#160;3</td>
+          <td class="memname">#define XNVM_MAJOR_VERSION&#160;&#160;&#160;3U</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -143,7 +144,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XNVM_MINOR_VERSION&#160;&#160;&#160;7</td>
+          <td class="memname">#define XNVM_MINOR_VERSION&#160;&#160;&#160;8U</td>
         </tr>
       </table>
 </div><div class="memdoc">

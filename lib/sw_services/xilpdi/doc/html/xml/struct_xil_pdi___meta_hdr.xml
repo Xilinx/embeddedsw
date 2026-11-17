@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="300" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="312" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" prot="public" static="no" mutable="no">
         <type><ref refid="struct_xil_pdi___img_hdr_tbl" kindref="compound">XilPdi_ImgHdrTbl</ref></type>
@@ -28,15 +28,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="301" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" compoundref="xilpdi_8c" startline="359" endline="390">XilPdi_ReadIhtAndOptionalData</referencedby>
-        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="738" endline="761">XilPdi_VerifyImgHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="702" endline="725">XilPdi_VerifyPrtnHdrs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="313" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" compoundref="xilpdi_8c" startline="372" endline="403">XilPdi_ReadIhtAndOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="666" endline="685">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="312" endline="358">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="417" endline="457">XilPdi_ReadOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="699" endline="716">XilPdi_ReadPrtnHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="470" endline="565">XilPdi_StoreDigestTable</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="768" endline="821">XilPdi_VerifyImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="729" endline="752">XilPdi_VerifyPrtnHdrs</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" prot="public" static="no" mutable="no">
         <type><ref refid="struct_xil_pdi___img_hdr" kindref="compound">XilPdi_ImgHdr</ref></type>
@@ -49,9 +49,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="302" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="738" endline="761">XilPdi_VerifyImgHdrs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="666" endline="685">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="768" endline="821">XilPdi_VerifyImgHdrs</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" prot="public" static="no" mutable="no">
         <type><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref></type>
@@ -64,9 +64,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="303" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="702" endline="725">XilPdi_VerifyPrtnHdrs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="315" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="699" endline="716">XilPdi_ReadPrtnHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="729" endline="752">XilPdi_VerifyPrtnHdrs</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -79,11 +79,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="307" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="666" endline="685">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="312" endline="358">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="417" endline="457">XilPdi_ReadOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="699" endline="716">XilPdi_ReadPrtnHdrs</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -96,9 +96,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="308" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="312" endline="358">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="417" endline="457">XilPdi_ReadOptionalData</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" prot="public" static="no" mutable="no">
         <type>int(*</type>
@@ -111,11 +111,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="309" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
-        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="666" endline="685">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="312" endline="358">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="417" endline="457">XilPdi_ReadOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="699" endline="716">XilPdi_ReadPrtnHdrs</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -128,8 +128,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="311" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="470" endline="565">XilPdi_StoreDigestTable</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -142,8 +142,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="312" bodyend="-1"/>
-        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="470" endline="565">XilPdi_StoreDigestTable</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -191,7 +191,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="299" bodyend="313"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="311" bodyend="325"/>
     <listofallmembers>
       <member refid="struct_xil_pdi___meta_hdr_1ad14403538e49275dc99eee9f7264b928" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>BootHdrPtr</name></member>
       <member refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>DeviceCopy</name></member>

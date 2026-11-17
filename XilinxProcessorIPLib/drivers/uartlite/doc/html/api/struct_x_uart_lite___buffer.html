@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_uart_lite___buffer.html','');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,19 +106,83 @@ $(document).ready(function(){initNavTree('struct_x_uart_lite___buffer.html','');
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
 <div class="title">XUartLite_Buffer Struct Reference<div class="ingroups"><a class="el" href="group__uartlite.html">Overview</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode.
+<p>Buffer descriptor for send and receive operations.
  <a href="struct_x_uart_lite___buffer.html#details">More...</a></p>
 
 <p><code>#include &lt;xuartlite.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a5b91bd91cf707bdc8f1ffdb9e82509fc"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite___buffer.html#a5b91bd91cf707bdc8f1ffdb9e82509fc">NextBytePtr</a></td></tr>
+<tr class="memdesc:a5b91bd91cf707bdc8f1ffdb9e82509fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the next byte to send or receive.  <a href="#a5b91bd91cf707bdc8f1ffdb9e82509fc">More...</a><br/></td></tr>
+<tr class="separator:a5b91bd91cf707bdc8f1ffdb9e82509fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab27923a6614c5a60548b08c6d5bc469e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite___buffer.html#ab27923a6614c5a60548b08c6d5bc469e">RequestedBytes</a></td></tr>
+<tr class="memdesc:ab27923a6614c5a60548b08c6d5bc469e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of bytes requested.  <a href="#ab27923a6614c5a60548b08c6d5bc469e">More...</a><br/></td></tr>
+<tr class="separator:ab27923a6614c5a60548b08c6d5bc469e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7317923470ca4dd5619123985b7f3b03"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_uart_lite___buffer.html#a7317923470ca4dd5619123985b7f3b03">RemainingBytes</a></td></tr>
+<tr class="memdesc:a7317923470ca4dd5619123985b7f3b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes still to be processed.  <a href="#a7317923470ca4dd5619123985b7f3b03">More...</a><br/></td></tr>
+<tr class="separator:a7317923470ca4dd5619123985b7f3b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode. </p>
-<p>It is intended for internal use only. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Buffer descriptor for send and receive operations. </p>
+<p>The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode. It is intended for internal use only. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a5b91bd91cf707bdc8f1ffdb9e82509fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* XUartLite_Buffer::NextBytePtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the next byte to send or receive. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>, and <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7317923470ca4dd5619123985b7f3b03"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int XUartLite_Buffer::RemainingBytes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of bytes still to be processed. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>, <a class="el" href="group__uartlite.html#ga74efaecba1b6b1406c8c82abbb628cc8">XUartLite_ReceiveBuffer()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>, and <a class="el" href="group__uartlite.html#ga155b5a1fba111533992e283445ad8f73">XUartLite_SendBuffer()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab27923a6614c5a60548b08c6d5bc469e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int XUartLite_Buffer::RequestedBytes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total number of bytes requested. </p>
+
+<p>Referenced by <a class="el" href="group__uartlite.html#gaaf61ea88e001e95175590cb5b221a18d">XUartLite_CfgInitialize()</a>, <a class="el" href="group__uartlite.html#ga399463f89d7b4e846a4a4089e9cd54fb">XUartLite_InterruptHandler()</a>, <a class="el" href="group__uartlite.html#gaa30ed8bfedba1acdc67dc94e77d5a41d">XUartLite_Recv()</a>, and <a class="el" href="group__uartlite.html#gacd990348cf8483d47934d3263dc6fe90">XUartLite_Send()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

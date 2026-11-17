@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="95" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xnvm__efuse__versal__server__example_1ga78f9bcd9751682479ba44b88f9a5c54d" prot="public" static="yes" mutable="no">
         <type>XSysMonPsv_Config *</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="96" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="96" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -50,7 +50,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="224" bodyend="333"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="224" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gaaf21f87a0a6b089b0b061f77d85fa30d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -69,7 +69,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="480" bodyend="543"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="480" bodyend="543"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga96ff3319f4d0839b35e067f297501261" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -88,7 +88,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="344" bodyend="468"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="344" bodyend="468"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab44bfd69cc4f8d44c2024ec572f657ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -107,7 +107,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1542" bodyend="1860"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1542" bodyend="1860"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga59c89a986705394fc76b3df75068ee86" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -146,7 +146,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="849" bodyend="898"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="849" bodyend="898"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga461edce871b89dbe3fb1ab425e6b918c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -185,7 +185,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="929" bodyend="962"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="929" bodyend="962"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga92d79be8424c72fc7e3d9829b4cdd783" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -225,7 +225,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1126" bodyend="1249"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1126" bodyend="1249"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga32534c26ed42cc0979926d7c9f1365e9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -264,7 +264,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1423" bodyend="1477"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1423" bodyend="1477"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga1d4eb457f1ff0e0c32aff8173716999c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -305,7 +305,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Config data size is 31 bits Bit[30:0]</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="570" bodyend="619"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="570" bodyend="619"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga76af8f69da066a97f30fe4071a147b81" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -346,7 +346,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="648" bodyend="690"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="648" bodyend="690"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga90d9dd133404f59787beec4bff69f590" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -385,7 +385,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="717" bodyend="777"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="717" bodyend="777"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga3ff01a6321934994a29c6951bc5781eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -424,7 +424,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="799" bodyend="810"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="799" bodyend="810"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga39d022ba7afb1114c3cdfb1f75c33da0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -463,7 +463,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1501" bodyend="1531"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1501" bodyend="1531"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gaedc6ddc35b9400984cd573b15842ea54" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -502,7 +502,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1272" bodyend="1395"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1272" bodyend="1395"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga3177068d90192b1dc9158bfece5cbb0d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -541,7 +541,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1039" bodyend="1103"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1039" bodyend="1103"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab5f45b1e4148dceb6385e76fa255b7b0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -580,7 +580,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="988" bodyend="1006"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="988" bodyend="1006"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga2bb2418a958246a265643aa4d22c3c53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -608,7 +608,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1978" bodyend="1994"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1978" bodyend="1994"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga1721c330ccfaf727b7e48f3bf8f96ebb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -658,7 +658,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1877" bodyend="1894"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1877" bodyend="1894"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga14057d6bd2f0aa87660d457d585ef72c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -719,7 +719,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1915" bodyend="1941"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1915" bodyend="1941"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab5317bebac00e3026759b0c6b566b0dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -745,7 +745,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2047" bodyend="2061"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2047" bodyend="2061"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga30f52ffad149cef68711a6d3bf431291" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -784,7 +784,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2010" bodyend="2034"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2010" bodyend="2034"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gad85099e651ab0e77ae139402dee77479" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -831,7 +831,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2073" bodyend="2082"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2073" bodyend="2082"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga275cdc2152f8c9ace0049e3906c21ecc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -859,7 +859,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1953" bodyend="1966"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1953" bodyend="1966"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab6d0042e28b92077df7d4df4fb2fc36c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -895,7 +895,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2308" bodyend="2317"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2308" bodyend="2317"/>
       </memberdef>
       <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -911,7 +911,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="148" bodyend="191"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="148" bodyend="191"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -924,18 +924,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="77" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga20b8179fdbca646efcb514e5d8c167a2" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_HASH_STRING_LEN</name>
-        <initializer>(64U)</initializer>
+        <initializer>(<ref refid="group__xnvm__def__api__ids_1ga25e4686e8bf210fed6a7ed41e1d88340" kindref="member">XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES</ref> * 2U)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="78" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga75a54ad53ee0eb9c2a19e92a4489a7ef" prot="public" static="no">
         <name>XNVM_EFUSE_ROW_STRING_LEN</name>
@@ -946,7 +946,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga7e57ad124c24a003b4770f5a6eb8e0e7" prot="public" static="no">
         <name>XNVM_EFUSE_GLITCH_WR_LK_MASK</name>
@@ -957,7 +957,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1gacc2fed2080b003d8f2d2ad636ed2ca76" prot="public" static="no">
         <name>XNVM_EFUSE_DEC_EFUSE_ONLY_MASK</name>
@@ -968,7 +968,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga609675b021bb7c0700660707f3c42dd4" prot="public" static="no">
         <name>XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX</name>
@@ -979,7 +979,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga6aab35d890227548938b98edad6d939b" prot="public" static="no">
         <name>XNVM_EFUSE_VOLT_SOC_LIMIT</name>
@@ -990,7 +990,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="83" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga5ebc89643176d045307e053819c4a745" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_READ_START</name>
@@ -1001,7 +1001,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="84" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga0c0a45ac43d3b1c71be92030b2655c01" prot="public" static="no">
         <name>XNVM_EFUSE_PPK_READ_END</name>
@@ -1012,7 +1012,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="88" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="88" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="88" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1058,6 +1058,8 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver      Who    D
 3.4   obs   04/21/2025 Fixed GCC Warnings.
 3.7   mb    01/06/2026 Rename XNVM_EFUSE_AES_KEY to XNVM_EFUSE_KEY,
                                 XNVM_EFUSE_USER_KEY_0 to XNVM_EFUSE_USER_KEY0,
-                                XNVM_EFUSE_USER_KEY_1 to XNVM_EFUSE_USER_KEY1</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+                                XNVM_EFUSE_USER_KEY_1 to XNVM_EFUSE_USER_KEY1
+3.8   rpu   07/06/2026 Clean up PPK hash length macros.
+</preformatted> </para>    </detaileddescription>
   </compounddef>
 </doxygen>

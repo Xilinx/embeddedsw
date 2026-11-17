@@ -8,7 +8,6 @@ var xtrngpsx_8h =
     [ "XTRNGPSX_USER_CFG_REP_TEST_CUTOFF", "xtrngpsx_8h.html#ga823d53c1fbdbe9fe6446be697c506f0c", null ],
     [ "XTRNGPSX_USER_CFG_SEED_LIFE", "xtrngpsx_8h.html#ga8a7c9b3542de85ba6563a79f4e3e123c", null ],
     [ "XTrngpsx_ErrorCodes", "xtrngpsx_8h.html#ga2d0ae14b9bbf4f302c87faaa43cb8a79", [
-      [ "XTRNGPSX_INVALID_PARAM", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13", null ],
       [ "XTRNGPSX_INVALID_MODE", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a", null ],
       [ "XTRNGPSX_INVALID_DF_LENGTH", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944", null ],
       [ "XTRNGPSX_INVALID_SEED_LIFE", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a75b95f1933476804c7b9aabc342b465f", null ],
@@ -28,7 +27,8 @@ var xtrngpsx_8h =
       [ "XTRNGPSX_CATASTROPHIC_DTF_ERROR", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a2929b58685ab788ea0107d339657632d", null ],
       [ "XTRNGPSX_KAT_FAILED_ERROR", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a", null ],
       [ "XTRNGPSX_WRITE_ERROR", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a8b29809ecc7cba250e0961eb2e8f4ce6", null ],
-      [ "XTRNGPSX_INVALID_BLOCKING_MODE", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964", null ]
+      [ "XTRNGPSX_INVALID_BLOCKING_MODE", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964", null ],
+      [ "XTRNGPSX_INVALID_PARAM", "xtrngpsx_8h.html#gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13", null ]
     ] ],
     [ "XTrngpsx_ErrorState", "xtrngpsx_8h.html#gabf665f37f1800c3d3859681db4fb46c2", [
       [ "XTRNGPSX_UNHEALTHY", "xtrngpsx_8h.html#ggabf665f37f1800c3d3859681db4fb46c2af33a5bf5d37571fefcdaa758930d6c5b", null ],
@@ -56,5 +56,6 @@ var xtrngpsx_8h =
     [ "XTrngpsx_LookupConfig", "xtrngpsx_8h.html#ga585c8fe9159bad7d022d6ffe54743149", null ],
     [ "XTrngpsx_PreOperationalSelfTests", "xtrngpsx_8h.html#gaecce7c23f64a684ac613d6c36ae708cb", null ],
     [ "XTrngpsx_Reseed", "xtrngpsx_8h.html#ga27d626b65acc3b1e97573f4c2d2ee8e1", null ],
-    [ "XTrngpsx_Uninstantiate", "xtrngpsx_8h.html#ga15ee0bc83b064ce7910792c014c589b1", null ]
+    [ "XTrngpsx_Uninstantiate", "xtrngpsx_8h.html#ga15ee0bc83b064ce7910792c014c589b1", null ],
+    [ "XTrngpsx_ConfigTable", "xtrngpsx_8h.html#ga8a9a86209f21795b5c59ea97229d04a3", null ]
 ];

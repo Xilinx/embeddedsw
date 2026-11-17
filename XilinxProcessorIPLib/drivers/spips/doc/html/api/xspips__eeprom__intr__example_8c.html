@@ -100,16 +100,17 @@ $(document).ready(function(){initNavTree('xspips__eeprom__intr__example_8c.html'
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xspips_eeprom_intr_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the SPI driver (<a class="el" href="struct_x_spi_ps.html" title="The XSpiPs driver instance data. ">XSpiPs</a>) in interrupt mode and hardware device with a serial EEPROM device. </p>
+<div class="textblock"><p>Implements a design example using the SPI driver (<a class="el" href="struct_x_spi_ps.html" title="Holds the XSpiPs driver instance data. ">XSpiPs</a>) in interrupt mode with a serial EEPROM device. </p>
 <p>The hardware which this example runs on must have a serial EEPROM (Microchip 25XX320 or 25XX160) for it to run.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
@@ -123,6 +124,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     the file in doxygen examples.
 3.9   sb   07/05/23 Added support for system device-tree flow.
 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+3.15  vn   08/26/26 Fix Doxygen warnings.
+3.15  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xspips_8h.html">xspips.h</a>&quot;</code><br/>
 <code>#include &quot;xscugic.h&quot;</code><br/>
@@ -130,262 +133,105 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga076966d3a1aa7647c294802e9f76bb10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga076966d3a1aa7647c294802e9f76bb10">WRITE_STATUS_CMD</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga076966d3a1aa7647c294802e9f76bb10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write status register command.  <a href="group__xspips__eeprom__intr__example.html#ga076966d3a1aa7647c294802e9f76bb10">More...</a><br/></td></tr>
+<tr class="separator:ga076966d3a1aa7647c294802e9f76bb10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf792feb13ae0c1eab8f95f64c8baa96d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gaf792feb13ae0c1eab8f95f64c8baa96d">WRITE_CMD</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gaf792feb13ae0c1eab8f95f64c8baa96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write data command.  <a href="group__xspips__eeprom__intr__example.html#gaf792feb13ae0c1eab8f95f64c8baa96d">More...</a><br/></td></tr>
+<tr class="separator:gaf792feb13ae0c1eab8f95f64c8baa96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga21623e2a5501c821da54dd76ffc1d077"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga21623e2a5501c821da54dd76ffc1d077">READ_CMD</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga21623e2a5501c821da54dd76ffc1d077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data command.  <a href="group__xspips__eeprom__intr__example.html#ga21623e2a5501c821da54dd76ffc1d077">More...</a><br/></td></tr>
+<tr class="separator:ga21623e2a5501c821da54dd76ffc1d077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12fe83d74a765a1b4ae033e22a23dafe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga12fe83d74a765a1b4ae033e22a23dafe">WRITE_DISABLE_CMD</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga12fe83d74a765a1b4ae033e22a23dafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write disable command.  <a href="group__xspips__eeprom__intr__example.html#ga12fe83d74a765a1b4ae033e22a23dafe">More...</a><br/></td></tr>
+<tr class="separator:ga12fe83d74a765a1b4ae033e22a23dafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa3ec262a3f2ab7e77412a7fdab86a011"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gaa3ec262a3f2ab7e77412a7fdab86a011">READ_STATUS_CMD</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:gaa3ec262a3f2ab7e77412a7fdab86a011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read status register command.  <a href="group__xspips__eeprom__intr__example.html#gaa3ec262a3f2ab7e77412a7fdab86a011">More...</a><br/></td></tr>
+<tr class="separator:gaa3ec262a3f2ab7e77412a7fdab86a011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga778f641f7a12aabbe1ffd0c948f8e1f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga778f641f7a12aabbe1ffd0c948f8e1f9">WRITE_ENABLE_CMD</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:ga778f641f7a12aabbe1ffd0c948f8e1f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write enable command.  <a href="group__xspips__eeprom__intr__example.html#ga778f641f7a12aabbe1ffd0c948f8e1f9">More...</a><br/></td></tr>
+<tr class="separator:ga778f641f7a12aabbe1ffd0c948f8e1f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb83c033ee492824badb77fa8ebd5c5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gadb83c033ee492824badb77fa8ebd5c5d">COMMAND_OFFSET</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gadb83c033ee492824badb77fa8ebd5c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">EEPROM instruction.  <a href="group__xspips__eeprom__intr__example.html#gadb83c033ee492824badb77fa8ebd5c5d">More...</a><br/></td></tr>
+<tr class="separator:gadb83c033ee492824badb77fa8ebd5c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47e17a2c44fb806fc1ff6d3e9397e253"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga47e17a2c44fb806fc1ff6d3e9397e253">ADDRESS_MSB_OFFSET</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga47e17a2c44fb806fc1ff6d3e9397e253"><td class="mdescLeft">&#160;</td><td class="mdescRight">MSB of address to read or write.  <a href="group__xspips__eeprom__intr__example.html#ga47e17a2c44fb806fc1ff6d3e9397e253">More...</a><br/></td></tr>
+<tr class="separator:ga47e17a2c44fb806fc1ff6d3e9397e253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb162281f5a7d62f2acc8d091a97ba52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gabb162281f5a7d62f2acc8d091a97ba52">ADDRESS_LSB_OFFSET</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:gabb162281f5a7d62f2acc8d091a97ba52"><td class="mdescLeft">&#160;</td><td class="mdescRight">LSB of address to read or write.  <a href="group__xspips__eeprom__intr__example.html#gabb162281f5a7d62f2acc8d091a97ba52">More...</a><br/></td></tr>
+<tr class="separator:gabb162281f5a7d62f2acc8d091a97ba52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11faa4c105a137b8edaa096de5063835"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga11faa4c105a137b8edaa096de5063835">DATA_OFFSET</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga11faa4c105a137b8edaa096de5063835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start of data in the buffer.  <a href="group__xspips__eeprom__intr__example.html#ga11faa4c105a137b8edaa096de5063835">More...</a><br/></td></tr>
+<tr class="separator:ga11faa4c105a137b8edaa096de5063835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39cfafaf06548fe0f678d193a1c2ec00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga39cfafaf06548fe0f678d193a1c2ec00">WRITE_DATA_OFFSET</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga39cfafaf06548fe0f678d193a1c2ec00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start of data to write to the EEPROM.  <a href="group__xspips__eeprom__intr__example.html#ga39cfafaf06548fe0f678d193a1c2ec00">More...</a><br/></td></tr>
+<tr class="separator:ga39cfafaf06548fe0f678d193a1c2ec00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae81191a53faa3dd6f1218212910f55dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gae81191a53faa3dd6f1218212910f55dd">READ_DATA_OFFSET</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:gae81191a53faa3dd6f1218212910f55dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start of data read from the EEPROM.  <a href="group__xspips__eeprom__intr__example.html#gae81191a53faa3dd6f1218212910f55dd">More...</a><br/></td></tr>
+<tr class="separator:gae81191a53faa3dd6f1218212910f55dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga635c69a613273e533212c0bf3c15b8c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga635c69a613273e533212c0bf3c15b8c4">OVERHEAD_SIZE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ga635c69a613273e533212c0bf3c15b8c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command and address bytes.  <a href="group__xspips__eeprom__intr__example.html#ga635c69a613273e533212c0bf3c15b8c4">More...</a><br/></td></tr>
+<tr class="separator:ga635c69a613273e533212c0bf3c15b8c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memdesc:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">EEPROM page size in bytes.  <a href="group__xspips__eeprom__intr__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">More...</a><br/></td></tr>
+<tr class="separator:ga7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a>&#160;&#160;&#160;128</td></tr>
+<tr class="memdesc:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of EEPROM pages.  <a href="group__xspips__eeprom__intr__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">More...</a><br/></td></tr>
+<tr class="separator:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf06a3762adb0aa04b8a5f8f016ca5e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9">MAX_DATA</a>&#160;&#160;&#160;<a class="el" href="group__xspips__eeprom__polled__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a> * <a class="el" href="group__xspips__eeprom__polled__example.html#ga7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a></td></tr>
+<tr class="memdesc:gaaf06a3762adb0aa04b8a5f8f016ca5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max data size.  <a href="group__xspips__eeprom__intr__example.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9">More...</a><br/></td></tr>
+<tr class="separator:gaaf06a3762adb0aa04b8a5f8f016ca5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6b20d41d6252e9871430c242cb1a56e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>&#160;&#160;&#160;<a class="el" href="group__xspips__slave__polled__example.html#gaaf06a3762adb0aa04b8a5f8f016ca5e9">MAX_DATA</a> + <a class="el" href="group__xspips__eeprom__polled__example.html#gae81191a53faa3dd6f1218212910f55dd">READ_DATA_OFFSET</a></td></tr>
+<tr class="memdesc:ga6b20d41d6252e9871430c242cb1a56e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the buffer holding the data and the overhead bytes.  <a href="group__xspips__eeprom__intr__example.html#ga6b20d41d6252e9871430c242cb1a56e7">More...</a><br/></td></tr>
+<tr class="separator:ga6b20d41d6252e9871430c242cb1a56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga94474f1a5d490fada274141f8ce7f5b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga94474f1a5d490fada274141f8ce7f5b5">EEPROM_SPI_SELECT</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ga94474f1a5d490fada274141f8ce7f5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">EEPROM slave select.  <a href="group__xspips__eeprom__intr__example.html#ga94474f1a5d490fada274141f8ce7f5b5">More...</a><br/></td></tr>
+<tr class="separator:ga94474f1a5d490fada274141f8ce7f5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaa4e3dacd5dff65e71d69eed321c4d7bf"><td class="memItemLeft" align="right" valign="top">typedef u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gaa4e3dacd5dff65e71d69eed321c4d7bf">EepromBuffer</a> [<a class="el" href="group__xspips__eeprom__polled__example.html#ga6b20d41d6252e9871430c242cb1a56e7">BUFFER_SIZE</a>]</td></tr>
+<tr class="memdesc:gaa4e3dacd5dff65e71d69eed321c4d7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the data sent to and received from the serial EEPROM device.  <a href="group__xspips__eeprom__intr__example.html#gaa4e3dacd5dff65e71d69eed321c4d7bf">More...</a><br/></td></tr>
+<tr class="separator:gaa4e3dacd5dff65e71d69eed321c4d7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspips__eeprom__intr__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler</a> (void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</td></tr>
-<tr class="memdesc:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which performs processing for the SPI driver.  <a href="#aacdc7be0761bc23854d5f1b9c6dbe36a">More...</a><br/></td></tr>
-<tr class="separator:aacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d9197ec4b9bd96eae501456b5b12cd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspips__eeprom__intr__example_8c.html#a1d9197ec4b9bd96eae501456b5b12cd5">EepromRead</a> (<a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *SpiPtr, u16 Address, int ByteCount, EepromBuffer Buffer)</td></tr>
-<tr class="memdesc:a1d9197ec4b9bd96eae501456b5b12cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads from the serial EEPROM connected to the SPI interface.  <a href="#a1d9197ec4b9bd96eae501456b5b12cd5">More...</a><br/></td></tr>
-<tr class="separator:a1d9197ec4b9bd96eae501456b5b12cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f23357b0cfe111d80824b3bfacb8b22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspips__eeprom__intr__example_8c.html#a2f23357b0cfe111d80824b3bfacb8b22">EepromWrite</a> (<a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer)</td></tr>
-<tr class="memdesc:a2f23357b0cfe111d80824b3bfacb8b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes to the serial EEPROM connected to the SPI interface.  <a href="#a2f23357b0cfe111d80824b3bfacb8b22">More...</a><br/></td></tr>
-<tr class="separator:a2f23357b0cfe111d80824b3bfacb8b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add210e3892dd3e73c55e1f40e3a2b63f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspips__eeprom__intr__example_8c.html#add210e3892dd3e73c55e1f40e3a2b63f">SpiPsEepromIntrExample</a> (<a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *SpiInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:add210e3892dd3e73c55e1f40e3a2b63f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_spi_ps.html" title="The XSpiPs driver instance data. ">XSpiPs</a> device driver in interrupt mode .  <a href="#add210e3892dd3e73c55e1f40e3a2b63f">More...</a><br/></td></tr>
-<tr class="separator:add210e3892dd3e73c55e1f40e3a2b63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspips__eeprom__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the Spi Eeprom example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gaacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler</a> (void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</td></tr>
+<tr class="memdesc:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the status events of the SPI driver.  <a href="group__xspips__eeprom__intr__example.html#gaacdc7be0761bc23854d5f1b9c6dbe36a">More...</a><br/></td></tr>
+<tr class="separator:gaacdc7be0761bc23854d5f1b9c6dbe36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d9197ec4b9bd96eae501456b5b12cd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__polled__example.html#ga1d9197ec4b9bd96eae501456b5b12cd5">EepromRead</a> (<a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *SpiPtr, u16 Address, int ByteCount, <a class="el" href="group__xspips__eeprom__polled__example.html#gaa4e3dacd5dff65e71d69eed321c4d7bf">EepromBuffer</a> Buffer)</td></tr>
+<tr class="memdesc:ga1d9197ec4b9bd96eae501456b5b12cd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads from the serial EEPROM connected to the SPI interface.  <a href="group__xspips__eeprom__polled__example.html#ga1d9197ec4b9bd96eae501456b5b12cd5">More...</a><br/></td></tr>
+<tr class="separator:ga1d9197ec4b9bd96eae501456b5b12cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2f23357b0cfe111d80824b3bfacb8b22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__polled__example.html#ga2f23357b0cfe111d80824b3bfacb8b22">EepromWrite</a> (<a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *SpiPtr, u16 Address, u8 ByteCount, <a class="el" href="group__xspips__eeprom__polled__example.html#gaa4e3dacd5dff65e71d69eed321c4d7bf">EepromBuffer</a> Buffer)</td></tr>
+<tr class="memdesc:ga2f23357b0cfe111d80824b3bfacb8b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the serial EEPROM connected to the SPI interface.  <a href="group__xspips__eeprom__polled__example.html#ga2f23357b0cfe111d80824b3bfacb8b22">More...</a><br/></td></tr>
+<tr class="separator:ga2f23357b0cfe111d80824b3bfacb8b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd210e3892dd3e73c55e1f40e3a2b63f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gadd210e3892dd3e73c55e1f40e3a2b63f">SpiPsEepromIntrExample</a> (<a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *SpiInstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gadd210e3892dd3e73c55e1f40e3a2b63f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Illustrates how to use the <a class="el" href="struct_x_spi_ps.html" title="Holds the XSpiPs driver instance data. ">XSpiPs</a> device driver in interrupt mode.  <a href="group__xspips__eeprom__intr__example.html#gadd210e3892dd3e73c55e1f40e3a2b63f">More...</a><br/></td></tr>
+<tr class="separator:gadd210e3892dd3e73c55e1f40e3a2b63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the SPI EEPROM interrupt example.  <a href="group__xspips__eeprom__intr__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga2dd94411694db2d8662ebacc6e880c0a"><td class="memItemLeft" align="right" valign="top">volatile int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga2dd94411694db2d8662ebacc6e880c0a">TransferInProgress</a></td></tr>
+<tr class="memdesc:ga2dd94411694db2d8662ebacc6e880c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that an SPI transfer is in progress.  <a href="group__xspips__eeprom__intr__example.html#ga2dd94411694db2d8662ebacc6e880c0a">More...</a><br/></td></tr>
+<tr class="separator:ga2dd94411694db2d8662ebacc6e880c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97ae9edf79edb0778febfe0c6ffa4d9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga97ae9edf79edb0778febfe0c6ffa4d9a">Error</a></td></tr>
+<tr class="memdesc:ga97ae9edf79edb0778febfe0c6ffa4d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks any errors that occur during interrupt processing.  <a href="group__xspips__eeprom__intr__example.html#ga97ae9edf79edb0778febfe0c6ffa4d9a">More...</a><br/></td></tr>
+<tr class="separator:ga97ae9edf79edb0778febfe0c6ffa4d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3bcee72bda39943b664463f1df4d211"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gab3bcee72bda39943b664463f1df4d211">Test</a></td></tr>
+<tr class="memdesc:gab3bcee72bda39943b664463f1df4d211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds a test value added to the values written to the EEPROM.  <a href="group__xspips__eeprom__intr__example.html#gab3bcee72bda39943b664463f1df4d211">More...</a><br/></td></tr>
+<tr class="separator:gab3bcee72bda39943b664463f1df4d211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5faf644bedc2f77c4dc8631d5a5a0482"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xspips__eeprom__polled__example.html#gaa4e3dacd5dff65e71d69eed321c4d7bf">EepromBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#ga5faf644bedc2f77c4dc8631d5a5a0482">ReadBuffer</a></td></tr>
+<tr class="memdesc:ga5faf644bedc2f77c4dc8631d5a5a0482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data read from the EEPROM.  <a href="group__xspips__eeprom__intr__example.html#ga5faf644bedc2f77c4dc8631d5a5a0482">More...</a><br/></td></tr>
+<tr class="separator:ga5faf644bedc2f77c4dc8631d5a5a0482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaf9b16ecdabdeade00c3e9616cd7e560"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__xspips__eeprom__polled__example.html#gaa4e3dacd5dff65e71d69eed321c4d7bf">EepromBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xspips__eeprom__intr__example.html#gaaf9b16ecdabdeade00c3e9616cd7e560">WriteBuffer</a></td></tr>
+<tr class="memdesc:gaaf9b16ecdabdeade00c3e9616cd7e560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data to write to the EEPROM.  <a href="group__xspips__eeprom__intr__example.html#gaaf9b16ecdabdeade00c3e9616cd7e560">More...</a><br/></td></tr>
+<tr class="separator:gaaf9b16ecdabdeade00c3e9616cd7e560"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a1d9197ec4b9bd96eae501456b5b12cd5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EepromRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EepromBuffer&#160;</td>
-          <td class="paramname"><em>Buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function reads from the serial EEPROM connected to the SPI interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the SPI driver instance to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to read data from in the EEPROM. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to read. </td></tr>
-    <tr><td class="paramname">Buffer</td><td>is a buffer to read the data into.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the SPI driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to read data from in the EEPROM. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to read. </td></tr>
-    <tr><td class="paramname">Buffer</td><td>is a buffer to read the data into.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspips__eeprom__intr__example_8c.html#add210e3892dd3e73c55e1f40e3a2b63f">SpiPsEepromIntrExample()</a>, and <a class="el" href="xspips__eeprom__polled__example_8c.html#af156542e10fb69ebb3a0760a22f77fbb">SpiPsEepromPolledExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2f23357b0cfe111d80824b3bfacb8b22"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void EepromWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *&#160;</td>
-          <td class="paramname"><em>SpiPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u16&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">EepromBuffer&#160;</td>
-          <td class="paramname"><em>Buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function writes to the serial EEPROM connected to the SPI interface. </p>
-<p>This function is not designed to be a driver to handle all the conditions of the EEPROM device. The EEPROM contains a 32 byte write buffer which can be filled and then a write is automatically performed by the device. All the data put into the buffer must be in the same page of the device with page boundaries being on 32 byte boundaries.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiPtr</td><td>is a pointer to the SPI driver instance to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to write data to in the EEPROM. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Buffer</td><td>is a buffer of data to write from.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="group__spips.html#ga747939dd62eb9c82ed185611e95211c7">XSpiPs_Transfer()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspips__eeprom__intr__example_8c.html#add210e3892dd3e73c55e1f40e3a2b63f">SpiPsEepromIntrExample()</a>, and <a class="el" href="xspips__eeprom__polled__example_8c.html#af156542e10fb69ebb3a0760a22f77fbb">SpiPsEepromPolledExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the Spi Eeprom example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xspips__eeprom__intr__example_8c.html#add210e3892dd3e73c55e1f40e3a2b63f">SpiPsEepromIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aacdc7be0761bc23854d5f1b9c6dbe36a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SpiHandler </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>CallBackRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>StatusEvent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>ByteCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function is the handler which performs processing for the SPI driver. </p>
-<p>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</p>
-<p>This handler provides an example of how to handle SPI interrupts but is application specific.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">CallBackRef</td><td>is a reference passed to the handler. </td></tr>
-    <tr><td class="paramname">StatusEvent</td><td>is the status of the SPI . </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes transferred.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>Referenced by <a class="el" href="xspips__eeprom__intr__example_8c.html#add210e3892dd3e73c55e1f40e3a2b63f">SpiPsEepromIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="add210e3892dd3e73c55e1f40e3a2b63f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SpiPsEepromIntrExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_spi_ps.html">XSpiPs</a> *&#160;</td>
-          <td class="paramname"><em>SpiInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_spi_ps.html" title="The XSpiPs driver instance data. ">XSpiPs</a> device driver in interrupt mode . </p>
-<p>This test writes and reads data from a serial EEPROM. This part must be present in the hardware to use this example.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">SpiInstancePtr</td><td>is a pointer to the SPI driver to use. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>- This function calls functions which contain loops that may be infinite if interrupts are not working such that it may not return. If the device slave select is not correct and the device is not responding on bus it will read a status of 0xFF for the status register as the bus is pulled up.<ul>
-<li>In XSCT/classic flow, DeviceId is used to look up the device configuration. </li>
-</ul>
-</dd></dl>
-
-<p>References <a class="el" href="struct_x_spi_ps___config.html#af265320ef6d6282e194b6234780c2e6e">XSpiPs_Config::BaseAddress</a>, <a class="el" href="xspips__eeprom__intr__example_8c.html#a1d9197ec4b9bd96eae501456b5b12cd5">EepromRead()</a>, <a class="el" href="xspips__eeprom__intr__example_8c.html#a2f23357b0cfe111d80824b3bfacb8b22">EepromWrite()</a>, <a class="el" href="struct_x_spi_ps___config.html#ae8110b04c0f446cd35df029a7e423fd6">XSpiPs_Config::IntrId</a>, <a class="el" href="struct_x_spi_ps___config.html#a67af05f80f2d57b0ea4c07e1ddb65629">XSpiPs_Config::IntrParent</a>, <a class="el" href="xspips__eeprom__intr__example_8c.html#aacdc7be0761bc23854d5f1b9c6dbe36a">SpiHandler()</a>, <a class="el" href="group__spips.html#gabfabf86279474d10c04bfe97f3386a64">XSpiPs_CfgInitialize()</a>, <a class="el" href="group__spips.html#gac069eaeb884436a488dbf5d8d56b990e">XSPIPS_CLK_PRESCALE_64</a>, <a class="el" href="group__spips.html#gaf0a0da0e20b70ee21a3998117785638e">XSPIPS_FORCE_SSELECT_OPTION</a>, <a class="el" href="group__spips.html#gac57ccd3fab9a25399bdb8bc234fecc66">XSpiPs_InterruptHandler()</a>, <a class="el" href="group__spips.html#ga4fa549669d98870a88eba403598ee595">XSpiPs_LookupConfig()</a>, <a class="el" href="group__spips.html#ga1fbe2203de88e79aa3a6c7e70e2f3436">XSPIPS_MASTER_OPTION</a>, <a class="el" href="group__spips.html#gaaa797b9b8184e6f39b0c0038553e48d8">XSpiPs_SelfTest()</a>, <a class="el" href="group__spips.html#ga146ed84d7a6ab3b3f8961697bd78da60">XSpiPs_SetClkPrescaler()</a>, <a class="el" href="group__spips.html#ga4f14bfc3ddd296adb08843dbbe30a306">XSpiPs_SetOptions()</a>, <a class="el" href="group__spips.html#ga1ef5af2211095df5692567fa4721a8d5">XSpiPs_SetSlaveSelect()</a>, and <a class="el" href="group__spips.html#gacafc99130a16e99abb3d86e682f1de09">XSpiPs_SetStatusHandler()</a>.</p>
-
-<p>Referenced by <a class="el" href="xspips__eeprom__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

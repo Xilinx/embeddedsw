@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___regulator" kind="struct" prot="public">
+    <compoundname>XPm_Regulator</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___regulator_1a8445e498ef9125d2e63efe179419da0e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_Regulator::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___regulator_1afe288731e0be36d0cf64c96d894cabe9" prot="public" static="no" mutable="no">
+        <type>XPm_I2cCmd</type>
+        <definition>XPm_I2cCmd XPm_Regulator::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Node base class. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___regulator_1a1754cf20a678b91853c1d23d27cb1354" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_Regulator::I2cAddress</definition>
+        <argsstring></argsstring>
+        <name>I2cAddress</name>
+        <briefdescription>
+<para>i2c commands to configure the regulator </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___regulator_1ace510a5b65cc7e419fb36f69a4d870df" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___device_node" kindref="compound">XPm_Device</ref> *</type>
+        <definition>XPm_Device* XPm_Regulator::Cntrlr[XPM_MAX_NUM_CNTRLR]</definition>
+        <argsstring>[XPM_MAX_NUM_CNTRLR]</argsstring>
+        <name>Cntrlr</name>
+        <briefdescription>
+<para>i2c address of the regulator </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="251">
+        <label>XPm_Regulator</label>
+        <childnode refid="252" relation="usage">
+          <edgelabel>Cntrlr</edgelabel>
+        </childnode>
+        <childnode refid="253" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+      </node>
+      <node id="255">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="253" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="254" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="252">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="253" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="254" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="256" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="256">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="252" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="257" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="256" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="257">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="253" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="256" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="254">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="252" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="255" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="254" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="253">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regulator.h" bodystart="26" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___regulator_1ace510a5b65cc7e419fb36f69a4d870df" prot="public" virt="non-virtual"><scope>XPm_Regulator</scope><name>Cntrlr</name></member>
+      <member refid="struct_x_pm___regulator_1afe288731e0be36d0cf64c96d894cabe9" prot="public" virt="non-virtual"><scope>XPm_Regulator</scope><name>Config</name></member>
+      <member refid="struct_x_pm___regulator_1a1754cf20a678b91853c1d23d27cb1354" prot="public" virt="non-virtual"><scope>XPm_Regulator</scope><name>I2cAddress</name></member>
+      <member refid="struct_x_pm___regulator_1a8445e498ef9125d2e63efe179419da0e" prot="public" virt="non-virtual"><scope>XPm_Regulator</scope><name>Node</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

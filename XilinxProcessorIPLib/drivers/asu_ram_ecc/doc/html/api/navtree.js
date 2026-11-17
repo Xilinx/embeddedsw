@@ -1,11 +1,21 @@
 var NAVTREE =
 [
-  [ "asu_ram_ecc", "index.html", ]
+  [
+    "asu_ram_ecc",
+    "index.html",
+    [
+      [
+        "File List",
+        "files.html",
+        "files"
+      ]
+    ]
+  ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"files.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

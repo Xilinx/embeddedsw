@@ -12,6 +12,9 @@
     <includedby refid="xmipi__rx__phy__xpll_8c" local="yes">xmipi_rx_phy_xpll.c</includedby>
     <includedby refid="xmipi__rx__phy__example__selftest_8c" local="yes">xmipi_rx_phy_example_selftest.c</includedby>
     <incdepgraph>
+      <node id="15">
+        <label>xil_io.h</label>
+      </node>
       <node id="14">
         <label>xmipi_rx_phy_hw.h</label>
         <link refid="xmipi__rx__phy__hw_8h"/>
@@ -19,12 +22,6 @@
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
-      </node>
-      <node id="15">
-        <label>xil_io.h</label>
-      </node>
-      <node id="13">
-        <label>xil_types.h</label>
       </node>
       <node id="12">
         <label>xmipi_rx_phy.h</label>
@@ -34,30 +31,14 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
+      <node id="13">
+        <label>xil_types.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
       <node id="22">
         <label>xmipi_rx_phy_xpll.c</label>
         <link refid="xmipi__rx__phy__xpll_8c"/>
-      </node>
-      <node id="21">
-        <label>xmipi_rx_phy_sinit.c</label>
-        <link refid="xmipi__rx__phy__sinit_8c"/>
-      </node>
-      <node id="19">
-        <label>xmipi_rx_phy_mmcm.c</label>
-        <link refid="xmipi__rx__phy__mmcm_8c"/>
-      </node>
-      <node id="20">
-        <label>xmipi_rx_phy_selftest.c</label>
-        <link refid="xmipi__rx__phy__selftest_8c"/>
-      </node>
-      <node id="23">
-        <label>xmipi_rx_phy_example_selftest.c</label>
-        <link refid="xmipi__rx__phy__example__selftest_8c"/>
-      </node>
-      <node id="18">
-        <label>xmipi_rx_phy_g.c</label>
       </node>
       <node id="17">
         <label>xmipi_rx_phy.c</label>
@@ -81,6 +62,25 @@
         <childnode refid="23" relation="include">
         </childnode>
       </node>
+      <node id="21">
+        <label>xmipi_rx_phy_sinit.c</label>
+        <link refid="xmipi__rx__phy__sinit_8c"/>
+      </node>
+      <node id="20">
+        <label>xmipi_rx_phy_selftest.c</label>
+        <link refid="xmipi__rx__phy__selftest_8c"/>
+      </node>
+      <node id="19">
+        <label>xmipi_rx_phy_mmcm.c</label>
+        <link refid="xmipi__rx__phy__mmcm_8c"/>
+      </node>
+      <node id="18">
+        <label>xmipi_rx_phy_g.c</label>
+      </node>
+      <node id="23">
+        <label>xmipi_rx_phy_example_selftest.c</label>
+        <link refid="xmipi__rx__phy__example__selftest_8c"/>
+      </node>
     </invincdepgraph>
     <innerclass refid="struct_x_mipi___rx___phy___config" prot="public">XMipi_Rx_Phy_Config</innerclass>
     <innerclass refid="struct_x_mipi___rx___phy" prot="public">XMipi_Rx_Phy</innerclass>
@@ -95,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="117" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga12575a833db166780c85a10a45b142c8" prot="public" static="no">
         <name>XMIPI_RX_PHY_LOW_POWER_MODE</name>
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga83b17604d921493045f62887dff773ca" prot="public" static="no">
         <name>XMIPI_RX_PHY_HIGH_POWER_MODE</name>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="119" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="119" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga6ff6bab049c8e69e8ccbebc8b43b6eb7" prot="public" static="no">
         <name>XMIPI_RX_PHY_ESCAPE_MODE</name>
@@ -128,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="120" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga34e4e2c11b6b212760e6e372cccde8e1" prot="public" static="no">
         <name>XMIPI_RX_PHY_MODE_MAX</name>
@@ -139,7 +139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga91cf5eb7c138a6a6f2bc4f05be160ea8" prot="public" static="no">
         <name>XMIPI_RX_PHY_MAX_LANES_V10</name>
@@ -150,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -164,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="128" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga0972f732a6337d400b421b31a923bd89" prot="public" static="no">
         <name>XMIPI_RX_PHY_HANDLE_IDELAY</name>
@@ -175,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="129" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1gad4a4803f13f2ae21cfc4443b4f74ceb3" prot="public" static="no">
         <name>XMIPI_RX_PHY_HANDLE_INIT_TIMER</name>
@@ -186,7 +186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="130" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -199,7 +199,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="131" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga72222b2af839769c09e80f143f2da026" prot="public" static="no">
         <name>XMIPI_RX_PHY_HANDLE_HSTIMEOUT</name>
@@ -210,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="132" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="132" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga73cfbe4a911c72bccdea37f91d5829d6" compoundref="xmipi__rx__phy__selftest_8c" startline="61" endline="73">XMipi_Rx_Phy_SelfTest</referencedby>
@@ -224,7 +224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="133" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -237,7 +237,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="134" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -250,7 +250,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="135" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -263,7 +263,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="136" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -276,7 +276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="137" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="137" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -289,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="138" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="138" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -302,7 +302,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="139" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="139" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="140" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -328,7 +328,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="141" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="141" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="142" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -354,7 +354,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="143" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="143" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
       </memberdef>
@@ -370,7 +370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="150" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="150" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga7d9babc01d9eeeaf4dcefd45ced53fad" prot="public" static="no">
@@ -382,7 +382,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="151" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       </sectiondef>
@@ -397,7 +397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="157" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__mipi__rx__phy_1ga1d7f56650d0da43285295644eb951100" prot="public" static="no">
@@ -409,7 +409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="158" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
       </memberdef>
       </sectiondef>
@@ -424,7 +424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="164" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="164" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
       </memberdef>
       </sectiondef>
@@ -439,7 +439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="170" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="170" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" compoundref="xmipi__rx__phy_8c" startline="576" endline="600">XMipi_Rx_Phy_Activate</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
@@ -452,7 +452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="171" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="171" bodyend="-1"/>
         <referencedby refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" compoundref="xmipi__rx__phy_8c" startline="576" endline="600">XMipi_Rx_Phy_Activate</referencedby>
         <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
@@ -466,7 +466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="99" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -517,7 +517,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="190" bodyend="195"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="190" bodyend="195"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1ga78b00f1fd91616efe8409de3d6d96d4c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -566,7 +566,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="212" bodyend="217"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="212" bodyend="217"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1ga9fe2f4e9a1511137197b83f096d25159" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>u32</type>
@@ -626,7 +626,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="235" bodyend="240"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="235" bodyend="240"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1ga08f22a564b3270ced06291073af99c4a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -697,7 +697,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="257" bodyend="263"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="257" bodyend="263"/>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1ga5bc7c94c01f1212bbe860efa8982443e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="struct_x_mipi___rx___phy___config" kindref="compound">XMipi_Rx_Phy_Config</ref> *</type>
@@ -724,7 +724,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_sinit.c" bodystart="45" bodyend="60"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_sinit.c" bodystart="45" bodyend="60"/>
         <referencedby refid="xmipi__rx__phy__example__selftest_8c_1a6dc882f61ad6323877a35d7bc3c3f6b5" compoundref="xmipi__rx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Rx_PhySelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1gadd043232c820116d069c13766ce1d432" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -776,7 +776,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="61" bodyend="77"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="61" bodyend="77"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" compoundref="xmipi__rx__phy_8h" startline="298">XMipi_Rx_Phy::IsReady</references>
@@ -831,7 +831,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="95" bodyend="182"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="95" bodyend="182"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" compoundref="xmipi__rx__phy_8h" startline="286">XMipi_Rx_Phy_Config::EnableTimeOutRegs</references>
         <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
@@ -896,7 +896,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="216" bodyend="302"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="216" bodyend="302"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a983935852df64386544e48ba4be1ad10" compoundref="xmipi__rx__phy_8h" startline="286">XMipi_Rx_Phy_Config::EnableTimeOutRegs</references>
         <references refid="struct_x_mipi___rx___phy___config_1a9348f07e9115bbb5a18b057917414ad0" compoundref="xmipi__rx__phy_8h" startline="281">XMipi_Rx_Phy_Config::EscTimeout</references>
@@ -955,7 +955,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="315" bodyend="348"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="315" bodyend="348"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" compoundref="xmipi__rx__phy_8h" startline="298">XMipi_Rx_Phy::IsReady</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
@@ -1009,7 +1009,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="363" bodyend="378"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="363" bodyend="378"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
@@ -1042,7 +1042,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="391" bodyend="401"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="391" bodyend="401"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
@@ -1075,7 +1075,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="413" bodyend="425"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="413" bodyend="425"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
@@ -1118,7 +1118,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="439" bodyend="448"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="439" bodyend="448"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
@@ -1161,7 +1161,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="527" bodyend="542"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="527" bodyend="542"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
@@ -1205,7 +1205,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="463" bodyend="488"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="463" bodyend="488"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="group__mipi__rx__phy_1ga4dab676485278ae963ba2a5c4e5d0063" compoundref="xmipi__rx__phy__hw_8h" startline="252">DL_LANE_OFFSET</references>
@@ -1250,7 +1250,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="501" bodyend="513"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="501" bodyend="513"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
         <references refid="group__mipi__rx__phy_1ga8b20becb98cc3e299a6791e4a27165e5" compoundref="xmipi__rx__phy__hw_8h" startline="211">XMIPI_RX_PHY_DLXSTATUS_REG_MODE_MASK</references>
@@ -1292,7 +1292,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="576" bodyend="600"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="576" bodyend="600"/>
         <references refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" compoundref="xmipi__rx__phy_8h" startline="275">XMipi_Rx_Phy_Config::BaseAddr</references>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
@@ -1329,7 +1329,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="197" bodyend="203"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="197" bodyend="203"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a75232bef192fd87b24590e009404289d" compoundref="xmipi__rx__phy_8h" startline="277">XMipi_Rx_Phy_Config::IsRegisterPresent</references>
         <referencedby refid="xmipi__rx__phy__example__selftest_8c_1a6dc882f61ad6323877a35d7bc3c3f6b5" compoundref="xmipi__rx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Rx_PhySelfTestExample</referencedby>
@@ -1383,7 +1383,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="624" bodyend="678"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.c" bodystart="624" bodyend="678"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a4cb2986e0b22c7b0c06bc5d95f51159c" compoundref="xmipi__rx__phy_8h" startline="276">XMipi_Rx_Phy_Config::IsDphy</references>
         <references refid="struct_x_mipi___rx___phy___config_1aa748374e998a4ba576a1979e2338e3f8" compoundref="xmipi__rx__phy_8h" startline="279">XMipi_Rx_Phy_Config::IsDynamicLineRate</references>
@@ -1433,7 +1433,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="175" bodyend="263"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_xpll.c" bodystart="175" bodyend="263"/>
         <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1gac58ac9782bb7c333881f520fd379b5d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1474,7 +1474,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="432" bodyend="525"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="432" bodyend="525"/>
         <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__mipi__rx__phy_1ga73cfbe4a911c72bccdea37f91d5829d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1506,7 +1506,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_selftest.c" bodystart="61" bodyend="73"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_selftest.c" bodystart="61" bodyend="73"/>
         <references refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" compoundref="xmipi__rx__phy_8h" startline="297">XMipi_Rx_Phy::Config</references>
         <references refid="struct_x_mipi___rx___phy___config_1a05e041c93ffdd9e6728c70cc0cd77faf" compoundref="xmipi__rx__phy_8h" startline="283">XMipi_Rx_Phy_Config::HSTimeOut</references>
         <references refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</references>
@@ -1678,6 +1678,6 @@
 <codeline lineno="337"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="338"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h"/>
   </compounddef>
 </doxygen>

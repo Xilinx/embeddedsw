@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xsdps__sinit_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -105,15 +105,29 @@ $(document).ready(function(){initNavTree('xsdps__sinit_8c.html','');});
 <div class="title">xsdps_sinit.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements the static initialization functionality of the <a class="el" href="struct_x_sd_ps.html" title="Holds the XSdPs driver instance data. ">XSdPs</a> component. </p>
+<pre>
+MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
+</p>
+<hr/>
+<p>
+1.00a hk/sg  10/17/13 Initial release
+      kvn    07/15/15 Modified the code according to MISRAC-2012.
+3.7   aru    03/12/19 Modified the code according to MISRAC-2012.
+4.2   ro     06/12/23 Added support for system device-tree flow.
+4.6   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xsdps_8h.html">xsdps.h</a>&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab155865689d6bdec2c089166799a423d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sd_ps___config.html">XSdPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#gab155865689d6bdec2c089166799a423d">XSdPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gab155865689d6bdec2c089166799a423d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__sdps__api.html#gab155865689d6bdec2c089166799a423d">More...</a><br/></td></tr>
-<tr class="separator:gab155865689d6bdec2c089166799a423d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa7e51609acb4c0c024f5be29962f8431"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_sd_ps___config.html">XSdPs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__sdps__api.html#gaa7e51609acb4c0c024f5be29962f8431">XSdPs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gaa7e51609acb4c0c024f5be29962f8431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="group__sdps__api.html#gaa7e51609acb4c0c024f5be29962f8431">More...</a><br/></td></tr>
+<tr class="separator:gaa7e51609acb4c0c024f5be29962f8431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

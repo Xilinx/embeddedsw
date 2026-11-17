@@ -6,224 +6,206 @@
     <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
     <includedby refid="vvbench__wdr__api_8h" local="yes">vvbench_wdr_api.h</includedby>
     <incdepgraph>
-      <node id="4788">
+      <node id="4795">
         <label>stdbool.h</label>
       </node>
-      <node id="4782">
+      <node id="4797">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="4795" relation="include">
+        </childnode>
+        <childnode refid="4798" relation="include">
+        </childnode>
+      </node>
+      <node id="4796">
+        <label>stdint.h</label>
+      </node>
+      <node id="4786">
+        <label>stdlib.h</label>
+      </node>
+      <node id="4783">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4784" relation="include">
+        </childnode>
+        <childnode refid="4787" relation="include">
+        </childnode>
+        <childnode refid="4788" relation="include">
+        </childnode>
+      </node>
+      <node id="4788">
+        <label>stddef.h</label>
+      </node>
+      <node id="4787">
+        <label>limits.h</label>
+      </node>
+      <node id="4789">
         <label>return_codes.h</label>
         <link refid="return__codes_8h"/>
       </node>
-      <node id="4789">
-        <label>stdint.h</label>
-      </node>
-      <node id="4779">
-        <label>stdlib.h</label>
-      </node>
-      <node id="4786">
+      <node id="4793">
         <label>sensor_cmd.h</label>
-        <childnode refid="4787" relation="include">
+        <childnode refid="4794" relation="include">
         </childnode>
-        <childnode refid="4782" relation="include">
-        </childnode>
-      </node>
-      <node id="4781">
-        <label>stddef.h</label>
-      </node>
-      <node id="4774">
-        <label>cam_device_wdr_api.h</label>
-        <link refid="cam_device_wdr_api.h"/>
-        <childnode refid="4775" relation="include">
+        <childnode refid="4789" relation="include">
         </childnode>
       </node>
-      <node id="4780">
-        <label>limits.h</label>
-      </node>
-      <node id="4775">
-        <label>cam_device_common.h</label>
-        <childnode refid="4776" relation="include">
-        </childnode>
-        <childnode refid="4782" relation="include">
-        </childnode>
-        <childnode refid="4783" relation="include">
-        </childnode>
+      <node id="4784">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
         <childnode refid="4785" relation="include">
         </childnode>
         <childnode refid="4786" relation="include">
         </childnode>
       </node>
-      <node id="4785">
-        <label>buf_defs.h</label>
-        <childnode refid="4776" relation="include">
-        </childnode>
+      <node id="4791">
+        <label>string.h</label>
       </node>
-      <node id="4787">
-        <label>mbox_api.h</label>
-        <childnode refid="4788" relation="include">
+      <node id="4782">
+        <label>cam_device_common.h</label>
+        <childnode refid="4783" relation="include">
         </childnode>
         <childnode refid="4789" relation="include">
         </childnode>
         <childnode refid="4790" relation="include">
         </childnode>
-      </node>
-      <node id="4784">
-        <label>string.h</label>
-      </node>
-      <node id="4790">
-        <label>mbox_fifo.h</label>
-        <link refid="mbox__fifo_8h"/>
-        <childnode refid="4788" relation="include">
+        <childnode refid="4792" relation="include">
         </childnode>
-        <childnode refid="4791" relation="include">
-        </childnode>
-      </node>
-      <node id="4791">
-        <label>sys/_stdint.h</label>
-      </node>
-      <node id="4776">
-        <label>types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="4777" relation="include">
-        </childnode>
-        <childnode refid="4780" relation="include">
-        </childnode>
-        <childnode refid="4781" relation="include">
-        </childnode>
-      </node>
-      <node id="4783">
-        <label>builtins.h</label>
-        <link refid="builtins_8h"/>
-        <childnode refid="4776" relation="include">
-        </childnode>
-        <childnode refid="4784" relation="include">
-        </childnode>
-      </node>
-      <node id="4778">
-        <label>stdio.h</label>
-      </node>
-      <node id="4777">
-        <label>linux_compat.h</label>
-        <link refid="linux__compat_8h"/>
-        <childnode refid="4778" relation="include">
-        </childnode>
-        <childnode refid="4779" relation="include">
-        </childnode>
-      </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="4826">
-        <label>cam_device_rgbir_api_v2.c</label>
-      </node>
-      <node id="4824">
-        <label>cam_device_hist64_api.c</label>
-      </node>
-      <node id="4823">
-        <label>cam_device_hist256_api.c</label>
-      </node>
-      <node id="4827">
-        <label>cam_device_tpg_api.c</label>
-      </node>
-      <node id="4793">
-        <label>cam_device_module_api.h</label>
-        <childnode refid="4794" relation="include">
-        </childnode>
-      </node>
-      <node id="4831">
-        <label>vvdevice.c</label>
-      </node>
-      <node id="4795">
-        <label>control.h</label>
-        <childnode refid="4796" relation="include">
-        </childnode>
-      </node>
-      <node id="4821">
-        <label>cam_device_ge_api.c</label>
-      </node>
-      <node id="4829">
-        <label>cam_device_wdr_api_v5_2.c</label>
-      </node>
-      <node id="4807">
-        <label>cam_device_cpd_api.c</label>
-      </node>
-      <node id="4815">
-        <label>cam_device_cnr_api.c</label>
-      </node>
-      <node id="4809">
-        <label>cam_device_dg_api.c</label>
-      </node>
-      <node id="4813">
-        <label>cam_device_af_api.c</label>
-      </node>
-      <node id="4835">
-        <label>submodule_def.h</label>
-        <childnode refid="4836" relation="include">
-        </childnode>
-        <childnode refid="4831" relation="include">
-        </childnode>
-      </node>
-      <node id="4834">
-        <label>vvbench_wdr_api.h</label>
-        <childnode refid="4835" relation="include">
-        </childnode>
-        <childnode refid="4837" relation="include">
-        </childnode>
-      </node>
-      <node id="4805">
-        <label>cam_device_bls_api.c</label>
-      </node>
-      <node id="4801">
-        <label>cam_device_sensor_api.c</label>
-      </node>
-      <node id="4792">
-        <label>cam_device_wdr_api.h</label>
-        <link refid="cam_device_wdr_api.h"/>
         <childnode refid="4793" relation="include">
         </childnode>
-        <childnode refid="4834" relation="include">
-        </childnode>
-      </node>
-      <node id="4800">
-        <label>cam_device_buffer_api.c</label>
-      </node>
-      <node id="4836">
-        <label>vvbparser.c</label>
-      </node>
-      <node id="4816">
-        <label>cam_device_hdr_api.c</label>
-      </node>
-      <node id="4808">
-        <label>cam_device_cproc_api.c</label>
-      </node>
-      <node id="4811">
-        <label>cam_device_dpcc_api.c</label>
-      </node>
-      <node id="4814">
-        <label>cam_device_afm_api.c</label>
-      </node>
-      <node id="4798">
-        <label>cam_device.c</label>
-      </node>
-      <node id="4806">
-        <label>cam_device_ccm_api.c</label>
-      </node>
-      <node id="4804">
-        <label>cam_device_awb_api.c</label>
       </node>
       <node id="4794">
-        <label>cam_device_app.h</label>
+        <label>mbox_api.h</label>
         <childnode refid="4795" relation="include">
         </childnode>
         <childnode refid="4796" relation="include">
         </childnode>
         <childnode refid="4797" relation="include">
         </childnode>
-        <childnode refid="4798" relation="include">
+      </node>
+      <node id="4790">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="4783" relation="include">
         </childnode>
-        <childnode refid="4799" relation="include">
+        <childnode refid="4791" relation="include">
         </childnode>
-        <childnode refid="4800" relation="include">
+      </node>
+      <node id="4798">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="4792">
+        <label>buf_defs.h</label>
+        <childnode refid="4783" relation="include">
         </childnode>
+      </node>
+      <node id="4785">
+        <label>stdio.h</label>
+      </node>
+      <node id="4781">
+        <label>cam_device_wdr_api.h</label>
+        <link refid="cam_device_wdr_api.h"/>
+        <childnode refid="4782" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4832">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="4813">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="4834">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="4812">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="4817">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="4831">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="4821">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="4800">
+        <label>cam_device_module_api.h</label>
         <childnode refid="4801" relation="include">
         </childnode>
+      </node>
+      <node id="4819">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="4828">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="4830">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="4803">
+        <label>control.c</label>
+      </node>
+      <node id="4843">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="4811">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="4810">
+        <label>cam_device_ae_api.c</label>
+      </node>
+      <node id="4829">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="4840">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="4839">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="4840" relation="include">
+        </childnode>
+      </node>
+      <node id="4807">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="4804">
+        <label>iba.c</label>
+      </node>
+      <node id="4818">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="4823">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="4837">
+        <label>oba.c</label>
+      </node>
+      <node id="4815">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="4825">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="4806">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="4824">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="4836">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4844">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4838">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="4801">
+        <label>cam_device_app.h</label>
         <childnode refid="4802" relation="include">
         </childnode>
         <childnode refid="4803" relation="include">
@@ -286,62 +268,80 @@
         </childnode>
         <childnode refid="4832" relation="include">
         </childnode>
-      </node>
-      <node id="4796">
-        <label>control.c</label>
-      </node>
-      <node id="4828">
-        <label>cam_device_wb_api.c</label>
-      </node>
-      <node id="4825">
-        <label>cam_device_lsc_api_v3.c</label>
-      </node>
-      <node id="4817">
-        <label>cam_device_ee_api_v2.c</label>
-      </node>
-      <node id="4818">
-        <label>cam_device_exp_api_v2.c</label>
-      </node>
-      <node id="4819">
-        <label>cam_device_fusa_api.c</label>
-      </node>
-      <node id="4830">
-        <label>oba.c</label>
-      </node>
-      <node id="4799">
-        <label>cam_device_api.c</label>
-      </node>
-      <node id="4820">
-        <label>cam_device_gc_api.c</label>
-      </node>
-      <node id="4837">
-        <label>vvbench_wdr_api_v5_2.c</label>
-      </node>
-      <node id="4822">
-        <label>cam_device_gtm_api_v1.c</label>
-      </node>
-      <node id="4797">
-        <label>iba.c</label>
-      </node>
-      <node id="4810">
-        <label>cam_device_dmsc_api_v2.c</label>
-      </node>
-      <node id="4802">
-        <label>cam_device_2dnr_api_v5_2.c</label>
-      </node>
-      <node id="4812">
-        <label>cam_device_3dnr_api.c</label>
-      </node>
-      <node id="4833">
-        <label>xvisp_ss_example.c</label>
-      </node>
-      <node id="4832">
-        <label>xvisp_ss_example.h</label>
         <childnode refid="4833" relation="include">
         </childnode>
+        <childnode refid="4834" relation="include">
+        </childnode>
+        <childnode refid="4835" relation="include">
+        </childnode>
+        <childnode refid="4836" relation="include">
+        </childnode>
+        <childnode refid="4837" relation="include">
+        </childnode>
+        <childnode refid="4838" relation="include">
+        </childnode>
+        <childnode refid="4839" relation="include">
+        </childnode>
       </node>
-      <node id="4803">
-        <label>cam_device_ae_api.c</label>
+      <node id="4805">
+        <label>cam_device.c</label>
+      </node>
+      <node id="4814">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="4808">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="4802">
+        <label>control.h</label>
+        <childnode refid="4803" relation="include">
+        </childnode>
+      </node>
+      <node id="4827">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="4841">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="4842" relation="include">
+        </childnode>
+        <childnode refid="4844" relation="include">
+        </childnode>
+      </node>
+      <node id="4820">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="4809">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="4826">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="4822">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="4799">
+        <label>cam_device_wdr_api.h</label>
+        <link refid="cam_device_wdr_api.h"/>
+        <childnode refid="4800" relation="include">
+        </childnode>
+        <childnode refid="4841" relation="include">
+        </childnode>
+      </node>
+      <node id="4835">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="4816">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="4842">
+        <label>submodule_def.h</label>
+        <childnode refid="4843" relation="include">
+        </childnode>
+        <childnode refid="4838" relation="include">
+        </childnode>
+      </node>
+      <node id="4833">
+        <label>cam_device_rgbir_api_v2.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_cam_device_wdr_strength_config__s" prot="public">CamDeviceWdrStrengthConfig_s</innerclass>
@@ -372,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group____cam__device__wdr_1gad6efca8f5c3898fe90b4e984fc0847ca" prot="public" static="no">
         <name>CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE</name>
@@ -383,7 +383,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group____cam__device__wdr_1gadefab54555dd27b5cfac5872545a200f" prot="public" static="no">
         <name>CAMDEV_WDR_FLAT_LEVEL_INC_SIZE</name>
@@ -394,7 +394,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="48" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group____cam__device__wdr_1ga44188b23463d4121a4b7a300d863fb26" prot="public" static="no">
         <name>CAMDEV_WDR_COLOR_WEIGHT_SIZE</name>
@@ -405,7 +405,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group____cam__device__wdr_1ga44470005c97bbaa5b276cc2d6614b4f6" prot="public" static="no">
         <name>CAMDEV_WDR_RGB_COEF_SIZE</name>
@@ -416,7 +416,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" prot="public" static="no">
         <name>CAMDEV_WDR_LEVEL_MAX</name>
@@ -427,7 +427,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="51" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group____cam__device__wdr_1ga126b5dc6687f439ef7ffa54cc1aefdfc" prot="public" static="no">
         <name>CAMDEV_WDR_GAMMA_UP_BIN</name>
@@ -438,7 +438,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="52" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -453,7 +453,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="64" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="64" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga9ece6995663c1f15ead85f8650da41fb" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_ltm_weight_config__s" kindref="compound">CamDeviceWdrLtmWeightConfig_s</ref></type>
@@ -466,7 +466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="78" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="78" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga36558e2925a43b6b15c82b0c1109fdc6" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_ltm_config__s" kindref="compound">CamDeviceWdrLtmConfig_s</ref></type>
@@ -479,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="91" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="91" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga4d09d2baff333b210741a723d08b0f28" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_gtm_weight_config__s" kindref="compound">CamDeviceWdrGtmWeightConfig_s</ref></type>
@@ -492,7 +492,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="101" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="101" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_s</ref></type>
@@ -505,7 +505,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="112" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="112" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga3644a434ed24556df9f91fea0465815d" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_gtm_config__s" kindref="compound">CamDeviceWdrGtmConfig_s</ref></type>
@@ -518,7 +518,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="131" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="131" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1gade713c80a8aa4f0ec98a2ccf73e3f33a" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_degamma_config__s" kindref="compound">CamDeviceWdrDegammaConfig_s</ref></type>
@@ -531,7 +531,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="141" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="141" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga7dc1b09add5763581a82d413cd54b269" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_gain_limitation_config__s" kindref="compound">CamDeviceWdrGainLimitationConfig_s</ref></type>
@@ -544,7 +544,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="152" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="152" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga3744b372259314cb8724be7ab7f6267a" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_defringe_config__s" kindref="compound">CamDeviceWdrDefringeConfig_s</ref></type>
@@ -557,7 +557,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="163" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="163" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga98675e4c7367e2e65df8b2f4a1af3b5d" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_saturation_adjustment_config__s" kindref="compound">CamDeviceWdrSaturationAdjustmentConfig_s</ref></type>
@@ -570,7 +570,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="175" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="175" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga250622d4e96d6be3b441fe42630d3d21" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_halo_color_fading_config__s" kindref="compound">CamDeviceWdrHaloColorFadingConfig_s</ref></type>
@@ -583,7 +583,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="192" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="192" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga145e9d2493642c2f68f635e5a7b97696" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_high_light_config__s" kindref="compound">CamDeviceWdrHighLightConfig_s</ref></type>
@@ -596,7 +596,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="203" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="203" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga3fae2926d243b702ef10595acdcce7a0" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_damp_config__s" kindref="compound">CamDeviceWdrDampConfig_s</ref></type>
@@ -609,7 +609,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="224" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="224" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1gad3bc93bc5ee8d921a42f58ca9c0cd6ab" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_color_weight_config__s" kindref="compound">CamDeviceWdrColorWeightConfig_s</ref></type>
@@ -622,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="236" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="236" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga5f226d263276077f3b8405e378a8d36a" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_auto_config__s" kindref="compound">CamDeviceWdrAutoConfig_s</ref></type>
@@ -635,7 +635,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="280" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="280" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga6cf97a71e5ba8a3bc23a4cd1b3c9ed64" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_manual_config__s" kindref="compound">CamDeviceWdrManualConfig_s</ref></type>
@@ -648,7 +648,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="302" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="302" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_config__s" kindref="compound">CamDeviceWdrConfig_s</ref></type>
@@ -661,7 +661,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="313" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="313" column="1"/>
       </memberdef>
       <memberdef kind="typedef" id="group____cam__device__wdr_1ga694e2093f16fa7a4337bfeb8d7619b7c" prot="public" static="no">
         <type>struct <ref refid="struct_cam_device_wdr_status__s" kindref="compound">CamDeviceWdrStatus_s</ref></type>
@@ -674,7 +674,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="324" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="324" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -697,7 +697,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="19" bodyend="59"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="19" bodyend="59"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga667f196bf8c3e4b59958bd73c49ecc0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -718,7 +718,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="62" bodyend="101"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="62" bodyend="101"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga777c66ead3e321df402fa3e154b72f90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -739,7 +739,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="373" bodyend="410"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="373" bodyend="410"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1gacc348a3d8b62abec72c729b322c6594b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -760,7 +760,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="414" bodyend="453"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="414" bodyend="453"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1gae0264d925dd0034877c5f1581d489224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -781,7 +781,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="457" bodyend="496"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="457" bodyend="496"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga98e7afd6166e74dd933e8f24a64909c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -798,7 +798,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="104" bodyend="138"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="104" bodyend="138"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga8a6836d247f381966172518fe825d9eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -815,7 +815,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="141" bodyend="175"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="141" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga5f7f5b9a4acea550b6d23d345d7eba0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -832,7 +832,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="178" bodyend="212"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="178" bodyend="212"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga0f4179d183c60b5e91fd9bfa5025737e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -849,7 +849,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="215" bodyend="249"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="215" bodyend="249"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga139bef7b1bbc73358f2514dfc0bcd279" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -870,7 +870,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="252" bodyend="291"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="252" bodyend="291"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1ga540523769fb55c85de80b3f8712cb5c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -891,7 +891,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="294" bodyend="333"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="294" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="group____cam__device__wdr_1gaf9ca2901f02a8c1e672463d3d6285416" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>RESULT</type>
@@ -908,7 +908,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="336" bodyend="370"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="336" bodyend="370"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1244,6 +1244,6 @@
 <codeline lineno="637"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="638"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CAMDEV_WDR5_API_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h"/>
   </compounddef>
 </doxygen>

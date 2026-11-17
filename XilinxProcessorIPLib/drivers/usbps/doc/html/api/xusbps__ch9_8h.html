@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xusbps__ch9_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,8 @@ $(document).ready(function(){initNavTree('xusbps__ch9_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xusbps_ch9.h File Reference</div>  </div>
@@ -120,187 +122,199 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xusbps_8h.html">xusbps.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___local.html">XUsbPs_Local</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local chapter-9 state data for the USB device.  <a href="struct_x_usb_ps___local.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ae1f47de6b24f8fd1b5bead2c68d40e74"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ae1f47de6b24f8fd1b5bead2c68d40e74">ALIGNMENT_CACHELINE</a>&#160;&#160;&#160;__attribute__ ((aligned (32)))</td></tr>
+<tr class="memdesc:ae1f47de6b24f8fd1b5bead2c68d40e74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Align variable to 32-byte cache line boundary.  <a href="#ae1f47de6b24f8fd1b5bead2c68d40e74">More...</a><br/></td></tr>
+<tr class="separator:ae1f47de6b24f8fd1b5bead2c68d40e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12eaff7a21bb033400c8919b9ba3901b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a12eaff7a21bb033400c8919b9ba3901b">DCACHE_INVALIDATE_SIZE</a>(a)&#160;&#160;&#160;((a) % 32) ? ((((a) / 32) * 32) + 32) : (a)</td></tr>
+<tr class="memdesc:a12eaff7a21bb033400c8919b9ba3901b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round size up to nearest 32-byte cache line multiple.  <a href="#a12eaff7a21bb033400c8919b9ba3901b">More...</a><br/></td></tr>
+<tr class="separator:a12eaff7a21bb033400c8919b9ba3901b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Request types</div></td></tr>
 <tr class="memitem:ac01fcba5b5b1a16e77cbbf38db59adca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ac01fcba5b5b1a16e77cbbf38db59adca">XUSBPS_REQ_TYPE_MASK</a>&#160;&#160;&#160;0x60</td></tr>
-<tr class="memdesc:ac01fcba5b5b1a16e77cbbf38db59adca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for request opcode.  <a href="#ac01fcba5b5b1a16e77cbbf38db59adca">More...</a><br/></td></tr>
+<tr class="memdesc:ac01fcba5b5b1a16e77cbbf38db59adca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for the request-type field in bmRequestType.  <a href="#ac01fcba5b5b1a16e77cbbf38db59adca">More...</a><br/></td></tr>
 <tr class="separator:ac01fcba5b5b1a16e77cbbf38db59adca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55508a293a1277157e71ab94512617e3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55508a293a1277157e71ab94512617e3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CMD_STDREQ</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:a55508a293a1277157e71ab94512617e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a55508a293a1277157e71ab94512617e3">XUSBPS_CMD_STDREQ</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a55508a293a1277157e71ab94512617e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard request type.  <a href="#a55508a293a1277157e71ab94512617e3">More...</a><br/></td></tr>
 <tr class="separator:a55508a293a1277157e71ab94512617e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa6b147ffab665b15c86b729df45f9ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa6b147ffab665b15c86b729df45f9ad"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CMD_CLASSREQ</b>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memitem:afa6b147ffab665b15c86b729df45f9ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#afa6b147ffab665b15c86b729df45f9ad">XUSBPS_CMD_CLASSREQ</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memdesc:afa6b147ffab665b15c86b729df45f9ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class-specific request type.  <a href="#afa6b147ffab665b15c86b729df45f9ad">More...</a><br/></td></tr>
 <tr class="separator:afa6b147ffab665b15c86b729df45f9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bbec1275d00ed8195c646ad9ddd9085"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7bbec1275d00ed8195c646ad9ddd9085"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CMD_VENDREQ</b>&#160;&#160;&#160;0x40</td></tr>
+<tr class="memitem:a7bbec1275d00ed8195c646ad9ddd9085"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a7bbec1275d00ed8195c646ad9ddd9085">XUSBPS_CMD_VENDREQ</a>&#160;&#160;&#160;0x40</td></tr>
+<tr class="memdesc:a7bbec1275d00ed8195c646ad9ddd9085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vendor-specific request type.  <a href="#a7bbec1275d00ed8195c646ad9ddd9085">More...</a><br/></td></tr>
 <tr class="separator:a7bbec1275d00ed8195c646ad9ddd9085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab655d2d8562a99fadd06f4799847d31d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ab655d2d8562a99fadd06f4799847d31d">XUSBPS_REQ_REPLY_LEN</a>&#160;&#160;&#160;1024</td></tr>
 <tr class="memdesc:ab655d2d8562a99fadd06f4799847d31d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max size of reply buffer.  <a href="#ab655d2d8562a99fadd06f4799847d31d">More...</a><br/></td></tr>
 <tr class="separator:ab655d2d8562a99fadd06f4799847d31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc2bae6dcf8a08fc197696c12fbf43bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc2bae6dcf8a08fc197696c12fbf43bc"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_ENDPOINT_NUMBER_MASK</b>&#160;&#160;&#160;0x0f</td></tr>
+<tr class="memitem:acc2bae6dcf8a08fc197696c12fbf43bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#acc2bae6dcf8a08fc197696c12fbf43bc">XUSBPS_ENDPOINT_NUMBER_MASK</a>&#160;&#160;&#160;0x0f</td></tr>
+<tr class="memdesc:acc2bae6dcf8a08fc197696c12fbf43bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint number field mask.  <a href="#acc2bae6dcf8a08fc197696c12fbf43bc">More...</a><br/></td></tr>
 <tr class="separator:acc2bae6dcf8a08fc197696c12fbf43bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b998c0a178d3eb68c16fc82f893e891"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b998c0a178d3eb68c16fc82f893e891"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_ENDPOINT_DIR_MASK</b>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memitem:a0b998c0a178d3eb68c16fc82f893e891"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a0b998c0a178d3eb68c16fc82f893e891">XUSBPS_ENDPOINT_DIR_MASK</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memdesc:a0b998c0a178d3eb68c16fc82f893e891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint direction bit mask.  <a href="#a0b998c0a178d3eb68c16fc82f893e891">More...</a><br/></td></tr>
 <tr class="separator:a0b998c0a178d3eb68c16fc82f893e891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a9a75f6080ab3dadfc147c585e85425"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a9a75f6080ab3dadfc147c585e85425"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_ENDPOINT_XFERTYPE_MASK</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a0a9a75f6080ab3dadfc147c585e85425"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a0a9a75f6080ab3dadfc147c585e85425">XUSBPS_ENDPOINT_XFERTYPE_MASK</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a0a9a75f6080ab3dadfc147c585e85425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint transfer type mask.  <a href="#a0a9a75f6080ab3dadfc147c585e85425">More...</a><br/></td></tr>
 <tr class="separator:a0a9a75f6080ab3dadfc147c585e85425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Request Values</div></td></tr>
-<tr class="memitem:aee52c702c6bd8d712c9e6ed95376a128"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee52c702c6bd8d712c9e6ed95376a128"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_GET_STATUS</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:aee52c702c6bd8d712c9e6ed95376a128"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#aee52c702c6bd8d712c9e6ed95376a128">XUSBPS_REQ_GET_STATUS</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:aee52c702c6bd8d712c9e6ed95376a128"><td class="mdescLeft">&#160;</td><td class="mdescRight">GET_STATUS standard request.  <a href="#aee52c702c6bd8d712c9e6ed95376a128">More...</a><br/></td></tr>
 <tr class="separator:aee52c702c6bd8d712c9e6ed95376a128"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fd07e512b2b17a6b368dda9239c287e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fd07e512b2b17a6b368dda9239c287e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_CLEAR_FEATURE</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a8fd07e512b2b17a6b368dda9239c287e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a8fd07e512b2b17a6b368dda9239c287e">XUSBPS_REQ_CLEAR_FEATURE</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a8fd07e512b2b17a6b368dda9239c287e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CLEAR_FEATURE standard request.  <a href="#a8fd07e512b2b17a6b368dda9239c287e">More...</a><br/></td></tr>
 <tr class="separator:a8fd07e512b2b17a6b368dda9239c287e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac909a5865ccd76d99245b27172de24c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac909a5865ccd76d99245b27172de24c7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_FEATURE</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:ac909a5865ccd76d99245b27172de24c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ac909a5865ccd76d99245b27172de24c7">XUSBPS_REQ_SET_FEATURE</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:ac909a5865ccd76d99245b27172de24c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_FEATURE standard request.  <a href="#ac909a5865ccd76d99245b27172de24c7">More...</a><br/></td></tr>
 <tr class="separator:ac909a5865ccd76d99245b27172de24c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad239ee59f25776e17f146c29dff75920"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad239ee59f25776e17f146c29dff75920"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_ADDRESS</b>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memitem:ad239ee59f25776e17f146c29dff75920"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ad239ee59f25776e17f146c29dff75920">XUSBPS_REQ_SET_ADDRESS</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:ad239ee59f25776e17f146c29dff75920"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_ADDRESS standard request.  <a href="#ad239ee59f25776e17f146c29dff75920">More...</a><br/></td></tr>
 <tr class="separator:ad239ee59f25776e17f146c29dff75920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6880a99f055ceaeed9fb647e43240fe8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6880a99f055ceaeed9fb647e43240fe8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_GET_DESCRIPTOR</b>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memitem:a6880a99f055ceaeed9fb647e43240fe8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a6880a99f055ceaeed9fb647e43240fe8">XUSBPS_REQ_GET_DESCRIPTOR</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:a6880a99f055ceaeed9fb647e43240fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">GET_DESCRIPTOR standard request.  <a href="#a6880a99f055ceaeed9fb647e43240fe8">More...</a><br/></td></tr>
 <tr class="separator:a6880a99f055ceaeed9fb647e43240fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3858957280e118f618f8ce326f87df7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3858957280e118f618f8ce326f87df7d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_DESCRIPTOR</b>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memitem:a3858957280e118f618f8ce326f87df7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a3858957280e118f618f8ce326f87df7d">XUSBPS_REQ_SET_DESCRIPTOR</a>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memdesc:a3858957280e118f618f8ce326f87df7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_DESCRIPTOR standard request.  <a href="#a3858957280e118f618f8ce326f87df7d">More...</a><br/></td></tr>
 <tr class="separator:a3858957280e118f618f8ce326f87df7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a538de6c06c10ee9bc5b26c9114ac74b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a538de6c06c10ee9bc5b26c9114ac74b8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_GET_CONFIGURATION</b>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memitem:a538de6c06c10ee9bc5b26c9114ac74b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a538de6c06c10ee9bc5b26c9114ac74b8">XUSBPS_REQ_GET_CONFIGURATION</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:a538de6c06c10ee9bc5b26c9114ac74b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">GET_CONFIGURATION standard request.  <a href="#a538de6c06c10ee9bc5b26c9114ac74b8">More...</a><br/></td></tr>
 <tr class="separator:a538de6c06c10ee9bc5b26c9114ac74b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33d1cccccb708f7b164eb2d120848fec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33d1cccccb708f7b164eb2d120848fec"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_CONFIGURATION</b>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memitem:a33d1cccccb708f7b164eb2d120848fec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a33d1cccccb708f7b164eb2d120848fec">XUSBPS_REQ_SET_CONFIGURATION</a>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memdesc:a33d1cccccb708f7b164eb2d120848fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_CONFIGURATION standard request.  <a href="#a33d1cccccb708f7b164eb2d120848fec">More...</a><br/></td></tr>
 <tr class="separator:a33d1cccccb708f7b164eb2d120848fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8402545f61e6805b25f3bef7f61b4c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8402545f61e6805b25f3bef7f61b4c2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_GET_INTERFACE</b>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memitem:aa8402545f61e6805b25f3bef7f61b4c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#aa8402545f61e6805b25f3bef7f61b4c2">XUSBPS_REQ_GET_INTERFACE</a>&#160;&#160;&#160;0x0a</td></tr>
+<tr class="memdesc:aa8402545f61e6805b25f3bef7f61b4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">GET_INTERFACE standard request.  <a href="#aa8402545f61e6805b25f3bef7f61b4c2">More...</a><br/></td></tr>
 <tr class="separator:aa8402545f61e6805b25f3bef7f61b4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad18b727aff50943e9a5d22309c27e6e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad18b727aff50943e9a5d22309c27e6e0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_INTERFACE</b>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memitem:ad18b727aff50943e9a5d22309c27e6e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ad18b727aff50943e9a5d22309c27e6e0">XUSBPS_REQ_SET_INTERFACE</a>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memdesc:ad18b727aff50943e9a5d22309c27e6e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_INTERFACE standard request.  <a href="#ad18b727aff50943e9a5d22309c27e6e0">More...</a><br/></td></tr>
 <tr class="separator:ad18b727aff50943e9a5d22309c27e6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a290639ad6dfb515bc974484ecd0ba828"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a290639ad6dfb515bc974484ecd0ba828"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SYNC_FRAME</b>&#160;&#160;&#160;0x0c</td></tr>
+<tr class="memitem:a290639ad6dfb515bc974484ecd0ba828"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a290639ad6dfb515bc974484ecd0ba828">XUSBPS_REQ_SYNC_FRAME</a>&#160;&#160;&#160;0x0c</td></tr>
+<tr class="memdesc:a290639ad6dfb515bc974484ecd0ba828"><td class="mdescLeft">&#160;</td><td class="mdescRight">SYNCH_FRAME standard request.  <a href="#a290639ad6dfb515bc974484ecd0ba828">More...</a><br/></td></tr>
 <tr class="separator:a290639ad6dfb515bc974484ecd0ba828"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a570a74bc1c208027938250c811bf5340"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a570a74bc1c208027938250c811bf5340"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_SEL</b>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memitem:a570a74bc1c208027938250c811bf5340"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a570a74bc1c208027938250c811bf5340">XUSBPS_REQ_SET_SEL</a>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memdesc:a570a74bc1c208027938250c811bf5340"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_SEL (system exit latency) request.  <a href="#a570a74bc1c208027938250c811bf5340">More...</a><br/></td></tr>
 <tr class="separator:a570a74bc1c208027938250c811bf5340"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a507f8cd4084e55cf1e26fe557790fdb8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a507f8cd4084e55cf1e26fe557790fdb8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_REQ_SET_ISOCH_DELAY</b>&#160;&#160;&#160;0x31</td></tr>
+<tr class="memitem:a507f8cd4084e55cf1e26fe557790fdb8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a507f8cd4084e55cf1e26fe557790fdb8">XUSBPS_REQ_SET_ISOCH_DELAY</a>&#160;&#160;&#160;0x31</td></tr>
+<tr class="memdesc:a507f8cd4084e55cf1e26fe557790fdb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">SET_ISOCH_DELAY request.  <a href="#a507f8cd4084e55cf1e26fe557790fdb8">More...</a><br/></td></tr>
 <tr class="separator:a507f8cd4084e55cf1e26fe557790fdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Feature Selectors</div></td></tr>
-<tr class="memitem:a6ecba262952827420b0ce035b2bcbced"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ecba262952827420b0ce035b2bcbced"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_ENDPOINT_HALT</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:a6ecba262952827420b0ce035b2bcbced"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a6ecba262952827420b0ce035b2bcbced">XUSBPS_ENDPOINT_HALT</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a6ecba262952827420b0ce035b2bcbced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint halt feature selector.  <a href="#a6ecba262952827420b0ce035b2bcbced">More...</a><br/></td></tr>
 <tr class="separator:a6ecba262952827420b0ce035b2bcbced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3850f8fc715402bfd48ada855fb54bb7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3850f8fc715402bfd48ada855fb54bb7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_REMOTE_WAKEUP</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a3850f8fc715402bfd48ada855fb54bb7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a3850f8fc715402bfd48ada855fb54bb7">XUSBPS_DEVICE_REMOTE_WAKEUP</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a3850f8fc715402bfd48ada855fb54bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote wakeup feature selector.  <a href="#a3850f8fc715402bfd48ada855fb54bb7">More...</a><br/></td></tr>
 <tr class="separator:a3850f8fc715402bfd48ada855fb54bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a677164bf6f34d81944ef8ed27292adbb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a677164bf6f34d81944ef8ed27292adbb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TEST_MODE</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:a677164bf6f34d81944ef8ed27292adbb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a677164bf6f34d81944ef8ed27292adbb">XUSBPS_TEST_MODE</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a677164bf6f34d81944ef8ed27292adbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test mode feature selector.  <a href="#a677164bf6f34d81944ef8ed27292adbb">More...</a><br/></td></tr>
 <tr class="separator:a677164bf6f34d81944ef8ed27292adbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Descriptor Types</div></td></tr>
-<tr class="memitem:ac44e8a000977870fe01ac490bdbc79c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac44e8a000977870fe01ac490bdbc79c3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_DEVICE_DESC</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:ac44e8a000977870fe01ac490bdbc79c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ac44e8a000977870fe01ac490bdbc79c3">XUSBPS_TYPE_DEVICE_DESC</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:ac44e8a000977870fe01ac490bdbc79c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device descriptor type.  <a href="#ac44e8a000977870fe01ac490bdbc79c3">More...</a><br/></td></tr>
 <tr class="separator:ac44e8a000977870fe01ac490bdbc79c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82661876f97694b12014338680d634f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82661876f97694b12014338680d634f2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_CONFIG_DESC</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:a82661876f97694b12014338680d634f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a82661876f97694b12014338680d634f2">XUSBPS_TYPE_CONFIG_DESC</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a82661876f97694b12014338680d634f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration descriptor type.  <a href="#a82661876f97694b12014338680d634f2">More...</a><br/></td></tr>
 <tr class="separator:a82661876f97694b12014338680d634f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9f8dc4e7740b28aac035ba62605a28"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e9f8dc4e7740b28aac035ba62605a28"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_STRING_DESC</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a1e9f8dc4e7740b28aac035ba62605a28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a1e9f8dc4e7740b28aac035ba62605a28">XUSBPS_TYPE_STRING_DESC</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a1e9f8dc4e7740b28aac035ba62605a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">String descriptor type.  <a href="#a1e9f8dc4e7740b28aac035ba62605a28">More...</a><br/></td></tr>
 <tr class="separator:a1e9f8dc4e7740b28aac035ba62605a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada607f8e93e4d9f0aa55849d6e3adc07"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada607f8e93e4d9f0aa55849d6e3adc07"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_IF_CFG_DESC</b>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memitem:ada607f8e93e4d9f0aa55849d6e3adc07"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ada607f8e93e4d9f0aa55849d6e3adc07">XUSBPS_TYPE_IF_CFG_DESC</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:ada607f8e93e4d9f0aa55849d6e3adc07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface descriptor type.  <a href="#ada607f8e93e4d9f0aa55849d6e3adc07">More...</a><br/></td></tr>
 <tr class="separator:ada607f8e93e4d9f0aa55849d6e3adc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03f74259d6b0ef9dc068e9966bf248f2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03f74259d6b0ef9dc068e9966bf248f2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_ENDPOINT_CFG_DESC</b>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memitem:a03f74259d6b0ef9dc068e9966bf248f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a03f74259d6b0ef9dc068e9966bf248f2">XUSBPS_TYPE_ENDPOINT_CFG_DESC</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:a03f74259d6b0ef9dc068e9966bf248f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint descriptor type.  <a href="#a03f74259d6b0ef9dc068e9966bf248f2">More...</a><br/></td></tr>
 <tr class="separator:a03f74259d6b0ef9dc068e9966bf248f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a283b00f1dc8526b18910b0a31c59c70b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a283b00f1dc8526b18910b0a31c59c70b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_DEVICE_QUALIFIER</b>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memitem:a283b00f1dc8526b18910b0a31c59c70b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a283b00f1dc8526b18910b0a31c59c70b">XUSBPS_TYPE_DEVICE_QUALIFIER</a>&#160;&#160;&#160;0x06</td></tr>
+<tr class="memdesc:a283b00f1dc8526b18910b0a31c59c70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device qualifier descriptor type.  <a href="#a283b00f1dc8526b18910b0a31c59c70b">More...</a><br/></td></tr>
 <tr class="separator:a283b00f1dc8526b18910b0a31c59c70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad89278e8fa85ffa98bcc6d7460148ef2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad89278e8fa85ffa98bcc6d7460148ef2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_HID_DESC</b>&#160;&#160;&#160;0x21</td></tr>
+<tr class="memitem:ad89278e8fa85ffa98bcc6d7460148ef2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ad89278e8fa85ffa98bcc6d7460148ef2">XUSBPS_TYPE_HID_DESC</a>&#160;&#160;&#160;0x21</td></tr>
+<tr class="memdesc:ad89278e8fa85ffa98bcc6d7460148ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">HID descriptor type.  <a href="#ad89278e8fa85ffa98bcc6d7460148ef2">More...</a><br/></td></tr>
 <tr class="separator:ad89278e8fa85ffa98bcc6d7460148ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cfe28a6ccacefe4e7071229ca5e0c56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3cfe28a6ccacefe4e7071229ca5e0c56"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_INTERFACE_ASSOCIATION</b>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memitem:a3cfe28a6ccacefe4e7071229ca5e0c56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a3cfe28a6ccacefe4e7071229ca5e0c56">XUSBPS_TYPE_INTERFACE_ASSOCIATION</a>&#160;&#160;&#160;0x0b</td></tr>
+<tr class="memdesc:a3cfe28a6ccacefe4e7071229ca5e0c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface association descriptor type.  <a href="#a3cfe28a6ccacefe4e7071229ca5e0c56">More...</a><br/></td></tr>
 <tr class="separator:a3cfe28a6ccacefe4e7071229ca5e0c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63d8b4ada7903aaf0f26b2c9c6a10025"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63d8b4ada7903aaf0f26b2c9c6a10025"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TYPE_REPORT_DESC</b>&#160;&#160;&#160;0x22</td></tr>
+<tr class="memitem:a63d8b4ada7903aaf0f26b2c9c6a10025"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a63d8b4ada7903aaf0f26b2c9c6a10025">XUSBPS_TYPE_REPORT_DESC</a>&#160;&#160;&#160;0x22</td></tr>
+<tr class="memdesc:a63d8b4ada7903aaf0f26b2c9c6a10025"><td class="mdescLeft">&#160;</td><td class="mdescRight">HID report descriptor type.  <a href="#a63d8b4ada7903aaf0f26b2c9c6a10025">More...</a><br/></td></tr>
 <tr class="separator:a63d8b4ada7903aaf0f26b2c9c6a10025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">USB Device States</div></td></tr>
-<tr class="memitem:aa52ed5461852211b3193b0204261882e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa52ed5461852211b3193b0204261882e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_ATTACHED</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:aa52ed5461852211b3193b0204261882e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#aa52ed5461852211b3193b0204261882e">XUSBPS_DEVICE_ATTACHED</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:aa52ed5461852211b3193b0204261882e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device attached, not powered.  <a href="#aa52ed5461852211b3193b0204261882e">More...</a><br/></td></tr>
 <tr class="separator:aa52ed5461852211b3193b0204261882e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d5a4cab2f439ee595d988433c8f8578"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d5a4cab2f439ee595d988433c8f8578"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_POWERED</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a8d5a4cab2f439ee595d988433c8f8578"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a8d5a4cab2f439ee595d988433c8f8578">XUSBPS_DEVICE_POWERED</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a8d5a4cab2f439ee595d988433c8f8578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device powered, awaiting enumeration.  <a href="#a8d5a4cab2f439ee595d988433c8f8578">More...</a><br/></td></tr>
 <tr class="separator:a8d5a4cab2f439ee595d988433c8f8578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d8422dbe4daecd53f68386b1246ec4b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d8422dbe4daecd53f68386b1246ec4b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_DEFAULT</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:a7d8422dbe4daecd53f68386b1246ec4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a7d8422dbe4daecd53f68386b1246ec4b">XUSBPS_DEVICE_DEFAULT</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a7d8422dbe4daecd53f68386b1246ec4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device in default state after reset.  <a href="#a7d8422dbe4daecd53f68386b1246ec4b">More...</a><br/></td></tr>
 <tr class="separator:a7d8422dbe4daecd53f68386b1246ec4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb8a9567404f72a4395891a5d4797e39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb8a9567404f72a4395891a5d4797e39"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_ADDRESSED</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:abb8a9567404f72a4395891a5d4797e39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#abb8a9567404f72a4395891a5d4797e39">XUSBPS_DEVICE_ADDRESSED</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:abb8a9567404f72a4395891a5d4797e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device has been assigned an address.  <a href="#abb8a9567404f72a4395891a5d4797e39">More...</a><br/></td></tr>
 <tr class="separator:abb8a9567404f72a4395891a5d4797e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a569c08502c600fb18f6ebb32a8af375b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a569c08502c600fb18f6ebb32a8af375b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_CONFIGURED</b>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memitem:a569c08502c600fb18f6ebb32a8af375b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a569c08502c600fb18f6ebb32a8af375b">XUSBPS_DEVICE_CONFIGURED</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a569c08502c600fb18f6ebb32a8af375b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device configured and operational.  <a href="#a569c08502c600fb18f6ebb32a8af375b">More...</a><br/></td></tr>
 <tr class="separator:a569c08502c600fb18f6ebb32a8af375b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80770d1ce67bc62b812f586d10e1a86b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80770d1ce67bc62b812f586d10e1a86b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_DEVICE_SUSPENDED</b>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memitem:a80770d1ce67bc62b812f586d10e1a86b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a80770d1ce67bc62b812f586d10e1a86b">XUSBPS_DEVICE_SUSPENDED</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:a80770d1ce67bc62b812f586d10e1a86b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device in suspend state.  <a href="#a80770d1ce67bc62b812f586d10e1a86b">More...</a><br/></td></tr>
 <tr class="separator:a80770d1ce67bc62b812f586d10e1a86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Status type</div></td></tr>
-<tr class="memitem:a18be79bb10f098a65973bc7957e66a8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18be79bb10f098a65973bc7957e66a8b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_STATUS_MASK</b>&#160;&#160;&#160;0x3</td></tr>
+<tr class="memitem:a18be79bb10f098a65973bc7957e66a8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a18be79bb10f098a65973bc7957e66a8b">XUSBPS_STATUS_MASK</a>&#160;&#160;&#160;0x3</td></tr>
+<tr class="memdesc:a18be79bb10f098a65973bc7957e66a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask for USB status recipient type.  <a href="#a18be79bb10f098a65973bc7957e66a8b">More...</a><br/></td></tr>
 <tr class="separator:a18be79bb10f098a65973bc7957e66a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2aac712f8858bcb4823285750d6fe77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af2aac712f8858bcb4823285750d6fe77"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_STATUS_DEVICE</b>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memitem:af2aac712f8858bcb4823285750d6fe77"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#af2aac712f8858bcb4823285750d6fe77">XUSBPS_STATUS_DEVICE</a>&#160;&#160;&#160;0x0</td></tr>
+<tr class="memdesc:af2aac712f8858bcb4823285750d6fe77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device status recipient.  <a href="#af2aac712f8858bcb4823285750d6fe77">More...</a><br/></td></tr>
 <tr class="separator:af2aac712f8858bcb4823285750d6fe77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ddeabd314bb48e4d77afdfe88d04df6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3ddeabd314bb48e4d77afdfe88d04df6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_STATUS_INTERFACE</b>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memitem:a3ddeabd314bb48e4d77afdfe88d04df6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a3ddeabd314bb48e4d77afdfe88d04df6">XUSBPS_STATUS_INTERFACE</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="memdesc:a3ddeabd314bb48e4d77afdfe88d04df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface status recipient.  <a href="#a3ddeabd314bb48e4d77afdfe88d04df6">More...</a><br/></td></tr>
 <tr class="separator:a3ddeabd314bb48e4d77afdfe88d04df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05eba0250b69749c077fa30b0ac6c62a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05eba0250b69749c077fa30b0ac6c62a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_STATUS_ENDPOINT</b>&#160;&#160;&#160;0x2</td></tr>
+<tr class="memitem:a05eba0250b69749c077fa30b0ac6c62a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a05eba0250b69749c077fa30b0ac6c62a">XUSBPS_STATUS_ENDPOINT</a>&#160;&#160;&#160;0x2</td></tr>
+<tr class="memdesc:a05eba0250b69749c077fa30b0ac6c62a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endpoint status recipient.  <a href="#a05eba0250b69749c077fa30b0ac6c62a">More...</a><br/></td></tr>
 <tr class="separator:a05eba0250b69749c077fa30b0ac6c62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">EP Types</div></td></tr>
-<tr class="memitem:a004a618412509ffa4d3be224c452e13b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a004a618412509ffa4d3be224c452e13b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_EP_CONTROL</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a004a618412509ffa4d3be224c452e13b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a004a618412509ffa4d3be224c452e13b">XUSBPS_EP_CONTROL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a004a618412509ffa4d3be224c452e13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control endpoint type.  <a href="#a004a618412509ffa4d3be224c452e13b">More...</a><br/></td></tr>
 <tr class="separator:a004a618412509ffa4d3be224c452e13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1115f8412399bcccc3b4fea887ffa103"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1115f8412399bcccc3b4fea887ffa103"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_EP_ISOCHRONOUS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a1115f8412399bcccc3b4fea887ffa103"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a1115f8412399bcccc3b4fea887ffa103">XUSBPS_EP_ISOCHRONOUS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a1115f8412399bcccc3b4fea887ffa103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Isochronous endpoint type.  <a href="#a1115f8412399bcccc3b4fea887ffa103">More...</a><br/></td></tr>
 <tr class="separator:a1115f8412399bcccc3b4fea887ffa103"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11c5e226268cd772d6a35a44ea84614d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11c5e226268cd772d6a35a44ea84614d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_EP_BULK</b>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a11c5e226268cd772d6a35a44ea84614d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a11c5e226268cd772d6a35a44ea84614d">XUSBPS_EP_BULK</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a11c5e226268cd772d6a35a44ea84614d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bulk endpoint type.  <a href="#a11c5e226268cd772d6a35a44ea84614d">More...</a><br/></td></tr>
 <tr class="separator:a11c5e226268cd772d6a35a44ea84614d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b0c2a87439a3fff629ed528082a3ead"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b0c2a87439a3fff629ed528082a3ead"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_EP_INTERRUPT</b>&#160;&#160;&#160;3</td></tr>
+<tr class="memitem:a2b0c2a87439a3fff629ed528082a3ead"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a2b0c2a87439a3fff629ed528082a3ead">XUSBPS_EP_INTERRUPT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a2b0c2a87439a3fff629ed528082a3ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt endpoint type.  <a href="#a2b0c2a87439a3fff629ed528082a3ead">More...</a><br/></td></tr>
 <tr class="separator:a2b0c2a87439a3fff629ed528082a3ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Device Classes</div></td></tr>
-<tr class="memitem:a035734b6213a242389223ced57752817"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a035734b6213a242389223ced57752817"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CLASS_AUDIO</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a035734b6213a242389223ced57752817"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a035734b6213a242389223ced57752817">XUSBPS_CLASS_AUDIO</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a035734b6213a242389223ced57752817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio device class code.  <a href="#a035734b6213a242389223ced57752817">More...</a><br/></td></tr>
 <tr class="separator:a035734b6213a242389223ced57752817"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bf3e6080c2df6d98da996a5c63481aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bf3e6080c2df6d98da996a5c63481aa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CLASS_HID</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a3bf3e6080c2df6d98da996a5c63481aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a3bf3e6080c2df6d98da996a5c63481aa">XUSBPS_CLASS_HID</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a3bf3e6080c2df6d98da996a5c63481aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">HID device class code.  <a href="#a3bf3e6080c2df6d98da996a5c63481aa">More...</a><br/></td></tr>
 <tr class="separator:a3bf3e6080c2df6d98da996a5c63481aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4473b6c9b6db2e6b7583ce430c6b532"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4473b6c9b6db2e6b7583ce430c6b532"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CLASS_STORAGE</b>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memitem:ac4473b6c9b6db2e6b7583ce430c6b532"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#ac4473b6c9b6db2e6b7583ce430c6b532">XUSBPS_CLASS_STORAGE</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memdesc:ac4473b6c9b6db2e6b7583ce430c6b532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mass storage device class code.  <a href="#ac4473b6c9b6db2e6b7583ce430c6b532">More...</a><br/></td></tr>
 <tr class="separator:ac4473b6c9b6db2e6b7583ce430c6b532"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52692139499c4653007a67d804987c39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52692139499c4653007a67d804987c39"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CLASS_VENDOR</b>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memitem:a52692139499c4653007a67d804987c39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a52692139499c4653007a67d804987c39">XUSBPS_CLASS_VENDOR</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:a52692139499c4653007a67d804987c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vendor-specific class code.  <a href="#a52692139499c4653007a67d804987c39">More...</a><br/></td></tr>
 <tr class="separator:a52692139499c4653007a67d804987c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe487ef9abb18581d67f89b1c5676dfd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe487ef9abb18581d67f89b1c5676dfd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_CLASS_MISC</b>&#160;&#160;&#160;0xEF</td></tr>
+<tr class="memitem:afe487ef9abb18581d67f89b1c5676dfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#afe487ef9abb18581d67f89b1c5676dfd">XUSBPS_CLASS_MISC</a>&#160;&#160;&#160;0xEF</td></tr>
+<tr class="memdesc:afe487ef9abb18581d67f89b1c5676dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Miscellaneous device class code.  <a href="#afe487ef9abb18581d67f89b1c5676dfd">More...</a><br/></td></tr>
 <tr class="separator:afe487ef9abb18581d67f89b1c5676dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Test Mode Selectors</div></td></tr>
-<tr class="memitem:a1076587f0f04b12ba6e68ee2851f94a2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1076587f0f04b12ba6e68ee2851f94a2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TEST_J</b>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memitem:a1076587f0f04b12ba6e68ee2851f94a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a1076587f0f04b12ba6e68ee2851f94a2">XUSBPS_TEST_J</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="memdesc:a1076587f0f04b12ba6e68ee2851f94a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test_J mode selector.  <a href="#a1076587f0f04b12ba6e68ee2851f94a2">More...</a><br/></td></tr>
 <tr class="separator:a1076587f0f04b12ba6e68ee2851f94a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a004d044ecb2d6b2c833138d28f05e119"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a004d044ecb2d6b2c833138d28f05e119"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TEST_K</b>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memitem:a004d044ecb2d6b2c833138d28f05e119"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a004d044ecb2d6b2c833138d28f05e119">XUSBPS_TEST_K</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="memdesc:a004d044ecb2d6b2c833138d28f05e119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test_K mode selector.  <a href="#a004d044ecb2d6b2c833138d28f05e119">More...</a><br/></td></tr>
 <tr class="separator:a004d044ecb2d6b2c833138d28f05e119"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a736a009152906d8078b01f76f39dd9e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a736a009152906d8078b01f76f39dd9e8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TEST_SE0_NAK</b>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memitem:a736a009152906d8078b01f76f39dd9e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a736a009152906d8078b01f76f39dd9e8">XUSBPS_TEST_SE0_NAK</a>&#160;&#160;&#160;0x03</td></tr>
+<tr class="memdesc:a736a009152906d8078b01f76f39dd9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test_SE0_NAK mode selector.  <a href="#a736a009152906d8078b01f76f39dd9e8">More...</a><br/></td></tr>
 <tr class="separator:a736a009152906d8078b01f76f39dd9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c492887e42908ea88e4cb92bf326871"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c492887e42908ea88e4cb92bf326871"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TEST_PACKET</b>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memitem:a3c492887e42908ea88e4cb92bf326871"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a3c492887e42908ea88e4cb92bf326871">XUSBPS_TEST_PACKET</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="memdesc:a3c492887e42908ea88e4cb92bf326871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test_Packet mode selector.  <a href="#a3c492887e42908ea88e4cb92bf326871">More...</a><br/></td></tr>
 <tr class="separator:a3c492887e42908ea88e4cb92bf326871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d7af557eb6216c31e286d3ddf9e3ac2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d7af557eb6216c31e286d3ddf9e3ac2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>XUSBPS_TEST_FORCE_ENABLE</b>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memitem:a4d7af557eb6216c31e286d3ddf9e3ac2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xusbps__ch9_8h.html#a4d7af557eb6216c31e286d3ddf9e3ac2">XUSBPS_TEST_FORCE_ENABLE</a>&#160;&#160;&#160;0x05</td></tr>
+<tr class="memdesc:a4d7af557eb6216c31e286d3ddf9e3ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test_Force_Enable mode selector.  <a href="#a4d7af557eb6216c31e286d3ddf9e3ac2">More...</a><br/></td></tr>
 <tr class="separator:a4d7af557eb6216c31e286d3ddf9e3ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -316,6 +330,440 @@ Functions</h2></td></tr>
 <tr class="separator:abf899592bb832acdf774bc2445598f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ae1f47de6b24f8fd1b5bead2c68d40e74"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static u8 MaxLUN ALIGNMENT_CACHELINE&#160;&#160;&#160;__attribute__ ((aligned (32)))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Align variable to 32-byte cache line boundary. </p>
+
+<p>Referenced by <a class="el" href="xusbps__class__storage_8h.html#a8665f21d5cd56ddd1983b110d15f7d25">XUsbPs_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a12eaff7a21bb033400c8919b9ba3901b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DCACHE_INVALIDATE_SIZE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a</td><td>)</td>
+          <td>&#160;&#160;&#160;((a) % 32) ? ((((a) / 32) * 32) + 32) : (a)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Round size up to nearest 32-byte cache line multiple. </p>
+
+</div>
+</div>
+<a class="anchor" id="a035734b6213a242389223ced57752817"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CLASS_AUDIO&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Audio device class code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3bf3e6080c2df6d98da996a5c63481aa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CLASS_HID&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>HID device class code. </p>
+
+</div>
+</div>
+<a class="anchor" id="afe487ef9abb18581d67f89b1c5676dfd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CLASS_MISC&#160;&#160;&#160;0xEF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Miscellaneous device class code. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac4473b6c9b6db2e6b7583ce430c6b532"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CLASS_STORAGE&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mass storage device class code. </p>
+
+</div>
+</div>
+<a class="anchor" id="a52692139499c4653007a67d804987c39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CLASS_VENDOR&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vendor-specific class code. </p>
+
+</div>
+</div>
+<a class="anchor" id="afa6b147ffab665b15c86b729df45f9ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CMD_CLASSREQ&#160;&#160;&#160;0x20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Class-specific request type. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">XUsbPs_Ch9HandleSetupPacket()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a55508a293a1277157e71ab94512617e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CMD_STDREQ&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Standard request type. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">XUsbPs_Ch9HandleSetupPacket()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7bbec1275d00ed8195c646ad9ddd9085"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_CMD_VENDREQ&#160;&#160;&#160;0x40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vendor-specific request type. </p>
+
+<p>Referenced by <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">XUsbPs_Ch9HandleSetupPacket()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abb8a9567404f72a4395891a5d4797e39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_ADDRESSED&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device has been assigned an address. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa52ed5461852211b3193b0204261882e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_ATTACHED&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device attached, not powered. </p>
+
+</div>
+</div>
+<a class="anchor" id="a569c08502c600fb18f6ebb32a8af375b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_CONFIGURED&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device configured and operational. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7d8422dbe4daecd53f68386b1246ec4b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_DEFAULT&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device in default state after reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8d5a4cab2f439ee595d988433c8f8578"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_POWERED&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device powered, awaiting enumeration. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3850f8fc715402bfd48ada855fb54bb7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_REMOTE_WAKEUP&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remote wakeup feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a80770d1ce67bc62b812f586d10e1a86b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_DEVICE_SUSPENDED&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device in suspend state. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0b998c0a178d3eb68c16fc82f893e891"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_ENDPOINT_DIR_MASK&#160;&#160;&#160;0x80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint direction bit mask. </p>
+
+<p>Referenced by <a class="el" href="xusbps__class__storage_8h.html#a8665f21d5cd56ddd1983b110d15f7d25">XUsbPs_ClassReq()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ecba262952827420b0ce035b2bcbced"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_ENDPOINT_HALT&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint halt feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="acc2bae6dcf8a08fc197696c12fbf43bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_ENDPOINT_NUMBER_MASK&#160;&#160;&#160;0x0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint number field mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0a9a75f6080ab3dadfc147c585e85425"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_ENDPOINT_XFERTYPE_MASK&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint transfer type mask. </p>
+
+</div>
+</div>
+<a class="anchor" id="a11c5e226268cd772d6a35a44ea84614d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_EP_BULK&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bulk endpoint type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a004a618412509ffa4d3be224c452e13b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_EP_CONTROL&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control endpoint type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2b0c2a87439a3fff629ed528082a3ead"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_EP_INTERRUPT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupt endpoint type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1115f8412399bcccc3b4fea887ffa103"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_EP_ISOCHRONOUS&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Isochronous endpoint type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8fd07e512b2b17a6b368dda9239c287e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_CLEAR_FEATURE&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CLEAR_FEATURE standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a538de6c06c10ee9bc5b26c9114ac74b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_GET_CONFIGURATION&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GET_CONFIGURATION standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6880a99f055ceaeed9fb647e43240fe8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_GET_DESCRIPTOR&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GET_DESCRIPTOR standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa8402545f61e6805b25f3bef7f61b4c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_GET_INTERFACE&#160;&#160;&#160;0x0a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GET_INTERFACE standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="aee52c702c6bd8d712c9e6ed95376a128"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_GET_STATUS&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GET_STATUS standard request. </p>
+
+</div>
+</div>
 <a class="anchor" id="ab655d2d8562a99fadd06f4799847d31d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -332,6 +780,118 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad239ee59f25776e17f146c29dff75920"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_ADDRESS&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_ADDRESS standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a33d1cccccb708f7b164eb2d120848fec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_CONFIGURATION&#160;&#160;&#160;0x09</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_CONFIGURATION standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3858957280e118f618f8ce326f87df7d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_DESCRIPTOR&#160;&#160;&#160;0x07</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_DESCRIPTOR standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac909a5865ccd76d99245b27172de24c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_FEATURE&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_FEATURE standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad18b727aff50943e9a5d22309c27e6e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_INTERFACE&#160;&#160;&#160;0x0b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_INTERFACE standard request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a507f8cd4084e55cf1e26fe557790fdb8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_ISOCH_DELAY&#160;&#160;&#160;0x31</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_ISOCH_DELAY request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a570a74bc1c208027938250c811bf5340"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SET_SEL&#160;&#160;&#160;0x30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SET_SEL (system exit latency) request. </p>
+
+</div>
+</div>
+<a class="anchor" id="a290639ad6dfb515bc974484ecd0ba828"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_REQ_SYNC_FRAME&#160;&#160;&#160;0x0c</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SYNCH_FRAME standard request. </p>
+
+</div>
+</div>
 <a class="anchor" id="ac01fcba5b5b1a16e77cbbf38db59adca"></a>
 <div class="memitem">
 <div class="memproto">
@@ -342,9 +902,275 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Mask for request opcode. </p>
+<p>Mask for the request-type field in bmRequestType. </p>
 
 <p>Referenced by <a class="el" href="xusbps__ch9_8h.html#a254a6aac5f51679919255c4602aa04d2">XUsbPs_Ch9HandleSetupPacket()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af2aac712f8858bcb4823285750d6fe77"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_STATUS_DEVICE&#160;&#160;&#160;0x0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device status recipient. </p>
+
+</div>
+</div>
+<a class="anchor" id="a05eba0250b69749c077fa30b0ac6c62a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_STATUS_ENDPOINT&#160;&#160;&#160;0x2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint status recipient. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3ddeabd314bb48e4d77afdfe88d04df6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_STATUS_INTERFACE&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interface status recipient. </p>
+
+</div>
+</div>
+<a class="anchor" id="a18be79bb10f098a65973bc7957e66a8b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_STATUS_MASK&#160;&#160;&#160;0x3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mask for USB status recipient type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4d7af557eb6216c31e286d3ddf9e3ac2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TEST_FORCE_ENABLE&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test_Force_Enable mode selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1076587f0f04b12ba6e68ee2851f94a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TEST_J&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test_J mode selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a004d044ecb2d6b2c833138d28f05e119"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TEST_K&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test_K mode selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a677164bf6f34d81944ef8ed27292adbb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TEST_MODE&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test mode feature selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3c492887e42908ea88e4cb92bf326871"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TEST_PACKET&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test_Packet mode selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a736a009152906d8078b01f76f39dd9e8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TEST_SE0_NAK&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test_SE0_NAK mode selector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a82661876f97694b12014338680d634f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_CONFIG_DESC&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac44e8a000977870fe01ac490bdbc79c3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_DEVICE_DESC&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a283b00f1dc8526b18910b0a31c59c70b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_DEVICE_QUALIFIER&#160;&#160;&#160;0x06</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device qualifier descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a03f74259d6b0ef9dc068e9966bf248f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_ENDPOINT_CFG_DESC&#160;&#160;&#160;0x05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Endpoint descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad89278e8fa85ffa98bcc6d7460148ef2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_HID_DESC&#160;&#160;&#160;0x21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>HID descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="ada607f8e93e4d9f0aa55849d6e3adc07"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_IF_CFG_DESC&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interface descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3cfe28a6ccacefe4e7071229ca5e0c56"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_INTERFACE_ASSOCIATION&#160;&#160;&#160;0x0b</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interface association descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a63d8b4ada7903aaf0f26b2c9c6a10025"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_REPORT_DESC&#160;&#160;&#160;0x22</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>HID report descriptor type. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1e9f8dc4e7740b28aac035ba62605a28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XUSBPS_TYPE_STRING_DESC&#160;&#160;&#160;0x03</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>String descriptor type. </p>
 
 </div>
 </div>
@@ -376,19 +1202,18 @@ Functions</h2></td></tr>
 <p>This function handles a Setup Data packet from the host. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
-    <tr><td class="paramname">SetupData</td><td>is the structure containing the setup request.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> instance of the controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SetupData</td><td>is the structure containing the setup request.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the function is successful.</li>
-<li>XST_FAILURE if an Error occurred.</li>
+<li>XST_FAILURE if an Error occurred. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_usb_ps___setup_data.html#afda08a011932bde143139829a61c37c0">XUsbPs_SetupData::bmRequestType</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a00cd3d9748a6d8fe54af651126becd50">XUsbPs_SetupData::bRequest</a>, <a class="el" href="xusbps__ch9_8c.html#a8665f21d5cd56ddd1983b110d15f7d25">XUsbPs_ClassReq()</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="xusbps_8h.html#a4273a108c512645b721b48997017205d">XUsbPs_EpStall</a>, and <a class="el" href="xusbps__ch9_8h.html#ac01fcba5b5b1a16e77cbbf38db59adca">XUSBPS_REQ_TYPE_MASK</a>.</p>
+<p>References <a class="el" href="struct_x_usb_ps___setup_data.html#afda08a011932bde143139829a61c37c0">XUsbPs_SetupData::bmRequestType</a>, <a class="el" href="struct_x_usb_ps___setup_data.html#a00cd3d9748a6d8fe54af651126becd50">XUsbPs_SetupData::bRequest</a>, <a class="el" href="xusbps__ch9_8c.html#a8665f21d5cd56ddd1983b110d15f7d25">XUsbPs_ClassReq()</a>, <a class="el" href="xusbps__ch9_8h.html#afa6b147ffab665b15c86b729df45f9ad">XUSBPS_CMD_CLASSREQ</a>, <a class="el" href="xusbps__ch9_8h.html#a55508a293a1277157e71ab94512617e3">XUSBPS_CMD_STDREQ</a>, <a class="el" href="xusbps__ch9_8h.html#a7bbec1275d00ed8195c646ad9ddd9085">XUSBPS_CMD_VENDREQ</a>, <a class="el" href="group__usbps.html#ga0f21b0f7da084c22abc4f0a9bf425bc7">XUSBPS_EP_DIRECTION_IN</a>, <a class="el" href="group__usbps.html#ga86e363bb35c38123a924bd2af954ceab">XUSBPS_EP_DIRECTION_OUT</a>, <a class="el" href="group__usbps.html#ga4273a108c512645b721b48997017205d">XUsbPs_EpStall</a>, and <a class="el" href="xusbps__ch9_8h.html#ac01fcba5b5b1a16e77cbbf38db59adca">XUSBPS_REQ_TYPE_MASK</a>.</p>
 
 </div>
 </div>
@@ -409,12 +1234,11 @@ Functions</h2></td></tr>
 <p>Get the Config state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a private member of Usb_DevData instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> controller instance.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Current configuration value</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Current configuration value </dd></dl>
 
 </div>
 </div>
@@ -445,13 +1269,11 @@ Functions</h2></td></tr>
 <p>Set the Config state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a private member of Usb_DevData instance. </td></tr>
-    <tr><td class="paramname">Flag</td><td>is the config value.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_usb_ps.html" title="The XUsbPs driver instance data. ">XUsbPs</a> controller instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Flag</td><td>is the config value. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xusbps__ch9__storage_8h.html#a72238ee80cba8facd72277ab2ec271de">XUsbPs_SetConfiguration()</a>, and <a class="el" href="xusbps__ch9__storage_8h.html#a6f3de0049101ffbf7d6c92a55442e226">XUsbPs_SetConfigurationApp()</a>.</p>
 

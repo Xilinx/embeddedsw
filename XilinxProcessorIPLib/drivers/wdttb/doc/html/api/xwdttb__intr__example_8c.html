@@ -100,15 +100,16 @@ $(document).ready(function(){initNavTree('xwdttb__intr__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xwdttb_intr_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the TimeBase Watchdog Timer Device (WdtTb) driver and hardware device using interrupt mode (for the WDT interrupt). </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>This example assumes that the reset output of the WdtTb device is not connected to the reset of the processor. This example will not return if the interrupts are not working.</p>
+<div class="textblock"><p>Demonstrates the TimeBase Watchdog Timer in interrupt mode. </p>
+<p>This file contains a design example using the TimeBase Watchdog Timer Device (WdtTb) driver and hardware device using interrupt mode (for the WDT interrupt).</p>
+<dl class="section note"><dt>Note</dt><dd>This example assumes that the reset output of the WdtTb device is not connected to the reset of the processor. This example does not return if the interrupts are not working.</dd></dl>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
 <hr/>
@@ -130,6 +131,8 @@ $(document).ready(function(){initNavTree('xwdttb__intr__example_8c.html','');});
 5.1     sne  06/01/20 Corrected fabric watchdog interrupt id.
 5.7     sb   07/12/23 Added support for system device-tree flow.
 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+5.13  vn   08/26/26 Fix Doxygen warnings.
+5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xwdttb_8h.html">xwdttb.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
@@ -137,83 +140,19 @@ $(document).ready(function(){initNavTree('xwdttb__intr__example_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad5e60e9f326186ec41039b1ad536e60d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__intr__example_8c.html#ad5e60e9f326186ec41039b1ad536e60d">WdtTbIntrExample</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *WdtTbInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ad5e60e9f326186ec41039b1ad536e60d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function tests the functioning of the TimeBase WatchDog Timer module in the Interrupt mode (for the WDT interrupt).  <a href="#ad5e60e9f326186ec41039b1ad536e60d">More...</a><br/></td></tr>
-<tr class="separator:ad5e60e9f326186ec41039b1ad536e60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xwdttb__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the WdtTb interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5e60e9f326186ec41039b1ad536e60d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xwdttb__intr__example.html#gad5e60e9f326186ec41039b1ad536e60d">WdtTbIntrExample</a> (<a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *WdtTbInstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:gad5e60e9f326186ec41039b1ad536e60d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the TimeBase WatchDog Timer module in interrupt mode.  <a href="group__xwdttb__intr__example.html#gad5e60e9f326186ec41039b1ad536e60d">More...</a><br/></td></tr>
+<tr class="separator:gad5e60e9f326186ec41039b1ad536e60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xwdttb__intr__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the WdtTb interrupt example from the main function.  <a href="group__xwdttb__intr__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gab8af281a0812133a8f56ae603f696ef1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_wdt_tb.html">XWdtTb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xwdttb__intr__example.html#gab8af281a0812133a8f56ae603f696ef1">WdtTbInstance</a></td></tr>
+<tr class="memdesc:gab8af281a0812133a8f56ae603f696ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of Time Base WatchDog Timer.  <a href="group__xwdttb__intr__example.html#gab8af281a0812133a8f56ae603f696ef1">More...</a><br/></td></tr>
+<tr class="separator:gab8af281a0812133a8f56ae603f696ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the WdtTb interrupt example. </p>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful</li>
-<li>XST_FAILURE, otherwise.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p>References <a class="el" href="xwdttb__gwdt__intr__example_8c.html#a3a2250354004b0d38a79cbc2549dacfa">WdtTbIntrExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad5e60e9f326186ec41039b1ad536e60d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int WdtTbIntrExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_wdt_tb.html">XWdtTb</a> *&#160;</td>
-          <td class="paramname"><em>WdtTbInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function tests the functioning of the TimeBase WatchDog Timer module in the Interrupt mode (for the WDT interrupt). </p>
-<p>After one expiration of the WDT timeout interval, an interrupt is generated and the WDT state bit is set to one in the status register. If the state bit is not cleared (by writing a 1 to the state bit) before the next expiration of the timeout interval, a WDT reset is generated. A WDT reset sets the WDT reset status bit in the status register so that the application code can determine if the last system reset was a WDT reset.</p>
-<p>This function assumes that the reset output of the WdtTb device is not connected to the reset of the processor. The function allows the watchdog timer to timeout such that a reset will occur if it is connected.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">WdtTbInstancePtr</td><td>is a pointer to the instance of WdtTb driver. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE, otherwise.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>-In XSCT/classic flow, WdtTbDeviceId and WdtTbIntrId are used to look up the device configuration and set up interrupt handling. -This example will not return if the interrupts are not working. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

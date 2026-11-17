@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xi3c__intr__example_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,35 +100,99 @@ $(document).ready(function(){initNavTree('xi3c__intr__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xi3c_intr_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>Design example to use the I3C device as master in interrupt mode. </p>
+<div class="textblock"><p>Shows I3C master interrupt-mode transfers. </p>
 <p>It makes the slave static address as their dynamic address. It sends and also receives data from slave.</p>
 <pre> MODIFICATION HISTORY:</pre><pre>Ver   Who Date     Changes
 </p>
 <hr/>
 <p>
-1.00 gm   02/9/24 First release</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
-<code>#include &quot;xi3c.h&quot;</code><br/>
+1.00 gm   02/9/24 First release
+1.4   vn   07/30/26 Fix Doxygen warnings
+1.4   tb   09/21/26 Align Doxygen comments with AMD documentation standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_printf.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xi3c_8h.html">xi3c.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xi3c__hw_8h.html">xi3c_hw.h</a>&quot;</code><br/>
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:afcbabe73e7a76e96e0a9b228f6747523"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi3c__intr__example_8c.html#afcbabe73e7a76e96e0a9b228f6747523">XI3C_BASEADDRESS</a>&#160;&#160;&#160;XPAR_XI3C_0_BASEADDR</td></tr>
+<tr class="memdesc:afcbabe73e7a76e96e0a9b228f6747523"><td class="mdescLeft">&#160;</td><td class="mdescRight">I3C instance base address.  <a href="#afcbabe73e7a76e96e0a9b228f6747523">More...</a><br/></td></tr>
+<tr class="separator:afcbabe73e7a76e96e0a9b228f6747523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2ee47839cd83ee6fabebf62adab7fd5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi3c__intr__example_8c.html#ab2ee47839cd83ee6fabebf62adab7fd5">I3C_DATALEN</a>&#160;&#160;&#160;90</td></tr>
+<tr class="memdesc:ab2ee47839cd83ee6fabebf62adab7fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer length in bytes.  <a href="#ab2ee47839cd83ee6fabebf62adab7fd5">More...</a><br/></td></tr>
+<tr class="separator:ab2ee47839cd83ee6fabebf62adab7fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f7b7fffd792869e14a1a357d3ce8fb8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi3c__intr__example_8c.html#a4f7b7fffd792869e14a1a357d3ce8fb8">I3C_SLAVE_ADDR</a>&#160;&#160;&#160;0x45</td></tr>
+<tr class="memdesc:a4f7b7fffd792869e14a1a357d3ce8fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slave static address.  <a href="#a4f7b7fffd792869e14a1a357d3ce8fb8">More...</a><br/></td></tr>
+<tr class="separator:a4f7b7fffd792869e14a1a357d3ce8fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a493dd099938d01d643afe346d254db39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi3c__intr__example_8c.html#a493dd099938d01d643afe346d254db39">I3cMasterIntrExample</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a493dd099938d01d643afe346d254db39"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does a minimal test on the I3c device and driver as a design example.  <a href="#a493dd099938d01d643afe346d254db39">More...</a><br/></td></tr>
+<tr class="memdesc:a493dd099938d01d643afe346d254db39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a minimal test on the I3c device and driver as a design example.  <a href="#a493dd099938d01d643afe346d254db39">More...</a><br/></td></tr>
 <tr class="separator:a493dd099938d01d643afe346d254db39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaffcbc6e824beea448fe0c4a4ffe15c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi3c__intr__example_8c.html#aaffcbc6e824beea448fe0c4a4ffe15c8">Handler</a> (u32 Event)</td></tr>
-<tr class="memdesc:aaffcbc6e824beea448fe0c4a4ffe15c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the handler which updates transfer status up on events from the I3C.  <a href="#aaffcbc6e824beea448fe0c4a4ffe15c8">More...</a><br/></td></tr>
+<tr class="memdesc:aaffcbc6e824beea448fe0c4a4ffe15c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the transfer status on events from the I3C.  <a href="#aaffcbc6e824beea448fe0c4a4ffe15c8">More...</a><br/></td></tr>
 <tr class="separator:aaffcbc6e824beea448fe0c4a4ffe15c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xi3c__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the I3C interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ab2ee47839cd83ee6fabebf62adab7fd5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I3C_DATALEN&#160;&#160;&#160;90</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transfer length in bytes. </p>
+
+<p>Referenced by <a class="el" href="xi3c__intr__example_8c.html#a493dd099938d01d643afe346d254db39">I3cMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4f7b7fffd792869e14a1a357d3ce8fb8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I3C_SLAVE_ADDR&#160;&#160;&#160;0x45</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Slave static address. </p>
+
+<p>Referenced by <a class="el" href="xi3c__intr__example_8c.html#a493dd099938d01d643afe346d254db39">I3cMasterIntrExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afcbabe73e7a76e96e0a9b228f6747523"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XI3C_BASEADDRESS&#160;&#160;&#160;XPAR_XI3C_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I3C instance base address. </p>
+
+<p>Referenced by <a class="el" href="xi3c__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="aaffcbc6e824beea448fe0c4a4ffe15c8"></a>
 <div class="memitem">
@@ -144,10 +208,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the handler which updates transfer status up on events from the I3C. </p>
+<p>Updates the transfer status on events from the I3C. </p>
 <p>It is called from an interrupt context such that the amount of processing performed should be minimized.</p>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Event</td><td>The status event from the I3C. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Referenced by <a class="el" href="xi3c__intr__example_8c.html#a493dd099938d01d643afe346d254db39">I3cMasterIntrExample()</a>, and <a class="el" href="xi3c__slave__intr__example_8c.html#a04cd562fa9e148f442987f2329c08c3b">I3cSlaveIntrExample()</a>.</p>
 
@@ -167,23 +235,26 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function does a minimal test on the I3c device and driver as a design example. </p>
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_i3c.html" title="The XI3c driver instance data. ">XI3c</a> driver.</p>
+<p>Runs a minimal test on the I3c device and driver as a design example. </p>
+<p>It illustrates how to use the <a class="el" href="struct_x_i3c.html" title="Holds XI3c driver instance data. ">XI3c</a> driver.</p>
 <p>This function sends and receives data through the I3C.</p>
 <p>This function uses interrupt driver mode of the I3C.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the Device ID of the I3c Device and is the XPAR_&lt;I3C_instance&gt;_DEVICE_ID value from xparameters.h</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>The base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 <p>&lt; Disable repeated start</p>
 <p>&lt; SDR mode</p>
 <p>&lt; Test data </p>
 
-<p>References <a class="el" href="struct_x_i3c___config.html#a5022354efb94520441dca651cb9643bc">XI3c_Config::BaseAddress</a>, <a class="el" href="xi3c__intr__example_8c.html#aaffcbc6e824beea448fe0c4a4ffe15c8">Handler()</a>, <a class="el" href="struct_x_i3c___config.html#a7f71b2b21fa1795229cc84a064fbd702">XI3c_Config::IntrId</a>, <a class="el" href="struct_x_i3c___config.html#ad36a95d9675a8e6e1915cd116fa94ad6">XI3c_Config::IntrParent</a>, <a class="el" href="group___overview.html#gaa01a28908016aac835dd4493a0c6413e">XI3C_BusInit()</a>, <a class="el" href="group___overview.html#ga3a6f3237b5eecb5d9144c3254dbab088">XI3c_CfgInitialize()</a>, <a class="el" href="group___overview.html#ga85e2fea7891bf3031056070e48e13010">XI3c_LookupConfig()</a>, <a class="el" href="group___overview.html#ga8c4e3e321553508d75097bebe04d0cf5">XI3c_MasterInterruptHandler()</a>, <a class="el" href="group___overview.html#ga65bbec96638b9e2f5627452ac9a9ae48">XI3c_MasterRecv()</a>, <a class="el" href="group___overview.html#gab0d816198d0abc6dabb332390fbe5c79">XI3c_MasterSend()</a>, <a class="el" href="group___overview.html#ga822775f0526bd47739bdf842954d874f">XI3c_SendTransferCmd()</a>, and <a class="el" href="group___overview.html#gaa8b632c4926c7125ffe178ec72a167db">XI3c_SetStatusHandler()</a>.</p>
+<p>References <a class="el" href="struct_x_i3c___config.html#a5022354efb94520441dca651cb9643bc">XI3c_Config::BaseAddress</a>, <a class="el" href="xi3c__intr__example_8c.html#aaffcbc6e824beea448fe0c4a4ffe15c8">Handler()</a>, <a class="el" href="xi3c__intr__example_8c.html#ab2ee47839cd83ee6fabebf62adab7fd5">I3C_DATALEN</a>, <a class="el" href="xi3c__intr__example_8c.html#a4f7b7fffd792869e14a1a357d3ce8fb8">I3C_SLAVE_ADDR</a>, <a class="el" href="struct_x_i3c___config.html#a7f71b2b21fa1795229cc84a064fbd702">XI3c_Config::IntrId</a>, <a class="el" href="struct_x_i3c___config.html#ad36a95d9675a8e6e1915cd116fa94ad6">XI3c_Config::IntrParent</a>, <a class="el" href="group__i3c__api.html#gaa01a28908016aac835dd4493a0c6413e">XI3C_BusInit()</a>, <a class="el" href="group__i3c.html#gabdc38b4eab2aad942d2a130d5ef0da88">XI3C_CCC_BRDCAST_SETAASA</a>, <a class="el" href="group__i3c.html#ga3a91b43d35529c26f1fe99a8b2cc591b">XI3C_CCC_SETMRL</a>, <a class="el" href="group__i3c.html#ga332503ff1e655c554db18d20714bb819">XI3C_CCC_SETMWL</a>, <a class="el" href="group__i3c__api.html#ga3a6f3237b5eecb5d9144c3254dbab088">XI3c_CfgInitialize()</a>, <a class="el" href="group__i3c.html#ga85e2fea7891bf3031056070e48e13010">XI3c_LookupConfig()</a>, <a class="el" href="group__i3c.html#ga8c4e3e321553508d75097bebe04d0cf5">XI3c_MasterInterruptHandler()</a>, <a class="el" href="group__i3c.html#ga65bbec96638b9e2f5627452ac9a9ae48">XI3c_MasterRecv()</a>, <a class="el" href="group__i3c.html#gab0d816198d0abc6dabb332390fbe5c79">XI3c_MasterSend()</a>, <a class="el" href="group__i3c.html#ga822775f0526bd47739bdf842954d874f">XI3c_SendTransferCmd()</a>, and <a class="el" href="group__i3c.html#gaa8b632c4926c7125ffe178ec72a167db">XI3c_SetStatusHandler()</a>.</p>
 
 <p>Referenced by <a class="el" href="xi3c__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -203,11 +274,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to call the interrupt example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Runs the I3C interrupt example. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 
-<p>References <a class="el" href="xi3c__intr__example_8c.html#a493dd099938d01d643afe346d254db39">I3cMasterIntrExample()</a>.</p>
+<p>References <a class="el" href="xi3c__intr__example_8c.html#a493dd099938d01d643afe346d254db39">I3cMasterIntrExample()</a>, and <a class="el" href="xi3c__intr__example_8c.html#afcbabe73e7a76e96e0a9b228f6747523">XI3C_BASEADDRESS</a>.</p>
 
 </div>
 </div>

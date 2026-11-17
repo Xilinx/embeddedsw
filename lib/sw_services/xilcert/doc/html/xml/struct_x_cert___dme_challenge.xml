@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cert___dme_challenge" kind="struct" prot="public">
+    <compoundname>XCert_DmeChallenge</compoundname>
+    <includes local="no">xcert_genx509cert.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cert___dme_challenge_1a5ca08e89488b1f63b0d7f2efe5f82e66" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_DmeChallenge::DeviceID[XCERT_DME_DEVICE_ID_SIZE_WORDS]</definition>
+        <argsstring>[XCERT_DME_DEVICE_ID_SIZE_WORDS]</argsstring>
+        <name>DeviceID</name>
+        <briefdescription>
+<para>Device ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___dme_challenge_1a195dd96cb2b235d01af5faec86942bc7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_DmeChallenge::Nonce[XCERT_DME_NONCE_SIZE_WORDS]</definition>
+        <argsstring>[XCERT_DME_NONCE_SIZE_WORDS]</argsstring>
+        <name>Nonce</name>
+        <briefdescription>
+<para>Nonce. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cert___dme_challenge_1a228b9bd1febcb877a668b99404089cbf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCert_DmeChallenge::Measurement[XCERT_DME_MEASURE_SIZE_WORDS]</definition>
+        <argsstring>[XCERT_DME_MEASURE_SIZE_WORDS]</argsstring>
+        <name>Measurement</name>
+        <briefdescription>
+<para>Measurement. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the components of DME challenge. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilcert/src/xcert_genx509cert.h" bodystart="146" bodyend="150"/>
+    <listofallmembers>
+      <member refid="struct_x_cert___dme_challenge_1a5ca08e89488b1f63b0d7f2efe5f82e66" prot="public" virt="non-virtual"><scope>XCert_DmeChallenge</scope><name>DeviceID</name></member>
+      <member refid="struct_x_cert___dme_challenge_1a228b9bd1febcb877a668b99404089cbf" prot="public" virt="non-virtual"><scope>XCert_DmeChallenge</scope><name>Measurement</name></member>
+      <member refid="struct_x_cert___dme_challenge_1a195dd96cb2b235d01af5faec86942bc7" prot="public" virt="non-virtual"><scope>XCert_DmeChallenge</scope><name>Nonce</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

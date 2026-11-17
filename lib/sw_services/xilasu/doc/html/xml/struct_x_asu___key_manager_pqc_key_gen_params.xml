@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___key_manager_pqc_key_gen_params" kind="struct" prot="public">
+    <compoundname>XAsu_KeyManagerPqcKeyGenParams</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___key_manager_pqc_key_gen_params_1a9e0d21ea2bfdb9d5c5dab144484bff67" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref></type>
+        <definition>XAsu_KeyManagerParams XAsu_KeyManagerPqcKeyGenParams::KmParams</definition>
+        <argsstring></argsstring>
+        <name>KmParams</name>
+        <briefdescription>
+<para>Key manager parameters common to every key type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga7119eabec9b842d5ba1b2a1537fad5fe" compoundref="xasu__keymanager_8c" startline="551" endline="613">XAsu_KmGenerateMldsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga762ad88c777a9ede2c461e5368304c37" compoundref="xasu__keymanager_8c" startline="641" endline="704">XAsu_KmGenerateMlkemKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" compoundref="xasu__keymanager__common_8c" startline="420" endline="460">XAsu_KmValidateMldsaKeyGenParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" compoundref="xasu__keymanager__common_8c" startline="478" endline="514">XAsu_KmValidateMlkemKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_pqc_key_gen_params_1ad6b140e0e579eae0305dd8e6888eb1ae" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyManagerPqcKeyGenParams::SeedAddr</definition>
+        <argsstring></argsstring>
+        <name>SeedAddr</name>
+        <briefdescription>
+<para>Address of the seed the key pair is derived from. </para>        </briefdescription>
+        <detaileddescription>
+<para>Zero draws the seed from the TRNG, which is what a caller other than an algorithm validation harness does. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" compoundref="xasu__keymanager__common_8c" startline="420" endline="460">XAsu_KmValidateMldsaKeyGenParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" compoundref="xasu__keymanager__common_8c" startline="478" endline="514">XAsu_KmValidateMlkemKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_pqc_key_gen_params_1a8adf68477cd03347f62a17fbd7b1f10b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyManagerPqcKeyGenParams::SeedLen</definition>
+        <argsstring></argsstring>
+        <name>SeedLen</name>
+        <briefdescription>
+<para>Length of the seed in bytes: zero when SeedAddr is zero, otherwise XASU_MLDSA_KEYGEN_SEED_LEN for the ML-DSA API (xi) and XASU_MLKEM_KEYGEN_SEED_LEN for the ML-KEM API (d || z). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafbc0a57ede23302ab735fea729e7454b" compoundref="xasu__keymanager__common_8c" startline="420" endline="460">XAsu_KmValidateMldsaKeyGenParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gaebe24596141769116059c0fe0545de3d" compoundref="xasu__keymanager__common_8c" startline="478" endline="514">XAsu_KmValidateMlkemKeyGenParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_pqc_key_gen_params_1adefc3805b1553e35dee608bd83a2ccc1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyManagerPqcKeyGenParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains info for the ML-DSA and ML-KEM key pair generation parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>Those two APIs are the only ones that can derive a key pair from a caller supplied seed, so the seed travels in this structure rather than in <ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref>, which every other key manager API shares and whose command length would otherwise change for all of them. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="88">
+        <label>XAsu_KeyManagerPqcKeyGenParams</label>
+        <link refid="struct_x_asu___key_manager_pqc_key_gen_params"/>
+        <childnode refid="89" relation="usage">
+          <edgelabel>KmParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="89">
+        <label>XAsu_KeyManagerParams</label>
+        <link refid="struct_x_asu___key_manager_params"/>
+        <childnode refid="90" relation="usage">
+          <edgelabel>KeyMetadata</edgelabel>
+        </childnode>
+        <childnode refid="91" relation="usage">
+          <edgelabel>AesKeyObj</edgelabel>
+        </childnode>
+      </node>
+      <node id="91">
+        <label>XAsu_AesKeyObject</label>
+        <link refid="struct_x_asu___aes_key_object"/>
+      </node>
+      <node id="90">
+        <label>XAsu_KeyManagerKeyMetadata</label>
+        <link refid="struct_x_asu___key_manager_key_metadata"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="354" bodyend="363"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___key_manager_pqc_key_gen_params_1a9e0d21ea2bfdb9d5c5dab144484bff67" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerPqcKeyGenParams</scope><name>KmParams</name></member>
+      <member refid="struct_x_asu___key_manager_pqc_key_gen_params_1adefc3805b1553e35dee608bd83a2ccc1" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerPqcKeyGenParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___key_manager_pqc_key_gen_params_1ad6b140e0e579eae0305dd8e6888eb1ae" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerPqcKeyGenParams</scope><name>SeedAddr</name></member>
+      <member refid="struct_x_asu___key_manager_pqc_key_gen_params_1a8adf68477cd03347f62a17fbd7b1f10b" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerPqcKeyGenParams</scope><name>SeedLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -23,6 +23,7 @@ var xdc_8c =
     [ "XDc_GetStcVSyncTs", "xdc_8c.html#ga9248206e36a892aa14a74e8a397153d9", null ],
     [ "XDc_Initialize", "xdc_8c.html#ga1acb51b36c4104aa33200d78135383ea", null ],
     [ "XDc_SetAudInterface", "xdc_8c.html#gaafea12e1884ed1b59af24f98dc70fbe0", null ],
+    [ "XDc_SetAudioChannelStatus", "xdc_8c.html#ga9913649f45ee47e25f096d57fe0ee5cc", null ],
     [ "XDc_SetAudioChCtrl", "xdc_8c.html#ga9096a3a44b617e19831f882b6550215a", null ],
     [ "XDc_SetAudioSegmentedMode", "xdc_8c.html#gaa58756025137aade0084833366439af5", null ],
     [ "XDc_SetAudioVideoClkSrc", "xdc_8c.html#gaa74f088c7434d449aa6c7c196c2f45b9", null ],

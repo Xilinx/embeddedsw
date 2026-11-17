@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Overview</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
       <li><a href="pages.html"><span>Examples</span></a></li>
@@ -72,6 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_type.html"><span>Typedefs</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
@@ -102,7 +104,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -116,12 +118,7 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>main()
-: <a class="el" href="xaxicdma__example__hybrid__intr_8c.html#a840291bc02cba5474a4cb46a9b9566fe">xaxicdma_example_hybrid_intr.c</a>
-, <a class="el" href="xaxicdma__example__simple__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxicdma_example_simple_poll.c</a>
-, <a class="el" href="xaxicdma__example__simple__intr_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxicdma_example_simple_intr.c</a>
-, <a class="el" href="xaxicdma__example__sg__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxicdma_example_sg_poll.c</a>
-, <a class="el" href="xaxicdma__example__sg__intr_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxicdma_example_sg_intr.c</a>
-, <a class="el" href="xaxicdma__example__hybrid__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">xaxicdma_example_hybrid_poll.c</a>
+: <a class="el" href="group__axicdma.html#ga840291bc02cba5474a4cb46a9b9566fe">xaxicdma_example_hybrid_intr.c</a>
 </li>
 </ul>
 
@@ -193,6 +190,9 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <li>XAxiCdma_BdRingSnapShotCurrBd()
 : <a class="el" href="group__axicdma.html#ga4677cddba8354ca3979f9b6ae386ffde">xaxicdma.h</a>
 </li>
+<li>XAxiCdma_BdRingStartTransfer()
+: <a class="el" href="group__axicdma.html#ga846b6992b84583d1692bf742e15e04fb">xaxicdma_bdring.c</a>
+</li>
 <li>XAxiCdma_BdRingToHw()
 : <a class="el" href="group__axicdma.html#ga3c5cd26d9fd3311c2ccfa4253c587e68">xaxicdma.h</a>
 </li>
@@ -248,10 +248,10 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="group__axicdma.html#gae1fbdb8f7ad8926f744c771e07814f72">xaxicdma.c</a>
 </li>
 <li>XAxiCdma_HybridIntrExample()
-: <a class="el" href="xaxicdma__example__hybrid__intr_8c.html#acd911a5613750742b62bcb5b8de6398f">xaxicdma_example_hybrid_intr.c</a>
+: <a class="el" href="group__axicdma.html#gacd911a5613750742b62bcb5b8de6398f">xaxicdma_example_hybrid_intr.c</a>
 </li>
 <li>XAxiCdma_HybridPollExample()
-: <a class="el" href="xaxicdma__example__hybrid__poll_8c.html#a3e07cf3c4c4ef7c370d4d73675ad0e56">xaxicdma_example_hybrid_poll.c</a>
+: <a class="el" href="group__axicdma.html#ga3e07cf3c4c4ef7c370d4d73675ad0e56">xaxicdma_example_hybrid_poll.c</a>
 </li>
 <li>XAxiCdma_IntrDisable()
 : <a class="el" href="group__axicdma.html#gabdccf08d74f4e037b06a36a2e9db2877">xaxicdma.h</a>
@@ -267,6 +267,9 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </li>
 <li>XAxiCdma_IsBusy()
 : <a class="el" href="group__axicdma.html#gaee6e140ed15cd9b7e49145e01220115a">xaxicdma.c</a>
+</li>
+<li>XAxiCdma_IsSimpleMode()
+: <a class="el" href="group__axicdma.html#ga54594f4f6f6e171b1b6b395f9155c02a">xaxicdma.c</a>
 </li>
 <li>XAxiCdma_LookupConfig()
 : <a class="el" href="group__axicdma.html#ga856f02999291c9c30d44e2c63822c6e8">xaxicdma.h</a>
@@ -284,19 +287,25 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="group__axicdma.html#ga91adf55050cb617cee00b0ba2f0d754e">xaxicdma.c</a>
 </li>
 <li>XAxiCdma_SgIntrExample()
-: <a class="el" href="xaxicdma__example__sg__intr_8c.html#a32d028b789077c63fa5b20b7953c4f67">xaxicdma_example_sg_intr.c</a>
+: <a class="el" href="group__axicdma.html#ga32d028b789077c63fa5b20b7953c4f67">xaxicdma_example_sg_intr.c</a>
 </li>
 <li>XAxiCdma_SgPollExample()
-: <a class="el" href="xaxicdma__example__sg__poll_8c.html#a181467aa90f99b2abf37424af8373b89">xaxicdma_example_sg_poll.c</a>
+: <a class="el" href="group__axicdma.html#ga181467aa90f99b2abf37424af8373b89">xaxicdma_example_sg_poll.c</a>
 </li>
 <li>XAxiCdma_SimpleIntrExample()
-: <a class="el" href="xaxicdma__example__simple__intr_8c.html#a594d3f0ffc0da3e2b2b3758a499e21bb">xaxicdma_example_simple_intr.c</a>
+: <a class="el" href="group__axicdma.html#ga594d3f0ffc0da3e2b2b3758a499e21bb">xaxicdma_example_simple_intr.c</a>
 </li>
 <li>XAxiCdma_SimplePollExample()
-: <a class="el" href="xaxicdma__example__simple__poll_8c.html#a87209e4dc5ba9c6092d82623d1af223f">xaxicdma_example_simple_poll.c</a>
+: <a class="el" href="group__axicdma.html#ga87209e4dc5ba9c6092d82623d1af223f">xaxicdma_example_simple_poll.c</a>
 </li>
 <li>XAxiCdma_SimpleTransfer()
 : <a class="el" href="group__axicdma.html#ga1e81ba2046ada4a40527c50ee7fdce9a">xaxicdma.c</a>
+</li>
+<li>XAxiCdma_SwitchMode()
+: <a class="el" href="group__axicdma.html#gad3e8a630132ac5e8e2f71589846f9411">xaxicdma.c</a>
+</li>
+<li>xil_printf()
+: <a class="el" href="group__axicdma.html#gad29568bf33fe85cabeb0615ae8ebc67b">xaxicdma_example_hybrid_intr.c</a>
 </li>
 </ul>
 </div><!-- contents -->

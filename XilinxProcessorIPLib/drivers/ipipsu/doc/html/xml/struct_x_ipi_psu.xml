@@ -15,16 +15,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="164" bodyend="-1"/>
-        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
-        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
-        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="69" endline="102">XIpiPsu_CfgInitialize</referencedby>
-        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</referencedby>
-        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="165" endline="191">XIpiPsu_PollForAck</referencedby>
-        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="207" endline="248">XIpiPsu_ReadMessage</referencedby>
-        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
-        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="141" endline="152">XIpiPsu_TriggerIpi</referencedby>
-        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="264" endline="296">XIpiPsu_WriteMessage</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="128" endline="181">IpiIntrHandler</referencedby>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="332" endline="398">main</referencedby>
+        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="70" endline="103">XIpiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="109" endline="127">XIpiPsu_GetBufferIndex</referencedby>
+        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="164" endline="190">XIpiPsu_PollForAck</referencedby>
+        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="211" endline="252">XIpiPsu_ReadMessage</referencedby>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="114" endline="129">XIpiPsu_Reset</referencedby>
+        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="139" endline="150">XIpiPsu_TriggerIpi</referencedby>
+        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="271" endline="303">XIpiPsu_WriteMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -37,13 +37,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="165" bodyend="-1"/>
-        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="69" endline="102">XIpiPsu_CfgInitialize</referencedby>
-        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="165" endline="191">XIpiPsu_PollForAck</referencedby>
-        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="207" endline="248">XIpiPsu_ReadMessage</referencedby>
-        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
-        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="141" endline="152">XIpiPsu_TriggerIpi</referencedby>
-        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="264" endline="296">XIpiPsu_WriteMessage</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="70" endline="103">XIpiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="164" endline="190">XIpiPsu_PollForAck</referencedby>
+        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="211" endline="252">XIpiPsu_ReadMessage</referencedby>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="114" endline="129">XIpiPsu_Reset</referencedby>
+        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="139" endline="150">XIpiPsu_TriggerIpi</referencedby>
+        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="271" endline="303">XIpiPsu_WriteMessage</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_ipi_psu_1a26891ae815855a3c841af3bdb4996823" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -56,13 +56,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="166" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="200" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>The <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> driver instance data. </para>    </briefdescription>
+<para>Holds the <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> driver instance data. </para>    </briefdescription>
     <detaileddescription>
-<para>The user is required to allocate a variable of this type for each IPI device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+<para>Allocate a variable of this type for each IPI device in the system. Pass a pointer to that variable to the driver API functions. </para>    </detaileddescription>
     <collaborationgraph>
       <node id="3">
         <label>XIpiPsu_Target</label>
@@ -83,7 +83,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="163" bodyend="167"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="197" bodyend="201"/>
     <listofallmembers>
       <member refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" prot="public" virt="non-virtual"><scope>XIpiPsu</scope><name>Config</name></member>
       <member refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" prot="public" virt="non-virtual"><scope>XIpiPsu</scope><name>IsReady</name></member>

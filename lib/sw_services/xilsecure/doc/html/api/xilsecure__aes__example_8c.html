@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('xilsecure__aes__example_8c.html','');}
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xilsecure_aes_example.c File Reference</div>  </div>
@@ -108,10 +109,28 @@ $(document).ready(function(){initNavTree('xilsecure__aes__example_8c.html','');}
 <code>#include &quot;xsecure_aes.h&quot;</code><br/>
 <code>#include &quot;xsecure_utils.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga41c1a4ac80603e42831605e96f7fa0d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga41c1a4ac80603e42831605e96f7fa0d7">XSECURE_PH_ENCRYPTED_LEN_OFFSET</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:ga41c1a4ac80603e42831605e96f7fa0d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partition header offset of the encrypted data word length.  <a href="group__xsecure__apis.html#ga41c1a4ac80603e42831605e96f7fa0d7">More...</a><br/></td></tr>
+<tr class="separator:ga41c1a4ac80603e42831605e96f7fa0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47036df029af26d8d7538f3f993c9bf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga47036df029af26d8d7538f3f993c9bf1">XSECURE_IMAGE_MAX_SIZE</a>&#160;&#160;&#160;0x1000000U</td></tr>
+<tr class="memdesc:ga47036df029af26d8d7538f3f993c9bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum size of the single partition image staged at ImageOffset.  <a href="group__xsecure__apis.html#ga47036df029af26d8d7538f3f993c9bf1">More...</a><br/></td></tr>
+<tr class="separator:ga47036df029af26d8d7538f3f993c9bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a0bf464bfbed138430d1378af608e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga8a0bf464bfbed138430d1378af608e91">XSECURE_IMAGE_MAX_WORDS</a></td></tr>
+<tr class="memdesc:ga8a0bf464bfbed138430d1378af608e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum size of the staged image in words.  <a href="group__xsecure__apis.html#ga8a0bf464bfbed138430d1378af608e91">More...</a><br/></td></tr>
+<tr class="separator:ga8a0bf464bfbed138430d1378af608e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga006ccab07e532350ce4d52792067d7fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga006ccab07e532350ce4d52792067d7fd">XSECURE_PH_FIELDS_SIZE</a>&#160;&#160;&#160;0x3CU</td></tr>
+<tr class="memdesc:ga006ccab07e532350ce4d52792067d7fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the partition header region read by this example.  <a href="group__xsecure__apis.html#ga006ccab07e532350ce4d52792067d7fd">More...</a><br/></td></tr>
+<tr class="separator:ga006ccab07e532350ce4d52792067d7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e5503b24925d238a2f2fd39bcd63819"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga8e5503b24925d238a2f2fd39bcd63819">XSECURE_PARTITION_TRAILER_SIZE</a></td></tr>
+<tr class="memdesc:ga8e5503b24925d238a2f2fd39bcd63819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure header and GCM tag that accompany a decrypted block.  <a href="group__xsecure__apis.html#ga8e5503b24925d238a2f2fd39bcd63819">More...</a><br/></td></tr>
+<tr class="separator:ga8e5503b24925d238a2f2fd39bcd63819"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2b8b3f8c925d15be80cff15f248c1532"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga2b8b3f8c925d15be80cff15f248c1532">SecureAesExample</a> (void)</td></tr>
-<tr class="memdesc:ga2b8b3f8c925d15be80cff15f248c1532"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function decrypts the partition of single partition image located at DDR location.  <a href="group__xsecure__apis.html#ga2b8b3f8c925d15be80cff15f248c1532">More...</a><br/></td></tr>
+<tr class="memitem:ga2b8b3f8c925d15be80cff15f248c1532" id="ga2b8b3f8c925d15be80cff15f248c1532"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilsecure__aes__example_8c.html#ga2b8b3f8c925d15be80cff15f248c1532">SecureAesExample</a> (void)</td></tr>
+<tr class="memdesc:ga2b8b3f8c925d15be80cff15f248c1532"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function decrypts the partition of single partition image located at DDR location.  <a href="xilsecure__aes__example_8c.html#ga2b8b3f8c925d15be80cff15f248c1532">More...</a><br/></td></tr>
 <tr class="separator:ga2b8b3f8c925d15be80cff15f248c1532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__apis.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the SecureAesExample.  <a href="group__xsecure__apis.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>

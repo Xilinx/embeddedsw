@@ -10,48 +10,48 @@
     <includes local="yes">xpuf.h</includes>
     <includes local="yes">xpuf_hw.h</includes>
     <incdepgraph>
-      <node id="289">
+      <node id="318">
         <label>xil_io.h</label>
       </node>
-      <node id="288">
-        <label>xstatus.h</label>
-      </node>
-      <node id="287">
-        <label>xil_types.h</label>
-      </node>
-      <node id="286">
-        <label>xparameters.h</label>
-      </node>
-      <node id="285">
+      <node id="314">
         <label>xpuf_plat.c</label>
         <link refid="versal_2vp_p/server/xpuf_plat.c"/>
-        <childnode refid="286" relation="include">
+        <childnode refid="315" relation="include">
         </childnode>
-        <childnode refid="287" relation="include">
+        <childnode refid="316" relation="include">
         </childnode>
-        <childnode refid="288" relation="include">
+        <childnode refid="317" relation="include">
         </childnode>
-        <childnode refid="289" relation="include">
+        <childnode refid="318" relation="include">
         </childnode>
-        <childnode refid="290" relation="include">
+        <childnode refid="319" relation="include">
         </childnode>
-        <childnode refid="291" relation="include">
+        <childnode refid="320" relation="include">
         </childnode>
-        <childnode refid="292" relation="include">
+        <childnode refid="321" relation="include">
         </childnode>
       </node>
-      <node id="290">
+      <node id="319">
         <label>xpuf_plat.h</label>
         <link refid="versal__2vp__p_2server_2xpuf__plat_8h"/>
-        <childnode refid="286" relation="include">
+        <childnode refid="315" relation="include">
         </childnode>
-        <childnode refid="287" relation="include">
+        <childnode refid="316" relation="include">
         </childnode>
       </node>
-      <node id="292">
+      <node id="317">
+        <label>xstatus.h</label>
+      </node>
+      <node id="316">
+        <label>xil_types.h</label>
+      </node>
+      <node id="315">
+        <label>xparameters.h</label>
+      </node>
+      <node id="321">
         <label>xpuf_hw.h</label>
       </node>
-      <node id="291">
+      <node id="320">
         <label>xpuf.h</label>
       </node>
     </incdepgraph>
@@ -120,6 +120,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="119"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf_plat.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpuf/src/versal_2vp_p/server/xpuf_plat.c"/>
   </compounddef>
 </doxygen>

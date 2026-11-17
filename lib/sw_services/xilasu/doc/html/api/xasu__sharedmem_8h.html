@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -121,7 +122,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.1   ma   12/12/24 Updated command states
       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
       ma   02/26/25 Corrected XASU_CHANNEL_RESERVED_MEM define value
-      rmv  07/30/25 Updated <a class="el" href="struct_x_asu___comm_channel.html" title="This structure contains information of each communication channel. ">XAsu_CommChannel</a> structure</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+      rmv  07/30/25 Updated <a class="el" href="struct_x_asu___comm_channel.html" title="This structure contains information of each communication channel. ">XAsu_CommChannel</a> structure
+      vm   07/14/26 Add keep-alive counter RTCA address.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="xasu__def_8h.html">xasu_def.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -215,6 +218,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga13c43c7dbd93c845e6f31a02ecfdb682"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga13c43c7dbd93c845e6f31a02ecfdb682">XASU_COMMAND_RESP_ARGS</a>&#160;&#160;&#160;(17U)</td></tr>
 <tr class="memdesc:ga13c43c7dbd93c845e6f31a02ecfdb682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response arguments count.  <a href="group__xasu__common__defs.html#ga13c43c7dbd93c845e6f31a02ecfdb682">More...</a><br/></td></tr>
 <tr class="separator:ga13c43c7dbd93c845e6f31a02ecfdb682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa6d1026da0cadaed7d0e18cdcce01fea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gaa6d1026da0cadaed7d0e18cdcce01fea">XASU_MAX_RESPONSE_PAYLOAD_SIZE</a>&#160;&#160;&#160;((u32)((<a class="el" href="group__xasu__common__defs.html#ga13c43c7dbd93c845e6f31a02ecfdb682">XASU_COMMAND_RESP_ARGS</a> - <a class="el" href="group__xasu__common__defs.html#ga8b345aa71e5b0cd9f2a7f9b812da4128">XASU_RESPONSE_BUFF_ADDR_INDEX</a>) * sizeof(u32)))</td></tr>
+<tr class="memdesc:gaa6d1026da0cadaed7d0e18cdcce01fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largest response payload a callback registration may ask for, in bytes.  <a href="group__xasu__common__defs.html#gaa6d1026da0cadaed7d0e18cdcce01fea">More...</a><br/></td></tr>
+<tr class="separator:gaa6d1026da0cadaed7d0e18cdcce01fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacff30e505c594f6890fd7008d60b02bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a>&#160;&#160;&#160;(0xEBE40000U)</td></tr>
 <tr class="memdesc:gacff30e505c594f6890fd7008d60b02bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASUFW run time configuration area base address.  <a href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">More...</a><br/></td></tr>
 <tr class="separator:gacff30e505c594f6890fd7008d60b02bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,7 +238,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga5ea814abeec9878cd2bf4d172e10e25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57ae609337be0fd7bc3e4cccec16e6d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga57ae609337be0fd7bc3e4cccec16e6d5">XASU_RTCA_MODULE_INFO_BASEADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0xA8U)</td></tr>
 <tr class="memdesc:ga57ae609337be0fd7bc3e4cccec16e6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"> Base address of module info of
-</pre><p> size (180 bytes)  <a href="group__xasu__common__defs.html#ga57ae609337be0fd7bc3e4cccec16e6d5">More...</a><br/></td></tr>
+</pre><p> size (180 bytes).  <a href="group__xasu__common__defs.html#ga57ae609337be0fd7bc3e4cccec16e6d5">More...</a><br/></td></tr>
 <tr class="separator:ga57ae609337be0fd7bc3e4cccec16e6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7a190d10ccdbcc17e6486c40ec4c377a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga7a190d10ccdbcc17e6486c40ec4c377a">XASU_RTCA_DBG_LOG_BUF_INFO_ADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x15CU)</td></tr>
 <tr class="memdesc:ga7a190d10ccdbcc17e6486c40ec4c377a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug log buffer info address.  <a href="group__xasu__common__defs.html#ga7a190d10ccdbcc17e6486c40ec4c377a">More...</a><br/></td></tr>
@@ -241,8 +247,28 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga05b46e929ec6824d277d7168b4c014b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of execution status of size 1 byte.  <a href="group__xasu__common__defs.html#ga05b46e929ec6824d277d7168b4c014b7">More...</a><br/></td></tr>
 <tr class="separator:ga05b46e929ec6824d277d7168b4c014b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7208ddb53cbd1502c4e98840e14cc313"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga7208ddb53cbd1502c4e98840e14cc313">XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x178U)</td></tr>
-<tr class="memdesc:ga7208ddb53cbd1502c4e98840e14cc313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of maximum size of key vault.  <a href="group__xasu__common__defs.html#ga7208ddb53cbd1502c4e98840e14cc313">More...</a><br/></td></tr>
+<tr class="memdesc:ga7208ddb53cbd1502c4e98840e14cc313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key vault channel max size addresses allocated from RTCA 0x178 to 0x198.  <a href="group__xasu__common__defs.html#ga7208ddb53cbd1502c4e98840e14cc313">More...</a><br/></td></tr>
 <tr class="separator:ga7208ddb53cbd1502c4e98840e14cc313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7dc04e249c05b0420358c1b09b5bb48b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga7dc04e249c05b0420358c1b09b5bb48b">XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x19CU)</td></tr>
+<tr class="memdesc:ga7dc04e249c05b0420358c1b09b5bb48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASUFW keep-alive counter at RTCA 0x19C (next slot after 0x198)  <a href="group__xasu__common__defs.html#ga7dc04e249c05b0420358c1b09b5bb48b">More...</a><br/></td></tr>
+<tr class="separator:ga7dc04e249c05b0420358c1b09b5bb48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93541ca9ad943bb92ad8e9f8af8a5711"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga93541ca9ad943bb92ad8e9f8af8a5711">XASU_RTCA_FW_VERSION_ADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x1A0U)</td></tr>
+<tr class="memdesc:ga93541ca9ad943bb92ad8e9f8af8a5711"><td class="mdescLeft">&#160;</td><td class="mdescRight">ASUFW version register.  <a href="group__xasu__common__defs.html#ga93541ca9ad943bb92ad8e9f8af8a5711">More...</a><br/></td></tr>
+<tr class="separator:ga93541ca9ad943bb92ad8e9f8af8a5711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63d1c5454f4f2152f3b4cc5e1f67f0e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga63d1c5454f4f2152f3b4cc5e1f67f0e2">XASU_RTCA_MODULE_INFO_EXT_BASEADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x1A4U)</td></tr>
+<tr class="memdesc:ga63d1c5454f4f2152f3b4cc5e1f67f0e2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"> Base address of the module info extension
+</pre><p> region of size (180 bytes).  <a href="group__xasu__common__defs.html#ga63d1c5454f4f2152f3b4cc5e1f67f0e2">More...</a><br/></td></tr>
+<tr class="separator:ga63d1c5454f4f2152f3b4cc5e1f67f0e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04201d51c6191e635d5ccebfdb24b158"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga04201d51c6191e635d5ccebfdb24b158">XASU_RTCA_MODULE_INFO_ENTRIES</a>&#160;&#160;&#160;(15U)</td></tr>
+<tr class="memdesc:ga04201d51c6191e635d5ccebfdb24b158"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"> Number of module info entries held by each
+</pre><p> of the two module info regions  <a href="group__xasu__common__defs.html#ga04201d51c6191e635d5ccebfdb24b158">More...</a><br/></td></tr>
+<tr class="separator:ga04201d51c6191e635d5ccebfdb24b158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga506ef1847a3cff8eeb38046cfc6226bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga506ef1847a3cff8eeb38046cfc6226bd">XASU_RTCA_PL_CFG_BASE_ADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x258U)</td></tr>
+<tr class="memdesc:ga506ef1847a3cff8eeb38046cfc6226bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base address of the PL configuration window, placed after the module info extension region (RTCA 0x1A4 to 0x257)  <a href="group__xasu__common__defs.html#ga506ef1847a3cff8eeb38046cfc6226bd">More...</a><br/></td></tr>
+<tr class="separator:ga506ef1847a3cff8eeb38046cfc6226bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6a4ee25249b8e6413d4df96ee89c54a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga6a4ee25249b8e6413d4df96ee89c54a5">XASU_RTCA_PL_CFG_SIZE_ADDR</a>&#160;&#160;&#160;(<a class="el" href="group__xasu__common__defs.html#gacff30e505c594f6890fd7008d60b02bf">XASU_RTCA_BASEADDR</a> + 0x25CU)</td></tr>
+<tr class="memdesc:ga6a4ee25249b8e6413d4df96ee89c54a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size in bytes of the PL configuration window.  <a href="group__xasu__common__defs.html#ga6a4ee25249b8e6413d4df96ee89c54a5">More...</a><br/></td></tr>
+<tr class="separator:ga6a4ee25249b8e6413d4df96ee89c54a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9e584fad118bfe58066b537789e00db7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga9e584fad118bfe58066b537789e00db7">XASU_RTCA_KAT_EXEC_STATUS_VALUE</a>&#160;&#160;&#160;(0x01U)</td></tr>
 <tr class="memdesc:ga9e584fad118bfe58066b537789e00db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">KAT status execution complete value.  <a href="group__xasu__common__defs.html#ga9e584fad118bfe58066b537789e00db7">More...</a><br/></td></tr>
 <tr class="separator:ga9e584fad118bfe58066b537789e00db7"><td class="memSeparator" colspan="2">&#160;</td></tr>

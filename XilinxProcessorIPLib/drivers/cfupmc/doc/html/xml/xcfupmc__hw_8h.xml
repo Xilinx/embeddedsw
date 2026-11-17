@@ -22,12 +22,18 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="48">
-        <label>xcfupmc_g.c</label>
-      </node>
       <node id="49">
         <label>xcfupmc_selftest.c</label>
         <link refid="xcfupmc__selftest_8c"/>
+      </node>
+      <node id="48">
+        <label>xcfupmc_g.c</label>
+      </node>
+      <node id="45">
+        <label>xcfupmc_hw.h</label>
+        <link refid="xcfupmc_hw.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
       </node>
       <node id="47">
         <label>xcfupmc.c</label>
@@ -45,12 +51,6 @@
         <childnode refid="50" relation="include">
         </childnode>
       </node>
-      <node id="45">
-        <label>xcfupmc_hw.h</label>
-        <link refid="xcfupmc_hw.h"/>
-        <childnode refid="46" relation="include">
-        </childnode>
-      </node>
       <node id="50">
         <label>xcfupmc_sinit.c</label>
         <link refid="xcfupmc__sinit_8c"/>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="33" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__cfupmc_1ga31dbe90b55f6971a8c19420c3cb56ba1" prot="public" static="no">
         <name>XCfupmc_In32</name>
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__cfupmc_1ga5399da44cb95e5eae706dc4305deb790" prot="public" static="no">
         <name>XCfupmc_Out32</name>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -116,7 +116,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="59" bodyend="62"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="59" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="group__cfupmc_1ga9f417f31b99df7263340f354374ea03a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -152,7 +152,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="73" bodyend="76"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h" bodystart="73" bodyend="76"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -210,6 +210,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_hw.h"/>
   </compounddef>
 </doxygen>

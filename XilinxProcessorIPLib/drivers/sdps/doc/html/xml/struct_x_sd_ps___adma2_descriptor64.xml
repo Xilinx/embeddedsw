@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="242" bodyend="-1"/>
-        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1144" endline="1198">XSdPs_Setup64ADMA2DescTbl</referencedby>
-        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1220" endline="1279">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1117" endline="1171">XSdPs_Setup64ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1221" endline="1280">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_ps___adma2_descriptor64_1af17756bbecb52446b6e462add8ace3c8" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -30,9 +30,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="243" bodyend="-1"/>
-        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1144" endline="1198">XSdPs_Setup64ADMA2DescTbl</referencedby>
-        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1220" endline="1279">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1117" endline="1171">XSdPs_Setup64ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1221" endline="1280">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_ps___adma2_descriptor64_1a863c7dfddeff05277c06896fb0d0ff1d" prot="public" static="no" mutable="no">
         <type>u64</type>
@@ -45,16 +45,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="244" bodyend="-1"/>
-        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1144" endline="1198">XSdPs_Setup64ADMA2DescTbl</referencedby>
-        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1220" endline="1279">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" compoundref="xsdps__host_8c" startline="1117" endline="1171">XSdPs_Setup64ADMA2DescTbl</referencedby>
+        <referencedby refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" compoundref="xsdps__card_8c" startline="1221" endline="1280">XSdPs_SetupADMA2DescTbl64Bit</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>ADMA2 64-Bit descriptor table. </para>    </briefdescription>
+<para>Describes an entry of the ADMA2 64-bit descriptor table. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="241" bodyend="249"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="240" bodyend="248"/>
     <listofallmembers>
       <member refid="struct_x_sd_ps___adma2_descriptor64_1a863c7dfddeff05277c06896fb0d0ff1d" prot="public" virt="non-virtual"><scope>XSdPs_Adma2Descriptor64</scope><name>Address</name></member>
       <member refid="struct_x_sd_ps___adma2_descriptor64_1a22d587ba14be034c8529840cbbeb4bfc" prot="public" virt="non-virtual"><scope>XSdPs_Adma2Descriptor64</scope><name>Attribute</name></member>

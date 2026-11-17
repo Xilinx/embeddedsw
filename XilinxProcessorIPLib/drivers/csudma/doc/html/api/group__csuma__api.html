@@ -100,25 +100,51 @@ $(document).ready(function(){initNavTree('group__csuma__api.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">CSUDMA APIs</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csu_dma___config.html">XCsuDma_Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds configuration information for a CSU_DMA core.  <a href="struct_x_csu_dma___config.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> driver instance data.  <a href="struct_x_csu_dma.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_csu_dma___configure.html">XCsuDma_Configure</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds channel configuration values that must be set before the start of the data transfer.  <a href="struct_x_csu_dma___configure.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:gaf448568bb484f8b80052682f399f194d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf448568bb484f8b80052682f399f194d">XCSUDMA_WORD_SIZE</a>&#160;&#160;&#160;(4U)</td></tr>
 <tr class="memdesc:gaf448568bb484f8b80052682f399f194d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer size conversion to bytes for Versal Net.  <a href="#gaf448568bb484f8b80052682f399f194d">More...</a><br/></td></tr>
 <tr class="separator:gaf448568bb484f8b80052682f399f194d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8ee71e015a72b9441ead3a0f5541777c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga8ee71e015a72b9441ead3a0f5541777c">XCSUDMA_H_</a></td></tr>
-<tr class="memdesc:ga8ee71e015a72b9441ead3a0f5541777c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="#ga8ee71e015a72b9441ead3a0f5541777c">More...</a><br/></td></tr>
-<tr class="separator:ga8ee71e015a72b9441ead3a0f5541777c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf7ae40275005f5b2c827da41a0e3cc23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf7ae40275005f5b2c827da41a0e3cc23">XCSUDMA_HW_H_</a></td></tr>
-<tr class="memdesc:gaf7ae40275005f5b2c827da41a0e3cc23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="#gaf7ae40275005f5b2c827da41a0e3cc23">More...</a><br/></td></tr>
-<tr class="separator:gaf7ae40275005f5b2c827da41a0e3cc23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4fd22ed9ee5ff0eae03ee717112b7087"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga4fd22ed9ee5ff0eae03ee717112b7087">XCsuDma_Reset</a>()</td></tr>
+<tr class="memdesc:ga4fd22ed9ee5ff0eae03ee717112b7087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the CSU_DMA core.  <a href="#ga4fd22ed9ee5ff0eae03ee717112b7087">More...</a><br/></td></tr>
+<tr class="separator:ga4fd22ed9ee5ff0eae03ee717112b7087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97adf45a00577175416617745ddae9b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga97adf45a00577175416617745ddae9b8">XCsuDma_WaitForDone</a>(InstancePtr, Channel)</td></tr>
+<tr class="memdesc:ga97adf45a00577175416617745ddae9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls until the data transfer completes.  <a href="#ga97adf45a00577175416617745ddae9b8">More...</a><br/></td></tr>
+<tr class="separator:ga97adf45a00577175416617745ddae9b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf6f5fdbd1556eecafa2ecf802b88e73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gadf6f5fdbd1556eecafa2ecf802b88e73">XCsuDma_GetDoneCount</a>(InstancePtr, Channel)</td></tr>
+<tr class="memdesc:gadf6f5fdbd1556eecafa2ecf802b88e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the completed transfer count for SRC/DST DMA transfers that have not been acknowledged by software based on the channel selection.  <a href="#gadf6f5fdbd1556eecafa2ecf802b88e73">More...</a><br/></td></tr>
+<tr class="separator:gadf6f5fdbd1556eecafa2ecf802b88e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga055148e26de969504f6b826af3fe9279"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga055148e26de969504f6b826af3fe9279">XCsuDma_GetFIFOLevel</a>(InstancePtr, Channel)</td></tr>
+<tr class="memdesc:ga055148e26de969504f6b826af3fe9279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the channel FIFO level in 32-bit words of the selected channel.  <a href="#ga055148e26de969504f6b826af3fe9279">More...</a><br/></td></tr>
+<tr class="separator:ga055148e26de969504f6b826af3fe9279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b3c3d44a05b300dd2b60a1f15bc9a60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga8b3c3d44a05b300dd2b60a1f15bc9a60">XCsuDma_GetWROutstandCount</a>(InstancePtr, Channel)</td></tr>
+<tr class="memdesc:ga8b3c3d44a05b300dd2b60a1f15bc9a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the outstanding command count(src)/write(dst) outstanding.  <a href="#ga8b3c3d44a05b300dd2b60a1f15bc9a60">More...</a><br/></td></tr>
+<tr class="separator:ga8b3c3d44a05b300dd2b60a1f15bc9a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf15d6d8d487734165214850984ac00f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf15d6d8d487734165214850984ac00f2">XCsuDma_IsBusy</a>(InstancePtr, Channel)</td></tr>
+<tr class="memdesc:gaf15d6d8d487734165214850984ac00f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the channel busy status either it is busy or not.  <a href="#gaf15d6d8d487734165214850984ac00f2">More...</a><br/></td></tr>
+<tr class="separator:gaf15d6d8d487734165214850984ac00f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae02862bee946eeb9f0684d24550d1afa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gae02862bee946eeb9f0684d24550d1afa">XCsuDma_In32</a>&#160;&#160;&#160;Xil_In32</td></tr>
 <tr class="memdesc:gae02862bee946eeb9f0684d24550d1afa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input operation.  <a href="#gae02862bee946eeb9f0684d24550d1afa">More...</a><br/></td></tr>
 <tr class="separator:gae02862bee946eeb9f0684d24550d1afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,82 +152,192 @@ Macros</h2></td></tr>
 <tr class="memdesc:gae5b5c8718f050b6b4e25380a92c9aa0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output operation.  <a href="#gae5b5c8718f050b6b4e25380a92c9aa0d">More...</a><br/></td></tr>
 <tr class="separator:gae5b5c8718f050b6b4e25380a92c9aa0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga356d29aa2d43a1b724700007be7dcd51"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>(BaseAddress, RegOffset)&#160;&#160;&#160;<a class="el" href="group__csuma__api.html#gae02862bee946eeb9f0684d24550d1afa">XCsuDma_In32</a>((BaseAddress) + (u32)(RegOffset))</td></tr>
-<tr class="memdesc:ga356d29aa2d43a1b724700007be7dcd51"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro reads the given register.  <a href="#ga356d29aa2d43a1b724700007be7dcd51">More...</a><br/></td></tr>
+<tr class="memdesc:ga356d29aa2d43a1b724700007be7dcd51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a CSU DMA register.  <a href="#ga356d29aa2d43a1b724700007be7dcd51">More...</a><br/></td></tr>
 <tr class="separator:ga356d29aa2d43a1b724700007be7dcd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5a2390fe93e02061d01c3b9e057b3b2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>(BaseAddress, RegOffset, Data)&#160;&#160;&#160;<a class="el" href="group__csuma__api.html#gae5b5c8718f050b6b4e25380a92c9aa0d">XCsuDma_Out32</a>((BaseAddress) + (u32)(RegOffset), (u32)(Data))</td></tr>
-<tr class="memdesc:ga5a2390fe93e02061d01c3b9e057b3b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro writes the value into the given register.  <a href="#ga5a2390fe93e02061d01c3b9e057b3b2b">More...</a><br/></td></tr>
+<tr class="memdesc:ga5a2390fe93e02061d01c3b9e057b3b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a CSU DMA register.  <a href="#ga5a2390fe93e02061d01c3b9e057b3b2b">More...</a><br/></td></tr>
 <tr class="separator:ga5a2390fe93e02061d01c3b9e057b3b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">CSUDMA_BASEADDR</a>&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td></tr>
+<tr class="memdesc:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU DMA base address.  <a href="#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">More...</a><br/></td></tr>
+<tr class="separator:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1dac2e3409004e3277582a4066239395"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga1dac2e3409004e3277582a4066239395">CSU_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x008</td></tr>
+<tr class="memdesc:ga1dac2e3409004e3277582a4066239395"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="#ga1dac2e3409004e3277582a4066239395">More...</a><br/></td></tr>
+<tr class="separator:ga1dac2e3409004e3277582a4066239395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36650147b2834be4261c304cbb5acbfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga36650147b2834be4261c304cbb5acbfb">CSUDMA_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000050</td></tr>
+<tr class="memdesc:ga36650147b2834be4261c304cbb5acbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro.  <a href="#ga36650147b2834be4261c304cbb5acbfb">More...</a><br/></td></tr>
+<tr class="separator:ga36650147b2834be4261c304cbb5acbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga7a41b6cbdc050339c46b3ad81bf9d5f0">PMC_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x500</td></tr>
+<tr class="memdesc:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="#ga7a41b6cbdc050339c46b3ad81bf9d5f0">More...</a><br/></td></tr>
+<tr class="separator:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9be00cc50ff004d20e27675fc9d00709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga9be00cc50ff004d20e27675fc9d00709">PMCDMA0_LOOPBACK_CFG</a>&#160;&#160;&#160;0x0000000D</td></tr>
+<tr class="memdesc:ga9be00cc50ff004d20e27675fc9d00709"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA0.  <a href="#ga9be00cc50ff004d20e27675fc9d00709">More...</a><br/></td></tr>
+<tr class="separator:ga9be00cc50ff004d20e27675fc9d00709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac52f2e0501f3f595e3b8e92c12142f57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gac52f2e0501f3f595e3b8e92c12142f57">PMCDMA1_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000090</td></tr>
+<tr class="memdesc:gac52f2e0501f3f595e3b8e92c12142f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA1.  <a href="#gac52f2e0501f3f595e3b8e92c12142f57">More...</a><br/></td></tr>
+<tr class="separator:gac52f2e0501f3f595e3b8e92c12142f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70ed59adcb4159ac551058053e649640"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>&#160;&#160;&#160;0x100</td></tr>
+<tr class="memdesc:ga70ed59adcb4159ac551058053e649640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the data to be transferred.  <a href="#ga70ed59adcb4159ac551058053e649640">More...</a><br/></td></tr>
+<tr class="separator:ga70ed59adcb4159ac551058053e649640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">CSUDMA_BASEADDR</a>&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td></tr>
+<tr class="memdesc:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU DMA base address.  <a href="#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">More...</a><br/></td></tr>
+<tr class="separator:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1dac2e3409004e3277582a4066239395"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga1dac2e3409004e3277582a4066239395">CSU_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x008</td></tr>
+<tr class="memdesc:ga1dac2e3409004e3277582a4066239395"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="#ga1dac2e3409004e3277582a4066239395">More...</a><br/></td></tr>
+<tr class="separator:ga1dac2e3409004e3277582a4066239395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36650147b2834be4261c304cbb5acbfb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga36650147b2834be4261c304cbb5acbfb">CSUDMA_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000050</td></tr>
+<tr class="memdesc:ga36650147b2834be4261c304cbb5acbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro.  <a href="#ga36650147b2834be4261c304cbb5acbfb">More...</a><br/></td></tr>
+<tr class="separator:ga36650147b2834be4261c304cbb5acbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga7a41b6cbdc050339c46b3ad81bf9d5f0">PMC_SSS_CONFIG_OFFSET</a>&#160;&#160;&#160;0x500</td></tr>
+<tr class="memdesc:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU SSS_CFG Offset.  <a href="#ga7a41b6cbdc050339c46b3ad81bf9d5f0">More...</a><br/></td></tr>
+<tr class="separator:ga7a41b6cbdc050339c46b3ad81bf9d5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9be00cc50ff004d20e27675fc9d00709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga9be00cc50ff004d20e27675fc9d00709">PMCDMA0_LOOPBACK_CFG</a>&#160;&#160;&#160;0x0000000D</td></tr>
+<tr class="memdesc:ga9be00cc50ff004d20e27675fc9d00709"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA0.  <a href="#ga9be00cc50ff004d20e27675fc9d00709">More...</a><br/></td></tr>
+<tr class="separator:ga9be00cc50ff004d20e27675fc9d00709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac52f2e0501f3f595e3b8e92c12142f57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gac52f2e0501f3f595e3b8e92c12142f57">PMCDMA1_LOOPBACK_CFG</a>&#160;&#160;&#160;0x00000090</td></tr>
+<tr class="memdesc:gac52f2e0501f3f595e3b8e92c12142f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOOP BACK configuration macro for PMCDMA1.  <a href="#gac52f2e0501f3f595e3b8e92c12142f57">More...</a><br/></td></tr>
+<tr class="separator:gac52f2e0501f3f595e3b8e92c12142f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga70ed59adcb4159ac551058053e649640"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>&#160;&#160;&#160;0x100</td></tr>
+<tr class="memdesc:ga70ed59adcb4159ac551058053e649640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the data to be transferred.  <a href="#ga70ed59adcb4159ac551058053e649640">More...</a><br/></td></tr>
+<tr class="separator:ga70ed59adcb4159ac551058053e649640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">CSUDMA_BASEADDR</a>&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td></tr>
+<tr class="memdesc:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CSU DMA base address.  <a href="#ga0e62fe5ebb6dbbfb67acfafe3c4f498e">More...</a><br/></td></tr>
+<tr class="separator:ga0e62fe5ebb6dbbfb67acfafe3c4f498e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ga46008337fdd632f2650b8727c305eba5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> { <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a> = 0U,
 <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>
  }</td></tr>
-<tr class="memdesc:ga46008337fdd632f2650b8727c305eba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains CSU_DMA Channel Types.  <a href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">More...</a><br/></td></tr>
+<tr class="memdesc:ga46008337fdd632f2650b8727c305eba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines CSU DMA channel types.  <a href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">More...</a><br/></td></tr>
 <tr class="separator:ga46008337fdd632f2650b8727c305eba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5ce08d197288cbdfb06941f1d46df87"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> { <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>,
+<a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>
+ }</td></tr>
+<tr class="memdesc:gad5ce08d197288cbdfb06941f1d46df87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines CSU DMA pause types.  <a href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">More...</a><br/></td></tr>
+<tr class="separator:gad5ce08d197288cbdfb06941f1d46df87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gad0f7217bd295de82623179efb34adb96"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gad0f7217bd295de82623179efb34adb96">XCsuDma_CfgInitialize</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="struct_x_csu_dma___config.html">XCsuDma_Config</a> *CfgPtr, UINTPTR EffectiveAddr)</td></tr>
-<tr class="memdesc:gad0f7217bd295de82623179efb34adb96"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes CSU_DMA core.  <a href="#gad0f7217bd295de82623179efb34adb96">More...</a><br/></td></tr>
+<tr class="memdesc:gad0f7217bd295de82623179efb34adb96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the CSU_DMA core.  <a href="#gad0f7217bd295de82623179efb34adb96">More...</a><br/></td></tr>
 <tr class="separator:gad0f7217bd295de82623179efb34adb96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacf79144df19e9cd4116dd9f507037ff1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gacf79144df19e9cd4116dd9f507037ff1">XCsuDma_Transfer</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, u64 Addr, u32 Size, u8 EnDataLast)</td></tr>
-<tr class="memdesc:gacf79144df19e9cd4116dd9f507037ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the starting address and size of the data to be transferred from/to the memory through the AXI interface.  <a href="#gacf79144df19e9cd4116dd9f507037ff1">More...</a><br/></td></tr>
+<tr class="memdesc:gacf79144df19e9cd4116dd9f507037ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the starting address and transfer size of the data to be.  <a href="#gacf79144df19e9cd4116dd9f507037ff1">More...</a><br/></td></tr>
 <tr class="separator:gacf79144df19e9cd4116dd9f507037ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga83a1043112b6067b1901d2bdcb29563d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga83a1043112b6067b1901d2bdcb29563d">XCsuDma_64BitTransfer</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast)</td></tr>
-<tr class="memdesc:ga83a1043112b6067b1901d2bdcb29563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the starting address and size of the data to be transferred from/to the memory through the AXI interface.  <a href="#ga83a1043112b6067b1901d2bdcb29563d">More...</a><br/></td></tr>
+<tr class="memdesc:ga83a1043112b6067b1901d2bdcb29563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the starting address and transfer size of the data to be.  <a href="#ga83a1043112b6067b1901d2bdcb29563d">More...</a><br/></td></tr>
 <tr class="separator:ga83a1043112b6067b1901d2bdcb29563d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga25049be545d8ec6eae2426b6248a8e4f"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga25049be545d8ec6eae2426b6248a8e4f">XCsuDma_GetAddr</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel)</td></tr>
-<tr class="memdesc:ga25049be545d8ec6eae2426b6248a8e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the current address location of the memory, from where it has to read the data(SRC) or the location where it has to write the data (DST) based on the channel selection.  <a href="#ga25049be545d8ec6eae2426b6248a8e4f">More...</a><br/></td></tr>
+<tr class="memdesc:ga25049be545d8ec6eae2426b6248a8e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function returns the current address location of the memory, from where.  <a href="#ga25049be545d8ec6eae2426b6248a8e4f">More...</a><br/></td></tr>
 <tr class="separator:ga25049be545d8ec6eae2426b6248a8e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad5fd579fb9c166e59ee1f9d3b39250c7"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gad5fd579fb9c166e59ee1f9d3b39250c7">XCsuDma_GetSize</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel)</td></tr>
-<tr class="memdesc:gad5fd579fb9c166e59ee1f9d3b39250c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the size of the data yet to be transferred from memory to CSU_DMA or CSU_DMA to memory based on the channel selection.  <a href="#gad5fd579fb9c166e59ee1f9d3b39250c7">More...</a><br/></td></tr>
+<tr class="memdesc:gad5fd579fb9c166e59ee1f9d3b39250c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function returns the size of the data yet to be transferred from memory.  <a href="#gad5fd579fb9c166e59ee1f9d3b39250c7">More...</a><br/></td></tr>
 <tr class="separator:gad5fd579fb9c166e59ee1f9d3b39250c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00b5080126710866186d0bfafd26e9b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga00b5080126710866186d0bfafd26e9b6">XCsuDma_Pause</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> Type)</td></tr>
-<tr class="memdesc:ga00b5080126710866186d0bfafd26e9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function pauses the Channel data transfer to/from memory or to/from stream based on pause type.  <a href="#ga00b5080126710866186d0bfafd26e9b6">More...</a><br/></td></tr>
+<tr class="memitem:ga00b5080126710866186d0bfafd26e9b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga00b5080126710866186d0bfafd26e9b6">XCsuDma_Pause</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> Type)</td></tr>
+<tr class="memdesc:ga00b5080126710866186d0bfafd26e9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function pauses the Channel data transfer to/from memory or to/from stream.  <a href="#ga00b5080126710866186d0bfafd26e9b6">More...</a><br/></td></tr>
 <tr class="separator:ga00b5080126710866186d0bfafd26e9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa3450f812658f927f289b997b12a4174"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaa3450f812658f927f289b997b12a4174">XCsuDma_IsPaused</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> Type)</td></tr>
-<tr class="memdesc:gaa3450f812658f927f289b997b12a4174"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether Channel memory/stream is paused based on the given pause type.  <a href="#gaa3450f812658f927f289b997b12a4174">More...</a><br/></td></tr>
+<tr class="memitem:gaa3450f812658f927f289b997b12a4174"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaa3450f812658f927f289b997b12a4174">XCsuDma_IsPaused</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> Type)</td></tr>
+<tr class="memdesc:gaa3450f812658f927f289b997b12a4174"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function checks whether Channel memory/stream is paused.  <a href="#gaa3450f812658f927f289b997b12a4174">More...</a><br/></td></tr>
 <tr class="separator:gaa3450f812658f927f289b997b12a4174"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeee3f2d5bcf265b57c9f214f2bc15a28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaeee3f2d5bcf265b57c9f214f2bc15a28">XCsuDma_Resume</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> Type)</td></tr>
-<tr class="memdesc:gaeee3f2d5bcf265b57c9f214f2bc15a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function resumes the channel if it is in paused state and continues where it has left.  <a href="#gaeee3f2d5bcf265b57c9f214f2bc15a28">More...</a><br/></td></tr>
+<tr class="memitem:gaeee3f2d5bcf265b57c9f214f2bc15a28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaeee3f2d5bcf265b57c9f214f2bc15a28">XCsuDma_Resume</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a> Type)</td></tr>
+<tr class="memdesc:gaeee3f2d5bcf265b57c9f214f2bc15a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function resumes the channel if it is in paused state and continues.  <a href="#gaeee3f2d5bcf265b57c9f214f2bc15a28">More...</a><br/></td></tr>
 <tr class="separator:gaeee3f2d5bcf265b57c9f214f2bc15a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17f1a7ba935f4bf3626050e0b0e0142b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga17f1a7ba935f4bf3626050e0b0e0142b">XCsuDma_GetCheckSum</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga17f1a7ba935f4bf3626050e0b0e0142b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the sum of all the data read from AXI memory.  <a href="#ga17f1a7ba935f4bf3626050e0b0e0142b">More...</a><br/></td></tr>
+<tr class="memdesc:ga17f1a7ba935f4bf3626050e0b0e0142b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function returns the sum of all the data read from AXI memory.  <a href="#ga17f1a7ba935f4bf3626050e0b0e0142b">More...</a><br/></td></tr>
 <tr class="separator:ga17f1a7ba935f4bf3626050e0b0e0142b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga78bdd79674e2b5c92b9701cacfde1fe1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga78bdd79674e2b5c92b9701cacfde1fe1">XCsuDma_ClearCheckSum</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga78bdd79674e2b5c92b9701cacfde1fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears the check sum of the data read from AXI memory.  <a href="#ga78bdd79674e2b5c92b9701cacfde1fe1">More...</a><br/></td></tr>
+<tr class="memdesc:ga78bdd79674e2b5c92b9701cacfde1fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the checksum of data read from AXI memory.  <a href="#ga78bdd79674e2b5c92b9701cacfde1fe1">More...</a><br/></td></tr>
 <tr class="separator:ga78bdd79674e2b5c92b9701cacfde1fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga73867b4acb189982642e4c1ae4f92fb9"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga73867b4acb189982642e4c1ae4f92fb9">XCsuDma_WaitForDoneTimeout</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel)</td></tr>
-<tr class="memdesc:ga73867b4acb189982642e4c1ae4f92fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function polls for completion of data transfer periodically until the DMA done bit set or until the timeout occurs.  <a href="#ga73867b4acb189982642e4c1ae4f92fb9">More...</a><br/></td></tr>
+<tr class="memdesc:ga73867b4acb189982642e4c1ae4f92fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function polls for completion of data transfer periodically until the.  <a href="#ga73867b4acb189982642e4c1ae4f92fb9">More...</a><br/></td></tr>
 <tr class="separator:ga73867b4acb189982642e4c1ae4f92fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac9b6265e467b03cc903cd66781e95e63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gac9b6265e467b03cc903cd66781e95e63">XCsuDma_SetConfig</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="struct_x_csu_dma___configure.html">XCsuDma_Configure</a> *ConfigurValues)</td></tr>
-<tr class="memdesc:gac9b6265e467b03cc903cd66781e95e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures all the values of CSU_DMA Channels with the values of updated <a class="el" href="struct_x_csu_dma___configure.html" title="This typedef contains all the configuration feilds which must be set before the start of the data tra...">XCsuDma_Configure</a> structure.  <a href="#gac9b6265e467b03cc903cd66781e95e63">More...</a><br/></td></tr>
+<tr class="memdesc:gac9b6265e467b03cc903cd66781e95e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function configures all the values of CSU_DMA Channels with the values.  <a href="#gac9b6265e467b03cc903cd66781e95e63">More...</a><br/></td></tr>
 <tr class="separator:gac9b6265e467b03cc903cd66781e95e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab0b66bca3f38d26d38ff47544fa6b11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaab0b66bca3f38d26d38ff47544fa6b11">XCsuDma_GetConfig</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, <a class="el" href="struct_x_csu_dma___configure.html">XCsuDma_Configure</a> *ConfigurValues)</td></tr>
-<tr class="memdesc:gaab0b66bca3f38d26d38ff47544fa6b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function updates <a class="el" href="struct_x_csu_dma___configure.html" title="This typedef contains all the configuration feilds which must be set before the start of the data tra...">XCsuDma_Configure</a> structure members with the configured values of CSU_DMA's Channel.  <a href="#gaab0b66bca3f38d26d38ff47544fa6b11">More...</a><br/></td></tr>
+<tr class="memdesc:gaab0b66bca3f38d26d38ff47544fa6b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides function updates <a class="el" href="struct_x_csu_dma___configure.html" title="Holds channel configuration values that must be set before the start of the data transfer. ">XCsuDma_Configure</a> structure members with the configured.  <a href="#gaab0b66bca3f38d26d38ff47544fa6b11">More...</a><br/></td></tr>
 <tr class="separator:gaab0b66bca3f38d26d38ff47544fa6b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b9aa7a643bde993a249a7d5d38db223"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma___config.html">XCsuDma_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga8b9aa7a643bde993a249a7d5d38db223">XCsuDma_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga8b9aa7a643bde993a249a7d5d38db223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up device configuration by base address.  <a href="#ga8b9aa7a643bde993a249a7d5d38db223">More...</a><br/></td></tr>
+<tr class="separator:ga8b9aa7a643bde993a249a7d5d38db223"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6169fa380a4d55e41d7ab96589372e8f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6169fa380a4d55e41d7ab96589372e8f">XCsuDma_IntrGetStatus</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel)</td></tr>
-<tr class="memdesc:ga6169fa380a4d55e41d7ab96589372e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns interrupt status read from Interrupt Status Register.  <a href="#ga6169fa380a4d55e41d7ab96589372e8f">More...</a><br/></td></tr>
+<tr class="memdesc:ga6169fa380a4d55e41d7ab96589372e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads interrupt status read from Interrupt Status Register.  <a href="#ga6169fa380a4d55e41d7ab96589372e8f">More...</a><br/></td></tr>
 <tr class="separator:ga6169fa380a4d55e41d7ab96589372e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1db5eabd96920efb06fb03c919420601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga1db5eabd96920efb06fb03c919420601">XCsuDma_IntrClear</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, u32 Mask)</td></tr>
-<tr class="memdesc:ga1db5eabd96920efb06fb03c919420601"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function clears interrupt(s).  <a href="#ga1db5eabd96920efb06fb03c919420601">More...</a><br/></td></tr>
+<tr class="memdesc:ga1db5eabd96920efb06fb03c919420601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears interrupts.  <a href="#ga1db5eabd96920efb06fb03c919420601">More...</a><br/></td></tr>
 <tr class="separator:ga1db5eabd96920efb06fb03c919420601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad892a65e65ac14f48f7d7f53020511cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gad892a65e65ac14f48f7d7f53020511cf">XCsuDma_EnableIntr</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, u32 Mask)</td></tr>
-<tr class="memdesc:gad892a65e65ac14f48f7d7f53020511cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables the interrupt(s).  <a href="#gad892a65e65ac14f48f7d7f53020511cf">More...</a><br/></td></tr>
+<tr class="memdesc:gad892a65e65ac14f48f7d7f53020511cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables interrupts.  <a href="#gad892a65e65ac14f48f7d7f53020511cf">More...</a><br/></td></tr>
 <tr class="separator:gad892a65e65ac14f48f7d7f53020511cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadf3599e4d07ef05586a217ebbbd02999"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gadf3599e4d07ef05586a217ebbbd02999">XCsuDma_DisableIntr</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel, u32 Mask)</td></tr>
-<tr class="memdesc:gadf3599e4d07ef05586a217ebbbd02999"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables the interrupt(s).  <a href="#gadf3599e4d07ef05586a217ebbbd02999">More...</a><br/></td></tr>
+<tr class="memdesc:gadf3599e4d07ef05586a217ebbbd02999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables interrupts.  <a href="#gadf3599e4d07ef05586a217ebbbd02999">More...</a><br/></td></tr>
 <tr class="separator:gadf3599e4d07ef05586a217ebbbd02999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ed420e8bfd9ab489a2d2c3e984ca7a2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6ed420e8bfd9ab489a2d2c3e984ca7a2">XCsuDma_GetIntrMask</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr, <a class="el" href="group__csuma__api.html#ga46008337fdd632f2650b8727c305eba5">XCsuDma_Channel</a> Channel)</td></tr>
-<tr class="memdesc:ga6ed420e8bfd9ab489a2d2c3e984ca7a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the interrupt mask to know which interrupts are enabled and which of them were disabled.  <a href="#ga6ed420e8bfd9ab489a2d2c3e984ca7a2">More...</a><br/></td></tr>
+<tr class="memdesc:ga6ed420e8bfd9ab489a2d2c3e984ca7a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the interrupt mask to know which interrupts are.  <a href="#ga6ed420e8bfd9ab489a2d2c3e984ca7a2">More...</a><br/></td></tr>
 <tr class="separator:ga6ed420e8bfd9ab489a2d2c3e984ca7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga774ab551d0ef59fd880ff834f2d83804"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga774ab551d0ef59fd880ff834f2d83804">XCsuDma_SelfTest</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga774ab551d0ef59fd880ff834f2d83804"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the driver and hardware device.  <a href="#ga774ab551d0ef59fd880ff834f2d83804">More...</a><br/></td></tr>
+<tr class="memdesc:ga774ab551d0ef59fd880ff834f2d83804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a self test on the driver and hardware device.  <a href="#ga774ab551d0ef59fd880ff834f2d83804">More...</a><br/></td></tr>
 <tr class="separator:ga774ab551d0ef59fd880ff834f2d83804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2420bd1fdfb8f4fb151aef5b4b6ee8ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma___config.html">XCsuDma_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga2420bd1fdfb8f4fb151aef5b4b6ee8ba">XCsuDma_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga2420bd1fdfb8f4fb151aef5b4b6ee8ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID/BaseAddress.  <a href="#ga2420bd1fdfb8f4fb151aef5b4b6ee8ba">More...</a><br/></td></tr>
-<tr class="separator:ga2420bd1fdfb8f4fb151aef5b4b6ee8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55502a98728facd6753005575994965e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga55502a98728facd6753005575994965e">XCsuDma_IntrExample</a> (<a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *CsuDmaInstance, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga55502a98728facd6753005575994965e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a data transfer in loop back mode in interrupt mode.  <a href="#ga55502a98728facd6753005575994965e">More...</a><br/></td></tr>
+<tr class="separator:ga55502a98728facd6753005575994965e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2c2d73f33aa4a715c8b8b3c0c01ada6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaa2c2d73f33aa4a715c8b8b3c0c01ada6">IntrHandler</a> (void *CallBackRef)</td></tr>
+<tr class="memdesc:gaa2c2d73f33aa4a715c8b8b3c0c01ada6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupts handler for the CSU_DMA driver.  <a href="#gaa2c2d73f33aa4a715c8b8b3c0c01ada6">More...</a><br/></td></tr>
+<tr class="separator:gaa2c2d73f33aa4a715c8b8b3c0c01ada6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mains function to call the example.  <a href="#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga81a60cdabb01fb08aeec70021c7baa78"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga81a60cdabb01fb08aeec70021c7baa78">XCsuDma_PolledExample</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga81a60cdabb01fb08aeec70021c7baa78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a data transfer in loop back mode in polled mode.  <a href="#ga81a60cdabb01fb08aeec70021c7baa78">More...</a><br/></td></tr>
+<tr class="separator:ga81a60cdabb01fb08aeec70021c7baa78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6209354fab076157f08aa360d43a8e0a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga6209354fab076157f08aa360d43a8e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a minimal self test on the XCsudma driver.  <a href="#ga6209354fab076157f08aa360d43a8e0a">More...</a><br/></td></tr>
+<tr class="separator:ga6209354fab076157f08aa360d43a8e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:gacaf18b341d1af3db65737995dbdabb2f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gacaf18b341d1af3db65737995dbdabb2f">DstBuf</a> [<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
+<tr class="memdesc:gacaf18b341d1af3db65737995dbdabb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer.  <a href="#gacaf18b341d1af3db65737995dbdabb2f">More...</a><br/></td></tr>
+<tr class="separator:gacaf18b341d1af3db65737995dbdabb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf61ae76555abcb873e18f6deee8ba5f5">SrcBuf</a> [<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
+<tr class="memdesc:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source buffer.  <a href="#gaf61ae76555abcb873e18f6deee8ba5f5">More...</a><br/></td></tr>
+<tr class="separator:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6ac1478432df4951ce8f0fc753bb652d">CsuDma</a></td></tr>
+<tr class="memdesc:ga6ac1478432df4951ce8f0fc753bb652d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the Csu_Dma Device.  <a href="#ga6ac1478432df4951ce8f0fc753bb652d">More...</a><br/></td></tr>
+<tr class="separator:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf61ae76555abcb873e18f6deee8ba5f5">SrcBuf</a> [<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
+<tr class="memdesc:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer.  <a href="#gaf61ae76555abcb873e18f6deee8ba5f5">More...</a><br/></td></tr>
+<tr class="separator:gaf61ae76555abcb873e18f6deee8ba5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacaf18b341d1af3db65737995dbdabb2f"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gacaf18b341d1af3db65737995dbdabb2f">DstBuf</a> [<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td></tr>
+<tr class="memdesc:gacaf18b341d1af3db65737995dbdabb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source buffer.  <a href="#gacaf18b341d1af3db65737995dbdabb2f">More...</a><br/></td></tr>
+<tr class="separator:gacaf18b341d1af3db65737995dbdabb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6ac1478432df4951ce8f0fc753bb652d">CsuDma</a></td></tr>
+<tr class="memdesc:ga6ac1478432df4951ce8f0fc753bb652d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the Csu_Dma Device.  <a href="#ga6ac1478432df4951ce8f0fc753bb652d">More...</a><br/></td></tr>
+<tr class="separator:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6ac1478432df4951ce8f0fc753bb652d">CsuDma</a></td></tr>
+<tr class="memdesc:ga6ac1478432df4951ce8f0fc753bb652d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the Csu_Dma Device.  <a href="#ga6ac1478432df4951ce8f0fc753bb652d">More...</a><br/></td></tr>
+<tr class="separator:ga6ac1478432df4951ce8f0fc753bb652d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Ranges of Size</h2></td></tr>
+<tr class="memitem:gab57550413ed1c53f70a33ad4b90965eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gab57550413ed1c53f70a33ad4b90965eb">XCSUDMA_SIZE_MAX</a>&#160;&#160;&#160;0x07FFFFFFU</td></tr>
+<tr class="memdesc:gab57550413ed1c53f70a33ad4b90965eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum allowed no of words.  <a href="#gab57550413ed1c53f70a33ad4b90965eb">More...</a><br/></td></tr>
+<tr class="separator:gab57550413ed1c53f70a33ad4b90965eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f5460a8a6a1848b2c4c2988f7428e73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga8f5460a8a6a1848b2c4c2988f7428e73">XCSUDMA_DMATYPEIS_CSUDMA</a>&#160;&#160;&#160;0U</td></tr>
+<tr class="memdesc:ga8f5460a8a6a1848b2c4c2988f7428e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA is CSUDMA.  <a href="#ga8f5460a8a6a1848b2c4c2988f7428e73">More...</a><br/></td></tr>
+<tr class="separator:ga8f5460a8a6a1848b2c4c2988f7428e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf785114e3c13162c421d9e996904439d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaf785114e3c13162c421d9e996904439d">XCSUDMA_DMATYPEIS_PMCDMA0</a>&#160;&#160;&#160;1U</td></tr>
+<tr class="memdesc:gaf785114e3c13162c421d9e996904439d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA is PMCDMA0.  <a href="#gaf785114e3c13162c421d9e996904439d">More...</a><br/></td></tr>
+<tr class="separator:gaf785114e3c13162c421d9e996904439d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa507d47c1f38cdce062c5215c47f6eb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaa507d47c1f38cdce062c5215c47f6eb3">XCSUDMA_DMATYPEIS_PMCDMA1</a>&#160;&#160;&#160;2U</td></tr>
+<tr class="memdesc:gaa507d47c1f38cdce062c5215c47f6eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA is PMCDMA1.  <a href="#gaa507d47c1f38cdce062c5215c47f6eb3">More...</a><br/></td></tr>
+<tr class="separator:gaa507d47c1f38cdce062c5215c47f6eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6bb92ac777bd1f10d3a1e71aa3f78c78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#ga6bb92ac777bd1f10d3a1e71aa3f78c78">XCSUDMA_DMATYPEIS_ASUDMA0</a>&#160;&#160;&#160;3U</td></tr>
+<tr class="memdesc:ga6bb92ac777bd1f10d3a1e71aa3f78c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA is ASUDMA0.  <a href="#ga6bb92ac777bd1f10d3a1e71aa3f78c78">More...</a><br/></td></tr>
+<tr class="separator:ga6bb92ac777bd1f10d3a1e71aa3f78c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8be6af2cc9347ba3b9f23e8dc209e34"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csuma__api.html#gaa8be6af2cc9347ba3b9f23e8dc209e34">XCSUDMA_DMATYPEIS_ASUDMA1</a>&#160;&#160;&#160;4U</td></tr>
+<tr class="memdesc:gaa8be6af2cc9347ba3b9f23e8dc209e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">DMA is ASUDMA1.  <a href="#gaa8be6af2cc9347ba3b9f23e8dc209e34">More...</a><br/></td></tr>
+<tr class="separator:gaa8be6af2cc9347ba3b9f23e8dc209e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Registers offsets</h2></td></tr>
@@ -275,6 +411,216 @@ Software done timeout value</h2></td></tr>
 <tr class="separator:ga0bd0c9763013ce910920b46ad35d10ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="ga1dac2e3409004e3277582a4066239395"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSU_SSS_CONFIG_OFFSET&#160;&#160;&#160;0x008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU SSS_CFG Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga1dac2e3409004e3277582a4066239395"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSU_SSS_CONFIG_OFFSET&#160;&#160;&#160;0x008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU SSS_CFG Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0e62fe5ebb6dbbfb67acfafe3c4f498e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSUDMA_BASEADDR&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU DMA base address. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0e62fe5ebb6dbbfb67acfafe3c4f498e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSUDMA_BASEADDR&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU DMA base address. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0e62fe5ebb6dbbfb67acfafe3c4f498e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSUDMA_BASEADDR&#160;&#160;&#160;XPAR_XCSUDMA_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU DMA base address. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga36650147b2834be4261c304cbb5acbfb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSUDMA_LOOPBACK_CFG&#160;&#160;&#160;0x00000050</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LOOP BACK configuration macro. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga36650147b2834be4261c304cbb5acbfb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSUDMA_LOOPBACK_CFG&#160;&#160;&#160;0x00000050</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LOOP BACK configuration macro. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7a41b6cbdc050339c46b3ad81bf9d5f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMC_SSS_CONFIG_OFFSET&#160;&#160;&#160;0x500</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU SSS_CFG Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga7a41b6cbdc050339c46b3ad81bf9d5f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMC_SSS_CONFIG_OFFSET&#160;&#160;&#160;0x500</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CSU SSS_CFG Offset. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9be00cc50ff004d20e27675fc9d00709"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMCDMA0_LOOPBACK_CFG&#160;&#160;&#160;0x0000000D</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LOOP BACK configuration macro for PMCDMA0. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga9be00cc50ff004d20e27675fc9d00709"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMCDMA0_LOOPBACK_CFG&#160;&#160;&#160;0x0000000D</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LOOP BACK configuration macro for PMCDMA0. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac52f2e0501f3f595e3b8e92c12142f57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMCDMA1_LOOPBACK_CFG&#160;&#160;&#160;0x00000090</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LOOP BACK configuration macro for PMCDMA1. </p>
+
+</div>
+</div>
+<a class="anchor" id="gac52f2e0501f3f595e3b8e92c12142f57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PMCDMA1_LOOPBACK_CFG&#160;&#160;&#160;0x00000090</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LOOP BACK configuration macro for PMCDMA1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga70ed59adcb4159ac551058053e649640"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SIZE&#160;&#160;&#160;0x100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of the data to be transferred. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga70ed59adcb4159ac551058053e649640"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SIZE&#160;&#160;&#160;0x100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of the data to be transferred. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga76fcd0f2a0c7ebc2058f231a944c7109"></a>
 <div class="memitem">
 <div class="memproto">
@@ -307,6 +653,78 @@ Software done timeout value</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga6bb92ac777bd1f10d3a1e71aa3f78c78"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCSUDMA_DMATYPEIS_ASUDMA0&#160;&#160;&#160;3U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA is ASUDMA0. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa8be6af2cc9347ba3b9f23e8dc209e34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCSUDMA_DMATYPEIS_ASUDMA1&#160;&#160;&#160;4U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA is ASUDMA1. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga8f5460a8a6a1848b2c4c2988f7428e73"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCSUDMA_DMATYPEIS_CSUDMA&#160;&#160;&#160;0U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA is CSUDMA. </p>
+
+<p>Referenced by <a class="el" href="group__csuma__api.html#gad0f7217bd295de82623179efb34adb96">XCsuDma_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaf785114e3c13162c421d9e996904439d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCSUDMA_DMATYPEIS_PMCDMA0&#160;&#160;&#160;1U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA is PMCDMA0. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaa507d47c1f38cdce062c5215c47f6eb3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCSUDMA_DMATYPEIS_PMCDMA1&#160;&#160;&#160;2U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DMA is PMCDMA1. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga0bd0c9763013ce910920b46ad35d10ba"></a>
 <div class="memitem">
 <div class="memproto">
@@ -323,31 +741,144 @@ Software done timeout value</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga8ee71e015a72b9441ead3a0f5541777c"></a>
+<a class="anchor" id="gadf6f5fdbd1556eecafa2ecf802b88e73"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XCSUDMA_H_</td>
+          <td class="memname">#define XCsuDma_GetDoneCount</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Channel&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Prevent circular inclusions by using protection macros. </p>
+<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>(((InstancePtr)-&gt;Config.BaseAddress), \</div>
+<div class="line">                        ((u32)(<a class="code" href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a>) + \</div>
+<div class="line">                        ((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) &amp; \</div>
+<div class="line">                        (u32)(XCSUDMA_STS_DONE_CNT_MASK)) &gt;&gt; \</div>
+<div class="line">                                (u32)(XCSUDMA_STS_DONE_CNT_SHIFT))</div>
+<div class="ttc" id="group__csuma__api_html_ga356d29aa2d43a1b724700007be7dcd51"><div class="ttname"><a href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a></div><div class="ttdeci">#define XCsuDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Reads a CSU DMA register. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:331</div></div>
+<div class="ttc" id="group__csuma__api_html_gaa69407558163d5fc58ac9621b3e313a3"><div class="ttname"><a href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a></div><div class="ttdeci">#define XCSUDMA_STS_OFFSET</div><div class="ttdoc">Status Register Offset. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:60</div></div>
+</div><!-- fragment -->
+<p>Reads the completed transfer count for SRC/DST DMA transfers that have not been acknowledged by software based on the channel selection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Type of channel. Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Count is number of completed DMA transfers but not acknowledged (Range is 0 to 7).<ul>
+<li>000 - All finished transfers have been acknowledged.</li>
+<li>Count - Count number of finished transfers are still outstanding.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u8 XCsuDma_GetDoneCount(<a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> *InstancePtr, XCsuDma_Channel Channel) </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="gaf7ae40275005f5b2c827da41a0e3cc23"></a>
+<a class="anchor" id="ga055148e26de969504f6b826af3fe9279"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XCSUDMA_HW_H_</td>
+          <td class="memname">#define XCsuDma_GetFIFOLevel</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Channel&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>(((InstancePtr)-&gt;Config.BaseAddress), \</div>
+<div class="line">                        ((u32)(<a class="code" href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a>) + \</div>
+<div class="line">                        ((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) &amp; \</div>
+<div class="line">                        (u32)(XCSUDMA_STS_FIFO_LEVEL_MASK)) &gt;&gt; \</div>
+<div class="line">                                        (u32)(XCSUDMA_STS_FIFO_LEVEL_SHIFT))</div>
+<div class="ttc" id="group__csuma__api_html_ga356d29aa2d43a1b724700007be7dcd51"><div class="ttname"><a href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a></div><div class="ttdeci">#define XCsuDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Reads a CSU DMA register. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:331</div></div>
+<div class="ttc" id="group__csuma__api_html_gaa69407558163d5fc58ac9621b3e313a3"><div class="ttname"><a href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a></div><div class="ttdeci">#define XCSUDMA_STS_OFFSET</div><div class="ttdoc">Status Register Offset. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:60</div></div>
+</div><!-- fragment -->
+<p>Reads the channel FIFO level in 32-bit words of the selected channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>FIFO level. (Range is 0 to 128)<ul>
+<li>0 Indicates empty</li>
+<li>Any number 1 to 128 indicates the number of entries in FIFO.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u8 XCsuDma_GetFIFOLevel(<a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> *InstancePtr, XCsuDma_Channel Channel) </dd></dl>
 
-<p>Prevent circular inclusions by using protection macros. </p>
+</div>
+</div>
+<a class="anchor" id="ga8b3c3d44a05b300dd2b60a1f15bc9a60"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCsuDma_GetWROutstandCount</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Channel&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((<a class="code" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>(((InstancePtr)-&gt;Config.BaseAddress), \</div>
+<div class="line">                                ((u32)(<a class="code" href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a>) + \</div>
+<div class="line">                        ((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) &amp; \</div>
+<div class="line">                        (u32)(XCUSDMA_STS_OUTSTDG_MASK)) &gt;&gt; \</div>
+<div class="line">                                (u32)(XCUSDMA_STS_OUTSTDG_SHIFT))</div>
+<div class="ttc" id="group__csuma__api_html_ga356d29aa2d43a1b724700007be7dcd51"><div class="ttname"><a href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a></div><div class="ttdeci">#define XCsuDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Reads a CSU DMA register. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:331</div></div>
+<div class="ttc" id="group__csuma__api_html_gaa69407558163d5fc58ac9621b3e313a3"><div class="ttname"><a href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a></div><div class="ttdeci">#define XCSUDMA_STS_OFFSET</div><div class="ttdoc">Status Register Offset. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:60</div></div>
+</div><!-- fragment -->
+<p>Reads the outstanding command count(src)/write(dst) outstanding. </p>
+<p>commands based on the type of channel selected.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Count of outstanding commands. (Range is 0 to 9).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u8 XCsuDma_GetWROutstandCount(<a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> *InstancePtr, XCsuDma_Channel Channel) </dd></dl>
 
 </div>
 </div>
@@ -378,6 +909,54 @@ Software done timeout value</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Input operation. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf15d6d8d487734165214850984ac00f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCsuDma_IsBusy</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Channel&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(((<a class="code" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>(((InstancePtr)-&gt;Config.BaseAddress), \</div>
+<div class="line">                                        ((u32)(<a class="code" href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a>) + \</div>
+<div class="line">                        ((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) &amp; \</div>
+<div class="line">                (u32)(XCSUDMA_STS_BUSY_MASK)) == (XCSUDMA_STS_BUSY_MASK)) ? \</div>
+<div class="line">                                TRUE : FALSE)</div>
+<div class="ttc" id="group__csuma__api_html_ga356d29aa2d43a1b724700007be7dcd51"><div class="ttname"><a href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a></div><div class="ttdeci">#define XCsuDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Reads a CSU DMA register. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:331</div></div>
+<div class="ttc" id="group__csuma__api_html_gaa69407558163d5fc58ac9621b3e313a3"><div class="ttname"><a href="group__csuma__api.html#gaa69407558163d5fc58ac9621b3e313a3">XCSUDMA_STS_OFFSET</a></div><div class="ttdeci">#define XCSUDMA_STS_OFFSET</div><div class="ttdoc">Status Register Offset. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:60</div></div>
+</div><!-- fragment -->
+<p>Reads the channel busy status either it is busy or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the current status of the core.<ul>
+<li>TRUE represents core is currently busy.</li>
+<li>FALSE represents core is not involved in any transfers.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: s32 <a class="el" href="group__csuma__api.html#gaf15d6d8d487734165214850984ac00f2" title="Reads the channel busy status either it is busy or not. ">XCsuDma_IsBusy(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</a> </dd></dl>
 
 </div>
 </div>
@@ -585,18 +1164,42 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This macro reads the given register. </p>
+<p>Reads a CSU DMA register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Base address of the CSU_DMA core. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Register offset of the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the CSU_DMA core. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>Register offset of the register.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51" title="This macro reads the given register. ">XCsuDma_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51" title="Reads a CSU DMA register. ">XCsuDma_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__csuma__api.html#ga25049be545d8ec6eae2426b6248a8e4f">XCsuDma_GetAddr()</a>, <a class="el" href="group__csuma__api.html#ga17f1a7ba935f4bf3626050e0b0e0142b">XCsuDma_GetCheckSum()</a>, <a class="el" href="group__csuma__api.html#gaab0b66bca3f38d26d38ff47544fa6b11">XCsuDma_GetConfig()</a>, <a class="el" href="group__csuma__api.html#ga6ed420e8bfd9ab489a2d2c3e984ca7a2">XCsuDma_GetIntrMask()</a>, <a class="el" href="group__csuma__api.html#gad5fd579fb9c166e59ee1f9d3b39250c7">XCsuDma_GetSize()</a>, <a class="el" href="group__csuma__api.html#ga6169fa380a4d55e41d7ab96589372e8f">XCsuDma_IntrGetStatus()</a>, <a class="el" href="group__csuma__api.html#gaa3450f812658f927f289b997b12a4174">XCsuDma_IsPaused()</a>, <a class="el" href="group__csuma__api.html#ga00b5080126710866186d0bfafd26e9b6">XCsuDma_Pause()</a>, <a class="el" href="group__csuma__api.html#gaeee3f2d5bcf265b57c9f214f2bc15a28">XCsuDma_Resume()</a>, <a class="el" href="group__csuma__api.html#ga774ab551d0ef59fd880ff834f2d83804">XCsuDma_SelfTest()</a>, and <a class="el" href="group__csuma__api.html#gac9b6265e467b03cc903cd66781e95e63">XCsuDma_SetConfig()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga4fd22ed9ee5ff0eae03ee717112b7087"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCsuDma_Reset</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">Xil_Out32(((u32)(XCSU_BASEADDRESS) + (u32)(XCSU_DMA_RESET_OFFSET)), \</div>
+<div class="line">                                (u32)(XCSUDMA_RESET_SET_MASK)); \</div>
+<div class="line">        Xil_Out32(((u32)(XCSU_BASEADDRESS) + (u32)(XCSU_DMA_RESET_OFFSET)), \</div>
+<div class="line">                                        (u32)(XCSUDMA_RESET_UNSET_MASK));</div>
+</div><!-- fragment -->
+<p>Resets the CSU_DMA core. </p>
+<p>C-style signature: void <a class="el" href="group__csuma__api.html#ga4fd22ed9ee5ff0eae03ee717112b7087" title="Resets the CSU_DMA core. ">XCsuDma_Reset()</a> </p>
+
+<p>Referenced by <a class="el" href="group__csuma__api.html#gad0f7217bd295de82623179efb34adb96">XCsuDma_CfgInitialize()</a>.</p>
 
 </div>
 </div>
@@ -611,6 +1214,22 @@ Software done timeout value</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Mask for size. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab57550413ed1c53f70a33ad4b90965eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCSUDMA_SIZE_MAX&#160;&#160;&#160;0x07FFFFFFU</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum allowed no of words. </p>
+
+<p>Referenced by <a class="el" href="group__csuma__api.html#ga83a1043112b6067b1901d2bdcb29563d">XCsuDma_64BitTransfer()</a>, and <a class="el" href="group__csuma__api.html#gacf79144df19e9cd4116dd9f507037ff1">XCsuDma_Transfer()</a>.</p>
 
 </div>
 </div>
@@ -660,6 +1279,49 @@ Software done timeout value</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga97adf45a00577175416617745ddae9b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XCsuDma_WaitForDone</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Channel&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">while</span>((<a class="code" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>(((InstancePtr)-&gt;Config.BaseAddress), \</div>
+<div class="line">                        ((u32)(<a class="code" href="group__csuma__api.html#gab56adb100901bb2b042a842619064ce5">XCSUDMA_I_STS_OFFSET</a>) + \</div>
+<div class="line">                        ((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) &amp; \</div>
+<div class="line">                        (u32)(<a class="code" href="group__csuma__api.html#ga0dbd333c70de601e769b8542552eb7e4">XCSUDMA_IXR_DONE_MASK</a>)) != (<a class="code" href="group__csuma__api.html#ga0dbd333c70de601e769b8542552eb7e4">XCSUDMA_IXR_DONE_MASK</a>))</div>
+<div class="ttc" id="group__csuma__api_html_ga356d29aa2d43a1b724700007be7dcd51"><div class="ttname"><a href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a></div><div class="ttdeci">#define XCsuDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Reads a CSU DMA register. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:331</div></div>
+<div class="ttc" id="group__csuma__api_html_gab56adb100901bb2b042a842619064ce5"><div class="ttname"><a href="group__csuma__api.html#gab56adb100901bb2b042a842619064ce5">XCSUDMA_I_STS_OFFSET</a></div><div class="ttdeci">#define XCSUDMA_I_STS_OFFSET</div><div class="ttdoc">Interrupt Status Register Offset. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:62</div></div>
+<div class="ttc" id="group__csuma__api_html_ga0dbd333c70de601e769b8542552eb7e4"><div class="ttname"><a href="group__csuma__api.html#ga0dbd333c70de601e769b8542552eb7e4">XCSUDMA_IXR_DONE_MASK</a></div><div class="ttdeci">#define XCSUDMA_IXR_DONE_MASK</div><div class="ttdoc">Done mask. </div><div class="ttdef"><b>Definition:</b> xcsudma_hw.h:240</div></div>
+</div><!-- fragment -->
+<p>Polls until the data transfer completes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Represents the type of channel either it is Source or Destination. Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Call after XCsuDma_Transfer in polled mode to wait until the data gets transferred completely. C-style signature: void XCsuDma_WaitForDone(<a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> *InstancePtr, XCsuDma_Channel Channel) </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="gaf448568bb484f8b80052682f399f194d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -706,17 +1368,16 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This macro writes the value into the given register. </p>
+<p>Writes a CSU DMA register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>Base address of the CSU_DMA core. </td></tr>
-    <tr><td class="paramname">RegOffset</td><td>Register offset of the register. </td></tr>
-    <tr><td class="paramname">Data</td><td>32-bit value to write to the register.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Base address of the CSU_DMA core. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegOffset</td><td>Register offset of the register. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Data</td><td>32-bit value to write to the register.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b" title="This macro writes the value into the given register. ">XCsuDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b" title="Writes a CSU DMA register. ">XCsuDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
 
 <p>Referenced by <a class="el" href="group__csuma__api.html#ga83a1043112b6067b1901d2bdcb29563d">XCsuDma_64BitTransfer()</a>, <a class="el" href="group__csuma__api.html#ga78bdd79674e2b5c92b9701cacfde1fe1">XCsuDma_ClearCheckSum()</a>, <a class="el" href="group__csuma__api.html#gadf3599e4d07ef05586a217ebbbd02999">XCsuDma_DisableIntr()</a>, <a class="el" href="group__csuma__api.html#gad892a65e65ac14f48f7d7f53020511cf">XCsuDma_EnableIntr()</a>, <a class="el" href="group__csuma__api.html#ga1db5eabd96920efb06fb03c919420601">XCsuDma_IntrClear()</a>, <a class="el" href="group__csuma__api.html#ga00b5080126710866186d0bfafd26e9b6">XCsuDma_Pause()</a>, <a class="el" href="group__csuma__api.html#gaeee3f2d5bcf265b57c9f214f2bc15a28">XCsuDma_Resume()</a>, <a class="el" href="group__csuma__api.html#ga774ab551d0ef59fd880ff834f2d83804">XCsuDma_SelfTest()</a>, <a class="el" href="group__csuma__api.html#gac9b6265e467b03cc903cd66781e95e63">XCsuDma_SetConfig()</a>, and <a class="el" href="group__csuma__api.html#gacf79144df19e9cd4116dd9f507037ff1">XCsuDma_Transfer()</a>.</p>
 
@@ -733,7 +1394,7 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This typedef contains CSU_DMA Channel Types. </p>
+<p>Defines CSU DMA channel types. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d"></a>XCSUDMA_SRC_CHANNEL</em>&nbsp;</td><td class="fielddoc">
 <p>Source Channel of CSU_DMA. </p>
@@ -745,7 +1406,77 @@ Software done timeout value</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gad5ce08d197288cbdfb06941f1d46df87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines CSU DMA pause types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="ggad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8"></a>XCSUDMA_PAUSE_MEMORY</em>&nbsp;</td><td class="fielddoc">
+<p>Pauses memory data transfer. </p>
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="ggad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8"></a>XCSUDMA_PAUSE_STREAM</em>&nbsp;</td><td class="fielddoc">
+<p>Pauses stream data transfer. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="gaa2c2d73f33aa4a715c8b8b3c0c01ada6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IntrHandler </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>CallBackRef</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interrupts handler for the CSU_DMA driver. </p>
+<p>This handler reads the interrupt status from the Status register, determines the source of the interrupts, calls according callbacks, and finally clears the interrupts.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CallBackRef</td><td>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga840291bc02cba5474a4cb46a9b9566fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mains function to call the example. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if failed. </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga83a1043112b6067b1901d2bdcb29563d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -794,16 +1525,16 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the starting address and size of the data to be transferred from/to the memory through the AXI interface. </p>
-<p>This function is useful for pmu processor to execute a 64-bit DMA transfer.</p>
+<p>Sets the starting address and transfer size of the data to be. </p>
+<p>transferred from/to the memory through the AXI interface. This function is useful for pmu processor to execute a 64-bit DMA transfer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">AddrLow</td><td>Bit variable which holds the starting lower address of data which needs to write into the memory(DST) (or read from the memory(SRC)). </td></tr>
-    <tr><td class="paramname">AddrHigh</td><td>32 bit variable which holds the higher address of data which needs to write into the memory(DST) (or read from the memoroy(SRC)). </td></tr>
-    <tr><td class="paramname">Size</td><td>32 bit variable which represents the number of 4 byte words to be transferred from starting address. </td></tr>
-    <tr><td class="paramname">EnDataLast</td><td>Trigger an end of message. Enables or disable data_inp_last signal to stream interface when current command is completed. Only applicable for the source channel; ignored for destination channel.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">AddrLow</td><td>Bit variable which holds the starting lower address of data which needs to write into the memory(DST) (or read from the memory(SRC)). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">AddrHigh</td><td>is a 32-bit variable which holds the higher address of data which needs to write into the memory(DST) (or read from the memoroy(SRC)). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Size</td><td>is a 32-bit variable which represents the number of 4 byte words to be transferred from starting address. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EnDataLast</td><td>Trigger an end of message. Enables or disable data_inp_last signal to stream interface when current command is completed. Only applicable for the source channel; ignored for destination channel.<ul>
 <li>1 - Asserts data_inp_last signal.</li>
 <li>0 - data_inp_last will not be asserted.</li>
 </ul>
@@ -811,10 +1542,9 @@ Software done timeout value</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Data_inp_last signal is asserted simultaneously with the data_inp_valid signal associated with the final 32-bit word transfer. This API does not invalidate the DMA buffer. It is recommended to call this API only through PMU processor. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga76fcd0f2a0c7ebc2058f231a944c7109">XCSUDMA_ADDR_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf0a5114bb4e675c0e9d933a2d235ac6f">XCSUDMA_LAST_WORD_MASK</a>, <a class="el" href="xcsudma_8h.html#ab57550413ed1c53f70a33ad4b90965eb">XCSUDMA_SIZE_MAX</a>, <a class="el" href="group__csuma__api.html#gaf5d3e01cba7a5d0029901f690007a9c0">XCSUDMA_SIZE_OFFSET</a>, <a class="el" href="group__csuma__api.html#gae1d5689d4fbd05c2e7f6b2a34bcbfb09">XCSUDMA_SIZE_SHIFT</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf448568bb484f8b80052682f399f194d">XCSUDMA_WORD_SIZE</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga76fcd0f2a0c7ebc2058f231a944c7109">XCSUDMA_ADDR_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf0a5114bb4e675c0e9d933a2d235ac6f">XCSUDMA_LAST_WORD_MASK</a>, <a class="el" href="group__csuma__api.html#gab57550413ed1c53f70a33ad4b90965eb">XCSUDMA_SIZE_MAX</a>, <a class="el" href="group__csuma__api.html#gaf5d3e01cba7a5d0029901f690007a9c0">XCSUDMA_SIZE_OFFSET</a>, <a class="el" href="group__csuma__api.html#gae1d5689d4fbd05c2e7f6b2a34bcbfb09">XCSUDMA_SIZE_SHIFT</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf448568bb484f8b80052682f399f194d">XCSUDMA_WORD_SIZE</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -848,25 +1578,24 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function initializes CSU_DMA core. </p>
-<p>This function must be called prior using a CSU_DMA core. Initialization of an CSU_DMA includes setting up the instance data and ensuring the hardware is in a quiescent state.</p>
+<p>Initializes the CSU_DMA core. </p>
+<p>This function must be called. prior using a CSU_DMA core. Initialization of an CSU_DMA includes setting up the instance data and ensuring the hardware is in a quiescent state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance. </td></tr>
-    <tr><td class="paramname">CfgPtr</td><td>Reference to a structure containing information about a specific <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance. </td></tr>
-    <tr><td class="paramname">EffectiveAddr</td><td>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CfgPtr</td><td>Reference to a structure containing information about a specific <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EffectiveAddr</td><td>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if initialization was successful.</li>
+<li>XST_SUCCESS if initialization was successful. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma___config.html#a8bb59cb926fea92ce59604ca3423e505">XCsuDma_Config::DmaType</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="xcsudma_8h.html#a8f5460a8a6a1848b2c4c2988f7428e73">XCSUDMA_DMATYPEIS_CSUDMA</a>, and <a class="el" href="xcsudma_8h.html#a4fd22ed9ee5ff0eae03ee717112b7087">XCsuDma_Reset</a>.</p>
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma___config.html#a8bb59cb926fea92ce59604ca3423e505">XCsuDma_Config::DmaType</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga8f5460a8a6a1848b2c4c2988f7428e73">XCSUDMA_DMATYPEIS_CSUDMA</a>, and <a class="el" href="group__csuma__api.html#ga4fd22ed9ee5ff0eae03ee717112b7087">XCsuDma_Reset</a>.</p>
 
-<p>Referenced by <a class="el" href="xcsudma__selftest__example_8c.html#a6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__csuma__api.html#ga6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample()</a>.</p>
 
 </div>
 </div>
@@ -884,15 +1613,14 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function clears the check sum of the data read from AXI memory. </p>
-<p>It is valid only for CSU_DMA source channel.</p>
+<p>Clears the checksum of data read from AXI memory. </p>
+<p>Valid only for the. CSU_DMA source channel.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The sum of all the data read from memory.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Before the transfer starts, clear this register to get correct sum. Otherwise, it adds to previous value which results in an incorrect output. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
@@ -929,21 +1657,16 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function disables the interrupt(s). </p>
-<p>Use the XCSUDMA_IXR_*_MASK constants defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a> to create the bit-mask to disable interrupts.</p>
+<p>Disables interrupts. </p>
+<p>Use the XCSUDMA_IXR_*_MASK constants. defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a> to create the bit-mask to disable interrupts.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Mask</td><td>Contains interrupts to be disabled.<ul>
-<li>Bit positions of 1 will be disabled. This mask is formed by OR'ing XCSUDMA_IXR_*_MASK bits defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a>.</li>
-</ul>
-</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>Bit mask of interrupts to disable, formed by OR'ing XCSUDMA_IXR_*_MASK bits defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gadfb7ef2922c9ceb4804bc87620c35134">XCSUDMA_IXR_DST_MASK</a>, <a class="el" href="group__csuma__api.html#ga441edc2ec9eadb8093ac0ab41e0162d2">XCSUDMA_IXR_SRC_MASK</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
 
@@ -979,21 +1702,16 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function enables the interrupt(s). </p>
-<p>Use the XCSUDMA_IXR_*_MASK constants defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a> to create the bit-mask to enable interrupts.</p>
+<p>Enables interrupts. </p>
+<p>Use the XCSUDMA_IXR_*_MASK constants. defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a> to create the bit-mask to enable interrupts.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Mask</td><td>Contains interrupts to be enabled.<ul>
-<li>Bit positions of 1 will be enabled. This mask is formed by OR'ing XCSUDMA_IXR_*_MASK bits defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a>.</li>
-</ul>
-</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>Bit mask of interrupts to enable, formed by OR'ing XCSUDMA_IXR_*_MASK bits defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gadfb7ef2922c9ceb4804bc87620c35134">XCSUDMA_IXR_DST_MASK</a>, <a class="el" href="group__csuma__api.html#ga441edc2ec9eadb8093ac0ab41e0162d2">XCSUDMA_IXR_SRC_MASK</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
 
@@ -1023,20 +1741,20 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns the current address location of the memory, from where it has to read the data(SRC) or the location where it has to write the data (DST) based on the channel selection. </p>
+<p>Provides function returns the current address location of the memory, from where. </p>
+<p>it has to read the data(SRC) or the location where it has to write the data (DST) based on the channel selection.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Address is a 64 bit variable which holds the current address.<ul>
+<dl class="section return"><dt>Returns</dt><dd>Address is a 64-bit variable which holds the current address.<ul>
 <li>From this location data has to be read(SRC)</li>
-<li>At this location data has to be written(DST)</li>
+<li>At this location data has to be written(DST) </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#ga76fcd0f2a0c7ebc2058f231a944c7109">XCSUDMA_ADDR_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
 
@@ -1056,11 +1774,11 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns the sum of all the data read from AXI memory. </p>
-<p>It is valid only when using the CSU_DMA source channel.</p>
+<p>Provides function returns the sum of all the data read from AXI memory. </p>
+<p>It is. valid only when using the CSU_DMA source channel.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1101,12 +1819,13 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function updates <a class="el" href="struct_x_csu_dma___configure.html" title="This typedef contains all the configuration feilds which must be set before the start of the data tra...">XCsuDma_Configure</a> structure members with the configured values of CSU_DMA's Channel. </p>
+<p>Provides function updates <a class="el" href="struct_x_csu_dma___configure.html" title="Holds channel configuration values that must be set before the start of the data transfer. ">XCsuDma_Configure</a> structure members with the configured. </p>
+<p>values of CSU_DMA's Channel.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">ConfigurValues</td><td>Pointer to the structure <a class="el" href="struct_x_csu_dma___configure.html" title="This typedef contains all the configuration feilds which must be set before the start of the data tra...">XCsuDma_Configure</a> whose members are updated with configurations of CSU_DMA core.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ConfigurValues</td><td>is a pointer to the structure <a class="el" href="struct_x_csu_dma___configure.html" title="Holds channel configuration values that must be set before the start of the data transfer. ">XCsuDma_Configure</a> whose members are updated with configurations of CSU_DMA core.<ul>
 <li>SssFifoThesh: When the DST FIFO level &gt;= this value, the SSS interface signal, "data_out_fifo_level_hit" will be asserted. This mechanism can be used by the SSS to flow control data that is being looped back from the SRC DMA.<ul>
 <li>Range is (0x10 to 0x7A) threshold is 17 to 123 entries.</li>
 <li>It is valid only for DST CSU_DMA IP.</li>
@@ -1163,7 +1882,7 @@ Software done timeout value</h2></td></tr>
 </ul>
 </li>
 <li>MaxOutCmds: Controls the maximumum number of outstanding AXI read commands issued.<ul>
-<li>Range is 0x0(Up to 1 Outstanding Read command allowed) to 0x8 (Up to 9 Outstanding Read command allowed)</li>
+<li>Range is 0x0(Up to 1 Outstanding Read command allowed) to 0x8 (Up to 9 Outstanding Read command allowed) </li>
 </ul>
 </li>
 </ul>
@@ -1171,8 +1890,6 @@ Software done timeout value</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___configure.html#a984f69d8fa925618e85800ba8fd2d155">XCsuDma_Configure::Acache</a>, <a class="el" href="struct_x_csu_dma___configure.html#a7ca88dbe204c7b24ce7e529da53e1ae2">XCsuDma_Configure::ApbErr</a>, <a class="el" href="struct_x_csu_dma___configure.html#a1aeadd99f4f96da636b9cb0c2be21c09">XCsuDma_Configure::AxiBurstType</a>, <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma___configure.html#a4d1217d471a558f54534c15213bbb264">XCsuDma_Configure::EndianType</a>, <a class="el" href="struct_x_csu_dma___configure.html#af17af84045f926ff8e386509cc0c9aee">XCsuDma_Configure::FifoThresh</a>, <a class="el" href="struct_x_csu_dma___configure.html#acdf6a30da74f891648e17d1ce9bfadae">XCsuDma_Configure::MaxOutCmds</a>, <a class="el" href="struct_x_csu_dma___configure.html#ac6f8c811d5b1ecf86d37091fc132717e">XCsuDma_Configure::RouteBit</a>, <a class="el" href="struct_x_csu_dma___configure.html#a524260e03c75bc8745da0e4b7dca71ed">XCsuDma_Configure::SssFifoThesh</a>, <a class="el" href="struct_x_csu_dma___configure.html#a2f45ba702e0487ed32152186339d7052">XCsuDma_Configure::TimeoutEn</a>, <a class="el" href="struct_x_csu_dma___configure.html#a00365f4d0973fcb3fd39382312775748">XCsuDma_Configure::TimeoutPre</a>, <a class="el" href="struct_x_csu_dma___configure.html#af2b9f211561ad313b726a60104afc32e">XCsuDma_Configure::TimeoutValue</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
 
@@ -1202,11 +1919,12 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns the interrupt mask to know which interrupts are enabled and which of them were disabled. </p>
+<p>Reads the interrupt mask to know which interrupts are. </p>
+<p>enabled and which of them were disabled.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
   </table>
   </dd>
 </dl>
@@ -1214,10 +1932,9 @@ Software done timeout value</h2></td></tr>
 <li>0 bit represents that the corresponding interrupt is enabled.</li>
 <li>1 bit represents that the Corresponding interrupt is disabled. To interpret returned mask use</li>
 <li>XCSUDMA_IXR_SRC_MASK that the For source channel</li>
-<li>XCSUDMA_IXR_DST_MASK that the For destination channel</li>
+<li>XCSUDMA_IXR_DST_MASK that the For destination channel </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
 
@@ -1247,16 +1964,16 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns the size of the data yet to be transferred from memory to CSU_DMA or CSU_DMA to memory based on the channel selection. </p>
+<p>Provides function returns the size of the data yet to be transferred from memory. </p>
+<p>to CSU_DMA or CSU_DMA to memory based on the channel selection.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns number of bytes of data yet to be transferred.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns number of bytes of data yet to be transferred. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, <a class="el" href="group__csuma__api.html#gaf5d3e01cba7a5d0029901f690007a9c0">XCSUDMA_SIZE_OFFSET</a>, <a class="el" href="group__csuma__api.html#gae1d5689d4fbd05c2e7f6b2a34bcbfb09">XCSUDMA_SIZE_SHIFT</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
 
@@ -1292,19 +2009,59 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function clears interrupt(s). </p>
-<p>Every bit set in Interrupt Status Register indicates that a specific type of interrupt is occurring, and this function clears one or more interrupts by writing a bit mask to Interrupt Clear Register.</p>
+<p>Clears interrupts. </p>
+<p>Every bit set in Interrupt Status. Register indicates that a specific type of interrupt is occurring, and this function clears one or more interrupts by writing a bit mask to Interrupt Clear Register.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Mask</td><td>Mask to clear. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR'ing XCSUDMA_IXR_* bits defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a>.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mask</td><td>Bit mask of interrupts to clear, formed by OR'ing XCSUDMA_IXR_* bits defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gab56adb100901bb2b042a842619064ce5">XCSUDMA_I_STS_OFFSET</a>, <a class="el" href="group__csuma__api.html#gadfb7ef2922c9ceb4804bc87620c35134">XCSUDMA_IXR_DST_MASK</a>, <a class="el" href="group__csuma__api.html#ga441edc2ec9eadb8093ac0ab41e0162d2">XCSUDMA_IXR_SRC_MASK</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga55502a98728facd6753005575994965e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XCsuDma_IntrExample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a> *&#160;</td>
+          <td class="paramname"><em>CsuDmaInstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs a data transfer in loop back mode in interrupt mode. </p>
+<p>and verify the data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">CsuDmaInstance</td><td>contains a pointer to the CSU DMA instance which is going to be connected to the interrupt controller. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>contains the base address of the CsuDma device</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if failed. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -1332,17 +2089,16 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function returns interrupt status read from Interrupt Status Register. </p>
+<p>Reads interrupt status read from Interrupt Status Register. </p>
 <p>Use the XCSUDMA_IXR_*_MASK constants defined in <a class="el" href="xcsudma__hw_8h.html">xcsudma_hw.h</a> to interpret the returned value.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The pending interrupts of the CSU_DMA. Use th following masks to interpret the returned value. XCSUDMA_IXR_SRC_MASK - For Source channel XCSUDMA_IXR_DST_MASK - For Destination channel</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The pending interrupts of the CSU_DMA. Use th following masks to interpret the returned value. XCSUDMA_IXR_SRC_MASK - For Source channel XCSUDMA_IXR_DST_MASK - For Destination channel </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gab56adb100901bb2b042a842619064ce5">XCSUDMA_I_STS_OFFSET</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
 
@@ -1367,7 +2123,7 @@ Software done timeout value</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a>&#160;</td>
           <td class="paramname"><em>Type</em>&#160;</td>
         </tr>
         <tr>
@@ -1378,12 +2134,13 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function checks whether Channel memory/stream is paused based on the given pause type. </p>
+<p>Provides function checks whether Channel memory/stream is paused. </p>
+<p>based on the given pause type.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Type</td><td>Type of the pause which needs to be checked.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type</td><td>is the pause type to check.<ul>
 <li>XCSUDMA_PAUSE_MEMORY(0) - Pause memory<ul>
 <li>SRC stops issuing new read commands to memory.</li>
 <li>DST stops issuing new write commands to memory.</li>
@@ -1401,21 +2158,20 @@ Software done timeout value</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the pause status.<ul>
 <li>TRUE if it is in paused state.</li>
-<li>FALSE if it is not in pause state.</li>
+<li>FALSE if it is not in pause state. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>, <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga2420bd1fdfb8f4fb151aef5b4b6ee8ba"></a>
+<a class="anchor" id="ga8b9aa7a643bde993a249a7d5d38db223"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_csu_dma___config.html">XCsuDma_Config</a>* XCsuDma_LookupConfig </td>
+          <td class="memname"><a class="el" href="struct_x_csu_dma___config.html">XCsuDma_Config</a> * XCsuDma_LookupConfig </td>
           <td>(</td>
           <td class="paramtype">UINTPTR&#160;</td>
           <td class="paramname"><em>BaseAddress</em></td><td>)</td>
@@ -1424,20 +2180,19 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Looks up the device configuration based on the unique device ID/BaseAddress. </p>
-<p>A table contains the configuration info for each device in the system.</p>
+<p>Looks up device configuration by base address. </p>
+<p>Looks up device configuration by device ID or base address.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#ac71e32fb8008612626e493f04ffde089">XCsuDma_Config::Name</a>.</p>
 
-<p>Referenced by <a class="el" href="xcsudma__selftest__example_8c.html#a6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__csuma__api.html#ga6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample()</a>.</p>
 
 </div>
 </div>
@@ -1460,7 +2215,7 @@ Software done timeout value</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a>&#160;</td>
           <td class="paramname"><em>Type</em>&#160;</td>
         </tr>
         <tr>
@@ -1471,12 +2226,13 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function pauses the Channel data transfer to/from memory or to/from stream based on pause type. </p>
+<p>Provides function pauses the Channel data transfer to/from memory or to/from stream. </p>
+<p>based on pause type.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Type</td><td>Type of pause to be enabled.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type</td><td>is the pause type to enable.<ul>
 <li>XCSUDMA_PAUSE_MEMORY(0) - Pause memory<ul>
 <li>SRC stops issuing new read commands to memory.</li>
 <li>DST stops issuing new write commands to memory.</li>
@@ -1484,7 +2240,7 @@ Software done timeout value</h2></td></tr>
 </li>
 <li>XCSUDMA_PAUSE_STREAM(1) - Pause stream<ul>
 <li>SRC stops the transfer of data from FIFO to Stream.</li>
-<li>DST stops the transfer of data from stream to FIFO.</li>
+<li>DST stops the transfer of data from stream to FIFO. </li>
 </ul>
 </li>
 </ul>
@@ -1492,10 +2248,38 @@ Software done timeout value</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>, <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga81a60cdabb01fb08aeec70021c7baa78"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XCsuDma_PolledExample </td>
+          <td>(</td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs a data transfer in loop back mode in polled mode. </p>
+<p>and verify the data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if failed. </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -1518,7 +2302,7 @@ Software done timeout value</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__csuma__api.html#gad5ce08d197288cbdfb06941f1d46df87">XCsuDma_PauseType</a>&#160;</td>
           <td class="paramname"><em>Type</em>&#160;</td>
         </tr>
         <tr>
@@ -1529,13 +2313,13 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function resumes the channel if it is in paused state and continues where it has left. </p>
-<p>Based on the type of pause, there is no effect if it is not in paused state.</p>
+<p>Provides function resumes the channel if it is in paused state and continues. </p>
+<p>where it has left. Based on the type of pause, there is no effect if it is not in paused state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Type</td><td>Type of pause to be resumed if it is paused.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Type</td><td>is the pause type to resume if paused.<ul>
 <li>XCSUDMA_PAUSE_MEMORY(0) - Pause memory<ul>
 <li>SRC stops issuing new read commands to memory.</li>
 <li>DST stops issuing new write commands to memory.</li>
@@ -1543,7 +2327,7 @@ Software done timeout value</h2></td></tr>
 </li>
 <li>XCSUDMA_PAUSE_STREAM(1) - Pause stream<ul>
 <li>SRC stops the transfer of data from FIFO to Stream.</li>
-<li>DST stops the transfer of data from stream to FIFO.</li>
+<li>DST stops the transfer of data from stream to FIFO. </li>
 </ul>
 </li>
 </ul>
@@ -1551,10 +2335,8 @@ Software done timeout value</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>, <a class="el" href="xcsudma_8h.html#ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8">XCSUDMA_PAUSE_MEMORY</a>, <a class="el" href="group__csuma__api.html#ggad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8">XCSUDMA_PAUSE_STREAM</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1572,26 +2354,56 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function runs a self-test on the driver and hardware device. </p>
-<p>Performs reset of both source and destination channels and checks if reset is working properly or not.</p>
+<p>Performs a self test on the driver and hardware device. </p>
+<p>Performs. reset of both source and destination channels and checks if reset is working properly or not.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS if the self-test passed.<ul>
-<li>XST_FAILURE otherwise.</li>
+<li>XST_FAILURE otherwise. </li>
 </ul>
 </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
 
-<p>Referenced by <a class="el" href="xcsudma__selftest__example_8c.html#a6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample()</a>.</p>
+<p>Referenced by <a class="el" href="group__csuma__api.html#ga6209354fab076157f08aa360d43a8e0a">XCsuDma_SelfTestExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga6209354fab076157f08aa360d43a8e0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XCsuDma_SelfTestExample </td>
+          <td>(</td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs a minimal self test on the XCsudma driver. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE if failed. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="group__csuma__api.html#gad0f7217bd295de82623179efb34adb96">XCsuDma_CfgInitialize()</a>, <a class="el" href="group__csuma__api.html#ga8b9aa7a643bde993a249a7d5d38db223">XCsuDma_LookupConfig()</a>, and <a class="el" href="group__csuma__api.html#ga774ab551d0ef59fd880ff834f2d83804">XCsuDma_SelfTest()</a>.</p>
 
 </div>
 </div>
@@ -1625,12 +2437,13 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function configures all the values of CSU_DMA Channels with the values of updated <a class="el" href="struct_x_csu_dma___configure.html" title="This typedef contains all the configuration feilds which must be set before the start of the data tra...">XCsuDma_Configure</a> structure. </p>
+<p>Provides function configures all the values of CSU_DMA Channels with the values. </p>
+<p>of updated <a class="el" href="struct_x_csu_dma___configure.html" title="Holds channel configuration values that must be set before the start of the data transfer. ">XCsuDma_Configure</a> structure.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">ConfigurValues</td><td>Pointer to the structure <a class="el" href="struct_x_csu_dma___configure.html" title="This typedef contains all the configuration feilds which must be set before the start of the data tra...">XCsuDma_Configure</a> whose values are used to configure CSU_DMA core.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ConfigurValues</td><td>is a pointer to the structure <a class="el" href="struct_x_csu_dma___configure.html" title="Holds channel configuration values that must be set before the start of the data transfer. ">XCsuDma_Configure</a> whose values are used to configure CSU_DMA core.<ul>
 <li>SssFifoThesh: When the DST FIFO level &gt;= this value, the SSS interface signal, "data_out_fifo_level_hit" is asserted. This mechanism can be used by the SSS to flow control data that is being looped back from the SRC DMA.<ul>
 <li>Range is (0x10 to 0x7A) threshold is 17 to 123 entries.</li>
 <li>It is valid only for DST CSU_DMA IP.</li>
@@ -1695,7 +2508,6 @@ Software done timeout value</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>To use timers timeout value Timeout enable field should be enabled. Users should check for the status of existing transfers before making configuration changes. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___configure.html#a984f69d8fa925618e85800ba8fd2d155">XCsuDma_Configure::Acache</a>, <a class="el" href="struct_x_csu_dma___configure.html#a7ca88dbe204c7b24ce7e529da53e1ae2">XCsuDma_Configure::ApbErr</a>, <a class="el" href="struct_x_csu_dma___configure.html#a1aeadd99f4f96da636b9cb0c2be21c09">XCsuDma_Configure::AxiBurstType</a>, <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma___configure.html#a4d1217d471a558f54534c15213bbb264">XCsuDma_Configure::EndianType</a>, <a class="el" href="struct_x_csu_dma___configure.html#af17af84045f926ff8e386509cc0c9aee">XCsuDma_Configure::FifoThresh</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="struct_x_csu_dma___configure.html#acdf6a30da74f891648e17d1ce9bfadae">XCsuDma_Configure::MaxOutCmds</a>, <a class="el" href="struct_x_csu_dma___configure.html#ac6f8c811d5b1ecf86d37091fc132717e">XCsuDma_Configure::RouteBit</a>, <a class="el" href="struct_x_csu_dma___configure.html#a524260e03c75bc8745da0e4b7dca71ed">XCsuDma_Configure::SssFifoThesh</a>, <a class="el" href="struct_x_csu_dma___configure.html#a2f45ba702e0487ed32152186339d7052">XCsuDma_Configure::TimeoutEn</a>, <a class="el" href="struct_x_csu_dma___configure.html#a00365f4d0973fcb3fd39382312775748">XCsuDma_Configure::TimeoutPre</a>, <a class="el" href="struct_x_csu_dma___configure.html#af2b9f211561ad313b726a60104afc32e">XCsuDma_Configure::TimeoutValue</a>, <a class="el" href="group__csuma__api.html#ga60d1ed5209af6a5d9e9c55b6b95052de">XCSUDMA_CTRL_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#ga356d29aa2d43a1b724700007be7dcd51">XCsuDma_ReadReg</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
@@ -1744,14 +2556,15 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function sets the starting address and size of the data to be transferred from/to the memory through the AXI interface. </p>
+<p>Sets the starting address and transfer size of the data to be. </p>
+<p>transferred from/to the memory through the AXI interface.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </td></tr>
-    <tr><td class="paramname">Addr</td><td>64 bit variable which holds the starting address of data which needs to write into the memory(DST) (or read from the memory(SRC)). </td></tr>
-    <tr><td class="paramname">Size</td><td>32 bit variable which represents the number of 4 byte words needs to be transferred from starting address. </td></tr>
-    <tr><td class="paramname">EnDataLast</td><td>Triggers an end of the message. Enables or disables data_inp_last signal to stream interface when current command is completed. It is applicable only to source channel; ignored for destination channel.<ul>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Addr</td><td>is a 64-bit variable which holds the starting address of data which needs to write into the memory(DST) (or read from the memory(SRC)). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Size</td><td>is a 32-bit variable which represents the number of 4 byte words needs to be transferred from starting address. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">EnDataLast</td><td>Triggers an end of the message. Enables or disables data_inp_last signal to stream interface when current command is completed. It is applicable only to source channel; ignored for destination channel.<ul>
 <li>1 - Asserts data_inp_last signal.</li>
 <li>0 - data_inp_last will not be asserted.</li>
 </ul>
@@ -1759,10 +2572,9 @@ Software done timeout value</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Data_inp_last signal is asserted simultaneously with the data_inp_valid signal associated with the final 32-bit word transfer. </dd></dl>
 
-<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga76fcd0f2a0c7ebc2058f231a944c7109">XCSUDMA_ADDR_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf0a5114bb4e675c0e9d933a2d235ac6f">XCSUDMA_LAST_WORD_MASK</a>, <a class="el" href="xcsudma_8h.html#ab57550413ed1c53f70a33ad4b90965eb">XCSUDMA_SIZE_MAX</a>, <a class="el" href="group__csuma__api.html#gaf5d3e01cba7a5d0029901f690007a9c0">XCSUDMA_SIZE_OFFSET</a>, <a class="el" href="group__csuma__api.html#gae1d5689d4fbd05c2e7f6b2a34bcbfb09">XCSUDMA_SIZE_SHIFT</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf448568bb484f8b80052682f399f194d">XCSUDMA_WORD_SIZE</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
+<p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="struct_x_csu_dma.html#ab458e2393e0b44a976037f496de9e679">XCsuDma::IsReady</a>, <a class="el" href="group__csuma__api.html#ga76fcd0f2a0c7ebc2058f231a944c7109">XCSUDMA_ADDR_OFFSET</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf0a5114bb4e675c0e9d933a2d235ac6f">XCSUDMA_LAST_WORD_MASK</a>, <a class="el" href="group__csuma__api.html#gab57550413ed1c53f70a33ad4b90965eb">XCSUDMA_SIZE_MAX</a>, <a class="el" href="group__csuma__api.html#gaf5d3e01cba7a5d0029901f690007a9c0">XCSUDMA_SIZE_OFFSET</a>, <a class="el" href="group__csuma__api.html#gae1d5689d4fbd05c2e7f6b2a34bcbfb09">XCSUDMA_SIZE_SHIFT</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gaf448568bb484f8b80052682f399f194d">XCSUDMA_WORD_SIZE</a>, and <a class="el" href="group__csuma__api.html#ga5a2390fe93e02061d01c3b9e057b3b2b">XCsuDma_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -1790,18 +2602,117 @@ Software done timeout value</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function polls for completion of data transfer periodically until the DMA done bit set or until the timeout occurs. </p>
+<p>Provides function polls for completion of data transfer periodically until the. </p>
+<p>DMA done bit set or until the timeout occurs.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>Pointer to <a class="el" href="struct_x_csu_dma.html" title="The XCsuDma driver instance data structure. ">XCsuDma</a> instance to be worked on. </td></tr>
-    <tr><td class="paramname">Channel</td><td>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>is a pointer to <a class="el" href="struct_x_csu_dma.html" title="Holds the XCsuDma driver instance data. ">XCsuDma</a> instance to be worked on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Channel</td><td>Channel to operate on (XCSUDMA_SRC_CHANNEL or XCSUDMA_DST_CHANNEL).</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - In case of Success XST_FAILURE - In case of Timeout.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS - In case of Success XST_FAILURE - In case of Timeout. </dd></dl>
 
 <p>References <a class="el" href="struct_x_csu_dma___config.html#a85e9f7798c5aa5ad4fbc9a8d0ba62990">XCsuDma_Config::BaseAddress</a>, <a class="el" href="struct_x_csu_dma.html#ab64e65f366955cbbc63436336de5ac48">XCsuDma::Config</a>, <a class="el" href="group__csuma__api.html#ga0bd0c9763013ce910920b46ad35d10ba">XCSUDMA_DONE_TIMEOUT_VAL</a>, <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4">XCSUDMA_DST_CHANNEL</a>, <a class="el" href="group__csuma__api.html#gab56adb100901bb2b042a842619064ce5">XCSUDMA_I_STS_OFFSET</a>, <a class="el" href="group__csuma__api.html#ga0dbd333c70de601e769b8542552eb7e4">XCSUDMA_IXR_DONE_MASK</a>, and <a class="el" href="group__csuma__api.html#gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d">XCSUDMA_SRC_CHANNEL</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="ga6ac1478432df4951ce8f0fc753bb652d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a> CsuDma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the Csu_Dma Device. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6ac1478432df4951ce8f0fc753bb652d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a> CsuDma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the Csu_Dma Device. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga6ac1478432df4951ce8f0fc753bb652d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_csu_dma.html">XCsuDma</a> CsuDma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the Csu_Dma Device. </p>
+
+</div>
+</div>
+<a class="anchor" id="gacaf18b341d1af3db65737995dbdabb2f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DstBuf[<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Source buffer. </p>
+
+</div>
+</div>
+<a class="anchor" id="gacaf18b341d1af3db65737995dbdabb2f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 DstBuf[<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destination buffer. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf61ae76555abcb873e18f6deee8ba5f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 SrcBuf[<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destination buffer. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf61ae76555abcb873e18f6deee8ba5f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 SrcBuf[<a class="el" href="group__csuma__api.html#ga70ed59adcb4159ac551058053e649640">SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Source buffer. </p>
 
 </div>
 </div>

@@ -6,30 +6,30 @@
     <includes local="yes">xil_sutil.h</includes>
     <includedby refid="xsecure__hmacalginfo_8c" local="yes">xsecure_hmacalginfo.c</includedby>
     <incdepgraph>
-      <node id="1672">
+      <node id="1719">
         <label>xil_sutil.h</label>
       </node>
-      <node id="1671">
+      <node id="1718">
         <label>xil_cryptoalginfo.h</label>
       </node>
-      <node id="1670">
+      <node id="1717">
         <label>xsecure_hmacalginfo.h</label>
         <link refid="xsecure_hmacalginfo.h"/>
-        <childnode refid="1671" relation="include">
+        <childnode refid="1718" relation="include">
         </childnode>
-        <childnode refid="1672" relation="include">
+        <childnode refid="1719" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1674">
+      <node id="1721">
         <label>xsecure_hmacalginfo.c</label>
         <link refid="xsecure__hmacalginfo_8c"/>
       </node>
-      <node id="1673">
+      <node id="1720">
         <label>xsecure_hmacalginfo.h</label>
         <link refid="xsecure_hmacalginfo.h"/>
-        <childnode refid="1674" relation="include">
+        <childnode refid="1721" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -51,16 +51,15 @@
 <parametername>AlgInfo</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>None </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" bodystart="52" bodyend="55"/>
-        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="161">XSECURE_API_HMAC_OPERATION</references>
-        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="163">XSECURE_API_HMAC_OPERATION</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="60" endline="112">XSecure_GetAlgInfo</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -106,6 +105,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Dat
 <codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_HMACALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/client/core/hmac/xsecure_hmacalginfo.h"/>
   </compounddef>
 </doxygen>

@@ -9,12 +9,12 @@
         <argsstring></argsstring>
         <name>Handler</name>
         <briefdescription>
-        </briefdescription>
+<para>Interrupt handler function pointer. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="150" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="139" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_intc___vector_table_entry_1a8badf1d4125bbca6d53404610eb813bc" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -22,19 +22,19 @@
         <argsstring></argsstring>
         <name>CallBackRef</name>
         <briefdescription>
-        </briefdescription>
+<para>Callback reference passed to the handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="151" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="140" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="149" bodyend="152"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="138" bodyend="141"/>
     <listofallmembers>
       <member refid="struct_x_intc___vector_table_entry_1a8badf1d4125bbca6d53404610eb813bc" prot="public" virt="non-virtual"><scope>XIntc_VectorTableEntry</scope><name>CallBackRef</name></member>
       <member refid="struct_x_intc___vector_table_entry_1a509bc8e96a0777dd929fdece614fe611" prot="public" virt="non-virtual"><scope>XIntc_VectorTableEntry</scope><name>Handler</name></member>

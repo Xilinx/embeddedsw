@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__repair__gtm__gty__gtyp_8c" kind="file">
+    <compoundname>xpm_repair_gtm_gty_gtyp.c</compoundname>
+    <includes refid="xpm__repair_8h" local="yes">xpm_repair.h</includes>
+    <incdepgraph>
+      <node id="3672">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="3673" relation="include">
+        </childnode>
+        <childnode refid="3674" relation="include">
+        </childnode>
+      </node>
+      <node id="3684">
+        <label>xpm_device.h</label>
+        <childnode refid="3678" relation="include">
+        </childnode>
+        <childnode refid="3677" relation="include">
+        </childnode>
+        <childnode refid="3685" relation="include">
+        </childnode>
+        <childnode refid="3686" relation="include">
+        </childnode>
+      </node>
+      <node id="3668">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3670">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="3667" relation="include">
+        </childnode>
+      </node>
+      <node id="3675">
+        <label>xpm_pldomain.h</label>
+        <childnode refid="3676" relation="include">
+        </childnode>
+        <childnode refid="3665" relation="include">
+        </childnode>
+        <childnode refid="3682" relation="include">
+        </childnode>
+        <childnode refid="3683" relation="include">
+        </childnode>
+        <childnode refid="3679" relation="include">
+        </childnode>
+      </node>
+      <node id="3674">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="3683">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="3663">
+        <label>xpm_repair_gtm_gty_gtyp.c</label>
+        <link refid="xpm_repair_gtm_gty_gtyp.c"/>
+        <childnode refid="3664" relation="include">
+        </childnode>
+      </node>
+      <node id="3669">
+        <label>xil_util.h</label>
+      </node>
+      <node id="3666">
+        <label>xpm_common.h</label>
+        <childnode refid="3667" relation="include">
+        </childnode>
+        <childnode refid="3668" relation="include">
+        </childnode>
+        <childnode refid="3669" relation="include">
+        </childnode>
+        <childnode refid="3670" relation="include">
+        </childnode>
+        <childnode refid="3671" relation="include">
+        </childnode>
+        <childnode refid="3672" relation="include">
+        </childnode>
+      </node>
+      <node id="3680">
+        <label>xpm_rail.h</label>
+        <childnode refid="3667" relation="include">
+        </childnode>
+        <childnode refid="3677" relation="include">
+        </childnode>
+        <childnode refid="3681" relation="include">
+        </childnode>
+      </node>
+      <node id="3671">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="3686">
+        <label>xpm_reset.h</label>
+        <childnode refid="3678" relation="include">
+        </childnode>
+        <childnode refid="3666" relation="include">
+        </childnode>
+      </node>
+      <node id="3678">
+        <label>xpm_node.h</label>
+        <childnode refid="3673" relation="include">
+        </childnode>
+        <childnode refid="3667" relation="include">
+        </childnode>
+        <childnode refid="3679" relation="include">
+        </childnode>
+        <childnode refid="3666" relation="include">
+        </childnode>
+      </node>
+      <node id="3665">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="3677">
+        <label>xpm_power.h</label>
+        <childnode refid="3672" relation="include">
+        </childnode>
+        <childnode refid="3678" relation="include">
+        </childnode>
+      </node>
+      <node id="3667">
+        <label>xstatus.h</label>
+      </node>
+      <node id="3685">
+        <label>xpm_clock.h</label>
+        <childnode refid="3666" relation="include">
+        </childnode>
+        <childnode refid="3678" relation="include">
+        </childnode>
+        <childnode refid="3677" relation="include">
+        </childnode>
+      </node>
+      <node id="3673">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3676">
+        <label>xpm_powerdomain.h</label>
+        <childnode refid="3677" relation="include">
+        </childnode>
+        <childnode refid="3680" relation="include">
+        </childnode>
+      </node>
+      <node id="3664">
+        <label>xpm_repair.h</label>
+        <childnode refid="3665" relation="include">
+        </childnode>
+        <childnode refid="3666" relation="include">
+        </childnode>
+        <childnode refid="3675" relation="include">
+        </childnode>
+        <childnode refid="3684" relation="include">
+        </childnode>
+      </node>
+      <node id="3682">
+        <label>xcframe.h</label>
+      </node>
+      <node id="3679">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="3681">
+        <label>xpm_config.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__repair__gtm__gty__gtyp_8c_1aa72ddf8f15aadf139b306b7ff821d10d" prot="public" static="no">
+        <name>GT_PCSR_CTRL_BISR_TRIGGER_MASK</name>
+        <initializer>GTYP_NPI_SLAVE_0_REG_PCSR_CONTROL_BISR_TRIGGER_MASK</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" line="14" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__repair__gtm__gty__gtyp_8c_1a0fb28b437600e54ebe485d65142269de" prot="public" static="no">
+        <name>GT_PCSR_STATUS_BISR_DONE_MASK</name>
+        <initializer>GTYP_NPI_SLAVE_0_REG_PCSR_STATUS_BISR_DONE_MASK</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" line="15" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__repair__gtm__gty__gtyp_8c_1a281de81aa966cd02633c28efc74b5999" prot="public" static="no">
+        <name>GT_PCSR_STATUS_BISR_PASS_MASK</name>
+        <initializer>GTYP_NPI_SLAVE_0_REG_PCSR_STATUS_BISR_PASS_MASK</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" line="16" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__repair__gtm__gty__gtyp_8c_1a5ce0c80869a6944f216cd177f2cb001f" prot="public" static="no">
+        <name>GT_NPI_BISR_CACHE_DATA_OFFSET</name>
+        <initializer>(GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0 - GTYP_NPI_SLAVE_0_BASEADDR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" line="17" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__repair__gtm__gty__gtyp_8c_1a03be44477ff7f9f9800271029869d0bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmRepair_GtmGtyGtyp</definition>
+        <argsstring>(u32 *EfuseTagAddr, u32 *TagDataAddr)</argsstring>
+        <name>XPmRepair_GtmGtyGtyp</name>
+        <param>
+          <type>u32 *</type>
+          <declname>EfuseTagAddr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TagDataAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" line="20" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c" bodystart="20" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>@file<sp/>xpm_repair_gtm_gty_gtyp.c</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>This<sp/>is<sp/>bisr<sp/>handler<sp/>for<sp/>GT<sp/>module</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_repair.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>GT_PCSR_CTRL_BISR_TRIGGER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GTYP_NPI_SLAVE_0_REG_PCSR_CONTROL_BISR_TRIGGER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>//<sp/><sp/>0x20000000</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>GT_PCSR_STATUS_BISR_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GTYP_NPI_SLAVE_0_REG_PCSR_STATUS_BISR_DONE_MASK</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>GT_PCSR_STATUS_BISR_PASS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GTYP_NPI_SLAVE_0_REG_PCSR_STATUS_BISR_PASS_MASK</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>GT_NPI_BISR_CACHE_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0<sp/>-<sp/>GTYP_NPI_SLAVE_0_BASEADDR)<sp/>//<sp/><sp/><sp/><sp/>0x64</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">XStatus<sp/>XPmRepair_GtmGtyGtyp(u32<sp/>*<sp/>EfuseTagAddr,<sp/>u32<sp/>*<sp/>TagDataAddr)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*EfuseTagCursor<sp/>=<sp/>EfuseTagAddr;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagIdWd<sp/>=<sp/>*EfuseTagCursor++;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagSize<sp/>=<sp/>(TagIdWd<sp/>&amp;<sp/>PMC_EFUSE_BISR_SIZE_MASK)<sp/>&gt;&gt;<sp/>PMC_EFUSE_BISR_SIZE_SHIFT;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>TagOptional<sp/>=<sp/>(TagIdWd<sp/>&amp;<sp/>PMC_EFUSE_BISR_OPTIONAL_MASK)<sp/>&gt;&gt;<sp/>PMC_EFUSE_BISR_OPTIONAL_SHIFT;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr<sp/>=<sp/>NPI_FIXED_BASEADDR<sp/>+<sp/>(TagOptional<sp/>&lt;&lt;<sp/>NPI_EFUSE_ENDPOINT_SHIFT);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>BisrDataDestAddr<sp/>=(u64)BaseAddr<sp/>+<sp/>(u64)GT_NPI_BISR_CACHE_DATA_OFFSET;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(TagSize<sp/>&gt;<sp/>2U){<sp/></highlight><highlight class="comment">/*Sanity<sp/>check<sp/>in<sp/>case<sp/>user<sp/>enters<sp/>incorrect<sp/>data<sp/>size*/</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*Dest<sp/>reg<sp/>assumed<sp/>to<sp/>be<sp/>GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_BAD_TAG_SIZE);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unlock<sp/>PCSR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(BaseAddr<sp/>+<sp/>NPI_PCSR_LOCK_OFFSET,<sp/>PCSR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>*TagDataAddr<sp/>=<sp/>XPmBisr_CopyStandard(EfuseTagCursor,<sp/>TagSize,<sp/>BisrDataDestAddr);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>Bisr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(BaseAddr<sp/>+<sp/>NPI_PCSR_MASK_OFFSET,<sp/><sp/><sp/><sp/>GT_PCSR_CTRL_BISR_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(BaseAddr<sp/>+<sp/>NPI_PCSR_CONTROL_OFFSET,<sp/>GT_PCSR_CTRL_BISR_TRIGGER_MASK);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>Bisr<sp/>to<sp/>finish<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmcFw_UtilPollForMask(BaseAddr<sp/>+<sp/>NPI_PCSR_STATUS_OFFSET,<sp/>GT_PCSR_STATUS_BISR_DONE_MASK,<sp/>XPM_POLL_TIMEOUT);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_TIMEOUT);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/>XPm_In32(BaseAddr<sp/>+<sp/>NPI_PCSR_STATUS_OFFSET);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegValue<sp/>&amp;<sp/>GT_PCSR_STATUS_BISR_PASS_MASK)<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)(ERRSTS_REPAIR_FUNCTION_FAILED);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">done:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Lock<sp/>PCSR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>XPm_Out32(BaseAddr<sp/>+<sp/>NPI_PCSR_LOCK_OFFSET,<sp/>1U);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_gtm_gty_gtyp.c"/>
+  </compounddef>
+</doxygen>

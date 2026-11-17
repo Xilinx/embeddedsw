@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['validatewindowsize',['validateWindowSize',['../group__vprocss.html#ga5747793fce7d830cac209ea40327146a',1,'xvprocss_router.c']]],
   ['vcrsmplrin',['VCrsmplrIn',['../struct_x_vproc_ss___config.html#a5878fcc0fd3ceefa0e699b0022542a9a',1,'XVprocSs_Config']]],
   ['vcrsmplrinptr',['VcrsmplrInPtr',['../struct_x_vproc_ss.html#a62f9ab872ac328e7e5ecbccafe65a7e6',1,'XVprocSs']]],
   ['vcrsmplrout',['VCrsmplrOut',['../struct_x_vproc_ss___config.html#ab69534c54d385bf7991fe0aa866a69a1',1,'XVprocSs_Config']]],

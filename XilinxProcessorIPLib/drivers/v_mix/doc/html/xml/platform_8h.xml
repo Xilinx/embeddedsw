@@ -4,15 +4,15 @@
     <compoundname>platform.h</compoundname>
     <includedby refid="xv__mix__example_8c" local="yes">xv_mix_example.c</includedby>
     <invincdepgraph>
-      <node id="10">
-        <label>xv_mix_example.c</label>
-        <link refid="xv__mix__example_8c"/>
-      </node>
       <node id="9">
         <label>platform.h</label>
         <link refid="platform.h"/>
         <childnode refid="10" relation="include">
         </childnode>
+      </node>
+      <node id="10">
+        <label>xv_mix_example.c</label>
+        <link refid="xv__mix__example_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
@@ -27,10 +27,10 @@
 <para>This function sets up the necessary hardware components for the platform, such as enabling caches and initializing the UART. If running outside of the SDK, the user may need to call ps7_init() to initialize the processing system, which requires including &quot;ps7_init.h&quot; and linking with ps7_init.c.</para><para>Note: Ensure that all required initialization files are included in the project if ps7_init() is used. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.c" bodystart="104" bodyend="115"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.c" bodystart="104" bodyend="115"/>
         <references refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" compoundref="platform_8c" startline="39" endline="52">enable_caches</references>
         <references refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" compoundref="platform_8c" startline="81" endline="90">init_uart</references>
-        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="1055" endline="1212">main</referencedby>
+        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="912" endline="1065">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -43,7 +43,7 @@
 <para>This function is typically called during the shutdown or cleanup phase of an embedded application to ensure that all processor caches are disabled, which may be necessary before powering down or resetting the system. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.c" bodystart="125" bodyend="128"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.c" bodystart="125" bodyend="128"/>
         <references refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" compoundref="platform_8c" startline="63" endline="67">disable_caches</references>
       </memberdef>
       </sectiondef>
@@ -66,6 +66,6 @@
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/examples/src/platform.h"/>
   </compounddef>
 </doxygen>

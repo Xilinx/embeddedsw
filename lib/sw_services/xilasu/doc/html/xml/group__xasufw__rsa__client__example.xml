@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="49" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga3045a715cdc1688d8546aad3d89258ab" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga33c6ac5c47efb3f937553ea60049e4ec" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1gaed5f42bfef97799229422f29913306a5" prot="public" static="yes" mutable="no">
         <type>const u8</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="171" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="171" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1gac0cf66ff32e334445bcac8e2b7c66cd3" prot="public" static="yes" mutable="no">
         <type>const u32</type>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="212" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="212" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga25ba39676e7155125442952c3440bc32" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="214" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="214" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga7fcda2607b2064a547e76f70fbd5a88f" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -94,7 +94,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="215" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga239fa48bc85c01f03c4da89ab4f329df" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -107,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="216" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga5f9e5cf6032d2262959986785aa7c8f5" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="217" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="217" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
         <type>u8</type>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="219" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="219" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xasufw__rsa__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="220" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="220" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -188,7 +188,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="380" bodyend="388"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="380" bodyend="388"/>
       </memberdef>
       <memberdef kind="function" id="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -207,7 +207,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Initialize mailbox instance. </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="234" bodyend="367"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="234" bodyend="367"/>
         <references refid="struct_x_asu___rsa_params_1a93d8fc0e123ab9ccfbcfc285cc52e8d1" compoundref="xasu__rsainfo_8h" startline="144">XAsu_RsaParams::ExpoCompAddr</references>
         <references refid="struct_x_asu___rsa_params_1ae603b7d80dd7b6135fb3b0bef96301c2" compoundref="xasu__rsainfo_8h" startline="142">XAsu_RsaParams::InputDataAddr</references>
         <references refid="struct_x_asu___rsa_params_1a5e18a0a1b467d66aa7570db8a1dadaef" compoundref="xasu__rsainfo_8h" startline="145">XAsu_RsaParams::KeyCompAddr</references>
@@ -223,11 +223,11 @@
         <references refid="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" compoundref="xasu__rsainfo_8h" startline="105">XAsu_RsaPubKeyComp::PubExp</references>
         <references refid="struct_x_asu___rsa_pvt_key_comp_1aefcc19b50b4d9737f74baeca5f256529" compoundref="xasu__rsainfo_8h" startline="110">XAsu_RsaPvtKeyComp::PubKeyComp</references>
         <references refid="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" compoundref="xasu__rsainfo_8h" startline="111">XAsu_RsaPvtKeyComp::PvtExp</references>
-        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="127" endline="177">XAsu_ClientInit</references>
-        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
-        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="140" endline="196">XAsu_ClientInit</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="48">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="51">XASU_PRIORITY_HIGH</references>
         <references refid="group__xasufw__rsa__client__example_1ga43e1d577044d71ce30379cf3a49ede9a" compoundref="xasu__rsa__example_8c" startline="38">XASU_RSA_4096_KEY_SIZE_IN_BYTES</references>
-        <references refid="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a06a7ac3371f7cc993e46f930007afa34" compoundref="xasu__status_8h" startline="80">XASU_RSA_DECRYPTION_SUCCESS</references>
+        <references refid="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a06a7ac3371f7cc993e46f930007afa34" compoundref="xasu__status_8h" startline="90">XASU_RSA_DECRYPTION_SUCCESS</references>
         <references refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</references>
         <references refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</references>
       </memberdef>
@@ -242,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="38" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="38" bodyend="-1"/>
         <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xasufw__rsa__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
@@ -253,7 +253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="39" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/examples/xasu_rsa_example.c" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

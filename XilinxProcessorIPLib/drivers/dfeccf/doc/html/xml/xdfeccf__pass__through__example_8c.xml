@@ -8,6 +8,12 @@
       <node id="61">
         <label>stdbool.h</label>
       </node>
+      <node id="62">
+        <label>metal/sys.h</label>
+      </node>
+      <node id="60">
+        <label>assert.h</label>
+      </node>
       <node id="58">
         <label>xdfeccf.h</label>
         <link refid="xdfeccf_8h"/>
@@ -19,12 +25,6 @@
         </childnode>
         <childnode refid="62" relation="include">
         </childnode>
-      </node>
-      <node id="62">
-        <label>metal/sys.h</label>
-      </node>
-      <node id="60">
-        <label>assert.h</label>
       </node>
       <node id="57">
         <label>xdfeccf_examples.h</label>
@@ -54,12 +54,15 @@
       <node id="64">
         <label>math.h</label>
       </node>
+      <node id="59">
+        <label>linux/types.h</label>
+      </node>
       <node id="63">
         <label>xdfeccf_hw.h</label>
         <link refid="xdfeccf__hw_8h"/>
       </node>
-      <node id="59">
-        <label>linux/types.h</label>
+      <node id="65">
+        <label>stdio.h</label>
       </node>
       <node id="55">
         <label>xdfeccf_pass_through_example.c</label>
@@ -68,9 +71,6 @@
         </childnode>
         <childnode refid="57" relation="include">
         </childnode>
-      </node>
-      <node id="65">
-        <label>stdio.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -90,7 +90,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c" bodystart="61" bodyend="162"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c" bodystart="61" bodyend="162"/>
         <references refid="struct_x_dfe_ccf___trigger_cfg_1a8e0fd292605e716b1e580cca643140f9" compoundref="xdfeccf_8h" startline="250">XDfeCcf_TriggerCfg::Activate</references>
         <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
         <references refid="struct_x_dfe_ccf___trigger_cfg_1ab268b98412be113d4be332409eacb24e" compoundref="xdfeccf_8h" startline="255">XDfeCcf_TriggerCfg::CCUpdate</references>
@@ -265,6 +265,6 @@
 <codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
 <codeline lineno="162"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_pass_through_example.c"/>
   </compounddef>
 </doxygen>

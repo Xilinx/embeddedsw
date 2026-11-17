@@ -300,6 +300,7 @@ var searchData=
   ['xvphy_5ftx_5fcontrol_5freg',['XVPHY_TX_CONTROL_REG',['../group__vphy.html#ga052755dd1d5a33d0631255f9c13f6ae8',1,'xvphy_hw.h']]],
   ['xvphy_5ftx_5fdriver_5fch12_5freg',['XVPHY_TX_DRIVER_CH12_REG',['../group__vphy.html#gab418e02e6dc1913346dbc38bc07a6dfc',1,'xvphy_hw.h']]],
   ['xvphy_5ftx_5fdriver_5fch34_5freg',['XVPHY_TX_DRIVER_CH34_REG',['../group__vphy.html#ga53fd0433c17e0cced2b30825e4ffb131',1,'xvphy_hw.h']]],
+  ['xvphy_5ftx_5fdriver_5fext_5freg',['XVPHY_TX_DRIVER_EXT_REG',['../group__vphy.html#gae0cdb3843b85563d1ea0322e519a1ce6',1,'xvphy_hw.h']]],
   ['xvphy_5ftx_5finit_5freg',['XVPHY_TX_INIT_REG',['../group__vphy.html#gafa6b79b6ca3f8205d83c3f80f6544742',1,'xvphy_hw.h']]],
   ['xvphy_5ftx_5finit_5fstatus_5freg',['XVPHY_TX_INIT_STATUS_REG',['../group__vphy.html#ga339e922dfce6c42e2ab0035abb4c16a9',1,'xvphy_hw.h']]],
   ['xvphy_5ftx_5finit_5fuserrdy_5fall_5fmask',['XVPHY_TX_INIT_USERRDY_ALL_MASK',['../group__vphy.html#gaa2a8f5464bad44ae6bff5a39532e1fb9',1,'xvphy_hw.h']]],

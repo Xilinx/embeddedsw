@@ -1,0 +1,1819 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__qspips__g128__flash__example" kind="group">
+    <compoundname>qspips_g128_flash_example</compoundname>
+    <title>Qspips_g128_flash_example</title>
+    <innerclass refid="struct_flash_info" prot="public">FlashInfo</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1ga3542e5a3c9c7b059411efb09e844f62e" prot="public" static="no" mutable="no">
+        <type>FlashInfo</type>
+        <definition>FlashInfo Flash_Config_Table[34]</definition>
+        <argsstring>[34]</argsstring>
+        <name>Flash_Config_Table</name>
+        <briefdescription>
+<para>Flash Config Table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="373" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+        <referencedby refid="group__qspips__g128__flash__example_1ga8dcc4059afd09dacccfa2ab80669aa91" compoundref="xqspips__g128__flash__example_8c" startline="1590" endline="1651">GetRealAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1gaf8ace83e43786ba25b4a81742df92b37" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashMake</definition>
+        <argsstring></argsstring>
+        <name>FlashMake</name>
+        <briefdescription>
+<para>Flash manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1ga8d80524bb6369924849dee07b6037695" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FCTIndex</definition>
+        <argsstring></argsstring>
+        <name>FCTIndex</name>
+        <briefdescription>
+<para>Flash configuration table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga8dcc4059afd09dacccfa2ab80669aa91" compoundref="xqspips__g128__flash__example_8c" startline="1590" endline="1651">GetRealAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1gaf39c789226d0925308cca8b83dcd87a9" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref></type>
+        <definition>XQspiPs QspiInstance</definition>
+        <argsstring></argsstring>
+        <name>QspiInstance</name>
+        <briefdescription>
+<para>The instances to support the device drivers are global such that they are initialized to zero each time the program runs. </para>        </briefdescription>
+        <detaileddescription>
+<para>They could be local but should at least be static so they are zeroed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1gab3bcee72bda39943b664463f1df4d211" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Test</definition>
+        <argsstring></argsstring>
+        <name>Test</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>The following variable allows a test value to be added to the values that are written to the Flash such that unique values can be generated to guarantee the writes to the Flash were successful. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1ga02a1a97b5578e7a21b10755ed65a0bd7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[(PAGE_COUNT *MAX_PAGE_SIZE)+(DATA_OFFSET+DUMMY_SIZE)*8]</definition>
+        <argsstring>[(PAGE_COUNT *MAX_PAGE_SIZE)+(DATA_OFFSET+DUMMY_SIZE)*8]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>The following variables hold the data read from and written to the flash and they are global to avoid having large buffers on the stack. </para>        </briefdescription>
+        <detaileddescription>
+<para>The buffer size accounts for maximum page size and maximum banks - a separate read is performed for each bank, leading to that many (overhead+dummy) bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1gad4a9fc13421a86b26f3d05645beabd42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[(PAGE_COUNT *MAX_PAGE_SIZE)+DATA_OFFSET]</definition>
+        <argsstring>[(PAGE_COUNT *MAX_PAGE_SIZE)+DATA_OFFSET]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Write buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="477" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__qspips__g128__flash__example_1gab839e91b4279b469bdd2167b7e386fd2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MaxData</definition>
+        <argsstring></argsstring>
+        <name>MaxData</name>
+        <initializer>= <ref refid="group__qspips__g128__flash__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" kindref="member">PAGE_COUNT</ref>*256</initializer>
+        <briefdescription>
+<para>The following constants specify the max amount of data and the size of the the buffer required to hold the data and overhead to transfer the data to and from the Flash. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initialized to single flash page size. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga231588ab2ebd6c354ac94aca5820ed0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int QspiG128FlashExample</definition>
+        <argsstring>(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>QspiG128FlashExample</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> device driver in single, parallel and stacked modes using flash devices greater than 128Mb. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function reads and writes data in I/O mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">QspiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPIPS driver to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, the device configuration is looked up based on DeviceId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="542" bodyend="724"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1gaca1ee50e3326d7a6bf10276be2d21391" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FlashErase</definition>
+        <argsstring>(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Erases the sectors in the serial Flash connected to the QSPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address of the first sector which needs to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The total size to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer (which is to be transmitted) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="855" bodyend="1078"/>
+        <references refid="group__qspips__g128__flash__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" compoundref="xqspips__g128__flash__example_8c" startline="67">READ_STATUS_CMD</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga1275835da99a222bbf97b10723925116" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FlashWrite</definition>
+        <argsstring>(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr)</argsstring>
+        <name>FlashWrite</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial Flash connected to the QSPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to write data to in the Flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command used to write data to the flash. QSPI device supports only Page Program command to write data to the flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer(which is to be transmitted) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="744" bodyend="840"/>
+        <references refid="group__qspips__g128__flash__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" compoundref="xqspips__g128__flash__example_8c" startline="68">WRITE_ENABLE_CMD</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga36c56a9a6494163d17ea1a06312c6dec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int FlashReadID</definition>
+        <argsstring>(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashReadID</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads serial Flash ID connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>It then deduces the make and size of the flash and obtains the connection mode to point to corresponding parameters in the flash configuration table. The flash driver functions based on this and it presently supports Micron and Spansion - 128, 256 and 512Mbit and Winbond 128Mbit</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer (which is to be transmitted) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the read buffer to which valid received data should be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if read id, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="1100" bodyend="1256"/>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FlashRead</definition>
+        <argsstring>(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</argsstring>
+        <name>FlashRead</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs an I/O read. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to read data from in the Flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command used to read data from the flash. Supports normal, fast, dual and quad read commands. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer which contains data to be transmitted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">ReadBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the read buffer to which valid received data should be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="1274" bodyend="1371"/>
+        <references refid="group__qspips__g128__flash__example_1gacb3f014bb2edc22968015d7c94fc50e7" compoundref="xqspips__g128__flash__example_8c" startline="93">ADDRESS_1_OFFSET</references>
+        <references refid="group__qspips__g128__flash__example_1ga78eeefaa529edaa16698434814f12882" compoundref="xqspips__g128__flash__example_8c" startline="95">ADDRESS_2_OFFSET</references>
+        <references refid="group__qspips__g128__flash__example_1ga7a5adf9cc2e2cfa409fb6746d5b22ef6" compoundref="xqspips__g128__flash__example_8c" startline="96">ADDRESS_3_OFFSET</references>
+        <references refid="group__qspips__g128__flash__example_1ga7b96f4698d728b52d893bcf901d9422e" compoundref="xqspips__g128__flash__example_8c" startline="142">BANKMASK</references>
+        <references refid="group__qspips__g128__flash__example_1gadb83c033ee492824badb77fa8ebd5c5d" compoundref="xqspips__g128__flash__example_8c" startline="92">COMMAND_OFFSET</references>
+        <references refid="group__qspips__g128__flash__example_1gae0a72c7619ef5b2a95ab266c5ec91a52" compoundref="xqspips__g128__flash__example_8c" startline="70">DUAL_READ_CMD</references>
+        <references refid="group__qspips__g128__flash__example_1gad33594c6ec0a6e6830b2ae30fcf2b926" compoundref="xqspips__g128__flash__example_8c" startline="101">DUMMY_SIZE</references>
+        <references refid="group__qspips__g128__flash__example_1gad86cd5806516fb265953d7131f4d09ad" compoundref="xqspips__g128__flash__example_8c" startline="69">FAST_READ_CMD</references>
+        <references refid="group__qspips__g128__flash__example_1ga3542e5a3c9c7b059411efb09e844f62e" compoundref="xqspips__g128__flash__example_8c" startline="373">Flash_Config_Table</references>
+        <references refid="group__qspips__g128__flash__example_1ga8dcc4059afd09dacccfa2ab80669aa91" compoundref="xqspips__g128__flash__example_8c" startline="1590" endline="1651">GetRealAddr</references>
+        <references refid="group__qspips__g128__flash__example_1ga635c69a613273e533212c0bf3c15b8c4" compoundref="xqspips__g128__flash__example_8c" startline="119">OVERHEAD_SIZE</references>
+        <references refid="group__qspips__g128__flash__example_1ga94af169751fa1931ce12752054751b17" compoundref="xqspips__g128__flash__example_8c" startline="71">QUAD_READ_CMD</references>
+        <references refid="group__qspips__g128__flash__example_1ga0f034b18fdbb5e1217e3aa862ec91cf0" compoundref="xqspips__g128__flash__example_8c" startline="1386" endline="1427">SendBankSelect</references>
+        <references refid="group__qspips__g128__flash__example_1gafbd9dc9a545164602274a259c1f49dd8" compoundref="xqspips__g128__flash__example_8c" startline="129">SIXTEENMB</references>
+        <references refid="group__qspips__api_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga0f034b18fdbb5e1217e3aa862ec91cf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SendBankSelect</definition>
+        <argsstring>(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u32 BankSel)</argsstring>
+        <name>SendBankSelect</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BankSel</declname>
+        </param>
+        <briefdescription>
+<para>Selects the current bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the write buffer which contains data to be transmitted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BankSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bank to be selected in the flash device(s).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if bank selected, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="1386" bodyend="1427"/>
+        <references refid="group__qspips__g128__flash__example_1gacb3f014bb2edc22968015d7c94fc50e7" compoundref="xqspips__g128__flash__example_8c" startline="93">ADDRESS_1_OFFSET</references>
+        <references refid="group__qspips__g128__flash__example_1ga549ba54e3ceeae759f48666128c2a8b7" compoundref="xqspips__g128__flash__example_8c" startline="107">BANK_SEL_SIZE</references>
+        <references refid="group__qspips__g128__flash__example_1gadb83c033ee492824badb77fa8ebd5c5d" compoundref="xqspips__g128__flash__example_8c" startline="92">COMMAND_OFFSET</references>
+        <references refid="group__qspips__g128__flash__example_1gab1962fd7ad902a098fc8839f25d60bb8" compoundref="xqspips__g128__flash__example_8c" startline="81">EXTADD_REG_WR</references>
+        <references refid="group__qspips__api_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="723" endline="1086">XQspiPs_PolledTransfer</references>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga6bad398ec8a0c070c283638e0e955bdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void BulkErase</definition>
+        <argsstring>(XQspiPs *QspiPtr, u8 *WriteBfrPtr)</argsstring>
+        <name>BulkErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a bulk erase operation when the flash device has a single die. </para>        </briefdescription>
+        <detaileddescription>
+<para>Works for both Spansion and Micron.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to command+address to be sent </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="1440" bodyend="1490"/>
+        <references refid="group__qspips__g128__flash__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" compoundref="xqspips__g128__flash__example_8c" startline="67">READ_STATUS_CMD</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga180817fa33a33333552ffc90baa3bcfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DieErase</definition>
+        <argsstring>(XQspiPs *QspiPtr, u8 *WriteBfrPtr)</argsstring>
+        <name>DieErase</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WriteBfrPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a die erase operation on all the die in the flash device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function uses the die erase command for Micron 512Mbit and 1Gbit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">WriteBfrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to command+address to be sent </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="1503" bodyend="1572"/>
+        <references refid="group__qspips__g128__flash__example_1gaafb4cc861589451927402bce98df1b1d" compoundref="xqspips__g128__flash__example_8c" startline="83">READ_FLAG_STATUS_CMD</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga8dcc4059afd09dacccfa2ab80669aa91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 GetRealAddr</definition>
+        <argsstring>(XQspiPs *QspiPtr, u32 Address)</argsstring>
+        <name>GetRealAddr</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>QspiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>Translates the address based on the type of interconnection. </para>        </briefdescription>
+        <detaileddescription>
+<para>In case of stacked, the function asserts the corresponding slave select.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">QspiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the QSPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address which is to be accessed (for erase, write or read).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RealAddr is the translated address - for single it is unchanged; for stacked, the lower flash size is subtracted; for parallel the address is divided by 2. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="1590" bodyend="1651"/>
+        <references refid="group__qspips__g128__flash__example_1ga8d80524bb6369924849dee07b6037695" compoundref="xqspips__g128__flash__example_8c" startline="451">FCTIndex</references>
+        <references refid="group__qspips__g128__flash__example_1ga3542e5a3c9c7b059411efb09e844f62e" compoundref="xqspips__g128__flash__example_8c" startline="373">Flash_Config_Table</references>
+        <references refid="group__qspips_1ga372e34dd891429e3cc7d07667527e6c8" compoundref="xqspips_8h" startline="455">XQSPIPS_CONNECTION_MODE_PARALLEL</references>
+        <references refid="group__qspips_1ga0e45061c8ecd4ebd896d3995d6b3ac99" compoundref="xqspips_8h" startline="453">XQSPIPS_CONNECTION_MODE_SINGLE</references>
+        <references refid="group__qspips_1ga8922da092bdec76a31201c63fc9c172e" compoundref="xqspips_8h" startline="454">XQSPIPS_CONNECTION_MODE_STACKED</references>
+        <references refid="group__qspips_1gabda4f4e269e54217292622433e8ba8f7" compoundref="xqspips_8h" startline="758">XQspiPs_GetLqspiConfigReg</references>
+        <references refid="group__qspips__api_1ga43ea3e35e6c6a57aba2301e0a3de9e8e" compoundref="xqspips__hw_8h" startline="282">XQSPIPS_LQSPI_CR_U_PAGE_MASK</references>
+        <references refid="group__qspips_1ga3d5c1b501b5dc6e14297682279bbfee2" compoundref="xqspips_8h" startline="739">XQspiPs_SetLqspiConfigReg</references>
+        <references refid="group__qspips__api_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1160" endline="1185">XQspiPs_SetSlaveSelect</references>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips__g128__flash__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Runs the QSPI greater than 128Mb flash example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="494" bodyend="515"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga076966d3a1aa7647c294802e9f76bb10" prot="public" static="no">
+        <name>WRITE_STATUS_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" prot="public" static="no">
+        <name>WRITE_CMD</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Page program command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga21623e2a5501c821da54dd76ffc1d077" prot="public" static="no">
+        <name>READ_CMD</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Normal read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga12fe83d74a765a1b4ae033e22a23dafe" prot="public" static="no">
+        <name>WRITE_DISABLE_CMD</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Write disable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" prot="public" static="no">
+        <name>READ_STATUS_CMD</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Read status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga6bad398ec8a0c070c283638e0e955bdd" compoundref="xqspips__g128__flash__example_8c" startline="1440" endline="1490">BulkErase</referencedby>
+        <referencedby refid="group__qspips__g128__flash__example_1gaca1ee50e3326d7a6bf10276be2d21391" compoundref="xqspips__g128__flash__example_8c" startline="855" endline="1078">FlashErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" prot="public" static="no">
+        <name>WRITE_ENABLE_CMD</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga1275835da99a222bbf97b10723925116" compoundref="xqspips__g128__flash__example_8c" startline="744" endline="840">FlashWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad86cd5806516fb265953d7131f4d09ad" prot="public" static="no">
+        <name>FAST_READ_CMD</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+<para>Fast read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gae0a72c7619ef5b2a95ab266c5ec91a52" prot="public" static="no">
+        <name>DUAL_READ_CMD</name>
+        <initializer>0x3B</initializer>
+        <briefdescription>
+<para>Dual read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga94af169751fa1931ce12752054751b17" prot="public" static="no">
+        <name>QUAD_READ_CMD</name>
+        <initializer>0x6B</initializer>
+        <briefdescription>
+<para>Quad read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga66456d73cb4185955c6c7e663a85c8da" prot="public" static="no">
+        <name>BULK_ERASE_CMD</name>
+        <initializer>0xC7</initializer>
+        <briefdescription>
+<para>Bulk erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga0eec2203a85fcd7f55550651809df5f0" prot="public" static="no">
+        <name>SEC_ERASE_CMD</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+<para>Sector erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gae90b7e8c7fe9d94c5c156a07e57fc27c" prot="public" static="no">
+        <name>READ_ID</name>
+        <initializer>0x9F</initializer>
+        <briefdescription>
+<para>Read ID command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gacb580804a74967764090e0200ec1ead7" prot="public" static="no">
+        <name>READ_CONFIG_CMD</name>
+        <initializer>0x35</initializer>
+        <briefdescription>
+<para>Read config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga677a2f55503c1b4abe80a4f47a62d17a" prot="public" static="no">
+        <name>WRITE_CONFIG_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write config register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga229530104cf122c5ee02dd145fddb483" prot="public" static="no">
+        <name>BANK_REG_RD</name>
+        <initializer>0x16</initializer>
+        <briefdescription>
+<para>Bank register read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga4d6b0a4dca6616cbd0e2f37f175d4d73" prot="public" static="no">
+        <name>BANK_REG_WR</name>
+        <initializer>0x17</initializer>
+        <briefdescription>
+<para>Bank register write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gac938f3c6e145add3a72b1e9b4c105074" prot="public" static="no">
+        <name>EXTADD_REG_RD</name>
+        <initializer>0xC8</initializer>
+        <briefdescription>
+<para>Extended Address Register read; Micron name for the Bank register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gab1962fd7ad902a098fc8839f25d60bb8" prot="public" static="no">
+        <name>EXTADD_REG_WR</name>
+        <initializer>0xC5</initializer>
+        <briefdescription>
+<para>Extended address register write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga0f034b18fdbb5e1217e3aa862ec91cf0" compoundref="xqspips__g128__flash__example_8c" startline="1386" endline="1427">SendBankSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gae5382eb0e3556799155501c2c2c67c51" prot="public" static="no">
+        <name>DIE_ERASE_CMD</name>
+        <initializer>0xC4</initializer>
+        <briefdescription>
+<para>Die erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaafb4cc861589451927402bce98df1b1d" prot="public" static="no">
+        <name>READ_FLAG_STATUS_CMD</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+<para>Read flag status command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga180817fa33a33333552ffc90baa3bcfa" compoundref="xqspips__g128__flash__example_8c" startline="1503" endline="1572">DieErase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gadb83c033ee492824badb77fa8ebd5c5d" prot="public" static="no">
+        <name>COMMAND_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Flash instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+        <referencedby refid="group__qspips__g128__flash__example_1ga0f034b18fdbb5e1217e3aa862ec91cf0" compoundref="xqspips__g128__flash__example_8c" startline="1386" endline="1427">SendBankSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gacb3f014bb2edc22968015d7c94fc50e7" prot="public" static="no">
+        <name>ADDRESS_1_OFFSET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>MSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+        <referencedby refid="group__qspips__g128__flash__example_1ga0f034b18fdbb5e1217e3aa862ec91cf0" compoundref="xqspips__g128__flash__example_8c" startline="1386" endline="1427">SendBankSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga78eeefaa529edaa16698434814f12882" prot="public" static="no">
+        <name>ADDRESS_2_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Middle byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga7a5adf9cc2e2cfa409fb6746d5b22ef6" prot="public" static="no">
+        <name>ADDRESS_3_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>LSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga11faa4c105a137b8edaa096de5063835" prot="public" static="no">
+        <name>DATA_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Start of Data for Read/Write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gadb783614ffde5c436ef41d8d5851f7ad" prot="public" static="no">
+        <name>DUMMY_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Dummy byte offset for fast, dual and quad reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad33594c6ec0a6e6830b2ae30fcf2b926" prot="public" static="no">
+        <name>DUMMY_SIZE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Number of dummy bytes for fast, dual and quad reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gab70178b04d2917335da4565bbb9e9bf4" prot="public" static="no">
+        <name>RD_ID_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Read ID command + 3 bytes ID response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gae684d0413cc3a0dfe84ea9914dc9df34" prot="public" static="no">
+        <name>BULK_ERASE_SIZE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bulk Erase command size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga2c806bebfe8737b36450c53bd4eb112c" prot="public" static="no">
+        <name>SEC_ERASE_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Sector Erase command + Sector address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga549ba54e3ceeae759f48666128c2a8b7" prot="public" static="no">
+        <name>BANK_SEL_SIZE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>BRWR or EARWR command + 1 byte bank value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga0f034b18fdbb5e1217e3aa862ec91cf0" compoundref="xqspips__g128__flash__example_8c" startline="1386" endline="1427">SendBankSelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga9b6c495ca75dd1ca39a08ac19a306aae" prot="public" static="no">
+        <name>RD_CFG_SIZE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>1 byte Configuration register + RD CFG command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga808e0eed38ca0add1716bfc3eafb7900" prot="public" static="no">
+        <name>WR_CFG_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>WRR command + 1 byte each Status and Config Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaabb3b599c7a0226a87768b4e51d20322" prot="public" static="no">
+        <name>DIE_ERASE_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Die Erase command + Die address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga635c69a613273e533212c0bf3c15b8c4" prot="public" static="no">
+        <name>OVERHEAD_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Command and address byte count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga6b2d75a2b1b02ae81f756f700b98b4fc" prot="public" static="no">
+        <name>FLASH1BASE</name>
+        <initializer>0x0000000</initializer>
+        <briefdescription>
+<para>Base address of Flash1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gafbd9dc9a545164602274a259c1f49dd8" prot="public" static="no">
+        <name>SIXTEENMB</name>
+        <initializer>0x1000000</initializer>
+        <briefdescription>
+<para>Sixteen MB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gae041d8f4ed7115a50802a90346ff077c" prot="public" static="no">
+        <name>FLASH_QUAD_EN_MASK</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Mask for quad enable bit in Flash configuration register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga060cba275044fbf1f2f58e4a8f209747" prot="public" static="no">
+        <name>FLASH_SRWD_MASK</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Status register write disable bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga7b96f4698d728b52d893bcf901d9422e" prot="public" static="no">
+        <name>BANKMASK</name>
+        <initializer>0xF000000</initializer>
+        <briefdescription>
+<para>Bank mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__qspips__g128__flash__example_1ga24950639bf563beb091a0bbf1e51bb61" compoundref="xqspips__g128__flash__example_8c" startline="1274" endline="1371">FlashRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaab4282793646a33f1427ca3c0380636d" prot="public" static="no">
+        <name>MICRON_ID_BYTE0</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Micron manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gafea4842b47beb565c820c250d9078d9b" prot="public" static="no">
+        <name>MICRON_ID_BYTE2_128</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Micron 128Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga73fd7aeaa9842e7728e5dad68d81e085" prot="public" static="no">
+        <name>MICRON_ID_BYTE2_256</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+<para>Micron 256Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaa2c3bf06897aa08cc37e09facc619d04" prot="public" static="no">
+        <name>MICRON_ID_BYTE2_512</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Micron 512Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga23d2db9e253271ae71111ce8c6c16559" prot="public" static="no">
+        <name>MICRON_ID_BYTE2_1G</name>
+        <initializer>0x21</initializer>
+        <briefdescription>
+<para>Micron 1Gbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga73e82322cd02831e3ecb48bfd32cb47d" prot="public" static="no">
+        <name>SPANSION_ID_BYTE0</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Spansion manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaee417867b26008dd541f891e926d5777" prot="public" static="no">
+        <name>SPANSION_ID_BYTE2_128</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Spansion 128Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga2dafa739135f165a5a514f3c14bbb368" prot="public" static="no">
+        <name>SPANSION_ID_BYTE2_256</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+<para>Spansion 256Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaa465a2f2036c03159630d38dbf182590" prot="public" static="no">
+        <name>SPANSION_ID_BYTE2_512</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Spansion 512Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaf1f5d4bf6ac30abc734907d3f8f5ad33" prot="public" static="no">
+        <name>WINBOND_ID_BYTE0</name>
+        <initializer>0xEF</initializer>
+        <briefdescription>
+<para>Winbond manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga5c48b183a071dde0dcb802cef6eb0146" prot="public" static="no">
+        <name>WINBOND_ID_BYTE2_128</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Winbond 128Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga6fe2024af6a6cc1aae7af6219ac9170f" prot="public" static="no">
+        <name>MACRONIX_ID_BYTE0</name>
+        <initializer>0xC2</initializer>
+        <briefdescription>
+<para>Macronix manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gab52d84c31650c2a6b2fa7d53b62eb790" prot="public" static="no">
+        <name>MACRONIX_ID_BYTE2_256</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+<para>Macronix 256Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gab1dda14e79ffe5740353b8e624a875e8" prot="public" static="no">
+        <name>MACRONIX_ID_BYTE2_512</name>
+        <initializer>0x1A</initializer>
+        <briefdescription>
+<para>Macronix 512Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga500eaca247e28dd49836a93ca48e42a0" prot="public" static="no">
+        <name>MACRONIX_ID_BYTE2_1G</name>
+        <initializer>0x1B</initializer>
+        <briefdescription>
+<para>Macronix 1Gbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga284d71689ab3efacab01a43dc80d90c0" prot="public" static="no">
+        <name>ISSI_ID_BYTE0</name>
+        <initializer>0x9D</initializer>
+        <briefdescription>
+<para>ISSI manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga9da38937bca457bcaeb6ae2cd11962a7" prot="public" static="no">
+        <name>ISSI_ID_BYTE2_256</name>
+        <initializer>0x19</initializer>
+        <briefdescription>
+<para>ISSI 256Mbit size ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" prot="public" static="no">
+        <name>SPANSION_INDEX_START</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Spansion start index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga6fb7f843121997040ba063241c23e606" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_128_SP</name>
+        <initializer><ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref></initializer>
+        <briefdescription>
+<para>Spansion 128Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gadf29754ed51d245bd8e986c028619c65" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_128_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 1)</initializer>
+        <briefdescription>
+<para>Spansion 128Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga95cd8cf192fb6438e12859f2253280f6" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_128_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 2)</initializer>
+        <briefdescription>
+<para>Spansion 128Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga345cc08cc3cf4a97b1c51365469c5bbb" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_256_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 3)</initializer>
+        <briefdescription>
+<para>Spansion 256Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gadac3e41032ad0308ddd5773c3945fffe" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_256_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 4)</initializer>
+        <briefdescription>
+<para>Spansion 256Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga54386cbf6828e3725af8e5bf98eb77e6" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_256_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 5)</initializer>
+        <briefdescription>
+<para>Spansion 256Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gadf61fafc5677712152058d9eda7e3767" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_512_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 6)</initializer>
+        <briefdescription>
+<para>Spansion 512Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga5374186c8146e55538483964c904595f" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_512_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 7)</initializer>
+        <briefdescription>
+<para>Spansion 512Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga6d80f2855f9d2740870a6ec29c4d8dda" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_512_SP</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga37df31e2f7de615f88ebc24df0cef003" kindref="member">SPANSION_INDEX_START</ref> + 8)</initializer>
+        <briefdescription>
+<para>Spansion 512Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" prot="public" static="no">
+        <name>MICRON_INDEX_START</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga6d80f2855f9d2740870a6ec29c4d8dda" kindref="member">FLASH_CFG_TBL_PARALLEL_512_SP</ref> + 1)</initializer>
+        <briefdescription>
+<para>Micron start index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gafb64732d036e62d82dd20e6c91dc39a8" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_128_MC</name>
+        <initializer><ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref></initializer>
+        <briefdescription>
+<para>Micron 128Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaec180f5998fa41d847ddee13c2f864fa" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_128_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 1)</initializer>
+        <briefdescription>
+<para>Micron 128Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga3b2dc7ce913b120f8a927f1db5d133a1" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_128_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 2)</initializer>
+        <briefdescription>
+<para>Micron 128Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaaeec89303052dee6879aeda113af2228" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_256_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 3)</initializer>
+        <briefdescription>
+<para>Micron 256Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gae7335d752c76ae2ef1b5dee20afb9493" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_256_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 4)</initializer>
+        <briefdescription>
+<para>Micron 256Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga87cb7918be2dc9cf479cd5377910f4c1" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_256_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 5)</initializer>
+        <briefdescription>
+<para>Micron 256Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga76bc46eb3ac1c164a7bec5daaaddb698" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_512_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 6)</initializer>
+        <briefdescription>
+<para>Micron 512Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad7aa90195f1bd48f5377a63773c0cd03" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_512_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 7)</initializer>
+        <briefdescription>
+<para>Micron 512Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga1fb17d820e5a37e07f55e0926bbb9ad6" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_512_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 8)</initializer>
+        <briefdescription>
+<para>Micron 512Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga4d1dca644ae24ed6eb24bfc420c6a389" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_1GB_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 9)</initializer>
+        <briefdescription>
+<para>Micron 1Gbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gafcca4ac7695d9e1bb54f173e1f299e39" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_1GB_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 10)</initializer>
+        <briefdescription>
+<para>Micron 1Gbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad00b4585a1ec409a54fc2a54210b6e28" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_1GB_MC</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gaf02e8481b1a6c63d722c98694e340c04" kindref="member">MICRON_INDEX_START</ref> + 11)</initializer>
+        <briefdescription>
+<para>Micron 1Gbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gabf42c2f8c6c1d0168232d69ee7a92cd8" prot="public" static="no">
+        <name>WINBOND_INDEX_START</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gad00b4585a1ec409a54fc2a54210b6e28" kindref="member">FLASH_CFG_TBL_PARALLEL_1GB_MC</ref> + 1)</initializer>
+        <briefdescription>
+<para>Winbond start index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga9b85d603a5bbbb6be3165134612dc324" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_128_WB</name>
+        <initializer><ref refid="group__qspips__g128__flash__example_1gabf42c2f8c6c1d0168232d69ee7a92cd8" kindref="member">WINBOND_INDEX_START</ref></initializer>
+        <briefdescription>
+<para>Winbond 128Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="232" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga4b6dad911800c0ba258cda21a6ee6a30" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_128_WB</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gabf42c2f8c6c1d0168232d69ee7a92cd8" kindref="member">WINBOND_INDEX_START</ref> + 1)</initializer>
+        <briefdescription>
+<para>Winbond 128Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga30f64b9f0d7584616535fe263e1a53c3" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_128_WB</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gabf42c2f8c6c1d0168232d69ee7a92cd8" kindref="member">WINBOND_INDEX_START</ref> + 2)</initializer>
+        <briefdescription>
+<para>Winbond 128Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" prot="public" static="no">
+        <name>MACRONIX_INDEX_START</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga30f64b9f0d7584616535fe263e1a53c3" kindref="member">FLASH_CFG_TBL_PARALLEL_128_WB</ref> + 1 - 3)</initializer>
+        <briefdescription>
+<para>Macronix start index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga73b93bef87f945178c3b3dedf095c5da" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_256_MX</name>
+        <initializer><ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref></initializer>
+        <briefdescription>
+<para>Macronix 256Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga3d321201c58e2bcd3ecc393a3202a075" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_256_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 1)</initializer>
+        <briefdescription>
+<para>Macronix 256Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga1a8eec69437a017fdb5b8b0e36e006e0" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_256_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 2)</initializer>
+        <briefdescription>
+<para>Macronix 256Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gaab5d275eebbb8df69a33cfddd85ed4cc" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_512_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 3)</initializer>
+        <briefdescription>
+<para>Macronix 512Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga703a927d42db0e53241360b0248f4111" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_512_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 4)</initializer>
+        <briefdescription>
+<para>Macronix 512Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga3accb9481b4f8fd37557ee1fa3b016c4" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_512_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 5)</initializer>
+        <briefdescription>
+<para>Macronix 512Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga429ab8e8b70e351f6b294761844701d7" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_1G_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 6)</initializer>
+        <briefdescription>
+<para>Macronix 1Gbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga01a9bf8c42089a49e5108b4891fc70c6" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_1G_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 7)</initializer>
+        <briefdescription>
+<para>Macronix 1Gbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad883134d49086bea3cea2ef017d9d453" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_1G_MX</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga04653ab6a202379d934b1f2f92b53661" kindref="member">MACRONIX_INDEX_START</ref> + 8)</initializer>
+        <briefdescription>
+<para>Macronix 1Gbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga5ad8665e1cd2f792406872e0eca1d8db" prot="public" static="no">
+        <name>ISSI_INDEX_START</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1gad883134d49086bea3cea2ef017d9d453" kindref="member">FLASH_CFG_TBL_PARALLEL_1G_MX</ref> + 1)</initializer>
+        <briefdescription>
+<para>ISSI start index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga7d50cc153c7fec8b0fe77db35973866b" prot="public" static="no">
+        <name>FLASH_CFG_TBL_SINGLE_256_ISSI</name>
+        <initializer><ref refid="group__qspips__g128__flash__example_1ga5ad8665e1cd2f792406872e0eca1d8db" kindref="member">ISSI_INDEX_START</ref></initializer>
+        <briefdescription>
+<para>ISSI 256Mbit single mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gadba4a193d44c498d4fa5dd678b6358cd" prot="public" static="no">
+        <name>FLASH_CFG_TBL_STACKED_256_ISSI</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga5ad8665e1cd2f792406872e0eca1d8db" kindref="member">ISSI_INDEX_START</ref> + 1)</initializer>
+        <briefdescription>
+<para>ISSI 256Mbit stacked mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga419891969993ccf4dec1eafb4e36951d" prot="public" static="no">
+        <name>FLASH_CFG_TBL_PARALLEL_256_ISSI</name>
+        <initializer>(<ref refid="group__qspips__g128__flash__example_1ga5ad8665e1cd2f792406872e0eca1d8db" kindref="member">ISSI_INDEX_START</ref> + 2)</initializer>
+        <briefdescription>
+<para>ISSI 256Mbit parallel mode config table index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad01773d6d4e813ca3ab93a5654491bcb" prot="public" static="no">
+        <name>LQSPI_CR_FAST_QUAD_READ</name>
+        <initializer>0x0000006B</initializer>
+        <briefdescription>
+<para>Fast Quad Read output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga8fcc17a327c339c2bd038e9869f0bef1" prot="public" static="no">
+        <name>LQSPI_CR_1_DUMMY_BYTE</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>1 Dummy Byte between address and return data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga44c9b7dadde974cc25ecf3b25b56b8f6" prot="public" static="no">
+        <name>DUAL_STACK_CONFIG_WRITE</name>
+        <initializer>(<ref refid="group__qspips__api_1ga2dad6e5df54b9e6cf4a276eaf92c6dd2" kindref="member">XQSPIPS_LQSPI_CR_TWO_MEM_MASK</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1ga8fcc17a327c339c2bd038e9869f0bef1" kindref="member">LQSPI_CR_1_DUMMY_BYTE</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1gad01773d6d4e813ca3ab93a5654491bcb" kindref="member">LQSPI_CR_FAST_QUAD_READ</ref>)</initializer>
+        <briefdescription>
+<para>LQSPI configuration register value for dual stacked flash mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gabf76861078dd81325e0d7f93f867184d" prot="public" static="no">
+        <name>DUAL_QSPI_CONFIG_WRITE</name>
+        <initializer>(<ref refid="group__qspips__api_1ga2dad6e5df54b9e6cf4a276eaf92c6dd2" kindref="member">XQSPIPS_LQSPI_CR_TWO_MEM_MASK</ref> | \
+					 <ref refid="group__qspips__api_1ga18b5ef37d915313347cc7bc90d2136da" kindref="member">XQSPIPS_LQSPI_CR_SEP_BUS_MASK</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1ga8fcc17a327c339c2bd038e9869f0bef1" kindref="member">LQSPI_CR_1_DUMMY_BYTE</ref> | \
+					 <ref refid="group__qspips__g128__flash__example_1gad01773d6d4e813ca3ab93a5654491bcb" kindref="member">LQSPI_CR_FAST_QUAD_READ</ref>)</initializer>
+        <briefdescription>
+<para>LQSPI configuration register value for dual parallel flash mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga782f22e23dde7fc39ed8d5e1f4c9b141" prot="public" static="no">
+        <name>PAGE_COUNT</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Number of flash pages to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga7c4410712a9f7874ae814e10ebbc3f5b" prot="public" static="no">
+        <name>MAX_PAGE_SIZE</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Max page size to initialize write and read buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1ga9376dcef436c7d444fe4d1fd11749101" prot="public" static="no">
+        <name>TEST_ADDRESS</name>
+        <initializer>0x000000</initializer>
+        <briefdescription>
+<para>Flash address to which data is to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips__g128__flash__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Start value of the data pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/qspips/examples/xqspips_g128_flash_example.c" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

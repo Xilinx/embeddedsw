@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('index.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>The configuration of the USB driver happens in multiple stages:</p>
 <ul>
 <li>(a) Configuration of the basic parameters: In this stage the basic parameters for the driver are configured, including the base address and the controller ID.</li>
-<li>(b) Configuration of the DEVICE endpoints (if applicable): If DEVICE mode is desired, the endpoints of the controller need to be configured using the <a class="el" href="struct_x_usb_ps___device_config.html" title="The XUsbPs_DeviceConfig structure contains the configuration information to configure the USB control...">XUsbPs_DeviceConfig</a> data structure. Once the endpoint configuration is set up in the data structure, The user then needs to allocate the required amount of DMAable memory and finalize the configuration of the <a class="el" href="struct_x_usb_ps___device_config.html" title="The XUsbPs_DeviceConfig structure contains the configuration information to configure the USB control...">XUsbPs_DeviceConfig</a> data structure, e.g. setting the DMAMemVirt and DMAMemPhys members.</li>
+<li>(b) Configuration of the DEVICE endpoints (if applicable): If DEVICE mode is desired, the endpoints of the controller need to be configured using the <a class="el" href="struct_x_usb_ps___device_config.html" title="The XUsbPs_DeviceConfig structure contains the configuration information to configure the USB control...">XUsbPs_DeviceConfig</a> data structure. Once the endpoint configuration is set up in the data structure, The user then needs to allocate the required amount of DMAable memory and finalize the configuration of the <a class="el" href="struct_x_usb_ps___device_config.html" title="The XUsbPs_DeviceConfig structure contains the configuration information to configure the USB control...">XUsbPs_DeviceConfig</a> data structure, for example setting the DMAMemVirt and DMAMemPhys members.</li>
 <li>(c) Configuration of the DEVICE modes: In the second stage the parameters for DEVICE are configured. The caller only needs to configure the modes that are actually used. Configuration is done with the: <a class="el" href="group__usbps.html#ga6daace32113a806a6822a6d5943a93f4" title="This function configures the DEVICE side of the controller. ">XUsbPs_ConfigureDevice()</a> Configuration parameters are defined and passed into these functions using the: <a class="el" href="struct_x_usb_ps___device_config.html" title="The XUsbPs_DeviceConfig structure contains the configuration information to configure the USB control...">XUsbPs_DeviceConfig</a> data structures.</li>
 </ul>
 <h2>USB Device Endpoints</h2>
@@ -138,7 +138,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <h3>Zero copy</h3>
 <p>The driver uses a zero copy mechanism which imposes certain restrictions to the way the user can handle the data buffers.</p>
 <p>One restriction is that the user needs to release a buffer after it is done processing the data in the buffer.</p>
-<p>Similarly, when the user sends a data buffer it MUST not re-use the buffer until it is notified by the driver that the buffer has been transmitted. The driver will notify the user via the registered endpoint interrupt handling function by sending a XUSBPS_EP_EVENT_DATA_TX event.</p>
+<p>Similarly, when the user sends a data buffer it MUST not reuse the buffer until it is notified by the driver that the buffer has been transmitted. The driver will notify the user via the registered endpoint interrupt handling function by sending a XUSBPS_EP_EVENT_DATA_TX event.</p>
 <h2>DMA</h2>
 <p>The driver uses DMA internally to move data from/to memory. This behaviour is transparent to the user. Keeping the DMA handling hidden from the user has the advantage that the same API can be used with USB cores that do not support DMA.</p>
 <pre>
@@ -169,6 +169,7 @@ $(document).ready(function(){initNavTree('index.html','');});
                         calls.
  2.8   pm  07/07/23 Added support for system device-tree flow.
  2.11  ka  01/29/26 Fix codespell errors.
+ 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

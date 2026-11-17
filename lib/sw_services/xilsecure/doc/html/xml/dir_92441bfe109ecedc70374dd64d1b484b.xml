@@ -11,14 +11,10 @@
     <innerfile refid="spartanup_2xsecure__plat_8h">spartanup/xsecure_plat.h</innerfile>
     <innerfile refid="server_2spartanup_2xsecure__sha3alginfo_8h">server/spartanup/xsecure_sha3alginfo.h</innerfile>
     <innerfile refid="spartanup_2xsecure__sha__hw_8h">spartanup/xsecure_sha_hw.h</innerfile>
-    <innerfile refid="spartanup_2xsecure__sss_8c">spartanup/xsecure_sss.c</innerfile>
-    <innerfile refid="spartanup_2xsecure__sss_8h">spartanup/xsecure_sss.h</innerfile>
-    <innerfile refid="spartanup_2xsecure__utils_8c">spartanup/xsecure_utils.c</innerfile>
-    <innerfile refid="spartanup_2xsecure__utils_8h">spartanup/xsecure_utils.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/"/>
   </compounddef>
 </doxygen>

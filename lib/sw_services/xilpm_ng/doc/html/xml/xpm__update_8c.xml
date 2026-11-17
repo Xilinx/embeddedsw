@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__update_8c" kind="file">
+    <compoundname>xpm_update.c</compoundname>
+    <includes refid="xpm__update_8h" local="yes">xpm_update.h</includes>
+    <includes local="yes">xplmi_update.h</includes>
+    <includes refid="xpm__node_8h" local="yes">xpm_node.h</includes>
+    <includes refid="xpm__alloc_8h" local="yes">xpm_alloc.h</includes>
+    <includes refid="xpm__regs_8h" local="yes">xpm_regs.h</includes>
+    <includes local="yes">xplmi_modules.h</includes>
+    <includes local="yes">xcframe.h</includes>
+    <includes refid="xpm__clock_8h" local="yes">xpm_clock.h</includes>
+    <includes local="yes">xpm_memory_pools.h</includes>
+    <incdepgraph>
+      <node id="5249">
+        <label>xpm_alloc.h</label>
+        <childnode refid="5239" relation="include">
+        </childnode>
+        <childnode refid="5240" relation="include">
+        </childnode>
+      </node>
+      <node id="5247">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="5239" relation="include">
+        </childnode>
+        <childnode refid="5248" relation="include">
+        </childnode>
+      </node>
+      <node id="5243">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5245">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="5240" relation="include">
+        </childnode>
+      </node>
+      <node id="5248">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="5251">
+        <label>xplmi_modules.h</label>
+      </node>
+      <node id="5237">
+        <label>xplmi_update.h</label>
+      </node>
+      <node id="5244">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5242">
+        <label>xpm_common.h</label>
+        <childnode refid="5240" relation="include">
+        </childnode>
+        <childnode refid="5243" relation="include">
+        </childnode>
+        <childnode refid="5244" relation="include">
+        </childnode>
+        <childnode refid="5245" relation="include">
+        </childnode>
+        <childnode refid="5246" relation="include">
+        </childnode>
+        <childnode refid="5247" relation="include">
+        </childnode>
+      </node>
+      <node id="5246">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5238">
+        <label>xpm_node.h</label>
+        <childnode refid="5239" relation="include">
+        </childnode>
+        <childnode refid="5240" relation="include">
+        </childnode>
+        <childnode refid="5241" relation="include">
+        </childnode>
+        <childnode refid="5242" relation="include">
+        </childnode>
+      </node>
+      <node id="5250">
+        <label>xpm_regs.h</label>
+      </node>
+      <node id="5255">
+        <label>xpm_memory_pools.h</label>
+      </node>
+      <node id="5235">
+        <label>xpm_update.c</label>
+        <link refid="xpm_update.c"/>
+        <childnode refid="5236" relation="include">
+        </childnode>
+        <childnode refid="5237" relation="include">
+        </childnode>
+        <childnode refid="5238" relation="include">
+        </childnode>
+        <childnode refid="5249" relation="include">
+        </childnode>
+        <childnode refid="5250" relation="include">
+        </childnode>
+        <childnode refid="5251" relation="include">
+        </childnode>
+        <childnode refid="5252" relation="include">
+        </childnode>
+        <childnode refid="5253" relation="include">
+        </childnode>
+        <childnode refid="5255" relation="include">
+        </childnode>
+      </node>
+      <node id="5254">
+        <label>xpm_power.h</label>
+        <childnode refid="5247" relation="include">
+        </childnode>
+        <childnode refid="5238" relation="include">
+        </childnode>
+      </node>
+      <node id="5236">
+        <label>xpm_update.h</label>
+      </node>
+      <node id="5240">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5253">
+        <label>xpm_clock.h</label>
+        <childnode refid="5242" relation="include">
+        </childnode>
+        <childnode refid="5238" relation="include">
+        </childnode>
+        <childnode refid="5254" relation="include">
+        </childnode>
+      </node>
+      <node id="5239">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5252">
+        <label>xcframe.h</label>
+      </node>
+      <node id="5241">
+        <label>xpm_nodeid.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__update_8c_1a9a9fa1164ced78675b92d3f54bbf1052" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 __xpm_init_data_start[]</definition>
+        <argsstring>[]</argsstring>
+        <name>__xpm_init_data_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="21" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__update_8c_1a09f612a9b45426a7e6c7f069f17c5ce4" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 __xpm_init_data_size[]</definition>
+        <argsstring>[]</argsstring>
+        <name>__xpm_init_data_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="22" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__update_8c_1afdd931b23171781bf03744b43a658399" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 __xpm_topo_start[]</definition>
+        <argsstring>[]</argsstring>
+        <name>__xpm_topo_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="23" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpm__update_8c_1a3b5077aa37c6c085c600144c58b53f01" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 __xpm_board_bss_start[]</definition>
+        <argsstring>[]</argsstring>
+        <name>__xpm_board_bss_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="27" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__update_8c_1ab74fda5cffd9f369d9085c0028f129fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EXPORT_DS</definition>
+        <argsstring>(XPmInitData, XPLMI_MODULE_XILPM_ID, XPM_DEVICETABLE_DS_ID, XPM_TOPOLOGY_DS_VERSION, XPM_TOPOLOGY_DS_LCVERSION,(u32)(UINTPTR) __xpm_init_data_size,(u32)(UINTPTR) __xpm_init_data_start)</argsstring>
+        <name>EXPORT_DS</name>
+        <param>
+          <type>XPmInitData</type>
+        </param>
+        <param>
+          <type>XPLMI_MODULE_XILPM_ID</type>
+        </param>
+        <param>
+          <type>XPM_DEVICETABLE_DS_ID</type>
+        </param>
+        <param>
+          <type>XPM_TOPOLOGY_DS_VERSION</type>
+        </param>
+        <param>
+          <type>XPM_TOPOLOGY_DS_LCVERSION</type>
+        </param>
+        <param>
+          <type>(u32)(UINTPTR)</type>
+          <declname>__xpm_init_data_size</declname>
+        </param>
+        <param>
+          <type>(u32)(UINTPTR)</type>
+          <declname>__xpm_init_data_start</declname>
+        </param>
+        <briefdescription>
+<para>Export .xpm_initialized_data section for IPU save/restore. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="30" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8c_1aafc1c357cbad61222e8e09d461339f62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EXPORT_DS</definition>
+        <argsstring>(XPmTopoData, XPLMI_MODULE_XILPM_ID, XPM_TOPOLOGY_DS_ID, XPM_TOPOLOGY_DS_VERSION, XPM_TOPOLOGY_DS_LCVERSION, MAX_TOPO_POOL_SIZE,(u32)(UINTPTR) __xpm_topo_start)</argsstring>
+        <name>EXPORT_DS</name>
+        <param>
+          <type>XPmTopoData</type>
+        </param>
+        <param>
+          <type>XPLMI_MODULE_XILPM_ID</type>
+        </param>
+        <param>
+          <type>XPM_TOPOLOGY_DS_ID</type>
+        </param>
+        <param>
+          <type>XPM_TOPOLOGY_DS_VERSION</type>
+        </param>
+        <param>
+          <type>XPM_TOPOLOGY_DS_LCVERSION</type>
+        </param>
+        <param>
+          <type>MAX_TOPO_POOL_SIZE</type>
+        </param>
+        <param>
+          <type>(u32)(UINTPTR)</type>
+          <declname>__xpm_topo_start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="36" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__update_8c_1aabd5be6d4969abec239ce2f894a4ba84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EXPORT_DS</definition>
+        <argsstring>(XPmBoardBssData, XPLMI_MODULE_XILPM_ID, XPM_BOARD_POOL_DS_ID, XPM_BOARD_POOL_DS_VERSION, XPM_BOARD_POOL_DS_LCVERSION, MAX_BOARD_POOL_SIZE,(u32)(UINTPTR) __xpm_board_bss_start)</argsstring>
+        <name>EXPORT_DS</name>
+        <param>
+          <type>XPmBoardBssData</type>
+        </param>
+        <param>
+          <type>XPLMI_MODULE_XILPM_ID</type>
+        </param>
+        <param>
+          <type>XPM_BOARD_POOL_DS_ID</type>
+        </param>
+        <param>
+          <type>XPM_BOARD_POOL_DS_VERSION</type>
+        </param>
+        <param>
+          <type>XPM_BOARD_POOL_DS_LCVERSION</type>
+        </param>
+        <param>
+          <type>MAX_BOARD_POOL_SIZE</type>
+        </param>
+        <param>
+          <type>(u32)(UINTPTR)</type>
+          <declname>__xpm_board_bss_start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c" line="51" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_update.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_node.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_alloc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_regs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_modules.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcframe.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XILPM_RUNTIME</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_subsystem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_access.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_gic_proxy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_ioctl.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_clock.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_memory_pools.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>__xpm_init_data_start[];</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>__xpm_init_data_size[];</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>__xpm_topo_start[];</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XILPM_RUNTIME</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>__xpm_subsys_start[];</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>__xpm_board_bss_start[];</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">EXPORT_DS(XPmInitData,<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_XILPM_ID,<sp/>XPM_DEVICETABLE_DS_ID,<sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_TOPOLOGY_DS_VERSION,<sp/>XPM_TOPOLOGY_DS_LCVERSION,<sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)__xpm_init_data_size,<sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)__xpm_init_data_start);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">EXPORT_DS(XPmTopoData,<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_XILPM_ID,<sp/>XPM_TOPOLOGY_DS_ID,<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_TOPOLOGY_DS_VERSION,<sp/>XPM_TOPOLOGY_DS_LCVERSION,<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_TOPO_POOL_SIZE,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)__xpm_topo_start);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XILPM_RUNTIME</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">EXPORT_DS(XPmSubsysData,<sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_XILPM_ID,<sp/>XPM_SUBSYSTEMPOOL_DS_ID,<sp/>\</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_SUBSYSTEMPOOL_DS_VERSION,<sp/>XPM_SUBSYSTEMPOOL_DS_LCVERSION,<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_RUNTIME_POOL_TOTAL_SIZE,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)__xpm_subsys_start);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">EXPORT_DS(XPmBoardBssData,<sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_XILPM_ID,<sp/>XPM_BOARD_POOL_DS_ID,<sp/>\</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPM_BOARD_POOL_DS_VERSION,<sp/>XPM_BOARD_POOL_DS_LCVERSION,<sp/>\</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_BOARD_POOL_SIZE,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)__xpm_board_bss_start);</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/util/xpm_update.c"/>
+  </compounddef>
+</doxygen>

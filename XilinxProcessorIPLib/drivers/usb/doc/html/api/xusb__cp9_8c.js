@@ -13,5 +13,16 @@ var xusb__cp9_8c =
     [ "SetConfiguration", "xusb__cp9_8c.html#aa8556bb31c18a1a79e669d398eb3d550", null ],
     [ "SetDescriptor", "xusb__cp9_8c.html#a200f2b9a12625de5fe962edf82883b81", null ],
     [ "SetInterface", "xusb__cp9_8c.html#a09af7a51b9335e930098d2453c35ee0e", null ],
-    [ "SetupControlWriteStatusStage", "xusb__cp9_8c.html#a0e70dcdbdf3db1095a5b1b4128041618", null ]
+    [ "SetupControlWriteStatusStage", "xusb__cp9_8c.html#a0e70dcdbdf3db1095a5b1b4128041618", null ],
+    [ "Ch9_CmdBuf", "xusb__cp9_8c.html#a04e44d422ce05f3671ecc108f05052cc", null ],
+    [ "DeviceDescriptor", "xusb__cp9_8c.html#ac4bdafe0046dc17cfcdd12be1bb63625", null ],
+    [ "FsUsbConfig", "xusb__cp9_8c.html#afcecaf21775b5a46f61bfe7b3105a66a", null ],
+    [ "HsUsbConfig", "xusb__cp9_8c.html#a971ac86b08ae38fa87f7736e5204519c", null ],
+    [ "LangId", "xusb__cp9_8c.html#adbdbad4b579e8bd1364d4b693415e8d7", null ],
+    [ "Manufacturer", "xusb__cp9_8c.html#a58563e9bd150a409f7a2125d278193fd", null ],
+    [ "MaxControlSize", "xusb__cp9_8c.html#a0014b91940ed2f067400662f504bb379", null ],
+    [ "ProductString", "xusb__cp9_8c.html#a57b731f7097383c6437ca6f630531877", null ],
+    [ "QualifierDescriptor", "xusb__cp9_8c.html#ad12db18ccb5deaee6a65484d8b2d980a", null ],
+    [ "SerialNumber", "xusb__cp9_8c.html#a92be68d0e935e72e63cba78625bdc26a", null ],
+    [ "UsbMemData", "xusb__cp9_8c.html#aad134fa6705cabd23302ccfbd27b9c60", null ]
 ];

@@ -1,5 +1,7 @@
 var xaxicdma__bdring_8c =
 [
+    [ "XAXICDMA_RING_SEEKAHEAD", "xaxicdma__bdring_8c.html#ga8b27999c6bc00de70e631d559e730074", null ],
+    [ "XAXICDMA_RING_SEEKBACK", "xaxicdma__bdring_8c.html#ga51a73e9c6757c7b3aca56d452abda2e8", null ],
     [ "XAxiCdma_BdRingAlloc", "xaxicdma__bdring_8c.html#ga27dd0cdc27b7a724533db75336c4acc6", null ],
     [ "XAxiCdma_BdRingClone", "xaxicdma__bdring_8c.html#ga3183f9f25654d2a066c19213f29897be", null ],
     [ "XAxiCdma_BdRingCntCalc", "xaxicdma__bdring_8c.html#ga18d5a9deaab709c610d32e42c77df952", null ],
@@ -13,6 +15,7 @@ var xaxicdma__bdring_8c =
     [ "XAxiCdma_BdRingNext", "xaxicdma__bdring_8c.html#gabfe3657b7aad9487946d6bb436aeba18", null ],
     [ "XAxiCdma_BdRingPrev", "xaxicdma__bdring_8c.html#ga24af2a3eacaf56c972e6313683a3f7e0", null ],
     [ "XAxiCdma_BdRingSnapShotCurrBd", "xaxicdma__bdring_8c.html#ga4677cddba8354ca3979f9b6ae386ffde", null ],
+    [ "XAxiCdma_BdRingStartTransfer", "xaxicdma__bdring_8c.html#ga846b6992b84583d1692bf742e15e04fb", null ],
     [ "XAxiCdma_BdRingToHw", "xaxicdma__bdring_8c.html#ga3c5cd26d9fd3311c2ccfa4253c587e68", null ],
     [ "XAxiCdma_BdRingUnAlloc", "xaxicdma__bdring_8c.html#ga9be6e4072c2a17f4519ffa9f9ec3332f", null ],
     [ "XAxiCdma_BdSetCurBdPtr", "xaxicdma__bdring_8c.html#gae1333cf9309c85b0f620e026c889e01c", null ],

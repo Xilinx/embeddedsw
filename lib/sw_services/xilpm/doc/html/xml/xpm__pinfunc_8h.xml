@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__pinfunc_8h" kind="file">
+    <compoundname>xpm_pinfunc.h</compoundname>
+    <includes refid="xpm__device_8h" local="yes">xpm_device.h</includes>
+    <includes local="yes">xpm_pinfunc_plat.h</includes>
+    <includedby refid="server_2xpm__pin__plat_8h" local="yes">xpm_pin_plat.h</includedby>
+    <includedby refid="server_2xpm__pinfunc__plat_8c" local="yes">xpm_pinfunc_plat.c</includedby>
+    <includedby refid="xpm__pin_8h" local="yes">xpm_pin.h</includedby>
+    <includedby refid="xpm__pinfunc_8c" local="yes">xpm_pinfunc.c</includedby>
+    <includedby refid="net_2server_2xpm__pin__plat_8h" local="yes">xpm_pin_plat.h</includedby>
+    <includedby refid="net_2server_2xpm__pinfunc__plat_8c" local="yes">xpm_pinfunc_plat.c</includedby>
+    <incdepgraph>
+      <node id="5504">
+        <label>xpm_clock_plat.h</label>
+      </node>
+      <node id="5494">
+        <label>xil_io.h</label>
+      </node>
+      <node id="5506">
+        <label>xpm_subsystem.h</label>
+        <childnode refid="5507" relation="include">
+        </childnode>
+        <childnode refid="5500" relation="include">
+        </childnode>
+        <childnode refid="5491" relation="include">
+        </childnode>
+        <childnode refid="5510" relation="include">
+        </childnode>
+      </node>
+      <node id="5489">
+        <label>xpm_node.h</label>
+        <childnode refid="5490" relation="include">
+        </childnode>
+        <childnode refid="5491" relation="include">
+        </childnode>
+        <childnode refid="5492" relation="include">
+        </childnode>
+        <childnode refid="5493" relation="include">
+        </childnode>
+      </node>
+      <node id="5496">
+        <label>xpm_err.h</label>
+      </node>
+      <node id="5503">
+        <label>xpm_clock.h</label>
+        <childnode refid="5493" relation="include">
+        </childnode>
+        <childnode refid="5504" relation="include">
+        </childnode>
+        <childnode refid="5489" relation="include">
+        </childnode>
+        <childnode refid="5499" relation="include">
+        </childnode>
+      </node>
+      <node id="5495">
+        <label>xil_util.h</label>
+      </node>
+      <node id="5497">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="5501">
+        <label>xpm_power_plat.h</label>
+      </node>
+      <node id="5500">
+        <label>xpm_defs.h</label>
+      </node>
+      <node id="5510">
+        <label>xpm_subsystem_plat.h</label>
+      </node>
+      <node id="5512">
+        <label>xpm_device_plat.h</label>
+      </node>
+      <node id="5511">
+        <label>xpm_reset_plat.h</label>
+      </node>
+      <node id="5491">
+        <label>xstatus.h</label>
+      </node>
+      <node id="5488">
+        <label>xpm_device.h</label>
+        <childnode refid="5489" relation="include">
+        </childnode>
+        <childnode refid="5499" relation="include">
+        </childnode>
+        <childnode refid="5503" relation="include">
+        </childnode>
+        <childnode refid="5505" relation="include">
+        </childnode>
+        <childnode refid="5512" relation="include">
+        </childnode>
+      </node>
+      <node id="5492">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="5508">
+        <label>xpm_api_plat.h</label>
+      </node>
+      <node id="5490">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5498">
+        <label>xpm_common_plat.h</label>
+      </node>
+      <node id="5513">
+        <label>xpm_pinfunc_plat.h</label>
+      </node>
+      <node id="5493">
+        <label>xpm_common.h</label>
+        <childnode refid="5491" relation="include">
+        </childnode>
+        <childnode refid="5494" relation="include">
+        </childnode>
+        <childnode refid="5495" relation="include">
+        </childnode>
+        <childnode refid="5496" relation="include">
+        </childnode>
+        <childnode refid="5497" relation="include">
+        </childnode>
+        <childnode refid="5498" relation="include">
+        </childnode>
+      </node>
+      <node id="5507">
+        <label>xpm_api.h</label>
+        <childnode refid="5490" relation="include">
+        </childnode>
+        <childnode refid="5491" relation="include">
+        </childnode>
+        <childnode refid="5500" relation="include">
+        </childnode>
+        <childnode refid="5496" relation="include">
+        </childnode>
+        <childnode refid="5508" relation="include">
+        </childnode>
+        <childnode refid="5509" relation="include">
+        </childnode>
+      </node>
+      <node id="5499">
+        <label>xpm_power.h</label>
+        <childnode refid="5500" relation="include">
+        </childnode>
+        <childnode refid="5489" relation="include">
+        </childnode>
+        <childnode refid="5501" relation="include">
+        </childnode>
+        <childnode refid="5502" relation="include">
+        </childnode>
+      </node>
+      <node id="5502">
+        <label>xpm_config.h</label>
+      </node>
+      <node id="5509">
+        <label>xplmi_ipi.h</label>
+      </node>
+      <node id="5487">
+        <label>xpm_pinfunc.h</label>
+        <link refid="xpm_pinfunc.h"/>
+        <childnode refid="5488" relation="include">
+        </childnode>
+        <childnode refid="5513" relation="include">
+        </childnode>
+      </node>
+      <node id="5505">
+        <label>xpm_reset.h</label>
+        <childnode refid="5489" relation="include">
+        </childnode>
+        <childnode refid="5493" relation="include">
+        </childnode>
+        <childnode refid="5506" relation="include">
+        </childnode>
+        <childnode refid="5511" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5516">
+        <label>xpm_api_plat.c</label>
+      </node>
+      <node id="5522">
+        <label>xpm_subsystem.c</label>
+      </node>
+      <node id="5527">
+        <label>xpm_pinfunc_plat.c</label>
+      </node>
+      <node id="5524">
+        <label>xpm_update.c</label>
+      </node>
+      <node id="5517">
+        <label>xpm_pinfunc_plat.c</label>
+      </node>
+      <node id="5520">
+        <label>xpm_api.c</label>
+      </node>
+      <node id="5523">
+        <label>xpm_pin_plat.c</label>
+      </node>
+      <node id="5526">
+        <label>xpm_pin_plat.h</label>
+        <childnode refid="5518" relation="include">
+        </childnode>
+      </node>
+      <node id="5525">
+        <label>xpm_pinfunc.c</label>
+      </node>
+      <node id="5514">
+        <label>xpm_pinfunc.h</label>
+        <link refid="xpm_pinfunc.h"/>
+        <childnode refid="5515" relation="include">
+        </childnode>
+        <childnode refid="5517" relation="include">
+        </childnode>
+        <childnode refid="5518" relation="include">
+        </childnode>
+        <childnode refid="5525" relation="include">
+        </childnode>
+        <childnode refid="5526" relation="include">
+        </childnode>
+        <childnode refid="5527" relation="include">
+        </childnode>
+      </node>
+      <node id="5521">
+        <label>xpm_pin.c</label>
+      </node>
+      <node id="5518">
+        <label>xpm_pin.h</label>
+        <childnode refid="5516" relation="include">
+        </childnode>
+        <childnode refid="5519" relation="include">
+        </childnode>
+        <childnode refid="5520" relation="include">
+        </childnode>
+        <childnode refid="5521" relation="include">
+        </childnode>
+        <childnode refid="5522" relation="include">
+        </childnode>
+        <childnode refid="5523" relation="include">
+        </childnode>
+        <childnode refid="5524" relation="include">
+        </childnode>
+      </node>
+      <node id="5519">
+        <label>xpm_pin_plat.c</label>
+      </node>
+      <node id="5515">
+        <label>xpm_pin_plat.h</label>
+        <childnode refid="5516" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pm___pin_func" prot="public">XPm_PinFunc</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpm__pinfunc_8h_1adbfbf17505e88e7a485bb537decfafd9" prot="public" static="no">
+        <name>FUNC_NAME_SIZE</name>
+        <initializer>(16U)		/* Function name string size */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1a1f546fe41d11d1701352784ef9ce04c0" prot="public" static="no">
+        <name>MAX_GROUPS_PER_RES</name>
+        <initializer>(6U)		/* Max No. of groups per query response */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1a8e6db14846e966311428e752e2947416" prot="public" static="no">
+        <name>INVALID_FUNC_ID</name>
+        <initializer>(0xFFFFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1ac3cfda21c2d514c6169ea46547e45b8b" prot="public" static="no">
+        <name>END_OF_GRP</name>
+        <initializer>(0xFFU)		/* -1 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpm__pinfunc_8h_1ad2865fc5ebdce87688e5add4780d9320" prot="public" static="no">
+        <name>RESERVED_GRP</name>
+        <initializer>(0xFFFEU)	/* -2 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xpm__pinfunc_8h_1aa734c0814d6cfbb1e1756bfbc27f5f51" prot="public" static="no">
+        <type>struct <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref></type>
+        <definition>typedef struct XPm_PinFunc XPm_PinFunc</definition>
+        <argsstring></argsstring>
+        <name>XPm_PinFunc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a8451b32c7729f14518d45fe3db2be617" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref> *</type>
+        <definition>XPm_PinFunc* XPmPinFunc_GetById</definition>
+        <argsstring>(u32 FuncId)</argsstring>
+        <name>XPmPinFunc_GetById</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns handle to requested <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref> struct. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to <ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref> if successful, NULL otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal/server/xpm_pinfunc_plat.c" bodystart="1164" bodyend="1173"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1aa4a750a5df583aaf8e6f7c97486e46e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetNumFuncs</definition>
+        <argsstring>(u32 *NumFuncs)</argsstring>
+        <name>XPmPinFunc_GetNumFuncs</name>
+        <param>
+          <type>u32 *</type>
+          <declname>NumFuncs</declname>
+        </param>
+        <briefdescription>
+<para>This function returns total number of functions available. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NumFuncs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of functions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.c" bodystart="21" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a3532cd8ff9e1e8e857ef1ec65678f423" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetFuncName</definition>
+        <argsstring>(u32 FuncId, char *FuncName)</argsstring>
+        <name>XPmPinFunc_GetFuncName</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>FuncName</declname>
+        </param>
+        <briefdescription>
+<para>This function returns function name based on function ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.c" bodystart="37" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a3068053be05ed358fd155d77da4a56f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetNumFuncGroups</definition>
+        <argsstring>(u32 FuncId, u32 *NumGroups)</argsstring>
+        <name>XPmPinFunc_GetNumFuncGroups</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>NumGroups</declname>
+        </param>
+        <briefdescription>
+<para>This function returns number of groups in function based on function ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumGroups</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of groups.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.c" bodystart="71" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="xpm__pinfunc_8h_1a02066588b216c62a39deb302aea12fa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmPinFunc_GetFuncGroups</definition>
+        <argsstring>(u32 FuncId, u32 Index, u16 *Groups)</argsstring>
+        <name>XPmPinFunc_GetFuncGroups</name>
+        <param>
+          <type>u32</type>
+          <declname>FuncId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Index</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>Groups</declname>
+        </param>
+        <briefdescription>
+<para>This function returns groups present in function based on function ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>Index 0 returns the first 6 group IDs, index 6 returns the next 6 group IDs, and so forth.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of next function groups </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Groups</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function groups.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE or an error code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.c" bodystart="98" bodyend="132"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_PINFUNC_H_</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_PINFUNC_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_device.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_pinfunc_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FUNC_NAME_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Function<sp/>name<sp/>string<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_GROUPS_PER_RES<sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>No.<sp/>of<sp/>groups<sp/>per<sp/>query<sp/>response<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INVALID_FUNC_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFU)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>END_OF_GRP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-1<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RESERVED_GRP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFEU)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref><sp/><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="struct_x_pm___pin_func" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref><sp/>{</highlight></codeline>
+<codeline lineno="30" refid="struct_x_pm___pin_func_1a0016c280618c364195f3d2fb36eb0c0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((nonstring))<sp/>char<sp/><ref refid="struct_x_pm___pin_func_1a0016c280618c364195f3d2fb36eb0c0a" kindref="member">Name</ref>[FUNC_NAME_SIZE];<sp/></highlight></codeline>
+<codeline lineno="31" refid="struct_x_pm___pin_func_1a7824f6f08d982c3a970362186ca35322" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___pin_func_1a7824f6f08d982c3a970362186ca35322" kindref="member">Id</ref>;<sp/></highlight></codeline>
+<codeline lineno="32" refid="struct_x_pm___pin_func_1a4c2f8ef1731012cb869e19693f0fb125" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___pin_func_1a4c2f8ef1731012cb869e19693f0fb125" kindref="member">NumPins</ref>;<sp/></highlight></codeline>
+<codeline lineno="33" refid="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_pm___pin_func_1a03afc948382489c87833a869d6a5c272" kindref="member">NumGroups</ref>;<sp/></highlight></codeline>
+<codeline lineno="34" refid="struct_x_pm___pin_func_1af47bc2dcb9596860e4b20c9c37d0a619" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___pin_func_1af47bc2dcb9596860e4b20c9c37d0a619" kindref="member">DevIdx</ref>;<sp/></highlight></codeline>
+<codeline lineno="35" refid="struct_x_pm___pin_func_1a4fbaa64845b097b204d767da6c0ec35b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___pin_func_1a4fbaa64845b097b204d767da6c0ec35b" kindref="member">LmioRegMask</ref>;<sp/></highlight></codeline>
+<codeline lineno="36" refid="struct_x_pm___pin_func_1a94c98d35ea6117b351fc26c6054d5c38" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_pm___pin_func_1a94c98d35ea6117b351fc26c6054d5c38" kindref="member">PmioRegMask</ref>;<sp/></highlight></codeline>
+<codeline lineno="37" refid="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*<ref refid="struct_x_pm___pin_func_1ab277122dcdcb2bdc34b6277a1de1d9fd" kindref="member">Groups</ref>;<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><ref refid="struct_x_pm___pin_func" kindref="compound">XPm_PinFunc</ref><sp/>*XPmPinFunc_GetById(u32<sp/>FuncId);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetNumFuncs(u32<sp/>*NumFuncs);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetFuncName(u32<sp/>FuncId,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*FuncName);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetNumFuncGroups(u32<sp/>FuncId,<sp/>u32<sp/>*NumGroups);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">XStatus<sp/>XPmPinFunc_GetFuncGroups(u32<sp/>FuncId,<sp/>u32<sp/>Index,<sp/>u16<sp/>*Groups);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_PINFUNC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h"/>
+  </compounddef>
+</doxygen>

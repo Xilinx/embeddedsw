@@ -10,21 +10,32 @@
     <includes local="yes">xil_types.h</includes>
     <includes local="yes">xparameters.h</includes>
     <incdepgraph>
-      <node id="2874">
+      <node id="2873">
         <label>xil_io.h</label>
       </node>
-      <node id="2871">
+      <node id="2870">
         <label>stdlib.h</label>
       </node>
-      <node id="2873">
+      <node id="2872">
         <label>xdebug.h</label>
       </node>
-      <node id="2872">
+      <node id="2871">
         <label>string.h</label>
       </node>
+      <node id="2874">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2875">
+        <label>xparameters.h</label>
+      </node>
       <node id="2869">
+        <label>stdio.h</label>
+      </node>
+      <node id="2868">
         <label>xhdcp1x_debug.c</label>
         <link refid="zcu_pt_dp14_hdcp/xhdcp1x_debug.c"/>
+        <childnode refid="2869" relation="include">
+        </childnode>
         <childnode refid="2870" relation="include">
         </childnode>
         <childnode refid="2871" relation="include">
@@ -37,17 +48,6 @@
         </childnode>
         <childnode refid="2875" relation="include">
         </childnode>
-        <childnode refid="2876" relation="include">
-        </childnode>
-      </node>
-      <node id="2875">
-        <label>xil_types.h</label>
-      </node>
-      <node id="2876">
-        <label>xparameters.h</label>
-      </node>
-      <node id="2870">
-        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -1055,6 +1055,6 @@
 <codeline lineno="1236"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1237"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp1x_debug.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp1x_debug.c"/>
   </compounddef>
 </doxygen>

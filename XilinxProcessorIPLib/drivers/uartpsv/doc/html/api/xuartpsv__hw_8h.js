@@ -1,7 +1,6 @@
 var xuartpsv__hw_8h =
 [
     [ "XUARTPSV_FLOWDEL_MASK", "xuartpsv__hw_8h.html#ga5f215e3b57a0c0cf69b85241fcd4d226", null ],
-    [ "XUARTPSV_HW_H", "xuartpsv__hw_8h.html#ga2742ac56c471a4ac8c605979d3bb0665", null ],
     [ "XUartPsv_IsReceiveData", "xuartpsv__hw_8h.html#ga72e127b91f03728e0b58b2b3b6373dd9", null ],
     [ "XUartPsv_IsTransmitbusy", "xuartpsv__hw_8h.html#ga9ff4c2f51e7f3e9a5d0b017c841a7ab3", null ],
     [ "XUartPsv_IsTransmitFull", "xuartpsv__hw_8h.html#ga04b62e0a1ad868d0a75238356c973336", null ],

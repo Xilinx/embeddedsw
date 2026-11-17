@@ -17,6 +17,6 @@
 <codeline lineno="8"><highlight class="normal">endif()</highlight></codeline>
 <codeline lineno="9"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xilfpga_pcap_common.h)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/zynqmp/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

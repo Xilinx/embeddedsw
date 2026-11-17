@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt" line="4" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt" bodystart="4" bodyend="15"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt" line="4" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt" bodystart="4" bodyend="15"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -50,6 +50,6 @@
 <codeline lineno="23"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_update.c)</highlight></codeline>
 <codeline lineno="24"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xplmi_wdt.c)</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

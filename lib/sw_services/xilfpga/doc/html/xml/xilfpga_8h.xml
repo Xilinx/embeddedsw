@@ -27,18 +27,6 @@
       <node id="65">
         <label>xfpga_config.h</label>
       </node>
-      <node id="63">
-        <label>xil_util.h</label>
-      </node>
-      <node id="60">
-        <label>xil_types.h</label>
-      </node>
-      <node id="64">
-        <label>xparameters.h</label>
-      </node>
-      <node id="62">
-        <label>xil_printf.h</label>
-      </node>
       <node id="58">
         <label>xilfpga.h</label>
         <link refid="xilfpga.h"/>
@@ -57,27 +45,23 @@
         <childnode refid="65" relation="include">
         </childnode>
       </node>
+      <node id="63">
+        <label>xil_util.h</label>
+      </node>
+      <node id="60">
+        <label>xil_types.h</label>
+      </node>
+      <node id="64">
+        <label>xparameters.h</label>
+      </node>
+      <node id="62">
+        <label>xil_printf.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
       <node id="69">
         <label>xilfpga_pcap.c</label>
         <link refid="xilfpga__pcap_8c"/>
-      </node>
-      <node id="73">
-        <label>xfpga_readback_example.c</label>
-        <link refid="xfpga__readback__example_8c"/>
-      </node>
-      <node id="72">
-        <label>xfpga_partialbitstream_load_example.c</label>
-        <link refid="xfpga__partialbitstream__load__example_8c"/>
-      </node>
-      <node id="71">
-        <label>xfpga_load_bitstream_example.c</label>
-        <link refid="xfpga__load__bitstream__example_8c"/>
-      </node>
-      <node id="68">
-        <label>xilfpga_ipi_pcap.c</label>
-        <link refid="xilfpga__ipi__pcap_8c"/>
       </node>
       <node id="67">
         <label>xilfpga_versal.c</label>
@@ -107,9 +91,25 @@
         <childnode refid="74" relation="include">
         </childnode>
       </node>
+      <node id="73">
+        <label>xfpga_readback_example.c</label>
+        <link refid="xfpga__readback__example_8c"/>
+      </node>
+      <node id="68">
+        <label>xilfpga_ipi_pcap.c</label>
+        <link refid="xilfpga__ipi__pcap_8c"/>
+      </node>
+      <node id="72">
+        <label>xfpga_partialbitstream_load_example.c</label>
+        <link refid="xfpga__partialbitstream__load__example_8c"/>
+      </node>
       <node id="74">
         <label>xfpga_reg_readback_example.c</label>
         <link refid="xfpga__reg__readback__example_8c"/>
+      </node>
+      <node id="71">
+        <label>xfpga_load_bitstream_example.c</label>
+        <link refid="xfpga__load__bitstream__example_8c"/>
       </node>
     </invincdepgraph>
     <innerclass refid="struct_x_fpgatag" prot="public">XFpgatag</innerclass>
@@ -125,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="142" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="142" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -141,7 +141,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
@@ -153,7 +153,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.c" bodystart="108" bodyend="130"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/interface/versal/xilfpga_versal.c" bodystart="109" bodyend="131"/>
         <references refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" compoundref="xilfpga_8h" startline="122">XFpgatag::XFpga_WriteToPl</references>
         <references refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" compoundref="xilfpga_8h" startline="128">XFpgatag::XFpga_GetConfigData</references>
         <references refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" compoundref="xilfpga_8h" startline="127">XFpgatag::XFpga_GetConfigReg</references>
@@ -190,35 +190,35 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BitstreamImageAddr</parametername>
+<parametername direction="in">BitstreamImageAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Linear memory bitstream image base address</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>KeyAddr</parametername>
+<parametername direction="in">KeyAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Aes key address which is used for decryption.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Size</parametername>
+<parametername direction="in">Size</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Used to store size of bitstream image.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Flags</parametername>
+<parametername direction="in">Flags</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Flags are used to specify the type of bitstream file.<itemizedlist>
@@ -240,14 +240,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="234" bodyend="271"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="235" bodyend="272"/>
         <references refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" compoundref="xilfpga_8h" startline="120">XFpgatag::XFpga_ValidateBitstream</references>
         <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
         <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
         <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
         <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
         <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
-        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="141" endline="203">XFpga_BitStream_Load</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -279,35 +279,35 @@
         <detaileddescription>
 <para>It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and Bootgen-generated bitstream (*.bin) loading, Passing valid bitstream size(Size) information is mandatory for Vivado Design Suite generated bitstream, For Bootgen-generated bitstreams bitstream size is taken from the bitstream header.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BitstreamImageAddr</parametername>
+<parametername direction="in">BitstreamImageAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Linear memory bitstream image base address</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>KeyAddr</parametername>
+<parametername direction="in">KeyAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>AES key address which is used for decryption.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Size</parametername>
+<parametername direction="in">Size</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Used to store size of bitstream image.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Flags</parametername>
+<parametername direction="in">Flags</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Flags are used to specify the type of bitstream file.<itemizedlist>
@@ -331,16 +331,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="140" bodyend="202"/>
-        <references refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="141" bodyend="203"/>
+        <references refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="235" endline="272">XFpga_ValidateImage</references>
         <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
         <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
         <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
         <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
         <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
-        <references refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" compoundref="xilfpga_8c" startline="279" endline="303">XFpga_PL_Preconfig</references>
-        <references refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</references>
-        <references refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" compoundref="xilfpga_8c" startline="380" endline="405">XFpga_PL_PostConfig</references>
+        <references refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" compoundref="xilfpga_8c" startline="280" endline="304">XFpga_PL_Preconfig</references>
+        <references refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="335" endline="372">XFpga_Write_Pl</references>
+        <references refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" compoundref="xilfpga_8c" startline="381" endline="406">XFpga_PL_PostConfig</references>
         <referencedby refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xfpga__load__bitstream__example_8c" startline="93" endline="128">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -357,7 +357,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>is the pointer to the XFpga.</para></parameterdescription>
@@ -367,9 +367,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="279" bodyend="303"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="280" bodyend="304"/>
         <references refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" compoundref="xilfpga_8h" startline="121">XFpgatag::XFpga_PreConfig</references>
-        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="141" endline="203">XFpga_BitStream_Load</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -401,35 +401,35 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>BitstreamImageAddr</parametername>
+<parametername direction="in">BitstreamImageAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Linear memory bitstream image base address</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>KeyAddr</parametername>
+<parametername direction="in">KeyAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Aes key address which is used for decryption.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Size</parametername>
+<parametername direction="in">Size</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Used to store size of bitstream image.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>Flags</parametername>
+<parametername direction="in">Flags</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Flags are used to specify the type of bitstream file.<itemizedlist>
@@ -451,14 +451,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="334" bodyend="371"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="335" bodyend="372"/>
         <references refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" compoundref="xilfpga_8h" startline="122">XFpgatag::XFpga_WriteToPl</references>
         <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
         <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
         <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
         <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
         <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
-        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="141" endline="203">XFpga_BitStream_Load</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -474,7 +474,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure</para></parameterdescription>
@@ -484,9 +484,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="380" bodyend="405"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="381" bodyend="406"/>
         <references refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" compoundref="xilfpga_8h" startline="123">XFpgatag::XFpga_PostConfig</references>
-        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="141" endline="203">XFpga_BitStream_Load</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -510,21 +510,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>ReadbackAddr</parametername>
+<parametername direction="out">ReadbackAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Address which is used to store the PL readback data.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>NumFrames</parametername>
+<parametername direction="in">NumFrames</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>The number of FPGA configuration frames to read.</para></parameterdescription>
@@ -539,9 +539,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="426" bodyend="451"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="427" bodyend="452"/>
         <references refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" compoundref="xilfpga_8h" startline="128">XFpgatag::XFpga_GetConfigData</references>
         <references refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" compoundref="xilfpga_8h" startline="136">XFpgatag::ReadInfo</references>
+        <references refid="struct_x_fpga___read_1a0e110b519fc49ce6808e4c5980677417" compoundref="xilfpga__pcap__common_8h" startline="122">XFpga_Read::ReadbackAddr</references>
+        <references refid="struct_x_fpga___read_1a22e9adb2868545f4c309e8eefacd0673" compoundref="xilfpga__pcap__common_8h" startline="123">XFpga_Read::ConfigReg_NumFrames</references>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -565,21 +567,21 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>ReadbackAddr</parametername>
+<parametername direction="out">ReadbackAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Address which is used to store the PL Configuration register data.</para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>ConfigRegAddr</parametername>
+<parametername direction="in">ConfigRegAddr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Configuration register address as mentioned in the UG570.</para></parameterdescription>
@@ -594,9 +596,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="473" bodyend="511"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="474" bodyend="512"/>
         <references refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" compoundref="xilfpga_8h" startline="127">XFpgatag::XFpga_GetConfigReg</references>
         <references refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" compoundref="xilfpga_8h" startline="136">XFpgatag::ReadInfo</references>
+        <references refid="struct_x_fpga___read_1a0e110b519fc49ce6808e4c5980677417" compoundref="xilfpga__pcap__common_8h" startline="122">XFpga_Read::ReadbackAddr</references>
+        <references refid="struct_x_fpga___read_1a22e9adb2868545f4c309e8eefacd0673" compoundref="xilfpga__pcap__common_8h" startline="123">XFpga_Read::ConfigReg_NumFrames</references>
       </memberdef>
       <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -612,7 +616,7 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>InstancePtr</parametername>
+<parametername direction="in">InstancePtr</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Pointer to the XFpga structure</para></parameterdescription>
@@ -625,7 +629,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="619" bodyend="638"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="620" bodyend="639"/>
         <references refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" compoundref="xilfpga_8h" startline="126">XFpgatag::XFpga_GetInterfaceStatus</references>
       </memberdef>
       </sectiondef>
@@ -686,7 +690,7 @@
 <codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
 <codeline lineno="146"><highlight class="comment">@cond<sp/>internal</highlight></codeline>
 <codeline lineno="147"><highlight class="comment"></highlight></codeline>
-<codeline lineno="148"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
 <codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
 <codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFPGA_FAILURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
@@ -823,6 +827,6 @@
 <codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XILFPGA_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="284"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h"/>
   </compounddef>
 </doxygen>

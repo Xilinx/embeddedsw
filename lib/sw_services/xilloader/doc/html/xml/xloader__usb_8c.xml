@@ -5,19 +5,19 @@
     <includes local="yes">xplmi_hw.h</includes>
     <includes refid="xloader__usb_8h" local="yes">xloader_usb.h</includes>
     <incdepgraph>
-      <node id="1542">
+      <node id="1763">
         <label>xloader_usb.c</label>
         <link refid="xloader_usb.c"/>
-        <childnode refid="1543" relation="include">
+        <childnode refid="1764" relation="include">
         </childnode>
-        <childnode refid="1544" relation="include">
+        <childnode refid="1765" relation="include">
         </childnode>
       </node>
-      <node id="1544">
+      <node id="1765">
         <label>xloader_usb.h</label>
         <link refid="xloader__usb_8h"/>
       </node>
-      <node id="1543">
+      <node id="1764">
         <label>xplmi_hw.h</label>
       </node>
     </incdepgraph>
@@ -224,6 +224,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="290"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_usb.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_usb.c"/>
   </compounddef>
 </doxygen>

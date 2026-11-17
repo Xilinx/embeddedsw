@@ -18,6 +18,8 @@ var xmipi__tx__phy_8h =
     [ "XMIPI_TX_PHY_HS_SETTLE_MAX_VALUE", "xmipi__tx__phy_8h.html#gaf5b568320116f8e0335eaa22f7faeb0b", null ],
     [ "XMIPI_TX_PHY_HS_TIMEOUT_MAX_VALUE", "xmipi__tx__phy_8h.html#ga9f5d073f4808e8cba74268dd3c07e994", null ],
     [ "XMIPI_TX_PHY_HS_TIMEOUT_MIN_VALUE", "xmipi__tx__phy_8h.html#gaaf2e6f503d4b86cf6d1c9833fcaea04b", null ],
+    [ "XMIPI_TX_PHY_LINERATE_MAX", "xmipi__tx__phy_8h.html#gaf2146f81e04c1e0de13c6a962d02f75c", null ],
+    [ "XMIPI_TX_PHY_LINERATE_MIN", "xmipi__tx__phy_8h.html#gae47e34ba6c6adfbfaa89323b2bce4967", null ],
     [ "XMIPI_TX_PHY_LOW_POWER_MODE", "xmipi__tx__phy_8h.html#gafb09e64b9efe4ca20303e3ed180d6659", null ],
     [ "XMIPI_TX_PHY_MAX_LANES_V10", "xmipi__tx__phy_8h.html#ga9ef76131f9278a362a29e94fda961943", null ],
     [ "XMIPI_TX_PHY_MODE_MAX", "xmipi__tx__phy_8h.html#ga1d59eea69940bc10dc100faa0983bc55", null ],
@@ -43,6 +45,7 @@ var xmipi__tx__phy_8h =
     [ "XMipi_Tx_Phy_ClearDataLane", "xmipi__tx__phy_8h.html#ga0e324919c833e8a3044f5807a4e88a6f", null ],
     [ "XMipi_Tx_Phy_Configure", "xmipi__tx__phy_8h.html#ga0edf3de0af6e081ab9ec6ba03bcb029d", null ],
     [ "XMipi_Tx_Phy_Dis_Prog_Seq_Ctrl", "xmipi__tx__phy_8h.html#ga7f6c18e9dd2eef7c55eef23816c6dbe4", null ],
+    [ "XMipi_Tx_Phy_DynamicLineRateConfig", "xmipi__tx__phy_8h.html#ga706c8c6b8813626eaccfa857577b4faa", null ],
     [ "XMipi_Tx_Phy_En_Prog_Seq_Ctrl", "xmipi__tx__phy_8h.html#ga5c275c8e3a30477d7ff543a063e51092", null ],
     [ "XMipi_Tx_Phy_Get_Prog_Seq_Ctrl", "xmipi__tx__phy_8h.html#gafb2a651e2b9700aa1052e69b04187b1a", null ],
     [ "XMipi_Tx_Phy_Get_Seq_Data", "xmipi__tx__phy_8h.html#ga83eeee796bbf6191c38c715f586fe653", null ],
@@ -55,7 +58,9 @@ var xmipi__tx__phy_8h =
     [ "XMipi_Tx_Phy_GetPacketCount", "xmipi__tx__phy_8h.html#gae03f90199460c27b38aca1a9eecd973c", null ],
     [ "XMipi_Tx_Phy_GetRegIntfcPresent", "xmipi__tx__phy_8h.html#gad55317d23f56c8dd601c6970d5d6228e", null ],
     [ "XMipi_Tx_Phy_LookupConfig", "xmipi__tx__phy_8h.html#ga6aca7437c8f5880a23d50fa3e8c3ef98", null ],
+    [ "XMipi_Tx_Phy_MmcmConfig", "xmipi__tx__phy_8h.html#gaa3cd46b8e0504cbac709b71bf162ea32", null ],
     [ "XMipi_Tx_Phy_Prog_Seq_Data", "xmipi__tx__phy_8h.html#gaec98ba503ea55bbc246f55633031cce5", null ],
     [ "XMipi_Tx_Phy_Reset", "xmipi__tx__phy_8h.html#ga60dbd7f0c7cc211f6ed1e97c8c1dd8c0", null ],
-    [ "XMipi_Tx_Phy_SelfTest", "xmipi__tx__phy_8h.html#ga4a6f46a83ce56b8538bd115feb1e652f", null ]
+    [ "XMipi_Tx_Phy_SelfTest", "xmipi__tx__phy_8h.html#ga4a6f46a83ce56b8538bd115feb1e652f", null ],
+    [ "XMipi_Tx_Phy_XPllConfig", "xmipi__tx__phy_8h.html#ga3af918938b33b8ea21f8d5e46cdce3c6", null ]
 ];

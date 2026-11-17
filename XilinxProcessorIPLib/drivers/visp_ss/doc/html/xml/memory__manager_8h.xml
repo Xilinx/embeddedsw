@@ -4,50 +4,56 @@
     <compoundname>memory_manager.h</compoundname>
     <includes local="no">stddef.h</includes>
     <includes local="no">stdint.h</includes>
+    <includedby refid="vmix__hdmi__bridge_8c" local="yes">vmix_hdmi_bridge.c</includedby>
     <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
     <includedby refid="vvformat_8c" local="yes">vvformat.c</includedby>
     <includedby refid="vvpath_8c" local="yes">vvpath.c</includedby>
     <includedby refid="xvisp__ss__example_8c" local="yes">xvisp_ss_example.c</includedby>
     <incdepgraph>
-      <node id="6656">
-        <label>memory_manager.h</label>
-        <link refid="memory_manager.h"/>
-        <childnode refid="6657" relation="include">
-        </childnode>
-        <childnode refid="6658" relation="include">
-        </childnode>
-      </node>
-      <node id="6658">
+      <node id="6961">
         <label>stdint.h</label>
       </node>
-      <node id="6657">
+      <node id="6959">
+        <label>memory_manager.h</label>
+        <link refid="memory_manager.h"/>
+        <childnode refid="6960" relation="include">
+        </childnode>
+        <childnode refid="6961" relation="include">
+        </childnode>
+      </node>
+      <node id="6960">
         <label>stddef.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6660">
-        <label>vvdevice.c</label>
+      <node id="6963">
+        <label>vmix_hdmi_bridge.c</label>
       </node>
-      <node id="6659">
+      <node id="6962">
         <label>memory_manager.h</label>
         <link refid="memory_manager.h"/>
-        <childnode refid="6660" relation="include">
+        <childnode refid="6963" relation="include">
         </childnode>
-        <childnode refid="6661" relation="include">
+        <childnode refid="6964" relation="include">
         </childnode>
-        <childnode refid="6662" relation="include">
+        <childnode refid="6965" relation="include">
         </childnode>
-        <childnode refid="6663" relation="include">
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6967" relation="include">
         </childnode>
       </node>
-      <node id="6662">
-        <label>vvpath.c</label>
-      </node>
-      <node id="6661">
+      <node id="6965">
         <label>vvformat.c</label>
       </node>
-      <node id="6663">
+      <node id="6967">
         <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="6964">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="6966">
+        <label>vvpath.c</label>
       </node>
     </invincdepgraph>
     <innerclass refid="structaligned__buf" prot="public">aligned_buf</innerclass>
@@ -66,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="18" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="18" column="1"/>
       </memberdef>
       <memberdef kind="function" id="memory__manager_8h_1adc6dcefd0050c92c398b6e828077bc91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -83,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="19" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="19" column="1"/>
       </memberdef>
       <memberdef kind="function" id="memory__manager_8h_1a55545df4b4307c86f0f95c42f1d68b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -100,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="20" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="20" column="1"/>
       </memberdef>
       <memberdef kind="function" id="memory__manager_8h_1a35e89b42d05ca95b0c74584e6e460d23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -121,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="21" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="21" column="1"/>
       </memberdef>
       <memberdef kind="function" id="memory__manager_8h_1ac82f76b11e6939d3445ff3c01d51c8e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -146,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="22" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="22" column="1"/>
       </memberdef>
       <memberdef kind="function" id="memory__manager_8h_1a825219884804b00e1239adbeb7542990" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -162,7 +168,39 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="23" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="23" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__manager_8h_1a26946fb5233381f4abbf803b3086bc3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t mm_get_high_mem_prefix</definition>
+        <argsstring>(void)</argsstring>
+        <name>mm_get_high_mem_prefix</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="30" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="memory__manager_8h_1aa90a4370f66d7ff33d3a030315a290a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mm_is_high_mem</definition>
+        <argsstring>(void)</argsstring>
+        <name>mm_is_high_mem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="31" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -194,8 +232,16 @@
 <codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*mm_aligned_malloc(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>alignment,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>aligned_buf<sp/>*metadata);</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>mm_print_stats(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>MEMORY_MANAGER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ISP<sp/>buffer-pool<sp/>memory-region<sp/>helpers<sp/>(see<sp/>BUFFER_POOL_REGION<sp/>in<sp/>lscript.ld).</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>The<sp/>high<sp/>32<sp/>bits<sp/>of<sp/>the<sp/>buffer-pool<sp/>physical<sp/>address<sp/>select<sp/>the<sp/>addressing</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/>mode<sp/>that<sp/>must<sp/>be<sp/>sent<sp/>to<sp/>the<sp/>RPU<sp/>/<sp/>programmed<sp/>into<sp/>the<sp/>HW<sp/>DMA<sp/>upper<sp/>word:</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/><sp/><sp/>0x8<sp/>=<sp/>high<sp/>memory<sp/>(DDR_LOW_1,<sp/>ATM),<sp/>0x0<sp/>=<sp/>low<sp/>/<sp/>32-bit<sp/>memory<sp/>(DDR_LOW_0).</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>Both<sp/>values<sp/>auto-derive<sp/>from<sp/>where<sp/>the<sp/>linker<sp/>places<sp/>the<sp/>buffer<sp/>pools.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">uint64_t<sp/>mm_get_high_mem_prefix(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mm_is_high_mem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>MEMORY_MANAGER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h"/>
   </compounddef>
 </doxygen>

@@ -21,6 +21,8 @@ var xaudioformatter_8h =
     [ "XAudioFormatterDMAStart", "xaudioformatter_8h.html#ga65ddaecacb3d843dade3da4a44862963", null ],
     [ "XAudioFormatterDMAStop", "xaudioformatter_8h.html#ga95f19d9d0e20ad8b8bafcaf277ea1ca3", null ],
     [ "XAudioFormatterGetDMATransferCount", "xaudioformatter_8h.html#gabc41edf6bcea2a85b50e8893016fb267", null ],
+    [ "XAudioFormatterMM2SIntrHandler", "xaudioformatter_8h.html#gad236d638e2ae1afe068b87d0f3621d27", null ],
+    [ "XAudioFormatterS2MMIntrHandler", "xaudioformatter_8h.html#ga16ea676685b69644cd310b70a55b8b27", null ],
     [ "XAudioFormatterSetFsMultiplier", "xaudioformatter_8h.html#gae4e206855fe0fd0b43a40050d494b40f", null ],
     [ "XAudioFormatterSetHwParams", "xaudioformatter_8h.html#ga0d2e42ac1ba8d83eca142032ad59320b", null ],
     [ "XAudioFormatterSetS2MMTimeOut", "xaudioformatter_8h.html#ga6d1e04ada72ed2b53ee4c03809f8146e", null ],

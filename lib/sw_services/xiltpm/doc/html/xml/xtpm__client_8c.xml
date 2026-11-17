@@ -4,6 +4,22 @@
     <compoundname>xtpm_client.c</compoundname>
     <includes refid="xtpm__client_8h" local="yes">xtpm_client.h</includes>
     <incdepgraph>
+      <node id="28">
+        <label>xtpm_client.c</label>
+        <link refid="xtpm_client.c"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xtpm_client.h</label>
+        <link refid="xtpm__client_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
       <node id="31">
         <label>xtpm_mailbox.h</label>
         <link refid="xtpm__mailbox_8h"/>
@@ -30,22 +46,6 @@
       </node>
       <node id="30">
         <label>xil_types.h</label>
-      </node>
-      <node id="28">
-        <label>xtpm_client.c</label>
-        <link refid="xtpm_client.c"/>
-        <childnode refid="29" relation="include">
-        </childnode>
-      </node>
-      <node id="29">
-        <label>xtpm_client.h</label>
-        <link refid="xtpm__client_8h"/>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
       </node>
       <node id="33">
         <label>xparameters.h</label>
@@ -81,7 +81,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM initialization API and returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="54" bodyend="78"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="54" bodyend="78"/>
         <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bac6e563f064bd5f231faf62772d767796" compoundref="xtpm__defs_8h" startline="70">XTPM_API_ID_INIT</references>
         <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
       </memberdef>
@@ -111,7 +111,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM startup API and returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="90" bodyend="114"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="90" bodyend="114"/>
         <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba3c101cd298fb8677a59e6b6ce61dfb93" compoundref="xtpm__defs_8h" startline="71">XTPM_API_ID_STARTUP</references>
         <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
       </memberdef>
@@ -141,7 +141,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM self-test API and returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="126" bodyend="150"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="126" bodyend="150"/>
         <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55baa5fcee7d26278de35cd37059ca169eba" compoundref="xtpm__defs_8h" startline="72">XTPM_API_ID_SELFTEST</references>
         <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
       </memberdef>
@@ -204,7 +204,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM PCR event API and returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="167" bodyend="194"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="167" bodyend="194"/>
         <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55bad040eba934283bd3e4f6752cb15c2858" compoundref="xtpm__defs_8h" startline="73">XTPM_API_ID_PCR_EVENT</references>
         <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
       </memberdef>
@@ -267,7 +267,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para><para>Send an IPI request to the PLM by using the CDO command to call TPM PCR read API and returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="211" bodyend="238"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="211" bodyend="238"/>
         <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba02c9333e1fbebe1f62e85c900780dfaf" compoundref="xtpm__defs_8h" startline="74">XTPM_API_ID_PCR_READ</references>
         <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
       </memberdef>
@@ -330,7 +330,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>Send an IPI request to the PLM by using the CDO command to call TPM Get PCR log API and returns the status of the IPI response.</para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="254" bodyend="277"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c" bodystart="254" bodyend="277"/>
         <references refid="xtpm__defs_8h_1a06fc87d81c62e9abb8790b6e5713c55ba5dc35f1572c52e1b4a7fbefdb89c7845" compoundref="xtpm__defs_8h" startline="75">XTPM_API_ID_GET_PCR_LOG</references>
         <references refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" compoundref="xtpm__mailbox_8c" startline="59" endline="88">XTpm_ProcessMailbox</references>
       </memberdef>
@@ -492,6 +492,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
 <codeline lineno="277"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_client.c"/>
   </compounddef>
 </doxygen>

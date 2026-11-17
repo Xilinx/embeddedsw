@@ -1,5 +1,6 @@
 var xaxidma_8c =
 [
+    [ "XAXIDMA_RESET_TIMEOUT", "xaxidma_8c.html#gabe69b65d3c4422df39418eb2a64f435f", null ],
     [ "XAxiDma_Busy", "xaxidma_8c.html#gaff68c0ba3e9e25dfe5e39153301862f8", null ],
     [ "XAxiDma_CfgInitialize", "xaxidma_8c.html#ga8026e76c90d891d21c9c355ff776cb77", null ],
     [ "XAxiDma_Pause", "xaxidma_8c.html#gadb572b623215a7df62b1e0468e3bd68c", null ],

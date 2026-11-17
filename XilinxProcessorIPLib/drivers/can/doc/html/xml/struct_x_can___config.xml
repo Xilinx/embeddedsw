@@ -15,9 +15,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="225" bodyend="-1"/>
-        <referencedby refid="group__can_1gae77955cacd567dcbbaa4594e7a12438c" compoundref="xcan_8c" startline="1073" endline="1095">XCan_GetConfig</referencedby>
-        <referencedby refid="group__can_1gaf6d18b900bb0896517949dbde898524b" compoundref="xcan_8c" startline="1041" endline="1055">XCan_LookupConfig</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__can_1gae77955cacd567dcbbaa4594e7a12438c" compoundref="xcan_8c" startline="1066" endline="1088">XCan_GetConfig</referencedby>
+        <referencedby refid="group__can_1gaf6d18b900bb0896517949dbde898524b" compoundref="xcan_8c" startline="1035" endline="1049">XCan_LookupConfig</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_can___config_1a4c7b579a31557e2aa392909c5e9febae" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -30,8 +30,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="227" bodyend="-1"/>
-        <referencedby refid="group__can_1gaf070d43e1240f9396a9b6f325bcf5fcb" compoundref="xcan_8c" startline="99" endline="136">XCan_Initialize</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__can_1gaf070d43e1240f9396a9b6f325bcf5fcb" compoundref="xcan_8c" startline="110" endline="147">XCan_Initialize</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_can___config_1a35e61792584f7e4cbf5e53561dab3bc5" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="228" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="232" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_can___config_1ad700376ee419521e3a8523503ee8f3f3" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -57,8 +57,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="230" bodyend="-1"/>
-        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="195" endline="211">main</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_can___config_1a3869e2fd7408be788becffea3d79bd69" prot="public" static="no" mutable="no">
         <type>UINTPTR</type>
@@ -71,8 +71,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="231" bodyend="-1"/>
-        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="195" endline="211">main</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_can___config_1a052b524cfb5b2fdb5fb74ef3e3438cde" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -85,14 +85,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="233" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="239" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This typedef contains configuration information for a device. </para>    </briefdescription>
+<para>CAN device configuration structure. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="221" bodyend="234"/>
+<para>Holds configuration information for a device. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="225" bodyend="240"/>
     <listofallmembers>
       <member refid="struct_x_can___config_1a4c7b579a31557e2aa392909c5e9febae" prot="public" virt="non-virtual"><scope>XCan_Config</scope><name>BaseAddress</name></member>
       <member refid="struct_x_can___config_1a052b524cfb5b2fdb5fb74ef3e3438cde" prot="public" virt="non-virtual"><scope>XCan_Config</scope><name>EnableECC</name></member>

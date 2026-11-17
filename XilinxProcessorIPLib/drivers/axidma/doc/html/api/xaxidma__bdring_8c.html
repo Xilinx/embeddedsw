@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xaxidma__bdring_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('xaxidma__bdring_8c.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xaxidma_bdring.c File Reference</div>  </div>
@@ -107,34 +108,49 @@ $(document).ready(function(){initNavTree('xaxidma__bdring_8c.html','');});
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="xaxidma__bdring_8h.html">xaxidma_bdring.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a8b60749d5a2bfdd8fc0c7a007d832498"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__bdring_8c.html#a8b60749d5a2bfdd8fc0c7a007d832498">XAXIDMA_STOP_TIMEOUT</a>&#160;&#160;&#160;500000</td></tr>
+<tr class="memdesc:a8b60749d5a2bfdd8fc0c7a007d832498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop timeout iterations (about 100 ms at 100 MHz).  <a href="#a8b60749d5a2bfdd8fc0c7a007d832498">More...</a><br/></td></tr>
+<tr class="separator:a8b60749d5a2bfdd8fc0c7a007d832498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4df2f97f51b475b5c785fc2da2fc7b5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__bdring_8c.html#a4df2f97f51b475b5c785fc2da2fc7b5d">XAXIDMA_VIRT_TO_PHYS</a>(BdPtr)&#160;&#160;&#160;((UINTPTR)(BdPtr) + (RingPtr-&gt;FirstBdPhysAddr - RingPtr-&gt;FirstBdAddr))</td></tr>
+<tr class="memdesc:a4df2f97f51b475b5c785fc2da2fc7b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the physical address of a descriptor from its virtual address.  <a href="#a4df2f97f51b475b5c785fc2da2fc7b5d">More...</a><br/></td></tr>
+<tr class="separator:a4df2f97f51b475b5c785fc2da2fc7b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff38d47fd5fb6f1783846fa0120c2fab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__bdring_8c.html#aff38d47fd5fb6f1783846fa0120c2fab">XAXIDMA_RING_SEEKAHEAD</a>(RingPtr, BdPtr, NumBd)</td></tr>
+<tr class="memdesc:aff38d47fd5fb6f1783846fa0120c2fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the BD pointer ahead by an arbitrary number of BDs.  <a href="#aff38d47fd5fb6f1783846fa0120c2fab">More...</a><br/></td></tr>
+<tr class="separator:aff38d47fd5fb6f1783846fa0120c2fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad1001294e7cbcf392090922424b68cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxidma__bdring_8c.html#aad1001294e7cbcf392090922424b68cb">XAXIDMA_RING_SEEKBACK</a>(RingPtr, BdPtr, NumBd)</td></tr>
+<tr class="memdesc:aad1001294e7cbcf392090922424b68cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the BD pointer backwards by an arbitrary number of BDs.  <a href="#aad1001294e7cbcf392090922424b68cb">More...</a><br/></td></tr>
+<tr class="separator:aad1001294e7cbcf392090922424b68cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga39ee7d89e4453276d615849acad27fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga39ee7d89e4453276d615849acad27fde">XAxiDma_UpdateBdRingCDesc</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr)</td></tr>
 <tr class="memdesc:ga39ee7d89e4453276d615849acad27fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Current Descriptor.  <a href="group___a_x_i_d_m_a.html#ga39ee7d89e4453276d615849acad27fde">More...</a><br/></td></tr>
 <tr class="separator:ga39ee7d89e4453276d615849acad27fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c6d6f492642dd355478c3a853556d6b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga5c6d6f492642dd355478c3a853556d6b">XAxiDma_BdRingCreate</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, UINTPTR PhysAddr, UINTPTR VirtAddr, u32 Alignment, int BdCount)</td></tr>
-<tr class="memdesc:ga5c6d6f492642dd355478c3a853556d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Using a memory segment allocated by the caller, This fundtion creates and setup the BD ring.  <a href="group___a_x_i_d_m_a.html#ga5c6d6f492642dd355478c3a853556d6b">More...</a><br/></td></tr>
+<tr class="memdesc:ga5c6d6f492642dd355478c3a853556d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and sets up a BD ring using caller-allocated memory.  <a href="group___a_x_i_d_m_a.html#ga5c6d6f492642dd355478c3a853556d6b">More...</a><br/></td></tr>
 <tr class="separator:ga5c6d6f492642dd355478c3a853556d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad044df5bd676a71226411ba7f78ef20b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gad044df5bd676a71226411ba7f78ef20b">XAxiDma_BdRingClone</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, <a class="el" href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a> *SrcBdPtr)</td></tr>
-<tr class="memdesc:gad044df5bd676a71226411ba7f78ef20b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone the given BD into every BD in the ring.  <a href="group___a_x_i_d_m_a.html#gad044df5bd676a71226411ba7f78ef20b">More...</a><br/></td></tr>
+<tr class="memdesc:gad044df5bd676a71226411ba7f78ef20b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clones the given BD into every BD in the ring.  <a href="group___a_x_i_d_m_a.html#gad044df5bd676a71226411ba7f78ef20b">More...</a><br/></td></tr>
 <tr class="separator:gad044df5bd676a71226411ba7f78ef20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7b38bc9220c391823219937580bd816f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr)</td></tr>
-<tr class="memdesc:ga7b38bc9220c391823219937580bd816f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a DMA channel and Allow DMA transactions to commence on a given channel if descriptors are ready to be processed.  <a href="group___a_x_i_d_m_a.html#ga7b38bc9220c391823219937580bd816f">More...</a><br/></td></tr>
+<tr class="memdesc:ga7b38bc9220c391823219937580bd816f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a DMA channel and allows DMA transactions to commence when descriptors are ready to be processed.  <a href="group___a_x_i_d_m_a.html#ga7b38bc9220c391823219937580bd816f">More...</a><br/></td></tr>
 <tr class="separator:ga7b38bc9220c391823219937580bd816f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaafd18a1df185c30b4745c147e3295ac3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gaafd18a1df185c30b4745c147e3295ac3">XAxiDma_BdRingStart</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr)</td></tr>
-<tr class="memdesc:gaafd18a1df185c30b4745c147e3295ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given channel if descriptors are ready to be processed.  <a href="group___a_x_i_d_m_a.html#gaafd18a1df185c30b4745c147e3295ac3">More...</a><br/></td></tr>
+<tr class="memdesc:gaafd18a1df185c30b4745c147e3295ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a DMA channel, updates current descriptors, and allows DMA transactions to commence when descriptors are ready to be processed.  <a href="group___a_x_i_d_m_a.html#gaafd18a1df185c30b4745c147e3295ac3">More...</a><br/></td></tr>
 <tr class="separator:gaafd18a1df185c30b4745c147e3295ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaebba5c661e04485582e887e74dbeb94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gaaebba5c661e04485582e887e74dbeb94">XAxiDma_BdRingSetCoalesce</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, u32 Counter, u32 Timer)</td></tr>
-<tr class="memdesc:gaaebba5c661e04485582e887e74dbeb94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set interrupt coalescing parameters for the given descriptor ring channel.  <a href="group___a_x_i_d_m_a.html#gaaebba5c661e04485582e887e74dbeb94">More...</a><br/></td></tr>
+<tr class="memdesc:gaaebba5c661e04485582e887e74dbeb94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets interrupt coalescing parameters for the given descriptor ring channel.  <a href="group___a_x_i_d_m_a.html#gaaebba5c661e04485582e887e74dbeb94">More...</a><br/></td></tr>
 <tr class="separator:gaaebba5c661e04485582e887e74dbeb94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0d3794bbccf028da8e94407d061dfc68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga0d3794bbccf028da8e94407d061dfc68">XAxiDma_BdRingGetCoalesce</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, u32 *CounterPtr, u32 *TimerPtr)</td></tr>
-<tr class="memdesc:ga0d3794bbccf028da8e94407d061dfc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve current interrupt coalescing parameters from the given descriptor ring channel.  <a href="group___a_x_i_d_m_a.html#ga0d3794bbccf028da8e94407d061dfc68">More...</a><br/></td></tr>
+<tr class="memdesc:ga0d3794bbccf028da8e94407d061dfc68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads interrupt coalescing parameters from a descriptor ring channel.  <a href="group___a_x_i_d_m_a.html#ga0d3794bbccf028da8e94407d061dfc68">More...</a><br/></td></tr>
 <tr class="separator:ga0d3794bbccf028da8e94407d061dfc68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga44003cd704b7d4868d1dc00bb433a91f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f">XAxiDma_BdRingAlloc</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, int NumBd, <a class="el" href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a> **BdSetPtr)</td></tr>
 <tr class="memdesc:ga44003cd704b7d4868d1dc00bb433a91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserve locations in the BD ring.  <a href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f">More...</a><br/></td></tr>
 <tr class="separator:ga44003cd704b7d4868d1dc00bb433a91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac58b1ab7a89890142baf67211772d3ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">XAxiDma_BdRingUnAlloc</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, int NumBd, <a class="el" href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a> *BdSetPtr)</td></tr>
-<tr class="memdesc:gac58b1ab7a89890142baf67211772d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fully or partially undo an <a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f" title="Reserve locations in the BD ring. ">XAxiDma_BdRingAlloc()</a> operation.  <a href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">More...</a><br/></td></tr>
+<tr class="memdesc:gac58b1ab7a89890142baf67211772d3ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fullys or partially undo an <a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f" title="Reserve locations in the BD ring. ">XAxiDma_BdRingAlloc()</a> operation.  <a href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">More...</a><br/></td></tr>
 <tr class="separator:gac58b1ab7a89890142baf67211772d3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaac81111b373e373be7dd3989fffffe7b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gaac81111b373e373be7dd3989fffffe7b">XAxiDma_BdRingToHw</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr, int NumBd, <a class="el" href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a> *BdSetPtr)</td></tr>
 <tr class="memdesc:gaac81111b373e373be7dd3989fffffe7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue a set of BDs to hardware that were previously allocated by <a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f" title="Reserve locations in the BD ring. ">XAxiDma_BdRingAlloc()</a>.  <a href="group___a_x_i_d_m_a.html#gaac81111b373e373be7dd3989fffffe7b">More...</a><br/></td></tr>
@@ -146,12 +162,171 @@ Functions</h2></td></tr>
 <tr class="memdesc:gad2ac76e5a39486896cd484e51d2898c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees a set of BDs that had been previously retrieved with <a class="el" href="group___a_x_i_d_m_a.html#ga1e5d328b4d4a247d1530fac3efe4c59c" title="Returns a set of BD(s) that have been processed by hardware. ">XAxiDma_BdRingFromHw()</a>.  <a href="group___a_x_i_d_m_a.html#gad2ac76e5a39486896cd484e51d2898c7">More...</a><br/></td></tr>
 <tr class="separator:gad2ac76e5a39486896cd484e51d2898c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga64cf3c732bc803da742c256ab6372e0e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#ga64cf3c732bc803da742c256ab6372e0e">XAxiDma_BdRingCheck</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr)</td></tr>
-<tr class="memdesc:ga64cf3c732bc803da742c256ab6372e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the internal data structures of the BD ring for the provided channel.  <a href="group___a_x_i_d_m_a.html#ga64cf3c732bc803da742c256ab6372e0e">More...</a><br/></td></tr>
+<tr class="memdesc:ga64cf3c732bc803da742c256ab6372e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the internal data structures of the BD ring for the provided channel.  <a href="group___a_x_i_d_m_a.html#ga64cf3c732bc803da742c256ab6372e0e">More...</a><br/></td></tr>
 <tr class="separator:ga64cf3c732bc803da742c256ab6372e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaffa661a9a2467c1e274842c147531cea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_x_i_d_m_a.html#gaffa661a9a2467c1e274842c147531cea">XAxiDma_BdRingDumpRegs</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr)</td></tr>
-<tr class="memdesc:gaffa661a9a2467c1e274842c147531cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the registers for a channel.  <a href="group___a_x_i_d_m_a.html#gaffa661a9a2467c1e274842c147531cea">More...</a><br/></td></tr>
+<tr class="memdesc:gaffa661a9a2467c1e274842c147531cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps the registers for a channel.  <a href="group___a_x_i_d_m_a.html#gaffa661a9a2467c1e274842c147531cea">More...</a><br/></td></tr>
 <tr class="separator:gaffa661a9a2467c1e274842c147531cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="aff38d47fd5fb6f1783846fa0120c2fab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XAXIDMA_RING_SEEKAHEAD</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">RingPtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">BdPtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NumBd&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">{                                                                \</div>
+<div class="line">                UINTPTR Addr = (UINTPTR)(<span class="keywordtype">void</span> *)(BdPtr);                                     \</div>
+<div class="line">                \</div>
+<div class="line">                Addr += ((RingPtr)-&gt;Separation * (NumBd));                   \</div>
+<div class="line">                if ((Addr &gt; (RingPtr)-&gt;LastBdAddr) || ((UINTPTR)(BdPtr) &gt; Addr)) \</div>
+<div class="line">                {                                                            \</div>
+<div class="line">                        Addr -= (RingPtr)-&gt;Length;                               \</div>
+<div class="line">                }                                                            \</div>
+<div class="line">                \</div>
+<div class="line">                (BdPtr) = (<a class="code" href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a>*)(<span class="keywordtype">void</span> *)Addr;                                 \</div>
+<div class="line">        }</div>
+<div class="ttc" id="group___a_x_i_d_m_a_html_ga5faf4d844b10fc577f3a75a170f11867"><div class="ttname"><a href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a></div><div class="ttdeci">u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS]</div><div class="ttdoc">The XAxiDma_Bd is the type for a buffer descriptor (BD). </div><div class="ttdef"><b>Definition:</b> xaxidma_bd.h:111</div></div>
+</div><!-- fragment -->
+<p>Moves the BD pointer ahead by an arbitrary number of BDs. </p>
+<p>Wraps around to the beginning of the ring when needed. A wraparound occurs when the new BD pointer is greater than the high address in the ring or when the pointer crosses the 0xFFFFFFFF to 0 boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">RingPtr</td><td>is the BD ring that contains BdPtr. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BdPtr</td><td>is the starting BD pointer on entry and the updated BD pointer on return. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBd</td><td>is the number of BD spaces to advance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Usable only when the DMA is in scatter-gather mode. </dd></dl>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#ga44003cd704b7d4868d1dc00bb433a91f">XAxiDma_BdRingAlloc()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gad2ac76e5a39486896cd484e51d2898c7">XAxiDma_BdRingFree()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga1e5d328b4d4a247d1530fac3efe4c59c">XAxiDma_BdRingFromHw()</a>, <a class="el" href="group___a_x_i_d_m_a.html#gaac81111b373e373be7dd3989fffffe7b">XAxiDma_BdRingToHw()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">XAxiDma_BdRingUnAlloc()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aad1001294e7cbcf392090922424b68cb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XAXIDMA_RING_SEEKBACK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">RingPtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">BdPtr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NumBd&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">{                                                                 \</div>
+<div class="line">                UINTPTR Addr = (UINTPTR)(BdPtr);                                      \</div>
+<div class="line">                \</div>
+<div class="line">                Addr -= ((RingPtr)-&gt;Separation * (NumBd));                    \</div>
+<div class="line">                if ((Addr &lt; (RingPtr)-&gt;FirstBdAddr) || ((UINTPTR)(BdPtr) &lt; Addr)) \</div>
+<div class="line">                {                                                             \</div>
+<div class="line">                        Addr += (RingPtr)-&gt;Length;                                \</div>
+<div class="line">                }                                                             \</div>
+<div class="line">                \</div>
+<div class="line">                (BdPtr) = (<a class="code" href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a>*)Addr;                                  \</div>
+<div class="line">        }</div>
+<div class="ttc" id="group___a_x_i_d_m_a_html_ga5faf4d844b10fc577f3a75a170f11867"><div class="ttname"><a href="group___a_x_i_d_m_a.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a></div><div class="ttdeci">u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS]</div><div class="ttdoc">The XAxiDma_Bd is the type for a buffer descriptor (BD). </div><div class="ttdef"><b>Definition:</b> xaxidma_bd.h:111</div></div>
+</div><!-- fragment -->
+<p>Moves the BD pointer backwards by an arbitrary number of BDs. </p>
+<p>Wraps around to the end of the ring when needed. A wraparound occurs when the new BD pointer is less than the base address in the ring or when the pointer crosses the 0xFFFFFFFF to 0 boundary.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">RingPtr</td><td>is the BD ring that contains BdPtr. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">BdPtr</td><td>is the starting BD pointer on entry and the updated BD pointer on return. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumBd</td><td>is the number of BD spaces to move backward.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Usable only when the DMA is in scatter-gather mode. </dd></dl>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#gac58b1ab7a89890142baf67211772d3ce">XAxiDma_BdRingUnAlloc()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8b60749d5a2bfdd8fc0c7a007d832498"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XAXIDMA_STOP_TIMEOUT&#160;&#160;&#160;500000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop timeout iterations (about 100 ms at 100 MHz). </p>
+
+</div>
+</div>
+<a class="anchor" id="a4df2f97f51b475b5c785fc2da2fc7b5d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XAXIDMA_VIRT_TO_PHYS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">BdPtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((UINTPTR)(BdPtr) + (RingPtr-&gt;FirstBdPhysAddr - RingPtr-&gt;FirstBdAddr))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the physical address of a descriptor from its virtual address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">BdPtr</td><td>is the virtual address of the buffer descriptor.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Physical address of BdPtr.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Assumes a flat virtual-to-physical mapping. RingPtr is an implicit parameter. </dd></dl>
+
+<p>Referenced by <a class="el" href="group___a_x_i_d_m_a.html#gaac81111b373e373be7dd3989fffffe7b">XAxiDma_BdRingToHw()</a>, <a class="el" href="group___a_x_i_d_m_a.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>, and <a class="el" href="group___a_x_i_d_m_a.html#ga39ee7d89e4453276d615849acad27fde">XAxiDma_UpdateBdRingCDesc()</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -103,20 +103,21 @@ $(document).ready(function(){initNavTree('xilflash__intel_8c.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file implements the Intel CFI Version of the XFlash Library. </p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<ul>
-<li>Special consideration has to be given to varying data bus widths. To boost performance, multiple devices in parallel on the data bus are accessed in parallel. Therefore to reduce complexity and increase performance, many local primitive functions are duplicated with the only difference being the width of writes to the devices. <br/>
+<div class="textblock"><p>Implements the Intel CFI version of the XFlash library. </p>
+<p>This file implements the Intel CFI Version of the XFlash Library.</p>
+<dl class="section note"><dt>Note</dt><dd><ul>
+<li>Special consideration has to be given to varying data bus widths. To boost performance, multiple devices in parallel on the data bus are accessed in parallel. Therefore, to reduce complexity and increase performance, many local primitive functions are duplicated with the only difference being the width of writes to the devices. <br/>
 <br/>
  Even with the performance boosting optimizations, the overhead associated is rather high due to the general purpose nature of its design. <br/>
 <br/>
- Flash block erasing is a time consuming operation with nearly all latency occurring due to the devices' themselves. It takes on the order of 1 second to erase each block. <br/>
+ Flash block erasing is a time consuming operation with nearly all latency occurring due to the devices themselves. It takes on the order of one second to erase each block. <br/>
 <br/>
- Writes by comparison are much quicker so library overhead becomes an issue. The write algorithm has been optimized for bulk data programming and should provide relatively better performance.</li>
-<li>The code/comments refers to WSM frequently. This stands for Write State Machine. WSM is the internal programming engine of the devices.</li>
-<li>This library and the underlying Intel flash memory does not allow re- programming while code is executing from the same memory.</li>
-<li>If hardware is flakey or fails, then this library could hang a thread of execution.</li>
+ Writes by comparison are much quicker, so library overhead becomes an issue. The write algorithm has been optimized for bulk data programming and should provide relatively better performance.</li>
+<li>The code/comments refer to WSM frequently. This stands for Write State Machine. WSM is the internal programming engine of the devices.</li>
+<li>This library and the underlying Intel flash memory do not allow reprogramming while code is executing from the same memory.</li>
+<li>If hardware is flaky or fails, then this library could hang a thread of execution.</li>
 </ul>
+</dd></dl>
 <pre></pre><pre>MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </p>
 <hr/>
@@ -151,6 +152,7 @@ $(document).ready(function(){initNavTree('xilflash__intel_8c.html','');});
 4.1     nsk  08/06/15 Fixed CR 835008.
 4.7     akm  07/23/19 Initialized Status variable to XST_FAILURE.
 4.10    akm  07/14/23 Added support for system device-tree flow.
+4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xilflash_8h.html">include/xilflash.h</a>&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 <code>#include &quot;xilflash_config.h&quot;</code><br/>

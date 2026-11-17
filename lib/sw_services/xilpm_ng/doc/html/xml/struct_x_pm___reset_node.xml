@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pm___reset_node" kind="struct" prot="public">
+    <compoundname>XPm_ResetNode</compoundname>
+    <includes local="no">xpm_reset.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pm___reset_node_1ae2f0a0e7a3132cfc751d1a4eade0f06f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___node" kindref="compound">XPm_Node</ref></type>
+        <definition>XPm_Node XPm_ResetNode::Node</definition>
+        <argsstring></argsstring>
+        <name>Node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_node_1ae7517370e5032f9610112caf914235ae" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPm_ResetNode::Parents[MAX_RESET_PARENTS]</definition>
+        <argsstring>[MAX_RESET_PARENTS]</argsstring>
+        <name>Parents</name>
+        <briefdescription>
+<para>List of Parent Reset Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_node_1afbab01783f1822d4aa4d25d91a14e661" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ResetNode::Shift</definition>
+        <argsstring></argsstring>
+        <name>Shift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_node_1acd175ddbd4047e87df05f12fe1ba65d0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t XPm_ResetNode::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pm___reset_node_1a0180f2efe530bd870daca875f7f4d024" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pm___reset_handle" kindref="compound">XPm_ResetHandle</ref> *</type>
+        <definition>XPm_ResetHandle* XPm_ResetNode::RstHandles</definition>
+        <argsstring></argsstring>
+        <name>RstHandles</name>
+        <briefdescription>
+<para>Pointer to the reset/device pairs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The reset class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is the base class for all the reset nodes. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="284">
+        <label>XPm_ClockNode</label>
+        <link refid="struct_x_pm___clock_node"/>
+        <childnode refid="280" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="283" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="282">
+        <label>XPm_DeviceNode</label>
+        <link refid="struct_x_pm___device_node"/>
+        <childnode refid="280" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="283" relation="usage">
+          <edgelabel>ClkHandles</edgelabel>
+        </childnode>
+        <childnode refid="281" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="281">
+        <label>XPm_ResetHandle</label>
+        <link refid="struct_x_pm___reset_handle"/>
+        <childnode refid="282" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="279" relation="usage">
+          <edgelabel>Reset</edgelabel>
+        </childnode>
+        <childnode refid="281" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextReset</edgelabel>
+        </childnode>
+      </node>
+      <node id="279">
+        <label>XPm_ResetNode</label>
+        <link refid="struct_x_pm___reset_node"/>
+        <childnode refid="280" relation="usage">
+          <edgelabel>Node</edgelabel>
+        </childnode>
+        <childnode refid="281" relation="usage">
+          <edgelabel>RstHandles</edgelabel>
+        </childnode>
+      </node>
+      <node id="283">
+        <label>XPm_ClockHandle</label>
+        <link refid="struct_x_pm___clock_handle"/>
+        <childnode refid="282" relation="usage">
+          <edgelabel>Device</edgelabel>
+        </childnode>
+        <childnode refid="284" relation="usage">
+          <edgelabel>Clock</edgelabel>
+        </childnode>
+        <childnode refid="283" relation="usage">
+          <edgelabel>NextDevice</edgelabel>
+          <edgelabel>NextClock</edgelabel>
+        </childnode>
+      </node>
+      <node id="280">
+        <label>XPm_Node</label>
+        <link refid="struct_x_pm___node"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_reset.h" bodystart="58" bodyend="64"/>
+    <listofallmembers>
+      <member refid="struct_x_pm___reset_node_1ae2f0a0e7a3132cfc751d1a4eade0f06f" prot="public" virt="non-virtual"><scope>XPm_ResetNode</scope><name>Node</name></member>
+      <member refid="struct_x_pm___reset_node_1ae7517370e5032f9610112caf914235ae" prot="public" virt="non-virtual"><scope>XPm_ResetNode</scope><name>Parents</name></member>
+      <member refid="struct_x_pm___reset_node_1a0180f2efe530bd870daca875f7f4d024" prot="public" virt="non-virtual"><scope>XPm_ResetNode</scope><name>RstHandles</name></member>
+      <member refid="struct_x_pm___reset_node_1afbab01783f1822d4aa4d25d91a14e661" prot="public" virt="non-virtual"><scope>XPm_ResetNode</scope><name>Shift</name></member>
+      <member refid="struct_x_pm___reset_node_1acd175ddbd4047e87df05f12fe1ba65d0" prot="public" virt="non-virtual"><scope>XPm_ResetNode</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

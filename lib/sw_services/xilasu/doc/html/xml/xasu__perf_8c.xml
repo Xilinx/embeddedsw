@@ -6,34 +6,34 @@
     <includes local="yes">xil_io.h</includes>
     <includes local="no">stdio.h</includes>
     <incdepgraph>
-      <node id="904">
+      <node id="1246">
         <label>xil_io.h</label>
       </node>
-      <node id="903">
+      <node id="1245">
         <label>xasu_bsp_config.h</label>
       </node>
-      <node id="900">
+      <node id="1242">
         <label>xasu_perf.c</label>
         <link refid="xasu_perf.c"/>
-        <childnode refid="901" relation="include">
+        <childnode refid="1243" relation="include">
         </childnode>
-        <childnode refid="904" relation="include">
+        <childnode refid="1246" relation="include">
         </childnode>
-        <childnode refid="905" relation="include">
+        <childnode refid="1247" relation="include">
         </childnode>
       </node>
-      <node id="901">
+      <node id="1243">
         <label>xasu_perf.h</label>
         <link refid="xasu__perf_8h"/>
-        <childnode refid="902" relation="include">
+        <childnode refid="1244" relation="include">
         </childnode>
-        <childnode refid="903" relation="include">
+        <childnode refid="1245" relation="include">
         </childnode>
       </node>
-      <node id="902">
+      <node id="1244">
         <label>xil_types.h</label>
       </node>
-      <node id="905">
+      <node id="1247">
         <label>stdio.h</label>
       </node>
     </incdepgraph>
@@ -123,6 +123,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="132"><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_PERF_MEASUREMENT_ENABLE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_perf.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/client/xasu_perf.c"/>
   </compounddef>
 </doxygen>

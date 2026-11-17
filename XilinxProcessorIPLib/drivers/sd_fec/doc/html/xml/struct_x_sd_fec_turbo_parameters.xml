@@ -10,12 +10,13 @@
         <argsstring></argsstring>
         <name>Alg</name>
         <briefdescription>
-        </briefdescription>
+<para>Turbo algorithm. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga6a90d9797e3ed8354f8a85a0f19fdd61" compoundref="xsdfec_8c" startline="167" endline="174">XSdFecSetTurboParams</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sd_fec_turbo_parameters_1af3d3d41a8394d017755eef42876650ed" prot="public" static="no" mutable="no">
         <type>u16</type>
@@ -23,19 +24,20 @@
         <argsstring></argsstring>
         <name>Scale</name>
         <briefdescription>
-        </briefdescription>
+<para>Turbo scale factor. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__sd__fec_1ga6a90d9797e3ed8354f8a85a0f19fdd61" compoundref="xsdfec_8c" startline="167" endline="174">XSdFecSetTurboParams</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Struct defining Turbo Decode parameters. </para>    </briefdescription>
+<para>Holds Turbo Decode parameters. </para>    </briefdescription>
     <detaileddescription>
-<para>Member values defined in device specific header x&lt;ipinst_name&gt;_turbo_params.h as per IP GUI configuration </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="120" bodyend="123"/>
+<para>Member values are defined in the device specific header &quot;x&lt;ipinst_name&gt;_turbo_params.h&quot; as per IP GUI configuration. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="152" bodyend="155"/>
     <listofallmembers>
       <member refid="struct_x_sd_fec_turbo_parameters_1ab8c3ff095e11d92162a2c55bced47944" prot="public" virt="non-virtual"><scope>XSdFecTurboParameters</scope><name>Alg</name></member>
       <member refid="struct_x_sd_fec_turbo_parameters_1af3d3d41a8394d017755eef42876650ed" prot="public" virt="non-virtual"><scope>XSdFecTurboParameters</scope><name>Scale</name></member>

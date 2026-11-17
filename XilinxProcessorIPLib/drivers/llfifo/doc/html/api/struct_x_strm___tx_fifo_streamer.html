@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_strm___tx_fifo_streamer.html'
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,17 +109,20 @@ $(document).ready(function(){initNavTree('struct_x_strm___tx_fifo_streamer.html'
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">XStrm_TxFifoStreamer Struct Reference<div class="ingroups"><a class="el" href="group__llfifo.html">Overview</a></div></div>  </div>
+<div class="title">XStrm_TxFifoStreamer Struct Reference<div class="ingroups"><a class="el" href="group__llfifo__api.html">LLFIFO APIs</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef defines a run-time instance of a transmit byte-streamer.
+<p>Defines the transmit byte-streamer instance.
  <a href="struct_x_strm___tx_fifo_streamer.html#details">More...</a></p>
 
 <p><code>#include &lt;xstreamer.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
+<tr class="memitem:ab219d36b21fc84935af04761c15ff26d"><td class="memItemLeft" align="right" valign="top">union XStrm_AlignedBufferType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___tx_fifo_streamer.html#ab219d36b21fc84935af04761c15ff26d">AlignedBuffer</a></td></tr>
+<tr class="memdesc:ab219d36b21fc84935af04761c15ff26d"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO holding buffer.  <a href="#ab219d36b21fc84935af04761c15ff26d">More...</a><br/></td></tr>
+<tr class="separator:ab219d36b21fc84935af04761c15ff26d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a265500391a387c5354a14fea79a1b446"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___tx_fifo_streamer.html#a265500391a387c5354a14fea79a1b446">TailIndex</a></td></tr>
 <tr class="memdesc:a265500391a387c5354a14fea79a1b446"><td class="mdescLeft">&#160;</td><td class="mdescRight">TailIndex is the index to the AlignedBuffer as bytes.  <a href="#a265500391a387c5354a14fea79a1b446">More...</a><br/></td></tr>
 <tr class="separator:a265500391a387c5354a14fea79a1b446"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,8 +143,25 @@ Data Fields</h2></td></tr>
 <tr class="separator:ab33212eea0a6327f2c6b1173510170a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef defines a run-time instance of a transmit byte-streamer. </p>
+<div class="textblock"><p>Defines the transmit byte-streamer instance. </p>
+<p>This typedef defines a run-time instance of a transmit byte-streamer. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="ab219d36b21fc84935af04761c15ff26d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">union XStrm_AlignedBufferType XStrm_TxFifoStreamer::AlignedBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FIFO holding buffer. </p>
+
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ac20fde8a3090fddfc01f8b2900fd9051"></a>
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +174,7 @@ Data Fields</h2></td></tr>
 
 <p>FifoInstance is the FIFO driver instance to pass to WriteFn, SetLenFn, and GetVacancyFn routines. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, <a class="el" href="group__llfifo.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, <a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
 
 </div>
 </div>
@@ -170,7 +190,7 @@ Data Fields</h2></td></tr>
 
 <p>FifoWidth is the FIFO key hole width in bytes. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, and <a class="el" href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, and <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
 
 </div>
 </div>
@@ -186,7 +206,7 @@ Data Fields</h2></td></tr>
 
 <p>GetVaccancyFn is the routine the streamer uses to get the vacancy from the FIFO. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -202,7 +222,7 @@ Data Fields</h2></td></tr>
 
 <p>SetLenFn is the routine the streamer uses to initiate transmit operations on the FIFO. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>.</p>
 
 </div>
 </div>
@@ -218,7 +238,7 @@ Data Fields</h2></td></tr>
 
 <p>TailIndex is the index to the AlignedBuffer as bytes. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, <a class="el" href="group__llfifo.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, <a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
 
 </div>
 </div>
@@ -234,7 +254,7 @@ Data Fields</h2></td></tr>
 
 <p>WriteFn is the routine the streamer uses to transmit bytes to the Fifo. </p>
 
-<p>Referenced by <a class="el" href="group__llfifo.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, <a class="el" href="group__llfifo.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
+<p>Referenced by <a class="el" href="group__llfifo__api.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize()</a>, <a class="el" href="group__llfifo__api.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen()</a>, and <a class="el" href="group__llfifo__api.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write()</a>.</p>
 
 </div>
 </div>

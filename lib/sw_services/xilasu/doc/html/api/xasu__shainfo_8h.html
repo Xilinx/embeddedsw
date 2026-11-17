@@ -50,6 +50,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="globals.html"><span>APIs</span></a></li>
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="pages.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -116,7 +117,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
       ma   06/14/24 Updated XAsufw_ShaOperationCmd structure to have 64-bit hash address
       vns  08/22/24 Updated sha command structure
       am   10/22/24 Added macros for hash lengths.
-      yog  01/02/25 Added macros for SHA type.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
+      yog  01/02/25 Added macros for SHA type.
+      dmi  09/08/26 Added XAsu_ShaGetHashLen() API</pre><pre></pre> </div><div class="textblock"><code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xstatus.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -128,10 +130,10 @@ Data Structures</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga219220a0d5563c2fc911864cd15a8d96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#ga219220a0d5563c2fc911864cd15a8d96">XASU_SHA_OPERATION_CMD_ID</a>&#160;&#160;&#160;(0U)</td></tr>
-<tr class="memdesc:ga219220a0d5563c2fc911864cd15a8d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command ID for SHA3 operation command.  <a href="group__xasu__common__defs.html#ga219220a0d5563c2fc911864cd15a8d96">More...</a><br/></td></tr>
+<tr class="memdesc:ga219220a0d5563c2fc911864cd15a8d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command ID for SHA2/3 operation command.  <a href="group__xasu__common__defs.html#ga219220a0d5563c2fc911864cd15a8d96">More...</a><br/></td></tr>
 <tr class="separator:ga219220a0d5563c2fc911864cd15a8d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf93a04d434eb1a5f7cf9f5c4cd2f717a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gaf93a04d434eb1a5f7cf9f5c4cd2f717a">XASU_SHA_KAT_CMD_ID</a>&#160;&#160;&#160;(1U)</td></tr>
-<tr class="memdesc:gaf93a04d434eb1a5f7cf9f5c4cd2f717a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command ID for SHA3 KAT command.  <a href="group__xasu__common__defs.html#gaf93a04d434eb1a5f7cf9f5c4cd2f717a">More...</a><br/></td></tr>
+<tr class="memdesc:gaf93a04d434eb1a5f7cf9f5c4cd2f717a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command ID for SHA2/3 KAT command.  <a href="group__xasu__common__defs.html#gaf93a04d434eb1a5f7cf9f5c4cd2f717a">More...</a><br/></td></tr>
 <tr class="separator:gaf93a04d434eb1a5f7cf9f5c4cd2f717a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf407e64f0d31841abdaab5bf6e60aca1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xasu__common__defs.html#gaf407e64f0d31841abdaab5bf6e60aca1">XASU_SHA_MAX_CMDS</a>&#160;&#160;&#160;(2U)</td></tr>
 <tr class="memdesc:gaf407e64f0d31841abdaab5bf6e60aca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of commands supported by SHA module.  <a href="group__xasu__common__defs.html#gaf407e64f0d31841abdaab5bf6e60aca1">More...</a><br/></td></tr>

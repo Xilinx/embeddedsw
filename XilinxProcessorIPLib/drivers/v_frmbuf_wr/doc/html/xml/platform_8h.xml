@@ -29,10 +29,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c" bodystart="106" bodyend="117"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c" bodystart="106" bodyend="117"/>
         <references refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" compoundref="platform_8c" startline="39" endline="52">enable_caches</references>
         <references refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" compoundref="platform_8c" startline="82" endline="91">init_uart</references>
-        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="805" endline="969">main</referencedby>
+        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="649" endline="805">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -45,7 +45,7 @@
 <para>This function is typically called during the shutdown or cleanup phase of the application to ensure that all processor caches are properly disabled before exiting or resetting the system. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c" bodystart="127" bodyend="130"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c" bodystart="127" bodyend="130"/>
         <references refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" compoundref="platform_8c" startline="63" endline="67">disable_caches</references>
       </memberdef>
       </sectiondef>
@@ -68,6 +68,6 @@
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h"/>
   </compounddef>
 </doxygen>

@@ -31,23 +31,25 @@
   <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
   </compound>
   <compound refid="xddrcpsu_8c" kind="file"><name>xddrcpsu.c</name>
-    <member refid="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
+    <member refid="group__ddrcpsu__api_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
   </compound>
   <compound refid="xddrcpsu_8h" kind="file"><name>xddrcpsu.h</name>
-    <member refid="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
+    <member refid="group__ddrcpsu_1ga82ca6f21f4d0a479fd16c3d46b8d4fbb" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
     <member refid="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
   </compound>
   <compound refid="xddrcpsu__sinit_8c" kind="file"><name>xddrcpsu_sinit.c</name>
-    <member refid="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
+    <member refid="group__ddrcpsu__api_1ga82ca6f21f4d0a479fd16c3d46b8d4fbb" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__ddrcpsu__api" kind="group"><name>ddrcpsu_api</name>
+    <member refid="group__ddrcpsu__api_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
+    <member refid="group__ddrcpsu__api_1ga82ca6f21f4d0a479fd16c3d46b8d4fbb" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
   </compound>
   <compound refid="group__ddrcpsu" kind="group"><name>ddrcpsu</name>
+    <member refid="group__ddrcpsu_1ga82ca6f21f4d0a479fd16c3d46b8d4fbb" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
     <member refid="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" kind="function"><name>XDdrcPsu_CfgInitialize</name></member>
-    <member refid="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" kind="function"><name>XDdrcPsu_LookupConfig</name></member>
   </compound>
   <compound refid="dir_a13873a3e90b179cb328621c1041a626" kind="dir"><name>ddrcpsu</name>
   </compound>
   <compound refid="dir_3b6de03431c9be44dd16ef17af0884f9" kind="dir"><name>src</name>
-  </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
   </compound>
 </doxygenindex>

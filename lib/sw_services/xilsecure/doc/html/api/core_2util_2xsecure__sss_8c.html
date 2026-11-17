@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('core_2util_2xsecure__sss_8c.html','');
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">core/util/xsecure_sss.c File Reference</div>  </div>
@@ -125,15 +126,26 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
 4.6   har     07/14/21 Fixed doxygen warnings
 5.0   bm      07/06/22 Refactor versal and versal_net code
       am      08/18/22 Added volatile keyword and reset the Status variable
-                       to failure before reuse</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="core_2util_2xsecure__sss_8h.html">xsecure_sss.h</a>&quot;</code><br/>
+                       to failure before reuse
+5.8   ank     09/01/26 Gate DMA1 validation on spartanup, which has DMA0 only
+      rap     09/20/26 Updated input parameter validations</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="core_2util_2xsecure__sss_8h.html">xsecure_sss.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="core_2util_2xsecure__utils_8h.html">xsecure_utils.h</a>&quot;</code><br/>
 <code>#include &quot;xsecure_error.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga77b7792788709bd824e998610580451c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__generic__server__apis.html#ga77b7792788709bd824e998610580451c">XSecure_SssIsDmaSrc</a>(Src)</td></tr>
+<tr class="memdesc:ga77b7792788709bd824e998610580451c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for a valid SSS DMA source.  <a href="group__xsecure__generic__server__apis.html#ga77b7792788709bd824e998610580451c">More...</a><br/></td></tr>
+<tr class="separator:ga77b7792788709bd824e998610580451c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3765d38caa6d5d8699a53df0aadf5370"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__generic__server__apis.html#ga3765d38caa6d5d8699a53df0aadf5370">XSecure_SssIsDmaId</a>(Id)</td></tr>
+<tr class="memdesc:ga3765d38caa6d5d8699a53df0aadf5370"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for a valid DMA device ID.  <a href="group__xsecure__generic__server__apis.html#ga3765d38caa6d5d8699a53df0aadf5370">More...</a><br/></td></tr>
+<tr class="separator:ga3765d38caa6d5d8699a53df0aadf5370"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gac44d78314f59033c8bee53a3f1dee58b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__generic__server__apis.html#gac44d78314f59033c8bee53a3f1dee58b">XSecure_SssInitialize</a> (XSecure_Sss *InstancePtr)</td></tr>
-<tr class="memdesc:gac44d78314f59033c8bee53a3f1dee58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the secure stream switch instance.  <a href="group__xsecure__generic__server__apis.html#gac44d78314f59033c8bee53a3f1dee58b">More...</a><br/></td></tr>
-<tr class="separator:gac44d78314f59033c8bee53a3f1dee58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd8f0c5f3f14a72235b9aad0fa4bd91d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__generic__server__apis.html#gafd8f0c5f3f14a72235b9aad0fa4bd91d">XSecure_SssInitialize</a> (XSecure_Sss *InstancePtr)</td></tr>
+<tr class="memdesc:gafd8f0c5f3f14a72235b9aad0fa4bd91d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initializes the secure stream switch instance.  <a href="group__xsecure__generic__server__apis.html#gafd8f0c5f3f14a72235b9aad0fa4bd91d">More...</a><br/></td></tr>
+<tr class="separator:gafd8f0c5f3f14a72235b9aad0fa4bd91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga149d2122c6b082fafda37d6f20b013e3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xsecure__generic__server__apis.html#ga149d2122c6b082fafda37d6f20b013e3">XSecure_SssAes</a> (const XSecure_Sss *InstancePtr, <a class="el" href="group__xsecure__helper__server__apis.html#gab4e2a6423dfb2e446d7dc1ee602c6ea5">XSecure_SssSrc</a> InputSrc, <a class="el" href="group__xsecure__helper__server__apis.html#gab4e2a6423dfb2e446d7dc1ee602c6ea5">XSecure_SssSrc</a> OutputSrc)</td></tr>
 <tr class="memdesc:ga149d2122c6b082fafda37d6f20b013e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the secure stream switch for AES engine.  <a href="group__xsecure__generic__server__apis.html#ga149d2122c6b082fafda37d6f20b013e3">More...</a><br/></td></tr>
 <tr class="separator:ga149d2122c6b082fafda37d6f20b013e3"><td class="memSeparator" colspan="2">&#160;</td></tr>

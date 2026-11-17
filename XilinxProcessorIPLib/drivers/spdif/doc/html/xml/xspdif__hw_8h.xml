@@ -24,20 +24,36 @@
         <label>xspdif_sinit.c</label>
         <link refid="xspdif__sinit_8c"/>
       </node>
+      <node id="64">
+        <label>xspdif_selftest.c</label>
+        <link refid="xspdif__selftest_8c"/>
+      </node>
+      <node id="62">
+        <label>xspdif_g.c</label>
+      </node>
       <node id="63">
         <label>xspdif_intr.c</label>
         <link refid="xspdif__intr_8c"/>
       </node>
-      <node id="61">
-        <label>xspdif_chsts.c</label>
-        <link refid="xspdif__chsts_8c"/>
+      <node id="67">
+        <label>xspdif_selftest_example.c</label>
+        <link refid="xspdif__selftest__example_8c"/>
       </node>
-      <node id="60">
-        <label>xspdif_chsts.h</label>
-        <link refid="xspdif__chsts_8h"/>
+      <node id="66">
+        <label>xspdif_intr_example.c</label>
+      </node>
+      <node id="57">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif_hw.h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
         <childnode refid="59" relation="include">
         </childnode>
         <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
         </childnode>
       </node>
       <node id="59">
@@ -66,33 +82,17 @@
         <childnode refid="67" relation="include">
         </childnode>
       </node>
-      <node id="66">
-        <label>xspdif_intr_example.c</label>
+      <node id="61">
+        <label>xspdif_chsts.c</label>
+        <link refid="xspdif__chsts_8c"/>
       </node>
-      <node id="57">
-        <label>xspdif_hw.h</label>
-        <link refid="xspdif_hw.h"/>
-        <childnode refid="58" relation="include">
-        </childnode>
+      <node id="60">
+        <label>xspdif_chsts.h</label>
+        <link refid="xspdif__chsts_8h"/>
         <childnode refid="59" relation="include">
         </childnode>
         <childnode refid="61" relation="include">
         </childnode>
-        <childnode refid="64" relation="include">
-        </childnode>
-        <childnode refid="66" relation="include">
-        </childnode>
-      </node>
-      <node id="64">
-        <label>xspdif_selftest.c</label>
-        <link refid="xspdif__selftest_8c"/>
-      </node>
-      <node id="62">
-        <label>xspdif_g.c</label>
-      </node>
-      <node id="67">
-        <label>xspdif_selftest_example.c</label>
-        <link refid="xspdif__selftest__example_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="user-defined">
@@ -107,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="41" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gafecdc424bebe7cf1f779fc5d479c48c3" prot="public" static="no">
         <name>XSPDIF_INTERRUPT_STATUS_REGISTER_OFFSET</name>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="44" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga2e873c24b76b1f0c5ea5e2067fe96127" prot="public" static="no">
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="47" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gafcc4d1467e4b02bb63d8ed3ca103c384" prot="public" static="no">
@@ -142,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="50" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="50" bodyend="-1"/>
         <referencedby refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" compoundref="xspdif_8c" startline="132" endline="138">XSpdif_SoftReset</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" prot="public" static="no">
@@ -154,7 +154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="53" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="53" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
         <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
         <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
@@ -169,8 +169,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="56" bodyend="-1"/>
-        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="246">XSpdif_GetFs</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga52d7b2b64993516fbb98d29dd8878be6" prot="public" static="no">
         <name>XSPDIF_CHANNEL_STATUS_REGISTER0_OFFSET</name>
@@ -181,8 +181,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="59" bodyend="-1"/>
-        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="249" endline="263">XSpdif_Rx_GetChStat</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="256" endline="270">XSpdif_Rx_GetChStat</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga657a7152cbcaf8adee25c4dc9fb6f299" prot="public" static="no">
         <name>XSPDIF_CHANNEL_A_USER_DATA_REGISTER0_OFFSET</name>
@@ -193,8 +193,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="62" bodyend="-1"/>
-        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="273" endline="287">XSpdif_Rx_GetChA_UserData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="280" endline="294">XSpdif_Rx_GetChA_UserData</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga1711efa0e12d7e74ddfbc21e4ffd519d" prot="public" static="no">
         <name>XSPDIF_CHANNEL_B_USER_DATA_REGISTER0_OFFSET</name>
@@ -205,8 +205,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="65" bodyend="-1"/>
-        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="297" endline="312">XSpdif_Rx_GetChB_UserData</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="304" endline="319">XSpdif_Rx_GetChB_UserData</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -220,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="73" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" prot="public" static="no">
         <name>XSPDIF_CORE_ENABLE_MASK</name>
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="76" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="76" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
         <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
       </memberdef>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="79" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga44d793540b399f583b32940d41614389" prot="public" static="no">
         <name>XSPDIF_FIFO_FLUSH_MASK</name>
@@ -255,7 +255,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="82" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gac175833095028d13a1fb8704219cb01f" prot="public" static="no">
         <name>XSPDIF_CLOCK_CONFIG_BITS_SHIFT</name>
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="85" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="85" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga69580f92443ed12502c008a1457fe1be" prot="public" static="no">
@@ -278,7 +278,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="88" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga964ad8ea66a86a6ce4c7cf7ff2450dde" prot="public" static="no">
@@ -290,7 +290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga20f9c3bca0884af7fdfa9bf0c5f2d86f" prot="public" static="no">
         <name>XSPDIF_SAMPLE_CLOCK_COUNT_MASK</name>
@@ -301,8 +301,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="93" bodyend="-1"/>
-        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="246">XSpdif_GetFs</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -316,7 +316,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="100" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gabe00ee416b556177d910c3e17fb9e873" prot="public" static="no">
         <name>XSPDIF_TX_OR_RX_FIFO_FULL_MASK</name>
@@ -327,7 +327,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="103" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gade30ebd0405e416cd787ad39b6f3c1cc" prot="public" static="no">
@@ -339,7 +339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="106" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga01764f0f8e04b295b8ec379e1c039190" prot="public" static="no">
         <name>XSPDIF_TX_OR_RX_FIFO_EMPTY_MASK</name>
@@ -350,7 +350,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="109" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="109" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga0480d1e28525b52c86770476d5199ea8" prot="public" static="no">
@@ -362,7 +362,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga85ffec35bf477ccfe1e0cfc949ff7b26" prot="public" static="no">
         <name>XSPDIF_START_OF_BLOCK_MASK</name>
@@ -373,7 +373,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="115" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="115" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gacac3ea9e141b8c41d6af146219a01ee2" prot="public" static="no">
@@ -385,7 +385,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="118" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gaa68d454f0f8827129c0ec744fbf3138f" prot="public" static="no">
         <name>XSPDIF_BMC_ERROR_MASK</name>
@@ -396,7 +396,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="121" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga50e1fd9807c67cd494b043712940edb6" prot="public" static="no">
@@ -408,7 +408,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga4a060f08a718b7727555715810fb6caf" prot="public" static="no">
         <name>XSPDIF_PREAMBLE_ERROR_MASK</name>
@@ -419,7 +419,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="127" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="127" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gad16dc8a77dde55e1265c9a1f5b09d459" prot="public" static="no">
@@ -431,7 +431,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="130" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gad0e21f07fb89aa3b362e4083ca5630dd" prot="public" static="no">
         <name>XSPDIF_GINTR_ENABLE_MASK</name>
@@ -442,7 +442,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="133" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -456,7 +456,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="157" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="157" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gaed24ea3d35e70dcda7745d333425cd1c" prot="public" static="no">
         <name>XSpdif_Out32</name>
@@ -467,7 +467,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="158" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" prot="public" static="no">
         <name>XSpdif_ReadReg</name>
@@ -497,14 +497,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="179" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="179" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
-        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="246">XSpdif_GetFs</referencedby>
         <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
         <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
-        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="273" endline="287">XSpdif_Rx_GetChA_UserData</referencedby>
-        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="297" endline="312">XSpdif_Rx_GetChB_UserData</referencedby>
-        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="249" endline="263">XSpdif_Rx_GetChStat</referencedby>
+        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="280" endline="294">XSpdif_Rx_GetChA_UserData</referencedby>
+        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="304" endline="319">XSpdif_Rx_GetChB_UserData</referencedby>
+        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="256" endline="270">XSpdif_Rx_GetChStat</referencedby>
         <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
@@ -544,7 +544,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="201" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="201" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
         <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
@@ -561,7 +561,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="136" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="136" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gae02f06715593696d6dd15f3a2428bfac" prot="public" static="no">
@@ -573,7 +573,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="138" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="138" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga8f58bf3843cffb58c16ba3c37b6f1a43" prot="public" static="no">
@@ -585,7 +585,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="140" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1gacc90df3f63b69ba547aef9449439bdeb" prot="public" static="no">
@@ -597,7 +597,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="142" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga76f09af6af8a8a42a954d4f3c3b4ead1" prot="public" static="no">
@@ -609,7 +609,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="144" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga2b1a583d97411e32ac6d37a13c749d0b" prot="public" static="no">
@@ -621,7 +621,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="146" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="146" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__spdif_1ga4c885709bc23885156fa806853159a42" prot="public" static="no">
@@ -633,7 +633,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="148" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="148" bodyend="-1"/>
         <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
       </memberdef>
       </sectiondef>
@@ -750,6 +750,6 @@
 <codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSPDIF_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="215"><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h"/>
   </compounddef>
 </doxygen>

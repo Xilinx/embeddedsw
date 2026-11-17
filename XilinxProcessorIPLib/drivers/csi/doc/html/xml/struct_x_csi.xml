@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="232" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="228" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
         <referencedby refid="group__csi_1ga2588fe696b38dd330514a55fd839965a" compoundref="xcsi_8c" startline="379" endline="392">XCsi_GetClkLaneInfo</referencedby>
@@ -23,13 +23,13 @@
         <referencedby refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" compoundref="xcsi__intr_8c" startline="112" endline="122">XCsi_GetIntrEnable</referencedby>
         <referencedby refid="group__csi_1gad685546b6515977cc8149620ef3298bd" compoundref="xcsi__intr_8c" startline="137" endline="147">XCsi_GetIntrStatus</referencedby>
         <referencedby refid="group__csi_1ga9a4ced8d01b40c64ed467ff71ed4533c" compoundref="xcsi_8c" startline="345" endline="364">XCsi_GetShortPacket</referencedby>
-        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="498">XCsi_GetVCInfo</referencedby>
+        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="502">XCsi_GetVCInfo</referencedby>
         <referencedby refid="group__csi_1ga20061dc4d29af4f28937f3791e12b282" compoundref="xcsi_8c" startline="316" endline="329">XCsi_GetVCSelection</referencedby>
         <referencedby refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" compoundref="xcsi__intr_8c" startline="163" endline="174">XCsi_InterruptClear</referencedby>
         <referencedby refid="group__csi_1ga9cc5750f241d74489ee972978f99ec74" compoundref="xcsi__intr_8c" startline="89" endline="98">XCsi_IntrDisable</referencedby>
         <referencedby refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" compoundref="xcsi__intr_8c" startline="63" endline="74">XCsi_IntrEnable</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
-        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="516" endline="544">XCsi_IsActiveLaneCountValid</referencedby>
+        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="520" endline="548">XCsi_IsActiveLaneCountValid</referencedby>
         <referencedby refid="group__csi_1gab06eaea50112054c5a19ea52976d00e9" compoundref="xcsi__selftest_8c" startline="64" endline="82">XCsi_SelfTest</referencedby>
         <referencedby refid="group__csi_1ga32489a42829995877019f38cfaa06cf8" compoundref="xcsi_8c" startline="293" endline="303">XCsi_SetVCSelection</referencedby>
       </memberdef>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="233" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="229" bodyend="-1"/>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" prot="public" static="no" mutable="no">
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="235" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="231" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="237" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="233" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="239" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="235" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="241" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="237" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="243" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="239" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -136,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="245" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="241" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="247" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="243" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -167,7 +167,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="249" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="245" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -182,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="251" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="247" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="254" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="250" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -213,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="256" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="252" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -229,7 +229,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="259" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="255" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="260" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="256" bodyend="-1"/>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="263" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="259" bodyend="-1"/>
         <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
         <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
       </memberdef>
@@ -275,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="264" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="260" bodyend="-1"/>
         <referencedby refid="group__csi_1ga067001a4c7e39114b27d3926c4ae8e63" compoundref="xcsi_8c" startline="161" endline="188">XCsi_Activate</referencedby>
         <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
         <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
@@ -301,7 +301,7 @@
         <link refid="struct_x_csi___config"/>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="231" bodyend="265"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="227" bodyend="261"/>
     <listofallmembers>
       <member refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ActiveLanes</name></member>
       <member refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" prot="public" virt="non-virtual"><scope>XCsi</scope><name>Config</name></member>

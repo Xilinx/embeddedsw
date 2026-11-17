@@ -86,7 +86,6 @@ var xcan__l_8h =
     [ "XCAN_IXR_TXFLL_MASK", "xcan__l_8h.html#ga3436502be0f71ac99a60299c73b86f1f", null ],
     [ "XCAN_IXR_TXOK_MASK", "xcan__l_8h.html#gaa3b70e481b672854a2a8436dfaad2ed2", null ],
     [ "XCAN_IXR_WKUP_MASK", "xcan__l_8h.html#gaea1b2f81446269b8b30267bf840b3c31", null ],
-    [ "XCAN_L_H", "xcan__l_8h.html#gac65cec1791cdaa6d0b68a80936f25c1a", null ],
     [ "XCAN_MASK_HIGH_16BITS", "xcan__l_8h.html#gac9b2db5b4abc4a1ee2154108702776d1", null ],
     [ "XCAN_MASK_LOW_16BITS", "xcan__l_8h.html#ga1f4ae13d03284afb0c4574d52d139e10", null ],
     [ "XCAN_MAX_FRAME_SIZE", "xcan__l_8h.html#ga0d49049d96621520fa9afe22db2a8a34", null ],

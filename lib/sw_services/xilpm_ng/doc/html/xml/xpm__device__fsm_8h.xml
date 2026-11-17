@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpm__device__fsm_8h" kind="file">
+    <compoundname>xpm_device_fsm.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xpm__fsm_8h" local="yes">xpm_fsm.h</includes>
+    <includedby refid="xpm__runtime__hbmon__subsys_8c" local="yes">xpm_runtime_hbmon_subsys.c</includedby>
+    <includedby refid="xpm__device__fsm_8c" local="yes">xpm_device_fsm.c</includedby>
+    <includedby refid="xpm__fsm_8c" local="yes">xpm_fsm.c</includedby>
+    <includedby refid="xpm__requirement_8c" local="yes">xpm_requirement.c</includedby>
+    <incdepgraph>
+      <node id="1337">
+        <label>xpm_defs.h</label>
+        <link refid="xpm__defs_8h"/>
+        <childnode refid="1328" relation="include">
+        </childnode>
+        <childnode refid="1338" relation="include">
+        </childnode>
+      </node>
+      <node id="1329">
+        <label>xpm_device.h</label>
+        <childnode refid="1330" relation="include">
+        </childnode>
+        <childnode refid="1339" relation="include">
+        </childnode>
+        <childnode refid="1340" relation="include">
+        </childnode>
+        <childnode refid="1341" relation="include">
+        </childnode>
+      </node>
+      <node id="1333">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1335">
+        <label>xpm_err.h</label>
+        <link refid="xpm__err_8h"/>
+        <childnode refid="1326" relation="include">
+        </childnode>
+      </node>
+      <node id="1338">
+        <label>pm_api_version.h</label>
+      </node>
+      <node id="1327">
+        <label>xpm_fsm.h</label>
+        <childnode refid="1328" relation="include">
+        </childnode>
+        <childnode refid="1326" relation="include">
+        </childnode>
+        <childnode refid="1329" relation="include">
+        </childnode>
+      </node>
+      <node id="1334">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1332">
+        <label>xpm_common.h</label>
+        <childnode refid="1326" relation="include">
+        </childnode>
+        <childnode refid="1333" relation="include">
+        </childnode>
+        <childnode refid="1334" relation="include">
+        </childnode>
+        <childnode refid="1335" relation="include">
+        </childnode>
+        <childnode refid="1336" relation="include">
+        </childnode>
+        <childnode refid="1337" relation="include">
+        </childnode>
+      </node>
+      <node id="1336">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1341">
+        <label>xpm_reset.h</label>
+        <childnode refid="1330" relation="include">
+        </childnode>
+        <childnode refid="1332" relation="include">
+        </childnode>
+      </node>
+      <node id="1330">
+        <label>xpm_node.h</label>
+        <childnode refid="1328" relation="include">
+        </childnode>
+        <childnode refid="1326" relation="include">
+        </childnode>
+        <childnode refid="1331" relation="include">
+        </childnode>
+        <childnode refid="1332" relation="include">
+        </childnode>
+      </node>
+      <node id="1339">
+        <label>xpm_power.h</label>
+        <childnode refid="1337" relation="include">
+        </childnode>
+        <childnode refid="1330" relation="include">
+        </childnode>
+      </node>
+      <node id="1325">
+        <label>xpm_device_fsm.h</label>
+        <link refid="xpm_device_fsm.h"/>
+        <childnode refid="1326" relation="include">
+        </childnode>
+        <childnode refid="1327" relation="include">
+        </childnode>
+      </node>
+      <node id="1326">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1340">
+        <label>xpm_clock.h</label>
+        <childnode refid="1332" relation="include">
+        </childnode>
+        <childnode refid="1330" relation="include">
+        </childnode>
+        <childnode refid="1339" relation="include">
+        </childnode>
+      </node>
+      <node id="1328">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1331">
+        <label>xpm_nodeid.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1345">
+        <label>xpm_fsm.c</label>
+      </node>
+      <node id="1346">
+        <label>xpm_requirement.c</label>
+      </node>
+      <node id="1343">
+        <label>xpm_runtime_hbmon_subsys.c</label>
+      </node>
+      <node id="1344">
+        <label>xpm_device_fsm.c</label>
+      </node>
+      <node id="1342">
+        <label>xpm_device_fsm.h</label>
+        <link refid="xpm_device_fsm.h"/>
+        <childnode refid="1343" relation="include">
+        </childnode>
+        <childnode refid="1344" relation="include">
+        </childnode>
+        <childnode refid="1345" relation="include">
+        </childnode>
+        <childnode refid="1346" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpm__device__fsm_8h_1a3425d5401a343d810b50d9dac81adc0f" prot="public" static="no" mutable="no">
+        <type>const XPm_Fsm</type>
+        <definition>const XPm_Fsm XPmGenericDeviceFsm</definition>
+        <argsstring></argsstring>
+        <name>XPmGenericDeviceFsm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.c" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpm__device__fsm_8h_1a2b3df1fb0760b7adb7efcea58ce04f65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XPmDeviceFsm_Init</definition>
+        <argsstring>(XPmRuntime_DeviceOps *const DevOps)</argsstring>
+        <name>XPmDeviceFsm_Init</name>
+        <param>
+          <type>XPmRuntime_DeviceOps *const</type>
+          <declname>DevOps</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the device FSM for runtime device operations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DevOps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the runtime device operations structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.c" bodystart="343" bodyend="364"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPM_DEVICE_FSM_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPM_DEVICE_FSM_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_fsm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPm_Fsm<sp/>XPmGenericDeviceFsm;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">XStatus<sp/>XPmDeviceFsm_Init(XPmRuntime_DeviceOps*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DevOps);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPM_DEVICE_FSM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.h"/>
+  </compounddef>
+</doxygen>

@@ -271,7 +271,6 @@
     <member refid="group__dp_1ga3f6c4406029655280d14c599358ec97e" kind="define"><name>XDP_AUX_MAX_DEFER_COUNT</name></member>
     <member refid="group__dp_1gae0ffbfe88b912b13b6a29d98ac9828d2" kind="define"><name>XDP_AUX_MAX_TIMEOUT_COUNT</name></member>
     <member refid="group__dp_1gafaa88f16b30ac4525513b05f5ca73c04" kind="define"><name>XDP_IS_CONNECTED_MAX_TIMEOUT_COUNT</name></member>
-    <member refid="group__dp_1ga81abbe355037a474666fc2c8ccb948cf" kind="function"><name>XDp_WaitPhyReady</name></member>
     <member refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" kind="function"><name>XDp_CfgInitialize</name></member>
     <member refid="group__dp_1ga85f185599e63935fa41e46ca249d4a3a" kind="function"><name>XDp_Initialize</name></member>
     <member refid="group__dp_1ga7e31cad17809d5e67bade4c08a4b6c93" kind="function"><name>XDp_SetUserTimerHandler</name></member>
@@ -1321,7 +1320,6 @@
     <member refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kind="typedef"><name>XDp_IntrHandler</name></member>
     <member refid="group__dp_1ga4b705dd35c2d3f5911a704ea44ed48a8" kind="variable"><name>GuidTable</name></member>
     <member refid="group__dp_1gae10652118c8c70f85cc5c8017b4ee0ac" kind="variable"><name>XDp_ConfigTable</name></member>
-    <member refid="group__dp_1ga81abbe355037a474666fc2c8ccb948cf" kind="function"><name>XDp_WaitPhyReady</name></member>
     <member refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" kind="function"><name>XDp_CfgInitialize</name></member>
     <member refid="group__dp_1ga85f185599e63935fa41e46ca249d4a3a" kind="function"><name>XDp_Initialize</name></member>
     <member refid="group__dp_1ga7e31cad17809d5e67bade4c08a4b6c93" kind="function"><name>XDp_SetUserTimerHandler</name></member>

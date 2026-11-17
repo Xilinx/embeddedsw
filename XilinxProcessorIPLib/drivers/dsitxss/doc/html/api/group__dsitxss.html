@@ -169,6 +169,21 @@ Functions</h2></td></tr>
 <tr class="separator:ga8412315a375f8096c48c24be87cc09fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa327e5adf508da3fec9e669c2110da1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#gaa327e5adf508da3fec9e669c2110da1b">XDsiTxSs_SendCmdModePacket</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr)</td></tr>
 <tr class="separator:gaa327e5adf508da3fec9e669c2110da1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad3510c4989ab120ed55d7585a809bce0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#gad3510c4989ab120ed55d7585a809bce0">XDsiTxSs_IsEscModeEnabled</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gad3510c4989ab120ed55d7585a809bce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports whether escape mode (LPDT/ULPS) is available.  <a href="#gad3510c4989ab120ed55d7585a809bce0">More...</a><br/></td></tr>
+<tr class="separator:gad3510c4989ab120ed55d7585a809bce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18327366981b03ec0dcf47b46adf85c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#ga18327366981b03ec0dcf47b46adf85c7">XDsiTxSs_SetLpdtMode</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr, XDsi_CmdLpdtType Mode)</td></tr>
+<tr class="memdesc:ga18327366981b03ec0dcf47b46adf85c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the DCS command mode or LPDT transport.  <a href="#ga18327366981b03ec0dcf47b46adf85c7">More...</a><br/></td></tr>
+<tr class="separator:ga18327366981b03ec0dcf47b46adf85c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga93f44f5a03cc37ffdff5f4856afb3a28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#ga93f44f5a03cc37ffdff5f4856afb3a28">XDsiTxSs_SendLpdtPacket</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga93f44f5a03cc37ffdff5f4856afb3a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a command packet over LPDT.  <a href="#ga93f44f5a03cc37ffdff5f4856afb3a28">More...</a><br/></td></tr>
+<tr class="separator:ga93f44f5a03cc37ffdff5f4856afb3a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5ccb4e2ae14b0f12ad892c0ab4c7816"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#gaa5ccb4e2ae14b0f12ad892c0ab4c7816">XDsiTxSs_SetUlpsMode</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr, u32 Enable)</td></tr>
+<tr class="memdesc:gaa5ccb4e2ae14b0f12ad892c0ab4c7816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enters or exits the Ultra-Low Power State (ULPS).  <a href="#gaa5ccb4e2ae14b0f12ad892c0ab4c7816">More...</a><br/></td></tr>
+<tr class="separator:gaa5ccb4e2ae14b0f12ad892c0ab4c7816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac32b7e8b09624965b57d6b7aa4ed4d6a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#gac32b7e8b09624965b57d6b7aa4ed4d6a">XDsiTxSs_IsUlps</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gac32b7e8b09624965b57d6b7aa4ed4d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports whether the DSI lanes are in ULPS.  <a href="#gac32b7e8b09624965b57d6b7aa4ed4d6a">More...</a><br/></td></tr>
+<tr class="separator:gac32b7e8b09624965b57d6b7aa4ed4d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8792189e4eb55d1bd09b2f60c4dcae3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#ga8792189e4eb55d1bd09b2f60c4dcae3f">XDsiTxSs_SendShortPacket</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga8792189e4eb55d1bd09b2f60c4dcae3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will send the short packet to controller Generic Short Packet Register and fill up the structure passed from caller.  <a href="#ga8792189e4eb55d1bd09b2f60c4dcae3f">More...</a><br/></td></tr>
 <tr class="separator:ga8792189e4eb55d1bd09b2f60c4dcae3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,11 +206,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga1b9246c8e349c6dac5aa6c7f40a69bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Set Timning mode and Resolution as per user inputs.  <a href="#ga1b9246c8e349c6dac5aa6c7f40a69bf8">More...</a><br/></td></tr>
 <tr class="separator:ga1b9246c8e349c6dac5aa6c7f40a69bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac260062bd2dc932558a7d5664f717bb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_dsi_tx_ss___config.html">XDsiTxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#gac260062bd2dc932558a7d5664f717bb0">XDsiTxSs_LookupConfig</a> (UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:gac260062bd2dc932558a7d5664f717bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#gac260062bd2dc932558a7d5664f717bb0">More...</a><br/></td></tr>
+<tr class="memdesc:gac260062bd2dc932558a7d5664f717bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the base address.  <a href="#gac260062bd2dc932558a7d5664f717bb0">More...</a><br/></td></tr>
 <tr class="separator:gac260062bd2dc932558a7d5664f717bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9761cc5f1111900fc4a6667526529004"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#ga9761cc5f1111900fc4a6667526529004">XDsiTxSs_GetDrvIndex</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:ga9761cc5f1111900fc4a6667526529004"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the Index number of config table using BaseAddress.  <a href="#ga9761cc5f1111900fc4a6667526529004">More...</a><br/></td></tr>
-<tr class="separator:ga9761cc5f1111900fc4a6667526529004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1455252e790ed3a2b2a63e93cc9a4e34"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#ga1455252e790ed3a2b2a63e93cc9a4e34">XDsiTxSs_GetDrvIndex</a> (UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga1455252e790ed3a2b2a63e93cc9a4e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the Index number of config table using BaseAddress.  <a href="#ga1455252e790ed3a2b2a63e93cc9a4e34">More...</a><br/></td></tr>
+<tr class="separator:ga1455252e790ed3a2b2a63e93cc9a4e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5c2a0c949b32000d56edf503bcee3b48"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__dsitxss.html#ga5c2a0c949b32000d56edf503bcee3b48">XDsiTxSs_SelfTest</a> (<a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga5c2a0c949b32000d56edf503bcee3b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs self test on MIPI DSI Tx Subsystem sub-cores.  <a href="#ga5c2a0c949b32000d56edf503bcee3b48">More...</a><br/></td></tr>
 <tr class="separator:ga5c2a0c949b32000d56edf503bcee3b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -717,26 +732,16 @@ Interrupt enable masks</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga9761cc5f1111900fc4a6667526529004"></a>
+<a class="anchor" id="ga1455252e790ed3a2b2a63e93cc9a4e34"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">u32 XDsiTxSs_GetDrvIndex </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>BaseAddress</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -744,7 +749,6 @@ Interrupt enable masks</h2></td></tr>
 <p>This function returns the Index number of config table using BaseAddress. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>pointer to the instance structure</td></tr>
     <tr><td class="paramname">BaseAddress</td><td>address of the instance</td></tr>
   </table>
   </dd>
@@ -846,6 +850,8 @@ Interrupt enable masks</h2></td></tr>
 
 <p>References <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>.</p>
 
+<p>Referenced by <a class="el" href="xdsitxss__intr__example_8c.html#af332a23bd0cd610cf1e95df34b70c998">DsiTxSs_IntrExample()</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="gadf12e1fbe0e429e5874b882919d18fa9"></a>
@@ -876,6 +882,62 @@ Interrupt enable masks</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gad3510c4989ab120ed55d7585a809bce0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDsiTxSs_IsEscModeEnabled </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports whether escape mode (LPDT/ULPS) is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi_tx_ss.html" title="The XDsiTxSs driver instance data. ">XDsiTxSs</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Non-zero if escape mode is available, 0 otherwise. </dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi_tx_ss.html#a49d3024dba5f4f6f426dced0188178fb">XDsiTxSs::Config</a>, and <a class="el" href="struct_x_dsi_tx_ss___config.html#a3b36814b5678d9b1afb98454324e05a5">XDsiTxSs_Config::EnEscMode</a>.</p>
+
+<p>Referenced by <a class="el" href="group__dsitxss.html#ga93f44f5a03cc37ffdff5f4856afb3a28">XDsiTxSs_SendLpdtPacket()</a>, <a class="el" href="group__dsitxss.html#ga18327366981b03ec0dcf47b46adf85c7">XDsiTxSs_SetLpdtMode()</a>, and <a class="el" href="group__dsitxss.html#gaa5ccb4e2ae14b0f12ad892c0ab4c7816">XDsiTxSs_SetUlpsMode()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gac32b7e8b09624965b57d6b7aa4ed4d6a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XDsiTxSs_IsUlps </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reports whether the DSI lanes are in ULPS. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi_tx_ss.html" title="The XDsiTxSs driver instance data. ">XDsiTxSs</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Non-zero if the lanes are in ULPS, 0 otherwise. </dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="gac260062bd2dc932558a7d5664f717bb0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -890,15 +952,15 @@ Interrupt enable masks</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function looks for the device configuration based on the unique device ID. </p>
+<p>This function looks for the device configuration based on the base address. </p>
 <p>The table XDsiTxSs_ConfigTable[] contains the configuration information for each instance of the device in the system.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the device being looked up</td></tr>
+    <tr><td class="paramname">BaseAddress</td><td>is the base address of the device being looked up</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the configuration table entry corresponding to the given base address, or NULL if no match is found</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>Referenced by <a class="el" href="xdsitxss__intr__example_8c.html#af332a23bd0cd610cf1e95df34b70c998">DsiTxSs_IntrExample()</a>, <a class="el" href="xdsitxss__selftest__example_8c.html#a45fd3120f2e09254f53e6181be47269c">DsiTxSs_SelfTestExample()</a>, and <a class="el" href="xdsitxss__video__test__example_8c.html#a17e686b9a365a72175c35bd7be2566ac">DsiTxSs_VideoTestExample()</a>.</p>
@@ -1034,6 +1096,41 @@ Interrupt enable masks</h2></td></tr>
 </ul>
 
 <p>References <a class="el" href="struct_x_dsi_tx_ss.html#add8507786c84296e2422fe2ec7e11a1a">XDsiTxSs::CmdPkt</a>, and <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga93f44f5a03cc37ffdff5f4856afb3a28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XDsiTxSs_SendLpdtPacket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends a command packet over LPDT. </p>
+<p>Sends the command packet held in the subsystem structure over LPDT. Returns XST_NO_FEATURE on designs without escape mode.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi_tx_ss.html" title="The XDsiTxSs driver instance data. ">XDsiTxSs</a> instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the packet was accepted for transmission.</li>
+<li>XST_NO_FEATURE if escape-mode logic is not present in hardware.</li>
+<li>XST_INVALID_PARAM if a long-packet payload exceeds 251 bytes.</li>
+<li>XST_FAILURE on failure in packet transmission.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The transport must already be selected via XDsiTxSs_SetLpdtMode. </dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi_tx_ss.html#add8507786c84296e2422fe2ec7e11a1a">XDsiTxSs::CmdPkt</a>, <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>, and <a class="el" href="group__dsitxss.html#gad3510c4989ab120ed55d7585a809bce0">XDsiTxSs_IsEscModeEnabled()</a>.</p>
 
 </div>
 </div>
@@ -1263,6 +1360,95 @@ XDSI_HANDLER_CMDQ_FIFOFULL      Command queue FIFO Full</pre><pre></pre><dl clas
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ga18327366981b03ec0dcf47b46adf85c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XDsiTxSs_SetLpdtMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XDsi_CmdLpdtType&#160;</td>
+          <td class="paramname"><em>Mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects the DCS command mode or LPDT transport. </p>
+<p>Chooses LPDT or DCS command mode for command packets. Returns XST_NO_FEATURE on designs without escape mode.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi_tx_ss.html" title="The XDsiTxSs driver instance data. ">XDsiTxSs</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Mode</td><td>XDSI_DCS_CMD_MODE or XDSI_LPDT_MODE.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the transport was selected.</li>
+<li>XST_NO_FEATURE if escape-mode logic is not present in hardware.</li>
+<li>XST_FAILURE if the controller is not in command mode, or a previous command never completed. </li>
+</ul>
+</dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>, and <a class="el" href="group__dsitxss.html#gad3510c4989ab120ed55d7585a809bce0">XDsiTxSs_IsEscModeEnabled()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="gaa5ccb4e2ae14b0f12ad892c0ab4c7816"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XDsiTxSs_SetUlpsMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_dsi_tx_ss.html">XDsiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enters or exits the Ultra-Low Power State (ULPS). </p>
+<p>Puts the DSI link into ULPS, or brings it back out. Returns XST_NO_FEATURE on designs without escape mode.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">InstancePtr</td><td>Pointer to the <a class="el" href="struct_x_dsi_tx_ss.html" title="The XDsiTxSs driver instance data. ">XDsiTxSs</a> instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Enable</td><td>1 to enter ULPS, 0 to exit ULPS.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the requested ULPS transition completed.</li>
+<li>XST_NO_FEATURE if escape-mode logic is not present in hardware.</li>
+<li>XST_FAILURE if ULPS entry or exit was not observed in time.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>ULPS entry resets the controller image FIFOs; the caller must re-arm the video output from a fresh frame after exit. </dd></dl>
+
+<p>References <a class="el" href="struct_x_dsi_tx_ss.html#a8319cf976bece8bd99c78b6486d80c20">XDsiTxSs::DsiPtr</a>, and <a class="el" href="group__dsitxss.html#gad3510c4989ab120ed55d7585a809bce0">XDsiTxSs_IsEscModeEnabled()</a>.</p>
 
 </div>
 </div>

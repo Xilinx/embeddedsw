@@ -1,0 +1,736 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xspips__flash__intr__example" kind="group">
+    <compoundname>xspips_flash_intr_example</compoundname>
+    <title>Xspips_flash_intr_example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1ga79d2de1b01f0bd2797dba531f67612f0" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int is_sst</definition>
+        <argsstring></argsstring>
+        <name>is_sst</name>
+        <briefdescription>
+<para>Flag stating sst flash or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1ga89f082d0d704dbe05034332e19c41bc2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref></type>
+        <definition>XSpiPs SpiInstance</definition>
+        <argsstring></argsstring>
+        <name>SpiInstance</name>
+        <briefdescription>
+<para>SPI driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1ga2dd94411694db2d8662ebacc6e880c0a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int TransferInProgress</definition>
+        <argsstring></argsstring>
+        <name>TransferInProgress</name>
+        <briefdescription>
+<para>Indicates that an SPI transfer is in progress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The variable is shared between non-interrupt processing and interrupt processing such that it must be global. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <briefdescription>
+<para>Tracks any errors that occur during interrupt processing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1gadd29728cd8251f8ad84d9bd168687f67" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int TestAddress</definition>
+        <argsstring></argsstring>
+        <name>TestAddress</name>
+        <briefdescription>
+<para>Holds the write address location in the serial flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1ga0e3a1c0ddcfc3450d79fb432ce9b8812" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[MAX_DATA+DATA_OFFSET+DUMMY_SIZE]</definition>
+        <argsstring>[MAX_DATA+DATA_OFFSET+DUMMY_SIZE]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Buffer for the data read from the flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xspips__flash__intr__example_1gae29ab002d02692e7f0d091696585e5f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[MAX_DATA+DATA_OFFSET]</definition>
+        <argsstring>[MAX_DATA+DATA_OFFSET]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Data to write to the flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga1d109a356a9f7961da6700eddf5e4127" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SpiPsHandler</definition>
+        <argsstring>(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)</argsstring>
+        <name>SpiPsHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatusEvent</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Handles the status events of the SPI driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is called from an interrupt context such that the amount of processing performed should be minimized. It is called when a transfer of SPI data completes or an error occurs.</para><para>This handler provides an example of how to handle SPI interrupts but is application specific.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A reference passed to the handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">StatusEvent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The status of the SPI . </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes transferred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="500" bodyend="516"/>
+        <references refid="group__xspips__eeprom__intr__example_1ga97ae9edf79edb0778febfe0c6ffa4d9a" compoundref="xspips__eeprom__intr__example_8c" startline="183">Error</references>
+        <references refid="group__xspips__eeprom__intr__example_1ga2dd94411694db2d8662ebacc6e880c0a" compoundref="xspips__eeprom__intr__example_8c" startline="178">TransferInProgress</references>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga6e3b208afad569163d4b9550eacac30a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void FlashErase</definition>
+        <argsstring>(XSpiPs *SpiPtr)</argsstring>
+        <name>FlashErase</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <briefdescription>
+<para>Erases the sectors in the serial flash connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver component to use. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="776" bodyend="972"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga62246208e065809eb1abd9671e13a89c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void FlashWrite</definition>
+        <argsstring>(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)</argsstring>
+        <name>FlashWrite</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <briefdescription>
+<para>Writes to the serial flash connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>The flash contains a 256 byte write buffer which can be filled and then a write is automatically performed by the device. All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to write data to in the flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command used to write data to the flash. SPI device supports only Page Program command to write data to the flash. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="536" bodyend="638"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga4846604e392cce9d9a2e3fbe7722e6ad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void FlashRead</definition>
+        <argsstring>(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)</argsstring>
+        <name>FlashRead</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Command</declname>
+        </param>
+        <briefdescription>
+<para>Reads from the serial flash connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver component to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address to read data from in the flash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command used to read data from the flash. SPI device supports one of the Read, Fast Read, Dual Read and Fast Read commands to read data from the flash. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="653" bodyend="679"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga740e403d9fea6febd3e1158fc833c420" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int FlashReadID</definition>
+        <argsstring>(XSpiPs *SpiInstance)</argsstring>
+        <name>FlashReadID</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiInstance</declname>
+        </param>
+        <briefdescription>
+<para>Reads the ID of the serial flash connected to the SPI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver instance to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="724" bodyend="766"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SpiPsFlashIntrExample</definition>
+        <argsstring>(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>SpiPsFlashIntrExample</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Illustrates how to use the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> device driver in interrupt mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function writes and reads data from a serial flash.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">SpiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver instance to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if not successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, the device configuration is looked up based on DeviceId.<itemizedlist>
+<listitem><para>The function calls other functions which contain loops that may be infinite if interrupts are not working such that it may not return. If the device slave select is not correct and the device is not responding on bus it reads a status of 0xFF for the status register as the bus is pulled up. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="276" bodyend="481"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="401">XSpiPs_Config::BaseAddress</references>
+        <references refid="group__xspips__flash__intr__example_1ga11faa4c105a137b8edaa096de5063835" compoundref="xspips__flash__intr__example_8c" startline="103">DATA_OFFSET</references>
+        <references refid="group__xspips__flash__intr__example_1gaf86fb0b9fe9b882a43c491505d50c24a" compoundref="xspips__flash__intr__example_8c" startline="133">FLASH_SPI_SELECT_0</references>
+        <references refid="group__xspips__flash__intr__example_1ga22d2b19facf034f348e1f94a511a854d" compoundref="xspips__flash__intr__example_8c" startline="132">FLASH_SPI_SELECT_1</references>
+        <references refid="struct_x_spi_ps___config_1ae8110b04c0f446cd35df029a7e423fd6" compoundref="xspips_8h" startline="405">XSpiPs_Config::IntrId</references>
+        <references refid="struct_x_spi_ps___config_1a67af05f80f2d57b0ea4c07e1ddb65629" compoundref="xspips_8h" startline="407">XSpiPs_Config::IntrParent</references>
+        <references refid="group__xspips__flash__intr__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" compoundref="xspips__flash__intr__example_8c" startline="125">MAX_DATA</references>
+        <references refid="group__xspips__flash__intr__example_1ga21623e2a5501c821da54dd76ffc1d077" compoundref="xspips__flash__intr__example_8c" startline="74">READ_CMD</references>
+        <references refid="group__xspips__eeprom__intr__example_1ga5faf644bedc2f77c4dc8631d5a5a0482" compoundref="xspips__eeprom__intr__example_8c" startline="198">ReadBuffer</references>
+        <references refid="group__xspips__flash__intr__example_1ga1d109a356a9f7961da6700eddf5e4127" compoundref="xspips__flash__intr__example_8c" startline="500" endline="516">SpiPsHandler</references>
+        <references refid="group__xspips__flash__intr__example_1gad922278cd1812d8a566d5b9da390681f" compoundref="xspips__flash__intr__example_8c" startline="118">UNIQUE_VALUE</references>
+        <references refid="group__xspips__flash__intr__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" compoundref="xspips__flash__intr__example_8c" startline="73">WRITE_CMD</references>
+        <references refid="group__xspips__eeprom__intr__example_1gaaf9b16ecdabdeade00c3e9616cd7e560" compoundref="xspips__eeprom__intr__example_8c" startline="199">WriteBuffer</references>
+        <references refid="group__spips__api_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="171" endline="222">XSpiPs_CfgInitialize</references>
+        <references refid="group__spips_1ga797ea1218c463e962b5bb3e8c1660519" compoundref="xspips_8h" startline="343">XSPIPS_CLK_PRESCALE_8</references>
+        <references refid="group__spips_1gaf0a0da0e20b70ee21a3998117785638e" compoundref="xspips_8h" startline="330">XSPIPS_FORCE_SSELECT_OPTION</references>
+        <references refid="group__spips__api_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="954" endline="1178">XSpiPs_InterruptHandler</references>
+        <references refid="group__spips_1gaec4120d0ba36c1bcf7b17520ea43d761" compoundref="xspips__sinit_8c" startline="94" endline="108">XSpiPs_LookupConfig</references>
+        <references refid="group__spips_1ga7e6e32f2a23f47aa9f69c6adccbd2ba3" compoundref="xspips_8h" startline="331">XSPIPS_MANUAL_START_OPTION</references>
+        <references refid="group__spips_1ga1fbe2203de88e79aa3a6c7e70e2f3436" compoundref="xspips_8h" startline="326">XSPIPS_MASTER_OPTION</references>
+        <references refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="75" endline="147">XSpiPs_SelfTest</references>
+        <references refid="group__spips_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="244" endline="280">XSpiPs_SetClkPrescaler</references>
+        <references refid="group__spips_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="108" endline="178">XSpiPs_SetOptions</references>
+        <references refid="group__spips__api_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="737" endline="784">XSpiPs_SetSlaveSelect</references>
+        <references refid="group__spips__api_1gacafc99130a16e99abb3d86e682f1de09" compoundref="xspips_8c" startline="877" endline="886">XSpiPs_SetStatusHandler</references>
+        <referencedby refid="group__xspips__flash__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xspips__flash__intr__example_8c" startline="218" endline="240">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga3ea1d7be27d929c6157f1d4342d10313" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SST_GlobalBlkProtectUnlk</definition>
+        <argsstring>(XSpiPs *SpiInstancePtr)</argsstring>
+        <name>SST_GlobalBlkProtectUnlk</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>SpiInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Unlocks the Global Block-Protection Unlock register bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">SpiInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SPI driver instance to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="693" bodyend="710"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xspips__flash__intr__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Calls the SPI Flash interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="218" bodyend="240"/>
+        <references refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga076966d3a1aa7647c294802e9f76bb10" prot="public" static="no">
+        <name>WRITE_STATUS_CMD</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Write status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gaf792feb13ae0c1eab8f95f64c8baa96d" prot="public" static="no">
+        <name>WRITE_CMD</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Page program command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga21623e2a5501c821da54dd76ffc1d077" prot="public" static="no">
+        <name>READ_CMD</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+<para>Read data command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga12fe83d74a765a1b4ae033e22a23dafe" prot="public" static="no">
+        <name>WRITE_DISABLE_CMD</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Write disable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gaa3ec262a3f2ab7e77412a7fdab86a011" prot="public" static="no">
+        <name>READ_STATUS_CMD</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>Read status register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga778f641f7a12aabbe1ffd0c948f8e1f9" prot="public" static="no">
+        <name>WRITE_ENABLE_CMD</name>
+        <initializer>0x06</initializer>
+        <briefdescription>
+<para>Write enable command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gad86cd5806516fb265953d7131f4d09ad" prot="public" static="no">
+        <name>FAST_READ_CMD</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+<para>Fast read command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gab5d56e314abce71159ab80801a755e97" prot="public" static="no">
+        <name>CHIP_ERASE_CMD</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+<para>Chip erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga66456d73cb4185955c6c7e663a85c8da" prot="public" static="no">
+        <name>BULK_ERASE_CMD</name>
+        <initializer>0xC7</initializer>
+        <briefdescription>
+<para>Bulk erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga97c0bf30080029303a0a46a676fde6c2" prot="public" static="no">
+        <name>BLOCK_ERASE_64K_CMD</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+<para>64 KB block erase command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gae90b7e8c7fe9d94c5c156a07e57fc27c" prot="public" static="no">
+        <name>READ_ID</name>
+        <initializer>0x90</initializer>
+        <briefdescription>
+<para>Read ID command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga8f38b7fee0af654da277647891350cc8" prot="public" static="no">
+        <name>SST_READ_ID</name>
+        <initializer>0x9F</initializer>
+        <briefdescription>
+<para>SST flash read ID command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gaff79f6b426fdc04064477a97f919b6d1" prot="public" static="no">
+        <name>GLOBAL_BLK_PROT_UNLK</name>
+        <initializer>0x98</initializer>
+        <briefdescription>
+<para>Global Block-Protection Unlock register command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga5ce3d5990f68acb0952bfc208e17b556" prot="public" static="no">
+        <name>SST_FLASH_ID</name>
+        <initializer>0xBF</initializer>
+        <briefdescription>
+<para>All SST flash parts have ID 0xBF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gadb83c033ee492824badb77fa8ebd5c5d" prot="public" static="no">
+        <name>COMMAND_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Flash instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gacb3f014bb2edc22968015d7c94fc50e7" prot="public" static="no">
+        <name>ADDRESS_1_OFFSET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>MSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga78eeefaa529edaa16698434814f12882" prot="public" static="no">
+        <name>ADDRESS_2_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Middle byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga7a5adf9cc2e2cfa409fb6746d5b22ef6" prot="public" static="no">
+        <name>ADDRESS_3_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>LSB byte of address to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga11faa4c105a137b8edaa096de5063835" prot="public" static="no">
+        <name>DATA_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Start of Data for Read/Write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gad33594c6ec0a6e6830b2ae30fcf2b926" prot="public" static="no">
+        <name>DUMMY_SIZE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Number of dummy bytes for fast read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gab70178b04d2917335da4565bbb9e9bf4" prot="public" static="no">
+        <name>RD_ID_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Read ID command + 3 bytes ID response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga635c69a613273e533212c0bf3c15b8c4" prot="public" static="no">
+        <name>OVERHEAD_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Command and address bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gad922278cd1812d8a566d5b9da390681f" prot="public" static="no">
+        <name>UNIQUE_VALUE</name>
+        <initializer>0x55</initializer>
+        <briefdescription>
+<para>Unique test data value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gaaf06a3762adb0aa04b8a5f8f016ca5e9" prot="public" static="no">
+        <name>MAX_DATA</name>
+        <initializer>1024*1024</initializer>
+        <briefdescription>
+<para>Max data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1ga22d2b19facf034f348e1f94a511a854d" prot="public" static="no">
+        <name>FLASH_SPI_SELECT_1</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Flash on chip select 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xspips__flash__intr__example_1gaf86fb0b9fe9b882a43c491505d50c24a" prot="public" static="no">
+        <name>FLASH_SPI_SELECT_0</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Flash on chip select 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spips/examples/xspips_flash_intr_example.c" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__xspips__flash__intr__example_1gab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="276" endline="481">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

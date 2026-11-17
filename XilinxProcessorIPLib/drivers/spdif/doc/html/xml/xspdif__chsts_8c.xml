@@ -15,6 +15,30 @@
       <node id="31">
         <label>xil_io.h</label>
       </node>
+      <node id="33">
+        <label>xstatus.h</label>
+      </node>
+      <node id="34">
+        <label>xil_types.h</label>
+      </node>
+      <node id="30">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif__hw_8h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xspdif.h</label>
+        <link refid="xspdif_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
       <node id="27">
         <label>xspdif_chsts.c</label>
         <link refid="xspdif_chsts.c"/>
@@ -36,30 +60,6 @@
         <link refid="xspdif__chsts_8h"/>
         <childnode refid="29" relation="include">
         </childnode>
-      </node>
-      <node id="29">
-        <label>xspdif.h</label>
-        <link refid="xspdif_8h"/>
-        <childnode refid="30" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="33" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-      </node>
-      <node id="30">
-        <label>xspdif_hw.h</label>
-        <link refid="xspdif__hw_8h"/>
-        <childnode refid="31" relation="include">
-        </childnode>
-      </node>
-      <node id="33">
-        <label>xstatus.h</label>
-      </node>
-      <node id="34">
-        <label>xil_types.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -87,7 +87,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c" bodystart="58" bodyend="245"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c" bodystart="58" bodyend="245"/>
         <references refid="group__spdif_1gadbb9d31148b71d737e51021aa90986d2" compoundref="xspdif__chsts_8h" startline="62">XSPDIF_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</references>
         <references refid="group__spdif_1ga31d37e948304527fc7f2805c12beaa5d" compoundref="xspdif__chsts_8h" startline="59">XSPDIF_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</references>
         <references refid="group__spdif_1ga61d1c6757b6483b6364af7ddbe2e0b92" compoundref="xspdif__chsts_8h" startline="82">XSPDIF_AES_STS_CH_MODE_MASK</references>
@@ -343,6 +343,6 @@
 <codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_crc_char<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_crc_char<sp/>);</highlight></codeline>
 <codeline lineno="245"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c"/>
   </compounddef>
 </doxygen>

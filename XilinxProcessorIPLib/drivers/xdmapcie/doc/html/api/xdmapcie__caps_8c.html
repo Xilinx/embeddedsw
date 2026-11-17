@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xdmapcie__caps_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>u64 capability pointer if available 0 if not available. </dd></dl>
 
-<p>References <a class="el" href="struct_x_dma_pcie.html#af5d05276beffe8f09d05bf237cc3d2f5">XDmaPcie::Config</a>, <a class="el" href="struct_x_dma_pcie___config.html#a42ba484bddfed2c7c40d2e82cefe2893">XDmaPcie_Config::Ecam</a>, and <a class="el" href="xdmapcie_8c.html#adac6261cddb63084c8ee87518e99edef">XDmaPcie_ReadRemoteConfigSpace()</a>.</p>
+<p>References <a class="el" href="group__xdmapcie.html#ga8346fb16fc3e00bb2fec31a73a7f3b1e">CAP_NOT_PRESENT</a>, <a class="el" href="struct_x_dma_pcie.html#af5d05276beffe8f09d05bf237cc3d2f5">XDmaPcie::Config</a>, <a class="el" href="struct_x_dma_pcie___config.html#a42ba484bddfed2c7c40d2e82cefe2893">XDmaPcie_Config::Ecam</a>, <a class="el" href="group__xdmapcie.html#gaf5e15543e884455365753170dd698ce2">XDMAPCIE_CAP_PTR_LOC</a>, <a class="el" href="group__xdmapcie.html#gada9f742437f2f0e6330733b1a801c66a">XDMAPCIE_CAP_SHIFT</a>, <a class="el" href="group__xdmapcie.html#ga183b500ed4d69a72c4b1b6e5c42b2155">XDMAPCIE_CFG_CAP_ID_LOC</a>, <a class="el" href="group__xdmapcie.html#gad68edb5c2191beb224b8c42c8cc9a09d">XDmaPcie_ComposeExternalConfigAddress()</a>, <a class="el" href="group__xdmapcie.html#ga3fe28bf3f3ba24ea6f3f1db593d4341c">XDMAPCIE_DOUBLEWORD</a>, and <a class="el" href="group__xdmapcie.html#gadac6261cddb63084c8ee87518e99edef">XDmaPcie_ReadRemoteConfigSpace()</a>.</p>
 
 </div>
 </div>
@@ -243,7 +243,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>u32 0 if capability is not available 1 if capability is available </dd></dl>
 
-<p>References <a class="el" href="xdmapcie_8c.html#adac6261cddb63084c8ee87518e99edef">XDmaPcie_ReadRemoteConfigSpace()</a>.</p>
+<p>References <a class="el" href="group__xdmapcie.html#ga8346fb16fc3e00bb2fec31a73a7f3b1e">CAP_NOT_PRESENT</a>, <a class="el" href="group__xdmapcie.html#ga415ee0a473d47d6a14922b4ac0ecf732">CAP_PRESENT</a>, <a class="el" href="group__xdmapcie.html#gaf5e15543e884455365753170dd698ce2">XDMAPCIE_CAP_PTR_LOC</a>, <a class="el" href="group__xdmapcie.html#gada9f742437f2f0e6330733b1a801c66a">XDMAPCIE_CAP_SHIFT</a>, <a class="el" href="group__xdmapcie.html#ga183b500ed4d69a72c4b1b6e5c42b2155">XDMAPCIE_CFG_CAP_ID_LOC</a>, <a class="el" href="group__xdmapcie.html#ga3fe28bf3f3ba24ea6f3f1db593d4341c">XDMAPCIE_DOUBLEWORD</a>, and <a class="el" href="group__xdmapcie.html#gadac6261cddb63084c8ee87518e99edef">XDmaPcie_ReadRemoteConfigSpace()</a>.</p>
 
 </div>
 </div>
@@ -295,7 +295,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS on success XST_FAILURE on failure. </dd></dl>
 
-<p>References <a class="el" href="xdmapcie_8c.html#adac6261cddb63084c8ee87518e99edef">XDmaPcie_ReadRemoteConfigSpace()</a>.</p>
+<p>References <a class="el" href="group__xdmapcie.html#gaf5e15543e884455365753170dd698ce2">XDMAPCIE_CAP_PTR_LOC</a>, <a class="el" href="group__xdmapcie.html#gada9f742437f2f0e6330733b1a801c66a">XDMAPCIE_CAP_SHIFT</a>, <a class="el" href="group__xdmapcie.html#ga183b500ed4d69a72c4b1b6e5c42b2155">XDMAPCIE_CFG_CAP_ID_LOC</a>, <a class="el" href="group__xdmapcie.html#ga3fe28bf3f3ba24ea6f3f1db593d4341c">XDMAPCIE_DOUBLEWORD</a>, and <a class="el" href="group__xdmapcie.html#gadac6261cddb63084c8ee87518e99edef">XDmaPcie_ReadRemoteConfigSpace()</a>.</p>
 
 </div>
 </div>

@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('xi3cpsx__slave_8c.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,26 +104,40 @@ $(document).ready(function(){initNavTree('xi3cpsx__slave_8c.html','');});
 <div class="title">xi3cpsx_slave.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;xi3cpsx.h&quot;</code><br/>
+<a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
+<div class="textblock"><p>Implements I3C slave transfer APIs. </p>
+<pre> MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
+</p>
+<hr/>
+<p>
+1.00  sd  06/10/22 First release
+1.1   sd  14/12/22 Fix warnings
+1.2   sd  1/2/23   Write to resume bit
+1.3     sd   1/30/24  Moved prints under DEBUG flag.
+1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
+</pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xi3cpsx_8h.html">xi3cpsx.h</a>&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 <code>#include &quot;stdbool.h&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga9cba8edc454d81b6aefdc5381d4da2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u16 SlaveAddr)</td></tr>
-<tr class="memdesc:ga9cba8edc454d81b6aefdc5381d4da2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets up the device to be a slave.  <a href="group___overview.html#ga9cba8edc454d81b6aefdc5381d4da2a8">More...</a><br/></td></tr>
+<tr class="memitem:ga9cba8edc454d81b6aefdc5381d4da2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i3cpsx__api.html#ga9cba8edc454d81b6aefdc5381d4da2a8">XI3cPsx_SetupSlave</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u16 SlaveAddr)</td></tr>
+<tr class="memdesc:ga9cba8edc454d81b6aefdc5381d4da2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the device to be a slave.  <a href="group__i3cpsx__api.html#ga9cba8edc454d81b6aefdc5381d4da2a8">More...</a><br/></td></tr>
 <tr class="separator:ga9cba8edc454d81b6aefdc5381d4da2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1c923ed56bd4f8ced720fc5f63136ed5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount)</td></tr>
-<tr class="memdesc:ga1c923ed56bd4f8ced720fc5f63136ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function setup a slave interrupt-driven receive.  <a href="group___overview.html#ga1c923ed56bd4f8ced720fc5f63136ed5">More...</a><br/></td></tr>
+<tr class="memitem:ga1c923ed56bd4f8ced720fc5f63136ed5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">XI3cPsx_SlaveRecv</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount)</td></tr>
+<tr class="memdesc:ga1c923ed56bd4f8ced720fc5f63136ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a slave interrupt-driven receive.  <a href="group__i3cpsx__api.html#ga1c923ed56bd4f8ced720fc5f63136ed5">More...</a><br/></td></tr>
 <tr class="separator:ga1c923ed56bd4f8ced720fc5f63136ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga752cebd71adb1580f43247b84b52c2fb"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount, XI3cPsx_Cmd Cmds)</td></tr>
-<tr class="memdesc:ga752cebd71adb1580f43247b84b52c2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends a buffer in polled mode as a slave.  <a href="group___overview.html#ga752cebd71adb1580f43247b84b52c2fb">More...</a><br/></td></tr>
+<tr class="memitem:gaf5663751e9f6964ed6398bdd20101ba8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">XI3cPsx_SlaveSend</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount)</td></tr>
+<tr class="memdesc:gaf5663751e9f6964ed6398bdd20101ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up a slave interrupt-driven send.  <a href="group__i3cpsx__api.html#gaf5663751e9f6964ed6398bdd20101ba8">More...</a><br/></td></tr>
+<tr class="separator:gaf5663751e9f6964ed6398bdd20101ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga752cebd71adb1580f43247b84b52c2fb"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">XI3cPsx_SlaveSendPolled</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr, s32 ByteCount, <a class="el" href="struct_x_i3c_psx___cmd.html">XI3cPsx_Cmd</a> Cmds)</td></tr>
+<tr class="memdesc:ga752cebd71adb1580f43247b84b52c2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a buffer in polled mode as a slave.  <a href="group__i3cpsx__api.html#ga752cebd71adb1580f43247b84b52c2fb">More...</a><br/></td></tr>
 <tr class="separator:ga752cebd71adb1580f43247b84b52c2fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1d604f37a4c41d005558d9ba8124875c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr)</td></tr>
-<tr class="memdesc:ga1d604f37a4c41d005558d9ba8124875c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function receives a buffer in polled mode as a slave.  <a href="group___overview.html#ga1d604f37a4c41d005558d9ba8124875c">More...</a><br/></td></tr>
+<tr class="memitem:ga1d604f37a4c41d005558d9ba8124875c"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">XI3cPsx_SlaveRecvPolled</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr, u8 *MsgPtr)</td></tr>
+<tr class="memdesc:ga1d604f37a4c41d005558d9ba8124875c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives a buffer in polled mode as a slave.  <a href="group__i3cpsx__api.html#ga1d604f37a4c41d005558d9ba8124875c">More...</a><br/></td></tr>
 <tr class="separator:ga1d604f37a4c41d005558d9ba8124875c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac618b456af832c82d2969c38fea94598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___overview.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gac618b456af832c82d2969c38fea94598"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interrupt handler for slave mode.  <a href="group___overview.html#gac618b456af832c82d2969c38fea94598">More...</a><br/></td></tr>
+<tr class="memitem:gac618b456af832c82d2969c38fea94598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">XI3cPsx_SlaveInterruptHandler</a> (<a class="el" href="struct_x_i3c_psx.html">XI3cPsx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gac618b456af832c82d2969c38fea94598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles interrupts in slave mode.  <a href="group__i3cpsx__api.html#gac618b456af832c82d2969c38fea94598">More...</a><br/></td></tr>
 <tr class="separator:gac618b456af832c82d2969c38fea94598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

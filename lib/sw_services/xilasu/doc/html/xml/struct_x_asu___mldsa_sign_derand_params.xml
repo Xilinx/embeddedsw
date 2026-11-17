@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___mldsa_sign_derand_params" kind="struct" prot="public">
+    <compoundname>XAsu_MldsaSignDerandParams</compoundname>
+    <includes local="no">xasu_mldsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_derand_params_1aaa1530a14866fb3862dac1bd1fe9ecd7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___mldsa_sign_verify_params" kindref="compound">XAsu_MldsaSignVerifyParams</ref></type>
+        <definition>XAsu_MldsaSignVerifyParams XAsu_MldsaSignDerandParams::SignParams</definition>
+        <argsstring></argsstring>
+        <name>SignParams</name>
+        <briefdescription>
+<para>Signing parameters, as the signature generation command takes them. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_derand_params_1a0fd80dc06d8016d5afe1196069445b3e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_MldsaSignDerandParams::RndAddr</definition>
+        <argsstring></argsstring>
+        <name>RndAddr</name>
+        <briefdescription>
+<para>Address of the signing randomness rnd; must be non-zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_derand_params_1a2d0dfcf0898db0f5cb6fde8ead4a4ca7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_MldsaSignDerandParams::RndLen</definition>
+        <argsstring></argsstring>
+        <name>RndLen</name>
+        <briefdescription>
+<para>Length of rnd in bytes; must equal XASU_MLDSA_SIGN_RND_LEN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__xasu__mldsa__common__apis_1ga3da581851e8e79e84592e85069676e21" compoundref="xasu__mldsa__common_8c" startline="147" endline="186">XAsu_MldsaValidateSignDerandParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___mldsa_sign_derand_params_1aaba1ee7ca68a367522982c45e8875319" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_MldsaSignDerandParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved to pad the structure to 80 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the parameters of the signature generation command that takes its rnd from the request, which exists for algorithm validation only (see XASU_MLDSA_SIGN_DERAND_CMD_ID). </para>    </briefdescription>
+    <detaileddescription>
+<para>It carries the ordinary signing parameters plus the rnd to sign with, laid out the same way <ref refid="struct_x_asu___mlkem_encaps_derand_params" kindref="compound">XAsu_MlkemEncapsDerandParams</ref> appends the message m it encapsulates with. The secret key must be supplied through SignParams.KeyAddr: the key vault is not available to this command, so SignParams.KeyId must be zero. SignParams.Deterministic is ignored, since the supplied rnd decides the randomness outright, and RndAddr must be non-zero: an absent rnd is an error rather than a request to fall back on the TRNG. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="111">
+        <label>XAsu_MldsaSignDerandParams</label>
+        <link refid="struct_x_asu___mldsa_sign_derand_params"/>
+        <childnode refid="112" relation="usage">
+          <edgelabel>SignParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="112">
+        <label>XAsu_MldsaSignVerifyParams</label>
+        <link refid="struct_x_asu___mldsa_sign_verify_params"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_mldsainfo.h" bodystart="157" bodyend="163"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___mldsa_sign_derand_params_1aaba1ee7ca68a367522982c45e8875319" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignDerandParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___mldsa_sign_derand_params_1a0fd80dc06d8016d5afe1196069445b3e" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignDerandParams</scope><name>RndAddr</name></member>
+      <member refid="struct_x_asu___mldsa_sign_derand_params_1a2d0dfcf0898db0f5cb6fde8ead4a4ca7" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignDerandParams</scope><name>RndLen</name></member>
+      <member refid="struct_x_asu___mldsa_sign_derand_params_1aaa1530a14866fb3862dac1bd1fe9ecd7" prot="public" virt="non-virtual"><scope>XAsu_MldsaSignDerandParams</scope><name>SignParams</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -89,7 +89,7 @@ $(document).ready(function(){initNavTree('xipipsu__self__test__example_8c.html',
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -100,22 +100,25 @@ $(document).ready(function(){initNavTree('xipipsu__self__test__example_8c.html',
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xipipsu_self_test_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file consists of a self test example which uses the <a class="el" href="struct_x_ipi_psu.html" title="The XIpiPsu driver instance data. ">XIpiPsu</a> driver to send an IPI message to self and get a response Each IPI channel can trigger an interrupt to itself and can exchange messages through the message buffer. </p>
-<p>This feature is used here to exercise the driver APIs. Example control flow:</p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_ipi_psu.html" title="Holds the XIpiPsu driver instance data. ">XIpiPsu</a> driver by sending an IPI to self. </p>
+<p>The example sends an Inter-Processor Interrupt (IPI) message to self and gets a response. Each IPI channel can trigger an interrupt to itself and can exchange messages through the message buffer. The example uses this feature to exercise the driver APIs.</p>
+<p>Example control flow:</p>
 <ul>
-<li>Init the IPI and GIC drivers</li>
-<li>Setup Interrupt System with IPI handler which inverts the received message and sends back as response</li>
-<li>Write a Message and Trigger IPI to Self.</li>
-<li>Keep polling for response till timeout</li>
-<li>Interrupt handler receives IPI and sends back response</li>
-<li>Read the received response and do a sanity check</li>
-<li>Print PASS or FAIL based on sanity check of response message</li>
+<li>Initializes the IPI and Generic Interrupt Controller (GIC) drivers.</li>
+<li>Sets up the interrupt system with an IPI handler that inverts the received message and sends it back as the response.</li>
+<li>Writes a message and triggers an IPI to self.</li>
+<li>Polls for the response until the timeout expires.</li>
+<li>The interrupt handler receives the IPI and sends back the response.</li>
+<li>Reads the received response and verifies it.</li>
+<li>Prints a success or failure message based on the response check.</li>
 </ul>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver  Who Date     Changes
@@ -130,6 +133,8 @@ MODIFICATION HISTORY:</pre><pre>Ver  Who Date     Changes
       ht  11/25/24 Update Message length to accommodate for CRC bytes
                    when IPI CRC is enabled
 2.18  an  08/01/25 Added support for Microblaze in system device-tree flow
+2.20  vn  07/30/26 Fix Doxygen warnings
+2.20  vn  09/10/26 Align Doxygen comments with AMD standards
 </pre> </div><div class="textblock"><code>#include &quot;stdlib.h&quot;</code><br/>
 <code>#include &quot;xil_types.h&quot;</code><br/>
 <code>#include &quot;xparameters.h&quot;</code><br/>
@@ -140,14 +145,64 @@ MODIFICATION HISTORY:</pre><pre>Ver  Who Date     Changes
 <code>#include &quot;xinterrupt_wrap.h&quot;</code><br/>
 <code>#include &quot;sleep.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a1181e341f145c505d57d22f58cfbd1bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xipipsu__self__test__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">TEST_MSG_LEN</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a1181e341f145c505d57d22f58cfbd1bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of words to send (each word is 4 bytes; maximum 8).  <a href="#a1181e341f145c505d57d22f58cfbd1bc">More...</a><br/></td></tr>
+<tr class="separator:a1181e341f145c505d57d22f58cfbd1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18d3e58d384a520f164f80a44d5a7e08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xipipsu__self__test__example_8c.html#a18d3e58d384a520f164f80a44d5a7e08">TIMEOUT_COUNT</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memdesc:a18d3e58d384a520f164f80a44d5a7e08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout count while polling for a response.  <a href="#a18d3e58d384a520f164f80a44d5a7e08">More...</a><br/></td></tr>
+<tr class="separator:a18d3e58d384a520f164f80a44d5a7e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2dc7058c8f10506fd4279462d399d33a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xipipsu__self__test__example_8c.html#a2dc7058c8f10506fd4279462d399d33a">IpiIntrHandler</a> (void *XIpiPsuPtr)</td></tr>
-<tr class="memdesc:a2dc7058c8f10506fd4279462d399d33a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Handler : -Polls for each of the valid sources -Checks if there is a message -Reads the message -Inverts the bits -Sends back the inverted message as response.  <a href="#a2dc7058c8f10506fd4279462d399d33a">More...</a><br/></td></tr>
+<tr class="memdesc:a2dc7058c8f10506fd4279462d399d33a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles an incoming IPI and sends back the inverted message.  <a href="#a2dc7058c8f10506fd4279462d399d33a">More...</a><br/></td></tr>
 <tr class="separator:a2dc7058c8f10506fd4279462d399d33a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xipipsu__self__test__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the IPI self-test example.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br/></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a409f31c722d09b6120328065b5df1fe5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xipipsu__self__test__example_8c.html#a409f31c722d09b6120328065b5df1fe5">IpiInst</a></td></tr>
+<tr class="memdesc:a409f31c722d09b6120328065b5df1fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the IPI device.  <a href="#a409f31c722d09b6120328065b5df1fe5">More...</a><br/></td></tr>
+<tr class="separator:a409f31c722d09b6120328065b5df1fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31c2f1f6ec7bbbfa67076476148fe479"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xipipsu__self__test__example_8c.html#a31c2f1f6ec7bbbfa67076476148fe479">MsgBuffer</a> [<a class="el" href="xipipsu__self__test__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">TEST_MSG_LEN</a>]</td></tr>
+<tr class="memdesc:a31c2f1f6ec7bbbfa67076476148fe479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer that stores the test data.  <a href="#a31c2f1f6ec7bbbfa67076476148fe479">More...</a><br/></td></tr>
+<tr class="separator:a31c2f1f6ec7bbbfa67076476148fe479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a1181e341f145c505d57d22f58cfbd1bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_MSG_LEN&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of words to send (each word is 4 bytes; maximum 8). </p>
+
+<p>Referenced by <a class="el" href="xipipsu__self__test__example_8c.html#a2dc7058c8f10506fd4279462d399d33a">IpiIntrHandler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a18d3e58d384a520f164f80a44d5a7e08"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIMEOUT_COUNT&#160;&#160;&#160;10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timeout count while polling for a response. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a2dc7058c8f10506fd4279462d399d33a"></a>
 <div class="memitem">
@@ -163,11 +218,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Interrupt Handler : -Polls for each of the valid sources -Checks if there is a message -Reads the message -Inverts the bits -Sends back the inverted message as response. </p>
-<p>&lt; Holds the IPI status register value</p>
-<p>&lt; Holds the received Message, later inverted and sent back as response </p>
+<p>Handles an incoming IPI and sends back the inverted message. </p>
+<p>Polls each valid source, checks for a message, reads it, inverts the bits, and sends the inverted message back as a response.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">XIpiPsuPtr</td><td>Pointer to the IPI instance. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>References <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___target.html#a4ac80767ed4dcfd90d9a02db6a2a8eb4">XIpiPsu_Target::Mask</a>, <a class="el" href="struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626">XIpiPsu_Config::TargetCount</a>, <a class="el" href="struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727">XIpiPsu_Config::TargetList</a>, <a class="el" href="group__ipipsu.html#gaad130b0ac7cc7a948fa636e7a2000bed">XIPIPSU_BUF_TYPE_MSG</a>, <a class="el" href="group__ipipsu.html#gad0b378b86976236e743f8a75ed9f8d8d">XIPIPSU_BUF_TYPE_RESP</a>, <a class="el" href="group__ipipsu.html#ga2919c49f2a05d552dedb148069e84045">XIpiPsu_ClearInterruptStatus</a>, <a class="el" href="group__ipipsu.html#ga5b24a8f18c8abc17b7a26532da88cc7e">XIpiPsu_GetInterruptStatus</a>, <a class="el" href="group__ipipsu__api.html#ga64113249dac23760b5cc0e9d038f8361">XIpiPsu_ReadMessage()</a>, and <a class="el" href="group__ipipsu__api.html#ga429d934e93e38c71d92ad98775b9cd92">XIpiPsu_WriteMessage()</a>.</p>
+<p>References <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___target.html#a4ac80767ed4dcfd90d9a02db6a2a8eb4">XIpiPsu_Target::Mask</a>, <a class="el" href="struct_x_ipi_psu___config.html#a8df4537dada42c7a73d1072ad59d2626">XIpiPsu_Config::TargetCount</a>, <a class="el" href="struct_x_ipi_psu___config.html#af7eb9b8148ebf278905b19dbd404b727">XIpiPsu_Config::TargetList</a>, <a class="el" href="xipipsu__self__test__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">TEST_MSG_LEN</a>, <a class="el" href="group__ipipsu.html#gaad130b0ac7cc7a948fa636e7a2000bed">XIPIPSU_BUF_TYPE_MSG</a>, <a class="el" href="group__ipipsu.html#gad0b378b86976236e743f8a75ed9f8d8d">XIPIPSU_BUF_TYPE_RESP</a>, <a class="el" href="group__ipipsu.html#ga2919c49f2a05d552dedb148069e84045">XIpiPsu_ClearInterruptStatus</a>, <a class="el" href="group__ipipsu.html#ga5b24a8f18c8abc17b7a26532da88cc7e">XIpiPsu_GetInterruptStatus</a>, <a class="el" href="group__ipipsu__api.html#ga64113249dac23760b5cc0e9d038f8361">XIpiPsu_ReadMessage()</a>, and <a class="el" href="group__ipipsu__api.html#ga429d934e93e38c71d92ad98775b9cd92">XIpiPsu_WriteMessage()</a>.</p>
 
 </div>
 </div>
@@ -183,9 +243,40 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Do Nothing We need to loop on to receive IPIs and respond to them</p>
 
-<p>References <a class="el" href="struct_x_ipi_psu___config.html#a0d87ebd028051d4a05ab03410aadbc00">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f">XIpiPsu_Config::IntId</a>, <a class="el" href="group__ipipsu__api.html#ga708ab6017d3971d9f9c0bf052fcdfd2f">XIPIPSU_ALL_MASK</a>, <a class="el" href="group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>, <a class="el" href="group__ipipsu.html#ga2919c49f2a05d552dedb148069e84045">XIpiPsu_ClearInterruptStatus</a>, <a class="el" href="group__ipipsu.html#gaa4e2694e0d28168f195f87583a34190c">XIpiPsu_InterruptEnable</a>, and <a class="el" href="group__ipipsu.html#gacb9c27ce83faa62ddce4b6898ddb419e">XIpiPsu_LookupConfig()</a>.</p>
+<p>Runs the IPI self-test example. </p>
+<dl class="section return"><dt>Returns</dt><dd>XST_FAILURE if interrupt setup fails. After setup, the function runs the self-test, prints the result, and loops to service IPIs. That loop does not return. </dd></dl>
+
+<p>References <a class="el" href="struct_x_ipi_psu___config.html#a0d87ebd028051d4a05ab03410aadbc00">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f">XIpiPsu_Config::IntId</a>, <a class="el" href="struct_x_ipi_psu___config.html#ac77f391158f02bcfb7f38200f5a97b7a">XIpiPsu_Config::IntrParent</a>, <a class="el" href="group__ipipsu__api.html#ga708ab6017d3971d9f9c0bf052fcdfd2f">XIPIPSU_ALL_MASK</a>, <a class="el" href="group__ipipsu__api.html#ga9fb4494480ae0079422956f2af1da357">XIpiPsu_CfgInitialize()</a>, <a class="el" href="group__ipipsu.html#ga2919c49f2a05d552dedb148069e84045">XIpiPsu_ClearInterruptStatus</a>, <a class="el" href="group__ipipsu.html#gaa4e2694e0d28168f195f87583a34190c">XIpiPsu_InterruptEnable</a>, and <a class="el" href="group__ipipsu.html#gacb9c27ce83faa62ddce4b6898ddb419e">XIpiPsu_LookupConfig()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a409f31c722d09b6120328065b5df1fe5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> IpiInst</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instance of the IPI device. </p>
+
+</div>
+</div>
+<a class="anchor" id="a31c2f1f6ec7bbbfa67076476148fe479"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 MsgBuffer[<a class="el" href="xipipsu__self__test__example_8c.html#a1181e341f145c505d57d22f58cfbd1bc">TEST_MSG_LEN</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Buffer that stores the test data. </p>
 
 </div>
 </div>

@@ -1,6 +1,7 @@
 var xvidc_8c =
 [
     [ "XVidC_Get3DFormatStr", "xvidc_8c.html#ga1d00a23344bac2c8f31661ed59e8c573", null ],
+    [ "XVidC_GetColorFormatForBandwidth", "xvidc_8c.html#ga1960127753fe5103efc7da3f9a291d28", null ],
     [ "XVidC_GetColorFormatStr", "xvidc_8c.html#ga8b0d0986815d88136d4ffae6118325e5", null ],
     [ "XVidC_GetFrameRate", "xvidc_8c.html#ga5359c410dfcc1bb7a851f77f0b92b287", null ],
     [ "XVidC_GetFrameRateStr", "xvidc_8c.html#ga3a1ddd84b3b0115149c1b0820c6ba6f4", null ],
@@ -10,6 +11,7 @@ var xvidc_8c =
     [ "XVidC_GetVideoFormat", "xvidc_8c.html#ga7b982d86111b66608e263b5ecd639e42", null ],
     [ "XVidC_GetVideoModeData", "xvidc_8c.html#ga3be40034baa818fc42e861f7f033afe8", null ],
     [ "XVidC_GetVideoModeId", "xvidc_8c.html#ga0a1cda75da460feccd4ab2c2ee712fa5", null ],
+    [ "XVidC_GetVideoModeId_DeepSearch", "xvidc_8c.html#gac7887b7dc736ea343c22af7815e5c0fa", null ],
     [ "XVidC_GetVideoModeIdExtensive", "xvidc_8c.html#ga268ce8ec4d2d07109eb7795073e04cbb", null ],
     [ "XVidC_GetVideoModeIdRb", "xvidc_8c.html#ga4377fff1a8e427e5f7bb642c5b115046", null ],
     [ "XVidC_GetVideoModeIdWBlanking", "xvidc_8c.html#ga562322a65704c3d6a2617b9f5e5d1717", null ],

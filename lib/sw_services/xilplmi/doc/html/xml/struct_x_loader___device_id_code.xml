@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="struct_x_loader___device_id_code" kind="struct" prot="public">
     <compoundname>XLoader_DeviceIdCode</compoundname>
+    <includes local="no">xplmi_client.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="struct_x_loader___device_id_code_1a5d870b809c237fd734b8561a71974de9" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -14,7 +15,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="63" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="68" endline="92">XPlmi_GetDeviceID</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_loader___device_id_code_1ab25ab0707dc91f0af28e4ffcbd1be86c" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -27,14 +29,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="64" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__client__apis_1ga7e8e7117a32a2207abc17436a82cde25" compoundref="xplmi__client_8c" startline="68" endline="92">XPlmi_GetDeviceID</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Device ID code information. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="62" bodyend="65"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="63" bodyend="66"/>
     <listofallmembers>
       <member refid="struct_x_loader___device_id_code_1ab25ab0707dc91f0af28e4ffcbd1be86c" prot="public" virt="non-virtual"><scope>XLoader_DeviceIdCode</scope><name>ExtIdCode</name></member>
       <member refid="struct_x_loader___device_id_code_1a5d870b809c237fd734b8561a71974de9" prot="public" virt="non-virtual"><scope>XLoader_DeviceIdCode</scope><name>IdCode</name></member>

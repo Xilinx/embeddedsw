@@ -6,9 +6,6 @@
     <includes local="yes">xsecure_aes.h</includes>
     <includes local="yes">xsecure_utils.h</includes>
     <incdepgraph>
-      <node id="196">
-        <label>xsecure_aes.h</label>
-      </node>
       <node id="194">
         <label>xilsecure_aes_example.c</label>
         <link refid="xilsecure_aes_example.c"/>
@@ -18,6 +15,9 @@
         </childnode>
         <childnode refid="197" relation="include">
         </childnode>
+      </node>
+      <node id="196">
+        <label>xsecure_aes.h</label>
       </node>
       <node id="197">
         <label>xsecure_utils.h</label>
@@ -36,7 +36,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="87" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__apis_1ga41c1a4ac80603e42831605e96f7fa0d7" prot="public" static="no">
+        <name>XSECURE_PH_ENCRYPTED_LEN_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Partition header offset of the encrypted data word length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="174" endline="272">SecureAesExample</referencedby>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__apis_1ga899e010885db8062a928cab2174e170f" prot="public" static="no">
         <name>XSECURE_PH_PARTITION_OFFSET</name>
@@ -47,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="88" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__apis_1gad2b724390e2edcb283d5a194b2685fba" prot="public" static="no">
         <name>XSECURE_PH_PARTITION_LEN_OFFSET</name>
@@ -58,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="89" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__apis_1gab1abe34690d330344f13f2f94e797723" prot="public" static="no">
         <name>XSECURE_PH_PARTITION_IV_OFFSET</name>
@@ -69,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="90" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__apis_1ga819c49de5b0f3a2cacf9da6eeef6187d" prot="public" static="no">
         <name>XSECURE_PH_PARTITION_IV_MASK</name>
@@ -80,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="91" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="101" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__apis_1gab4f33853b0ce541d0d562f3fe261e1a0" prot="public" static="no">
         <name>XSECURE_WORD_MUL</name>
@@ -91,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="93" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="103" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__xsecure__apis_1ga08935cf7376e0cc79451ebf2b2acb4ae" prot="public" static="no">
         <name>XSECURE_IV_INDEX</name>
@@ -102,7 +114,57 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="94" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__apis_1ga47036df029af26d8d7538f3f993c9bf1" prot="public" static="no">
+        <name>XSECURE_IMAGE_MAX_SIZE</name>
+        <initializer>0x1000000U</initializer>
+        <briefdescription>
+<para>Maximum size of the single partition image staged at ImageOffset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="174" endline="272">SecureAesExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__apis_1ga8a0bf464bfbed138430d1378af608e91" prot="public" static="no">
+        <name>XSECURE_IMAGE_MAX_WORDS</name>
+        <initializer>(<ref refid="group__xsecure__apis_1ga47036df029af26d8d7538f3f993c9bf1" kindref="member">XSECURE_IMAGE_MAX_SIZE</ref> / \
+						 XSECURE_WORD_MUL)</initializer>
+        <briefdescription>
+<para>Maximum size of the staged image in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="174" endline="272">SecureAesExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__apis_1ga006ccab07e532350ce4d52792067d7fd" prot="public" static="no">
+        <name>XSECURE_PH_FIELDS_SIZE</name>
+        <initializer>0x3CU</initializer>
+        <briefdescription>
+<para>Size of the partition header region read by this example. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="174" endline="272">SecureAesExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__apis_1ga8e5503b24925d238a2f2fd39bcd63819" prot="public" static="no">
+        <name>XSECURE_PARTITION_TRAILER_SIZE</name>
+        <initializer>(XSECURE_SECURE_HDR_SIZE + \
+						 XSECURE_SECURE_GCM_TAG_SIZE)</initializer>
+        <briefdescription>
+<para>Secure header and GCM tag that accompany a decrypted block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="174" endline="272">SecureAesExample</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -123,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="65" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__apis_1ga5a27cff401136d40fde650aad0dc9ff2" prot="public" static="no" mutable="no">
         <type>u8</type>
@@ -140,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="75" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__apis_1ga764eb4ffcda8d182ca90d1108cfabdc8" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -154,7 +216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="80" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__apis_1gacb6a35a5bd766ef53efabe3707a0da2d" prot="public" static="yes" mutable="no">
         <type>u32</type>
@@ -168,7 +230,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="81" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__apis_1ga3bb6399a1afc6407910e58c613b43eb5" prot="public" static="no" mutable="no">
         <type>XSecure_Aes</type>
@@ -181,7 +243,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="103" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="group__xsecure__apis_1ga6ac1478432df4951ce8f0fc753bb652d" prot="public" static="no" mutable="no">
         <type>XCsuDma</type>
@@ -194,7 +256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="104" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="127" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -210,7 +272,7 @@
 <para>This function decrypts the partition of single partition image located at DDR location. </para>        </briefdescription>
         <detaileddescription>
 <para>This function runs both GCM and GMAC tests.</para><para>This function encrypts the data with provided AES key and IV and decrypts the encrypted data also checks whether GCM tag is matched or not and finally compares the decrypted data with the original data provided.</para><para>The purpose of this function is to illustrate how to use the XSecure_Aes driver to decrypt the encrypted partition created using bootgen.</para><para><simplesect kind="return"><para><itemizedlist>
-<listitem><para>XST_FAILURE if the Aes decryption failed.</para></listitem><listitem><para>XST_SUCCESS if the Aes decryption was successful</para></listitem></itemizedlist>
+<listitem><para>XST_FAILURE if the header validation or Aes decryption failed.</para></listitem><listitem><para>XST_SUCCESS if the Aes decryption was successful</para></listitem></itemizedlist>
 </para></simplesect>
 <simplesect kind="note"><para>None.//! [AES example]</para></simplesect>
 <parameterlist kind="param"><parameteritem>
@@ -253,12 +315,17 @@
 <simplesect kind="note"><para>None.//! [Generic AES example] </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
-        </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="151" bodyend="200"/>
-        <references refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" compoundref="core_2util_2xsecure__utils_8h" startline="217">XSecure_In32</references>
-        <references refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" compoundref="xsecure__aesclient_8c" startline="77" endline="88">XSecure_AesInitialize</references>
-        <references refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</references>
-        <referencedby refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__aes__example_8c" startline="119" endline="133">main</referencedby>
+<para>Read the partition offset and the lengths as word counts.</para><para>Validate the word counts before converting them to bytes. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="174" bodyend="272"/>
+        <references refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_In32</references>
+        <references refid="group__xsecure__apis_1ga47036df029af26d8d7538f3f993c9bf1" compoundref="xilsecure__aes__example_8c" startline="107">XSECURE_IMAGE_MAX_SIZE</references>
+        <references refid="group__xsecure__apis_1ga006ccab07e532350ce4d52792067d7fd" compoundref="xilsecure__aes__example_8c" startline="114">XSECURE_PH_FIELDS_SIZE</references>
+        <references refid="group__xsecure__apis_1ga41c1a4ac80603e42831605e96f7fa0d7" compoundref="xilsecure__aes__example_8c" startline="97">XSECURE_PH_ENCRYPTED_LEN_OFFSET</references>
+        <references refid="group__xsecure__apis_1ga8a0bf464bfbed138430d1378af608e91" compoundref="xilsecure__aes__example_8c" startline="110">XSECURE_IMAGE_MAX_WORDS</references>
+        <references refid="group__xsecure__apis_1ga8e5503b24925d238a2f2fd39bcd63819" compoundref="xilsecure__aes__example_8c" startline="117">XSECURE_PARTITION_TRAILER_SIZE</references>
+        <references refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" compoundref="xsecure__aesclient_8c" startline="79" endline="94">XSecure_AesInitialize</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1433" endline="1647">XSecure_AesDecrypt</references>
+        <referencedby refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__aes__example_8c" startline="142" endline="156">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -330,8 +397,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="119" bodyend="133"/>
-        <references refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="151" endline="200">SecureAesExample</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c" bodystart="142" bodyend="156"/>
+        <references refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="174" endline="272">SecureAesExample</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -341,130 +408,189 @@
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
 <codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
-<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="55"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_aes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>The<sp/>hard<sp/>coded<sp/>aes<sp/>key<sp/>for<sp/>decryption,<sp/>in<sp/>case<sp/>user<sp/>given<sp/>key<sp/>is<sp/>being<sp/>used</highlight></codeline>
-<codeline lineno="63"><highlight class="comment"><sp/>*<sp/>it<sp/>will<sp/>be<sp/>loaded<sp/>in<sp/>KUP<sp/>before<sp/>decryption</highlight></codeline>
-<codeline lineno="64"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>CsuKey[]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/>0xf8,<sp/>0x78,<sp/>0xb8,<sp/>0x38,<sp/>0xd8,<sp/>0x58,<sp/>0x98,<sp/>0x18,</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/>0xe8,<sp/>0x68,<sp/>0xa8,<sp/>0x28,<sp/>0xc8,<sp/>0x48,<sp/>0x88,<sp/>0x08,</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/>0xf0,<sp/>0x70,<sp/>0xb0,<sp/>0x30,<sp/>0xd0,<sp/>0x50,<sp/>0x90,<sp/>0x10,</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>0xe0,<sp/>0x60,<sp/>0xa0,<sp/>0x20,<sp/>0xc0,<sp/>0x40,<sp/>0x80,<sp/>0x00</highlight></codeline>
-<codeline lineno="70"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>The<sp/>hard<sp/>coded<sp/>iv<sp/>used<sp/>for<sp/>decryption<sp/>secure<sp/>header<sp/>and<sp/>block<sp/>0</highlight></codeline>
-<codeline lineno="74"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="75"><highlight class="normal">u8<sp/>CsuIv[]<sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/>0xD2,<sp/>0x45,<sp/>0x0E,<sp/>0x07,<sp/>0xEA,<sp/>0x5D,<sp/>0xE0,<sp/>0x42,<sp/>0x6C,<sp/>0x0F,<sp/>0xA1,<sp/>0x33,</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_aes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>The<sp/>hard<sp/>coded<sp/>aes<sp/>key<sp/>for<sp/>decryption,<sp/>in<sp/>case<sp/>user<sp/>given<sp/>key<sp/>is<sp/>being<sp/>used</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>it<sp/>will<sp/>be<sp/>loaded<sp/>in<sp/>KUP<sp/>before<sp/>decryption</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>CsuKey[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>0xf8,<sp/>0x78,<sp/>0xb8,<sp/>0x38,<sp/>0xd8,<sp/>0x58,<sp/>0x98,<sp/>0x18,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>0xe8,<sp/>0x68,<sp/>0xa8,<sp/>0x28,<sp/>0xc8,<sp/>0x48,<sp/>0x88,<sp/>0x08,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>0xf0,<sp/>0x70,<sp/>0xb0,<sp/>0x30,<sp/>0xd0,<sp/>0x50,<sp/>0x90,<sp/>0x10,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>0xe0,<sp/>0x60,<sp/>0xa0,<sp/>0x20,<sp/>0xc0,<sp/>0x40,<sp/>0x80,<sp/>0x00</highlight></codeline>
 <codeline lineno="78"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>ImageOffset<sp/>=<sp/>0x04000000;</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>DestinationAddr<sp/>=<sp/>0x04000000;</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_BHDR_PH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9C</highlight></codeline>
-<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
-<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_LEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
-<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_IV_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x38</highlight></codeline>
-<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_IV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
-<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_WORD_MUL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4</highlight></codeline>
-<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_IV_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
-<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" kindref="member">SecureAesExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal">XSecure_Aes<sp/>Secure_Aes;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal">XCsuDma<sp/>CsuDma;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="119" refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" kindref="member">SecureAesExample</ref>();</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nSuccessfully<sp/>ran<sp/>AES<sp/>example<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nAES<sp/>example<sp/>failed<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
-<codeline lineno="151" refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" kindref="member">SecureAesExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Dst<sp/>=<sp/>(u8<sp/>*)(UINTPTR)DestinationAddr;</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsuDma_Config<sp/>*Config;</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PhOffset;</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PartitionOffset;</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PartitionLen;</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XCsuDma_LookupConfig(0);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Config)<sp/>{</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;config<sp/><sp/>failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsuDma_CfgInitialize(&amp;CsuDma,<sp/>Config,<sp/>Config-&gt;BaseAddress);</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>partition<sp/>offset<sp/>and<sp/>length<sp/>from<sp/>partition<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhOffset<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_BHDR_PH_OFFSET));</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionOffset<sp/>=<sp/>(<ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_OFFSET))<sp/>*<sp/>XSECURE_WORD_MUL);</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionLen<sp/>=<sp/>(<ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_LEN_OFFSET))<sp/>*<sp/>XSECURE_WORD_MUL);</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"></highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*(CsuIv<sp/>+<sp/>XSECURE_IV_INDEX)<sp/>=<sp/><sp/><sp/>(*(CsuIv<sp/>+<sp/>XSECURE_IV_INDEX))<sp/>+</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_IV_OFFSET))<sp/>&amp;</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_IV_MASK);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/>*<sp/>The<sp/>hard<sp/>coded<sp/>iv<sp/>used<sp/>for<sp/>decryption<sp/>secure<sp/>header<sp/>and<sp/>block<sp/>0</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">u8<sp/>CsuIv[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/>0xD2,<sp/>0x45,<sp/>0x0E,<sp/>0x07,<sp/>0xEA,<sp/>0x5D,<sp/>0xE0,<sp/>0x42,<sp/>0x6C,<sp/>0x0F,<sp/>0xA1,<sp/>0x33,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>ImageOffset<sp/>=<sp/>0x04000000;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>DestinationAddr<sp/>=<sp/>0x04000000;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_BHDR_PH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9C</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97" refid="group__xsecure__apis_1ga41c1a4ac80603e42831605e96f7fa0d7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PH_ENCRYPTED_LEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_LEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_IV_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x38</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PH_PARTITION_IV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_WORD_MUL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_IV_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="group__xsecure__apis_1ga47036df029af26d8d7538f3f993c9bf1" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_IMAGE_MAX_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1000000U</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110" refid="group__xsecure__apis_1ga8a0bf464bfbed138430d1378af608e91" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_IMAGE_MAX_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_IMAGE_MAX_SIZE<sp/>/<sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_WORD_MUL)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114" refid="group__xsecure__apis_1ga006ccab07e532350ce4d52792067d7fd" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PH_FIELDS_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3CU</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117" refid="group__xsecure__apis_1ga8e5503b24925d238a2f2fd39bcd63819" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PARTITION_TRAILER_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SECURE_HDR_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_SECURE_GCM_TAG_SIZE)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" kindref="member">SecureAesExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal">XSecure_Aes<sp/>Secure_Aes;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">XCsuDma<sp/>CsuDma;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142" refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" kindref="member">SecureAesExample</ref>();</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nSuccessfully<sp/>ran<sp/>AES<sp/>example<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nAES<sp/>example<sp/>failed<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="174" refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" kindref="member">SecureAesExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Dst<sp/>=<sp/>(u8<sp/>*)(UINTPTR)DestinationAddr;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsuDma_Config<sp/>*Config;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PhOffset;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PartitionOffset;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PartitionLen;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncryptedLen;</highlight></codeline>
 <codeline lineno="184"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>Aes<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" kindref="member">XSecure_AesInitialize</ref>(&amp;Secure_Aes,<sp/>&amp;CsuDma,<sp/>XSECURE_CSU_AES_KEY_SRC_KUP,</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)CsuIv,<sp/>(u32<sp/>*)CsuKey);</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" kindref="member">XSecure_AesDecrypt</ref>(&amp;Secure_Aes,<sp/>Dst,</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)(ImageOffset<sp/>+<sp/>PartitionOffset),</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionLen);</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"></highlight></codeline>
-<codeline lineno="193"><highlight class="normal"></highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"></highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
-<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XCsuDma_LookupConfig(0);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Config)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;config<sp/><sp/>failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsuDma_CfgInitialize(&amp;CsuDma,<sp/>Config,<sp/>Config-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>boot<sp/>and<sp/>partition<sp/>headers<sp/>are<sp/>not<sp/>authenticated<sp/>at<sp/>this<sp/>point,</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>every<sp/>offset<sp/>and<sp/>length<sp/>read<sp/>from<sp/>them<sp/>is<sp/>bounded<sp/>against<sp/>the</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>size<sp/>of<sp/>the<sp/>staged<sp/>image<sp/>before<sp/>it<sp/>is<sp/>used.</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>******/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PhOffset<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_BHDR_PH_OFFSET));</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PhOffset<sp/>&gt;<sp/>(<ref refid="group__xsecure__apis_1ga47036df029af26d8d7538f3f993c9bf1" kindref="member">XSECURE_IMAGE_MAX_SIZE</ref><sp/>-<sp/><ref refid="group__xsecure__apis_1ga006ccab07e532350ce4d52792067d7fd" kindref="member">XSECURE_PH_FIELDS_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>partition<sp/>header<sp/>offset<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionOffset<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_OFFSET));</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionLen<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_LEN_OFFSET));</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EncryptedLen<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__apis_1ga41c1a4ac80603e42831605e96f7fa0d7" kindref="member">XSECURE_PH_ENCRYPTED_LEN_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PartitionOffset<sp/>&gt;<sp/><ref refid="group__xsecure__apis_1ga8a0bf464bfbed138430d1378af608e91" kindref="member">XSECURE_IMAGE_MAX_WORDS</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PartitionLen<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PartitionLen<sp/>&gt;<sp/><ref refid="group__xsecure__apis_1ga8a0bf464bfbed138430d1378af608e91" kindref="member">XSECURE_IMAGE_MAX_WORDS</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EncryptedLen<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EncryptedLen<sp/>&gt;<sp/><ref refid="group__xsecure__apis_1ga8a0bf464bfbed138430d1378af608e91" kindref="member">XSECURE_IMAGE_MAX_WORDS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>partition<sp/>offset<sp/>or<sp/>length<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionOffset<sp/>=<sp/>PartitionOffset<sp/>*<sp/>XSECURE_WORD_MUL;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionLen<sp/>=<sp/>PartitionLen<sp/>*<sp/>XSECURE_WORD_MUL;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EncryptedLen<sp/>=<sp/>EncryptedLen<sp/>*<sp/>XSECURE_WORD_MUL;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>A<sp/>secure<sp/>header<sp/>and<sp/>its<sp/>tag<sp/>are<sp/>read<sp/>before<sp/>the<sp/>partition<sp/>data<sp/>and</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>another<sp/>header<sp/>and<sp/>tag<sp/>after<sp/>it,<sp/>so<sp/>the<sp/>encrypted<sp/>length<sp/>must<sp/>cover</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>framing<sp/>as<sp/>well<sp/>as<sp/>the<sp/>data,<sp/>and<sp/>must<sp/>itself<sp/>lie<sp/>within<sp/>the</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>image.<sp/>This<sp/>also<sp/>keeps<sp/>the<sp/>partition<sp/>data<sp/>inside<sp/>the<sp/>image.<sp/>Only<sp/>the</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>framing<sp/>of<sp/>a<sp/>single<sp/>block<sp/>is<sp/>bounded<sp/>here,<sp/>which<sp/>is<sp/>why<sp/>key<sp/>rolling</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>out<sp/>of<sp/>scope.</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>******/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((EncryptedLen<sp/>&lt;<sp/>(PartitionLen<sp/>+</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U<sp/>*<sp/><ref refid="group__xsecure__apis_1ga8e5503b24925d238a2f2fd39bcd63819" kindref="member">XSECURE_PARTITION_TRAILER_SIZE</ref>)))<sp/>||</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((PartitionOffset<sp/>+<sp/>EncryptedLen)<sp/>&gt;<sp/><ref refid="group__xsecure__apis_1ga47036df029af26d8d7538f3f993c9bf1" kindref="member">XSECURE_IMAGE_MAX_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>encrypted<sp/>partition<sp/>length<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*(CsuIv<sp/>+<sp/>XSECURE_IV_INDEX)<sp/>=<sp/><sp/><sp/>(*(CsuIv<sp/>+<sp/>XSECURE_IV_INDEX))<sp/>+</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" kindref="member">XSecure_In32</ref>((UINTPTR)(ImageOffset<sp/>+<sp/>PhOffset<sp/>+</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_IV_OFFSET))<sp/>&amp;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PH_PARTITION_IV_MASK);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>Aes<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" kindref="member">XSecure_AesInitialize</ref>(&amp;Secure_Aes,<sp/>&amp;CsuDma,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CSU_AES_KEY_SRC_KUP,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)CsuIv,<sp/>(u32<sp/>*)CsuKey);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Aes<sp/>initialize<sp/>failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" kindref="member">XSecure_AesDecrypt</ref>(&amp;Secure_Aes,<sp/>Dst,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)(ImageOffset<sp/>+<sp/>PartitionOffset),</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartitionLen);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_aes_example.c"/>
   </compounddef>
 </doxygen>

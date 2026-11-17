@@ -17,8 +17,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="466" bodyend="-1"/>
-        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="126" endline="182">XSem_RegisterEvent</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="513" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="128" endline="184">XSem_RegisterEvent</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem___notifier_1a008fbf58dc2f6803c788227b0d91ba9a" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -35,8 +35,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="488" bodyend="-1"/>
-        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="126" endline="182">XSem_RegisterEvent</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="535" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="128" endline="184">XSem_RegisterEvent</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_sem___notifier_1a14fb3416755928d53ced15f1f52f333d" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -51,16 +51,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="494" bodyend="-1"/>
-        <referencedby refid="xsem__npi__example__pl__mb_8c_1ad815d14892da5f95a002dea17c44cb4b" compoundref="xsem__npi__example__pl__mb_8c" startline="254" endline="271">XSem_NpiEventRegisterNotifier</referencedby>
-        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="126" endline="182">XSem_RegisterEvent</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="541" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1ad815d14892da5f95a002dea17c44cb4b" compoundref="xsem__npi__example__pl__mb_8c" startline="256" endline="273">XSem_NpiEventRegisterNotifier</referencedby>
+        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="128" endline="184">XSem_RegisterEvent</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para><ref refid="struct_x_sem___notifier" kindref="compound">XSem_Notifier</ref> : This structure contains details of event notifications to be registered with the XilSEM server. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="459" bodyend="495"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="506" bodyend="542"/>
     <listofallmembers>
       <member refid="struct_x_sem___notifier_1a008fbf58dc2f6803c788227b0d91ba9a" prot="public" virt="non-virtual"><scope>XSem_Notifier</scope><name>Event</name></member>
       <member refid="struct_x_sem___notifier_1a14fb3416755928d53ced15f1f52f333d" prot="public" virt="non-virtual"><scope>XSem_Notifier</scope><name>Flag</name></member>

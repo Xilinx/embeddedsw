@@ -2,7 +2,6 @@ var xwdtps_8h =
 [
     [ "XWDTPS_CLK_PRESCALE", "xwdtps_8h.html#ga4182ead880093d17d2b0962839821929", null ],
     [ "XWDTPS_COUNTER_RESET", "xwdtps_8h.html#gac055573454d39a7fadf5cbd1ed19aea5", null ],
-    [ "XWDTPS_H", "xwdtps_8h.html#gac766494d522d445e628dd65f01fe4130", null ],
     [ "XWDTPS_IRQ_SIGNAL", "xwdtps_8h.html#ga1c3aaf158b04e2d1e77145d5b425c5d3", null ],
     [ "XWdtPs_IsWdtExpired", "xwdtps_8h.html#ga5ad51ea203fc3eb20ecd848117c2f930", null ],
     [ "XWDTPS_RESET_SIGNAL", "xwdtps_8h.html#gad0b2439fb19478f1b1c1d14b76cd15cc", null ],

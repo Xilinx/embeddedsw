@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('struct_x_sfl___msg.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,53 +112,246 @@ $(document).ready(function(){initNavTree('struct_x_sfl___msg.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>This typedef contains configuration information for a flash message.
+<p>Holds the configuration information for a flash message.
  <a href="struct_x_sfl___msg.html#details">More...</a></p>
 
 <p><code>#include &lt;xilsfl.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ga857e87a3ce1d3539abd1a4c485ace65a"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga857e87a3ce1d3539abd1a4c485ace65a">RxAddr64bit</a></td></tr>
-<tr class="memdesc:ga857e87a3ce1d3539abd1a4c485ace65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide 64-bit read address for 32-bit platform.  <a href="group__xilsfl.html#ga857e87a3ce1d3539abd1a4c485ace65a">More...</a><br/></td></tr>
-<tr class="separator:ga857e87a3ce1d3539abd1a4c485ace65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0aaf9cdfa888bb10e62abbc77feea088"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga0aaf9cdfa888bb10e62abbc77feea088">ByteCount</a></td></tr>
-<tr class="memdesc:ga0aaf9cdfa888bb10e62abbc77feea088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes to read or write.  <a href="group__xilsfl.html#ga0aaf9cdfa888bb10e62abbc77feea088">More...</a><br/></td></tr>
-<tr class="separator:ga0aaf9cdfa888bb10e62abbc77feea088"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac1c48155b607da578d432d697249e702"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gac1c48155b607da578d432d697249e702">Addr</a></td></tr>
-<tr class="memdesc:gac1c48155b607da578d432d697249e702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device Address.  <a href="group__xilsfl.html#gac1c48155b607da578d432d697249e702">More...</a><br/></td></tr>
-<tr class="separator:gac1c48155b607da578d432d697249e702"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga969f1c20ce715974afed66a0f96cc8fb"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga969f1c20ce715974afed66a0f96cc8fb">TxBfrPtr</a></td></tr>
-<tr class="memdesc:ga969f1c20ce715974afed66a0f96cc8fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer pointer.  <a href="group__xilsfl.html#ga969f1c20ce715974afed66a0f96cc8fb">More...</a><br/></td></tr>
-<tr class="separator:ga969f1c20ce715974afed66a0f96cc8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9cf6ea17dbe8ad48845b03e6591435ff"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga9cf6ea17dbe8ad48845b03e6591435ff">RxBfrPtr</a></td></tr>
-<tr class="memdesc:ga9cf6ea17dbe8ad48845b03e6591435ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read buffer pointer.  <a href="group__xilsfl.html#ga9cf6ea17dbe8ad48845b03e6591435ff">More...</a><br/></td></tr>
-<tr class="separator:ga9cf6ea17dbe8ad48845b03e6591435ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9b81ed42e5d9d188dcb7ca2e3b930d5"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gae9b81ed42e5d9d188dcb7ca2e3b930d5">Opcode</a></td></tr>
-<tr class="memdesc:gae9b81ed42e5d9d188dcb7ca2e3b930d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opcode/Command.  <a href="group__xilsfl.html#gae9b81ed42e5d9d188dcb7ca2e3b930d5">More...</a><br/></td></tr>
-<tr class="separator:gae9b81ed42e5d9d188dcb7ca2e3b930d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68fa3b7667ab72139e2e6872bca2c614"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga68fa3b7667ab72139e2e6872bca2c614">Dummy</a></td></tr>
-<tr class="memdesc:ga68fa3b7667ab72139e2e6872bca2c614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of dummy cycles for opcode.  <a href="group__xilsfl.html#ga68fa3b7667ab72139e2e6872bca2c614">More...</a><br/></td></tr>
-<tr class="separator:ga68fa3b7667ab72139e2e6872bca2c614"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5cb4882d5fd9d67c8061759327734df9"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga5cb4882d5fd9d67c8061759327734df9">Xfer64bit</a></td></tr>
-<tr class="memdesc:ga5cb4882d5fd9d67c8061759327734df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to 1 when reading from 64-bit addr otherwise 0.  <a href="group__xilsfl.html#ga5cb4882d5fd9d67c8061759327734df9">More...</a><br/></td></tr>
-<tr class="separator:ga5cb4882d5fd9d67c8061759327734df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga43eded5844e9e26ae779ea9517d94da3"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga43eded5844e9e26ae779ea9517d94da3">DualByteOpCode</a></td></tr>
-<tr class="memdesc:ga43eded5844e9e26ae779ea9517d94da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended opcode in dual-byte opcode mode.  <a href="group__xilsfl.html#ga43eded5844e9e26ae779ea9517d94da3">More...</a><br/></td></tr>
-<tr class="separator:ga43eded5844e9e26ae779ea9517d94da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga17743aa6d48afbdf0f60beb7eb061aa8"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#ga17743aa6d48afbdf0f60beb7eb061aa8">Addrsize</a></td></tr>
-<tr class="memdesc:ga17743aa6d48afbdf0f60beb7eb061aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of address in bytes.  <a href="group__xilsfl.html#ga17743aa6d48afbdf0f60beb7eb061aa8">More...</a><br/></td></tr>
-<tr class="separator:ga17743aa6d48afbdf0f60beb7eb061aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac9e0ab7a825b0814d87e950abd5beee3"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gac9e0ab7a825b0814d87e950abd5beee3">Addrvalid</a></td></tr>
-<tr class="memdesc:gac9e0ab7a825b0814d87e950abd5beee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if Address is required for opcode, 0 otherwise  <a href="group__xilsfl.html#gac9e0ab7a825b0814d87e950abd5beee3">More...</a><br/></td></tr>
-<tr class="separator:gac9e0ab7a825b0814d87e950abd5beee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad0719815f6ede45c39a438ac3165ddbe"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xilsfl.html#gad0719815f6ede45c39a438ac3165ddbe">Proto</a></td></tr>
-<tr class="memdesc:gad0719815f6ede45c39a438ac3165ddbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate number of Cmd-Addr-Data lines.  <a href="group__xilsfl.html#gad0719815f6ede45c39a438ac3165ddbe">More...</a><br/></td></tr>
-<tr class="separator:gad0719815f6ede45c39a438ac3165ddbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857e87a3ce1d3539abd1a4c485ace65a"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a857e87a3ce1d3539abd1a4c485ace65a">RxAddr64bit</a></td></tr>
+<tr class="memdesc:a857e87a3ce1d3539abd1a4c485ace65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">64-bit read address for a 32-bit platform.  <a href="#a857e87a3ce1d3539abd1a4c485ace65a">More...</a><br/></td></tr>
+<tr class="separator:a857e87a3ce1d3539abd1a4c485ace65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aaf9cdfa888bb10e62abbc77feea088"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a0aaf9cdfa888bb10e62abbc77feea088">ByteCount</a></td></tr>
+<tr class="memdesc:a0aaf9cdfa888bb10e62abbc77feea088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes to read or write.  <a href="#a0aaf9cdfa888bb10e62abbc77feea088">More...</a><br/></td></tr>
+<tr class="separator:a0aaf9cdfa888bb10e62abbc77feea088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1c48155b607da578d432d697249e702"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#ac1c48155b607da578d432d697249e702">Addr</a></td></tr>
+<tr class="memdesc:ac1c48155b607da578d432d697249e702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device address.  <a href="#ac1c48155b607da578d432d697249e702">More...</a><br/></td></tr>
+<tr class="separator:ac1c48155b607da578d432d697249e702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a969f1c20ce715974afed66a0f96cc8fb"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a969f1c20ce715974afed66a0f96cc8fb">TxBfrPtr</a></td></tr>
+<tr class="memdesc:a969f1c20ce715974afed66a0f96cc8fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write buffer pointer.  <a href="#a969f1c20ce715974afed66a0f96cc8fb">More...</a><br/></td></tr>
+<tr class="separator:a969f1c20ce715974afed66a0f96cc8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf6ea17dbe8ad48845b03e6591435ff"><td class="memItemLeft" align="right" valign="top">u8 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a9cf6ea17dbe8ad48845b03e6591435ff">RxBfrPtr</a></td></tr>
+<tr class="memdesc:a9cf6ea17dbe8ad48845b03e6591435ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read buffer pointer.  <a href="#a9cf6ea17dbe8ad48845b03e6591435ff">More...</a><br/></td></tr>
+<tr class="separator:a9cf6ea17dbe8ad48845b03e6591435ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9b81ed42e5d9d188dcb7ca2e3b930d5"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#ae9b81ed42e5d9d188dcb7ca2e3b930d5">Opcode</a></td></tr>
+<tr class="memdesc:ae9b81ed42e5d9d188dcb7ca2e3b930d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opcode/command.  <a href="#ae9b81ed42e5d9d188dcb7ca2e3b930d5">More...</a><br/></td></tr>
+<tr class="separator:ae9b81ed42e5d9d188dcb7ca2e3b930d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68fa3b7667ab72139e2e6872bca2c614"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a68fa3b7667ab72139e2e6872bca2c614">Dummy</a></td></tr>
+<tr class="memdesc:a68fa3b7667ab72139e2e6872bca2c614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of dummy cycles for the opcode.  <a href="#a68fa3b7667ab72139e2e6872bca2c614">More...</a><br/></td></tr>
+<tr class="separator:a68fa3b7667ab72139e2e6872bca2c614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb4882d5fd9d67c8061759327734df9"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a5cb4882d5fd9d67c8061759327734df9">Xfer64bit</a></td></tr>
+<tr class="memdesc:a5cb4882d5fd9d67c8061759327734df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to 1 when reading from a 64-bit address, otherwise 0.  <a href="#a5cb4882d5fd9d67c8061759327734df9">More...</a><br/></td></tr>
+<tr class="separator:a5cb4882d5fd9d67c8061759327734df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43eded5844e9e26ae779ea9517d94da3"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a43eded5844e9e26ae779ea9517d94da3">DualByteOpCode</a></td></tr>
+<tr class="memdesc:a43eded5844e9e26ae779ea9517d94da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended opcode in dual-byte opcode mode.  <a href="#a43eded5844e9e26ae779ea9517d94da3">More...</a><br/></td></tr>
+<tr class="separator:a43eded5844e9e26ae779ea9517d94da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17743aa6d48afbdf0f60beb7eb061aa8"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#a17743aa6d48afbdf0f60beb7eb061aa8">Addrsize</a></td></tr>
+<tr class="memdesc:a17743aa6d48afbdf0f60beb7eb061aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of address in bytes.  <a href="#a17743aa6d48afbdf0f60beb7eb061aa8">More...</a><br/></td></tr>
+<tr class="separator:a17743aa6d48afbdf0f60beb7eb061aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9e0ab7a825b0814d87e950abd5beee3"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#ac9e0ab7a825b0814d87e950abd5beee3">Addrvalid</a></td></tr>
+<tr class="memdesc:ac9e0ab7a825b0814d87e950abd5beee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">1 if the opcode requires an address, else 0.  <a href="#ac9e0ab7a825b0814d87e950abd5beee3">More...</a><br/></td></tr>
+<tr class="separator:ac9e0ab7a825b0814d87e950abd5beee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0719815f6ede45c39a438ac3165ddbe"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sfl___msg.html#ad0719815f6ede45c39a438ac3165ddbe">Proto</a></td></tr>
+<tr class="memdesc:ad0719815f6ede45c39a438ac3165ddbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the number of Cmd-Addr-Data lines.  <a href="#ad0719815f6ede45c39a438ac3165ddbe">More...</a><br/></td></tr>
+<tr class="separator:ad0719815f6ede45c39a438ac3165ddbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This typedef contains configuration information for a flash message. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Holds the configuration information for a flash message. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="ac1c48155b607da578d432d697249e702"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSfl_Msg::Addr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Device address. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a17743aa6d48afbdf0f60beb7eb061aa8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::Addrsize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of address in bytes. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac9e0ab7a825b0814d87e950abd5beee3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::Addrvalid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>1 if the opcode requires an address, else 0. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0aaf9cdfa888bb10e62abbc77feea088"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XSfl_Msg::ByteCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of bytes to read or write. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a43eded5844e9e26ae779ea9517d94da3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::DualByteOpCode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extended opcode in dual-byte opcode mode. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a68fa3b7667ab72139e2e6872bca2c614"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::Dummy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of dummy cycles for the opcode. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae9b81ed42e5d9d188dcb7ca2e3b930d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::Opcode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Opcode/command. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad0719815f6ede45c39a438ac3165ddbe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::Proto</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates the number of Cmd-Addr-Data lines. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a857e87a3ce1d3539abd1a4c485ace65a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u64 XSfl_Msg::RxAddr64bit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>64-bit read address for a 32-bit platform. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, and <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9cf6ea17dbe8ad48845b03e6591435ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* XSfl_Msg::RxBfrPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read buffer pointer. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a969f1c20ce715974afed66a0f96cc8fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8* XSfl_Msg::TxBfrPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write buffer pointer. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#gae7d287a9ac84fa27612bfe2104d91819">XSfl_FlashCmdTransfer()</a>, <a class="el" href="group__xilsfl.html#gab3c547fa045d3b91a7c0d6c3a16f6fc1">XSfl_FlashIdRead()</a>, <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, <a class="el" href="group__xilsfl.html#gac66a63ff325a29a34bb794facae9532e">XSfl_FlashPageWrite()</a>, <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>, <a class="el" href="group__xilsfl.html#gad43f7ae3c8e3ec11631b4a3e9443abcd">XSfl_FlashRegisterReadWrite()</a>, <a class="el" href="group__xilsfl.html#gadf862581219f7242e0affc2f270c82c2">XSfl_SectorErase()</a>, and <a class="el" href="group__xilsfl.html#ga93a864b058c078efaa24b42110a616b0">XSfl_WaitforStatusDone()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5cb4882d5fd9d67c8061759327734df9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XSfl_Msg::Xfer64bit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set to 1 when reading from a 64-bit address, otherwise 0. </p>
+
+<p>Referenced by <a class="el" href="group__xilsfl.html#ga8c62ceb6e67539fb6d9a3ebe110dd1b3">XSfl_FlashNonBlockingReadProcess()</a>, and <a class="el" href="group__xilsfl.html#ga665675fe0b9996bed72aaca43f801e89">XSfl_FlashReadProcess()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 	<p class="footer">&copy; Copyright 2015-2022 Xilinx, Inc. All Rights Reserved.</p>

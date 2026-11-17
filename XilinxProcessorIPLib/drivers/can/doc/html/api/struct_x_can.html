@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('struct_x_can.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('struct_x_can.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="struct_x_can.html" title="The XCan driver instance data. ">XCan</a> driver instance data.
+<p>CAN driver instance data structure.
  <a href="struct_x_can.html#details">More...</a></p>
 
 <p><code>#include &lt;xcan.h&gt;</code></p>
@@ -133,48 +133,51 @@ Data Fields</h2></td></tr>
 <tr class="memdesc:ad1b7e8246d4595ef6bde028a562c08fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">ECC is enabled or disabled.  <a href="#ad1b7e8246d4595ef6bde028a562c08fa">More...</a><br/></td></tr>
 <tr class="separator:ad1b7e8246d4595ef6bde028a562c08fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1860cf3346043b070b289f09f38ee6d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__can.html#ga35ad388bd264c6d4226356cdfe14f8dc">XCan_SendRecvHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a1860cf3346043b070b289f09f38ee6d5">SendHandler</a></td></tr>
-<tr class="memdesc:a1860cf3346043b070b289f09f38ee6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will be passed to the TXOK interrupt callback.  <a href="#a1860cf3346043b070b289f09f38ee6d5">More...</a><br/></td></tr>
+<tr class="memdesc:a1860cf3346043b070b289f09f38ee6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for TXOK interrupt.  <a href="#a1860cf3346043b070b289f09f38ee6d5">More...</a><br/></td></tr>
 <tr class="separator:a1860cf3346043b070b289f09f38ee6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f878dac03d57becb449745f0e443907"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a9f878dac03d57becb449745f0e443907">SendRef</a></td></tr>
-<tr class="memdesc:a9f878dac03d57becb449745f0e443907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for RXOK/RXNEMP interrupts.  <a href="#a9f878dac03d57becb449745f0e443907">More...</a><br/></td></tr>
+<tr class="memdesc:a9f878dac03d57becb449745f0e443907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference passed to the TXOK interrupt callback.  <a href="#a9f878dac03d57becb449745f0e443907">More...</a><br/></td></tr>
 <tr class="separator:a9f878dac03d57becb449745f0e443907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f2d0f6050bb89ce5854b703caceb883"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__can.html#ga35ad388bd264c6d4226356cdfe14f8dc">XCan_SendRecvHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a8f2d0f6050bb89ce5854b703caceb883">RecvHandler</a></td></tr>
-<tr class="memdesc:a8f2d0f6050bb89ce5854b703caceb883"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will be passed to the RXOK/RXNEMP interrupt callback.  <a href="#a8f2d0f6050bb89ce5854b703caceb883">More...</a><br/></td></tr>
+<tr class="memdesc:a8f2d0f6050bb89ce5854b703caceb883"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for RXOK/RXNEMP interrupts.  <a href="#a8f2d0f6050bb89ce5854b703caceb883">More...</a><br/></td></tr>
 <tr class="separator:a8f2d0f6050bb89ce5854b703caceb883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bbcd54ab93e47c5cf5ba20194667760"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a6bbcd54ab93e47c5cf5ba20194667760">RecvRef</a></td></tr>
-<tr class="memdesc:a6bbcd54ab93e47c5cf5ba20194667760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for ERROR interrupt.  <a href="#a6bbcd54ab93e47c5cf5ba20194667760">More...</a><br/></td></tr>
+<tr class="memdesc:a6bbcd54ab93e47c5cf5ba20194667760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference passed to the RXOK/RXNEMP interrupt callback.  <a href="#a6bbcd54ab93e47c5cf5ba20194667760">More...</a><br/></td></tr>
 <tr class="separator:a6bbcd54ab93e47c5cf5ba20194667760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85a35a86e926f2f6c881b919323e1a8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__can.html#ga15913601b8c17e959d80a0a28469e537">XCan_ErrorHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a85a35a86e926f2f6c881b919323e1a8a">ErrorHandler</a></td></tr>
-<tr class="memdesc:a85a35a86e926f2f6c881b919323e1a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will be passed to the ERROR interrupt callback.  <a href="#a85a35a86e926f2f6c881b919323e1a8a">More...</a><br/></td></tr>
+<tr class="memdesc:a85a35a86e926f2f6c881b919323e1a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for ERROR interrupt.  <a href="#a85a35a86e926f2f6c881b919323e1a8a">More...</a><br/></td></tr>
 <tr class="separator:a85a35a86e926f2f6c881b919323e1a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc444eee1192bc6a921d264b452c507c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#acc444eee1192bc6a921d264b452c507c">ErrorRef</a></td></tr>
-<tr class="memdesc:acc444eee1192bc6a921d264b452c507c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST interrupts.  <a href="#acc444eee1192bc6a921d264b452c507c">More...</a><br/></td></tr>
+<tr class="memdesc:acc444eee1192bc6a921d264b452c507c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference passed to the ERROR interrupt callback.  <a href="#acc444eee1192bc6a921d264b452c507c">More...</a><br/></td></tr>
 <tr class="separator:acc444eee1192bc6a921d264b452c507c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc72a94f8c346fdf0925fab5ed957a79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__can.html#gae08cf54d17b722be5c51117d983dd776">XCan_EventHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#acc72a94f8c346fdf0925fab5ed957a79">EventHandler</a></td></tr>
-<tr class="memdesc:acc72a94f8c346fdf0925fab5ed957a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will be passed to the EventHandler callback.  <a href="#acc72a94f8c346fdf0925fab5ed957a79">More...</a><br/></td></tr>
+<tr class="memdesc:acc72a94f8c346fdf0925fab5ed957a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for RXOFLW/RXUFLW/TXBFLL/ TXFLL/Wakeup/Sleep/Bus off/ARBLST interrupts.  <a href="#acc72a94f8c346fdf0925fab5ed957a79">More...</a><br/></td></tr>
 <tr class="separator:acc72a94f8c346fdf0925fab5ed957a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba90fb0e2c69978d21a8b53358c7f8b6"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#aba90fb0e2c69978d21a8b53358c7f8b6">EventRef</a></td></tr>
-<tr class="memdesc:aba90fb0e2c69978d21a8b53358c7f8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXTLFIFO 2bit ECC count.  <a href="#aba90fb0e2c69978d21a8b53358c7f8b6">More...</a><br/></td></tr>
+<tr class="memdesc:aba90fb0e2c69978d21a8b53358c7f8b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference passed to the EventHandler callback.  <a href="#aba90fb0e2c69978d21a8b53358c7f8b6">More...</a><br/></td></tr>
 <tr class="separator:aba90fb0e2c69978d21a8b53358c7f8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0e6fa8153f1209587d9304c3370efa7"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#ac0e6fa8153f1209587d9304c3370efa7">ecc_2bit_txtlfifo_cnt</a></td></tr>
-<tr class="memdesc:ac0e6fa8153f1209587d9304c3370efa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXTLFIFO 1bit ECC count.  <a href="#ac0e6fa8153f1209587d9304c3370efa7">More...</a><br/></td></tr>
+<tr class="memdesc:ac0e6fa8153f1209587d9304c3370efa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXTLFIFO 2bit ECC count.  <a href="#ac0e6fa8153f1209587d9304c3370efa7">More...</a><br/></td></tr>
 <tr class="separator:ac0e6fa8153f1209587d9304c3370efa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cc5989a39ce47d7eaeb1dc2ee29570d"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a3cc5989a39ce47d7eaeb1dc2ee29570d">ecc_1bit_txtlfifo_cnt</a></td></tr>
-<tr class="memdesc:a3cc5989a39ce47d7eaeb1dc2ee29570d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXOLFIFO 2bit ECC count.  <a href="#a3cc5989a39ce47d7eaeb1dc2ee29570d">More...</a><br/></td></tr>
+<tr class="memdesc:a3cc5989a39ce47d7eaeb1dc2ee29570d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXTLFIFO 1bit ECC count.  <a href="#a3cc5989a39ce47d7eaeb1dc2ee29570d">More...</a><br/></td></tr>
 <tr class="separator:a3cc5989a39ce47d7eaeb1dc2ee29570d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67495bb45f05f78eceb23941c5566984"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a67495bb45f05f78eceb23941c5566984">ecc_2bit_txolfifo_cnt</a></td></tr>
-<tr class="memdesc:a67495bb45f05f78eceb23941c5566984"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXOLFIFO 1bit ECC count.  <a href="#a67495bb45f05f78eceb23941c5566984">More...</a><br/></td></tr>
+<tr class="memdesc:a67495bb45f05f78eceb23941c5566984"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXOLFIFO 2bit ECC count.  <a href="#a67495bb45f05f78eceb23941c5566984">More...</a><br/></td></tr>
 <tr class="separator:a67495bb45f05f78eceb23941c5566984"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0309ac9be44b592655714b4e6e30dcfd"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a0309ac9be44b592655714b4e6e30dcfd">ecc_1bit_txolfifo_cnt</a></td></tr>
-<tr class="memdesc:a0309ac9be44b592655714b4e6e30dcfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">RXFIFO 2bit ECC count.  <a href="#a0309ac9be44b592655714b4e6e30dcfd">More...</a><br/></td></tr>
+<tr class="memdesc:a0309ac9be44b592655714b4e6e30dcfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">TXOLFIFO 1bit ECC count.  <a href="#a0309ac9be44b592655714b4e6e30dcfd">More...</a><br/></td></tr>
 <tr class="separator:a0309ac9be44b592655714b4e6e30dcfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02d7f8dee1f68f1d4481f3adfcac85ce"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#a02d7f8dee1f68f1d4481f3adfcac85ce">ecc_2bit_rxfifo_cnt</a></td></tr>
-<tr class="memdesc:a02d7f8dee1f68f1d4481f3adfcac85ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">RXFIFO 1bit ECC count.  <a href="#a02d7f8dee1f68f1d4481f3adfcac85ce">More...</a><br/></td></tr>
+<tr class="memdesc:a02d7f8dee1f68f1d4481f3adfcac85ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">RXFIFO 2bit ECC count.  <a href="#a02d7f8dee1f68f1d4481f3adfcac85ce">More...</a><br/></td></tr>
 <tr class="separator:a02d7f8dee1f68f1d4481f3adfcac85ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0b4e5ccbd492654934cea6e75f0d6d0"><td class="memItemLeft" align="right" valign="top">u64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_can.html#af0b4e5ccbd492654934cea6e75f0d6d0">ecc_1bit_rxfifo_cnt</a></td></tr>
+<tr class="memdesc:af0b4e5ccbd492654934cea6e75f0d6d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">RXFIFO 1bit ECC count.  <a href="#af0b4e5ccbd492654934cea6e75f0d6d0">More...</a><br/></td></tr>
+<tr class="separator:af0b4e5ccbd492654934cea6e75f0d6d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="struct_x_can.html" title="The XCan driver instance data. ">XCan</a> driver instance data. </p>
-<p>The user is required to allocate a variable of this type for every CAN device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
+<div class="textblock"><p>CAN driver instance data structure. </p>
+<p>The <a class="el" href="struct_x_can.html" title="CAN driver instance data structure. ">XCan</a> driver instance data. The application must allocate a variable of this type for every CAN device in the system. A pointer to a variable of this type is then passed to the driver API functions. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a8fa6a2c1022499c19ac3777e6f338ba5"></a>
 <div class="memitem">
@@ -192,6 +195,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af0b4e5ccbd492654934cea6e75f0d6d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u64 XCan::ecc_1bit_rxfifo_cnt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RXFIFO 1bit ECC count. </p>
+
+<p>Referenced by <a class="el" href="group__can.html#ga5cf8f7db6b6726cd217e58e6224d56ad">XCan_GetECCCount()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a0309ac9be44b592655714b4e6e30dcfd"></a>
 <div class="memitem">
 <div class="memproto">
@@ -202,7 +221,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>RXFIFO 2bit ECC count. </p>
+<p>TXOLFIFO 1bit ECC count. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#ga5cf8f7db6b6726cd217e58e6224d56ad">XCan_GetECCCount()</a>.</p>
 
@@ -218,7 +237,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TXOLFIFO 2bit ECC count. </p>
+<p>TXTLFIFO 1bit ECC count. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#ga5cf8f7db6b6726cd217e58e6224d56ad">XCan_GetECCCount()</a>.</p>
 
@@ -234,7 +253,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>RXFIFO 1bit ECC count. </p>
+<p>RXFIFO 2bit ECC count. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#ga5cf8f7db6b6726cd217e58e6224d56ad">XCan_GetECCCount()</a>.</p>
 
@@ -250,7 +269,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TXOLFIFO 1bit ECC count. </p>
+<p>TXOLFIFO 2bit ECC count. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#ga5cf8f7db6b6726cd217e58e6224d56ad">XCan_GetECCCount()</a>.</p>
 
@@ -266,7 +285,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TXTLFIFO 1bit ECC count. </p>
+<p>TXTLFIFO 2bit ECC count. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#ga5cf8f7db6b6726cd217e58e6224d56ad">XCan_GetECCCount()</a>.</p>
 
@@ -283,7 +302,6 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>ECC is enabled or disabled. </p>
-<p>Callback for TXOK interrupt </p>
 
 <p>Referenced by <a class="el" href="xcan__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>, and <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>.</p>
 
@@ -299,7 +317,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This will be passed to the ERROR interrupt callback. </p>
+<p>Callback for ERROR interrupt. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -315,7 +333,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST interrupts. </p>
+<p>Reference passed to the ERROR interrupt callback. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -331,7 +349,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This will be passed to the EventHandler callback. </p>
+<p>Callback for RXOFLW/RXUFLW/TXBFLL/ TXFLL/Wakeup/Sleep/Bus off/ARBLST interrupts. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -347,7 +365,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TXTLFIFO 2bit ECC count. </p>
+<p>Reference passed to the EventHandler callback. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -395,7 +413,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This will be passed to the RXOK/RXNEMP interrupt callback. </p>
+<p>Callback for RXOK/RXNEMP interrupts. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -411,7 +429,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback for ERROR interrupt. </p>
+<p>Reference passed to the RXOK/RXNEMP interrupt callback. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -427,7 +445,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This will be passed to the TXOK interrupt callback. </p>
+<p>Callback for TXOK interrupt. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 
@@ -443,7 +461,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback for RXOK/RXNEMP interrupts. </p>
+<p>Reference passed to the TXOK interrupt callback. </p>
 
 <p>Referenced by <a class="el" href="group__can.html#gaafc4a0e025e8e3eb800778eba5a00c66">XCan_IntrHandler()</a>, and <a class="el" href="group__can.html#ga3a7838a033b61a842b06e3ee4b06a614">XCan_SetHandler()</a>.</p>
 

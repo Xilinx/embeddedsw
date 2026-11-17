@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['config',['Config',['../struct_x_bram.html#aa67b80ce75d89ebfc2c65c5300ac3253',1,'XBram']]],
   ['correctablecounterbits',['CorrectableCounterBits',['../struct_x_bram___config.html#a58fc68e35caa4b6e99d6203feadf3867',1,'XBram_Config']]],
   ['correctablefailingdataregs',['CorrectableFailingDataRegs',['../struct_x_bram___config.html#a523f6c9b0013be3fc8cc5ab879e39035',1,'XBram_Config']]],
   ['correctablefailingregisters',['CorrectableFailingRegisters',['../struct_x_bram___config.html#a68ac643548b48f788d6c2f573cb5547a',1,'XBram_Config']]],

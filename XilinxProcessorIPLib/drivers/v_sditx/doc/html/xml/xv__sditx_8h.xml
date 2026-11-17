@@ -21,17 +21,17 @@
       <node id="18">
         <label>xil_io.h</label>
       </node>
-      <node id="23">
-        <label>xv_sdivid.h</label>
-      </node>
-      <node id="21">
-        <label>xdebug.h</label>
-      </node>
       <node id="17">
         <label>xv_sditx_hw.h</label>
         <link refid="xv__sditx__hw_8h"/>
         <childnode refid="18" relation="include">
         </childnode>
+      </node>
+      <node id="23">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="21">
+        <label>xdebug.h</label>
       </node>
       <node id="20">
         <label>xstatus.h</label>
@@ -57,24 +57,24 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="27">
-        <label>xv_sditx_intr.c</label>
-        <link refid="xv__sditx__intr_8c"/>
-      </node>
-      <node id="30">
-        <label>xv_sditx_example_selftest.c</label>
-        <link refid="xv__sditx__example__selftest_8c"/>
-      </node>
       <node id="29">
         <label>xv_sditx_sinit.c</label>
         <link refid="xv__sditx__sinit_8c"/>
+      </node>
+      <node id="26">
+        <label>xv_sditx_g.c</label>
       </node>
       <node id="28">
         <label>xv_sditx_selftest.c</label>
         <link refid="xv__sditx__selftest_8c"/>
       </node>
-      <node id="26">
-        <label>xv_sditx_g.c</label>
+      <node id="30">
+        <label>xv_sditx_example_selftest.c</label>
+        <link refid="xv__sditx__example__selftest_8c"/>
+      </node>
+      <node id="27">
+        <label>xv_sditx_intr.c</label>
+        <link refid="xv__sditx__intr_8c"/>
       </node>
       <node id="25">
         <label>xv_sditx.c</label>
@@ -146,7 +146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="56" bodyend="64"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="56" bodyend="64"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="75" bodyend="78"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="75" bodyend="78"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -242,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="87" bodyend="96"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="87" bodyend="96"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -291,7 +291,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="105" bodyend="111"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="105" bodyend="111"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -360,7 +360,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="120" bodyend="129"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="120" bodyend="129"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -413,7 +413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="138" bodyend="144"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="138" bodyend="144"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -450,7 +450,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="153" bodyend="157"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="153" bodyend="157"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -487,7 +487,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="166" bodyend="170"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="166" bodyend="170"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -516,8 +516,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_sinit.c" bodystart="89" bodyend="108"/>
-        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="118" endline="148">XV_SdiTxSelfTestExample</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_sinit.c" bodystart="63" bodyend="82"/>
+        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="100" endline="123">XV_SdiTxSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a5b95fdd396bc9efc992f3f9ed217cfc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -568,20 +568,20 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="130" bodyend="186"/>
-        <references refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Axi4sVidLockCallback</references>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" compoundref="xv__sditx_8h" startline="234">XV_SdiTx::CeAlignErrCallback</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" compoundref="xv__sditx_8h" startline="225">XV_SdiTx::GtRstDoneCallback</references>
-        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::IsReady</references>
-        <references refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" compoundref="xv__sditx_8h" startline="228">XV_SdiTx::OverFlowCallback</references>
-        <references refid="struct_x_v___sdi_tx_1a8ebd6fcfa9c90369985092a766d0507a" compoundref="xv__sditx_8h" startline="242">XV_SdiTx::State</references>
-        <references refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" compoundref="xv__sditx_8h" startline="231">XV_SdiTx::UnderFlowCallback</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="130" bodyend="186"/>
+        <references refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" compoundref="xv__sditx_8h" startline="233">XV_SdiTx::Axi4sVidLockCallback</references>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" compoundref="xv__sditx_8h" startline="230">XV_SdiTx::CeAlignErrCallback</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" compoundref="xv__sditx_8h" startline="221">XV_SdiTx::GtRstDoneCallback</references>
+        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="220">XV_SdiTx::IsReady</references>
+        <references refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::OverFlowCallback</references>
+        <references refid="struct_x_v___sdi_tx_1a8ebd6fcfa9c90369985092a766d0507a" compoundref="xv__sditx_8h" startline="238">XV_SdiTx::State</references>
+        <references refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" compoundref="xv__sditx_8h" startline="227">XV_SdiTx::UnderFlowCallback</references>
         <references refid="xv__sditx_8c_1a70285dc6297657fdda31509014f50f7e" compoundref="xv__sditx_8c" startline="200" endline="206">XV_SdiTx_Reset</references>
         <references refid="xv__sditx_8c_1a5ea8e0af6e69e9fc3376d880c3b01cdd" compoundref="xv__sditx_8c" startline="366" endline="421">XV_SdiTx_SetCoreSettings</references>
         <references refid="xv__sditx_8c_1a3bb43320e53ea983eb94f8e020ac1606" compoundref="xv__sditx_8c" startline="1151" endline="1166">XV_SdiTx_StopSdi</references>
-        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="118" endline="148">XV_SdiTxSelfTestExample</referencedby>
+        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="100" endline="123">XV_SdiTxSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a70285dc6297657fdda31509014f50f7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -607,7 +607,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="200" bodyend="206"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="200" bodyend="206"/>
         <references refid="xv__sditx_8c_1a3a185a41fe98b1785ab613603d003a3d" compoundref="xv__sditx_8c" startline="220" endline="225">XV_SdiTx_ClearPayloadId</references>
         <referencedby refid="xv__sditx_8h_1a5b95fdd396bc9efc992f3f9ed217cfc2" compoundref="xv__sditx_8c" startline="130" endline="186">XV_SdiTx_CfgInitialize</referencedby>
       </memberdef>
@@ -635,7 +635,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="220" bodyend="225"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="220" bodyend="225"/>
         <references refid="xv__sditx_8c_1acda96db01dd02a1a0f9142c10d177036" compoundref="xv__sditx_8c" startline="899" endline="905">XV_SdiTx_SetPayloadId</references>
         <referencedby refid="xv__sditx_8h_1a70285dc6297657fdda31509014f50f7e" compoundref="xv__sditx_8c" startline="200" endline="206">XV_SdiTx_Reset</referencedby>
       </memberdef>
@@ -703,10 +703,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="253" bodyend="343"/>
-        <references refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" compoundref="xv__sditx_8h" startline="199">XV_SdiTx_Stream::CAssignment</references>
-        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::Stream</references>
-        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="196">XV_SdiTx_Stream::Video</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="253" bodyend="343"/>
+        <references refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" compoundref="xv__sditx_8h" startline="195">XV_SdiTx_Stream::CAssignment</references>
+        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="236">XV_SdiTx::Stream</references>
+        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="192">XV_SdiTx_Stream::Video</references>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a8ad731d07be9932825ca0ef037ae2299" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -732,14 +732,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="957" bodyend="1068"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" compoundref="xv__sditx_8h" startline="244">XV_SdiTx::bitdepth</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a8ebd6fcfa9c90369985092a766d0507a" compoundref="xv__sditx_8h" startline="242">XV_SdiTx::State</references>
-        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::Stream</references>
-        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="241">XV_SdiTx::Transport</references>
-        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="196">XV_SdiTx_Stream::Video</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="957" bodyend="1068"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::bitdepth</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a8ebd6fcfa9c90369985092a766d0507a" compoundref="xv__sditx_8h" startline="238">XV_SdiTx::State</references>
+        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="236">XV_SdiTx::Stream</references>
+        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Transport</references>
+        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="192">XV_SdiTx_Stream::Video</references>
         <references refid="xv__sditx_8c_1a83c0ffc2e7ff9fe6c428dc6894bcc7fd" compoundref="xv__sditx_8c" startline="1648" endline="1662">XV_SdiTx_ClearYCbCr444_RGB_10bit</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx_8c_1acda96db01dd02a1a0f9142c10d177036" compoundref="xv__sditx_8c" startline="899" endline="905">XV_SdiTx_SetPayloadId</references>
@@ -803,11 +803,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1084" bodyend="1135"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::Stream</references>
-        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="196">XV_SdiTx_Stream::Video</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1084" bodyend="1135"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="236">XV_SdiTx::Stream</references>
+        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="192">XV_SdiTx_Stream::Video</references>
         <references refid="xv__sditx_8c_1a97f7b4d5e3af35149bc9880e18ed26ed" compoundref="xv__sditx_8c" startline="1287" endline="1298">XV_SdiTx_ClearDetectedError</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
@@ -840,9 +840,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1151" bodyend="1166"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1151" bodyend="1166"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx_8h_1a5b95fdd396bc9efc992f3f9ed217cfc2" compoundref="xv__sditx_8c" startline="130" endline="186">XV_SdiTx_CfgInitialize</referencedby>
@@ -883,7 +883,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="314" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="306" column="1"/>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1aee1111d7059109893a1d72030ad1a9ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -909,9 +909,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1311" bodyend="1326"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1311" bodyend="1326"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a97f7b4d5e3af35149bc9880e18ed26ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -938,9 +938,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1287" bodyend="1298"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1287" bodyend="1298"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx_8h_1aac2a887b9e8db796240c9018c311f2ab" compoundref="xv__sditx_8c" startline="1084" endline="1135">XV_SdiTx_StartSdi</referencedby>
@@ -992,8 +992,8 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="720" bodyend="776"/>
-        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="241">XV_SdiTx::Transport</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="720" bodyend="776"/>
+        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Transport</references>
         <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1054,12 +1054,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="795" bodyend="883"/>
-        <references refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" compoundref="xv__sditx_8h" startline="244">XV_SdiTx::bitdepth</references>
-        <references refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" compoundref="xv__sditx_8h" startline="199">XV_SdiTx_Stream::CAssignment</references>
-        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::Stream</references>
-        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="241">XV_SdiTx::Transport</references>
-        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="196">XV_SdiTx_Stream::Video</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="795" bodyend="883"/>
+        <references refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::bitdepth</references>
+        <references refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" compoundref="xv__sditx_8h" startline="195">XV_SdiTx_Stream::CAssignment</references>
+        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="236">XV_SdiTx::Stream</references>
+        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Transport</references>
+        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="192">XV_SdiTx_Stream::Video</references>
         <references refid="xv__sditx_8c_1a3d8f2e0c2502a48c491cb4721acdb6c9" compoundref="xv__sditx_8c" startline="570" endline="586">XV_SdiTx_GetPayloadAspectRatio</references>
         <references refid="xv__sditx_8c_1a5ee0bcd2e0e6d1562a544de6637f3917" compoundref="xv__sditx_8c" startline="603" endline="644">XV_SdiTx_GetPayloadByte1</references>
         <references refid="xv__sditx_8c_1aa60f9aed2a1327102dca89b7625d76c5" compoundref="xv__sditx_8c" startline="661" endline="700">XV_SdiTx_GetPayloadColorFormat</references>
@@ -1113,7 +1113,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="899" bodyend="905"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="899" bodyend="905"/>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx_8h_1a3a185a41fe98b1785ab613603d003a3d" compoundref="xv__sditx_8c" startline="220" endline="225">XV_SdiTx_ClearPayloadId</referencedby>
         <referencedby refid="xv__sditx_8h_1a8ad731d07be9932825ca0ef037ae2299" compoundref="xv__sditx_8c" startline="957" endline="1068">XV_SdiTx_StreamStart</referencedby>
@@ -1175,9 +1175,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="924" bodyend="945"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="924" bodyend="945"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1229,9 +1229,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="366" bodyend="421"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="366" bodyend="421"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx_8h_1a5b95fdd396bc9efc992f3f9ed217cfc2" compoundref="xv__sditx_8c" startline="130" endline="186">XV_SdiTx_CfgInitialize</referencedby>
@@ -1274,7 +1274,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="438" bodyend="518"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="438" bodyend="518"/>
         <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1aa62624c8510d26109bfeaf2e0b73a9f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1304,7 +1304,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="533" bodyend="554"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="533" bodyend="554"/>
         <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a3d8f2e0c2502a48c491cb4721acdb6c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1334,7 +1334,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="570" bodyend="586"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="570" bodyend="586"/>
         <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a5ee0bcd2e0e6d1562a544de6637f3917" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1386,7 +1386,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="603" bodyend="644"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="603" bodyend="644"/>
         <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1aa60f9aed2a1327102dca89b7625d76c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1427,7 +1427,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="661" bodyend="700"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="661" bodyend="700"/>
         <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a62c8fbdcb856eff73bbb32ebcf78a41e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1468,10 +1468,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1233" bodyend="1275"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="241">XV_SdiTx::Transport</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1233" bodyend="1275"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Transport</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1499,9 +1499,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1205" bodyend="1216"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1205" bodyend="1216"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1529,9 +1529,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1179" bodyend="1193"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1179" bodyend="1193"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1559,9 +1559,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1339" bodyend="1349"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1339" bodyend="1349"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1589,9 +1589,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1362" bodyend="1373"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1362" bodyend="1373"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1619,9 +1619,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1385" bodyend="1395"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1385" bodyend="1395"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1649,9 +1649,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1408" bodyend="1418"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1408" bodyend="1418"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1690,10 +1690,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1431" bodyend="1452"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="241">XV_SdiTx::Transport</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1431" bodyend="1452"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Transport</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -1732,12 +1732,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1466" bodyend="1591"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::Stream</references>
-        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="241">XV_SdiTx::Transport</references>
-        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="196">XV_SdiTx_Stream::Video</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1466" bodyend="1591"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" compoundref="xv__sditx_8h" startline="236">XV_SdiTx::Stream</references>
+        <references refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Transport</references>
+        <references refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" compoundref="xv__sditx_8h" startline="192">XV_SdiTx_Stream::Video</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="group__v__sditx_1gae535cd30cd5fd6414bf89142bc937e4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1767,13 +1767,13 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" bodystart="62" bodyend="86"/>
-        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" bodystart="62" bodyend="86"/>
+        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="220">XV_SdiTx::IsReady</references>
         <references refid="xv__sditx_8c_1a3bb43320e53ea983eb94f8e020ac1606" compoundref="xv__sditx_8c" startline="1151" endline="1166">XV_SdiTx_StopSdi</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="118" endline="148">XV_SdiTxSelfTestExample</referencedby>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="100" endline="123">XV_SdiTxSelfTestExample</referencedby>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a30aed08a4cb662a5dfff259fb1d19cac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -1800,9 +1800,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="63" bodyend="73"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="63" bodyend="73"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1830,9 +1830,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="88" bodyend="98"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="88" bodyend="98"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <referencedby refid="xv__sditx__intr_8c_1a4d14ab6a4bf9dfcdc623126a17ba5275" compoundref="xv__sditx__intr_8c" startline="148" endline="230">XV_SdiTx_IntrHandler</referencedby>
       </memberdef>
@@ -1871,9 +1871,9 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="113" bodyend="125"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="113" bodyend="125"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx__intr_8c_1a4d14ab6a4bf9dfcdc623126a17ba5275" compoundref="xv__sditx__intr_8c" startline="148" endline="230">XV_SdiTx_IntrHandler</referencedby>
@@ -1902,10 +1902,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="148" bodyend="230"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
-        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::IsReady</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="148" bodyend="230"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="220">XV_SdiTx::IsReady</references>
         <references refid="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" compoundref="xv__sditx__intr_8c" startline="88" endline="98">XV_SdiTx_GetIntrStatus</references>
         <references refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" compoundref="xv__sditx__intr_8c" startline="113" endline="125">XV_SdiTx_InterruptClear</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
@@ -1976,17 +1976,17 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="260" bodyend="313"/>
-        <references refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Axi4sVidLockCallback</references>
-        <references refid="struct_x_v___sdi_tx_1abf36537078035e585923379c2418ab3b" compoundref="xv__sditx_8h" startline="238">XV_SdiTx::Axi4sVidLockRef</references>
-        <references refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" compoundref="xv__sditx_8h" startline="234">XV_SdiTx::CeAlignErrCallback</references>
-        <references refid="struct_x_v___sdi_tx_1af36c4e02ba3fe1d781a8d778fb22c733" compoundref="xv__sditx_8h" startline="235">XV_SdiTx::CeAlignErrRef</references>
-        <references refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" compoundref="xv__sditx_8h" startline="225">XV_SdiTx::GtRstDoneCallback</references>
-        <references refid="struct_x_v___sdi_tx_1ad271cff3133b9ccd529a14df85d522aa" compoundref="xv__sditx_8h" startline="226">XV_SdiTx::GtRstDoneRef</references>
-        <references refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" compoundref="xv__sditx_8h" startline="228">XV_SdiTx::OverFlowCallback</references>
-        <references refid="struct_x_v___sdi_tx_1a391634fc9063a826840c4b0494bfdc83" compoundref="xv__sditx_8h" startline="229">XV_SdiTx::OverFlowRef</references>
-        <references refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" compoundref="xv__sditx_8h" startline="231">XV_SdiTx::UnderFlowCallback</references>
-        <references refid="struct_x_v___sdi_tx_1aa17adeda8a06c4dea3c6d1013a8e61a8" compoundref="xv__sditx_8h" startline="232">XV_SdiTx::UnderFlowRef</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="260" bodyend="313"/>
+        <references refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" compoundref="xv__sditx_8h" startline="233">XV_SdiTx::Axi4sVidLockCallback</references>
+        <references refid="struct_x_v___sdi_tx_1abf36537078035e585923379c2418ab3b" compoundref="xv__sditx_8h" startline="234">XV_SdiTx::Axi4sVidLockRef</references>
+        <references refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" compoundref="xv__sditx_8h" startline="230">XV_SdiTx::CeAlignErrCallback</references>
+        <references refid="struct_x_v___sdi_tx_1af36c4e02ba3fe1d781a8d778fb22c733" compoundref="xv__sditx_8h" startline="231">XV_SdiTx::CeAlignErrRef</references>
+        <references refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" compoundref="xv__sditx_8h" startline="221">XV_SdiTx::GtRstDoneCallback</references>
+        <references refid="struct_x_v___sdi_tx_1ad271cff3133b9ccd529a14df85d522aa" compoundref="xv__sditx_8h" startline="222">XV_SdiTx::GtRstDoneRef</references>
+        <references refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::OverFlowCallback</references>
+        <references refid="struct_x_v___sdi_tx_1a391634fc9063a826840c4b0494bfdc83" compoundref="xv__sditx_8h" startline="225">XV_SdiTx::OverFlowRef</references>
+        <references refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" compoundref="xv__sditx_8h" startline="227">XV_SdiTx::UnderFlowCallback</references>
+        <references refid="struct_x_v___sdi_tx_1aa17adeda8a06c4dea3c6d1013a8e61a8" compoundref="xv__sditx_8h" startline="228">XV_SdiTx::UnderFlowRef</references>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1a3a6f57a2f45767bc0c0954adfe52c594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2023,9 +2023,9 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="352" bodyend="362"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="352" bodyend="362"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
       <memberdef kind="function" id="xv__sditx_8h_1aa86b7cdd889edbe4395625a997b170ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -2063,9 +2063,9 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="327" bodyend="339"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="327" bodyend="339"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
       </memberdef>
@@ -2092,9 +2092,9 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1624" bodyend="1638"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1624" bodyend="1638"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx_8h_1a8ad731d07be9932825ca0ef037ae2299" compoundref="xv__sditx_8c" startline="957" endline="1068">XV_SdiTx_StreamStart</referencedby>
@@ -2122,9 +2122,9 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1648" bodyend="1662"/>
-        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
-        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1648" bodyend="1662"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="180">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="219">XV_SdiTx::Config</references>
         <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
         <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
         <referencedby refid="xv__sditx_8h_1a8ad731d07be9932825ca0ef037ae2299" compoundref="xv__sditx_8c" startline="957" endline="1068">XV_SdiTx_StreamStart</referencedby>
@@ -2164,8 +2164,8 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1673" bodyend="1685"/>
-        <references refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" compoundref="xv__sditx_8h" startline="244">XV_SdiTx::bitdepth</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.c" bodystart="1673" bodyend="1685"/>
+        <references refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" compoundref="xv__sditx_8h" startline="240">XV_SdiTx::bitdepth</references>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -2177,7 +2177,7 @@ HandlerType                       Callback Function Type
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="24" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1aa777ef3e2e01a16a59138930c2cffd62" prot="public" static="no">
         <name>XV_SDITX_MAX_DATASTREAM</name>
@@ -2188,7 +2188,7 @@ HandlerType                       Callback Function Type
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1aa076f1ddbfd9cf2b3733b01812dd065b" prot="public" static="no">
         <name>XV_SDITX_COLORFORMAT</name>
@@ -2199,7 +2199,7 @@ HandlerType                       Callback Function Type
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1a21f779f739558be644343c8b8eb0fd8d" prot="public" static="no">
         <name>XV_SDITX_COLORDEPTH_10</name>
@@ -2210,7 +2210,7 @@ HandlerType                       Callback Function Type
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1ac8a870e5615f03d893a70de5aab245b0" prot="public" static="no">
         <name>XV_SDITX_COLORDEPTH_12</name>
@@ -2221,7 +2221,7 @@ HandlerType                       Callback Function Type
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1a2ca6417af4ac2d875abb116291f780b9" prot="public" static="no">
         <name>XV_SdiTx_GetVersion</name>
@@ -2243,7 +2243,7 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="260" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="256" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1af8376756ceb807c968bf9dcc5264470e" prot="public" static="no">
         <name>XV_SdiTx_VidLckIntrClr</name>
@@ -2264,7 +2264,7 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="271" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="267" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="xv__sditx_8h_1af24bdef92f37f1a10b8700556b45b844" prot="public" static="no">
         <name>XV_SdiTx_VidUnlckIntrClr</name>
@@ -2285,7 +2285,7 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="281" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="277" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -2310,7 +2310,7 @@ HandlerType                       Callback Function Type
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="216" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="212" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2415,149 +2415,141 @@ HandlerType                       Callback Function Type
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SDITX_PAYLOADLN2_SDNTSC<sp/>=<sp/>276</highlight></codeline>
 <codeline lineno="169"><highlight class="normal">}<sp/><ref refid="xv__sditx_8h_1adc68be3525567428bc44feeeeb5a4220" kindref="member">XV_SdiTx_PayloadLineNum2</ref>;</highlight></codeline>
 <codeline lineno="177"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="178" refid="struct_x_v___sdi_tx___config" refkind="compound"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="180"><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>IsEdhIncluded;</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>MaxRateSupported;</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>InsertCSTRST352;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="188" refid="struct_x_v___sdi_tx___config_1a15b18801fbb38d8971b01b363494a7eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>dbpp;</highlight></codeline>
-<codeline lineno="189"><highlight class="normal">}<sp/><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref>;</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="194"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="195" refid="struct_x_v___sdi_tx___stream" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoStream<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Video;<sp/><sp/></highlight></codeline>
-<codeline lineno="196" refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_Standard<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Standard;</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoFormat<sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsStreamInterlaced;</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_ChannelAssignment<sp/><sp/><sp/><sp/><sp/><sp/><sp/>CAssignment;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="199" refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PayloadId;</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsPsF;</highlight></codeline>
-<codeline lineno="201"><highlight class="normal">}<sp/><ref refid="struct_x_v___sdi_tx___stream" kindref="compound">XV_SdiTx_Stream</ref>;</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="216" refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" refkind="member"><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="222" refid="struct_x_v___sdi_tx" refkind="compound"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config;<sp/></highlight></codeline>
-<codeline lineno="223" refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsReady;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="224" refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>GtRstDoneCallback;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="225" refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GtRstDoneRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>OverFlowCallback;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="228" refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*OverFlowRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>UnderFlowCallback;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="231" refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*UnderFlowRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>CeAlignErrCallback;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="234" refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CeAlignErrRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="236"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>Axi4sVidLockCallback;<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="237" refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Axi4sVidLockRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="239"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v___sdi_tx___stream" kindref="compound">XV_SdiTx_Stream</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Stream[XV_SDITX_MAX_DATASTREAM];</highlight></codeline>
-<codeline lineno="240" refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" refkind="member"><highlight class="normal"><sp/><sp/>XSdiVid_Transport<sp/><sp/><sp/><sp/><sp/>Transport;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="241" refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1aaf28c7bcf7180ae2bc298f44f0c28fd7" kindref="member">XV_SdiTx_State</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>State;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="242" refid="struct_x_v___sdi_tx_1a8ebd6fcfa9c90369985092a766d0507a" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsStreamUp;</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/>XVidC_ColorDepth<sp/><sp/><sp/><sp/><sp/><sp/>bitdepth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="244" refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref>;</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"></highlight></codeline>
-<codeline lineno="246"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"></highlight></codeline>
-<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
-<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XV_SdiTx_GetVersion(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="260" refid="xv__sditx_8h_1a2ca6417af4ac2d875abb116291f780b9" refkind="member"><highlight class="preprocessor"><sp/><sp/>XV_SdiTx_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
-<codeline lineno="261"><highlight class="preprocessor"><sp/><sp/>(XV_SDITX_VER_OFFSET))</highlight></codeline>
-<codeline lineno="262"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XV_SdiTx_VidLckIntrClr(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="271" refid="xv__sditx_8h_1af8376756ceb807c968bf9dcc5264470e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SdiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XV_SDITX_INT_CLR_OFFSET),<sp/>\</highlight></codeline>
-<codeline lineno="272"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_SDITX_INT_STS_VID_LOCK_MASK))</highlight></codeline>
-<codeline lineno="273"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="280"><highlight class="preprocessor">#define<sp/>XV_SdiTx_VidUnlckIntrClr(InstancePtr)<sp/>\</highlight></codeline>
-<codeline lineno="281" refid="xv__sditx_8h_1af24bdef92f37f1a10b8700556b45b844" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SdiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XV_SDITX_INT_CLR_OFFSET),<sp/>\</highlight></codeline>
-<codeline lineno="282"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_SDITX_INT_STS_VID_UNLOCK_MASK))</highlight></codeline>
-<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="285"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@{<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="286"><highlight class="normal"></highlight></codeline>
-<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xv_sditx_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="288"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
-<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/>*<ref refid="xv__sditx_8h_1a9060bcef0b67971e31632b83f7f70e64" kindref="member">XV_SdiTx_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
-<codeline lineno="290"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
-<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/>*<ref refid="xv__sditx_8h_1a9060bcef0b67971e31632b83f7f70e64" kindref="member">XV_SdiTx_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="293"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="294"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xv_sditx.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="295"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a5b95fdd396bc9efc992f3f9ed217cfc2" kindref="member">XV_SdiTx_CfgInitialize</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/>*CfgPtr,</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
-<codeline lineno="297"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a70285dc6297657fdda31509014f50f7e" kindref="member">XV_SdiTx_Reset</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="298"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a3a185a41fe98b1785ab613603d003a3d" kindref="member">XV_SdiTx_ClearPayloadId</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="299"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1afd533c42c55560f3844b5631606a0bfa" kindref="member">XV_SdiTx_SetStream</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/><ref refid="xv__sditx_8h_1abc08fddee51ef252156db92c3f76717e" kindref="member">XV_SdiTx_StreamSelId</ref><sp/>SelId,</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data,<sp/>u8<sp/>StreamId);</highlight></codeline>
-<codeline lineno="301"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a8ad731d07be9932825ca0ef037ae2299" kindref="member">XV_SdiTx_StreamStart</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="302"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1aac2a887b9e8db796240c9018c311f2ab" kindref="member">XV_SdiTx_StartSdi</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_TransMode<sp/>SdiMode,</highlight></codeline>
-<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_BitRate<sp/>IsFractional,</highlight></codeline>
-<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1ebabee2a296eae262ae1564232dbbb7" kindref="member">XV_SdiTx_MuxPattern</ref><sp/>MuxPattern);</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a3bb43320e53ea983eb94f8e020ac1606" kindref="member">XV_SdiTx_StopSdi</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="313"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1ae9bf4363b8fe22aa458a1bbcbdd8a55a" kindref="member">XV_SdiTx_SetVidFormat</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_ColorFormat<sp/>ColorFormat);</highlight></codeline>
-<codeline lineno="314"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1aee1111d7059109893a1d72030ad1a9ac" kindref="member">XV_SdiTx_ReportDetectedError</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a97f7b4d5e3af35149bc9880e18ed26ed" kindref="member">XV_SdiTx_ClearDetectedError</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="316"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1ae81108eeead7b3d065966dd3f8d54de8" kindref="member">XV_SdiTx_GetPayloadEotf</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_Eotf<sp/>Eotf,<sp/>XVidC_ColorStd<sp/>Colorimetry);</highlight></codeline>
-<codeline lineno="317"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1a2202194b60677f0f09a5348faaf601ec" kindref="member">XV_SdiTx_GetPayload</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_VideoMode<sp/>VideoMode,<sp/>XSdiVid_TransMode<sp/>SdiMode,<sp/>u8<sp/>DataStream);</highlight></codeline>
-<codeline lineno="318"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1acda96db01dd02a1a0f9142c10d177036" kindref="member">XV_SdiTx_SetPayloadId</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataStream,<sp/>u32<sp/>Payload);</highlight></codeline>
-<codeline lineno="319"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1aa37349324994a3c15641e3dbd621ad2d" kindref="member">XV_SdiTx_SetPayloadLineNum</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a03f7b68a781b5637b360568d687aa84a" kindref="member">XV_SdiTx_PayloadLineNum1</ref><sp/>Field1LineNum,</highlight></codeline>
-<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1adc68be3525567428bc44feeeeb5a4220" kindref="member">XV_SdiTx_PayloadLineNum2</ref><sp/>Field2LineNum,</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Field2En);</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a5ea8e0af6e69e9fc3376d880c3b01cdd" kindref="member">XV_SdiTx_SetCoreSettings</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a2c8048c050c4bb08a6a574dd1b42326d" kindref="member">XV_SdiTx_CoreSelId</ref><sp/>SelId,<sp/>u8<sp/>Data);</highlight></codeline>
-<codeline lineno="325"><highlight class="normal"></highlight></codeline>
-<codeline lineno="326"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1a085862f588f6e146ab45315e310ff8d2" kindref="member">XV_SdiTx_GetPayloadFrameRate</ref>(XVidC_FrameRate<sp/>FrameRateValid,<sp/>XSdiVid_BitRate<sp/>BitRate);</highlight></codeline>
-<codeline lineno="327"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1aa62624c8510d26109bfeaf2e0b73a9f0" kindref="member">XV_SdiTx_GetPayloadIsInterlaced</ref>(XVidC_VideoFormat<sp/>VideoFormat);</highlight></codeline>
-<codeline lineno="328"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1a3d8f2e0c2502a48c491cb4721acdb6c9" kindref="member">XV_SdiTx_GetPayloadAspectRatio</ref>(XVidC_AspectRatio<sp/>AspectRatio);</highlight></codeline>
-<codeline lineno="329"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1a5ee0bcd2e0e6d1562a544de6637f3917" kindref="member">XV_SdiTx_GetPayloadByte1</ref>(u16<sp/>VActiveValid,<sp/>XSdiVid_TransMode<sp/>SdiMode,<sp/>u8<sp/>*Data);</highlight></codeline>
-<codeline lineno="330"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1aa60f9aed2a1327102dca89b7625d76c5" kindref="member">XV_SdiTx_GetPayloadColorFormat</ref>(XSdiVid_TransMode<sp/>SdiMode,<sp/>XVidC_ColorFormat<sp/>ColorFormatId);</highlight></codeline>
-<codeline lineno="331"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a62c8fbdcb856eff73bbb32ebcf78a41e" kindref="member">XV_SdiTx_SetColorFormat</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_ColorFormat<sp/>ColorFormat);</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1ac68a902fd4b2c666020356621c33700d" kindref="member">XV_SdiTx_ST352CStreamEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="333"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1afd56b720f4019c4a47715a803eb24bc3" kindref="member">XV_SdiTx_ST352CSwitch3GA</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="334"><highlight class="normal"></highlight></codeline>
-<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Bridge<sp/>and<sp/>reset<sp/>specific<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="336"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1adb4de6395b66aedaf45726f35181e0b8" kindref="member">XV_SdiTx_VidBridgeEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="337"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1ae4d1cf84fcc0d5af0d704ad5e19485ab" kindref="member">XV_SdiTx_VidBridgeDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a8e8af66998e9542ee38de14c64ede3ef" kindref="member">XV_SdiTx_Axi4sBridgeVtcEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="339"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a6449cab01d7b800c6b8f01bf8bb81836" kindref="member">XV_SdiTx_Axi4sBridgeVtcDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="340"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a46de41a6552e21e68a735b30a40d5044" kindref="member">XV_SdiTx_SetVidBridgeMode</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XSdiVid_TransMode<sp/>Mode);</highlight></codeline>
-<codeline lineno="341"><highlight class="normal"></highlight></codeline>
-<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Log<sp/>specific<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="343"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a10230ff75d66b2ce63cc987ccb288d06" kindref="member">XV_SdiTx_DebugInfo</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/><ref refid="xv__sditx_8h_1ad9565bdd02431658c7dcdcafe41da53d" kindref="member">XV_SdiTx_DebugSelId</ref><sp/>SelId);</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"></highlight></codeline>
-<codeline lineno="345"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Self<sp/>test<sp/>function<sp/>in<sp/>xv_sditx_selftest.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="346"><highlight class="normal">u32<sp/><ref refid="group__v__sditx_1gae535cd30cd5fd6414bf89142bc937e4a" kindref="member">XV_SdiTx_SelfTest</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="347"><highlight class="normal"></highlight></codeline>
-<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>function<sp/>in<sp/>xv_sditx_intr.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="349"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8h_1a30aed08a4cb662a5dfff259fb1d19cac" kindref="member">XV_SdiTx_GetIntrEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="350"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" kindref="member">XV_SdiTx_GetIntrStatus</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="351"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="352"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a4d14ab6a4bf9dfcdc623126a17ba5275" kindref="member">XV_SdiTx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="353"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1aa63fd99ec8bbdc967c397e4cee31fc64" kindref="member">XV_SdiTx_SetCallback</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a3a6f57a2f45767bc0c0954adfe52c594" kindref="member">XV_SdiTx_IntrDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="356"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1aa86b7cdd889edbe4395625a997b170ad" kindref="member">XV_SdiTx_IntrEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
-<codeline lineno="357"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a8907423180d202770dbdeb89cf94f0a9" kindref="member">XV_SdiTx_SetYCbCr444_RGB_10bit</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="358"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a83c0ffc2e7ff9fe6c428dc6894bcc7fd" kindref="member">XV_SdiTx_ClearYCbCr444_RGB_10bit</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
-<codeline lineno="359"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a85b51809e07e7b0599d012d7d470d32b" kindref="member">XV_SdiTx_Set_Bpc</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
-<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/>bitdepth);</highlight></codeline>
-<codeline lineno="361"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_SDITX_0_DBPC</highlight></codeline>
-<codeline lineno="362"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_SdiTx_ConfigureDynamicBpc(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="178" refid="struct_x_v___sdi_tx___config" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>IsEdhIncluded;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>MaxRateSupported;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>InsertCSTRST352;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="struct_x_v___sdi_tx___config_1a15b18801fbb38d8971b01b363494a7eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>dbpp;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}<sp/><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191" refid="struct_x_v___sdi_tx___stream" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoStream<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Video;<sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_Standard<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Standard;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoFormat<sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsStreamInterlaced;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_ChannelAssignment<sp/><sp/><sp/><sp/><sp/><sp/><sp/>CAssignment;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195" refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PayloadId;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsPsF;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}<sp/><ref refid="struct_x_v___sdi_tx___stream" kindref="compound">XV_SdiTx_Stream</ref>;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="212" refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="218" refid="struct_x_v___sdi_tx" refkind="compound"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config;<sp/></highlight></codeline>
+<codeline lineno="219" refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsReady;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>GtRstDoneCallback;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GtRstDoneRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>OverFlowCallback;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224" refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*OverFlowRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>UnderFlowCallback;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227" refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*UnderFlowRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>CeAlignErrCallback;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230" refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CeAlignErrRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref><sp/><sp/><sp/><sp/><sp/>Axi4sVidLockCallback;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="233" refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Axi4sVidLockRef;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v___sdi_tx___stream" kindref="compound">XV_SdiTx_Stream</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Stream[XV_SDITX_MAX_DATASTREAM];</highlight></codeline>
+<codeline lineno="236" refid="struct_x_v___sdi_tx_1a42e2cdd202410a1d20b69bbd520c129b" refkind="member"><highlight class="normal"><sp/><sp/>XSdiVid_Transport<sp/><sp/><sp/><sp/><sp/>Transport;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237" refid="struct_x_v___sdi_tx_1a973312cc838aaf0e1e0bd7807cb48822" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="xv__sditx_8h_1aaf28c7bcf7180ae2bc298f44f0c28fd7" kindref="member">XV_SdiTx_State</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>State;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="struct_x_v___sdi_tx_1a8ebd6fcfa9c90369985092a766d0507a" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsStreamUp;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/>XVidC_ColorDepth<sp/><sp/><sp/><sp/><sp/><sp/>bitdepth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="struct_x_v___sdi_tx_1ae263a574a1cda2b8183a39b64f11cb0e" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref>;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XV_SdiTx_GetVersion(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="256" refid="xv__sditx_8h_1a2ca6417af4ac2d875abb116291f780b9" refkind="member"><highlight class="preprocessor"><sp/><sp/>XV_SdiTx_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"><sp/><sp/>(XV_SDITX_VER_OFFSET))</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor">#define<sp/>XV_SdiTx_VidLckIntrClr(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="267" refid="xv__sditx_8h_1af8376756ceb807c968bf9dcc5264470e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SdiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XV_SDITX_INT_CLR_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_SDITX_INT_STS_VID_LOCK_MASK))</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor">#define<sp/>XV_SdiTx_VidUnlckIntrClr(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="277" refid="xv__sditx_8h_1af24bdef92f37f1a10b8700556b45b844" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SdiTx_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>(XV_SDITX_INT_CLR_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_SDITX_INT_STS_VID_UNLOCK_MASK))</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@{<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>function<sp/>in<sp/>xv_sditx_sinit.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/>*<ref refid="xv__sditx_8h_1a9060bcef0b67971e31632b83f7f70e64" kindref="member">XV_SdiTx_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>in<sp/>xv_sditx.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a5b95fdd396bc9efc992f3f9ed217cfc2" kindref="member">XV_SdiTx_CfgInitialize</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_v___sdi_tx___config" kindref="compound">XV_SdiTx_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a70285dc6297657fdda31509014f50f7e" kindref="member">XV_SdiTx_Reset</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a3a185a41fe98b1785ab613603d003a3d" kindref="member">XV_SdiTx_ClearPayloadId</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1afd533c42c55560f3844b5631606a0bfa" kindref="member">XV_SdiTx_SetStream</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/><ref refid="xv__sditx_8h_1abc08fddee51ef252156db92c3f76717e" kindref="member">XV_SdiTx_StreamSelId</ref><sp/>SelId,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data,<sp/>u8<sp/>StreamId);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a8ad731d07be9932825ca0ef037ae2299" kindref="member">XV_SdiTx_StreamStart</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1aac2a887b9e8db796240c9018c311f2ab" kindref="member">XV_SdiTx_StartSdi</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_TransMode<sp/>SdiMode,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiVid_BitRate<sp/>IsFractional,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1ebabee2a296eae262ae1564232dbbb7" kindref="member">XV_SdiTx_MuxPattern</ref><sp/>MuxPattern);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a3bb43320e53ea983eb94f8e020ac1606" kindref="member">XV_SdiTx_StopSdi</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="305"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1ae9bf4363b8fe22aa458a1bbcbdd8a55a" kindref="member">XV_SdiTx_SetVidFormat</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_ColorFormat<sp/>ColorFormat);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1aee1111d7059109893a1d72030ad1a9ac" kindref="member">XV_SdiTx_ReportDetectedError</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a97f7b4d5e3af35149bc9880e18ed26ed" kindref="member">XV_SdiTx_ClearDetectedError</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1ae81108eeead7b3d065966dd3f8d54de8" kindref="member">XV_SdiTx_GetPayloadEotf</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_Eotf<sp/>Eotf,<sp/>XVidC_ColorStd<sp/>Colorimetry);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1a2202194b60677f0f09a5348faaf601ec" kindref="member">XV_SdiTx_GetPayload</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_VideoMode<sp/>VideoMode,<sp/>XSdiVid_TransMode<sp/>SdiMode,<sp/>u8<sp/>DataStream);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1acda96db01dd02a1a0f9142c10d177036" kindref="member">XV_SdiTx_SetPayloadId</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u8<sp/>DataStream,<sp/>u32<sp/>Payload);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1aa37349324994a3c15641e3dbd621ad2d" kindref="member">XV_SdiTx_SetPayloadLineNum</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a03f7b68a781b5637b360568d687aa84a" kindref="member">XV_SdiTx_PayloadLineNum1</ref><sp/>Field1LineNum,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1adc68be3525567428bc44feeeeb5a4220" kindref="member">XV_SdiTx_PayloadLineNum2</ref><sp/>Field2LineNum,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Field2En);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a5ea8e0af6e69e9fc3376d880c3b01cdd" kindref="member">XV_SdiTx_SetCoreSettings</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a2c8048c050c4bb08a6a574dd1b42326d" kindref="member">XV_SdiTx_CoreSelId</ref><sp/>SelId,<sp/>u8<sp/>Data);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1a085862f588f6e146ab45315e310ff8d2" kindref="member">XV_SdiTx_GetPayloadFrameRate</ref>(XVidC_FrameRate<sp/>FrameRateValid,<sp/>XSdiVid_BitRate<sp/>BitRate);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1aa62624c8510d26109bfeaf2e0b73a9f0" kindref="member">XV_SdiTx_GetPayloadIsInterlaced</ref>(XVidC_VideoFormat<sp/>VideoFormat);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1a3d8f2e0c2502a48c491cb4721acdb6c9" kindref="member">XV_SdiTx_GetPayloadAspectRatio</ref>(XVidC_AspectRatio<sp/>AspectRatio);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8c_1a5ee0bcd2e0e6d1562a544de6637f3917" kindref="member">XV_SdiTx_GetPayloadByte1</ref>(u16<sp/>VActiveValid,<sp/>XSdiVid_TransMode<sp/>SdiMode,<sp/>u8<sp/>*Data);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">u8<sp/><ref refid="xv__sditx_8c_1aa60f9aed2a1327102dca89b7625d76c5" kindref="member">XV_SdiTx_GetPayloadColorFormat</ref>(XSdiVid_TransMode<sp/>SdiMode,<sp/>XVidC_ColorFormat<sp/>ColorFormatId);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a62c8fbdcb856eff73bbb32ebcf78a41e" kindref="member">XV_SdiTx_SetColorFormat</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XVidC_ColorFormat<sp/>ColorFormat);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1ac68a902fd4b2c666020356621c33700d" kindref="member">XV_SdiTx_ST352CStreamEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1afd56b720f4019c4a47715a803eb24bc3" kindref="member">XV_SdiTx_ST352CSwitch3GA</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Bridge<sp/>and<sp/>reset<sp/>specific<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1adb4de6395b66aedaf45726f35181e0b8" kindref="member">XV_SdiTx_VidBridgeEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1ae4d1cf84fcc0d5af0d704ad5e19485ab" kindref="member">XV_SdiTx_VidBridgeDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a8e8af66998e9542ee38de14c64ede3ef" kindref="member">XV_SdiTx_Axi4sBridgeVtcEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a6449cab01d7b800c6b8f01bf8bb81836" kindref="member">XV_SdiTx_Axi4sBridgeVtcDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a46de41a6552e21e68a735b30a40d5044" kindref="member">XV_SdiTx_SetVidBridgeMode</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>XSdiVid_TransMode<sp/>Mode);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Log<sp/>specific<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a10230ff75d66b2ce63cc987ccb288d06" kindref="member">XV_SdiTx_DebugInfo</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/><ref refid="xv__sditx_8h_1ad9565bdd02431658c7dcdcafe41da53d" kindref="member">XV_SdiTx_DebugSelId</ref><sp/>SelId);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Self<sp/>test<sp/>function<sp/>in<sp/>xv_sditx_selftest.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal">u32<sp/><ref refid="group__v__sditx_1gae535cd30cd5fd6414bf89142bc937e4a" kindref="member">XV_SdiTx_SelfTest</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>related<sp/>function<sp/>in<sp/>xv_sditx_intr.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8h_1a30aed08a4cb662a5dfff259fb1d19cac" kindref="member">XV_SdiTx_GetIntrEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" kindref="member">XV_SdiTx_GetIntrStatus</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a4d14ab6a4bf9dfcdc623126a17ba5275" kindref="member">XV_SdiTx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1aa63fd99ec8bbdc967c397e4cee31fc64" kindref="member">XV_SdiTx_SetCallback</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a3a6f57a2f45767bc0c0954adfe52c594" kindref="member">XV_SdiTx_IntrDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1aa86b7cdd889edbe4395625a997b170ad" kindref="member">XV_SdiTx_IntrEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a8907423180d202770dbdeb89cf94f0a9" kindref="member">XV_SdiTx_SetYCbCr444_RGB_10bit</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a83c0ffc2e7ff9fe6c428dc6894bcc7fd" kindref="member">XV_SdiTx_ClearYCbCr444_RGB_10bit</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8c_1a85b51809e07e7b0599d012d7d470d32b" kindref="member">XV_SdiTx_Set_Bpc</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/>bitdepth);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_SDITX_0_DBPC</highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_SdiTx_ConfigureDynamicBpc(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
 <codeline lineno="363"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
 <codeline lineno="364"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="365"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="366"><highlight class="normal"></highlight></codeline>
-<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="368"><highlight class="normal"></highlight></codeline>
-<codeline lineno="369"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
-<codeline lineno="370"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
-<codeline lineno="371"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
-<codeline lineno="372"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="373"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h"/>
   </compounddef>
 </doxygen>

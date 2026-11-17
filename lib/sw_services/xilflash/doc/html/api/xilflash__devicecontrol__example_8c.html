@@ -99,15 +99,16 @@ $(document).ready(function(){initNavTree('xilflash__devicecontrol__example_8c.ht
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xilflash_devicecontrol_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the Generic Flash Library. </p>
-<p>This example displays the Flash device geometry and properties. The geometry and properties are fetched using Device Control API.</p>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
+<div class="textblock"><p>Displays the Flash device geometry and properties. </p>
+<p>This file contains a design example using the Generic Flash Library. This example displays the Flash device geometry and properties. The geometry and properties are fetched using Device Control API.</p>
 <pre>
   MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
 </p>
@@ -119,19 +120,73 @@ $(document).ready(function(){initNavTree('xilflash__devicecontrol__example_8c.ht
                       API, as required by the new version of the library
   4.7   akm  07/23/19 Initialized Status variable to XST_FAILURE.
   4.10  akm  07/14/23 Added support for system device-tree flow.
+  4.14 vn   08/26/26 Fix Doxygen warnings.
+  4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 *</pre> </div><div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;<a class="el" href="xilflash_8h.html">xilflash.h</a>&gt;</code><br/>
 <code>#include &lt;xil_types.h&gt;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:abf7e9f0f2ffa9fb65654d7c8b072d1d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__devicecontrol__example_8c.html#abf7e9f0f2ffa9fb65654d7c8b072d1d4">FLASH_BASE_ADDRESS</a>&#160;&#160;&#160;XPAR_XEMC_0_BASEADDR</td></tr>
+<tr class="memdesc:abf7e9f0f2ffa9fb65654d7c8b072d1d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash memory base address.  <a href="#abf7e9f0f2ffa9fb65654d7c8b072d1d4">More...</a><br/></td></tr>
+<tr class="separator:abf7e9f0f2ffa9fb65654d7c8b072d1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd346aac8d1fd3bf588a406a56b85d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__devicecontrol__example_8c.html#a1dd346aac8d1fd3bf588a406a56b85d9">FLASH_MEM_WIDTH</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a1dd346aac8d1fd3bf588a406a56b85d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following constant defines the total byte width of the flash memory.  <a href="#a1dd346aac8d1fd3bf588a406a56b85d9">More...</a><br/></td></tr>
+<tr class="separator:a1dd346aac8d1fd3bf588a406a56b85d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a5fa72d691594e1137b534052172c88c8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__devicecontrol__example_8c.html#a5fa72d691594e1137b534052172c88c8">FlashDeviceControlExample</a> (void)</td></tr>
-<tr class="memdesc:a5fa72d691594e1137b534052172c88c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function fetches and displays the geometry and properties of the Flash * device.  <a href="#a5fa72d691594e1137b534052172c88c8">More...</a><br/></td></tr>
+<tr class="memdesc:a5fa72d691594e1137b534052172c88c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches and displays the geometry and properties of the Flash device.  <a href="#a5fa72d691594e1137b534052172c88c8">More...</a><br/></td></tr>
 <tr class="separator:a5fa72d691594e1137b534052172c88c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__devicecontrol__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to execute the Flash device control example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the Flash device control example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5f574aab681d208efb22c085fc7c766f"><td class="memItemLeft" align="right" valign="top">XFlash&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xilflash__devicecontrol__example_8c.html#a5f574aab681d208efb22c085fc7c766f">FlashInstance</a></td></tr>
+<tr class="memdesc:a5f574aab681d208efb22c085fc7c766f"><td class="mdescLeft">&#160;</td><td class="mdescRight">XFlash Instance.  <a href="#a5f574aab681d208efb22c085fc7c766f">More...</a><br/></td></tr>
+<tr class="separator:a5f574aab681d208efb22c085fc7c766f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="abf7e9f0f2ffa9fb65654d7c8b072d1d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_BASE_ADDRESS&#160;&#160;&#160;XPAR_XEMC_0_BASEADDR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flash memory base address. </p>
+
+<p>Referenced by <a class="el" href="xilflash__devicecontrol__example_8c.html#a5fa72d691594e1137b534052172c88c8">FlashDeviceControlExample()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1dd346aac8d1fd3bf588a406a56b85d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_MEM_WIDTH&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The following constant defines the total byte width of the flash memory. </p>
+<p>Update this width based on the flash width in the design/board. The total flash width on some of the Xilinx boards is listed below. &lt;</p>
+<h2>pre&gt; </h2>
+<h2>Board Width </h2>
+<p>ML403 4 (32 bit) ML5xx 2 (16 bit) Spartan3S 1600E 2 (16 bit) Spartan-3A DSP 2 (16 bit) Spartan-3A 2 (16 bit) Spartan-3AN 2 (16 bit) ML605 2 (16 bit) SP605 2 (16 bit) SP601 1 (8 bit)  </p>
+
+<p>Referenced by <a class="el" href="xilflash__devicecontrol__example_8c.html#a5fa72d691594e1137b534052172c88c8">FlashDeviceControlExample()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a5fa72d691594e1137b534052172c88c8"></a>
 <div class="memitem">
@@ -147,17 +202,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function fetches and displays the geometry and properties of the Flash * device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Fetches and displays the geometry and properties of the Flash device. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 
-<p>References <a class="el" href="group__xilflash__apis.html#gaee7e52b5702a9d346c97ceb56fd4829c">XFlash_DeviceControl()</a>, <a class="el" href="group__xilflash__apis.html#gab4c908ad78f6ded9407d0dc7ed611370">XFlash_Initialize()</a>, and <a class="el" href="group__xilflash__apis.html#gacef8005e70142f8113fa163cb5a187f5">XFlash_Reset()</a>.</p>
+<p>References <a class="el" href="xilflash__devicecontrol__example_8c.html#abf7e9f0f2ffa9fb65654d7c8b072d1d4">FLASH_BASE_ADDRESS</a>, <a class="el" href="xilflash__devicecontrol__example_8c.html#a1dd346aac8d1fd3bf588a406a56b85d9">FLASH_MEM_WIDTH</a>, <a class="el" href="xilflash__devicecontrol__example_8c.html#a5f574aab681d208efb22c085fc7c766f">FlashInstance</a>, <a class="el" href="group__xilflash__apis.html#gaee7e52b5702a9d346c97ceb56fd4829c">XFlash_DeviceControl()</a>, <a class="el" href="group__xilflash__apis.html#gab4c908ad78f6ded9407d0dc7ed611370">XFlash_Initialize()</a>, and <a class="el" href="group__xilflash__apis.html#gacef8005e70142f8113fa163cb5a187f5">XFlash_Reset()</a>.</p>
 
 <p>Referenced by <a class="el" href="xilflash__devicecontrol__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -177,17 +229,31 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Main function to execute the Flash device control example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+<p>Runs the Flash device control example. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successful.</li>
+<li>XST_FAILURE otherwise. </li>
+</ul>
+</dd></dl>
 
 <p>References <a class="el" href="xilflash__devicecontrol__example_8c.html#a5fa72d691594e1137b534052172c88c8">FlashDeviceControlExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a5f574aab681d208efb22c085fc7c766f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">XFlash FlashInstance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>XFlash Instance. </p>
+
+<p>Referenced by <a class="el" href="xilflash__devicecontrol__example_8c.html#a5fa72d691594e1137b534052172c88c8">FlashDeviceControlExample()</a>, <a class="el" href="xilflash__protection__example_8c.html#ad7728df460c41edfb9f3de817c6c0987">FlashProtectionExample()</a>, <a class="el" href="xilflash__readwrite__example_8c.html#a69bd7230f7feb6b13978ff0cd4cd0888">FlashReadWriteExample()</a>, and <a class="el" href="xilflash__platform__flash__example_8c.html#a94e3273884a3c3c563cbc6c1c597e38f">PlatformFlashReadWriteExample()</a>.</p>
 
 </div>
 </div>

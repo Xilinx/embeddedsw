@@ -100,17 +100,18 @@ $(document).ready(function(){initNavTree('xqspipsu__generic__flash__non__blockin
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xqspipsu_generic_flash_non_blocking_read_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the QSPIPSU driver (<a class="el" href="struct_x_qspi_psu.html" title="The XQspiPsu driver instance data. ">XQspiPsu</a>) The example writes to flash in IO mode and reads it back using non-blocking APIs in DMA mode. </p>
-<p>This examples runs with GENFIFO Manual start. It runs in polled mode. This example illustrates single, parallel and stacked modes. Both the flash devices have to be of the same make and size. The hardware which this example runs on, must have a serial Flash (Micron N25Q) for it to run. In order to test in single, parallel or stacked flash configurations the necessary HW must be present and QSPI_MODE (also reflected in ConnectionMode in the instance) has to be in sync with HW flash configuration being tested.</p>
+<div class="textblock"><p>Demonstrates <a class="el" href="struct_x_qspi_psu.html" title="Stores the XQspiPsu driver instance data. ">XQspiPsu</a> non-blocking reads from a serial flash. </p>
+<p>This file contains a design example using the QSPIPSU driver (<a class="el" href="struct_x_qspi_psu.html" title="Stores the XQspiPsu driver instance data. ">XQspiPsu</a>). The example writes to flash in IO mode and reads it back using non-blocking APIs in DMA mode. This example runs with GENFIFO Manual start. It runs in polled mode.</p>
+<p>This example illustrates single, parallel and stacked modes. Both the flash devices have to be of the same make and size. The hardware which this example runs on, must have a serial Flash (Micron N25Q) for it to run. To test in single, parallel, or stacked flash configurations, the necessary hardware must be present. QSPI_MODE (also reflected in ConnectionMode in the instance) must be in sync with the hardware flash configuration being tested.</p>
 <p>This example has been tested with the Micron Serial Flash (N25Q512) and ISSI Serial Flash parts of IS25WP and IS25LP series flashes in single and parallel modes using A53 and R5 processors.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
 <pre>
  MODIFICATION HISTORY:</pre><pre> Ver   Who Date     Changes
 </p>
@@ -133,706 +134,121 @@ $(document).ready(function(){initNavTree('xqspipsu__generic__flash__non__blockin
  1.20   sb  09/13/24 Updated examples to configure correct baud rate value
  1.21   sb  01/02/25 Fixed gcc and g++ warnings.
  1.21   bkv 04/04/25 Fixed g++ warnings.
- 1.23   vlt 12/18/25 Update Doxygen comments to include SDT flow details.</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu__flash__config_8h.html">xqspipsu_flash_config.h</a>&quot;</code><br/>
+ 1.23   vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+        zm  07/15/26 Enable Quad mode for Macronix flash.
+ 1.24   vn  08/26/26 Fix Doxygen warnings.
+ 1.24   tb  09/30/26 Align Doxygen comments with AMD standards</pre><pre></pre> </div><div class="textblock"><code>#include &quot;<a class="el" href="xqspipsu__flash__config_8h.html">xqspipsu_flash_config.h</a>&quot;</code><br/>
 <code>#include &quot;xil_printf.h&quot;</code><br/>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of flash pages to be written.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">More...</a><br/></td></tr>
+<tr class="separator:ga782f22e23dde7fc39ed8d5e1f4c9b141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c4410712a9f7874ae814e10ebbc3f5b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga7c4410712a9f7874ae814e10ebbc3f5b">MAX_PAGE_SIZE</a>&#160;&#160;&#160;1024</td></tr>
+<tr class="memdesc:ga7c4410712a9f7874ae814e10ebbc3f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum page size to initialize the write and read buffers.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga7c4410712a9f7874ae814e10ebbc3f5b">More...</a><br/></td></tr>
+<tr class="separator:ga7c4410712a9f7874ae814e10ebbc3f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9376dcef436c7d444fe4d1fd11749101"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga9376dcef436c7d444fe4d1fd11749101">TEST_ADDRESS</a>&#160;&#160;&#160;0x000000</td></tr>
+<tr class="memdesc:ga9376dcef436c7d444fe4d1fd11749101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash address to write data to.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga9376dcef436c7d444fe4d1fd11749101">More...</a><br/></td></tr>
+<tr class="separator:ga9376dcef436c7d444fe4d1fd11749101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad922278cd1812d8a566d5b9da390681f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gad922278cd1812d8a566d5b9da390681f">UNIQUE_VALUE</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memdesc:gad922278cd1812d8a566d5b9da390681f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start value of the test data.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gad922278cd1812d8a566d5b9da390681f">More...</a><br/></td></tr>
+<tr class="separator:gad922278cd1812d8a566d5b9da390681f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">4-byte address mode selection</div></td></tr>
+<tr class="memitem:ga31940fea1df9356b6121b7fd9b022b04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga31940fea1df9356b6121b7fd9b022b04">ENTER_4B</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga31940fea1df9356b6121b7fd9b022b04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to enter 4-byte address mode.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga31940fea1df9356b6121b7fd9b022b04">More...</a><br/></td></tr>
+<tr class="separator:ga31940fea1df9356b6121b7fd9b022b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga42b702d33037696a449fedb2aa9bf2a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga42b702d33037696a449fedb2aa9bf2a4">EXIT_4B</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga42b702d33037696a449fedb2aa9bf2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to exit 4-byte address mode.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga42b702d33037696a449fedb2aa9bf2a4">More...</a><br/></td></tr>
+<tr class="separator:ga42b702d33037696a449fedb2aa9bf2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5ff92137c574620d42d37c564565bbbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a5ff92137c574620d42d37c564565bbbf">QspiPsuFlashNonBlockingReadExample</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuInstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a5ff92137c574620d42d37c564565bbbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_qspi_psu.html" title="The XQspiPsu driver instance data. ">XQspiPsu</a> device driver in single, parallel and stacked modes using flash devices greater than or equal to 128Mb.  <a href="#a5ff92137c574620d42d37c564565bbbf">More...</a><br/></td></tr>
-<tr class="separator:a5ff92137c574620d42d37c564565bbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7c0194bd58d158581c699b8c07c309d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#ac7c0194bd58d158581c699b8c07c309d">FlashReadID</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr)</td></tr>
-<tr class="memdesc:ac7c0194bd58d158581c699b8c07c309d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the flash ID and identifies the flash in FCT table.  <a href="#ac7c0194bd58d158581c699b8c07c309d">More...</a><br/></td></tr>
-<tr class="separator:ac7c0194bd58d158581c699b8c07c309d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c7c38172a5258ee7cdfaef5a1a9af82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a8c7c38172a5258ee7cdfaef5a1a9af82">FlashErase</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</td></tr>
-<tr class="memdesc:a8c7c38172a5258ee7cdfaef5a1a9af82"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function erases the sectors in the serial Flash connected to the QSPIPSU interface.  <a href="#a8c7c38172a5258ee7cdfaef5a1a9af82">More...</a><br/></td></tr>
-<tr class="separator:a8c7c38172a5258ee7cdfaef5a1a9af82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a333c8e44e9af52811dee98f2cfcacf53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a333c8e44e9af52811dee98f2cfcacf53">FlashWrite</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr)</td></tr>
-<tr class="memdesc:a333c8e44e9af52811dee98f2cfcacf53"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function writes to the serial Flash connected to the QSPIPSU interface.  <a href="#a333c8e44e9af52811dee98f2cfcacf53">More...</a><br/></td></tr>
-<tr class="separator:a333c8e44e9af52811dee98f2cfcacf53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaad34739d0ad6d1fb5436c1d6428463"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#aaaad34739d0ad6d1fb5436c1d6428463">FlashRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</td></tr>
-<tr class="memdesc:aaaad34739d0ad6d1fb5436c1d6428463"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs read.  <a href="#aaaad34739d0ad6d1fb5436c1d6428463">More...</a><br/></td></tr>
-<tr class="separator:aaaad34739d0ad6d1fb5436c1d6428463"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6007218826af36e0df62b747de40de5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#aa6007218826af36e0df62b747de40de5">MultiDieRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *ReadBfrPtr)</td></tr>
-<tr class="memdesc:aa6007218826af36e0df62b747de40de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs a read operation for multi die flash devices.  <a href="#aa6007218826af36e0df62b747de40de5">More...</a><br/></td></tr>
-<tr class="separator:aa6007218826af36e0df62b747de40de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af45c38b76bbabbaf848a33cdc889ebfb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#af45c38b76bbabbaf848a33cdc889ebfb">GetRealAddr</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address)</td></tr>
-<tr class="memdesc:af45c38b76bbabbaf848a33cdc889ebfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions translates the address based on the type of interconnection.  <a href="#af45c38b76bbabbaf848a33cdc889ebfb">More...</a><br/></td></tr>
-<tr class="separator:af45c38b76bbabbaf848a33cdc889ebfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f09bf044ed26b11fc5489cb7b7ca1e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a4f09bf044ed26b11fc5489cb7b7ca1e6">BulkErase</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u8 *WriteBfrPtr)</td></tr>
-<tr class="memdesc:a4f09bf044ed26b11fc5489cb7b7ca1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs a bulk erase operation when the flash device has a single die.  <a href="#a4f09bf044ed26b11fc5489cb7b7ca1e6">More...</a><br/></td></tr>
-<tr class="separator:a4f09bf044ed26b11fc5489cb7b7ca1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97d8ab88e6002a97c30b95b66db231ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a97d8ab88e6002a97c30b95b66db231ea">DieErase</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u8 *WriteBfrPtr)</td></tr>
-<tr class="memdesc:a97d8ab88e6002a97c30b95b66db231ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This functions performs a die erase operation on all the die in the flash device.  <a href="#a97d8ab88e6002a97c30b95b66db231ea">More...</a><br/></td></tr>
-<tr class="separator:a97d8ab88e6002a97c30b95b66db231ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e40a81a572bfacbf4d7a39af7905cea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a5e40a81a572bfacbf4d7a39af7905cea">FlashRegisterRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *ReadBfrPtr)</td></tr>
-<tr class="memdesc:a5e40a81a572bfacbf4d7a39af7905cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API can be used to write to a flash register.  <a href="#a5e40a81a572bfacbf4d7a39af7905cea">More...</a><br/></td></tr>
-<tr class="separator:a5e40a81a572bfacbf4d7a39af7905cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b70ac0045f51c4babd8709e1c030752"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a5b70ac0045f51c4babd8709e1c030752">FlashRegisterWrite</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 WrEn)</td></tr>
-<tr class="memdesc:a5b70ac0045f51c4babd8709e1c030752"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API can be used to write to a flash register.  <a href="#a5b70ac0045f51c4babd8709e1c030752">More...</a><br/></td></tr>
-<tr class="separator:a5b70ac0045f51c4babd8709e1c030752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8d1767607b58391ccb2d0103c2fd456"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#ae8d1767607b58391ccb2d0103c2fd456">FlashEnterExit4BAddMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, unsigned int Enable)</td></tr>
-<tr class="memdesc:ae8d1767607b58391ccb2d0103c2fd456"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API enters the flash device into 4 bytes addressing mode.  <a href="#ae8d1767607b58391ccb2d0103c2fd456">More...</a><br/></td></tr>
-<tr class="separator:ae8d1767607b58391ccb2d0103c2fd456"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83a78784f5ba39b5e76b17a7e4a5ecad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a83a78784f5ba39b5e76b17a7e4a5ecad">FlashEnableQuadMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr)</td></tr>
-<tr class="memdesc:a83a78784f5ba39b5e76b17a7e4a5ecad"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API enables Quad mode for the flash parts which require to enable quad mode before using Quad commands.  <a href="#a83a78784f5ba39b5e76b17a7e4a5ecad">More...</a><br/></td></tr>
-<tr class="separator:a83a78784f5ba39b5e76b17a7e4a5ecad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function to call the QSPIPSU Flash Polled example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
-<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ff92137c574620d42d37c564565bbbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga5ff92137c574620d42d37c564565bbbf">QspiPsuFlashNonBlockingReadExample</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuInstancePtr, UINTPTR BaseAddress)</td></tr>
+<tr class="memdesc:ga5ff92137c574620d42d37c564565bbbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demonstrates the <a class="el" href="struct_x_qspi_psu.html" title="Stores the XQspiPsu driver instance data. ">XQspiPsu</a> driver with flash devices of 128Mb or more.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga5ff92137c574620d42d37c564565bbbf">More...</a><br/></td></tr>
+<tr class="separator:ga5ff92137c574620d42d37c564565bbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac7c0194bd58d158581c699b8c07c309d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gac7c0194bd58d158581c699b8c07c309d">FlashReadID</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr)</td></tr>
+<tr class="memdesc:gac7c0194bd58d158581c699b8c07c309d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the flash ID and identifies the flash in the FCT table.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gac7c0194bd58d158581c699b8c07c309d">More...</a><br/></td></tr>
+<tr class="separator:gac7c0194bd58d158581c699b8c07c309d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c7c38172a5258ee7cdfaef5a1a9af82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga8c7c38172a5258ee7cdfaef5a1a9af82">FlashErase</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)</td></tr>
+<tr class="memdesc:ga8c7c38172a5258ee7cdfaef5a1a9af82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases sectors in the serial Flash connected to the QSPIPSU interface.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga8c7c38172a5258ee7cdfaef5a1a9af82">More...</a><br/></td></tr>
+<tr class="separator:ga8c7c38172a5258ee7cdfaef5a1a9af82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga333c8e44e9af52811dee98f2cfcacf53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga333c8e44e9af52811dee98f2cfcacf53">FlashWrite</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr)</td></tr>
+<tr class="memdesc:ga333c8e44e9af52811dee98f2cfcacf53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the serial Flash connected to the QSPIPSU interface.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga333c8e44e9af52811dee98f2cfcacf53">More...</a><br/></td></tr>
+<tr class="separator:ga333c8e44e9af52811dee98f2cfcacf53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaaad34739d0ad6d1fb5436c1d6428463"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaaaad34739d0ad6d1fb5436c1d6428463">FlashRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *<a class="el" href="group__xqspipsu__write__protect__example.html#ga3823486ff385aeb62ad5e661d3127982">ReadBfrPtr</a>)</td></tr>
+<tr class="memdesc:gaaaad34739d0ad6d1fb5436c1d6428463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a read operation.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaaaad34739d0ad6d1fb5436c1d6428463">More...</a><br/></td></tr>
+<tr class="separator:gaaaad34739d0ad6d1fb5436c1d6428463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa6007218826af36e0df62b747de40de5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaa6007218826af36e0df62b747de40de5">MultiDieRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 *<a class="el" href="group__xqspipsu__write__protect__example.html#ga3823486ff385aeb62ad5e661d3127982">ReadBfrPtr</a>)</td></tr>
+<tr class="memdesc:gaa6007218826af36e0df62b747de40de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a read operation for multi-die flash devices.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaa6007218826af36e0df62b747de40de5">More...</a><br/></td></tr>
+<tr class="separator:gaa6007218826af36e0df62b747de40de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf45c38b76bbabbaf848a33cdc889ebfb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaf45c38b76bbabbaf848a33cdc889ebfb">GetRealAddr</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 Address)</td></tr>
+<tr class="memdesc:gaf45c38b76bbabbaf848a33cdc889ebfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translates the address based on the type of interconnection.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaf45c38b76bbabbaf848a33cdc889ebfb">More...</a><br/></td></tr>
+<tr class="separator:gaf45c38b76bbabbaf848a33cdc889ebfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f09bf044ed26b11fc5489cb7b7ca1e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga4f09bf044ed26b11fc5489cb7b7ca1e6">BulkErase</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u8 *WriteBfrPtr)</td></tr>
+<tr class="memdesc:ga4f09bf044ed26b11fc5489cb7b7ca1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a bulk erase when the flash device has a single die.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga4f09bf044ed26b11fc5489cb7b7ca1e6">More...</a><br/></td></tr>
+<tr class="separator:ga4f09bf044ed26b11fc5489cb7b7ca1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97d8ab88e6002a97c30b95b66db231ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga97d8ab88e6002a97c30b95b66db231ea">DieErase</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u8 *WriteBfrPtr)</td></tr>
+<tr class="memdesc:ga97d8ab88e6002a97c30b95b66db231ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a die erase operation on all the dies in the flash device.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga97d8ab88e6002a97c30b95b66db231ea">More...</a><br/></td></tr>
+<tr class="separator:ga97d8ab88e6002a97c30b95b66db231ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e40a81a572bfacbf4d7a39af7905cea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__polled__64bit__dma__r5__example.html#ga5e40a81a572bfacbf4d7a39af7905cea">FlashRegisterRead</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *<a class="el" href="group__xqspipsu__write__protect__example.html#ga3823486ff385aeb62ad5e661d3127982">ReadBfrPtr</a>)</td></tr>
+<tr class="memdesc:ga5e40a81a572bfacbf4d7a39af7905cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to a flash register.  <a href="group__xqspipsu__generic__flash__polled__64bit__dma__r5__example.html#ga5e40a81a572bfacbf4d7a39af7905cea">More...</a><br/></td></tr>
+<tr class="separator:ga5e40a81a572bfacbf4d7a39af7905cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5b70ac0045f51c4babd8709e1c030752"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__polled__64bit__dma__r5__example.html#ga5b70ac0045f51c4babd8709e1c030752">FlashRegisterWrite</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *WriteBfrPtr, u8 WrEn)</td></tr>
+<tr class="memdesc:ga5b70ac0045f51c4babd8709e1c030752"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to a flash register.  <a href="group__xqspipsu__generic__flash__polled__64bit__dma__r5__example.html#ga5b70ac0045f51c4babd8709e1c030752">More...</a><br/></td></tr>
+<tr class="separator:ga5b70ac0045f51c4babd8709e1c030752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8d1767607b58391ccb2d0103c2fd456"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gae8d1767607b58391ccb2d0103c2fd456">FlashEnterExit4BAddMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr, unsigned int Enable)</td></tr>
+<tr class="memdesc:gae8d1767607b58391ccb2d0103c2fd456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enters or exits the 4-byte addressing mode of the flash device.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gae8d1767607b58391ccb2d0103c2fd456">More...</a><br/></td></tr>
+<tr class="separator:gae8d1767607b58391ccb2d0103c2fd456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga83a78784f5ba39b5e76b17a7e4a5ecad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga83a78784f5ba39b5e76b17a7e4a5ecad">FlashEnableQuadMode</a> (<a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *QspiPsuPtr)</td></tr>
+<tr class="memdesc:ga83a78784f5ba39b5e76b17a7e4a5ecad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables Quad mode for flash parts that need it before Quad commands.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga83a78784f5ba39b5e76b17a7e4a5ecad">More...</a><br/></td></tr>
+<tr class="separator:ga83a78784f5ba39b5e76b17a7e4a5ecad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:ga840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the QSPIPSU Flash Polled example.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="separator:ga840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga8aacb9e0b5c8a66134d297b16670f6ae"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga8aacb9e0b5c8a66134d297b16670f6ae">ReadCmd</a></td></tr>
+<tr class="memdesc:ga8aacb9e0b5c8a66134d297b16670f6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read command used for flash reads.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga8aacb9e0b5c8a66134d297b16670f6ae">More...</a><br/></td></tr>
+<tr class="separator:ga8aacb9e0b5c8a66134d297b16670f6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0282705d6928fb1ec764e90e42e8fe5b"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga0282705d6928fb1ec764e90e42e8fe5b">WriteCmd</a></td></tr>
+<tr class="memdesc:ga0282705d6928fb1ec764e90e42e8fe5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write command used for flash writes.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga0282705d6928fb1ec764e90e42e8fe5b">More...</a><br/></td></tr>
+<tr class="separator:ga0282705d6928fb1ec764e90e42e8fe5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84a26bd98405c23d484087358ecfb0d8"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga84a26bd98405c23d484087358ecfb0d8">StatusCmd</a></td></tr>
+<tr class="memdesc:ga84a26bd98405c23d484087358ecfb0d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command used to read the flash status.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga84a26bd98405c23d484087358ecfb0d8">More...</a><br/></td></tr>
+<tr class="separator:ga84a26bd98405c23d484087358ecfb0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0707f64633bd21ff248072e461b91d7"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gae0707f64633bd21ff248072e461b91d7">SectorEraseCmd</a></td></tr>
+<tr class="memdesc:gae0707f64633bd21ff248072e461b91d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command used for sector erases.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gae0707f64633bd21ff248072e461b91d7">More...</a><br/></td></tr>
+<tr class="separator:gae0707f64633bd21ff248072e461b91d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb76586d04c997f8b79c771199f091be"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gadb76586d04c997f8b79c771199f091be">FSRFlag</a></td></tr>
+<tr class="memdesc:gadb76586d04c997f8b79c771199f091be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set when the flag status register is polled.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gadb76586d04c997f8b79c771199f091be">More...</a><br/></td></tr>
+<tr class="separator:gadb76586d04c997f8b79c771199f091be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d521daf149f9047dc5d589daaa16d42"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga6d521daf149f9047dc5d589daaa16d42">TxBfrPtr</a></td></tr>
+<tr class="memdesc:ga6d521daf149f9047dc5d589daaa16d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-byte command transmit buffer.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga6d521daf149f9047dc5d589daaa16d42">More...</a><br/></td></tr>
+<tr class="separator:ga6d521daf149f9047dc5d589daaa16d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3823486ff385aeb62ad5e661d3127982"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga3823486ff385aeb62ad5e661d3127982">ReadBfrPtr</a> [3]</td></tr>
+<tr class="memdesc:ga3823486ff385aeb62ad5e661d3127982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive buffer for the flash ID and registers.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga3823486ff385aeb62ad5e661d3127982">More...</a><br/></td></tr>
+<tr class="separator:ga3823486ff385aeb62ad5e661d3127982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8ace83e43786ba25b4a81742df92b37"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaf8ace83e43786ba25b4a81742df92b37">FlashMake</a></td></tr>
+<tr class="memdesc:gaf8ace83e43786ba25b4a81742df92b37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manufacturer ID of the detected flash.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gaf8ace83e43786ba25b4a81742df92b37">More...</a><br/></td></tr>
+<tr class="separator:gaf8ace83e43786ba25b4a81742df92b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8d80524bb6369924849dee07b6037695"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga8d80524bb6369924849dee07b6037695">FCTIndex</a></td></tr>
+<tr class="memdesc:ga8d80524bb6369924849dee07b6037695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash configuration table index.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#ga8d80524bb6369924849dee07b6037695">More...</a><br/></td></tr>
+<tr class="separator:ga8d80524bb6369924849dee07b6037695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3bcee72bda39943b664463f1df4d211"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gab3bcee72bda39943b664463f1df4d211">Test</a> = 7</td></tr>
+<tr class="memdesc:gab3bcee72bda39943b664463f1df4d211"><td class="mdescLeft">&#160;</td><td class="mdescRight">The following variable allows a test value to be added to the values that are written to the Flash such that unique values can be generated to guarantee the writes to the Flash were successful.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gab3bcee72bda39943b664463f1df4d211">More...</a><br/></td></tr>
+<tr class="separator:gab3bcee72bda39943b664463f1df4d211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4a9fc13421a86b26f3d05645beabd42"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gad4a9fc13421a86b26f3d05645beabd42">WriteBuffer</a> [(<a class="el" href="group__xqspipsu__write__protect__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a> *<a class="el" href="group__xqspipsu__write__protect__example.html#ga7c4410712a9f7874ae814e10ebbc3f5b">MAX_PAGE_SIZE</a>)+<a class="el" href="xqspipsu__flash__config_8h.html#a11faa4c105a137b8edaa096de5063835">DATA_OFFSET</a>]</td></tr>
+<tr class="memdesc:gad4a9fc13421a86b26f3d05645beabd42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer that holds the data to write to the flash.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gad4a9fc13421a86b26f3d05645beabd42">More...</a><br/></td></tr>
+<tr class="separator:gad4a9fc13421a86b26f3d05645beabd42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae05983c4f8e4b2d1c912414136eac56c"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gae05983c4f8e4b2d1c912414136eac56c">CmdBfr</a> [8]</td></tr>
+<tr class="memdesc:gae05983c4f8e4b2d1c912414136eac56c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer for the flash command and address.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gae05983c4f8e4b2d1c912414136eac56c">More...</a><br/></td></tr>
+<tr class="separator:gae05983c4f8e4b2d1c912414136eac56c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab839e91b4279b469bdd2167b7e386fd2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gab839e91b4279b469bdd2167b7e386fd2">MaxData</a> = <a class="el" href="group__xqspipsu__write__protect__example.html#ga782f22e23dde7fc39ed8d5e1f4c9b141">PAGE_COUNT</a> * 256</td></tr>
+<tr class="memdesc:gab839e91b4279b469bdd2167b7e386fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum amount of data to transfer to and from the Flash.  <a href="group__xqspipsu__generic__flash__non__blocking__read__example.html#gab839e91b4279b469bdd2167b7e386fd2">More...</a><br/></td></tr>
+<tr class="separator:gab839e91b4279b469bdd2167b7e386fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a4f09bf044ed26b11fc5489cb7b7ca1e6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int BulkErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This functions performs a bulk erase operation when the flash device has a single die. </p>
-<p>Works for both Spansion and Micron</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is the pointer to command+address to be sent</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a97d8ab88e6002a97c30b95b66db231ea"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DieErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This functions performs a die erase operation on all the die in the flash device. </p>
-<p>This function uses the die erase command for Micron 512Mbit and 1Gbit</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is the pointer to command+address to be sent</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a83a78784f5ba39b5e76b17a7e4a5ecad"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashEnableQuadMode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This API enables Quad mode for the flash parts which require to enable quad mode before using Quad commands. </p>
-<p>For S25FL-L series flash parts this is required as the default configuration is x1/x2 mode.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if it fails. </li>
-</ul>
-</dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ae8d1767607b58391ccb2d0103c2fd456"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashEnterExit4BAddMode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>Enable</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This API enters the flash device into 4 bytes addressing mode. </p>
-<p>As per the Micron and ISSI spec, before issuing the command to enter into 4 byte addr mode, a write enable command is issued. For Macronix and Winbond flash parts write enable is not required.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">Enable</td><td>is a either 1 or 0 if 1 then enters 4 byte if 0 exits.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if successful.</li>
-<li>XST_FAILURE if it fails. </li>
-</ul>
-</dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a8c7c38172a5258ee7cdfaef5a1a9af82"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashErase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function erases the sectors in the serial Flash connected to the QSPIPSU interface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address of the first sector which needs to be erased. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the total size to be erased. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is pointer to the write buffer (which is to be transmitted)</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aaaad34739d0ad6d1fb5436c1d6428463"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>ReadBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function performs read. </p>
-<p>DMA is the default setting.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address of the first sector which needs to be erased. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the total size to be erased. </td></tr>
-    <tr><td class="paramname">Command</td><td>is the command used to read data from the flash. Supports normal, fast, dual and quad read commands. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is Pointer to the write buffer which contains data to be transmitted </td></tr>
-    <tr><td class="paramname">ReadBfrPtr</td><td>is Pointer to the read buffer to which valid received data should be written</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ac7c0194bd58d158581c699b8c07c309d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashReadID </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the flash ID and identifies the flash in FCT table. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the instance of the QspiPsu device.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a5e40a81a572bfacbf4d7a39af7905cea"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashRegisterRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>ReadBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This API can be used to write to a flash register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is specific register write command. </td></tr>
-    <tr><td class="paramname">ReadBfrPtr</td><td>is Pointer to the read buffer to which valid received data should be written</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API can only be used for one flash at a time.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is specific register write command. </td></tr>
-    <tr><td class="paramname">ReadBfrPtr</td><td>is the pointer to value to be read.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API can only be used for one flash at a time.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is specific register write command. </td></tr>
-    <tr><td class="paramname">ReadBfrPtr</td><td>is the pointer to value to be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API can only be used for one flash at a time. </dd></dl>
-
-<p>References <a class="el" href="struct_x_qspi_psu___msg.html#ae4dae8ba728f7da9b6f31bb39c62b81f">XQspiPsu_Msg::BusWidth</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a420a0720c6eb8d77aae09c829185b160">XQspiPsu_Msg::ByteCount</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a2c11ea724a05dd7d68b8e4adcb7ac46e">XQspiPsu_Msg::Flags</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a1fb697c64fd14580822f4baf50f26df1">XQspiPsu_Msg::RxBfrPtr</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a09fc20d95cb26f29a649207d0b495f58">XQspiPsu_Msg::TxBfrPtr</a>, <a class="el" href="group__qspipsu__api.html#gacdde904168f5899e4ba6ccd59c360849">XQSPIPSU_MSG_FLAG_RX</a>, <a class="el" href="group__qspipsu__api.html#gae82f60c2162c93b8e302125914d8aab6">XQSPIPSU_MSG_FLAG_TX</a>, <a class="el" href="group__qspipsu__api.html#ga61de390e2bc4af0ce77448a46763ea39">XQspiPsu_PolledTransfer()</a>, and <a class="el" href="group__qspipsu__api.html#ga185ba58041ded76c03bb18ad69e783af">XQSPIPSU_SELECT_MODE_SPI</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5b70ac0045f51c4babd8709e1c030752"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashRegisterWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>WrEn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This API can be used to write to a flash register. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>is the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is specific register write command. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is the pointer to value to be written. </td></tr>
-    <tr><td class="paramname">WrEn</td><td>is a flag to mention if WREN has to be sent before write.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This API can only be used for one flash at a time. </dd></dl>
-
-<p>References <a class="el" href="struct_x_qspi_psu___msg.html#ae4dae8ba728f7da9b6f31bb39c62b81f">XQspiPsu_Msg::BusWidth</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a420a0720c6eb8d77aae09c829185b160">XQspiPsu_Msg::ByteCount</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a2c11ea724a05dd7d68b8e4adcb7ac46e">XQspiPsu_Msg::Flags</a>, <a class="el" href="group__qspipsu__api.html#ga02055aef4b0f9a801005ebdc7b556157">MAX_DELAY_CNT</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a1fb697c64fd14580822f4baf50f26df1">XQspiPsu_Msg::RxBfrPtr</a>, <a class="el" href="struct_x_qspi_psu___msg.html#a09fc20d95cb26f29a649207d0b495f58">XQspiPsu_Msg::TxBfrPtr</a>, <a class="el" href="group__qspipsu__api.html#gacdde904168f5899e4ba6ccd59c360849">XQSPIPSU_MSG_FLAG_RX</a>, <a class="el" href="group__qspipsu__api.html#gae82f60c2162c93b8e302125914d8aab6">XQSPIPSU_MSG_FLAG_TX</a>, <a class="el" href="group__qspipsu__api.html#ga61de390e2bc4af0ce77448a46763ea39">XQspiPsu_PolledTransfer()</a>, and <a class="el" href="group__qspipsu__api.html#ga185ba58041ded76c03bb18ad69e783af">XQSPIPSU_SELECT_MODE_SPI</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a333c8e44e9af52811dee98f2cfcacf53"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int FlashWrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function writes to the serial Flash connected to the QSPIPSU interface. </p>
-<p>All the data put into the buffer must be in the same page of the device with page boundaries being on 256 byte boundaries.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address to write data to in the Flash. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the number of bytes to write. </td></tr>
-    <tr><td class="paramname">Command</td><td>is the command used to write data to the flash. QSPIPSU device supports only Page Program command to write data to the flash. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is Pointer to the write buffer (which is to be transmitted)</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af45c38b76bbabbaf848a33cdc889ebfb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 GetRealAddr </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This functions translates the address based on the type of interconnection. </p>
-<p>In case of stacked, this function asserts the corresponding slave select.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>which is to be accessed (for erase, write or read)</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>RealAddr is the translated address - for single it is unchanged; for stacked, the lower flash size is subtracted; for parallel the address is divided by 2.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>In addition to get the actual address to work on flash this function also selects the CS and BUS based on the configuration detected. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a840291bc02cba5474a4cb46a9b9566fe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Main function to call the QSPIPSU Flash Polled example. </p>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, otherwise XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p>References <a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a5ff92137c574620d42d37c564565bbbf">QspiPsuFlashNonBlockingReadExample()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa6007218826af36e0df62b747de40de5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int MultiDieRead </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>Address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u32&#160;</td>
-          <td class="paramname"><em>ByteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8&#160;</td>
-          <td class="paramname"><em>Command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>WriteBfrPtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">u8 *&#160;</td>
-          <td class="paramname"><em>ReadBfrPtr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This functions performs a read operation for multi die flash devices. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuPtr</td><td>is a pointer to the QSPIPSU driver component to use. </td></tr>
-    <tr><td class="paramname">Address</td><td>contains the address of the first sector which needs to be erased. </td></tr>
-    <tr><td class="paramname">ByteCount</td><td>contains the total size to be erased. </td></tr>
-    <tr><td class="paramname">Command</td><td>is the command used to read data from the flash. Supports normal, fast, dual and quad read commands. </td></tr>
-    <tr><td class="paramname">WriteBfrPtr</td><td>is pointer to the write buffer which contains data to be transmitted </td></tr>
-    <tr><td class="paramname">ReadBfrPtr</td><td>is pointer to the read buffer to which valid received data should be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a5ff92137c574620d42d37c564565bbbf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int QspiPsuFlashNonBlockingReadExample </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_qspi_psu.html">XQspiPsu</a> *&#160;</td>
-          <td class="paramname"><em>QspiPsuInstancePtr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">UINTPTR&#160;</td>
-          <td class="paramname"><em>BaseAddress</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The purpose of this function is to illustrate how to use the <a class="el" href="struct_x_qspi_psu.html" title="The XQspiPsu driver instance data. ">XQspiPsu</a> device driver in single, parallel and stacked modes using flash devices greater than or equal to 128Mb. </p>
-<p>This function reads data in DMA mode.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">QspiPsuInstancePtr</td><td>is a pointer to the instance of the QspiPsu device. </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS if successful, else XST_FAILURE. </dd></dl>
-
-<p>References <a class="el" href="struct_x_qspi_psu___config.html#a4048264c3ac6b3455c0295eeacac874b">XQspiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_qspi_psu___config.html#a6633f2a853b394ffb75b4ea080d0a8cd">XQspiPsu_Config::BaudRateDiv</a>, <a class="el" href="struct_x_qspi_psu___config.html#afb9b153a78b4112212d7850efd1c6add">XQspiPsu_Config::BusWidth</a>, <a class="el" href="struct_x_qspi_psu.html#a9b3aa272eb335fecaaa8f47fd2ed9241">XQspiPsu::Config</a>, <a class="el" href="struct_x_qspi_psu___config.html#aa771e1e018426eb1f68fe5241ed45e71">XQspiPsu_Config::ConnectionMode</a>, <a class="el" href="xqspipsu__generic__flash__interrupt__example_8c.html#a83a78784f5ba39b5e76b17a7e4a5ecad">FlashEnableQuadMode()</a>, <a class="el" href="xqspipsu__generic__flash__interrupt__example_8c.html#ae8d1767607b58391ccb2d0103c2fd456">FlashEnterExit4BAddMode()</a>, <a class="el" href="xqspipsu__generic__flash__interrupt__example_8c.html#a8c7c38172a5258ee7cdfaef5a1a9af82">FlashErase()</a>, <a class="el" href="xqspipsu__generic__flash__interrupt__example_8c.html#aaaad34739d0ad6d1fb5436c1d6428463">FlashRead()</a>, <a class="el" href="xqspipsu__generic__flash__interrupt__example_8c.html#ac7c0194bd58d158581c699b8c07c309d">FlashReadID()</a>, <a class="el" href="xqspipsu__generic__flash__interrupt__example_8c.html#a333c8e44e9af52811dee98f2cfcacf53">FlashWrite()</a>, <a class="el" href="group__qspipsu__api.html#ga803eccd67d1dfde416b54488865c1e9d">XQspiPsu_CfgInitialize()</a>, <a class="el" href="group__qspipsu__api.html#ga37ca68c0fddda883028f393eb5626437">XQSPIPSU_CLK_PRESCALE_8</a>, <a class="el" href="group__qspipsu__api.html#ga493629a6f3d8fb0312dbcaf3e9cbe0e8">XQSPIPSU_CONNECTION_MODE_PARALLEL</a>, <a class="el" href="group__qspipsu__api.html#ga76f8802ef15bef7f1a788b38fbb00c69">XQspiPsu_LookupConfig()</a>, <a class="el" href="group__qspipsu__api.html#ga47c246bab4c5d4f6c8ff84e44049adc9">XQSPIPSU_MANUAL_START_OPTION</a>, <a class="el" href="group__qspipsu__api.html#ga2d896ad5edf8b15e6dbd4d7a87517a35">XQSPIPSU_SELECT_FLASH_BUS_LOWER</a>, <a class="el" href="group__qspipsu__api.html#ga4c5dd4c0387f6ae12a78b86c653bb74d">XQSPIPSU_SELECT_FLASH_CS_LOWER</a>, <a class="el" href="group__qspipsu__api.html#ga28338ae42ed4f7d2685ab18de2d21128">XQspiPsu_SelectFlash()</a>, <a class="el" href="group__qspipsu__api.html#ga9b86ec1c50d3af19b922698fa9ba7dfb">XQspiPsu_SetClkPrescaler()</a>, and <a class="el" href="group__qspipsu__api.html#gad0fea713a1ec2a4ce6159439e30f7cd7">XQspiPsu_SetOptions()</a>.</p>
-
-<p>Referenced by <a class="el" href="xqspipsu__generic__flash__non__blocking__read__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -7,8 +7,8 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023-2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/></highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023-2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
 <codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
 <codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
 <codeline lineno="5"><highlight class="normal">include(${CMAKE_CURRENT_SOURCE_DIR}/XxvethernetExample.cmake)</highlight></codeline>
@@ -54,7 +54,8 @@
 <codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_executable(${EXAMPLE}.elf<sp/>${EXAMPLE}<sp/>${COMMON_FILE}<sp/>)</highlight></codeline>
 <codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_link_libraries(${EXAMPLE}.elf<sp/>-Wl,--gc-sections<sp/>-T\&quot;${CMAKE_SOURCE_DIR}/lscript.ld\&quot;<sp/>-L\&quot;${CMAKE_SOURCE_DIR}/\&quot;<sp/>-Wl,--start-group<sp/>${_deps}<sp/>-Wl,--end-group)</highlight></codeline>
 <codeline lineno="47"><highlight class="stringliteral">endforeach()</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral">#<sp/>/**<sp/>@endcond<sp/>*/</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/CMakeLists.txt"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

@@ -28,7 +28,7 @@
 <para>Key is zero </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="110" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1accf62f8165f891db7cf4a6b6ff6da3d1" prot="public" static="no">
         <name>ELLIPTIC_KEY_WRONG_ORDER</name>
@@ -39,7 +39,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="111" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1aba0317a6beece9200fa05364b5b27d67" prot="public" static="no">
         <name>ELLIPTIC_KEY_NOT_ON_CRV</name>
@@ -50,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="112" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="115" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -64,7 +64,7 @@
 <para>Signature verification failed </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="120" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1a7c440aa190cbea4ebf36e717f8e1de6a" prot="public" static="no">
         <name>ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN</name>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="121" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1abdac77b47dafdc523c74c60594ef5a3a" prot="public" static="no">
         <name>ELLIPTIC_VER_SIGN_R_ZERO</name>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="122" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1a42013cb1f4ab3fe51a1a73fec9b0570f" prot="public" static="no">
         <name>ELLIPTIC_VER_SIGN_S_ZERO</name>
@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="123" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1ab1623434f3bec8c6679de445f3d42316" prot="public" static="no">
         <name>ELLIPTIC_VER_SIGN_R_ORDER_ERROR</name>
@@ -108,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="124" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="127" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1abc2ebd54f2e53172c05251d23612a609" prot="public" static="no">
         <name>ELLIPTIC_VER_SIGN_S_ORDER_ERROR</name>
@@ -119,7 +119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="125" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="128" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -133,7 +133,7 @@
 <para>Generated r component is invalid </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="133" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1a35772f7442148de8bf16b886713c8c81" prot="public" static="no">
         <name>ELLIPTIC_GEN_SIGN_BAD_S</name>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="134" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1a92a29a425688447967a19ebf8f558023" prot="public" static="no">
         <name>ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN</name>
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="135" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="138" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="user-defined">
@@ -170,7 +170,7 @@
           <declname>CrvInfo</declname>
         </param>
         <param>
-          <type>EcdsaKey *</type>
+          <type><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref> *</type>
           <declname>Key</declname>
         </param>
         <briefdescription>
@@ -188,7 +188,7 @@
 <parametername>Key</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>- Pointer to EcdsaKey structure containing public key (Qx, Qy)</para></parameterdescription>
+<para>- Pointer to <ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref> structure containing public key (Qx, Qy)</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -197,7 +197,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="157" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="160" column="1"/>
       </memberdef>
       <memberdef kind="function" id="spartanup_2_ecdsa_8h_1a126845f1ba954a12b9dca7f5923979ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
@@ -217,11 +217,11 @@
           <declname>HashLen</declname>
         </param>
         <param>
-          <type>EcdsaKey *</type>
+          <type><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref> *</type>
           <declname>Key</declname>
         </param>
         <param>
-          <type>EcdsaSign *</type>
+          <type><ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref> *</type>
           <declname>Sign</declname>
         </param>
         <briefdescription>
@@ -253,14 +253,14 @@
 <parametername>Key</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>- Pointer to EcdsaKey structure containing public key (Qx, Qy) </para></parameterdescription>
+<para>- Pointer to <ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref> structure containing public key (Qx, Qy) </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername>Sign</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>- Pointer to EcdsaSign structure containing signature (r, s)</para></parameterdescription>
+<para>- Pointer to <ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref> structure containing signature (r, s)</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -269,7 +269,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="179" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="182" column="1"/>
       </memberdef>
       <memberdef kind="function" id="spartanup_2_ecdsa_8h_1ac14c81291e09f9944caf8937c7f66c0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
@@ -297,7 +297,7 @@
           <declname>K</declname>
         </param>
         <param>
-          <type>EcdsaSign *</type>
+          <type><ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref> *</type>
           <declname>Sign</declname>
         </param>
         <briefdescription>
@@ -343,7 +343,7 @@
 <parametername>Sign</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>- Pointer to EcdsaSign structure to store generated signature (r, s)</para></parameterdescription>
+<para>- Pointer to <ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref> structure to store generated signature (r, s)</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -352,7 +352,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="200" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="203" column="1"/>
       </memberdef>
       <memberdef kind="function" id="spartanup_2_ecdsa_8h_1ae79e1bd6807f713958b6ce01749f06e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref> int</type>
@@ -368,7 +368,7 @@
           <declname>D</declname>
         </param>
         <param>
-          <type>EcdsaKey *</type>
+          <type><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref> *</type>
           <declname>Key</declname>
         </param>
         <briefdescription>
@@ -393,7 +393,7 @@
 <parametername>Key</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>- Pointer to EcdsaKey structure to store generated public key (Qx, Qy)</para></parameterdescription>
+<para>- Pointer to <ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref> structure to store generated public key (Qx, Qy)</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para><itemizedlist>
@@ -402,7 +402,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="215" column="1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="218" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -415,7 +415,7 @@
 <para>&lt; For compilation in C++ </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="20" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="20" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="20" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="20" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="spartanup_2_ecdsa_8h_1a09ac47d5388ebf1b4347fd5b4ed45b27" prot="public" static="no">
         <name>ELLIPTIC_SUCCESS</name>
@@ -426,7 +426,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="102" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="105" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -1323,7 +1323,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="43" bodyend="69"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="45" bodyend="71"/>
       </memberdef>
       <memberdef kind="enum" id="spartanup_2_ecdsa_8h_1a1a60a6ab24bf9f47048731f047904275" prot="public" static="no">
         <name>EcdsaCrvClass</name>
@@ -1413,7 +1413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="71" bodyend="74"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="73" bodyend="76"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1448,105 +1448,105 @@
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>Qx;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>Qy;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="36"><highlight class="normal">}<sp/>EcdsaKey;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>r;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>s;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="41"><highlight class="normal">}<sp/>EcdsaSign;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_INVALID_LOW<sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P192,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P224,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P256,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P384,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P521,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K163,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B163,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K233,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B233,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K283,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B283,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K409,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B409,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K571,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B571,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_SECT_193R1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P160<sp/>=<sp/>18,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P192,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P224,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P256,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P320,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P384,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P512,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_INVALID_HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="69"><highlight class="normal">}<sp/>EcdsaCrvTyp;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_PRIME<sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BINARY<sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="74"><highlight class="normal">}<sp/>EcdsaCrvClass;</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">//<sp/>The<sp/>structure<sp/>below<sp/>matches<sp/>the<sp/>more<sp/>private<sp/>structures<sp/>of</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>binary_curve<sp/>and<sp/>prime_curve<sp/>in<sp/>the<sp/>SDK.<sp/>The<sp/>The<sp/>field<sp/>names<sp/>are</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>obfuscated,<sp/>as<sp/>this<sp/>API<sp/>is<sp/>intended<sp/>for<sp/>an<sp/>end-user<sp/>that<sp/>does</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>not<sp/>necessarily<sp/>have<sp/>the<sp/>rights<sp/>to<sp/>the</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="82" refid="struct_ecdsa_crv_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="83" refid="struct_ecdsa_crv_info_1a1fa219c58e5750f09d1eca612fc7ba2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EcdsaCrvTyp<sp/><ref refid="struct_ecdsa_crv_info_1a1fa219c58e5750f09d1eca612fc7ba2f" kindref="member">CrvType</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="84" refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" kindref="member">Bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="85" refid="struct_ecdsa_crv_info_1a03ebedbc1c020c1f2f88c05f09a5fdd9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EcdsaCrvClass<sp/><ref refid="struct_ecdsa_crv_info_1a03ebedbc1c020c1f2f88c05f09a5fdd9" kindref="member">Class</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="86" refid="struct_ecdsa_crv_info_1a1b7637b2006557ab1871a42be1d54ffe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a1b7637b2006557ab1871a42be1d54ffe" kindref="member">d0</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="87" refid="struct_ecdsa_crv_info_1af9a759543ff2eab38308e38e3bf0e3da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1af9a759543ff2eab38308e38e3bf0e3da" kindref="member">d1</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="88" refid="struct_ecdsa_crv_info_1a5b74c1a4d07e838f863b363d4287e47d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a5b74c1a4d07e838f863b363d4287e47d" kindref="member">d2</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="89" refid="struct_ecdsa_crv_info_1af8465f1ca794bb055defadc150c729ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1af8465f1ca794bb055defadc150c729ca" kindref="member">d3</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="90" refid="struct_ecdsa_crv_info_1a027b5e861974fe007924d7313f227c3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a027b5e861974fe007924d7313f227c3b" kindref="member">d4</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="91" refid="struct_ecdsa_crv_info_1a36736ff4ad213b21a3f9414d64fd6f82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a36736ff4ad213b21a3f9414d64fd6f82" kindref="member">d5</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="92" refid="struct_ecdsa_crv_info_1a42c34dc8c8baba7f7205b4816c76413c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a42c34dc8c8baba7f7205b4816c76413c" kindref="member">d6</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="93" refid="struct_ecdsa_crv_info_1a007025529b0da34232df7c46132a8d86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a007025529b0da34232df7c46132a8d86" kindref="member">d7</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="94" refid="struct_ecdsa_crv_info_1afed6fcfea6f4845199d7825c30c32188" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1afed6fcfea6f4845199d7825c30c32188" kindref="member">d8</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="95" refid="struct_ecdsa_crv_info_1ad84ec2027490f7da735324c0dd30b307" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1ad84ec2027490f7da735324c0dd30b307" kindref="member">d9</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="96" refid="struct_ecdsa_crv_info_1a24f1037659b1484c0083c0bc4a682da2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a24f1037659b1484c0083c0bc4a682da2" kindref="member">d10</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="97" refid="struct_ecdsa_crv_info_1a9f6136d314f96b181dc13d23c4191356" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a9f6136d314f96b181dc13d23c4191356" kindref="member">d11</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="98" refid="struct_ecdsa_crv_info_1a281b08ca8e147eee5ec914460b6c52af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a281b08ca8e147eee5ec914460b6c52af" kindref="member">d12</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="99" refid="struct_ecdsa_crv_info_1a45343f734552c4589b68b18c38f86208" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a45343f734552c4589b68b18c38f86208" kindref="member">d13</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="100"><highlight class="normal">}<sp/><ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>;</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ELLIPTIC_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0)</highlight></codeline>
-<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="110"><highlight class="preprocessor">#define<sp/>ELLIPTIC_KEY_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1)<sp/></highlight></codeline>
-<codeline lineno="111"><highlight class="preprocessor">#define<sp/>ELLIPTIC_KEY_WRONG_ORDER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2)<sp/></highlight></codeline>
-<codeline lineno="112"><highlight class="preprocessor">#define<sp/>ELLIPTIC_KEY_NOT_ON_CRV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/></highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor">#define<sp/>ELLIPTIC_BAD_SIGN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1)<sp/></highlight></codeline>
-<codeline lineno="121"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2)<sp/></highlight></codeline>
-<codeline lineno="122"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_R_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/></highlight></codeline>
-<codeline lineno="123"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_S_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4)<sp/></highlight></codeline>
-<codeline lineno="124"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_R_ORDER_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5)<sp/></highlight></codeline>
-<codeline lineno="125"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_S_ORDER_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6)<sp/></highlight></codeline>
-<codeline lineno="133"><highlight class="preprocessor">#define<sp/>ELLIPTIC_GEN_SIGN_BAD_R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1)<sp/></highlight></codeline>
-<codeline lineno="134"><highlight class="preprocessor">#define<sp/>ELLIPTIC_GEN_SIGN_BAD_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2)<sp/></highlight></codeline>
-<codeline lineno="135"><highlight class="preprocessor">#define<sp/>ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/></highlight></codeline>
-<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="144"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_ValidateKey(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/>EcdsaKey*<sp/>Key);</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_VerifySign(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/>u8*<sp/>Hash,<sp/>u32<sp/>HashLen,</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EcdsaKey*<sp/>Key,<sp/>EcdsaSign*<sp/>Sign);</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_GenerateSign(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/>u8*<sp/>Hash,<sp/>u32<sp/>HashLen,</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>D,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>K,<sp/>EcdsaSign*<sp/>Sign);</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"></highlight></codeline>
-<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
-<codeline lineno="215"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_GeneratePublicKey(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>D,<sp/>EcdsaKey*<sp/>Key);</highlight></codeline>
-<codeline lineno="217"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34" refid="struct_ecdsa_key" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35" refid="struct_ecdsa_key_1a785b4dfd4b30089f549e8b04850edbad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_ecdsa_key_1a785b4dfd4b30089f549e8b04850edbad" kindref="member">Qx</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="36" refid="struct_ecdsa_key_1aab1f97a43adcb25fbd08c0e2c0f2da03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_ecdsa_key_1aab1f97a43adcb25fbd08c0e2c0f2da03" kindref="member">Qy</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}<sp/><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="struct_ecdsa_sign" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41" refid="struct_ecdsa_sign_1a349b5dd9714bb176804fdf391efe9001" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_ecdsa_sign_1a349b5dd9714bb176804fdf391efe9001" kindref="member">r</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="struct_ecdsa_sign_1a158db6b77466252b1aa9681a60f6f5b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/><ref refid="struct_ecdsa_sign_1a158db6b77466252b1aa9681a60f6f5b2" kindref="member">s</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}<sp/><ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_INVALID_LOW<sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P192,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P224,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P256,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P384,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_P521,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K163,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B163,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K233,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B233,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K283,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B283,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K409,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B409,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_K571,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_NIST_B571,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_SECT_193R1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P160<sp/>=<sp/>18,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P192,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P224,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P256,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P320,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P384,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BRAINPOOL_P512,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_INVALID_HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}<sp/>EcdsaCrvTyp;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_PRIME<sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ECDSA_BINARY<sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}<sp/>EcdsaCrvClass;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">//<sp/>The<sp/>structure<sp/>below<sp/>matches<sp/>the<sp/>more<sp/>private<sp/>structures<sp/>of</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>binary_curve<sp/>and<sp/>prime_curve<sp/>in<sp/>the<sp/>SDK.<sp/>The<sp/>The<sp/>field<sp/>names<sp/>are</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>obfuscated,<sp/>as<sp/>this<sp/>API<sp/>is<sp/>intended<sp/>for<sp/>an<sp/>end-user<sp/>that<sp/>does</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>not<sp/>necessarily<sp/>have<sp/>the<sp/>rights<sp/>to<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//</highlight></codeline>
+<codeline lineno="85" refid="struct_ecdsa_crv_info" refkind="compound"><highlight class="comment"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86" refid="struct_ecdsa_crv_info_1a1fa219c58e5750f09d1eca612fc7ba2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EcdsaCrvTyp<sp/><ref refid="struct_ecdsa_crv_info_1a1fa219c58e5750f09d1eca612fc7ba2f" kindref="member">CrvType</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" kindref="member">Bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_ecdsa_crv_info_1a03ebedbc1c020c1f2f88c05f09a5fdd9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EcdsaCrvClass<sp/><ref refid="struct_ecdsa_crv_info_1a03ebedbc1c020c1f2f88c05f09a5fdd9" kindref="member">Class</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="struct_ecdsa_crv_info_1a1b7637b2006557ab1871a42be1d54ffe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a1b7637b2006557ab1871a42be1d54ffe" kindref="member">d0</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_ecdsa_crv_info_1af9a759543ff2eab38308e38e3bf0e3da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1af9a759543ff2eab38308e38e3bf0e3da" kindref="member">d1</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="struct_ecdsa_crv_info_1a5b74c1a4d07e838f863b363d4287e47d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a5b74c1a4d07e838f863b363d4287e47d" kindref="member">d2</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="struct_ecdsa_crv_info_1af8465f1ca794bb055defadc150c729ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1af8465f1ca794bb055defadc150c729ca" kindref="member">d3</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="struct_ecdsa_crv_info_1a027b5e861974fe007924d7313f227c3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a027b5e861974fe007924d7313f227c3b" kindref="member">d4</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_ecdsa_crv_info_1a36736ff4ad213b21a3f9414d64fd6f82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a36736ff4ad213b21a3f9414d64fd6f82" kindref="member">d5</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_ecdsa_crv_info_1a42c34dc8c8baba7f7205b4816c76413c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a42c34dc8c8baba7f7205b4816c76413c" kindref="member">d6</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_ecdsa_crv_info_1a007025529b0da34232df7c46132a8d86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a007025529b0da34232df7c46132a8d86" kindref="member">d7</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_ecdsa_crv_info_1afed6fcfea6f4845199d7825c30c32188" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1afed6fcfea6f4845199d7825c30c32188" kindref="member">d8</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_ecdsa_crv_info_1ad84ec2027490f7da735324c0dd30b307" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1ad84ec2027490f7da735324c0dd30b307" kindref="member">d9</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_ecdsa_crv_info_1a24f1037659b1484c0083c0bc4a682da2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a24f1037659b1484c0083c0bc4a682da2" kindref="member">d10</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="struct_ecdsa_crv_info_1a9f6136d314f96b181dc13d23c4191356" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a9f6136d314f96b181dc13d23c4191356" kindref="member">d11</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_ecdsa_crv_info_1a281b08ca8e147eee5ec914460b6c52af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a281b08ca8e147eee5ec914460b6c52af" kindref="member">d12</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_ecdsa_crv_info_1a45343f734552c4589b68b18c38f86208" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_ecdsa_crv_info_1a45343f734552c4589b68b18c38f86208" kindref="member">d13</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ELLIPTIC_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>ELLIPTIC_KEY_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1)<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>ELLIPTIC_KEY_WRONG_ORDER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2)<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>ELLIPTIC_KEY_NOT_ON_CRV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>ELLIPTIC_BAD_SIGN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1)<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2)<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_R_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_S_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4)<sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_R_ORDER_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5)<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>ELLIPTIC_VER_SIGN_S_ORDER_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6)<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>ELLIPTIC_GEN_SIGN_BAD_R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1)<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>ELLIPTIC_GEN_SIGN_BAD_S<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2)<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_ValidateKey(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref>*<sp/>Key);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_VerifySign(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/>u8*<sp/>Hash,<sp/>u32<sp/>HashLen,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref>*<sp/>Key,<sp/><ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref>*<sp/>Sign);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_GenerateSign(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/>u8*<sp/>Hash,<sp/>u32<sp/>HashLen,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>D,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>K,<sp/><ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref>*<sp/>Sign);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><ref refid="group__xsecure__rsa__server__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" kindref="member">externC</ref><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Ecdsa_GeneratePublicKey(<ref refid="struct_ecdsa_crv_info" kindref="compound">EcdsaCrvInfo</ref>*<sp/>CrvInfo,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>D,<sp/><ref refid="struct_ecdsa_key" kindref="compound">EcdsaKey</ref>*<sp/>Key);</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h"/>
   </compounddef>
 </doxygen>

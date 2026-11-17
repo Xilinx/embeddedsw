@@ -100,7 +100,8 @@ $(document).ready(function(){initNavTree('xscugic_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xscugic.c File Reference</div>  </div>
 </div><!--header-->
@@ -118,9 +119,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">GICD_CTLR Register information</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>GICD_CTLR Status Register </p>
-</div></td></tr>
 <tr class="memitem:gaf8e0bfe31c0fa2ca654c36715a3c13f8"><td class="memItemLeft" align="right" valign="top">s32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#gaf8e0bfe31c0fa2ca654c36715a3c13f8">XScuGic_CfgInitialize</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, <a class="el" href="struct_x_scu_gic___config.html">XScuGic_Config</a> *ConfigPtr, u32 EffectiveAddr)</td></tr>
 <tr class="memdesc:gaf8e0bfe31c0fa2ca654c36715a3c13f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">CfgInitialize a specific interrupt controller instance/driver.  <a href="group__scugic__api.html#gaf8e0bfe31c0fa2ca654c36715a3c13f8">More...</a><br/></td></tr>
 <tr class="separator:gaf8e0bfe31c0fa2ca654c36715a3c13f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,10 +138,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaca28a576540ab5fcd75cee1f38917ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows software to simulate an interrupt in the interrupt controller.  <a href="group__scugic__api.html#gaca28a576540ab5fcd75cee1f38917ae4">More...</a><br/></td></tr>
 <tr class="separator:gaca28a576540ab5fcd75cee1f38917ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga79abd6248cb578142e9c475f20dbeb06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">XScuGic_SetPriorityTriggerType</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, u32 Int_Id, u8 Priority, u8 Trigger)</td></tr>
-<tr class="memdesc:ga79abd6248cb578142e9c475f20dbeb06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt priority and trigger type for the specificd IRQ source.  <a href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">More...</a><br/></td></tr>
+<tr class="memdesc:ga79abd6248cb578142e9c475f20dbeb06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt priority and trigger type for the specified IRQ source.  <a href="group__scugic__api.html#ga79abd6248cb578142e9c475f20dbeb06">More...</a><br/></td></tr>
 <tr class="separator:ga79abd6248cb578142e9c475f20dbeb06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6ed162180ffb45b082c2fbe23951ba13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">XScuGic_GetPriorityTriggerType</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, u32 Int_Id, u8 *Priority, u8 *Trigger)</td></tr>
-<tr class="memdesc:ga6ed162180ffb45b082c2fbe23951ba13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt priority and trigger type for the specificd IRQ source.  <a href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">More...</a><br/></td></tr>
+<tr class="memdesc:ga6ed162180ffb45b082c2fbe23951ba13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the interrupt priority and trigger type for the specified IRQ source.  <a href="group__scugic__api.html#ga6ed162180ffb45b082c2fbe23951ba13">More...</a><br/></td></tr>
 <tr class="separator:ga6ed162180ffb45b082c2fbe23951ba13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2a94f1a519d965f051d598e5a6b5a855"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__scugic__api.html#ga2a94f1a519d965f051d598e5a6b5a855">XScuGic_InterruptMaptoCpu</a> (<a class="el" href="struct_x_scu_gic.html">XScuGic</a> *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)</td></tr>
 <tr class="memdesc:ga2a94f1a519d965f051d598e5a6b5a855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the target CPU for the interrupt of a peripheral.  <a href="group__scugic__api.html#ga2a94f1a519d965f051d598e5a6b5a855">More...</a><br/></td></tr>

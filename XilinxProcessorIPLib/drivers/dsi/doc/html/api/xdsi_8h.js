@@ -1,11 +1,17 @@
 var xdsi_8h =
 [
     [ "NUM_PACKETS", "xdsi_8h.html#gad6f67fc0e23e30f9883030463b146a43", null ],
+    [ "XDSI_CMD_TIMEOUT", "xdsi_8h.html#gaa4629e9a0dc79f89123364e7dd499425", null ],
     [ "XDSI_HANDLER_CMDQ_FIFOFULL", "xdsi_8h.html#ga31ed3220401bdd75e8a00d01032f6f3e", null ],
     [ "XDSI_HANDLER_OTHERERROR", "xdsi_8h.html#gac110653d63c54ff608aa027071c6f049", null ],
     [ "XDSI_HANDLER_PIXELDATA_UNDERRUN", "xdsi_8h.html#ga4355644285ba9dabf3f5d38ffc25359c", null ],
     [ "XDSI_HANDLER_UNSUPPORT_DATATYPE", "xdsi_8h.html#gadb72912c633ca5235856df31d2f517ec", null ],
+    [ "XDSI_ULPS_TIMEOUT", "xdsi_8h.html#ga06ec34bb8109923411b595ad111b5e67", null ],
     [ "XDsi_Callback", "xdsi_8h.html#ga4ccdb1dbc5d315cd9db62064c668a1e0", null ],
+    [ "XDsi_CmdLpdtType", "xdsi_8h.html#ga429e17d80c609f1e07b8b61bb442f221", [
+      [ "XDSI_DCS_CMD_MODE", "xdsi_8h.html#gga429e17d80c609f1e07b8b61bb442f221a614125147695a67490c72da7832284f5", null ],
+      [ "XDSI_LPDT_MODE", "xdsi_8h.html#gga429e17d80c609f1e07b8b61bb442f221a3c2252fab8edd38f3316ea8c8cdadf5f", null ]
+    ] ],
     [ "XDsi_CmdModePktType", "xdsi_8h.html#ga0fa6b406aaf37b7635a6ba53740fa9de", [
       [ "XDSI_CMD_MODE_SHORT_PKT", "xdsi_8h.html#gga0fa6b406aaf37b7635a6ba53740fa9deaf93a3007ae08fc6dc80af9d43012959f", null ],
       [ "XDSI_CMD_MODE_LONG_PKT", "xdsi_8h.html#gga0fa6b406aaf37b7635a6ba53740fa9dea39088626f14cfc4818f13d3f540cdf30", null ]
@@ -32,9 +38,12 @@ var xdsi_8h =
     [ "XDsi_Reset", "xdsi_8h.html#ga2294e22112b6a7aa5ed1c2714f674f72", null ],
     [ "XDsi_SelfTest", "xdsi_8h.html#ga58a27f9f1a507863325082e43595b4b9", null ],
     [ "XDsi_SendCmdModePkt", "xdsi_8h.html#ga7e20d1d932530d9be8987b78136b7864", null ],
+    [ "XDsi_SendLpdtPacket", "xdsi_8h.html#ga195ca1c404968f10c578a0e282cdbd71", null ],
     [ "XDsi_SendShortPacket", "xdsi_8h.html#gab2cf4f33eff4d4e77d083335025c08f9", null ],
     [ "XDsi_SetCallback", "xdsi_8h.html#ga6e0292fd10d992deb9922469707d8ee7", null ],
     [ "XDsi_SetCustomVideoInterfaceTiming", "xdsi_8h.html#gab9519a80289d049534bfbafefdc41c4e", null ],
+    [ "XDsi_SetLpdtMode", "xdsi_8h.html#gab4f329420e8d5f885fd7d9adad9489c7", null ],
     [ "XDsi_SetMode", "xdsi_8h.html#ga445dc0c1ca405f81b367d7e556e83f8c", null ],
+    [ "XDsi_SetUlpsMode", "xdsi_8h.html#ga37a2f766b23c8e06f9bc35b839f994a9", null ],
     [ "XDsi_SetVideoInterfaceTiming", "xdsi_8h.html#gad26d8689133a90687735f528ff96b97d", null ]
 ];

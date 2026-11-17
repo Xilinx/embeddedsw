@@ -100,14 +100,15 @@ $(document).ready(function(){initNavTree('xbram__intr__example_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">xbram_intr_example.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
-<div class="textblock"><p>This file contains a design example using the BRAM driver (<a class="el" href="struct_x_bram.html" title="The XBram driver instance data. ">XBram</a>) in an interrupt driven mode of operation. </p>
-<p>This example assumes that there is an interrupt controller in the hardware system and the BRAM device is connected to the interrupt controller.</p>
+<div class="textblock"><p>Demonstrates the <a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a> interrupt example. </p>
+<p>This file contains a design example using the BRAM driver (<a class="el" href="struct_x_bram.html" title="Holds instance data for a BRAM device. ">XBram</a>) in an interrupt driven mode of operation. This example assumes that there is an interrupt controller in the hardware system and the BRAM device is connected to the interrupt controller.</p>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
 </p>
@@ -126,6 +127,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
 4.9   sd   07/07/23 Added SDT support.
 4.13  ml   07/14/25 Fix GCC warnings.
 4.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+4.15  vn   07/30/26 Fix Doxygen warnings
+4.15  tb  09/15/26 Align Doxygen comments with AMD standards.
 </pre> </div><div class="textblock"><code>#include &quot;xparameters.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="xbram_8h.html">xbram.h</a>&quot;</code><br/>
 <code>#include &quot;xil_exception.h&quot;</code><br/>
@@ -136,11 +139,17 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date  Changes
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0218c4bde98e81f9f0d225148c7ebb90"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xbram__intr__example_8c.html#a0218c4bde98e81f9f0d225148c7ebb90">BramIntrExample</a> (<a class="el" href="struct_x_bram.html">XBram</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
-<tr class="memdesc:a0218c4bde98e81f9f0d225148c7ebb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the entry function from the TestAppGen tool generated application which tests the interrupts when enabled in the BRAM.  <a href="#a0218c4bde98e81f9f0d225148c7ebb90">More...</a><br/></td></tr>
+<tr class="memdesc:a0218c4bde98e81f9f0d225148c7ebb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests BRAM interrupts from a TestAppGen application.  <a href="#a0218c4bde98e81f9f0d225148c7ebb90">More...</a><br/></td></tr>
 <tr class="separator:a0218c4bde98e81f9f0d225148c7ebb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xbram__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
-<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main function of the BRAM example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the BRAM interrupt example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br/></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3fe81d94ba7141ef7245c77657f98465"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_bram.html">XBram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xbram__intr__example_8c.html#a3fe81d94ba7141ef7245c77657f98465">Bram</a></td></tr>
+<tr class="memdesc:a3fe81d94ba7141ef7245c77657f98465"><td class="mdescLeft">&#160;</td><td class="mdescRight">The instance of the BRAM driver.  <a href="#a3fe81d94ba7141ef7245c77657f98465">More...</a><br/></td></tr>
+<tr class="separator:a3fe81d94ba7141ef7245c77657f98465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a0218c4bde98e81f9f0d225148c7ebb90"></a>
@@ -167,11 +176,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This is the entry function from the TestAppGen tool generated application which tests the interrupts when enabled in the BRAM. </p>
+<p>Tests BRAM interrupts from a TestAppGen application. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a reference to the BRAM driver Instance </td></tr>
-    <tr><td class="paramname">BaseAddress</td><td>contains the base address of the device</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">InstancePtr</td><td>Reference to the BRAM driver Instance. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">BaseAddress</td><td>Contains the base address of the device.</td></tr>
   </table>
   </dd>
 </dl>
@@ -182,7 +191,7 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In XSCT/classic flow, DeviceId is used to look up the device configuration. </dd></dl>
 
-<p>References <a class="el" href="struct_x_bram___config.html#ae96ce11672cf82713b994dc80a1a05aa">XBram_Config::CtrlBaseAddress</a>, <a class="el" href="struct_x_bram___config.html#ac12c18f690cc9dbc18392ee8c01c29d7">XBram_Config::EccStatusInterruptPresent</a>, <a class="el" href="struct_x_bram___config.html#a58c670c0f23257fa4521b4fc219773bc">XBram_Config::FaultInjectionPresent</a>, <a class="el" href="struct_x_bram___config.html#ac66c3fec0033eec027f0e66f154301c6">XBram_Config::IntId</a>, <a class="el" href="struct_x_bram___config.html#a4e172daa52b71ac0db6e2e01946edac5">XBram_Config::IntrParent</a>, <a class="el" href="struct_x_bram___config.html#a33d6e8224ae0b1a661e4c2dad194377c">XBram_Config::UncorrectableFailingDataRegs</a>, <a class="el" href="group__bram.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize()</a>, <a class="el" href="group__bram.html#ga8b01c0b7cae31073a32887283a730adf">XBRAM_IR_ALL_MASK</a>, <a class="el" href="group__bram.html#ga08f91d2ae010f1a11667b587f582b654">XBram_LookupConfig()</a>, and <a class="el" href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest()</a>.</p>
+<p>References <a class="el" href="struct_x_bram.html#aa67b80ce75d89ebfc2c65c5300ac3253">XBram::Config</a>, <a class="el" href="struct_x_bram___config.html#ae96ce11672cf82713b994dc80a1a05aa">XBram_Config::CtrlBaseAddress</a>, <a class="el" href="struct_x_bram___config.html#ac12c18f690cc9dbc18392ee8c01c29d7">XBram_Config::EccStatusInterruptPresent</a>, <a class="el" href="struct_x_bram___config.html#a58c670c0f23257fa4521b4fc219773bc">XBram_Config::FaultInjectionPresent</a>, <a class="el" href="struct_x_bram___config.html#ac66c3fec0033eec027f0e66f154301c6">XBram_Config::IntId</a>, <a class="el" href="struct_x_bram___config.html#a4e172daa52b71ac0db6e2e01946edac5">XBram_Config::IntrParent</a>, <a class="el" href="struct_x_bram___config.html#a33d6e8224ae0b1a661e4c2dad194377c">XBram_Config::UncorrectableFailingDataRegs</a>, <a class="el" href="group__bram__api.html#gab305438b0844ddb20139878c21ef0e6b">XBram_CfgInitialize()</a>, <a class="el" href="group__bram__api.html#ga8b01c0b7cae31073a32887283a730adf">XBRAM_IR_ALL_MASK</a>, <a class="el" href="group__bram.html#gab2056c1f9272b35a37e7f20ac2fd0af9">XBram_LookupConfig()</a>, and <a class="el" href="group__bram.html#gaedbdefb6cda5c212f03271143ccf7a98">XBram_SelfTest()</a>.</p>
 
 <p>Referenced by <a class="el" href="xbram__intr__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
 
@@ -202,22 +211,30 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function is the main function of the BRAM example. </p>
-<p>It is for initializing the BRAM device and setting up interrupts.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Runs the BRAM interrupt example. </p>
+<p>Initializes the BRAM device and sets up interrupts.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS to indicate success.</li>
-<li>XST_FAILURE to indicate failure.</li>
+<li>XST_FAILURE to indicate failure. </li>
 </ul>
 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p>References <a class="el" href="xbram__intr__example_8c.html#a0218c4bde98e81f9f0d225148c7ebb90">BramIntrExample()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a3fe81d94ba7141ef7245c77657f98465"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_bram.html">XBram</a> Bram</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The instance of the BRAM driver. </p>
 
 </div>
 </div>

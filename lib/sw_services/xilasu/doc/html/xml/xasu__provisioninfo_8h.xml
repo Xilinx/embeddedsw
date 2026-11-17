@@ -1,0 +1,912 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__provisioninfo_8h" kind="file">
+    <compoundname>xasu_provisioninfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xasu__def_8h" local="yes">xasu_def.h</includes>
+    <includes refid="xasu__keymanagerinfo_8h" local="yes">xasu_keymanagerinfo.h</includes>
+    <includes refid="xasu__mldsainfo_8h" local="yes">xasu_mldsainfo.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__provision_8h" local="yes">xasu_provision.h</includedby>
+    <includedby refid="xasu__provision_8c" local="yes">xasu_provision.c</includedby>
+    <includedby refid="xasu__provision__common_8h" local="yes">xasu_provision_common.h</includedby>
+    <incdepgraph>
+      <node id="1498">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+      </node>
+      <node id="1502">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+      </node>
+      <node id="1497">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1501">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1495">
+        <label>xasu_provisioninfo.h</label>
+        <link refid="xasu_provisioninfo.h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1498" relation="include">
+        </childnode>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+      </node>
+      <node id="1496">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1499">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+        <childnode refid="1502" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+      </node>
+      <node id="1500">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+      </node>
+      <node id="1503">
+        <label>xasu_mldsainfo.h</label>
+        <link refid="xasu__mldsainfo_8h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1506">
+        <label>xasu_provision.c</label>
+        <link refid="xasu__provision_8c"/>
+      </node>
+      <node id="1505">
+        <label>xasu_provision.h</label>
+        <link refid="xasu__provision_8h"/>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1507" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+      </node>
+      <node id="1511">
+        <label>xasu_provision_common.c</label>
+        <link refid="xasu__provision__common_8c"/>
+      </node>
+      <node id="1510">
+        <label>xasu_provision_common.h</label>
+        <link refid="xasu__provision__common_8h"/>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+      </node>
+      <node id="1504">
+        <label>xasu_provisioninfo.h</label>
+        <link refid="xasu_provisioninfo.h"/>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1510" relation="include">
+        </childnode>
+      </node>
+      <node id="1509">
+        <label>xasu_provision_ude_example.c</label>
+        <link refid="xasu__provision__ude__example_8c"/>
+      </node>
+      <node id="1508">
+        <label>xasu_provision_ude_input_example.h</label>
+        <link refid="xasu__provision__ude__input__example_8h"/>
+        <childnode refid="1509" relation="include">
+        </childnode>
+      </node>
+      <node id="1507">
+        <label>xasu_provision_dpc_example.c</label>
+        <link refid="xasu__provision__dpc__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___provision_user_efuse_params" prot="public">XAsu_ProvisionUserEfuseParams</innerclass>
+    <innerclass refid="struct_x_asu___provision_ude_params" prot="public">XAsu_ProvisionUdeParams</innerclass>
+    <innerclass refid="struct_x_asu___dev_provision_cert_params" prot="public">XAsu_DevProvisionCertParams</innerclass>
+    <innerclass refid="struct_x_asu___wrap_provision_instructions_params" prot="public">XAsu_WrapProvisionInstructionsParams</innerclass>
+    <innerclass refid="struct_x_asu___unwrap_provision_instructions_params" prot="public">XAsu_UnwrapProvisionInstructionsParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1gafb73d68e9209938633c991b05a84c612" prot="public" static="no">
+        <name>XASU_PROVISION_USER_EFUSE_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for USER eFUSE key provisioning. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga78b5aec1dc445c75f73ddad7fd215c0d" compoundref="xasu__provision_8c" startline="415" endline="461">XAsu_ProvisionUserEfuse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac885d342c1283d7d4062b87f0bc0ac81" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for Unique Device Endorsement (UDE) key provisioning. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga0a67b6effa75ba432c9cfbb4985ad6f4" compoundref="xasu__provision_8c" startline="486" endline="537">XAsu_ProvisionUde</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga48f2fc2ca5a0337e365aa123628fd1e6" prot="public" static="no">
+        <name>XASU_PROVISION_GET_DPC_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for generating and returning the Device Provisioning Certificate (DPC) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga7ebdaac74b923c5bf29414940c9f0606" compoundref="xasu__provision_8c" startline="677" endline="730">XAsu_GetDevProvisionCert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga0de2ef90e5d739b017703af4810e821a" prot="public" static="no">
+        <name>XASU_PROVISION_DELETE_DPC_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for deleting the provisioning key pairs backing the DPC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1gacfec07d893daef0df0e1b18ac0ba77b7" compoundref="xasu__provision_8c" startline="749" endline="778">XAsu_DeleteDevProvisionCert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf65d87d5dd15a14912de0de68742a37a" prot="public" static="no">
+        <name>XASU_PROVISION_WRAP_INSTR_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for wrapping provisioning instructions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga06f49683a7784e2b17fcb814a18b090d" compoundref="xasu__provision_8c" startline="554" endline="591">XAsu_WrapProvisionInstructions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga701bb63301e2c836767006fd86c5b060" prot="public" static="no">
+        <name>XASU_PROVISION_UNWRAP_INSTR_CMD_ID</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Command ID for unwrapping provisioning instructions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga002a33dfe410a66337fa5e724ba40eae" compoundref="xasu__provision_8c" startline="612" endline="651">XAsu_UnwrapProvisionInstructions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga95ae5258a0eac98a5fb9299acc3864f4" prot="public" static="no">
+        <name>XASU_PROVISION_MAX_CMDS</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by the Provisioning module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae3cdc24d003298c2ccfec9f14280f03d" prot="public" static="no">
+        <name>XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>USER eFUSE key size in bytes (256-bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga73ee381a8d63165f7fdca4ab460c54e1" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>UDE private key size in bytes (ECC P-384). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad69c7a5d0c5526aeb07a8650dd553e72" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES</name>
+        <initializer>(2000U)</initializer>
+        <briefdescription>
+<para>Maximum size in bytes of the UDE self-signed X.509 certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaae7fb5b2d99e9dba0f46a74c73891c24" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_CERT_ACTUAL_SIZE_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Size in bytes of the UDE certificate actual-size value returned through the response buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga0a67b6effa75ba432c9cfbb4985ad6f4" compoundref="xasu__provision_8c" startline="486" endline="537">XAsu_ProvisionUde</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacf23d886851705cb977606902a41305c" prot="public" static="no">
+        <name>XASU_PROVISION_UDE_KEY_TYPE_ECC_P384</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>UDE key type ECC NIST P-384. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga69cb5b331e3b51642f49dc6268c5dd97" compoundref="xasu__provision__common_8c" startline="145" endline="183">XAsu_ProvisionValidateUdeParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga230384c5301e2a463389c453ef40e366" prot="public" static="no">
+        <name>XASU_PROVISION_DPC_ACTUAL_SIZE_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Size in bytes of the DPC actual-size value returned through the response buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga7ebdaac74b923c5bf29414940c9f0606" compoundref="xasu__provision_8c" startline="677" endline="730">XAsu_GetDevProvisionCert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" prot="public" static="no">
+        <name>XASU_PROVISION_RECORD_HEADER_SIZE</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Instruction-record header size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+        <referencedby refid="group__xasu__provision__client__apis_1ga1033091a0030d9d5817b633193590521" compoundref="xasu__provision_8c" startline="339" endline="390">XAsu_ProvisionEncodeXorKeys</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga3529dd58fc1d1e52cda381d7af95b9d1" prot="public" static="no">
+        <name>XASU_PROVISION_STORE_KEY_METADATA_SIZE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>STORE_KEY metadata size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga488189ed28b42d7678fc2749b111ff43" compoundref="xasu__provision_8c" startline="243" endline="320">XAsu_ProvisionEncodeStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga729ee74d49168ad5131004fb6d8982e3" prot="public" static="no">
+        <name>XASU_PROVISION_MAX_RECORD_SIZE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" kindref="member">XASU_PROVISION_RECORD_HEADER_SIZE</ref> + <ref refid="group__xasu__common__defs_1ga3529dd58fc1d1e52cda381d7af95b9d1" kindref="member">XASU_PROVISION_STORE_KEY_METADATA_SIZE</ref> + \
+	 <ref refid="group__xasu__common__defs_1ga6e33a5c152dea26cb9098074496e653c" kindref="member">XASU_MLDSA_MAX_PRIV_KEY_LEN</ref>)</initializer>
+        <briefdescription>
+<para>Largest record: STORE_KEY of an ML-DSA-87 private key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadcca441d5deff6c0a0ece9125b42e813" prot="public" static="no">
+        <name>XASU_PROVISION_MAX_STORE_KEY_DATA_SIZE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga729ee74d49168ad5131004fb6d8982e3" kindref="member">XASU_PROVISION_MAX_RECORD_SIZE</ref> - <ref refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" kindref="member">XASU_PROVISION_RECORD_HEADER_SIZE</ref> - \
+	 <ref refid="group__xasu__common__defs_1ga3529dd58fc1d1e52cda381d7af95b9d1" kindref="member">XASU_PROVISION_STORE_KEY_METADATA_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Largest STORE_KEY object that fits the record window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gae6952ca4cfc8a4778631829d0e483222" compoundref="xasu__provision__common_8c" startline="365" endline="427">XAsu_ProvisionValidateStoreKeyMetadata</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae554b666ce5bf6ac119497c3c0473ca8" prot="public" static="no">
+        <name>XASU_PROVISION_IMAGE_HEADER_SIZE</name>
+        <initializer>(848U)</initializer>
+        <briefdescription>
+<para>AEPI header size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf53153d9342fb508356a8a804a0b1d92" compoundref="xasu__provision__common_8c" startline="234" endline="255">XAsu_ProvisionGetImageSize</referencedby>
+        <referencedby refid="group__xasu__provision__common__apis_1ga3fee9e75c7602d9b9b520a3072f42bc7" compoundref="xasu__provision__common_8c" startline="304" endline="321">XAsu_ProvisionValidateUnwrapParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga228f36113280b5309c29ab272983929d" prot="public" static="no">
+        <name>XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE</name>
+        <initializer>(7920U)</initializer>
+        <briefdescription>
+<para>Plaintext bytes carried per chunk. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf53153d9342fb508356a8a804a0b1d92" compoundref="xasu__provision__common_8c" startline="234" endline="255">XAsu_ProvisionGetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae7f23ebf22bf06b662495152526a9fb1" prot="public" static="no">
+        <name>XASU_PROVISION_IMAGE_CHUNK_SIZE</name>
+        <initializer>(8496U)</initializer>
+        <briefdescription>
+<para>Encrypted chunk size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf53153d9342fb508356a8a804a0b1d92" compoundref="xasu__provision__common_8c" startline="234" endline="255">XAsu_ProvisionGetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf025816aef91e55cba810b9eac4b6ea4" prot="public" static="no">
+        <name>XASU_PROVISION_IMAGE_MAX_SIZE</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Largest image represented by the u32 buffer-length fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga33a6787912d41c58556de8d96dce4165" prot="public" static="no">
+        <name>XASU_PROVISION_IMAGE_MAX_CHUNKS</name>
+        <initializer>((<ref refid="group__xasu__common__defs_1gaf025816aef91e55cba810b9eac4b6ea4" kindref="member">XASU_PROVISION_IMAGE_MAX_SIZE</ref> - <ref refid="group__xasu__common__defs_1gae554b666ce5bf6ac119497c3c0473ca8" kindref="member">XASU_PROVISION_IMAGE_HEADER_SIZE</ref>) / \
+	 <ref refid="group__xasu__common__defs_1gae7f23ebf22bf06b662495152526a9fb1" kindref="member">XASU_PROVISION_IMAGE_CHUNK_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Maximum whole chunks in a u32 image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga311ea3302ea8e692a016d964711f292e" prot="public" static="no">
+        <name>XASU_PROVISION_IMAGE_MAX_RECORD_BLOB_LEN</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga33a6787912d41c58556de8d96dce4165" kindref="member">XASU_PROVISION_IMAGE_MAX_CHUNKS</ref> * <ref refid="group__xasu__common__defs_1ga228f36113280b5309c29ab272983929d" kindref="member">XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Largest instruction stream whose expanded image fits in a u32 buffer length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1gaf53153d9342fb508356a8a804a0b1d92" compoundref="xasu__provision__common_8c" startline="234" endline="255">XAsu_ProvisionGetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga24a05f371aa84b8ef4865d738816c518" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Vault-ID field width in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa7bf5898b65a668833204472a68b786c" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_CAP_FIELD_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Capacity-field width in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5e88f79a4bc18bad5c2d19395d41ebbc" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Access-rights field width in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga244c93dd7d7ef88ceac14987d4f12f46" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_RESTRICTIONS_FIELD_SIZE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Restrictions field width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga6e21b2dc4b9924cfb7242164a1538df2" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_VAULT_ID_OFFSET</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" kindref="member">XASU_PROVISION_RECORD_HEADER_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Requested vault ID offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5b999da960dcab4d0c04942e705a5f77" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_CAPS_OFFSET</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga6e21b2dc4b9924cfb7242164a1538df2" kindref="member">XASU_PROVISION_CREATE_VAULT_ID_OFFSET</ref> + <ref refid="group__xasu__common__defs_1ga24a05f371aa84b8ef4865d738816c518" kindref="member">XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>First capacity-field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa1bcccc2928022825591c29149faba8b" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_CAP_OFFSET</name>
+        <param><defname>Index</defname></param>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga5b999da960dcab4d0c04942e705a5f77" kindref="member">XASU_PROVISION_CREATE_CAPS_OFFSET</ref> + \
+	 ((u32)(Index) * <ref refid="group__xasu__common__defs_1gaa7bf5898b65a668833204472a68b786c" kindref="member">XASU_PROVISION_CREATE_CAP_FIELD_SIZE</ref>))</initializer>
+        <briefdescription>
+<para>Named capacity byte offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae4ba4a0ef45307f2269b951af23bbc31" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_ACCESS_OFFSET</name>
+        <initializer><ref refid="group__xasu__common__defs_1gaa1bcccc2928022825591c29149faba8b" kindref="member">XASU_PROVISION_CREATE_CAP_OFFSET</ref>(<ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1fa0e9a8ea3ebf0208be61d962344f4e" kindref="member">XASU_PROVISION_CREATE_CAP_COUNT</ref>)</initializer>
+        <briefdescription>
+<para>Access-rights field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga77299799e02fbba9f010817921bb71df" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_RESTRICTIONS_OFFSET</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gae4ba4a0ef45307f2269b951af23bbc31" kindref="member">XASU_PROVISION_CREATE_ACCESS_OFFSET</ref> + <ref refid="group__xasu__common__defs_1ga5e88f79a4bc18bad5c2d19395d41ebbc" kindref="member">XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>Restrictions field offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gab91dbb8b6b10788f91eeeef05794144f" prot="public" static="no">
+        <name>XASU_PROVISION_CREATE_VAULT_PAYLOAD_SIZE</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga24a05f371aa84b8ef4865d738816c518" kindref="member">XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE</ref> + \
+	 ((u32)<ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1fa0e9a8ea3ebf0208be61d962344f4e" kindref="member">XASU_PROVISION_CREATE_CAP_COUNT</ref> * <ref refid="group__xasu__common__defs_1gaa7bf5898b65a668833204472a68b786c" kindref="member">XASU_PROVISION_CREATE_CAP_FIELD_SIZE</ref>) + \
+	 <ref refid="group__xasu__common__defs_1ga5e88f79a4bc18bad5c2d19395d41ebbc" kindref="member">XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE</ref> + <ref refid="group__xasu__common__defs_1ga244c93dd7d7ef88ceac14987d4f12f46" kindref="member">XASU_PROVISION_CREATE_RESTRICTIONS_FIELD_SIZE</ref>)</initializer>
+        <briefdescription>
+<para>CREATE_KEY_VAULT payload size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__client__apis_1ga28e96fe10ceaf00ea88f7b1822626212" compoundref="xasu__provision_8c" startline="123" endline="223">XAsu_ProvisionEncodeCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4dcc7a5f2c25c77dcc3416a70483a79c" prot="public" static="no">
+        <name>XASU_PROVISION_EFUSE_USER_KEY_0</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Program USER_EFUSE_KEY_0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga52fd70833b2cf3eef184f587aeadb8bd" prot="public" static="no">
+        <name>XASU_PROVISION_EFUSE_USER_KEY_1</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Program USER_EFUSE_KEY_1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga45c9acd7a4359762f0e7dbe15450dd73" prot="public" static="no">
+        <name>XASU_PROVISION_KEY_SOURCE_ASU_GENERATED</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Key generated inside the ASU via TRNG. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only source allowed for USER_EFUSE_KEY_0. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga41cd673b792a55b629b66fe1d537a38c" prot="public" static="no">
+        <name>XASU_PROVISION_KEY_SOURCE_VAULT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Key fetched from the AKV by KeyId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf93941a12d28f04eec71f776c0744cc2" prot="public" static="no">
+        <name>XASU_PROVISION_KEY_SOURCE_USER_BUFFER</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Key supplied by the client via KeyAddr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__xasu__provision__common__apis_1ga06ec2472adf2898a7c512e4a2714631c" compoundref="xasu__provision__common_8c" startline="65" endline="130">XAsu_ProvisionValidateUserEfuseParams</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xasu__common__defs_1ga1f60b6c0b19dbb581b463ad1bfd61011" prot="public" static="no">
+        <name>XAsu_ProvisionCreateCapIndex</name>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011aca56ecdbf84134cf8bcde92b0e672a50" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_AES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>AES key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a4dfebf8912e99430ef9ec27313ac6139" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_IV</name>
+          <briefdescription>
+<para>IV capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a85cc0ec4cf2ae8f0a7a2456a42f39d63" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_KDF_HMAC</name>
+          <briefdescription>
+<para>KDF/HMAC key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a2ae4ca634e860795dc326e753b2e832c" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_RSA_PVT</name>
+          <briefdescription>
+<para>RSA private-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a8b95f638cae3ac6423bb3cbed4c13db6" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_RSA_PUB</name>
+          <briefdescription>
+<para>RSA public-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1b016982269fab09012a3ce907c0982a" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_ECC_PVT</name>
+          <briefdescription>
+<para>ECC private-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011add0ddcf5c6232fd38a01c25133349040" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_ECC_PUB</name>
+          <briefdescription>
+<para>ECC public-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a655edc256867e0c3bc668b21f41946ad" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_LMS</name>
+          <briefdescription>
+<para>LMS key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a0b6e40d7f4d88cac128e43f117b58273" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PVT</name>
+          <briefdescription>
+<para>Reserved SLH-DSA private-key position. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a65493d699c2c996bf4a8d1bf12fd9dac" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PUB</name>
+          <briefdescription>
+<para>Reserved SLH-DSA public-key position. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af46535a627781b775d18ce67bb85ec93" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PVT</name>
+          <briefdescription>
+<para>ML-DSA private-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af68bc5ebd82d208143778538fe8241fb" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PUB</name>
+          <briefdescription>
+<para>ML-DSA public-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a580d9424cf6ae479e0b3ad09f04540f4" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PVT</name>
+          <briefdescription>
+<para>ML-KEM private-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011ac9bacd0f21d1c60d8dbb37f80fd04af2" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PUB</name>
+          <briefdescription>
+<para>ML-KEM public-key capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a9b8e57bed3ef9dbe27c9034c6bd349f3" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_IDX_X509</name>
+          <briefdescription>
+<para>X.509 certificate capacity. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1fa0e9a8ea3ebf0208be61d962344f4e" prot="public">
+          <name>XASU_PROVISION_CREATE_CAP_COUNT</name>
+          <briefdescription>
+<para>Number of capacity fields on the wire. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>CREATE_KEY_VAULT capacity-field indices in wire order. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h" bodystart="171" bodyend="189"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Provisioning module definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para>The Provisioning module implements the ASU Provisioning Interface (SAS section 12.16). It supports programming the USER eFUSE keys. USER_EFUSE_KEY_0 is programmed in black form only. USER_EFUSE_KEY_1 accepts both black (PUF KEK encrypted) and red (unencrypted) via KeyForm. Red USER key 1 can be used by both PLM and ASU. Black USER key 0 and black USER key 1 are subsystem-exclusive; choose black provisioning with the intended end use case in mind.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kp   06/27/26 Initial release
+      kp   09/23/26 KeyForm for USER eFUSE key 1 red/black via XASU_EFUSE_*</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XASU_PROVISIONINFO_H_</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISIONINFO_H_</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__def_8h" kindref="compound">xasu_def.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__keymanagerinfo_8h" kindref="compound">xasu_keymanagerinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__mldsainfo_8h" kindref="compound">xasu_mldsainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Provisioning<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1gafb73d68e9209938633c991b05a84c612" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_USER_EFUSE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_GET_DPC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xasu__common__defs_1ga48f2fc2ca5a0337e365aa123628fd1e6" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_DELETE_DPC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_WRAP_INSTR_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UNWRAP_INSTR_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1gaf65d87d5dd15a14912de0de68742a37a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xasu__common__defs_1ga701bb63301e2c836767006fd86c5b060" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xasu__common__defs_1ga95ae5258a0eac98a5fb9299acc3864f4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>UDE<sp/>key<sp/>sizes<sp/>(ECC<sp/>NIST<sp/>P-384).<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_CERT_MAX_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2000U)<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_CERT_ACTUAL_SIZE_IN_BYTES<sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="81" refid="group__xasu__common__defs_1ga73ee381a8d63165f7fdca4ab460c54e1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*<sp/>UDE<sp/>key<sp/>type.<sp/>Only<sp/>ECC<sp/>NIST<sp/>P-384<sp/>is<sp/>supported<sp/>currently;<sp/>ML-DSA<sp/>support<sp/>is<sp/>deferred<sp/>to<sp/>a<sp/>later</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/>release.</highlight></codeline>
+<codeline lineno="84" refid="group__xasu__common__defs_1gad69c7a5d0c5526aeb07a8650dd553e72" refkind="member"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TODO:<sp/>Add<sp/>the<sp/>SLH-DSA<sp/>UDE<sp/>key<sp/>type<sp/>when<sp/>the<sp/>UDE<sp/>and<sp/>DPC<sp/>formats<sp/>support<sp/>SLH-DSA<sp/>keys.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_UDE_KEY_TYPE_ECC_P384<sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_DPC_ACTUAL_SIZE_IN_BYTES<sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Authenticated<sp/>Encrypted<sp/>Provisioning<sp/>Instructions<sp/>(AEPI)<sp/>version<sp/>1<sp/>geometry.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_RECORD_HEADER_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_STORE_KEY_METADATA_SIZE<sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_MAX_RECORD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_RECORD_HEADER_SIZE<sp/>+<sp/>XASU_PROVISION_STORE_KEY_METADATA_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_MLDSA_MAX_PRIV_KEY_LEN)<sp/></highlight></codeline>
+<codeline lineno="98" refid="group__xasu__common__defs_1gacf23d886851705cb977606902a41305c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_MAX_STORE_KEY_DATA_SIZE<sp/><sp/>\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_MAX_RECORD_SIZE<sp/>-<sp/>XASU_PROVISION_RECORD_HEADER_SIZE<sp/>-<sp/>\</highlight></codeline>
+<codeline lineno="100" refid="group__xasu__common__defs_1ga230384c5301e2a463389c453ef40e366" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_PROVISION_STORE_KEY_METADATA_SIZE)<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_IMAGE_HEADER_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(848U)<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE<sp/><sp/><sp/><sp/>(7920U)<sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_IMAGE_CHUNK_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8496U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_IMAGE_MAX_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="107" refid="group__xasu__common__defs_1ga46760cf717e12268a1c0fff82ff87d08" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_IMAGE_MAX_CHUNKS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="108" refid="group__xasu__common__defs_1ga3529dd58fc1d1e52cda381d7af95b9d1" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XASU_PROVISION_IMAGE_MAX_SIZE<sp/>-<sp/>XASU_PROVISION_IMAGE_HEADER_SIZE)<sp/>/<sp/>\</highlight></codeline>
+<codeline lineno="109" refid="group__xasu__common__defs_1ga729ee74d49168ad5131004fb6d8982e3" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_PROVISION_IMAGE_CHUNK_SIZE)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_IMAGE_MAX_RECORD_BLOB_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_IMAGE_MAX_CHUNKS<sp/>*<sp/>XASU_PROVISION_IMAGE_CHUNK_DATA_SIZE)</highlight></codeline>
+<codeline lineno="112" refid="group__xasu__common__defs_1gadcca441d5deff6c0a0ece9125b42e813" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="comment">/*<sp/>CREATE_KEY_VAULT<sp/>instruction<sp/>layout,<sp/>counted<sp/>from<sp/>the<sp/>start<sp/>of<sp/>the<sp/>record.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="117" refid="group__xasu__common__defs_1gae554b666ce5bf6ac119497c3c0473ca8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_CAP_FIELD_SIZE<sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="118" refid="group__xasu__common__defs_1ga228f36113280b5309c29ab272983929d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE<sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="119" refid="group__xasu__common__defs_1gae7f23ebf22bf06b662495152526a9fb1" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_RESTRICTIONS_FIELD_SIZE<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="120" refid="group__xasu__common__defs_1gaf025816aef91e55cba810b9eac4b6ea4" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_VAULT_ID_OFFSET<sp/><sp/><sp/>(XASU_PROVISION_RECORD_HEADER_SIZE)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_CAPS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="123" refid="group__xasu__common__defs_1ga33a6787912d41c58556de8d96dce4165" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_CREATE_VAULT_ID_OFFSET<sp/>+<sp/>XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_CAP_OFFSET(Index)<sp/>\</highlight></codeline>
+<codeline lineno="126" refid="group__xasu__common__defs_1ga311ea3302ea8e692a016d964711f292e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_CREATE_CAPS_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Index)<sp/>*<sp/>XASU_PROVISION_CREATE_CAP_FIELD_SIZE))<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_ACCESS_OFFSET<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_PROVISION_CREATE_CAP_OFFSET(XASU_PROVISION_CREATE_CAP_COUNT)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_RESTRICTIONS_OFFSET<sp/>\</highlight></codeline>
+<codeline lineno="132" refid="group__xasu__common__defs_1ga24a05f371aa84b8ef4865d738816c518" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_CREATE_ACCESS_OFFSET<sp/>+<sp/>XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="133" refid="group__xasu__common__defs_1gaa7bf5898b65a668833204472a68b786c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134" refid="group__xasu__common__defs_1ga5e88f79a4bc18bad5c2d19395d41ebbc" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_CREATE_VAULT_PAYLOAD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="135" refid="group__xasu__common__defs_1ga244c93dd7d7ef88ceac14987d4f12f46" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_PROVISION_CREATE_VAULT_ID_FIELD_SIZE<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="136" refid="group__xasu__common__defs_1ga6e21b2dc4b9924cfb7242164a1538df2" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XASU_PROVISION_CREATE_CAP_COUNT<sp/>*<sp/>XASU_PROVISION_CREATE_CAP_FIELD_SIZE)<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_PROVISION_CREATE_ACCESS_FIELD_SIZE<sp/>+<sp/>XASU_PROVISION_CREATE_RESTRICTIONS_FIELD_SIZE)</highlight></codeline>
+<codeline lineno="138" refid="group__xasu__common__defs_1ga5b999da960dcab4d0c04942e705a5f77" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140"><highlight class="comment">/*<sp/>USER<sp/>eFUSE<sp/>key<sp/>identifier<sp/>(which<sp/>eFUSE<sp/>user<sp/>key<sp/>to<sp/>program).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="group__xasu__common__defs_1gaa1bcccc2928022825591c29149faba8b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_EFUSE_USER_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_EFUSE_USER_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>source<sp/>for<sp/>the<sp/>key<sp/>to<sp/>be<sp/>programmed<sp/>into<sp/>the<sp/>USER<sp/>eFUSE.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_PROVISION_KEY_SOURCE_ASU_GENERATED<sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_KEY_SOURCE_VAULT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XASU_PROVISION_KEY_SOURCE_USER_BUFFER<sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152" refid="group__xasu__common__defs_1gab91dbb8b6b10788f91eeeef05794144f" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011aca56ecdbf84134cf8bcde92b0e672a50" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_AES</ref><sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a4dfebf8912e99430ef9ec27313ac6139" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_IV</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a85cc0ec4cf2ae8f0a7a2456a42f39d63" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_KDF_HMAC</ref>,<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a2ae4ca634e860795dc326e753b2e832c" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_RSA_PVT</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a8b95f638cae3ac6423bb3cbed4c13db6" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_RSA_PUB</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1b016982269fab09012a3ce907c0982a" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_ECC_PVT</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__xasu__common__defs_1ga4dcc7a5f2c25c77dcc3416a70483a79c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011add0ddcf5c6232fd38a01c25133349040" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_ECC_PUB</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="group__xasu__common__defs_1ga52fd70833b2cf3eef184f587aeadb8bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a655edc256867e0c3bc668b21f41946ad" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_LMS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>Activate<sp/>these<sp/>fields<sp/>when<sp/>KeyManager<sp/>provides<sp/>SLH-DSA<sp/>private/public<sp/>sub-vaults.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a0b6e40d7f4d88cac128e43f117b58273" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PVT</ref>,<sp/></highlight></codeline>
+<codeline lineno="163" refid="group__xasu__common__defs_1ga45c9acd7a4359762f0e7dbe15450dd73" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a65493d699c2c996bf4a8d1bf12fd9dac" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_SLHDSA_PUB</ref>,<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af46535a627781b775d18ce67bb85ec93" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PVT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af68bc5ebd82d208143778538fe8241fb" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_MLDSA_PUB</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__xasu__common__defs_1ga41cd673b792a55b629b66fe1d537a38c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a580d9424cf6ae479e0b3ad09f04540f4" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PVT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__xasu__common__defs_1gaf93941a12d28f04eec71f776c0744cc2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011ac9bacd0f21d1c60d8dbb37f80fd04af2" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_MLKEM_PUB</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a9b8e57bed3ef9dbe27c9034c6bd349f3" kindref="member">XASU_PROVISION_CREATE_CAP_IDX_X509</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a1fa0e9a8ea3ebf0208be61d962344f4e" kindref="member">XASU_PROVISION_CREATE_CAP_COUNT</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}<sp/><ref refid="group__xasu__common__defs_1ga1f60b6c0b19dbb581b463ad1bfd61011" kindref="member">XAsu_ProvisionCreateCapIndex</ref>;</highlight></codeline>
+<codeline lineno="171" refid="group__xasu__common__defs_1ga1f60b6c0b19dbb581b463ad1bfd61011" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af46535a627781b775d18ce67bb85ec93" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184" refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011af68bc5ebd82d208143778538fe8241fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyAddr;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="group__xasu__common__defs_1gga1f60b6c0b19dbb581b463ad1bfd61011a9b8e57bed3ef9dbe27c9034c6bd349f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeyId;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>KeyLen;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EfuseKeyId;<sp/><sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>KeySource;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>KeyForm;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[7];<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="normal">}<sp/><ref refid="struct_x_asu___provision_user_efuse_params" kindref="compound">XAsu_ProvisionUserEfuseParams</ref>;</highlight></codeline>
+<codeline lineno="202" refid="struct_x_asu___provision_user_efuse_params" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210" refid="struct_x_asu___provision_user_efuse_params_1aa02a36f73576739bf9ac62db71a783c1" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CertBufAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CertActualSizeAddr;<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CertBufSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UdeSlot;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UdeKeyType;<sp/><sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Reserved;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="normal">}<sp/><ref refid="struct_x_asu___provision_ude_params" kindref="compound">XAsu_ProvisionUdeParams</ref>;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DpcBufAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DpcActualSizeAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="239" refid="struct_x_asu___provision_ude_params_1ad299a518f363ed3e3de150df11a74dd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DpcBufSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="struct_x_asu___provision_ude_params_1af0d072ebae19d3b61b628a808dc6eee7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241" refid="struct_x_asu___provision_ude_params_1a21b377e2b93d4ede8b0b3df906d547b9" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___dev_provision_cert_params" kindref="compound">XAsu_DevProvisionCertParams</ref>;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>RecordBlobAddr;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ImageAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImageBufSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253" refid="struct_x_asu___dev_provision_cert_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RecordBlobLen;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254" refid="struct_x_asu___dev_provision_cert_params_1ad5a2869c61c811c78937789176bf9e86" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___wrap_provision_instructions_params" kindref="compound">XAsu_WrapProvisionInstructionsParams</ref>;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="struct_x_asu___dev_provision_cert_params_1a2c646e432555b95f7b938e62708d0e54" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/>*<sp/>Caller<sp/>parameters<sp/>for<sp/>processing<sp/>one<sp/>complete<sp/>wrapped<sp/>provisioning<sp/>image.<sp/>The<sp/>ASU<sp/>resolves<sp/>both</highlight></codeline>
+<codeline lineno="258" refid="struct_x_asu___dev_provision_cert_params_1a48852f2d73594cb9f8001aff2e814694" refkind="member"><highlight class="comment"><sp/>*<sp/>the<sp/>P-384<sp/>signature-verification<sp/>public<sp/>key<sp/>and<sp/>the<sp/>ECIES<sp/>receive<sp/>private<sp/>key<sp/>from<sp/>the<sp/>requesting</highlight></codeline>
+<codeline lineno="259" refid="struct_x_asu___dev_provision_cert_params_1af94e02b1e3a7b8f0a6835439087c7edd" refkind="member"><highlight class="comment"><sp/>*<sp/>subsystem&apos;s<sp/>reserved<sp/>provisioning<sp/>slots<sp/>in<sp/>the<sp/>ASU<sp/>exportable<sp/>vault.</highlight></codeline>
+<codeline lineno="260"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ImageAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}<sp/>XAsu_UnwrapProvisionInstructionsParams;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268" refid="struct_x_asu___wrap_provision_instructions_params" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269" refid="struct_x_asu___wrap_provision_instructions_params_1a4dec645d0382ed3b7e8dfff2ce0eabcb" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270" refid="struct_x_asu___wrap_provision_instructions_params_1a913b711a886131b8e43c79f4765ac33b" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271" refid="struct_x_asu___wrap_provision_instructions_params_1ad19eafae98c6e8bffa8c67d8eeb6cbc3" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272" refid="struct_x_asu___wrap_provision_instructions_params_1a5a03564dfc49212993286af3422b601e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_PROVISIONINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_provisioninfo.h"/>
+  </compounddef>
+</doxygen>

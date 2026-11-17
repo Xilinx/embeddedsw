@@ -1,5 +1,9 @@
 var xaxidma__bdring_8c =
 [
+    [ "XAXIDMA_RING_SEEKAHEAD", "xaxidma__bdring_8c.html#aff38d47fd5fb6f1783846fa0120c2fab", null ],
+    [ "XAXIDMA_RING_SEEKBACK", "xaxidma__bdring_8c.html#aad1001294e7cbcf392090922424b68cb", null ],
+    [ "XAXIDMA_STOP_TIMEOUT", "xaxidma__bdring_8c.html#a8b60749d5a2bfdd8fc0c7a007d832498", null ],
+    [ "XAXIDMA_VIRT_TO_PHYS", "xaxidma__bdring_8c.html#a4df2f97f51b475b5c785fc2da2fc7b5d", null ],
     [ "XAxiDma_BdRingAlloc", "xaxidma__bdring_8c.html#ga44003cd704b7d4868d1dc00bb433a91f", null ],
     [ "XAxiDma_BdRingCheck", "xaxidma__bdring_8c.html#ga64cf3c732bc803da742c256ab6372e0e", null ],
     [ "XAxiDma_BdRingClone", "xaxidma__bdring_8c.html#gad044df5bd676a71226411ba7f78ef20b", null ],

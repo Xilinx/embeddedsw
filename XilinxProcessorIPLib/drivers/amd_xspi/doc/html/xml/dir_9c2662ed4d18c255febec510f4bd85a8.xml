@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9c2662ed4d18c255febec510f4bd85a8" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="amd__xspi_8c">amd_xspi.c</innerfile>
+    <innerfile refid="amd__xspi_8h">amd_xspi.h</innerfile>
+    <innerfile refid="amd__xspi__control_8c">amd_xspi_control.c</innerfile>
+    <innerfile refid="amd__xspi__control_8h">amd_xspi_control.h</innerfile>
+    <innerfile refid="amd__xspi__g_8c">amd_xspi_g.c</innerfile>
+    <innerfile refid="amd__xspi__hw_8c">amd_xspi_hw.c</innerfile>
+    <innerfile refid="amd__xspi__hw_8h">amd_xspi_hw.h</innerfile>
+    <innerfile refid="amd__xspi__options_8c">amd_xspi_options.c</innerfile>
+    <innerfile refid="amd__xspi__sinit_8c">amd_xspi_sinit.c</innerfile>
+    <innerfile refid="amd__xspi__xfer_8c">amd_xspi_xfer.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/src/"/>
+  </compounddef>
+</doxygen>

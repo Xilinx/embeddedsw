@@ -9,12 +9,12 @@
         <argsstring></argsstring>
         <name>Tsusta</name>
         <briefdescription>
-        </briefdescription>
+<para>Setup time for a repeated START. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="43" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_timing_regs_1af35e611eaa72881033ac122b5c0b1827" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -22,12 +22,12 @@
         <argsstring></argsstring>
         <name>Tsusto</name>
         <briefdescription>
-        </briefdescription>
+<para>Setup time for STOP. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="44" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_timing_regs_1a4f1b1e1433f0bff598dc84fd2d20847c" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -35,12 +35,12 @@
         <argsstring></argsstring>
         <name>Thdsta</name>
         <briefdescription>
-        </briefdescription>
+<para>Hold time for START. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="45" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_timing_regs_1aa2a9c7b225bbb667d5da76462e483f51" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -48,12 +48,12 @@
         <argsstring></argsstring>
         <name>Tsudat</name>
         <briefdescription>
-        </briefdescription>
+<para>Data setup time. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="46" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_timing_regs_1a0775f5f8fbf59ff2d7e0b0c29ec72ffd" prot="public" static="no" mutable="no">
         <type>unsigned int</type>
@@ -61,19 +61,19 @@
         <argsstring></argsstring>
         <name>Tbuf</name>
         <briefdescription>
-        </briefdescription>
+<para>Bus free time. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="47" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="53" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="42" bodyend="48"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="48" bodyend="54"/>
     <listofallmembers>
       <member refid="struct_timing_regs_1a0775f5f8fbf59ff2d7e0b0c29ec72ffd" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Tbuf</name></member>
       <member refid="struct_timing_regs_1a4f1b1e1433f0bff598dc84fd2d20847c" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Thdsta</name></member>

@@ -10,38 +10,192 @@
         <argsstring></argsstring>
         <name>RFdc_Config</name>
         <briefdescription>
-        </briefdescription>
+<para>Config structure. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="777" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="777" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="847" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="847" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga259ea2f270f0ce46ac06912cd7dcdfb9" compoundref="xrfdc_8c" startline="273" endline="317">XRFdc_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga3a6973a9df60d0842bb27c9da5414c08" compoundref="xrfdc_8c" startline="761" endline="822">XRFdc_CustomStartUp</referencedby>
+        <referencedby refid="group___overview_1gadd43c4d3f675553864148accac53099f" compoundref="xrfdc__ap_8c" startline="2028" endline="2137">XRFdc_DisableCoefficientsOverride</referencedby>
+        <referencedby refid="group___overview_1ga2390330eaf525d57a9500d298d712db1" compoundref="xrfdc__clock_8c" startline="1746" endline="2090">XRFdc_DynamicPLLConfig</referencedby>
+        <referencedby refid="group___overview_1ga67047aa102b426a42f263b151fbed1a8" compoundref="xrfdc__ap_8c" startline="2381" endline="2565">XRFdc_GetCalCoefficients</referencedby>
+        <referencedby refid="group___overview_1gaab11b20e3aadaf71a627350a447e6f98" compoundref="xrfdc__ap_8c" startline="1523" endline="1581">XRFdc_GetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1gadbda21c40278f6c95ce2a02f0d52c49c" compoundref="xrfdc__clock_8c" startline="1117" endline="1152">XRFdc_GetClockSource</referencedby>
+        <referencedby refid="group___overview_1gad2d6653ec718b7101f71a1b83d396353" compoundref="xrfdc__mb_8c" startline="990" endline="1122">XRFdc_GetConnectedIQData</referencedby>
+        <referencedby refid="group___overview_1ga8088952096ccd13370fb1cfc2b6cf87a" compoundref="xrfdc__ap_8c" startline="1599" endline="1660">XRFdc_GetCoupling</referencedby>
+        <referencedby refid="group___overview_1gac1180594017f7487eb745ff32c1948de" compoundref="xrfdc__ap_8c" startline="2864" endline="2893">XRFdc_GetDACCompMode</referencedby>
+        <referencedby refid="group___overview_1gad0ee4a76a0f85109a41af7ef74f351f3" compoundref="xrfdc_8c" startline="1504" endline="1549">XRFdc_GetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1ga90c595b371ba67104d2fb525e8b3997e" compoundref="xrfdc__mixer_8c" startline="1122" endline="1155">XRFdc_GetDataType</referencedby>
+        <referencedby refid="group___overview_1ga6c7abc983e35e136a2b6c570604f5ac2" compoundref="xrfdc_8c" startline="2260" endline="2291">XRFdc_GetDataWidth</referencedby>
+        <referencedby refid="group___overview_1ga1164a091617095872eda503c31fbde75" compoundref="xrfdc__ap_8c" startline="3050" endline="3100">XRFdc_GetDSA</referencedby>
+        <referencedby refid="group___overview_1gabc613302da7d96099a662782238f211b" compoundref="xrfdc__dp_8c" startline="1985" endline="2008">XRFdc_GetFabClkFreq</referencedby>
+        <referencedby refid="group___overview_1ga263541a35ffd82b926e315a252f4e6d1" compoundref="xrfdc__dp_8c" startline="1608" endline="1647">XRFdc_GetFIFOStatusInt</referencedby>
+        <referencedby refid="group___overview_1ga24bd6bd466b879bbccb7795cc7bce579" compoundref="xrfdc__dp_8c" startline="540" endline="574">XRFdc_GetInterpolationFactor</referencedby>
+        <referencedby refid="group___overview_1ga5d91be839769234e2d63fad7fe8b7d3f" compoundref="xrfdc__ap_8c" startline="3255" endline="3271">XRFdc_GetInverseSincFilter</referencedby>
+        <referencedby refid="group___overview_1gacf81adf625a86bbec8a01089b732f090" compoundref="xrfdc__dp_8c" startline="774" endline="796">XRFdc_GetInvSincFIR</referencedby>
+        <referencedby refid="group___overview_1ga4413c219f6bffc87d0790e0e86d20780" compoundref="xrfdc__ap_8c" startline="1679" endline="1718">XRFdc_GetLinkCoupling</referencedby>
+        <referencedby refid="group___overview_1gad3c8f0726a2ab71aea60d864291c927d" compoundref="xrfdc__mts_8c" startline="1455" endline="1474">XRFdc_GetMasterTile</referencedby>
+        <referencedby refid="group___overview_1ga7530ece50716f0a969940368e597db2b" compoundref="xrfdc_8c" startline="2356" endline="2387">XRFdc_GetMaxSampleRate</referencedby>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga7ab226b7c257253e4976343b3744e190" compoundref="xrfdc__ap_8c" startline="1292" endline="1360">XRFdc_GetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1ga5e8fd98f1aee41330fe156a68dfdebf1" compoundref="xrfdc__ap_8c" startline="1126" endline="1171">XRFdc_GetOutputCurr</referencedby>
+        <referencedby refid="group___overview_1ga988457a61856845ec98129b9d83076c4" compoundref="xrfdc_8c" startline="1928" endline="1966">XRFdc_GetPwrMode</referencedby>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gae0ab43740e523db021184fc27ced71d6" compoundref="xrfdc__mts_8c" startline="1489" endline="1508">XRFdc_GetSysRefSource</referencedby>
+        <referencedby refid="group___overview_1ga81f57de8de394ff1498bab6c3b46837e" compoundref="xrfdc_8c" startline="2442" endline="2452">XRFdc_GetTileLayout</referencedby>
+        <referencedby refid="group___overview_1ga5d4b9f3f2a6537c481241102777c8e90" compoundref="xrfdc__dp_8c" startline="2025" endline="2054">XRFdc_IsFifoEnabled</referencedby>
+        <referencedby refid="group___overview_1gab0e915848a69e9133dab0cd0d2a4aa58" compoundref="xrfdc_8c" startline="2054" endline="2069">XRFdc_IsHighSpeedADC</referencedby>
+        <referencedby refid="group___overview_1gad7e3cba3e05ff50ddfe105a36f81fb80" compoundref="xrfdc__mb_8c" startline="750" endline="884">XRFdc_MultiBand</referencedby>
+        <referencedby refid="group___overview_1gacc6a5e692757dd5f46bd79bbc6f011a3" compoundref="xrfdc__dp_8c" startline="1945" endline="1970">XRFdc_ResetInternalFIFOWidthObs</referencedby>
+        <referencedby refid="group___overview_1gaef0dfffbf09a96651458e7132321316c" compoundref="xrfdc__ap_8c" startline="2158" endline="2360">XRFdc_SetCalCoefficients</referencedby>
+        <referencedby refid="group___overview_1ga2310adf5e069777ce80724de7d1c601f" compoundref="xrfdc__ap_8c" startline="1380" endline="1503">XRFdc_SetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1gaa1c386fddeca68b7a71ea29b988b11f3" compoundref="xrfdc__ap_8c" startline="2912" endline="2946">XRFdc_SetDACCompMode</referencedby>
+        <referencedby refid="group___overview_1gacda6cd61031f30a5ff4fee7fbff9bf47" compoundref="xrfdc__ap_8c" startline="2710" endline="2845">XRFdc_SetDACVOP</referencedby>
+        <referencedby refid="group___overview_1ga32b26582f802cbabc390adcf56f064f6" compoundref="xrfdc_8c" startline="1352" endline="1484">XRFdc_SetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1gae74e1d49f3f10c8dad02d6a55b4cd0dc" compoundref="xrfdc__ap_8c" startline="2966" endline="3030">XRFdc_SetDSA</referencedby>
+        <referencedby refid="group___overview_1gaaafa1267b323817e09a614c38de78947" compoundref="xrfdc__dp_8c" startline="925" endline="964">XRFdc_SetFabClkOutDiv</referencedby>
+        <referencedby refid="group___overview_1ga7720097ba03065d7088e16fc5667cf42" compoundref="xrfdc__dp_8c" startline="383" endline="519">XRFdc_SetInterpolationFactor</referencedby>
+        <referencedby refid="group___overview_1ga78e05abc52a947dafdaecb11a41f7fe4" compoundref="xrfdc__dp_8c" startline="711" endline="752">XRFdc_SetInvSincFIR</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga3e5edd66ceb653abf8f316f8cb0bec38" compoundref="xrfdc__ap_8c" startline="1192" endline="1271">XRFdc_SetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gad428455c40bba3ac0b3b7d15ff6b726f" compoundref="xrfdc_8c" startline="1846" endline="1909">XRFdc_SetPwrMode</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1abc5a9e9b65015a6be5a33d82df322be0" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc::IsReady</definition>
         <argsstring></argsstring>
         <name>IsReady</name>
         <briefdescription>
-        </briefdescription>
+<para>Device readiness status. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="778" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="778" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="848" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="848" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga259ea2f270f0ce46ac06912cd7dcdfb9" compoundref="xrfdc_8c" startline="273" endline="317">XRFdc_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga21d64e03d2ee900cfa8310ceb2e4e063" compoundref="xrfdc__ap_8c" startline="3210" endline="3238">XRFdc_CheckBlockEnabled</referencedby>
+        <referencedby refid="group___overview_1gab2d605d73ee9704981ba1acaab920797" compoundref="xrfdc_8c" startline="2307" endline="2339">XRFdc_CheckTileEnabled</referencedby>
+        <referencedby refid="group___overview_1ga46ba546f8d4a4428c159bba354983dc3" compoundref="xrfdc_8c" startline="2003" endline="2013">XRFdc_ClrReg</referencedby>
+        <referencedby refid="group___overview_1gab86de4ac4494565e373e0039bcefc914" compoundref="xrfdc_8c" startline="1980" endline="1990">XRFdc_ClrSetReg</referencedby>
+        <referencedby refid="group___overview_1ga3a6973a9df60d0842bb27c9da5414c08" compoundref="xrfdc_8c" startline="761" endline="822">XRFdc_CustomStartUp</referencedby>
+        <referencedby refid="group___overview_1gadd43c4d3f675553864148accac53099f" compoundref="xrfdc__ap_8c" startline="2028" endline="2137">XRFdc_DisableCoefficientsOverride</referencedby>
+        <referencedby refid="group___overview_1gadfcff833fb9078071546a872f78b03a1" compoundref="xrfdc_8c" startline="1777" endline="1801">XRFdc_DumpRegs</referencedby>
+        <referencedby refid="group___overview_1ga2390330eaf525d57a9500d298d712db1" compoundref="xrfdc__clock_8c" startline="1746" endline="2090">XRFdc_DynamicPLLConfig</referencedby>
+        <referencedby refid="group___overview_1ga7cc346794b66e3ee2e0f085aa9b8d64a" compoundref="xrfdc_8c" startline="2152" endline="2193">XRFdc_Get_BlockBaseAddr</referencedby>
+        <referencedby refid="group___overview_1gaf8d47e1a51ffa02a3dd2ba5181a30e9a" compoundref="xrfdc_8c" startline="2082" endline="2087">XRFdc_Get_IPBaseAddr</referencedby>
+        <referencedby refid="group___overview_1ga04f8c86023a675e8ac123043956f0e9c" compoundref="xrfdc_8c" startline="2103" endline="2134">XRFdc_Get_TileBaseAddr</referencedby>
+        <referencedby refid="group___overview_1ga89b677cb830fd202087220a23b609067" compoundref="xrfdc_8c" startline="1135" endline="1180">XRFdc_GetBlockStatus</referencedby>
+        <referencedby refid="group___overview_1ga67047aa102b426a42f263b151fbed1a8" compoundref="xrfdc__ap_8c" startline="2381" endline="2565">XRFdc_GetCalCoefficients</referencedby>
+        <referencedby refid="group___overview_1gae6e2aadc0f82e6a454d06e5e324974e5" compoundref="xrfdc__ap_8c" startline="2656" endline="2691">XRFdc_GetCalFreeze</referencedby>
+        <referencedby refid="group___overview_1gaab11b20e3aadaf71a627350a447e6f98" compoundref="xrfdc__ap_8c" startline="1523" endline="1581">XRFdc_GetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1ga994a499ba329a43250468b6e5ed0ba36" compoundref="xrfdc__clock_8c" startline="945" endline="1100">XRFdc_GetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1ga4d2d3b2f00ceb30d72b3ab1ece00be82" compoundref="xrfdc__ap_8c" startline="537" endline="576">XRFdc_GetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1ga889649376447bce7933939a22330b6a2" compoundref="xrfdc__mb_8c" startline="1138" endline="1163">XRFdc_GetConnectedIData</referencedby>
+        <referencedby refid="group___overview_1gad2d6653ec718b7101f71a1b83d396353" compoundref="xrfdc__mb_8c" startline="990" endline="1122">XRFdc_GetConnectedIQData</referencedby>
+        <referencedby refid="group___overview_1ga3504998d8ceb2fa3c0af7c2805c2c175" compoundref="xrfdc__mb_8c" startline="1179" endline="1204">XRFdc_GetConnectedQData</referencedby>
+        <referencedby refid="group___overview_1ga8088952096ccd13370fb1cfc2b6cf87a" compoundref="xrfdc__ap_8c" startline="1599" endline="1660">XRFdc_GetCoupling</referencedby>
+        <referencedby refid="group___overview_1gac1180594017f7487eb745ff32c1948de" compoundref="xrfdc__ap_8c" startline="2864" endline="2893">XRFdc_GetDACCompMode</referencedby>
+        <referencedby refid="group___overview_1ga262e01795db999740a717d1392f9a458" compoundref="xrfdc__ap_8c" startline="3368" endline="3388">XRFdc_GetDACDataScaler</referencedby>
+        <referencedby refid="group___overview_1gad0ee4a76a0f85109a41af7ef74f351f3" compoundref="xrfdc_8c" startline="1504" endline="1549">XRFdc_GetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1ga90c595b371ba67104d2fb525e8b3997e" compoundref="xrfdc__mixer_8c" startline="1122" endline="1155">XRFdc_GetDataType</referencedby>
+        <referencedby refid="group___overview_1ga6c7abc983e35e136a2b6c570604f5ac2" compoundref="xrfdc_8c" startline="2260" endline="2291">XRFdc_GetDataWidth</referencedby>
+        <referencedby refid="group___overview_1ga4500f06757536e8ffb71de32e7df9b9c" compoundref="xrfdc__ap_8c" startline="1088" endline="1109">XRFdc_GetDecoderMode</referencedby>
+        <referencedby refid="group___overview_1gae00a323c43fe30c6ccc7cdde28b612f5" compoundref="xrfdc__ap_8c" startline="1798" endline="1830">XRFdc_GetDither</referencedby>
+        <referencedby refid="group___overview_1ga1164a091617095872eda503c31fbde75" compoundref="xrfdc__ap_8c" startline="3050" endline="3100">XRFdc_GetDSA</referencedby>
+        <referencedby refid="group___overview_1ga7989dde4966d0d8f82200488256a0a0b" compoundref="xrfdc__intr_8c" startline="390" endline="510">XRFdc_GetEnabledInterrupts</referencedby>
+        <referencedby refid="group___overview_1gabc613302da7d96099a662782238f211b" compoundref="xrfdc__dp_8c" startline="1985" endline="2008">XRFdc_GetFabClkFreq</referencedby>
+        <referencedby refid="group___overview_1gaee66e0a82e88de2ca82db20b0aa869dd" compoundref="xrfdc__dp_8c" startline="984" endline="1011">XRFdc_GetFabClkOutDiv</referencedby>
+        <referencedby refid="group___overview_1ga263541a35ffd82b926e315a252f4e6d1" compoundref="xrfdc__dp_8c" startline="1608" endline="1647">XRFdc_GetFIFOStatusInt</referencedby>
+        <referencedby refid="group___overview_1gaeff6d2ebe289bfd6169e3c8944cdae34" compoundref="xrfdc_8c" startline="1614" endline="1632">XRFdc_GetIMRPassMode</referencedby>
+        <referencedby refid="group___overview_1ga24bd6bd466b879bbccb7795cc7bce579" compoundref="xrfdc__dp_8c" startline="540" endline="574">XRFdc_GetInterpolationFactor</referencedby>
+        <referencedby refid="group___overview_1ga3b066d0273f3fc1fd24741cfe2cc837c" compoundref="xrfdc__intr_8c" startline="531" endline="612">XRFdc_GetIntrStatus</referencedby>
+        <referencedby refid="group___overview_1ga5d91be839769234e2d63fad7fe8b7d3f" compoundref="xrfdc__ap_8c" startline="3255" endline="3271">XRFdc_GetInverseSincFilter</referencedby>
+        <referencedby refid="group___overview_1gacf81adf625a86bbec8a01089b732f090" compoundref="xrfdc__dp_8c" startline="774" endline="796">XRFdc_GetInvSincFIR</referencedby>
+        <referencedby refid="group___overview_1ga03c20d025edfa68bd5149f3eeb0c5a16" compoundref="xrfdc_8c" startline="1067" endline="1112">XRFdc_GetIPStatus</referencedby>
+        <referencedby refid="group___overview_1ga4413c219f6bffc87d0790e0e86d20780" compoundref="xrfdc__ap_8c" startline="1679" endline="1718">XRFdc_GetLinkCoupling</referencedby>
+        <referencedby refid="group___overview_1gad3c8f0726a2ab71aea60d864291c927d" compoundref="xrfdc__mts_8c" startline="1455" endline="1474">XRFdc_GetMasterTile</referencedby>
+        <referencedby refid="group___overview_1ga7530ece50716f0a969940368e597db2b" compoundref="xrfdc_8c" startline="2356" endline="2387">XRFdc_GetMaxSampleRate</referencedby>
+        <referencedby refid="group___overview_1gaa14f39248ab7bee237a69ece243d93c8" compoundref="xrfdc_8c" startline="2404" endline="2429">XRFdc_GetMinSampleRate</referencedby>
+        <referencedby refid="group___overview_1gaa6a0395d01eef7c9d1750c1abb2f4e1c" compoundref="xrfdc__ap_8c" startline="3288" endline="3304">XRFdc_GetMixedMode</referencedby>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga4d82bec7eb4c90210166121cda32ed99" compoundref="xrfdc__mts_8c" startline="1414" endline="1440">XRFdc_GetMTSEnable</referencedby>
+        <referencedby refid="group___overview_1ga317443e7984605e39a1637e362ccdb90" compoundref="xrfdc__mb_8c" startline="1263" endline="1279">XRFdc_GetMultibandConfig</referencedby>
+        <referencedby refid="group___overview_1ga6cfe0edf86c1230df312d4ab3a593532" compoundref="xrfdc_8c" startline="2232" endline="2243">XRFdc_GetNoOfADCBlocks</referencedby>
+        <referencedby refid="group___overview_1gad2a9eeeb86bd1bc0e4aba438a6fe1f3d" compoundref="xrfdc_8c" startline="2207" endline="2218">XRFdc_GetNoOfDACBlock</referencedby>
+        <referencedby refid="group___overview_1ga7ab226b7c257253e4976343b3744e190" compoundref="xrfdc__ap_8c" startline="1292" endline="1360">XRFdc_GetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1ga5e8fd98f1aee41330fe156a68dfdebf1" compoundref="xrfdc__ap_8c" startline="1126" endline="1171">XRFdc_GetOutputCurr</referencedby>
+        <referencedby refid="group___overview_1gaf806aa894bd65b6fffa3fa978546f41a" compoundref="xrfdc__clock_8c" startline="1586" endline="1717">XRFdc_GetPLLConfig</referencedby>
+        <referencedby refid="group___overview_1ga988457a61856845ec98129b9d83076c4" compoundref="xrfdc_8c" startline="1928" endline="1966">XRFdc_GetPwrMode</referencedby>
+        <referencedby refid="group___overview_1ga43b39e1be1937e41fa1635b60e904f56" compoundref="xrfdc__ap_8c" startline="313" endline="392">XRFdc_GetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gaf778581f9357f82d55bb4ddd4c8936c6" compoundref="xrfdc__ap_8c" startline="1963" endline="2009">XRFdc_GetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gae0ab43740e523db021184fc27ced71d6" compoundref="xrfdc__mts_8c" startline="1489" endline="1508">XRFdc_GetSysRefSource</referencedby>
+        <referencedby refid="group___overview_1gab0076018f6530e26bd9ad95bc7cdc7fa" compoundref="xrfdc__ap_8c" startline="955" endline="1011">XRFdc_GetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1ga81f57de8de394ff1498bab6c3b46837e" compoundref="xrfdc_8c" startline="2442" endline="2452">XRFdc_GetTileLayout</referencedby>
+        <referencedby refid="group___overview_1gafb4999411f07e2bbccde3c466d8ba0da" compoundref="xrfdc__intr_8c" startline="631" endline="748">XRFdc_IntrClr</referencedby>
+        <referencedby refid="group___overview_1ga13cace3e47a78c717a4f2d70916adf4e" compoundref="xrfdc__intr_8c" startline="253" endline="369">XRFdc_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga3ec2e5eb1864718966098b75778e8f9b" compoundref="xrfdc__intr_8c" startline="102" endline="233">XRFdc_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1ga5a026d4f753b844b0c2f4ef7ff3476a4" compoundref="xrfdc__ap_8c" startline="3156" endline="3192">XRFdc_IsADCBlockEnabled</referencedby>
+        <referencedby refid="group___overview_1gafb29ca1d86c9584741dbd4836e10631c" compoundref="xrfdc__ap_8c" startline="3116" endline="3140">XRFdc_IsDACBlockEnabled</referencedby>
+        <referencedby refid="group___overview_1ga5d4b9f3f2a6537c481241102777c8e90" compoundref="xrfdc__dp_8c" startline="2025" endline="2054">XRFdc_IsFifoEnabled</referencedby>
+        <referencedby refid="group___overview_1gab0e915848a69e9133dab0cd0d2a4aa58" compoundref="xrfdc_8c" startline="2054" endline="2069">XRFdc_IsHighSpeedADC</referencedby>
+        <referencedby refid="group___overview_1gad7e3cba3e05ff50ddfe105a36f81fb80" compoundref="xrfdc__mb_8c" startline="750" endline="884">XRFdc_MultiBand</referencedby>
+        <referencedby refid="group___overview_1gada94b454ebfa6c06d6591352ca57f3f1" compoundref="xrfdc_8c" startline="2028" endline="2039">XRFdc_RDReg</referencedby>
+        <referencedby refid="group___overview_1gaa7e0f063f24927037b37fbfcf01e55c2" compoundref="xrfdc_8c" startline="729" endline="738">XRFdc_Reset</referencedby>
+        <referencedby refid="group___overview_1ga18be4857661d0986bdb83db7ffdc022c" compoundref="xrfdc__dp_8c" startline="1900" endline="1925">XRFdc_ResetInternalFIFOWidth</referencedby>
+        <referencedby refid="group___overview_1gacc6a5e692757dd5f46bd79bbc6f011a3" compoundref="xrfdc__dp_8c" startline="1945" endline="1970">XRFdc_ResetInternalFIFOWidthObs</referencedby>
+        <referencedby refid="group___overview_1ga18b8ad2dfc2ba2ffcec2dde7796b5a21" compoundref="xrfdc__mixer_8c" startline="1067" endline="1104">XRFdc_ResetNCOPhase</referencedby>
+        <referencedby refid="group___overview_1gaef0dfffbf09a96651458e7132321316c" compoundref="xrfdc__ap_8c" startline="2158" endline="2360">XRFdc_SetCalCoefficients</referencedby>
+        <referencedby refid="group___overview_1gaee1e547d4a3e8316e1d5a0bc723dae72" compoundref="xrfdc__ap_8c" startline="2584" endline="2637">XRFdc_SetCalFreeze</referencedby>
+        <referencedby refid="group___overview_1ga2310adf5e069777ce80724de7d1c601f" compoundref="xrfdc__ap_8c" startline="1380" endline="1503">XRFdc_SetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1gad56eb12fd1e1e9dad5c4b8c0f7cc87c1" compoundref="xrfdc__clock_8c" startline="526" endline="929">XRFdc_SetClkDistribution</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1gab97e92645ac7826214f132cb26730eda" compoundref="xrfdc__mb_8c" startline="1219" endline="1247">XRFdc_SetConnectedIQData</referencedby>
+        <referencedby refid="group___overview_1gaa1c386fddeca68b7a71ea29b988b11f3" compoundref="xrfdc__ap_8c" startline="2912" endline="2946">XRFdc_SetDACCompMode</referencedby>
+        <referencedby refid="group___overview_1gad055c804d2e61e82b80af0a7dc6e4db8" compoundref="xrfdc__ap_8c" startline="3323" endline="3349">XRFdc_SetDACDataScaler</referencedby>
+        <referencedby refid="group___overview_1gacda6cd61031f30a5ff4fee7fbff9bf47" compoundref="xrfdc__ap_8c" startline="2710" endline="2845">XRFdc_SetDACVOP</referencedby>
+        <referencedby refid="group___overview_1ga32b26582f802cbabc390adcf56f064f6" compoundref="xrfdc_8c" startline="1352" endline="1484">XRFdc_SetDataPathMode</referencedby>
+        <referencedby refid="group___overview_1ga0bab13a0a879dfc442e47cdb38ab327f" compoundref="xrfdc__ap_8c" startline="1035" endline="1066">XRFdc_SetDecoderMode</referencedby>
+        <referencedby refid="group___overview_1gad6be9864ab48f0d17d713c2b9a9cab8e" compoundref="xrfdc__ap_8c" startline="1737" endline="1779">XRFdc_SetDither</referencedby>
+        <referencedby refid="group___overview_1gae74e1d49f3f10c8dad02d6a55b4cd0dc" compoundref="xrfdc__ap_8c" startline="2966" endline="3030">XRFdc_SetDSA</referencedby>
+        <referencedby refid="group___overview_1gaaafa1267b323817e09a614c38de78947" compoundref="xrfdc__dp_8c" startline="925" endline="964">XRFdc_SetFabClkOutDiv</referencedby>
+        <referencedby refid="group___overview_1ga3783d543f295be039303d715ce7f9195" compoundref="xrfdc__dp_8c" startline="1034" endline="1064">XRFdc_SetFabWrVldWords</referencedby>
+        <referencedby refid="group___overview_1gaa6645c553a75a5c6321035a3df183692" compoundref="xrfdc_8c" startline="1569" endline="1594">XRFdc_SetIMRPassMode</referencedby>
+        <referencedby refid="group___overview_1ga7720097ba03065d7088e16fc5667cf42" compoundref="xrfdc__dp_8c" startline="383" endline="519">XRFdc_SetInterpolationFactor</referencedby>
+        <referencedby refid="group___overview_1ga78e05abc52a947dafdaecb11a41f7fe4" compoundref="xrfdc__dp_8c" startline="711" endline="752">XRFdc_SetInvSincFIR</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga3e5edd66ceb653abf8f316f8cb0bec38" compoundref="xrfdc__ap_8c" startline="1192" endline="1271">XRFdc_SetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gad428455c40bba3ac0b3b7d15ff6b726f" compoundref="xrfdc_8c" startline="1846" endline="1909">XRFdc_SetPwrMode</referencedby>
+        <referencedby refid="group___overview_1gaaa95922df5ac3c26a066f4418fc1853e" compoundref="xrfdc__ap_8c" startline="107" endline="293">XRFdc_SetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gab72bb5191c688bb173b676e931dcacb2" compoundref="xrfdc__ap_8c" startline="1850" endline="1943">XRFdc_SetSignalDetector</referencedby>
+        <referencedby refid="group___overview_1gaab67d654d8e0eaa66fbd65c5f1b66823" compoundref="xrfdc__intr_8c" startline="946" endline="954">XRFdc_SetStatusHandler</referencedby>
+        <referencedby refid="group___overview_1gac3fb87248f09b356e8fdb3836658eb27" compoundref="xrfdc__ap_8c" startline="693" endline="780">XRFdc_SetThresholdClrMode</referencedby>
+        <referencedby refid="group___overview_1gaba6dca1e8e40a31b090f14fa12ecd891" compoundref="xrfdc__ap_8c" startline="806" endline="929">XRFdc_SetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1gac6a79b8a22618e638b7d8f6632437963" compoundref="xrfdc_8c" startline="700" endline="709">XRFdc_Shutdown</referencedby>
+        <referencedby refid="group___overview_1ga0441d93b399e5178606bf5dcf7481551" compoundref="xrfdc_8c" startline="672" endline="681">XRFdc_StartUp</referencedby>
+        <referencedby refid="group___overview_1ga69a7ae63cf7acb97d3a3cf591f8a37b4" compoundref="xrfdc__ap_8c" startline="597" endline="667">XRFdc_ThresholdStickyClear</referencedby>
+        <referencedby refid="group___overview_1ga340750315304dc48dc87089b429b5364" compoundref="xrfdc__dp_8c" startline="260" endline="359">XRFdc_UpdateEvent</referencedby>
+        <referencedby refid="group___overview_1ga7ae16eeeaaaf2e568559939aa925c736" compoundref="xrfdc_8c" startline="933" endline="973">XRFdc_WaitForState</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1aa7a654daf6d63b40d317526b63266723" prot="public" static="no" mutable="no">
-        <type>u32</type>
+        <type><ref refid="group___overview_1ga4b24553f052bbb6aae7623e647e703c9" kindref="member">u32</ref></type>
         <definition>u32 XRFdc::ADC4GSPS</definition>
         <argsstring></argsstring>
         <name>ADC4GSPS</name>
         <briefdescription>
-        </briefdescription>
+<para>Indicates 4GSPS ADC operation. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="779" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="849" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="849" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga259ea2f270f0ce46ac06912cd7dcdfb9" compoundref="xrfdc_8c" startline="273" endline="317">XRFdc_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gab0e915848a69e9133dab0cd0d2a4aa58" compoundref="xrfdc_8c" startline="2054" endline="2069">XRFdc_IsHighSpeedADC</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1ad21a93f20455859f7b7405955e67eae6" prot="public" static="no" mutable="no">
         <type>metal_phys_addr_t</type>
@@ -49,12 +203,16 @@
         <argsstring></argsstring>
         <name>BaseAddr</name>
         <briefdescription>
-        </briefdescription>
+<para>Base address. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="780" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="850" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="850" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga259ea2f270f0ce46ac06912cd7dcdfb9" compoundref="xrfdc_8c" startline="273" endline="317">XRFdc_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga7cc346794b66e3ee2e0f085aa9b8d64a" compoundref="xrfdc_8c" startline="2152" endline="2193">XRFdc_Get_BlockBaseAddr</referencedby>
+        <referencedby refid="group___overview_1gaf8d47e1a51ffa02a3dd2ba5181a30e9a" compoundref="xrfdc_8c" startline="2082" endline="2087">XRFdc_Get_IPBaseAddr</referencedby>
+        <referencedby refid="group___overview_1ga04f8c86023a675e8ac123043956f0e9c" compoundref="xrfdc_8c" startline="2103" endline="2134">XRFdc_Get_TileBaseAddr</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1a81a7ec282f785ba4bcea65ea0bc30d6c" prot="public" static="no" mutable="no">
         <type>struct metal_io_region *</type>
@@ -62,12 +220,14 @@
         <argsstring></argsstring>
         <name>io</name>
         <briefdescription>
-        </briefdescription>
+<para>Libmetal IO structure. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="781" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="781" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="851" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="851" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga259ea2f270f0ce46ac06912cd7dcdfb9" compoundref="xrfdc_8c" startline="273" endline="317">XRFdc_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga415b909c08102db406ea819a6c744add" compoundref="xrfdc__sinit_8c" startline="314" endline="364">XRFdc_RegisterMetal</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1a73c0e08ffd35a00a8a06d175a220a4d9" prot="public" static="no" mutable="no">
         <type>struct metal_device *</type>
@@ -75,12 +235,13 @@
         <argsstring></argsstring>
         <name>device</name>
         <briefdescription>
-        </briefdescription>
+<para>Libmetal device structure. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="782" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="782" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="852" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="852" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga415b909c08102db406ea819a6c744add" compoundref="xrfdc__sinit_8c" startline="314" endline="364">XRFdc_RegisterMetal</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1a66942760c9bcc7128f0285d24bed642e" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_r_fdc___d_a_c___tile" kindref="compound">XRFdc_DAC_Tile</ref></type>
@@ -88,12 +249,25 @@
         <argsstring>[4]</argsstring>
         <name>DAC_Tile</name>
         <briefdescription>
-        </briefdescription>
+<para>Per-tile DAC data. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="783" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="853" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="853" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2390330eaf525d57a9500d298d712db1" compoundref="xrfdc__clock_8c" startline="1746" endline="2090">XRFdc_DynamicPLLConfig</referencedby>
+        <referencedby refid="group___overview_1gaa6a0395d01eef7c9d1750c1abb2f4e1c" compoundref="xrfdc__ap_8c" startline="3288" endline="3304">XRFdc_GetMixedMode</referencedby>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gad2a9eeeb86bd1bc0e4aba438a6fe1f3d" compoundref="xrfdc_8c" startline="2207" endline="2218">XRFdc_GetNoOfDACBlock</referencedby>
+        <referencedby refid="group___overview_1ga7ab226b7c257253e4976343b3744e190" compoundref="xrfdc__ap_8c" startline="1292" endline="1360">XRFdc_GetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gaf806aa894bd65b6fffa3fa978546f41a" compoundref="xrfdc__clock_8c" startline="1586" endline="1717">XRFdc_GetPLLConfig</referencedby>
+        <referencedby refid="group___overview_1ga43b39e1be1937e41fa1635b60e904f56" compoundref="xrfdc__ap_8c" startline="313" endline="392">XRFdc_GetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1gab97e92645ac7826214f132cb26730eda" compoundref="xrfdc__mb_8c" startline="1219" endline="1247">XRFdc_SetConnectedIQData</referencedby>
+        <referencedby refid="group___overview_1ga0bab13a0a879dfc442e47cdb38ab327f" compoundref="xrfdc__ap_8c" startline="1035" endline="1066">XRFdc_SetDecoderMode</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga3e5edd66ceb653abf8f316f8cb0bec38" compoundref="xrfdc__ap_8c" startline="1192" endline="1271">XRFdc_SetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gaaa95922df5ac3c26a066f4418fc1853e" compoundref="xrfdc__ap_8c" startline="107" endline="293">XRFdc_SetQMCSettings</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1a12ddfd871ba4d1261a01e8c4a1b7ee1d" prot="public" static="no" mutable="no">
         <type><ref refid="struct_x_r_fdc___a_d_c___tile" kindref="compound">XRFdc_ADC_Tile</ref></type>
@@ -101,12 +275,31 @@
         <argsstring>[4]</argsstring>
         <name>ADC_Tile</name>
         <briefdescription>
-        </briefdescription>
+<para>Per-tile ADC data. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="784" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="854" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="854" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3a6973a9df60d0842bb27c9da5414c08" compoundref="xrfdc_8c" startline="761" endline="822">XRFdc_CustomStartUp</referencedby>
+        <referencedby refid="group___overview_1ga2390330eaf525d57a9500d298d712db1" compoundref="xrfdc__clock_8c" startline="1746" endline="2090">XRFdc_DynamicPLLConfig</referencedby>
+        <referencedby refid="group___overview_1gaab11b20e3aadaf71a627350a447e6f98" compoundref="xrfdc__ap_8c" startline="1523" endline="1581">XRFdc_GetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga6cfe0edf86c1230df312d4ab3a593532" compoundref="xrfdc_8c" startline="2232" endline="2243">XRFdc_GetNoOfADCBlocks</referencedby>
+        <referencedby refid="group___overview_1ga7ab226b7c257253e4976343b3744e190" compoundref="xrfdc__ap_8c" startline="1292" endline="1360">XRFdc_GetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gaf806aa894bd65b6fffa3fa978546f41a" compoundref="xrfdc__clock_8c" startline="1586" endline="1717">XRFdc_GetPLLConfig</referencedby>
+        <referencedby refid="group___overview_1ga43b39e1be1937e41fa1635b60e904f56" compoundref="xrfdc__ap_8c" startline="313" endline="392">XRFdc_GetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gab0076018f6530e26bd9ad95bc7cdc7fa" compoundref="xrfdc__ap_8c" startline="955" endline="1011">XRFdc_GetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1ga2310adf5e069777ce80724de7d1c601f" compoundref="xrfdc__ap_8c" startline="1380" endline="1503">XRFdc_SetCalibrationMode</referencedby>
+        <referencedby refid="group___overview_1ga9a990f0ce6912896ee04b7cd47c06813" compoundref="xrfdc__ap_8c" startline="416" endline="516">XRFdc_SetCoarseDelaySettings</referencedby>
+        <referencedby refid="group___overview_1gab97e92645ac7826214f132cb26730eda" compoundref="xrfdc__mb_8c" startline="1219" endline="1247">XRFdc_SetConnectedIQData</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1ga3e5edd66ceb653abf8f316f8cb0bec38" compoundref="xrfdc__ap_8c" startline="1192" endline="1271">XRFdc_SetNyquistZone</referencedby>
+        <referencedby refid="group___overview_1gaaa95922df5ac3c26a066f4418fc1853e" compoundref="xrfdc__ap_8c" startline="107" endline="293">XRFdc_SetQMCSettings</referencedby>
+        <referencedby refid="group___overview_1gac3fb87248f09b356e8fdb3836658eb27" compoundref="xrfdc__ap_8c" startline="693" endline="780">XRFdc_SetThresholdClrMode</referencedby>
+        <referencedby refid="group___overview_1gaba6dca1e8e40a31b090f14fa12ecd891" compoundref="xrfdc__ap_8c" startline="806" endline="929">XRFdc_SetThresholdSettings</referencedby>
+        <referencedby refid="group___overview_1ga69a7ae63cf7acb97d3a3cf591f8a37b4" compoundref="xrfdc__ap_8c" startline="597" endline="667">XRFdc_ThresholdStickyClear</referencedby>
+        <referencedby refid="group___overview_1ga340750315304dc48dc87089b429b5364" compoundref="xrfdc__dp_8c" startline="260" endline="359">XRFdc_UpdateEvent</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1af78d6a30ebe989c6410b8d48ef3fbf2e" prot="public" static="no" mutable="no">
         <type><ref refid="group___overview_1ga0bd9f5b019da4efe2af3ac562636d798" kindref="member">XRFdc_StatusHandler</ref></type>
@@ -114,12 +307,15 @@
         <argsstring></argsstring>
         <name>StatusHandler</name>
         <briefdescription>
-        </briefdescription>
+<para>Event handler function. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="785" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="785" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="855" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="855" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga259ea2f270f0ce46ac06912cd7dcdfb9" compoundref="xrfdc_8c" startline="273" endline="317">XRFdc_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga0dcb08bb704e0cb5cfc6440fef2d7fdc" compoundref="xrfdc__intr_8c" startline="771" endline="926">XRFdc_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1gaab67d654d8e0eaa66fbd65c5f1b66823" compoundref="xrfdc__intr_8c" startline="946" endline="954">XRFdc_SetStatusHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1a6b3d0431712ea6c0d6cd8b7c6ef7415a" prot="public" static="no" mutable="no">
         <type>void *</type>
@@ -127,25 +323,30 @@
         <argsstring></argsstring>
         <name>CallBackRef</name>
         <briefdescription>
-        </briefdescription>
+<para>Callback reference for event handler. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="786" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="856" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="856" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0dcb08bb704e0cb5cfc6440fef2d7fdc" compoundref="xrfdc__intr_8c" startline="771" endline="926">XRFdc_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1gaab67d654d8e0eaa66fbd65c5f1b66823" compoundref="xrfdc__intr_8c" startline="946" endline="954">XRFdc_SetStatusHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="struct_x_r_fdc_1a6893de460e60ae976d831b1cc580f871" prot="public" static="no" mutable="no">
-        <type>u8</type>
+        <type><ref refid="group___overview_1ga10801722996ad842da66f2e8410abbfd" kindref="member">u8</ref></type>
         <definition>u8 XRFdc::UpdateMixerScale</definition>
         <argsstring></argsstring>
         <name>UpdateMixerScale</name>
         <briefdescription>
-        </briefdescription>
+<para><verbatim>                   Set to 1 if the caller overwrites mixer
+</verbatim> scale. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="787" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="857" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1b32e3890d860a8e8bf6d9859e66a25b" compoundref="xrfdc__mixer_8c" startline="759" endline="1049">XRFdc_GetMixerSettings</referencedby>
+        <referencedby refid="group___overview_1gadea09b22078ade615365c4d1b3c0ab08" compoundref="xrfdc__mixer_8c" startline="113" endline="375">XRFdc_SetMixerSettings</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -296,7 +497,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="776" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="776" bodyend="788"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="846" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="846" bodyend="859"/>
     <listofallmembers>
       <member refid="struct_x_r_fdc_1aa7a654daf6d63b40d317526b63266723" prot="public" virt="non-virtual"><scope>XRFdc</scope><name>ADC4GSPS</name></member>
       <member refid="struct_x_r_fdc_1a12ddfd871ba4d1261a01e8c4a1b7ee1d" prot="public" virt="non-virtual"><scope>XRFdc</scope><name>ADC_Tile</name></member>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
   <compounddef id="structaudio__if" kind="struct" prot="public">
     <compoundname>audio_if</compoundname>
+    <includes local="no">xusb_class_audio_dfu.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structaudio__if_1adcd520160e0364c163105ea75bbe76b3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -9,12 +10,13 @@
         <argsstring></argsstring>
         <name>framesize</name>
         <briefdescription>
-        </briefdescription>
+<para>Framesize. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="139" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1ac0e6929cf9fea7c174e1365c71aa1a79" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -22,12 +24,13 @@
         <argsstring></argsstring>
         <name>interval</name>
         <briefdescription>
-        </briefdescription>
+<para>Interval. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="140" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1af9361c5eefffd4ea3737639efd6eea59" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -35,12 +38,13 @@
         <argsstring></argsstring>
         <name>packetsize</name>
         <briefdescription>
-        </briefdescription>
+<para>Packetsize. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="141" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1ac6a861d0f00b8a2747f929260c9183b3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -48,12 +52,13 @@
         <argsstring></argsstring>
         <name>packetresidue</name>
         <briefdescription>
-        </briefdescription>
+<para>Packetresidue. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="142" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1add9c543fa5296764fc777679fede898b" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -61,12 +66,15 @@
         <argsstring></argsstring>
         <name>residue</name>
         <briefdescription>
-        </briefdescription>
+<para>Residue. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="143" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1a49e240ee622b901f59db10a05bb3459f" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -74,12 +82,15 @@
         <argsstring></argsstring>
         <name>index</name>
         <briefdescription>
-        </briefdescription>
+<para>Index. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="144" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1af6447832e9ef1f10112227aea25ec2bf" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -87,12 +98,15 @@
         <argsstring></argsstring>
         <name>firstpkt</name>
         <briefdescription>
-        </briefdescription>
+<para>Firstpkt. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="145" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8h_1acd0aa2711cb840f03df965a2c16dfebf" compoundref="xusb__class__audio__dfu_8c" startline="261" endline="366">Usb_SetIntf</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1aa974a0a265623ac1f6afb425347fac09" prot="public" static="no" mutable="no">
         <type>u8 *</type>
@@ -100,12 +114,14 @@
         <argsstring></argsstring>
         <name>disk</name>
         <briefdescription>
-        </briefdescription>
+<para>Disk. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="319" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1adb20ed24a1f3e9d7bdf410ae4c230766" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -113,12 +129,14 @@
         <argsstring></argsstring>
         <name>disksize</name>
         <briefdescription>
-        </briefdescription>
+<para>Disksize. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="320" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1a4c644c6851e173a71dd82598917fad94" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -126,12 +144,13 @@
         <argsstring></argsstring>
         <name>bytesRecv</name>
         <briefdescription>
-        </briefdescription>
+<para>Bytes Recv. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="324" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="327" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1a5ab01f5497fd9ab49862dbb1ff494dcc" prot="public" static="no" mutable="no">
         <type>TaskHandle_t</type>
@@ -139,12 +158,12 @@
         <argsstring></argsstring>
         <name>xRecordTask</name>
         <briefdescription>
-        </briefdescription>
+<para>X Record Task. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="325" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="328" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1aa26f8213a753209330e49e85c3a3c655" prot="public" static="no" mutable="no">
         <type>TaskHandle_t</type>
@@ -152,12 +171,12 @@
         <argsstring></argsstring>
         <name>xPlayTask</name>
         <briefdescription>
-        </briefdescription>
+<para>X Play Task. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="326" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="329" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1a388152b303e0394313a62baf66467cbc" prot="public" static="no" mutable="no">
         <type>xSemaphoreHandle</type>
@@ -165,12 +184,13 @@
         <argsstring></argsstring>
         <name>xSemaphoreRecord</name>
         <briefdescription>
-        </briefdescription>
+<para>X Semaphore Record. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="327" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="330" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a3b7cf32bf38cd19d9b38c52b52ebd9c4" compoundref="xusb__freertos__class__composite_8c" startline="1128" endline="1192">prvRecordTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structaudio__if_1a004e648ec5da90f7d090ccf650993f0e" prot="public" static="no" mutable="no">
         <type>xSemaphoreHandle</type>
@@ -178,19 +198,20 @@
         <argsstring></argsstring>
         <name>xSemaphorePlay</name>
         <briefdescription>
-        </briefdescription>
+<para>X Semaphore Play. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="328" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="331" bodyend="-1"/>
+        <referencedby refid="xusb__freertos__class__composite_8c_1a43a401c19d0503aa6f48746b3cb11721" compoundref="xusb__freertos__class__composite_8c" startline="1201" endline="1238">prvPlayBackTask</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>USB Audio interface descriptor structure. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="138" bodyend="146"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="142" bodyend="150"/>
     <listofallmembers>
       <member refid="structaudio__if_1a4c644c6851e173a71dd82598917fad94" prot="public" virt="non-virtual"><scope>audio_if</scope><name>bytesRecv</name></member>
       <member refid="structaudio__if_1aa974a0a265623ac1f6afb425347fac09" prot="public" virt="non-virtual"><scope>audio_if</scope><name>disk</name></member>

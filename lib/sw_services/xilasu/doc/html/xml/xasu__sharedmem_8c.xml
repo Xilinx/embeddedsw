@@ -4,19 +4,27 @@
     <compoundname>xasu_sharedmem.c</compoundname>
     <includes refid="xasu__sharedmem_8h" local="yes">xasu_sharedmem.h</includes>
     <incdepgraph>
-      <node id="1157">
+      <node id="1741">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="1740" relation="include">
+        </childnode>
+      </node>
+      <node id="1738">
         <label>xasu_sharedmem.c</label>
         <link refid="xasu_sharedmem.c"/>
-        <childnode refid="1158" relation="include">
+        <childnode refid="1739" relation="include">
         </childnode>
       </node>
-      <node id="1158">
+      <node id="1739">
         <label>xasu_sharedmem.h</label>
         <link refid="xasu__sharedmem_8h"/>
-        <childnode refid="1159" relation="include">
+        <childnode refid="1740" relation="include">
+        </childnode>
+        <childnode refid="1741" relation="include">
         </childnode>
       </node>
-      <node id="1159">
+      <node id="1740">
         <label>xil_types.h</label>
       </node>
     </incdepgraph>
@@ -30,8 +38,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="34" bodyend="-1"/>
-        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="102" endline="118">XAsu_GetSubsysIdFromIpiMask</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -48,10 +56,68 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="40" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="60" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga66ba951c48b2dad8b96c08f4a4586493" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>(XASU_MAX_MODULES&lt;=(2U *XASU_RTCA_MODULE_INFO_ENTRIES),&quot;XASU_MAX_MODULES exceeds the two RTCA module info regions&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type><ref refid="group__xasu__common__defs_1ga9b1e1dea8f91d3b33cab489bb2126f38" kindref="member">XASU_MAX_MODULES</ref>&lt;=</type>
+          <array>2U *XASU_RTCA_MODULE_INFO_ENTRIES</array>
+        </param>
+        <param>
+          <type>&quot;XASU_MAX_MODULES exceeds the two RTCA module info regions&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga75f7124232ad840e33a8b447163fb517" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>((XASU_RTCA_MODULE_INFO_ENTRIES *sizeof(XAsu_CryptoAlgInfo))&lt;=(XASU_RTCA_DBG_LOG_BUF_INFO_ADDR-XASU_RTCA_MODULE_INFO_BASEADDR),&quot;RTCA module info region overruns the debug log buffer info at RTCA 0x15C&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type>(<ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref> *sizeof(<ref refid="struct_x_asu___crypto_alg_info" kindref="compound">XAsu_CryptoAlgInfo</ref>))&lt;=(<ref refid="group__xasu__common__defs_1ga7a190d10ccdbcc17e6486c40ec4c377a" kindref="member">XASU_RTCA_DBG_LOG_BUF_INFO_ADDR</ref>-<ref refid="group__xasu__common__defs_1ga57ae609337be0fd7bc3e4cccec16e6d5" kindref="member">XASU_RTCA_MODULE_INFO_BASEADDR</ref>)</type>
+        </param>
+        <param>
+          <type>&quot;RTCA module info region overruns the debug log buffer info at RTCA 0x15C&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1gad5c875808c1f8ce1022d593d61656552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_Static_assert</definition>
+        <argsstring>((XASU_RTCA_MODULE_INFO_ENTRIES *sizeof(XAsu_CryptoAlgInfo))&lt;=(XASU_RTCA_PL_CFG_BASE_ADDR-XASU_RTCA_MODULE_INFO_EXT_BASEADDR),&quot;RTCA module info extension region overruns the PL configuration window&quot;)</argsstring>
+        <name>_Static_assert</name>
+        <param>
+          <type>(<ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref> *sizeof(<ref refid="struct_x_asu___crypto_alg_info" kindref="compound">XAsu_CryptoAlgInfo</ref>))&lt;=(<ref refid="group__xasu__common__defs_1ga506ef1847a3cff8eeb38046cfc6226bd" kindref="member">XASU_RTCA_PL_CFG_BASE_ADDR</ref>-<ref refid="group__xasu__common__defs_1ga63d1c5454f4f2152f3b4cc5e1f67f0e2" kindref="member">XASU_RTCA_MODULE_INFO_EXT_BASEADDR</ref>)</type>
+        </param>
+        <param>
+          <type>&quot;RTCA module info extension region overruns the PL configuration window&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="49" column="1"/>
+      </memberdef>
       <memberdef kind="function" id="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
         <definition>u32 XAsu_GetIpiMask</definition>
@@ -78,10 +144,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="58" bodyend="69"/>
-        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
-        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
-        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="78" bodyend="89"/>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="215">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="205">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="214">XAsu_CommChannelInfo::NumOfIpiChannels</references>
       </memberdef>
       <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>u32</type>
@@ -109,12 +175,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="82" bodyend="96"/>
-        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
-        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
-        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
-        <references refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" compoundref="xasu__sharedmem_8h" startline="169">XAsu_CommChannel::SubsystemId</references>
-        <references refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" compoundref="xasu__sharedmem_8c" startline="34">XASU_INVALID_SUBSYS_ID</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="102" bodyend="118"/>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="215">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="205">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="214">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <references refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" compoundref="xasu__sharedmem_8h" startline="207">XAsu_CommChannel::SubsystemId</references>
+        <references refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" compoundref="xasu__sharedmem_8c" startline="54">XASU_INVALID_SUBSYS_ID</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -136,51 +202,73 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__sharedmem_8h" kindref="compound">xasu_sharedmem.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Constant<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Macros<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34" refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_INVALID_SUBSYS_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
-<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="comment">/***********************************<sp/>Type<sp/>Definitions<sp/>********************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Variable<sp/>Definitions<sp/>******************************************/</highlight></codeline>
-<codeline lineno="40" refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" refkind="member"><highlight class="normal"><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*<ref refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" kindref="member">CommChannelInfo</ref><sp/>=<sp/>(<ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*)(UINTPTR)</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gaa9716937444e9436cdfc3eb14bf87419" kindref="member">XASU_RTCA_COMM_CHANNEL_INFO_ADDR</ref>;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**********************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
-<codeline lineno="58" refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" kindref="member">XAsu_GetIpiMask</ref>(u32<sp/>ChannelIndex)</highlight></codeline>
-<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IpiBitMask;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ChannelIndex<sp/>&gt;=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" kindref="member">NumOfIpiChannels</ref>)<sp/>{</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiBitMask<sp/>=<sp/>0U;</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiBitMask<sp/>=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" kindref="member">IpiBitMask</ref>;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>XAsu_GetModuleInfoSlot()<sp/>in<sp/>xasu_sharedmem.h<sp/>indexes<sp/>the<sp/>module<sp/>info<sp/>region<sp/>for<sp/>module<sp/>IDs<sp/>below</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/>XASU_RTCA_MODULE_INFO_ENTRIES<sp/>and<sp/>the<sp/>extension<sp/>region<sp/>for<sp/>the<sp/>rest,<sp/>so<sp/>the<sp/>two<sp/>regions<sp/>together</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/>have<sp/>to<sp/>cover<sp/>every<sp/>module<sp/>ID,<sp/>and<sp/>each<sp/>region<sp/>has<sp/>to<sp/>hold<sp/>the<sp/>entries<sp/>it<sp/>claims.<sp/>Nothing<sp/>else</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/>ties<sp/>XASU_MAX_MODULES<sp/>in<sp/>xasu_def.h<sp/>to<sp/>the<sp/>region<sp/>sizes<sp/>here,<sp/>so<sp/>raising<sp/>it<sp/>past<sp/>the<sp/>two<sp/>regions,</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*<sp/>or<sp/>growing<sp/>XAsu_CryptoAlgInfo<sp/>so<sp/>that<sp/>either<sp/>region<sp/>runs<sp/>into<sp/>whatever<sp/>RTCA<sp/>field<sp/>follows<sp/>it,</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*<sp/>fails<sp/>the<sp/>build<sp/>rather<sp/>than<sp/>writing<sp/>past<sp/>the<sp/>region.</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*<sp/>These<sp/>live<sp/>here<sp/>rather<sp/>than<sp/>beside<sp/>the<sp/>function<sp/>because<sp/>that<sp/>header<sp/>is<sp/>wrapped<sp/>in<sp/>extern<sp/>&quot;C&quot;<sp/>and</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>so<sp/>can<sp/>be<sp/>included<sp/>from<sp/>a<sp/>C++<sp/>translation<sp/>unit,<sp/>where<sp/>_Static_assert<sp/>is<sp/>not<sp/>valid.<sp/>This<sp/>file<sp/>is</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>always<sp/>compiled<sp/>as<sp/>C.</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">_Static_assert(<ref refid="group__xasu__common__defs_1ga9b1e1dea8f91d3b33cab489bb2126f38" kindref="member">XASU_MAX_MODULES</ref><sp/>&lt;=<sp/>(2U<sp/>*<sp/><ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref>),</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XASU_MAX_MODULES<sp/>exceeds<sp/>the<sp/>two<sp/>RTCA<sp/>module<sp/>info<sp/>regions&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">_Static_assert((<ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref><sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___crypto_alg_info" kindref="compound">XAsu_CryptoAlgInfo</ref>))<sp/>&lt;=</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xasu__common__defs_1ga7a190d10ccdbcc17e6486c40ec4c377a" kindref="member">XASU_RTCA_DBG_LOG_BUF_INFO_ADDR</ref><sp/>-<sp/><ref refid="group__xasu__common__defs_1ga57ae609337be0fd7bc3e4cccec16e6d5" kindref="member">XASU_RTCA_MODULE_INFO_BASEADDR</ref>),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;RTCA<sp/>module<sp/>info<sp/>region<sp/>overruns<sp/>the<sp/>debug<sp/>log<sp/>buffer<sp/>info<sp/>at<sp/>RTCA<sp/>0x15C&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">_Static_assert((<ref refid="group__xasu__common__defs_1ga04201d51c6191e635d5ccebfdb24b158" kindref="member">XASU_RTCA_MODULE_INFO_ENTRIES</ref><sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___crypto_alg_info" kindref="compound">XAsu_CryptoAlgInfo</ref>))<sp/>&lt;=</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xasu__common__defs_1ga506ef1847a3cff8eeb38046cfc6226bd" kindref="member">XASU_RTCA_PL_CFG_BASE_ADDR</ref><sp/>-<sp/><ref refid="group__xasu__common__defs_1ga63d1c5454f4f2152f3b4cc5e1f67f0e2" kindref="member">XASU_RTCA_MODULE_INFO_EXT_BASEADDR</ref>),</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;RTCA<sp/>module<sp/>info<sp/>extension<sp/>region<sp/>overruns<sp/>the<sp/>PL<sp/>configuration<sp/>window&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Macros<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_INVALID_SUBSYS_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/***********************************<sp/>Type<sp/>Definitions<sp/>********************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Variable<sp/>Definitions<sp/>******************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" refkind="member"><highlight class="normal"><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*<ref refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" kindref="member">CommChannelInfo</ref><sp/>=<sp/>(<ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*)(UINTPTR)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gaa9716937444e9436cdfc3eb14bf87419" kindref="member">XASU_RTCA_COMM_CHANNEL_INFO_ADDR</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**********************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>IpiBitMask;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
-<codeline lineno="82" refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" kindref="member">XAsu_GetSubsysIdFromIpiMask</ref>(u32<sp/>IpiMask)</highlight></codeline>
-<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChannelIndex;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SubsystemId<sp/>=<sp/><ref refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" kindref="member">XASU_INVALID_SUBSYS_ID</ref>;</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ChannelIndex<sp/>=<sp/>0U;<sp/>ChannelIndex<sp/>&lt;<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" kindref="member">NumOfIpiChannels</ref>;<sp/>++ChannelIndex)<sp/>{</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" kindref="member">IpiBitMask</ref><sp/>==<sp/>IpiMask)<sp/>{</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsystemId<sp/>=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" kindref="member">SubsystemId</ref>;</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94"><highlight class="normal">END:</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SubsystemId;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="78" refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" kindref="member">XAsu_GetIpiMask</ref>(u32<sp/>ChannelIndex)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IpiBitMask;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ChannelIndex<sp/>&gt;=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" kindref="member">NumOfIpiChannels</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiBitMask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiBitMask<sp/>=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" kindref="member">IpiBitMask</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>IpiBitMask;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="102" refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" kindref="member">XAsu_GetSubsysIdFromIpiMask</ref>(u32<sp/>IpiMask)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChannelIndex;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SubsystemId<sp/>=<sp/><ref refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" kindref="member">XASU_INVALID_SUBSYS_ID</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ChannelIndex<sp/>=<sp/>0U;<sp/>ChannelIndex<sp/>&lt;<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" kindref="member">NumOfIpiChannels</ref>;<sp/>++ChannelIndex)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" kindref="member">IpiBitMask</ref><sp/>==<sp/>IpiMask)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" kindref="member">SubsystemId</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsystemId<sp/>=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" kindref="member">SubsystemId</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SubsystemId;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c"/>
   </compounddef>
 </doxygen>

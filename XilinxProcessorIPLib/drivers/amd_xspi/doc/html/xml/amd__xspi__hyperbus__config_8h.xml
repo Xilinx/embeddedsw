@@ -1,0 +1,1022 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="amd__xspi__hyperbus__config_8h" kind="file">
+    <compoundname>amd_xspi_hyperbus_config.h</compoundname>
+    <includes refid="amd__xspi_8h" local="yes">amd_xspi.h</includes>
+    <includedby refid="amd__xspi__hyperbus__hyperram__intr__example_8c" local="yes">amd_xspi_hyperbus_hyperram_intr_example.c</includedby>
+    <includedby refid="amd__xspi__hyperbus__hyperram__polled__example_8c" local="yes">amd_xspi_hyperbus_hyperram_polled_example.c</includedby>
+    <incdepgraph>
+      <node id="90">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="88">
+        <label>xil_io.h</label>
+      </node>
+      <node id="86">
+        <label>amd_xspi_hw.h</label>
+        <link refid="amd__xspi__hw_8h"/>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>xstatus.h</label>
+      </node>
+      <node id="87">
+        <label>xil_types.h</label>
+      </node>
+      <node id="85">
+        <label>amd_xspi.h</label>
+        <link refid="amd__xspi_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>amd_xspi_hyperbus_config.h</label>
+        <link refid="amd_xspi_hyperbus_config.h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="92">
+        <label>amd_xspi_hyperbus_hyperram_intr_example.c</label>
+        <link refid="amd__xspi__hyperbus__hyperram__intr__example_8c"/>
+      </node>
+      <node id="93">
+        <label>amd_xspi_hyperbus_hyperram_polled_example.c</label>
+        <link refid="amd__xspi__hyperbus__hyperram__polled__example_8c"/>
+      </node>
+      <node id="91">
+        <label>amd_xspi_hyperbus_config.h</label>
+        <link refid="amd_xspi_hyperbus_config.h"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_amd_xspi___hyper_bus_config" prot="public">AmdXspi_HyperBusConfig</innerclass>
+      <sectiondef kind="user-defined">
+      <header>HyperRAM register space word addresses</header>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a585f7c51bc3b41d4cc49f61807c857f1" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_WORD_ADDR</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Identification Register 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a598326450f4e0f7bf3f9140d06fd281a" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR1_WORD_ADDR</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Identification Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a3059767ea51d68118035ed9e10c93e0f" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_CR0_WORD_ADDR</name>
+        <initializer>0x00000800U</initializer>
+        <briefdescription>
+<para>Configuration Register 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ID Register 0 field definitions</header>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a2c5506b47de9c667e84b66d0398eb2c0" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_MFR_MASK</name>
+        <initializer>0x000FU</initializer>
+        <briefdescription>
+<para>Manufacturer ID mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1aae5e1a9c809134c23e2ac7dd2808df45" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_MFR_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Manufacturer ID shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1aea99265f73b9ba96f867dbed6a70635c" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_COL_BITS_MASK</name>
+        <initializer>0x00F0U</initializer>
+        <briefdescription>
+<para>Column bit count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a4a9844ac7a7092ff42c3b7c809ef65c7" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_COL_BITS_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Column bit count shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a3e1e7da137094a1f2796840d03dc12ac" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_ROW_BITS_MASK</name>
+        <initializer>0x1F00U</initializer>
+        <briefdescription>
+<para>Row bit count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a3ece5a1fb764b1457d8cb630b4457e16" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR0_ROW_BITS_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Row bit count shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Word address bit count range</header>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a51756cad6c6cb38079254c7382935832" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_MIN_WORD_ADDR_BITS</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Fewest row+column bits a sane IR0 can report. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a8239cb1f7dc081ab621613d815e32a46" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_MAX_WORD_ADDR_BITS</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Most row+column bits the CA field can address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ID Register 1 field definitions</header>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1ac09f3cf1c44bbea5155bab48914c3e11" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_MASK</name>
+        <initializer>0x000FU</initializer>
+        <briefdescription>
+<para>Device type mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1aa87465d2a23aeda7cd4545347a213b22" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Device type shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a60f551db8a438fd51b9cd35dc22ee7e5" prot="public" static="no">
+        <name>AMD_XSPI_HYPERRAM_DEV_TYPE_HYPERRAM_2_0</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>Device type value for HyperRAM 2.0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Latency code field definitions</header>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1aaf16609057c6fa81f8015e5d3902e77e" prot="public" static="no">
+        <name>AMD_XSPI_HYPERBUS_LATENCY_MASK</name>
+        <initializer>0x00F0U</initializer>
+        <briefdescription>
+<para>CR0 latency code mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a15080de2d8f3a88989e4f16f28c09097" prot="public" static="no">
+        <name>AMD_XSPI_HYPERBUS_LATENCY_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>CR0 latency code shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a98cd8b57e9ee744dc9dacaad7c558812" prot="public" static="no">
+        <name>AMD_XSPI_HYPERBUS_CA_BYTES</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>A HyperBus command/address word is always 6 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1ac2b22f19376199a91f82a6151878fa26" prot="public" static="no">
+        <name>AMD_XSPI_HYPERBUS_BYTES_PER_CLOCK</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>8D-8D-8D moves a byte on each edge of SCK, so two bytes per clock </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a497fb13805f7426825ce6dd75048549a" prot="public" static="no">
+        <name>AMD_XSPI_HYPERBUS_TVCS_US</name>
+        <initializer>150U</initializer>
+        <briefdescription>
+<para>Maximum tVCS in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="amd__xspi__hyperbus__config_8h_1a6150040154929e204e667cbc5de7a6ee" prot="public" static="no">
+        <name>AMD_XSPI_HYPERBUS_NUM_SUPPORTED_DEVICES</name>
+        <initializer>(sizeof(HyperBus_Config_Table) / sizeof(HyperBus_Config_Table[0]))</initializer>
+        <briefdescription>
+<para>Number of entries in HyperBus_Config_Table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="amd__xspi__hyperbus__config_8h_1a0d7f12637cb02375b45e1b7e71c6659c" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref></type>
+        <definition>const AmdXspi_HyperBusConfig HyperBus_Config_Table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>HyperBus_Config_Table</name>
+        <initializer>= {
+
+	{
+		.ManufacturerId		= 0x1U,
+		.DeviceType		= AMD_XSPI_HYPERRAM_DEV_TYPE_HYPERRAM_2_0,
+		.Name			= &quot;Infineon HYPERRAM (S27KL/S27KS family)&quot;,
+
+		.CsLowMaxUs		= 4U
+	}
+}</initializer>
+        <briefdescription>
+<para>Supported HyperBus devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>To add a device, append an entry with that part&apos;s tCSM taken from its datasheet. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1ad9c4c737a155e634ed91ee17ad502890" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 AmdXspi_HyperRamGetManufacturerId</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamGetManufacturerId</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Extracts the manufacturer ID from an ID Register 0 value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Manufacturer code from IR0[3:0]. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="316" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a2787241055f3c05ad1d192eaca4bf422" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 AmdXspi_HyperRamGetDeviceType</definition>
+        <argsstring>(u16 Ir1Value)</argsstring>
+        <name>AmdXspi_HyperRamGetDeviceType</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir1Value</declname>
+        </param>
+        <briefdescription>
+<para>Extracts the device type from an ID Register 1 value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir1Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR1 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Device type from IR1[3:0]. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="332" bodyend="336"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a6c2f525b575241bca862a686f9a02037" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 AmdXspi_HyperRamGetRowAddrBits</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamGetRowAddrBits</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Extracts the row address bit count from an ID Register 0 value. </para>        </briefdescription>
+        <detaileddescription>
+<para>IR0[12:8] is encoded as (count - 1), so 01100b reports thirteen row address bits.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Row address bit count (1 to 32). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="351" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1ad6bc66c9589facac74972de5ad406469" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 AmdXspi_HyperRamGetColAddrBits</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamGetColAddrBits</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Extracts the column address bit count from an ID Register 0 value. </para>        </briefdescription>
+        <detaileddescription>
+<para>IR0[7:4] is encoded as (count - 1), so 1000b reports nine column address bits.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Column address bit count (1 to 16). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="370" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1ab9d4be8059acf5d9921b103bcf2020ff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 AmdXspi_HyperRamGetWordAddrBits</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamGetWordAddrBits</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Returns the total number of word address bits reported by ID Register 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Row plus column address bit count. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="387" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1ae6ac6f72c3e542e4ef00f088bdcb339c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 AmdXspi_HyperRamIsValidId</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamIsValidId</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether an ID Register 0 value looks like a real HyperRAM response. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used to decide whether the identifying read found a device at all. An absent or mis-wired part, or one left unresponsive by an earlier bad access, shows up in one of three ways. It returns an all zeros or all ones word, an unassigned manufacturer nibble, or a nonsensical density.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if the value is plausible, FALSE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="409" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a17b903690b8fce92153380149e1ef092" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 AmdXspi_HyperRamArrayRows</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamArrayRows</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Returns the number of array rows that must be refreshed, decoded from IR0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Row count (2 ^ row address bits). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="444" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1ad7a3f65a4ea2958b0972ac28a19075fa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref> *</type>
+        <definition>static const AmdXspi_HyperBusConfig* AmdXspi_HyperBusLookupConfig</definition>
+        <argsstring>(u8 ManufacturerId, u8 DeviceType)</argsstring>
+        <name>AmdXspi_HyperBusLookupConfig</name>
+        <param>
+          <type>u8</type>
+          <declname>ManufacturerId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DeviceType</declname>
+        </param>
+        <briefdescription>
+<para>Finds the table entry describing an attached HyperBus device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ManufacturerId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IR0[3:0]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">DeviceType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IR1[3:0].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the matching entry, or NULL if the device is not in the table. A NULL return does not mean the part is absent, only that its parameters are unknown to this build. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="462" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a2a4c22fb5020601109d97d2aab41c2d0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 AmdXspi_HyperBusMaxPayloadBytes</definition>
+        <argsstring>(const AmdXspi_HyperBusConfig *ConfigPtr, u32 SckFreqMHz, u32 LatencyClocks)</argsstring>
+        <name>AmdXspi_HyperBusMaxPayloadBytes</name>
+        <param>
+          <type>const <ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SckFreqMHz</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LatencyClocks</declname>
+        </param>
+        <briefdescription>
+<para>Returns the largest payload one transaction may carry. </para>        </briefdescription>
+        <detaileddescription>
+<para>The payload must not hold chip select low past tCSM.</para><para>CS# stays low for the command/address phase, the initial latency and then the data, all clocked at SCK, and HyperBus moves two bytes per clock. The latency is counted at 2x because the fixed-latency setting doubles it and that is the worst case.</para><para>Overrunning tCSM starves the array of refresh. Nothing reports it: no error bit is raised and the transaction appears to succeed, so the budget has to be checked rather than observed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device entry, or NULL if the device is unknown. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">SckFreqMHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bus clock, from <ref refid="group__amd__xspi_1ga6d3abc3ea5e97fd0b26a2c1ab5281e1e" kindref="member">AmdXspi_GetSckFreqMHz()</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">LatencyClocks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial latency in clocks.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Largest safe payload in bytes, or 0 if the device or bus clock is unknown, or the overhead alone already fills the budget. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="501" bodyend="524"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a5b2bf34b7b9b3c1e6451931043666844" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 AmdXspi_HyperRamNumWords</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamNumWords</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Returns the number of addressable words, decoded from IR0. </para>        </briefdescription>
+        <detaileddescription>
+<para>HyperRAM is word (16-bit) addressable. The total number of word address bits is the sum of the row and column address bit counts. So the device holds 2^(RowAddrBits + ColAddrBits) words.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Word count, or 0 if the reported geometry does not fit in 32 bits (which AmdXspi_HyperRamIsValidId already rejects). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="541" bodyend="550"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a5b208e2addab1480eeb1f8ede1904a24" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 AmdXspi_HyperRamMaxWordAddr</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamMaxWordAddr</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Returns the highest valid word address, decoded from IR0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Maximum word address. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="562" bodyend="571"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1a8a3f806b42227d220d0611de068fc859" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 AmdXspi_HyperRamDensityMbits</definition>
+        <argsstring>(u16 Ir0Value)</argsstring>
+        <name>AmdXspi_HyperRamDensityMbits</name>
+        <param>
+          <type>u16</type>
+          <declname>Ir0Value</declname>
+        </param>
+        <briefdescription>
+<para>Returns the density in Mbits, decoded from IR0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">Ir0Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw IR0 register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Density in Mbits, or 0 if the geometry is out of range. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="583" bodyend="593"/>
+      </memberdef>
+      <memberdef kind="function" id="amd__xspi__hyperbus__config_8h_1adce7ea22f110f6c2366f63c24aed6060" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char* AmdXspi_HyperBusName</definition>
+        <argsstring>(const AmdXspi_HyperBusConfig *ConfigPtr)</argsstring>
+        <name>AmdXspi_HyperBusName</name>
+        <param>
+          <type>const <ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns a display name for a device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device entry, or NULL if the device is unknown.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Device name, or a generic string when the device is not in the table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" line="606" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h" bodystart="606" bodyend="613"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the HyperBus device table for the AXI XSPI examples. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the HyperBus device configuration table and the related defines. It should be included by the AXI XSPI examples and compiled along with them (*.c). This follows the way xqspipsu_flash_config.h is used by the QSPIPSU examples.</para><para>This file supports HyperRAM over HyperBus. The table and its accessors are arranged so that further HyperRAM parts, from Infineon or any other vendor, are added as data alone.</para><para><bold>Why a device table</bold> The AXI XSPI driver is protocol-agnostic: in AXI-Lite mode it only moves Command/Address and data bytes. Everything that is device specific therefore lives in the application.</para><para>Only the parameters that NO register reports belong here. Anything a device can be asked about is read from it at runtime:</para><para>Read from the device, never tabulated: Manufacturer ID and geometry from IR0, device type from IR1, and the current latency/burst/fixed-latency from CR0. Density, array rows and the address limit are arithmetic on the IR0 row and column bit counts.</para><para>Tabulated here, because no register conveys it:<itemizedlist>
+<listitem><para>What a latency code MEANS in clocks, and the power-on default</para></listitem><listitem><para>What a burst code MEANS in bytes</para></listitem><listitem><para>Power-up time, tCSM and the refresh interval</para></listitem><listitem><para>A human readable part name</para></listitem></itemizedlist>
+</para><para>Because geometry is never stored, one entry covers every density in a family.</para><para><bold>The bootstrap problem</bold> A HyperBus read uses the device&apos;s current initial latency - including the read that discovers what the device is. Unlike SFDP, which NOR flash exposes through a command with a spec-fixed dummy count, HyperBus offers no known-latency entry point.</para><para>The host does not choose this number freely, it has to reproduce the one the device is programmed to. Per datasheet 002-24692 section 4.2, once the latency clocks named by CR0[7:4] have elapsed, &quot;the memory starts to simultaneously
+transition the RWDS and output the target data&quot;. It keeps streaming for as long as the clock runs.</para><para>The device never waits for the host. Counting too few clocks samples before the data arrives. Counting too many samples past the words that have already gone by. Both give wrong data.</para><para>The identifying read is possible because CR0[7:4] comes out of reset at the family maximum. The datasheet states this value, so the integrator can supply it before any register has been read. Section 6.3.2.2 adds that this reset value satisfies tACC all the way to the part&apos;s top frequency. So no bus clock a design can legally run needs it lowered first. Lowering it afterwards is a throughput optimization, not a requirement, and the frequency the design runs at never enters into the identifying read.</para><para>That value is not taken from this table, because the table cannot be consulted until the device is known. Each example names it as HYPERRAM_DEFAULT_LATENCY_CLOCKS and the integrator sets it for the part fitted to the board. The table does not record it per entry.</para><para>The HyperBus specification fixes the reset value at 7 clocks for every part. A successful identifying read is itself proof that the configured value matched the device. So a per entry copy could only ever disagree by being stale.</para><para>Getting it wrong in the short direction is worse than wrong data. Measurement on an S27KL0642 shows every later transaction returning zeros. Neither aborting the transfer nor cycling the controller brings the part back. Chip select held past tCSM starves the array of refresh, and only RESET# or a power cycle clears it.</para><para>A part whose reset default is unknown therefore cannot be identified by trial. A wrong guess is unrecoverable in software, and there is no second attempt to spend. Hence the value is configured rather than searched for.</para><para>C_TGT_LATENCY is no help here, which is why neither the driver nor these examples read it. A Lite mode design cannot set it, so it stays at the IP default of 4. That value is outside the parameter&apos;s own documented range of 7, and no supported device uses it at power-on. The same applies to C_TGT_MEM_SIZE and C_TGT_BURST_LENGTH: geometry, latency and burst length come from the identified device, not from the design.</para><para><bold>Adding a new device</bold> Append one entry to HyperBus_Config_Table[]. Nothing else needs to change, because the entry holds only the identifiers, a name and tCSM. No latency or burst code is decoded, so nothing in it is a per part encoding. A board fitted with a part whose reset latency differs from the one the example is set for needs HYPERRAM_DEFAULT_LATENCY_CLOCKS changed to match. The bootstrap note above explains why trying each in turn instead is not an option on a board that cannot assert RESET# between attempts.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   akm  07/29/26 Initial release
+1.0   vn   09/30/26 Align Doxygen comments with AMD standards
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>AMD_XSPI_HYPERBUS_CONFIG_H_</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_CONFIG_H_</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="amd__xspi_8h" kindref="compound">amd_xspi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/>*<sp/>HyperBus<sp/>Command/Address<sp/>(CA)<sp/>field<sp/>definitions.</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/>*<sp/>These<sp/>are<sp/>defined<sp/>by<sp/>the<sp/>HyperBus<sp/>(xSPI<sp/>Profile<sp/>2.0)<sp/>protocol<sp/>and<sp/>are<sp/>the</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/>*<sp/>same<sp/>for<sp/>every<sp/>vendor,<sp/>so<sp/>they<sp/>are<sp/>NOT<sp/>part<sp/>of<sp/>the<sp/>per-device<sp/>table.</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/>*<sp/><sp/><sp/>CA[47]<sp/><sp/><sp/><sp/>=<sp/>R/W#<sp/><sp/><sp/>(1<sp/>=<sp/>Read,<sp/>0<sp/>=<sp/>Write)</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/>*<sp/><sp/><sp/>CA[46]<sp/><sp/><sp/><sp/>=<sp/>Address<sp/>Space<sp/>(0<sp/>=<sp/>Memory,<sp/>1<sp/>=<sp/>Register)</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/>*<sp/><sp/><sp/>CA[45]<sp/><sp/><sp/><sp/>=<sp/>Burst<sp/>type<sp/>(1<sp/>=<sp/>Linear,<sp/>0<sp/>=<sp/>Wrapped)</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/>*<sp/><sp/><sp/>CA[44:16]<sp/>=<sp/>Row<sp/>and<sp/>upper<sp/>column<sp/>address<sp/>(word<sp/>address<sp/>bits<sp/>[31:3])</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/>*<sp/><sp/><sp/>CA[15:3]<sp/><sp/>=<sp/>Reserved<sp/>(must<sp/>be<sp/>0)</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/>*<sp/><sp/><sp/>CA[2:0]<sp/><sp/><sp/>=<sp/>Lower<sp/>column<sp/>address<sp/>(word<sp/>address<sp/>bits<sp/>[2:0])</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/>*<sp/>A<sp/>register<sp/>write<sp/>to<sp/>word<sp/>address<sp/>0x555,<sp/>for<sp/>example,<sp/>encodes<sp/>as</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/>*<sp/>CA<sp/>=<sp/>0x600000AA0005:<sp/>CA[44:16]<sp/>=<sp/>0xAA<sp/>gives<sp/>address<sp/>bits<sp/>[31:3]<sp/>(0x550)<sp/>and</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/>*<sp/>CA[2:0]<sp/>=<sp/>5<sp/>supplies<sp/>the<sp/>low<sp/>three<sp/>bits.</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="143" refid="amd__xspi__hyperbus__config_8h_1a98cd8b57e9ee744dc9dacaad7c558812" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_CA_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146" refid="amd__xspi__hyperbus__config_8h_1ac2b22f19376199a91f82a6151878fa26" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_BYTES_PER_CLOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/>*<sp/>tVCS:<sp/>the<sp/>self-initialisation<sp/>the<sp/>device<sp/>performs<sp/>once<sp/>VCC<sp/>and<sp/>VCCQ<sp/>are</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/>*<sp/>valid<sp/>and<sp/>RESET#<sp/>is<sp/>high,<sp/>during<sp/>which<sp/>no<sp/>transaction<sp/>is<sp/>allowed.<sp/>The</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/>*<sp/>HyperBus<sp/>parts<sp/>all<sp/>quote<sp/>the<sp/>same<sp/>150<sp/>us<sp/>maximum,<sp/>so<sp/>this<sp/>is<sp/>not<sp/>per-device</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/>*<sp/>data.<sp/>It<sp/>is<sp/>timed<sp/>from<sp/>the<sp/>supplies<sp/>coming<sp/>up<sp/>rather<sp/>than<sp/>from<sp/>anything</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/>*<sp/>software<sp/>does,<sp/>so<sp/>a<sp/>design<sp/>whose<sp/>rails<sp/>settled<sp/>long<sp/>before<sp/>the<sp/>processor</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/>*<sp/>started<sp/>has<sp/>already<sp/>served<sp/>it;<sp/>the<sp/>wait<sp/>costs<sp/>nothing<sp/>and<sp/>covers<sp/>the<sp/>cold</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/>*<sp/>boot<sp/>case<sp/>where<sp/>configuration<sp/>finishes<sp/>first.</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="158" refid="amd__xspi__hyperbus__config_8h_1a497fb13805f7426825ce6dd75048549a" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_TVCS_US<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>150U</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/>*<sp/>HyperRAM<sp/>register<sp/>space<sp/>word<sp/>addresses.<sp/>These<sp/>are<sp/>HyperBus-standard<sp/>and</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/>*<sp/>common<sp/>to<sp/>all<sp/>vendors,<sp/>so<sp/>they<sp/>are<sp/>not<sp/>per-device<sp/>either.</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="168" refid="amd__xspi__hyperbus__config_8h_1a585f7c51bc3b41d4cc49f61807c857f1" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_WORD_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="170" refid="amd__xspi__hyperbus__config_8h_1a598326450f4e0f7bf3f9140d06fd281a" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR1_WORD_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="172" refid="amd__xspi__hyperbus__config_8h_1a3059767ea51d68118035ed9e10c93e0f" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_CR0_WORD_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/>*<sp/>ID<sp/>Register<sp/>0<sp/>field<sp/>definitions<sp/>(HyperBus<sp/>standard<sp/>layout).</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/>*<sp/>The<sp/>manufacturer<sp/>VALUE<sp/>is<sp/>vendor<sp/>specific<sp/>and<sp/>lives<sp/>in<sp/>the<sp/>table<sp/>below.</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/>*<sp/>NOTE:<sp/>the<sp/>row<sp/>and<sp/>column<sp/>fields<sp/>are<sp/>encoded<sp/>as<sp/>(bit<sp/>count<sp/>-<sp/>1).<sp/>Infineon</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/>*<sp/>datasheet<sp/>002-24692<sp/>Table<sp/>7<sp/>spells<sp/>this<sp/>out:<sp/>00000b<sp/>means<sp/>one<sp/>row<sp/>address</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/>*<sp/>bit<sp/>and<sp/>11111b<sp/>means<sp/>thirty-two,<sp/>0000b<sp/>means<sp/>one<sp/>column<sp/>address<sp/>bit<sp/>and</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/>*<sp/>1111b<sp/>means<sp/>sixteen.<sp/>A<sp/>64<sp/>Mb<sp/>part<sp/>therefore<sp/>reports<sp/>01100b/1000b<sp/>for<sp/>its<sp/>13</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/>*<sp/>row<sp/>and<sp/>9<sp/>column<sp/>address<sp/>bits.<sp/>Always<sp/>go<sp/>through<sp/>the<sp/>accessors<sp/>below<sp/>rather</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/>*<sp/>than<sp/>masking<sp/>these<sp/>fields<sp/>by<sp/>hand.</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="190" refid="amd__xspi__hyperbus__config_8h_1a2c5506b47de9c667e84b66d0398eb2c0" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_MFR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000FU</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="192" refid="amd__xspi__hyperbus__config_8h_1aae5e1a9c809134c23e2ac7dd2808df45" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_MFR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194" refid="amd__xspi__hyperbus__config_8h_1aea99265f73b9ba96f867dbed6a70635c" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_COL_BITS_MASK<sp/><sp/><sp/><sp/><sp/>0x00F0U</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="196" refid="amd__xspi__hyperbus__config_8h_1a4a9844ac7a7092ff42c3b7c809ef65c7" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_COL_BITS_SHIFT<sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="198" refid="amd__xspi__hyperbus__config_8h_1a3e1e7da137094a1f2796840d03dc12ac" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_ROW_BITS_MASK<sp/><sp/><sp/><sp/><sp/>0x1F00U</highlight></codeline>
+<codeline lineno="199" refid="amd__xspi__hyperbus__config_8h_1a3ece5a1fb764b1457d8cb630b4457e16" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR0_ROW_BITS_SHIFT<sp/><sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/>*<sp/>Plausible<sp/>range<sp/>for<sp/>the<sp/>total<sp/>word<sp/>address<sp/>bit<sp/>count<sp/>(row<sp/>+<sp/>column)<sp/>decoded</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/>*<sp/>from<sp/>IR0.<sp/>Used<sp/>to<sp/>reject<sp/>a<sp/>garbled<sp/>ID<sp/>read.<sp/>The<sp/>upper<sp/>bound<sp/>is<sp/>32<sp/>because</highlight></codeline>
+<codeline lineno="205"><highlight class="comment"><sp/>*<sp/>the<sp/>HyperBus<sp/>Command/Address<sp/>field<sp/>carries<sp/>a<sp/>32-bit<sp/>word<sp/>address</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/>*<sp/>(CA[44:16]<sp/>plus<sp/>CA[2:0]).</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="212" refid="amd__xspi__hyperbus__config_8h_1a51756cad6c6cb38079254c7382935832" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_MIN_WORD_ADDR_BITS<sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="214" refid="amd__xspi__hyperbus__config_8h_1a8239cb1f7dc081ab621613d815e32a46" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_MAX_WORD_ADDR_BITS<sp/><sp/><sp/><sp/>32U</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="217"><highlight class="comment">/*<sp/>ID<sp/>Register<sp/>1<sp/>field<sp/>definitions<sp/>*/</highlight></codeline>
+<codeline lineno="222" refid="amd__xspi__hyperbus__config_8h_1ac09f3cf1c44bbea5155bab48914c3e11" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_MASK<sp/><sp/><sp/><sp/><sp/>0x000FU</highlight></codeline>
+<codeline lineno="223" refid="amd__xspi__hyperbus__config_8h_1aa87465d2a23aeda7cd4545347a213b22" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_SHIFT<sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="225" refid="amd__xspi__hyperbus__config_8h_1a60f551db8a438fd51b9cd35dc22ee7e5" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERRAM_DEV_TYPE_HYPERRAM_2_0<sp/>0x1U</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="228"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="229"><highlight class="comment"><sp/>*<sp/>Latency<sp/>code<sp/>field<sp/>definition.</highlight></codeline>
+<codeline lineno="230"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="231"><highlight class="comment"><sp/>*<sp/>The<sp/>bit<sp/>POSITION<sp/>is<sp/>fixed<sp/>by<sp/>HyperBus:<sp/>Configuration<sp/>Register<sp/>0<sp/>carries<sp/>the</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/>*<sp/>latency<sp/>code<sp/>at<sp/>[7:4].<sp/>What<sp/>a<sp/>given<sp/>code<sp/>means<sp/>in<sp/>clocks<sp/>is<sp/>per<sp/>device<sp/>and</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/>*<sp/>is<sp/>not<sp/>decoded<sp/>here,<sp/>because<sp/>the<sp/>examples<sp/>run<sp/>at<sp/>the<sp/>reset<sp/>latency</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/>*<sp/>throughout:<sp/>the<sp/>identifying<sp/>read<sp/>only<sp/>succeeds<sp/>at<sp/>that<sp/>value,<sp/>and<sp/>neither</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/>*<sp/>example<sp/>writes<sp/>CR0<sp/>afterwards,<sp/>so<sp/>the<sp/>code<sp/>read<sp/>back<sp/>can<sp/>only<sp/>be<sp/>the<sp/>reset</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/>*<sp/>one.<sp/>The<sp/>raw<sp/>code<sp/>is<sp/>reported<sp/>as-is.</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="242" refid="amd__xspi__hyperbus__config_8h_1aaf16609057c6fa81f8015e5d3902e77e" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_LATENCY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00F0U</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="244" refid="amd__xspi__hyperbus__config_8h_1a15080de2d8f3a88989e4f16f28c09097" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_LATENCY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="247"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265" refid="struct_amd_xspi___hyper_bus_config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Identity<sp/>-<sp/>ManufacturerId<sp/>and<sp/>DeviceType<sp/>form<sp/>the<sp/>lookup<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267" refid="struct_amd_xspi___hyper_bus_config_1aa36c8502a77b6e68fbb1ddf6d678affe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_amd_xspi___hyper_bus_config_1aa36c8502a77b6e68fbb1ddf6d678affe" kindref="member">ManufacturerId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="268" refid="struct_amd_xspi___hyper_bus_config_1a3337729d67a1e6825986da567a9e8955" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_amd_xspi___hyper_bus_config_1a3337729d67a1e6825986da567a9e8955" kindref="member">DeviceType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="struct_amd_xspi___hyper_bus_config_1a4a6a7ddcdcc05e269bc8628cb89804f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_amd_xspi___hyper_bus_config_1a4a6a7ddcdcc05e269bc8628cb89804f4" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271" refid="struct_amd_xspi___hyper_bus_config_1a7c89e6d6c99dfdcacb06d957cfce6add" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_amd_xspi___hyper_bus_config_1a7c89e6d6c99dfdcacb06d957cfce6add" kindref="member">CsLowMaxUs</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="normal">}<sp/><ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref>;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref><sp/>HyperBus_Config_Table[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="285"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Infineon<sp/>S27KL0642<sp/>/<sp/>S27KS0642<sp/>-<sp/>64Mb<sp/>HYPERRAM<sp/>self-refresh<sp/>DRAM.</highlight></codeline>
+<codeline lineno="286"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Datasheet<sp/>002-24692<sp/>Rev.<sp/>*I.<sp/>A<sp/>64<sp/>Mb<sp/>part<sp/>reports<sp/>ID0<sp/>=<sp/>0x0C81</highlight></codeline>
+<codeline lineno="287"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(13<sp/>row<sp/>address<sp/>bits,<sp/>9<sp/>column<sp/>address<sp/>bits,<sp/>manufacturer<sp/>0x1);<sp/>other</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>densities<sp/>in<sp/>the<sp/>family<sp/>differ<sp/>only<sp/>in<sp/>the<sp/>IR0<sp/>geometry<sp/>fields.</highlight></codeline>
+<codeline lineno="289"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.<ref refid="struct_amd_xspi___hyper_bus_config_1aa36c8502a77b6e68fbb1ddf6d678affe" kindref="member">ManufacturerId</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x1U,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.DeviceType<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="amd__xspi__hyperbus__config_8h_1a60f551db8a438fd51b9cd35dc22ee7e5" kindref="member">AMD_XSPI_HYPERRAM_DEV_TYPE_HYPERRAM_2_0</ref>,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.Name<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Infineon<sp/>HYPERRAM<sp/>(S27KL/S27KS<sp/>family)&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.CsLowMaxUs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>tCSM<sp/>at<sp/>TCASE<sp/>&lt;=<sp/>85C,</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1us<sp/>at<sp/>105C<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301" refid="amd__xspi__hyperbus__config_8h_1a6150040154929e204e667cbc5de7a6ee" refkind="member"><highlight class="preprocessor">#define<sp/>AMD_XSPI_HYPERBUS_NUM_SUPPORTED_DEVICES<sp/>\</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(sizeof(HyperBus_Config_Table)<sp/>/<sp/>sizeof(HyperBus_Config_Table[0]))</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="316"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u8<sp/>AmdXspi_HyperRamGetManufacturerId(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)((Ir0Value<sp/>&amp;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1a2c5506b47de9c667e84b66d0398eb2c0" kindref="member">AMD_XSPI_HYPERRAM_IR0_MFR_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="amd__xspi__hyperbus__config_8h_1aae5e1a9c809134c23e2ac7dd2808df45" kindref="member">AMD_XSPI_HYPERRAM_IR0_MFR_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="332"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u8<sp/>AmdXspi_HyperRamGetDeviceType(u16<sp/>Ir1Value)</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)((Ir1Value<sp/>&amp;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1ac09f3cf1c44bbea5155bab48914c3e11" kindref="member">AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="amd__xspi__hyperbus__config_8h_1aa87465d2a23aeda7cd4545347a213b22" kindref="member">AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="351"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u8<sp/>AmdXspi_HyperRamGetRowAddrBits(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="352"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(((Ir0Value<sp/>&amp;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1a3e1e7da137094a1f2796840d03dc12ac" kindref="member">AMD_XSPI_HYPERRAM_IR0_ROW_BITS_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="amd__xspi__hyperbus__config_8h_1a3ece5a1fb764b1457d8cb630b4457e16" kindref="member">AMD_XSPI_HYPERRAM_IR0_ROW_BITS_SHIFT</ref>)<sp/>+<sp/>1U);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="370"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u8<sp/>AmdXspi_HyperRamGetColAddrBits(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="371"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(((Ir0Value<sp/>&amp;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1aea99265f73b9ba96f867dbed6a70635c" kindref="member">AMD_XSPI_HYPERRAM_IR0_COL_BITS_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="amd__xspi__hyperbus__config_8h_1a4a9844ac7a7092ff42c3b7c809ef65c7" kindref="member">AMD_XSPI_HYPERRAM_IR0_COL_BITS_SHIFT</ref>)<sp/>+<sp/>1U);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="387"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u8<sp/>AmdXspi_HyperRamGetWordAddrBits(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(AmdXspi_HyperRamGetRowAddrBits(Ir0Value)<sp/>+</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AmdXspi_HyperRamGetColAddrBits(Ir0Value));</highlight></codeline>
+<codeline lineno="391"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="409"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>AmdXspi_HyperRamIsValidId(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="410"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ManufacturerId;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>WordAddrBits;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Classic<sp/>&quot;device<sp/>absent<sp/>or<sp/>held<sp/>in<sp/>reset&quot;<sp/>bus<sp/>patterns<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Ir0Value<sp/>==<sp/>0x0000U)<sp/>||<sp/>(Ir0Value<sp/>==<sp/>0xFFFFU))<sp/>{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)FALSE;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ManufacturerId<sp/>=<sp/>AmdXspi_HyperRamGetManufacturerId(Ir0Value);</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ManufacturerId<sp/>==<sp/>0x0U)<sp/>||<sp/>(ManufacturerId<sp/>==<sp/>0xFU))<sp/>{</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)FALSE;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WordAddrBits<sp/>=<sp/>AmdXspi_HyperRamGetWordAddrBits(Ir0Value);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((WordAddrBits<sp/>&lt;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1a51756cad6c6cb38079254c7382935832" kindref="member">AMD_XSPI_HYPERRAM_MIN_WORD_ADDR_BITS</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(WordAddrBits<sp/>&gt;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1a8239cb1f7dc081ab621613d815e32a46" kindref="member">AMD_XSPI_HYPERRAM_MAX_WORD_ADDR_BITS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)FALSE;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)TRUE;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="444"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>AmdXspi_HyperRamArrayRows(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="445"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)1U<sp/>&lt;&lt;<sp/>AmdXspi_HyperRamGetRowAddrBits(Ir0Value);</highlight></codeline>
+<codeline lineno="447"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="462"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref><sp/>*AmdXspi_HyperBusLookupConfig(</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ManufacturerId,<sp/>u8<sp/>DeviceType)</highlight></codeline>
+<codeline lineno="464"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="amd__xspi__hyperbus__config_8h_1a6150040154929e204e667cbc5de7a6ee" kindref="member">AMD_XSPI_HYPERBUS_NUM_SUPPORTED_DEVICES</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((HyperBus_Config_Table[Index].ManufacturerId<sp/>==<sp/>ManufacturerId)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HyperBus_Config_Table[Index].DeviceType<sp/>==<sp/>DeviceType))<sp/>{</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;HyperBus_Config_Table[Index];</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="501"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>AmdXspi_HyperBusMaxPayloadBytes(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SckFreqMHz,<sp/>u32<sp/>LatencyClocks)</highlight></codeline>
+<codeline lineno="503"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BudgetClocks;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OverheadClocks;</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ConfigPtr<sp/>==<sp/>NULL)<sp/>||<sp/>(SckFreqMHz<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0U;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Microseconds<sp/>multiplied<sp/>by<sp/>MHz<sp/>gives<sp/>clocks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BudgetClocks<sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_amd_xspi___hyper_bus_config_1a7c89e6d6c99dfdcacb06d957cfce6add" kindref="member">CsLowMaxUs</ref><sp/>*<sp/>SckFreqMHz;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OverheadClocks<sp/>=<sp/>(<ref refid="amd__xspi__hyperbus__config_8h_1a98cd8b57e9ee744dc9dacaad7c558812" kindref="member">AMD_XSPI_HYPERBUS_CA_BYTES</ref><sp/>/</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="amd__xspi__hyperbus__config_8h_1ac2b22f19376199a91f82a6151878fa26" kindref="member">AMD_XSPI_HYPERBUS_BYTES_PER_CLOCK</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LatencyClocks<sp/>*<sp/>2U);</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"></highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BudgetClocks<sp/>&lt;=<sp/>OverheadClocks)<sp/>{</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0U;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(BudgetClocks<sp/>-<sp/>OverheadClocks)<sp/>*</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="amd__xspi__hyperbus__config_8h_1ac2b22f19376199a91f82a6151878fa26" kindref="member">AMD_XSPI_HYPERBUS_BYTES_PER_CLOCK</ref>;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="541"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>AmdXspi_HyperRamNumWords(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="542"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bits<sp/>=<sp/>AmdXspi_HyperRamGetWordAddrBits(Ir0Value);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Bits<sp/>&gt;=<sp/>32U)<sp/>{</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0U;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)1U<sp/>&lt;&lt;<sp/>Bits;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="562"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>AmdXspi_HyperRamMaxWordAddr(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="563"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bits<sp/>=<sp/>AmdXspi_HyperRamGetWordAddrBits(Ir0Value);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Bits<sp/>&gt;=<sp/>32U)<sp/>{</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0xFFFFFFFFU;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((u32)1U<sp/>&lt;&lt;<sp/>Bits)<sp/>-<sp/>1U;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="583"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>AmdXspi_HyperRamDensityMbits(u16<sp/>Ir0Value)</highlight></codeline>
+<codeline lineno="584"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bits<sp/>=<sp/>AmdXspi_HyperRamGetWordAddrBits(Ir0Value);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"></highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>words<sp/>*<sp/>16<sp/>bits<sp/>/<sp/>(1024<sp/>*<sp/>1024);<sp/>below<sp/>16<sp/>address<sp/>bits<sp/>rounds<sp/>to<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Bits<sp/>&lt;<sp/>16U)<sp/>||<sp/>(Bits<sp/>&gt;=<sp/>32U))<sp/>{</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0U;</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u32)1U<sp/>&lt;&lt;<sp/>(Bits<sp/>-<sp/>16U);</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="606"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*AmdXspi_HyperBusName(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_amd_xspi___hyper_bus_config" kindref="compound">AmdXspi_HyperBusConfig</ref><sp/>*ConfigPtr)</highlight></codeline>
+<codeline lineno="607"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Unknown/unsupported<sp/>HyperBus<sp/>device&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr-&gt;<ref refid="struct_amd_xspi___hyper_bus_config_1a4a6a7ddcdcc05e269bc8628cb89804f4" kindref="member">Name</ref>;</highlight></codeline>
+<codeline lineno="613"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"></highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="616"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="618"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>AMD_XSPI_HYPERBUS_CONFIG_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/amd_xspi/examples/amd_xspi_hyperbus_config.h"/>
+  </compounddef>
+</doxygen>

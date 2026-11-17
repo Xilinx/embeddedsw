@@ -13,6 +13,17 @@
       <node id="295">
         <label>xil_io.h</label>
       </node>
+      <node id="294">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="295" relation="include">
+        </childnode>
+        <childnode refid="296" relation="include">
+        </childnode>
+      </node>
+      <node id="298">
+        <label>xvphy_dp.h</label>
+      </node>
       <node id="292">
         <label>xvphy.h</label>
         <childnode refid="293" relation="include">
@@ -26,16 +37,19 @@
         <childnode refid="298" relation="include">
         </childnode>
       </node>
-      <node id="294">
-        <label>xvphy_hw.h</label>
-        <link refid="xvphy__hw_8h"/>
-        <childnode refid="295" relation="include">
+      <node id="299">
+        <label>xvphy_i.h</label>
+        <link refid="xvphy__i_8h"/>
+        <childnode refid="293" relation="include">
         </childnode>
-        <childnode refid="296" relation="include">
+        <childnode refid="292" relation="include">
         </childnode>
-      </node>
-      <node id="298">
-        <label>xvphy_dp.h</label>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
       </node>
       <node id="289">
         <label>xvphy_mmcme4.c</label>
@@ -60,20 +74,6 @@
       </node>
       <node id="290">
         <label>xparameters.h</label>
-      </node>
-      <node id="299">
-        <label>xvphy_i.h</label>
-        <link refid="xvphy__i_8h"/>
-        <childnode refid="293" relation="include">
-        </childnode>
-        <childnode refid="292" relation="include">
-        </childnode>
-        <childnode refid="294" relation="include">
-        </childnode>
-        <childnode refid="297" relation="include">
-        </childnode>
-        <childnode refid="298" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -681,6 +681,6 @@ MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  
 <codeline lineno="702"><highlight class="normal"></highlight></codeline>
 <codeline lineno="703"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_mmcme4.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_mmcme4.c"/>
   </compounddef>
 </doxygen>

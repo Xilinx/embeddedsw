@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="672" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="671" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="671" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1adc63e59b720815ef3a56b3a574faacc3" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="673" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="673" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="672" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1a37284fd5ee1df56d3066108a94233904" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="674" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="674" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="673" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="673" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1a80e340e9863f50ebf4202955da2405e8" prot="public" static="no" mutable="no">
         <type>u32</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="675" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="675" bodyend="-1"/>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="674" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="674" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -66,39 +66,39 @@
     <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>one_bit</parametername>
-<parametername>:</parametername>
+<parametername direction="in">one_bit</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>indicates this is a non-endpoint event (not used) </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>device_event</parametername>
-<parametername>:</parametername>
+<parametername direction="in">device_event</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>indicates it&apos;s (0x03) Carkit or (0x04) I2C event. </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>phy_port_number</parametername>
-<parametername>:</parametername>
+<parametername direction="in">phy_port_number</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>self-explanatory </para></parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>reserved31_12</parametername>
-<parametername>:</parametername>
+<parametername direction="in">reserved31_12</parametername>
+<parametername direction="in">:</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Reserved, not used. </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="671" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="671" bodyend="680"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="670" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="670" bodyend="679"/>
     <listofallmembers>
       <member refid="struct_x_usb_psu___event___gevt_1adc63e59b720815ef3a56b3a574faacc3" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Gevt</scope><name>Device_Event</name></member>
       <member refid="struct_x_usb_psu___event___gevt_1af2231114772a63d3c03223881f60f78c" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Gevt</scope><name>Is_GlobalEvt</name></member>

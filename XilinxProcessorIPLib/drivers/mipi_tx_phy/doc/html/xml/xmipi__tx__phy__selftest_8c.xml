@@ -6,39 +6,39 @@
     <includes local="yes">xstatus.h</includes>
     <includes refid="xmipi__tx__phy_8h" local="yes">xmipi_tx_phy.h</includes>
     <incdepgraph>
-      <node id="47">
+      <node id="60">
         <label>xil_io.h</label>
       </node>
-      <node id="46">
-        <label>xmipi_tx_phy_selftest.c</label>
-        <link refid="xmipi_tx_phy_selftest.c"/>
-        <childnode refid="47" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
-        </childnode>
-        <childnode refid="49" relation="include">
-        </childnode>
-      </node>
-      <node id="48">
-        <label>xstatus.h</label>
-      </node>
-      <node id="50">
-        <label>xil_types.h</label>
-      </node>
-      <node id="49">
+      <node id="62">
         <label>xmipi_tx_phy.h</label>
         <link refid="xmipi__tx__phy_8h"/>
-        <childnode refid="50" relation="include">
+        <childnode refid="63" relation="include">
         </childnode>
-        <childnode refid="51" relation="include">
+        <childnode refid="64" relation="include">
         </childnode>
       </node>
-      <node id="51">
+      <node id="61">
+        <label>xstatus.h</label>
+      </node>
+      <node id="63">
+        <label>xil_types.h</label>
+      </node>
+      <node id="59">
+        <label>xmipi_tx_phy_selftest.c</label>
+        <link refid="xmipi_tx_phy_selftest.c"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
         <label>xmipi_tx_phy_hw.h</label>
         <link refid="xmipi__tx__phy__hw_8h"/>
-        <childnode refid="50" relation="include">
+        <childnode refid="63" relation="include">
         </childnode>
-        <childnode refid="47" relation="include">
+        <childnode refid="60" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -53,9 +53,19 @@
           <declname>InstancePtr</declname>
         </param>
         <briefdescription>
-<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+<para>Run a self-test on the MIPI TX PHY. </para>        </briefdescription>
         <detaileddescription>
-<para>This test checks if HS Timeout value present in register matches the one from the generated file.</para><para><parameterlist kind="param"><parameteritem>
+<para>Runs a self-test on the driver/device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mipi___tx___phy" kindref="compound">XMipi_Tx_Phy</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the self-test passed, XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This test checks if HS Timeout value present in register matches the one from the generated file.</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>InstancePtr</parametername>
 </parameternamelist>
@@ -72,10 +82,10 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_selftest.c" bodystart="60" bodyend="72"/>
-        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="305">XMipi_Tx_Phy::Config</references>
-        <references refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" compoundref="xmipi__tx__phy_8h" startline="293">XMipi_Tx_Phy_Config::HSTimeOut</references>
-        <references refid="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" compoundref="xmipi__tx__phy_8c" startline="337" endline="394">XMipi_Tx_Phy_GetInfo</references>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_selftest.c" bodystart="60" bodyend="72"/>
+        <references refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" compoundref="xmipi__tx__phy_8h" startline="313">XMipi_Tx_Phy::Config</references>
+        <references refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" compoundref="xmipi__tx__phy_8h" startline="301">XMipi_Tx_Phy_Config::HSTimeOut</references>
+        <references refid="group__mipi__tx__phy_1ga3647fa8d8f8ed5ef13a940a00959ce90" compoundref="xmipi__tx__phy_8c" startline="338" endline="393">XMipi_Tx_Phy_GetInfo</references>
         <references refid="group__mipi__tx__phy_1ga45d5dd17088900a16fec2d4ec72055fb" compoundref="xmipi__tx__phy_8h" startline="130">XMIPI_TX_PHY_HANDLE_HSTIMEOUT</references>
         <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
       </memberdef>
@@ -126,6 +136,6 @@
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="72"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_selftest.c"/>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/master/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_selftest.c"/>
   </compounddef>
 </doxygen>
